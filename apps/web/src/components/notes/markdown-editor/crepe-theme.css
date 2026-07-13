@@ -1,0 +1,37 @@
+/* Dark-mode layer for the Crepe (nord) theme.
+ *
+ * The prebuilt nord theme scopes every color as a CSS variable under
+ * `.milkdown`. The app toggles dark mode with a `.dark` class on <html>
+ * (Tailwind darkMode: ["class"]), so we load nord (light) as the base and
+ * re-declare only the color variables under `.dark .milkdown` — values lifted
+ * from the nord-dark theme. This avoids shipping two conflicting full themes. */
+
+.dark .milkdown {
+    --crepe-color-background: #1b1c1d;
+    --crepe-color-on-background: #f8f9ff;
+    --crepe-color-surface: #111418;
+    --crepe-color-surface-low: #191c20;
+    --crepe-color-on-surface: #e1e2e8;
+    --crepe-color-on-surface-variant: #c3c6cf;
+    --crepe-color-outline: #8d9199;
+    --crepe-color-primary: #a1c9fd;
+    --crepe-color-secondary: #3c4858;
+    --crepe-color-on-secondary: #d7e3f8;
+    --crepe-color-inverse: #e1e2e8;
+    --crepe-color-on-inverse: #2e3135;
+    --crepe-color-inline-code: #ffb4ab;
+    --crepe-color-error: #ffb4ab;
+    --crepe-color-hover: #1d2024;
+    --crepe-color-selected: #32353a;
+    --crepe-color-inline-area: #111418;
+}
+
+/* Let the editor fill the notes scroll container and drop the default card frame
+ * so it blends with the surrounding Notes chrome. */
+.note-markdown-editor .milkdown {
+    background: transparent;
+}
+
+.note-markdown-editor .milkdown .ProseMirror {
+    padding: 0;
+}

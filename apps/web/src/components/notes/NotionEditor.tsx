@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
-import { Editor, EditorProvider, createEmptyContent } from "@/components/ui/rich-editor";
+import { NoteMarkdownEditor } from "@/components/notes/markdown-editor/NoteMarkdownEditor";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
-import { ContainerNode, EditorState } from "@/components/ui/rich-editor/types";
 import { storage } from "@/database/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useAuth from "@/utils/useAuth";
@@ -23,19 +22,18 @@ import {
     Loader2,
     ChevronRight,
 } from "lucide-react";
-import { serializeToHtml } from "@/components/ui/rich-editor/utils/serialize-to-html";
+import { marked } from "marked";
 import { cn } from "@/lib/utils";
 import { TemplatePickerDialog } from "./template-picker-dialog";
 import { type NoteTemplate } from "@/app/app/notes/utils/noteTemplates";
-import { contentToMarkdown, countWords, extractPlainText, readingTimeMinutes } from "@/app/app/notes/utils/noteContentUtils";
+import {
+    contentToMarkdown,
+    noteContentToMarkdown,
+    countWords,
+    extractPlainText,
+    readingTimeMinutes,
+} from "@/app/app/notes/utils/noteContentUtils";
 import type { Note } from "@/app/app/notes/types/Note";
-
-function sanitizeFileName(name: string): string {
-    return name
-        .replace(/[^a-zA-Z0-9._-]/g, "_")
-        .replace(/_{2,}/g, "_")
-        .slice(0, 200);
-}
 
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
@@ -51,13 +49,13 @@ export default function NotionEditor() {
     const [saveState, setSaveState] = useState<"idle" | "saving" | "saved">("idle");
     const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
     const [templateDialogOpen, setTemplateDialogOpen] = useState(false);
-    const [currentContent, setCurrentContent] = useState<ContainerNode | null>(null);
+    const [currentMarkdown, setCurrentMarkdown] = useState<string | null>(null);
     const [editorKey, setEditorKey] = useState(0);
     const isDirtyRef = useRef(false);
     const [tagInput, setTagInput] = useState("");
     const [tags, setTags] = useState<string[]>([]);
-    // Holds template content until EditorProvider mounts with it; cleared on note switch
-    const [pendingTemplateContent, setPendingTemplateContent] = useState<ContainerNode | null>(null);
+    // Holds template markdown until the editor remounts with it; cleared on note switch.
+    const [pendingTemplateContent, setPendingTemplateContent] = useState<string | null>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -71,6 +69,7 @@ export default function NotionEditor() {
             setTags(activeNote.tags ?? []);
             setLastSyncedNoteId(activeNote.id);
             setPendingTemplateContent(null);
+            setCurrentMarkdown(null);
         }
     }, [activeNoteId, activeNote, lastSyncedNoteId]);
 
@@ -80,23 +79,11 @@ export default function NotionEditor() {
         return () => clearTimeout(timeout);
     }, [saveState]);
 
-    const stripUndefined = (obj: any): any => {
-        if (obj === null || obj === undefined) return null;
-        if (typeof obj !== 'object') return obj;
-        if (Array.isArray(obj)) return obj.map(stripUndefined);
-        const out: any = {};
-        for (const key in obj) {
-            const value = obj[key];
-            if (value !== undefined) out[key] = stripUndefined(value);
-        }
-        return out;
-    };
-
-    const handleUpdate = useCallback(async (id: string, updates: any) => {
+    const handleUpdate = useCallback(async (id: string, updates: Partial<Note>) => {
         if (id) {
             setSaveState("saving");
             isDirtyRef.current = false;
-            await updateNote(id, stripUndefined(updates));
+            await updateNote(id, updates);
             setLastSavedAt(new Date());
             setSaveState("saved");
         }
@@ -113,13 +100,12 @@ export default function NotionEditor() {
         }
     };
 
-    const handleEditorChange = (state: EditorState) => {
-        const container = state.history[state.historyIndex];
-        setCurrentContent(container);
+    const handleEditorChange = (markdown: string) => {
+        setCurrentMarkdown(markdown);
         if (activeNoteId) {
             isDirtyRef.current = true;
             setSaveState("saving");
-            debouncedUpdate(activeNoteId, { content: container });
+            debouncedUpdate(activeNoteId, { content: markdown });
         }
     };
 
@@ -144,22 +130,12 @@ export default function NotionEditor() {
         return getDownloadURL(storageRef);
     };
 
-    const initialContent = useMemo(() => {
-        // Template was just applied — use it directly (activeNote.content not updated yet)
-        if (pendingTemplateContent) return pendingTemplateContent;
-        if (activeNote && activeNote.content) {
-            const content = activeNote.content as any;
-            if (content.type === 'container' && Array.isArray(content.children)) {
-                return content as ContainerNode;
-            }
-        }
-        return {
-            id: "root",
-            type: "container",
-            children: createEmptyContent(),
-            attributes: {},
-        } as ContainerNode;
-        // editorKey in deps so memo re-runs when template forces remount
+    const initialMarkdown = useMemo(() => {
+        // Template just applied — use it directly (activeNote.content not updated yet).
+        if (pendingTemplateContent != null) return pendingTemplateContent;
+        // Normalizes both new (string) and legacy (tree) content to markdown.
+        return noteContentToMarkdown(activeNote?.content);
+        // editorKey in deps so the memo re-runs when a template forces a remount.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeNoteId, editorKey]);
 
@@ -198,18 +174,18 @@ export default function NotionEditor() {
         if (activeNoteId) debouncedUpdate(activeNoteId, { tags: next });
     }, [tags, activeNoteId, debouncedUpdate]);
 
-    // Defer word-count compute: heavy extractPlainText runs at most every 500ms
+    // Defer word-count compute: the heavy extract runs at most every 500ms
     // instead of every keystroke.
-    const [debouncedContent] = useDebounce(currentContent, 500);
+    const [debouncedMarkdown] = useDebounce(currentMarkdown, 500);
     const { wordCount, readTime } = useMemo(() => {
-        const src = debouncedContent ?? (activeNote?.content as ContainerNode | undefined);
+        const src = debouncedMarkdown ?? activeNote?.content;
         const text = extractPlainText(src);
         const wc = countWords(text);
         return { wordCount: wc, readTime: readingTimeMinutes(wc) };
-    }, [debouncedContent, activeNote?.content]);
+    }, [debouncedMarkdown, activeNote?.content]);
 
     const handleExportMarkdown = useCallback(() => {
-        const src = currentContent ?? (activeNote?.content as ContainerNode | undefined);
+        const src = currentMarkdown ?? activeNote?.content;
         const md = contentToMarkdown(title || "Untitled", src);
         const blob = new Blob([md], { type: "text/markdown" });
         const url = URL.createObjectURL(blob);
@@ -218,12 +194,12 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.md`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [currentContent, activeNote?.content, title]);
+    }, [currentMarkdown, activeNote?.content, title]);
 
     const handleExportHtml = useCallback(() => {
-        const src = currentContent ?? (activeNote?.content as ContainerNode | undefined);
-        if (!src) return;
-        const bodyHtml = serializeToHtml(src, { wrapperClass: "note-content max-w-3xl mx-auto px-6 py-8 font-sans" });
+        const src = currentMarkdown ?? activeNote?.content;
+        const body = noteContentToMarkdown(src);
+        const bodyHtml = marked.parse(body, { async: false }) as string;
         const html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8" />\n<title>${title || "Note"}</title>\n</head>\n<body>\n<h1 style="font-size:2rem;font-weight:bold;margin-bottom:1rem">${title || "Untitled"}</h1>\n${bodyHtml}</body>\n</html>`;
         const blob = new Blob([html], { type: "text/html" });
         const url = URL.createObjectURL(blob);
@@ -232,16 +208,15 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.html`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [currentContent, activeNote?.content, title]);
+    }, [currentMarkdown, activeNote?.content, title]);
 
     const handleApplyTemplate = useCallback((tpl: NoteTemplate) => {
         if (!activeNoteId) return;
-        const newContent = { ...tpl.content, id: "root" } as ContainerNode;
         setSaveState("saving");
-        debouncedUpdate(activeNoteId, { content: newContent, title: tpl.defaultTitle });
+        debouncedUpdate(activeNoteId, { content: tpl.content, title: tpl.defaultTitle });
         setTitle(tpl.defaultTitle);
-        setCurrentContent(newContent);
-        setPendingTemplateContent(newContent); // initialContent reads this on remount
+        setCurrentMarkdown(tpl.content);
+        setPendingTemplateContent(tpl.content); // initialMarkdown reads this on remount
         setLastSyncedNoteId(null);
         setEditorKey(k => k + 1);
     }, [activeNoteId, debouncedUpdate]);
@@ -477,13 +452,12 @@ export default function NotionEditor() {
                         <span className="text-sm">Loading…</span>
                     </div>
                 ) : (
-                    <EditorProvider
+                    <NoteMarkdownEditor
                         key={`${activeNoteId}-${editorKey}`}
-                        initialContainer={initialContent}
+                        defaultValue={initialMarkdown}
                         onChange={handleEditorChange}
-                    >
-                        <Editor onUploadImage={handleUploadImage} />
-                    </EditorProvider>
+                        onUploadImage={handleUploadImage}
+                    />
                 )}
             </div>
 
@@ -494,4 +468,11 @@ export default function NotionEditor() {
             />
         </div>
     );
+}
+
+function sanitizeFileName(name: string): string {
+    return name
+        .replace(/[^a-zA-Z0-9._-]/g, "_")
+        .replace(/_{2,}/g, "_")
+        .slice(0, 200);
 }
