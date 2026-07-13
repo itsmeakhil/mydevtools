@@ -63,8 +63,8 @@ BACKFILL_COLLECTIONS: list[BackfillSpec] = [
 ]
 
 
-async def _stamp_collection(spec: BackfillSpec, uid: str, ws_id: str, org_id: str) -> int:
-    update: dict[str, Any] = {"org_id": org_id, "workspace_id": ws_id}
+async def _stamp_collection(spec: BackfillSpec, uid: str, ws_id: str) -> int:
+    update: dict[str, Any] = {"workspace_id": ws_id}
     if spec.stamp_owner_uid:
         update["owner_uid"] = uid
     res = await db_manager.update_many(
@@ -94,7 +94,7 @@ async def _rewrite_pinned_tools(uid: str, ws_id: str) -> None:
     )
 
 
-async def run_user_backfill(uid: str, personal_workspace_id: str, org_id: str) -> None:
+async def run_user_backfill(uid: str, personal_workspace_id: str) -> None:
     # Skip if already migrated
     migrated_at = await users_repo.get_migrated_at(uid)
     if migrated_at:
@@ -104,7 +104,7 @@ async def run_user_backfill(uid: str, personal_workspace_id: str, org_id: str) -
     for spec in BACKFILL_COLLECTIONS:
         if progress.get(spec.collection) == "done":
             continue
-        await _stamp_collection(spec, uid, personal_workspace_id, org_id)
+        await _stamp_collection(spec, uid, personal_workspace_id)
         progress[spec.collection] = "done"
         await users_repo.set_migration_progress(uid, progress)
 
@@ -116,6 +116,5 @@ def schedule_backfill(
     background_tasks: BackgroundTasks,
     uid: str,
     personal_workspace_id: str,
-    org_id: str,
 ) -> None:
-    background_tasks.add_task(run_user_backfill, uid, personal_workspace_id, org_id)
+    background_tasks.add_task(run_user_backfill, uid, personal_workspace_id)

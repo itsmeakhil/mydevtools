@@ -3,16 +3,6 @@ from httpx import AsyncClient
 
 
 @pytest.mark.asyncio
-async def test_list_orgs_returns_mydevtools_cloud(authed_client: AsyncClient):
-    res = await authed_client.get("/api/v1/workspaces-api/orgs")
-    assert res.status_code == 200
-    orgs = res.json()
-    assert len(orgs) == 1
-    assert orgs[0]["slug"] == "mydevtools-cloud"
-    assert orgs[0]["org_role"] == "member"
-
-
-@pytest.mark.asyncio
 async def test_list_workspaces_returns_personal(authed_client: AsyncClient):
     res = await authed_client.get("/api/v1/workspaces-api/workspaces")
     assert res.status_code == 200

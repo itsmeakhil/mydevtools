@@ -29,7 +29,7 @@ import {
   memberLabel,
   memberInitials,
 } from "@/app/app/to-do/hooks/useWorkspaceMembers";
-import type { Member } from "@/lib/members-api";
+import type { Member } from "@/app/app/to-do/hooks/useWorkspaceMembers";
 
 const SIZES = {
   sm: { avatar: "h-6 w-6", text: "text-[10px]", icon: "h-4 w-4" },

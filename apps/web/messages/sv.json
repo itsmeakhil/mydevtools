@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod-kalkylator",
+    "codeScreenshot": "Kodskärmbild",
+    "cssGenerators": "CSS-generatorer",
+    "exifViewer": "EXIF-visare",
+    "faviconGenerator": "Favicon-generator",
+    "jsonDiff": "JSON-diff",
+    "jsonpathPlayground": "JSONPath-lekplats",
+    "keycodeInspector": "Tangentkodsinspektör",
+    "markdownTableGenerator": "Markdown-tabell",
+    "timezoneConverter": "Tidszonskonverterare",
+    "tokenCounter": "Token-räknare",
+    "webhookTester": "Webhook-testare",
+    "websocketTester": "WebSocket-testare",
+    "whoisLookup": "Whois-uppslag"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt-generator och -kontroll",
+        "description": "Hasha lösenord med bcrypt och verifiera befintliga hashar."
+      },
+      "chmodCalculator": {
+        "title": "Chmod-kalkylator",
+        "description": "Konvertera Unix-behörigheter mellan oktal, symbolisk notation och kryssrutor."
+      },
+      "codeScreenshot": {
+        "title": "Kodskärmbild",
+        "description": "Förvandla källkod till vackra, delbara bilder."
+      },
+      "cssGenerators": {
+        "title": "CSS-generatorer",
+        "description": "Generatorer för box-shadow, border-radius och flytande clamp()."
+      },
+      "exifViewer": {
+        "title": "EXIF-visare och -borttagare",
+        "description": "Inspektera och ta bort EXIF-metadata från foton lokalt."
+      },
+      "faviconGenerator": {
+        "title": "Favicon-generator",
+        "description": "Generera favicons, appikoner och manifest-utdrag."
+      },
+      "jsonDiff": {
+        "title": "JSON-diff",
+        "description": "Semantisk, strukturmedveten jämförelse av två JSON-dokument."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath-lekplats",
+        "description": "Fråga JSON med JSONPath eller JMESPath och se resultat i realtid."
+      },
+      "keycodeInspector": {
+        "title": "Tangentkodsinspektör",
+        "description": "Tryck på en tangent för att se dess JavaScript-händelsekoder och modifierare."
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown-tabellgenerator",
+        "description": "Bygg Markdown- och HTML-tabeller i en kalkylbladsliknande rutnätsredigerare."
+      },
+      "timezoneConverter": {
+        "title": "Tidszonskonverterare",
+        "description": "Konvertera en tid över många zoner med dagsförskjutning och markeringar för arbetstid."
+      },
+      "tokenCounter": {
+        "title": "LLM-token-räknare",
+        "description": "Räkna LLM-tokens, visualisera chunkar och uppskatta API-kostnad."
+      },
+      "webhookTester": {
+        "title": "Webhook-testare",
+        "description": "Fånga och inspektera inkommande webhook-förfrågningar i realtid."
+      },
+      "websocketTester": {
+        "title": "WebSocket-testare",
+        "description": "Anslut till WebSocket-slutpunkter och utbyt meddelanden i realtid."
+      },
+      "whoisLookup": {
+        "title": "Whois-uppslag",
+        "description": "Slå upp registreringsuppgifter för domäner och IP via RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt-generator och -kontroll",
+    "subtitle": "Hasha lösenord med bcrypt och verifiera hashar — allt stannar i din webbläsare",
+    "tabs": {
+      "hash": "Hasha",
+      "verify": "Verifiera"
+    },
+    "showPassword": "Visa lösenord",
+    "hidePassword": "Dölj lösenord",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "hash": {
+      "passwordLabel": "Lösenord",
+      "passwordPlaceholder": "Ange ett lösenord att hasha…",
+      "costLabel": "Kostnadsfaktor",
+      "costHint": "Högre kostnad fördubblar arbetet per steg. 10–12 är ett vanligt val för produktion.",
+      "slowWarning": "Kostnadsfaktorer på 13 och högre kan ta flera sekunder att beräkna.",
+      "generate": "Generera hash",
+      "generating": "Hashar…",
+      "resultLabel": "Bcrypt-hash",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Hash-anatomi",
+        "algorithm": "algoritm",
+        "cost": "kostnad",
+        "salt": "salt (22 tecken)",
+        "hash": "hash (31 tecken)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Lösenord",
+      "passwordPlaceholder": "Ange lösenordet att kontrollera…",
+      "hashLabel": "Bcrypt-hash",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Ange ett lösenord och en bcrypt-hash för att jämföra dem.",
+      "invalidHash": "Detta ser inte ut som en giltig bcrypt-hash.",
+      "checking": "Jämför…",
+      "match": "Matchar — lösenordet ger denna hash.",
+      "noMatch": "Ingen matchning — lösenordet ger inte denna hash."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod-kalkylator",
+    "subtitle": "Konvertera Unix-filbehörigheter mellan kryssrutor, oktal och symbolisk notation",
+    "grid": {
+      "title": "Behörigheter",
+      "read": "Läs",
+      "write": "Skriv",
+      "execute": "Kör",
+      "owner": "Ägare",
+      "group": "Grupp",
+      "others": "Andra"
+    },
+    "special": {
+      "title": "Specialbitar",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Oktal",
+      "placeholder": "755 eller 4755",
+      "invalid": "Ange 3 eller 4 oktala siffror (0–7)."
+    },
+    "symbolic": {
+      "label": "Symbolisk",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Ange 9 tecken som rwxr-xr-x (s/S, t/T tillåtna)."
+    },
+    "output": {
+      "title": "Kommando",
+      "copy": "Kopiera",
+      "copied": "Kopierat"
+    },
+    "explain": {
+      "line": "{cls} kan {perms}.",
+      "none": "{cls} har inga behörigheter.",
+      "setuid": "Setuid: filen körs med ägarens behörigheter.",
+      "setgid": "Setgid: filen körs med gruppens behörigheter (nya filer i en katalog ärver dess grupp).",
+      "sticky": "Sticky: endast en fils ägare kan radera eller byta namn på den i denna katalog."
+    },
+    "presets": {
+      "title": "Vanliga förinställningar",
+      "octal": "Oktal",
+      "permissions": "Behörigheter",
+      "description": "Typisk användning",
+      "p644": "Vanliga filer: ägaren skriver, alla läser.",
+      "p755": "Körbara filer och kataloger: alla kan läsa och gå in.",
+      "p600": "Privata filer: endast ägaren läser och skriver.",
+      "p700": "Privata körbara filer och kataloger: endast ägaren.",
+      "p664": "Grupp-skrivbara filer.",
+      "p775": "Grupp-skrivbara kataloger och körbara filer.",
+      "p400": "Skrivskyddad för ägaren (t.ex. privata SSH-nycklar)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Kodskärmbild",
+    "subtitle": "Förvandla kod till vackra, delbara bilder",
+    "languageLabel": "Språk",
+    "autoDetect": "Automatisk identifiering",
+    "backgroundLabel": "Bakgrund",
+    "paddingLabel": "Utfyllnad",
+    "filenameLabel": "Filnamn",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Fönsterprickar",
+    "themeLabel": "Fönstertema",
+    "themeDark": "Mörkt",
+    "themeLight": "Ljust",
+    "scaleLabel": "Exportskala",
+    "copyImage": "Kopiera bild",
+    "copied": "Kopierat",
+    "exportPng": "Exportera PNG",
+    "inputLabel": "Kod",
+    "detected": "Identifierat: {language}",
+    "clear": "Rensa",
+    "placeholder": "Klistra in din kod här…",
+    "previewLabel": "Förhandsgranskning",
+    "emptyPreview": "Förhandsgranskningen av din kod visas här",
+    "exportFailed": "Kunde inte exportera bild",
+    "copyUnsupported": "Kopiering av bilder stöds inte i den här webbläsaren",
+    "copyFailed": "Kunde inte kopiera bild",
+    "backgrounds": {
+      "ocean": "Ocean",
+      "sunset": "Solnedgång",
+      "candy": "Godis",
+      "forest": "Skog",
+      "midnight": "Midnatt",
+      "gold": "Guld",
+      "aurora": "Norrsken",
+      "slate": "Skiffer",
+      "transparent": "Transparent"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS-generatorer",
+    "subtitle": "Box-shadow, border-radius och flytande clamp() — kopiera CSS-koden.",
+    "preview": "Förhandsgranskning",
+    "output": "CSS",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Flytande clamp()"
+    },
+    "boxShadow": {
+      "presets": "Förinställningar",
+      "layer": "Lager",
+      "addLayer": "Lägg till lager",
+      "removeLayer": "Ta bort lager",
+      "x": "X",
+      "y": "Y",
+      "blur": "Oskärpa",
+      "spread": "Spridning",
+      "color": "Färg",
+      "alpha": "Alfa",
+      "inset": "Inre",
+      "presetNames": {
+        "subtleCard": "Diskret kort",
+        "elevated": "Upphöjd",
+        "hardOffset": "Hård förskjutning",
+        "neonGlow": "Neonglöd",
+        "inner": "Inre",
+        "layeredSmooth": "Lagrad mjuk"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Läge",
+      "modes": {
+        "simple": "Per hörn",
+        "blob": "Organisk klick"
+      },
+      "unit": "Enhet",
+      "linkCorners": "Länka hörn",
+      "randomize": "Slumpa",
+      "horizontal": "Horisontella radier",
+      "vertical": "Vertikala radier",
+      "corners": {
+        "tl": "Uppe till vänster",
+        "tr": "Uppe till höger",
+        "br": "Nere till höger",
+        "bl": "Nere till vänster"
+      }
+    },
+    "clamp": {
+      "minFont": "Min. typsnitt (px)",
+      "maxFont": "Max. typsnitt (px)",
+      "minViewport": "Min. viewport (px)",
+      "maxViewport": "Max. viewport (px)",
+      "rootFont": "Rot-typsnitt (px)",
+      "viewportWidth": "Simulerad viewport",
+      "computedSize": "Beräknad storlek",
+      "slope": "Lutning",
+      "intercept": "Skärningspunkt",
+      "previewText": "Flygande bäckasiner söka",
+      "invalid": "Ange giltiga, olika viewport-gränser."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF-visare och -borttagare",
+    "subtitle": "Inspektera fotons metadata och ta bort dem i din webbläsare",
+    "dropTitle": "Släpp en bild här",
+    "dropHint": "eller klicka för att bläddra — din bild lämnar aldrig din enhet",
+    "browse": "Välj bild",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Läser metadata…",
+    "parseFailed": "Kunde inte läsa den här bilden",
+    "clear": "Ta bort bild",
+    "gpsWarning": "Innehåller GPS-plats",
+    "openMap": "Visa på OpenStreetMap",
+    "noMetadata": "Inga inbäddade metadata hittades i den här bilden.",
+    "facts": {
+      "name": "Namn",
+      "type": "Typ",
+      "dimensions": "Dimensioner",
+      "size": "Storlek"
+    },
+    "groups": {
+      "camera": "Kamera",
+      "exposure": "Exponering",
+      "timestamps": "Tidsstämplar",
+      "gps": "GPS-plats",
+      "software": "Programvara och övrigt"
+    },
+    "gpsCard": {
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "altitude": "Höjd"
+    },
+    "raw": {
+      "title": "Alla metadata",
+      "copyJson": "Kopiera JSON",
+      "copied": "Kopierat"
+    },
+    "remove": {
+      "title": "Ta bort metadata",
+      "jpegDescription": "Ta bort EXIF, XMP, IPTC och kommentarer förlustfritt utan att komprimera om bilden.",
+      "reencodeDescription": "Koda om bilden för att ta bort inbäddade metadata. Detta komprimerar om pixlarna.",
+      "keepIcc": "Behåll färgprofil (ICC)",
+      "stripButton": "Ta bort metadata",
+      "reencodeButton": "Koda om och ta bort",
+      "unsupported": "Borttagning av metadata stöds inte för den här filtypen.",
+      "failed": "Kunde inte ta bort metadata",
+      "before": "Före",
+      "after": "Efter",
+      "download": "Ladda ner rensad bild"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon-generator",
+    "subtitle": "Skapa favicons och appikoner från en enda bild",
+    "dropTitle": "Släpp en bild här",
+    "dropHint": "PNG, JPEG eller SVG — klicka för att bläddra",
+    "browse": "Välj bild",
+    "clear": "Ta bort bild",
+    "backgroundLabel": "Bakgrund",
+    "transparent": "Transparent",
+    "solidColor": "Enfärgad",
+    "cornerLabel": "Hörnform",
+    "cornerNone": "Fyrkantig",
+    "cornerRounded": "Rundad",
+    "cornerCircle": "Cirkel",
+    "maskPaddingLabel": "Maskerbar utfyllnad",
+    "maskable": "maskable",
+    "previewLabel": "Förhandsgranskning",
+    "copy": "Kopiera",
+    "headSnippet": "HTML head-utdrag",
+    "downloadIco": "Ladda ner favicon.ico",
+    "downloadZip": "Ladda ner alla (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON-diff",
+    "subtitle": "Semantisk, strukturmedveten jämförelse av två JSON-dokument — nyckelordning och formatering ignoreras",
+    "options": {
+      "ignoreArrayOrder": "Ignorera array-ordning"
+    },
+    "loadBothSamples": "Ladda exempel",
+    "sample": "Exempel",
+    "format": "Formatera",
+    "clear": "Rensa",
+    "formatError": "Kan inte formatera: indata är inte giltig JSON",
+    "placeholder": "Klistra in eller skriv JSON här…",
+    "panels": {
+      "left": "Original (vänster)",
+      "right": "Ändrad (höger)",
+      "results": "Skillnader"
+    },
+    "summary": {
+      "added": "{count} tillagda",
+      "removed": "{count} borttagna",
+      "changed": "{count} ändrade"
+    },
+    "types": {
+      "added": "Tillagd",
+      "removed": "Borttagen",
+      "changed": "Ändrad"
+    },
+    "copyChanges": "Kopiera som JSON",
+    "copied": "Kopierat",
+    "empty": "Klistra in JSON i båda panelerna för att se skillnaderna.",
+    "identical": "De två dokumenten är semantiskt identiska."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath-lekplats",
+    "subtitle": "Fråga JSON-dokument med JSONPath eller JMESPath och se resultat i realtid",
+    "engineLabel": "Motor",
+    "queryLabel": "Fråga",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Fusklapp",
+    "cheats": {
+      "jpAllTitles": "Alla boktitlar",
+      "jpAllAuthors": "Varje författare, var som helst i dokumentet",
+      "jpFirstBook": "Första boken",
+      "jpLastBook": "Sista boken",
+      "jpSlice": "De två första böckerna (utsnitt)",
+      "jpFilterPrice": "Böcker billigare än 40",
+      "jpFilterInStock": "Titlar på böcker i lager",
+      "jpRecursive": "Alla värden, rekursivt",
+      "jmAllTitles": "Alla boktitlar",
+      "jmFirstAuthor": "Författare till den första boken",
+      "jmLastBook": "Sista boken",
+      "jmSlice": "De två första böckerna (utsnitt)",
+      "jmFilterPrice": "Titlar på böcker billigare än 40",
+      "jmCount": "Antal böcker i lager",
+      "jmProjection": "Omforma varje bok till ett nytt objekt",
+      "jmSort": "Titlar sorterade efter pris"
+    },
+    "panels": {
+      "input": "JSON-indata",
+      "results": "Resultat"
+    },
+    "sample": "Exempel",
+    "format": "Formatera",
+    "clear": "Rensa",
+    "formatError": "Kan inte formatera: indata är inte giltig JSON",
+    "placeholder": "Klistra in eller skriv JSON här…",
+    "outputPlaceholder": "Matchningar visas här…",
+    "matchCount": "{count, plural, one {# matchning} other {# matchningar}}",
+    "copy": "Kopiera",
+    "copied": "Kopierat"
+  },
+  "KeycodeInspector": {
+    "title": "Tangentkodsinspektör",
+    "subtitle": "Tryck på valfri tangent för att inspektera dess JavaScript-tangentbordshändelse",
+    "capture": {
+      "prompt": "Tryck på valfri tangent…",
+      "ready": "Lyssnar — tryck på valfri tangent på tangentbordet",
+      "clickToFocus": "Klicka här för att fokusera, tryck sedan på valfri tangent"
+    },
+    "hero": {
+      "spaceKey": "(Mellanslag)",
+      "keyLabel": "event.key",
+      "repeat": "upprepning"
+    },
+    "copyJson": "Kopiera JSON",
+    "copiedJson": "Händelse-JSON kopierad till urklipp",
+    "deprecated": "föråldrad",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standard",
+      "left": "Vänster",
+      "right": "Höger",
+      "numpad": "Numeriskt tangentbord",
+      "unknown": "Okänd"
+    },
+    "history": {
+      "title": "Historik",
+      "clear": "Rensa historik",
+      "empty": "Tangenttryckningar visas här."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown-tabellgenerator",
+    "subtitle": "Redigera ett rutnät, klistra in från ett kalkylblad och kopiera en snyggt justerad Markdown- eller HTML-tabell",
+    "addRow": "Lägg till rad",
+    "addColumn": "Lägg till kolumn",
+    "importLabel": "Importera",
+    "importPlaceholder": "Klistra in TSV (från Excel / Google Kalkylark) eller CSV här…",
+    "importButton": "Importera till rutnät",
+    "pasteClipboard": "Klistra in från urklipp",
+    "importEmpty": "Inget att importera — klistra in några rader först",
+    "clipboardError": "Kunde inte läsa från urklipp",
+    "clear": "Rensa",
+    "panels": {
+      "editor": "Tabellredigerare",
+      "output": "Utdata"
+    },
+    "align": {
+      "left": "Vänsterjustera",
+      "center": "Centrera",
+      "right": "Högerjustera"
+    },
+    "headerPlaceholder": "Rubrik",
+    "cellPlaceholder": "Cell",
+    "removeRow": "Ta bort rad",
+    "removeColumn": "Ta bort kolumn",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopiera",
+    "copied": "Kopierat"
+  },
+  "TimezoneConverter": {
+    "title": "Tidszonskonverterare",
+    "subtitle": "Konvertera ett ögonblick över hela världen för mötesplanering.",
+    "dateTimeLabel": "Datum och tid",
+    "now": "Nu",
+    "sourceZoneLabel": "Källtidszon",
+    "selectZone": "Välj zon",
+    "searchZone": "Sök tidszoner...",
+    "noZone": "Ingen tidszon hittades.",
+    "scrubLabel": "Förskjut tid",
+    "reset": "Återställ",
+    "targetsLabel": "Målzoner",
+    "addZone": "Lägg till zon",
+    "remove": "Ta bort",
+    "localBadge": "Lokal",
+    "invalidDate": "Ange ett giltigt datum och tid.",
+    "bands": {
+      "work": "Arbetstid (09:00–18:00)",
+      "edge": "Randtimmar (tidigt / kväll)",
+      "night": "Natt"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM-token-räknare",
+    "subtitle": "Räkna tokens, visualisera chunkar och uppskatta API-kostnad.",
+    "inputLabel": "Text",
+    "sample": "Exempel",
+    "clear": "Rensa",
+    "placeholder": "Klistra in text, kod eller JSON för att räkna tokens...",
+    "encoding": "Kodning",
+    "loading": "Laddar tokenizer...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-serien)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokens",
+      "characters": "Tecken",
+      "words": "Ord",
+      "ratio": "Tokens/ord",
+      "ratioSub": "ungefär"
+    },
+    "claudeRow": "Claude (ungefärligt)",
+    "estimate": "uppskattning",
+    "viz": {
+      "title": "Token-visualisering",
+      "toggle": "Visa",
+      "hint": "Växla för att färglägga varje token som en chunk.",
+      "empty": "Ange text för att visualisera tokens.",
+      "truncated": "Visar de första {limit} av {total} tokens."
+    },
+    "cost": {
+      "title": "Kostnadskalkylator",
+      "disclaimer": "redigerbara standardvärden — verifiera aktuella priser",
+      "model": "Modell",
+      "expectedOutput": "Förväntade output-tokens",
+      "customInput": "Input $/MTok",
+      "customOutput": "Output $/MTok",
+      "inputCost": "Input-kostnad",
+      "outputCost": "Output-kostnad",
+      "total": "Totalt",
+      "per1000": "Per 1000 anrop"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook-testare",
+    "subtitle": "Skapa en tillfällig URL och inspektera inkommande webhook-förfrågningar live.",
+    "intro": {
+      "title": "Skapa en webhook-URL för att börja fånga förfrågningar",
+      "hint": "Du får en ogissningsbar URL som registrerar varje inkommande förfrågan. Den upphör efter 24 timmar."
+    },
+    "createBtn": "Skapa webhook-URL",
+    "creating": "Skapar…",
+    "urlLabel": "Din webhook-URL",
+    "expiresIn": "Upphör om {countdown}",
+    "copyUrlBtn": "Kopiera URL",
+    "copied": "Kopierat",
+    "clearBtn": "Rensa",
+    "newBinBtn": "Ny URL",
+    "requestsTitle": "Förfrågningar",
+    "selectPrompt": "Välj en förfrågan för att inspektera dess detaljer.",
+    "expiredNotice": "Den här webhook-URL:en har upphört. Skapa en ny för att fortsätta testa.",
+    "base64Badge": "base64",
+    "truncatedBadge": "avkortad",
+    "empty": {
+      "title": "Väntar på förfrågningar…",
+      "hint": "Skicka en förfrågan till din URL så visas den här direkt. Prova detta:"
+    },
+    "detail": {
+      "receivedAt": "Mottagen",
+      "source": "Käll-IP",
+      "contentType": "Content-Type",
+      "query": "Frågeparametrar",
+      "headers": "Headers",
+      "body": "Body",
+      "copyBody": "Kopiera body",
+      "emptyBody": "Ingen body"
+    },
+    "errors": {
+      "createFailed": "Kunde inte skapa webhook-URL. Försök igen.",
+      "clearFailed": "Kunde inte rensa förfrågningar. Försök igen."
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket-testare",
+    "subtitle": "Anslut till en WebSocket-slutpunkt och skicka, ta emot och inspektera meddelanden live",
+    "urlLabel": "Slutpunkts-URL",
+    "protocolsLabel": "Underprotokoll",
+    "protocolsPlaceholder": "valfritt, kommaseparerat",
+    "connect": "Anslut",
+    "disconnect": "Koppla från",
+    "status": {
+      "disconnected": "Frånkopplad",
+      "connecting": "Ansluter",
+      "connected": "Ansluten",
+      "error": "Fel"
+    },
+    "messages": {
+      "connecting": "Ansluter till {url}…",
+      "connected": "Anslutning upprättad",
+      "connectedWithProtocol": "Anslutning upprättad (protokoll: {protocol})",
+      "invalidUrl": "Ogiltig URL — måste börja med ws:// eller wss://",
+      "connectFailed": "Kunde inte öppna anslutningen",
+      "socketError": "Ett anslutningsfel uppstod",
+      "notConnected": "Inte ansluten — anslut först",
+      "binaryMessage": "Tog emot ett binärt meddelande"
+    },
+    "log": {
+      "title": "Meddelandelogg",
+      "empty": "Inga meddelanden ännu. Anslut och börja skicka.",
+      "copyAll": "Kopiera alla",
+      "download": "Ladda ner som .txt",
+      "clear": "Rensa logg",
+      "prettyPrint": "Formatera JSON snyggt",
+      "showRaw": "Visa rå text"
+    },
+    "composer": {
+      "placeholder": "Skriv ett meddelande att skicka…",
+      "send": "Skicka",
+      "formatJson": "Formatera som JSON",
+      "invalidJson": "Meddelandet är inte giltig JSON",
+      "hint": "Cmd/Ctrl+Enter för att skicka"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "sek",
+      "intervalTitle": "Ping-intervall i sekunder",
+      "payloadPlaceholder": "ping-payload"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois-uppslag",
+    "subtitle": "Slå upp registreringsuppgifter för valfri domän eller IP-adress via RDAP",
+    "placeholder": "example.com eller 8.8.8.8",
+    "lookupBtn": "Slå upp",
+    "looking": "Slår upp…",
+    "refreshBtn": "Uppdatera",
+    "tryLabel": "Prova:",
+    "copy": "Kopiera",
+    "copied": "Kopierat",
+    "notAvailable": "Ej tillgänglig",
+    "summary": {
+      "registrar": "Registrator",
+      "network": "Nätverk"
+    },
+    "dates": {
+      "created": "Skapad",
+      "updated": "Uppdaterad",
+      "expires": "Upphör"
+    },
+    "sections": {
+      "status": "Status",
+      "nameservers": "Namnservrar",
+      "contacts": "Kontakter",
+      "rawRdap": "Rå RDAP"
+    },
+    "contacts": {
+      "roles": "Roller",
+      "name": "Namn",
+      "organization": "Organisation"
+    },
+    "errors": {
+      "invalidTarget": "Ange ett giltigt domännamn eller IP-adress",
+      "lookupFailed": "Uppslaget misslyckades (status {status})"
+    }
   }
 }

@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Kalkulačka chmod",
+    "codeScreenshot": "Snímek kódu",
+    "cssGenerators": "CSS generátory",
+    "exifViewer": "EXIF prohlížeč",
+    "faviconGenerator": "Generátor favicon",
+    "jsonDiff": "JSON diff",
+    "jsonpathPlayground": "JSONPath hřiště",
+    "keycodeInspector": "Inspektor kláves",
+    "markdownTableGenerator": "Markdown tabulka",
+    "timezoneConverter": "Převodník časových pásem",
+    "tokenCounter": "Počítadlo tokenů",
+    "webhookTester": "Tester webhooků",
+    "websocketTester": "Tester WebSocket",
+    "whoisLookup": "Whois vyhledávání"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt generátor a ověřovač",
+        "description": "Hashujte hesla pomocí bcrypt a ověřujte stávající hashe."
+      },
+      "chmodCalculator": {
+        "title": "Kalkulačka chmod",
+        "description": "Převádějte unixová oprávnění mezi osmičkovým, symbolickým zápisem a zaškrtávacími políčky."
+      },
+      "codeScreenshot": {
+        "title": "Snímek kódu",
+        "description": "Proměňte zdrojový kód v krásné sdílitelné obrázky."
+      },
+      "cssGenerators": {
+        "title": "CSS generátory",
+        "description": "Generátory box-shadow, border-radius a plynulého clamp()."
+      },
+      "exifViewer": {
+        "title": "EXIF prohlížeč a odstraňovač",
+        "description": "Prohlížejte a odstraňujte EXIF metadata fotek lokálně."
+      },
+      "faviconGenerator": {
+        "title": "Generátor favicon",
+        "description": "Generujte favicony, ikony aplikací a úryvky manifestu."
+      },
+      "jsonDiff": {
+        "title": "JSON diff",
+        "description": "Sémantické porovnání dvou JSON dokumentů zohledňující strukturu."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath hřiště",
+        "description": "Dotazujte se na JSON pomocí JSONPath nebo JMESPath a sledujte živé výsledky."
+      },
+      "keycodeInspector": {
+        "title": "Inspektor kláves",
+        "description": "Stiskněte klávesu a zobrazte její JavaScriptové kódy událostí a modifikátory."
+      },
+      "markdownTableGenerator": {
+        "title": "Generátor Markdown tabulek",
+        "description": "Vytvářejte Markdown a HTML tabulky v tabulkovém editoru připomínajícím sešit."
+      },
+      "timezoneConverter": {
+        "title": "Převodník časových pásem",
+        "description": "Převádějte čas mezi mnoha pásmy s posunem dne a náznaky pracovní doby."
+      },
+      "tokenCounter": {
+        "title": "Počítadlo LLM tokenů",
+        "description": "Počítejte LLM tokeny, vizualizujte bloky a odhadněte náklady na API."
+      },
+      "webhookTester": {
+        "title": "Tester webhooků",
+        "description": "Zachytávejte a prohlížejte příchozí webhook požadavky v reálném čase."
+      },
+      "websocketTester": {
+        "title": "Tester WebSocket",
+        "description": "Připojte se k WebSocket koncovým bodům a vyměňujte zprávy v reálném čase."
+      },
+      "whoisLookup": {
+        "title": "Whois vyhledávání",
+        "description": "Vyhledejte registrační údaje domény a IP adresy přes RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt generátor a ověřovač",
+    "subtitle": "Hashujte hesla pomocí bcrypt a ověřujte hashe — vše zůstává ve vašem prohlížeči",
+    "tabs": {
+      "hash": "Hash",
+      "verify": "Ověřit"
+    },
+    "showPassword": "Zobrazit heslo",
+    "hidePassword": "Skrýt heslo",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "hash": {
+      "passwordLabel": "Heslo",
+      "passwordPlaceholder": "Zadejte heslo k zahashování…",
+      "costLabel": "Faktor náročnosti",
+      "costHint": "Vyšší náročnost zdvojnásobuje práci na každý krok. 10–12 je běžná volba pro produkci.",
+      "slowWarning": "Faktory náročnosti 13 a vyšší mohou výpočet trvat několik sekund.",
+      "generate": "Vygenerovat hash",
+      "generating": "Hashuji…",
+      "resultLabel": "Bcrypt hash",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Anatomie hashe",
+        "algorithm": "algoritmus",
+        "cost": "náročnost",
+        "salt": "sůl (22 znaků)",
+        "hash": "hash (31 znaků)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Heslo",
+      "passwordPlaceholder": "Zadejte heslo k ověření…",
+      "hashLabel": "Bcrypt hash",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Zadejte heslo a bcrypt hash k jejich porovnání.",
+      "invalidHash": "Toto nevypadá jako platný bcrypt hash.",
+      "checking": "Porovnávám…",
+      "match": "Shoda — heslo vytváří tento hash.",
+      "noMatch": "Neshoda — heslo nevytváří tento hash."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Kalkulačka chmod",
+    "subtitle": "Převádějte unixová oprávnění souborů mezi zaškrtávacími políčky, osmičkovým a symbolickým zápisem",
+    "grid": {
+      "title": "Oprávnění",
+      "read": "Čtení",
+      "write": "Zápis",
+      "execute": "Spouštění",
+      "owner": "Vlastník",
+      "group": "Skupina",
+      "others": "Ostatní"
+    },
+    "special": {
+      "title": "Speciální bity",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Osmičkově",
+      "placeholder": "755 nebo 4755",
+      "invalid": "Zadejte 3 nebo 4 osmičkové číslice (0–7)."
+    },
+    "symbolic": {
+      "label": "Symbolicky",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Zadejte 9 znaků jako rwxr-xr-x (povoleno s/S, t/T)."
+    },
+    "output": {
+      "title": "Příkaz",
+      "copy": "Kopírovat",
+      "copied": "Zkopírováno"
+    },
+    "explain": {
+      "line": "{cls} může {perms}.",
+      "none": "{cls} nemá žádná oprávnění.",
+      "setuid": "Setuid: soubor běží s právy svého vlastníka.",
+      "setgid": "Setgid: soubor běží s právy své skupiny (nové soubory v adresáři dědí jeho skupinu).",
+      "sticky": "Sticky: soubor v tomto adresáři může smazat nebo přejmenovat pouze jeho vlastník."
+    },
+    "presets": {
+      "title": "Běžné předvolby",
+      "octal": "Osmičkově",
+      "permissions": "Oprávnění",
+      "description": "Typické použití",
+      "p644": "Běžné soubory: vlastník zapisuje, všichni čtou.",
+      "p755": "Spustitelné soubory a adresáře: všichni mohou číst a vstoupit.",
+      "p600": "Soukromé soubory: čte a zapisuje pouze vlastník.",
+      "p700": "Soukromé spustitelné soubory a adresáře: pouze vlastník.",
+      "p664": "Soubory zapisovatelné skupinou.",
+      "p775": "Adresáře a spustitelné soubory zapisovatelné skupinou.",
+      "p400": "Pouze pro čtení vlastníkem (např. soukromé SSH klíče)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Snímek kódu",
+    "subtitle": "Proměňte kód v krásné sdílitelné obrázky",
+    "languageLabel": "Jazyk",
+    "autoDetect": "Automatická detekce",
+    "backgroundLabel": "Pozadí",
+    "paddingLabel": "Odsazení",
+    "filenameLabel": "Název souboru",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Tečky okna",
+    "themeLabel": "Motiv okna",
+    "themeDark": "Tmavý",
+    "themeLight": "Světlý",
+    "scaleLabel": "Měřítko exportu",
+    "copyImage": "Kopírovat obrázek",
+    "copied": "Zkopírováno",
+    "exportPng": "Exportovat PNG",
+    "inputLabel": "Kód",
+    "detected": "Detekováno: {language}",
+    "clear": "Vymazat",
+    "placeholder": "Vložte sem svůj kód…",
+    "previewLabel": "Náhled",
+    "emptyPreview": "Náhled vašeho kódu se zobrazí zde",
+    "exportFailed": "Export obrázku se nezdařil",
+    "copyUnsupported": "Kopírování obrázků není v tomto prohlížeči podporováno",
+    "copyFailed": "Kopírování obrázku se nezdařilo",
+    "backgrounds": {
+      "ocean": "Oceán",
+      "sunset": "Západ slunce",
+      "candy": "Bonbon",
+      "forest": "Les",
+      "midnight": "Půlnoc",
+      "gold": "Zlatá",
+      "aurora": "Polární záře",
+      "slate": "Břidlice",
+      "transparent": "Průhledné"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS generátory",
+    "subtitle": "Box-shadow, border-radius a plynulý clamp() — zkopírujte CSS.",
+    "preview": "Náhled",
+    "output": "CSS",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Plynulý clamp()"
+    },
+    "boxShadow": {
+      "presets": "Předvolby",
+      "layer": "Vrstva",
+      "addLayer": "Přidat vrstvu",
+      "removeLayer": "Odebrat vrstvu",
+      "x": "X",
+      "y": "Y",
+      "blur": "Rozmazání",
+      "spread": "Rozšíření",
+      "color": "Barva",
+      "alpha": "Alfa",
+      "inset": "Vnitřní",
+      "presetNames": {
+        "subtleCard": "Jemná karta",
+        "elevated": "Vyvýšená",
+        "hardOffset": "Ostrý posun",
+        "neonGlow": "Neonová záře",
+        "inner": "Vnitřní",
+        "layeredSmooth": "Vrstvená hladká"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Režim",
+      "modes": {
+        "simple": "Po rozích",
+        "blob": "Organická skvrna"
+      },
+      "unit": "Jednotka",
+      "linkCorners": "Propojit rohy",
+      "randomize": "Náhodně",
+      "horizontal": "Vodorovné poloměry",
+      "vertical": "Svislé poloměry",
+      "corners": {
+        "tl": "Vlevo nahoře",
+        "tr": "Vpravo nahoře",
+        "br": "Vpravo dole",
+        "bl": "Vlevo dole"
+      }
+    },
+    "clamp": {
+      "minFont": "Min. písmo (px)",
+      "maxFont": "Max. písmo (px)",
+      "minViewport": "Min. viewport (px)",
+      "maxViewport": "Max. viewport (px)",
+      "rootFont": "Kořenové písmo (px)",
+      "viewportWidth": "Simulovaný viewport",
+      "computedSize": "Vypočtená velikost",
+      "slope": "Sklon",
+      "intercept": "Průsečík",
+      "previewText": "Příliš žluťoučký kůň úpěl",
+      "invalid": "Zadejte platné, odlišné hranice viewportu."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF prohlížeč a odstraňovač",
+    "subtitle": "Prohlížejte metadata fotek a odstraňte je ve svém prohlížeči",
+    "dropTitle": "Sem přetáhněte obrázek",
+    "dropHint": "nebo klikněte pro procházení — váš obrázek nikdy neopustí vaše zařízení",
+    "browse": "Vybrat obrázek",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Čtu metadata…",
+    "parseFailed": "Čtení tohoto obrázku se nezdařilo",
+    "clear": "Odebrat obrázek",
+    "gpsWarning": "Obsahuje GPS polohu",
+    "openMap": "Zobrazit na OpenStreetMap",
+    "noMetadata": "V tomto obrázku nebyla nalezena žádná vložená metadata.",
+    "facts": {
+      "name": "Název",
+      "type": "Typ",
+      "dimensions": "Rozměry",
+      "size": "Velikost"
+    },
+    "groups": {
+      "camera": "Fotoaparát",
+      "exposure": "Expozice",
+      "timestamps": "Časové značky",
+      "gps": "GPS poloha",
+      "software": "Software a ostatní"
+    },
+    "gpsCard": {
+      "latitude": "Zeměpisná šířka",
+      "longitude": "Zeměpisná délka",
+      "altitude": "Nadmořská výška"
+    },
+    "raw": {
+      "title": "Všechna metadata",
+      "copyJson": "Kopírovat JSON",
+      "copied": "Zkopírováno"
+    },
+    "remove": {
+      "title": "Odstranit metadata",
+      "jpegDescription": "Bezeztrátově odstraňte EXIF, XMP, IPTC a komentáře bez opětovné komprese obrázku.",
+      "reencodeDescription": "Znovu zakódujte obrázek a odstraňte vložená metadata. Tímto se pixely znovu komprimují.",
+      "keepIcc": "Zachovat barevný profil (ICC)",
+      "stripButton": "Odstranit metadata",
+      "reencodeButton": "Znovu zakódovat a odstranit",
+      "unsupported": "Odstranění metadat není pro tento typ souboru podporováno.",
+      "failed": "Odstranění metadat se nezdařilo",
+      "before": "Před",
+      "after": "Po",
+      "download": "Stáhnout vyčištěný obrázek"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Generátor favicon",
+    "subtitle": "Vytvořte favicony a ikony aplikací z jednoho obrázku",
+    "dropTitle": "Sem přetáhněte obrázek",
+    "dropHint": "PNG, JPEG nebo SVG — klikněte pro procházení",
+    "browse": "Vybrat obrázek",
+    "clear": "Odebrat obrázek",
+    "backgroundLabel": "Pozadí",
+    "transparent": "Průhledné",
+    "solidColor": "Plná barva",
+    "cornerLabel": "Tvar rohů",
+    "cornerNone": "Hranatý",
+    "cornerRounded": "Zaoblený",
+    "cornerCircle": "Kruh",
+    "maskPaddingLabel": "Odsazení pro maskování",
+    "maskable": "maskable",
+    "previewLabel": "Náhled",
+    "copy": "Kopírovat",
+    "headSnippet": "Úryvek HTML head",
+    "downloadIco": "Stáhnout favicon.ico",
+    "downloadZip": "Stáhnout vše (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON diff",
+    "subtitle": "Sémantické porovnání dvou JSON dokumentů zohledňující strukturu — pořadí klíčů a formátování se ignoruje",
+    "options": {
+      "ignoreArrayOrder": "Ignorovat pořadí polí"
+    },
+    "loadBothSamples": "Načíst ukázky",
+    "sample": "Ukázka",
+    "format": "Formátovat",
+    "clear": "Vymazat",
+    "formatError": "Nelze formátovat: vstup není platný JSON",
+    "placeholder": "Vložte nebo napište JSON sem…",
+    "panels": {
+      "left": "Originál (vlevo)",
+      "right": "Upravený (vpravo)",
+      "results": "Rozdíly"
+    },
+    "summary": {
+      "added": "{count} přidáno",
+      "removed": "{count} odebráno",
+      "changed": "{count} změněno"
+    },
+    "types": {
+      "added": "Přidáno",
+      "removed": "Odebráno",
+      "changed": "Změněno"
+    },
+    "copyChanges": "Kopírovat jako JSON",
+    "copied": "Zkopírováno",
+    "empty": "Vložte JSON do obou panelů, abyste viděli jejich rozdíly.",
+    "identical": "Oba dokumenty jsou sémanticky totožné."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath hřiště",
+    "subtitle": "Dotazujte se na JSON dokumenty pomocí JSONPath nebo JMESPath a sledujte živé výsledky",
+    "engineLabel": "Engine",
+    "queryLabel": "Dotaz",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Tahák",
+    "cheats": {
+      "jpAllTitles": "Všechny názvy knih",
+      "jpAllAuthors": "Každý autor, kdekoli v dokumentu",
+      "jpFirstBook": "První kniha",
+      "jpLastBook": "Poslední kniha",
+      "jpSlice": "První dvě knihy (výřez)",
+      "jpFilterPrice": "Knihy levnější než 40",
+      "jpFilterInStock": "Názvy skladem dostupných knih",
+      "jpRecursive": "Všechny hodnoty, rekurzivně",
+      "jmAllTitles": "Všechny názvy knih",
+      "jmFirstAuthor": "Autor první knihy",
+      "jmLastBook": "Poslední kniha",
+      "jmSlice": "První dvě knihy (výřez)",
+      "jmFilterPrice": "Názvy knih levnějších než 40",
+      "jmCount": "Počet skladem dostupných knih",
+      "jmProjection": "Přeformujte každou knihu do nového objektu",
+      "jmSort": "Názvy seřazené podle ceny"
+    },
+    "panels": {
+      "input": "JSON vstup",
+      "results": "Výsledky"
+    },
+    "sample": "Ukázka",
+    "format": "Formátovat",
+    "clear": "Vymazat",
+    "formatError": "Nelze formátovat: vstup není platný JSON",
+    "placeholder": "Vložte nebo napište JSON sem…",
+    "outputPlaceholder": "Shody se zobrazí zde…",
+    "matchCount": "{count, plural, one {# shoda} few {# shody} many {# shody} other {# shod}}",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno"
+  },
+  "KeycodeInspector": {
+    "title": "Inspektor kláves",
+    "subtitle": "Stiskněte libovolnou klávesu a prozkoumejte její JavaScriptovou klávesovou událost",
+    "capture": {
+      "prompt": "Stiskněte libovolnou klávesu…",
+      "ready": "Naslouchám — stiskněte libovolnou klávesu na klávesnici",
+      "clickToFocus": "Klikněte sem pro zaměření, poté stiskněte libovolnou klávesu"
+    },
+    "hero": {
+      "spaceKey": "(Mezerník)",
+      "keyLabel": "event.key",
+      "repeat": "opakování"
+    },
+    "copyJson": "Kopírovat JSON",
+    "copiedJson": "JSON události zkopírován do schránky",
+    "deprecated": "zastaralé",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standardní",
+      "left": "Levá",
+      "right": "Pravá",
+      "numpad": "Numerická klávesnice",
+      "unknown": "Neznámé"
+    },
+    "history": {
+      "title": "Historie",
+      "clear": "Vymazat historii",
+      "empty": "Stisknuté klávesy se zobrazí zde."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Generátor Markdown tabulek",
+    "subtitle": "Upravujte mřížku, vkládejte ze sešitu a kopírujte pěkně zarovnanou Markdown nebo HTML tabulku",
+    "addRow": "Přidat řádek",
+    "addColumn": "Přidat sloupec",
+    "importLabel": "Import",
+    "importPlaceholder": "Vložte sem TSV (z Excelu / Tabulek Google) nebo CSV…",
+    "importButton": "Importovat do mřížky",
+    "pasteClipboard": "Vložit ze schránky",
+    "importEmpty": "Není co importovat — nejprve vložte nějaké řádky",
+    "clipboardError": "Nepodařilo se číst ze schránky",
+    "clear": "Vymazat",
+    "panels": {
+      "editor": "Editor tabulky",
+      "output": "Výstup"
+    },
+    "align": {
+      "left": "Zarovnat vlevo",
+      "center": "Zarovnat na střed",
+      "right": "Zarovnat vpravo"
+    },
+    "headerPlaceholder": "Záhlaví",
+    "cellPlaceholder": "Buňka",
+    "removeRow": "Odebrat řádek",
+    "removeColumn": "Odebrat sloupec",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno"
+  },
+  "TimezoneConverter": {
+    "title": "Převodník časových pásem",
+    "subtitle": "Převeďte jeden okamžik po celém světě pro plánování schůzek.",
+    "dateTimeLabel": "Datum a čas",
+    "now": "Nyní",
+    "sourceZoneLabel": "Zdrojové časové pásmo",
+    "selectZone": "Vyberte pásmo",
+    "searchZone": "Hledat časová pásma...",
+    "noZone": "Žádné časové pásmo nenalezeno.",
+    "scrubLabel": "Posunout čas",
+    "reset": "Obnovit",
+    "targetsLabel": "Cílová pásma",
+    "addZone": "Přidat pásmo",
+    "remove": "Odebrat",
+    "localBadge": "Místní",
+    "invalidDate": "Zadejte platné datum a čas.",
+    "bands": {
+      "work": "Pracovní doba (09:00–18:00)",
+      "edge": "Okrajové hodiny (ráno / večer)",
+      "night": "Noc"
+    }
+  },
+  "TokenCounter": {
+    "title": "Počítadlo LLM tokenů",
+    "subtitle": "Počítejte tokeny, vizualizujte bloky a odhadněte náklady na API.",
+    "inputLabel": "Text",
+    "sample": "Ukázka",
+    "clear": "Vymazat",
+    "placeholder": "Vložte text, kód nebo JSON pro počítání tokenů...",
+    "encoding": "Kódování",
+    "loading": "Načítám tokenizér...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / řada o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokeny",
+      "characters": "Znaky",
+      "words": "Slova",
+      "ratio": "Tokeny/slovo",
+      "ratioSub": "přibližně"
+    },
+    "claudeRow": "Claude (přibližně)",
+    "estimate": "odhad",
+    "viz": {
+      "title": "Vizualizace tokenů",
+      "toggle": "Zobrazit",
+      "hint": "Přepněte pro obarvení každého tokenu jako bloku.",
+      "empty": "Zadejte text pro vizualizaci tokenů.",
+      "truncated": "Zobrazuji prvních {limit} z {total} tokenů."
+    },
+    "cost": {
+      "title": "Kalkulačka nákladů",
+      "disclaimer": "upravitelné výchozí hodnoty — ověřte si aktuální ceny",
+      "model": "Model",
+      "expectedOutput": "Očekávané výstupní tokeny",
+      "customInput": "Vstup $/MTok",
+      "customOutput": "Výstup $/MTok",
+      "inputCost": "Náklady na vstup",
+      "outputCost": "Náklady na výstup",
+      "total": "Celkem",
+      "per1000": "Na 1000 volání"
+    }
+  },
+  "WebhookTester": {
+    "title": "Tester webhooků",
+    "subtitle": "Vytvořte dočasnou URL a živě prohlížejte příchozí webhook požadavky.",
+    "intro": {
+      "title": "Vytvořte webhook URL pro zahájení zachytávání požadavků",
+      "hint": "Získáte neuhodnutelnou URL, která zaznamenává každý příchozí požadavek. Vyprší po 24 hodinách."
+    },
+    "createBtn": "Vytvořit webhook URL",
+    "creating": "Vytvářím…",
+    "urlLabel": "Vaše webhook URL",
+    "expiresIn": "Vyprší za {countdown}",
+    "copyUrlBtn": "Kopírovat URL",
+    "copied": "Zkopírováno",
+    "clearBtn": "Vymazat",
+    "newBinBtn": "Nová URL",
+    "requestsTitle": "Požadavky",
+    "selectPrompt": "Vyberte požadavek pro zobrazení jeho detailů.",
+    "expiredNotice": "Tato webhook URL vypršela. Vytvořte novou pro pokračování v testování.",
+    "base64Badge": "base64",
+    "truncatedBadge": "zkráceno",
+    "empty": {
+      "title": "Čekám na požadavky…",
+      "hint": "Odešlete požadavek na svou URL a okamžitě se zde objeví. Zkuste toto:"
+    },
+    "detail": {
+      "receivedAt": "Přijato",
+      "source": "Zdrojová IP",
+      "contentType": "Content-Type",
+      "query": "Parametry dotazu",
+      "headers": "Hlavičky",
+      "body": "Tělo",
+      "copyBody": "Kopírovat tělo",
+      "emptyBody": "Bez těla"
+    },
+    "errors": {
+      "createFailed": "Vytvoření webhook URL se nezdařilo. Zkuste to prosím znovu.",
+      "clearFailed": "Vymazání požadavků se nezdařilo. Zkuste to prosím znovu."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Tester WebSocket",
+    "subtitle": "Připojte se k WebSocket koncovému bodu a živě odesílejte, přijímejte a prohlížejte zprávy",
+    "urlLabel": "URL koncového bodu",
+    "protocolsLabel": "Subprotokoly",
+    "protocolsPlaceholder": "volitelné, oddělené čárkou",
+    "connect": "Připojit",
+    "disconnect": "Odpojit",
+    "status": {
+      "disconnected": "Odpojeno",
+      "connecting": "Připojuji",
+      "connected": "Připojeno",
+      "error": "Chyba"
+    },
+    "messages": {
+      "connecting": "Připojuji k {url}…",
+      "connected": "Spojení navázáno",
+      "connectedWithProtocol": "Spojení navázáno (protokol: {protocol})",
+      "invalidUrl": "Neplatná URL — musí začínat ws:// nebo wss://",
+      "connectFailed": "Otevření spojení se nezdařilo",
+      "socketError": "Došlo k chybě spojení",
+      "notConnected": "Nepřipojeno — nejprve se připojte",
+      "binaryMessage": "Přijata binární zpráva"
+    },
+    "log": {
+      "title": "Protokol zpráv",
+      "empty": "Zatím žádné zprávy. Připojte se a začněte odesílat.",
+      "copyAll": "Kopírovat vše",
+      "download": "Stáhnout jako .txt",
+      "clear": "Vymazat protokol",
+      "prettyPrint": "Zformátovat JSON",
+      "showRaw": "Zobrazit surový text"
+    },
+    "composer": {
+      "placeholder": "Napište zprávu k odeslání…",
+      "send": "Odeslat",
+      "formatJson": "Formátovat jako JSON",
+      "invalidJson": "Zpráva není platný JSON",
+      "hint": "Cmd/Ctrl+Enter pro odeslání"
+    },
+    "ping": {
+      "label": "Automatický ping",
+      "seconds": "s",
+      "intervalTitle": "Interval pingu v sekundách",
+      "payloadPlaceholder": "obsah pingu"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois vyhledávání",
+    "subtitle": "Vyhledejte registrační údaje libovolné domény nebo IP adresy přes RDAP",
+    "placeholder": "example.com nebo 8.8.8.8",
+    "lookupBtn": "Vyhledat",
+    "looking": "Vyhledávám…",
+    "refreshBtn": "Obnovit",
+    "tryLabel": "Zkuste:",
+    "copy": "Kopírovat",
+    "copied": "Zkopírováno",
+    "notAvailable": "Není k dispozici",
+    "summary": {
+      "registrar": "Registrátor",
+      "network": "Síť"
+    },
+    "dates": {
+      "created": "Vytvořeno",
+      "updated": "Aktualizováno",
+      "expires": "Vyprší"
+    },
+    "sections": {
+      "status": "Stav",
+      "nameservers": "Jmenné servery",
+      "contacts": "Kontakty",
+      "rawRdap": "Surové RDAP"
+    },
+    "contacts": {
+      "roles": "Role",
+      "name": "Jméno",
+      "organization": "Organizace"
+    },
+    "errors": {
+      "invalidTarget": "Zadejte platný název domény nebo IP adresu",
+      "lookupFailed": "Vyhledávání se nezdařilo (stav {status})"
+    }
   }
 }

@@ -11,7 +11,6 @@ import type { Workspace } from "@/lib/workspace-api"
 function makeSharedWs(role: Workspace["ws_role"]): Workspace {
   return {
     id: "ws-1",
-    org_id: "org-1",
     name: "Shared WS",
     slug: "shared-ws",
     is_personal: false,
@@ -23,7 +22,6 @@ function makeSharedWs(role: Workspace["ws_role"]): Workspace {
 function makePersonalWs(): Workspace {
   return {
     id: "ws-personal",
-    org_id: "org-1",
     name: "Personal",
     slug: "personal",
     is_personal: true,

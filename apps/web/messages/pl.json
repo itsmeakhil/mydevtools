@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Kalkulator Chmod",
+    "codeScreenshot": "Zrzut kodu",
+    "cssGenerators": "Generatory CSS",
+    "exifViewer": "Podgląd EXIF",
+    "faviconGenerator": "Generator favicon",
+    "jsonDiff": "Porównanie JSON",
+    "jsonpathPlayground": "Piaskownica JSONPath",
+    "keycodeInspector": "Inspektor klawiszy",
+    "markdownTableGenerator": "Tabela Markdown",
+    "timezoneConverter": "Konwerter stref czasowych",
+    "tokenCounter": "Licznik tokenów",
+    "webhookTester": "Tester webhooków",
+    "websocketTester": "Tester WebSocket",
+    "whoisLookup": "Zapytanie Whois"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Generator i weryfikator Bcrypt",
+        "description": "Haszuj hasła za pomocą bcrypt i weryfikuj istniejące hasze."
+      },
+      "chmodCalculator": {
+        "title": "Kalkulator Chmod",
+        "description": "Konwertuj uprawnienia Unix między postacią ósemkową, symboliczną i polami wyboru."
+      },
+      "codeScreenshot": {
+        "title": "Zrzut kodu",
+        "description": "Zamień kod źródłowy w piękne obrazy gotowe do udostępnienia."
+      },
+      "cssGenerators": {
+        "title": "Generatory CSS",
+        "description": "Generatory box-shadow, border-radius i płynnego clamp()."
+      },
+      "exifViewer": {
+        "title": "Podgląd i usuwanie EXIF",
+        "description": "Sprawdzaj i usuwaj metadane EXIF ze zdjęć lokalnie."
+      },
+      "faviconGenerator": {
+        "title": "Generator favicon",
+        "description": "Generuj favicony, ikony aplikacji i fragmenty manifestu."
+      },
+      "jsonDiff": {
+        "title": "Porównanie JSON",
+        "description": "Semantyczne, uwzględniające strukturę porównanie dwóch dokumentów JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Piaskownica JSONPath",
+        "description": "Odpytuj JSON za pomocą JSONPath lub JMESPath i oglądaj wyniki na żywo."
+      },
+      "keycodeInspector": {
+        "title": "Inspektor klawiszy",
+        "description": "Naciśnij klawisz, aby zobaczyć jego kody zdarzenia JavaScript i modyfikatory."
+      },
+      "markdownTableGenerator": {
+        "title": "Generator tabel Markdown",
+        "description": "Twórz tabele Markdown i HTML w edytorze siatki na wzór arkusza."
+      },
+      "timezoneConverter": {
+        "title": "Konwerter stref czasowych",
+        "description": "Konwertuj czas między wieloma strefami z podpowiedziami o zmianie dnia i godzinach pracy."
+      },
+      "tokenCounter": {
+        "title": "Licznik tokenów LLM",
+        "description": "Licz tokeny LLM, wizualizuj chunki i szacuj koszt API."
+      },
+      "webhookTester": {
+        "title": "Tester webhooków",
+        "description": "Przechwytuj i sprawdzaj przychodzące żądania webhooków w czasie rzeczywistym."
+      },
+      "websocketTester": {
+        "title": "Tester WebSocket",
+        "description": "Łącz się z endpointami WebSocket i wymieniaj wiadomości w czasie rzeczywistym."
+      },
+      "whoisLookup": {
+        "title": "Zapytanie Whois",
+        "description": "Sprawdzaj dane rejestracyjne domen i adresów IP przez RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Generator i weryfikator Bcrypt",
+    "subtitle": "Haszuj hasła za pomocą bcrypt i weryfikuj hasze — wszystko zostaje w Twojej przeglądarce",
+    "tabs": {
+      "hash": "Hasz",
+      "verify": "Weryfikuj"
+    },
+    "showPassword": "Pokaż hasło",
+    "hidePassword": "Ukryj hasło",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "hash": {
+      "passwordLabel": "Hasło",
+      "passwordPlaceholder": "Wpisz hasło do zahaszowania…",
+      "costLabel": "Współczynnik kosztu",
+      "costHint": "Wyższy koszt podwaja pracę na każdym kroku. 10-12 to typowy wybór dla produkcji.",
+      "slowWarning": "Współczynniki kosztu 13 i wyższe mogą obliczać się kilka sekund.",
+      "generate": "Wygeneruj hasz",
+      "generating": "Haszowanie…",
+      "resultLabel": "Hasz bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Budowa hasza",
+        "algorithm": "algorytm",
+        "cost": "koszt",
+        "salt": "sól (22 znaki)",
+        "hash": "hasz (31 znaków)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Hasło",
+      "passwordPlaceholder": "Wpisz hasło do sprawdzenia…",
+      "hashLabel": "Hasz bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Wpisz hasło i hasz bcrypt, aby je porównać.",
+      "invalidHash": "To nie wygląda na prawidłowy hasz bcrypt.",
+      "checking": "Porównywanie…",
+      "match": "Zgodne — hasło daje ten hasz.",
+      "noMatch": "Niezgodne — hasło nie daje tego hasza."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Kalkulator Chmod",
+    "subtitle": "Konwertuj uprawnienia plików Unix między polami wyboru, postacią ósemkową i symboliczną",
+    "grid": {
+      "title": "Uprawnienia",
+      "read": "Odczyt",
+      "write": "Zapis",
+      "execute": "Wykonanie",
+      "owner": "Właściciel",
+      "group": "Grupa",
+      "others": "Pozostali"
+    },
+    "special": {
+      "title": "Bity specjalne",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Ósemkowo",
+      "placeholder": "755 lub 4755",
+      "invalid": "Wpisz 3 lub 4 cyfry ósemkowe (0-7)."
+    },
+    "symbolic": {
+      "label": "Symbolicznie",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Wpisz 9 znaków w rodzaju rwxr-xr-x (dozwolone s/S, t/T)."
+    },
+    "output": {
+      "title": "Polecenie",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano"
+    },
+    "explain": {
+      "line": "{cls} może {perms}.",
+      "none": "{cls} nie ma uprawnień.",
+      "setuid": "Setuid: plik jest uruchamiany z uprawnieniami swojego właściciela.",
+      "setgid": "Setgid: plik jest uruchamiany z uprawnieniami swojej grupy (nowe pliki w katalogu dziedziczą jego grupę).",
+      "sticky": "Sticky: tylko właściciel pliku może go usunąć lub zmienić jego nazwę w tym katalogu."
+    },
+    "presets": {
+      "title": "Popularne ustawienia",
+      "octal": "Ósemkowo",
+      "permissions": "Uprawnienia",
+      "description": "Typowe zastosowanie",
+      "p644": "Zwykłe pliki: właściciel zapisuje, wszyscy odczytują.",
+      "p755": "Pliki wykonywalne i katalogi: wszyscy mogą odczytać i wejść.",
+      "p600": "Pliki prywatne: tylko właściciel odczytuje i zapisuje.",
+      "p700": "Prywatne pliki wykonywalne i katalogi: tylko właściciel.",
+      "p664": "Pliki zapisywalne dla grupy.",
+      "p775": "Katalogi i pliki wykonywalne zapisywalne dla grupy.",
+      "p400": "Tylko do odczytu dla właściciela (np. klucze prywatne SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Zrzut kodu",
+    "subtitle": "Zamień kod w piękne obrazy gotowe do udostępnienia",
+    "languageLabel": "Język",
+    "autoDetect": "Wykrywanie automatyczne",
+    "backgroundLabel": "Tło",
+    "paddingLabel": "Odstęp",
+    "filenameLabel": "Nazwa pliku",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Kropki okna",
+    "themeLabel": "Motyw okna",
+    "themeDark": "Ciemny",
+    "themeLight": "Jasny",
+    "scaleLabel": "Skala eksportu",
+    "copyImage": "Kopiuj obraz",
+    "copied": "Skopiowano",
+    "exportPng": "Eksportuj PNG",
+    "inputLabel": "Kod",
+    "detected": "Wykryto: {language}",
+    "clear": "Wyczyść",
+    "placeholder": "Wklej swój kod tutaj…",
+    "previewLabel": "Podgląd",
+    "emptyPreview": "Podgląd Twojego kodu pojawi się tutaj",
+    "exportFailed": "Nie udało się wyeksportować obrazu",
+    "copyUnsupported": "Kopiowanie obrazów nie jest obsługiwane w tej przeglądarce",
+    "copyFailed": "Nie udało się skopiować obrazu",
+    "backgrounds": {
+      "ocean": "Ocean",
+      "sunset": "Zachód słońca",
+      "candy": "Cukierek",
+      "forest": "Las",
+      "midnight": "Północ",
+      "gold": "Złoto",
+      "aurora": "Zorza",
+      "slate": "Łupek",
+      "transparent": "Przezroczysty"
+    }
+  },
+  "CssGenerators": {
+    "title": "Generatory CSS",
+    "subtitle": "Box-shadow, border-radius i płynny clamp() — skopiuj CSS.",
+    "preview": "Podgląd",
+    "output": "CSS",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Płynny clamp()"
+    },
+    "boxShadow": {
+      "presets": "Ustawienia",
+      "layer": "Warstwa",
+      "addLayer": "Dodaj warstwę",
+      "removeLayer": "Usuń warstwę",
+      "x": "X",
+      "y": "Y",
+      "blur": "Rozmycie",
+      "spread": "Rozszerzenie",
+      "color": "Kolor",
+      "alpha": "Alfa",
+      "inset": "Wewnętrzny",
+      "presetNames": {
+        "subtleCard": "Subtelna karta",
+        "elevated": "Uniesiony",
+        "hardOffset": "Twarde przesunięcie",
+        "neonGlow": "Neonowa poświata",
+        "inner": "Wewnętrzny",
+        "layeredSmooth": "Miękkie warstwy"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Tryb",
+      "modes": {
+        "simple": "Na róg",
+        "blob": "Organiczna plama"
+      },
+      "unit": "Jednostka",
+      "linkCorners": "Powiąż rogi",
+      "randomize": "Losuj",
+      "horizontal": "Promienie poziome",
+      "vertical": "Promienie pionowe",
+      "corners": {
+        "tl": "Górny lewy",
+        "tr": "Górny prawy",
+        "br": "Dolny prawy",
+        "bl": "Dolny lewy"
+      }
+    },
+    "clamp": {
+      "minFont": "Min. czcionka (px)",
+      "maxFont": "Maks. czcionka (px)",
+      "minViewport": "Min. viewport (px)",
+      "maxViewport": "Maks. viewport (px)",
+      "rootFont": "Czcionka główna (px)",
+      "viewportWidth": "Symulowany viewport",
+      "computedSize": "Obliczony rozmiar",
+      "slope": "Nachylenie",
+      "intercept": "Punkt przecięcia",
+      "previewText": "Szybki brązowy lis",
+      "invalid": "Wpisz prawidłowe i różniące się granice viewportu."
+    }
+  },
+  "ExifViewer": {
+    "title": "Podgląd i usuwanie EXIF",
+    "subtitle": "Sprawdzaj metadane zdjęć i usuwaj je w swojej przeglądarce",
+    "dropTitle": "Upuść obraz tutaj",
+    "dropHint": "lub kliknij, aby przeglądać — Twój obraz nigdy nie opuszcza urządzenia",
+    "browse": "Wybierz obraz",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Odczytywanie metadanych…",
+    "parseFailed": "Nie udało się odczytać tego obrazu",
+    "clear": "Usuń obraz",
+    "gpsWarning": "Zawiera lokalizację GPS",
+    "openMap": "Zobacz na OpenStreetMap",
+    "noMetadata": "Nie znaleziono osadzonych metadanych w tym obrazie.",
+    "facts": {
+      "name": "Nazwa",
+      "type": "Typ",
+      "dimensions": "Wymiary",
+      "size": "Rozmiar"
+    },
+    "groups": {
+      "camera": "Aparat",
+      "exposure": "Ekspozycja",
+      "timestamps": "Znaczniki czasu",
+      "gps": "Lokalizacja GPS",
+      "software": "Oprogramowanie i inne"
+    },
+    "gpsCard": {
+      "latitude": "Szerokość geogr.",
+      "longitude": "Długość geogr.",
+      "altitude": "Wysokość"
+    },
+    "raw": {
+      "title": "Wszystkie metadane",
+      "copyJson": "Kopiuj JSON",
+      "copied": "Skopiowano"
+    },
+    "remove": {
+      "title": "Usuń metadane",
+      "jpegDescription": "Bezstratnie usuń EXIF, XMP, IPTC i komentarze bez ponownej kompresji obrazu.",
+      "reencodeDescription": "Przekoduj obraz, aby usunąć osadzone metadane. Powoduje to ponowną kompresję pikseli.",
+      "keepIcc": "Zachowaj profil kolorów (ICC)",
+      "stripButton": "Usuń metadane",
+      "reencodeButton": "Przekoduj i usuń",
+      "unsupported": "Usuwanie metadanych nie jest obsługiwane dla tego typu pliku.",
+      "failed": "Nie udało się usunąć metadanych",
+      "before": "Przed",
+      "after": "Po",
+      "download": "Pobierz oczyszczony obraz"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Generator favicon",
+    "subtitle": "Twórz favicony i ikony aplikacji z jednego obrazu",
+    "dropTitle": "Upuść obraz tutaj",
+    "dropHint": "PNG, JPEG lub SVG — kliknij, aby przeglądać",
+    "browse": "Wybierz obraz",
+    "clear": "Usuń obraz",
+    "backgroundLabel": "Tło",
+    "transparent": "Przezroczysty",
+    "solidColor": "Jednolity",
+    "cornerLabel": "Kształt rogów",
+    "cornerNone": "Kwadrat",
+    "cornerRounded": "Zaokrąglony",
+    "cornerCircle": "Koło",
+    "maskPaddingLabel": "Odstęp maskable",
+    "maskable": "maskable",
+    "previewLabel": "Podgląd",
+    "copy": "Kopiuj",
+    "headSnippet": "Fragment head HTML",
+    "downloadIco": "Pobierz favicon.ico",
+    "downloadZip": "Pobierz wszystko (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Porównanie JSON",
+    "subtitle": "Semantyczne, uwzględniające strukturę porównanie dwóch dokumentów JSON — kolejność kluczy i formatowanie są ignorowane",
+    "options": {
+      "ignoreArrayOrder": "Ignoruj kolejność tablic"
+    },
+    "loadBothSamples": "Wczytaj przykłady",
+    "sample": "Przykład",
+    "format": "Formatuj",
+    "clear": "Wyczyść",
+    "formatError": "Nie można sformatować: dane wejściowe nie są prawidłowym JSON",
+    "placeholder": "Wklej lub wpisz JSON tutaj…",
+    "panels": {
+      "left": "Oryginał (lewa)",
+      "right": "Zmodyfikowany (prawa)",
+      "results": "Różnice"
+    },
+    "summary": {
+      "added": "{count} dodano",
+      "removed": "{count} usunięto",
+      "changed": "{count} zmieniono"
+    },
+    "types": {
+      "added": "Dodano",
+      "removed": "Usunięto",
+      "changed": "Zmieniono"
+    },
+    "copyChanges": "Kopiuj jako JSON",
+    "copied": "Skopiowano",
+    "empty": "Wklej JSON do obu paneli, aby zobaczyć ich różnice.",
+    "identical": "Oba dokumenty są semantycznie identyczne."
+  },
+  "JsonpathPlayground": {
+    "title": "Piaskownica JSONPath",
+    "subtitle": "Odpytuj dokumenty JSON za pomocą JSONPath lub JMESPath i oglądaj wyniki na żywo",
+    "engineLabel": "Silnik",
+    "queryLabel": "Zapytanie",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Ściąga",
+    "cheats": {
+      "jpAllTitles": "Wszystkie tytuły książek",
+      "jpAllAuthors": "Wszyscy autorzy, w dowolnym miejscu dokumentu",
+      "jpFirstBook": "Pierwsza książka",
+      "jpLastBook": "Ostatnia książka",
+      "jpSlice": "Pierwsze dwie książki (wycinek)",
+      "jpFilterPrice": "Książki tańsze niż 40",
+      "jpFilterInStock": "Tytuły książek dostępnych w magazynie",
+      "jpRecursive": "Wszystkie wartości, rekurencyjnie",
+      "jmAllTitles": "Wszystkie tytuły książek",
+      "jmFirstAuthor": "Autor pierwszej książki",
+      "jmLastBook": "Ostatnia książka",
+      "jmSlice": "Pierwsze dwie książki (wycinek)",
+      "jmFilterPrice": "Tytuły książek tańszych niż 40",
+      "jmCount": "Policz książki dostępne w magazynie",
+      "jmProjection": "Przekształć każdą książkę w nowy obiekt",
+      "jmSort": "Tytuły posortowane według ceny"
+    },
+    "panels": {
+      "input": "Wejście JSON",
+      "results": "Wyniki"
+    },
+    "sample": "Przykład",
+    "format": "Formatuj",
+    "clear": "Wyczyść",
+    "formatError": "Nie można sformatować: dane wejściowe nie są prawidłowym JSON",
+    "placeholder": "Wklej lub wpisz JSON tutaj…",
+    "outputPlaceholder": "Dopasowania pojawią się tutaj…",
+    "matchCount": "{count, plural, one {# dopasowanie} few {# dopasowania} many {# dopasowań} other {# dopasowania}}",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano"
+  },
+  "KeycodeInspector": {
+    "title": "Inspektor klawiszy",
+    "subtitle": "Naciśnij dowolny klawisz, aby zbadać jego zdarzenie klawiatury JavaScript",
+    "capture": {
+      "prompt": "Naciśnij dowolny klawisz…",
+      "ready": "Nasłuchiwanie — naciśnij dowolny klawisz na klawiaturze",
+      "clickToFocus": "Kliknij tutaj, aby ustawić fokus, a następnie naciśnij dowolny klawisz"
+    },
+    "hero": {
+      "spaceKey": "(Spacja)",
+      "keyLabel": "event.key",
+      "repeat": "powtórzenie"
+    },
+    "copyJson": "Kopiuj JSON",
+    "copiedJson": "JSON zdarzenia skopiowano do schowka",
+    "deprecated": "przestarzałe",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standardowa",
+      "left": "Lewa",
+      "right": "Prawa",
+      "numpad": "Klawiatura numeryczna",
+      "unknown": "Nieznana"
+    },
+    "history": {
+      "title": "Historia",
+      "clear": "Wyczyść historię",
+      "empty": "Naciśnięcia klawiszy pojawią się tutaj."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Generator tabel Markdown",
+    "subtitle": "Edytuj siatkę, wklej z arkusza i skopiuj ładnie wyrównaną tabelę Markdown lub HTML",
+    "addRow": "Dodaj wiersz",
+    "addColumn": "Dodaj kolumnę",
+    "importLabel": "Importuj",
+    "importPlaceholder": "Wklej TSV (z Excela / Arkuszy Google) lub CSV tutaj…",
+    "importButton": "Importuj do siatki",
+    "pasteClipboard": "Wklej ze schowka",
+    "importEmpty": "Nie ma czego importować — najpierw wklej kilka wierszy",
+    "clipboardError": "Nie udało się odczytać ze schowka",
+    "clear": "Wyczyść",
+    "panels": {
+      "editor": "Edytor tabeli",
+      "output": "Wynik"
+    },
+    "align": {
+      "left": "Wyrównaj do lewej",
+      "center": "Wyśrodkuj",
+      "right": "Wyrównaj do prawej"
+    },
+    "headerPlaceholder": "Nagłówek",
+    "cellPlaceholder": "Komórka",
+    "removeRow": "Usuń wiersz",
+    "removeColumn": "Usuń kolumnę",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopiuj",
+    "copied": "Skopiowano"
+  },
+  "TimezoneConverter": {
+    "title": "Konwerter stref czasowych",
+    "subtitle": "Konwertuj jeden moment na całym świecie, aby planować spotkania.",
+    "dateTimeLabel": "Data i godzina",
+    "now": "Teraz",
+    "sourceZoneLabel": "Źródłowa strefa czasowa",
+    "selectZone": "Wybierz strefę",
+    "searchZone": "Szukaj stref czasowych...",
+    "noZone": "Nie znaleziono strefy czasowej.",
+    "scrubLabel": "Przesuń czas",
+    "reset": "Resetuj",
+    "targetsLabel": "Strefy docelowe",
+    "addZone": "Dodaj strefę",
+    "remove": "Usuń",
+    "localBadge": "Lokalna",
+    "invalidDate": "Wpisz prawidłową datę i godzinę.",
+    "bands": {
+      "work": "Godziny pracy (09:00–18:00)",
+      "edge": "Godziny brzegowe (wczesny ranek / wieczór)",
+      "night": "Noc"
+    }
+  },
+  "TokenCounter": {
+    "title": "Licznik tokenów LLM",
+    "subtitle": "Licz tokeny, wizualizuj chunki i szacuj koszt API.",
+    "inputLabel": "Tekst",
+    "sample": "Przykład",
+    "clear": "Wyczyść",
+    "placeholder": "Wklej tekst, kod lub JSON, aby policzyć tokeny...",
+    "encoding": "Kodowanie",
+    "loading": "Ładowanie tokenizera...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / seria o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokeny",
+      "characters": "Znaki",
+      "words": "Słowa",
+      "ratio": "Tokeny/słowo",
+      "ratioSub": "ok."
+    },
+    "claudeRow": "Claude (przybliżone)",
+    "estimate": "szacunek",
+    "viz": {
+      "title": "Wizualizacja tokenów",
+      "toggle": "Pokaż",
+      "hint": "Włącz, aby pokolorować każdy token jako chunk.",
+      "empty": "Wpisz tekst, aby zwizualizować tokeny.",
+      "truncated": "Pokazano pierwsze {limit} z {total} tokenów."
+    },
+    "cost": {
+      "title": "Kalkulator kosztów",
+      "disclaimer": "edytowalne wartości domyślne — sprawdź aktualne ceny",
+      "model": "Model",
+      "expectedOutput": "Oczekiwane tokeny wyjściowe",
+      "customInput": "Wejście $/MTok",
+      "customOutput": "Wyjście $/MTok",
+      "inputCost": "Koszt wejścia",
+      "outputCost": "Koszt wyjścia",
+      "total": "Razem",
+      "per1000": "Na 1000 wywołań"
+    }
+  },
+  "WebhookTester": {
+    "title": "Tester webhooków",
+    "subtitle": "Utwórz tymczasowy URL i sprawdzaj przychodzące żądania webhooków na żywo.",
+    "intro": {
+      "title": "Utwórz URL webhooka, aby zacząć przechwytywać żądania",
+      "hint": "Otrzymasz niemożliwy do odgadnięcia URL, który rejestruje każde przychodzące żądanie. Wygasa po 24 godzinach."
+    },
+    "createBtn": "Utwórz URL webhooka",
+    "creating": "Tworzenie…",
+    "urlLabel": "Twój URL webhooka",
+    "expiresIn": "Wygasa za {countdown}",
+    "copyUrlBtn": "Kopiuj URL",
+    "copied": "Skopiowano",
+    "clearBtn": "Wyczyść",
+    "newBinBtn": "Nowy URL",
+    "requestsTitle": "Żądania",
+    "selectPrompt": "Wybierz żądanie, aby sprawdzić jego szczegóły.",
+    "expiredNotice": "Ten URL webhooka wygasł. Utwórz nowy, aby kontynuować testowanie.",
+    "base64Badge": "base64",
+    "truncatedBadge": "obcięte",
+    "empty": {
+      "title": "Oczekiwanie na żądania…",
+      "hint": "Wyślij żądanie na swój URL, a pojawi się tutaj natychmiast. Spróbuj tak:"
+    },
+    "detail": {
+      "receivedAt": "Odebrano",
+      "source": "IP źródłowe",
+      "contentType": "Content-Type",
+      "query": "Parametry query",
+      "headers": "Nagłówki",
+      "body": "Treść",
+      "copyBody": "Kopiuj treść",
+      "emptyBody": "Brak treści"
+    },
+    "errors": {
+      "createFailed": "Nie udało się utworzyć URL webhooka. Spróbuj ponownie.",
+      "clearFailed": "Nie udało się wyczyścić żądań. Spróbuj ponownie."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Tester WebSocket",
+    "subtitle": "Połącz się z endpointem WebSocket i wysyłaj, odbieraj oraz sprawdzaj wiadomości na żywo",
+    "urlLabel": "URL endpointu",
+    "protocolsLabel": "Podprotokoły",
+    "protocolsPlaceholder": "opcjonalnie, oddzielone przecinkami",
+    "connect": "Połącz",
+    "disconnect": "Rozłącz",
+    "status": {
+      "disconnected": "Rozłączono",
+      "connecting": "Łączenie",
+      "connected": "Połączono",
+      "error": "Błąd"
+    },
+    "messages": {
+      "connecting": "Łączenie z {url}…",
+      "connected": "Połączenie nawiązane",
+      "connectedWithProtocol": "Połączenie nawiązane (protokół: {protocol})",
+      "invalidUrl": "Nieprawidłowy URL — musi zaczynać się od ws:// lub wss://",
+      "connectFailed": "Nie udało się otworzyć połączenia",
+      "socketError": "Wystąpił błąd połączenia",
+      "notConnected": "Nie połączono — najpierw się połącz",
+      "binaryMessage": "Odebrano wiadomość binarną"
+    },
+    "log": {
+      "title": "Dziennik wiadomości",
+      "empty": "Brak wiadomości. Połącz się i zacznij wysyłać.",
+      "copyAll": "Kopiuj wszystko",
+      "download": "Pobierz jako .txt",
+      "clear": "Wyczyść dziennik",
+      "prettyPrint": "Formatuj JSON",
+      "showRaw": "Pokaż surowy tekst"
+    },
+    "composer": {
+      "placeholder": "Wpisz wiadomość do wysłania…",
+      "send": "Wyślij",
+      "formatJson": "Formatuj jako JSON",
+      "invalidJson": "Wiadomość nie jest prawidłowym JSON",
+      "hint": "Cmd/Ctrl+Enter, aby wysłać"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "s",
+      "intervalTitle": "Interwał pingu w sekundach",
+      "payloadPlaceholder": "payload pingu"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Zapytanie Whois",
+    "subtitle": "Sprawdzaj dane rejestracyjne dowolnej domeny lub adresu IP przez RDAP",
+    "placeholder": "example.com lub 8.8.8.8",
+    "lookupBtn": "Sprawdź",
+    "looking": "Sprawdzanie…",
+    "refreshBtn": "Odśwież",
+    "tryLabel": "Spróbuj:",
+    "copy": "Kopiuj",
+    "copied": "Skopiowano",
+    "notAvailable": "Niedostępne",
+    "summary": {
+      "registrar": "Rejestrator",
+      "network": "Sieć"
+    },
+    "dates": {
+      "created": "Utworzono",
+      "updated": "Zaktualizowano",
+      "expires": "Wygasa"
+    },
+    "sections": {
+      "status": "Status",
+      "nameservers": "Serwery nazw",
+      "contacts": "Kontakty",
+      "rawRdap": "Surowy RDAP"
+    },
+    "contacts": {
+      "roles": "Role",
+      "name": "Nazwa",
+      "organization": "Organizacja"
+    },
+    "errors": {
+      "invalidTarget": "Wpisz prawidłową nazwę domeny lub adres IP",
+      "lookupFailed": "Zapytanie nie powiodło się (status {status})"
+    }
   }
 }

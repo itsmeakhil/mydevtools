@@ -11,9 +11,8 @@ export function LoginRedirectIfAuthed() {
   const { user, loading } = useAuth(false);
   const router = useRouter();
 
-  // On desktop the synthetic "desktop-local" user is always present; it must
-  // NOT bounce us off the sign-in screen. Only a real cloud user redirects.
-  const isRealUser = !!user && user.uid !== "desktop-local";
+  // Only a signed-in (real) user redirects away from the sign-in screen.
+  const isRealUser = !!user;
 
   useEffect(() => {
     if (loading || !isRealUser || !user) return;

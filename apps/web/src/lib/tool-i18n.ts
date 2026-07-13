@@ -61,6 +61,21 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/line-sort-dedupe': 'lineSortDedupe',
   '/app/string-inspector': 'stringInspector',
   '/app/escape-encode': 'escapeEncode',
+  '/app/bcrypt-generator': 'bcryptGenerator',
+  '/app/chmod-calculator': 'chmodCalculator',
+  '/app/code-screenshot': 'codeScreenshot',
+  '/app/css-generators': 'cssGenerators',
+  '/app/exif-viewer': 'exifViewer',
+  '/app/favicon-generator': 'faviconGenerator',
+  '/app/json-diff': 'jsonDiff',
+  '/app/jsonpath-playground': 'jsonpathPlayground',
+  '/app/keycode-inspector': 'keycodeInspector',
+  '/app/markdown-table-generator': 'markdownTableGenerator',
+  '/app/timezone-converter': 'timezoneConverter',
+  '/app/token-counter': 'tokenCounter',
+  '/app/webhook-tester': 'webhookTester',
+  '/app/websocket-tester': 'websocketTester',
+  '/app/whois-lookup': 'whoisLookup',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

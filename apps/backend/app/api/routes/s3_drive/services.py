@@ -72,7 +72,6 @@ async def create_connection(ctx: WorkspaceContext, body: S3ConnectionCreate) -> 
     doc: dict[str, Any] = {
         "_id": conn_id,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "name": body.name,

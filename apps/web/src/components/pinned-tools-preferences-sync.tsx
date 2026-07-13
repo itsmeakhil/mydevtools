@@ -5,6 +5,35 @@ import useAuth from "@/utils/useAuth"
 import { usePinnedToolsStore } from "@/store/pinned-tools-store"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { getUserPreferences, patchUserPreferences } from "@/lib/user-preferences-api"
+import { normalizePinnedToolsList } from "@/lib/pinned-tools-path"
+
+// Marks (per uid) that the retired enable/disable list has been folded into
+// pins. Cleared naturally when localStorage is wiped; safe to re-run if so.
+const ENABLED_TO_PINS_FLAG = "enabled-to-pins-migrated:"
+
+/**
+ * Fold pins that live under workspace ids which no longer exist (e.g. workspaces
+ * removed during the org teardown) into the active workspace, so a user's pins
+ * never disappear just because the id they were saved under is gone. Pins under
+ * still-valid workspaces are left where they are. Returns the original map
+ * untouched when there is nothing to rescue.
+ */
+function rescueOrphanedPins(
+  map: Record<string, string[]>,
+  activeId: string,
+  validIds: Set<string>,
+): Record<string, string[]> {
+  if (!activeId || validIds.size === 0) return map
+  const kept: Record<string, string[]> = {}
+  const orphaned: string[] = []
+  for (const [wsId, tools] of Object.entries(map)) {
+    if (wsId === activeId || validIds.has(wsId)) kept[wsId] = tools ?? []
+    else orphaned.push(...(tools ?? []))
+  }
+  if (orphaned.length === 0) return map
+  kept[activeId] = normalizePinnedToolsList([...(kept[activeId] ?? []), ...orphaned])
+  return kept
+}
 
 /**
  * Invisible component that syncs the workspace-keyed pinned-tools map
@@ -27,7 +56,6 @@ export function PinnedToolsPreferencesSync() {
   const { user, loading: authLoading } = useAuth(false)
   const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId) ?? ""
   const pinnedByWorkspace = usePinnedToolsStore((s) => s.pinnedByWorkspace)
-  const setPinnedTools = usePinnedToolsStore((s) => s.setPinnedTools)
 
   const serverSyncedRef = useRef(false)
   const isSavingRef = useRef(false)
@@ -50,27 +78,60 @@ export function PinnedToolsPreferencesSync() {
         const data = await getUserPreferences()
         if (cancelled) return
 
-        if (data.pinnedToolsByWorkspace && Object.keys(data.pinnedToolsByWorkspace).length > 0) {
-          // New shape: hydrate every workspace bucket from the keyed map.
-          for (const [wsId, tools] of Object.entries(data.pinnedToolsByWorkspace)) {
-            if (Array.isArray(tools)) {
-              setPinnedTools(wsId, tools)
-            }
+        // Read the freshest workspace state (the closure value can be stale, and
+        // the active id may resolve after this effect first fires).
+        const wsState = useWorkspaceStore.getState()
+        const activeId = wsState.activeWorkspaceId ?? ""
+        const validIds = new Set(wsState.workspaces.map((w) => w.id))
+
+        // Resolve the starting per-workspace pin map from the server doc,
+        // preferring the keyed shape and falling back to legacy flat favorites.
+        const serverMap: Record<string, string[]> =
+          data.pinnedToolsByWorkspace && Object.keys(data.pinnedToolsByWorkspace).length > 0
+            ? { ...data.pinnedToolsByWorkspace }
+            : Array.isArray(data.toolFavorites) && data.toolFavorites.length > 0 && activeId
+              ? { [activeId]: data.toolFavorites }
+              : {}
+        let resolved = serverMap
+
+        // One-time migration: the enable/disable feature is gone, so fold each
+        // user's retired `enabledTools` list into their active-workspace pins.
+        // Union (not replace) so any tools they'd already pinned are preserved
+        // and nobody's sidebar loses entries in the switchover.
+        const migFlag = ENABLED_TO_PINS_FLAG + user.uid
+        const alreadyMigrated =
+          typeof window !== "undefined" && window.localStorage.getItem(migFlag) === "1"
+        const enabled = Array.isArray(data.enabledTools) ? data.enabledTools : []
+        if (!alreadyMigrated && activeId && enabled.length > 0) {
+          const existingActive = resolved[activeId] ?? []
+          resolved = {
+            ...resolved,
+            [activeId]: normalizePinnedToolsList([...existingActive, ...enabled]),
           }
-          lastSavedRef.current = JSON.stringify(data.pinnedToolsByWorkspace)
-        } else if (Array.isArray(data.toolFavorites) && data.toolFavorites.length > 0) {
-          // Legacy fallback: migrate flat toolFavorites into the active workspace bucket.
-          // This covers users whose doc predates the T24 backend write path.
-          if (activeWorkspaceId) {
-            setPinnedTools(activeWorkspaceId, data.toolFavorites)
+        }
+
+        // Rescue pins stranded under workspace ids that no longer exist so they
+        // survive logout/login and the org teardown.
+        resolved = rescueOrphanedPins(resolved, activeId, validIds)
+
+        // Replace the store wholesale with server truth (not a per-key merge) so
+        // a different user logging in on this browser can never inherit the
+        // previous user's in-memory pins.
+        usePinnedToolsStore.setState({ pinnedByWorkspace: resolved })
+        lastSavedRef.current = JSON.stringify(resolved)
+
+        // Persist back if migration or the orphan rescue changed the map, and
+        // record (once per uid, only once we had an active workspace to migrate
+        // into) that the enable→pins migration has run.
+        if (JSON.stringify(resolved) !== JSON.stringify(data.pinnedToolsByWorkspace ?? {})) {
+          try {
+            await patchUserPreferences({ pinnedToolsByWorkspace: resolved })
+          } catch {
+            // Non-blocking: the save effect will retry on the next change.
           }
-          // Compute what pinnedByWorkspace would look like so lastSaved matches.
-          const migrated = activeWorkspaceId
-            ? { [activeWorkspaceId]: data.toolFavorites }
-            : {}
-          lastSavedRef.current = JSON.stringify(migrated)
-        } else {
-          lastSavedRef.current = JSON.stringify({})
+        }
+        if (!alreadyMigrated && activeId && typeof window !== "undefined") {
+          window.localStorage.setItem(migFlag, "1")
         }
       } catch {
         // Keep existing store state on error; next mount will retry.
@@ -85,11 +146,9 @@ export function PinnedToolsPreferencesSync() {
     return () => {
       cancelled = true
     }
-    // activeWorkspaceId intentionally omitted: we only want to re-run on
-    // auth state changes, not workspace switches (the store already holds
-    // the full map for all workspaces after the initial load).
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.uid, authLoading])
+    // Re-run when the active workspace resolves/changes too: the orphan rescue
+    // and enable→pins migration both need a resolved active workspace id.
+  }, [user?.uid, authLoading, activeWorkspaceId])
 
   // Save to API whenever pinnedByWorkspace changes
   useEffect(() => {

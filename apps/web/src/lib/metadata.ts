@@ -442,6 +442,96 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['html entity encode', 'html escape', 'backslash escape', 'unescape string', 'hex to ascii', 'unicode escape', 'string escape'],
         aiSummary: 'One tool to escape or unescape HTML entities, backslash JS/JSON strings, hex ↔ ASCII, and Unicode \\uXXXX. Answers "HTML entity encode", "escape a string", "hex to text", or "unicode escape". Runs in your browser.',
     },
+    'bcrypt-generator': {
+        title: "Bcrypt Generator & Checker",
+        description: "Generate bcrypt password hashes with a configurable cost factor and verify passwords against existing hashes. Runs entirely in your browser.",
+        keywords: ["bcrypt generator", "bcrypt hash", "bcrypt checker", "password hash", "verify bcrypt", "bcrypt online", "cost factor", "salt rounds"],
+        aiSummary: "Generates bcrypt password hashes with a selectable cost factor (4-15) and verifies passwords against existing bcrypt hashes, with a breakdown of the hash's algorithm, cost, salt, and digest segments. All hashing runs locally in the browser, so passwords never leave your machine.",
+    },
+    'chmod-calculator': {
+        title: "Chmod Calculator",
+        description: "Convert Unix file permissions between checkbox, octal (755), and symbolic (rwxr-xr-x) forms, including setuid, setgid, and sticky bits. Runs in the browser.",
+        keywords: ["chmod calculator", "unix permissions", "octal permissions", "file permissions", "chmod 755", "symbolic permissions", "setuid setgid sticky", "linux chmod"],
+        aiSummary: "Converts Unix/Linux file permissions between a checkbox grid, octal notation (e.g. 755, 4755), and symbolic notation (e.g. rwxr-xr-x), with support for setuid, setgid, and sticky bits, a ready-to-copy chmod command, plain-English explanations, and common presets. Runs entirely in the browser.",
+    },
+    'code-screenshot': {
+        title: "Code Screenshot",
+        description: "Create Carbon-style code screenshots with syntax highlighting, gradient backgrounds and window controls. Export as PNG, all in your browser.",
+        keywords: ["code screenshot", "carbon code image", "syntax highlight image", "code to image", "code snippet png", "beautiful code screenshot", "share code image", "code image generator"],
+        aiSummary: "A free browser-based tool that turns source code into polished, shareable images with syntax highlighting, gradient backgrounds, macOS window controls and PNG export. All rendering happens locally in your browser, so code never leaves your device.",
+    },
+    'css-generators': {
+        title: "CSS Generators",
+        description: "Visual generators for CSS box-shadow layers, per-corner border-radius blobs, and fluid clamp() typography. Copy production-ready CSS instantly.",
+        keywords: ["css generator", "box shadow generator", "border radius generator", "clamp css", "fluid typography", "css blob generator", "responsive font size", "box shadow css"],
+        aiSummary: "A browser-based CSS generator with three tools: a multi-layer box-shadow builder with presets, a per-corner border-radius and organic blob generator, and a fluid clamp() typography calculator. All computation runs client-side and outputs copyable CSS.",
+    },
+    'exif-viewer': {
+        title: "EXIF Viewer & Remover",
+        description: "View camera, GPS and EXIF metadata in your photos, then losslessly strip it. JPEG, PNG, WebP, HEIC and TIFF, all processed in your browser.",
+        keywords: ["exif viewer", "exif remover", "remove exif data", "photo metadata", "strip gps from photo", "image metadata viewer", "remove image metadata", "exif gps location"],
+        aiSummary: "A free browser-based EXIF viewer and remover that reveals camera settings, timestamps and GPS location embedded in photos, then strips that metadata. JPEGs are cleaned losslessly by rewriting segments; PNG and WebP are re-encoded. Everything runs locally, so your photos are never uploaded.",
+    },
+    'favicon-generator': {
+        title: "Favicon Generator",
+        description: "Generate favicon.ico, Apple touch icons, PWA maskable icons plus manifest and HTML snippets from a single image. Runs entirely in your browser.",
+        keywords: ["favicon generator", "favicon.ico", "apple touch icon", "pwa icons", "maskable icon", "site webmanifest", "app icon generator", "png to ico"],
+        aiSummary: "A free browser-based favicon generator that turns one image into favicon.ico (16/32/48), Apple touch icon, PWA 192/512 and maskable icons, plus ready-to-paste site.webmanifest and HTML head snippets, downloadable individually or as a ZIP. All rendering happens locally in your browser.",
+    },
+    'json-diff': {
+        title: "JSON Diff",
+        description: "Semantic JSON diff that ignores key order and formatting. See added, removed, and changed values with exact paths \u2014 runs entirely in your browser.",
+        keywords: ["json diff", "json compare", "compare json online", "semantic json diff", "json difference", "json compare tool", "structural diff"],
+        aiSummary: "Compares two JSON documents structurally, ignoring key order and whitespace, and lists every added, removed, and changed value with its exact path (like users[2].name). Optionally treats arrays as unordered sets. Runs entirely in the browser \u2014 no data leaves your machine.",
+    },
+    'jsonpath-playground': {
+        title: "JSONPath Playground",
+        description: "Query and extract data from JSON with JSONPath or JMESPath. Live results, match counts, and a built-in expression cheatsheet \u2014 all in your browser.",
+        keywords: ["jsonpath", "jmespath", "json query", "jsonpath tester", "jsonpath evaluator", "json extract", "jsonpath online", "json filter"],
+        aiSummary: "Interactive playground for testing JSONPath and JMESPath queries against JSON documents. Paste JSON, type an expression, and see live matched results with counts, plus a cheatsheet of common expressions. Runs entirely in the browser \u2014 no data leaves your machine.",
+    },
+    'keycode-inspector': {
+        title: "Keycode Inspector",
+        description: "Press any key to inspect the JavaScript keyboard event: key, code, keyCode, which, location, and modifiers, with history and JSON export.",
+        keywords: ["keycode", "javascript keycode", "event.key", "event.code", "keyboard event", "keycode inspector", "keydown event", "key event tester"],
+        aiSummary: "Shows the JavaScript KeyboardEvent details for any key you press: event.key, event.code, the deprecated keyCode and which values, key location, and modifier state, plus a history of recent key presses and one-click JSON export. Runs entirely in the browser.",
+    },
+    'markdown-table-generator': {
+        title: "Markdown Table Generator",
+        description: "Build Markdown tables in a spreadsheet-like editor. Paste from Excel or CSV, set column alignment, and copy pretty-aligned Markdown or HTML.",
+        keywords: ["markdown table generator", "markdown table", "table to markdown", "csv to markdown", "excel to markdown", "html table generator", "pipe table"],
+        aiSummary: "Spreadsheet-like editor for creating Markdown pipe tables and HTML tables. Paste data from Excel, Google Sheets, or CSV, edit cells in a grid, set per-column alignment, and copy pretty-aligned Markdown or escaped HTML markup. Runs entirely in the browser.",
+    },
+    'timezone-converter': {
+        title: "Timezone Converter",
+        description: "Convert a date and time across multiple timezones at once, with UTC offsets, day-shift badges, and working-hours indicators for meeting planning.",
+        keywords: ["timezone converter", "time zone converter", "world clock", "meeting planner", "utc offset", "convert time zones", "time difference", "world time"],
+        aiSummary: "A browser-based timezone converter that shows one instant across many zones at once, with UTC offsets, day-shift badges, working-hours dots, and an hour-scrub slider for meeting planning. Uses native Intl APIs and runs entirely client-side; your zone list is saved locally.",
+    },
+    'token-counter': {
+        title: "LLM Token Counter",
+        description: "Count tokens for GPT-4o and GPT-4/3.5 encodings, approximate Claude tokens, visualize token chunks, and estimate API cost per call and per 1000 calls.",
+        keywords: ["token counter", "llm token counter", "gpt tokenizer", "openai token count", "claude token estimate", "tiktoken", "api cost calculator", "o200k_base"],
+        aiSummary: "A browser-based LLM token counter that counts tokens with the gpt-tokenizer o200k_base (GPT-4o) and cl100k_base (GPT-4/3.5) encodings, estimates Claude tokens, visualizes token chunks, and calculates API cost per call and per 1000 calls. All tokenization runs client-side.",
+    },
+    'webhook-tester': {
+        title: "Webhook Tester",
+        description: "Create a temporary webhook URL, then capture and inspect incoming HTTP requests live \u2014 method, headers, query params, and body.",
+        keywords: ["webhook tester", "webhook debugger", "request bin", "http request inspector", "webhook url", "capture webhook", "test webhook", "webhook payload viewer"],
+        aiSummary: "Webhook Tester gives you a temporary, unguessable webhook URL that captures every incoming HTTP request (any method) so you can inspect the method, headers, query params, and body. Point any external service at the URL and watch requests arrive in real time. Bins expire after 24 hours.",
+    },
+    'websocket-tester': {
+        title: "WebSocket Tester",
+        description: "Connect to any ws:// or wss:// endpoint, send and receive messages, pretty-print JSON, and auto-ping \u2014 all in your browser.",
+        keywords: ["websocket tester", "websocket client", "wss test", "socket debugger", "realtime api testing", "ws echo", "websocket console"],
+        aiSummary: "A browser-based WebSocket client for connecting to ws:// and wss:// endpoints, sending and receiving messages, inspecting JSON payloads, handling close codes, and auto-sending keep-alive pings. Runs entirely client-side with no data leaving the browser.",
+    },
+    'whois-lookup': {
+        title: "Whois Lookup",
+        description: "Look up registration details for any domain or IP address using RDAP: registrar, status, key dates, nameservers, and contacts.",
+        keywords: ["whois lookup", "rdap lookup", "domain whois", "ip whois", "domain registration", "nameserver lookup", "domain expiry check"],
+        aiSummary: "Look up WHOIS/RDAP registration data for a domain or IP address, showing the registrar, domain status, creation/update/expiry dates with relative age, nameservers, contacts, and the full raw RDAP JSON. Uses the RDAP protocol via a backend proxy.",
+    },
 }
 
 function toolMetaDescription(tool: ToolMetadataEntry): string {

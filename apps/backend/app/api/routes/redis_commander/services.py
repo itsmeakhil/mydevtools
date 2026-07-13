@@ -52,7 +52,6 @@ async def create_connection(ctx: WorkspaceContext, body: RedisConnectionCreate) 
     doc: dict[str, Any] = {
         "_id": _id,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "encryptedData": body.encryptedData,

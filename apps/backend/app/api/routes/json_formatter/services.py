@@ -81,7 +81,6 @@ async def create_document(ctx: WorkspaceContext, body: JsonFormatterDocumentCrea
     now = datetime.now(timezone.utc)
     doc: dict[str, Any] = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "title": body.title,

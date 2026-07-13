@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic"
 import { Suspense, type ReactNode } from "react"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
-import { ToolVisibilityPreferencesSync } from "@/components/tool-visibility-preferences-sync"
 import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
 import { AppUpdateNotifier } from "@/components/app-update-notifier"
 import { AuthLogoutListener } from "@/components/auth-logout-listener"
@@ -37,7 +36,6 @@ export function ClientShell({ children }: Props) {
   return (
     <>
       <UserPreferencesSync />
-      <ToolVisibilityPreferencesSync />
       <PinnedToolsPreferencesSync />
       <AppUpdateNotifier />
       <AuthLogoutListener />

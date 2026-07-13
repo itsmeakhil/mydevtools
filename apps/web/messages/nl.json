@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod-calculator",
+    "codeScreenshot": "Code-screenshot",
+    "cssGenerators": "CSS-generatoren",
+    "exifViewer": "EXIF-viewer",
+    "faviconGenerator": "Favicon-generator",
+    "jsonDiff": "JSON-diff",
+    "jsonpathPlayground": "JSONPath-playground",
+    "keycodeInspector": "Keycode-inspecteur",
+    "markdownTableGenerator": "Markdown-tabel",
+    "timezoneConverter": "Tijdzone-converter",
+    "tokenCounter": "Token-teller",
+    "webhookTester": "Webhook-tester",
+    "websocketTester": "WebSocket-tester",
+    "whoisLookup": "Whois-opzoeking"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt-generator en -controle",
+        "description": "Hash wachtwoorden met bcrypt en verifieer bestaande hashes."
+      },
+      "chmodCalculator": {
+        "title": "Chmod-calculator",
+        "description": "Zet Unix-rechten om tussen octaal, symbolisch en selectievakjes."
+      },
+      "codeScreenshot": {
+        "title": "Code-screenshot",
+        "description": "Zet broncode om in mooie, deelbare afbeeldingen."
+      },
+      "cssGenerators": {
+        "title": "CSS-generatoren",
+        "description": "Generatoren voor box-shadow, border-radius en vloeiende clamp()."
+      },
+      "exifViewer": {
+        "title": "EXIF-viewer en -verwijderaar",
+        "description": "Inspecteer en verwijder EXIF-metadata van foto's lokaal."
+      },
+      "faviconGenerator": {
+        "title": "Favicon-generator",
+        "description": "Genereer favicons, app-iconen en manifest-snippets."
+      },
+      "jsonDiff": {
+        "title": "JSON-diff",
+        "description": "Semantische, structuurbewuste vergelijking van twee JSON-documenten."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath-playground",
+        "description": "Bevraag JSON met JSONPath of JMESPath en zie de resultaten live."
+      },
+      "keycodeInspector": {
+        "title": "Keycode-inspecteur",
+        "description": "Druk op een toets om de JavaScript-event-codes en modifiers te zien."
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown-tabelgenerator",
+        "description": "Maak Markdown- en HTML-tabellen in een spreadsheetachtige rasteditor."
+      },
+      "timezoneConverter": {
+        "title": "Tijdzone-converter",
+        "description": "Zet een tijd om naar veel zones, met aanwijzingen voor dagverschuiving en werktijden."
+      },
+      "tokenCounter": {
+        "title": "LLM-token-teller",
+        "description": "Tel LLM-tokens, visualiseer chunks en schat de API-kosten."
+      },
+      "webhookTester": {
+        "title": "Webhook-tester",
+        "description": "Vang inkomende webhook-verzoeken op en inspecteer ze in realtime."
+      },
+      "websocketTester": {
+        "title": "WebSocket-tester",
+        "description": "Verbind met WebSocket-endpoints en wissel berichten uit in realtime."
+      },
+      "whoisLookup": {
+        "title": "Whois-opzoeking",
+        "description": "Zoek registratiegegevens van een domein of IP op via RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt-generator en -controle",
+    "subtitle": "Hash wachtwoorden met bcrypt en verifieer hashes — alles blijft in je browser",
+    "tabs": {
+      "hash": "Hashen",
+      "verify": "Verifiëren"
+    },
+    "showPassword": "Wachtwoord tonen",
+    "hidePassword": "Wachtwoord verbergen",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "hash": {
+      "passwordLabel": "Wachtwoord",
+      "passwordPlaceholder": "Voer een wachtwoord in om te hashen…",
+      "costLabel": "Kostenfactor",
+      "costHint": "Een hogere kostenfactor verdubbelt het werk per stap. 10-12 is een gangbare keuze voor productie.",
+      "slowWarning": "Kostenfactoren van 13 en hoger kunnen enkele seconden duren om te berekenen.",
+      "generate": "Hash genereren",
+      "generating": "Bezig met hashen…",
+      "resultLabel": "Bcrypt-hash",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Opbouw van de hash",
+        "algorithm": "algoritme",
+        "cost": "kosten",
+        "salt": "salt (22 tekens)",
+        "hash": "hash (31 tekens)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Wachtwoord",
+      "passwordPlaceholder": "Voer het te controleren wachtwoord in…",
+      "hashLabel": "Bcrypt-hash",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Voer een wachtwoord en een bcrypt-hash in om ze te vergelijken.",
+      "invalidHash": "Dit lijkt geen geldige bcrypt-hash.",
+      "checking": "Bezig met vergelijken…",
+      "match": "Komt overeen — het wachtwoord levert deze hash op.",
+      "noMatch": "Komt niet overeen — het wachtwoord levert deze hash niet op."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod-calculator",
+    "subtitle": "Zet Unix-bestandsrechten om tussen selectievakjes, octaal en symbolische notatie",
+    "grid": {
+      "title": "Rechten",
+      "read": "Lezen",
+      "write": "Schrijven",
+      "execute": "Uitvoeren",
+      "owner": "Eigenaar",
+      "group": "Groep",
+      "others": "Anderen"
+    },
+    "special": {
+      "title": "Speciale bits",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Octaal",
+      "placeholder": "755 of 4755",
+      "invalid": "Voer 3 of 4 octale cijfers (0-7) in."
+    },
+    "symbolic": {
+      "label": "Symbolisch",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Voer 9 tekens in zoals rwxr-xr-x (s/S, t/T toegestaan)."
+    },
+    "output": {
+      "title": "Commando",
+      "copy": "Kopiëren",
+      "copied": "Gekopieerd"
+    },
+    "explain": {
+      "line": "{cls} kan {perms}.",
+      "none": "{cls} heeft geen rechten.",
+      "setuid": "Setuid: het bestand draait met de rechten van de eigenaar.",
+      "setgid": "Setgid: het bestand draait met de rechten van zijn groep (nieuwe bestanden in een map erven de groep ervan).",
+      "sticky": "Sticky: alleen de eigenaar van een bestand kan het verwijderen of hernoemen binnen deze map."
+    },
+    "presets": {
+      "title": "Veelgebruikte presets",
+      "octal": "Octaal",
+      "permissions": "Rechten",
+      "description": "Typisch gebruik",
+      "p644": "Gewone bestanden: eigenaar schrijft, iedereen leest.",
+      "p755": "Uitvoerbare bestanden en mappen: iedereen kan lezen en openen.",
+      "p600": "Privébestanden: alleen de eigenaar leest en schrijft.",
+      "p700": "Privé uitvoerbare bestanden en mappen: alleen de eigenaar.",
+      "p664": "Bestanden die door de groep beschrijfbaar zijn.",
+      "p775": "Mappen en uitvoerbare bestanden die door de groep beschrijfbaar zijn.",
+      "p400": "Alleen-lezen voor de eigenaar (bijv. SSH-privésleutels)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Code-screenshot",
+    "subtitle": "Zet code om in mooie, deelbare afbeeldingen",
+    "languageLabel": "Taal",
+    "autoDetect": "Automatisch detecteren",
+    "backgroundLabel": "Achtergrond",
+    "paddingLabel": "Opvulling",
+    "filenameLabel": "Bestandsnaam",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Vensterstippen",
+    "themeLabel": "Vensterthema",
+    "themeDark": "Donker",
+    "themeLight": "Licht",
+    "scaleLabel": "Exportschaal",
+    "copyImage": "Afbeelding kopiëren",
+    "copied": "Gekopieerd",
+    "exportPng": "PNG exporteren",
+    "inputLabel": "Code",
+    "detected": "Gedetecteerd: {language}",
+    "clear": "Wissen",
+    "placeholder": "Plak hier je code…",
+    "previewLabel": "Voorbeeld",
+    "emptyPreview": "Het voorbeeld van je code verschijnt hier",
+    "exportFailed": "Afbeelding exporteren mislukt",
+    "copyUnsupported": "Afbeeldingen kopiëren wordt niet ondersteund in deze browser",
+    "copyFailed": "Afbeelding kopiëren mislukt",
+    "backgrounds": {
+      "ocean": "Oceaan",
+      "sunset": "Zonsondergang",
+      "candy": "Snoep",
+      "forest": "Bos",
+      "midnight": "Middernacht",
+      "gold": "Goud",
+      "aurora": "Poollicht",
+      "slate": "Leisteen",
+      "transparent": "Transparant"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS-generatoren",
+    "subtitle": "Box-shadow, border-radius en vloeiende clamp() — kopieer de CSS.",
+    "preview": "Voorbeeld",
+    "output": "CSS",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Vloeiende clamp()"
+    },
+    "boxShadow": {
+      "presets": "Presets",
+      "layer": "Laag",
+      "addLayer": "Laag toevoegen",
+      "removeLayer": "Laag verwijderen",
+      "x": "X",
+      "y": "Y",
+      "blur": "Vervaging",
+      "spread": "Spreiding",
+      "color": "Kleur",
+      "alpha": "Alfa",
+      "inset": "Binnen",
+      "presetNames": {
+        "subtleCard": "Subtiele kaart",
+        "elevated": "Verhoogd",
+        "hardOffset": "Harde verschuiving",
+        "neonGlow": "Neongloed",
+        "inner": "Binnen",
+        "layeredSmooth": "Gelaagd zacht"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Modus",
+      "modes": {
+        "simple": "Per hoek",
+        "blob": "Organische blob"
+      },
+      "unit": "Eenheid",
+      "linkCorners": "Hoeken koppelen",
+      "randomize": "Willekeurig",
+      "horizontal": "Horizontale radii",
+      "vertical": "Verticale radii",
+      "corners": {
+        "tl": "Linksboven",
+        "tr": "Rechtsboven",
+        "br": "Rechtsonder",
+        "bl": "Linksonder"
+      }
+    },
+    "clamp": {
+      "minFont": "Min. lettergrootte (px)",
+      "maxFont": "Max. lettergrootte (px)",
+      "minViewport": "Min. viewport (px)",
+      "maxViewport": "Max. viewport (px)",
+      "rootFont": "Root-lettergrootte (px)",
+      "viewportWidth": "Gesimuleerde viewport",
+      "computedSize": "Berekende grootte",
+      "slope": "Helling",
+      "intercept": "Snijpunt",
+      "previewText": "De snelle bruine vos",
+      "invalid": "Voer geldige, verschillende viewport-grenzen in."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF-viewer en -verwijderaar",
+    "subtitle": "Inspecteer foto-metadata en verwijder ze in je browser",
+    "dropTitle": "Sleep hier een afbeelding",
+    "dropHint": "of klik om te bladeren — je afbeelding verlaat nooit je apparaat",
+    "browse": "Afbeelding kiezen",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Metadata lezen…",
+    "parseFailed": "Deze afbeelding kon niet worden gelezen",
+    "clear": "Afbeelding verwijderen",
+    "gpsWarning": "Bevat GPS-locatie",
+    "openMap": "Bekijk op OpenStreetMap",
+    "noMetadata": "Er is geen ingesloten metadata gevonden in deze afbeelding.",
+    "facts": {
+      "name": "Naam",
+      "type": "Type",
+      "dimensions": "Afmetingen",
+      "size": "Grootte"
+    },
+    "groups": {
+      "camera": "Camera",
+      "exposure": "Belichting",
+      "timestamps": "Tijdstempels",
+      "gps": "GPS-locatie",
+      "software": "Software en overig"
+    },
+    "gpsCard": {
+      "latitude": "Breedtegraad",
+      "longitude": "Lengtegraad",
+      "altitude": "Hoogte"
+    },
+    "raw": {
+      "title": "Alle metadata",
+      "copyJson": "JSON kopiëren",
+      "copied": "Gekopieerd"
+    },
+    "remove": {
+      "title": "Metadata verwijderen",
+      "jpegDescription": "Verwijder EXIF, XMP, IPTC en opmerkingen zonder verlies, zonder de afbeelding opnieuw te comprimeren.",
+      "reencodeDescription": "Codeer de afbeelding opnieuw om ingesloten metadata te verwijderen. Hierbij worden de pixels opnieuw gecomprimeerd.",
+      "keepIcc": "Kleurprofiel (ICC) behouden",
+      "stripButton": "Metadata verwijderen",
+      "reencodeButton": "Opnieuw coderen en wissen",
+      "unsupported": "Metadata verwijderen wordt niet ondersteund voor dit bestandstype.",
+      "failed": "Metadata verwijderen mislukt",
+      "before": "Voor",
+      "after": "Na",
+      "download": "Opgeschoonde afbeelding downloaden"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon-generator",
+    "subtitle": "Maak favicons en app-iconen uit één afbeelding",
+    "dropTitle": "Sleep hier een afbeelding",
+    "dropHint": "PNG, JPEG of SVG — klik om te bladeren",
+    "browse": "Afbeelding kiezen",
+    "clear": "Afbeelding verwijderen",
+    "backgroundLabel": "Achtergrond",
+    "transparent": "Transparant",
+    "solidColor": "Effen",
+    "cornerLabel": "Hoekvorm",
+    "cornerNone": "Vierkant",
+    "cornerRounded": "Afgerond",
+    "cornerCircle": "Cirkel",
+    "maskPaddingLabel": "Maskable-opvulling",
+    "maskable": "maskable",
+    "previewLabel": "Voorbeeld",
+    "copy": "Kopiëren",
+    "headSnippet": "HTML-head-snippet",
+    "downloadIco": "favicon.ico downloaden",
+    "downloadZip": "Alles downloaden (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON-diff",
+    "subtitle": "Semantische, structuurbewuste vergelijking van twee JSON-documenten — sleutelvolgorde en opmaak worden genegeerd",
+    "options": {
+      "ignoreArrayOrder": "Arrayvolgorde negeren"
+    },
+    "loadBothSamples": "Voorbeelden laden",
+    "sample": "Voorbeeld laden",
+    "format": "Formatteren",
+    "clear": "Wissen",
+    "formatError": "Kan niet formatteren: de invoer is geen geldige JSON",
+    "placeholder": "Plak of typ hier JSON…",
+    "panels": {
+      "left": "Origineel (links)",
+      "right": "Gewijzigd (rechts)",
+      "results": "Verschillen"
+    },
+    "summary": {
+      "added": "{count} toegevoegd",
+      "removed": "{count} verwijderd",
+      "changed": "{count} gewijzigd"
+    },
+    "types": {
+      "added": "Toegevoegd",
+      "removed": "Verwijderd",
+      "changed": "Gewijzigd"
+    },
+    "copyChanges": "Kopiëren als JSON",
+    "copied": "Gekopieerd",
+    "empty": "Plak JSON in beide panelen om hun verschillen te zien.",
+    "identical": "De twee documenten zijn semantisch identiek."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath-playground",
+    "subtitle": "Bevraag JSON-documenten met JSONPath of JMESPath en zie de resultaten live",
+    "engineLabel": "Engine",
+    "queryLabel": "Query",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Spiekbriefje",
+    "cheats": {
+      "jpAllTitles": "Alle boektitels",
+      "jpAllAuthors": "Elke auteur, overal in het document",
+      "jpFirstBook": "Eerste boek",
+      "jpLastBook": "Laatste boek",
+      "jpSlice": "De eerste twee boeken (slice)",
+      "jpFilterPrice": "Boeken goedkoper dan 40",
+      "jpFilterInStock": "Titels van boeken op voorraad",
+      "jpRecursive": "Alle waarden, recursief",
+      "jmAllTitles": "Alle boektitels",
+      "jmFirstAuthor": "Auteur van het eerste boek",
+      "jmLastBook": "Laatste boek",
+      "jmSlice": "De eerste twee boeken (slice)",
+      "jmFilterPrice": "Titels van boeken goedkoper dan 40",
+      "jmCount": "Boeken op voorraad tellen",
+      "jmProjection": "Elk boek omvormen tot een nieuw object",
+      "jmSort": "Titels gesorteerd op prijs"
+    },
+    "panels": {
+      "input": "JSON-invoer",
+      "results": "Resultaten"
+    },
+    "sample": "Voorbeeld laden",
+    "format": "Formatteren",
+    "clear": "Wissen",
+    "formatError": "Kan niet formatteren: de invoer is geen geldige JSON",
+    "placeholder": "Plak of typ hier JSON…",
+    "outputPlaceholder": "Overeenkomsten verschijnen hier…",
+    "matchCount": "{count, plural, one {# overeenkomst} other {# overeenkomsten}}",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd"
+  },
+  "KeycodeInspector": {
+    "title": "Keycode-inspecteur",
+    "subtitle": "Druk op een willekeurige toets om het JavaScript-toetsenbordevent te inspecteren",
+    "capture": {
+      "prompt": "Druk op een willekeurige toets…",
+      "ready": "Aan het luisteren — druk op een willekeurige toets op je toetsenbord",
+      "clickToFocus": "Klik hier om te focussen en druk daarna op een willekeurige toets"
+    },
+    "hero": {
+      "spaceKey": "(Spatie)",
+      "keyLabel": "event.key",
+      "repeat": "herhaling"
+    },
+    "copyJson": "JSON kopiëren",
+    "copiedJson": "Event-JSON naar het klembord gekopieerd",
+    "deprecated": "verouderd",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standaard",
+      "left": "Links",
+      "right": "Rechts",
+      "numpad": "Numeriek toetsenblok",
+      "unknown": "Onbekend"
+    },
+    "history": {
+      "title": "Geschiedenis",
+      "clear": "Geschiedenis wissen",
+      "empty": "Toetsaanslagen verschijnen hier."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown-tabelgenerator",
+    "subtitle": "Bewerk een raster, plak uit een spreadsheet en kopieer een netjes uitgelijnde Markdown- of HTML-tabel",
+    "addRow": "Rij toevoegen",
+    "addColumn": "Kolom toevoegen",
+    "importLabel": "Importeren",
+    "importPlaceholder": "Plak hier TSV (uit Excel / Google Sheets) of CSV…",
+    "importButton": "Importeren in raster",
+    "pasteClipboard": "Plakken van klembord",
+    "importEmpty": "Niets om te importeren — plak eerst een paar rijen",
+    "clipboardError": "Kon niet van het klembord lezen",
+    "clear": "Wissen",
+    "panels": {
+      "editor": "Tabeleditor",
+      "output": "Uitvoer"
+    },
+    "align": {
+      "left": "Links uitlijnen",
+      "center": "Centreren",
+      "right": "Rechts uitlijnen"
+    },
+    "headerPlaceholder": "Koptekst",
+    "cellPlaceholder": "Cel",
+    "removeRow": "Rij verwijderen",
+    "removeColumn": "Kolom verwijderen",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd"
+  },
+  "TimezoneConverter": {
+    "title": "Tijdzone-converter",
+    "subtitle": "Zet één moment om over de hele wereld voor het plannen van vergaderingen.",
+    "dateTimeLabel": "Datum en tijd",
+    "now": "Nu",
+    "sourceZoneLabel": "Brontijdzone",
+    "selectZone": "Zone selecteren",
+    "searchZone": "Tijdzones zoeken...",
+    "noZone": "Geen tijdzone gevonden.",
+    "scrubLabel": "Tijd verschuiven",
+    "reset": "Opnieuw instellen",
+    "targetsLabel": "Doeltijdzones",
+    "addZone": "Zone toevoegen",
+    "remove": "Verwijderen",
+    "localBadge": "Lokaal",
+    "invalidDate": "Voer een geldige datum en tijd in.",
+    "bands": {
+      "work": "Werktijden (09:00–18:00)",
+      "edge": "Randuren (vroeg / avond)",
+      "night": "Nacht"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM-token-teller",
+    "subtitle": "Tel tokens, visualiseer chunks en schat de API-kosten.",
+    "inputLabel": "Tekst",
+    "sample": "Voorbeeld laden",
+    "clear": "Wissen",
+    "placeholder": "Plak tekst, code of JSON om tokens te tellen...",
+    "encoding": "Codering",
+    "loading": "Tokenizer laden...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-serie)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokens",
+      "characters": "Tekens",
+      "words": "Woorden",
+      "ratio": "Tokens/woord",
+      "ratioSub": "ong."
+    },
+    "claudeRow": "Claude (bij benadering)",
+    "estimate": "schatting",
+    "viz": {
+      "title": "Token-visualisatie",
+      "toggle": "Tonen",
+      "hint": "Schakel in om elk token als een chunk in te kleuren.",
+      "empty": "Voer tekst in om tokens te visualiseren.",
+      "truncated": "De eerste {limit} van {total} tokens worden getoond."
+    },
+    "cost": {
+      "title": "Kostencalculator",
+      "disclaimer": "bewerkbare standaardwaarden — controleer de actuele prijzen",
+      "model": "Model",
+      "expectedOutput": "Verwachte uitvoertokens",
+      "customInput": "Invoer $/MTok",
+      "customOutput": "Uitvoer $/MTok",
+      "inputCost": "Invoerkosten",
+      "outputCost": "Uitvoerkosten",
+      "total": "Totaal",
+      "per1000": "Per 1000 aanroepen"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook-tester",
+    "subtitle": "Maak een tijdelijke URL en inspecteer inkomende webhook-verzoeken live.",
+    "intro": {
+      "title": "Maak een webhook-URL om verzoeken te gaan vastleggen",
+      "hint": "Je krijgt een niet te raden URL die elk inkomend verzoek registreert. Deze verloopt na 24 uur."
+    },
+    "createBtn": "Webhook-URL maken",
+    "creating": "Bezig met maken…",
+    "urlLabel": "Jouw webhook-URL",
+    "expiresIn": "Verloopt over {countdown}",
+    "copyUrlBtn": "URL kopiëren",
+    "copied": "Gekopieerd",
+    "clearBtn": "Wissen",
+    "newBinBtn": "Nieuwe URL",
+    "requestsTitle": "Verzoeken",
+    "selectPrompt": "Selecteer een verzoek om de details te inspecteren.",
+    "expiredNotice": "Deze webhook-URL is verlopen. Maak een nieuwe om verder te testen.",
+    "base64Badge": "base64",
+    "truncatedBadge": "afgekapt",
+    "empty": {
+      "title": "Wachten op verzoeken…",
+      "hint": "Stuur een verzoek naar je URL en het verschijnt hier onmiddellijk. Probeer dit:"
+    },
+    "detail": {
+      "receivedAt": "Ontvangen",
+      "source": "Bron-IP",
+      "contentType": "Content-Type",
+      "query": "Query-parameters",
+      "headers": "Headers",
+      "body": "Body",
+      "copyBody": "Body kopiëren",
+      "emptyBody": "Geen body"
+    },
+    "errors": {
+      "createFailed": "Webhook-URL maken mislukt. Probeer het opnieuw.",
+      "clearFailed": "Verzoeken wissen mislukt. Probeer het opnieuw."
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket-tester",
+    "subtitle": "Verbind met een WebSocket-endpoint en verzend, ontvang en inspecteer berichten live",
+    "urlLabel": "Endpoint-URL",
+    "protocolsLabel": "Subprotocollen",
+    "protocolsPlaceholder": "optioneel, gescheiden door komma's",
+    "connect": "Verbinden",
+    "disconnect": "Verbinding verbreken",
+    "status": {
+      "disconnected": "Verbinding verbroken",
+      "connecting": "Verbinden",
+      "connected": "Verbonden",
+      "error": "Fout"
+    },
+    "messages": {
+      "connecting": "Verbinden met {url}…",
+      "connected": "Verbinding tot stand gebracht",
+      "connectedWithProtocol": "Verbinding tot stand gebracht (protocol: {protocol})",
+      "invalidUrl": "Ongeldige URL — moet beginnen met ws:// of wss://",
+      "connectFailed": "Verbinding openen mislukt",
+      "socketError": "Er is een verbindingsfout opgetreden",
+      "notConnected": "Niet verbonden — verbind eerst",
+      "binaryMessage": "Een binair bericht ontvangen"
+    },
+    "log": {
+      "title": "Berichtenlogboek",
+      "empty": "Nog geen berichten. Verbind en begin met verzenden.",
+      "copyAll": "Alles kopiëren",
+      "download": "Downloaden als .txt",
+      "clear": "Logboek wissen",
+      "prettyPrint": "JSON opmaken",
+      "showRaw": "Ruwe tekst tonen"
+    },
+    "composer": {
+      "placeholder": "Typ een bericht om te verzenden…",
+      "send": "Verzenden",
+      "formatJson": "Opmaken als JSON",
+      "invalidJson": "Het bericht is geen geldige JSON",
+      "hint": "Cmd/Ctrl+Enter om te verzenden"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "sec",
+      "intervalTitle": "Ping-interval in seconden",
+      "payloadPlaceholder": "ping-payload"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois-opzoeking",
+    "subtitle": "Zoek registratiegegevens van elk domein of IP-adres op via RDAP",
+    "placeholder": "example.com of 8.8.8.8",
+    "lookupBtn": "Opzoeken",
+    "looking": "Bezig met opzoeken…",
+    "refreshBtn": "Vernieuwen",
+    "tryLabel": "Probeer:",
+    "copy": "Kopiëren",
+    "copied": "Gekopieerd",
+    "notAvailable": "Niet beschikbaar",
+    "summary": {
+      "registrar": "Registrar",
+      "network": "Netwerk"
+    },
+    "dates": {
+      "created": "Aangemaakt",
+      "updated": "Bijgewerkt",
+      "expires": "Verloopt"
+    },
+    "sections": {
+      "status": "Status",
+      "nameservers": "Nameservers",
+      "contacts": "Contacten",
+      "rawRdap": "Ruwe RDAP"
+    },
+    "contacts": {
+      "roles": "Rollen",
+      "name": "Naam",
+      "organization": "Organisatie"
+    },
+    "errors": {
+      "invalidTarget": "Voer een geldige domeinnaam of IP-adres in",
+      "lookupFailed": "Opzoeken mislukt (status {status})"
+    }
   }
 }

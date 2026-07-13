@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod Hesaplayıcı",
+    "codeScreenshot": "Kod Ekran Görüntüsü",
+    "cssGenerators": "CSS Üreticileri",
+    "exifViewer": "EXIF Görüntüleyici",
+    "faviconGenerator": "Favicon Üreticisi",
+    "jsonDiff": "JSON Karşılaştırma",
+    "jsonpathPlayground": "JSONPath Oyun Alanı",
+    "keycodeInspector": "Tuş Kodu İnceleyici",
+    "markdownTableGenerator": "Markdown Tablosu",
+    "timezoneConverter": "Saat Dilimi Dönüştürücü",
+    "tokenCounter": "Token Sayacı",
+    "webhookTester": "Webhook Test Aracı",
+    "websocketTester": "WebSocket Test Aracı",
+    "whoisLookup": "Whois Sorgulama"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt Üretici ve Doğrulayıcı",
+        "description": "Parolaları bcrypt ile hash'leyin ve mevcut hash'leri doğrulayın."
+      },
+      "chmodCalculator": {
+        "title": "Chmod Hesaplayıcı",
+        "description": "Unix izinlerini sekizlik, sembolik ve onay kutuları arasında dönüştürün."
+      },
+      "codeScreenshot": {
+        "title": "Kod Ekran Görüntüsü",
+        "description": "Kaynak kodu güzel ve paylaşılabilir görsellere dönüştürün."
+      },
+      "cssGenerators": {
+        "title": "CSS Üreticileri",
+        "description": "box-shadow, border-radius ve akışkan clamp() üreticileri."
+      },
+      "exifViewer": {
+        "title": "EXIF Görüntüleyici ve Temizleyici",
+        "description": "Fotoğraf EXIF meta verilerini yerel olarak inceleyin ve temizleyin."
+      },
+      "faviconGenerator": {
+        "title": "Favicon Üreticisi",
+        "description": "Favicon, uygulama simgeleri ve manifest parçacıkları oluşturun."
+      },
+      "jsonDiff": {
+        "title": "JSON Karşılaştırma",
+        "description": "İki JSON belgesinin anlamsal, yapı farkında karşılaştırması."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath Oyun Alanı",
+        "description": "JSON'ı JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün."
+      },
+      "keycodeInspector": {
+        "title": "Tuş Kodu İnceleyici",
+        "description": "Bir tuşa basarak JavaScript olay kodlarını ve değiştiricileri görün."
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown Tablosu Üreticisi",
+        "description": "Markdown ve HTML tablolarını elektronik tablo benzeri bir ızgara düzenleyicide oluşturun."
+      },
+      "timezoneConverter": {
+        "title": "Saat Dilimi Dönüştürücü",
+        "description": "Bir zamanı birçok dilime; gün kayması ve çalışma saati ipuçlarıyla dönüştürün."
+      },
+      "tokenCounter": {
+        "title": "LLM Token Sayacı",
+        "description": "LLM token'larını sayın, parçaları görselleştirin ve API maliyetini tahmin edin."
+      },
+      "webhookTester": {
+        "title": "Webhook Test Aracı",
+        "description": "Gelen webhook isteklerini gerçek zamanlı yakalayın ve inceleyin."
+      },
+      "websocketTester": {
+        "title": "WebSocket Test Aracı",
+        "description": "WebSocket uç noktalarına bağlanın ve mesajları gerçek zamanlı alışverişini yapın."
+      },
+      "whoisLookup": {
+        "title": "Whois Sorgulama",
+        "description": "Alan adı ve IP kayıt bilgilerini RDAP üzerinden sorgulayın."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt Üretici ve Doğrulayıcı",
+    "subtitle": "Parolaları bcrypt ile hash'leyin ve hash'leri doğrulayın — her şey tarayıcınızda kalır",
+    "tabs": {
+      "hash": "Hash'le",
+      "verify": "Doğrula"
+    },
+    "showPassword": "Parolayı göster",
+    "hidePassword": "Parolayı gizle",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "hash": {
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "Hash'lenecek bir parola girin…",
+      "costLabel": "Maliyet faktörü",
+      "costHint": "Daha yüksek maliyet, her adımdaki işi ikiye katlar. Üretim için genellikle 10-12 tercih edilir.",
+      "slowWarning": "13 ve üzeri maliyet faktörlerinin hesaplanması birkaç saniye sürebilir.",
+      "generate": "Hash oluştur",
+      "generating": "Hash'leniyor…",
+      "resultLabel": "Bcrypt hash'i",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Hash anatomisi",
+        "algorithm": "algoritma",
+        "cost": "maliyet",
+        "salt": "salt (22 karakter)",
+        "hash": "hash (31 karakter)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "Kontrol edilecek parolayı girin…",
+      "hashLabel": "Bcrypt hash'i",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Karşılaştırmak için bir parola ve bir bcrypt hash'i girin.",
+      "invalidHash": "Bu, geçerli bir bcrypt hash'i gibi görünmüyor.",
+      "checking": "Karşılaştırılıyor…",
+      "match": "Eşleşti — parola bu hash'i üretiyor.",
+      "noMatch": "Eşleşmedi — parola bu hash'i üretmiyor."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod Hesaplayıcı",
+    "subtitle": "Unix dosya izinlerini onay kutuları, sekizlik ve sembolik gösterim arasında dönüştürün",
+    "grid": {
+      "title": "İzinler",
+      "read": "Okuma",
+      "write": "Yazma",
+      "execute": "Çalıştırma",
+      "owner": "Sahip",
+      "group": "Grup",
+      "others": "Diğerleri"
+    },
+    "special": {
+      "title": "Özel bitler",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "Sekizlik",
+      "placeholder": "755 veya 4755",
+      "invalid": "3 veya 4 sekizlik basamak girin (0-7)."
+    },
+    "symbolic": {
+      "label": "Sembolik",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "rwxr-xr-x gibi 9 karakter girin (s/S, t/T kabul edilir)."
+    },
+    "output": {
+      "title": "Komut",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı"
+    },
+    "explain": {
+      "line": "{cls} şunları yapabilir: {perms}.",
+      "none": "{cls} hiçbir izne sahip değil.",
+      "setuid": "setuid: dosya, sahibinin ayrıcalıklarıyla çalışır.",
+      "setgid": "setgid: dosya, grubunun ayrıcalıklarıyla çalışır (bir dizindeki yeni dosyalar onun grubunu devralır).",
+      "sticky": "sticky: bu dizin içindeki bir dosyayı yalnızca sahibi silebilir veya yeniden adlandırabilir."
+    },
+    "presets": {
+      "title": "Yaygın ön ayarlar",
+      "octal": "Sekizlik",
+      "permissions": "İzinler",
+      "description": "Tipik kullanım",
+      "p644": "Normal dosyalar: sahibi yazar, herkes okur.",
+      "p755": "Çalıştırılabilirler ve dizinler: herkes okuyabilir ve girebilir.",
+      "p600": "Özel dosyalar: yalnızca sahibi okur ve yazar.",
+      "p700": "Özel çalıştırılabilirler ve dizinler: yalnızca sahibi.",
+      "p664": "Grup tarafından yazılabilen dosyalar.",
+      "p775": "Grup tarafından yazılabilen dizinler ve çalıştırılabilirler.",
+      "p400": "Sahibi için salt okunur (ör. SSH özel anahtarları)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Kod Ekran Görüntüsü",
+    "subtitle": "Kodu güzel, paylaşılabilir görsellere dönüştürün",
+    "languageLabel": "Dil",
+    "autoDetect": "Otomatik algıla",
+    "backgroundLabel": "Arka plan",
+    "paddingLabel": "İç boşluk",
+    "filenameLabel": "Dosya adı",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Pencere noktaları",
+    "themeLabel": "Pencere teması",
+    "themeDark": "Koyu",
+    "themeLight": "Açık",
+    "scaleLabel": "Dışa aktarma ölçeği",
+    "copyImage": "Görseli kopyala",
+    "copied": "Kopyalandı",
+    "exportPng": "PNG dışa aktar",
+    "inputLabel": "Kod",
+    "detected": "Algılanan: {language}",
+    "clear": "Temizle",
+    "placeholder": "Kodunuzu buraya yapıştırın…",
+    "previewLabel": "Önizleme",
+    "emptyPreview": "Kod önizlemeniz burada görünecek",
+    "exportFailed": "Görsel dışa aktarılamadı",
+    "copyUnsupported": "Görsel kopyalama bu tarayıcıda desteklenmiyor",
+    "copyFailed": "Görsel kopyalanamadı",
+    "backgrounds": {
+      "ocean": "Okyanus",
+      "sunset": "Gün batımı",
+      "candy": "Şeker",
+      "forest": "Orman",
+      "midnight": "Gece yarısı",
+      "gold": "Altın",
+      "aurora": "Kutup ışığı",
+      "slate": "Arduvaz",
+      "transparent": "Şeffaf"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS Üreticileri",
+    "subtitle": "box-shadow, border-radius ve akışkan clamp() — CSS'i kopyalayın.",
+    "preview": "Önizleme",
+    "output": "CSS",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Akışkan clamp()"
+    },
+    "boxShadow": {
+      "presets": "Ön ayarlar",
+      "layer": "Katman",
+      "addLayer": "Katman ekle",
+      "removeLayer": "Katmanı kaldır",
+      "x": "X",
+      "y": "Y",
+      "blur": "Bulanıklık",
+      "spread": "Yayılım",
+      "color": "Renk",
+      "alpha": "Alfa",
+      "inset": "İç gölge",
+      "presetNames": {
+        "subtleCard": "İnce kart",
+        "elevated": "Yükseltilmiş",
+        "hardOffset": "Sert kaydırma",
+        "neonGlow": "Neon parıltı",
+        "inner": "İç",
+        "layeredSmooth": "Katmanlı yumuşak"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Mod",
+      "modes": {
+        "simple": "Köşe başına",
+        "blob": "Organik blob"
+      },
+      "unit": "Birim",
+      "linkCorners": "Köşeleri bağla",
+      "randomize": "Rastgele",
+      "horizontal": "Yatay yarıçaplar",
+      "vertical": "Dikey yarıçaplar",
+      "corners": {
+        "tl": "Sol üst",
+        "tr": "Sağ üst",
+        "br": "Sağ alt",
+        "bl": "Sol alt"
+      }
+    },
+    "clamp": {
+      "minFont": "Min yazı tipi (px)",
+      "maxFont": "Maks yazı tipi (px)",
+      "minViewport": "Min viewport (px)",
+      "maxViewport": "Maks viewport (px)",
+      "rootFont": "Kök yazı tipi (px)",
+      "viewportWidth": "Simüle edilen viewport",
+      "computedSize": "Hesaplanan boyut",
+      "slope": "Eğim",
+      "intercept": "Kesişim",
+      "previewText": "Önizleme için örnek metin",
+      "invalid": "Geçerli ve birbirinden farklı viewport sınırları girin."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF Görüntüleyici ve Temizleyici",
+    "subtitle": "Fotoğraf meta verilerini inceleyin ve tarayıcınızda temizleyin",
+    "dropTitle": "Bir görseli buraya bırakın",
+    "dropHint": "veya göz atmak için tıklayın — görseliniz asla cihazınızdan çıkmaz",
+    "browse": "Görsel seç",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Meta veri okunuyor…",
+    "parseFailed": "Bu görsel okunamadı",
+    "clear": "Görseli kaldır",
+    "gpsWarning": "GPS konumu içeriyor",
+    "openMap": "OpenStreetMap'te görüntüle",
+    "noMetadata": "Bu görselde gömülü meta veri bulunamadı.",
+    "facts": {
+      "name": "Ad",
+      "type": "Tür",
+      "dimensions": "Boyutlar",
+      "size": "Boyut"
+    },
+    "groups": {
+      "camera": "Kamera",
+      "exposure": "Pozlama",
+      "timestamps": "Zaman damgaları",
+      "gps": "GPS Konumu",
+      "software": "Yazılım ve Diğer"
+    },
+    "gpsCard": {
+      "latitude": "Enlem",
+      "longitude": "Boylam",
+      "altitude": "Rakım"
+    },
+    "raw": {
+      "title": "Tüm meta veriler",
+      "copyJson": "JSON kopyala",
+      "copied": "Kopyalandı"
+    },
+    "remove": {
+      "title": "Meta veriyi kaldır",
+      "jpegDescription": "Görseli yeniden sıkıştırmadan EXIF, XMP, IPTC ve yorumları kayıpsız kaldırın.",
+      "reencodeDescription": "Gömülü meta veriyi temizlemek için görseli yeniden kodlayın. Bu, pikselleri yeniden sıkıştırır.",
+      "keepIcc": "Renk profilini koru (ICC)",
+      "stripButton": "Meta veriyi temizle",
+      "reencodeButton": "Yeniden kodla ve temizle",
+      "unsupported": "Bu dosya türü için meta veri kaldırma desteklenmiyor.",
+      "failed": "Meta veri kaldırılamadı",
+      "before": "Önce",
+      "after": "Sonra",
+      "download": "Temizlenmiş görseli indir"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon Üreticisi",
+    "subtitle": "Tek bir görselden favicon ve uygulama simgeleri oluşturun",
+    "dropTitle": "Bir görseli buraya bırakın",
+    "dropHint": "PNG, JPEG veya SVG — göz atmak için tıklayın",
+    "browse": "Görsel seç",
+    "clear": "Görseli kaldır",
+    "backgroundLabel": "Arka plan",
+    "transparent": "Şeffaf",
+    "solidColor": "Düz renk",
+    "cornerLabel": "Köşe şekli",
+    "cornerNone": "Kare",
+    "cornerRounded": "Yuvarlatılmış",
+    "cornerCircle": "Daire",
+    "maskPaddingLabel": "Maskelenebilir iç boşluk",
+    "maskable": "maskable",
+    "previewLabel": "Önizleme",
+    "copy": "Kopyala",
+    "headSnippet": "HTML head parçacığı",
+    "downloadIco": "favicon.ico indir",
+    "downloadZip": "Tümünü indir (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON Karşılaştırma",
+    "subtitle": "İki JSON belgesinin anlamsal, yapı farkında karşılaştırması — anahtar sırası ve biçimlendirme yok sayılır",
+    "options": {
+      "ignoreArrayOrder": "Dizi sırasını yok say"
+    },
+    "loadBothSamples": "Örnekleri yükle",
+    "sample": "Örnek",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "formatError": "Biçimlendirilemiyor: giriş geçerli JSON değil",
+    "placeholder": "JSON'ı buraya yapıştırın veya yazın…",
+    "panels": {
+      "left": "Orijinal (sol)",
+      "right": "Değiştirilmiş (sağ)",
+      "results": "Farklar"
+    },
+    "summary": {
+      "added": "{count} eklendi",
+      "removed": "{count} kaldırıldı",
+      "changed": "{count} değişti"
+    },
+    "types": {
+      "added": "Eklendi",
+      "removed": "Kaldırıldı",
+      "changed": "Değişti"
+    },
+    "copyChanges": "JSON olarak kopyala",
+    "copied": "Kopyalandı",
+    "empty": "Farklarını görmek için her iki panele de JSON yapıştırın.",
+    "identical": "İki belge anlamsal olarak aynı."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath Oyun Alanı",
+    "subtitle": "JSON belgelerini JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün",
+    "engineLabel": "Motor",
+    "queryLabel": "Sorgu",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Kopya kâğıdı",
+    "cheats": {
+      "jpAllTitles": "Tüm kitap başlıkları",
+      "jpAllAuthors": "Belgenin herhangi bir yerindeki her yazar",
+      "jpFirstBook": "İlk kitap",
+      "jpLastBook": "Son kitap",
+      "jpSlice": "İlk iki kitap (dilim)",
+      "jpFilterPrice": "40'tan ucuz kitaplar",
+      "jpFilterInStock": "Stoktaki kitapların başlıkları",
+      "jpRecursive": "Tüm değerler, özyinelemeli",
+      "jmAllTitles": "Tüm kitap başlıkları",
+      "jmFirstAuthor": "İlk kitabın yazarı",
+      "jmLastBook": "Son kitap",
+      "jmSlice": "İlk iki kitap (dilim)",
+      "jmFilterPrice": "40'tan ucuz kitapların başlıkları",
+      "jmCount": "Stoktaki kitapları say",
+      "jmProjection": "Her kitabı yeni bir nesneye dönüştür",
+      "jmSort": "Fiyata göre sıralanmış başlıklar"
+    },
+    "panels": {
+      "input": "JSON girişi",
+      "results": "Sonuçlar"
+    },
+    "sample": "Örnek",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "formatError": "Biçimlendirilemiyor: giriş geçerli JSON değil",
+    "placeholder": "JSON'ı buraya yapıştırın veya yazın…",
+    "outputPlaceholder": "Eşleşmeler burada görünecek…",
+    "matchCount": "{count, plural, one {# eşleşme} other {# eşleşme}}",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı"
+  },
+  "KeycodeInspector": {
+    "title": "Tuş Kodu İnceleyici",
+    "subtitle": "JavaScript klavye olayını incelemek için herhangi bir tuşa basın",
+    "capture": {
+      "prompt": "Herhangi bir tuşa basın…",
+      "ready": "Dinleniyor — klavyenizde herhangi bir tuşa basın",
+      "clickToFocus": "Odaklanmak için buraya tıklayın, sonra herhangi bir tuşa basın"
+    },
+    "hero": {
+      "spaceKey": "(Boşluk)",
+      "keyLabel": "event.key",
+      "repeat": "yineleme"
+    },
+    "copyJson": "JSON kopyala",
+    "copiedJson": "Olay JSON'ı panoya kopyalandı",
+    "deprecated": "kullanımdan kaldırıldı",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standart",
+      "left": "Sol",
+      "right": "Sağ",
+      "numpad": "Sayı tuş takımı",
+      "unknown": "Bilinmiyor"
+    },
+    "history": {
+      "title": "Geçmiş",
+      "clear": "Geçmişi temizle",
+      "empty": "Tuş basmaları burada görünecek."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown Tablosu Üreticisi",
+    "subtitle": "Bir ızgarayı düzenleyin, elektronik tablodan yapıştırın ve düzgün hizalanmış bir Markdown veya HTML tablosu kopyalayın",
+    "addRow": "Satır ekle",
+    "addColumn": "Sütun ekle",
+    "importLabel": "İçe aktar",
+    "importPlaceholder": "TSV (Excel / Google Sheets'ten) veya CSV'yi buraya yapıştırın…",
+    "importButton": "Izgaraya içe aktar",
+    "pasteClipboard": "Panodan yapıştır",
+    "importEmpty": "İçe aktarılacak bir şey yok — önce birkaç satır yapıştırın",
+    "clipboardError": "Pano okunamadı",
+    "clear": "Temizle",
+    "panels": {
+      "editor": "Tablo düzenleyici",
+      "output": "Çıktı"
+    },
+    "align": {
+      "left": "Sola hizala",
+      "center": "Ortala",
+      "right": "Sağa hizala"
+    },
+    "headerPlaceholder": "Başlık",
+    "cellPlaceholder": "Hücre",
+    "removeRow": "Satırı kaldır",
+    "removeColumn": "Sütunu kaldır",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopyala",
+    "copied": "Kopyalandı"
+  },
+  "TimezoneConverter": {
+    "title": "Saat Dilimi Dönüştürücü",
+    "subtitle": "Toplantı planlaması için bir anı dünya genelinde dönüştürün.",
+    "dateTimeLabel": "Tarih ve saat",
+    "now": "Şimdi",
+    "sourceZoneLabel": "Kaynak saat dilimi",
+    "selectZone": "Dilim seç",
+    "searchZone": "Saat dilimlerinde ara...",
+    "noZone": "Saat dilimi bulunamadı.",
+    "scrubLabel": "Zamanı kaydır",
+    "reset": "Sıfırla",
+    "targetsLabel": "Hedef dilimler",
+    "addZone": "Dilim ekle",
+    "remove": "Kaldır",
+    "localBadge": "Yerel",
+    "invalidDate": "Geçerli bir tarih ve saat girin.",
+    "bands": {
+      "work": "Çalışma saatleri (09:00–18:00)",
+      "edge": "Sınır saatleri (erken / akşam)",
+      "night": "Gece"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM Token Sayacı",
+    "subtitle": "Token'ları sayın, parçaları görselleştirin ve API maliyetini tahmin edin.",
+    "inputLabel": "Metin",
+    "sample": "Örnek",
+    "clear": "Temizle",
+    "placeholder": "Token saymak için metin, kod veya JSON yapıştırın...",
+    "encoding": "Kodlama",
+    "loading": "Tokenizer yükleniyor...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token",
+      "characters": "Karakter",
+      "words": "Kelime",
+      "ratio": "Token/kelime",
+      "ratioSub": "yaklaşık"
+    },
+    "claudeRow": "Claude (yaklaşık)",
+    "estimate": "tahmin",
+    "viz": {
+      "title": "Token görselleştirme",
+      "toggle": "Göster",
+      "hint": "Her token'ı bir parça olarak renklendirmek için değiştirin.",
+      "empty": "Token'ları görselleştirmek için metin girin.",
+      "truncated": "{total} token'ın ilk {limit} tanesi gösteriliyor."
+    },
+    "cost": {
+      "title": "Maliyet hesaplayıcı",
+      "disclaimer": "düzenlenebilir varsayılanlar — güncel fiyatlandırmayı doğrulayın",
+      "model": "Model",
+      "expectedOutput": "Beklenen çıktı token'ları",
+      "customInput": "Giriş $/MTok",
+      "customOutput": "Çıkış $/MTok",
+      "inputCost": "Giriş maliyeti",
+      "outputCost": "Çıkış maliyeti",
+      "total": "Toplam",
+      "per1000": "1000 çağrı başına"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook Test Aracı",
+    "subtitle": "Geçici bir URL oluşturun ve gelen webhook isteklerini canlı inceleyin.",
+    "intro": {
+      "title": "İstekleri yakalamaya başlamak için bir webhook URL'si oluşturun",
+      "hint": "Her gelen isteği kaydeden, tahmin edilemez bir URL alacaksınız. 24 saat sonra süresi dolar."
+    },
+    "createBtn": "Webhook URL'si oluştur",
+    "creating": "Oluşturuluyor…",
+    "urlLabel": "Webhook URL'niz",
+    "expiresIn": "Süre bitişi: {countdown}",
+    "copyUrlBtn": "URL kopyala",
+    "copied": "Kopyalandı",
+    "clearBtn": "Temizle",
+    "newBinBtn": "Yeni URL",
+    "requestsTitle": "İstekler",
+    "selectPrompt": "Ayrıntılarını incelemek için bir istek seçin.",
+    "expiredNotice": "Bu webhook URL'sinin süresi doldu. Test etmeye devam etmek için yeni bir tane oluşturun.",
+    "base64Badge": "base64",
+    "truncatedBadge": "kırpıldı",
+    "empty": {
+      "title": "İstekler bekleniyor…",
+      "hint": "URL'nize bir istek gönderin ve anında burada görünsün. Bunu deneyin:"
+    },
+    "detail": {
+      "receivedAt": "Alındı",
+      "source": "Kaynak IP",
+      "contentType": "Content-Type",
+      "query": "Sorgu parametreleri",
+      "headers": "Başlıklar",
+      "body": "Gövde",
+      "copyBody": "Gövdeyi kopyala",
+      "emptyBody": "Gövde yok"
+    },
+    "errors": {
+      "createFailed": "Webhook URL'si oluşturulamadı. Lütfen tekrar deneyin.",
+      "clearFailed": "İstekler temizlenemedi. Lütfen tekrar deneyin."
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket Test Aracı",
+    "subtitle": "Bir WebSocket uç noktasına bağlanın ve mesajları canlı gönderin, alın ve inceleyin",
+    "urlLabel": "Uç nokta URL'si",
+    "protocolsLabel": "Alt protokoller",
+    "protocolsPlaceholder": "isteğe bağlı, virgülle ayrılmış",
+    "connect": "Bağlan",
+    "disconnect": "Bağlantıyı kes",
+    "status": {
+      "disconnected": "Bağlı değil",
+      "connecting": "Bağlanıyor",
+      "connected": "Bağlandı",
+      "error": "Hata"
+    },
+    "messages": {
+      "connecting": "{url} adresine bağlanılıyor…",
+      "connected": "Bağlantı kuruldu",
+      "connectedWithProtocol": "Bağlantı kuruldu (protokol: {protocol})",
+      "invalidUrl": "Geçersiz URL — ws:// veya wss:// ile başlamalı",
+      "connectFailed": "Bağlantı açılamadı",
+      "socketError": "Bir bağlantı hatası oluştu",
+      "notConnected": "Bağlı değil — önce bağlanın",
+      "binaryMessage": "İkili bir mesaj alındı"
+    },
+    "log": {
+      "title": "Mesaj Günlüğü",
+      "empty": "Henüz mesaj yok. Bağlanın ve göndermeye başlayın.",
+      "copyAll": "Tümünü kopyala",
+      "download": ".txt olarak indir",
+      "clear": "Günlüğü temizle",
+      "prettyPrint": "JSON'ı biçimlendir",
+      "showRaw": "Ham metni göster"
+    },
+    "composer": {
+      "placeholder": "Gönderilecek bir mesaj yazın…",
+      "send": "Gönder",
+      "formatJson": "JSON olarak biçimlendir",
+      "invalidJson": "Mesaj geçerli JSON değil",
+      "hint": "Göndermek için Cmd/Ctrl+Enter"
+    },
+    "ping": {
+      "label": "Otomatik ping",
+      "seconds": "sn",
+      "intervalTitle": "Saniye cinsinden ping aralığı",
+      "payloadPlaceholder": "ping yükü"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois Sorgulama",
+    "subtitle": "Herhangi bir alan adı veya IP adresinin kayıt bilgilerini RDAP üzerinden sorgulayın",
+    "placeholder": "example.com veya 8.8.8.8",
+    "lookupBtn": "Sorgula",
+    "looking": "Sorgulanıyor…",
+    "refreshBtn": "Yenile",
+    "tryLabel": "Deneyin:",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "notAvailable": "Mevcut değil",
+    "summary": {
+      "registrar": "Kayıt kuruluşu",
+      "network": "Ağ"
+    },
+    "dates": {
+      "created": "Oluşturuldu",
+      "updated": "Güncellendi",
+      "expires": "Süre bitişi"
+    },
+    "sections": {
+      "status": "Durum",
+      "nameservers": "Ad sunucuları",
+      "contacts": "Kişiler",
+      "rawRdap": "Ham RDAP"
+    },
+    "contacts": {
+      "roles": "Roller",
+      "name": "Ad",
+      "organization": "Kuruluş"
+    },
+    "errors": {
+      "invalidTarget": "Geçerli bir alan adı veya IP adresi girin",
+      "lookupFailed": "Sorgulama başarısız (durum {status})"
+    }
   }
 }

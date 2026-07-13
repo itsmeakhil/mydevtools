@@ -82,7 +82,6 @@ async def create_note(ctx: WorkspaceContext, body: NoteCreate) -> NoteOut:
     doc = {
         "_id": note_id,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "title": body.title or "Untitled",

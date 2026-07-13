@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { completeOnboarding, savePersona } from "@/lib/onboarding-api"
-import { useToolVisibilityStore } from "@/store/tool-visibility-store"
 import { usePinnedToolsStore } from "@/store/pinned-tools-store"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { patchUserPreferences } from "@/lib/user-preferences-api"
@@ -663,7 +662,6 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
   const [completing, setCompleting] = useState(false)
   const [celebrating, setCelebrating] = useState(false)
 
-  const setEnabledTools = useToolVisibilityStore((s) => s.setEnabledTools)
   const setPinnedTools = usePinnedToolsStore((s) => s.setPinnedTools)
   const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
 
@@ -728,15 +726,13 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
     // Final step complete
     setCompleting(true)
     try {
+      // Every tool the user selected becomes a sidebar pin for the active
+      // workspace — pins are now the sole "which tools show" mechanism.
       const tools = Array.from(selectedUrls)
-      setEnabledTools(tools)
-      // Role's core tools become the pinned set for the active workspace —
-      // this is what makes the first dashboard feel personally curated.
-      const pins = (role?.pins ?? []).filter((p) => selectedUrls.has(p))
-      const prefsPatch: Parameters<typeof patchUserPreferences>[0] = { enabledTools: tools }
-      if (activeWorkspaceId && pins.length) {
-        setPinnedTools(activeWorkspaceId, pins)
-        prefsPatch.pinnedToolsByWorkspace = { [activeWorkspaceId]: pins }
+      const prefsPatch: Parameters<typeof patchUserPreferences>[0] = {}
+      if (activeWorkspaceId && tools.length) {
+        setPinnedTools(activeWorkspaceId, tools)
+        prefsPatch.pinnedToolsByWorkspace = { [activeWorkspaceId]: tools }
       }
       const trimmedName = name.trim()
       await Promise.all([

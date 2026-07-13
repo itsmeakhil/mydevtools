@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod-beregner",
+    "codeScreenshot": "Kodeskærmbillede",
+    "cssGenerators": "CSS-generatorer",
+    "exifViewer": "EXIF-fremviser",
+    "faviconGenerator": "Favicon-generator",
+    "jsonDiff": "JSON-diff",
+    "jsonpathPlayground": "JSONPath-legeplads",
+    "keycodeInspector": "Tastekode-inspektør",
+    "markdownTableGenerator": "Markdown-tabel",
+    "timezoneConverter": "Tidszonekonverter",
+    "tokenCounter": "Token-tæller",
+    "webhookTester": "Webhook-tester",
+    "websocketTester": "WebSocket-tester",
+    "whoisLookup": "Whois-opslag"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt-generator og -kontrol",
+        "description": "Hash adgangskoder med bcrypt, og verificér eksisterende hashes."
+      },
+      "chmodCalculator": {
+        "title": "Chmod-beregner",
+        "description": "Konvertér Unix-tilladelser mellem oktal, symbolsk notation og afkrydsningsfelter."
+      },
+      "codeScreenshot": {
+        "title": "Kodeskærmbillede",
+        "description": "Forvandl kildekode til smukke, delbare billeder."
+      },
+      "cssGenerators": {
+        "title": "CSS-generatorer",
+        "description": "Generatorer til box-shadow, border-radius og flydende clamp()."
+      },
+      "exifViewer": {
+        "title": "EXIF-fremviser og -fjerner",
+        "description": "Inspicér og fjern EXIF-metadata fra fotos lokalt."
+      },
+      "faviconGenerator": {
+        "title": "Favicon-generator",
+        "description": "Generér favicons, app-ikoner og manifest-uddrag."
+      },
+      "jsonDiff": {
+        "title": "JSON-diff",
+        "description": "Semantisk, strukturbevidst sammenligning af to JSON-dokumenter."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath-legeplads",
+        "description": "Forespørg JSON med JSONPath eller JMESPath, og se resultater live."
+      },
+      "keycodeInspector": {
+        "title": "Tastekode-inspektør",
+        "description": "Tryk på en tast for at se dens JavaScript-hændelseskoder og modifikatorer."
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown-tabelgenerator",
+        "description": "Byg Markdown- og HTML-tabeller i en regnearkslignende gittereditor."
+      },
+      "timezoneConverter": {
+        "title": "Tidszonekonverter",
+        "description": "Konvertér et tidspunkt på tværs af mange zoner med dagsforskydning og arbejdstidsmarkeringer."
+      },
+      "tokenCounter": {
+        "title": "LLM-token-tæller",
+        "description": "Tæl LLM-tokens, visualisér chunks, og estimér API-omkostninger."
+      },
+      "webhookTester": {
+        "title": "Webhook-tester",
+        "description": "Opfang og inspicér indgående webhook-anmodninger i realtid."
+      },
+      "websocketTester": {
+        "title": "WebSocket-tester",
+        "description": "Forbind til WebSocket-endpoints, og udveksl beskeder i realtid."
+      },
+      "whoisLookup": {
+        "title": "Whois-opslag",
+        "description": "Slå registreringsoplysninger for domæner og IP-adresser op via RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt-generator og -kontrol",
+    "subtitle": "Hash adgangskoder med bcrypt, og verificér hashes — alt bliver i din browser",
+    "tabs": {
+      "hash": "Hash",
+      "verify": "Verificér"
+    },
+    "showPassword": "Vis adgangskode",
+    "hidePassword": "Skjul adgangskode",
+    "copy": "Kopiér",
+    "copied": "Kopieret",
+    "hash": {
+      "passwordLabel": "Adgangskode",
+      "passwordPlaceholder": "Indtast en adgangskode, der skal hashes…",
+      "costLabel": "Omkostningsfaktor",
+      "costHint": "Højere omkostning fordobler arbejdet pr. trin. 10-12 er et almindeligt valg til produktion.",
+      "slowWarning": "Omkostningsfaktorer på 13 og derover kan tage flere sekunder at beregne.",
+      "generate": "Generér hash",
+      "generating": "Hasher…",
+      "resultLabel": "Bcrypt-hash",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Hash-anatomi",
+        "algorithm": "algoritme",
+        "cost": "omkostning",
+        "salt": "salt (22 tegn)",
+        "hash": "hash (31 tegn)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Adgangskode",
+      "passwordPlaceholder": "Indtast adgangskoden, der skal kontrolleres…",
+      "hashLabel": "Bcrypt-hash",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Indtast en adgangskode og en bcrypt-hash for at sammenligne dem.",
+      "invalidHash": "Dette ligner ikke en gyldig bcrypt-hash.",
+      "checking": "Sammenligner…",
+      "match": "Match — adgangskoden producerer denne hash.",
+      "noMatch": "Intet match — adgangskoden producerer ikke denne hash."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod-beregner",
+    "subtitle": "Konvertér Unix-filtilladelser mellem afkrydsningsfelter, oktal og symbolsk notation",
+    "grid": {
+      "title": "Tilladelser",
+      "read": "Læs",
+      "write": "Skriv",
+      "execute": "Kør",
+      "owner": "Ejer",
+      "group": "Gruppe",
+      "others": "Andre"
+    },
+    "special": {
+      "title": "Specielle bits",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Oktal",
+      "placeholder": "755 eller 4755",
+      "invalid": "Indtast 3 eller 4 oktale cifre (0-7)."
+    },
+    "symbolic": {
+      "label": "Symbolsk",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Indtast 9 tegn som rwxr-xr-x (s/S, t/T tilladt)."
+    },
+    "output": {
+      "title": "Kommando",
+      "copy": "Kopiér",
+      "copied": "Kopieret"
+    },
+    "explain": {
+      "line": "{cls} kan {perms}.",
+      "none": "{cls} har ingen tilladelser.",
+      "setuid": "Setuid: filen kører med ejerens rettigheder.",
+      "setgid": "Setgid: filen kører med gruppens rettigheder (nye filer i en mappe arver dens gruppe).",
+      "sticky": "Sticky: kun en fils ejer kan slette eller omdøbe den i denne mappe."
+    },
+    "presets": {
+      "title": "Almindelige forudindstillinger",
+      "octal": "Oktal",
+      "permissions": "Tilladelser",
+      "description": "Typisk brug",
+      "p644": "Almindelige filer: ejeren skriver, alle læser.",
+      "p755": "Eksekverbare filer og mapper: alle kan læse og gå ind.",
+      "p600": "Private filer: kun ejeren læser og skriver.",
+      "p700": "Private eksekverbare filer og mapper: kun ejeren.",
+      "p664": "Gruppe-skrivbare filer.",
+      "p775": "Gruppe-skrivbare mapper og eksekverbare filer.",
+      "p400": "Skrivebeskyttet for ejeren (f.eks. private SSH-nøgler)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Kodeskærmbillede",
+    "subtitle": "Forvandl kode til smukke, delbare billeder",
+    "languageLabel": "Sprog",
+    "autoDetect": "Automatisk registrering",
+    "backgroundLabel": "Baggrund",
+    "paddingLabel": "Udfyldning",
+    "filenameLabel": "Filnavn",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Vinduesprikker",
+    "themeLabel": "Vinduestema",
+    "themeDark": "Mørkt",
+    "themeLight": "Lyst",
+    "scaleLabel": "Eksportskala",
+    "copyImage": "Kopiér billede",
+    "copied": "Kopieret",
+    "exportPng": "Eksportér PNG",
+    "inputLabel": "Kode",
+    "detected": "Registreret: {language}",
+    "clear": "Ryd",
+    "placeholder": "Indsæt din kode her…",
+    "previewLabel": "Forhåndsvisning",
+    "emptyPreview": "Forhåndsvisningen af din kode vises her",
+    "exportFailed": "Kunne ikke eksportere billede",
+    "copyUnsupported": "Kopiering af billeder understøttes ikke i denne browser",
+    "copyFailed": "Kunne ikke kopiere billede",
+    "backgrounds": {
+      "ocean": "Ocean",
+      "sunset": "Solnedgang",
+      "candy": "Slik",
+      "forest": "Skov",
+      "midnight": "Midnat",
+      "gold": "Guld",
+      "aurora": "Nordlys",
+      "slate": "Skifer",
+      "transparent": "Gennemsigtig"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS-generatorer",
+    "subtitle": "Box-shadow, border-radius og flydende clamp() — kopiér CSS'en.",
+    "preview": "Forhåndsvisning",
+    "output": "CSS",
+    "copy": "Kopiér",
+    "copied": "Kopieret",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Flydende clamp()"
+    },
+    "boxShadow": {
+      "presets": "Forudindstillinger",
+      "layer": "Lag",
+      "addLayer": "Tilføj lag",
+      "removeLayer": "Fjern lag",
+      "x": "X",
+      "y": "Y",
+      "blur": "Sløring",
+      "spread": "Spredning",
+      "color": "Farve",
+      "alpha": "Alfa",
+      "inset": "Indvendig",
+      "presetNames": {
+        "subtleCard": "Diskret kort",
+        "elevated": "Hævet",
+        "hardOffset": "Hård forskydning",
+        "neonGlow": "Neonglød",
+        "inner": "Indvendig",
+        "layeredSmooth": "Lagdelt blød"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Tilstand",
+      "modes": {
+        "simple": "Pr. hjørne",
+        "blob": "Organisk klat"
+      },
+      "unit": "Enhed",
+      "linkCorners": "Sammenkæd hjørner",
+      "randomize": "Tilfældiggør",
+      "horizontal": "Vandrette radier",
+      "vertical": "Lodrette radier",
+      "corners": {
+        "tl": "Øverst til venstre",
+        "tr": "Øverst til højre",
+        "br": "Nederst til højre",
+        "bl": "Nederst til venstre"
+      }
+    },
+    "clamp": {
+      "minFont": "Min. skrift (px)",
+      "maxFont": "Maks. skrift (px)",
+      "minViewport": "Min. viewport (px)",
+      "maxViewport": "Maks. viewport (px)",
+      "rootFont": "Rodskrift (px)",
+      "viewportWidth": "Simuleret viewport",
+      "computedSize": "Beregnet størrelse",
+      "slope": "Hældning",
+      "intercept": "Skæring",
+      "previewText": "Quizdeltagerne spiste jordbær",
+      "invalid": "Indtast gyldige, forskellige viewport-grænser."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF-fremviser og -fjerner",
+    "subtitle": "Inspicér fotos' metadata, og fjern dem i din browser",
+    "dropTitle": "Slip et billede her",
+    "dropHint": "eller klik for at gennemse — dit billede forlader aldrig din enhed",
+    "browse": "Vælg billede",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Læser metadata…",
+    "parseFailed": "Kunne ikke læse dette billede",
+    "clear": "Fjern billede",
+    "gpsWarning": "Indeholder GPS-placering",
+    "openMap": "Vis på OpenStreetMap",
+    "noMetadata": "Der blev ikke fundet nogen indlejrede metadata i dette billede.",
+    "facts": {
+      "name": "Navn",
+      "type": "Type",
+      "dimensions": "Dimensioner",
+      "size": "Størrelse"
+    },
+    "groups": {
+      "camera": "Kamera",
+      "exposure": "Eksponering",
+      "timestamps": "Tidsstempler",
+      "gps": "GPS-placering",
+      "software": "Software og andet"
+    },
+    "gpsCard": {
+      "latitude": "Breddegrad",
+      "longitude": "Længdegrad",
+      "altitude": "Højde"
+    },
+    "raw": {
+      "title": "Alle metadata",
+      "copyJson": "Kopiér JSON",
+      "copied": "Kopieret"
+    },
+    "remove": {
+      "title": "Fjern metadata",
+      "jpegDescription": "Fjern EXIF, XMP, IPTC og kommentarer tabsfrit uden at genkomprimere billedet.",
+      "reencodeDescription": "Genkod billedet for at fjerne indlejrede metadata. Dette genkomprimerer pixels.",
+      "keepIcc": "Behold farveprofil (ICC)",
+      "stripButton": "Fjern metadata",
+      "reencodeButton": "Genkod og fjern",
+      "unsupported": "Fjernelse af metadata understøttes ikke for denne filtype.",
+      "failed": "Kunne ikke fjerne metadata",
+      "before": "Før",
+      "after": "Efter",
+      "download": "Download renset billede"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon-generator",
+    "subtitle": "Opret favicons og app-ikoner ud fra ét billede",
+    "dropTitle": "Slip et billede her",
+    "dropHint": "PNG, JPEG eller SVG — klik for at gennemse",
+    "browse": "Vælg billede",
+    "clear": "Fjern billede",
+    "backgroundLabel": "Baggrund",
+    "transparent": "Gennemsigtig",
+    "solidColor": "Ensfarvet",
+    "cornerLabel": "Hjørneform",
+    "cornerNone": "Firkantet",
+    "cornerRounded": "Afrundet",
+    "cornerCircle": "Cirkel",
+    "maskPaddingLabel": "Maskerbar udfyldning",
+    "maskable": "maskable",
+    "previewLabel": "Forhåndsvisning",
+    "copy": "Kopiér",
+    "headSnippet": "HTML head-uddrag",
+    "downloadIco": "Download favicon.ico",
+    "downloadZip": "Download alle (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON-diff",
+    "subtitle": "Semantisk, strukturbevidst sammenligning af to JSON-dokumenter — nøglerækkefølge og formatering ignoreres",
+    "options": {
+      "ignoreArrayOrder": "Ignorér array-rækkefølge"
+    },
+    "loadBothSamples": "Indlæs eksempler",
+    "sample": "Eksempel",
+    "format": "Format",
+    "clear": "Ryd",
+    "formatError": "Kan ikke formatere: input er ikke gyldig JSON",
+    "placeholder": "Indsæt eller skriv JSON her…",
+    "panels": {
+      "left": "Original (venstre)",
+      "right": "Ændret (højre)",
+      "results": "Forskelle"
+    },
+    "summary": {
+      "added": "{count} tilføjet",
+      "removed": "{count} fjernet",
+      "changed": "{count} ændret"
+    },
+    "types": {
+      "added": "Tilføjet",
+      "removed": "Fjernet",
+      "changed": "Ændret"
+    },
+    "copyChanges": "Kopiér som JSON",
+    "copied": "Kopieret",
+    "empty": "Indsæt JSON i begge paneler for at se deres forskelle.",
+    "identical": "De to dokumenter er semantisk identiske."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath-legeplads",
+    "subtitle": "Forespørg JSON-dokumenter med JSONPath eller JMESPath, og se resultater live",
+    "engineLabel": "Motor",
+    "queryLabel": "Forespørgsel",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Snydeark",
+    "cheats": {
+      "jpAllTitles": "Alle bogtitler",
+      "jpAllAuthors": "Hver forfatter, hvor som helst i dokumentet",
+      "jpFirstBook": "Første bog",
+      "jpLastBook": "Sidste bog",
+      "jpSlice": "De første to bøger (udsnit)",
+      "jpFilterPrice": "Bøger billigere end 40",
+      "jpFilterInStock": "Titler på bøger på lager",
+      "jpRecursive": "Alle værdier, rekursivt",
+      "jmAllTitles": "Alle bogtitler",
+      "jmFirstAuthor": "Forfatter af den første bog",
+      "jmLastBook": "Sidste bog",
+      "jmSlice": "De første to bøger (udsnit)",
+      "jmFilterPrice": "Titler på bøger billigere end 40",
+      "jmCount": "Antal bøger på lager",
+      "jmProjection": "Omform hver bog til et nyt objekt",
+      "jmSort": "Titler sorteret efter pris"
+    },
+    "panels": {
+      "input": "JSON-input",
+      "results": "Resultater"
+    },
+    "sample": "Eksempel",
+    "format": "Format",
+    "clear": "Ryd",
+    "formatError": "Kan ikke formatere: input er ikke gyldig JSON",
+    "placeholder": "Indsæt eller skriv JSON her…",
+    "outputPlaceholder": "Match vises her…",
+    "matchCount": "{count, plural, one {# match} other {# match}}",
+    "copy": "Kopiér",
+    "copied": "Kopieret"
+  },
+  "KeycodeInspector": {
+    "title": "Tastekode-inspektør",
+    "subtitle": "Tryk på en vilkårlig tast for at inspicere dens JavaScript-tastaturhændelse",
+    "capture": {
+      "prompt": "Tryk på en vilkårlig tast…",
+      "ready": "Lytter — tryk på en vilkårlig tast på dit tastatur",
+      "clickToFocus": "Klik her for at fokusere, og tryk derefter på en vilkårlig tast"
+    },
+    "hero": {
+      "spaceKey": "(Mellemrum)",
+      "keyLabel": "event.key",
+      "repeat": "gentagelse"
+    },
+    "copyJson": "Kopiér JSON",
+    "copiedJson": "Hændelses-JSON kopieret til udklipsholder",
+    "deprecated": "forældet",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standard",
+      "left": "Venstre",
+      "right": "Højre",
+      "numpad": "Numerisk tastatur",
+      "unknown": "Ukendt"
+    },
+    "history": {
+      "title": "Historik",
+      "clear": "Ryd historik",
+      "empty": "Tastetryk vises her."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown-tabelgenerator",
+    "subtitle": "Rediger et gitter, indsæt fra et regneark, og kopiér en pænt justeret Markdown- eller HTML-tabel",
+    "addRow": "Tilføj række",
+    "addColumn": "Tilføj kolonne",
+    "importLabel": "Importér",
+    "importPlaceholder": "Indsæt TSV (fra Excel / Google Sheets) eller CSV her…",
+    "importButton": "Importér til gitter",
+    "pasteClipboard": "Indsæt fra udklipsholder",
+    "importEmpty": "Intet at importere — indsæt nogle rækker først",
+    "clipboardError": "Kunne ikke læse fra udklipsholderen",
+    "clear": "Ryd",
+    "panels": {
+      "editor": "Tabeleditor",
+      "output": "Output"
+    },
+    "align": {
+      "left": "Justér venstre",
+      "center": "Centrér",
+      "right": "Justér højre"
+    },
+    "headerPlaceholder": "Overskrift",
+    "cellPlaceholder": "Celle",
+    "removeRow": "Fjern række",
+    "removeColumn": "Fjern kolonne",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopiér",
+    "copied": "Kopieret"
+  },
+  "TimezoneConverter": {
+    "title": "Tidszonekonverter",
+    "subtitle": "Konvertér ét øjeblik på tværs af verden til mødeplanlægning.",
+    "dateTimeLabel": "Dato og tid",
+    "now": "Nu",
+    "sourceZoneLabel": "Kilde-tidszone",
+    "selectZone": "Vælg zone",
+    "searchZone": "Søg tidszoner...",
+    "noZone": "Ingen tidszone fundet.",
+    "scrubLabel": "Forskyd tid",
+    "reset": "Nulstil",
+    "targetsLabel": "Målzoner",
+    "addZone": "Tilføj zone",
+    "remove": "Fjern",
+    "localBadge": "Lokal",
+    "invalidDate": "Indtast en gyldig dato og tid.",
+    "bands": {
+      "work": "Arbejdstid (09:00–18:00)",
+      "edge": "Randtimer (tidligt / aften)",
+      "night": "Nat"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM-token-tæller",
+    "subtitle": "Tæl tokens, visualisér chunks, og estimér API-omkostninger.",
+    "inputLabel": "Tekst",
+    "sample": "Eksempel",
+    "clear": "Ryd",
+    "placeholder": "Indsæt tekst, kode eller JSON for at tælle tokens...",
+    "encoding": "Kodning",
+    "loading": "Indlæser tokenizer...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-serien)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokens",
+      "characters": "Tegn",
+      "words": "Ord",
+      "ratio": "Tokens/ord",
+      "ratioSub": "cirka"
+    },
+    "claudeRow": "Claude (omtrentlig)",
+    "estimate": "estimat",
+    "viz": {
+      "title": "Token-visualisering",
+      "toggle": "Vis",
+      "hint": "Slå til for at farve hvert token som en chunk.",
+      "empty": "Indtast tekst for at visualisere tokens.",
+      "truncated": "Viser de første {limit} af {total} tokens."
+    },
+    "cost": {
+      "title": "Omkostningsberegner",
+      "disclaimer": "redigerbare standardværdier — verificér aktuelle priser",
+      "model": "Model",
+      "expectedOutput": "Forventede output-tokens",
+      "customInput": "Input $/MTok",
+      "customOutput": "Output $/MTok",
+      "inputCost": "Input-omkostning",
+      "outputCost": "Output-omkostning",
+      "total": "I alt",
+      "per1000": "Pr. 1000 kald"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook-tester",
+    "subtitle": "Opret en midlertidig URL, og inspicér indgående webhook-anmodninger live.",
+    "intro": {
+      "title": "Opret en webhook-URL for at begynde at opfange anmodninger",
+      "hint": "Du får en ugættelig URL, der registrerer hver indgående anmodning. Den udløber efter 24 timer."
+    },
+    "createBtn": "Opret webhook-URL",
+    "creating": "Opretter…",
+    "urlLabel": "Din webhook-URL",
+    "expiresIn": "Udløber om {countdown}",
+    "copyUrlBtn": "Kopiér URL",
+    "copied": "Kopieret",
+    "clearBtn": "Ryd",
+    "newBinBtn": "Ny URL",
+    "requestsTitle": "Anmodninger",
+    "selectPrompt": "Vælg en anmodning for at inspicere dens detaljer.",
+    "expiredNotice": "Denne webhook-URL er udløbet. Opret en ny for at fortsætte med at teste.",
+    "base64Badge": "base64",
+    "truncatedBadge": "afkortet",
+    "empty": {
+      "title": "Venter på anmodninger…",
+      "hint": "Send en anmodning til din URL, så vises den her med det samme. Prøv dette:"
+    },
+    "detail": {
+      "receivedAt": "Modtaget",
+      "source": "Kilde-IP",
+      "contentType": "Content-Type",
+      "query": "Forespørgselsparametre",
+      "headers": "Headers",
+      "body": "Body",
+      "copyBody": "Kopiér body",
+      "emptyBody": "Ingen body"
+    },
+    "errors": {
+      "createFailed": "Kunne ikke oprette webhook-URL. Prøv igen.",
+      "clearFailed": "Kunne ikke rydde anmodninger. Prøv igen."
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket-tester",
+    "subtitle": "Forbind til et WebSocket-endpoint, og send, modtag og inspicér beskeder live",
+    "urlLabel": "Endpoint-URL",
+    "protocolsLabel": "Subprotokoller",
+    "protocolsPlaceholder": "valgfrit, kommasepareret",
+    "connect": "Forbind",
+    "disconnect": "Afbryd",
+    "status": {
+      "disconnected": "Afbrudt",
+      "connecting": "Forbinder",
+      "connected": "Forbundet",
+      "error": "Fejl"
+    },
+    "messages": {
+      "connecting": "Forbinder til {url}…",
+      "connected": "Forbindelse etableret",
+      "connectedWithProtocol": "Forbindelse etableret (protokol: {protocol})",
+      "invalidUrl": "Ugyldig URL — skal begynde med ws:// eller wss://",
+      "connectFailed": "Kunne ikke åbne forbindelsen",
+      "socketError": "Der opstod en forbindelsesfejl",
+      "notConnected": "Ikke forbundet — forbind først",
+      "binaryMessage": "Modtog en binær besked"
+    },
+    "log": {
+      "title": "Beskedlog",
+      "empty": "Ingen beskeder endnu. Forbind, og begynd at sende.",
+      "copyAll": "Kopiér alle",
+      "download": "Download som .txt",
+      "clear": "Ryd log",
+      "prettyPrint": "Formatér JSON pænt",
+      "showRaw": "Vis rå tekst"
+    },
+    "composer": {
+      "placeholder": "Skriv en besked, der skal sendes…",
+      "send": "Send",
+      "formatJson": "Formatér som JSON",
+      "invalidJson": "Beskeden er ikke gyldig JSON",
+      "hint": "Cmd/Ctrl+Enter for at sende"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "sek",
+      "intervalTitle": "Ping-interval i sekunder",
+      "payloadPlaceholder": "ping-payload"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois-opslag",
+    "subtitle": "Slå registreringsoplysninger op for ethvert domæne eller IP-adresse via RDAP",
+    "placeholder": "example.com eller 8.8.8.8",
+    "lookupBtn": "Slå op",
+    "looking": "Slår op…",
+    "refreshBtn": "Opdatér",
+    "tryLabel": "Prøv:",
+    "copy": "Kopiér",
+    "copied": "Kopieret",
+    "notAvailable": "Ikke tilgængelig",
+    "summary": {
+      "registrar": "Registrator",
+      "network": "Netværk"
+    },
+    "dates": {
+      "created": "Oprettet",
+      "updated": "Opdateret",
+      "expires": "Udløber"
+    },
+    "sections": {
+      "status": "Status",
+      "nameservers": "Navneservere",
+      "contacts": "Kontakter",
+      "rawRdap": "Rå RDAP"
+    },
+    "contacts": {
+      "roles": "Roller",
+      "name": "Navn",
+      "organization": "Organisation"
+    },
+    "errors": {
+      "invalidTarget": "Indtast et gyldigt domænenavn eller IP-adresse",
+      "lookupFailed": "Opslag mislykkedes (status {status})"
+    }
   }
 }

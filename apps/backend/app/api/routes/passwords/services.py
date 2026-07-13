@@ -79,7 +79,6 @@ async def setup_vault(ctx: WorkspaceContext, body: VaultSetupRequest) -> VaultOu
 
     doc: dict[str, Any] = {
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "salt": body.salt,
@@ -113,7 +112,6 @@ async def create_entry(ctx: WorkspaceContext, body: PasswordEntryCreate) -> Pass
     doc: dict[str, Any] = {
         "_id": eid,
         "created_by": ctx.uid,
-        "org_id": ctx.org_id,
         "workspace_id": ctx.workspace_id,
         "owner_uid": ctx.uid,
         "encryptedData": body.encryptedData,

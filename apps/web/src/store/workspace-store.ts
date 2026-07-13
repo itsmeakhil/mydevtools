@@ -2,10 +2,8 @@
 import { create } from "zustand"
 import { persist, createJSONStorage } from "zustand/middleware"
 import {
-  listOrgs,
   listWorkspaces,
   setActiveWorkspace as setActiveAPI,
-  type Org,
   type Workspace,
 } from "@/lib/workspace-api"
 import {
@@ -14,7 +12,6 @@ import {
 } from "@/lib/workspace-broadcast"
 
 type State = {
-  orgs: Org[]
   workspaces: Workspace[]
   activeWorkspaceId: string | null
   hydrated: boolean
@@ -24,7 +21,6 @@ type State = {
 type Actions = {
   loadFromBackend: () => Promise<void>
   setActiveWorkspace: (workspaceId: string) => Promise<void>
-  setActiveOrg: (orgId: string) => Promise<void>
   clear: () => void
   subscribeOnce: () => void
 }
@@ -37,19 +33,17 @@ function pickDefault(workspaces: Workspace[]): string | null {
 export const useWorkspaceStore = create<State & Actions>()(
   persist(
     (set, get) => ({
-  orgs: [],
   workspaces: [],
   activeWorkspaceId: null,
   hydrated: false,
   _broadcastSubscribed: false,
 
   async loadFromBackend() {
-    const [orgs, workspaces] = await Promise.all([listOrgs(), listWorkspaces()])
+    const workspaces = await listWorkspaces()
     const current = get().activeWorkspaceId
     const stillValid = current && workspaces.some((w) => w.id === current)
     const resolvedId = stillValid ? current : pickDefault(workspaces)
     set({
-      orgs,
       workspaces,
       activeWorkspaceId: resolvedId,
       hydrated: true,
@@ -77,20 +71,8 @@ export const useWorkspaceStore = create<State & Actions>()(
     }
   },
 
-  async setActiveOrg(orgId: string) {
-    // Pick a workspace in that org — prefer the user's personal workspace there,
-    // else the first one. The active-workspace switch is what flips the org too.
-    const { workspaces, activeWorkspaceId } = get()
-    const inOrg = workspaces.filter((w) => w.org_id === orgId)
-    if (inOrg.length === 0) return
-    const current = workspaces.find((w) => w.id === activeWorkspaceId)
-    if (current?.org_id === orgId) return
-    const target = inOrg.find((w) => w.is_personal) ?? inOrg[0]
-    await get().setActiveWorkspace(target.id)
-  },
-
   clear() {
-    set({ orgs: [], workspaces: [], activeWorkspaceId: null, hydrated: false })
+    set({ workspaces: [], activeWorkspaceId: null, hydrated: false })
   },
 
   subscribeOnce() {
@@ -112,7 +94,7 @@ export const useWorkspaceStore = create<State & Actions>()(
     {
       name: "mdt-workspace-store",
       // Persist ONLY the active workspace id so reloads keep the user's choice.
-      // Orgs/workspaces lists come fresh from backend on every mount.
+      // The workspace list comes fresh from backend on every mount.
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({ activeWorkspaceId: state.activeWorkspaceId }),
     },
@@ -126,14 +108,6 @@ export const useActiveWorkspace = (): Workspace | null => {
   return useWorkspaceStore((s) => {
     if (!s.activeWorkspaceId) return null
     return s.workspaces.find((w) => w.id === s.activeWorkspaceId) ?? null
-  })
-}
-
-export const useActiveOrg = (): Org | null => {
-  return useWorkspaceStore((s) => {
-    const ws = s.workspaces.find((w) => w.id === s.activeWorkspaceId)
-    if (!ws) return null
-    return s.orgs.find((o) => o.id === ws.org_id) ?? null
   })
 }
 

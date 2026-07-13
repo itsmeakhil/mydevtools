@@ -1,15 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { Building2, Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useWorkspaceStore } from "@/store/workspace-store"
-import { OrgSection } from "./org-section"
-import { CreateOrgDialog } from "@/components/create-org-dialog"
+import { useEffect } from "react"
+import { Briefcase, ShieldCheck } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { useWorkspaceStore, useActiveWorkspace } from "@/store/workspace-store"
 
 export default function WorkspacesSettingsPage() {
-  const { orgs, hydrated, loadFromBackend } = useWorkspaceStore()
-  const [createOrgOpen, setCreateOrgOpen] = useState(false)
+  const { hydrated, loadFromBackend } = useWorkspaceStore()
+  const workspace = useActiveWorkspace()
 
   useEffect(() => {
     if (!hydrated) {
@@ -23,60 +21,58 @@ export default function WorkspacesSettingsPage() {
       <div className="space-y-1.5">
         <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
-          Collaboration
+          Workspace
         </p>
         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
-          Organizations &amp; Workspaces
+          Your Workspace
         </h2>
         <p className="text-muted-foreground">
-          Manage your organisations, workspaces, and team members.
+          All your tools and data live in your personal workspace.
         </p>
       </div>
 
-      {/* Org list */}
-      <div className="space-y-6">
-        {orgs.length === 0 && hydrated ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/60 py-12 text-center">
-            <Building2 className="h-10 w-10 text-muted-foreground/50 mb-3" />
-            <p className="text-sm font-medium text-muted-foreground">
-              No organisations yet
-            </p>
-            <p className="text-xs text-muted-foreground mt-1 mb-4">
-              Create your first organisation to start collaborating.
-            </p>
-            <Button
-              variant="default"
-              size="sm"
-              className="rounded-full gap-2"
-              onClick={() => setCreateOrgOpen(true)}
-            >
-              <Plus className="h-3.5 w-3.5" />
-              New Organisation
-            </Button>
+      {/* Personal workspace card */}
+      <div className="rounded-2xl border border-border/50 bg-background/50 p-5">
+        {workspace ? (
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted">
+              <Briefcase className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <h4 className="font-medium truncate">{workspace.name}</h4>
+                <Badge variant="outline" className="shrink-0 text-[10px]">
+                  Personal
+                </Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Private to you — only you can access this data.
+              </p>
+            </div>
           </div>
         ) : (
-          <>
-            {orgs.map((org) => (
-              <OrgSection key={org.id} org={org} />
-            ))}
-
-            {/* Footer CTA */}
-            <div className="flex justify-start pt-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="rounded-full gap-2"
-                onClick={() => setCreateOrgOpen(true)}
-              >
-                <Plus className="h-3.5 w-3.5" />
-                New Organisation
-              </Button>
-            </div>
-          </>
+          <p className="text-sm text-muted-foreground">
+            {hydrated ? "No workspace found." : "Loading…"}
+          </p>
         )}
       </div>
 
-      <CreateOrgDialog open={createOrgOpen} onOpenChange={setCreateOrgOpen} />
+      {/* Encryption note */}
+      <div className="rounded-2xl border border-border/50 bg-background/50 p-5">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted">
+            <ShieldCheck className="h-5 w-5 text-muted-foreground" />
+          </div>
+          <div className="space-y-1">
+            <h4 className="font-medium">Encrypted tools</h4>
+            <p className="text-sm text-muted-foreground">
+              Password Manager, API Key Vault, and Environment Manager are
+              end-to-end encrypted with your master password. Set or unlock your
+              master password to use them.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

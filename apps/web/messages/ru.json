@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Калькулятор Chmod",
+    "codeScreenshot": "Скриншот кода",
+    "cssGenerators": "Генераторы CSS",
+    "exifViewer": "Просмотр EXIF",
+    "faviconGenerator": "Генератор favicon",
+    "jsonDiff": "Сравнение JSON",
+    "jsonpathPlayground": "Песочница JSONPath",
+    "keycodeInspector": "Инспектор клавиш",
+    "markdownTableGenerator": "Таблица Markdown",
+    "timezoneConverter": "Конвертер часовых поясов",
+    "tokenCounter": "Счётчик токенов",
+    "webhookTester": "Тестер вебхуков",
+    "websocketTester": "Тестер WebSocket",
+    "whoisLookup": "Whois-запрос"
   },
   "Help": {
     "title": "Справка и документация",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Генератор и проверка Bcrypt",
+        "description": "Хешируйте пароли с помощью bcrypt и проверяйте существующие хеши."
+      },
+      "chmodCalculator": {
+        "title": "Калькулятор Chmod",
+        "description": "Преобразуйте права Unix между восьмеричной, символьной формой и флажками."
+      },
+      "codeScreenshot": {
+        "title": "Скриншот кода",
+        "description": "Превращайте исходный код в красивые изображения для публикации."
+      },
+      "cssGenerators": {
+        "title": "Генераторы CSS",
+        "description": "Генераторы box-shadow, border-radius и адаптивного clamp()."
+      },
+      "exifViewer": {
+        "title": "Просмотр и удаление EXIF",
+        "description": "Просматривайте и удаляйте метаданные EXIF из фото локально."
+      },
+      "faviconGenerator": {
+        "title": "Генератор favicon",
+        "description": "Создавайте favicon, иконки приложений и фрагменты манифеста."
+      },
+      "jsonDiff": {
+        "title": "Сравнение JSON",
+        "description": "Семантическое, учитывающее структуру сравнение двух документов JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Песочница JSONPath",
+        "description": "Запрашивайте JSON с помощью JSONPath или JMESPath и смотрите результаты вживую."
+      },
+      "keycodeInspector": {
+        "title": "Инспектор клавиш",
+        "description": "Нажмите клавишу, чтобы увидеть её коды события JavaScript и модификаторы."
+      },
+      "markdownTableGenerator": {
+        "title": "Генератор таблиц Markdown",
+        "description": "Создавайте таблицы Markdown и HTML в табличном редакторе."
+      },
+      "timezoneConverter": {
+        "title": "Конвертер часовых поясов",
+        "description": "Преобразуйте время между поясами с подсказками о смене дня и рабочих часах."
+      },
+      "tokenCounter": {
+        "title": "Счётчик токенов LLM",
+        "description": "Считайте токены LLM, визуализируйте чанки и оценивайте стоимость API."
+      },
+      "webhookTester": {
+        "title": "Тестер вебхуков",
+        "description": "Захватывайте и изучайте входящие запросы вебхуков в реальном времени."
+      },
+      "websocketTester": {
+        "title": "Тестер WebSocket",
+        "description": "Подключайтесь к эндпоинтам WebSocket и обменивайтесь сообщениями в реальном времени."
+      },
+      "whoisLookup": {
+        "title": "Whois-запрос",
+        "description": "Узнавайте данные регистрации доменов и IP через RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Генератор и проверка Bcrypt",
+    "subtitle": "Хешируйте пароли с помощью bcrypt и проверяйте хеши — всё остаётся в вашем браузере",
+    "tabs": {
+      "hash": "Хеш",
+      "verify": "Проверка"
+    },
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "hash": {
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль для хеширования…",
+      "costLabel": "Фактор стоимости",
+      "costHint": "Более высокий фактор удваивает работу на каждом шаге. 10-12 — распространённый выбор для продакшена.",
+      "slowWarning": "Факторы стоимости 13 и выше могут вычисляться несколько секунд.",
+      "generate": "Создать хеш",
+      "generating": "Хеширование…",
+      "resultLabel": "Хеш bcrypt",
+      "timeTaken": "{ms} мс",
+      "anatomy": {
+        "title": "Строение хеша",
+        "algorithm": "алгоритм",
+        "cost": "стоимость",
+        "salt": "соль (22 символа)",
+        "hash": "хеш (31 символ)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль для проверки…",
+      "hashLabel": "Хеш bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Введите пароль и хеш bcrypt, чтобы сравнить их.",
+      "invalidHash": "Это не похоже на корректный хеш bcrypt.",
+      "checking": "Сравнение…",
+      "match": "Совпадает — пароль даёт этот хеш.",
+      "noMatch": "Не совпадает — пароль не даёт этот хеш."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Калькулятор Chmod",
+    "subtitle": "Преобразуйте права файлов Unix между флажками, восьмеричной и символьной формой",
+    "grid": {
+      "title": "Права",
+      "read": "Чтение",
+      "write": "Запись",
+      "execute": "Выполнение",
+      "owner": "Владелец",
+      "group": "Группа",
+      "others": "Остальные"
+    },
+    "special": {
+      "title": "Специальные биты",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Восьмеричная",
+      "placeholder": "755 или 4755",
+      "invalid": "Введите 3 или 4 восьмеричные цифры (0-7)."
+    },
+    "symbolic": {
+      "label": "Символьная",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Введите 9 символов вида rwxr-xr-x (допустимы s/S, t/T)."
+    },
+    "output": {
+      "title": "Команда",
+      "copy": "Копировать",
+      "copied": "Скопировано"
+    },
+    "explain": {
+      "line": "{cls} может {perms}.",
+      "none": "{cls} не имеет прав.",
+      "setuid": "Setuid: файл выполняется с привилегиями своего владельца.",
+      "setgid": "Setgid: файл выполняется с привилегиями своей группы (новые файлы в каталоге наследуют его группу).",
+      "sticky": "Sticky: только владелец файла может удалить или переименовать его в этом каталоге."
+    },
+    "presets": {
+      "title": "Частые пресеты",
+      "octal": "Восьмеричная",
+      "permissions": "Права",
+      "description": "Типичное применение",
+      "p644": "Обычные файлы: владелец пишет, все читают.",
+      "p755": "Исполняемые файлы и каталоги: все могут читать и входить.",
+      "p600": "Приватные файлы: только владелец читает и пишет.",
+      "p700": "Приватные исполняемые файлы и каталоги: только владелец.",
+      "p664": "Файлы, доступные группе для записи.",
+      "p775": "Каталоги и исполняемые файлы, доступные группе для записи.",
+      "p400": "Только чтение для владельца (например, закрытые ключи SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Скриншот кода",
+    "subtitle": "Превращайте код в красивые изображения для публикации",
+    "languageLabel": "Язык",
+    "autoDetect": "Автоопределение",
+    "backgroundLabel": "Фон",
+    "paddingLabel": "Отступ",
+    "filenameLabel": "Имя файла",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Точки окна",
+    "themeLabel": "Тема окна",
+    "themeDark": "Тёмная",
+    "themeLight": "Светлая",
+    "scaleLabel": "Масштаб экспорта",
+    "copyImage": "Копировать изображение",
+    "copied": "Скопировано",
+    "exportPng": "Экспорт PNG",
+    "inputLabel": "Код",
+    "detected": "Определено: {language}",
+    "clear": "Очистить",
+    "placeholder": "Вставьте ваш код сюда…",
+    "previewLabel": "Предпросмотр",
+    "emptyPreview": "Здесь появится предпросмотр вашего кода",
+    "exportFailed": "Не удалось экспортировать изображение",
+    "copyUnsupported": "Копирование изображений не поддерживается в этом браузере",
+    "copyFailed": "Не удалось скопировать изображение",
+    "backgrounds": {
+      "ocean": "Океан",
+      "sunset": "Закат",
+      "candy": "Конфета",
+      "forest": "Лес",
+      "midnight": "Полночь",
+      "gold": "Золото",
+      "aurora": "Аврора",
+      "slate": "Сланец",
+      "transparent": "Прозрачный"
+    }
+  },
+  "CssGenerators": {
+    "title": "Генераторы CSS",
+    "subtitle": "Box-shadow, border-radius и адаптивный clamp() — копируйте CSS.",
+    "preview": "Предпросмотр",
+    "output": "CSS",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Адаптивный clamp()"
+    },
+    "boxShadow": {
+      "presets": "Пресеты",
+      "layer": "Слой",
+      "addLayer": "Добавить слой",
+      "removeLayer": "Удалить слой",
+      "x": "X",
+      "y": "Y",
+      "blur": "Размытие",
+      "spread": "Растяжение",
+      "color": "Цвет",
+      "alpha": "Альфа",
+      "inset": "Внутренняя",
+      "presetNames": {
+        "subtleCard": "Лёгкая карточка",
+        "elevated": "Приподнятая",
+        "hardOffset": "Жёсткое смещение",
+        "neonGlow": "Неоновое свечение",
+        "inner": "Внутренняя",
+        "layeredSmooth": "Мягкие слои"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Режим",
+      "modes": {
+        "simple": "По углам",
+        "blob": "Органичная капля"
+      },
+      "unit": "Единица",
+      "linkCorners": "Связать углы",
+      "randomize": "Случайно",
+      "horizontal": "Горизонтальные радиусы",
+      "vertical": "Вертикальные радиусы",
+      "corners": {
+        "tl": "Верхний левый",
+        "tr": "Верхний правый",
+        "br": "Нижний правый",
+        "bl": "Нижний левый"
+      }
+    },
+    "clamp": {
+      "minFont": "Мин. шрифт (px)",
+      "maxFont": "Макс. шрифт (px)",
+      "minViewport": "Мин. viewport (px)",
+      "maxViewport": "Макс. viewport (px)",
+      "rootFont": "Корневой шрифт (px)",
+      "viewportWidth": "Смоделированный viewport",
+      "computedSize": "Вычисленный размер",
+      "slope": "Наклон",
+      "intercept": "Смещение",
+      "previewText": "Быстрая рыжая лиса",
+      "invalid": "Введите корректные и различающиеся границы viewport."
+    }
+  },
+  "ExifViewer": {
+    "title": "Просмотр и удаление EXIF",
+    "subtitle": "Изучайте метаданные фото и удаляйте их в вашем браузере",
+    "dropTitle": "Перетащите изображение сюда",
+    "dropHint": "или нажмите для выбора — ваше изображение никогда не покидает устройство",
+    "browse": "Выбрать изображение",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Чтение метаданных…",
+    "parseFailed": "Не удалось прочитать это изображение",
+    "clear": "Удалить изображение",
+    "gpsWarning": "Содержит GPS-координаты",
+    "openMap": "Показать на OpenStreetMap",
+    "noMetadata": "В этом изображении не найдено встроенных метаданных.",
+    "facts": {
+      "name": "Имя",
+      "type": "Тип",
+      "dimensions": "Размеры",
+      "size": "Размер"
+    },
+    "groups": {
+      "camera": "Камера",
+      "exposure": "Экспозиция",
+      "timestamps": "Метки времени",
+      "gps": "GPS-координаты",
+      "software": "ПО и прочее"
+    },
+    "gpsCard": {
+      "latitude": "Широта",
+      "longitude": "Долгота",
+      "altitude": "Высота"
+    },
+    "raw": {
+      "title": "Все метаданные",
+      "copyJson": "Копировать JSON",
+      "copied": "Скопировано"
+    },
+    "remove": {
+      "title": "Удалить метаданные",
+      "jpegDescription": "Без потерь удалите EXIF, XMP, IPTC и комментарии без повторного сжатия изображения.",
+      "reencodeDescription": "Перекодируйте изображение, чтобы удалить встроенные метаданные. При этом пиксели пересжимаются.",
+      "keepIcc": "Сохранить цветовой профиль (ICC)",
+      "stripButton": "Удалить метаданные",
+      "reencodeButton": "Перекодировать и удалить",
+      "unsupported": "Удаление метаданных не поддерживается для этого типа файла.",
+      "failed": "Не удалось удалить метаданные",
+      "before": "До",
+      "after": "После",
+      "download": "Скачать очищенное изображение"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Генератор favicon",
+    "subtitle": "Создавайте favicon и иконки приложений из одного изображения",
+    "dropTitle": "Перетащите изображение сюда",
+    "dropHint": "PNG, JPEG или SVG — нажмите для выбора",
+    "browse": "Выбрать изображение",
+    "clear": "Удалить изображение",
+    "backgroundLabel": "Фон",
+    "transparent": "Прозрачный",
+    "solidColor": "Сплошной",
+    "cornerLabel": "Форма углов",
+    "cornerNone": "Квадрат",
+    "cornerRounded": "Скруглённый",
+    "cornerCircle": "Круг",
+    "maskPaddingLabel": "Отступ maskable",
+    "maskable": "maskable",
+    "previewLabel": "Предпросмотр",
+    "copy": "Копировать",
+    "headSnippet": "Фрагмент для head HTML",
+    "downloadIco": "Скачать favicon.ico",
+    "downloadZip": "Скачать всё (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Сравнение JSON",
+    "subtitle": "Семантическое, учитывающее структуру сравнение двух документов JSON — порядок ключей и форматирование игнорируются",
+    "options": {
+      "ignoreArrayOrder": "Игнорировать порядок массивов"
+    },
+    "loadBothSamples": "Загрузить примеры",
+    "sample": "Пример",
+    "format": "Формат",
+    "clear": "Очистить",
+    "formatError": "Не удаётся отформатировать: ввод не является корректным JSON",
+    "placeholder": "Вставьте или введите JSON здесь…",
+    "panels": {
+      "left": "Оригинал (слева)",
+      "right": "Изменённый (справа)",
+      "results": "Различия"
+    },
+    "summary": {
+      "added": "{count} добавлено",
+      "removed": "{count} удалено",
+      "changed": "{count} изменено"
+    },
+    "types": {
+      "added": "Добавлено",
+      "removed": "Удалено",
+      "changed": "Изменено"
+    },
+    "copyChanges": "Копировать как JSON",
+    "copied": "Скопировано",
+    "empty": "Вставьте JSON в обе панели, чтобы увидеть их различия.",
+    "identical": "Оба документа семантически идентичны."
+  },
+  "JsonpathPlayground": {
+    "title": "Песочница JSONPath",
+    "subtitle": "Запрашивайте документы JSON с помощью JSONPath или JMESPath и смотрите результаты вживую",
+    "engineLabel": "Движок",
+    "queryLabel": "Запрос",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Шпаргалка",
+    "cheats": {
+      "jpAllTitles": "Все названия книг",
+      "jpAllAuthors": "Все авторы в любом месте документа",
+      "jpFirstBook": "Первая книга",
+      "jpLastBook": "Последняя книга",
+      "jpSlice": "Первые две книги (срез)",
+      "jpFilterPrice": "Книги дешевле 40",
+      "jpFilterInStock": "Названия книг в наличии",
+      "jpRecursive": "Все значения рекурсивно",
+      "jmAllTitles": "Все названия книг",
+      "jmFirstAuthor": "Автор первой книги",
+      "jmLastBook": "Последняя книга",
+      "jmSlice": "Первые две книги (срез)",
+      "jmFilterPrice": "Названия книг дешевле 40",
+      "jmCount": "Подсчёт книг в наличии",
+      "jmProjection": "Преобразовать каждую книгу в новый объект",
+      "jmSort": "Названия, отсортированные по цене"
+    },
+    "panels": {
+      "input": "Ввод JSON",
+      "results": "Результаты"
+    },
+    "sample": "Пример",
+    "format": "Формат",
+    "clear": "Очистить",
+    "formatError": "Не удаётся отформатировать: ввод не является корректным JSON",
+    "placeholder": "Вставьте или введите JSON здесь…",
+    "outputPlaceholder": "Совпадения появятся здесь…",
+    "matchCount": "{count, plural, one {# совпадение} few {# совпадения} many {# совпадений} other {# совпадения}}",
+    "copy": "Копировать",
+    "copied": "Скопировано"
+  },
+  "KeycodeInspector": {
+    "title": "Инспектор клавиш",
+    "subtitle": "Нажмите любую клавишу, чтобы изучить её событие клавиатуры JavaScript",
+    "capture": {
+      "prompt": "Нажмите любую клавишу…",
+      "ready": "Слушаю — нажмите любую клавишу на клавиатуре",
+      "clickToFocus": "Нажмите здесь для фокуса, затем нажмите любую клавишу"
+    },
+    "hero": {
+      "spaceKey": "(Пробел)",
+      "keyLabel": "event.key",
+      "repeat": "повтор"
+    },
+    "copyJson": "Копировать JSON",
+    "copiedJson": "JSON события скопирован в буфер обмена",
+    "deprecated": "устарело",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Стандартная",
+      "left": "Слева",
+      "right": "Справа",
+      "numpad": "Цифровой блок",
+      "unknown": "Неизвестно"
+    },
+    "history": {
+      "title": "История",
+      "clear": "Очистить историю",
+      "empty": "Нажатия клавиш появятся здесь."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Генератор таблиц Markdown",
+    "subtitle": "Редактируйте сетку, вставляйте из таблицы и копируйте красиво выровненную таблицу Markdown или HTML",
+    "addRow": "Добавить строку",
+    "addColumn": "Добавить столбец",
+    "importLabel": "Импорт",
+    "importPlaceholder": "Вставьте TSV (из Excel / Google Sheets) или CSV сюда…",
+    "importButton": "Импортировать в сетку",
+    "pasteClipboard": "Вставить из буфера обмена",
+    "importEmpty": "Нечего импортировать — сначала вставьте несколько строк",
+    "clipboardError": "Не удалось прочитать из буфера обмена",
+    "clear": "Очистить",
+    "panels": {
+      "editor": "Редактор таблицы",
+      "output": "Результат"
+    },
+    "align": {
+      "left": "Выровнять по левому краю",
+      "center": "Выровнять по центру",
+      "right": "Выровнять по правому краю"
+    },
+    "headerPlaceholder": "Заголовок",
+    "cellPlaceholder": "Ячейка",
+    "removeRow": "Удалить строку",
+    "removeColumn": "Удалить столбец",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Копировать",
+    "copied": "Скопировано"
+  },
+  "TimezoneConverter": {
+    "title": "Конвертер часовых поясов",
+    "subtitle": "Преобразуйте один момент по всему миру для планирования встреч.",
+    "dateTimeLabel": "Дата и время",
+    "now": "Сейчас",
+    "sourceZoneLabel": "Исходный часовой пояс",
+    "selectZone": "Выберите пояс",
+    "searchZone": "Поиск часовых поясов...",
+    "noZone": "Часовой пояс не найден.",
+    "scrubLabel": "Сдвинуть время",
+    "reset": "Сбросить",
+    "targetsLabel": "Целевые пояса",
+    "addZone": "Добавить пояс",
+    "remove": "Удалить",
+    "localBadge": "Локальный",
+    "invalidDate": "Введите корректные дату и время.",
+    "bands": {
+      "work": "Рабочие часы (09:00–18:00)",
+      "edge": "Крайние часы (раннее утро / вечер)",
+      "night": "Ночь"
+    }
+  },
+  "TokenCounter": {
+    "title": "Счётчик токенов LLM",
+    "subtitle": "Считайте токены, визуализируйте чанки и оценивайте стоимость API.",
+    "inputLabel": "Текст",
+    "sample": "Пример",
+    "clear": "Очистить",
+    "placeholder": "Вставьте текст, код или JSON для подсчёта токенов...",
+    "encoding": "Кодировка",
+    "loading": "Загрузка токенизатора...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / серия o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Токены",
+      "characters": "Символы",
+      "words": "Слова",
+      "ratio": "Токенов/слово",
+      "ratioSub": "прибл."
+    },
+    "claudeRow": "Claude (приблизительно)",
+    "estimate": "оценка",
+    "viz": {
+      "title": "Визуализация токенов",
+      "toggle": "Показать",
+      "hint": "Включите, чтобы раскрасить каждый токен как чанк.",
+      "empty": "Введите текст для визуализации токенов.",
+      "truncated": "Показаны первые {limit} из {total} токенов."
+    },
+    "cost": {
+      "title": "Калькулятор стоимости",
+      "disclaimer": "редактируемые значения по умолчанию — проверьте актуальные цены",
+      "model": "Модель",
+      "expectedOutput": "Ожидаемые токены вывода",
+      "customInput": "Ввод $/MTok",
+      "customOutput": "Вывод $/MTok",
+      "inputCost": "Стоимость ввода",
+      "outputCost": "Стоимость вывода",
+      "total": "Итого",
+      "per1000": "За 1000 вызовов"
+    }
+  },
+  "WebhookTester": {
+    "title": "Тестер вебхуков",
+    "subtitle": "Создайте временный URL и изучайте входящие запросы вебхуков вживую.",
+    "intro": {
+      "title": "Создайте URL вебхука, чтобы начать захват запросов",
+      "hint": "Вы получите непредсказуемый URL, который записывает каждый входящий запрос. Он истекает через 24 часа."
+    },
+    "createBtn": "Создать URL вебхука",
+    "creating": "Создание…",
+    "urlLabel": "Ваш URL вебхука",
+    "expiresIn": "Истекает через {countdown}",
+    "copyUrlBtn": "Копировать URL",
+    "copied": "Скопировано",
+    "clearBtn": "Очистить",
+    "newBinBtn": "Новый URL",
+    "requestsTitle": "Запросы",
+    "selectPrompt": "Выберите запрос, чтобы изучить его детали.",
+    "expiredNotice": "Этот URL вебхука истёк. Создайте новый, чтобы продолжить тестирование.",
+    "base64Badge": "base64",
+    "truncatedBadge": "обрезано",
+    "empty": {
+      "title": "Ожидание запросов…",
+      "hint": "Отправьте запрос на ваш URL, и он появится здесь мгновенно. Попробуйте так:"
+    },
+    "detail": {
+      "receivedAt": "Получено",
+      "source": "IP источника",
+      "contentType": "Content-Type",
+      "query": "Параметры query",
+      "headers": "Заголовки",
+      "body": "Тело",
+      "copyBody": "Копировать тело",
+      "emptyBody": "Нет тела"
+    },
+    "errors": {
+      "createFailed": "Не удалось создать URL вебхука. Попробуйте снова.",
+      "clearFailed": "Не удалось очистить запросы. Попробуйте снова."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Тестер WebSocket",
+    "subtitle": "Подключайтесь к эндпоинту WebSocket и отправляйте, получайте и изучайте сообщения вживую",
+    "urlLabel": "URL эндпоинта",
+    "protocolsLabel": "Подпротоколы",
+    "protocolsPlaceholder": "необязательно, через запятую",
+    "connect": "Подключить",
+    "disconnect": "Отключить",
+    "status": {
+      "disconnected": "Отключено",
+      "connecting": "Подключение",
+      "connected": "Подключено",
+      "error": "Ошибка"
+    },
+    "messages": {
+      "connecting": "Подключение к {url}…",
+      "connected": "Соединение установлено",
+      "connectedWithProtocol": "Соединение установлено (протокол: {protocol})",
+      "invalidUrl": "Некорректный URL — должен начинаться с ws:// или wss://",
+      "connectFailed": "Не удалось открыть соединение",
+      "socketError": "Произошла ошибка соединения",
+      "notConnected": "Не подключено — сначала подключитесь",
+      "binaryMessage": "Получено двоичное сообщение"
+    },
+    "log": {
+      "title": "Журнал сообщений",
+      "empty": "Сообщений пока нет. Подключитесь и начните отправлять.",
+      "copyAll": "Копировать всё",
+      "download": "Скачать как .txt",
+      "clear": "Очистить журнал",
+      "prettyPrint": "Форматировать JSON",
+      "showRaw": "Показать необработанный текст"
+    },
+    "composer": {
+      "placeholder": "Введите сообщение для отправки…",
+      "send": "Отправить",
+      "formatJson": "Форматировать как JSON",
+      "invalidJson": "Сообщение не является корректным JSON",
+      "hint": "Cmd/Ctrl+Enter для отправки"
+    },
+    "ping": {
+      "label": "Авто-пинг",
+      "seconds": "с",
+      "intervalTitle": "Интервал пинга в секундах",
+      "payloadPlaceholder": "payload пинга"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois-запрос",
+    "subtitle": "Узнавайте данные регистрации любого домена или IP-адреса через RDAP",
+    "placeholder": "example.com или 8.8.8.8",
+    "lookupBtn": "Запросить",
+    "looking": "Запрос…",
+    "refreshBtn": "Обновить",
+    "tryLabel": "Попробуйте:",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "notAvailable": "Недоступно",
+    "summary": {
+      "registrar": "Регистратор",
+      "network": "Сеть"
+    },
+    "dates": {
+      "created": "Создан",
+      "updated": "Обновлён",
+      "expires": "Истекает"
+    },
+    "sections": {
+      "status": "Статус",
+      "nameservers": "Серверы имён",
+      "contacts": "Контакты",
+      "rawRdap": "Необработанный RDAP"
+    },
+    "contacts": {
+      "roles": "Роли",
+      "name": "Имя",
+      "organization": "Организация"
+    },
+    "errors": {
+      "invalidTarget": "Введите корректное доменное имя или IP-адрес",
+      "lookupFailed": "Запрос не удался (статус {status})"
+    }
   }
 }

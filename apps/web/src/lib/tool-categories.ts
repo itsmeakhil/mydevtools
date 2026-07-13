@@ -62,6 +62,21 @@ export const toolCategoryMap: Record<string, string> = {
   'css-gradient-builder': 'Media & Design',
   'image-compressor': 'Media & Design',
   'svg-optimizer': 'Media & Design',
+  'bcrypt-generator': 'Security',
+  'chmod-calculator': 'Converters',
+  'code-screenshot': 'Media & Design',
+  'css-generators': 'Media & Design',
+  'exif-viewer': 'Media & Design',
+  'favicon-generator': 'Media & Design',
+  'json-diff': 'Formatters',
+  'jsonpath-playground': 'Formatters',
+  'keycode-inspector': 'Media & Design',
+  'markdown-table-generator': 'Generators',
+  'timezone-converter': 'Converters',
+  'token-counter': 'Converters',
+  'webhook-tester': 'Network & API',
+  'websocket-tester': 'Network & API',
+  'whois-lookup': 'Network & API',
 }
 
 export const publicToolSlugs = Object.keys(toolsMetadata).filter(

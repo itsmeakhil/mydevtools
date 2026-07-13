@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod 계산기",
+    "codeScreenshot": "코드 스크린샷",
+    "cssGenerators": "CSS 생성기",
+    "exifViewer": "EXIF 뷰어",
+    "faviconGenerator": "Favicon 생성기",
+    "jsonDiff": "JSON 비교",
+    "jsonpathPlayground": "JSONPath 플레이그라운드",
+    "keycodeInspector": "키코드 검사기",
+    "markdownTableGenerator": "Markdown 표",
+    "timezoneConverter": "시간대 변환기",
+    "tokenCounter": "토큰 카운터",
+    "webhookTester": "Webhook 테스터",
+    "websocketTester": "WebSocket 테스터",
+    "whoisLookup": "Whois 조회"
   },
   "Help": {
     "title": "도움말 및 문서",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt 생성 및 검증",
+        "description": "bcrypt로 비밀번호를 해시하고 기존 해시를 검증합니다."
+      },
+      "chmodCalculator": {
+        "title": "Chmod 계산기",
+        "description": "Unix 권한을 8진수, 기호 표기, 체크박스 간에 변환합니다."
+      },
+      "codeScreenshot": {
+        "title": "코드 스크린샷",
+        "description": "소스 코드를 아름답고 공유하기 좋은 이미지로 변환합니다."
+      },
+      "cssGenerators": {
+        "title": "CSS 생성기",
+        "description": "Box-shadow, border-radius, 유동적 clamp() 생성기입니다."
+      },
+      "exifViewer": {
+        "title": "EXIF 뷰어 및 제거",
+        "description": "사진의 EXIF 메타데이터를 로컬에서 확인하고 제거합니다."
+      },
+      "faviconGenerator": {
+        "title": "Favicon 생성기",
+        "description": "favicon, 앱 아이콘, 매니페스트 스니펫을 생성합니다."
+      },
+      "jsonDiff": {
+        "title": "JSON 비교",
+        "description": "두 JSON 문서를 의미론적, 구조 인식 방식으로 비교합니다."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath 플레이그라운드",
+        "description": "JSONPath 또는 JMESPath로 JSON을 쿼리하고 결과를 실시간으로 확인합니다."
+      },
+      "keycodeInspector": {
+        "title": "키코드 검사기",
+        "description": "키를 눌러 JavaScript 이벤트 코드와 수정 키를 확인합니다."
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown 표 생성기",
+        "description": "스프레드시트 같은 그리드 편집기에서 Markdown 및 HTML 표를 만듭니다."
+      },
+      "timezoneConverter": {
+        "title": "시간대 변환기",
+        "description": "하나의 시각을 여러 시간대로 변환하고 날짜 변동과 근무 시간을 표시합니다."
+      },
+      "tokenCounter": {
+        "title": "LLM 토큰 카운터",
+        "description": "LLM 토큰을 세고 청크를 시각화하며 API 비용을 추정합니다."
+      },
+      "webhookTester": {
+        "title": "Webhook 테스터",
+        "description": "수신되는 webhook 요청을 실시간으로 캡처하고 검사합니다."
+      },
+      "websocketTester": {
+        "title": "WebSocket 테스터",
+        "description": "WebSocket 엔드포인트에 연결하여 메시지를 실시간으로 주고받습니다."
+      },
+      "whoisLookup": {
+        "title": "Whois 조회",
+        "description": "RDAP를 통해 도메인과 IP 등록 정보를 조회합니다."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt 생성 및 검증",
+    "subtitle": "bcrypt로 비밀번호를 해시하고 해시를 검증 — 모든 작업이 브라우저 안에서 이루어집니다",
+    "tabs": {
+      "hash": "해시",
+      "verify": "검증"
+    },
+    "showPassword": "비밀번호 표시",
+    "hidePassword": "비밀번호 숨기기",
+    "copy": "복사",
+    "copied": "복사됨",
+    "hash": {
+      "passwordLabel": "비밀번호",
+      "passwordPlaceholder": "해시할 비밀번호를 입력하세요…",
+      "costLabel": "비용 계수",
+      "costHint": "비용이 높을수록 각 단계의 작업량이 두 배가 됩니다. 프로덕션에서는 10~12가 일반적입니다.",
+      "slowWarning": "비용 계수가 13 이상이면 계산에 몇 초가 걸릴 수 있습니다.",
+      "generate": "해시 생성",
+      "generating": "해시 중…",
+      "resultLabel": "Bcrypt 해시",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "해시 구조",
+        "algorithm": "알고리즘",
+        "cost": "비용",
+        "salt": "솔트 (22자)",
+        "hash": "해시 (31자)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "비밀번호",
+      "passwordPlaceholder": "확인할 비밀번호를 입력하세요…",
+      "hashLabel": "Bcrypt 해시",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "비밀번호와 bcrypt 해시를 입력하여 비교합니다.",
+      "invalidHash": "유효한 bcrypt 해시가 아닌 것 같습니다.",
+      "checking": "비교 중…",
+      "match": "일치 — 이 비밀번호가 이 해시를 생성합니다.",
+      "noMatch": "불일치 — 이 비밀번호는 이 해시를 생성하지 않습니다."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod 계산기",
+    "subtitle": "Unix 파일 권한을 체크박스, 8진수, 기호 표기 간에 변환합니다",
+    "grid": {
+      "title": "권한",
+      "read": "읽기",
+      "write": "쓰기",
+      "execute": "실행",
+      "owner": "소유자",
+      "group": "그룹",
+      "others": "기타"
+    },
+    "special": {
+      "title": "특수 비트",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "8진수",
+      "placeholder": "755 또는 4755",
+      "invalid": "3자리 또는 4자리 8진수 (0-7)를 입력하세요."
+    },
+    "symbolic": {
+      "label": "기호 표기",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "rwxr-xr-x처럼 9자를 입력하세요 (s/S, t/T 허용)."
+    },
+    "output": {
+      "title": "명령어",
+      "copy": "복사",
+      "copied": "복사됨"
+    },
+    "explain": {
+      "line": "{cls}은(는) {perms} 수 있습니다.",
+      "none": "{cls}에는 권한이 없습니다.",
+      "setuid": "Setuid: 파일이 소유자의 권한으로 실행됩니다.",
+      "setgid": "Setgid: 파일이 그룹의 권한으로 실행됩니다 (디렉터리의 새 파일은 해당 그룹을 상속합니다).",
+      "sticky": "Sticky: 이 디렉터리 안에서는 파일 소유자만 파일을 삭제하거나 이름을 바꿀 수 있습니다."
+    },
+    "presets": {
+      "title": "일반 프리셋",
+      "octal": "8진수",
+      "permissions": "권한",
+      "description": "일반적인 용도",
+      "p644": "일반 파일: 소유자 쓰기, 모두 읽기.",
+      "p755": "실행 파일 및 디렉터리: 모두 읽고 진입 가능.",
+      "p600": "비공개 파일: 소유자만 읽고 쓰기.",
+      "p700": "비공개 실행 파일 및 디렉터리: 소유자 전용.",
+      "p664": "그룹 쓰기 가능 파일.",
+      "p775": "그룹 쓰기 가능 디렉터리 및 실행 파일.",
+      "p400": "소유자 읽기 전용 (예: SSH 개인 키)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "코드 스크린샷",
+    "subtitle": "코드를 아름답고 공유하기 좋은 이미지로 변환",
+    "languageLabel": "언어",
+    "autoDetect": "자동 감지",
+    "backgroundLabel": "배경",
+    "paddingLabel": "여백",
+    "filenameLabel": "파일 이름",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "창 점",
+    "themeLabel": "창 테마",
+    "themeDark": "다크",
+    "themeLight": "라이트",
+    "scaleLabel": "내보내기 배율",
+    "copyImage": "이미지 복사",
+    "copied": "복사됨",
+    "exportPng": "PNG 내보내기",
+    "inputLabel": "코드",
+    "detected": "감지됨: {language}",
+    "clear": "지우기",
+    "placeholder": "여기에 코드를 붙여넣으세요…",
+    "previewLabel": "미리보기",
+    "emptyPreview": "코드 미리보기가 여기에 표시됩니다",
+    "exportFailed": "이미지 내보내기에 실패했습니다",
+    "copyUnsupported": "이 브라우저에서는 이미지 복사가 지원되지 않습니다",
+    "copyFailed": "이미지 복사에 실패했습니다",
+    "backgrounds": {
+      "ocean": "오션",
+      "sunset": "선셋",
+      "candy": "캔디",
+      "forest": "포레스트",
+      "midnight": "미드나이트",
+      "gold": "골드",
+      "aurora": "오로라",
+      "slate": "슬레이트",
+      "transparent": "투명"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS 생성기",
+    "subtitle": "Box-shadow, border-radius, 유동적 clamp() — CSS를 복사하세요.",
+    "preview": "미리보기",
+    "output": "CSS",
+    "copy": "복사",
+    "copied": "복사됨",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "유동적 clamp()"
+    },
+    "boxShadow": {
+      "presets": "프리셋",
+      "layer": "레이어",
+      "addLayer": "레이어 추가",
+      "removeLayer": "레이어 제거",
+      "x": "X",
+      "y": "Y",
+      "blur": "흐림",
+      "spread": "확산",
+      "color": "색상",
+      "alpha": "투명도",
+      "inset": "안쪽",
+      "presetNames": {
+        "subtleCard": "은은한 카드",
+        "elevated": "떠 있는",
+        "hardOffset": "하드 오프셋",
+        "neonGlow": "네온 글로우",
+        "inner": "안쪽",
+        "layeredSmooth": "겹친 부드러움"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "모드",
+      "modes": {
+        "simple": "모서리별",
+        "blob": "유기적 블롭"
+      },
+      "unit": "단위",
+      "linkCorners": "모서리 연결",
+      "randomize": "무작위",
+      "horizontal": "수평 반경",
+      "vertical": "수직 반경",
+      "corners": {
+        "tl": "왼쪽 위",
+        "tr": "오른쪽 위",
+        "br": "오른쪽 아래",
+        "bl": "왼쪽 아래"
+      }
+    },
+    "clamp": {
+      "minFont": "최소 글꼴 (px)",
+      "maxFont": "최대 글꼴 (px)",
+      "minViewport": "최소 뷰포트 (px)",
+      "maxViewport": "최대 뷰포트 (px)",
+      "rootFont": "루트 글꼴 (px)",
+      "viewportWidth": "시뮬레이션 뷰포트",
+      "computedSize": "계산된 크기",
+      "slope": "기울기",
+      "intercept": "절편",
+      "previewText": "The quick brown fox",
+      "invalid": "유효하고 서로 다른 뷰포트 범위를 입력하세요."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF 뷰어 및 제거",
+    "subtitle": "사진 메타데이터를 확인하고 브라우저에서 제거합니다",
+    "dropTitle": "여기에 이미지를 놓으세요",
+    "dropHint": "또는 클릭하여 찾아보기 — 이미지는 기기를 벗어나지 않습니다",
+    "browse": "이미지 선택",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "메타데이터 읽는 중…",
+    "parseFailed": "이 이미지를 읽지 못했습니다",
+    "clear": "이미지 제거",
+    "gpsWarning": "GPS 위치 정보 포함",
+    "openMap": "OpenStreetMap에서 보기",
+    "noMetadata": "이 이미지에서 삽입된 메타데이터를 찾지 못했습니다.",
+    "facts": {
+      "name": "이름",
+      "type": "형식",
+      "dimensions": "크기",
+      "size": "용량"
+    },
+    "groups": {
+      "camera": "카메라",
+      "exposure": "노출",
+      "timestamps": "타임스탬프",
+      "gps": "GPS 위치",
+      "software": "소프트웨어 및 기타"
+    },
+    "gpsCard": {
+      "latitude": "위도",
+      "longitude": "경도",
+      "altitude": "고도"
+    },
+    "raw": {
+      "title": "모든 메타데이터",
+      "copyJson": "JSON 복사",
+      "copied": "복사됨"
+    },
+    "remove": {
+      "title": "메타데이터 제거",
+      "jpegDescription": "이미지를 재압축하지 않고 EXIF, XMP, IPTC, 주석을 무손실로 제거합니다.",
+      "reencodeDescription": "이미지를 다시 인코딩하여 삽입된 메타데이터를 제거합니다. 픽셀이 재압축됩니다.",
+      "keepIcc": "색상 프로필 (ICC) 유지",
+      "stripButton": "메타데이터 제거",
+      "reencodeButton": "다시 인코딩 후 제거",
+      "unsupported": "이 파일 형식에서는 메타데이터 제거가 지원되지 않습니다.",
+      "failed": "메타데이터 제거에 실패했습니다",
+      "before": "이전",
+      "after": "이후",
+      "download": "정리된 이미지 다운로드"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon 생성기",
+    "subtitle": "하나의 이미지로 favicon과 앱 아이콘을 만듭니다",
+    "dropTitle": "여기에 이미지를 놓으세요",
+    "dropHint": "PNG, JPEG 또는 SVG — 클릭하여 찾아보기",
+    "browse": "이미지 선택",
+    "clear": "이미지 제거",
+    "backgroundLabel": "배경",
+    "transparent": "투명",
+    "solidColor": "단색",
+    "cornerLabel": "모서리 모양",
+    "cornerNone": "사각형",
+    "cornerRounded": "둥근 모서리",
+    "cornerCircle": "원형",
+    "maskPaddingLabel": "마스커블 여백",
+    "maskable": "maskable",
+    "previewLabel": "미리보기",
+    "copy": "복사",
+    "headSnippet": "HTML head 스니펫",
+    "downloadIco": "favicon.ico 다운로드",
+    "downloadZip": "모두 다운로드 (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON 비교",
+    "subtitle": "두 JSON 문서를 의미론적, 구조 인식 방식으로 비교 — 키 순서와 서식은 무시됩니다",
+    "options": {
+      "ignoreArrayOrder": "배열 순서 무시"
+    },
+    "loadBothSamples": "샘플 불러오기",
+    "sample": "샘플",
+    "format": "포맷",
+    "clear": "지우기",
+    "formatError": "포맷할 수 없음: 입력이 유효한 JSON이 아닙니다",
+    "placeholder": "여기에 JSON을 붙여넣거나 입력하세요…",
+    "panels": {
+      "left": "원본 (왼쪽)",
+      "right": "수정됨 (오른쪽)",
+      "results": "차이"
+    },
+    "summary": {
+      "added": "{count}개 추가",
+      "removed": "{count}개 제거",
+      "changed": "{count}개 변경"
+    },
+    "types": {
+      "added": "추가됨",
+      "removed": "제거됨",
+      "changed": "변경됨"
+    },
+    "copyChanges": "JSON으로 복사",
+    "copied": "복사됨",
+    "empty": "두 패널에 JSON을 붙여넣어 차이를 확인하세요.",
+    "identical": "두 문서는 의미론적으로 동일합니다."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath 플레이그라운드",
+    "subtitle": "JSONPath 또는 JMESPath로 JSON 문서를 쿼리하고 결과를 실시간으로 확인합니다",
+    "engineLabel": "엔진",
+    "queryLabel": "쿼리",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "치트시트",
+    "cheats": {
+      "jpAllTitles": "모든 책 제목",
+      "jpAllAuthors": "문서 어디에나 있는 모든 저자",
+      "jpFirstBook": "첫 번째 책",
+      "jpLastBook": "마지막 책",
+      "jpSlice": "처음 두 권 (슬라이스)",
+      "jpFilterPrice": "40 미만인 책",
+      "jpFilterInStock": "재고 있는 책의 제목",
+      "jpRecursive": "모든 값 재귀적으로",
+      "jmAllTitles": "모든 책 제목",
+      "jmFirstAuthor": "첫 번째 책의 저자",
+      "jmLastBook": "마지막 책",
+      "jmSlice": "처음 두 권 (슬라이스)",
+      "jmFilterPrice": "40 미만인 책의 제목",
+      "jmCount": "재고 있는 책 세기",
+      "jmProjection": "각 책을 새 객체로 재구성",
+      "jmSort": "가격순으로 정렬한 제목"
+    },
+    "panels": {
+      "input": "JSON 입력",
+      "results": "결과"
+    },
+    "sample": "샘플",
+    "format": "포맷",
+    "clear": "지우기",
+    "formatError": "포맷할 수 없음: 입력이 유효한 JSON이 아닙니다",
+    "placeholder": "여기에 JSON을 붙여넣거나 입력하세요…",
+    "outputPlaceholder": "일치 항목이 여기에 표시됩니다…",
+    "matchCount": "{count, plural, one {일치 #개} other {일치 #개}}",
+    "copy": "복사",
+    "copied": "복사됨"
+  },
+  "KeycodeInspector": {
+    "title": "키코드 검사기",
+    "subtitle": "아무 키나 눌러 JavaScript 키보드 이벤트를 검사합니다",
+    "capture": {
+      "prompt": "아무 키나 누르세요…",
+      "ready": "수신 중 — 키보드에서 아무 키나 누르세요",
+      "clickToFocus": "여기를 클릭하여 포커스한 다음 아무 키나 누르세요"
+    },
+    "hero": {
+      "spaceKey": "(스페이스)",
+      "keyLabel": "event.key",
+      "repeat": "반복"
+    },
+    "copyJson": "JSON 복사",
+    "copiedJson": "이벤트 JSON을 클립보드에 복사했습니다",
+    "deprecated": "더 이상 사용되지 않음",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "표준",
+      "left": "왼쪽",
+      "right": "오른쪽",
+      "numpad": "숫자 패드",
+      "unknown": "알 수 없음"
+    },
+    "history": {
+      "title": "기록",
+      "clear": "기록 지우기",
+      "empty": "키 입력이 여기에 표시됩니다."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown 표 생성기",
+    "subtitle": "그리드를 편집하고, 스프레드시트에서 붙여넣고, 깔끔하게 정렬된 Markdown 또는 HTML 표를 복사합니다",
+    "addRow": "행 추가",
+    "addColumn": "열 추가",
+    "importLabel": "가져오기",
+    "importPlaceholder": "TSV (Excel / Google Sheets) 또는 CSV를 여기에 붙여넣으세요…",
+    "importButton": "그리드로 가져오기",
+    "pasteClipboard": "클립보드에서 붙여넣기",
+    "importEmpty": "가져올 항목이 없습니다 — 먼저 행을 붙여넣으세요",
+    "clipboardError": "클립보드에서 읽을 수 없습니다",
+    "clear": "지우기",
+    "panels": {
+      "editor": "표 편집기",
+      "output": "출력"
+    },
+    "align": {
+      "left": "왼쪽 정렬",
+      "center": "가운데 정렬",
+      "right": "오른쪽 정렬"
+    },
+    "headerPlaceholder": "헤더",
+    "cellPlaceholder": "셀",
+    "removeRow": "행 제거",
+    "removeColumn": "열 제거",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "복사",
+    "copied": "복사됨"
+  },
+  "TimezoneConverter": {
+    "title": "시간대 변환기",
+    "subtitle": "회의 계획을 위해 하나의 순간을 전 세계 시각으로 변환합니다.",
+    "dateTimeLabel": "날짜 및 시간",
+    "now": "지금",
+    "sourceZoneLabel": "원본 시간대",
+    "selectZone": "시간대 선택",
+    "searchZone": "시간대 검색...",
+    "noZone": "시간대를 찾을 수 없습니다.",
+    "scrubLabel": "시간 이동",
+    "reset": "재설정",
+    "targetsLabel": "대상 시간대",
+    "addZone": "시간대 추가",
+    "remove": "제거",
+    "localBadge": "로컬",
+    "invalidDate": "유효한 날짜와 시간을 입력하세요.",
+    "bands": {
+      "work": "근무 시간 (09:00–18:00)",
+      "edge": "경계 시간 (이른 아침 / 저녁)",
+      "night": "야간"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM 토큰 카운터",
+    "subtitle": "토큰을 세고, 청크를 시각화하며, API 비용을 추정합니다.",
+    "inputLabel": "텍스트",
+    "sample": "샘플",
+    "clear": "지우기",
+    "placeholder": "토큰을 셀 텍스트, 코드 또는 JSON을 붙여넣으세요...",
+    "encoding": "인코딩",
+    "loading": "토크나이저 불러오는 중...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o 시리즈)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "토큰",
+      "characters": "문자",
+      "words": "단어",
+      "ratio": "토큰/단어",
+      "ratioSub": "대략"
+    },
+    "claudeRow": "Claude (근사치)",
+    "estimate": "추정",
+    "viz": {
+      "title": "토큰 시각화",
+      "toggle": "표시",
+      "hint": "전환하여 각 토큰을 청크로 색상 표시합니다.",
+      "empty": "텍스트를 입력하여 토큰을 시각화하세요.",
+      "truncated": "전체 {total}개 중 처음 {limit}개 토큰을 표시하고 있습니다."
+    },
+    "cost": {
+      "title": "비용 계산기",
+      "disclaimer": "편집 가능한 기본값 — 현재 가격을 확인하세요",
+      "model": "모델",
+      "expectedOutput": "예상 출력 토큰",
+      "customInput": "입력 $/MTok",
+      "customOutput": "출력 $/MTok",
+      "inputCost": "입력 비용",
+      "outputCost": "출력 비용",
+      "total": "합계",
+      "per1000": "1000회 호출당"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook 테스터",
+    "subtitle": "임시 URL을 만들고 수신되는 webhook 요청을 실시간으로 검사합니다.",
+    "intro": {
+      "title": "webhook URL을 만들어 요청 캡처를 시작하세요",
+      "hint": "추측할 수 없는 URL이 발급되어 수신되는 모든 요청을 기록합니다. 24시간 후에 만료됩니다."
+    },
+    "createBtn": "webhook URL 만들기",
+    "creating": "만드는 중…",
+    "urlLabel": "내 webhook URL",
+    "expiresIn": "{countdown} 후 만료",
+    "copyUrlBtn": "URL 복사",
+    "copied": "복사됨",
+    "clearBtn": "지우기",
+    "newBinBtn": "새 URL",
+    "requestsTitle": "요청",
+    "selectPrompt": "요청을 선택하여 세부 정보를 확인하세요.",
+    "expiredNotice": "이 webhook URL은 만료되었습니다. 계속 테스트하려면 새로 만드세요.",
+    "base64Badge": "base64",
+    "truncatedBadge": "잘림",
+    "empty": {
+      "title": "요청을 기다리는 중…",
+      "hint": "URL로 요청을 보내면 즉시 여기에 표시됩니다. 이렇게 해보세요:"
+    },
+    "detail": {
+      "receivedAt": "수신 시각",
+      "source": "출발지 IP",
+      "contentType": "Content-Type",
+      "query": "쿼리 매개변수",
+      "headers": "헤더",
+      "body": "본문",
+      "copyBody": "본문 복사",
+      "emptyBody": "본문 없음"
+    },
+    "errors": {
+      "createFailed": "webhook URL 생성에 실패했습니다. 다시 시도하세요.",
+      "clearFailed": "요청을 지우지 못했습니다. 다시 시도하세요."
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket 테스터",
+    "subtitle": "WebSocket 엔드포인트에 연결하여 메시지를 실시간으로 전송, 수신, 검사합니다",
+    "urlLabel": "엔드포인트 URL",
+    "protocolsLabel": "하위 프로토콜",
+    "protocolsPlaceholder": "선택 사항, 쉼표로 구분",
+    "connect": "연결",
+    "disconnect": "연결 해제",
+    "status": {
+      "disconnected": "연결 해제됨",
+      "connecting": "연결 중",
+      "connected": "연결됨",
+      "error": "오류"
+    },
+    "messages": {
+      "connecting": "{url}에 연결 중…",
+      "connected": "연결이 설정되었습니다",
+      "connectedWithProtocol": "연결이 설정되었습니다 (프로토콜: {protocol})",
+      "invalidUrl": "잘못된 URL — ws:// 또는 wss://로 시작해야 합니다",
+      "connectFailed": "연결을 열지 못했습니다",
+      "socketError": "연결 오류가 발생했습니다",
+      "notConnected": "연결되지 않음 — 먼저 연결하세요",
+      "binaryMessage": "바이너리 메시지를 수신했습니다"
+    },
+    "log": {
+      "title": "메시지 로그",
+      "empty": "아직 메시지가 없습니다. 연결하고 전송을 시작하세요.",
+      "copyAll": "모두 복사",
+      "download": ".txt로 다운로드",
+      "clear": "로그 지우기",
+      "prettyPrint": "JSON 정렬 표시",
+      "showRaw": "원본 텍스트 표시"
+    },
+    "composer": {
+      "placeholder": "전송할 메시지를 입력하세요…",
+      "send": "전송",
+      "formatJson": "JSON으로 포맷",
+      "invalidJson": "메시지가 유효한 JSON이 아닙니다",
+      "hint": "Cmd/Ctrl+Enter로 전송"
+    },
+    "ping": {
+      "label": "자동 ping",
+      "seconds": "초",
+      "intervalTitle": "Ping 간격 (초)",
+      "payloadPlaceholder": "ping 페이로드"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois 조회",
+    "subtitle": "RDAP를 통해 도메인이나 IP 주소의 등록 정보를 조회합니다",
+    "placeholder": "example.com 또는 8.8.8.8",
+    "lookupBtn": "조회",
+    "looking": "조회 중…",
+    "refreshBtn": "새로고침",
+    "tryLabel": "예시:",
+    "copy": "복사",
+    "copied": "복사됨",
+    "notAvailable": "사용할 수 없음",
+    "summary": {
+      "registrar": "등록 대행자",
+      "network": "네트워크"
+    },
+    "dates": {
+      "created": "생성일",
+      "updated": "수정일",
+      "expires": "만료일"
+    },
+    "sections": {
+      "status": "상태",
+      "nameservers": "네임서버",
+      "contacts": "연락처",
+      "rawRdap": "원본 RDAP"
+    },
+    "contacts": {
+      "roles": "역할",
+      "name": "이름",
+      "organization": "조직"
+    },
+    "errors": {
+      "invalidTarget": "유효한 도메인 이름이나 IP 주소를 입력하세요",
+      "lookupFailed": "조회 실패 (상태 {status})"
+    }
   }
 }

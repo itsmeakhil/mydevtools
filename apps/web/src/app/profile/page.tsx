@@ -21,10 +21,9 @@ import {
   AtSign,
   Github,
   ChevronDown,
-  ChevronRight,
   FileDown,
 } from 'lucide-react'
-import { useActiveOrg, useActiveWorkspace } from '@/store/workspace-store'
+import { useActiveWorkspace } from '@/store/workspace-store'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
@@ -59,7 +58,6 @@ import {
 export default function ProfilePage() {
   const t = useTranslations('SettingsPage')
   const { user } = useAuth()
-  const activeOrg = useActiveOrg()
   const activeWorkspace = useActiveWorkspace()
   const [mounted, setMounted] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
@@ -261,11 +259,9 @@ export default function ProfilePage() {
       {/* ── Page header ── */}
       <div className="flex items-center justify-between">
         <div className="space-y-1.5">
-          {activeOrg && activeWorkspace ? (
+          {activeWorkspace ? (
             <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
               <Briefcase className="h-3 w-3 text-primary" />
-              <span className="truncate max-w-[120px] sm:max-w-none">{activeOrg.name}</span>
-              <ChevronRight className="h-3 w-3 opacity-60" />
               <span className="truncate max-w-[160px] sm:max-w-none text-foreground/80">{activeWorkspace.name}</span>
             </p>
           ) : (

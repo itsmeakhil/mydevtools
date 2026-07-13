@@ -6,7 +6,7 @@ from app.api.routes.workspaces.middleware import WorkspaceContext
 
 def _ctx(role: str, is_personal: bool = False) -> WorkspaceContext:
     return WorkspaceContext(
-        uid="u1", org_id="o1", workspace_id="w1",
+        uid="u1", workspace_id="w1",
         ws_role=role, is_personal=is_personal,
         owner_uid="u1" if is_personal else None,
     )

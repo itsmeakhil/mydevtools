@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import { ArrowLeft, ArrowRight, BarChart3, LayoutGrid } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
@@ -10,7 +9,6 @@ import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/p
 import { useWorkspaceStore } from '@/store/workspace-store'
 import { useToolUsage } from '@/hooks/use-tool-usage'
 import useAuth from '@/utils/useAuth'
-import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -29,7 +27,6 @@ import { DashboardPinnedSection } from '@/components/dashboard/dashboard-pinned-
 import { DashboardWhatsNew } from '@/components/dashboard/dashboard-whats-new'
 import { DashboardRecentTools } from '@/components/dashboard/dashboard-recent-tools'
 import { ActivityLogDrawer } from '@/components/dashboard/activity/activity-log-drawer'
-import { DashboardLoginCta } from '@/components/dashboard/dashboard-login-cta'
 import { DashboardToolGrid } from '@/components/dashboard/dashboard-tool-grid'
 import { DashboardFeatured } from '@/components/dashboard/dashboard-featured'
 import { RevealItem } from '@/components/dashboard/dashboard-reveal'
@@ -59,7 +56,6 @@ const DashboardAnalyticsPanel = dynamic(
 // ─── Dashboard Page ─────────────────────────────────────────────────────────
 
 const DashboardPage: React.FC = () => {
-  const t = useTranslations('Dashboard')
   const tTabs = useTranslations('Dashboard.tabs')
   const { user, loading } = useAuth(false)
   const pinnedToolUrls = usePinnedToolsForActiveWorkspace()
@@ -360,11 +356,6 @@ const DashboardPage: React.FC = () => {
                     />
                   </RevealItem>
 
-                  {/* Login CTA (non-auth) */}
-                  <RevealItem index={5}>
-                    <DashboardLoginCta user={user} searchQuery={searchQuery} />
-                  </RevealItem>
-
                   {/* Browse-all entry — the door to the full catalog */}
                   <RevealItem index={6}>
                     <button
@@ -414,27 +405,7 @@ const DashboardPage: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="analytics" className="mt-0 rounded-2xl focus-visible:outline-none">
-              {user ? (
-                <DashboardAnalyticsPanel />
-              ) : (
-                <div className="relative overflow-hidden rounded-2xl border border-dashed border-border/50 bg-gradient-to-br from-primary/[0.04] via-muted/20 to-background px-6 py-12 text-center md:px-10 md:py-16">
-                  <div
-                    className="pointer-events-none absolute inset-0 dashboard-grid-bg opacity-30"
-                    aria-hidden
-                  />
-                  <div className="relative mx-auto max-w-md space-y-5">
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary shadow-inner ring-1 ring-border/40">
-                      <BarChart3 className="h-8 w-8" strokeWidth={1.5} aria-hidden />
-                    </div>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {t('analytics.loginHint')}
-                    </p>
-                    <Button type="button" className="rounded-xl shadow-sm" asChild>
-                      <Link href="/login">{t('signIn')}</Link>
-                    </Button>
-                  </div>
-                </div>
-              )}
+              <DashboardAnalyticsPanel />
             </TabsContent>
           </Tabs>
         </div>

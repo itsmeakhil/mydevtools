@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Calculadora Chmod",
+    "codeScreenshot": "Captura de codi",
+    "cssGenerators": "Generadors CSS",
+    "exifViewer": "Visualitzador EXIF",
+    "faviconGenerator": "Generador de favicon",
+    "jsonDiff": "Diff JSON",
+    "jsonpathPlayground": "Playground JSONPath",
+    "keycodeInspector": "Inspector de keycode",
+    "markdownTableGenerator": "Taula Markdown",
+    "timezoneConverter": "Convertidor de zona horària",
+    "tokenCounter": "Comptador de tokens",
+    "webhookTester": "Provador de webhooks",
+    "websocketTester": "Provador de WebSocket",
+    "whoisLookup": "Consulta Whois"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Generador i verificador Bcrypt",
+        "description": "Genera hash de contrasenyes amb bcrypt i verifica hashes existents."
+      },
+      "chmodCalculator": {
+        "title": "Calculadora Chmod",
+        "description": "Converteix permisos Unix entre octal, simbòlic i caselles de selecció."
+      },
+      "codeScreenshot": {
+        "title": "Captura de codi",
+        "description": "Converteix codi font en imatges boniques i compartibles."
+      },
+      "cssGenerators": {
+        "title": "Generadors CSS",
+        "description": "Generadors de box-shadow, border-radius i clamp() fluid."
+      },
+      "exifViewer": {
+        "title": "Visualitzador i eliminador EXIF",
+        "description": "Inspecciona i elimina les metadades EXIF de les fotos localment."
+      },
+      "faviconGenerator": {
+        "title": "Generador de favicon",
+        "description": "Genera favicons, icones d'app i fragments de manifest."
+      },
+      "jsonDiff": {
+        "title": "Diff JSON",
+        "description": "Diff semàntic i conscient de l'estructura de dos documents JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Playground JSONPath",
+        "description": "Consulta JSON amb JSONPath o JMESPath i mira els resultats en directe."
+      },
+      "keycodeInspector": {
+        "title": "Inspector de keycode",
+        "description": "Prem una tecla per veure els seus codis d'esdeveniment JavaScript i modificadors."
+      },
+      "markdownTableGenerator": {
+        "title": "Generador de taules Markdown",
+        "description": "Crea taules Markdown i HTML en un editor de graella tipus full de càlcul."
+      },
+      "timezoneConverter": {
+        "title": "Convertidor de zona horària",
+        "description": "Converteix una hora entre moltes zones amb indicacions de canvi de dia i horari laboral."
+      },
+      "tokenCounter": {
+        "title": "Comptador de tokens LLM",
+        "description": "Compta tokens LLM, visualitza chunks i estima el cost de l'API."
+      },
+      "webhookTester": {
+        "title": "Provador de webhooks",
+        "description": "Captura i inspecciona les peticions de webhook entrants en temps real."
+      },
+      "websocketTester": {
+        "title": "Provador de WebSocket",
+        "description": "Connecta't a endpoints WebSocket i intercanvia missatges en temps real."
+      },
+      "whoisLookup": {
+        "title": "Consulta Whois",
+        "description": "Consulta les dades de registre de dominis i IP mitjançant RDAP."
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Generador i verificador Bcrypt",
+    "subtitle": "Genera hash de contrasenyes amb bcrypt i verifica hashes — tot es queda al teu navegador",
+    "tabs": {
+      "hash": "Hash",
+      "verify": "Verifica"
+    },
+    "showPassword": "Mostra la contrasenya",
+    "hidePassword": "Amaga la contrasenya",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "hash": {
+      "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "Introdueix una contrasenya per generar el hash…",
+      "costLabel": "Factor de cost",
+      "costHint": "Un cost més alt duplica la feina per pas. 10-12 és una opció habitual per a producció.",
+      "slowWarning": "Els factors de cost de 13 o més poden trigar diversos segons a calcular-se.",
+      "generate": "Genera el hash",
+      "generating": "Generant el hash…",
+      "resultLabel": "Hash bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Anatomia del hash",
+        "algorithm": "algoritme",
+        "cost": "cost",
+        "salt": "salt (22 caràcters)",
+        "hash": "hash (31 caràcters)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "Introdueix la contrasenya per comprovar-la…",
+      "hashLabel": "Hash bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Introdueix una contrasenya i un hash bcrypt per comparar-los.",
+      "invalidHash": "Això no sembla un hash bcrypt vàlid.",
+      "checking": "Comparant…",
+      "match": "Coincideix — la contrasenya produeix aquest hash.",
+      "noMatch": "No coincideix — la contrasenya no produeix aquest hash."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Calculadora Chmod",
+    "subtitle": "Converteix permisos de fitxer Unix entre caselles de selecció, octal i notació simbòlica",
+    "grid": {
+      "title": "Permisos",
+      "read": "Lectura",
+      "write": "Escriptura",
+      "execute": "Execució",
+      "owner": "Propietari",
+      "group": "Grup",
+      "others": "Altres"
+    },
+    "special": {
+      "title": "Bits especials",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Octal",
+      "placeholder": "755 o 4755",
+      "invalid": "Introdueix 3 o 4 dígits octals (0-7)."
+    },
+    "symbolic": {
+      "label": "Simbòlic",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Introdueix 9 caràcters com rwxr-xr-x (s/S, t/T permesos)."
+    },
+    "output": {
+      "title": "Ordre",
+      "copy": "Copia",
+      "copied": "Copiat"
+    },
+    "explain": {
+      "line": "{cls} pot {perms}.",
+      "none": "{cls} no té permisos.",
+      "setuid": "Setuid: el fitxer s'executa amb els privilegis del seu propietari.",
+      "setgid": "Setgid: el fitxer s'executa amb els privilegis del seu grup (els fitxers nous d'un directori n'hereten el grup).",
+      "sticky": "Sticky: només el propietari d'un fitxer pot eliminar-lo o canviar-ne el nom dins d'aquest directori."
+    },
+    "presets": {
+      "title": "Predefinits habituals",
+      "octal": "Octal",
+      "permissions": "Permisos",
+      "description": "Ús típic",
+      "p644": "Fitxers normals: el propietari escriu, tothom llegeix.",
+      "p755": "Executables i directoris: tothom pot llegir i entrar-hi.",
+      "p600": "Fitxers privats: només el propietari llegeix i escriu.",
+      "p700": "Executables i directoris privats: només el propietari.",
+      "p664": "Fitxers on el grup pot escriure.",
+      "p775": "Directoris i executables on el grup pot escriure.",
+      "p400": "Només de lectura per al propietari (p. ex. claus privades SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Captura de codi",
+    "subtitle": "Converteix codi en imatges boniques i compartibles",
+    "languageLabel": "Llenguatge",
+    "autoDetect": "Detecció automàtica",
+    "backgroundLabel": "Fons",
+    "paddingLabel": "Farciment",
+    "filenameLabel": "Nom del fitxer",
+    "filenamePlaceholder": "exemple.ts",
+    "windowLabel": "Punts de la finestra",
+    "themeLabel": "Tema de la finestra",
+    "themeDark": "Fosc",
+    "themeLight": "Clar",
+    "scaleLabel": "Escala d'exportació",
+    "copyImage": "Copia la imatge",
+    "copied": "Copiat",
+    "exportPng": "Exporta PNG",
+    "inputLabel": "Codi",
+    "detected": "Detectat: {language}",
+    "clear": "Netejar",
+    "placeholder": "Enganxa el teu codi aquí…",
+    "previewLabel": "Vista prèvia",
+    "emptyPreview": "La vista prèvia del teu codi apareixerà aquí",
+    "exportFailed": "No s'ha pogut exportar la imatge",
+    "copyUnsupported": "La còpia d'imatges no és compatible amb aquest navegador",
+    "copyFailed": "No s'ha pogut copiar la imatge",
+    "backgrounds": {
+      "ocean": "Oceà",
+      "sunset": "Posta de sol",
+      "candy": "Caramel",
+      "forest": "Bosc",
+      "midnight": "Mitjanit",
+      "gold": "Or",
+      "aurora": "Aurora",
+      "slate": "Pissarra",
+      "transparent": "Transparent"
+    }
+  },
+  "CssGenerators": {
+    "title": "Generadors CSS",
+    "subtitle": "Box-shadow, border-radius i clamp() fluid — copia el CSS.",
+    "preview": "Vista prèvia",
+    "output": "CSS",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() fluid"
+    },
+    "boxShadow": {
+      "presets": "Predefinits",
+      "layer": "Capa",
+      "addLayer": "Afegeix una capa",
+      "removeLayer": "Elimina la capa",
+      "x": "X",
+      "y": "Y",
+      "blur": "Difuminat",
+      "spread": "Extensió",
+      "color": "Color",
+      "alpha": "Alfa",
+      "inset": "Interior",
+      "presetNames": {
+        "subtleCard": "Targeta subtil",
+        "elevated": "Elevat",
+        "hardOffset": "Desplaçament dur",
+        "neonGlow": "Resplendor neó",
+        "inner": "Interior",
+        "layeredSmooth": "Capes suaus"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Mode",
+      "modes": {
+        "simple": "Per cantonada",
+        "blob": "Bombolla orgànica"
+      },
+      "unit": "Unitat",
+      "linkCorners": "Enllaça les cantonades",
+      "randomize": "Aleatoritza",
+      "horizontal": "Radis horitzontals",
+      "vertical": "Radis verticals",
+      "corners": {
+        "tl": "Superior esquerra",
+        "tr": "Superior dreta",
+        "br": "Inferior dreta",
+        "bl": "Inferior esquerra"
+      }
+    },
+    "clamp": {
+      "minFont": "Font mínima (px)",
+      "maxFont": "Font màxima (px)",
+      "minViewport": "Viewport mínim (px)",
+      "maxViewport": "Viewport màxim (px)",
+      "rootFont": "Font arrel (px)",
+      "viewportWidth": "Viewport simulat",
+      "computedSize": "Mida calculada",
+      "slope": "Pendent",
+      "intercept": "Intercepció",
+      "previewText": "La ràpida guineu marró",
+      "invalid": "Introdueix límits de viewport vàlids i diferents."
+    }
+  },
+  "ExifViewer": {
+    "title": "Visualitzador i eliminador EXIF",
+    "subtitle": "Inspecciona les metadades de les fotos i elimina-les al teu navegador",
+    "dropTitle": "Deixa anar una imatge aquí",
+    "dropHint": "o fes clic per navegar — la teva imatge no surt mai del teu dispositiu",
+    "browse": "Tria una imatge",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Llegint metadades…",
+    "parseFailed": "No s'ha pogut llegir aquesta imatge",
+    "clear": "Elimina la imatge",
+    "gpsWarning": "Conté ubicació GPS",
+    "openMap": "Mostra a OpenStreetMap",
+    "noMetadata": "No s'han trobat metadades incrustades en aquesta imatge.",
+    "facts": {
+      "name": "Nom",
+      "type": "Tipus",
+      "dimensions": "Dimensions",
+      "size": "Mida"
+    },
+    "groups": {
+      "camera": "Càmera",
+      "exposure": "Exposició",
+      "timestamps": "Marques de temps",
+      "gps": "Ubicació GPS",
+      "software": "Programari i altres"
+    },
+    "gpsCard": {
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "altitude": "Altitud"
+    },
+    "raw": {
+      "title": "Totes les metadades",
+      "copyJson": "Copia el JSON",
+      "copied": "Copiat"
+    },
+    "remove": {
+      "title": "Elimina les metadades",
+      "jpegDescription": "Elimina sense pèrdua EXIF, XMP, IPTC i comentaris sense recomprimir la imatge.",
+      "reencodeDescription": "Recodifica la imatge per eliminar les metadades incrustades. Això recomprimeix els píxels.",
+      "keepIcc": "Conserva el perfil de color (ICC)",
+      "stripButton": "Elimina les metadades",
+      "reencodeButton": "Recodifica i elimina",
+      "unsupported": "L'eliminació de metadades no és compatible amb aquest tipus de fitxer.",
+      "failed": "No s'han pogut eliminar les metadades",
+      "before": "Abans",
+      "after": "Després",
+      "download": "Descarrega la imatge neta"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Generador de favicon",
+    "subtitle": "Crea favicons i icones d'app a partir d'una imatge",
+    "dropTitle": "Deixa anar una imatge aquí",
+    "dropHint": "PNG, JPEG o SVG — fes clic per navegar",
+    "browse": "Tria una imatge",
+    "clear": "Elimina la imatge",
+    "backgroundLabel": "Fons",
+    "transparent": "Transparent",
+    "solidColor": "Sòlid",
+    "cornerLabel": "Forma de la cantonada",
+    "cornerNone": "Quadrat",
+    "cornerRounded": "Arrodonit",
+    "cornerCircle": "Cercle",
+    "maskPaddingLabel": "Farciment maskable",
+    "maskable": "maskable",
+    "previewLabel": "Vista prèvia",
+    "copy": "Copia",
+    "headSnippet": "Fragment del head HTML",
+    "downloadIco": "Descarrega favicon.ico",
+    "downloadZip": "Descarrega-ho tot (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Diff JSON",
+    "subtitle": "Comparació semàntica i conscient de l'estructura de dos documents JSON — s'ignoren l'ordre de les claus i el format",
+    "options": {
+      "ignoreArrayOrder": "Ignora l'ordre dels arrays"
+    },
+    "loadBothSamples": "Carrega exemples",
+    "sample": "Exemple",
+    "format": "Formata",
+    "clear": "Netejar",
+    "formatError": "No es pot formatar: l'entrada no és un JSON vàlid",
+    "placeholder": "Enganxa o escriu JSON aquí…",
+    "panels": {
+      "left": "Original (esquerra)",
+      "right": "Modificat (dreta)",
+      "results": "Diferències"
+    },
+    "summary": {
+      "added": "{count} afegit(s)",
+      "removed": "{count} eliminat(s)",
+      "changed": "{count} canviat(s)"
+    },
+    "types": {
+      "added": "Afegit",
+      "removed": "Eliminat",
+      "changed": "Canviat"
+    },
+    "copyChanges": "Copia com a JSON",
+    "copied": "Copiat",
+    "empty": "Enganxa JSON als dos plafons per veure'n les diferències.",
+    "identical": "Els dos documents són semànticament idèntics."
+  },
+  "JsonpathPlayground": {
+    "title": "Playground JSONPath",
+    "subtitle": "Consulta documents JSON amb JSONPath o JMESPath i mira els resultats en directe",
+    "engineLabel": "Motor",
+    "queryLabel": "Consulta",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Referència ràpida",
+    "cheats": {
+      "jpAllTitles": "Tots els títols de llibres",
+      "jpAllAuthors": "Tots els autors, a qualsevol lloc del document",
+      "jpFirstBook": "Primer llibre",
+      "jpLastBook": "Últim llibre",
+      "jpSlice": "Els dos primers llibres (slice)",
+      "jpFilterPrice": "Llibres més barats que 40",
+      "jpFilterInStock": "Títols dels llibres en estoc",
+      "jpRecursive": "Tots els valors, recursivament",
+      "jmAllTitles": "Tots els títols de llibres",
+      "jmFirstAuthor": "Autor del primer llibre",
+      "jmLastBook": "Últim llibre",
+      "jmSlice": "Els dos primers llibres (slice)",
+      "jmFilterPrice": "Títols dels llibres més barats que 40",
+      "jmCount": "Compta els llibres en estoc",
+      "jmProjection": "Remodela cada llibre en un objecte nou",
+      "jmSort": "Títols ordenats per preu"
+    },
+    "panels": {
+      "input": "Entrada JSON",
+      "results": "Resultats"
+    },
+    "sample": "Exemple",
+    "format": "Formata",
+    "clear": "Netejar",
+    "formatError": "No es pot formatar: l'entrada no és un JSON vàlid",
+    "placeholder": "Enganxa o escriu JSON aquí…",
+    "outputPlaceholder": "Les coincidències apareixeran aquí…",
+    "matchCount": "{count, plural, one {# coincidència} other {# coincidències}}",
+    "copy": "Copia",
+    "copied": "Copiat"
+  },
+  "KeycodeInspector": {
+    "title": "Inspector de keycode",
+    "subtitle": "Prem qualsevol tecla per inspeccionar el seu esdeveniment de teclat JavaScript",
+    "capture": {
+      "prompt": "Prem qualsevol tecla…",
+      "ready": "Escoltant — prem qualsevol tecla del teu teclat",
+      "clickToFocus": "Fes clic aquí per enfocar i després prem qualsevol tecla"
+    },
+    "hero": {
+      "spaceKey": "(Espai)",
+      "keyLabel": "event.key",
+      "repeat": "repetició"
+    },
+    "copyJson": "Copia el JSON",
+    "copiedJson": "JSON de l'esdeveniment copiat al porta-retalls",
+    "deprecated": "obsolet",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Estàndard",
+      "left": "Esquerra",
+      "right": "Dreta",
+      "numpad": "Teclat numèric",
+      "unknown": "Desconegut"
+    },
+    "history": {
+      "title": "Historial",
+      "clear": "Neteja l'historial",
+      "empty": "Les tecles premudes apareixeran aquí."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Generador de taules Markdown",
+    "subtitle": "Edita una graella, enganxa des d'un full de càlcul i copia una taula Markdown o HTML ben alineada",
+    "addRow": "Afegeix una fila",
+    "addColumn": "Afegeix una columna",
+    "importLabel": "Importa",
+    "importPlaceholder": "Enganxa TSV (d'Excel / Google Sheets) o CSV aquí…",
+    "importButton": "Importa a la graella",
+    "pasteClipboard": "Enganxa des del porta-retalls",
+    "importEmpty": "Res per importar — enganxa primer algunes files",
+    "clipboardError": "No s'ha pogut llegir del porta-retalls",
+    "clear": "Netejar",
+    "panels": {
+      "editor": "Editor de taules",
+      "output": "Resultat"
+    },
+    "align": {
+      "left": "Alinea a l'esquerra",
+      "center": "Centra",
+      "right": "Alinea a la dreta"
+    },
+    "headerPlaceholder": "Capçalera",
+    "cellPlaceholder": "Cel·la",
+    "removeRow": "Elimina la fila",
+    "removeColumn": "Elimina la columna",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Copia",
+    "copied": "Copiat"
+  },
+  "TimezoneConverter": {
+    "title": "Convertidor de zona horària",
+    "subtitle": "Converteix un moment arreu del món per planificar reunions.",
+    "dateTimeLabel": "Data i hora",
+    "now": "Ara",
+    "sourceZoneLabel": "Zona horària d'origen",
+    "selectZone": "Selecciona una zona",
+    "searchZone": "Cerca zones horàries...",
+    "noZone": "No s'ha trobat cap zona horària.",
+    "scrubLabel": "Desplaça l'hora",
+    "reset": "Restableix",
+    "targetsLabel": "Zones de destinació",
+    "addZone": "Afegeix una zona",
+    "remove": "Elimina",
+    "localBadge": "Local",
+    "invalidDate": "Introdueix una data i hora vàlides.",
+    "bands": {
+      "work": "Horari laboral (09:00–18:00)",
+      "edge": "Hores límit (matí / vespre)",
+      "night": "Nit"
+    }
+  },
+  "TokenCounter": {
+    "title": "Comptador de tokens LLM",
+    "subtitle": "Compta tokens, visualitza chunks i estima el cost de l'API.",
+    "inputLabel": "Text",
+    "sample": "Exemple",
+    "clear": "Netejar",
+    "placeholder": "Enganxa text, codi o JSON per comptar tokens...",
+    "encoding": "Codificació",
+    "loading": "Carregant el tokenitzador...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / sèrie o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokens",
+      "characters": "Caràcters",
+      "words": "Paraules",
+      "ratio": "Tokens/paraula",
+      "ratioSub": "aprox."
+    },
+    "claudeRow": "Claude (aproximat)",
+    "estimate": "estimació",
+    "viz": {
+      "title": "Visualització de tokens",
+      "toggle": "Mostra",
+      "hint": "Activa-ho per acolorir cada token com un chunk.",
+      "empty": "Introdueix text per visualitzar els tokens.",
+      "truncated": "Mostrant els primers {limit} de {total} tokens."
+    },
+    "cost": {
+      "title": "Calculadora de cost",
+      "disclaimer": "valors per defecte editables — verifica els preus actuals",
+      "model": "Model",
+      "expectedOutput": "Tokens de sortida esperats",
+      "customInput": "Entrada $/MTok",
+      "customOutput": "Sortida $/MTok",
+      "inputCost": "Cost d'entrada",
+      "outputCost": "Cost de sortida",
+      "total": "Total",
+      "per1000": "Per 1000 crides"
+    }
+  },
+  "WebhookTester": {
+    "title": "Provador de webhooks",
+    "subtitle": "Crea una URL temporal i inspecciona les peticions de webhook entrants en directe.",
+    "intro": {
+      "title": "Crea una URL de webhook per començar a capturar peticions",
+      "hint": "Rebràs una URL impossible d'endevinar que registra cada petició entrant. Caduca al cap de 24 hores."
+    },
+    "createBtn": "Crea una URL de webhook",
+    "creating": "Creant…",
+    "urlLabel": "La teva URL de webhook",
+    "expiresIn": "Caduca en {countdown}",
+    "copyUrlBtn": "Copia la URL",
+    "copied": "Copiat",
+    "clearBtn": "Netejar",
+    "newBinBtn": "URL nova",
+    "requestsTitle": "Peticions",
+    "selectPrompt": "Selecciona una petició per inspeccionar-ne els detalls.",
+    "expiredNotice": "Aquesta URL de webhook ha caducat. Crea'n una de nova per continuar provant.",
+    "base64Badge": "base64",
+    "truncatedBadge": "truncat",
+    "empty": {
+      "title": "Esperant peticions…",
+      "hint": "Envia una petició a la teva URL i apareixerà aquí a l'instant. Prova això:"
+    },
+    "detail": {
+      "receivedAt": "Rebut",
+      "source": "IP d'origen",
+      "contentType": "Content-Type",
+      "query": "Paràmetres de query",
+      "headers": "Capçaleres",
+      "body": "Cos",
+      "copyBody": "Copia el cos",
+      "emptyBody": "Sense cos"
+    },
+    "errors": {
+      "createFailed": "No s'ha pogut crear la URL de webhook. Torna-ho a provar.",
+      "clearFailed": "No s'han pogut netejar les peticions. Torna-ho a provar."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Provador de WebSocket",
+    "subtitle": "Connecta't a un endpoint WebSocket i envia, rep i inspecciona missatges en directe",
+    "urlLabel": "URL de l'endpoint",
+    "protocolsLabel": "Subprotocols",
+    "protocolsPlaceholder": "opcional, separats per comes",
+    "connect": "Connecta",
+    "disconnect": "Desconnecta",
+    "status": {
+      "disconnected": "Desconnectat",
+      "connecting": "Connectant",
+      "connected": "Connectat",
+      "error": "Error"
+    },
+    "messages": {
+      "connecting": "Connectant a {url}…",
+      "connected": "Connexió establerta",
+      "connectedWithProtocol": "Connexió establerta (protocol: {protocol})",
+      "invalidUrl": "URL no vàlida — ha de començar amb ws:// o wss://",
+      "connectFailed": "No s'ha pogut obrir la connexió",
+      "socketError": "S'ha produït un error de connexió",
+      "notConnected": "No connectat — connecta't primer",
+      "binaryMessage": "S'ha rebut un missatge binari"
+    },
+    "log": {
+      "title": "Registre de missatges",
+      "empty": "Encara no hi ha missatges. Connecta't i comença a enviar.",
+      "copyAll": "Copia-ho tot",
+      "download": "Descarrega com a .txt",
+      "clear": "Neteja el registre",
+      "prettyPrint": "Formata el JSON",
+      "showRaw": "Mostra el text en brut"
+    },
+    "composer": {
+      "placeholder": "Escriu un missatge per enviar…",
+      "send": "Envia",
+      "formatJson": "Formata com a JSON",
+      "invalidJson": "El missatge no és un JSON vàlid",
+      "hint": "Cmd/Ctrl+Enter per enviar"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "s",
+      "intervalTitle": "Interval de ping en segons",
+      "payloadPlaceholder": "payload del ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Consulta Whois",
+    "subtitle": "Consulta les dades de registre de qualsevol domini o adreça IP mitjançant RDAP",
+    "placeholder": "example.com o 8.8.8.8",
+    "lookupBtn": "Consulta",
+    "looking": "Consultant…",
+    "refreshBtn": "Actualitza",
+    "tryLabel": "Prova:",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "notAvailable": "No disponible",
+    "summary": {
+      "registrar": "Registrador",
+      "network": "Xarxa"
+    },
+    "dates": {
+      "created": "Creat",
+      "updated": "Actualitzat",
+      "expires": "Caduca"
+    },
+    "sections": {
+      "status": "Estat",
+      "nameservers": "Servidors de noms",
+      "contacts": "Contactes",
+      "rawRdap": "RDAP en brut"
+    },
+    "contacts": {
+      "roles": "Rols",
+      "name": "Nom",
+      "organization": "Organització"
+    },
+    "errors": {
+      "invalidTarget": "Introdueix un nom de domini o adreça IP vàlids",
+      "lookupFailed": "La consulta ha fallat (estat {status})"
+    }
   }
 }

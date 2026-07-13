@@ -37,7 +37,6 @@ import { NavCollapsible, NavItem, NavLink } from "./types"; // Import types
 import useAuth from "@/utils/useAuth"; // Import useAuth
 import { useTranslations } from "next-intl";
 import { requiresAuth } from "@/lib/tool-config";
-import { useToolVisibility } from "@/hooks/use-tool-visibility";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { Star } from "lucide-react";
 import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from "@/store/pinned-tools-store";
@@ -54,8 +53,6 @@ interface NavGroupProps {
   collapsible?: boolean;
   icon?: React.ElementType;
   hiddenOnMobile?: boolean;
-  /** Show links even when the tool is hidden from other sidebar groups (e.g. user-pinned favorites). */
-  ignoreToolVisibility?: boolean;
 }
 
 /**
@@ -86,42 +83,18 @@ function NavLinkGated({
 }
 
 // Main NavGroup Component
-export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hiddenOnMobile, ignoreToolVisibility }: NavGroupProps) {
+export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hiddenOnMobile }: NavGroupProps) {
   const { state, isMobile } = useSidebar();
   const pathname = usePathname();
   const { user, loading } = useAuth(false); // Check auth state with loading
-  const { isToolEnabled } = useToolVisibility();
   const tNav = useTranslations("Navigation");
   const groupTitle = titleKey ? tNav(titleKey as never) : title;
 
-  // Filter items based on mobile state and tool availability
-  const visibleItems = items
-    .filter((item) => {
-      const itemUrl = typeof item.url === "string" ? item.url : item.url?.toString() || '';
-      if (!ignoreToolVisibility && itemUrl.startsWith('/app/') && !isToolEnabled(itemUrl)) {
-        return false;
-      }
-      return true;
-    })
-    .map((item) => {
-      if ("items" in item && Array.isArray((item as NavCollapsible).items)) {
-        return {
-          ...item,
-          items: (item as NavCollapsible).items.filter((sub) => {
-            const subUrl = typeof sub.url === "string" ? sub.url : sub.url?.toString() || '';
-            if (!ignoreToolVisibility && subUrl.startsWith('/app/') && !isToolEnabled(subUrl)) {
-              return false;
-            }
-            return true;
-          })
-        };
-      }
-      return item;
-    })
-    .filter((item) => {
-      if ("items" in item && Array.isArray((item as NavCollapsible).items) && (item as NavCollapsible).items.length === 0) return false;
-      return true;
-    });
+  // Drop collapsible groups that ended up with no children.
+  const visibleItems = items.filter((item) => {
+    if ("items" in item && Array.isArray((item as NavCollapsible).items) && (item as NavCollapsible).items.length === 0) return false;
+    return true;
+  });
 
   if (visibleItems.length === 0) {
     return null;

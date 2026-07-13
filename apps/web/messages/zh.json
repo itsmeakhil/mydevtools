@@ -61,7 +61,22 @@
     "stringCaseConverter": "String Case Converter",
     "lineSortDedupe": "Line Sort & Dedupe",
     "stringInspector": "String Inspector",
-    "escapeEncode": "Escape / Encode"
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod 计算器",
+    "codeScreenshot": "代码截图",
+    "cssGenerators": "CSS 生成器",
+    "exifViewer": "EXIF 查看器",
+    "faviconGenerator": "Favicon 生成器",
+    "jsonDiff": "JSON 对比",
+    "jsonpathPlayground": "JSONPath 沙盒",
+    "keycodeInspector": "键码检查器",
+    "markdownTableGenerator": "Markdown 表格",
+    "timezoneConverter": "时区转换器",
+    "tokenCounter": "Token 计数器",
+    "webhookTester": "Webhook 测试器",
+    "websocketTester": "WebSocket 测试器",
+    "whoisLookup": "Whois 查询"
   },
   "Help": {
     "title": "帮助与文档",
@@ -526,6 +541,66 @@
       "escapeEncode": {
         "title": "Escape / Encode",
         "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt 生成与校验",
+        "description": "使用 bcrypt 哈希密码并校验现有哈希值。"
+      },
+      "chmodCalculator": {
+        "title": "Chmod 计算器",
+        "description": "在八进制、符号表示和复选框之间转换 Unix 权限。"
+      },
+      "codeScreenshot": {
+        "title": "代码截图",
+        "description": "将源代码转换为精美、可分享的图片。"
+      },
+      "cssGenerators": {
+        "title": "CSS 生成器",
+        "description": "Box-shadow、border-radius 和流式 clamp() 生成器。"
+      },
+      "exifViewer": {
+        "title": "EXIF 查看与移除",
+        "description": "在本地检查并清除照片的 EXIF 元数据。"
+      },
+      "faviconGenerator": {
+        "title": "Favicon 生成器",
+        "description": "生成 favicon、应用图标和清单代码片段。"
+      },
+      "jsonDiff": {
+        "title": "JSON 对比",
+        "description": "对两个 JSON 文档进行语义化、结构感知的对比。"
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath 沙盒",
+        "description": "使用 JSONPath 或 JMESPath 查询 JSON 并实时查看结果。"
+      },
+      "keycodeInspector": {
+        "title": "键码检查器",
+        "description": "按下按键即可查看其 JavaScript 事件码和修饰键。"
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown 表格生成器",
+        "description": "在类似电子表格的网格编辑器中构建 Markdown 和 HTML 表格。"
+      },
+      "timezoneConverter": {
+        "title": "时区转换器",
+        "description": "跨多个时区转换时间，并提示日期偏移和工作时间。"
+      },
+      "tokenCounter": {
+        "title": "LLM Token 计数器",
+        "description": "统计 LLM token 数量、可视化分块并估算 API 成本。"
+      },
+      "webhookTester": {
+        "title": "Webhook 测试器",
+        "description": "实时捕获并检查传入的 webhook 请求。"
+      },
+      "websocketTester": {
+        "title": "WebSocket 测试器",
+        "description": "连接 WebSocket 端点并实时收发消息。"
+      },
+      "whoisLookup": {
+        "title": "Whois 查询",
+        "description": "通过 RDAP 查询域名和 IP 的注册信息。"
       }
     },
     "tabs": {
@@ -3877,5 +3952,602 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt 生成与校验",
+    "subtitle": "使用 bcrypt 哈希密码并校验哈希 — 一切都在你的浏览器中完成",
+    "tabs": {
+      "hash": "哈希",
+      "verify": "校验"
+    },
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "copy": "复制",
+    "copied": "已复制",
+    "hash": {
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "输入要哈希的密码…",
+      "costLabel": "成本因子",
+      "costHint": "更高的成本因子会使每一步的计算量翻倍。生产环境常用 10-12。",
+      "slowWarning": "成本因子达到 13 及以上可能需要数秒才能计算完成。",
+      "generate": "生成哈希",
+      "generating": "正在哈希…",
+      "resultLabel": "Bcrypt 哈希",
+      "timeTaken": "{ms} 毫秒",
+      "anatomy": {
+        "title": "哈希结构",
+        "algorithm": "算法",
+        "cost": "成本",
+        "salt": "盐值（22 个字符）",
+        "hash": "哈希（31 个字符）"
+      }
+    },
+    "verify": {
+      "passwordLabel": "密码",
+      "passwordPlaceholder": "输入要校验的密码…",
+      "hashLabel": "Bcrypt 哈希",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "输入密码和 bcrypt 哈希以进行比对。",
+      "invalidHash": "这看起来不是有效的 bcrypt 哈希。",
+      "checking": "正在比对…",
+      "match": "匹配 — 该密码可生成此哈希。",
+      "noMatch": "不匹配 — 该密码无法生成此哈希。"
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod 计算器",
+    "subtitle": "在复选框、八进制和符号表示之间转换 Unix 文件权限",
+    "grid": {
+      "title": "权限",
+      "read": "读取",
+      "write": "写入",
+      "execute": "执行",
+      "owner": "所有者",
+      "group": "组",
+      "others": "其他用户"
+    },
+    "special": {
+      "title": "特殊位",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "八进制",
+      "placeholder": "755 或 4755",
+      "invalid": "请输入 3 或 4 位八进制数字（0-7）。"
+    },
+    "symbolic": {
+      "label": "符号表示",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "请输入 9 个字符，如 rwxr-xr-x（允许 s/S、t/T）。"
+    },
+    "output": {
+      "title": "命令",
+      "copy": "复制",
+      "copied": "已复制"
+    },
+    "explain": {
+      "line": "{cls}可以{perms}。",
+      "none": "{cls}没有任何权限。",
+      "setuid": "Setuid：文件以其所有者的权限运行。",
+      "setgid": "Setgid：文件以其所属组的权限运行（目录中的新文件会继承该组）。",
+      "sticky": "Sticky：只有文件的所有者才能在此目录中删除或重命名它。"
+    },
+    "presets": {
+      "title": "常用预设",
+      "octal": "八进制",
+      "permissions": "权限",
+      "description": "典型用途",
+      "p644": "普通文件：所有者可写，所有人可读。",
+      "p755": "可执行文件和目录：所有人可读取和进入。",
+      "p600": "私有文件：只有所有者可读写。",
+      "p700": "私有可执行文件和目录：仅限所有者。",
+      "p664": "组可写文件。",
+      "p775": "组可写目录和可执行文件。",
+      "p400": "所有者只读（例如 SSH 私钥）。"
+    }
+  },
+  "CodeScreenshot": {
+    "title": "代码截图",
+    "subtitle": "将代码转换为精美、可分享的图片",
+    "languageLabel": "语言",
+    "autoDetect": "自动检测",
+    "backgroundLabel": "背景",
+    "paddingLabel": "内边距",
+    "filenameLabel": "文件名",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "窗口圆点",
+    "themeLabel": "窗口主题",
+    "themeDark": "深色",
+    "themeLight": "浅色",
+    "scaleLabel": "导出倍率",
+    "copyImage": "复制图片",
+    "copied": "已复制",
+    "exportPng": "导出 PNG",
+    "inputLabel": "代码",
+    "detected": "已检测：{language}",
+    "clear": "清空",
+    "placeholder": "在此粘贴你的代码…",
+    "previewLabel": "预览",
+    "emptyPreview": "你的代码预览将显示在这里",
+    "exportFailed": "导出图片失败",
+    "copyUnsupported": "此浏览器不支持复制图片",
+    "copyFailed": "复制图片失败",
+    "backgrounds": {
+      "ocean": "海洋",
+      "sunset": "日落",
+      "candy": "糖果",
+      "forest": "森林",
+      "midnight": "午夜",
+      "gold": "金色",
+      "aurora": "极光",
+      "slate": "石板灰",
+      "transparent": "透明"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS 生成器",
+    "subtitle": "Box-shadow、border-radius 和流式 clamp() — 复制 CSS。",
+    "preview": "预览",
+    "output": "CSS",
+    "copy": "复制",
+    "copied": "已复制",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "流式 clamp()"
+    },
+    "boxShadow": {
+      "presets": "预设",
+      "layer": "图层",
+      "addLayer": "添加图层",
+      "removeLayer": "移除图层",
+      "x": "X",
+      "y": "Y",
+      "blur": "模糊",
+      "spread": "扩展",
+      "color": "颜色",
+      "alpha": "透明度",
+      "inset": "内阴影",
+      "presetNames": {
+        "subtleCard": "轻微卡片",
+        "elevated": "悬浮",
+        "hardOffset": "硬偏移",
+        "neonGlow": "霓虹光晕",
+        "inner": "内阴影",
+        "layeredSmooth": "多层柔和"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "模式",
+      "modes": {
+        "simple": "逐角",
+        "blob": "有机形状"
+      },
+      "unit": "单位",
+      "linkCorners": "关联各角",
+      "randomize": "随机",
+      "horizontal": "水平半径",
+      "vertical": "垂直半径",
+      "corners": {
+        "tl": "左上",
+        "tr": "右上",
+        "br": "右下",
+        "bl": "左下"
+      }
+    },
+    "clamp": {
+      "minFont": "最小字号 (px)",
+      "maxFont": "最大字号 (px)",
+      "minViewport": "最小视口 (px)",
+      "maxViewport": "最大视口 (px)",
+      "rootFont": "根字号 (px)",
+      "viewportWidth": "模拟视口",
+      "computedSize": "计算尺寸",
+      "slope": "斜率",
+      "intercept": "截距",
+      "previewText": "The quick brown fox",
+      "invalid": "请输入有效且不同的视口范围。"
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF 查看与移除",
+    "subtitle": "在浏览器中检查照片元数据并将其清除",
+    "dropTitle": "将图片拖放到此处",
+    "dropHint": "或点击浏览 — 你的图片绝不会离开你的设备",
+    "browse": "选择图片",
+    "formats": "JPEG、PNG、WebP、HEIC、TIFF",
+    "parsing": "正在读取元数据…",
+    "parseFailed": "读取此图片失败",
+    "clear": "移除图片",
+    "gpsWarning": "包含 GPS 位置信息",
+    "openMap": "在 OpenStreetMap 上查看",
+    "noMetadata": "此图片中未找到嵌入的元数据。",
+    "facts": {
+      "name": "名称",
+      "type": "类型",
+      "dimensions": "尺寸",
+      "size": "大小"
+    },
+    "groups": {
+      "camera": "相机",
+      "exposure": "曝光",
+      "timestamps": "时间戳",
+      "gps": "GPS 位置",
+      "software": "软件与其他"
+    },
+    "gpsCard": {
+      "latitude": "纬度",
+      "longitude": "经度",
+      "altitude": "海拔"
+    },
+    "raw": {
+      "title": "全部元数据",
+      "copyJson": "复制 JSON",
+      "copied": "已复制"
+    },
+    "remove": {
+      "title": "移除元数据",
+      "jpegDescription": "无损移除 EXIF、XMP、IPTC 和注释，且不重新压缩图片。",
+      "reencodeDescription": "重新编码图片以清除嵌入的元数据。这会重新压缩像素。",
+      "keepIcc": "保留颜色配置文件 (ICC)",
+      "stripButton": "清除元数据",
+      "reencodeButton": "重新编码并清除",
+      "unsupported": "此文件类型不支持移除元数据。",
+      "failed": "移除元数据失败",
+      "before": "之前",
+      "after": "之后",
+      "download": "下载已清理的图片"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon 生成器",
+    "subtitle": "从一张图片创建 favicon 和应用图标",
+    "dropTitle": "将图片拖放到此处",
+    "dropHint": "PNG、JPEG 或 SVG — 点击浏览",
+    "browse": "选择图片",
+    "clear": "移除图片",
+    "backgroundLabel": "背景",
+    "transparent": "透明",
+    "solidColor": "纯色",
+    "cornerLabel": "圆角形状",
+    "cornerNone": "方形",
+    "cornerRounded": "圆角",
+    "cornerCircle": "圆形",
+    "maskPaddingLabel": "可遮罩内边距",
+    "maskable": "maskable",
+    "previewLabel": "预览",
+    "copy": "复制",
+    "headSnippet": "HTML head 代码片段",
+    "downloadIco": "下载 favicon.ico",
+    "downloadZip": "下载全部 (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON 对比",
+    "subtitle": "对两个 JSON 文档进行语义化、结构感知的比较 — 忽略键顺序和格式",
+    "options": {
+      "ignoreArrayOrder": "忽略数组顺序"
+    },
+    "loadBothSamples": "加载示例",
+    "sample": "示例",
+    "format": "格式化",
+    "clear": "清空",
+    "formatError": "无法格式化：输入不是有效的 JSON",
+    "placeholder": "在此粘贴或输入 JSON…",
+    "panels": {
+      "left": "原始（左）",
+      "right": "修改后（右）",
+      "results": "差异"
+    },
+    "summary": {
+      "added": "{count} 项新增",
+      "removed": "{count} 项移除",
+      "changed": "{count} 项变更"
+    },
+    "types": {
+      "added": "新增",
+      "removed": "移除",
+      "changed": "变更"
+    },
+    "copyChanges": "复制为 JSON",
+    "copied": "已复制",
+    "empty": "在两个面板中粘贴 JSON 以查看它们的差异。",
+    "identical": "这两个文档在语义上完全相同。"
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath 沙盒",
+    "subtitle": "使用 JSONPath 或 JMESPath 查询 JSON 文档并实时查看结果",
+    "engineLabel": "引擎",
+    "queryLabel": "查询",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "速查表",
+    "cheats": {
+      "jpAllTitles": "所有书名",
+      "jpAllAuthors": "文档中任意位置的所有作者",
+      "jpFirstBook": "第一本书",
+      "jpLastBook": "最后一本书",
+      "jpSlice": "前两本书（切片）",
+      "jpFilterPrice": "价格低于 40 的书",
+      "jpFilterInStock": "有库存书籍的书名",
+      "jpRecursive": "递归获取所有值",
+      "jmAllTitles": "所有书名",
+      "jmFirstAuthor": "第一本书的作者",
+      "jmLastBook": "最后一本书",
+      "jmSlice": "前两本书（切片）",
+      "jmFilterPrice": "价格低于 40 的书名",
+      "jmCount": "统计有库存的书籍",
+      "jmProjection": "将每本书重塑为新对象",
+      "jmSort": "按价格排序的书名"
+    },
+    "panels": {
+      "input": "JSON 输入",
+      "results": "结果"
+    },
+    "sample": "示例",
+    "format": "格式化",
+    "clear": "清空",
+    "formatError": "无法格式化：输入不是有效的 JSON",
+    "placeholder": "在此粘贴或输入 JSON…",
+    "outputPlaceholder": "匹配结果将显示在这里…",
+    "matchCount": "{count, plural, one {# 个匹配} other {# 个匹配}}",
+    "copy": "复制",
+    "copied": "已复制"
+  },
+  "KeycodeInspector": {
+    "title": "键码检查器",
+    "subtitle": "按下任意键以检查其 JavaScript 键盘事件",
+    "capture": {
+      "prompt": "按下任意键…",
+      "ready": "正在监听 — 请按键盘上的任意键",
+      "clickToFocus": "点击此处以聚焦，然后按任意键"
+    },
+    "hero": {
+      "spaceKey": "（空格）",
+      "keyLabel": "event.key",
+      "repeat": "重复"
+    },
+    "copyJson": "复制 JSON",
+    "copiedJson": "事件 JSON 已复制到剪贴板",
+    "deprecated": "已弃用",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "标准",
+      "left": "左",
+      "right": "右",
+      "numpad": "小键盘",
+      "unknown": "未知"
+    },
+    "history": {
+      "title": "历史记录",
+      "clear": "清空历史记录",
+      "empty": "按键记录将显示在这里。"
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown 表格生成器",
+    "subtitle": "编辑网格、从电子表格粘贴，并复制对齐美观的 Markdown 或 HTML 表格",
+    "addRow": "添加行",
+    "addColumn": "添加列",
+    "importLabel": "导入",
+    "importPlaceholder": "在此粘贴 TSV（来自 Excel / Google Sheets）或 CSV…",
+    "importButton": "导入到网格",
+    "pasteClipboard": "从剪贴板粘贴",
+    "importEmpty": "无内容可导入 — 请先粘贴一些行",
+    "clipboardError": "无法从剪贴板读取",
+    "clear": "清空",
+    "panels": {
+      "editor": "表格编辑器",
+      "output": "输出"
+    },
+    "align": {
+      "left": "左对齐",
+      "center": "居中对齐",
+      "right": "右对齐"
+    },
+    "headerPlaceholder": "表头",
+    "cellPlaceholder": "单元格",
+    "removeRow": "移除行",
+    "removeColumn": "移除列",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "复制",
+    "copied": "已复制"
+  },
+  "TimezoneConverter": {
+    "title": "时区转换器",
+    "subtitle": "在全球范围内转换某一时刻，方便安排会议。",
+    "dateTimeLabel": "日期和时间",
+    "now": "现在",
+    "sourceZoneLabel": "源时区",
+    "selectZone": "选择时区",
+    "searchZone": "搜索时区...",
+    "noZone": "未找到时区。",
+    "scrubLabel": "调整时间",
+    "reset": "重置",
+    "targetsLabel": "目标时区",
+    "addZone": "添加时区",
+    "remove": "移除",
+    "localBadge": "本地",
+    "invalidDate": "请输入有效的日期和时间。",
+    "bands": {
+      "work": "工作时间（09:00–18:00）",
+      "edge": "边缘时间（清晨 / 傍晚）",
+      "night": "夜间"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM Token 计数器",
+    "subtitle": "统计 token、可视化分块并估算 API 成本。",
+    "inputLabel": "文本",
+    "sample": "示例",
+    "clear": "清空",
+    "placeholder": "粘贴文本、代码或 JSON 以统计 token...",
+    "encoding": "编码",
+    "loading": "正在加载分词器...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o 系列)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token 数",
+      "characters": "字符数",
+      "words": "单词数",
+      "ratio": "Token/单词",
+      "ratioSub": "约"
+    },
+    "claudeRow": "Claude（近似）",
+    "estimate": "估算",
+    "viz": {
+      "title": "Token 可视化",
+      "toggle": "显示",
+      "hint": "切换以将每个 token 着色为一个分块。",
+      "empty": "输入文本以可视化 token。",
+      "truncated": "显示 {total} 个 token 中的前 {limit} 个。"
+    },
+    "cost": {
+      "title": "成本计算器",
+      "disclaimer": "可编辑的默认值 — 请核对当前定价",
+      "model": "模型",
+      "expectedOutput": "预期输出 token 数",
+      "customInput": "输入 $/MTok",
+      "customOutput": "输出 $/MTok",
+      "inputCost": "输入成本",
+      "outputCost": "输出成本",
+      "total": "总计",
+      "per1000": "每 1000 次调用"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook 测试器",
+    "subtitle": "创建临时 URL 并实时检查传入的 webhook 请求。",
+    "intro": {
+      "title": "创建 webhook URL 以开始捕获请求",
+      "hint": "你将获得一个无法猜测的 URL，它会记录每个传入的请求。24 小时后过期。"
+    },
+    "createBtn": "创建 webhook URL",
+    "creating": "正在创建…",
+    "urlLabel": "你的 webhook URL",
+    "expiresIn": "{countdown} 后过期",
+    "copyUrlBtn": "复制 URL",
+    "copied": "已复制",
+    "clearBtn": "清空",
+    "newBinBtn": "新建 URL",
+    "requestsTitle": "请求",
+    "selectPrompt": "选择一个请求以查看其详细信息。",
+    "expiredNotice": "此 webhook URL 已过期。创建一个新的以继续测试。",
+    "base64Badge": "base64",
+    "truncatedBadge": "已截断",
+    "empty": {
+      "title": "正在等待请求…",
+      "hint": "向你的 URL 发送请求，它会立即显示在这里。试试："
+    },
+    "detail": {
+      "receivedAt": "接收时间",
+      "source": "来源 IP",
+      "contentType": "Content-Type",
+      "query": "查询参数",
+      "headers": "请求头",
+      "body": "正文",
+      "copyBody": "复制正文",
+      "emptyBody": "无正文"
+    },
+    "errors": {
+      "createFailed": "创建 webhook URL 失败。请重试。",
+      "clearFailed": "清空请求失败。请重试。"
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket 测试器",
+    "subtitle": "连接 WebSocket 端点并实时发送、接收和检查消息",
+    "urlLabel": "端点 URL",
+    "protocolsLabel": "子协议",
+    "protocolsPlaceholder": "可选，以逗号分隔",
+    "connect": "连接",
+    "disconnect": "断开连接",
+    "status": {
+      "disconnected": "已断开",
+      "connecting": "正在连接",
+      "connected": "已连接",
+      "error": "错误"
+    },
+    "messages": {
+      "connecting": "正在连接到 {url}…",
+      "connected": "连接已建立",
+      "connectedWithProtocol": "连接已建立（协议：{protocol}）",
+      "invalidUrl": "无效的 URL — 必须以 ws:// 或 wss:// 开头",
+      "connectFailed": "打开连接失败",
+      "socketError": "发生连接错误",
+      "notConnected": "未连接 — 请先连接",
+      "binaryMessage": "收到二进制消息"
+    },
+    "log": {
+      "title": "消息日志",
+      "empty": "暂无消息。连接后开始发送。",
+      "copyAll": "全部复制",
+      "download": "下载为 .txt",
+      "clear": "清空日志",
+      "prettyPrint": "美化 JSON",
+      "showRaw": "显示原始文本"
+    },
+    "composer": {
+      "placeholder": "输入要发送的消息…",
+      "send": "发送",
+      "formatJson": "格式化为 JSON",
+      "invalidJson": "消息不是有效的 JSON",
+      "hint": "Cmd/Ctrl+Enter 发送"
+    },
+    "ping": {
+      "label": "自动 ping",
+      "seconds": "秒",
+      "intervalTitle": "Ping 间隔（秒）",
+      "payloadPlaceholder": "ping 负载"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois 查询",
+    "subtitle": "通过 RDAP 查询任意域名或 IP 地址的注册信息",
+    "placeholder": "example.com 或 8.8.8.8",
+    "lookupBtn": "查询",
+    "looking": "正在查询…",
+    "refreshBtn": "刷新",
+    "tryLabel": "试试：",
+    "copy": "复制",
+    "copied": "已复制",
+    "notAvailable": "不可用",
+    "summary": {
+      "registrar": "注册商",
+      "network": "网络"
+    },
+    "dates": {
+      "created": "创建时间",
+      "updated": "更新时间",
+      "expires": "过期时间"
+    },
+    "sections": {
+      "status": "状态",
+      "nameservers": "名称服务器",
+      "contacts": "联系人",
+      "rawRdap": "原始 RDAP"
+    },
+    "contacts": {
+      "roles": "角色",
+      "name": "名称",
+      "organization": "组织"
+    },
+    "errors": {
+      "invalidTarget": "请输入有效的域名或 IP 地址",
+      "lookupFailed": "查询失败（状态 {status}）"
+    }
   }
 }

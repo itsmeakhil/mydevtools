@@ -2,7 +2,6 @@
 import { act } from "react"
 
 jest.mock("@/lib/workspace-api", () => ({
-  listOrgs: jest.fn(),
   listWorkspaces: jest.fn(),
   setActiveWorkspace: jest.fn(),
 }))
@@ -21,16 +20,15 @@ describe("workspace-store", () => {
   beforeEach(() => {
     useWorkspaceStore.getState().clear()
     jest.clearAllMocks()
+    // loadFromBackend fire-and-forgets setActiveWorkspace(...).catch — give it a promise.
+    ;(api.setActiveWorkspace as jest.Mock).mockResolvedValue(undefined)
     // Reset the broadcast mock to return a no-op function
     ;(broadcast.subscribeToWorkspaceBroadcast as jest.Mock).mockReturnValue(() => {})
   })
 
-  it("loadFromBackend hydrates orgs + workspaces + defaults active to first workspace", async () => {
-    ;(api.listOrgs as jest.Mock).mockResolvedValue([
-      { id: "o1", name: "MyDevTools Cloud", slug: "mydevtools-cloud", kind: "system", org_role: "member" },
-    ])
+  it("loadFromBackend hydrates workspaces + defaults active to first workspace", async () => {
     ;(api.listWorkspaces as jest.Mock).mockResolvedValue([
-      { id: "w1", org_id: "o1", name: "Personal", slug: "personal-u1", is_personal: true, kind: "personal", ws_role: "admin" },
+      { id: "w1", name: "Personal", slug: "personal-u1", is_personal: true, kind: "personal", ws_role: "admin" },
     ])
 
     await act(async () => {
@@ -39,7 +37,6 @@ describe("workspace-store", () => {
 
     const state = useWorkspaceStore.getState()
     expect(state.hydrated).toBe(true)
-    expect(state.orgs).toHaveLength(1)
     expect(state.workspaces).toHaveLength(1)
     expect(state.activeWorkspaceId).toBe("w1")
   })
@@ -47,7 +44,7 @@ describe("workspace-store", () => {
   it("setActiveWorkspace posts to backend, updates state", async () => {
     ;(api.setActiveWorkspace as jest.Mock).mockResolvedValue(undefined)
     useWorkspaceStore.setState({
-      orgs: [], workspaces: [{ id: "w1" } as any, { id: "w2" } as any],
+      workspaces: [{ id: "w1" } as any, { id: "w2" } as any],
       activeWorkspaceId: "w1", hydrated: true,
     })
 
@@ -62,7 +59,7 @@ describe("workspace-store", () => {
   it("setActiveWorkspace broadcasts workspace change", async () => {
     ;(api.setActiveWorkspace as jest.Mock).mockResolvedValue(undefined)
     useWorkspaceStore.setState({
-      orgs: [], workspaces: [{ id: "w1" } as any, { id: "w2" } as any],
+      workspaces: [{ id: "w1" } as any, { id: "w2" } as any],
       activeWorkspaceId: "w1", hydrated: true,
     })
 
@@ -89,7 +86,6 @@ describe("workspace-store", () => {
   })
 
   it("broadcast subscription ignores unchanged workspace ID", async () => {
-    ;(api.listOrgs as jest.Mock).mockResolvedValue([])
     ;(api.listWorkspaces as jest.Mock).mockResolvedValue([])
 
     let capturedHandler: Function | null = null
@@ -101,16 +97,12 @@ describe("workspace-store", () => {
     )
 
     useWorkspaceStore.setState({
-      orgs: [], workspaces: [],
+      workspaces: [],
       activeWorkspaceId: "w1", hydrated: true,
       _broadcastSubscribed: false,
     })
 
     let loadCount = 0
-    ;(api.listOrgs as jest.Mock).mockImplementation(async () => {
-      loadCount++
-      return []
-    })
     ;(api.listWorkspaces as jest.Mock).mockImplementation(async () => {
       loadCount++
       return []
@@ -133,10 +125,9 @@ describe("workspace-store", () => {
   })
 
   it("broadcast subscription updates state on different workspace ID", async () => {
-    ;(api.listOrgs as jest.Mock).mockResolvedValue([])
     ;(api.listWorkspaces as jest.Mock).mockResolvedValue([
-      { id: "w1", org_id: "o1", is_personal: false } as any,
-      { id: "w2", org_id: "o1", is_personal: false } as any,
+      { id: "w1", is_personal: false } as any,
+      { id: "w2", is_personal: false } as any,
     ])
 
     let capturedHandler: Function | null = null
@@ -148,7 +139,7 @@ describe("workspace-store", () => {
     )
 
     useWorkspaceStore.setState({
-      orgs: [], workspaces: [],
+      workspaces: [],
       activeWorkspaceId: "w1", hydrated: true,
       _broadcastSubscribed: false,
     })
@@ -167,7 +158,6 @@ describe("workspace-store", () => {
 
     const state = useWorkspaceStore.getState()
     expect(state.activeWorkspaceId).toBe("w2")
-    expect(api.listOrgs).toHaveBeenCalled()
     expect(api.listWorkspaces).toHaveBeenCalled()
   })
 })

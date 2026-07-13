@@ -17,8 +17,7 @@ import { NavUser } from './nav-user'
 import { FeedbackDialog } from '@/components/feedback-dialog'
 import { Logo } from '../logo'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
-import { LayoutDashboard } from 'lucide-react'
-import { sidebarData } from './data/sidebar-data'
+import { LayoutDashboard, Sparkles } from 'lucide-react'
 import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth'
 import { auth } from '../../database/firebase'
 import { useRouter } from 'next/navigation'
@@ -26,13 +25,11 @@ import { usePasswordStore } from '@/store/password-store'
 import { useEnvironmentManagerStore } from '@/store/environment-manager-store'
 import { useMasterKeyStore } from '@/store/master-key-store'
 import { useUserKeypairStore } from '@/store/user-keypair-store'
-import { useWorkspaceDekStore } from '@/store/workspace-dek-store'
 import { clearMasterKey } from '@/lib/key-storage'
 import { logoutBackendSession } from '@/lib/backend-auth'
 import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
 import { useWorkspaceStore, useActiveWorkspace } from '@/store/workspace-store'
 import { IconPin } from '@tabler/icons-react'
-import type { NavLink, NavCollapsible } from './types'
 import { buildPinnedNavItems } from './app-sidebar.helpers'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -40,7 +37,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { clearSets } = useEnvironmentManagerStore()
   const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
   const { clear: clearUserKeypair } = useUserKeypairStore()
-  const { clear: clearWorkspaceDeks } = useWorkspaceDekStore()
   const pinnedTools = usePinnedToolsForActiveWorkspace()
   const clearWorkspaceStore = useWorkspaceStore((s) => s.clear)
   const activeWs = useActiveWorkspace()
@@ -63,7 +59,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       clearSets()            // clear decrypted environment sets from memory
       clearMasterKeyStore()  // clear global master key in-memory state
       clearUserKeypair()     // clear workspace keypair from memory
-      clearWorkspaceDeks()   // clear workspace DEKs from memory
       clearWorkspaceStore()  // clear workspace selection on sign-out
 
       // Clear password-manager vault key from IndexedDB
@@ -172,29 +167,26 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
-        {pinnedNavItems.length > 0 && (
+        {pinnedNavItems.length > 0 ? (
           <NavGroup
             title="Pinned"
             items={pinnedNavItems}
             icon={IconPin}
-            ignoreToolVisibility
           />
+        ) : (
+          <div className="px-4 py-6 text-center group-data-[state=collapsed]:hidden">
+            <Sparkles className="mx-auto mb-2 h-5 w-5 text-muted-foreground/60" />
+            <p className="text-xs text-muted-foreground">
+              No pinned tools yet.
+            </p>
+            <Link
+              href="/dashboard"
+              className="mt-1 inline-block text-xs font-medium text-primary hover:underline"
+            >
+              Browse all tools →
+            </Link>
+          </div>
         )}
-        {sidebarData.navGroups.map((group) => {
-          const filteredItems = group.items
-            .map((item) => {
-              if (!('items' in item)) {
-                return pinnedTools.includes(String(item.url)) ? null : item
-              }
-              const filteredSubs = (item as NavCollapsible).items.filter(
-                (sub) => !pinnedTools.includes(String(sub.url))
-              )
-              return filteredSubs.length === 0 ? null : { ...item, items: filteredSubs }
-            })
-            .filter(Boolean) as typeof group.items
-          if (filteredItems.length === 0) return null
-          return <NavGroup key={group.title} {...group} items={filteredItems} />
-        })}
       </SidebarContent>
       <SidebarFooter className="hidden md:block border-t border-border/30 dark:border-white/5">
         <FeedbackDialog variant="sidebar" />
