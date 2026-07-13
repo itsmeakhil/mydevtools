@@ -14,6 +14,7 @@ import { PasskeySection } from '@/components/settings/passkey-section'
 import { DesktopSyncSettings } from '@/components/desktop/desktop-sync-settings'
 import { DesktopSyncConflicts } from '@/components/desktop/desktop-sync-conflicts'
 import { DesktopBackupSettings } from '@/components/desktop/desktop-backup-settings'
+import { DesktopUpdateSettings } from '@/components/desktop/desktop-update-settings'
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { Briefcase } from 'lucide-react'
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
@@ -70,6 +71,8 @@ export default function SettingsPage() {
       <div className="grid gap-6">
 
         <DesktopSyncSettings />
+
+        <DesktopUpdateSettings />
 
         <DesktopSyncConflicts />
 

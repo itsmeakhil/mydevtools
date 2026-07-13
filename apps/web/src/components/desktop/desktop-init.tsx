@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { isDesktop } from "@/lib/desktop/is-desktop";
 
@@ -27,6 +28,20 @@ export function DesktopInit() {
       await checkRemoteSession().catch(() => {});
       startSyncEngine();
     })();
+    // Fire-and-forget update check — nudge the user if a newer build exists.
+    void import("@/lib/desktop/updater").then(async ({ checkForUpdate, installUpdate }) => {
+      try {
+        const update = await checkForUpdate();
+        if (!update) return;
+        toast(`Update available — version ${update.version}`, {
+          description: "Installs in place; your offline data isn't affected.",
+          duration: 12_000,
+          action: { label: "Update now", onClick: () => void installUpdate() },
+        });
+      } catch {
+        // offline or endpoint unreachable — silent
+      }
+    });
     return () => window.removeEventListener("mydevtools:desktop-authed", onAuthed);
   }, [router]);
   return null;

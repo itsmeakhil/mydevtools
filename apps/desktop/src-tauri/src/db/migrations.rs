@@ -55,6 +55,11 @@ const MIGRATIONS: &[&str] = &[
     ",
 ];
 
+/// Highest schema version this build knows how to migrate to.
+pub fn latest_version() -> i64 {
+    MIGRATIONS.len() as i64
+}
+
 pub fn run(conn: &Connection) -> Result<()> {
     let version: i64 = conn.query_row("PRAGMA user_version", [], |r| r.get(0))?;
     for (i, sql) in MIGRATIONS.iter().enumerate() {

@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "notes": "What's new in this release (shown to the user in the update prompt).",
+  "pub_date": "2026-07-13T00:00:00Z",
+  "platforms": {
+    "darwin-aarch64": {
+      "signature": "<contents of MyDevTools.app.tar.gz.sig for Apple Silicon>",
+      "url": "https://releases.mydevtools.tech/0.2.0/MyDevTools_aarch64.app.tar.gz"
+    },
+    "darwin-x86_64": {
+      "signature": "<contents of MyDevTools.app.tar.gz.sig for Intel>",
+      "url": "https://releases.mydevtools.tech/0.2.0/MyDevTools_x64.app.tar.gz"
+    }
+  }
+}
