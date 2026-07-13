@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
 import { NoteMarkdownEditor } from "@/components/notes/markdown-editor/NoteMarkdownEditor";
-import { useDebounce, useDebouncedCallback } from "use-debounce";
+import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
 import { storage } from "@/database/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -49,13 +49,24 @@ export default function NotionEditor() {
     const [saveState, setSaveState] = useState<"idle" | "saving" | "saved">("idle");
     const [lastSavedAt, setLastSavedAt] = useState<Date | null>(null);
     const [templateDialogOpen, setTemplateDialogOpen] = useState(false);
-    const [currentMarkdown, setCurrentMarkdown] = useState<string | null>(null);
+    // Latest editor markdown, kept in a ref so typing doesn't re-render the
+    // toolbar/breadcrumb/tags on every keystroke. `wordCountSource` is a
+    // debounced snapshot that DOES drive a render (word count / read time).
+    const latestMarkdownRef = useRef<string | null>(null);
+    const [wordCountSource, setWordCountSource] = useState<string | null>(null);
+    const pushWordCount = useDebouncedCallback(
+        (md: string) => setWordCountSource(md),
+        500,
+    );
     const [editorKey, setEditorKey] = useState(0);
     const isDirtyRef = useRef(false);
     const [tagInput, setTagInput] = useState("");
     const [tags, setTags] = useState<string[]>([]);
-    // Holds template markdown until the editor remounts with it; cleared on note switch.
-    const [pendingTemplateContent, setPendingTemplateContent] = useState<string | null>(null);
+    // Holds template markdown (scoped to the note it was applied to) until the
+    // editor remounts with it; cleared on note switch. Scoping prevents a
+    // just-applied template from leaking into a different note during a switch.
+    const [pendingTemplateContent, setPendingTemplateContent] =
+        useState<{ noteId: string; markdown: string } | null>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -69,7 +80,8 @@ export default function NotionEditor() {
             setTags(activeNote.tags ?? []);
             setLastSyncedNoteId(activeNote.id);
             setPendingTemplateContent(null);
-            setCurrentMarkdown(null);
+            latestMarkdownRef.current = null;
+            setWordCountSource(null);
         }
     }, [activeNoteId, activeNote, lastSyncedNoteId]);
 
@@ -101,7 +113,8 @@ export default function NotionEditor() {
     };
 
     const handleEditorChange = (markdown: string) => {
-        setCurrentMarkdown(markdown);
+        latestMarkdownRef.current = markdown;
+        pushWordCount(markdown);
         if (activeNoteId) {
             isDirtyRef.current = true;
             setSaveState("saving");
@@ -120,7 +133,7 @@ export default function NotionEditor() {
             const { isSyncEnabled } = await import("@/lib/desktop/sync-engine");
             const allowed = hasRemoteSession() && (await isSyncEnabled());
             if (user.uid === "desktop-local" || !allowed) {
-                throw new Error("Turn on Cloud Sync to store note images. Text notes stay local.");
+                throw new Error(tCtx("cloudSyncImageError"));
             }
         }
         const timestamp = Date.now();
@@ -131,13 +144,14 @@ export default function NotionEditor() {
     };
 
     const initialMarkdown = useMemo(() => {
-        // Template just applied — use it directly (activeNote.content not updated yet).
-        if (pendingTemplateContent != null) return pendingTemplateContent;
+        // A template applied to THIS note takes precedence (activeNote.content
+        // isn't updated until the debounced save round-trips).
+        if (pendingTemplateContent?.noteId === activeNoteId) {
+            return pendingTemplateContent.markdown;
+        }
         // Normalizes both new (string) and legacy (tree) content to markdown.
         return noteContentToMarkdown(activeNote?.content);
-        // editorKey in deps so the memo re-runs when a template forces a remount.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeNoteId, editorKey]);
+    }, [activeNoteId, editorKey, activeNote?.content, pendingTemplateContent]);
 
     const activePath = useMemo<Note[]>(() => {
         if (!activeNote) return [];
@@ -176,16 +190,15 @@ export default function NotionEditor() {
 
     // Defer word-count compute: the heavy extract runs at most every 500ms
     // instead of every keystroke.
-    const [debouncedMarkdown] = useDebounce(currentMarkdown, 500);
     const { wordCount, readTime } = useMemo(() => {
-        const src = debouncedMarkdown ?? activeNote?.content;
+        const src = wordCountSource ?? activeNote?.content;
         const text = extractPlainText(src);
         const wc = countWords(text);
         return { wordCount: wc, readTime: readingTimeMinutes(wc) };
-    }, [debouncedMarkdown, activeNote?.content]);
+    }, [wordCountSource, activeNote?.content]);
 
     const handleExportMarkdown = useCallback(() => {
-        const src = currentMarkdown ?? activeNote?.content;
+        const src = latestMarkdownRef.current ?? activeNote?.content;
         const md = contentToMarkdown(title || "Untitled", src);
         const blob = new Blob([md], { type: "text/markdown" });
         const url = URL.createObjectURL(blob);
@@ -194,10 +207,10 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.md`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [currentMarkdown, activeNote?.content, title]);
+    }, [activeNote?.content, title]);
 
     const handleExportHtml = useCallback(() => {
-        const src = currentMarkdown ?? activeNote?.content;
+        const src = latestMarkdownRef.current ?? activeNote?.content;
         const body = noteContentToMarkdown(src);
         const bodyHtml = marked.parse(body, { async: false }) as string;
         const html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8" />\n<title>${title || "Note"}</title>\n</head>\n<body>\n<h1 style="font-size:2rem;font-weight:bold;margin-bottom:1rem">${title || "Untitled"}</h1>\n${bodyHtml}</body>\n</html>`;
@@ -208,16 +221,20 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.html`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [currentMarkdown, activeNote?.content, title]);
+    }, [activeNote?.content, title]);
 
     const handleApplyTemplate = useCallback((tpl: NoteTemplate) => {
         if (!activeNoteId) return;
         setSaveState("saving");
         debouncedUpdate(activeNoteId, { content: tpl.content, title: tpl.defaultTitle });
         setTitle(tpl.defaultTitle);
-        setCurrentMarkdown(tpl.content);
-        setPendingTemplateContent(tpl.content); // initialMarkdown reads this on remount
-        setLastSyncedNoteId(null);
+        latestMarkdownRef.current = tpl.content;
+        setWordCountSource(tpl.content);
+        // Scope the pending template to this note; initialMarkdown reads it on the
+        // remount forced by bumping editorKey. We deliberately do NOT reset
+        // lastSyncedNoteId here — doing so would re-fire the note-sync effect and
+        // clobber the title/content we just set.
+        setPendingTemplateContent({ noteId: activeNoteId, markdown: tpl.content });
         setEditorKey(k => k + 1);
     }, [activeNoteId, debouncedUpdate]);
 
@@ -258,10 +275,10 @@ export default function NotionEditor() {
                     </div>
                     <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-muted-foreground">
                         <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono">⌘K</kbd>
-                        <span>to search</span>
+                        <span>{tEditor("searchHint")}</span>
                         <span className="text-muted-foreground/40">·</span>
                         <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono">⌘⇧F</kbd>
-                        <span>focus mode</span>
+                        <span>{tEditor("focusHint")}</span>
                     </div>
                 </div>
             </div>
@@ -278,7 +295,7 @@ export default function NotionEditor() {
             )}>
                 {/* Breadcrumb */}
                 {!focusMode && activePath.length > 1 && (
-                    <nav className="mb-2 flex items-center gap-1 text-xs text-muted-foreground overflow-x-auto no-scrollbar" aria-label="Note path">
+                    <nav className="mb-2 flex items-center gap-1 text-xs text-muted-foreground overflow-x-auto no-scrollbar" aria-label={tEditor("notePath")}>
                         {activePath.map((node, index) => {
                             const isLast = index === activePath.length - 1;
                             return (
@@ -317,15 +334,15 @@ export default function NotionEditor() {
                         />
                         <span>
                             {saveState === "saving"
-                                ? "Saving…"
+                                ? tEditor("saving")
                                 : saveState === "saved" && lastSavedAt
-                                    ? `Saved ${lastSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
-                                    : "Ready"}
+                                    ? tEditor("saved", { time: lastSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })
+                                    : tEditor("ready")}
                         </span>
                     </span>
                     {wordCount > 0 && (
-                        <span aria-label={`${wordCount} words, ${readTime} minute read`}>
-                            {wordCount} words · {readTime} min read
+                        <span aria-label={tEditor("stats", { words: wordCount, read: readTime })}>
+                            {tEditor("stats", { words: wordCount, read: readTime })}
                         </span>
                     )}
 
@@ -337,10 +354,11 @@ export default function NotionEditor() {
                             size="sm"
                             className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={() => setTemplateDialogOpen(true)}
-                            title="Apply template"
+                            title={tEditor("applyTemplate")}
+                            aria-label={tEditor("applyTemplate")}
                         >
                             <LayoutTemplate className="h-3.5 w-3.5" />
-                            <span className="hidden sm:inline">Template</span>
+                            <span className="hidden sm:inline">{tEditor("template")}</span>
                         </Button>
 
                         {/* Export markdown */}
@@ -350,10 +368,11 @@ export default function NotionEditor() {
                             size="sm"
                             className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={handleExportMarkdown}
-                            title="Export as Markdown"
+                            title={tEditor("exportMd")}
+                            aria-label={tEditor("exportMd")}
                         >
                             <Download className="h-3.5 w-3.5" />
-                            <span className="hidden sm:inline">.md</span>
+                            <span className="hidden sm:inline">{tEditor("exportMdLabel")}</span>
                         </Button>
 
                         {/* Export HTML */}
@@ -363,10 +382,11 @@ export default function NotionEditor() {
                             size="sm"
                             className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={handleExportHtml}
-                            title="Export as HTML"
+                            title={tEditor("exportHtml")}
+                            aria-label={tEditor("exportHtml")}
                         >
                             <FileCode className="h-3.5 w-3.5" />
-                            <span className="hidden sm:inline">.html</span>
+                            <span className="hidden sm:inline">{tEditor("exportHtmlLabel")}</span>
                         </Button>
 
                         {/* Focus mode */}
@@ -376,7 +396,9 @@ export default function NotionEditor() {
                             size="sm"
                             className="h-7 text-xs gap-1.5 cursor-pointer"
                             onClick={() => setFocusMode(!focusMode)}
-                            title={focusMode ? "Exit focus mode (⌘⇧F)" : "Focus mode (⌘⇧F)"}
+                            title={`${focusMode ? tEditor("exitFocusMode") : tEditor("focusMode")} (⌘⇧F)`}
+                            aria-label={focusMode ? tEditor("exitFocusMode") : tEditor("focusMode")}
+                            aria-pressed={focusMode}
                         >
                             {focusMode ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
                         </Button>
@@ -390,7 +412,7 @@ export default function NotionEditor() {
                             onClick={() => void saveNow()}
                         >
                             {saveState === "saved" ? <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" /> : <Save className="mr-1.5 h-3.5 w-3.5" />}
-                            Save
+                            {tEditor("save")}
                         </Button>
                     </div>
                 </div>
@@ -398,8 +420,9 @@ export default function NotionEditor() {
                 <Input
                     value={title}
                     onChange={handleTitleChange}
-                    className="text-3xl md:text-4xl font-bold border-none shadow-none focus-visible:ring-0 px-0 placeholder:text-muted-foreground/50 h-auto bg-transparent"
+                    className="text-3xl md:text-4xl font-bold border-none shadow-none focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-primary/50 rounded-none px-0 placeholder:text-muted-foreground/50 h-auto bg-transparent"
                     placeholder={tEditor("titlePlaceholder")}
+                    aria-label={tEditor("titlePlaceholder")}
                 />
 
                 {/* Tags row */}
@@ -415,10 +438,10 @@ export default function NotionEditor() {
                                 <button
                                     type="button"
                                     onClick={() => removeTag(tag)}
-                                    className="hover:text-destructive ml-0.5"
-                                    aria-label={`Remove tag ${tag}`}
+                                    className="hover:text-destructive ml-0.5 p-0.5 cursor-pointer"
+                                    aria-label={tEditor("removeTag", { tag })}
                                 >
-                                    <X className="h-2.5 w-2.5" />
+                                    <X className="h-3 w-3" />
                                 </button>
                             </span>
                         ))}
@@ -435,7 +458,8 @@ export default function NotionEditor() {
                                     removeTag(tags[tags.length - 1]);
                                 }
                             }}
-                            placeholder={tags.length === 0 ? "Add tag…" : ""}
+                            placeholder={tags.length === 0 ? tEditor("addTag") : ""}
+                            aria-label={tEditor("addTag")}
                             className="text-[11px] bg-transparent outline-none text-muted-foreground placeholder:text-muted-foreground/40 min-w-[60px] max-w-[120px]"
                         />
                     </div>
@@ -443,13 +467,15 @@ export default function NotionEditor() {
             </div>
 
             <div className={cn(
-                "flex-1 overflow-y-auto px-4 md:px-8 mx-auto w-full pb-20",
+                // Horizontal insets are owned by the editor itself (see
+                // crepe-theme.css) so the slash/drag gutter isn't clipped here.
+                "flex-1 overflow-y-auto mx-auto w-full pb-20",
                 focusMode ? "max-w-3xl" : "max-w-6xl"
             )}>
                 {isContentLoading ? (
                     <div className="flex items-center justify-center py-20 text-muted-foreground gap-2">
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        <span className="text-sm">Loading…</span>
+                        <span className="text-sm">{tEditor("loading")}</span>
                     </div>
                 ) : (
                     <NoteMarkdownEditor

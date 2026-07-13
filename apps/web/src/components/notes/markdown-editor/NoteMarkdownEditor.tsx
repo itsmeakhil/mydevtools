@@ -60,6 +60,17 @@ export function NoteMarkdownEditor({
             defaultValue,
             featureConfigs: {
                 [Crepe.Feature.Placeholder]: { text: placeholder },
+                // Slash menu's Advanced group: drop the "Image" entry but keep
+                // Code / Table / Math (empty objects retain their defaults).
+                // (Paste/drop image insertion via ImageBlock still works.)
+                [Crepe.Feature.BlockEdit]: {
+                    advancedGroup: {
+                        image: null,
+                        codeBlock: {},
+                        table: {},
+                        math: {},
+                    },
+                },
                 [Crepe.Feature.ImageBlock]: {
                     onUpload: upload,
                     blockOnUpload: upload,
@@ -92,10 +103,13 @@ export function NoteMarkdownEditor({
             void crepe?.destroy()
             crepe = null
         }
-        // Re-create when the loaded content identity changes. Consumers should
-        // also bump the React `key` on note switch so state fully resets.
+        // Create the editor exactly once per mount, capturing the initial
+        // `defaultValue`. Loading different content (note switch, template apply)
+        // is done by changing the React `key` so the component fully remounts —
+        // this avoids destroying/recreating the editor (and losing the cursor)
+        // every time the parent's saved content updates mid-edit.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [defaultValue])
+    }, [])
 
     return <div ref={rootRef} className="note-markdown-editor" />
 }

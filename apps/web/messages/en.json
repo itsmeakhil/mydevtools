@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Select a note or create a new one to get started.",
-      "titlePlaceholder": "Untitled"
+      "titlePlaceholder": "Untitled",
+      "saving": "Saving…",
+      "ready": "Ready",
+      "saved": "Saved {time}",
+      "stats": "{words} words · {read} min read",
+      "template": "Template",
+      "applyTemplate": "Apply template",
+      "exportMdLabel": ".md",
+      "exportMd": "Export as Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Export as HTML",
+      "focusMode": "Focus mode",
+      "exitFocusMode": "Exit focus mode",
+      "save": "Save",
+      "addTag": "Add tag…",
+      "removeTag": "Remove tag {tag}",
+      "loading": "Loading…",
+      "searchHint": "to search",
+      "focusHint": "focus mode",
+      "notePath": "Note path"
     },
     "context": {
       "authRequiredError": "User not authenticated",
-      "defaultTitle": "Untitled"
+      "defaultTitle": "Untitled",
+      "cloudSyncImageError": "Turn on Cloud Sync to store note images. Text notes stay local."
     }
   },
   "PasswordManager": {

@@ -26,12 +26,29 @@
     --crepe-color-inline-area: #111418;
 }
 
-/* Let the editor fill the notes scroll container and drop the default card frame
- * so it blends with the surrounding Notes chrome. */
+/* Blend the editor into the surrounding Notes chrome and make it the
+ * positioning context for Crepe's floating toolbar / slash menu / block
+ * handles (they anchor to the nearest positioned ancestor). */
 .note-markdown-editor .milkdown {
+    position: relative;
     background: transparent;
 }
 
+/* Crepe's ProseMirror ships with no content padding and expects the host to
+ * provide it. The left inset is a GUTTER: the drag handle and insert (+) button
+ * render there, and the slash menu anchors from it. Without it, text touches the
+ * edge and the handles get clipped by the parent's overflow-y scroll container.
+ * The editor owns its horizontal insets here (NotionEditor no longer adds any),
+ * so this is the single source of horizontal spacing. */
 .note-markdown-editor .milkdown .ProseMirror {
-    padding: 0;
+    padding: 0.5rem 1rem 6rem 3rem;
+    min-height: 12rem;
+    outline: none;
+}
+
+@media (max-width: 640px) {
+    .note-markdown-editor .milkdown .ProseMirror {
+        padding-left: 1.75rem;
+        padding-right: 0.75rem;
+    }
 }

@@ -16,8 +16,29 @@ export default getRequestConfig(async () => {
   const locale: AppLocale = locales.includes(raw as AppLocale)
     ? (raw as AppLocale)
     : 'en';
-  return {
-    locale,
-    messages: (await import(`../../messages/${locale}.json`)).default
-  };
+  const en = (await import(`../../messages/en.json`)).default;
+  const messages =
+    locale === 'en'
+      ? en
+      // Fall back to English for any key missing in the active locale, so a new
+      // string added to en.json renders in English everywhere until translated —
+      // instead of showing the raw key path in 26 locales.
+      : deepMerge(en, (await import(`../../messages/${locale}.json`)).default);
+  return { locale, messages };
 });
+
+// Deep-merges translation objects: `override` (locale) wins over `base` (en);
+// missing keys inherit from base. Both are trusted, static JSON.
+type Messages = { [k: string]: string | Messages };
+function deepMerge(base: Messages, override: Messages): Messages {
+  const out: Messages = { ...base };
+  for (const key of Object.keys(override)) {
+    const b = base[key];
+    const o = override[key];
+    out[key] =
+      b && o && typeof b === 'object' && typeof o === 'object'
+        ? deepMerge(b, o)
+        : o;
+  }
+  return out;
+}
