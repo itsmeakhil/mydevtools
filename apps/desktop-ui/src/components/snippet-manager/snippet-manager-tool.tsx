@@ -14,6 +14,7 @@ import {
   listCodeSnippetsApi,
   patchCodeSnippetApi,
 } from "@/lib/code-snippets-api";
+import { useCipherKey } from "@/lib/use-cipher-key";
 import {
   IconPlus,
   IconTrash,
@@ -99,6 +100,12 @@ export function SnippetManagerTool() {
   const userRef = useRef(user);
   userRef.current = user;
 
+  // Zero-knowledge: snippet code is encrypted with the workspace cipher key
+  // before it leaves the app. Ref so the stable async callbacks read the latest.
+  const cipherKey = useCipherKey();
+  const cipherKeyRef = useRef(cipherKey);
+  cipherKeyRef.current = cipherKey;
+
   const snippets = useSnippetManagerStore((s) => s.snippets);
   const addSnippet = useSnippetManagerStore((s) => s.addSnippet);
   const updateSnippet = useSnippetManagerStore((s) => s.updateSnippet);
@@ -129,7 +136,7 @@ export function SnippetManagerTool() {
     useSnippetManagerStore.getState().updateSnippet(id, { code });
     const u = userRef.current;
     if (u) {
-      void patchCodeSnippetApi(id, { code })
+      void patchCodeSnippetApi(id, { code }, cipherKeyRef.current)
         .then((s) =>
           useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
         )
@@ -147,7 +154,7 @@ export function SnippetManagerTool() {
       useSnippetManagerStore.getState().updateSnippet(id, { title, language });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(id, { title, language })
+        void patchCodeSnippetApi(id, { title, language }, cipherKeyRef.current)
           .then((s) =>
             useSnippetManagerStore.getState().mergeSnippetFromRemote(s)
           )
@@ -178,6 +185,8 @@ export function SnippetManagerTool() {
 
   useEffect(() => {
     if (!storeHydrated || authLoading) return;
+    // Server-backed snippets need the cipher key to en/decrypt code — wait for unlock.
+    if (user && !cipherKey) return;
 
     if (!user) {
       if (guestBootstrapped.current) return;
@@ -207,7 +216,8 @@ export function SnippetManagerTool() {
     let cancelled = false;
     (async () => {
       try {
-        const remote = await listCodeSnippetsApi();
+        const key = cipherKeyRef.current;
+        const remote = await listCodeSnippetsApi(key);
         if (cancelled) return;
         if (remote.length > 0) {
           importSnippets(remote);
@@ -223,12 +233,12 @@ export function SnippetManagerTool() {
                 code: sn.code,
                 createdAt: sn.createdAt,
                 updatedAt: sn.updatedAt,
-              });
+              }, key);
             } catch (e) {
               if (!isSnippetDuplicateError(e)) throw e;
             }
           }
-          const again = await listCodeSnippetsApi();
+          const again = await listCodeSnippetsApi(key);
           if (cancelled) return;
           importSnippets(again.length > 0 ? again : local);
           setRemoteListEpoch((e) => e + 1);
@@ -240,7 +250,7 @@ export function SnippetManagerTool() {
             title: t("defaultSnippetTitle"),
             language: SNIPPET_LANGUAGE_AUTO,
             code: t("defaultSnippetCode"),
-          });
+          }, key);
           if (cancelled) return;
           importSnippets([created]);
           setRemoteListEpoch((e) => e + 1);
@@ -263,7 +273,7 @@ export function SnippetManagerTool() {
     return () => {
       cancelled = true;
     };
-  }, [storeHydrated, authLoading, user, t, importSnippets]);
+  }, [storeHydrated, authLoading, user, t, importSnippets, cipherKey]);
 
   useEffect(() => {
     debouncedSaveCode.cancel();
@@ -332,7 +342,7 @@ export function SnippetManagerTool() {
       updateSnippet(id, { code });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(id, { code })
+        void patchCodeSnippetApi(id, { code }, cipherKeyRef.current)
           .then((s) => useSnippetManagerStore.getState().mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
@@ -348,7 +358,7 @@ export function SnippetManagerTool() {
       updateSnippet(id, { pinned: newPinned });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(id, { pinned: newPinned })
+        void patchCodeSnippetApi(id, { pinned: newPinned }, cipherKeyRef.current)
           .then((s) => mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
@@ -365,7 +375,7 @@ export function SnippetManagerTool() {
       updateSnippet(selectedId, { tags: next });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(selectedId, { tags: next })
+        void patchCodeSnippetApi(selectedId, { tags: next }, cipherKeyRef.current)
           .then((s) => mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
@@ -381,7 +391,7 @@ export function SnippetManagerTool() {
       updateSnippet(selectedId, { tags: next });
       const u = userRef.current;
       if (u) {
-        void patchCodeSnippetApi(selectedId, { tags: next })
+        void patchCodeSnippetApi(selectedId, { tags: next }, cipherKeyRef.current)
           .then((s) => mergeSnippetFromRemote(s))
           .catch(() => toast.error(t("toastSyncFailed")));
       }
@@ -414,7 +424,7 @@ export function SnippetManagerTool() {
     };
     if (u) {
       try {
-        const created = await createCodeSnippetApi(payload);
+        const created = await createCodeSnippetApi(payload, cipherKeyRef.current);
         useSnippetManagerStore.getState().mergeSnippetFromRemote(created);
         setSelectedId(created.id);
       } catch {
@@ -442,7 +452,7 @@ export function SnippetManagerTool() {
     const u = userRef.current;
     if (u) {
       try {
-        const created = await createCodeSnippetApi(payload);
+        const created = await createCodeSnippetApi(payload, cipherKeyRef.current);
         useSnippetManagerStore.getState().mergeSnippetFromRemote(created);
         setSelectedId(created.id);
       } catch {

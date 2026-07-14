@@ -4,6 +4,9 @@ import dynamic from "next/dynamic";
 import useAuth from "@/utils/useAuth";
 import { useTranslations } from "next-intl";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useVaultGuard } from "@/hooks/use-vault-guard";
+import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
+import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton";
 
 const NotionEditor = dynamic(() => import("@/components/notes/NotionEditor"), {
   ssr: false,
@@ -23,6 +26,7 @@ const NotionEditor = dynamic(() => import("@/components/notes/NotionEditor"), {
 
 export default function NotesPage() {
     const { user, loading } = useAuth(true);
+    const { isUnlocked, isRestoring } = useVaultGuard();
     const t = useTranslations("Notes.page");
 
     if (loading) {
@@ -45,6 +49,11 @@ export default function NotesPage() {
     if (!user) {
         return null;
     }
+
+    // Zero-knowledge: note bodies are encrypted with the master password. Gate the
+    // tool until the vault is unlocked (mirrors password-manager / env-manager).
+    if (isRestoring) return <VaultRestoringSkeleton />;
+    if (!isUnlocked) return <VaultLockedPlaceholder appName="Notes" />;
 
     return <NotionEditor />;
 }

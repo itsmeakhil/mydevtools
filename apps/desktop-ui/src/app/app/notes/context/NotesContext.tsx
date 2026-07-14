@@ -7,6 +7,8 @@ import { auth } from "@/database/firebase";
 import { useTranslations } from "next-intl";
 import { fetchAllPages } from "@/lib/fetch-all-pages";
 import { proxyJsonAuthed } from "@/lib/backend-auth";
+import { useCipherKey, cipherKeyErrorMessage } from "@/lib/use-cipher-key";
+import { encryptField, decryptField, isEnvelope, type ContentEnvelope } from "@/lib/content-envelope";
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -52,14 +54,49 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
     const [focusMode, setFocusMode] = useState(false);
     const contentLoadedIds = useRef<Set<string>>(new Set());
+    // Notes whose content is an envelope we couldn't decrypt (vault locked). Their
+    // in-state `content` is a null placeholder — writing it back would clobber the
+    // real body, so content writes are blocked until unlock.
+    const lockedIds = useRef<Set<string>>(new Set());
+
+    // Zero-knowledge: note bodies are AES-GCM envelopes on the wire; `notes` state
+    // always holds decrypted content. Key comes from the master-password gate.
+    const cipherKey = useCipherKey();
 
     // Refs to read latest state inside stable action callbacks
     const notesRef = useRef<Note[]>(notes);
     const activeNoteIdRef = useRef<string | null>(activeNoteId);
     const userRef = useRef(user);
+    const cipherKeyRef = useRef<CryptoKey | null>(cipherKey);
     useEffect(() => { notesRef.current = notes; }, [notes]);
     useEffect(() => { activeNoteIdRef.current = activeNoteId; }, [activeNoteId]);
     useEffect(() => { userRef.current = user; }, [user]);
+    useEffect(() => { cipherKeyRef.current = cipherKey; }, [cipherKey]);
+
+    // Decrypt a note's content envelope into plaintext for in-state use. Legacy
+    // plaintext notes (pre-encryption) pass through untouched. When locked, the
+    // body becomes a null placeholder and the note is flagged in `lockedIds`.
+    const decryptNote = useCallback(async (n: Note): Promise<Note> => {
+        if (!isEnvelope(n.content)) { lockedIds.current.delete(n.id); return n; }
+        const key = cipherKeyRef.current;
+        if (!key) { lockedIds.current.add(n.id); return { ...n, content: null }; }
+        try {
+            const content = await decryptField(key, n.content as ContentEnvelope);
+            lockedIds.current.delete(n.id);
+            return { ...n, content };
+        } catch {
+            lockedIds.current.add(n.id);
+            return { ...n, content: null };
+        }
+    }, []);
+
+    // Encrypt a plaintext body into an envelope for the wire. Throws when locked
+    // so callers surface the reason instead of silently persisting an empty body.
+    const encryptContent = useCallback(async (content: unknown): Promise<ContentEnvelope> => {
+        const key = cipherKeyRef.current;
+        if (!key) throw new Error(cipherKeyErrorMessage());
+        return encryptField(key, content);
+    }, []);
 
     const apiRequest = useCallback(
         async <T,>(method: string, path: string, body?: unknown): Promise<T> => {
@@ -86,24 +123,27 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                 ),
         });
         contentLoadedIds.current.clear();
-        setNotes([...allNotes].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
-    }, [apiRequest]);
+        const decrypted = await Promise.all(allNotes.map(decryptNote));
+        setNotes([...decrypted].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+    }, [apiRequest, decryptNote]);
 
     useEffect(() => {
         if (!activeNoteId || contentLoadedIds.current.has(activeNoteId)) return;
         let cancelled = false;
         setIsContentLoading(true);
         apiRequest<Note>("GET", `/api/v1/notes/${activeNoteId}`)
-            .then((full) => {
-                if (cancelled) return;
+            .then(async (full) => {
                 if (!full?.id) return;
-                contentLoadedIds.current.add(activeNoteId);
-                setNotes((prev) => prev.map((n) => (n.id === full.id ? full : n)));
+                const dec = await decryptNote(full);
+                if (cancelled) return;
+                // Only mark loaded once the body is actually available (unlocked).
+                if (!lockedIds.current.has(dec.id)) contentLoadedIds.current.add(activeNoteId);
+                setNotes((prev) => prev.map((n) => (n.id === dec.id ? dec : n)));
             })
             .catch(() => { /* note may have been deleted */ })
             .finally(() => { if (!cancelled) setIsContentLoading(false); });
         return () => { cancelled = true; };
-    }, [activeNoteId, apiRequest]);
+    }, [activeNoteId, apiRequest, decryptNote]);
 
     useEffect(() => {
         if (!user) {
@@ -121,28 +161,38 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                 setIsLoading(false);
             }
         })();
-    }, [refreshNotes, user]);
+        // cipherKey in deps: re-fetch + decrypt bodies once the vault unlocks.
+    }, [refreshNotes, user, cipherKey]);
 
     const createNote = useCallback(async (parentId: string | null = null) => {
         if (!userRef.current) throw new Error(t("authRequiredError"));
         const created = await apiRequest<Note>("POST", "/api/v1/notes", {
             title: t("defaultTitle"),
-            content: {},
+            content: await encryptContent({}),
             parentId,
             icon: undefined,
         });
         if (!created?.id) throw new Error("Note create failed");
         contentLoadedIds.current.add(created.id);
         setActiveNoteId(created.id);
-        setNotes((prev) => [...prev, created].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+        // Server echoes the envelope back; keep decrypted (empty) body in state.
+        const local: Note = { ...created, content: {} };
+        setNotes((prev) => [...prev, local].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
         return created.id;
-    }, [apiRequest, t]);
+    }, [apiRequest, t, encryptContent]);
 
     const updateNote = useCallback(async (id: string, updates: Partial<Note>) => {
         if (!userRef.current) return;
-        const payload: Partial<Pick<Note, "title" | "content" | "parentId" | "icon" | "pinned" | "tags">> = {};
+        // Block body writes while locked — persisting would clobber the real
+        // (undecryptable) content with an empty one.
+        if (updates.content !== undefined && (lockedIds.current.has(id) || !cipherKeyRef.current)) {
+            throw new Error(cipherKeyErrorMessage());
+        }
+
+        // Plaintext metadata for the wire; encrypted body swapped in below.
+        const payload: Record<string, unknown> = {};
         if (updates.title !== undefined) payload.title = updates.title;
-        if (updates.content !== undefined) payload.content = updates.content;
+        if (updates.content !== undefined) payload.content = await encryptContent(updates.content);
         if (updates.parentId !== undefined) payload.parentId = updates.parentId;
         if (updates.icon !== undefined) payload.icon = updates.icon;
         if (updates.pinned !== undefined) payload.pinned = updates.pinned;
@@ -151,8 +201,11 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         const updated = await apiRequest<Note>("PATCH", `/api/v1/notes/${id}`, payload);
         if (!updated?.id) throw new Error("Update failed: empty response");
         if (updates.content !== undefined) contentLoadedIds.current.add(id);
-        setNotes((prev) => prev.map((n) => (n.id === updated.id ? updated : n)));
-    }, [apiRequest]);
+        // Merge server echo but keep the plaintext body we already hold in memory.
+        setNotes((prev) => prev.map((n) => (n.id === updated.id
+            ? { ...updated, content: updates.content !== undefined ? updates.content : n.content }
+            : n)));
+    }, [apiRequest, encryptContent]);
 
     const pinNote = useCallback(async (id: string, pinned: boolean) => {
         await updateNote(id, { pinned });
@@ -165,13 +218,15 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         if (!contentLoadedIds.current.has(id)) {
             const full = await apiRequest<Note>("GET", `/api/v1/notes/${id}`);
             if (!full?.id) throw new Error("Note fetch failed");
-            contentLoadedIds.current.add(id);
-            setNotes((prev) => prev.map((n) => (n.id === full.id ? full : n)));
-            content = full.content;
+            const dec = await decryptNote(full);
+            if (!lockedIds.current.has(dec.id)) contentLoadedIds.current.add(id);
+            setNotes((prev) => prev.map((n) => (n.id === dec.id ? dec : n)));
+            content = dec.content;
         }
+        if (lockedIds.current.has(id) || !cipherKeyRef.current) throw new Error(cipherKeyErrorMessage());
         const created = await apiRequest<Note>("POST", "/api/v1/notes", {
             title: `${src.title || t("defaultTitle")} (copy)`,
-            content,
+            content: await encryptContent(content),
             parentId: src.parentId ?? null,
             icon: src.icon,
             tags: src.tags,
@@ -179,9 +234,10 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         if (!created?.id) throw new Error("Note duplicate failed");
         contentLoadedIds.current.add(created.id);
         setActiveNoteId(created.id);
-        setNotes((prev) => [...prev, created].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+        const local: Note = { ...created, content };
+        setNotes((prev) => [...prev, local].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
         return created.id;
-    }, [apiRequest, t]);
+    }, [apiRequest, t, decryptNote, encryptContent]);
 
     const moveNote = useCallback(async (id: string, newParentId: string | null) => {
         await updateNote(id, { parentId: newParentId });

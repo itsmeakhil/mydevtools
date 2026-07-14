@@ -112,6 +112,19 @@ export const useSnippetManagerStore = create<SnippetManagerState>()(
     {
       name: "snippet-manager-storage-v1",
       storage: snippetPersistStorage,
+      // Zero-knowledge: never persist plaintext `code` to webview localStorage
+      // (that store lives outside the SQLCipher DB). Metadata stays for instant
+      // list render; code re-hydrates decrypted from the encrypted store on load.
+      partialize: (s) => ({
+        snippets: s.snippets.map((sn) => ({ ...sn, code: "" })),
+      }),
+      // Bump: v1 blobs persisted plaintext code. Strip it on rehydrate so any
+      // pre-encryption cache is wiped immediately, not just on the next write.
+      version: 2,
+      migrate: (persisted) => {
+        const p = persisted as { snippets?: CodeSnippet[] } | undefined;
+        return { snippets: (p?.snippets ?? []).map((sn) => ({ ...sn, code: "" })) };
+      },
     }
   )
 );
