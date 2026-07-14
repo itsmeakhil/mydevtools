@@ -1,10 +1,12 @@
 packages:
   - "apps/*"
-allowBuilds:
-  '@firebase/util': set this to true or false
-  '@parcel/watcher': set this to true or false
-  '@swc/core': set this to true or false
-  core-js: set this to true or false
-  protobufjs: set this to true or false
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
+onlyBuiltDependencies:
+  - "@firebase/util"
+  - "@parcel/watcher"
+  - "@swc/core"
+  - core-js
+  - protobufjs
+  - sharp
+  - unrs-resolver
+patchedDependencies:
+  next-themes@0.4.6: patches/next-themes@0.4.6.patch
