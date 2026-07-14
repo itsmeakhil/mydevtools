@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "메모를 선택하거나 새로 만들어 시작하세요.",
-      "titlePlaceholder": "제목 없음"
+      "titlePlaceholder": "제목 없음",
+      "saving": "저장 중…",
+      "ready": "준비됨",
+      "saved": "{time}에 저장됨",
+      "stats": "{words}단어 · 읽기 {read}분",
+      "template": "템플릿",
+      "applyTemplate": "템플릿 적용",
+      "exportMdLabel": ".md",
+      "exportMd": "Markdown으로 내보내기",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "HTML로 내보내기",
+      "focusMode": "집중 모드",
+      "exitFocusMode": "집중 모드 종료",
+      "save": "저장",
+      "addTag": "태그 추가…",
+      "removeTag": "태그 {tag} 제거",
+      "loading": "불러오는 중…",
+      "searchHint": "검색하려면",
+      "focusHint": "집중 모드",
+      "notePath": "노트 경로"
     },
     "context": {
       "authRequiredError": "사용자가 인증되지 않았습니다",
-      "defaultTitle": "제목 없음"
+      "defaultTitle": "제목 없음",
+      "cloudSyncImageError": "노트 이미지를 저장하려면 클라우드 동기화를 켜세요. 텍스트 노트는 로컬에 유지됩니다."
     }
   },
   "PasswordManager": {

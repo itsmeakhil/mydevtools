@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Select a note or create a new one to get started.",
-      "titlePlaceholder": "Untitled"
+      "titlePlaceholder": "Untitled",
+      "saving": "Zapisywanie…",
+      "ready": "Gotowe",
+      "saved": "Zapisano {time}",
+      "stats": "{words} słów · {read} min czytania",
+      "template": "Szablon",
+      "applyTemplate": "Zastosuj szablon",
+      "exportMdLabel": ".md",
+      "exportMd": "Eksportuj jako Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Eksportuj jako HTML",
+      "focusMode": "Tryb skupienia",
+      "exitFocusMode": "Wyjdź z trybu skupienia",
+      "save": "Zapisz",
+      "addTag": "Dodaj tag…",
+      "removeTag": "Usuń tag {tag}",
+      "loading": "Ładowanie…",
+      "searchHint": "aby wyszukać",
+      "focusHint": "tryb skupienia",
+      "notePath": "Ścieżka notatki"
     },
     "context": {
       "authRequiredError": "User not authenticated",
-      "defaultTitle": "Untitled"
+      "defaultTitle": "Untitled",
+      "cloudSyncImageError": "Włącz synchronizację w chmurze, aby przechowywać obrazy notatek. Notatki tekstowe pozostają lokalne."
     }
   },
   "PasswordManager": {

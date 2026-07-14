@@ -1863,8 +1863,17 @@
       "code": "Generate code",
       "save": "Save request",
       "importCurl": "Import cURL",
+      "importCollection": "Import collection (Postman / HAR)",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "shortcuts": "Keyboard shortcuts",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {

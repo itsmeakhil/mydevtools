@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Vyberte poznámku nebo vytvořte novou.",
-      "titlePlaceholder": "Bez názvu"
+      "titlePlaceholder": "Bez názvu",
+      "saving": "Ukládání…",
+      "ready": "Připraveno",
+      "saved": "Uloženo {time}",
+      "stats": "{words} slov · {read} min čtení",
+      "template": "Šablona",
+      "applyTemplate": "Použít šablonu",
+      "exportMdLabel": ".md",
+      "exportMd": "Exportovat jako Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Exportovat jako HTML",
+      "focusMode": "Režim soustředění",
+      "exitFocusMode": "Ukončit režim soustředění",
+      "save": "Uložit",
+      "addTag": "Přidat štítek…",
+      "removeTag": "Odebrat štítek {tag}",
+      "loading": "Načítání…",
+      "searchHint": "pro vyhledávání",
+      "focusHint": "režim soustředění",
+      "notePath": "Cesta poznámky"
     },
     "context": {
       "authRequiredError": "Uživatel není přihlášen",
-      "defaultTitle": "Bez názvu"
+      "defaultTitle": "Bez názvu",
+      "cloudSyncImageError": "Zapněte cloudovou synchronizaci pro ukládání obrázků poznámek. Textové poznámky zůstávají místní."
     }
   },
   "PasswordManager": {

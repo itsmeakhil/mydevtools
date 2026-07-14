@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Velg et notat eller opprett et nytt for å komme i gang.",
-      "titlePlaceholder": "Uten tittel"
+      "titlePlaceholder": "Uten tittel",
+      "saving": "Lagrer…",
+      "ready": "Klar",
+      "saved": "Lagret {time}",
+      "stats": "{words} ord · {read} min lesing",
+      "template": "Mal",
+      "applyTemplate": "Bruk mal",
+      "exportMdLabel": ".md",
+      "exportMd": "Eksporter som Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Eksporter som HTML",
+      "focusMode": "Fokusmodus",
+      "exitFocusMode": "Avslutt fokusmodus",
+      "save": "Lagre",
+      "addTag": "Legg til etikett…",
+      "removeTag": "Fjern etikett {tag}",
+      "loading": "Laster…",
+      "searchHint": "for å søke",
+      "focusHint": "fokusmodus",
+      "notePath": "Notatsti"
     },
     "context": {
       "authRequiredError": "Bruker ikke autentisert",
-      "defaultTitle": "Uten tittel"
+      "defaultTitle": "Uten tittel",
+      "cloudSyncImageError": "Slå på skysynkronisering for å lagre notatbilder. Tekstnotater forblir lokale."
     }
   },
   "PasswordManager": {

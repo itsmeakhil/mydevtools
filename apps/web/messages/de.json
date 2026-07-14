@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Wählen Sie eine Notiz oder legen Sie eine neue an.",
-      "titlePlaceholder": "Ohne Titel"
+      "titlePlaceholder": "Ohne Titel",
+      "saving": "Wird gespeichert…",
+      "ready": "Bereit",
+      "saved": "Gespeichert {time}",
+      "stats": "{words} Wörter · {read} Min. Lesezeit",
+      "template": "Vorlage",
+      "applyTemplate": "Vorlage anwenden",
+      "exportMdLabel": ".md",
+      "exportMd": "Als Markdown exportieren",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Als HTML exportieren",
+      "focusMode": "Fokusmodus",
+      "exitFocusMode": "Fokusmodus beenden",
+      "save": "Speichern",
+      "addTag": "Tag hinzufügen…",
+      "removeTag": "Tag {tag} entfernen",
+      "loading": "Wird geladen…",
+      "searchHint": "zum Suchen",
+      "focusHint": "Fokusmodus",
+      "notePath": "Notizpfad"
     },
     "context": {
       "authRequiredError": "Benutzer nicht angemeldet",
-      "defaultTitle": "Ohne Titel"
+      "defaultTitle": "Ohne Titel",
+      "cloudSyncImageError": "Aktiviere die Cloud-Synchronisierung, um Notizbilder zu speichern. Textnotizen bleiben lokal."
     }
   },
   "PasswordManager": {

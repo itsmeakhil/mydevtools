@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Επιλέξτε μια σημείωση ή δημιουργήστε μια νέα για να ξεκινήσετε.",
-      "titlePlaceholder": "Χωρίς τίτλο"
+      "titlePlaceholder": "Χωρίς τίτλο",
+      "saving": "Αποθήκευση…",
+      "ready": "Έτοιμο",
+      "saved": "Αποθηκεύτηκε {time}",
+      "stats": "{words} λέξεις · {read} λεπτά ανάγνωσης",
+      "template": "Πρότυπο",
+      "applyTemplate": "Εφαρμογή προτύπου",
+      "exportMdLabel": ".md",
+      "exportMd": "Εξαγωγή ως Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Εξαγωγή ως HTML",
+      "focusMode": "Λειτουργία εστίασης",
+      "exitFocusMode": "Έξοδος από λειτουργία εστίασης",
+      "save": "Αποθήκευση",
+      "addTag": "Προσθήκη ετικέτας…",
+      "removeTag": "Αφαίρεση ετικέτας {tag}",
+      "loading": "Φόρτωση…",
+      "searchHint": "για αναζήτηση",
+      "focusHint": "λειτουργία εστίασης",
+      "notePath": "Διαδρομή σημείωσης"
     },
     "context": {
       "authRequiredError": "Ο χρήστης δεν έχει επικυρωθεί",
-      "defaultTitle": "Χωρίς τίτλο"
+      "defaultTitle": "Χωρίς τίτλο",
+      "cloudSyncImageError": "Ενεργοποιήστε τον συγχρονισμό cloud για αποθήκευση εικόνων σημειώσεων. Οι σημειώσεις κειμένου παραμένουν τοπικές."
     }
   },
   "PasswordManager": {

@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "选择一篇笔记或新建一篇以开始。",
-      "titlePlaceholder": "无标题"
+      "titlePlaceholder": "无标题",
+      "saving": "保存中…",
+      "ready": "就绪",
+      "saved": "已于 {time} 保存",
+      "stats": "{words} 字 · {read} 分钟阅读",
+      "template": "模板",
+      "applyTemplate": "应用模板",
+      "exportMdLabel": ".md",
+      "exportMd": "导出为 Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "导出为 HTML",
+      "focusMode": "专注模式",
+      "exitFocusMode": "退出专注模式",
+      "save": "保存",
+      "addTag": "添加标签…",
+      "removeTag": "移除标签 {tag}",
+      "loading": "加载中…",
+      "searchHint": "以搜索",
+      "focusHint": "专注模式",
+      "notePath": "笔记路径"
     },
     "context": {
       "authRequiredError": "用户未登录",
-      "defaultTitle": "无标题"
+      "defaultTitle": "无标题",
+      "cloudSyncImageError": "开启云同步以存储笔记图片。文本笔记保留在本地。"
     }
   },
   "PasswordManager": {

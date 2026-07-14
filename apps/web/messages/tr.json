@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Başlamak için bir not seçin veya yeni bir not oluşturun.",
-      "titlePlaceholder": "Başlıksız"
+      "titlePlaceholder": "Başlıksız",
+      "saving": "Kaydediliyor…",
+      "ready": "Hazır",
+      "saved": "{time} kaydedildi",
+      "stats": "{words} kelime · {read} dk okuma",
+      "template": "Şablon",
+      "applyTemplate": "Şablonu uygula",
+      "exportMdLabel": ".md",
+      "exportMd": "Markdown olarak dışa aktar",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "HTML olarak dışa aktar",
+      "focusMode": "Odak modu",
+      "exitFocusMode": "Odak modundan çık",
+      "save": "Kaydet",
+      "addTag": "Etiket ekle…",
+      "removeTag": "{tag} etiketini kaldır",
+      "loading": "Yükleniyor…",
+      "searchHint": "aramak için",
+      "focusHint": "odak modu",
+      "notePath": "Not yolu"
     },
     "context": {
       "authRequiredError": "Kullanıcı kimliği doğrulanmadı",
-      "defaultTitle": "Başlıksız"
+      "defaultTitle": "Başlıksız",
+      "cloudSyncImageError": "Not görsellerini depolamak için Bulut Eşitlemeyi açın. Metin notları yerel kalır."
     }
   },
   "PasswordManager": {

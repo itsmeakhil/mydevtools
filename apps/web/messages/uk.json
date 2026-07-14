@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Оберіть нотатку або створіть нову, щоб почати.",
-      "titlePlaceholder": "Без назви"
+      "titlePlaceholder": "Без назви",
+      "saving": "Збереження…",
+      "ready": "Готово",
+      "saved": "Збережено {time}",
+      "stats": "{words} слів · {read} хв читання",
+      "template": "Шаблон",
+      "applyTemplate": "Застосувати шаблон",
+      "exportMdLabel": ".md",
+      "exportMd": "Експортувати як Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Експортувати як HTML",
+      "focusMode": "Режим фокусування",
+      "exitFocusMode": "Вийти з режиму фокусування",
+      "save": "Зберегти",
+      "addTag": "Додати тег…",
+      "removeTag": "Видалити тег {tag}",
+      "loading": "Завантаження…",
+      "searchHint": "для пошуку",
+      "focusHint": "режим фокусування",
+      "notePath": "Шлях нотатки"
     },
     "context": {
       "authRequiredError": "Користувач не автентифікований",
-      "defaultTitle": "Без назви"
+      "defaultTitle": "Без назви",
+      "cloudSyncImageError": "Увімкніть хмарну синхронізацію, щоб зберігати зображення нотаток. Текстові нотатки залишаються локальними."
     }
   },
   "PasswordManager": {

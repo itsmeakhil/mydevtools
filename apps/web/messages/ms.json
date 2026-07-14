@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Pilih nota atau cipta yang baharu untuk bermula.",
-      "titlePlaceholder": "Tanpa Tajuk"
+      "titlePlaceholder": "Tanpa Tajuk",
+      "saving": "Menyimpan…",
+      "ready": "Sedia",
+      "saved": "Disimpan {time}",
+      "stats": "{words} perkataan · {read} min bacaan",
+      "template": "Templat",
+      "applyTemplate": "Guna templat",
+      "exportMdLabel": ".md",
+      "exportMd": "Eksport sebagai Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Eksport sebagai HTML",
+      "focusMode": "Mod fokus",
+      "exitFocusMode": "Keluar mod fokus",
+      "save": "Simpan",
+      "addTag": "Tambah tag…",
+      "removeTag": "Buang tag {tag}",
+      "loading": "Memuatkan…",
+      "searchHint": "untuk mencari",
+      "focusHint": "mod fokus",
+      "notePath": "Laluan nota"
     },
     "context": {
       "authRequiredError": "Pengguna tidak disahkan",
-      "defaultTitle": "Tanpa Tajuk"
+      "defaultTitle": "Tanpa Tajuk",
+      "cloudSyncImageError": "Hidupkan Penyegerakan Awan untuk menyimpan imej nota. Nota teks kekal setempat."
     }
   },
   "PasswordManager": {

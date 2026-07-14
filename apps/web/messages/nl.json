@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Selecteer een notitie of maak een nieuwe aan om te beginnen.",
-      "titlePlaceholder": "Naamloos"
+      "titlePlaceholder": "Naamloos",
+      "saving": "Opslaan…",
+      "ready": "Gereed",
+      "saved": "Opgeslagen {time}",
+      "stats": "{words} woorden · {read} min lezen",
+      "template": "Sjabloon",
+      "applyTemplate": "Sjabloon toepassen",
+      "exportMdLabel": ".md",
+      "exportMd": "Exporteren als Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Exporteren als HTML",
+      "focusMode": "Focusmodus",
+      "exitFocusMode": "Focusmodus verlaten",
+      "save": "Opslaan",
+      "addTag": "Tag toevoegen…",
+      "removeTag": "Tag {tag} verwijderen",
+      "loading": "Laden…",
+      "searchHint": "om te zoeken",
+      "focusHint": "focusmodus",
+      "notePath": "Notitiepad"
     },
     "context": {
       "authRequiredError": "Gebruiker niet geauthenticeerd",
-      "defaultTitle": "Naamloos"
+      "defaultTitle": "Naamloos",
+      "cloudSyncImageError": "Schakel cloudsynchronisatie in om notitieafbeeldingen op te slaan. Tekstnotities blijven lokaal."
     }
   },
   "PasswordManager": {
