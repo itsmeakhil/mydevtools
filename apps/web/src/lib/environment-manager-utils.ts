@@ -46,13 +46,25 @@ function parseEnvAssignmentBody(line: string): EnvVariableRow | null {
 
     const quote = rest[0]
     if (quote === '"' || quote === "'") {
-        const close = findClosingQuote(rest, quote)
-        if (close !== -1) {
+        const unwrap = (close: number) => {
             const inner = rest.slice(1, close)
             // Only double-quoted values process escapes; single-quoted are literal.
-            // Anything after the closing quote (e.g. an inline comment) is discarded.
-            const val = quote === '"' ? unescapeDoubleQuoted(inner) : inner
-            return { key: rawKey, value: val }
+            return { key: rawKey, value: quote === '"' ? unescapeDoubleQuoted(inner) : inner }
+        }
+        const close = findClosingQuote(rest, quote)
+        if (close !== -1) {
+            const after = rest.slice(close + 1).trimStart()
+            // Clean quoted value: nothing (or only an inline comment) follows the close.
+            if (after === "" || after.startsWith("#")) {
+                return unwrap(close)
+            }
+            // The matched quote sits *inside* the value (e.g. JSON with unescaped
+            // quotes like KEY="{"a":"b"}"). If the value also ends with the same
+            // quote, treat the outer pair as delimiters so no data is lost.
+            const lastQuote = rest.replace(/\s+$/, "").lastIndexOf(quote)
+            if (lastQuote > close) {
+                return unwrap(lastQuote)
+            }
         }
         // Unterminated quote: fall through and treat the whole thing as an unquoted value.
     }
