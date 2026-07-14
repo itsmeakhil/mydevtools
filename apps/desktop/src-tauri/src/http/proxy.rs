@@ -77,11 +77,19 @@ fn build_body(body: &Value) -> Result<Option<BodyKind>, String> {
     if body["mode"].as_str() == Some("form-data") {
         return Ok(Some(BodyKind::Multipart(body["entries"].as_array().cloned().unwrap_or_default())));
     }
+    // Raw binary body (e.g. S3 direct uploads): {mode: "base64", data: "<b64>"}.
+    if body["mode"].as_str() == Some("base64") {
+        let bytes = base64::engine::general_purpose::STANDARD
+            .decode(body["data"].as_str().unwrap_or(""))
+            .map_err(|e| e.to_string())?;
+        return Ok(Some(BodyKind::Bytes(bytes)));
+    }
     Ok(Some(BodyKind::Text(body.to_string())))
 }
 
 enum BodyKind {
     Text(String),
+    Bytes(Vec<u8>),
     Multipart(Vec<Value>),
 }
 
@@ -89,6 +97,7 @@ impl BodyKind {
     fn apply(&self, mut req: reqwest::RequestBuilder) -> Result<reqwest::RequestBuilder, String> {
         match self {
             BodyKind::Text(s) => Ok(req.body(s.clone())),
+            BodyKind::Bytes(b) => Ok(req.body(b.clone())),
             BodyKind::Multipart(entries) => {
                 let mut form = reqwest::multipart::Form::new();
                 for entry in entries {

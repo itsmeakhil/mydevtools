@@ -52,7 +52,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         bullets: [
           'Use related tools from one dashboard and command palette.',
           'Keep common developer utilities available on any machine with a browser.',
-          'Self-host the same open-source codebase when you want complete infrastructure control.',
+          'Sync your work across devices with an account when you want continuity.',
         ],
       },
       {
@@ -71,7 +71,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'features',
     title: 'Developer Toolkit Features',
     description:
-      'Explore MyDevTools features: unified dashboard, command palette, team workspaces with role-based access, browser-based tools, secure sync, self-hosting, and managed cloud hosting.',
+      'Explore MyDevTools features: unified dashboard, command palette, team workspaces with role-based access, browser-based tools, secure sync, and managed cloud hosting.',
     keywords: [
       'developer toolkit features',
       'browser developer tools features',
@@ -83,7 +83,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Features',
     heading: 'Features built for fast, private developer workflows',
     intro:
-      'MyDevTools combines small daily utilities with a dashboard, search, privacy controls, and self-hosting options so developers can work without installing another desktop app.',
+      'MyDevTools combines small daily utilities with a dashboard, search, privacy controls, and cloud sync so developers can work without installing another desktop app.',
     primaryCta: { href: '/tools', label: 'See tools' },
     secondaryCta: { href: '/security', label: 'Review security' },
     sections: [
@@ -118,13 +118,13 @@ export const platformSeoPages: PlatformSeoPage[] = [
         ],
       },
       {
-        title: 'Open source and cloud options',
+        title: 'Cloud that scales with you',
         body:
-          'Choose the deployment model that matches your team: self-host the codebase or use the managed cloud.',
+          'Start free, then upgrade when you need unlimited usage and team features.',
         bullets: [
-          'GPL-3.0 source code is available for audit and contribution.',
-          'Self-hosting gives you control over data and infrastructure.',
-          'Cloud hosting removes deployment work while keeping sensitive sync encrypted.',
+          'Free tier with capped usage — no card required to start.',
+          'Pro unlocks unlimited usage, cross-device sync, and private history.',
+          'Team plans add shared workspaces, roles, and centralized billing.',
         ],
       },
     ],
@@ -133,7 +133,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'security',
     title: 'Security and Privacy',
     description:
-      'Learn how MyDevTools handles security, client-side encryption, zero-knowledge vault data, local browser processing, account sync, and self-hosted control.',
+      'Learn how MyDevTools handles security, client-side encryption, zero-knowledge vault data, local browser processing, account sync, and encrypted data handling.',
     keywords: [
       'developer tools security',
       'zero knowledge developer tools',
@@ -145,7 +145,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     intro:
       'MyDevTools is built around a simple principle: keep local work local where possible, and encrypt sensitive synced data before it leaves the browser.',
     primaryCta: { href: '/help', label: 'Read help docs' },
-    secondaryCta: { href: '/open-source', label: 'Audit the code' },
+    secondaryCta: { href: '/features', label: 'Explore features' },
     sections: [
       {
         title: 'What runs locally',
@@ -164,7 +164,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         bullets: [
           'The server stores ciphertext and metadata required for sync, not readable vault plaintext.',
           'Your master password is not transmitted for vault unlock flows.',
-          'Self-hosting lets you control the backend and storage environment.',
+          'Encryption keys derive from your master password, which the server never receives.',
         ],
       },
       {
@@ -173,114 +173,8 @@ export const platformSeoPages: PlatformSeoPage[] = [
           'Security depends on the browser, the deployment, and the external services you choose to connect.',
         bullets: [
           'Do not paste highly sensitive production secrets into tools you do not control.',
-          'Use self-hosting for regulated, internal, or highly sensitive workflows.',
-          'Review the open-source code and deployment configuration before team-wide adoption.',
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'open-source',
-    title: 'Open Source Developer Tools',
-    description:
-      'MyDevTools is a GPL-3.0 open-source developer tools platform. Audit the code, contribute features, fork it, or self-host your own developer toolkit.',
-    keywords: [
-      'open source developer tools',
-      'open source developer toolkit',
-      'self hosted open source developer tools',
-      'GPL developer tools',
-    ],
-    eyebrow: 'Open Source',
-    heading: 'Open-source developer tools you can audit and self-host',
-    intro:
-      'MyDevTools is built in public so developers can inspect the implementation, contribute improvements, and run the toolkit on their own infrastructure.',
-    primaryCta: {
-      href: 'https://github.com/itsmeakhil/mydevtools.tech',
-      label: 'View GitHub',
-    },
-    secondaryCta: { href: '/self-host', label: 'Self-host guide' },
-    sections: [
-      {
-        title: 'GPL-3.0 codebase',
-        body:
-          'The source is available for developers who want transparency and control instead of a black-box utility site.',
-        bullets: [
-          'Audit how tools process data and how sensitive sync is implemented.',
-          'Fork the project for private or internal workflows.',
-          'Contribute bug fixes, new tools, documentation, and quality improvements.',
-        ],
-      },
-      {
-        title: 'Why open source matters for dev tools',
-        body:
-          'Developer utilities often touch source code, payloads, credentials, requests, and generated data.',
-        bullets: [
-          'Readable source builds trust for privacy-sensitive tools.',
-          'Self-hosting avoids vendor lock-in for teams with strict policies.',
-          'Community review improves reliability over time.',
-        ],
-      },
-      {
-        title: 'Cloud without losing transparency',
-        body:
-          'The hosted service runs the same product direction while preserving an open-source foundation.',
-        bullets: [
-          'Use managed cloud when convenience matters.',
-          'Use self-hosting when infrastructure control matters.',
-          'Move between models without adopting a separate proprietary toolkit.',
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'self-host',
-    title: 'Self-Hosted Developer Tools',
-    description:
-      'Self-host MyDevTools for a private online developer toolkit with 50+ tools, open-source code, browser-based workflows, and control over your infrastructure.',
-    keywords: [
-      'self hosted developer tools',
-      'self hosted dev toolkit',
-      'self hosted online developer tools',
-      'private developer toolkit',
-    ],
-    eyebrow: 'Self-Host',
-    heading: 'Self-host your own online developer toolkit',
-    intro:
-      'Run MyDevTools on infrastructure you control when you want a private developer tools hub for personal use, internal teams, labs, or security-sensitive workflows.',
-    primaryCta: {
-      href: 'https://github.com/itsmeakhil/mydevtools.tech',
-      label: 'Get source code',
-    },
-    secondaryCta: { href: '/security', label: 'Review security model' },
-    sections: [
-      {
-        title: 'When self-hosting makes sense',
-        body:
-          'Self-hosting is best when your team has internal workflows, strict data policies, or a preference for owning infrastructure.',
-        bullets: [
-          'Keep the web app and backend inside your chosen environment.',
-          'Control deployment, access, logs, data storage, and network boundaries.',
-          'Avoid relying on a public hosted utility site for sensitive developer work.',
-        ],
-      },
-      {
-        title: 'What you get',
-        body:
-          'Self-hosted MyDevTools uses the same product surface: tool directory, dashboard, secure workflows, and developer utilities.',
-        bullets: [
-          'Access the full GPL-3.0 codebase.',
-          'Use all included tools without a license fee from MyDevTools.',
-          'Customize deployment and operations for your own environment.',
-        ],
-      },
-      {
-        title: 'When cloud is better',
-        body:
-          'Managed cloud is better when you want the product without owning deployment and maintenance.',
-        bullets: [
-          'Use cloud for quick personal access and hosted sync.',
-          'Use self-hosting for private infrastructure or compliance needs.',
-          'Both options keep the same platform story instead of separate products.',
+          'Sensitive vault data is encrypted client-side before it syncs to our cloud.',
+          'Review our security model and data handling before team-wide adoption.',
         ],
       },
     ],
@@ -289,29 +183,26 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'pricing',
     title: 'Pricing',
     description:
-      'Compare MyDevTools self-hosted and cloud options. Self-host the open-source developer toolkit for free or use managed cloud hosting for convenience.',
+      'Compare MyDevTools Free, Pro, Team, and Enterprise plans. Start free, then upgrade for unlimited cloud usage and team features.',
     keywords: [
       'mydevtools pricing',
       'developer tools pricing',
-      'self hosted developer tools pricing',
+      'developer tools subscription pricing',
       'online developer toolkit pricing',
     ],
     eyebrow: 'Pricing',
-    heading: 'Self-host free. Use cloud when you want managed convenience.',
+    heading: 'Start free. Upgrade when you want more.',
     intro:
-      'MyDevTools keeps the open-source toolkit self-hostable while offering a managed cloud path for developers who prefer not to run infrastructure.',
+      'MyDevTools gives you a free tier to start, with paid plans that unlock unlimited cloud usage, sync, and team features.',
     primaryCta: { href: '/login', label: 'Start with cloud' },
-    secondaryCta: {
-      href: 'https://github.com/itsmeakhil/mydevtools.tech',
-      label: 'Self-host for free',
-    },
+    secondaryCta: { href: '/features', label: 'See features' },
     sections: [
       {
         title: 'Free',
         body:
-          'Self-host the GPL-3.0 source on your own infrastructure, or try the cloud with capped usage — no card required.',
+          'Use the core developer tools with capped cloud usage — no card required.',
         bullets: [
-          '$0 forever — self-host with no license fee.',
+          '$0 forever — no card required.',
           'All core developer tools included.',
           'Capped cloud usage to try before you buy.',
         ],
@@ -332,7 +223,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
           'Custom plans for organizations that need SSO, compliance, and support at scale.',
         bullets: [
           'SSO / SAML, audit logs, and a security review.',
-          'Self-host with a support SLA.',
+          'Dedicated support SLA.',
           'Dedicated onboarding — contact support@mydevtools.tech.',
         ],
       },
@@ -383,7 +274,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
           'Use MyDevTools for repeatable operational checks, secure workflow notes, and learning-friendly utilities.',
         bullets: [
           'Generate Docker Compose starters, secrets, and environment helpers.',
-          'Self-host for internal team workflows or classrooms.',
+          'Share team workspaces with role-based access for internal workflows or classrooms.',
           'Use one searchable toolkit instead of a long list of single-purpose websites.',
         ],
       },

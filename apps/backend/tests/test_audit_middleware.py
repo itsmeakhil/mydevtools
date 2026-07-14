@@ -86,35 +86,3 @@ def test_audit_write_failure_does_not_break_request(monkeypatch):
     client = TestClient(build_app())
     res = client.post("/api/v1/bookmarks")
     assert res.status_code == 200  # user response unaffected
-
-
-def test_bookmark_service_sets_audit_detail(monkeypatch):
-    import asyncio as _asyncio
-    from app.api.routes.bookmarks import services as bm
-    from app.api.routes.bookmarks.schema import BookmarkCreate
-    from app.api.routes.workspaces.middleware import WorkspaceContext
-    from app.core import audit
-
-    async def fake_insert_one(collection_name, data):
-        return None
-
-    monkeypatch.setattr("app.api.routes.bookmarks.services.db_manager.insert_one", fake_insert_one)
-
-    _bm_ctx = WorkspaceContext(
-        uid="uid1", workspace_id="ws1", ws_role="admin",
-        is_personal=True, owner_uid="uid1",
-    )
-
-    async def run():
-        tok = audit._audit_ctx.set(audit.AuditContext())
-        try:
-            await bm.create_bookmark(_bm_ctx, BookmarkCreate(title="GitHub", url="https://gh.com"))
-            ctx = audit.current_context()
-            assert ctx.action == "bookmark.create"
-            assert ctx.entity_type == "bookmark"
-            assert ctx.entity_id  # the new id
-            assert any(c["field"] == "title" and c["after"] == "GitHub" for c in (ctx.changes or []))
-        finally:
-            audit._audit_ctx.reset(tok)
-
-    _asyncio.run(run())

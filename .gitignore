@@ -77,3 +77,5 @@ apps/desktop/src-tauri/target/release/
 .superpowers/apps/desktop/node_modules
 /apps/desktop/src-tauri/target
 /apps/desktop/node_modules
+/apps/desktop-ui/node_modules
+/apps/desktop-ui/.next

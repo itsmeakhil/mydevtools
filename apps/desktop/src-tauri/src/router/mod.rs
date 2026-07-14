@@ -1,3 +1,4 @@
+pub mod activation;
 pub mod api_client;
 pub mod backup;
 pub mod backup_codes;
@@ -8,7 +9,6 @@ pub mod notes;
 pub mod preferences;
 pub mod snippets;
 pub mod stubs;
-pub mod sync;
 pub mod tasks;
 pub mod workspaces;
 
@@ -44,10 +44,9 @@ impl ApiResponse {
     }
 }
 
-/// Remote-only path prefixes (relative to /api/v1): tools that require the
-/// cloud even on desktop. Rejected with 503 offline; Phase 4 routes them to
-/// the remote bridge instead.
-const REMOTE_ONLY: &[&str] = &["/url-shortener", "/s3-drive", "/game-scores", "/dns-lookup"];
+/// Remote-only path prefixes (relative to /api/v1). Empty since S3 went
+/// direct-to-bucket and DNS moved to DoH — kept for the next cloud-only tool.
+const REMOTE_ONLY: &[&str] = &[];
 
 /// Dispatch a request against the local store. Paths are normalized FastAPI
 /// paths (`/api/v1/...`); query strings are split off here and passed along.
@@ -67,8 +66,8 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
         _ => {}
     }
 
-    if let Some(rest) = path.strip_prefix("/desktop/sync") {
-        return sync::handle(state, method, rest, query, body);
+    if let Some(rest) = path.strip_prefix("/desktop/activation") {
+        return activation::handle(state, method, rest, body);
     }
     if let Some(rest) = path.strip_prefix("/desktop/backup") {
         return backup::handle(state, method, rest, body);
@@ -104,6 +103,7 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
         ("/sql-client/connections", "sql_connections"),
         ("/redis-commander/connections", "redis_connections"),
         ("/nosql/connections", "nosql_connections"),
+        ("/s3-drive/connections", "s3_connections"),
     ] {
         if rel.starts_with(prefix) {
             // rest starts at "/connections..."
@@ -412,120 +412,6 @@ mod tests {
     }
 
     #[test]
-    fn sync_rows_resolve_and_detach() {
-        let state = AppState::in_memory();
-        // Create an entry, verify it shows up dirty with no last_synced_at.
-        let r = route(&state, "POST", "/api/v1/password-manager/entries", Some(r#"{"encryptedData":"X","iv":"Y"}"#)).unwrap();
-        let id = body_json(&r)["id"].as_str().unwrap().to_string();
-        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
-        let rows = body_json(&r);
-        assert_eq!(rows[0]["dirty"], true);
-        assert!(rows[0]["last_synced_at"].is_null());
-
-        // mark-synced with re-key to a server id.
-        let body = format!(r#"{{"workspace_id":"local-personal","tool_kind":"password_entries","id":"{id}","action":"mark-synced","new_id":"srv-1"}}"#);
-        let r = route(&state, "POST", "/desktop/sync/resolve", Some(&body)).unwrap();
-        assert_eq!(r.status, 200);
-        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
-        let rows = body_json(&r);
-        assert_eq!(rows[0]["id"], "srv-1");
-        assert_eq!(rows[0]["dirty"], false);
-        assert!(rows[0]["last_synced_at"].as_i64().is_some());
-
-        // Tombstone + mark-synced removes the row entirely.
-        let r = route(&state, "DELETE", "/api/v1/password-manager/entries/srv-1", None).unwrap();
-        assert_eq!(r.status, 204);
-        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","id":"srv-1","action":"mark-synced"}"#;
-        route(&state, "POST", "/desktop/sync/resolve", Some(body)).unwrap();
-        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
-        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
-
-        // apply-remote inserts a clean row.
-        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","id":"srv-2","action":"apply-remote","doc":{"id":"srv-2","encryptedData":"R","iv":"I","updatedAt":123},"updated_at":123}"#;
-        route(&state, "POST", "/desktop/sync/resolve", Some(body)).unwrap();
-        let r = route(&state, "GET", "/api/v1/password-manager/entries", None).unwrap();
-        assert_eq!(body_json(&r)[0]["id"], "srv-2");
-
-        // Toggle sync off → last_synced_at cleared (fresh merge on re-enable).
-        let r = route(&state, "POST", "/desktop/sync/settings", Some(r#"{"workspace_id":"local-personal","enabled":true}"#)).unwrap();
-        assert_eq!(r.status, 200);
-        route(&state, "POST", "/desktop/sync/settings", Some(r#"{"workspace_id":"local-personal","enabled":false}"#)).unwrap();
-        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
-        assert!(body_json(&r)[0]["last_synced_at"].is_null());
-        let r = route(&state, "GET", "/desktop/sync/settings?workspace_id=local-personal", None).unwrap();
-        assert_eq!(body_json(&r)["enabled"], false);
-    }
-
-    #[test]
-    fn sync_conflict_archive_list_dismiss() {
-        let state = AppState::in_memory();
-        // No conflicts initially.
-        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
-        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
-
-        // Archive a losing remote version.
-        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","entry_id":"e1",
-            "loser_side":"remote","loser_doc":{"id":"e1","encryptedData":"OLD","iv":"IV"},
-            "loser_updated_at":100,"winner_updated_at":200}"#;
-        let r = route(&state, "POST", "/desktop/sync/conflict", Some(body)).unwrap();
-        assert_eq!(r.status, 200);
-        let cid = body_json(&r)["id"].as_str().unwrap().to_string();
-
-        // It shows up in the open list with the loser doc intact.
-        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
-        let list = body_json(&r);
-        assert_eq!(list.as_array().unwrap().len(), 1);
-        assert_eq!(list[0]["entry_id"], "e1");
-        assert_eq!(list[0]["loser_side"], "remote");
-        assert_eq!(list[0]["loser_doc"]["encryptedData"], "OLD");
-        assert_eq!(list[0]["winner_updated_at"], 200);
-
-        // Bad side is rejected.
-        let bad = r#"{"workspace_id":"local-personal","tool_kind":"x","entry_id":"e2","loser_side":"nope","loser_doc":{}}"#;
-        assert_eq!(route(&state, "POST", "/desktop/sync/conflict", Some(bad)).unwrap().status, 422);
-
-        // Dismiss removes it from the open list.
-        let dismiss = format!(r#"{{"id":"{cid}"}}"#);
-        assert_eq!(route(&state, "POST", "/desktop/sync/conflicts/dismiss", Some(&dismiss)).unwrap().status, 200);
-        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
-        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
-        // Dismissing again is a 404.
-        assert_eq!(route(&state, "POST", "/desktop/sync/conflicts/dismiss", Some(&dismiss)).unwrap().status, 404);
-    }
-
-    #[test]
-    fn sync_conflict_restore_reapplies_loser() {
-        let state = AppState::in_memory();
-        // Seed a synced entry (the current "winner").
-        let body = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","id":"e1","action":"apply-remote","doc":{"id":"e1","encryptedData":"WINNER","iv":"IV","updatedAt":500},"updated_at":500}"#;
-        route(&state, "POST", "/desktop/sync/resolve", Some(body)).unwrap();
-
-        // Archive the losing local version.
-        let conflict = r#"{"workspace_id":"local-personal","tool_kind":"password_entries","entry_id":"e1",
-            "loser_side":"local","loser_doc":{"id":"e1","encryptedData":"LOSER","iv":"IV","updatedAt":400},
-            "loser_updated_at":400,"winner_updated_at":500}"#;
-        let r = route(&state, "POST", "/desktop/sync/conflict", Some(conflict)).unwrap();
-        let cid = body_json(&r)["id"].as_str().unwrap().to_string();
-
-        // Restore: the loser becomes the live doc, dirty and re-clocked.
-        let restore = format!(r#"{{"id":"{cid}"}}"#);
-        let r = route(&state, "POST", "/desktop/sync/conflicts/restore", Some(&restore)).unwrap();
-        assert_eq!(r.status, 200);
-        let r = route(&state, "GET", "/api/v1/password-manager/entries", None).unwrap();
-        let entry = &body_json(&r)[0];
-        assert_eq!(entry["encryptedData"], "LOSER");
-        assert!(entry["updatedAt"].as_i64().unwrap() > 500, "clock bumped forward");
-
-        // Row is dirty again so it re-syncs, and the conflict is resolved.
-        let r = route(&state, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
-        assert_eq!(body_json(&r)[0]["dirty"], true);
-        let r = route(&state, "GET", "/desktop/sync/conflicts?workspace_id=local-personal", None).unwrap();
-        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
-        // Restoring a resolved conflict is a 404.
-        assert_eq!(route(&state, "POST", "/desktop/sync/conflicts/restore", Some(&restore)).unwrap().status, 404);
-    }
-
-    #[test]
     fn backup_export_import_roundtrip() {
         let src = AppState::in_memory();
         // Seed an entry + a configured master vault.
@@ -554,9 +440,6 @@ mod tests {
         let r = route(&dst, "GET", "/api/v1/password-manager/entries", None).unwrap();
         assert_eq!(body_json(&r)[0]["id"], id);
         assert_eq!(body_json(&r)[0]["encryptedData"], "SECRET");
-        // Restored row is dirty (re-syncs if sync is later enabled).
-        let r = route(&dst, "GET", "/desktop/sync/rows?workspace_id=local-personal&tool_kind=password_entries", None).unwrap();
-        assert_eq!(body_json(&r)[0]["dirty"], true);
         let r = route(&dst, "GET", "/api/v1/auth/master-vault", None).unwrap();
         assert_eq!(body_json(&r)["salt"], "c2FsdA==");
 
@@ -572,11 +455,13 @@ mod tests {
     }
 
     #[test]
-    fn remote_only_prefix_rejected_503() {
+    fn s3_connections_local_crud() {
         let state = AppState::in_memory();
-        let r = route(&state, "GET", "/api/v1/url-shortener?skip=0", None).unwrap();
-        assert_eq!(r.status, 503);
+        // S3 connection vault is local now (direct-to-bucket ops sign client-side).
+        let r = route(&state, "POST", "/api/v1/s3-drive/connections", Some(r#"{"name":"b","provider":"aws","encryptedData":"X","iv":"Y"}"#)).unwrap();
+        assert_eq!(r.status, 200);
         let r = route(&state, "GET", "/api/v1/s3-drive/connections", None).unwrap();
-        assert_eq!(r.status, 503);
+        assert_eq!(r.status, 200);
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 1);
     }
 }

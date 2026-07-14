@@ -21,12 +21,12 @@ type Tier = {
 const TIERS: Tier[] = [
   {
     name: 'Free',
-    tagline: 'Self-host, or try the cloud with capped usage.',
+    tagline: 'Try the cloud with capped usage, no card required.',
     monthly: 0,
     annual: 0,
     cta: { href: '/login', label: 'Start free' },
     features: [
-      'Self-host the full open-source toolkit',
+      'Cross-device access from any browser',
       'Capped cloud usage, no card required',
       'All core developer tools',
       'Community support',
@@ -68,7 +68,7 @@ const TIERS: Tier[] = [
     cta: { href: 'mailto:support@mydevtools.tech', label: 'Contact sales', external: true },
     features: [
       'SSO / SAML & audit logs',
-      'Self-host with a support SLA',
+      'Dedicated support SLA',
       'Security review & DPA',
       'Dedicated onboarding',
     ],
@@ -102,7 +102,7 @@ export function PricingTiers() {
             Simple, honest <span className="mdt-grad-text">pricing</span>
           </h2>
           <p className="max-w-2xl text-muted-foreground">
-            Self-host for free, forever. Upgrade to cloud when you want the convenience.
+            Start free, forever. Upgrade to Pro when you want unlimited cloud usage.
           </p>
           <p className="mdt-pill inline-flex items-center gap-1.5 text-sm">
             <span aria-hidden>🎉</span> Launch offer — every plan is free for a limited time

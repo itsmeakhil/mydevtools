@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Cloud, ShieldCheck, Zap } from "lucide-react";
+import { ArrowLeft, ShieldCheck, Zap } from "lucide-react";
 import { LegalAgreementFooter } from "@/components/legal-agreement-footer";
 import { LoginForm } from "@/components/login-form";
 import { LoginRedirectIfAuthed } from "@/components/login-redirect-if-authed";
-import { HideOnDesktop } from "@/components/desktop/hide-on-desktop";
 import { Logo } from "@/components/logo";
 import { Magnetic } from "@/components/mdt-magnetic";
 import MdtAurora from "@/components/mdt-aurora";
@@ -27,11 +26,6 @@ const FEATURES = [
     icon: ShieldCheck,
     title: "Encrypted, cross-device sync",
     body: "Sensitive data is AES-256 encrypted before it ever leaves your browser.",
-  },
-  {
-    icon: Cloud,
-    title: "Self-host or cloud",
-    body: "Run it yourself for free, or sign in and let us handle the infrastructure.",
   },
 ];
 
@@ -70,17 +64,15 @@ export default function LoginPage() {
       </div>
 
       <header className="relative z-20 px-4 pt-[max(1rem,var(--safe-area-top))] sm:px-8 sm:pt-8">
-        <HideOnDesktop>
-          <Magnetic strength={0.4}>
-            <Link
-              href="/"
-              className="group inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/50 px-3.5 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur-md transition-colors hover:border-border hover:bg-accent/40 hover:text-foreground"
-            >
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-              Back to home
-            </Link>
-          </Magnetic>
-        </HideOnDesktop>
+        <Magnetic strength={0.4}>
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/50 px-3.5 py-2 text-sm text-muted-foreground shadow-sm backdrop-blur-md transition-colors hover:border-border hover:bg-accent/40 hover:text-foreground"
+          >
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+            Back to home
+          </Link>
+        </Magnetic>
       </header>
 
       <main className="relative z-10 mx-auto grid w-full max-w-6xl flex-1 items-center gap-12 px-4 py-8 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-10">

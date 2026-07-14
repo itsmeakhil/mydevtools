@@ -1,0 +1,4573 @@
+{
+  "Navigation": {
+    "dashboard": "Gösterge Paneli",
+    "settings": "Ayarlar",
+    "apiClient": "API İstemcisi",
+    "httpStatusCodes": "HTTP durum kodları",
+    "passwordManager": "Şifre Yöneticisi",
+    "environmentManager": "Ortam yöneticisi",
+    "bookmarks": "Yer İmleri",
+    "jsonFormatter": "JSON biçimleyici",
+    "emailValidator": "E-posta Doğrulayıcı",
+    "nosqlExplorer": "Veritabanı Gezgini",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "encryptionPlayground": "Şifreleme oyun alanı",
+    "jwtDecoder": "JWT Çözücü",
+    "certificatePemDecoder": "Sertifika / PEM çözücü",
+    "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "GraphQL Biçimlendirici",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "urlParser": "URL Ayrıştırıcı",
+    "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Gizli / API anahtarı",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker",
+    "contrastChecker": "Kontrast denetleyici",
+    "jsonSchemaGenerator": "JSON Şema Oluşturucu",
+    "imageToBase64": "Base64'e görüntü",
+    "imageCompressor": "Görüntü sıkıştırıcı",
+    "cssGradientBuilder": "CSS Degrade Oluşturucu",
+    "gitignoreGenerator": ".gitignore Oluşturucu",
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Kod parçacıkları",
+    "qrCodeGenerator": "QR kod oluşturucu",
+    "dnsLookup": "DNS Sorgulama",
+    "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
+    "hashGenerator": "Hash oluşturucu",
+    "hmacGenerator": "HMAC Oluşturucu",
+    "totpGenerator": "TOTP / 2FA kodu",
+    "markdownPreview": "Markdown Önizleme",
+    "numberBaseConverter": "Taban dönüştürücü",
+    "formatConverter": "Format Dönüştürücü",
+    "mockDataGenerator": "Sahte veri üreticisi",
+    "svgOptimizer": "SVG Optimize",
+    "unitConverter": "Birim Dönüştürücü",
+    "dockerComposeGenerator": "Docker Compose Oluşturucu",
+    "breakRoom": "Mola Odası",
+    "game2048": "2048",
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "YAML Biçimleyici",
+    "sshKeyGenerator": "SSH / RSA Anahtar Oluşturucu",
+    "curlToCode": "cURL to Code",
+    "jsonToCode": "JSON to Code",
+    "beautifyMinify": "Beautify & Minify",
+    "stringCaseConverter": "String Case Converter",
+    "lineSortDedupe": "Line Sort & Dedupe",
+    "stringInspector": "String Inspector",
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Chmod Hesaplayıcı",
+    "codeScreenshot": "Kod Ekran Görüntüsü",
+    "cssGenerators": "CSS Üreticileri",
+    "exifViewer": "EXIF Görüntüleyici",
+    "faviconGenerator": "Favicon Üreticisi",
+    "jsonDiff": "JSON Karşılaştırma",
+    "jsonpathPlayground": "JSONPath Oyun Alanı",
+    "keycodeInspector": "Tuş Kodu İnceleyici",
+    "markdownTableGenerator": "Markdown Tablosu",
+    "timezoneConverter": "Saat Dilimi Dönüştürücü",
+    "tokenCounter": "Token Sayacı",
+    "webhookTester": "Webhook Test Aracı",
+    "websocketTester": "WebSocket Test Aracı",
+    "whoisLookup": "Whois Sorgulama"
+  },
+  "Help": {
+    "title": "Yardım ve dokümantasyon",
+    "subtitle": "MyDevTools’un nasıl çalıştığı, her uygulamanın ne yaptığı ve güvenlik ile şifrelemenin verilerinizi nasıl koruduğu.",
+    "tabs": {
+      "overview": "Genel bakış",
+      "apps": "Uygulamalar",
+      "security": "Güvenlik",
+      "tips": "İpuçları"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "MyDevTools nedir?",
+        "description": "Giriş yapılan bir geliştirici çalışma alanı: bir gösterge paneli ve günlük araçlar.",
+        "p1": "Hesabınızla giriş yaptıktan sonra uygulama, araçların verilerinizi yükleyip kaydedebilmesi için MyDevTools API ile bir oturum kurar. Yan menü tüm uygulamaları listeler; kullanmadığınız araçları",
+        "settingsLink": "Ayarlar",
+        "p1After": "sayfasından gizleyebilirsiniz.",
+        "p2": "Bazı özellikler <strong>ana parola</strong> (veya global kasa anahtarı) kullanır; böylece parolalar ve bağlantı dizeleri gibi sırlar sunucuya ulaşmadan önce cihazınızda şifrelenir."
+      },
+      "quickLinks": {
+        "title": "Hızlı bağlantılar",
+        "dashboard": "Gösterge Paneli",
+        "settings": "Ayarlar"
+      }
+    },
+    "apps": {
+      "intro": "Herhangi bir aracı yan menüden veya gösterge panelinden açın. Aşağıda her uygulama için kısa bir rehber var.",
+      "open": "Aç",
+      "howItWorks": "Nasıl çalışır",
+      "generic": "Bu aracı yan menüden, kendi iş akışı üzerinden kullanın."
+    },
+    "security": {
+      "session": {
+        "title": "Giriş ve API oturumu",
+        "description": "Kimlik ve tarayıcının backend ile nasıl konuştuğu.",
+        "items": {
+          "authentication": "<strong>Kimlik doğrulama</strong> için Firebase kullanılır. Girişten sonra uygulama Firebase ID token’ınızı API çerezleriyle değiştirir.",
+          "accessTokens": "<strong>Erişim token’ları</strong> sunucuda imzalanan JWT’lerdir (HS256) ve API’yi çağıran kullanıcıyı kanıtlar.",
+          "refreshTokens": "<strong>Yenileme token’ları</strong> HttpOnly çerezlerde saklanır; sunucu ham token yerine SHA-256 hash’ini tutar."
+        }
+      },
+      "encryption": {
+        "title": "Bilmeniz gereken şifreleme",
+        "description": "Kasa ve hassas bağlantı verileri için istemci tarafı kripto.",
+        "p1": "<strong>Şifre yöneticisi</strong>, <strong>ortam yöneticisi</strong> ve <strong>NoSQL Explorer</strong> kayıtlı bağlantıları için web uygulaması tarayıcının <strong>Web Crypto API</strong> özelliğini kullanır:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> (<strong>SHA-256</strong>, <strong>100.000</strong> iterasyon, rastgele salt) ana parolanızdan 256-bit anahtar türetir.",
+          "aes": "<strong>AES-256-GCM</strong> veriyi şifreler; her şifreleme için rastgele <strong>12 bayt IV</strong> kullanılır.",
+          "scope": "Türetilen anahtar tarayıcıda kalır (dışa aktarılamaz). Sunucu yalnızca <strong>şifreli metin ve IV</strong> alır; ana parola veya düz metin sırlar gönderilmez."
+        },
+        "warning": "Ana parolanızı unutursanız, şifrelenmiş veriler kurtarılamaz. Güvenle saklayın."
+      },
+      "logout": {
+        "title": "Çıkış ve yerel veriler",
+        "body": "Çıkış yapmak bellek içindeki sırları, kasa durumunu ve (varsa) IndexedDB’deki ana anahtar materyalini temizler ve API oturumunu sonlandırır. Yalnızca yerel depoda tutulan veriler, tarayıcıdan temizleyene kadar kalabilir."
+      }
+    },
+    "tips": {
+      "title": "MyDevTools’u güvenli kullanma",
+      "items": {
+        "masterPassword": "Kasa özellikleri için güçlü ve benzersiz bir ana parola kullanın.",
+        "apiClient": "API İstemcisini herhangi bir HTTP istemcisi gibi kullanın: kimlerin görebileceğini bilmiyorsanız üretim sırlarını paylaşılan ortamlara yapıştırmayın.",
+        "nosql": "Veritabanı Gezgini sizin yapılandırdığınız veritabanlarına bağlanır; mümkünse en az ayrıcalıklı kullanıcıları ve ağ kurallarını kullanın.",
+        "json": "JSON biçimleyici tarayıcıda yerel çalışır—yine de paylaşılan cihazlarda çok hassas verileri yapıştırmaktan kaçının.",
+        "settings": "Yan menüyü odaklı tutmak için Ayarlar’dan görünür araçları özelleştirin."
+      }
+    }
+  },
+  "Settings": {
+    "title": "Ayarlar",
+    "language": "Dil",
+    "spanish": "İspanyolca",
+    "english": "İngilizce",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Katalanca",
+    "chineseSimplified": "Çince (Basitleştirilmiş)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "Almanca",
+    "danish": "Danca",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "norwegian": "Norsk",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukraynaca"
+  },
+  "SettingsPage": {
+    "title": "Ayarlar",
+    "subtitle": "Hesap ayarlarınızı ve tercihlerinizi yönetin.",
+    "userProfile": {
+      "title": "Kullanıcı Profili",
+      "description": "Kişisel bilgileriniz ve hesap detaylarınız.",
+      "avatarAlt": "Kullanıcı",
+      "anonymousUser": "Anonim Kullanıcı",
+      "noEmailProvided": "E-posta belirtilmedi",
+      "notLoggedIn": "Giriş yapılmadı."
+    },
+    "tools": {
+      "title": "Araçlar ve Özellikler",
+      "description": "Gezinme kenar çubuğunuzda hangi araçların görüneceğini seçin."
+    },
+    "appearance": {
+      "title": "Görünüm",
+      "description": "Uygulamanın cihazınızda nasıl göründüğünü özelleştirin.",
+      "themePreference": "Tema Tercihi",
+      "themes": {
+        "light": "Açık",
+        "dark": "Koyu",
+        "system": "Sistem"
+      }
+    },
+    "language": {
+      "title": "Dil",
+      "description": "Platform genelinde kullanılan dili ayarlayın.",
+      "selectLanguage": "Dil Seçin",
+      "selectPlaceholder": "Bir dil seçin",
+      "helpText": "Dilinizi değiştirmek, platform genelindeki menüleri ve etiketleri güncelleyecektir.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (İspanyolca)",
+        "ar": "عربى (Arapça)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Yunanca)",
+        "de": "Deutsch (Almanca)",
+        "da": "Dansk (Danca)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "it": "İtalyanca (Italiano)",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski (Lehçe)",
+        "pt": "Português",
+        "pt-BR": "Português (Brezilya)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
+      }
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
+      "addButton": "Add passkey",
+      "loading": "Loading…",
+      "none": "No passkeys yet.",
+      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
+      "addedOn": "Added {date}",
+      "lastUsedOn": "Last used {date}",
+      "synced": "Synced",
+      "rename": "Rename",
+      "renamePrompt": "Rename passkey",
+      "addedToast": "Passkey added.",
+      "renamedToast": "Passkey renamed.",
+      "removedToast": "Passkey removed.",
+      "loadError": "Could not load passkeys.",
+      "addError": "Could not add passkey.",
+      "renameError": "Could not rename passkey.",
+      "deleteError": "Could not delete passkey.",
+      "dialog": {
+        "title": "Add a passkey",
+        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
+        "nameLabel": "Device name (optional)",
+        "namePlaceholder": "e.g. MacBook Touch ID",
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "waiting": "Waiting for device…"
+      },
+      "delete": {
+        "title": "Remove passkey?",
+        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
+        "cancel": "Cancel",
+        "confirm": "Remove"
+      },
+      "prompt": {
+        "title": "Sign in faster next time",
+        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
+        "skip": "Maybe later",
+        "setup": "Set up passkey",
+        "successToast": "Passkey added — try signing out and back in to test it.",
+        "errorToast": "Could not add passkey. You can try again from Settings."
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Günaydın",
+      "afternoon": "İyi günler",
+      "evening": "İyi akşamlar"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Tekrar hoş geldiniz",
+    "welcomeBackNamed": "Tekrar hoş geldiniz, {name}",
+    "tagline": "Bugün ne oluşturmak istersiniz?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Araçlar",
+      "favorites": "Favoriler",
+      "pinned": "Sabitlenen",
+      "recent": "Son Kullanılanlar"
+    },
+    "sections": {
+      "recentlyUsed": "Son Kullanılanlar",
+      "favorites": "Favoriler",
+      "whatsNew": "Yenilikler",
+      "pinned": "Sabitlenen"
+    },
+    "groups": {
+      "apps": "Uygulamalar"
+    },
+    "toolCard": {
+      "defaultDescription": "Daha iyi işlevsellik için bu aracı keşfedin.",
+      "launchTool": "Aracı Başlat"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Görevler",
+        "description": "Yapılacaklar listelerinizi verimli şekilde yönetin."
+      },
+      "notes": {
+        "title": "Notlar",
+        "description": "Fikirlerinizi kaydedin ve düşüncelerinizi düzenleyin."
+      },
+      "passwordManager": {
+        "title": "Şifre Yöneticisi",
+        "description": "Şifrelerinizi güvenle saklayın ve yönetin."
+      },
+      "environmentManager": {
+        "title": "Ortam yöneticisi",
+        "description": ".env tarzı değişkenleri proje ve ortama göre etiketlerle saklayın."
+      },
+      "bookmarks": {
+        "title": "Yer İmleri",
+        "description": "Yer imlerinizi yönetin ve düzenleyin."
+      },
+      "apiClient": {
+        "title": "API İstemcisi",
+        "description": "HTTP isteklerini test edin ve hata ayıklayın."
+      },
+      "nosqlExplorer": {
+        "title": "Database Explorer",
+        "description": "MongoDB veritabanlarını keşfedin."
+      },
+      "emailValidator": {
+        "title": "E-posta Doğrulayıcı",
+        "description": "E-posta adreslerini doğrulayın ve kontrol edin."
+      },
+      "encryptionPlayground": {
+        "title": "Şifreleme oyun alanı",
+        "description": "Ham anahtar veya parola ile AES-GCM; JSON paketleri, Web Crypto yalnızca tarayıcıda."
+      },
+      "jwtDecoder": {
+        "title": "JWT Çözücü",
+        "description": "JWT başlığını, yükünü ve süresini çöz."
+      },
+      "certificatePemDecoder": {
+        "title": "Sertifika / PEM çözücü",
+        "description": "X.509 sertifikalarını ve CSR’ları çözümleyin: konu, veren, geçerlilik ve SAN."
+      },
+      "sshKeyGenerator": {
+        "title": "SSH / RSA Anahtar Üreticisi",
+        "description": "Tarayıcınızda Ed25519 veya RSA anahtar çiftleri oluşturun. OpenSSH ve PEM formatlarında indirin."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "GraphQL Biçimlendirici",
+        "description": "Sözdizimi vurgulama ve basit bir sorgu oluşturucuyla GraphQL biçimlendirin."
+      },
+      "yamlFormatter": {
+        "title": "YAML Biçimleyici",
+        "description": "YAML'ı tarayıcıda biçimlendirin, doğrulayın ve JSON'a dönüştürün."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL Ayrıştırıcı",
+        "description": "Bir URL'yi protokol, host, yol, sorgu parametreleri ve hash olarak ayırın."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Gizli / API anahtarı",
+        "description": "Yapılandırılabilir alfabe, uzunluk ve toplu dışa aktarma ile kriptografik rastgele dizeler."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Kontrast denetleyici",
+        "description": "Metin ve arka plan için WCAG 2.1 kontrast oranı (AA / AAA)."
+      },
+      "jsonSchemaGenerator": {
+        "title": "JSON Şema Oluşturucu",
+        "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
+      },
+      "imageToBase64": {
+        "title": "Base64'e görüntü",
+        "description": "Görüntüleri Veri URI'sine veya ham Base64 dizelerine dönüştürün."
+      },
+      "imageCompressor": {
+        "title": "Görüntü sıkıştırıcı",
+        "description": "JPEG, PNG ve WebP dosyalarını yerelde kalite kaydırıcısıyla sıkıştırın."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Degrade Oluşturucu",
+        "description": "Açı kontrolü ve renk duraklarına sahip görsel CSS degrade oluşturucu."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Oluşturucu",
+        "description": "500'den fazla teknoloji yığınından anında birleştirilmiş .gitignore dosyaları oluşturun."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "CSV veya Excel dosyalarını JSON’a dönüştürün ve tekrar CSV veya XLSX olarak dışa aktarın."
+      },
+      "snippetManager": {
+        "title": "Kod parçacıkları",
+        "description": "Sözdizimi vurgulama, otomatik dil algılama ve biçimlendirme ile parçacıkları kaydedin."
+      },
+      "qrCodeGenerator": {
+        "title": "QR kod oluşturucu",
+        "description": "Metin veya URL’den tarayıcıda PNG QR kodları oluşturun."
+      },
+      "ipSubnetCalculator": {
+        "title": "IP / alt ağ hesaplayıcı",
+        "description": "IPv4 ve IPv6 CIDR: maske, aralıklar ve adres sayısı."
+      },
+      "dnsLookup": {
+        "title": "DNS Sorgulama",
+        "description": "Herhangi bir alan adı için DNS kayıtlarını sorgulayın — A, AAAA, MX, TXT, NS, CNAME."
+      },
+      "hashGenerator": {
+        "title": "Hash oluşturucu",
+        "description": "Metin veya dosyalar için MD5, SHA-1 ve SHA-2."
+      },
+      "hmacGenerator": {
+        "title": "HMAC Oluşturucu",
+        "description": "HMAC-SHA1/256/384/512 ile webhook imzalama ve API entegrasyonlarını test edin."
+      },
+      "totpGenerator": {
+        "title": "TOTP / 2FA kod üreticisi",
+        "description": "Doğrulayıcıdan Base32 gizli anahtarı yapıştırın; altı haneli kod her 30 sn’de yenilenir—oturum açma ve MFA testleri için kullanışlıdır."
+      },
+      "markdownPreview": {
+        "title": "Markdown Önizleme",
+        "description": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer."
+      },
+      "numberBaseConverter": {
+        "title": "Sayı tabanı dönüştürücü",
+        "description": "2–36 tabanları arasında tam sayıları dönüştürün."
+      },
+      "formatConverter": {
+        "title": "Format Dönüştürücü",
+        "description": "JSON, YAML, TOML ve XML arasında her yönde dönüştürün. 12 kombinasyonun tamamı desteklenir."
+      },
+      "mockDataGenerator": {
+        "title": "Sahte veri üreticisi",
+        "description": "Sütunları tanımlayın, veri türlerini seçin ve tohum, Postman veya test için dışa aktarın. En fazla 5000 satır, hepsi tarayıcıda — yükleme yok."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP Durum Kodları",
+        "description": "Açıklamalarla birlikte HTTP durum kodlarını arayın (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "SVG Optimize",
+        "description": "SVG yapıştırın, SVGO ile gereksizleri silin ve UTF-8 boyut kazancını görün."
+      },
+      "unitConverter": {
+        "title": "Birim Dönüştürücü",
+        "description": "43 bilimsel ve mühendislik kategorisinde 323 birim arasında dönüştürün."
+      },
+      "dockerComposeGenerator": {
+        "title": "Docker Compose Oluşturucu",
+        "description": "Veritabanları, önbellek, kuyruklar, proxy ve gözlemlenebilirlik görüntülerini seçin; yerel yığınlar için docker-compose.yml dışa aktarın."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "2048 'e ulaşmak için döşemeleri kaydır ve birleştir. Klasik sayı bulmaca oyunu."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Klasik sayı bulmacası. 3 zorluk seviyesi, her biri 150 aşama."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Herhangi bir Redis örneğinde anahtarlara göz atın, değerleri inceleyin ve komutlar çalıştırın."
+      },
+      "curlToCode": {
+        "title": "cURL to Code",
+        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
+      },
+      "jsonToCode": {
+        "title": "JSON to Code",
+        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
+      },
+      "beautifyMinify": {
+        "title": "Beautify & Minify",
+        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
+      },
+      "stringCaseConverter": {
+        "title": "String Case Converter",
+        "description": "Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+      },
+      "lineSortDedupe": {
+        "title": "Line Sort & Dedupe",
+        "description": "Sort, deduplicate, trim, and clean up lists of lines locally."
+      },
+      "stringInspector": {
+        "title": "String Inspector",
+        "description": "Count characters, words, bytes, and detect invisible or non-ASCII characters."
+      },
+      "escapeEncode": {
+        "title": "Escape / Encode",
+        "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Bcrypt Üretici ve Doğrulayıcı",
+        "description": "Parolaları bcrypt ile hash'leyin ve mevcut hash'leri doğrulayın."
+      },
+      "chmodCalculator": {
+        "title": "Chmod Hesaplayıcı",
+        "description": "Unix izinlerini sekizlik, sembolik ve onay kutuları arasında dönüştürün."
+      },
+      "codeScreenshot": {
+        "title": "Kod Ekran Görüntüsü",
+        "description": "Kaynak kodu güzel ve paylaşılabilir görsellere dönüştürün."
+      },
+      "cssGenerators": {
+        "title": "CSS Üreticileri",
+        "description": "box-shadow, border-radius ve akışkan clamp() üreticileri."
+      },
+      "exifViewer": {
+        "title": "EXIF Görüntüleyici ve Temizleyici",
+        "description": "Fotoğraf EXIF meta verilerini yerel olarak inceleyin ve temizleyin."
+      },
+      "faviconGenerator": {
+        "title": "Favicon Üreticisi",
+        "description": "Favicon, uygulama simgeleri ve manifest parçacıkları oluşturun."
+      },
+      "jsonDiff": {
+        "title": "JSON Karşılaştırma",
+        "description": "İki JSON belgesinin anlamsal, yapı farkında karşılaştırması."
+      },
+      "jsonpathPlayground": {
+        "title": "JSONPath Oyun Alanı",
+        "description": "JSON'ı JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün."
+      },
+      "keycodeInspector": {
+        "title": "Tuş Kodu İnceleyici",
+        "description": "Bir tuşa basarak JavaScript olay kodlarını ve değiştiricileri görün."
+      },
+      "markdownTableGenerator": {
+        "title": "Markdown Tablosu Üreticisi",
+        "description": "Markdown ve HTML tablolarını elektronik tablo benzeri bir ızgara düzenleyicide oluşturun."
+      },
+      "timezoneConverter": {
+        "title": "Saat Dilimi Dönüştürücü",
+        "description": "Bir zamanı birçok dilime; gün kayması ve çalışma saati ipuçlarıyla dönüştürün."
+      },
+      "tokenCounter": {
+        "title": "LLM Token Sayacı",
+        "description": "LLM token'larını sayın, parçaları görselleştirin ve API maliyetini tahmin edin."
+      },
+      "webhookTester": {
+        "title": "Webhook Test Aracı",
+        "description": "Gelen webhook isteklerini gerçek zamanlı yakalayın ve inceleyin."
+      },
+      "websocketTester": {
+        "title": "WebSocket Test Aracı",
+        "description": "WebSocket uç noktalarına bağlanın ve mesajları gerçek zamanlı alışverişini yapın."
+      },
+      "whoisLookup": {
+        "title": "Whois Sorgulama",
+        "description": "Alan adı ve IP kayıt bilgilerini RDAP üzerinden sorgulayın."
+      }
+    },
+    "tabs": {
+      "apps": "Uygulamalar",
+      "analytics": "Analitik",
+      "ui": "Arayüz"
+    },
+    "analytics": {
+      "title": "Verilerinize genel bakış",
+      "subtitle": "Sunucudaki hesabınızla senkronize sayılar.",
+      "loadError": "Analitik yüklenemedi.",
+      "retry": "Yeniden dene",
+      "loginHint": "Kullanım analitiği ve arayüz tercihleri için giriş yapın.",
+      "passwordEntries": "Parola kayıtları",
+      "bookmarks": "Yer imleri",
+      "bookmarkFolders": "Yer imi klasörleri",
+      "tasksTotal": "Görevler",
+      "tasksCompleted": "Tamamlanan",
+      "tasksOngoing": "Devam eden",
+      "tasksNotStarted": "Başlanmadı",
+      "projects": "Projeler",
+      "nosqlConnections": "Veritabanı bağlantıları",
+      "notes": "Notlar",
+      "apiClientCollections": "API koleksiyonları",
+      "apiClientEnvironments": "API ortamları",
+      "apiClientHistory": "API geçmişi kayıtları",
+      "jsonFormatterDocuments": "JSON biçimleyici belgeleri",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Kod parçacıkları",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
+    },
+    "ui": {
+      "title": "Arayüz tercihleri",
+      "subtitle": "Tema, dil ve kenar çubuğundaki araçlar — hesap ayarlarınızdan.",
+      "loadError": "Tercihler yüklenemedi.",
+      "loginHint": "Kayıtlı arayüz tercihlerinizi görmek için giriş yapın.",
+      "theme": "Tema",
+      "accent": "Vurgu rengi",
+      "locale": "Dil",
+      "enabledTools": "Görünür araçlar",
+      "favoriteTools": "Favori araçlar",
+      "toolsWithUsage": "Kullanımı izlenen araçlar"
+    },
+    "signIn": "Giriş yap",
+    "noResults": "Aramanızla eşleşen araç bulunamadı",
+    "noResultsHint": "Farklı bir anahtar kelime deneyin veya filtreyi temizleyin.",
+    "filterAll": "Tümü",
+    "loginCta": {
+      "description": "Son kullandığınız araçları takip etmek için giriş yapın."
+    },
+    "popularTools": "Popular tools",
+    "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
+    "viewActivity": "Recent activity",
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "filterRange": "Time range",
+      "search": "Search activity…",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "7 days",
+      "last30": "30 days",
+      "allTime": "All time",
+      "resetFilters": "Reset filters",
+      "activeFilters": "{count, plural, =0 {No filters} =1 {1 filter} other {# filters}} applied",
+      "empty": "No activity yet.",
+      "emptyFiltered": "No activity matches the current filters.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "showingOf": "Showing {shown} of {total}",
+      "changedFields": "What changed",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "device": "Device",
+      "ipAddress": "IP",
+      "latency": "Latency",
+      "endpoint": "Endpoint",
+      "status": "Status",
+      "when": "When",
+      "actionKey": "Action",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity",
+      "moduleAuth": "Account",
+      "moduleBookmarks": "Bookmarks",
+      "moduleBookmarkFolders": "Bookmark folders",
+      "moduleNotes": "Notes",
+      "moduleTasks": "Tasks",
+      "modulePasswords": "Passwords",
+      "moduleSnippets": "Snippets",
+      "moduleApiClient": "API client",
+      "moduleSqlClient": "SQL client",
+      "moduleNosql": "NoSQL",
+      "moduleEnvManager": "Environments",
+      "modulePrefs": "Preferences",
+      "moduleProjects": "Projects",
+      "moduleUrlShortener": "URL shortener",
+      "moduleGameScores": "Game scores",
+      "moduleFeedback": "Feedback"
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Yükleniyor...",
+      "myTasksTitle": "Görevlerim",
+      "statsLine": "{total} görev • %{percent} tamamlandı",
+      "statsLineDesktop": "{total} toplam • %{percent} tamamlandı"
+    },
+    "filters": {
+      "all": "Tümü",
+      "total": "Toplam",
+      "allProjects": "Tüm Projeler",
+      "export": "Dışa Aktar",
+      "kanban": "Kanban",
+      "list": "Liste",
+      "searchPlaceholder": "Görev ara...",
+      "searchAria": "Görev ara",
+      "clearSearchAria": "Aramayı temizle",
+      "foundTasks": "{count} {count, plural, one {görev} other {görev}} bulundu",
+      "filterByAllAria": "Tümüne göre filtrele",
+      "filterByStatusAria": "{status} durumuna göre filtrele"
+    },
+    "status": {
+      "not-started": {
+        "label": "Başlanmadı",
+        "description": "Henüz başlanmamış görevler"
+      },
+      "ongoing": {
+        "label": "Devam Ediyor",
+        "description": "Şu anda devam eden görevler"
+      },
+      "completed": {
+        "label": "Tamamlandı",
+        "description": "Tamamlanmış görevler"
+      }
+    },
+    "priorities": {
+      "high": "Yüksek",
+      "medium": "Orta",
+      "low": "Düşük"
+    },
+    "form": {
+      "addNewTaskLabel": "Yeni görev ekle",
+      "multilinePlaceholder": "Görev detaylarını ekleyin... (Yeni satır için Shift+Enter)",
+      "singlelinePlaceholder": "Ne yapılması gerekiyor? Eklemek için Enter'a basın",
+      "taskInputAria": "Görev girişi",
+      "projectPlaceholder": "Proje",
+      "selectProject": "Proje Seç",
+      "errorSelectProject": "Görev eklemek için lütfen bir proje seçin veya yeni bir proje oluşturun.",
+      "hintMultiline": "Yeni satır için Shift+Enter, eklemek için Enter",
+      "hintSingleline": "Eklemek için Enter",
+      "shortcutsAria": "Klavye kısayolları",
+      "shortcutsLabel": "Kısayollar",
+      "shortcutAddTask": "Görev ekle",
+      "shortcutNewLine": "Yeni satır",
+      "shortcutClear": "Temizle",
+      "addButton": "Ekle"
+    },
+    "list": {
+      "ariaLabel": "Görev listesi",
+      "loading": "Görevleriniz yükleniyor...",
+      "emptyTitle": "Görev bulunamadı",
+      "emptyPrimary": "Yukarıdaki ilk görevinizi ekleyerek başlayın! Hızlıca görev eklemek için Enter'a basın.",
+      "emptySecondary": "Filtrelerinizi veya arama sorgunuzu ayarlamayı deneyin."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Görev Ekle",
+      "addNewTaskTitle": "Yeni Görev Ekle",
+      "addNewTaskDescription": "İlerlemenizi takip etmek için yeni bir görev oluşturun.",
+      "cancel": "İptal"
+    },
+    "kanban": {
+      "ariaLabel": "Kanban panosu",
+      "loading": "Görevleriniz yükleniyor...",
+      "dropHere": "Görevi buraya bırakın",
+      "noTasksYet": "Henüz görev yok",
+      "emptyColumnAria": "Boş sütun",
+      "columnAria": "{count} görevli {title} sütunu",
+      "countInColumnAria": "{title} içinde {count} görev"
+    },
+    "taskItem": {
+      "confirmDelete": "Bu görevi silmek istediğinizden emin misiniz?",
+      "statusPlaceholder": "Durum",
+      "changeStatusAria": "Görev durumunu değiştir",
+      "taskOptionsAria": "Görev seçenekleri",
+      "editTask": "Görevi Düzenle",
+      "copyTask": "Görevi Kopyala",
+      "copied": "Kopyalandı!",
+      "deleteTask": "Görevi Sil",
+      "statusHeading": "Durum",
+      "editTaskAria": "Görevi düzenle"
+    },
+    "editDialog": {
+      "title": "Görevi Düzenle",
+      "description": "Görev detaylarını güncelleyin, alt görevler ekleyin, öncelikler belirleyin ve daha fazlası.",
+      "taskTitleLabel": "Görev Başlığı *",
+      "taskTitlePlaceholder": "Ne yapılması gerekiyor?",
+      "descriptionLabel": "Açıklama",
+      "descriptionPlaceholder": "Bu görev hakkında daha fazla detay ekleyin...",
+      "statusLabel": "Durum",
+      "priorityLabel": "Öncelik",
+      "dueDateLabel": "Bitiş Tarihi",
+      "pickDate": "Tarih seçin",
+      "clearDate": "Tarihi Temizle",
+      "projectLabel": "Proje",
+      "selectProjectPlaceholder": "Bir proje seçin",
+      "noProject": "Proje Yok",
+      "timeEstimateLabel": "Tahmini Süre (dakika)",
+      "timeEstimatePlaceholder": "Bu ne kadar sürecek?",
+      "tagsLabel": "Etiketler",
+      "customTagNamePlaceholder": "Özel etiket adı",
+      "subtasksLabel": "Alt Görevler",
+      "addSubtaskPlaceholder": "Alt görev ekle...",
+      "cancel": "İptal",
+      "saving": "Kaydediliyor...",
+      "saveChanges": "Değişiklikleri Kaydet"
+    },
+    "export": {
+      "title": "Görevleri Dışa Aktar",
+      "description": "Görevlerinizi JSON, CSV veya Excel formatlarında dışa aktarın.",
+      "projectLabel": "Proje",
+      "statusLabel": "Durum",
+      "tagLabel": "Etiket",
+      "allProjects": "Tüm Projeler",
+      "allStatuses": "Tüm Durumlar",
+      "allTags": "Tüm Etiketler",
+      "exportAsJsonTitle": "JSON olarak Dışa Aktar",
+      "exportAsJsonDescription": "Alt görevler, etiketler ve meta veriler dahil görev verilerini dışa aktarın.",
+      "exportJson": "JSON Dışa Aktar",
+      "exportAsCsvExcelTitle": "CSV / Excel olarak Dışa Aktar",
+      "exportAsCsvExcelDescription": "Elektronik tablo uygulamaları için görevleri dışa aktarın.",
+      "exportCsv": "CSV Dışa Aktar",
+      "exportExcel": "Excel Dışa Aktar",
+      "close": "Kapat",
+      "toastNoTasks": "Mevcut filtrelerle dışa aktarılacak görev yok",
+      "toastExportedJson": "{count} görev JSON olarak dışa aktarıldı!",
+      "toastExportedCsv": "{count} görev CSV olarak dışa aktarıldı!",
+      "toastExportedExcel": "{count} görev Excel olarak dışa aktarıldı!",
+      "toastFailedJson": "JSON olarak dışa aktarma başarısız",
+      "toastFailedCsv": "CSV olarak dışa aktarma başarısız",
+      "toastFailedExcel": "Excel olarak dışa aktarma başarısız",
+      "unknownProject": "Bilinmeyen Proje"
+    },
+    "ack": {
+      "taskAddedTitle": "Görev başarıyla eklendi",
+      "taskAddedFailedTitle": "Görev eklenemedi",
+      "taskUpdatedTitle": "Görev başarıyla güncellendi",
+      "taskUpdatedFailedTitle": "Görev güncellenemedi",
+      "taskStatusUpdateFailedTitle": "Görev durumu güncellenemedi",
+      "taskMovedTitle": "Görev {status} durumuna taşındı",
+      "tryAgain": "Lütfen tekrar deneyin.",
+      "taskDeletedTitle": "\"{text}\" görevi silindi",
+      "undo": "Geri Al",
+      "taskRestoredTitle": "Görev geri yüklendi",
+      "taskRestoredSuccessTitle": "Görev başarıyla geri yüklendi",
+      "taskRestoreFailedTitle": "Görev geri yüklenemedi. Lütfen tekrar deneyin.",
+      "taskDeleteFailedTitle": "Görev silinemedi. Lütfen tekrar deneyin.",
+      "tasksImportedTitle": "{count} {count, plural, one {görev} other {görev}} başarıyla içe aktarıldı!",
+      "tasksImportFailedTitle": "Görevler içe aktarılamadı. Lütfen tekrar deneyin.",
+      "unknownProject": "Bilinmeyen Proje",
+      "projectCreatedTitle": "Proje başarıyla oluşturuldu",
+      "projectCreateFailedTitle": "Proje oluşturulamadı",
+      "projectUpdatedTitle": "Proje başarıyla güncellendi",
+      "projectUpdateFailedTitle": "Proje güncellenemedi",
+      "projectDeletedTitle": "Proje başarıyla silindi",
+      "projectDeleteFailedTitle": "Proje silinemedi"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Yükleniyor..."
+    },
+    "layout": {
+      "mobileNavTitle": "Notlar Gezintisi",
+      "openMenuAria": "Not menüsünü aç"
+    },
+    "sidebar": {
+      "title": "Notlar",
+      "createNoteAria": "Not oluştur",
+      "searchPlaceholder": "Not ara...",
+      "loading": "Yükleniyor...",
+      "noNotesFound": "Not bulunamadı.",
+      "noNotesYet": "Henüz not yok. Oluşturmak için + tıklayın.",
+      "inParent": "{parentTitle} içinde",
+      "untitled": "Başlıksız",
+      "addSubPage": "Alt sayfa ekle",
+      "delete": "Sil",
+      "deleteConfirmTitle": "Not silinsin mi?",
+      "deleteConfirmDescription": "\"{title}\" notunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+      "cancel": "İptal",
+      "confirmDelete": "Sil",
+      "noteOptionsAria": "Not seçenekleri"
+    },
+    "editor": {
+      "emptyState": "Başlamak için bir not seçin veya yeni bir not oluşturun.",
+      "titlePlaceholder": "Başlıksız",
+      "saving": "Kaydediliyor…",
+      "ready": "Hazır",
+      "saved": "{time} kaydedildi",
+      "stats": "{words} kelime · {read} dk okuma",
+      "template": "Şablon",
+      "applyTemplate": "Şablonu uygula",
+      "exportMdLabel": ".md",
+      "exportMd": "Markdown olarak dışa aktar",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "HTML olarak dışa aktar",
+      "focusMode": "Odak modu",
+      "exitFocusMode": "Odak modundan çık",
+      "save": "Kaydet",
+      "addTag": "Etiket ekle…",
+      "removeTag": "{tag} etiketini kaldır",
+      "loading": "Yükleniyor…",
+      "searchHint": "aramak için",
+      "focusHint": "odak modu",
+      "notePath": "Not yolu"
+    },
+    "context": {
+      "authRequiredError": "Kullanıcı kimliği doğrulanmadı",
+      "defaultTitle": "Başlıksız",
+      "cloudSyncImageError": "Not görsellerini depolamak için Bulut Eşitlemeyi açın. Metin notları yerel kalır."
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Yükleniyor...",
+      "title": "Şifre Yöneticisi",
+      "loadFailed": "Failed to load passwords"
+    },
+    "vault": {
+      "toastDecryptFailed": "Şifrelerin çözümü başarısız",
+      "toastLoadFailed": "Şifreler yüklenemedi",
+      "toastUnlockedAuto": "Kasa otomatik olarak açıldı",
+      "toastAutoUnlockFailed": "Otomatik kilit açma başarısız. Lütfen manuel olarak açın.",
+      "toastConnectFailed": "Sunucuya bağlanılamadı",
+      "toastAutoUnlockWarning": "Kasa açıldı, ancak yeniden yüklemede otomatik kilit açma çalışmayabilir",
+      "errorIncorrectPassword": "Yanlış ana şifre",
+      "errorUnlockFailed": "Kasa kilidi açılamadı",
+      "errorPasswordsMismatch": "Şifreler eşleşmiyor",
+      "errorPasswordTooShort": "Şifre en az 8 karakter olmalıdır",
+      "errorSetupFailed": "Kasa kurulumu başarısız",
+      "errorConnectFailed": "Sunucuya bağlanılamadı.",
+      "mobileTitleCreate": "Kasanızı oluşturun",
+      "mobileTitleWelcome": "Tekrar hoş geldiniz",
+      "mobileSubtitleCreate": "Kimlik bilgilerinizi korumak için bir ana şifre belirleyin",
+      "mobileSubtitleUnlock": "Kilidi açmak için ana şifrenizi girin",
+      "placeholderMasterPassword": "Ana şifre",
+      "placeholderConfirmPassword": "Şifreyi onayla",
+      "labelMasterPassword": "Ana şifre",
+      "labelConfirmPassword": "Şifreyi onayla",
+      "placeholderEnterMaster": "Ana şifreyi girin",
+      "placeholderConfirmMaster": "Ana şifreyi onaylayın",
+      "buttonCreateVault": "Kasa oluştur",
+      "buttonUnlock": "Kilidi Aç",
+      "buttonUnlockVault": "Kasayı aç",
+      "footerCreate": "Şifreniz asla saklanmaz ve kurtarılamaz",
+      "footerUnlock": "Uçtan uca şifreleme ile güvende",
+      "desktopTitleSetup": "Şifre kasasını kur",
+      "desktopTitleUnlock": "Kasayı aç",
+      "desktopDescriptionSetup": "Kimlik bilgilerinizi güvence altına almak için bir ana şifre oluşturun. Bu şifre asla saklanmaz ve kurtarılamaz.",
+      "desktopDescriptionUnlock": "Güvenli kimlik bilgilerinize erişmek için ana şifrenizi girin."
+    },
+    "list": {
+      "loading": "Şifreleriniz yükleniyor...",
+      "emptyTitle": "Kasa boş",
+      "emptyHintMobile": "İlk şifrenizi eklemek için + düğmesine dokunun",
+      "emptyHintDesktop": "Henüz kayıtlı şifreniz yok. Başlamak için yukarıdaki \"Şifre ekle\" düğmesine tıklayın.",
+      "addPassword": "Şifre ekle",
+      "searchPlaceholderMobile": "Kasanızda arayın...",
+      "searchPlaceholderDesktop": "Kasada ara...",
+      "importExport": "İçe / dışa aktar",
+      "lockVault": "Kasayı kilitle",
+      "allPasswordsTitle": "Tüm şifreler",
+      "passwordCount": "{count, plural, one {# şifre} other {# şifre}}",
+      "vaultHealthDrawerTitle": "Kasa sağlığı",
+      "noResults": "\"{query}\" ile eşleşen şifre bulunamadı",
+      "tableService": "Hizmet",
+      "tableUsername": "Kullanıcı Adı",
+      "tablePassword": "Şifre",
+      "tableUrl": "URL",
+      "tableActions": "İşlemler",
+      "gridViewAria": "Izgara görünümü",
+      "listViewAria": "Liste görünümü",
+      "passwordStrengthTitle": "Şifre gücü",
+      "deleteDialogTitle": "Şifreyi sil",
+      "deleteDialogDescription": "Bu şifreyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+      "cancel": "İptal",
+      "delete": "Sil",
+      "edit": "Düzenle"
+    },
+    "toasts": {
+      "copiedPassword": "Şifre panoya kopyalandı",
+      "copiedUsername": "Kullanıcı adı panoya kopyalandı",
+      "passwordDeleted": "Şifre silindi",
+      "deleteFailed": "Şifre silinemedi",
+      "vaultLocked": "Kasa kilitlendi",
+      "importedCount": "{count, plural, one {# şifre} other {# şifre}} başarıyla içe aktarıldı"
+    },
+    "form": {
+      "addTitle": "Yeni şifre ekle",
+      "editTitle": "Şifreyi düzenle",
+      "serviceName": "Hizmet adı",
+      "usernameEmail": "Kullanıcı adı / e-posta",
+      "password": "Şifre",
+      "urlOptional": "Web sitesi URL'si (isteğe bağlı)",
+      "notesOptional": "Notlar (isteğe bağlı)",
+      "tags": "Etiketler",
+      "placeholderService": "örn. Netflix",
+      "placeholderUsername": "kullanici@ornek.com",
+      "placeholderPassword": "Şifre girin veya oluşturun",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Ek detaylar...",
+      "placeholderTags": "Etiket ekle (Enter veya virgül ile)",
+      "strength": "Güç",
+      "strengthWeak": "Zayıf",
+      "strengthMedium": "Orta",
+      "strengthStrong": "Güçlü",
+      "advancedGenerator": "Gelişmiş oluşturucu",
+      "cancel": "İptal",
+      "saving": "Kaydediliyor...",
+      "savePassword": "Şifreyi kaydet",
+      "updating": "Güncelleniyor...",
+      "updatePassword": "Şifreyi güncelle",
+      "addPasswordSrOnly": "Şifre ekle",
+      "triggerAdd": "Şifre ekle",
+      "toastSaved": "Şifre başarıyla kaydedildi",
+      "toastSaveFailed": "Şifre kaydedilemedi",
+      "toastUpdated": "Şifre başarıyla güncellendi",
+      "toastUpdateFailed": "Şifre güncellenemedi"
+    },
+    "security": {
+      "vaultHealth": "Kasa sağlığı",
+      "statusLabel": "Durum",
+      "totalPasswords": "Toplam şifre",
+      "activeEntries": "Kasanızdaki aktif kayıtlar",
+      "protected": "Korumalı",
+      "weakPasswords": "Zayıf şifreler",
+      "needingImprovement": "İyileştirilmesi gereken şifreler",
+      "allGood": "Hepsi iyi",
+      "reusedPasswords": "Tekrarlanan şifreler",
+      "usedMultipleTimes": "Birden fazla kullanılan şifreler",
+      "unique": "Benzersiz",
+      "total": "Toplam",
+      "weak": "Zayıf",
+      "reused": "Tekrarlanan",
+      "totalCountLabel": "{count, plural, one {# şifre} other {# şifre}}",
+      "weakCountLabel": "{count} zayıf",
+      "allSecure": "Hepsi güvenli",
+      "scoreExcellent": "Mükemmel",
+      "scoreGood": "İyi",
+      "scoreFair": "Orta",
+      "scoreCritical": "Kritik"
+    },
+    "importExport": {
+      "title": "Kasayı içe / dışa aktar",
+      "description": "Şifre verilerinizi yönetin. Kasanızı JSON'a dışa aktarabilir veya bir JSON dosyasından içe aktarabilirsiniz.",
+      "tabExport": "Dışa Aktar",
+      "tabImport": "İçe Aktar",
+      "warningTitle": "Uyarı",
+      "warningBody": "Dışa aktarılan dosyalar şifrelerinizi düz metin olarak içerir. Bu dosyayı güvende tutun ve kullandıktan sonra silin.",
+      "exportBlurb": "Tüm kasanızı JSON dosyası olarak indirin. Bu, tüm hizmetleri, kullanıcı adlarını, şifreleri ve notları içerir.",
+      "downloadJson": "JSON dışa aktarımını indir",
+      "pasteLabel": "JSON verilerini yapıştırın",
+      "pastePlaceholder": "[{\"service\": \"Örnek\", \"username\": \"kullanici\", \"password\": \"123\", ...}]",
+      "pasteHint": "Daha önce dışa aktarılmış bir JSON dosyasının içeriğini buraya yapıştırın.",
+      "importing": "İçe aktarılıyor...",
+      "importPasswords": "Şifreleri içe aktar",
+      "trigger": "İçe / dışa aktar",
+      "toastExported": "Kasa başarıyla dışa aktarıldı",
+      "toastExportFailed": "Kasa dışa aktarılamadı",
+      "toastImportFailed": "İçe aktarma başarısız: geçersiz JSON formatı"
+    },
+    "card": {
+      "copyUsername": "Kullanıcı adını kopyala",
+      "openUrl": "URL'yi aç",
+      "strength": "Güç"
+    },
+    "swipeable": {
+      "copy": "Kopyala",
+      "delete": "Sil",
+      "copyPassword": "Şifreyi kopyala",
+      "copyUsername": "Kullanıcı adını kopyala",
+      "edit": "Düzenle",
+      "deleteAction": "Sil"
+    },
+    "floatingMenu": {
+      "lockVault": "Kasayı kilitle",
+      "importExport": "İçe / dışa aktar",
+      "addPassword": "Şifre ekle"
+    },
+    "generator": {
+      "tabPassword": "Şifre",
+      "tabPassphrase": "Parola",
+      "strength": "Güç",
+      "lengthLabel": "Uzunluk: {length} karakter",
+      "lengthBadge": "{length} karakter",
+      "characterSets": "Karakter kümeleri",
+      "uppercase": "Büyük harf",
+      "lowercase": "Küçük harf",
+      "numbers": "Sayılar",
+      "symbols": "Semboller",
+      "wordCountLabel": "Kelime sayısı: {count}",
+      "wordCountBadge": "{count, plural, one {# kelime} other {# kelime}}",
+      "separator": "Ayırıcı",
+      "capitalization": "Büyük harf kullanımı",
+      "includeNumber": "Sayı dahil et"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Proje ve ortama göre şifrelenmiş ortam değişkenleri.",
+    "page": {
+      "loading": "Yükleniyor…",
+      "title": "Ortam yöneticisi",
+      "loadFailed": "Ortam kümeleri yüklenemedi"
+    },
+    "list": {
+      "title": "Ortamlar",
+      "loading": "Kümeleriniz yükleniyor…",
+      "emptyTitle": "Henüz ortam kümesi yok",
+      "emptyHint": "Her proje ve ortam için bir küme oluşturun (ör. üretim API anahtarları). Yüklemeden önce her şey tarayıcınızda şifrelenir.",
+      "searchPlaceholder": "Proje, ortam, etiket, not ara…",
+      "tagFilterPlaceholder": "Etikete göre filtrele",
+      "variableCount": "{count, plural, one {# değişken} other {# değişken}}",
+      "updatedAgo": "Güncellendi {time}",
+      "copyDotEnv": ".env kopyala",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "cancel": "İptal",
+      "confirmDelete": "Sil",
+      "deleteDialogTitle": "Ortam kümesi silinsin mi?",
+      "deleteDialogDescription": "Şifreli veri hesabınızdan kaldırılır. Geri alınamaz.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
+    },
+    "toasts": {
+      "copiedDotEnv": ".env panoya kopyalandı",
+      "deleted": "Ortam kümesi silindi",
+      "deleteFailed": "Silinemedi"
+    },
+    "form": {
+      "addTitle": "Yeni ortam kümesi",
+      "editTitle": "Ortam kümesini düzenle",
+      "triggerAdd": "Ortam kümesi ekle",
+      "addSrOnly": "Ortam kümesi ekle",
+      "project": "Proje",
+      "environment": "Ortam",
+      "placeholderProject": "ör. billing-api",
+      "placeholderEnvironment": "ör. production",
+      "pasteEnvLabel": ".env yapıştır",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Yapıştırılan satırları birleştir",
+      "variables": "Değişkenler",
+      "addRow": "Satır ekle",
+      "keyPlaceholder": "ANAHTAR",
+      "valuePlaceholder": "değer",
+      "notesOptional": "Notlar (isteğe bağlı)",
+      "placeholderNotes": "Rotasyon politikası, sahip, bağlantılar…",
+      "tags": "Etiketler",
+      "placeholderTags": "Etiket ekle (Enter veya virgül)",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "saving": "Kaydediliyor…",
+      "update": "Güncelle",
+      "updating": "Güncelleniyor…",
+      "toastSaved": "Ortam kümesi kaydedildi",
+      "toastSaveFailed": "Kaydedilemedi",
+      "toastUpdated": "Ortam kümesi güncellendi",
+      "toastUpdateFailed": "Güncellenemedi",
+      "toastPasteEmpty": "ANAHTAR=değer satırı bulunamadı",
+      "toastPasteApplied": "Yapıştırmadan {count} değişken birleştirildi",
+      "toastProjectEnvRequired": "Proje ve ortam zorunludur",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Yükleniyor..."
+    },
+    "manager": {
+      "foldersHeading": "Klasörler",
+      "tagsHeading": "Etiketler",
+      "tagsMore": "+{count} daha",
+      "tagsShowLess": "Show less",
+      "searchPlaceholder": "Yer imlerinizde arayın...",
+      "import": "İçe Aktar",
+      "export": "Dışa Aktar",
+      "exportAsHtml": "HTML olarak dışa aktar",
+      "exportAsJson": "JSON olarak dışa aktar",
+      "addBookmark": "Yer İmi Ekle",
+      "matchingQuery": "\"{query}\" ile eşleşen",
+      "bookmarkCount": "{count, plural, one {# yer imi} other {# yer imi}}",
+      "allBookmarks": "Tüm Yer İmleri",
+      "uncategorized": "Kategorisiz",
+      "unknownFolder": "Bilinmeyen"
+    },
+    "card": {
+      "urlCopied": "URL panoya kopyalandı",
+      "bookmarkDeleted": "Yer imi silindi",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "copyUrl": "URL Kopyala",
+      "deleteConfirmTitle": "Yer imi silinsin mi?",
+      "deleteConfirmDescription": "\"{title}\" kalıcı olarak silinecektir.",
+      "cancel": "İptal"
+    },
+    "grid": {
+      "emptyTitle": "Henüz yer imi yok",
+      "emptyDescription": "Başlamak için ilk yer iminizi ekleyin veya tarayıcınızdan içe aktarın."
+    },
+    "folderTree": {
+      "allBookmarks": "Tüm Yer İmleri",
+      "addSubfolder": "Alt Klasör Ekle",
+      "rename": "Yeniden Adlandır",
+      "deleteFolderTitle": "\"{name}\" klasörü silinsin mi?",
+      "deleteFolderDescription": "Bu, klasörü ve tüm alt klasörlerini silecektir. Bu klasörlerdeki yer imleri Kategorisiz'e taşınacaktır."
+    },
+    "import": {
+      "title": "Yer İmlerini İçe Aktar",
+      "description": "Tarayıcınızın dışa aktarılmış dosyasından yer imlerini içe aktarın.",
+      "parseError": "Yer imi dosyası ayrıştırılamadı. Lütfen geçerli bir yer imi dışa aktarımı olduğundan emin olun.",
+      "successToast": "{bookmarks} yer imi ve {folders} klasör içe aktarıldı",
+      "errorToast": "Yer imleri içe aktarılamadı",
+      "chromeInstruction": "Menü → Yer İmleri → Yer İmi Yöneticisi → ⋮ → Yer İmlerini Dışa Aktar",
+      "firefoxInstruction": "Menü → Yer İmleri → Yer İmlerini Yönet → İçe ve Dışa Aktarma → Dışa Aktar",
+      "safariInstruction": "Dosya → Yer İmlerini Dışa Aktar...",
+      "edgeInstruction": "Menü → Sık Kullanılanlar → ⋯ → Sık Kullanılanları Dışa Aktar",
+      "dropZoneTitle": "Yer imi dosyanızı buraya bırakın",
+      "dropZoneHint": "veya göz atmak için tıklayın (HTML veya JSON)",
+      "selectedFileHint": "Farklı bir dosya seçmek için tıklayın",
+      "errorTitle": "Hata",
+      "previewTitle": "İçe Aktarma Önizlemesi",
+      "previewBookmarks": "{count, plural, one {# yer imi} other {# yer imi}}",
+      "previewFolders": "{count, plural, one {# klasör} other {# klasör}}",
+      "importModeLabel": "İçe Aktarma Modu",
+      "modeMerge": "Mevcut yer imleriyle birleştir",
+      "modeReplace": "Tüm mevcut yer imlerini değiştir",
+      "cancel": "İptal",
+      "importButton": "İçe Aktar",
+      "importButtonWithCount": "{count, plural, one {# yer imini} other {# yer imini}} içe aktar"
+    },
+    "addBookmark": {
+      "titleAdd": "Yer İmi Ekle",
+      "titleEdit": "Yer İmini Düzenle",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://ornek.com",
+      "urlInvalid": "Lütfen geçerli bir URL girin",
+      "titleLabel": "Başlık",
+      "titlePlaceholder": "Yer imi başlığı",
+      "titleRequired": "Lütfen bir başlık girin",
+      "descriptionLabel": "Açıklama (isteğe bağlı)",
+      "descriptionPlaceholder": "Bu yer imi hakkında bir not ekleyin",
+      "folderLabel": "Klasör",
+      "folderPlaceholder": "Klasör seç",
+      "noFolder": "Klasör yok",
+      "tagsLabel": "Etiketler",
+      "tagsPlaceholder": "Etiket ekle (Enter'a basın)",
+      "toastUpdated": "Yer imi güncellendi",
+      "toastAdded": "Yer imi eklendi",
+      "cancel": "İptal",
+      "submitAdd": "Yer İmi Ekle",
+      "submitUpdate": "Yer İmini Güncelle"
+    },
+    "addFolder": {
+      "title": "Klasör Oluştur",
+      "nameLabel": "Klasör Adı",
+      "namePlaceholder": "Klasörüm",
+      "nameRequired": "Lütfen bir klasör adı girin",
+      "parentLabel": "Üst Klasör",
+      "parentPlaceholder": "Üst klasör seç",
+      "rootParent": "Kök (Üst klasör yok)",
+      "toastCreated": "Klasör oluşturuldu",
+      "cancel": "İptal",
+      "submit": "Klasör Oluştur"
+    },
+    "editFolder": {
+      "title": "Klasörü Yeniden Adlandır",
+      "nameLabel": "Klasör Adı",
+      "namePlaceholder": "Klasör adı",
+      "nameRequired": "Lütfen bir klasör adı girin",
+      "toastRenamed": "Klasör yeniden adlandırıldı",
+      "cancel": "İptal",
+      "save": "Kaydet"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "E-posta Doğrulayıcı",
+      "description": "E-posta adreslerini söz dizimi, alan adı ve teslim edilebilirlik açısından doğrulayın."
+    },
+    "tabs": {
+      "single": "Tekli Doğrulama",
+      "bulk": "Toplu Yükleme"
+    },
+    "single": {
+      "cardTitle": "Tekli E-posta Doğrulama",
+      "cardDescription": "Teslim edilebilirliğini ve itibarını kontrol etmek için bir e-posta adresi girin.",
+      "placeholder": "E-posta adresi girin...",
+      "clearAria": "E-postayı temizle",
+      "validate": "Doğrula",
+      "validating": "Doğrulanıyor...",
+      "formatError": "Lütfen geçerli bir e-posta adresi girin"
+    },
+    "toasts": {
+      "errorTitle": "Hata",
+      "enterEmail": "Lütfen bir e-posta adresi girin",
+      "invalidFormatTitle": "Geçersiz E-posta Formatı",
+      "invalidFormatDescription": "Lütfen geçerli bir e-posta adresi girin",
+      "validateFailedDescription": "E-posta doğrulanırken bir hata oluştu",
+      "noEmailsTitle": "E-posta Bulunamadı",
+      "noEmailsDescription": "Lütfen Excel dosyanızda bir 'email' sütunu olduğundan emin olun.",
+      "fileTooLargeTitle": "Dosya Çok Büyük",
+      "fileTooLargeDescription": "{total} e-posta bulundu. Yalnızca ilk 4000 tanesi doğrulanacaktır.",
+      "successTitle": "Başarılı",
+      "successValidated": "{count} e-posta başarıyla doğrulandı.",
+      "batchFailedTitle": "Toplu Doğrulama Başarısız",
+      "batchFailedDescription": "Toplu doğrulama işlenirken bir hata oluştu.",
+      "noExportTitle": "Dışa Aktarılacak Veri Yok",
+      "noExportValidOnly": "Dışa aktarılacak geçerli e-posta bulunamadı.",
+      "noExportAll": "Dışa aktarılacak sonuç yok.",
+      "exportSuccessTitle": "Dışa Aktarma Başarılı",
+      "exportSuccessExcelAll": "{count} e-posta Excel'e aktarıldı.",
+      "exportSuccessExcelValid": "{count} geçerli e-posta Excel'e aktarıldı.",
+      "exportSuccessCsvAll": "{count} e-posta CSV'ye aktarıldı.",
+      "exportSuccessCsvValid": "{count} geçerli e-posta CSV'ye aktarıldı."
+    },
+    "disposableAlert": {
+      "title": "Tek Kullanımlık E-posta Tespit Edildi",
+      "description": "Bu e-posta adresi tek kullanımlık bir e-posta sağlayıcısına aittir. Geçici veya güvensiz olabilir."
+    },
+    "score": {
+      "reliabilityTitle": "Güvenilirlik Puanı",
+      "scoreLabel": "Puan"
+    },
+    "details": {
+      "sectionTitle": "Doğrulama Detayları"
+    },
+    "validation": {
+      "syntaxLabel": "Söz Dizimi Geçerli",
+      "syntaxTooltip": "E-posta adresinin doğru formata uygun olup olmadığını kontrol eder (örn. kullanici@alanadi.com)",
+      "domainLabel": "Alan Adı Mevcut",
+      "domainTooltip": "E-posta adresindeki alan adının gerçekten var olduğunu doğrular",
+      "mxLabel": "MX Kayıtları Bulundu",
+      "mxTooltip": "Alan adının e-posta almak için yapılandırılmış posta değişim (MX) kayıtlarının olup olmadığını kontrol eder",
+      "mailboxLabel": "Posta Kutusu Mevcut",
+      "mailboxTooltip": "Belirli posta kutusunun/hesabın posta sunucusunda var olduğunu doğrular",
+      "disposableLabel": "Tek Kullanımlık E-posta",
+      "disposableTooltip": "Bu e-postanın geçici/tek kullanımlık bir e-posta hizmetine ait olup olmadığını gösterir (riskli olabilir)",
+      "roleBasedLabel": "Rol Tabanlı E-posta",
+      "roleBasedTooltip": "Bunun kişisel bir adres yerine rol tabanlı bir e-posta olup olmadığını belirler (örn. destek@, bilgi@)"
+    },
+    "copy": {
+      "emailCopied": "E-posta kopyalandı!",
+      "copyTooltip": "E-postayı kopyala"
+    },
+    "bulk": {
+      "dropHere": "Dosyanızı buraya bırakın",
+      "dragHere": "Dosyanızı sürükleyip bırakın",
+      "uploadHint": "4000'e kadar e-postayı doğrulamak için 'email' sütunu içeren bir .xlsx, .xls veya .csv dosyası yükleyin.",
+      "filePrefix": "Dosya:",
+      "selectFile": "Dosya Seç",
+      "downloadTemplate": "Şablonu İndir"
+    },
+    "bulkLoading": {
+      "title": "E-postalar Doğrulanıyor...",
+      "batchProgress": "{total} partiden {current}. parti işleniyor..."
+    },
+    "stats": {
+      "totalProcessed": "Toplam İşlenen",
+      "valid": "Geçerli",
+      "risky": "Riskli",
+      "invalid": "Geçersiz"
+    },
+    "results": {
+      "detailedTitle": "Detaylı Sonuçlar",
+      "searchPlaceholder": "E-posta ara...",
+      "newVerification": "Yeni Doğrulama",
+      "exportAll": "Tümünü Dışa Aktar",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Geçerli Olanları Dışa Aktar ({count})"
+    },
+    "showingResults": "{total} sonuçtan {shown} tanesi gösteriliyor",
+    "table": {
+      "email": "E-posta",
+      "status": "Durum",
+      "score": "Puan",
+      "checks": "Kontroller"
+    },
+    "noSearchResults": "\"{query}\" ile eşleşen sonuç bulunamadı",
+    "checksTooltip": {
+      "syntax": "Söz Dizimi",
+      "domain": "Alan Adı",
+      "mx": "MX",
+      "mailbox": "Posta Kutusu"
+    },
+    "exportColumns": {
+      "email": "E-posta",
+      "status": "Durum",
+      "score": "Puan",
+      "syntax": "Söz Dizimi",
+      "domain": "Alan Adı",
+      "mx": "MX",
+      "mailbox": "Posta Kutusu",
+      "disposable": "Tek Kullanımlık",
+      "roleBased": "Rol Tabanlı",
+      "valid": "Geçerli",
+      "invalid": "Geçersiz",
+      "yes": "Evet",
+      "no": "Hayır"
+    },
+    "sheets": {
+      "validEmails": "Geçerli E-postalar",
+      "results": "Sonuçlar",
+      "template": "Şablon"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL Gezgini",
+      "heroSubtitle": "Koleksiyonları yönetmek, sorguları çalıştırmak ve verilerinizi görselleştirmek için veritabanlarınıza bağlanın.",
+      "featureMultiTitle": "Çoklu Bağlantı",
+      "featureMultiDesc": "Birden fazla veritabanı bağlantısını aynı anda yönetin.",
+      "featureMongoTitle": "MongoDB Desteği",
+      "featureMongoDesc": "Gelişmiş filtreleme ile yerel MongoDB desteği.",
+      "featureQueryTitle": "Akıllı Sorgu",
+      "featureQueryDesc": "Söz dizimi vurgulama ile güçlü sorgu oluşturucu.",
+      "connectCta": "MongoDB'ye Bağlan",
+      "footerNote": "Şu anda {db} desteklenmektedir. Daha fazla veritabanı yakında.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Bir Koleksiyon Seçin",
+      "selectCollectionDesc": "Belgeleri görüntülemek ve verilerinizi keşfetmeye başlamak için kenar çubuğundan bir koleksiyon seçin.",
+      "dialogAddConnection": "Bağlantı Ekle",
+      "toastConnectionAdded": "Bağlantı eklendi",
+      "toastFetchFailed": "{collection} için belgeler getirilemedi",
+      "toastDocDeleted": "Belge silindi",
+      "deleteDocTitle": "Kesinlikle emin misiniz?",
+      "deleteDocDescription": "Bu işlem geri alınamaz. Bu, belgeyi koleksiyonunuzdan kalıcı olarak silecektir.",
+      "closeAllTitle": "Tüm sekmeler kapatılsın mı?",
+      "closeAllDescription": "Tüm sekmeleri kapatmak istediğinizden emin misiniz? Sorgu filtrelerindeki kaydedilmemiş değişiklikler kaybolacaktır.",
+      "closeAllConfirm": "Tümünü Kapat",
+      "cancel": "İptal",
+      "delete": "Sil"
+    },
+    "connection": {
+      "titleEdit": "Bağlantıyı Düzenle",
+      "titleConnect": "MongoDB'ye Bağlan",
+      "subtitleEdit": "Bağlantı detaylarınızı aşağıda güncelleyin.",
+      "subtitleConnect": "Verilerinizi keşfetmeye başlamak için MongoDB bağlantı dizesini girin.",
+      "labelName": "Ad",
+      "placeholderName": "örn. Üretim Veritabanı",
+      "labelConnectionString": "Bağlantı Dizesi",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Format: mongodb://kullaniciadi:sifre@sunucu:port/veritabani",
+      "testConnection": "Bağlantıyı Test Et",
+      "connecting": "Bağlanıyor...",
+      "updateConnect": "Güncelle ve Bağlan",
+      "connect": "Bağlan",
+      "cancelEdit": "Düzenlemeyi İptal Et",
+      "savedConnections": "Kayıtlı Bağlantılar",
+      "emptySaved": "Henüz kayıtlı bağlantı yok.",
+      "lastUsed": "Son kullanım: {time}",
+      "toastTestOk": "Bağlantı başarılı!",
+      "toastTestFail": "Bağlantı başarısız: {message}",
+      "toastUpdated": "Bağlantı güncellendi",
+      "confirmDelete": "Bu kayıtlı bağlantıyı silmek istediğinizden emin misiniz?",
+      "toastDeletedConn": "Bağlantı silindi",
+      "toastDeleteFail": "Bağlantı silinemedi",
+      "copyStringTitle": "Bağlantı dizesini kopyala",
+      "toastStringCopied": "Bağlantı dizesi kopyalandı!",
+      "editTitle": "Düzenle",
+      "deleteTitle": "Sil"
+    },
+    "sidebar": {
+      "explorer": "Gezgin",
+      "add": "Ekle",
+      "tooltipAdd": "Yeni bağlantı ekle",
+      "tooltipRefresh": "Bağlantıları yenile",
+      "searchPlaceholder": "Ara...",
+      "loadingConnections": "Bağlantılar yükleniyor...",
+      "noConnectionsFound": "Bağlantı bulunamadı",
+      "toastLoadFail": "Bağlantılar yüklenemedi",
+      "toastConnectFail": "{name} bağlantısı başarısız",
+      "toastCollectionsFail": "{name} için koleksiyonlar getirilemedi",
+      "toastRenamed": "Bağlantı yeniden adlandırıldı",
+      "toastRenameFail": "Bağlantı yeniden adlandırılamadı",
+      "confirmDeleteConnection": "\"{name}\" bağlantısını silmek istediğinizden emin misiniz?",
+      "toastDeleted": "Bağlantı silindi",
+      "toastDeleteConnFail": "Bağlantı silinemedi",
+      "confirmDropDb": "\"{name}\" veritabanını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+      "toastDbDropped": "{name} veritabanı silindi",
+      "confirmDropCollection": "\"{name}\" koleksiyonunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+      "toastCollectionDropped": "{name} koleksiyonu silindi",
+      "toastCollectionRenamed": "Koleksiyon {name} olarak yeniden adlandırıldı",
+      "toastDatabaseRenamed": "Veritabanı {name} olarak yeniden adlandırıldı",
+      "connecting": "Bağlanıyor...",
+      "connectionFailed": "Bağlantı başarısız",
+      "noDatabases": "Veritabanı yok",
+      "loading": "Yükleniyor...",
+      "noCollections": "Koleksiyon yok",
+      "renameCollectionTitle": "Koleksiyonu Yeniden Adlandır",
+      "renameDatabaseTitle": "Veritabanını Yeniden Adlandır",
+      "placeholderNewCollection": "Yeni koleksiyon adı",
+      "placeholderNewDatabase": "Yeni veritabanı adı",
+      "rename": "Yeniden Adlandır",
+      "refresh": "Yenile",
+      "copyDbName": "Veritabanı Adını Kopyala",
+      "toastDbNameCopied": "Veritabanı adı panoya kopyalandı",
+      "dropDatabase": "Veritabanını Sil",
+      "dropCollection": "Koleksiyonu Sil",
+      "menuRename": "Yeniden Adlandır",
+      "menuCopyConnectionString": "Bağlantı Dizesini Kopyala",
+      "menuDeleteConnection": "Bağlantıyı Sil",
+      "toastSidebarStringCopied": "Bağlantı dizesi kopyalandı!",
+      "cancel": "İptal",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+    },
+    "document": {
+      "docsBreadcrumb": "{n} belge",
+      "table": "Tablo",
+      "json": "JSON",
+      "tree": "Ağaç",
+      "tooltipTable": "Tablo Görünümü",
+      "tooltipJson": "JSON Görünümü",
+      "tooltipTree": "Ağaç Görünümü",
+      "itemsPerPage": "Sayfa başına öğe",
+      "perPage": "{n} / sayfa",
+      "prevPage": "Önceki Sayfa",
+      "nextPage": "Sonraki Sayfa",
+      "expandAll": "Tümünü Genişlet",
+      "collapseAll": "Tümünü Daralt",
+      "refreshData": "Verileri Yenile",
+      "insert": "Ekle",
+      "export": "Dışa Aktar",
+      "actions": "İşlemler",
+      "invalidJson": "Geçersiz JSON içeriği",
+      "copiedClipboard": "Panoya kopyalandı",
+      "docUpdated": "Belge başarıyla güncellendi",
+      "docInserted": "Belge başarıyla eklendi",
+      "invalidJsonShort": "Geçersiz JSON",
+      "docCopied": "Belge panoya kopyalandı",
+      "openFullEditor": "Tam editörde aç",
+      "cellArray": "Dizi({length})",
+      "cellObject": "Nesne",
+      "cellArrayBracket": "Dizi[{length}]",
+      "emptyFilterTitle": "Sorgunuzla eşleşen belge yok",
+      "emptyFilterHint": "Filtrenizi ayarlamayı veya sorguyu temizlemeyi deneyin.",
+      "clearFilter": "Filtreyi Temizle",
+      "emptyCollectionTitle": "Bu koleksiyon boş",
+      "emptyCollectionHint": "Başlamak için bir belge ekleyin.",
+      "insertDocument": "Belge Ekle",
+      "formatJson": "JSON Biçimlendir",
+      "compactJson": "Sıkıştırılmış JSON",
+      "copyClipboard": "Panoya Kopyala",
+      "copyJson": "JSON Kopyala",
+      "duplicate": "Çoğalt",
+      "editDoc": "Belgeyi Düzenle",
+      "deleteDoc": "Belgeyi Sil",
+      "documentLabel": "Belge {n}",
+      "editDialogTitle": "Belgeyi Düzenle",
+      "insertDialogTitle": "Belge Ekle",
+      "viewValueTitle": "Değeri Görüntüle",
+      "saveChanges": "Değişiklikleri Kaydet",
+      "close": "Kapat",
+      "cancel": "İptal",
+      "insertButton": "Ekle",
+      "import": "Import",
+      "importExport": "Import / Export",
+      "importExportTitle": "Import or export data",
+      "importExportDescription": "Choose whether to bring documents in from a JSON file or download the current page of results.",
+      "importExportTooltip": "Import or export collection data",
+      "importExportImportHint": "JSON array, object, or NDJSON file",
+      "importExportExportHint": "Spreadsheet (XLSX or CSV)",
+      "schema": "Schema",
+      "indexes": "Indexes"
+    },
+    "tabs": {
+      "filterActive": "Aktif filtre uygulandı",
+      "filterActiveTooltip": "Filtre aktif",
+      "closeAll": "Tümünü Kapat"
+    },
+    "query": {
+      "migrateHistory": "Sorgu geçmişi buluta taşındı",
+      "saveHistoryFail": "Sorgu geçmişi kaydedilemedi",
+      "deleteQueryFail": "Sorgu silinemedi",
+      "invalidJsonQuery": "Geçersiz JSON sorgusu",
+      "placeholder": "örn. { \"status\": \"active\" }",
+      "clearQuery": "Sorguyu temizle",
+      "openAdvanced": "Gelişmiş Editörü Aç",
+      "visualBuilder": "Görsel Sorgu Oluşturucu",
+      "filterRules": "Filtre Kuralları",
+      "addRule": "Kural Ekle",
+      "noFilters": "Filtre uygulanmadı. Belgeleri filtrelemek için bir kural ekleyin.",
+      "where": "NEREDE",
+      "and": "VE",
+      "fieldPlaceholder": "Alan",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Tür",
+      "opRegex": "Regex",
+      "opIn": "İçinde",
+      "opNin": "İçinde Değil",
+      "opExists": "Mevcut",
+      "typeAuto": "Otomatik",
+      "typeString": "Metin",
+      "typeNumber": "Sayı",
+      "typeBoolean": "Mantıksal",
+      "typeDate": "Tarih",
+      "typeObjectId": "ObjectId",
+      "true": "Doğru",
+      "false": "Yanlış",
+      "valuePlaceholder": "Değer",
+      "valueListPlaceholder": "değer1, değer2",
+      "clearFilters": "Filtreleri Temizle",
+      "applyFilters": "Filtreleri Uygula",
+      "queryHistory": "Sorgu Geçmişi",
+      "noSavedQueries": "Henüz kayıtlı sorgu yok",
+      "advancedEditorTitle": "Gelişmiş Sorgu Editörü",
+      "templatesPlaceholder": "Şablonlar",
+      "templateEmptyAgg": "Boş Toplama",
+      "templateMatch": "$match (Filtre)",
+      "templateLookup": "$lookup (Birleştirme)",
+      "templateGroup": "$group (Sayma/Toplam)",
+      "format": "Biçimlendir",
+      "formattedJson": "Biçimlendirilmiş JSON",
+      "runQuery": "Sorguyu Çalıştır"
+    },
+    "export": {
+      "selectFieldsError": "Lütfen dışa aktarmak için en az bir alan seçin",
+      "success": "{filename} dosyasına başarıyla dışa aktarıldı",
+      "fail": "Veri dışa aktarılamadı",
+      "title": "Veri Dışa Aktar",
+      "formatLabel": "Dışa Aktarma Formatı",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Alanları Seç",
+      "selectAll": "Tümünü Seç",
+      "fieldsSelected": "{count, plural, one {# alan seçildi} other {# alan seçildi}}",
+      "cancel": "İptal",
+      "export": "Dışa Aktar",
+      "sheetName": "Veri"
+    },
+    "jsonTree": {
+      "typeLabel": "Tür: {type}",
+      "itemSummary": "{count, plural, one {# öğe} other {# öğe}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Yeni İstek",
+      "importedRequest": "İçe Aktarılan İstek",
+      "untitledRequest": "Başlıksız İstek"
+    },
+    "toasts": {
+      "curlImported": "cURL başarıyla içe aktarıldı",
+      "curlParseFailed": "cURL komutu ayrıştırılamadı",
+      "invalidJsonBody": "Geçersiz JSON gövdesi",
+      "requestFailed": "İstek başarısız: {message}",
+      "curlPasted": "cURL yapıştırıldı ve başarıyla ayrıştırıldı",
+      "responseCopied": "Yanıt panoya kopyalandı",
+      "codeCopied": "Kod panoya kopyalandı",
+      "copyFailed": "Panoya kopyalanamadı"
+    },
+    "layout": {
+      "collections": "Koleksiyonlar",
+      "closeSidebar": "Kenar çubuğunu kapat",
+      "openSidebar": "Kenar çubuğunu aç",
+      "request": "Request",
+      "response": "Response"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Yöntem",
+      "urlPlaceholder": "https://api.ornek.com/v1/...",
+      "sending": "Gönderiliyor...",
+      "send": "Gönder",
+      "invalidJsonBodyHelp": "Gönderilemedi: JSON gövdesi geçersiz"
+    },
+    "requestTabs": {
+      "params": "Parametreler",
+      "headers": "Başlıklar",
+      "body": "Gövde",
+      "auth": "Kimlik Doğrulama",
+      "bodyType": "Gövde türü",
+      "selectType": "Tür seçin",
+      "bodyNone": "Yok",
+      "bodyJson": "JSON",
+      "bodyText": "Metin",
+      "noBodyHint": "Bu istek için gövde içeriği yok",
+      "switchToJson": "JSON gövdesine geç",
+      "authType": "Kimlik doğrulama türü",
+      "noAuth": "Kimlik doğrulama yok",
+      "bearerToken": "Bearer token",
+      "basicAuth": "Temel kimlik doğrulama",
+      "apiKey": "API anahtarı",
+      "labelToken": "Token",
+      "placeholderBearerToken": "Bearer token",
+      "labelUsername": "Kullanıcı Adı",
+      "placeholderUsername": "Kullanıcı Adı",
+      "labelPassword": "Şifre",
+      "placeholderPassword": "Şifre",
+      "labelKey": "Anahtar",
+      "placeholderApiKeyName": "Anahtar adı (örn. X-Api-Key)",
+      "labelValue": "Değer",
+      "placeholderValue": "Değer",
+      "addTo": "Ekle",
+      "header": "Başlık",
+      "queryParams": "Sorgu parametreleri",
+      "noAuthHint": "Bu istek kimlik doğrulama kullanmıyor."
+    },
+    "responsePanel": {
+      "emptyTitle": "Keşfetmeye hazır mısınız?",
+      "emptyHint": "Yanıt verilerini burada görmek için bir URL girin ve Gönder'e tıklayın.",
+      "responsePreviewAlt": "Yanıt önizlemesi",
+      "previewUnavailable": "Bu içerik türü için önizleme kullanılamıyor",
+      "status": "Durum",
+      "time": "Süre",
+      "size": "Boyut",
+      "copyBody": "Gövdeyi kopyala",
+      "downloadResponse": "Yanıtı indir",
+      "bodyTab": "Gövde",
+      "previewTab": "Önizleme",
+      "headersTab": "Başlıklar",
+      "binaryRawView": "İkili veriler ham görünümde gösterilemiyor.",
+      "errorStatusLabel": "Hata",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
+    },
+    "tabBar": {
+      "addTabAria": "Yeni sekme"
+    },
+    "collectionsSidebar": {
+      "title": "API kaynakları",
+      "newCollection": "Yeni koleksiyon",
+      "tabCollections": "Koleksiyonlar",
+      "tabHistory": "Geçmiş",
+      "noCollectionsTitle": "Koleksiyon yok",
+      "noCollectionsHint": "API isteklerinizi düzenlemek için bir koleksiyon oluşturun.",
+      "createCollection": "Koleksiyon oluştur",
+      "newFolder": "Yeni klasör",
+      "rename": "Yeniden Adlandır",
+      "delete": "Sil",
+      "emptyCollection": "Boş koleksiyon",
+      "recentRequests": "Son istekler",
+      "clearAll": "Tümünü temizle",
+      "noHistoryTitle": "Henüz geçmiş yok",
+      "noHistoryHint": "Burada görmek için bir istek gönderin.",
+      "dialogNewFolderTitle": "Yeni klasör",
+      "dialogNewFolderDescription": "İsteklerinizi düzenlemek için yeni bir klasör oluşturun.",
+      "labelFolderName": "Klasör adı",
+      "placeholderFolderName": "Klasörüm",
+      "createFolder": "Klasör oluştur",
+      "dialogNewCollectionTitle": "Yeni koleksiyon",
+      "dialogNewCollectionDescription": "Yeni bir üst düzey koleksiyon oluşturun.",
+      "labelCollectionName": "Koleksiyon adı",
+      "placeholderCollectionName": "Koleksiyonum",
+      "dialogRenameCollectionTitle": "Koleksiyonu yeniden adlandır",
+      "dialogRenameCollectionDescription": "Koleksiyon için yeni bir ad girin.",
+      "placeholderRenameCollection": "Koleksiyon adı",
+      "renameAction": "Yeniden Adlandır",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
+    },
+    "collectionItem": {
+      "newFolder": "Yeni klasör",
+      "delete": "Sil",
+      "emptyFolder": "Boş klasör"
+    },
+    "environmentManager": {
+      "noEnvironment": "Ortam yok",
+      "manageDialogTitle": "Ortamları yönet",
+      "placeholderNewEnv": "Yeni ortam",
+      "variablesHeading": "{name} değişkenleri",
+      "addVariable": "Değişken ekle",
+      "columnVariable": "Değişken",
+      "columnValue": "Değer",
+      "placeholderKey": "Anahtar",
+      "placeholderValue": "Değer",
+      "selectEnvToEdit": "Düzenlemek için bir ortam seçin"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Kod oluştur",
+      "dialogTitle": "Kod oluştur",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Kopyala",
+      "errorGenerating": "Kod oluşturma hatası"
+    },
+    "keyValueEditor": {
+      "columnKey": "Anahtar",
+      "columnValue": "Değer",
+      "placeholderKey": "Anahtar",
+      "placeholderValue": "Değer",
+      "addItem": "Öğe ekle"
+    },
+    "importCurl": {
+      "trigger": "cURL İçe Aktar",
+      "dialogTitle": "cURL İçe Aktar",
+      "dialogDescription": "Yeni bir istek olarak içe aktarmak için cURL komutunuzu aşağıya yapıştırın.",
+      "placeholder": "curl -X POST https://api.ornek.com/data -d '...'",
+      "import": "İçe Aktar"
+    },
+    "saveRequest": {
+      "trigger": "Kaydet",
+      "dialogTitle": "İsteği kaydet",
+      "dialogDescription": "Bu isteği bir koleksiyon klasörüne kaydedin.",
+      "labelName": "İstek adı",
+      "placeholderName": "İsteğim",
+      "labelFolder": "Klasör",
+      "placeholderFolder": "Bir klasör seçin",
+      "save": "Kaydet"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Düzenleme Modu",
+      "viewOnlyMode": "Yalnızca Görüntüleme Modu",
+      "insertComponent": "Bileşen ekle",
+      "addUnorderedList": "Sırasız liste ekle",
+      "addOrderedList": "Sıralı liste ekle",
+      "addTable": "Tablo ekle"
+    },
+    "addBlock": "Blok ekle",
+    "media": {
+      "popoverTitle": "Medya ekle",
+      "singleImage": "Tek Görsel",
+      "singleImageDesc": "Bir görsel yükle",
+      "multipleImages": "Birden Fazla Görsel",
+      "multipleImagesDesc": "Görsel ızgarası yükle",
+      "video": "Video",
+      "videoDesc": "Video dosyası yükle",
+      "uploadingAlt": "Yükleniyor...",
+      "uploadFailedAlt": "Yükleme başarısız"
+    },
+    "export": {
+      "fabAria": "Kodu dışa aktar",
+      "title": "Kodu Dışa Aktar",
+      "description": "Editör içeriğinizin HTML veya JSON çıktısını kopyalayın",
+      "preview": "Önizleme",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Önizleme Seçenekleri",
+      "enhanceSpaces": "Boşlukları İyileştir",
+      "livePreview": "İşlenmiş HTML'nin canlı önizlemesi",
+      "htmlTailwind": "Tailwind CSS sınıflarıyla HTML",
+      "editorJson": "Editör durumu JSON olarak",
+      "copyHtml": "HTML Kopyala",
+      "copyJson": "JSON Kopyala",
+      "copied": "Kopyalandı!"
+    },
+    "template": {
+      "fabTitle": "Şablon Değiştir",
+      "title": "Bir Şablon Seçin",
+      "description": "Hazır düzenler ve içeriklerle hızlı başlamak için bir şablon seçin",
+      "catAll": "Tüm Şablonlar",
+      "catProductivity": "Verimlilik",
+      "catCreative": "Yaratıcı",
+      "catBusiness": "İş",
+      "catPersonal": "Kişisel",
+      "noTemplates": "Bu kategoride şablon bulunamadı",
+      "confirmTitle": "Mevcut İçerik Değiştirilsin mi?",
+      "confirmDescription": "Editörde mevcut içerik var. Bu şablonu uygulamak tüm mevcut içeriği değiştirecektir.",
+      "cannotUndo": "Bu işlem geri alınamaz.",
+      "cancel": "İptal",
+      "replaceContent": "İçeriği Değiştir"
+    },
+    "command": {
+      "searchPlaceholder": "Komut ara...",
+      "noResults": "Komut bulunamadı.",
+      "turnInto": "Dönüştür",
+      "h1": {
+        "label": "Başlık 1",
+        "description": "Büyük bölüm başlığı",
+        "keywords": "h1,başlık,title,büyük"
+      },
+      "h2": {
+        "label": "Başlık 2",
+        "description": "Orta bölüm başlığı",
+        "keywords": "h2,başlık,alt başlık"
+      },
+      "h3": {
+        "label": "Başlık 3",
+        "description": "Küçük bölüm başlığı",
+        "keywords": "h3,başlık,alt başlık"
+      },
+      "h4": {
+        "label": "Başlık 4",
+        "description": "Çok küçük bölüm başlığı",
+        "keywords": "h4,başlık"
+      },
+      "h5": {
+        "label": "Başlık 5",
+        "description": "Daha küçük başlık",
+        "keywords": "h5,başlık"
+      },
+      "h6": {
+        "label": "Başlık 6",
+        "description": "En küçük başlık",
+        "keywords": "h6,başlık"
+      },
+      "p": {
+        "label": "Paragraf",
+        "description": "Normal metin paragrafı",
+        "keywords": "p,paragraf,metin,normal"
+      },
+      "code": {
+        "label": "Kod Bloğu",
+        "description": "Kod parçacığı",
+        "keywords": "kod,kodblok,parçacık,pre"
+      },
+      "blockquote": {
+        "label": "Alıntı",
+        "description": "Blok alıntı",
+        "keywords": "alıntı,blokalıntı,atıf"
+      },
+      "li": {
+        "label": "Madde İşaretli Liste",
+        "description": "Madde işaretli basit liste öğesi",
+        "keywords": "liste,madde,sırasız,ul,li"
+      },
+      "ol": {
+        "label": "Numaralı Liste",
+        "description": "Numaralı liste öğesi",
+        "keywords": "liste,numaralı,sıralı,ol,li"
+      },
+      "img": {
+        "label": "Görsel",
+        "description": "Görsel yükle veya göm",
+        "keywords": "görsel,img,resim,fotoğraf,yükle"
+      },
+      "video": {
+        "label": "Video",
+        "description": "Video yükle veya göm",
+        "keywords": "video,vid,film,mp4,yükle"
+      },
+      "table": {
+        "label": "Tablo",
+        "description": "Tablo oluştur",
+        "keywords": "tablo,ızgara,satırlar,sütunlar,hücreler"
+      }
+    },
+    "toasts": {
+      "tableImported": "Tablo İçe Aktarıldı",
+      "tableImportedDesc": "Markdown tablosu başarıyla içe aktarıldı",
+      "mediaPasted": "Medya yapıştırıldı",
+      "pasteMixed": "{imageCount} görsel ve {videoCount} video başarıyla yapıştırıldı.",
+      "pasteImages": "{count} görsel başarıyla yapıştırıldı.",
+      "pasteVideos": "{count} video başarıyla yapıştırıldı.",
+      "pasteFailed": "Yapıştırma başarısız",
+      "unexpectedError": "Beklenmeyen bir hata oluştu",
+      "uploadFailed": "Yükleme başarısız"
+    },
+    "blockBackground": {
+      "menuItem": "Arka Plan Rengini Değiştir",
+      "dialogTitle": "Blok Arka Plan Rengi",
+      "dialogDescription": "Bu blok için bir arka plan rengi seçin",
+      "tabPreset": "Hazır Renkler",
+      "tabCustom": "Özel Renk",
+      "sectionHeading": "Arka Plan Renkleri",
+      "apply": "Uygula",
+      "colors": {
+        "none": "Yok",
+        "red": "Kırmızı",
+        "orange": "Turuncu",
+        "yellow": "Sarı",
+        "green": "Yeşil",
+        "blue": "Mavi",
+        "indigo": "Çivit",
+        "purple": "Mor",
+        "pink": "Pembe",
+        "teal": "Turkuaz",
+        "cyan": "Camgöbeği",
+        "gray": "Gri"
+      }
+    },
+    "tableDialog": {
+      "title": "Tablo Oluştur",
+      "description": "Yeni bir tablo oluşturun veya markdown'dan içe aktarın",
+      "markdownCheckbox": "Markdown tablom var",
+      "pasteMarkdownLabel": "Markdown Tabloyu Yapıştır",
+      "markdownPlaceholder": "| Başlık 1 | Başlık 2 | Başlık 3 |\n|----------|----------|----------|\n| Hücre 1  | Hücre 2  | Hücre 3  |\n| Hücre 4  | Hücre 5  | Hücre 6  |",
+      "markdownHint": "Markdown tablonuzu yukarıya yapıştırın. Başlık ve ayırıcı satırları içermelidir.",
+      "rows": "Satırlar",
+      "columns": "Sütunlar",
+      "maxDimensions": "Maksimum: 20 satır × 10 sütun",
+      "cancel": "İptal",
+      "importTable": "Tabloyu İçe Aktar",
+      "createTable": "Tablo Oluştur"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Tablo en az bir başlık satırı ve ayırıcı satırı içermelidir",
+        "pipeFormat": "Tablo satırları | ile başlamalı ve bitmelidir",
+        "headerMinCol": "Başlık satırı en az bir sütun içermelidir",
+        "separatorRow": "İkinci satır ayırıcı olmalıdır (örn. |---|---|)",
+        "rowColumnMismatch": "Satır {row}, {got} sütuna sahip, {expected} bekleniyor",
+        "parseFailed": "Markdown tablosu ayrıştırılamadı"
+      }
+    },
+    "link": {
+      "editLink": "Bağlantıyı Düzenle",
+      "addLink": "Bağlantı Ekle",
+      "selectedText": "Seçili metin: \"{text}\"",
+      "linkUrl": "Bağlantı URL'si",
+      "urlPlaceholder": "https://ornek.com",
+      "update": "Güncelle",
+      "addLinkButton": "Bağlantı Ekle",
+      "toastApplied": "Bağlantı Uygulandı",
+      "toastLinkedTo": "Bağlantı: {url}",
+      "toastRemoved": "Bağlantı Kaldırıldı",
+      "toastRemovedDesc": "Bağlantı seçimden kaldırıldı"
+    },
+    "customClass": {
+      "devMode": "Geliştirici Modu",
+      "toggleDevModeAria": "Geliştirici modunu aç/kapat",
+      "searchPlaceholderDev": "Sınıf ara... (örn. 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Stil ara... (örn. 'kırmızı', 'kalın', 'gölge')",
+      "appliesTitle": "Uygulanan: {className}",
+      "noMatches": "\"{query}\" ile eşleşen sınıf bulunamadı",
+      "toastClassReplaced": "Sınıf Değiştirildi",
+      "toastClassReplacedDesc": "\"{replaced}\" yerine \"{className}\" uygulandı",
+      "toastCustomClassApplied": "Özel Sınıf Uygulandı",
+      "toastAppliedClass": "Uygulanan sınıf: {className}"
+    },
+    "insertComponents": {
+      "title": "Bileşen Ekle",
+      "description": "Belgenize eklemek için bir bileşen seçin",
+      "noComponents": "Kullanılabilir bileşen yok",
+      "categories": {
+        "media": "Medya",
+        "layout": "Düzen",
+        "interactive": "Etkileşimli",
+        "decoration": "Dekorasyon"
+      },
+      "freeImage": {
+        "name": "Serbest Hareket Görseli",
+        "description": "Herhangi bir yere konumlandırılabilen ve serbestçe yeniden boyutlandırılabilen bir görsel ekleyin"
+      }
+    }
+  },
+  "JsonFormatter": {
+    "title": "JSON biçimleyici",
+    "description": "JSON verilerini metin ve ağaç görünümünde biçimlendirin, doğrulayın ve düzenleyin.",
+    "documentNameText": "Metin belgesi {n}",
+    "documentNameTree": "Ağaç belgesi {n}",
+    "newDocument": "Yeni",
+    "copy": "Kopyala",
+    "save": "Kaydet",
+    "load": "Yükle",
+    "saving": "Kaydediliyor...",
+    "leftDocNameLabel": "Sol belge adı",
+    "rightDocNameLabel": "Sağ belge adı",
+    "toastCopiedText": "Metin paneli kopyalandı",
+    "toastCopiedTree": "Ağaç paneli kopyalandı",
+    "toastCopyFailed": "JSON kopyalanamadı",
+    "toastLoginRequired": "Belgeleri kaydetmek için giriş yapın",
+    "toastSaved": "Belge kaydedildi",
+    "toastSaveFailed": "Belge kaydedilemedi",
+    "format": "Biçimlendir",
+    "compact": "Sıkıştır",
+    "sortKeys": "Anahtarları sırala",
+    "repair": "Onar",
+    "query": "Sorgu",
+    "toastInvalidJson": "Geçersiz JSON",
+    "toastAlreadyValid": "JSON zaten geçerli",
+    "toastRepaired": "JSON onarıldı",
+    "toastRepairFailed": "JSON onarılamadı"
+  },
+  "JwtDecoder": {
+    "title": "JWT Çözücü",
+    "subtitle": "Başlık ve yükü inceleyin. Süre, <code>exp</code> claim’ini kullanır. Sunucuya veri gönderilmez; imza doğrulanmaz.",
+    "tokenLabel": "Token",
+    "clear": "Temizle",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Kopyala",
+    "expiryLabel": "Süre (exp)",
+    "signaturePresent": "İmza var (doğrulanmadı)",
+    "noExp": "Payload içinde <code>exp</code> claim’i yok.",
+    "status": {
+      "expired": "Süresi doldu",
+      "valid": "Geçerli"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Yerel",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Düzenlenme (iat)",
+      "notBefore": "Şundan önce değil (nbf)"
+    },
+    "panels": {
+      "header": "Başlık",
+      "payload": "Yük"
+    },
+    "errors": {
+      "empty": "Çözmek için bir JWT yapıştırın.",
+      "segments": "JWT en az başlık ve yük (iki segment) içermelidir.",
+      "base64": "Başlık veya yük base64url çözülemedi."
+    },
+    "relative": {
+      "future": "{n} {unit} içinde",
+      "past": "{n} {unit} önce"
+    },
+    "units": {
+      "second": "{count, plural, one {saniye} other {saniye}}",
+      "minute": "{count, plural, one {dakika} other {dakika}}",
+      "hour": "{count, plural, one {saat} other {saat}}",
+      "day": "{count, plural, one {gün} other {gün}}"
+    },
+    "tabs": {
+      "decode": "Çöz",
+      "sign": "Oluşturucu / imzalayıcı"
+    },
+    "signer": {
+      "algLabel": "Algoritma (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Gizli anahtar (HS*)",
+      "secretPlaceholder": "HMAC gizlinizi yapıştırın…",
+      "privateKeyLabel": "Özel anahtar PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "\"none\" algoritması imzasız bir token üretir. Güvenli değildir; yalnızca test için kullanılmalıdır.",
+      "sign": "İmzala",
+      "verify": "İmzayı doğrula",
+      "outputLabel": "Token (kompakt JWS)",
+      "outputPlaceholder": "\"İmzala\"a tıklayın…",
+      "copyToken": "Tokenı kopyala",
+      "copied": "Kopyalandı",
+      "verifyKeyLabel": "Doğrulama anahtarı (isteğe bağlı)",
+      "verifyKeyPlaceholder": "RS* için: açık anahtarı (SPKI) PEM yapıştırın. HS* için: gizliyi yeniden kullanmak üzere boş bırakın.",
+      "verifyKeyHint": "Boşsa doğrulama imzalama anahtarını kullanır (HS* için faydalı).",
+      "verifyStatus": {
+        "valid": "İmza geçerli",
+        "invalid": "İmza geçersiz"
+      },
+      "securityNote": "Her şey tarayıcınızda yerel çalışır; anahtarlar ve tokenlar yüklenmez."
+    },
+    "signErrors": {
+      "invalidJson": "Header ve payload geçerli JSON olmalıdır.",
+      "unsupportedAlg": "Desteklenmeyen algoritma.",
+      "missingKey": "Bu algoritma için bir imzalama anahtarı gerekir.",
+      "cryptoFailed": "İmzalama başarısız. Anahtar biçimini kontrol edip tekrar deneyin."
+    },
+    "verifyErrors": {
+      "empty": "Doğrulamak için bir JWT girin.",
+      "segments": "İmza doğrulaması için JWT tam olarak 3 segmentten oluşmalıdır.",
+      "unsupportedAlg": "Header içinde desteklenmeyen veya eksik alg.",
+      "missingKey": "Bu algoritma için doğrulama anahtarı gerekir.",
+      "base64": "JWT header veya imza çözülemedi.",
+      "cryptoFailed": "Doğrulama başarısız. Anahtar biçimini kontrol edip tekrar deneyin."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Sertifika / PEM çözücü",
+    "subtitle": "Bir X.509 sertifikası (<code>-----BEGIN CERTIFICATE-----</code>) veya CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) yapıştırın. Konu, veren, tarihler ve SAN yerel olarak ayrıştırılır; hiçbir şey yüklenmez.",
+    "pemLabel": "PEM girişi",
+    "clear": "Temizle",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Ayrıştırılıyor…",
+    "copyHex": "Parmak izini kopyala (iki nokta olmadan hex)",
+    "errors": {
+      "empty": "Çözmek için bir PEM sertifikası veya CSR yapıştırın.",
+      "noBlock": "Sertifika veya CSR PEM bloğu bulunamadı.",
+      "parseFailed": "Bu PEM verileri ayrıştırılamadı."
+    },
+    "block": {
+      "title": "PEM bloğu {index}",
+      "certificate": "X.509 sertifikası",
+      "csr": "Sertifika imzalama isteği"
+    },
+    "fields": {
+      "subject": "Konu",
+      "issuer": "Veren",
+      "notBefore": "Öncesi geçersiz",
+      "notAfter": "Sonrası geçersiz",
+      "serial": "Seri numarası (hex)",
+      "sha256": "SHA-256 parmak izi",
+      "sans": "Konu alternatif adları",
+      "sansNone": "SAN uzantısı yok.",
+      "signatureAlgorithm": "İmza algoritması",
+      "csrIssuerNote": "CSR’ler vereni içermez (verilen sertifikada görünür).",
+      "csrValidityNote": "CSR’ler geçerlilik tarihlerini içermez (verilen sertifikada görünür)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Dizin adı",
+      "email": "E-posta",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Kayıtlı ID",
+      "other": "{type}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "SQL Biçimlendirici",
+    "subtitle": "MySQL, PostgreSQL veya SQLite için SQL’i biçimlendir. Tarayıcıda çalışır; hiçbir şey yüklenmez.",
+    "dialectLabel": "Lehçe",
+    "keywordsLabel": "Anahtar kelimeler",
+    "indentLabel": "Girinti",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "BÜYÜK",
+      "lower": "küçük",
+      "preserve": "Koru"
+    },
+    "spaces": "{n} boşluk",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "formattedPanel": "Biçimlendirilmiş",
+    "copy": "Kopyala",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "\"Biçimlendir\"e tıkla…",
+    "errors": {
+      "tooLong": "Girdi {max} karakter ile sınırlıdır.",
+      "couldNotFormat": "Bu SQL biçimlendirilemedi."
+    }
+  },
+  "YamlFormatter": {
+    "title": "YAML Biçimleyici",
+    "subtitle": "YAML'ı tarayıcınızda biçimlendirin, doğrulayın ve dönüştürün. Hiçbir şey yüklenmez.",
+    "outputLabel": "Çıktı",
+    "outputModes": {
+      "yaml": "YAML (biçimlendirilmiş)",
+      "json": "JSON"
+    },
+    "indentLabel": "Girinti",
+    "spaces": "{n} boşluk",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "copy": "Kopyala",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "outputPanel": "Çıktı",
+    "errors": {
+      "tooLong": "Girdi {max} karakterle sınırlıdır.",
+      "couldNotFormat": "Bu YAML ayrıştırılamadı."
+    }
+  },
+  "GraphqlFormatter": {
+    "title": "GraphQL biçimlendirici",
+    "subtitle": "GraphQL sorgularını, mutasyonlarını ve aboneliklerini tarayıcıda biçimlendirin. Hiçbir şey yüklenmez.",
+    "tabs": {
+      "format": "Biçimlendir",
+      "build": "Sorgu oluşturucu"
+    },
+    "outputModeLabel": "Çıktı",
+    "outputModes": {
+      "pretty": "Okunabilir yazdır",
+      "minify": "Küçült"
+    },
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "counter": "{current} / {max} karakter",
+    "inputPanel": "Girdi",
+    "outputPanel": "Çıktı",
+    "copy": "Kopyala",
+    "builderHint": "Bir iskelet oluşturup düzenleyiciye uygulayın. Değişken tanımları GraphQL sözdizimindedir (ör. $id: ID!) — parantezler isteğe bağlıdır.",
+    "builder": {
+      "operation": "İşlem",
+      "operationName": "İşlem adı",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Değişken tanımları",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Seçim kümesi",
+      "apply": "Girdiye uygula",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Girdi {max} karakterle sınırlıdır.",
+      "couldNotFormat": "Bu GraphQL ayrıştırılamadı veya yazdırılamadı.",
+      "emptySelection": "Uygulamadan önce bir seçim kümesi ekleyin."
+    }
+  },
+  "RegexTester": {
+    "title": "Regex Testi",
+    "subtitle": "Metninize karşı canlı JavaScript tarzı regex. Eşleşmeler vurgulanır; hiçbir şey tarayıcınızdan çıkmaz.",
+    "patternLabel": "Desen",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i büyük/küçük harf duyarsız",
+      "m": "m çok satırlı",
+      "s": "s dotAll",
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
+    },
+    "emptyPattern": "(boş)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {eşleşme} other {eşleşme}}",
+    "testTextLabel": "Test metni",
+    "counter": "{current} / {max}",
+    "clear": "Temizle",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Metin {max} karakter ile sınırlıdır.",
+      "invalid": "Geçersiz düzenli ifade.",
+      "runaway": "{max} eşleşmeden sonra durduruldu (olası kontrolden çıkan desen)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
+    }
+  },
+  "TimestampConverter": {
+    "title": "Zaman damgası dönüştürücü",
+    "subtitle": "Unix saniyeleri (≤10 basamak) veya milisaniyeler (daha uzun tam sayılar), <code>ISO-8601</code> ya da tarayıcınızın ayrıştırabildiği dizeler. Her şey yerelde çalışır.",
+    "inputLabel": "Girdi",
+    "placeholder": "1744200000 veya 2025-04-09T12:00:00Z",
+    "now": "Şimdi",
+    "copy": "Kopyala",
+    "hint": "Bir değer yapıştırın veya <strong>Şimdi</strong>ye tıklayın.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Göreli",
+      "human": "Okunabilir"
+    },
+    "fields": {
+      "seconds": "Saniye",
+      "milliseconds": "Milisaniye",
+      "utc": "UTC",
+      "local": "Yerel",
+      "distance": "Mesafe"
+    },
+    "errors": {
+      "empty": "Bir Unix zaman damgası, ISO dizesi veya tarih metni girin.",
+      "invalidNumber": "Geçersiz sayısal zaman damgası.",
+      "outOfRange": "JavaScript Date için aralık dışında.",
+      "couldNotParse": "Unix, ISO-8601 veya tarayıcı tarih dizesi olarak ayrıştırılamadı."
+    }
+  },
+  "HttpStatusCodes": {
+    "title": "HTTP durum kodları",
+    "subtitle": "HTTP yanıt durum kodlarını (<code>1xx</code>–<code>5xx</code>) kısa açıklamalar ve RFC referanslarıyla arayın ve göz atın. Yerel olarak çalışır.",
+    "header": {
+      "title": "HTTP durum kodları",
+      "description": "Açıklamalar ve RFC referanslarıyla HTTP yanıt kodları için aranabilir başvuru."
+    },
+    "searchPlaceholder": "Ara: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Sınıfa göre filtrele…",
+    "classFilterAll": "Tüm sınıflar",
+    "resultsCount": "{total} içinde {count}",
+    "table": {
+      "code": "Code",
+      "phrase": "İfade",
+      "description": "Açıklama",
+      "copy": "Kopyala"
+    },
+    "noResults": "“{query}” için sonuç yok.",
+    "specPrefix": "Spes.:",
+    "copied": "Kod kopyalandı"
+  },
+  "CronBuilder": {
+    "title": "Cron ifade oluşturucu",
+    "subtitle": "Standart 5 alanlı cron: <mono>minute hour day month weekday</mono>. Ayrıştırıcı dahili olarak seconds=<code>0</code> kullanır. İfade düzenleyicide isteğe bağlı 6 alan (<mono>sec min hour dom mon dow</mono>) da çalışır.",
+    "tabs": {
+      "builder": "Görsel oluşturucu",
+      "expression": "İfade"
+    },
+    "presetsLabel": "Hazır ayarlar",
+    "fieldsLabel": "Alanlar",
+    "rawExpressionLabel": "Ham ifade",
+    "expressionHint": "Ayrıştırmak ve senkronize etmek için alandan çıkın. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Mevcut ifade",
+    "copy": "Kopyala",
+    "quickPick": "Hızlı seçim",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Düz metin",
+    "nextRunsLabel": "Sonraki çalıştırmalar (yerel saat)",
+    "fields": {
+      "minute": "Dakika",
+      "hour": "Saat",
+      "dayOfMonth": "Ayın günü",
+      "month": "Ay",
+      "dayOfWeek": "Haftanın günü"
+    },
+    "presets": {
+      "everyMinute": "Her dakika",
+      "every5Minutes": "Her 5 dakika",
+      "every15Minutes": "Her 15 dakika",
+      "everyHour": "Her saat (:00)",
+      "every6Hours": "Her 6 saat",
+      "dailyMidnight": "Günlük (gece yarısı)",
+      "daily0900": "Günlük 09:00",
+      "weekdays0900": "Hafta içi 09:00",
+      "weeklySunday": "Haftalık (Pazar 00:00)",
+      "monthlyFirst": "Aylık (1. gün 00:00)",
+      "yearlyJan1": "Yıllık (1 Oca 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "her dakika"
+      },
+      "hour": {
+        "every": "her saat"
+      },
+      "dom": {
+        "any": "herhangi bir gün",
+        "last": "son gün"
+      },
+      "month": {
+        "every": "her ay"
+      },
+      "dow": {
+        "any": "herhangi bir gün",
+        "weekdays": "hafta içi",
+        "weekend": "hafta sonu"
+      }
+    },
+    "months": {
+      "jan": "Oca",
+      "feb": "Şub",
+      "mar": "Mar",
+      "apr": "Nis",
+      "may": "May",
+      "jun": "Haz",
+      "jul": "Tem",
+      "aug": "Ağu",
+      "sep": "Eyl",
+      "oct": "Eki",
+      "nov": "Kas",
+      "dec": "Ara"
+    },
+    "weekdays": {
+      "sun": "Paz",
+      "mon": "Pzt",
+      "tue": "Sal",
+      "wed": "Çar",
+      "thu": "Per",
+      "fri": "Cum",
+      "sat": "Cmt"
+    },
+    "errors": {
+      "fieldCount": "5 alan (minute hour day month weekday) veya saniyeli 6 alan bekleniyor.",
+      "invalid": "Geçersiz cron ifadesi."
+    }
+  },
+  "Base64": {
+    "title": "Base64 Kodlayıcı / Çözücü",
+    "subtitle": "Metni Base64’e kodlayın veya Base64 dizelerini çözün",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "modes": {
+      "encode": "Kodla",
+      "decode": "Çöz"
+    },
+    "swapTitle": "Girdi ve çıktıyı değiştir",
+    "panels": {
+      "plainText": "Düz metin",
+      "base64Input": "Base64 girdi",
+      "base64Output": "Base64 çıktı",
+      "decodedText": "Çözülmüş metin"
+    },
+    "placeholders": {
+      "encode": "Base64’e kodlamak için metin girin…",
+      "decode": "Çözmek için Base64 yapıştırın…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Çıktıyı indir",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Panoya kopyala",
+    "outputPlaceholder": "Çıktı burada görünecek…",
+    "errors": {
+      "invalidBase64": "Geçersiz Base64 dizesi. Girdiyi kontrol edin.",
+      "encodeFailed": "Girdi kodlanamadı."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL Kodlayıcı / Çözücü",
+    "subtitle": "encodeURIComponent / decodeURIComponent (UTF‑8) ile yüzde kodla/çöz",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "modes": {
+      "encode": "Kodla",
+      "decode": "Çöz"
+    },
+    "swapTitle": "Girdi ve çıktıyı değiştir",
+    "panels": {
+      "plainText": "Düz metin",
+      "encodedInput": "Kodlanmış girdi",
+      "encodedOutput": "Kodlanmış çıktı",
+      "decodedText": "Çözülmüş metin"
+    },
+    "placeholders": {
+      "encode": "Yüzde kodlamak için metin girin…",
+      "decode": "Çözmek için percent-encoded metin yapıştırın…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "download": {
+      "title": "Çıktıyı indir",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Panoya kopyala",
+    "outputPlaceholder": "Çıktı burada görünecek…",
+    "errors": {
+      "invalidEncoding": "Geçersiz yüzde kodlama. Eksik % çiftlerini veya hatalı kaçış dizilerini kontrol edin.",
+      "encodeFailed": "Kodlanamadı (girdide geçersiz Unicode)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL Ayrıştırıcı",
+    "subtitle": "Bir URL'yi protokol, host, yol, sorgu parametreleri ve hash (parça) olarak ayırın.",
+    "upload": "Yükle",
+    "clear": "Temizle",
+    "panels": {
+      "input": "URL girişi",
+      "output": "Sonuç"
+    },
+    "placeholders": {
+      "input": "Bir URL yapıştırın (örn. https://example.com/path?foo=bar#section) veya host/yol (örn. example.com/path)…"
+    },
+    "dropHere": "Dosyayı buraya bırakın",
+    "charCount": "{count} karakter",
+    "outputPlaceholder": "Ayrıştırılan bileşenler burada görünecek…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Host",
+      "path": "Yol",
+      "hash": "Hash",
+      "queryParams": "Sorgu parametreleri"
+    },
+    "paramCount": "{count} parametre",
+    "noParams": "Sorgu parametresi yok.",
+    "paramKey": "Anahtar",
+    "paramValue": "Değer",
+    "copyTitle": "Panoya kopyala",
+    "copyParamTitle": "key=value olarak kopyala",
+    "download": {
+      "title": "JSON indir",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Geçersiz URL. Bir hostname (example.com) ekleyin ve karakterleri kontrol edin."
+    }
+  },
+  "UuidGenerator": {
+    "title": "UUID / ULID Oluşturucu",
+    "subtitle": "Tarayıcıda RFC 9562 UUID’leri veya ULID’ler oluşturun. Toplu dışa aktarma: çalıştırma başına {max} adede kadar.",
+    "format": "Biçim",
+    "kindHints": {
+      "ulid": "Sıralanabilir, URL için güvenli 26 karakterlik tanımlayıcı",
+      "uuid4": "Rastgele (RFC 9562)",
+      "uuid7": "Zamana göre sıralı, Unix ms + rastgele",
+      "uuid1": "MAC/zaman tabanlı (RFC 9562)",
+      "uuid6": "Yeniden sıralanmış Gregoryen zaman",
+      "uuid3": "Ad + ad alanı için MD5 hash",
+      "uuid5": "Ad + ad alanı için SHA‑1 hash",
+      "nil": "Sıfır UUID (tümü sıfır, RFC 9562)"
+    },
+    "countLabel": "Adet (1–{max})",
+    "nameLabel": "Ad (girdi dizesi)",
+    "namePlaceholder": "örn. my.app/resource",
+    "bulkHint": "Toplu çalıştırmada <code>#0</code>, <code>#1</code>, … eklenir; böylece her ID farklı olur (v3/v5 deterministiktir).",
+    "namespace": "Ad alanı",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Özel UUID"
+    },
+    "customNamespaceLabel": "Ad alanı UUID’si",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Oluştur",
+    "output": "Çıktı",
+    "lines": "{count} satır",
+    "download": {
+      "title": ".txt indir",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Tümünü kopyala",
+    "uppercaseToggle": "Büyük harfli çıktı",
+    "hyphensToggle": "Tireleri göster",
+    "copyJsonTitle": "JSON dizisi olarak kopyala",
+    "outputPlaceholder": "\"Oluştur\"a tıklayın…",
+    "errors": {
+      "invalidCustomNamespace": "Özel ad alanı geçerli bir UUID olmalıdır.",
+      "missingName": "UUID v3 ve v5 için ad gereklidir.",
+      "unknown": "ID’ler oluşturulamadı."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Gizli / API anahtarı oluşturucu",
+    "subtitle": "Yapılandırılabilir uzunluk ve alfabe ile kriptografik rastgele dizeler oluşturun. Çalıştırma başına {max} adede kadar toplu dışa aktarma. <uuid>UUID / ULID oluşturucu</uuid> ile birlikte kullanıma uygundur.",
+    "alphabetLabel": "Alfabe",
+    "alphabetHint": "Yinelenen karakterler kaldırılır. Her simge crypto.getRandomValues ve reddetme örneklemesiyle tekdüze seçilir (modül yanlılığı yok).",
+    "alphabetCount": "{count} benzersiz simge",
+    "presetsLabel": "Ön ayarlar",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfasayısal",
+      "hex": "Onaltılık (küçük harf)",
+      "asciiPrintable": "ASCII yazdırılabilir"
+    },
+    "lengthLabel": "Gizli başına uzunluk (1–{maxLen})",
+    "countLabel": "Adet (1–{maxBulk})",
+    "generate": "Oluştur",
+    "output": "Çıktı",
+    "lines": "{count} satır",
+    "download": {
+      "title": ".txt indir",
+      "filename": "gizli-anahtarlar.txt"
+    },
+    "copyTitle": "Tümünü kopyala",
+    "outputPlaceholder": "\"Oluştur\"a tıklayın…",
+    "entropy": "{bits} bit entropi",
+    "strength": {
+      "weak": "Zayıf",
+      "fair": "Orta",
+      "strong": "Güçlü"
+    },
+    "excludeAmbiguous": "Belirsiz karakterleri hariç tut",
+    "excludeAmbiguousHint": "{chars} kaldırılır — kolayca yanlış okunan veya kabuk için tehlikeli karakterler.",
+    "prefixLabel": "Anahtar öneki (isteğe bağlı)",
+    "errors": {
+      "emptyAlphabet": "Alfabeye en az bir karakter ekleyin.",
+      "alphabetTooLong": "Yinelenenler kaldırıldıktan sonra alfabe en fazla {maxAlpha} karakter olabilir.",
+      "lengthOutOfRange": "Uzunluk 1 ile {maxLen} arasında olmalıdır.",
+      "countOutOfRange": "Adet 1 ile {maxBulk} arasında olmalıdır.",
+      "unknown": "Gizli dizeler oluşturulamadı."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Lorem Ipsum Oluşturucu",
+    "subtitle": "Düzenleriniz ve maketleriniz için Latince yer tutucu metin oluşturun.",
+    "paragraphs": "Paragraflar",
+    "sentences": "Cümleler",
+    "words": "Kelimeler",
+    "count": "Sayı",
+    "generate": "Oluştur",
+    "copy": "Kopyala",
+    "startWith": "'Lorem ipsum...' ile başla",
+    "outputPlaceholder": "Çıktı burada görünecek...",
+    "outputType": "Çıktı türü",
+    "bulletList": "Madde işaretli liste",
+    "htmlMarkup": "HTML işaretlemesi",
+    "htmlMarkupHint": "Çıktıyı paragraflara sarın veya madde işareti modu için liste kullanın",
+    "output": "Çıktı",
+    "download": "İndir"
+  },
+  "ColorPicker": {
+    "title": "Renk seçici ve dönüştürücü",
+    "subtitle": "HEX, RGB ve HSL'yi dönüştürün; uyumlu paletler oluşturun. Tüm işlemler tarayıcınızda gerçekleşir.",
+    "nativePicker": "Yerleşik seçici",
+    "chooseColor": "Renk seçin",
+    "eyeDropper": "Göz damlası",
+    "invalidHex": "Geçersiz HEX rengi.",
+    "cssValues": "CSS değerleri",
+    "palettes": "Paletler",
+    "copied": "Kopyalandı",
+    "clickToCopy": "Kopyalamak için tıklayın",
+    "copyAllHex": "Tüm HEX'leri kopyala",
+    "copy": "Kopyala",
+    "copyColor": "{color} kopyala",
+    "paletteShades": "Tonlar",
+    "paletteComplementary": "Tamamlayıcı",
+    "paletteTriadic": "Üçlü",
+    "paletteAnalogous": "Benzer",
+    "paletteSplit": "Bölünmüş tamaml.",
+    "paletteSquare": "Kare"
+  },
+  "ContrastChecker": {
+    "title": "Kontrast denetleyici",
+    "subtitle": "Ön plan ve arka plan arasında WCAG 2.1 kontrast oranını hesaplar. Normal ve büyük metin için AA ve AAA durumunu gösterir. Tümü tarayıcınızda çalışır.",
+    "foreground": "Metin / ön plan",
+    "background": "Arka plan",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Renkleri değiştir",
+    "chooseForeground": "Ön plan rengini seç",
+    "chooseBackground": "Arka plan rengini seç",
+    "eyeDropper": "Damlalık",
+    "ratio": "Kontrast oranı",
+    "copyRatio": "Oranı kopyala",
+    "copied": "Kopyalandı",
+    "previewHeading": "Ön izleme",
+    "previewBody": "Pijamalı hasta, yağız şoföre çabucak güvendi. Fâni idrak ömrünü, câhil zâhid inkâr etmiş, göçtü.",
+    "previewCaption": "Varsayılan boyutta örnek metin.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — normal metin (4,5:1)",
+    "levelAALarge": "AA — büyük metin (3:1)",
+    "levelAAANormal": "AAA — normal metin (7:1)",
+    "levelAAALarge": "AAA — büyük metin (4,5:1)",
+    "pass": "Uygun",
+    "fail": "Uygun değil",
+    "invalidHex": "Geçersiz HEX rengi.",
+    "largeTextHint": "Büyük metin: 18 pt+ düz veya 14 pt+ kalın (WCAG tanımları)."
+  },
+  "DiffChecker": {
+    "title": "Fark denetleyici",
+    "subtitle": "İki metnin satır satır yan yana karşılaştırması. Her şey tarayıcınızda kalır.",
+    "rowsCount": "{count} satır",
+    "truncatedWarning": "İlk {max} satır gösteriliyor.",
+    "limitExceeded": "Her taraf {max} karakterle sınırlıdır.",
+    "clearBoth": "İkisini de temizle",
+    "original": "Orijinal",
+    "modified": "Değiştirilmiş",
+    "originalPlaceholder": "Orijinal metni yapıştırın…",
+    "modifiedPlaceholder": "Değiştirilmiş metni yapıştırın…",
+    "comparisonLabel": "Yan yana karşılaştırma",
+    "emptyState": "Karşılaştırmak için her iki panele de metin girin."
+  },
+  "JsonSchemaGenerator": {
+    "title": "JSON Şema Oluşturucu",
+    "subtitle": "JSON Şeması veya tipli modeller üretmek için geçerli JSON yapıştırın. Her şey tarayıcınızda çalışır.",
+    "languageLabel": "Çıktı dili",
+    "inputLabel": "JSON girdisi",
+    "inputPlaceholder": "JSON’u buraya yapıştırın…",
+    "outputLabel": "Üretilen çıktı",
+    "outputPlaceholder": "Üretilen şema veya türler burada görünecek…",
+    "parseError": "Geçersiz JSON",
+    "clear": "Temizle",
+    "copy": "Kopyala",
+    "copied": "Panoya kopyalandı",
+    "copyFailed": "Kopyalanamadı",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON Şeması (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    },
+    "editorLoading": "Editör yükleniyor…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
+  },
+  "ImageToBase64": {
+    "title": "Base64'e görüntü",
+    "subtitle": "Bir görüntüyü bırakın, bir veri URI'si veya ham Base64 dizesi alın. Her şey tarayıcınızda kalır.",
+    "upload": "Resim Yükle",
+    "clear": "Temizlemek",
+    "modes": {
+      "dataUri": "Veri URI'si",
+      "rawString": "Ham Base64"
+    },
+    "panels": {
+      "imageInput": "Görüntü Girişi",
+      "output": "Base64 Çıkışı"
+    },
+    "dropHere": "Resmi buraya bırakın",
+    "charCount": "{count} karakter",
+    "placeholders": {
+      "uploadImage": "Başlamak için bir resmi sürükleyip bırakın veya yükle'ye tıklayın."
+    },
+    "fileTooLarge": "Dosya çok büyük. İşleme, tarayıcınızı dondurabilir.",
+    "copyTitle": "Panoya kopyala",
+    "download": {
+      "title": "Metni indir",
+      "filename": "image-base64.txt"
+    }
+  },
+  "ImageCompressor": {
+    "title": "Görüntü sıkıştırıcı",
+    "subtitle": "JPEG, PNG veya WebP çıktısını yerelde kaliteyle küçültün — hiçbir şey yüklenmez.",
+    "upload": "Görüntü yükle",
+    "clear": "Temizle",
+    "dropHere": "Görüntüyü buraya bırakın",
+    "placeholders": {
+      "uploadImage": "Sürükleyip bırakın veya dosya seçmek için tıklayın."
+    },
+    "fileTooLarge": "Dosya çok büyük (en fazla {maxMb} MB).",
+    "unsupportedFormat": "Desteklenmeyen dosya türü. JPEG, PNG, WebP, GIF, AVIF veya BMP kullanın.",
+    "compressFailed": "Bu görüntü sıkıştırılamadı. Başka bir dosya veya biçim deneyin.",
+    "panels": {
+      "original": "Orijinal",
+      "compressed": "Sıkıştırılmış önizleme"
+    },
+    "outputFormat": "Çıktı biçimi",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kalite",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG tarayıcıda kayıpsızdır; kalite kaydırıcısı yalnızca JPEG ve WebP için geçerlidir.",
+    "sizes": {
+      "original": "Orijinal: {size}",
+      "compressed": "Sıkıştırılmış: {size}",
+      "saved": "{percent}% daha küçük"
+    },
+    "largerWarning": "Çıktı girişten büyük — farklı biçim veya kalite deneyin.",
+    "download": "İndir",
+    "downloadFilename": "sikistirilmis-goruntu",
+    "processing": "Sıkıştırılıyor…",
+    "emptyCompressed": "Sıkıştırılmış önizleme burada görünür."
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Degrade Oluşturucu",
+    "subtitle": "Açı kontrolü, renk durakları ve tek tıklamayla CSS kopyalama özelliklerine sahip görsel CSS degrade oluşturucu.",
+    "preview": "Degrade Önizleme",
+    "settings": "Ayarlar",
+    "type": "Tip",
+    "linear": "Doğrusal",
+    "radial": "Radyal",
+    "angle": "Açı",
+    "stops": "Renk Durakları",
+    "color": "Renk",
+    "position": "Konum (%)",
+    "addStop": "Durak Ekle",
+    "deleteStop": "Durdurmayı Sil",
+    "output": "CSS Çıkışı",
+    "copy": "CSS'yi kopyala",
+    "copied": "Kopyalandı!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Oluşturucu",
+    "subtitle": "Belirli bir teknoloji yığını veya birleşimi için birleştirilmiş .gitignore dosyalarını anında oluşturun.",
+    "searchPlaceholder": "Yığınlarda arama yapın (ör. Node, Python, macOS)...",
+    "noResults": "Yığın bulunamadı.",
+    "selectedStacks": "Seçilen Yığınlar",
+    "output": "Çıktıyı Önizle",
+    "copy": "Panoya kopyala",
+    "copied": "Kopyalandı!",
+    "download": ".gitignore'u indirin",
+    "downloading": "İndiriliyor...",
+    "errorFetching": "Toplam liste getirilemedi.",
+    "errorGenerating": "Seçilen yığınlardan .gitignore oluşturulamadı.",
+    "generating": "Oluşturuluyor...",
+    "emptyState": ".gitignore'unuzu oluşturmak için bir veya daha fazla teknoloji yığını seçin."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "CSV veya Excel yükleyin, JSON’u düzenleyin, ardından CSV veya XLSX indirin. Yalnızca tablo verisi; Excel tarih hücreleri JSON’da ISO zaman damgası olur.",
+    "dropTitle": "CSV veya Excel dosyasını bırakın",
+    "dropHint": ".xlsx / .xls için ilk çalışma sayfası kullanılır. CSV’de başlık satırı olmalıdır.",
+    "chooseFile": "Dosya seç",
+    "jsonLabel": "JSON (nesne dizisi)",
+    "jsonPlaceholder": "Nesnelerden oluşan JSON dizisini yapıştırın veya CSV / Excel içe aktarın…",
+    "loadSample": "Örnek yükle",
+    "actions": {
+      "format": "JSON’u biçimlendir",
+      "clear": "Temizle",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "downloadCsv": "CSV indir",
+      "downloadXlsx": "Excel indir"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Veri",
+    "toastLoadedCsv": "CSV düzenleyiciye yüklendi",
+    "toastLoadedExcel": "Excel düzenleyiciye yüklendi",
+    "toastFormatted": "JSON biçimlendirildi",
+    "toastExportedCsv": "CSV indirildi",
+    "toastExportedXlsx": "Excel indirildi",
+    "toastCopied": "Panoya kopyalandı",
+    "footnote": "Her şey tarayıcıda çalışır. JSON boş olmayan bir nesne dizisi olmalıdır. İç içe değerler CSV hücrelerinde JSON olarak serileştirilir.",
+    "errors": {
+      "unsupportedFile": ".csv, .xlsx veya .xls dosyası kullanın.",
+      "parseFailed": "Bu dosya ayrıştırılamadı.",
+      "invalidJson": "Geçersiz JSON",
+      "exportFailed": "Dışa aktarma başarısız",
+      "copyFailed": "Kopyalanamadı"
+    }
+  },
+  "SnippetManager": {
+    "title": "Kod parçacığı yöneticisi",
+    "subtitle": "Parçacıkları tarayıcıda saklayın veya hesabınızla eşitlemek için oturum açın. Görüntüleme ve düzenleme arasında geçiş yapın, tek tıkla kopyalayın, dil seçin veya otomatik algılayın ve JSON, SQL veya Monaco destekli kodu biçimlendirin.",
+    "snippets": "Parçacıklar",
+    "newSnippet": "Yeni parçacık",
+    "newSnippetTitle": "Yeni parçacık",
+    "defaultSnippetTitle": "Hoş geldiniz",
+    "defaultSnippetCode": "// Kod parçacıklarına hoş geldiniz\n// Görüntüle vs düzenle, kopyala, biçimlendir ve otomatik dil deneyin\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Parçacık ara…",
+    "searchAria": "Parçacık ara",
+    "emptySearch": "Aramanızla eşleşen parçacık yok.",
+    "snippetTitle": "Başlık",
+    "snippetTitlePlaceholder": "Parçacık adı",
+    "language": "Dil",
+    "detectedHint": "Vurgulama: {lang}",
+    "badgeAuto": "Otomatik · {lang}",
+    "modeView": "Görüntüle",
+    "modeEdit": "Düzenle",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "format": "Biçimlendir",
+    "cancel": "İptal",
+    "deleteTitle": "Parçacık silinsin mi?",
+    "deleteDescription": "“{title}” bu tarayıcıdan kaldırılacak.",
+    "deleteConfirm": "Sil",
+    "editorAria": "Parçacık kod düzenleyici",
+    "editorLoading": "Düzenleyici yükleniyor…",
+    "toastCopied": "Panoya kopyalandı",
+    "toastCopyFailed": "Kopyalanamadı",
+    "toastNothingToCopy": "Kopyalanacak bir şey yok",
+    "toastFormatted": "Biçimlendirildi",
+    "toastFormatFailed": "Biçimlendirilemedi",
+    "toastFormatJsonInvalid": "Geçersiz JSON — önce sözdizimini düzeltin",
+    "toastFormatUnsupported": "Bu dil için biçimlendirici yok — JSON veya SQL deneyin ya da düzenleme modunu kullanın",
+    "toastDeleted": "Parçacık silindi",
+    "toastLoadFailed": "Parçacıklar sunucudan yüklenemedi.",
+    "toastSyncFailed": "Sunucu ile eşitleme başarısız oldu.",
+    "languages": {
+      "auto": "Otomatik algıla",
+      "plaintext": "Düz metin",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
+    }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL İstemcisi",
+      "dialogTitle": "SQL Bağlantıları",
+      "mobileSheetTitle": "SQL Gezgini",
+      "newTabLabel": "Yeni sorgu sekmesi",
+      "vaultLockedTitle": "Kasa kilitli",
+      "vaultLockedDesc": "Kayıtlı bağlantılara erişmek için kasanızı açın.",
+      "heroTitle": "SQL İstemcisi",
+      "heroDesc": "PostgreSQL, MySQL veya MariaDB'ye bağlanın. Kimlik bilgileri tarayıcınızda şifrelenir.",
+      "heroAddConnection": "Bağlantı ekle",
+      "selectTableTitle": "Bir tablo seçin veya sorgu sekmesi açın",
+      "selectTableDesc": "Kenar çubuğundan bir tabloya tıklayın veya ⌘↩ kullanın.",
+      "toastLoadFail": "Bağlantılar yüklenemedi."
+    },
+    "connection": {
+      "titleNew": "Yeni SQL Bağlantısı",
+      "titleEdit": "Bağlantıyı düzenle",
+      "labelDbType": "Veritabanı türü",
+      "labelName": "Bağlantı adı",
+      "placeholderName": "Üretim veritabanım",
+      "labelHostPort": "Host ve Port",
+      "labelDatabase": "Veritabanı",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Kullanıcı adı",
+      "labelPassword": "Parola",
+      "labelSsl": "SSL / TLS etkinleştir",
+      "sslDesc": "Sunucu bağlantısını şifrele",
+      "securityNote": "Kimlik bilgileri depolanmadan önce tarayıcıda AES-256 ile şifrelenir",
+      "btnTest": "Bağlantıyı test et",
+      "btnSave": "Kaydet ve bağlan",
+      "btnUpdate": "Güncelle",
+      "btnCancelEdit": "Düzenlemeyi iptal et",
+      "savedConnections": "Kayıtlı bağlantılar",
+      "emptySaved": "Kayıtlı bağlantılar burada görünecek",
+      "confirmDelete": "Bu bağlantı silinsin mi?",
+      "toastFillFields": "Test etmeden önce host ve veritabanını doldurun.",
+      "toastConnectOk": "Bağlandı! {version}",
+      "toastConnectFail": "Bağlantı başarısız: {message}",
+      "toastUnlockVault": "Önce kasanızı açın.",
+      "toastFieldsRequired": "Host ve veritabanı zorunludur.",
+      "toastUpdated": "Bağlantı güncellendi.",
+      "toastSaved": "Bağlantı kaydedildi.",
+      "toastSaveFail": "Kaydetme başarısız: {message}",
+      "toastDeleted": "Bağlantı silindi.",
+      "toastDeleteFail": "Bağlantı silinemedi."
+    },
+    "sidebar": {
+      "title": "SQL Gezgini",
+      "tooltipAddConnection": "Bağlantı ekle",
+      "tooltipRefreshSchema": "Şemayı yenile",
+      "noConnections": "Henüz kayıtlı bağlantı yok",
+      "toastSchemaFail": "Şema yüklenemedi: {message}"
+    },
+    "editor": {
+      "btnRun": "Çalıştır",
+      "executing": "Sorgu çalıştırılıyor…",
+      "emptyTitle": "Sonuçları görmek için sorgu çalıştırın",
+      "emptyHint": "⌘↩ basın veya Çalıştır'a tıklayın",
+      "toastNoConnection": "Aktif bağlantı yok."
+    },
+    "results": {
+      "filterPlaceholder": "Sonuçları filtrele…",
+      "rowCount": "{count} satır",
+      "rowCountFiltered": "{filtered} / {total} satır",
+      "exportCsv": "CSV",
+      "noRows": "Satır döndürülmedi"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "QR kod oluşturucu",
+    "subtitle": "Herhangi bir metni veya URL’yi PNG QR koda dönüştürün. İşlem tamamen tarayıcıda yerel olarak yapılır.",
+    "contentLabel": "İçerik",
+    "contentPlaceholder": "https://ornek.com, düz metin, Wi‑Fi dizesi, vCard…",
+    "styleLabel": "Stil",
+    "dotTypeLabel": "Nokta şekli",
+    "dotTypeSquare": "Kare",
+    "dotTypeDots": "Noktalar",
+    "dotTypeRounded": "Yuvarlatılmış",
+    "dotTypeExtraRounded": "Ekstra yuvarlatılmış",
+    "dotTypeClassy": "Zarif",
+    "dotTypeClassyRounded": "Zarif yuvarlatılmış",
+    "cornerSquareLabel": "Köşe kareleri",
+    "cornerSquareDot": "Nokta",
+    "cornerSquareSquare": "Kare",
+    "cornerSquareExtraRounded": "Ekstra yuvarlatılmış",
+    "cornerDotLabel": "Köşe noktaları",
+    "cornerDotDot": "Nokta",
+    "cornerDotSquare": "Kare",
+    "eccLabel": "Hata düzeltme",
+    "eccL": "Düşük (~%7)",
+    "eccM": "Orta (~%15)",
+    "eccQ": "Çeyrek (~%25)",
+    "eccH": "Yüksek (~%30)",
+    "marginLabel": "Kenar boşluğu (modül)",
+    "widthLabel": "Görüntü genişliği",
+    "widthEffective": "{px} px olarak oluşturulur",
+    "darkColor": "Koyu modüller",
+    "lightColor": "Açık modüller",
+    "resetColors": "Renkleri sıfırla",
+    "logoLabel": "Orta logo",
+    "logoMarginLabel": "Boşluk",
+    "uploadLogo": "Resim yükle",
+    "removeLogo": "Logoyu kaldır",
+    "downloadPng": "PNG indir",
+    "downloadSvg": "SVG indir",
+    "copyImage": "Görüntüyü kopyala",
+    "copied": "Kopyalandı",
+    "clear": "Temizle",
+    "previewAlt": "QR kod önizlemesi",
+    "emptyHint": "Önizleme için içerik yazın veya yapıştırın.",
+    "filename": "qr-kod.png",
+    "errors": {
+      "generationFailed": "QR kod oluşturulamadı. Daha kısa metin veya daha düşük düzeltme deneyin.",
+      "copyUnsupported": "Tarayıcı görüntüyü panoya kopyalamayı desteklemiyor.",
+      "copyFailed": "Panoya kopyalanamadı."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "IP / alt ağ hesaplayıcı",
+    "subtitle": "IPv4 ve IPv6 CIDR ayrıntıları tarayıcıda—dış istek yok.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Ağ",
+    "placeholderIpv4": "10.0.0.0/24 veya 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 veya 2001:db8::1/64",
+    "hintIpv4": "CIDR (ör. /24) veya noktalı alt ağ maskesi ile IPv4 kullanın.",
+    "hintIpv6": "Önek uzunluğunu ekleyin (ör. /64). Yoksa /128 varsayılır.",
+    "copyValue": "Değeri kopyala",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Ağ adresi",
+      "netmask": "Alt ağ maskesi",
+      "wildcard": "Wildcard maskesi",
+      "broadcast": "Yayın",
+      "firstHost": "İlk ana bilgisayar",
+      "lastHost": "Son ana bilgisayar",
+      "totalAddresses": "Toplam adres",
+      "usableHosts": "Kullanılabilir ana bilgisayar",
+      "prefixLength": "Önek uzunluğu (bit)",
+      "networkIpv6": "Ağ adresi",
+      "lastIpv6": "Aralıktaki son adres",
+      "totalAddressesIpv6": "Alt ağdaki adresler"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 noktadan noktaya bağlantılar her iki adresi de ana bilgisayar olarak kullanır (RFC 3021).",
+      "singleHost": "/32 tek ana bilgisayardır."
+    },
+    "ipv6RangeHint": {
+      "normal": "Tam matematiksel aralık gösterilir; yönlendirici kuralları farklı olabilir.",
+      "single": "/128 tek adrestir.",
+      "full": "/0 tüm IPv6 kapsar."
+    },
+    "errors": {
+      "invalidIpv4": "Geçersiz IPv4 ağı. CIDR veya adres + maske deneyin.",
+      "invalidIpv6": "Geçersiz IPv6 ağı. Örn. 2001:db8::/48 biçimini kullanın."
+    }
+  },
+  "HashGenerator": {
+    "title": "Hash oluşturucu",
+    "subtitle": "Metin veya dosyalar için MD5, SHA-1 ve SHA-2 özetleri; parolalar için bcrypt (metin girişi). Tümü tarayıcıda yerel olarak hesaplanır.",
+    "algorithmLabel": "Algoritma",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Metin",
+    "modeFile": "Dosya",
+    "inputLabelText": "Girdi",
+    "placeholderText": "Metin yazın veya yapıştırın…",
+    "chooseFile": "Dosya seç",
+    "clearFile": "Temizle",
+    "fileHint": "Dosyalar yalnızca bellekte okunur; en fazla {maxMb} MB. Yükleme yok.",
+    "outputLabel": "Özet (hex)",
+    "copyHash": "Özeti kopyala",
+    "copied": "Kopyalandı",
+    "byteCount": "{count, plural, one {# bayt} other {# bayt}}",
+    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
+    "emptyHint": "Metin girin veya dosya seçin.",
+    "securityNote": "Yeni güvenlik kullanımları için MD5 ve SHA-1 önerilmez; SHA-256 veya SHA-512 kullanın.",
+    "errors": {
+      "fileTooLarge": "Dosya {maxMb} MB’den büyük.",
+      "fileReadFailed": "Dosya okunamadı."
+    },
+    "bcryptRoundsLabel": "Maliyet (tur)",
+    "bcryptRoundsHint": "Daha yüksek değerler daha yavaş ve kaba kuvvete daha dayanıklıdır. Yaygın varsayılan 10’dur.",
+    "fileTabDisabledTitle": "bcrypt yalnızca metinden parolaları özetler; rastgele dosyaları değil.",
+    "placeholderBcrypt": "Özetlemek için parola yazın veya yapıştırın…",
+    "outputLabelBcrypt": "bcrypt özeti",
+    "copyBcrypt": "Özeti kopyala",
+    "emptyHintBcrypt": "bcrypt özeti hesaplamak için parola girin.",
+    "securityNoteBcrypt": "Her bcrypt çıktısı rastgele tuz içerir; aynı parola her seferinde farklı bir dize üretir. Bu beklenendir. Üretimde yüksek maliyet kullanın.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "EncryptionPlayground": {
+    "title": "Şifreleme oyun alanı",
+    "subtitle": "Tarayıcıda AES-GCM: parola veya ham anahtarla JSON paketine şifreleyin, yerel olarak çözün. Öğretici ve bazen pratik — hiçbir şey yüklenmez.",
+    "tabEncrypt": "Şifrele",
+    "tabDecrypt": "Şifreyi çöz",
+    "keyModeLabel": "Anahtar malzemesi",
+    "modePassphrase": "Parola (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Ham AES anahtarı (hex veya Base64)",
+    "aesBitsLabel": "AES anahtar uzunluğu",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Ham anahtar kodlaması",
+    "encodingAuto": "Otomatik (hex gibi görünüyorsa hex, değilse Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Ham anahtar",
+    "rawKeyPlaceholder": "AES-256 için 32 bayt anahtar: 64 hex karakter veya Base64 (uzunluk yukarıdaki AES boyutuna bağlı).",
+    "rawKeyPlaceholderDecrypt": "Yalnızca pakette keyDerivation \"none\" ise gerekli.",
+    "passphraseLabel": "Parola",
+    "passphrasePlaceholder": "Parola yalnızca tarayıcıda anahtar türetmek için kullanılır.",
+    "passphrasePlaceholderDecrypt": "Yalnızca paket PBKDF2-SHA256 kullanıyorsa gerekli.",
+    "pbkdf2IterLabel": "PBKDF2 yinelemeleri",
+    "pbkdf2Hint": "10.000 ile 2.000.000 arasında. Varsayılan, yaygın kasa ayarlarıyla uyumludur.",
+    "plaintextLabel": "Düz metin",
+    "plaintextPlaceholder": "Şifrelenecek iletiyi yazın veya yapıştırın…",
+    "bundleInputLabel": "Şifreli paket (JSON)",
+    "bundlePlaceholder": "Şifrele’den JSON yapıştırın (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Şifreli paket",
+    "plaintextOutputLabel": "Düz metin",
+    "encryptButton": "Şifrele",
+    "decryptButton": "Şifreyi çöz",
+    "copyBundle": "JSON kopyala",
+    "copyPlaintext": "Düz metni kopyala",
+    "copied": "Kopyalandı",
+    "emptyBundleHint": "Şifrelemeden sonra şifreli JSON burada görünür.",
+    "emptyDecryptHint": "Çözülmüş metin burada görünür.",
+    "decryptKeyHint": "keyDerivation \"none\" ise ham anahtarı; PBKDF2-SHA256 ise parolayı kullanın. Paket tuz, yineleme, IV ve AES uzunluğunu saklar.",
+    "securityNote": "Anahtarlar ve düz metin tarayıcınızdan çıkmaz. Üretim sırları için özel araçlar tercih edin.",
+    "errors": {
+      "emptyKey": "AES boyutuna uyan bir ham anahtar girin.",
+      "emptyPassphrase": "Bir parola girin.",
+      "badKeyMaterial": "Anahtar hex veya Base64 olarak okunamadı.",
+      "wrongKeyLength": "Anahtar uzunluğu AES ile eşleşmiyor (16 / 24 / 32 bayt).",
+      "invalidJson": "Geçerli bir JSON değil.",
+      "invalidBundle": "Bu JSON desteklenen bir şifre paketi değil.",
+      "decryptFailed": "Şifre çözme başarısız — yanlış gizli, bozuk paket veya uyumsuz parametreler.",
+      "encryptFailed": "Şifreleme başarısız. Web Crypto ve girdileri kontrol edin."
+    }
+  },
+  "HmacGenerator": {
+    "title": "HMAC oluşturucu",
+    "subtitle": "Webhook imzalamak ve API entegrasyonlarını test etmek için. HMAC-SHA1/256/384/512 hex veya Base64—tarayıcıda yerel hesaplanır.",
+    "secretLabel": "Gizli anahtar",
+    "messageLabel": "İleti / yük",
+    "placeholderSecret": "İmzalama sırrını yapıştırın…",
+    "placeholderMessage": "Doğrulanacak ham gövde veya dizeyi yapıştırın (genelde webhook gövdesinin tam baytları).",
+    "algorithmLabel": "HMAC algoritması",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Çıktı biçimi",
+    "formatHex": "Hex (küçük harf)",
+    "formatBase64": "Base64",
+    "outputLabel": "İmza",
+    "copyOutput": "İmzayı kopyala",
+    "copied": "Kopyalandı",
+    "byteCountHint": "{count, plural, one {# bayt} other {# bayt}} (UTF-8)",
+    "emptyHint": "HMAC hesaplamak için gizli anahtar girin.",
+    "securityNote": "İmzalama sırrını asla paylaşmayın. Bu sayfa veri yüklemez—her şey tarayıcıda çalışır.",
+    "errors": {
+      "cryptoFailed": "HMAC hesaplanamadı. Web Crypto desteğini kontrol edip yeniden deneyin.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "TotpGenerator": {
+    "title": "TOTP / 2FA kod üreticisi",
+    "subtitle": "Base32 gizli anahtarı yapıştırın ve güncel altı haneli RFC 6238 kodunu (SHA-1, 30 sn) alın. Tamamen tarayıcıda çalışır—oturum açma veya MFA testleri için uygundur.",
+    "secretLabel": "Gizli anahtar (Base32)",
+    "placeholderSecret": "Gizli anahtarı yapıştırın (A–Z harfleri ve 2–7 rakamları, doğrulayıcı kurulumunda gösterildiği gibi)…",
+    "codeLabel": "Güncel kod",
+    "copyCode": "Kodu kopyala",
+    "copied": "Kopyalandı",
+    "nextIn": "{seconds} sn içinde yenilenir",
+    "standardHint": "30 sn zaman adımı, 6 hane, HMAC-SHA-1 (Google Authenticator ile uyumlu).",
+    "digitsLabel": "Hane",
+    "periodLabel": "Süre",
+    "algorithmLabel": "Algoritma",
+    "periodSeconds": "{seconds} sn",
+    "emptyHint": "Altı haneli kod için gizli anahtarı yapıştırın.",
+    "invalidHint": "Kodu görmek için gizli anahtarı düzeltin.",
+    "securityNote": "Bunu parola gibi koruyun. Gizli anahtar tarayıcıdan çıkmaz; hiçbir şey yüklenmez.",
+    "importLabel": "otpauth:// URI'sinden içe aktar",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "İçe aktar",
+    "qrSectionTitle": "Sağlama QR kodu",
+    "qrHint": "Bu gizli anahtarı eklemek için bir kimlik doğrulayıcı uygulamasıyla (Google Authenticator, 1Password, Aegis…) tarayın. QR kodu gizli anahtarı kodlar — onu bir parola gibi ele alın.",
+    "accountLabel": "Hesap",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Veren (isteğe bağlı)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "QR kodu oluşturmak için geçerli bir gizli anahtar girin.",
+    "errors": {
+      "invalidSecret": "Geçerli bir Base32 gizli anahtar değil.",
+      "cryptoFailed": "TOTP hesaplanamadı. Web Crypto desteğini kontrol edip tekrar deneyin.",
+      "invalidUri": "Bu geçerli bir otpauth:// TOTP URI'si değil.",
+      "unsupportedUri": "Bu URI, aracın desteklemediği değerler kullanıyor (basamak sayısı 6 veya 8 olmalı; periyot 15, 30 veya 60 sn)."
+    }
+  },
+  "MarkdownPreview": {
+    "title": "Markdown Önizleme & HTML",
+    "subtitle": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer. Her şey tarayıcınızda çalışır.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Markdown girişi",
+    "htmlInputLabel": "HTML girişi",
+    "previewLabel": "Önizleme",
+    "htmlOutputLabel": "HTML kaynağı",
+    "mdOutputLabel": "Markdown çıktısı",
+    "inputPlaceholder": "# Merhaba\\n\\n**markdown**'ınızı buraya yazın…",
+    "htmlInputPlaceholder": "HTML'inizi buraya yapıştırın…",
+    "copyHtml": "HTML'yi Kopyala",
+    "copyMarkdown": "Markdown'ı Kopyala",
+    "exportHtml": "HTML'yi Dışa Aktar",
+    "copied": "Kopyalandı",
+    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
+    "emptyHint": "Canlı önizleme ve HTML çıktısını görmek için Markdown yazmaya başlayın.",
+    "emptyHintHtmlToMd": "HTML'yi Markdown'a dönüştürmek için yapıştırın.",
+    "securityNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "NumberBaseConverter": {
+    "title": "Sayı tabanı dönüştürücü",
+    "subtitle": "2–36 tabanları arasında tam sayı dönüşümü. İsteğe bağlı 0x / 0b / 0o önekleri. Tümü tarayıcıda yerel.",
+    "inputBaseLabel": "Kaynak taban",
+    "outputBaseLabel": "Hedef taban",
+    "inputLabel": "Girdi sayısı",
+    "placeholderInput": "Seçilen giriş tabanında bir tam sayı girin…",
+    "outputLabel": "Dönüştürülen değer",
+    "copyOutput": "Sonucu kopyala",
+    "copied": "Kopyalandı",
+    "swap": "Tabanları değiştir",
+    "byteCountHint": "{count, plural, one {# bayt} other {# bayt}} (UTF-8 uzunluğu)",
+    "emptyHint": "Dönüştürmek için bir sayı girin.",
+    "note": "9’dan büyük basamaklar A–Z harflerini kullanır (büyük/küçük harf duyarsız). Boşluk ve alt çizgi yok sayılır.",
+    "errors": {
+      "invalidNumber": "Seçilen giriş tabanı için geçersiz değer."
+    }
+  },
+  "FormatConverter": {
+    "title": "Format Dönüştürücü",
+    "subtitle": "JSON, YAML, TOML ve XML arasında her yönde dönüştürün. 12 kombinasyonun tamamı. Her şey tarayıcınızda çalışır.",
+    "fromLabel": "Kaynak",
+    "toLabel": "Hedef",
+    "swap": "Değiştir",
+    "swapTitle": "Formatları değiştirin ve çıktıyı girdi olarak kullanın",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
+    "emptyHint": "Dönüştürülmüş çıktıyı görmek için solda girdinizi yapıştırın veya yazın.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "MimeTypeLookup": {
+    "title": "MIME türü arama",
+    "subtitle": "Dosya uzantısına veya tam dosya adına göre MIME türünü (media type) bulun. Her şey tarayıcınızda yerel olarak çalışır.",
+    "inputLabel": "Uzantı veya dosya adı",
+    "placeholder": "örn. .png, package.json, photo.jpeg",
+    "hint": "İpucu: bir uzantı (noktalı/noktasıız) veya tam dosya adı yapıştırın.",
+    "clear": "Temizle",
+    "exampleFilename": "Örnek dosya adı kullan",
+    "exampleExtension": "Örnek uzantı kullan",
+    "resultLabel": "Sonuç",
+    "normalizedLabel": "Normalize edilmiş giriş:",
+    "mimeTypeLabel": "MIME türü",
+    "contentTypeLabel": "Content-Type başlığı",
+    "charsetLabel": "Karakter kümesi",
+    "copyMimeType": "MIME türünü kopyala",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "emptyHint": "MIME türünü bulmak için bir uzantı veya dosya adı girin.",
+    "notFound": "Bu giriş için MIME türü bulunamadı.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "UserAgentParser": {
+    "title": "User-Agent ayrıştırıcı",
+    "subtitle": "Bir User-Agent (UA) dizesi yapıştırın ve tarayıcı, işletim sistemi, motor, cihaz ve CPU detaylarını görün. Her şey tarayıcınızda yerel olarak çalışır.",
+    "inputLabel": "User-Agent dizesi",
+    "placeholder": "User-Agent'i buraya yapıştırın…",
+    "hint": "İpucu: UA’yı istek başlıklarından, loglardan veya tarayıcı devtools’tan kopyalayabilirsiniz.",
+    "clear": "Temizle",
+    "exampleDesktop": "Masaüstü örneği kullan",
+    "exampleMobile": "Mobil örnek kullan",
+    "resultLabel": "Detaylar",
+    "browserLabel": "Tarayıcı",
+    "osLabel": "İşletim sistemi",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Cihaz türü",
+    "deviceVendorLabel": "Üretici",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "CPU mimarisi",
+    "copyJson": "JSON'u kopyala",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "emptyHint": "Detayları görmek için bir User-Agent dizesi yapıştırın.",
+    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
+  },
+  "MockDataGenerator": {
+    "title": "Sahte veri üreticisi",
+    "subtitle": "Sütunları tanımlayın, veri türlerini seçin ve tohum, Postman veya test için dışa aktarın. En fazla {max} satır, hepsi tarayıcıda — yükleme yok.",
+    "mockarooLink": "Mockaroo tarzı akış",
+    "rowsLabel": "Satırlar",
+    "rowsHint": "Sekmeyi akıcı tutmak için oluşturma başına en fazla {max} satır.",
+    "formatLabel": "Biçim",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "SQL tablo adı",
+    "presetsLabel": "Ön ayarlar",
+    "presetPlaceholder": "Ön ayar yükle…",
+    "presetDefault": "Başlangıç (kullanıcı)",
+    "presetUsers": "Kullanıcılar ve roller",
+    "presetProducts": "E-ticaret SKU’ları",
+    "presetApiLog": "HTTP istek günlüğü",
+    "generate": "Oluştur",
+    "warningDuplicateNames": "Yinelenen sütun adları: JSON nesnelerinde sonraki sütunlar öncekilerin üzerine yazar. Yeniden adlandırın.",
+    "schemaHeading": "Şema",
+    "addField": "Sütun ekle",
+    "removeField": "Sütunu kaldır",
+    "duplicateField": "Sütunu çoğalt",
+    "colName": "Ad",
+    "colType": "Tür",
+    "colOptions": "Seçenekler",
+    "colBlank": "Boş %",
+    "optMin": "min",
+    "optMax": "maks",
+    "optDecimals": "ond",
+    "optDateFrom": "başlangıç",
+    "optDateTo": "bitiş",
+    "optValues": "a, b, c",
+    "optStep": "adım",
+    "optRowBase": "taban",
+    "output": "Çıktı",
+    "outputPlaceholder": "Veri oluşturmak için Oluştur’a tıklayın…",
+    "copy": "Kopyala",
+    "download": "İndir",
+    "copied": "Kopyalandı",
+    "groups": {
+      "personal": "Kişisel",
+      "location": "Konum",
+      "internetApi": "İnternet ve API",
+      "numbersIds": "Sayılar ve kimlikler",
+      "dateTime": "Tarih ve saat",
+      "textDesign": "Metin ve tasarım",
+      "custom": "Özel"
+    },
+    "fieldTypes": {
+      "first_name": "Ad",
+      "last_name": "Soyad",
+      "full_name": "Ad soyad",
+      "email": "Email",
+      "username": "Kullanıcı adı",
+      "password": "Parola",
+      "phone": "Telefon",
+      "company": "Şirket",
+      "job_title": "Ünvan",
+      "avatar_url": "Avatar URL’si",
+      "city": "Şehir",
+      "country": "Ülke",
+      "country_code": "Ülke kodu (ISO)",
+      "street_address": "Adres",
+      "zip_code": "Posta kodu",
+      "latitude": "Enlem",
+      "longitude": "Boylam",
+      "url": "URL",
+      "domain": "Alan adı",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Tam sayı",
+      "float": "Ondalık",
+      "boolean": "Mantıksal",
+      "uuid": "UUID",
+      "credit_card": "Test kartı",
+      "semver": "SemVer",
+      "row_index": "Satır dizini",
+      "sequence": "Dizi",
+      "date": "Tarih",
+      "datetime": "Tarih ve saat",
+      "unix_timestamp": "Unix zaman damgası",
+      "timezone": "Saat dilimi",
+      "word": "Kelime",
+      "sentence": "Cümle",
+      "paragraph": "Paragraf",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Para birimi kodu",
+      "language_code": "Dil etiketi",
+      "custom_list": "Özel liste"
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
+  },
+  "SvgOptimizer": {
+    "title": "SVG Optimize",
+    "subtitle": "SVG yapıştırın, tarayıcıda SVGO ile küçültün ve UTF-8 boyutunu önce/sonra karşılaştırın.",
+    "inputLabel": "Girdi",
+    "outputLabel": "Optimize",
+    "placeholder": "<svg>…</svg> parçası veya tüm dosyayı yapıştırın…",
+    "outputPlaceholder": "Optimize SVG burada görünür…",
+    "chars": "{count} karakter • {bytes} bayt (UTF-8)",
+    "preview": "Önizleme",
+    "localNote": "İşlem tamamen tarayıcıda yerel. Hiçbir şey yüklenmez.",
+    "stats": {
+      "title": "Boyut (UTF-8)",
+      "before": "Önce",
+      "after": "Sonra",
+      "savedBytes": "{count} bayt tasarruf ({percent}%)",
+      "noChange": "Azalma yok — zaten minimal veya boş çıktı."
+    },
+    "actions": {
+      "clear": "Temizle",
+      "sample": "Örnek yükle",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı",
+      "download": "İndir"
+    },
+    "errors": {
+      "optimizeFailed": "Bu SVG optimize edilemedi."
+    }
+  },
+  "UnitConverter": {
+    "title": "Birim Dönüştürücü",
+    "subtitle": "<strong>43 kategori</strong>de <strong>323 birim</strong> arasında dönüştürün",
+    "category": "Kategori",
+    "from": "Kaynak",
+    "to": "Hedef",
+    "value": "Değer",
+    "result": "Sonuç",
+    "swapUnits": "Birimleri değiştir",
+    "placeholder": "Değer girin",
+    "copyResult": "Sonucu kopyala",
+    "searchCategory": "Kategori ara...",
+    "selectCategory": "Bir kategori seçin",
+    "noResults": "Kategori bulunamadı."
+  },
+  "DockerComposeGenerator": {
+    "title": "Docker Compose Oluşturucu",
+    "subtitle": "Popüler veritabanları, önbellek, mesaj kuyrukları, ters proxy ve gözlemlenebilirlik seçin — yerel geliştirme için hazır docker-compose.yml kopyalayın.",
+    "searchPlaceholder": "Ara (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Hizmetler",
+    "selectedCount": "{count, plural, one {# hizmet} other {# hizmet}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "download": "İndir",
+    "emptyState": "Compose YAML üretmek için bir veya daha fazla hizmet seçin.",
+    "hintPorts": "Varsayılan ana bilgisayar bağlantı noktaları çakışmaları azaltır; Docker bağlama hatası verirse değiştirin. Paylaşılan ortamlardan önce demo parolalarını değiştirin.",
+    "categories": {
+      "databases": "Veritabanları ve depolar",
+      "cache": "Önbellek ve bellek içi",
+      "queues": "Kuyruklar ve mesajlaşma",
+      "search": "Arama ve günlükler",
+      "storage": "Nesne depolama",
+      "proxy": "Ters proxy ve ingress",
+      "observability": "Metrikler ve izleme",
+      "mail": "E-posta (yerel geliştirme)",
+      "admin": "Yönetim ve BI arayüzleri"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Temizle"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (Redis uyumlu)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (Kafka uyumlu)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (S3 uyumlu)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (SMTP yakalama)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (geliştirme sunucusu)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "2048 'e ulaşmak için döşemeleri kaydır ve birleştir",
+    "score": "Not",
+    "best": "En iyi",
+    "newGame": "Yeni oyun",
+    "howToPlay": "Taşları taşımak için ok tuşlarını kullanın (veya mobil cihazlarda kaydırın). Aynı sayıdaki döşemeler birleşir. Kazanmak için 2048 'e ulaş!",
+    "youWin": "2048 'e ulaştınız!",
+    "keepGoing": "Devam Et",
+    "gameOver": "Oyun bitti",
+    "tryAgain": "Tekrar Deneyin",
+    "gameOverMessage": "Başka hamle kalmadı.",
+    "undo": "Geri al"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "tamamlanan aşamalar",
+    "time": "Zaman",
+    "best": "En iyi",
+    "difficulty": {
+      "easy": "Basit ",
+      "medium": "Orta",
+      "hard": "Zor"
+    },
+    "stage": "Aşama",
+    "solved": "Çözüldü",
+    "score": "Not",
+    "nextStage": "Bir Sonraki Aşama",
+    "replay": "Tekrar Oynayın",
+    "erase": "Sil",
+    "howToPlay": "Bir hücreye tıklayın, ardından bir numaraya dokunun veya 1 -9 'a basın. Backspace veya Delete hücreyi temizler. Cesur sayılar ipucudur. Gridi doldurun, böylece her satır, sütun ve 3×3 kutu tekrarsız 1 -9 içerir.",
+    "pencil": "Kalem",
+    "undo": "Geri Al",
+    "hint": "İpucu",
+    "hintsUsed": "ipucu kullanıldı",
+    "mistakes": "Hatalar",
+    "failed": "Başarısız!",
+    "mistakeMode": "3-hata modu"
+  },
+  "Snake": {
+    "title": "Yılan",
+    "subtitle": "Yemek ye, büyü, duvarlardan ve kendinden kaçın",
+    "score": "Puan",
+    "best": "En İyi",
+    "startPrompt": "Herhangi bir ok tuşuna basın",
+    "startButton": "Oyunu Başlat",
+    "gameOver": "Oyun Bitti",
+    "playAgain": "Tekrar Oyna",
+    "howToPlay": "Ok tuşlarını veya WASD'ı kullan. Büyümek için ye. Hız her 50 puanda artar.",
+    "diffEasy": "Kolay",
+    "diffNormal": "Normal",
+    "diffHard": "Zor",
+    "diffInfinite": "Sonsuz",
+    "orTap": "veya aşağıya dokun",
+    "howToPlayInfinite": "Duvarlar sarılır — duvar ölümü yok. Büyümek için ye.",
+    "shieldActive": "Kalkan aktif",
+    "speedBoost": "Hız artışı",
+    "powerSpeed": "Hız x2",
+    "powerShield": "Bir ölümden kurtar",
+    "powerShrink": "Kuyruğu kısalt"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Redis Bağlantıları",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Redis örneklerine bağlanın. Anahtarlara göz atın, değerleri düzenleyin ve komutlar çalıştırın. Kimlik bilgileri tarayıcınızda şifrelenir.",
+      "heroAddConnection": "Bağlantı Ekle",
+      "vaultLockedTitle": "Kasa kilitli",
+      "vaultLockedDesc": "Kayıtlı bağlantılara erişmek için kasanızı açın."
+    }
+  },
+  "Minesweeper": {
+    "title": "Mayın Tarlası",
+    "subtitle": "Bir mayına basmadan tüm güvenli hücreleri bulun",
+    "mines": "Mayınlar",
+    "newGame": "Yeni oyun",
+    "win": "Kazandınız!",
+    "loss": "Kaybettiniz!",
+    "playAgain": "Tekrar oyna",
+    "tryAgain": "Tekrar dene",
+    "startPrompt": "Başlamak için herhangi bir hücreye tıklayın",
+    "difficulty": {
+      "beginner": "Başlangıç",
+      "intermediate": "Orta",
+      "expert": "Uzman"
+    }
+  },
+  "Tetris": {
+    "title": "Tetris",
+    "subtitle": "Düşen blokları sıralara yerleştirerek tamamlayın",
+    "next": "Sıradaki",
+    "score": "Puan",
+    "best": "En iyi",
+    "lines": "Satırlar",
+    "level": "Seviye",
+    "pause": "Duraklat",
+    "resume": "Devam et",
+    "start": "Başla",
+    "restart": "Yeniden başla",
+    "paused": "Duraklatıldı",
+    "gameOver": "Oyun bitti"
+  },
+  "SshKeyGenerator": {
+    "title": "SSH / RSA Anahtar Oluşturucu",
+    "subtitle": "Tarayıcınızda Ed25519 veya RSA anahtar çiftleri oluşturun. Özel ve genel anahtarları OpenSSH ve PEM formatlarında indirin. Hiçbir şey yüklenmez.",
+    "keyTypeLabel": "Anahtar Türü",
+    "recommended": "önerilen",
+    "ed25519Desc": "Hızlı, küçük ve modern. GitHub, GitLab ve tüm büyük SSH sunucuları tarafından desteklenir.",
+    "rsa2048Desc": "Geniş uyumluluk. Çoğu kullanım için güvenli.",
+    "rsa4096Desc": "Eski sistemler için maksimum uyumluluk ve güç.",
+    "commentLabel": "Yorum (isteğe bağlı)",
+    "commentHint": "OpenSSH genel anahtar satırına eklenir.",
+    "generateBtn": "Anahtar Çifti Oluştur",
+    "generating": "Oluşturuluyor…",
+    "generatingLong": "Oluşturuluyor (biraz zaman alabilir)…",
+    "copy": "Kopyala",
+    "download": "İndir",
+    "privateKeyLabel": "Özel Anahtar (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Genel Anahtar (OpenSSH formatı)",
+    "publicKeySpkiLabel": "Genel Anahtar (SPKI PEM)",
+    "browserNote": "Tüm anahtarlar tarayıcınızda oluşturulur. Hiçbir şey herhangi bir sunucuya gönderilmez.",
+    "errors": {
+      "generationFailed": "Anahtar oluşturma başarısız"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS Sorgulama",
+    "subtitle": "Herhangi bir alan adı için DNS kayıtlarını sorgulayın — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Alan adını girin (ör. github.com)",
+    "lookupBtn": "Sorgula",
+    "looking": "Sorgulanıyor…",
+    "refreshBtn": "Yenile",
+    "recordTypesLabel": "Kayıt türleri",
+    "allBtn": "Tümü",
+    "tryLabel": "Dene:",
+    "errors": {
+      "lookupFailed": "DNS sorgusu başarısız"
+    }
+  },
+  "CurlToCode": {
+    "title": "cURL to Code",
+    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "panels": {
+      "input": "curl command",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a curl command here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated request code will appear here…"
+  },
+  "JsonToCode": {
+    "title": "JSON to Code",
+    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "panels": {
+      "input": "JSON input",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a sample JSON object here…",
+    "rootName": "Root name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated type models will appear here…"
+  },
+  "JsonVisualizer": {
+    "title": "JSON Visualizer",
+    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "panels": {
+      "input": "JSON input",
+      "graph": "Graph"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste or type JSON here…",
+    "searchPlaceholder": "Search keys & values",
+    "prevMatch": "Previous match",
+    "nextMatch": "Next match",
+    "nodeCount": "{count} nodes",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitView": "Fit to view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "export": "Export",
+    "exportPng": "PNG image",
+    "exportSvg": "SVG image",
+    "copyPath": "Copy path",
+    "copyValue": "Copy value",
+    "pathCopied": "Path copied",
+    "valueCopied": "Value copied",
+    "viewTable": "View as table",
+    "tableTitle": "Table view",
+    "locateInText": "Locate in text",
+    "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
+    "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
+    "emptyState": "Paste JSON in the input to see it as an interactive graph."
+  },
+  "BeautifyMinify": {
+    "title": "Beautify & Minify",
+    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "langLabel": "Language",
+    "actionLabel": "Action",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "bytes": "{count} bytes",
+    "clear": "Clear",
+    "placeholder": "Paste code here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Formatted output will appear here…"
+  },
+  "StringCaseConverter": {
+    "title": "String Case Converter",
+    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "panels": {
+      "input": "Input",
+      "output": "Case variants"
+    },
+    "wordCount": "{count} words",
+    "clear": "Clear",
+    "placeholder": "Type or paste text to convert…",
+    "copyTitle": "Copy to clipboard",
+    "emptyHint": "—"
+  },
+  "LineSortDedupe": {
+    "title": "Line Sort & Dedupe",
+    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "opts": {
+      "sort": "Sort",
+      "dedupe": "Remove duplicates",
+      "removeEmpty": "Remove empty lines",
+      "trim": "Trim lines",
+      "caseInsensitive": "Case-insensitive"
+    },
+    "sortModes": {
+      "none": "No sort",
+      "asc": "Ascending (A–Z)",
+      "desc": "Descending (Z–A)",
+      "natural": "Natural (numeric)",
+      "length": "By length",
+      "reverse": "Reverse order"
+    },
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "lineCount": "{count} lines",
+    "clear": "Clear",
+    "placeholder": "Paste lines here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Processed lines will appear here…"
+  },
+  "StringInspector": {
+    "title": "String Inspector",
+    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "panels": {
+      "input": "Input"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text to inspect…",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "No spaces",
+      "words": "Words",
+      "lines": "Lines",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "bytes": "Bytes (UTF-8)",
+      "utf16": "UTF-16 units",
+      "letters": "Letters",
+      "digits": "Digits",
+      "whitespace": "Whitespace",
+      "punctuation": "Punctuation",
+      "readingTime": "Reading time"
+    },
+    "specialTitle": "Special & non-ASCII characters",
+    "noSpecial": "No special or non-ASCII characters found.",
+    "specialEmpty": "Special characters will be listed here…",
+    "cols": {
+      "codepoint": "Code point",
+      "name": "Name",
+      "count": "Count"
+    },
+    "nonAscii": "Non-ASCII character"
+  },
+  "EscapeEncode": {
+    "title": "Escape / Encode",
+    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "modeLabel": "Mode",
+    "modes": {
+      "html": "HTML Entities",
+      "backslash": "Backslash (JS / JSON string)",
+      "hex": "Hex ↔ ASCII",
+      "unicode": "Unicode \\uXXXX"
+    },
+    "directionLabel": "Direction",
+    "encode": "Encode",
+    "decode": "Decode",
+    "swap": "Swap",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Bcrypt Üretici ve Doğrulayıcı",
+    "subtitle": "Parolaları bcrypt ile hash'leyin ve hash'leri doğrulayın — her şey tarayıcınızda kalır",
+    "tabs": {
+      "hash": "Hash'le",
+      "verify": "Doğrula"
+    },
+    "showPassword": "Parolayı göster",
+    "hidePassword": "Parolayı gizle",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "hash": {
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "Hash'lenecek bir parola girin…",
+      "costLabel": "Maliyet faktörü",
+      "costHint": "Daha yüksek maliyet, her adımdaki işi ikiye katlar. Üretim için genellikle 10-12 tercih edilir.",
+      "slowWarning": "13 ve üzeri maliyet faktörlerinin hesaplanması birkaç saniye sürebilir.",
+      "generate": "Hash oluştur",
+      "generating": "Hash'leniyor…",
+      "resultLabel": "Bcrypt hash'i",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Hash anatomisi",
+        "algorithm": "algoritma",
+        "cost": "maliyet",
+        "salt": "salt (22 karakter)",
+        "hash": "hash (31 karakter)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Parola",
+      "passwordPlaceholder": "Kontrol edilecek parolayı girin…",
+      "hashLabel": "Bcrypt hash'i",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Karşılaştırmak için bir parola ve bir bcrypt hash'i girin.",
+      "invalidHash": "Bu, geçerli bir bcrypt hash'i gibi görünmüyor.",
+      "checking": "Karşılaştırılıyor…",
+      "match": "Eşleşti — parola bu hash'i üretiyor.",
+      "noMatch": "Eşleşmedi — parola bu hash'i üretmiyor."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Chmod Hesaplayıcı",
+    "subtitle": "Unix dosya izinlerini onay kutuları, sekizlik ve sembolik gösterim arasında dönüştürün",
+    "grid": {
+      "title": "İzinler",
+      "read": "Okuma",
+      "write": "Yazma",
+      "execute": "Çalıştırma",
+      "owner": "Sahip",
+      "group": "Grup",
+      "others": "Diğerleri"
+    },
+    "special": {
+      "title": "Özel bitler",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "Sekizlik",
+      "placeholder": "755 veya 4755",
+      "invalid": "3 veya 4 sekizlik basamak girin (0-7)."
+    },
+    "symbolic": {
+      "label": "Sembolik",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "rwxr-xr-x gibi 9 karakter girin (s/S, t/T kabul edilir)."
+    },
+    "output": {
+      "title": "Komut",
+      "copy": "Kopyala",
+      "copied": "Kopyalandı"
+    },
+    "explain": {
+      "line": "{cls} şunları yapabilir: {perms}.",
+      "none": "{cls} hiçbir izne sahip değil.",
+      "setuid": "setuid: dosya, sahibinin ayrıcalıklarıyla çalışır.",
+      "setgid": "setgid: dosya, grubunun ayrıcalıklarıyla çalışır (bir dizindeki yeni dosyalar onun grubunu devralır).",
+      "sticky": "sticky: bu dizin içindeki bir dosyayı yalnızca sahibi silebilir veya yeniden adlandırabilir."
+    },
+    "presets": {
+      "title": "Yaygın ön ayarlar",
+      "octal": "Sekizlik",
+      "permissions": "İzinler",
+      "description": "Tipik kullanım",
+      "p644": "Normal dosyalar: sahibi yazar, herkes okur.",
+      "p755": "Çalıştırılabilirler ve dizinler: herkes okuyabilir ve girebilir.",
+      "p600": "Özel dosyalar: yalnızca sahibi okur ve yazar.",
+      "p700": "Özel çalıştırılabilirler ve dizinler: yalnızca sahibi.",
+      "p664": "Grup tarafından yazılabilen dosyalar.",
+      "p775": "Grup tarafından yazılabilen dizinler ve çalıştırılabilirler.",
+      "p400": "Sahibi için salt okunur (ör. SSH özel anahtarları)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Kod Ekran Görüntüsü",
+    "subtitle": "Kodu güzel, paylaşılabilir görsellere dönüştürün",
+    "languageLabel": "Dil",
+    "autoDetect": "Otomatik algıla",
+    "backgroundLabel": "Arka plan",
+    "paddingLabel": "İç boşluk",
+    "filenameLabel": "Dosya adı",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Pencere noktaları",
+    "themeLabel": "Pencere teması",
+    "themeDark": "Koyu",
+    "themeLight": "Açık",
+    "scaleLabel": "Dışa aktarma ölçeği",
+    "copyImage": "Görseli kopyala",
+    "copied": "Kopyalandı",
+    "exportPng": "PNG dışa aktar",
+    "inputLabel": "Kod",
+    "detected": "Algılanan: {language}",
+    "clear": "Temizle",
+    "placeholder": "Kodunuzu buraya yapıştırın…",
+    "previewLabel": "Önizleme",
+    "emptyPreview": "Kod önizlemeniz burada görünecek",
+    "exportFailed": "Görsel dışa aktarılamadı",
+    "copyUnsupported": "Görsel kopyalama bu tarayıcıda desteklenmiyor",
+    "copyFailed": "Görsel kopyalanamadı",
+    "backgrounds": {
+      "ocean": "Okyanus",
+      "sunset": "Gün batımı",
+      "candy": "Şeker",
+      "forest": "Orman",
+      "midnight": "Gece yarısı",
+      "gold": "Altın",
+      "aurora": "Kutup ışığı",
+      "slate": "Arduvaz",
+      "transparent": "Şeffaf"
+    }
+  },
+  "CssGenerators": {
+    "title": "CSS Üreticileri",
+    "subtitle": "box-shadow, border-radius ve akışkan clamp() — CSS'i kopyalayın.",
+    "preview": "Önizleme",
+    "output": "CSS",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Akışkan clamp()"
+    },
+    "boxShadow": {
+      "presets": "Ön ayarlar",
+      "layer": "Katman",
+      "addLayer": "Katman ekle",
+      "removeLayer": "Katmanı kaldır",
+      "x": "X",
+      "y": "Y",
+      "blur": "Bulanıklık",
+      "spread": "Yayılım",
+      "color": "Renk",
+      "alpha": "Alfa",
+      "inset": "İç gölge",
+      "presetNames": {
+        "subtleCard": "İnce kart",
+        "elevated": "Yükseltilmiş",
+        "hardOffset": "Sert kaydırma",
+        "neonGlow": "Neon parıltı",
+        "inner": "İç",
+        "layeredSmooth": "Katmanlı yumuşak"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Mod",
+      "modes": {
+        "simple": "Köşe başına",
+        "blob": "Organik blob"
+      },
+      "unit": "Birim",
+      "linkCorners": "Köşeleri bağla",
+      "randomize": "Rastgele",
+      "horizontal": "Yatay yarıçaplar",
+      "vertical": "Dikey yarıçaplar",
+      "corners": {
+        "tl": "Sol üst",
+        "tr": "Sağ üst",
+        "br": "Sağ alt",
+        "bl": "Sol alt"
+      }
+    },
+    "clamp": {
+      "minFont": "Min yazı tipi (px)",
+      "maxFont": "Maks yazı tipi (px)",
+      "minViewport": "Min viewport (px)",
+      "maxViewport": "Maks viewport (px)",
+      "rootFont": "Kök yazı tipi (px)",
+      "viewportWidth": "Simüle edilen viewport",
+      "computedSize": "Hesaplanan boyut",
+      "slope": "Eğim",
+      "intercept": "Kesişim",
+      "previewText": "Önizleme için örnek metin",
+      "invalid": "Geçerli ve birbirinden farklı viewport sınırları girin."
+    }
+  },
+  "ExifViewer": {
+    "title": "EXIF Görüntüleyici ve Temizleyici",
+    "subtitle": "Fotoğraf meta verilerini inceleyin ve tarayıcınızda temizleyin",
+    "dropTitle": "Bir görseli buraya bırakın",
+    "dropHint": "veya göz atmak için tıklayın — görseliniz asla cihazınızdan çıkmaz",
+    "browse": "Görsel seç",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Meta veri okunuyor…",
+    "parseFailed": "Bu görsel okunamadı",
+    "clear": "Görseli kaldır",
+    "gpsWarning": "GPS konumu içeriyor",
+    "openMap": "OpenStreetMap'te görüntüle",
+    "noMetadata": "Bu görselde gömülü meta veri bulunamadı.",
+    "facts": {
+      "name": "Ad",
+      "type": "Tür",
+      "dimensions": "Boyutlar",
+      "size": "Boyut"
+    },
+    "groups": {
+      "camera": "Kamera",
+      "exposure": "Pozlama",
+      "timestamps": "Zaman damgaları",
+      "gps": "GPS Konumu",
+      "software": "Yazılım ve Diğer"
+    },
+    "gpsCard": {
+      "latitude": "Enlem",
+      "longitude": "Boylam",
+      "altitude": "Rakım"
+    },
+    "raw": {
+      "title": "Tüm meta veriler",
+      "copyJson": "JSON kopyala",
+      "copied": "Kopyalandı"
+    },
+    "remove": {
+      "title": "Meta veriyi kaldır",
+      "jpegDescription": "Görseli yeniden sıkıştırmadan EXIF, XMP, IPTC ve yorumları kayıpsız kaldırın.",
+      "reencodeDescription": "Gömülü meta veriyi temizlemek için görseli yeniden kodlayın. Bu, pikselleri yeniden sıkıştırır.",
+      "keepIcc": "Renk profilini koru (ICC)",
+      "stripButton": "Meta veriyi temizle",
+      "reencodeButton": "Yeniden kodla ve temizle",
+      "unsupported": "Bu dosya türü için meta veri kaldırma desteklenmiyor.",
+      "failed": "Meta veri kaldırılamadı",
+      "before": "Önce",
+      "after": "Sonra",
+      "download": "Temizlenmiş görseli indir"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Favicon Üreticisi",
+    "subtitle": "Tek bir görselden favicon ve uygulama simgeleri oluşturun",
+    "dropTitle": "Bir görseli buraya bırakın",
+    "dropHint": "PNG, JPEG veya SVG — göz atmak için tıklayın",
+    "browse": "Görsel seç",
+    "clear": "Görseli kaldır",
+    "backgroundLabel": "Arka plan",
+    "transparent": "Şeffaf",
+    "solidColor": "Düz renk",
+    "cornerLabel": "Köşe şekli",
+    "cornerNone": "Kare",
+    "cornerRounded": "Yuvarlatılmış",
+    "cornerCircle": "Daire",
+    "maskPaddingLabel": "Maskelenebilir iç boşluk",
+    "maskable": "maskable",
+    "previewLabel": "Önizleme",
+    "copy": "Kopyala",
+    "headSnippet": "HTML head parçacığı",
+    "downloadIco": "favicon.ico indir",
+    "downloadZip": "Tümünü indir (.zip)"
+  },
+  "JsonDiff": {
+    "title": "JSON Karşılaştırma",
+    "subtitle": "İki JSON belgesinin anlamsal, yapı farkında karşılaştırması — anahtar sırası ve biçimlendirme yok sayılır",
+    "options": {
+      "ignoreArrayOrder": "Dizi sırasını yok say"
+    },
+    "loadBothSamples": "Örnekleri yükle",
+    "sample": "Örnek",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "formatError": "Biçimlendirilemiyor: giriş geçerli JSON değil",
+    "placeholder": "JSON'ı buraya yapıştırın veya yazın…",
+    "panels": {
+      "left": "Orijinal (sol)",
+      "right": "Değiştirilmiş (sağ)",
+      "results": "Farklar"
+    },
+    "summary": {
+      "added": "{count} eklendi",
+      "removed": "{count} kaldırıldı",
+      "changed": "{count} değişti"
+    },
+    "types": {
+      "added": "Eklendi",
+      "removed": "Kaldırıldı",
+      "changed": "Değişti"
+    },
+    "copyChanges": "JSON olarak kopyala",
+    "copied": "Kopyalandı",
+    "empty": "Farklarını görmek için her iki panele de JSON yapıştırın.",
+    "identical": "İki belge anlamsal olarak aynı."
+  },
+  "JsonpathPlayground": {
+    "title": "JSONPath Oyun Alanı",
+    "subtitle": "JSON belgelerini JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün",
+    "engineLabel": "Motor",
+    "queryLabel": "Sorgu",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Kopya kâğıdı",
+    "cheats": {
+      "jpAllTitles": "Tüm kitap başlıkları",
+      "jpAllAuthors": "Belgenin herhangi bir yerindeki her yazar",
+      "jpFirstBook": "İlk kitap",
+      "jpLastBook": "Son kitap",
+      "jpSlice": "İlk iki kitap (dilim)",
+      "jpFilterPrice": "40'tan ucuz kitaplar",
+      "jpFilterInStock": "Stoktaki kitapların başlıkları",
+      "jpRecursive": "Tüm değerler, özyinelemeli",
+      "jmAllTitles": "Tüm kitap başlıkları",
+      "jmFirstAuthor": "İlk kitabın yazarı",
+      "jmLastBook": "Son kitap",
+      "jmSlice": "İlk iki kitap (dilim)",
+      "jmFilterPrice": "40'tan ucuz kitapların başlıkları",
+      "jmCount": "Stoktaki kitapları say",
+      "jmProjection": "Her kitabı yeni bir nesneye dönüştür",
+      "jmSort": "Fiyata göre sıralanmış başlıklar"
+    },
+    "panels": {
+      "input": "JSON girişi",
+      "results": "Sonuçlar"
+    },
+    "sample": "Örnek",
+    "format": "Biçimlendir",
+    "clear": "Temizle",
+    "formatError": "Biçimlendirilemiyor: giriş geçerli JSON değil",
+    "placeholder": "JSON'ı buraya yapıştırın veya yazın…",
+    "outputPlaceholder": "Eşleşmeler burada görünecek…",
+    "matchCount": "{count, plural, one {# eşleşme} other {# eşleşme}}",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı"
+  },
+  "KeycodeInspector": {
+    "title": "Tuş Kodu İnceleyici",
+    "subtitle": "JavaScript klavye olayını incelemek için herhangi bir tuşa basın",
+    "capture": {
+      "prompt": "Herhangi bir tuşa basın…",
+      "ready": "Dinleniyor — klavyenizde herhangi bir tuşa basın",
+      "clickToFocus": "Odaklanmak için buraya tıklayın, sonra herhangi bir tuşa basın"
+    },
+    "hero": {
+      "spaceKey": "(Boşluk)",
+      "keyLabel": "event.key",
+      "repeat": "yineleme"
+    },
+    "copyJson": "JSON kopyala",
+    "copiedJson": "Olay JSON'ı panoya kopyalandı",
+    "deprecated": "kullanımdan kaldırıldı",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standart",
+      "left": "Sol",
+      "right": "Sağ",
+      "numpad": "Sayı tuş takımı",
+      "unknown": "Bilinmiyor"
+    },
+    "history": {
+      "title": "Geçmiş",
+      "clear": "Geçmişi temizle",
+      "empty": "Tuş basmaları burada görünecek."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Markdown Tablosu Üreticisi",
+    "subtitle": "Bir ızgarayı düzenleyin, elektronik tablodan yapıştırın ve düzgün hizalanmış bir Markdown veya HTML tablosu kopyalayın",
+    "addRow": "Satır ekle",
+    "addColumn": "Sütun ekle",
+    "importLabel": "İçe aktar",
+    "importPlaceholder": "TSV (Excel / Google Sheets'ten) veya CSV'yi buraya yapıştırın…",
+    "importButton": "Izgaraya içe aktar",
+    "pasteClipboard": "Panodan yapıştır",
+    "importEmpty": "İçe aktarılacak bir şey yok — önce birkaç satır yapıştırın",
+    "clipboardError": "Pano okunamadı",
+    "clear": "Temizle",
+    "panels": {
+      "editor": "Tablo düzenleyici",
+      "output": "Çıktı"
+    },
+    "align": {
+      "left": "Sola hizala",
+      "center": "Ortala",
+      "right": "Sağa hizala"
+    },
+    "headerPlaceholder": "Başlık",
+    "cellPlaceholder": "Hücre",
+    "removeRow": "Satırı kaldır",
+    "removeColumn": "Sütunu kaldır",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Kopyala",
+    "copied": "Kopyalandı"
+  },
+  "TimezoneConverter": {
+    "title": "Saat Dilimi Dönüştürücü",
+    "subtitle": "Toplantı planlaması için bir anı dünya genelinde dönüştürün.",
+    "dateTimeLabel": "Tarih ve saat",
+    "now": "Şimdi",
+    "sourceZoneLabel": "Kaynak saat dilimi",
+    "selectZone": "Dilim seç",
+    "searchZone": "Saat dilimlerinde ara...",
+    "noZone": "Saat dilimi bulunamadı.",
+    "scrubLabel": "Zamanı kaydır",
+    "reset": "Sıfırla",
+    "targetsLabel": "Hedef dilimler",
+    "addZone": "Dilim ekle",
+    "remove": "Kaldır",
+    "localBadge": "Yerel",
+    "invalidDate": "Geçerli bir tarih ve saat girin.",
+    "bands": {
+      "work": "Çalışma saatleri (09:00–18:00)",
+      "edge": "Sınır saatleri (erken / akşam)",
+      "night": "Gece"
+    }
+  },
+  "TokenCounter": {
+    "title": "LLM Token Sayacı",
+    "subtitle": "Token'ları sayın, parçaları görselleştirin ve API maliyetini tahmin edin.",
+    "inputLabel": "Metin",
+    "sample": "Örnek",
+    "clear": "Temizle",
+    "placeholder": "Token saymak için metin, kod veya JSON yapıştırın...",
+    "encoding": "Kodlama",
+    "loading": "Tokenizer yükleniyor...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token",
+      "characters": "Karakter",
+      "words": "Kelime",
+      "ratio": "Token/kelime",
+      "ratioSub": "yaklaşık"
+    },
+    "claudeRow": "Claude (yaklaşık)",
+    "estimate": "tahmin",
+    "viz": {
+      "title": "Token görselleştirme",
+      "toggle": "Göster",
+      "hint": "Her token'ı bir parça olarak renklendirmek için değiştirin.",
+      "empty": "Token'ları görselleştirmek için metin girin.",
+      "truncated": "{total} token'ın ilk {limit} tanesi gösteriliyor."
+    },
+    "cost": {
+      "title": "Maliyet hesaplayıcı",
+      "disclaimer": "düzenlenebilir varsayılanlar — güncel fiyatlandırmayı doğrulayın",
+      "model": "Model",
+      "expectedOutput": "Beklenen çıktı token'ları",
+      "customInput": "Giriş $/MTok",
+      "customOutput": "Çıkış $/MTok",
+      "inputCost": "Giriş maliyeti",
+      "outputCost": "Çıkış maliyeti",
+      "total": "Toplam",
+      "per1000": "1000 çağrı başına"
+    }
+  },
+  "WebhookTester": {
+    "title": "Webhook Test Aracı",
+    "subtitle": "Geçici bir URL oluşturun ve gelen webhook isteklerini canlı inceleyin.",
+    "intro": {
+      "title": "İstekleri yakalamaya başlamak için bir webhook URL'si oluşturun",
+      "hint": "Her gelen isteği kaydeden, tahmin edilemez bir URL alacaksınız. 24 saat sonra süresi dolar."
+    },
+    "createBtn": "Webhook URL'si oluştur",
+    "creating": "Oluşturuluyor…",
+    "urlLabel": "Webhook URL'niz",
+    "expiresIn": "Süre bitişi: {countdown}",
+    "copyUrlBtn": "URL kopyala",
+    "copied": "Kopyalandı",
+    "clearBtn": "Temizle",
+    "newBinBtn": "Yeni URL",
+    "requestsTitle": "İstekler",
+    "selectPrompt": "Ayrıntılarını incelemek için bir istek seçin.",
+    "expiredNotice": "Bu webhook URL'sinin süresi doldu. Test etmeye devam etmek için yeni bir tane oluşturun.",
+    "base64Badge": "base64",
+    "truncatedBadge": "kırpıldı",
+    "empty": {
+      "title": "İstekler bekleniyor…",
+      "hint": "URL'nize bir istek gönderin ve anında burada görünsün. Bunu deneyin:"
+    },
+    "detail": {
+      "receivedAt": "Alındı",
+      "source": "Kaynak IP",
+      "contentType": "Content-Type",
+      "query": "Sorgu parametreleri",
+      "headers": "Başlıklar",
+      "body": "Gövde",
+      "copyBody": "Gövdeyi kopyala",
+      "emptyBody": "Gövde yok"
+    },
+    "errors": {
+      "createFailed": "Webhook URL'si oluşturulamadı. Lütfen tekrar deneyin.",
+      "clearFailed": "İstekler temizlenemedi. Lütfen tekrar deneyin."
+    }
+  },
+  "WebsocketTester": {
+    "title": "WebSocket Test Aracı",
+    "subtitle": "Bir WebSocket uç noktasına bağlanın ve mesajları canlı gönderin, alın ve inceleyin",
+    "urlLabel": "Uç nokta URL'si",
+    "protocolsLabel": "Alt protokoller",
+    "protocolsPlaceholder": "isteğe bağlı, virgülle ayrılmış",
+    "connect": "Bağlan",
+    "disconnect": "Bağlantıyı kes",
+    "status": {
+      "disconnected": "Bağlı değil",
+      "connecting": "Bağlanıyor",
+      "connected": "Bağlandı",
+      "error": "Hata"
+    },
+    "messages": {
+      "connecting": "{url} adresine bağlanılıyor…",
+      "connected": "Bağlantı kuruldu",
+      "connectedWithProtocol": "Bağlantı kuruldu (protokol: {protocol})",
+      "invalidUrl": "Geçersiz URL — ws:// veya wss:// ile başlamalı",
+      "connectFailed": "Bağlantı açılamadı",
+      "socketError": "Bir bağlantı hatası oluştu",
+      "notConnected": "Bağlı değil — önce bağlanın",
+      "binaryMessage": "İkili bir mesaj alındı"
+    },
+    "log": {
+      "title": "Mesaj Günlüğü",
+      "empty": "Henüz mesaj yok. Bağlanın ve göndermeye başlayın.",
+      "copyAll": "Tümünü kopyala",
+      "download": ".txt olarak indir",
+      "clear": "Günlüğü temizle",
+      "prettyPrint": "JSON'ı biçimlendir",
+      "showRaw": "Ham metni göster"
+    },
+    "composer": {
+      "placeholder": "Gönderilecek bir mesaj yazın…",
+      "send": "Gönder",
+      "formatJson": "JSON olarak biçimlendir",
+      "invalidJson": "Mesaj geçerli JSON değil",
+      "hint": "Göndermek için Cmd/Ctrl+Enter"
+    },
+    "ping": {
+      "label": "Otomatik ping",
+      "seconds": "sn",
+      "intervalTitle": "Saniye cinsinden ping aralığı",
+      "payloadPlaceholder": "ping yükü"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois Sorgulama",
+    "subtitle": "Herhangi bir alan adı veya IP adresinin kayıt bilgilerini RDAP üzerinden sorgulayın",
+    "placeholder": "example.com veya 8.8.8.8",
+    "lookupBtn": "Sorgula",
+    "looking": "Sorgulanıyor…",
+    "refreshBtn": "Yenile",
+    "tryLabel": "Deneyin:",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "notAvailable": "Mevcut değil",
+    "summary": {
+      "registrar": "Kayıt kuruluşu",
+      "network": "Ağ"
+    },
+    "dates": {
+      "created": "Oluşturuldu",
+      "updated": "Güncellendi",
+      "expires": "Süre bitişi"
+    },
+    "sections": {
+      "status": "Durum",
+      "nameservers": "Ad sunucuları",
+      "contacts": "Kişiler",
+      "rawRdap": "Ham RDAP"
+    },
+    "contacts": {
+      "roles": "Roller",
+      "name": "Ad",
+      "organization": "Kuruluş"
+    },
+    "errors": {
+      "invalidTarget": "Geçerli bir alan adı veya IP adresi girin",
+      "lookupFailed": "Sorgulama başarısız (durum {status})"
+    }
+  }
+}

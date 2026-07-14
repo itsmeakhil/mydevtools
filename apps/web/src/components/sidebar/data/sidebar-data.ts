@@ -485,12 +485,6 @@ export const sidebarData: SidebarData = {
           description: 'Find the MIME type for a file extension or filename.',
         },
         {
-          title: 'URL Shortener',
-          url: '/app/url-shortener',
-          icon: IconLink,
-          description: 'Shorten long URLs, track clicks, manage links, and generate QR codes.',
-        },
-        {
           title: "Webhook Tester",
           url: '/app/webhook-tester',
           icon: IconWebhook,

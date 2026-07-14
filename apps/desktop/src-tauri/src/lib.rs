@@ -79,6 +79,27 @@ pub fn run() {
             let state = AppState::init(dir.join("mydevtools.db"))
                 .map_err(|e| format!("failed to open local database: {e}"))?;
             app.manage(state);
+
+            // window-state plugin restores the last saved geometry, which can be
+            // wider/taller than the current monitor (smaller screen, unplugged
+            // external display). Clamp it to the monitor so it never opens
+            // off-screen forcing a horizontal scroll to reach the window edge.
+            if let Some(window) = app.get_webview_window("main") {
+                if let Ok(Some(monitor)) = window.current_monitor() {
+                    let screen = monitor.size();
+                    if let Ok(size) = window.outer_size() {
+                        let max_w = (screen.width as f64 * 0.95) as u32;
+                        let max_h = (screen.height as f64 * 0.92) as u32;
+                        if size.width > max_w || size.height > max_h {
+                            let _ = window.set_size(tauri::PhysicalSize::new(
+                                size.width.min(max_w),
+                                size.height.min(max_h),
+                            ));
+                            let _ = window.center();
+                        }
+                    }
+                }
+            }
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
