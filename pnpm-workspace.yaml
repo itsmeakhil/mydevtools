@@ -1,12 +1,12 @@
 packages:
   - "apps/*"
-onlyBuiltDependencies:
-  - "@firebase/util"
-  - "@parcel/watcher"
-  - "@swc/core"
-  - core-js
-  - protobufjs
-  - sharp
-  - unrs-resolver
+allowBuilds:
+  "@firebase/util": true
+  "@parcel/watcher": true
+  "@swc/core": true
+  core-js: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
 patchedDependencies:
   next-themes@0.4.6: patches/next-themes@0.4.6.patch
