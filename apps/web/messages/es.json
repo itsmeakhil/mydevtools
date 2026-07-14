@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Selecciona una nota o crea una nueva para comenzar.",
-      "titlePlaceholder": "Sin título"
+      "titlePlaceholder": "Sin título",
+      "saving": "Guardando…",
+      "ready": "Listo",
+      "saved": "Guardado {time}",
+      "stats": "{words} palabras · {read} min de lectura",
+      "template": "Plantilla",
+      "applyTemplate": "Aplicar plantilla",
+      "exportMdLabel": ".md",
+      "exportMd": "Exportar como Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Exportar como HTML",
+      "focusMode": "Modo concentración",
+      "exitFocusMode": "Salir del modo concentración",
+      "save": "Guardar",
+      "addTag": "Añadir etiqueta…",
+      "removeTag": "Eliminar etiqueta {tag}",
+      "loading": "Cargando…",
+      "searchHint": "para buscar",
+      "focusHint": "modo concentración",
+      "notePath": "Ruta de la nota"
     },
     "context": {
       "authRequiredError": "Usuario no autenticado",
-      "defaultTitle": "Sin título"
+      "defaultTitle": "Sin título",
+      "cloudSyncImageError": "Activa la sincronización en la nube para guardar imágenes de notas. Las notas de texto permanecen locales."
     }
   },
   "PasswordManager": {

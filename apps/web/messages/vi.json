@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Chọn ghi chú hoặc tạo mới để bắt đầu.",
-      "titlePlaceholder": "Không tiêu đề"
+      "titlePlaceholder": "Không tiêu đề",
+      "saving": "Đang lưu…",
+      "ready": "Sẵn sàng",
+      "saved": "Đã lưu {time}",
+      "stats": "{words} từ · {read} phút đọc",
+      "template": "Mẫu",
+      "applyTemplate": "Áp dụng mẫu",
+      "exportMdLabel": ".md",
+      "exportMd": "Xuất dưới dạng Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Xuất dưới dạng HTML",
+      "focusMode": "Chế độ tập trung",
+      "exitFocusMode": "Thoát chế độ tập trung",
+      "save": "Lưu",
+      "addTag": "Thêm thẻ…",
+      "removeTag": "Xóa thẻ {tag}",
+      "loading": "Đang tải…",
+      "searchHint": "để tìm kiếm",
+      "focusHint": "chế độ tập trung",
+      "notePath": "Đường dẫn ghi chú"
     },
     "context": {
       "authRequiredError": "Người dùng chưa xác thực",
-      "defaultTitle": "Không tiêu đề"
+      "defaultTitle": "Không tiêu đề",
+      "cloudSyncImageError": "Bật Đồng bộ Đám mây để lưu trữ hình ảnh ghi chú. Ghi chú văn bản vẫn ở cục bộ."
     }
   },
   "PasswordManager": {

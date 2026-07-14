@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Pilih catatan atau buat catatan baru untuk memulai.",
-      "titlePlaceholder": "Tanpa judul"
+      "titlePlaceholder": "Tanpa judul",
+      "saving": "Menyimpan…",
+      "ready": "Siap",
+      "saved": "Tersimpan {time}",
+      "stats": "{words} kata · {read} mnt baca",
+      "template": "Templat",
+      "applyTemplate": "Terapkan templat",
+      "exportMdLabel": ".md",
+      "exportMd": "Ekspor sebagai Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Ekspor sebagai HTML",
+      "focusMode": "Mode fokus",
+      "exitFocusMode": "Keluar dari mode fokus",
+      "save": "Simpan",
+      "addTag": "Tambah tag…",
+      "removeTag": "Hapus tag {tag}",
+      "loading": "Memuat…",
+      "searchHint": "untuk mencari",
+      "focusHint": "mode fokus",
+      "notePath": "Jalur catatan"
     },
     "context": {
       "authRequiredError": "Pengguna tidak diautentikasi",
-      "defaultTitle": "Tanpa judul"
+      "defaultTitle": "Tanpa judul",
+      "cloudSyncImageError": "Aktifkan Sinkronisasi Cloud untuk menyimpan gambar catatan. Catatan teks tetap lokal."
     }
   },
   "PasswordManager": {

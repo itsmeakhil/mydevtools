@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "ノートを選択するか、新しいノートを作成してください。",
-      "titlePlaceholder": "無題"
+      "titlePlaceholder": "無題",
+      "saving": "保存中…",
+      "ready": "準備完了",
+      "saved": "{time} に保存",
+      "stats": "{words} 語 · 読了 {read} 分",
+      "template": "テンプレート",
+      "applyTemplate": "テンプレートを適用",
+      "exportMdLabel": ".md",
+      "exportMd": "Markdown としてエクスポート",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "HTML としてエクスポート",
+      "focusMode": "集中モード",
+      "exitFocusMode": "集中モードを終了",
+      "save": "保存",
+      "addTag": "タグを追加…",
+      "removeTag": "タグ {tag} を削除",
+      "loading": "読み込み中…",
+      "searchHint": "で検索",
+      "focusHint": "集中モード",
+      "notePath": "ノートのパス"
     },
     "context": {
       "authRequiredError": "ユーザーが認証されていません",
-      "defaultTitle": "無題"
+      "defaultTitle": "無題",
+      "cloudSyncImageError": "ノート画像を保存するにはクラウド同期をオンにしてください。テキストノートはローカルに保存されます。"
     }
   },
   "PasswordManager": {

@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Välj en anteckning eller skapa en ny för att komma igång.",
-      "titlePlaceholder": "Namnlös"
+      "titlePlaceholder": "Namnlös",
+      "saving": "Sparar…",
+      "ready": "Klar",
+      "saved": "Sparad {time}",
+      "stats": "{words} ord · {read} min läsning",
+      "template": "Mall",
+      "applyTemplate": "Använd mall",
+      "exportMdLabel": ".md",
+      "exportMd": "Exportera som Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Exportera som HTML",
+      "focusMode": "Fokusläge",
+      "exitFocusMode": "Avsluta fokusläge",
+      "save": "Spara",
+      "addTag": "Lägg till tagg…",
+      "removeTag": "Ta bort tagg {tag}",
+      "loading": "Laddar…",
+      "searchHint": "för att söka",
+      "focusHint": "fokusläge",
+      "notePath": "Anteckningssökväg"
     },
     "context": {
       "authRequiredError": "Användaren är inte autentiserad",
-      "defaultTitle": "Namnlös"
+      "defaultTitle": "Namnlös",
+      "cloudSyncImageError": "Aktivera molnsynkronisering för att lagra anteckningsbilder. Textanteckningar förblir lokala."
     }
   },
   "PasswordManager": {

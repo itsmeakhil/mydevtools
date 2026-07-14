@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "برای شروع یادداشتی را انتخاب کنید یا یادداشت جدیدی ایجاد کنید.",
-      "titlePlaceholder": "بدون عنوان"
+      "titlePlaceholder": "بدون عنوان",
+      "saving": "در حال ذخیره…",
+      "ready": "آماده",
+      "saved": "ذخیره شد {time}",
+      "stats": "{words} کلمه · {read} دقیقه مطالعه",
+      "template": "قالب",
+      "applyTemplate": "اعمال قالب",
+      "exportMdLabel": ".md",
+      "exportMd": "خروجی به‌صورت Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "خروجی به‌صورت HTML",
+      "focusMode": "حالت تمرکز",
+      "exitFocusMode": "خروج از حالت تمرکز",
+      "save": "ذخیره",
+      "addTag": "افزودن برچسب…",
+      "removeTag": "حذف برچسب {tag}",
+      "loading": "در حال بارگذاری…",
+      "searchHint": "برای جستجو",
+      "focusHint": "حالت تمرکز",
+      "notePath": "مسیر یادداشت"
     },
     "context": {
       "authRequiredError": "کاربر احراز هویت نشده است",
-      "defaultTitle": "بدون عنوان"
+      "defaultTitle": "بدون عنوان",
+      "cloudSyncImageError": "برای ذخیره تصاویر یادداشت، همگام‌سازی ابری را روشن کنید. یادداشت‌های متنی محلی می‌مانند."
     }
   },
   "PasswordManager": {

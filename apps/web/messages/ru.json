@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Выберите заметку или создайте новую, чтобы начать.",
-      "titlePlaceholder": "Без названия"
+      "titlePlaceholder": "Без названия",
+      "saving": "Сохранение…",
+      "ready": "Готово",
+      "saved": "Сохранено {time}",
+      "stats": "{words} слов · {read} мин чтения",
+      "template": "Шаблон",
+      "applyTemplate": "Применить шаблон",
+      "exportMdLabel": ".md",
+      "exportMd": "Экспорт в Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Экспорт в HTML",
+      "focusMode": "Режим фокуса",
+      "exitFocusMode": "Выйти из режима фокуса",
+      "save": "Сохранить",
+      "addTag": "Добавить тег…",
+      "removeTag": "Удалить тег {tag}",
+      "loading": "Загрузка…",
+      "searchHint": "для поиска",
+      "focusHint": "режим фокуса",
+      "notePath": "Путь заметки"
     },
     "context": {
       "authRequiredError": "Пользователь не авторизован",
-      "defaultTitle": "Без названия"
+      "defaultTitle": "Без названия",
+      "cloudSyncImageError": "Включите облачную синхронизацию, чтобы сохранять изображения заметок. Текстовые заметки остаются локальными."
     }
   },
   "PasswordManager": {

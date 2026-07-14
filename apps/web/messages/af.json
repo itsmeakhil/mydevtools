@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Kies 'n nota of skep 'n nuwe een om te begin.",
-      "titlePlaceholder": "Sonder titel"
+      "titlePlaceholder": "Sonder titel",
+      "saving": "Stoor tans…",
+      "ready": "Gereed",
+      "saved": "Gestoor {time}",
+      "stats": "{words} woorde · {read} min lees",
+      "template": "Sjabloon",
+      "applyTemplate": "Pas sjabloon toe",
+      "exportMdLabel": ".md",
+      "exportMd": "Voer uit as Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Voer uit as HTML",
+      "focusMode": "Fokusmodus",
+      "exitFocusMode": "Verlaat fokusmodus",
+      "save": "Stoor",
+      "addTag": "Voeg etiket by…",
+      "removeTag": "Verwyder etiket {tag}",
+      "loading": "Laai tans…",
+      "searchHint": "om te soek",
+      "focusHint": "fokusmodus",
+      "notePath": "Notapad"
     },
     "context": {
       "authRequiredError": "Gebruiker nie geverifieer nie",
-      "defaultTitle": "Sonder titel"
+      "defaultTitle": "Sonder titel",
+      "cloudSyncImageError": "Skakel Wolksinkronisasie aan om notaprente te stoor. Teksnotas bly plaaslik."
     }
   },
   "PasswordManager": {

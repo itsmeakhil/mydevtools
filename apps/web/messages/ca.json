@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Selecciona una nota o crea'n una de nova per començar.",
-      "titlePlaceholder": "Sense títol"
+      "titlePlaceholder": "Sense títol",
+      "saving": "Desant…",
+      "ready": "A punt",
+      "saved": "Desat {time}",
+      "stats": "{words} paraules · {read} min de lectura",
+      "template": "Plantilla",
+      "applyTemplate": "Aplica la plantilla",
+      "exportMdLabel": ".md",
+      "exportMd": "Exporta com a Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Exporta com a HTML",
+      "focusMode": "Mode concentració",
+      "exitFocusMode": "Surt del mode concentració",
+      "save": "Desa",
+      "addTag": "Afegeix etiqueta…",
+      "removeTag": "Elimina l'etiqueta {tag}",
+      "loading": "Carregant…",
+      "searchHint": "per cercar",
+      "focusHint": "mode concentració",
+      "notePath": "Camí de la nota"
     },
     "context": {
       "authRequiredError": "Usuari no autenticat",
-      "defaultTitle": "Sense títol"
+      "defaultTitle": "Sense títol",
+      "cloudSyncImageError": "Activa la sincronització al núvol per desar imatges de les notes. Les notes de text es queden localment."
     }
   },
   "PasswordManager": {

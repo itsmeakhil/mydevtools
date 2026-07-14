@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "اختر ملاحظة أو أنشئ ملاحظة جديدة للبدء.",
-      "titlePlaceholder": "بدون عنوان"
+      "titlePlaceholder": "بدون عنوان",
+      "saving": "جارٍ الحفظ…",
+      "ready": "جاهز",
+      "saved": "تم الحفظ {time}",
+      "stats": "{words} كلمة · {read} دقيقة قراءة",
+      "template": "قالب",
+      "applyTemplate": "تطبيق القالب",
+      "exportMdLabel": ".md",
+      "exportMd": "تصدير كـ Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "تصدير كـ HTML",
+      "focusMode": "وضع التركيز",
+      "exitFocusMode": "إنهاء وضع التركيز",
+      "save": "حفظ",
+      "addTag": "إضافة وسم…",
+      "removeTag": "إزالة الوسم {tag}",
+      "loading": "جارٍ التحميل…",
+      "searchHint": "للبحث",
+      "focusHint": "وضع التركيز",
+      "notePath": "مسار الملاحظة"
     },
     "context": {
       "authRequiredError": "المستخدم غير مصادق",
-      "defaultTitle": "بدون عنوان"
+      "defaultTitle": "بدون عنوان",
+      "cloudSyncImageError": "فعّل المزامنة السحابية لتخزين صور الملاحظات. تبقى الملاحظات النصية محلية."
     }
   },
   "PasswordManager": {

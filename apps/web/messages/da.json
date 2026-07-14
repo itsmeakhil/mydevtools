@@ -914,11 +914,31 @@
     },
     "editor": {
       "emptyState": "Vælg en note, eller opret en ny for at komme i gang.",
-      "titlePlaceholder": "Uden titel"
+      "titlePlaceholder": "Uden titel",
+      "saving": "Gemmer…",
+      "ready": "Klar",
+      "saved": "Gemt {time}",
+      "stats": "{words} ord · {read} min læsning",
+      "template": "Skabelon",
+      "applyTemplate": "Anvend skabelon",
+      "exportMdLabel": ".md",
+      "exportMd": "Eksportér som Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Eksportér som HTML",
+      "focusMode": "Fokustilstand",
+      "exitFocusMode": "Afslut fokustilstand",
+      "save": "Gem",
+      "addTag": "Tilføj tag…",
+      "removeTag": "Fjern tag {tag}",
+      "loading": "Indlæser…",
+      "searchHint": "for at søge",
+      "focusHint": "fokustilstand",
+      "notePath": "Notesti"
     },
     "context": {
       "authRequiredError": "Brugeren er ikke godkendt",
-      "defaultTitle": "Uden titel"
+      "defaultTitle": "Uden titel",
+      "cloudSyncImageError": "Slå cloudsynkronisering til for at gemme notebilleder. Tekstnoter forbliver lokale."
     }
   },
   "PasswordManager": {
