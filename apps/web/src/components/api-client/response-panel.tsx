@@ -131,6 +131,17 @@ export function ResponsePanel({ response, isLoading, scriptResults, streamEvents
     const handleOpenSearch = () => {
         bodyEditorRef.current?.getAction("actions.find")?.run()
     }
+
+    // Slice the body passed to Monaco so the editor never receives >2MB of text.
+    // Pretty-print (via the Worker) runs before this component renders, so slicing
+    // happens on the already-formatted string. The full body is preserved on
+    // response.body for download. MUST stay above the early returns below —
+    // hooks cannot be called conditionally (React error #310).
+    const { inline: inlineBody, truncated } = React.useMemo(
+        () => truncateBody(response?.body ?? "", MAX_INLINE_BYTES),
+        [response?.body]
+    )
+
     if (isLoading && !response) {
         return <ResponsePanelSkeleton />
     }
@@ -150,15 +161,6 @@ export function ResponsePanel({ response, isLoading, scriptResults, streamEvents
 
     const isSuccess = response.status >= 200 && response.status < 300
     const isError = response.status >= 400
-
-    // Slice the body passed to Monaco so the editor never receives >2MB of text.
-    // Pretty-print (via the Worker) runs before this component renders, so slicing
-    // happens on the already-formatted string. The full body is preserved on
-    // response.body for download.
-    const { inline: inlineBody, truncated } = React.useMemo(
-        () => truncateBody(response.body ?? "", MAX_INLINE_BYTES),
-        [response.body]
-    )
 
     const contentType = normalizeContentType(response.headers)
     const isHtmlByHeader =
