@@ -20,18 +20,18 @@ export const metadata: Metadata = {
 const FEATURES = [
   {
     icon: Zap,
-    title: "60+ tools, zero installs",
-    body: "Formatters, generators, API client, SQL, crypto — all in one tab.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Encrypted, cross-device sync",
-    body: "Sensitive data is AES-256 encrypted before it ever leaves your browser.",
+    title: "80+ tools, one app",
+    body: "Formatters, generators, API client, SQL, crypto — all in one place.",
   },
   {
     icon: Cloud,
-    title: "Self-host or cloud",
-    body: "Run it yourself for free, or sign in and let us handle the infrastructure.",
+    title: "Completely offline",
+    body: "Runs fully on your device. No network needed once you're in.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Client-side AES encryption",
+    body: "Data is AES-256 encrypted and never leaves your device — unless you back it up.",
   },
 ];
 
@@ -89,7 +89,7 @@ export default function LoginPage() {
           <p className="mdt-kicker mb-5">Welcome back</p>
           <h1 className="max-w-md text-balance text-4xl font-bold leading-[1.1] tracking-tight xl:text-5xl">
             Your entire dev toolkit,{" "}
-            <span className="mdt-grad-text mdt-grad-anim">one tab away.</span>
+            <span className="mdt-grad-text mdt-grad-anim">one app away.</span>
           </h1>
           <p className="mt-5 max-w-md text-pretty text-base leading-relaxed text-muted-foreground">
             Sign in to sync your work across devices and pick up exactly where you left off.

@@ -9,6 +9,7 @@ use http::remote::RemoteResponse;
 use router::ApiResponse;
 use state::AppState;
 use tauri::Manager;
+use tauri_plugin_window_state::StateFlags;
 
 #[tauri::command]
 async fn local_api(
@@ -70,7 +71,15 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_deep_link::init())
         .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_window_state::Builder::default().build())
+        // Restore everything except SIZE. Sizes are saved in physical pixels, so
+        // a size saved on a HiDPI (scale-2) display restores 2x too large on a
+        // scale-1 monitor, opening the window wider than the screen. The window
+        // instead always opens at the config size, which fits any display.
+        .plugin(
+            tauri_plugin_window_state::Builder::default()
+                .with_state_flags(StateFlags::all() & !StateFlags::SIZE)
+                .build(),
+        )
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
         .setup(|app| {

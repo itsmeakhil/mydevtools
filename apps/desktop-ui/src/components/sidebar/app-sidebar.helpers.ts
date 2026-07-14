@@ -14,13 +14,18 @@ import type { Workspace } from "@/lib/workspace-api"
  * render-side filter only.
  *
  * @param pinnedTools  Array of tool URLs currently pinned for the active workspace.
- * @param activeWs     The active Workspace (null = not yet loaded → return empty).
+ * @param activeWs     The active Workspace, or null when it isn't loaded yet
+ *                     (initial load / offline desktop where the workspace list
+ *                     never fetches). When null we still show the pins — matching
+ *                     the dashboard, which only needs the pinned URLs — and skip
+ *                     the RBAC filter; permission is re-checked once the
+ *                     workspace resolves and enforced at the tool itself.
  */
 export function buildPinnedNavItems(
   pinnedTools: string[],
   activeWs: Workspace | null,
 ): NavLink[] {
-  if (pinnedTools.length === 0 || !activeWs) return []
+  if (pinnedTools.length === 0) return []
 
   const allLinks: NavLink[] = sidebarData.navGroups.flatMap((group) =>
     group.items.flatMap((item) => {
@@ -38,6 +43,8 @@ export function buildPinnedNavItems(
   const urlSet = new Set(pinnedTools)
   return allLinks.filter((link) => {
     if (!urlSet.has(String(link.url))) return false
+    // Workspace not loaded yet — show the pin; RBAC applies once it resolves.
+    if (!activeWs) return true
     const slug = sidebarUrlToToolSlug(String(link.url))
     // Non-matrix URL (e.g. /dashboard pinned somehow) — always show.
     if (!slug) return true

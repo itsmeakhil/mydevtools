@@ -93,10 +93,16 @@ export const useWorkspaceStore = create<State & Actions>()(
 }),
     {
       name: "mdt-workspace-store",
-      // Persist ONLY the active workspace id so reloads keep the user's choice.
-      // The workspace list comes fresh from backend on every mount.
+      // Persist the active id AND the workspace list. The list is still fetched
+      // fresh by loadFromBackend() on mount, but caching it means useActiveWorkspace()
+      // resolves immediately (and offline) instead of returning null until that
+      // async fetch lands — otherwise sidebar pins (which RBAC-filter against the
+      // active workspace) intermittently disappear while the dashboard still shows them.
       storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({ activeWorkspaceId: state.activeWorkspaceId }),
+      partialize: (state) => ({
+        activeWorkspaceId: state.activeWorkspaceId,
+        workspaces: state.workspaces,
+      }),
     },
   ),
 )

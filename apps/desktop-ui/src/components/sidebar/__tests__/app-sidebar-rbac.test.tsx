@@ -59,9 +59,11 @@ describe("buildPinnedNavItems", () => {
     expect(result).toHaveLength(0)
   })
 
-  it("returns empty array when activeWs is null", () => {
-    const result = buildPinnedNavItems(["/app/notes"], null)
-    expect(result).toHaveLength(0)
+  it("shows pins (skipping RBAC) when activeWs is null — loading / offline", () => {
+    const result = buildPinnedNavItems(["/app/notes", "/app/password-manager"], null)
+    const urls = result.map((l) => String(l.url))
+    expect(urls).toContain("/app/notes")
+    expect(urls).toContain("/app/password-manager")
   })
 
   it("viewer can see plaintext tool (notes) in shared workspace", () => {
