@@ -2,6 +2,7 @@
   "name": "mydevtools-monorepo",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.12.0",
   "scripts": {
     "dev": "pnpm --filter @mydevtools/web dev",
     "dev:web": "pnpm --filter @mydevtools/web dev",
