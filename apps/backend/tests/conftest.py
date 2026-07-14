@@ -2,7 +2,6 @@ import os
 import pytest
 from httpx import AsyncClient, ASGITransport
 from starlette.requests import Request
-from starlette.datastructures import Headers
 
 # Set required environment variables for tests BEFORE any imports
 os.environ.setdefault("APP_ENV", "test")
@@ -18,44 +17,16 @@ os.environ.setdefault("WEBAUTHN_RP_NAME", "MyDevTools")
 os.environ.setdefault("WEBAUTHN_ORIGINS", "http://localhost:3000")
 os.environ.setdefault("WEBAUTHN_CHALLENGE_TTL_SECONDS", "300")
 
-from app.api.routes.workspaces.services import ensure_user_workspace_setup
 from app.database import db_manager
-from app.utils.collection_name import (
-    API_CLIENT_COLLECTIONS,
-    API_CLIENT_ENVIRONMENTS,
-    API_CLIENT_HISTORY,
-    API_CLIENT_WORKSPACES,
-    API_KEY_VAULT_ENTRIES,
-    BOOKMARKS,
-    BOOKMARK_FOLDERS,
-    CODE_SNIPPETS,
-    ENV_MANAGER_ENTRIES,
-    JSON_FORMATTER_DOCUMENTS,
-    NOSQL_CONNECTIONS,
-    NOSQL_QUERY_HISTORY,
-    NOTES,
-    PASSWORD_ENTRIES,
-    PASSWORD_VAULTS,
-    PROJECTS,
-    REDIS_CONNECTIONS,
-    S3_CONNECTIONS,
-    SQL_CONNECTIONS,
-    TASKS,
-    USER_PREFERENCES,
-    USERS,
-    WORKSPACES,
-    WORKSPACE_MEMBERSHIPS,
-    URL_LINKS,
-    URL_CLICK_EVENTS,
-)
+from app.utils.collection_name import USERS
 
 pytest_plugins = ("pytest_asyncio",)
 
 
 @pytest.fixture
 async def clean_db():
-    """Drop workspace-related collections and USERS before and after test."""
-    collections = [API_CLIENT_COLLECTIONS, API_CLIENT_ENVIRONMENTS, API_CLIENT_HISTORY, API_CLIENT_WORKSPACES, API_KEY_VAULT_ENTRIES, WORKSPACES, WORKSPACE_MEMBERSHIPS, USERS, PASSWORD_ENTRIES, PASSWORD_VAULTS, NOTES, USER_PREFERENCES, BOOKMARKS, BOOKMARK_FOLDERS, TASKS, PROJECTS, ENV_MANAGER_ENTRIES, CODE_SNIPPETS, NOSQL_CONNECTIONS, NOSQL_QUERY_HISTORY, SQL_CONNECTIONS, S3_CONNECTIONS, REDIS_CONNECTIONS, URL_LINKS, URL_CLICK_EVENTS, JSON_FORMATTER_DOCUMENTS]
+    """Drop USERS before and after test."""
+    collections = [USERS]
 
     # Clean before test
     for coll in collections:
@@ -107,71 +78,6 @@ def count_inserts():
 
 
 @pytest.fixture
-async def seed_legacy_user_data():
-    """Insert legacy test data (PASSWORD_ENTRIES + NOTES without workspace_id)."""
-    # Create user document
-    await db_manager.insert_one(
-        USERS,
-        {
-            "_id": "u1",
-            "uid": "u1",
-            "email": "u1@example.com",
-        },
-    )
-
-    # Insert legacy password entries
-    await db_manager.insert_one(
-        PASSWORD_ENTRIES,
-        {
-            "_id": "pe-1",
-            "created_by": "u1",
-            "name": "Test Password 1",
-            "encrypted": "secret",
-        },
-    )
-    await db_manager.insert_one(
-        PASSWORD_ENTRIES,
-        {
-            "_id": "pe-2",
-            "created_by": "u1",
-            "name": "Test Password 2",
-            "encrypted": "secret2",
-        },
-    )
-
-    # Insert legacy notes
-    await db_manager.insert_one(
-        NOTES,
-        {
-            "_id": "note-1",
-            "created_by": "u1",
-            "title": "Test Note 1",
-            "content": "Some content",
-        },
-    )
-    await db_manager.insert_one(
-        NOTES,
-        {
-            "_id": "note-2",
-            "created_by": "u1",
-            "title": "Test Note 2",
-            "content": "More content",
-        },
-    )
-
-    yield
-
-
-@pytest.fixture
-def personal_ws_for():
-    """Return an async callable that creates (idempotently) a Personal workspace
-    for the given uid and returns the workspace_id."""
-    async def _ensure(uid: str) -> str:
-        return await ensure_user_workspace_setup(uid)
-    return _ensure
-
-
-@pytest.fixture
 async def authed_client(clean_db) -> AsyncClient:
     """Create an authenticated HTTP client with get_current_uid stubbed to return test-uid."""
     from app.api.routes.auth.services import get_current_uid
@@ -184,9 +90,6 @@ async def authed_client(clean_db) -> AsyncClient:
 
     app.dependency_overrides[get_current_uid] = override_get_current_uid
 
-    # Set up the test user's workspace
-    await ensure_user_workspace_setup(test_uid)
-
     async with AsyncClient(
         transport=ASGITransport(app=app),
         base_url="http://test",
@@ -194,11 +97,3 @@ async def authed_client(clean_db) -> AsyncClient:
         yield client
 
     app.dependency_overrides.clear()
-
-
-@pytest.fixture
-async def personal_ws_id(authed_client: AsyncClient) -> str:
-    """Set up a test user with a personal workspace and return the workspace_id."""
-    test_uid = "test-uid"
-    ws_id = await ensure_user_workspace_setup(test_uid)
-    return ws_id

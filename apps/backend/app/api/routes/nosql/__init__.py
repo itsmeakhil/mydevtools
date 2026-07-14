@@ -1,2 +1,0 @@
-"""NoSQL Explorer backend routes."""
-

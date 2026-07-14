@@ -1,0 +1,4573 @@
+{
+  "Navigation": {
+    "dashboard": "Tauler",
+    "settings": "Configuració",
+    "apiClient": "Client API",
+    "httpStatusCodes": "Codis d’estat HTTP",
+    "passwordManager": "Gestor de contrasenyes",
+    "environmentManager": "Gestor d'entorns",
+    "bookmarks": "Marcadors",
+    "jsonFormatter": "Formatador JSON",
+    "emailValidator": "Validador de correu",
+    "nosqlExplorer": "Explorador de base de dades",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "encryptionPlayground": "Terreny de joc del xifratge",
+    "jwtDecoder": "Descodificador JWT",
+    "certificatePemDecoder": "Descodificador de certificats / PEM",
+    "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Formatador GraphQL",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "urlParser": "Analitzador d’URL",
+    "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Secret / clau API",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker",
+    "contrastChecker": "Verificador de contrast",
+    "jsonSchemaGenerator": "Generador d'esquema JSON",
+    "imageToBase64": "Imatge a Base64",
+    "imageCompressor": "Compressor d’imatges",
+    "cssGradientBuilder": "Creador de degradats CSS",
+    "gitignoreGenerator": "Generador .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Fragments de codi",
+    "qrCodeGenerator": "Generador de codis QR",
+    "dnsLookup": "Cerca DNS",
+    "ipSubnetCalculator": "Calculadora IP / subxarxa",
+    "hashGenerator": "Generador de hash",
+    "hmacGenerator": "Generador HMAC",
+    "totpGenerator": "Codi TOTP / 2FA",
+    "markdownPreview": "Previsualització Markdown",
+    "numberBaseConverter": "Conversor de base",
+    "formatConverter": "Conversor de formats",
+    "mockDataGenerator": "Generador de dades de prova",
+    "svgOptimizer": "Optimitzador SVG",
+    "unitConverter": "Convertidor d'unitats",
+    "dockerComposeGenerator": "Generador Docker Compose",
+    "breakRoom": "Sala de descans",
+    "game2048": "2048",
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Formatador YAML",
+    "sshKeyGenerator": "Generador de claus SSH / RSA",
+    "curlToCode": "cURL to Code",
+    "jsonToCode": "JSON to Code",
+    "beautifyMinify": "Beautify & Minify",
+    "stringCaseConverter": "String Case Converter",
+    "lineSortDedupe": "Line Sort & Dedupe",
+    "stringInspector": "String Inspector",
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Calculadora Chmod",
+    "codeScreenshot": "Captura de codi",
+    "cssGenerators": "Generadors CSS",
+    "exifViewer": "Visualitzador EXIF",
+    "faviconGenerator": "Generador de favicon",
+    "jsonDiff": "Diff JSON",
+    "jsonpathPlayground": "Playground JSONPath",
+    "keycodeInspector": "Inspector de keycode",
+    "markdownTableGenerator": "Taula Markdown",
+    "timezoneConverter": "Convertidor de zona horària",
+    "tokenCounter": "Comptador de tokens",
+    "webhookTester": "Provador de webhooks",
+    "websocketTester": "Provador de WebSocket",
+    "whoisLookup": "Consulta Whois"
+  },
+  "Help": {
+    "title": "Ajuda i documentació",
+    "subtitle": "Com encaixa MyDevTools, què fa cada aplicació i com la seguretat i el xifrat protegeixen les teves dades.",
+    "tabs": {
+      "overview": "Visió general",
+      "apps": "Aplicacions",
+      "security": "Seguretat",
+      "tips": "Consells"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Què és MyDevTools?",
+        "description": "Un espai de treball per a desenvolupadors amb inici de sessió: un tauler i un conjunt d’eines per al dia a dia.",
+        "p1": "Després d’iniciar sessió, l’app estableix una sessió amb l’API de MyDevTools perquè les eines puguin carregar i desar les teves dades. La barra lateral llista totes les apps; pots amagar les eines que no fas servir a",
+        "settingsLink": "Configuració",
+        "p1After": ".",
+        "p2": "Algunes funcions utilitzen una <strong>contrasenya mestra</strong> (o clau global del vault) perquè secrets com contrasenyes i cadenes de connexió es xifrin al teu dispositiu abans d’arribar al servidor."
+      },
+      "quickLinks": {
+        "title": "Enllaços ràpids",
+        "dashboard": "Tauler",
+        "settings": "Configuració"
+      }
+    },
+    "apps": {
+      "intro": "Obre qualsevol eina des de la barra lateral o el tauler. A continuació tens una guia breu per aplicació.",
+      "open": "Obrir",
+      "howItWorks": "Com funciona",
+      "generic": "Fes servir aquesta eina des de la barra lateral per al seu flux de treball dedicat."
+    },
+    "security": {
+      "session": {
+        "title": "Inici de sessió i sessió d’API",
+        "description": "Identitat i com el navegador es comunica amb el backend.",
+        "items": {
+          "authentication": "<strong>Autenticació</strong> mitjançant Firebase. Després del login, l’app intercanvia el teu Firebase ID token per cookies de l’API.",
+          "accessTokens": "<strong>Tokens d’accés</strong> són JWT signats al servidor (HS256) que proven quin usuari crida l’API.",
+          "refreshTokens": "<strong>Tokens de refresc</strong> es guarden en cookies HttpOnly; el servidor desa un hash SHA-256 del token, no el token en brut."
+        }
+      },
+      "encryption": {
+        "title": "Xifrat que has de conèixer",
+        "description": "Criptografia al client per al vault i dades sensibles de connexió.",
+        "p1": "Per al <strong>gestor de contrasenyes</strong>, el <strong>gestor d'entorns</strong> i les connexions desades del <strong>explorador NoSQL</strong>, l'aplicació web utilitza la <strong>Web Crypto API</strong> del navegador:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> amb <strong>SHA-256</strong>, <strong>100.000</strong> iteracions i una sal aleatòria deriva una clau de 256 bits a partir de la contrasenya mestra.",
+          "aes": "<strong>AES-256-GCM</strong> xifra dades; s’utilitza un <strong>IV de 12 bytes</strong> aleatori per cada xifrat.",
+          "scope": "La clau derivada es manté al navegador (no exportable). El servidor només rep <strong>xifrat i IV</strong>, no la contrasenya mestra ni secrets en clar."
+        },
+        "warning": "Si oblides la contrasenya mestra, no es poden recuperar les dades xifrades. Desa-la de manera segura."
+      },
+      "logout": {
+        "title": "Tancar sessió i dades locals",
+        "body": "En tancar sessió s’esborren secrets en memòria, estat del vault i, si escau, material de la clau mestra d’IndexedDB, i es finalitza la sessió de l’API. Les dades que només estiguin a l’emmagatzematge local poden romandre fins que les esborris al navegador."
+      }
+    },
+    "tips": {
+      "title": "Fer servir MyDevTools de manera segura",
+      "items": {
+        "masterPassword": "Fes servir una contrasenya mestra forta i única per a les funcions del vault.",
+        "apiClient": "Tracta el Client API com qualsevol client HTTP: evita enganxar secrets de producció en entorns compartits si no saps qui els pot veure.",
+        "nosql": "L’Explorador de base de dades es connecta a bases de dades que configures; fes servir usuaris amb mínims privilegis i regles de xarxa quan sigui possible.",
+        "json": "El formatador JSON funciona localment al navegador—tot i així evita enganxar dades molt sensibles en equips compartits.",
+        "settings": "Personalitza les eines visibles a Configuració per mantenir la barra lateral enfocada."
+      }
+    }
+  },
+  "Settings": {
+    "title": "Configuració",
+    "language": "Idioma",
+    "spanish": "Castellà",
+    "english": "Anglès",
+    "french": "Francès",
+    "catalan": "Català",
+    "arabic": "Àrab",
+    "chineseSimplified": "Xinès simplificat",
+    "czech": "Txec",
+    "greek": "Ελληνικά",
+    "german": "Alemany",
+    "danish": "Danès",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "norwegian": "Norsk",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ucraïnès"
+  },
+  "SettingsPage": {
+    "title": "Configuració",
+    "subtitle": "Gestiona la configuració i les preferències del teu compte.",
+    "userProfile": {
+      "title": "Perfil d'usuari",
+      "description": "La teva informació personal i els detalls del compte.",
+      "avatarAlt": "Usuari",
+      "anonymousUser": "Usuari anònim",
+      "noEmailProvided": "No s'ha proporcionat cap correu",
+      "notLoggedIn": "No has iniciat sessió."
+    },
+    "tools": {
+      "title": "Eines i funcions",
+      "description": "Tria quines eines apareixen a la barra lateral de navegació."
+    },
+    "appearance": {
+      "title": "Aparença",
+      "description": "Personalitza com es veu l'aplicació al teu dispositiu.",
+      "themePreference": "Preferència de tema",
+      "themes": {
+        "light": "Clar",
+        "dark": "Fosc",
+        "system": "Sistema"
+      }
+    },
+    "language": {
+      "title": "Idioma",
+      "description": "Defineix l'idioma emprat a tota la plataforma.",
+      "selectLanguage": "Selecciona l'idioma",
+      "selectPlaceholder": "Selecciona un idioma",
+      "helpText": "Canviar l'idioma actualitzarà els menús i les etiquetes a tota la plataforma.",
+      "languages": {
+        "en": "Anglès (English)",
+        "fr": "Français (Francès)",
+        "es": "Castellà (Español)",
+        "ca": "Català",
+        "ar": "Àrab (عربى)",
+        "zh": "简体中文",
+        "cs": "Čeština (txec)",
+        "el": "Ελληνικά (Grec)",
+        "de": "Deutsch (Alemany)",
+        "da": "Dansk (Danès)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "it": "Italià (Italiano)",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
+      }
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
+      "addButton": "Add passkey",
+      "loading": "Loading…",
+      "none": "No passkeys yet.",
+      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
+      "addedOn": "Added {date}",
+      "lastUsedOn": "Last used {date}",
+      "synced": "Synced",
+      "rename": "Rename",
+      "renamePrompt": "Rename passkey",
+      "addedToast": "Passkey added.",
+      "renamedToast": "Passkey renamed.",
+      "removedToast": "Passkey removed.",
+      "loadError": "Could not load passkeys.",
+      "addError": "Could not add passkey.",
+      "renameError": "Could not rename passkey.",
+      "deleteError": "Could not delete passkey.",
+      "dialog": {
+        "title": "Add a passkey",
+        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
+        "nameLabel": "Device name (optional)",
+        "namePlaceholder": "e.g. MacBook Touch ID",
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "waiting": "Waiting for device…"
+      },
+      "delete": {
+        "title": "Remove passkey?",
+        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
+        "cancel": "Cancel",
+        "confirm": "Remove"
+      },
+      "prompt": {
+        "title": "Sign in faster next time",
+        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
+        "skip": "Maybe later",
+        "setup": "Set up passkey",
+        "successToast": "Passkey added — try signing out and back in to test it.",
+        "errorToast": "Could not add passkey. You can try again from Settings."
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Bon dia",
+      "afternoon": "Bona tarda",
+      "evening": "Bona nit"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Benvingut de nou",
+    "welcomeBackNamed": "Benvingut de nou, {name}",
+    "tagline": "Què t’agradaria crear avui?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Eines",
+      "favorites": "Preferits",
+      "pinned": "Fixat",
+      "recent": "Usades recentment"
+    },
+    "sections": {
+      "recentlyUsed": "Usades recentment",
+      "favorites": "Preferits",
+      "whatsNew": "Novetats",
+      "pinned": "Fixat"
+    },
+    "groups": {
+      "apps": "Aplicacions"
+    },
+    "toolCard": {
+      "defaultDescription": "Explora aquesta eina per treure’n més profit.",
+      "launchTool": "Obrir eina"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Tasques",
+        "description": "Gestiona les teves llistes de tasques amb eficàcia."
+      },
+      "notes": {
+        "title": "Notes",
+        "description": "Captura idees i organitza els teus pensaments."
+      },
+      "passwordManager": {
+        "title": "Gestor de contrasenyes",
+        "description": "Emmagatzema i gestiona les contrasenyes amb seguretat."
+      },
+      "environmentManager": {
+        "title": "Gestor d'entorns",
+        "description": "Desa variables tipus .env per projecte i entorn amb etiquetes."
+      },
+      "bookmarks": {
+        "title": "Marcadors",
+        "description": "Gestiona i organitza els teus marcadors."
+      },
+      "apiClient": {
+        "title": "Client API",
+        "description": "Prova i depura sol·licituds HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Database Explorer",
+        "description": "Explora bases de dades MongoDB."
+      },
+      "emailValidator": {
+        "title": "Validador de correu",
+        "description": "Verifica i valida adreces de correu."
+      },
+      "encryptionPlayground": {
+        "title": "Terreny de joc del xifratge",
+        "description": "AES-GCM amb clau en brut o contrasenya; paquets JSON, Web Crypto només al navegador."
+      },
+      "jwtDecoder": {
+        "title": "Descodificador JWT",
+        "description": "Descodifica la capçalera, el payload i la caducitat del JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Descodificador de certificats / PEM",
+        "description": "Descodifica certificats X.509 i CSR: subjecte, emissor, validesa i SAN."
+      },
+      "sshKeyGenerator": {
+        "title": "Generador de claus SSH / RSA",
+        "description": "Genereu parells de claus Ed25519 o RSA al navegador. Descarregueu en formats OpenSSH i PEM."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Formatador GraphQL",
+        "description": "Formata GraphQL amb ressaltat de sintaxi i un editor de consultes senzill."
+      },
+      "yamlFormatter": {
+        "title": "Formatador YAML",
+        "description": "Formata, valida i converteix YAML a JSON al navegador."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Analitzador d’URL",
+        "description": "Desglossa un URL en protocol, amfitrió, camí, paràmetres de consulta i hash."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Secret / clau API",
+        "description": "Cad aleatòries criptogràfiques amb alfabet, longitud i exportació massiva configurables."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Verificador de contrast",
+        "description": "Ràtio de contrast WCAG 2.1 entre text i fons (AA / AAA)."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Generador d'esquema JSON",
+        "description": "Extreu un esquema JSON i models tipats a partir d'una mostra JSON."
+      },
+      "imageToBase64": {
+        "title": "Imatge a Base64",
+        "description": "Converteix imatges a URI de dades o cadenes en brut Base64."
+      },
+      "imageCompressor": {
+        "title": "Compressor d’imatges",
+        "description": "Comprimeix JPEG, PNG i WebP localment amb un control de qualitat."
+      },
+      "cssGradientBuilder": {
+        "title": "Creador de degradats CSS",
+        "description": "Creador de degradat CSS visual amb control d'angle i parades de color."
+      },
+      "gitignoreGenerator": {
+        "title": "Generador .gitignore",
+        "description": "Genereu fitxers .gitignore combinats a l'instant a partir de més de 500 piles tecnològiques."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Converteix fitxers CSV o Excel a JSON i exporta de nou a CSV o XLSX."
+      },
+      "snippetManager": {
+        "title": "Fragments de codi",
+        "description": "Desa fragments amb ressaltat de sintaxi, detecció automàtica d’idioma i format."
+      },
+      "qrCodeGenerator": {
+        "title": "Generador de codis QR",
+        "description": "Crea codis QR en PNG a partir de text o URL al navegador."
+      },
+      "ipSubnetCalculator": {
+        "title": "Calculadora IP / subxarxa",
+        "description": "IPv4 i IPv6 CIDR: màscara, intervals i recompte d’adreces."
+      },
+      "dnsLookup": {
+        "title": "Cerca DNS",
+        "description": "Consulta els registres DNS de qualsevol domini — A, AAAA, MX, TXT, NS, CNAME."
+      },
+      "hashGenerator": {
+        "title": "Generador de hash",
+        "description": "MD5, SHA-1 i SHA-2 per a text o fitxers."
+      },
+      "hmacGenerator": {
+        "title": "Generador HMAC",
+        "description": "Signa webhooks i prova integracions API amb HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Generador de codi TOTP / 2FA",
+        "description": "Enganxa un secret Base32 de l’autenticador; el codi de sis xifres es renova cada 30 s—útil per provar inici de sessió i MFA."
+      },
+      "markdownPreview": {
+        "title": "Previsualització Markdown",
+        "description": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Conversor de base numèrica",
+        "description": "Converteix enters entre bases del 2 al 36."
+      },
+      "formatConverter": {
+        "title": "Conversor de formats",
+        "description": "Converteix entre JSON, YAML, TOML i XML en qualsevol direcció. Les 12 combinacions estan admeses."
+      },
+      "mockDataGenerator": {
+        "title": "Generador de dades de prova",
+        "description": "Definiu columnes, trieu tipus i exporteu conjunts de dades per a llavors, Postman o proves. Fins a 5000 files, tot al navegador: no es puja res."
+      },
+      "httpStatusCodes": {
+        "title": "Codis d'estat HTTP",
+        "description": "Cerca codis d'estat HTTP amb descripcions (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optimitzador SVG",
+        "description": "Enganxa SVG, elimina soroll amb SVGO i veu la reducció de mida UTF-8."
+      },
+      "unitConverter": {
+        "title": "Convertidor d'unitats",
+        "description": "Converteix entre 323 unitats en 43 categories científiques i d'enginyeria."
+      },
+      "dockerComposeGenerator": {
+        "title": "Generador Docker Compose",
+        "description": "Trieu bases de dades, memòries cau, cues, proxies i imatges d’observabilitat; exporteu un docker-compose.yml per a piles locals."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Llisca i fusiona les rajoles per arribar al 2048. Joc clàssic de trencaclosques de nombres."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Trencaclosques de números clàssics. 3 nivells de dificultat, 150 etapes cadascun."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Navega per claus, inspecciona valors i executa ordres en qualsevol instància Redis."
+      },
+      "curlToCode": {
+        "title": "cURL to Code",
+        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
+      },
+      "jsonToCode": {
+        "title": "JSON to Code",
+        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
+      },
+      "beautifyMinify": {
+        "title": "Beautify & Minify",
+        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
+      },
+      "stringCaseConverter": {
+        "title": "String Case Converter",
+        "description": "Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+      },
+      "lineSortDedupe": {
+        "title": "Line Sort & Dedupe",
+        "description": "Sort, deduplicate, trim, and clean up lists of lines locally."
+      },
+      "stringInspector": {
+        "title": "String Inspector",
+        "description": "Count characters, words, bytes, and detect invisible or non-ASCII characters."
+      },
+      "escapeEncode": {
+        "title": "Escape / Encode",
+        "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Generador i verificador Bcrypt",
+        "description": "Genera hash de contrasenyes amb bcrypt i verifica hashes existents."
+      },
+      "chmodCalculator": {
+        "title": "Calculadora Chmod",
+        "description": "Converteix permisos Unix entre octal, simbòlic i caselles de selecció."
+      },
+      "codeScreenshot": {
+        "title": "Captura de codi",
+        "description": "Converteix codi font en imatges boniques i compartibles."
+      },
+      "cssGenerators": {
+        "title": "Generadors CSS",
+        "description": "Generadors de box-shadow, border-radius i clamp() fluid."
+      },
+      "exifViewer": {
+        "title": "Visualitzador i eliminador EXIF",
+        "description": "Inspecciona i elimina les metadades EXIF de les fotos localment."
+      },
+      "faviconGenerator": {
+        "title": "Generador de favicon",
+        "description": "Genera favicons, icones d'app i fragments de manifest."
+      },
+      "jsonDiff": {
+        "title": "Diff JSON",
+        "description": "Diff semàntic i conscient de l'estructura de dos documents JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Playground JSONPath",
+        "description": "Consulta JSON amb JSONPath o JMESPath i mira els resultats en directe."
+      },
+      "keycodeInspector": {
+        "title": "Inspector de keycode",
+        "description": "Prem una tecla per veure els seus codis d'esdeveniment JavaScript i modificadors."
+      },
+      "markdownTableGenerator": {
+        "title": "Generador de taules Markdown",
+        "description": "Crea taules Markdown i HTML en un editor de graella tipus full de càlcul."
+      },
+      "timezoneConverter": {
+        "title": "Convertidor de zona horària",
+        "description": "Converteix una hora entre moltes zones amb indicacions de canvi de dia i horari laboral."
+      },
+      "tokenCounter": {
+        "title": "Comptador de tokens LLM",
+        "description": "Compta tokens LLM, visualitza chunks i estima el cost de l'API."
+      },
+      "webhookTester": {
+        "title": "Provador de webhooks",
+        "description": "Captura i inspecciona les peticions de webhook entrants en temps real."
+      },
+      "websocketTester": {
+        "title": "Provador de WebSocket",
+        "description": "Connecta't a endpoints WebSocket i intercanvia missatges en temps real."
+      },
+      "whoisLookup": {
+        "title": "Consulta Whois",
+        "description": "Consulta les dades de registre de dominis i IP mitjançant RDAP."
+      }
+    },
+    "tabs": {
+      "apps": "Aplicacions",
+      "analytics": "Anàlisi",
+      "ui": "Interfície"
+    },
+    "analytics": {
+      "title": "Les teves dades d’un cop d’ull",
+      "subtitle": "Recomptes sincronitzats amb el teu compte al servidor.",
+      "loadError": "No s’han pogut carregar les estadístiques.",
+      "retry": "Torna-ho a provar",
+      "loginHint": "Inicia la sessió per veure l’anàlisi d’ús i les preferències d’interfície.",
+      "passwordEntries": "Entrades de contrasenyes",
+      "bookmarks": "Marcadors",
+      "bookmarkFolders": "Carpetes de marcadors",
+      "tasksTotal": "Tasques",
+      "tasksCompleted": "Completades",
+      "tasksOngoing": "En curs",
+      "tasksNotStarted": "No iniciades",
+      "projects": "Projectes",
+      "nosqlConnections": "Connexions a BD",
+      "notes": "Notes",
+      "apiClientCollections": "Col·leccions API",
+      "apiClientEnvironments": "Entorns API",
+      "apiClientHistory": "Entrades de l’historial API",
+      "jsonFormatterDocuments": "Documents del formatador JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Fragments de codi",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
+    },
+    "ui": {
+      "title": "Preferències d’interfície",
+      "subtitle": "Tema, idioma i eines visibles a la barra lateral — des de la configuració del compte.",
+      "loadError": "No s’han pogut carregar les preferències.",
+      "loginHint": "Inicia la sessió per veure les preferències d’interfície desades.",
+      "theme": "Tema",
+      "accent": "Color d’accent",
+      "locale": "Idioma",
+      "enabledTools": "Eines visibles",
+      "favoriteTools": "Eines favorites",
+      "toolsWithUsage": "Eines amb ús registrat"
+    },
+    "signIn": "Inicia la sessió",
+    "noResults": "Cap eina coincideix amb la vostra cerca",
+    "noResultsHint": "Proveu una paraula clau diferent o elimineu el filtre.",
+    "filterAll": "Tot",
+    "loginCta": {
+      "description": "Inicieu sessió per fer un seguiment de les eines utilitzades recentment."
+    },
+    "popularTools": "Popular tools",
+    "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
+    "viewActivity": "Recent activity",
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "filterRange": "Time range",
+      "search": "Search activity…",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "7 days",
+      "last30": "30 days",
+      "allTime": "All time",
+      "resetFilters": "Reset filters",
+      "activeFilters": "{count, plural, =0 {No filters} =1 {1 filter} other {# filters}} applied",
+      "empty": "No activity yet.",
+      "emptyFiltered": "No activity matches the current filters.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "showingOf": "Showing {shown} of {total}",
+      "changedFields": "What changed",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "device": "Device",
+      "ipAddress": "IP",
+      "latency": "Latency",
+      "endpoint": "Endpoint",
+      "status": "Status",
+      "when": "When",
+      "actionKey": "Action",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity",
+      "moduleAuth": "Account",
+      "moduleBookmarks": "Bookmarks",
+      "moduleBookmarkFolders": "Bookmark folders",
+      "moduleNotes": "Notes",
+      "moduleTasks": "Tasks",
+      "modulePasswords": "Passwords",
+      "moduleSnippets": "Snippets",
+      "moduleApiClient": "API client",
+      "moduleSqlClient": "SQL client",
+      "moduleNosql": "NoSQL",
+      "moduleEnvManager": "Environments",
+      "modulePrefs": "Preferences",
+      "moduleProjects": "Projects",
+      "moduleUrlShortener": "URL shortener",
+      "moduleGameScores": "Game scores",
+      "moduleFeedback": "Feedback"
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "S'està carregant...",
+      "myTasksTitle": "Les meves tasques",
+      "statsLine": "{total} tasques • {percent}% completades",
+      "statsLineDesktop": "{total} en total • {percent}% completades"
+    },
+    "filters": {
+      "all": "Totes",
+      "total": "Total",
+      "allProjects": "Tots els projectes",
+      "export": "Exporta",
+      "kanban": "Kanban",
+      "list": "Llista",
+      "searchPlaceholder": "Cerca tasques...",
+      "searchAria": "Cerca tasques",
+      "clearSearchAria": "Neteja la cerca",
+      "foundTasks": "S'han trobat {count} {count, plural, one {tasca} other {tasques}}",
+      "filterByAllAria": "Filtra per totes",
+      "filterByStatusAria": "Filtra per {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "No iniciada",
+        "description": "Tasques que encara no s'han començat"
+      },
+      "ongoing": {
+        "label": "En curs",
+        "description": "Tasques en progrés"
+      },
+      "completed": {
+        "label": "Completada",
+        "description": "Tasques finalitzades"
+      }
+    },
+    "priorities": {
+      "high": "Alta",
+      "medium": "Mitjana",
+      "low": "Baixa"
+    },
+    "form": {
+      "addNewTaskLabel": "Afegeix una tasca nova",
+      "multilinePlaceholder": "Afegeix detalls de la tasca... (Maj+Retorn per a línia nova)",
+      "singlelinePlaceholder": "Què cal fer? Prem Retorn per afegir",
+      "taskInputAria": "Entrada de tasca",
+      "projectPlaceholder": "Projecte",
+      "selectProject": "Selecciona un projecte",
+      "errorSelectProject": "Selecciona un projecte o crea'n un de nou per afegir una tasca.",
+      "hintMultiline": "Maj+Retorn per a línia nova, Retorn per afegir",
+      "hintSingleline": "Retorn per afegir",
+      "shortcutsAria": "Dreceres de teclat",
+      "shortcutsLabel": "Dreceres",
+      "shortcutAddTask": "Afegeix tasca",
+      "shortcutNewLine": "Línia nova",
+      "shortcutClear": "Neteja",
+      "addButton": "Afegeix"
+    },
+    "list": {
+      "ariaLabel": "Llista de tasques",
+      "loading": "S'estan carregant les teves tasques...",
+      "emptyTitle": "No s'ha trobat cap tasca",
+      "emptyPrimary": "Comença afegint la teva primera tasca a dalt! Prem Retorn per afegir tasques ràpidament.",
+      "emptySecondary": "Prova d'ajustar els filtres o la cerca."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Afegeix tasca",
+      "addNewTaskTitle": "Tasca nova",
+      "addNewTaskDescription": "Crea una tasca nova per fer seguiment del teu progrés.",
+      "cancel": "Cancel·la"
+    },
+    "kanban": {
+      "ariaLabel": "Tauler Kanban",
+      "loading": "S'estan carregant les teves tasques...",
+      "dropHere": "Deixa anar la tasca aquí",
+      "noTasksYet": "Encara no hi ha tasques",
+      "emptyColumnAria": "Columna buida",
+      "columnAria": "Columna {title} amb {count} tasques",
+      "countInColumnAria": "{count} tasques a {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Segur que vols eliminar aquesta tasca?",
+      "statusPlaceholder": "Estat",
+      "changeStatusAria": "Canvia l'estat de la tasca",
+      "taskOptionsAria": "Opcions de la tasca",
+      "editTask": "Edita la tasca",
+      "copyTask": "Copia la tasca",
+      "copied": "Copiat!",
+      "deleteTask": "Elimina la tasca",
+      "statusHeading": "Estat",
+      "editTaskAria": "Edita la tasca"
+    },
+    "editDialog": {
+      "title": "Edita la tasca",
+      "description": "Actualitza els detalls, afegeix subtasques, defineix prioritats i més.",
+      "taskTitleLabel": "Títol de la tasca *",
+      "taskTitlePlaceholder": "Què cal fer?",
+      "descriptionLabel": "Descripció",
+      "descriptionPlaceholder": "Afegeix més detalls sobre aquesta tasca...",
+      "statusLabel": "Estat",
+      "priorityLabel": "Prioritat",
+      "dueDateLabel": "Data límit",
+      "pickDate": "Trieu una data",
+      "clearDate": "Esborra la data",
+      "projectLabel": "Projecte",
+      "selectProjectPlaceholder": "Selecciona un projecte",
+      "noProject": "Sense projecte",
+      "timeEstimateLabel": "Estimació de temps (minuts)",
+      "timeEstimatePlaceholder": "Quant durarà?",
+      "tagsLabel": "Etiquetes",
+      "customTagNamePlaceholder": "Nom d'etiqueta personalitzada",
+      "subtasksLabel": "Subtasques",
+      "addSubtaskPlaceholder": "Afegeix una subtasca...",
+      "cancel": "Cancel·la",
+      "saving": "S'està desant...",
+      "saveChanges": "Desa els canvis"
+    },
+    "export": {
+      "title": "Exporta tasques",
+      "description": "Exporta les teves tasques a JSON, CSV o Excel.",
+      "projectLabel": "Projecte",
+      "statusLabel": "Estat",
+      "tagLabel": "Etiqueta",
+      "allProjects": "Tots els projectes",
+      "allStatuses": "Tots els estats",
+      "allTags": "Totes les etiquetes",
+      "exportAsJsonTitle": "Exporta com a JSON",
+      "exportAsJsonDescription": "Exporta les dades de les tasques, subtasques, etiquetes i metadades.",
+      "exportJson": "Exporta JSON",
+      "exportAsCsvExcelTitle": "Exporta com a CSV / Excel",
+      "exportAsCsvExcelDescription": "Exporta tasques per a fulls de càlcul.",
+      "exportCsv": "Exporta CSV",
+      "exportExcel": "Exporta Excel",
+      "close": "Tanca",
+      "toastNoTasks": "No hi ha tasques per exportar amb els filtres actuals",
+      "toastExportedJson": "S'han exportat {count} tasques a JSON!",
+      "toastExportedCsv": "S'han exportat {count} tasques a CSV!",
+      "toastExportedExcel": "S'han exportat {count} tasques a Excel!",
+      "toastFailedJson": "No s'ha pogut exportar a JSON",
+      "toastFailedCsv": "No s'ha pogut exportar a CSV",
+      "toastFailedExcel": "No s'ha pogut exportar a Excel",
+      "unknownProject": "Projecte desconegut"
+    },
+    "ack": {
+      "taskAddedTitle": "Tasca afegida correctament",
+      "taskAddedFailedTitle": "No s'ha pogut afegir la tasca",
+      "taskUpdatedTitle": "Tasca actualitzada correctament",
+      "taskUpdatedFailedTitle": "No s'ha pogut actualitzar la tasca",
+      "taskStatusUpdateFailedTitle": "No s'ha pogut actualitzar l'estat de la tasca",
+      "taskMovedTitle": "Tasca moguda a {status}",
+      "tryAgain": "Torna-ho a provar.",
+      "taskDeletedTitle": "S'ha eliminat la tasca «{text}»",
+      "undo": "Desfés",
+      "taskRestoredTitle": "Tasca restaurada",
+      "taskRestoredSuccessTitle": "Tasca restaurada correctament",
+      "taskRestoreFailedTitle": "No s'ha pogut restaurar la tasca. Torna-ho a provar.",
+      "taskDeleteFailedTitle": "No s'ha pogut eliminar la tasca. Torna-ho a provar.",
+      "tasksImportedTitle": "S'han importat {count} {count, plural, one {tasca} other {tasques}} correctament!",
+      "tasksImportFailedTitle": "No s'han pogut importar les tasques. Torna-ho a provar.",
+      "unknownProject": "Projecte desconegut",
+      "projectCreatedTitle": "Projecte creat correctament",
+      "projectCreateFailedTitle": "No s'ha pogut crear el projecte",
+      "projectUpdatedTitle": "Projecte actualitzat correctament",
+      "projectUpdateFailedTitle": "No s'ha pogut actualitzar el projecte",
+      "projectDeletedTitle": "Projecte eliminat correctament",
+      "projectDeleteFailedTitle": "No s'ha pogut eliminar el projecte"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "S'està carregant..."
+    },
+    "layout": {
+      "mobileNavTitle": "Navegació de notes",
+      "openMenuAria": "Obre el menú de notes"
+    },
+    "sidebar": {
+      "title": "Notes",
+      "createNoteAria": "Crea una nota",
+      "searchPlaceholder": "Cerca notes...",
+      "loading": "S'està carregant...",
+      "noNotesFound": "No s'ha trobat cap nota.",
+      "noNotesYet": "Encara no hi ha notes. Fes clic a + per crear-ne una.",
+      "inParent": "a {parentTitle}",
+      "untitled": "Sense títol",
+      "addSubPage": "Afegeix subpàgina",
+      "delete": "Elimina",
+      "deleteConfirmTitle": "Vols eliminar la nota?",
+      "deleteConfirmDescription": "Segur que vols eliminar «{title}»? Aquesta acció no es pot desfer.",
+      "cancel": "Cancel·la",
+      "confirmDelete": "Elimina",
+      "noteOptionsAria": "Opcions de la nota"
+    },
+    "editor": {
+      "emptyState": "Selecciona una nota o crea'n una de nova per començar.",
+      "titlePlaceholder": "Sense títol",
+      "saving": "Desant…",
+      "ready": "A punt",
+      "saved": "Desat {time}",
+      "stats": "{words} paraules · {read} min de lectura",
+      "template": "Plantilla",
+      "applyTemplate": "Aplica la plantilla",
+      "exportMdLabel": ".md",
+      "exportMd": "Exporta com a Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Exporta com a HTML",
+      "focusMode": "Mode concentració",
+      "exitFocusMode": "Surt del mode concentració",
+      "save": "Desa",
+      "addTag": "Afegeix etiqueta…",
+      "removeTag": "Elimina l'etiqueta {tag}",
+      "loading": "Carregant…",
+      "searchHint": "per cercar",
+      "focusHint": "mode concentració",
+      "notePath": "Camí de la nota"
+    },
+    "context": {
+      "authRequiredError": "Usuari no autenticat",
+      "defaultTitle": "Sense títol",
+      "cloudSyncImageError": "Activa la sincronització al núvol per desar imatges de les notes. Les notes de text es queden localment."
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "S'està carregant...",
+      "title": "Gestor de contrasenyes",
+      "loadFailed": "Failed to load passwords"
+    },
+    "vault": {
+      "toastDecryptFailed": "No s'han pogut desxifrar les contrasenyes",
+      "toastLoadFailed": "No s'han pogut carregar les contrasenyes",
+      "toastUnlockedAuto": "Coffre desblocat automàticament",
+      "toastAutoUnlockFailed": "El desblocatge automàtic ha fallat. Desbloca manualment.",
+      "toastConnectFailed": "No s'ha pogut connectar al servidor",
+      "toastAutoUnlockWarning": "Coffre desblocat, però el desblocatge automàtic potser no funciona en recarregar",
+      "errorIncorrectPassword": "Contrasenya mestra incorrecta",
+      "errorUnlockFailed": "No s'ha pogut desbloquejar el coffre",
+      "errorPasswordsMismatch": "Les contrasenyes no coincideixen",
+      "errorPasswordTooShort": "La contrasenya ha de tenir com a mínim 8 caràcters",
+      "errorSetupFailed": "No s'ha pogut configurar el coffre",
+      "errorConnectFailed": "No s'ha pogut connectar al servidor.",
+      "mobileTitleCreate": "Crea el teu coffre",
+      "mobileTitleWelcome": "Benvingut de nou",
+      "mobileSubtitleCreate": "Defineix una contrasenya mestra per protegir les teves credencials",
+      "mobileSubtitleUnlock": "Introdueix la contrasenya mestra per desbloquejar",
+      "placeholderMasterPassword": "Contrasenya mestra",
+      "placeholderConfirmPassword": "Confirma la contrasenya",
+      "labelMasterPassword": "Contrasenya mestra",
+      "labelConfirmPassword": "Confirma la contrasenya",
+      "placeholderEnterMaster": "Introdueix la contrasenya mestra",
+      "placeholderConfirmMaster": "Confirma la contrasenya mestra",
+      "buttonCreateVault": "Crea el coffre",
+      "buttonUnlock": "Desbloqueja",
+      "buttonUnlockVault": "Desbloqueja el coffre",
+      "footerCreate": "La teva contrasenya no es desa mai i no es pot recuperar",
+      "footerUnlock": "Protegit amb xifratge extrem a extrem",
+      "desktopTitleSetup": "Configura el coffre de contrasenyes",
+      "desktopTitleUnlock": "Desbloqueja el coffre",
+      "desktopDescriptionSetup": "Crea una contrasenya mestra per protegir les teves credencials. Aquesta contrasenya no es desa mai i no es pot recuperar.",
+      "desktopDescriptionUnlock": "Introdueix la contrasenya mestra per accedir a les credencials protegides."
+    },
+    "list": {
+      "loading": "S'estan carregant les contrasenyes...",
+      "emptyTitle": "El coffre és buit",
+      "emptyHintMobile": "Toca el botó + per afegir la primera contrasenya",
+      "emptyHintDesktop": "Encara no has desat cap contrasenya. Fes clic a «Afegeix contrasenya» a dalt per començar.",
+      "addPassword": "Afegeix contrasenya",
+      "searchPlaceholderMobile": "Cerca al coffre...",
+      "searchPlaceholderDesktop": "Cerca al coffre...",
+      "importExport": "Importa / exporta",
+      "lockVault": "Bloqueja el coffre",
+      "allPasswordsTitle": "Totes les contrasenyes",
+      "passwordCount": "{count, plural, one {# contrasenya} other {# contrasenyes}}",
+      "vaultHealthDrawerTitle": "Salut del coffre",
+      "noResults": "No s'ha trobat cap contrasenya que coincideixi amb «{query}»",
+      "tableService": "Servei",
+      "tableUsername": "Usuari",
+      "tablePassword": "Contrasenya",
+      "tableUrl": "URL",
+      "tableActions": "Accions",
+      "gridViewAria": "Vista de graella",
+      "listViewAria": "Vista de llista",
+      "passwordStrengthTitle": "Fortalesa de la contrasenya",
+      "deleteDialogTitle": "Elimina la contrasenya",
+      "deleteDialogDescription": "Segur que vols eliminar aquesta contrasenya? Aquesta acció no es pot desfer.",
+      "cancel": "Cancel·la",
+      "delete": "Elimina",
+      "edit": "Edita"
+    },
+    "toasts": {
+      "copiedPassword": "Contrasenya copiada al porta-retalls",
+      "copiedUsername": "Usuari copiat al porta-retalls",
+      "passwordDeleted": "Contrasenya eliminada",
+      "deleteFailed": "No s'ha pogut eliminar la contrasenya",
+      "vaultLocked": "Coffre bloquejat",
+      "importedCount": "S'han importat {count, plural, one {# contrasenya} other {# contrasenyes}} correctament"
+    },
+    "form": {
+      "addTitle": "Contrasenya nova",
+      "editTitle": "Edita la contrasenya",
+      "serviceName": "Nom del servei",
+      "usernameEmail": "Usuari / correu",
+      "password": "Contrasenya",
+      "urlOptional": "URL del lloc web (opcional)",
+      "notesOptional": "Notes (opcional)",
+      "tags": "Etiquetes",
+      "placeholderService": "p. ex. Netflix",
+      "placeholderUsername": "usuari@exemple.com",
+      "placeholderPassword": "Introdueix o genera una contrasenya",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Detalls addicionals...",
+      "placeholderTags": "Afegeix etiquetes (Retorn o coma)",
+      "strength": "Fortalesa",
+      "strengthWeak": "Feble",
+      "strengthMedium": "Mitjana",
+      "strengthStrong": "Forta",
+      "advancedGenerator": "Generador avançat",
+      "cancel": "Cancel·la",
+      "saving": "S'està desant...",
+      "savePassword": "Desa la contrasenya",
+      "updating": "S'està actualitzant...",
+      "updatePassword": "Actualitza la contrasenya",
+      "addPasswordSrOnly": "Afegeix contrasenya",
+      "triggerAdd": "Afegeix contrasenya",
+      "toastSaved": "Contrasenya desada correctament",
+      "toastSaveFailed": "No s'ha pogut desar la contrasenya",
+      "toastUpdated": "Contrasenya actualitzada correctament",
+      "toastUpdateFailed": "No s'ha pogut actualitzar la contrasenya"
+    },
+    "security": {
+      "vaultHealth": "Salut del coffre",
+      "statusLabel": "Estat",
+      "totalPasswords": "Contrasenyes totals",
+      "activeEntries": "Entrades actives al coffre",
+      "protected": "Protegit",
+      "weakPasswords": "Contrasenyes febles",
+      "needingImprovement": "Contrasenyes a millorar",
+      "allGood": "Tot correcte",
+      "reusedPasswords": "Contrasenyes reutilitzades",
+      "usedMultipleTimes": "Contrasenyes usades diverses vegades",
+      "unique": "Úniques",
+      "total": "Total",
+      "weak": "Feble",
+      "reused": "Reutilitzada",
+      "totalCountLabel": "{count, plural, one {# contrasenya} other {# contrasenyes}}",
+      "weakCountLabel": "{count} febles",
+      "allSecure": "Tot segur",
+      "scoreExcellent": "Excel·lent",
+      "scoreGood": "Bo",
+      "scoreFair": "Acceptable",
+      "scoreCritical": "Crític"
+    },
+    "importExport": {
+      "title": "Importa / exporta el coffre",
+      "description": "Gestiona les dades de contrasenyes. Pots exportar el coffre a JSON o importar des d'un fitxer JSON.",
+      "tabExport": "Exporta",
+      "tabImport": "Importa",
+      "warningTitle": "Avís",
+      "warningBody": "Els fitxers exportats contenen les contrasenyes en text pla. Mantén el fitxer segur i elimina'l després d'usar-lo.",
+      "exportBlurb": "Baixa tot el coffre com a JSON. Inclou serveis, usuaris, contrasenyes i notes.",
+      "downloadJson": "Baixa exportació JSON",
+      "pasteLabel": "Enganxa dades JSON",
+      "pastePlaceholder": "[{\"service\": \"Exemple\", \"username\": \"usuari\", \"password\": \"123\", ...}]",
+      "pasteHint": "Enganxa aquí el contingut d'un fitxer JSON exportat anteriorment.",
+      "importing": "S'està important...",
+      "importPasswords": "Importa contrasenyes",
+      "trigger": "Importa / exporta",
+      "toastExported": "Coffre exportat correctament",
+      "toastExportFailed": "No s'ha pogut exportar el coffre",
+      "toastImportFailed": "No s'ha pogut importar: format JSON no vàlid"
+    },
+    "card": {
+      "copyUsername": "Copia l'usuari",
+      "openUrl": "Obre l'URL",
+      "strength": "Fortalesa"
+    },
+    "swipeable": {
+      "copy": "Copia",
+      "delete": "Elimina",
+      "copyPassword": "Copia la contrasenya",
+      "copyUsername": "Copia l'usuari",
+      "edit": "Edita",
+      "deleteAction": "Elimina"
+    },
+    "floatingMenu": {
+      "lockVault": "Bloqueja el coffre",
+      "importExport": "Importa / exporta",
+      "addPassword": "Afegeix contrasenya"
+    },
+    "generator": {
+      "tabPassword": "Contrasenya",
+      "tabPassphrase": "Frase secreta",
+      "strength": "Fortalesa",
+      "lengthLabel": "Longitud: {length} caràcters",
+      "lengthBadge": "{length} car.",
+      "characterSets": "Jocs de caràcters",
+      "uppercase": "Majúscules",
+      "lowercase": "Minúscules",
+      "numbers": "Números",
+      "symbols": "Símbols",
+      "wordCountLabel": "Nombre de paraules: {count}",
+      "wordCountBadge": "{count, plural, one {# paraula} other {# paraules}}",
+      "separator": "Separador",
+      "capitalization": "Majúscules inicials",
+      "includeNumber": "Inclou un número"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variables d'entorn xifrades per projecte i entorn.",
+    "page": {
+      "loading": "S'està carregant…",
+      "title": "Gestor d'entorns",
+      "loadFailed": "No s'han pogut carregar els conjunts d'entorn"
+    },
+    "list": {
+      "title": "Entorns",
+      "loading": "S'estan carregant els conjunts…",
+      "emptyTitle": "Encara no hi ha conjunts d'entorn",
+      "emptyHint": "Crea un conjunt per a cada projecte i entorn (p. ex. claus d'API de producció). Tot es xifra al navegador abans de pujar-lo.",
+      "searchPlaceholder": "Cerca projecte, entorn, etiquetes, notes…",
+      "tagFilterPlaceholder": "Filtra per etiqueta",
+      "variableCount": "{count, plural, one {# variable} other {# variables}}",
+      "updatedAgo": "Actualitzat {time}",
+      "copyDotEnv": "Copia .env",
+      "edit": "Edita",
+      "delete": "Suprimeix",
+      "cancel": "Cancel·la",
+      "confirmDelete": "Suprimeix",
+      "deleteDialogTitle": "Vols suprimir el conjunt d'entorn?",
+      "deleteDialogDescription": "Això elimina el blob xifrat del teu compte. No es pot desfer.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copiat al porta-retalls",
+      "deleted": "Conjunt d'entorn suprimit",
+      "deleteFailed": "No s'ha pogut suprimir"
+    },
+    "form": {
+      "addTitle": "Nou conjunt d'entorn",
+      "editTitle": "Edita el conjunt d'entorn",
+      "triggerAdd": "Afegeix conjunt d'entorn",
+      "addSrOnly": "Afegeix conjunt d'entorn",
+      "project": "Projecte",
+      "environment": "Entorn",
+      "placeholderProject": "p. ex. billing-api",
+      "placeholderEnvironment": "p. ex. production",
+      "pasteEnvLabel": "Enganxa .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Fusiona les línies enganxades",
+      "variables": "Variables",
+      "addRow": "Afegeix fila",
+      "keyPlaceholder": "CLAU",
+      "valuePlaceholder": "valor",
+      "notesOptional": "Notes (opcional)",
+      "placeholderNotes": "Política de rotació, propietari, enllaços…",
+      "tags": "Etiquetes",
+      "placeholderTags": "Afegeix etiquetes (Retorn o coma)",
+      "cancel": "Cancel·la",
+      "save": "Desa",
+      "saving": "S'està desant…",
+      "update": "Actualitza",
+      "updating": "S'està actualitzant…",
+      "toastSaved": "Conjunt d'entorn desat",
+      "toastSaveFailed": "No s'ha pogut desar",
+      "toastUpdated": "Conjunt d'entorn actualitzat",
+      "toastUpdateFailed": "No s'ha pogut actualitzar",
+      "toastPasteEmpty": "No s'han trobat línies CLAU=valor",
+      "toastPasteApplied": "S'han fusionat {count} variables de l'enganxat",
+      "toastProjectEnvRequired": "El projecte i l'entorn són obligatoris",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "S'està carregant..."
+    },
+    "manager": {
+      "foldersHeading": "Carpetes",
+      "tagsHeading": "Etiquetes",
+      "tagsMore": "+{count} més",
+      "tagsShowLess": "Show less",
+      "searchPlaceholder": "Cerca marcadors...",
+      "import": "Importa",
+      "export": "Exporta",
+      "exportAsHtml": "Exporta com a HTML",
+      "exportAsJson": "Exporta com a JSON",
+      "addBookmark": "Afegeix marcador",
+      "matchingQuery": "coincidències amb «{query}»",
+      "bookmarkCount": "{count, plural, one {# marcador} other {# marcadors}}",
+      "allBookmarks": "Tots els marcadors",
+      "uncategorized": "Sense categoria",
+      "unknownFolder": "Desconeguda"
+    },
+    "card": {
+      "urlCopied": "URL copiada al porta-retalls",
+      "bookmarkDeleted": "Marcador eliminat",
+      "edit": "Edita",
+      "delete": "Elimina",
+      "copyUrl": "Copia l'URL",
+      "deleteConfirmTitle": "Vols eliminar el marcador?",
+      "deleteConfirmDescription": "S'eliminarà permanentment «{title}».",
+      "cancel": "Cancel·la"
+    },
+    "grid": {
+      "emptyTitle": "Encara no hi ha marcadors",
+      "emptyDescription": "Afegeix el primer marcador o importa des del navegador per començar."
+    },
+    "folderTree": {
+      "allBookmarks": "Tots els marcadors",
+      "addSubfolder": "Afegeix subcarpeta",
+      "rename": "Canvia el nom",
+      "deleteFolderTitle": "Vols eliminar la carpeta «{name}»?",
+      "deleteFolderDescription": "S'eliminarà la carpeta i totes les subcarpetes. Els marcadors aniran a Sense categoria."
+    },
+    "import": {
+      "title": "Importa marcadors",
+      "description": "Importa marcadors des del fitxer exportat del navegador.",
+      "parseError": "No s'ha pogut analitzar el fitxer. Assegura't que sigui una exportació vàlida.",
+      "successToast": "S'han importat {bookmarks} marcadors i {folders} carpetes",
+      "errorToast": "No s'han pogut importar els marcadors",
+      "chromeInstruction": "Menú → Marcadors → Gestor de marcadors → ⋮ → Exporta marcadors",
+      "firefoxInstruction": "Menú → Marcadors → Gestiona marcadors → Importa i còpia de seguretat → Exporta",
+      "safariInstruction": "Fitxer → Exporta marcadors...",
+      "edgeInstruction": "Menú → Preferits → ⋯ → Exporta preferits",
+      "dropZoneTitle": "Deixa anar el fitxer de marcadors aquí",
+      "dropZoneHint": "o fes clic per triar (HTML o JSON)",
+      "selectedFileHint": "Fes clic per triar un altre fitxer",
+      "errorTitle": "Error",
+      "previewTitle": "Vista prèvia de la importació",
+      "previewBookmarks": "{count, plural, one {# marcador} other {# marcadors}}",
+      "previewFolders": "{count, plural, one {# carpeta} other {# carpetes}}",
+      "importModeLabel": "Mode d'importació",
+      "modeMerge": "Fusiona amb els marcadors existents",
+      "modeReplace": "Substitueix tots els marcadors existents",
+      "cancel": "Cancel·la",
+      "importButton": "Importa",
+      "importButtonWithCount": "Importa {count, plural, one {# marcador} other {# marcadors}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Afegeix marcador",
+      "titleEdit": "Edita el marcador",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://exemple.com",
+      "urlInvalid": "Introdueix una URL vàlida",
+      "titleLabel": "Títol",
+      "titlePlaceholder": "Títol del marcador",
+      "titleRequired": "Introdueix un títol",
+      "descriptionLabel": "Descripció (opcional)",
+      "descriptionPlaceholder": "Afegeix una nota sobre aquest marcador",
+      "folderLabel": "Carpeta",
+      "folderPlaceholder": "Selecciona carpeta",
+      "noFolder": "Sense carpeta",
+      "tagsLabel": "Etiquetes",
+      "tagsPlaceholder": "Afegeix etiquetes (Retorn)",
+      "toastUpdated": "Marcador actualitzat",
+      "toastAdded": "Marcador afegit",
+      "cancel": "Cancel·la",
+      "submitAdd": "Afegeix marcador",
+      "submitUpdate": "Actualitza el marcador"
+    },
+    "addFolder": {
+      "title": "Crea carpeta",
+      "nameLabel": "Nom de la carpeta",
+      "namePlaceholder": "La meva carpeta",
+      "nameRequired": "Introdueix un nom de carpeta",
+      "parentLabel": "Carpeta pare",
+      "parentPlaceholder": "Selecciona carpeta pare",
+      "rootParent": "Arrel (sense pare)",
+      "toastCreated": "Carpeta creada",
+      "cancel": "Cancel·la",
+      "submit": "Crea la carpeta"
+    },
+    "editFolder": {
+      "title": "Canvia el nom de la carpeta",
+      "nameLabel": "Nom de la carpeta",
+      "namePlaceholder": "Nom de la carpeta",
+      "nameRequired": "Introdueix un nom de carpeta",
+      "toastRenamed": "S'ha canviat el nom de la carpeta",
+      "cancel": "Cancel·la",
+      "save": "Desa"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Validador de correu",
+      "description": "Verifica i valida adreces de correu per sintaxi, domini i lliurabilitat."
+    },
+    "tabs": {
+      "single": "Verificació individual",
+      "bulk": "Pujada massiva"
+    },
+    "single": {
+      "cardTitle": "Verificació d'un sol correu",
+      "cardDescription": "Introdueix una adreça per comprovar la lliurabilitat i la reputació.",
+      "placeholder": "Introdueix l'adreça de correu...",
+      "clearAria": "Neteja el correu",
+      "validate": "Valida",
+      "validating": "S'està validant...",
+      "formatError": "Introdueix una adreça de correu vàlida"
+    },
+    "toasts": {
+      "errorTitle": "Error",
+      "enterEmail": "Introdueix una adreça de correu",
+      "invalidFormatTitle": "Format de correu no vàlid",
+      "invalidFormatDescription": "Introdueix una adreça de correu vàlida",
+      "validateFailedDescription": "S'ha produït un error en validar el correu",
+      "noEmailsTitle": "No s'han trobat correus",
+      "noEmailsDescription": "Assegura't que l'Excel tingui una columna «email».",
+      "fileTooLargeTitle": "Fitxer massa gran",
+      "fileTooLargeDescription": "S'han trobat {total} correus. Només es validaran els primers 4000.",
+      "successTitle": "Correcte",
+      "successValidated": "S'han validat {count} correus correctament.",
+      "batchFailedTitle": "Validació massiva fallida",
+      "batchFailedDescription": "S'ha produït un error en processar la validació massiva.",
+      "noExportTitle": "No hi ha dades per exportar",
+      "noExportValidOnly": "No s'han trobat correus vàlids per exportar.",
+      "noExportAll": "No hi ha resultats per exportar.",
+      "exportSuccessTitle": "Exportació correcta",
+      "exportSuccessExcelAll": "S'han exportat {count} correus a Excel.",
+      "exportSuccessExcelValid": "S'han exportat {count} correus vàlids a Excel.",
+      "exportSuccessCsvAll": "S'han exportat {count} correus a CSV.",
+      "exportSuccessCsvValid": "S'han exportat {count} correus vàlids a CSV."
+    },
+    "disposableAlert": {
+      "title": "Correu temporal detectat",
+      "description": "Aquesta adreça pertany a un proveïdor de correu d'un sol ús. Pot ser temporal o poc fiable."
+    },
+    "score": {
+      "reliabilityTitle": "Puntuació de fiabilitat",
+      "scoreLabel": "Puntuació"
+    },
+    "details": {
+      "sectionTitle": "Detalls de la validació"
+    },
+    "validation": {
+      "syntaxLabel": "Sintaxi vàlida",
+      "syntaxTooltip": "Comprova si l'adreça segueix el format correcte (p. ex. usuari@domini.com)",
+      "domainLabel": "El domini existeix",
+      "domainTooltip": "Verifica que el domini de l'adreça existeix realment",
+      "mxLabel": "Registres MX trobats",
+      "mxTooltip": "Comprova si el domini té registres d'intercanvi de correu (MX) per rebre correus",
+      "mailboxLabel": "La bústia existeix",
+      "mailboxTooltip": "Verifica que la bústia o compte existeix al servidor de correu",
+      "disposableLabel": "Correu d'un sol ús",
+      "disposableTooltip": "Indica si el correu pertany a un servei temporal o d'un sol ús (pot ser arriscat)",
+      "roleBasedLabel": "Correu de rol",
+      "roleBasedTooltip": "Identifica si és un correu de rol (p. ex. suport@, info@) en lloc d'un compte personal"
+    },
+    "copy": {
+      "emailCopied": "Correu copiat!",
+      "copyTooltip": "Copia el correu"
+    },
+    "bulk": {
+      "dropHere": "Deixa anar el fitxer aquí",
+      "dragHere": "Arrossega i deixa anar el fitxer aquí",
+      "uploadHint": "Puja un fitxer .xlsx, .xls o .csv amb una columna «email» per validar fins a 4000 correus.",
+      "filePrefix": "Fitxer:",
+      "selectFile": "Selecciona fitxer",
+      "downloadTemplate": "Baixa la plantilla"
+    },
+    "bulkLoading": {
+      "title": "S'estan validant els correus...",
+      "batchProgress": "Processant el lot {current} de {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Total processats",
+      "valid": "Vàlids",
+      "risky": "Arriscats",
+      "invalid": "No vàlids"
+    },
+    "results": {
+      "detailedTitle": "Resultats detallats",
+      "searchPlaceholder": "Cerca correus...",
+      "newVerification": "Nova verificació",
+      "exportAll": "Exporta-ho tot",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Exporta vàlids ({count})"
+    },
+    "showingResults": "Es mostren {shown} de {total} resultats",
+    "table": {
+      "email": "Correu",
+      "status": "Estat",
+      "score": "Puntuació",
+      "checks": "Comprovacions"
+    },
+    "noSearchResults": "No hi ha resultats que coincideixin amb «{query}»",
+    "checksTooltip": {
+      "syntax": "Sintaxi",
+      "domain": "Domini",
+      "mx": "MX",
+      "mailbox": "Bústia"
+    },
+    "exportColumns": {
+      "email": "Correu",
+      "status": "Estat",
+      "score": "Puntuació",
+      "syntax": "Sintaxi",
+      "domain": "Domini",
+      "mx": "MX",
+      "mailbox": "Bústia",
+      "disposable": "D'un sol ús",
+      "roleBased": "Rol",
+      "valid": "Vàlid",
+      "invalid": "No vàlid",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "sheets": {
+      "validEmails": "Correus vàlids",
+      "results": "Resultats",
+      "template": "Plantilla"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "Explorador NoSQL",
+      "heroSubtitle": "Connecta't a les teves bases de dades per gestionar col·leccions, executar consultes i visualitzar les dades.",
+      "featureMultiTitle": "Múltiples connexions",
+      "featureMultiDesc": "Gestiona diverses connexions a la base de dades alhora.",
+      "featureMongoTitle": "Compatibilitat amb MongoDB",
+      "featureMongoDesc": "Suport natiu per a MongoDB amb filtres avançats.",
+      "featureQueryTitle": "Consulta intel·ligent",
+      "featureQueryDesc": "Constructor de consultes potent amb ressaltat de sintaxi.",
+      "connectCta": "Connecta a MongoDB",
+      "footerNote": "Actualment compatible amb {db}. Aviat hi haurà més bases de dades.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Selecciona una col·lecció",
+      "selectCollectionDesc": "Tria una col·lecció de la barra lateral per veure documents i explorar les dades.",
+      "dialogAddConnection": "Afegeix connexió",
+      "toastConnectionAdded": "Connexió afegida",
+      "toastFetchFailed": "No s'han pogut obtenir documents de {collection}",
+      "toastDocDeleted": "Document eliminat",
+      "deleteDocTitle": "N'estàs completament segur?",
+      "deleteDocDescription": "Aquesta acció no es pot desfer. El document s'eliminarà permanentment de la col·lecció.",
+      "closeAllTitle": "Vols tancar totes les pestanyes?",
+      "closeAllDescription": "Segur que vols tancar totes les pestanyes? Es perdran els canvis no desats als filtres de consulta.",
+      "closeAllConfirm": "Tanca-ho tot",
+      "cancel": "Cancel·la",
+      "delete": "Elimina"
+    },
+    "connection": {
+      "titleEdit": "Edita la connexió",
+      "titleConnect": "Connecta a MongoDB",
+      "subtitleEdit": "Actualitza els detalls de connexió a continuació.",
+      "subtitleConnect": "Introdueix la cadena de connexió de MongoDB per començar a explorar les dades.",
+      "labelName": "Nom",
+      "placeholderName": "p. ex. BD de producció",
+      "labelConnectionString": "Cadena de connexió",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Format: mongodb://usuari:contrasenya@host:port/base_de_dades",
+      "testConnection": "Prova la connexió",
+      "connecting": "S'està connectant...",
+      "updateConnect": "Actualitza i connecta",
+      "connect": "Connecta",
+      "cancelEdit": "Cancel·la l'edició",
+      "savedConnections": "Connexions desades",
+      "emptySaved": "Encara no hi ha connexions desades.",
+      "lastUsed": "Últim ús {time}",
+      "toastTestOk": "Connexió correcta!",
+      "toastTestFail": "Connexió fallida: {message}",
+      "toastUpdated": "Connexió actualitzada",
+      "confirmDelete": "Segur que vols eliminar aquesta connexió desada?",
+      "toastDeletedConn": "Connexió eliminada",
+      "toastDeleteFail": "No s'ha pogut eliminar la connexió",
+      "copyStringTitle": "Copia la cadena de connexió",
+      "toastStringCopied": "Cadena de connexió copiada!",
+      "editTitle": "Edita",
+      "deleteTitle": "Elimina"
+    },
+    "sidebar": {
+      "explorer": "Explorador",
+      "add": "Afegeix",
+      "tooltipAdd": "Afegeix una connexió nova",
+      "tooltipRefresh": "Actualitza les connexions",
+      "searchPlaceholder": "Cerca...",
+      "loadingConnections": "S'estan carregant les connexions...",
+      "noConnectionsFound": "No s'ha trobat cap connexió",
+      "toastLoadFail": "No s'han pogut carregar les connexions",
+      "toastConnectFail": "No s'ha pogut connectar a {name}",
+      "toastCollectionsFail": "No s'han pogut obtenir les col·leccions de {name}",
+      "toastRenamed": "S'ha canviat el nom de la connexió",
+      "toastRenameFail": "No s'ha pogut canviar el nom de la connexió",
+      "confirmDeleteConnection": "Segur que vols eliminar la connexió «{name}»?",
+      "toastDeleted": "Connexió eliminada",
+      "toastDeleteConnFail": "No s'ha pogut eliminar la connexió",
+      "confirmDropDb": "Segur que vols eliminar la base de dades «{name}»? Aquesta acció no es pot desfer.",
+      "toastDbDropped": "S'ha eliminat la base de dades {name}",
+      "confirmDropCollection": "Segur que vols eliminar la col·lecció «{name}»? Aquesta acció no es pot desfer.",
+      "toastCollectionDropped": "S'ha eliminat la col·lecció {name}",
+      "toastCollectionRenamed": "Col·lecció reanomenada a {name}",
+      "toastDatabaseRenamed": "Base de dades reanomenada a {name}",
+      "connecting": "S'està connectant...",
+      "connectionFailed": "Connexió fallida",
+      "noDatabases": "Sense bases de dades",
+      "loading": "S'està carregant...",
+      "noCollections": "Sense col·leccions",
+      "renameCollectionTitle": "Reanomena la col·lecció",
+      "renameDatabaseTitle": "Reanomena la base de dades",
+      "placeholderNewCollection": "Nom nou de la col·lecció",
+      "placeholderNewDatabase": "Nom nou de la base de dades",
+      "rename": "Reanomena",
+      "refresh": "Actualitza",
+      "copyDbName": "Copia el nom de la BD",
+      "toastDbNameCopied": "Nom de la base de dades copiat al porta-retalls",
+      "dropDatabase": "Elimina la base de dades",
+      "dropCollection": "Elimina la col·lecció",
+      "menuRename": "Reanomena",
+      "menuCopyConnectionString": "Copia la cadena de connexió",
+      "menuDeleteConnection": "Elimina la connexió",
+      "toastSidebarStringCopied": "Cadena de connexió copiada!",
+      "cancel": "Cancel·la",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+    },
+    "document": {
+      "docsBreadcrumb": "{n} docs",
+      "table": "Taula",
+      "json": "JSON",
+      "tree": "Arbre",
+      "tooltipTable": "Vista de taula",
+      "tooltipJson": "Vista JSON",
+      "tooltipTree": "Vista d'arbre",
+      "itemsPerPage": "Elements per pàgina",
+      "perPage": "{n} / pàgina",
+      "prevPage": "Pàgina anterior",
+      "nextPage": "Pàgina següent",
+      "expandAll": "Expandeix-ho tot",
+      "collapseAll": "Col·lapsa-ho tot",
+      "refreshData": "Actualitza les dades",
+      "insert": "Insereix",
+      "export": "Exporta",
+      "actions": "Accions",
+      "invalidJson": "Contingut JSON no vàlid",
+      "copiedClipboard": "Copiat al porta-retalls",
+      "docUpdated": "Document actualitzat correctament",
+      "docInserted": "Document inserit correctament",
+      "invalidJsonShort": "JSON no vàlid",
+      "docCopied": "Document copiat al porta-retalls",
+      "openFullEditor": "Obre a l'editor complet",
+      "cellArray": "Array({length})",
+      "cellObject": "Objecte",
+      "cellArrayBracket": "Array[{length}]",
+      "emptyFilterTitle": "Cap document coincideix amb la consulta",
+      "emptyFilterHint": "Prova d'ajustar el filtre o neteja la consulta.",
+      "clearFilter": "Neteja el filtre",
+      "emptyCollectionTitle": "Aquesta col·lecció és buida",
+      "emptyCollectionHint": "Insereix un document per començar.",
+      "insertDocument": "Insereix document",
+      "formatJson": "Formata JSON",
+      "compactJson": "Compacta JSON",
+      "copyClipboard": "Copia al porta-retalls",
+      "copyJson": "Copia JSON",
+      "duplicate": "Duplica",
+      "editDoc": "Edita el document",
+      "deleteDoc": "Elimina el document",
+      "documentLabel": "Document {n}",
+      "editDialogTitle": "Edita el document",
+      "insertDialogTitle": "Insereix document",
+      "viewValueTitle": "Mostra el valor",
+      "saveChanges": "Desa els canvis",
+      "close": "Tanca",
+      "cancel": "Cancel·la",
+      "insertButton": "Insereix",
+      "import": "Import",
+      "importExport": "Import / Export",
+      "importExportTitle": "Import or export data",
+      "importExportDescription": "Choose whether to bring documents in from a JSON file or download the current page of results.",
+      "importExportTooltip": "Import or export collection data",
+      "importExportImportHint": "JSON array, object, or NDJSON file",
+      "importExportExportHint": "Spreadsheet (XLSX or CSV)",
+      "schema": "Schema",
+      "indexes": "Indexes"
+    },
+    "tabs": {
+      "filterActive": "Filtre actiu aplicat",
+      "filterActiveTooltip": "Filtre actiu",
+      "closeAll": "Tanca-ho tot"
+    },
+    "query": {
+      "migrateHistory": "Historial de consultes migrat al núvol",
+      "saveHistoryFail": "No s'ha pogut desar l'historial de consultes",
+      "deleteQueryFail": "No s'ha pogut eliminar la consulta",
+      "invalidJsonQuery": "Consulta JSON no vàlida",
+      "placeholder": "p. ex. { \"status\": \"active\" }",
+      "clearQuery": "Neteja la consulta",
+      "openAdvanced": "Obre l'editor avançat",
+      "visualBuilder": "Constructor visual de consultes",
+      "filterRules": "Regles de filtre",
+      "addRule": "Afegeix regla",
+      "noFilters": "No hi ha filtres. Afegeix una regla per filtrar documents.",
+      "where": "ON",
+      "and": "I",
+      "fieldPlaceholder": "Camp",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Tipus",
+      "opRegex": "Regex",
+      "opIn": "In",
+      "opNin": "Not In",
+      "opExists": "Exists",
+      "typeAuto": "Auto",
+      "typeString": "Cadena",
+      "typeNumber": "Nombre",
+      "typeBoolean": "Booleà",
+      "typeDate": "Data",
+      "typeObjectId": "ObjectId",
+      "true": "Cert",
+      "false": "Fals",
+      "valuePlaceholder": "Valor",
+      "valueListPlaceholder": "valor1, valor2",
+      "clearFilters": "Neteja els filtres",
+      "applyFilters": "Aplica els filtres",
+      "queryHistory": "Historial de consultes",
+      "noSavedQueries": "Encara no hi ha consultes desades",
+      "advancedEditorTitle": "Editor avançat de consultes",
+      "templatesPlaceholder": "Plantilles",
+      "templateEmptyAgg": "Agregació buida",
+      "templateMatch": "$match (Filtre)",
+      "templateLookup": "$lookup (Unió)",
+      "templateGroup": "$group (Comptar/Suma)",
+      "format": "Formata",
+      "formattedJson": "JSON formatat",
+      "runQuery": "Executa la consulta"
+    },
+    "export": {
+      "selectFieldsError": "Selecciona com a mínim un camp per exportar",
+      "success": "Exportat correctament a {filename}",
+      "fail": "No s'han pogut exportar les dades",
+      "title": "Exporta dades",
+      "formatLabel": "Format d'exportació",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Selecciona camps",
+      "selectAll": "Selecciona-ho tot",
+      "fieldsSelected": "{count, plural, one {# camp seleccionat} other {# camps seleccionats}}",
+      "cancel": "Cancel·la",
+      "export": "Exporta",
+      "sheetName": "Dades"
+    },
+    "jsonTree": {
+      "typeLabel": "Tipus: {type}",
+      "itemSummary": "{count, plural, one {# element} other {# elements}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Petició nova",
+      "importedRequest": "Petició importada",
+      "untitledRequest": "Petició sense títol"
+    },
+    "toasts": {
+      "curlImported": "cURL importat correctament",
+      "curlParseFailed": "No s'ha pogut analitzar l'ordre cURL",
+      "invalidJsonBody": "Cos JSON no vàlid",
+      "requestFailed": "Petició fallida: {message}",
+      "curlPasted": "cURL enganxat i analitzat correctament",
+      "responseCopied": "Resposta copiada al porta-retalls",
+      "codeCopied": "Codi copiat al porta-retalls",
+      "copyFailed": "No s'ha pogut copiar al porta-retalls"
+    },
+    "layout": {
+      "collections": "Col·leccions",
+      "closeSidebar": "Tanca la barra lateral",
+      "openSidebar": "Obre la barra lateral",
+      "request": "Request",
+      "response": "Response"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Mètode",
+      "urlPlaceholder": "https://api.exemple.com/v1/...",
+      "sending": "S'està enviant...",
+      "send": "Envia",
+      "invalidJsonBodyHelp": "No es pot enviar: el cos JSON no és vàlid"
+    },
+    "requestTabs": {
+      "params": "Params",
+      "headers": "Capçaleres",
+      "body": "Cos",
+      "auth": "Autenticació",
+      "bodyType": "Tipus de cos",
+      "selectType": "Selecciona el tipus",
+      "bodyNone": "Cap",
+      "bodyJson": "JSON",
+      "bodyText": "Text",
+      "noBodyHint": "Aquesta petició no té cos",
+      "switchToJson": "Canvia a cos JSON",
+      "authType": "Tipus d'autenticació",
+      "noAuth": "Sense autenticació",
+      "bearerToken": "Token Bearer",
+      "basicAuth": "Autenticació bàsica",
+      "apiKey": "Clau API",
+      "labelToken": "Token",
+      "placeholderBearerToken": "Token Bearer",
+      "labelUsername": "Usuari",
+      "placeholderUsername": "Usuari",
+      "labelPassword": "Contrasenya",
+      "placeholderPassword": "Contrasenya",
+      "labelKey": "Clau",
+      "placeholderApiKeyName": "Nom de la clau (p. ex. X-Api-Key)",
+      "labelValue": "Valor",
+      "placeholderValue": "Valor",
+      "addTo": "Afegeix a",
+      "header": "Capçalera",
+      "queryParams": "Paràmetres de consulta",
+      "noAuthHint": "Aquesta petició no usa autenticació."
+    },
+    "responsePanel": {
+      "emptyTitle": "A punt per explorar?",
+      "emptyHint": "Introdueix una URL i fes clic a Envia per veure la resposta aquí.",
+      "responsePreviewAlt": "Vista prèvia de la resposta",
+      "previewUnavailable": "Vista prèvia no disponible per a aquest tipus de contingut",
+      "status": "Estat",
+      "time": "Temps",
+      "size": "Mida",
+      "copyBody": "Copia el cos",
+      "downloadResponse": "Baixa la resposta",
+      "bodyTab": "Cos",
+      "previewTab": "Vista prèvia",
+      "headersTab": "Capçaleres",
+      "binaryRawView": "Les dades binàries no es poden mostrar en vista en brut.",
+      "errorStatusLabel": "Error",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
+    },
+    "tabBar": {
+      "addTabAria": "Pestanya nova"
+    },
+    "collectionsSidebar": {
+      "title": "Recursos API",
+      "newCollection": "Col·lecció nova",
+      "tabCollections": "Col·leccions",
+      "tabHistory": "Historial",
+      "noCollectionsTitle": "Sense col·leccions",
+      "noCollectionsHint": "Crea una col·lecció per organitzar les peticions API.",
+      "createCollection": "Crea col·lecció",
+      "newFolder": "Carpeta nova",
+      "rename": "Reanomena",
+      "delete": "Elimina",
+      "emptyCollection": "Col·lecció buida",
+      "recentRequests": "Peticions recents",
+      "clearAll": "Neteja-ho tot",
+      "noHistoryTitle": "Encara no hi ha historial",
+      "noHistoryHint": "Envia una petició per veure-la aquí.",
+      "dialogNewFolderTitle": "Carpeta nova",
+      "dialogNewFolderDescription": "Crea una carpeta nova per organitzar les peticions.",
+      "labelFolderName": "Nom de la carpeta",
+      "placeholderFolderName": "La meva carpeta",
+      "createFolder": "Crea la carpeta",
+      "dialogNewCollectionTitle": "Col·lecció nova",
+      "dialogNewCollectionDescription": "Crea una col·lecció de nivell superior.",
+      "labelCollectionName": "Nom de la col·lecció",
+      "placeholderCollectionName": "La meva col·lecció",
+      "dialogRenameCollectionTitle": "Reanomena la col·lecció",
+      "dialogRenameCollectionDescription": "Introdueix un nom nou per a la col·lecció.",
+      "placeholderRenameCollection": "Nom de la col·lecció",
+      "renameAction": "Reanomena",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
+    },
+    "collectionItem": {
+      "newFolder": "Carpeta nova",
+      "delete": "Elimina",
+      "emptyFolder": "Buida la carpeta"
+    },
+    "environmentManager": {
+      "noEnvironment": "Sense entorn",
+      "manageDialogTitle": "Gestiona entorns",
+      "placeholderNewEnv": "Entorn nou",
+      "variablesHeading": "Variables de {name}",
+      "addVariable": "Afegeix variable",
+      "columnVariable": "Variable",
+      "columnValue": "Valor",
+      "placeholderKey": "Clau",
+      "placeholderValue": "Valor",
+      "selectEnvToEdit": "Selecciona un entorn per editar"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Genera codi",
+      "dialogTitle": "Genera codi",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Copia",
+      "errorGenerating": "Error en generar el codi"
+    },
+    "keyValueEditor": {
+      "columnKey": "Clau",
+      "columnValue": "Valor",
+      "placeholderKey": "Clau",
+      "placeholderValue": "Valor",
+      "addItem": "Afegeix element"
+    },
+    "importCurl": {
+      "trigger": "Importa cURL",
+      "dialogTitle": "Importa cURL",
+      "dialogDescription": "Enganxa l'ordre cURL a continuació per importar-la com a petició nova.",
+      "placeholder": "curl -X POST https://api.exemple.com/data -d '...'",
+      "import": "Importa"
+    },
+    "saveRequest": {
+      "trigger": "Desa",
+      "dialogTitle": "Desa la petició",
+      "dialogDescription": "Desa aquesta petició a una carpeta de la col·lecció.",
+      "labelName": "Nom de la petició",
+      "placeholderName": "La meva petició",
+      "labelFolder": "Carpeta",
+      "placeholderFolder": "Selecciona una carpeta",
+      "save": "Desa"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Mode edició",
+      "viewOnlyMode": "Només lectura",
+      "insertComponent": "Insereix component",
+      "addUnorderedList": "Afegeix llista sense ordre",
+      "addOrderedList": "Afegeix llista ordenada",
+      "addTable": "Afegeix taula"
+    },
+    "addBlock": "Afegeix bloc",
+    "media": {
+      "popoverTitle": "Afegeix multimèdia",
+      "singleImage": "Imatge única",
+      "singleImageDesc": "Puja una imatge",
+      "multipleImages": "Diverses imatges",
+      "multipleImagesDesc": "Puja graella d'imatges",
+      "video": "Vídeo",
+      "videoDesc": "Puja un fitxer de vídeo",
+      "uploadingAlt": "S'està pujant...",
+      "uploadFailedAlt": "La pujada ha fallat"
+    },
+    "export": {
+      "fabAria": "Exporta codi",
+      "title": "Exporta codi",
+      "description": "Copia la sortida HTML o JSON del contingut de l'editor",
+      "preview": "Vista prèvia",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Opcions de vista prèvia",
+      "enhanceSpaces": "Millora els espais",
+      "livePreview": "Vista prèvia en viu de l'HTML renderitzat",
+      "htmlTailwind": "HTML amb classes Tailwind CSS",
+      "editorJson": "Estat de l'editor com a JSON",
+      "copyHtml": "Copia HTML",
+      "copyJson": "Copia JSON",
+      "copied": "Copiat!"
+    },
+    "template": {
+      "fabTitle": "Canvia plantilla",
+      "title": "Trieu una plantilla",
+      "description": "Selecciona una plantilla per començar ràpidament amb dissenys i contingut predefinits",
+      "catAll": "Totes les plantilles",
+      "catProductivity": "Productivitat",
+      "catCreative": "Creatiu",
+      "catBusiness": "Negocis",
+      "catPersonal": "Personal",
+      "noTemplates": "No hi ha plantilles en aquesta categoria",
+      "confirmTitle": "Substituir el contingut existent?",
+      "confirmDescription": "Ja hi ha contingut a l'editor. Aplicar aquesta plantilla substituirà tot el contingut actual.",
+      "cannotUndo": "Aquesta acció no es pot desfer.",
+      "cancel": "Cancel·la",
+      "replaceContent": "Substitueix el contingut"
+    },
+    "command": {
+      "searchPlaceholder": "Cerca ordres...",
+      "noResults": "No s'han trobat ordres.",
+      "turnInto": "Converteix en",
+      "h1": {
+        "label": "Títol 1",
+        "description": "Títol de secció gran",
+        "keywords": "h1,titol,heading,gran"
+      },
+      "h2": {
+        "label": "Títol 2",
+        "description": "Títol de secció mitjà",
+        "keywords": "h2,titol,subtitol"
+      },
+      "h3": {
+        "label": "Títol 3",
+        "description": "Títol de secció petit",
+        "keywords": "h3,titol,subtitol"
+      },
+      "h4": {
+        "label": "Títol 4",
+        "description": "Títol molt petit",
+        "keywords": "h4,titol"
+      },
+      "h5": {
+        "label": "Títol 5",
+        "description": "Títol més petit",
+        "keywords": "h5,titol"
+      },
+      "h6": {
+        "label": "Títol 6",
+        "description": "El títol més petit",
+        "keywords": "h6,titol"
+      },
+      "p": {
+        "label": "Paràgraf",
+        "description": "Paràgraf de text normal",
+        "keywords": "p,paragraf,text,normal"
+      },
+      "code": {
+        "label": "Bloc de codi",
+        "description": "Fragment de codi",
+        "keywords": "code,codi,snippet,pre"
+      },
+      "blockquote": {
+        "label": "Cita",
+        "description": "Cita en bloc",
+        "keywords": "cita,blockquote"
+      },
+      "li": {
+        "label": "Llista amb pics",
+        "description": "Element de llista amb pic",
+        "keywords": "llista,pic,ul,li"
+      },
+      "ol": {
+        "label": "Llista numerada",
+        "description": "Element de llista numerada",
+        "keywords": "llista,numerada,ol,li"
+      },
+      "img": {
+        "label": "Imatge",
+        "description": "Puja o incrusta una imatge",
+        "keywords": "imatge,img,foto,pujar"
+      },
+      "video": {
+        "label": "Vídeo",
+        "description": "Puja o incrusta un vídeo",
+        "keywords": "video,vid,mp4,pujar"
+      },
+      "table": {
+        "label": "Taula",
+        "description": "Crea una taula",
+        "keywords": "taula,files,cel·les"
+      }
+    },
+    "toasts": {
+      "tableImported": "Taula importada",
+      "tableImportedDesc": "La taula Markdown s'ha importat correctament",
+      "mediaPasted": "Multimèdia enganxada",
+      "pasteMixed": "S'han enganxat {imageCount} imatge(s) i {videoCount} vídeo(s) correctament.",
+      "pasteImages": "S'han enganxat {count} imatge(s) correctament.",
+      "pasteVideos": "S'han enganxat {count} vídeo(s) correctament.",
+      "pasteFailed": "L'enganxat ha fallat",
+      "unexpectedError": "S'ha produït un error inesperat",
+      "uploadFailed": "La pujada ha fallat"
+    },
+    "blockBackground": {
+      "menuItem": "Canvia el color de fons",
+      "dialogTitle": "Color de fons del bloc",
+      "dialogDescription": "Trieu un color de fons per a aquest bloc",
+      "tabPreset": "Colors predefinits",
+      "tabCustom": "Color personalitzat",
+      "sectionHeading": "Colors de fons",
+      "apply": "Aplica",
+      "colors": {
+        "none": "Cap",
+        "red": "Vermell",
+        "orange": "Taronja",
+        "yellow": "Groc",
+        "green": "Verd",
+        "blue": "Blau",
+        "indigo": "Indi",
+        "purple": "Porpra",
+        "pink": "Rosa",
+        "teal": "Turquesa fosc",
+        "cyan": "Cian",
+        "gray": "Gris"
+      }
+    },
+    "tableDialog": {
+      "title": "Crea taula",
+      "description": "Crea una taula nova o importa des de markdown",
+      "markdownCheckbox": "Tinc una taula en markdown",
+      "pasteMarkdownLabel": "Enganxa la taula Markdown",
+      "markdownPlaceholder": "| Capçalera 1 | Capçalera 2 | Capçalera 3 |\n|----------|----------|----------|\n| Cel·la 1   | Cel·la 2   | Cel·la 3   |\n| Cel·la 4   | Cel·la 5   | Cel·la 6   |",
+      "markdownHint": "Enganxa la taula markdown a dalt. Ha d'incloure fila de capçalera i separador.",
+      "rows": "Files",
+      "columns": "Columnes",
+      "maxDimensions": "Màxim: 20 files × 10 columnes",
+      "cancel": "Cancel·la",
+      "importTable": "Importa taula",
+      "createTable": "Crea taula"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "La taula ha de tenir com a mínim fila de capçalera i fila separadora",
+        "pipeFormat": "Les files han de començar i acabar amb |",
+        "headerMinCol": "La fila de capçalera ha de tenir com a mínim una columna",
+        "separatorRow": "La segona fila ha de ser un separador (p. ex. |---|---|)",
+        "rowColumnMismatch": "La fila {row} té {got} columnes, s'esperaven {expected}",
+        "parseFailed": "No s'ha pogut analitzar la taula markdown"
+      }
+    },
+    "link": {
+      "editLink": "Edita l'enllaç",
+      "addLink": "Afegeix enllaç",
+      "selectedText": "Text seleccionat: «{text}»",
+      "linkUrl": "URL de l'enllaç",
+      "urlPlaceholder": "https://exemple.com",
+      "update": "Actualitza",
+      "addLinkButton": "Afegeix enllaç",
+      "toastApplied": "Enllaç aplicat",
+      "toastLinkedTo": "Enllaçat a: {url}",
+      "toastRemoved": "Enllaç eliminat",
+      "toastRemovedDesc": "S'ha eliminat l'enllaç de la selecció"
+    },
+    "customClass": {
+      "devMode": "Mode desenvolupador",
+      "toggleDevModeAria": "Commuta el mode desenvolupador",
+      "searchPlaceholderDev": "Cerca classes... (p. ex. 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Cerca estils... (p. ex. 'vermell', 'negreta', 'ombra')",
+      "appliesTitle": "S'aplica: {className}",
+      "noMatches": "No s'han trobat classes que coincideixin amb «{query}»",
+      "toastClassReplaced": "Classe substituïda",
+      "toastClassReplacedDesc": "S'ha substituït «{replaced}» per «{className}»",
+      "toastCustomClassApplied": "Classe personalitzada aplicada",
+      "toastAppliedClass": "Classe aplicada: {className}"
+    },
+    "insertComponents": {
+      "title": "Insereix component",
+      "description": "Trieu un component per inserir al document",
+      "noComponents": "No hi ha components disponibles",
+      "categories": {
+        "media": "Multimèdia",
+        "layout": "Disseny",
+        "interactive": "Interactiu",
+        "decoration": "Decoració"
+      },
+      "freeImage": {
+        "name": "Imatge lliure",
+        "description": "Afegeix una imatge que es pot col·locar i redimensionar lliurement"
+      }
+    }
+  },
+  "JsonFormatter": {
+    "title": "Formatador JSON",
+    "description": "Formata, valida i edita JSON en vista de text i arbre.",
+    "documentNameText": "Document de text {n}",
+    "documentNameTree": "Document en arbre {n}",
+    "newDocument": "Nou",
+    "copy": "Copiar",
+    "save": "Desar",
+    "load": "Carregar",
+    "saving": "Desant...",
+    "leftDocNameLabel": "Nom del document esquerre",
+    "rightDocNameLabel": "Nom del document dret",
+    "toastCopiedText": "Panell de text copiat",
+    "toastCopiedTree": "Panell d'arbre copiat",
+    "toastCopyFailed": "No s'ha pogut copiar el JSON",
+    "toastLoginRequired": "Inicia sessió per desar documents",
+    "toastSaved": "Document desat",
+    "toastSaveFailed": "No s'ha pogut desar el document",
+    "format": "Formata",
+    "compact": "Compacta",
+    "sortKeys": "Ordena les claus",
+    "repair": "Repara",
+    "query": "Consulta",
+    "toastInvalidJson": "JSON no vàlid",
+    "toastAlreadyValid": "El JSON ja és vàlid",
+    "toastRepaired": "JSON reparat",
+    "toastRepairFailed": "No s'ha pogut reparar el JSON"
+  },
+  "JwtDecoder": {
+    "title": "Descodificador JWT",
+    "subtitle": "Inspecciona la capçalera i el payload. La caducitat usa la reclamació <code>exp</code>. No s’envia res a un servidor; la signatura no es verifica.",
+    "tokenLabel": "Token",
+    "clear": "Netejar",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Copia",
+    "expiryLabel": "Caducitat (exp)",
+    "signaturePresent": "Signatura present (no verificada)",
+    "noExp": "No hi ha la reclamació <code>exp</code> al payload.",
+    "status": {
+      "expired": "Caducat",
+      "valid": "Vàlid"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Local",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Emès a (iat)",
+      "notBefore": "No abans de (nbf)"
+    },
+    "panels": {
+      "header": "Capçalera",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Enganxa un JWT per descodificar.",
+      "segments": "Un JWT necessita com a mínim capçalera i payload (dos segments).",
+      "base64": "No s’ha pogut descodificar en base64url la capçalera o el payload."
+    },
+    "relative": {
+      "future": "d’aquí a {n} {unit}",
+      "past": "fa {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {segon} other {segons}}",
+      "minute": "{count, plural, one {minut} other {minuts}}",
+      "hour": "{count, plural, one {hora} other {hores}}",
+      "day": "{count, plural, one {dia} other {dies}}"
+    },
+    "tabs": {
+      "decode": "Decodifica",
+      "sign": "Generador / signador"
+    },
+    "signer": {
+      "algLabel": "Algorisme (alg)",
+      "tabs": {
+        "payload": "Càrrega",
+        "header": "Capçalera"
+      },
+      "payloadLabel": "JSON de la càrrega",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON de la capçalera",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Secret (HS*)",
+      "secretPlaceholder": "Enganxa el teu secret HMAC…",
+      "privateKeyLabel": "Clau privada PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "L’algorisme \"none\" crea un token sense signar. És insegur i només s’ha d’usar per a proves.",
+      "sign": "Signa",
+      "verify": "Verifica la signatura",
+      "outputLabel": "Token (JWS compacte)",
+      "outputPlaceholder": "Fes clic a \"Signa\"…",
+      "copyToken": "Copia el token",
+      "copied": "Copiat",
+      "verifyKeyLabel": "Clau de verificació (opcional)",
+      "verifyKeyPlaceholder": "Per a RS*: enganxa la clau pública (SPKI) PEM. Per a HS*: deixa-ho buit per reutilitzar el secret.",
+      "verifyKeyHint": "Si és buit, la verificació usa la clau de signatura (útil per a HS*).",
+      "verifyStatus": {
+        "valid": "Signatura vàlida",
+        "invalid": "Signatura invàlida"
+      },
+      "securityNote": "Tot s’executa localment al navegador; no es pugen claus ni tokens."
+    },
+    "signErrors": {
+      "invalidJson": "La capçalera i la càrrega han de ser JSON vàlid.",
+      "unsupportedAlg": "Algorisme no compatible.",
+      "missingKey": "Cal una clau de signatura per a aquest algorisme.",
+      "cryptoFailed": "Ha fallat la signatura. Comprova el format de la clau i torna-ho a provar."
+    },
+    "verifyErrors": {
+      "empty": "Introdueix un JWT per verificar.",
+      "segments": "Un JWT ha de tenir exactament 3 segments per verificar una signatura.",
+      "unsupportedAlg": "Algorisme no compatible o falta alg a la capçalera.",
+      "missingKey": "Cal una clau de verificació per a aquest algorisme.",
+      "base64": "No s’ha pogut decodificar la capçalera o la signatura del JWT.",
+      "cryptoFailed": "Ha fallat la verificació. Comprova el format de la clau i torna-ho a provar."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Descodificador de certificats / PEM",
+    "subtitle": "Enganxa un certificat X.509 (<code>-----BEGIN CERTIFICATE-----</code>) o una CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjecte, emissor, dates i SAN s'analitzen localment; no es puja res.",
+    "pemLabel": "Entrada PEM",
+    "clear": "Netejar",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "S'està analitzant…",
+    "copyHex": "Copia l'empremta (hex sense dos punts)",
+    "errors": {
+      "empty": "Enganxa un certificat PEM o una CSR per descodificar.",
+      "noBlock": "No s'ha trobat cap bloc PEM de certificat o CSR.",
+      "parseFailed": "No s'ha pogut analitzar aquestes dades PEM."
+    },
+    "block": {
+      "title": "Bloc PEM {index}",
+      "certificate": "Certificat X.509",
+      "csr": "Sol·licitud de signatura de certificat"
+    },
+    "fields": {
+      "subject": "Subjecte",
+      "issuer": "Emissor",
+      "notBefore": "No vàlid abans de",
+      "notAfter": "No vàlid després de",
+      "serial": "Número de sèrie (hex)",
+      "sha256": "Empremta SHA-256",
+      "sans": "Noms alternatius del subjecte",
+      "signatureAlgorithm": "Algorisme de signatura",
+      "csrIssuerNote": "Les CSR no inclouen emissor (apareix al certificat emès).",
+      "csrValidityNote": "Les CSR no inclouen dates de validesa (apareixen al certificat emès).",
+      "sansNone": "Sense extensió SAN."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nom de directori",
+      "email": "Correu",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID registrat",
+      "other": "{type}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Formatador SQL",
+    "subtitle": "Dona format a SQL per MySQL, PostgreSQL o SQLite. S’executa al navegador; no es puja res.",
+    "dialectLabel": "Dialecte",
+    "keywordsLabel": "Paraules clau",
+    "indentLabel": "Sagnat",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "MAJÚSCULES",
+      "lower": "minúscules",
+      "preserve": "Conserva"
+    },
+    "spaces": "{n} espais",
+    "format": "Formata",
+    "clear": "Neteja",
+    "counter": "{current} / {max} caràcters",
+    "inputPanel": "Entrada",
+    "formattedPanel": "Formatat",
+    "copy": "Copia",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Fes clic a \"Formata\"…",
+    "errors": {
+      "tooLong": "L’entrada està limitada a {max} caràcters.",
+      "couldNotFormat": "No s’ha pogut formatar aquest SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Formatador YAML",
+    "subtitle": "Formata, valida i converteix YAML al teu navegador. Res no es puja.",
+    "outputLabel": "Sortida",
+    "outputModes": {
+      "yaml": "YAML (formatat)",
+      "json": "JSON"
+    },
+    "indentLabel": "Sagnat",
+    "spaces": "{n} espais",
+    "format": "Formata",
+    "clear": "Esborra",
+    "copy": "Copia",
+    "counter": "{current} / {max} caràcters",
+    "inputPanel": "Entrada",
+    "outputPanel": "Sortida",
+    "errors": {
+      "tooLong": "L'entrada està limitada a {max} caràcters.",
+      "couldNotFormat": "No s'ha pogut analitzar aquest YAML."
+    }
+  },
+  "GraphqlFormatter": {
+    "title": "Formatador GraphQL",
+    "subtitle": "Formata consultes, mutacions i subscripcions GraphQL al navegador. No es puja res.",
+    "tabs": {
+      "format": "Formata",
+      "build": "Editor de consulta"
+    },
+    "outputModeLabel": "Sortida",
+    "outputModes": {
+      "pretty": "Impressió llegible",
+      "minify": "Minifica"
+    },
+    "format": "Formata",
+    "clear": "Esborra",
+    "counter": "{current} / {max} caràcters",
+    "inputPanel": "Entrada",
+    "outputPanel": "Sortida",
+    "copy": "Copia",
+    "builderHint": "Compon un esquelet i aplica’l a l’editor. Les definicions de variables usen sintaxi GraphQL (p. ex. $id: ID!) — els parèntesis són opcionals.",
+    "builder": {
+      "operation": "Operació",
+      "operationName": "Nom de l’operació",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definicions de variables",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Conjunt de selecció",
+      "apply": "Aplica a l’entrada",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "L’entrada està limitada a {max} caràcters.",
+      "couldNotFormat": "No s’ha pogut analitzar ni imprimir aquest GraphQL.",
+      "emptySelection": "Afegeix un conjunt de selecció abans d’aplicar."
+    }
+  },
+  "RegexTester": {
+    "title": "Testador de regex",
+    "subtitle": "Regex d’estil JavaScript en directe sobre el teu text. Les coincidències es ressalten; res no surt del navegador.",
+    "patternLabel": "Patró",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i ignora maj./min.",
+      "m": "m multilínia",
+      "s": "s dotAll",
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
+    },
+    "emptyPattern": "(buit)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {coincidència} other {coincidències}}",
+    "testTextLabel": "Text de prova",
+    "counter": "{current} / {max}",
+    "clear": "Neteja",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "El text està limitat a {max} caràcters.",
+      "invalid": "Expressió regular no vàlida.",
+      "runaway": "Aturat després de {max} coincidències (possible patró descontrolat)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
+    }
+  },
+  "TimestampConverter": {
+    "title": "Convertidor de marques de temps",
+    "subtitle": "Segons Unix (≤10 dígits) o mil·lisegons (enters més llargs), <code>ISO-8601</code> o cadenes que el navegador pugui interpretar. Tot s’executa localment.",
+    "inputLabel": "Entrada",
+    "placeholder": "1744200000 o 2025-04-09T12:00:00Z",
+    "now": "Ara",
+    "copy": "Copia",
+    "hint": "Enganxa un valor o fes clic a <strong>Ara</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatiu",
+      "human": "Llegible"
+    },
+    "fields": {
+      "seconds": "Segons",
+      "milliseconds": "Mil·lisegons",
+      "utc": "UTC",
+      "local": "Local",
+      "distance": "Distància"
+    },
+    "errors": {
+      "empty": "Introdueix un timestamp Unix, una cadena ISO o un text de data.",
+      "invalidNumber": "Timestamp numèric no vàlid.",
+      "outOfRange": "Fora de rang per a JavaScript Date.",
+      "couldNotParse": "No s’ha pogut interpretar com Unix, ISO-8601 o data del navegador."
+    }
+  },
+  "HttpStatusCodes": {
+    "title": "Codis d’estat HTTP",
+    "subtitle": "Cerca i explora codis d’estat de respostes HTTP (<code>1xx</code>–<code>5xx</code>) amb descripcions breus i referències RFC. S’executa localment.",
+    "header": {
+      "title": "Codis d’estat HTTP",
+      "description": "Referència amb cerca de codis de resposta HTTP amb descripcions i referències RFC."
+    },
+    "searchPlaceholder": "Cerca: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtra classe…",
+    "classFilterAll": "Totes les classes",
+    "resultsCount": "{count} de {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Frase",
+      "description": "Description",
+      "copy": "Copia"
+    },
+    "noResults": "Sense resultats per a “{query}”.",
+    "specPrefix": "Espec.:",
+    "copied": "Codi copiat"
+  },
+  "CronBuilder": {
+    "title": "Constructor d’expressions Cron",
+    "subtitle": "Cron estàndard de 5 camps: <mono>minute hour day month weekday</mono>. El parser usa seconds=<code>0</code> internament. El format opcional de 6 camps (<mono>sec min hour dom mon dow</mono>) funciona a l’editor.",
+    "tabs": {
+      "builder": "Constructor visual",
+      "expression": "Expressió"
+    },
+    "presetsLabel": "Predefinits",
+    "fieldsLabel": "Camps",
+    "rawExpressionLabel": "Expressió en brut",
+    "expressionHint": "Surt del camp per analitzar i sincronitzar el constructor. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Expressió actual",
+    "copy": "Copia",
+    "quickPick": "Tria ràpida",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Llenguatge natural",
+    "nextRunsLabel": "Properes execucions (hora local)",
+    "fields": {
+      "minute": "Minut",
+      "hour": "Hora",
+      "dayOfMonth": "Dia del mes",
+      "month": "Mes",
+      "dayOfWeek": "Dia de la setmana"
+    },
+    "presets": {
+      "everyMinute": "Cada minut",
+      "every5Minutes": "Cada 5 minuts",
+      "every15Minutes": "Cada 15 minuts",
+      "everyHour": "Cada hora (a :00)",
+      "every6Hours": "Cada 6 hores",
+      "dailyMidnight": "Diari a mitjanit",
+      "daily0900": "Diari a les 09:00",
+      "weekdays0900": "Feiners a les 09:00",
+      "weeklySunday": "Setmanal (diumenge 00:00)",
+      "monthlyFirst": "Mensual (dia 1 00:00)",
+      "yearlyJan1": "Anual (1 gen 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "cada minut"
+      },
+      "hour": {
+        "every": "cada hora"
+      },
+      "dom": {
+        "any": "qualsevol dia",
+        "last": "últim dia"
+      },
+      "month": {
+        "every": "cada mes"
+      },
+      "dow": {
+        "any": "qualsevol dia",
+        "weekdays": "feiners",
+        "weekend": "cap de setmana"
+      }
+    },
+    "months": {
+      "jan": "Gen",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Abr",
+      "may": "Mai",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Ago",
+      "sep": "Set",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Des"
+    },
+    "weekdays": {
+      "sun": "Dg",
+      "mon": "Dl",
+      "tue": "Dt",
+      "wed": "Dc",
+      "thu": "Dj",
+      "fri": "Dv",
+      "sat": "Ds"
+    },
+    "errors": {
+      "fieldCount": "S’esperaven 5 camps (minute hour day month weekday) o 6 incloent segons.",
+      "invalid": "Expressió cron no vàlida."
+    }
+  },
+  "Base64": {
+    "title": "Codificador / descodificador Base64",
+    "subtitle": "Codifica text a Base64 o descodifica cadenes Base64",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "modes": {
+      "encode": "Codifica",
+      "decode": "Descodifica"
+    },
+    "swapTitle": "Intercanvia entrada i sortida",
+    "panels": {
+      "plainText": "Text pla",
+      "base64Input": "Entrada Base64",
+      "base64Output": "Sortida Base64",
+      "decodedText": "Text descodificat"
+    },
+    "placeholders": {
+      "encode": "Escriu text per codificar a Base64…",
+      "decode": "Enganxa una cadena Base64 per descodificar…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "download": {
+      "title": "Descarrega la sortida",
+      "encodedFilename": "codificat.b64",
+      "decodedFilename": "descodificat.txt"
+    },
+    "copyTitle": "Copia al porta-retalls",
+    "outputPlaceholder": "La sortida apareixerà aquí…",
+    "errors": {
+      "invalidBase64": "Cadena Base64 no vàlida. Revisa l’entrada.",
+      "encodeFailed": "No s’ha pogut codificar l’entrada."
+    }
+  },
+  "UrlEncode": {
+    "title": "Codificador / descodificador d’URL",
+    "subtitle": "Codifica/descodifica en percentatge amb encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "modes": {
+      "encode": "Codifica",
+      "decode": "Descodifica"
+    },
+    "swapTitle": "Intercanvia entrada i sortida",
+    "panels": {
+      "plainText": "Text pla",
+      "encodedInput": "Entrada codificada",
+      "encodedOutput": "Sortida codificada",
+      "decodedText": "Text descodificat"
+    },
+    "placeholders": {
+      "encode": "Introdueix text per codificar en percentatge…",
+      "decode": "Enganxa text percent-encoded per descodificar…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "download": {
+      "title": "Baixa la sortida",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Copia al porta-retalls",
+    "outputPlaceholder": "La sortida apareixerà aquí…",
+    "errors": {
+      "invalidEncoding": "Codificació de percentatge no vàlida. Revisa parells % incomplets o seqüències d’escapament.",
+      "encodeFailed": "No s’ha pogut codificar (Unicode no vàlid a l’entrada)."
+    }
+  },
+  "UrlParser": {
+    "title": "Analitzador d’URL",
+    "subtitle": "Desglossa un URL en protocol, amfitrió, camí, paràmetres de consulta i hash (fragment).",
+    "upload": "Puja",
+    "clear": "Neteja",
+    "panels": {
+      "input": "Entrada d’URL",
+      "output": "Resultat"
+    },
+    "placeholders": {
+      "input": "Enganxa un URL (p. ex. https://example.com/path?foo=bar#section) o amfitrió/camí (p. ex. example.com/path)…"
+    },
+    "dropHere": "Deixa el fitxer aquí",
+    "charCount": "{count} caràcters",
+    "outputPlaceholder": "Els components analitzats apareixeran aquí…",
+    "fields": {
+      "protocol": "Protocol",
+      "host": "Amfitrió",
+      "path": "Camí",
+      "hash": "Hash",
+      "queryParams": "Paràmetres de consulta"
+    },
+    "paramCount": "{count} paràmetres",
+    "noParams": "Sense paràmetres de consulta.",
+    "paramKey": "Clau",
+    "paramValue": "Valor",
+    "copyTitle": "Copia al porta-retalls",
+    "copyParamTitle": "Copia com a key=value",
+    "download": {
+      "title": "Baixa el JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL no vàlid. Inclou un nom d’amfitrió (example.com) i revisa els caràcters."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Generador UUID / ULID",
+    "subtitle": "Genera UUID (RFC 9562) o ULID al navegador. Exportació en bloc fins a {max} per execució.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Identificador de 26 caràcters ordenable i segur per a URL",
+      "uuid4": "Aleatori (RFC 9562)",
+      "uuid7": "Ordenat en el temps, ms Unix + aleatori",
+      "uuid1": "Basat en MAC/temps (RFC 9562)",
+      "uuid6": "Temps gregorià reordenat",
+      "uuid3": "Hash MD5 de nom + espai de noms",
+      "uuid5": "Hash SHA‑1 de nom + espai de noms",
+      "nil": "UUID nul (tot zeros, RFC 9562)"
+    },
+    "countLabel": "Quantitat (1–{max})",
+    "nameLabel": "Nom (cadena d’entrada)",
+    "namePlaceholder": "p. ex. my.app/resource",
+    "bulkHint": "En lots s’afegeix <code>#0</code>, <code>#1</code>, … perquè cada ID sigui diferent (v3/v5 són deterministes).",
+    "namespace": "Espai de noms",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID personalitzat"
+    },
+    "customNamespaceLabel": "UUID d’espai de noms",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Genera",
+    "output": "Sortida",
+    "lines": "{count} línies",
+    "download": {
+      "title": "Descarrega .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Copia-ho tot",
+    "uppercaseToggle": "Sortida en majúscules",
+    "hyphensToggle": "Mostra guionets",
+    "copyJsonTitle": "Copia com a matriu JSON",
+    "outputPlaceholder": "Feu clic a \"Genera\"…",
+    "errors": {
+      "invalidCustomNamespace": "L’espai de noms personalitzat ha de ser un UUID vàlid.",
+      "missingName": "Cal un nom per a UUID v3 i v5.",
+      "unknown": "No s’han pogut generar els ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Generador de secret / clau API",
+    "subtitle": "Genera cad aleatòries criptogràfiques amb longitud i alfabet configurables. Exportació massiva fins a {max} per execució. Complementa el <uuid>generador UUID / ULID</uuid>.",
+    "alphabetLabel": "Alfabet",
+    "alphabetHint": "Se suprimeixen els caràcters duplicats. Cada símbol es tria de manera uniforme amb crypto.getRandomValues i mostreig per rebuig (sense biaix de mòdul).",
+    "alphabetCount": "{count} símbols únics",
+    "presetsLabel": "Predefinits",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumèric",
+      "hex": "Hexadecimal (minúscules)",
+      "asciiPrintable": "ASCII imprimible"
+    },
+    "lengthLabel": "Longitud per secret (1–{maxLen})",
+    "countLabel": "Recompte (1–{maxBulk})",
+    "generate": "Genera",
+    "output": "Sortida",
+    "lines": "{count} línies",
+    "download": {
+      "title": "Baixa .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "Copia-ho tot",
+    "outputPlaceholder": "Fes clic a \"Genera\"…",
+    "entropy": "{bits} bits d'entropia",
+    "strength": {
+      "weak": "Feble",
+      "fair": "Acceptable",
+      "strong": "Fort"
+    },
+    "excludeAmbiguous": "Exclou els caràcters ambigus",
+    "excludeAmbiguousHint": "Elimina {chars} — caràcters que es llegeixen fàcilment malament o hostils per a l'intèrpret d'ordres.",
+    "prefixLabel": "Prefix de la clau (opcional)",
+    "errors": {
+      "emptyAlphabet": "Afegeix almenys un caràcter a l'alfabet.",
+      "alphabetTooLong": "Després d'eliminar duplicats, l'alfabet pot tenir com a màxim {maxAlpha} caràcters.",
+      "lengthOutOfRange": "La longitud ha d'estar entre 1 i {maxLen}.",
+      "countOutOfRange": "El recompte ha d'estar entre 1 i {maxBulk}.",
+      "unknown": "No s'han pogut generar els secrets."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Generador de Lorem Ipsum",
+    "subtitle": "Genereu text llatí de substitució per als vostres dissenys i maquetes.",
+    "paragraphs": "Paràgrafs",
+    "sentences": "Frases",
+    "words": "Paraules",
+    "count": "Nombre",
+    "generate": "Genera",
+    "copy": "Copia",
+    "startWith": "Comença amb 'Lorem ipsum...'",
+    "outputPlaceholder": "El resultat apareixerà aquí...",
+    "outputType": "Tipus de sortida",
+    "bulletList": "Llista de punts",
+    "htmlMarkup": "Marcatge HTML",
+    "htmlMarkupHint": "Embolica la sortida en paràgrafs, o utilitza una llista per al mode de punts",
+    "output": "Sortida",
+    "download": "Descarregar"
+  },
+  "ColorPicker": {
+    "title": "Selector i convertidor de color",
+    "subtitle": "Converteix HEX, RGB i HSL; crea paletes harmòniques. Tot el processament es fa al teu navegador.",
+    "nativePicker": "Selector natiu",
+    "chooseColor": "Tria un color",
+    "eyeDropper": "Comptagotes",
+    "invalidHex": "Color HEX no vàlid.",
+    "cssValues": "Valors CSS",
+    "palettes": "Paletes",
+    "copied": "Copiat",
+    "clickToCopy": "Fes clic per copiar",
+    "copyAllHex": "Copia tots els HEX",
+    "copy": "Copia",
+    "copyColor": "Copia {color}",
+    "paletteShades": "Tons",
+    "paletteComplementary": "Complementari",
+    "paletteTriadic": "Triàdic",
+    "paletteAnalogous": "Anàleg",
+    "paletteSplit": "Comp. dividida",
+    "paletteSquare": "Quadrat"
+  },
+  "ContrastChecker": {
+    "title": "Verificador de contrast",
+    "subtitle": "Calcula la ràtio de contrast WCAG 2.1 entre primer pla i fons. Comprova AA i AAA per a text normal i gran. Tot al navegador.",
+    "foreground": "Text / primer pla",
+    "background": "Fons",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Intercanviar colors",
+    "chooseForeground": "Trieu el color de primer pla",
+    "chooseBackground": "Trieu el color de fons",
+    "eyeDropper": "Comptagotes",
+    "ratio": "Ràtio de contrast",
+    "copyRatio": "Copia la ràtio",
+    "copied": "Copiat",
+    "previewHeading": "Vista prèvia",
+    "previewBody": "Jove xef, porti whisky amb quinze glaçons d’hidrogen, coi! Aquest zebra al mig del fòrum es banyava en oli de codony.",
+    "previewCaption": "Text de mostra a mida per defecte.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — text normal (4,5:1)",
+    "levelAALarge": "AA — text gran (3:1)",
+    "levelAAANormal": "AAA — text normal (7:1)",
+    "levelAAALarge": "AAA — text gran (4,5:1)",
+    "pass": "Aprova",
+    "fail": "No aprova",
+    "invalidHex": "Color HEX no vàlid.",
+    "largeTextHint": "Text gran: 18 pt+ normal o 14 pt+ negreta (definicions WCAG)."
+  },
+  "DiffChecker": {
+    "title": "Comparador de diferències",
+    "subtitle": "Comparació de línies entre dos textos costat a costat. Tot es queda al vostre navegador.",
+    "rowsCount": "{count} files",
+    "truncatedWarning": "Mostrant les primeres {max} files.",
+    "limitExceeded": "Cada costat està limitat a {max} caràcters.",
+    "clearBoth": "Esborrar tots dos",
+    "original": "Original",
+    "modified": "Modificat",
+    "originalPlaceholder": "Enganxeu el text original…",
+    "modifiedPlaceholder": "Enganxeu el text modificat…",
+    "comparisonLabel": "Comparació costat a costat",
+    "emptyState": "Introduïu text als dos panells per comparar."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Generador d'esquema JSON",
+    "subtitle": "Enganxa JSON vàlid per generar un esquema JSON o models tipats. Tot s'executa al navegador.",
+    "languageLabel": "Idioma de sortida",
+    "inputLabel": "Entrada JSON",
+    "inputPlaceholder": "Enganxa el JSON aquí…",
+    "outputLabel": "Sortida generada",
+    "outputPlaceholder": "L'esquema o els tipus generats apareixeran aquí…",
+    "parseError": "JSON no vàlid",
+    "clear": "Neteja",
+    "copy": "Copia",
+    "copied": "Copiat al porta-retalls",
+    "copyFailed": "No s'ha pogut copiar",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "Esquema JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    },
+    "editorLoading": "S'està carregant l'editor…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
+  },
+  "ImageToBase64": {
+    "title": "Imatge a Base64",
+    "subtitle": "Deixeu anar una imatge, obteniu un URI de dades o una cadena Base64 en brut. Tot es queda al vostre navegador.",
+    "upload": "Carrega la imatge",
+    "clear": "Clar",
+    "modes": {
+      "dataUri": "URI de dades",
+      "rawString": "Base bruta 64"
+    },
+    "panels": {
+      "imageInput": "Entrada d'imatge",
+      "output": "Sortida Base64"
+    },
+    "dropHere": "Deixa la imatge aquí",
+    "charCount": "{count} caràcters",
+    "placeholders": {
+      "uploadImage": "Arrossegueu i deixeu anar una imatge o feu clic a carrega per començar."
+    },
+    "fileTooLarge": "El fitxer és massa gran. El processament pot congelar el vostre navegador.",
+    "copyTitle": "Copia al porta-retalls",
+    "download": {
+      "title": "Descarregar text",
+      "filename": "image-base64.txt"
+    }
+  },
+  "ImageCompressor": {
+    "title": "Compressor d’imatges",
+    "subtitle": "Redueix la sortida JPEG, PNG o WebP localment amb control de qualitat — res es puja al servidor.",
+    "upload": "Puja una imatge",
+    "clear": "Neteja",
+    "dropHere": "Deixa anar la imatge aquí",
+    "placeholders": {
+      "uploadImage": "Arrossega i deixa anar una imatge, o fes clic per triar un fitxer."
+    },
+    "fileTooLarge": "El fitxer és massa gran (màx. {maxMb} MB).",
+    "unsupportedFormat": "Aquest tipus de fitxer no és compatible. Usa JPEG, PNG, WebP, GIF, AVIF o BMP.",
+    "compressFailed": "No s’ha pogut comprimir la imatge. Prova un altre fitxer o format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Vista prèvia comprimida"
+    },
+    "outputFormat": "Format de sortida",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Qualitat",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "El PNG és sense pèrdua al navegador; el control de qualitat només afecta JPEG i WebP.",
+    "sizes": {
+      "original": "Original: {size}",
+      "compressed": "Comprimida: {size}",
+      "saved": "{percent}% més petita"
+    },
+    "largerWarning": "La sortida és més gran que l’entrada — prova un altre format o qualitat.",
+    "download": "Baixa",
+    "downloadFilename": "imatge-comprimida",
+    "processing": "S’està comprimint…",
+    "emptyCompressed": "La vista prèvia comprimida apareix aquí."
+  },
+  "CssGradientBuilder": {
+    "title": "Creador de degradats CSS",
+    "subtitle": "Creador de degradat CSS visual amb control d'angle, parades de color i còpia CSS d'un sol clic.",
+    "preview": "Vista prèvia del degradat",
+    "settings": "Configuració",
+    "type": "Tipus",
+    "linear": "Lineal",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Color Stops",
+    "color": "Color",
+    "position": "Posició (%)",
+    "addStop": "Afegeix Stop",
+    "deleteStop": "Elimina Stop",
+    "output": "Sortida CSS",
+    "copy": "Copia CSS",
+    "copied": "Copiat!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Generador .gitignore",
+    "subtitle": "Genereu fitxers .gitignore combinats a l'instant per a una pila o combinació tecnològica específica.",
+    "searchPlaceholder": "Cerca piles (per exemple, Node, Python, macOS)...",
+    "noResults": "No s'han trobat piles.",
+    "selectedStacks": "Piles seleccionades",
+    "output": "Vista prèvia de la sortida",
+    "copy": "Copia al porta-retalls",
+    "copied": "Copiat!",
+    "download": "Descarrega .gitignore",
+    "downloading": "S'està baixant...",
+    "errorFetching": "No s'ha pogut obtenir la llista de primers llocs.",
+    "errorGenerating": "No s'ha pogut generar .gitignore a partir de les piles seleccionades.",
+    "generating": "Generant...",
+    "emptyState": "Seleccioneu una o més piles de tecnologia per generar el vostre .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Puja CSV o Excel, edita el JSON i descarrega CSV o XLSX. Només dades tabulars; les dates d’Excel passen a ISO al JSON.",
+    "dropTitle": "Deixa anar un CSV o Excel",
+    "dropHint": "Per a .xlsx / .xls s’usa el primer full. El CSV ha de tenir fila de capçalera.",
+    "chooseFile": "Trieu un fitxer",
+    "jsonLabel": "JSON (matriu d’objectes)",
+    "jsonPlaceholder": "Enganxa una matriu JSON d’objectes o importa CSV / Excel…",
+    "loadSample": "Carregar exemple",
+    "actions": {
+      "format": "Formatejar JSON",
+      "clear": "Netejar",
+      "copy": "Copiar",
+      "copied": "Copiat",
+      "downloadCsv": "Descarregar CSV",
+      "downloadXlsx": "Descarregar Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Dades",
+    "toastLoadedCsv": "CSV carregat a l’editor",
+    "toastLoadedExcel": "Excel carregat a l’editor",
+    "toastFormatted": "JSON formatat",
+    "toastExportedCsv": "CSV descarregat",
+    "toastExportedXlsx": "Excel descarregat",
+    "toastCopied": "Copiat al porta-retalls",
+    "footnote": "Tot s’executa al navegador. El JSON ha de ser una matriu no buida d’objectes. Els valors imbricats es serialitzen com a JSON a les cel·les CSV.",
+    "errors": {
+      "unsupportedFile": "Utilitza un fitxer .csv, .xlsx o .xls.",
+      "parseFailed": "No s’ha pogut analitzar el fitxer.",
+      "invalidJson": "JSON no vàlid",
+      "exportFailed": "Ha fallat l’exportació",
+      "copyFailed": "No s’ha pogut copiar"
+    }
+  },
+  "SnippetManager": {
+    "title": "Gestor de fragments de codi",
+    "subtitle": "Emmagatzema fragments al navegador o inicia sessió per sincronitzar-los amb el teu compte. Canvia entre veure i editar, copia amb un clic, tria idioma o detecció automàtica i formata JSON, SQL o codi compatible amb Monaco.",
+    "snippets": "Fragments",
+    "newSnippet": "Fragment nou",
+    "newSnippetTitle": "Fragment nou",
+    "defaultSnippetTitle": "Benvingut",
+    "defaultSnippetCode": "// Benvingut als fragments de codi\n// Prova veure vs editar, copia, formata i idioma automàtic\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Cerca fragments…",
+    "searchAria": "Cerca fragments",
+    "emptySearch": "Cap fragment no coincideix amb la cerca.",
+    "snippetTitle": "Títol",
+    "snippetTitlePlaceholder": "Nom del fragment",
+    "language": "Llenguatge",
+    "detectedHint": "Ressaltat com a {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Veure",
+    "modeEdit": "Editar",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "format": "Formatejar",
+    "cancel": "Cancel·la",
+    "deleteTitle": "Eliminar el fragment?",
+    "deleteDescription": "«{title}» se suprimirà d'aquest navegador.",
+    "deleteConfirm": "Eliminar",
+    "editorAria": "Editor de codi del fragment",
+    "editorLoading": "Carregant l'editor…",
+    "toastCopied": "Copiat al porta-retalls",
+    "toastCopyFailed": "No s'ha pogut copiar",
+    "toastNothingToCopy": "Res a copiar",
+    "toastFormatted": "Formatejat",
+    "toastFormatFailed": "No s'ha pogut formatejar",
+    "toastFormatJsonInvalid": "JSON no vàlid — corregeix la sintaxi primer",
+    "toastFormatUnsupported": "Sense formatador per a aquest llenguatge — prova JSON o SQL o mode edició",
+    "toastDeleted": "Fragment eliminat",
+    "toastLoadFailed": "No s'han pogut carregar els fragments des del servidor.",
+    "toastSyncFailed": "No s'ha pogut sincronitzar amb el servidor.",
+    "languages": {
+      "auto": "Detecció automàtica",
+      "plaintext": "Text sense format",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
+    }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Client SQL",
+      "dialogTitle": "Connexions SQL",
+      "mobileSheetTitle": "Explorador SQL",
+      "newTabLabel": "Nova pestanya de consulta",
+      "vaultLockedTitle": "Caixa forta bloquejada",
+      "vaultLockedDesc": "Desbloqueja la caixa forta per accedir a les connexions desades.",
+      "heroTitle": "Client SQL",
+      "heroDesc": "Connecta't a PostgreSQL, MySQL o MariaDB. Les credencials es xifren al navegador.",
+      "heroAddConnection": "Afegeix connexió",
+      "selectTableTitle": "Selecciona una taula o obre una pestanya",
+      "selectTableDesc": "Fes clic en una taula de la barra lateral o utilitza ⌘↩.",
+      "toastLoadFail": "No s'han pogut carregar les connexions."
+    },
+    "connection": {
+      "titleNew": "Nova connexió SQL",
+      "titleEdit": "Edita la connexió",
+      "labelDbType": "Tipus de base de dades",
+      "labelName": "Nom de la connexió",
+      "placeholderName": "La meva BD de producció",
+      "labelHostPort": "Amfitrió i port",
+      "labelDatabase": "Base de dades",
+      "placeholderDatabase": "mevabd",
+      "labelUsername": "Nom d'usuari",
+      "labelPassword": "Contrasenya",
+      "labelSsl": "Activa SSL / TLS",
+      "sslDesc": "Xifra la connexió al servidor",
+      "securityNote": "Les credencials es xifren AES-256 al navegador abans de l'emmagatzemament",
+      "btnTest": "Prova la connexió",
+      "btnSave": "Desa i connecta",
+      "btnUpdate": "Actualitza",
+      "btnCancelEdit": "Cancel·la l'edició",
+      "savedConnections": "Connexions desades",
+      "emptySaved": "Les connexions desades apareixeran aquí",
+      "confirmDelete": "Voleu suprimir aquesta connexió?",
+      "toastFillFields": "Empleneu l'amfitrió i la base de dades abans de provar.",
+      "toastConnectOk": "Connectat! {version}",
+      "toastConnectFail": "Error de connexió: {message}",
+      "toastUnlockVault": "Primer desbloqueu la caixa forta.",
+      "toastFieldsRequired": "L'amfitrió i la base de dades són obligatoris.",
+      "toastUpdated": "Connexió actualitzada.",
+      "toastSaved": "Connexió desada.",
+      "toastSaveFail": "Error en desar: {message}",
+      "toastDeleted": "Connexió suprimida.",
+      "toastDeleteFail": "No s'ha pogut suprimir la connexió."
+    },
+    "sidebar": {
+      "title": "Explorador SQL",
+      "tooltipAddConnection": "Afegeix connexió",
+      "tooltipRefreshSchema": "Actualitza l'esquema",
+      "noConnections": "No hi ha connexions desades",
+      "toastSchemaFail": "No s'ha pogut carregar l'esquema: {message}"
+    },
+    "editor": {
+      "btnRun": "Executa",
+      "executing": "Executant consulta…",
+      "emptyTitle": "Executa una consulta per veure els resultats",
+      "emptyHint": "Prem ⌘↩ o fes clic a Executa",
+      "toastNoConnection": "No hi ha connexió activa."
+    },
+    "results": {
+      "filterPlaceholder": "Filtra els resultats…",
+      "rowCount": "{count} {count, plural, one {fila} other {files}}",
+      "rowCountFiltered": "{filtered} / {total} files",
+      "exportCsv": "CSV",
+      "noRows": "No s'han retornat files"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Generador de codis QR",
+    "subtitle": "Converteix qualsevol text o URL en un codi QR PNG. Tot es renderitza localment al navegador.",
+    "contentLabel": "Contingut",
+    "contentPlaceholder": "https://exemple.cat, text pla, cadena Wi‑Fi, vCard…",
+    "styleLabel": "Estil",
+    "dotTypeLabel": "Forma del punt",
+    "dotTypeSquare": "Quadrat",
+    "dotTypeDots": "Punts",
+    "dotTypeRounded": "Arrodonit",
+    "dotTypeExtraRounded": "Extra arrodonit",
+    "dotTypeClassy": "Elegant",
+    "dotTypeClassyRounded": "Elegant arrodonit",
+    "cornerSquareLabel": "Quadrats de cantonada",
+    "cornerSquareDot": "Punt",
+    "cornerSquareSquare": "Quadrat",
+    "cornerSquareExtraRounded": "Extra arrodonit",
+    "cornerDotLabel": "Punts de cantonada",
+    "cornerDotDot": "Punt",
+    "cornerDotSquare": "Quadrat",
+    "eccLabel": "Correcció d’errors",
+    "eccL": "Baixa (~7%)",
+    "eccM": "Mitjana (~15%)",
+    "eccQ": "Quartil (~25%)",
+    "eccH": "Alta (~30%)",
+    "marginLabel": "Marge (mòduls)",
+    "widthLabel": "Amplada de la imatge",
+    "widthEffective": "Es renderitza a {px} px",
+    "darkColor": "Mòduls foscos",
+    "lightColor": "Mòduls clars",
+    "resetColors": "Restableix colors",
+    "logoLabel": "Logotip central",
+    "logoMarginLabel": "Marge",
+    "uploadLogo": "Pujar imatge",
+    "removeLogo": "Eliminar logotip",
+    "downloadPng": "Baixa PNG",
+    "downloadSvg": "Descarregar SVG",
+    "copyImage": "Copia la imatge",
+    "copied": "Copiat",
+    "clear": "Neteja",
+    "previewAlt": "Vista prèvia del codi QR",
+    "emptyHint": "Escriu o enganxa contingut per veure el codi QR.",
+    "filename": "codi-qr.png",
+    "errors": {
+      "generationFailed": "No s’ha pogut generar el codi QR. Prova un text més curt o menys correcció.",
+      "copyUnsupported": "El navegador no permet copiar imatges al porta-retalls.",
+      "copyFailed": "No s’ha pogut copiar al porta-retalls."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Calculadora IP / subxarxa",
+    "subtitle": "Detalls CIDR IPv4 i IPv6 al navegador—sense sol·licituds externs.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Xarxa",
+    "placeholderIpv4": "10.0.0.0/24 o 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 o 2001:db8::1/64",
+    "hintIpv4": "Useu CIDR (p. ex. /24) o adreça IPv4 + màscara en punt decimal.",
+    "hintIpv6": "Incloeu el prefix (p. ex. /64). Si falta, es suposa /128.",
+    "copyValue": "Copia el valor",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Adreça de xarxa",
+      "netmask": "Màscara de subxarxa",
+      "wildcard": "Màscara comodí",
+      "broadcast": "Difusió",
+      "firstHost": "Primer amfitrió",
+      "lastHost": "Últim amfitrió",
+      "totalAddresses": "Adreces totals",
+      "usableHosts": "Amfitrions usables",
+      "prefixLength": "Longitud del prefix (bits)",
+      "networkIpv6": "Adreça de xarxa",
+      "lastIpv6": "Última adreça del rang",
+      "totalAddressesIpv6": "Adreces a la subxarxa"
+    },
+    "usableNote": {
+      "pointToPoint": "Enllaços /31 punt a punt usen les dues adreces com amfitrions (RFC 3021).",
+      "singleHost": "/32 és per a un sol amfitrió."
+    },
+    "ipv6RangeHint": {
+      "normal": "Es mostra el rang matemàtic complet; les regles del encaminador poden variar.",
+      "single": "/128 és una sola adreça.",
+      "full": "/0 cobreix tot IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Xarxa IPv4 no vàlida. Proveu CIDR o adreça + màscara.",
+      "invalidIpv6": "Xarxa IPv6 no vàlida. Useu adreça/prefix, p. ex. 2001:db8::/48."
+    }
+  },
+  "HashGenerator": {
+    "title": "Generador de hash",
+    "subtitle": "Resums MD5, SHA-1 i SHA-2 per a text o fitxers; bcrypt per a contrasenyes (entrada de text). Tot es calcula localment al navegador.",
+    "algorithmLabel": "Algorisme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Text",
+    "modeFile": "Fitxer",
+    "inputLabelText": "Entrada",
+    "placeholderText": "Escriviu o enganxeu text…",
+    "chooseFile": "Trieu fitxer",
+    "clearFile": "Neteja",
+    "fileHint": "Els fitxers es llegeixen només a la memòria; màx. {maxMb} MB per fitxer. No es puja res.",
+    "outputLabel": "Resum (hex)",
+    "copyHash": "Copia el resum",
+    "copied": "Copiat",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
+    "emptyHint": "Introduïu text o trieu un fitxer per calcular el hash.",
+    "securityNote": "MD5 i SHA-1 no es recomanen per a usos de seguretat nous; preferiu SHA-256 o SHA-512.",
+    "errors": {
+      "fileTooLarge": "El fitxer supera {maxMb} MB.",
+      "fileReadFailed": "No s’ha pogut llegir el fitxer."
+    },
+    "bcryptRoundsLabel": "Cost (voltes)",
+    "bcryptRoundsHint": "Valors més alts són més lents i més resistents a força bruta. Per defecte sol ser 10.",
+    "fileTabDisabledTitle": "bcrypt només resum contrasenyes des de text, no fitxers arbitraris.",
+    "placeholderBcrypt": "Escriviu o enganxeu una contrasenya per resumir…",
+    "outputLabelBcrypt": "Resum bcrypt",
+    "copyBcrypt": "Copia el resum",
+    "emptyHintBcrypt": "Introduïu una contrasenya per calcular el resum bcrypt.",
+    "securityNoteBcrypt": "Cada sortida bcrypt inclou una sal aleatòria; la mateixa contrasenya dona una cadena diferent cada vegada. És esperat. Useu costos alts en producció.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "EncryptionPlayground": {
+    "title": "Terreny de joc del xifratge",
+    "subtitle": "AES-GCM al navegador: xifra en un paquet JSON amb contrasenya o clau en brut i desxifra localment. Educatiu i de vegades pràctic — no es puja res.",
+    "tabEncrypt": "Xifrar",
+    "tabDecrypt": "Desxifrar",
+    "keyModeLabel": "Material de clau",
+    "modePassphrase": "Contrasenya (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Clau AES en brut (hex o Base64)",
+    "aesBitsLabel": "Longitud de clau AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Codificació de la clau en brut",
+    "encodingAuto": "Auto (hex si sembla hex, si no Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Clau en brut",
+    "rawKeyPlaceholder": "Clau de 32 bytes com a 64 caràcters hex o Base64 per AES-256 (la longitud depèn de la mida AES de dalt).",
+    "rawKeyPlaceholderDecrypt": "Només cal si el paquet té keyDerivation \"none\".",
+    "passphraseLabel": "Contrasenya",
+    "passphrasePlaceholder": "La contrasenya només s’usa al navegador per derivar la clau.",
+    "passphrasePlaceholderDecrypt": "Només cal si el paquet usa PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Iteracions PBKDF2",
+    "pbkdf2Hint": "Entre 10.000 i 2.000.000. El valor per defecte segueix configuracions habituals de cofres.",
+    "plaintextLabel": "Text en clar",
+    "plaintextPlaceholder": "Escriviu o enganxeu el missatge a xifrar…",
+    "bundleInputLabel": "Paquet xifrat (JSON)",
+    "bundlePlaceholder": "Enganxeu el JSON de Xifrar (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Paquet xifrat",
+    "plaintextOutputLabel": "Text en clar",
+    "encryptButton": "Xifrar",
+    "decryptButton": "Desxifrar",
+    "copyBundle": "Copiar JSON",
+    "copyPlaintext": "Copiar text en clar",
+    "copied": "Copiat",
+    "emptyBundleHint": "El JSON xifrat apareix aquí després de xifrar.",
+    "emptyDecryptHint": "El text desxifrat apareix aquí.",
+    "decryptKeyHint": "Useu la clau en brut si keyDerivation és \"none\"; la contrasenya amb PBKDF2-SHA256. El paquet emmagatzema sal, iteracions, IV i longitud AES.",
+    "securityNote": "Les claus i el text en clar no surten del navegador. Per a secrets de producció preferiu eines dedicades.",
+    "errors": {
+      "emptyKey": "Introduïu una clau en brut que coincideixi amb la mida AES.",
+      "emptyPassphrase": "Introduïu una contrasenya.",
+      "badKeyMaterial": "No s’ha pogut llegir la clau com a hex o Base64.",
+      "wrongKeyLength": "La longitud de clau no coincideix amb l’AES (16 / 24 / 32 bytes).",
+      "invalidJson": "JSON no vàlid.",
+      "invalidBundle": "Aquest JSON no és un paquet de xifratge compatible.",
+      "decryptFailed": "Ha fallat el desxifratge — secret incorrecte, paquet malmès o paràmetres incorrectes.",
+      "encryptFailed": "Ha fallat el xifratge. Comproveu Web Crypto i les entrades."
+    }
+  },
+  "HmacGenerator": {
+    "title": "Generador HMAC",
+    "subtitle": "Per signar webhooks i provar integracions d’API. HMAC-SHA1/256/384/512 en hex o Base64—calculat localment al navegador.",
+    "secretLabel": "Clau secreta",
+    "messageLabel": "Missatge / càrrega útil",
+    "placeholderSecret": "Enganxeu el secret de signatura…",
+    "placeholderMessage": "Enganxeu el cos en brut o la cadena a autenticar (sovint els mateixos bytes del webhook).",
+    "algorithmLabel": "Algorisme HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format de sortida",
+    "formatHex": "Hex (minúscules)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signatura",
+    "copyOutput": "Copia la signatura",
+    "copied": "Copiat",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (UTF-8)",
+    "emptyHint": "Introduïu una clau secreta per calcular l’HMAC.",
+    "securityNote": "No compartiu mai el secret de signatura. Aquesta pàgina no puja dades; tot s’executa al navegador.",
+    "errors": {
+      "cryptoFailed": "No s’ha pogut calcular l’HMAC. Comproveu el suport de Web Crypto i torneu-ho a provar.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "TotpGenerator": {
+    "title": "Generador de codi TOTP / 2FA",
+    "subtitle": "Enganxa el secret Base32 i obtén el codi actual de sis xifres RFC 6238 (SHA-1, 30 s). Tot al navegador—útil per provar inici de sessió o MFA.",
+    "secretLabel": "Secret (Base32)",
+    "placeholderSecret": "Enganxa la clau secreta (lletres A–Z i dígits 2–7, com en configurar l’autenticador)…",
+    "codeLabel": "Codi actual",
+    "copyCode": "Copia el codi",
+    "copied": "Copiat",
+    "nextIn": "Es renova en {seconds} s",
+    "standardHint": "Pas de temps de 30 s, 6 xifres, HMAC-SHA-1 (compatible amb Google Authenticator).",
+    "digitsLabel": "Xifres",
+    "periodLabel": "Període",
+    "algorithmLabel": "Algorisme",
+    "periodSeconds": "{seconds} s",
+    "emptyHint": "Enganxa un secret per generar un codi de sis xifres.",
+    "invalidHint": "Corregeix el secret per veure el codi.",
+    "securityNote": "Tracta’l com una contrasenya. El secret no surt del navegador; no es puja res.",
+    "importLabel": "Importa des d'un URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importa",
+    "qrSectionTitle": "Codi QR d'aprovisionament",
+    "qrHint": "Escaneja amb una aplicació d'autenticació (Google Authenticator, 1Password, Aegis…) per afegir aquest secret. El QR codifica el secret — tracta'l com una contrasenya.",
+    "accountLabel": "Compte",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Emissor (opcional)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Introdueix un secret vàlid per generar un codi QR.",
+    "errors": {
+      "invalidSecret": "Aquest no és un secret Base32 vàlid.",
+      "cryptoFailed": "No s’ha pogut calcular el TOTP. Comproveu Web Crypto i torneu-ho a provar.",
+      "invalidUri": "Això no és un URI otpauth:// TOTP vàlid.",
+      "unsupportedUri": "Aquest URI utilitza valors que l'eina no admet (els dígits han de ser 6 o 8; el període 15, 30 o 60 s)."
+    }
+  },
+  "MarkdownPreview": {
+    "title": "Previsualització Markdown & HTML",
+    "subtitle": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown. Tot s'executa al vostre navegador.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Entrada Markdown",
+    "htmlInputLabel": "Entrada HTML",
+    "previewLabel": "Previsualització",
+    "htmlOutputLabel": "Font HTML",
+    "mdOutputLabel": "Sortida Markdown",
+    "inputPlaceholder": "# Hola\\n\\nEscriviu el vostre **markdown** aquí…",
+    "htmlInputPlaceholder": "Enganxeu el vostre HTML aquí…",
+    "copyHtml": "Copia HTML",
+    "copyMarkdown": "Copia Markdown",
+    "exportHtml": "Exporta HTML",
+    "copied": "Copiat",
+    "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
+    "emptyHint": "Comenceu a escriure Markdown per veure la previsualització i la sortida HTML.",
+    "emptyHintHtmlToMd": "Enganxeu HTML per convertir-lo en Markdown.",
+    "securityNote": "Tot s'executa localment al vostre navegador. No es carrega res."
+  },
+  "NumberBaseConverter": {
+    "title": "Conversor de base numèrica",
+    "subtitle": "Converteix enters entre bases 2–36. Prefixos opcionals 0x / 0b / 0o. Tot es calcula localment al navegador.",
+    "inputBaseLabel": "Des de la base",
+    "outputBaseLabel": "A la base",
+    "inputLabel": "Nombre d’entrada",
+    "placeholderInput": "Introduïu un nombre enter en la base d’entrada seleccionada…",
+    "outputLabel": "Valor convertit",
+    "copyOutput": "Copia el resultat",
+    "copied": "Copiat",
+    "swap": "Intercanvia bases",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (longitud UTF-8)",
+    "emptyHint": "Introduïu un nombre per convertir.",
+    "note": "Els dígits superiors a 9 usen A–Z (sense distingir majúscules). S’ignoren espais i guions baixos.",
+    "errors": {
+      "invalidNumber": "Aquest valor no és vàlid per a la base d’entrada seleccionada."
+    }
+  },
+  "FormatConverter": {
+    "title": "Conversor de formats",
+    "subtitle": "Converteix entre JSON, YAML, TOML i XML en qualsevol direcció. Les 12 combinacions. Tot funciona al teu navegador.",
+    "fromLabel": "De",
+    "toLabel": "A",
+    "swap": "Intercanviar",
+    "swapTitle": "Intercanvia els formats i utilitza la sortida com a entrada",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
+    "emptyHint": "Enganxa o escriu l'entrada a l'esquerra per veure la sortida convertida.",
+    "localNote": "Tot funciona localment al teu navegador. No es puja res."
+  },
+  "MimeTypeLookup": {
+    "title": "Cerca de tipus MIME",
+    "subtitle": "Cerca el tipus MIME (tipus de mitjà) per una extensió o un nom de fitxer complet. Tot funciona localment al teu navegador.",
+    "inputLabel": "Extensió o nom de fitxer",
+    "placeholder": "p. ex. .png, package.json, photo.jpeg",
+    "hint": "Consell: enganxa una extensió (amb o sense punt) o un nom de fitxer complet.",
+    "clear": "Netejar",
+    "exampleFilename": "Utilitza un nom de fitxer d'exemple",
+    "exampleExtension": "Utilitza una extensió d'exemple",
+    "resultLabel": "Resultat",
+    "normalizedLabel": "Entrada normalitzada:",
+    "mimeTypeLabel": "Tipus MIME",
+    "contentTypeLabel": "Capçalera Content-Type",
+    "charsetLabel": "Joc de caràcters",
+    "copyMimeType": "Copia el tipus MIME",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "emptyHint": "Introdueix una extensió o un nom de fitxer per cercar el tipus MIME.",
+    "notFound": "No s'ha trobat cap tipus MIME per a aquesta entrada.",
+    "localNote": "Tot funciona localment al teu navegador. No es puja res."
+  },
+  "UserAgentParser": {
+    "title": "Analitzador de User-Agent",
+    "subtitle": "Enganxa una cadena User-Agent (UA) i obtén el desglossament de navegador, SO, motor, dispositiu i CPU. Tot funciona localment al teu navegador.",
+    "inputLabel": "Cadena User-Agent",
+    "placeholder": "Enganxa el teu User-Agent aquí…",
+    "hint": "Consell: pots copiar un UA des dels encapçalaments de la sol·licitud, els logs o les devtools del navegador.",
+    "clear": "Netejar",
+    "exampleDesktop": "Utilitza un exemple d'escriptori",
+    "exampleMobile": "Utilitza un exemple mòbil",
+    "resultLabel": "Desglossament",
+    "browserLabel": "Navegador",
+    "osLabel": "Sistema operatiu",
+    "engineLabel": "Motor",
+    "deviceTypeLabel": "Tipus de dispositiu",
+    "deviceVendorLabel": "Fabricant",
+    "deviceModelLabel": "Model",
+    "cpuArchLabel": "Arquitectura de la CPU",
+    "copyJson": "Copia JSON",
+    "copy": "Copiar",
+    "copied": "Copiat",
+    "emptyHint": "Enganxa una cadena User-Agent per veure el desglossament.",
+    "localNote": "Tot funciona localment al teu navegador. No es puja res."
+  },
+  "MockDataGenerator": {
+    "title": "Generador de dades de prova",
+    "subtitle": "Definiu columnes, trieu tipus i exporteu conjunts de dades per a llavors, Postman o proves. Fins a {max} files, tot al navegador: no es puja res.",
+    "mockarooLink": "Flux com a Mockaroo",
+    "rowsLabel": "Files",
+    "rowsHint": "Com a màxim {max} files per generació per mantenir la pestanya fluida.",
+    "formatLabel": "Format",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "Nom de la taula SQL",
+    "presetsLabel": "Plantilles",
+    "presetPlaceholder": "Carregar plantilla…",
+    "presetDefault": "Inici (usuari)",
+    "presetUsers": "Usuaris i rols",
+    "presetProducts": "SKU de comerç electrònic",
+    "presetApiLog": "Registre de sol·licituds HTTP",
+    "generate": "Genera",
+    "warningDuplicateNames": "Noms de columna duplicats: les columnes posteriors sobreescriuen les anteriors en objectes JSON. Canvieu el nom.",
+    "schemaHeading": "Esquema",
+    "addField": "Afegeix columna",
+    "removeField": "Elimina columna",
+    "duplicateField": "Duplica columna",
+    "colName": "Nom",
+    "colType": "Tipus",
+    "colOptions": "Opcions",
+    "colBlank": "Buit %",
+    "optMin": "mín",
+    "optMax": "màx",
+    "optDecimals": "dec",
+    "optDateFrom": "des de",
+    "optDateTo": "fins a",
+    "optValues": "a, b, c",
+    "optStep": "pas",
+    "optRowBase": "base",
+    "output": "Sortida",
+    "outputPlaceholder": "Feu clic a Genera per crear les dades…",
+    "copy": "Copia",
+    "download": "Baixa",
+    "copied": "Copiat",
+    "groups": {
+      "personal": "Personal",
+      "location": "Ubicació",
+      "internetApi": "Internet i API",
+      "numbersIds": "Nombres i IDs",
+      "dateTime": "Data i hora",
+      "textDesign": "Text i disseny",
+      "custom": "Personalitzat"
+    },
+    "fieldTypes": {
+      "first_name": "Nom",
+      "last_name": "Cognoms",
+      "full_name": "Nom complet",
+      "email": "Email",
+      "username": "Nom d'usuari",
+      "password": "Contrasenya",
+      "phone": "Telèfon",
+      "company": "Empresa",
+      "job_title": "Càrrec",
+      "avatar_url": "URL de l'avatar",
+      "city": "Ciutat",
+      "country": "País",
+      "country_code": "Codi de país (ISO)",
+      "street_address": "Adreça",
+      "zip_code": "Codi postal",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "url": "URL",
+      "domain": "Domini",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Enter",
+      "float": "Decimal",
+      "boolean": "Booleà",
+      "uuid": "UUID",
+      "credit_card": "Targeta (prova)",
+      "semver": "SemVer",
+      "row_index": "Índex de fila",
+      "sequence": "Seqüència",
+      "date": "Data",
+      "datetime": "Data i hora",
+      "unix_timestamp": "Marca de temps Unix",
+      "timezone": "Zona horària",
+      "word": "Paraula",
+      "sentence": "Frase",
+      "paragraph": "Paràgraf",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Codi de moneda",
+      "language_code": "Etiqueta d’idioma",
+      "custom_list": "Llista personalitzada"
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
+  },
+  "SvgOptimizer": {
+    "title": "Optimitzador SVG",
+    "subtitle": "Enganxa SVG, minifica amb SVGO al navegador i compara la mida UTF-8 abans i després.",
+    "inputLabel": "Entrada",
+    "outputLabel": "Optimitzat",
+    "placeholder": "Enganxa un fragment <svg>…</svg> o el fitxer sencer…",
+    "outputPlaceholder": "El SVG optimitzat apareix aquí…",
+    "chars": "{count} caràcters • {bytes} bytes (UTF-8)",
+    "preview": "Vista prèvia",
+    "localNote": "Tot es processa localment al navegador. No es puja res.",
+    "stats": {
+      "title": "Mida (UTF-8)",
+      "before": "Abans",
+      "after": "Després",
+      "savedBytes": "{count} bytes estalviats ({percent}%)",
+      "noChange": "Sense reducció — ja és mínim o la sortida és buida."
+    },
+    "actions": {
+      "clear": "Netejar",
+      "sample": "Carregar exemple",
+      "copy": "Copiar",
+      "copied": "Copiat",
+      "download": "Baixar"
+    },
+    "errors": {
+      "optimizeFailed": "No s’ha pogut optimitzar aquest SVG."
+    }
+  },
+  "UnitConverter": {
+    "title": "Convertidor d'unitats",
+    "subtitle": "Converteix entre <strong>323 unitats</strong> en <strong>43 categories</strong>",
+    "category": "Categoria",
+    "from": "De",
+    "to": "A",
+    "value": "Valor",
+    "result": "Resultat",
+    "swapUnits": "Intercanviar unitats",
+    "placeholder": "Introduïu un valor",
+    "copyResult": "Copiar resultat",
+    "searchCategory": "Cerca categoria...",
+    "selectCategory": "Seleccioneu una categoria",
+    "noResults": "No s'ha trobat cap categoria."
+  },
+  "DockerComposeGenerator": {
+    "title": "Generador Docker Compose",
+    "subtitle": "Trieu bases de dades populars, memòries cau, cues de missatges, proxies inversos i observabilitat — copieu un docker-compose.yml llest per al desenvolupament local.",
+    "searchPlaceholder": "Cerca (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Serveis",
+    "selectedCount": "{count, plural, one {# servei} other {# serveis}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Copia",
+    "copied": "Copiat!",
+    "download": "Baixa",
+    "emptyState": "Seleccioneu un o més serveis per generar el YAML de Compose.",
+    "hintPorts": "Els ports per defecte redueixen conflictes; canvieu-los si Docker informa d’un port en ús. Substituïu les contrasenyes de demostració abans d’entorns compartits.",
+    "categories": {
+      "databases": "Bases de dades i emmagatzematge",
+      "cache": "Memòria cau i en memòria",
+      "queues": "Cues i missatgeria",
+      "search": "Cerca i registres",
+      "storage": "Emmagatzematge d’objectes",
+      "proxy": "Proxies inversos i ingress",
+      "observability": "Mètriques i traçat",
+      "mail": "Correu (desenvolupament local)",
+      "admin": "Interfícies d’administració i BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Neteja"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (compatible amb Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (compatible amb Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (compatible amb S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (captura SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (servidor de desenvolupament)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Llisca les rajoles i fusiona-les per arribar al 2048",
+    "score": "Puntuació",
+    "best": "Òptim",
+    "newGame": "Nova partida",
+    "howToPlay": "Utilitza les tecles de fletxa (o llisca el mòbil) per moure les rajoles. Les rajoles amb el mateix nombre es fusionen. Fes el 2048 per guanyar!",
+    "youWin": "Has arribat al 2048!",
+    "keepGoing": "- Segueix.",
+    "gameOver": "La partida ha acabat",
+    "tryAgain": "Torna a intentar-ho",
+    "gameOverMessage": "No queden més moviments.",
+    "undo": "Desfer"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "etapes completades",
+    "time": "Hora",
+    "best": "Òptim",
+    "difficulty": {
+      "easy": "Fàcil",
+      "medium": "Suport",
+      "hard": "Dur"
+    },
+    "stage": "Fase",
+    "solved": "Solucionat",
+    "score": "Puntuació",
+    "nextStage": "Següent etapa",
+    "replay": "& Repetició",
+    "erase": "Esborrar",
+    "howToPlay": "Fes clic a una cel·la i, a continuació, toca un número o prem 1–9. Backspace o Suprimeix neteja la cel·la. Els números en negreta són pistes. Omple la graella perquè cada fila, columna i quadre de 3×3 contingui de l'1 al 9 sense repeticions.",
+    "pencil": "Llapis",
+    "undo": "Desfer",
+    "hint": "Pista",
+    "hintsUsed": "pistes usades",
+    "mistakes": "Errors",
+    "failed": "Fracassat!",
+    "mistakeMode": "Mode 3 errors"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Menja, creix, evita les parets i tu mateix",
+    "score": "Punts",
+    "best": "Millor",
+    "startPrompt": "Prem qualsevol tecla de fletxa",
+    "startButton": "Iniciar Joc",
+    "gameOver": "Fi del Joc",
+    "playAgain": "Jugar de nou",
+    "howToPlay": "Usa les tecles de fletxa o WASD per moure't. Menja per créixer. La velocitat augmenta cada 50 punts.",
+    "diffEasy": "Fàcil",
+    "diffNormal": "Normal",
+    "diffHard": "Difícil",
+    "diffInfinite": "Infinit",
+    "orTap": "o toca a baix",
+    "howToPlayInfinite": "Les parets s'emboliquen — sense morts per parets. Menja per créixer.",
+    "shieldActive": "Escut actiu",
+    "speedBoost": "Augment velocitat",
+    "powerSpeed": "Velocitat x2",
+    "powerShield": "Sobreviu una mort",
+    "powerShrink": "Escurça la cua"
+  },
+  "Minesweeper": {
+    "title": "Buscamines",
+    "subtitle": "Troba totes les cel·les segures sense detonar una mina",
+    "mines": "Mines",
+    "newGame": "Nova partida",
+    "win": "Has guanyat!",
+    "loss": "Has perdut!",
+    "playAgain": "Torna a jugar",
+    "tryAgain": "Torna-ho a provar",
+    "startPrompt": "Fes clic a qualsevol cel·la per començar",
+    "difficulty": {
+      "beginner": "Principiant",
+      "intermediate": "Intermedi",
+      "expert": "Expert"
+    }
+  },
+  "Tetris": {
+    "title": "Tetris",
+    "subtitle": "Organitza els blocs que cauen per completar files",
+    "next": "Següent",
+    "score": "Puntuació",
+    "best": "Millor",
+    "lines": "Línies",
+    "level": "Nivell",
+    "pause": "Pausa",
+    "resume": "Reprèn",
+    "start": "Comença",
+    "restart": "Reinicia",
+    "paused": "En pausa",
+    "gameOver": "Fi de partida"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Connexions Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Connecteu-vos a instàncies Redis. Navegueu per claus, editeu valors i executeu ordres. Les credencials es xifren al vostre navegador.",
+      "heroAddConnection": "Afegeix connexió",
+      "vaultLockedTitle": "Caixa forta bloquejada",
+      "vaultLockedDesc": "Desbloquegeu la caixa forta per accedir a les connexions desades."
+    }
+  },
+  "SshKeyGenerator": {
+    "title": "Generador de claus SSH / RSA",
+    "subtitle": "Genera parells de claus Ed25519 o RSA al teu navegador. Descarrega les claus privada i pública en formats OpenSSH i PEM. Res no es puja.",
+    "keyTypeLabel": "Tipus de clau",
+    "recommended": "recomanat",
+    "ed25519Desc": "Ràpid, petit i modern. Compatible amb GitHub, GitLab i tots els servidors SSH principals.",
+    "rsa2048Desc": "Àmpliament compatible. Segur per a la majoria d'usos.",
+    "rsa4096Desc": "Màxima compatibilitat i fortalesa per a sistemes antics.",
+    "commentLabel": "Comentari (opcional)",
+    "commentHint": "S'afegeix a la línia de clau pública d'OpenSSH.",
+    "generateBtn": "Genera el parell de claus",
+    "generating": "Generant…",
+    "generatingLong": "Generant (pot trigar un moment)…",
+    "copy": "Copia",
+    "download": "Descarrega",
+    "privateKeyLabel": "Clau privada (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Clau pública (format OpenSSH)",
+    "publicKeySpkiLabel": "Clau pública (SPKI PEM)",
+    "browserNote": "Totes les claus es generen al teu navegador. Res no s'envia a cap servidor.",
+    "errors": {
+      "generationFailed": "La generació de la clau ha fallat"
+    }
+  },
+  "DnsLookup": {
+    "title": "Cerca DNS",
+    "subtitle": "Consulta els registres DNS de qualsevol domini — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Introdueix un domini (p. ex. github.com)",
+    "lookupBtn": "Cerca",
+    "looking": "Cercant…",
+    "refreshBtn": "Actualitza",
+    "recordTypesLabel": "Tipus de registres",
+    "allBtn": "Tots",
+    "tryLabel": "Prova:",
+    "errors": {
+      "lookupFailed": "Ha fallat la consulta DNS"
+    }
+  },
+  "CurlToCode": {
+    "title": "cURL to Code",
+    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "panels": {
+      "input": "curl command",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a curl command here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated request code will appear here…"
+  },
+  "JsonToCode": {
+    "title": "JSON to Code",
+    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "panels": {
+      "input": "JSON input",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a sample JSON object here…",
+    "rootName": "Root name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated type models will appear here…"
+  },
+  "JsonVisualizer": {
+    "title": "JSON Visualizer",
+    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "panels": {
+      "input": "JSON input",
+      "graph": "Graph"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste or type JSON here…",
+    "searchPlaceholder": "Search keys & values",
+    "prevMatch": "Previous match",
+    "nextMatch": "Next match",
+    "nodeCount": "{count} nodes",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitView": "Fit to view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "export": "Export",
+    "exportPng": "PNG image",
+    "exportSvg": "SVG image",
+    "copyPath": "Copy path",
+    "copyValue": "Copy value",
+    "pathCopied": "Path copied",
+    "valueCopied": "Value copied",
+    "viewTable": "View as table",
+    "tableTitle": "Table view",
+    "locateInText": "Locate in text",
+    "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
+    "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
+    "emptyState": "Paste JSON in the input to see it as an interactive graph."
+  },
+  "BeautifyMinify": {
+    "title": "Beautify & Minify",
+    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "langLabel": "Language",
+    "actionLabel": "Action",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "bytes": "{count} bytes",
+    "clear": "Clear",
+    "placeholder": "Paste code here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Formatted output will appear here…"
+  },
+  "StringCaseConverter": {
+    "title": "String Case Converter",
+    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "panels": {
+      "input": "Input",
+      "output": "Case variants"
+    },
+    "wordCount": "{count} words",
+    "clear": "Clear",
+    "placeholder": "Type or paste text to convert…",
+    "copyTitle": "Copy to clipboard",
+    "emptyHint": "—"
+  },
+  "LineSortDedupe": {
+    "title": "Line Sort & Dedupe",
+    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "opts": {
+      "sort": "Sort",
+      "dedupe": "Remove duplicates",
+      "removeEmpty": "Remove empty lines",
+      "trim": "Trim lines",
+      "caseInsensitive": "Case-insensitive"
+    },
+    "sortModes": {
+      "none": "No sort",
+      "asc": "Ascending (A–Z)",
+      "desc": "Descending (Z–A)",
+      "natural": "Natural (numeric)",
+      "length": "By length",
+      "reverse": "Reverse order"
+    },
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "lineCount": "{count} lines",
+    "clear": "Clear",
+    "placeholder": "Paste lines here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Processed lines will appear here…"
+  },
+  "StringInspector": {
+    "title": "String Inspector",
+    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "panels": {
+      "input": "Input"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text to inspect…",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "No spaces",
+      "words": "Words",
+      "lines": "Lines",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "bytes": "Bytes (UTF-8)",
+      "utf16": "UTF-16 units",
+      "letters": "Letters",
+      "digits": "Digits",
+      "whitespace": "Whitespace",
+      "punctuation": "Punctuation",
+      "readingTime": "Reading time"
+    },
+    "specialTitle": "Special & non-ASCII characters",
+    "noSpecial": "No special or non-ASCII characters found.",
+    "specialEmpty": "Special characters will be listed here…",
+    "cols": {
+      "codepoint": "Code point",
+      "name": "Name",
+      "count": "Count"
+    },
+    "nonAscii": "Non-ASCII character"
+  },
+  "EscapeEncode": {
+    "title": "Escape / Encode",
+    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "modeLabel": "Mode",
+    "modes": {
+      "html": "HTML Entities",
+      "backslash": "Backslash (JS / JSON string)",
+      "hex": "Hex ↔ ASCII",
+      "unicode": "Unicode \\uXXXX"
+    },
+    "directionLabel": "Direction",
+    "encode": "Encode",
+    "decode": "Decode",
+    "swap": "Swap",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Generador i verificador Bcrypt",
+    "subtitle": "Genera hash de contrasenyes amb bcrypt i verifica hashes — tot es queda al teu navegador",
+    "tabs": {
+      "hash": "Hash",
+      "verify": "Verifica"
+    },
+    "showPassword": "Mostra la contrasenya",
+    "hidePassword": "Amaga la contrasenya",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "hash": {
+      "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "Introdueix una contrasenya per generar el hash…",
+      "costLabel": "Factor de cost",
+      "costHint": "Un cost més alt duplica la feina per pas. 10-12 és una opció habitual per a producció.",
+      "slowWarning": "Els factors de cost de 13 o més poden trigar diversos segons a calcular-se.",
+      "generate": "Genera el hash",
+      "generating": "Generant el hash…",
+      "resultLabel": "Hash bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Anatomia del hash",
+        "algorithm": "algoritme",
+        "cost": "cost",
+        "salt": "salt (22 caràcters)",
+        "hash": "hash (31 caràcters)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "Introdueix la contrasenya per comprovar-la…",
+      "hashLabel": "Hash bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Introdueix una contrasenya i un hash bcrypt per comparar-los.",
+      "invalidHash": "Això no sembla un hash bcrypt vàlid.",
+      "checking": "Comparant…",
+      "match": "Coincideix — la contrasenya produeix aquest hash.",
+      "noMatch": "No coincideix — la contrasenya no produeix aquest hash."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Calculadora Chmod",
+    "subtitle": "Converteix permisos de fitxer Unix entre caselles de selecció, octal i notació simbòlica",
+    "grid": {
+      "title": "Permisos",
+      "read": "Lectura",
+      "write": "Escriptura",
+      "execute": "Execució",
+      "owner": "Propietari",
+      "group": "Grup",
+      "others": "Altres"
+    },
+    "special": {
+      "title": "Bits especials",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Octal",
+      "placeholder": "755 o 4755",
+      "invalid": "Introdueix 3 o 4 dígits octals (0-7)."
+    },
+    "symbolic": {
+      "label": "Simbòlic",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Introdueix 9 caràcters com rwxr-xr-x (s/S, t/T permesos)."
+    },
+    "output": {
+      "title": "Ordre",
+      "copy": "Copia",
+      "copied": "Copiat"
+    },
+    "explain": {
+      "line": "{cls} pot {perms}.",
+      "none": "{cls} no té permisos.",
+      "setuid": "Setuid: el fitxer s'executa amb els privilegis del seu propietari.",
+      "setgid": "Setgid: el fitxer s'executa amb els privilegis del seu grup (els fitxers nous d'un directori n'hereten el grup).",
+      "sticky": "Sticky: només el propietari d'un fitxer pot eliminar-lo o canviar-ne el nom dins d'aquest directori."
+    },
+    "presets": {
+      "title": "Predefinits habituals",
+      "octal": "Octal",
+      "permissions": "Permisos",
+      "description": "Ús típic",
+      "p644": "Fitxers normals: el propietari escriu, tothom llegeix.",
+      "p755": "Executables i directoris: tothom pot llegir i entrar-hi.",
+      "p600": "Fitxers privats: només el propietari llegeix i escriu.",
+      "p700": "Executables i directoris privats: només el propietari.",
+      "p664": "Fitxers on el grup pot escriure.",
+      "p775": "Directoris i executables on el grup pot escriure.",
+      "p400": "Només de lectura per al propietari (p. ex. claus privades SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Captura de codi",
+    "subtitle": "Converteix codi en imatges boniques i compartibles",
+    "languageLabel": "Llenguatge",
+    "autoDetect": "Detecció automàtica",
+    "backgroundLabel": "Fons",
+    "paddingLabel": "Farciment",
+    "filenameLabel": "Nom del fitxer",
+    "filenamePlaceholder": "exemple.ts",
+    "windowLabel": "Punts de la finestra",
+    "themeLabel": "Tema de la finestra",
+    "themeDark": "Fosc",
+    "themeLight": "Clar",
+    "scaleLabel": "Escala d'exportació",
+    "copyImage": "Copia la imatge",
+    "copied": "Copiat",
+    "exportPng": "Exporta PNG",
+    "inputLabel": "Codi",
+    "detected": "Detectat: {language}",
+    "clear": "Netejar",
+    "placeholder": "Enganxa el teu codi aquí…",
+    "previewLabel": "Vista prèvia",
+    "emptyPreview": "La vista prèvia del teu codi apareixerà aquí",
+    "exportFailed": "No s'ha pogut exportar la imatge",
+    "copyUnsupported": "La còpia d'imatges no és compatible amb aquest navegador",
+    "copyFailed": "No s'ha pogut copiar la imatge",
+    "backgrounds": {
+      "ocean": "Oceà",
+      "sunset": "Posta de sol",
+      "candy": "Caramel",
+      "forest": "Bosc",
+      "midnight": "Mitjanit",
+      "gold": "Or",
+      "aurora": "Aurora",
+      "slate": "Pissarra",
+      "transparent": "Transparent"
+    }
+  },
+  "CssGenerators": {
+    "title": "Generadors CSS",
+    "subtitle": "Box-shadow, border-radius i clamp() fluid — copia el CSS.",
+    "preview": "Vista prèvia",
+    "output": "CSS",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() fluid"
+    },
+    "boxShadow": {
+      "presets": "Predefinits",
+      "layer": "Capa",
+      "addLayer": "Afegeix una capa",
+      "removeLayer": "Elimina la capa",
+      "x": "X",
+      "y": "Y",
+      "blur": "Difuminat",
+      "spread": "Extensió",
+      "color": "Color",
+      "alpha": "Alfa",
+      "inset": "Interior",
+      "presetNames": {
+        "subtleCard": "Targeta subtil",
+        "elevated": "Elevat",
+        "hardOffset": "Desplaçament dur",
+        "neonGlow": "Resplendor neó",
+        "inner": "Interior",
+        "layeredSmooth": "Capes suaus"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Mode",
+      "modes": {
+        "simple": "Per cantonada",
+        "blob": "Bombolla orgànica"
+      },
+      "unit": "Unitat",
+      "linkCorners": "Enllaça les cantonades",
+      "randomize": "Aleatoritza",
+      "horizontal": "Radis horitzontals",
+      "vertical": "Radis verticals",
+      "corners": {
+        "tl": "Superior esquerra",
+        "tr": "Superior dreta",
+        "br": "Inferior dreta",
+        "bl": "Inferior esquerra"
+      }
+    },
+    "clamp": {
+      "minFont": "Font mínima (px)",
+      "maxFont": "Font màxima (px)",
+      "minViewport": "Viewport mínim (px)",
+      "maxViewport": "Viewport màxim (px)",
+      "rootFont": "Font arrel (px)",
+      "viewportWidth": "Viewport simulat",
+      "computedSize": "Mida calculada",
+      "slope": "Pendent",
+      "intercept": "Intercepció",
+      "previewText": "La ràpida guineu marró",
+      "invalid": "Introdueix límits de viewport vàlids i diferents."
+    }
+  },
+  "ExifViewer": {
+    "title": "Visualitzador i eliminador EXIF",
+    "subtitle": "Inspecciona les metadades de les fotos i elimina-les al teu navegador",
+    "dropTitle": "Deixa anar una imatge aquí",
+    "dropHint": "o fes clic per navegar — la teva imatge no surt mai del teu dispositiu",
+    "browse": "Tria una imatge",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Llegint metadades…",
+    "parseFailed": "No s'ha pogut llegir aquesta imatge",
+    "clear": "Elimina la imatge",
+    "gpsWarning": "Conté ubicació GPS",
+    "openMap": "Mostra a OpenStreetMap",
+    "noMetadata": "No s'han trobat metadades incrustades en aquesta imatge.",
+    "facts": {
+      "name": "Nom",
+      "type": "Tipus",
+      "dimensions": "Dimensions",
+      "size": "Mida"
+    },
+    "groups": {
+      "camera": "Càmera",
+      "exposure": "Exposició",
+      "timestamps": "Marques de temps",
+      "gps": "Ubicació GPS",
+      "software": "Programari i altres"
+    },
+    "gpsCard": {
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "altitude": "Altitud"
+    },
+    "raw": {
+      "title": "Totes les metadades",
+      "copyJson": "Copia el JSON",
+      "copied": "Copiat"
+    },
+    "remove": {
+      "title": "Elimina les metadades",
+      "jpegDescription": "Elimina sense pèrdua EXIF, XMP, IPTC i comentaris sense recomprimir la imatge.",
+      "reencodeDescription": "Recodifica la imatge per eliminar les metadades incrustades. Això recomprimeix els píxels.",
+      "keepIcc": "Conserva el perfil de color (ICC)",
+      "stripButton": "Elimina les metadades",
+      "reencodeButton": "Recodifica i elimina",
+      "unsupported": "L'eliminació de metadades no és compatible amb aquest tipus de fitxer.",
+      "failed": "No s'han pogut eliminar les metadades",
+      "before": "Abans",
+      "after": "Després",
+      "download": "Descarrega la imatge neta"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Generador de favicon",
+    "subtitle": "Crea favicons i icones d'app a partir d'una imatge",
+    "dropTitle": "Deixa anar una imatge aquí",
+    "dropHint": "PNG, JPEG o SVG — fes clic per navegar",
+    "browse": "Tria una imatge",
+    "clear": "Elimina la imatge",
+    "backgroundLabel": "Fons",
+    "transparent": "Transparent",
+    "solidColor": "Sòlid",
+    "cornerLabel": "Forma de la cantonada",
+    "cornerNone": "Quadrat",
+    "cornerRounded": "Arrodonit",
+    "cornerCircle": "Cercle",
+    "maskPaddingLabel": "Farciment maskable",
+    "maskable": "maskable",
+    "previewLabel": "Vista prèvia",
+    "copy": "Copia",
+    "headSnippet": "Fragment del head HTML",
+    "downloadIco": "Descarrega favicon.ico",
+    "downloadZip": "Descarrega-ho tot (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Diff JSON",
+    "subtitle": "Comparació semàntica i conscient de l'estructura de dos documents JSON — s'ignoren l'ordre de les claus i el format",
+    "options": {
+      "ignoreArrayOrder": "Ignora l'ordre dels arrays"
+    },
+    "loadBothSamples": "Carrega exemples",
+    "sample": "Exemple",
+    "format": "Formata",
+    "clear": "Netejar",
+    "formatError": "No es pot formatar: l'entrada no és un JSON vàlid",
+    "placeholder": "Enganxa o escriu JSON aquí…",
+    "panels": {
+      "left": "Original (esquerra)",
+      "right": "Modificat (dreta)",
+      "results": "Diferències"
+    },
+    "summary": {
+      "added": "{count} afegit(s)",
+      "removed": "{count} eliminat(s)",
+      "changed": "{count} canviat(s)"
+    },
+    "types": {
+      "added": "Afegit",
+      "removed": "Eliminat",
+      "changed": "Canviat"
+    },
+    "copyChanges": "Copia com a JSON",
+    "copied": "Copiat",
+    "empty": "Enganxa JSON als dos plafons per veure'n les diferències.",
+    "identical": "Els dos documents són semànticament idèntics."
+  },
+  "JsonpathPlayground": {
+    "title": "Playground JSONPath",
+    "subtitle": "Consulta documents JSON amb JSONPath o JMESPath i mira els resultats en directe",
+    "engineLabel": "Motor",
+    "queryLabel": "Consulta",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Referència ràpida",
+    "cheats": {
+      "jpAllTitles": "Tots els títols de llibres",
+      "jpAllAuthors": "Tots els autors, a qualsevol lloc del document",
+      "jpFirstBook": "Primer llibre",
+      "jpLastBook": "Últim llibre",
+      "jpSlice": "Els dos primers llibres (slice)",
+      "jpFilterPrice": "Llibres més barats que 40",
+      "jpFilterInStock": "Títols dels llibres en estoc",
+      "jpRecursive": "Tots els valors, recursivament",
+      "jmAllTitles": "Tots els títols de llibres",
+      "jmFirstAuthor": "Autor del primer llibre",
+      "jmLastBook": "Últim llibre",
+      "jmSlice": "Els dos primers llibres (slice)",
+      "jmFilterPrice": "Títols dels llibres més barats que 40",
+      "jmCount": "Compta els llibres en estoc",
+      "jmProjection": "Remodela cada llibre en un objecte nou",
+      "jmSort": "Títols ordenats per preu"
+    },
+    "panels": {
+      "input": "Entrada JSON",
+      "results": "Resultats"
+    },
+    "sample": "Exemple",
+    "format": "Formata",
+    "clear": "Netejar",
+    "formatError": "No es pot formatar: l'entrada no és un JSON vàlid",
+    "placeholder": "Enganxa o escriu JSON aquí…",
+    "outputPlaceholder": "Les coincidències apareixeran aquí…",
+    "matchCount": "{count, plural, one {# coincidència} other {# coincidències}}",
+    "copy": "Copia",
+    "copied": "Copiat"
+  },
+  "KeycodeInspector": {
+    "title": "Inspector de keycode",
+    "subtitle": "Prem qualsevol tecla per inspeccionar el seu esdeveniment de teclat JavaScript",
+    "capture": {
+      "prompt": "Prem qualsevol tecla…",
+      "ready": "Escoltant — prem qualsevol tecla del teu teclat",
+      "clickToFocus": "Fes clic aquí per enfocar i després prem qualsevol tecla"
+    },
+    "hero": {
+      "spaceKey": "(Espai)",
+      "keyLabel": "event.key",
+      "repeat": "repetició"
+    },
+    "copyJson": "Copia el JSON",
+    "copiedJson": "JSON de l'esdeveniment copiat al porta-retalls",
+    "deprecated": "obsolet",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Estàndard",
+      "left": "Esquerra",
+      "right": "Dreta",
+      "numpad": "Teclat numèric",
+      "unknown": "Desconegut"
+    },
+    "history": {
+      "title": "Historial",
+      "clear": "Neteja l'historial",
+      "empty": "Les tecles premudes apareixeran aquí."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Generador de taules Markdown",
+    "subtitle": "Edita una graella, enganxa des d'un full de càlcul i copia una taula Markdown o HTML ben alineada",
+    "addRow": "Afegeix una fila",
+    "addColumn": "Afegeix una columna",
+    "importLabel": "Importa",
+    "importPlaceholder": "Enganxa TSV (d'Excel / Google Sheets) o CSV aquí…",
+    "importButton": "Importa a la graella",
+    "pasteClipboard": "Enganxa des del porta-retalls",
+    "importEmpty": "Res per importar — enganxa primer algunes files",
+    "clipboardError": "No s'ha pogut llegir del porta-retalls",
+    "clear": "Netejar",
+    "panels": {
+      "editor": "Editor de taules",
+      "output": "Resultat"
+    },
+    "align": {
+      "left": "Alinea a l'esquerra",
+      "center": "Centra",
+      "right": "Alinea a la dreta"
+    },
+    "headerPlaceholder": "Capçalera",
+    "cellPlaceholder": "Cel·la",
+    "removeRow": "Elimina la fila",
+    "removeColumn": "Elimina la columna",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Copia",
+    "copied": "Copiat"
+  },
+  "TimezoneConverter": {
+    "title": "Convertidor de zona horària",
+    "subtitle": "Converteix un moment arreu del món per planificar reunions.",
+    "dateTimeLabel": "Data i hora",
+    "now": "Ara",
+    "sourceZoneLabel": "Zona horària d'origen",
+    "selectZone": "Selecciona una zona",
+    "searchZone": "Cerca zones horàries...",
+    "noZone": "No s'ha trobat cap zona horària.",
+    "scrubLabel": "Desplaça l'hora",
+    "reset": "Restableix",
+    "targetsLabel": "Zones de destinació",
+    "addZone": "Afegeix una zona",
+    "remove": "Elimina",
+    "localBadge": "Local",
+    "invalidDate": "Introdueix una data i hora vàlides.",
+    "bands": {
+      "work": "Horari laboral (09:00–18:00)",
+      "edge": "Hores límit (matí / vespre)",
+      "night": "Nit"
+    }
+  },
+  "TokenCounter": {
+    "title": "Comptador de tokens LLM",
+    "subtitle": "Compta tokens, visualitza chunks i estima el cost de l'API.",
+    "inputLabel": "Text",
+    "sample": "Exemple",
+    "clear": "Netejar",
+    "placeholder": "Enganxa text, codi o JSON per comptar tokens...",
+    "encoding": "Codificació",
+    "loading": "Carregant el tokenitzador...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / sèrie o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokens",
+      "characters": "Caràcters",
+      "words": "Paraules",
+      "ratio": "Tokens/paraula",
+      "ratioSub": "aprox."
+    },
+    "claudeRow": "Claude (aproximat)",
+    "estimate": "estimació",
+    "viz": {
+      "title": "Visualització de tokens",
+      "toggle": "Mostra",
+      "hint": "Activa-ho per acolorir cada token com un chunk.",
+      "empty": "Introdueix text per visualitzar els tokens.",
+      "truncated": "Mostrant els primers {limit} de {total} tokens."
+    },
+    "cost": {
+      "title": "Calculadora de cost",
+      "disclaimer": "valors per defecte editables — verifica els preus actuals",
+      "model": "Model",
+      "expectedOutput": "Tokens de sortida esperats",
+      "customInput": "Entrada $/MTok",
+      "customOutput": "Sortida $/MTok",
+      "inputCost": "Cost d'entrada",
+      "outputCost": "Cost de sortida",
+      "total": "Total",
+      "per1000": "Per 1000 crides"
+    }
+  },
+  "WebhookTester": {
+    "title": "Provador de webhooks",
+    "subtitle": "Crea una URL temporal i inspecciona les peticions de webhook entrants en directe.",
+    "intro": {
+      "title": "Crea una URL de webhook per començar a capturar peticions",
+      "hint": "Rebràs una URL impossible d'endevinar que registra cada petició entrant. Caduca al cap de 24 hores."
+    },
+    "createBtn": "Crea una URL de webhook",
+    "creating": "Creant…",
+    "urlLabel": "La teva URL de webhook",
+    "expiresIn": "Caduca en {countdown}",
+    "copyUrlBtn": "Copia la URL",
+    "copied": "Copiat",
+    "clearBtn": "Netejar",
+    "newBinBtn": "URL nova",
+    "requestsTitle": "Peticions",
+    "selectPrompt": "Selecciona una petició per inspeccionar-ne els detalls.",
+    "expiredNotice": "Aquesta URL de webhook ha caducat. Crea'n una de nova per continuar provant.",
+    "base64Badge": "base64",
+    "truncatedBadge": "truncat",
+    "empty": {
+      "title": "Esperant peticions…",
+      "hint": "Envia una petició a la teva URL i apareixerà aquí a l'instant. Prova això:"
+    },
+    "detail": {
+      "receivedAt": "Rebut",
+      "source": "IP d'origen",
+      "contentType": "Content-Type",
+      "query": "Paràmetres de query",
+      "headers": "Capçaleres",
+      "body": "Cos",
+      "copyBody": "Copia el cos",
+      "emptyBody": "Sense cos"
+    },
+    "errors": {
+      "createFailed": "No s'ha pogut crear la URL de webhook. Torna-ho a provar.",
+      "clearFailed": "No s'han pogut netejar les peticions. Torna-ho a provar."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Provador de WebSocket",
+    "subtitle": "Connecta't a un endpoint WebSocket i envia, rep i inspecciona missatges en directe",
+    "urlLabel": "URL de l'endpoint",
+    "protocolsLabel": "Subprotocols",
+    "protocolsPlaceholder": "opcional, separats per comes",
+    "connect": "Connecta",
+    "disconnect": "Desconnecta",
+    "status": {
+      "disconnected": "Desconnectat",
+      "connecting": "Connectant",
+      "connected": "Connectat",
+      "error": "Error"
+    },
+    "messages": {
+      "connecting": "Connectant a {url}…",
+      "connected": "Connexió establerta",
+      "connectedWithProtocol": "Connexió establerta (protocol: {protocol})",
+      "invalidUrl": "URL no vàlida — ha de començar amb ws:// o wss://",
+      "connectFailed": "No s'ha pogut obrir la connexió",
+      "socketError": "S'ha produït un error de connexió",
+      "notConnected": "No connectat — connecta't primer",
+      "binaryMessage": "S'ha rebut un missatge binari"
+    },
+    "log": {
+      "title": "Registre de missatges",
+      "empty": "Encara no hi ha missatges. Connecta't i comença a enviar.",
+      "copyAll": "Copia-ho tot",
+      "download": "Descarrega com a .txt",
+      "clear": "Neteja el registre",
+      "prettyPrint": "Formata el JSON",
+      "showRaw": "Mostra el text en brut"
+    },
+    "composer": {
+      "placeholder": "Escriu un missatge per enviar…",
+      "send": "Envia",
+      "formatJson": "Formata com a JSON",
+      "invalidJson": "El missatge no és un JSON vàlid",
+      "hint": "Cmd/Ctrl+Enter per enviar"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "s",
+      "intervalTitle": "Interval de ping en segons",
+      "payloadPlaceholder": "payload del ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Consulta Whois",
+    "subtitle": "Consulta les dades de registre de qualsevol domini o adreça IP mitjançant RDAP",
+    "placeholder": "example.com o 8.8.8.8",
+    "lookupBtn": "Consulta",
+    "looking": "Consultant…",
+    "refreshBtn": "Actualitza",
+    "tryLabel": "Prova:",
+    "copy": "Copia",
+    "copied": "Copiat",
+    "notAvailable": "No disponible",
+    "summary": {
+      "registrar": "Registrador",
+      "network": "Xarxa"
+    },
+    "dates": {
+      "created": "Creat",
+      "updated": "Actualitzat",
+      "expires": "Caduca"
+    },
+    "sections": {
+      "status": "Estat",
+      "nameservers": "Servidors de noms",
+      "contacts": "Contactes",
+      "rawRdap": "RDAP en brut"
+    },
+    "contacts": {
+      "roles": "Rols",
+      "name": "Nom",
+      "organization": "Organització"
+    },
+    "errors": {
+      "invalidTarget": "Introdueix un nom de domini o adreça IP vàlids",
+      "lookupFailed": "La consulta ha fallat (estat {status})"
+    }
+  }
+}

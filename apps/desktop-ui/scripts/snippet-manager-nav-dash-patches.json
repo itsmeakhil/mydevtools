@@ -1,0 +1,132 @@
+{
+  "fr": {
+    "navigation": "Extraits de code",
+    "title": "Extraits de code",
+    "description": "Enregistrez des extraits avec coloration syntaxique, détection automatique du langage et formatage."
+  },
+  "de": {
+    "navigation": "Code-Snippets",
+    "title": "Code-Snippets",
+    "description": "Snippets mit Syntaxhervorhebung, automatischer Spracherkennung und Formatierung speichern."
+  },
+  "es": {
+    "navigation": "Fragmentos de código",
+    "title": "Fragmentos de código",
+    "description": "Guarda fragmentos con resaltado de sintaxis, detección automática de idioma y formato."
+  },
+  "it": {
+    "navigation": "Snippet di codice",
+    "title": "Snippet di codice",
+    "description": "Salva snippet con evidenziazione sintattica, rilevamento automatico della lingua e formattazione."
+  },
+  "pt": {
+    "navigation": "Excertos de código",
+    "title": "Excertos de código",
+    "description": "Guarde excertos com realce de sintaxe, deteção automática de linguagem e formatação."
+  },
+  "pt-BR": {
+    "navigation": "Trechos de código",
+    "title": "Trechos de código",
+    "description": "Salve trechos com realce de sintaxe, detecção automática de linguagem e formatação."
+  },
+  "nl": {
+    "navigation": "Codefragmenten",
+    "title": "Codefragmenten",
+    "description": "Bewaar fragmenten met syntaxisaccentuering, automatische taaldetectie en opmaak."
+  },
+  "pl": {
+    "navigation": "Fragmenty kodu",
+    "title": "Fragmenty kodu",
+    "description": "Zapisuj fragmenty z podświetlaniem składni, autowykrywaniem języka i formatowaniem."
+  },
+  "ru": {
+    "navigation": "Фрагменты кода",
+    "title": "Фрагменты кода",
+    "description": "Сохраняйте сниппеты с подсветкой синтаксиса, автоопределением языка и форматированием."
+  },
+  "uk": {
+    "navigation": "Фрагменти коду",
+    "title": "Фрагменти коду",
+    "description": "Зберігайте фрагменти з підсвічуванням синтаксису, авто-визначенням мови та форматуванням."
+  },
+  "tr": {
+    "navigation": "Kod parçacıkları",
+    "title": "Kod parçacıkları",
+    "description": "Sözdizimi vurgulama, otomatik dil algılama ve biçimlendirme ile parçacıkları kaydedin."
+  },
+  "ar": {
+    "navigation": "مقاطع الشيفرة",
+    "title": "مقاطع الشيفرة",
+    "description": "احفظ المقاطع مع تمييز بناء الجملة وكشف اللغة التلقائي والتنسيق."
+  },
+  "fa": {
+    "navigation": "قطعه‌کدها",
+    "title": "قطعه‌کدها",
+    "description": "قطعه‌کدها را با برجسته‌سازی نحو، تشخیص خودکار زبان و قالب‌بندی ذخیره کنید."
+  },
+  "zh": {
+    "navigation": "代码片段",
+    "title": "代码片段",
+    "description": "保存代码片段，支持语法高亮、自动检测语言和格式化。"
+  },
+  "ja": {
+    "navigation": "コードスニペット",
+    "title": "コードスニペット",
+    "description": "シンタックスハイライト、自動言語検出、整形でスニペットを保存します。"
+  },
+  "ko": {
+    "navigation": "코드 스니펫",
+    "title": "코드 스니펫",
+    "description": "구문 강조, 자동 언어 감지 및 서식으로 스니펫을 저장하세요."
+  },
+  "vi": {
+    "navigation": "Đoạn mã",
+    "title": "Đoạn mã",
+    "description": "Lưu đoạn mã với tô sáng cú pháp, tự động nhận diện ngôn ngữ và định dạng."
+  },
+  "id": {
+    "navigation": "Cuplikan kode",
+    "title": "Cuplikan kode",
+    "description": "Simpan cuplikan dengan penyorotan sintaks, deteksi bahasa otomatis, dan pemformatan."
+  },
+  "ms": {
+    "navigation": "Petikan kod",
+    "title": "Petikan kod",
+    "description": "Simpan petikan dengan sorotan sintaks, pengesanan bahasa automatik dan pemformatan."
+  },
+  "cs": {
+    "navigation": "Úryvky kódu",
+    "title": "Úryvky kódu",
+    "description": "Ukládejte úryvky se zvýrazněním syntaxe, automatickou detekcí jazyka a formátováním."
+  },
+  "el": {
+    "navigation": "Αποσπάσματα κώδικα",
+    "title": "Αποσπάσματα κώδικα",
+    "description": "Αποθηκεύστε αποσπάσματα με τονισμό σύνταξης, αυτόματη ανίχνευση γλώσσας και μορφοποίηση."
+  },
+  "da": {
+    "navigation": "Kodestykker",
+    "title": "Kodestykker",
+    "description": "Gem kodestykker med syntaksfremhævelse, automatisk sprogdetektion og formatering."
+  },
+  "nb": {
+    "navigation": "Kodeutdrag",
+    "title": "Kodeutdrag",
+    "description": "Lagre utdrag med syntaksutheving, automatisk språkgjenkjenning og formatering."
+  },
+  "sv": {
+    "navigation": "Kodutdrag",
+    "title": "Kodutdrag",
+    "description": "Spara utdrag med syntaxmarkering, automatisk språkupptäckt och formatering."
+  },
+  "af": {
+    "navigation": "Kodesnippette",
+    "title": "Kodesnippette",
+    "description": "Bewaar snippette met sintaks-beklemtoning, outomatiese taalopsporing en formatering."
+  },
+  "ca": {
+    "navigation": "Fragments de codi",
+    "title": "Fragments de codi",
+    "description": "Desa fragments amb ressaltat de sintaxi, detecció automàtica d’idioma i format."
+  }
+}

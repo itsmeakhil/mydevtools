@@ -28,14 +28,6 @@ export default function MaintenancePage() {
       >
         Retry
       </Link>
-      <a
-        href="https://github.com/itsmeakhil/mydevtools.tech"
-        target="_blank"
-        rel="noreferrer"
-        className="inline-flex h-12 items-center justify-center rounded-full border border-border/60 bg-background/60 px-7 text-sm font-medium text-foreground transition-all hover:bg-muted hover:scale-[1.03] active:scale-[0.98]"
-      >
-        Self-host meanwhile
-      </a>
     </MdtStatusPage>
   )
 }

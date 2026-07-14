@@ -2,15 +2,9 @@
 
 import dynamic from "next/dynamic"
 import { Suspense, type ReactNode } from "react"
-import { UserPreferencesSync } from "@/components/user-preferences-sync"
-import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
 import { AppUpdateNotifier } from "@/components/app-update-notifier"
 import { AuthLogoutListener } from "@/components/auth-logout-listener"
 
-const GlobalCommandPalette = dynamic(
-  () => import('@/components/global-command-palette').then((m) => m.GlobalCommandPalette),
-  { ssr: false }
-)
 const ClientAnalytics = dynamic(
   () => import('@vercel/analytics/next').then((m) => m.Analytics),
   { ssr: false }
@@ -35,13 +29,8 @@ type Props = {
 export function ClientShell({ children }: Props) {
   return (
     <>
-      <UserPreferencesSync />
-      <PinnedToolsPreferencesSync />
       <AppUpdateNotifier />
       <AuthLogoutListener />
-      <Suspense fallback={null}>
-        <GlobalCommandPalette />
-      </Suspense>
       {children}
       <Suspense fallback={null}>
         <ClientAnalytics />

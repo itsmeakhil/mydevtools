@@ -21,11 +21,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'best-online-developer-tools',
     title: 'Best Online Developer Tools',
     description:
-      'Compare MyDevTools with single-purpose online developer tools and see why a unified, open-source developer toolkit is better for everyday engineering workflows.',
+      'Compare MyDevTools with single-purpose online developer tools and see why a unified developer toolkit is better for everyday engineering workflows.',
     eyebrow: 'Best Developer Tools',
     heading: 'Best online developer tools for fast browser-based workflows',
     intro:
-      'Most developers collect dozens of single-purpose formatter, decoder, generator, and API testing websites. MyDevTools brings those daily utilities into one searchable toolkit with public tool pages, an app dashboard, and a self-hostable open-source codebase.',
+      'Most developers collect dozens of single-purpose formatter, decoder, generator, and API testing websites. MyDevTools brings those daily utilities into one searchable toolkit with public tool pages and an app dashboard.',
     primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
     sections: [
       {
@@ -45,17 +45,17 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Use regex101 when you need its specific regex explanation workflow.',
           'Use Postman or Insomnia when you need full team API lifecycle management.',
-          'Use MyDevTools when you need broad, fast browser utilities in one open-source workspace.',
+          'Use MyDevTools when you need broad, fast browser utilities in one unified workspace.',
         ],
       },
       {
         title: 'Why developers choose MyDevTools',
         body:
-          'MyDevTools is strongest as an everyday browser toolkit for quick operations, learning, debugging, and self-hosted control.',
+          'MyDevTools is strongest as an everyday browser toolkit for quick operations, learning, and debugging.',
         bullets: [
-          'Open-source GPL-3.0 codebase for auditability.',
+          'Consistent, actively maintained toolkit with regular updates.',
           'Public SEO pages for each tool, plus authenticated workspace features when needed.',
-          'Self-hosting path for developers and teams that want infrastructure control.',
+          'Team workspaces with role-based access for developers and teams.',
         ],
       },
     ],
@@ -90,7 +90,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'You only need to format or inspect JSON.',
           'You already know its interface and do not need other developer utilities.',
-          'You do not need an open-source toolkit or self-hosting path.',
+          'You do not need a broader multi-tool workspace.',
         ],
       },
       {
@@ -100,7 +100,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Use JSON formatting alongside JWT, API client, URL parser, Base64, hash, UUID, and mock data tools.',
           'Stay in one browser-based developer toolkit instead of opening multiple unrelated sites.',
-          'Self-host the open-source codebase when you want control over the environment.',
+          'Save and sync your snippets across devices with an account.',
         ],
       },
       {
@@ -110,7 +110,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best single-purpose fit: JSONFormatter.org.',
           'Best multi-tool workflow fit: MyDevTools.',
-          'Best open-source/self-hostable option: MyDevTools.',
+          'Best all-in-one cloud toolkit: MyDevTools.',
         ],
       },
     ],
@@ -155,7 +155,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Decode JWTs and then test API calls in the same toolkit.',
           'Use timestamp, HMAC, hash, certificate, and encryption tools nearby.',
-          'Use an open-source, self-hostable developer toolkit for broader security workflows.',
+          'Use a unified developer toolkit for broader security workflows.',
         ],
       },
       {
@@ -165,7 +165,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best dedicated JWT page: jwt.io.',
           'Best multi-step API/security workflow: MyDevTools.',
-          'Best self-hostable option: MyDevTools.',
+          'Best all-in-one toolkit: MyDevTools.',
         ],
       },
     ],
@@ -210,7 +210,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Test regex patterns alongside JSON, URL, Base64, timestamp, and mock data tools.',
           'Use one browser toolkit for common developer utilities.',
-          'Self-host the toolkit for internal workflows.',
+          'Save patterns and reuse them across your projects.',
         ],
       },
       {
@@ -220,7 +220,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best advanced regex explanation: regex101.',
           'Best multi-tool developer workflow: MyDevTools.',
-          'Best open-source toolkit context: MyDevTools.',
+          'Best unified toolkit context: MyDevTools.',
         ],
       },
     ],
@@ -260,11 +260,11 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is aimed at common engineering workflows where you want named tools, landing pages, app navigation, and self-hosted control.',
+          'MyDevTools is aimed at common engineering workflows where you want named tools, landing pages, and app navigation.',
         bullets: [
           'Use dedicated tools for JSON, JWT, regex, UUID, Base64, hashing, timestamps, and APIs.',
           'Keep everyday developer utilities discoverable in one dashboard.',
-          'Use an open-source toolkit designed for general developer productivity.',
+          'Use a unified toolkit designed for general developer productivity.',
         ],
       },
       {
@@ -329,7 +329,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best enterprise API platform: Postman.',
           'Best quick browser toolkit around API debugging: MyDevTools.',
-          'Best open-source self-hostable toolkit path: MyDevTools.',
+          'Best all-in-one cloud toolkit path: MyDevTools.',
         ],
       },
     ],
@@ -374,7 +374,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Send a request, format the JSON response, decode a JWT, and parse URLs in the same toolkit.',
           'Use a lightweight browser workflow without installing a desktop API client.',
-          'Self-host the open-source toolkit if you need internal access and infrastructure control.',
+          'Sync requests and history across devices when you need continuity.',
         ],
       },
       {
@@ -438,7 +438,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best single v4: any online generator.',
           'Best version choice + bulk + context: MyDevTools.',
-          'Best open-source/self-hosted: MyDevTools.',
+          'Best all-in-one toolkit: MyDevTools.',
         ],
       },
     ],
@@ -492,7 +492,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best for text encoding: any online tool.',
           'Best for file + URL-safe + toolkit context: MyDevTools.',
-          'Best open-source option: MyDevTools.',
+          'Best all-in-one toolkit: MyDevTools.',
         ],
       },
     ],
@@ -546,7 +546,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best for quick text/JSON diff: MyDevTools or diffchecker.com.',
           'Best for repository diffs: git diff / VS Code.',
-          'Best for open-source browser toolkit: MyDevTools.',
+          'Best all-in-one browser toolkit: MyDevTools.',
         ],
       },
     ],
@@ -601,7 +601,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best single-hash generation: any online tool.',
           'Best hash + HMAC + encryption toolkit: MyDevTools.',
-          'Best open-source option: MyDevTools.',
+          'Best all-in-one toolkit: MyDevTools.',
         ],
       },
     ],
@@ -645,7 +645,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Use format converter, JSON formatter, and CSV tools alongside API client and JWT decoder.',
           'Stay in one toolkit instead of bookmarking 10 different sites.',
-          'Self-host the open-source codebase for team or internal use.',
+          'Sync your work across devices with an account for team use.',
         ],
       },
       {
@@ -655,7 +655,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best narrow data transformation: transform.tools.',
           'Best broad developer toolkit: MyDevTools.',
-          'Best open-source self-hostable option: MyDevTools.',
+          'Best all-in-one toolkit: MyDevTools.',
         ],
       },
     ],
@@ -665,8 +665,8 @@ export const comparisonPages: ComparisonPage[] = [
         a: 'MyDevTools includes a JSON Schema Generator that infers schema from JSON. For direct JSON-to-TypeScript type generation, pair it with the JSON formatter to clean the input first.',
       },
       {
-        q: 'Is MyDevTools open source like transform.tools?',
-        a: 'Yes. MyDevTools is open source under GPL-3.0. You can inspect, fork, and self-host the entire codebase.',
+        q: 'Can MyDevTools do more than transform.tools?',
+        a: 'Yes. Beyond data transforms, MyDevTools adds API testing, security tools, generators, and productivity features in one workspace.',
       },
     ],
   },
@@ -709,7 +709,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best for quick generation: MyDevTools or qr-code-generator.com.',
           'Best for developer toolkit context: MyDevTools.',
-          'Best open-source option: MyDevTools.',
+          'Best all-in-one toolkit: MyDevTools.',
         ],
       },
     ],
@@ -728,20 +728,20 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-it-tools-tech',
     title: 'MyDevTools vs it-tools.tech',
     description:
-      'Compare MyDevTools with it-tools.tech for browser-based developer utilities, self-hosting, tool coverage, and everyday workflow fit.',
+      'Compare MyDevTools with it-tools.tech for browser-based developer utilities, tool coverage, and everyday workflow fit.',
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs it-tools.tech',
     intro:
-      'it-tools.tech is a strong open-source collection of developer utilities. MyDevTools targets similar daily developer needs while adding product-style landing pages, workspace flows, cloud/self-host positioning, and tools such as API, database, productivity, and secure sync workflows.',
+      'it-tools.tech is a strong collection of developer utilities. MyDevTools targets similar daily developer needs while adding product-style landing pages, workspace flows, cloud sync, and tools such as API, database, productivity, and secure sync workflows.',
     competitor: 'it-tools.tech',
     primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
     sections: [
       {
         title: 'Choose it-tools.tech when',
         body:
-          'it-tools.tech is excellent when you want a lightweight open-source utility collection with many simple browser tools.',
+          'it-tools.tech is excellent when you want a lightweight utility collection with many simple browser tools.',
         bullets: [
-          'You want a familiar open-source utility collection.',
+          'You want a familiar lightweight utility collection.',
           'You only need local single-purpose transforms and generators.',
           'You prefer its exact tool catalog and interface.',
         ],
@@ -753,17 +753,17 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Use API, database, productivity, formatter, converter, generator, and security tools together.',
           'Use public /tools pages for discovery and a dashboard for daily use.',
-          'Self-host the codebase or use the managed cloud path.',
+          'Use the managed cloud with account-backed sync across devices.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Both projects are useful. it-tools.tech is a focused utility collection; MyDevTools is positioned as a broader open-source developer tools platform.',
+          'Both projects are useful. it-tools.tech is a focused utility collection; MyDevTools is positioned as a broader developer tools platform.',
         bullets: [
           'Best lightweight utility collection: it-tools.tech.',
           'Best broader developer tools platform: MyDevTools.',
-          'Best mixed cloud/self-host product direction: MyDevTools.',
+          'Best broader cloud product direction: MyDevTools.',
         ],
       },
     ],
@@ -773,8 +773,8 @@ export const comparisonPages: ComparisonPage[] = [
         a: 'Yes. MyDevTools overlaps on many browser-based utility workflows while also adding a broader dashboard, public landing pages, and additional developer productivity tools.',
       },
       {
-        q: 'Are both projects open source?',
-        a: 'Yes. Both are open-source developer tool projects, but their tool catalogs and product direction differ.',
+        q: 'How do the two projects differ?',
+        a: 'it-tools.tech is a focused utility collection; MyDevTools is a broader developer tools platform with public tool pages, a dashboard, and account-backed cloud sync.',
       },
     ],
   },
@@ -782,18 +782,18 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-it-tools',
     title: 'MyDevTools vs IT Tools',
     description:
-      'Compare MyDevTools with IT Tools / it-tools.tech for online developer utilities, self-hosting, tool coverage, and browser-based workflows.',
+      'Compare MyDevTools with IT Tools / it-tools.tech for online developer utilities, tool coverage, and browser-based workflows.',
     eyebrow: 'Comparison',
-    heading: 'MyDevTools vs IT Tools: open-source developer utility platforms',
+    heading: 'MyDevTools vs IT Tools: online developer utility platforms',
     intro:
-      'IT Tools (it-tools.tech) is a popular open-source collection of browser utilities. MyDevTools targets the same everyday developer utility need while adding public tool landing pages, dashboard flows, cloud/self-host positioning, and a broader product surface.',
+      'IT Tools (it-tools.tech) is a popular collection of browser utilities. MyDevTools targets the same everyday developer utility need while adding public tool landing pages, dashboard flows, cloud sync, and a broader product surface.',
     competitor: 'IT Tools',
     primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
     sections: [
       {
         title: 'Choose IT Tools when',
         body:
-          'IT Tools is excellent when you want a focused utility collection with many small local tools and a familiar open-source interface.',
+          'IT Tools is excellent when you want a focused utility collection with many small local tools and a familiar lightweight interface.',
         bullets: [
           'You want a lightweight collection of one-off utilities.',
           'You prefer the exact it-tools.tech catalog and layout.',
@@ -803,21 +803,21 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is built as a broader developer tools platform with public SEO pages, app dashboard, self-hosting, and optional cloud workflows.',
+          'MyDevTools is built as a broader developer tools platform with public SEO pages, an app dashboard, and cloud workflows.',
         bullets: [
           'Use utilities plus API, database, productivity, security, and sync-oriented workflows.',
           'Link to canonical /tools pages for each utility.',
-          'Self-host or use managed cloud depending on your deployment preference.',
+          'Use managed cloud with account-backed sync across devices.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Both are useful open-source developer utility platforms. IT Tools is strongest as a focused utility collection; MyDevTools is strongest as a broader developer tools product.',
+          'Both are useful developer utility platforms. IT Tools is strongest as a focused utility collection; MyDevTools is strongest as a broader developer tools product.',
         bullets: [
           'Best simple utility collection: IT Tools.',
           'Best broader platform and content structure: MyDevTools.',
-          'Best cloud/self-host product path: MyDevTools.',
+          'Best broader cloud product path: MyDevTools.',
         ],
       },
     ],
@@ -827,8 +827,8 @@ export const comparisonPages: ComparisonPage[] = [
         a: 'Yes. MyDevTools overlaps with many browser utility workflows while adding a broader dashboard, public tool pages, and product-oriented platform pages.',
       },
       {
-        q: 'Which is better for self-hosting?',
-        a: 'Both can fit self-hosting workflows. MyDevTools emphasizes self-hosting as a core product path alongside managed cloud.',
+        q: 'Which offers cloud sync across devices?',
+        a: 'MyDevTools offers account-backed cloud sync across devices as a core product path. IT Tools is primarily a local browser utility collection.',
       },
     ],
   },
@@ -836,11 +836,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-devutils-app',
     title: 'MyDevTools vs DevUtils.app',
     description:
-      'Compare MyDevTools with DevUtils.app for developer utilities, browser-based tools, self-hosting, and cross-device workflows.',
+      'Compare MyDevTools with DevUtils.app for developer utilities, browser-based tools, and cross-device workflows.',
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs DevUtils.app',
     intro:
-      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is browser-based, open-source, and self-hostable, making it easier to use across devices and operating systems without installing a desktop app.',
+      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is browser-based and works across devices and operating systems without installing a desktop app.',
     competitor: 'DevUtils.app',
     primaryCta: { href: '/tools', label: 'Browse Browser Tools' },
     sections: [
@@ -857,21 +857,21 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'A browser-based toolkit is better when you switch machines, use multiple operating systems, or want a self-hostable web app.',
+          'A browser-based toolkit is better when you switch machines, use multiple operating systems, or want a browser-based web app.',
         bullets: [
           'Open tools from any modern browser without installing a Mac app.',
           'Use the same toolkit on macOS, Windows, Linux, or shared machines.',
-          'Self-host MyDevTools for internal team access.',
+          'Sync your work across devices for internal team access.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'DevUtils.app wins for native Mac utility workflows. MyDevTools wins for browser access, self-hosting, and cross-device availability.',
+          'DevUtils.app wins for native Mac utility workflows. MyDevTools wins for browser access and cross-device availability.',
         bullets: [
           'Best native Mac utility app: DevUtils.app.',
           'Best browser-based toolkit: MyDevTools.',
-          'Best self-hostable web option: MyDevTools.',
+          'Best cross-device web option: MyDevTools.',
         ],
       },
     ],

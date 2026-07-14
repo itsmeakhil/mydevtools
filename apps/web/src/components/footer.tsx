@@ -14,14 +14,7 @@ const footerLinks = [
   { href: "/pricing", label: "Pricing" },
   { href: "/#tools", label: "Tools" },
   { href: "/security", label: "Security" },
-  { href: "/open-source", label: "Open Source" },
-  { href: "/self-host", label: "Self-host" },
   { href: "/help", label: "Help" },
-  {
-    href: "https://github.com/itsmeakhil/mydevtools.tech",
-    label: "GitHub",
-    external: true,
-  },
 ];
 
 export function Footer() {
@@ -39,8 +32,7 @@ export function Footer() {
             >
               <Logo size={22} showText={false} />
               <span>
-                © {year} <span className="font-semibold text-foreground">MyDevTools</span>{" "}
-                · GPL-3.0
+                © {year} <span className="font-semibold text-foreground">MyDevTools</span>
               </span>
             </Link>
 
@@ -50,8 +42,6 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noreferrer" : undefined}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {link.label}

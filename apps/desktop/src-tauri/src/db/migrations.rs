@@ -27,6 +27,8 @@ const MIGRATIONS: &[&str] = &[
       v TEXT NOT NULL
     );
 
+    -- ponytail: cloud sync removed; sync_state (and conflicts below) kept so
+    -- existing DBs migrate cleanly. Dead tables, no writers.
     CREATE TABLE sync_state (
       workspace_id TEXT NOT NULL,
       tool_kind    TEXT NOT NULL,

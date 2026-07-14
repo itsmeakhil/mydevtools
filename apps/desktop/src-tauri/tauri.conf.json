@@ -4,19 +4,20 @@
   "version": "0.1.0",
   "identifier": "tech.mydevtools.desktop",
   "build": {
-    "beforeDevCommand": "pnpm --filter @mydevtools/web dev:tauri",
+    "beforeDevCommand": "pnpm --filter @mydevtools/desktop-ui dev:tauri",
     "devUrl": "http://localhost:3000",
-    "beforeBuildCommand": "node ../web/scripts/build-tauri.mjs",
-    "frontendDist": "../../web/out"
+    "beforeBuildCommand": "node ../desktop-ui/scripts/build-tauri.mjs",
+    "frontendDist": "../../desktop-ui/out"
   },
   "app": {
     "windows": [
       {
         "title": "MyDevTools",
-        "width": 1440,
-        "height": 900,
+        "width": 1200,
+        "height": 800,
         "minWidth": 1024,
-        "minHeight": 700
+        "minHeight": 700,
+        "center": true
       }
     ],
     "security": {

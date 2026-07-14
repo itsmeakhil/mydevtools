@@ -1,0 +1,4573 @@
+{
+  "Navigation": {
+    "dashboard": "لوحة التحكم",
+    "settings": "الإعدادات",
+    "apiClient": "عميل API",
+    "httpStatusCodes": "رموز حالة HTTP",
+    "passwordManager": "مدير كلمات المرور",
+    "environmentManager": "مدير البيئة",
+    "bookmarks": "الإشارات المرجعية",
+    "jsonFormatter": "منسّق JSON",
+    "emailValidator": "التحقق من البريد",
+    "nosqlExplorer": "مستكشف قاعدة البيانات",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "encryptionPlayground": "ملعب التشفير",
+    "jwtDecoder": "محلّل JWT",
+    "certificatePemDecoder": "فك ترميز الشهادة / PEM",
+    "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "منسّق GraphQL",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "urlParser": "محلّل URL",
+    "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "سر / مفتاح API",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker",
+    "contrastChecker": "فاحص التباين",
+    "jsonSchemaGenerator": "مولّد مخطط JSON",
+    "imageToBase64": "الصورة إلى Base64",
+    "imageCompressor": "ضغط الصور",
+    "cssGradientBuilder": "CSS منشئ التدرج",
+    "gitignoreGenerator": ".gitignore مولد",
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "مقاطع الشيفرة",
+    "qrCodeGenerator": "مُولّد رمز QR",
+    "dnsLookup": "بحث DNS",
+    "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
+    "hashGenerator": "مُولّد الهاش",
+    "hmacGenerator": "مُولّد HMAC",
+    "totpGenerator": "رمز TOTP / 2FA",
+    "markdownPreview": "معاينة Markdown",
+    "numberBaseConverter": "محوّل الأساس الرقمي",
+    "formatConverter": "محوّل الصيغ",
+    "mockDataGenerator": "مولّد بيانات وهمية",
+    "svgOptimizer": "محسّن SVG",
+    "unitConverter": "محوّل الوحدات",
+    "dockerComposeGenerator": "مولّد Docker Compose",
+    "breakRoom": "غرفة الاستراحة",
+    "game2048": "2048",
+    "sudoku": "Sudoku",
+    "redisCommander": "منفّذ Redis",
+    "yamlFormatter": "منسق YAML",
+    "sshKeyGenerator": "مولد مفاتيح SSH / RSA",
+    "curlToCode": "cURL to Code",
+    "jsonToCode": "JSON to Code",
+    "beautifyMinify": "Beautify & Minify",
+    "stringCaseConverter": "String Case Converter",
+    "lineSortDedupe": "Line Sort & Dedupe",
+    "stringInspector": "String Inspector",
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "حاسبة Chmod",
+    "codeScreenshot": "لقطة شاشة للكود",
+    "cssGenerators": "مولّدات CSS",
+    "exifViewer": "عارض EXIF",
+    "faviconGenerator": "مولّد Favicon",
+    "jsonDiff": "مقارنة JSON",
+    "jsonpathPlayground": "ساحة JSONPath",
+    "keycodeInspector": "فاحص أكواد المفاتيح",
+    "markdownTableGenerator": "جدول Markdown",
+    "timezoneConverter": "محوّل المناطق الزمنية",
+    "tokenCounter": "عدّاد الرموز",
+    "webhookTester": "مختبِر Webhook",
+    "websocketTester": "مختبِر WebSocket",
+    "whoisLookup": "بحث Whois"
+  },
+  "Help": {
+    "title": "المساعدة والتوثيق",
+    "subtitle": "كيف يعمل MyDevTools معًا، وما الذي تفعله كل أداة، وكيف تحميك الأمان والتشفير.",
+    "tabs": {
+      "overview": "نظرة عامة",
+      "apps": "التطبيقات",
+      "security": "الأمان",
+      "tips": "نصائح"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "ما هو MyDevTools؟",
+        "description": "مساحة عمل للمطورين مع تسجيل الدخول: لوحة تحكم ومجموعة أدوات للمهام اليومية.",
+        "p1": "بعد تسجيل الدخول، ينشئ التطبيق جلسة مع واجهة MyDevTools API حتى تتمكن الأدوات من تحميل بياناتك وحفظها. تعرض القائمة الجانبية جميع التطبيقات؛ ويمكنك إخفاء الأدوات التي لا تستخدمها من",
+        "settingsLink": "الإعدادات",
+        "p1After": ".",
+        "p2": "تستخدم بعض الميزات <strong>كلمة مرور رئيسية</strong> (أو مفتاح خزنة عام) بحيث يتم تشفير الأسرار مثل كلمات المرور وسلاسل الاتصال على جهازك قبل وصولها إلى الخادم."
+      },
+      "quickLinks": {
+        "title": "روابط سريعة",
+        "dashboard": "لوحة التحكم",
+        "settings": "الإعدادات"
+      }
+    },
+    "apps": {
+      "intro": "افتح أي أداة من الشريط الجانبي أو لوحة التحكم. فيما يلي دليل مختصر لكل تطبيق.",
+      "open": "فتح",
+      "howItWorks": "كيف يعمل",
+      "generic": "استخدم هذه الأداة من الشريط الجانبي لسير عملها المخصص."
+    },
+    "security": {
+      "session": {
+        "title": "تسجيل الدخول وجلسة API",
+        "description": "الهوية وكيف يتواصل المتصفح مع الخادم الخلفي.",
+        "items": {
+          "authentication": "يستخدم <strong>التوثيق</strong> Firebase لتسجيل الدخول. بعد ذلك يتم استبدال رمز Firebase ID بملفات تعريف ارتباط للـ API.",
+          "accessTokens": "<strong>رموز الوصول</strong> هي JWT موقعة على الخادم (HS256) وتحدد المستخدم الذي يستدعي الـ API.",
+          "refreshTokens": "<strong>رموز التحديث</strong> محفوظة في Cookies من نوع HttpOnly؛ ويخزن الخادم قيمة SHA-256 للرمز وليس الرمز الخام."
+        }
+      },
+      "encryption": {
+        "title": "التشفير المهم معرفته",
+        "description": "تشفير من جهة العميل لخزنة البيانات وبيانات الاتصال الحساسة.",
+        "p1": "بالنسبة إلى <strong>مدير كلمات المرور</strong> و<strong>مدير البيئة</strong> واتصالات <strong>مستكشف NoSQL</strong> المحفوظة، يستخدم التطبيق <strong>Web Crypto API</strong> في المتصفح:",
+        "items": {
+          "kdf": "تقوم <strong>PBKDF2</strong> مع <strong>SHA-256</strong> و<strong>100,000</strong> تكرار وملح عشوائي باشتقاق مفتاح 256-بت من كلمة المرور الرئيسية.",
+          "aes": "تقوم <strong>AES-256-GCM</strong> بتشفير البيانات؛ ويتم استخدام <strong>IV بطول 12 بايت</strong> عشوائي لكل عملية تشفير.",
+          "scope": "يبقى المفتاح المشتق داخل المتصفح (غير قابل للاستخراج). يستلم الخادم <strong>نصًا مُشفّرًا وIV</strong> وليس كلمة المرور الرئيسية أو نصًا صريحًا."
+        },
+        "warning": "إذا نسيت كلمة المرور الرئيسية فلن يمكن استعادة البيانات المشفرة. احتفظ بها بأمان."
+      },
+      "logout": {
+        "title": "تسجيل الخروج والبيانات المحلية",
+        "body": "عند تسجيل الخروج يتم مسح الأسرار من الذاكرة وحالة الخزنة ومادة المفتاح من IndexedDB عند توفرها، وإنهاء جلسة الـ API. وقد تبقى البيانات المخزنة محليًا على الجهاز حتى تقوم بمسحها من المتصفح."
+      }
+    },
+    "tips": {
+      "title": "استخدام MyDevTools بأمان",
+      "items": {
+        "masterPassword": "استخدم كلمة مرور رئيسية قوية وفريدة لميزات الخزنة.",
+        "apiClient": "تعامل مع عميل API مثل أي عميل HTTP: تجنب لصق أسرار الإنتاج في بيئات مشتركة إذا لم تكن متأكدًا من من يمكنه رؤيتها.",
+        "nosql": "يتصل مستكشف قاعدة البيانات بقواعد بيانات تقوم بإعدادها؛ استخدم حسابات أقل صلاحيات وقواعد شبكة قدر الإمكان.",
+        "json": "منسّق JSON يعمل محليًا داخل المتصفح—ومع ذلك تجنب لصق بيانات حساسة جدًا على أجهزة مشتركة.",
+        "settings": "خصص الأدوات الظاهرة من الإعدادات للحفاظ على تركيز الشريط الجانبي."
+      }
+    }
+  },
+  "Settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "spanish": "الإسبانية",
+    "english": "الإنجليزية",
+    "french": "الفرنسية",
+    "arabic": "عربى",
+    "catalan": "الكاتالونية",
+    "chineseSimplified": "الصينية المبسطة",
+    "czech": "التشيكية",
+    "greek": "Ελληνικά",
+    "german": "الألمانية",
+    "danish": "الدنماركية",
+    "afrikaans": "الأفريكانية",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "norwegian": "Norsk",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "الأوكرانية"
+  },
+  "SettingsPage": {
+    "title": "الإعدادات",
+    "subtitle": "إدارة إعدادات حسابك وتفضيلاتك.",
+    "userProfile": {
+      "title": "الملف الشخصي",
+      "description": "معلوماتك الشخصية وتفاصيل الحساب.",
+      "avatarAlt": "المستخدم",
+      "anonymousUser": "مستخدم مجهول",
+      "noEmailProvided": "لم يُقدَّم بريد إلكتروني",
+      "notLoggedIn": "لم يتم تسجيل الدخول."
+    },
+    "tools": {
+      "title": "الأدوات والميزات",
+      "description": "اختر الأدوات التي تظهر في شريط التنقل الجانبي."
+    },
+    "appearance": {
+      "title": "المظهر",
+      "description": "خصّص مظهر التطبيق على جهازك.",
+      "themePreference": "تفضيل السمة",
+      "themes": {
+        "light": "فاتح",
+        "dark": "داكن",
+        "system": "النظام"
+      }
+    },
+    "language": {
+      "title": "اللغة",
+      "description": "حدد اللغة المستخدمة في المنصة.",
+      "selectLanguage": "اختر اللغة",
+      "selectPlaceholder": "اختر لغة",
+      "helpText": "تغيير اللغة يحدّث القوائم والتسميات في جميع أنحاء المنصة.",
+      "languages": {
+        "en": "English",
+        "fr": "Français (الفرنسية)",
+        "es": "Español (الإسبانية)",
+        "ar": "عربى",
+        "ca": "Català (الكاتالونية)",
+        "zh": "简体中文",
+        "cs": "Čeština (التشيكية)",
+        "el": "Ελληνικά (اليونانية)",
+        "de": "Deutsch (الألمانية)",
+        "da": "Dansk (الدنماركية)",
+        "af": "Afrikaans (الأفريكانية)",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "it": "الإيطالية (Italiano)",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
+      }
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
+      "addButton": "Add passkey",
+      "loading": "Loading…",
+      "none": "No passkeys yet.",
+      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
+      "addedOn": "Added {date}",
+      "lastUsedOn": "Last used {date}",
+      "synced": "Synced",
+      "rename": "Rename",
+      "renamePrompt": "Rename passkey",
+      "addedToast": "Passkey added.",
+      "renamedToast": "Passkey renamed.",
+      "removedToast": "Passkey removed.",
+      "loadError": "Could not load passkeys.",
+      "addError": "Could not add passkey.",
+      "renameError": "Could not rename passkey.",
+      "deleteError": "Could not delete passkey.",
+      "dialog": {
+        "title": "Add a passkey",
+        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
+        "nameLabel": "Device name (optional)",
+        "namePlaceholder": "e.g. MacBook Touch ID",
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "waiting": "Waiting for device…"
+      },
+      "delete": {
+        "title": "Remove passkey?",
+        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
+        "cancel": "Cancel",
+        "confirm": "Remove"
+      },
+      "prompt": {
+        "title": "Sign in faster next time",
+        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
+        "skip": "Maybe later",
+        "setup": "Set up passkey",
+        "successToast": "Passkey added — try signing out and back in to test it.",
+        "errorToast": "Could not add passkey. You can try again from Settings."
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "صباح الخير",
+      "afternoon": "مساء الخير",
+      "evening": "مساء الخير"
+    },
+    "commaName": "، {name}",
+    "welcomeBack": "مرحبًا بعودتك",
+    "welcomeBackNamed": "مرحبًا بعودتك، {name}",
+    "tagline": "ماذا تريد أن تنشئ اليوم؟",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "الأدوات",
+      "favorites": "المفضلة",
+      "pinned": "مثبت",
+      "recent": "المستخدمة مؤخرًا"
+    },
+    "sections": {
+      "recentlyUsed": "المستخدمة مؤخرًا",
+      "favorites": "المفضلة",
+      "whatsNew": "ما الجديد",
+      "pinned": "مثبت"
+    },
+    "groups": {
+      "apps": "التطبيقات"
+    },
+    "toolCard": {
+      "defaultDescription": "استكشف هذه الأداة لمزيد من الإمكانيات.",
+      "launchTool": "تشغيل الأداة"
+    },
+    "tools": {
+      "toDo": {
+        "title": "المهام",
+        "description": "أدر قوائم المهام بكفاءة."
+      },
+      "notes": {
+        "title": "الملاحظات",
+        "description": "دوّن الأفكار ونظّم أفكارك."
+      },
+      "passwordManager": {
+        "title": "مدير كلمات المرور",
+        "description": "خزّن كلمات المرور وأدرها بأمان."
+      },
+      "environmentManager": {
+        "title": "مدير البيئة",
+        "description": "خزن متغيرات بصيغة .env حسب المشروع والبيئة مع وسوم."
+      },
+      "bookmarks": {
+        "title": "الإشارات المرجعية",
+        "description": "أدر ونظّم إشاراتك المرجعية."
+      },
+      "apiClient": {
+        "title": "عميل API",
+        "description": "اختبر طلبات HTTP وصححها."
+      },
+      "nosqlExplorer": {
+        "title": "Database Explorer",
+        "description": "استكشف قواعد بيانات MongoDB."
+      },
+      "emailValidator": {
+        "title": "التحقق من البريد",
+        "description": "تحقق من عناوين البريد الإلكتروني."
+      },
+      "encryptionPlayground": {
+        "title": "ملعب التشفير",
+        "description": "AES-GCM بمفتاح خام أو عبارة سر؛ حزم JSON، Web Crypto فقط في المتصفح."
+      },
+      "jwtDecoder": {
+        "title": "محلّل JWT",
+        "description": "فك ترميز ترويسة وبيانات ووقت انتهاء JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "فك ترميز الشهادة / PEM",
+        "description": "فك ترميز شهادات X.509 وطلبات CSR: الموضوع، المصدر، الصلاحية، وأسماء SAN."
+      },
+      "sshKeyGenerator": {
+        "title": "مولد مفاتيح SSH / RSA",
+        "description": "توليد أزواج مفاتيح Ed25519 أو RSA في المتصفح. التنزيل بتنسيقات OpenSSH و PEM."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "منسّق GraphQL",
+        "description": "نسّق GraphQL مع تمييز الصيغة ومُنشئ استعلامات بسيط."
+      },
+      "yamlFormatter": {
+        "title": "منسّق YAML",
+        "description": "نسّق YAML وتحقق منه وحوّله إلى JSON في المتصفح."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "محلّل URL",
+        "description": "تقسيم عنوان URL إلى بروتوكول ومضيف ومسار ومعاملات استعلام وتجزئة (hash)."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "سر / مفتاح API",
+        "description": "سلاسل عشوائية تشفيرية مع أبجدية وطول قابلان للضبط وتصدير بالجملة."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "فاحص التباين",
+        "description": "نسبة تباين WCAG 2.1 بين النص والخلفية (AA / AAA)."
+      },
+      "jsonSchemaGenerator": {
+        "title": "مولّد مخطط JSON",
+        "description": "استنتج مخطط JSON ونماذج مُنمّطة من عيّنة JSON."
+      },
+      "imageToBase64": {
+        "title": "الصورة إلى Base64",
+        "description": "تحويل الصور إلى Data URI أو سلاسل Base64 الأولية."
+      },
+      "imageCompressor": {
+        "title": "ضغط الصور",
+        "description": "ضغط JPEG وPNG وWebP محليًا باستخدام شريط جودة."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS منشئ التدرج",
+        "description": "منشئ التدرج المرئي لـ CSS مع التحكم في الزاوية وتوقف الألوان."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore مولد",
+        "description": "قم بإنشاء ملفات .gitignore مدمجة على الفور من أكثر من 500 حزمة تقنية."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "حوّل ملفات CSV أو Excel إلى JSON وصدّر مرة أخرى إلى CSV أو XLSX."
+      },
+      "snippetManager": {
+        "title": "مقاطع الشيفرة",
+        "description": "احفظ المقاطع مع تمييز بناء الجملة وكشف اللغة التلقائي والتنسيق."
+      },
+      "qrCodeGenerator": {
+        "title": "مُولّد رمز QR",
+        "description": "أنشئ صور PNG لرمز QR من نص أو روابط في المتصفح."
+      },
+      "ipSubnetCalculator": {
+        "title": "حاسبة IP / الشبكة الفرعية",
+        "description": "IPv4 وIPv6 CIDR: قناع الشبكة، النطاقات، وعدد العناوين."
+      },
+      "dnsLookup": {
+        "title": "بحث DNS",
+        "description": "استعلام عن سجلات DNS لأي نطاق — A، AAAA، MX، TXT، NS، CNAME."
+      },
+      "hashGenerator": {
+        "title": "مُولّد الهاش",
+        "description": "MD5 وSHA-1 وSHA-2 لنص أو ملفات."
+      },
+      "hmacGenerator": {
+        "title": "مُولّد HMAC",
+        "description": "توقيع خطافات الويب واختبار تكاملات API باستخدام HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "مُولّد رمز TOTP / 2FA",
+        "description": "الصق سرًا Base32 من تطبيق المصادقة؛ يتجدد الرمز المكوّن من ستة أرقام كل 30 ثانية—مفيد لاختبار تسجيل الدخول وMFA."
+      },
+      "markdownPreview": {
+        "title": "معاينة Markdown",
+        "description": "معرض Markdown مباشر مع تصدير HTML وتحويل HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "محوّل الأساس الرقمي",
+        "description": "تحويل الأعداد الصحيحة بين الأسس من 2 إلى 36."
+      },
+      "formatConverter": {
+        "title": "محوّل الصيغ",
+        "description": "حوّل بين JSON وYAML وTOML وXML في أي اتجاه. يدعم جميع التوليفات الاثنتي عشرة."
+      },
+      "mockDataGenerator": {
+        "title": "مولّد بيانات وهمية",
+        "description": "عرّف الأعمدة، اختر أنواع البيانات، وصدّر مجموعات للبذور أو Postman أو الاختبار. حتى 5000 صفًا، كل شيء في المتصفح — بلا رفع."
+      },
+      "httpStatusCodes": {
+        "title": "رموز حالة HTTP",
+        "description": "ابحث عن رموز حالة HTTP مع الأوصاف (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "محسّن SVG",
+        "description": "الصق SVG، أزل الفوضى باستخدام SVGO وشاهد توفير حجم UTF-8."
+      },
+      "unitConverter": {
+        "title": "محوّل الوحدات",
+        "description": "تحويل بين 323 وحدة عبر 43 فئة علمية وهندسية."
+      },
+      "dockerComposeGenerator": {
+        "title": "مولّد Docker Compose",
+        "description": "اختر قواعد البيانات والتخزين المؤقت والطوابير والوكلاء وصور المراقبة؛ صدّر docker-compose.yml للمكدسات المحلية."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "قم بتحريك ودمج البلاط للوصول إلى عام 2048. لعبة أحجية الأرقام الكلاسيكية."
+      },
+      "sudoku": {
+        "title": "سودوكو",
+        "description": "لغز الأرقام الكلاسيكية. 3 مستويات صعوبة، 150 مرحلة لكل منها."
+      },
+      "redisCommander": {
+        "title": "منفّذ Redis",
+        "description": "تصفح المفاتيح وافحص القيم ونفّذ الأوامر على أي مثيل Redis."
+      },
+      "curlToCode": {
+        "title": "cURL to Code",
+        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
+      },
+      "jsonToCode": {
+        "title": "JSON to Code",
+        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
+      },
+      "beautifyMinify": {
+        "title": "Beautify & Minify",
+        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
+      },
+      "stringCaseConverter": {
+        "title": "String Case Converter",
+        "description": "Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+      },
+      "lineSortDedupe": {
+        "title": "Line Sort & Dedupe",
+        "description": "Sort, deduplicate, trim, and clean up lists of lines locally."
+      },
+      "stringInspector": {
+        "title": "String Inspector",
+        "description": "Count characters, words, bytes, and detect invisible or non-ASCII characters."
+      },
+      "escapeEncode": {
+        "title": "Escape / Encode",
+        "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "مولّد ومدقّق Bcrypt",
+        "description": "شفّر كلمات المرور باستخدام bcrypt وتحقّق من التجزئات الموجودة."
+      },
+      "chmodCalculator": {
+        "title": "حاسبة Chmod",
+        "description": "حوّل أذونات يونكس بين الثماني والرمزي ومربّعات الاختيار."
+      },
+      "codeScreenshot": {
+        "title": "لقطة شاشة للكود",
+        "description": "حوّل الكود المصدري إلى صور جميلة قابلة للمشاركة."
+      },
+      "cssGenerators": {
+        "title": "مولّدات CSS",
+        "description": "مولّدات box-shadow وborder-radius وclamp() المرن."
+      },
+      "exifViewer": {
+        "title": "عارض ومزيل EXIF",
+        "description": "افحص بيانات EXIF الوصفية للصور واحذفها محليًا."
+      },
+      "faviconGenerator": {
+        "title": "مولّد Favicon",
+        "description": "أنشئ أيقونات المفضلة وأيقونات التطبيق ومقتطفات manifest."
+      },
+      "jsonDiff": {
+        "title": "مقارنة JSON",
+        "description": "مقارنة دلالية واعية بالبنية بين مستندَي JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "ساحة JSONPath",
+        "description": "استعلم عن JSON باستخدام JSONPath أو JMESPath وشاهد النتائج مباشرة."
+      },
+      "keycodeInspector": {
+        "title": "فاحص أكواد المفاتيح",
+        "description": "اضغط مفتاحًا لرؤية أكواد أحداث JavaScript ومفاتيح التعديل."
+      },
+      "markdownTableGenerator": {
+        "title": "مولّد جداول Markdown",
+        "description": "أنشئ جداول Markdown وHTML في محرّر شبكي يشبه جداول البيانات."
+      },
+      "timezoneConverter": {
+        "title": "محوّل المناطق الزمنية",
+        "description": "حوّل وقتًا عبر مناطق عديدة مع مؤشرات إزاحة اليوم وساعات العمل."
+      },
+      "tokenCounter": {
+        "title": "عدّاد رموز LLM",
+        "description": "احسب رموز LLM، وتصوّر الأجزاء، وقدّر تكلفة الـ API."
+      },
+      "webhookTester": {
+        "title": "مختبِر Webhook",
+        "description": "التقط وافحص طلبات webhook الواردة في الوقت الفعلي."
+      },
+      "websocketTester": {
+        "title": "مختبِر WebSocket",
+        "description": "اتصل بنقاط نهاية WebSocket وتبادل الرسائل في الوقت الفعلي."
+      },
+      "whoisLookup": {
+        "title": "بحث Whois",
+        "description": "ابحث عن تفاصيل تسجيل النطاق وعنوان IP عبر RDAP."
+      }
+    },
+    "tabs": {
+      "apps": "التطبيقات",
+      "analytics": "التحليلات",
+      "ui": "الواجهة"
+    },
+    "analytics": {
+      "title": "بياناتك في لمحة",
+      "subtitle": "أعداد متزامنة مع حسابك على الخادم.",
+      "loadError": "تعذّر تحميل التحليلات.",
+      "retry": "إعادة المحاولة",
+      "loginHint": "سجّل الدخول لعرض تحليلات الاستخدام وتفضيلات الواجهة.",
+      "passwordEntries": "إدخالات كلمات المرور",
+      "bookmarks": "الإشارات المرجعية",
+      "bookmarkFolders": "مجلدات الإشارات",
+      "tasksTotal": "المهام",
+      "tasksCompleted": "مكتملة",
+      "tasksOngoing": "قيد التنفيذ",
+      "tasksNotStarted": "لم تبدأ",
+      "projects": "المشاريع",
+      "nosqlConnections": "اتصالات قاعدة البيانات",
+      "notes": "الملاحظات",
+      "apiClientCollections": "مجموعات API",
+      "apiClientEnvironments": "بيئات API",
+      "apiClientHistory": "سجلات سجل API",
+      "jsonFormatterDocuments": "مستندات منسّق JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "مقاطع برمجية",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
+    },
+    "ui": {
+      "title": "تفضيلات الواجهة",
+      "subtitle": "المظهر واللغة والأدوات الظاهرة في الشريط الجانبي — من إعدادات الحساب.",
+      "loadError": "تعذّر تحميل التفضيلات.",
+      "loginHint": "سجّل الدخول لعرض تفضيلات الواجهة المحفوظة.",
+      "theme": "المظهر",
+      "accent": "لون التمييز",
+      "locale": "اللغة",
+      "enabledTools": "الأدوات الظاهرة",
+      "favoriteTools": "الأدوات المفضلة",
+      "toolsWithUsage": "أدوات مع تتبع الاستخدام"
+    },
+    "signIn": "تسجيل الدخول",
+    "noResults": "لا توجد أدوات تطابق بحثك",
+    "noResultsHint": "جرّب كلمة مفتاحية مختلفة أو امسح الفلتر.",
+    "filterAll": "الكل",
+    "loginCta": {
+      "description": "سجّل الدخول لتتبع أدواتك المستخدمة مؤخرًا."
+    },
+    "popularTools": "Popular tools",
+    "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
+    "viewActivity": "Recent activity",
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "filterRange": "Time range",
+      "search": "Search activity…",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "7 days",
+      "last30": "30 days",
+      "allTime": "All time",
+      "resetFilters": "Reset filters",
+      "activeFilters": "{count, plural, =0 {No filters} =1 {1 filter} other {# filters}} applied",
+      "empty": "No activity yet.",
+      "emptyFiltered": "No activity matches the current filters.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "showingOf": "Showing {shown} of {total}",
+      "changedFields": "What changed",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "device": "Device",
+      "ipAddress": "IP",
+      "latency": "Latency",
+      "endpoint": "Endpoint",
+      "status": "Status",
+      "when": "When",
+      "actionKey": "Action",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity",
+      "moduleAuth": "Account",
+      "moduleBookmarks": "Bookmarks",
+      "moduleBookmarkFolders": "Bookmark folders",
+      "moduleNotes": "Notes",
+      "moduleTasks": "Tasks",
+      "modulePasswords": "Passwords",
+      "moduleSnippets": "Snippets",
+      "moduleApiClient": "API client",
+      "moduleSqlClient": "SQL client",
+      "moduleNosql": "NoSQL",
+      "moduleEnvManager": "Environments",
+      "modulePrefs": "Preferences",
+      "moduleProjects": "Projects",
+      "moduleUrlShortener": "URL shortener",
+      "moduleGameScores": "Game scores",
+      "moduleFeedback": "Feedback"
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "جاري التحميل...",
+      "myTasksTitle": "مهامي",
+      "statsLine": "{total} مهام • {percent}% مكتمل",
+      "statsLineDesktop": "{total} إجمالي • {percent}% مكتمل"
+    },
+    "filters": {
+      "all": "الكل",
+      "total": "الإجمالي",
+      "allProjects": "كل المشاريع",
+      "export": "تصدير",
+      "kanban": "كانبان",
+      "list": "قائمة",
+      "searchPlaceholder": "ابحث في المهام...",
+      "searchAria": "بحث في المهام",
+      "clearSearchAria": "مسح البحث",
+      "foundTasks": "تم العثور على {count} {count, plural, one {مهمة} other {مهام}}",
+      "filterByAllAria": "تصفية بالكل",
+      "filterByStatusAria": "تصفية حسب {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "لم تبدأ",
+        "description": "مهام لم تُبدأ بعد"
+      },
+      "ongoing": {
+        "label": "قيد التنفيذ",
+        "description": "مهام قيد العمل حالياً"
+      },
+      "completed": {
+        "label": "مكتملة",
+        "description": "مهام انتهت"
+      }
+    },
+    "priorities": {
+      "high": "عالية",
+      "medium": "متوسطة",
+      "low": "منخفضة"
+    },
+    "form": {
+      "addNewTaskLabel": "إضافة مهمة جديدة",
+      "multilinePlaceholder": "تفاصيل المهمة... (Shift+Enter سطر جديد)",
+      "singlelinePlaceholder": "ما المطلوب؟ اضغط Enter للإضافة",
+      "taskInputAria": "إدخال المهمة",
+      "projectPlaceholder": "مشروع",
+      "selectProject": "اختر مشروعاً",
+      "errorSelectProject": "يرجى اختيار مشروع أو إنشاء مشروع جديد لإضافة مهمة.",
+      "hintMultiline": "Shift+Enter سطر جديد، Enter للإضافة",
+      "hintSingleline": "Enter للإضافة",
+      "shortcutsAria": "اختصارات لوحة المفاتيح",
+      "shortcutsLabel": "اختصارات",
+      "shortcutAddTask": "إضافة مهمة",
+      "shortcutNewLine": "سطر جديد",
+      "shortcutClear": "مسح",
+      "addButton": "إضافة"
+    },
+    "list": {
+      "ariaLabel": "قائمة المهام",
+      "loading": "جاري تحميل مهامك...",
+      "emptyTitle": "لا توجد مهام",
+      "emptyPrimary": "ابدأ بإضافة أول مهمة أعلاه! اضغط Enter لإضافة مهام بسرعة.",
+      "emptySecondary": "جرّب تعديل المرشحات أو استعلام البحث."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "إضافة مهمة",
+      "addNewTaskTitle": "مهمة جديدة",
+      "addNewTaskDescription": "أنشئ مهمة جديدة لتتبع تقدمك.",
+      "cancel": "إلغاء"
+    },
+    "kanban": {
+      "ariaLabel": "لوحة كانبان",
+      "loading": "جاري تحميل مهامك...",
+      "dropHere": "أسقط المهمة هنا",
+      "noTasksYet": "لا مهام بعد",
+      "emptyColumnAria": "عمود فارغ",
+      "columnAria": "عمود {title} يحتوي {count} مهام",
+      "countInColumnAria": "{count} مهام في {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "هل أنت متأكد أنك تريد حذف هذه المهمة؟",
+      "statusPlaceholder": "الحالة",
+      "changeStatusAria": "تغيير حالة المهمة",
+      "taskOptionsAria": "خيارات المهمة",
+      "editTask": "تعديل المهمة",
+      "copyTask": "نسخ المهمة",
+      "copied": "تم النسخ!",
+      "deleteTask": "حذف المهمة",
+      "statusHeading": "الحالة",
+      "editTaskAria": "تعديل المهمة"
+    },
+    "editDialog": {
+      "title": "تعديل المهمة",
+      "description": "حدّث تفاصيل المهمة، أضف مهام فرعية، حدد الأولويات والمزيد.",
+      "taskTitleLabel": "عنوان المهمة *",
+      "taskTitlePlaceholder": "ما المطلوب؟",
+      "descriptionLabel": "الوصف",
+      "descriptionPlaceholder": "أضف تفاصيل أكثر عن هذه المهمة...",
+      "statusLabel": "الحالة",
+      "priorityLabel": "الأولوية",
+      "dueDateLabel": "تاريخ الاستحقاق",
+      "pickDate": "اختر تاريخاً",
+      "clearDate": "مسح التاريخ",
+      "projectLabel": "المشروع",
+      "selectProjectPlaceholder": "اختر مشروعاً",
+      "noProject": "بدون مشروع",
+      "timeEstimateLabel": "تقدير الوقت (دقائق)",
+      "timeEstimatePlaceholder": "كم يستغرق؟",
+      "tagsLabel": "الوسوم",
+      "customTagNamePlaceholder": "اسم وسم مخصص",
+      "subtasksLabel": "مهام فرعية",
+      "addSubtaskPlaceholder": "أضف مهمة فرعية...",
+      "cancel": "إلغاء",
+      "saving": "جاري الحفظ...",
+      "saveChanges": "حفظ التغييرات"
+    },
+    "export": {
+      "title": "تصدير المهام",
+      "description": "صدّر مهامك إلى JSON أو CSV أو Excel.",
+      "projectLabel": "المشروع",
+      "statusLabel": "الحالة",
+      "tagLabel": "الوسم",
+      "allProjects": "كل المشاريع",
+      "allStatuses": "كل الحالات",
+      "allTags": "كل الوسوم",
+      "exportAsJsonTitle": "تصدير JSON",
+      "exportAsJsonDescription": "تصدير بيانات المهام بما في ذلك المهام الفرعية والوسوم والبيانات الوصفية.",
+      "exportJson": "تصدير JSON",
+      "exportAsCsvExcelTitle": "تصدير CSV / Excel",
+      "exportAsCsvExcelDescription": "تصدير المهام لتطبيقات الجداول.",
+      "exportCsv": "تصدير CSV",
+      "exportExcel": "تصدير Excel",
+      "close": "إغلاق",
+      "toastNoTasks": "لا مهام للتصدير مع المرشحات الحالية",
+      "toastExportedJson": "تم تصدير {count} مهمة إلى JSON!",
+      "toastExportedCsv": "تم تصدير {count} مهمة إلى CSV!",
+      "toastExportedExcel": "تم تصدير {count} مهمة إلى Excel!",
+      "toastFailedJson": "فشل التصدير إلى JSON",
+      "toastFailedCsv": "فشل التصدير إلى CSV",
+      "toastFailedExcel": "فشل التصدير إلى Excel",
+      "unknownProject": "مشروع غير معروف"
+    },
+    "ack": {
+      "taskAddedTitle": "تمت إضافة المهمة بنجاح",
+      "taskAddedFailedTitle": "فشل إضافة المهمة",
+      "taskUpdatedTitle": "تم تحديث المهمة بنجاح",
+      "taskUpdatedFailedTitle": "فشل تحديث المهمة",
+      "taskStatusUpdateFailedTitle": "فشل تحديث حالة المهمة",
+      "taskMovedTitle": "تم نقل المهمة إلى {status}",
+      "tryAgain": "يرجى المحاولة مرة أخرى.",
+      "taskDeletedTitle": "تم حذف المهمة \"{text}\"",
+      "undo": "تراجع",
+      "taskRestoredTitle": "تمت استعادة المهمة",
+      "taskRestoredSuccessTitle": "تمت استعادة المهمة بنجاح",
+      "taskRestoreFailedTitle": "فشلت استعادة المهمة. يرجى المحاولة مرة أخرى.",
+      "taskDeleteFailedTitle": "فشل حذف المهمة. يرجى المحاولة مرة أخرى.",
+      "tasksImportedTitle": "تم استيراد {count} {count, plural, one {مهمة} other {مهام}} بنجاح!",
+      "tasksImportFailedTitle": "فشل استيراد المهام. يرجى المحاولة مرة أخرى.",
+      "unknownProject": "مشروع غير معروف",
+      "projectCreatedTitle": "تم إنشاء المشروع بنجاح",
+      "projectCreateFailedTitle": "فشل إنشاء المشروع",
+      "projectUpdatedTitle": "تم تحديث المشروع بنجاح",
+      "projectUpdateFailedTitle": "فشل تحديث المشروع",
+      "projectDeletedTitle": "تم حذف المشروع بنجاح",
+      "projectDeleteFailedTitle": "فشل حذف المشروع"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "جاري التحميل..."
+    },
+    "layout": {
+      "mobileNavTitle": "تنقل الملاحظات",
+      "openMenuAria": "فتح قائمة الملاحظات"
+    },
+    "sidebar": {
+      "title": "الملاحظات",
+      "createNoteAria": "إنشاء ملاحظة",
+      "searchPlaceholder": "ابحث في الملاحظات...",
+      "loading": "جاري التحميل...",
+      "noNotesFound": "لم يُعثر على ملاحظات.",
+      "noNotesYet": "لا ملاحظات بعد. انقر + لإنشاء واحدة.",
+      "inParent": "في {parentTitle}",
+      "untitled": "بدون عنوان",
+      "addSubPage": "إضافة صفحة فرعية",
+      "delete": "حذف",
+      "deleteConfirmTitle": "حذف الملاحظة؟",
+      "deleteConfirmDescription": "هل تريد حذف \"{title}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "confirmDelete": "حذف",
+      "noteOptionsAria": "خيارات الملاحظة"
+    },
+    "editor": {
+      "emptyState": "اختر ملاحظة أو أنشئ ملاحظة جديدة للبدء.",
+      "titlePlaceholder": "بدون عنوان",
+      "saving": "جارٍ الحفظ…",
+      "ready": "جاهز",
+      "saved": "تم الحفظ {time}",
+      "stats": "{words} كلمة · {read} دقيقة قراءة",
+      "template": "قالب",
+      "applyTemplate": "تطبيق القالب",
+      "exportMdLabel": ".md",
+      "exportMd": "تصدير كـ Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "تصدير كـ HTML",
+      "focusMode": "وضع التركيز",
+      "exitFocusMode": "إنهاء وضع التركيز",
+      "save": "حفظ",
+      "addTag": "إضافة وسم…",
+      "removeTag": "إزالة الوسم {tag}",
+      "loading": "جارٍ التحميل…",
+      "searchHint": "للبحث",
+      "focusHint": "وضع التركيز",
+      "notePath": "مسار الملاحظة"
+    },
+    "context": {
+      "authRequiredError": "المستخدم غير مصادق",
+      "defaultTitle": "بدون عنوان",
+      "cloudSyncImageError": "فعّل المزامنة السحابية لتخزين صور الملاحظات. تبقى الملاحظات النصية محلية."
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "جاري التحميل...",
+      "title": "مدير كلمات المرور",
+      "loadFailed": "Failed to load passwords"
+    },
+    "vault": {
+      "toastDecryptFailed": "فشل فك تشفير كلمات المرور",
+      "toastLoadFailed": "فشل تحميل كلمات المرور",
+      "toastUnlockedAuto": "تم فتح الخزنة تلقائياً",
+      "toastAutoUnlockFailed": "فشل الفتح التلقائي. يرجى الفتح يدوياً.",
+      "toastConnectFailed": "فشل الاتصال بالخادم",
+      "toastAutoUnlockWarning": "تم فتح الخزنة، لكن الفتح التلقائي قد لا يعمل عند إعادة التحميل",
+      "errorIncorrectPassword": "كلمة المرور الرئيسية غير صحيحة",
+      "errorUnlockFailed": "فشل فتح الخزنة",
+      "errorPasswordsMismatch": "كلمات المرور غير متطابقة",
+      "errorPasswordTooShort": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "errorSetupFailed": "فشل إعداد الخزنة",
+      "errorConnectFailed": "فشل الاتصال بالخادم.",
+      "mobileTitleCreate": "أنشئ خزنتك",
+      "mobileTitleWelcome": "مرحباً بعودتك",
+      "mobileSubtitleCreate": "عيّن كلمة مرور رئيسية لحماية بياناتك",
+      "mobileSubtitleUnlock": "أدخل كلمة المرور الرئيسية للفتح",
+      "placeholderMasterPassword": "كلمة المرور الرئيسية",
+      "placeholderConfirmPassword": "تأكيد كلمة المرور",
+      "labelMasterPassword": "كلمة المرور الرئيسية",
+      "labelConfirmPassword": "تأكيد كلمة المرور",
+      "placeholderEnterMaster": "أدخل كلمة المرور الرئيسية",
+      "placeholderConfirmMaster": "أكد كلمة المرور الرئيسية",
+      "buttonCreateVault": "إنشاء الخزنة",
+      "buttonUnlock": "فتح",
+      "buttonUnlockVault": "فتح الخزنة",
+      "footerCreate": "لا تُخزَّن كلمة مرورك ولا يمكن استعادتها",
+      "footerUnlock": "محمي بتشفير من طرف إلى طرف",
+      "desktopTitleSetup": "إعداد خزنة كلمات المرور",
+      "desktopTitleUnlock": "فتح الخزنة",
+      "desktopDescriptionSetup": "أنشئ كلمة مرور رئيسية لتأمين بياناتك. لا تُخزَّن هذه الكلمة ولا يمكن استعادتها.",
+      "desktopDescriptionUnlock": "أدخل كلمة المرور الرئيسية للوصول إلى بياناتك المحمية."
+    },
+    "list": {
+      "loading": "جاري تحميل كلمات المرور...",
+      "emptyTitle": "الخزنة فارغة",
+      "emptyHintMobile": "اضغط زر + لإضافة أول كلمة مرور",
+      "emptyHintDesktop": "لم تخزّن كلمات مرور بعد. انقر \"إضافة كلمة مرور\" أعلاه للبدء.",
+      "addPassword": "إضافة كلمة مرور",
+      "searchPlaceholderMobile": "ابحث في خزنتك...",
+      "searchPlaceholderDesktop": "ابحث في الخزنة...",
+      "importExport": "استيراد / تصدير",
+      "lockVault": "قفل الخزنة",
+      "allPasswordsTitle": "كل كلمات المرور",
+      "passwordCount": "{count, plural, one {# كلمة مرور} other {# كلمات مرور}}",
+      "vaultHealthDrawerTitle": "صحة الخزنة",
+      "noResults": "لا توجد كلمات مرور تطابق \"{query}\"",
+      "tableService": "الخدمة",
+      "tableUsername": "اسم المستخدم",
+      "tablePassword": "كلمة المرور",
+      "tableUrl": "الرابط",
+      "tableActions": "إجراءات",
+      "gridViewAria": "عرض شبكي",
+      "listViewAria": "عرض قائمة",
+      "passwordStrengthTitle": "قوة كلمة المرور",
+      "deleteDialogTitle": "حذف كلمة المرور",
+      "deleteDialogDescription": "هل تريد حذف كلمة المرور هذه؟ لا يمكن التراجع.",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "edit": "تعديل"
+    },
+    "toasts": {
+      "copiedPassword": "تم نسخ كلمة المرور",
+      "copiedUsername": "تم نسخ اسم المستخدم",
+      "passwordDeleted": "تم حذف كلمة المرور",
+      "deleteFailed": "فشل حذف كلمة المرور",
+      "vaultLocked": "تم قفل الخزنة",
+      "importedCount": "تم استيراد {count, plural, one {# كلمة مرور} other {# كلمات مرور}} بنجاح"
+    },
+    "form": {
+      "addTitle": "إضافة كلمة مرور جديدة",
+      "editTitle": "تعديل كلمة المرور",
+      "serviceName": "اسم الخدمة",
+      "usernameEmail": "اسم المستخدم / البريد",
+      "password": "كلمة المرور",
+      "urlOptional": "رابط الموقع (اختياري)",
+      "notesOptional": "ملاحظات (اختياري)",
+      "tags": "الوسوم",
+      "placeholderService": "مثال: Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "أدخل أو أنشئ كلمة مرور",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "تفاصيل إضافية...",
+      "placeholderTags": "أضف وسوماً (Enter أو فاصلة)",
+      "strength": "القوة",
+      "strengthWeak": "ضعيفة",
+      "strengthMedium": "متوسطة",
+      "strengthStrong": "قوية",
+      "advancedGenerator": "مولّد متقدم",
+      "cancel": "إلغاء",
+      "saving": "جاري الحفظ...",
+      "savePassword": "حفظ كلمة المرور",
+      "updating": "جاري التحديث...",
+      "updatePassword": "تحديث كلمة المرور",
+      "addPasswordSrOnly": "إضافة كلمة مرور",
+      "triggerAdd": "إضافة كلمة مرور",
+      "toastSaved": "تم حفظ كلمة المرور بنجاح",
+      "toastSaveFailed": "فشل حفظ كلمة المرور",
+      "toastUpdated": "تم تحديث كلمة المرور بنجاح",
+      "toastUpdateFailed": "فشل تحديث كلمة المرور"
+    },
+    "security": {
+      "vaultHealth": "صحة الخزنة",
+      "statusLabel": "الحالة",
+      "totalPasswords": "إجمالي كلمات المرور",
+      "activeEntries": "إدخالات نشطة في خزنتك",
+      "protected": "محمية",
+      "weakPasswords": "كلمات مرور ضعيفة",
+      "needingImprovement": "كلمات مرور تحتاج تحسيناً",
+      "allGood": "كل شيء جيد",
+      "reusedPasswords": "كلمات مرور مُعاد استخدامها",
+      "usedMultipleTimes": "كلمات مرور استُخدمت أكثر من مرة",
+      "unique": "فريدة",
+      "total": "الإجمالي",
+      "weak": "ضعيفة",
+      "reused": "مُعاد استخدامها",
+      "totalCountLabel": "{count, plural, one {# كلمة مرور} other {# كلمات مرور}}",
+      "weakCountLabel": "{count} ضعيفة",
+      "allSecure": "كلها آمنة",
+      "scoreExcellent": "ممتاز",
+      "scoreGood": "جيد",
+      "scoreFair": "مقبول",
+      "scoreCritical": "حرج"
+    },
+    "importExport": {
+      "title": "استيراد / تصدير الخزنة",
+      "description": "إدارة بيانات كلمات المرور. يمكنك تصدير الخزنة إلى JSON أو الاستيراد من ملف JSON.",
+      "tabExport": "تصدير",
+      "tabImport": "استيراد",
+      "warningTitle": "تحذير",
+      "warningBody": "ملفات التصدير تحتوي كلمات مرورك كنص عادي. احفظ الملف بأمان واحذفه بعد الاستخدام.",
+      "exportBlurb": "حمّل خزنتك كاملة كملف JSON. يشمل الخدمات وأسماء المستخدمين وكلمات المرور والملاحظات.",
+      "downloadJson": "تنزيل تصدير JSON",
+      "pasteLabel": "لصق بيانات JSON",
+      "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "الصق محتوى ملف JSON مُصدَّر سابقاً هنا.",
+      "importing": "جاري الاستيراد...",
+      "importPasswords": "استيراد كلمات المرور",
+      "trigger": "استيراد / تصدير",
+      "toastExported": "تم تصدير الخزنة بنجاح",
+      "toastExportFailed": "فشل تصدير الخزنة",
+      "toastImportFailed": "فشل الاستيراد: تنسيق JSON غير صالح"
+    },
+    "card": {
+      "copyUsername": "نسخ اسم المستخدم",
+      "openUrl": "فتح الرابط",
+      "strength": "القوة"
+    },
+    "swipeable": {
+      "copy": "نسخ",
+      "delete": "حذف",
+      "copyPassword": "نسخ كلمة المرور",
+      "copyUsername": "نسخ اسم المستخدم",
+      "edit": "تعديل",
+      "deleteAction": "حذف"
+    },
+    "floatingMenu": {
+      "lockVault": "قفل الخزنة",
+      "importExport": "استيراد / تصدير",
+      "addPassword": "إضافة كلمة مرور"
+    },
+    "generator": {
+      "tabPassword": "كلمة مرور",
+      "tabPassphrase": "عبارة سرية",
+      "strength": "القوة",
+      "lengthLabel": "الطول: {length} حرفاً",
+      "lengthBadge": "{length} حرف",
+      "characterSets": "مجموعات الأحرف",
+      "uppercase": "أحرف كبيرة",
+      "lowercase": "أحرف صغيرة",
+      "numbers": "أرقام",
+      "symbols": "رموز",
+      "wordCountLabel": "عدد الكلمات: {count}",
+      "wordCountBadge": "{count, plural, one {# كلمة} other {# كلمات}}",
+      "separator": "الفاصل",
+      "capitalization": "الأحرف الكبيرة",
+      "includeNumber": "تضمين رقم"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "متغيرات بيئة مشفّرة حسب المشروع والبيئة.",
+    "page": {
+      "loading": "جارٍ التحميل…",
+      "title": "مدير البيئة",
+      "loadFailed": "تعذّر تحميل مجموعات البيئة"
+    },
+    "list": {
+      "title": "البيئات",
+      "loading": "جارٍ تحميل مجموعاتك…",
+      "emptyTitle": "لا توجد مجموعات بيئة بعد",
+      "emptyHint": "أنشئ مجموعة لكل مشروع وبيئة (مثل مفاتيح واجهة الإنتاج). يُشفّر كل شيء في متصفحك قبل الرفع.",
+      "searchPlaceholder": "ابحث في المشروع والبيئة والوسوم والملاحظات…",
+      "tagFilterPlaceholder": "تصفية حسب الوسم",
+      "variableCount": "{count, plural, one {# متغير} other {# متغيرات}}",
+      "updatedAgo": "عُدّل {time}",
+      "copyDotEnv": "نسخ .env",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "confirmDelete": "حذف",
+      "deleteDialogTitle": "حذف مجموعة البيئة؟",
+      "deleteDialogDescription": "يُزال النص المشفّر من حسابك. لا يمكن التراجع.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
+    },
+    "toasts": {
+      "copiedDotEnv": "تم نسخ .env إلى الحافظة",
+      "deleted": "تم حذف مجموعة البيئة",
+      "deleteFailed": "فشل الحذف"
+    },
+    "form": {
+      "addTitle": "مجموعة بيئة جديدة",
+      "editTitle": "تعديل مجموعة البيئة",
+      "triggerAdd": "إضافة مجموعة بيئة",
+      "addSrOnly": "إضافة مجموعة بيئة",
+      "project": "المشروع",
+      "environment": "البيئة",
+      "placeholderProject": "مثال: billing-api",
+      "placeholderEnvironment": "مثال: production",
+      "pasteEnvLabel": "لصق .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "دمج الأسطر الملصوقة",
+      "variables": "المتغيرات",
+      "addRow": "إضافة صف",
+      "keyPlaceholder": "المفتاح",
+      "valuePlaceholder": "القيمة",
+      "notesOptional": "ملاحظات (اختياري)",
+      "placeholderNotes": "سياسة التدوير، المالك، روابط…",
+      "tags": "الوسوم",
+      "placeholderTags": "أضف وسومًا (Enter أو فاصلة)",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "update": "تحديث",
+      "updating": "جارٍ التحديث…",
+      "toastSaved": "تم حفظ مجموعة البيئة",
+      "toastSaveFailed": "فشل الحفظ",
+      "toastUpdated": "تم تحديث مجموعة البيئة",
+      "toastUpdateFailed": "فشل التحديث",
+      "toastPasteEmpty": "لم يُعثر على أسطر KEY=value",
+      "toastPasteApplied": "تم دمج {count} متغيرًا من اللصق",
+      "toastProjectEnvRequired": "المشروع والبيئة مطلوبان",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "جاري التحميل..."
+    },
+    "manager": {
+      "foldersHeading": "المجلدات",
+      "tagsHeading": "الوسوم",
+      "tagsMore": "+{count} أخرى",
+      "tagsShowLess": "Show less",
+      "searchPlaceholder": "ابحث في الإشارات المرجعية...",
+      "import": "استيراد",
+      "export": "تصدير",
+      "exportAsHtml": "تصدير HTML",
+      "exportAsJson": "تصدير JSON",
+      "addBookmark": "إضافة إشارة",
+      "matchingQuery": "يطابق \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# إشارة} other {# إشارات}}",
+      "allBookmarks": "كل الإشارات",
+      "uncategorized": "غير مصنّف",
+      "unknownFolder": "غير معروف"
+    },
+    "card": {
+      "urlCopied": "تم نسخ الرابط",
+      "bookmarkDeleted": "تم حذف الإشارة",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "copyUrl": "نسخ الرابط",
+      "deleteConfirmTitle": "حذف الإشارة؟",
+      "deleteConfirmDescription": "سيُحذف \"{title}\" نهائياً.",
+      "cancel": "إلغاء"
+    },
+    "grid": {
+      "emptyTitle": "لا إشارات بعد",
+      "emptyDescription": "أضف أول إشارة أو استورد من المتصفح للبدء."
+    },
+    "folderTree": {
+      "allBookmarks": "كل الإشارات",
+      "addSubfolder": "إضافة مجلد فرعي",
+      "rename": "إعادة تسمية",
+      "deleteFolderTitle": "حذف المجلد \"{name}\"؟",
+      "deleteFolderDescription": "سيُحذف المجلد وكل المجلدات الفرعية. تُنقل الإشارات إلى غير مصنّف."
+    },
+    "import": {
+      "title": "استيراد الإشارات",
+      "description": "استورد الإشارات من ملف مُصدَّر من المتصفح.",
+      "parseError": "فشل تحليل ملف الإشارات. تأكد أنه تصدير صالح.",
+      "successToast": "تم استيراد {bookmarks} إشارة و{folders} مجلد",
+      "errorToast": "فشل استيراد الإشارات",
+      "chromeInstruction": "القائمة → الإشارات → مدير الإشارات → ⋮ → تصدير الإشارات",
+      "firefoxInstruction": "القائمة → الإشارات → إدارة الإشارات → استيراد ونسخ احتياطي → تصدير",
+      "safariInstruction": "ملف → تصدير الإشارات...",
+      "edgeInstruction": "القائمة → المفضلة → ⋯ → تصدير المفضلة",
+      "dropZoneTitle": "أسقط ملف الإشارات هنا",
+      "dropZoneHint": "أو انقر للتصفح (HTML أو JSON)",
+      "selectedFileHint": "انقر لاختيار ملف آخر",
+      "errorTitle": "خطأ",
+      "previewTitle": "معاينة الاستيراد",
+      "previewBookmarks": "{count, plural, one {# إشارة} other {# إشارات}}",
+      "previewFolders": "{count, plural, one {# مجلد} other {# مجلدات}}",
+      "importModeLabel": "وضع الاستيراد",
+      "modeMerge": "دمج مع الإشارات الحالية",
+      "modeReplace": "استبدال كل الإشارات الحالية",
+      "cancel": "إلغاء",
+      "importButton": "استيراد",
+      "importButtonWithCount": "استيراد {count, plural, one {# إشارة} other {# إشارات}}"
+    },
+    "addBookmark": {
+      "titleAdd": "إضافة إشارة",
+      "titleEdit": "تعديل الإشارة",
+      "urlLabel": "الرابط",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "يرجى إدخال رابط صالح",
+      "titleLabel": "العنوان",
+      "titlePlaceholder": "عنوان الإشارة",
+      "titleRequired": "يرجى إدخال عنوان",
+      "descriptionLabel": "الوصف (اختياري)",
+      "descriptionPlaceholder": "ملاحظة عن هذه الإشارة",
+      "folderLabel": "المجلد",
+      "folderPlaceholder": "اختر مجلداً",
+      "noFolder": "بدون مجلد",
+      "tagsLabel": "الوسوم",
+      "tagsPlaceholder": "أضف وسوماً (Enter)",
+      "toastUpdated": "تم تحديث الإشارة",
+      "toastAdded": "تمت إضافة الإشارة",
+      "cancel": "إلغاء",
+      "submitAdd": "إضافة إشارة",
+      "submitUpdate": "تحديث الإشارة"
+    },
+    "addFolder": {
+      "title": "إنشاء مجلد",
+      "nameLabel": "اسم المجلد",
+      "namePlaceholder": "مجلدي",
+      "nameRequired": "يرجى إدخال اسم المجلد",
+      "parentLabel": "المجلد الأب",
+      "parentPlaceholder": "اختر المجلد الأب",
+      "rootParent": "الجذر (بدون أب)",
+      "toastCreated": "تم إنشاء المجلد",
+      "cancel": "إلغاء",
+      "submit": "إنشاء مجلد"
+    },
+    "editFolder": {
+      "title": "إعادة تسمية المجلد",
+      "nameLabel": "اسم المجلد",
+      "namePlaceholder": "اسم المجلد",
+      "nameRequired": "يرجى إدخال اسم المجلد",
+      "toastRenamed": "تمت إعادة تسمية المجلد",
+      "cancel": "إلغاء",
+      "save": "حفظ"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "التحقق من البريد",
+      "description": "تحقق من عناوين البريد: الصيغة، النطاق، وإمكانية التسليم."
+    },
+    "tabs": {
+      "single": "تحقق فردي",
+      "bulk": "رفع جماعي"
+    },
+    "single": {
+      "cardTitle": "تحقق من بريد واحد",
+      "cardDescription": "أدخل عنوان بريد للتحقق من إمكانية التسليم والسمعة.",
+      "placeholder": "أدخل عنوان البريد...",
+      "clearAria": "مسح البريد",
+      "validate": "تحقق",
+      "validating": "جاري التحقق...",
+      "formatError": "يرجى إدخال بريد إلكتروني صالح"
+    },
+    "toasts": {
+      "errorTitle": "خطأ",
+      "enterEmail": "يرجى إدخال بريد إلكتروني",
+      "invalidFormatTitle": "صيغة بريد غير صالحة",
+      "invalidFormatDescription": "يرجى إدخال بريد إلكتروني صالح",
+      "validateFailedDescription": "حدث خطأ أثناء التحقق من البريد",
+      "noEmailsTitle": "لم يُعثر على رسائل",
+      "noEmailsDescription": "تأكد أن Excel يحتوي عموداً باسم 'email'.",
+      "fileTooLargeTitle": "الملف كبير جداً",
+      "fileTooLargeDescription": "وُجد {total} بريد. سيُتحقق من أول 4000 فقط.",
+      "successTitle": "نجاح",
+      "successValidated": "تم التحقق من {count} بريد بنجاح.",
+      "batchFailedTitle": "فشل التحقق الجماعي",
+      "batchFailedDescription": "حدث خطأ أثناء معالجة التحقق الجماعي.",
+      "noExportTitle": "لا بيانات للتصدير",
+      "noExportValidOnly": "لا توجد عناوين صالحة للتصدير.",
+      "noExportAll": "لا نتائج للتصدير.",
+      "exportSuccessTitle": "تم التصدير بنجاح",
+      "exportSuccessExcelAll": "تم تصدير {count} بريد إلى Excel.",
+      "exportSuccessExcelValid": "تم تصدير {count} بريد صالح إلى Excel.",
+      "exportSuccessCsvAll": "تم تصدير {count} بريد إلى CSV.",
+      "exportSuccessCsvValid": "تم تصدير {count} بريد صالح إلى CSV."
+    },
+    "disposableAlert": {
+      "title": "بريد مؤقت مكتشف",
+      "description": "هذا العنوان من مزود بريد مؤقت. قد يكون مؤقتاً أو غير آمِن."
+    },
+    "score": {
+      "reliabilityTitle": "درجة الموثوقية",
+      "scoreLabel": "الدرجة"
+    },
+    "details": {
+      "sectionTitle": "تفاصيل التحقق"
+    },
+    "validation": {
+      "syntaxLabel": "الصيغة صالحة",
+      "syntaxTooltip": "يتحقق من أن البريد يتبع الصيغة الصحيحة (مثل user@domain.com)",
+      "domainLabel": "النطاق موجود",
+      "domainTooltip": "يتحقق من وجود اسم النطاق في البريد",
+      "mxLabel": "سجلات MX موجودة",
+      "mxTooltip": "يتحقق من تكوين سجلات تبادل البريد لاستقبال الرسائل",
+      "mailboxLabel": "صندوق البريد موجود",
+      "mailboxTooltip": "يتحقق من وجود صندوق البريد على الخادم",
+      "disposableLabel": "بريد مؤقت",
+      "disposableTooltip": "يُظهر إن كان البريد من خدمة مؤقتة (قد يكون خطيراً)",
+      "roleBasedLabel": "بريد وظيفي",
+      "roleBasedTooltip": "يحدد إن كان البريد وظيفياً (مثل support@) وليس شخصياً"
+    },
+    "copy": {
+      "emailCopied": "تم نسخ البريد!",
+      "copyTooltip": "نسخ البريد"
+    },
+    "bulk": {
+      "dropHere": "أسقط الملف هنا",
+      "dragHere": "اسحب وأفلت الملف هنا",
+      "uploadHint": "ارفع ملف .xlsx أو .xls أو .csv يحتوي عمود 'email' للتحقق حتى 4000 بريد.",
+      "filePrefix": "الملف:",
+      "selectFile": "اختر ملفاً",
+      "downloadTemplate": "تنزيل القالب"
+    },
+    "bulkLoading": {
+      "title": "جاري التحقق من البريد...",
+      "batchProgress": "معالجة الدفعة {current} من {total}..."
+    },
+    "stats": {
+      "totalProcessed": "إجمالي المعالج",
+      "valid": "صالح",
+      "risky": "محفوف بالمخاطر",
+      "invalid": "غير صالح"
+    },
+    "results": {
+      "detailedTitle": "نتائج مفصلة",
+      "searchPlaceholder": "ابحث في البريد...",
+      "newVerification": "تحقق جديد",
+      "exportAll": "تصدير الكل",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "تصدير الصالح ({count})"
+    },
+    "showingResults": "عرض {shown} من {total} نتيجة",
+    "table": {
+      "email": "البريد",
+      "status": "الحالة",
+      "score": "الدرجة",
+      "checks": "الفحوصات"
+    },
+    "noSearchResults": "لا نتائج تطابق \"{query}\"",
+    "checksTooltip": {
+      "syntax": "الصيغة",
+      "domain": "النطاق",
+      "mx": "MX",
+      "mailbox": "صندوق البريد"
+    },
+    "exportColumns": {
+      "email": "البريد",
+      "status": "الحالة",
+      "score": "الدرجة",
+      "syntax": "الصيغة",
+      "domain": "النطاق",
+      "mx": "MX",
+      "mailbox": "صندوق البريد",
+      "disposable": "مؤقت",
+      "roleBased": "وظيفي",
+      "valid": "صالح",
+      "invalid": "غير صالح",
+      "yes": "نعم",
+      "no": "لا"
+    },
+    "sheets": {
+      "validEmails": "بريد صالح",
+      "results": "النتائج",
+      "template": "القالب"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "مستكشف NoSQL",
+      "heroSubtitle": "اتصل بقواعد البيانات لإدارة المجموعات وتنفيذ الاستعلامات وعرض بياناتك.",
+      "featureMultiTitle": "اتصالات متعددة",
+      "featureMultiDesc": "إدارة عدة اتصالات بقواعد البيانات في آن واحد.",
+      "featureMongoTitle": "دعم MongoDB",
+      "featureMongoDesc": "دعم أصلي لـ MongoDB مع تصفية متقدمة.",
+      "featureQueryTitle": "استعلام ذكي",
+      "featureQueryDesc": "منشئ استعلامات قوي مع تمييز الصياغة.",
+      "connectCta": "الاتصال بـ MongoDB",
+      "footerNote": "يدعم حالياً {db}. قواعد بيانات أخرى قريباً.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "اختر مجموعة",
+      "selectCollectionDesc": "اختر مجموعة من الشريط الجانبي لعرض المستندات واستكشاف بياناتك.",
+      "dialogAddConnection": "إضافة اتصال",
+      "toastConnectionAdded": "تمت إضافة الاتصال",
+      "toastFetchFailed": "فشل جلب مستندات {collection}",
+      "toastDocDeleted": "تم حذف المستند",
+      "deleteDocTitle": "هل أنت متأكد تماماً؟",
+      "deleteDocDescription": "لا يمكن التراجع. سيُحذف المستند نهائياً من المجموعة.",
+      "closeAllTitle": "إغلاق كل التبويبات؟",
+      "closeAllDescription": "سيُفقد أي تغيير غير محفوظ في مرشحات الاستعلام.",
+      "closeAllConfirm": "إغلاق الكل",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
+    "connection": {
+      "titleEdit": "تعديل الاتصال",
+      "titleConnect": "الاتصال بـ MongoDB",
+      "subtitleEdit": "حدّث تفاصيل الاتصال أدناه.",
+      "subtitleConnect": "أدخل سلسلة اتصال MongoDB لبدء استكشاف بياناتك.",
+      "labelName": "الاسم",
+      "placeholderName": "مثال: قاعدة الإنتاج",
+      "labelConnectionString": "سلسلة الاتصال",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "الصيغة: mongodb://username:password@host:port/database",
+      "testConnection": "اختبار الاتصال",
+      "connecting": "جاري الاتصال...",
+      "updateConnect": "تحديث والاتصال",
+      "connect": "اتصال",
+      "cancelEdit": "إلغاء التعديل",
+      "savedConnections": "اتصالات محفوظة",
+      "emptySaved": "لا اتصالات محفوظة بعد.",
+      "lastUsed": "آخر استخدام {time}",
+      "toastTestOk": "نجح الاتصال!",
+      "toastTestFail": "فشل الاتصال: {message}",
+      "toastUpdated": "تم تحديث الاتصال",
+      "confirmDelete": "هل تريد حذف هذا الاتصال المحفوظ؟",
+      "toastDeletedConn": "تم حذف الاتصال",
+      "toastDeleteFail": "فشل حذف الاتصال",
+      "copyStringTitle": "نسخ سلسلة الاتصال",
+      "toastStringCopied": "تم نسخ سلسلة الاتصال!",
+      "editTitle": "تعديل",
+      "deleteTitle": "حذف"
+    },
+    "sidebar": {
+      "explorer": "المستكشف",
+      "add": "إضافة",
+      "tooltipAdd": "إضافة اتصال جديد",
+      "tooltipRefresh": "تحديث الاتصالات",
+      "searchPlaceholder": "بحث...",
+      "loadingConnections": "جاري تحميل الاتصالات...",
+      "noConnectionsFound": "لا اتصالات",
+      "toastLoadFail": "فشل تحميل الاتصالات",
+      "toastConnectFail": "فشل الاتصال بـ {name}",
+      "toastCollectionsFail": "فشل جلب مجموعات {name}",
+      "toastRenamed": "تمت إعادة تسمية الاتصال",
+      "toastRenameFail": "فشلت إعادة تسمية الاتصال",
+      "confirmDeleteConnection": "هل تريد حذف الاتصال \"{name}\"؟",
+      "toastDeleted": "تم حذف الاتصال",
+      "toastDeleteConnFail": "فشل حذف الاتصال",
+      "confirmDropDb": "هل تريد حذف قاعدة البيانات \"{name}\"؟ لا يمكن التراجع.",
+      "toastDbDropped": "تم حذف قاعدة البيانات {name}",
+      "confirmDropCollection": "هل تريد حذف المجموعة \"{name}\"؟ لا يمكن التراجع.",
+      "toastCollectionDropped": "تم حذف المجموعة {name}",
+      "toastCollectionRenamed": "تمت إعادة تسمية المجموعة إلى {name}",
+      "toastDatabaseRenamed": "تمت إعادة تسمية قاعدة البيانات إلى {name}",
+      "connecting": "جاري الاتصال...",
+      "connectionFailed": "فشل الاتصال",
+      "noDatabases": "لا قواعد بيانات",
+      "loading": "جاري التحميل...",
+      "noCollections": "لا مجموعات",
+      "renameCollectionTitle": "إعادة تسمية المجموعة",
+      "renameDatabaseTitle": "إعادة تسمية قاعدة البيانات",
+      "placeholderNewCollection": "اسم المجموعة الجديد",
+      "placeholderNewDatabase": "اسم قاعدة البيانات الجديد",
+      "rename": "إعادة تسمية",
+      "refresh": "تحديث",
+      "copyDbName": "نسخ اسم قاعدة البيانات",
+      "toastDbNameCopied": "تم نسخ اسم قاعدة البيانات",
+      "dropDatabase": "حذف قاعدة البيانات",
+      "dropCollection": "حذف المجموعة",
+      "menuRename": "إعادة تسمية",
+      "menuCopyConnectionString": "نسخ سلسلة الاتصال",
+      "menuDeleteConnection": "حذف الاتصال",
+      "toastSidebarStringCopied": "تم نسخ سلسلة الاتصال!",
+      "cancel": "إلغاء",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+    },
+    "document": {
+      "docsBreadcrumb": "{n} مستندات",
+      "table": "جدول",
+      "json": "JSON",
+      "tree": "شجرة",
+      "tooltipTable": "عرض جدولي",
+      "tooltipJson": "عرض JSON",
+      "tooltipTree": "عرض شجري",
+      "itemsPerPage": "عناصر لكل صفحة",
+      "perPage": "{n} / صفحة",
+      "prevPage": "الصفحة السابقة",
+      "nextPage": "الصفحة التالية",
+      "expandAll": "توسيع الكل",
+      "collapseAll": "طي الكل",
+      "refreshData": "تحديث البيانات",
+      "insert": "إدراج",
+      "export": "تصدير",
+      "actions": "إجراءات",
+      "invalidJson": "محتوى JSON غير صالح",
+      "copiedClipboard": "تم النسخ إلى الحافظة",
+      "docUpdated": "تم تحديث المستند بنجاح",
+      "docInserted": "تم إدراج المستند بنجاح",
+      "invalidJsonShort": "JSON غير صالح",
+      "docCopied": "تم نسخ المستند",
+      "openFullEditor": "فتح في المحرر الكامل",
+      "cellArray": "مصفوفة({length})",
+      "cellObject": "كائن",
+      "cellArrayBracket": "مصفوفة[{length}]",
+      "emptyFilterTitle": "لا مستندات تطابق الاستعلام",
+      "emptyFilterHint": "جرّب تعديل المرشح أو مسح الاستعلام.",
+      "clearFilter": "مسح المرشح",
+      "emptyCollectionTitle": "هذه المجموعة فارغة",
+      "emptyCollectionHint": "أدرج مستنداً للبدء.",
+      "insertDocument": "إدراج مستند",
+      "formatJson": "تنسيق JSON",
+      "compactJson": "ضغط JSON",
+      "copyClipboard": "نسخ إلى الحافظة",
+      "copyJson": "نسخ JSON",
+      "duplicate": "تكرار",
+      "editDoc": "تعديل المستند",
+      "deleteDoc": "حذف المستند",
+      "documentLabel": "مستند {n}",
+      "editDialogTitle": "تعديل المستند",
+      "insertDialogTitle": "إدراج مستند",
+      "viewValueTitle": "عرض القيمة",
+      "saveChanges": "حفظ التغييرات",
+      "close": "إغلاق",
+      "cancel": "إلغاء",
+      "insertButton": "إدراج",
+      "import": "Import",
+      "importExport": "Import / Export",
+      "importExportTitle": "Import or export data",
+      "importExportDescription": "Choose whether to bring documents in from a JSON file or download the current page of results.",
+      "importExportTooltip": "Import or export collection data",
+      "importExportImportHint": "JSON array, object, or NDJSON file",
+      "importExportExportHint": "Spreadsheet (XLSX or CSV)",
+      "schema": "Schema",
+      "indexes": "Indexes"
+    },
+    "tabs": {
+      "filterActive": "مرشح نشط مطبّق",
+      "filterActiveTooltip": "المرشح نشط",
+      "closeAll": "إغلاق الكل"
+    },
+    "query": {
+      "migrateHistory": "تم نقل سجل الاستعلامات إلى السحابة",
+      "saveHistoryFail": "فشل حفظ سجل الاستعلامات",
+      "deleteQueryFail": "فشل حذف الاستعلام",
+      "invalidJsonQuery": "استعلام JSON غير صالح",
+      "placeholder": "مثال: { \"status\": \"active\" }",
+      "clearQuery": "مسح الاستعلام",
+      "openAdvanced": "فتح المحرر المتقدم",
+      "visualBuilder": "منشئ استعلام بصري",
+      "filterRules": "قواعد التصفية",
+      "addRule": "إضافة قاعدة",
+      "noFilters": "لا مرشحات. أضف قاعدة لتصفية المستندات.",
+      "where": "WHERE",
+      "and": "AND",
+      "fieldPlaceholder": "حقل",
+      "opPlaceholder": "عملية",
+      "typePlaceholder": "نوع",
+      "opRegex": "Regex",
+      "opIn": "ضمن",
+      "opNin": "ليس ضمن",
+      "opExists": "موجود",
+      "typeAuto": "تلقائي",
+      "typeString": "نص",
+      "typeNumber": "رقم",
+      "typeBoolean": "منطقي",
+      "typeDate": "تاريخ",
+      "typeObjectId": "ObjectId",
+      "true": "صحيح",
+      "false": "خطأ",
+      "valuePlaceholder": "قيمة",
+      "valueListPlaceholder": "قيمة1، قيمة2",
+      "clearFilters": "مسح المرشحات",
+      "applyFilters": "تطبيق المرشحات",
+      "queryHistory": "سجل الاستعلامات",
+      "noSavedQueries": "لا استعلامات محفوظة بعد",
+      "advancedEditorTitle": "محرر استعلام متقدم",
+      "templatesPlaceholder": "قوالب",
+      "templateEmptyAgg": "تجميع فارغ",
+      "templateMatch": "$match (تصفية)",
+      "templateLookup": "$lookup (ربط)",
+      "templateGroup": "$group (عدد/مجموع)",
+      "format": "تنسيق",
+      "formattedJson": "JSON مُنسَّق",
+      "runQuery": "تشغيل الاستعلام"
+    },
+    "export": {
+      "selectFieldsError": "اختر حقلاً واحداً على الأقل للتصدير",
+      "success": "تم التصدير بنجاح إلى {filename}",
+      "fail": "فشل تصدير البيانات",
+      "title": "تصدير البيانات",
+      "formatLabel": "صيغة التصدير",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "اختر الحقول",
+      "selectAll": "تحديد الكل",
+      "fieldsSelected": "{count, plural, one {# حقل محدد} other {# حقول محددة}}",
+      "cancel": "إلغاء",
+      "export": "تصدير",
+      "sheetName": "بيانات"
+    },
+    "jsonTree": {
+      "typeLabel": "النوع: {type}",
+      "itemSummary": "{count, plural, one {# عنصر} other {# عناصر}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "طلب جديد",
+      "importedRequest": "طلب مستورد",
+      "untitledRequest": "طلب بدون عنوان"
+    },
+    "toasts": {
+      "curlImported": "تم استيراد cURL بنجاح",
+      "curlParseFailed": "فشل تحليل أمر cURL",
+      "invalidJsonBody": "جسم JSON غير صالح",
+      "requestFailed": "فشل الطلب: {message}",
+      "curlPasted": "تم لصق cURL وتحليله بنجاح",
+      "responseCopied": "تم نسخ الاستجابة",
+      "codeCopied": "تم نسخ الكود",
+      "copyFailed": "فشل نسخ المحتوى إلى الحافظة"
+    },
+    "layout": {
+      "collections": "المجموعات",
+      "closeSidebar": "إغلاق الشريط الجانبي",
+      "openSidebar": "فتح الشريط الجانبي",
+      "request": "Request",
+      "response": "Response"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "الطريقة",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "جاري الإرسال...",
+      "send": "إرسال",
+      "invalidJsonBodyHelp": "لا يمكن الإرسال: نص JSON غير صالح"
+    },
+    "requestTabs": {
+      "params": "معاملات",
+      "headers": "رؤوس",
+      "body": "الجسم",
+      "auth": "مصادقة",
+      "bodyType": "نوع الجسم",
+      "selectType": "اختر النوع",
+      "bodyNone": "لا شيء",
+      "bodyJson": "JSON",
+      "bodyText": "نص",
+      "noBodyHint": "لا محتوى جسم لهذا الطلب",
+      "switchToJson": "التبديل إلى جسم JSON",
+      "authType": "نوع المصادقة",
+      "noAuth": "بدون مصادقة",
+      "bearerToken": "رمز Bearer",
+      "basicAuth": "مصادقة أساسية",
+      "apiKey": "مفتاح API",
+      "labelToken": "الرمز",
+      "placeholderBearerToken": "رمز Bearer",
+      "labelUsername": "اسم المستخدم",
+      "placeholderUsername": "اسم المستخدم",
+      "labelPassword": "كلمة المرور",
+      "placeholderPassword": "كلمة المرور",
+      "labelKey": "المفتاح",
+      "placeholderApiKeyName": "اسم المفتاح (مثل X-Api-Key)",
+      "labelValue": "القيمة",
+      "placeholderValue": "القيمة",
+      "addTo": "إضافة إلى",
+      "header": "رأس",
+      "queryParams": "معاملات الاستعلام",
+      "noAuthHint": "هذا الطلب لا يستخدم مصادقة."
+    },
+    "responsePanel": {
+      "emptyTitle": "جاهز للاستكشاف؟",
+      "emptyHint": "أدخل رابطاً واضغط إرسال لعرض الاستجابة هنا.",
+      "responsePreviewAlt": "معاينة الاستجابة",
+      "previewUnavailable": "المعاينة غير متاحة لهذا النوع من المحتوى",
+      "status": "الحالة",
+      "time": "الوقت",
+      "size": "الحجم",
+      "copyBody": "نسخ الجسم",
+      "downloadResponse": "تنزيل الاستجابة",
+      "bodyTab": "الجسم",
+      "previewTab": "معاينة",
+      "headersTab": "الرؤوس",
+      "binaryRawView": "لا يمكن عرض البيانات الثنائية في العرض الخام.",
+      "errorStatusLabel": "خطأ",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
+    },
+    "tabBar": {
+      "addTabAria": "تبويب جديد"
+    },
+    "collectionsSidebar": {
+      "title": "موارد API",
+      "newCollection": "مجموعة جديدة",
+      "tabCollections": "المجموعات",
+      "tabHistory": "السجل",
+      "noCollectionsTitle": "لا مجموعات",
+      "noCollectionsHint": "أنشئ مجموعة لتنظيم طلبات API.",
+      "createCollection": "إنشاء مجموعة",
+      "newFolder": "مجلد جديد",
+      "rename": "إعادة تسمية",
+      "delete": "حذف",
+      "emptyCollection": "مجموعة فارغة",
+      "recentRequests": "طلبات حديثة",
+      "clearAll": "مسح الكل",
+      "noHistoryTitle": "لا سجل بعد",
+      "noHistoryHint": "أرسل طلباً ليظهر هنا.",
+      "dialogNewFolderTitle": "مجلد جديد",
+      "dialogNewFolderDescription": "أنشئ مجلداً جديداً لتنظيم الطلبات.",
+      "labelFolderName": "اسم المجلد",
+      "placeholderFolderName": "مجلدي",
+      "createFolder": "إنشاء مجلد",
+      "dialogNewCollectionTitle": "مجموعة جديدة",
+      "dialogNewCollectionDescription": "أنشئ مجموعة جديدة في المستوى الأعلى.",
+      "labelCollectionName": "اسم المجموعة",
+      "placeholderCollectionName": "مجموعتي",
+      "dialogRenameCollectionTitle": "إعادة تسمية المجموعة",
+      "dialogRenameCollectionDescription": "أدخل اسماً جديداً للمجموعة.",
+      "placeholderRenameCollection": "اسم المجموعة",
+      "renameAction": "إعادة تسمية",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
+    },
+    "collectionItem": {
+      "newFolder": "مجلد جديد",
+      "delete": "حذف",
+      "emptyFolder": "مجلد فارغ"
+    },
+    "environmentManager": {
+      "noEnvironment": "لا بيئة",
+      "manageDialogTitle": "إدارة البيئات",
+      "placeholderNewEnv": "بيئة جديدة",
+      "variablesHeading": "متغيرات {name}",
+      "addVariable": "إضافة متغير",
+      "columnVariable": "متغير",
+      "columnValue": "قيمة",
+      "placeholderKey": "مفتاح",
+      "placeholderValue": "قيمة",
+      "selectEnvToEdit": "اختر بيئة للتعديل"
+    },
+    "codeGenerator": {
+      "triggerTitle": "توليد الكود",
+      "dialogTitle": "توليد الكود",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "نسخ",
+      "errorGenerating": "خطأ في توليد الكود"
+    },
+    "keyValueEditor": {
+      "columnKey": "مفتاح",
+      "columnValue": "قيمة",
+      "placeholderKey": "مفتاح",
+      "placeholderValue": "قيمة",
+      "addItem": "إضافة عنصر"
+    },
+    "importCurl": {
+      "trigger": "استيراد cURL",
+      "dialogTitle": "استيراد cURL",
+      "dialogDescription": "الصق أمر cURL أدناه لاستيراده كطلب جديد.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "استيراد"
+    },
+    "saveRequest": {
+      "trigger": "حفظ",
+      "dialogTitle": "حفظ الطلب",
+      "dialogDescription": "احفظ هذا الطلب في مجلد مجموعة.",
+      "labelName": "اسم الطلب",
+      "placeholderName": "طلبي",
+      "labelFolder": "المجلد",
+      "placeholderFolder": "اختر مجلداً",
+      "save": "حفظ"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "وضع التحرير",
+      "viewOnlyMode": "وضع العرض فقط",
+      "insertComponent": "إدراج مكوّن",
+      "addUnorderedList": "إضافة قائمة نقطية",
+      "addOrderedList": "إضافة قائمة مرقمة",
+      "addTable": "إضافة جدول"
+    },
+    "addBlock": "إضافة كتلة",
+    "media": {
+      "popoverTitle": "إضافة وسائط",
+      "singleImage": "صورة واحدة",
+      "singleImageDesc": "رفع صورة واحدة",
+      "multipleImages": "صور متعددة",
+      "multipleImagesDesc": "رفع شبكة صور",
+      "video": "فيديو",
+      "videoDesc": "رفع ملف فيديو",
+      "uploadingAlt": "جاري الرفع...",
+      "uploadFailedAlt": "فشل الرفع"
+    },
+    "export": {
+      "fabAria": "تصدير الكود",
+      "title": "تصدير الكود",
+      "description": "انسخ مخرجات HTML أو JSON من محتوى المحرر",
+      "preview": "معاينة",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "خيارات المعاينة",
+      "enhanceSpaces": "تحسين المسافات",
+      "livePreview": "معاينة مباشرة لـ HTML المُصَيَّر",
+      "htmlTailwind": "HTML مع فئات Tailwind",
+      "editorJson": "حالة المحرر كـ JSON",
+      "copyHtml": "نسخ HTML",
+      "copyJson": "نسخ JSON",
+      "copied": "تم النسخ!"
+    },
+    "template": {
+      "fabTitle": "تبديل القالب",
+      "title": "اختر قالباً",
+      "description": "اختر قالباً للبدء بسرعة بتخطيطات ومحتوى جاهز",
+      "catAll": "كل القوالب",
+      "catProductivity": "إنتاجية",
+      "catCreative": "إبداعي",
+      "catBusiness": "أعمال",
+      "catPersonal": "شخصي",
+      "noTemplates": "لا قوالب في هذه الفئة",
+      "confirmTitle": "استبدال المحتوى الحالي؟",
+      "confirmDescription": "يوجد محتوى في المحرر. تطبيق القالب سيستبدل كل المحتوى الحالي.",
+      "cannotUndo": "لا يمكن التراجع عن هذا الإجراء.",
+      "cancel": "إلغاء",
+      "replaceContent": "استبدال المحتوى"
+    },
+    "command": {
+      "searchPlaceholder": "بحث في الأوامر...",
+      "noResults": "لا أوامر.",
+      "turnInto": "تحويل إلى",
+      "h1": {
+        "label": "عنوان 1",
+        "description": "عنوان قسم كبير",
+        "keywords": "h1,عنوان,عنوان كبير"
+      },
+      "h2": {
+        "label": "عنوان 2",
+        "description": "عنوان قسم متوسط",
+        "keywords": "h2,عنوان,عنوان فرعي"
+      },
+      "h3": {
+        "label": "عنوان 3",
+        "description": "عنوان قسم صغير",
+        "keywords": "h3,عنوان"
+      },
+      "h4": {
+        "label": "عنوان 4",
+        "description": "عنوان صغير جداً",
+        "keywords": "h4,عنوان"
+      },
+      "h5": {
+        "label": "عنوان 5",
+        "description": "عنوان أصغر",
+        "keywords": "h5,عنوان"
+      },
+      "h6": {
+        "label": "عنوان 6",
+        "description": "أصغر عنوان",
+        "keywords": "h6,عنوان"
+      },
+      "p": {
+        "label": "فقرة",
+        "description": "فقرة نص عادي",
+        "keywords": "p,فقرة,نص"
+      },
+      "code": {
+        "label": "كتلة كود",
+        "description": "مقتطف كود",
+        "keywords": "code,كود,مقتطف"
+      },
+      "blockquote": {
+        "label": "اقتباس",
+        "description": "اقتباس كتلة",
+        "keywords": "quote,اقتباس"
+      },
+      "li": {
+        "label": "قائمة نقطية",
+        "description": "عنصر قائمة بنقطة",
+        "keywords": "list,نقطة,قائمة"
+      },
+      "ol": {
+        "label": "قائمة مرقمة",
+        "description": "عنصر قائمة مرقم",
+        "keywords": "list,مرقم,قائمة"
+      },
+      "img": {
+        "label": "صورة",
+        "description": "رفع أو تضمين صورة",
+        "keywords": "image,صورة,رفع"
+      },
+      "video": {
+        "label": "فيديو",
+        "description": "رفع أو تضمين فيديو",
+        "keywords": "video,فيديو,رفع"
+      },
+      "table": {
+        "label": "جدول",
+        "description": "إنشاء جدول",
+        "keywords": "table,جدول,صفوف,أعمدة"
+      }
+    },
+    "toasts": {
+      "tableImported": "تم استيراد الجدول",
+      "tableImportedDesc": "تم استيراد جدول Markdown بنجاح",
+      "mediaPasted": "تم لصق الوسائط",
+      "pasteMixed": "تم لصق {imageCount} صورة و{videoCount} فيديو بنجاح.",
+      "pasteImages": "تم لصق {count} صورة بنجاح.",
+      "pasteVideos": "تم لصق {count} فيديو بنجاح.",
+      "pasteFailed": "فشل اللصق",
+      "unexpectedError": "حدث خطأ غير متوقع",
+      "uploadFailed": "فشل الرفع"
+    },
+    "blockBackground": {
+      "menuItem": "تغيير لون الخلفية",
+      "dialogTitle": "لون خلفية الكتلة",
+      "dialogDescription": "اختر لون خلفية لهذه الكتلة",
+      "tabPreset": "ألوان جاهزة",
+      "tabCustom": "لون مخصص",
+      "sectionHeading": "ألوان الخلفية",
+      "apply": "تطبيق",
+      "colors": {
+        "none": "بدون",
+        "red": "أحمر",
+        "orange": "برتقالي",
+        "yellow": "أصفر",
+        "green": "أخضر",
+        "blue": "أزرق",
+        "indigo": "نيلي",
+        "purple": "بنفسجي",
+        "pink": "وردي",
+        "teal": "تركوازي",
+        "cyan": "سماوي",
+        "gray": "رمادي"
+      }
+    },
+    "tableDialog": {
+      "title": "إنشاء جدول",
+      "description": "أنشئ جدولاً جديداً أو استورد من Markdown",
+      "markdownCheckbox": "لدي جدول Markdown",
+      "pasteMarkdownLabel": "الصق جدول Markdown",
+      "markdownPlaceholder": "| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |",
+      "markdownHint": "الصق جدول Markdown أعلاه. يجب أن يتضمن صف رأس وفاصل.",
+      "rows": "صفوف",
+      "columns": "أعمدة",
+      "maxDimensions": "الحد الأقصى: 20 صفاً × 10 أعمدة",
+      "cancel": "إلغاء",
+      "importTable": "استيراد الجدول",
+      "createTable": "إنشاء الجدول"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "يجب أن يحتوي الجدول على صف رأس وصف فاصل على الأقل",
+        "pipeFormat": "يجب أن تبدأ وتنتهي صفوف الجدول بـ |",
+        "headerMinCol": "صف الرأس يجب أن يحتوي عموداً واحداً على الأقل",
+        "separatorRow": "الصف الثاني يجب أن يكون فاصلاً (مثل |---|---|)",
+        "rowColumnMismatch": "الصف {row} يحتوي {got} أعمدة، المتوقع {expected}",
+        "parseFailed": "فشل تحليل جدول Markdown"
+      }
+    },
+    "link": {
+      "editLink": "تعديل الرابط",
+      "addLink": "إضافة رابط",
+      "selectedText": "النص المحدد: \"{text}\"",
+      "linkUrl": "رابط URL",
+      "urlPlaceholder": "https://example.com",
+      "update": "تحديث",
+      "addLinkButton": "إضافة رابط",
+      "toastApplied": "تم تطبيق الرابط",
+      "toastLinkedTo": "مربوط بـ: {url}",
+      "toastRemoved": "تمت إزالة الرابط",
+      "toastRemovedDesc": "تمت إزالة الرابط من التحديد"
+    },
+    "customClass": {
+      "devMode": "وضع المطور",
+      "toggleDevModeAria": "تبديل وضع المطور",
+      "searchPlaceholderDev": "بحث في الفئات... (مثل text، bg، flex)",
+      "searchPlaceholderUser": "بحث في الأنماط... (مثل أحمر، عريض، ظل)",
+      "appliesTitle": "يطبّق: {className}",
+      "noMatches": "لا فئات تطابق \"{query}\"",
+      "toastClassReplaced": "تم استبدال الفئة",
+      "toastClassReplacedDesc": "استُبدل \"{replaced}\" بـ \"{className}\"",
+      "toastCustomClassApplied": "تم تطبيق فئة مخصصة",
+      "toastAppliedClass": "الفئة المطبقة: {className}"
+    },
+    "insertComponents": {
+      "title": "إدراج مكوّن",
+      "description": "اختر مكوّناً لإدراجه في المستند",
+      "noComponents": "لا مكوّنات متاحة",
+      "categories": {
+        "media": "وسائط",
+        "layout": "تخطيط",
+        "interactive": "تفاعلي",
+        "decoration": "زخرفة"
+      },
+      "freeImage": {
+        "name": "صورة حرة الحركة",
+        "description": "أضف صورة يمكن وضعها في أي مكان وتغيير حجمها بحرية"
+      }
+    }
+  },
+  "JsonFormatter": {
+    "title": "منسّق JSON",
+    "description": "نسّق JSON وتحقق منه وحرّره في عرض النص والشجرة.",
+    "documentNameText": "مستند نصي {n}",
+    "documentNameTree": "مستند شجري {n}",
+    "newDocument": "جديد",
+    "copy": "نسخ",
+    "save": "حفظ",
+    "load": "تحميل",
+    "saving": "جارٍ الحفظ...",
+    "leftDocNameLabel": "اسم المستند الأيسر",
+    "rightDocNameLabel": "اسم المستند الأيمن",
+    "toastCopiedText": "تم نسخ لوحة النص",
+    "toastCopiedTree": "تم نسخ لوحة الشجرة",
+    "toastCopyFailed": "فشل نسخ JSON",
+    "toastLoginRequired": "يرجى تسجيل الدخول لحفظ المستندات",
+    "toastSaved": "تم حفظ المستند",
+    "toastSaveFailed": "فشل حفظ المستند",
+    "format": "تنسيق",
+    "compact": "ضغط",
+    "sortKeys": "فرز المفاتيح",
+    "repair": "إصلاح",
+    "query": "استعلام",
+    "toastInvalidJson": "JSON غير صالح",
+    "toastAlreadyValid": "JSON صالح بالفعل",
+    "toastRepaired": "تم إصلاح JSON",
+    "toastRepairFailed": "تعذر إصلاح JSON"
+  },
+  "JwtDecoder": {
+    "title": "محلّل JWT",
+    "subtitle": "اعرض الترويسة والحمولة. يعتمد الانتهاء على مطالبة <code>exp</code>. لا يتم إرسال أي شيء إلى الخادم؛ ولا يتم التحقق من التوقيع.",
+    "tokenLabel": "الرمز",
+    "clear": "مسح",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "نسخ",
+    "expiryLabel": "الانتهاء (exp)",
+    "signaturePresent": "التوقيع موجود (غير مُتحقَّق منه)",
+    "noExp": "لا توجد مطالبة <code>exp</code> في الحمولة.",
+    "status": {
+      "expired": "منتهي الصلاحية",
+      "valid": "صالح"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "محلي",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "وقت الإصدار (iat)",
+      "notBefore": "ليس قبل (nbf)"
+    },
+    "panels": {
+      "header": "الترويسة",
+      "payload": "الحمولة"
+    },
+    "errors": {
+      "empty": "الصق JWT لفك الترميز.",
+      "segments": "يحتاج JWT إلى ترويسة وحمولة على الأقل (جزآن).",
+      "base64": "تعذّر فك ترميز الترويسة أو الحمولة بصيغة base64url."
+    },
+    "relative": {
+      "future": "بعد {n} {unit}",
+      "past": "قبل {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {ثانية} other {ثوانٍ}}",
+      "minute": "{count, plural, one {دقيقة} other {دقائق}}",
+      "hour": "{count, plural, one {ساعة} other {ساعات}}",
+      "day": "{count, plural, one {يوم} other {أيام}}"
+    },
+    "tabs": {
+      "decode": "فك الترميز",
+      "sign": "مولّد / موقّع"
+    },
+    "signer": {
+      "algLabel": "الخوارزمية (alg)",
+      "tabs": {
+        "payload": "الحمولة",
+        "header": "الترويسة"
+      },
+      "payloadLabel": "JSON الحمولة",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON الترويسة",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "سر (HS*)",
+      "secretPlaceholder": "الصق سر HMAC…",
+      "privateKeyLabel": "مفتاح خاص PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "خوارزمية \"none\" تُنشئ رمزًا غير موقّع. هذا غير آمن ويجب استخدامه للاختبار فقط.",
+      "sign": "وقّع",
+      "verify": "تحقق من التوقيع",
+      "outputLabel": "الرمز (JWS مضغوط)",
+      "outputPlaceholder": "انقر \"وقّع\"…",
+      "copyToken": "نسخ الرمز",
+      "copied": "تم النسخ",
+      "verifyKeyLabel": "مفتاح التحقق (اختياري)",
+      "verifyKeyPlaceholder": "لـ RS*: الصق المفتاح العام (SPKI) بصيغة PEM. لـ HS*: اتركه فارغًا لإعادة استخدام السر.",
+      "verifyKeyHint": "إذا كان فارغًا، سيستخدم التحقق مفتاح التوقيع (مفيد لـ HS*).",
+      "verifyStatus": {
+        "valid": "التوقيع صالح",
+        "invalid": "التوقيع غير صالح"
+      },
+      "securityNote": "كل شيء يعمل محليًا في المتصفح؛ لا يتم رفع المفاتيح أو الرموز."
+    },
+    "signErrors": {
+      "invalidJson": "يجب أن تكون الترويسة والحمولة JSON صالحًا.",
+      "unsupportedAlg": "خوارزمية غير مدعومة.",
+      "missingKey": "مفتاح التوقيع مطلوب لهذه الخوارزمية.",
+      "cryptoFailed": "فشل التوقيع. تحقق من تنسيق المفتاح وحاول مرة أخرى."
+    },
+    "verifyErrors": {
+      "empty": "أدخل JWT للتحقق.",
+      "segments": "يجب أن يحتوي JWT على 3 أجزاء بالضبط للتحقق من التوقيع.",
+      "unsupportedAlg": "خوارزمية alg غير مدعومة أو مفقودة في الترويسة.",
+      "missingKey": "مفتاح التحقق مطلوب لهذه الخوارزمية.",
+      "base64": "تعذر فك ترميز ترويسة JWT أو التوقيع.",
+      "cryptoFailed": "فشل التحقق. تحقق من تنسيق المفتاح وحاول مرة أخرى."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "فك ترميز الشهادة / PEM",
+    "subtitle": "الصق شهادة X.509 (<code>-----BEGIN CERTIFICATE-----</code>) أو طلب CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). يتم تحليل الموضوع والمصدر والتواريخ وأسماء SAN محليًا؛ لا يتم رفع أي شيء.",
+    "pemLabel": "إدخال PEM",
+    "clear": "مسح",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "جارٍ التحليل…",
+    "copyHex": "نسخ البصمة (سداسي بدون نقطتين)",
+    "errors": {
+      "empty": "الصق شهادة PEM أو CSR لفك الترميز.",
+      "noBlock": "لم يُعثر على كتلة PEM لشهادة أو CSR.",
+      "parseFailed": "تعذّر تحليل بيانات PEM هذه."
+    },
+    "block": {
+      "title": "كتلة PEM {index}",
+      "certificate": "شهادة X.509",
+      "csr": "طلب توقيع شهادة"
+    },
+    "fields": {
+      "subject": "الموضوع",
+      "issuer": "المُصْدِر",
+      "notBefore": "غير صالح قبل",
+      "notAfter": "غير صالح بعد",
+      "serial": "الرقم التسلسلي (سداسي)",
+      "sha256": "بصمة SHA-256",
+      "sans": "أسماء بديلة للموضوع",
+      "sansNone": "لا يوجد امتداد SAN.",
+      "signatureAlgorithm": "خوارزمية التوقيع",
+      "csrIssuerNote": "لا يتضمّن طلب CSR مُصدِرًا (يظهر ذلك في الشهادة الصادرة).",
+      "csrValidityNote": "لا يتضمّن طلب CSR تواريخ صلاحية (تظهر في الشهادة الصادرة)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "اسم الدليل",
+      "email": "بريد",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "معرّف مسجّل",
+      "other": "{type}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "منسّق SQL",
+    "subtitle": "نسّق SQL لـ MySQL أو PostgreSQL أو SQLite. يعمل داخل المتصفح؛ لا يتم رفع أي شيء.",
+    "dialectLabel": "اللهجة",
+    "keywordsLabel": "الكلمات المفتاحية",
+    "indentLabel": "الإزاحة",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "أحرف كبيرة",
+      "lower": "أحرف صغيرة",
+      "preserve": "الإبقاء"
+    },
+    "spaces": "{n} مسافات",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "counter": "{current} / {max} حرفًا",
+    "inputPanel": "المدخل",
+    "formattedPanel": "المخرجات",
+    "copy": "نسخ",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "انقر على \"تنسيق\"…",
+    "errors": {
+      "tooLong": "المدخلات محدودة إلى {max} حرفًا.",
+      "couldNotFormat": "تعذر تنسيق SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "منسّق YAML",
+    "subtitle": "نسّق YAML وتحقق منه وحوّله في متصفحك. لا يتم رفع أي شيء.",
+    "outputLabel": "الإخراج",
+    "outputModes": {
+      "yaml": "YAML (منسّق)",
+      "json": "JSON"
+    },
+    "indentLabel": "الإزاحة",
+    "spaces": "{n} مسافات",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "copy": "نسخ",
+    "counter": "{current} / {max} حرف",
+    "inputPanel": "الإدخال",
+    "outputPanel": "الإخراج",
+    "errors": {
+      "tooLong": "الإدخال محدود بـ {max} حرف.",
+      "couldNotFormat": "تعذّر تحليل هذا YAML."
+    }
+  },
+  "GraphqlFormatter": {
+    "title": "منسّق GraphQL",
+    "subtitle": "نسّق استعلامات GraphQL والطفرات والاشتراكات داخل المتصفح. لا يتم رفع أي شيء.",
+    "tabs": {
+      "format": "تنسيق",
+      "build": "مُنشئ الاستعلام"
+    },
+    "outputModeLabel": "المخرجات",
+    "outputModes": {
+      "pretty": "طباعة مقروءة",
+      "minify": "تصغير"
+    },
+    "format": "تنسيق",
+    "clear": "مسح",
+    "counter": "{current} / {max} حرفًا",
+    "inputPanel": "الإدخال",
+    "outputPanel": "المخرجات",
+    "copy": "نسخ",
+    "builderHint": "ألِف هيكلًا ثم طبِّقه على المحرر. تعريفات المتغيرات بصياغة GraphQL (مثل $id: ID!) — الأقواس اختيارية.",
+    "builder": {
+      "operation": "العملية",
+      "operationName": "اسم العملية",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "تعريفات المتغيرات",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "مجموعة الاختيار",
+      "apply": "تطبيق على الإدخال",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "الإدخال محدود بـ {max} حرفًا.",
+      "couldNotFormat": "تعذّر تحليل أو طباعة هذا GraphQL.",
+      "emptySelection": "أضِف مجموعة اختيار قبل التطبيق."
+    }
+  },
+  "RegexTester": {
+    "title": "مختبر Regex",
+    "subtitle": "Regex بنمط JavaScript مباشرةً على نصك. يتم تمييز التطابقات؛ ولا يغادر شيء متصفحك.",
+    "patternLabel": "النمط",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g عام",
+      "i": "i تجاهل حالة الأحرف",
+      "m": "m متعدد الأسطر",
+      "s": "s dotAll",
+      "u": "u يونيكود",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
+    },
+    "emptyPattern": "(فارغ)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {تطابق} other {تطابقات}}",
+    "testTextLabel": "نص الاختبار",
+    "counter": "{current} / {max}",
+    "clear": "مسح",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "النص محدود إلى {max} حرفًا.",
+      "invalid": "تعبير نمطي غير صالح.",
+      "runaway": "تم الإيقاف بعد {max} تطابقًا (قد يكون النمط جامحًا)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
+    }
+  },
+  "TimestampConverter": {
+    "title": "محول الطابع الزمني",
+    "subtitle": "ثواني Unix (≤10 أرقام) أو ميلي ثانية (أعداد أطول)، <code>ISO-8601</code> أو سلاسل يمكن للمتصفح تحليلها. كل شيء يعمل محليًا.",
+    "inputLabel": "الإدخال",
+    "placeholder": "1744200000 أو 2025-04-09T12:00:00Z",
+    "now": "الآن",
+    "copy": "نسخ",
+    "hint": "الصق قيمة أو انقر <strong>الآن</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "نسبي",
+      "human": "مقروء"
+    },
+    "fields": {
+      "seconds": "ثوانٍ",
+      "milliseconds": "ميلي ثانية",
+      "utc": "UTC",
+      "local": "محلي",
+      "distance": "المسافة"
+    },
+    "errors": {
+      "empty": "أدخل طابعًا زمنيًا Unix أو سلسلة ISO أو نص تاريخ.",
+      "invalidNumber": "طابع زمني رقمي غير صالح.",
+      "outOfRange": "خارج النطاق لـ JavaScript Date.",
+      "couldNotParse": "تعذر التحليل كـ Unix أو ISO-8601 أو تاريخ قابل للتحليل من المتصفح."
+    }
+  },
+  "HttpStatusCodes": {
+    "title": "رموز حالة HTTP",
+    "subtitle": "ابحث وتصفّح رموز حالة استجابات HTTP (<code>1xx</code>–<code>5xx</code>) مع أوصاف مختصرة ومراجع RFC. يعمل محليًا في المتصفح.",
+    "header": {
+      "title": "رموز حالة HTTP",
+      "description": "مرجع قابل للبحث لرموز استجابة HTTP مع أوصاف ومراجع RFC."
+    },
+    "searchPlaceholder": "بحث: 404، not found، rate limit، gateway…",
+    "classFilterPlaceholder": "تصفية الفئة…",
+    "classFilterAll": "كل الفئات",
+    "resultsCount": "{count} من {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "العبارة",
+      "description": "الوصف",
+      "copy": "نسخ"
+    },
+    "noResults": "لا نتائج لعبارة «{query}».",
+    "specPrefix": "المعيار:",
+    "copied": "تم نسخ الرمز"
+  },
+  "CronBuilder": {
+    "title": "منشئ تعبيرات Cron",
+    "subtitle": "Cron قياسي بخمسة حقول: <mono>minute hour day month weekday</mono>. يستخدم المحلّل seconds=<code>0</code> داخليًا. يعمل أيضًا التنسيق الاختياري ذو 6 حقول (<mono>sec min hour dom mon dow</mono>) في محرّر التعبير.",
+    "tabs": {
+      "builder": "منشئ مرئي",
+      "expression": "تعبير"
+    },
+    "presetsLabel": "الإعدادات المسبقة",
+    "fieldsLabel": "الحقول",
+    "rawExpressionLabel": "التعبير الخام",
+    "expressionHint": "اخرج من الحقل (فقدان التركيز) للتحليل ومزامنة المنشئ. {count} {count, plural, one {رمز} other {رموز}}.",
+    "currentExpressionLabel": "التعبير الحالي",
+    "copy": "نسخ",
+    "quickPick": "اختيار سريع",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "وصف نصي",
+    "nextRunsLabel": "التشغيلات التالية (الوقت المحلي)",
+    "fields": {
+      "minute": "الدقيقة",
+      "hour": "الساعة",
+      "dayOfMonth": "يوم الشهر",
+      "month": "الشهر",
+      "dayOfWeek": "يوم الأسبوع"
+    },
+    "presets": {
+      "everyMinute": "كل دقيقة",
+      "every5Minutes": "كل 5 دقائق",
+      "every15Minutes": "كل 15 دقيقة",
+      "everyHour": "كل ساعة (عند :00)",
+      "every6Hours": "كل 6 ساعات",
+      "dailyMidnight": "يوميًا عند منتصف الليل",
+      "daily0900": "يوميًا عند 09:00",
+      "weekdays0900": "أيام العمل عند 09:00",
+      "weeklySunday": "أسبوعيًا (الأحد 00:00)",
+      "monthlyFirst": "شهريًا (اليوم الأول 00:00)",
+      "yearlyJan1": "سنويًا (1 يناير 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "كل دقيقة"
+      },
+      "hour": {
+        "every": "كل ساعة"
+      },
+      "dom": {
+        "any": "أي يوم",
+        "last": "آخر يوم"
+      },
+      "month": {
+        "every": "كل شهر"
+      },
+      "dow": {
+        "any": "أي يوم",
+        "weekdays": "أيام العمل",
+        "weekend": "عطلة نهاية الأسبوع"
+      }
+    },
+    "months": {
+      "jan": "ينا",
+      "feb": "فبر",
+      "mar": "مار",
+      "apr": "أبر",
+      "may": "ماي",
+      "jun": "يون",
+      "jul": "يول",
+      "aug": "أغس",
+      "sep": "سبت",
+      "oct": "أكت",
+      "nov": "نوف",
+      "dec": "ديس"
+    },
+    "weekdays": {
+      "sun": "أحد",
+      "mon": "اثن",
+      "tue": "ثلث",
+      "wed": "أرب",
+      "thu": "خمس",
+      "fri": "جمع",
+      "sat": "سبت"
+    },
+    "errors": {
+      "fieldCount": "المتوقع 5 حقول (minute hour day month weekday) أو 6 مع الثواني.",
+      "invalid": "تعبير cron غير صالح."
+    }
+  },
+  "Base64": {
+    "title": "ترميز / فك ترميز Base64",
+    "subtitle": "حوّل النص إلى Base64 أو فك ترميز سلاسل Base64",
+    "upload": "رفع",
+    "clear": "مسح",
+    "modes": {
+      "encode": "ترميز",
+      "decode": "فك الترميز"
+    },
+    "swapTitle": "تبديل الإدخال والإخراج",
+    "panels": {
+      "plainText": "نص عادي",
+      "base64Input": "إدخال Base64",
+      "base64Output": "إخراج Base64",
+      "decodedText": "نص مفكوك"
+    },
+    "placeholders": {
+      "encode": "أدخل نصًا لترميزه إلى Base64…",
+      "decode": "الصق سلسلة Base64 لفك ترميزها…"
+    },
+    "dropHere": "أفلت الملف هنا",
+    "charCount": "{count} حرف",
+    "download": {
+      "title": "تنزيل الإخراج",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "نسخ إلى الحافظة",
+    "outputPlaceholder": "سيظهر الإخراج هنا…",
+    "errors": {
+      "invalidBase64": "سلسلة Base64 غير صالحة. تحقق من الإدخال.",
+      "encodeFailed": "فشل ترميز الإدخال."
+    }
+  },
+  "UrlEncode": {
+    "title": "ترميز / فك ترميز URL",
+    "subtitle": "ترميز/فك ترميز بالنسبة المئوية باستخدام encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "رفع",
+    "clear": "مسح",
+    "modes": {
+      "encode": "ترميز",
+      "decode": "فك الترميز"
+    },
+    "swapTitle": "تبديل الإدخال والإخراج",
+    "panels": {
+      "plainText": "نص عادي",
+      "encodedInput": "إدخال مُرمَّز",
+      "encodedOutput": "إخراج مُرمَّز",
+      "decodedText": "نص مفكوك الترميز"
+    },
+    "placeholders": {
+      "encode": "أدخل نصًا لترميزه بالنسبة المئوية…",
+      "decode": "الصق نصًا مُرمَّزًا بالنسبة المئوية لفك ترميزه…"
+    },
+    "dropHere": "أفلت الملف هنا",
+    "charCount": "{count} حرفًا",
+    "download": {
+      "title": "تنزيل الإخراج",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "نسخ إلى الحافظة",
+    "outputPlaceholder": "سيظهر الإخراج هنا…",
+    "errors": {
+      "invalidEncoding": "ترميز النسبة المئوية غير صالح. تحقّق من أزواج % غير المكتملة أو تسلسلات الهروب غير الصحيحة.",
+      "encodeFailed": "تعذّر الترميز (Unicode غير صالح في الإدخال)."
+    }
+  },
+  "UrlParser": {
+    "title": "محلّل URL",
+    "subtitle": "تقسيم عنوان URL إلى بروتوكول ومضيف ومسار ومعاملات استعلام وتجزئة (الجزء بعد #).",
+    "upload": "رفع",
+    "clear": "مسح",
+    "panels": {
+      "input": "إدخال URL",
+      "output": "النتيجة"
+    },
+    "placeholders": {
+      "input": "الصق عنوان URL (مثل https://example.com/path?foo=bar#section) أو مضيف/مسار (مثل example.com/path)…"
+    },
+    "dropHere": "أسقط الملف هنا",
+    "charCount": "{count} حرفًا",
+    "outputPlaceholder": "ستظهر المكوّنات المحلّلة هنا…",
+    "fields": {
+      "protocol": "البروتوكول",
+      "host": "المضيف",
+      "path": "المسار",
+      "hash": "التجزئة",
+      "queryParams": "معاملات الاستعلام"
+    },
+    "paramCount": "{count} معاملات",
+    "noParams": "لا توجد معاملات استعلام.",
+    "paramKey": "المفتاح",
+    "paramValue": "القيمة",
+    "copyTitle": "نسخ إلى الحافظة",
+    "copyParamTitle": "نسخ كـ key=value",
+    "download": {
+      "title": "تنزيل JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "عنوان URL غير صالح. تأكد من وجود اسم مضيف (example.com) ومن صحة الأحرف."
+    }
+  },
+  "UuidGenerator": {
+    "title": "مولّد UUID / ULID",
+    "subtitle": "أنشئ UUID (RFC 9562) أو ULID في المتصفح. تصدير دفعي حتى {max} لكل تشغيل.",
+    "format": "التنسيق",
+    "kindHints": {
+      "ulid": "معرّف قابل للفرز وآمن للروابط بطول 26 حرفًا",
+      "uuid4": "عشوائي (RFC 9562)",
+      "uuid7": "مرتّب زمنيًا، ملّي ثانية يونكس + عشوائي",
+      "uuid1": "مبني على MAC/الوقت (RFC 9562)",
+      "uuid6": "وقت غريغوري معاد ترتيبه",
+      "uuid3": "تجزئة MD5 للاسم + مساحة الاسم",
+      "uuid5": "تجزئة SHA‑1 للاسم + مساحة الاسم",
+      "nil": "معرف UUID الصفري (كل البتات صفر، RFC 9562)"
+    },
+    "countLabel": "العدد (1–{max})",
+    "nameLabel": "الاسم (سلسلة الإدخال)",
+    "namePlaceholder": "مثال: my.app/resource",
+    "bulkHint": "في التشغيل الدفعي تُضاف <code>#0</code> و<code>#1</code>… ليكون كل معرّف فريدًا (v3/v5 حتمية).",
+    "namespace": "مساحة الاسم",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID مخصص"
+    },
+    "customNamespaceLabel": "UUID لمساحة الاسم",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "إنشاء",
+    "output": "المخرجات",
+    "lines": "{count} سطر",
+    "download": {
+      "title": "تنزيل .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "نسخ الكل",
+    "uppercaseToggle": "إخراج بأحرف كبيرة",
+    "hyphensToggle": "إظهار الواصلات",
+    "copyJsonTitle": "نسخ كمصفوفة JSON",
+    "outputPlaceholder": "انقر على \"إنشاء\"…",
+    "errors": {
+      "invalidCustomNamespace": "يجب أن تكون مساحة الاسم المخصصة UUID صالحًا.",
+      "missingName": "الاسم مطلوب لـ UUID v3 و v5.",
+      "unknown": "تعذّر إنشاء المعرّفات."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "مولّد سر / مفتاح API",
+    "subtitle": "أنشئ سلاسل عشوائية تشفيرية بطول وأبجدية قابلة للضبط. تصدير بالجملة حتى {max} في كل مرة. يكمّل <uuid>مولّد UUID / ULID</uuid>.",
+    "alphabetLabel": "الأبجدية",
+    "alphabetHint": "تُزال الأحرف المكررة. يُختار كل رمز بشكل موحّد باستخدام crypto.getRandomValues مع اختيار بالرفض (دون انحياز المعيار).",
+    "alphabetCount": "{count} رمزًا مميزًا",
+    "presetsLabel": "إعدادات مسبقة",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "أبجدية رقمية",
+      "hex": "سداسي عشري (صغير)",
+      "asciiPrintable": "ASCII قابل للطباعة"
+    },
+    "lengthLabel": "طول كل سر (1–{maxLen})",
+    "countLabel": "العدد (1–{maxBulk})",
+    "generate": "إنشاء",
+    "output": "المخرجات",
+    "lines": "{count} أسطر",
+    "download": {
+      "title": "تنزيل .txt",
+      "filename": "أسرار.txt"
+    },
+    "copyTitle": "نسخ الكل",
+    "outputPlaceholder": "انقر \"إنشاء\"…",
+    "entropy": "{bits} بت من الإنتروبيا",
+    "strength": {
+      "weak": "ضعيف",
+      "fair": "متوسط",
+      "strong": "قوي"
+    },
+    "excludeAmbiguous": "استبعاد الأحرف الغامضة",
+    "excludeAmbiguousHint": "يزيل {chars} — أحرف يسهل قراءتها بشكل خاطئ أو معادية لسطر الأوامر.",
+    "prefixLabel": "بادئة المفتاح (اختياري)",
+    "errors": {
+      "emptyAlphabet": "أضف حرفًا واحدًا على الأقل إلى الأبجدية.",
+      "alphabetTooLong": "بعد إزالة التكرارات، يمكن أن تحتوي الأبجدية على {maxAlpha} حرفًا كحد أقصى.",
+      "lengthOutOfRange": "يجب أن يكون الطول بين 1 و{maxLen}.",
+      "countOutOfRange": "يجب أن يكون العدد بين 1 و{maxBulk}.",
+      "unknown": "تعذّر إنشاء الأسرار."
+    }
+  },
+  "LoremIpsum": {
+    "title": "مولد نصوص اللورم إيبسوم",
+    "subtitle": "أنشئ نصوصاً لاتينية بديلة لتخطيطاتك ونماذجك.",
+    "paragraphs": "فقرات",
+    "sentences": "جمل",
+    "words": "كلمات",
+    "count": "العدد",
+    "generate": "توليد",
+    "copy": "نسخ",
+    "startWith": "ابدأ بـ 'Lorem ipsum...'",
+    "outputPlaceholder": "سيظهر الناتج هنا...",
+    "outputType": "نوع الإخراج",
+    "bulletList": "قائمة نقطية",
+    "htmlMarkup": "ترميز HTML",
+    "htmlMarkupHint": "التفاف الإخراج في فقرات، أو استخدام قائمة لوضع النقاط",
+    "output": "الناتج",
+    "download": "تنزيل"
+  },
+  "ColorPicker": {
+    "title": "منتقي الألوان ومحوّلها",
+    "subtitle": "حوّل HEX وRGB وHSL؛ وابنِ لوحات ألوان منسجمة. تتم المعالجة بالكامل في متصفحك.",
+    "nativePicker": "منتقي الألوان الأصلي",
+    "chooseColor": "اختر لوناً",
+    "eyeDropper": "قطارة العين",
+    "invalidHex": "لون HEX غير صالح.",
+    "cssValues": "قيم CSS",
+    "palettes": "لوحات الألوان",
+    "copied": "تم النسخ",
+    "clickToCopy": "انقر للنسخ",
+    "copyAllHex": "نسخ جميع قيم HEX",
+    "copy": "نسخ",
+    "copyColor": "نسخ {color}",
+    "paletteShades": "درجات",
+    "paletteComplementary": "تكميلي",
+    "paletteTriadic": "ثلاثي",
+    "paletteAnalogous": "تناظري",
+    "paletteSplit": "تكميلي منقسم",
+    "paletteSquare": "مربع"
+  },
+  "ContrastChecker": {
+    "title": "فاحص التباين",
+    "subtitle": "يحسب نسبة التباين WCAG 2.1 بين المقدّم والخلفية. يعرض مطابقة AA وAAA للنص العادي والكبير. يعمل بالكامل في المتصفح.",
+    "foreground": "النص / المقدّم",
+    "background": "الخلفية",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "تبديل الألوان",
+    "chooseForeground": "اختر لون المقدّم",
+    "chooseBackground": "اختر لون الخلفية",
+    "eyeDropper": "قطّارة",
+    "ratio": "نسبة التباين",
+    "copyRatio": "نسخ النسبة",
+    "copied": "تم النسخ",
+    "previewHeading": "معاينة",
+    "previewBody": "صِف خَلقَ خَودٍ كَمِثْلِ الشَّمْسِ إِذْ بَزَغَتْ يَحْظَى الضَّجِيجُ بِسَوْدَانٍ مِنْ بَعِيدٍ. أبجد هوز حطي كلمن سعفص قرشت ثخذ ضظغ.",
+    "previewCaption": "نص تجريبي بالحجم الافتراضي.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — نص عادي (4.5:1)",
+    "levelAALarge": "AA — نص كبير (3:1)",
+    "levelAAANormal": "AAA — نص عادي (7:1)",
+    "levelAAALarge": "AAA — نص كبير (4.5:1)",
+    "pass": "مطابق",
+    "fail": "غير مطابق",
+    "invalidHex": "لون HEX غير صالح.",
+    "largeTextHint": "النص الكبير: 18 نقطة فأكثر عاديًا، أو 14 نقطة فأكثر غامقًا (تعريفات WCAG)."
+  },
+  "DiffChecker": {
+    "title": "مدقق الاختلافات",
+    "subtitle": "مقارنة الأسطر جنباً إلى جنب بين نصين. كل شيء يبقى في متصفحك.",
+    "rowsCount": "{count} صفوف",
+    "truncatedWarning": "عرض أول {max} صف.",
+    "limitExceeded": "كل جانب محدود بـ {max} حرف.",
+    "clearBoth": "مسح الكل",
+    "original": "الأصلي",
+    "modified": "المعدّل",
+    "originalPlaceholder": "الصق النص الأصلي…",
+    "modifiedPlaceholder": "الصق النص المعدّل…",
+    "comparisonLabel": "مقارنة جنباً إلى جنب",
+    "emptyState": "أدخل نصاً في كلا اللوحتين للمقارنة."
+  },
+  "JsonSchemaGenerator": {
+    "title": "مولّد مخطط JSON",
+    "subtitle": "الصق JSON صالحًا لتوليد مخطط JSON أو نماذج مُنمّطة. كل شيء يعمل في المتصفح.",
+    "languageLabel": "لغة المخرجات",
+    "inputLabel": "إدخال JSON",
+    "inputPlaceholder": "الصق JSON هنا…",
+    "outputLabel": "المخرجات المُولَّدة",
+    "outputPlaceholder": "يظهر المخطط أو الأنواع المُولَّدة هنا…",
+    "parseError": "JSON غير صالح",
+    "clear": "مسح",
+    "copy": "نسخ",
+    "copied": "تم النسخ إلى الحافظة",
+    "copyFailed": "تعذّر النسخ",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "مخطط JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    },
+    "editorLoading": "جاري تحميل المحرر…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
+  },
+  "ImageToBase64": {
+    "title": "الصورة إلى Base64",
+    "subtitle": "قم بإسقاط صورة، واحصل على URI للبيانات أو سلسلة Base64 الأولية. كل شيء يبقى في متصفحك.",
+    "upload": "تحميل الصورة",
+    "clear": "واضح",
+    "modes": {
+      "dataUri": "معرف الموارد المنتظم (URI) للبيانات",
+      "rawString": "قاعدة خام64"
+    },
+    "panels": {
+      "imageInput": "إدخال الصورة",
+      "output": "إخراج Base64"
+    },
+    "dropHere": "أسقط الصورة هنا",
+    "charCount": "{عدد} حرف",
+    "placeholders": {
+      "uploadImage": "قم بسحب وإسقاط صورة أو انقر فوق تحميل للبدء."
+    },
+    "fileTooLarge": "الملف كبير جدًا. قد تؤدي المعالجة إلى تجميد متصفحك.",
+    "copyTitle": "نسخ إلى الحافظة",
+    "download": {
+      "title": "تنزيل النص",
+      "filename": "image-base64.txt"
+    }
+  },
+  "ImageCompressor": {
+    "title": "ضغط الصور",
+    "subtitle": "صغّر مخرجات JPEG أو PNG أو WebP محليًا مع التحكم بالجودة — لا يتم رفع أي شيء.",
+    "upload": "رفع صورة",
+    "clear": "مسح",
+    "dropHere": "أسقط الصورة هنا",
+    "placeholders": {
+      "uploadImage": "اسحب وأفلت صورة، أو انقر لاختيار ملف."
+    },
+    "fileTooLarge": "الملف كبير جدًا (الحد الأقصى {maxMb} ميجابايت).",
+    "unsupportedFormat": "نوع الملف غير مدعوم. استخدم JPEG أو PNG أو WebP أو GIF أو AVIF أو BMP.",
+    "compressFailed": "تعذر ضغط هذه الصورة. جرّب ملفًا أو تنسيقًا آخر.",
+    "panels": {
+      "original": "الأصل",
+      "compressed": "معاينة مضغوطة"
+    },
+    "outputFormat": "تنسيق الإخراج",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "الجودة",
+    "qualityPercent": "{value}٪",
+    "qualityPngHint": "PNG بلا فقدان في المتصفح؛ شريط الجودة يؤثر على JPEG وWebP فقط.",
+    "sizes": {
+      "original": "الأصل: {size}",
+      "compressed": "بعد الضغط: {size}",
+      "saved": "أصغر بنسبة {percent}٪"
+    },
+    "largerWarning": "حجم المخرجات أكبر من المدخلات — جرّب تنسيقًا أو جودة مختلفة.",
+    "download": "تنزيل",
+    "downloadFilename": "صورة-mضغوطة",
+    "processing": "جاري الضغط…",
+    "emptyCompressed": "تظهر المعاينة المضغوطة هنا."
+  },
+  "CssGradientBuilder": {
+    "title": "CSS منشئ التدرج",
+    "subtitle": "منشئ التدرج المرئي لـ CSS مع التحكم في الزاوية وتوقف الألوان ونسخ CSS بنقرة واحدة.",
+    "preview": "معاينة التدرج",
+    "settings": "إعدادات",
+    "type": "يكتب",
+    "linear": "خطي",
+    "radial": "شعاعي",
+    "angle": "زاوية",
+    "stops": "توقف اللون",
+    "color": "لون",
+    "position": "موضع (٪)",
+    "addStop": "أضف توقف",
+    "deleteStop": "حذف التوقف",
+    "output": "مخرجات CSS",
+    "copy": "انسخ CSS",
+    "copied": "منسوخ!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore مولد",
+    "subtitle": "قم بإنشاء ملفات .gitignore مدمجة على الفور لمجموعة أو مجموعة تقنية محددة.",
+    "searchPlaceholder": "مكدسات البحث (مثل Node وPython وmacOS)...",
+    "noResults": "لم يتم العثور على أكوام.",
+    "selectedStacks": "الأكوام المختارة",
+    "output": "معاينة الإخراج",
+    "copy": "نسخ إلى الحافظة",
+    "copied": "منسوخ!",
+    "download": "تحميل .gitignore",
+    "downloading": "جارٍ التنزيل...",
+    "errorFetching": "فشل جلب قائمة أعلى التل.",
+    "errorGenerating": "فشل في إنشاء .gitignore من الأكوام المحددة.",
+    "generating": "جارٍ الإنشاء...",
+    "emptyState": "حدد واحدًا أو أكثر من مجموعات التكنولوجيا لإنشاء .gitignore الخاص بك."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "ارفع CSV أو Excel، عدّل JSON، ثم نزّل CSV أو XLSX. بيانات جدولية فقط؛ خلايا التاريخ في Excel تصبح طوابع ISO في JSON.",
+    "dropTitle": "أسقط ملف CSV أو Excel",
+    "dropHint": "يُستخدم الورقة الأولى لملفات .xlsx / .xls. يجب أن يحتوي CSV على صف عناوين.",
+    "chooseFile": "اختر ملفًا",
+    "jsonLabel": "JSON (مصفوفة كائنات)",
+    "jsonPlaceholder": "الصق مصفوفة JSON من الكائنات أو استورد CSV / Excel…",
+    "loadSample": "تحميل مثال",
+    "actions": {
+      "format": "تنسيق JSON",
+      "clear": "مسح",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "downloadCsv": "تنزيل CSV",
+      "downloadXlsx": "تنزيل Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "بيانات",
+    "toastLoadedCsv": "تم تحميل CSV في المحرر",
+    "toastLoadedExcel": "تم تحميل Excel في المحرر",
+    "toastFormatted": "تم تنسيق JSON",
+    "toastExportedCsv": "تم تنزيل CSV",
+    "toastExportedXlsx": "تم تنزيل Excel",
+    "toastCopied": "تم النسخ إلى الحافظة",
+    "footnote": "كل شيء يعمل في المتصفح. يجب أن يكون JSON مصفوفة غير فارغة من الكائنات. القيم المتداخلة تُسلسل كـ JSON داخل خلايا CSV.",
+    "errors": {
+      "unsupportedFile": "استخدم ملف .csv أو .xlsx أو .xls.",
+      "parseFailed": "تعذّر تحليل هذا الملف.",
+      "invalidJson": "JSON غير صالح",
+      "exportFailed": "فشل التصدير",
+      "copyFailed": "تعذّر النسخ"
+    }
+  },
+  "SnippetManager": {
+    "title": "مدير مقاطع الشيفرة",
+    "subtitle": "خزّن المقاطع في المتصفح أو سجّل الدخول لمزامنتها مع حسابك. بدّل بين العرض والتحرير، انسخ بنقرة واحدة، اختر لغة أو كشفًا تلقائيًا، ونسّق JSON أو SQL أو أكواد يدعمها Monaco.",
+    "snippets": "المقاطع",
+    "newSnippet": "مقطع جديد",
+    "newSnippetTitle": "مقطع جديد",
+    "defaultSnippetTitle": "مرحبًا",
+    "defaultSnippetCode": "// مرحبًا بك في مقاطع الشيفرة\n// جرّب العرض مقابل التحرير، النسخ، التنسيق واللغة التلقائية\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "البحث في المقاطع…",
+    "searchAria": "البحث في المقاطع",
+    "emptySearch": "لا توجد مقاطع تطابق بحثك.",
+    "snippetTitle": "العنوان",
+    "snippetTitlePlaceholder": "اسم المقطع",
+    "language": "اللغة",
+    "detectedHint": "تمييز بناء الجملة: {lang}",
+    "badgeAuto": "تلقائي · {lang}",
+    "modeView": "عرض",
+    "modeEdit": "تحرير",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "format": "تنسيق",
+    "cancel": "إلغاء",
+    "deleteTitle": "حذف المقطع؟",
+    "deleteDescription": "سيتم إزالة «{title}» من هذا المتصفح.",
+    "deleteConfirm": "حذف",
+    "editorAria": "محرر شيفرة المقطع",
+    "editorLoading": "جاري تحميل المحرر…",
+    "toastCopied": "تم النسخ إلى الحافظة",
+    "toastCopyFailed": "تعذّر النسخ",
+    "toastNothingToCopy": "لا يوجد شيء للنسخ",
+    "toastFormatted": "تم التنسيق",
+    "toastFormatFailed": "تعذّر التنسيق",
+    "toastFormatJsonInvalid": "JSON غير صالح — صحّح الصياغة أولًا",
+    "toastFormatUnsupported": "لا يوجد مُنسّق لهذه اللغة — جرّب JSON أو SQL أو وضع التحرير",
+    "toastDeleted": "تم حذف المقطع",
+    "toastLoadFailed": "تعذّر تحميل المقاطع من الخادم.",
+    "toastSyncFailed": "تعذّرت المزامنة مع الخادم.",
+    "languages": {
+      "auto": "اكتشاف تلقائي",
+      "plaintext": "نص عادي",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
+    }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "عميل SQL",
+      "dialogTitle": "اتصالات SQL",
+      "mobileSheetTitle": "مستكشف SQL",
+      "newTabLabel": "علامة تبويب استعلام جديدة",
+      "vaultLockedTitle": "الخزنة مقفلة",
+      "vaultLockedDesc": "افتح الخزنة للوصول إلى الاتصالات المحفوظة.",
+      "heroTitle": "عميل SQL",
+      "heroDesc": "اتصل بـ PostgreSQL أو MySQL أو MariaDB. يتم تشفير بيانات الاعتماد في متصفحك.",
+      "heroAddConnection": "إضافة اتصال",
+      "selectTableTitle": "اختر جدولاً أو افتح علامة تبويب استعلام",
+      "selectTableDesc": "انقر على جدول في الشريط الجانبي أو استخدم ⌘↩.",
+      "toastLoadFail": "فشل تحميل الاتصالات."
+    },
+    "connection": {
+      "titleNew": "اتصال SQL جديد",
+      "titleEdit": "تعديل الاتصال",
+      "labelDbType": "نوع قاعدة البيانات",
+      "labelName": "اسم الاتصال",
+      "placeholderName": "قاعدة بيانات الإنتاج",
+      "labelHostPort": "المضيف والمنفذ",
+      "labelDatabase": "قاعدة البيانات",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "اسم المستخدم",
+      "labelPassword": "كلمة المرور",
+      "labelSsl": "تفعيل SSL / TLS",
+      "sslDesc": "تشفير الاتصال بالخادم",
+      "securityNote": "يتم تشفير بيانات الاعتماد بـ AES-256 في المتصفح قبل التخزين",
+      "btnTest": "اختبار الاتصال",
+      "btnSave": "حفظ والاتصال",
+      "btnUpdate": "تحديث",
+      "btnCancelEdit": "إلغاء التعديل",
+      "savedConnections": "الاتصالات المحفوظة",
+      "emptySaved": "ستظهر الاتصالات المحفوظة هنا",
+      "confirmDelete": "حذف هذا الاتصال؟",
+      "toastFillFields": "املأ المضيف وقاعدة البيانات قبل الاختبار.",
+      "toastConnectOk": "تم الاتصال! {version}",
+      "toastConnectFail": "فشل الاتصال: {message}",
+      "toastUnlockVault": "افتح الخزنة أولاً.",
+      "toastFieldsRequired": "المضيف وقاعدة البيانات مطلوبان.",
+      "toastUpdated": "تم تحديث الاتصال.",
+      "toastSaved": "تم حفظ الاتصال.",
+      "toastSaveFail": "فشل الحفظ: {message}",
+      "toastDeleted": "تم حذف الاتصال.",
+      "toastDeleteFail": "فشل حذف الاتصال."
+    },
+    "sidebar": {
+      "title": "مستكشف SQL",
+      "tooltipAddConnection": "إضافة اتصال",
+      "tooltipRefreshSchema": "تحديث المخطط",
+      "noConnections": "لا توجد اتصالات محفوظة بعد",
+      "toastSchemaFail": "فشل تحميل المخطط: {message}"
+    },
+    "editor": {
+      "btnRun": "تشغيل",
+      "executing": "جارٍ تنفيذ الاستعلام…",
+      "emptyTitle": "شغّل استعلاماً لرؤية النتائج",
+      "emptyHint": "اضغط ⌘↩ أو انقر على تشغيل",
+      "toastNoConnection": "لا يوجد اتصال نشط."
+    },
+    "results": {
+      "filterPlaceholder": "تصفية النتائج…",
+      "rowCount": "{count} صف",
+      "rowCountFiltered": "{filtered} / {total} صف",
+      "exportCsv": "CSV",
+      "noRows": "لم يتم إرجاع أي صفوف"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "مُولّد رمز QR",
+    "subtitle": "حوّل أي نص أو رابط إلى صورة PNG لرمز QR. كل المعالجة تتم محليًا في المتصفح.",
+    "contentLabel": "المحتوى",
+    "contentPlaceholder": "https://example.com، نص عادي، سلسلة Wi‑Fi، vCard…",
+    "styleLabel": "النمط",
+    "dotTypeLabel": "شكل النقطة",
+    "dotTypeSquare": "مربع",
+    "dotTypeDots": "نقاط",
+    "dotTypeRounded": "مدوّر",
+    "dotTypeExtraRounded": "مدوّر جداً",
+    "dotTypeClassy": "أنيق",
+    "dotTypeClassyRounded": "أنيق مدوّر",
+    "cornerSquareLabel": "مربعات الزوايا",
+    "cornerSquareDot": "نقطة",
+    "cornerSquareSquare": "مربع",
+    "cornerSquareExtraRounded": "مدوّر جداً",
+    "cornerDotLabel": "نقاط الزوايا",
+    "cornerDotDot": "نقطة",
+    "cornerDotSquare": "مربع",
+    "eccLabel": "تصحيح الخطأ",
+    "eccL": "منخفض (~7%)",
+    "eccM": "متوسط (~15%)",
+    "eccQ": "ربعي (~25%)",
+    "eccH": "عالٍ (~30%)",
+    "marginLabel": "الهامش (وحدات)",
+    "widthLabel": "عرض الصورة",
+    "widthEffective": "يُعرض بحجم {px} بكسل",
+    "darkColor": "الوحدات الداكنة",
+    "lightColor": "الوحدات الفاتحة",
+    "resetColors": "إعادة تعيين الألوان",
+    "logoLabel": "شعار مركزي",
+    "logoMarginLabel": "هامش",
+    "uploadLogo": "رفع صورة",
+    "removeLogo": "إزالة الشعار",
+    "downloadPng": "تنزيل PNG",
+    "downloadSvg": "تنزيل SVG",
+    "copyImage": "نسخ الصورة",
+    "copied": "تم النسخ",
+    "clear": "مسح",
+    "previewAlt": "معاينة رمز QR",
+    "emptyHint": "اكتب أو الصق المحتوى لمعاينة رمز QR.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "تعذر إنشاء رمز QR. جرّب نصًا أقصر أو مستوى تصحيح أخطاء أقل.",
+      "copyUnsupported": "المتصفح لا يدعم نسخ الصور إلى الحافظة.",
+      "copyFailed": "تعذر النسخ إلى الحافظة."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "حاسبة IP / الشبكة الفرعية",
+    "subtitle": "تفاصيل CIDR لـ IPv4 وIPv6 في المتصفح—دون طلبات خارجية.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "الشبكة",
+    "placeholderIpv4": "10.0.0.0/24 أو 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 أو 2001:db8::1/64",
+    "hintIpv4": "استخدم CIDR (مثل /24) أو عنوان IPv4 مع قناع شبكة منقّط.",
+    "hintIpv6": "ضمّن طول البادئة (مثل /64). إن حُذف، يُفترض /128.",
+    "copyValue": "نسخ القيمة",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "عنوان الشبكة",
+      "netmask": "قناع الشبكة الفرعية",
+      "wildcard": "قناع بدل",
+      "broadcast": "البث",
+      "firstHost": "أول مضيف",
+      "lastHost": "آخر مضيف",
+      "totalAddresses": "إجمالي العناوين",
+      "usableHosts": "المضيفون القابلون للاستخدام",
+      "prefixLength": "طول البادئة (بت)",
+      "networkIpv6": "عنوان الشبكة",
+      "lastIpv6": "آخر عنوان في النطاق",
+      "totalAddressesIpv6": "عناوين في الشبكة الفرعية"
+    },
+    "usableNote": {
+      "pointToPoint": "روابط /31 نقطية تستخدم كلا العنوانين كمضيفين (RFC 3021).",
+      "singleHost": "/32 لعنوان مضيف واحد."
+    },
+    "ipv6RangeHint": {
+      "normal": "يُظهر الأداة النطاق الرياضي الكامل؛ قواعد الموجّه قد تختلف.",
+      "single": "/128 يعني عنوانًا واحدًا.",
+      "full": "/0 يغطي كل عناوين IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "شبكة IPv4 غير صالحة. جرّب CIDR أو عنوانًا مع قناع.",
+      "invalidIpv6": "شبكة IPv6 غير صالحة. استخدم عنوان/بادئة مثل 2001:db8::/48."
+    }
+  },
+  "HashGenerator": {
+    "title": "مُولّد الهاش",
+    "subtitle": "ملخصات MD5 وSHA-1 وSHA-2 للنص أو الملفات؛ bcrypt لكلمات المرور (إدخال نصي). كل شيء محليًا في المتصفح.",
+    "algorithmLabel": "الخوارزمية",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "نص",
+    "modeFile": "ملف",
+    "inputLabelText": "المدخلات",
+    "placeholderText": "اكتب أو الصق النص…",
+    "chooseFile": "اختر ملفًا",
+    "clearFile": "مسح",
+    "fileHint": "تُقرأ الملفات في الذاكرة فقط؛ الحد الأقصى {maxMb} ميغابايت لكل ملف. لا يتم الرفع.",
+    "outputLabel": "المختزلة (سِداسي عشري)",
+    "copyHash": "نسخ المختزلة",
+    "copied": "تم النسخ",
+    "byteCount": "{count, plural, zero {# بايت} one {# بايت} two {# بايتان} few {# بايتات} many {# بايتًا} other {# بايت}}",
+    "charCount": "{count, plural, zero {# حرف} one {# حرف} two {# حرفان} few {# أحرف} many {# حرفًا} other {# حرف}}",
+    "emptyHint": "أدخل نصًا أو اختر ملفًا لحساب الهاش.",
+    "securityNote": "لا يُنصح بـ MD5 وSHA-1 لاستخدامات أمنية جديدة؛ يُفضّل SHA-256 أو SHA-512.",
+    "errors": {
+      "fileTooLarge": "الملف أكبر من {maxMb} ميغابايت.",
+      "fileReadFailed": "تعذر قراءة هذا الملف."
+    },
+    "bcryptRoundsLabel": "التكلفة (جولات)",
+    "bcryptRoundsHint": "القيم الأعلى أبطأ وأقوى ضد التخمين. القيمة الشائعة 10.",
+    "fileTabDisabledTitle": "bcrypt يجزّئ كلمات المرور من النص فقط، وليس الملفات العشوائية.",
+    "placeholderBcrypt": "اكتب أو الصق كلمة مرور للتجزئة…",
+    "outputLabelBcrypt": "تجزئة bcrypt",
+    "copyBcrypt": "نسخ التجزئة",
+    "emptyHintBcrypt": "أدخل كلمة مرور لحساب تجزئة bcrypt.",
+    "securityNoteBcrypt": "كل مخرجات bcrypt تتضمن ملحًا عشوائيًا؛ نفس كلمة المرور تعطي سلسلة مختلفة في كل مرة. هذا متوقع. استخدم تكلفة عالية في الإنتاج.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "EncryptionPlayground": {
+    "title": "ملعب التشفير",
+    "subtitle": "AES-GCM في المتصفح: شفّر إلى حزمة JSON بعبارة سر أو مفتاح خام، ثم فك التشفير محليًا. تعليمي وأحيانًا عملي — لا يُرفع أي شيء.",
+    "tabEncrypt": "تشفير",
+    "tabDecrypt": "فك التشفير",
+    "keyModeLabel": "مادة المفتاح",
+    "modePassphrase": "عبارة سر (PBKDF2 + AES-GCM)",
+    "modeRawKey": "مفتاح AES خام (hex أو Base64)",
+    "aesBitsLabel": "طول مفتاح AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "ترميز المفتاح الخام",
+    "encodingAuto": "تلقائي (hex إذا بدا كhex، وإلا Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "المفتاح الخام",
+    "rawKeyPlaceholder": "مفتاح 32 بايت كـ 64 محرف hex أو Base64 لـ AES-256 (الطول يعتمد على حجم AES أعلاه).",
+    "rawKeyPlaceholderDecrypt": "مطلوب فقط عندما تحتوي الحزمة على keyDerivation \"none\".",
+    "passphraseLabel": "عبارة السر",
+    "passphrasePlaceholder": "تُستخدم عبارة السر فقط في المتصفح لاشتقاق المفتاح.",
+    "passphrasePlaceholderDecrypt": "مطلوب فقط عندما تستخدم الحزمة PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "تكرارات PBKDF2",
+    "pbkdf2Hint": "بين 10,000 و 2,000,000. الافتراضي يطابق إعدادات الخزن الشائعة.",
+    "plaintextLabel": "نص صريح",
+    "plaintextPlaceholder": "اكتب أو الصق الرسالة المراد تشفيرها…",
+    "bundleInputLabel": "حزمة مشفرة (JSON)",
+    "bundlePlaceholder": "الصق JSON من تشفير (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "حزمة مشفرة",
+    "plaintextOutputLabel": "نص صريح",
+    "encryptButton": "تشفير",
+    "decryptButton": "فك التشفير",
+    "copyBundle": "نسخ JSON",
+    "copyPlaintext": "نسخ النص الصريح",
+    "copied": "تم النسخ",
+    "emptyBundleHint": "يظهر JSON المشفر هنا بعد التشفير.",
+    "emptyDecryptHint": "يظهر النص المفكوك هنا.",
+    "decryptKeyHint": "استخدم المفتاح الخام إذا كان keyDerivation \"none\"؛ وعبارة السر لـ PBKDF2-SHA256. تحتفظ الحزمة بالملح والتكرارات وIV وطول AES.",
+    "securityNote": "المفاتيح والنص الصريح لا يغادران متصفحك. لأسرار الإنتاج استخدم أدوات مخصصة.",
+    "errors": {
+      "emptyKey": "أدخل مفتاحًا خامًا يطابق حجم AES.",
+      "emptyPassphrase": "أدخل عبارة سر.",
+      "badKeyMaterial": "تعذر قراءة المفتاح كـ hex أو Base64.",
+      "wrongKeyLength": "طول المفتاح لا يطابق AES (16 / 24 / 32 بايت).",
+      "invalidJson": "JSON غير صالح.",
+      "invalidBundle": "هذا JSON ليس حزمة تشفير مدعومة.",
+      "decryptFailed": "فشل فك التشفير — سر خاطئ أو حزمة تالفة أو معاملات غير متطابقة.",
+      "encryptFailed": "فشل التشفير. تحقق من Web Crypto والمدخلات."
+    }
+  },
+  "HmacGenerator": {
+    "title": "مُولّد HMAC",
+    "subtitle": "لتوقيع خطافات الويب واختبار تكاملات واجهات API. HMAC-SHA1/256/384/512 بصيغة hex أو Base64—يُحسب محليًا في المتصفح.",
+    "secretLabel": "المفتاح السري",
+    "messageLabel": "الرسالة / الحمولة",
+    "placeholderSecret": "الصق سر التوقيع…",
+    "placeholderMessage": "الصق النص الخام أو السلسلة للمصادقة (غالبًا نفس بايتات جسم الخطاف).",
+    "algorithmLabel": "خوارزمية HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "صيغة الإخراج",
+    "formatHex": "Hex (أحرف صغيرة)",
+    "formatBase64": "Base64",
+    "outputLabel": "التوقيع",
+    "copyOutput": "نسخ التوقيع",
+    "copied": "تم النسخ",
+    "byteCountHint": "{count, plural, one {# بايت} other {# بايت}} (UTF-8)",
+    "emptyHint": "أدخل مفتاحًا سريًا لحساب HMAC.",
+    "securityNote": "لا تشارك سر التوقيع أبدًا. لا تُرفع البيانات من هذه الصفحة—كل شيء يعمل في المتصفح.",
+    "errors": {
+      "cryptoFailed": "تعذّر حساب HMAC. تأكد من دعم Web Crypto وحاول مجددًا.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "TotpGenerator": {
+    "title": "مُولّد رمز TOTP / 2FA",
+    "subtitle": "الصق سر Base32 من تطبيق المصادقة لعرض رمز RFC 6238 المكوّن من ستة أرقام الحالي (SHA-1، 30 ث). يعمل محليًا في المتصفح—مفيد لاختبار تسجيل الدخول أو MFA.",
+    "secretLabel": "السر (Base32)",
+    "placeholderSecret": "الصق المفتاح السري (أحرف A–Z وأرقام 2–7، كما يظهر عند إعداد تطبيق المصادقة)…",
+    "codeLabel": "الرمز الحالي",
+    "copyCode": "نسخ الرمز",
+    "copied": "تم النسخ",
+    "nextIn": "يتجدد خلال {seconds} ث",
+    "standardHint": "خطوة زمنية 30 ث، 6 أرقام، HMAC-SHA-1 (متوافق مع Google Authenticator).",
+    "digitsLabel": "الأرقام",
+    "periodLabel": "الفترة",
+    "algorithmLabel": "الخوارزمية",
+    "periodSeconds": "{seconds} ث",
+    "emptyHint": "الصق سرًا لإنشاء رمز مكوّن من ستة أرقام.",
+    "invalidHint": "صحّح السر لعرض الرمز.",
+    "securityNote": "عامل السر ككلمة مرور. لا يغادر المتصفح؛ لا يتم رفع أي بيانات.",
+    "importLabel": "استيراد من عنوان otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "استيراد",
+    "qrSectionTitle": "رمز QR للتزويد",
+    "qrHint": "امسح باستخدام تطبيق مصادقة (Google Authenticator، 1Password، Aegis…) لإضافة هذا السر. يشفّر رمز QR السر — تعامل معه مثل كلمة المرور.",
+    "accountLabel": "الحساب",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "المُصدر (اختياري)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "أدخل سرًا صالحًا لإنشاء رمز QR.",
+    "errors": {
+      "invalidSecret": "هذا ليس سر Base32 صالحًا.",
+      "cryptoFailed": "تعذّر حساب TOTP. تحقق من Web Crypto وحاول مجددًا.",
+      "invalidUri": "هذا ليس عنوان otpauth:// TOTP صالحًا.",
+      "unsupportedUri": "يستخدم هذا العنوان قيمًا لا تدعمها الأداة (يجب أن تكون الأرقام 6 أو 8؛ والفترة 15 أو 30 أو 60 ثانية)."
+    }
+  },
+  "MarkdownPreview": {
+    "title": "معاينة Markdown وHTML",
+    "subtitle": "عارض Markdown مباشر مع تصدير HTML وتحويل HTML → Markdown. كل شيء يعمل في متصفحك.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "إدخال Markdown",
+    "htmlInputLabel": "إدخال HTML",
+    "previewLabel": "معاينة",
+    "htmlOutputLabel": "مصدر HTML",
+    "mdOutputLabel": "إخراج Markdown",
+    "inputPlaceholder": "# مرحبا\\n\\naكتب **markdown** هنا…",
+    "htmlInputPlaceholder": "الصق HTML هنا…",
+    "copyHtml": "نسخ HTML",
+    "copyMarkdown": "نسخ Markdown",
+    "exportHtml": "تصدير HTML",
+    "copied": "تم النسخ",
+    "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
+    "emptyHint": "ابدأ بكتابة Markdown لرؤية المعاينة المباشرة وإخراج HTML.",
+    "emptyHintHtmlToMd": "الصق HTML لتحويله إلى Markdown.",
+    "securityNote": "كل شيء يعمل محليًا في متصفحك. لا يتم تحميل أي بيانات."
+  },
+  "NumberBaseConverter": {
+    "title": "محوّل الأساس الرقمي",
+    "subtitle": "تحويل الأعداد الصحيحة بين الأسس 2–36. يدعم البادئات الاختيارية 0x / 0b / 0o. كل شيء محليًا في المتصفح.",
+    "inputBaseLabel": "من الأساس",
+    "outputBaseLabel": "إلى الأساس",
+    "inputLabel": "الرقم المدخل",
+    "placeholderInput": "أدخل عددًا صحيحًا بالأساس المختار…",
+    "outputLabel": "القيمة المحوّلة",
+    "copyOutput": "نسخ النتيجة",
+    "copied": "تم النسخ",
+    "swap": "تبديل الأساسين",
+    "byteCountHint": "{count, plural, one {# بايت} other {# بايت}} (طول الإدخال UTF-8)",
+    "emptyHint": "أدخل رقمًا للتحويل.",
+    "note": "الأرقام بعد 9 تستخدم الحروف A–Z (غير حساسة لحالة الأحرف). يتم تجاهل المسافات والشرطات السفلية.",
+    "errors": {
+      "invalidNumber": "القيمة غير صالحة للأساس المختار."
+    }
+  },
+  "FormatConverter": {
+    "title": "محوّل الصيغ",
+    "subtitle": "حوّل بين JSON و YAML و TOML و XML في أي اتجاه. جميع 12 تركيبة. يعمل كل شيء في متصفحك.",
+    "fromLabel": "من",
+    "toLabel": "إلى",
+    "swap": "تبديل",
+    "swapTitle": "تبديل الصيغ واستخدام المخرجات كمدخلات",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
+    "emptyHint": "الصق أو اكتب مدخلاتك على اليسار لرؤية المخرجات المحوّلة.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
+  },
+  "MimeTypeLookup": {
+    "title": "البحث عن نوع MIME",
+    "subtitle": "اعثر على نوع MIME (نوع الوسائط) حسب الامتداد أو اسم الملف الكامل. كل شيء يعمل محليًا في متصفحك.",
+    "inputLabel": "الامتداد أو اسم الملف",
+    "placeholder": "مثل .png أو package.json أو photo.jpeg",
+    "hint": "نصيحة: الصق امتدادًا (مع أو بدون نقطة) أو اسم ملف كامل.",
+    "clear": "مسح",
+    "exampleFilename": "استخدم اسم ملف مثال",
+    "exampleExtension": "استخدم امتدادًا مثال",
+    "resultLabel": "النتيجة",
+    "normalizedLabel": "الإدخال المُوحّد:",
+    "mimeTypeLabel": "نوع MIME",
+    "contentTypeLabel": "ترويسة Content-Type",
+    "charsetLabel": "مجموعة الأحرف",
+    "copyMimeType": "نسخ نوع MIME",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "emptyHint": "أدخل امتدادًا أو اسم ملف للبحث عن نوع MIME.",
+    "notFound": "لم يتم العثور على نوع MIME لهذه القيمة.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
+  },
+  "UserAgentParser": {
+    "title": "محلل User-Agent",
+    "subtitle": "الصق سلسلة User-Agent (UA) للحصول على تفاصيل المتصفح ونظام التشغيل والمحرك والجهاز والمعالج. كل شيء يعمل محليًا في متصفحك.",
+    "inputLabel": "سلسلة User-Agent",
+    "placeholder": "الصق User-Agent هنا…",
+    "hint": "نصيحة: يمكنك نسخ UA من ترويسات الطلب أو السجلات أو أدوات المطور في المتصفح.",
+    "clear": "مسح",
+    "exampleDesktop": "استخدم مثال سطح المكتب",
+    "exampleMobile": "استخدم مثال الهاتف",
+    "resultLabel": "التفاصيل",
+    "browserLabel": "المتصفح",
+    "osLabel": "نظام التشغيل",
+    "engineLabel": "المحرك",
+    "deviceTypeLabel": "نوع الجهاز",
+    "deviceVendorLabel": "الشركة المصنعة",
+    "deviceModelLabel": "الطراز",
+    "cpuArchLabel": "معمارية CPU",
+    "copyJson": "نسخ JSON",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "emptyHint": "الصق سلسلة User-Agent لعرض التفاصيل.",
+    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
+  },
+  "MockDataGenerator": {
+    "title": "مولّد بيانات وهمية",
+    "subtitle": "عرّف الأعمدة، اختر أنواع البيانات، وصدّر مجموعات للبذور أو Postman أو الاختبار. حتى {max} صفًا، كل شيء في المتصفح — بلا رفع.",
+    "mockarooLink": "مسار عمل يشبه Mockaroo",
+    "rowsLabel": "الصفوف",
+    "rowsHint": "بحد أقصى {max} صفًا لكل توليد ليبقى التبويب سريعًا.",
+    "formatLabel": "التنسيق",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "اسم جدول SQL",
+    "presetsLabel": "قوالب",
+    "presetPlaceholder": "تحميل قالب…",
+    "presetDefault": "بداية (مستخدم)",
+    "presetUsers": "المستخدمون والأدوار",
+    "presetProducts": "وحدات SKU للتجارة الإلكترونية",
+    "presetApiLog": "سجل طلبات HTTP",
+    "generate": "توليد",
+    "warningDuplicateNames": "أسماء أعمدة مكررة: الأعمدة اللاحقة تستبدل السابقة في كائنات JSON. أعد التسمية.",
+    "schemaHeading": "المخطط",
+    "addField": "إضافة عمود",
+    "removeField": "حذف عمود",
+    "duplicateField": "نسخ العمود",
+    "colName": "الاسم",
+    "colType": "النوع",
+    "colOptions": "خيارات",
+    "colBlank": "فراغ %",
+    "optMin": "الحد الأدنى",
+    "optMax": "الحد الأقصى",
+    "optDecimals": "عشري",
+    "optDateFrom": "من تاريخ",
+    "optDateTo": "إلى تاريخ",
+    "optValues": "a, b, c",
+    "optStep": "خطوة",
+    "optRowBase": "أساس",
+    "output": "المخرجات",
+    "outputPlaceholder": "انقر «توليد» لإنشاء البيانات…",
+    "copy": "نسخ",
+    "download": "تنزيل",
+    "copied": "تم النسخ",
+    "groups": {
+      "personal": "شخصي",
+      "location": "الموقع",
+      "internetApi": "الإنترنت وواجهة API",
+      "numbersIds": "أرقام والمعرّفات",
+      "dateTime": "التاريخ والوقت",
+      "textDesign": "النص والتصميم",
+      "custom": "مخصّص"
+    },
+    "fieldTypes": {
+      "first_name": "الاسم الأول",
+      "last_name": "اسم العائلة",
+      "full_name": "الاسم الكامل",
+      "email": "Email",
+      "username": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "phone": "الهاتف",
+      "company": "الشركة",
+      "job_title": "المسمى الوظيفي",
+      "avatar_url": "رابط الصورة الرمزية",
+      "city": "المدينة",
+      "country": "الدولة",
+      "country_code": "رمز الدولة (ISO)",
+      "street_address": "العنوان",
+      "zip_code": "الرمز البريدي",
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "url": "URL",
+      "domain": "النطاق",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "عدد صحيح",
+      "float": "عشري",
+      "boolean": "منطقي",
+      "uuid": "UUID",
+      "credit_card": "بطاقة (اختبار)",
+      "semver": "SemVer",
+      "row_index": "فهرس الصف",
+      "sequence": "تسلسل",
+      "date": "تاريخ",
+      "datetime": "تاريخ ووقت",
+      "unix_timestamp": "طابع يونكس",
+      "timezone": "المنطقة الزمنية",
+      "word": "كلمة",
+      "sentence": "جملة",
+      "paragraph": "فقرة",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "رمز العملة",
+      "language_code": "وسم اللغة",
+      "custom_list": "قائمة مخصصة"
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
+  },
+  "SvgOptimizer": {
+    "title": "محسّن SVG",
+    "subtitle": "الصق SVG، صغّر باستخدام SVGO في المتصفح وقارن حجم UTF-8 قبل وبعد.",
+    "inputLabel": "الإدخال",
+    "outputLabel": "مُحسَّن",
+    "placeholder": "الصق جزء <svg>…</svg> أو الملف كاملاً…",
+    "outputPlaceholder": "يظهر SVG المحسّن هنا…",
+    "chars": "{count} حرفًا • {bytes} بايت (UTF-8)",
+    "preview": "معاينة",
+    "localNote": "كل المعالجة محليًا في المتصفح. لا يتم رفع أي شيء.",
+    "stats": {
+      "title": "الحجم (UTF-8)",
+      "before": "قبل",
+      "after": "بعد",
+      "savedBytes": "تم توفير {count} بايت ({percent}%)",
+      "noChange": "لا يوجد تقليل — بالفعل أدنى حجم أو مخرجات فارغة."
+    },
+    "actions": {
+      "clear": "مسح",
+      "sample": "تحميل مثال",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "download": "تنزيل"
+    },
+    "errors": {
+      "optimizeFailed": "تعذّر تحسين هذا SVG."
+    }
+  },
+  "UnitConverter": {
+    "title": "محوّل الوحدات",
+    "subtitle": "تحويل بين <strong>323 وحدة</strong> عبر <strong>43 فئة</strong>",
+    "category": "الفئة",
+    "from": "من",
+    "to": "إلى",
+    "value": "القيمة",
+    "result": "النتيجة",
+    "swapUnits": "تبديل الوحدات",
+    "placeholder": "أدخل قيمة",
+    "copyResult": "نسخ النتيجة",
+    "searchCategory": "ابحث عن فئة...",
+    "selectCategory": "اختر فئة",
+    "noResults": "لم يتم العثور على فئة."
+  },
+  "DockerComposeGenerator": {
+    "title": "مولّد Docker Compose",
+    "subtitle": "اختر قواعد بيانات شائعة وتخزينًا مؤقتًا وطوابير رسائل ووكلاء عكسيين ومراقبة — انسخ docker-compose.yml جاهزًا للتطوير المحلي.",
+    "searchPlaceholder": "بحث (postgres، redis، kafka، nginx، grafana…)",
+    "selectedLabel": "الخدمات",
+    "selectedCount": "{count, plural, one {خدمة واحدة} other {# خدمات}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "نسخ",
+    "copied": "تم النسخ!",
+    "download": "تنزيل",
+    "emptyState": "اختر خدمة واحدة أو أكثر لإنشاء YAML لـ Compose.",
+    "hintPorts": "تم تباعد منافذ المضيف الافتراضية لتقليل التعارض؛ غيّرها إذا أبلغ Docker عن تعارض. استبدل كلمات مرور العرض قبل البيئات المشتركة.",
+    "categories": {
+      "databases": "قواعد البيانات والتخزين",
+      "cache": "التخزين المؤقت والذاكرة",
+      "queues": "الطوابير والمراسلة",
+      "search": "البحث والسجلات",
+      "storage": "تخزين الكائنات",
+      "proxy": "الوكلاء العكسيون والدخول",
+      "observability": "المقاييس والتتبع",
+      "mail": "البريد (تطوير محلي)",
+      "admin": "واجهات الإدارة وذكاء الأعمال"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "مسح"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (متوافق مع Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (متوافق مع Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (متوافق مع S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (التقاط SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (خادم تطوير)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "حرك البلاط ودمجها للوصول إلى عام 2048",
+    "score": "الدرجة",
+    "best": "أفضل",
+    "newGame": "لعبة جديدة",
+    "howToPlay": "استخدم مفاتيح الأسهم (أو اسحب على الهاتف المحمول) لتحريك المربعات. يتم دمج البلاطات التي تحتوي على نفس الرقم. الوصول إلى 2048 للفوز!",
+    "youWin": "لقد وصلت إلى 2048!",
+    "keepGoing": "واصل التقدم",
+    "gameOver": "انتهت اللعبة",
+    "tryAgain": "جرب مرة أخرى",
+    "gameOverMessage": "لا مزيد من التحركات المتبقية.",
+    "undo": "تراجع"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "المراحل المكتملة",
+    "time": "الوقت",
+    "best": "أفضل",
+    "difficulty": {
+      "easy": "سهلة",
+      "medium": "متوسط",
+      "hard": "صعب"
+    },
+    "stage": "المرحلة",
+    "solved": "أجل!",
+    "score": "الدرجة",
+    "nextStage": "المرحلة التالية",
+    "replay": "إعادة التشغيل ",
+    "erase": "مسح",
+    "howToPlay": "انقر على خلية، ثم انقر على رقم أو اضغط على 1–9. مسافة للخلف أو حذف لمسح الخلية. الأرقام الغامقة هي أدلة. املأ الشبكة بحيث يحتوي كل صف وعمود ومربع 3×3 على 1–9 بدون تكرار.",
+    "pencil": "قلم رصاص",
+    "undo": "تراجع",
+    "hint": "تلميح",
+    "hintsUsed": "تلميحات مستخدمة",
+    "mistakes": "أخطاء",
+    "failed": "فشلت!",
+    "mistakeMode": "وضع 3 أخطاء"
+  },
+  "Snake": {
+    "title": "سنيك",
+    "subtitle": "كل الطعام، انمو، تجنب الجدران ونفسك",
+    "score": "النتيجة",
+    "best": "الأفضل",
+    "startPrompt": "اضغط أي مفتاح سهم",
+    "startButton": "ابدأ اللعبة",
+    "gameOver": "انتهت اللعبة",
+    "playAgain": "العب مجدداً",
+    "howToPlay": "استخدم مفاتيح الأسهم أو WASD للتحرك. كل الطعام لتنمو. تزداد السرعة كل 50 نقطة.",
+    "diffEasy": "سهل",
+    "diffNormal": "عادي",
+    "diffHard": "صعب",
+    "diffInfinite": "لانهائي",
+    "orTap": "أو انقر أدناه",
+    "howToPlayInfinite": "الجدران تلتف — لا تموت بالجدران. كل الطعام لتنمو.",
+    "shieldActive": "الدرع نشط",
+    "speedBoost": "تعزيز السرعة",
+    "powerSpeed": "سرعة x2",
+    "powerShield": "تجنب موت واحد",
+    "powerShrink": "اختصار الذيل"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "منفّذ Redis",
+      "dialogTitle": "اتصالات Redis",
+      "heroTitle": "منفّذ Redis",
+      "heroDesc": "اتصل بمثيلات Redis. تصفح المفاتيح، وعدّل القيم، ونفّذ الأوامر. بيانات الاعتماد مشفرة في متصفحك.",
+      "heroAddConnection": "إضافة اتصال",
+      "vaultLockedTitle": "الخزنة مقفلة",
+      "vaultLockedDesc": "افتح الخزنة للوصول إلى الاتصالات المحفوظة."
+    }
+  },
+  "Minesweeper": {
+    "title": "كاسحة الألغام",
+    "subtitle": "اعثر على جميع الخلايا الآمنة دون تفجير لغم",
+    "mines": "ألغام",
+    "newGame": "لعبة جديدة",
+    "win": "لقد فزت!",
+    "loss": "انتهت اللعبة!",
+    "playAgain": "العب مرة أخرى",
+    "tryAgain": "حاول مرة أخرى",
+    "startPrompt": "انقر على أي خلية للبدء",
+    "difficulty": {
+      "beginner": "مبتدئ",
+      "intermediate": "متوسط",
+      "expert": "خبير"
+    }
+  },
+  "Tetris": {
+    "title": "تتريس",
+    "subtitle": "رتّب الكتل المتساقطة لإكمال الصفوف",
+    "next": "التالي",
+    "score": "النقاط",
+    "best": "الأفضل",
+    "lines": "الخطوط",
+    "level": "المستوى",
+    "pause": "إيقاف مؤقت",
+    "resume": "استئناف",
+    "start": "ابدأ",
+    "restart": "إعادة",
+    "paused": "متوقف مؤقتًا",
+    "gameOver": "انتهت اللعبة"
+  },
+  "SshKeyGenerator": {
+    "title": "مولد مفاتيح SSH / RSA",
+    "subtitle": "أنشئ أزواج مفاتيح Ed25519 أو RSA في متصفحك. نزّل المفاتيح الخاصة والعامة بصيغتي OpenSSH وPEM. لا يُرفع أي شيء.",
+    "keyTypeLabel": "نوع المفتاح",
+    "recommended": "موصى به",
+    "ed25519Desc": "سريع وصغير وحديث. مدعوم من GitHub وGitLab وجميع خوادم SSH الرئيسية.",
+    "rsa2048Desc": "توافق واسع. آمن لمعظم الاستخدامات.",
+    "rsa4096Desc": "أقصى توافق وقوة للأنظمة القديمة.",
+    "commentLabel": "تعليق (اختياري)",
+    "commentHint": "يُضاف إلى سطر المفتاح العام في OpenSSH.",
+    "generateBtn": "إنشاء زوج المفاتيح",
+    "generating": "جارٍ الإنشاء…",
+    "generatingLong": "جارٍ الإنشاء (قد يستغرق لحظة)…",
+    "copy": "نسخ",
+    "download": "تنزيل",
+    "privateKeyLabel": "المفتاح الخاص (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "المفتاح العام (صيغة OpenSSH)",
+    "publicKeySpkiLabel": "المفتاح العام (SPKI PEM)",
+    "browserNote": "جميع المفاتيح تُنشأ في متصفحك. لا يُرسل شيء إلى أي خادم.",
+    "errors": {
+      "generationFailed": "فشل إنشاء المفتاح"
+    }
+  },
+  "DnsLookup": {
+    "title": "بحث DNS",
+    "subtitle": "استعلام عن سجلات DNS لأي نطاق — A، AAAA، MX، TXT، NS، CNAME.",
+    "placeholder": "أدخل النطاق (مثل github.com)",
+    "lookupBtn": "بحث",
+    "looking": "جارٍ البحث…",
+    "refreshBtn": "تحديث",
+    "recordTypesLabel": "أنواع السجلات",
+    "allBtn": "الكل",
+    "tryLabel": "جرّب:",
+    "errors": {
+      "lookupFailed": "فشل بحث DNS"
+    }
+  },
+  "CurlToCode": {
+    "title": "cURL to Code",
+    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "panels": {
+      "input": "curl command",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a curl command here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated request code will appear here…"
+  },
+  "JsonToCode": {
+    "title": "JSON to Code",
+    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "panels": {
+      "input": "JSON input",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a sample JSON object here…",
+    "rootName": "Root name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated type models will appear here…"
+  },
+  "JsonVisualizer": {
+    "title": "JSON Visualizer",
+    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "panels": {
+      "input": "JSON input",
+      "graph": "Graph"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste or type JSON here…",
+    "searchPlaceholder": "Search keys & values",
+    "prevMatch": "Previous match",
+    "nextMatch": "Next match",
+    "nodeCount": "{count} nodes",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitView": "Fit to view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "export": "Export",
+    "exportPng": "PNG image",
+    "exportSvg": "SVG image",
+    "copyPath": "Copy path",
+    "copyValue": "Copy value",
+    "pathCopied": "Path copied",
+    "valueCopied": "Value copied",
+    "viewTable": "View as table",
+    "tableTitle": "Table view",
+    "locateInText": "Locate in text",
+    "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
+    "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
+    "emptyState": "Paste JSON in the input to see it as an interactive graph."
+  },
+  "BeautifyMinify": {
+    "title": "Beautify & Minify",
+    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "langLabel": "Language",
+    "actionLabel": "Action",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "bytes": "{count} bytes",
+    "clear": "Clear",
+    "placeholder": "Paste code here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Formatted output will appear here…"
+  },
+  "StringCaseConverter": {
+    "title": "String Case Converter",
+    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "panels": {
+      "input": "Input",
+      "output": "Case variants"
+    },
+    "wordCount": "{count} words",
+    "clear": "Clear",
+    "placeholder": "Type or paste text to convert…",
+    "copyTitle": "Copy to clipboard",
+    "emptyHint": "—"
+  },
+  "LineSortDedupe": {
+    "title": "Line Sort & Dedupe",
+    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "opts": {
+      "sort": "Sort",
+      "dedupe": "Remove duplicates",
+      "removeEmpty": "Remove empty lines",
+      "trim": "Trim lines",
+      "caseInsensitive": "Case-insensitive"
+    },
+    "sortModes": {
+      "none": "No sort",
+      "asc": "Ascending (A–Z)",
+      "desc": "Descending (Z–A)",
+      "natural": "Natural (numeric)",
+      "length": "By length",
+      "reverse": "Reverse order"
+    },
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "lineCount": "{count} lines",
+    "clear": "Clear",
+    "placeholder": "Paste lines here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Processed lines will appear here…"
+  },
+  "StringInspector": {
+    "title": "String Inspector",
+    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "panels": {
+      "input": "Input"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text to inspect…",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "No spaces",
+      "words": "Words",
+      "lines": "Lines",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "bytes": "Bytes (UTF-8)",
+      "utf16": "UTF-16 units",
+      "letters": "Letters",
+      "digits": "Digits",
+      "whitespace": "Whitespace",
+      "punctuation": "Punctuation",
+      "readingTime": "Reading time"
+    },
+    "specialTitle": "Special & non-ASCII characters",
+    "noSpecial": "No special or non-ASCII characters found.",
+    "specialEmpty": "Special characters will be listed here…",
+    "cols": {
+      "codepoint": "Code point",
+      "name": "Name",
+      "count": "Count"
+    },
+    "nonAscii": "Non-ASCII character"
+  },
+  "EscapeEncode": {
+    "title": "Escape / Encode",
+    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "modeLabel": "Mode",
+    "modes": {
+      "html": "HTML Entities",
+      "backslash": "Backslash (JS / JSON string)",
+      "hex": "Hex ↔ ASCII",
+      "unicode": "Unicode \\uXXXX"
+    },
+    "directionLabel": "Direction",
+    "encode": "Encode",
+    "decode": "Decode",
+    "swap": "Swap",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "مولّد ومدقّق Bcrypt",
+    "subtitle": "شفّر كلمات المرور باستخدام bcrypt وتحقّق من التجزئات — كل شيء يبقى في متصفّحك",
+    "tabs": {
+      "hash": "تجزئة",
+      "verify": "تحقّق"
+    },
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "hash": {
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة مرور لتجزئتها…",
+      "costLabel": "عامل التكلفة",
+      "costHint": "التكلفة الأعلى تضاعف العمل في كل خطوة. عادةً يُستخدم 10-12 في الإنتاج.",
+      "slowWarning": "عوامل التكلفة 13 فأعلى قد تستغرق عدة ثوانٍ للحساب.",
+      "generate": "توليد التجزئة",
+      "generating": "جارٍ التجزئة…",
+      "resultLabel": "تجزئة Bcrypt",
+      "timeTaken": "{ms} مللي ثانية",
+      "anatomy": {
+        "title": "بنية التجزئة",
+        "algorithm": "الخوارزمية",
+        "cost": "التكلفة",
+        "salt": "الملح (22 حرفًا)",
+        "hash": "التجزئة (31 حرفًا)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "كلمة المرور",
+      "passwordPlaceholder": "أدخل كلمة المرور للتحقّق…",
+      "hashLabel": "تجزئة Bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "أدخل كلمة مرور وتجزئة bcrypt لمقارنتهما.",
+      "invalidHash": "لا يبدو هذا تجزئة bcrypt صالحة.",
+      "checking": "جارٍ المقارنة…",
+      "match": "تطابق — كلمة المرور تنتج هذه التجزئة.",
+      "noMatch": "لا تطابق — كلمة المرور لا تنتج هذه التجزئة."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "حاسبة Chmod",
+    "subtitle": "حوّل أذونات ملفات يونكس بين مربّعات الاختيار والترميز الثماني والرمزي",
+    "grid": {
+      "title": "الأذونات",
+      "read": "قراءة",
+      "write": "كتابة",
+      "execute": "تنفيذ",
+      "owner": "المالك",
+      "group": "المجموعة",
+      "others": "الآخرون"
+    },
+    "special": {
+      "title": "البتات الخاصة",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "ثماني",
+      "placeholder": "755 أو 4755",
+      "invalid": "أدخل 3 أو 4 أرقام ثمانية (0-7)."
+    },
+    "symbolic": {
+      "label": "رمزي",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "أدخل 9 أحرف مثل rwxr-xr-x (يُسمح بـ s/S وt/T)."
+    },
+    "output": {
+      "title": "الأمر",
+      "copy": "نسخ",
+      "copied": "تم النسخ"
+    },
+    "explain": {
+      "line": "{cls} يمكنه {perms}.",
+      "none": "{cls} ليس لديه أي أذونات.",
+      "setuid": "setuid: يعمل الملف بصلاحيات مالكه.",
+      "setgid": "setgid: يعمل الملف بصلاحيات مجموعته (ترث الملفات الجديدة في مجلد مجموعته).",
+      "sticky": "sticky: يمكن فقط لمالك الملف حذفه أو إعادة تسميته داخل هذا المجلد."
+    },
+    "presets": {
+      "title": "الإعدادات الشائعة",
+      "octal": "ثماني",
+      "permissions": "الأذونات",
+      "description": "الاستخدام النموذجي",
+      "p644": "الملفات العادية: المالك يكتب، والجميع يقرأ.",
+      "p755": "الملفات القابلة للتنفيذ والمجلدات: يمكن للجميع القراءة والدخول.",
+      "p600": "الملفات الخاصة: المالك فقط يقرأ ويكتب.",
+      "p700": "الملفات القابلة للتنفيذ والمجلدات الخاصة: المالك فقط.",
+      "p664": "ملفات قابلة للكتابة من المجموعة.",
+      "p775": "مجلدات وملفات قابلة للتنفيذ وقابلة للكتابة من المجموعة.",
+      "p400": "قراءة فقط للمالك (مثل مفاتيح SSH الخاصة)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "لقطة شاشة للكود",
+    "subtitle": "حوّل الكود إلى صور جميلة قابلة للمشاركة",
+    "languageLabel": "اللغة",
+    "autoDetect": "كشف تلقائي",
+    "backgroundLabel": "الخلفية",
+    "paddingLabel": "الحشوة",
+    "filenameLabel": "اسم الملف",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "نقاط النافذة",
+    "themeLabel": "سمة النافذة",
+    "themeDark": "داكن",
+    "themeLight": "فاتح",
+    "scaleLabel": "مقياس التصدير",
+    "copyImage": "نسخ الصورة",
+    "copied": "تم النسخ",
+    "exportPng": "تصدير PNG",
+    "inputLabel": "الكود",
+    "detected": "المكتشَف: {language}",
+    "clear": "مسح",
+    "placeholder": "الصق الكود هنا…",
+    "previewLabel": "معاينة",
+    "emptyPreview": "ستظهر معاينة الكود هنا",
+    "exportFailed": "فشل تصدير الصورة",
+    "copyUnsupported": "نسخ الصور غير مدعوم في هذا المتصفّح",
+    "copyFailed": "فشل نسخ الصورة",
+    "backgrounds": {
+      "ocean": "محيط",
+      "sunset": "غروب",
+      "candy": "حلوى",
+      "forest": "غابة",
+      "midnight": "منتصف الليل",
+      "gold": "ذهبي",
+      "aurora": "شفق",
+      "slate": "رمادي",
+      "transparent": "شفاف"
+    }
+  },
+  "CssGenerators": {
+    "title": "مولّدات CSS",
+    "subtitle": "box-shadow وborder-radius وclamp() المرن — انسخ الـ CSS.",
+    "preview": "معاينة",
+    "output": "CSS",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() المرن"
+    },
+    "boxShadow": {
+      "presets": "الإعدادات المسبقة",
+      "layer": "طبقة",
+      "addLayer": "إضافة طبقة",
+      "removeLayer": "إزالة الطبقة",
+      "x": "X",
+      "y": "Y",
+      "blur": "تمويه",
+      "spread": "امتداد",
+      "color": "اللون",
+      "alpha": "ألفا",
+      "inset": "داخلي",
+      "presetNames": {
+        "subtleCard": "بطاقة خفيفة",
+        "elevated": "مرتفع",
+        "hardOffset": "إزاحة حادة",
+        "neonGlow": "توهّج نيون",
+        "inner": "داخلي",
+        "layeredSmooth": "متعدّد الطبقات ناعم"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "الوضع",
+      "modes": {
+        "simple": "لكل زاوية",
+        "blob": "شكل عضوي"
+      },
+      "unit": "الوحدة",
+      "linkCorners": "ربط الزوايا",
+      "randomize": "عشوائي",
+      "horizontal": "أنصاف الأقطار الأفقية",
+      "vertical": "أنصاف الأقطار الرأسية",
+      "corners": {
+        "tl": "أعلى اليسار",
+        "tr": "أعلى اليمين",
+        "br": "أسفل اليمين",
+        "bl": "أسفل اليسار"
+      }
+    },
+    "clamp": {
+      "minFont": "أدنى خط (px)",
+      "maxFont": "أقصى خط (px)",
+      "minViewport": "أدنى منفذ عرض (px)",
+      "maxViewport": "أقصى منفذ عرض (px)",
+      "rootFont": "خط الجذر (px)",
+      "viewportWidth": "منفذ عرض محاكى",
+      "computedSize": "الحجم المحسوب",
+      "slope": "الميل",
+      "intercept": "التقاطع",
+      "previewText": "نصّ معاينة للخط",
+      "invalid": "أدخل حدود منفذ عرض صالحة ومختلفة."
+    }
+  },
+  "ExifViewer": {
+    "title": "عارض ومزيل EXIF",
+    "subtitle": "افحص بيانات الصور الوصفية واحذفها في متصفّحك",
+    "dropTitle": "أفلِت صورة هنا",
+    "dropHint": "أو انقر للتصفّح — صورتك لا تغادر جهازك أبدًا",
+    "browse": "اختر صورة",
+    "formats": "JPEG وPNG وWebP وHEIC وTIFF",
+    "parsing": "جارٍ قراءة البيانات الوصفية…",
+    "parseFailed": "فشل قراءة هذه الصورة",
+    "clear": "إزالة الصورة",
+    "gpsWarning": "يحتوي على موقع GPS",
+    "openMap": "عرض على OpenStreetMap",
+    "noMetadata": "لم يُعثر على بيانات وصفية مضمّنة في هذه الصورة.",
+    "facts": {
+      "name": "الاسم",
+      "type": "النوع",
+      "dimensions": "الأبعاد",
+      "size": "الحجم"
+    },
+    "groups": {
+      "camera": "الكاميرا",
+      "exposure": "التعريض",
+      "timestamps": "الطوابع الزمنية",
+      "gps": "موقع GPS",
+      "software": "البرامج وأخرى"
+    },
+    "gpsCard": {
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "altitude": "الارتفاع"
+    },
+    "raw": {
+      "title": "كل البيانات الوصفية",
+      "copyJson": "نسخ JSON",
+      "copied": "تم النسخ"
+    },
+    "remove": {
+      "title": "إزالة البيانات الوصفية",
+      "jpegDescription": "أزِل EXIF وXMP وIPTC والتعليقات بلا فقدان دون إعادة ضغط الصورة.",
+      "reencodeDescription": "أعِد ترميز الصورة لإزالة البيانات الوصفية المضمّنة. هذا يعيد ضغط البكسلات.",
+      "keepIcc": "الاحتفاظ بملف الألوان (ICC)",
+      "stripButton": "إزالة البيانات الوصفية",
+      "reencodeButton": "إعادة الترميز والإزالة",
+      "unsupported": "إزالة البيانات الوصفية غير مدعومة لهذا النوع من الملفات.",
+      "failed": "فشلت إزالة البيانات الوصفية",
+      "before": "قبل",
+      "after": "بعد",
+      "download": "تنزيل الصورة المنظّفة"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "مولّد Favicon",
+    "subtitle": "أنشئ أيقونات المفضلة وأيقونات التطبيق من صورة واحدة",
+    "dropTitle": "أفلِت صورة هنا",
+    "dropHint": "PNG أو JPEG أو SVG — انقر للتصفّح",
+    "browse": "اختر صورة",
+    "clear": "إزالة الصورة",
+    "backgroundLabel": "الخلفية",
+    "transparent": "شفاف",
+    "solidColor": "لون خالص",
+    "cornerLabel": "شكل الزاوية",
+    "cornerNone": "مربّع",
+    "cornerRounded": "مستدير",
+    "cornerCircle": "دائرة",
+    "maskPaddingLabel": "حشوة قابلة للإخفاء",
+    "maskable": "قابلة للإخفاء",
+    "previewLabel": "معاينة",
+    "copy": "نسخ",
+    "headSnippet": "مقتطف HTML head",
+    "downloadIco": "تنزيل favicon.ico",
+    "downloadZip": "تنزيل الكل (.zip)"
+  },
+  "JsonDiff": {
+    "title": "مقارنة JSON",
+    "subtitle": "مقارنة دلالية واعية بالبنية بين مستندَي JSON — يُتجاهل ترتيب المفاتيح والتنسيق",
+    "options": {
+      "ignoreArrayOrder": "تجاهل ترتيب المصفوفة"
+    },
+    "loadBothSamples": "تحميل الأمثلة",
+    "sample": "مثال",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "formatError": "تعذّر التنسيق: الإدخال ليس JSON صالحًا",
+    "placeholder": "الصق أو اكتب JSON هنا…",
+    "panels": {
+      "left": "الأصلي (يسار)",
+      "right": "المعدّل (يمين)",
+      "results": "الاختلافات"
+    },
+    "summary": {
+      "added": "{count} مُضاف",
+      "removed": "{count} محذوف",
+      "changed": "{count} متغيّر"
+    },
+    "types": {
+      "added": "مُضاف",
+      "removed": "محذوف",
+      "changed": "متغيّر"
+    },
+    "copyChanges": "نسخ كـ JSON",
+    "copied": "تم النسخ",
+    "empty": "الصق JSON في كلا اللوحين لرؤية اختلافاتهما.",
+    "identical": "المستندان متطابقان دلاليًا."
+  },
+  "JsonpathPlayground": {
+    "title": "ساحة JSONPath",
+    "subtitle": "استعلم عن مستندات JSON باستخدام JSONPath أو JMESPath وشاهد النتائج مباشرة",
+    "engineLabel": "المحرّك",
+    "queryLabel": "الاستعلام",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "ورقة مرجعية",
+    "cheats": {
+      "jpAllTitles": "كل عناوين الكتب",
+      "jpAllAuthors": "كل مؤلّف في أي مكان بالمستند",
+      "jpFirstBook": "أول كتاب",
+      "jpLastBook": "آخر كتاب",
+      "jpSlice": "أول كتابين (شريحة)",
+      "jpFilterPrice": "الكتب الأرخص من 40",
+      "jpFilterInStock": "عناوين الكتب المتوفّرة",
+      "jpRecursive": "كل القيم، تعاوديًا",
+      "jmAllTitles": "كل عناوين الكتب",
+      "jmFirstAuthor": "مؤلّف أول كتاب",
+      "jmLastBook": "آخر كتاب",
+      "jmSlice": "أول كتابين (شريحة)",
+      "jmFilterPrice": "عناوين الكتب الأرخص من 40",
+      "jmCount": "عدّ الكتب المتوفّرة",
+      "jmProjection": "أعِد تشكيل كل كتاب إلى كائن جديد",
+      "jmSort": "العناوين مرتّبة حسب السعر"
+    },
+    "panels": {
+      "input": "إدخال JSON",
+      "results": "النتائج"
+    },
+    "sample": "مثال",
+    "format": "تنسيق",
+    "clear": "مسح",
+    "formatError": "تعذّر التنسيق: الإدخال ليس JSON صالحًا",
+    "placeholder": "الصق أو اكتب JSON هنا…",
+    "outputPlaceholder": "ستظهر التطابقات هنا…",
+    "matchCount": "{count, plural, zero {# تطابق} one {# تطابق} two {# تطابقان} few {# تطابقات} many {# تطابقًا} other {# تطابق}}",
+    "copy": "نسخ",
+    "copied": "تم النسخ"
+  },
+  "KeycodeInspector": {
+    "title": "فاحص أكواد المفاتيح",
+    "subtitle": "اضغط أي مفتاح لفحص حدث لوحة مفاتيح JavaScript الخاص به",
+    "capture": {
+      "prompt": "اضغط أي مفتاح…",
+      "ready": "يستمع — اضغط أي مفتاح على لوحة مفاتيحك",
+      "clickToFocus": "انقر هنا للتركيز، ثم اضغط أي مفتاح"
+    },
+    "hero": {
+      "spaceKey": "(مسافة)",
+      "keyLabel": "event.key",
+      "repeat": "تكرار"
+    },
+    "copyJson": "نسخ JSON",
+    "copiedJson": "تم نسخ JSON الحدث إلى الحافظة",
+    "deprecated": "مهمَل",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "قياسي",
+      "left": "يسار",
+      "right": "يمين",
+      "numpad": "لوحة أرقام",
+      "unknown": "غير معروف"
+    },
+    "history": {
+      "title": "السجل",
+      "clear": "مسح السجل",
+      "empty": "ستظهر ضغطات المفاتيح هنا."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "مولّد جداول Markdown",
+    "subtitle": "حرّر شبكة، والصق من جدول بيانات، وانسخ جدول Markdown أو HTML بمحاذاة أنيقة",
+    "addRow": "إضافة صف",
+    "addColumn": "إضافة عمود",
+    "importLabel": "استيراد",
+    "importPlaceholder": "الصق TSV (من Excel / Google Sheets) أو CSV هنا…",
+    "importButton": "استيراد إلى الشبكة",
+    "pasteClipboard": "لصق من الحافظة",
+    "importEmpty": "لا شيء للاستيراد — الصق بعض الصفوف أولًا",
+    "clipboardError": "تعذّرت القراءة من الحافظة",
+    "clear": "مسح",
+    "panels": {
+      "editor": "محرّر الجدول",
+      "output": "الناتج"
+    },
+    "align": {
+      "left": "محاذاة لليسار",
+      "center": "محاذاة للوسط",
+      "right": "محاذاة لليمين"
+    },
+    "headerPlaceholder": "رأس",
+    "cellPlaceholder": "خلية",
+    "removeRow": "إزالة الصف",
+    "removeColumn": "إزالة العمود",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "نسخ",
+    "copied": "تم النسخ"
+  },
+  "TimezoneConverter": {
+    "title": "محوّل المناطق الزمنية",
+    "subtitle": "حوّل لحظة واحدة عبر العالم لتخطيط الاجتماعات.",
+    "dateTimeLabel": "التاريخ والوقت",
+    "now": "الآن",
+    "sourceZoneLabel": "المنطقة الزمنية المصدر",
+    "selectZone": "اختر منطقة",
+    "searchZone": "ابحث في المناطق الزمنية...",
+    "noZone": "لم يُعثر على منطقة زمنية.",
+    "scrubLabel": "إزاحة الوقت",
+    "reset": "إعادة تعيين",
+    "targetsLabel": "المناطق الهدف",
+    "addZone": "إضافة منطقة",
+    "remove": "إزالة",
+    "localBadge": "محلي",
+    "invalidDate": "أدخل تاريخًا ووقتًا صالحين.",
+    "bands": {
+      "work": "ساعات العمل (09:00–18:00)",
+      "edge": "الساعات الهامشية (الصباح الباكر / المساء)",
+      "night": "الليل"
+    }
+  },
+  "TokenCounter": {
+    "title": "عدّاد رموز LLM",
+    "subtitle": "احسب الرموز، وتصوّر الأجزاء، وقدّر تكلفة الـ API.",
+    "inputLabel": "النص",
+    "sample": "مثال",
+    "clear": "مسح",
+    "placeholder": "الصق نصًا أو كودًا أو JSON لعدّ الرموز...",
+    "encoding": "الترميز",
+    "loading": "جارٍ تحميل المُرمِّز...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "الرموز",
+      "characters": "الأحرف",
+      "words": "الكلمات",
+      "ratio": "رموز/كلمة",
+      "ratioSub": "تقريبي"
+    },
+    "claudeRow": "Claude (تقريبي)",
+    "estimate": "تقدير",
+    "viz": {
+      "title": "تصوّر الرموز",
+      "toggle": "إظهار",
+      "hint": "بدّل لتلوين كل رمز كجزء.",
+      "empty": "أدخل نصًا لتصوّر الرموز.",
+      "truncated": "عرض أول {limit} من {total} رمزًا."
+    },
+    "cost": {
+      "title": "حاسبة التكلفة",
+      "disclaimer": "قيم افتراضية قابلة للتعديل — تحقّق من الأسعار الحالية",
+      "model": "النموذج",
+      "expectedOutput": "رموز الإخراج المتوقّعة",
+      "customInput": "إدخال $/MTok",
+      "customOutput": "إخراج $/MTok",
+      "inputCost": "تكلفة الإدخال",
+      "outputCost": "تكلفة الإخراج",
+      "total": "الإجمالي",
+      "per1000": "لكل 1000 طلب"
+    }
+  },
+  "WebhookTester": {
+    "title": "مختبِر Webhook",
+    "subtitle": "أنشئ عنوان URL مؤقّتًا وافحص طلبات webhook الواردة مباشرة.",
+    "intro": {
+      "title": "أنشئ عنوان webhook لبدء التقاط الطلبات",
+      "hint": "ستحصل على عنوان URL يصعب تخمينه يسجّل كل طلب وارد. تنتهي صلاحيته بعد 24 ساعة."
+    },
+    "createBtn": "إنشاء عنوان webhook",
+    "creating": "جارٍ الإنشاء…",
+    "urlLabel": "عنوان webhook الخاص بك",
+    "expiresIn": "تنتهي الصلاحية خلال {countdown}",
+    "copyUrlBtn": "نسخ العنوان",
+    "copied": "تم النسخ",
+    "clearBtn": "مسح",
+    "newBinBtn": "عنوان جديد",
+    "requestsTitle": "الطلبات",
+    "selectPrompt": "اختر طلبًا لفحص تفاصيله.",
+    "expiredNotice": "انتهت صلاحية عنوان webhook هذا. أنشئ عنوانًا جديدًا لمواصلة الاختبار.",
+    "base64Badge": "base64",
+    "truncatedBadge": "مقتطع",
+    "empty": {
+      "title": "بانتظار الطلبات…",
+      "hint": "أرسل طلبًا إلى عنوانك وسيظهر هنا فورًا. جرّب هذا:"
+    },
+    "detail": {
+      "receivedAt": "استُلم",
+      "source": "IP المصدر",
+      "contentType": "Content-Type",
+      "query": "معاملات الاستعلام",
+      "headers": "الترويسات",
+      "body": "المحتوى",
+      "copyBody": "نسخ المحتوى",
+      "emptyBody": "لا يوجد محتوى"
+    },
+    "errors": {
+      "createFailed": "فشل إنشاء عنوان webhook. يُرجى المحاولة مجددًا.",
+      "clearFailed": "فشل مسح الطلبات. يُرجى المحاولة مجددًا."
+    }
+  },
+  "WebsocketTester": {
+    "title": "مختبِر WebSocket",
+    "subtitle": "اتصل بنقطة نهاية WebSocket وأرسِل واستقبِل وافحص الرسائل مباشرة",
+    "urlLabel": "عنوان نقطة النهاية",
+    "protocolsLabel": "البروتوكولات الفرعية",
+    "protocolsPlaceholder": "اختياري، مفصولة بفواصل",
+    "connect": "اتصال",
+    "disconnect": "قطع الاتصال",
+    "status": {
+      "disconnected": "غير متصل",
+      "connecting": "جارٍ الاتصال",
+      "connected": "متصل",
+      "error": "خطأ"
+    },
+    "messages": {
+      "connecting": "جارٍ الاتصال بـ {url}…",
+      "connected": "تم تأسيس الاتصال",
+      "connectedWithProtocol": "تم تأسيس الاتصال (البروتوكول: {protocol})",
+      "invalidUrl": "عنوان URL غير صالح — يجب أن يبدأ بـ ws:// أو wss://",
+      "connectFailed": "فشل فتح الاتصال",
+      "socketError": "حدث خطأ في الاتصال",
+      "notConnected": "غير متصل — اتصل أولًا",
+      "binaryMessage": "تم استلام رسالة ثنائية"
+    },
+    "log": {
+      "title": "سجل الرسائل",
+      "empty": "لا رسائل بعد. اتصل وابدأ الإرسال.",
+      "copyAll": "نسخ الكل",
+      "download": "تنزيل كـ .txt",
+      "clear": "مسح السجل",
+      "prettyPrint": "تنسيق JSON",
+      "showRaw": "إظهار النص الخام"
+    },
+    "composer": {
+      "placeholder": "اكتب رسالة للإرسال…",
+      "send": "إرسال",
+      "formatJson": "تنسيق كـ JSON",
+      "invalidJson": "الرسالة ليست JSON صالحًا",
+      "hint": "Cmd/Ctrl+Enter للإرسال"
+    },
+    "ping": {
+      "label": "ping تلقائي",
+      "seconds": "ثانية",
+      "intervalTitle": "فترة ping بالثواني",
+      "payloadPlaceholder": "حمولة ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "بحث Whois",
+    "subtitle": "ابحث عن تفاصيل التسجيل لأي نطاق أو عنوان IP عبر RDAP",
+    "placeholder": "example.com أو 8.8.8.8",
+    "lookupBtn": "بحث",
+    "looking": "جارٍ البحث…",
+    "refreshBtn": "تحديث",
+    "tryLabel": "جرّب:",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "notAvailable": "غير متوفّر",
+    "summary": {
+      "registrar": "المسجِّل",
+      "network": "الشبكة"
+    },
+    "dates": {
+      "created": "أُنشئ",
+      "updated": "حُدّث",
+      "expires": "ينتهي"
+    },
+    "sections": {
+      "status": "الحالة",
+      "nameservers": "خوادم الأسماء",
+      "contacts": "جهات الاتصال",
+      "rawRdap": "RDAP الخام"
+    },
+    "contacts": {
+      "roles": "الأدوار",
+      "name": "الاسم",
+      "organization": "المؤسسة"
+    },
+    "errors": {
+      "invalidTarget": "أدخل اسم نطاق أو عنوان IP صالحًا",
+      "lookupFailed": "فشل البحث (الحالة {status})"
+    }
+  }
+}

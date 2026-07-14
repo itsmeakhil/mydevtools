@@ -1644,48 +1644,6 @@ git config --global core.excludesfile ~/.gitignore_global`,
     ],
   },
   {
-    slug: 'self-hosted-developer-tools',
-    title: 'Self-Hosted Developer Tools: Why Teams Run Their Own Toolkit',
-    description:
-      'Learn when self-hosted developer tools make sense, what to look for in a private dev toolkit, and how MyDevTools fits self-hosted engineering workflows.',
-    publishedAt: '2025-12-05',
-    category: 'Productivity',
-    keywords: ['self-hosted developer tools', 'self hosted dev toolkit', 'private developer tools', 'open source developer tools', 'internal developer tools'],
-    readingTimeMin: 6,
-    sections: [
-      {
-        heading: 'What are self-hosted developer tools?',
-        body: `Self-hosted developer tools are utilities your team runs on infrastructure you control instead of relying entirely on public SaaS websites. For daily engineering work, that can include JSON formatters, JWT decoders, API clients, timestamp converters, secret generators, database helpers, and documentation utilities.\n\nThe main appeal is control: you choose where the app runs, who can access it, how logs are handled, and which network boundaries protect the system. For teams that regularly handle internal payloads, staging URLs, credentials, or production-like test data, self-hosting can reduce the risk of pasting sensitive material into random third-party tools.`,
-      },
-      {
-        heading: 'When self-hosting is worth it',
-        body: `Self-hosting has operational cost, so it is not always the right default. It makes the most sense when your team has privacy requirements, regulated data, internal-only APIs, or a strong preference for auditable open-source software.\n\nGood signals that self-hosting is worth considering:\n\n- Developers regularly work with non-public payloads, tokens, connection strings, or configuration files.\n- Security policy discourages pasting data into public websites.\n- The team wants a consistent internal toolkit rather than each developer using a different utility site.\n- You already operate internal web apps and can deploy another service safely.`,
-      },
-      {
-        heading: 'What to look for in a self-hosted dev toolkit',
-        body: `A good self-hosted developer toolkit should be broad enough to replace a bookmark folder, but not so heavy that every task feels like opening an enterprise platform. Look for browser-based utilities, clear data handling, a public source code repository, documented deployment steps, and a clean separation between public marketing pages and app functionality.\n\nMyDevTools is designed around that model: public /tools pages explain each utility, while the app surface gives developers a shared dashboard for everyday work. The GPL-3.0 codebase can be audited, forked, and deployed by teams that want infrastructure control.`,
-      },
-      {
-        heading: 'Self-hosted vs managed cloud',
-        body: `Self-hosting is best when control matters more than convenience. Managed cloud is best when developers want the toolkit available immediately without owning deployment, upgrades, and backups.\n\nFor a small personal workflow, cloud is usually faster. For an internal platform, security-sensitive workflow, or team that wants to standardize developer utilities, self-hosting can be the better long-term choice.`,
-      },
-    ],
-    faqs: [
-      {
-        q: 'Are self-hosted developer tools more secure?',
-        a: 'They can be, but only if deployed and maintained well. Self-hosting gives you control over access, logs, data storage, and network boundaries; it does not automatically remove operational risk.',
-      },
-      {
-        q: 'What tools should a self-hosted developer toolkit include?',
-        a: 'Start with high-frequency utilities: JSON formatter, JWT decoder, API client, regex tester, UUID generator, Base64 encoder, timestamp converter, hash generator, and mock data tools.',
-      },
-      {
-        q: 'Is MyDevTools self-hostable?',
-        a: 'Yes. MyDevTools is open source under GPL-3.0 and is positioned for both self-hosted and managed cloud usage.',
-      },
-    ],
-  },
-  {
     slug: 'aes-256-encrypted-notes-for-developers',
     title: 'AES-256 Encrypted Notes for Developers: What to Store and What to Avoid',
     description:
@@ -1710,7 +1668,7 @@ git config --global core.excludesfile ~/.gitignore_global`,
       },
       {
         heading: 'Using MyDevTools Password Manager for secure notes',
-        body: `MyDevTools Password Manager is designed for vault-style sensitive records. It encrypts sensitive data in the browser before sync where supported, so the backend stores encrypted data instead of readable vault content.\n\nUse it when you need a developer-friendly place for passwords, short sensitive notes, and account context. Pair it with self-hosting if your team wants stronger control over infrastructure and deployment boundaries.`,
+        body: `MyDevTools Password Manager is designed for vault-style sensitive records. It encrypts sensitive data in the browser before sync where supported, so the backend stores encrypted data instead of readable vault content.\n\nUse it when you need a developer-friendly place for passwords, short sensitive notes, and account context, with encrypted cross-device sync so your vault follows you.`,
       },
     ],
     faqs: [
@@ -1723,8 +1681,8 @@ git config --global core.excludesfile ~/.gitignore_global`,
         a: 'If encryption happens in the browser before sync and the server never receives the key or plaintext, the server stores ciphertext rather than readable note content.',
       },
       {
-        q: 'Should developers self-host encrypted note tools?',
-        a: 'Self-hosting is a good option for teams that want control over deployment, logs, access, and storage. It does not replace good key management or secure browser practices.',
+        q: 'Where are encrypted notes stored?',
+        a: 'With client-side encryption, notes are encrypted in your browser before sync, so the server stores ciphertext rather than readable content. This does not replace good key management or secure browser practices.',
       },
     ],
   },
@@ -2820,48 +2778,6 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       {
         q: 'Can I customize the generated code?',
         a: 'Yes, export and edit. The generator is a starting point; refine constraints and field names in your IDE.',
-      },
-    ],
-  },
-  {
-    slug: 'url-shortener-with-analytics-online',
-    title: 'URL Shortener: Create Short Links with Click Tracking',
-    description: 'Shorten long URLs, track clicks, manage your links, and generate QR codes. Private and stored to your account.',
-    publishedAt: '2026-01-25',
-    category: 'Network & API',
-    toolSlug: 'url-shortener',
-    keywords: ['url shortener', 'link shortener', 'short link creator', 'click tracking', 'qr code generator'],
-    readingTimeMin: 5,
-    sections: [
-      {
-        heading: 'Why shorten URLs?',
-        body: `Long URLs are ugly, hard to share, and error-prone:\n\n\`\`\`\nhttps://www.example.com/blog/2026/01/how-to-debug-javascript-in-production?utm_source=twitter&utm_medium=social&utm_campaign=launch\n\`\`\`\n\nA short URL is clean, memorable, and trackable:\n\n\`\`\`\nhttps://mydevtools.net/s/abc123\n\`\`\``,
-      },
-      {
-        heading: 'Benefits of URL shortening',
-        body: `- **Readability** — fits in tweets, QR codes, and print materials.\n- **Tracking** — monitor how many people click your link.\n- **Management** — edit destination or disable a link later.\n- **QR codes** — generate codes from short links for offline distribution.\n- **Branding** — use your own domain for custom short links.`,
-      },
-      {
-        heading: 'URL shortener features',
-        body: `- **Create short links** — paste a long URL, get a short one.\n- **View click stats** — see daily/weekly/monthly clicks.\n- **Edit or disable** — change destination or deactivate anytime.\n- **QR code export** — download PNG codes for physical sharing.\n- **Link history** — browse all links you've created.\n- **Custom aliases** — optionally name your short link (slug).`,
-      },
-      {
-        heading: 'Use cases',
-        body: `- **Social media** — share in tweets, Instagram bios, Slack.\n- **Email campaigns** — track engagement on links.\n- **Print materials** — QR code on flyers links to your landing page.\n- **Affiliate links** — track referrals.\n- **Analytics dashboard** — see which links drive traffic.`,
-      },
-    ],
-    faqs: [
-      {
-        q: 'Are short links permanent?',
-        a: 'Links persist as long as your account is active. You can disable a link anytime, but reactivate it later if needed.',
-      },
-      {
-        q: 'Can I see who clicked my link?',
-        a: 'Click count and timestamps are tracked. Full device/geographic data requires a more advanced analytics tool.',
-      },
-      {
-        q: 'Do short links work offline?',
-        a: 'No, short links require internet to redirect. QR codes must be scanned online.',
       },
     ],
   },

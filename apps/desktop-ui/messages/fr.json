@@ -1,0 +1,4573 @@
+{
+  "Navigation": {
+    "dashboard": "Tableau de bord",
+    "settings": "Paramètres",
+    "toDo": "Tâches",
+    "notes": "Notes",
+    "passwordManager": "Gestionnaire de mots de passe",
+    "environmentManager": "Gestionnaire d'environnement",
+    "bookmarks": "Signets",
+    "emailValidator": "Validateur d’e-mail",
+    "encryptionPlayground": "Bac à sable chiffrement",
+    "jwtDecoder": "Décodeur JWT",
+    "certificatePemDecoder": "Décodeur de certificat / PEM",
+    "jsonFormatter": "Formateur JSON",
+    "sqlFormatter": "Formateur SQL",
+    "graphqlFormatter": "Formateur GraphQL",
+    "diffChecker": "Comparateur de différences",
+    "regexTester": "Testeur d’expressions régulières",
+    "timestampConverter": "Convertisseur d’horodatage",
+    "cronBuilder": "Constructeur Cron",
+    "base64Encoder": "Encodeur Base64",
+    "urlEncoder": "Encodeur d’URL",
+    "urlParser": "Analyseur d’URL",
+    "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Secret / clé API",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Sélecteur de couleurs",
+    "contrastChecker": "Vérificateur de contraste",
+    "apiClient": "Client API",
+    "httpStatusCodes": "Codes d’état HTTP",
+    "nosqlExplorer": "Explorateur de base de données",
+    "jsonSchemaGenerator": "Générateur de schéma JSON",
+    "imageToBase64": "Image vers Base64",
+    "imageCompressor": "Compresseur d’images",
+    "cssGradientBuilder": "Générateur de dégradé CSS",
+    "gitignoreGenerator": "Générateur .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Extraits de code",
+    "qrCodeGenerator": "Générateur de codes QR",
+    "dnsLookup": "Recherche DNS",
+    "ipSubnetCalculator": "Calculateur IP / sous-réseau",
+    "hashGenerator": "Générateur de hash",
+    "hmacGenerator": "Générateur HMAC",
+    "totpGenerator": "Code TOTP / 2FA",
+    "markdownPreview": "Aperçu Markdown",
+    "numberBaseConverter": "Convertisseur de base",
+    "formatConverter": "Convertisseur de formats",
+    "mockDataGenerator": "Générateur de données fictives",
+    "svgOptimizer": "Optimiseur SVG",
+    "unitConverter": "Convertisseur d'unités",
+    "dockerComposeGenerator": "Générateur Docker Compose",
+    "breakRoom": "Salle de pause",
+    "game2048": "2048",
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Formateur YAML",
+    "sshKeyGenerator": "Générateur de clés SSH / RSA",
+    "curlToCode": "cURL to Code",
+    "jsonToCode": "JSON to Code",
+    "beautifyMinify": "Beautify & Minify",
+    "stringCaseConverter": "String Case Converter",
+    "lineSortDedupe": "Line Sort & Dedupe",
+    "stringInspector": "String Inspector",
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Calculateur Chmod",
+    "codeScreenshot": "Capture de code",
+    "cssGenerators": "Générateurs CSS",
+    "exifViewer": "Visionneuse EXIF",
+    "faviconGenerator": "Générateur de favicon",
+    "jsonDiff": "Diff JSON",
+    "jsonpathPlayground": "Playground JSONPath",
+    "keycodeInspector": "Inspecteur de keycode",
+    "markdownTableGenerator": "Tableau Markdown",
+    "timezoneConverter": "Convertisseur de fuseaux",
+    "tokenCounter": "Compteur de tokens",
+    "webhookTester": "Testeur de webhook",
+    "websocketTester": "Testeur WebSocket",
+    "whoisLookup": "Recherche Whois"
+  },
+  "Help": {
+    "title": "Aide et documentation",
+    "subtitle": "Comment MyDevTools s’articule, ce que fait chaque app et comment la sécurité et le chiffrement protègent vos données.",
+    "tabs": {
+      "overview": "Aperçu",
+      "apps": "Apps",
+      "security": "Sécurité",
+      "tips": "Conseils"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Qu’est-ce que MyDevTools ?",
+        "description": "Un espace de travail développeur avec connexion : un tableau de bord et des outils pour le quotidien.",
+        "p1": "Après connexion, l’app établit une session avec l’API MyDevTools pour charger et enregistrer vos données. La barre latérale liste toutes les apps ; vous pouvez masquer celles que vous n’utilisez pas depuis",
+        "settingsLink": "Paramètres",
+        "p1After": ".",
+        "p2": "Certaines fonctionnalités utilisent un <strong>mot de passe maître</strong> (ou une clé de coffre globale) afin que des secrets comme les mots de passe et chaînes de connexion soient chiffrés sur votre appareil avant d’atteindre le serveur."
+      },
+      "quickLinks": {
+        "title": "Liens rapides",
+        "dashboard": "Tableau de bord",
+        "settings": "Paramètres"
+      }
+    },
+    "apps": {
+      "intro": "Ouvrez un outil depuis la barre latérale ou le tableau de bord. Voici un guide rapide par app.",
+      "open": "Ouvrir",
+      "howItWorks": "Fonctionnement",
+      "generic": "Utilisez cet outil depuis la barre latérale pour son flux de travail dédié."
+    },
+    "security": {
+      "session": {
+        "title": "Connexion et session API",
+        "description": "Identité et communication entre le navigateur et votre backend.",
+        "items": {
+          "authentication": "<strong>Authentification</strong> via Firebase. Après connexion, l’app échange votre jeton d’ID Firebase contre des cookies API.",
+          "accessTokens": "<strong>Jetons d’accès</strong> : JWT signés côté serveur (HS256) qui prouvent quel utilisateur appelle l’API.",
+          "refreshTokens": "<strong>Jetons de rafraîchissement</strong> : stockés en cookies HttpOnly ; le serveur conserve un hash SHA-256 du jeton, pas le jeton brut."
+        }
+      },
+      "encryption": {
+        "title": "Chiffrement à connaître",
+        "description": "Crypto côté client pour le coffre et les données de connexion sensibles.",
+        "p1": "Pour le <strong>gestionnaire de mots de passe</strong>, le <strong>gestionnaire d'environnement</strong> et les connexions enregistrées dans <strong>NoSQL Explorer</strong>, l'application web utilise la <strong>Web Crypto API</strong> du navigateur :",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> avec <strong>SHA-256</strong>, <strong>100 000</strong> itérations et un sel aléatoire dérive une clé 256 bits depuis votre mot de passe maître.",
+          "aes": "<strong>AES-256-GCM</strong> chiffre les données ; un <strong>IV de 12 octets</strong> aléatoire est utilisé à chaque chiffrement.",
+          "scope": "La clé dérivée reste dans le navigateur (non extractible). Le serveur reçoit <strong>le texte chiffré et les IV</strong>, pas votre mot de passe maître ni des secrets en clair."
+        },
+        "warning": "Si vous oubliez le mot de passe maître, les données chiffrées ne peuvent pas être récupérées. Conservez-le en lieu sûr."
+      },
+      "logout": {
+        "title": "Déconnexion et données locales",
+        "body": "La déconnexion efface les secrets en mémoire, l’état du coffre et, si applicable, le matériel de clé maître dans IndexedDB, et termine la session API. Les données uniquement en stockage local peuvent rester jusqu’à suppression dans le navigateur."
+      }
+    },
+    "tips": {
+      "title": "Utiliser MyDevTools en toute sécurité",
+      "items": {
+        "masterPassword": "Utilisez un mot de passe maître fort et unique pour les fonctions de coffre.",
+        "apiClient": "Traitez le Client API comme tout client HTTP : évitez de coller des secrets de production dans des environnements partagés sans savoir qui peut les voir.",
+        "nosql": "L’Explorateur de base de données se connecte à des bases que vous configurez ; utilisez des comptes au moindre privilège et des règles réseau si possible.",
+        "json": "Le formateur JSON fonctionne localement dans le navigateur—évitez quand même de coller des données très sensibles sur des machines partagées.",
+        "settings": "Personnalisez les outils visibles dans Paramètres pour garder la barre latérale focalisée."
+      }
+    }
+  },
+  "Settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "spanish": "Espagnol",
+    "english": "Anglais",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Catalan",
+    "chineseSimplified": "Chinois (simplifié)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "Allemand",
+    "danish": "Danois",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "norwegian": "Norsk",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukrainien"
+  },
+  "SettingsPage": {
+    "title": "Paramètres",
+    "subtitle": "Gérez les paramètres et préférences de votre compte.",
+    "userProfile": {
+      "title": "Profil utilisateur",
+      "description": "Vos informations personnelles et détails du compte.",
+      "avatarAlt": "Utilisateur",
+      "anonymousUser": "Utilisateur anonyme",
+      "noEmailProvided": "Aucun e-mail fourni",
+      "notLoggedIn": "Non connecté."
+    },
+    "tools": {
+      "title": "Outils et fonctionnalités",
+      "description": "Choisissez les outils affichés dans la barre latérale de navigation."
+    },
+    "appearance": {
+      "title": "Apparence",
+      "description": "Personnalisez l’apparence de l’application sur votre appareil.",
+      "themePreference": "Thème",
+      "themes": {
+        "light": "Clair",
+        "dark": "Sombre",
+        "system": "Système"
+      }
+    },
+    "language": {
+      "title": "Langue",
+      "description": "Définissez la langue utilisée sur la plateforme.",
+      "selectLanguage": "Choisir la langue",
+      "selectPlaceholder": "Sélectionner une langue",
+      "helpText": "Changer la langue met à jour les menus et libellés sur la plateforme.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Spanish)",
+        "ar": "عربى (Arabic)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Greek)",
+        "de": "Deutsch (German)",
+        "da": "Dansk (Danish)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "it": "Italien (Italiano)",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
+      }
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
+      "addButton": "Add passkey",
+      "loading": "Loading…",
+      "none": "No passkeys yet.",
+      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
+      "addedOn": "Added {date}",
+      "lastUsedOn": "Last used {date}",
+      "synced": "Synced",
+      "rename": "Rename",
+      "renamePrompt": "Rename passkey",
+      "addedToast": "Passkey added.",
+      "renamedToast": "Passkey renamed.",
+      "removedToast": "Passkey removed.",
+      "loadError": "Could not load passkeys.",
+      "addError": "Could not add passkey.",
+      "renameError": "Could not rename passkey.",
+      "deleteError": "Could not delete passkey.",
+      "dialog": {
+        "title": "Add a passkey",
+        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
+        "nameLabel": "Device name (optional)",
+        "namePlaceholder": "e.g. MacBook Touch ID",
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "waiting": "Waiting for device…"
+      },
+      "delete": {
+        "title": "Remove passkey?",
+        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
+        "cancel": "Cancel",
+        "confirm": "Remove"
+      },
+      "prompt": {
+        "title": "Sign in faster next time",
+        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
+        "skip": "Maybe later",
+        "setup": "Set up passkey",
+        "successToast": "Passkey added — try signing out and back in to test it.",
+        "errorToast": "Could not add passkey. You can try again from Settings."
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Bonjour",
+      "afternoon": "Bon après-midi",
+      "evening": "Bonsoir"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Bon retour",
+    "welcomeBackNamed": "Bon retour, {name}",
+    "tagline": "Que souhaitez-vous créer aujourd’hui ?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Outils",
+      "favorites": "Favoris",
+      "pinned": "Épinglés",
+      "recent": "Récemment utilisés"
+    },
+    "sections": {
+      "recentlyUsed": "Récemment utilisés",
+      "favorites": "Favoris",
+      "whatsNew": "Nouveautés",
+      "pinned": "Épinglés"
+    },
+    "groups": {
+      "apps": "Applications"
+    },
+    "toolCard": {
+      "defaultDescription": "Explorez cet outil pour plus de fonctionnalités.",
+      "launchTool": "Lancer l’outil"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Tâches",
+        "description": "Gérez vos listes de tâches efficacement."
+      },
+      "notes": {
+        "title": "Notes",
+        "description": "Capturez des idées et organisez vos pensées."
+      },
+      "passwordManager": {
+        "title": "Gestionnaire de mots de passe",
+        "description": "Stockez et gérez vos mots de passe en toute sécurité."
+      },
+      "environmentManager": {
+        "title": "Gestionnaire d'environnement",
+        "description": "Stockez des variables type .env par projet et environnement avec des étiquettes."
+      },
+      "bookmarks": {
+        "title": "Signets",
+        "description": "Gérez et organisez vos signets."
+      },
+      "apiClient": {
+        "title": "Client API",
+        "description": "Testez et déboguez les requêtes HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Database Explorer",
+        "description": "Explorez les bases de données MongoDB."
+      },
+      "emailValidator": {
+        "title": "Validateur d’e-mail",
+        "description": "Vérifiez et validez les adresses e-mail."
+      },
+      "encryptionPlayground": {
+        "title": "Bac à sable chiffrement",
+        "description": "AES-GCM avec clé brute ou phrase secrète ; paquets JSON, Web Crypto uniquement dans le navigateur."
+      },
+      "jwtDecoder": {
+        "title": "Décodeur JWT",
+        "description": "Décoder l’en-tête, la charge utile et l’expiration des JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Décodeur de certificat / PEM",
+        "description": "Décodez les certificats X.509 et les CSR : sujet, émetteur, validité et SAN."
+      },
+      "sshKeyGenerator": {
+        "title": "Générateur de clés SSH / RSA",
+        "description": "Générez des paires de clés Ed25519 ou RSA. Téléchargez les clés en formats OpenSSH et PEM."
+      },
+      "jsonFormatter": {
+        "title": "Formateur JSON",
+        "description": "Formater, valider et modifier des données JSON."
+      },
+      "sqlFormatter": {
+        "title": "Formateur SQL",
+        "description": "Formater du SQL pour MySQL, PostgreSQL et SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Formateur GraphQL",
+        "description": "Formatez du GraphQL avec coloration syntaxique et un éditeur de requêtes simple."
+      },
+      "yamlFormatter": {
+        "title": "Formateur YAML",
+        "description": "Formatez, validez et convertissez du YAML en JSON dans le navigateur."
+      },
+      "diffChecker": {
+        "title": "Comparateur de différences",
+        "description": "Différences ligne par ligne côte à côte entre deux textes."
+      },
+      "regexTester": {
+        "title": "Testeur d’expressions régulières",
+        "description": "Tester des regex avec surlignage des correspondances en direct."
+      },
+      "timestampConverter": {
+        "title": "Convertisseur d’horodatage",
+        "description": "Conversion entre Unix, ISO et temps relatif."
+      },
+      "cronBuilder": {
+        "title": "Constructeur Cron",
+        "description": "Constructeur visuel Cron, préréglages et analyseur."
+      },
+      "base64Encoder": {
+        "title": "Encodeur Base64",
+        "description": "Encoder et décoder des chaînes Base64."
+      },
+      "urlEncoder": {
+        "title": "Encodeur d’URL",
+        "description": "Encoder et décoder en pourcentage les composants d’URL."
+      },
+      "urlParser": {
+        "title": "Analyseur d’URL",
+        "description": "Décomposer une URL en protocole, hôte, chemin, paramètres de requête et fragment."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Générer des UUID et ULID avec export en masse."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Secret / clé API",
+        "description": "Chaînes aléatoires cryptographiques avec alphabet, longueur et export groupé configurables."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Générer du texte latin factice pour maquettes et mises en page."
+      },
+      "colorPicker": {
+        "title": "Sélecteur de couleurs",
+        "description": "Convertir HEX, RVB, TSL et explorer des palettes."
+      },
+      "contrastChecker": {
+        "title": "Vérificateur de contraste",
+        "description": "Ratio de contraste WCAG 2.1 entre texte et fond (AA / AAA)."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Générateur de schéma JSON",
+        "description": "Déduisez un schéma JSON et des modèles typés à partir d'un exemple JSON."
+      },
+      "imageToBase64": {
+        "title": "Image vers Base64",
+        "description": "Convertissez les images en URI de données ou en chaînes Base64 brutes."
+      },
+      "imageCompressor": {
+        "title": "Compresseur d’images",
+        "description": "Compressez JPEG, PNG et WebP localement avec un curseur de qualité."
+      },
+      "cssGradientBuilder": {
+        "title": "Générateur de dégradé CSS",
+        "description": "Générateur de dégradé visuel CSS avec contrôle d'angle et arrêts de couleur."
+      },
+      "gitignoreGenerator": {
+        "title": "Générateur .gitignore",
+        "description": "Générez instantanément des fichiers .gitignore fusionnés à partir de plus de 500 piles technologiques."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Convertir des fichiers CSV ou Excel en JSON et exporter vers CSV ou XLSX."
+      },
+      "snippetManager": {
+        "title": "Extraits de code",
+        "description": "Enregistrez des extraits avec coloration syntaxique, détection automatique du langage et formatage."
+      },
+      "qrCodeGenerator": {
+        "title": "Générateur de codes QR",
+        "description": "Créez des codes QR PNG à partir de texte ou d’URL dans le navigateur."
+      },
+      "ipSubnetCalculator": {
+        "title": "Calculateur IP / sous-réseau",
+        "description": "IPv4 et IPv6 CIDR : masque, plages et nombre d’adresses."
+      },
+      "dnsLookup": {
+        "title": "Recherche DNS",
+        "description": "Interrogez les enregistrements DNS d'un domaine — A, AAAA, MX, TXT, NS, CNAME."
+      },
+      "hashGenerator": {
+        "title": "Générateur de hash",
+        "description": "MD5, SHA-1 et SHA-2 pour texte ou fichiers."
+      },
+      "hmacGenerator": {
+        "title": "Générateur HMAC",
+        "description": "Signer des webhooks et tester des intégrations API avec HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Générateur de code TOTP / 2FA",
+        "description": "Collez un secret Base32 d’authentificateur ; le code à six chiffres se met à jour toutes les 30 s pour tester la connexion et le MFA."
+      },
+      "markdownPreview": {
+        "title": "Aperçu Markdown",
+        "description": "Rendu Markdown en direct avec export HTML et conversion HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Convertisseur de base numérique",
+        "description": "Convertissez des entiers entre les bases 2 à 36."
+      },
+      "formatConverter": {
+        "title": "Convertisseur de formats",
+        "description": "Convertissez entre JSON, YAML, TOML et XML dans tous les sens. Les 12 combinaisons sont prises en charge."
+      },
+      "mockDataGenerator": {
+        "title": "Générateur de données fictives",
+        "description": "Définissez des colonnes, choisissez des types et exportez des jeux de données pour les seeds, Postman ou les tests. Jusqu’à 5000 lignes, tout dans le navigat…"
+      },
+      "httpStatusCodes": {
+        "title": "Codes de statut HTTP",
+        "description": "Recherchez des codes de statut HTTP avec des descriptions (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Optimiseur SVG",
+        "description": "Collez du SVG, supprimez le superflu avec SVGO et voyez le gain de taille UTF-8."
+      },
+      "unitConverter": {
+        "title": "Convertisseur d'unités",
+        "description": "Convertissez entre 323 unités dans 43 catégories scientifiques et techniques."
+      },
+      "dockerComposeGenerator": {
+        "title": "Générateur Docker Compose",
+        "description": "Choisissez bases de données, caches, files, proxys et observabilité ; exportez un docker-compose.yml pour le dev local."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Faites glisser et fusionnez les carreaux pour atteindre 2048. Jeu de puzzle à numéro classique."
+      },
+      "sudoku": {
+        "title": "Patience",
+        "description": "Puzzle à numéro classique. 3 niveaux de difficulté, 150 niveaux chacun."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Parcourez les clés, inspectez les valeurs et exécutez des commandes sur n'importe quelle instance Redis."
+      },
+      "curlToCode": {
+        "title": "cURL to Code",
+        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
+      },
+      "jsonToCode": {
+        "title": "JSON to Code",
+        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
+      },
+      "beautifyMinify": {
+        "title": "Beautify & Minify",
+        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
+      },
+      "stringCaseConverter": {
+        "title": "String Case Converter",
+        "description": "Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+      },
+      "lineSortDedupe": {
+        "title": "Line Sort & Dedupe",
+        "description": "Sort, deduplicate, trim, and clean up lists of lines locally."
+      },
+      "stringInspector": {
+        "title": "String Inspector",
+        "description": "Count characters, words, bytes, and detect invisible or non-ASCII characters."
+      },
+      "escapeEncode": {
+        "title": "Escape / Encode",
+        "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Générateur et vérificateur Bcrypt",
+        "description": "Hachez des mots de passe avec bcrypt et vérifiez des hachages existants."
+      },
+      "chmodCalculator": {
+        "title": "Calculateur Chmod",
+        "description": "Convertissez les permissions Unix entre octal, symbolique et cases à cocher."
+      },
+      "codeScreenshot": {
+        "title": "Capture de code",
+        "description": "Transformez votre code source en images élégantes et partageables."
+      },
+      "cssGenerators": {
+        "title": "Générateurs CSS",
+        "description": "Générateurs de box-shadow, border-radius et clamp() fluide."
+      },
+      "exifViewer": {
+        "title": "Visionneuse et nettoyeur EXIF",
+        "description": "Inspectez et supprimez les métadonnées EXIF des photos en local."
+      },
+      "faviconGenerator": {
+        "title": "Générateur de favicon",
+        "description": "Générez des favicons, icônes d'application et extraits de manifeste."
+      },
+      "jsonDiff": {
+        "title": "Diff JSON",
+        "description": "Comparaison sémantique tenant compte de la structure de deux documents JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Playground JSONPath",
+        "description": "Interrogez du JSON avec JSONPath ou JMESPath et voyez les résultats en direct."
+      },
+      "keycodeInspector": {
+        "title": "Inspecteur de keycode",
+        "description": "Appuyez sur une touche pour voir ses codes d'événement JavaScript et ses modificateurs."
+      },
+      "markdownTableGenerator": {
+        "title": "Générateur de tableaux Markdown",
+        "description": "Créez des tableaux Markdown et HTML dans un éditeur en grille de type tableur."
+      },
+      "timezoneConverter": {
+        "title": "Convertisseur de fuseaux horaires",
+        "description": "Convertissez une heure sur de nombreux fuseaux avec repères de décalage de jour et d'heures ouvrées."
+      },
+      "tokenCounter": {
+        "title": "Compteur de tokens LLM",
+        "description": "Comptez les tokens LLM, visualisez les segments et estimez le coût de l'API."
+      },
+      "webhookTester": {
+        "title": "Testeur de webhook",
+        "description": "Capturez et inspectez les requêtes webhook entrantes en temps réel."
+      },
+      "websocketTester": {
+        "title": "Testeur WebSocket",
+        "description": "Connectez-vous à des points de terminaison WebSocket et échangez des messages en temps réel."
+      },
+      "whoisLookup": {
+        "title": "Recherche Whois",
+        "description": "Consultez les détails d'enregistrement d'un domaine ou d'une IP via RDAP."
+      }
+    },
+    "tabs": {
+      "apps": "Applications",
+      "analytics": "Analytique",
+      "ui": "Interface"
+    },
+    "analytics": {
+      "title": "Vos données en un coup d’œil",
+      "subtitle": "Compteurs synchronisés avec votre compte sur le serveur.",
+      "loadError": "Impossible de charger les statistiques.",
+      "retry": "Réessayer",
+      "loginHint": "Connectez-vous pour voir les analyses d’utilisation et les préférences d’interface.",
+      "passwordEntries": "Entrées de mots de passe",
+      "bookmarks": "Signets",
+      "bookmarkFolders": "Dossiers de signets",
+      "tasksTotal": "Tâches",
+      "tasksCompleted": "Terminées",
+      "tasksOngoing": "En cours",
+      "tasksNotStarted": "Non démarrées",
+      "projects": "Projets",
+      "nosqlConnections": "Connexions BD",
+      "notes": "Notes",
+      "apiClientCollections": "Collections API",
+      "apiClientEnvironments": "Environnements API",
+      "apiClientHistory": "Entrées d’historique API",
+      "jsonFormatterDocuments": "Documents du formateur JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Extraits de code",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
+    },
+    "ui": {
+      "title": "Préférences d’interface",
+      "subtitle": "Thème, langue et outils visibles dans la barre latérale — depuis les paramètres du compte.",
+      "loadError": "Impossible de charger les préférences.",
+      "loginHint": "Connectez-vous pour voir vos préférences d’interface enregistrées.",
+      "theme": "Thème",
+      "accent": "Couleur d’accent",
+      "locale": "Langue",
+      "enabledTools": "Outils visibles",
+      "favoriteTools": "Outils favoris",
+      "toolsWithUsage": "Outils avec suivi d’utilisation"
+    },
+    "signIn": "Se connecter",
+    "noResults": "Aucun outil ne correspond à votre recherche",
+    "noResultsHint": "Essayez un autre mot-clé ou effacez le filtre.",
+    "filterAll": "Tout",
+    "loginCta": {
+      "description": "Connectez-vous pour suivre vos outils récemment utilisés."
+    },
+    "popularTools": "Popular tools",
+    "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
+    "viewActivity": "Recent activity",
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "filterRange": "Time range",
+      "search": "Search activity…",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "7 days",
+      "last30": "30 days",
+      "allTime": "All time",
+      "resetFilters": "Reset filters",
+      "activeFilters": "{count, plural, =0 {No filters} =1 {1 filter} other {# filters}} applied",
+      "empty": "No activity yet.",
+      "emptyFiltered": "No activity matches the current filters.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "showingOf": "Showing {shown} of {total}",
+      "changedFields": "What changed",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "device": "Device",
+      "ipAddress": "IP",
+      "latency": "Latency",
+      "endpoint": "Endpoint",
+      "status": "Status",
+      "when": "When",
+      "actionKey": "Action",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity",
+      "moduleAuth": "Account",
+      "moduleBookmarks": "Bookmarks",
+      "moduleBookmarkFolders": "Bookmark folders",
+      "moduleNotes": "Notes",
+      "moduleTasks": "Tasks",
+      "modulePasswords": "Passwords",
+      "moduleSnippets": "Snippets",
+      "moduleApiClient": "API client",
+      "moduleSqlClient": "SQL client",
+      "moduleNosql": "NoSQL",
+      "moduleEnvManager": "Environments",
+      "modulePrefs": "Preferences",
+      "moduleProjects": "Projects",
+      "moduleUrlShortener": "URL shortener",
+      "moduleGameScores": "Game scores",
+      "moduleFeedback": "Feedback"
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Chargement…",
+      "myTasksTitle": "Mes tâches",
+      "statsLine": "{total} tâches • {percent} % terminées",
+      "statsLineDesktop": "{total} au total • {percent} % terminées"
+    },
+    "filters": {
+      "all": "Toutes",
+      "total": "Total",
+      "allProjects": "Tous les projets",
+      "export": "Exporter",
+      "kanban": "Kanban",
+      "list": "Liste",
+      "searchPlaceholder": "Rechercher des tâches…",
+      "searchAria": "Rechercher des tâches",
+      "clearSearchAria": "Effacer la recherche",
+      "foundTasks": "Trouvé {count} {count, plural, one {tâche} other {tâches}}",
+      "filterByAllAria": "Filtrer par toutes",
+      "filterByStatusAria": "Filtrer par {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Non commencé",
+        "description": "Tâches pas encore commencées"
+      },
+      "ongoing": {
+        "label": "En cours",
+        "description": "Tâches en cours"
+      },
+      "completed": {
+        "label": "Terminé",
+        "description": "Tâches terminées"
+      }
+    },
+    "priorities": {
+      "high": "Haute",
+      "medium": "Moyenne",
+      "low": "Basse"
+    },
+    "form": {
+      "addNewTaskLabel": "Ajouter une tâche",
+      "multilinePlaceholder": "Détails de la tâche… (Maj+Entrée pour une nouvelle ligne)",
+      "singlelinePlaceholder": "Que faut-il faire ? Entrée pour ajouter",
+      "taskInputAria": "Saisie de tâche",
+      "projectPlaceholder": "Projet",
+      "selectProject": "Choisir un projet",
+      "errorSelectProject": "Sélectionnez un projet ou créez-en un pour ajouter une tâche.",
+      "hintMultiline": "Maj+Entrée pour une nouvelle ligne, Entrée pour ajouter",
+      "hintSingleline": "Entrée pour ajouter",
+      "shortcutsAria": "Raccourcis clavier",
+      "shortcutsLabel": "Raccourcis",
+      "shortcutAddTask": "Ajouter une tâche",
+      "shortcutNewLine": "Nouvelle ligne",
+      "shortcutClear": "Effacer",
+      "addButton": "Ajouter"
+    },
+    "list": {
+      "ariaLabel": "Liste des tâches",
+      "loading": "Chargement de vos tâches…",
+      "emptyTitle": "Aucune tâche",
+      "emptyPrimary": "Ajoutez votre première tâche ci-dessus ! Entrée pour ajouter rapidement.",
+      "emptySecondary": "Modifiez les filtres ou la recherche."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Ajouter une tâche",
+      "addNewTaskTitle": "Nouvelle tâche",
+      "addNewTaskDescription": "Créez une tâche pour suivre votre avancement.",
+      "cancel": "Annuler"
+    },
+    "kanban": {
+      "ariaLabel": "Tableau Kanban",
+      "loading": "Chargement de vos tâches…",
+      "dropHere": "Déposer la tâche ici",
+      "noTasksYet": "Pas encore de tâches",
+      "emptyColumnAria": "Colonne vide",
+      "columnAria": "Colonne {title} avec {count, plural, one {# tâche} other {# tâches}}",
+      "countInColumnAria": "{count, plural, one {# tâche} other {# tâches}} dans {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Supprimer cette tâche ?",
+      "statusPlaceholder": "Statut",
+      "changeStatusAria": "Changer le statut de la tâche",
+      "taskOptionsAria": "Options de la tâche",
+      "editTask": "Modifier la tâche",
+      "copyTask": "Copier la tâche",
+      "copied": "Copié !",
+      "deleteTask": "Supprimer la tâche",
+      "statusHeading": "Statut",
+      "editTaskAria": "Modifier la tâche"
+    },
+    "editDialog": {
+      "title": "Modifier la tâche",
+      "description": "Modifiez les détails, sous-tâches, priorités, etc.",
+      "taskTitleLabel": "Titre de la tâche *",
+      "taskTitlePlaceholder": "Que faut-il faire ?",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Plus de détails sur cette tâche…",
+      "statusLabel": "Statut",
+      "priorityLabel": "Priorité",
+      "dueDateLabel": "Échéance",
+      "pickDate": "Choisir une date",
+      "clearDate": "Effacer la date",
+      "projectLabel": "Projet",
+      "selectProjectPlaceholder": "Choisir un projet",
+      "noProject": "Aucun projet",
+      "timeEstimateLabel": "Estimation (minutes)",
+      "timeEstimatePlaceholder": "Durée prévue ?",
+      "tagsLabel": "Étiquettes",
+      "customTagNamePlaceholder": "Nom d’étiquette",
+      "subtasksLabel": "Sous-tâches",
+      "addSubtaskPlaceholder": "Ajouter une sous-tâche…",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "saveChanges": "Enregistrer"
+    },
+    "export": {
+      "title": "Exporter les tâches",
+      "description": "Exportez vos tâches en JSON, CSV ou Excel.",
+      "projectLabel": "Projet",
+      "statusLabel": "Statut",
+      "tagLabel": "Étiquette",
+      "allProjects": "Tous les projets",
+      "allStatuses": "Tous les statuts",
+      "allTags": "Toutes les étiquettes",
+      "exportAsJsonTitle": "Exporter en JSON",
+      "exportAsJsonDescription": "Données des tâches avec sous-tâches, étiquettes et métadonnées.",
+      "exportJson": "Exporter JSON",
+      "exportAsCsvExcelTitle": "Exporter en CSV / Excel",
+      "exportAsCsvExcelDescription": "Export pour tableurs.",
+      "exportCsv": "Exporter CSV",
+      "exportExcel": "Exporter Excel",
+      "close": "Fermer",
+      "toastNoTasks": "Aucune tâche à exporter avec ces filtres",
+      "toastExportedJson": "{count, plural, one {# tâche exportée} other {# tâches exportées}} en JSON !",
+      "toastExportedCsv": "{count, plural, one {# tâche exportée} other {# tâches exportées}} en CSV !",
+      "toastExportedExcel": "{count, plural, one {# tâche exportée} other {# tâches exportées}} en Excel !",
+      "toastFailedJson": "Échec de l’export JSON",
+      "toastFailedCsv": "Échec de l’export CSV",
+      "toastFailedExcel": "Échec de l’export Excel",
+      "unknownProject": "Projet inconnu"
+    },
+    "ack": {
+      "taskAddedTitle": "Tâche ajoutée",
+      "taskAddedFailedTitle": "Impossible d’ajouter la tâche",
+      "taskUpdatedTitle": "Tâche mise à jour",
+      "taskUpdatedFailedTitle": "Impossible de mettre à jour la tâche",
+      "taskStatusUpdateFailedTitle": "Impossible de mettre à jour le statut",
+      "taskMovedTitle": "Tâche déplacée vers {status}",
+      "tryAgain": "Veuillez réessayer.",
+      "taskDeletedTitle": "Tâche « {text} » supprimée",
+      "undo": "Annuler",
+      "taskRestoredTitle": "Tâche restaurée",
+      "taskRestoredSuccessTitle": "Tâche restaurée",
+      "taskRestoreFailedTitle": "Impossible de restaurer la tâche. Réessayez.",
+      "taskDeleteFailedTitle": "Impossible de supprimer la tâche. Réessayez.",
+      "tasksImportedTitle": "{count, plural, one {# tâche importée} other {# tâches importées}} !",
+      "tasksImportFailedTitle": "Échec de l’import des tâches. Réessayez.",
+      "unknownProject": "Projet inconnu",
+      "projectCreatedTitle": "Projet créé",
+      "projectCreateFailedTitle": "Impossible de créer le projet",
+      "projectUpdatedTitle": "Projet mis à jour",
+      "projectUpdateFailedTitle": "Impossible de mettre à jour le projet",
+      "projectDeletedTitle": "Projet supprimé",
+      "projectDeleteFailedTitle": "Impossible de supprimer le projet"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Chargement…"
+    },
+    "layout": {
+      "mobileNavTitle": "Navigation des notes",
+      "openMenuAria": "Ouvrir le menu des notes"
+    },
+    "sidebar": {
+      "title": "Notes",
+      "createNoteAria": "Créer une note",
+      "searchPlaceholder": "Rechercher des notes…",
+      "loading": "Chargement…",
+      "noNotesFound": "Aucune note trouvée.",
+      "noNotesYet": "Pas encore de notes. Cliquez sur + pour en créer une.",
+      "inParent": "dans {parentTitle}",
+      "untitled": "Sans titre",
+      "addSubPage": "Ajouter une sous-page",
+      "delete": "Supprimer",
+      "deleteConfirmTitle": "Supprimer la note ?",
+      "deleteConfirmDescription": "Supprimer « {title} » ? Cette action est irréversible.",
+      "cancel": "Annuler",
+      "confirmDelete": "Supprimer",
+      "noteOptionsAria": "Options de la note"
+    },
+    "editor": {
+      "emptyState": "Sélectionnez une note ou créez-en une pour commencer.",
+      "titlePlaceholder": "Sans titre",
+      "saving": "Enregistrement…",
+      "ready": "Prêt",
+      "saved": "Enregistré {time}",
+      "stats": "{words} mots · {read} min de lecture",
+      "template": "Modèle",
+      "applyTemplate": "Appliquer le modèle",
+      "exportMdLabel": ".md",
+      "exportMd": "Exporter en Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Exporter en HTML",
+      "focusMode": "Mode concentration",
+      "exitFocusMode": "Quitter le mode concentration",
+      "save": "Enregistrer",
+      "addTag": "Ajouter une étiquette…",
+      "removeTag": "Supprimer l'étiquette {tag}",
+      "loading": "Chargement…",
+      "searchHint": "pour rechercher",
+      "focusHint": "mode concentration",
+      "notePath": "Chemin de la note"
+    },
+    "context": {
+      "authRequiredError": "Utilisateur non authentifié",
+      "defaultTitle": "Sans titre",
+      "cloudSyncImageError": "Activez la synchronisation cloud pour stocker les images des notes. Les notes texte restent locales."
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Chargement…",
+      "title": "Gestionnaire de mots de passe",
+      "loadFailed": "Failed to load passwords"
+    },
+    "vault": {
+      "toastDecryptFailed": "Impossible de déchiffrer les mots de passe",
+      "toastLoadFailed": "Impossible de charger les mots de passe",
+      "toastUnlockedAuto": "Coffre déverrouillé automatiquement",
+      "toastAutoUnlockFailed": "Déverrouillage auto échoué. Déverrouillez manuellement.",
+      "toastConnectFailed": "Connexion au serveur impossible",
+      "toastAutoUnlockWarning": "Coffre déverrouillé ; le déverrouillage auto peut échouer au rechargement",
+      "errorIncorrectPassword": "Mot de passe principal incorrect",
+      "errorUnlockFailed": "Impossible de déverrouiller le coffre",
+      "errorPasswordsMismatch": "Les mots de passe ne correspondent pas",
+      "errorPasswordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+      "errorSetupFailed": "Impossible de configurer le coffre",
+      "errorConnectFailed": "Connexion au serveur impossible.",
+      "mobileTitleCreate": "Créer votre coffre",
+      "mobileTitleWelcome": "Bon retour",
+      "mobileSubtitleCreate": "Définissez un mot de passe principal pour protéger vos identifiants",
+      "mobileSubtitleUnlock": "Saisissez votre mot de passe principal pour déverrouiller",
+      "placeholderMasterPassword": "Mot de passe principal",
+      "placeholderConfirmPassword": "Confirmer le mot de passe",
+      "labelMasterPassword": "Mot de passe principal",
+      "labelConfirmPassword": "Confirmer le mot de passe",
+      "placeholderEnterMaster": "Mot de passe principal",
+      "placeholderConfirmMaster": "Confirmer le mot de passe principal",
+      "buttonCreateVault": "Créer le coffre",
+      "buttonUnlock": "Déverrouiller",
+      "buttonUnlockVault": "Déverrouiller le coffre",
+      "footerCreate": "Votre mot de passe n’est jamais stocké et ne peut pas être récupéré",
+      "footerUnlock": "Chiffrement de bout en bout",
+      "desktopTitleSetup": "Configurer le coffre",
+      "desktopTitleUnlock": "Déverrouiller le coffre",
+      "desktopDescriptionSetup": "Créez un mot de passe principal pour sécuriser vos identifiants. Il n’est jamais stocké et ne peut pas être récupéré.",
+      "desktopDescriptionUnlock": "Saisissez votre mot de passe principal pour accéder à vos identifiants."
+    },
+    "list": {
+      "loading": "Chargement de vos mots de passe…",
+      "emptyTitle": "Coffre vide",
+      "emptyHintMobile": "Appuyez sur + pour ajouter votre premier mot de passe",
+      "emptyHintDesktop": "Aucun mot de passe enregistré. Cliquez sur « Ajouter un mot de passe » ci-dessus.",
+      "addPassword": "Ajouter un mot de passe",
+      "searchPlaceholderMobile": "Rechercher dans le coffre…",
+      "searchPlaceholderDesktop": "Rechercher…",
+      "importExport": "Importer / exporter",
+      "lockVault": "Verrouiller le coffre",
+      "allPasswordsTitle": "Tous les mots de passe",
+      "passwordCount": "{count, plural, one {# mot de passe} other {# mots de passe}}",
+      "vaultHealthDrawerTitle": "Santé du coffre",
+      "noResults": "Aucun mot de passe pour « {query} »",
+      "tableService": "Service",
+      "tableUsername": "Nom d’utilisateur",
+      "tablePassword": "Mot de passe",
+      "tableUrl": "URL",
+      "tableActions": "Actions",
+      "gridViewAria": "Vue grille",
+      "listViewAria": "Vue liste",
+      "passwordStrengthTitle": "Robustesse du mot de passe",
+      "deleteDialogTitle": "Supprimer le mot de passe",
+      "deleteDialogDescription": "Supprimer ce mot de passe ? Cette action est irréversible.",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "edit": "Modifier"
+    },
+    "toasts": {
+      "copiedPassword": "Mot de passe copié",
+      "copiedUsername": "Nom d’utilisateur copié",
+      "passwordDeleted": "Mot de passe supprimé",
+      "deleteFailed": "Impossible de supprimer le mot de passe",
+      "vaultLocked": "Coffre verrouillé",
+      "importedCount": "{count, plural, one {# mot de passe importé} other {# mots de passe importés}}"
+    },
+    "form": {
+      "addTitle": "Nouveau mot de passe",
+      "editTitle": "Modifier le mot de passe",
+      "serviceName": "Nom du service",
+      "usernameEmail": "Nom d’utilisateur / e-mail",
+      "password": "Mot de passe",
+      "urlOptional": "URL du site (facultatif)",
+      "notesOptional": "Notes (facultatif)",
+      "tags": "Étiquettes",
+      "placeholderService": "ex. Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "Saisir ou générer un mot de passe",
+      "placeholderUrl": "https://…",
+      "placeholderNotes": "Détails supplémentaires…",
+      "placeholderTags": "Étiquettes (Entrée ou virgule)",
+      "strength": "Robustesse",
+      "strengthWeak": "Faible",
+      "strengthMedium": "Moyenne",
+      "strengthStrong": "Forte",
+      "advancedGenerator": "Générateur avancé",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "savePassword": "Enregistrer",
+      "updating": "Mise à jour…",
+      "updatePassword": "Mettre à jour",
+      "addPasswordSrOnly": "Ajouter un mot de passe",
+      "triggerAdd": "Ajouter un mot de passe",
+      "toastSaved": "Mot de passe enregistré",
+      "toastSaveFailed": "Impossible d’enregistrer",
+      "toastUpdated": "Mot de passe mis à jour",
+      "toastUpdateFailed": "Impossible de mettre à jour"
+    },
+    "security": {
+      "vaultHealth": "Santé du coffre",
+      "statusLabel": "Statut",
+      "totalPasswords": "Total des mots de passe",
+      "activeEntries": "Entrées actives dans votre coffre",
+      "protected": "Protégé",
+      "weakPasswords": "Mots de passe faibles",
+      "needingImprovement": "À renforcer",
+      "allGood": "Tout va bien",
+      "reusedPasswords": "Mots de passe réutilisés",
+      "usedMultipleTimes": "Utilisés plusieurs fois",
+      "unique": "Uniques",
+      "total": "Total",
+      "weak": "Faibles",
+      "reused": "Réutilisés",
+      "totalCountLabel": "{count, plural, one {# mot de passe} other {# mots de passe}}",
+      "weakCountLabel": "{count} faibles",
+      "allSecure": "Tout est sécurisé",
+      "scoreExcellent": "Excellent",
+      "scoreGood": "Bon",
+      "scoreFair": "Moyen",
+      "scoreCritical": "Critique"
+    },
+    "importExport": {
+      "title": "Importer / exporter le coffre",
+      "description": "Gérez vos données. Export JSON ou import depuis un fichier JSON.",
+      "tabExport": "Exporter",
+      "tabImport": "Importer",
+      "warningTitle": "Attention",
+      "warningBody": "Les fichiers exportés contiennent vos mots de passe en clair. Protégez le fichier et supprimez-le après usage.",
+      "exportBlurb": "Téléchargez tout le coffre en JSON (services, identifiants, mots de passe, notes).",
+      "downloadJson": "Télécharger l’export JSON",
+      "pasteLabel": "Coller les données JSON",
+      "pastePlaceholder": "[{\"service\": \"Exemple\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "Collez ici le contenu d’un export JSON précédent.",
+      "importing": "Import…",
+      "importPasswords": "Importer",
+      "trigger": "Importer / exporter",
+      "toastExported": "Coffre exporté",
+      "toastExportFailed": "Échec de l’export",
+      "toastImportFailed": "Import impossible : JSON invalide"
+    },
+    "card": {
+      "copyUsername": "Copier le nom d’utilisateur",
+      "openUrl": "Ouvrir l’URL",
+      "strength": "Robustesse"
+    },
+    "swipeable": {
+      "copy": "Copier",
+      "delete": "Supprimer",
+      "copyPassword": "Copier le mot de passe",
+      "copyUsername": "Copier le nom d’utilisateur",
+      "edit": "Modifier",
+      "deleteAction": "Supprimer"
+    },
+    "floatingMenu": {
+      "lockVault": "Verrouiller le coffre",
+      "importExport": "Importer / exporter",
+      "addPassword": "Ajouter un mot de passe"
+    },
+    "generator": {
+      "tabPassword": "Mot de passe",
+      "tabPassphrase": "Phrase secrète",
+      "strength": "Robustesse",
+      "lengthLabel": "Longueur : {length} caractères",
+      "lengthBadge": "{length} car.",
+      "characterSets": "Jeux de caractères",
+      "uppercase": "Majuscules",
+      "lowercase": "Minuscules",
+      "numbers": "Chiffres",
+      "symbols": "Symboles",
+      "wordCountLabel": "Nombre de mots : {count}",
+      "wordCountBadge": "{count, plural, one {# mot} other {# mots}}",
+      "separator": "Séparateur",
+      "capitalization": "Casse",
+      "includeNumber": "Inclure un chiffre"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Variables d'environnement chiffrées par projet et environnement.",
+    "page": {
+      "loading": "Chargement…",
+      "title": "Gestionnaire d'environnement",
+      "loadFailed": "Impossible de charger les jeux d'environnement"
+    },
+    "list": {
+      "title": "Environnements",
+      "loading": "Chargement de vos jeux…",
+      "emptyTitle": "Aucun jeu d'environnement pour l'instant",
+      "emptyHint": "Créez un jeu pour chaque projet et environnement (ex. clés API de production). Tout est chiffré dans votre navigateur avant l'envoi.",
+      "searchPlaceholder": "Rechercher projet, environnement, étiquettes, notes…",
+      "tagFilterPlaceholder": "Filtrer par étiquette",
+      "variableCount": "{count, plural, one {# variable} other {# variables}}",
+      "updatedAgo": "Mis à jour {time}",
+      "copyDotEnv": "Copier .env",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "cancel": "Annuler",
+      "confirmDelete": "Supprimer",
+      "deleteDialogTitle": "Supprimer le jeu d'environnement ?",
+      "deleteDialogDescription": "Cela supprime le blob chiffré de votre compte. Action irréversible.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
+    },
+    "toasts": {
+      "copiedDotEnv": ".env copié dans le presse-papiers",
+      "deleted": "Jeu d'environnement supprimé",
+      "deleteFailed": "Échec de la suppression"
+    },
+    "form": {
+      "addTitle": "Nouveau jeu d'environnement",
+      "editTitle": "Modifier le jeu d'environnement",
+      "triggerAdd": "Ajouter un jeu d'environnement",
+      "addSrOnly": "Ajouter un jeu d'environnement",
+      "project": "Projet",
+      "environment": "Environnement",
+      "placeholderProject": "ex. billing-api",
+      "placeholderEnvironment": "ex. production",
+      "pasteEnvLabel": "Coller un .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Fusionner les lignes collées",
+      "variables": "Variables",
+      "addRow": "Ajouter une ligne",
+      "keyPlaceholder": "CLÉ",
+      "valuePlaceholder": "valeur",
+      "notesOptional": "Notes (facultatif)",
+      "placeholderNotes": "Politique de rotation, propriétaire, liens…",
+      "tags": "Étiquettes",
+      "placeholderTags": "Ajouter des étiquettes (Entrée ou virgule)",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "update": "Mettre à jour",
+      "updating": "Mise à jour…",
+      "toastSaved": "Jeu d'environnement enregistré",
+      "toastSaveFailed": "Échec de l'enregistrement",
+      "toastUpdated": "Jeu d'environnement mis à jour",
+      "toastUpdateFailed": "Échec de la mise à jour",
+      "toastPasteEmpty": "Aucune ligne CLÉ=valeur trouvée",
+      "toastPasteApplied": "{count} variables fusionnées depuis le collage",
+      "toastProjectEnvRequired": "Le projet et l'environnement sont obligatoires",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Chargement…"
+    },
+    "manager": {
+      "foldersHeading": "Dossiers",
+      "tagsHeading": "Étiquettes",
+      "tagsMore": "+{count} de plus",
+      "tagsShowLess": "Show less",
+      "searchPlaceholder": "Rechercher des signets…",
+      "import": "Importer",
+      "export": "Exporter",
+      "exportAsHtml": "Exporter en HTML",
+      "exportAsJson": "Exporter en JSON",
+      "addBookmark": "Ajouter un signet",
+      "matchingQuery": "correspondant à « {query} »",
+      "bookmarkCount": "{count, plural, one {# signet} other {# signets}}",
+      "allBookmarks": "Tous les signets",
+      "uncategorized": "Sans catégorie",
+      "unknownFolder": "Inconnu"
+    },
+    "card": {
+      "urlCopied": "URL copiée",
+      "bookmarkDeleted": "Signet supprimé",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "copyUrl": "Copier l’URL",
+      "deleteConfirmTitle": "Supprimer le signet ?",
+      "deleteConfirmDescription": "Suppression définitive de « {title} ».",
+      "cancel": "Annuler"
+    },
+    "grid": {
+      "emptyTitle": "Aucun signet",
+      "emptyDescription": "Ajoutez un signet ou importez depuis votre navigateur."
+    },
+    "folderTree": {
+      "allBookmarks": "Tous les signets",
+      "addSubfolder": "Ajouter un sous-dossier",
+      "rename": "Renommer",
+      "deleteFolderTitle": "Supprimer le dossier « {name} » ?",
+      "deleteFolderDescription": "Le dossier et ses sous-dossiers seront supprimés. Les signets iront dans Sans catégorie."
+    },
+    "import": {
+      "title": "Importer des signets",
+      "description": "Importez depuis un fichier exporté par votre navigateur.",
+      "parseError": "Fichier de signets invalide.",
+      "successToast": "{bookmarks} signets et {folders} dossiers importés",
+      "errorToast": "Échec de l’import",
+      "chromeInstruction": "Menu → Signets → Gestionnaire de signets → ⋮ → Exporter les signets",
+      "firefoxInstruction": "Menu → Signets → Gérer les signets → Importer et sauvegarder → Exporter",
+      "safariInstruction": "Fichier → Exporter les signets…",
+      "edgeInstruction": "Menu → Favoris → ⋯ → Exporter les favoris",
+      "dropZoneTitle": "Déposez votre fichier ici",
+      "dropZoneHint": "ou cliquez pour parcourir (HTML ou JSON)",
+      "selectedFileHint": "Cliquez pour choisir un autre fichier",
+      "errorTitle": "Erreur",
+      "previewTitle": "Aperçu de l’import",
+      "previewBookmarks": "{count, plural, one {# signet} other {# signets}}",
+      "previewFolders": "{count, plural, one {# dossier} other {# dossiers}}",
+      "importModeLabel": "Mode d’import",
+      "modeMerge": "Fusionner avec les signets existants",
+      "modeReplace": "Remplacer tous les signets",
+      "cancel": "Annuler",
+      "importButton": "Importer",
+      "importButtonWithCount": "Importer {count, plural, one {# signet} other {# signets}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Ajouter un signet",
+      "titleEdit": "Modifier le signet",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "URL invalide",
+      "titleLabel": "Titre",
+      "titlePlaceholder": "Titre du signet",
+      "titleRequired": "Saisissez un titre",
+      "descriptionLabel": "Description (facultatif)",
+      "descriptionPlaceholder": "Note sur ce signet",
+      "folderLabel": "Dossier",
+      "folderPlaceholder": "Choisir un dossier",
+      "noFolder": "Aucun dossier",
+      "tagsLabel": "Étiquettes",
+      "tagsPlaceholder": "Étiquettes (Entrée)",
+      "toastUpdated": "Signet mis à jour",
+      "toastAdded": "Signet ajouté",
+      "cancel": "Annuler",
+      "submitAdd": "Ajouter",
+      "submitUpdate": "Mettre à jour"
+    },
+    "addFolder": {
+      "title": "Créer un dossier",
+      "nameLabel": "Nom du dossier",
+      "namePlaceholder": "Mon dossier",
+      "nameRequired": "Saisissez un nom",
+      "parentLabel": "Dossier parent",
+      "parentPlaceholder": "Choisir le parent",
+      "rootParent": "Racine (aucun parent)",
+      "toastCreated": "Dossier créé",
+      "cancel": "Annuler",
+      "submit": "Créer le dossier"
+    },
+    "editFolder": {
+      "title": "Renommer le dossier",
+      "nameLabel": "Nom du dossier",
+      "namePlaceholder": "Nom du dossier",
+      "nameRequired": "Saisissez un nom",
+      "toastRenamed": "Dossier renommé",
+      "cancel": "Annuler",
+      "save": "Enregistrer"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Validateur d’e-mail",
+      "description": "Vérifiez la syntaxe, le domaine et la délivrabilité des adresses e-mail."
+    },
+    "tabs": {
+      "single": "Vérification unitaire",
+      "bulk": "Import groupé"
+    },
+    "single": {
+      "cardTitle": "Vérification d’une adresse",
+      "cardDescription": "Saisissez une adresse pour vérifier délivrabilité et réputation.",
+      "placeholder": "Adresse e-mail…",
+      "clearAria": "Effacer",
+      "validate": "Valider",
+      "validating": "Validation…",
+      "formatError": "Adresse e-mail invalide"
+    },
+    "toasts": {
+      "errorTitle": "Erreur",
+      "enterEmail": "Saisissez une adresse e-mail",
+      "invalidFormatTitle": "Format invalide",
+      "invalidFormatDescription": "Saisissez une adresse e-mail valide",
+      "validateFailedDescription": "Erreur lors de la validation",
+      "noEmailsTitle": "Aucun e-mail",
+      "noEmailsDescription": "Votre fichier Excel doit contenir une colonne « email ».",
+      "fileTooLargeTitle": "Fichier trop volumineux",
+      "fileTooLargeDescription": "{total} adresses trouvées. Seules les 4000 premières seront validées.",
+      "successTitle": "Succès",
+      "successValidated": "{count} adresses validées.",
+      "batchFailedTitle": "Échec du lot",
+      "batchFailedDescription": "Erreur lors de la validation groupée.",
+      "noExportTitle": "Rien à exporter",
+      "noExportValidOnly": "Aucune adresse valide à exporter.",
+      "noExportAll": "Aucun résultat à exporter.",
+      "exportSuccessTitle": "Export réussi",
+      "exportSuccessExcelAll": "{count} adresses exportées vers Excel.",
+      "exportSuccessExcelValid": "{count} adresses valides exportées vers Excel.",
+      "exportSuccessCsvAll": "{count} adresses exportées vers CSV.",
+      "exportSuccessCsvValid": "{count} adresses valides exportées vers CSV."
+    },
+    "disposableAlert": {
+      "title": "E-mail jetable détecté",
+      "description": "Cette adresse provient d’un fournisseur jetable. Elle peut être temporaire ou risquée."
+    },
+    "score": {
+      "reliabilityTitle": "Score de fiabilité",
+      "scoreLabel": "Score"
+    },
+    "details": {
+      "sectionTitle": "Détails de validation"
+    },
+    "validation": {
+      "syntaxLabel": "Syntaxe valide",
+      "syntaxTooltip": "Vérifie le format (ex. user@domaine.com)",
+      "domainLabel": "Domaine existant",
+      "domainTooltip": "Vérifie que le domaine existe",
+      "mxLabel": "Enregistrements MX",
+      "mxTooltip": "Vérifie la présence d’enregistrements MX pour recevoir les e-mails",
+      "mailboxLabel": "Boîte existante",
+      "mailboxTooltip": "Vérifie que la boîte existe sur le serveur",
+      "disposableLabel": "E-mail jetable",
+      "disposableTooltip": "Indique un service d’e-mail temporaire (risqué)",
+      "roleBasedLabel": "E-mail de rôle",
+      "roleBasedTooltip": "Identifie une adresse générique (support@, info@) plutôt qu’une adresse personnelle"
+    },
+    "copy": {
+      "emailCopied": "E-mail copié !",
+      "copyTooltip": "Copier l’e-mail"
+    },
+    "bulk": {
+      "dropHere": "Déposez votre fichier ici",
+      "dragHere": "Glissez-déposez votre fichier ici",
+      "uploadHint": "Fichier .xlsx, .xls ou .csv avec une colonne « email », jusqu’à 4000 adresses.",
+      "filePrefix": "Fichier :",
+      "selectFile": "Choisir un fichier",
+      "downloadTemplate": "Télécharger le modèle"
+    },
+    "bulkLoading": {
+      "title": "Validation des e-mails…",
+      "batchProgress": "Lot {current} sur {total}…"
+    },
+    "stats": {
+      "totalProcessed": "Total traité",
+      "valid": "Valides",
+      "risky": "À risque",
+      "invalid": "Invalides"
+    },
+    "results": {
+      "detailedTitle": "Résultats détaillés",
+      "searchPlaceholder": "Rechercher…",
+      "newVerification": "Nouvelle vérification",
+      "exportAll": "Tout exporter",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Exporter les valides ({count})"
+    },
+    "showingResults": "{shown} résultat(s) sur {total}",
+    "table": {
+      "email": "E-mail",
+      "status": "Statut",
+      "score": "Score",
+      "checks": "Vérifications"
+    },
+    "noSearchResults": "Aucun résultat pour « {query} »",
+    "checksTooltip": {
+      "syntax": "Syntaxe",
+      "domain": "Domaine",
+      "mx": "MX",
+      "mailbox": "Boîte"
+    },
+    "exportColumns": {
+      "email": "E-mail",
+      "status": "Statut",
+      "score": "Score",
+      "syntax": "Syntaxe",
+      "domain": "Domaine",
+      "mx": "MX",
+      "mailbox": "Boîte",
+      "disposable": "Jetable",
+      "roleBased": "Rôle",
+      "valid": "Valide",
+      "invalid": "Invalide",
+      "yes": "Oui",
+      "no": "Non"
+    },
+    "sheets": {
+      "validEmails": "E-mails valides",
+      "results": "Résultats",
+      "template": "Modèle"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "Explorateur NoSQL",
+      "heroSubtitle": "Connectez-vous à vos bases pour gérer les collections, exécuter des requêtes et visualiser les données.",
+      "featureMultiTitle": "Multi-connexion",
+      "featureMultiDesc": "Gérez plusieurs connexions simultanément.",
+      "featureMongoTitle": "Prise en charge MongoDB",
+      "featureMongoDesc": "Support MongoDB natif avec filtrage avancé.",
+      "featureQueryTitle": "Requête intelligente",
+      "featureQueryDesc": "Constructeur de requêtes avec coloration syntaxique.",
+      "connectCta": "Se connecter à MongoDB",
+      "footerNote": "Prend en charge {db} pour l’instant. D’autres bases suivront.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Choisir une collection",
+      "selectCollectionDesc": "Sélectionnez une collection dans la barre latérale pour afficher les documents.",
+      "dialogAddConnection": "Ajouter une connexion",
+      "toastConnectionAdded": "Connexion ajoutée",
+      "toastFetchFailed": "Impossible de charger les documents pour {collection}",
+      "toastDocDeleted": "Document supprimé",
+      "deleteDocTitle": "Confirmer la suppression ?",
+      "deleteDocDescription": "Action irréversible : le document sera supprimé de la collection.",
+      "closeAllTitle": "Fermer tous les onglets ?",
+      "closeAllDescription": "Les filtres de requête non enregistrés seront perdus.",
+      "closeAllConfirm": "Tout fermer",
+      "cancel": "Annuler",
+      "delete": "Supprimer"
+    },
+    "connection": {
+      "titleEdit": "Modifier la connexion",
+      "titleConnect": "Connexion à MongoDB",
+      "subtitleEdit": "Mettez à jour les détails ci-dessous.",
+      "subtitleConnect": "Saisissez la chaîne de connexion MongoDB pour explorer vos données.",
+      "labelName": "Nom",
+      "placeholderName": "ex. Prod",
+      "labelConnectionString": "Chaîne de connexion",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Format : mongodb://utilisateur:motdepasse@hôte:port/base",
+      "testConnection": "Tester la connexion",
+      "connecting": "Connexion…",
+      "updateConnect": "Mettre à jour et connecter",
+      "connect": "Connecter",
+      "cancelEdit": "Annuler",
+      "savedConnections": "Connexions enregistrées",
+      "emptySaved": "Aucune connexion enregistrée.",
+      "lastUsed": "Dernière utilisation {time}",
+      "toastTestOk": "Connexion réussie !",
+      "toastTestFail": "Échec : {message}",
+      "toastUpdated": "Connexion mise à jour",
+      "confirmDelete": "Supprimer cette connexion enregistrée ?",
+      "toastDeletedConn": "Connexion supprimée",
+      "toastDeleteFail": "Impossible de supprimer la connexion",
+      "copyStringTitle": "Copier la chaîne de connexion",
+      "toastStringCopied": "Chaîne copiée !",
+      "editTitle": "Modifier",
+      "deleteTitle": "Supprimer"
+    },
+    "sidebar": {
+      "explorer": "Explorateur",
+      "add": "Ajouter",
+      "tooltipAdd": "Nouvelle connexion",
+      "tooltipRefresh": "Actualiser les connexions",
+      "searchPlaceholder": "Rechercher…",
+      "loadingConnections": "Chargement des connexions…",
+      "noConnectionsFound": "Aucune connexion",
+      "toastLoadFail": "Impossible de charger les connexions",
+      "toastConnectFail": "Connexion impossible à {name}",
+      "toastCollectionsFail": "Impossible de charger les collections pour {name}",
+      "toastRenamed": "Connexion renommée",
+      "toastRenameFail": "Impossible de renommer",
+      "confirmDeleteConnection": "Supprimer la connexion « {name} » ?",
+      "toastDeleted": "Connexion supprimée",
+      "toastDeleteConnFail": "Impossible de supprimer la connexion",
+      "confirmDropDb": "Supprimer la base « {name} » ? Action irréversible.",
+      "toastDbDropped": "Base {name} supprimée",
+      "confirmDropCollection": "Supprimer la collection « {name} » ? Action irréversible.",
+      "toastCollectionDropped": "Collection {name} supprimée",
+      "toastCollectionRenamed": "Collection renommée en {name}",
+      "toastDatabaseRenamed": "Base renommée en {name}",
+      "connecting": "Connexion…",
+      "connectionFailed": "Échec de la connexion",
+      "noDatabases": "Aucune base",
+      "loading": "Chargement…",
+      "noCollections": "Aucune collection",
+      "renameCollectionTitle": "Renommer la collection",
+      "renameDatabaseTitle": "Renommer la base",
+      "placeholderNewCollection": "Nouveau nom de collection",
+      "placeholderNewDatabase": "Nouveau nom de base",
+      "rename": "Renommer",
+      "refresh": "Actualiser",
+      "copyDbName": "Copier le nom de la base",
+      "toastDbNameCopied": "Nom de base copié",
+      "dropDatabase": "Supprimer la base",
+      "dropCollection": "Supprimer la collection",
+      "menuRename": "Renommer",
+      "menuCopyConnectionString": "Copier la chaîne de connexion",
+      "menuDeleteConnection": "Supprimer la connexion",
+      "toastSidebarStringCopied": "Chaîne copiée !",
+      "cancel": "Annuler",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+    },
+    "document": {
+      "docsBreadcrumb": "{n} docs",
+      "table": "Tableau",
+      "json": "JSON",
+      "tree": "Arbre",
+      "tooltipTable": "Vue tableau",
+      "tooltipJson": "Vue JSON",
+      "tooltipTree": "Vue arborescente",
+      "itemsPerPage": "Éléments par page",
+      "perPage": "{n} / page",
+      "prevPage": "Page précédente",
+      "nextPage": "Page suivante",
+      "expandAll": "Tout développer",
+      "collapseAll": "Tout réduire",
+      "refreshData": "Actualiser",
+      "insert": "Insérer",
+      "export": "Exporter",
+      "actions": "Actions",
+      "invalidJson": "JSON invalide",
+      "copiedClipboard": "Copié dans le presse-papiers",
+      "docUpdated": "Document mis à jour",
+      "docInserted": "Document inséré",
+      "invalidJsonShort": "JSON invalide",
+      "docCopied": "Document copié",
+      "openFullEditor": "Ouvrir dans l’éditeur complet",
+      "cellArray": "Tableau({length})",
+      "cellObject": "Objet",
+      "cellArrayBracket": "Tableau[{length}]",
+      "emptyFilterTitle": "Aucun document ne correspond",
+      "emptyFilterHint": "Modifiez ou effacez le filtre.",
+      "clearFilter": "Effacer le filtre",
+      "emptyCollectionTitle": "Collection vide",
+      "emptyCollectionHint": "Insérez un document pour commencer.",
+      "insertDocument": "Insérer un document",
+      "formatJson": "Formater le JSON",
+      "compactJson": "Compacter le JSON",
+      "copyClipboard": "Copier",
+      "copyJson": "Copier le JSON",
+      "duplicate": "Dupliquer",
+      "editDoc": "Modifier le document",
+      "deleteDoc": "Supprimer le document",
+      "documentLabel": "Document {n}",
+      "editDialogTitle": "Modifier le document",
+      "insertDialogTitle": "Insérer un document",
+      "viewValueTitle": "Voir la valeur",
+      "saveChanges": "Enregistrer",
+      "close": "Fermer",
+      "cancel": "Annuler",
+      "insertButton": "Insérer",
+      "import": "Import",
+      "importExport": "Import / Export",
+      "importExportTitle": "Import or export data",
+      "importExportDescription": "Choose whether to bring documents in from a JSON file or download the current page of results.",
+      "importExportTooltip": "Import or export collection data",
+      "importExportImportHint": "JSON array, object, or NDJSON file",
+      "importExportExportHint": "Spreadsheet (XLSX or CSV)",
+      "schema": "Schema",
+      "indexes": "Indexes"
+    },
+    "tabs": {
+      "filterActive": "Filtre actif",
+      "filterActiveTooltip": "Filtre actif",
+      "closeAll": "Tout fermer"
+    },
+    "query": {
+      "migrateHistory": "Historique des requêtes migré vers le cloud",
+      "saveHistoryFail": "Impossible d’enregistrer l’historique",
+      "deleteQueryFail": "Impossible de supprimer la requête",
+      "invalidJsonQuery": "Requête JSON invalide",
+      "placeholder": "ex. { \"status\": \"active\" }",
+      "clearQuery": "Effacer la requête",
+      "openAdvanced": "Éditeur avancé",
+      "visualBuilder": "Constructeur visuel",
+      "filterRules": "Règles de filtre",
+      "addRule": "Ajouter une règle",
+      "noFilters": "Aucun filtre. Ajoutez une règle.",
+      "where": "WHERE",
+      "and": "AND",
+      "fieldPlaceholder": "Champ",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Type",
+      "opRegex": "Regex",
+      "opIn": "In",
+      "opNin": "Not In",
+      "opExists": "Exists",
+      "typeAuto": "Auto",
+      "typeString": "Chaîne",
+      "typeNumber": "Nombre",
+      "typeBoolean": "Booléen",
+      "typeDate": "Date",
+      "typeObjectId": "ObjectId",
+      "true": "Vrai",
+      "false": "Faux",
+      "valuePlaceholder": "Valeur",
+      "valueListPlaceholder": "valeur1, valeur2",
+      "clearFilters": "Effacer les filtres",
+      "applyFilters": "Appliquer",
+      "queryHistory": "Historique",
+      "noSavedQueries": "Aucune requête enregistrée",
+      "advancedEditorTitle": "Éditeur de requête avancé",
+      "templatesPlaceholder": "Modèles",
+      "templateEmptyAgg": "Agrégation vide",
+      "templateMatch": "$match (filtre)",
+      "templateLookup": "$lookup (jointure)",
+      "templateGroup": "$group (compte/somme)",
+      "format": "Formater",
+      "formattedJson": "JSON formaté",
+      "runQuery": "Exécuter"
+    },
+    "export": {
+      "selectFieldsError": "Sélectionnez au moins un champ à exporter",
+      "success": "Export réussi : {filename}",
+      "fail": "Échec de l’export",
+      "title": "Exporter les données",
+      "formatLabel": "Format",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Champs",
+      "selectAll": "Tout sélectionner",
+      "fieldsSelected": "{count, plural, one {# champ sélectionné} other {# champs sélectionnés}}",
+      "cancel": "Annuler",
+      "export": "Exporter",
+      "sheetName": "Données"
+    },
+    "jsonTree": {
+      "typeLabel": "Type : {type}",
+      "itemSummary": "{count, plural, one {# élément} other {# éléments}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Nouvelle requête",
+      "importedRequest": "Requête importée",
+      "untitledRequest": "Requête sans titre"
+    },
+    "toasts": {
+      "curlImported": "cURL importé",
+      "curlParseFailed": "Impossible d’analyser la commande cURL",
+      "invalidJsonBody": "Corps JSON invalide",
+      "requestFailed": "Échec de la requête : {message}",
+      "curlPasted": "cURL collé et analysé",
+      "responseCopied": "Réponse copiée",
+      "codeCopied": "Code copié",
+      "copyFailed": "Impossible de copier dans le presse-papiers"
+    },
+    "layout": {
+      "collections": "Collections",
+      "closeSidebar": "Fermer la barre latérale",
+      "openSidebar": "Ouvrir la barre latérale",
+      "request": "Request",
+      "response": "Response"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Méthode",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "Envoi…",
+      "send": "Envoyer",
+      "invalidJsonBodyHelp": "Envoi impossible : le corps JSON est invalide"
+    },
+    "requestTabs": {
+      "params": "Paramètres",
+      "headers": "En-têtes",
+      "body": "Corps",
+      "auth": "Auth",
+      "bodyType": "Type de corps",
+      "selectType": "Choisir le type",
+      "bodyNone": "Aucun",
+      "bodyJson": "JSON",
+      "bodyText": "Texte",
+      "noBodyHint": "Aucun corps pour cette requête",
+      "switchToJson": "Passer au corps JSON",
+      "authType": "Type d’auth",
+      "noAuth": "Sans auth",
+      "bearerToken": "Jeton Bearer",
+      "basicAuth": "Auth basique",
+      "apiKey": "Clé API",
+      "labelToken": "Jeton",
+      "placeholderBearerToken": "Jeton Bearer",
+      "labelUsername": "Nom d’utilisateur",
+      "placeholderUsername": "Nom d’utilisateur",
+      "labelPassword": "Mot de passe",
+      "placeholderPassword": "Mot de passe",
+      "labelKey": "Clé",
+      "placeholderApiKeyName": "Nom de la clé (ex. X-Api-Key)",
+      "labelValue": "Valeur",
+      "placeholderValue": "Valeur",
+      "addTo": "Ajouter à",
+      "header": "En-tête",
+      "queryParams": "Paramètres de requête",
+      "noAuthHint": "Cette requête n’utilise pas d’authentification."
+    },
+    "responsePanel": {
+      "emptyTitle": "Prêt à explorer ?",
+      "emptyHint": "Saisissez une URL et cliquez sur Envoyer pour voir la réponse.",
+      "responsePreviewAlt": "Aperçu de la réponse",
+      "previewUnavailable": "Aperçu indisponible pour ce type de contenu",
+      "status": "Statut",
+      "time": "Durée",
+      "size": "Taille",
+      "copyBody": "Copier le corps",
+      "downloadResponse": "Télécharger la réponse",
+      "bodyTab": "Corps",
+      "previewTab": "Aperçu",
+      "headersTab": "En-têtes",
+      "binaryRawView": "Les données binaires ne peuvent pas s’afficher en brut.",
+      "errorStatusLabel": "Erreur",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
+    },
+    "tabBar": {
+      "addTabAria": "Nouvel onglet"
+    },
+    "collectionsSidebar": {
+      "title": "Ressources API",
+      "newCollection": "Nouvelle collection",
+      "tabCollections": "Collections",
+      "tabHistory": "Historique",
+      "noCollectionsTitle": "Aucune collection",
+      "noCollectionsHint": "Créez une collection pour organiser vos requêtes.",
+      "createCollection": "Créer une collection",
+      "newFolder": "Nouveau dossier",
+      "rename": "Renommer",
+      "delete": "Supprimer",
+      "emptyCollection": "Collection vide",
+      "recentRequests": "Requêtes récentes",
+      "clearAll": "Tout effacer",
+      "noHistoryTitle": "Pas encore d’historique",
+      "noHistoryHint": "Envoyez une requête pour la voir ici.",
+      "dialogNewFolderTitle": "Nouveau dossier",
+      "dialogNewFolderDescription": "Créez un dossier pour organiser vos requêtes.",
+      "labelFolderName": "Nom du dossier",
+      "placeholderFolderName": "Mon dossier",
+      "createFolder": "Créer le dossier",
+      "dialogNewCollectionTitle": "Nouvelle collection",
+      "dialogNewCollectionDescription": "Créer une collection de premier niveau.",
+      "labelCollectionName": "Nom de la collection",
+      "placeholderCollectionName": "Ma collection",
+      "dialogRenameCollectionTitle": "Renommer la collection",
+      "dialogRenameCollectionDescription": "Nouveau nom pour la collection.",
+      "placeholderRenameCollection": "Nom de la collection",
+      "renameAction": "Renommer",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
+    },
+    "collectionItem": {
+      "newFolder": "Nouveau dossier",
+      "delete": "Supprimer",
+      "emptyFolder": "Dossier vide"
+    },
+    "environmentManager": {
+      "noEnvironment": "Aucun environnement",
+      "manageDialogTitle": "Gérer les environnements",
+      "placeholderNewEnv": "Nouvel environnement",
+      "variablesHeading": "Variables {name}",
+      "addVariable": "Ajouter une variable",
+      "columnVariable": "Variable",
+      "columnValue": "Valeur",
+      "placeholderKey": "Clé",
+      "placeholderValue": "Valeur",
+      "selectEnvToEdit": "Sélectionnez un environnement à modifier"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Générer le code",
+      "dialogTitle": "Générer le code",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Copier",
+      "errorGenerating": "Erreur lors de la génération"
+    },
+    "keyValueEditor": {
+      "columnKey": "Clé",
+      "columnValue": "Valeur",
+      "placeholderKey": "Clé",
+      "placeholderValue": "Valeur",
+      "addItem": "Ajouter"
+    },
+    "importCurl": {
+      "trigger": "Importer cURL",
+      "dialogTitle": "Importer cURL",
+      "dialogDescription": "Collez votre commande cURL pour importer une nouvelle requête.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "Importer"
+    },
+    "saveRequest": {
+      "trigger": "Enregistrer",
+      "dialogTitle": "Enregistrer la requête",
+      "dialogDescription": "Enregistrer cette requête dans un dossier de collection.",
+      "labelName": "Nom de la requête",
+      "placeholderName": "Ma requête",
+      "labelFolder": "Dossier",
+      "placeholderFolder": "Choisir un dossier",
+      "save": "Enregistrer"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Mode édition",
+      "viewOnlyMode": "Lecture seule",
+      "insertComponent": "Insérer un composant",
+      "addUnorderedList": "Liste à puces",
+      "addOrderedList": "Liste numérotée",
+      "addTable": "Insérer un tableau"
+    },
+    "addBlock": "Ajouter un bloc",
+    "media": {
+      "popoverTitle": "Ajouter un média",
+      "singleImage": "Image unique",
+      "singleImageDesc": "Téléverser une image",
+      "multipleImages": "Plusieurs images",
+      "multipleImagesDesc": "Grille d’images",
+      "video": "Vidéo",
+      "videoDesc": "Téléverser une vidéo",
+      "uploadingAlt": "Téléversement…",
+      "uploadFailedAlt": "Échec du téléversement"
+    },
+    "export": {
+      "fabAria": "Exporter le code",
+      "title": "Exporter le code",
+      "description": "Copier la sortie HTML ou JSON du contenu",
+      "preview": "Aperçu",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Options d’aperçu",
+      "enhanceSpaces": "Améliorer les espaces",
+      "livePreview": "Aperçu HTML en direct",
+      "htmlTailwind": "HTML avec classes Tailwind",
+      "editorJson": "État de l’éditeur (JSON)",
+      "copyHtml": "Copier HTML",
+      "copyJson": "Copier JSON",
+      "copied": "Copié !"
+    },
+    "template": {
+      "fabTitle": "Changer de modèle",
+      "title": "Choisir un modèle",
+      "description": "Modèles prédéfinis pour démarrer rapidement",
+      "catAll": "Tous les modèles",
+      "catProductivity": "Productivité",
+      "catCreative": "Créatif",
+      "catBusiness": "Professionnel",
+      "catPersonal": "Personnel",
+      "noTemplates": "Aucun modèle dans cette catégorie",
+      "confirmTitle": "Remplacer le contenu ?",
+      "confirmDescription": "Le contenu actuel sera remplacé par ce modèle.",
+      "cannotUndo": "Action irréversible.",
+      "cancel": "Annuler",
+      "replaceContent": "Remplacer"
+    },
+    "command": {
+      "searchPlaceholder": "Rechercher une commande…",
+      "noResults": "Aucune commande.",
+      "turnInto": "Transformer en",
+      "h1": {
+        "label": "Titre 1",
+        "description": "Grand titre de section",
+        "keywords": "h1,titre,heading"
+      },
+      "h2": {
+        "label": "Titre 2",
+        "description": "Titre de section moyen",
+        "keywords": "h2,sous-titre"
+      },
+      "h3": {
+        "label": "Titre 3",
+        "description": "Petit titre",
+        "keywords": "h3"
+      },
+      "h4": {
+        "label": "Titre 4",
+        "description": "Très petit titre",
+        "keywords": "h4"
+      },
+      "h5": {
+        "label": "Titre 5",
+        "description": "Titre encore plus petit",
+        "keywords": "h5"
+      },
+      "h6": {
+        "label": "Titre 6",
+        "description": "Plus petit titre",
+        "keywords": "h6"
+      },
+      "p": {
+        "label": "Paragraphe",
+        "description": "Texte courant",
+        "keywords": "p,paragraphe,texte"
+      },
+      "code": {
+        "label": "Bloc de code",
+        "description": "Extrait de code",
+        "keywords": "code,snippet"
+      },
+      "blockquote": {
+        "label": "Citation",
+        "description": "Bloc de citation",
+        "keywords": "citation,quote"
+      },
+      "li": {
+        "label": "Liste à puces",
+        "description": "Élément de liste",
+        "keywords": "liste,puce"
+      },
+      "ol": {
+        "label": "Liste numérotée",
+        "description": "Élément numéroté",
+        "keywords": "liste,numéro"
+      },
+      "img": {
+        "label": "Image",
+        "description": "Insérer une image",
+        "keywords": "image,photo"
+      },
+      "video": {
+        "label": "Vidéo",
+        "description": "Insérer une vidéo",
+        "keywords": "vidéo,mp4"
+      },
+      "table": {
+        "label": "Tableau",
+        "description": "Créer un tableau",
+        "keywords": "tableau,grille"
+      }
+    },
+    "toasts": {
+      "tableImported": "Tableau importé",
+      "tableImportedDesc": "Table Markdown importée",
+      "mediaPasted": "Média collé",
+      "pasteMixed": "{imageCount} image(s) et {videoCount} vidéo(s) collées.",
+      "pasteImages": "{count} image(s) collée(s).",
+      "pasteVideos": "{count} vidéo(s) collée(s).",
+      "pasteFailed": "Échec du collage",
+      "unexpectedError": "Erreur inattendue",
+      "uploadFailed": "Échec du téléversement"
+    },
+    "blockBackground": {
+      "menuItem": "Couleur de fond du bloc",
+      "dialogTitle": "Couleur de fond",
+      "dialogDescription": "Choisir une couleur de fond pour ce bloc",
+      "tabPreset": "Couleurs prédéfinies",
+      "tabCustom": "Couleur personnalisée",
+      "sectionHeading": "Couleurs de fond",
+      "apply": "Appliquer",
+      "colors": {
+        "none": "Aucune",
+        "red": "Rouge",
+        "orange": "Orange",
+        "yellow": "Jaune",
+        "green": "Vert",
+        "blue": "Bleu",
+        "indigo": "Indigo",
+        "purple": "Violet",
+        "pink": "Rose",
+        "teal": "Sarcelle",
+        "cyan": "Cyan",
+        "gray": "Gris"
+      }
+    },
+    "tableDialog": {
+      "title": "Créer un tableau",
+      "description": "Nouveau tableau ou import Markdown",
+      "markdownCheckbox": "J’ai un tableau Markdown",
+      "pasteMarkdownLabel": "Coller le tableau Markdown",
+      "markdownPlaceholder": "| En-tête 1 | En-tête 2 | En-tête 3 |\n|----------|----------|----------|\n| Cellule 1   | Cellule 2   | Cellule 3   |\n| Cellule 4   | Cellule 5   | Cellule 6   |",
+      "markdownHint": "Collez le tableau ci-dessus (ligne d’en-tête et séparateur requises).",
+      "rows": "Lignes",
+      "columns": "Colonnes",
+      "maxDimensions": "Maximum : 20 lignes × 10 colonnes",
+      "cancel": "Annuler",
+      "importTable": "Importer",
+      "createTable": "Créer"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Le tableau doit avoir une ligne d’en-tête et une ligne séparatrice",
+        "pipeFormat": "Chaque ligne doit commencer et finir par |",
+        "headerMinCol": "L’en-tête doit avoir au moins une colonne",
+        "separatorRow": "La deuxième ligne doit être un séparateur (ex. |---|---|)",
+        "rowColumnMismatch": "Ligne {row} : {got} colonnes, {expected} attendues",
+        "parseFailed": "Impossible d’analyser le tableau Markdown"
+      }
+    },
+    "link": {
+      "editLink": "Modifier le lien",
+      "addLink": "Ajouter un lien",
+      "selectedText": "Texte sélectionné : « {text} »",
+      "linkUrl": "URL du lien",
+      "urlPlaceholder": "https://example.com",
+      "update": "Mettre à jour",
+      "addLinkButton": "Ajouter le lien",
+      "toastApplied": "Lien appliqué",
+      "toastLinkedTo": "Lié à : {url}",
+      "toastRemoved": "Lien supprimé",
+      "toastRemovedDesc": "Le lien a été retiré de la sélection"
+    },
+    "customClass": {
+      "devMode": "Mode dev",
+      "toggleDevModeAria": "Basculer le mode dev",
+      "searchPlaceholderDev": "Rechercher des classes… (ex. text, bg, flex)",
+      "searchPlaceholderUser": "Rechercher des styles…",
+      "appliesTitle": "Applique : {className}",
+      "noMatches": "Aucune classe pour « {query} »",
+      "toastClassReplaced": "Classe remplacée",
+      "toastClassReplacedDesc": "« {replaced} » remplacé par « {className} »",
+      "toastCustomClassApplied": "Classe personnalisée appliquée",
+      "toastAppliedClass": "Classe : {className}"
+    },
+    "insertComponents": {
+      "title": "Insérer un composant",
+      "description": "Choisissez un composant à insérer",
+      "noComponents": "Aucun composant disponible",
+      "categories": {
+        "media": "Média",
+        "layout": "Mise en page",
+        "interactive": "Interactif",
+        "decoration": "Décoration"
+      },
+      "freeImage": {
+        "name": "Image libre",
+        "description": "Image repositionnable et redimensionnable librement"
+      }
+    }
+  },
+  "JsonFormatter": {
+    "title": "Formateur JSON",
+    "description": "Formatez, validez et modifiez du JSON en vue texte et arborescente.",
+    "documentNameText": "Document texte {n}",
+    "documentNameTree": "Document arborescent {n}",
+    "newDocument": "Nouveau",
+    "copy": "Copier",
+    "save": "Enregistrer",
+    "load": "Charger",
+    "saving": "Enregistrement...",
+    "leftDocNameLabel": "Nom du document gauche",
+    "rightDocNameLabel": "Nom du document droit",
+    "toastCopiedText": "Panneau texte copié",
+    "toastCopiedTree": "Panneau arborescence copié",
+    "toastCopyFailed": "Échec de la copie du JSON",
+    "toastLoginRequired": "Connectez-vous pour enregistrer des documents",
+    "toastSaved": "Document enregistré",
+    "toastSaveFailed": "Échec de l'enregistrement du document",
+    "format": "Formater",
+    "compact": "Compacter",
+    "sortKeys": "Trier les clés",
+    "repair": "Réparer",
+    "query": "Requête",
+    "toastInvalidJson": "JSON invalide",
+    "toastAlreadyValid": "Le JSON est déjà valide",
+    "toastRepaired": "JSON réparé",
+    "toastRepairFailed": "Impossible de réparer le JSON"
+  },
+  "JwtDecoder": {
+    "title": "Décodeur JWT",
+    "subtitle": "Inspectez l’en-tête et la charge utile. L’expiration utilise la revendication <code>exp</code>. Rien n’est envoyé à un serveur ; la signature n’est pas vérifiée.",
+    "tokenLabel": "Jeton",
+    "clear": "Effacer",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Copier",
+    "expiryLabel": "Expiration (exp)",
+    "signaturePresent": "Signature présente (non vérifiée)",
+    "noExp": "Aucune revendication <code>exp</code> dans la charge utile.",
+    "status": {
+      "expired": "Expiré",
+      "valid": "Valide"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Local",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Émis à (iat)",
+      "notBefore": "Pas avant (nbf)"
+    },
+    "panels": {
+      "header": "En-tête",
+      "payload": "Charge utile"
+    },
+    "errors": {
+      "empty": "Collez un JWT à décoder.",
+      "segments": "Un JWT nécessite au moins un en-tête et une charge utile (deux segments).",
+      "base64": "Impossible de décoder en base64url l’en-tête ou la charge utile."
+    },
+    "relative": {
+      "future": "dans {n} {unit}",
+      "past": "il y a {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {seconde} other {secondes}}",
+      "minute": "{count, plural, one {minute} other {minutes}}",
+      "hour": "{count, plural, one {heure} other {heures}}",
+      "day": "{count, plural, one {jour} other {jours}}"
+    },
+    "tabs": {
+      "decode": "Décoder",
+      "sign": "Générateur / signataire"
+    },
+    "signer": {
+      "algLabel": "Algorithme (alg)",
+      "tabs": {
+        "payload": "Charge utile",
+        "header": "En-tête"
+      },
+      "payloadLabel": "JSON de la charge utile",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON de l’en-tête",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Secret (HS*)",
+      "secretPlaceholder": "Collez votre secret HMAC…",
+      "privateKeyLabel": "Clé privée PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "L’algorithme \"none\" crée un jeton non signé. C’est dangereux et doit servir uniquement aux tests.",
+      "sign": "Signer",
+      "verify": "Vérifier la signature",
+      "outputLabel": "Jeton (JWS compact)",
+      "outputPlaceholder": "Cliquez sur « Signer »…",
+      "copyToken": "Copier le jeton",
+      "copied": "Copié",
+      "verifyKeyLabel": "Clé de vérification (facultative)",
+      "verifyKeyPlaceholder": "Pour RS* : collez la clé publique (SPKI) PEM. Pour HS* : laissez vide pour réutiliser le secret.",
+      "verifyKeyHint": "Si vide, la vérification utilise la clé de signature (utile pour HS*).",
+      "verifyStatus": {
+        "valid": "Signature valide",
+        "invalid": "Signature invalide"
+      },
+      "securityNote": "Tout s’exécute localement dans votre navigateur ; les clés et jetons ne sont pas téléversés."
+    },
+    "signErrors": {
+      "invalidJson": "L’en-tête et la charge utile doivent être un JSON valide.",
+      "unsupportedAlg": "Algorithme non pris en charge.",
+      "missingKey": "Une clé de signature est requise pour cet algorithme.",
+      "cryptoFailed": "La signature a échoué. Vérifiez le format de la clé et réessayez."
+    },
+    "verifyErrors": {
+      "empty": "Saisissez un JWT à vérifier.",
+      "segments": "Un JWT doit avoir exactement 3 segments pour vérifier une signature.",
+      "unsupportedAlg": "Algorithme non pris en charge ou alg manquant dans l’en-tête.",
+      "missingKey": "Une clé de vérification est requise pour cet algorithme.",
+      "base64": "Impossible de décoder l’en-tête ou la signature du JWT.",
+      "cryptoFailed": "La vérification a échoué. Vérifiez le format de la clé et réessayez."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Décodeur de certificat / PEM",
+    "subtitle": "Collez un certificat X.509 (<code>-----BEGIN CERTIFICATE-----</code>) ou une CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Sujet, émetteur, dates et SAN sont analysés localement ; rien n’est envoyé.",
+    "pemLabel": "Saisie PEM",
+    "clear": "Effacer",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Analyse…",
+    "copyHex": "Copier l’empreinte (hex sans deux-points)",
+    "errors": {
+      "empty": "Collez un certificat PEM ou une CSR à décoder.",
+      "noBlock": "Aucun bloc PEM de certificat ou de CSR trouvé.",
+      "parseFailed": "Impossible d’analyser ces données PEM."
+    },
+    "block": {
+      "title": "Bloc PEM {index}",
+      "certificate": "Certificat X.509",
+      "csr": "Demande de signature de certificat"
+    },
+    "fields": {
+      "subject": "Sujet",
+      "issuer": "Émetteur",
+      "notBefore": "Non valide avant",
+      "notAfter": "Non valide après",
+      "serial": "Numéro de série (hex)",
+      "sha256": "Empreinte SHA-256",
+      "sans": "Noms alternatifs du sujet",
+      "sansNone": "Aucune extension SAN.",
+      "signatureAlgorithm": "Algorithme de signature",
+      "csrIssuerNote": "Les CSR n’incluent pas d’émetteur (présent sur le certificat émis).",
+      "csrValidityNote": "Les CSR n’incluent pas de dates de validité (présentes sur le certificat émis)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nom distinctif",
+      "email": "E-mail",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID enregistré",
+      "other": "{type}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Formateur SQL",
+    "subtitle": "Mettre en forme du SQL pour MySQL, PostgreSQL ou SQLite. Tout s’exécute dans votre navigateur ; rien n’est téléversé.",
+    "dialectLabel": "Dialecte",
+    "keywordsLabel": "Mots-clés",
+    "indentLabel": "Indentation",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "MAJUSCULES",
+      "lower": "minuscules",
+      "preserve": "Préserver"
+    },
+    "spaces": "{n} espaces",
+    "format": "Formater",
+    "clear": "Effacer",
+    "counter": "{current} / {max} caractères",
+    "inputPanel": "Entrée",
+    "formattedPanel": "Formaté",
+    "copy": "Copier",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Cliquez sur « Formater »…",
+    "errors": {
+      "tooLong": "La saisie est limitée à {max} caractères.",
+      "couldNotFormat": "Impossible de formater ce SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Formateur YAML",
+    "subtitle": "Formatez, validez et convertissez du YAML dans votre navigateur. Rien n'est téléversé.",
+    "outputLabel": "Sortie",
+    "outputModes": {
+      "yaml": "YAML (formaté)",
+      "json": "JSON"
+    },
+    "indentLabel": "Indentation",
+    "spaces": "{n} espaces",
+    "format": "Formater",
+    "clear": "Effacer",
+    "copy": "Copier",
+    "counter": "{current} / {max} caractères",
+    "inputPanel": "Entrée",
+    "outputPanel": "Sortie",
+    "errors": {
+      "tooLong": "L'entrée est limitée à {max} caractères.",
+      "couldNotFormat": "Impossible d'analyser ce YAML."
+    }
+  },
+  "GraphqlFormatter": {
+    "title": "Formateur GraphQL",
+    "subtitle": "Formatez les requêtes, mutations et abonnements GraphQL dans le navigateur. Rien n’est téléversé.",
+    "tabs": {
+      "format": "Formater",
+      "build": "Éditeur de requête"
+    },
+    "outputModeLabel": "Sortie",
+    "outputModes": {
+      "pretty": "Pretty-print",
+      "minify": "Minifier"
+    },
+    "format": "Formater",
+    "clear": "Effacer",
+    "counter": "{current} / {max} caractères",
+    "inputPanel": "Entrée",
+    "outputPanel": "Sortie",
+    "copy": "Copier",
+    "builderHint": "Composez un squelette puis appliquez-le dans l’éditeur. Définitions de variables en syntaxe GraphQL (ex. $id : ID ! ) — parenthèses facultatives.",
+    "builder": {
+      "operation": "Opération",
+      "operationName": "Nom de l’opération",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Définitions de variables",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Sélection",
+      "apply": "Appliquer à l’entrée",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "La saisie est limitée à {max} caractères.",
+      "couldNotFormat": "Impossible d’analyser ou d’imprimer ce GraphQL.",
+      "emptySelection": "Ajoutez une sélection avant d’appliquer."
+    }
+  },
+  "RegexTester": {
+    "title": "Testeur de regex",
+    "subtitle": "Regex de style JavaScript en direct sur votre texte. Les correspondances sont surlignées ; rien ne quitte votre navigateur.",
+    "patternLabel": "Motif",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i insensible à la casse",
+      "m": "m multiligne",
+      "s": "s dotAll",
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
+    },
+    "emptyPattern": "(vide)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {correspondance} other {correspondances}}",
+    "testTextLabel": "Texte de test",
+    "counter": "{current} / {max}",
+    "clear": "Effacer",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Le texte est limité à {max} caractères.",
+      "invalid": "Expression régulière invalide.",
+      "runaway": "Arrêt après {max} correspondances (motif possiblement incontrôlé)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
+    }
+  },
+  "TimestampConverter": {
+    "title": "Convertisseur d’horodatage",
+    "subtitle": "Secondes Unix (≤10 chiffres) ou millisecondes (entiers plus longs), <code>ISO-8601</code> ou chaînes que votre navigateur peut analyser. Tout s’exécute localement.",
+    "inputLabel": "Entrée",
+    "placeholder": "1744200000 ou 2025-04-09T12:00:00Z",
+    "now": "Maintenant",
+    "copy": "Copier",
+    "hint": "Collez une valeur ou cliquez sur <strong>Maintenant</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatif",
+      "human": "Lisible"
+    },
+    "fields": {
+      "seconds": "Secondes",
+      "milliseconds": "Millisecondes",
+      "utc": "UTC",
+      "local": "Local",
+      "distance": "Distance"
+    },
+    "errors": {
+      "empty": "Saisissez un timestamp Unix, une chaîne ISO ou un texte de date.",
+      "invalidNumber": "Timestamp numérique invalide.",
+      "outOfRange": "Hors plage pour Date JavaScript.",
+      "couldNotParse": "Impossible d’analyser en Unix, ISO-8601 ou date interprétable par le navigateur."
+    }
+  },
+  "HttpStatusCodes": {
+    "title": "Codes d’état HTTP",
+    "subtitle": "Recherchez et parcourez les codes d’état des réponses HTTP (<code>1xx</code>–<code>5xx</code>) avec des descriptions courtes et des références RFC. Tout s’exécute localement.",
+    "header": {
+      "title": "Codes d’état HTTP",
+      "description": "Référence consultable des codes de réponse HTTP avec descriptions et références RFC."
+    },
+    "searchPlaceholder": "Rechercher : 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Filtrer la classe…",
+    "classFilterAll": "Toutes les classes",
+    "resultsCount": "{count} sur {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Libellé",
+      "description": "Description",
+      "copy": "Copier"
+    },
+    "noResults": "Aucun résultat pour « {query} ».",
+    "specPrefix": "Spéc. :",
+    "copied": "Code copié"
+  },
+  "CronBuilder": {
+    "title": "Constructeur d’expression Cron",
+    "subtitle": "Cron standard à 5 champs : <mono>minute heure jour mois jour_semaine</mono>. Le parseur utilise seconds=<code>0</code> en interne. Le format optionnel à 6 champs (<mono>sec min heure dom mois dow</mono>) fonctionne dans l’éditeur.",
+    "tabs": {
+      "builder": "Constructeur visuel",
+      "expression": "Expression"
+    },
+    "presetsLabel": "Préréglages",
+    "fieldsLabel": "Champs",
+    "rawExpressionLabel": "Expression brute",
+    "expressionHint": "Quittez le champ (perte de focus) pour analyser et synchroniser le constructeur. {count} {count, plural, one {jeton} other {jetons}}.",
+    "currentExpressionLabel": "Expression actuelle",
+    "copy": "Copier",
+    "quickPick": "Sélection rapide",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "En langage naturel",
+    "nextRunsLabel": "Prochaines exécutions (heure locale)",
+    "fields": {
+      "minute": "Minute",
+      "hour": "Heure",
+      "dayOfMonth": "Jour du mois",
+      "month": "Mois",
+      "dayOfWeek": "Jour de la semaine"
+    },
+    "presets": {
+      "everyMinute": "Chaque minute",
+      "every5Minutes": "Toutes les 5 minutes",
+      "every15Minutes": "Toutes les 15 minutes",
+      "everyHour": "Chaque heure (à :00)",
+      "every6Hours": "Toutes les 6 heures",
+      "dailyMidnight": "Tous les jours à minuit",
+      "daily0900": "Tous les jours à 09:00",
+      "weekdays0900": "En semaine à 09:00",
+      "weeklySunday": "Hebdomadaire (dimanche 00:00)",
+      "monthlyFirst": "Mensuel (1er 00:00)",
+      "yearlyJan1": "Annuel (1 jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "chaque minute"
+      },
+      "hour": {
+        "every": "chaque heure"
+      },
+      "dom": {
+        "any": "n’importe quel jour",
+        "last": "dernier jour"
+      },
+      "month": {
+        "every": "chaque mois"
+      },
+      "dow": {
+        "any": "n’importe quel jour",
+        "weekdays": "semaine",
+        "weekend": "week-end"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Fév",
+      "mar": "Mar",
+      "apr": "Avr",
+      "may": "Mai",
+      "jun": "Juin",
+      "jul": "Juil",
+      "aug": "Aoû",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Déc"
+    },
+    "weekdays": {
+      "sun": "Dim",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam"
+    },
+    "errors": {
+      "fieldCount": "Attendu : 5 champs (minute heure jour mois jour_semaine) ou 6 avec les secondes.",
+      "invalid": "Expression cron invalide."
+    }
+  },
+  "Base64": {
+    "title": "Encodeur / décodeur Base64",
+    "subtitle": "Encoder du texte en Base64 ou décoder des chaînes Base64",
+    "upload": "Téléverser",
+    "clear": "Effacer",
+    "modes": {
+      "encode": "Encoder",
+      "decode": "Décoder"
+    },
+    "swapTitle": "Permuter entrée et sortie",
+    "panels": {
+      "plainText": "Texte brut",
+      "base64Input": "Entrée Base64",
+      "base64Output": "Sortie Base64",
+      "decodedText": "Texte décodé"
+    },
+    "placeholders": {
+      "encode": "Saisissez du texte à encoder en Base64…",
+      "decode": "Collez une chaîne Base64 à décoder…"
+    },
+    "dropHere": "Déposez un fichier ici",
+    "charCount": "{count} car.",
+    "download": {
+      "title": "Télécharger la sortie",
+      "encodedFilename": "encode.b64",
+      "decodedFilename": "decode.txt"
+    },
+    "copyTitle": "Copier dans le presse‑papiers",
+    "outputPlaceholder": "La sortie apparaîtra ici…",
+    "errors": {
+      "invalidBase64": "Chaîne Base64 invalide. Vérifiez votre saisie.",
+      "encodeFailed": "Échec de l’encodage."
+    }
+  },
+  "UrlEncode": {
+    "title": "Encodeur / décodeur d’URL",
+    "subtitle": "Encoder/décoder en pourcentage via encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Téléverser",
+    "clear": "Effacer",
+    "modes": {
+      "encode": "Encoder",
+      "decode": "Décoder"
+    },
+    "swapTitle": "Permuter entrée et sortie",
+    "panels": {
+      "plainText": "Texte brut",
+      "encodedInput": "Entrée encodée",
+      "encodedOutput": "Sortie encodée",
+      "decodedText": "Texte décodé"
+    },
+    "placeholders": {
+      "encode": "Saisissez du texte à encoder (ex. valeurs de query string)…",
+      "decode": "Collez du texte encodé en pourcentage à décoder…"
+    },
+    "dropHere": "Déposez un fichier ici",
+    "charCount": "{count} car.",
+    "download": {
+      "title": "Télécharger la sortie",
+      "encodedFilename": "url-encode.txt",
+      "decodedFilename": "url-decode.txt"
+    },
+    "copyTitle": "Copier dans le presse‑papiers",
+    "outputPlaceholder": "La sortie apparaîtra ici…",
+    "errors": {
+      "invalidEncoding": "Encodage en pourcentage invalide. Vérifiez les paires % incomplètes ou les séquences d’échappement.",
+      "encodeFailed": "Impossible d’encoder (Unicode invalide dans l’entrée)."
+    }
+  },
+  "UrlParser": {
+    "title": "Analyseur d’URL",
+    "subtitle": "Décompose une URL en protocole, hôte, chemin, paramètres de requête et fragment (#).",
+    "upload": "Téléverser",
+    "clear": "Effacer",
+    "panels": {
+      "input": "Entrée URL",
+      "output": "Résultat"
+    },
+    "placeholders": {
+      "input": "Collez une URL (ex. https://example.com/path?foo=bar#section) ou un hôte/chemin (ex. example.com/path)…"
+    },
+    "dropHere": "Déposez un fichier ici",
+    "charCount": "{count} caractères",
+    "outputPlaceholder": "Les composants analysés apparaîtront ici…",
+    "fields": {
+      "protocol": "Protocole",
+      "host": "Hôte",
+      "path": "Chemin",
+      "hash": "Fragment",
+      "queryParams": "Paramètres de requête"
+    },
+    "paramCount": "{count} paramètres",
+    "noParams": "Aucun paramètre de requête.",
+    "paramKey": "Clé",
+    "paramValue": "Valeur",
+    "copyTitle": "Copier dans le presse‑papiers",
+    "copyParamTitle": "Copier comme key=value",
+    "download": {
+      "title": "Télécharger le JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL invalide. Incluez un nom d’hôte (example.com) et vérifiez les caractères."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Générateur UUID / ULID",
+    "subtitle": "Générez des UUID (RFC 9562) ou des ULID dans le navigateur. Export en lot jusqu’à {max} par exécution.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Identifiant triable, sûr pour URL, 26 caractères",
+      "uuid4": "Aléatoire (RFC 9562)",
+      "uuid7": "Ordonné dans le temps, ms Unix + aléatoire",
+      "uuid1": "Basé MAC/temps (RFC 9562)",
+      "uuid6": "Temps grégorien réordonné",
+      "uuid3": "Hachage MD5 du nom + espace de noms",
+      "uuid5": "Hachage SHA‑1 du nom + espace de noms",
+      "nil": "UUID nul (tout à zéro, RFC 9562)"
+    },
+    "countLabel": "Quantité (1–{max})",
+    "nameLabel": "Nom (chaîne d’entrée)",
+    "namePlaceholder": "ex. mon.app/ressource",
+    "bulkHint": "En lot, on ajoute <code>#0</code>, <code>#1</code>, … pour rendre chaque ID unique (v3/v5 sont déterministes).",
+    "namespace": "Espace de noms",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID personnalisé"
+    },
+    "customNamespaceLabel": "UUID d’espace de noms",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Générer",
+    "output": "Sortie",
+    "lines": "{count} lignes",
+    "download": {
+      "title": "Télécharger .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Tout copier",
+    "uppercaseToggle": "Sortie en majuscules",
+    "hyphensToggle": "Afficher les tirets",
+    "copyJsonTitle": "Copier en tant que tableau JSON",
+    "outputPlaceholder": "Cliquez sur « Générer »…",
+    "errors": {
+      "invalidCustomNamespace": "L’espace de noms personnalisé doit être un UUID valide.",
+      "missingName": "Le nom est requis pour UUID v3 et v5.",
+      "unknown": "Impossible de générer les identifiants."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Générateur de secret / clé API",
+    "subtitle": "Générez des chaînes aléatoires cryptographiques avec longueur et alphabet configurables. Export groupé jusqu’à {max} par exécution. Complète le <uuid>générateur UUID / ULID</uuid>.",
+    "alphabetLabel": "Alphabet",
+    "alphabetHint": "Les doublons sont supprimés. Chaque symbole est tiré uniformément avec crypto.getRandomValues et échantillonnage par rejet (sans biais modulo).",
+    "alphabetCount": "{count} symboles uniques",
+    "presetsLabel": "Préréglages",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alphanumérique",
+      "hex": "Hexadécimal (minuscules)",
+      "asciiPrintable": "ASCII imprimable"
+    },
+    "lengthLabel": "Longueur par secret (1–{maxLen})",
+    "countLabel": "Nombre (1–{maxBulk})",
+    "generate": "Générer",
+    "output": "Sortie",
+    "lines": "{count} lignes",
+    "download": {
+      "title": "Télécharger .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "Tout copier",
+    "outputPlaceholder": "Cliquez sur « Générer »…",
+    "entropy": "{bits} bits d'entropie",
+    "strength": {
+      "weak": "Faible",
+      "fair": "Correct",
+      "strong": "Fort"
+    },
+    "excludeAmbiguous": "Exclure les caractères ambigus",
+    "excludeAmbiguousHint": "Supprime {chars} — caractères facilement mal lus ou hostiles au shell.",
+    "prefixLabel": "Préfixe de la clé (facultatif)",
+    "errors": {
+      "emptyAlphabet": "Ajoutez au moins un caractère à l’alphabet.",
+      "alphabetTooLong": "Après suppression des doublons, l’alphabet peut comporter au plus {maxAlpha} caractères.",
+      "lengthOutOfRange": "La longueur doit être comprise entre 1 et {maxLen}.",
+      "countOutOfRange": "Le nombre doit être compris entre 1 et {maxBulk}.",
+      "unknown": "Impossible de générer les secrets."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Générateur Lorem Ipsum",
+    "subtitle": "Générez du texte latin fictif pour vos mises en page et maquettes.",
+    "paragraphs": "Paragraphes",
+    "sentences": "Phrases",
+    "words": "Mots",
+    "count": "Nombre",
+    "generate": "Générer",
+    "copy": "Copier",
+    "startWith": "Commencer par 'Lorem ipsum...'",
+    "outputPlaceholder": "Le résultat apparaîtra ici...",
+    "outputType": "Type de sortie",
+    "bulletList": "Liste à puces",
+    "htmlMarkup": "Balisage HTML",
+    "htmlMarkupHint": "Encapsuler la sortie dans des paragraphes, ou utiliser une liste pour le mode liste",
+    "output": "Résultat",
+    "download": "Télécharger"
+  },
+  "ColorPicker": {
+    "title": "Sélecteur et convertisseur de couleurs",
+    "subtitle": "Convertissez HEX, RGB et HSL ; créez des palettes harmonieuses. Tout le traitement se fait dans votre navigateur.",
+    "nativePicker": "Sélecteur natif",
+    "chooseColor": "Choisir une couleur",
+    "eyeDropper": "Pipette",
+    "invalidHex": "Couleur HEX invalide.",
+    "cssValues": "Valeurs CSS",
+    "palettes": "Palettes",
+    "copied": "Copié",
+    "clickToCopy": "Cliquer pour copier",
+    "copyAllHex": "Copier tous les HEX",
+    "copy": "Copier",
+    "copyColor": "Copier {color}",
+    "paletteShades": "Nuances",
+    "paletteComplementary": "Complémentaire",
+    "paletteTriadic": "Triadique",
+    "paletteAnalogous": "Analogue",
+    "paletteSplit": "Compl. divisé",
+    "paletteSquare": "Carré"
+  },
+  "ContrastChecker": {
+    "title": "Vérificateur de contraste",
+    "subtitle": "Calcule le ratio de contraste WCAG 2.1 entre premier plan et arrière-plan. Indique AA et AAA pour le texte courant et grand. Tout s’exécute dans votre navigateur.",
+    "foreground": "Texte / premier plan",
+    "background": "Arrière-plan",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Échanger les couleurs",
+    "chooseForeground": "Choisir la couleur du premier plan",
+    "chooseBackground": "Choisir la couleur d'arrière-plan",
+    "eyeDropper": "Pipette",
+    "ratio": "Ratio de contraste",
+    "copyRatio": "Copier le ratio",
+    "copied": "Copié",
+    "previewHeading": "Aperçu",
+    "previewBody": "Portez ce vieux whisky au juge blond qui fume. Voyez le brick géant que j’examine près du wharf.",
+    "previewCaption": "Exemple de texte courant à taille par défaut.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — texte courant (4,5:1)",
+    "levelAALarge": "AA — grand texte (3:1)",
+    "levelAAANormal": "AAA — texte courant (7:1)",
+    "levelAAALarge": "AAA — grand texte (4,5:1)",
+    "pass": "Réussi",
+    "fail": "Échoué",
+    "invalidHex": "Couleur HEX invalide.",
+    "largeTextHint": "Grand texte : 18 pt+ en normal, ou 14 pt+ en gras (définitions WCAG)."
+  },
+  "DiffChecker": {
+    "title": "Vérificateur de différences",
+    "subtitle": "Comparaison ligne par ligne de deux textes côte à côte. Tout reste dans votre navigateur.",
+    "rowsCount": "{count} lignes",
+    "truncatedWarning": "Affichage des premières {max} lignes.",
+    "limitExceeded": "Chaque côté est limité à {max} caractères.",
+    "clearBoth": "Effacer les deux",
+    "original": "Original",
+    "modified": "Modifié",
+    "originalPlaceholder": "Collez le texte original…",
+    "modifiedPlaceholder": "Collez le texte modifié…",
+    "comparisonLabel": "Comparaison côte à côte",
+    "emptyState": "Saisissez du texte dans les deux panneaux pour comparer."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Générateur de schéma JSON",
+    "subtitle": "Collez du JSON valide pour générer un schéma JSON ou des modèles typés. Tout s'exécute dans votre navigateur.",
+    "languageLabel": "Langue de sortie",
+    "inputLabel": "Entrée JSON",
+    "inputPlaceholder": "Collez le JSON ici…",
+    "outputLabel": "Résultat généré",
+    "outputPlaceholder": "Le schéma ou les types générés s'afficheront ici…",
+    "parseError": "JSON invalide",
+    "clear": "Effacer",
+    "copy": "Copier",
+    "copied": "Copié dans le presse-papiers",
+    "copyFailed": "Impossible de copier",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "Schéma JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    },
+    "editorLoading": "Chargement de l’éditeur…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
+  },
+  "ImageToBase64": {
+    "title": "Image vers Base64",
+    "subtitle": "Déposez une image, obtenez un URI de données ou une chaîne Base64 brute. Tout reste dans votre navigateur.",
+    "upload": "Télécharger une image",
+    "clear": "Clair",
+    "modes": {
+      "dataUri": "URI des données",
+      "rawString": "Base brute64"
+    },
+    "panels": {
+      "imageInput": "Entrée d'image",
+      "output": "Sortie Base64"
+    },
+    "dropHere": "Déposez l'image ici",
+    "charCount": "{count} caractères",
+    "placeholders": {
+      "uploadImage": "Faites glisser et déposez une image ou cliquez sur Télécharger pour commencer."
+    },
+    "fileTooLarge": "Le fichier est trop volumineux. Le traitement peut geler votre navigateur.",
+    "copyTitle": "Copier dans le presse-papier",
+    "download": {
+      "title": "Télécharger le texte",
+      "filename": "image-base64.txt"
+    }
+  },
+  "ImageCompressor": {
+    "title": "Compresseur d’images",
+    "subtitle": "Réduisez la sortie JPEG, PNG ou WebP localement avec un contrôle de qualité — rien n’est envoyé au serveur.",
+    "upload": "Importer une image",
+    "clear": "Effacer",
+    "dropHere": "Déposez l’image ici",
+    "placeholders": {
+      "uploadImage": "Glissez-déposez une image, ou cliquez pour choisir un fichier."
+    },
+    "fileTooLarge": "Fichier trop volumineux (max. {maxMb} Mo).",
+    "unsupportedFormat": "Type de fichier non pris en charge. Utilisez JPEG, PNG, WebP, GIF, AVIF ou BMP.",
+    "compressFailed": "Impossible de compresser cette image. Essayez un autre fichier ou format.",
+    "panels": {
+      "original": "Original",
+      "compressed": "Aperçu compressé"
+    },
+    "outputFormat": "Format de sortie",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Qualité",
+    "qualityPercent": "{value} %",
+    "qualityPngHint": "Le PNG est sans perte dans le navigateur ; le réglage de qualité s’applique uniquement au JPEG et au WebP.",
+    "sizes": {
+      "original": "Original : {size}",
+      "compressed": "Compressé : {size}",
+      "saved": "{percent} % plus léger"
+    },
+    "largerWarning": "La sortie est plus grande que l’entrée — essayez un autre format ou une autre qualité.",
+    "download": "Télécharger",
+    "downloadFilename": "image-compressee",
+    "processing": "Compression…",
+    "emptyCompressed": "L’aperçu compressé s’affiche ici."
+  },
+  "CssGradientBuilder": {
+    "title": "Générateur de dégradé CSS",
+    "subtitle": "Générateur de dégradé CSS visuel avec contrôle de l'angle, arrêts de couleur et copie CSS en un clic.",
+    "preview": "Aperçu du dégradé",
+    "settings": "Paramètres",
+    "type": "Taper",
+    "linear": "Linéaire",
+    "radial": "Radial",
+    "angle": "Angle",
+    "stops": "Arrêts de couleur",
+    "color": "Couleur",
+    "position": "Position (%)",
+    "addStop": "Ajouter un arrêt",
+    "deleteStop": "Supprimer l'arrêt",
+    "output": "Sortie CSS",
+    "copy": "Copier CSS",
+    "copied": "Copié!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Générateur .gitignore",
+    "subtitle": "Générez instantanément des fichiers .gitignore fusionnés pour une pile ou une combinaison technologique spécifique.",
+    "searchPlaceholder": "Piles de recherche (par exemple Node, Python, macOS)...",
+    "noResults": "Aucune pile trouvée.",
+    "selectedStacks": "Piles sélectionnées",
+    "output": "Aperçu de la sortie",
+    "copy": "Copier dans le Presse-papiers",
+    "copied": "Copié!",
+    "download": "Télécharger .gitignore",
+    "downloading": "Téléchargement...",
+    "errorFetching": "Échec de la récupération de la liste des meilleurs résultats.",
+    "errorGenerating": "Échec de la génération de .gitignore à partir des piles sélectionnées.",
+    "generating": "Générateur...",
+    "emptyState": "Sélectionnez une ou plusieurs piles technologiques pour générer votre .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Importez un fichier CSV ou Excel, modifiez le JSON, puis téléchargez en CSV ou XLSX. Données tabulaires uniquement ; les dates Excel deviennent des horodatages ISO dans le JSON.",
+    "dropTitle": "Déposez un fichier CSV ou Excel",
+    "dropHint": "La première feuille est utilisée pour .xlsx / .xls. Le CSV doit comporter une ligne d’en-têtes.",
+    "chooseFile": "Choisir un fichier",
+    "jsonLabel": "JSON (tableau d’objets)",
+    "jsonPlaceholder": "Collez un tableau JSON d’objets ou importez CSV / Excel…",
+    "loadSample": "Charger un exemple",
+    "actions": {
+      "format": "Formater le JSON",
+      "clear": "Effacer",
+      "copy": "Copier",
+      "copied": "Copié",
+      "downloadCsv": "Télécharger CSV",
+      "downloadXlsx": "Télécharger Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Données",
+    "toastLoadedCsv": "CSV chargé dans l’éditeur",
+    "toastLoadedExcel": "Fichier Excel chargé dans l’éditeur",
+    "toastFormatted": "JSON formaté",
+    "toastExportedCsv": "CSV téléchargé",
+    "toastExportedXlsx": "Fichier Excel téléchargé",
+    "toastCopied": "Copié dans le presse-papiers",
+    "footnote": "Tout s’exécute dans votre navigateur. Le JSON doit être un tableau non vide d’objets. Les valeurs imbriquées sont sérialisées en JSON dans les cellules CSV.",
+    "errors": {
+      "unsupportedFile": "Utilisez un fichier .csv, .xlsx ou .xls.",
+      "parseFailed": "Impossible d’analyser ce fichier.",
+      "invalidJson": "JSON invalide",
+      "exportFailed": "Échec de l’export",
+      "copyFailed": "Impossible de copier"
+    }
+  },
+  "SnippetManager": {
+    "title": "Gestionnaire d'extraits de code",
+    "subtitle": "Enregistrez des extraits dans votre navigateur ou connectez-vous pour les synchroniser avec votre compte. Passez de la consultation à l’édition, copiez en un clic, choisissez un langage ou la détection automatique, et formatez JSON, SQL ou le code pris en charge par Monaco.",
+    "snippets": "Extraits",
+    "newSnippet": "Nouvel extrait",
+    "newSnippetTitle": "Nouvel extrait",
+    "defaultSnippetTitle": "Bienvenue",
+    "defaultSnippetCode": "// Bienvenue dans Extraits de code\n// Essayez Affichage / Édition, Copier, Formater et langage auto\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Rechercher des extraits…",
+    "searchAria": "Rechercher des extraits",
+    "emptySearch": "Aucun extrait ne correspond à votre recherche.",
+    "snippetTitle": "Titre",
+    "snippetTitlePlaceholder": "Nom de l'extrait",
+    "language": "Langage",
+    "detectedHint": "Coloration syntaxique : {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Lecture",
+    "modeEdit": "Édition",
+    "copy": "Copier",
+    "copied": "Copié",
+    "format": "Formater",
+    "cancel": "Annuler",
+    "deleteTitle": "Supprimer l'extrait ?",
+    "deleteDescription": "« {title} » sera supprimé de ce navigateur.",
+    "deleteConfirm": "Supprimer",
+    "editorAria": "Éditeur de code de l'extrait",
+    "editorLoading": "Chargement de l'éditeur…",
+    "toastCopied": "Copié dans le presse-papiers",
+    "toastCopyFailed": "Impossible de copier",
+    "toastNothingToCopy": "Rien à copier",
+    "toastFormatted": "Formaté",
+    "toastFormatFailed": "Impossible de formater",
+    "toastFormatJsonInvalid": "JSON invalide — corrigez la syntaxe d'abord",
+    "toastFormatUnsupported": "Pas de formateur pour ce langage — essayez JSON ou SQL, ou passez en mode édition",
+    "toastDeleted": "Extrait supprimé",
+    "toastLoadFailed": "Impossible de charger les extraits depuis le serveur.",
+    "toastSyncFailed": "Impossible de synchroniser avec le serveur.",
+    "languages": {
+      "auto": "Détection automatique",
+      "plaintext": "Texte brut",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
+    }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Client SQL",
+      "dialogTitle": "Connexions SQL",
+      "mobileSheetTitle": "Explorateur SQL",
+      "newTabLabel": "Nouvel onglet",
+      "vaultLockedTitle": "Coffre verrouillé",
+      "vaultLockedDesc": "Déverrouillez votre coffre pour accéder aux connexions.",
+      "heroTitle": "Client SQL",
+      "heroDesc": "Connectez-vous à PostgreSQL, MySQL ou MariaDB. Les identifiants sont chiffrés dans votre navigateur.",
+      "heroAddConnection": "Ajouter une connexion",
+      "selectTableTitle": "Sélectionnez une table ou ouvrez un onglet",
+      "selectTableDesc": "Cliquez sur une table dans la barre latérale ou utilisez ⌘↩.",
+      "toastLoadFail": "Impossible de charger les connexions."
+    },
+    "connection": {
+      "titleNew": "Nouvelle connexion SQL",
+      "titleEdit": "Modifier la connexion",
+      "labelDbType": "Type de base de données",
+      "labelName": "Nom de la connexion",
+      "placeholderName": "Ma base de prod",
+      "labelHostPort": "Hôte & Port",
+      "labelDatabase": "Base de données",
+      "placeholderDatabase": "mabase",
+      "labelUsername": "Nom d'utilisateur",
+      "labelPassword": "Mot de passe",
+      "labelSsl": "Activer SSL / TLS",
+      "sslDesc": "Chiffrer la connexion au serveur",
+      "securityNote": "Les identifiants sont chiffrés AES-256 dans votre navigateur avant stockage",
+      "btnTest": "Tester la connexion",
+      "btnSave": "Enregistrer & Connecter",
+      "btnUpdate": "Mettre à jour",
+      "btnCancelEdit": "Annuler la modification",
+      "savedConnections": "Connexions enregistrées",
+      "emptySaved": "Les connexions apparaîtront ici",
+      "confirmDelete": "Supprimer cette connexion ?",
+      "toastFillFields": "Remplissez l'hôte et la base avant de tester.",
+      "toastConnectOk": "Connecté ! {version}",
+      "toastConnectFail": "Connexion échouée : {message}",
+      "toastUnlockVault": "Déverrouillez votre coffre d'abord.",
+      "toastFieldsRequired": "L'hôte et la base de données sont requis.",
+      "toastUpdated": "Connexion mise à jour.",
+      "toastSaved": "Connexion enregistrée.",
+      "toastSaveFail": "Échec de l'enregistrement : {message}",
+      "toastDeleted": "Connexion supprimée.",
+      "toastDeleteFail": "Impossible de supprimer la connexion."
+    },
+    "sidebar": {
+      "title": "Explorateur SQL",
+      "tooltipAddConnection": "Ajouter une connexion",
+      "tooltipRefreshSchema": "Actualiser le schéma",
+      "noConnections": "Aucune connexion enregistrée",
+      "toastSchemaFail": "Impossible de charger le schéma : {message}"
+    },
+    "editor": {
+      "btnRun": "Exécuter",
+      "executing": "Exécution en cours…",
+      "emptyTitle": "Exécutez une requête pour voir les résultats",
+      "emptyHint": "Appuyez sur ⌘↩ ou cliquez sur Exécuter",
+      "toastNoConnection": "Aucune connexion active."
+    },
+    "results": {
+      "filterPlaceholder": "Filtrer les résultats…",
+      "rowCount": "{count} {count, plural, one {ligne} other {lignes}}",
+      "rowCountFiltered": "{filtered} / {total} lignes",
+      "exportCsv": "CSV",
+      "noRows": "Aucune ligne retournée"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Générateur de codes QR",
+    "subtitle": "Transformez tout texte ou URL en code QR PNG. Tout est rendu localement dans le navigateur.",
+    "contentLabel": "Contenu",
+    "contentPlaceholder": "https://exemple.fr, texte brut, chaîne Wi‑Fi, vCard…",
+    "styleLabel": "Style",
+    "dotTypeLabel": "Forme des points",
+    "dotTypeSquare": "Carré",
+    "dotTypeDots": "Points",
+    "dotTypeRounded": "Arrondi",
+    "dotTypeExtraRounded": "Extra arrondi",
+    "dotTypeClassy": "Élégant",
+    "dotTypeClassyRounded": "Élégant arrondi",
+    "cornerSquareLabel": "Carrés de coin",
+    "cornerSquareDot": "Point",
+    "cornerSquareSquare": "Carré",
+    "cornerSquareExtraRounded": "Extra arrondi",
+    "cornerDotLabel": "Points de coin",
+    "cornerDotDot": "Point",
+    "cornerDotSquare": "Carré",
+    "eccLabel": "Correction d’erreurs",
+    "eccL": "Faible (~7 %)",
+    "eccM": "Moyenne (~15 %)",
+    "eccQ": "Quartile (~25 %)",
+    "eccH": "Élevée (~30 %)",
+    "marginLabel": "Marge (modules)",
+    "widthLabel": "Largeur de l’image",
+    "widthEffective": "Rendu à {px} px",
+    "darkColor": "Modules foncés",
+    "lightColor": "Modules clairs",
+    "resetColors": "Réinitialiser les couleurs",
+    "logoLabel": "Logo central",
+    "logoMarginLabel": "Marge",
+    "uploadLogo": "Téléverser une image",
+    "removeLogo": "Supprimer le logo",
+    "downloadPng": "Télécharger PNG",
+    "downloadSvg": "Télécharger SVG",
+    "copyImage": "Copier l’image",
+    "copied": "Copié",
+    "clear": "Effacer",
+    "previewAlt": "Aperçu du code QR",
+    "emptyHint": "Saisissez ou collez du contenu pour prévisualiser le code QR.",
+    "filename": "code-qr.png",
+    "errors": {
+      "generationFailed": "Impossible de générer ce code QR. Essayez un texte plus court ou moins de correction.",
+      "copyUnsupported": "Votre navigateur ne permet pas de copier des images dans le presse-papiers.",
+      "copyFailed": "Impossible de copier dans le presse-papiers."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Calculateur IP / sous-réseau",
+    "subtitle": "Détails CIDR IPv4 et IPv6 dans le navigateur—sans requêtes externes.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Réseau",
+    "placeholderIpv4": "10.0.0.0/24 ou 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 ou 2001:db8::1/64",
+    "hintIpv4": "Utilisez la notation CIDR (ex. /24) ou une IPv4 avec masque décimal.",
+    "hintIpv6": "Indiquez la longueur de préfixe (ex. /64). Sans cela, /128 est supposé.",
+    "copyValue": "Copier la valeur",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Adresse réseau",
+      "netmask": "Masque de sous-réseau",
+      "wildcard": "Masque wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Premier hôte",
+      "lastHost": "Dernier hôte",
+      "totalAddresses": "Adresses totales",
+      "usableHosts": "Hôtes utilisables",
+      "prefixLength": "Longueur du préfixe (bits)",
+      "networkIpv6": "Adresse réseau",
+      "lastIpv6": "Dernière adresse de la plage",
+      "totalAddressesIpv6": "Adresses dans le sous-réseau"
+    },
+    "usableNote": {
+      "pointToPoint": "Les liaisons /31 point-à-point utilisent les deux adresses comme hôtes (RFC 3021).",
+      "singleHost": "/32 correspond à un seul hôte."
+    },
+    "ipv6RangeHint": {
+      "normal": "Plage mathématique complète affichée ; les règles du routeur peuvent varier.",
+      "single": "/128 est une adresse unique.",
+      "full": "/0 couvre tout l’IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Réseau IPv4 invalide. Essayez CIDR ou adresse + masque.",
+      "invalidIpv6": "Réseau IPv6 invalide. Utilisez adresse/préfixe, ex. 2001:db8::/48."
+    }
+  },
+  "HashGenerator": {
+    "title": "Générateur de hash",
+    "subtitle": "Empreintes MD5, SHA-1 et SHA-2 pour texte ou fichiers ; bcrypt pour les mots de passe (saisie texte). Tout est calculé localement dans le navigateur.",
+    "algorithmLabel": "Algorithme",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Texte",
+    "modeFile": "Fichier",
+    "inputLabelText": "Entrée",
+    "placeholderText": "Saisissez ou collez du texte…",
+    "chooseFile": "Choisir un fichier",
+    "clearFile": "Effacer",
+    "fileHint": "Lecture en mémoire uniquement ; max. {maxMb} Mo par fichier. Aucun envoi.",
+    "outputLabel": "Empreinte (hex)",
+    "copyHash": "Copier l’empreinte",
+    "copied": "Copié",
+    "byteCount": "{count, plural, one {# octet} other {# octets}}",
+    "charCount": "{count, plural, one {# caractère} other {# caractères}}",
+    "emptyHint": "Saisissez du texte ou choisissez un fichier.",
+    "securityNote": "MD5 et SHA-1 ne sont pas recommandés pour les nouveaux usages de sécurité ; préférez SHA-256 ou SHA-512.",
+    "errors": {
+      "fileTooLarge": "Fichier supérieur à {maxMb} Mo.",
+      "fileReadFailed": "Impossible de lire le fichier."
+    },
+    "bcryptRoundsLabel": "Coût (tours)",
+    "bcryptRoundsHint": "Des valeurs plus élevées sont plus lentes et plus résistantes aux attaques par force brute. Souvent 10 par défaut.",
+    "fileTabDisabledTitle": "bcrypt ne hache que des mots de passe saisis en texte, pas des fichiers arbitraires.",
+    "placeholderBcrypt": "Saisissez ou collez un mot de passe à hacher…",
+    "outputLabelBcrypt": "Hachage bcrypt",
+    "copyBcrypt": "Copier le hachage",
+    "emptyHintBcrypt": "Entrez un mot de passe pour calculer un hachage bcrypt.",
+    "securityNoteBcrypt": "Chaque sortie bcrypt inclut un sel aléatoire ; le même mot de passe produit une chaîne différente à chaque fois. C’est attendu. Utilisez un coût élevé en production.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "EncryptionPlayground": {
+    "title": "Bac à sable chiffrement",
+    "subtitle": "AES-GCM dans le navigateur : chiffrer en paquet JSON avec une phrase secrète ou une clé brute, puis déchiffrer localement. Pédagogique et parfois pratique — rien n’est envoyé.",
+    "tabEncrypt": "Chiffrer",
+    "tabDecrypt": "Déchiffrer",
+    "keyModeLabel": "Matériel de clé",
+    "modePassphrase": "Phrase secrète (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Clé AES brute (hex ou Base64)",
+    "aesBitsLabel": "Longueur de clé AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Encodage de la clé brute",
+    "encodingAuto": "Auto (hex si cela ressemble à du hex, sinon Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Clé brute",
+    "rawKeyPlaceholder": "Clé de 32 octets en 64 caractères hex, ou Base64 pour AES-256 (la longueur dépend de la taille AES ci-dessus).",
+    "rawKeyPlaceholderDecrypt": "Uniquement si le paquet indique keyDerivation « none ».",
+    "passphraseLabel": "Phrase secrète",
+    "passphrasePlaceholder": "Phrase secrète utilisée uniquement dans le navigateur pour dériver la clé.",
+    "passphrasePlaceholderDecrypt": "Uniquement si le paquet utilise PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Itérations PBKDF2",
+    "pbkdf2Hint": "Limité entre 10 000 et 2 000 000. La valeur par défaut suit les usages courants des coffres-forts.",
+    "plaintextLabel": "Texte en clair",
+    "plaintextPlaceholder": "Saisissez ou collez le message à chiffrer…",
+    "bundleInputLabel": "Paquet chiffré (JSON)",
+    "bundlePlaceholder": "Collez le JSON issu de Chiffrer (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Paquet chiffré",
+    "plaintextOutputLabel": "Texte en clair",
+    "encryptButton": "Chiffrer",
+    "decryptButton": "Déchiffrer",
+    "copyBundle": "Copier le JSON",
+    "copyPlaintext": "Copier le texte en clair",
+    "copied": "Copié",
+    "emptyBundleHint": "Le JSON chiffré apparaît ici après chiffrement.",
+    "emptyDecryptHint": "Le texte déchiffré apparaît ici.",
+    "decryptKeyHint": "Utilisez la clé brute si keyDerivation vaut « none » ; la phrase secrète si c’est PBKDF2-SHA256. Le paquet contient le sel, les itérations, l’IV et la taille AES.",
+    "securityNote": "Les clés et le texte en clair ne quittent pas votre navigateur. Pour des secrets de production, préférez des outils dédiés.",
+    "errors": {
+      "emptyKey": "Entrez une clé brute correspondant à la taille AES.",
+      "emptyPassphrase": "Entrez une phrase secrète.",
+      "badKeyMaterial": "Impossible de lire la clé en hex ou Base64.",
+      "wrongKeyLength": "La longueur de clé ne correspond pas à la taille AES choisie (16 / 24 / 32 octets).",
+      "invalidJson": "JSON non valide.",
+      "invalidBundle": "Ce JSON n’est pas un paquet de chiffrement pris en charge.",
+      "decryptFailed": "Échec du déchiffrement — mauvais secret, paquet corrompu ou paramètres incorrects.",
+      "encryptFailed": "Échec du chiffrement. Vérifiez Web Crypto et les entrées."
+    }
+  },
+  "HmacGenerator": {
+    "title": "Générateur HMAC",
+    "subtitle": "Pour signer des webhooks et tester des intégrations d’API. HMAC-SHA1/256/384/512 en hexadécimal ou Base64—calculé localement dans le navigateur.",
+    "secretLabel": "Clé secrète",
+    "messageLabel": "Message / charge utile",
+    "placeholderSecret": "Collez votre secret de signature…",
+    "placeholderMessage": "Collez le corps brut ou la chaîne à authentifier (souvent les octets exacts du webhook).",
+    "algorithmLabel": "Algorithme HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format de sortie",
+    "formatHex": "Hexadécimal (minuscules)",
+    "formatBase64": "Base64",
+    "outputLabel": "Signature",
+    "copyOutput": "Copier la signature",
+    "copied": "Copié",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (UTF-8)",
+    "emptyHint": "Saisissez une clé secrète pour calculer le HMAC.",
+    "securityNote": "Ne partagez jamais votre secret de signature. Cette page n’envoie pas de données ; tout s’exécute dans le navigateur.",
+    "errors": {
+      "cryptoFailed": "Impossible de calculer le HMAC. Vérifiez le support de Web Crypto et réessayez.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "TotpGenerator": {
+    "title": "Générateur de code TOTP / 2FA",
+    "subtitle": "Collez un secret Base32 (application d’authentification) et obtenez le code à six chiffres RFC 6238 actuel (SHA-1, 30 s). Tout s’exécute localement dans le navigateur—utile pour tester la connexion ou le MFA.",
+    "secretLabel": "Secret (Base32)",
+    "placeholderSecret": "Collez la clé secrète (lettres A–Z et chiffres 2–7, comme lors de la configuration de l’authentificateur)…",
+    "codeLabel": "Code actuel",
+    "copyCode": "Copier le code",
+    "copied": "Copié",
+    "nextIn": "Actualisation dans {seconds} s",
+    "standardHint": "Pas de temps 30 s, 6 chiffres, HMAC-SHA-1 (compatible Google Authenticator).",
+    "digitsLabel": "Chiffres",
+    "periodLabel": "Période",
+    "algorithmLabel": "Algorithme",
+    "periodSeconds": "{seconds} s",
+    "emptyHint": "Collez un secret pour générer un code à six chiffres.",
+    "invalidHint": "Corrigez le secret pour afficher le code.",
+    "securityNote": "Traitez cela comme un mot de passe. Le secret ne quitte pas votre navigateur ; rien n’est envoyé au serveur.",
+    "importLabel": "Importer depuis un URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Importer",
+    "qrSectionTitle": "Code QR de provisionnement",
+    "qrHint": "Scannez avec une application d'authentification (Google Authenticator, 1Password, Aegis…) pour ajouter ce secret. Le QR code encode le secret — traitez-le comme un mot de passe.",
+    "accountLabel": "Compte",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Émetteur (facultatif)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Saisissez un secret valide pour générer un code QR.",
+    "errors": {
+      "invalidSecret": "Ce n’est pas un secret Base32 valide.",
+      "cryptoFailed": "Impossible de calculer le TOTP. Vérifiez la disponibilité de Web Crypto et réessayez.",
+      "invalidUri": "Ce n'est pas un URI otpauth:// TOTP valide.",
+      "unsupportedUri": "Cet URI utilise des valeurs que l'outil ne prend pas en charge (les chiffres doivent être 6 ou 8 ; la période 15, 30 ou 60 s)."
+    }
+  },
+  "MarkdownPreview": {
+    "title": "Aperçu Markdown & HTML",
+    "subtitle": "Rendu Markdown en direct avec export HTML et conversion HTML → Markdown. Tout s'exécute dans votre navigateur.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Entrée Markdown",
+    "htmlInputLabel": "Entrée HTML",
+    "previewLabel": "Aperçu",
+    "htmlOutputLabel": "Source HTML",
+    "mdOutputLabel": "Sortie Markdown",
+    "inputPlaceholder": "# Bonjour\\n\\nTapez votre **markdown** ici…",
+    "htmlInputPlaceholder": "Collez votre HTML ici…",
+    "copyHtml": "Copier le HTML",
+    "copyMarkdown": "Copier le Markdown",
+    "exportHtml": "Exporter le HTML",
+    "copied": "Copié",
+    "charCount": "{count, plural, one {# caractère} other {# caractères}}",
+    "emptyHint": "Commencez à taper du Markdown pour voir l'aperçu et la sortie HTML.",
+    "emptyHintHtmlToMd": "Collez du HTML pour le convertir en Markdown.",
+    "securityNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "NumberBaseConverter": {
+    "title": "Convertisseur de base numérique",
+    "subtitle": "Convertissez des entiers entre les bases 2 à 36. Préfixes optionnels 0x / 0b / 0o. Tout est calculé localement dans le navigateur.",
+    "inputBaseLabel": "Depuis la base",
+    "outputBaseLabel": "Vers la base",
+    "inputLabel": "Nombre d’entrée",
+    "placeholderInput": "Saisissez un entier dans la base d’entrée sélectionnée…",
+    "outputLabel": "Valeur convertie",
+    "copyOutput": "Copier le résultat",
+    "copied": "Copié",
+    "swap": "Échanger les bases",
+    "byteCountHint": "{count, plural, one {# octet} other {# octets}} (longueur UTF-8)",
+    "emptyHint": "Saisissez un nombre à convertir.",
+    "note": "Les chiffres au-delà de 9 utilisent les lettres A–Z (insensible à la casse). Espaces et tirets bas ignorés.",
+    "errors": {
+      "invalidNumber": "Cette valeur n’est pas valide pour la base d’entrée sélectionnée."
+    }
+  },
+  "FormatConverter": {
+    "title": "Convertisseur de formats",
+    "subtitle": "Convertissez entre JSON, YAML, TOML et XML dans n'importe quelle direction. Les 12 combinaisons. Tout s'exécute dans votre navigateur.",
+    "fromLabel": "De",
+    "toLabel": "Vers",
+    "swap": "Inverser",
+    "swapTitle": "Inverser les formats et utiliser la sortie comme entrée",
+    "copy": "Copier",
+    "copied": "Copié",
+    "charCount": "{count, plural, one {# caractère} other {# caractères}}",
+    "emptyHint": "Collez ou tapez votre entrée à gauche pour voir la sortie convertie.",
+    "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "MimeTypeLookup": {
+    "title": "Recherche de type MIME",
+    "subtitle": "Recherchez le type MIME (type de média) d'une extension ou d'un nom de fichier complet. Tout s'exécute localement dans votre navigateur.",
+    "inputLabel": "Extension ou nom de fichier",
+    "placeholder": "ex. .png, package.json, photo.jpeg",
+    "hint": "Astuce : collez une extension (avec ou sans point) ou un nom de fichier complet.",
+    "clear": "Effacer",
+    "exampleFilename": "Utiliser un nom de fichier exemple",
+    "exampleExtension": "Utiliser une extension exemple",
+    "resultLabel": "Résultat",
+    "normalizedLabel": "Entrée normalisée :",
+    "mimeTypeLabel": "Type MIME",
+    "contentTypeLabel": "En-tête Content-Type",
+    "charsetLabel": "Jeu de caractères",
+    "copyMimeType": "Copier le type MIME",
+    "copy": "Copier",
+    "copied": "Copié",
+    "emptyHint": "Saisissez une extension ou un nom de fichier pour rechercher son type MIME.",
+    "notFound": "Aucun type MIME trouvé pour cette entrée.",
+    "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "UserAgentParser": {
+    "title": "Analyseur User-Agent",
+    "subtitle": "Collez une chaîne User-Agent (UA) pour obtenir le détail navigateur, OS, moteur, appareil et CPU. Tout s'exécute localement dans votre navigateur.",
+    "inputLabel": "Chaîne User-Agent",
+    "placeholder": "Collez votre User-Agent ici…",
+    "hint": "Astuce : vous pouvez copier un UA depuis les en-têtes de requête, des logs ou les devtools du navigateur.",
+    "clear": "Effacer",
+    "exampleDesktop": "Utiliser un exemple desktop",
+    "exampleMobile": "Utiliser un exemple mobile",
+    "resultLabel": "Détails",
+    "browserLabel": "Navigateur",
+    "osLabel": "Système d’exploitation",
+    "engineLabel": "Moteur",
+    "deviceTypeLabel": "Type d’appareil",
+    "deviceVendorLabel": "Fabricant",
+    "deviceModelLabel": "Modèle",
+    "cpuArchLabel": "Architecture CPU",
+    "copyJson": "Copier JSON",
+    "copy": "Copier",
+    "copied": "Copié",
+    "emptyHint": "Collez une chaîne User-Agent pour voir les détails.",
+    "localNote": "Tout s'exécute localement dans votre navigateur. Rien n'est téléchargé."
+  },
+  "MockDataGenerator": {
+    "title": "Générateur de données fictives",
+    "subtitle": "Définissez des colonnes, choisissez des types et exportez des jeux de données pour les seeds, Postman ou les tests. Jusqu’à {max} lignes, tout dans le navigateur — rien n’est envoyé.",
+    "mockarooLink": "Flux de travail façon Mockaroo",
+    "rowsLabel": "Lignes",
+    "rowsHint": "Au plus {max} lignes par génération pour garder l’onglet réactif.",
+    "formatLabel": "Format",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "Nom de table SQL",
+    "presetsLabel": "Modèles",
+    "presetPlaceholder": "Charger un modèle…",
+    "presetDefault": "Départ (utilisateur)",
+    "presetUsers": "Utilisateurs & rôles",
+    "presetProducts": "SKU e-commerce",
+    "presetApiLog": "Journal des requêtes HTTP",
+    "generate": "Générer",
+    "warningDuplicateNames": "Noms de colonnes en double : les colonnes suivantes écrasent les précédentes dans les objets JSON. Renommez-les.",
+    "schemaHeading": "Schéma",
+    "addField": "Ajouter une colonne",
+    "removeField": "Supprimer la colonne",
+    "duplicateField": "Dupliquer la colonne",
+    "colName": "Nom",
+    "colType": "Type",
+    "colOptions": "Options",
+    "colBlank": "Vide %",
+    "optMin": "min",
+    "optMax": "max",
+    "optDecimals": "déc",
+    "optDateFrom": "date début",
+    "optDateTo": "date fin",
+    "optValues": "a, b, c",
+    "optStep": "pas",
+    "optRowBase": "base",
+    "output": "Sortie",
+    "outputPlaceholder": "Cliquez sur Générer pour créer les données…",
+    "copy": "Copier",
+    "download": "Télécharger",
+    "copied": "Copié",
+    "groups": {
+      "personal": "Personnel",
+      "location": "Localisation",
+      "internetApi": "Internet & API",
+      "numbersIds": "Nombres & ID",
+      "dateTime": "Date & heure",
+      "textDesign": "Texte & design",
+      "custom": "Personnalisé"
+    },
+    "fieldTypes": {
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "full_name": "Nom complet",
+      "email": "Email",
+      "username": "Nom d’utilisateur",
+      "password": "Mot de passe",
+      "phone": "Téléphone",
+      "company": "Entreprise",
+      "job_title": "Intitulé du poste",
+      "avatar_url": "URL d’avatar",
+      "city": "Ville",
+      "country": "Pays",
+      "country_code": "Code pays (ISO)",
+      "street_address": "Adresse",
+      "zip_code": "Code postal",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "url": "URL",
+      "domain": "Domaine",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Entier",
+      "float": "Décimal",
+      "boolean": "Booléen",
+      "uuid": "UUID",
+      "credit_card": "Carte bancaire (test)",
+      "semver": "SemVer",
+      "row_index": "Indice de ligne",
+      "sequence": "Séquence",
+      "date": "Date",
+      "datetime": "Date et heure",
+      "unix_timestamp": "Horodatage Unix",
+      "timezone": "Fuseau horaire",
+      "word": "Mot",
+      "sentence": "Phrase",
+      "paragraph": "Paragraphe",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Code devise",
+      "language_code": "Étiquette de langue",
+      "custom_list": "Liste personnalisée"
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
+  },
+  "SvgOptimizer": {
+    "title": "Optimiseur SVG",
+    "subtitle": "Collez du SVG, minifiez avec SVGO dans le navigateur et comparez la taille UTF-8 avant/après.",
+    "inputLabel": "Entrée",
+    "outputLabel": "Optimisé",
+    "placeholder": "Collez un extrait <svg>…</svg> ou un fichier complet…",
+    "outputPlaceholder": "Le SVG optimisé apparaît ici…",
+    "chars": "{count} caractères • {bytes} octets (UTF-8)",
+    "preview": "Aperçu",
+    "localNote": "Tout est traité localement dans votre navigateur. Rien n’est envoyé.",
+    "stats": {
+      "title": "Taille (UTF-8)",
+      "before": "Avant",
+      "after": "Après",
+      "savedBytes": "{count} octets économisés ({percent}%)",
+      "noChange": "Aucune réduction — déjà minimal ou sortie vide."
+    },
+    "actions": {
+      "clear": "Effacer",
+      "sample": "Exemple",
+      "copy": "Copier",
+      "copied": "Copié",
+      "download": "Télécharger"
+    },
+    "errors": {
+      "optimizeFailed": "Impossible d’optimiser ce SVG."
+    }
+  },
+  "UnitConverter": {
+    "title": "Convertisseur d'unités",
+    "subtitle": "Convertissez entre <strong>323 unités</strong> sur <strong>43 catégories</strong>",
+    "category": "Catégorie",
+    "from": "De",
+    "to": "Vers",
+    "value": "Valeur",
+    "result": "Résultat",
+    "swapUnits": "Inverser les unités",
+    "placeholder": "Saisir une valeur",
+    "copyResult": "Copier le résultat",
+    "searchCategory": "Rechercher une catégorie...",
+    "selectCategory": "Sélectionner une catégorie",
+    "noResults": "Aucune catégorie trouvée."
+  },
+  "DockerComposeGenerator": {
+    "title": "Générateur Docker Compose",
+    "subtitle": "Sélectionnez bases de données, caches, files d’attente, proxys inverses et observabilité — copiez un docker-compose.yml prêt pour le développement local.",
+    "searchPlaceholder": "Rechercher (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Services",
+    "selectedCount": "{count, plural, one {# service} other {# services}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "download": "Télécharger",
+    "emptyState": "Sélectionnez un ou plusieurs services pour générer le YAML Compose.",
+    "hintPorts": "Les ports hôte par défaut limitent les conflits ; modifiez-les si Docker signale un port déjà utilisé. Remplacez les mots de passe de démo avant tout environnement partagé.",
+    "categories": {
+      "databases": "Bases de données et stockages",
+      "cache": "Cache et mémoire",
+      "queues": "Files d’attente et messagerie",
+      "search": "Recherche et journaux",
+      "storage": "Stockage objet",
+      "proxy": "Proxys inverses et entrée",
+      "observability": "Métriques et traçage",
+      "mail": "E-mail (dev local)",
+      "admin": "Interfaces d’admin et BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Effacer"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (compatible Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (compatible Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (compatible S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (capture SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (mode dev)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Faites glisser les carreaux et fusionnez-les pour atteindre 2048",
+    "score": "Score",
+    "best": "Meilleur",
+    "newGame": "Nouveau",
+    "howToPlay": "Utilisez les touches fléchées (ou faites glisser sur le mobile) pour déplacer les tuiles. Les tuiles avec le même numéro fusionnent. Atteignez 2048 pour gagner !",
+    "youWin": "Vous avez atteint 2048 !",
+    "keepGoing": "Continue",
+    "gameOver": "Fin de partie ",
+    "tryAgain": "Réessayez",
+    "gameOverMessage": "Plus de mouvements à gauche.",
+    "undo": "Annuler"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "Toutes les étapes sont terminées.",
+    "time": "Heure",
+    "best": "Meilleur",
+    "difficulty": {
+      "easy": "Facile",
+      "medium": "Moyen",
+      "hard": "Dure"
+    },
+    "stage": "Étape",
+    "solved": "Résolu! ",
+    "score": "Score",
+    "nextStage": "Étape suivante",
+    "replay": "Relire",
+    "erase": "Effacer",
+    "howToPlay": "Cliquez sur une cellule, puis appuyez sur un numéro ou appuyez sur 1–9. Le retour arrière ou la suppression efface la cellule. Les chiffres en gras sont des indices. Remplissez la grille de sorte que chaque ligne, colonne et case 3×3 contienne 1 à 9 sans répétition.",
+    "pencil": "Crayon",
+    "undo": "Annuler",
+    "hint": "Indice",
+    "hintsUsed": "indices utilisés",
+    "mistakes": "Erreurs",
+    "failed": "Échec!",
+    "mistakeMode": "Mode 3 erreurs"
+  },
+  "Snake": {
+    "title": "Snake",
+    "subtitle": "Mange, grandis, évite les murs et toi-même",
+    "score": "Score",
+    "best": "Meilleur",
+    "startPrompt": "Appuie sur une touche fléchée",
+    "startButton": "Démarrer",
+    "gameOver": "Partie terminée",
+    "playAgain": "Rejouer",
+    "howToPlay": "Utilise les flèches ou WASD pour te déplacer. Mange pour grandir. La vitesse augmente tous les 50 points.",
+    "diffEasy": "Facile",
+    "diffNormal": "Normal",
+    "diffHard": "Difficile",
+    "diffInfinite": "Infini",
+    "orTap": "ou tapez ci-dessous",
+    "howToPlayInfinite": "Les murs se rejoignent — pas de mort par les murs. Mange pour grandir.",
+    "shieldActive": "Bouclier actif",
+    "speedBoost": "Boost de vitesse",
+    "powerSpeed": "Vitesse x2",
+    "powerShield": "Survive à une mort",
+    "powerShrink": "Raccourcit la queue"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Connexions Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Connectez-vous à des instances Redis. Parcourez les clés, modifiez les valeurs et exécutez des commandes. Les identifiants sont chiffrés dans votre navigateur.",
+      "heroAddConnection": "Ajouter une connexion",
+      "vaultLockedTitle": "Coffre verrouillé",
+      "vaultLockedDesc": "Déverrouillez votre coffre pour accéder aux connexions enregistrées."
+    }
+  },
+  "Minesweeper": {
+    "title": "Démineur",
+    "subtitle": "Trouvez toutes les cases sûres sans déclencher de mine",
+    "mines": "Mines",
+    "newGame": "Nouvelle partie",
+    "win": "Vous avez gagné !",
+    "loss": "Perdu !",
+    "playAgain": "Rejouer",
+    "tryAgain": "Réessayer",
+    "startPrompt": "Cliquez sur une case pour commencer",
+    "difficulty": {
+      "beginner": "Débutant",
+      "intermediate": "Intermédiaire",
+      "expert": "Expert"
+    }
+  },
+  "Tetris": {
+    "title": "Tetris",
+    "subtitle": "Arrangez les blocs qui tombent pour compléter des lignes",
+    "next": "Suivant",
+    "score": "Score",
+    "best": "Meilleur",
+    "lines": "Lignes",
+    "level": "Niveau",
+    "pause": "Pause",
+    "resume": "Reprendre",
+    "start": "Démarrer",
+    "restart": "Recommencer",
+    "paused": "En pause",
+    "gameOver": "Partie terminée"
+  },
+  "SshKeyGenerator": {
+    "title": "Générateur de clés SSH / RSA",
+    "subtitle": "Générez des paires de clés Ed25519 ou RSA dans votre navigateur. Téléchargez les clés privée et publique aux formats OpenSSH et PEM. Rien n'est téléversé.",
+    "keyTypeLabel": "Type de clé",
+    "recommended": "recommandé",
+    "ed25519Desc": "Rapide, compact et moderne. Pris en charge par GitHub, GitLab et tous les principaux serveurs SSH.",
+    "rsa2048Desc": "Largement compatible. Sûr pour la plupart des usages.",
+    "rsa4096Desc": "Compatibilité et robustesse maximales pour les systèmes anciens.",
+    "commentLabel": "Commentaire (optionnel)",
+    "commentHint": "Ajouté à la ligne de clé publique OpenSSH.",
+    "generateBtn": "Générer la paire de clés",
+    "generating": "Génération…",
+    "generatingLong": "Génération (peut prendre un moment)…",
+    "copy": "Copier",
+    "download": "Télécharger",
+    "privateKeyLabel": "Clé privée (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Clé publique (format OpenSSH)",
+    "publicKeySpkiLabel": "Clé publique (SPKI PEM)",
+    "browserNote": "Toutes les clés sont générées dans votre navigateur. Rien n'est envoyé à aucun serveur.",
+    "errors": {
+      "generationFailed": "Échec de la génération de la clé"
+    }
+  },
+  "DnsLookup": {
+    "title": "Recherche DNS",
+    "subtitle": "Interrogez les enregistrements DNS d'un domaine — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Saisissez un domaine (p. ex. github.com)",
+    "lookupBtn": "Rechercher",
+    "looking": "Recherche en cours…",
+    "refreshBtn": "Actualiser",
+    "recordTypesLabel": "Types d'enregistrement",
+    "allBtn": "Tous",
+    "tryLabel": "Essayer :",
+    "errors": {
+      "lookupFailed": "Échec de la recherche DNS"
+    }
+  },
+  "CurlToCode": {
+    "title": "cURL to Code",
+    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "panels": {
+      "input": "curl command",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a curl command here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated request code will appear here…"
+  },
+  "JsonToCode": {
+    "title": "JSON to Code",
+    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "panels": {
+      "input": "JSON input",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a sample JSON object here…",
+    "rootName": "Root name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated type models will appear here…"
+  },
+  "JsonVisualizer": {
+    "title": "JSON Visualizer",
+    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "panels": {
+      "input": "JSON input",
+      "graph": "Graph"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste or type JSON here…",
+    "searchPlaceholder": "Search keys & values",
+    "prevMatch": "Previous match",
+    "nextMatch": "Next match",
+    "nodeCount": "{count} nodes",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitView": "Fit to view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "export": "Export",
+    "exportPng": "PNG image",
+    "exportSvg": "SVG image",
+    "copyPath": "Copy path",
+    "copyValue": "Copy value",
+    "pathCopied": "Path copied",
+    "valueCopied": "Value copied",
+    "viewTable": "View as table",
+    "tableTitle": "Table view",
+    "locateInText": "Locate in text",
+    "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
+    "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
+    "emptyState": "Paste JSON in the input to see it as an interactive graph."
+  },
+  "BeautifyMinify": {
+    "title": "Beautify & Minify",
+    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "langLabel": "Language",
+    "actionLabel": "Action",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "bytes": "{count} bytes",
+    "clear": "Clear",
+    "placeholder": "Paste code here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Formatted output will appear here…"
+  },
+  "StringCaseConverter": {
+    "title": "String Case Converter",
+    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "panels": {
+      "input": "Input",
+      "output": "Case variants"
+    },
+    "wordCount": "{count} words",
+    "clear": "Clear",
+    "placeholder": "Type or paste text to convert…",
+    "copyTitle": "Copy to clipboard",
+    "emptyHint": "—"
+  },
+  "LineSortDedupe": {
+    "title": "Line Sort & Dedupe",
+    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "opts": {
+      "sort": "Sort",
+      "dedupe": "Remove duplicates",
+      "removeEmpty": "Remove empty lines",
+      "trim": "Trim lines",
+      "caseInsensitive": "Case-insensitive"
+    },
+    "sortModes": {
+      "none": "No sort",
+      "asc": "Ascending (A–Z)",
+      "desc": "Descending (Z–A)",
+      "natural": "Natural (numeric)",
+      "length": "By length",
+      "reverse": "Reverse order"
+    },
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "lineCount": "{count} lines",
+    "clear": "Clear",
+    "placeholder": "Paste lines here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Processed lines will appear here…"
+  },
+  "StringInspector": {
+    "title": "String Inspector",
+    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "panels": {
+      "input": "Input"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text to inspect…",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "No spaces",
+      "words": "Words",
+      "lines": "Lines",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "bytes": "Bytes (UTF-8)",
+      "utf16": "UTF-16 units",
+      "letters": "Letters",
+      "digits": "Digits",
+      "whitespace": "Whitespace",
+      "punctuation": "Punctuation",
+      "readingTime": "Reading time"
+    },
+    "specialTitle": "Special & non-ASCII characters",
+    "noSpecial": "No special or non-ASCII characters found.",
+    "specialEmpty": "Special characters will be listed here…",
+    "cols": {
+      "codepoint": "Code point",
+      "name": "Name",
+      "count": "Count"
+    },
+    "nonAscii": "Non-ASCII character"
+  },
+  "EscapeEncode": {
+    "title": "Escape / Encode",
+    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "modeLabel": "Mode",
+    "modes": {
+      "html": "HTML Entities",
+      "backslash": "Backslash (JS / JSON string)",
+      "hex": "Hex ↔ ASCII",
+      "unicode": "Unicode \\uXXXX"
+    },
+    "directionLabel": "Direction",
+    "encode": "Encode",
+    "decode": "Decode",
+    "swap": "Swap",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Générateur et vérificateur Bcrypt",
+    "subtitle": "Hachez des mots de passe avec bcrypt et vérifiez des hachages — tout reste dans votre navigateur",
+    "tabs": {
+      "hash": "Hacher",
+      "verify": "Vérifier"
+    },
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "copy": "Copier",
+    "copied": "Copié",
+    "hash": {
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Saisissez un mot de passe à hacher…",
+      "costLabel": "Facteur de coût",
+      "costHint": "Un coût plus élevé double le travail par étape. 10-12 est un choix courant en production.",
+      "slowWarning": "Les facteurs de coût de 13 et plus peuvent prendre plusieurs secondes à calculer.",
+      "generate": "Générer le hachage",
+      "generating": "Hachage…",
+      "resultLabel": "Hachage bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Anatomie du hachage",
+        "algorithm": "algorithme",
+        "cost": "coût",
+        "salt": "sel (22 caractères)",
+        "hash": "hachage (31 caractères)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Saisissez le mot de passe à vérifier…",
+      "hashLabel": "Hachage bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Saisissez un mot de passe et un hachage bcrypt pour les comparer.",
+      "invalidHash": "Ceci ne ressemble pas à un hachage bcrypt valide.",
+      "checking": "Comparaison…",
+      "match": "Correspondance — le mot de passe produit ce hachage.",
+      "noMatch": "Aucune correspondance — le mot de passe ne produit pas ce hachage."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Calculateur Chmod",
+    "subtitle": "Convertissez les permissions de fichiers Unix entre cases à cocher, octal et notation symbolique",
+    "grid": {
+      "title": "Permissions",
+      "read": "Lecture",
+      "write": "Écriture",
+      "execute": "Exécution",
+      "owner": "Propriétaire",
+      "group": "Groupe",
+      "others": "Autres"
+    },
+    "special": {
+      "title": "Bits spéciaux",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Octal",
+      "placeholder": "755 ou 4755",
+      "invalid": "Saisissez 3 ou 4 chiffres octaux (0-7)."
+    },
+    "symbolic": {
+      "label": "Symbolique",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Saisissez 9 caractères comme rwxr-xr-x (s/S, t/T autorisés)."
+    },
+    "output": {
+      "title": "Commande",
+      "copy": "Copier",
+      "copied": "Copié"
+    },
+    "explain": {
+      "line": "{cls} peut {perms}.",
+      "none": "{cls} n'a aucune permission.",
+      "setuid": "Setuid : le fichier s'exécute avec les privilèges de son propriétaire.",
+      "setgid": "Setgid : le fichier s'exécute avec les privilèges de son groupe (les nouveaux fichiers d'un répertoire héritent de son groupe).",
+      "sticky": "Sticky : seul le propriétaire d'un fichier peut le supprimer ou le renommer dans ce répertoire."
+    },
+    "presets": {
+      "title": "Préréglages courants",
+      "octal": "Octal",
+      "permissions": "Permissions",
+      "description": "Usage typique",
+      "p644": "Fichiers ordinaires : le propriétaire écrit, tout le monde lit.",
+      "p755": "Exécutables et répertoires : tout le monde peut lire et entrer.",
+      "p600": "Fichiers privés : seul le propriétaire lit et écrit.",
+      "p700": "Exécutables et répertoires privés : propriétaire uniquement.",
+      "p664": "Fichiers modifiables par le groupe.",
+      "p775": "Répertoires et exécutables modifiables par le groupe.",
+      "p400": "Lecture seule pour le propriétaire (ex. clés privées SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Capture de code",
+    "subtitle": "Transformez votre code en images élégantes et partageables",
+    "languageLabel": "Langage",
+    "autoDetect": "Détection auto",
+    "backgroundLabel": "Arrière-plan",
+    "paddingLabel": "Marge intérieure",
+    "filenameLabel": "Nom de fichier",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Points de fenêtre",
+    "themeLabel": "Thème de fenêtre",
+    "themeDark": "Sombre",
+    "themeLight": "Clair",
+    "scaleLabel": "Échelle d'export",
+    "copyImage": "Copier l'image",
+    "copied": "Copié",
+    "exportPng": "Exporter en PNG",
+    "inputLabel": "Code",
+    "detected": "Détecté : {language}",
+    "clear": "Effacer",
+    "placeholder": "Collez votre code ici…",
+    "previewLabel": "Aperçu",
+    "emptyPreview": "L'aperçu de votre code apparaîtra ici",
+    "exportFailed": "Échec de l'export de l'image",
+    "copyUnsupported": "La copie d'images n'est pas prise en charge dans ce navigateur",
+    "copyFailed": "Échec de la copie de l'image",
+    "backgrounds": {
+      "ocean": "Océan",
+      "sunset": "Coucher de soleil",
+      "candy": "Bonbon",
+      "forest": "Forêt",
+      "midnight": "Minuit",
+      "gold": "Or",
+      "aurora": "Aurore",
+      "slate": "Ardoise",
+      "transparent": "Transparent"
+    }
+  },
+  "CssGenerators": {
+    "title": "Générateurs CSS",
+    "subtitle": "Box-shadow, border-radius et clamp() fluide — copiez le CSS.",
+    "preview": "Aperçu",
+    "output": "CSS",
+    "copy": "Copier",
+    "copied": "Copié",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() fluide"
+    },
+    "boxShadow": {
+      "presets": "Préréglages",
+      "layer": "Calque",
+      "addLayer": "Ajouter un calque",
+      "removeLayer": "Supprimer le calque",
+      "x": "X",
+      "y": "Y",
+      "blur": "Flou",
+      "spread": "Étendue",
+      "color": "Couleur",
+      "alpha": "Alpha",
+      "inset": "Intérieur",
+      "presetNames": {
+        "subtleCard": "Carte subtile",
+        "elevated": "Surélevé",
+        "hardOffset": "Décalage net",
+        "neonGlow": "Lueur néon",
+        "inner": "Intérieur",
+        "layeredSmooth": "Superposé doux"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Mode",
+      "modes": {
+        "simple": "Par coin",
+        "blob": "Blob organique"
+      },
+      "unit": "Unité",
+      "linkCorners": "Lier les coins",
+      "randomize": "Aléatoire",
+      "horizontal": "Rayons horizontaux",
+      "vertical": "Rayons verticaux",
+      "corners": {
+        "tl": "Haut gauche",
+        "tr": "Haut droite",
+        "br": "Bas droite",
+        "bl": "Bas gauche"
+      }
+    },
+    "clamp": {
+      "minFont": "Police min (px)",
+      "maxFont": "Police max (px)",
+      "minViewport": "Viewport min (px)",
+      "maxViewport": "Viewport max (px)",
+      "rootFont": "Police racine (px)",
+      "viewportWidth": "Viewport simulé",
+      "computedSize": "Taille calculée",
+      "slope": "Pente",
+      "intercept": "Ordonnée à l'origine",
+      "previewText": "Portez ce vieux whisky au juge blond",
+      "invalid": "Saisissez des bornes de viewport valides et différentes."
+    }
+  },
+  "ExifViewer": {
+    "title": "Visionneuse et nettoyeur EXIF",
+    "subtitle": "Inspectez les métadonnées des photos et supprimez-les dans votre navigateur",
+    "dropTitle": "Déposez une image ici",
+    "dropHint": "ou cliquez pour parcourir — votre image ne quitte jamais votre appareil",
+    "browse": "Choisir une image",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Lecture des métadonnées…",
+    "parseFailed": "Échec de la lecture de cette image",
+    "clear": "Supprimer l'image",
+    "gpsWarning": "Contient une position GPS",
+    "openMap": "Voir sur OpenStreetMap",
+    "noMetadata": "Aucune métadonnée intégrée n'a été trouvée dans cette image.",
+    "facts": {
+      "name": "Nom",
+      "type": "Type",
+      "dimensions": "Dimensions",
+      "size": "Taille"
+    },
+    "groups": {
+      "camera": "Appareil photo",
+      "exposure": "Exposition",
+      "timestamps": "Horodatages",
+      "gps": "Position GPS",
+      "software": "Logiciel et autres"
+    },
+    "gpsCard": {
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "altitude": "Altitude"
+    },
+    "raw": {
+      "title": "Toutes les métadonnées",
+      "copyJson": "Copier le JSON",
+      "copied": "Copié"
+    },
+    "remove": {
+      "title": "Supprimer les métadonnées",
+      "jpegDescription": "Supprimez sans perte les données EXIF, XMP, IPTC et les commentaires sans recompresser l'image.",
+      "reencodeDescription": "Réencodez l'image pour supprimer les métadonnées intégrées. Cela recompresse les pixels.",
+      "keepIcc": "Conserver le profil colorimétrique (ICC)",
+      "stripButton": "Supprimer les métadonnées",
+      "reencodeButton": "Réencoder et nettoyer",
+      "unsupported": "La suppression des métadonnées n'est pas prise en charge pour ce type de fichier.",
+      "failed": "Échec de la suppression des métadonnées",
+      "before": "Avant",
+      "after": "Après",
+      "download": "Télécharger l'image nettoyée"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Générateur de favicon",
+    "subtitle": "Créez des favicons et icônes d'application à partir d'une seule image",
+    "dropTitle": "Déposez une image ici",
+    "dropHint": "PNG, JPEG ou SVG — cliquez pour parcourir",
+    "browse": "Choisir une image",
+    "clear": "Supprimer l'image",
+    "backgroundLabel": "Arrière-plan",
+    "transparent": "Transparent",
+    "solidColor": "Uni",
+    "cornerLabel": "Forme des coins",
+    "cornerNone": "Carré",
+    "cornerRounded": "Arrondi",
+    "cornerCircle": "Cercle",
+    "maskPaddingLabel": "Marge maskable",
+    "maskable": "maskable",
+    "previewLabel": "Aperçu",
+    "copy": "Copier",
+    "headSnippet": "Extrait pour le head HTML",
+    "downloadIco": "Télécharger favicon.ico",
+    "downloadZip": "Tout télécharger (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Diff JSON",
+    "subtitle": "Comparaison sémantique tenant compte de la structure de deux documents JSON — ordre des clés et formatage ignorés",
+    "options": {
+      "ignoreArrayOrder": "Ignorer l'ordre des tableaux"
+    },
+    "loadBothSamples": "Charger des exemples",
+    "sample": "Exemple",
+    "format": "Formater",
+    "clear": "Effacer",
+    "formatError": "Impossible de formater : l'entrée n'est pas un JSON valide",
+    "placeholder": "Collez ou saisissez du JSON ici…",
+    "panels": {
+      "left": "Original (gauche)",
+      "right": "Modifié (droite)",
+      "results": "Différences"
+    },
+    "summary": {
+      "added": "{count} ajouté(s)",
+      "removed": "{count} supprimé(s)",
+      "changed": "{count} modifié(s)"
+    },
+    "types": {
+      "added": "Ajouté",
+      "removed": "Supprimé",
+      "changed": "Modifié"
+    },
+    "copyChanges": "Copier en JSON",
+    "copied": "Copié",
+    "empty": "Collez du JSON dans les deux panneaux pour voir leurs différences.",
+    "identical": "Les deux documents sont sémantiquement identiques."
+  },
+  "JsonpathPlayground": {
+    "title": "Playground JSONPath",
+    "subtitle": "Interrogez des documents JSON avec JSONPath ou JMESPath et voyez les résultats en direct",
+    "engineLabel": "Moteur",
+    "queryLabel": "Requête",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Aide-mémoire",
+    "cheats": {
+      "jpAllTitles": "Tous les titres de livres",
+      "jpAllAuthors": "Chaque auteur, n'importe où dans le document",
+      "jpFirstBook": "Premier livre",
+      "jpLastBook": "Dernier livre",
+      "jpSlice": "Les deux premiers livres (slice)",
+      "jpFilterPrice": "Livres à moins de 40",
+      "jpFilterInStock": "Titres des livres en stock",
+      "jpRecursive": "Toutes les valeurs, récursivement",
+      "jmAllTitles": "Tous les titres de livres",
+      "jmFirstAuthor": "Auteur du premier livre",
+      "jmLastBook": "Dernier livre",
+      "jmSlice": "Les deux premiers livres (slice)",
+      "jmFilterPrice": "Titres des livres à moins de 40",
+      "jmCount": "Compter les livres en stock",
+      "jmProjection": "Reformer chaque livre en un nouvel objet",
+      "jmSort": "Titres triés par prix"
+    },
+    "panels": {
+      "input": "Entrée JSON",
+      "results": "Résultats"
+    },
+    "sample": "Exemple",
+    "format": "Formater",
+    "clear": "Effacer",
+    "formatError": "Impossible de formater : l'entrée n'est pas un JSON valide",
+    "placeholder": "Collez ou saisissez du JSON ici…",
+    "outputPlaceholder": "Les correspondances apparaîtront ici…",
+    "matchCount": "{count, plural, one {# correspondance} other {# correspondances}}",
+    "copy": "Copier",
+    "copied": "Copié"
+  },
+  "KeycodeInspector": {
+    "title": "Inspecteur de keycode",
+    "subtitle": "Appuyez sur n'importe quelle touche pour inspecter son événement clavier JavaScript",
+    "capture": {
+      "prompt": "Appuyez sur une touche…",
+      "ready": "À l'écoute — appuyez sur une touche de votre clavier",
+      "clickToFocus": "Cliquez ici pour donner le focus, puis appuyez sur une touche"
+    },
+    "hero": {
+      "spaceKey": "(Espace)",
+      "keyLabel": "event.key",
+      "repeat": "répétition"
+    },
+    "copyJson": "Copier le JSON",
+    "copiedJson": "JSON de l'événement copié dans le presse-papiers",
+    "deprecated": "obsolète",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Standard",
+      "left": "Gauche",
+      "right": "Droite",
+      "numpad": "Pavé numérique",
+      "unknown": "Inconnu"
+    },
+    "history": {
+      "title": "Historique",
+      "clear": "Effacer l'historique",
+      "empty": "Les appuis sur les touches apparaîtront ici."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Générateur de tableaux Markdown",
+    "subtitle": "Modifiez une grille, collez depuis un tableur et copiez un tableau Markdown ou HTML joliment aligné",
+    "addRow": "Ajouter une ligne",
+    "addColumn": "Ajouter une colonne",
+    "importLabel": "Importer",
+    "importPlaceholder": "Collez du TSV (depuis Excel / Google Sheets) ou du CSV ici…",
+    "importButton": "Importer dans la grille",
+    "pasteClipboard": "Coller depuis le presse-papiers",
+    "importEmpty": "Rien à importer — collez d'abord quelques lignes",
+    "clipboardError": "Impossible de lire le presse-papiers",
+    "clear": "Effacer",
+    "panels": {
+      "editor": "Éditeur de tableau",
+      "output": "Résultat"
+    },
+    "align": {
+      "left": "Aligner à gauche",
+      "center": "Centrer",
+      "right": "Aligner à droite"
+    },
+    "headerPlaceholder": "En-tête",
+    "cellPlaceholder": "Cellule",
+    "removeRow": "Supprimer la ligne",
+    "removeColumn": "Supprimer la colonne",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Copier",
+    "copied": "Copié"
+  },
+  "TimezoneConverter": {
+    "title": "Convertisseur de fuseaux horaires",
+    "subtitle": "Convertissez un moment à travers le monde pour planifier vos réunions.",
+    "dateTimeLabel": "Date et heure",
+    "now": "Maintenant",
+    "sourceZoneLabel": "Fuseau source",
+    "selectZone": "Sélectionner un fuseau",
+    "searchZone": "Rechercher des fuseaux...",
+    "noZone": "Aucun fuseau trouvé.",
+    "scrubLabel": "Décaler l'heure",
+    "reset": "Réinitialiser",
+    "targetsLabel": "Fuseaux cibles",
+    "addZone": "Ajouter un fuseau",
+    "remove": "Supprimer",
+    "localBadge": "Local",
+    "invalidDate": "Saisissez une date et une heure valides.",
+    "bands": {
+      "work": "Heures ouvrées (09:00–18:00)",
+      "edge": "Heures limites (tôt / soir)",
+      "night": "Nuit"
+    }
+  },
+  "TokenCounter": {
+    "title": "Compteur de tokens LLM",
+    "subtitle": "Comptez les tokens, visualisez les segments et estimez le coût de l'API.",
+    "inputLabel": "Texte",
+    "sample": "Exemple",
+    "clear": "Effacer",
+    "placeholder": "Collez du texte, du code ou du JSON pour compter les tokens...",
+    "encoding": "Encodage",
+    "loading": "Chargement du tokeniseur...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / série o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Tokens",
+      "characters": "Caractères",
+      "words": "Mots",
+      "ratio": "Tokens/mot",
+      "ratioSub": "approx."
+    },
+    "claudeRow": "Claude (approximatif)",
+    "estimate": "estimation",
+    "viz": {
+      "title": "Visualisation des tokens",
+      "toggle": "Afficher",
+      "hint": "Activez pour colorer chaque token comme un segment.",
+      "empty": "Saisissez du texte pour visualiser les tokens.",
+      "truncated": "Affichage des {limit} premiers tokens sur {total}."
+    },
+    "cost": {
+      "title": "Calculateur de coût",
+      "disclaimer": "valeurs par défaut modifiables — vérifiez les tarifs actuels",
+      "model": "Modèle",
+      "expectedOutput": "Tokens de sortie attendus",
+      "customInput": "Entrée $/MTok",
+      "customOutput": "Sortie $/MTok",
+      "inputCost": "Coût d'entrée",
+      "outputCost": "Coût de sortie",
+      "total": "Total",
+      "per1000": "Pour 1000 appels"
+    }
+  },
+  "WebhookTester": {
+    "title": "Testeur de webhook",
+    "subtitle": "Créez une URL temporaire et inspectez les requêtes webhook entrantes en direct.",
+    "intro": {
+      "title": "Créez une URL de webhook pour commencer à capturer les requêtes",
+      "hint": "Vous obtiendrez une URL non devinable qui enregistre chaque requête entrante. Elle expire au bout de 24 heures."
+    },
+    "createBtn": "Créer une URL de webhook",
+    "creating": "Création…",
+    "urlLabel": "Votre URL de webhook",
+    "expiresIn": "Expire dans {countdown}",
+    "copyUrlBtn": "Copier l'URL",
+    "copied": "Copié",
+    "clearBtn": "Effacer",
+    "newBinBtn": "Nouvelle URL",
+    "requestsTitle": "Requêtes",
+    "selectPrompt": "Sélectionnez une requête pour en inspecter les détails.",
+    "expiredNotice": "Cette URL de webhook a expiré. Créez-en une nouvelle pour continuer les tests.",
+    "base64Badge": "base64",
+    "truncatedBadge": "tronqué",
+    "empty": {
+      "title": "En attente de requêtes…",
+      "hint": "Envoyez une requête à votre URL et elle apparaîtra ici instantanément. Essayez ceci :"
+    },
+    "detail": {
+      "receivedAt": "Reçu",
+      "source": "IP source",
+      "contentType": "Content-Type",
+      "query": "Paramètres de requête",
+      "headers": "En-têtes",
+      "body": "Corps",
+      "copyBody": "Copier le corps",
+      "emptyBody": "Aucun corps"
+    },
+    "errors": {
+      "createFailed": "Échec de la création de l'URL de webhook. Veuillez réessayer.",
+      "clearFailed": "Échec de l'effacement des requêtes. Veuillez réessayer."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Testeur WebSocket",
+    "subtitle": "Connectez-vous à un point de terminaison WebSocket et envoyez, recevez et inspectez des messages en direct",
+    "urlLabel": "URL du point de terminaison",
+    "protocolsLabel": "Sous-protocoles",
+    "protocolsPlaceholder": "facultatif, séparés par des virgules",
+    "connect": "Connecter",
+    "disconnect": "Déconnecter",
+    "status": {
+      "disconnected": "Déconnecté",
+      "connecting": "Connexion",
+      "connected": "Connecté",
+      "error": "Erreur"
+    },
+    "messages": {
+      "connecting": "Connexion à {url}…",
+      "connected": "Connexion établie",
+      "connectedWithProtocol": "Connexion établie (protocole : {protocol})",
+      "invalidUrl": "URL invalide — doit commencer par ws:// ou wss://",
+      "connectFailed": "Échec de l'ouverture de la connexion",
+      "socketError": "Une erreur de connexion s'est produite",
+      "notConnected": "Non connecté — connectez-vous d'abord",
+      "binaryMessage": "Message binaire reçu"
+    },
+    "log": {
+      "title": "Journal des messages",
+      "empty": "Aucun message pour l'instant. Connectez-vous et commencez à envoyer.",
+      "copyAll": "Tout copier",
+      "download": "Télécharger en .txt",
+      "clear": "Effacer le journal",
+      "prettyPrint": "Formater le JSON",
+      "showRaw": "Afficher le texte brut"
+    },
+    "composer": {
+      "placeholder": "Saisissez un message à envoyer…",
+      "send": "Envoyer",
+      "formatJson": "Formater en JSON",
+      "invalidJson": "Le message n'est pas un JSON valide",
+      "hint": "Cmd/Ctrl+Entrée pour envoyer"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "s",
+      "intervalTitle": "Intervalle de ping en secondes",
+      "payloadPlaceholder": "charge utile du ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Recherche Whois",
+    "subtitle": "Consultez les détails d'enregistrement de n'importe quel domaine ou adresse IP via RDAP",
+    "placeholder": "example.com ou 8.8.8.8",
+    "lookupBtn": "Rechercher",
+    "looking": "Recherche…",
+    "refreshBtn": "Actualiser",
+    "tryLabel": "Essayez :",
+    "copy": "Copier",
+    "copied": "Copié",
+    "notAvailable": "Non disponible",
+    "summary": {
+      "registrar": "Bureau d'enregistrement",
+      "network": "Réseau"
+    },
+    "dates": {
+      "created": "Créé",
+      "updated": "Mis à jour",
+      "expires": "Expire"
+    },
+    "sections": {
+      "status": "Statut",
+      "nameservers": "Serveurs de noms",
+      "contacts": "Contacts",
+      "rawRdap": "RDAP brut"
+    },
+    "contacts": {
+      "roles": "Rôles",
+      "name": "Nom",
+      "organization": "Organisation"
+    },
+    "errors": {
+      "invalidTarget": "Saisissez un nom de domaine ou une adresse IP valide",
+      "lookupFailed": "Échec de la recherche (statut {status})"
+    }
+  }
+}

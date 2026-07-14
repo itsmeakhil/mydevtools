@@ -7,13 +7,16 @@ import { GeistMono } from 'geist/font/mono'
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import { ClientShell } from "@/components/client-shell";
-import { DesktopInit } from "@/components/desktop/desktop-init";
 
 import "./globals.css";
 
 
 import { siteMetadata } from "@/lib/metadata"
 import { SiteWideJsonLd } from "@/components/seo/site-wide-json-ld"
+
+// Locale is resolved from the NEXT_LOCALE cookie in i18n/request.ts, so every
+// route is request-dynamic. Mark it so Next doesn't try to prerender statically.
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.url),
@@ -123,7 +126,6 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <DesktopInit />
             <ClientShell>
               {children}
             </ClientShell>

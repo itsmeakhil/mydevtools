@@ -1,14 +1,6 @@
 import type { User } from "firebase/auth"
 import { auth } from "@/database/firebase"
 import { dedupe } from "@/lib/auth-inflight"
-import { isDesktop } from "@/lib/desktop/is-desktop"
-import { normalizeBackendPath, toResponse } from "@/lib/desktop/bridge"
-import { desktopDataFetch } from "@/lib/desktop/router"
-import {
-    checkRemoteSession,
-    desktopEstablishSession,
-    desktopSignOut,
-} from "@/lib/desktop/remote"
 
 /** Same-origin refresh endpoint (used by fetch helpers). */
 export const BACKEND_AUTH_REFRESH_PATH = "/api/backend/auth/refresh"
@@ -43,12 +35,6 @@ export async function establishBackendSession(
         checkRevoked?: boolean
     } = {}
 ): Promise<void> {
-    // Desktop: exchange goes through the Rust remote bridge (cookies land in
-    // the persistent Rust jar, not the webview).
-    if (isDesktop()) {
-        await desktopEstablishSession(idToken)
-        return
-    }
     const maxAttempts = Math.max(1, opts.maxAttempts ?? 3)
     const checkRevoked = opts.checkRevoked ?? false
     return dedupe(`session:${checkRevoked ? "revoked" : "fast"}`, async () => {
@@ -94,14 +80,6 @@ export async function establishBackendSession(
  * If JWT cookies are missing or expired but Firebase session exists, re-run the Firebase exchange.
  */
 export async function ensureBackendSession(user: User): Promise<void> {
-    if (isDesktop()) {
-        if (await checkRemoteSession()) return
-        // Synthetic local users can't mint Firebase ID tokens — stay offline.
-        if (user.uid === "desktop-local") return
-        const idToken = await user.getIdToken()
-        await desktopEstablishSession(idToken)
-        return
-    }
     const ok = await dedupe("session-check", async () => {
         let check = await fetch("/api/backend/auth/session/check", {
             method: "GET",
@@ -131,10 +109,6 @@ export async function ensureBackendSession(user: User): Promise<void> {
 }
 
 export async function logoutBackendSession(): Promise<void> {
-    if (isDesktop()) {
-        await desktopSignOut()
-        return
-    }
     await fetch("/api/backend/auth/logout", {
         method: "POST",
         credentials: "include",
@@ -229,20 +203,6 @@ export async function proxyJsonAuthed<T>(
     path: string,
     body?: unknown
 ): Promise<{ status: number; data: T | null }> {
-    if (isDesktop()) {
-        // Desktop: local store or remote bridge, decided per workspace/path.
-        const res = await desktopDataFetch(
-            method,
-            path,
-            body !== undefined ? JSON.stringify(body) : undefined
-        )
-        if (!res.body) return { status: res.status, data: null }
-        try {
-            return { status: res.status, data: JSON.parse(res.body) as T }
-        } catch {
-            return { status: res.status, data: res.body as unknown as T }
-        }
-    }
     let result = await rawProxyJson<T>(backendBaseUrl, method, path, body)
 
     if (result.status === 401) {
@@ -284,12 +244,6 @@ export async function proxyJsonAuthed<T>(
  * Triggers a force-logout if the session cannot be recovered (persistent 401 or 403).
  */
 export async function backendFetch(path: string, init?: RequestInit): Promise<Response> {
-    if (isDesktop()) {
-        const method = (init?.method || "GET").toUpperCase()
-        const body = typeof init?.body === "string" ? init.body : undefined
-        const res = await desktopDataFetch(method, normalizeBackendPath(path), body)
-        return toResponse(res)
-    }
     const run = () =>
         fetch(path, {
             ...init,

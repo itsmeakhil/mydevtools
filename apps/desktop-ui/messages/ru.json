@@ -1,0 +1,4573 @@
+{
+  "Navigation": {
+    "dashboard": "Панель управления",
+    "settings": "Настройки",
+    "apiClient": "API-клиент",
+    "httpStatusCodes": "Коды состояния HTTP",
+    "passwordManager": "Менеджер паролей",
+    "environmentManager": "Менеджер окружений",
+    "bookmarks": "Закладки",
+    "jsonFormatter": "Форматировщик JSON",
+    "emailValidator": "Валидатор email",
+    "nosqlExplorer": "Обозреватель баз данных",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "encryptionPlayground": "Песочница шифрования",
+    "jwtDecoder": "Декодер JWT",
+    "certificatePemDecoder": "Декодер сертификата / PEM",
+    "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Форматтер GraphQL",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "urlParser": "URL-парсер",
+    "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Секрет / ключ API",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker",
+    "contrastChecker": "Проверка контраста",
+    "jsonSchemaGenerator": "Генератор JSON-схемы",
+    "imageToBase64": "Изображение в Base64",
+    "imageCompressor": "Сжатие изображений",
+    "cssGradientBuilder": "Конструктор CSS-градиентов",
+    "gitignoreGenerator": "Генератор .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Фрагменты кода",
+    "qrCodeGenerator": "Генератор QR-кодов",
+    "dnsLookup": "DNS-запрос",
+    "ipSubnetCalculator": "Калькулятор IP / подсети",
+    "hashGenerator": "Генератор хешей",
+    "hmacGenerator": "Генератор HMAC",
+    "totpGenerator": "Код TOTP / 2FA",
+    "markdownPreview": "Просмотр Markdown",
+    "numberBaseConverter": "Конвертер систем",
+    "formatConverter": "Конвертер форматов",
+    "mockDataGenerator": "Генератор тестовых данных",
+    "svgOptimizer": "Оптимизатор SVG",
+    "unitConverter": "Конвертер единиц",
+    "dockerComposeGenerator": "Генератор Docker Compose",
+    "breakRoom": "Комната отдыха",
+    "game2048": "2048",
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Форматировщик YAML",
+    "sshKeyGenerator": "Генератор ключей SSH / RSA",
+    "curlToCode": "cURL to Code",
+    "jsonToCode": "JSON to Code",
+    "beautifyMinify": "Beautify & Minify",
+    "stringCaseConverter": "String Case Converter",
+    "lineSortDedupe": "Line Sort & Dedupe",
+    "stringInspector": "String Inspector",
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Калькулятор Chmod",
+    "codeScreenshot": "Скриншот кода",
+    "cssGenerators": "Генераторы CSS",
+    "exifViewer": "Просмотр EXIF",
+    "faviconGenerator": "Генератор favicon",
+    "jsonDiff": "Сравнение JSON",
+    "jsonpathPlayground": "Песочница JSONPath",
+    "keycodeInspector": "Инспектор клавиш",
+    "markdownTableGenerator": "Таблица Markdown",
+    "timezoneConverter": "Конвертер часовых поясов",
+    "tokenCounter": "Счётчик токенов",
+    "webhookTester": "Тестер вебхуков",
+    "websocketTester": "Тестер WebSocket",
+    "whoisLookup": "Whois-запрос"
+  },
+  "Help": {
+    "title": "Справка и документация",
+    "subtitle": "Как устроен MyDevTools, что делает каждое приложение и как безопасность и шифрование защищают ваши данные.",
+    "tabs": {
+      "overview": "Обзор",
+      "apps": "Приложения",
+      "security": "Безопасность",
+      "tips": "Советы"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Что такое MyDevTools?",
+        "description": "Рабочее пространство разработчика с входом: панель и набор инструментов на каждый день.",
+        "p1": "После входа приложение устанавливает сессию с API MyDevTools, чтобы инструменты могли загружать и сохранять ваши данные. Боковая панель показывает все приложения; ненужные инструменты можно скрыть в",
+        "settingsLink": "Настройках",
+        "p1After": ".",
+        "p2": "Некоторые функции используют <strong>мастер‑пароль</strong> (или глобальный ключ хранилища), чтобы секреты — например, пароли и строки подключения — шифровались на вашем устройстве до отправки на сервер."
+      },
+      "quickLinks": {
+        "title": "Быстрые ссылки",
+        "dashboard": "Панель управления",
+        "settings": "Настройки"
+      }
+    },
+    "apps": {
+      "intro": "Откройте любой инструмент из боковой панели или панели управления. Ниже — краткая справка по каждому приложению.",
+      "open": "Открыть",
+      "howItWorks": "Как работает",
+      "generic": "Используйте этот инструмент через боковую панель — там находится его основной рабочий процесс."
+    },
+    "security": {
+      "session": {
+        "title": "Вход и API‑сессия",
+        "description": "Идентификация и то, как браузер взаимодействует с бэкендом.",
+        "items": {
+          "authentication": "<strong>Аутентификация</strong> выполняется через Firebase. После входа приложение обменивает Firebase ID‑токен на cookies API.",
+          "accessTokens": "<strong>Access‑токены</strong> — это JWT, подписанные на сервере (HS256), которые подтверждают пользователя при вызове API.",
+          "refreshTokens": "<strong>Refresh‑токены</strong> хранятся в HttpOnly cookies; сервер сохраняет SHA‑256 хэш refresh‑токена, а не сам токен."
+        }
+      },
+      "encryption": {
+        "title": "Важное о шифровании",
+        "description": "Криптография на стороне клиента для хранилища и чувствительных данных подключений.",
+        "p1": "Для <strong>менеджера паролей</strong>, <strong>менеджера окружений</strong> и сохранённых подключений в <strong>NoSQL Explorer</strong> веб-приложение использует <strong>Web Crypto API</strong> браузера:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> с <strong>SHA‑256</strong>, <strong>100 000</strong> итераций и случайной солью выводит 256‑битный ключ из мастер‑пароля.",
+          "aes": "<strong>AES‑256‑GCM</strong> шифрует данные; для каждого шифрования используется случайный <strong>IV 12 байт</strong>.",
+          "scope": "Производный ключ остаётся в браузере (не экспортируется). Сервер получает только <strong>шифртекст и IV</strong>, а не мастер‑пароль или секреты в открытом виде."
+        },
+        "warning": "Если вы забудете мастер‑пароль, зашифрованные данные восстановить нельзя. Храните его в безопасности."
+      },
+      "logout": {
+        "title": "Выход и локальные данные",
+        "body": "Выход очищает секреты в памяти, состояние хранилища и (если применимо) материал мастер‑ключа в IndexedDB, а также завершает API‑сессию. Данные, сохранённые только в локальном хранилище устройства, могут оставаться до очистки в браузере."
+      }
+    },
+    "tips": {
+      "title": "Безопасное использование MyDevTools",
+      "items": {
+        "masterPassword": "Используйте сильный и уникальный мастер‑пароль для функций хранилища.",
+        "apiClient": "Относитесь к API‑клиенту как к любому HTTP‑клиенту: не вставляйте прод‑секреты в общие окружения, если не понимаете, кто может их увидеть.",
+        "nosql": "Обозреватель баз данных подключается к базам, которые вы настраиваете; используйте учётные записи с минимальными правами и сетевые ограничения по возможности.",
+        "json": "JSON‑форматировщик работает локально в браузере — всё равно избегайте вставки сверхчувствительных данных на общих устройствах.",
+        "settings": "Настройте видимые инструменты в Настройках, чтобы боковая панель оставалась компактной."
+      }
+    }
+  },
+  "Settings": {
+    "title": "Настройки",
+    "language": "Язык",
+    "spanish": "Испанский",
+    "english": "English",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Catalan",
+    "chineseSimplified": "Китайский (упрощённый)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "Немецкий",
+    "danish": "Датский",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Польский",
+    "vietnamese": "Tiếng Việt",
+    "norwegian": "Norsk",
+    "ukrainian": "Украинский"
+  },
+  "SettingsPage": {
+    "title": "Настройки",
+    "subtitle": "Управление настройками учётной записи и предпочтениями.",
+    "userProfile": {
+      "title": "Профиль пользователя",
+      "description": "Ваша личная информация и данные учётной записи.",
+      "avatarAlt": "Пользователь",
+      "anonymousUser": "Анонимный пользователь",
+      "noEmailProvided": "Email не указан",
+      "notLoggedIn": "Не авторизован."
+    },
+    "tools": {
+      "title": "Инструменты и функции",
+      "description": "Выберите, какие инструменты отображать в боковой панели навигации."
+    },
+    "appearance": {
+      "title": "Внешний вид",
+      "description": "Настройте внешний вид приложения на вашем устройстве.",
+      "themePreference": "Тема оформления",
+      "themes": {
+        "light": "Светлая",
+        "dark": "Тёмная",
+        "system": "Системная"
+      }
+    },
+    "language": {
+      "title": "Язык",
+      "description": "Установите язык, используемый на платформе.",
+      "selectLanguage": "Выберите язык",
+      "selectPlaceholder": "Выберите язык",
+      "helpText": "Смена языка обновит меню и надписи по всей платформе.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Испанский)",
+        "ar": "عربى (Арабский)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Греческий)",
+        "de": "Deutsch (Немецкий)",
+        "da": "Dansk (Датский)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "it": "Итальянский (Italiano)",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski (Польский)",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
+      }
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
+      "addButton": "Add passkey",
+      "loading": "Loading…",
+      "none": "No passkeys yet.",
+      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
+      "addedOn": "Added {date}",
+      "lastUsedOn": "Last used {date}",
+      "synced": "Synced",
+      "rename": "Rename",
+      "renamePrompt": "Rename passkey",
+      "addedToast": "Passkey added.",
+      "renamedToast": "Passkey renamed.",
+      "removedToast": "Passkey removed.",
+      "loadError": "Could not load passkeys.",
+      "addError": "Could not add passkey.",
+      "renameError": "Could not rename passkey.",
+      "deleteError": "Could not delete passkey.",
+      "dialog": {
+        "title": "Add a passkey",
+        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
+        "nameLabel": "Device name (optional)",
+        "namePlaceholder": "e.g. MacBook Touch ID",
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "waiting": "Waiting for device…"
+      },
+      "delete": {
+        "title": "Remove passkey?",
+        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
+        "cancel": "Cancel",
+        "confirm": "Remove"
+      },
+      "prompt": {
+        "title": "Sign in faster next time",
+        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
+        "skip": "Maybe later",
+        "setup": "Set up passkey",
+        "successToast": "Passkey added — try signing out and back in to test it.",
+        "errorToast": "Could not add passkey. You can try again from Settings."
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Доброе утро",
+      "afternoon": "Добрый день",
+      "evening": "Добрый вечер"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "С возвращением",
+    "welcomeBackNamed": "С возвращением, {name}",
+    "tagline": "Что вы хотите создать сегодня?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Инструменты",
+      "favorites": "Избранное",
+      "pinned": "Закреплённые",
+      "recent": "Недавно использованные"
+    },
+    "sections": {
+      "recentlyUsed": "Недавно использованные",
+      "favorites": "Избранное",
+      "whatsNew": "Что нового",
+      "pinned": "Закреплённые"
+    },
+    "groups": {
+      "apps": "Приложения"
+    },
+    "toolCard": {
+      "defaultDescription": "Попробуйте этот инструмент для расширения возможностей.",
+      "launchTool": "Запустить"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Задачи",
+        "description": "Эффективно управляйте списками задач."
+      },
+      "notes": {
+        "title": "Заметки",
+        "description": "Фиксируйте идеи и систематизируйте мысли."
+      },
+      "passwordManager": {
+        "title": "Менеджер паролей",
+        "description": "Безопасно храните и управляйте паролями."
+      },
+      "environmentManager": {
+        "title": "Менеджер окружений",
+        "description": "Храните переменные в стиле .env по проекту и окружению с тегами."
+      },
+      "bookmarks": {
+        "title": "Закладки",
+        "description": "Управляйте и систематизируйте закладки."
+      },
+      "apiClient": {
+        "title": "API-клиент",
+        "description": "Тестируйте и отлаживайте HTTP-запросы."
+      },
+      "nosqlExplorer": {
+        "title": "Database Explorer",
+        "description": "Исследуйте базы данных MongoDB."
+      },
+      "emailValidator": {
+        "title": "Валидатор email",
+        "description": "Проверяйте и валидируйте адреса электронной почты."
+      },
+      "encryptionPlayground": {
+        "title": "Песочница шифрования",
+        "description": "AES-GCM с сырым ключом или паролем; JSON-пакеты, Web Crypto только в браузере."
+      },
+      "jwtDecoder": {
+        "title": "Декодер JWT",
+        "description": "Декодируйте заголовок, полезную нагрузку и срок действия JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Декодер сертификата / PEM",
+        "description": "Декодируйте сертификаты X.509 и CSR: субъект, издатель, срок действия, SAN."
+      },
+      "sshKeyGenerator": {
+        "title": "Генератор ключей SSH / RSA",
+        "description": "Генерируйте пары ключей Ed25519 или RSA в браузере. Скачивайте в форматах OpenSSH и PEM."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Форматтер GraphQL",
+        "description": "Форматируйте GraphQL с подсветкой синтаксиса и простым конструктором запросов."
+      },
+      "yamlFormatter": {
+        "title": "Форматировщик YAML",
+        "description": "Форматируйте, проверяйте и конвертируйте YAML в JSON в браузере."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "URL-парсер",
+        "description": "Разберите URL на протокол, хост, путь, параметры запроса и хэш."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Секрет / ключ API",
+        "description": "Криптографически случайные строки с настраиваемым алфавитом, длиной и массовым экспортом."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Проверка контраста",
+        "description": "Коэффициент контраста WCAG 2.1 для текста и фона (AA / AAA)."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Генератор JSON-схемы",
+        "description": "Получите JSON-схему и типизированные модели из примера JSON."
+      },
+      "imageToBase64": {
+        "title": "Изображение в Base64",
+        "description": "Преобразуйте изображения в URI данных или необработанные строки Base64."
+      },
+      "imageCompressor": {
+        "title": "Сжатие изображений",
+        "description": "Сжимайте JPEG, PNG и WebP локально с ползунком качества."
+      },
+      "cssGradientBuilder": {
+        "title": "Конструктор CSS-градиентов",
+        "description": "Визуальный конструктор градиентов CSS с контролем угла и остановками цвета."
+      },
+      "gitignoreGenerator": {
+        "title": "Генератор .gitignore",
+        "description": "Мгновенно создавайте объединенные файлы .gitignore из более чем 500 технологических стеков."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Конвертируйте CSV или Excel в JSON и экспортируйте обратно в CSV или XLSX."
+      },
+      "snippetManager": {
+        "title": "Фрагменты кода",
+        "description": "Сохраняйте сниппеты с подсветкой синтаксиса, автоопределением языка и форматированием."
+      },
+      "qrCodeGenerator": {
+        "title": "Генератор QR-кодов",
+        "description": "Создавайте PNG QR-коды из текста или URL в браузере."
+      },
+      "ipSubnetCalculator": {
+        "title": "Калькулятор IP / подсети",
+        "description": "IPv4 и IPv6 CIDR: маска, диапазоны и число адресов."
+      },
+      "dnsLookup": {
+        "title": "DNS-запрос",
+        "description": "Запрашивайте DNS-записи для любого домена — A, AAAA, MX, TXT, NS, CNAME."
+      },
+      "hashGenerator": {
+        "title": "Генератор хешей",
+        "description": "MD5, SHA-1 и SHA-2 для текста или файлов."
+      },
+      "hmacGenerator": {
+        "title": "Генератор HMAC",
+        "description": "Подписывайте вебхуки и тестируйте интеграции API с HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Генератор кода TOTP / 2FA",
+        "description": "Вставьте секрет Base32 из приложения-аутентификатора; шестизначный код обновляется каждые 30 с—удобно для проверки входа и MFA."
+      },
+      "markdownPreview": {
+        "title": "Просмотр Markdown",
+        "description": "Живой рендерер Markdown с экспортом HTML и конвертацией HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Конвертер систем счисления",
+        "description": "Перевод целых чисел между основаниями 2–36."
+      },
+      "formatConverter": {
+        "title": "Конвертер форматов",
+        "description": "Конвертация между JSON, YAML, TOML и XML в любом направлении. Поддерживаются все 12 комбинаций."
+      },
+      "mockDataGenerator": {
+        "title": "Генератор тестовых данных",
+        "description": "Задайте столбцы, выберите типы и экспортируйте данные для сидов, Postman или тестов. До 5000 строк, всё в браузере — ничего не загружается на сервер."
+      },
+      "httpStatusCodes": {
+        "title": "HTTP-коды состояния",
+        "description": "Поиск HTTP-кодов состояния с описаниями (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Оптимизатор SVG",
+        "description": "Вставьте SVG, удалите лишнее через SVGO и посмотрите выигрыш по размеру UTF-8."
+      },
+      "unitConverter": {
+        "title": "Конвертер единиц",
+        "description": "Конвертируйте между 323 единицами в 43 научных и инженерных категориях."
+      },
+      "dockerComposeGenerator": {
+        "title": "Генератор Docker Compose",
+        "description": "Выберите СУБД, кэши, очереди, прокси и образы наблюдаемости; экспортируйте docker-compose.yml для локальных стеков."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Сдвигайте и объединяйте плитки, чтобы достичь 2048 года. Классическая игра-головоломка с номерами."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Классическая числовая головоломка. 3 уровня сложности, по 150 этапов каждый."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Просматривайте ключи, проверяйте значения и выполняйте команды на любом экземпляре Redis."
+      },
+      "curlToCode": {
+        "title": "cURL to Code",
+        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
+      },
+      "jsonToCode": {
+        "title": "JSON to Code",
+        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
+      },
+      "beautifyMinify": {
+        "title": "Beautify & Minify",
+        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
+      },
+      "stringCaseConverter": {
+        "title": "String Case Converter",
+        "description": "Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+      },
+      "lineSortDedupe": {
+        "title": "Line Sort & Dedupe",
+        "description": "Sort, deduplicate, trim, and clean up lists of lines locally."
+      },
+      "stringInspector": {
+        "title": "String Inspector",
+        "description": "Count characters, words, bytes, and detect invisible or non-ASCII characters."
+      },
+      "escapeEncode": {
+        "title": "Escape / Encode",
+        "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Генератор и проверка Bcrypt",
+        "description": "Хешируйте пароли с помощью bcrypt и проверяйте существующие хеши."
+      },
+      "chmodCalculator": {
+        "title": "Калькулятор Chmod",
+        "description": "Преобразуйте права Unix между восьмеричной, символьной формой и флажками."
+      },
+      "codeScreenshot": {
+        "title": "Скриншот кода",
+        "description": "Превращайте исходный код в красивые изображения для публикации."
+      },
+      "cssGenerators": {
+        "title": "Генераторы CSS",
+        "description": "Генераторы box-shadow, border-radius и адаптивного clamp()."
+      },
+      "exifViewer": {
+        "title": "Просмотр и удаление EXIF",
+        "description": "Просматривайте и удаляйте метаданные EXIF из фото локально."
+      },
+      "faviconGenerator": {
+        "title": "Генератор favicon",
+        "description": "Создавайте favicon, иконки приложений и фрагменты манифеста."
+      },
+      "jsonDiff": {
+        "title": "Сравнение JSON",
+        "description": "Семантическое, учитывающее структуру сравнение двух документов JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Песочница JSONPath",
+        "description": "Запрашивайте JSON с помощью JSONPath или JMESPath и смотрите результаты вживую."
+      },
+      "keycodeInspector": {
+        "title": "Инспектор клавиш",
+        "description": "Нажмите клавишу, чтобы увидеть её коды события JavaScript и модификаторы."
+      },
+      "markdownTableGenerator": {
+        "title": "Генератор таблиц Markdown",
+        "description": "Создавайте таблицы Markdown и HTML в табличном редакторе."
+      },
+      "timezoneConverter": {
+        "title": "Конвертер часовых поясов",
+        "description": "Преобразуйте время между поясами с подсказками о смене дня и рабочих часах."
+      },
+      "tokenCounter": {
+        "title": "Счётчик токенов LLM",
+        "description": "Считайте токены LLM, визуализируйте чанки и оценивайте стоимость API."
+      },
+      "webhookTester": {
+        "title": "Тестер вебхуков",
+        "description": "Захватывайте и изучайте входящие запросы вебхуков в реальном времени."
+      },
+      "websocketTester": {
+        "title": "Тестер WebSocket",
+        "description": "Подключайтесь к эндпоинтам WebSocket и обменивайтесь сообщениями в реальном времени."
+      },
+      "whoisLookup": {
+        "title": "Whois-запрос",
+        "description": "Узнавайте данные регистрации доменов и IP через RDAP."
+      }
+    },
+    "tabs": {
+      "apps": "Приложения",
+      "analytics": "Аналитика",
+      "ui": "Интерфейс"
+    },
+    "analytics": {
+      "title": "Ваши данные кратко",
+      "subtitle": "Счётчики синхронизированы с вашей учётной записью на сервере.",
+      "loadError": "Не удалось загрузить аналитику.",
+      "retry": "Повторить",
+      "loginHint": "Войдите, чтобы видеть аналитику использования и настройки интерфейса.",
+      "passwordEntries": "Записей паролей",
+      "bookmarks": "Закладки",
+      "bookmarkFolders": "Папки закладок",
+      "tasksTotal": "Задачи",
+      "tasksCompleted": "Выполнено",
+      "tasksOngoing": "В работе",
+      "tasksNotStarted": "Не начато",
+      "projects": "Проекты",
+      "nosqlConnections": "Подключения к БД",
+      "notes": "Заметки",
+      "apiClientCollections": "Коллекции API",
+      "apiClientEnvironments": "Окружения API",
+      "apiClientHistory": "Записи истории API",
+      "jsonFormatterDocuments": "Документы JSON-форматера",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Фрагменты кода",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
+    },
+    "ui": {
+      "title": "Настройки интерфейса",
+      "subtitle": "Тема, язык и видимые инструменты на боковой панели — из настроек аккаунта.",
+      "loadError": "Не удалось загрузить настройки.",
+      "loginHint": "Войдите, чтобы видеть сохранённые настройки интерфейса.",
+      "theme": "Тема",
+      "accent": "Цвет акцента",
+      "locale": "Язык",
+      "enabledTools": "Видимые инструменты",
+      "favoriteTools": "Избранные инструменты",
+      "toolsWithUsage": "Инструменты со статистикой"
+    },
+    "signIn": "Войти",
+    "noResults": "Ни один инструмент не соответствует вашему поиску",
+    "noResultsHint": "Попробуйте другое ключевое слово или очистите фильтр.",
+    "filterAll": "Все",
+    "loginCta": {
+      "description": "Войдите, чтобы отслеживать недавно используемые инструменты."
+    },
+    "popularTools": "Popular tools",
+    "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
+    "viewActivity": "Recent activity",
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "filterRange": "Time range",
+      "search": "Search activity…",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "7 days",
+      "last30": "30 days",
+      "allTime": "All time",
+      "resetFilters": "Reset filters",
+      "activeFilters": "{count, plural, =0 {No filters} =1 {1 filter} other {# filters}} applied",
+      "empty": "No activity yet.",
+      "emptyFiltered": "No activity matches the current filters.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "showingOf": "Showing {shown} of {total}",
+      "changedFields": "What changed",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "device": "Device",
+      "ipAddress": "IP",
+      "latency": "Latency",
+      "endpoint": "Endpoint",
+      "status": "Status",
+      "when": "When",
+      "actionKey": "Action",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity",
+      "moduleAuth": "Account",
+      "moduleBookmarks": "Bookmarks",
+      "moduleBookmarkFolders": "Bookmark folders",
+      "moduleNotes": "Notes",
+      "moduleTasks": "Tasks",
+      "modulePasswords": "Passwords",
+      "moduleSnippets": "Snippets",
+      "moduleApiClient": "API client",
+      "moduleSqlClient": "SQL client",
+      "moduleNosql": "NoSQL",
+      "moduleEnvManager": "Environments",
+      "modulePrefs": "Preferences",
+      "moduleProjects": "Projects",
+      "moduleUrlShortener": "URL shortener",
+      "moduleGameScores": "Game scores",
+      "moduleFeedback": "Feedback"
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Загрузка...",
+      "myTasksTitle": "Мои задачи",
+      "statsLine": "{total} задач • {percent}% выполнено",
+      "statsLineDesktop": "{total} всего • {percent}% выполнено"
+    },
+    "filters": {
+      "all": "Все",
+      "total": "Итого",
+      "allProjects": "Все проекты",
+      "export": "Экспорт",
+      "kanban": "Канбан",
+      "list": "Список",
+      "searchPlaceholder": "Поиск задач...",
+      "searchAria": "Поиск задач",
+      "clearSearchAria": "Очистить поиск",
+      "foundTasks": "Найдено {count} {count, plural, one {задача} few {задачи} other {задач}}",
+      "filterByAllAria": "Фильтр: Все",
+      "filterByStatusAria": "Фильтр по статусу: {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Не начато",
+        "description": "Задачи, которые ещё не начаты"
+      },
+      "ongoing": {
+        "label": "В работе",
+        "description": "Задачи, которые сейчас выполняются"
+      },
+      "completed": {
+        "label": "Завершено",
+        "description": "Задачи, которые завершены"
+      }
+    },
+    "priorities": {
+      "high": "Высокий",
+      "medium": "Средний",
+      "low": "Низкий"
+    },
+    "form": {
+      "addNewTaskLabel": "Добавить новую задачу",
+      "multilinePlaceholder": "Добавьте описание задачи... (Shift+Enter для новой строки)",
+      "singlelinePlaceholder": "Что нужно сделать? Нажмите Enter для добавления",
+      "taskInputAria": "Ввод задачи",
+      "projectPlaceholder": "Проект",
+      "selectProject": "Выбрать проект",
+      "errorSelectProject": "Пожалуйста, выберите проект или создайте новый для добавления задачи.",
+      "hintMultiline": "Shift+Enter — новая строка, Enter — добавить",
+      "hintSingleline": "Enter для добавления",
+      "shortcutsAria": "Горячие клавиши",
+      "shortcutsLabel": "Горячие клавиши",
+      "shortcutAddTask": "Добавить задачу",
+      "shortcutNewLine": "Новая строка",
+      "shortcutClear": "Очистить",
+      "addButton": "Добавить"
+    },
+    "list": {
+      "ariaLabel": "Список задач",
+      "loading": "Загрузка задач...",
+      "emptyTitle": "Задачи не найдены",
+      "emptyPrimary": "Начните с добавления первой задачи выше! Нажмите Enter для быстрого добавления.",
+      "emptySecondary": "Попробуйте изменить фильтры или поисковый запрос."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Добавить задачу",
+      "addNewTaskTitle": "Добавить новую задачу",
+      "addNewTaskDescription": "Создайте новую задачу для отслеживания прогресса.",
+      "cancel": "Отмена"
+    },
+    "kanban": {
+      "ariaLabel": "Канбан-доска",
+      "loading": "Загрузка задач...",
+      "dropHere": "Перетащите задачу сюда",
+      "noTasksYet": "Задач пока нет",
+      "emptyColumnAria": "Пустой столбец",
+      "columnAria": "Столбец {title} с {count} задачами",
+      "countInColumnAria": "{count} задач в {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Вы уверены, что хотите удалить эту задачу?",
+      "statusPlaceholder": "Статус",
+      "changeStatusAria": "Изменить статус задачи",
+      "taskOptionsAria": "Параметры задачи",
+      "editTask": "Редактировать задачу",
+      "copyTask": "Копировать задачу",
+      "copied": "Скопировано!",
+      "deleteTask": "Удалить задачу",
+      "statusHeading": "Статус",
+      "editTaskAria": "Редактировать задачу"
+    },
+    "editDialog": {
+      "title": "Редактировать задачу",
+      "description": "Обновите данные задачи, добавьте подзадачи, установите приоритеты и другое.",
+      "taskTitleLabel": "Название задачи *",
+      "taskTitlePlaceholder": "Что нужно сделать?",
+      "descriptionLabel": "Описание",
+      "descriptionPlaceholder": "Добавьте подробности о задаче...",
+      "statusLabel": "Статус",
+      "priorityLabel": "Приоритет",
+      "dueDateLabel": "Срок выполнения",
+      "pickDate": "Выберите дату",
+      "clearDate": "Очистить дату",
+      "projectLabel": "Проект",
+      "selectProjectPlaceholder": "Выберите проект",
+      "noProject": "Без проекта",
+      "timeEstimateLabel": "Оценка времени (минуты)",
+      "timeEstimatePlaceholder": "Сколько это займёт?",
+      "tagsLabel": "Теги",
+      "customTagNamePlaceholder": "Название тега",
+      "subtasksLabel": "Подзадачи",
+      "addSubtaskPlaceholder": "Добавить подзадачу...",
+      "cancel": "Отмена",
+      "saving": "Сохранение...",
+      "saveChanges": "Сохранить изменения"
+    },
+    "export": {
+      "title": "Экспорт задач",
+      "description": "Экспортируйте задачи в формате JSON, CSV или Excel.",
+      "projectLabel": "Проект",
+      "statusLabel": "Статус",
+      "tagLabel": "Тег",
+      "allProjects": "Все проекты",
+      "allStatuses": "Все статусы",
+      "allTags": "Все теги",
+      "exportAsJsonTitle": "Экспорт в JSON",
+      "exportAsJsonDescription": "Экспортируйте данные задач, включая подзадачи, теги и метаданные.",
+      "exportJson": "Экспорт JSON",
+      "exportAsCsvExcelTitle": "Экспорт в CSV / Excel",
+      "exportAsCsvExcelDescription": "Экспортируйте задачи для табличных приложений.",
+      "exportCsv": "Экспорт CSV",
+      "exportExcel": "Экспорт Excel",
+      "close": "Закрыть",
+      "toastNoTasks": "Нет задач для экспорта с текущими фильтрами",
+      "toastExportedJson": "Экспортировано {count} задач в JSON!",
+      "toastExportedCsv": "Экспортировано {count} задач в CSV!",
+      "toastExportedExcel": "Экспортировано {count} задач в Excel!",
+      "toastFailedJson": "Не удалось экспортировать в JSON",
+      "toastFailedCsv": "Не удалось экспортировать в CSV",
+      "toastFailedExcel": "Не удалось экспортировать в Excel",
+      "unknownProject": "Неизвестный проект"
+    },
+    "ack": {
+      "taskAddedTitle": "Задача успешно добавлена",
+      "taskAddedFailedTitle": "Не удалось добавить задачу",
+      "taskUpdatedTitle": "Задача успешно обновлена",
+      "taskUpdatedFailedTitle": "Не удалось обновить задачу",
+      "taskStatusUpdateFailedTitle": "Не удалось обновить статус задачи",
+      "taskMovedTitle": "Задача перемещена в {status}",
+      "tryAgain": "Пожалуйста, попробуйте снова.",
+      "taskDeletedTitle": "Задача «{text}» удалена",
+      "undo": "Отменить",
+      "taskRestoredTitle": "Задача восстановлена",
+      "taskRestoredSuccessTitle": "Задача успешно восстановлена",
+      "taskRestoreFailedTitle": "Не удалось восстановить задачу. Попробуйте снова.",
+      "taskDeleteFailedTitle": "Не удалось удалить задачу. Попробуйте снова.",
+      "tasksImportedTitle": "Успешно импортировано {count} {count, plural, one {задача} few {задачи} other {задач}}!",
+      "tasksImportFailedTitle": "Не удалось импортировать задачи. Попробуйте снова.",
+      "unknownProject": "Неизвестный проект",
+      "projectCreatedTitle": "Проект успешно создан",
+      "projectCreateFailedTitle": "Не удалось создать проект",
+      "projectUpdatedTitle": "Проект успешно обновлён",
+      "projectUpdateFailedTitle": "Не удалось обновить проект",
+      "projectDeletedTitle": "Проект успешно удалён",
+      "projectDeleteFailedTitle": "Не удалось удалить проект"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Загрузка..."
+    },
+    "layout": {
+      "mobileNavTitle": "Навигация по заметкам",
+      "openMenuAria": "Открыть меню заметок"
+    },
+    "sidebar": {
+      "title": "Заметки",
+      "createNoteAria": "Создать заметку",
+      "searchPlaceholder": "Поиск заметок...",
+      "loading": "Загрузка...",
+      "noNotesFound": "Заметки не найдены.",
+      "noNotesYet": "Заметок пока нет. Нажмите +, чтобы создать.",
+      "inParent": "в {parentTitle}",
+      "untitled": "Без названия",
+      "addSubPage": "Добавить подстраницу",
+      "delete": "Удалить",
+      "deleteConfirmTitle": "Удалить заметку?",
+      "deleteConfirmDescription": "Вы уверены, что хотите удалить «{title}»? Это действие нельзя отменить.",
+      "cancel": "Отмена",
+      "confirmDelete": "Удалить",
+      "noteOptionsAria": "Параметры заметки"
+    },
+    "editor": {
+      "emptyState": "Выберите заметку или создайте новую, чтобы начать.",
+      "titlePlaceholder": "Без названия",
+      "saving": "Сохранение…",
+      "ready": "Готово",
+      "saved": "Сохранено {time}",
+      "stats": "{words} слов · {read} мин чтения",
+      "template": "Шаблон",
+      "applyTemplate": "Применить шаблон",
+      "exportMdLabel": ".md",
+      "exportMd": "Экспорт в Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Экспорт в HTML",
+      "focusMode": "Режим фокуса",
+      "exitFocusMode": "Выйти из режима фокуса",
+      "save": "Сохранить",
+      "addTag": "Добавить тег…",
+      "removeTag": "Удалить тег {tag}",
+      "loading": "Загрузка…",
+      "searchHint": "для поиска",
+      "focusHint": "режим фокуса",
+      "notePath": "Путь заметки"
+    },
+    "context": {
+      "authRequiredError": "Пользователь не авторизован",
+      "defaultTitle": "Без названия",
+      "cloudSyncImageError": "Включите облачную синхронизацию, чтобы сохранять изображения заметок. Текстовые заметки остаются локальными."
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Загрузка...",
+      "title": "Менеджер паролей",
+      "loadFailed": "Failed to load passwords"
+    },
+    "vault": {
+      "toastDecryptFailed": "Не удалось расшифровать пароли",
+      "toastLoadFailed": "Не удалось загрузить пароли",
+      "toastUnlockedAuto": "Хранилище разблокировано автоматически",
+      "toastAutoUnlockFailed": "Автоматическая разблокировка не удалась. Разблокируйте вручную.",
+      "toastConnectFailed": "Не удалось подключиться к серверу",
+      "toastAutoUnlockWarning": "Хранилище разблокировано, но автоматическая разблокировка может не работать при перезагрузке",
+      "errorIncorrectPassword": "Неверный мастер-пароль",
+      "errorUnlockFailed": "Не удалось разблокировать хранилище",
+      "errorPasswordsMismatch": "Пароли не совпадают",
+      "errorPasswordTooShort": "Пароль должен содержать не менее 8 символов",
+      "errorSetupFailed": "Не удалось настроить хранилище",
+      "errorConnectFailed": "Не удалось подключиться к серверу.",
+      "mobileTitleCreate": "Создайте хранилище",
+      "mobileTitleWelcome": "С возвращением",
+      "mobileSubtitleCreate": "Задайте мастер-пароль для защиты ваших данных",
+      "mobileSubtitleUnlock": "Введите мастер-пароль для разблокировки",
+      "placeholderMasterPassword": "Мастер-пароль",
+      "placeholderConfirmPassword": "Подтвердите пароль",
+      "labelMasterPassword": "Мастер-пароль",
+      "labelConfirmPassword": "Подтвердите пароль",
+      "placeholderEnterMaster": "Введите мастер-пароль",
+      "placeholderConfirmMaster": "Подтвердите мастер-пароль",
+      "buttonCreateVault": "Создать хранилище",
+      "buttonUnlock": "Разблокировать",
+      "buttonUnlockVault": "Разблокировать хранилище",
+      "footerCreate": "Ваш пароль не хранится и не может быть восстановлен",
+      "footerUnlock": "Защищено сквозным шифрованием",
+      "desktopTitleSetup": "Настройка хранилища паролей",
+      "desktopTitleUnlock": "Разблокировать хранилище",
+      "desktopDescriptionSetup": "Создайте мастер-пароль для защиты ваших данных. Этот пароль не хранится и не может быть восстановлен.",
+      "desktopDescriptionUnlock": "Введите мастер-пароль для доступа к защищённым данным."
+    },
+    "list": {
+      "loading": "Загрузка паролей...",
+      "emptyTitle": "Хранилище пусто",
+      "emptyHintMobile": "Нажмите кнопку +, чтобы добавить первый пароль",
+      "emptyHintDesktop": "У вас пока нет сохранённых паролей. Нажмите «Добавить пароль», чтобы начать.",
+      "addPassword": "Добавить пароль",
+      "searchPlaceholderMobile": "Поиск по хранилищу...",
+      "searchPlaceholderDesktop": "Поиск по хранилищу...",
+      "importExport": "Импорт / экспорт",
+      "lockVault": "Заблокировать хранилище",
+      "allPasswordsTitle": "Все пароли",
+      "passwordCount": "{count, plural, one {# пароль} few {# пароля} other {# паролей}}",
+      "vaultHealthDrawerTitle": "Состояние хранилища",
+      "noResults": "Пароли, соответствующие «{query}», не найдены",
+      "tableService": "Сервис",
+      "tableUsername": "Имя пользователя",
+      "tablePassword": "Пароль",
+      "tableUrl": "URL",
+      "tableActions": "Действия",
+      "gridViewAria": "Сетка",
+      "listViewAria": "Список",
+      "passwordStrengthTitle": "Надёжность пароля",
+      "deleteDialogTitle": "Удалить пароль",
+      "deleteDialogDescription": "Вы уверены, что хотите удалить этот пароль? Это действие нельзя отменить.",
+      "cancel": "Отмена",
+      "delete": "Удалить",
+      "edit": "Редактировать"
+    },
+    "toasts": {
+      "copiedPassword": "Пароль скопирован в буфер обмена",
+      "copiedUsername": "Имя пользователя скопировано в буфер обмена",
+      "passwordDeleted": "Пароль удалён",
+      "deleteFailed": "Не удалось удалить пароль",
+      "vaultLocked": "Хранилище заблокировано",
+      "importedCount": "Успешно импортировано {count, plural, one {# пароль} few {# пароля} other {# паролей}}"
+    },
+    "form": {
+      "addTitle": "Добавить новый пароль",
+      "editTitle": "Редактировать пароль",
+      "serviceName": "Название сервиса",
+      "usernameEmail": "Имя пользователя / email",
+      "password": "Пароль",
+      "urlOptional": "URL сайта (необязательно)",
+      "notesOptional": "Заметки (необязательно)",
+      "tags": "Теги",
+      "placeholderService": "напр. Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "Введите или сгенерируйте пароль",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Дополнительные сведения...",
+      "placeholderTags": "Добавьте теги (Enter или запятая)",
+      "strength": "Надёжность",
+      "strengthWeak": "Слабый",
+      "strengthMedium": "Средний",
+      "strengthStrong": "Сильный",
+      "advancedGenerator": "Расширенный генератор",
+      "cancel": "Отмена",
+      "saving": "Сохранение...",
+      "savePassword": "Сохранить пароль",
+      "updating": "Обновление...",
+      "updatePassword": "Обновить пароль",
+      "addPasswordSrOnly": "Добавить пароль",
+      "triggerAdd": "Добавить пароль",
+      "toastSaved": "Пароль успешно сохранён",
+      "toastSaveFailed": "Не удалось сохранить пароль",
+      "toastUpdated": "Пароль успешно обновлён",
+      "toastUpdateFailed": "Не удалось обновить пароль"
+    },
+    "security": {
+      "vaultHealth": "Состояние хранилища",
+      "statusLabel": "Статус",
+      "totalPasswords": "Всего паролей",
+      "activeEntries": "Активные записи в хранилище",
+      "protected": "Защищено",
+      "weakPasswords": "Слабые пароли",
+      "needingImprovement": "Пароли, требующие улучшения",
+      "allGood": "Всё в порядке",
+      "reusedPasswords": "Повторяющиеся пароли",
+      "usedMultipleTimes": "Пароли, используемые несколько раз",
+      "unique": "Уникальные",
+      "total": "Всего",
+      "weak": "Слабые",
+      "reused": "Повторяющиеся",
+      "totalCountLabel": "{count, plural, one {# пароль} few {# пароля} other {# паролей}}",
+      "weakCountLabel": "{count} слабых",
+      "allSecure": "Все надёжные",
+      "scoreExcellent": "Отлично",
+      "scoreGood": "Хорошо",
+      "scoreFair": "Удовлетворительно",
+      "scoreCritical": "Критично"
+    },
+    "importExport": {
+      "title": "Импорт / экспорт хранилища",
+      "description": "Управляйте данными паролей. Вы можете экспортировать хранилище в JSON или импортировать из JSON-файла.",
+      "tabExport": "Экспорт",
+      "tabImport": "Импорт",
+      "warningTitle": "Предупреждение",
+      "warningBody": "Экспортированные файлы содержат пароли в открытом виде. Храните этот файл в безопасном месте и удалите после использования.",
+      "exportBlurb": "Скачайте всё хранилище как JSON-файл. Включает все сервисы, имена пользователей, пароли и заметки.",
+      "downloadJson": "Скачать JSON-экспорт",
+      "pasteLabel": "Вставьте JSON-данные",
+      "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
+      "pasteHint": "Вставьте содержимое ранее экспортированного JSON-файла.",
+      "importing": "Импорт...",
+      "importPasswords": "Импортировать пароли",
+      "trigger": "Импорт / экспорт",
+      "toastExported": "Хранилище успешно экспортировано",
+      "toastExportFailed": "Не удалось экспортировать хранилище",
+      "toastImportFailed": "Не удалось импортировать: неверный формат JSON"
+    },
+    "card": {
+      "copyUsername": "Копировать имя пользователя",
+      "openUrl": "Открыть URL",
+      "strength": "Надёжность"
+    },
+    "swipeable": {
+      "copy": "Копировать",
+      "delete": "Удалить",
+      "copyPassword": "Копировать пароль",
+      "copyUsername": "Копировать имя пользователя",
+      "edit": "Редактировать",
+      "deleteAction": "Удалить"
+    },
+    "floatingMenu": {
+      "lockVault": "Заблокировать хранилище",
+      "importExport": "Импорт / экспорт",
+      "addPassword": "Добавить пароль"
+    },
+    "generator": {
+      "tabPassword": "Пароль",
+      "tabPassphrase": "Парольная фраза",
+      "strength": "Надёжность",
+      "lengthLabel": "Длина: {length} символов",
+      "lengthBadge": "{length} симв.",
+      "characterSets": "Наборы символов",
+      "uppercase": "Заглавные",
+      "lowercase": "Строчные",
+      "numbers": "Цифры",
+      "symbols": "Символы",
+      "wordCountLabel": "Количество слов: {count}",
+      "wordCountBadge": "{count, plural, one {# слово} few {# слова} other {# слов}}",
+      "separator": "Разделитель",
+      "capitalization": "Заглавные буквы",
+      "includeNumber": "Включить число"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Зашифрованные переменные окружения по проекту и среде.",
+    "page": {
+      "loading": "Загрузка…",
+      "title": "Менеджер окружений",
+      "loadFailed": "Не удалось загрузить наборы окружений"
+    },
+    "list": {
+      "title": "Окружения",
+      "loading": "Загрузка наборов…",
+      "emptyTitle": "Пока нет наборов окружений",
+      "emptyHint": "Создайте набор для каждого проекта и среды (например, ключи API продакшена). Всё шифруется в браузере перед загрузкой.",
+      "searchPlaceholder": "Поиск по проекту, среде, тегам, заметкам…",
+      "tagFilterPlaceholder": "Фильтр по тегу",
+      "variableCount": "{count, plural, one {# переменная} few {# переменные} other {# переменных}}",
+      "updatedAgo": "Обновлено {time}",
+      "copyDotEnv": "Копировать .env",
+      "edit": "Изменить",
+      "delete": "Удалить",
+      "cancel": "Отмена",
+      "confirmDelete": "Удалить",
+      "deleteDialogTitle": "Удалить набор окружения?",
+      "deleteDialogDescription": "Зашифрованные данные будут удалены из аккаунта. Действие необратимо.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
+    },
+    "toasts": {
+      "copiedDotEnv": ".env скопирован в буфер обмена",
+      "deleted": "Набор окружения удалён",
+      "deleteFailed": "Не удалось удалить"
+    },
+    "form": {
+      "addTitle": "Новый набор окружения",
+      "editTitle": "Изменить набор окружения",
+      "triggerAdd": "Добавить набор окружения",
+      "addSrOnly": "Добавить набор окружения",
+      "project": "Проект",
+      "environment": "Окружение",
+      "placeholderProject": "напр. billing-api",
+      "placeholderEnvironment": "напр. production",
+      "pasteEnvLabel": "Вставить .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Объединить вставленные строки",
+      "variables": "Переменные",
+      "addRow": "Добавить строку",
+      "keyPlaceholder": "КЛЮЧ",
+      "valuePlaceholder": "значение",
+      "notesOptional": "Заметки (необязательно)",
+      "placeholderNotes": "Политика ротации, владелец, ссылки…",
+      "tags": "Теги",
+      "placeholderTags": "Добавить теги (Enter или запятая)",
+      "cancel": "Отмена",
+      "save": "Сохранить",
+      "saving": "Сохранение…",
+      "update": "Обновить",
+      "updating": "Обновление…",
+      "toastSaved": "Набор окружения сохранён",
+      "toastSaveFailed": "Не удалось сохранить",
+      "toastUpdated": "Набор окружения обновлён",
+      "toastUpdateFailed": "Не удалось обновить",
+      "toastPasteEmpty": "Строки КЛЮЧ=значение не найдены",
+      "toastPasteApplied": "Объединено переменных из вставки: {count}",
+      "toastProjectEnvRequired": "Проект и окружение обязательны",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Загрузка..."
+    },
+    "manager": {
+      "foldersHeading": "Папки",
+      "tagsHeading": "Теги",
+      "tagsMore": "+{count} ещё",
+      "tagsShowLess": "Show less",
+      "searchPlaceholder": "Поиск закладок...",
+      "import": "Импорт",
+      "export": "Экспорт",
+      "exportAsHtml": "Экспорт в HTML",
+      "exportAsJson": "Экспорт в JSON",
+      "addBookmark": "Добавить закладку",
+      "matchingQuery": "по запросу «{query}»",
+      "bookmarkCount": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
+      "allBookmarks": "Все закладки",
+      "uncategorized": "Без категории",
+      "unknownFolder": "Неизвестно"
+    },
+    "card": {
+      "urlCopied": "URL скопирован в буфер обмена",
+      "bookmarkDeleted": "Закладка удалена",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "copyUrl": "Копировать URL",
+      "deleteConfirmTitle": "Удалить закладку?",
+      "deleteConfirmDescription": "Закладка «{title}» будет удалена безвозвратно.",
+      "cancel": "Отмена"
+    },
+    "grid": {
+      "emptyTitle": "Закладок пока нет",
+      "emptyDescription": "Добавьте первую закладку или импортируйте из браузера, чтобы начать."
+    },
+    "folderTree": {
+      "allBookmarks": "Все закладки",
+      "addSubfolder": "Добавить подпапку",
+      "rename": "Переименовать",
+      "deleteFolderTitle": "Удалить папку «{name}»?",
+      "deleteFolderDescription": "Папка и все подпапки будут удалены. Закладки из этих папок будут перемещены в «Без категории»."
+    },
+    "import": {
+      "title": "Импорт закладок",
+      "description": "Импортируйте закладки из экспортированного файла браузера.",
+      "parseError": "Не удалось разобрать файл закладок. Убедитесь, что файл является корректным экспортом.",
+      "successToast": "Импортировано {bookmarks} закладок и {folders} папок",
+      "errorToast": "Не удалось импортировать закладки",
+      "chromeInstruction": "Меню → Закладки → Диспетчер закладок → ⋮ → Экспорт закладок",
+      "firefoxInstruction": "Меню → Закладки → Управление закладками → Импорт и резервные копии → Экспорт",
+      "safariInstruction": "Файл → Экспорт закладок...",
+      "edgeInstruction": "Меню → Избранное → ⋯ → Экспорт избранного",
+      "dropZoneTitle": "Перетащите файл закладок сюда",
+      "dropZoneHint": "или нажмите для выбора (HTML или JSON)",
+      "selectedFileHint": "Нажмите, чтобы выбрать другой файл",
+      "errorTitle": "Ошибка",
+      "previewTitle": "Предпросмотр импорта",
+      "previewBookmarks": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
+      "previewFolders": "{count, plural, one {# папка} few {# папки} other {# папок}}",
+      "importModeLabel": "Режим импорта",
+      "modeMerge": "Объединить с существующими закладками",
+      "modeReplace": "Заменить все существующие закладки",
+      "cancel": "Отмена",
+      "importButton": "Импорт",
+      "importButtonWithCount": "Импортировать {count, plural, one {# закладку} few {# закладки} other {# закладок}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Добавить закладку",
+      "titleEdit": "Редактировать закладку",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "Пожалуйста, введите корректный URL",
+      "titleLabel": "Название",
+      "titlePlaceholder": "Название закладки",
+      "titleRequired": "Пожалуйста, введите название",
+      "descriptionLabel": "Описание (необязательно)",
+      "descriptionPlaceholder": "Добавьте заметку об этой закладке",
+      "folderLabel": "Папка",
+      "folderPlaceholder": "Выберите папку",
+      "noFolder": "Без папки",
+      "tagsLabel": "Теги",
+      "tagsPlaceholder": "Добавьте теги (Enter)",
+      "toastUpdated": "Закладка обновлена",
+      "toastAdded": "Закладка добавлена",
+      "cancel": "Отмена",
+      "submitAdd": "Добавить закладку",
+      "submitUpdate": "Обновить закладку"
+    },
+    "addFolder": {
+      "title": "Создать папку",
+      "nameLabel": "Название папки",
+      "namePlaceholder": "Моя папка",
+      "nameRequired": "Пожалуйста, введите название папки",
+      "parentLabel": "Родительская папка",
+      "parentPlaceholder": "Выберите родительскую папку",
+      "rootParent": "Корень (без родителя)",
+      "toastCreated": "Папка создана",
+      "cancel": "Отмена",
+      "submit": "Создать папку"
+    },
+    "editFolder": {
+      "title": "Переименовать папку",
+      "nameLabel": "Название папки",
+      "namePlaceholder": "Название папки",
+      "nameRequired": "Пожалуйста, введите название папки",
+      "toastRenamed": "Папка переименована",
+      "cancel": "Отмена",
+      "save": "Сохранить"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Валидатор email",
+      "description": "Проверяйте и валидируйте адреса электронной почты по синтаксису, домену и доставляемости."
+    },
+    "tabs": {
+      "single": "Одиночная проверка",
+      "bulk": "Массовая загрузка"
+    },
+    "single": {
+      "cardTitle": "Проверка одного email",
+      "cardDescription": "Введите адрес электронной почты для проверки доставляемости и репутации.",
+      "placeholder": "Введите адрес электронной почты...",
+      "clearAria": "Очистить email",
+      "validate": "Проверить",
+      "validating": "Проверка...",
+      "formatError": "Пожалуйста, введите корректный адрес электронной почты"
+    },
+    "toasts": {
+      "errorTitle": "Ошибка",
+      "enterEmail": "Пожалуйста, введите адрес электронной почты",
+      "invalidFormatTitle": "Неверный формат email",
+      "invalidFormatDescription": "Пожалуйста, введите корректный адрес электронной почты",
+      "validateFailedDescription": "Произошла ошибка при проверке электронной почты",
+      "noEmailsTitle": "Email не найдены",
+      "noEmailsDescription": "Убедитесь, что в вашем Excel есть столбец «email».",
+      "fileTooLargeTitle": "Файл слишком большой",
+      "fileTooLargeDescription": "Найдено {total} email. Будут проверены только первые 4000.",
+      "successTitle": "Успех",
+      "successValidated": "Успешно проверено {count} email.",
+      "batchFailedTitle": "Массовая проверка не удалась",
+      "batchFailedDescription": "Произошла ошибка при массовой проверке.",
+      "noExportTitle": "Нет данных для экспорта",
+      "noExportValidOnly": "Не найдено действительных email для экспорта.",
+      "noExportAll": "Нет результатов для экспорта.",
+      "exportSuccessTitle": "Экспорт выполнен",
+      "exportSuccessExcelAll": "Экспортировано {count} email в Excel.",
+      "exportSuccessExcelValid": "Экспортировано {count} действительных email в Excel.",
+      "exportSuccessCsvAll": "Экспортировано {count} email в CSV.",
+      "exportSuccessCsvValid": "Экспортировано {count} действительных email в CSV."
+    },
+    "disposableAlert": {
+      "title": "Обнаружен одноразовый email",
+      "description": "Этот адрес электронной почты принадлежит одноразовому сервису. Он может быть временным или ненадёжным."
+    },
+    "score": {
+      "reliabilityTitle": "Оценка надёжности",
+      "scoreLabel": "Оценка"
+    },
+    "details": {
+      "sectionTitle": "Детали проверки"
+    },
+    "validation": {
+      "syntaxLabel": "Синтаксис корректен",
+      "syntaxTooltip": "Проверяет, соответствует ли адрес электронной почты правильному формату (напр. user@domain.com)",
+      "domainLabel": "Домен существует",
+      "domainTooltip": "Проверяет, что доменное имя в адресе электронной почты действительно существует",
+      "mxLabel": "MX-записи найдены",
+      "mxTooltip": "Проверяет, настроены ли MX-записи домена для приёма электронной почты",
+      "mailboxLabel": "Почтовый ящик существует",
+      "mailboxTooltip": "Проверяет, что конкретный почтовый ящик/учётная запись существует на почтовом сервере",
+      "disposableLabel": "Одноразовый email",
+      "disposableTooltip": "Указывает, принадлежит ли email одноразовому сервису (может быть рискованным)",
+      "roleBasedLabel": "Ролевой email",
+      "roleBasedTooltip": "Определяет, является ли email ролевым (напр. support@, info@), а не персональным"
+    },
+    "copy": {
+      "emailCopied": "Email скопирован!",
+      "copyTooltip": "Копировать email"
+    },
+    "bulk": {
+      "dropHere": "Перетащите файл сюда",
+      "dragHere": "Перетащите файл сюда",
+      "uploadHint": "Загрузите файл .xlsx, .xls или .csv со столбцом «email» для проверки до 4000 адресов.",
+      "filePrefix": "Файл:",
+      "selectFile": "Выбрать файл",
+      "downloadTemplate": "Скачать шаблон"
+    },
+    "bulkLoading": {
+      "title": "Проверка email...",
+      "batchProgress": "Обработка пакета {current} из {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Всего обработано",
+      "valid": "Действительные",
+      "risky": "Рискованные",
+      "invalid": "Недействительные"
+    },
+    "results": {
+      "detailedTitle": "Подробные результаты",
+      "searchPlaceholder": "Поиск email...",
+      "newVerification": "Новая проверка",
+      "exportAll": "Экспортировать всё",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Экспортировать действительные ({count})"
+    },
+    "showingResults": "Показано {shown} из {total} результатов",
+    "table": {
+      "email": "Email",
+      "status": "Статус",
+      "score": "Оценка",
+      "checks": "Проверки"
+    },
+    "noSearchResults": "Результаты по запросу «{query}» не найдены",
+    "checksTooltip": {
+      "syntax": "Синтаксис",
+      "domain": "Домен",
+      "mx": "MX",
+      "mailbox": "Почтовый ящик"
+    },
+    "exportColumns": {
+      "email": "Email",
+      "status": "Статус",
+      "score": "Оценка",
+      "syntax": "Синтаксис",
+      "domain": "Домен",
+      "mx": "MX",
+      "mailbox": "Почтовый ящик",
+      "disposable": "Одноразовый",
+      "roleBased": "Ролевой",
+      "valid": "Действительный",
+      "invalid": "Недействительный",
+      "yes": "Да",
+      "no": "Нет"
+    },
+    "sheets": {
+      "validEmails": "Действительные email",
+      "results": "Результаты",
+      "template": "Шаблон"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL-обозреватель",
+      "heroSubtitle": "Подключайтесь к базам данных для управления коллекциями, выполнения запросов и визуализации данных.",
+      "featureMultiTitle": "Множественные подключения",
+      "featureMultiDesc": "Управляйте несколькими подключениями к базам данных одновременно.",
+      "featureMongoTitle": "Поддержка MongoDB",
+      "featureMongoDesc": "Встроенная поддержка MongoDB с расширенной фильтрацией.",
+      "featureQueryTitle": "Умные запросы",
+      "featureQueryDesc": "Мощный конструктор запросов с подсветкой синтаксиса.",
+      "connectCta": "Подключиться к MongoDB",
+      "footerNote": "В данный момент поддерживается {db}. Другие базы данных будут добавлены в будущем.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Выберите коллекцию",
+      "selectCollectionDesc": "Выберите коллекцию в боковой панели для просмотра документов и начала работы с данными.",
+      "dialogAddConnection": "Добавить подключение",
+      "toastConnectionAdded": "Подключение добавлено",
+      "toastFetchFailed": "Не удалось загрузить документы для {collection}",
+      "toastDocDeleted": "Документ удалён",
+      "deleteDocTitle": "Вы уверены?",
+      "deleteDocDescription": "Это действие нельзя отменить. Документ будет безвозвратно удалён из коллекции.",
+      "closeAllTitle": "Закрыть все вкладки?",
+      "closeAllDescription": "Вы уверены, что хотите закрыть все вкладки? Несохранённые изменения в фильтрах запросов будут потеряны.",
+      "closeAllConfirm": "Закрыть все",
+      "cancel": "Отмена",
+      "delete": "Удалить"
+    },
+    "connection": {
+      "titleEdit": "Редактировать подключение",
+      "titleConnect": "Подключение к MongoDB",
+      "subtitleEdit": "Обновите параметры подключения.",
+      "subtitleConnect": "Введите строку подключения MongoDB для начала работы с данными.",
+      "labelName": "Название",
+      "placeholderName": "напр. Рабочая БД",
+      "labelConnectionString": "Строка подключения",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Формат: mongodb://username:password@host:port/database",
+      "testConnection": "Тест подключения",
+      "connecting": "Подключение...",
+      "updateConnect": "Обновить и подключить",
+      "connect": "Подключить",
+      "cancelEdit": "Отменить редактирование",
+      "savedConnections": "Сохранённые подключения",
+      "emptySaved": "Нет сохранённых подключений.",
+      "lastUsed": "Последнее использование: {time}",
+      "toastTestOk": "Подключение успешно!",
+      "toastTestFail": "Подключение не удалось: {message}",
+      "toastUpdated": "Подключение обновлено",
+      "confirmDelete": "Вы уверены, что хотите удалить это сохранённое подключение?",
+      "toastDeletedConn": "Подключение удалено",
+      "toastDeleteFail": "Не удалось удалить подключение",
+      "copyStringTitle": "Копировать строку подключения",
+      "toastStringCopied": "Строка подключения скопирована!",
+      "editTitle": "Редактировать",
+      "deleteTitle": "Удалить"
+    },
+    "sidebar": {
+      "explorer": "Обозреватель",
+      "add": "Добавить",
+      "tooltipAdd": "Добавить новое подключение",
+      "tooltipRefresh": "Обновить подключения",
+      "searchPlaceholder": "Поиск...",
+      "loadingConnections": "Загрузка подключений...",
+      "noConnectionsFound": "Подключения не найдены",
+      "toastLoadFail": "Не удалось загрузить подключения",
+      "toastConnectFail": "Не удалось подключиться к {name}",
+      "toastCollectionsFail": "Не удалось загрузить коллекции для {name}",
+      "toastRenamed": "Подключение переименовано",
+      "toastRenameFail": "Не удалось переименовать подключение",
+      "confirmDeleteConnection": "Вы уверены, что хотите удалить подключение «{name}»?",
+      "toastDeleted": "Подключение удалено",
+      "toastDeleteConnFail": "Не удалось удалить подключение",
+      "confirmDropDb": "Вы уверены, что хотите удалить базу данных «{name}»? Это действие нельзя отменить.",
+      "toastDbDropped": "База данных {name} удалена",
+      "confirmDropCollection": "Вы уверены, что хотите удалить коллекцию «{name}»? Это действие нельзя отменить.",
+      "toastCollectionDropped": "Коллекция {name} удалена",
+      "toastCollectionRenamed": "Коллекция переименована в {name}",
+      "toastDatabaseRenamed": "База данных переименована в {name}",
+      "connecting": "Подключение...",
+      "connectionFailed": "Подключение не удалось",
+      "noDatabases": "Нет баз данных",
+      "loading": "Загрузка...",
+      "noCollections": "Нет коллекций",
+      "renameCollectionTitle": "Переименовать коллекцию",
+      "renameDatabaseTitle": "Переименовать базу данных",
+      "placeholderNewCollection": "Новое название коллекции",
+      "placeholderNewDatabase": "Новое название базы данных",
+      "rename": "Переименовать",
+      "refresh": "Обновить",
+      "copyDbName": "Копировать имя БД",
+      "toastDbNameCopied": "Имя базы данных скопировано",
+      "dropDatabase": "Удалить базу данных",
+      "dropCollection": "Удалить коллекцию",
+      "menuRename": "Переименовать",
+      "menuCopyConnectionString": "Копировать строку подключения",
+      "menuDeleteConnection": "Удалить подключение",
+      "toastSidebarStringCopied": "Строка подключения скопирована!",
+      "cancel": "Отмена",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+    },
+    "document": {
+      "docsBreadcrumb": "{n} док.",
+      "table": "Таблица",
+      "json": "JSON",
+      "tree": "Дерево",
+      "tooltipTable": "Табличное представление",
+      "tooltipJson": "JSON-представление",
+      "tooltipTree": "Древовидное представление",
+      "itemsPerPage": "Элементов на странице",
+      "perPage": "{n} / стр.",
+      "prevPage": "Предыдущая страница",
+      "nextPage": "Следующая страница",
+      "expandAll": "Развернуть все",
+      "collapseAll": "Свернуть все",
+      "refreshData": "Обновить данные",
+      "insert": "Вставить",
+      "export": "Экспорт",
+      "actions": "Действия",
+      "invalidJson": "Некорректное содержимое JSON",
+      "copiedClipboard": "Скопировано в буфер обмена",
+      "docUpdated": "Документ успешно обновлён",
+      "docInserted": "Документ успешно вставлен",
+      "invalidJsonShort": "Некорректный JSON",
+      "docCopied": "Документ скопирован в буфер обмена",
+      "openFullEditor": "Открыть в полном редакторе",
+      "cellArray": "Массив({length})",
+      "cellObject": "Объект",
+      "cellArrayBracket": "Массив[{length}]",
+      "emptyFilterTitle": "Документы по вашему запросу не найдены",
+      "emptyFilterHint": "Попробуйте изменить фильтр или очистить запрос.",
+      "clearFilter": "Очистить фильтр",
+      "emptyCollectionTitle": "Эта коллекция пуста",
+      "emptyCollectionHint": "Вставьте документ, чтобы начать.",
+      "insertDocument": "Вставить документ",
+      "formatJson": "Форматировать JSON",
+      "compactJson": "Компактный JSON",
+      "copyClipboard": "Копировать в буфер обмена",
+      "copyJson": "Копировать JSON",
+      "duplicate": "Дублировать",
+      "editDoc": "Редактировать документ",
+      "deleteDoc": "Удалить документ",
+      "documentLabel": "Документ {n}",
+      "editDialogTitle": "Редактировать документ",
+      "insertDialogTitle": "Вставить документ",
+      "viewValueTitle": "Просмотр значения",
+      "saveChanges": "Сохранить изменения",
+      "close": "Закрыть",
+      "cancel": "Отмена",
+      "insertButton": "Вставить",
+      "import": "Import",
+      "importExport": "Import / Export",
+      "importExportTitle": "Import or export data",
+      "importExportDescription": "Choose whether to bring documents in from a JSON file or download the current page of results.",
+      "importExportTooltip": "Import or export collection data",
+      "importExportImportHint": "JSON array, object, or NDJSON file",
+      "importExportExportHint": "Spreadsheet (XLSX or CSV)",
+      "schema": "Schema",
+      "indexes": "Indexes"
+    },
+    "tabs": {
+      "filterActive": "Активный фильтр применён",
+      "filterActiveTooltip": "Фильтр активен",
+      "closeAll": "Закрыть все"
+    },
+    "query": {
+      "migrateHistory": "История запросов перенесена в облако",
+      "saveHistoryFail": "Не удалось сохранить историю запросов",
+      "deleteQueryFail": "Не удалось удалить запрос",
+      "invalidJsonQuery": "Некорректный JSON-запрос",
+      "placeholder": "напр. { \"status\": \"active\" }",
+      "clearQuery": "Очистить запрос",
+      "openAdvanced": "Открыть расширенный редактор",
+      "visualBuilder": "Визуальный конструктор запросов",
+      "filterRules": "Правила фильтрации",
+      "addRule": "Добавить правило",
+      "noFilters": "Фильтры не применены. Добавьте правило для фильтрации документов.",
+      "where": "ГДЕ",
+      "and": "И",
+      "fieldPlaceholder": "Поле",
+      "opPlaceholder": "Оп.",
+      "typePlaceholder": "Тип",
+      "opRegex": "Regex",
+      "opIn": "В списке",
+      "opNin": "Не в списке",
+      "opExists": "Существует",
+      "typeAuto": "Авто",
+      "typeString": "Строка",
+      "typeNumber": "Число",
+      "typeBoolean": "Логический",
+      "typeDate": "Дата",
+      "typeObjectId": "ObjectId",
+      "true": "Истина",
+      "false": "Ложь",
+      "valuePlaceholder": "Значение",
+      "valueListPlaceholder": "значение1, значение2",
+      "clearFilters": "Очистить фильтры",
+      "applyFilters": "Применить фильтры",
+      "queryHistory": "История запросов",
+      "noSavedQueries": "Сохранённых запросов пока нет",
+      "advancedEditorTitle": "Расширенный редактор запросов",
+      "templatesPlaceholder": "Шаблоны",
+      "templateEmptyAgg": "Пустая агрегация",
+      "templateMatch": "$match (Фильтрация)",
+      "templateLookup": "$lookup (Соединение)",
+      "templateGroup": "$group (Подсчёт/Сумма)",
+      "format": "Формат",
+      "formattedJson": "Форматированный JSON",
+      "runQuery": "Выполнить запрос"
+    },
+    "export": {
+      "selectFieldsError": "Пожалуйста, выберите хотя бы одно поле для экспорта",
+      "success": "Успешно экспортировано в {filename}",
+      "fail": "Не удалось экспортировать данные",
+      "title": "Экспорт данных",
+      "formatLabel": "Формат экспорта",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Выберите поля",
+      "selectAll": "Выбрать все",
+      "fieldsSelected": "{count, plural, one {# поле выбрано} few {# поля выбрано} other {# полей выбрано}}",
+      "cancel": "Отмена",
+      "export": "Экспорт",
+      "sheetName": "Данные"
+    },
+    "jsonTree": {
+      "typeLabel": "Тип: {type}",
+      "itemSummary": "{count, plural, one {# элемент} few {# элемента} other {# элементов}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Новый запрос",
+      "importedRequest": "Импортированный запрос",
+      "untitledRequest": "Запрос без названия"
+    },
+    "toasts": {
+      "curlImported": "cURL успешно импортирован",
+      "curlParseFailed": "Не удалось разобрать команду cURL",
+      "invalidJsonBody": "Некорректное тело JSON",
+      "requestFailed": "Запрос не выполнен: {message}",
+      "curlPasted": "cURL вставлен и успешно разобран",
+      "responseCopied": "Ответ скопирован в буфер обмена",
+      "codeCopied": "Код скопирован в буфер обмена",
+      "copyFailed": "Не удалось скопировать в буфер обмена"
+    },
+    "layout": {
+      "collections": "Коллекции",
+      "closeSidebar": "Закрыть боковую панель",
+      "openSidebar": "Открыть боковую панель",
+      "request": "Request",
+      "response": "Response"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Метод",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "Отправка...",
+      "send": "Отправить",
+      "invalidJsonBodyHelp": "Невозможно отправить: тело JSON недействительно"
+    },
+    "requestTabs": {
+      "params": "Параметры",
+      "headers": "Заголовки",
+      "body": "Тело",
+      "auth": "Авторизация",
+      "bodyType": "Тип тела",
+      "selectType": "Выберите тип",
+      "bodyNone": "Нет",
+      "bodyJson": "JSON",
+      "bodyText": "Текст",
+      "noBodyHint": "В этом запросе нет тела",
+      "switchToJson": "Переключить на JSON-тело",
+      "authType": "Тип авторизации",
+      "noAuth": "Без авторизации",
+      "bearerToken": "Bearer-токен",
+      "basicAuth": "Basic-авторизация",
+      "apiKey": "API-ключ",
+      "labelToken": "Токен",
+      "placeholderBearerToken": "Bearer-токен",
+      "labelUsername": "Имя пользователя",
+      "placeholderUsername": "Имя пользователя",
+      "labelPassword": "Пароль",
+      "placeholderPassword": "Пароль",
+      "labelKey": "Ключ",
+      "placeholderApiKeyName": "Имя ключа (напр. X-Api-Key)",
+      "labelValue": "Значение",
+      "placeholderValue": "Значение",
+      "addTo": "Добавить в",
+      "header": "Заголовок",
+      "queryParams": "Параметры запроса",
+      "noAuthHint": "Этот запрос не использует авторизацию."
+    },
+    "responsePanel": {
+      "emptyTitle": "Готовы к работе?",
+      "emptyHint": "Введите URL и нажмите «Отправить», чтобы увидеть ответ.",
+      "responsePreviewAlt": "Предпросмотр ответа",
+      "previewUnavailable": "Предпросмотр недоступен для этого типа контента",
+      "status": "Статус",
+      "time": "Время",
+      "size": "Размер",
+      "copyBody": "Копировать тело",
+      "downloadResponse": "Скачать ответ",
+      "bodyTab": "Тело",
+      "previewTab": "Предпросмотр",
+      "headersTab": "Заголовки",
+      "binaryRawView": "Бинарные данные не могут быть отображены в режиме исходного текста.",
+      "errorStatusLabel": "Ошибка",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
+    },
+    "tabBar": {
+      "addTabAria": "Новая вкладка"
+    },
+    "collectionsSidebar": {
+      "title": "API-ресурсы",
+      "newCollection": "Новая коллекция",
+      "tabCollections": "Коллекции",
+      "tabHistory": "История",
+      "noCollectionsTitle": "Нет коллекций",
+      "noCollectionsHint": "Создайте коллекцию для организации API-запросов.",
+      "createCollection": "Создать коллекцию",
+      "newFolder": "Новая папка",
+      "rename": "Переименовать",
+      "delete": "Удалить",
+      "emptyCollection": "Пустая коллекция",
+      "recentRequests": "Недавние запросы",
+      "clearAll": "Очистить все",
+      "noHistoryTitle": "Истории пока нет",
+      "noHistoryHint": "Отправьте запрос, чтобы он появился здесь.",
+      "dialogNewFolderTitle": "Новая папка",
+      "dialogNewFolderDescription": "Создайте новую папку для организации запросов.",
+      "labelFolderName": "Название папки",
+      "placeholderFolderName": "Моя папка",
+      "createFolder": "Создать папку",
+      "dialogNewCollectionTitle": "Новая коллекция",
+      "dialogNewCollectionDescription": "Создайте новую коллекцию верхнего уровня.",
+      "labelCollectionName": "Название коллекции",
+      "placeholderCollectionName": "Моя коллекция",
+      "dialogRenameCollectionTitle": "Переименовать коллекцию",
+      "dialogRenameCollectionDescription": "Введите новое имя для коллекции.",
+      "placeholderRenameCollection": "Название коллекции",
+      "renameAction": "Переименовать",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
+    },
+    "collectionItem": {
+      "newFolder": "Новая папка",
+      "delete": "Удалить",
+      "emptyFolder": "Пустая папка"
+    },
+    "environmentManager": {
+      "noEnvironment": "Нет окружения",
+      "manageDialogTitle": "Управление окружениями",
+      "placeholderNewEnv": "Новое окружение",
+      "variablesHeading": "Переменные {name}",
+      "addVariable": "Добавить переменную",
+      "columnVariable": "Переменная",
+      "columnValue": "Значение",
+      "placeholderKey": "Ключ",
+      "placeholderValue": "Значение",
+      "selectEnvToEdit": "Выберите окружение для редактирования"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Сгенерировать код",
+      "dialogTitle": "Сгенерировать код",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Копировать",
+      "errorGenerating": "Ошибка генерации кода"
+    },
+    "keyValueEditor": {
+      "columnKey": "Ключ",
+      "columnValue": "Значение",
+      "placeholderKey": "Ключ",
+      "placeholderValue": "Значение",
+      "addItem": "Добавить элемент"
+    },
+    "importCurl": {
+      "trigger": "Импорт cURL",
+      "dialogTitle": "Импорт cURL",
+      "dialogDescription": "Вставьте команду cURL для импорта в виде нового запроса.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "Импорт"
+    },
+    "saveRequest": {
+      "trigger": "Сохранить",
+      "dialogTitle": "Сохранить запрос",
+      "dialogDescription": "Сохраните этот запрос в папку коллекции.",
+      "labelName": "Название запроса",
+      "placeholderName": "Мой запрос",
+      "labelFolder": "Папка",
+      "placeholderFolder": "Выберите папку",
+      "save": "Сохранить"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Режим редактирования",
+      "viewOnlyMode": "Режим просмотра",
+      "insertComponent": "Вставить компонент",
+      "addUnorderedList": "Маркированный список",
+      "addOrderedList": "Нумерованный список",
+      "addTable": "Добавить таблицу"
+    },
+    "addBlock": "Добавить блок",
+    "media": {
+      "popoverTitle": "Добавить медиа",
+      "singleImage": "Одно изображение",
+      "singleImageDesc": "Загрузить одно изображение",
+      "multipleImages": "Несколько изображений",
+      "multipleImagesDesc": "Загрузить сетку изображений",
+      "video": "Видео",
+      "videoDesc": "Загрузить видеофайл",
+      "uploadingAlt": "Загрузка...",
+      "uploadFailedAlt": "Загрузка не удалась"
+    },
+    "export": {
+      "fabAria": "Экспорт кода",
+      "title": "Экспорт кода",
+      "description": "Скопируйте HTML или JSON вашего контента",
+      "preview": "Предпросмотр",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Параметры предпросмотра",
+      "enhanceSpaces": "Улучшить отступы",
+      "livePreview": "Предпросмотр отрендеренного HTML",
+      "htmlTailwind": "HTML с классами Tailwind CSS",
+      "editorJson": "Состояние редактора в JSON",
+      "copyHtml": "Копировать HTML",
+      "copyJson": "Копировать JSON",
+      "copied": "Скопировано!"
+    },
+    "template": {
+      "fabTitle": "Сменить шаблон",
+      "title": "Выберите шаблон",
+      "description": "Выберите шаблон для быстрого старта с готовыми макетами и контентом",
+      "catAll": "Все шаблоны",
+      "catProductivity": "Продуктивность",
+      "catCreative": "Творчество",
+      "catBusiness": "Бизнес",
+      "catPersonal": "Личное",
+      "noTemplates": "Шаблоны в этой категории не найдены",
+      "confirmTitle": "Заменить существующий контент?",
+      "confirmDescription": "В редакторе есть существующий контент. Применение этого шаблона заменит весь текущий контент.",
+      "cannotUndo": "Это действие нельзя отменить.",
+      "cancel": "Отмена",
+      "replaceContent": "Заменить контент"
+    },
+    "command": {
+      "searchPlaceholder": "Поиск команд...",
+      "noResults": "Команды не найдены.",
+      "turnInto": "Превратить в",
+      "h1": {
+        "label": "Заголовок 1",
+        "description": "Большой заголовок раздела",
+        "keywords": "h1,заголовок,название,большой"
+      },
+      "h2": {
+        "label": "Заголовок 2",
+        "description": "Средний заголовок раздела",
+        "keywords": "h2,заголовок,подзаголовок"
+      },
+      "h3": {
+        "label": "Заголовок 3",
+        "description": "Маленький заголовок раздела",
+        "keywords": "h3,заголовок,подзаголовок"
+      },
+      "h4": {
+        "label": "Заголовок 4",
+        "description": "Мелкий заголовок раздела",
+        "keywords": "h4,заголовок"
+      },
+      "h5": {
+        "label": "Заголовок 5",
+        "description": "Уменьшенный заголовок",
+        "keywords": "h5,заголовок"
+      },
+      "h6": {
+        "label": "Заголовок 6",
+        "description": "Наименьший заголовок",
+        "keywords": "h6,заголовок"
+      },
+      "p": {
+        "label": "Параграф",
+        "description": "Обычный текстовый абзац",
+        "keywords": "p,параграф,текст,обычный"
+      },
+      "code": {
+        "label": "Блок кода",
+        "description": "Фрагмент кода",
+        "keywords": "код,блоккода,фрагмент,pre"
+      },
+      "blockquote": {
+        "label": "Цитата",
+        "description": "Блочная цитата",
+        "keywords": "цитата,блокцитата,цитирование"
+      },
+      "li": {
+        "label": "Маркированный список",
+        "description": "Элемент списка с маркером",
+        "keywords": "список,маркер,ненумерованный,ul,li"
+      },
+      "ol": {
+        "label": "Нумерованный список",
+        "description": "Элемент нумерованного списка",
+        "keywords": "список,нумерованный,упорядоченный,ol,li"
+      },
+      "img": {
+        "label": "Изображение",
+        "description": "Загрузить или вставить изображение",
+        "keywords": "изображение,img,картинка,фото,загрузка"
+      },
+      "video": {
+        "label": "Видео",
+        "description": "Загрузить или вставить видео",
+        "keywords": "видео,vid,ролик,mp4,загрузка"
+      },
+      "table": {
+        "label": "Таблица",
+        "description": "Создать таблицу",
+        "keywords": "таблица,сетка,строки,столбцы,ячейки"
+      }
+    },
+    "toasts": {
+      "tableImported": "Таблица импортирована",
+      "tableImportedDesc": "Таблица из Markdown успешно импортирована",
+      "mediaPasted": "Медиа вставлено",
+      "pasteMixed": "Вставлено {imageCount} изображений и {videoCount} видео.",
+      "pasteImages": "Вставлено {count} изображений.",
+      "pasteVideos": "Вставлено {count} видео.",
+      "pasteFailed": "Вставка не удалась",
+      "unexpectedError": "Произошла непредвиденная ошибка",
+      "uploadFailed": "Загрузка не удалась"
+    },
+    "blockBackground": {
+      "menuItem": "Изменить цвет фона",
+      "dialogTitle": "Цвет фона блока",
+      "dialogDescription": "Выберите цвет фона для этого блока",
+      "tabPreset": "Предустановленные цвета",
+      "tabCustom": "Свой цвет",
+      "sectionHeading": "Цвета фона",
+      "apply": "Применить",
+      "colors": {
+        "none": "Без цвета",
+        "red": "Красный",
+        "orange": "Оранжевый",
+        "yellow": "Жёлтый",
+        "green": "Зелёный",
+        "blue": "Синий",
+        "indigo": "Индиго",
+        "purple": "Фиолетовый",
+        "pink": "Розовый",
+        "teal": "Бирюзовый",
+        "cyan": "Голубой",
+        "gray": "Серый"
+      }
+    },
+    "tableDialog": {
+      "title": "Создать таблицу",
+      "description": "Создайте новую таблицу или импортируйте из Markdown",
+      "markdownCheckbox": "У меня есть Markdown-таблица",
+      "pasteMarkdownLabel": "Вставьте Markdown-таблицу",
+      "markdownPlaceholder": "| Заголовок 1 | Заголовок 2 | Заголовок 3 |\n|----------|----------|----------|\n| Ячейка 1   | Ячейка 2   | Ячейка 3   |\n| Ячейка 4   | Ячейка 5   | Ячейка 6   |",
+      "markdownHint": "Вставьте Markdown-таблицу выше. Должны быть строки заголовка и разделителя.",
+      "rows": "Строки",
+      "columns": "Столбцы",
+      "maxDimensions": "Максимум: 20 строк × 10 столбцов",
+      "cancel": "Отмена",
+      "importTable": "Импортировать таблицу",
+      "createTable": "Создать таблицу"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Таблица должна содержать хотя бы строку заголовка и строку-разделитель",
+        "pipeFormat": "Строки таблицы должны начинаться и заканчиваться символом |",
+        "headerMinCol": "Строка заголовка должна содержать хотя бы один столбец",
+        "separatorRow": "Вторая строка должна быть разделителем (напр. |---|---|)",
+        "rowColumnMismatch": "Строка {row} содержит {got} столбцов, ожидалось {expected}",
+        "parseFailed": "Не удалось разобрать Markdown-таблицу"
+      }
+    },
+    "link": {
+      "editLink": "Редактировать ссылку",
+      "addLink": "Добавить ссылку",
+      "selectedText": "Выделенный текст: «{text}»",
+      "linkUrl": "URL ссылки",
+      "urlPlaceholder": "https://example.com",
+      "update": "Обновить",
+      "addLinkButton": "Добавить ссылку",
+      "toastApplied": "Ссылка применена",
+      "toastLinkedTo": "Ссылка на: {url}",
+      "toastRemoved": "Ссылка удалена",
+      "toastRemovedDesc": "Ссылка удалена из выделения"
+    },
+    "customClass": {
+      "devMode": "Режим разработчика",
+      "toggleDevModeAria": "Переключить режим разработчика",
+      "searchPlaceholderDev": "Поиск классов... (напр. «text», «bg», «flex»)",
+      "searchPlaceholderUser": "Поиск стилей... (напр. «red», «bold», «shadow»)",
+      "appliesTitle": "Применяет: {className}",
+      "noMatches": "Классы по запросу «{query}» не найдены",
+      "toastClassReplaced": "Класс заменён",
+      "toastClassReplacedDesc": "Заменён «{replaced}» на «{className}»",
+      "toastCustomClassApplied": "Пользовательский класс применён",
+      "toastAppliedClass": "Применён класс: {className}"
+    },
+    "insertComponents": {
+      "title": "Вставить компонент",
+      "description": "Выберите компонент для вставки в документ",
+      "noComponents": "Компоненты недоступны",
+      "categories": {
+        "media": "Медиа",
+        "layout": "Макет",
+        "interactive": "Интерактив",
+        "decoration": "Декорация"
+      },
+      "freeImage": {
+        "name": "Свободное изображение",
+        "description": "Добавьте изображение, которое можно свободно перемещать и масштабировать"
+      }
+    }
+  },
+  "JsonFormatter": {
+    "title": "Форматировщик JSON",
+    "description": "Форматируйте, проверяйте и редактируйте JSON в текстовом и древовидном режимах.",
+    "documentNameText": "Текстовый документ {n}",
+    "documentNameTree": "Древовидный документ {n}",
+    "newDocument": "Новый",
+    "copy": "Копировать",
+    "save": "Сохранить",
+    "load": "Загрузить",
+    "saving": "Сохранение...",
+    "leftDocNameLabel": "Название левого документа",
+    "rightDocNameLabel": "Название правого документа",
+    "toastCopiedText": "Текстовая панель скопирована",
+    "toastCopiedTree": "Панель дерева скопирована",
+    "toastCopyFailed": "Не удалось скопировать JSON",
+    "toastLoginRequired": "Войдите, чтобы сохранять документы",
+    "toastSaved": "Документ сохранён",
+    "toastSaveFailed": "Не удалось сохранить документ",
+    "format": "Форматировать",
+    "compact": "Сжать",
+    "sortKeys": "Сортировать ключи",
+    "repair": "Исправить",
+    "query": "Запрос",
+    "toastInvalidJson": "Недопустимый JSON",
+    "toastAlreadyValid": "JSON уже корректен",
+    "toastRepaired": "JSON исправлен",
+    "toastRepairFailed": "Не удалось исправить JSON"
+  },
+  "JwtDecoder": {
+    "title": "Декодер JWT",
+    "subtitle": "Просматривайте заголовок и payload. Срок действия берётся из claim <code>exp</code>. Ничего не отправляется на сервер; подпись не проверяется.",
+    "tokenLabel": "Токен",
+    "clear": "Очистить",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Копировать",
+    "expiryLabel": "Срок действия (exp)",
+    "signaturePresent": "Подпись присутствует (не проверяется)",
+    "noExp": "В payload нет claim <code>exp</code>.",
+    "status": {
+      "expired": "Истёк",
+      "valid": "Действителен"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Локальное",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Выдано (iat)",
+      "notBefore": "Не ранее (nbf)"
+    },
+    "panels": {
+      "header": "Заголовок",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Вставьте JWT для декодирования.",
+      "segments": "JWT должен содержать как минимум заголовок и payload (два сегмента).",
+      "base64": "Не удалось декодировать заголовок или payload (base64url)."
+    },
+    "relative": {
+      "future": "через {n} {unit}",
+      "past": "{n} {unit} назад"
+    },
+    "units": {
+      "second": "{count, plural, one {секунду} few {секунды} many {секунд} other {секунд}}",
+      "minute": "{count, plural, one {минуту} few {минуты} many {минут} other {минут}}",
+      "hour": "{count, plural, one {час} few {часа} many {часов} other {часов}}",
+      "day": "{count, plural, one {день} few {дня} many {дней} other {дней}}"
+    },
+    "tabs": {
+      "decode": "Декодировать",
+      "sign": "Генератор / подпись"
+    },
+    "signer": {
+      "algLabel": "Алгоритм (alg)",
+      "tabs": {
+        "payload": "Полезная нагрузка",
+        "header": "Заголовок"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Секрет (HS*)",
+      "secretPlaceholder": "Вставьте HMAC-секрет…",
+      "privateKeyLabel": "Закрытый ключ PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Алгоритм \"none\" создает неподписанный токен. Это небезопасно и подходит только для тестов.",
+      "sign": "Подписать",
+      "verify": "Проверить подпись",
+      "outputLabel": "Токен (компактный JWS)",
+      "outputPlaceholder": "Нажмите «Подписать»…",
+      "copyToken": "Скопировать токен",
+      "copied": "Скопировано",
+      "verifyKeyLabel": "Ключ проверки (необязательно)",
+      "verifyKeyPlaceholder": "Для RS*: вставьте публичный ключ (SPKI) PEM. Для HS*: оставьте пустым, чтобы использовать секрет.",
+      "verifyKeyHint": "Если пусто, проверка использует ключ подписи (удобно для HS*).",
+      "verifyStatus": {
+        "valid": "Подпись верна",
+        "invalid": "Подпись неверна"
+      },
+      "securityNote": "Все выполняется локально в браузере; ключи и токены не отправляются."
+    },
+    "signErrors": {
+      "invalidJson": "Заголовок и payload должны быть валидным JSON.",
+      "unsupportedAlg": "Неподдерживаемый алгоритм.",
+      "missingKey": "Для этого алгоритма требуется ключ подписи.",
+      "cryptoFailed": "Не удалось подписать. Проверьте формат ключа и попробуйте снова."
+    },
+    "verifyErrors": {
+      "empty": "Введите JWT для проверки.",
+      "segments": "JWT должен содержать ровно 3 сегмента для проверки подписи.",
+      "unsupportedAlg": "Неподдерживаемый или отсутствующий alg в заголовке.",
+      "missingKey": "Для этого алгоритма требуется ключ проверки.",
+      "base64": "Не удалось декодировать заголовок или подпись JWT.",
+      "cryptoFailed": "Проверка не удалась. Проверьте формат ключа и попробуйте снова."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Декодер сертификата / PEM",
+    "subtitle": "Вставьте сертификат X.509 (<code>-----BEGIN CERTIFICATE-----</code>) или CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Субъект, издатель, даты и SAN разбираются локально; ничего не отправляется.",
+    "pemLabel": "Ввод PEM",
+    "clear": "Очистить",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Разбор…",
+    "copyHex": "Копировать отпечаток (hex без двоеточий)",
+    "errors": {
+      "empty": "Вставьте PEM-сертификат или CSR для декодирования.",
+      "noBlock": "Не найден PEM-блок сертификата или CSR.",
+      "parseFailed": "Не удалось разобрать эти PEM-данные."
+    },
+    "block": {
+      "title": "PEM-блок {index}",
+      "certificate": "Сертификат X.509",
+      "csr": "Запрос на подпись сертификата"
+    },
+    "fields": {
+      "subject": "Субъект",
+      "issuer": "Издатель",
+      "notBefore": "Не действителен до",
+      "notAfter": "Не действителен после",
+      "serial": "Серийный номер (hex)",
+      "sha256": "Отпечаток SHA-256",
+      "sans": "Альтернативные имена субъекта",
+      "sansNone": "Расширение SAN отсутствует.",
+      "signatureAlgorithm": "Алгоритм подписи",
+      "csrIssuerNote": "В CSR нет издателя (он указывается в выданном сертификате).",
+      "csrValidityNote": "В CSR нет сроков действия (они указываются в выданном сертификате)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Отличительное имя",
+      "email": "Почта",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Зарегистрированный ID",
+      "other": "{type}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Форматтер SQL",
+    "subtitle": "Форматируйте SQL для MySQL, PostgreSQL или SQLite. Работает в браузере; ничего не загружается.",
+    "dialectLabel": "Диалект",
+    "keywordsLabel": "Ключевые слова",
+    "indentLabel": "Отступ",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "ВЕРХНИЙ РЕГИСТР",
+      "lower": "нижний регистр",
+      "preserve": "Сохранить"
+    },
+    "spaces": "{n} пробела(ов)",
+    "format": "Форматировать",
+    "clear": "Очистить",
+    "counter": "{current} / {max} символов",
+    "inputPanel": "Ввод",
+    "formattedPanel": "Форматировано",
+    "copy": "Копировать",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Нажмите «Форматировать»…",
+    "errors": {
+      "tooLong": "Ввод ограничен {max} символами.",
+      "couldNotFormat": "Не удалось отформатировать этот SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Форматировщик YAML",
+    "subtitle": "Форматируйте, проверяйте и конвертируйте YAML в браузере. Ничего не загружается.",
+    "outputLabel": "Вывод",
+    "outputModes": {
+      "yaml": "YAML (форматированный)",
+      "json": "JSON"
+    },
+    "indentLabel": "Отступ",
+    "spaces": "{n} пробела",
+    "format": "Форматировать",
+    "clear": "Очистить",
+    "copy": "Копировать",
+    "counter": "{current} / {max} символов",
+    "inputPanel": "Ввод",
+    "outputPanel": "Вывод",
+    "errors": {
+      "tooLong": "Ввод ограничен {max} символами.",
+      "couldNotFormat": "Не удалось разобрать этот YAML."
+    }
+  },
+  "GraphqlFormatter": {
+    "title": "Форматтер GraphQL",
+    "subtitle": "Форматируйте запросы, мутации и подписки GraphQL в браузере. Ничего не загружается.",
+    "tabs": {
+      "format": "Форматировать",
+      "build": "Конструктор запроса"
+    },
+    "outputModeLabel": "Вывод",
+    "outputModes": {
+      "pretty": "Читаемая печать",
+      "minify": "Минификация"
+    },
+    "format": "Форматировать",
+    "clear": "Очистить",
+    "counter": "{current} / {max} символов",
+    "inputPanel": "Ввод",
+    "outputPanel": "Вывод",
+    "copy": "Копировать",
+    "builderHint": "Соберите каркас документа и примените к редактору. Определения переменных в синтаксисе GraphQL (напр. $id: ID!) — скобки необязательны.",
+    "builder": {
+      "operation": "Операция",
+      "operationName": "Имя операции",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Определения переменных",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Набор полей",
+      "apply": "Вставить во ввод",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Ввод ограничен {max} символами.",
+      "couldNotFormat": "Не удалось разобрать или вывести этот GraphQL.",
+      "emptySelection": "Добавьте набор полей перед применением."
+    }
+  },
+  "RegexTester": {
+    "title": "Тестер regex",
+    "subtitle": "Регулярные выражения в стиле JavaScript в реальном времени. Совпадения подсвечиваются; ничего не покидает браузер.",
+    "patternLabel": "Шаблон",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g глобально",
+      "i": "i без учёта регистра",
+      "m": "m многострочный",
+      "s": "s dotAll",
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
+    },
+    "emptyPattern": "(пусто)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {совпадение} few {совпадения} many {совпадений} other {совпадений}}",
+    "testTextLabel": "Тестовый текст",
+    "counter": "{current} / {max}",
+    "clear": "Очистить",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Текст ограничен {max} символами.",
+      "invalid": "Некорректное регулярное выражение.",
+      "runaway": "Остановлено после {max} совпадений (возможный “разбежавшийся” шаблон)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
+    }
+  },
+  "TimestampConverter": {
+    "title": "Конвертер временных меток",
+    "subtitle": "Unix-секунды (≤10 цифр) или миллисекунды (более длинные числа), <code>ISO-8601</code> или строки, которые может разобрать браузер. Всё выполняется локально.",
+    "inputLabel": "Ввод",
+    "placeholder": "1744200000 или 2025-04-09T12:00:00Z",
+    "now": "Сейчас",
+    "copy": "Копировать",
+    "hint": "Вставьте значение или нажмите <strong>Сейчас</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Относительно",
+      "human": "Человекочитаемо"
+    },
+    "fields": {
+      "seconds": "Секунды",
+      "milliseconds": "Миллисекунды",
+      "utc": "UTC",
+      "local": "Локально",
+      "distance": "Разница"
+    },
+    "errors": {
+      "empty": "Введите Unix-метку времени, ISO-строку или текст даты.",
+      "invalidNumber": "Некорректная числовая метка времени.",
+      "outOfRange": "Вне диапазона для JavaScript Date.",
+      "couldNotParse": "Не удалось распознать как Unix, ISO-8601 или строку даты браузера."
+    }
+  },
+  "HttpStatusCodes": {
+    "title": "Коды состояния HTTP",
+    "subtitle": "Поиск и справочник кодов состояния ответов HTTP (<code>1xx</code>–<code>5xx</code>) с краткими описаниями и ссылками на RFC. Работает локально.",
+    "header": {
+      "title": "Коды состояния HTTP",
+      "description": "Справочник с поиском по кодам ответов HTTP с описаниями и ссылками на RFC."
+    },
+    "searchPlaceholder": "Поиск: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Фильтр класса…",
+    "classFilterAll": "Все классы",
+    "resultsCount": "{count} из {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Фраза",
+      "description": "Описание",
+      "copy": "Копировать"
+    },
+    "noResults": "Нет совпадений для «{query}».",
+    "specPrefix": "Спец.:",
+    "copied": "Код скопирован"
+  },
+  "CronBuilder": {
+    "title": "Конструктор cron-выражений",
+    "subtitle": "Стандартный cron из 5 полей: <mono>minute hour day month weekday</mono>. Парсер использует seconds=<code>0</code> внутри. Опциональный формат из 6 полей (<mono>sec min hour dom mon dow</mono>) работает в редакторе.",
+    "tabs": {
+      "builder": "Визуальный конструктор",
+      "expression": "Выражение"
+    },
+    "presetsLabel": "Пресеты",
+    "fieldsLabel": "Поля",
+    "rawExpressionLabel": "Сырое выражение",
+    "expressionHint": "Уберите фокус, чтобы разобрать и синхронизировать конструктор. {count} {count, plural, one {токен} few {токена} many {токенов} other {токенов}}.",
+    "currentExpressionLabel": "Текущее выражение",
+    "copy": "Копировать",
+    "quickPick": "Быстрый выбор",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Естественный язык",
+    "nextRunsLabel": "Следующие запуски (местное время)",
+    "fields": {
+      "minute": "Минуты",
+      "hour": "Часы",
+      "dayOfMonth": "День месяца",
+      "month": "Месяц",
+      "dayOfWeek": "День недели"
+    },
+    "presets": {
+      "everyMinute": "Каждую минуту",
+      "every5Minutes": "Каждые 5 минут",
+      "every15Minutes": "Каждые 15 минут",
+      "everyHour": "Каждый час (в :00)",
+      "every6Hours": "Каждые 6 часов",
+      "dailyMidnight": "Ежедневно в полночь",
+      "daily0900": "Ежедневно в 09:00",
+      "weekdays0900": "По будням в 09:00",
+      "weeklySunday": "Еженедельно (вс 00:00)",
+      "monthlyFirst": "Ежемесячно (1-е 00:00)",
+      "yearlyJan1": "Ежегодно (1 янв 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "каждую минуту"
+      },
+      "hour": {
+        "every": "каждый час"
+      },
+      "dom": {
+        "any": "любой день",
+        "last": "последний день"
+      },
+      "month": {
+        "every": "каждый месяц"
+      },
+      "dow": {
+        "any": "любой день",
+        "weekdays": "будни",
+        "weekend": "выходные"
+      }
+    },
+    "months": {
+      "jan": "янв",
+      "feb": "фев",
+      "mar": "мар",
+      "apr": "апр",
+      "may": "май",
+      "jun": "июн",
+      "jul": "июл",
+      "aug": "авг",
+      "sep": "сен",
+      "oct": "окт",
+      "nov": "ноя",
+      "dec": "дек"
+    },
+    "weekdays": {
+      "sun": "вс",
+      "mon": "пн",
+      "tue": "вт",
+      "wed": "ср",
+      "thu": "чт",
+      "fri": "пт",
+      "sat": "сб"
+    },
+    "errors": {
+      "fieldCount": "Ожидается 5 полей (minute hour day month weekday) или 6 с секундами.",
+      "invalid": "Некорректное cron-выражение."
+    }
+  },
+  "Base64": {
+    "title": "Base64 кодирование / декодирование",
+    "subtitle": "Кодируйте текст в Base64 или декодируйте строки Base64",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "modes": {
+      "encode": "Кодировать",
+      "decode": "Декодировать"
+    },
+    "swapTitle": "Поменять местами ввод и вывод",
+    "panels": {
+      "plainText": "Текст",
+      "base64Input": "Ввод Base64",
+      "base64Output": "Вывод Base64",
+      "decodedText": "Декодированный текст"
+    },
+    "placeholders": {
+      "encode": "Введите текст для кодирования в Base64…",
+      "decode": "Вставьте Base64 для декодирования…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "download": {
+      "title": "Скачать результат",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Скопировать в буфер обмена",
+    "outputPlaceholder": "Результат появится здесь…",
+    "errors": {
+      "invalidBase64": "Некорректная строка Base64. Проверьте ввод.",
+      "encodeFailed": "Не удалось закодировать ввод."
+    }
+  },
+  "UrlEncode": {
+    "title": "URL кодирование / декодирование",
+    "subtitle": "Процентное кодирование/декодирование через encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "modes": {
+      "encode": "Кодировать",
+      "decode": "Декодировать"
+    },
+    "swapTitle": "Поменять местами ввод и вывод",
+    "panels": {
+      "plainText": "Текст",
+      "encodedInput": "Кодированный ввод",
+      "encodedOutput": "Кодированный вывод",
+      "decodedText": "Декодированный текст"
+    },
+    "placeholders": {
+      "encode": "Введите текст для percent-encoding…",
+      "decode": "Вставьте percent-encoded текст для декодирования…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "download": {
+      "title": "Скачать результат",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Скопировать в буфер обмена",
+    "outputPlaceholder": "Результат появится здесь…",
+    "errors": {
+      "invalidEncoding": "Некорректное percent-encoding. Проверьте неполные пары % или escape-последовательности.",
+      "encodeFailed": "Не удалось закодировать (некорректный Unicode во вводе)."
+    }
+  },
+  "UrlParser": {
+    "title": "URL-парсер",
+    "subtitle": "Разберите URL на протокол, хост, путь, параметры запроса и хэш (фрагмент).",
+    "upload": "Загрузить",
+    "clear": "Очистить",
+    "panels": {
+      "input": "Ввод URL",
+      "output": "Результат"
+    },
+    "placeholders": {
+      "input": "Вставьте URL (например, https://example.com/path?foo=bar#section) или хост/путь (например, example.com/path)…"
+    },
+    "dropHere": "Перетащите файл сюда",
+    "charCount": "{count} символов",
+    "outputPlaceholder": "Разобранные компоненты появятся здесь…",
+    "fields": {
+      "protocol": "Протокол",
+      "host": "Хост",
+      "path": "Путь",
+      "hash": "Хэш",
+      "queryParams": "Параметры запроса"
+    },
+    "paramCount": "{count} параметров",
+    "noParams": "Параметров запроса нет.",
+    "paramKey": "Ключ",
+    "paramValue": "Значение",
+    "copyTitle": "Скопировать в буфер обмена",
+    "copyParamTitle": "Скопировать как key=value",
+    "download": {
+      "title": "Скачать JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Некорректный URL. Укажите hostname (example.com) и проверьте символы."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Генератор UUID / ULID",
+    "subtitle": "Генерируйте UUID (RFC 9562) или ULID в браузере. Пакетный экспорт до {max} за запуск.",
+    "format": "Формат",
+    "kindHints": {
+      "ulid": "Сортируемый, безопасный для URL идентификатор из 26 символов",
+      "uuid4": "Случайный (RFC 9562)",
+      "uuid7": "Упорядочен по времени, Unix мс + случайность",
+      "uuid1": "MAC/время (RFC 9562)",
+      "uuid6": "Переупорядоченное григорианское время",
+      "uuid3": "MD5‑хеш имени + пространства имён",
+      "uuid5": "SHA‑1‑хеш имени + пространства имён",
+      "nil": "Нулевой UUID (все нули, RFC 9562)"
+    },
+    "countLabel": "Количество (1–{max})",
+    "nameLabel": "Имя (входная строка)",
+    "namePlaceholder": "например my.app/resource",
+    "bulkHint": "В пакетном режиме добавляются <code>#0</code>, <code>#1</code>, … чтобы каждый ID был уникален (v3/v5 детерминированы).",
+    "namespace": "Пространство имён",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Свой UUID"
+    },
+    "customNamespaceLabel": "UUID пространства имён",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Сгенерировать",
+    "output": "Вывод",
+    "lines": "{count} строк",
+    "download": {
+      "title": "Скачать .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Копировать всё",
+    "uppercaseToggle": "Вывод заглавными буквами",
+    "hyphensToggle": "Показывать дефисы",
+    "copyJsonTitle": "Копировать как массив JSON",
+    "outputPlaceholder": "Нажмите «Сгенерировать»…",
+    "errors": {
+      "invalidCustomNamespace": "Пользовательское пространство имён должно быть валидным UUID.",
+      "missingName": "Имя обязательно для UUID v3 и v5.",
+      "unknown": "Не удалось сгенерировать идентификаторы."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Генератор секрета / ключа API",
+    "subtitle": "Создавайте криптографически случайные строки с настраиваемой длиной и алфавитом. Массовый экспорт до {max} за запуск. Дополняет <uuid>генератор UUID / ULID</uuid>.",
+    "alphabetLabel": "Алфавит",
+    "alphabetHint": "Дубликаты символов удаляются. Каждый символ выбирается равномерно через crypto.getRandomValues и отбор с отбраковкой (без модулярного смещения).",
+    "alphabetCount": "Уникальных символов: {count}",
+    "presetsLabel": "Пресеты",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Буквы и цифры",
+      "hex": "Шестнадцатеричный (строчные)",
+      "asciiPrintable": "Печатаемый ASCII"
+    },
+    "lengthLabel": "Длина одного секрета (1–{maxLen})",
+    "countLabel": "Количество (1–{maxBulk})",
+    "generate": "Сгенерировать",
+    "output": "Вывод",
+    "lines": "{count} строк",
+    "download": {
+      "title": "Скачать .txt",
+      "filename": "secrets.txt"
+    },
+    "copyTitle": "Копировать всё",
+    "outputPlaceholder": "Нажмите «Сгенерировать»…",
+    "entropy": "{bits} бит энтропии",
+    "strength": {
+      "weak": "Слабый",
+      "fair": "Средний",
+      "strong": "Сильный"
+    },
+    "excludeAmbiguous": "Исключить неоднозначные символы",
+    "excludeAmbiguousHint": "Удаляет {chars} — символы, которые легко перепутать или которые опасны для shell.",
+    "prefixLabel": "Префикс ключа (необязательно)",
+    "errors": {
+      "emptyAlphabet": "Добавьте в алфавит хотя бы один символ.",
+      "alphabetTooLong": "После удаления дубликатов в алфавите может быть не больше {maxAlpha} символов.",
+      "lengthOutOfRange": "Длина должна быть от 1 до {maxLen}.",
+      "countOutOfRange": "Количество должно быть от 1 до {maxBulk}.",
+      "unknown": "Не удалось сгенерировать секреты."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Генератор Lorem Ipsum",
+    "subtitle": "Генерируйте замещающий латинский текст для ваших макетов и прототипов.",
+    "paragraphs": "Абзацы",
+    "sentences": "Предложения",
+    "words": "Слова",
+    "count": "Количество",
+    "generate": "Сгенерировать",
+    "copy": "Копировать",
+    "startWith": "Начать с 'Lorem ipsum...'",
+    "outputPlaceholder": "Результат появится здесь...",
+    "outputType": "Тип вывода",
+    "bulletList": "Маркированный список",
+    "htmlMarkup": "HTML-разметка",
+    "htmlMarkupHint": "Обернуть вывод в абзацы или использовать список для режима маркеров",
+    "output": "Вывод",
+    "download": "Скачать"
+  },
+  "ColorPicker": {
+    "title": "Выбор и конвертер цветов",
+    "subtitle": "Конвертируйте HEX, RGB и HSL; создавайте гармоничные палитры. Вся обработка выполняется в браузере.",
+    "nativePicker": "Встроенный выбор цвета",
+    "chooseColor": "Выберите цвет",
+    "eyeDropper": "Пипетка",
+    "invalidHex": "Неверный цвет HEX.",
+    "cssValues": "CSS-значения",
+    "palettes": "Палитры",
+    "copied": "Скопировано",
+    "clickToCopy": "Нажмите для копирования",
+    "copyAllHex": "Копировать все HEX",
+    "copy": "Копировать",
+    "copyColor": "Копировать {color}",
+    "paletteShades": "Оттенки",
+    "paletteComplementary": "Дополнительный",
+    "paletteTriadic": "Триадический",
+    "paletteAnalogous": "Аналогичный",
+    "paletteSplit": "Разделённый доп.",
+    "paletteSquare": "Квадратный"
+  },
+  "ContrastChecker": {
+    "title": "Проверка контраста",
+    "subtitle": "Считает коэффициент контраста WCAG 2.1 между передним планом и фоном. Показывает AA и AAA для обычного и крупного текста. Всё в браузере.",
+    "foreground": "Текст / передний план",
+    "background": "Фон",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Поменять цвета местами",
+    "chooseForeground": "Выбрать цвет переднего плана",
+    "chooseBackground": "Выбрать цвет фона",
+    "eyeDropper": "Пипетка",
+    "ratio": "Коэффициент контраста",
+    "copyRatio": "Копировать значение",
+    "copied": "Скопировано",
+    "previewHeading": "Предпросмотр",
+    "previewBody": "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр! Широкая электрификация южных губерний даст мощный толчок подъёму сельского хозяйства.",
+    "previewCaption": "Пример текста обычного размера.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — обычный текст (4,5:1)",
+    "levelAALarge": "AA — крупный текст (3:1)",
+    "levelAAANormal": "AAA — обычный текст (7:1)",
+    "levelAAALarge": "AAA — крупный текст (4,5:1)",
+    "pass": "Соответствует",
+    "fail": "Не соответствует",
+    "invalidHex": "Некорректный цвет HEX.",
+    "largeTextHint": "Крупный текст: от 18 pt обычного или от 14 pt полужирного (по WCAG)."
+  },
+  "DiffChecker": {
+    "title": "Сравнение различий",
+    "subtitle": "Построчное сравнение двух текстов бок о бок. Всё остаётся в вашем браузере.",
+    "rowsCount": "{count} строк",
+    "truncatedWarning": "Показаны первые {max} строк.",
+    "limitExceeded": "Каждая сторона ограничена {max} символами.",
+    "clearBoth": "Очистить оба",
+    "original": "Оригинал",
+    "modified": "Изменённый",
+    "originalPlaceholder": "Вставьте исходный текст…",
+    "modifiedPlaceholder": "Вставьте изменённый текст…",
+    "comparisonLabel": "Сравнение бок о бок",
+    "emptyState": "Введите текст в оба поля для сравнения."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Генератор JSON-схемы",
+    "subtitle": "Вставьте корректный JSON, чтобы сгенерировать JSON-схему или типизированные модели. Всё выполняется в браузере.",
+    "languageLabel": "Язык вывода",
+    "inputLabel": "Ввод JSON",
+    "inputPlaceholder": "Вставьте JSON сюда…",
+    "outputLabel": "Сгенерированный вывод",
+    "outputPlaceholder": "Схема или сгенерированные типы появятся здесь…",
+    "parseError": "Некорректный JSON",
+    "clear": "Очистить",
+    "copy": "Копировать",
+    "copied": "Скопировано в буфер обмена",
+    "copyFailed": "Не удалось скопировать",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON-схема (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    },
+    "editorLoading": "Загрузка редактора…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
+  },
+  "ImageToBase64": {
+    "title": "Изображение в Base64",
+    "subtitle": "Отбросьте изображение, получите URI данных или необработанную строку Base64. Все остается в вашем браузере.",
+    "upload": "Загрузить изображение",
+    "clear": "Прозрачный",
+    "modes": {
+      "dataUri": "URI данных",
+      "rawString": "Необработанная база64"
+    },
+    "panels": {
+      "imageInput": "Ввод изображения",
+      "output": "Вывод Base64"
+    },
+    "dropHere": "Перетащите изображение сюда",
+    "charCount": "{count} символов",
+    "placeholders": {
+      "uploadImage": "Перетащите изображение или нажмите «Загрузить», чтобы начать."
+    },
+    "fileTooLarge": "Файл слишком большой. Обработка может привести к зависанию вашего браузера.",
+    "copyTitle": "Скопировать в буфер обмена",
+    "download": {
+      "title": "Скачать текст",
+      "filename": "изображение-base64.txt"
+    }
+  },
+  "ImageCompressor": {
+    "title": "Сжатие изображений",
+    "subtitle": "Уменьшайте размер JPEG, PNG или WebP локально с настройкой качества — ничего не загружается.",
+    "upload": "Загрузить изображение",
+    "clear": "Очистить",
+    "dropHere": "Перетащите изображение сюда",
+    "placeholders": {
+      "uploadImage": "Перетащите файл или нажмите, чтобы выбрать изображение."
+    },
+    "fileTooLarge": "Файл слишком большой (макс. {maxMb} МБ).",
+    "unsupportedFormat": "Неподдерживаемый тип файла. Используйте JPEG, PNG, WebP, GIF, AVIF или BMP.",
+    "compressFailed": "Не удалось сжать изображение. Попробуйте другой файл или формат.",
+    "panels": {
+      "original": "Исходное",
+      "compressed": "Предпросмотр"
+    },
+    "outputFormat": "Формат вывода",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Качество",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG в браузере без потерь; ползунок качества действует только для JPEG и WebP.",
+    "sizes": {
+      "original": "Исходный: {size}",
+      "compressed": "После сжатия: {size}",
+      "saved": "на {percent}% меньше"
+    },
+    "largerWarning": "Выходной файл больше исходного — смените формат или качество.",
+    "download": "Скачать",
+    "downloadFilename": "сжатое-изображение",
+    "processing": "Сжатие…",
+    "emptyCompressed": "Предпросмотр появится здесь."
+  },
+  "CssGradientBuilder": {
+    "title": "Конструктор CSS-градиентов",
+    "subtitle": "Визуальный конструктор градиентов CSS с контролем угла, остановками цвета и копированием CSS одним щелчком мыши.",
+    "preview": "Предварительный просмотр градиента",
+    "settings": "Настройки",
+    "type": "Тип",
+    "linear": "Линейный",
+    "radial": "Радиальный",
+    "angle": "Угол",
+    "stops": "Цветовые остановки",
+    "color": "Цвет",
+    "position": "Позиция (%)",
+    "addStop": "Добавить остановку",
+    "deleteStop": "Удалить остановку",
+    "output": "CSS-вывод",
+    "copy": "Копировать CSS",
+    "copied": "Скопировано!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Генератор .gitignore",
+    "subtitle": "Мгновенно создавайте объединенные файлы .gitignore для определенного технологического стека или комбинации.",
+    "searchPlaceholder": "Стеки поиска (например, Node, Python, macOS)...",
+    "noResults": "Стеки не найдены.",
+    "selectedStacks": "Выбранные стеки",
+    "output": "Предварительный просмотр вывода",
+    "copy": "Копировать в буфер обмена",
+    "copied": "Скопировано!",
+    "download": "Скачать .gitignore",
+    "downloading": "Загрузка...",
+    "errorFetching": "Не удалось получить список самых популярных пользователей.",
+    "errorGenerating": "Не удалось создать .gitignore из выбранных стеков.",
+    "generating": "Создание...",
+    "emptyState": "Выберите один или несколько стеков технологий для создания вашего .gitignore."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Загрузите CSV или Excel, отредактируйте JSON, затем скачайте CSV или XLSX. Только табличные данные; даты Excel становятся ISO-временными метками в JSON.",
+    "dropTitle": "Перетащите файл CSV или Excel",
+    "dropHint": "Для .xlsx / .xls используется первый лист. В CSV должна быть строка заголовков.",
+    "chooseFile": "Выбрать файл",
+    "jsonLabel": "JSON (массив объектов)",
+    "jsonPlaceholder": "Вставьте JSON-массив объектов или импортируйте CSV / Excel…",
+    "loadSample": "Загрузить пример",
+    "actions": {
+      "format": "Форматировать JSON",
+      "clear": "Очистить",
+      "copy": "Копировать",
+      "copied": "Скопировано",
+      "downloadCsv": "Скачать CSV",
+      "downloadXlsx": "Скачать Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Данные",
+    "toastLoadedCsv": "CSV загружен в редактор",
+    "toastLoadedExcel": "Excel загружен в редактор",
+    "toastFormatted": "JSON отформатирован",
+    "toastExportedCsv": "CSV скачан",
+    "toastExportedXlsx": "Excel скачан",
+    "toastCopied": "Скопировано в буфер",
+    "footnote": "Всё выполняется в браузере. JSON должен быть непустым массивом объектов. Вложенные значения сериализуются в JSON в ячейках CSV.",
+    "errors": {
+      "unsupportedFile": "Используйте файл .csv, .xlsx или .xls.",
+      "parseFailed": "Не удалось разобрать файл.",
+      "invalidJson": "Некорректный JSON",
+      "exportFailed": "Ошибка экспорта",
+      "copyFailed": "Не удалось скопировать"
+    }
+  },
+  "SnippetManager": {
+    "title": "Менеджер фрагментов кода",
+    "subtitle": "Храните сниппеты в браузере или войдите, чтобы синхронизировать их с аккаунтом. Переключайтесь между просмотром и правкой, копируйте в один клик, выбирайте язык или автоопределение и форматируйте JSON, SQL или код, поддерживаемый Monaco.",
+    "snippets": "Сниппеты",
+    "newSnippet": "Новый сниппет",
+    "newSnippetTitle": "Новый сниппет",
+    "defaultSnippetTitle": "Добро пожаловать",
+    "defaultSnippetCode": "// Добро пожаловать в фрагменты кода\n// Попробуйте просмотр и правку, копирование, форматирование и автоязык\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Поиск сниппетов…",
+    "searchAria": "Поиск сниппетов",
+    "emptySearch": "Нет сниппетов по запросу.",
+    "snippetTitle": "Заголовок",
+    "snippetTitlePlaceholder": "Имя сниппета",
+    "language": "Язык",
+    "detectedHint": "Подсветка: {lang}",
+    "badgeAuto": "Авто · {lang}",
+    "modeView": "Просмотр",
+    "modeEdit": "Правка",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "format": "Форматировать",
+    "cancel": "Отмена",
+    "deleteTitle": "Удалить сниппет?",
+    "deleteDescription": "«{title}» будет удалён из этого браузера.",
+    "deleteConfirm": "Удалить",
+    "editorAria": "Редактор кода сниппета",
+    "editorLoading": "Загрузка редактора…",
+    "toastCopied": "Скопировано в буфер",
+    "toastCopyFailed": "Не удалось скопировать",
+    "toastNothingToCopy": "Нечего копировать",
+    "toastFormatted": "Отформатировано",
+    "toastFormatFailed": "Не удалось отформатировать",
+    "toastFormatJsonInvalid": "Неверный JSON — сначала исправьте синтаксис",
+    "toastFormatUnsupported": "Нет форматтера для этого языка — попробуйте JSON или SQL или режим правки",
+    "toastDeleted": "Сниппет удалён",
+    "toastLoadFailed": "Не удалось загрузить сниппеты с сервера.",
+    "toastSyncFailed": "Не удалось синхронизировать с сервером.",
+    "languages": {
+      "auto": "Автоопределение",
+      "plaintext": "Простой текст",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
+    }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "SQL-клиент",
+      "dialogTitle": "SQL-подключения",
+      "mobileSheetTitle": "SQL-проводник",
+      "newTabLabel": "Новая вкладка запроса",
+      "vaultLockedTitle": "Хранилище заблокировано",
+      "vaultLockedDesc": "Разблокируйте хранилище для доступа к сохранённым подключениям.",
+      "heroTitle": "SQL-клиент",
+      "heroDesc": "Подключайтесь к PostgreSQL, MySQL или MariaDB. Учётные данные шифруются в браузере.",
+      "heroAddConnection": "Добавить подключение",
+      "selectTableTitle": "Выберите таблицу или откройте вкладку",
+      "selectTableDesc": "Нажмите на таблицу на боковой панели или используйте ⌘↩.",
+      "toastLoadFail": "Не удалось загрузить подключения."
+    },
+    "connection": {
+      "titleNew": "Новое SQL-подключение",
+      "titleEdit": "Изменить подключение",
+      "labelDbType": "Тип базы данных",
+      "labelName": "Имя подключения",
+      "placeholderName": "Моя рабочая БД",
+      "labelHostPort": "Хост и порт",
+      "labelDatabase": "База данных",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Имя пользователя",
+      "labelPassword": "Пароль",
+      "labelSsl": "Включить SSL / TLS",
+      "sslDesc": "Шифровать подключение к серверу",
+      "securityNote": "Учётные данные шифруются AES-256 в браузере перед сохранением",
+      "btnTest": "Проверить подключение",
+      "btnSave": "Сохранить и подключиться",
+      "btnUpdate": "Обновить",
+      "btnCancelEdit": "Отменить редактирование",
+      "savedConnections": "Сохранённые подключения",
+      "emptySaved": "Сохранённые подключения появятся здесь",
+      "confirmDelete": "Удалить это подключение?",
+      "toastFillFields": "Заполните хост и базу данных перед тестом.",
+      "toastConnectOk": "Подключено! {version}",
+      "toastConnectFail": "Ошибка подключения: {message}",
+      "toastUnlockVault": "Сначала разблокируйте хранилище.",
+      "toastFieldsRequired": "Хост и база данных обязательны.",
+      "toastUpdated": "Подключение обновлено.",
+      "toastSaved": "Подключение сохранено.",
+      "toastSaveFail": "Ошибка сохранения: {message}",
+      "toastDeleted": "Подключение удалено.",
+      "toastDeleteFail": "Не удалось удалить подключение."
+    },
+    "sidebar": {
+      "title": "SQL-проводник",
+      "tooltipAddConnection": "Добавить подключение",
+      "tooltipRefreshSchema": "Обновить схему",
+      "noConnections": "Нет сохранённых подключений",
+      "toastSchemaFail": "Не удалось загрузить схему: {message}"
+    },
+    "editor": {
+      "btnRun": "Выполнить",
+      "executing": "Выполнение запроса…",
+      "emptyTitle": "Выполните запрос для просмотра результатов",
+      "emptyHint": "Нажмите ⌘↩ или кнопку Выполнить",
+      "toastNoConnection": "Нет активного подключения."
+    },
+    "results": {
+      "filterPlaceholder": "Фильтр результатов…",
+      "rowCount": "{count} {count, plural, one {строка} few {строки} other {строк}}",
+      "rowCountFiltered": "{filtered} / {total} строк",
+      "exportCsv": "CSV",
+      "noRows": "Строки не возвращены"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Генератор QR-кодов",
+    "subtitle": "Превратите любой текст или URL в PNG QR-код. Всё обрабатывается локально в браузере.",
+    "contentLabel": "Содержимое",
+    "contentPlaceholder": "https://example.com, обычный текст, строка Wi‑Fi, vCard…",
+    "styleLabel": "Стиль",
+    "dotTypeLabel": "Форма точек",
+    "dotTypeSquare": "Квадрат",
+    "dotTypeDots": "Точки",
+    "dotTypeRounded": "Скруглённые",
+    "dotTypeExtraRounded": "Максимально скруглённые",
+    "dotTypeClassy": "Элегантные",
+    "dotTypeClassyRounded": "Элегантные скруглённые",
+    "cornerSquareLabel": "Угловые квадраты",
+    "cornerSquareDot": "Точка",
+    "cornerSquareSquare": "Квадрат",
+    "cornerSquareExtraRounded": "Максимально скруглённые",
+    "cornerDotLabel": "Угловые точки",
+    "cornerDotDot": "Точка",
+    "cornerDotSquare": "Квадрат",
+    "eccLabel": "Коррекция ошибок",
+    "eccL": "Низкая (~7%)",
+    "eccM": "Средняя (~15%)",
+    "eccQ": "Квартиль (~25%)",
+    "eccH": "Высокая (~30%)",
+    "marginLabel": "Поле (модули)",
+    "widthLabel": "Ширина изображения",
+    "widthEffective": "Рендер {px} px",
+    "darkColor": "Тёмные модули",
+    "lightColor": "Светлые модули",
+    "resetColors": "Сбросить цвета",
+    "logoLabel": "Логотип по центру",
+    "logoMarginLabel": "Отступ",
+    "uploadLogo": "Загрузить изображение",
+    "removeLogo": "Удалить логотип",
+    "downloadPng": "Скачать PNG",
+    "downloadSvg": "Скачать SVG",
+    "copyImage": "Копировать изображение",
+    "copied": "Скопировано",
+    "clear": "Очистить",
+    "previewAlt": "Предпросмотр QR-кода",
+    "emptyHint": "Введите или вставьте текст для предпросмотра.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "Не удалось создать QR-код. Попробуйте короче текст или ниже коррекцию.",
+      "copyUnsupported": "Браузер не поддерживает копирование изображения в буфер.",
+      "copyFailed": "Не удалось скопировать в буфер."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Калькулятор IP / подсети",
+    "subtitle": "Сведения CIDR для IPv4 и IPv6 в браузере—без внешних запросов.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Сеть",
+    "placeholderIpv4": "10.0.0.0/24 или 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 или 2001:db8::1/64",
+    "hintIpv4": "Используйте CIDR (например /24) или IPv4 с маской в точечной нотации.",
+    "hintIpv6": "Укажите длину префикса (например /64). Без неё — /128.",
+    "copyValue": "Копировать значение",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Адрес сети",
+      "netmask": "Маска подсети",
+      "wildcard": "Инвертированная маска",
+      "broadcast": "Широковещание",
+      "firstHost": "Первый хост",
+      "lastHost": "Последний хост",
+      "totalAddresses": "Всего адресов",
+      "usableHosts": "Доступные хосты",
+      "prefixLength": "Длина префикса (бит)",
+      "networkIpv6": "Адрес сети",
+      "lastIpv6": "Последний адрес в диапазоне",
+      "totalAddressesIpv6": "Адресов в подсети"
+    },
+    "usableNote": {
+      "pointToPoint": "/31 point-to-point использует оба адреса как хосты (RFC 3021).",
+      "singleHost": "/32 — один хост."
+    },
+    "ipv6RangeHint": {
+      "normal": "Показан полный математический диапазон; правила маршрутизатора могут отличаться.",
+      "single": "/128 — один адрес.",
+      "full": "/0 охватывает весь IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Неверная сеть IPv4. Попробуйте CIDR или адрес + маску.",
+      "invalidIpv6": "Неверная сеть IPv6. Используйте адрес/префикс, напр. 2001:db8::/48."
+    }
+  },
+  "HashGenerator": {
+    "title": "Генератор хешей",
+    "subtitle": "Контрольные суммы MD5, SHA-1 и SHA-2 для текста или файлов; bcrypt для паролей (текстовый ввод). Всё локально в браузере.",
+    "algorithmLabel": "Алгоритм",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Текст",
+    "modeFile": "Файл",
+    "inputLabelText": "Ввод",
+    "placeholderText": "Введите или вставьте текст…",
+    "chooseFile": "Выбрать файл",
+    "clearFile": "Очистить",
+    "fileHint": "Файлы читаются только в памяти; макс. {maxMb} МБ. Загрузки на сервер нет.",
+    "outputLabel": "Дайджест (hex)",
+    "copyHash": "Копировать дайджест",
+    "copied": "Скопировано",
+    "byteCount": "{count, plural, one {# байт} few {# байта} many {# байт} other {# байт}}",
+    "charCount": "{count, plural, one {# символ} few {# символа} many {# символов} other {# символа}}",
+    "emptyHint": "Введите текст или выберите файл.",
+    "securityNote": "Для новых задач безопасности MD5 и SHA-1 не рекомендуются; используйте SHA-256 или SHA-512.",
+    "errors": {
+      "fileTooLarge": "Файл больше {maxMb} МБ.",
+      "fileReadFailed": "Не удалось прочитать файл."
+    },
+    "bcryptRoundsLabel": "Стоимость (раунды)",
+    "bcryptRoundsHint": "Больше значение — медленнее и устойчивее к перебору. Обычно по умолчанию 10.",
+    "fileTabDisabledTitle": "bcrypt хеширует только пароли из текста, а не произвольные файлы.",
+    "placeholderBcrypt": "Введите или вставьте пароль для хеширования…",
+    "outputLabelBcrypt": "Хеш bcrypt",
+    "copyBcrypt": "Копировать хеш",
+    "emptyHintBcrypt": "Введите пароль для вычисления bcrypt-хеша.",
+    "securityNoteBcrypt": "Каждый результат bcrypt содержит случайную соль; один и тот же пароль даёт разную строку каждый раз. Это нормально. В продакшене используйте высокую стоимость.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "EncryptionPlayground": {
+    "title": "Песочница шифрования",
+    "subtitle": "AES-GCM в браузере: шифруйте в JSON-пакет с паролем или сырым ключом и расшифровывайте локально. Учебный и иногда практичный инструмент — ничего не отправляется.",
+    "tabEncrypt": "Зашифровать",
+    "tabDecrypt": "Расшифровать",
+    "keyModeLabel": "Ключевой материал",
+    "modePassphrase": "Парольная фраза (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Сырой ключ AES (hex или Base64)",
+    "aesBitsLabel": "Длина ключа AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Кодировка сырого ключа",
+    "encodingAuto": "Авто (hex, если похоже на hex, иначе Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Сырой ключ",
+    "rawKeyPlaceholder": "Ключ 32 байта как 64 hex-символа или Base64 для AES-256 (длина зависит от выбранного AES выше).",
+    "rawKeyPlaceholderDecrypt": "Нужно только если в пакете keyDerivation \"none\".",
+    "passphraseLabel": "Парольная фраза",
+    "passphrasePlaceholder": "Пароль используется только в браузере для вывода ключа.",
+    "passphrasePlaceholderDecrypt": "Нужно только если пакет использует PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Итерации PBKDF2",
+    "pbkdf2Hint": "От 10 000 до 2 000 000. Значение по умолчанию как в типичных хранилищах паролей.",
+    "plaintextLabel": "Открытый текст",
+    "plaintextPlaceholder": "Введите или вставьте сообщение для шифрования…",
+    "bundleInputLabel": "Зашифрованный пакет (JSON)",
+    "bundlePlaceholder": "Вставьте JSON из «Зашифровать» (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Зашифрованный пакет",
+    "plaintextOutputLabel": "Открытый текст",
+    "encryptButton": "Зашифровать",
+    "decryptButton": "Расшифровать",
+    "copyBundle": "Копировать JSON",
+    "copyPlaintext": "Копировать открытый текст",
+    "copied": "Скопировано",
+    "emptyBundleHint": "Зашифрованный JSON появится здесь после шифрования.",
+    "emptyDecryptHint": "Расшифрованный текст появится здесь.",
+    "decryptKeyHint": "Используйте сырой ключ, если keyDerivation — \"none\"; парольную фразу при PBKDF2-SHA256. В пакете хранятся соль, итерации, IV и длина AES.",
+    "securityNote": "Ключи и открытый текст не покидают браузер. Для продакшн-секретов используйте специализированные средства.",
+    "errors": {
+      "emptyKey": "Введите сырой ключ, соответствующий размеру AES.",
+      "emptyPassphrase": "Введите парольную фразу.",
+      "badKeyMaterial": "Не удалось прочитать ключ как hex или Base64.",
+      "wrongKeyLength": "Длина ключа не соответствует выбранному AES (16 / 24 / 32 байта).",
+      "invalidJson": "Некорректный JSON.",
+      "invalidBundle": "Этот JSON не является поддерживаемым пакетом шифрования.",
+      "decryptFailed": "Расшифровка не удалась — неверный секрет, повреждённый пакет или параметры.",
+      "encryptFailed": "Шифрование не удалось. Проверьте Web Crypto и ввод."
+    }
+  },
+  "HmacGenerator": {
+    "title": "Генератор HMAC",
+    "subtitle": "Для подписи вебхуков и проверки интеграций API. HMAC-SHA1/256/384/512 в hex или Base64—вычисляется локально в браузере.",
+    "secretLabel": "Секретный ключ",
+    "messageLabel": "Сообщение / полезная нагрузка",
+    "placeholderSecret": "Вставьте секрет подписи…",
+    "placeholderMessage": "Вставьте сырое тело или строку для проверки (часто точные байты тела вебхука).",
+    "algorithmLabel": "Алгоритм HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Формат вывода",
+    "formatHex": "Hex (нижний регистр)",
+    "formatBase64": "Base64",
+    "outputLabel": "Подпись",
+    "copyOutput": "Копировать подпись",
+    "copied": "Скопировано",
+    "byteCountHint": "{count, plural, one {# байт} few {# байта} many {# байт} other {# байта}} (UTF-8)",
+    "emptyHint": "Введите секретный ключ для вычисления HMAC.",
+    "securityNote": "Никогда не делитесь секретом подписи. Эта страница не загружает данные — всё выполняется в браузере.",
+    "errors": {
+      "cryptoFailed": "Не удалось вычислить HMAC. Проверьте поддержку Web Crypto и повторите попытку.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "TotpGenerator": {
+    "title": "Генератор кода TOTP / 2FA",
+    "subtitle": "Вставьте секрет Base32 и получите текущий шестизначный код RFC 6238 (SHA-1, 30 с). Всё локально в браузере—удобно тестировать вход или MFA.",
+    "secretLabel": "Секрет (Base32)",
+    "placeholderSecret": "Вставьте секретный ключ (буквы A–Z и цифры 2–7, как при настройке аутентификатора)…",
+    "codeLabel": "Текущий код",
+    "copyCode": "Копировать код",
+    "copied": "Скопировано",
+    "nextIn": "Обновление через {seconds} с",
+    "standardHint": "Шаг времени 30 с, 6 цифр, HMAC-SHA-1 (совместимо с Google Authenticator).",
+    "digitsLabel": "Цифры",
+    "periodLabel": "Период",
+    "algorithmLabel": "Алгоритм",
+    "periodSeconds": "{seconds} с",
+    "emptyHint": "Вставьте секрет, чтобы получить шестизначный код.",
+    "invalidHint": "Исправьте секрет, чтобы увидеть код.",
+    "securityNote": "Относитесь к секрету как к паролю. Он не покидает браузер; ничего не отправляется.",
+    "importLabel": "Импорт из otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Импорт",
+    "qrSectionTitle": "QR-код подготовки",
+    "qrHint": "Отсканируйте приложением-аутентификатором (Google Authenticator, 1Password, Aegis…), чтобы добавить этот секрет. QR-код кодирует секрет — относитесь к нему как к паролю.",
+    "accountLabel": "Учётная запись",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Издатель (необязательно)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Введите корректный секрет, чтобы сгенерировать QR-код.",
+    "errors": {
+      "invalidSecret": "Недопустимый секрет Base32.",
+      "cryptoFailed": "Не удалось вычислить TOTP. Проверьте поддержку Web Crypto и повторите.",
+      "invalidUri": "Это не действительный otpauth:// TOTP URI.",
+      "unsupportedUri": "Этот URI использует значения, которые инструмент не поддерживает (количество цифр должно быть 6 или 8; период — 15, 30 или 60 с)."
+    }
+  },
+  "MarkdownPreview": {
+    "title": "Просмотр Markdown & HTML",
+    "subtitle": "Живой рендерер Markdown с экспортом HTML и конвертацией HTML → Markdown. Всё работает в вашем браузере.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Ввод Markdown",
+    "htmlInputLabel": "Ввод HTML",
+    "previewLabel": "Предпросмотр",
+    "htmlOutputLabel": "Источник HTML",
+    "mdOutputLabel": "Вывод Markdown",
+    "inputPlaceholder": "# Привет\\n\\nВведите ваш **markdown** здесь…",
+    "htmlInputPlaceholder": "Вставьте ваш HTML сюда…",
+    "copyHtml": "Копировать HTML",
+    "copyMarkdown": "Копировать Markdown",
+    "exportHtml": "Экспорт HTML",
+    "copied": "Скопировано",
+    "charCount": "{count, plural, one {# символ} few {# символа} other {# символов}}",
+    "emptyHint": "Начните вводить Markdown, чтобы увидеть предпросмотр и HTML вывод.",
+    "emptyHintHtmlToMd": "Вставьте HTML для конвертации в Markdown.",
+    "securityNote": "Всё выполняется локально в вашем браузере. Ничего не загружается."
+  },
+  "NumberBaseConverter": {
+    "title": "Конвертер систем счисления",
+    "subtitle": "Перевод целых чисел между основаниями 2–36. Поддержка префиксов 0x / 0b / 0o. Всё локально в браузере.",
+    "inputBaseLabel": "Из основания",
+    "outputBaseLabel": "В основание",
+    "inputLabel": "Входное число",
+    "placeholderInput": "Введите целое число в выбранной входной системе…",
+    "outputLabel": "Результат",
+    "copyOutput": "Копировать результат",
+    "copied": "Скопировано",
+    "swap": "Поменять основания",
+    "byteCountHint": "{count, plural, one {# байт} few {# байта} many {# байт} other {# байта}} (длина UTF-8)",
+    "emptyHint": "Введите число для перевода.",
+    "note": "Цифры выше 9 — буквы A–Z (без учёта регистра). Пробелы и подчёркивания игнорируются.",
+    "errors": {
+      "invalidNumber": "Недопустимое значение для выбранной входной системы."
+    }
+  },
+  "FormatConverter": {
+    "title": "Конвертер форматов",
+    "subtitle": "Конвертируйте между JSON, YAML, TOML и XML в любом направлении. Все 12 комбинаций. Всё работает в вашем браузере.",
+    "fromLabel": "Из",
+    "toLabel": "В",
+    "swap": "Поменять",
+    "swapTitle": "Поменять форматы и использовать вывод как ввод",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "charCount": "{count, plural, one {# символ} few {# символа} other {# символов}}",
+    "emptyHint": "Вставьте или введите данные слева, чтобы увидеть преобразованный вывод.",
+    "localNote": "Всё работает локально в вашем браузере. Ничего не загружается."
+  },
+  "MimeTypeLookup": {
+    "title": "Поиск MIME-типа",
+    "subtitle": "Узнайте MIME-тип (media type) по расширению файла или полному имени файла. Всё работает локально в вашем браузере.",
+    "inputLabel": "Расширение или имя файла",
+    "placeholder": "например .png, package.json, photo.jpeg",
+    "hint": "Совет: вставьте расширение (с точкой или без) или полное имя файла.",
+    "clear": "Очистить",
+    "exampleFilename": "Использовать пример имени файла",
+    "exampleExtension": "Использовать пример расширения",
+    "resultLabel": "Результат",
+    "normalizedLabel": "Нормализованный ввод:",
+    "mimeTypeLabel": "MIME-тип",
+    "contentTypeLabel": "Заголовок Content-Type",
+    "charsetLabel": "Кодировка",
+    "copyMimeType": "Копировать MIME-тип",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "emptyHint": "Введите расширение или имя файла, чтобы узнать MIME-тип.",
+    "notFound": "MIME-тип для этого ввода не найден.",
+    "localNote": "Всё работает локально в вашем браузере. Ничего не загружается."
+  },
+  "UserAgentParser": {
+    "title": "Парсер User-Agent",
+    "subtitle": "Вставьте строку User-Agent (UA) и получите разбор по браузеру, ОС, движку, устройству и CPU. Всё работает локально в вашем браузере.",
+    "inputLabel": "Строка User-Agent",
+    "placeholder": "Вставьте ваш User-Agent сюда…",
+    "hint": "Совет: можно скопировать UA из заголовков запроса, логов или devtools браузера.",
+    "clear": "Очистить",
+    "exampleDesktop": "Использовать пример для компьютера",
+    "exampleMobile": "Использовать пример для телефона",
+    "resultLabel": "Разбор",
+    "browserLabel": "Браузер",
+    "osLabel": "Операционная система",
+    "engineLabel": "Движок",
+    "deviceTypeLabel": "Тип устройства",
+    "deviceVendorLabel": "Производитель",
+    "deviceModelLabel": "Модель",
+    "cpuArchLabel": "Архитектура CPU",
+    "copyJson": "Скопировать JSON",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "emptyHint": "Вставьте строку User-Agent, чтобы увидеть разбор.",
+    "localNote": "Всё работает локально в вашем браузере. Ничего не загружается."
+  },
+  "MockDataGenerator": {
+    "title": "Генератор тестовых данных",
+    "subtitle": "Задайте столбцы, выберите типы и экспортируйте данные для сидов, Postman или тестов. До {max} строк, всё в браузере — ничего не загружается на сервер.",
+    "mockarooLink": "Сценарий как в Mockaroo",
+    "rowsLabel": "Строки",
+    "rowsHint": "Не более {max} строк за генерацию, чтобы вкладка оставалась отзывчивой.",
+    "formatLabel": "Формат",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "Имя таблицы SQL",
+    "presetsLabel": "Шаблоны",
+    "presetPlaceholder": "Загрузить шаблон…",
+    "presetDefault": "Старт (пользователь)",
+    "presetUsers": "Пользователи и роли",
+    "presetProducts": "SKU интернет-магазина",
+    "presetApiLog": "Журнал HTTP-запросов",
+    "generate": "Сгенерировать",
+    "warningDuplicateNames": "Повторяющиеся имена столбцов: поздние перезаписывают ранние в объектах JSON. Переименуйте.",
+    "schemaHeading": "Схема",
+    "addField": "Добавить столбец",
+    "removeField": "Удалить столбец",
+    "duplicateField": "Дублировать столбец",
+    "colName": "Имя",
+    "colType": "Тип",
+    "colOptions": "Параметры",
+    "colBlank": "Пусто %",
+    "optMin": "мин",
+    "optMax": "макс",
+    "optDecimals": "дробь",
+    "optDateFrom": "с даты",
+    "optDateTo": "по дату",
+    "optValues": "a, b, c",
+    "optStep": "шаг",
+    "optRowBase": "база",
+    "output": "Результат",
+    "outputPlaceholder": "Нажмите «Сгенерировать», чтобы создать данные…",
+    "copy": "Копировать",
+    "download": "Скачать",
+    "copied": "Скопировано",
+    "groups": {
+      "personal": "Личные данные",
+      "location": "Местоположение",
+      "internetApi": "Интернет и API",
+      "numbersIds": "Числа и идентификаторы",
+      "dateTime": "Дата и время",
+      "textDesign": "Текст и оформление",
+      "custom": "Пользовательский"
+    },
+    "fieldTypes": {
+      "first_name": "Имя",
+      "last_name": "Фамилия",
+      "full_name": "Полное имя",
+      "email": "Email",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "phone": "Телефон",
+      "company": "Компания",
+      "job_title": "Должность",
+      "avatar_url": "URL аватара",
+      "city": "Город",
+      "country": "Страна",
+      "country_code": "Код страны (ISO)",
+      "street_address": "Адрес",
+      "zip_code": "Почтовый индекс",
+      "latitude": "Широта",
+      "longitude": "Долгота",
+      "url": "URL",
+      "domain": "Домен",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Целое число",
+      "float": "Дробное число",
+      "boolean": "Логический",
+      "uuid": "UUID",
+      "credit_card": "Карта (тест)",
+      "semver": "SemVer",
+      "row_index": "Индекс строки",
+      "sequence": "Последовательность",
+      "date": "Дата",
+      "datetime": "Дата и время",
+      "unix_timestamp": "Unix-время",
+      "timezone": "Часовой пояс",
+      "word": "Слово",
+      "sentence": "Предложение",
+      "paragraph": "Абзац",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Код валюты",
+      "language_code": "Языковой тег",
+      "custom_list": "Пользовательский список"
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
+  },
+  "SvgOptimizer": {
+    "title": "Оптимизатор SVG",
+    "subtitle": "Вставьте SVG, минифицируйте через SVGO в браузере и сравните размер UTF-8 до и после.",
+    "inputLabel": "Ввод",
+    "outputLabel": "Оптимизировано",
+    "placeholder": "Вставьте фрагмент <svg>…</svg> или весь файл…",
+    "outputPlaceholder": "Оптимизированный SVG появится здесь…",
+    "chars": "{count} симв. • {bytes} байт (UTF-8)",
+    "preview": "Предпросмотр",
+    "localNote": "Всё обрабатывается локально в браузере. Ничего не загружается.",
+    "stats": {
+      "title": "Размер (UTF-8)",
+      "before": "До",
+      "after": "После",
+      "savedBytes": "Сэкономлено {count} байт ({percent}%)",
+      "noChange": "Без уменьшения — уже минимально или пустой вывод."
+    },
+    "actions": {
+      "clear": "Очистить",
+      "sample": "Пример",
+      "copy": "Копировать",
+      "copied": "Скопировано",
+      "download": "Скачать"
+    },
+    "errors": {
+      "optimizeFailed": "Не удалось оптимизировать этот SVG."
+    }
+  },
+  "UnitConverter": {
+    "title": "Конвертер единиц",
+    "subtitle": "Конвертируйте между <strong>323 единицами</strong> в <strong>43 категориях</strong>",
+    "category": "Категория",
+    "from": "Из",
+    "to": "В",
+    "value": "Значение",
+    "result": "Результат",
+    "swapUnits": "Поменять единицы",
+    "placeholder": "Введите значение",
+    "copyResult": "Скопировать результат",
+    "searchCategory": "Поиск категории...",
+    "selectCategory": "Выберите категорию",
+    "noResults": "Категория не найдена."
+  },
+  "DockerComposeGenerator": {
+    "title": "Генератор Docker Compose",
+    "subtitle": "Выберите популярные базы данных, кэши, брокеры сообщений, обратные прокси и наблюдаемость — скопируйте готовый docker-compose.yml для локальной разработки.",
+    "searchPlaceholder": "Поиск (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Сервисы",
+    "selectedCount": "{count, plural, one {# сервис} few {# сервиса} many {# сервисов} other {# сервисов}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Копировать",
+    "copied": "Скопировано!",
+    "download": "Скачать",
+    "emptyState": "Выберите один или несколько сервисов, чтобы сгенерировать YAML Compose.",
+    "hintPorts": "Порты хоста подобраны, чтобы реже конфликтовать; измените при ошибке занятого порта. Замените демо-пароли перед общими средами.",
+    "categories": {
+      "databases": "Базы данных и хранилища",
+      "cache": "Кэш и in-memory",
+      "queues": "Очереди и обмен сообщениями",
+      "search": "Поиск и журналы",
+      "storage": "Объектное хранилище",
+      "proxy": "Обратные прокси и ingress",
+      "observability": "Метрики и трассировка",
+      "mail": "Почта (локальная разработка)",
+      "admin": "Админ-интерфейсы и BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Очистить"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (совместим с Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (совместим с Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (совместим с S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (перехват SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (режим разработки)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Сдвиньте плитки и объедините их, чтобы достичь 2048 года",
+    "score": "Балл",
+    "best": "Лучше",
+    "newGame": "Новая игра",
+    "howToPlay": "Используйте клавиши со стрелками (или проведите пальцем по мобильному телефону) для перемещения плиток. Плитки с одинаковым номером сливаются. Достигните 2048 года, чтобы выиграть!",
+    "youWin": "Вы достигли 2048 года!",
+    "keepGoing": "Продолжайте",
+    "gameOver": "Вы проиграли",
+    "tryAgain": "Повторить попытку",
+    "gameOverMessage": "Больше ходов не осталось.",
+    "undo": "Отменить"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "этапы завершены",
+    "time": "Время",
+    "best": "Лучше",
+    "difficulty": {
+      "easy": "Лёгкая",
+      "medium": "Средний",
+      "hard": "Тяжелая"
+    },
+    "stage": "Место проведения",
+    "solved": "Решено",
+    "score": "Балл",
+    "nextStage": "Следующая стадия",
+    "replay": "Повторное воспроизведение",
+    "erase": "Стереть",
+    "howToPlay": "Щелкните ячейку, затем коснитесь цифры или нажмите 1–9. Backspace или Delete очищает ячейку. Жирные цифры - это ключ к разгадке. Заполните сетку так, чтобы каждая строка, столбец и поле 3×3 содержали 1–9 без повторов.",
+    "pencil": "Карандаш",
+    "undo": "Отменить",
+    "hint": "Подсказка",
+    "hintsUsed": "подсказки использованы",
+    "mistakes": "Ошибки",
+    "failed": "Проигрыш!",
+    "mistakeMode": "Режим 3 ошибок"
+  },
+  "Snake": {
+    "title": "Змейка",
+    "subtitle": "Ешь еду, расти, избегай стен и себя",
+    "score": "Очки",
+    "best": "Лучший",
+    "startPrompt": "Нажмите любую кнопку стрелки",
+    "startButton": "Начать игру",
+    "gameOver": "Конец игры",
+    "playAgain": "Играть снова",
+    "howToPlay": "Используй стрелки или WASD. Ешь еду, чтобы расти. Скорость растёт каждые 50 очков.",
+    "diffEasy": "Лёгкий",
+    "diffNormal": "Обычный",
+    "diffHard": "Сложный",
+    "diffInfinite": "Бесконечный",
+    "orTap": "или нажмите ниже",
+    "howToPlayInfinite": "Стены огибают — смерть от стен отключена. Ешь еду, чтобы расти.",
+    "shieldActive": "Щит активен",
+    "speedBoost": "Ускорение",
+    "powerSpeed": "Скорость x2",
+    "powerShield": "Пережить одну смерть",
+    "powerShrink": "Укорачивает хвост"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Подключения Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Подключайтесь к экземплярам Redis. Просматривайте ключи, редактируйте значения и выполняйте команды. Учётные данные шифруются в браузере.",
+      "heroAddConnection": "Добавить подключение",
+      "vaultLockedTitle": "Хранилище заблокировано",
+      "vaultLockedDesc": "Разблокируйте хранилище для доступа к сохранённым подключениям."
+    }
+  },
+  "Minesweeper": {
+    "title": "Сапёр",
+    "subtitle": "Найдите все безопасные клетки, не подорвавшись на мине",
+    "mines": "Мины",
+    "newGame": "Новая игра",
+    "win": "Вы выиграли!",
+    "loss": "Вы проиграли!",
+    "playAgain": "Играть снова",
+    "tryAgain": "Попробовать снова",
+    "startPrompt": "Нажмите на любую клетку, чтобы начать",
+    "difficulty": {
+      "beginner": "Новичок",
+      "intermediate": "Средний",
+      "expert": "Эксперт"
+    }
+  },
+  "Tetris": {
+    "title": "Тетрис",
+    "subtitle": "Расставляйте падающие блоки, чтобы заполнить ряды",
+    "next": "Следующий",
+    "score": "Очки",
+    "best": "Рекорд",
+    "lines": "Линии",
+    "level": "Уровень",
+    "pause": "Пауза",
+    "resume": "Продолжить",
+    "start": "Старт",
+    "restart": "Заново",
+    "paused": "На паузе",
+    "gameOver": "Игра окончена"
+  },
+  "SshKeyGenerator": {
+    "title": "Генератор ключей SSH / RSA",
+    "subtitle": "Генерируйте пары ключей Ed25519 или RSA прямо в браузере. Скачивайте приватные и публичные ключи в форматах OpenSSH и PEM. Ничего не загружается на сервер.",
+    "keyTypeLabel": "Тип ключа",
+    "recommended": "рекомендуется",
+    "ed25519Desc": "Быстрый, компактный, современный. Поддерживается GitHub, GitLab и всеми основными SSH-серверами.",
+    "rsa2048Desc": "Широкая совместимость. Безопасен для большинства задач.",
+    "rsa4096Desc": "Максимальная совместимость и надёжность для устаревших систем.",
+    "commentLabel": "Комментарий (необязательно)",
+    "commentHint": "Добавляется к строке публичного ключа OpenSSH.",
+    "generateBtn": "Сгенерировать пару ключей",
+    "generating": "Генерация…",
+    "generatingLong": "Генерация (может занять немного времени)…",
+    "copy": "Копировать",
+    "download": "Скачать",
+    "privateKeyLabel": "Приватный ключ (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Публичный ключ (формат OpenSSH)",
+    "publicKeySpkiLabel": "Публичный ключ (SPKI PEM)",
+    "browserNote": "Все ключи генерируются в вашем браузере. Ничего не отправляется на сервер.",
+    "errors": {
+      "generationFailed": "Ошибка генерации ключа"
+    }
+  },
+  "DnsLookup": {
+    "title": "DNS-запрос",
+    "subtitle": "Запрашивайте DNS-записи для любого домена — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Введите домен (например github.com)",
+    "lookupBtn": "Запрос",
+    "looking": "Выполняется запрос…",
+    "refreshBtn": "Обновить",
+    "recordTypesLabel": "Типы записей",
+    "allBtn": "Все",
+    "tryLabel": "Попробовать:",
+    "errors": {
+      "lookupFailed": "Ошибка DNS-запроса"
+    }
+  },
+  "CurlToCode": {
+    "title": "cURL to Code",
+    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "panels": {
+      "input": "curl command",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a curl command here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated request code will appear here…"
+  },
+  "JsonToCode": {
+    "title": "JSON to Code",
+    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "panels": {
+      "input": "JSON input",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a sample JSON object here…",
+    "rootName": "Root name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated type models will appear here…"
+  },
+  "JsonVisualizer": {
+    "title": "JSON Visualizer",
+    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "panels": {
+      "input": "JSON input",
+      "graph": "Graph"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste or type JSON here…",
+    "searchPlaceholder": "Search keys & values",
+    "prevMatch": "Previous match",
+    "nextMatch": "Next match",
+    "nodeCount": "{count} nodes",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitView": "Fit to view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "export": "Export",
+    "exportPng": "PNG image",
+    "exportSvg": "SVG image",
+    "copyPath": "Copy path",
+    "copyValue": "Copy value",
+    "pathCopied": "Path copied",
+    "valueCopied": "Value copied",
+    "viewTable": "View as table",
+    "tableTitle": "Table view",
+    "locateInText": "Locate in text",
+    "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
+    "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
+    "emptyState": "Paste JSON in the input to see it as an interactive graph."
+  },
+  "BeautifyMinify": {
+    "title": "Beautify & Minify",
+    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "langLabel": "Language",
+    "actionLabel": "Action",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "bytes": "{count} bytes",
+    "clear": "Clear",
+    "placeholder": "Paste code here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Formatted output will appear here…"
+  },
+  "StringCaseConverter": {
+    "title": "String Case Converter",
+    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "panels": {
+      "input": "Input",
+      "output": "Case variants"
+    },
+    "wordCount": "{count} words",
+    "clear": "Clear",
+    "placeholder": "Type or paste text to convert…",
+    "copyTitle": "Copy to clipboard",
+    "emptyHint": "—"
+  },
+  "LineSortDedupe": {
+    "title": "Line Sort & Dedupe",
+    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "opts": {
+      "sort": "Sort",
+      "dedupe": "Remove duplicates",
+      "removeEmpty": "Remove empty lines",
+      "trim": "Trim lines",
+      "caseInsensitive": "Case-insensitive"
+    },
+    "sortModes": {
+      "none": "No sort",
+      "asc": "Ascending (A–Z)",
+      "desc": "Descending (Z–A)",
+      "natural": "Natural (numeric)",
+      "length": "By length",
+      "reverse": "Reverse order"
+    },
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "lineCount": "{count} lines",
+    "clear": "Clear",
+    "placeholder": "Paste lines here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Processed lines will appear here…"
+  },
+  "StringInspector": {
+    "title": "String Inspector",
+    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "panels": {
+      "input": "Input"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text to inspect…",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "No spaces",
+      "words": "Words",
+      "lines": "Lines",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "bytes": "Bytes (UTF-8)",
+      "utf16": "UTF-16 units",
+      "letters": "Letters",
+      "digits": "Digits",
+      "whitespace": "Whitespace",
+      "punctuation": "Punctuation",
+      "readingTime": "Reading time"
+    },
+    "specialTitle": "Special & non-ASCII characters",
+    "noSpecial": "No special or non-ASCII characters found.",
+    "specialEmpty": "Special characters will be listed here…",
+    "cols": {
+      "codepoint": "Code point",
+      "name": "Name",
+      "count": "Count"
+    },
+    "nonAscii": "Non-ASCII character"
+  },
+  "EscapeEncode": {
+    "title": "Escape / Encode",
+    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "modeLabel": "Mode",
+    "modes": {
+      "html": "HTML Entities",
+      "backslash": "Backslash (JS / JSON string)",
+      "hex": "Hex ↔ ASCII",
+      "unicode": "Unicode \\uXXXX"
+    },
+    "directionLabel": "Direction",
+    "encode": "Encode",
+    "decode": "Decode",
+    "swap": "Swap",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Генератор и проверка Bcrypt",
+    "subtitle": "Хешируйте пароли с помощью bcrypt и проверяйте хеши — всё остаётся в вашем браузере",
+    "tabs": {
+      "hash": "Хеш",
+      "verify": "Проверка"
+    },
+    "showPassword": "Показать пароль",
+    "hidePassword": "Скрыть пароль",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "hash": {
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль для хеширования…",
+      "costLabel": "Фактор стоимости",
+      "costHint": "Более высокий фактор удваивает работу на каждом шаге. 10-12 — распространённый выбор для продакшена.",
+      "slowWarning": "Факторы стоимости 13 и выше могут вычисляться несколько секунд.",
+      "generate": "Создать хеш",
+      "generating": "Хеширование…",
+      "resultLabel": "Хеш bcrypt",
+      "timeTaken": "{ms} мс",
+      "anatomy": {
+        "title": "Строение хеша",
+        "algorithm": "алгоритм",
+        "cost": "стоимость",
+        "salt": "соль (22 символа)",
+        "hash": "хеш (31 символ)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль для проверки…",
+      "hashLabel": "Хеш bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Введите пароль и хеш bcrypt, чтобы сравнить их.",
+      "invalidHash": "Это не похоже на корректный хеш bcrypt.",
+      "checking": "Сравнение…",
+      "match": "Совпадает — пароль даёт этот хеш.",
+      "noMatch": "Не совпадает — пароль не даёт этот хеш."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Калькулятор Chmod",
+    "subtitle": "Преобразуйте права файлов Unix между флажками, восьмеричной и символьной формой",
+    "grid": {
+      "title": "Права",
+      "read": "Чтение",
+      "write": "Запись",
+      "execute": "Выполнение",
+      "owner": "Владелец",
+      "group": "Группа",
+      "others": "Остальные"
+    },
+    "special": {
+      "title": "Специальные биты",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Восьмеричная",
+      "placeholder": "755 или 4755",
+      "invalid": "Введите 3 или 4 восьмеричные цифры (0-7)."
+    },
+    "symbolic": {
+      "label": "Символьная",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Введите 9 символов вида rwxr-xr-x (допустимы s/S, t/T)."
+    },
+    "output": {
+      "title": "Команда",
+      "copy": "Копировать",
+      "copied": "Скопировано"
+    },
+    "explain": {
+      "line": "{cls} может {perms}.",
+      "none": "{cls} не имеет прав.",
+      "setuid": "Setuid: файл выполняется с привилегиями своего владельца.",
+      "setgid": "Setgid: файл выполняется с привилегиями своей группы (новые файлы в каталоге наследуют его группу).",
+      "sticky": "Sticky: только владелец файла может удалить или переименовать его в этом каталоге."
+    },
+    "presets": {
+      "title": "Частые пресеты",
+      "octal": "Восьмеричная",
+      "permissions": "Права",
+      "description": "Типичное применение",
+      "p644": "Обычные файлы: владелец пишет, все читают.",
+      "p755": "Исполняемые файлы и каталоги: все могут читать и входить.",
+      "p600": "Приватные файлы: только владелец читает и пишет.",
+      "p700": "Приватные исполняемые файлы и каталоги: только владелец.",
+      "p664": "Файлы, доступные группе для записи.",
+      "p775": "Каталоги и исполняемые файлы, доступные группе для записи.",
+      "p400": "Только чтение для владельца (например, закрытые ключи SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Скриншот кода",
+    "subtitle": "Превращайте код в красивые изображения для публикации",
+    "languageLabel": "Язык",
+    "autoDetect": "Автоопределение",
+    "backgroundLabel": "Фон",
+    "paddingLabel": "Отступ",
+    "filenameLabel": "Имя файла",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Точки окна",
+    "themeLabel": "Тема окна",
+    "themeDark": "Тёмная",
+    "themeLight": "Светлая",
+    "scaleLabel": "Масштаб экспорта",
+    "copyImage": "Копировать изображение",
+    "copied": "Скопировано",
+    "exportPng": "Экспорт PNG",
+    "inputLabel": "Код",
+    "detected": "Определено: {language}",
+    "clear": "Очистить",
+    "placeholder": "Вставьте ваш код сюда…",
+    "previewLabel": "Предпросмотр",
+    "emptyPreview": "Здесь появится предпросмотр вашего кода",
+    "exportFailed": "Не удалось экспортировать изображение",
+    "copyUnsupported": "Копирование изображений не поддерживается в этом браузере",
+    "copyFailed": "Не удалось скопировать изображение",
+    "backgrounds": {
+      "ocean": "Океан",
+      "sunset": "Закат",
+      "candy": "Конфета",
+      "forest": "Лес",
+      "midnight": "Полночь",
+      "gold": "Золото",
+      "aurora": "Аврора",
+      "slate": "Сланец",
+      "transparent": "Прозрачный"
+    }
+  },
+  "CssGenerators": {
+    "title": "Генераторы CSS",
+    "subtitle": "Box-shadow, border-radius и адаптивный clamp() — копируйте CSS.",
+    "preview": "Предпросмотр",
+    "output": "CSS",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Адаптивный clamp()"
+    },
+    "boxShadow": {
+      "presets": "Пресеты",
+      "layer": "Слой",
+      "addLayer": "Добавить слой",
+      "removeLayer": "Удалить слой",
+      "x": "X",
+      "y": "Y",
+      "blur": "Размытие",
+      "spread": "Растяжение",
+      "color": "Цвет",
+      "alpha": "Альфа",
+      "inset": "Внутренняя",
+      "presetNames": {
+        "subtleCard": "Лёгкая карточка",
+        "elevated": "Приподнятая",
+        "hardOffset": "Жёсткое смещение",
+        "neonGlow": "Неоновое свечение",
+        "inner": "Внутренняя",
+        "layeredSmooth": "Мягкие слои"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Режим",
+      "modes": {
+        "simple": "По углам",
+        "blob": "Органичная капля"
+      },
+      "unit": "Единица",
+      "linkCorners": "Связать углы",
+      "randomize": "Случайно",
+      "horizontal": "Горизонтальные радиусы",
+      "vertical": "Вертикальные радиусы",
+      "corners": {
+        "tl": "Верхний левый",
+        "tr": "Верхний правый",
+        "br": "Нижний правый",
+        "bl": "Нижний левый"
+      }
+    },
+    "clamp": {
+      "minFont": "Мин. шрифт (px)",
+      "maxFont": "Макс. шрифт (px)",
+      "minViewport": "Мин. viewport (px)",
+      "maxViewport": "Макс. viewport (px)",
+      "rootFont": "Корневой шрифт (px)",
+      "viewportWidth": "Смоделированный viewport",
+      "computedSize": "Вычисленный размер",
+      "slope": "Наклон",
+      "intercept": "Смещение",
+      "previewText": "Быстрая рыжая лиса",
+      "invalid": "Введите корректные и различающиеся границы viewport."
+    }
+  },
+  "ExifViewer": {
+    "title": "Просмотр и удаление EXIF",
+    "subtitle": "Изучайте метаданные фото и удаляйте их в вашем браузере",
+    "dropTitle": "Перетащите изображение сюда",
+    "dropHint": "или нажмите для выбора — ваше изображение никогда не покидает устройство",
+    "browse": "Выбрать изображение",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Чтение метаданных…",
+    "parseFailed": "Не удалось прочитать это изображение",
+    "clear": "Удалить изображение",
+    "gpsWarning": "Содержит GPS-координаты",
+    "openMap": "Показать на OpenStreetMap",
+    "noMetadata": "В этом изображении не найдено встроенных метаданных.",
+    "facts": {
+      "name": "Имя",
+      "type": "Тип",
+      "dimensions": "Размеры",
+      "size": "Размер"
+    },
+    "groups": {
+      "camera": "Камера",
+      "exposure": "Экспозиция",
+      "timestamps": "Метки времени",
+      "gps": "GPS-координаты",
+      "software": "ПО и прочее"
+    },
+    "gpsCard": {
+      "latitude": "Широта",
+      "longitude": "Долгота",
+      "altitude": "Высота"
+    },
+    "raw": {
+      "title": "Все метаданные",
+      "copyJson": "Копировать JSON",
+      "copied": "Скопировано"
+    },
+    "remove": {
+      "title": "Удалить метаданные",
+      "jpegDescription": "Без потерь удалите EXIF, XMP, IPTC и комментарии без повторного сжатия изображения.",
+      "reencodeDescription": "Перекодируйте изображение, чтобы удалить встроенные метаданные. При этом пиксели пересжимаются.",
+      "keepIcc": "Сохранить цветовой профиль (ICC)",
+      "stripButton": "Удалить метаданные",
+      "reencodeButton": "Перекодировать и удалить",
+      "unsupported": "Удаление метаданных не поддерживается для этого типа файла.",
+      "failed": "Не удалось удалить метаданные",
+      "before": "До",
+      "after": "После",
+      "download": "Скачать очищенное изображение"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Генератор favicon",
+    "subtitle": "Создавайте favicon и иконки приложений из одного изображения",
+    "dropTitle": "Перетащите изображение сюда",
+    "dropHint": "PNG, JPEG или SVG — нажмите для выбора",
+    "browse": "Выбрать изображение",
+    "clear": "Удалить изображение",
+    "backgroundLabel": "Фон",
+    "transparent": "Прозрачный",
+    "solidColor": "Сплошной",
+    "cornerLabel": "Форма углов",
+    "cornerNone": "Квадрат",
+    "cornerRounded": "Скруглённый",
+    "cornerCircle": "Круг",
+    "maskPaddingLabel": "Отступ maskable",
+    "maskable": "maskable",
+    "previewLabel": "Предпросмотр",
+    "copy": "Копировать",
+    "headSnippet": "Фрагмент для head HTML",
+    "downloadIco": "Скачать favicon.ico",
+    "downloadZip": "Скачать всё (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Сравнение JSON",
+    "subtitle": "Семантическое, учитывающее структуру сравнение двух документов JSON — порядок ключей и форматирование игнорируются",
+    "options": {
+      "ignoreArrayOrder": "Игнорировать порядок массивов"
+    },
+    "loadBothSamples": "Загрузить примеры",
+    "sample": "Пример",
+    "format": "Формат",
+    "clear": "Очистить",
+    "formatError": "Не удаётся отформатировать: ввод не является корректным JSON",
+    "placeholder": "Вставьте или введите JSON здесь…",
+    "panels": {
+      "left": "Оригинал (слева)",
+      "right": "Изменённый (справа)",
+      "results": "Различия"
+    },
+    "summary": {
+      "added": "{count} добавлено",
+      "removed": "{count} удалено",
+      "changed": "{count} изменено"
+    },
+    "types": {
+      "added": "Добавлено",
+      "removed": "Удалено",
+      "changed": "Изменено"
+    },
+    "copyChanges": "Копировать как JSON",
+    "copied": "Скопировано",
+    "empty": "Вставьте JSON в обе панели, чтобы увидеть их различия.",
+    "identical": "Оба документа семантически идентичны."
+  },
+  "JsonpathPlayground": {
+    "title": "Песочница JSONPath",
+    "subtitle": "Запрашивайте документы JSON с помощью JSONPath или JMESPath и смотрите результаты вживую",
+    "engineLabel": "Движок",
+    "queryLabel": "Запрос",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Шпаргалка",
+    "cheats": {
+      "jpAllTitles": "Все названия книг",
+      "jpAllAuthors": "Все авторы в любом месте документа",
+      "jpFirstBook": "Первая книга",
+      "jpLastBook": "Последняя книга",
+      "jpSlice": "Первые две книги (срез)",
+      "jpFilterPrice": "Книги дешевле 40",
+      "jpFilterInStock": "Названия книг в наличии",
+      "jpRecursive": "Все значения рекурсивно",
+      "jmAllTitles": "Все названия книг",
+      "jmFirstAuthor": "Автор первой книги",
+      "jmLastBook": "Последняя книга",
+      "jmSlice": "Первые две книги (срез)",
+      "jmFilterPrice": "Названия книг дешевле 40",
+      "jmCount": "Подсчёт книг в наличии",
+      "jmProjection": "Преобразовать каждую книгу в новый объект",
+      "jmSort": "Названия, отсортированные по цене"
+    },
+    "panels": {
+      "input": "Ввод JSON",
+      "results": "Результаты"
+    },
+    "sample": "Пример",
+    "format": "Формат",
+    "clear": "Очистить",
+    "formatError": "Не удаётся отформатировать: ввод не является корректным JSON",
+    "placeholder": "Вставьте или введите JSON здесь…",
+    "outputPlaceholder": "Совпадения появятся здесь…",
+    "matchCount": "{count, plural, one {# совпадение} few {# совпадения} many {# совпадений} other {# совпадения}}",
+    "copy": "Копировать",
+    "copied": "Скопировано"
+  },
+  "KeycodeInspector": {
+    "title": "Инспектор клавиш",
+    "subtitle": "Нажмите любую клавишу, чтобы изучить её событие клавиатуры JavaScript",
+    "capture": {
+      "prompt": "Нажмите любую клавишу…",
+      "ready": "Слушаю — нажмите любую клавишу на клавиатуре",
+      "clickToFocus": "Нажмите здесь для фокуса, затем нажмите любую клавишу"
+    },
+    "hero": {
+      "spaceKey": "(Пробел)",
+      "keyLabel": "event.key",
+      "repeat": "повтор"
+    },
+    "copyJson": "Копировать JSON",
+    "copiedJson": "JSON события скопирован в буфер обмена",
+    "deprecated": "устарело",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Стандартная",
+      "left": "Слева",
+      "right": "Справа",
+      "numpad": "Цифровой блок",
+      "unknown": "Неизвестно"
+    },
+    "history": {
+      "title": "История",
+      "clear": "Очистить историю",
+      "empty": "Нажатия клавиш появятся здесь."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Генератор таблиц Markdown",
+    "subtitle": "Редактируйте сетку, вставляйте из таблицы и копируйте красиво выровненную таблицу Markdown или HTML",
+    "addRow": "Добавить строку",
+    "addColumn": "Добавить столбец",
+    "importLabel": "Импорт",
+    "importPlaceholder": "Вставьте TSV (из Excel / Google Sheets) или CSV сюда…",
+    "importButton": "Импортировать в сетку",
+    "pasteClipboard": "Вставить из буфера обмена",
+    "importEmpty": "Нечего импортировать — сначала вставьте несколько строк",
+    "clipboardError": "Не удалось прочитать из буфера обмена",
+    "clear": "Очистить",
+    "panels": {
+      "editor": "Редактор таблицы",
+      "output": "Результат"
+    },
+    "align": {
+      "left": "Выровнять по левому краю",
+      "center": "Выровнять по центру",
+      "right": "Выровнять по правому краю"
+    },
+    "headerPlaceholder": "Заголовок",
+    "cellPlaceholder": "Ячейка",
+    "removeRow": "Удалить строку",
+    "removeColumn": "Удалить столбец",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Копировать",
+    "copied": "Скопировано"
+  },
+  "TimezoneConverter": {
+    "title": "Конвертер часовых поясов",
+    "subtitle": "Преобразуйте один момент по всему миру для планирования встреч.",
+    "dateTimeLabel": "Дата и время",
+    "now": "Сейчас",
+    "sourceZoneLabel": "Исходный часовой пояс",
+    "selectZone": "Выберите пояс",
+    "searchZone": "Поиск часовых поясов...",
+    "noZone": "Часовой пояс не найден.",
+    "scrubLabel": "Сдвинуть время",
+    "reset": "Сбросить",
+    "targetsLabel": "Целевые пояса",
+    "addZone": "Добавить пояс",
+    "remove": "Удалить",
+    "localBadge": "Локальный",
+    "invalidDate": "Введите корректные дату и время.",
+    "bands": {
+      "work": "Рабочие часы (09:00–18:00)",
+      "edge": "Крайние часы (раннее утро / вечер)",
+      "night": "Ночь"
+    }
+  },
+  "TokenCounter": {
+    "title": "Счётчик токенов LLM",
+    "subtitle": "Считайте токены, визуализируйте чанки и оценивайте стоимость API.",
+    "inputLabel": "Текст",
+    "sample": "Пример",
+    "clear": "Очистить",
+    "placeholder": "Вставьте текст, код или JSON для подсчёта токенов...",
+    "encoding": "Кодировка",
+    "loading": "Загрузка токенизатора...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / серия o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Токены",
+      "characters": "Символы",
+      "words": "Слова",
+      "ratio": "Токенов/слово",
+      "ratioSub": "прибл."
+    },
+    "claudeRow": "Claude (приблизительно)",
+    "estimate": "оценка",
+    "viz": {
+      "title": "Визуализация токенов",
+      "toggle": "Показать",
+      "hint": "Включите, чтобы раскрасить каждый токен как чанк.",
+      "empty": "Введите текст для визуализации токенов.",
+      "truncated": "Показаны первые {limit} из {total} токенов."
+    },
+    "cost": {
+      "title": "Калькулятор стоимости",
+      "disclaimer": "редактируемые значения по умолчанию — проверьте актуальные цены",
+      "model": "Модель",
+      "expectedOutput": "Ожидаемые токены вывода",
+      "customInput": "Ввод $/MTok",
+      "customOutput": "Вывод $/MTok",
+      "inputCost": "Стоимость ввода",
+      "outputCost": "Стоимость вывода",
+      "total": "Итого",
+      "per1000": "За 1000 вызовов"
+    }
+  },
+  "WebhookTester": {
+    "title": "Тестер вебхуков",
+    "subtitle": "Создайте временный URL и изучайте входящие запросы вебхуков вживую.",
+    "intro": {
+      "title": "Создайте URL вебхука, чтобы начать захват запросов",
+      "hint": "Вы получите непредсказуемый URL, который записывает каждый входящий запрос. Он истекает через 24 часа."
+    },
+    "createBtn": "Создать URL вебхука",
+    "creating": "Создание…",
+    "urlLabel": "Ваш URL вебхука",
+    "expiresIn": "Истекает через {countdown}",
+    "copyUrlBtn": "Копировать URL",
+    "copied": "Скопировано",
+    "clearBtn": "Очистить",
+    "newBinBtn": "Новый URL",
+    "requestsTitle": "Запросы",
+    "selectPrompt": "Выберите запрос, чтобы изучить его детали.",
+    "expiredNotice": "Этот URL вебхука истёк. Создайте новый, чтобы продолжить тестирование.",
+    "base64Badge": "base64",
+    "truncatedBadge": "обрезано",
+    "empty": {
+      "title": "Ожидание запросов…",
+      "hint": "Отправьте запрос на ваш URL, и он появится здесь мгновенно. Попробуйте так:"
+    },
+    "detail": {
+      "receivedAt": "Получено",
+      "source": "IP источника",
+      "contentType": "Content-Type",
+      "query": "Параметры query",
+      "headers": "Заголовки",
+      "body": "Тело",
+      "copyBody": "Копировать тело",
+      "emptyBody": "Нет тела"
+    },
+    "errors": {
+      "createFailed": "Не удалось создать URL вебхука. Попробуйте снова.",
+      "clearFailed": "Не удалось очистить запросы. Попробуйте снова."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Тестер WebSocket",
+    "subtitle": "Подключайтесь к эндпоинту WebSocket и отправляйте, получайте и изучайте сообщения вживую",
+    "urlLabel": "URL эндпоинта",
+    "protocolsLabel": "Подпротоколы",
+    "protocolsPlaceholder": "необязательно, через запятую",
+    "connect": "Подключить",
+    "disconnect": "Отключить",
+    "status": {
+      "disconnected": "Отключено",
+      "connecting": "Подключение",
+      "connected": "Подключено",
+      "error": "Ошибка"
+    },
+    "messages": {
+      "connecting": "Подключение к {url}…",
+      "connected": "Соединение установлено",
+      "connectedWithProtocol": "Соединение установлено (протокол: {protocol})",
+      "invalidUrl": "Некорректный URL — должен начинаться с ws:// или wss://",
+      "connectFailed": "Не удалось открыть соединение",
+      "socketError": "Произошла ошибка соединения",
+      "notConnected": "Не подключено — сначала подключитесь",
+      "binaryMessage": "Получено двоичное сообщение"
+    },
+    "log": {
+      "title": "Журнал сообщений",
+      "empty": "Сообщений пока нет. Подключитесь и начните отправлять.",
+      "copyAll": "Копировать всё",
+      "download": "Скачать как .txt",
+      "clear": "Очистить журнал",
+      "prettyPrint": "Форматировать JSON",
+      "showRaw": "Показать необработанный текст"
+    },
+    "composer": {
+      "placeholder": "Введите сообщение для отправки…",
+      "send": "Отправить",
+      "formatJson": "Форматировать как JSON",
+      "invalidJson": "Сообщение не является корректным JSON",
+      "hint": "Cmd/Ctrl+Enter для отправки"
+    },
+    "ping": {
+      "label": "Авто-пинг",
+      "seconds": "с",
+      "intervalTitle": "Интервал пинга в секундах",
+      "payloadPlaceholder": "payload пинга"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Whois-запрос",
+    "subtitle": "Узнавайте данные регистрации любого домена или IP-адреса через RDAP",
+    "placeholder": "example.com или 8.8.8.8",
+    "lookupBtn": "Запросить",
+    "looking": "Запрос…",
+    "refreshBtn": "Обновить",
+    "tryLabel": "Попробуйте:",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "notAvailable": "Недоступно",
+    "summary": {
+      "registrar": "Регистратор",
+      "network": "Сеть"
+    },
+    "dates": {
+      "created": "Создан",
+      "updated": "Обновлён",
+      "expires": "Истекает"
+    },
+    "sections": {
+      "status": "Статус",
+      "nameservers": "Серверы имён",
+      "contacts": "Контакты",
+      "rawRdap": "Необработанный RDAP"
+    },
+    "contacts": {
+      "roles": "Роли",
+      "name": "Имя",
+      "organization": "Организация"
+    },
+    "errors": {
+      "invalidTarget": "Введите корректное доменное имя или IP-адрес",
+      "lookupFailed": "Запрос не удался (статус {status})"
+    }
+  }
+}

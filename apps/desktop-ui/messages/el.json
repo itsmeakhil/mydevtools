@@ -1,0 +1,4573 @@
+{
+  "Navigation": {
+    "dashboard": "Ταμπλό",
+    "settings": "Ρυθμίσεις",
+    "apiClient": "Πελάτης API",
+    "httpStatusCodes": "Κωδικοί κατάστασης HTTP",
+    "passwordManager": "Διαχειριστής κωδικών πρόσβασης",
+    "environmentManager": "Διαχειριστής περιβάλλοντος",
+    "bookmarks": "Σελιδοδείκτες",
+    "jsonFormatter": "Μορφοποιητής JSON",
+    "emailValidator": "Email Validator",
+    "nosqlExplorer": "Εξερευνητής βάσεων δεδομένων",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "encryptionPlayground": "Χώρος δοκιμών κρυπτογράφησης",
+    "jwtDecoder": "Αποκωδικοποιητής JWT",
+    "certificatePemDecoder": "Αποκωδικοποιητής πιστοποιητικού / PEM",
+    "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Μορφοποιητής GraphQL",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "urlParser": "Αναλυτής URL",
+    "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Μυστικό / κλειδί API",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker",
+    "contrastChecker": "Έλεγχος αντίθεσης",
+    "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
+    "imageToBase64": "Εικόνα στο Base64",
+    "imageCompressor": "Συμπίεση εικόνας",
+    "cssGradientBuilder": "CSS Gradient Builder",
+    "gitignoreGenerator": ".gitignore Γεννήτρια",
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Αποσπάσματα κώδικα",
+    "qrCodeGenerator": "Δημιουργός κωδικών QR",
+    "dnsLookup": "Αναζήτηση DNS",
+    "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
+    "hashGenerator": "Γεννήτρια hash",
+    "hmacGenerator": "Γεννήτρια HMAC",
+    "totpGenerator": "Κωδικός TOTP / 2FA",
+    "markdownPreview": "Προεπισκόπηση Markdown",
+    "numberBaseConverter": "Μετατροπέας βάσης",
+    "formatConverter": "Μετατροπέας Μορφών",
+    "mockDataGenerator": "Γεννήτρια δοκιμαστικών δεδομένων",
+    "svgOptimizer": "Βελτιστοποιητής SVG",
+    "unitConverter": "Μετατροπέας Μονάδων",
+    "dockerComposeGenerator": "Δημιουργός Docker Compose",
+    "breakRoom": "Αίθουσα διαλειμμάτων",
+    "game2048": "2048",
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Μορφοποιητής YAML",
+    "sshKeyGenerator": "Γεννήτρια κλειδιών SSH / RSA",
+    "curlToCode": "cURL to Code",
+    "jsonToCode": "JSON to Code",
+    "beautifyMinify": "Beautify & Minify",
+    "stringCaseConverter": "String Case Converter",
+    "lineSortDedupe": "Line Sort & Dedupe",
+    "stringInspector": "String Inspector",
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Υπολογιστής chmod",
+    "codeScreenshot": "Στιγμιότυπο κώδικα",
+    "cssGenerators": "Γεννήτριες CSS",
+    "exifViewer": "Προβολή EXIF",
+    "faviconGenerator": "Γεννήτρια favicon",
+    "jsonDiff": "Σύγκριση JSON",
+    "jsonpathPlayground": "Παιχνιδότοπος JSONPath",
+    "keycodeInspector": "Επιθεωρητής πλήκτρων",
+    "markdownTableGenerator": "Πίνακας Markdown",
+    "timezoneConverter": "Μετατροπέας ζωνών ώρας",
+    "tokenCounter": "Μετρητής token",
+    "webhookTester": "Δοκιμαστής webhook",
+    "websocketTester": "Δοκιμαστής WebSocket",
+    "whoisLookup": "Αναζήτηση Whois"
+  },
+  "Help": {
+    "title": "Βοήθεια και τεκμηρίωση",
+    "subtitle": "Πώς συνδέεται το MyDevTools, τι κάνει κάθε εφαρμογή και πώς η ασφάλεια και η κρυπτογράφηση προστατεύουν τα δεδομένα σας.",
+    "tabs": {
+      "overview": "Επισκόπηση",
+      "apps": "Εφαρμογές",
+      "security": "Ασφάλεια",
+      "tips": "Συμβουλές"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Τι είναι το MyDevTools;",
+        "description": "Ένας χώρος εργασίας για προγραμματιστές με σύνδεση: ταμπλό και εργαλεία για καθημερινές εργασίες.",
+        "p1": "Αφού συνδεθείτε, η εφαρμογή δημιουργεί μια συνεδρία με το MyDevTools API ώστε τα εργαλεία να μπορούν να φορτώνουν και να αποθηκεύουν τα δεδομένα σας. Η πλευρική γραμμή εμφανίζει όλες τις εφαρμογές· μπορείτε να κρύψετε εργαλεία που δεν χρησιμοποιείτε από τις",
+        "settingsLink": "Ρυθμίσεις",
+        "p1After": ".",
+        "p2": "Ορισμένες λειτουργίες χρησιμοποιούν <strong>κύριο κωδικό</strong> (ή καθολικό κλειδί θησαυροφυλακίου) ώστε μυστικά όπως κωδικοί και strings σύνδεσης να κρυπτογραφούνται στη συσκευή σας πριν φτάσουν στον διακομιστή."
+      },
+      "quickLinks": {
+        "title": "Γρήγοροι σύνδεσμοι",
+        "dashboard": "Ταμπλό",
+        "settings": "Ρυθμίσεις"
+      }
+    },
+    "apps": {
+      "intro": "Ανοίξτε οποιοδήποτε εργαλείο από την πλευρική γραμμή ή το ταμπλό. Παρακάτω υπάρχει ένας σύντομος οδηγός ανά εφαρμογή.",
+      "open": "Άνοιγμα",
+      "howItWorks": "Πώς λειτουργεί",
+      "generic": "Χρησιμοποιήστε αυτό το εργαλείο από την πλευρική γραμμή για τη ροή εργασίας του."
+    },
+    "security": {
+      "session": {
+        "title": "Σύνδεση και συνεδρία API",
+        "description": "Ταυτότητα και πώς ο browser επικοινωνεί με το backend.",
+        "items": {
+          "authentication": "<strong>Αυθεντικοποίηση</strong> με Firebase. Μετά το login, η εφαρμογή ανταλλάσσει το Firebase ID token με cookies API.",
+          "accessTokens": "<strong>Access tokens</strong> είναι JWT υπογεγραμμένα στον server (HS256) και αποδεικνύουν ποιος χρήστης καλεί το API.",
+          "refreshTokens": "<strong>Refresh tokens</strong> αποθηκεύονται σε HttpOnly cookies· ο server κρατά SHA-256 hash του token, όχι το ίδιο το token."
+        }
+      },
+      "encryption": {
+        "title": "Κρυπτογράφηση που πρέπει να γνωρίζετε",
+        "description": "Κρυπτογραφία στην πλευρά του πελάτη για το θησαυροφυλάκιο και ευαίσθητα δεδομένα σύνδεσης.",
+        "p1": "Για τον <strong>διαχειριστή κωδικών πρόσβασης</strong>, τον <strong>διαχειριστή περιβάλλοντος</strong> και τις αποθηκευμένες συνδέσεις στον <strong>NoSQL Explorer</strong>, η εφαρμογή web χρησιμοποιεί το <strong>Web Crypto API</strong> του προγράμματος περιήγησης:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> με <strong>SHA-256</strong>, <strong>100.000</strong> επαναλήψεις και τυχαίο salt παράγει κλειδί 256-bit από τον κύριο κωδικό.",
+          "aes": "<strong>AES-256-GCM</strong> κρυπτογραφεί δεδομένα· χρησιμοποιείται τυχαίο <strong>IV 12 bytes</strong> σε κάθε κρυπτογράφηση.",
+          "scope": "Το παράγωγο κλειδί μένει στον browser (μη εξαγώγιμο). Ο server λαμβάνει μόνο <strong>ciphertext και IV</strong>, όχι τον κύριο κωδικό ή μυστικά σε απλό κείμενο."
+        },
+        "warning": "Αν ξεχάσετε τον κύριο κωδικό, τα κρυπτογραφημένα δεδομένα δεν μπορούν να ανακτηθούν. Φυλάξτε τον με ασφάλεια."
+      },
+      "logout": {
+        "title": "Αποσύνδεση και τοπικά δεδομένα",
+        "body": "Η αποσύνδεση καθαρίζει μυστικά από τη μνήμη, κατάσταση του θησαυροφυλακίου και (όπου ισχύει) υλικό κύριου κλειδιού από το IndexedDB και τερματίζει τη συνεδρία API. Δεδομένα που υπάρχουν μόνο στο local storage μπορεί να παραμείνουν μέχρι να τα διαγράψετε στον browser."
+      }
+    },
+    "tips": {
+      "title": "Ασφαλής χρήση του MyDevTools",
+      "items": {
+        "masterPassword": "Χρησιμοποιήστε ισχυρό, μοναδικό κύριο κωδικό για λειτουργίες θησαυροφυλακίου.",
+        "apiClient": "Χειριστείτε τον API Client όπως κάθε HTTP client: αποφύγετε να επικολλάτε μυστικά παραγωγής σε κοινόχρηστα περιβάλλοντα αν δεν ξέρετε ποιος μπορεί να τα δει.",
+        "nosql": "Ο Εξερευνητής βάσεων δεδομένων συνδέεται σε βάσεις που ρυθμίζετε· χρησιμοποιήστε χρήστες ελάχιστων δικαιωμάτων και κανόνες δικτύου όπου είναι δυνατόν.",
+        "json": "Ο JSON μορφοποιητής τρέχει τοπικά στον browser—παρόλα αυτά αποφύγετε να επικολλάτε πολύ ευαίσθητα δεδομένα σε κοινόχρηστες συσκευές.",
+        "settings": "Προσαρμόστε τα ορατά εργαλεία στις Ρυθμίσεις για να παραμείνει εστιασμένη η πλευρική γραμμή."
+      }
+    }
+  },
+  "Settings": {
+    "title": "Ρυθμίσεις",
+    "language": "Γλώσσα",
+    "spanish": "ισπανικά",
+    "english": "αγγλικός",
+    "french": "Γαλλικά",
+    "arabic": "Αραβικά",
+    "catalan": "καταλανικά",
+    "chineseSimplified": "Κινεζικά (Απλοποιημένα)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "Γερμανός",
+    "danish": "Δανικά",
+    "afrikaans": "Αφρικάανς",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "norwegian": "Norsk",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ουκρανικά"
+  },
+  "SettingsPage": {
+    "title": "Ρυθμίσεις",
+    "subtitle": "Διαχειριστείτε τις ρυθμίσεις και τις προτιμήσεις του λογαριασμού σας.",
+    "userProfile": {
+      "title": "Προφίλ χρήστη",
+      "description": "Τα προσωπικά σας στοιχεία και τα στοιχεία του λογαριασμού σας.",
+      "avatarAlt": "Χρήστης",
+      "anonymousUser": "Ανώνυμος χρήστης",
+      "noEmailProvided": "Δεν παρέχεται email",
+      "notLoggedIn": "Δεν έχετε συνδεθεί."
+    },
+    "tools": {
+      "title": "Εργαλεία & Χαρακτηριστικά",
+      "description": "Επιλέξτε ποια εργαλεία θα εμφανίζονται στην πλαϊνή γραμμή πλοήγησής σας."
+    },
+    "appearance": {
+      "title": "Εμφάνιση",
+      "description": "Προσαρμόστε τον τρόπο εμφάνισης της εφαρμογής στη συσκευή σας.",
+      "themePreference": "Προτίμηση θέματος",
+      "themes": {
+        "light": "Φως",
+        "dark": "Σκοτάδι",
+        "system": "Σύστημα"
+      }
+    },
+    "language": {
+      "title": "Γλώσσα",
+      "description": "Ορίστε τη γλώσσα που χρησιμοποιείται στην πλατφόρμα.",
+      "selectLanguage": "Επιλέξτε Γλώσσα",
+      "selectPlaceholder": "Επιλέξτε μια γλώσσα",
+      "helpText": "Η αλλαγή της γλώσσας σας θα ενημερώσει τα μενού και τις ετικέτες σε όλη την πλατφόρμα.",
+      "languages": {
+        "en": "αγγλικός",
+        "fr": "Français (Γαλλικά)",
+        "es": "Español (Ισπανικά)",
+        "ar": "عربى (Αραβικά)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά",
+        "de": "Deutsch (Γερμανικά)",
+        "da": "Dansk (Δανικά)",
+        "af": "Afrikaans (Αφρικάανς)",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "it": "Ιταλικά (Italiano)",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
+      }
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
+      "addButton": "Add passkey",
+      "loading": "Loading…",
+      "none": "No passkeys yet.",
+      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
+      "addedOn": "Added {date}",
+      "lastUsedOn": "Last used {date}",
+      "synced": "Synced",
+      "rename": "Rename",
+      "renamePrompt": "Rename passkey",
+      "addedToast": "Passkey added.",
+      "renamedToast": "Passkey renamed.",
+      "removedToast": "Passkey removed.",
+      "loadError": "Could not load passkeys.",
+      "addError": "Could not add passkey.",
+      "renameError": "Could not rename passkey.",
+      "deleteError": "Could not delete passkey.",
+      "dialog": {
+        "title": "Add a passkey",
+        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
+        "nameLabel": "Device name (optional)",
+        "namePlaceholder": "e.g. MacBook Touch ID",
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "waiting": "Waiting for device…"
+      },
+      "delete": {
+        "title": "Remove passkey?",
+        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
+        "cancel": "Cancel",
+        "confirm": "Remove"
+      },
+      "prompt": {
+        "title": "Sign in faster next time",
+        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
+        "skip": "Maybe later",
+        "setup": "Set up passkey",
+        "successToast": "Passkey added — try signing out and back in to test it.",
+        "errorToast": "Could not add passkey. You can try again from Settings."
+      }
+    }
+  },
+  "Dashboard": {
+    "greeting": {
+      "morning": "Καλημέρα",
+      "afternoon": "Καλό απόγευμα",
+      "evening": "Καλησπέρα"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Καλώς ήρθατε πίσω",
+    "welcomeBackNamed": "Καλώς ήρθατε πίσω, {name}",
+    "tagline": "Τι θα θέλατε να δημιουργήσετε σήμερα;",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Εργαλεία",
+      "favorites": "Αγαπημένα",
+      "pinned": "Καρφιτσωμένα",
+      "recent": "Πρόσφατα"
+    },
+    "sections": {
+      "recentlyUsed": "Πρόσφατα",
+      "favorites": "Αγαπημένα",
+      "whatsNew": "Τι νέο υπάρχει",
+      "pinned": "Καρφιτσωμένα"
+    },
+    "groups": {
+      "apps": "Εφαρμογές"
+    },
+    "toolCard": {
+      "defaultDescription": "Εξερευνήστε αυτό το εργαλείο για καλύτερη λειτουργικότητα.",
+      "launchTool": "Άνοιγμα εργαλείου"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Εργασίες",
+        "description": "Διαχειριστείτε τις λίστες εργασιών σας αποτελεσματικά."
+      },
+      "notes": {
+        "title": "Σημειώσεις",
+        "description": "Καταγράψτε ιδέες και οργανώστε τις σκέψεις σας."
+      },
+      "passwordManager": {
+        "title": "Διαχειριστής κωδικών",
+        "description": "Αποθηκεύστε και διαχειριστείτε τους κωδικούς με ασφάλεια."
+      },
+      "environmentManager": {
+        "title": "Διαχειριστής περιβάλλοντος",
+        "description": "Αποθηκεύστε μεταβλητές τύπου .env ανά έργο και περιβάλλον με ετικέτες."
+      },
+      "bookmarks": {
+        "title": "Σελιδοδείκτες",
+        "description": "Διαχειριστείτε και οργανώστε τους σελιδοδείκτες σας."
+      },
+      "apiClient": {
+        "title": "Πελάτης API",
+        "description": "Δοκιμάστε και αποσφαλματώστε αιτήματα HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Database Explorer",
+        "description": "Εξερευνήστε βάσεις δεδομένων MongoDB."
+      },
+      "emailValidator": {
+        "title": "Επικύρωση email",
+        "description": "Επαληθεύστε και επικυρώστε διευθύνσεις email."
+      },
+      "encryptionPlayground": {
+        "title": "Χώρος δοκιμών κρυπτογράφησης",
+        "description": "AES-GCM με ακατέργαστο κλειδί ή συνθηματική φράση· δέσμες JSON, Web Crypto μόνο στον browser."
+      },
+      "jwtDecoder": {
+        "title": "Αποκωδικοποιητής JWT",
+        "description": "Αποκωδικοποιήστε κεφαλίδα, payload και λήξη JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Αποκωδικοποιητής πιστοποιητικού / PEM",
+        "description": "Αποκωδικοποίηση πιστοποιητικών X.509 και CSR: θέμα, εκδότης, ισχύς, SAN."
+      },
+      "sshKeyGenerator": {
+        "title": "Γεννήτρια κλειδιών SSH / RSA",
+        "description": "Δημιουργία ζευγών κλειδιών Ed25519 ή RSA στο πρόγραμμα περιήγησης. Λήψη σε μορφές OpenSSH και PEM."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Μορφοποιητής GraphQL",
+        "description": "Μορφοποιήστε GraphQL με επισήμανση σύνταξης και απλό επεξεργαστή ερωτημάτων."
+      },
+      "yamlFormatter": {
+        "title": "Μορφοποιητής YAML",
+        "description": "Μορφοποίηση, επαλήθευση και μετατροπή YAML σε JSON στον περιηγητή."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Αναλυτής URL",
+        "description": "Χωρίστε ένα URL σε πρωτόκολλο, κεντρικό υπολογιστή, διαδρομή, παραμέτρους ερωτήματος και hash."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Μυστικό / κλειδί API",
+        "description": "Κρυπτογραφικά τυχαίες συμβολοσειρές με ρυθμιζόμενο αλφάβητο, μήκος και μαζική εξαγωγή."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Έλεγχος αντίθεσης",
+        "description": "Αναλογία αντίθεσης WCAG 2.1 κειμένου και φόντου (AA / AAA)."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Γεννήτρια JSON Schema",
+        "description": "Συμπεράνετε ένα JSON Schema και τυποποιημένα μοντέλα από δείγμα JSON."
+      },
+      "imageToBase64": {
+        "title": "Εικόνα στο Base64",
+        "description": "Μετατροπή εικόνων σε Data URI ή σε ακατέργαστες συμβολοσειρές Base64."
+      },
+      "imageCompressor": {
+        "title": "Συμπίεση εικόνας",
+        "description": "Συμπίεση JPEG, PNG και WebP τοπικά με ρυθμιστή ποιότητας."
+      },
+      "cssGradientBuilder": {
+        "title": "CSS Gradient Builder",
+        "description": "Visual CSS gradient builder με έλεγχο γωνίας και χρωματικές στάσεις."
+      },
+      "gitignoreGenerator": {
+        "title": ".gitignore Γεννήτρια",
+        "description": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα από 500+ στοίβες τεχνολογίας."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Μετατρέψτε αρχεία CSV ή Excel σε JSON και εξάγετε ξανά σε CSV ή XLSX."
+      },
+      "snippetManager": {
+        "title": "Αποσπάσματα κώδικα",
+        "description": "Αποθηκεύστε αποσπάσματα με τονισμό σύνταξης, αυτόματη ανίχνευση γλώσσας και μορφοποίηση."
+      },
+      "qrCodeGenerator": {
+        "title": "Δημιουργός κωδικών QR",
+        "description": "Δημιουργήστε κωδικές QR PNG από κείμενο ή URL στο πρόγραμμα περιήγησης."
+      },
+      "ipSubnetCalculator": {
+        "title": "Υπολογιστής IP / υποδικτύου",
+        "description": "IPv4 και IPv6 CIDR: μάσκα, εύρη και πλήθος διευθύνσεων."
+      },
+      "dnsLookup": {
+        "title": "Αναζήτηση DNS",
+        "description": "Αναζητήστε εγγραφές DNS για οποιοδήποτε τομέα — A, AAAA, MX, TXT, NS, CNAME."
+      },
+      "hashGenerator": {
+        "title": "Γεννήτρια hash",
+        "description": "MD5, SHA-1 και SHA-2 για κείμενο ή αρχεία."
+      },
+      "hmacGenerator": {
+        "title": "Γεννήτρια HMAC",
+        "description": "Υπογράψτε webhooks και δοκιμάστε ενσωματώσεις API με HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Γεννήτρια κωδικού TOTP / 2FA",
+        "description": "Επικολλήστε μυστικό Base32 από την εφαρμογή ελέγχου ταυτότητας· ο εξαψήφιος κωδικός ανανεώνεται κάθε 30 δ—χρήσιμο για δοκιμές σύνδεσης και MFA."
+      },
+      "markdownPreview": {
+        "title": "Προεπισκόπηση Markdown",
+        "description": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Μετατροπέας αριθμητικής βάσης",
+        "description": "Μετατροπή ακεραίων μεταξύ βάσεων 2–36."
+      },
+      "formatConverter": {
+        "title": "Μετατροπέας Μορφών",
+        "description": "Μετατροπή μεταξύ JSON, YAML, TOML και XML προς οποιαδήποτε κατεύθυνση. Υποστηρίζονται και οι 12 συνδυασμοί."
+      },
+      "mockDataGenerator": {
+        "title": "Γεννήτρια δοκιμαστικών δεδομένων",
+        "description": "Ορίστε στήλες, επιλέξτε τύπους και εξάγετε σύνολα για seeds, Postman ή δοκιμές. Έως 5000 γραμμές, όλα στον browser — χωρίς μεταφόρτωση."
+      },
+      "httpStatusCodes": {
+        "title": "Κωδικοί κατάστασης HTTP",
+        "description": "Αναζήτηση κωδικών κατάστασης HTTP με περιγραφές (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Βελτιστοποιητής SVG",
+        "description": "Επικολλήστε SVG, αφαιρέστε περιττά με το SVGO και δείτε εξοικονόμηση UTF-8."
+      },
+      "unitConverter": {
+        "title": "Μετατροπέας Μονάδων",
+        "description": "Μετατροπή μεταξύ 323 μονάδων σε 43 επιστημονικές και μηχανολογικές κατηγορίες."
+      },
+      "dockerComposeGenerator": {
+        "title": "Δημιουργός Docker Compose",
+        "description": "Επιλέξτε βάσεις δεδομένων, cache, ουρές, proxy και εικόνες παρατηρησιμότητας· εξάγετε docker-compose.yml για τοπικές στοίβες."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Σύρετε και συγχωνεύστε τα πλακίδια για να φτάσετε στο 2048. Κλασικό παιχνίδι παζλ αριθμών."
+      },
+      "sudoku": {
+        "title": "Sudoku",
+        "description": "Κλασικό αριθμητικό παζλ. 3 επίπεδα δυσκολίας, 150 στάδια το καθένα."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Περιηγηθείτε σε κλειδιά, επιθεωρήστε τιμές και εκτελέστε εντολές σε οποιοδήποτε στιγμιότυπο Redis."
+      },
+      "curlToCode": {
+        "title": "cURL to Code",
+        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
+      },
+      "jsonToCode": {
+        "title": "JSON to Code",
+        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
+      },
+      "beautifyMinify": {
+        "title": "Beautify & Minify",
+        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
+      },
+      "stringCaseConverter": {
+        "title": "String Case Converter",
+        "description": "Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+      },
+      "lineSortDedupe": {
+        "title": "Line Sort & Dedupe",
+        "description": "Sort, deduplicate, trim, and clean up lists of lines locally."
+      },
+      "stringInspector": {
+        "title": "String Inspector",
+        "description": "Count characters, words, bytes, and detect invisible or non-ASCII characters."
+      },
+      "escapeEncode": {
+        "title": "Escape / Encode",
+        "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Γεννήτρια και ελεγκτής Bcrypt",
+        "description": "Κατακερματίστε κωδικούς με bcrypt και επαληθεύστε υπάρχοντες κατακερματισμούς."
+      },
+      "chmodCalculator": {
+        "title": "Υπολογιστής chmod",
+        "description": "Μετατρέψτε δικαιώματα Unix μεταξύ οκταδικής, συμβολικής μορφής και πλαισίων ελέγχου."
+      },
+      "codeScreenshot": {
+        "title": "Στιγμιότυπο κώδικα",
+        "description": "Μετατρέψτε τον πηγαίο κώδικα σε όμορφες εικόνες για κοινή χρήση."
+      },
+      "cssGenerators": {
+        "title": "Γεννήτριες CSS",
+        "description": "Γεννήτριες box-shadow, border-radius και ρευστού clamp()."
+      },
+      "exifViewer": {
+        "title": "Προβολή και αφαίρεση EXIF",
+        "description": "Επιθεωρήστε και αφαιρέστε τα μεταδεδομένα EXIF φωτογραφιών τοπικά."
+      },
+      "faviconGenerator": {
+        "title": "Γεννήτρια favicon",
+        "description": "Δημιουργήστε favicons, εικονίδια εφαρμογών και αποσπάσματα manifest."
+      },
+      "jsonDiff": {
+        "title": "Σύγκριση JSON",
+        "description": "Σημασιολογική σύγκριση δύο εγγράφων JSON με επίγνωση της δομής."
+      },
+      "jsonpathPlayground": {
+        "title": "Παιχνιδότοπος JSONPath",
+        "description": "Κάντε ερωτήματα σε JSON με JSONPath ή JMESPath και δείτε ζωντανά αποτελέσματα."
+      },
+      "keycodeInspector": {
+        "title": "Επιθεωρητής πλήκτρων",
+        "description": "Πατήστε ένα πλήκτρο για να δείτε τους κωδικούς συμβάντων JavaScript και τους τροποποιητές του."
+      },
+      "markdownTableGenerator": {
+        "title": "Γεννήτρια πινάκων Markdown",
+        "description": "Δημιουργήστε πίνακες Markdown και HTML σε έναν επεξεργαστή πλέγματος τύπου υπολογιστικού φύλλου."
+      },
+      "timezoneConverter": {
+        "title": "Μετατροπέας ζωνών ώρας",
+        "description": "Μετατρέψτε μια ώρα σε πολλές ζώνες με ενδείξεις μετατόπισης ημέρας και ωραρίου εργασίας."
+      },
+      "tokenCounter": {
+        "title": "Μετρητής token LLM",
+        "description": "Μετρήστε token LLM, οπτικοποιήστε τμήματα και εκτιμήστε το κόστος API."
+      },
+      "webhookTester": {
+        "title": "Δοκιμαστής webhook",
+        "description": "Καταγράψτε και επιθεωρήστε εισερχόμενα αιτήματα webhook σε πραγματικό χρόνο."
+      },
+      "websocketTester": {
+        "title": "Δοκιμαστής WebSocket",
+        "description": "Συνδεθείτε σε άκρα WebSocket και ανταλλάξτε μηνύματα σε πραγματικό χρόνο."
+      },
+      "whoisLookup": {
+        "title": "Αναζήτηση Whois",
+        "description": "Αναζητήστε στοιχεία καταχώρισης τομέα και IP μέσω RDAP."
+      }
+    },
+    "tabs": {
+      "apps": "Εφαρμογές",
+      "analytics": "Αναλυτικά",
+      "ui": "Διεπαφή"
+    },
+    "analytics": {
+      "title": "Τα δεδομένα σας με μια ματιά",
+      "subtitle": "Μετρήσεις συγχρονισμένες με τον λογαριασμό σας στον διακομιστή.",
+      "loadError": "Δεν ήταν δυνατή η φόρτωση αναλυτικών.",
+      "retry": "Επανάληψη",
+      "loginHint": "Συνδεθείτε για να δείτε αναλυτικά χρήσης και προτιμήσεις διεπαφής.",
+      "passwordEntries": "Καταχωρήσεις κωδικών",
+      "bookmarks": "Σελιδοδείκτες",
+      "bookmarkFolders": "Φάκελοι σελιδοδεικτών",
+      "tasksTotal": "Εργασίες",
+      "tasksCompleted": "Ολοκληρωμένες",
+      "tasksOngoing": "Σε εξέλιξη",
+      "tasksNotStarted": "Δεν ξεκίνησαν",
+      "projects": "Έργα",
+      "nosqlConnections": "Συνδέσεις ΒΔ",
+      "notes": "Σημειώσεις",
+      "apiClientCollections": "Συλλογές API",
+      "apiClientEnvironments": "Περιβάλλοντα API",
+      "apiClientHistory": "Καταχωρήσεις ιστορικού API",
+      "jsonFormatterDocuments": "Έγγραφα μορφοποιητή JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Αποσπάσματα κώδικα",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
+    },
+    "ui": {
+      "title": "Προτιμήσεις διεπαφής",
+      "subtitle": "Θέμα, γλώσσα και ορατά εργαλεία στην πλευρική γραμμή — από τις ρυθμίσεις λογαριασμού.",
+      "loadError": "Δεν ήταν δυνατή η φόρτωση προτιμήσεων.",
+      "loginHint": "Συνδεθείτε για να δείτε τις αποθηκευμένες προτιμήσεις διεπαφής.",
+      "theme": "Θέμα",
+      "accent": "Χρώμα έμφασης",
+      "locale": "Γλώσσα",
+      "enabledTools": "Ορατά εργαλεία",
+      "favoriteTools": "Αγαπημένα εργαλεία",
+      "toolsWithUsage": "Εργαλεία με παρακολούθηση χρήσης"
+    },
+    "signIn": "Σύνδεση",
+    "noResults": "Κανένα εργαλείο δεν ταιριάζει με την αναζήτησή σας",
+    "noResultsHint": "Δοκιμάστε διαφορετική λέξη-κλειδί ή καθαρίστε το φίλτρο.",
+    "filterAll": "Όλα",
+    "loginCta": {
+      "description": "Συνδεθείτε για να παρακολουθείτε τα πρόσφατα χρησιμοποιημένα εργαλεία σας."
+    },
+    "popularTools": "Popular tools",
+    "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
+    "viewActivity": "Recent activity",
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "filterRange": "Time range",
+      "search": "Search activity…",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "7 days",
+      "last30": "30 days",
+      "allTime": "All time",
+      "resetFilters": "Reset filters",
+      "activeFilters": "{count, plural, =0 {No filters} =1 {1 filter} other {# filters}} applied",
+      "empty": "No activity yet.",
+      "emptyFiltered": "No activity matches the current filters.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "showingOf": "Showing {shown} of {total}",
+      "changedFields": "What changed",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "device": "Device",
+      "ipAddress": "IP",
+      "latency": "Latency",
+      "endpoint": "Endpoint",
+      "status": "Status",
+      "when": "When",
+      "actionKey": "Action",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity",
+      "moduleAuth": "Account",
+      "moduleBookmarks": "Bookmarks",
+      "moduleBookmarkFolders": "Bookmark folders",
+      "moduleNotes": "Notes",
+      "moduleTasks": "Tasks",
+      "modulePasswords": "Passwords",
+      "moduleSnippets": "Snippets",
+      "moduleApiClient": "API client",
+      "moduleSqlClient": "SQL client",
+      "moduleNosql": "NoSQL",
+      "moduleEnvManager": "Environments",
+      "modulePrefs": "Preferences",
+      "moduleProjects": "Projects",
+      "moduleUrlShortener": "URL shortener",
+      "moduleGameScores": "Game scores",
+      "moduleFeedback": "Feedback"
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Φόρτωση...",
+      "myTasksTitle": "Οι εργασίες μου",
+      "statsLine": "{total} εργασίες • Ολοκληρώθηκε το {percent}%.",
+      "statsLineDesktop": "{total} σύνολο • {percent}% ολοκληρώθηκε"
+    },
+    "filters": {
+      "all": "Ολοι",
+      "total": "Σύνολο",
+      "allProjects": "Όλα τα Έργα",
+      "export": "Εξαγωγή",
+      "kanban": "Kanban",
+      "list": "Λίστα",
+      "searchPlaceholder": "Εργασίες αναζήτησης...",
+      "searchAria": "Εργασίες αναζήτησης",
+      "clearSearchAria": "Εκκαθάριση αναζήτησης",
+      "foundTasks": "Βρέθηκε {count} {count, plural, one {task} other {tasks}}",
+      "filterByAllAria": "Φιλτράρισμα κατά όλα",
+      "filterByStatusAria": "Φιλτράρισμα κατά {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Δεν έχει ξεκινήσει",
+        "description": "Εργασίες που δεν έχουν ξεκινήσει ακόμα"
+      },
+      "ongoing": {
+        "label": "Σε εξέλιξη",
+        "description": "Εργασίες σε εξέλιξη"
+      },
+      "completed": {
+        "label": "Ολοκληρώθηκε το",
+        "description": "Εργασίες που έχουν τελειώσει"
+      }
+    },
+    "priorities": {
+      "high": "Ψηλά",
+      "medium": "Μέσον",
+      "low": "Χαμηλός"
+    },
+    "form": {
+      "addNewTaskLabel": "Προσθήκη νέας εργασίας",
+      "multilinePlaceholder": "Προσθήκη λεπτομερειών εργασίας... (Shift+Enter για νέα γραμμή)",
+      "singlelinePlaceholder": "Τι πρέπει να γίνει; Πατήστε Enter για προσθήκη",
+      "taskInputAria": "Εισαγωγή εργασιών",
+      "projectPlaceholder": "Σχέδιο",
+      "selectProject": "Επιλέξτε Έργο",
+      "errorSelectProject": "Επιλέξτε ένα έργο ή δημιουργήστε ένα νέο για να προσθέσετε μια εργασία.",
+      "hintMultiline": "Shift+Enter για νέα γραμμή, Enter για προσθήκη",
+      "hintSingleline": "Εισαγάγετε για προσθήκη",
+      "shortcutsAria": "Συντομεύσεις πληκτρολογίου",
+      "shortcutsLabel": "Συντομεύσεις",
+      "shortcutAddTask": "Προσθήκη εργασίας",
+      "shortcutNewLine": "Νέα γραμμή",
+      "shortcutClear": "Σαφής",
+      "addButton": "Προσθέτω"
+    },
+    "list": {
+      "ariaLabel": "Λίστα εργασιών",
+      "loading": "Φόρτωση των εργασιών σας...",
+      "emptyTitle": "Δεν βρέθηκαν εργασίες",
+      "emptyPrimary": "Ξεκινήστε προσθέτοντας την πρώτη σας εργασία παραπάνω! Πατήστε Enter για γρήγορη προσθήκη εργασιών.",
+      "emptySecondary": "Δοκιμάστε να προσαρμόσετε τα φίλτρα ή το ερώτημα αναζήτησης."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Προσθήκη Εργασίας",
+      "addNewTaskTitle": "Προσθήκη νέας εργασίας",
+      "addNewTaskDescription": "Δημιουργήστε μια νέα εργασία για να παρακολουθείτε την πρόοδό σας.",
+      "cancel": "Ματαίωση"
+    },
+    "kanban": {
+      "ariaLabel": "Πίνακας Kanban",
+      "loading": "Φόρτωση των εργασιών σας...",
+      "dropHere": "Απόθεση εργασίας εδώ",
+      "noTasksYet": "Δεν υπάρχουν ακόμη εργασίες",
+      "emptyColumnAria": "Κενή στήλη",
+      "columnAria": "στήλη {title} με {count} εργασίες",
+      "countInColumnAria": "{count} εργασίες στο {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την εργασία;",
+      "statusPlaceholder": "Κατάσταση",
+      "changeStatusAria": "Αλλαγή κατάστασης εργασίας",
+      "taskOptionsAria": "Επιλογές εργασιών",
+      "editTask": "Επεξεργασία εργασίας",
+      "copyTask": "Αντιγραφή εργασίας",
+      "copied": "Αντιγράφηκε!",
+      "deleteTask": "Διαγραφή Εργασίας",
+      "statusHeading": "Κατάσταση",
+      "editTaskAria": "Επεξεργασία εργασίας"
+    },
+    "editDialog": {
+      "title": "Επεξεργασία εργασίας",
+      "description": "Ενημερώστε τις λεπτομέρειες εργασιών, προσθέστε δευτερεύουσες εργασίες, ορίστε προτεραιότητες και πολλά άλλα.",
+      "taskTitleLabel": "Τίτλος εργασίας *",
+      "taskTitlePlaceholder": "Τι πρέπει να γίνει;",
+      "descriptionLabel": "Περιγραφή",
+      "descriptionPlaceholder": "Προσθέστε περισσότερες λεπτομέρειες σχετικά με αυτήν την εργασία...",
+      "statusLabel": "Κατάσταση",
+      "priorityLabel": "Προτεραιότητα",
+      "dueDateLabel": "Ημερομηνία λήξης",
+      "pickDate": "Επιλέξτε μια ημερομηνία",
+      "clearDate": "Καθαρή ημερομηνία",
+      "projectLabel": "Σχέδιο",
+      "selectProjectPlaceholder": "Επιλέξτε ένα έργο",
+      "noProject": "Κανένα Έργο",
+      "timeEstimateLabel": "Εκτίμηση χρόνου (λεπτά)",
+      "timeEstimatePlaceholder": "Πόσο καιρό θα πάρει αυτό;",
+      "tagsLabel": "Ετικέτες",
+      "customTagNamePlaceholder": "Όνομα προσαρμοσμένης ετικέτας",
+      "subtasksLabel": "Υποεργασίες",
+      "addSubtaskPlaceholder": "Προσθήκη δευτερεύουσας εργασίας...",
+      "cancel": "Ματαίωση",
+      "saving": "Οικονομία...",
+      "saveChanges": "Αποθήκευση αλλαγών"
+    },
+    "export": {
+      "title": "Εξαγωγή εργασιών",
+      "description": "Εξάγετε τις εργασίες σας σε μορφές JSON, CSV ή Excel.",
+      "projectLabel": "Σχέδιο",
+      "statusLabel": "Κατάσταση",
+      "tagLabel": "Ετικέτα",
+      "allProjects": "Όλα τα Έργα",
+      "allStatuses": "Όλες οι καταστάσεις",
+      "allTags": "Όλες οι ετικέτες",
+      "exportAsJsonTitle": "Εξαγωγή ως JSON",
+      "exportAsJsonDescription": "Εξαγωγή δεδομένων εργασιών, συμπεριλαμβανομένων δευτερευουσών εργασιών, ετικετών και μεταδεδομένων.",
+      "exportJson": "Εξαγωγή JSON",
+      "exportAsCsvExcelTitle": "Εξαγωγή ως CSV / Excel",
+      "exportAsCsvExcelDescription": "Εξαγωγή εργασιών για εφαρμογές υπολογιστικών φύλλων.",
+      "exportCsv": "Εξαγωγή CSV",
+      "exportExcel": "Εξαγωγή Excel",
+      "close": "Κοντά",
+      "toastNoTasks": "Δεν υπάρχουν εργασίες για εξαγωγή με τα τρέχοντα φίλτρα",
+      "toastExportedJson": "Έγινε εξαγωγή {count} εργασιών σε JSON!",
+      "toastExportedCsv": "Έγινε εξαγωγή {count} εργασιών σε CSV!",
+      "toastExportedExcel": "Έγινε εξαγωγή {count} εργασιών στο Excel!",
+      "toastFailedJson": "Απέτυχε η εξαγωγή σε JSON",
+      "toastFailedCsv": "Απέτυχε η εξαγωγή σε CSV",
+      "toastFailedExcel": "Απέτυχε η εξαγωγή στο Excel",
+      "unknownProject": "Άγνωστο έργο"
+    },
+    "ack": {
+      "taskAddedTitle": "Η εργασία προστέθηκε με επιτυχία",
+      "taskAddedFailedTitle": "Αποτυχία προσθήκης εργασίας",
+      "taskUpdatedTitle": "Η εργασία ενημερώθηκε με επιτυχία",
+      "taskUpdatedFailedTitle": "Η ενημέρωση της εργασίας απέτυχε",
+      "taskStatusUpdateFailedTitle": "Η ενημέρωση της κατάστασης της εργασίας απέτυχε",
+      "taskMovedTitle": "Η εργασία μετακινήθηκε στο {status}",
+      "tryAgain": "Δοκιμάστε ξανά.",
+      "taskDeletedTitle": "Η εργασία \"{text}\" διαγράφηκε",
+      "undo": "Ξεκάνω",
+      "taskRestoredTitle": "Έγινε επαναφορά της εργασίας",
+      "taskRestoredSuccessTitle": "Η εργασία αποκαταστάθηκε με επιτυχία",
+      "taskRestoreFailedTitle": "Η επαναφορά της εργασίας απέτυχε. Δοκιμάστε ξανά.",
+      "taskDeleteFailedTitle": "Αποτυχία διαγραφής εργασίας. Δοκιμάστε ξανά.",
+      "tasksImportedTitle": "Έγινε επιτυχής εισαγωγή {count} {count, plural, one {task} other {tasks}}!",
+      "tasksImportFailedTitle": "Αποτυχία εισαγωγής εργασιών. Δοκιμάστε ξανά.",
+      "unknownProject": "Άγνωστο έργο",
+      "projectCreatedTitle": "Το έργο δημιουργήθηκε με επιτυχία",
+      "projectCreateFailedTitle": "Αποτυχία δημιουργίας έργου",
+      "projectUpdatedTitle": "Το έργο ενημερώθηκε με επιτυχία",
+      "projectUpdateFailedTitle": "Η ενημέρωση του έργου απέτυχε",
+      "projectDeletedTitle": "Το έργο διαγράφηκε με επιτυχία",
+      "projectDeleteFailedTitle": "Αποτυχία διαγραφής έργου"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Φόρτωση..."
+    },
+    "layout": {
+      "mobileNavTitle": "Σημειώσεις Πλοήγηση",
+      "openMenuAria": "Ανοίξτε το μενού σημειώσεων"
+    },
+    "sidebar": {
+      "title": "Σημειώσεις",
+      "createNoteAria": "Δημιουργία σημείωσης",
+      "searchPlaceholder": "Αναζήτηση σημειώσεων...",
+      "loading": "Φόρτωση...",
+      "noNotesFound": "Δεν βρέθηκαν σημειώσεις.",
+      "noNotesYet": "Δεν υπάρχουν σημειώσεις ακόμα. Κάντε κλικ στο + για να δημιουργήσετε ένα.",
+      "inParent": "στο {parentTitle}",
+      "untitled": "Χωρίς τίτλο",
+      "addSubPage": "Προσθήκη υποσελίδας",
+      "delete": "Διαγράφω",
+      "deleteConfirmTitle": "Διαγραφή σημείωσης;",
+      "deleteConfirmDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε το \"{title}\"; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+      "cancel": "Ματαίωση",
+      "confirmDelete": "Διαγράφω",
+      "noteOptionsAria": "Επιλογές σημειώσεων"
+    },
+    "editor": {
+      "emptyState": "Επιλέξτε μια σημείωση ή δημιουργήστε μια νέα για να ξεκινήσετε.",
+      "titlePlaceholder": "Χωρίς τίτλο",
+      "saving": "Αποθήκευση…",
+      "ready": "Έτοιμο",
+      "saved": "Αποθηκεύτηκε {time}",
+      "stats": "{words} λέξεις · {read} λεπτά ανάγνωσης",
+      "template": "Πρότυπο",
+      "applyTemplate": "Εφαρμογή προτύπου",
+      "exportMdLabel": ".md",
+      "exportMd": "Εξαγωγή ως Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Εξαγωγή ως HTML",
+      "focusMode": "Λειτουργία εστίασης",
+      "exitFocusMode": "Έξοδος από λειτουργία εστίασης",
+      "save": "Αποθήκευση",
+      "addTag": "Προσθήκη ετικέτας…",
+      "removeTag": "Αφαίρεση ετικέτας {tag}",
+      "loading": "Φόρτωση…",
+      "searchHint": "για αναζήτηση",
+      "focusHint": "λειτουργία εστίασης",
+      "notePath": "Διαδρομή σημείωσης"
+    },
+    "context": {
+      "authRequiredError": "Ο χρήστης δεν έχει επικυρωθεί",
+      "defaultTitle": "Χωρίς τίτλο",
+      "cloudSyncImageError": "Ενεργοποιήστε τον συγχρονισμό cloud για αποθήκευση εικόνων σημειώσεων. Οι σημειώσεις κειμένου παραμένουν τοπικές."
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Φόρτωση...",
+      "title": "Διαχειριστής κωδικών πρόσβασης",
+      "loadFailed": "Failed to load passwords"
+    },
+    "vault": {
+      "toastDecryptFailed": "Απέτυχε η αποκρυπτογράφηση των κωδικών πρόσβασης",
+      "toastLoadFailed": "Αποτυχία φόρτωσης κωδικών πρόσβασης",
+      "toastUnlockedAuto": "Το Vault ξεκλειδώθηκε αυτόματα",
+      "toastAutoUnlockFailed": "Το αυτόματο ξεκλείδωμα απέτυχε. Ξεκλειδώστε χειροκίνητα.",
+      "toastConnectFailed": "Απέτυχε η σύνδεση με τον διακομιστή",
+      "toastAutoUnlockWarning": "Το Vault ξεκλειδώθηκε, αλλά το αυτόματο ξεκλείδωμα ενδέχεται να μην λειτουργεί κατά την επαναφόρτωση",
+      "errorIncorrectPassword": "Λανθασμένος κύριος κωδικός πρόσβασης",
+      "errorUnlockFailed": "Αποτυχία ξεκλειδώματος θησαυροφυλάκιου",
+      "errorPasswordsMismatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν",
+      "errorPasswordTooShort": "Ο κωδικός πρόσβασης πρέπει να αποτελείται από τουλάχιστον 8 χαρακτήρες",
+      "errorSetupFailed": "Αποτυχία ρύθμισης θησαυροφυλάκιου",
+      "errorConnectFailed": "Απέτυχε η σύνδεση με τον διακομιστή.",
+      "mobileTitleCreate": "Δημιουργήστε το θησαυροφυλάκιο σας",
+      "mobileTitleWelcome": "Καλώς ήρθες πίσω",
+      "mobileSubtitleCreate": "Ορίστε έναν κύριο κωδικό πρόσβασης για να προστατεύσετε τα διαπιστευτήριά σας",
+      "mobileSubtitleUnlock": "Εισαγάγετε τον κύριο κωδικό πρόσβασης για ξεκλείδωμα",
+      "placeholderMasterPassword": "Κύριος κωδικός πρόσβασης",
+      "placeholderConfirmPassword": "Επιβεβαίωση κωδικού πρόσβασης",
+      "labelMasterPassword": "Κύριος κωδικός πρόσβασης",
+      "labelConfirmPassword": "Επιβεβαίωση κωδικού πρόσβασης",
+      "placeholderEnterMaster": "Εισαγάγετε τον κύριο κωδικό πρόσβασης",
+      "placeholderConfirmMaster": "Επιβεβαιώστε τον κύριο κωδικό πρόσβασης",
+      "buttonCreateVault": "Δημιουργία θησαυροφυλάκιου",
+      "buttonUnlock": "Ξεκλειδώνω",
+      "buttonUnlockVault": "Ξεκλειδώστε το θησαυροφυλάκιο",
+      "footerCreate": "Ο κωδικός πρόσβασής σας δεν αποθηκεύεται ποτέ και δεν μπορεί να ανακτηθεί",
+      "footerUnlock": "Ασφαλής με κρυπτογράφηση από άκρο σε άκρο",
+      "desktopTitleSetup": "Ρύθμιση αποθήκευσης κωδικού πρόσβασης",
+      "desktopTitleUnlock": "Ξεκλειδώστε το θησαυροφυλάκιο",
+      "desktopDescriptionSetup": "Δημιουργήστε έναν κύριο κωδικό πρόσβασης για να προστατεύσετε τα διαπιστευτήριά σας. Αυτός ο κωδικός πρόσβασης δεν αποθηκεύεται ποτέ και δεν μπορεί να ανακτηθεί.",
+      "desktopDescriptionUnlock": "Εισαγάγετε τον κύριο κωδικό πρόσβασης για πρόσβαση στα ασφαλή διαπιστευτήριά σας."
+    },
+    "list": {
+      "loading": "Φόρτωση των κωδικών πρόσβασής σας...",
+      "emptyTitle": "Το θησαυροφυλάκιο είναι άδειο",
+      "emptyHintMobile": "Πατήστε το κουμπί + για να προσθέσετε τον πρώτο σας κωδικό πρόσβασης",
+      "emptyHintDesktop": "Δεν έχετε αποθηκεύσει ακόμα κανέναν κωδικό πρόσβασης. Κάντε κλικ στο κουμπί \"Προσθήκη κωδικού πρόσβασης\" παραπάνω για να ξεκινήσετε.",
+      "addPassword": "Προσθήκη κωδικού πρόσβασης",
+      "searchPlaceholderMobile": "Αναζητήστε το θησαυροφυλάκιό σας...",
+      "searchPlaceholderDesktop": "Θησαυροφυλάκιο αναζήτησης...",
+      "importExport": "Εισαγωγή / εξαγωγή",
+      "lockVault": "Θόλος κλειδαριάς",
+      "allPasswordsTitle": "Όλοι οι κωδικοί πρόσβασης",
+      "passwordCount": "{count, plural, one {# password} other {# passwords}}",
+      "vaultHealthDrawerTitle": "Υγεία θησαυροφυλάκιο",
+      "noResults": "Δεν βρέθηκαν κωδικοί πρόσβασης που να ταιριάζουν με το \"{query}\"",
+      "tableService": "Υπηρεσία",
+      "tableUsername": "Όνομα χρήστη",
+      "tablePassword": "Σύνθημα",
+      "tableUrl": "URL",
+      "tableActions": "Δράσεις",
+      "gridViewAria": "Προβολή πλέγματος",
+      "listViewAria": "Προβολή λίστας",
+      "passwordStrengthTitle": "Ισχύς κωδικού πρόσβασης",
+      "deleteDialogTitle": "Διαγραφή κωδικού πρόσβασης",
+      "deleteDialogDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτόν τον κωδικό πρόσβασης; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+      "cancel": "Ματαίωση",
+      "delete": "Διαγράφω",
+      "edit": "Εκδίδω"
+    },
+    "toasts": {
+      "copiedPassword": "Ο κωδικός πρόσβασης αντιγράφηκε στο πρόχειρο",
+      "copiedUsername": "Το όνομα χρήστη αντιγράφηκε στο πρόχειρο",
+      "passwordDeleted": "Διαγράφηκε ο κωδικός πρόσβασης",
+      "deleteFailed": "Αποτυχία διαγραφής κωδικού πρόσβασης",
+      "vaultLocked": "Θόλος κλειδωμένος",
+      "importedCount": "Έγινε επιτυχής εισαγωγή {count, plural, one {# password} other {# passwords}}"
+    },
+    "form": {
+      "addTitle": "Προσθήκη νέου κωδικού πρόσβασης",
+      "editTitle": "Επεξεργασία κωδικού πρόσβασης",
+      "serviceName": "Όνομα υπηρεσίας",
+      "usernameEmail": "Όνομα χρήστη / email",
+      "password": "Σύνθημα",
+      "urlOptional": "URL ιστότοπου (προαιρετικό)",
+      "notesOptional": "Σημειώσεις (προαιρετικό)",
+      "tags": "Ετικέτες",
+      "placeholderService": "π.χ. Netflix",
+      "placeholderUsername": "user@example.com",
+      "placeholderPassword": "Εισαγάγετε ή δημιουργήστε κωδικό πρόσβασης",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Πρόσθετες λεπτομέρειες...",
+      "placeholderTags": "Προσθήκη ετικετών (πατήστε Enter ή κόμμα)",
+      "strength": "Δύναμη",
+      "strengthWeak": "Αδύναμος",
+      "strengthMedium": "Μέσον",
+      "strengthStrong": "Ισχυρός",
+      "advancedGenerator": "Προηγμένη γεννήτρια",
+      "cancel": "Ματαίωση",
+      "saving": "Οικονομία...",
+      "savePassword": "Αποθήκευση κωδικού πρόσβασης",
+      "updating": "Ενημέρωση...",
+      "updatePassword": "Ενημέρωση κωδικού πρόσβασης",
+      "addPasswordSrOnly": "Προσθήκη κωδικού πρόσβασης",
+      "triggerAdd": "Προσθήκη κωδικού πρόσβασης",
+      "toastSaved": "Ο κωδικός πρόσβασης αποθηκεύτηκε με επιτυχία",
+      "toastSaveFailed": "Αποτυχία αποθήκευσης κωδικού πρόσβασης",
+      "toastUpdated": "Ο κωδικός πρόσβασης ενημερώθηκε με επιτυχία",
+      "toastUpdateFailed": "Αποτυχία ενημέρωσης κωδικού πρόσβασης"
+    },
+    "security": {
+      "vaultHealth": "Υγεία θησαυροφυλάκιο",
+      "statusLabel": "Κατάσταση",
+      "totalPasswords": "Σύνολο κωδικών πρόσβασης",
+      "activeEntries": "Ενεργές καταχωρήσεις στο θησαυροφυλάκιό σας",
+      "protected": "Προστατεύεται",
+      "weakPasswords": "Αδύναμοι κωδικοί πρόσβασης",
+      "needingImprovement": "Οι κωδικοί πρόσβασης που χρειάζονται βελτίωση",
+      "allGood": "Όλα καλά",
+      "reusedPasswords": "Επαναχρησιμοποιημένοι κωδικοί πρόσβασης",
+      "usedMultipleTimes": "Κωδικοί πρόσβασης που χρησιμοποιούνται πολλές φορές",
+      "unique": "Μοναδικός",
+      "total": "Σύνολο",
+      "weak": "Αδύναμος",
+      "reused": "Επαναχρησιμοποίηση",
+      "totalCountLabel": "{count, plural, one {# password} other {# passwords}}",
+      "weakCountLabel": "{count} αδύναμο",
+      "allSecure": "Όλα ασφαλή",
+      "scoreExcellent": "Εξοχος",
+      "scoreGood": "Καλός",
+      "scoreFair": "Εκθεση",
+      "scoreCritical": "Κρίσιμος"
+    },
+    "importExport": {
+      "title": "Θησαυροφυλάκιο εισαγωγής/εξαγωγής",
+      "description": "Διαχειριστείτε τα δεδομένα του κωδικού πρόσβασής σας. Μπορείτε να εξαγάγετε το θησαυροφυλάκιό σας σε JSON ή να κάνετε εισαγωγή από ένα αρχείο JSON.",
+      "tabExport": "Εξαγωγή",
+      "tabImport": "Εισαγωγή",
+      "warningTitle": "Προειδοποίηση",
+      "warningBody": "Τα εξαγόμενα αρχεία περιέχουν τους κωδικούς πρόσβασής σας σε απλό κείμενο. Διατηρήστε αυτό το αρχείο ασφαλές και διαγράψτε το μετά τη χρήση.",
+      "exportBlurb": "Κατεβάστε ολόκληρο το θησαυροφυλάκιό σας ως αρχείο JSON. Αυτό περιλαμβάνει όλες τις υπηρεσίες, τα ονόματα χρήστη, τους κωδικούς πρόσβασης και τις σημειώσεις.",
+      "downloadJson": "Λήψη εξαγωγής JSON",
+      "pasteLabel": "Επικόλληση δεδομένων JSON",
+      "pastePlaceholder": "[{\"υπηρεσία\": \"Παράδειγμα\", \"όνομα χρήστη\": \"χρήστης\", \"κωδικός πρόσβασης\": \"123\", ...}]",
+      "pasteHint": "Επικολλήστε εδώ το περιεχόμενο ενός αρχείου JSON που έχει εξαχθεί προηγουμένως.",
+      "importing": "Εισαγωγή...",
+      "importPasswords": "Εισαγωγή κωδικών πρόσβασης",
+      "trigger": "Εισαγωγή / εξαγωγή",
+      "toastExported": "Το Vault εξήχθη με επιτυχία",
+      "toastExportFailed": "Αποτυχία εξαγωγής θησαυροφυλάκιου",
+      "toastImportFailed": "Αποτυχία εισαγωγής: μη έγκυρη μορφή JSON"
+    },
+    "card": {
+      "copyUsername": "Αντιγραφή ονόματος χρήστη",
+      "openUrl": "Ανοίξτε τη διεύθυνση URL",
+      "strength": "Δύναμη"
+    },
+    "swipeable": {
+      "copy": "Αντίγραφο",
+      "delete": "Διαγράφω",
+      "copyPassword": "Αντιγραφή κωδικού πρόσβασης",
+      "copyUsername": "Αντιγραφή ονόματος χρήστη",
+      "edit": "Εκδίδω",
+      "deleteAction": "Διαγράφω"
+    },
+    "floatingMenu": {
+      "lockVault": "Θόλος κλειδαριάς",
+      "importExport": "Εισαγωγή / εξαγωγή",
+      "addPassword": "Προσθήκη κωδικού πρόσβασης"
+    },
+    "generator": {
+      "tabPassword": "Σύνθημα",
+      "tabPassphrase": "Φράση πρόσβασης",
+      "strength": "Δύναμη",
+      "lengthLabel": "Μήκος: {length} χαρακτήρες",
+      "lengthBadge": "{length} χαρακτήρες",
+      "characterSets": "Σύνολα χαρακτήρων",
+      "uppercase": "Κεφαλαία",
+      "lowercase": "Πεζά",
+      "numbers": "Αριθμοί",
+      "symbols": "Σύμβολα",
+      "wordCountLabel": "Αριθμός λέξεων: {count}",
+      "wordCountBadge": "{count, plural, one {# word} other {# words}}",
+      "separator": "Διαχωριστής",
+      "capitalization": "Κεφαλοποίηση",
+      "includeNumber": "Συμπεριλάβετε τον αριθμό"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Κρυπτογραφημένες μεταβλητές περιβάλλοντος ανά έργο και περιβάλλον.",
+    "page": {
+      "loading": "Φόρτωση…",
+      "title": "Διαχειριστής περιβάλλοντος",
+      "loadFailed": "Αποτυχία φόρτωσης συνόλων περιβάλλοντος"
+    },
+    "list": {
+      "title": "Περιβάλλοντα",
+      "loading": "Φόρτωση των συνόλων σας…",
+      "emptyTitle": "Δεν υπάρχουν ακόμα σύνολα περιβάλλοντος",
+      "emptyHint": "Δημιουργήστε ένα σύνολο για κάθε έργο και περιβάλλον (π.χ. κλειδιά API παραγωγής). Όλα κρυπτογραφούνται στο πρόγραμμα περιήγησης πριν την αποστολή.",
+      "searchPlaceholder": "Αναζήτηση έργου, περιβάλλοντος, ετικετών, σημειώσεων…",
+      "tagFilterPlaceholder": "Φιλτράρισμα κατά ετικέτα",
+      "variableCount": "{count, plural, one {# μεταβλητή} other {# μεταβλητές}}",
+      "updatedAgo": "Ενημερώθηκε {time}",
+      "copyDotEnv": "Αντιγραφή .env",
+      "edit": "Επεξεργασία",
+      "delete": "Διαγραφή",
+      "cancel": "Ακύρωση",
+      "confirmDelete": "Διαγραφή",
+      "deleteDialogTitle": "Διαγραφή συνόλου περιβάλλοντος;",
+      "deleteDialogDescription": "Αφαιρεί το κρυπτογραφημένο αρχείο από τον λογαριασμό σας. Δεν μπορεί να αναιρεθεί.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
+    },
+    "toasts": {
+      "copiedDotEnv": "Το .env αντιγράφηκε στο πρόχειρο",
+      "deleted": "Το σύνολο περιβάλλοντος διαγράφηκε",
+      "deleteFailed": "Η διαγραφή απέτυχε"
+    },
+    "form": {
+      "addTitle": "Νέο σύνολο περιβάλλοντος",
+      "editTitle": "Επεξεργασία συνόλου περιβάλλοντος",
+      "triggerAdd": "Προσθήκη συνόλου περιβάλλοντος",
+      "addSrOnly": "Προσθήκη συνόλου περιβάλλοντος",
+      "project": "Έργο",
+      "environment": "Περιβάλλον",
+      "placeholderProject": "π.χ. billing-api",
+      "placeholderEnvironment": "π.χ. production",
+      "pasteEnvLabel": "Επικόλληση .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Συγχώνευση επικολλημένων γραμμών",
+      "variables": "Μεταβλητές",
+      "addRow": "Προσθήκη γραμμής",
+      "keyPlaceholder": "ΚΛΕΙΔΙ",
+      "valuePlaceholder": "τιμή",
+      "notesOptional": "Σημειώσεις (προαιρετικό)",
+      "placeholderNotes": "Πολιτική περιστροφής, ιδιοκτήτης, σύνδεσμοι…",
+      "tags": "Ετικέτες",
+      "placeholderTags": "Προσθέστε ετικέτες (Enter ή κόμμα)",
+      "cancel": "Ακύρωση",
+      "save": "Αποθήκευση",
+      "saving": "Αποθήκευση…",
+      "update": "Ενημέρωση",
+      "updating": "Ενημέρωση…",
+      "toastSaved": "Το σύνολο περιβάλλοντος αποθηκεύτηκε",
+      "toastSaveFailed": "Η αποθήκευση απέτυχε",
+      "toastUpdated": "Το σύνολο περιβάλλοντος ενημερώθηκε",
+      "toastUpdateFailed": "Η ενημέρωση απέτυχε",
+      "toastPasteEmpty": "Δεν βρέθηκαν γραμμές ΚΛΕΙΔΙ=τιμή",
+      "toastPasteApplied": "Συγχωνεύτηκαν {count} μεταβλητές από την επικόλληση",
+      "toastProjectEnvRequired": "Το έργο και το περιβάλλον είναι υποχρεωτικά",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Φόρτωση..."
+    },
+    "manager": {
+      "foldersHeading": "Φάκελοι",
+      "tagsHeading": "Ετικέτες",
+      "tagsMore": "+{count} ακόμη",
+      "tagsShowLess": "Show less",
+      "searchPlaceholder": "Αναζήτηση στους σελιδοδείκτες σας...",
+      "import": "Εισαγωγή",
+      "export": "Εξαγωγή",
+      "exportAsHtml": "Εξαγωγή ως HTML",
+      "exportAsJson": "Εξαγωγή ως JSON",
+      "addBookmark": "Προσθήκη σελιδοδείκτη",
+      "matchingQuery": "αντιστοίχιση \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# bookmark} other {# bookmarks}}",
+      "allBookmarks": "Όλοι οι σελιδοδείκτες",
+      "uncategorized": "Χωρίς κατηγοριοποίηση",
+      "unknownFolder": "Αγνωστος"
+    },
+    "card": {
+      "urlCopied": "Η διεύθυνση URL αντιγράφηκε στο πρόχειρο",
+      "bookmarkDeleted": "Ο σελιδοδείκτης διαγράφηκε",
+      "edit": "Εκδίδω",
+      "delete": "Διαγράφω",
+      "copyUrl": "Αντιγραφή διεύθυνσης URL",
+      "deleteConfirmTitle": "Διαγραφή σελιδοδείκτη;",
+      "deleteConfirmDescription": "Αυτό θα διαγράψει οριστικά το \"{title}\".",
+      "cancel": "Ματαίωση"
+    },
+    "grid": {
+      "emptyTitle": "Δεν υπάρχουν ακόμη σελιδοδείκτες",
+      "emptyDescription": "Προσθέστε τον πρώτο σας σελιδοδείκτη ή εισαγάγετε από το πρόγραμμα περιήγησής σας για να ξεκινήσετε."
+    },
+    "folderTree": {
+      "allBookmarks": "Όλοι οι σελιδοδείκτες",
+      "addSubfolder": "Προσθήκη υποφακέλου",
+      "rename": "Μετονομάζω",
+      "deleteFolderTitle": "Διαγραφή του φακέλου \"{name}\";",
+      "deleteFolderDescription": "Αυτό θα διαγράψει τον φάκελο και όλους τους υποφακέλους του. Οι σελιδοδείκτες σε αυτούς τους φακέλους θα μετακινηθούν στο Uncategorized."
+    },
+    "import": {
+      "title": "Εισαγωγή σελιδοδεικτών",
+      "description": "Εισαγάγετε σελιδοδείκτες από το εξαγόμενο αρχείο του προγράμματος περιήγησής σας.",
+      "parseError": "Απέτυχε η ανάλυση του αρχείου σελιδοδεικτών. Βεβαιωθείτε ότι πρόκειται για έγκυρη εξαγωγή σελιδοδεικτών.",
+      "successToast": "Εισήχθησαν {σελιδοδείκτες} σελιδοδείκτες και φάκελοι {folders}",
+      "errorToast": "Αποτυχία εισαγωγής σελιδοδεικτών",
+      "chromeInstruction": "Μενού → Σελιδοδείκτες → Διαχείριση σελιδοδεικτών → ⋮ → Εξαγωγή σελιδοδεικτών",
+      "firefoxInstruction": "Μενού → Σελιδοδείκτες → Διαχείριση σελιδοδεικτών → Εισαγωγή και δημιουργία αντιγράφων ασφαλείας → Εξαγωγή",
+      "safariInstruction": "Αρχείο → Εξαγωγή σελιδοδεικτών...",
+      "edgeInstruction": "Μενού → Αγαπημένα → ⋯ → Εξαγωγή αγαπημένων",
+      "dropZoneTitle": "Αποθέστε το αρχείο σελιδοδεικτών σας εδώ",
+      "dropZoneHint": "ή κάντε κλικ για περιήγηση (HTML ή JSON)",
+      "selectedFileHint": "Κάντε κλικ για να επιλέξετε ένα διαφορετικό αρχείο",
+      "errorTitle": "Σφάλμα",
+      "previewTitle": "Εισαγωγή προεπισκόπησης",
+      "previewBookmarks": "{count, plural, one {# bookmark} other {# bookmarks}}",
+      "previewFolders": "{count, plural, one {# folder} other {# folders}}",
+      "importModeLabel": "Λειτουργία εισαγωγής",
+      "modeMerge": "Συγχώνευση με υπάρχοντες σελιδοδείκτες",
+      "modeReplace": "Αντικαταστήστε όλους τους υπάρχοντες σελιδοδείκτες",
+      "cancel": "Ματαίωση",
+      "importButton": "Εισαγωγή",
+      "importButtonWithCount": "Εισαγωγή {count, plural, one {# bookmark} other {# bookmarks}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Προσθήκη σελιδοδείκτη",
+      "titleEdit": "Επεξεργασία σελιδοδείκτη",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "Εισαγάγετε μια έγκυρη διεύθυνση URL",
+      "titleLabel": "Τίτλος",
+      "titlePlaceholder": "Τίτλος σελιδοδείκτη",
+      "titleRequired": "Εισαγάγετε έναν τίτλο",
+      "descriptionLabel": "Περιγραφή (προαιρετικό)",
+      "descriptionPlaceholder": "Προσθέστε μια σημείωση σχετικά με αυτόν τον σελιδοδείκτη",
+      "folderLabel": "Ντοσιέ",
+      "folderPlaceholder": "Επιλέξτε φάκελο",
+      "noFolder": "Χωρίς φάκελο",
+      "tagsLabel": "Ετικέτες",
+      "tagsPlaceholder": "Προσθήκη ετικετών (πατήστε Enter)",
+      "toastUpdated": "Ο σελιδοδείκτης ενημερώθηκε",
+      "toastAdded": "Προστέθηκε σελιδοδείκτης",
+      "cancel": "Ματαίωση",
+      "submitAdd": "Προσθήκη σελιδοδείκτη",
+      "submitUpdate": "Ενημέρωση σελιδοδείκτη"
+    },
+    "addFolder": {
+      "title": "Δημιουργία φακέλου",
+      "nameLabel": "Όνομα φακέλου",
+      "namePlaceholder": "Ο φάκελος μου",
+      "nameRequired": "Εισαγάγετε ένα όνομα φακέλου",
+      "parentLabel": "Γονικός φάκελος",
+      "parentPlaceholder": "Επιλέξτε γονικό φάκελο",
+      "rootParent": "Root (Χωρίς γονέα)",
+      "toastCreated": "Ο φάκελος δημιουργήθηκε",
+      "cancel": "Ματαίωση",
+      "submit": "Δημιουργία φακέλου"
+    },
+    "editFolder": {
+      "title": "Μετονομασία φακέλου",
+      "nameLabel": "Όνομα φακέλου",
+      "namePlaceholder": "Όνομα φακέλου",
+      "nameRequired": "Εισαγάγετε ένα όνομα φακέλου",
+      "toastRenamed": "Ο φάκελος μετονομάστηκε",
+      "cancel": "Ματαίωση",
+      "save": "Εκτός"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Email Validator",
+      "description": "Επαληθεύστε και επικυρώστε διευθύνσεις email για σύνταξη, τομέα και δυνατότητα παράδοσης."
+    },
+    "tabs": {
+      "single": "Ενιαία επαλήθευση",
+      "bulk": "Μαζική μεταφόρτωση"
+    },
+    "single": {
+      "cardTitle": "Ενιαία επαλήθευση ηλεκτρονικού ταχυδρομείου",
+      "cardDescription": "Εισαγάγετε μια διεύθυνση email για να ελέγξετε την παράδοση και τη φήμη της.",
+      "placeholder": "Εισαγάγετε τη διεύθυνση email...",
+      "clearAria": "Εκκαθάριση email",
+      "validate": "Επικυρώνω",
+      "validating": "Επικύρωση...",
+      "formatError": "Εισαγάγετε μια έγκυρη διεύθυνση email"
+    },
+    "toasts": {
+      "errorTitle": "Σφάλμα",
+      "enterEmail": "Εισαγάγετε μια διεύθυνση email",
+      "invalidFormatTitle": "Μη έγκυρη μορφή email",
+      "invalidFormatDescription": "Εισαγάγετε μια έγκυρη διεύθυνση email",
+      "validateFailedDescription": "Παρουσιάστηκε σφάλμα κατά την επικύρωση του email",
+      "noEmailsTitle": "Δεν βρέθηκαν μηνύματα ηλεκτρονικού ταχυδρομείου",
+      "noEmailsDescription": "Βεβαιωθείτε ότι το Excel σας έχει μια στήλη \"email\".",
+      "fileTooLargeTitle": "Το αρχείο είναι πολύ μεγάλο",
+      "fileTooLargeDescription": "Βρέθηκαν {total} μηνύματα ηλεκτρονικού ταχυδρομείου. Μόνο τα πρώτα 4000 θα επικυρωθούν.",
+      "successTitle": "Επιτυχία",
+      "successValidated": "Επικυρώθηκαν με επιτυχία {count} email.",
+      "batchFailedTitle": "Η επικύρωση παρτίδας απέτυχε",
+      "batchFailedDescription": "Παρουσιάστηκε σφάλμα κατά την επεξεργασία της μαζικής επικύρωσης.",
+      "noExportTitle": "Δεν υπάρχουν δεδομένα για εξαγωγή",
+      "noExportValidOnly": "Δεν βρέθηκαν έγκυρα μηνύματα ηλεκτρονικού ταχυδρομείου για εξαγωγή.",
+      "noExportAll": "Δεν υπάρχουν αποτελέσματα για εξαγωγή.",
+      "exportSuccessTitle": "Η εξαγωγή ολοκληρώθηκε με επιτυχία",
+      "exportSuccessExcelAll": "Έγινε εξαγωγή {count} μηνυμάτων ηλεκτρονικού ταχυδρομείου στο Excel.",
+      "exportSuccessExcelValid": "Εξήχθησαν {count} έγκυρα μηνύματα ηλεκτρονικού ταχυδρομείου στο Excel.",
+      "exportSuccessCsvAll": "Έγινε εξαγωγή {count} μηνυμάτων ηλεκτρονικού ταχυδρομείου σε CSV.",
+      "exportSuccessCsvValid": "Εξήχθησαν {count} έγκυρα μηνύματα ηλεκτρονικού ταχυδρομείου σε CSV."
+    },
+    "disposableAlert": {
+      "title": "Εντοπίστηκε email μιας χρήσης",
+      "description": "Αυτή η διεύθυνση email ανήκει σε πάροχο email μιας χρήσης. Μπορεί να είναι προσωρινό ή μη ασφαλές."
+    },
+    "score": {
+      "reliabilityTitle": "Βαθμολογία αξιοπιστίας",
+      "scoreLabel": "Σκορ"
+    },
+    "details": {
+      "sectionTitle": "Λεπτομέρειες επικύρωσης"
+    },
+    "validation": {
+      "syntaxLabel": "Έγκυρη σύνταξη",
+      "syntaxTooltip": "Ελέγχει εάν η διεύθυνση ηλεκτρονικού ταχυδρομείου ακολουθεί τη σωστή μορφή (π.χ. user@domain.com)",
+      "domainLabel": "Ο τομέας υπάρχει",
+      "domainTooltip": "Επαληθεύει ότι το όνομα τομέα στη διεύθυνση email υπάρχει πράγματι",
+      "mxLabel": "Βρέθηκαν εγγραφές MX",
+      "mxTooltip": "Ελέγχει εάν ο τομέας έχει εγγραφές ανταλλαγής αλληλογραφίας (MX) διαμορφωμένες για λήψη email",
+      "mailboxLabel": "Το γραμματοκιβώτιο υπάρχει",
+      "mailboxTooltip": "Επαληθεύει ότι το συγκεκριμένο γραμματοκιβώτιο/λογαριασμός υπάρχει στον διακομιστή αλληλογραφίας",
+      "disposableLabel": "Email μιας χρήσης",
+      "disposableTooltip": "Υποδεικνύει εάν αυτό το μήνυμα ηλεκτρονικού ταχυδρομείου ανήκει σε μια προσωρινή/μιας χρήσης υπηρεσία email (μπορεί να είναι επικίνδυνο)",
+      "roleBasedLabel": "Email με βάση ρόλους",
+      "roleBasedTooltip": "Προσδιορίζει εάν πρόκειται για email βασισμένο σε ρόλους (π.χ. support@, info@) αντί για προσωπική διεύθυνση"
+    },
+    "copy": {
+      "emailCopied": "Το email αντιγράφηκε!",
+      "copyTooltip": "Αντιγραφή email"
+    },
+    "bulk": {
+      "dropHere": "Ρίξτε το αρχείο σας εδώ",
+      "dragHere": "Σύρετε και αποθέστε το αρχείο σας εδώ",
+      "uploadHint": "Ανεβάστε ένα αρχείο .xlsx, .xls ή .csv που περιέχει μια στήλη \"email\" για επικύρωση έως και 4000 μηνυμάτων ηλεκτρονικού ταχυδρομείου.",
+      "filePrefix": "Αρχείο:",
+      "selectFile": "Επιλέξτε Αρχείο",
+      "downloadTemplate": "Λήψη προτύπου"
+    },
+    "bulkLoading": {
+      "title": "Επικύρωση μηνυμάτων ηλεκτρονικού ταχυδρομείου...",
+      "batchProgress": "Επεξεργασία παρτίδας {current} από {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Σύνολο επεξεργασίας",
+      "valid": "Εγκυρος",
+      "risky": "Επικίνδυνος",
+      "invalid": "Ακυρος"
+    },
+    "results": {
+      "detailedTitle": "Αναλυτικά Αποτελέσματα",
+      "searchPlaceholder": "Αναζήτηση email...",
+      "newVerification": "Νέα επαλήθευση",
+      "exportAll": "Εξαγωγή όλων",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Έγκυρη εξαγωγή ({count})"
+    },
+    "showingResults": "Εμφάνιση {shown} από {total} αποτελέσματα",
+    "table": {
+      "email": "E-mail",
+      "status": "Κατάσταση",
+      "score": "Σκορ",
+      "checks": "Έλεγχοι"
+    },
+    "noSearchResults": "Δεν βρέθηκαν αποτελέσματα που να ταιριάζουν με το \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Σύνταξη",
+      "domain": "Πεδίο ορισμού",
+      "mx": "MX",
+      "mailbox": "Γραμματοκιβώτιο"
+    },
+    "exportColumns": {
+      "email": "E-mail",
+      "status": "Κατάσταση",
+      "score": "Σκορ",
+      "syntax": "Σύνταξη",
+      "domain": "Πεδίο ορισμού",
+      "mx": "MX",
+      "mailbox": "Γραμματοκιβώτιο",
+      "disposable": "Διαθέσιμος",
+      "roleBased": "RoleBased",
+      "valid": "Εγκυρος",
+      "invalid": "Ακυρος",
+      "yes": "Ναί",
+      "no": "Οχι"
+    },
+    "sheets": {
+      "validEmails": "Έγκυρα email",
+      "results": "Αποτελέσματα",
+      "template": "Περίγραμμα"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "NoSQL Explorer",
+      "heroSubtitle": "Συνδεθείτε στις βάσεις δεδομένων σας για να διαχειριστείτε συλλογές, να εκτελέσετε ερωτήματα και να οπτικοποιήσετε τα δεδομένα σας.",
+      "featureMultiTitle": "Πολυσύνδεση",
+      "featureMultiDesc": "Διαχειριστείτε πολλαπλές συνδέσεις βάσεων δεδομένων ταυτόχρονα.",
+      "featureMongoTitle": "Υποστήριξη MongoDB",
+      "featureMongoDesc": "Εγγενής υποστήριξη για MongoDB με προηγμένο φιλτράρισμα.",
+      "featureQueryTitle": "Έξυπνο ερώτημα",
+      "featureQueryDesc": "Ισχυρό πρόγραμμα δημιουργίας ερωτημάτων με επισήμανση σύνταξης.",
+      "connectCta": "Συνδεθείτε στο MongoDB",
+      "footerNote": "Αυτήν τη στιγμή υποστηρίζεται το {db}. Περισσότερες βάσεις δεδομένων έρχονται σύντομα.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Επιλέξτε μια Συλλογή",
+      "selectCollectionDesc": "Επιλέξτε μια συλλογή από την πλαϊνή γραμμή για να προβάλετε έγγραφα και να ξεκινήσετε την εξερεύνηση των δεδομένων σας.",
+      "dialogAddConnection": "Προσθήκη σύνδεσης",
+      "toastConnectionAdded": "Η σύνδεση προστέθηκε",
+      "toastFetchFailed": "Αποτυχία λήψης εγγράφων για {collection}",
+      "toastDocDeleted": "Το έγγραφο διαγράφηκε",
+      "deleteDocTitle": "Είσαι απολύτως σίγουρος;",
+      "deleteDocDescription": "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί. Αυτό θα διαγράψει οριστικά το έγγραφο από τη συλλογή σας.",
+      "closeAllTitle": "Κλείσιμο όλων των καρτελών;",
+      "closeAllDescription": "Είστε βέβαιοι ότι θέλετε να κλείσετε όλες τις καρτέλες; Τυχόν μη αποθηκευμένες αλλαγές στα φίλτρα ερωτημάτων θα χαθούν.",
+      "closeAllConfirm": "Κλείσιμο όλων",
+      "cancel": "Ματαίωση",
+      "delete": "Διαγράφω"
+    },
+    "connection": {
+      "titleEdit": "Επεξεργασία σύνδεσης",
+      "titleConnect": "Συνδεθείτε στο MongoDB",
+      "subtitleEdit": "Ενημερώστε τα στοιχεία σύνδεσής σας παρακάτω.",
+      "subtitleConnect": "Εισαγάγετε τη συμβολοσειρά σύνδεσης MongoDB για να ξεκινήσετε την εξερεύνηση των δεδομένων σας.",
+      "labelName": "Ονομα",
+      "placeholderName": "π.χ. DB Παραγωγής",
+      "labelConnectionString": "Συμβολοσειρά σύνδεσης",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Μορφή: mongodb://username:password@host:port/database",
+      "testConnection": "Δοκιμή σύνδεσης",
+      "connecting": "Συνδετικός...",
+      "updateConnect": "Ενημέρωση & Σύνδεση",
+      "connect": "Συνδέω",
+      "cancelEdit": "Ακύρωση επεξεργασίας",
+      "savedConnections": "Αποθηκευμένες συνδέσεις",
+      "emptySaved": "Δεν υπάρχουν ακόμα αποθηκευμένες συνδέσεις.",
+      "lastUsed": "Τελευταία χρήση {time}",
+      "toastTestOk": "Επιτυχής σύνδεση!",
+      "toastTestFail": "Η σύνδεση απέτυχε: {message}",
+      "toastUpdated": "Η σύνδεση ενημερώθηκε",
+      "confirmDelete": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την αποθηκευμένη σύνδεση;",
+      "toastDeletedConn": "Η σύνδεση διαγράφηκε",
+      "toastDeleteFail": "Η διαγραφή της σύνδεσης απέτυχε",
+      "copyStringTitle": "Αντιγραφή συμβολοσειράς σύνδεσης",
+      "toastStringCopied": "Η συμβολοσειρά σύνδεσης αντιγράφηκε!",
+      "editTitle": "Εκδίδω",
+      "deleteTitle": "Διαγράφω"
+    },
+    "sidebar": {
+      "explorer": "Εξερευνητής",
+      "add": "Προσθέτω",
+      "tooltipAdd": "Προσθήκη νέας σύνδεσης",
+      "tooltipRefresh": "Ανανέωση συνδέσεων",
+      "searchPlaceholder": "Ερευνα...",
+      "loadingConnections": "Φόρτωση συνδέσεων...",
+      "noConnectionsFound": "Δεν βρέθηκαν συνδέσεις",
+      "toastLoadFail": "Η φόρτωση των συνδέσεων απέτυχε",
+      "toastConnectFail": "Απέτυχε η σύνδεση στο {name}",
+      "toastCollectionsFail": "Απέτυχε η ανάκτηση συλλογών για {name}",
+      "toastRenamed": "Η σύνδεση μετονομάστηκε",
+      "toastRenameFail": "Η μετονομασία της σύνδεσης απέτυχε",
+      "confirmDeleteConnection": "Είστε βέβαιοι ότι θέλετε να διαγράψετε τη σύνδεση \"{name}\";",
+      "toastDeleted": "Η σύνδεση διαγράφηκε",
+      "toastDeleteConnFail": "Η διαγραφή της σύνδεσης απέτυχε",
+      "confirmDropDb": "Είστε βέβαιοι ότι θέλετε να απορρίψετε τη βάση δεδομένων \"{name}\"; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+      "toastDbDropped": "Η βάση δεδομένων {name} απορρίφθηκε",
+      "confirmDropCollection": "Είστε βέβαιοι ότι θέλετε να απορρίψετε τη συλλογή \"{name}\"; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+      "toastCollectionDropped": "Η συλλογή {name} απορρίφθηκε",
+      "toastCollectionRenamed": "Η συλλογή μετονομάστηκε σε {name}",
+      "toastDatabaseRenamed": "Η βάση δεδομένων μετονομάστηκε σε {name}",
+      "connecting": "Συνδετικός...",
+      "connectionFailed": "Η σύνδεση απέτυχε",
+      "noDatabases": "Χωρίς βάσεις δεδομένων",
+      "loading": "Φόρτωση...",
+      "noCollections": "Χωρίς συλλογές",
+      "renameCollectionTitle": "Μετονομασία συλλογής",
+      "renameDatabaseTitle": "Μετονομασία βάσης δεδομένων",
+      "placeholderNewCollection": "Όνομα νέας συλλογής",
+      "placeholderNewDatabase": "Νέο όνομα βάσης δεδομένων",
+      "rename": "Μετονομάζω",
+      "refresh": "Φρεσκάρω",
+      "copyDbName": "Αντιγραφή ονόματος DB",
+      "toastDbNameCopied": "Το όνομα βάσης δεδομένων αντιγράφηκε στο πρόχειρο",
+      "dropDatabase": "Απόθεση βάσης δεδομένων",
+      "dropCollection": "Drop Collection",
+      "menuRename": "Μετονομάζω",
+      "menuCopyConnectionString": "Αντιγραφή συμβολοσειράς σύνδεσης",
+      "menuDeleteConnection": "Διαγραφή σύνδεσης",
+      "toastSidebarStringCopied": "Η συμβολοσειρά σύνδεσης αντιγράφηκε!",
+      "cancel": "Ματαίωση",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+    },
+    "document": {
+      "docsBreadcrumb": "{n} έγγραφα",
+      "table": "Τραπέζι",
+      "json": "JSON",
+      "tree": "Δέντρο",
+      "tooltipTable": "Προβολή πίνακα",
+      "tooltipJson": "Προβολή JSON",
+      "tooltipTree": "Θέα δέντρου",
+      "itemsPerPage": "Στοιχεία ανά σελίδα",
+      "perPage": "{n} / σελίδα",
+      "prevPage": "Προηγούμενη Σελίδα",
+      "nextPage": "Επόμενη Σελίδα",
+      "expandAll": "Ανάπτυξη όλων",
+      "collapseAll": "Σύμπτυξη όλων",
+      "refreshData": "Ανανέωση δεδομένων",
+      "insert": "Εισάγω",
+      "export": "Εξαγωγή",
+      "actions": "Δράσεις",
+      "invalidJson": "Μη έγκυρο περιεχόμενο JSON",
+      "copiedClipboard": "Αντιγράφηκε στο πρόχειρο",
+      "docUpdated": "Το έγγραφο ενημερώθηκε με επιτυχία",
+      "docInserted": "Το έγγραφο εισήχθη με επιτυχία",
+      "invalidJsonShort": "Μη έγκυρο JSON",
+      "docCopied": "Το έγγραφο αντιγράφηκε στο πρόχειρο",
+      "openFullEditor": "Άνοιγμα σε πλήρη επεξεργασία",
+      "cellArray": "Πίνακας ({length})",
+      "cellObject": "Αντικείμενο",
+      "cellArrayBracket": "Πίνακας[{length}]",
+      "emptyFilterTitle": "Δεν υπάρχουν έγγραφα που να αντιστοιχούν στο ερώτημά σας",
+      "emptyFilterHint": "Δοκιμάστε να προσαρμόσετε το φίλτρο σας ή να διαγράψετε το ερώτημα.",
+      "clearFilter": "Διαγραφή φίλτρου",
+      "emptyCollectionTitle": "Αυτή η συλλογή είναι άδεια",
+      "emptyCollectionHint": "Εισαγάγετε ένα έγγραφο για να ξεκινήσετε.",
+      "insertDocument": "Εισαγωγή εγγράφου",
+      "formatJson": "Μορφοποίηση JSON",
+      "compactJson": "Συμπαγές JSON",
+      "copyClipboard": "Αντιγραφή στο Πρόχειρο",
+      "copyJson": "Αντιγράψτε το JSON",
+      "duplicate": "Αντίγραφο",
+      "editDoc": "Επεξεργασία εγγράφου",
+      "deleteDoc": "Διαγραφή εγγράφου",
+      "documentLabel": "Έγγραφο {n}",
+      "editDialogTitle": "Επεξεργασία εγγράφου",
+      "insertDialogTitle": "Εισαγωγή εγγράφου",
+      "viewValueTitle": "Προβολή αξίας",
+      "saveChanges": "Αποθήκευση αλλαγών",
+      "close": "Κοντά",
+      "cancel": "Ματαίωση",
+      "insertButton": "Εισάγω",
+      "import": "Import",
+      "importExport": "Import / Export",
+      "importExportTitle": "Import or export data",
+      "importExportDescription": "Choose whether to bring documents in from a JSON file or download the current page of results.",
+      "importExportTooltip": "Import or export collection data",
+      "importExportImportHint": "JSON array, object, or NDJSON file",
+      "importExportExportHint": "Spreadsheet (XLSX or CSV)",
+      "schema": "Schema",
+      "indexes": "Indexes"
+    },
+    "tabs": {
+      "filterActive": "Εφαρμόστηκε ενεργό φίλτρο",
+      "filterActiveTooltip": "Ενεργό φίλτρο",
+      "closeAll": "Κλείσιμο όλων"
+    },
+    "query": {
+      "migrateHistory": "Μετεγκατάσταση ιστορικού ερωτημάτων στο cloud",
+      "saveHistoryFail": "Αποτυχία αποθήκευσης ιστορικού ερωτημάτων",
+      "deleteQueryFail": "Αποτυχία διαγραφής ερωτήματος",
+      "invalidJsonQuery": "Μη έγκυρο ερώτημα JSON",
+      "placeholder": "π.χ. { \"status\": \"active\" }",
+      "clearQuery": "Εκκαθάριση ερωτήματος",
+      "openAdvanced": "Ανοίξτε το Advanced Editor",
+      "visualBuilder": "Visual Query Builder",
+      "filterRules": "Κανόνες φίλτρου",
+      "addRule": "Προσθήκη κανόνα",
+      "noFilters": "Δεν εφαρμόστηκαν φίλτρα. Προσθέστε έναν κανόνα για να φιλτράρετε έγγραφα.",
+      "where": "ΟΠΟΥ",
+      "and": "ΚΑΙ",
+      "fieldPlaceholder": "Πεδίο",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Τύπος",
+      "opRegex": "Regex",
+      "opIn": "Σε",
+      "opNin": "Όχι μέσα",
+      "opExists": "Υπάρχει",
+      "typeAuto": "Αυτο",
+      "typeString": "Σειρά",
+      "typeNumber": "Αριθμός",
+      "typeBoolean": "Boolean",
+      "typeDate": "Ημερομηνία",
+      "typeObjectId": "ObjectId",
+      "true": "Αληθής",
+      "false": "Ψευδής",
+      "valuePlaceholder": "Αξία",
+      "valueListPlaceholder": "τιμή 1, τιμή 2",
+      "clearFilters": "Διαγραφή φίλτρων",
+      "applyFilters": "Εφαρμογή φίλτρων",
+      "queryHistory": "Ιστορικό ερωτημάτων",
+      "noSavedQueries": "Δεν υπάρχουν ακόμα αποθηκευμένα ερωτήματα",
+      "advancedEditorTitle": "Σύνθετη επεξεργασία ερωτημάτων",
+      "templatesPlaceholder": "Πρότυπα",
+      "templateEmptyAgg": "Κενή Συγκέντρωση",
+      "templateMatch": "$match (Φίλτρο)",
+      "templateLookup": "$lookup (Εγγραφή)",
+      "templateGroup": "$group (Count/Sum)",
+      "format": "Σχήμα και διάταξις βιβλίου",
+      "formattedJson": "Μορφοποιημένο JSON",
+      "runQuery": "Εκτελέστε το ερώτημα"
+    },
+    "export": {
+      "selectFieldsError": "Επιλέξτε τουλάχιστον ένα πεδίο για εξαγωγή",
+      "success": "Έγινε επιτυχής εξαγωγή στο {filename}",
+      "fail": "Αποτυχία εξαγωγής δεδομένων",
+      "title": "Εξαγωγή δεδομένων",
+      "formatLabel": "Μορφή εξαγωγής",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Επιλέξτε Πεδία",
+      "selectAll": "Επιλέξτε Όλα",
+      "fieldsSelected": "{count, plural, one {# επιλεγμένο πεδίο} other {# επιλεγμένα πεδία}}",
+      "cancel": "Ματαίωση",
+      "export": "Εξαγωγή",
+      "sheetName": "Δεδομένα"
+    },
+    "jsonTree": {
+      "typeLabel": "Τύπος: {type}",
+      "itemSummary": "{count, plural, one {# item} other {# items}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Νέο αίτημα",
+      "importedRequest": "Εισαγόμενο αίτημα",
+      "untitledRequest": "Αίτημα χωρίς τίτλο"
+    },
+    "toasts": {
+      "curlImported": "Το cURL εισήχθη με επιτυχία",
+      "curlParseFailed": "Απέτυχε η ανάλυση της εντολής cURL",
+      "invalidJsonBody": "Μη έγκυρο σώμα JSON",
+      "requestFailed": "Το αίτημα απέτυχε: {message}",
+      "curlPasted": "Το cURL επικολλήθηκε και αναλύθηκε με επιτυχία",
+      "responseCopied": "Η απάντηση αντιγράφηκε στο πρόχειρο",
+      "codeCopied": "Ο κώδικας αντιγράφηκε στο πρόχειρο",
+      "copyFailed": "Αποτυχία αντιγραφής στο πρόχειρο"
+    },
+    "layout": {
+      "collections": "Συλλογές",
+      "closeSidebar": "Κλείσιμο πλαϊνής γραμμής",
+      "openSidebar": "Ανοίξτε την πλαϊνή γραμμή",
+      "request": "Request",
+      "response": "Response"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Μέθοδος",
+      "urlPlaceholder": "https://api.example.com/v1/...",
+      "sending": "Αποστολή...",
+      "send": "Στέλνω",
+      "invalidJsonBodyHelp": "Αδύνατη η αποστολή: το σώμα JSON δεν είναι έγκυρο"
+    },
+    "requestTabs": {
+      "params": "Params",
+      "headers": "Κεφαλίδες",
+      "body": "Σώμα",
+      "auth": "Auth",
+      "bodyType": "Σωματότυπος",
+      "selectType": "Επιλέξτε τύπο",
+      "bodyNone": "Κανένας",
+      "bodyJson": "JSON",
+      "bodyText": "Κείμενο",
+      "noBodyHint": "Δεν υπάρχει περιεχόμενο σώματος για αυτό το αίτημα",
+      "switchToJson": "Μετάβαση στο σώμα JSON",
+      "authType": "Τύπος Auth",
+      "noAuth": "Όχι auth",
+      "bearerToken": "Κουπόνι φορέα",
+      "basicAuth": "Βασικό auth",
+      "apiKey": "Κλειδί API",
+      "labelToken": "Ενδειξη",
+      "placeholderBearerToken": "Κουπόνι φορέα",
+      "labelUsername": "Όνομα χρήστη",
+      "placeholderUsername": "Όνομα χρήστη",
+      "labelPassword": "Σύνθημα",
+      "placeholderPassword": "Σύνθημα",
+      "labelKey": "Κλειδί",
+      "placeholderApiKeyName": "Όνομα κλειδιού (π.χ. X-Api-Key)",
+      "labelValue": "Αξία",
+      "placeholderValue": "Αξία",
+      "addTo": "Προσθήκη σε",
+      "header": "Επί κεφαλής",
+      "queryParams": "Παράμετροι ερωτήματος",
+      "noAuthHint": "Αυτό το αίτημα δεν χρησιμοποιεί έλεγχο ταυτότητας."
+    },
+    "responsePanel": {
+      "emptyTitle": "Έτοιμοι να εξερευνήσετε;",
+      "emptyHint": "Εισαγάγετε μια διεύθυνση URL και κάντε κλικ στην Αποστολή για να δείτε τα δεδομένα απόκρισης εδώ.",
+      "responsePreviewAlt": "Προεπισκόπηση απόκρισης",
+      "previewUnavailable": "Η προεπισκόπηση δεν είναι διαθέσιμη για αυτόν τον τύπο περιεχομένου",
+      "status": "Κατάσταση",
+      "time": "Φορά",
+      "size": "Μέγεθος",
+      "copyBody": "Αντιγραφή σώματος",
+      "downloadResponse": "Λήψη απάντησης",
+      "bodyTab": "Σώμα",
+      "previewTab": "Πρεμιέρα",
+      "headersTab": "Κεφαλίδες",
+      "binaryRawView": "Τα δυαδικά δεδομένα δεν μπορούν να εμφανιστούν σε μη επεξεργασμένη προβολή.",
+      "errorStatusLabel": "Σφάλμα",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
+    },
+    "tabBar": {
+      "addTabAria": "Νέα καρτέλα"
+    },
+    "collectionsSidebar": {
+      "title": "Πόροι API",
+      "newCollection": "Νέα συλλογή",
+      "tabCollections": "Συλλογές",
+      "tabHistory": "Ιστορία",
+      "noCollectionsTitle": "Χωρίς συλλογές",
+      "noCollectionsHint": "Δημιουργήστε μια συλλογή για να οργανώσετε τα αιτήματά σας API.",
+      "createCollection": "Δημιουργία συλλογής",
+      "newFolder": "Νέος φάκελος",
+      "rename": "Μετονομάζω",
+      "delete": "Διαγράφω",
+      "emptyCollection": "Κενή συλλογή",
+      "recentRequests": "Πρόσφατα αιτήματα",
+      "clearAll": "Καθαρίστε όλα",
+      "noHistoryTitle": "Δεν υπάρχει ακόμη ιστορικό",
+      "noHistoryHint": "Στείλτε αίτημα για να το δείτε εδώ.",
+      "dialogNewFolderTitle": "Νέος φάκελος",
+      "dialogNewFolderDescription": "Δημιουργήστε έναν νέο φάκελο για να οργανώσετε τα αιτήματά σας.",
+      "labelFolderName": "Όνομα φακέλου",
+      "placeholderFolderName": "Ο φάκελος μου",
+      "createFolder": "Δημιουργία φακέλου",
+      "dialogNewCollectionTitle": "Νέα συλλογή",
+      "dialogNewCollectionDescription": "Δημιουργήστε μια νέα συλλογή ανώτατου επιπέδου.",
+      "labelCollectionName": "Όνομα συλλογής",
+      "placeholderCollectionName": "Η συλλογή μου",
+      "dialogRenameCollectionTitle": "Μετονομασία συλλογής",
+      "dialogRenameCollectionDescription": "Εισαγάγετε ένα νέο όνομα για τη συλλογή.",
+      "placeholderRenameCollection": "Όνομα συλλογής",
+      "renameAction": "Μετονομάζω",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
+    },
+    "collectionItem": {
+      "newFolder": "Νέος φάκελος",
+      "delete": "Διαγράφω",
+      "emptyFolder": "Κενός φάκελος"
+    },
+    "environmentManager": {
+      "noEnvironment": "Χωρίς περιβάλλον",
+      "manageDialogTitle": "Διαχειριστείτε περιβάλλοντα",
+      "placeholderNewEnv": "Νέο περιβάλλον",
+      "variablesHeading": "{name} μεταβλητές",
+      "addVariable": "Προσθήκη μεταβλητής",
+      "columnVariable": "Μεταβλητός",
+      "columnValue": "Αξία",
+      "placeholderKey": "Κλειδί",
+      "placeholderValue": "Αξία",
+      "selectEnvToEdit": "Επιλέξτε ένα περιβάλλον για επεξεργασία"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Δημιουργία κώδικα",
+      "dialogTitle": "Δημιουργία κώδικα",
+      "languageCurl": "μπούκλα",
+      "languageJavaScript": "JavaScript (ανάκτηση)",
+      "languagePython": "Python (αιτήματα)",
+      "languageGo": "Πάω",
+      "copy": "Αντίγραφο",
+      "errorGenerating": "Σφάλμα κατά τη δημιουργία κωδικού"
+    },
+    "keyValueEditor": {
+      "columnKey": "Κλειδί",
+      "columnValue": "Αξία",
+      "placeholderKey": "Κλειδί",
+      "placeholderValue": "Αξία",
+      "addItem": "Προσθήκη στοιχείου"
+    },
+    "importCurl": {
+      "trigger": "Εισαγωγή cURL",
+      "dialogTitle": "Εισαγωγή cURL",
+      "dialogDescription": "Επικολλήστε την εντολή cURL παρακάτω για να την εισαγάγετε ως νέο αίτημα.",
+      "placeholder": "curl -X POST https://api.example.com/data -d '...'",
+      "import": "Εισαγωγή"
+    },
+    "saveRequest": {
+      "trigger": "Εκτός",
+      "dialogTitle": "Αποθήκευση αιτήματος",
+      "dialogDescription": "Αποθηκεύστε αυτό το αίτημα σε έναν φάκελο συλλογής.",
+      "labelName": "Αίτημα ονόματος",
+      "placeholderName": "Το αίτημά μου",
+      "labelFolder": "Ντοσιέ",
+      "placeholderFolder": "Επιλέξτε ένα φάκελο",
+      "save": "Εκτός"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Λειτουργία επεξεργασίας",
+      "viewOnlyMode": "Λειτουργία προβολής μόνο",
+      "insertComponent": "Εισαγάγετε το στοιχείο",
+      "addUnorderedList": "Προσθήκη μη ταξινομημένης λίστας",
+      "addOrderedList": "Προσθήκη ταξινομημένης λίστας",
+      "addTable": "Προσθήκη πίνακα"
+    },
+    "addBlock": "Προσθήκη μπλοκ",
+    "media": {
+      "popoverTitle": "Προσθήκη πολυμέσων",
+      "singleImage": "Ενιαία Εικόνα",
+      "singleImageDesc": "Ανεβάστε μία εικόνα",
+      "multipleImages": "Πολλαπλές εικόνες",
+      "multipleImagesDesc": "Μεταφόρτωση πλέγματος εικόνων",
+      "video": "Βίντεο",
+      "videoDesc": "Μεταφόρτωση αρχείου βίντεο",
+      "uploadingAlt": "Μεταφόρτωση...",
+      "uploadFailedAlt": "Η μεταφόρτωση απέτυχε"
+    },
+    "export": {
+      "fabAria": "Κωδικός εξαγωγής",
+      "title": "Κωδικός εξαγωγής",
+      "description": "Αντιγράψτε την έξοδο HTML ή JSON του περιεχομένου του επεξεργαστή σας",
+      "preview": "Πρεμιέρα",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Επιλογές προεπισκόπησης",
+      "enhanceSpaces": "Βελτιώστε τους χώρους",
+      "livePreview": "Ζωντανή προεπισκόπηση του αποδοθέντος HTML",
+      "htmlTailwind": "HTML με κλάσεις Tailwind CSS",
+      "editorJson": "Κατάσταση επεξεργασίας ως JSON",
+      "copyHtml": "Αντιγραφή HTML",
+      "copyJson": "Αντιγράψτε το JSON",
+      "copied": "Αντιγράφηκε!"
+    },
+    "template": {
+      "fabTitle": "Πρότυπο διακόπτη",
+      "title": "Επιλέξτε ένα πρότυπο",
+      "description": "Επιλέξτε ένα πρότυπο για να ξεκινήσετε γρήγορα με προκατασκευασμένες διατάξεις και περιεχόμενο",
+      "catAll": "Όλα τα Πρότυπα",
+      "catProductivity": "Παραγωγικότητα",
+      "catCreative": "Δημιουργικός",
+      "catBusiness": "Επιχείρηση",
+      "catPersonal": "Προσωπικός",
+      "noTemplates": "Δεν βρέθηκαν πρότυπα σε αυτήν την κατηγορία",
+      "confirmTitle": "Αντικατάσταση υπάρχοντος περιεχομένου;",
+      "confirmDescription": "Έχετε υπάρχον περιεχόμενο στο πρόγραμμα επεξεργασίας. Η εφαρμογή αυτού του προτύπου θα αντικαταστήσει όλο το τρέχον περιεχόμενο.",
+      "cannotUndo": "Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+      "cancel": "Ματαίωση",
+      "replaceContent": "Αντικατάσταση περιεχομένου"
+    },
+    "command": {
+      "searchPlaceholder": "Εντολές αναζήτησης...",
+      "noResults": "Δεν βρέθηκαν εντολές.",
+      "turnInto": "Μετατρέψτε σε",
+      "h1": {
+        "label": "Επικεφαλίδα 1",
+        "description": "Επικεφαλίδα μεγάλης ενότητας",
+        "keywords": "h1, επικεφαλίδα, τίτλος, μεγάλο"
+      },
+      "h2": {
+        "label": "Επικεφαλίδα 2",
+        "description": "Επικεφαλίδα μεσαίου τμήματος",
+        "keywords": "h2, επικεφαλίδα, υπότιτλος"
+      },
+      "h3": {
+        "label": "Κεφάλαιο 3",
+        "description": "Επικεφαλίδα μικρής ενότητας",
+        "keywords": "h3, επικεφαλίδα, υπότιτλος"
+      },
+      "h4": {
+        "label": "Κεφάλαιο 4",
+        "description": "Επικεφαλίδα μικροσκοπικού τμήματος",
+        "keywords": "h4, επικεφαλίδα"
+      },
+      "h5": {
+        "label": "Κεφάλαιο 5",
+        "description": "Μικρότερη επικεφαλίδα",
+        "keywords": "h5, επικεφαλίδα"
+      },
+      "h6": {
+        "label": "Κεφάλαιο 6",
+        "description": "Η μικρότερη κατεύθυνση",
+        "keywords": "h6, επικεφαλίδα"
+      },
+      "p": {
+        "label": "Παράγραφος",
+        "description": "Παράγραφος κανονικού κειμένου",
+        "keywords": "p,παράγραφος,κείμενο,κανονικό"
+      },
+      "code": {
+        "label": "Μπλοκ κωδικών",
+        "description": "Απόσπασμα κώδικα",
+        "keywords": "code,codeblock,snippet,pre"
+      },
+      "blockquote": {
+        "label": "Παραθέτω",
+        "description": "Μπλοκ απόσπασμα",
+        "keywords": "απόσπασμα, μπλοκ, παραπομπή"
+      },
+      "li": {
+        "label": "Λίστα με κουκκίδες",
+        "description": "Απλό στοιχείο λίστας με κουκκίδα",
+        "keywords": "λίστα,κουκκίδα,χωρίς σειρά,ul,li"
+      },
+      "ol": {
+        "label": "Αριθμημένη λίστα",
+        "description": "Αριθμημένο στοιχείο λίστας",
+        "keywords": "κατάλογος,αριθμημένος,τακτοποιημένος,ol,li"
+      },
+      "img": {
+        "label": "Εικών",
+        "description": "Μεταφορτώστε ή ενσωματώστε μια εικόνα",
+        "keywords": "εικόνα, img, εικόνα, φωτογραφία, μεταφόρτωση"
+      },
+      "video": {
+        "label": "Βίντεο",
+        "description": "Μεταφορτώστε ή ενσωματώστε ένα βίντεο",
+        "keywords": "βίντεο, βίντεο, ταινία, mp4, μεταφόρτωση"
+      },
+      "table": {
+        "label": "Τραπέζι",
+        "description": "Δημιουργήστε έναν πίνακα",
+        "keywords": "πίνακας, πλέγμα, γραμμές, στήλες, κελιά"
+      }
+    },
+    "toasts": {
+      "tableImported": "Εισαγωγή πίνακα",
+      "tableImportedDesc": "Ο πίνακας Markdown έχει εισαχθεί με επιτυχία",
+      "mediaPasted": "Μέσα επικολλήθηκαν",
+      "pasteMixed": "{imageCount} εικόνα(εις) και {videoCount} βίντεο επικολλήθηκαν με επιτυχία.",
+      "pasteImages": "{count} εικόνα(εις) επικολλήθηκαν με επιτυχία.",
+      "pasteVideos": "{count} βίντεο επικολλήθηκαν με επιτυχία.",
+      "pasteFailed": "Η επικόλληση απέτυχε",
+      "unexpectedError": "Παρουσιάστηκε απροσδόκητο σφάλμα",
+      "uploadFailed": "Η μεταφόρτωση απέτυχε"
+    },
+    "blockBackground": {
+      "menuItem": "Αλλαγή χρώματος φόντου",
+      "dialogTitle": "Αποκλεισμός χρώματος φόντου",
+      "dialogDescription": "Επιλέξτε ένα χρώμα φόντου για αυτό το μπλοκ",
+      "tabPreset": "Προκαθορισμένα χρώματα",
+      "tabCustom": "Προσαρμοσμένο χρώμα",
+      "sectionHeading": "Χρώματα φόντου",
+      "apply": "Εφαρμόζω",
+      "colors": {
+        "none": "Κανένας",
+        "red": "Κόκκινος",
+        "orange": "Πορτοκάλι",
+        "yellow": "Κίτρινος",
+        "green": "Πράσινος",
+        "blue": "Μπλε",
+        "indigo": "Ινδικό",
+        "purple": "Μωβ",
+        "pink": "Ροζ",
+        "teal": "Βάσκας",
+        "cyan": "κυανό",
+        "gray": "Γκρί"
+      }
+    },
+    "tableDialog": {
+      "title": "Δημιουργία πίνακα",
+      "description": "Δημιουργήστε έναν νέο πίνακα ή εισαγάγετε από τη σήμανση",
+      "markdownCheckbox": "Έχω έναν πίνακα επισήμανσης",
+      "pasteMarkdownLabel": "Επικολλήστε τον πίνακα Markdown",
+      "markdownPlaceholder": "| Κεφαλίδα 1 | Κεφαλίδα 2 | Κεφαλίδα 3 |\n|----------|----------|-----------|\n| Κελί 1 | Κελί 2 | Κελί 3 |\n| Κελί 4 | Κελί 5 | Κελί 6 |",
+      "markdownHint": "Επικολλήστε τον πίνακα σήμανσης παραπάνω. Πρέπει να περιλαμβάνει σειρές κεφαλίδας και διαχωριστικού.",
+      "rows": "Σειρές",
+      "columns": "Στήλες",
+      "maxDimensions": "Μέγιστο: 20 σειρές × 10 στήλες",
+      "cancel": "Ματαίωση",
+      "importTable": "Πίνακας εισαγωγής",
+      "createTable": "Δημιουργία πίνακα"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Ο πίνακας πρέπει να έχει τουλάχιστον μια σειρά κεφαλίδας και μια διαχωριστική γραμμή",
+        "pipeFormat": "Οι σειρές του πίνακα πρέπει να ξεκινούν και να τελειώνουν με |",
+        "headerMinCol": "Η γραμμή κεφαλίδας πρέπει να έχει τουλάχιστον μία στήλη",
+        "separatorRow": "Η δεύτερη σειρά πρέπει να είναι διαχωριστικό (π.χ. |---|---|)",
+        "rowColumnMismatch": "Η σειρά {row} έχει {got} στήλες, αναμένεται {αναμενόταν}",
+        "parseFailed": "Απέτυχε η ανάλυση του πίνακα σήμανσης"
+      }
+    },
+    "link": {
+      "editLink": "Επεξεργασία συνδέσμου",
+      "addLink": "Προσθήκη συνδέσμου",
+      "selectedText": "Επιλεγμένο κείμενο: \"{text}\"",
+      "linkUrl": "URL σύνδεσης",
+      "urlPlaceholder": "https://example.com",
+      "update": "Εκσυγχρονίζω",
+      "addLinkButton": "Προσθήκη συνδέσμου",
+      "toastApplied": "Εφαρμόστηκε σύνδεσμος",
+      "toastLinkedTo": "Συνδέεται με: {url}",
+      "toastRemoved": "Ο σύνδεσμος καταργήθηκε",
+      "toastRemovedDesc": "Ο σύνδεσμος έχει αφαιρεθεί από την επιλογή"
+    },
+    "customClass": {
+      "devMode": "Λειτουργία προγραμματιστή",
+      "toggleDevModeAria": "Εναλλαγή λειτουργίας προγραμματισμού",
+      "searchPlaceholderDev": "Αναζήτηση τάξεων... (π.χ. \"κείμενο\", \"bg\", \"flex\")",
+      "searchPlaceholderUser": "Στυλ αναζήτησης... (π.χ. \"κόκκινο\", \"έντονη\", \"σκιά\")",
+      "appliesTitle": "Ισχύει: {className}",
+      "noMatches": "Δεν βρέθηκαν τάξεις που να ταιριάζουν με το \"{query}\"",
+      "toastClassReplaced": "Η τάξη αντικαταστάθηκε",
+      "toastClassReplacedDesc": "Αντικαταστάθηκε το \"{replaced}\" με το \"{className}\"",
+      "toastCustomClassApplied": "Εφαρμόστηκε προσαρμοσμένη τάξη",
+      "toastAppliedClass": "Εφαρμοσμένη τάξη: {className}"
+    },
+    "insertComponents": {
+      "title": "Εισαγωγή στοιχείου",
+      "description": "Επιλέξτε ένα στοιχείο για εισαγωγή στο έγγραφό σας",
+      "noComponents": "Δεν υπάρχουν διαθέσιμα εξαρτήματα",
+      "categories": {
+        "media": "Μέσα ενημέρωσης",
+        "layout": "Σχέδιο",
+        "interactive": "Αλληλεπιδραστικός",
+        "decoration": "Διακόσμηση"
+      },
+      "freeImage": {
+        "name": "Εικόνα ελεύθερης κίνησης",
+        "description": "Προσθέστε μια εικόνα που μπορεί να τοποθετηθεί οπουδήποτε και να αλλάξει το μέγεθος ελεύθερα"
+      }
+    }
+  },
+  "JsonFormatter": {
+    "title": "Μορφοποιητής JSON",
+    "description": "Μορφοποιήστε, επικυρώστε και επεξεργαστείτε JSON σε προβολή κειμένου και δέντρου.",
+    "documentNameText": "Έγγραφο κειμένου {n}",
+    "documentNameTree": "Δενδρικό έγγραφο {n}",
+    "newDocument": "Νέο",
+    "copy": "Αντιγραφή",
+    "save": "Αποθήκευση",
+    "load": "Φόρτωση",
+    "saving": "Αποθήκευση...",
+    "leftDocNameLabel": "Όνομα αριστερού εγγράφου",
+    "rightDocNameLabel": "Όνομα δεξιού εγγράφου",
+    "toastCopiedText": "Το πάνελ κειμένου αντιγράφηκε",
+    "toastCopiedTree": "Το πάνελ δέντρου αντιγράφηκε",
+    "toastCopyFailed": "Αποτυχία αντιγραφής JSON",
+    "toastLoginRequired": "Συνδεθείτε για να αποθηκεύσετε έγγραφα",
+    "toastSaved": "Το έγγραφο αποθηκεύτηκε",
+    "toastSaveFailed": "Αποτυχία αποθήκευσης εγγράφου",
+    "format": "Μορφοποίηση",
+    "compact": "Συμπίεση",
+    "sortKeys": "Ταξινόμηση κλειδιών",
+    "repair": "Επιδιόρθωση",
+    "query": "Ερώτημα",
+    "toastInvalidJson": "Μη έγκυρο JSON",
+    "toastAlreadyValid": "Το JSON είναι ήδη έγκυρο",
+    "toastRepaired": "Το JSON επιδιορθώθηκε",
+    "toastRepairFailed": "Δεν ήταν δυνατή η επιδιόρθωση του JSON"
+  },
+  "JwtDecoder": {
+    "title": "Αποκωδικοποιητής JWT",
+    "subtitle": "Επιθεωρήστε κεφαλίδα και payload. Η λήξη χρησιμοποιεί το claim <code>exp</code>. Δεν αποστέλλεται τίποτα σε διακομιστή· η υπογραφή δεν επαληθεύεται.",
+    "tokenLabel": "Token",
+    "clear": "Καθαρισμός",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Αντιγραφή",
+    "expiryLabel": "Λήξη (exp)",
+    "signaturePresent": "Υπογραφή υπάρχει (δεν επαληθεύεται)",
+    "noExp": "Δεν υπάρχει claim <code>exp</code> στο payload.",
+    "status": {
+      "expired": "Έληξε",
+      "valid": "Έγκυρο"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Τοπική",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Έκδοση (iat)",
+      "notBefore": "Όχι πριν (nbf)"
+    },
+    "panels": {
+      "header": "Κεφαλίδα",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Επικολλήστε ένα JWT για αποκωδικοποίηση.",
+      "segments": "Ένα JWT χρειάζεται τουλάχιστον κεφαλίδα και payload (δύο τμήματα).",
+      "base64": "Αποτυχία αποκωδικοποίησης base64url κεφαλίδας ή payload."
+    },
+    "relative": {
+      "future": "σε {n} {unit}",
+      "past": "πριν από {n} {unit}"
+    },
+    "units": {
+      "second": "{count, plural, one {δευτερόλεπτο} other {δευτερόλεπτα}}",
+      "minute": "{count, plural, one {λεπτό} other {λεπτά}}",
+      "hour": "{count, plural, one {ώρα} other {ώρες}}",
+      "day": "{count, plural, one {ημέρα} other {ημέρες}}"
+    },
+    "tabs": {
+      "decode": "Αποκωδικοποίηση",
+      "sign": "Γεννήτρια / υπογραφή"
+    },
+    "signer": {
+      "algLabel": "Αλγόριθμος (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "Payload JSON",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "Header JSON",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Μυστικό (HS*)",
+      "secretPlaceholder": "Επικολλήστε το HMAC μυστικό…",
+      "privateKeyLabel": "Ιδιωτικό κλειδί PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Ο αλγόριθμος \"none\" δημιουργεί μη υπογεγραμμένο token. Είναι ανασφαλές και πρέπει να χρησιμοποιείται μόνο για δοκιμές.",
+      "sign": "Υπογραφή",
+      "verify": "Επαλήθευση υπογραφής",
+      "outputLabel": "Token (συμπαγές JWS)",
+      "outputPlaceholder": "Κάντε κλικ \"Υπογραφή\"…",
+      "copyToken": "Αντιγραφή token",
+      "copied": "Αντιγράφηκε",
+      "verifyKeyLabel": "Κλειδί επαλήθευσης (προαιρετικό)",
+      "verifyKeyPlaceholder": "Για RS*: επικολλήστε το δημόσιο κλειδί (SPKI) PEM. Για HS*: αφήστε κενό για χρήση του μυστικού.",
+      "verifyKeyHint": "Αν είναι κενό, η επαλήθευση χρησιμοποιεί το κλειδί υπογραφής (χρήσιμο για HS*).",
+      "verifyStatus": {
+        "valid": "Έγκυρη υπογραφή",
+        "invalid": "Μη έγκυρη υπογραφή"
+      },
+      "securityNote": "Όλα εκτελούνται τοπικά στον browser· κλειδιά και tokens δεν ανεβαίνουν."
+    },
+    "signErrors": {
+      "invalidJson": "Το header και το payload πρέπει να είναι έγκυρο JSON.",
+      "unsupportedAlg": "Μη υποστηριζόμενος αλγόριθμος.",
+      "missingKey": "Απαιτείται κλειδί υπογραφής για αυτόν τον αλγόριθμο.",
+      "cryptoFailed": "Η υπογραφή απέτυχε. Ελέγξτε τη μορφή κλειδιού και δοκιμάστε ξανά."
+    },
+    "verifyErrors": {
+      "empty": "Εισάγετε ένα JWT για επαλήθευση.",
+      "segments": "Το JWT πρέπει να έχει ακριβώς 3 τμήματα για επαλήθευση υπογραφής.",
+      "unsupportedAlg": "Μη υποστηριζόμενο ή λείπει το alg στο header.",
+      "missingKey": "Απαιτείται κλειδί επαλήθευσης για αυτόν τον αλγόριθμο.",
+      "base64": "Δεν ήταν δυνατή η αποκωδικοποίηση του header ή της υπογραφής.",
+      "cryptoFailed": "Η επαλήθευση απέτυχε. Ελέγξτε τη μορφή κλειδιού και δοκιμάστε ξανά."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Αποκωδικοποιητής πιστοποιητικού / PEM",
+    "subtitle": "Επικολλήστε πιστοποιητικό X.509 (<code>-----BEGIN CERTIFICATE-----</code>) ή CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Θέμα, εκδότης, ημερομηνίες και SAN αναλύονται τοπικά· δεν μεταφορτώνεται τίποτα.",
+    "pemLabel": "Είσοδος PEM",
+    "clear": "Εκκαθάριση",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Γίνεται ανάλυση…",
+    "copyHex": "Αντιγραφή αποτυπώματος (hex χωρίς άνω τελείες)",
+    "errors": {
+      "empty": "Επικολλήστε PEM πιστοποιητικό ή CSR για αποκωδικοποίηση.",
+      "noBlock": "Δεν βρέθηκε μπλοκ PEM πιστοποιητικού ή CSR.",
+      "parseFailed": "Δεν ήταν δυνατή η ανάλυση αυτών των δεδομένων PEM."
+    },
+    "block": {
+      "title": "Μπλοκ PEM {index}",
+      "certificate": "Πιστοποιητικό X.509",
+      "csr": "Αίτηση υπογραφής πιστοποιητικού"
+    },
+    "fields": {
+      "subject": "Θέμα",
+      "issuer": "Εκδότης",
+      "notBefore": "Μη έγκυρο πριν από",
+      "notAfter": "Μη έγκυρο μετά από",
+      "serial": "Σειριακός αριθμός (hex)",
+      "sha256": "Αποτύπωμα SHA-256",
+      "sans": "Εναλλακτικά ονόματα θέματος",
+      "sansNone": "Δεν υπάρχει επέκταση SAN.",
+      "signatureAlgorithm": "Αλγόριθμος υπογραφής",
+      "csrIssuerNote": "Τα CSR δεν περιλαμβάνουν εκδότη (εμφανίζεται στο εκδοθέν πιστοποιητικό).",
+      "csrValidityNote": "Τα CSR δεν περιλαμβάνουν ημερομηνίες ισχύος (εμφανίζονται στο εκδοθέν πιστοποιητικό)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Όνομα καταλόγου",
+      "email": "Email",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "Καταχωρισμένο ID",
+      "other": "{type}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Μορφοποιητής SQL",
+    "subtitle": "Μορφοποιήστε SQL για MySQL, PostgreSQL ή SQLite. Τρέχει στον browser· δεν ανεβαίνει τίποτα.",
+    "dialectLabel": "Διάλεκτος",
+    "keywordsLabel": "Λέξεις-κλειδιά",
+    "indentLabel": "Εσοχή",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "ΚΕΦΑΛΑΙΑ",
+      "lower": "πεζά",
+      "preserve": "Διατήρηση"
+    },
+    "spaces": "{n} κενά",
+    "format": "Μορφοποίηση",
+    "clear": "Καθαρισμός",
+    "counter": "{current} / {max} χαρακτήρες",
+    "inputPanel": "Είσοδος",
+    "formattedPanel": "Μορφοποιημένο",
+    "copy": "Αντιγραφή",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Πατήστε «Μορφοποίηση»…",
+    "errors": {
+      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
+      "couldNotFormat": "Δεν ήταν δυνατή η μορφοποίηση αυτού του SQL."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Μορφοποιητής YAML",
+    "subtitle": "Μορφοποιήστε, επαληθεύστε και μετατρέψτε YAML στον περιηγητή σας. Τίποτα δεν ανεβαίνει.",
+    "outputLabel": "Έξοδος",
+    "outputModes": {
+      "yaml": "YAML (μορφοποιημένο)",
+      "json": "JSON"
+    },
+    "indentLabel": "Εσοχή",
+    "spaces": "{n} κενά",
+    "format": "Μορφοποίηση",
+    "clear": "Καθαρισμός",
+    "copy": "Αντιγραφή",
+    "counter": "{current} / {max} χαρακτήρες",
+    "inputPanel": "Είσοδος",
+    "outputPanel": "Έξοδος",
+    "errors": {
+      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
+      "couldNotFormat": "Δεν ήταν δυνατή η ανάλυση αυτού του YAML."
+    }
+  },
+  "GraphqlFormatter": {
+    "title": "Μορφοποιητής GraphQL",
+    "subtitle": "Μορφοποιήστε ερωτήματα, μεταλλάξεις και συνδρομές GraphQL στο πρόγραμμα περιήγησης. Δεν ανεβαίνει τίποτα.",
+    "tabs": {
+      "format": "Μορφοποίηση",
+      "build": "Δημιουργός ερωτήματος"
+    },
+    "outputModeLabel": "Έξοδος",
+    "outputModes": {
+      "pretty": "Αναγνώσιμη εκτύπωση",
+      "minify": "Σμίκρυνση"
+    },
+    "format": "Μορφοποίηση",
+    "clear": "Εκκαθάριση",
+    "counter": "{current} / {max} χαρακτήρες",
+    "inputPanel": "Είσοδος",
+    "outputPanel": "Έξοδος",
+    "copy": "Αντιγραφή",
+    "builderHint": "Συνθέστε ένα σκελετό και τον εφαρμόζετε στον επεξεργαστή. Ορισμοί μεταβλητών με σύνταξη GraphQL (π.χ. $id: ID!) — οι παρενθέσεις είναι προαιρετικές.",
+    "builder": {
+      "operation": "Λειτουργία",
+      "operationName": "Όνομα λειτουργίας",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Ορισμοί μεταβλητών",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Σύνολο επιλογής",
+      "apply": "Εφαρμογή στην είσοδο",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
+      "couldNotFormat": "Δεν ήταν δυνατή η ανάλυση ή εκτύπωση αυτού του GraphQL.",
+      "emptySelection": "Προσθέστε σύνολο επιλογής πριν από την εφαρμογή."
+    }
+  },
+  "RegexTester": {
+    "title": "Δοκιμή regex",
+    "subtitle": "Regex τύπου JavaScript σε πραγματικό χρόνο στο κείμενό σας. Οι αντιστοιχίσεις επισημαίνονται· τίποτα δεν φεύγει από τον browser.",
+    "patternLabel": "Μοτίβο",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g καθολικό",
+      "i": "i χωρίς διάκριση πεζών/κεφαλαίων",
+      "m": "m πολυγραμμικό",
+      "s": "s dotAll",
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
+    },
+    "emptyPattern": "(κενό)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {αντιστοίχιση} other {αντιστοιχίσεις}}",
+    "testTextLabel": "Κείμενο δοκιμής",
+    "counter": "{current} / {max}",
+    "clear": "Καθαρισμός",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Το κείμενο περιορίζεται σε {max} χαρακτήρες.",
+      "invalid": "Μη έγκυρη κανονική έκφραση.",
+      "runaway": "Σταμάτησε μετά από {max} αντιστοιχίσεις (πιθανό runaway μοτίβο)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
+    }
+  },
+  "TimestampConverter": {
+    "title": "Μετατροπέας timestamp",
+    "subtitle": "Unix δευτερόλεπτα (≤10 ψηφία) ή χιλιοστά (μεγαλύτεροι ακέραιοι), <code>ISO-8601</code> ή συμβολοσειρές που μπορεί να διαβάσει ο browser. Όλα τρέχουν τοπικά.",
+    "inputLabel": "Είσοδος",
+    "placeholder": "1744200000 ή 2025-04-09T12:00:00Z",
+    "now": "Τώρα",
+    "copy": "Αντιγραφή",
+    "hint": "Επικολλήστε μια τιμή ή πατήστε <strong>Τώρα</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Σχετικό",
+      "human": "Αναγνώσιμο"
+    },
+    "fields": {
+      "seconds": "Δευτερόλεπτα",
+      "milliseconds": "Χιλιοστά",
+      "utc": "UTC",
+      "local": "Τοπικά",
+      "distance": "Απόσταση"
+    },
+    "errors": {
+      "empty": "Εισάγετε Unix timestamp, ISO string ή κείμενο ημερομηνίας.",
+      "invalidNumber": "Μη έγκυρο αριθμητικό timestamp.",
+      "outOfRange": "Εκτός ορίων για JavaScript Date.",
+      "couldNotParse": "Δεν ήταν δυνατή η ανάλυση ως Unix, ISO-8601 ή ημερομηνία browser."
+    }
+  },
+  "HttpStatusCodes": {
+    "title": "Κωδικοί κατάστασης HTTP",
+    "subtitle": "Αναζητήστε και περιηγηθείτε στους κωδικούς κατάστασης απαντήσεων HTTP (<code>1xx</code>–<code>5xx</code>) με σύντομες περιγραφές και αναφορές RFC. Εκτελείται τοπικά.",
+    "header": {
+      "title": "Κωδικοί κατάστασης HTTP",
+      "description": "Αναζητήσιμη λίστα κωδικών απάντησης HTTP με περιγραφές και αναφορές RFC."
+    },
+    "searchPlaceholder": "Αναζήτηση: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Φιλτράρισμα κλάσης…",
+    "classFilterAll": "Όλες οι κλάσεις",
+    "resultsCount": "{count} από {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Φράση",
+      "description": "Περιγραφή",
+      "copy": "Αντιγραφή"
+    },
+    "noResults": "Δεν βρέθηκαν αποτελέσματα για “{query}”.",
+    "specPrefix": "Προδιαγ.:",
+    "copied": "Ο κωδικός αντιγράφηκε"
+  },
+  "CronBuilder": {
+    "title": "Δημιουργός εκφράσεων Cron",
+    "subtitle": "Τυπικό cron 5 πεδίων: <mono>minute hour day month weekday</mono>. Ο parser χρησιμοποιεί seconds=<code>0</code> εσωτερικά. Προαιρετικό 6-πεδίων (<mono>sec min hour dom mon dow</mono>) λειτουργεί στον editor.",
+    "tabs": {
+      "builder": "Οπτικός δημιουργός",
+      "expression": "Έκφραση"
+    },
+    "presetsLabel": "Προεπιλογές",
+    "fieldsLabel": "Πεδία",
+    "rawExpressionLabel": "Ωμή έκφραση",
+    "expressionHint": "Βγείτε από το πεδίο για ανάλυση και συγχρονισμό. {count} {count, plural, one {token} other {tokens}}.",
+    "currentExpressionLabel": "Τρέχουσα έκφραση",
+    "copy": "Αντιγραφή",
+    "quickPick": "Γρήγορη επιλογή",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Φυσική γλώσσα",
+    "nextRunsLabel": "Επόμενες εκτελέσεις (τοπική ώρα)",
+    "fields": {
+      "minute": "Λεπτό",
+      "hour": "Ώρα",
+      "dayOfMonth": "Ημέρα μήνα",
+      "month": "Μήνας",
+      "dayOfWeek": "Ημέρα εβδομάδας"
+    },
+    "presets": {
+      "everyMinute": "Κάθε λεπτό",
+      "every5Minutes": "Κάθε 5 λεπτά",
+      "every15Minutes": "Κάθε 15 λεπτά",
+      "everyHour": "Κάθε ώρα (στο :00)",
+      "every6Hours": "Κάθε 6 ώρες",
+      "dailyMidnight": "Καθημερινά τα μεσάνυχτα",
+      "daily0900": "Καθημερινά στις 09:00",
+      "weekdays0900": "Καθημερινές στις 09:00",
+      "weeklySunday": "Εβδομαδιαία (Κυριακή 00:00)",
+      "monthlyFirst": "Μηνιαία (1η 00:00)",
+      "yearlyJan1": "Ετήσια (1 Ιαν 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "κάθε λεπτό"
+      },
+      "hour": {
+        "every": "κάθε ώρα"
+      },
+      "dom": {
+        "any": "οποιαδήποτε ημέρα",
+        "last": "τελευταία ημέρα"
+      },
+      "month": {
+        "every": "κάθε μήνα"
+      },
+      "dow": {
+        "any": "οποιαδήποτε ημέρα",
+        "weekdays": "καθημερινές",
+        "weekend": "ΣΚ"
+      }
+    },
+    "months": {
+      "jan": "Ιαν",
+      "feb": "Φεβ",
+      "mar": "Μαρ",
+      "apr": "Απρ",
+      "may": "Μάι",
+      "jun": "Ιουν",
+      "jul": "Ιουλ",
+      "aug": "Αυγ",
+      "sep": "Σεπ",
+      "oct": "Οκτ",
+      "nov": "Νοε",
+      "dec": "Δεκ"
+    },
+    "weekdays": {
+      "sun": "Κυρ",
+      "mon": "Δευ",
+      "tue": "Τρι",
+      "wed": "Τετ",
+      "thu": "Πεμ",
+      "fri": "Παρ",
+      "sat": "Σαβ"
+    },
+    "errors": {
+      "fieldCount": "Αναμένονται 5 πεδία (minute hour day month weekday) ή 6 με δευτερόλεπτα.",
+      "invalid": "Μη έγκυρη cron έκφραση."
+    }
+  },
+  "Base64": {
+    "title": "Κωδικοποιητής / αποκωδικοποιητής Base64",
+    "subtitle": "Κωδικοποιήστε κείμενο σε Base64 ή αποκωδικοποιήστε συμβολοσειρές Base64",
+    "upload": "Μεταφόρτωση",
+    "clear": "Καθαρισμός",
+    "modes": {
+      "encode": "Κωδικοποίηση",
+      "decode": "Αποκωδικοποίηση"
+    },
+    "swapTitle": "Εναλλαγή εισόδου/εξόδου",
+    "panels": {
+      "plainText": "Απλό κείμενο",
+      "base64Input": "Είσοδος Base64",
+      "base64Output": "Έξοδος Base64",
+      "decodedText": "Αποκωδικοποιημένο κείμενο"
+    },
+    "placeholders": {
+      "encode": "Πληκτρολογήστε κείμενο για κωδικοποίηση σε Base64…",
+      "decode": "Επικολλήστε Base64 για αποκωδικοποίηση…"
+    },
+    "dropHere": "Αφήστε το αρχείο εδώ",
+    "charCount": "{count} χαρακτήρες",
+    "download": {
+      "title": "Λήψη εξόδου",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "outputPlaceholder": "Η έξοδος θα εμφανιστεί εδώ…",
+    "errors": {
+      "invalidBase64": "Μη έγκυρη συμβολοσειρά Base64. Ελέγξτε την είσοδο.",
+      "encodeFailed": "Αποτυχία κωδικοποίησης."
+    }
+  },
+  "UrlEncode": {
+    "title": "Κωδικοποιητής / αποκωδικοποιητής URL",
+    "subtitle": "Κωδικοποίηση/αποκωδικοποίηση ποσοστού με encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Μεταφόρτωση",
+    "clear": "Καθαρισμός",
+    "modes": {
+      "encode": "Κωδικοποίηση",
+      "decode": "Αποκωδικοποίηση"
+    },
+    "swapTitle": "Εναλλαγή εισόδου και εξόδου",
+    "panels": {
+      "plainText": "Απλό κείμενο",
+      "encodedInput": "Κωδικοποιημένη είσοδος",
+      "encodedOutput": "Κωδικοποιημένη έξοδος",
+      "decodedText": "Αποκωδικοποιημένο κείμενο"
+    },
+    "placeholders": {
+      "encode": "Εισαγάγετε κείμενο για percent-encoding…",
+      "decode": "Επικολλήστε percent-encoded κείμενο για αποκωδικοποίηση…"
+    },
+    "dropHere": "Αφήστε το αρχείο εδώ",
+    "charCount": "{count} χαρακτ.",
+    "download": {
+      "title": "Λήψη εξόδου",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "outputPlaceholder": "Η έξοδος θα εμφανιστεί εδώ…",
+    "errors": {
+      "invalidEncoding": "Μη έγκυρο percent-encoding. Ελέγξτε για ελλιπή ζεύγη % ή λάθος ακολουθίες διαφυγής.",
+      "encodeFailed": "Δεν ήταν δυνατή η κωδικοποίηση (μη έγκυρο Unicode στην είσοδο)."
+    }
+  },
+  "UrlParser": {
+    "title": "Αναλυτής URL",
+    "subtitle": "Χωρίστε ένα URL σε πρωτόκολλο, κεντρικό υπολογιστή, διαδρομή, παραμέτρους ερωτήματος και hash (τμήμα).",
+    "upload": "Μεταφόρτωση",
+    "clear": "Εκκαθάριση",
+    "panels": {
+      "input": "Είσοδος URL",
+      "output": "Αποτέλεσμα"
+    },
+    "placeholders": {
+      "input": "Επικολλήστε ένα URL (π.χ. https://example.com/path?foo=bar#section) ή κεντρικό/διαδρομή (π.χ. example.com/path)…"
+    },
+    "dropHere": "Αποθέστε το αρχείο εδώ",
+    "charCount": "{count} χαρακτήρες",
+    "outputPlaceholder": "Τα αναλυμένα στοιχεία θα εμφανιστούν εδώ…",
+    "fields": {
+      "protocol": "Πρωτόκολλο",
+      "host": "Κεντρικός υπολογιστής",
+      "path": "Διαδρομή",
+      "hash": "Hash",
+      "queryParams": "Παράμετροι ερωτήματος"
+    },
+    "paramCount": "{count} παράμετροι",
+    "noParams": "Δεν υπάρχουν παράμετροι ερωτήματος.",
+    "paramKey": "Κλειδί",
+    "paramValue": "Τιμή",
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "copyParamTitle": "Αντιγραφή ως key=value",
+    "download": {
+      "title": "Λήψη JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "Μη έγκυρο URL. Συμπεριλάβετε όνομα κεντρικού υπολογιστή (example.com) και ελέγξτε τους χαρακτήρες."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Γεννήτρια UUID / ULID",
+    "subtitle": "Δημιουργήστε UUID (RFC 9562) ή ULID στον browser. Μαζική εξαγωγή έως {max} ανά εκτέλεση.",
+    "format": "Μορφή",
+    "kindHints": {
+      "ulid": "Ταξινομήσιμο, URL-safe αναγνωριστικό 26 χαρακτήρων",
+      "uuid4": "Τυχαίο (RFC 9562)",
+      "uuid7": "Χρονικά ταξινομημένο, Unix ms + τυχαίο",
+      "uuid1": "MAC/χρόνος (RFC 9562)",
+      "uuid6": "Αναδιατεταγμένος γρηγοριανός χρόνος",
+      "uuid3": "MD5 hash ονόματος + namespace",
+      "uuid5": "SHA‑1 hash ονόματος + namespace",
+      "nil": "Μηδενικό UUID (όλα μηδενικά, RFC 9562)"
+    },
+    "countLabel": "Πλήθος (1–{max})",
+    "nameLabel": "Όνομα (συμβολοσειρά εισόδου)",
+    "namePlaceholder": "π.χ. my.app/resource",
+    "bulkHint": "Στη μαζική δημιουργία προστίθενται <code>#0</code>, <code>#1</code>, … ώστε κάθε ID να είναι διαφορετικό (v3/v5 είναι ντετερμινιστικά).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "Προσαρμοσμένο UUID"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Δημιουργία",
+    "output": "Έξοδος",
+    "lines": "{count} γραμμές",
+    "download": {
+      "title": "Λήψη .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Αντιγραφή όλων",
+    "uppercaseToggle": "Έξοδος με κεφαλαία",
+    "hyphensToggle": "Εμφάνιση παύλων",
+    "copyJsonTitle": "Αντιγραφή ως πίνακα JSON",
+    "outputPlaceholder": "Πατήστε «Δημιουργία»…",
+    "errors": {
+      "invalidCustomNamespace": "Το προσαρμοσμένο namespace πρέπει να είναι έγκυρο UUID.",
+      "missingName": "Απαιτείται όνομα για UUID v3 και v5.",
+      "unknown": "Δεν ήταν δυνατή η δημιουργία των ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Γεννήτρια μυστικού / κλειδιού API",
+    "subtitle": "Δημιουργήστε κρυπτογραφικά τυχαίες συμβολοσειρές με ρυθμιζόμενο μήκος και αλφάβητο. Μαζική εξαγωγή έως {max} ανά εκτέλεση. Συμπληρώνει τον <uuid>γεννήτρια UUID / ULID</uuid>.",
+    "alphabetLabel": "Αλφάβητο",
+    "alphabetHint": "Τα διπλότυπα αφαιρούνται. Κάθε σύμβολο επιλέγεται ομοιόμορφα με crypto.getRandomValues και δειγματοληψία απόρριψης (χωρίς προκατάληψη modulo).",
+    "alphabetCount": "{count} μοναδικά σύμβολα",
+    "presetsLabel": "Προρυθμίσεις",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Αλφαριθμητικό",
+      "hex": "Δεκαεξαδικό (πεζά)",
+      "asciiPrintable": "ASCII εκτυπώσιμο"
+    },
+    "lengthLabel": "Μήκος ανά μυστικό (1–{maxLen})",
+    "countLabel": "Πλήθος (1–{maxBulk})",
+    "generate": "Δημιουργία",
+    "output": "Έξοδος",
+    "lines": "{count} γραμμές",
+    "download": {
+      "title": "Λήψη .txt",
+      "filename": "μυστικά.txt"
+    },
+    "copyTitle": "Αντιγραφή όλων",
+    "outputPlaceholder": "Κάντε κλικ στο \"Δημιουργία\"…",
+    "entropy": "{bits} bit εντροπίας",
+    "strength": {
+      "weak": "Αδύναμο",
+      "fair": "Μέτριο",
+      "strong": "Ισχυρό"
+    },
+    "excludeAmbiguous": "Εξαίρεση διφορούμενων χαρακτήρων",
+    "excludeAmbiguousHint": "Αφαιρεί τα {chars} — χαρακτήρες που διαβάζονται εύκολα λάθος ή είναι εχθρικοί για το shell.",
+    "prefixLabel": "Πρόθεμα κλειδιού (προαιρετικό)",
+    "errors": {
+      "emptyAlphabet": "Προσθέστε τουλάχιστον έναν χαρακτήρα στο αλφάβητο.",
+      "alphabetTooLong": "Μετά την αφαίρεση διπλοτύπων, το αλφάβητο μπορεί να έχει το πολύ {maxAlpha} χαρακτήρες.",
+      "lengthOutOfRange": "Το μήκος πρέπει να είναι μεταξύ 1 και {maxLen}.",
+      "countOutOfRange": "Το πλήθος πρέπει να είναι μεταξύ 1 και {maxBulk}.",
+      "unknown": "Δεν ήταν δυνατή η δημιουργία μυστικών."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Γεννήτρια Lorem Ipsum",
+    "subtitle": "Δημιουργήστε λατινικό κείμενο κράτησης θέσης για τις διατάξεις και τα μακέτα σας.",
+    "paragraphs": "Παράγραφοι",
+    "sentences": "Προτάσεις",
+    "words": "Λέξεις",
+    "count": "Αριθμός",
+    "generate": "Δημιουργία",
+    "copy": "Αντιγραφή",
+    "startWith": "Έναρξη με 'Lorem ipsum...'",
+    "outputPlaceholder": "Η έξοδος θα εμφανιστεί εδώ...",
+    "outputType": "Τύπος εξόδου",
+    "bulletList": "Λίστα κουκκίδων",
+    "htmlMarkup": "Σήμανση HTML",
+    "htmlMarkupHint": "Τυλίξτε την έξοδο σε παραγράφους ή χρησιμοποιήστε λίστα για λειτουργία κουκκίδων",
+    "output": "Έξοδος",
+    "download": "Λήψη"
+  },
+  "ColorPicker": {
+    "title": "Επιλογέας και μετατροπέας χρωμάτων",
+    "subtitle": "Μετατρέψτε HEX, RGB και HSL· δημιουργήστε αρμονικές παλέτες. Όλη η επεξεργασία γίνεται στον περιηγητή σας.",
+    "nativePicker": "Εγγενής επιλογέας",
+    "chooseColor": "Επιλέξτε χρώμα",
+    "eyeDropper": "Σταγονόμετρο",
+    "invalidHex": "Μη έγκυρο χρώμα HEX.",
+    "cssValues": "Τιμές CSS",
+    "palettes": "Παλέτες",
+    "copied": "Αντιγράφηκε",
+    "clickToCopy": "Κλικ για αντιγραφή",
+    "copyAllHex": "Αντιγραφή όλων HEX",
+    "copy": "Αντιγραφή",
+    "copyColor": "Αντιγραφή {color}",
+    "paletteShades": "Αποχρώσεις",
+    "paletteComplementary": "Συμπληρωματικό",
+    "paletteTriadic": "Τριαδικό",
+    "paletteAnalogous": "Ανάλογο",
+    "paletteSplit": "Διαιρ. συμπλ.",
+    "paletteSquare": "Τετράγωνο"
+  },
+  "ContrastChecker": {
+    "title": "Έλεγχος αντίθεσης",
+    "subtitle": "Υπολογίζει την αναλογία αντίθεσης WCAG 2.1 μεταξύ προσκηνίου και φόντου. Ελέγχει AA και AAA για κανονικό και μεγάλο κείμενο. Όλα στον περιηγητή σας.",
+    "foreground": "Κείμενο / προσκήνιο",
+    "background": "Φόντο",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Εναλλαγή χρωμάτων",
+    "chooseForeground": "Επιλογή χρώματος προσκηνίου",
+    "chooseBackground": "Επιλογή χρώματος φόντου",
+    "eyeDropper": "Σταγονόμετρο",
+    "ratio": "Αναλογία αντίθεσης",
+    "copyRatio": "Αντιγραφή αναλογίας",
+    "copied": "Αντιγράφηκε",
+    "previewHeading": "Προεπισκόπηση",
+    "previewBody": "Ταχίστη αλώπηξ βαφής ψημένη γης δρασκελίζει υπέρ νωθρού κυνός. Ξεσκεπάζω την ψυχοφθόρα βδελυγμία.",
+    "previewCaption": "Δείγμα κειμένου στο προεπιλεγμένο μέγεθος.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — κανονικό κείμενο (4,5:1)",
+    "levelAALarge": "AA — μεγάλο κείμενο (3:1)",
+    "levelAAANormal": "AAA — κανονικό κείμενο (7:1)",
+    "levelAAALarge": "AAA — μεγάλο κείμενο (4,5:1)",
+    "pass": "Περνάει",
+    "fail": "Αποτυγχάνει",
+    "invalidHex": "Μη έγκυρο χρώμα HEX.",
+    "largeTextHint": "Μεγάλο κείμενο: 18 pt+ κανονικό ή 14 pt+ έντονο (ορισμοί WCAG)."
+  },
+  "DiffChecker": {
+    "title": "Έλεγχος διαφορών",
+    "subtitle": "Σύγκριση γραμμών δύο κειμένων παράλληλα. Όλα παραμένουν στο πρόγραμμα περιήγησής σας.",
+    "rowsCount": "{count} γραμμές",
+    "truncatedWarning": "Εμφάνιση πρώτων {max} γραμμών.",
+    "limitExceeded": "Κάθε πλευρά περιορίζεται σε {max} χαρακτήρες.",
+    "clearBoth": "Εκκαθάριση και των δύο",
+    "original": "Πρωτότυπο",
+    "modified": "Τροποποιημένο",
+    "originalPlaceholder": "Επικολλήστε το αρχικό κείμενο…",
+    "modifiedPlaceholder": "Επικολλήστε το τροποποιημένο κείμενο…",
+    "comparisonLabel": "Παράλληλη σύγκριση",
+    "emptyState": "Εισαγάγετε κείμενο και στα δύο παράθυρα για σύγκριση."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Γεννήτρια JSON Schema",
+    "subtitle": "Επικολλήστε έγκυρο JSON για να δημιουργήσετε JSON Schema ή τυποποιημένα μοντέλα. Όλα εκτελούνται στον browser σας.",
+    "languageLabel": "Γλώσσα εξόδου",
+    "inputLabel": "Είσοδος JSON",
+    "inputPlaceholder": "Επικολλήστε JSON εδώ…",
+    "outputLabel": "Δημιουργημένη έξοδος",
+    "outputPlaceholder": "Το σχήμα ή οι τύποι θα εμφανιστούν εδώ…",
+    "parseError": "Μη έγκυρο JSON",
+    "clear": "Εκκαθάριση",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε στο πρόχειρο",
+    "copyFailed": "Αποτυχία αντιγραφής",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "JSON Schema (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    },
+    "editorLoading": "Φόρτωση επεξεργαστή…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
+  },
+  "ImageToBase64": {
+    "title": "Εικόνα στο Base64",
+    "subtitle": "Ρίξτε μια εικόνα, λάβετε ένα URI δεδομένων ή μια ακατέργαστη συμβολοσειρά Base64. Όλα παραμένουν στο πρόγραμμα περιήγησής σας.",
+    "upload": "Μεταφόρτωση εικόνας",
+    "clear": "Σαφής",
+    "modes": {
+      "dataUri": "URI δεδομένων",
+      "rawString": "Ακατέργαστη βάση 64"
+    },
+    "panels": {
+      "imageInput": "Είσοδος εικόνας",
+      "output": "Έξοδος Base64"
+    },
+    "dropHere": "Ρίξτε εικόνα εδώ",
+    "charCount": "{count} χαρακτήρες",
+    "placeholders": {
+      "uploadImage": "Σύρετε και αποθέστε μια εικόνα ή κάντε κλικ στη μεταφόρτωση για να ξεκινήσετε."
+    },
+    "fileTooLarge": "Το αρχείο είναι πολύ μεγάλο. Η επεξεργασία ενδέχεται να παγώσει το πρόγραμμα περιήγησής σας.",
+    "copyTitle": "Αντιγραφή στο πρόχειρο",
+    "download": {
+      "title": "Λήψη κειμένου",
+      "filename": "image-base64.txt"
+    }
+  },
+  "ImageCompressor": {
+    "title": "Συμπίεση εικόνας",
+    "subtitle": "Μικρύνετε την έξοδο JPEG, PNG ή WebP τοπικά με έλεγχο ποιότητας — τίποτα δεν ανεβαίνει.",
+    "upload": "Μεταφόρτωση εικόνας",
+    "clear": "Εκκαθάριση",
+    "dropHere": "Αφήστε την εικόνα εδώ",
+    "placeholders": {
+      "uploadImage": "Σύρετε και αφήστε μια εικόνα ή κάντε κλικ για επιλογή αρχείου."
+    },
+    "fileTooLarge": "Το αρχείο είναι πολύ μεγάλο (μέγ. {maxMb} MB).",
+    "unsupportedFormat": "Μη υποστηριζόμενος τύπος αρχείου. Χρησιμοποιήστε JPEG, PNG, WebP, GIF, AVIF ή BMP.",
+    "compressFailed": "Δεν ήταν δυνατή η συμπίεση της εικόνας. Δοκιμάστε άλλο αρχείο ή μορφή.",
+    "panels": {
+      "original": "Πρωτότυπο",
+      "compressed": "Προεπισκόπηση συμπιεσμένου"
+    },
+    "outputFormat": "Μορφή εξόδου",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Ποιότητα",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "Το PNG είναι χωρίς απώλειες στον browser· ο έλεγχος ποιότητας ισχύει μόνο για JPEG και WebP.",
+    "sizes": {
+      "original": "Πρωτότυπο: {size}",
+      "compressed": "Συμπιεσμένο: {size}",
+      "saved": "{percent}% μικρότερο"
+    },
+    "largerWarning": "Η έξοδος είναι μεγαλύτερη από την είσοδο — δοκιμάστε άλλη μορφή ή ποιότητα.",
+    "download": "Λήψη",
+    "downloadFilename": "συμπιεσμένη-εικόνα",
+    "processing": "Συμπίεση…",
+    "emptyCompressed": "Η προεπισκόπηση εμφανίζεται εδώ."
+  },
+  "CssGradientBuilder": {
+    "title": "CSS Gradient Builder",
+    "subtitle": "Visual CSS gradient builder με έλεγχο γωνίας, χρωματικές στάσεις και αντιγραφή CSS με ένα κλικ.",
+    "preview": "Προεπισκόπηση κλίσης",
+    "settings": "Ρυθμίσεις",
+    "type": "Τύπος",
+    "linear": "Γραμμικός",
+    "radial": "Ακτινικός",
+    "angle": "Γωνία",
+    "stops": "Σταματά το χρώμα",
+    "color": "Χρώμα",
+    "position": "Θέση (%)",
+    "addStop": "Προσθήκη Stop",
+    "deleteStop": "Διαγραφή Stop",
+    "output": "Έξοδος CSS",
+    "copy": "Αντιγραφή CSS",
+    "copied": "Αντιγράφηκε!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": ".gitignore Γεννήτρια",
+    "subtitle": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα για μια συγκεκριμένη στοίβα τεχνολογίας ή συνδυασμό.",
+    "searchPlaceholder": "Αναζήτηση στοίβων (π.χ. Node, Python, macOS)...",
+    "noResults": "Δεν βρέθηκαν στοίβες.",
+    "selectedStacks": "Επιλεγμένες στοίβες",
+    "output": "Έξοδος προεπισκόπησης",
+    "copy": "Αντιγραφή στο Πρόχειρο",
+    "copied": "Αντιγράφηκε!",
+    "download": "Λήψη .gitignore",
+    "downloading": "Λήψη...",
+    "errorFetching": "Αποτυχία λήψης της λίστας κορυφαίων.",
+    "errorGenerating": "Απέτυχε η δημιουργία .gitignore από επιλεγμένες στοίβες.",
+    "generating": "Δημιουργία...",
+    "emptyState": "Επιλέξτε μία ή περισσότερες στοίβες τεχνολογίας για να δημιουργήσετε το .gitignore σας."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Ανεβάστε CSV ή Excel, επεξεργαστείτε JSON και κατεβάστε CSV ή XLSX. Μόνο πίνακας· οι ημερομηνίες Excel γίνονται ISO στο JSON.",
+    "dropTitle": "Αφήστε αρχείο CSV ή Excel",
+    "dropHint": "Για .xlsx / .xls χρησιμοποιείται το πρώτο φύλλο. Το CSV χρειάζεται γραμμή κεφαλίδας.",
+    "chooseFile": "Επιλογή αρχείου",
+    "jsonLabel": "JSON (πίνακας αντικειμένων)",
+    "jsonPlaceholder": "Επικολλήστε πίνακα JSON αντικειμένων ή εισάγετε CSV / Excel…",
+    "loadSample": "Φόρτωση δείγματος",
+    "actions": {
+      "format": "Μορφοποίηση JSON",
+      "clear": "Εκκαθάριση",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε",
+      "downloadCsv": "Λήψη CSV",
+      "downloadXlsx": "Λήψη Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Δεδομένα",
+    "toastLoadedCsv": "Το CSV φορτώθηκε στον επεξεργαστή",
+    "toastLoadedExcel": "Το Excel φορτώθηκε στον επεξεργαστή",
+    "toastFormatted": "Το JSON μορφοποιήθηκε",
+    "toastExportedCsv": "Το CSV λήφθηκε",
+    "toastExportedXlsx": "Το Excel λήφθηκε",
+    "toastCopied": "Αντιγράφηκε στο πρόχειρο",
+    "footnote": "Όλα τρέχουν στον browser. Το JSON πρέπει να είναι μη κενός πίνακας αντικειμένων. Ένθετες τιμές σειριοποιούνται ως JSON στα κελιά CSV.",
+    "errors": {
+      "unsupportedFile": "Χρησιμοποιήστε αρχείο .csv, .xlsx ή .xls.",
+      "parseFailed": "Δεν ήταν δυνατή η ανάλυση του αρχείου.",
+      "invalidJson": "Μη έγκυρο JSON",
+      "exportFailed": "Η εξαγωγή απέτυχε",
+      "copyFailed": "Δεν ήταν δυνατή η αντιγραφή"
+    }
+  },
+  "SnippetManager": {
+    "title": "Διαχειριστής αποσπασμάτων κώδικα",
+    "subtitle": "Αποθηκεύστε αποσπάσματα στον browser ή συνδεθείτε για συγχρονισμό με τον λογαριασμό σας. Εναλλαγή προβολής και επεξεργασίας, αντιγραφή με ένα κλικ, επιλογή γλώσσας ή αυτόματη ανίχνευση και μορφοποίηση JSON, SQL ή κώδικα που υποστηρίζει το Monaco.",
+    "snippets": "Αποσπάσματα",
+    "newSnippet": "Νέο απόσπασμα",
+    "newSnippetTitle": "Νέο απόσπασμα",
+    "defaultSnippetTitle": "Καλώς ήρθατε",
+    "defaultSnippetCode": "// Καλώς ήρθατε στα αποσπάσματα κώδικα\n// Δοκιμάστε προβολή vs επεξεργασία, αντιγραφή, μορφοποίηση και αυτόματη γλώσσα\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Αναζήτηση αποσπασμάτων…",
+    "searchAria": "Αναζήτηση αποσπασμάτων",
+    "emptySearch": "Κανένα απόσπασμα δεν ταιριάζει στην αναζήτηση.",
+    "snippetTitle": "Τίτλος",
+    "snippetTitlePlaceholder": "Όνομα αποσπάσματος",
+    "language": "Γλώσσα",
+    "detectedHint": "Τονισμός ως {lang}",
+    "badgeAuto": "Αυτόματο · {lang}",
+    "modeView": "Προβολή",
+    "modeEdit": "Επεξεργασία",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "format": "Μορφοποίηση",
+    "cancel": "Άκυρο",
+    "deleteTitle": "Διαγραφή αποσπάσματος;",
+    "deleteDescription": "Το «{title}» θα αφαιρεθεί από αυτόν τον browser.",
+    "deleteConfirm": "Διαγραφή",
+    "editorAria": "Επεξεργαστής κώδικα αποσπάσματος",
+    "editorLoading": "Φόρτωση επεξεργαστή…",
+    "toastCopied": "Αντιγράφηκε στο πρόχειρο",
+    "toastCopyFailed": "Αδυναμία αντιγραφής",
+    "toastNothingToCopy": "Τίποτα για αντιγραφή",
+    "toastFormatted": "Μορφοποιήθηκε",
+    "toastFormatFailed": "Αδυναμία μορφοποίησης",
+    "toastFormatJsonInvalid": "Μη έγκυρο JSON — διορθώστε πρώτα τη σύνταξη",
+    "toastFormatUnsupported": "Δεν υπάρχει μορφοποιητής για αυτή τη γλώσσα — δοκιμάστε JSON ή SQL ή λειτουργία επεξεργασίας",
+    "toastDeleted": "Το απόσπασμα διαγράφηκε",
+    "toastLoadFailed": "Δεν ήταν δυνατή η φόρτωση αποσπασμάτων από τον διακομιστή.",
+    "toastSyncFailed": "Δεν ήταν δυνατός ο συγχρονισμός με τον διακομιστή.",
+    "languages": {
+      "auto": "Αυτόματη ανίχνευση",
+      "plaintext": "Απλό κείμενο",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
+    }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Πελάτης SQL",
+      "dialogTitle": "Συνδέσεις SQL",
+      "mobileSheetTitle": "Εξερευνητής SQL",
+      "newTabLabel": "Νέα καρτέλα ερωτήματος",
+      "vaultLockedTitle": "Το θησαυροφυλάκιο είναι κλειδωμένο",
+      "vaultLockedDesc": "Ξεκλειδώστε το θησαυροφυλάκιο για πρόσβαση στις αποθηκευμένες συνδέσεις.",
+      "heroTitle": "Πελάτης SQL",
+      "heroDesc": "Συνδεθείτε σε PostgreSQL, MySQL ή MariaDB. Τα διαπιστευτήρια κρυπτογραφούνται στο πρόγραμμα περιήγησης.",
+      "heroAddConnection": "Προσθήκη σύνδεσης",
+      "selectTableTitle": "Επιλέξτε πίνακα ή ανοίξτε καρτέλα ερωτήματος",
+      "selectTableDesc": "Κάντε κλικ σε πίνακα στην πλαϊνή μπάρα ή χρησιμοποιήστε ⌘↩.",
+      "toastLoadFail": "Αποτυχία φόρτωσης συνδέσεων."
+    },
+    "connection": {
+      "titleNew": "Νέα σύνδεση SQL",
+      "titleEdit": "Επεξεργασία σύνδεσης",
+      "labelDbType": "Τύπος βάσης δεδομένων",
+      "labelName": "Όνομα σύνδεσης",
+      "placeholderName": "Η βάση παραγωγής μου",
+      "labelHostPort": "Κεντρικός υπολογιστής & Θύρα",
+      "labelDatabase": "Βάση δεδομένων",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Όνομα χρήστη",
+      "labelPassword": "Κωδικός πρόσβασης",
+      "labelSsl": "Ενεργοποίηση SSL / TLS",
+      "sslDesc": "Κρυπτογράφηση σύνδεσης με τον διακομιστή",
+      "securityNote": "Τα διαπιστευτήρια κρυπτογραφούνται AES-256 στο πρόγραμμα περιήγησης πριν την αποθήκευση",
+      "btnTest": "Δοκιμή σύνδεσης",
+      "btnSave": "Αποθήκευση & Σύνδεση",
+      "btnUpdate": "Ενημέρωση",
+      "btnCancelEdit": "Ακύρωση επεξεργασίας",
+      "savedConnections": "Αποθηκευμένες συνδέσεις",
+      "emptySaved": "Οι αποθηκευμένες συνδέσεις θα εμφανιστούν εδώ",
+      "confirmDelete": "Διαγραφή αυτής της σύνδεσης;",
+      "toastFillFields": "Συμπληρώστε τον κεντρικό υπολογιστή και τη βάση δεδομένων πριν τη δοκιμή.",
+      "toastConnectOk": "Συνδέθηκε! {version}",
+      "toastConnectFail": "Αποτυχία σύνδεσης: {message}",
+      "toastUnlockVault": "Ξεκλειδώστε πρώτα το θησαυροφυλάκιο.",
+      "toastFieldsRequired": "Ο κεντρικός υπολογιστής και η βάση δεδομένων είναι απαραίτητα.",
+      "toastUpdated": "Η σύνδεση ενημερώθηκε.",
+      "toastSaved": "Η σύνδεση αποθηκεύτηκε.",
+      "toastSaveFail": "Αποτυχία αποθήκευσης: {message}",
+      "toastDeleted": "Η σύνδεση διαγράφηκε.",
+      "toastDeleteFail": "Αποτυχία διαγραφής σύνδεσης."
+    },
+    "sidebar": {
+      "title": "Εξερευνητής SQL",
+      "tooltipAddConnection": "Προσθήκη σύνδεσης",
+      "tooltipRefreshSchema": "Ανανέωση σχήματος",
+      "noConnections": "Δεν υπάρχουν αποθηκευμένες συνδέσεις",
+      "toastSchemaFail": "Αποτυχία φόρτωσης σχήματος: {message}"
+    },
+    "editor": {
+      "btnRun": "Εκτέλεση",
+      "executing": "Εκτέλεση ερωτήματος…",
+      "emptyTitle": "Εκτελέστε ένα ερώτημα για να δείτε αποτελέσματα",
+      "emptyHint": "Πατήστε ⌘↩ ή κάντε κλικ στο Εκτέλεση",
+      "toastNoConnection": "Δεν υπάρχει ενεργή σύνδεση."
+    },
+    "results": {
+      "filterPlaceholder": "Φιλτράρισμα αποτελεσμάτων…",
+      "rowCount": "{count} γραμμή(ές)",
+      "rowCountFiltered": "{filtered} / {total} γραμμές",
+      "exportCsv": "CSV",
+      "noRows": "Δεν επιστράφηκαν γραμμές"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Δημιουργός κωδικών QR",
+    "subtitle": "Μετατρέψτε οποιοδήποτε κείμενο ή URL σε PNG QR. Η απόδοση γίνεται τοπικά στον browser.",
+    "contentLabel": "Περιεχόμενο",
+    "contentPlaceholder": "https://example.com, απλό κείμενο, συμβολοσειρά Wi‑Fi, vCard…",
+    "styleLabel": "Στυλ",
+    "dotTypeLabel": "Σχήμα τελείας",
+    "dotTypeSquare": "Τετράγωνο",
+    "dotTypeDots": "Τελείες",
+    "dotTypeRounded": "Στρογγυλεμένο",
+    "dotTypeExtraRounded": "Έξτρα στρογγυλεμένο",
+    "dotTypeClassy": "Κομψό",
+    "dotTypeClassyRounded": "Κομψό στρογγυλεμένο",
+    "cornerSquareLabel": "Γωνιακά τετράγωνα",
+    "cornerSquareDot": "Τελεία",
+    "cornerSquareSquare": "Τετράγωνο",
+    "cornerSquareExtraRounded": "Έξτρα στρογγυλεμένο",
+    "cornerDotLabel": "Γωνιακές τελείες",
+    "cornerDotDot": "Τελεία",
+    "cornerDotSquare": "Τετράγωνο",
+    "eccLabel": "Διόρθωση σφαλμάτων",
+    "eccL": "Χαμηλή (~7%)",
+    "eccM": "Μέτρια (~15%)",
+    "eccQ": "Τεταρτημόριο (~25%)",
+    "eccH": "Υψηλή (~30%)",
+    "marginLabel": "Περιθώριο (ενότητες)",
+    "widthLabel": "Πλάτος εικόνας",
+    "widthEffective": "Απόδοση σε {px} px",
+    "darkColor": "Σκούρες ενότητες",
+    "lightColor": "Ανοιχτές ενότητες",
+    "resetColors": "Επαναφορά χρωμάτων",
+    "logoLabel": "Κεντρικό λογότυπο",
+    "logoMarginLabel": "Περιθώριο",
+    "uploadLogo": "Μεταφόρτωση εικόνας",
+    "removeLogo": "Αφαίρεση λογοτύπου",
+    "downloadPng": "Λήψη PNG",
+    "downloadSvg": "Λήψη SVG",
+    "copyImage": "Αντιγραφή εικόνας",
+    "copied": "Αντιγράφηκε",
+    "clear": "Εκκαθάριση",
+    "previewAlt": "Προεπισκόπηση QR",
+    "emptyHint": "Πληκτρολογήστε ή επικολλήστε περιεχόμενο για προεπισκόπηση.",
+    "filename": "qr-code.png",
+    "errors": {
+      "generationFailed": "Δεν ήταν δυνατή η δημιουργία QR. Δοκιμάστε μικρότερο κείμενο ή χαμηλότερη διόρθωση.",
+      "copyUnsupported": "Ο browser δεν υποστηρίζει αντιγραφή εικόνας στο πρόχειρο.",
+      "copyFailed": "Αποτυχία αντιγραφής στο πρόχειρο."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Υπολογιστής IP / υποδικτύου",
+    "subtitle": "Λεπτομέρειες CIDR IPv4 και IPv6 στον browser—χωρίς εξωτερικά αιτήματα.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Δίκτυο",
+    "placeholderIpv4": "10.0.0.0/24 ή 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 ή 2001:db8::1/64",
+    "hintIpv4": "Χρησιμοποιήστε CIDR (π.χ. /24) ή IPv4 + μάσκα με τελείες.",
+    "hintIpv6": "Συμπεριλάβετε μήκος προθέματος (π.χ. /64). Χωρίς αυτό /128.",
+    "copyValue": "Αντιγραφή τιμής",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Διεύθυνση δικτύου",
+      "netmask": "Μάσκα υποδικτύου",
+      "wildcard": "Μάσκα wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Πρώτος κόμβος",
+      "lastHost": "Τελευταίος κόμβος",
+      "totalAddresses": "Συνολικές διευθύνσεις",
+      "usableHosts": "Χρήσιμοι κόμβοι",
+      "prefixLength": "Μήκος προθέματος (bits)",
+      "networkIpv6": "Διεύθυνση δικτύου",
+      "lastIpv6": "Τελευταία διεύθυνση στο εύρος",
+      "totalAddressesIpv6": "Διευθύνσεις στο υποδίκτυο"
+    },
+    "usableNote": {
+      "pointToPoint": "Συνδέσεις /31 point-to-point χρησιμοποιούν και τις δύο διευθύνσεις ως hosts (RFC 3021).",
+      "singleHost": "/32 είναι μία διεύθυνση host."
+    },
+    "ipv6RangeHint": {
+      "normal": "Εμφανίζεται πλήρες μαθηματικό εύρος· οι κανόνες δρομολογητή μπορεί να διαφέρουν.",
+      "single": "/128 είναι μία διεύθυνση.",
+      "full": "/0 καλύπτει όλο το IPv6."
+    },
+    "errors": {
+      "invalidIpv4": "Μη έγκυρο IPv4 δίκτυο. Δοκιμάστε CIDR ή διεύθυνση + μάσκα.",
+      "invalidIpv6": "Μη έγκυρο IPv6 δίκτυο. Χρησιμοποιήστε διεύθυνση/πρόθεμα, π.χ. 2001:db8::/48."
+    }
+  },
+  "HashGenerator": {
+    "title": "Γεννήτρια hash",
+    "subtitle": "Αποσπάσματα MD5, SHA-1 και SHA-2 για κείμενο ή αρχεία· bcrypt για κωδικούς (εισαγωγή κειμένου). Όλα τοπικά στον περιηγητή.",
+    "algorithmLabel": "Αλγόριθμος",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Κείμενο",
+    "modeFile": "Αρχείο",
+    "inputLabelText": "Είσοδος",
+    "placeholderText": "Πληκτρολογήστε ή επικολλήστε κείμενο…",
+    "chooseFile": "Επιλογή αρχείου",
+    "clearFile": "Εκκαθάριση",
+    "fileHint": "Τα αρχεία διαβάζονται μόνο στη μνήμη· μέγ. {maxMb} MB. Χωρίς μεταφόρτωση.",
+    "outputLabel": "Digest (hex)",
+    "copyHash": "Αντιγραφή digest",
+    "copied": "Αντιγράφηκε",
+    "byteCount": "{count, plural, one {# byte} other {# bytes}}",
+    "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
+    "emptyHint": "Εισάγετε κείμενο ή επιλέξτε αρχείο.",
+    "securityNote": "Τα MD5 και SHA-1 δεν συνιστώνται για νέες εφαρμογές ασφαλείας· προτιμήστε SHA-256 ή SHA-512.",
+    "errors": {
+      "fileTooLarge": "Το αρχείο είναι μεγαλύτερο από {maxMb} MB.",
+      "fileReadFailed": "Αποτυχία ανάγνωσης αρχείου."
+    },
+    "bcryptRoundsLabel": "Κόστος (γύροι)",
+    "bcryptRoundsHint": "Υψηλότερες τιμές είναι πιο αργές και πιο ανθεκτικές. Συνήθης προεπιλογή 10.",
+    "fileTabDisabledTitle": "Το bcrypt κατακερματίζει μόνο κωδικούς από κείμενο, όχι αυθαίρετα αρχεία.",
+    "placeholderBcrypt": "Πληκτρολογήστε ή επικολλήστε κωδικό για κατακερματισμό…",
+    "outputLabelBcrypt": "Κατακερματισμός bcrypt",
+    "copyBcrypt": "Αντιγραφή κατακερματισμού",
+    "emptyHintBcrypt": "Εισάγετε κωδικό για υπολογισμό bcrypt.",
+    "securityNoteBcrypt": "Κάθε έξοδος bcrypt περιλαμβάνει τυχαίο αλάτι· ο ίδιος κωδικός δίνει διαφορετική συμβολοσειρά κάθε φορά. Αυτό αναμένεται. Χρησιμοποιήστε υψηλό κόστος σε παραγωγή.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "EncryptionPlayground": {
+    "title": "Χώρος δοκιμών κρυπτογράφησης",
+    "subtitle": "AES-GCM στον browser: κρυπτογράφηση σε δέσμη JSON με συνθηματική ή ακατέργαστο κλειδί και αποκρυπτογράφηση τοπικά. Εκπαιδευτικό και περιστασιακά πρακτικό — δεν ανεβαίνει τίποτα.",
+    "tabEncrypt": "Κρυπτογράφηση",
+    "tabDecrypt": "Αποκρυπτογράφηση",
+    "keyModeLabel": "Υλικό κλειδιού",
+    "modePassphrase": "Συνθηματική φράση (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Ακατέργαστο κλειδί AES (hex ή Base64)",
+    "aesBitsLabel": "Μήκος κλειδιού AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Κωδικοποίηση ακατέργαστου κλειδιού",
+    "encodingAuto": "Αυτόματο (hex αν μοιάζει με hex, αλλιώς Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Ακατέργαστο κλειδί",
+    "rawKeyPlaceholder": "Κλειδί 32 byte ως 64 hex χαρακτήρες ή Base64 για AES-256 (το μήκος εξαρτάται από το AES παραπάνω).",
+    "rawKeyPlaceholderDecrypt": "Χρειάζεται μόνο όταν η δέσμη έχει keyDerivation \"none\".",
+    "passphraseLabel": "Συνθηματική φράση",
+    "passphrasePlaceholder": "Η φράση χρησιμοποιείται μόνο στον browser για παραγωγή κλειδιού.",
+    "passphrasePlaceholderDecrypt": "Χρειάζεται μόνο όταν η δέσμη χρησιμοποιεί PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Επαναλήψεις PBKDF2",
+    "pbkdf2Hint": "Μεταξύ 10.000 και 2.000.000. Η προεπιλογή ταιριάζει με κοινές ρυθμίσεις vault.",
+    "plaintextLabel": "Απλό κείμενο",
+    "plaintextPlaceholder": "Πληκτρολογήστε ή επικολλήστε το μήνυμα προς κρυπτογράφηση…",
+    "bundleInputLabel": "Κρυπτογραφημένη δέσμη (JSON)",
+    "bundlePlaceholder": "Επικολλήστε το JSON από Κρυπτογράφηση (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Κρυπτογραφημένη δέσμη",
+    "plaintextOutputLabel": "Απλό κείμενο",
+    "encryptButton": "Κρυπτογράφηση",
+    "decryptButton": "Αποκρυπτογράφηση",
+    "copyBundle": "Αντιγραφή JSON",
+    "copyPlaintext": "Αντιγραφή απλού κειμένου",
+    "copied": "Αντιγράφηκε",
+    "emptyBundleHint": "Το κρυπτογραφημένο JSON εμφανίζεται εδώ μετά την κρυπτογράφηση.",
+    "emptyDecryptHint": "Το αποκρυπτογραφημένο κείμενο εμφανίζεται εδώ.",
+    "decryptKeyHint": "Χρησιμοποιήστε ακατέργαστο κλειδί αν keyDerivation είναι \"none\"· τη συνθηματική για PBKDF2-SHA256. Η δέσμη αποθηκεύει αλάτι, επαναλήψεις, IV και μήκος AES.",
+    "securityNote": "Τα κλειδιά και το απλό κείμενο δεν εγκαταλείπουν τον browser. Για μυστικά παραγωγής προτιμήστε εξειδικευμένα εργαλεία.",
+    "errors": {
+      "emptyKey": "Εισάγετε ακατέργαστο κλειδί που ταιριάζει στο μέγεθος AES.",
+      "emptyPassphrase": "Εισάγετε συνθηματική φράση.",
+      "badKeyMaterial": "Δεν ήταν δυνατή η ανάγνωση του κλειδιού ως hex ή Base64.",
+      "wrongKeyLength": "Το μήκος κλειδιού δεν ταιριάζει στο AES (16 / 24 / 32 byte).",
+      "invalidJson": "Μη έγκυρο JSON.",
+      "invalidBundle": "Αυτό το JSON δεν είναι υποστηριζόμενη δέσμη κρυπτογράφησης.",
+      "decryptFailed": "Η αποκρυπτογράφηση απέτυχε — λάθος μυστικό, κατεστραμμένη δέσμη ή παράμετροι.",
+      "encryptFailed": "Η κρυπτογράφηση απέτυχε. Ελέγξτε το Web Crypto και τις εισόδους."
+    }
+  },
+  "HmacGenerator": {
+    "title": "Γεννήτρια HMAC",
+    "subtitle": "Για υπογραφή webhooks και δοκιμή ενσωματώσεων API. HMAC-SHA1/256/384/512 σε hex ή Base64—υπολογισμός τοπικά στον περιηγητή.",
+    "secretLabel": "Μυστικό κλειδί",
+    "messageLabel": "Μήνυμα / φορτίο",
+    "placeholderSecret": "Επικολλήστε το μυστικό υπογραφής…",
+    "placeholderMessage": "Επικολλήστε το ακατέργαστο σώμα ή τη συμβολοσειρά επαλήθευσης (συχνά τα ακριβή bytes του webhook).",
+    "algorithmLabel": "Αλγόριθμος HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Μορφή εξόδου",
+    "formatHex": "Hex (πεζά)",
+    "formatBase64": "Base64",
+    "outputLabel": "Υπογραφή",
+    "copyOutput": "Αντιγραφή υπογραφής",
+    "copied": "Αντιγράφηκε",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (UTF-8)",
+    "emptyHint": "Εισάγετε μυστικό κλειδί για υπολογισμό HMAC.",
+    "securityNote": "Μην μοιράζεστε ποτέ το μυστικό υπογραφής. Αυτή η σελίδα δεν ανεβάζει δεδομένα—όλα εκτελούνται στον περιηγητή.",
+    "errors": {
+      "cryptoFailed": "Αδυναμία υπολογισμού HMAC. Ελέγξτε την υποστήριξη Web Crypto και δοκιμάστε ξανά.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "TotpGenerator": {
+    "title": "Γεννήτρια κωδικού TOTP / 2FA",
+    "subtitle": "Επικολλήστε το μυστικό Base32 και λάβετε τον τρέχοντα εξαψήφιο κωδικό RFC 6238 (SHA-1, 30 δ). Τοπικά στον περιηγητή—χρήσιμο για δοκιμές σύνδεσης ή MFA.",
+    "secretLabel": "Μυστικό (Base32)",
+    "placeholderSecret": "Επικολλήστε το μυστικό κλειδί (γράμματα A–Z και ψηφία 2–7, όπως κατά τη ρύθμιση του authenticator)…",
+    "codeLabel": "Τρέχων κωδικός",
+    "copyCode": "Αντιγραφή κωδικού",
+    "copied": "Αντιγράφηκε",
+    "nextIn": "Ανανέωση σε {seconds} δ",
+    "standardHint": "Βήμα χρόνου 30 δ, 6 ψηφία, HMAC-SHA-1 (συμβατό με Google Authenticator).",
+    "digitsLabel": "Ψηφία",
+    "periodLabel": "Περίοδος",
+    "algorithmLabel": "Αλγόριθμος",
+    "periodSeconds": "{seconds} δ",
+    "emptyHint": "Επικολλήστε μυστικό για εξαψήφιο κωδικό.",
+    "invalidHint": "Διορθώστε το μυστικό για να εμφανιστεί ο κωδικός.",
+    "securityNote": "Αντιμετωπίστε το ως κωδικό πρόσβασης. Το μυστικό δεν εγκαταλείπει τον περιηγητή· δεν γίνεται μεταφόρτωση.",
+    "importLabel": "Εισαγωγή από otpauth:// URI",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Εισαγωγή",
+    "qrSectionTitle": "Κωδικός QR παροχής",
+    "qrHint": "Σαρώστε με μια εφαρμογή ελέγχου ταυτότητας (Google Authenticator, 1Password, Aegis…) για να προσθέσετε αυτό το μυστικό. Ο κωδικός QR κωδικοποιεί το μυστικό — μεταχειριστείτε το σαν κωδικό πρόσβασης.",
+    "accountLabel": "Λογαριασμός",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Εκδότης (προαιρετικό)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Εισαγάγετε ένα έγκυρο μυστικό για να δημιουργήσετε κωδικό QR.",
+    "errors": {
+      "invalidSecret": "Μη έγκυρο μυστικό Base32.",
+      "cryptoFailed": "Δεν ήταν δυνατός ο υπολογισμός TOTP. Ελέγξτε το Web Crypto και δοκιμάστε ξανά.",
+      "invalidUri": "Αυτό δεν είναι έγκυρο otpauth:// TOTP URI.",
+      "unsupportedUri": "Αυτό το URI χρησιμοποιεί τιμές που δεν υποστηρίζει το εργαλείο (τα ψηφία πρέπει να είναι 6 ή 8· η περίοδος 15, 30 ή 60 δευτ.)."
+    }
+  },
+  "MarkdownPreview": {
+    "title": "Προεπισκόπηση Markdown & HTML",
+    "subtitle": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown. Όλα εκτελούνται στο πρόγραμμα περιήγησής σας.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Είσοδος Markdown",
+    "htmlInputLabel": "Είσοδος HTML",
+    "previewLabel": "Προεπισκόπηση",
+    "htmlOutputLabel": "Πηγαίος HTML",
+    "mdOutputLabel": "Έξοδος Markdown",
+    "inputPlaceholder": "# Γεια\\n\\nΠληκτρολογήστε το **markdown** εδώ…",
+    "htmlInputPlaceholder": "Επικολλήστε το HTML εδώ…",
+    "copyHtml": "Αντιγραφή HTML",
+    "copyMarkdown": "Αντιγραφή Markdown",
+    "exportHtml": "Εξαγωγή HTML",
+    "copied": "Αντιγράφηκε",
+    "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
+    "emptyHint": "Ξεκινήστε να πληκτρολογείτε Markdown για να δείτε την προεπισκόπηση και την έξοδο HTML.",
+    "emptyHintHtmlToMd": "Επικολλήστε HTML για μετατροπή σε Markdown.",
+    "securityNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Δεν γίνεται καμία μεταφόρτωση."
+  },
+  "NumberBaseConverter": {
+    "title": "Μετατροπέας αριθμητικής βάσης",
+    "subtitle": "Μετατροπή ακεραίων μεταξύ βάσεων 2–36. Προαιρετικά προθέματα 0x / 0b / 0o. Όλα τοπικά στον περιηγητή.",
+    "inputBaseLabel": "Από βάση",
+    "outputBaseLabel": "Σε βάση",
+    "inputLabel": "Αριθμός εισόδου",
+    "placeholderInput": "Εισάγετε ακέραιο στη επιλεγμένη βάση εισόδου…",
+    "outputLabel": "Μετατραπείσα τιμή",
+    "copyOutput": "Αντιγραφή αποτελέσματος",
+    "copied": "Αντιγράφηκε",
+    "swap": "Εναλλαγή βάσεων",
+    "byteCountHint": "{count, plural, one {# byte} other {# bytes}} (μήκος UTF-8)",
+    "emptyHint": "Εισάγετε αριθμό για μετατροπή.",
+    "note": "Ψηφία πάνω από 9 χρησιμοποιούν A–Z (ανεξάρτητα πεζών/κεφαλαίων). Κενά και υπογραμμίσεις αγνοούνται.",
+    "errors": {
+      "invalidNumber": "Μη έγκυρη τιμή για την επιλεγμένη βάση εισόδου."
+    }
+  },
+  "FormatConverter": {
+    "title": "Μετατροπέας Μορφών",
+    "subtitle": "Μετατρέψτε μεταξύ JSON, YAML, TOML και XML σε οποιαδήποτε κατεύθυνση. Και οι 12 συνδυασμοί. Όλα εκτελούνται στο πρόγραμμα περιήγησής σας.",
+    "fromLabel": "Από",
+    "toLabel": "Σε",
+    "swap": "Εναλλαγή",
+    "swapTitle": "Εναλλαγή μορφών και χρήση εξόδου ως είσοδος",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
+    "emptyHint": "Επικολλήστε ή πληκτρολογήστε την είσοδό σας αριστερά για να δείτε την μετατραπείσα έξοδο.",
+    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
+  },
+  "MimeTypeLookup": {
+    "title": "Αναζήτηση τύπου MIME",
+    "subtitle": "Αναζητήστε τον τύπο MIME (media type) για επέκταση ή πλήρες όνομα αρχείου. Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας.",
+    "inputLabel": "Επέκταση ή όνομα αρχείου",
+    "placeholder": "π.χ. .png, package.json, photo.jpeg",
+    "hint": "Συμβουλή: επικολλήστε είτε επέκταση (με ή χωρίς τελεία) είτε πλήρες όνομα αρχείου.",
+    "clear": "Εκκαθάριση",
+    "exampleFilename": "Χρήση παραδείγματος ονόματος αρχείου",
+    "exampleExtension": "Χρήση παραδείγματος επέκτασης",
+    "resultLabel": "Αποτέλεσμα",
+    "normalizedLabel": "Κανονικοποιημένη είσοδος:",
+    "mimeTypeLabel": "Τύπος MIME",
+    "contentTypeLabel": "Κεφαλίδα Content-Type",
+    "charsetLabel": "Σύνολο χαρακτήρων",
+    "copyMimeType": "Αντιγραφή τύπου MIME",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "emptyHint": "Εισάγετε επέκταση ή όνομα αρχείου για να αναζητήσετε τον τύπο MIME.",
+    "notFound": "Δεν βρέθηκε τύπος MIME για αυτή την είσοδο.",
+    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
+  },
+  "UserAgentParser": {
+    "title": "Αναλυτής User-Agent",
+    "subtitle": "Επικολλήστε μια συμβολοσειρά User-Agent (UA) και δείτε ανάλυση για πρόγραμμα περιήγησης, OS, engine, συσκευή και CPU. Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας.",
+    "inputLabel": "Συμβολοσειρά User-Agent",
+    "placeholder": "Επικολλήστε το User-Agent εδώ…",
+    "hint": "Συμβουλή: μπορείτε να αντιγράψετε UA από headers αιτήματος, logs ή τα devtools του προγράμματος περιήγησης.",
+    "clear": "Εκκαθάριση",
+    "exampleDesktop": "Χρήση παραδείγματος desktop",
+    "exampleMobile": "Χρήση παραδείγματος mobile",
+    "resultLabel": "Ανάλυση",
+    "browserLabel": "Πρόγραμμα περιήγησης",
+    "osLabel": "Λειτουργικό σύστημα",
+    "engineLabel": "Engine",
+    "deviceTypeLabel": "Τύπος συσκευής",
+    "deviceVendorLabel": "Κατασκευαστής",
+    "deviceModelLabel": "Μοντέλο",
+    "cpuArchLabel": "Αρχιτεκτονική CPU",
+    "copyJson": "Αντιγραφή JSON",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "emptyHint": "Επικολλήστε μια συμβολοσειρά User-Agent για να δείτε την ανάλυση.",
+    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
+  },
+  "MockDataGenerator": {
+    "title": "Γεννήτρια δοκιμαστικών δεδομένων",
+    "subtitle": "Ορίστε στήλες, επιλέξτε τύπους και εξάγετε σύνολα για seeds, Postman ή δοκιμές. Έως {max} γραμμές, όλα στον browser — χωρίς μεταφόρτωση.",
+    "mockarooLink": "Ροή εργασίας σαν το Mockaroo",
+    "rowsLabel": "Γραμμές",
+    "rowsHint": "Έως {max} γραμμές ανά δημιουργία για να παραμείνει η καρτέλα γρήγορη.",
+    "formatLabel": "Μορφή",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "Όνομα πίνακα SQL",
+    "presetsLabel": "Πρότυπα",
+    "presetPlaceholder": "Φόρτωση προτύπου…",
+    "presetDefault": "Έναρξη (χρήστης)",
+    "presetUsers": "Χρήστες και ρόλοι",
+    "presetProducts": "SKU ηλεκτρονικού εμπορίου",
+    "presetApiLog": "Καταγραφή αιτημάτων HTTP",
+    "generate": "Δημιουργία",
+    "warningDuplicateNames": "Διπλά ονόματα στηλών: οι νεότερες αντικαθιστούν τις παλαιότερες σε αντικείμενα JSON. Μετονομάστε.",
+    "schemaHeading": "Σχήμα",
+    "addField": "Προσθήκη στήλης",
+    "removeField": "Αφαίρεση στήλης",
+    "duplicateField": "Αντιγραφή στήλης",
+    "colName": "Όνομα",
+    "colType": "Τύπος",
+    "colOptions": "Επιλογές",
+    "colBlank": "Κενό %",
+    "optMin": "ελάχ",
+    "optMax": "μέγ",
+    "optDecimals": "δεκ",
+    "optDateFrom": "από ημ/νία",
+    "optDateTo": "έως ημ/νία",
+    "optValues": "a, b, c",
+    "optStep": "βήμα",
+    "optRowBase": "βάση",
+    "output": "Έξοδος",
+    "outputPlaceholder": "Κάντε κλικ στη Δημιουργία για δεδομένα…",
+    "copy": "Αντιγραφή",
+    "download": "Λήψη",
+    "copied": "Αντιγράφηκε",
+    "groups": {
+      "personal": "Προσωπικά",
+      "location": "Τοποθεσία",
+      "internetApi": "Διαδίκτυο & API",
+      "numbersIds": "Αριθμοί & αναγνωριστικά",
+      "dateTime": "Ημερομηνία & ώρα",
+      "textDesign": "Κείμενο & σχεδίαση",
+      "custom": "Προσαρμοσμένο"
+    },
+    "fieldTypes": {
+      "first_name": "Όνομα",
+      "last_name": "Επώνυμο",
+      "full_name": "Πλήρες όνομα",
+      "email": "Email",
+      "username": "Όνομα χρήστη",
+      "password": "Κωδικός",
+      "phone": "Τηλέφωνο",
+      "company": "Εταιρεία",
+      "job_title": "Θέση",
+      "avatar_url": "URL αβατάρ",
+      "city": "Πόλη",
+      "country": "Χώρα",
+      "country_code": "Κωδικός χώρας (ISO)",
+      "street_address": "Διεύθυνση",
+      "zip_code": "Ταχ. κώδικας",
+      "latitude": "Γεωγρ. πλάτος",
+      "longitude": "Γεωγρ. μήκος",
+      "url": "URL",
+      "domain": "Τομέας",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Ακέραιος",
+      "float": "Δεκαδικός",
+      "boolean": "Λογικό",
+      "uuid": "UUID",
+      "credit_card": "Κάρτα (δοκιμή)",
+      "semver": "SemVer",
+      "row_index": "Δείκτης γραμμής",
+      "sequence": "Ακολουθία",
+      "date": "Ημερομηνία",
+      "datetime": "Ημερομηνία και ώρα",
+      "unix_timestamp": "Χρονική σήμανση Unix",
+      "timezone": "Ζώνη ώρας",
+      "word": "Λέξη",
+      "sentence": "Πρόταση",
+      "paragraph": "Παράγραφος",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Κωδικός νομίσματος",
+      "language_code": "Ετικέτα γλώσσας",
+      "custom_list": "Προσαρμοσμένη λίστα"
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
+  },
+  "SvgOptimizer": {
+    "title": "Βελτιστοποιητής SVG",
+    "subtitle": "Επικολλήστε SVG, συμπιέστε με SVGO στον browser και συγκρίνετε το μέγεθος UTF-8 πριν/μετά.",
+    "inputLabel": "Είσοδος",
+    "outputLabel": "Βελτιστοποιημένο",
+    "placeholder": "Επικολλήστε απόσπασμα <svg>…</svg> ή ολόκληρο αρχείο…",
+    "outputPlaceholder": "Το βελτιστοποιημένο SVG εμφανίζεται εδώ…",
+    "chars": "{count} χαρακτήρες • {bytes} bytes (UTF-8)",
+    "preview": "Προεπισκόπηση",
+    "localNote": "Όλη η επεξεργασία τοπικά στον browser. Δεν ανεβαίνει τίποτα.",
+    "stats": {
+      "title": "Μέγεθος (UTF-8)",
+      "before": "Πριν",
+      "after": "Μετά",
+      "savedBytes": "Εξοικονόμηση {count} bytes ({percent}%)",
+      "noChange": "Χωρίς μείωση — ήδη ελάχιστο ή κενή έξοδος."
+    },
+    "actions": {
+      "clear": "Εκκαθάριση",
+      "sample": "Φόρτωση δείγματος",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε",
+      "download": "Λήψη"
+    },
+    "errors": {
+      "optimizeFailed": "Δεν ήταν δυνατή η βελτιστοποίηση αυτού του SVG."
+    }
+  },
+  "UnitConverter": {
+    "title": "Μετατροπέας Μονάδων",
+    "subtitle": "Μετατροπή μεταξύ <strong>323 μονάδων</strong> σε <strong>43 κατηγορίες</strong>",
+    "category": "Κατηγορία",
+    "from": "Από",
+    "to": "Σε",
+    "value": "Τιμή",
+    "result": "Αποτέλεσμα",
+    "swapUnits": "Εναλλαγή μονάδων",
+    "placeholder": "Εισάγετε τιμή",
+    "copyResult": "Αντιγραφή αποτελέσματος",
+    "searchCategory": "Αναζήτηση κατηγορίας...",
+    "selectCategory": "Επιλέξτε κατηγορία",
+    "noResults": "Δεν βρέθηκε κατηγορία."
+  },
+  "DockerComposeGenerator": {
+    "title": "Δημιουργός Docker Compose",
+    "subtitle": "Επιλέξτε δημοφιλείς βάσεις δεδομένων, cache, ουρές μηνυμάτων, reverse proxy και παρατηρησιμότητα — αντιγράψτε ένα docker-compose.yml έτοιμο για τοπική ανάπτυξη.",
+    "searchPlaceholder": "Αναζήτηση (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Υπηρεσίες",
+    "selectedCount": "{count, plural, one {# υπηρεσία} other {# υπηρεσίες}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε!",
+    "download": "Λήψη",
+    "emptyState": "Επιλέξτε μία ή περισσότερες υπηρεσίες για δημιουργία YAML Compose.",
+    "hintPorts": "Οι προεπιλεγμένες θύρες μειώνουν συγκρούσεις· αλλάξτε τις αν το Docker αναφέρει δέσμευση. Αντικαταστήστε κωδικούς επίδειξης πριν από κοινά περιβάλλοντα.",
+    "categories": {
+      "databases": "Βάσεις δεδομένων και αποθήκευση",
+      "cache": "Cache και in-memory",
+      "queues": "Ουρές και ανταλλαγή μηνυμάτων",
+      "search": "Αναζήτηση και αρχεία καταγραφής",
+      "storage": "Αποθήκευση αντικειμένων",
+      "proxy": "Reverse proxy και ingress",
+      "observability": "Μετρήσεις και ιχνηλάτηση",
+      "mail": "Ηλεκτρονικό ταχυδρομείο (τοπική ανάπτυξη)",
+      "admin": "Διαχειριστικές και BI διεπαφές"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Εκκαθάριση"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (συμβατό με Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (συμβατό με Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (συμβατό με S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (καταγραφή SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (διακομιστής ανάπτυξης)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Σύρετε τα πλακίδια και συγχωνεύστε τα για να φτάσετε στο 2048",
+    "score": "Βαθμολογία",
+    "best": "Άριστες",
+    "newGame": "#-#-#-#-#  five-or-more.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-mahjongg.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-nibbles.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  tali.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  iagno.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  gnome-mines.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  aisleriot.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-klotski.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  gnome-robots.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  quadrapassel.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-tetravex.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  gnome-sudoku.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  lightsoff.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι#-#-#-#-#  swell-foop.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο παιχνίδι#-#-#-#-#  four-in-a-row.master.el.po (gnome-games.HEAD.el)  #-#-#-#-#Νέο Παιχνίδι",
+    "howToPlay": "Χρησιμοποιήστε τα πλήκτρα βέλους (ή σύρετε στο κινητό) για να μετακινήσετε τα πλακίδια. Τα πλακίδια με τον ίδιο αριθμό συγχωνεύονται. Φτάστε στο 2048 για να κερδίσετε!",
+    "youWin": "Φτάσατε στο 2048!",
+    "keepGoing": "Συνεχίζει.",
+    "gameOver": "Τέλος παιχνιδιού",
+    "tryAgain": "Δοκιμάστε ξανά",
+    "gameOverMessage": "Δεν έχεις άλλες κινήσεις",
+    "undo": "Αναίρεση"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "ολοκληρώθηκαν τα στάδια",
+    "time": "Χρόνος",
+    "best": "Άριστες",
+    "difficulty": {
+      "easy": "Εύκολο",
+      "medium": "Μεσαίες",
+      "hard": "Δύσκολο"
+    },
+    "stage": "Φάση",
+    "solved": "Επιλύθηκε",
+    "score": "Βαθμολογία",
+    "nextStage": "Επόμενο στάδιο της διαδικασίας",
+    "replay": "Επανάληψη",
+    "erase": "Σβήσιμο",
+    "howToPlay": "Κάντε κλικ σε ένα κελί και, στη συνέχεια, πατήστε σε έναν αριθμό ή πατήστε 1–9. Το Backspace ή το Delete διαγράφει το κελί. Οι έντονοι αριθμοί είναι ενδείξεις. Γεμίστε το πλέγμα έτσι ώστε κάθε σειρά, στήλη και πλαίσιο 3×3 να περιέχει 1–9 χωρίς επαναλήψεις.",
+    "pencil": "Μολύβι",
+    "undo": "Αναίρεση",
+    "hint": "Υπόδειξη",
+    "hintsUsed": "υποδείξεις χρησιμοποιήθηκαν",
+    "mistakes": "Λάθη",
+    "failed": "Απέτυχες!",
+    "mistakeMode": "Λειτουργία 3 λαθών"
+  },
+  "Snake": {
+    "title": "Φίδι",
+    "subtitle": "Φάε, μεγάλωσε, απόφυγε τοίχους και τον εαυτό σου",
+    "score": "Σκορ",
+    "best": "Καλύτερο",
+    "startPrompt": "Πάτησε οποιοδήποτε πλήκτρο βέλους",
+    "startButton": "Έναρξη παιχνιδιού",
+    "gameOver": "Τέλος παιχνιδιού",
+    "playAgain": "Παίξε ξανά",
+    "howToPlay": "Χρησιμοποίησε τα βέλη ή WASD. Φάε για να μεγαλώσεις. Η ταχύτητα αυξάνεται κάθε 50 πόντους.",
+    "diffEasy": "Εύκολο",
+    "diffNormal": "Κανονικό",
+    "diffHard": "Δύσκολο",
+    "diffInfinite": "Άπειρο",
+    "orTap": "ή πατήστε παρακάτω",
+    "howToPlayInfinite": "Τοίχοι περιτυλίγονται — χωρίς θάνατο από τοίχους. Φάε για να μεγαλώσεις.",
+    "shieldActive": "Ασπίδα ενεργή",
+    "speedBoost": "Ενίσχυση ταχύτητας",
+    "powerSpeed": "Ταχύτητα x2",
+    "powerShield": "Επιβίωση θανάτου",
+    "powerShrink": "Συντομεύει ουρά"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Συνδέσεις Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Συνδεθείτε σε στιγμιότυπα Redis. Περιηγηθείτε σε κλειδιά, επεξεργαστείτε τιμές και εκτελέστε εντολές. Τα διαπιστευτήρια κρυπτογραφούνται στο πρόγραμμα περιήγησής σας.",
+      "heroAddConnection": "Προσθήκη σύνδεσης",
+      "vaultLockedTitle": "Θησαυροφυλάκιο κλειδωμένο",
+      "vaultLockedDesc": "Ξεκλειδώστε το θησαυροφυλάκιο για πρόσβαση στις αποθηκευμένες συνδέσεις."
+    }
+  },
+  "Minesweeper": {
+    "title": "Ναρκαλιευτής",
+    "subtitle": "Βρείτε όλα τα ασφαλή κελιά χωρίς να πατήσετε νάρκη",
+    "mines": "Νάρκες",
+    "newGame": "Νέο παιχνίδι",
+    "win": "Κερδίσατε!",
+    "loss": "Τέλος παιχνιδιού!",
+    "playAgain": "Παίξτε ξανά",
+    "tryAgain": "Δοκιμάστε ξανά",
+    "startPrompt": "Κάντε κλικ σε οποιοδήποτε κελί για να ξεκινήσετε",
+    "difficulty": {
+      "beginner": "Αρχάριος",
+      "intermediate": "Μεσαίος",
+      "expert": "Ειδικός"
+    }
+  },
+  "Tetris": {
+    "title": "Τέτρις",
+    "subtitle": "Τακτοποιήστε τα μπλοκ που πέφτουν για να ολοκληρώσετε σειρές",
+    "next": "Επόμενο",
+    "score": "Σκορ",
+    "best": "Καλύτερο",
+    "lines": "Γραμμές",
+    "level": "Επίπεδο",
+    "pause": "Παύση",
+    "resume": "Συνέχεια",
+    "start": "Εκκίνηση",
+    "restart": "Επανεκκίνηση",
+    "paused": "Σε παύση",
+    "gameOver": "Τέλος παιχνιδιού"
+  },
+  "SshKeyGenerator": {
+    "title": "Γεννήτρια κλειδιών SSH / RSA",
+    "subtitle": "Δημιουργήστε ζεύγη κλειδιών Ed25519 ή RSA στο πρόγραμμα περιήγησής σας. Κατεβάστε ιδιωτικά και δημόσια κλειδιά σε μορφές OpenSSH και PEM. Τίποτα δεν μεταφορτώνεται.",
+    "keyTypeLabel": "Τύπος κλειδιού",
+    "recommended": "προτεινόμενο",
+    "ed25519Desc": "Γρήγορο, μικρό, σύγχρονο. Υποστηρίζεται από GitHub, GitLab και όλους τους μεγάλους SSH διακομιστές.",
+    "rsa2048Desc": "Ευρεία συμβατότητα. Ασφαλές για τις περισσότερες χρήσεις.",
+    "rsa4096Desc": "Μέγιστη συμβατότητα και ισχύς για παλαιά συστήματα.",
+    "commentLabel": "Σχόλιο (προαιρετικό)",
+    "commentHint": "Προστίθεται στη γραμμή δημόσιου κλειδιού OpenSSH.",
+    "generateBtn": "Δημιουργία ζεύγους κλειδιών",
+    "generating": "Δημιουργία…",
+    "generatingLong": "Δημιουργία (μπορεί να χρειαστεί λίγο)…",
+    "copy": "Αντιγραφή",
+    "download": "Λήψη",
+    "privateKeyLabel": "Ιδιωτικό κλειδί (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Δημόσιο κλειδί (μορφή OpenSSH)",
+    "publicKeySpkiLabel": "Δημόσιο κλειδί (SPKI PEM)",
+    "browserNote": "Όλα τα κλειδιά δημιουργούνται στο πρόγραμμα περιήγησής σας. Τίποτα δεν αποστέλλεται σε κανένα διακομιστή.",
+    "errors": {
+      "generationFailed": "Η δημιουργία κλειδιού απέτυχε"
+    }
+  },
+  "DnsLookup": {
+    "title": "Αναζήτηση DNS",
+    "subtitle": "Αναζητήστε εγγραφές DNS για οποιοδήποτε τομέα — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Εισαγάγετε τομέα (π.χ. github.com)",
+    "lookupBtn": "Αναζήτηση",
+    "looking": "Γίνεται αναζήτηση…",
+    "refreshBtn": "Ανανέωση",
+    "recordTypesLabel": "Τύποι εγγραφών",
+    "allBtn": "Όλα",
+    "tryLabel": "Δοκιμάστε:",
+    "errors": {
+      "lookupFailed": "Η αναζήτηση DNS απέτυχε"
+    }
+  },
+  "CurlToCode": {
+    "title": "cURL to Code",
+    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "panels": {
+      "input": "curl command",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a curl command here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated request code will appear here…"
+  },
+  "JsonToCode": {
+    "title": "JSON to Code",
+    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "panels": {
+      "input": "JSON input",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a sample JSON object here…",
+    "rootName": "Root name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated type models will appear here…"
+  },
+  "JsonVisualizer": {
+    "title": "JSON Visualizer",
+    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "panels": {
+      "input": "JSON input",
+      "graph": "Graph"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste or type JSON here…",
+    "searchPlaceholder": "Search keys & values",
+    "prevMatch": "Previous match",
+    "nextMatch": "Next match",
+    "nodeCount": "{count} nodes",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitView": "Fit to view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "export": "Export",
+    "exportPng": "PNG image",
+    "exportSvg": "SVG image",
+    "copyPath": "Copy path",
+    "copyValue": "Copy value",
+    "pathCopied": "Path copied",
+    "valueCopied": "Value copied",
+    "viewTable": "View as table",
+    "tableTitle": "Table view",
+    "locateInText": "Locate in text",
+    "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
+    "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
+    "emptyState": "Paste JSON in the input to see it as an interactive graph."
+  },
+  "BeautifyMinify": {
+    "title": "Beautify & Minify",
+    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "langLabel": "Language",
+    "actionLabel": "Action",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "bytes": "{count} bytes",
+    "clear": "Clear",
+    "placeholder": "Paste code here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Formatted output will appear here…"
+  },
+  "StringCaseConverter": {
+    "title": "String Case Converter",
+    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "panels": {
+      "input": "Input",
+      "output": "Case variants"
+    },
+    "wordCount": "{count} words",
+    "clear": "Clear",
+    "placeholder": "Type or paste text to convert…",
+    "copyTitle": "Copy to clipboard",
+    "emptyHint": "—"
+  },
+  "LineSortDedupe": {
+    "title": "Line Sort & Dedupe",
+    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "opts": {
+      "sort": "Sort",
+      "dedupe": "Remove duplicates",
+      "removeEmpty": "Remove empty lines",
+      "trim": "Trim lines",
+      "caseInsensitive": "Case-insensitive"
+    },
+    "sortModes": {
+      "none": "No sort",
+      "asc": "Ascending (A–Z)",
+      "desc": "Descending (Z–A)",
+      "natural": "Natural (numeric)",
+      "length": "By length",
+      "reverse": "Reverse order"
+    },
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "lineCount": "{count} lines",
+    "clear": "Clear",
+    "placeholder": "Paste lines here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Processed lines will appear here…"
+  },
+  "StringInspector": {
+    "title": "String Inspector",
+    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "panels": {
+      "input": "Input"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text to inspect…",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "No spaces",
+      "words": "Words",
+      "lines": "Lines",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "bytes": "Bytes (UTF-8)",
+      "utf16": "UTF-16 units",
+      "letters": "Letters",
+      "digits": "Digits",
+      "whitespace": "Whitespace",
+      "punctuation": "Punctuation",
+      "readingTime": "Reading time"
+    },
+    "specialTitle": "Special & non-ASCII characters",
+    "noSpecial": "No special or non-ASCII characters found.",
+    "specialEmpty": "Special characters will be listed here…",
+    "cols": {
+      "codepoint": "Code point",
+      "name": "Name",
+      "count": "Count"
+    },
+    "nonAscii": "Non-ASCII character"
+  },
+  "EscapeEncode": {
+    "title": "Escape / Encode",
+    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "modeLabel": "Mode",
+    "modes": {
+      "html": "HTML Entities",
+      "backslash": "Backslash (JS / JSON string)",
+      "hex": "Hex ↔ ASCII",
+      "unicode": "Unicode \\uXXXX"
+    },
+    "directionLabel": "Direction",
+    "encode": "Encode",
+    "decode": "Decode",
+    "swap": "Swap",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Γεννήτρια και ελεγκτής Bcrypt",
+    "subtitle": "Κατακερματίστε κωδικούς με bcrypt και επαληθεύστε κατακερματισμούς — όλα παραμένουν στο πρόγραμμα περιήγησής σας",
+    "tabs": {
+      "hash": "Κατακερματισμός",
+      "verify": "Επαλήθευση"
+    },
+    "showPassword": "Εμφάνιση κωδικού",
+    "hidePassword": "Απόκρυψη κωδικού",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "hash": {
+      "passwordLabel": "Κωδικός",
+      "passwordPlaceholder": "Εισαγάγετε έναν κωδικό για κατακερματισμό…",
+      "costLabel": "Συντελεστής κόστους",
+      "costHint": "Υψηλότερο κόστος διπλασιάζει την εργασία ανά βήμα. Το 10–12 είναι συνήθης επιλογή για παραγωγή.",
+      "slowWarning": "Συντελεστές κόστους 13 και άνω μπορεί να χρειαστούν αρκετά δευτερόλεπτα για υπολογισμό.",
+      "generate": "Δημιουργία κατακερματισμού",
+      "generating": "Κατακερματισμός…",
+      "resultLabel": "Κατακερματισμός Bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Ανατομία κατακερματισμού",
+        "algorithm": "αλγόριθμος",
+        "cost": "κόστος",
+        "salt": "salt (22 χαρακτήρες)",
+        "hash": "hash (31 χαρακτήρες)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Κωδικός",
+      "passwordPlaceholder": "Εισαγάγετε τον κωδικό προς έλεγχο…",
+      "hashLabel": "Κατακερματισμός Bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Εισαγάγετε έναν κωδικό και έναν κατακερματισμό bcrypt για να τους συγκρίνετε.",
+      "invalidHash": "Αυτό δεν φαίνεται να είναι έγκυρος κατακερματισμός bcrypt.",
+      "checking": "Σύγκριση…",
+      "match": "Ταιριάζει — ο κωδικός παράγει αυτόν τον κατακερματισμό.",
+      "noMatch": "Δεν ταιριάζει — ο κωδικός δεν παράγει αυτόν τον κατακερματισμό."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Υπολογιστής chmod",
+    "subtitle": "Μετατρέψτε δικαιώματα αρχείων Unix μεταξύ πλαισίων ελέγχου, οκταδικής και συμβολικής σημειογραφίας",
+    "grid": {
+      "title": "Δικαιώματα",
+      "read": "Ανάγνωση",
+      "write": "Εγγραφή",
+      "execute": "Εκτέλεση",
+      "owner": "Ιδιοκτήτης",
+      "group": "Ομάδα",
+      "others": "Άλλοι"
+    },
+    "special": {
+      "title": "Ειδικά bit",
+      "setuid": "Setuid",
+      "setgid": "Setgid",
+      "sticky": "Sticky"
+    },
+    "octal": {
+      "label": "Οκταδικό",
+      "placeholder": "755 ή 4755",
+      "invalid": "Εισαγάγετε 3 ή 4 οκταδικά ψηφία (0–7)."
+    },
+    "symbolic": {
+      "label": "Συμβολικό",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Εισαγάγετε 9 χαρακτήρες όπως rwxr-xr-x (επιτρέπονται s/S, t/T)."
+    },
+    "output": {
+      "title": "Εντολή",
+      "copy": "Αντιγραφή",
+      "copied": "Αντιγράφηκε"
+    },
+    "explain": {
+      "line": "{cls} μπορεί {perms}.",
+      "none": "{cls} δεν έχει δικαιώματα.",
+      "setuid": "Setuid: το αρχείο εκτελείται με τα προνόμια του ιδιοκτήτη του.",
+      "setgid": "Setgid: το αρχείο εκτελείται με τα προνόμια της ομάδας του (νέα αρχεία σε έναν κατάλογο κληρονομούν την ομάδα του).",
+      "sticky": "Sticky: μόνο ο ιδιοκτήτης ενός αρχείου μπορεί να το διαγράψει ή να το μετονομάσει μέσα σε αυτόν τον κατάλογο."
+    },
+    "presets": {
+      "title": "Κοινές προεπιλογές",
+      "octal": "Οκταδικό",
+      "permissions": "Δικαιώματα",
+      "description": "Τυπική χρήση",
+      "p644": "Κανονικά αρχεία: ο ιδιοκτήτης γράφει, όλοι διαβάζουν.",
+      "p755": "Εκτελέσιμα και κατάλογοι: όλοι μπορούν να διαβάσουν και να εισέλθουν.",
+      "p600": "Ιδιωτικά αρχεία: μόνο ο ιδιοκτήτης διαβάζει και γράφει.",
+      "p700": "Ιδιωτικά εκτελέσιμα και κατάλογοι: μόνο ο ιδιοκτήτης.",
+      "p664": "Αρχεία εγγράψιμα από την ομάδα.",
+      "p775": "Κατάλογοι και εκτελέσιμα εγγράψιμα από την ομάδα.",
+      "p400": "Μόνο για ανάγνωση από τον ιδιοκτήτη (π.χ. ιδιωτικά κλειδιά SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Στιγμιότυπο κώδικα",
+    "subtitle": "Μετατρέψτε τον κώδικα σε όμορφες εικόνες για κοινή χρήση",
+    "languageLabel": "Γλώσσα",
+    "autoDetect": "Αυτόματη ανίχνευση",
+    "backgroundLabel": "Φόντο",
+    "paddingLabel": "Εσωτερικό περιθώριο",
+    "filenameLabel": "Όνομα αρχείου",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Κουκκίδες παραθύρου",
+    "themeLabel": "Θέμα παραθύρου",
+    "themeDark": "Σκούρο",
+    "themeLight": "Ανοιχτό",
+    "scaleLabel": "Κλίμακα εξαγωγής",
+    "copyImage": "Αντιγραφή εικόνας",
+    "copied": "Αντιγράφηκε",
+    "exportPng": "Εξαγωγή PNG",
+    "inputLabel": "Κώδικας",
+    "detected": "Ανιχνεύθηκε: {language}",
+    "clear": "Καθαρισμός",
+    "placeholder": "Επικολλήστε τον κώδικά σας εδώ…",
+    "previewLabel": "Προεπισκόπηση",
+    "emptyPreview": "Η προεπισκόπηση του κώδικά σας θα εμφανιστεί εδώ",
+    "exportFailed": "Η εξαγωγή της εικόνας απέτυχε",
+    "copyUnsupported": "Η αντιγραφή εικόνων δεν υποστηρίζεται σε αυτό το πρόγραμμα περιήγησης",
+    "copyFailed": "Η αντιγραφή της εικόνας απέτυχε",
+    "backgrounds": {
+      "ocean": "Ωκεανός",
+      "sunset": "Ηλιοβασίλεμα",
+      "candy": "Καραμέλα",
+      "forest": "Δάσος",
+      "midnight": "Μεσάνυχτα",
+      "gold": "Χρυσό",
+      "aurora": "Σέλας",
+      "slate": "Σχιστόλιθος",
+      "transparent": "Διαφανές"
+    }
+  },
+  "CssGenerators": {
+    "title": "Γεννήτριες CSS",
+    "subtitle": "Box-shadow, border-radius και ρευστό clamp() — αντιγράψτε το CSS.",
+    "preview": "Προεπισκόπηση",
+    "output": "CSS",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "Ρευστό clamp()"
+    },
+    "boxShadow": {
+      "presets": "Προεπιλογές",
+      "layer": "Επίπεδο",
+      "addLayer": "Προσθήκη επιπέδου",
+      "removeLayer": "Αφαίρεση επιπέδου",
+      "x": "X",
+      "y": "Y",
+      "blur": "Θόλωση",
+      "spread": "Διάχυση",
+      "color": "Χρώμα",
+      "alpha": "Άλφα",
+      "inset": "Εσωτερικό",
+      "presetNames": {
+        "subtleCard": "Διακριτική κάρτα",
+        "elevated": "Ανυψωμένο",
+        "hardOffset": "Έντονη μετατόπιση",
+        "neonGlow": "Λάμψη νέον",
+        "inner": "Εσωτερικό",
+        "layeredSmooth": "Πολυεπίπεδο απαλό"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Λειτουργία",
+      "modes": {
+        "simple": "Ανά γωνία",
+        "blob": "Οργανικός λεκές"
+      },
+      "unit": "Μονάδα",
+      "linkCorners": "Σύνδεση γωνιών",
+      "randomize": "Τυχαιοποίηση",
+      "horizontal": "Οριζόντιες ακτίνες",
+      "vertical": "Κατακόρυφες ακτίνες",
+      "corners": {
+        "tl": "Πάνω αριστερά",
+        "tr": "Πάνω δεξιά",
+        "br": "Κάτω δεξιά",
+        "bl": "Κάτω αριστερά"
+      }
+    },
+    "clamp": {
+      "minFont": "Ελάχ. γραμματοσειρά (px)",
+      "maxFont": "Μέγ. γραμματοσειρά (px)",
+      "minViewport": "Ελάχ. viewport (px)",
+      "maxViewport": "Μέγ. viewport (px)",
+      "rootFont": "Ριζική γραμματοσειρά (px)",
+      "viewportWidth": "Προσομοιωμένο viewport",
+      "computedSize": "Υπολογισμένο μέγεθος",
+      "slope": "Κλίση",
+      "intercept": "Τεταγμένη επί την αρχή",
+      "previewText": "Ξεσκεπάζω την ψυχοφθόρα βδελυγμία",
+      "invalid": "Εισαγάγετε έγκυρα, διαφορετικά όρια viewport."
+    }
+  },
+  "ExifViewer": {
+    "title": "Προβολή και αφαίρεση EXIF",
+    "subtitle": "Επιθεωρήστε τα μεταδεδομένα φωτογραφιών και αφαιρέστε τα στο πρόγραμμα περιήγησής σας",
+    "dropTitle": "Αποθέστε μια εικόνα εδώ",
+    "dropHint": "ή κάντε κλικ για αναζήτηση — η εικόνα σας δεν φεύγει ποτέ από τη συσκευή σας",
+    "browse": "Επιλογή εικόνας",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Ανάγνωση μεταδεδομένων…",
+    "parseFailed": "Η ανάγνωση αυτής της εικόνας απέτυχε",
+    "clear": "Αφαίρεση εικόνας",
+    "gpsWarning": "Περιέχει τοποθεσία GPS",
+    "openMap": "Προβολή στο OpenStreetMap",
+    "noMetadata": "Δεν βρέθηκαν ενσωματωμένα μεταδεδομένα σε αυτήν την εικόνα.",
+    "facts": {
+      "name": "Όνομα",
+      "type": "Τύπος",
+      "dimensions": "Διαστάσεις",
+      "size": "Μέγεθος"
+    },
+    "groups": {
+      "camera": "Κάμερα",
+      "exposure": "Έκθεση",
+      "timestamps": "Χρονικές σημάνσεις",
+      "gps": "Τοποθεσία GPS",
+      "software": "Λογισμικό και άλλα"
+    },
+    "gpsCard": {
+      "latitude": "Γεωγραφικό πλάτος",
+      "longitude": "Γεωγραφικό μήκος",
+      "altitude": "Υψόμετρο"
+    },
+    "raw": {
+      "title": "Όλα τα μεταδεδομένα",
+      "copyJson": "Αντιγραφή JSON",
+      "copied": "Αντιγράφηκε"
+    },
+    "remove": {
+      "title": "Αφαίρεση μεταδεδομένων",
+      "jpegDescription": "Αφαιρέστε χωρίς απώλειες EXIF, XMP, IPTC και σχόλια χωρίς επανασυμπίεση της εικόνας.",
+      "reencodeDescription": "Επανακωδικοποιήστε την εικόνα για να αφαιρεθούν τα ενσωματωμένα μεταδεδομένα. Αυτό επανασυμπιέζει τα pixel.",
+      "keepIcc": "Διατήρηση προφίλ χρώματος (ICC)",
+      "stripButton": "Αφαίρεση μεταδεδομένων",
+      "reencodeButton": "Επανακωδικοποίηση και αφαίρεση",
+      "unsupported": "Η αφαίρεση μεταδεδομένων δεν υποστηρίζεται για αυτόν τον τύπο αρχείου.",
+      "failed": "Η αφαίρεση μεταδεδομένων απέτυχε",
+      "before": "Πριν",
+      "after": "Μετά",
+      "download": "Λήψη καθαρισμένης εικόνας"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Γεννήτρια favicon",
+    "subtitle": "Δημιουργήστε favicons και εικονίδια εφαρμογών από μία εικόνα",
+    "dropTitle": "Αποθέστε μια εικόνα εδώ",
+    "dropHint": "PNG, JPEG ή SVG — κάντε κλικ για αναζήτηση",
+    "browse": "Επιλογή εικόνας",
+    "clear": "Αφαίρεση εικόνας",
+    "backgroundLabel": "Φόντο",
+    "transparent": "Διαφανές",
+    "solidColor": "Συμπαγές",
+    "cornerLabel": "Σχήμα γωνίας",
+    "cornerNone": "Τετράγωνο",
+    "cornerRounded": "Στρογγυλεμένο",
+    "cornerCircle": "Κύκλος",
+    "maskPaddingLabel": "Περιθώριο maskable",
+    "maskable": "maskable",
+    "previewLabel": "Προεπισκόπηση",
+    "copy": "Αντιγραφή",
+    "headSnippet": "Απόσπασμα HTML head",
+    "downloadIco": "Λήψη favicon.ico",
+    "downloadZip": "Λήψη όλων (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Σύγκριση JSON",
+    "subtitle": "Σημασιολογική σύγκριση δύο εγγράφων JSON με επίγνωση της δομής — η σειρά κλειδιών και η μορφοποίηση αγνοούνται",
+    "options": {
+      "ignoreArrayOrder": "Αγνόηση σειράς πινάκων"
+    },
+    "loadBothSamples": "Φόρτωση δειγμάτων",
+    "sample": "Δείγμα",
+    "format": "Μορφοποίηση",
+    "clear": "Καθαρισμός",
+    "formatError": "Αδυναμία μορφοποίησης: η είσοδος δεν είναι έγκυρο JSON",
+    "placeholder": "Επικολλήστε ή πληκτρολογήστε JSON εδώ…",
+    "panels": {
+      "left": "Πρωτότυπο (αριστερά)",
+      "right": "Τροποποιημένο (δεξιά)",
+      "results": "Διαφορές"
+    },
+    "summary": {
+      "added": "{count} προστέθηκαν",
+      "removed": "{count} αφαιρέθηκαν",
+      "changed": "{count} άλλαξαν"
+    },
+    "types": {
+      "added": "Προστέθηκε",
+      "removed": "Αφαιρέθηκε",
+      "changed": "Άλλαξε"
+    },
+    "copyChanges": "Αντιγραφή ως JSON",
+    "copied": "Αντιγράφηκε",
+    "empty": "Επικολλήστε JSON και στα δύο πλαίσια για να δείτε τις διαφορές τους.",
+    "identical": "Τα δύο έγγραφα είναι σημασιολογικά πανομοιότυπα."
+  },
+  "JsonpathPlayground": {
+    "title": "Παιχνιδότοπος JSONPath",
+    "subtitle": "Κάντε ερωτήματα σε έγγραφα JSON με JSONPath ή JMESPath και δείτε ζωντανά αποτελέσματα",
+    "engineLabel": "Μηχανή",
+    "queryLabel": "Ερώτημα",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Σύντομος οδηγός",
+    "cheats": {
+      "jpAllTitles": "Όλοι οι τίτλοι βιβλίων",
+      "jpAllAuthors": "Κάθε συγγραφέας, οπουδήποτε στο έγγραφο",
+      "jpFirstBook": "Πρώτο βιβλίο",
+      "jpLastBook": "Τελευταίο βιβλίο",
+      "jpSlice": "Τα δύο πρώτα βιβλία (τμήμα)",
+      "jpFilterPrice": "Βιβλία φθηνότερα από 40",
+      "jpFilterInStock": "Τίτλοι διαθέσιμων βιβλίων",
+      "jpRecursive": "Όλες οι τιμές, αναδρομικά",
+      "jmAllTitles": "Όλοι οι τίτλοι βιβλίων",
+      "jmFirstAuthor": "Συγγραφέας του πρώτου βιβλίου",
+      "jmLastBook": "Τελευταίο βιβλίο",
+      "jmSlice": "Τα δύο πρώτα βιβλία (τμήμα)",
+      "jmFilterPrice": "Τίτλοι βιβλίων φθηνότερων από 40",
+      "jmCount": "Πλήθος διαθέσιμων βιβλίων",
+      "jmProjection": "Αναδιαμορφώστε κάθε βιβλίο σε νέο αντικείμενο",
+      "jmSort": "Τίτλοι ταξινομημένοι κατά τιμή"
+    },
+    "panels": {
+      "input": "Είσοδος JSON",
+      "results": "Αποτελέσματα"
+    },
+    "sample": "Δείγμα",
+    "format": "Μορφοποίηση",
+    "clear": "Καθαρισμός",
+    "formatError": "Αδυναμία μορφοποίησης: η είσοδος δεν είναι έγκυρο JSON",
+    "placeholder": "Επικολλήστε ή πληκτρολογήστε JSON εδώ…",
+    "outputPlaceholder": "Οι αντιστοιχίσεις θα εμφανιστούν εδώ…",
+    "matchCount": "{count, plural, one {# αντιστοίχιση} other {# αντιστοιχίσεις}}",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε"
+  },
+  "KeycodeInspector": {
+    "title": "Επιθεωρητής πλήκτρων",
+    "subtitle": "Πατήστε οποιοδήποτε πλήκτρο για να επιθεωρήσετε το συμβάν πληκτρολογίου JavaScript του",
+    "capture": {
+      "prompt": "Πατήστε οποιοδήποτε πλήκτρο…",
+      "ready": "Ακρόαση — πατήστε οποιοδήποτε πλήκτρο στο πληκτρολόγιό σας",
+      "clickToFocus": "Κάντε κλικ εδώ για εστίαση, μετά πατήστε οποιοδήποτε πλήκτρο"
+    },
+    "hero": {
+      "spaceKey": "(Διάστημα)",
+      "keyLabel": "event.key",
+      "repeat": "επανάληψη"
+    },
+    "copyJson": "Αντιγραφή JSON",
+    "copiedJson": "Το JSON του συμβάντος αντιγράφηκε στο πρόχειρο",
+    "deprecated": "καταργημένο",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Τυπική",
+      "left": "Αριστερά",
+      "right": "Δεξιά",
+      "numpad": "Αριθμητικό πληκτρολόγιο",
+      "unknown": "Άγνωστη"
+    },
+    "history": {
+      "title": "Ιστορικό",
+      "clear": "Καθαρισμός ιστορικού",
+      "empty": "Τα πατήματα πλήκτρων θα εμφανιστούν εδώ."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Γεννήτρια πινάκων Markdown",
+    "subtitle": "Επεξεργαστείτε ένα πλέγμα, επικολλήστε από υπολογιστικό φύλλο και αντιγράψτε έναν όμορφα στοιχισμένο πίνακα Markdown ή HTML",
+    "addRow": "Προσθήκη γραμμής",
+    "addColumn": "Προσθήκη στήλης",
+    "importLabel": "Εισαγωγή",
+    "importPlaceholder": "Επικολλήστε TSV (από Excel / Φύλλα Google) ή CSV εδώ…",
+    "importButton": "Εισαγωγή στο πλέγμα",
+    "pasteClipboard": "Επικόλληση από το πρόχειρο",
+    "importEmpty": "Δεν υπάρχει τίποτα για εισαγωγή — επικολλήστε πρώτα κάποιες γραμμές",
+    "clipboardError": "Δεν ήταν δυνατή η ανάγνωση από το πρόχειρο",
+    "clear": "Καθαρισμός",
+    "panels": {
+      "editor": "Επεξεργαστής πίνακα",
+      "output": "Έξοδος"
+    },
+    "align": {
+      "left": "Στοίχιση αριστερά",
+      "center": "Στοίχιση στο κέντρο",
+      "right": "Στοίχιση δεξιά"
+    },
+    "headerPlaceholder": "Κεφαλίδα",
+    "cellPlaceholder": "Κελί",
+    "removeRow": "Αφαίρεση γραμμής",
+    "removeColumn": "Αφαίρεση στήλης",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε"
+  },
+  "TimezoneConverter": {
+    "title": "Μετατροπέας ζωνών ώρας",
+    "subtitle": "Μετατρέψτε μια στιγμή σε όλο τον κόσμο για τον προγραμματισμό συναντήσεων.",
+    "dateTimeLabel": "Ημερομηνία και ώρα",
+    "now": "Τώρα",
+    "sourceZoneLabel": "Ζώνη ώρας προέλευσης",
+    "selectZone": "Επιλογή ζώνης",
+    "searchZone": "Αναζήτηση ζωνών ώρας...",
+    "noZone": "Δεν βρέθηκε ζώνη ώρας.",
+    "scrubLabel": "Μετατόπιση ώρας",
+    "reset": "Επαναφορά",
+    "targetsLabel": "Ζώνες προορισμού",
+    "addZone": "Προσθήκη ζώνης",
+    "remove": "Αφαίρεση",
+    "localBadge": "Τοπική",
+    "invalidDate": "Εισαγάγετε έγκυρη ημερομηνία και ώρα.",
+    "bands": {
+      "work": "Ώρες εργασίας (09:00–18:00)",
+      "edge": "Οριακές ώρες (νωρίς / βράδυ)",
+      "night": "Νύχτα"
+    }
+  },
+  "TokenCounter": {
+    "title": "Μετρητής token LLM",
+    "subtitle": "Μετρήστε token, οπτικοποιήστε τμήματα και εκτιμήστε το κόστος API.",
+    "inputLabel": "Κείμενο",
+    "sample": "Δείγμα",
+    "clear": "Καθαρισμός",
+    "placeholder": "Επικολλήστε κείμενο, κώδικα ή JSON για μέτρηση token...",
+    "encoding": "Κωδικοποίηση",
+    "loading": "Φόρτωση tokenizer...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / σειρά o)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token",
+      "characters": "Χαρακτήρες",
+      "words": "Λέξεις",
+      "ratio": "Token/λέξη",
+      "ratioSub": "περίπου"
+    },
+    "claudeRow": "Claude (κατά προσέγγιση)",
+    "estimate": "εκτίμηση",
+    "viz": {
+      "title": "Οπτικοποίηση token",
+      "toggle": "Εμφάνιση",
+      "hint": "Εναλλάξτε για να χρωματίσετε κάθε token ως τμήμα.",
+      "empty": "Εισαγάγετε κείμενο για την οπτικοποίηση token.",
+      "truncated": "Εμφάνιση των πρώτων {limit} από {total} token."
+    },
+    "cost": {
+      "title": "Υπολογιστής κόστους",
+      "disclaimer": "επεξεργάσιμες προεπιλογές — επαληθεύστε τις τρέχουσες τιμές",
+      "model": "Μοντέλο",
+      "expectedOutput": "Αναμενόμενα token εξόδου",
+      "customInput": "Είσοδος $/MTok",
+      "customOutput": "Έξοδος $/MTok",
+      "inputCost": "Κόστος εισόδου",
+      "outputCost": "Κόστος εξόδου",
+      "total": "Σύνολο",
+      "per1000": "Ανά 1000 κλήσεις"
+    }
+  },
+  "WebhookTester": {
+    "title": "Δοκιμαστής webhook",
+    "subtitle": "Δημιουργήστε ένα προσωρινό URL και επιθεωρήστε ζωντανά τα εισερχόμενα αιτήματα webhook.",
+    "intro": {
+      "title": "Δημιουργήστε ένα URL webhook για να ξεκινήσετε την καταγραφή αιτημάτων",
+      "hint": "Θα λάβετε ένα μη προβλέψιμο URL που καταγράφει κάθε εισερχόμενο αίτημα. Λήγει μετά από 24 ώρες."
+    },
+    "createBtn": "Δημιουργία URL webhook",
+    "creating": "Δημιουργία…",
+    "urlLabel": "Το URL webhook σας",
+    "expiresIn": "Λήγει σε {countdown}",
+    "copyUrlBtn": "Αντιγραφή URL",
+    "copied": "Αντιγράφηκε",
+    "clearBtn": "Καθαρισμός",
+    "newBinBtn": "Νέο URL",
+    "requestsTitle": "Αιτήματα",
+    "selectPrompt": "Επιλέξτε ένα αίτημα για να επιθεωρήσετε τις λεπτομέρειές του.",
+    "expiredNotice": "Αυτό το URL webhook έχει λήξει. Δημιουργήστε ένα νέο για να συνεχίσετε τις δοκιμές.",
+    "base64Badge": "base64",
+    "truncatedBadge": "περικομμένο",
+    "empty": {
+      "title": "Αναμονή αιτημάτων…",
+      "hint": "Στείλτε ένα αίτημα στο URL σας και θα εμφανιστεί εδώ αμέσως. Δοκιμάστε αυτό:"
+    },
+    "detail": {
+      "receivedAt": "Ελήφθη",
+      "source": "IP προέλευσης",
+      "contentType": "Content-Type",
+      "query": "Παράμετροι ερωτήματος",
+      "headers": "Κεφαλίδες",
+      "body": "Σώμα",
+      "copyBody": "Αντιγραφή σώματος",
+      "emptyBody": "Χωρίς σώμα"
+    },
+    "errors": {
+      "createFailed": "Η δημιουργία του URL webhook απέτυχε. Δοκιμάστε ξανά.",
+      "clearFailed": "Ο καθαρισμός των αιτημάτων απέτυχε. Δοκιμάστε ξανά."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Δοκιμαστής WebSocket",
+    "subtitle": "Συνδεθείτε σε ένα άκρο WebSocket και στείλτε, λάβετε και επιθεωρήστε μηνύματα ζωντανά",
+    "urlLabel": "URL άκρου",
+    "protocolsLabel": "Υποπρωτόκολλα",
+    "protocolsPlaceholder": "προαιρετικό, διαχωρισμένα με κόμμα",
+    "connect": "Σύνδεση",
+    "disconnect": "Αποσύνδεση",
+    "status": {
+      "disconnected": "Αποσυνδεδεμένο",
+      "connecting": "Σύνδεση",
+      "connected": "Συνδεδεμένο",
+      "error": "Σφάλμα"
+    },
+    "messages": {
+      "connecting": "Σύνδεση σε {url}…",
+      "connected": "Η σύνδεση δημιουργήθηκε",
+      "connectedWithProtocol": "Η σύνδεση δημιουργήθηκε (πρωτόκολλο: {protocol})",
+      "invalidUrl": "Μη έγκυρο URL — πρέπει να ξεκινά με ws:// ή wss://",
+      "connectFailed": "Το άνοιγμα της σύνδεσης απέτυχε",
+      "socketError": "Παρουσιάστηκε σφάλμα σύνδεσης",
+      "notConnected": "Μη συνδεδεμένο — συνδεθείτε πρώτα",
+      "binaryMessage": "Ελήφθη δυαδικό μήνυμα"
+    },
+    "log": {
+      "title": "Αρχείο μηνυμάτων",
+      "empty": "Δεν υπάρχουν ακόμη μηνύματα. Συνδεθείτε και ξεκινήστε την αποστολή.",
+      "copyAll": "Αντιγραφή όλων",
+      "download": "Λήψη ως .txt",
+      "clear": "Καθαρισμός αρχείου",
+      "prettyPrint": "Μορφοποίηση JSON",
+      "showRaw": "Εμφάνιση ακατέργαστου κειμένου"
+    },
+    "composer": {
+      "placeholder": "Πληκτρολογήστε ένα μήνυμα για αποστολή…",
+      "send": "Αποστολή",
+      "formatJson": "Μορφοποίηση ως JSON",
+      "invalidJson": "Το μήνυμα δεν είναι έγκυρο JSON",
+      "hint": "Cmd/Ctrl+Enter για αποστολή"
+    },
+    "ping": {
+      "label": "Αυτόματο ping",
+      "seconds": "δευτ",
+      "intervalTitle": "Διάστημα ping σε δευτερόλεπτα",
+      "payloadPlaceholder": "φορτίο ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Αναζήτηση Whois",
+    "subtitle": "Αναζητήστε στοιχεία καταχώρισης για οποιονδήποτε τομέα ή διεύθυνση IP μέσω RDAP",
+    "placeholder": "example.com ή 8.8.8.8",
+    "lookupBtn": "Αναζήτηση",
+    "looking": "Αναζήτηση…",
+    "refreshBtn": "Ανανέωση",
+    "tryLabel": "Δοκιμάστε:",
+    "copy": "Αντιγραφή",
+    "copied": "Αντιγράφηκε",
+    "notAvailable": "Μη διαθέσιμο",
+    "summary": {
+      "registrar": "Καταχωρητής",
+      "network": "Δίκτυο"
+    },
+    "dates": {
+      "created": "Δημιουργήθηκε",
+      "updated": "Ενημερώθηκε",
+      "expires": "Λήγει"
+    },
+    "sections": {
+      "status": "Κατάσταση",
+      "nameservers": "Διακομιστές ονομάτων",
+      "contacts": "Επαφές",
+      "rawRdap": "Ακατέργαστο RDAP"
+    },
+    "contacts": {
+      "roles": "Ρόλοι",
+      "name": "Όνομα",
+      "organization": "Οργανισμός"
+    },
+    "errors": {
+      "invalidTarget": "Εισαγάγετε ένα έγκυρο όνομα τομέα ή διεύθυνση IP",
+      "lookupFailed": "Η αναζήτηση απέτυχε (κατάσταση {status})"
+    }
+  }
+}

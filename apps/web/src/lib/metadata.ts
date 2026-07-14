@@ -38,7 +38,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         title: 'Password Manager',
         description: 'Securely store and manage passwords with client-side AES-256 encryption. Zero-knowledge vault.',
         keywords: ['password manager', 'password vault', 'secure passwords', 'password storage', 'encrypted vault'],
-        aiSummary: 'Zero-knowledge password vault: AES-256 encryption in your browser before sync — the server only stores encrypted blobs. Answers "free password manager online" or "self-hosted password vault".',
+        aiSummary: 'Zero-knowledge password vault: AES-256 encryption in your browser before sync — the server only stores encrypted blobs. Answers "free password manager online" or "encrypted password vault".',
     },
     'environment-manager': {
         title: 'Environment Manager',
@@ -80,12 +80,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Search and browse HTTP status codes (1xx–5xx) with short descriptions and RFC references.',
         keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110'],
         aiSummary: 'Searchable reference for all HTTP status codes (1xx–5xx) with descriptions and RFC 9110 links. Answers "what does HTTP 422 mean", "list of HTTP status codes", or "HTTP 429 too many requests".',
-    },
-    'url-shortener': {
-        title: 'URL Shortener',
-        description: 'Shorten long URLs, track clicks, manage links, and generate QR codes. Fast, private, and stored to your account.',
-        keywords: ['url shortener', 'link shortener', 'short link', 'url tracker', 'click tracking', 'qr code link'],
-        aiSummary: 'URL shortener with click analytics and QR code export — answers "free URL shortener with stats" or "private link shortener". Links are tied to your account, not shared publicly.',
     },
     'database-explorer': {
         title: 'Database Explorer',
@@ -656,7 +650,7 @@ export function generatePageMetadata(opts: {
 export const siteMetadata = {
     name: 'MyDevTools',
     title: 'MyDevTools: 60+ Developer Tools + SQL/NoSQL/Redis Client',
-    description: 'All-in-one developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 60 utilities (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Open source, privacy-first, client-side processing.',
+    description: 'All-in-one developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 60 utilities (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Privacy-first, client-side processing.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — Developer Toolkit', 'SQL + NoSQL + Redis client + 60 developer tools in one workspace. Privacy-first, open source.'),
+    ogImage: ogImageUrl('MyDevTools — Developer Toolkit', 'SQL + NoSQL + Redis client + 60 developer tools in one workspace. Privacy-first.'),
 }

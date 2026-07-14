@@ -66,7 +66,7 @@ def enable_ns(monkeypatch):
 async def test_decorator_miss_then_hit(fake_redis, enable_ns):
     calls = {"n": 0}
 
-    @cached(ns="bookmarks", ttl=60, scope="user")
+    @cached(ns="auth_user", ttl=60, scope="user")
     async def list_bookmarks(*, uid: str):
         calls["n"] += 1
         return [{"id": "a"}]
@@ -81,13 +81,13 @@ async def test_decorator_miss_then_hit(fake_redis, enable_ns):
 async def test_bump_version_invalidates(fake_redis, enable_ns):
     calls = {"n": 0}
 
-    @cached(ns="bookmarks", ttl=60, scope="user")
+    @cached(ns="auth_user", ttl=60, scope="user")
     async def list_bookmarks(*, uid: str):
         calls["n"] += 1
         return [{"id": "a"}]
 
     await list_bookmarks(uid="u1")
-    await bump_version(ns="bookmarks", uid="u1")
+    await bump_version(ns="auth_user", uid="u1")
     await list_bookmarks(uid="u1")
     assert calls["n"] == 2
 
@@ -96,7 +96,7 @@ async def test_bump_version_invalidates(fake_redis, enable_ns):
 async def test_fail_open(fake_redis, enable_ns):
     fake_redis.fail = True
 
-    @cached(ns="bookmarks", ttl=60, scope="user")
+    @cached(ns="auth_user", ttl=60, scope="user")
     async def list_bookmarks(*, uid: str):
         return [{"id": "from-mongo"}]
 
@@ -109,7 +109,7 @@ async def test_disabled_namespace_skips_redis(fake_redis, monkeypatch):
     monkeypatch.setattr("app.core.cache.decorator.is_namespace_enabled", lambda ns: False)
     monkeypatch.setattr("app.core.cache.decorator._secret", lambda: b"x")
 
-    @cached(ns="bookmarks", ttl=60, scope="user")
+    @cached(ns="auth_user", ttl=60, scope="user")
     async def list_bookmarks(*, uid: str):
         return [{"id": "a"}]
 
@@ -120,7 +120,7 @@ async def test_disabled_namespace_skips_redis(fake_redis, monkeypatch):
 
 @pytest.mark.asyncio
 async def test_user_scope_requires_uid(fake_redis, enable_ns):
-    @cached(ns="bookmarks", ttl=60, scope="user")
+    @cached(ns="auth_user", ttl=60, scope="user")
     async def list_bookmarks(**kw):
         return []
 

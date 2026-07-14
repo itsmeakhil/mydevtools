@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useSyncExternalStore } from "react";
+import React, { useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -20,11 +20,9 @@ import {
   Shield,
   Sparkles,
   Star,
-  GitFork,
   ChevronDown,
   LogIn,
   LayoutGrid,
-  ExternalLink,
   Lock,
   Globe,
   CheckCircle2,
@@ -34,7 +32,6 @@ import {
   Building2,
   Check,
 } from "lucide-react";
-import { isDesktop } from "@/lib/desktop/is-desktop";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
 import MdtAurora from "@/components/mdt-aurora";
@@ -171,7 +168,7 @@ const howItWorks = [
     step: "01",
     title: "Sign In Instantly",
     description:
-      "One-click Google Sign-In on our cloud. No email or password friction. Self-hosting is free forever; the hosted cloud is a paid subscription.",
+      "One-click Google Sign-In on our cloud. No email or password friction. Start free in seconds.",
     icon: LogIn,
     gradient: "from-sky-500 to-cyan-400",
   },
@@ -206,23 +203,7 @@ export default function Page() {
   const router = useRouter();
   const goToLogin = () => router.push("/login");
 
-  // Desktop launch: offline-first. The local master password is the real gate
-  // (MasterPasswordGate mounts inside /app), so always go straight to the tools
-  // — never block on the network. A background session probe just populates
-  // hasRemoteSession() for the sync engine and the "Sign in to sync" CTA; it
-  // must NOT influence routing, or an offline / signed-in-then-offline user
-  // would be bounced to /login.
-  const [desktopRedirecting] = useState(() => isDesktop());
-  useEffect(() => {
-    if (!isDesktop()) return;
-    router.replace("/dashboard");
-    void import("@/lib/desktop/remote").then(({ checkRemoteSession }) =>
-      checkRemoteSession().catch(() => false)
-    );
-  }, [router]);
-
   const reduceMotion = useReducedMotion();
-  const [githubStars, setGithubStars] = useState<number | null>(null);
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
 
   const modKey = useSyncExternalStore(
@@ -242,25 +223,6 @@ export default function Page() {
     );
   };
 
-
-  useEffect(() => {
-    fetch("https://api.github.com/repos/itsmeakhil/mydevtools.tech", {
-      headers: { Accept: "application/vnd.github+json" },
-    })
-      .then((r) => r.json())
-      .then((d) => {
-        if (typeof d.stargazers_count === "number") {
-          setGithubStars(d.stargazers_count);
-        }
-      })
-      .catch(() => {});
-  }, []);
-
-  // On desktop we never render the marketing landing — hold a blank screen
-  // while the launch redirect resolves.
-  if (desktopRedirecting) {
-    return <div className="min-h-screen bg-background" />;
-  }
 
   return (
     <div className="dark mdt-deck flex flex-col min-h-screen bg-background text-foreground font-sans">
@@ -379,7 +341,7 @@ export default function Page() {
             >
               Format JSON, decode JWTs, test APIs, build regexes, generate UUIDs,
               encode Base64, and use dozens more browser-based developer tools in
-              one open-source toolkit.
+              one unified toolkit.
             </motion.p>
 
             {/* CTAs */}
@@ -398,14 +360,6 @@ export default function Page() {
                 </button>
               </Magnetic>
               <Link
-                href="https://github.com/itsmeakhil/mydevtools.tech"
-                target="_blank"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium border border-border/60 dark:border-white/10 bg-background/70 backdrop-blur-md text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
-              >
-                <Star className="mr-2 h-4 w-4" />
-                Star on GitHub
-              </Link>
-              <Link
                 href="/developer-tools"
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium border border-border/60 dark:border-white/10 bg-background/50 backdrop-blur-md text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
               >
@@ -421,8 +375,8 @@ export default function Page() {
             >
               {[
                 { value: `${allAppTools.length}+`, label: "Online Tools" },
-                { value: "GPL-3.0", label: "Open Source" },
-                { value: "Self-host", label: "Free Forever" },
+                { value: "AES-256", label: "Encrypted Sync" },
+                { value: "Free", label: "To Get Started" },
               ].map((s, i) => (
                 <div key={i} className="px-2 py-4 text-center">
                   <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap mdt-grad-text">
@@ -491,10 +445,10 @@ export default function Page() {
                 MyDevTools is the unified developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 60+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one workspace.
               </p>
               <p className="text-lg leading-relaxed">
-                Privacy-first architecture means your data is processed in your browser whenever possible. Sensitive credentials are AES-256 encrypted before sync. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption. Self-host for free or use our managed cloud with paid subscription.
+                Privacy-first architecture means your data is processed in your browser whenever possible. Sensitive credentials are AES-256 encrypted before sync. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption. Get started free, then upgrade when you want unlimited cloud usage.
               </p>
               <p className="text-lg leading-relaxed">
-                Open source (GPL-3.0), fully self-hostable, and trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), single-purpose online tools, and other dev tool platforms—we unify what others scatter across 20 tabs.
+                Trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), single-purpose online tools, and other dev tool platforms—we unify what others scatter across 20 tabs.
               </p>
             </motion.div>
           </motion.div>
@@ -626,7 +580,7 @@ export default function Page() {
   "name": "mydevtools",
   "tools": ${allAppTools.length},
   "encrypted": true,
-  "open_source": true
+  "cloud_sync": true
 }`}
                     </pre>
                   </div>
@@ -882,7 +836,7 @@ export default function Page() {
                 { href: "/developer-tools", label: "Developer tools platform" },
                 { href: "/features", label: "Product features" },
                 { href: "/security", label: "Security and privacy" },
-                { href: "/self-host", label: "Self-host MyDevTools" },
+                { href: "/pricing", label: "Pricing plans" },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -962,47 +916,12 @@ export default function Page() {
                 Built on Trust Signals Developers Can Verify
               </h2>
               <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                Open-source code, public community proof, self-hosting, and
-                browser-side encryption instead of vague promises.
+                Public product proof and browser-side encryption instead of
+                vague promises.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
-              {/* Open Source card */}
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.55, delay: 0 }}
-              >
-                <div className="group relative h-full rounded-2xl glass-overlay p-7 hover:scale-[1.015] hover:shadow-2xl dark:hover:shadow-black/40 transition-all duration-300 overflow-hidden flex flex-col">
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 bg-gradient-to-br from-sky-500 to-cyan-400" />
-                  <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-cyan-400 p-px mb-6 shadow-lg">
-                    <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
-                      <GitFork className="w-5 h-5 text-foreground" />
-                    </div>
-                  </div>
-                  <h3 className="relative z-10 text-xl font-semibold mb-3">
-                    100% Open Source
-                  </h3>
-                  <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base mb-5 flex-1">
-                    GPL-3.0 licensed. Full source on GitHub so developers can
-                    inspect the code, contribute features, fork, or self-host.
-                  </p>
-                  <Link
-                    href="https://github.com/itsmeakhil/mydevtools.tech"
-                    target="_blank"
-                    className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium text-sky-500 hover:text-sky-400 transition-colors"
-                  >
-                    <Star className="w-4 h-4" />
-                    {githubStars !== null ? (
-                      <span>{githubStars} stars on GitHub</span>
-                    ) : (
-                      <span>View on GitHub</span>
-                    )}
-                    <ExternalLink className="w-3.5 h-3.5 opacity-60" />
-                  </Link>
-                </div>
-              </motion.div>
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto">
               {/* Product Hunt card */}
               <motion.div
                 variants={fadeUp}
@@ -1150,8 +1069,8 @@ export default function Page() {
                     variant="secondary"
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium"
                   >
-                    <GitFork className="w-3 h-3" />
-                    Open source · Self-host free forever
+                    <Sparkles className="w-3 h-3" />
+                    Free to get started · Upgrade anytime
                   </Badge>
                 </div>
 
@@ -1172,8 +1091,8 @@ export default function Page() {
                   className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
                 >
                   Join developers who use MyDevTools to streamline their daily
-                  workflow. Privacy-focused and GPL-3.0-licensed — self-host at no
-                  cost forever, or subscribe to our managed cloud.
+                  workflow. Privacy-focused and built for speed — start free, then
+                  subscribe to our managed cloud when you need more.
                 </motion.p>
 
                 <motion.div
@@ -1193,14 +1112,6 @@ export default function Page() {
                     className="inline-flex items-center justify-center h-14 px-10 rounded-full text-base font-medium border border-border/60 dark:border-white/10 bg-background/60 backdrop-blur-sm text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
                   >
                     View Developer Toolkit
-                  </Link>
-                  <Link
-                    href="https://github.com/itsmeakhil/mydevtools.tech"
-                    target="_blank"
-                    className="inline-flex items-center justify-center h-14 px-10 rounded-full text-base font-medium border border-border/60 dark:border-white/10 bg-background/60 backdrop-blur-sm text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
-                  >
-                    <Star className="mr-2 h-5 w-5" />
-                    Star on GitHub
                   </Link>
                 </motion.div>
               </div>

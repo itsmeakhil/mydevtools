@@ -6,11 +6,11 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 export const homepageFaqItems = [
   {
     q: 'Is MyDevTools free?',
-    a: 'Self-hosting is free forever — clone the repo, deploy it yourself, no fees, no limits from us. The hosted cloud (mydevtools.tech) is a paid service.',
+    a: 'The Free plan is free forever — sign in and use the core developer tools with capped cloud usage, no card required. Pro unlocks unlimited usage, cross-device sync, and priority support.',
   },
   {
-    q: 'What is the difference between self-hosting and MyDevTools Cloud?',
-    a: 'Self-hosting is the same codebase running on your own infrastructure — you own the data and pay nothing to us. MyDevTools Cloud is our managed service; it is a paid subscription that covers hosting, sync, and backups.',
+    q: 'What is the difference between the Free and Pro plans?',
+    a: 'The Free plan gives you the core developer tools with capped cloud usage at no cost. Pro adds unlimited usage, encrypted cross-device sync, private history, and priority support.',
   },
   {
     q: 'Is my data secure?',
@@ -19,10 +19,6 @@ export const homepageFaqItems = [
   {
     q: 'Do I need an account to use the tools?',
     a: 'Google Sign-In is required to save your data across sessions. Many public tool pages can be explored before opening the full app experience.',
-  },
-  {
-    q: 'Is this truly open source?',
-    a: 'Yes. Full source code is available on GitHub under the GPL-3.0 license. You can audit, contribute, fork, or self-host it.',
   },
   {
     q: 'Does it work offline?',
@@ -218,7 +214,7 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
           price: '0',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
-          description: 'Self-hosted MyDevTools is available with no license fee.',
+          description: 'MyDevTools offers a free tier, with paid Pro and Team plans for unlimited usage.',
         },
         isAccessibleForFree: true,
         publisher: {
@@ -230,7 +226,6 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
           'Online developer tools',
           'Browser-based developer toolkit',
           'Public tool landing pages',
-          'Self-hosted deployment',
           'Managed cloud hosting',
         ],
       },
@@ -288,7 +283,6 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         url: baseUrl,
         logo: `${baseUrl}/icon-192x192.png`,
         sameAs: [
-          'https://github.com/itsmeakhil/mydevtools.tech',
           'https://www.producthunt.com/products/mydevtools',
         ],
       },
@@ -307,7 +301,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           price: '0',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
-          description: 'Self-hosted MyDevTools is available with no license fee.',
+          description: 'MyDevTools offers a free tier, with paid Pro and Team plans for unlimited usage.',
         },
         isAccessibleForFree: true,
         featureList: [
@@ -318,7 +312,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           'Crypto tools: encryption playground, HMAC, TOTP 2FA, SSH key generator',
           'Data converters: CSV to JSON, YAML formatter, format converter',
           'Privacy-first architecture: client-side processing, AES-256 encryption',
-          'Self-hosted and open source (GPL-3.0)',
+          'Team workspaces with role-based access control',
           'Persistent storage: snippets, notes, tasks, bookmarks, password vault',
         ],
         publisher: { '@id': `${baseUrl}/#organization` },
@@ -344,7 +338,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         '@id': `${baseUrl}/#platform-pages`,
         name: 'MyDevTools platform SEO pages',
         description:
-          'Public pages explaining the MyDevTools developer tools platform, features, security, open source model, self-hosting, pricing, and use cases.',
+          'Public pages explaining the MyDevTools developer tools platform, features, security, pricing, and use cases.',
         numberOfItems: platformPageList.length,
         itemListElement: platformPageList,
       },

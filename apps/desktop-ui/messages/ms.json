@@ -1,0 +1,4573 @@
+{
+  "Navigation": {
+    "dashboard": "Papan Pemuka",
+    "settings": "Tetapan",
+    "apiClient": "Klien API",
+    "httpStatusCodes": "Kod status HTTP",
+    "passwordManager": "Pengurus Kata Laluan",
+    "environmentManager": "Pengurus persekitaran",
+    "bookmarks": "Penanda Halaman",
+    "jsonFormatter": "Pemformat JSON",
+    "emailValidator": "Pengesah E-mel",
+    "nosqlExplorer": "Penjelajah Pangkalan Data",
+    "toDo": "Tasks",
+    "notes": "Notes",
+    "encryptionPlayground": "Taman permainan penyulitanan",
+    "jwtDecoder": "Penyahkod JWT",
+    "certificatePemDecoder": "Pengecam sijil / PEM",
+    "sqlFormatter": "SQL Formatter",
+    "graphqlFormatter": "Pemformat GraphQL",
+    "diffChecker": "Diff checker",
+    "regexTester": "Regex Tester",
+    "timestampConverter": "Timestamp Converter",
+    "cronBuilder": "Cron Builder",
+    "base64Encoder": "Base64 Encoder",
+    "urlEncoder": "URL Encoder",
+    "urlParser": "Penghurai URL",
+    "uuidGenerator": "UUID / ULID",
+    "secretApiKeyGenerator": "Rahsia / kunci API",
+    "loremIpsum": "Lorem Ipsum",
+    "colorPicker": "Color Picker",
+    "contrastChecker": "Pemeriksa kontras",
+    "jsonSchemaGenerator": "Penjana Skema JSON",
+    "imageToBase64": "Imej ke Base64",
+    "imageCompressor": "Pemampat Imej",
+    "cssGradientBuilder": "Pembina Kecerunan CSS",
+    "gitignoreGenerator": "Penjana .gitignore",
+    "csvExcelJson": "CSV / Excel ↔ JSON",
+    "snippetManager": "Petikan kod",
+    "qrCodeGenerator": "Penjana kod QR",
+    "dnsLookup": "Carian DNS",
+    "ipSubnetCalculator": "Kalkulator IP / subnet",
+    "hashGenerator": "Penjana hash",
+    "hmacGenerator": "Penjana HMAC",
+    "totpGenerator": "Kod TOTP / 2FA",
+    "markdownPreview": "Pratonton Markdown",
+    "numberBaseConverter": "Penukar asas",
+    "formatConverter": "Penukar Format",
+    "mockDataGenerator": "Penjana Data Mock",
+    "svgOptimizer": "Pengoptimum SVG",
+    "unitConverter": "Penukar Unit",
+    "dockerComposeGenerator": "Penjana Docker Compose",
+    "breakRoom": "Bilik Rehat",
+    "game2048": "2048",
+    "sudoku": "Sudoku",
+    "redisCommander": "Redis Commander",
+    "yamlFormatter": "Pemformat YAML",
+    "sshKeyGenerator": "Penjana Kekunci SSH / RSA",
+    "curlToCode": "cURL to Code",
+    "jsonToCode": "JSON to Code",
+    "beautifyMinify": "Beautify & Minify",
+    "stringCaseConverter": "String Case Converter",
+    "lineSortDedupe": "Line Sort & Dedupe",
+    "stringInspector": "String Inspector",
+    "escapeEncode": "Escape / Encode",
+    "bcryptGenerator": "Bcrypt",
+    "chmodCalculator": "Kalkulator Chmod",
+    "codeScreenshot": "Tangkap Skrin Kod",
+    "cssGenerators": "Penjana CSS",
+    "exifViewer": "Pemapar EXIF",
+    "faviconGenerator": "Penjana Favicon",
+    "jsonDiff": "Beza JSON",
+    "jsonpathPlayground": "Ruang Uji JSONPath",
+    "keycodeInspector": "Pemeriksa Kod Kekunci",
+    "markdownTableGenerator": "Jadual Markdown",
+    "timezoneConverter": "Penukar Zon Waktu",
+    "tokenCounter": "Pengira Token",
+    "webhookTester": "Penguji Webhook",
+    "websocketTester": "Penguji WebSocket",
+    "whoisLookup": "Carian Whois"
+  },
+  "Help": {
+    "title": "Bantuan & dokumentasi",
+    "subtitle": "Bagaimana MyDevTools berfungsi, apa yang dibuat oleh setiap aplikasi, dan bagaimana keselamatan serta penyulitan melindungi data anda.",
+    "tabs": {
+      "overview": "Gambaran keseluruhan",
+      "apps": "Aplikasi",
+      "security": "Keselamatan",
+      "tips": "Petua"
+    },
+    "overview": {
+      "whatIs": {
+        "title": "Apakah MyDevTools?",
+        "description": "Ruang kerja pembangun dengan log masuk: papan pemuka dan set alat untuk tugasan harian.",
+        "p1": "Selepas anda log masuk, aplikasi mewujudkan sesi dengan MyDevTools API supaya alat boleh memuat dan menyimpan data anda. Bar sisi menyenaraikan semua aplikasi; anda boleh menyembunyikan alat yang tidak digunakan dari",
+        "settingsLink": "Tetapan",
+        "p1After": ".",
+        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci vault global) supaya rahsia seperti kata laluan dan rentetan sambungan disulitkan pada peranti anda sebelum sampai ke pelayan."
+      },
+      "quickLinks": {
+        "title": "Pautan pantas",
+        "dashboard": "Papan Pemuka",
+        "settings": "Tetapan"
+      }
+    },
+    "apps": {
+      "intro": "Buka mana-mana alat dari bar sisi atau papan pemuka. Di bawah ialah panduan ringkas untuk setiap aplikasi.",
+      "open": "Buka",
+      "howItWorks": "Cara ia berfungsi",
+      "generic": "Gunakan alat ini dari bar sisi untuk aliran kerja khususnya."
+    },
+    "security": {
+      "session": {
+        "title": "Log masuk dan sesi API",
+        "description": "Identiti dan cara pelayar berkomunikasi dengan backend.",
+        "items": {
+          "authentication": "<strong>Pengesahan</strong> menggunakan Firebase untuk log masuk. Selepas log masuk, aplikasi menukar token ID Firebase anda kepada kuki API.",
+          "accessTokens": "<strong>Token akses</strong> ialah JWT yang ditandatangani pelayan (HS256) untuk membuktikan pengguna yang memanggil API.",
+          "refreshTokens": "<strong>Token segar semula</strong> disimpan dalam kuki HttpOnly; pelayan menyimpan hash SHA-256 token, bukan token mentah."
+        }
+      },
+      "encryption": {
+        "title": "Penyulitan yang perlu diketahui",
+        "description": "Kripto sisi klien untuk vault dan data sambungan sensitif.",
+        "p1": "Untuk <strong>pengurus kata laluan</strong>, <strong>pengurus persekitaran</strong> dan sambungan tersimpan dalam <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pelayar:",
+        "items": {
+          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100,000</strong> iterasi dan salt rawak menjana kunci 256-bit daripada kata laluan induk anda.",
+          "aes": "<strong>AES-256-GCM</strong> menyulitkan data; <strong>IV 12 bait</strong> rawak digunakan bagi setiap penyulitan.",
+          "scope": "Kunci terbitan kekal dalam pelayar (tidak boleh diekstrak). Pelayan hanya menerima <strong>ciphertext dan IV</strong>, bukan kata laluan induk atau rahsia dalam teks biasa."
+        },
+        "warning": "Jika anda terlupa kata laluan induk, data yang disulitkan tidak boleh dipulihkan. Simpan dengan selamat."
+      },
+      "logout": {
+        "title": "Log keluar dan data tempatan",
+        "body": "Log keluar akan mengosongkan rahsia dalam ingatan, status vault, dan (jika berkenaan) bahan kunci induk daripada IndexedDB serta menamatkan sesi API. Data yang hanya berada dalam storan tempatan peranti mungkin kekal sehingga anda memadamkannya dalam pelayar."
+      }
+    },
+    "tips": {
+      "title": "Menggunakan MyDevTools dengan selamat",
+      "items": {
+        "masterPassword": "Gunakan kata laluan induk yang kuat dan unik untuk ciri vault.",
+        "apiClient": "Anggap API Client seperti klien HTTP biasa: elakkan menampal rahsia produksi ke persekitaran kongsi jika anda tidak tahu siapa yang boleh melihatnya.",
+        "nosql": "Penjelajah Pangkalan Data menyambung ke pangkalan data yang anda konfigurasi; gunakan akaun keistimewaan minimum dan peraturan rangkaian jika boleh.",
+        "json": "Pemformat JSON berjalan secara tempatan dalam pelayar—masih elakkan menampal data yang sangat sensitif pada mesin kongsi.",
+        "settings": "Sesuaikan alat yang kelihatan dalam Tetapan untuk memastikan bar sisi kekal fokus."
+      }
+    }
+  },
+  "Settings": {
+    "title": "Tetapan",
+    "language": "Bahasa",
+    "spanish": "Spanish",
+    "english": "English",
+    "french": "Français",
+    "arabic": "عربى",
+    "catalan": "Catalan",
+    "chineseSimplified": "Chinese (Simplified)",
+    "czech": "Čeština",
+    "greek": "Ελληνικά",
+    "german": "German",
+    "danish": "Danish",
+    "afrikaans": "Afrikaans",
+    "persian": "فارسی",
+    "indonesian": "Bahasa Indonesia",
+    "norwegian": "Norsk",
+    "japanese": "日本語",
+    "korean": "한국어",
+    "malay": "Bahasa Melayu",
+    "dutch": "Nederlands",
+    "polish": "Polski",
+    "vietnamese": "Tiếng Việt",
+    "ukrainian": "Ukraine"
+  },
+  "SettingsPage": {
+    "title": "Tetapan",
+    "subtitle": "Urus tetapan akaun dan keutamaan anda.",
+    "userProfile": {
+      "title": "Profil Pengguna",
+      "description": "Maklumat peribadi dan butiran akaun anda.",
+      "avatarAlt": "Pengguna",
+      "anonymousUser": "Pengguna Tanpa Nama",
+      "noEmailProvided": "Tiada e-mel disediakan",
+      "notLoggedIn": "Belum log masuk."
+    },
+    "tools": {
+      "title": "Alat & Ciri",
+      "description": "Pilih alat yang dipaparkan di bar sisi navigasi anda."
+    },
+    "appearance": {
+      "title": "Penampilan",
+      "description": "Sesuaikan rupa aplikasi pada peranti anda.",
+      "themePreference": "Keutamaan Tema",
+      "themes": {
+        "light": "Cerah",
+        "dark": "Gelap",
+        "system": "Sistem"
+      }
+    },
+    "language": {
+      "title": "Bahasa",
+      "description": "Tetapkan bahasa yang digunakan di seluruh platform.",
+      "selectLanguage": "Pilih Bahasa",
+      "selectPlaceholder": "Pilih bahasa",
+      "helpText": "Menukar bahasa anda akan mengemas kini menu dan label di seluruh platform.",
+      "languages": {
+        "en": "English",
+        "fr": "Français",
+        "es": "Español (Spanish)",
+        "ar": "عربى (Arabic)",
+        "ca": "Català",
+        "zh": "简体中文",
+        "cs": "Čeština",
+        "el": "Ελληνικά (Greek)",
+        "de": "Deutsch (German)",
+        "da": "Dansk (Danish)",
+        "af": "Afrikaans",
+        "fa": "فارسی",
+        "id": "Bahasa Indonesia",
+        "it": "Itali (Italiano)",
+        "nb": "Norsk",
+        "ja": "日本語",
+        "ko": "한국어",
+        "ms": "Bahasa Melayu",
+        "nl": "Nederlands",
+        "pl": "Polski",
+        "pt": "Português",
+        "pt-BR": "Português (Brasil)",
+        "vi": "Tiếng Việt",
+        "ru": "Русский",
+        "sv": "Svenska",
+        "tr": "Türkçe",
+        "uk": "Українська"
+      }
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
+      "addButton": "Add passkey",
+      "loading": "Loading…",
+      "none": "No passkeys yet.",
+      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
+      "addedOn": "Added {date}",
+      "lastUsedOn": "Last used {date}",
+      "synced": "Synced",
+      "rename": "Rename",
+      "renamePrompt": "Rename passkey",
+      "addedToast": "Passkey added.",
+      "renamedToast": "Passkey renamed.",
+      "removedToast": "Passkey removed.",
+      "loadError": "Could not load passkeys.",
+      "addError": "Could not add passkey.",
+      "renameError": "Could not rename passkey.",
+      "deleteError": "Could not delete passkey.",
+      "dialog": {
+        "title": "Add a passkey",
+        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
+        "nameLabel": "Device name (optional)",
+        "namePlaceholder": "e.g. MacBook Touch ID",
+        "cancel": "Cancel",
+        "continue": "Continue",
+        "waiting": "Waiting for device…"
+      },
+      "delete": {
+        "title": "Remove passkey?",
+        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
+        "cancel": "Cancel",
+        "confirm": "Remove"
+      },
+      "prompt": {
+        "title": "Sign in faster next time",
+        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
+        "skip": "Maybe later",
+        "setup": "Set up passkey",
+        "successToast": "Passkey added — try signing out and back in to test it.",
+        "errorToast": "Could not add passkey. You can try again from Settings."
+      }
+    }
+  },
+  "Dashboard": {
+    "noResults": "Tiada alat yang sepadan dengan carian anda",
+    "noResultsHint": "Cuba kata kunci lain atau kosongkan penapis.",
+    "filterAll": "Semua",
+    "loginCta": {
+      "description": "Log masuk untuk menjejaki alat yang baru-baru ini digunakan."
+    },
+    "greeting": {
+      "morning": "Selamat pagi",
+      "afternoon": "Selamat petang",
+      "evening": "Selamat malam"
+    },
+    "commaName": ", {name}",
+    "welcomeBack": "Selamat kembali",
+    "welcomeBackNamed": "Selamat kembali, {name}",
+    "tagline": "Apa yang ingin anda bina hari ini?",
+    "brandName": "MyDevTools",
+    "stats": {
+      "tools": "Alat",
+      "favorites": "Kegemaran",
+      "pinned": "Disematkan",
+      "recent": "Baru Digunakan"
+    },
+    "sections": {
+      "recentlyUsed": "Baru Digunakan",
+      "favorites": "Kegemaran",
+      "whatsNew": "Yang Baru",
+      "pinned": "Disematkan"
+    },
+    "groups": {
+      "apps": "Aplikasi"
+    },
+    "toolCard": {
+      "defaultDescription": "Terokai alat ini untuk fungsi yang lebih baik.",
+      "launchTool": "Lancar Alat"
+    },
+    "tools": {
+      "toDo": {
+        "title": "Tugasan",
+        "description": "Urus senarai tugasan anda dengan cekap."
+      },
+      "notes": {
+        "title": "Nota",
+        "description": "Tangkap idea dan susun fikiran anda."
+      },
+      "passwordManager": {
+        "title": "Pengurus Kata Laluan",
+        "description": "Simpan dan urus kata laluan anda dengan selamat."
+      },
+      "environmentManager": {
+        "title": "Pengurus persekitaran",
+        "description": "Simpan pemboleh ubah gaya .env mengikut projek dan persekitaran dengan teg."
+      },
+      "bookmarks": {
+        "title": "Penanda Halaman",
+        "description": "Urus dan susun penanda halaman anda."
+      },
+      "apiClient": {
+        "title": "Klien API",
+        "description": "Uji dan nyahpepijat permintaan HTTP."
+      },
+      "nosqlExplorer": {
+        "title": "Database Explorer",
+        "description": "Terokai pangkalan data MongoDB."
+      },
+      "emailValidator": {
+        "title": "Pengesah E-mel",
+        "description": "Sahkan dan pengesahan alamat e-mel."
+      },
+      "encryptionPlayground": {
+        "title": "Taman permainan penyulitanan",
+        "description": "AES-GCM dengan kunci mentah atau frasa laluan; bungkusan JSON, Web Crypto hanya dalam pelayar."
+      },
+      "jwtDecoder": {
+        "title": "Penyahkod JWT",
+        "description": "Nyahkod pengepala, payload dan tamat tempoh JWT."
+      },
+      "certificatePemDecoder": {
+        "title": "Pengecam sijil / PEM",
+        "description": "Nyahkod sijil X.509 dan CSR: subjek, penerbit, kesahan, dan SAN."
+      },
+      "sshKeyGenerator": {
+        "title": "Penjana Kunci SSH / RSA",
+        "description": "Jana pasangan kunci Ed25519 atau RSA dalam pelayar. Muat turun dalam format OpenSSH dan PEM."
+      },
+      "jsonFormatter": {
+        "title": "JSON Formatter",
+        "description": "Format, validate, and edit JSON data."
+      },
+      "sqlFormatter": {
+        "title": "SQL Formatter",
+        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
+      },
+      "graphqlFormatter": {
+        "title": "Pemformat GraphQL",
+        "description": "Format GraphQL dengan pensyntaksan sorotan dan pembina pertanyaan ringkas."
+      },
+      "yamlFormatter": {
+        "title": "Pemformat YAML",
+        "description": "Format, sahkan dan tukarkan YAML ke JSON dalam pelayar."
+      },
+      "diffChecker": {
+        "title": "Diff checker",
+        "description": "Side-by-side line diff of two texts."
+      },
+      "formatConverter": {
+        "title": "Penukar Format",
+        "description": "Tukar antara JSON, YAML, TOML, dan XML dalam mana-mana arah. 12 gabungan disokong."
+      },
+      "regexTester": {
+        "title": "Regex Tester",
+        "description": "Test regex with live match highlighting."
+      },
+      "timestampConverter": {
+        "title": "Timestamp Converter",
+        "description": "Unix, ISO, and relative time conversion."
+      },
+      "cronBuilder": {
+        "title": "Cron Builder",
+        "description": "Visual cron builder, presets, and parser."
+      },
+      "base64Encoder": {
+        "title": "Base64 Encoder",
+        "description": "Encode and decode Base64 strings."
+      },
+      "urlEncoder": {
+        "title": "URL Encoder",
+        "description": "Percent-encode and decode URL components."
+      },
+      "urlParser": {
+        "title": "Penghurai URL",
+        "description": "Pecahkan URL kepada protokol, hos, laluan, parameter kueri, dan hash."
+      },
+      "uuidGenerator": {
+        "title": "UUID / ULID",
+        "description": "Generate UUIDs and ULIDs with bulk export."
+      },
+      "secretApiKeyGenerator": {
+        "title": "Rahsia / kunci API",
+        "description": "Rentetan rawak kriptografi dengan abjad, panjang dan eksport pukal boleh dikonfigurasi."
+      },
+      "loremIpsum": {
+        "title": "Lorem Ipsum",
+        "description": "Generate placeholder Latin text for layouts and mockups."
+      },
+      "colorPicker": {
+        "title": "Color Picker",
+        "description": "Convert HEX, RGB, HSL and explore color palettes."
+      },
+      "contrastChecker": {
+        "title": "Pemeriksa kontras",
+        "description": "Nisbah kontras WCAG 2.1 teks dan latar (AA / AAA)."
+      },
+      "jsonSchemaGenerator": {
+        "title": "Penjana Skema JSON",
+        "description": "Inferens skema JSON dan model berjenis daripada sampel JSON."
+      },
+      "imageToBase64": {
+        "title": "Imej ke Base64",
+        "description": "Tukar imej kepada URI Data atau rentetan Base64 mentah."
+      },
+      "imageCompressor": {
+        "title": "Pemampat Imej",
+        "description": "Mampatkan JPEG, PNG dan WebP secara setempat dengan peluncur kualiti."
+      },
+      "cssGradientBuilder": {
+        "title": "Pembina Kecerunan CSS",
+        "description": "Pembina kecerunan CSS visual dengan kawalan sudut dan hentian warna."
+      },
+      "gitignoreGenerator": {
+        "title": "Penjana .gitignore",
+        "description": "Hasilkan fail .gitignore yang digabungkan serta-merta daripada 500+ susunan teknologi."
+      },
+      "csvExcelJson": {
+        "title": "CSV / Excel ↔ JSON",
+        "description": "Tukar fail CSV atau Excel kepada JSON dan eksport semula ke CSV atau XLSX."
+      },
+      "snippetManager": {
+        "title": "Petikan kod",
+        "description": "Simpan petikan dengan sorotan sintaks, pengesanan bahasa automatik dan pemformatan."
+      },
+      "qrCodeGenerator": {
+        "title": "Penjana kod QR",
+        "description": "Cipta kod QR PNG daripada teks atau URL dalam pelayar."
+      },
+      "ipSubnetCalculator": {
+        "title": "Kalkulator IP / subnet",
+        "description": "IPv4 dan IPv6 CIDR: topeng rangkaian, julat, dan bilangan alamat."
+      },
+      "dnsLookup": {
+        "title": "Carian DNS",
+        "description": "Pertanyaan rekod DNS untuk mana-mana domain — A, AAAA, MX, TXT, NS, CNAME."
+      },
+      "hashGenerator": {
+        "title": "Penjana hash",
+        "description": "MD5, SHA-1 dan SHA-2 untuk teks atau fail."
+      },
+      "hmacGenerator": {
+        "title": "Penjana HMAC",
+        "description": "Tandatangani webhook dan uji integrasi API dengan HMAC-SHA1/256/384/512."
+      },
+      "totpGenerator": {
+        "title": "Penjana kod TOTP / 2FA",
+        "description": "Tampal rahsia Base32 daripada aplikasi pengesah; kod enam digit disegar setiap 30 s—berguna untuk ujian log masuk dan MFA."
+      },
+      "markdownPreview": {
+        "title": "Pratonton Markdown",
+        "description": "Pemapar Markdown langsung dengan eksport HTML dan penukaran HTML → Markdown."
+      },
+      "numberBaseConverter": {
+        "title": "Penukar asas nombor",
+        "description": "Tukar integer antara asas 2–36."
+      },
+      "mockDataGenerator": {
+        "title": "Penjana Data Mock",
+        "description": "Takrifkan lajur, pilih jenis data, dan eksport set data untuk benih, Postman atau ujian. Sehingga 5000 baris, semuanya dalam pelayar — tiada muat naik."
+      },
+      "httpStatusCodes": {
+        "title": "Kod Status HTTP",
+        "description": "Cari kod status HTTP dengan penerangan (1xx–5xx)."
+      },
+      "svgOptimizer": {
+        "title": "Pengoptimum SVG",
+        "description": "Tampal SVG, buang noise dengan SVGO dan lihat penjimatan saiz UTF-8."
+      },
+      "unitConverter": {
+        "title": "Penukar Unit",
+        "description": "Tukar antara 323 unit merentasi 43 kategori sains dan kejuruteraan."
+      },
+      "dockerComposeGenerator": {
+        "title": "Penjana Docker Compose",
+        "description": "Pilih pangkalan data, cache, baris gilir, proksi dan imej kebolehcerapan; eksport docker-compose.yml untuk setempat."
+      },
+      "game2048": {
+        "title": "2048",
+        "description": "Luncur dan gabungkan jubin untuk mencapai 2048. Permainan teka-teki nombor klasik."
+      },
+      "sudoku": {
+        "title": "Stone GNOME",
+        "description": "Teka-teki nombor klasik. 3 tahap kesukaran, 150 peringkat setiap satu."
+      },
+      "redisCommander": {
+        "title": "Redis Commander",
+        "description": "Semak kunci, periksa nilai dan jalankan arahan pada mana-mana contoh Redis."
+      },
+      "curlToCode": {
+        "title": "cURL to Code",
+        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
+      },
+      "jsonToCode": {
+        "title": "JSON to Code",
+        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
+      },
+      "beautifyMinify": {
+        "title": "Beautify & Minify",
+        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
+      },
+      "stringCaseConverter": {
+        "title": "String Case Converter",
+        "description": "Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+      },
+      "lineSortDedupe": {
+        "title": "Line Sort & Dedupe",
+        "description": "Sort, deduplicate, trim, and clean up lists of lines locally."
+      },
+      "stringInspector": {
+        "title": "String Inspector",
+        "description": "Count characters, words, bytes, and detect invisible or non-ASCII characters."
+      },
+      "escapeEncode": {
+        "title": "Escape / Encode",
+        "description": "Escape and unescape HTML entities, backslash strings, hex, and Unicode."
+      },
+      "bcryptGenerator": {
+        "title": "Penjana & Penyemak Bcrypt",
+        "description": "Cincang kata laluan dengan bcrypt dan sahkan cincangan sedia ada."
+      },
+      "chmodCalculator": {
+        "title": "Kalkulator Chmod",
+        "description": "Tukar keizinan Unix antara oktal, simbolik dan kotak semak."
+      },
+      "codeScreenshot": {
+        "title": "Tangkap Skrin Kod",
+        "description": "Tukar kod sumber menjadi imej cantik yang boleh dikongsi."
+      },
+      "cssGenerators": {
+        "title": "Penjana CSS",
+        "description": "Penjana box-shadow, border-radius dan clamp() bendalir."
+      },
+      "exifViewer": {
+        "title": "Pemapar & Pembuang EXIF",
+        "description": "Periksa dan buang metadata EXIF foto secara setempat."
+      },
+      "faviconGenerator": {
+        "title": "Penjana Favicon",
+        "description": "Jana favicon, ikon aplikasi dan cebisan manifest."
+      },
+      "jsonDiff": {
+        "title": "Beza JSON",
+        "description": "Perbandingan bermakna dan peka struktur bagi dua dokumen JSON."
+      },
+      "jsonpathPlayground": {
+        "title": "Ruang Uji JSONPath",
+        "description": "Kueri JSON dengan JSONPath atau JMESPath dan lihat keputusan secara langsung."
+      },
+      "keycodeInspector": {
+        "title": "Pemeriksa Kod Kekunci",
+        "description": "Tekan satu kekunci untuk lihat kod peristiwa JavaScript dan pengubah suainya."
+      },
+      "markdownTableGenerator": {
+        "title": "Penjana Jadual Markdown",
+        "description": "Bina jadual Markdown dan HTML dalam penyunting grid seperti hamparan."
+      },
+      "timezoneConverter": {
+        "title": "Penukar Zon Waktu",
+        "description": "Tukar satu masa merentas banyak zon dengan petunjuk anjakan hari dan waktu kerja."
+      },
+      "tokenCounter": {
+        "title": "Pengira Token LLM",
+        "description": "Kira token LLM, visualkan cebisan dan anggarkan kos API."
+      },
+      "webhookTester": {
+        "title": "Penguji Webhook",
+        "description": "Tangkap dan periksa permintaan webhook masuk secara masa nyata."
+      },
+      "websocketTester": {
+        "title": "Penguji WebSocket",
+        "description": "Sambung ke titik akhir WebSocket dan bertukar mesej secara masa nyata."
+      },
+      "whoisLookup": {
+        "title": "Carian Whois",
+        "description": "Cari butiran pendaftaran domain dan IP melalui RDAP."
+      }
+    },
+    "tabs": {
+      "apps": "Aplikasi",
+      "analytics": "Analitik",
+      "ui": "Antara muka"
+    },
+    "analytics": {
+      "title": "Data anda sekilas",
+      "subtitle": "Kiraan disegerakkan dengan akaun anda pada pelayan.",
+      "loadError": "Tidak dapat memuatkan analitik.",
+      "retry": "Cuba lagi",
+      "loginHint": "Log masuk untuk melihat analitik penggunaan dan pilihan antara muka.",
+      "passwordEntries": "Entri kata laluan",
+      "bookmarks": "Penanda halaman",
+      "bookmarkFolders": "Folder penanda",
+      "tasksTotal": "Tugas",
+      "tasksCompleted": "Selesai",
+      "tasksOngoing": "Sedang berjalan",
+      "tasksNotStarted": "Belum dimulakan",
+      "projects": "Projek",
+      "nosqlConnections": "Sambungan pangkalan data",
+      "notes": "Nota",
+      "apiClientCollections": "Koleksi API",
+      "apiClientEnvironments": "Persekitaran API",
+      "apiClientHistory": "Entri sejarah API",
+      "jsonFormatterDocuments": "Dokumen pemformat JSON",
+      "heroBadge": "Live sync",
+      "totalLabel": "Tracked items",
+      "totalHint": "Sum of every category below",
+      "groupVault": "Vault & bookmarks",
+      "groupWorkspace": "Workspace",
+      "groupToolkit": "Developer toolkit",
+      "taskMixTitle": "Task status",
+      "taskMixEmpty": "No tasks yet — add some in Tasks.",
+      "loadingLabel": "Syncing your stats…",
+      "codeSnippets": "Petikan kod",
+      "activityTitle": "Activity",
+      "activityEmpty": "Activity builds as you use tools",
+      "distributionTitle": "Data distribution",
+      "topToolsTitle": "Top tools",
+      "taskDonutTitle": "Task completion"
+    },
+    "ui": {
+      "title": "Pilihan antara muka",
+      "subtitle": "Tema, bahasa dan alat yang kelihatan di bar sisi — daripada tetapan akaun.",
+      "loadError": "Tidak dapat memuatkan pilihan.",
+      "loginHint": "Log masuk untuk melihat pilihan antara muka yang disimpan.",
+      "theme": "Tema",
+      "accent": "Warna aksen",
+      "locale": "Bahasa",
+      "enabledTools": "Alat kelihatan",
+      "favoriteTools": "Alat kegemaran",
+      "toolsWithUsage": "Alat dengan penjejakan penggunaan"
+    },
+    "signIn": "Log masuk",
+    "popularTools": "Popular tools",
+    "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
+    "viewActivity": "Recent activity",
+    "activity": {
+      "title": "Activity log",
+      "subtitle": "Everything you changed, when, and from which device.",
+      "filterModule": "Module",
+      "filterOutcome": "Outcome",
+      "filterRange": "Time range",
+      "search": "Search activity…",
+      "all": "All",
+      "success": "Success",
+      "failure": "Failure",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7": "7 days",
+      "last30": "30 days",
+      "allTime": "All time",
+      "resetFilters": "Reset filters",
+      "activeFilters": "{count, plural, =0 {No filters} =1 {1 filter} other {# filters}} applied",
+      "empty": "No activity yet.",
+      "emptyFiltered": "No activity matches the current filters.",
+      "loadError": "Could not load activity.",
+      "loadMore": "Load more",
+      "loadingMore": "Loading…",
+      "showingOf": "Showing {shown} of {total}",
+      "changedFields": "What changed",
+      "details": "Details",
+      "hideDetails": "Hide details",
+      "device": "Device",
+      "ipAddress": "IP",
+      "latency": "Latency",
+      "endpoint": "Endpoint",
+      "status": "Status",
+      "when": "When",
+      "actionKey": "Action",
+      "before": "Before",
+      "after": "After",
+      "viewAll": "View all activity",
+      "moduleAuth": "Account",
+      "moduleBookmarks": "Bookmarks",
+      "moduleBookmarkFolders": "Bookmark folders",
+      "moduleNotes": "Notes",
+      "moduleTasks": "Tasks",
+      "modulePasswords": "Passwords",
+      "moduleSnippets": "Snippets",
+      "moduleApiClient": "API client",
+      "moduleSqlClient": "SQL client",
+      "moduleNosql": "NoSQL",
+      "moduleEnvManager": "Environments",
+      "modulePrefs": "Preferences",
+      "moduleProjects": "Projects",
+      "moduleUrlShortener": "URL shortener",
+      "moduleGameScores": "Game scores",
+      "moduleFeedback": "Feedback"
+    }
+  },
+  "Tasks": {
+    "page": {
+      "loading": "Memuatkan...",
+      "myTasksTitle": "Tugasan Saya",
+      "statsLine": "{total} tugasan • {percent}% selesai",
+      "statsLineDesktop": "{total} jumlah • {percent}% selesai"
+    },
+    "filters": {
+      "all": "Semua",
+      "total": "Jumlah",
+      "allProjects": "Semua Projek",
+      "export": "Eksport",
+      "kanban": "Kanban",
+      "list": "Senarai",
+      "searchPlaceholder": "Cari tugasan...",
+      "searchAria": "Cari tugasan",
+      "clearSearchAria": "Kosongkan carian",
+      "foundTasks": "Dijumpai {count} {count, plural, one {tugasan} other {tugasan}}",
+      "filterByAllAria": "Tapis mengikut Semua",
+      "filterByStatusAria": "Tapis mengikut {status}"
+    },
+    "status": {
+      "not-started": {
+        "label": "Belum Dimulakan",
+        "description": "Tugasan yang belum dimulakan"
+      },
+      "ongoing": {
+        "label": "Sedang Berjalan",
+        "description": "Tugasan yang sedang dalam proses"
+      },
+      "completed": {
+        "label": "Selesai",
+        "description": "Tugasan yang telah siap"
+      }
+    },
+    "priorities": {
+      "high": "Tinggi",
+      "medium": "Sederhana",
+      "low": "Rendah"
+    },
+    "form": {
+      "addNewTaskLabel": "Tambah tugasan baharu",
+      "multilinePlaceholder": "Tambah butiran tugasan... (Shift+Enter untuk baris baharu)",
+      "singlelinePlaceholder": "Apa yang perlu dilakukan? Tekan Enter untuk tambah",
+      "taskInputAria": "Input tugasan",
+      "projectPlaceholder": "Projek",
+      "selectProject": "Pilih Projek",
+      "errorSelectProject": "Sila pilih projek atau cipta yang baharu untuk menambah tugasan.",
+      "hintMultiline": "Shift+Enter untuk baris baharu, Enter untuk tambah",
+      "hintSingleline": "Enter untuk tambah",
+      "shortcutsAria": "Pintasan papan kekunci",
+      "shortcutsLabel": "Pintasan",
+      "shortcutAddTask": "Tambah tugasan",
+      "shortcutNewLine": "Baris baharu",
+      "shortcutClear": "Kosongkan",
+      "addButton": "Tambah"
+    },
+    "list": {
+      "ariaLabel": "Senarai tugasan",
+      "loading": "Memuatkan tugasan anda...",
+      "emptyTitle": "Tiada tugasan dijumpai",
+      "emptyPrimary": "Mulakan dengan menambah tugasan pertama anda di atas! Tekan Enter untuk menambah tugasan dengan pantas.",
+      "emptySecondary": "Cuba laraskan penapis atau pertanyaan carian anda."
+    },
+    "mobileDrawer": {
+      "addTaskSrOnly": "Tambah Tugasan",
+      "addNewTaskTitle": "Tambah Tugasan Baharu",
+      "addNewTaskDescription": "Cipta tugasan baharu untuk menjejaki kemajuan anda.",
+      "cancel": "Batal"
+    },
+    "kanban": {
+      "ariaLabel": "Papan Kanban",
+      "loading": "Memuatkan tugasan anda...",
+      "dropHere": "Lepaskan tugasan di sini",
+      "noTasksYet": "Belum ada tugasan",
+      "emptyColumnAria": "Lajur kosong",
+      "columnAria": "Lajur {title} dengan {count} tugasan",
+      "countInColumnAria": "{count} tugasan dalam {title}"
+    },
+    "taskItem": {
+      "confirmDelete": "Adakah anda pasti mahu memadam tugasan ini?",
+      "statusPlaceholder": "Status",
+      "changeStatusAria": "Tukar status tugasan",
+      "taskOptionsAria": "Pilihan tugasan",
+      "editTask": "Edit Tugasan",
+      "copyTask": "Salin Tugasan",
+      "copied": "Disalin!",
+      "deleteTask": "Padam Tugasan",
+      "statusHeading": "Status",
+      "editTaskAria": "Edit tugasan"
+    },
+    "editDialog": {
+      "title": "Edit Tugasan",
+      "description": "Kemas kini butiran tugasan, tambah subtugasan, tetapkan keutamaan dan lain-lain.",
+      "taskTitleLabel": "Tajuk Tugasan *",
+      "taskTitlePlaceholder": "Apa yang perlu dilakukan?",
+      "descriptionLabel": "Penerangan",
+      "descriptionPlaceholder": "Tambah butiran lanjut tentang tugasan ini...",
+      "statusLabel": "Status",
+      "priorityLabel": "Keutamaan",
+      "dueDateLabel": "Tarikh Akhir",
+      "pickDate": "Pilih tarikh",
+      "clearDate": "Kosongkan Tarikh",
+      "projectLabel": "Projek",
+      "selectProjectPlaceholder": "Pilih projek",
+      "noProject": "Tiada Projek",
+      "timeEstimateLabel": "Anggaran Masa (minit)",
+      "timeEstimatePlaceholder": "Berapa lama ini akan mengambil masa?",
+      "tagsLabel": "Tag",
+      "customTagNamePlaceholder": "Nama tag tersuai",
+      "subtasksLabel": "Subtugasan",
+      "addSubtaskPlaceholder": "Tambah subtugasan...",
+      "cancel": "Batal",
+      "saving": "Menyimpan...",
+      "saveChanges": "Simpan Perubahan"
+    },
+    "export": {
+      "title": "Eksport Tugasan",
+      "description": "Eksport tugasan anda ke format JSON, CSV, atau Excel.",
+      "projectLabel": "Projek",
+      "statusLabel": "Status",
+      "tagLabel": "Tag",
+      "allProjects": "Semua Projek",
+      "allStatuses": "Semua Status",
+      "allTags": "Semua Tag",
+      "exportAsJsonTitle": "Eksport sebagai JSON",
+      "exportAsJsonDescription": "Eksport data tugasan termasuk subtugasan, tag, dan metadata.",
+      "exportJson": "Eksport JSON",
+      "exportAsCsvExcelTitle": "Eksport sebagai CSV / Excel",
+      "exportAsCsvExcelDescription": "Eksport tugasan untuk aplikasi hamparan.",
+      "exportCsv": "Eksport CSV",
+      "exportExcel": "Eksport Excel",
+      "close": "Tutup",
+      "toastNoTasks": "Tiada tugasan untuk dieksport dengan penapis semasa",
+      "toastExportedJson": "Dieksport {count} tugasan ke JSON!",
+      "toastExportedCsv": "Dieksport {count} tugasan ke CSV!",
+      "toastExportedExcel": "Dieksport {count} tugasan ke Excel!",
+      "toastFailedJson": "Gagal mengeksport ke JSON",
+      "toastFailedCsv": "Gagal mengeksport ke CSV",
+      "toastFailedExcel": "Gagal mengeksport ke Excel",
+      "unknownProject": "Projek Tidak Diketahui"
+    },
+    "ack": {
+      "taskAddedTitle": "Tugasan berjaya ditambah",
+      "taskAddedFailedTitle": "Gagal menambah tugasan",
+      "taskUpdatedTitle": "Tugasan berjaya dikemas kini",
+      "taskUpdatedFailedTitle": "Gagal mengemas kini tugasan",
+      "taskStatusUpdateFailedTitle": "Gagal mengemas kini status tugasan",
+      "taskMovedTitle": "Tugasan dipindahkan ke {status}",
+      "tryAgain": "Sila cuba lagi.",
+      "taskDeletedTitle": "Tugasan \"{text}\" dipadam",
+      "undo": "Buat Asal",
+      "taskRestoredTitle": "Tugasan dipulihkan",
+      "taskRestoredSuccessTitle": "Tugasan berjaya dipulihkan",
+      "taskRestoreFailedTitle": "Gagal memulihkan tugasan. Sila cuba lagi.",
+      "taskDeleteFailedTitle": "Gagal memadam tugasan. Sila cuba lagi.",
+      "tasksImportedTitle": "Berjaya mengimport {count} {count, plural, one {tugasan} other {tugasan}}!",
+      "tasksImportFailedTitle": "Gagal mengimport tugasan. Sila cuba lagi.",
+      "unknownProject": "Projek Tidak Diketahui",
+      "projectCreatedTitle": "Projek berjaya dicipta",
+      "projectCreateFailedTitle": "Gagal mencipta projek",
+      "projectUpdatedTitle": "Projek berjaya dikemas kini",
+      "projectUpdateFailedTitle": "Gagal mengemas kini projek",
+      "projectDeletedTitle": "Projek berjaya dipadam",
+      "projectDeleteFailedTitle": "Gagal memadam projek"
+    }
+  },
+  "Notes": {
+    "page": {
+      "loading": "Memuatkan..."
+    },
+    "layout": {
+      "mobileNavTitle": "Navigasi Nota",
+      "openMenuAria": "Buka menu nota"
+    },
+    "sidebar": {
+      "title": "Nota",
+      "createNoteAria": "Cipta nota",
+      "searchPlaceholder": "Cari nota...",
+      "loading": "Memuatkan...",
+      "noNotesFound": "Tiada nota dijumpai.",
+      "noNotesYet": "Belum ada nota. Klik + untuk mencipta satu.",
+      "inParent": "dalam {parentTitle}",
+      "untitled": "Tanpa Tajuk",
+      "addSubPage": "Tambah sub-halaman",
+      "delete": "Padam",
+      "deleteConfirmTitle": "Padam nota?",
+      "deleteConfirmDescription": "Adakah anda pasti mahu memadam \"{title}\"? Tindakan ini tidak boleh dibuat asal.",
+      "cancel": "Batal",
+      "confirmDelete": "Padam",
+      "noteOptionsAria": "Pilihan nota"
+    },
+    "editor": {
+      "emptyState": "Pilih nota atau cipta yang baharu untuk bermula.",
+      "titlePlaceholder": "Tanpa Tajuk",
+      "saving": "Menyimpan…",
+      "ready": "Sedia",
+      "saved": "Disimpan {time}",
+      "stats": "{words} perkataan · {read} min bacaan",
+      "template": "Templat",
+      "applyTemplate": "Guna templat",
+      "exportMdLabel": ".md",
+      "exportMd": "Eksport sebagai Markdown",
+      "exportHtmlLabel": ".html",
+      "exportHtml": "Eksport sebagai HTML",
+      "focusMode": "Mod fokus",
+      "exitFocusMode": "Keluar mod fokus",
+      "save": "Simpan",
+      "addTag": "Tambah tag…",
+      "removeTag": "Buang tag {tag}",
+      "loading": "Memuatkan…",
+      "searchHint": "untuk mencari",
+      "focusHint": "mod fokus",
+      "notePath": "Laluan nota"
+    },
+    "context": {
+      "authRequiredError": "Pengguna tidak disahkan",
+      "defaultTitle": "Tanpa Tajuk",
+      "cloudSyncImageError": "Hidupkan Penyegerakan Awan untuk menyimpan imej nota. Nota teks kekal setempat."
+    }
+  },
+  "PasswordManager": {
+    "page": {
+      "loading": "Memuatkan...",
+      "title": "Pengurus Kata Laluan",
+      "loadFailed": "Failed to load passwords"
+    },
+    "vault": {
+      "toastDecryptFailed": "Gagal menyahsulit kata laluan",
+      "toastLoadFailed": "Gagal memuatkan kata laluan",
+      "toastUnlockedAuto": "Peti besi dibuka secara automatik",
+      "toastAutoUnlockFailed": "Buka kunci automatik gagal. Sila buka kunci secara manual.",
+      "toastConnectFailed": "Gagal menyambung ke pelayan",
+      "toastAutoUnlockWarning": "Peti besi dibuka, tetapi buka kunci automatik mungkin tidak berfungsi semasa muat semula",
+      "errorIncorrectPassword": "Kata laluan induk tidak betul",
+      "errorUnlockFailed": "Gagal membuka kunci peti besi",
+      "errorPasswordsMismatch": "Kata laluan tidak sepadan",
+      "errorPasswordTooShort": "Kata laluan mestilah sekurang-kurangnya 8 aksara",
+      "errorSetupFailed": "Gagal menyediakan peti besi",
+      "errorConnectFailed": "Gagal menyambung ke pelayan.",
+      "mobileTitleCreate": "Cipta peti besi anda",
+      "mobileTitleWelcome": "Selamat kembali",
+      "mobileSubtitleCreate": "Tetapkan kata laluan induk untuk melindungi kelayakan anda",
+      "mobileSubtitleUnlock": "Masukkan kata laluan induk anda untuk membuka kunci",
+      "placeholderMasterPassword": "Kata laluan induk",
+      "placeholderConfirmPassword": "Sahkan kata laluan",
+      "labelMasterPassword": "Kata laluan induk",
+      "labelConfirmPassword": "Sahkan kata laluan",
+      "placeholderEnterMaster": "Masukkan kata laluan induk",
+      "placeholderConfirmMaster": "Sahkan kata laluan induk",
+      "buttonCreateVault": "Cipta peti besi",
+      "buttonUnlock": "Buka kunci",
+      "buttonUnlockVault": "Buka kunci peti besi",
+      "footerCreate": "Kata laluan anda tidak pernah disimpan dan tidak boleh dipulihkan",
+      "footerUnlock": "Dijamin dengan penyulitan hujung-ke-hujung",
+      "desktopTitleSetup": "Sediakan peti besi kata laluan",
+      "desktopTitleUnlock": "Buka kunci peti besi",
+      "desktopDescriptionSetup": "Cipta kata laluan induk untuk mengamankan kelayakan anda. Kata laluan ini tidak pernah disimpan dan tidak boleh dipulihkan.",
+      "desktopDescriptionUnlock": "Masukkan kata laluan induk anda untuk mengakses kelayakan yang dilindungi."
+    },
+    "list": {
+      "loading": "Memuatkan kata laluan anda...",
+      "emptyTitle": "Peti besi kosong",
+      "emptyHintMobile": "Ketik butang + untuk menambah kata laluan pertama anda",
+      "emptyHintDesktop": "Anda belum menyimpan sebarang kata laluan. Klik butang \"Tambah kata laluan\" di atas untuk bermula.",
+      "addPassword": "Tambah kata laluan",
+      "searchPlaceholderMobile": "Cari peti besi anda...",
+      "searchPlaceholderDesktop": "Cari peti besi...",
+      "importExport": "Import / eksport",
+      "lockVault": "Kunci peti besi",
+      "allPasswordsTitle": "Semua kata laluan",
+      "passwordCount": "{count, plural, one {# kata laluan} other {# kata laluan}}",
+      "vaultHealthDrawerTitle": "Kesihatan peti besi",
+      "noResults": "Tiada kata laluan dijumpai sepadan dengan \"{query}\"",
+      "tableService": "Perkhidmatan",
+      "tableUsername": "Nama Pengguna",
+      "tablePassword": "Kata Laluan",
+      "tableUrl": "URL",
+      "tableActions": "Tindakan",
+      "gridViewAria": "Paparan grid",
+      "listViewAria": "Paparan senarai",
+      "passwordStrengthTitle": "Kekuatan kata laluan",
+      "deleteDialogTitle": "Padam kata laluan",
+      "deleteDialogDescription": "Adakah anda pasti mahu memadam kata laluan ini? Tindakan ini tidak boleh dibuat asal.",
+      "cancel": "Batal",
+      "delete": "Padam",
+      "edit": "Edit"
+    },
+    "toasts": {
+      "copiedPassword": "Kata laluan disalin ke papan klip",
+      "copiedUsername": "Nama pengguna disalin ke papan klip",
+      "passwordDeleted": "Kata laluan dipadam",
+      "deleteFailed": "Gagal memadam kata laluan",
+      "vaultLocked": "Peti besi dikunci",
+      "importedCount": "Berjaya mengimport {count, plural, one {# kata laluan} other {# kata laluan}}"
+    },
+    "form": {
+      "addTitle": "Tambah kata laluan baharu",
+      "editTitle": "Edit kata laluan",
+      "serviceName": "Nama perkhidmatan",
+      "usernameEmail": "Nama pengguna / e-mel",
+      "password": "Kata laluan",
+      "urlOptional": "URL laman web (pilihan)",
+      "notesOptional": "Nota (pilihan)",
+      "tags": "Tag",
+      "placeholderService": "cth. Netflix",
+      "placeholderUsername": "pengguna@contoh.com",
+      "placeholderPassword": "Masukkan atau jana kata laluan",
+      "placeholderUrl": "https://...",
+      "placeholderNotes": "Butiran tambahan...",
+      "placeholderTags": "Tambah tag (tekan Enter atau koma)",
+      "strength": "Kekuatan",
+      "strengthWeak": "Lemah",
+      "strengthMedium": "Sederhana",
+      "strengthStrong": "Kuat",
+      "advancedGenerator": "Penjana lanjutan",
+      "cancel": "Batal",
+      "saving": "Menyimpan...",
+      "savePassword": "Simpan kata laluan",
+      "updating": "Mengemas kini...",
+      "updatePassword": "Kemas kini kata laluan",
+      "addPasswordSrOnly": "Tambah kata laluan",
+      "triggerAdd": "Tambah kata laluan",
+      "toastSaved": "Kata laluan berjaya disimpan",
+      "toastSaveFailed": "Gagal menyimpan kata laluan",
+      "toastUpdated": "Kata laluan berjaya dikemas kini",
+      "toastUpdateFailed": "Gagal mengemas kini kata laluan"
+    },
+    "security": {
+      "vaultHealth": "Kesihatan peti besi",
+      "statusLabel": "Status",
+      "totalPasswords": "Jumlah kata laluan",
+      "activeEntries": "Entri aktif dalam peti besi anda",
+      "protected": "Dilindungi",
+      "weakPasswords": "Kata laluan lemah",
+      "needingImprovement": "Kata laluan yang perlu diperbaiki",
+      "allGood": "Semua baik",
+      "reusedPasswords": "Kata laluan berulang",
+      "usedMultipleTimes": "Kata laluan yang digunakan berulang kali",
+      "unique": "Unik",
+      "total": "Jumlah",
+      "weak": "Lemah",
+      "reused": "Berulang",
+      "totalCountLabel": "{count, plural, one {# kata laluan} other {# kata laluan}}",
+      "weakCountLabel": "{count} lemah",
+      "allSecure": "Semua selamat",
+      "scoreExcellent": "Cemerlang",
+      "scoreGood": "Baik",
+      "scoreFair": "Sederhana",
+      "scoreCritical": "Kritikal"
+    },
+    "importExport": {
+      "title": "Import / eksport peti besi",
+      "description": "Urus data kata laluan anda. Anda boleh mengeksport peti besi ke JSON atau mengimport daripada fail JSON.",
+      "tabExport": "Eksport",
+      "tabImport": "Import",
+      "warningTitle": "Amaran",
+      "warningBody": "Fail yang dieksport mengandungi kata laluan anda dalam teks biasa. Simpan fail ini dengan selamat dan padam selepas digunakan.",
+      "exportBlurb": "Muat turun seluruh peti besi anda sebagai fail JSON. Ini termasuk semua perkhidmatan, nama pengguna, kata laluan, dan nota.",
+      "downloadJson": "Muat turun eksport JSON",
+      "pasteLabel": "Tampal data JSON",
+      "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
+      "pasteHint": "Tampal kandungan fail JSON yang telah dieksport sebelum ini di sini.",
+      "importing": "Mengimport...",
+      "importPasswords": "Import kata laluan",
+      "trigger": "Import / eksport",
+      "toastExported": "Peti besi berjaya dieksport",
+      "toastExportFailed": "Gagal mengeksport peti besi",
+      "toastImportFailed": "Gagal mengimport: format JSON tidak sah"
+    },
+    "card": {
+      "copyUsername": "Salin nama pengguna",
+      "openUrl": "Buka URL",
+      "strength": "Kekuatan"
+    },
+    "swipeable": {
+      "copy": "Salin",
+      "delete": "Padam",
+      "copyPassword": "Salin kata laluan",
+      "copyUsername": "Salin nama pengguna",
+      "edit": "Edit",
+      "deleteAction": "Padam"
+    },
+    "floatingMenu": {
+      "lockVault": "Kunci peti besi",
+      "importExport": "Import / eksport",
+      "addPassword": "Tambah kata laluan"
+    },
+    "generator": {
+      "tabPassword": "Kata Laluan",
+      "tabPassphrase": "Frasa Laluan",
+      "strength": "Kekuatan",
+      "lengthLabel": "Panjang: {length} aksara",
+      "lengthBadge": "{length} aksara",
+      "characterSets": "Set aksara",
+      "uppercase": "Huruf besar",
+      "lowercase": "Huruf kecil",
+      "numbers": "Nombor",
+      "symbols": "Simbol",
+      "wordCountLabel": "Bilangan perkataan: {count}",
+      "wordCountBadge": "{count, plural, one {# perkataan} other {# perkataan}}",
+      "separator": "Pemisah",
+      "capitalization": "Huruf besar",
+      "includeNumber": "Sertakan nombor"
+    }
+  },
+  "EnvironmentManager": {
+    "subtitle": "Pemboleh ubah persekitaran disulitkan mengikut projek dan persekitaran.",
+    "page": {
+      "loading": "Memuatkan…",
+      "title": "Pengurus persekitaran",
+      "loadFailed": "Gagal memuatkan set persekitaran"
+    },
+    "list": {
+      "title": "Persekitaran",
+      "loading": "Memuatkan set anda…",
+      "emptyTitle": "Tiada set persekitaran lagi",
+      "emptyHint": "Cipta set untuk setiap projek dan persekitaran (cth. kunci API pengeluaran). Semua disulitkan dalam pelayar sebelum dimuat naik.",
+      "searchPlaceholder": "Cari projek, persekitaran, teg, nota…",
+      "tagFilterPlaceholder": "Tapis mengikut teg",
+      "variableCount": "{count, plural, other {# pemboleh ubah}}",
+      "updatedAgo": "Dikemas kini {time}",
+      "copyDotEnv": "Salin .env",
+      "edit": "Edit",
+      "delete": "Padam",
+      "cancel": "Batal",
+      "confirmDelete": "Padam",
+      "deleteDialogTitle": "Padam set persekitaran?",
+      "deleteDialogDescription": "Ini memadam blob disulitkan daripada akaun anda. Tidak boleh dibuat asal.",
+      "view": "View",
+      "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
+      "viewNoVariables": "No variables in this set.",
+      "viewNotesHeading": "Notes",
+      "closeView": "Close",
+      "noResultsTitle": "No results",
+      "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
+      "sort": {
+        "updatedDesc": "Newest first",
+        "updatedAsc": "Oldest first",
+        "nameAsc": "Name A→Z"
+      }
+    },
+    "toasts": {
+      "copiedDotEnv": ".env disalin ke papan keratan",
+      "deleted": "Set persekitaran dipadam",
+      "deleteFailed": "Gagal memadam"
+    },
+    "form": {
+      "addTitle": "Set persekitaran baharu",
+      "editTitle": "Edit set persekitaran",
+      "triggerAdd": "Tambah set persekitaran",
+      "addSrOnly": "Tambah set persekitaran",
+      "project": "Projek",
+      "environment": "Persekitaran",
+      "placeholderProject": "cth. billing-api",
+      "placeholderEnvironment": "cth. production",
+      "pasteEnvLabel": "Tampal .env",
+      "pasteEnvPlaceholder": "FOO=bar\nBAZ=qux",
+      "applyPaste": "Gabung baris yang ditampal",
+      "variables": "Pemboleh ubah",
+      "addRow": "Tambah baris",
+      "keyPlaceholder": "KUNCI",
+      "valuePlaceholder": "nilai",
+      "notesOptional": "Nota (pilihan)",
+      "placeholderNotes": "Dasar putaran, pemilik, pautan…",
+      "tags": "Teg",
+      "placeholderTags": "Tambah teg (Enter atau koma)",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saving": "Menyimpan…",
+      "update": "Kemas kini",
+      "updating": "Mengemas kini…",
+      "toastSaved": "Set persekitaran disimpan",
+      "toastSaveFailed": "Gagal menyimpan",
+      "toastUpdated": "Set persekitaran dikemas kini",
+      "toastUpdateFailed": "Gagal mengemas kini",
+      "toastPasteEmpty": "Tiada baris KUNCI=nilai",
+      "toastPasteApplied": "{count} pemboleh ubah digabung daripada tampalan",
+      "toastProjectEnvRequired": "Projek dan persekitaran diperlukan",
+      "pasteEnvHint": "Paste a .env here — active variables merge automatically. Lines starting with # are skipped unless you add them below.",
+      "pasteSkippedTitle": "Some lines were skipped",
+      "pasteCommentedSkipped": "{count, plural, one {# commented variable (# KEY=value) was not added} other {# commented variables (# KEY=value) were not added}}.",
+      "pastePlainCommentsSkipped": "{count, plural, one {# plain comment line was ignored} other {# plain comment lines were ignored}}.",
+      "addCommentedVariables": "Add commented variables",
+      "toastPasteAutoMerged": "{count, plural, one {Merged # variable from paste} other {Merged # variables from paste}}",
+      "toastPasteCommentedOnly": "Only commented-out variables found — add them with the button below if you need them.",
+      "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
+      "showValues": "Show values",
+      "hideValues": "Hide values"
+    }
+  },
+  "Bookmarks": {
+    "page": {
+      "loading": "Memuatkan..."
+    },
+    "manager": {
+      "foldersHeading": "Folder",
+      "tagsHeading": "Tag",
+      "tagsMore": "+{count} lagi",
+      "tagsShowLess": "Show less",
+      "searchPlaceholder": "Cari penanda halaman anda...",
+      "import": "Import",
+      "export": "Eksport",
+      "exportAsHtml": "Eksport sebagai HTML",
+      "exportAsJson": "Eksport sebagai JSON",
+      "addBookmark": "Tambah Penanda Halaman",
+      "matchingQuery": "sepadan \"{query}\"",
+      "bookmarkCount": "{count, plural, one {# penanda halaman} other {# penanda halaman}}",
+      "allBookmarks": "Semua Penanda Halaman",
+      "uncategorized": "Tidak Dikategorikan",
+      "unknownFolder": "Tidak Diketahui"
+    },
+    "card": {
+      "urlCopied": "URL disalin ke papan klip",
+      "bookmarkDeleted": "Penanda halaman dipadam",
+      "edit": "Edit",
+      "delete": "Padam",
+      "copyUrl": "Salin URL",
+      "deleteConfirmTitle": "Padam penanda halaman?",
+      "deleteConfirmDescription": "Ini akan memadam \"{title}\" secara kekal.",
+      "cancel": "Batal"
+    },
+    "grid": {
+      "emptyTitle": "Belum ada penanda halaman",
+      "emptyDescription": "Tambah penanda halaman pertama anda atau import dari pelayar anda untuk bermula."
+    },
+    "folderTree": {
+      "allBookmarks": "Semua Penanda Halaman",
+      "addSubfolder": "Tambah Subfolder",
+      "rename": "Namakan Semula",
+      "deleteFolderTitle": "Padam folder \"{name}\"?",
+      "deleteFolderDescription": "Ini akan memadam folder dan semua subfoldernya. Penanda halaman dalam folder ini akan dipindahkan ke Tidak Dikategorikan."
+    },
+    "import": {
+      "title": "Import Penanda Halaman",
+      "description": "Import penanda halaman dari fail eksport pelayar anda.",
+      "parseError": "Gagal menghurai fail penanda halaman. Sila pastikan ia adalah eksport penanda halaman yang sah.",
+      "successToast": "Diimport {bookmarks} penanda halaman dan {folders} folder",
+      "errorToast": "Gagal mengimport penanda halaman",
+      "chromeInstruction": "Menu → Penanda Halaman → Pengurus Penanda Halaman → ⋮ → Eksport Penanda Halaman",
+      "firefoxInstruction": "Menu → Penanda Halaman → Urus Penanda Halaman → Import dan Sandaran → Eksport",
+      "safariInstruction": "Fail → Eksport Penanda Halaman...",
+      "edgeInstruction": "Menu → Kegemaran → ⋯ → Eksport Kegemaran",
+      "dropZoneTitle": "Lepaskan fail penanda halaman anda di sini",
+      "dropZoneHint": "atau klik untuk melayari (HTML atau JSON)",
+      "selectedFileHint": "Klik untuk memilih fail lain",
+      "errorTitle": "Ralat",
+      "previewTitle": "Pratonton Import",
+      "previewBookmarks": "{count, plural, one {# penanda halaman} other {# penanda halaman}}",
+      "previewFolders": "{count, plural, one {# folder} other {# folder}}",
+      "importModeLabel": "Mod Import",
+      "modeMerge": "Gabungkan dengan penanda halaman sedia ada",
+      "modeReplace": "Gantikan semua penanda halaman sedia ada",
+      "cancel": "Batal",
+      "importButton": "Import",
+      "importButtonWithCount": "Import {count, plural, one {# penanda halaman} other {# penanda halaman}}"
+    },
+    "addBookmark": {
+      "titleAdd": "Tambah Penanda Halaman",
+      "titleEdit": "Edit Penanda Halaman",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://contoh.com",
+      "urlInvalid": "Sila masukkan URL yang sah",
+      "titleLabel": "Tajuk",
+      "titlePlaceholder": "Tajuk penanda halaman",
+      "titleRequired": "Sila masukkan tajuk",
+      "descriptionLabel": "Penerangan (pilihan)",
+      "descriptionPlaceholder": "Tambah nota tentang penanda halaman ini",
+      "folderLabel": "Folder",
+      "folderPlaceholder": "Pilih folder",
+      "noFolder": "Tiada folder",
+      "tagsLabel": "Tag",
+      "tagsPlaceholder": "Tambah tag (tekan Enter)",
+      "toastUpdated": "Penanda halaman dikemas kini",
+      "toastAdded": "Penanda halaman ditambah",
+      "cancel": "Batal",
+      "submitAdd": "Tambah Penanda Halaman",
+      "submitUpdate": "Kemas Kini Penanda Halaman"
+    },
+    "addFolder": {
+      "title": "Cipta Folder",
+      "nameLabel": "Nama Folder",
+      "namePlaceholder": "Folder Saya",
+      "nameRequired": "Sila masukkan nama folder",
+      "parentLabel": "Folder Induk",
+      "parentPlaceholder": "Pilih folder induk",
+      "rootParent": "Akar (Tiada induk)",
+      "toastCreated": "Folder dicipta",
+      "cancel": "Batal",
+      "submit": "Cipta Folder"
+    },
+    "editFolder": {
+      "title": "Namakan Semula Folder",
+      "nameLabel": "Nama Folder",
+      "namePlaceholder": "Nama folder",
+      "nameRequired": "Sila masukkan nama folder",
+      "toastRenamed": "Folder dinamakan semula",
+      "cancel": "Batal",
+      "save": "Simpan"
+    }
+  },
+  "EmailValidator": {
+    "header": {
+      "title": "Pengesah E-mel",
+      "description": "Sahkan dan pengesahan alamat e-mel untuk sintaks, domain, dan kebolehhantaran."
+    },
+    "tabs": {
+      "single": "Pengesahan Tunggal",
+      "bulk": "Muat Naik Pukal"
+    },
+    "single": {
+      "cardTitle": "Pengesahan E-mel Tunggal",
+      "cardDescription": "Masukkan alamat e-mel untuk menyemak kebolehhantaran dan reputasinya.",
+      "placeholder": "Masukkan alamat e-mel...",
+      "clearAria": "Kosongkan e-mel",
+      "validate": "Sahkan",
+      "validating": "Mengesahkan...",
+      "formatError": "Sila masukkan alamat e-mel yang sah"
+    },
+    "toasts": {
+      "errorTitle": "Ralat",
+      "enterEmail": "Sila masukkan alamat e-mel",
+      "invalidFormatTitle": "Format E-mel Tidak Sah",
+      "invalidFormatDescription": "Sila masukkan alamat e-mel yang sah",
+      "validateFailedDescription": "Ralat berlaku semasa mengesahkan e-mel",
+      "noEmailsTitle": "Tiada E-mel Dijumpai",
+      "noEmailsDescription": "Sila pastikan Excel anda mempunyai lajur 'email'.",
+      "fileTooLargeTitle": "Fail Terlalu Besar",
+      "fileTooLargeDescription": "Dijumpai {total} e-mel. Hanya 4000 pertama yang akan disahkan.",
+      "successTitle": "Berjaya",
+      "successValidated": "Berjaya mengesahkan {count} e-mel.",
+      "batchFailedTitle": "Pengesahan Pukal Gagal",
+      "batchFailedDescription": "Ralat berlaku semasa memproses pengesahan pukal.",
+      "noExportTitle": "Tiada Data untuk Dieksport",
+      "noExportValidOnly": "Tiada e-mel sah dijumpai untuk dieksport.",
+      "noExportAll": "Tiada keputusan untuk dieksport.",
+      "exportSuccessTitle": "Eksport Berjaya",
+      "exportSuccessExcelAll": "Dieksport {count} e-mel ke Excel.",
+      "exportSuccessExcelValid": "Dieksport {count} e-mel sah ke Excel.",
+      "exportSuccessCsvAll": "Dieksport {count} e-mel ke CSV.",
+      "exportSuccessCsvValid": "Dieksport {count} e-mel sah ke CSV."
+    },
+    "disposableAlert": {
+      "title": "E-mel Pakai Buang Dikesan",
+      "description": "Alamat e-mel ini kepunyaan pembekal e-mel pakai buang. Ia mungkin sementara atau tidak selamat."
+    },
+    "score": {
+      "reliabilityTitle": "Skor Kebolehpercayaan",
+      "scoreLabel": "Skor"
+    },
+    "details": {
+      "sectionTitle": "Butiran Pengesahan"
+    },
+    "validation": {
+      "syntaxLabel": "Sintaks Sah",
+      "syntaxTooltip": "Menyemak sama ada alamat e-mel mengikut format yang betul (cth., pengguna@domain.com)",
+      "domainLabel": "Domain Wujud",
+      "domainTooltip": "Mengesahkan bahawa nama domain dalam alamat e-mel benar-benar wujud",
+      "mxLabel": "Rekod MX Dijumpai",
+      "mxTooltip": "Menyemak sama ada domain mempunyai rekod pertukaran mel (MX) yang dikonfigurasi untuk menerima e-mel",
+      "mailboxLabel": "Peti Mel Wujud",
+      "mailboxTooltip": "Mengesahkan bahawa peti mel/akaun tertentu wujud pada pelayan mel",
+      "disposableLabel": "E-mel Pakai Buang",
+      "disposableTooltip": "Menunjukkan sama ada e-mel ini kepunyaan perkhidmatan e-mel sementara/pakai buang (mungkin berisiko)",
+      "roleBasedLabel": "E-mel Berasaskan Peranan",
+      "roleBasedTooltip": "Mengenal pasti sama ada ini adalah e-mel berasaskan peranan (cth., sokongan@, info@) dan bukan alamat peribadi"
+    },
+    "copy": {
+      "emailCopied": "E-mel disalin!",
+      "copyTooltip": "Salin e-mel"
+    },
+    "bulk": {
+      "dropHere": "Lepaskan fail anda di sini",
+      "dragHere": "Seret dan lepaskan fail anda di sini",
+      "uploadHint": "Muat naik fail .xlsx, .xls, atau .csv yang mengandungi lajur 'email' untuk mengesahkan sehingga 4000 e-mel.",
+      "filePrefix": "Fail:",
+      "selectFile": "Pilih Fail",
+      "downloadTemplate": "Muat Turun Templat"
+    },
+    "bulkLoading": {
+      "title": "Mengesahkan E-mel...",
+      "batchProgress": "Memproses kumpulan {current} daripada {total}..."
+    },
+    "stats": {
+      "totalProcessed": "Jumlah Diproses",
+      "valid": "Sah",
+      "risky": "Berisiko",
+      "invalid": "Tidak Sah"
+    },
+    "results": {
+      "detailedTitle": "Keputusan Terperinci",
+      "searchPlaceholder": "Cari e-mel...",
+      "newVerification": "Pengesahan Baharu",
+      "exportAll": "Eksport Semua",
+      "exportExcel": "Excel (.xlsx)",
+      "exportCsv": "CSV (.csv)",
+      "exportValid": "Eksport Sah ({count})"
+    },
+    "showingResults": "Menunjukkan {shown} daripada {total} keputusan",
+    "table": {
+      "email": "E-mel",
+      "status": "Status",
+      "score": "Skor",
+      "checks": "Semakan"
+    },
+    "noSearchResults": "Tiada keputusan dijumpai sepadan dengan \"{query}\"",
+    "checksTooltip": {
+      "syntax": "Sintaks",
+      "domain": "Domain",
+      "mx": "MX",
+      "mailbox": "Peti Mel"
+    },
+    "exportColumns": {
+      "email": "E-mel",
+      "status": "Status",
+      "score": "Skor",
+      "syntax": "Sintaks",
+      "domain": "Domain",
+      "mx": "MX",
+      "mailbox": "Peti Mel",
+      "disposable": "Pakai Buang",
+      "roleBased": "Berasaskan Peranan",
+      "valid": "Sah",
+      "invalid": "Tidak Sah",
+      "yes": "Ya",
+      "no": "Tidak"
+    },
+    "sheets": {
+      "validEmails": "E-mel Sah",
+      "results": "Keputusan",
+      "template": "Templat"
+    }
+  },
+  "NoSqlExplorer": {
+    "page": {
+      "heroTitle": "Penjelajah NoSQL",
+      "heroSubtitle": "Sambung ke pangkalan data anda untuk mengurus koleksi, laksanakan pertanyaan, dan visualisasikan data anda.",
+      "featureMultiTitle": "Berbilang Sambungan",
+      "featureMultiDesc": "Urus berbilang sambungan pangkalan data secara serentak.",
+      "featureMongoTitle": "Sokongan MongoDB",
+      "featureMongoDesc": "Sokongan asli untuk MongoDB dengan penapisan lanjutan.",
+      "featureQueryTitle": "Pertanyaan Pintar",
+      "featureQueryDesc": "Pembina pertanyaan yang berkuasa dengan penyorotan sintaks.",
+      "connectCta": "Sambung ke MongoDB",
+      "footerNote": "Pada masa ini menyokong {db}. Lebih banyak pangkalan data akan datang.",
+      "footerDb": "MongoDB",
+      "selectCollectionTitle": "Pilih Koleksi",
+      "selectCollectionDesc": "Pilih koleksi dari bar sisi untuk melihat dokumen dan mula meneroka data anda.",
+      "dialogAddConnection": "Tambah Sambungan",
+      "toastConnectionAdded": "Sambungan ditambah",
+      "toastFetchFailed": "Gagal mengambil dokumen untuk {collection}",
+      "toastDocDeleted": "Dokumen dipadam",
+      "deleteDocTitle": "Adakah anda benar-benar pasti?",
+      "deleteDocDescription": "Tindakan ini tidak boleh dibuat asal. Ini akan memadam dokumen secara kekal dari koleksi anda.",
+      "closeAllTitle": "Tutup semua tab?",
+      "closeAllDescription": "Adakah anda pasti mahu menutup semua tab? Sebarang perubahan yang tidak disimpan dalam penapis pertanyaan akan hilang.",
+      "closeAllConfirm": "Tutup Semua",
+      "cancel": "Batal",
+      "delete": "Padam"
+    },
+    "connection": {
+      "titleEdit": "Edit Sambungan",
+      "titleConnect": "Sambung ke MongoDB",
+      "subtitleEdit": "Kemas kini butiran sambungan anda di bawah.",
+      "subtitleConnect": "Masukkan rentetan sambungan MongoDB anda untuk mula meneroka data anda.",
+      "labelName": "Nama",
+      "placeholderName": "cth. DB Pengeluaran",
+      "labelConnectionString": "Rentetan Sambungan",
+      "placeholderConnectionString": "mongodb://localhost:27017",
+      "hintFormat": "Format: mongodb://namapengguna:katalaluan@hos:port/pangkalandata",
+      "testConnection": "Uji Sambungan",
+      "connecting": "Menyambung...",
+      "updateConnect": "Kemas Kini & Sambung",
+      "connect": "Sambung",
+      "cancelEdit": "Batal Edit",
+      "savedConnections": "Sambungan Tersimpan",
+      "emptySaved": "Belum ada sambungan tersimpan.",
+      "lastUsed": "Terakhir digunakan {time}",
+      "toastTestOk": "Sambungan berjaya!",
+      "toastTestFail": "Sambungan gagal: {message}",
+      "toastUpdated": "Sambungan dikemas kini",
+      "confirmDelete": "Adakah anda pasti mahu memadam sambungan tersimpan ini?",
+      "toastDeletedConn": "Sambungan dipadam",
+      "toastDeleteFail": "Gagal memadam sambungan",
+      "copyStringTitle": "Salin rentetan sambungan",
+      "toastStringCopied": "Rentetan sambungan disalin!",
+      "editTitle": "Edit",
+      "deleteTitle": "Padam"
+    },
+    "sidebar": {
+      "explorer": "Penjelajah",
+      "add": "Tambah",
+      "tooltipAdd": "Tambah sambungan baharu",
+      "tooltipRefresh": "Segar semula sambungan",
+      "searchPlaceholder": "Cari...",
+      "loadingConnections": "Memuatkan sambungan...",
+      "noConnectionsFound": "Tiada sambungan dijumpai",
+      "toastLoadFail": "Gagal memuatkan sambungan",
+      "toastConnectFail": "Gagal menyambung ke {name}",
+      "toastCollectionsFail": "Gagal mengambil koleksi untuk {name}",
+      "toastRenamed": "Sambungan dinamakan semula",
+      "toastRenameFail": "Gagal menamakan semula sambungan",
+      "confirmDeleteConnection": "Adakah anda pasti mahu memadam sambungan \"{name}\"?",
+      "toastDeleted": "Sambungan dipadam",
+      "toastDeleteConnFail": "Gagal memadam sambungan",
+      "confirmDropDb": "Adakah anda pasti mahu menggugurkan pangkalan data \"{name}\"? Tindakan ini tidak boleh dibuat asal.",
+      "toastDbDropped": "Pangkalan data {name} digugurkan",
+      "confirmDropCollection": "Adakah anda pasti mahu menggugurkan koleksi \"{name}\"? Tindakan ini tidak boleh dibuat asal.",
+      "toastCollectionDropped": "Koleksi {name} digugurkan",
+      "toastCollectionRenamed": "Koleksi dinamakan semula kepada {name}",
+      "toastDatabaseRenamed": "Pangkalan data dinamakan semula kepada {name}",
+      "connecting": "Menyambung...",
+      "connectionFailed": "Sambungan gagal",
+      "noDatabases": "Tiada pangkalan data",
+      "loading": "Memuatkan...",
+      "noCollections": "Tiada koleksi",
+      "renameCollectionTitle": "Namakan Semula Koleksi",
+      "renameDatabaseTitle": "Namakan Semula Pangkalan Data",
+      "placeholderNewCollection": "Nama koleksi baharu",
+      "placeholderNewDatabase": "Nama pangkalan data baharu",
+      "rename": "Namakan Semula",
+      "refresh": "Segar Semula",
+      "copyDbName": "Salin Nama DB",
+      "toastDbNameCopied": "Nama pangkalan data disalin ke papan klip",
+      "dropDatabase": "Gugurkan Pangkalan Data",
+      "dropCollection": "Gugurkan Koleksi",
+      "menuRename": "Namakan Semula",
+      "menuCopyConnectionString": "Salin Rentetan Sambungan",
+      "menuDeleteConnection": "Padam Sambungan",
+      "toastSidebarStringCopied": "Rentetan sambungan disalin!",
+      "cancel": "Batal",
+      "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
+      "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+    },
+    "document": {
+      "docsBreadcrumb": "{n} dokumen",
+      "table": "Jadual",
+      "json": "JSON",
+      "tree": "Pokok",
+      "tooltipTable": "Paparan Jadual",
+      "tooltipJson": "Paparan JSON",
+      "tooltipTree": "Paparan Pokok",
+      "itemsPerPage": "Item setiap halaman",
+      "perPage": "{n} / halaman",
+      "prevPage": "Halaman Sebelumnya",
+      "nextPage": "Halaman Seterusnya",
+      "expandAll": "Kembangkan Semua",
+      "collapseAll": "Kuncupkan Semua",
+      "refreshData": "Segar Semula Data",
+      "insert": "Sisipkan",
+      "export": "Eksport",
+      "actions": "Tindakan",
+      "invalidJson": "Kandungan JSON tidak sah",
+      "copiedClipboard": "Disalin ke papan klip",
+      "docUpdated": "Dokumen berjaya dikemas kini",
+      "docInserted": "Dokumen berjaya disisipkan",
+      "invalidJsonShort": "JSON tidak sah",
+      "docCopied": "Dokumen disalin ke papan klip",
+      "openFullEditor": "Buka dalam editor penuh",
+      "cellArray": "Tatasusunan({length})",
+      "cellObject": "Objek",
+      "cellArrayBracket": "Tatasusunan[{length}]",
+      "emptyFilterTitle": "Tiada dokumen sepadan dengan pertanyaan anda",
+      "emptyFilterHint": "Cuba laraskan penapis anda atau kosongkan pertanyaan.",
+      "clearFilter": "Kosongkan Penapis",
+      "emptyCollectionTitle": "Koleksi ini kosong",
+      "emptyCollectionHint": "Sisipkan dokumen untuk bermula.",
+      "insertDocument": "Sisipkan Dokumen",
+      "formatJson": "Format JSON",
+      "compactJson": "JSON Padat",
+      "copyClipboard": "Salin ke Papan Klip",
+      "copyJson": "Salin JSON",
+      "duplicate": "Gandakan",
+      "editDoc": "Edit Dokumen",
+      "deleteDoc": "Padam Dokumen",
+      "documentLabel": "Dokumen {n}",
+      "editDialogTitle": "Edit Dokumen",
+      "insertDialogTitle": "Sisipkan Dokumen",
+      "viewValueTitle": "Lihat Nilai",
+      "saveChanges": "Simpan Perubahan",
+      "close": "Tutup",
+      "cancel": "Batal",
+      "insertButton": "Sisipkan",
+      "import": "Import",
+      "importExport": "Import / Export",
+      "importExportTitle": "Import or export data",
+      "importExportDescription": "Choose whether to bring documents in from a JSON file or download the current page of results.",
+      "importExportTooltip": "Import or export collection data",
+      "importExportImportHint": "JSON array, object, or NDJSON file",
+      "importExportExportHint": "Spreadsheet (XLSX or CSV)",
+      "schema": "Schema",
+      "indexes": "Indexes"
+    },
+    "tabs": {
+      "filterActive": "Penapis aktif digunakan",
+      "filterActiveTooltip": "Penapis aktif",
+      "closeAll": "Tutup Semua"
+    },
+    "query": {
+      "migrateHistory": "Sejarah pertanyaan dipindahkan ke awan",
+      "saveHistoryFail": "Gagal menyimpan sejarah pertanyaan",
+      "deleteQueryFail": "Gagal memadam pertanyaan",
+      "invalidJsonQuery": "Pertanyaan JSON tidak sah",
+      "placeholder": "cth. { \"status\": \"aktif\" }",
+      "clearQuery": "Kosongkan pertanyaan",
+      "openAdvanced": "Buka Editor Lanjutan",
+      "visualBuilder": "Pembina Pertanyaan Visual",
+      "filterRules": "Peraturan Penapis",
+      "addRule": "Tambah Peraturan",
+      "noFilters": "Tiada penapis digunakan. Tambah peraturan untuk menapis dokumen.",
+      "where": "DI MANA",
+      "and": "DAN",
+      "fieldPlaceholder": "Medan",
+      "opPlaceholder": "Op",
+      "typePlaceholder": "Jenis",
+      "opRegex": "Regex",
+      "opIn": "Dalam",
+      "opNin": "Tidak Dalam",
+      "opExists": "Wujud",
+      "typeAuto": "Auto",
+      "typeString": "Rentetan",
+      "typeNumber": "Nombor",
+      "typeBoolean": "Boolean",
+      "typeDate": "Tarikh",
+      "typeObjectId": "ObjectId",
+      "true": "Benar",
+      "false": "Palsu",
+      "valuePlaceholder": "Nilai",
+      "valueListPlaceholder": "nilai1, nilai2",
+      "clearFilters": "Kosongkan Penapis",
+      "applyFilters": "Gunakan Penapis",
+      "queryHistory": "Sejarah Pertanyaan",
+      "noSavedQueries": "Belum ada pertanyaan tersimpan",
+      "advancedEditorTitle": "Editor Pertanyaan Lanjutan",
+      "templatesPlaceholder": "Templat",
+      "templateEmptyAgg": "Pengagregatan Kosong",
+      "templateMatch": "$match (Penapis)",
+      "templateLookup": "$lookup (Cantum)",
+      "templateGroup": "$group (Kira/Jumlah)",
+      "format": "Format",
+      "formattedJson": "JSON Terformat",
+      "runQuery": "Jalankan Pertanyaan"
+    },
+    "export": {
+      "selectFieldsError": "Sila pilih sekurang-kurangnya satu medan untuk dieksport",
+      "success": "Berjaya dieksport ke {filename}",
+      "fail": "Gagal mengeksport data",
+      "title": "Eksport Data",
+      "formatLabel": "Format Eksport",
+      "formatXlsx": "Excel (XLSX)",
+      "formatCsv": "CSV",
+      "selectFields": "Pilih Medan",
+      "selectAll": "Pilih Semua",
+      "fieldsSelected": "{count, plural, one {# medan dipilih} other {# medan dipilih}}",
+      "cancel": "Batal",
+      "export": "Eksport",
+      "sheetName": "Data"
+    },
+    "jsonTree": {
+      "typeLabel": "Jenis: {type}",
+      "itemSummary": "{count, plural, one {# item} other {# item}}"
+    }
+  },
+  "ApiClient": {
+    "defaults": {
+      "newRequest": "Permintaan Baharu",
+      "importedRequest": "Permintaan Diimport",
+      "untitledRequest": "Permintaan Tanpa Tajuk"
+    },
+    "toasts": {
+      "curlImported": "cURL berjaya diimport",
+      "curlParseFailed": "Gagal menghurai arahan cURL",
+      "invalidJsonBody": "Badan JSON tidak sah",
+      "requestFailed": "Permintaan gagal: {message}",
+      "curlPasted": "cURL ditampal dan dihurai dengan berjaya",
+      "responseCopied": "Respons disalin ke papan klip",
+      "codeCopied": "Kod disalin ke papan klip",
+      "copyFailed": "Gagal menyalin ke papan klip"
+    },
+    "layout": {
+      "collections": "Koleksi",
+      "closeSidebar": "Tutup bar sisi",
+      "openSidebar": "Buka bar sisi",
+      "request": "Request",
+      "response": "Response"
+    },
+    "requestPanel": {
+      "methodPlaceholder": "Kaedah",
+      "urlPlaceholder": "https://api.contoh.com/v1/...",
+      "sending": "Menghantar...",
+      "send": "Hantar",
+      "invalidJsonBodyHelp": "Tidak boleh hantar: kandungan JSON tidak sah"
+    },
+    "requestTabs": {
+      "params": "Parameter",
+      "headers": "Pengepala",
+      "body": "Badan",
+      "auth": "Pengesahan",
+      "bodyType": "Jenis badan",
+      "selectType": "Pilih jenis",
+      "bodyNone": "Tiada",
+      "bodyJson": "JSON",
+      "bodyText": "Teks",
+      "noBodyHint": "Tiada kandungan badan untuk permintaan ini",
+      "switchToJson": "Tukar ke badan JSON",
+      "authType": "Jenis pengesahan",
+      "noAuth": "Tiada pengesahan",
+      "bearerToken": "Token Bearer",
+      "basicAuth": "Pengesahan asas",
+      "apiKey": "Kunci API",
+      "labelToken": "Token",
+      "placeholderBearerToken": "Token Bearer",
+      "labelUsername": "Nama pengguna",
+      "placeholderUsername": "Nama pengguna",
+      "labelPassword": "Kata laluan",
+      "placeholderPassword": "Kata laluan",
+      "labelKey": "Kunci",
+      "placeholderApiKeyName": "Nama kunci (cth. X-Api-Key)",
+      "labelValue": "Nilai",
+      "placeholderValue": "Nilai",
+      "addTo": "Tambah ke",
+      "header": "Pengepala",
+      "queryParams": "Parameter pertanyaan",
+      "noAuthHint": "Permintaan ini tidak menggunakan pengesahan."
+    },
+    "responsePanel": {
+      "emptyTitle": "Sedia untuk meneroka?",
+      "emptyHint": "Masukkan URL dan klik Hantar untuk melihat data respons di sini.",
+      "responsePreviewAlt": "Pratonton respons",
+      "previewUnavailable": "Pratonton tidak tersedia untuk jenis kandungan ini",
+      "status": "Status",
+      "time": "Masa",
+      "size": "Saiz",
+      "copyBody": "Salin badan",
+      "downloadResponse": "Muat turun respons",
+      "bodyTab": "Badan",
+      "previewTab": "Pratonton",
+      "headersTab": "Pengepala",
+      "binaryRawView": "Data binari tidak boleh dipaparkan dalam paparan mentah.",
+      "errorStatusLabel": "Ralat",
+      "truncatedBanner": "Showing first {shownKb} KB of a large response.",
+      "downloadFullBody": "Download full body"
+    },
+    "tabBar": {
+      "addTabAria": "Tab baharu"
+    },
+    "collectionsSidebar": {
+      "title": "Sumber API",
+      "newCollection": "Koleksi baharu",
+      "tabCollections": "Koleksi",
+      "tabHistory": "Sejarah",
+      "noCollectionsTitle": "Tiada koleksi",
+      "noCollectionsHint": "Cipta koleksi untuk mengatur permintaan API anda.",
+      "createCollection": "Cipta koleksi",
+      "newFolder": "Folder baharu",
+      "rename": "Namakan semula",
+      "delete": "Padam",
+      "emptyCollection": "Koleksi kosong",
+      "recentRequests": "Permintaan terkini",
+      "clearAll": "Kosongkan semua",
+      "noHistoryTitle": "Belum ada sejarah",
+      "noHistoryHint": "Hantar permintaan untuk melihatnya di sini.",
+      "dialogNewFolderTitle": "Folder baharu",
+      "dialogNewFolderDescription": "Cipta folder baharu untuk mengatur permintaan anda.",
+      "labelFolderName": "Nama folder",
+      "placeholderFolderName": "Folder saya",
+      "createFolder": "Cipta folder",
+      "dialogNewCollectionTitle": "Koleksi baharu",
+      "dialogNewCollectionDescription": "Cipta koleksi peringkat atas baharu.",
+      "labelCollectionName": "Nama koleksi",
+      "placeholderCollectionName": "Koleksi saya",
+      "dialogRenameCollectionTitle": "Namakan semula koleksi",
+      "dialogRenameCollectionDescription": "Masukkan nama baharu untuk koleksi.",
+      "placeholderRenameCollection": "Nama koleksi",
+      "renameAction": "Namakan semula",
+      "dialogDeleteBulkTitle": "Delete Collections",
+      "dialogDeleteBulkDescription": "This action cannot be undone. The following collections will be permanently deleted:",
+      "cancel": "Cancel"
+    },
+    "collectionItem": {
+      "newFolder": "Folder baharu",
+      "delete": "Padam",
+      "emptyFolder": "Folder kosong"
+    },
+    "environmentManager": {
+      "noEnvironment": "Tiada persekitaran",
+      "manageDialogTitle": "Urus persekitaran",
+      "placeholderNewEnv": "Persekitaran baharu",
+      "variablesHeading": "Pembolehubah {name}",
+      "addVariable": "Tambah pembolehubah",
+      "columnVariable": "Pembolehubah",
+      "columnValue": "Nilai",
+      "placeholderKey": "Kunci",
+      "placeholderValue": "Nilai",
+      "selectEnvToEdit": "Pilih persekitaran untuk diedit"
+    },
+    "codeGenerator": {
+      "triggerTitle": "Jana kod",
+      "dialogTitle": "Jana kod",
+      "languageCurl": "cURL",
+      "languageJavaScript": "JavaScript (fetch)",
+      "languagePython": "Python (requests)",
+      "languageGo": "Go",
+      "copy": "Salin",
+      "errorGenerating": "Ralat menjana kod"
+    },
+    "keyValueEditor": {
+      "columnKey": "Kunci",
+      "columnValue": "Nilai",
+      "placeholderKey": "Kunci",
+      "placeholderValue": "Nilai",
+      "addItem": "Tambah item"
+    },
+    "importCurl": {
+      "trigger": "Import cURL",
+      "dialogTitle": "Import cURL",
+      "dialogDescription": "Tampal arahan cURL anda di bawah untuk mengimportnya sebagai permintaan baharu.",
+      "placeholder": "curl -X POST https://api.contoh.com/data -d '...'",
+      "import": "Import"
+    },
+    "saveRequest": {
+      "trigger": "Simpan",
+      "dialogTitle": "Simpan permintaan",
+      "dialogDescription": "Simpan permintaan ini ke folder koleksi.",
+      "labelName": "Nama permintaan",
+      "placeholderName": "Permintaan saya",
+      "labelFolder": "Folder",
+      "placeholderFolder": "Pilih folder",
+      "save": "Simpan"
+    },
+    "shortcuts": {
+      "ariaLabel": "Keyboard shortcuts",
+      "title": "Keyboard shortcuts",
+      "newTab": "New tab",
+      "closeTab": "Close tab",
+      "sendRequest": "Send request"
+    },
+    "toolbar": {
+      "moreActions": "More actions",
+      "code": "Generate code",
+      "save": "Save request",
+      "importCurl": "Import cURL",
+      "environments": "Environments",
+      "shortcuts": "Keyboard shortcuts"
+    }
+  },
+  "RichEditor": {
+    "toolbar": {
+      "editMode": "Mod Edit",
+      "viewOnlyMode": "Mod Lihat Sahaja",
+      "insertComponent": "Sisipkan komponen",
+      "addUnorderedList": "Tambah senarai tidak bertertib",
+      "addOrderedList": "Tambah senarai bertertib",
+      "addTable": "Tambah jadual"
+    },
+    "addBlock": "Tambah blok",
+    "media": {
+      "popoverTitle": "Tambah media",
+      "singleImage": "Imej Tunggal",
+      "singleImageDesc": "Muat naik satu imej",
+      "multipleImages": "Berbilang Imej",
+      "multipleImagesDesc": "Muat naik grid imej",
+      "video": "Video",
+      "videoDesc": "Muat naik fail video",
+      "uploadingAlt": "Memuat naik...",
+      "uploadFailedAlt": "Muat naik gagal"
+    },
+    "export": {
+      "fabAria": "Eksport kod",
+      "title": "Eksport Kod",
+      "description": "Salin output HTML atau JSON kandungan editor anda",
+      "preview": "Pratonton",
+      "html": "HTML",
+      "json": "JSON",
+      "previewOptions": "Pilihan Pratonton",
+      "enhanceSpaces": "Tingkatkan Ruang",
+      "livePreview": "Pratonton langsung HTML yang dirender",
+      "htmlTailwind": "HTML dengan kelas CSS Tailwind",
+      "editorJson": "Keadaan editor sebagai JSON",
+      "copyHtml": "Salin HTML",
+      "copyJson": "Salin JSON",
+      "copied": "Disalin!"
+    },
+    "template": {
+      "fabTitle": "Tukar Templat",
+      "title": "Pilih Templat",
+      "description": "Pilih templat untuk bermula dengan pantas menggunakan susun atur dan kandungan pra-bina",
+      "catAll": "Semua Templat",
+      "catProductivity": "Produktiviti",
+      "catCreative": "Kreatif",
+      "catBusiness": "Perniagaan",
+      "catPersonal": "Peribadi",
+      "noTemplates": "Tiada templat dijumpai dalam kategori ini",
+      "confirmTitle": "Gantikan Kandungan Sedia Ada?",
+      "confirmDescription": "Anda mempunyai kandungan sedia ada dalam editor. Menggunakan templat ini akan menggantikan semua kandungan semasa.",
+      "cannotUndo": "Tindakan ini tidak boleh dibuat asal.",
+      "cancel": "Batal",
+      "replaceContent": "Gantikan Kandungan"
+    },
+    "command": {
+      "searchPlaceholder": "Cari arahan...",
+      "noResults": "Tiada arahan dijumpai.",
+      "turnInto": "Tukar kepada",
+      "h1": {
+        "label": "Tajuk 1",
+        "description": "Tajuk bahagian besar",
+        "keywords": "h1,tajuk,heading,besar"
+      },
+      "h2": {
+        "label": "Tajuk 2",
+        "description": "Tajuk bahagian sederhana",
+        "keywords": "h2,tajuk,subtajuk"
+      },
+      "h3": {
+        "label": "Tajuk 3",
+        "description": "Tajuk bahagian kecil",
+        "keywords": "h3,tajuk,subtajuk"
+      },
+      "h4": {
+        "label": "Tajuk 4",
+        "description": "Tajuk bahagian sangat kecil",
+        "keywords": "h4,tajuk"
+      },
+      "h5": {
+        "label": "Tajuk 5",
+        "description": "Tajuk lebih kecil",
+        "keywords": "h5,tajuk"
+      },
+      "h6": {
+        "label": "Tajuk 6",
+        "description": "Tajuk terkecil",
+        "keywords": "h6,tajuk"
+      },
+      "p": {
+        "label": "Perenggan",
+        "description": "Perenggan teks biasa",
+        "keywords": "p,perenggan,teks,biasa"
+      },
+      "code": {
+        "label": "Blok Kod",
+        "description": "Coretan kod",
+        "keywords": "kod,blok kod,coretan,pre"
+      },
+      "blockquote": {
+        "label": "Petikan",
+        "description": "Petikan blok",
+        "keywords": "petikan,blockquote,kutipan"
+      },
+      "li": {
+        "label": "Senarai Berbulet",
+        "description": "Item senarai dengan bulet",
+        "keywords": "senarai,bulet,tidak bertertib,ul,li"
+      },
+      "ol": {
+        "label": "Senarai Bernombor",
+        "description": "Item senarai bernombor",
+        "keywords": "senarai,bernombor,bertertib,ol,li"
+      },
+      "img": {
+        "label": "Imej",
+        "description": "Muat naik atau benamkan imej",
+        "keywords": "imej,img,gambar,foto,muat naik"
+      },
+      "video": {
+        "label": "Video",
+        "description": "Muat naik atau benamkan video",
+        "keywords": "video,vid,filem,mp4,muat naik"
+      },
+      "table": {
+        "label": "Jadual",
+        "description": "Cipta jadual",
+        "keywords": "jadual,grid,baris,lajur,sel"
+      }
+    },
+    "toasts": {
+      "tableImported": "Jadual Diimport",
+      "tableImportedDesc": "Jadual markdown telah berjaya diimport",
+      "mediaPasted": "Media ditampal",
+      "pasteMixed": "{imageCount} imej dan {videoCount} video ditampal dengan berjaya.",
+      "pasteImages": "{count} imej ditampal dengan berjaya.",
+      "pasteVideos": "{count} video ditampal dengan berjaya.",
+      "pasteFailed": "Tampal gagal",
+      "unexpectedError": "Ralat tidak dijangka berlaku",
+      "uploadFailed": "Muat naik gagal"
+    },
+    "blockBackground": {
+      "menuItem": "Tukar Warna Latar Belakang",
+      "dialogTitle": "Warna Latar Belakang Blok",
+      "dialogDescription": "Pilih warna latar belakang untuk blok ini",
+      "tabPreset": "Warna Pratetap",
+      "tabCustom": "Warna Tersuai",
+      "sectionHeading": "Warna Latar Belakang",
+      "apply": "Guna",
+      "colors": {
+        "none": "Tiada",
+        "red": "Merah",
+        "orange": "Jingga",
+        "yellow": "Kuning",
+        "green": "Hijau",
+        "blue": "Biru",
+        "indigo": "Indigo",
+        "purple": "Ungu",
+        "pink": "Merah Jambu",
+        "teal": "Teal",
+        "cyan": "Sian",
+        "gray": "Kelabu"
+      }
+    },
+    "tableDialog": {
+      "title": "Cipta Jadual",
+      "description": "Cipta jadual baharu atau import dari markdown",
+      "markdownCheckbox": "Saya mempunyai jadual markdown",
+      "pasteMarkdownLabel": "Tampal Jadual Markdown",
+      "markdownPlaceholder": "| Pengepala 1 | Pengepala 2 | Pengepala 3 |\n|----------|----------|----------|\n| Sel 1   | Sel 2   | Sel 3   |\n| Sel 4   | Sel 5   | Sel 6   |",
+      "markdownHint": "Tampal jadual markdown anda di atas. Mesti termasuk baris pengepala dan pemisah.",
+      "rows": "Baris",
+      "columns": "Lajur",
+      "maxDimensions": "Maksimum: 20 baris × 10 lajur",
+      "cancel": "Batal",
+      "importTable": "Import Jadual",
+      "createTable": "Cipta Jadual"
+    },
+    "tableParse": {
+      "errors": {
+        "minRows": "Jadual mesti mempunyai sekurang-kurangnya baris pengepala dan baris pemisah",
+        "pipeFormat": "Baris jadual mesti bermula dan berakhir dengan |",
+        "headerMinCol": "Baris pengepala mesti mempunyai sekurang-kurangnya satu lajur",
+        "separatorRow": "Baris kedua mestilah pemisah (cth., |---|---|)",
+        "rowColumnMismatch": "Baris {row} mempunyai {got} lajur, dijangkakan {expected}",
+        "parseFailed": "Gagal menghurai jadual markdown"
+      }
+    },
+    "link": {
+      "editLink": "Edit Pautan",
+      "addLink": "Tambah Pautan",
+      "selectedText": "Teks dipilih: \"{text}\"",
+      "linkUrl": "URL Pautan",
+      "urlPlaceholder": "https://contoh.com",
+      "update": "Kemas Kini",
+      "addLinkButton": "Tambah Pautan",
+      "toastApplied": "Pautan Digunakan",
+      "toastLinkedTo": "Dipautkan ke: {url}",
+      "toastRemoved": "Pautan Dibuang",
+      "toastRemovedDesc": "Pautan telah dibuang dari pilihan"
+    },
+    "customClass": {
+      "devMode": "Mod Pembangun",
+      "toggleDevModeAria": "Togol mod pembangun",
+      "searchPlaceholderDev": "Cari kelas... (cth., 'text', 'bg', 'flex')",
+      "searchPlaceholderUser": "Cari gaya... (cth., 'merah', 'tebal', 'bayang')",
+      "appliesTitle": "Menggunakan: {className}",
+      "noMatches": "Tiada kelas dijumpai sepadan dengan \"{query}\"",
+      "toastClassReplaced": "Kelas Digantikan",
+      "toastClassReplacedDesc": "Digantikan \"{replaced}\" dengan \"{className}\"",
+      "toastCustomClassApplied": "Kelas Tersuai Digunakan",
+      "toastAppliedClass": "Kelas digunakan: {className}"
+    },
+    "insertComponents": {
+      "title": "Sisipkan Komponen",
+      "description": "Pilih komponen untuk disisipkan ke dalam dokumen anda",
+      "noComponents": "Tiada komponen tersedia",
+      "categories": {
+        "media": "Media",
+        "layout": "Susun Atur",
+        "interactive": "Interaktif",
+        "decoration": "Hiasan"
+      },
+      "freeImage": {
+        "name": "Imej Pergerakan Bebas",
+        "description": "Tambah imej yang boleh diletakkan di mana-mana dan diubah saiz dengan bebas"
+      }
+    }
+  },
+  "JsonFormatter": {
+    "title": "Pemformat JSON",
+    "description": "Format, sahkan dan sunting JSON dalam paparan teks dan pokok.",
+    "documentNameText": "Dokumen teks {n}",
+    "documentNameTree": "Dokumen pokok {n}",
+    "newDocument": "Baharu",
+    "copy": "Salin",
+    "save": "Simpan",
+    "load": "Muat",
+    "saving": "Menyimpan...",
+    "leftDocNameLabel": "Nama dokumen kiri",
+    "rightDocNameLabel": "Nama dokumen kanan",
+    "toastCopiedText": "Panel teks disalin",
+    "toastCopiedTree": "Panel pokok disalin",
+    "toastCopyFailed": "Gagal menyalin JSON",
+    "toastLoginRequired": "Sila log masuk untuk menyimpan dokumen",
+    "toastSaved": "Dokumen disimpan",
+    "toastSaveFailed": "Gagal menyimpan dokumen",
+    "format": "Format",
+    "compact": "Padatkan",
+    "sortKeys": "Susun kunci",
+    "repair": "Baiki",
+    "query": "Pertanyaan",
+    "toastInvalidJson": "JSON tidak sah",
+    "toastAlreadyValid": "JSON sudah sah",
+    "toastRepaired": "JSON dibaiki",
+    "toastRepairFailed": "JSON tidak dapat dibaiki"
+  },
+  "JwtDecoder": {
+    "title": "Penyahkod JWT",
+    "subtitle": "Periksa header dan payload. Tamat tempoh menggunakan tuntutan <code>exp</code>. Tiada apa dihantar ke pelayan; tandatangan tidak disahkan.",
+    "tokenLabel": "Token",
+    "clear": "Kosongkan",
+    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "copy": "Salin",
+    "expiryLabel": "Tamat tempoh (exp)",
+    "signaturePresent": "Tandatangan ada (tidak disahkan)",
+    "noExp": "Tiada tuntutan <code>exp</code> dalam payload.",
+    "status": {
+      "expired": "Tamat tempoh",
+      "valid": "Sah"
+    },
+    "fields": {
+      "unix": "Unix",
+      "local": "Tempatan",
+      "utc": "UTC"
+    },
+    "claims": {
+      "issuedAt": "Dikeluarkan (iat)",
+      "notBefore": "Bukan sebelum (nbf)"
+    },
+    "panels": {
+      "header": "Header",
+      "payload": "Payload"
+    },
+    "errors": {
+      "empty": "Tampal JWT untuk dinyahkod.",
+      "segments": "JWT perlukan sekurang-kurangnya header dan payload (dua segmen).",
+      "base64": "Tidak dapat nyahkod base64url bagi header atau payload."
+    },
+    "relative": {
+      "future": "dalam {n} {unit}",
+      "past": "{n} {unit} lalu"
+    },
+    "units": {
+      "second": "{count, plural, one {saat} other {saat}}",
+      "minute": "{count, plural, one {minit} other {minit}}",
+      "hour": "{count, plural, one {jam} other {jam}}",
+      "day": "{count, plural, one {hari} other {hari}}"
+    },
+    "tabs": {
+      "decode": "Nyahkod",
+      "sign": "Penjana / penandatangan"
+    },
+    "signer": {
+      "algLabel": "Algoritma (alg)",
+      "tabs": {
+        "payload": "Payload",
+        "header": "Header"
+      },
+      "payloadLabel": "JSON payload",
+      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
+      "headerLabel": "JSON header",
+      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
+      "secretLabel": "Rahsia (HS*)",
+      "secretPlaceholder": "Tampal rahsia HMAC anda…",
+      "privateKeyLabel": "Kunci peribadi PEM (RS*)",
+      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
+      "noneHint": "Algoritma \"none\" menghasilkan token tanpa tandatangan. Ini tidak selamat dan hanya untuk ujian.",
+      "sign": "Tandatangan",
+      "verify": "Sahkan tandatangan",
+      "outputLabel": "Token (JWS padat)",
+      "outputPlaceholder": "Klik \"Tandatangan\"…",
+      "copyToken": "Salin token",
+      "copied": "Disalin",
+      "verifyKeyLabel": "Kunci pengesahan (pilihan)",
+      "verifyKeyPlaceholder": "Untuk RS*: tampal kunci awam (SPKI) PEM. Untuk HS*: biarkan kosong untuk guna rahsia yang sama.",
+      "verifyKeyHint": "Jika kosong, pengesahan menggunakan kunci tandatangan (berguna untuk HS*).",
+      "verifyStatus": {
+        "valid": "Tandatangan sah",
+        "invalid": "Tandatangan tidak sah"
+      },
+      "securityNote": "Semuanya berjalan secara tempatan dalam pelayar; kunci dan token tidak dimuat naik."
+    },
+    "signErrors": {
+      "invalidJson": "Header dan payload mesti JSON yang sah.",
+      "unsupportedAlg": "Algoritma tidak disokong.",
+      "missingKey": "Kunci tandatangan diperlukan untuk algoritma ini.",
+      "cryptoFailed": "Tandatangan gagal. Semak format kunci dan cuba lagi."
+    },
+    "verifyErrors": {
+      "empty": "Masukkan JWT untuk disahkan.",
+      "segments": "JWT mesti mempunyai tepat 3 segmen untuk mengesahkan tandatangan.",
+      "unsupportedAlg": "Algoritma tidak disokong atau alg tiada dalam header.",
+      "missingKey": "Kunci pengesahan diperlukan untuk algoritma ini.",
+      "base64": "Tidak dapat menyahkod header atau tandatangan JWT.",
+      "cryptoFailed": "Pengesahan gagal. Semak format kunci dan cuba lagi."
+    }
+  },
+  "CertificatePemDecoder": {
+    "title": "Pengecam sijil / PEM",
+    "subtitle": "Tampal sijil X.509 (<code>-----BEGIN CERTIFICATE-----</code>) atau CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjek, penerbit, tarikh, dan SAN dihuraikan secara setempat; tiada muat naik.",
+    "pemLabel": "Input PEM",
+    "clear": "Padam",
+    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
+    "parsing": "Menghuraikan…",
+    "copyHex": "Salin cap jari (hex tanpa titik bertindih)",
+    "errors": {
+      "empty": "Tampal sijil PEM atau CSR untuk dinyahkod.",
+      "noBlock": "Tiada blok PEM sijil atau CSR ditemui.",
+      "parseFailed": "Tidak dapat menghuraikan data PEM ini."
+    },
+    "block": {
+      "title": "Blok PEM {index}",
+      "certificate": "Sijil X.509",
+      "csr": "Permintaan tandatangan sijil"
+    },
+    "fields": {
+      "subject": "Subjek",
+      "issuer": "Penerbit",
+      "notBefore": "Tidak sah sebelum",
+      "notAfter": "Tidak sah selepas",
+      "serial": "Nombor siri (hex)",
+      "sha256": "Cap jari SHA-256",
+      "sans": "Nama alternatif subjek",
+      "sansNone": "Tiada sambungan SAN.",
+      "signatureAlgorithm": "Algoritma tandatangan",
+      "csrIssuerNote": "CSR tidak termasuk penerbit (kelihatan pada sijil yang dikeluarkan).",
+      "csrValidityNote": "CSR tidak termasuk tarikh kesahan (kelihatan pada sijil yang dikeluarkan)."
+    },
+    "sanType": {
+      "dns": "DNS",
+      "dn": "Nama direktori",
+      "email": "E-mel",
+      "ip": "IP",
+      "url": "URI",
+      "guid": "GUID",
+      "upn": "UPN",
+      "id": "ID berdaftar",
+      "other": "{type}"
+    }
+  },
+  "SqlFormatter": {
+    "title": "Pemformat SQL",
+    "subtitle": "Cantikkan SQL untuk MySQL, PostgreSQL atau SQLite. Berjalan dalam pelayar; tiada muat naik.",
+    "dialectLabel": "Dialek",
+    "keywordsLabel": "Kata kunci",
+    "indentLabel": "Indent",
+    "dialects": {
+      "mysql": "MySQL",
+      "postgresql": "PostgreSQL",
+      "sqlite": "SQLite"
+    },
+    "keywordCase": {
+      "upper": "HURUF BESAR",
+      "lower": "huruf kecil",
+      "preserve": "Kekalkan"
+    },
+    "spaces": "{n} ruang",
+    "format": "Format",
+    "clear": "Kosongkan",
+    "counter": "{current} / {max} aksara",
+    "inputPanel": "Input",
+    "formattedPanel": "Diformat",
+    "copy": "Salin",
+    "inputPlaceholder": "SELECT * FROM ...",
+    "outputPlaceholder": "Klik \"Format\"…",
+    "errors": {
+      "tooLong": "Input dihadkan kepada {max} aksara.",
+      "couldNotFormat": "Tidak dapat memformat SQL ini."
+    }
+  },
+  "YamlFormatter": {
+    "title": "Pemformat YAML",
+    "subtitle": "Format, sahkan dan tukarkan YAML dalam pelayar anda. Tiada yang dimuat naik.",
+    "outputLabel": "Output",
+    "outputModes": {
+      "yaml": "YAML (diformatkan)",
+      "json": "JSON"
+    },
+    "indentLabel": "Inden",
+    "spaces": "{n} ruang",
+    "format": "Format",
+    "clear": "Kosongkan",
+    "copy": "Salin",
+    "counter": "{current} / {max} aksara",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "errors": {
+      "tooLong": "Input terhad kepada {max} aksara.",
+      "couldNotFormat": "Tidak dapat menghurai YAML ini."
+    }
+  },
+  "GraphqlFormatter": {
+    "title": "Pemformat GraphQL",
+    "subtitle": "Format pertanyaan, mutasi dan langganan GraphQL dalam pelayar. Tiada apa dimuat naik.",
+    "tabs": {
+      "format": "Format",
+      "build": "Pembina pertanyaan"
+    },
+    "outputModeLabel": "Output",
+    "outputModes": {
+      "pretty": "Cetakan mudah baca",
+      "minify": "Perminikan"
+    },
+    "format": "Format",
+    "clear": "Kosongkan",
+    "counter": "{current} / {max} aksara",
+    "inputPanel": "Input",
+    "outputPanel": "Output",
+    "copy": "Salin",
+    "builderHint": "Bina rangka dokumen kemudian gunakannya pada editor. Definisi pemboleh ubah menggunakan sintaks GraphQL (cth. $id: ID!) — kurungan pilihan.",
+    "builder": {
+      "operation": "Operasi",
+      "operationName": "Nama operasi",
+      "operationNamePlaceholder": "MyOperation",
+      "variableDefs": "Definisi pemboleh ubah",
+      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
+      "selection": "Set pilihan",
+      "apply": "Gunakan pada input",
+      "operations": {
+        "query": "Query",
+        "mutation": "Mutation",
+        "subscription": "Subscription"
+      }
+    },
+    "errors": {
+      "tooLong": "Input terhad kepada {max} aksara.",
+      "couldNotFormat": "Tidak dapat menghuraikan atau mencetak GraphQL ini.",
+      "emptySelection": "Tambah set pilihan sebelum menggunakan."
+    }
+  },
+  "RegexTester": {
+    "title": "Penguji regex",
+    "subtitle": "Regex gaya JavaScript secara langsung pada teks anda. Padanan diserlahkan; tiada apa keluar dari pelayar.",
+    "patternLabel": "Corak",
+    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
+    "flags": {
+      "g": "g global",
+      "i": "i abaikan huruf besar/kecil",
+      "m": "m multiline",
+      "s": "s dotAll",
+      "u": "u unicode",
+      "gTitle": "Find all matches, not just the first",
+      "iTitle": "Match regardless of letter case",
+      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
+      "sTitle": "Dot (.) also matches newline characters",
+      "uTitle": "Treat the pattern as a sequence of Unicode code points"
+    },
+    "emptyPattern": "(kosong)",
+    "noFlags": "—",
+    "matches": "{count, plural, one {padanan} other {padanan}}",
+    "testTextLabel": "Teks ujian",
+    "counter": "{current} / {max}",
+    "clear": "Kosongkan",
+    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
+    "errors": {
+      "tooLong": "Teks dihadkan kepada {max} aksara.",
+      "invalid": "Ungkapan regular tidak sah.",
+      "runaway": "Dihentikan selepas {max} padanan (mungkin corak runaway)."
+    },
+    "matchNav": {
+      "prev": "Previous match",
+      "next": "Next match",
+      "position": "{current} / {total}"
+    }
+  },
+  "TimestampConverter": {
+    "title": "Penukar cap masa",
+    "subtitle": "Saat Unix (≤10 digit) atau milisaat (integer lebih panjang), <code>ISO-8601</code>, atau rentetan yang boleh diparse oleh pelayar. Semuanya berjalan secara tempatan.",
+    "inputLabel": "Input",
+    "placeholder": "1744200000 atau 2025-04-09T12:00:00Z",
+    "now": "Sekarang",
+    "copy": "Salin",
+    "hint": "Tampal nilai atau klik <strong>Sekarang</strong>.",
+    "sections": {
+      "unix": "Unix",
+      "iso": "ISO",
+      "relative": "Relatif",
+      "human": "Mudah dibaca"
+    },
+    "fields": {
+      "seconds": "Saat",
+      "milliseconds": "Milisaat",
+      "utc": "UTC",
+      "local": "Tempatan",
+      "distance": "Jarak"
+    },
+    "errors": {
+      "empty": "Masukkan cap masa Unix, rentetan ISO atau teks tarikh.",
+      "invalidNumber": "Cap masa berangka tidak sah.",
+      "outOfRange": "Di luar julat untuk JavaScript Date.",
+      "couldNotParse": "Tidak dapat diparse sebagai Unix, ISO-8601 atau tarikh pelayar."
+    }
+  },
+  "HttpStatusCodes": {
+    "title": "Kod status HTTP",
+    "subtitle": "Cari dan semak imbas kod status respons HTTP (<code>1xx</code>–<code>5xx</code>) dengan penerangan ringkas dan rujukan RFC. Berjalan secara setempat.",
+    "header": {
+      "title": "Kod status HTTP",
+      "description": "Rujukan boleh cari untuk kod respons HTTP dengan penerangan dan rujukan RFC."
+    },
+    "searchPlaceholder": "Cari: 404, not found, rate limit, gateway…",
+    "classFilterPlaceholder": "Tapis kelas…",
+    "classFilterAll": "Semua kelas",
+    "resultsCount": "{count} daripada {total}",
+    "table": {
+      "code": "Code",
+      "phrase": "Frasa",
+      "description": "Penerangan",
+      "copy": "Salin"
+    },
+    "noResults": "Tiada padanan untuk “{query}”.",
+    "specPrefix": "Spes.:",
+    "copied": "Kod disalin"
+  },
+  "CronBuilder": {
+    "title": "Pembina ungkapan Cron",
+    "subtitle": "Cron standard 5 medan: <mono>minute hour day month weekday</mono>. Parser menggunakan seconds=<code>0</code> secara dalaman. Format pilihan 6 medan (<mono>sec min hour dom mon dow</mono>) berfungsi dalam editor ungkapan.",
+    "tabs": {
+      "builder": "Pembina visual",
+      "expression": "Ungkapan"
+    },
+    "presetsLabel": "Pratetap",
+    "fieldsLabel": "Medan",
+    "rawExpressionLabel": "Ungkapan mentah",
+    "expressionHint": "Keluar dari medan untuk menghurai dan menyegerakkan pembina. {count} {count, plural, one {token} other {token}}.",
+    "currentExpressionLabel": "Ungkapan semasa",
+    "copy": "Salin",
+    "quickPick": "Pilihan pantas",
+    "emptyExpression": "—",
+    "plainLanguageLabel": "Bahasa biasa",
+    "nextRunsLabel": "Larian seterusnya (masa tempatan)",
+    "fields": {
+      "minute": "Minit",
+      "hour": "Jam",
+      "dayOfMonth": "Hari dalam bulan",
+      "month": "Bulan",
+      "dayOfWeek": "Hari dalam minggu"
+    },
+    "presets": {
+      "everyMinute": "Setiap minit",
+      "every5Minutes": "Setiap 5 minit",
+      "every15Minutes": "Setiap 15 minit",
+      "everyHour": "Setiap jam (pada :00)",
+      "every6Hours": "Setiap 6 jam",
+      "dailyMidnight": "Harian tengah malam",
+      "daily0900": "Harian 09:00",
+      "weekdays0900": "Hari bekerja 09:00",
+      "weeklySunday": "Mingguan (Ahad 00:00)",
+      "monthlyFirst": "Bulanan (1hb 00:00)",
+      "yearlyJan1": "Tahunan (1 Jan 00:00)"
+    },
+    "picks": {
+      "minute": {
+        "every": "setiap minit"
+      },
+      "hour": {
+        "every": "setiap jam"
+      },
+      "dom": {
+        "any": "mana-mana hari",
+        "last": "hari terakhir"
+      },
+      "month": {
+        "every": "setiap bulan"
+      },
+      "dow": {
+        "any": "mana-mana hari",
+        "weekdays": "hari bekerja",
+        "weekend": "hujung minggu"
+      }
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mac",
+      "apr": "Apr",
+      "may": "Mei",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Ogos",
+      "sep": "Sep",
+      "oct": "Okt",
+      "nov": "Nov",
+      "dec": "Dis"
+    },
+    "weekdays": {
+      "sun": "Ahd",
+      "mon": "Isn",
+      "tue": "Sel",
+      "wed": "Rab",
+      "thu": "Kha",
+      "fri": "Jum",
+      "sat": "Sab"
+    },
+    "errors": {
+      "fieldCount": "Dijangka 5 medan (minute hour day month weekday) atau 6 termasuk saat.",
+      "invalid": "Ungkapan cron tidak sah."
+    }
+  },
+  "Base64": {
+    "title": "Pengekod / penyahkod Base64",
+    "subtitle": "Pengekodan teks ke Base64 atau nyahkod rentetan Base64",
+    "upload": "Muat naik",
+    "clear": "Kosongkan",
+    "modes": {
+      "encode": "Kod",
+      "decode": "Nyahkod"
+    },
+    "swapTitle": "Tukar input dan output",
+    "panels": {
+      "plainText": "Teks biasa",
+      "base64Input": "Input Base64",
+      "base64Output": "Output Base64",
+      "decodedText": "Teks dinyahkod"
+    },
+    "placeholders": {
+      "encode": "Masukkan teks untuk dikodkan ke Base64…",
+      "decode": "Tampal rentetan Base64 untuk dinyahkod…"
+    },
+    "dropHere": "Lepaskan fail di sini",
+    "charCount": "{count} aksara",
+    "download": {
+      "title": "Muat turun output",
+      "encodedFilename": "encoded.b64",
+      "decodedFilename": "decoded.txt"
+    },
+    "copyTitle": "Salin ke papan klip",
+    "outputPlaceholder": "Output akan muncul di sini…",
+    "errors": {
+      "invalidBase64": "Rentetan Base64 tidak sah. Semak input.",
+      "encodeFailed": "Gagal mengod input."
+    }
+  },
+  "UrlEncode": {
+    "title": "Pengekod / penyahkod URL",
+    "subtitle": "Pengekodan peratus/nyahkod dengan encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "upload": "Muat naik",
+    "clear": "Kosongkan",
+    "modes": {
+      "encode": "Kod",
+      "decode": "Nyahkod"
+    },
+    "swapTitle": "Tukar input dan output",
+    "panels": {
+      "plainText": "Teks biasa",
+      "encodedInput": "Input berkod",
+      "encodedOutput": "Output berkod",
+      "decodedText": "Teks dinyahkod"
+    },
+    "placeholders": {
+      "encode": "Masukkan teks untuk peratus-kod…",
+      "decode": "Tampal teks percent-encoded untuk nyahkod…"
+    },
+    "dropHere": "Lepaskan fail di sini",
+    "charCount": "{count} aksara",
+    "download": {
+      "title": "Muat turun output",
+      "encodedFilename": "url-encoded.txt",
+      "decodedFilename": "url-decoded.txt"
+    },
+    "copyTitle": "Salin ke papan klip",
+    "outputPlaceholder": "Output akan muncul di sini…",
+    "errors": {
+      "invalidEncoding": "Peratus-pengekodan tidak sah. Semak pasangan % tidak lengkap atau escape yang salah.",
+      "encodeFailed": "Tidak dapat mengod (Unicode tidak sah dalam input)."
+    }
+  },
+  "UrlParser": {
+    "title": "Penghurai URL",
+    "subtitle": "Pecahkan URL kepada protokol, hos, laluan, parameter kueri, dan hash (fragmen).",
+    "upload": "Muat naik",
+    "clear": "Kosongkan",
+    "panels": {
+      "input": "Input URL",
+      "output": "Output dihuraikan"
+    },
+    "placeholders": {
+      "input": "Tampal URL (cth. https://example.com/path?foo=bar#section) atau hos/laluan (cth. example.com/path)…"
+    },
+    "dropHere": "Lepaskan fail di sini",
+    "charCount": "{count} aksara",
+    "outputPlaceholder": "Komponen yang dihuraikan akan muncul di sini…",
+    "fields": {
+      "protocol": "Protokol",
+      "host": "Hos",
+      "path": "Laluan",
+      "hash": "Hash",
+      "queryParams": "Parameter kueri"
+    },
+    "paramCount": "{count} parameter",
+    "noParams": "Tiada parameter kueri.",
+    "paramKey": "Kunci",
+    "paramValue": "Nilai",
+    "copyTitle": "Salin ke papan klip",
+    "copyParamTitle": "Salin sebagai key=value",
+    "download": {
+      "title": "Muat turun JSON",
+      "filename": "url-parsed.json"
+    },
+    "errors": {
+      "invalidUrl": "URL tidak sah. Pastikan ada hostname (example.com) dan semak aksara yang tidak dibenarkan."
+    }
+  },
+  "UuidGenerator": {
+    "title": "Penjana UUID / ULID",
+    "subtitle": "Jana UUID (RFC 9562) atau ULID dalam pelayar. Eksport pukal hingga {max} setiap kali.",
+    "format": "Format",
+    "kindHints": {
+      "ulid": "Pengecam 26 aksara yang boleh diisih dan selamat untuk URL",
+      "uuid4": "Rawak (RFC 9562)",
+      "uuid7": "Teratur mengikut masa, ms Unix + rawak",
+      "uuid1": "Berasaskan MAC/masa (RFC 9562)",
+      "uuid6": "Masa Gregorian disusun semula",
+      "uuid3": "Hash MD5 nama + namespace",
+      "uuid5": "Hash SHA‑1 nama + namespace",
+      "nil": "UUID nol (semua sifar, RFC 9562)"
+    },
+    "countLabel": "Bilangan (1–{max})",
+    "nameLabel": "Nama (rentetan input)",
+    "namePlaceholder": "cth. my.app/resource",
+    "bulkHint": "Mod pukal menambah <code>#0</code>, <code>#1</code>, … supaya setiap ID berbeza (v3/v5 deterministik).",
+    "namespace": "Namespace",
+    "namespaceOptions": {
+      "dns": "DNS (RFC 4122)",
+      "url": "URL (RFC 4122)",
+      "custom": "UUID tersuai"
+    },
+    "customNamespaceLabel": "UUID namespace",
+    "customNamespacePlaceholder": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    "generate": "Jana",
+    "output": "Output",
+    "lines": "{count} baris",
+    "download": {
+      "title": "Muat turun .txt",
+      "filename": "ids-{kind}.txt"
+    },
+    "copyTitle": "Salin semua",
+    "uppercaseToggle": "Output huruf besar",
+    "hyphensToggle": "Tunjukkan sempang",
+    "copyJsonTitle": "Salin sebagai array JSON",
+    "outputPlaceholder": "Klik \"Jana\"…",
+    "errors": {
+      "invalidCustomNamespace": "Namespace tersuai mestilah UUID yang sah.",
+      "missingName": "Nama diperlukan untuk UUID v3 dan v5.",
+      "unknown": "Tidak dapat menjana ID."
+    }
+  },
+  "SecretApiKeyGenerator": {
+    "title": "Penjana rahsia / kunci API",
+    "subtitle": "Jana rentetan rawak kriptografi dengan panjang dan abjad boleh konfigurasi. Eksport pukal sehingga {max} setiap jalanan. Berpasangan dengan <uuid>penjana UUID / ULID</uuid>.",
+    "alphabetLabel": "Abjad",
+    "alphabetHint": "Watak pendua dibuang. Setiap simbol dipilih secara seragam dengan crypto.getRandomValues dan pensampelan penolakan (tiada bias modulo).",
+    "alphabetCount": "{count} simbol unik",
+    "presetsLabel": "Pratetap",
+    "preset": {
+      "base64url": "Base64url",
+      "alphanumeric": "Alfanumerik",
+      "hex": "Perenambelasan (huruf kecil)",
+      "asciiPrintable": "ASCII boleh cetak"
+    },
+    "lengthLabel": "Panjang setiap rahsia (1–{maxLen})",
+    "countLabel": "Bilangan (1–{maxBulk})",
+    "generate": "Jana",
+    "output": "Output",
+    "lines": "{count} baris",
+    "download": {
+      "title": "Muat turun .txt",
+      "filename": "rahsia.txt"
+    },
+    "copyTitle": "Salin semua",
+    "outputPlaceholder": "Klik \"Jana\"…",
+    "entropy": "{bits} bit entropi",
+    "strength": {
+      "weak": "Lemah",
+      "fair": "Sederhana",
+      "strong": "Kuat"
+    },
+    "excludeAmbiguous": "Kecualikan aksara mengelirukan",
+    "excludeAmbiguousHint": "Mengalih keluar {chars} — aksara yang mudah disalah baca atau tidak sesuai untuk shell.",
+    "prefixLabel": "Awalan kunci (pilihan)",
+    "errors": {
+      "emptyAlphabet": "Tambah sekurang-kurangnya satu aksara pada abjad.",
+      "alphabetTooLong": "Selepas membuang pendua, abjad boleh mempunyai sehingga {maxAlpha} aksara.",
+      "lengthOutOfRange": "Panjang mestilah antara 1 dan {maxLen}.",
+      "countOutOfRange": "Bilangan mestilah antara 1 dan {maxBulk}.",
+      "unknown": "Tidak dapat menjana rahsia."
+    }
+  },
+  "LoremIpsum": {
+    "title": "Penjana Lorem Ipsum",
+    "subtitle": "Jana teks Latin pemegang tempat untuk susun atur dan mockup anda.",
+    "paragraphs": "Perenggan",
+    "sentences": "Ayat",
+    "words": "Perkataan",
+    "count": "Bilangan",
+    "generate": "Jana",
+    "copy": "Salin",
+    "startWith": "Mulakan dengan 'Lorem ipsum...'",
+    "outputPlaceholder": "Output akan muncul di sini...",
+    "outputType": "Jenis output",
+    "bulletList": "Senarai poin",
+    "htmlMarkup": "Markup HTML",
+    "htmlMarkupHint": "Balut output dalam perenggan, atau gunakan senarai untuk mod poin",
+    "output": "Output",
+    "download": "Muat turun"
+  },
+  "ColorPicker": {
+    "title": "Pemilih dan penukar warna",
+    "subtitle": "Tukar HEX, RGB dan HSL; bina palet harmoni. Semua pemprosesan berlaku dalam pelayar anda.",
+    "nativePicker": "Pemilih asli",
+    "chooseColor": "Pilih warna",
+    "eyeDropper": "Penitis mata",
+    "invalidHex": "Warna HEX tidak sah.",
+    "cssValues": "Nilai CSS",
+    "palettes": "Palet",
+    "copied": "Disalin",
+    "clickToCopy": "Klik untuk salin",
+    "copyAllHex": "Salin semua HEX",
+    "copy": "Salin",
+    "copyColor": "Salin {color}",
+    "paletteShades": "Warna-warna",
+    "paletteComplementary": "Komplementari",
+    "paletteTriadic": "Triadi",
+    "paletteAnalogous": "Analog",
+    "paletteSplit": "Komp. berpecah",
+    "paletteSquare": "Segi empat"
+  },
+  "ContrastChecker": {
+    "title": "Pemeriksa kontras",
+    "subtitle": "Mengira nisbah kontras WCAG 2.1 antara latar depan dan latar belakang. Semak AA dan AAA untuk teks biasa dan besar. Semuanya dalam pelayar anda.",
+    "foreground": "Teks / latar depan",
+    "background": "Latar belakang",
+    "hexPlaceholder": "#RRGGBB",
+    "swap": "Tukar warna",
+    "chooseForeground": "Pilih warna latar depan",
+    "chooseBackground": "Pilih warna latar belakang",
+    "eyeDropper": "Pipet",
+    "ratio": "Nisbah kontras",
+    "copyRatio": "Salin nisbah",
+    "copied": "Disalin",
+    "previewHeading": "Pratonton",
+    "previewBody": "Muzaffar mempunyai 1246 dawai biola tempaannya di Qatar. The quick brown fox jumps over the lazy dog — contoh teks campuran.",
+    "previewCaption": "Contoh teks pada saiz lalai.",
+    "wcagHeading": "WCAG 2.1",
+    "levelAANormal": "AA — teks biasa (4,5:1)",
+    "levelAALarge": "AA — teks besar (3:1)",
+    "levelAAANormal": "AAA — teks biasa (7:1)",
+    "levelAAALarge": "AAA — teks besar (4,5:1)",
+    "pass": "Lulus",
+    "fail": "Gagal",
+    "invalidHex": "Warna HEX tidak sah.",
+    "largeTextHint": "Teks besar: 18 pt+ biasa atau 14 pt+ tebal (takrifan WCAG)."
+  },
+  "DiffChecker": {
+    "title": "Pemeriksa Perbezaan",
+    "subtitle": "Perbandingan baris demi baris dua teks secara bersebelahan. Semua kekal dalam pelayar anda.",
+    "rowsCount": "{count} baris",
+    "truncatedWarning": "Menunjukkan {max} baris pertama.",
+    "limitExceeded": "Setiap sisi terhad kepada {max} aksara.",
+    "clearBoth": "Padamkan kedua-dua",
+    "original": "Asal",
+    "modified": "Diubah suai",
+    "originalPlaceholder": "Tampal teks asal…",
+    "modifiedPlaceholder": "Tampal teks yang diubah suai…",
+    "comparisonLabel": "Perbandingan bersebelahan",
+    "emptyState": "Masukkan teks dalam kedua-dua panel untuk membandingkan."
+  },
+  "JsonSchemaGenerator": {
+    "title": "Penjana Skema JSON",
+    "subtitle": "Tampal JSON yang sah untuk menjana skema JSON atau model berjenis. Semuanya berjalan dalam pelayar anda.",
+    "languageLabel": "Bahasa output",
+    "inputLabel": "Input JSON",
+    "inputPlaceholder": "Tampal JSON di sini…",
+    "outputLabel": "Output yang dijana",
+    "outputPlaceholder": "Skema atau jenis yang dijana akan dipaparkan di sini…",
+    "parseError": "JSON tidak sah",
+    "clear": "Kosongkan",
+    "copy": "Salin",
+    "copied": "Disalin ke papan keratan",
+    "copyFailed": "Tidak dapat menyalin",
+    "languages": {
+      "python": "Python (Pydantic v2)",
+      "typescript": "TypeScript",
+      "jsonSchema": "Skema JSON (Draft 2020-12)",
+      "go": "Go (encoding/json)",
+      "rust": "Rust (serde_json)",
+      "java": "Java (Jackson)",
+      "csharp": "C# (System.Text.Json)",
+      "dart": "Dart",
+      "swift": "Swift (Codable)"
+    },
+    "editorLoading": "Memuatkan editor…",
+    "detectedFormats": "Detected formats",
+    "download": "Download"
+  },
+  "ImageToBase64": {
+    "title": "Imej ke Base64",
+    "subtitle": "Lepaskan imej, dapatkan URI data atau rentetan Base64 mentah. Semuanya kekal dalam penyemak imbas anda.",
+    "upload": "Muat Naik Imej",
+    "clear": "Jelas",
+    "modes": {
+      "dataUri": "URI data",
+      "rawString": "Pangkalan Mentah64"
+    },
+    "panels": {
+      "imageInput": "Input Imej",
+      "output": "Output Base64"
+    },
+    "dropHere": "Lepaskan gambar di sini",
+    "charCount": "{count} aksara",
+    "placeholders": {
+      "uploadImage": "Seret dan lepas imej atau klik muat naik untuk bermula."
+    },
+    "fileTooLarge": "Fail terlalu besar. Pemprosesan mungkin membekukan penyemak imbas anda.",
+    "copyTitle": "Salin ke papan keratan",
+    "download": {
+      "title": "Muat turun teks",
+      "filename": "image-base64.txt"
+    }
+  },
+  "ImageCompressor": {
+    "title": "Pemampat Imej",
+    "subtitle": "Kecilkan output JPEG, PNG atau WebP secara setempat dengan kawalan kualiti — tiada muat naik.",
+    "upload": "Muat naik imej",
+    "clear": "Kosongkan",
+    "dropHere": "Lepaskan imej di sini",
+    "placeholders": {
+      "uploadImage": "Seret dan lepas imej, atau klik untuk memilih fail."
+    },
+    "fileTooLarge": "Fail terlalu besar (maks {maxMb} MB).",
+    "unsupportedFormat": "Jenis fail tidak disokong. Gunakan JPEG, PNG, WebP, GIF, AVIF atau BMP.",
+    "compressFailed": "Tidak dapat memampatkan imej ini. Cuba fail atau format lain.",
+    "panels": {
+      "original": "Asal",
+      "compressed": "Pratonton termampat"
+    },
+    "outputFormat": "Format output",
+    "format": {
+      "jpeg": "JPEG (.jpg)",
+      "png": "PNG (.png)",
+      "webp": "WebP (.webp)"
+    },
+    "quality": "Kualiti",
+    "qualityPercent": "{value}%",
+    "qualityPngHint": "PNG tiada rugi dalam pelayar; peluncur kualiti hanya untuk JPEG dan WebP.",
+    "sizes": {
+      "original": "Asal: {size}",
+      "compressed": "Termampat: {size}",
+      "saved": "{percent}% lebih kecil"
+    },
+    "largerWarning": "Output lebih besar daripada input — cuba format atau kualiti lain.",
+    "download": "Muat turun",
+    "downloadFilename": "imej-termampat",
+    "processing": "Memampatkan…",
+    "emptyCompressed": "Pratonton termampat dipaparkan di sini."
+  },
+  "CssGradientBuilder": {
+    "title": "Pembina Kecerunan CSS",
+    "subtitle": "Pembina kecerunan CSS visual dengan kawalan sudut, hentian warna dan salinan CSS satu klik.",
+    "preview": "Pratonton Kecerunan",
+    "settings": "tetapan",
+    "type": "taip",
+    "linear": "Linear",
+    "radial": "Jejari",
+    "angle": "sudut",
+    "stops": "Warna Berhenti",
+    "color": "warna",
+    "position": "Kedudukan (%)",
+    "addStop": "Tambah Berhenti",
+    "deleteStop": "Padam Berhenti",
+    "output": "Output CSS",
+    "copy": "Salin CSS",
+    "copied": "disalin!",
+    "conic": "Conic",
+    "presets": "Presets",
+    "randomize": "Randomize",
+    "reverse": "Reverse",
+    "downloadImage": "Download"
+  },
+  "GitignoreGenerator": {
+    "title": "Penjana .gitignore",
+    "subtitle": "Hasilkan fail .gitignore yang digabungkan serta-merta untuk susunan atau gabungan teknologi tertentu.",
+    "searchPlaceholder": "Cari tindanan (cth. Node, Python, macOS)...",
+    "noResults": "Tiada tindanan ditemui.",
+    "selectedStacks": "Timbunan Terpilih",
+    "output": "Pratonton Output",
+    "copy": "Salin ke Papan Klip",
+    "copied": "disalin!",
+    "download": "Muat turun .giignore",
+    "downloading": "Memuat turun...",
+    "errorFetching": "Gagal mengambil senarai teratas.",
+    "errorGenerating": "Gagal menjana .gitignore daripada tindanan yang dipilih.",
+    "generating": "Menjana...",
+    "emptyState": "Pilih satu atau lebih tindanan teknologi untuk menjana .gitignore anda."
+  },
+  "CsvExcelJson": {
+    "title": "CSV / Excel ↔ JSON",
+    "subtitle": "Muat naik CSV atau Excel, edit JSON, kemudian muat turun CSV atau XLSX. Data jadual sahaja; tarikh Excel menjadi cap masa ISO dalam JSON.",
+    "dropTitle": "Lepaskan fail CSV atau Excel",
+    "dropHint": "Untuk .xlsx / .xls, helaian pertama digunakan. CSV mesti ada baris pengepala.",
+    "chooseFile": "Pilih fail",
+    "jsonLabel": "JSON (tatasusunan objek)",
+    "jsonPlaceholder": "Tampal tatasusunan JSON objek atau import CSV / Excel…",
+    "loadSample": "Muat contoh",
+    "actions": {
+      "format": "Format JSON",
+      "clear": "Kosongkan",
+      "copy": "Salin",
+      "copied": "Disalin",
+      "downloadCsv": "Muat turun CSV",
+      "downloadXlsx": "Muat turun Excel"
+    },
+    "filenames": {
+      "csv": "data.csv",
+      "xlsx": "data.xlsx"
+    },
+    "sheetName": "Data",
+    "toastLoadedCsv": "CSV dimuatkan ke editor",
+    "toastLoadedExcel": "Excel dimuatkan ke editor",
+    "toastFormatted": "JSON diformat",
+    "toastExportedCsv": "CSV dimuat turun",
+    "toastExportedXlsx": "Excel dimuat turun",
+    "toastCopied": "Disalin ke papan keratan",
+    "footnote": "Semua berjalan dalam pelayar. JSON mesti tatasusunan objek yang tidak kosong. Nilai bersarang disirikan sebagai JSON dalam sel CSV.",
+    "errors": {
+      "unsupportedFile": "Guna fail .csv, .xlsx atau .xls.",
+      "parseFailed": "Tidak dapat menghuraikan fail ini.",
+      "invalidJson": "JSON tidak sah",
+      "exportFailed": "Eksport gagal",
+      "copyFailed": "Tidak dapat menyalin"
+    }
+  },
+  "SnippetManager": {
+    "title": "Pengurus petikan kod",
+    "subtitle": "Simpan petikan dalam pelayar atau log masuk untuk menyelaraskannya dengan akaun anda. Tukar antara lihat dan sunting, salin satu klik, pilih bahasa atau auto kesan, dan format JSON, SQL atau kod yang disokong Monaco.",
+    "snippets": "Petikan",
+    "newSnippet": "Petikan baharu",
+    "newSnippetTitle": "Petikan baharu",
+    "defaultSnippetTitle": "Selamat datang",
+    "defaultSnippetCode": "// Selamat datang ke petikan kod\n// Cuba lihat vs sunting, salin, format dan bahasa automatik\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}",
+    "searchPlaceholder": "Cari petikan…",
+    "searchAria": "Cari petikan",
+    "emptySearch": "Tiada petikan sepadan.",
+    "snippetTitle": "Tajuk",
+    "snippetTitlePlaceholder": "Nama petikan",
+    "language": "Bahasa",
+    "detectedHint": "Sorotan sebagai {lang}",
+    "badgeAuto": "Auto · {lang}",
+    "modeView": "Lihat",
+    "modeEdit": "Sunting",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "format": "Format",
+    "cancel": "Batal",
+    "deleteTitle": "Padam petikan?",
+    "deleteDescription": "“{title}” akan dibuang daripada pelayar ini.",
+    "deleteConfirm": "Padam",
+    "editorAria": "Editor kod petikan",
+    "editorLoading": "Memuatkan editor…",
+    "toastCopied": "Disalin ke papan keratan",
+    "toastCopyFailed": "Tidak dapat menyalin",
+    "toastNothingToCopy": "Tiada untuk disalin",
+    "toastFormatted": "Telah diformat",
+    "toastFormatFailed": "Tidak dapat memformat",
+    "toastFormatJsonInvalid": "JSON tidak sah — betulkan sintaks dahulu",
+    "toastFormatUnsupported": "Tiada pemformat untuk bahasa ini — cuba JSON atau SQL atau mod sunting",
+    "toastDeleted": "Petikan dipadam",
+    "toastLoadFailed": "Tidak dapat memuatkan petikan dari pelayan.",
+    "toastSyncFailed": "Tidak dapat menyelaraskan dengan pelayan.",
+    "languages": {
+      "auto": "Auto kesan",
+      "plaintext": "Teks biasa",
+      "javascript": "JavaScript",
+      "typescript": "TypeScript",
+      "json": "JSON",
+      "html": "HTML",
+      "css": "CSS",
+      "scss": "SCSS",
+      "less": "Less",
+      "python": "Python",
+      "markdown": "Markdown",
+      "xml": "XML",
+      "yaml": "YAML",
+      "shell": "Shell",
+      "sql": "SQL",
+      "dockerfile": "Dockerfile",
+      "ini": "INI",
+      "csharp": "C#",
+      "java": "Java",
+      "go": "Go",
+      "rust": "Rust",
+      "php": "PHP"
+    }
+  },
+  "SqlClient": {
+    "page": {
+      "title": "Klien SQL",
+      "dialogTitle": "Sambungan SQL",
+      "mobileSheetTitle": "Penjelajah SQL",
+      "newTabLabel": "Tab pertanyaan baru",
+      "vaultLockedTitle": "Peti dikunci",
+      "vaultLockedDesc": "Buka kunci peti untuk mengakses sambungan tersimpan.",
+      "heroTitle": "Klien SQL",
+      "heroDesc": "Sambung ke PostgreSQL, MySQL atau MariaDB. Kelayakan disulitkan dalam pelayar anda.",
+      "heroAddConnection": "Tambah sambungan",
+      "selectTableTitle": "Pilih jadual atau buka tab pertanyaan",
+      "selectTableDesc": "Klik jadual dalam bar sisi atau guna ⌘↩.",
+      "toastLoadFail": "Gagal memuatkan sambungan."
+    },
+    "connection": {
+      "titleNew": "Sambungan SQL baharu",
+      "titleEdit": "Edit sambungan",
+      "labelDbType": "Jenis pangkalan data",
+      "labelName": "Nama sambungan",
+      "placeholderName": "DB produksi saya",
+      "labelHostPort": "Hos & Port",
+      "labelDatabase": "Pangkalan data",
+      "placeholderDatabase": "mydb",
+      "labelUsername": "Nama pengguna",
+      "labelPassword": "Kata laluan",
+      "labelSsl": "Aktifkan SSL / TLS",
+      "sslDesc": "Sulitkan sambungan ke pelayan",
+      "securityNote": "Kelayakan disulitkan AES-256 dalam pelayar sebelum disimpan",
+      "btnTest": "Uji sambungan",
+      "btnSave": "Simpan & Sambung",
+      "btnUpdate": "Kemas kini",
+      "btnCancelEdit": "Batal pengeditan",
+      "savedConnections": "Sambungan tersimpan",
+      "emptySaved": "Sambungan tersimpan akan muncul di sini",
+      "confirmDelete": "Padam sambungan ini?",
+      "toastFillFields": "Isi hos dan pangkalan data sebelum menguji.",
+      "toastConnectOk": "Disambungkan! {version}",
+      "toastConnectFail": "Sambungan gagal: {message}",
+      "toastUnlockVault": "Buka kunci peti dahulu.",
+      "toastFieldsRequired": "Hos dan pangkalan data diperlukan.",
+      "toastUpdated": "Sambungan dikemas kini.",
+      "toastSaved": "Sambungan disimpan.",
+      "toastSaveFail": "Gagal menyimpan: {message}",
+      "toastDeleted": "Sambungan dipadam.",
+      "toastDeleteFail": "Gagal memadam sambungan."
+    },
+    "sidebar": {
+      "title": "Penjelajah SQL",
+      "tooltipAddConnection": "Tambah sambungan",
+      "tooltipRefreshSchema": "Muat semula skema",
+      "noConnections": "Tiada sambungan tersimpan lagi",
+      "toastSchemaFail": "Gagal memuatkan skema: {message}"
+    },
+    "editor": {
+      "btnRun": "Jalankan",
+      "executing": "Menjalankan pertanyaan…",
+      "emptyTitle": "Jalankan pertanyaan untuk melihat keputusan",
+      "emptyHint": "Tekan ⌘↩ atau klik Jalankan",
+      "toastNoConnection": "Tiada sambungan aktif."
+    },
+    "results": {
+      "filterPlaceholder": "Tapis keputusan…",
+      "rowCount": "{count} baris",
+      "rowCountFiltered": "{filtered} / {total} baris",
+      "exportCsv": "CSV",
+      "noRows": "Tiada baris dikembalikan"
+    }
+  },
+  "QrCodeGenerator": {
+    "title": "Penjana kod QR",
+    "subtitle": "Tukar sebarang teks atau URL kepada kod QR PNG. Semua dipaparkan secara tempatan dalam pelayar.",
+    "contentLabel": "Kandungan",
+    "contentPlaceholder": "https://example.com, teks biasa, rentetan Wi‑Fi, vCard…",
+    "styleLabel": "Gaya",
+    "dotTypeLabel": "Bentuk titik",
+    "dotTypeSquare": "Segi empat",
+    "dotTypeDots": "Titik",
+    "dotTypeRounded": "Membulat",
+    "dotTypeExtraRounded": "Sangat membulat",
+    "dotTypeClassy": "Elegan",
+    "dotTypeClassyRounded": "Elegan membulat",
+    "cornerSquareLabel": "Segi empat sudut",
+    "cornerSquareDot": "Titik",
+    "cornerSquareSquare": "Segi empat",
+    "cornerSquareExtraRounded": "Sangat membulat",
+    "cornerDotLabel": "Titik sudut",
+    "cornerDotDot": "Titik",
+    "cornerDotSquare": "Segi empat",
+    "eccLabel": "Pembetulan ralat",
+    "eccL": "Rendah (~7%)",
+    "eccM": "Sederhana (~15%)",
+    "eccQ": "Suku (~25%)",
+    "eccH": "Tinggi (~30%)",
+    "marginLabel": "Margin (modul)",
+    "widthLabel": "Lebar imej",
+    "widthEffective": "Dipaparkan pada {px} px",
+    "darkColor": "Modul gelap",
+    "lightColor": "Modul cerah",
+    "resetColors": "Set semula warna",
+    "logoLabel": "Logo tengah",
+    "logoMarginLabel": "Jidar",
+    "uploadLogo": "Muat naik gambar",
+    "removeLogo": "Buang logo",
+    "downloadPng": "Muat turun PNG",
+    "downloadSvg": "Muat turun SVG",
+    "copyImage": "Salin imej",
+    "copied": "Disalin",
+    "clear": "Padam",
+    "previewAlt": "Pratonton kod QR",
+    "emptyHint": "Taip atau tampal kandungan untuk pratonton.",
+    "filename": "kod-qr.png",
+    "errors": {
+      "generationFailed": "Tidak dapat menjana kod QR. Cuba teks lebih pendek atau pembetulan lebih rendah.",
+      "copyUnsupported": "Pelayar tidak menyokong menyalin imej ke papan keratan.",
+      "copyFailed": "Tidak dapat menyalin ke papan keratan."
+    }
+  },
+  "IpSubnetCalculator": {
+    "title": "Kalkulator IP / subnet",
+    "subtitle": "Butiran CIDR IPv4 dan IPv6 dalam pelayar—tiada permintaan luaran.",
+    "tabIpv4": "IPv4",
+    "tabIpv6": "IPv6",
+    "inputLabel": "Rangkaian",
+    "placeholderIpv4": "10.0.0.0/24 atau 192.168.1.0 255.255.255.0",
+    "placeholderIpv6": "2001:db8::/32 atau 2001:db8::1/64",
+    "hintIpv4": "Gunakan CIDR (cth. /24) atau IPv4 + topeng bertitik.",
+    "hintIpv6": "Sertakan panjang awalan (cth. /64). Jika tidak, /128.",
+    "copyValue": "Salin nilai",
+    "rows": {
+      "cidr": "CIDR",
+      "network": "Alamat rangkaian",
+      "netmask": "Topeng subnet",
+      "wildcard": "Topeng wildcard",
+      "broadcast": "Broadcast",
+      "firstHost": "Hos pertama",
+      "lastHost": "Hos terakhir",
+      "totalAddresses": "Jumlah alamat",
+      "usableHosts": "Hos boleh guna",
+      "prefixLength": "Panjang awalan (bit)",
+      "networkIpv6": "Alamat rangkaian",
+      "lastIpv6": "Alamat terakhir dalam julat",
+      "totalAddressesIpv6": "Alamat dalam subnet"
+    },
+    "usableNote": {
+      "pointToPoint": "Pautan /31 titik-ke-titik menggunakan kedua-dua alamat sebagai hos (RFC 3021).",
+      "singleHost": "/32 ialah satu hos."
+    },
+    "ipv6RangeHint": {
+      "normal": "Julat matematik penuh dipaparkan; peraturan penghala mungkin berbeza.",
+      "single": "/128 ialah satu alamat.",
+      "full": "/0 merangkumi IPv6 sepenuhnya."
+    },
+    "errors": {
+      "invalidIpv4": "Rangkaian IPv4 tidak sah. Cuba CIDR atau alamat + topeng.",
+      "invalidIpv6": "Rangkaian IPv6 tidak sah. Gunakan alamat/awalan, cth. 2001:db8::/48."
+    }
+  },
+  "HashGenerator": {
+    "title": "Penjana hash",
+    "subtitle": "Pencernaan MD5, SHA-1 dan SHA-2 untuk teks atau fail; bcrypt untuk kata laluan (input teks). Semua dikira secara setempat dalam pelayar.",
+    "algorithmLabel": "Algoritma",
+    "algorithms": {
+      "md5": "MD5",
+      "sha1": "SHA-1",
+      "sha256": "SHA-256",
+      "sha384": "SHA-384",
+      "sha512": "SHA-512",
+      "bcrypt": "bcrypt"
+    },
+    "modeText": "Teks",
+    "modeFile": "Fail",
+    "inputLabelText": "Input",
+    "placeholderText": "Taip atau tampal teks…",
+    "chooseFile": "Pilih fail",
+    "clearFile": "Padam",
+    "fileHint": "Fail dibaca dalam memori sahaja; maks {maxMb} MB. Tiada muat naik.",
+    "outputLabel": "Cincangan (hex)",
+    "copyHash": "Salin cincangan",
+    "copied": "Disalin",
+    "byteCount": "{count, plural, other {# bait}}",
+    "charCount": "{count, plural, other {# aksara}}",
+    "emptyHint": "Masukkan teks atau pilih fail.",
+    "securityNote": "MD5 dan SHA-1 tidak disyorkan untuk keselamatan baharu; gunakan SHA-256 atau SHA-512.",
+    "errors": {
+      "fileTooLarge": "Fail melebihi {maxMb} MB.",
+      "fileReadFailed": "Tidak dapat membaca fail."
+    },
+    "bcryptRoundsLabel": "Kos (pusingan)",
+    "bcryptRoundsHint": "Nilai lebih tinggi lebih perlahan dan lebih tahan brute force. Lalai biasa ialah 10.",
+    "fileTabDisabledTitle": "bcrypt hanya menghash kata laluan daripada teks, bukan fail sewenang-wenang.",
+    "placeholderBcrypt": "Taip atau tampal kata laluan untuk di-hash…",
+    "outputLabelBcrypt": "Hash bcrypt",
+    "copyBcrypt": "Salin hash",
+    "emptyHintBcrypt": "Masukkan kata laluan untuk mengira hash bcrypt.",
+    "securityNoteBcrypt": "Setiap output bcrypt merangkumi garam rawak; kata laluan yang sama menghasilkan rentetan berbeza setiap kali. Ini dijangka. Gunakan kos tinggi dalam produksi.",
+    "verifyLabel": "Verify against expected hash",
+    "verifyPlaceholder": "Paste an expected digest to compare…",
+    "verifyPlaceholderBcrypt": "Paste a bcrypt hash to check the password above…",
+    "verifyHintBcrypt": "Bcrypt embeds a random salt, so two hashes of the same password never match as strings — the password in the input is checked against this hash instead.",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "EncryptionPlayground": {
+    "title": "Taman permainan penyulitanan",
+    "subtitle": "AES-GCM dalam pelayar: sulitkan ke bungkusan JSON dengan frasa laluan atau kunci mentah, kemudian nyahsulitkan secara setempat. Bersifat pendidikan dan kadang praktikal — tiada muat naik.",
+    "tabEncrypt": "Sulitkan",
+    "tabDecrypt": "Nyahsulitkan",
+    "keyModeLabel": "Bahan kunci",
+    "modePassphrase": "Frasa laluan (PBKDF2 + AES-GCM)",
+    "modeRawKey": "Kunci AES mentah (hex atau Base64)",
+    "aesBitsLabel": "Panjang kunci AES",
+    "aesBits": {
+      "128": "AES-128",
+      "192": "AES-192",
+      "256": "AES-256"
+    },
+    "rawEncodingLabel": "Pengekodan kunci mentah",
+    "encodingAuto": "Auto (hex jika kelihatan seperti hex, jika tidak Base64)",
+    "encodingHex": "Hex",
+    "encodingBase64": "Base64",
+    "rawKeyLabel": "Kunci mentah",
+    "rawKeyPlaceholder": "Kunci 32 bait sebagai 64 aksara hex, atau Base64 untuk AES-256 (panjang bergantung pada saiz AES di atas).",
+    "rawKeyPlaceholderDecrypt": "Hanya diperlukan jika bungkusan mempunyai keyDerivation \"none\".",
+    "passphraseLabel": "Frasa laluan",
+    "passphrasePlaceholder": "Frasa laluan digunakan hanya dalam pelayar untuk menurunkan kunci.",
+    "passphrasePlaceholderDecrypt": "Hanya diperlukan jika bungkusan menggunakan PBKDF2-SHA256.",
+    "pbkdf2IterLabel": "Lelaran PBKDF2",
+    "pbkdf2Hint": "Antara 10,000 dan 2,000,000. Lalai sejajar dengan tetapan peti biasa.",
+    "plaintextLabel": "Teks jelas",
+    "plaintextPlaceholder": "Taip atau tampal mesej untuk disulitkan…",
+    "bundleInputLabel": "Bungkusan disulitkan (JSON)",
+    "bundlePlaceholder": "Tampal JSON daripada Sulitkan (v, alg, ivB64, cipherB64, …).",
+    "bundleOutputLabel": "Bungkusan disulitkan",
+    "plaintextOutputLabel": "Teks jelas",
+    "encryptButton": "Sulitkan",
+    "decryptButton": "Nyahsulitkan",
+    "copyBundle": "Salin JSON",
+    "copyPlaintext": "Salin teks jelas",
+    "copied": "Disalin",
+    "emptyBundleHint": "JSON disulitkan dipaparkan di sini selepas penyulitanan.",
+    "emptyDecryptHint": "Teks dinyahsulitkan dipaparkan di sini.",
+    "decryptKeyHint": "Gunakan kunci mentah jika keyDerivation ialah \"none\"; frasa laluan untuk PBKDF2-SHA256. Bungkusan menyimpan garam, lelaran, IV dan panjang AES.",
+    "securityNote": "Kunci dan teks jelas tidak meninggalkan pelayar anda. Untuk rahsia pengeluaran, gunakan alat khusus.",
+    "errors": {
+      "emptyKey": "Masukkan kunci mentah yang sepadan dengan saiz AES.",
+      "emptyPassphrase": "Masukkan frasa laluan.",
+      "badKeyMaterial": "Kunci tidak boleh dibaca sebagai hex atau Base64.",
+      "wrongKeyLength": "Panjang kunci tidak sepadan dengan AES (16 / 24 / 32 bait).",
+      "invalidJson": "JSON tidak sah.",
+      "invalidBundle": "JSON ini bukan bungkusan penyulitanan yang disokong.",
+      "decryptFailed": "Nyahsulitanan gagal — rahsia salah, bungkusan rosak atau parameter tidak sepadan.",
+      "encryptFailed": "Penyulitanan gagal. Semak Web Crypto dan input."
+    }
+  },
+  "HmacGenerator": {
+    "title": "Penjana HMAC",
+    "subtitle": "Untuk menandatangani webhook dan menguji integrasi API. HMAC-SHA1/256/384/512 dalam hex atau Base64—dikira secara setempat dalam pelayar.",
+    "secretLabel": "Kunci rahsia",
+    "messageLabel": "Mesej / muatan",
+    "placeholderSecret": "Tampal rahsia penandatanganan…",
+    "placeholderMessage": "Tampal badan mentah atau rentetan untuk diautentikasi (selalunya bait webhook yang tepat).",
+    "algorithmLabel": "Algoritma HMAC",
+    "algorithms": {
+      "sha1": "HMAC-SHA1",
+      "sha256": "HMAC-SHA256",
+      "sha384": "HMAC-SHA384",
+      "sha512": "HMAC-SHA512"
+    },
+    "outputFormatLabel": "Format output",
+    "formatHex": "Hex (huruf kecil)",
+    "formatBase64": "Base64",
+    "outputLabel": "Tandatangan",
+    "copyOutput": "Salin tandatangan",
+    "copied": "Disalin",
+    "byteCountHint": "{count, plural, other {# bait}} (UTF-8)",
+    "emptyHint": "Masukkan kunci rahsia untuk mengira HMAC.",
+    "securityNote": "Jangan kongsi rahsia penandatanganan. Halaman ini tidak memuat naik data—semua berjalan dalam pelayar.",
+    "errors": {
+      "cryptoFailed": "Tidak dapat mengira HMAC. Semak sokongan Web Crypto dan cuba lagi.",
+      "invalidKey": "Secret key isn't valid for the selected encoding."
+    },
+    "keyEncodingLabel": "Key encoding",
+    "keyEncodingUtf8": "UTF-8 text",
+    "keyEncodingHex": "Hex",
+    "keyEncodingBase64": "Base64",
+    "keyByteCountHint": "{count, plural, one {# key byte} other {# key bytes}} decoded",
+    "verifyLabel": "Verify against expected signature",
+    "verifyPlaceholder": "Paste an expected signature to compare…",
+    "verifyMatch": "Match",
+    "verifyMismatch": "Mismatch"
+  },
+  "TotpGenerator": {
+    "title": "Penjana kod TOTP / 2FA",
+    "subtitle": "Tampal rahsia Base32 dan dapatkan kod enam digit RFC 6238 semasa (SHA-1, 30 s). Berjalan secara setempat dalam pelayar—berguna untuk menguji log masuk atau MFA.",
+    "secretLabel": "Rahsia (Base32)",
+    "placeholderSecret": "Tampal kunci rahsia (huruf A–Z dan digit 2–7, seperti semasa menyediakan pengesah)…",
+    "codeLabel": "Kod semasa",
+    "copyCode": "Salin kod",
+    "copied": "Disalin",
+    "nextIn": "Disegar dalam {seconds} s",
+    "standardHint": "Langkah masa 30 s, 6 digit, HMAC-SHA-1 (serasi Google Authenticator).",
+    "digitsLabel": "Digit",
+    "periodLabel": "Tempoh",
+    "algorithmLabel": "Algoritma",
+    "periodSeconds": "{seconds} s",
+    "emptyHint": "Tampal rahsia untuk menjana kod enam digit.",
+    "invalidHint": "Betulkan rahsia untuk melihat kod.",
+    "securityNote": "Layannya seperti kata laluan. Rahsia tidak meninggalkan pelayar; tiada muat naik.",
+    "importLabel": "Import daripada URI otpauth://",
+    "importPlaceholder": "otpauth://totp/Example:alice@example.com?secret=…",
+    "importAction": "Import",
+    "qrSectionTitle": "Kod QR peruntukan",
+    "qrHint": "Imbas dengan apl pengesah (Google Authenticator, 1Password, Aegis…) untuk menambah rahsia ini. Kod QR ini mengekod rahsia tersebut — anggap ia seperti kata laluan.",
+    "accountLabel": "Akaun",
+    "accountPlaceholder": "alice@example.com",
+    "issuerLabel": "Pengeluar (pilihan)",
+    "issuerPlaceholder": "MyDevTools",
+    "qrEmptyHint": "Masukkan rahsia yang sah untuk menjana kod QR.",
+    "errors": {
+      "invalidSecret": "Bukan rahsia Base32 yang sah.",
+      "cryptoFailed": "Tidak dapat mengira TOTP. Semak Web Crypto dan cuba lagi.",
+      "invalidUri": "Ini bukan URI otpauth:// TOTP yang sah.",
+      "unsupportedUri": "URI ini menggunakan nilai yang tidak disokong oleh alat ini (digit mestilah 6 atau 8; tempoh 15, 30, atau 60 saat)."
+    }
+  },
+  "MarkdownPreview": {
+    "title": "Pratonton Markdown & HTML",
+    "subtitle": "Pemapar Markdown langsung dengan eksport HTML dan penukaran HTML → Markdown. Semua berjalan dalam pelayar anda.",
+    "tabMarkdownToHtml": "Markdown → HTML",
+    "tabHtmlToMd": "HTML → Markdown",
+    "inputLabel": "Input Markdown",
+    "htmlInputLabel": "Input HTML",
+    "previewLabel": "Pratonton",
+    "htmlOutputLabel": "Sumber HTML",
+    "mdOutputLabel": "Output Markdown",
+    "inputPlaceholder": "# Helo\\n\\nTaip **markdown** anda di sini…",
+    "htmlInputPlaceholder": "Tampal HTML anda di sini…",
+    "copyHtml": "Salin HTML",
+    "copyMarkdown": "Salin Markdown",
+    "exportHtml": "Eksport HTML",
+    "copied": "Disalin",
+    "charCount": "{count, plural, other {# aksara}}",
+    "emptyHint": "Mulakan menaip Markdown untuk melihat pratonton langsung dan output HTML.",
+    "emptyHintHtmlToMd": "Tampal HTML untuk menukarnya kepada Markdown.",
+    "securityNote": "Semua berjalan secara setempat dalam pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "NumberBaseConverter": {
+    "title": "Penukar asas nombor",
+    "subtitle": "Tukar integer antara asas 2–36. Awalan pilihan 0x / 0b / 0o. Semua dikira secara setempat dalam pelayar.",
+    "inputBaseLabel": "Dari asas",
+    "outputBaseLabel": "Ke asas",
+    "inputLabel": "Nombor input",
+    "placeholderInput": "Masukkan integer dalam asas input yang dipilih…",
+    "outputLabel": "Nilai ditukar",
+    "copyOutput": "Salin hasil",
+    "copied": "Disalin",
+    "swap": "Tukar asas",
+    "byteCountHint": "{count, plural, other {# bait}} (panjang UTF-8)",
+    "emptyHint": "Masukkan nombor untuk ditukar.",
+    "note": "Digit melebihi 9 menggunakan A–Z (tidak peka huruf). Ruang dan garis bawah diabaikan.",
+    "errors": {
+      "invalidNumber": "Nilai tidak sah untuk asas input yang dipilih."
+    }
+  },
+  "FormatConverter": {
+    "title": "Penukar Format",
+    "subtitle": "Tukar antara JSON, YAML, TOML dan XML dalam mana-mana arah. Semua 12 kombinasi. Semua berjalan di pelayar anda.",
+    "fromLabel": "Dari",
+    "toLabel": "Ke",
+    "swap": "Tukar",
+    "swapTitle": "Tukar format dan gunakan output sebagai input",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "charCount": "{count, plural, other {# aksara}}",
+    "emptyHint": "Tampal atau taip input anda di sebelah kiri untuk melihat output yang ditukar.",
+    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "MimeTypeLookup": {
+    "title": "Carian jenis MIME",
+    "subtitle": "Cari jenis MIME (jenis media) untuk sambungan fail atau nama fail penuh. Semua berjalan secara tempatan di pelayar anda.",
+    "inputLabel": "Sambungan atau nama fail",
+    "placeholder": "cth .png, package.json, photo.jpeg",
+    "hint": "Tip: tampal sambungan (dengan atau tanpa titik) atau nama fail penuh.",
+    "clear": "Kosongkan",
+    "exampleFilename": "Guna contoh nama fail",
+    "exampleExtension": "Guna contoh sambungan",
+    "resultLabel": "Keputusan",
+    "normalizedLabel": "Input dinormalkan:",
+    "mimeTypeLabel": "Jenis MIME",
+    "contentTypeLabel": "Pengepala Content-Type",
+    "charsetLabel": "Set aksara",
+    "copyMimeType": "Salin jenis MIME",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Masukkan sambungan atau nama fail untuk mencari jenis MIME.",
+    "notFound": "Tiada jenis MIME ditemui untuk input tersebut.",
+    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "UserAgentParser": {
+    "title": "Penghurai User-Agent",
+    "subtitle": "Tampal rentetan User-Agent (UA) dan dapatkan pecahan pelayar, OS, enjin, peranti dan CPU. Semua berjalan secara tempatan di pelayar anda.",
+    "inputLabel": "Rentetan User-Agent",
+    "placeholder": "Tampal User-Agent anda di sini…",
+    "hint": "Tip: anda boleh salin UA daripada pengepala permintaan, log, atau devtools pelayar.",
+    "clear": "Kosongkan",
+    "exampleDesktop": "Guna contoh desktop",
+    "exampleMobile": "Guna contoh mudah alih",
+    "resultLabel": "Pecahan",
+    "browserLabel": "Pelayar",
+    "osLabel": "Sistem operasi",
+    "engineLabel": "Enjin",
+    "deviceTypeLabel": "Jenis peranti",
+    "deviceVendorLabel": "Pengeluar peranti",
+    "deviceModelLabel": "Model peranti",
+    "cpuArchLabel": "Seni bina CPU",
+    "copyJson": "Salin JSON",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "emptyHint": "Tampal rentetan User-Agent untuk melihat pecahan.",
+    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
+  },
+  "MockDataGenerator": {
+    "title": "Penjana Data Mock",
+    "subtitle": "Takrifkan lajur, pilih jenis data, dan eksport set data untuk benih, Postman atau ujian. Sehingga {max} baris, semuanya dalam pelayar — tiada muat naik.",
+    "mockarooLink": "Aliran kerja ala Mockaroo",
+    "rowsLabel": "Baris",
+    "rowsHint": "Maksimum {max} baris setiap penjanaan supaya tab kekal responsif.",
+    "formatLabel": "Format",
+    "formats": {
+      "json": "JSON",
+      "csv": "CSV",
+      "sql": "INSERT SQL",
+      "xml": "XML"
+    },
+    "tableNameLabel": "Nama jadual SQL",
+    "presetsLabel": "Pratetap",
+    "presetPlaceholder": "Muat pratetap…",
+    "presetDefault": "Permulaan (pengguna)",
+    "presetUsers": "Pengguna & peranan",
+    "presetProducts": "SKU e-dagang",
+    "presetApiLog": "Log permintaan HTTP",
+    "generate": "Jana",
+    "warningDuplicateNames": "Nama lajur pendua: lajur kemudian menimpa yang terdahulu dalam objek JSON. Namakan semula.",
+    "schemaHeading": "Skema",
+    "addField": "Tambah lajur",
+    "removeField": "Buang lajur",
+    "duplicateField": "Duplikasi lajur",
+    "colName": "Nama",
+    "colType": "Jenis",
+    "colOptions": "Pilihan",
+    "colBlank": "Kosong %",
+    "optMin": "min",
+    "optMax": "maks",
+    "optDecimals": "perpuluhan",
+    "optDateFrom": "dari tarikh",
+    "optDateTo": "hingga tarikh",
+    "optValues": "a, b, c",
+    "optStep": "langkah",
+    "optRowBase": "asas",
+    "output": "Output",
+    "outputPlaceholder": "Klik Jana untuk membina data…",
+    "copy": "Salin",
+    "download": "Muat turun",
+    "copied": "Disalin",
+    "groups": {
+      "personal": "Peribadi",
+      "location": "Lokasi",
+      "internetApi": "Internet & API",
+      "numbersIds": "Nombor & ID",
+      "dateTime": "Tarikh & masa",
+      "textDesign": "Teks & reka bentuk",
+      "custom": "Tersuai"
+    },
+    "fieldTypes": {
+      "first_name": "Nama pertama",
+      "last_name": "Nama keluarga",
+      "full_name": "Nama penuh",
+      "email": "Email",
+      "username": "Nama pengguna",
+      "password": "Kata laluan",
+      "phone": "Telefon",
+      "company": "Syarikat",
+      "job_title": "Jawatan",
+      "avatar_url": "URL avatar",
+      "city": "Bandar",
+      "country": "Negara",
+      "country_code": "Kod negara (ISO)",
+      "street_address": "Alamat",
+      "zip_code": "Poskod",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "url": "URL",
+      "domain": "Domain",
+      "ip_address": "IPv4",
+      "ipv6": "IPv6",
+      "mac_address": "MAC address",
+      "http_method": "HTTP method",
+      "http_status": "HTTP status",
+      "integer": "Integer",
+      "float": "Perpuluhan",
+      "boolean": "Boolean",
+      "uuid": "UUID",
+      "credit_card": "Kad kredit (ujian)",
+      "semver": "SemVer",
+      "row_index": "Indeks baris",
+      "sequence": "Jujukan",
+      "date": "Tarikh",
+      "datetime": "Tarikh & masa",
+      "unix_timestamp": "Setem masa Unix",
+      "timezone": "Zon masa",
+      "word": "Perkataan",
+      "sentence": "Ayat",
+      "paragraph": "Perenggan",
+      "slug": "Slug",
+      "hex_color": "Hex color",
+      "rgb_color": "RGB color",
+      "currency_code": "Kod mata wang",
+      "language_code": "Tag bahasa",
+      "custom_list": "Senarai tersuai"
+    },
+    "seedLabel": "Seed (optional)",
+    "seedPlaceholder": "e.g. 42",
+    "seedHint": "Same seed + same schema reproduces the same data.",
+    "seedRandomize": "Randomize seed"
+  },
+  "SvgOptimizer": {
+    "title": "Pengoptimum SVG",
+    "subtitle": "Tampal SVG, minify dengan SVGO dalam pelayar dan bandingkan saiz UTF-8 sebelum & selepas.",
+    "inputLabel": "Input",
+    "outputLabel": "Dioptimumkan",
+    "placeholder": "Tampal serpihan <svg>…</svg> atau keseluruhan fail…",
+    "outputPlaceholder": "SVG teroptimum dipaparkan di sini…",
+    "chars": "{count} aksara • {bytes} bait (UTF-8)",
+    "preview": "Pratonton",
+    "localNote": "Semua diproses secara tempatan dalam pelayar. Tiada muat naik.",
+    "stats": {
+      "title": "Saiz (UTF-8)",
+      "before": "Sebelum",
+      "after": "Selepas",
+      "savedBytes": "Jimat {count} bait ({percent}%)",
+      "noChange": "Tiada pengurangan — sudah minimum atau output kosong."
+    },
+    "actions": {
+      "clear": "Kosongkan",
+      "sample": "Muat contoh",
+      "copy": "Salin",
+      "copied": "Disalin",
+      "download": "Muat turun"
+    },
+    "errors": {
+      "optimizeFailed": "Tidak dapat mengoptimumkan SVG ini."
+    }
+  },
+  "UnitConverter": {
+    "title": "Penukar Unit",
+    "subtitle": "Tukar antara <strong>323 unit</strong> merentasi <strong>43 kategori</strong>",
+    "category": "Kategori",
+    "from": "Dari",
+    "to": "Ke",
+    "value": "Nilai",
+    "result": "Keputusan",
+    "swapUnits": "Tukar unit",
+    "placeholder": "Masukkan nilai",
+    "copyResult": "Salin keputusan",
+    "searchCategory": "Cari kategori...",
+    "selectCategory": "Pilih kategori",
+    "noResults": "Tiada kategori dijumpai."
+  },
+  "DockerComposeGenerator": {
+    "title": "Penjana Docker Compose",
+    "subtitle": "Pilih pangkalan data popular, cache, baris gilir mesej, proksi songsang dan kebolehcerapan — salin docker-compose.yml untuk pembangunan setempat.",
+    "searchPlaceholder": "Cari (postgres, redis, kafka, nginx, grafana…)",
+    "selectedLabel": "Perkhidmatan",
+    "selectedCount": "{count, plural, other {# perkhidmatan}}",
+    "outputTitle": "docker-compose.yml",
+    "copy": "Salin",
+    "copied": "Disalin!",
+    "download": "Muat turun",
+    "emptyState": "Pilih satu atau lebih perkhidmatan untuk menjana YAML Compose.",
+    "hintPorts": "Port hos lalai mengurangkan konflik; ubah jika Docker melaporkan port digunakan. Ganti kata laluan demo sebelum persekitaran dikongsi.",
+    "categories": {
+      "databases": "Pangkalan data & storan",
+      "cache": "Cache & dalam memori",
+      "queues": "Baris gilir & pemesejan",
+      "search": "Carian & log",
+      "storage": "Storan objek",
+      "proxy": "Proksi songsang & ingress",
+      "observability": "Metrik & penjejakan",
+      "mail": "E-mel (pembangunan setempat)",
+      "admin": "Antara muka pentadbir & BI"
+    },
+    "presets": {
+      "stackWeb": "Postgres + Redis + Nginx",
+      "stackMern": "MongoDB + Redis + Nginx",
+      "stackObserve": "Prometheus + Grafana + Loki",
+      "stackMessaging": "RabbitMQ + Redis",
+      "stackSearch": "Meilisearch + Postgres",
+      "clear": "Kosongkan"
+    },
+    "services": {
+      "postgres": "PostgreSQL",
+      "mysql": "MySQL",
+      "mariadb": "MariaDB",
+      "mongodb": "MongoDB",
+      "redis": "Redis",
+      "valkey": "Valkey (serasi Redis)",
+      "memcached": "Memcached",
+      "rabbitmq": "RabbitMQ",
+      "nats": "NATS",
+      "kafka": "Apache Kafka (KRaft)",
+      "redpanda": "Redpanda (serasi Kafka)",
+      "elasticsearch": "Elasticsearch",
+      "opensearch": "OpenSearch",
+      "meilisearch": "Meilisearch",
+      "typesense": "Typesense",
+      "minio": "MinIO (serasi S3)",
+      "clickhouse": "ClickHouse",
+      "cockroachdb": "CockroachDB",
+      "cassandra": "Apache Cassandra",
+      "neo4j": "Neo4j",
+      "influxdb": "InfluxDB",
+      "couchdb": "CouchDB",
+      "dynamodb-local": "Amazon DynamoDB Local",
+      "timescaledb": "TimescaleDB",
+      "nginx": "NGINX",
+      "traefik": "Traefik",
+      "caddy": "Caddy",
+      "prometheus": "Prometheus",
+      "grafana": "Grafana",
+      "jaeger": "Jaeger",
+      "zipkin": "Zipkin",
+      "loki": "Grafana Loki",
+      "mailpit": "Mailpit (tangkap SMTP)",
+      "pgadmin": "pgAdmin 4",
+      "adminer": "Adminer",
+      "phpmyadmin": "phpMyAdmin",
+      "vault": "HashiCorp Vault (pelayan dev)",
+      "keycloak": "Keycloak",
+      "portainer": "Portainer CE",
+      "metabase": "Metabase",
+      "gotenberg": "Gotenberg (Chromium / PDF)"
+    }
+  },
+  "Game2048": {
+    "title": "2048",
+    "subtitle": "Gelongsor jubin dan gabungkannya untuk mencapai 2048",
+    "score": "Markah",
+    "best": "Terbaik",
+    "newGame": "Permaina_n Baru",
+    "howToPlay": "Gunakan kekunci anak panah (atau leret pada telefon bimbit) untuk mengalihkan jubin. Jubin dengan nombor yang sama bergabung. Capai 2048 untuk menang!",
+    "youWin": "Anda telah mencapai 2048!",
+    "keepGoing": "Teruskan",
+    "gameOver": "Permainan Tamat",
+    "tryAgain": "Cuba Sekali Lagi",
+    "gameOverMessage": "Tiada lagi pergerakan yang tinggal.",
+    "undo": "Batal"
+  },
+  "Sudoku": {
+    "title": "Sudoku",
+    "stagesCompleted": "peringkat selesai",
+    "time": "Masa",
+    "best": "Terbaik",
+    "difficulty": {
+      "easy": "Mudah",
+      "medium": "Sederhana",
+      "hard": "Susah"
+    },
+    "stage": "Tahap",
+    "solved": "TELAH DISELESAIKAN",
+    "score": "Markah",
+    "nextStage": "Peringkat seterusnya",
+    "replay": "Penapis",
+    "erase": "Padam",
+    "howToPlay": "Klik sel, kemudian ketik nombor atau tekan 1–9. Backspace atau Delete membersihkan sel. Nombor tebal adalah petunjuk. Isi grid supaya setiap baris, lajur, dan kotak 3×3 mengandungi 1–9 tanpa ulangan.",
+    "pencil": "Pencil",
+    "undo": "Undo",
+    "hint": "Hint",
+    "hintsUsed": "hints used",
+    "mistakes": "Mistakes",
+    "failed": "Failed!",
+    "mistakeMode": "3-mistake mode"
+  },
+  "Snake": {
+    "title": "Ular",
+    "subtitle": "Makan makanan, membesar, elak dinding dan diri sendiri",
+    "score": "Skor",
+    "best": "Terbaik",
+    "startPrompt": "Tekan mana-mana kekunci anak panah",
+    "startButton": "Mulakan Permainan",
+    "gameOver": "Permainan Tamat",
+    "playAgain": "Main Semula",
+    "howToPlay": "Gunakan kekunci anak panah atau WASD. Makan untuk membesar. Kelajuan meningkat setiap 50 mata.",
+    "diffEasy": "Mudah",
+    "diffNormal": "Biasa",
+    "diffHard": "Susah",
+    "diffInfinite": "Tanpa Had",
+    "orTap": "atau ketik di bawah",
+    "howToPlayInfinite": "Dinding bersambung — tiada kematian dinding. Makan untuk membesar.",
+    "shieldActive": "Shield Active",
+    "speedBoost": "Speed Boost",
+    "powerSpeed": "Speed x2 (10 ticks)",
+    "powerShield": "Survive one death",
+    "powerShrink": "Shortens tail"
+  },
+  "RedisCommander": {
+    "page": {
+      "title": "Redis Commander",
+      "dialogTitle": "Sambungan Redis",
+      "heroTitle": "Redis Commander",
+      "heroDesc": "Sambung ke contoh Redis. Semak kunci, edit nilai dan jalankan arahan. Kelayakan disulitkan dalam pelayar anda.",
+      "heroAddConnection": "Tambah Sambungan",
+      "vaultLockedTitle": "Peti besi dikunci",
+      "vaultLockedDesc": "Buka kunci peti besi untuk mengakses sambungan yang disimpan."
+    }
+  },
+  "Minesweeper": {
+    "title": "Penyapu Min",
+    "subtitle": "Cari semua sel selamat tanpa meletupkan min",
+    "mines": "Min",
+    "newGame": "Permainan baharu",
+    "win": "Anda menang!",
+    "loss": "Kalah!",
+    "playAgain": "Main lagi",
+    "tryAgain": "Cuba lagi",
+    "startPrompt": "Klik mana-mana sel untuk mula",
+    "difficulty": {
+      "beginner": "Pemula",
+      "intermediate": "Pertengahan",
+      "expert": "Pakar"
+    }
+  },
+  "Tetris": {
+    "title": "Tetris",
+    "subtitle": "Susun blok yang jatuh untuk melengkapkan baris",
+    "next": "Seterusnya",
+    "score": "Skor",
+    "best": "Terbaik",
+    "lines": "Baris",
+    "level": "Tahap",
+    "pause": "Jeda",
+    "resume": "Sambung",
+    "start": "Mula",
+    "restart": "Mulakan semula",
+    "paused": "Dijeda",
+    "gameOver": "Permainan tamat"
+  },
+  "SshKeyGenerator": {
+    "title": "Penjana Kekunci SSH / RSA",
+    "subtitle": "Jana pasangan kekunci Ed25519 atau RSA dalam pelayar anda. Muat turun kekunci peribadi dan awam dalam format OpenSSH dan PEM. Tiada apa yang dimuat naik.",
+    "keyTypeLabel": "Jenis Kekunci",
+    "recommended": "disyorkan",
+    "ed25519Desc": "Pantas, kecil dan moden. Disokong oleh GitHub, GitLab dan semua pelayan SSH utama.",
+    "rsa2048Desc": "Serasi secara meluas. Selamat untuk kebanyakan kegunaan.",
+    "rsa4096Desc": "Keserasian dan kekuatan maksimum untuk sistem lama.",
+    "commentLabel": "Komen (pilihan)",
+    "commentHint": "Ditambah pada baris kekunci awam OpenSSH.",
+    "generateBtn": "Jana Pasangan Kekunci",
+    "generating": "Menjana…",
+    "generatingLong": "Menjana (mungkin mengambil masa sebentar)…",
+    "copy": "Salin",
+    "download": "Muat turun",
+    "privateKeyLabel": "Kekunci Peribadi (PKCS#8 PEM)",
+    "publicKeyOpenSSHLabel": "Kekunci Awam (format OpenSSH)",
+    "publicKeySpkiLabel": "Kekunci Awam (SPKI PEM)",
+    "browserNote": "Semua kekunci dijana dalam pelayar anda. Tiada apa yang dihantar ke mana-mana pelayan.",
+    "errors": {
+      "generationFailed": "Penjanaan kekunci gagal"
+    }
+  },
+  "DnsLookup": {
+    "title": "Carian DNS",
+    "subtitle": "Pertanyaan rekod DNS untuk mana-mana domain — A, AAAA, MX, TXT, NS, CNAME.",
+    "placeholder": "Masukkan domain (cth. github.com)",
+    "lookupBtn": "Cari",
+    "looking": "Mencari…",
+    "refreshBtn": "Muat semula",
+    "recordTypesLabel": "Jenis rekod",
+    "allBtn": "Semua",
+    "tryLabel": "Cuba:",
+    "errors": {
+      "lookupFailed": "Carian DNS gagal"
+    }
+  },
+  "CurlToCode": {
+    "title": "cURL to Code",
+    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "panels": {
+      "input": "curl command",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a curl command here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated request code will appear here…"
+  },
+  "JsonToCode": {
+    "title": "JSON to Code",
+    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "panels": {
+      "input": "JSON input",
+      "output": "Generated code"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste a sample JSON object here…",
+    "rootName": "Root name",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Generated type models will appear here…"
+  },
+  "JsonVisualizer": {
+    "title": "JSON Visualizer",
+    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "panels": {
+      "input": "JSON input",
+      "graph": "Graph"
+    },
+    "sample": "Sample",
+    "clear": "Clear",
+    "placeholder": "Paste or type JSON here…",
+    "searchPlaceholder": "Search keys & values",
+    "prevMatch": "Previous match",
+    "nextMatch": "Next match",
+    "nodeCount": "{count} nodes",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "fitView": "Fit to view",
+    "expandAll": "Expand all",
+    "collapseAll": "Collapse all",
+    "export": "Export",
+    "exportPng": "PNG image",
+    "exportSvg": "SVG image",
+    "copyPath": "Copy path",
+    "copyValue": "Copy value",
+    "pathCopied": "Path copied",
+    "valueCopied": "Value copied",
+    "viewTable": "View as table",
+    "tableTitle": "Table view",
+    "locateInText": "Locate in text",
+    "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
+    "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
+    "emptyState": "Paste JSON in the input to see it as an interactive graph."
+  },
+  "BeautifyMinify": {
+    "title": "Beautify & Minify",
+    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "langLabel": "Language",
+    "actionLabel": "Action",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "bytes": "{count} bytes",
+    "clear": "Clear",
+    "placeholder": "Paste code here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Formatted output will appear here…"
+  },
+  "StringCaseConverter": {
+    "title": "String Case Converter",
+    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "panels": {
+      "input": "Input",
+      "output": "Case variants"
+    },
+    "wordCount": "{count} words",
+    "clear": "Clear",
+    "placeholder": "Type or paste text to convert…",
+    "copyTitle": "Copy to clipboard",
+    "emptyHint": "—"
+  },
+  "LineSortDedupe": {
+    "title": "Line Sort & Dedupe",
+    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "opts": {
+      "sort": "Sort",
+      "dedupe": "Remove duplicates",
+      "removeEmpty": "Remove empty lines",
+      "trim": "Trim lines",
+      "caseInsensitive": "Case-insensitive"
+    },
+    "sortModes": {
+      "none": "No sort",
+      "asc": "Ascending (A–Z)",
+      "desc": "Descending (Z–A)",
+      "natural": "Natural (numeric)",
+      "length": "By length",
+      "reverse": "Reverse order"
+    },
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "lineCount": "{count} lines",
+    "clear": "Clear",
+    "placeholder": "Paste lines here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Processed lines will appear here…"
+  },
+  "StringInspector": {
+    "title": "String Inspector",
+    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "panels": {
+      "input": "Input"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text to inspect…",
+    "stats": {
+      "characters": "Characters",
+      "charactersNoSpaces": "No spaces",
+      "words": "Words",
+      "lines": "Lines",
+      "sentences": "Sentences",
+      "paragraphs": "Paragraphs",
+      "bytes": "Bytes (UTF-8)",
+      "utf16": "UTF-16 units",
+      "letters": "Letters",
+      "digits": "Digits",
+      "whitespace": "Whitespace",
+      "punctuation": "Punctuation",
+      "readingTime": "Reading time"
+    },
+    "specialTitle": "Special & non-ASCII characters",
+    "noSpecial": "No special or non-ASCII characters found.",
+    "specialEmpty": "Special characters will be listed here…",
+    "cols": {
+      "codepoint": "Code point",
+      "name": "Name",
+      "count": "Count"
+    },
+    "nonAscii": "Non-ASCII character"
+  },
+  "EscapeEncode": {
+    "title": "Escape / Encode",
+    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "modeLabel": "Mode",
+    "modes": {
+      "html": "HTML Entities",
+      "backslash": "Backslash (JS / JSON string)",
+      "hex": "Hex ↔ ASCII",
+      "unicode": "Unicode \\uXXXX"
+    },
+    "directionLabel": "Direction",
+    "encode": "Encode",
+    "decode": "Decode",
+    "swap": "Swap",
+    "panels": {
+      "input": "Input",
+      "output": "Output"
+    },
+    "clear": "Clear",
+    "placeholder": "Type or paste text here…",
+    "copy": "Copy",
+    "copied": "Copied",
+    "outputPlaceholder": "Result will appear here…"
+  },
+  "BcryptGenerator": {
+    "title": "Penjana & Penyemak Bcrypt",
+    "subtitle": "Cincang kata laluan dengan bcrypt dan sahkan cincangan — semuanya kekal dalam pelayar anda",
+    "tabs": {
+      "hash": "Cincang",
+      "verify": "Sahkan"
+    },
+    "showPassword": "Tunjukkan kata laluan",
+    "hidePassword": "Sembunyikan kata laluan",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "hash": {
+      "passwordLabel": "Kata laluan",
+      "passwordPlaceholder": "Masukkan kata laluan untuk dicincang…",
+      "costLabel": "Faktor kos",
+      "costHint": "Kos lebih tinggi menggandakan kerja setiap langkah. 10-12 ialah pilihan biasa untuk pengeluaran.",
+      "slowWarning": "Faktor kos 13 dan ke atas boleh mengambil beberapa saat untuk dikira.",
+      "generate": "Jana cincangan",
+      "generating": "Mencincang…",
+      "resultLabel": "Cincangan Bcrypt",
+      "timeTaken": "{ms} ms",
+      "anatomy": {
+        "title": "Anatomi cincangan",
+        "algorithm": "algoritma",
+        "cost": "kos",
+        "salt": "salt (22 aksara)",
+        "hash": "cincangan (31 aksara)"
+      }
+    },
+    "verify": {
+      "passwordLabel": "Kata laluan",
+      "passwordPlaceholder": "Masukkan kata laluan untuk disemak…",
+      "hashLabel": "Cincangan Bcrypt",
+      "hashPlaceholder": "$2b$10$…",
+      "idle": "Masukkan kata laluan dan cincangan bcrypt untuk membandingkannya.",
+      "invalidHash": "Ini tidak kelihatan seperti cincangan bcrypt yang sah.",
+      "checking": "Membandingkan…",
+      "match": "Padan — kata laluan menghasilkan cincangan ini.",
+      "noMatch": "Tidak padan — kata laluan tidak menghasilkan cincangan ini."
+    }
+  },
+  "ChmodCalculator": {
+    "title": "Kalkulator Chmod",
+    "subtitle": "Tukar keizinan fail Unix antara kotak semak, oktal dan tatatanda simbolik",
+    "grid": {
+      "title": "Keizinan",
+      "read": "Baca",
+      "write": "Tulis",
+      "execute": "Laksana",
+      "owner": "Pemilik",
+      "group": "Kumpulan",
+      "others": "Lain-lain"
+    },
+    "special": {
+      "title": "Bit khas",
+      "setuid": "setuid",
+      "setgid": "setgid",
+      "sticky": "sticky"
+    },
+    "octal": {
+      "label": "Oktal",
+      "placeholder": "755 atau 4755",
+      "invalid": "Masukkan 3 atau 4 digit oktal (0-7)."
+    },
+    "symbolic": {
+      "label": "Simbolik",
+      "placeholder": "rwxr-xr-x",
+      "invalid": "Masukkan 9 aksara seperti rwxr-xr-x (s/S, t/T dibenarkan)."
+    },
+    "output": {
+      "title": "Arahan",
+      "copy": "Salin",
+      "copied": "Disalin"
+    },
+    "explain": {
+      "line": "{cls} boleh {perms}.",
+      "none": "{cls} tiada sebarang keizinan.",
+      "setuid": "setuid: fail berjalan dengan keistimewaan pemiliknya.",
+      "setgid": "setgid: fail berjalan dengan keistimewaan kumpulannya (fail baharu dalam direktori mewarisi kumpulannya).",
+      "sticky": "sticky: hanya pemilik fail boleh memadam atau menamakan semulanya di dalam direktori ini."
+    },
+    "presets": {
+      "title": "Praset lazim",
+      "octal": "Oktal",
+      "permissions": "Keizinan",
+      "description": "Kegunaan tipikal",
+      "p644": "Fail biasa: pemilik menulis, semua orang membaca.",
+      "p755": "Boleh laku dan direktori: semua orang boleh baca dan masuk.",
+      "p600": "Fail peribadi: hanya pemilik membaca dan menulis.",
+      "p700": "Boleh laku dan direktori peribadi: pemilik sahaja.",
+      "p664": "Fail boleh ditulis oleh kumpulan.",
+      "p775": "Direktori dan boleh laku yang boleh ditulis oleh kumpulan.",
+      "p400": "Baca sahaja untuk pemilik (cth. kunci peribadi SSH)."
+    }
+  },
+  "CodeScreenshot": {
+    "title": "Tangkap Skrin Kod",
+    "subtitle": "Tukar kod menjadi imej cantik yang boleh dikongsi",
+    "languageLabel": "Bahasa",
+    "autoDetect": "Auto kesan",
+    "backgroundLabel": "Latar belakang",
+    "paddingLabel": "Pelapik",
+    "filenameLabel": "Nama fail",
+    "filenamePlaceholder": "example.ts",
+    "windowLabel": "Titik tetingkap",
+    "themeLabel": "Tema tetingkap",
+    "themeDark": "Gelap",
+    "themeLight": "Cerah",
+    "scaleLabel": "Skala eksport",
+    "copyImage": "Salin imej",
+    "copied": "Disalin",
+    "exportPng": "Eksport PNG",
+    "inputLabel": "Kod",
+    "detected": "Dikesan: {language}",
+    "clear": "Kosongkan",
+    "placeholder": "Tampal kod anda di sini…",
+    "previewLabel": "Pratonton",
+    "emptyPreview": "Pratonton kod anda akan muncul di sini",
+    "exportFailed": "Gagal mengeksport imej",
+    "copyUnsupported": "Menyalin imej tidak disokong dalam pelayar ini",
+    "copyFailed": "Gagal menyalin imej",
+    "backgrounds": {
+      "ocean": "Lautan",
+      "sunset": "Senja",
+      "candy": "Gula-gula",
+      "forest": "Hutan",
+      "midnight": "Tengah malam",
+      "gold": "Emas",
+      "aurora": "Aurora",
+      "slate": "Batu tulis",
+      "transparent": "Lutsinar"
+    }
+  },
+  "CssGenerators": {
+    "title": "Penjana CSS",
+    "subtitle": "box-shadow, border-radius dan clamp() bendalir — salin CSS.",
+    "preview": "Pratonton",
+    "output": "CSS",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "tabs": {
+      "boxShadow": "Box Shadow",
+      "borderRadius": "Border Radius",
+      "clamp": "clamp() bendalir"
+    },
+    "boxShadow": {
+      "presets": "Praset",
+      "layer": "Lapisan",
+      "addLayer": "Tambah lapisan",
+      "removeLayer": "Buang lapisan",
+      "x": "X",
+      "y": "Y",
+      "blur": "Kabur",
+      "spread": "Sebaran",
+      "color": "Warna",
+      "alpha": "Alfa",
+      "inset": "Terbenam",
+      "presetNames": {
+        "subtleCard": "Kad halus",
+        "elevated": "Tinggi",
+        "hardOffset": "Ofset tegas",
+        "neonGlow": "Sinar neon",
+        "inner": "Dalaman",
+        "layeredSmooth": "Berlapis licin"
+      }
+    },
+    "borderRadius": {
+      "modeLabel": "Mod",
+      "modes": {
+        "simple": "Setiap sudut",
+        "blob": "Blob organik"
+      },
+      "unit": "Unit",
+      "linkCorners": "Pautkan sudut",
+      "randomize": "Rawakkan",
+      "horizontal": "Jejari mendatar",
+      "vertical": "Jejari menegak",
+      "corners": {
+        "tl": "Kiri atas",
+        "tr": "Kanan atas",
+        "br": "Kanan bawah",
+        "bl": "Kiri bawah"
+      }
+    },
+    "clamp": {
+      "minFont": "Fon min (px)",
+      "maxFont": "Fon maks (px)",
+      "minViewport": "Viewport min (px)",
+      "maxViewport": "Viewport maks (px)",
+      "rootFont": "Fon akar (px)",
+      "viewportWidth": "Viewport simulasi",
+      "computedSize": "Saiz terkira",
+      "slope": "Cerun",
+      "intercept": "Pintasan",
+      "previewText": "Teks contoh pratonton",
+      "invalid": "Masukkan had viewport yang sah dan berbeza."
+    }
+  },
+  "ExifViewer": {
+    "title": "Pemapar & Pembuang EXIF",
+    "subtitle": "Periksa metadata foto dan buang ia dalam pelayar anda",
+    "dropTitle": "Lepaskan imej di sini",
+    "dropHint": "atau klik untuk semak lalu — imej anda tidak pernah meninggalkan peranti anda",
+    "browse": "Pilih imej",
+    "formats": "JPEG, PNG, WebP, HEIC, TIFF",
+    "parsing": "Membaca metadata…",
+    "parseFailed": "Gagal membaca imej ini",
+    "clear": "Buang imej",
+    "gpsWarning": "Mengandungi lokasi GPS",
+    "openMap": "Lihat pada OpenStreetMap",
+    "noMetadata": "Tiada metadata terbenam ditemui dalam imej ini.",
+    "facts": {
+      "name": "Nama",
+      "type": "Jenis",
+      "dimensions": "Dimensi",
+      "size": "Saiz"
+    },
+    "groups": {
+      "camera": "Kamera",
+      "exposure": "Dedahan",
+      "timestamps": "Cap masa",
+      "gps": "Lokasi GPS",
+      "software": "Perisian & Lain-lain"
+    },
+    "gpsCard": {
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "altitude": "Altitud"
+    },
+    "raw": {
+      "title": "Semua metadata",
+      "copyJson": "Salin JSON",
+      "copied": "Disalin"
+    },
+    "remove": {
+      "title": "Buang metadata",
+      "jpegDescription": "Buang EXIF, XMP, IPTC dan komen tanpa kehilangan dan tanpa memampatkan semula imej.",
+      "reencodeDescription": "Kod semula imej untuk membuang metadata terbenam. Ini memampatkan semula piksel.",
+      "keepIcc": "Kekalkan profil warna (ICC)",
+      "stripButton": "Buang metadata",
+      "reencodeButton": "Kod semula & buang",
+      "unsupported": "Pembuangan metadata tidak disokong untuk jenis fail ini.",
+      "failed": "Gagal membuang metadata",
+      "before": "Sebelum",
+      "after": "Selepas",
+      "download": "Muat turun imej yang dibersihkan"
+    }
+  },
+  "FaviconGenerator": {
+    "title": "Penjana Favicon",
+    "subtitle": "Cipta favicon dan ikon aplikasi daripada satu imej",
+    "dropTitle": "Lepaskan imej di sini",
+    "dropHint": "PNG, JPEG atau SVG — klik untuk semak lalu",
+    "browse": "Pilih imej",
+    "clear": "Buang imej",
+    "backgroundLabel": "Latar belakang",
+    "transparent": "Lutsinar",
+    "solidColor": "Warna pejal",
+    "cornerLabel": "Bentuk sudut",
+    "cornerNone": "Segi empat sama",
+    "cornerRounded": "Bulat",
+    "cornerCircle": "Bulatan",
+    "maskPaddingLabel": "Pelapik boleh topeng",
+    "maskable": "maskable",
+    "previewLabel": "Pratonton",
+    "copy": "Salin",
+    "headSnippet": "Cebisan HTML head",
+    "downloadIco": "Muat turun favicon.ico",
+    "downloadZip": "Muat turun semua (.zip)"
+  },
+  "JsonDiff": {
+    "title": "Beza JSON",
+    "subtitle": "Perbandingan bermakna dan peka struktur bagi dua dokumen JSON — susunan kunci dan pemformatan diabaikan",
+    "options": {
+      "ignoreArrayOrder": "Abaikan susunan tatasusunan"
+    },
+    "loadBothSamples": "Muat contoh",
+    "sample": "Contoh",
+    "format": "Format",
+    "clear": "Kosongkan",
+    "formatError": "Tidak boleh format: input bukan JSON yang sah",
+    "placeholder": "Tampal atau taip JSON di sini…",
+    "panels": {
+      "left": "Asal (kiri)",
+      "right": "Diubah suai (kanan)",
+      "results": "Perbezaan"
+    },
+    "summary": {
+      "added": "{count} ditambah",
+      "removed": "{count} dibuang",
+      "changed": "{count} berubah"
+    },
+    "types": {
+      "added": "Ditambah",
+      "removed": "Dibuang",
+      "changed": "Berubah"
+    },
+    "copyChanges": "Salin sebagai JSON",
+    "copied": "Disalin",
+    "empty": "Tampal JSON ke dalam kedua-dua panel untuk melihat perbezaannya.",
+    "identical": "Kedua-dua dokumen adalah sama dari segi makna."
+  },
+  "JsonpathPlayground": {
+    "title": "Ruang Uji JSONPath",
+    "subtitle": "Kueri dokumen JSON dengan JSONPath atau JMESPath dan lihat keputusan secara langsung",
+    "engineLabel": "Enjin",
+    "queryLabel": "Kueri",
+    "engines": {
+      "jsonpath": "JSONPath",
+      "jmespath": "JMESPath"
+    },
+    "cheatsheet": "Helaian rujukan",
+    "cheats": {
+      "jpAllTitles": "Semua tajuk buku",
+      "jpAllAuthors": "Setiap pengarang, di mana-mana dalam dokumen",
+      "jpFirstBook": "Buku pertama",
+      "jpLastBook": "Buku terakhir",
+      "jpSlice": "Dua buku pertama (hirisan)",
+      "jpFilterPrice": "Buku lebih murah daripada 40",
+      "jpFilterInStock": "Tajuk buku yang ada dalam stok",
+      "jpRecursive": "Semua nilai, secara rekursif",
+      "jmAllTitles": "Semua tajuk buku",
+      "jmFirstAuthor": "Pengarang buku pertama",
+      "jmLastBook": "Buku terakhir",
+      "jmSlice": "Dua buku pertama (hirisan)",
+      "jmFilterPrice": "Tajuk buku lebih murah daripada 40",
+      "jmCount": "Kira buku dalam stok",
+      "jmProjection": "Bentuk semula setiap buku menjadi objek baharu",
+      "jmSort": "Tajuk disusun mengikut harga"
+    },
+    "panels": {
+      "input": "Input JSON",
+      "results": "Keputusan"
+    },
+    "sample": "Contoh",
+    "format": "Format",
+    "clear": "Kosongkan",
+    "formatError": "Tidak boleh format: input bukan JSON yang sah",
+    "placeholder": "Tampal atau taip JSON di sini…",
+    "outputPlaceholder": "Padanan akan muncul di sini…",
+    "matchCount": "{count, plural, one {# padanan} other {# padanan}}",
+    "copy": "Salin",
+    "copied": "Disalin"
+  },
+  "KeycodeInspector": {
+    "title": "Pemeriksa Kod Kekunci",
+    "subtitle": "Tekan mana-mana kekunci untuk memeriksa peristiwa papan kekunci JavaScriptnya",
+    "capture": {
+      "prompt": "Tekan mana-mana kekunci…",
+      "ready": "Mendengar — tekan mana-mana kekunci pada papan kekunci anda",
+      "clickToFocus": "Klik di sini untuk memfokus, kemudian tekan mana-mana kekunci"
+    },
+    "hero": {
+      "spaceKey": "(Space)",
+      "keyLabel": "event.key",
+      "repeat": "ulang"
+    },
+    "copyJson": "Salin JSON",
+    "copiedJson": "JSON peristiwa disalin ke papan keratan",
+    "deprecated": "usang",
+    "fields": {
+      "code": "event.code",
+      "keyCode": "event.keyCode",
+      "which": "event.which",
+      "location": "event.location"
+    },
+    "location": {
+      "standard": "Piawai",
+      "left": "Kiri",
+      "right": "Kanan",
+      "numpad": "Pad nombor",
+      "unknown": "Tidak diketahui"
+    },
+    "history": {
+      "title": "Sejarah",
+      "clear": "Kosongkan sejarah",
+      "empty": "Tekanan kekunci akan muncul di sini."
+    }
+  },
+  "MarkdownTableGenerator": {
+    "title": "Penjana Jadual Markdown",
+    "subtitle": "Sunting grid, tampal daripada hamparan dan salin jadual Markdown atau HTML yang tersusun kemas",
+    "addRow": "Tambah baris",
+    "addColumn": "Tambah lajur",
+    "importLabel": "Import",
+    "importPlaceholder": "Tampal TSV (dari Excel / Google Sheets) atau CSV di sini…",
+    "importButton": "Import ke dalam grid",
+    "pasteClipboard": "Tampal dari papan keratan",
+    "importEmpty": "Tiada apa untuk diimport — tampal beberapa baris dahulu",
+    "clipboardError": "Tidak dapat membaca daripada papan keratan",
+    "clear": "Kosongkan",
+    "panels": {
+      "editor": "Penyunting jadual",
+      "output": "Output"
+    },
+    "align": {
+      "left": "Jajar kiri",
+      "center": "Jajar tengah",
+      "right": "Jajar kanan"
+    },
+    "headerPlaceholder": "Pengepala",
+    "cellPlaceholder": "Sel",
+    "removeRow": "Buang baris",
+    "removeColumn": "Buang lajur",
+    "tabs": {
+      "markdown": "Markdown",
+      "html": "HTML"
+    },
+    "copy": "Salin",
+    "copied": "Disalin"
+  },
+  "TimezoneConverter": {
+    "title": "Penukar Zon Waktu",
+    "subtitle": "Tukar satu detik merentas dunia untuk perancangan mesyuarat.",
+    "dateTimeLabel": "Tarikh & masa",
+    "now": "Sekarang",
+    "sourceZoneLabel": "Zon waktu sumber",
+    "selectZone": "Pilih zon",
+    "searchZone": "Cari zon waktu...",
+    "noZone": "Tiada zon waktu ditemui.",
+    "scrubLabel": "Anjak masa",
+    "reset": "Set semula",
+    "targetsLabel": "Zon sasaran",
+    "addZone": "Tambah zon",
+    "remove": "Buang",
+    "localBadge": "Setempat",
+    "invalidDate": "Masukkan tarikh dan masa yang sah.",
+    "bands": {
+      "work": "Waktu kerja (09:00–18:00)",
+      "edge": "Waktu sempadan (awal pagi / petang)",
+      "night": "Malam"
+    }
+  },
+  "TokenCounter": {
+    "title": "Pengira Token LLM",
+    "subtitle": "Kira token, visualkan cebisan dan anggarkan kos API.",
+    "inputLabel": "Teks",
+    "sample": "Contoh",
+    "clear": "Kosongkan",
+    "placeholder": "Tampal teks, kod atau JSON untuk mengira token...",
+    "encoding": "Pengekodan",
+    "loading": "Memuatkan tokenizer...",
+    "encodings": {
+      "o200k": "o200k_base (GPT-4o / o-series)",
+      "cl100k": "cl100k_base (GPT-4 / 3.5)"
+    },
+    "stats": {
+      "tokens": "Token",
+      "characters": "Aksara",
+      "words": "Perkataan",
+      "ratio": "Token/perkataan",
+      "ratioSub": "anggaran"
+    },
+    "claudeRow": "Claude (anggaran)",
+    "estimate": "anggaran",
+    "viz": {
+      "title": "Visualisasi token",
+      "toggle": "Tunjuk",
+      "hint": "Togol untuk mewarnakan setiap token sebagai satu cebisan.",
+      "empty": "Masukkan teks untuk memvisualkan token.",
+      "truncated": "Memaparkan {limit} pertama daripada {total} token."
+    },
+    "cost": {
+      "title": "Kalkulator kos",
+      "disclaimer": "nilai lalai boleh disunting — sahkan harga semasa",
+      "model": "Model",
+      "expectedOutput": "Token output dijangka",
+      "customInput": "Input $/MTok",
+      "customOutput": "Output $/MTok",
+      "inputCost": "Kos input",
+      "outputCost": "Kos output",
+      "total": "Jumlah",
+      "per1000": "Setiap 1000 panggilan"
+    }
+  },
+  "WebhookTester": {
+    "title": "Penguji Webhook",
+    "subtitle": "Cipta URL sementara dan periksa permintaan webhook masuk secara langsung.",
+    "intro": {
+      "title": "Cipta URL webhook untuk mula menangkap permintaan",
+      "hint": "Anda akan mendapat URL yang tidak boleh diteka yang merekod setiap permintaan masuk. Ia luput selepas 24 jam."
+    },
+    "createBtn": "Cipta URL webhook",
+    "creating": "Mencipta…",
+    "urlLabel": "URL webhook anda",
+    "expiresIn": "Luput dalam {countdown}",
+    "copyUrlBtn": "Salin URL",
+    "copied": "Disalin",
+    "clearBtn": "Kosongkan",
+    "newBinBtn": "URL baharu",
+    "requestsTitle": "Permintaan",
+    "selectPrompt": "Pilih satu permintaan untuk memeriksa butirannya.",
+    "expiredNotice": "URL webhook ini telah luput. Cipta yang baharu untuk terus menguji.",
+    "base64Badge": "base64",
+    "truncatedBadge": "dipangkas",
+    "empty": {
+      "title": "Menunggu permintaan…",
+      "hint": "Hantar permintaan ke URL anda dan ia akan muncul di sini serta-merta. Cuba ini:"
+    },
+    "detail": {
+      "receivedAt": "Diterima",
+      "source": "IP sumber",
+      "contentType": "Content-Type",
+      "query": "Parameter kueri",
+      "headers": "Pengepala",
+      "body": "Badan",
+      "copyBody": "Salin badan",
+      "emptyBody": "Tiada badan"
+    },
+    "errors": {
+      "createFailed": "Gagal mencipta URL webhook. Sila cuba lagi.",
+      "clearFailed": "Gagal mengosongkan permintaan. Sila cuba lagi."
+    }
+  },
+  "WebsocketTester": {
+    "title": "Penguji WebSocket",
+    "subtitle": "Sambung ke titik akhir WebSocket dan hantar, terima serta periksa mesej secara langsung",
+    "urlLabel": "URL titik akhir",
+    "protocolsLabel": "Subprotokol",
+    "protocolsPlaceholder": "pilihan, dipisahkan koma",
+    "connect": "Sambung",
+    "disconnect": "Putuskan sambungan",
+    "status": {
+      "disconnected": "Terputus",
+      "connecting": "Menyambung",
+      "connected": "Tersambung",
+      "error": "Ralat"
+    },
+    "messages": {
+      "connecting": "Menyambung ke {url}…",
+      "connected": "Sambungan diwujudkan",
+      "connectedWithProtocol": "Sambungan diwujudkan (protokol: {protocol})",
+      "invalidUrl": "URL tidak sah — mesti bermula dengan ws:// atau wss://",
+      "connectFailed": "Gagal membuka sambungan",
+      "socketError": "Ralat sambungan berlaku",
+      "notConnected": "Tidak tersambung — sambung dahulu",
+      "binaryMessage": "Mesej binari diterima"
+    },
+    "log": {
+      "title": "Log Mesej",
+      "empty": "Belum ada mesej. Sambung dan mula menghantar.",
+      "copyAll": "Salin semua",
+      "download": "Muat turun sebagai .txt",
+      "clear": "Kosongkan log",
+      "prettyPrint": "Format JSON",
+      "showRaw": "Tunjuk teks mentah"
+    },
+    "composer": {
+      "placeholder": "Taip mesej untuk dihantar…",
+      "send": "Hantar",
+      "formatJson": "Format sebagai JSON",
+      "invalidJson": "Mesej bukan JSON yang sah",
+      "hint": "Cmd/Ctrl+Enter untuk hantar"
+    },
+    "ping": {
+      "label": "Auto-ping",
+      "seconds": "saat",
+      "intervalTitle": "Selang ping dalam saat",
+      "payloadPlaceholder": "muatan ping"
+    }
+  },
+  "WhoisLookup": {
+    "title": "Carian Whois",
+    "subtitle": "Cari butiran pendaftaran bagi mana-mana domain atau alamat IP melalui RDAP",
+    "placeholder": "example.com atau 8.8.8.8",
+    "lookupBtn": "Cari",
+    "looking": "Mencari…",
+    "refreshBtn": "Muat semula",
+    "tryLabel": "Cuba:",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "notAvailable": "Tidak tersedia",
+    "summary": {
+      "registrar": "Pendaftar",
+      "network": "Rangkaian"
+    },
+    "dates": {
+      "created": "Dicipta",
+      "updated": "Dikemas kini",
+      "expires": "Luput"
+    },
+    "sections": {
+      "status": "Status",
+      "nameservers": "Pelayan nama",
+      "contacts": "Kenalan",
+      "rawRdap": "RDAP mentah"
+    },
+    "contacts": {
+      "roles": "Peranan",
+      "name": "Nama",
+      "organization": "Organisasi"
+    },
+    "errors": {
+      "invalidTarget": "Masukkan nama domain atau alamat IP yang sah",
+      "lookupFailed": "Carian gagal (status {status})"
+    }
+  }
+}
