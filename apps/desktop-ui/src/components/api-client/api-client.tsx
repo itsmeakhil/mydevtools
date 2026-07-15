@@ -981,12 +981,17 @@ function ApiClientInner() {
     const handleCurlPaste = (curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
+            // No URL extracted → don't claim success and don't wipe the current URL.
+            if (!parsed.url) {
+                toast.error(t("toasts.curlNoUrl"))
+                return
+            }
             const resolvedUrl = replaceUrlWithEnvBaseUrl(parsed.url)
 
             updateActiveTab({
                 ...parsed,
-                url: resolvedUrl || activeTab.url,
-                name: resolvedUrl || activeTab.name,
+                url: resolvedUrl || parsed.url,
+                name: resolvedUrl || parsed.url,
             })
             toast.success(t("toasts.curlPasted"))
         } catch (error) {

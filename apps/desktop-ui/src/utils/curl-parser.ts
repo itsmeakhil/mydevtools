@@ -9,14 +9,16 @@ export function parseCurlCommand(curlCommand: string): Partial<ApiRequestState> 
         auth: { type: "none" },
     }
 
-    if (!curlCommand.trim().startsWith("curl")) {
+    // Case-insensitive, and tolerant of `curl.exe` — must match the paste
+    // detection in request-panel (`/^\s*curl\b/i`) or valid pastes throw here.
+    if (!/^\s*curl\b/i.test(curlCommand)) {
         throw new Error("Not a curl command")
     }
 
     const args = tokenize(curlCommand)
 
-    // Remove 'curl'
-    if (args[0] === "curl") {
+    // Remove the leading `curl` / `curl.exe` / `CURL` token.
+    if (args[0] && /^curl(\.exe)?$/i.test(args[0])) {
         args.shift()
     }
 
@@ -127,7 +129,16 @@ function parseUrl(urlArg: string, result: Partial<ApiRequestState>) {
         url = url.substring(1, url.length - 1)
     }
 
-    if (url.includes("://") || url.includes("localhost")) {
+    // Accept a token as the URL if it has a scheme, or looks like a bare
+    // host: domain / IPv4 / localhost, optionally with :port, path, or query.
+    // Excludes leftover `key=val` values from flags we don't parse (no dot/IP).
+    const looksLikeUrl =
+        url.includes("://") ||
+        /^([\w-]+\.)+[\w-]+(:\d+)?([/?]|$)/.test(url) ||
+        /^\d{1,3}(\.\d{1,3}){3}(:\d+)?([/?]|$)/.test(url) ||
+        /^localhost(:\d+)?([/?]|$)/i.test(url)
+
+    if (looksLikeUrl) {
         if (url.includes("?")) {
             const [baseUrl, queryString] = url.split("?")
             result.url = baseUrl
