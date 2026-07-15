@@ -159,6 +159,8 @@
   },
   "Dashboard": {
     "title": "Dashboard",
+    "navPlan": "Plan & billing",
+    "navSecurity": "Security",
     "passkeysTitle": "Passkeys",
     "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
     "passkeyNotSupported": "Your browser does not support passkeys.",
