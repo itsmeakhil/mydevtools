@@ -38,7 +38,6 @@ VERSION="$(node -p "require('$ROOT/src-tauri/tauri.conf.json').version")"
 TAG="v$VERSION"
 BUNDLE="$ROOT/src-tauri/target/universal-apple-darwin/release/bundle"
 APP="$BUNDLE/macos/MyDevTools.app"
-TARBALL_NAME="MyDevTools_${VERSION}_universal.app.tar.gz"
 DMG="$BUNDLE/dmg/MyDevTools_${VERSION}_universal.dmg"
 OUT="$BUNDLE/macos"
 
@@ -55,27 +54,32 @@ if gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
   exit 1
 fi
 
-# ── 1. build + Apple-sign the universal app (no dmg — we make it via hdiutil) ─
-echo "▸ [1/6] Building & signing the app…"
-( cd "$ROOT" && pnpm tauri build --bundles app --target universal-apple-darwin )
+# ── 1. build: Apple-sign the app AND sign the updater payload ─────────────────
+# createUpdaterArtifacts:true makes tauri build emit + sign the .app.tar.gz, so
+# TAURI_SIGNING_PRIVATE_KEY must be set here. Letting Tauri produce the tarball
+# guarantees it's in the exact format its updater expects.
+echo "▸ [1/5] Building & signing the app + updater payload…"
+( cd "$ROOT" && \
+  TAURI_SIGNING_PRIVATE_KEY="$(cat "$KEYFILE")" \
+  TAURI_SIGNING_PRIVATE_KEY_PASSWORD="$PW" \
+  pnpm tauri build --bundles app --target universal-apple-darwin )
 
-# ── 2. notarize + staple the .app (so both the tarball and dmg carry a ticket)─
-echo "▸ [2/6] Notarizing & stapling the app…"
+# Locate the updater artifacts Tauri just produced (name varies by version).
+TARGZ="$(ls "$OUT"/*.app.tar.gz 2>/dev/null | head -1)"
+SIG="${TARGZ}.sig"
+TARBALL_NAME="$(basename "$TARGZ")"
+[ -f "$TARGZ" ] && [ -f "$SIG" ] || { echo "release-local: updater artifacts not found in $OUT" >&2; exit 1; }
+
+# ── 2. notarize + staple the .app (for the DMG download path) ─────────────────
+echo "▸ [2/5] Notarizing & stapling the app…"
 APP_ZIP="$(mktemp -d)/app.zip"
 ditto -c -k --keepParent "$APP" "$APP_ZIP"
 xcrun notarytool submit "$APP_ZIP" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$APP"
 rm -f "$APP_ZIP"
 
-# ── 3. updater payload: tar the stapled app, then sign it with the updater key ─
-echo "▸ [3/6] Building & signing the updater payload…"
-rm -f "$OUT/$TARBALL_NAME" "$OUT/$TARBALL_NAME.sig"
-# COPYFILE_DISABLE strips macOS AppleDouble (._*) entries the updater can't use.
-COPYFILE_DISABLE=1 tar -czf "$OUT/$TARBALL_NAME" -C "$(dirname "$APP")" "$(basename "$APP")"
-npx tauri signer sign -f "$KEYFILE" -p "$PW" "$OUT/$TARBALL_NAME"   # -> $TARBALL_NAME.sig
-
-# ── 4. DMG for fresh downloads: hdiutil (deterministic), sign, notarize, staple ─
-echo "▸ [4/6] Building, signing & notarizing the DMG…"
+# ── 3. DMG for fresh downloads: hdiutil (deterministic), sign, notarize, staple ─
+echo "▸ [3/5] Building, signing & notarizing the DMG…"
 mkdir -p "$BUNDLE/dmg"
 STAGE="$(mktemp -d)"
 cp -R "$APP" "$STAGE/"
@@ -87,10 +91,10 @@ codesign --force --sign "$APPLE_SIGNING_IDENTITY" "$DMG"
 xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$DMG"
 
-# ── 5. latest.json: manifest the updater reads (signature + public URL) ───────
-echo "▸ [5/6] Writing latest.json…"
+# ── 4. latest.json: manifest the updater reads (signature + public URL) ───────
+echo "▸ [4/5] Writing latest.json…"
 LATEST="$OUT/latest.json"
-SIG_CONTENT="$(cat "$OUT/$TARBALL_NAME.sig")" \
+SIG_CONTENT="$(cat "$SIG")" \
 TARGZ_URL="https://github.com/$PUBLIC_REPO/releases/download/$TAG/$TARBALL_NAME" \
 VERSION="$VERSION" \
 PUBDATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
@@ -112,12 +116,12 @@ node -e '
   fs.writeFileSync(process.env.LATEST_OUT, JSON.stringify(manifest, null, 2));
 '
 
-# ── 6. publish everything to the PUBLIC repo ─────────────────────────────────
-echo "▸ [6/6] Publishing to $PUBLIC_REPO…"
+# ── 5. publish everything to the PUBLIC repo ─────────────────────────────────
+echo "▸ [5/5] Publishing to ${PUBLIC_REPO} ..."
 gh release create "$TAG" --repo "$PUBLIC_REPO" \
   --title "MyDevTools $TAG" --notes "MyDevTools desktop $TAG"
 gh release upload "$TAG" --repo "$PUBLIC_REPO" --clobber \
-  "$DMG" "$OUT/$TARBALL_NAME" "$OUT/$TARBALL_NAME.sig" "$LATEST"
+  "$DMG" "$TARGZ" "$SIG" "$LATEST"
 
 echo ""
 echo "✅ Published v$VERSION. Installed apps will offer the update on next launch."

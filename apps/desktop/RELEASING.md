@@ -58,6 +58,24 @@ gh auth status
 gh repo view mydevtools-tech/mydevtools-releases
 ```
 
+**6. Frontend build env** — the desktop UI build requires the Firebase vars.
+`apps/desktop-ui/.env.local` is gitignored, so create it once (copy the public vars from web):
+```bash
+grep '^NEXT_PUBLIC_' apps/web/.env.local > apps/desktop-ui/.env.local
+```
+
+**7. Grant codesign keychain access** (fixes `errSecInternalComponent`, since
+codesign runs non-interactively inside `tauri build`):
+```bash
+security set-key-partition-list -S apple-tool:,apple:,codesign: -s \
+  -k "YOUR_MAC_LOGIN_PASSWORD" ~/Library/Keychains/login.keychain-db
+```
+
+> **If `pnpm` fails** with "Failed to switch pnpm to vX" or "Unknown system error -8"
+> (a broken managed pnpm on Apple Silicon), disable auto-switching and use the
+> installed pnpm: add `manage-package-manager-versions=false` to `~/.npmrc`.
+> After any `git pull` that changed dependencies, run `pnpm install`.
+
 ### Cutting a release — the commands
 
 ```bash
