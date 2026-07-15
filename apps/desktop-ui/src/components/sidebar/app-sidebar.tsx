@@ -15,6 +15,7 @@ import {
 import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
 import { FeedbackDialog } from '@/components/feedback-dialog'
+import { AppVersionLabel } from '@/components/desktop/app-version-label'
 import { Logo } from '../logo'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import { LayoutDashboard, Sparkles } from 'lucide-react'
@@ -191,6 +192,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter className="hidden md:block border-t border-border/30 dark:border-white/5">
         <FeedbackDialog variant="sidebar" />
         <NavUser user={user} onSignout={handleSignOut} />
+        <AppVersionLabel />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

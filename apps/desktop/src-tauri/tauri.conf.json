@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "MyDevTools",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "identifier": "tech.mydevtools.desktop",
   "build": {
     "beforeDevCommand": "pnpm --filter @mydevtools/desktop-ui dev:tauri",
@@ -31,7 +31,7 @@
       }
     },
     "updater": {
-      "endpoints": ["https://github.com/itsmeakhil/mydevtools/releases/latest/download/latest.json"],
+      "endpoints": ["https://github.com/mydevtools-tech/mydevtools-releases/releases/latest/download/latest.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEIwQTI5NjQwRjg5MjgwNjQKUldSa2dKTDRRSmFpc0Rqc21XWGdNSGVPNlp4YVlVV0JWdFpJVk9kYzBIdkx2MUFHNHZWc1VKUmsK"
     }
   },
