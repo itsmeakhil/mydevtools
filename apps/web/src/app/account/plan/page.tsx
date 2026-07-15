@@ -1,33 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
-import { backendFetch } from '@/lib/backend-auth'
-import { PlanCard, type PlanProfile } from '@/components/plan-card'
+import { PlanCard } from '@/components/plan-card'
+import { useAccountProfile } from '@/lib/use-account-profile'
 
 export default function AccountPlanPage() {
   const t = useTranslations('AccountPlan')
-  const router = useRouter()
-  const [profile, setProfile] = useState<PlanProfile | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    backendFetch('/api/backend/auth/me')
-      .then(async (res) => {
-        if (cancelled) return
-        if (!res.ok) {
-          router.replace('/login?next=/account/plan')
-          return
-        }
-        setProfile(await res.json())
-      })
-      .catch(() => {
-        if (!cancelled) router.replace('/login?next=/account/plan')
-      })
-    return () => { cancelled = true }
-  }, [router])
+  const { profile } = useAccountProfile('/account/plan')
 
   if (!profile) {
     return (

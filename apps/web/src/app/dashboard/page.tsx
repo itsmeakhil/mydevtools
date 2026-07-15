@@ -1,36 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Loader2 } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
-import { backendFetch } from '@/lib/backend-auth'
-import { PlanCard, type PlanProfile } from '@/components/plan-card'
+import { PlanCard } from '@/components/plan-card'
 import { PasskeysManager } from '@/components/passkeys-manager'
+import { useAccountProfile } from '@/lib/use-account-profile'
 
 export default function DashboardPage() {
   const t = useTranslations('Dashboard')
-  const router = useRouter()
-  const [profile, setProfile] = useState<PlanProfile | null>(null)
-
-  useEffect(() => {
-    let cancelled = false
-    backendFetch('/api/backend/auth/me')
-      .then(async (res) => {
-        if (cancelled) return
-        if (!res.ok) {
-          router.replace('/login?next=/dashboard')
-          return
-        }
-        setProfile(await res.json())
-      })
-      .catch(() => {
-        if (!cancelled) router.replace('/login?next=/dashboard')
-      })
-    return () => { cancelled = true }
-  }, [router])
+  const { profile } = useAccountProfile('/dashboard')
 
   return (
     <>
