@@ -11,7 +11,9 @@ import { Button } from "@/components/ui/button";
  * across releases without editing the site. Falls back to the releases page if
  * the API is unreachable or no asset is found yet.
  */
-const REPO = "itsmeakhil/mydevtools";
+// Public releases-mirror repo (source repo is private, so its release assets
+// aren't publicly downloadable). CI mirrors the DMG + latest.json here.
+const REPO = "mydevtools-tech/mydevtools-releases";
 const RELEASES_PAGE = `https://github.com/${REPO}/releases/latest`;
 
 type Asset = { name: string; browser_download_url: string };

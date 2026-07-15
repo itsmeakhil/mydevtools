@@ -89,3 +89,43 @@ jobs:
           args: ${{ matrix.args }}
           updaterJsonPath: latest.json
           updaterJsonKeepUniversal: true
+
+      # The source repo is private, so its release assets 404 for the public.
+      # Mirror the built artifacts to a PUBLIC releases repo that the updater
+      # endpoint and the website download button point at.
+      - name: Mirror release to public repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      # read the private release
+          RELEASES_TOKEN: ${{ secrets.RELEASES_TOKEN }}  # write to the public repo
+          PUBLIC_REPO: mydevtools-tech/mydevtools-releases
+        run: |
+          set -euo pipefail
+          VERSION="$(node -p "require('./apps/desktop/src-tauri/tauri.conf.json').version")"
+          TAG="v$VERSION"
+          BUNDLE="apps/desktop/src-tauri/target/universal-apple-darwin/release/bundle"
+          DMG="$(ls "$BUNDLE"/dmg/*.dmg)"
+          TARGZ="$(ls "$BUNDLE"/macos/*.app.tar.gz)"
+          SIG="$(ls "$BUNDLE"/macos/*.app.tar.gz.sig)"
+
+          # Pull tauri's generated latest.json from the private release.
+          GH_TOKEN="$GITHUB_TOKEN" gh release download "$TAG" \
+            --repo "$GITHUB_REPOSITORY" --pattern latest.json --dir . --clobber
+
+          # Repoint its asset URLs at the public repo. The minisign signature
+          # signs the file bytes, not the URL, so it stays valid.
+          node -e '
+            const fs = require("fs");
+            const src = process.env.GITHUB_REPOSITORY, dst = process.env.PUBLIC_REPO;
+            const j = JSON.parse(fs.readFileSync("latest.json", "utf8"));
+            for (const k of Object.keys(j.platforms || {}))
+              j.platforms[k].url = j.platforms[k].url.split(src).join(dst);
+            fs.writeFileSync("latest.json", JSON.stringify(j, null, 2));
+          '
+
+          # Create the public release (once) and upload all four assets.
+          if ! GH_TOKEN="$RELEASES_TOKEN" gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
+            GH_TOKEN="$RELEASES_TOKEN" gh release create "$TAG" --repo "$PUBLIC_REPO" \
+              --title "MyDevTools $TAG" --notes "MyDevTools desktop $TAG"
+          fi
+          GH_TOKEN="$RELEASES_TOKEN" gh release upload "$TAG" --repo "$PUBLIC_REPO" \
+            --clobber "$DMG" "$TARGZ" "$SIG" latest.json
