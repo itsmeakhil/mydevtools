@@ -79,8 +79,8 @@
     "whoisLookup": "Αναζήτηση Whois"
   },
   "Help": {
-    "title": "Βοήθεια και τεκμηρίωση",
-    "subtitle": "Πώς συνδέεται το MyDevTools, τι κάνει κάθε εφαρμογή και πώς η ασφάλεια και η κρυπτογράφηση προστατεύουν τα δεδομένα σας.",
+    "title": "Βοήθεια & Τεκμηρίωση",
+    "subtitle": "Πώς λειτουργεί το MyDevTools και πώς προστατεύονται τα δεδομένα σας",
     "tabs": {
       "overview": "Επισκόπηση",
       "apps": "Εφαρμογές",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "Αποκωδικοποιητής JWT",
-    "subtitle": "Επιθεωρήστε κεφαλίδα και payload. Η λήξη χρησιμοποιεί το claim <code>exp</code>. Δεν αποστέλλεται τίποτα σε διακομιστή· η υπογραφή δεν επαληθεύεται.",
+    "subtitle": "Έλεγχος header, payload και λήξης — χωρίς επαλήθευση υπογραφής",
     "tokenLabel": "Token",
     "clear": "Καθαρισμός",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Αποκωδικοποιητής πιστοποιητικού / PEM",
-    "subtitle": "Επικολλήστε πιστοποιητικό X.509 (<code>-----BEGIN CERTIFICATE-----</code>) ή CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Θέμα, εκδότης, ημερομηνίες και SAN αναλύονται τοπικά· δεν μεταφορτώνεται τίποτα.",
+    "title": "Αποκωδικοποιητής Πιστοποιητικών",
+    "subtitle": "Αποκωδικοποίηση πιστοποιητικών X.509 και CSR από PEM",
     "pemLabel": "Είσοδος PEM",
     "clear": "Εκκαθάριση",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "Μορφοποιητής SQL",
-    "subtitle": "Μορφοποιήστε SQL για MySQL, PostgreSQL ή SQLite. Τρέχει στον browser· δεν ανεβαίνει τίποτα.",
+    "subtitle": "Μορφοποίηση SQL για MySQL, PostgreSQL και SQLite",
     "dialectLabel": "Διάλεκτος",
     "keywordsLabel": "Λέξεις-κλειδιά",
     "indentLabel": "Εσοχή",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "Μορφοποιητής YAML",
-    "subtitle": "Μορφοποιήστε, επαληθεύστε και μετατρέψτε YAML στον περιηγητή σας. Τίποτα δεν ανεβαίνει.",
+    "subtitle": "Μορφοποίηση, επικύρωση και μετατροπή YAML",
     "outputLabel": "Έξοδος",
     "outputModes": {
       "yaml": "YAML (μορφοποιημένο)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "Μορφοποιητής GraphQL",
-    "subtitle": "Μορφοποιήστε ερωτήματα, μεταλλάξεις και συνδρομές GraphQL στο πρόγραμμα περιήγησης. Δεν ανεβαίνει τίποτα.",
+    "subtitle": "Μορφοποίηση queries, mutations και subscriptions",
     "tabs": {
       "format": "Μορφοποίηση",
       "build": "Δημιουργός ερωτήματος"
@@ -2347,8 +2347,8 @@
     }
   },
   "RegexTester": {
-    "title": "Δοκιμή regex",
-    "subtitle": "Regex τύπου JavaScript σε πραγματικό χρόνο στο κείμενό σας. Οι αντιστοιχίσεις επισημαίνονται· τίποτα δεν φεύγει από τον browser.",
+    "title": "Δοκιμαστής Regex",
+    "subtitle": "Δοκιμή regex JavaScript με ζωντανή επισήμανση αντιστοιχιών",
     "patternLabel": "Μοτίβο",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Μετατροπέας timestamp",
-    "subtitle": "Unix δευτερόλεπτα (≤10 ψηφία) ή χιλιοστά (μεγαλύτεροι ακέραιοι), <code>ISO-8601</code> ή συμβολοσειρές που μπορεί να διαβάσει ο browser. Όλα τρέχουν τοπικά.",
+    "title": "Μετατροπέας Χρονοσφραγίδων",
+    "subtitle": "Μετατροπή χρονοσφραγίδων Unix, ISO-8601 και ημερομηνιών",
     "inputLabel": "Είσοδος",
     "placeholder": "1744200000 ή 2025-04-09T12:00:00Z",
     "now": "Τώρα",
@@ -2410,8 +2410,8 @@
     }
   },
   "HttpStatusCodes": {
-    "title": "Κωδικοί κατάστασης HTTP",
-    "subtitle": "Αναζητήστε και περιηγηθείτε στους κωδικούς κατάστασης απαντήσεων HTTP (<code>1xx</code>–<code>5xx</code>) με σύντομες περιγραφές και αναφορές RFC. Εκτελείται τοπικά.",
+    "title": "Κωδικοί Κατάστασης HTTP",
+    "subtitle": "Αναζήτηση κωδικών 1xx–5xx με αναφορές RFC",
     "header": {
       "title": "Κωδικοί κατάστασης HTTP",
       "description": "Αναζητήσιμη λίστα κωδικών απάντησης HTTP με περιγραφές και αναφορές RFC."
@@ -2431,8 +2431,8 @@
     "copied": "Ο κωδικός αντιγράφηκε"
   },
   "CronBuilder": {
-    "title": "Δημιουργός εκφράσεων Cron",
-    "subtitle": "Τυπικό cron 5 πεδίων: <mono>minute hour day month weekday</mono>. Ο parser χρησιμοποιεί seconds=<code>0</code> εσωτερικά. Προαιρετικό 6-πεδίων (<mono>sec min hour dom mon dow</mono>) λειτουργεί στον editor.",
+    "title": "Δημιουργός Cron",
+    "subtitle": "Δημιουργία και επεξήγηση εκφράσεων cron 5 ή 6 πεδίων",
     "tabs": {
       "builder": "Οπτικός δημιουργός",
       "expression": "Έκφραση"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Κωδικοποιητής / αποκωδικοποιητής Base64",
-    "subtitle": "Κωδικοποιήστε κείμενο σε Base64 ή αποκωδικοποιήστε συμβολοσειρές Base64",
+    "title": "Κωδικοποιητής Base64",
+    "subtitle": "Κωδικοποίηση κειμένου σε Base64 και αποκωδικοποίηση",
     "upload": "Μεταφόρτωση",
     "clear": "Καθαρισμός",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "Κωδικοποιητής / αποκωδικοποιητής URL",
-    "subtitle": "Κωδικοποίηση/αποκωδικοποίηση ποσοστού με encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "Κωδικοποιητής URL",
+    "subtitle": "Percent-encoding και αποκωδικοποίηση κειμένου (UTF-8)",
     "upload": "Μεταφόρτωση",
     "clear": "Καθαρισμός",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "Αναλυτής URL",
-    "subtitle": "Χωρίστε ένα URL σε πρωτόκολλο, κεντρικό υπολογιστή, διαδρομή, παραμέτρους ερωτήματος και hash (τμήμα).",
+    "subtitle": "Διαχωρισμός URL σε πρωτόκολλο, host, διαδρομή, query και hash",
     "upload": "Μεταφόρτωση",
     "clear": "Εκκαθάριση",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "Γεννήτρια UUID / ULID",
-    "subtitle": "Δημιουργήστε UUID (RFC 9562) ή ULID στον browser. Μαζική εξαγωγή έως {max} ανά εκτέλεση.",
+    "title": "Γεννήτρια UUID",
+    "subtitle": "Δημιουργία UUID και ULID — μαζική εξαγωγή έως {max}",
     "format": "Μορφή",
     "kindHints": {
       "ulid": "Ταξινομήσιμο, URL-safe αναγνωριστικό 26 χαρακτήρων",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Γεννήτρια μυστικού / κλειδιού API",
-    "subtitle": "Δημιουργήστε κρυπτογραφικά τυχαίες συμβολοσειρές με ρυθμιζόμενο μήκος και αλφάβητο. Μαζική εξαγωγή έως {max} ανά εκτέλεση. Συμπληρώνει τον <uuid>γεννήτρια UUID / ULID</uuid>.",
+    "title": "Γεννήτρια Κλειδιών API",
+    "subtitle": "Δημιουργία κρυπτογραφικά τυχαίων μυστικών και κλειδιών",
     "alphabetLabel": "Αλφάβητο",
     "alphabetHint": "Τα διπλότυπα αφαιρούνται. Κάθε σύμβολο επιλέγεται ομοιόμορφα με crypto.getRandomValues και δειγματοληψία απόρριψης (χωρίς προκατάληψη modulo).",
     "alphabetCount": "{count} μοναδικά σύμβολα",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Γεννήτρια Lorem Ipsum",
-    "subtitle": "Δημιουργήστε λατινικό κείμενο κράτησης θέσης για τις διατάξεις και τα μακέτα σας.",
+    "subtitle": "Δημιουργία δοκιμαστικού κειμένου για διατάξεις και μακέτες",
     "paragraphs": "Παράγραφοι",
     "sentences": "Προτάσεις",
     "words": "Λέξεις",
@@ -2723,8 +2723,8 @@
     "download": "Λήψη"
   },
   "ColorPicker": {
-    "title": "Επιλογέας και μετατροπέας χρωμάτων",
-    "subtitle": "Μετατρέψτε HEX, RGB και HSL· δημιουργήστε αρμονικές παλέτες. Όλη η επεξεργασία γίνεται στον περιηγητή σας.",
+    "title": "Επιλογέας Χρωμάτων",
+    "subtitle": "Μετατροπή HEX, RGB και HSL και δημιουργία παλετών",
     "nativePicker": "Εγγενής επιλογέας",
     "chooseColor": "Επιλέξτε χρώμα",
     "eyeDropper": "Σταγονόμετρο",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "Τετράγωνο"
   },
   "ContrastChecker": {
-    "title": "Έλεγχος αντίθεσης",
-    "subtitle": "Υπολογίζει την αναλογία αντίθεσης WCAG 2.1 μεταξύ προσκηνίου και φόντου. Ελέγχει AA και AAA για κανονικό και μεγάλο κείμενο. Όλα στον περιηγητή σας.",
+    "title": "Έλεγχος Αντίθεσης",
+    "subtitle": "Έλεγχος λόγων αντίθεσης WCAG AA και AAA",
     "foreground": "Κείμενο / προσκήνιο",
     "background": "Φόντο",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Μεγάλο κείμενο: 18 pt+ κανονικό ή 14 pt+ έντονο (ορισμοί WCAG)."
   },
   "DiffChecker": {
-    "title": "Έλεγχος διαφορών",
-    "subtitle": "Σύγκριση γραμμών δύο κειμένων παράλληλα. Όλα παραμένουν στο πρόγραμμα περιήγησής σας.",
+    "title": "Έλεγχος Διαφορών",
+    "subtitle": "Σύγκριση δύο κειμένων δίπλα-δίπλα, γραμμή προς γραμμή",
     "rowsCount": "{count} γραμμές",
     "truncatedWarning": "Εμφάνιση πρώτων {max} γραμμών.",
     "limitExceeded": "Κάθε πλευρά περιορίζεται σε {max} χαρακτήρες.",
@@ -2785,7 +2785,7 @@
   },
   "JsonSchemaGenerator": {
     "title": "Γεννήτρια JSON Schema",
-    "subtitle": "Επικολλήστε έγκυρο JSON για να δημιουργήσετε JSON Schema ή τυποποιημένα μοντέλα. Όλα εκτελούνται στον browser σας.",
+    "subtitle": "Δημιουργία JSON Schema ή τυποποιημένων μοντέλων από δείγμα JSON",
     "languageLabel": "Γλώσσα εξόδου",
     "inputLabel": "Είσοδος JSON",
     "inputPlaceholder": "Επικολλήστε JSON εδώ…",
@@ -2812,8 +2812,8 @@
     "download": "Download"
   },
   "ImageToBase64": {
-    "title": "Εικόνα στο Base64",
-    "subtitle": "Ρίξτε μια εικόνα, λάβετε ένα URI δεδομένων ή μια ακατέργαστη συμβολοσειρά Base64. Όλα παραμένουν στο πρόγραμμα περιήγησής σας.",
+    "title": "Εικόνα σε Base64",
+    "subtitle": "Μετατροπή εικόνας σε data URI ή συμβολοσειρά Base64",
     "upload": "Μεταφόρτωση εικόνας",
     "clear": "Σαφής",
     "modes": {
@@ -2837,8 +2837,8 @@
     }
   },
   "ImageCompressor": {
-    "title": "Συμπίεση εικόνας",
-    "subtitle": "Μικρύνετε την έξοδο JPEG, PNG ή WebP τοπικά με έλεγχο ποιότητας — τίποτα δεν ανεβαίνει.",
+    "title": "Συμπιεστής Εικόνων",
+    "subtitle": "Σμίκρυνση JPEG, PNG και WebP με έλεγχο ποιότητας",
     "upload": "Μεταφόρτωση εικόνας",
     "clear": "Εκκαθάριση",
     "dropHere": "Αφήστε την εικόνα εδώ",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Η προεπισκόπηση εμφανίζεται εδώ."
   },
   "CssGradientBuilder": {
-    "title": "CSS Gradient Builder",
-    "subtitle": "Visual CSS gradient builder με έλεγχο γωνίας, χρωματικές στάσεις και αντιγραφή CSS με ένα κλικ.",
+    "title": "Δημιουργός Διαβαθμίσεων CSS",
+    "subtitle": "Οπτικός σχεδιασμός διαβαθμίσεων και αντιγραφή CSS",
     "preview": "Προεπισκόπηση κλίσης",
     "settings": "Ρυθμίσεις",
     "type": "Τύπος",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore Γεννήτρια",
-    "subtitle": "Δημιουργήστε συγχωνευμένα αρχεία .gitignore άμεσα για μια συγκεκριμένη στοίβα τεχνολογίας ή συνδυασμό.",
+    "title": "Γεννήτρια .gitignore",
+    "subtitle": "Δημιουργία συγχωνευμένων .gitignore για κάθε stack",
     "searchPlaceholder": "Αναζήτηση στοίβων (π.χ. Node, Python, macOS)...",
     "noResults": "Δεν βρέθηκαν στοίβες.",
     "selectedStacks": "Επιλεγμένες στοίβες",
@@ -2912,8 +2912,8 @@
     "emptyState": "Επιλέξτε μία ή περισσότερες στοίβες τεχνολογίας για να δημιουργήσετε το .gitignore σας."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Ανεβάστε CSV ή Excel, επεξεργαστείτε JSON και κατεβάστε CSV ή XLSX. Μόνο πίνακας· οι ημερομηνίες Excel γίνονται ISO στο JSON.",
+    "title": "Υπολογιστικά Φύλλα ↔ JSON",
+    "subtitle": "Μετατροπή αρχείων CSV και Excel σε JSON και αντίστροφα",
     "dropTitle": "Αφήστε αρχείο CSV ή Excel",
     "dropHint": "Για .xlsx / .xls χρησιμοποιείται το πρώτο φύλλο. Το CSV χρειάζεται γραμμή κεφαλίδας.",
     "chooseFile": "Επιλογή αρχείου",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Διαχειριστής αποσπασμάτων κώδικα",
-    "subtitle": "Αποθηκεύστε αποσπάσματα στον browser ή συνδεθείτε για συγχρονισμό με τον λογαριασμό σας. Εναλλαγή προβολής και επεξεργασίας, αντιγραφή με ένα κλικ, επιλογή γλώσσας ή αυτόματη ανίχνευση και μορφοποίηση JSON, SQL ή κώδικα που υποστηρίζει το Monaco.",
+    "title": "Διαχειριστής Snippet",
+    "subtitle": "Αποθήκευση, αναζήτηση και μορφοποίηση snippets — προαιρετικός συγχρονισμός",
     "snippets": "Αποσπάσματα",
     "newSnippet": "Νέο απόσπασμα",
     "newSnippetTitle": "Νέο απόσπασμα",
@@ -3080,8 +3080,8 @@
     }
   },
   "QrCodeGenerator": {
-    "title": "Δημιουργός κωδικών QR",
-    "subtitle": "Μετατρέψτε οποιοδήποτε κείμενο ή URL σε PNG QR. Η απόδοση γίνεται τοπικά στον browser.",
+    "title": "Γεννήτρια Κωδικών QR",
+    "subtitle": "Μετατροπή κειμένου ή URL σε στυλιζαρισμένους κωδικούς QR",
     "contentLabel": "Περιεχόμενο",
     "contentPlaceholder": "https://example.com, απλό κείμενο, συμβολοσειρά Wi‑Fi, vCard…",
     "styleLabel": "Στυλ",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "Υπολογιστής IP / υποδικτύου",
-    "subtitle": "Λεπτομέρειες CIDR IPv4 και IPv6 στον browser—χωρίς εξωτερικά αιτήματα.",
+    "title": "Υπολογιστής Υποδικτύων",
+    "subtitle": "Υπολογισμός στοιχείων CIDR για IPv4 και IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Δίκτυο",
@@ -3169,8 +3169,8 @@
     }
   },
   "HashGenerator": {
-    "title": "Γεννήτρια hash",
-    "subtitle": "Αποσπάσματα MD5, SHA-1 και SHA-2 για κείμενο ή αρχεία· bcrypt για κωδικούς (εισαγωγή κειμένου). Όλα τοπικά στον περιηγητή.",
+    "title": "Γεννήτρια Hash",
+    "subtitle": "Υπολογισμός MD5, SHA και bcrypt για κείμενο ή αρχεία",
     "algorithmLabel": "Αλγόριθμος",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "Χώρος δοκιμών κρυπτογράφησης",
-    "subtitle": "AES-GCM στον browser: κρυπτογράφηση σε δέσμη JSON με συνθηματική ή ακατέργαστο κλειδί και αποκρυπτογράφηση τοπικά. Εκπαιδευτικό και περιστασιακά πρακτικό — δεν ανεβαίνει τίποτα.",
+    "title": "Πεδίο Κρυπτογράφησης",
+    "subtitle": "Κρυπτογράφηση και αποκρυπτογράφηση AES-GCM με φράση ή κλειδί",
     "tabEncrypt": "Κρυπτογράφηση",
     "tabDecrypt": "Αποκρυπτογράφηση",
     "keyModeLabel": "Υλικό κλειδιού",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "Γεννήτρια HMAC",
-    "subtitle": "Για υπογραφή webhooks και δοκιμή ενσωματώσεων API. HMAC-SHA1/256/384/512 σε hex ή Base64—υπολογισμός τοπικά στον περιηγητή.",
+    "subtitle": "Υπογραφή δεδομένων με HMAC-SHA σε hex ή Base64",
     "secretLabel": "Μυστικό κλειδί",
     "messageLabel": "Μήνυμα / φορτίο",
     "placeholderSecret": "Επικολλήστε το μυστικό υπογραφής…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "Γεννήτρια κωδικού TOTP / 2FA",
-    "subtitle": "Επικολλήστε το μυστικό Base32 και λάβετε τον τρέχοντα εξαψήφιο κωδικό RFC 6238 (SHA-1, 30 δ). Τοπικά στον περιηγητή—χρήσιμο για δοκιμές σύνδεσης ή MFA.",
+    "title": "Γεννήτρια TOTP",
+    "subtitle": "Ζωντανοί κωδικοί 2FA από μυστικό authenticator",
     "secretLabel": "Μυστικό (Base32)",
     "placeholderSecret": "Επικολλήστε το μυστικό κλειδί (γράμματα A–Z και ψηφία 2–7, όπως κατά τη ρύθμιση του authenticator)…",
     "codeLabel": "Τρέχων κωδικός",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Προεπισκόπηση Markdown & HTML",
-    "subtitle": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown. Όλα εκτελούνται στο πρόγραμμα περιήγησής σας.",
+    "title": "Προεπισκόπηση Markdown",
+    "subtitle": "Ζωντανή απόδοση Markdown και μετατροπή από/σε HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Είσοδος Markdown",
@@ -3358,8 +3358,8 @@
     "securityNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Δεν γίνεται καμία μεταφόρτωση."
   },
   "NumberBaseConverter": {
-    "title": "Μετατροπέας αριθμητικής βάσης",
-    "subtitle": "Μετατροπή ακεραίων μεταξύ βάσεων 2–36. Προαιρετικά προθέματα 0x / 0b / 0o. Όλα τοπικά στον περιηγητή.",
+    "title": "Μετατροπέας Αριθμητικών Βάσεων",
+    "subtitle": "Μετατροπή ακεραίων μεταξύ βάσεων 2–36",
     "inputBaseLabel": "Από βάση",
     "outputBaseLabel": "Σε βάση",
     "inputLabel": "Αριθμός εισόδου",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Μετατροπέας Μορφών",
-    "subtitle": "Μετατρέψτε μεταξύ JSON, YAML, TOML και XML σε οποιαδήποτε κατεύθυνση. Και οι 12 συνδυασμοί. Όλα εκτελούνται στο πρόγραμμα περιήγησής σας.",
+    "subtitle": "Μετατροπή JSON, YAML, TOML και XML προς κάθε κατεύθυνση",
     "fromLabel": "Από",
     "toLabel": "Σε",
     "swap": "Εναλλαγή",
@@ -3389,8 +3389,8 @@
     "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
   },
   "MimeTypeLookup": {
-    "title": "Αναζήτηση τύπου MIME",
-    "subtitle": "Αναζητήστε τον τύπο MIME (media type) για επέκταση ή πλήρες όνομα αρχείου. Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας.",
+    "title": "Αναζήτηση Τύπων MIME",
+    "subtitle": "Εύρεση τύπου MIME για κάθε επέκταση αρχείου",
     "inputLabel": "Επέκταση ή όνομα αρχείου",
     "placeholder": "π.χ. .png, package.json, photo.jpeg",
     "hint": "Συμβουλή: επικολλήστε είτε επέκταση (με ή χωρίς τελεία) είτε πλήρες όνομα αρχείου.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "Αναλυτής User-Agent",
-    "subtitle": "Επικολλήστε μια συμβολοσειρά User-Agent (UA) και δείτε ανάλυση για πρόγραμμα περιήγησης, OS, engine, συσκευή και CPU. Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας.",
+    "subtitle": "Ανάλυση UA σε πρόγραμμα περιήγησης, λειτουργικό και συσκευή",
     "inputLabel": "Συμβολοσειρά User-Agent",
     "placeholder": "Επικολλήστε το User-Agent εδώ…",
     "hint": "Συμβουλή: μπορείτε να αντιγράψετε UA από headers αιτήματος, logs ή τα devtools του προγράμματος περιήγησης.",
@@ -3433,8 +3433,8 @@
     "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
   },
   "MockDataGenerator": {
-    "title": "Γεννήτρια δοκιμαστικών δεδομένων",
-    "subtitle": "Ορίστε στήλες, επιλέξτε τύπους και εξάγετε σύνολα για seeds, Postman ή δοκιμές. Έως {max} γραμμές, όλα στον browser — χωρίς μεταφόρτωση.",
+    "title": "Γεννήτρια Εικονικών Δεδομένων",
+    "subtitle": "Ορισμός τυποποιημένων στηλών — εξαγωγή έως {max} γραμμών",
     "mockarooLink": "Ροή εργασίας σαν το Mockaroo",
     "rowsLabel": "Γραμμές",
     "rowsHint": "Έως {max} γραμμές ανά δημιουργία για να παραμείνει η καρτέλα γρήγορη.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "Βελτιστοποιητής SVG",
-    "subtitle": "Επικολλήστε SVG, συμπιέστε με SVGO στον browser και συγκρίνετε το μέγεθος UTF-8 πριν/μετά.",
+    "subtitle": "Σμίκρυνση SVG με SVGO και σύγκριση μεγεθών",
     "inputLabel": "Είσοδος",
     "outputLabel": "Βελτιστοποιημένο",
     "placeholder": "Επικολλήστε απόσπασμα <svg>…</svg> ή ολόκληρο αρχείο…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "Μετατροπέας Μονάδων",
-    "subtitle": "Μετατροπή μεταξύ <strong>323 μονάδων</strong> σε <strong>43 κατηγορίες</strong>",
+    "subtitle": "Μετατροπή 323 μονάδων σε 43 κατηγορίες",
     "category": "Κατηγορία",
     "from": "Από",
     "to": "Σε",
@@ -3580,8 +3580,8 @@
     "noResults": "Δεν βρέθηκε κατηγορία."
   },
   "DockerComposeGenerator": {
-    "title": "Δημιουργός Docker Compose",
-    "subtitle": "Επιλέξτε δημοφιλείς βάσεις δεδομένων, cache, ουρές μηνυμάτων, reverse proxy και παρατηρησιμότητα — αντιγράψτε ένα docker-compose.yml έτοιμο για τοπική ανάπτυξη.",
+    "title": "Γεννήτρια Docker Compose",
+    "subtitle": "Δημιουργία docker-compose.yml για τοπικά dev stacks",
     "searchPlaceholder": "Αναζήτηση (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Υπηρεσίες",
     "selectedCount": "{count, plural, one {# υπηρεσία} other {# υπηρεσίες}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Τέλος παιχνιδιού"
   },
   "SshKeyGenerator": {
-    "title": "Γεννήτρια κλειδιών SSH / RSA",
-    "subtitle": "Δημιουργήστε ζεύγη κλειδιών Ed25519 ή RSA στο πρόγραμμα περιήγησής σας. Κατεβάστε ιδιωτικά και δημόσια κλειδιά σε μορφές OpenSSH και PEM. Τίποτα δεν μεταφορτώνεται.",
+    "title": "Γεννήτρια Κλειδιών SSH",
+    "subtitle": "Δημιουργία ζευγών Ed25519 ή RSA σε OpenSSH και PEM",
     "keyTypeLabel": "Τύπος κλειδιού",
     "recommended": "προτεινόμενο",
     "ed25519Desc": "Γρήγορο, μικρό, σύγχρονο. Υποστηρίζεται από GitHub, GitLab και όλους τους μεγάλους SSH διακομιστές.",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "Αναζήτηση DNS",
-    "subtitle": "Αναζητήστε εγγραφές DNS για οποιοδήποτε τομέα — A, AAAA, MX, TXT, NS, CNAME.",
+    "subtitle": "Ερώτημα A, AAAA, MX, TXT, NS και άλλων για κάθε domain",
     "placeholder": "Εισαγάγετε τομέα (π.χ. github.com)",
     "lookupBtn": "Αναζήτηση",
     "looking": "Γίνεται αναζήτηση…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL σε Κώδικα",
+    "subtitle": "Μετατροπή εντολών curl σε fetch, axios, Python και άλλα",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON σε Κώδικα",
+    "subtitle": "Δημιουργία τυποποιημένων μοντέλων από δείγμα JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "Οπτικοποιητής JSON",
+    "subtitle": "Εξερεύνηση JSON ως διαδραστικό γράφημα κόμβων",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Μορφοποίηση & Σμίκρυνση",
+    "subtitle": "Μορφοποίηση ή σμίκρυνση HTML, CSS, JavaScript, XML και JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Μετατροπέας Πεζών-Κεφαλαίων",
+    "subtitle": "Μετατροπή μεταξύ camelCase, snake_case, kebab-case και άλλων",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Ταξινομητής Γραμμών",
+    "subtitle": "Ταξινόμηση, αφαίρεση διπλότυπων και καθαρισμός γραμμών",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Επιθεωρητής Κειμένου",
+    "subtitle": "Μέτρηση χαρακτήρων, λέξεων, bytes· εμφάνιση κρυφών",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Escape Κειμένου",
+    "subtitle": "Escape οντοτήτων HTML, backslashes, hex και Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Γεννήτρια και ελεγκτής Bcrypt",
-    "subtitle": "Κατακερματίστε κωδικούς με bcrypt και επαληθεύστε κατακερματισμούς — όλα παραμένουν στο πρόγραμμα περιήγησής σας",
+    "title": "Γεννήτρια Bcrypt",
+    "subtitle": "Κατακερματισμός και επαλήθευση κωδικών με bcrypt",
     "tabs": {
       "hash": "Κατακερματισμός",
       "verify": "Επαλήθευση"
@@ -4015,8 +4015,8 @@
     }
   },
   "ChmodCalculator": {
-    "title": "Υπολογιστής chmod",
-    "subtitle": "Μετατρέψτε δικαιώματα αρχείων Unix μεταξύ πλαισίων ελέγχου, οκταδικής και συμβολικής σημειογραφίας",
+    "title": "Υπολογιστής Chmod",
+    "subtitle": "Μετατροπή δικαιωμάτων Unix μεταξύ οκταδικής και συμβολικής",
     "grid": {
       "title": "Δικαιώματα",
       "read": "Ανάγνωση",
@@ -4069,8 +4069,8 @@
     }
   },
   "CodeScreenshot": {
-    "title": "Στιγμιότυπο κώδικα",
-    "subtitle": "Μετατρέψτε τον κώδικα σε όμορφες εικόνες για κοινή χρήση",
+    "title": "Στιγμιότυπο Κώδικα",
+    "subtitle": "Μετατροπή κώδικα σε όμορφες εικόνες για κοινοποίηση",
     "languageLabel": "Γλώσσα",
     "autoDetect": "Αυτόματη ανίχνευση",
     "backgroundLabel": "Φόντο",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "Γεννήτριες CSS",
-    "subtitle": "Box-shadow, border-radius και ρευστό clamp() — αντιγράψτε το CSS.",
+    "subtitle": "Δημιουργία CSS για box-shadow, border-radius και clamp()",
     "preview": "Προεπισκόπηση",
     "output": "CSS",
     "copy": "Αντιγραφή",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "Προβολή και αφαίρεση EXIF",
-    "subtitle": "Επιθεωρήστε τα μεταδεδομένα φωτογραφιών και αφαιρέστε τα στο πρόγραμμα περιήγησής σας",
+    "title": "Προβολή EXIF",
+    "subtitle": "Έλεγχος και αφαίρεση μεταδεδομένων φωτογραφιών",
     "dropTitle": "Αποθέστε μια εικόνα εδώ",
     "dropHint": "ή κάντε κλικ για αναζήτηση — η εικόνα σας δεν φεύγει ποτέ από τη συσκευή σας",
     "browse": "Επιλογή εικόνας",
@@ -4222,8 +4222,8 @@
     }
   },
   "FaviconGenerator": {
-    "title": "Γεννήτρια favicon",
-    "subtitle": "Δημιουργήστε favicons και εικονίδια εφαρμογών από μία εικόνα",
+    "title": "Γεννήτρια Favicon",
+    "subtitle": "Δημιουργία favicon και εικονιδίων εφαρμογής από μία εικόνα",
     "dropTitle": "Αποθέστε μια εικόνα εδώ",
     "dropHint": "PNG, JPEG ή SVG — κάντε κλικ για αναζήτηση",
     "browse": "Επιλογή εικόνας",
@@ -4244,8 +4244,8 @@
     "downloadZip": "Λήψη όλων (.zip)"
   },
   "JsonDiff": {
-    "title": "Σύγκριση JSON",
-    "subtitle": "Σημασιολογική σύγκριση δύο εγγράφων JSON με επίγνωση της δομής — η σειρά κλειδιών και η μορφοποίηση αγνοούνται",
+    "title": "Διαφορές JSON",
+    "subtitle": "Δομική σύγκριση JSON — η σειρά κλειδιών αγνοείται",
     "options": {
       "ignoreArrayOrder": "Αγνόηση σειράς πινάκων"
     },
@@ -4276,8 +4276,8 @@
     "identical": "Τα δύο έγγραφα είναι σημασιολογικά πανομοιότυπα."
   },
   "JsonpathPlayground": {
-    "title": "Παιχνιδότοπος JSONPath",
-    "subtitle": "Κάντε ερωτήματα σε έγγραφα JSON με JSONPath ή JMESPath και δείτε ζωντανά αποτελέσματα",
+    "title": "Πεδίο JSONPath",
+    "subtitle": "Ζωντανά ερωτήματα JSON με JSONPath ή JMESPath",
     "engineLabel": "Μηχανή",
     "queryLabel": "Ερώτημα",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Αντιγράφηκε"
   },
   "KeycodeInspector": {
-    "title": "Επιθεωρητής πλήκτρων",
-    "subtitle": "Πατήστε οποιοδήποτε πλήκτρο για να επιθεωρήσετε το συμβάν πληκτρολογίου JavaScript του",
+    "title": "Επιθεωρητής Keycode",
+    "subtitle": "Πατήστε ένα πλήκτρο για έλεγχο του συμβάντος πληκτρολογίου",
     "capture": {
       "prompt": "Πατήστε οποιοδήποτε πλήκτρο…",
       "ready": "Ακρόαση — πατήστε οποιοδήποτε πλήκτρο στο πληκτρολόγιό σας",
@@ -4353,8 +4353,8 @@
     }
   },
   "MarkdownTableGenerator": {
-    "title": "Γεννήτρια πινάκων Markdown",
-    "subtitle": "Επεξεργαστείτε ένα πλέγμα, επικολλήστε από υπολογιστικό φύλλο και αντιγράψτε έναν όμορφα στοιχισμένο πίνακα Markdown ή HTML",
+    "title": "Γεννήτρια Πινάκων Markdown",
+    "subtitle": "Επεξεργασία πλέγματος και αντιγραφή πίνακα Markdown ή HTML",
     "addRow": "Προσθήκη γραμμής",
     "addColumn": "Προσθήκη στήλης",
     "importLabel": "Εισαγωγή",
@@ -4385,8 +4385,8 @@
     "copied": "Αντιγράφηκε"
   },
   "TimezoneConverter": {
-    "title": "Μετατροπέας ζωνών ώρας",
-    "subtitle": "Μετατρέψτε μια στιγμή σε όλο τον κόσμο για τον προγραμματισμό συναντήσεων.",
+    "title": "Μετατροπέας Ζωνών Ώρας",
+    "subtitle": "Μετατροπή μιας στιγμής σε άλλες ζώνες ώρας",
     "dateTimeLabel": "Ημερομηνία και ώρα",
     "now": "Τώρα",
     "sourceZoneLabel": "Ζώνη ώρας προέλευσης",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "Μετρητής token LLM",
-    "subtitle": "Μετρήστε token, οπτικοποιήστε τμήματα και εκτιμήστε το κόστος API.",
+    "title": "Μετρητής Tokens LLM",
+    "subtitle": "Μέτρηση tokens, οπτικοποίηση τμημάτων και εκτίμηση κόστους",
     "inputLabel": "Κείμενο",
     "sample": "Δείγμα",
     "clear": "Καθαρισμός",
@@ -4449,8 +4449,8 @@
     }
   },
   "WebhookTester": {
-    "title": "Δοκιμαστής webhook",
-    "subtitle": "Δημιουργήστε ένα προσωρινό URL και επιθεωρήστε ζωντανά τα εισερχόμενα αιτήματα webhook.",
+    "title": "Δοκιμαστής Webhook",
+    "subtitle": "Δημιουργία προσωρινού URL και ζωντανός έλεγχος webhooks",
     "intro": {
       "title": "Δημιουργήστε ένα URL webhook για να ξεκινήσετε την καταγραφή αιτημάτων",
       "hint": "Θα λάβετε ένα μη προβλέψιμο URL που καταγράφει κάθε εισερχόμενο αίτημα. Λήγει μετά από 24 ώρες."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "Δοκιμαστής WebSocket",
-    "subtitle": "Συνδεθείτε σε ένα άκρο WebSocket και στείλτε, λάβετε και επιθεωρήστε μηνύματα ζωντανά",
+    "subtitle": "Σύνδεση, αποστολή και ζωντανός έλεγχος μηνυμάτων WebSocket",
     "urlLabel": "URL άκρου",
     "protocolsLabel": "Υποπρωτόκολλα",
     "protocolsPlaceholder": "προαιρετικό, διαχωρισμένα με κόμμα",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Αναζήτηση Whois",
-    "subtitle": "Αναζητήστε στοιχεία καταχώρισης για οποιονδήποτε τομέα ή διεύθυνση IP μέσω RDAP",
+    "subtitle": "Αναζήτηση καταχώρισης domain και IP μέσω RDAP",
     "placeholder": "example.com ή 8.8.8.8",
     "lookupBtn": "Αναζήτηση",
     "looking": "Αναζήτηση…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Εισαγάγετε ένα έγκυρο όνομα τομέα ή διεύθυνση IP",
       "lookupFailed": "Η αναζήτηση απέτυχε (κατάσταση {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% εκτός σύνδεσης"
   }
 }

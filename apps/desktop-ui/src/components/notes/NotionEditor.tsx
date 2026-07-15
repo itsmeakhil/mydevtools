@@ -8,6 +8,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useAuth from "@/utils/useAuth";
 import { isDesktop } from "@/lib/desktop/is-desktop";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
     CheckCircle2,
@@ -95,9 +96,17 @@ export default function NotionEditor() {
         if (id) {
             setSaveState("saving");
             isDirtyRef.current = false;
-            await updateNote(id, updates);
-            setLastSavedAt(new Date());
-            setSaveState("saved");
+            try {
+                await updateNote(id, updates);
+                setLastSavedAt(new Date());
+                setSaveState("saved");
+            } catch (err) {
+                // Vault locked / no workspace: surface the reason and keep the
+                // note dirty so the next edit retries instead of silently dropping.
+                isDirtyRef.current = true;
+                setSaveState("idle");
+                toast.error(err instanceof Error ? err.message : String(err));
+            }
         }
     }, [updateNote]);
 

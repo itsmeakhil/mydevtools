@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Довідка та документація",
-    "subtitle": "Як MyDevTools працює, що робить кожен застосунок і як безпека та шифрування захищають ваші дані.",
+    "subtitle": "Як влаштовано MyDevTools і як захищено ваші дані",
     "tabs": {
       "overview": "Огляд",
       "apps": "Застосунки",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "Декодер JWT",
-    "subtitle": "Переглядайте заголовок і payload. Строк дії береться з claim <code>exp</code>. Нічого не надсилається на сервер; підпис не перевіряється.",
+    "subtitle": "Розберіть заголовок, payload і термін — підпис не перевіряється",
     "tokenLabel": "Токен",
     "clear": "Очистити",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Декодер сертифіката / PEM",
-    "subtitle": "Вставте сертифікат X.509 (<code>-----BEGIN CERTIFICATE-----</code>) або CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Суб’єкт, видавник, дати та SAN обробляються локально; нічого не надсилається.",
+    "title": "Декодер сертифікатів",
+    "subtitle": "Декодуйте сертифікати X.509 і CSR із PEM",
     "pemLabel": "Ввід PEM",
     "clear": "Очистити",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2257,8 +2257,8 @@
     }
   },
   "SqlFormatter": {
-    "title": "Форматувач SQL",
-    "subtitle": "Форматуйте SQL для MySQL, PostgreSQL або SQLite. Працює у браузері; нічого не завантажується.",
+    "title": "Форматер SQL",
+    "subtitle": "Форматуйте SQL для MySQL, PostgreSQL і SQLite",
     "dialectLabel": "Діалект",
     "keywordsLabel": "Ключові слова",
     "indentLabel": "Відступ",
@@ -2287,8 +2287,8 @@
     }
   },
   "YamlFormatter": {
-    "title": "Форматувальник YAML",
-    "subtitle": "Форматуйте, перевіряйте та конвертуйте YAML у браузері. Нічого не завантажується.",
+    "title": "Форматер YAML",
+    "subtitle": "Форматуйте, перевіряйте та конвертуйте YAML",
     "outputLabel": "Вивід",
     "outputModes": {
       "yaml": "YAML (відформатований)",
@@ -2308,8 +2308,8 @@
     }
   },
   "GraphqlFormatter": {
-    "title": "Форматувач GraphQL",
-    "subtitle": "Форматуйте запити, мутації й підписки GraphQL у браузері. Нічого не завантажується.",
+    "title": "Форматер GraphQL",
+    "subtitle": "Форматуйте запити, мутації та підписки",
     "tabs": {
       "format": "Форматувати",
       "build": "Конструктор запиту"
@@ -2347,8 +2347,8 @@
     }
   },
   "RegexTester": {
-    "title": "Тестер regex",
-    "subtitle": "Регулярні вирази у стилі JavaScript у реальному часі. Збіги підсвічуються; нічого не залишає ваш браузер.",
+    "title": "Тестер регулярних виразів",
+    "subtitle": "Перевіряйте regex JavaScript із підсвіткою збігів",
     "patternLabel": "Шаблон",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Конвертер часових міток",
-    "subtitle": "Unix-секунди (≤10 цифр) або мілісекунди (довші цілі числа), <code>ISO-8601</code> або рядки, які може розібрати браузер. Усе працює локально.",
+    "title": "Конвертер міток часу",
+    "subtitle": "Конвертуйте Unix-час, ISO-8601 і рядки дат",
     "inputLabel": "Ввід",
     "placeholder": "1744200000 або 2025-04-09T12:00:00Z",
     "now": "Зараз",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "Коди стану HTTP",
-    "subtitle": "Пошук і довідник кодів стану HTTP-відповідей (<code>1xx</code>–<code>5xx</code>) з короткими описами та посиланнями на RFC. Працює локально.",
+    "subtitle": "Шукайте коди 1xx–5xx із посиланнями на RFC",
     "header": {
       "title": "Коди стану HTTP",
       "description": "Довідник з пошуком по HTTP-кодах відповіді з описами та посиланнями на RFC."
@@ -2431,8 +2431,8 @@
     "copied": "Код скопійовано"
   },
   "CronBuilder": {
-    "title": "Конструктор cron-виразів",
-    "subtitle": "Стандартний 5-польовий cron: <mono>minute hour day month weekday</mono>. Парсер внутрішньо використовує seconds=<code>0</code>. Опційний 6-польовий формат (<mono>sec min hour dom mon dow</mono>) працює в редакторі.",
+    "title": "Конструктор cron",
+    "subtitle": "Складайте й пояснюйте cron-вирази з 5–6 полів",
     "tabs": {
       "builder": "Візуальний конструктор",
       "expression": "Вираз"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Кодування / декодування Base64",
-    "subtitle": "Кодуйте текст у Base64 або декодуйте Base64-рядки",
+    "title": "Кодувальник Base64",
+    "subtitle": "Кодуйте текст у Base64 і декодуйте назад",
     "upload": "Завантажити",
     "clear": "Очистити",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "Кодування / декодування URL",
-    "subtitle": "Відсоткове кодування/декодування через encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "Кодувальник URL",
+    "subtitle": "Кодуйте й декодуйте текст у URL-форматі (UTF-8)",
     "upload": "Завантажити",
     "clear": "Очистити",
     "modes": {
@@ -2584,8 +2584,8 @@
     }
   },
   "UrlParser": {
-    "title": "Парсер URL",
-    "subtitle": "Розбийте URL на протокол, хост, шлях, параметри запиту та хеш (фрагмент).",
+    "title": "Розбір URL",
+    "subtitle": "Розбирайте URL на протокол, хост, шлях, запит і хеш",
     "upload": "Завантажити",
     "clear": "Очистити",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "Генератор UUID / ULID",
-    "subtitle": "Генеруйте UUID (RFC 9562) або ULID у браузері. Пакетний експорт до {max} за запуск.",
+    "title": "Генератор UUID",
+    "subtitle": "Генеруйте UUID та ULID — масовий експорт до {max}",
     "format": "Формат",
     "kindHints": {
       "ulid": "Сортований, URL-безпечний ідентифікатор на 26 символів",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Генератор секрету / ключа API",
-    "subtitle": "Створюйте криптографічно випадкові рядки з налаштовуваною довжиною та алфавітом. Масовий експорт до {max} за запуск. Доповнює <uuid>генератор UUID / ULID</uuid>.",
+    "title": "Генератор API-ключів",
+    "subtitle": "Генеруйте криптостійкі секрети та ключі",
     "alphabetLabel": "Алфавіт",
     "alphabetHint": "Дублікати символів прибираються. Кожен символ обирається рівномірно через crypto.getRandomValues і відбір із відсівом (без модульного зміщення).",
     "alphabetCount": "Унікальних символів: {count}",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Генератор Lorem Ipsum",
-    "subtitle": "Генеруйте замінний латинський текст для ваших макетів та прототипів.",
+    "subtitle": "Генеруйте текст-заповнювач для макетів",
     "paragraphs": "Абзаци",
     "sentences": "Речення",
     "words": "Слова",
@@ -2723,8 +2723,8 @@
     "download": "Завантажити"
   },
   "ColorPicker": {
-    "title": "Вибір і конвертер кольорів",
-    "subtitle": "Конвертуйте HEX, RGB та HSL; створюйте гармонійні палітри. Вся обробка відбувається у вашому браузері.",
+    "title": "Вибір кольору",
+    "subtitle": "Конвертуйте HEX, RGB і HSL та збирайте палітри",
     "nativePicker": "Вбудований вибір кольору",
     "chooseColor": "Виберіть колір",
     "eyeDropper": "Піпетка",
@@ -2745,7 +2745,7 @@
   },
   "ContrastChecker": {
     "title": "Перевірка контрасту",
-    "subtitle": "Обчислює коефіцієнт контрасту WCAG 2.1 між переднім планом і тлом. Перевіряє AA та AAA для звичайного й великого тексту. Усе в браузері.",
+    "subtitle": "Перевіряйте контраст за WCAG AA та AAA",
     "foreground": "Текст / передній план",
     "background": "Тло",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Великий текст: 18 pt+ звичайний або 14 pt+ напівжирний (визначення WCAG)."
   },
   "DiffChecker": {
-    "title": "Перевірка різниць",
-    "subtitle": "Порядкове порівняння двох текстів поруч. Все залишається у вашому браузері.",
+    "title": "Порівняння текстів",
+    "subtitle": "Порівнюйте два тексти поруч, рядок за рядком",
     "rowsCount": "{count} рядків",
     "truncatedWarning": "Показано перші {max} рядків.",
     "limitExceeded": "Кожна сторона обмежена {max} символами.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Введіть текст в обидві панелі для порівняння."
   },
   "JsonSchemaGenerator": {
-    "title": "Генератор JSON-схеми",
-    "subtitle": "Вставте коректний JSON, щоб згенерувати JSON-схему або типізовані моделі. Усе працює у вашому браузері.",
+    "title": "Генератор JSON Schema",
+    "subtitle": "Створюйте JSON Schema чи моделі з прикладу JSON",
     "languageLabel": "Мова виводу",
     "inputLabel": "Вхід JSON",
     "inputPlaceholder": "Вставте JSON сюди…",
@@ -2812,8 +2812,8 @@
     "download": "Download"
   },
   "ImageToBase64": {
-    "title": "Зображення до Base64",
-    "subtitle": "Перетягніть зображення, отримайте URI даних або необроблений рядок Base64. Усе залишається у вашому браузері.",
+    "title": "Зображення в Base64",
+    "subtitle": "Перетворюйте зображення на data URI або рядок Base64",
     "upload": "Завантажити зображення",
     "clear": "ясно",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "Стиснення зображень",
-    "subtitle": "Зменшуйте JPEG, PNG або WebP локально з керуванням якістю — нічого не надсилається.",
+    "subtitle": "Стискайте JPEG, PNG і WebP з контролем якості",
     "upload": "Завантажити зображення",
     "clear": "Очистити",
     "dropHere": "Перетягніть зображення сюди",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Попередній перегляд з’явиться тут."
   },
   "CssGradientBuilder": {
-    "title": "Конструктор градієнтів CSS",
-    "subtitle": "Візуальний конструктор градієнтів CSS із керуванням кутом, кольорами та копіюванням CSS одним клацанням миші.",
+    "title": "Конструктор CSS-градієнтів",
+    "subtitle": "Створюйте градієнти візуально й копіюйте CSS",
     "preview": "Попередній перегляд градієнта",
     "settings": "Налаштування",
     "type": "Тип",
@@ -2897,7 +2897,7 @@
   },
   "GitignoreGenerator": {
     "title": "Генератор .gitignore",
-    "subtitle": "Миттєво створюйте об’єднані файли .gitignore для певного технологічного стеку чи комбінації.",
+    "subtitle": "Генеруйте об’єднані .gitignore для будь-якого стека",
     "searchPlaceholder": "Стеки пошуку (наприклад, Node, Python, macOS)...",
     "noResults": "Стоси не знайдено.",
     "selectedStacks": "Вибрані стеки",
@@ -2912,8 +2912,8 @@
     "emptyState": "Виберіть один або кілька технічних стеків, щоб створити свій .gitignore."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Завантажте CSV або Excel, відредагуйте JSON, потім завантажте CSV або XLSX. Лише табличні дані; дати Excel стають ISO-мітками часу в JSON.",
+    "title": "Таблиці ↔ JSON",
+    "subtitle": "Конвертуйте CSV та Excel у JSON і назад",
     "dropTitle": "Перетягніть файл CSV або Excel",
     "dropHint": "Для .xlsx / .xls використовується перший аркуш. CSV має містити рядок заголовків.",
     "chooseFile": "Вибрати файл",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Менеджер фрагментів коду",
-    "subtitle": "Зберігайте фрагменти коду в браузері або увійдіть, щоб синхронізувати їх з обліковим записом. Перемикайте перегляд і редагування, копіюйте одним кліком, обирайте мову або авто-визначення та форматуйте JSON, SQL або код, який підтримує Monaco.",
+    "title": "Менеджер сніпетів",
+    "subtitle": "Зберігайте, шукайте й форматуйте сніпети — синхронізація за бажанням",
     "snippets": "Фрагменти",
     "newSnippet": "Новий фрагмент",
     "newSnippetTitle": "Новий фрагмент",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "Генератор QR-кодів",
-    "subtitle": "Перетворіть будь-який текст або URL на PNG QR-код. Усе обробляється локально в браузері.",
+    "subtitle": "Перетворюйте текст і URL на стильні QR-коди",
     "contentLabel": "Вміст",
     "contentPlaceholder": "https://example.com, звичайний текст, рядок Wi‑Fi, vCard…",
     "styleLabel": "Стиль",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "Калькулятор IP / підмережі",
-    "subtitle": "Деталі CIDR IPv4 та IPv6 у браузері—без зовнішніх запитів.",
+    "title": "Калькулятор підмереж",
+    "subtitle": "Розраховуйте параметри CIDR для IPv4 та IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Мережа",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "Генератор хешів",
-    "subtitle": "Контрольні суми MD5, SHA-1 і SHA-2 для тексту або файлів; bcrypt для паролів (текстовий ввід). Усе локально в браузері.",
+    "subtitle": "Обчислюйте MD5, SHA і bcrypt для тексту та файлів",
     "algorithmLabel": "Алгоритм",
     "algorithms": {
       "md5": "MD5",
@@ -3215,7 +3215,7 @@
   },
   "EncryptionPlayground": {
     "title": "Пісочниця шифрування",
-    "subtitle": "AES-GCM у браузері: шифруйте в JSON-пакет паролем або сирим ключем і розшифровуйте локально. Навчальний і іноді практичний — нічого не надсилається.",
+    "subtitle": "Шифруйте й розшифровуйте AES-GCM із паролем або ключем",
     "tabEncrypt": "Зашифрувати",
     "tabDecrypt": "Розшифрувати",
     "keyModeLabel": "Ключовий матеріал",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "Генератор HMAC",
-    "subtitle": "Для підпису вебхуків і тестування інтеграцій API. HMAC-SHA1/256/384/512 у hex або Base64—локально в браузері.",
+    "subtitle": "Підписуйте дані HMAC-SHA у hex або Base64",
     "secretLabel": "Секретний ключ",
     "messageLabel": "Повідомлення / корисне навантаження",
     "placeholderSecret": "Вставте секрет підпису…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "Генератор коду TOTP / 2FA",
-    "subtitle": "Вставте секрет Base32 і отримайте поточний шестизначний код RFC 6238 (SHA-1, 30 с). Усе локально в браузері—зручно тестувати вхід або MFA.",
+    "title": "Генератор TOTP",
+    "subtitle": "Отримуйте живі коди 2FA із секрету автентифікатора",
     "secretLabel": "Секрет (Base32)",
     "placeholderSecret": "Вставте секретний ключ (літери A–Z і цифри 2–7, як під час налаштування автентифікатора)…",
     "codeLabel": "Поточний код",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Перегляд Markdown & HTML",
-    "subtitle": "Живий рендерер Markdown з експортом HTML і конвертацією HTML → Markdown. Все працює у вашому браузері.",
+    "title": "Попередній перегляд Markdown",
+    "subtitle": "Рендерте Markdown наживо й конвертуйте в HTML і назад",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Введення Markdown",
@@ -3359,7 +3359,7 @@
   },
   "NumberBaseConverter": {
     "title": "Конвертер систем числення",
-    "subtitle": "Перетворення цілих чисел між основами 2–36. Підтримка префіксів 0x / 0b / 0o. Усе локально в браузері.",
+    "subtitle": "Конвертуйте цілі числа між основами 2–36",
     "inputBaseLabel": "З основи",
     "outputBaseLabel": "В основу",
     "inputLabel": "Вхідне число",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Конвертер форматів",
-    "subtitle": "Конвертуйте між JSON, YAML, TOML і XML у будь-якому напрямку. Всі 12 комбінацій. Усе працює у вашому браузері.",
+    "subtitle": "Конвертуйте JSON, YAML, TOML і XML у будь-якому напрямку",
     "fromLabel": "З",
     "toLabel": "В",
     "swap": "Поміняти",
@@ -3389,8 +3389,8 @@
     "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
   },
   "MimeTypeLookup": {
-    "title": "Пошук MIME-типу",
-    "subtitle": "Знайдіть MIME-тип (media type) за розширенням або повною назвою файлу. Усе працює локально у вашому браузері.",
+    "title": "Довідник MIME-типів",
+    "subtitle": "Знаходьте MIME-тип для будь-якого розширення файлу",
     "inputLabel": "Розширення або назва файлу",
     "placeholder": "наприклад .png, package.json, photo.jpeg",
     "hint": "Порада: вставте розширення (з крапкою або без) або повну назву файлу.",
@@ -3410,8 +3410,8 @@
     "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
   },
   "UserAgentParser": {
-    "title": "Парсер User-Agent",
-    "subtitle": "Вставте рядок User-Agent (UA) і отримайте розбір браузера, ОС, engine, пристрою та CPU. Усе працює локально у вашому браузері.",
+    "title": "Розбір User-Agent",
+    "subtitle": "Розбирайте рядок UA на браузер, ОС і пристрій",
     "inputLabel": "Рядок User-Agent",
     "placeholder": "Вставте ваш User-Agent сюди…",
     "hint": "Порада: ви можете скопіювати UA з заголовків запиту, логів або devtools браузера.",
@@ -3434,7 +3434,7 @@
   },
   "MockDataGenerator": {
     "title": "Генератор тестових даних",
-    "subtitle": "Задайте стовпці, оберіть типи й експортуйте набори для сидів, Postman чи тестів. До {max} рядків, усе в браузері — без завантаження на сервер.",
+    "subtitle": "Задайте типи колонок — експорт до {max} рядків фікстур",
     "mockarooLink": "Сценарій як у Mockaroo",
     "rowsLabel": "Рядки",
     "rowsHint": "Щонайбільше {max} рядків за генерацію, щоб вкладка лишалась швидкою.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "Оптимізатор SVG",
-    "subtitle": "Вставте SVG, мініфікуйте через SVGO в браузері та порівняйте розмір UTF-8 до й після.",
+    "subtitle": "Мініфікуйте SVG через SVGO і порівнюйте розміри",
     "inputLabel": "Вхід",
     "outputLabel": "Оптимізовано",
     "placeholder": "Вставте фрагмент <svg>…</svg> або весь файл…",
@@ -3565,8 +3565,8 @@
     }
   },
   "UnitConverter": {
-    "title": "Конвертер одиниць",
-    "subtitle": "Конвертуйте між <strong>323 одиницями</strong> у <strong>43 категоріях</strong>",
+    "title": "Конвертер величин",
+    "subtitle": "Конвертуйте 323 одиниці в 43 категоріях",
     "category": "Категорія",
     "from": "З",
     "to": "В",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Генератор Docker Compose",
-    "subtitle": "Оберіть популярні бази даних, кеші, брокери повідомлень, зворотні проксі та спостережуваність — скопіюйте готовий docker-compose.yml для локальної розробки.",
+    "subtitle": "Генеруйте docker-compose.yml для локальних стеків",
     "searchPlaceholder": "Пошук (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Сервіси",
     "selectedCount": "{count, plural, one {# сервіс} few {# сервіси} many {# сервісів} other {# сервісів}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Гру завершено"
   },
   "SshKeyGenerator": {
-    "title": "Генератор ключів SSH / RSA",
-    "subtitle": "Генеруйте пари ключів Ed25519 або RSA у браузері. Завантажуйте приватні та публічні ключі у форматах OpenSSH і PEM. Нічого не завантажується на сервер.",
+    "title": "Генератор SSH-ключів",
+    "subtitle": "Генеруйте пари ключів Ed25519 або RSA в OpenSSH і PEM",
     "keyTypeLabel": "Тип ключа",
     "recommended": "рекомендовано",
     "ed25519Desc": "Швидкий, компактний, сучасний. Підтримується GitHub, GitLab та всіма основними SSH-серверами.",
@@ -3781,8 +3781,8 @@
     }
   },
   "DnsLookup": {
-    "title": "DNS-запит",
-    "subtitle": "Запитуйте DNS-записи для будь-якого домену — A, AAAA, MX, TXT, NS, CNAME.",
+    "title": "DNS-запити",
+    "subtitle": "Запитуйте A, AAAA, MX, TXT, NS та інші записи домену",
     "placeholder": "Введіть домен (наприклад github.com)",
     "lookupBtn": "Запит",
     "looking": "Виконується запит…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL у код",
+    "subtitle": "Перетворюйте команди curl на fetch, axios, Python тощо",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON у код",
+    "subtitle": "Генеруйте типізовані моделі з прикладу JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "Візуалізатор JSON",
+    "subtitle": "Досліджуйте JSON як інтерактивний граф вузлів",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Форматування та мініфікація",
+    "subtitle": "Форматуйте чи мініфікуйте HTML, CSS, JavaScript, XML і JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Конвертер регістру",
+    "subtitle": "Конвертуйте між camelCase, snake_case, kebab-case та іншими",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Сортування рядків",
+    "subtitle": "Сортуйте, прибирайте дублікати й чистьте списки рядків",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Інспектор рядків",
+    "subtitle": "Рахуйте символи, слова й байти; виявляйте приховані",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Екранування рядків",
+    "subtitle": "Екрануйте HTML-сутності, бекслеші, hex і Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Генератор і перевірка Bcrypt",
-    "subtitle": "Хешуйте паролі за допомогою bcrypt і перевіряйте хеші — усе залишається у вашому браузері",
+    "title": "Генератор bcrypt",
+    "subtitle": "Хешуйте й перевіряйте паролі з bcrypt",
     "tabs": {
       "hash": "Хеш",
       "verify": "Перевірка"
@@ -4015,8 +4015,8 @@
     }
   },
   "ChmodCalculator": {
-    "title": "Калькулятор Chmod",
-    "subtitle": "Перетворюйте права файлів Unix між прапорцями, вісімковою та символьною формою",
+    "title": "Калькулятор chmod",
+    "subtitle": "Переводьте права Unix між вісімковим і символьним записом",
     "grid": {
       "title": "Права",
       "read": "Читання",
@@ -4070,7 +4070,7 @@
   },
   "CodeScreenshot": {
     "title": "Скриншот коду",
-    "subtitle": "Перетворюйте код на красиві зображення для публікації",
+    "subtitle": "Перетворюйте код на гарні зображення",
     "languageLabel": "Мова",
     "autoDetect": "Автовизначення",
     "backgroundLabel": "Фон",
@@ -4107,8 +4107,8 @@
     }
   },
   "CssGenerators": {
-    "title": "Генератори CSS",
-    "subtitle": "Box-shadow, border-radius та адаптивний clamp() — копіюйте CSS.",
+    "title": "CSS-генератори",
+    "subtitle": "Генеруйте CSS для box-shadow, border-radius і clamp()",
     "preview": "Перегляд",
     "output": "CSS",
     "copy": "Копіювати",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "Перегляд і видалення EXIF",
-    "subtitle": "Досліджуйте метадані фото та видаляйте їх у вашому браузері",
+    "title": "Перегляд EXIF",
+    "subtitle": "Переглядайте й видаляйте метадані фото",
     "dropTitle": "Перетягніть зображення сюди",
     "dropHint": "або натисніть для вибору — ваше зображення ніколи не залишає ваш пристрій",
     "browse": "Вибрати зображення",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "Порівняння JSON",
-    "subtitle": "Семантичне порівняння двох документів JSON з урахуванням структури — порядок ключів і форматування ігноруються",
+    "subtitle": "Порівнюйте JSON структурно — порядок ключів не важливий",
     "options": {
       "ignoreArrayOrder": "Ігнорувати порядок масивів"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "Пісочниця JSONPath",
-    "subtitle": "Запитуйте документи JSON за допомогою JSONPath або JMESPath і дивіться результати наживо",
+    "subtitle": "Запитуйте JSON через JSONPath або JMESPath наживо",
     "engineLabel": "Рушій",
     "queryLabel": "Запит",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Скопійовано"
   },
   "KeycodeInspector": {
-    "title": "Інспектор клавіш",
-    "subtitle": "Натисніть будь-яку клавішу, щоб дослідити її подію клавіатури JavaScript",
+    "title": "Інспектор кодів клавіш",
+    "subtitle": "Натисніть будь-яку клавішу й дослідіть її подію",
     "capture": {
       "prompt": "Натисніть будь-яку клавішу…",
       "ready": "Слухаю — натисніть будь-яку клавішу на клавіатурі",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Генератор таблиць Markdown",
-    "subtitle": "Редагуйте сітку, вставляйте з таблиці та копіюйте гарно вирівняну таблицю Markdown або HTML",
+    "subtitle": "Редагуйте сітку й копіюйте таблицю Markdown або HTML",
     "addRow": "Додати рядок",
     "addColumn": "Додати стовпець",
     "importLabel": "Імпорт",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "Конвертер часових поясів",
-    "subtitle": "Перетворюйте один момент по всьому світу для планування зустрічей.",
+    "subtitle": "Переводьте один момент між часовими поясами",
     "dateTimeLabel": "Дата й час",
     "now": "Зараз",
     "sourceZoneLabel": "Вихідний часовий пояс",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "Лічильник токенів LLM",
-    "subtitle": "Рахуйте токени, візуалізуйте чанки та оцінюйте вартість API.",
+    "title": "Лічильник LLM-токенів",
+    "subtitle": "Рахуйте токени, переглядайте чанки й оцінюйте вартість",
     "inputLabel": "Текст",
     "sample": "Приклад",
     "clear": "Очистити",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Тестер вебхуків",
-    "subtitle": "Створіть тимчасовий URL і досліджуйте вхідні запити вебхуків наживо.",
+    "subtitle": "Створіть тимчасовий URL і переглядайте вебхуки наживо",
     "intro": {
       "title": "Створіть URL вебхука, щоб почати захоплення запитів",
       "hint": "Ви отримаєте непередбачуваний URL, який записує кожен вхідний запит. Він спливає через 24 години."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "Тестер WebSocket",
-    "subtitle": "Підключайтеся до ендпоінта WebSocket і надсилайте, отримуйте та досліджуйте повідомлення наживо",
+    "subtitle": "Підключайтесь, надсилайте й досліджуйте повідомлення WebSocket",
     "urlLabel": "URL ендпоінта",
     "protocolsLabel": "Підпротоколи",
     "protocolsPlaceholder": "необов'язково, через кому",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Whois-запит",
-    "subtitle": "Дізнавайтеся дані реєстрації будь-якого домену або IP-адреси через RDAP",
+    "subtitle": "Перевіряйте реєстрацію доменів та IP через RDAP",
     "placeholder": "example.com або 8.8.8.8",
     "lookupBtn": "Запитати",
     "looking": "Запит…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Введіть коректне доменне ім'я або IP-адресу",
       "lookupFailed": "Запит не вдався (статус {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% офлайн"
   }
 }

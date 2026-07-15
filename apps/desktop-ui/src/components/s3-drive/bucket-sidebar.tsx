@@ -86,8 +86,8 @@ export function BucketSidebar({ encryptionKey }: Props) {
             <div className="shrink-0 px-3 pt-3 pb-2">
                 <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
-                        <div className="size-7 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <IconBucket className="size-3.5 text-blue-500" />
+                        <div className="size-7 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                            <IconBucket className="size-3.5 text-orange-600 dark:text-orange-400" />
                         </div>
                         <span className="text-sm font-semibold text-foreground tracking-tight">Buckets</span>
                     </div>

@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "帮助与文档",
-    "subtitle": "了解 MyDevTools 的整体结构、各应用的用途，以及安全与加密如何保护你的数据。",
+    "subtitle": "了解 MyDevTools 的构成与数据保护方式",
     "tabs": {
       "overview": "概览",
       "apps": "应用",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "JWT 解码器",
-    "subtitle": "查看头部和载荷。过期时间使用 <code>exp</code> 声明。不会发送到服务器；不验证签名。",
+    "subtitle": "查看头部、载荷与过期时间 — 不验证签名",
     "tokenLabel": "令牌",
     "clear": "清空",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "证书 / PEM 解码器",
-    "subtitle": "粘贴 X.509 证书（<code>-----BEGIN CERTIFICATE-----</code>）或 CSR（<code>-----BEGIN CERTIFICATE REQUEST-----</code>）。主题、颁发者、日期与 SAN 在本地解析；不会上传任何内容。",
+    "title": "证书解码器",
+    "subtitle": "解码 PEM 格式的 X.509 证书与 CSR",
     "pemLabel": "PEM 输入",
     "clear": "清除",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "SQL 格式化",
-    "subtitle": "格式化 MySQL、PostgreSQL 或 SQLite 的 SQL。在浏览器中运行；不会上传任何内容。",
+    "subtitle": "美化 MySQL、PostgreSQL 和 SQLite 的 SQL",
     "dialectLabel": "方言",
     "keywordsLabel": "关键字",
     "indentLabel": "缩进",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "YAML 格式化",
-    "subtitle": "在浏览器中格式化、验证和转换 YAML。不会上传任何内容。",
+    "subtitle": "格式化、校验并转换 YAML",
     "outputLabel": "输出",
     "outputModes": {
       "yaml": "YAML（已格式化）",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "GraphQL 格式化",
-    "subtitle": "在浏览器中格式化 GraphQL 查询、变更与订阅。不会上传任何内容。",
+    "subtitle": "格式化查询、变更与订阅",
     "tabs": {
       "format": "格式化",
       "build": "查询构建器"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "正则测试器",
-    "subtitle": "对你的文本实时运行 JavaScript 风格正则。匹配会高亮显示；内容不会离开浏览器。",
+    "subtitle": "实时高亮匹配，测试 JavaScript 正则",
     "patternLabel": "模式",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2383,7 +2383,7 @@
   },
   "TimestampConverter": {
     "title": "时间戳转换器",
-    "subtitle": "支持 Unix 秒（≤10 位）或毫秒（更长整数）、<code>ISO-8601</code>，或浏览器可解析的日期字符串。全部在本地运行。",
+    "subtitle": "转换 Unix 时间戳、ISO-8601 与日期字符串",
     "inputLabel": "输入",
     "placeholder": "1744200000 或 2025-04-09T12:00:00Z",
     "now": "现在",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "HTTP 状态码",
-    "subtitle": "搜索并浏览 HTTP 响应状态码（<code>1xx</code>–<code>5xx</code>），包含简短说明与 RFC 参考。完全在本地运行。",
+    "subtitle": "检索 1xx–5xx 状态码，附 RFC 参考",
     "header": {
       "title": "HTTP 状态码",
       "description": "可搜索的 HTTP 响应状态码参考，包含说明与 RFC 参考。"
@@ -2431,8 +2431,8 @@
     "copied": "已复制状态码"
   },
   "CronBuilder": {
-    "title": "Cron 表达式生成器",
-    "subtitle": "标准 5 段 cron：<mono>minute hour day month weekday</mono>。解析器内部使用 seconds=<code>0</code>。表达式编辑器也支持可选的 6 段格式（<mono>sec min hour dom mon dow</mono>）。",
+    "title": "Cron 构建器",
+    "subtitle": "构建并解释 5 或 6 字段的 cron 表达式",
     "tabs": {
       "builder": "可视化构建器",
       "expression": "表达式"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64 编码 / 解码",
-    "subtitle": "将文本编码为 Base64 或解码 Base64 字符串",
+    "title": "Base64 编码器",
+    "subtitle": "将文本编码为 Base64 并可解码还原",
     "upload": "上传",
     "clear": "清空",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL 编码 / 解码",
-    "subtitle": "使用 encodeURIComponent / decodeURIComponent（UTF‑8）进行百分号编码/解码",
+    "title": "URL 编码器",
+    "subtitle": "对文本进行百分号编码与解码（UTF-8）",
     "upload": "上传",
     "clear": "清空",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "URL 解析器",
-    "subtitle": "将 URL 拆分为协议、主机、路径、查询参数和哈希（片段）。",
+    "subtitle": "将 URL 拆分为协议、主机、路径、查询与哈希",
     "upload": "上传",
     "clear": "清空",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "UUID / ULID 生成器",
-    "subtitle": "在浏览器中生成 RFC 9562 UUID 或 ULID。每次最多批量导出 {max} 个。",
+    "title": "UUID 生成器",
+    "subtitle": "生成 UUID 和 ULID — 批量导出最多 {max} 条",
     "format": "格式",
     "kindHints": {
       "ulid": "可排序、URL 安全的 26 位标识符",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "密钥 / API 密钥生成器",
-    "subtitle": "使用可配置长度与字符集生成密码学随机字符串。每次最多批量导出 {max} 条。可与 <uuid>UUID / ULID 生成器</uuid> 搭配使用。",
+    "title": "API 密钥生成器",
+    "subtitle": "生成加密安全的随机密钥与令牌",
     "alphabetLabel": "字符集",
     "alphabetHint": "会去除重复字符。每个字符通过 crypto.getRandomValues 与拒绝采样均匀抽取（无取模偏差）。",
     "alphabetCount": "不重复字符 {count} 个",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Lorem Ipsum 生成器",
-    "subtitle": "为您的布局和原型生成拉丁文占位文本。",
+    "subtitle": "生成排版与原型用的占位文本",
     "paragraphs": "段落",
     "sentences": "句子",
     "words": "单词",
@@ -2723,8 +2723,8 @@
     "download": "下载"
   },
   "ColorPicker": {
-    "title": "颜色选择器和转换器",
-    "subtitle": "转换 HEX、RGB 和 HSL；构建和谐调色板。所有处理在您的浏览器中完成。",
+    "title": "颜色选择器",
+    "subtitle": "转换 HEX、RGB、HSL 并构建调色板",
     "nativePicker": "原生选择器",
     "chooseColor": "选择颜色",
     "eyeDropper": "吸管工具",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "正方形配色"
   },
   "ContrastChecker": {
-    "title": "对比度检查",
-    "subtitle": "计算前景与背景之间的 WCAG 2.1 对比度，并显示常规与大号文字的 AA、AAA 达标情况。全部在浏览器本地完成。",
+    "title": "对比度检查器",
+    "subtitle": "检查 WCAG AA 与 AAA 对比度",
     "foreground": "文字 / 前景",
     "background": "背景",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "大号文字：常规 18pt 及以上，或粗体 14pt 及以上（WCAG 定义）。"
   },
   "DiffChecker": {
-    "title": "差异检查器",
-    "subtitle": "并排逐行比较两段文本。所有处理都在您的浏览器中完成。",
+    "title": "文本对比",
+    "subtitle": "并排逐行比较两段文本",
     "rowsCount": "{count} 行",
     "truncatedWarning": "显示前 {max} 行。",
     "limitExceeded": "每侧限制为 {max} 个字符。",
@@ -2784,8 +2784,8 @@
     "emptyState": "在两个面板中输入文本以进行比较。"
   },
   "JsonSchemaGenerator": {
-    "title": "JSON 模式生成器",
-    "subtitle": "粘贴有效的 JSON 以生成 JSON 模式或类型化模型。全部在浏览器中完成。",
+    "title": "JSON Schema 生成器",
+    "subtitle": "从示例 JSON 生成 JSON Schema 或类型模型",
     "languageLabel": "输出语言",
     "inputLabel": "JSON 输入",
     "inputPlaceholder": "在此粘贴 JSON…",
@@ -2812,8 +2812,8 @@
     "download": "Download"
   },
   "ImageToBase64": {
-    "title": "图像转 Base64",
-    "subtitle": "删除图像，获取数据 URI 或原始 Base64 字符串。一切都保留在您的浏览器中。",
+    "title": "图片转 Base64",
+    "subtitle": "将图片转换为 data URI 或 Base64 字符串",
     "upload": "上传图片",
     "clear": "清除",
     "modes": {
@@ -2837,8 +2837,8 @@
     }
   },
   "ImageCompressor": {
-    "title": "图片压缩",
-    "subtitle": "在本地通过质量设置缩小 JPEG / PNG / WebP 输出 — 不会上传任何内容。",
+    "title": "图片压缩器",
+    "subtitle": "按质量压缩 JPEG、PNG 和 WebP",
     "upload": "上传图片",
     "clear": "清除",
     "dropHere": "将图片拖放到此处",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "压缩预览将显示在此处。"
   },
   "CssGradientBuilder": {
-    "title": "CSS 渐变生成器",
-    "subtitle": "具有角度控制、色标和一键 CSS 复制功能的可视化 CSS 渐变生成器。",
+    "title": "CSS 渐变构建器",
+    "subtitle": "可视化设计渐变并复制 CSS",
     "preview": "渐变预览",
     "settings": "设置",
     "type": "类型",
@@ -2897,7 +2897,7 @@
   },
   "GitignoreGenerator": {
     "title": ".gitignore 生成器",
-    "subtitle": "立即为特定技术堆栈或组合生成合并的 .gitignore 文件。",
+    "subtitle": "为任意技术栈生成合并的 .gitignore",
     "searchPlaceholder": "搜索堆栈（例如 Node、Python、macOS）...",
     "noResults": "没有找到堆栈。",
     "selectedStacks": "选定的堆栈",
@@ -2912,8 +2912,8 @@
     "emptyState": "选择一个或多个技术堆栈来生成 .gitignore。"
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "上传 CSV 或 Excel，编辑 JSON，再下载 CSV 或 XLSX。仅支持表格数据；Excel 日期单元格在 JSON 中为 ISO 时间戳。",
+    "title": "表格 ↔ JSON",
+    "subtitle": "在 CSV、Excel 与 JSON 之间互转",
     "dropTitle": "拖放 CSV 或 Excel 文件",
     "dropHint": ".xlsx / .xls 使用第一个工作表。CSV 需包含标题行。",
     "chooseFile": "选择文件",
@@ -2950,7 +2950,7 @@
   },
   "SnippetManager": {
     "title": "代码片段管理器",
-    "subtitle": "在浏览器中保存代码片段，或登录以同步到账户。在查看与编辑间切换、一键复制、选择语言或使用自动检测，并格式化 JSON、SQL 或 Monaco 支持的代码。",
+    "subtitle": "保存、搜索并格式化代码片段 — 同步可选",
     "snippets": "片段",
     "newSnippet": "新建片段",
     "newSnippetTitle": "新建片段",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "二维码生成器",
-    "subtitle": "将任意文本或 URL 转为 PNG 二维码。全部在浏览器本地渲染。",
+    "subtitle": "将文本或 URL 生成个性化二维码",
     "contentLabel": "内容",
     "contentPlaceholder": "https://example.com、纯文本、Wi‑Fi 字符串、vCard…",
     "styleLabel": "样式",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "IP / 子网计算器",
-    "subtitle": "在浏览器中计算 IPv4 与 IPv6 CIDR—不发送外部请求。",
+    "title": "子网计算器",
+    "subtitle": "计算 IPv4 与 IPv6 的 CIDR 详情",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "网络",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "哈希生成器",
-    "subtitle": "适用于文本或文件的 MD5、SHA-1、SHA-2 摘要；适用于密码的 bcrypt（文本输入）。全部在浏览器本地计算。",
+    "subtitle": "计算文本或文件的 MD5、SHA 和 bcrypt 哈希",
     "algorithmLabel": "算法",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "加密演练场",
-    "subtitle": "在浏览器中使用 AES-GCM：用口令或原始密钥加密为 JSON 包，再在本地解密。适合学习与偶尔实用 — 不会上传任何内容。",
+    "title": "加密实验场",
+    "subtitle": "用口令或密钥进行 AES-GCM 加解密",
     "tabEncrypt": "加密",
     "tabDecrypt": "解密",
     "keyModeLabel": "密钥材料",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "HMAC 生成器",
-    "subtitle": "用于 Webhook 签名与 API 集成测试。支持 HMAC-SHA1/256/384/512，输出 hex 或 Base64—均在浏览器本地计算。",
+    "subtitle": "用 HMAC-SHA 签名，输出 hex 或 Base64",
     "secretLabel": "密钥",
     "messageLabel": "消息 / 负载",
     "placeholderSecret": "粘贴签名密钥…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "TOTP / 2FA 验证码生成器",
-    "subtitle": "粘贴 Base32 密钥，获取当前六位 RFC 6238 验证码（SHA-1，30 秒）。全部在浏览器本地完成，适合测试登录或多因素验证流程。",
+    "title": "TOTP 生成器",
+    "subtitle": "由验证器密钥实时生成 2FA 验证码",
     "secretLabel": "密钥（Base32）",
     "placeholderSecret": "粘贴密钥（字母 A–Z 与数字 2–7，与设置身份验证器时相同）…",
     "codeLabel": "当前验证码",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Markdown 预览 & HTML",
-    "subtitle": "实时 Markdown 渲染，支持 HTML 导出和 HTML → Markdown 转换。一切在浏览器中运行。",
+    "title": "Markdown 预览",
+    "subtitle": "实时渲染 Markdown，并与 HTML 互转",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Markdown 输入",
@@ -3359,7 +3359,7 @@
   },
   "NumberBaseConverter": {
     "title": "进制转换器",
-    "subtitle": "在 2–36 进制之间转换整数。支持可选前缀 0x / 0b / 0o。全部在浏览器本地计算。",
+    "subtitle": "在 2–36 进制之间转换整数",
     "inputBaseLabel": "源进制",
     "outputBaseLabel": "目标进制",
     "inputLabel": "输入数字",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "格式转换器",
-    "subtitle": "在 JSON、YAML、TOML 和 XML 之间任意方向转换。支持全部 12 种组合。所有操作均在浏览器中本地运行。",
+    "subtitle": "JSON、YAML、TOML、XML 任意互转",
     "fromLabel": "从",
     "toLabel": "到",
     "swap": "交换",
@@ -3390,7 +3390,7 @@
   },
   "MimeTypeLookup": {
     "title": "MIME 类型查询",
-    "subtitle": "根据文件扩展名或完整文件名查询 MIME 类型（媒体类型）。所有操作都在浏览器本地完成。",
+    "subtitle": "查找任意文件扩展名的 MIME 类型",
     "inputLabel": "扩展名或文件名",
     "placeholder": "例如 .png、package.json、photo.jpeg",
     "hint": "提示：可粘贴扩展名（带或不带点）或完整文件名。",
@@ -3410,8 +3410,8 @@
     "localNote": "所有操作都在浏览器本地完成。不会上传任何内容。"
   },
   "UserAgentParser": {
-    "title": "User-Agent 解析",
-    "subtitle": "粘贴一段 User-Agent（UA）字符串，即可查看浏览器、操作系统、引擎、设备与 CPU 的解析结果。所有操作均在浏览器本地完成。",
+    "title": "User-Agent 解析器",
+    "subtitle": "将 UA 字符串拆解为浏览器、系统与设备",
     "inputLabel": "User-Agent 字符串",
     "placeholder": "在此粘贴你的 User-Agent…",
     "hint": "提示：你可以从请求头、日志或浏览器开发者工具中复制 UA。",
@@ -3434,7 +3434,7 @@
   },
   "MockDataGenerator": {
     "title": "模拟数据生成器",
-    "subtitle": "定义列、选择数据类型，并导出用于种子数据、Postman 或测试的数据集。最多 {max} 行，全部在浏览器本地完成，不会上传。",
+    "subtitle": "定义类型化列 — 导出最多 {max} 行测试数据",
     "mockarooLink": "Mockaroo 式工作流",
     "rowsLabel": "行数",
     "rowsHint": "每次生成最多 {max} 行，以保持标签页流畅。",
@@ -3537,8 +3537,8 @@
     "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
-    "title": "SVG 优化",
-    "subtitle": "粘贴 SVG，在浏览器中用 SVGO 压缩，并对比优化前后的 UTF-8 大小。",
+    "title": "SVG 优化器",
+    "subtitle": "用 SVGO 压缩 SVG 并对比大小",
     "inputLabel": "输入",
     "outputLabel": "已优化",
     "placeholder": "粘贴 <svg>…</svg> 片段或完整文件…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "单位换算器",
-    "subtitle": "在 <strong>43 个类别</strong>的 <strong>323 个单位</strong>之间转换",
+    "subtitle": "覆盖 43 类 323 种单位换算",
     "category": "类别",
     "from": "从",
     "to": "到",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Docker Compose 生成器",
-    "subtitle": "选择常用数据库、缓存、消息队列、反向代理与可观测性组件——复制即可用于本地开发的 docker-compose.yml。",
+    "subtitle": "为本地开发栈生成 docker-compose.yml",
     "searchPlaceholder": "搜索（postgres、redis、kafka、nginx、grafana…）",
     "selectedLabel": "服务",
     "selectedCount": "{count, plural, other {# 个服务}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "游戏结束"
   },
   "SshKeyGenerator": {
-    "title": "SSH / RSA 密钥生成器",
-    "subtitle": "在浏览器中生成 Ed25519 或 RSA 密钥对。以 OpenSSH 和 PEM 格式下载私钥和公钥。不会上传任何内容。",
+    "title": "SSH 密钥生成器",
+    "subtitle": "生成 OpenSSH 与 PEM 格式的 Ed25519 或 RSA 密钥对",
     "keyTypeLabel": "密钥类型",
     "recommended": "推荐",
     "ed25519Desc": "快速、紧凑、现代。受 GitHub、GitLab 及所有主要 SSH 服务器支持。",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "DNS 查询",
-    "subtitle": "查询任意域名的 DNS 记录 — A、AAAA、MX、TXT、NS、CNAME、SOA。",
+    "subtitle": "查询任意域名的 A、AAAA、MX、TXT、NS 等记录",
     "placeholder": "输入域名（例如 github.com）",
     "lookupBtn": "查询",
     "looking": "正在查询…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL 转代码",
+    "subtitle": "将 curl 命令转换为 fetch、axios、Python 等",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON 转代码",
+    "subtitle": "从示例 JSON 生成类型化模型",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "JSON 可视化",
+    "subtitle": "以交互式节点图浏览 JSON",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "美化与压缩",
+    "subtitle": "美化或压缩 HTML、CSS、JavaScript、XML、JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "命名风格转换",
+    "subtitle": "在 camelCase、snake_case、kebab-case 等之间转换",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "行排序器",
+    "subtitle": "对行进行排序、去重、修剪与清理",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "字符串检查器",
+    "subtitle": "统计字符、单词、字节，并显示隐藏字符",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "字符串转义",
+    "subtitle": "转义 HTML 实体、反斜杠、hex 与 Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt 生成与校验",
-    "subtitle": "使用 bcrypt 哈希密码并校验哈希 — 一切都在你的浏览器中完成",
+    "title": "Bcrypt 生成器",
+    "subtitle": "使用 bcrypt 哈希并验证密码",
     "tabs": {
       "hash": "哈希",
       "verify": "校验"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Chmod 计算器",
-    "subtitle": "在复选框、八进制和符号表示之间转换 Unix 文件权限",
+    "subtitle": "在八进制与符号表示之间转换 Unix 权限",
     "grid": {
       "title": "权限",
       "read": "读取",
@@ -4070,7 +4070,7 @@
   },
   "CodeScreenshot": {
     "title": "代码截图",
-    "subtitle": "将代码转换为精美、可分享的图片",
+    "subtitle": "把代码变成美观易分享的图片",
     "languageLabel": "语言",
     "autoDetect": "自动检测",
     "backgroundLabel": "背景",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "CSS 生成器",
-    "subtitle": "Box-shadow、border-radius 和流式 clamp() — 复制 CSS。",
+    "subtitle": "生成 box-shadow、border-radius 与 clamp() CSS",
     "preview": "预览",
     "output": "CSS",
     "copy": "复制",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF 查看与移除",
-    "subtitle": "在浏览器中检查照片元数据并将其清除",
+    "title": "EXIF 查看器",
+    "subtitle": "查看并清除照片元数据",
     "dropTitle": "将图片拖放到此处",
     "dropHint": "或点击浏览 — 你的图片绝不会离开你的设备",
     "browse": "选择图片",
@@ -4223,7 +4223,7 @@
   },
   "FaviconGenerator": {
     "title": "Favicon 生成器",
-    "subtitle": "从一张图片创建 favicon 和应用图标",
+    "subtitle": "用一张图片生成网站图标与应用图标",
     "dropTitle": "将图片拖放到此处",
     "dropHint": "PNG、JPEG 或 SVG — 点击浏览",
     "browse": "选择图片",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "JSON 对比",
-    "subtitle": "对两个 JSON 文档进行语义化、结构感知的比较 — 忽略键顺序和格式",
+    "subtitle": "按结构比较 JSON — 忽略键顺序",
     "options": {
       "ignoreArrayOrder": "忽略数组顺序"
     },
@@ -4276,8 +4276,8 @@
     "identical": "这两个文档在语义上完全相同。"
   },
   "JsonpathPlayground": {
-    "title": "JSONPath 沙盒",
-    "subtitle": "使用 JSONPath 或 JMESPath 查询 JSON 文档并实时查看结果",
+    "title": "JSONPath 演练场",
+    "subtitle": "用 JSONPath 或 JMESPath 实时查询 JSON",
     "engineLabel": "引擎",
     "queryLabel": "查询",
     "engines": {
@@ -4319,7 +4319,7 @@
   },
   "KeycodeInspector": {
     "title": "键码检查器",
-    "subtitle": "按下任意键以检查其 JavaScript 键盘事件",
+    "subtitle": "按下任意键查看键盘事件",
     "capture": {
       "prompt": "按下任意键…",
       "ready": "正在监听 — 请按键盘上的任意键",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Markdown 表格生成器",
-    "subtitle": "编辑网格、从电子表格粘贴，并复制对齐美观的 Markdown 或 HTML 表格",
+    "subtitle": "编辑网格，复制对齐的 Markdown 或 HTML 表格",
     "addRow": "添加行",
     "addColumn": "添加列",
     "importLabel": "导入",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "时区转换器",
-    "subtitle": "在全球范围内转换某一时刻，方便安排会议。",
+    "subtitle": "将同一时刻换算到多个时区",
     "dateTimeLabel": "日期和时间",
     "now": "现在",
     "sourceZoneLabel": "源时区",
@@ -4408,7 +4408,7 @@
   },
   "TokenCounter": {
     "title": "LLM Token 计数器",
-    "subtitle": "统计 token、可视化分块并估算 API 成本。",
+    "subtitle": "统计 token、可视化分块并估算成本",
     "inputLabel": "文本",
     "sample": "示例",
     "clear": "清空",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Webhook 测试器",
-    "subtitle": "创建临时 URL 并实时检查传入的 webhook 请求。",
+    "subtitle": "创建临时 URL，实时查看 Webhook",
     "intro": {
       "title": "创建 webhook URL 以开始捕获请求",
       "hint": "你将获得一个无法猜测的 URL，它会记录每个传入的请求。24 小时后过期。"
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "WebSocket 测试器",
-    "subtitle": "连接 WebSocket 端点并实时发送、接收和检查消息",
+    "subtitle": "连接、发送并实时查看 WebSocket 消息",
     "urlLabel": "端点 URL",
     "protocolsLabel": "子协议",
     "protocolsPlaceholder": "可选，以逗号分隔",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Whois 查询",
-    "subtitle": "通过 RDAP 查询任意域名或 IP 地址的注册信息",
+    "subtitle": "通过 RDAP 查询域名与 IP 注册信息",
     "placeholder": "example.com 或 8.8.8.8",
     "lookupBtn": "查询",
     "looking": "正在查询…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "请输入有效的域名或 IP 地址",
       "lookupFailed": "查询失败（状态 {status}）"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% 离线"
   }
 }

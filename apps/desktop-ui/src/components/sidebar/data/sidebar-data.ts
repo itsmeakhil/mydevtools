@@ -141,13 +141,13 @@ export const sidebarData: SidebarData = {
           description: 'Decode JWT header, payload, and expiry.',
         },
         {
-          title: 'Certificate / PEM Decoder',
+          title: 'Certificate Decoder',
           url: '/app/certificate-pem-decoder',
           icon: IconCertificate,
           description: 'Decode X.509 certificates and CSRs: subject, issuer, validity, SANs.',
         },
         {
-          title: 'SSH / RSA Key Generator',
+          title: 'SSH Key Generator',
           url: '/app/ssh-key-generator',
           icon: IconFingerprint,
           description: 'Generate Ed25519 or RSA key pairs in your browser. Download in OpenSSH and PEM formats.',
@@ -165,7 +165,7 @@ export const sidebarData: SidebarData = {
           description: 'Securely store and manage your passwords.',
         },
         {
-          title: "Bcrypt Generator & Checker",
+          title: "Bcrypt Generator",
           url: '/app/bcrypt-generator',
           icon: IconShieldLock,
           description: "Hash passwords with bcrypt and verify hashes.",
@@ -303,7 +303,7 @@ export const sidebarData: SidebarData = {
           description: 'Convert between 323 units across 43 scientific and engineering categories.',
         },
         {
-          title: 'CSV / Excel ↔ JSON',
+          title: 'Spreadsheet ↔ JSON',
           url: '/app/csv-excel-json',
           icon: IconFileSpreadsheet,
           description: 'Convert CSV or Excel files to JSON and back. File upload with sensible dates.',
@@ -315,13 +315,13 @@ export const sidebarData: SidebarData = {
           description: 'Convert images to Data URI or raw Base64 strings.',
         },
         {
-          title: 'String Case Converter',
+          title: 'Case Converter',
           url: '/app/string-case-converter',
           icon: IconLetterCase,
           description: 'Convert text between camelCase, snake_case, kebab-case, CONSTANT_CASE, and more.',
         },
         {
-          title: 'Line Sort & Dedupe',
+          title: 'Line Sorter',
           url: '/app/line-sort-dedupe',
           icon: IconArrowsSort,
           description: 'Sort, deduplicate, trim, and clean up lists of lines locally.',
@@ -333,7 +333,7 @@ export const sidebarData: SidebarData = {
           description: 'Count characters, words, bytes, and detect invisible or non-ASCII characters.',
         },
         {
-          title: 'Escape / Encode',
+          title: 'String Escaper',
           url: '/app/escape-encode',
           icon: IconReplace,
           description: 'Escape and unescape HTML entities, backslash strings, hex, and Unicode.',
@@ -363,13 +363,13 @@ export const sidebarData: SidebarData = {
       icon: IconWand,
       items: [
         {
-          title: 'UUID / ULID',
+          title: 'UUID Generator',
           url: '/app/uuid-generator',
           icon: IconFingerprint,
           description: 'Generate UUIDs and ULIDs with bulk export.',
         },
         {
-          title: 'Secret / API Key',
+          title: 'API Key Generator',
           url: '/app/secret-api-key-generator',
           icon: IconCircleKeyFilled,
           description: 'Cryptographically random strings with configurable alphabet and length.',
@@ -424,7 +424,7 @@ export const sidebarData: SidebarData = {
           description: 'HMAC-SHA1/256/384/512 for webhooks and API signing tests in your browser.',
         },
         {
-          title: 'TOTP / 2FA Code Generator',
+          title: 'TOTP Generator',
           url: '/app/totp-generator',
           icon: IconClock,
           description: 'Paste a Base32 authenticator secret and see the six-digit code refresh every 30 seconds.',
@@ -466,7 +466,7 @@ export const sidebarData: SidebarData = {
           description: 'Query A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, and PTR records for any domain.',
         },
         {
-          title: 'IP / Subnet Calculator',
+          title: 'Subnet Calculator',
           url: '/app/ip-subnet-calculator',
           icon: IconHierarchy2,
           description: 'IPv4 and IPv6 CIDR: netmask, host range, and address counts in your browser.',
@@ -574,7 +574,7 @@ export const sidebarData: SidebarData = {
           description: "Generate box-shadow, border-radius, and fluid clamp() CSS visually.",
         },
         {
-          title: "EXIF Viewer & Remover",
+          title: "EXIF Viewer",
           url: '/app/exif-viewer',
           icon: IconPhotoSearch,
           description: "Inspect and strip photo EXIF metadata locally.",

@@ -458,7 +458,7 @@ export const comparisonPages: ComparisonPage[] = [
     title: 'Free Online Base64 Encoder and Decoder',
     description:
       'Encode text or binary to Base64 and decode Base64 back to text instantly in your browser. Compare online Base64 tools and understand when to use Base64URL.',
-    eyebrow: 'Base64 Encoder / Decoder',
+    eyebrow: 'Base64 Encoder',
     heading: 'Free online Base64 encoder and decoder — text, file, and URL-safe',
     intro:
       'Base64 encoding is a daily task for developers working with APIs, JWTs, images, and authentication headers. MyDevTools Base64 tool handles standard encoding, URL-safe Base64, and file input — all in the browser, no install.',

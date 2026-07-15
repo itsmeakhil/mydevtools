@@ -329,7 +329,6 @@ export function MockDataGeneratorLayout() {
             </div>
             <Button
               type="button"
-              variant="gradient"
               onClick={() => void runGenerate()}
               disabled={generating}
               className="gap-2 shrink-0"

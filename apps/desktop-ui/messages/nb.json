@@ -79,8 +79,8 @@
     "whoisLookup": "Whois-oppslag"
   },
   "Help": {
-    "title": "Hjelp og dokumentasjon",
-    "subtitle": "Hvordan MyDevTools henger sammen, hva hver app gjør, og hvordan sikkerhet og kryptering beskytter dataene dine.",
+    "title": "Hjelp & dokumentasjon",
+    "subtitle": "Slik henger MyDevTools sammen, og slik beskyttes dataene dine",
     "tabs": {
       "overview": "Oversikt",
       "apps": "Apper",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "JWT-dekoder",
-    "subtitle": "Inspiser header og payload. Utløp bruker <code>exp</code>-claim. Ingenting sendes til en server; signaturen verifiseres ikke.",
+    "subtitle": "Inspiser header, payload og utløp — signaturen verifiseres ikke",
     "tokenLabel": "Token",
     "clear": "Tøm",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Sertifikat- / PEM-dekoder",
-    "subtitle": "Lim inn et X.509-sertifikat (<code>-----BEGIN CERTIFICATE-----</code>) eller en CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Emne, utsteder, datoer og SAN analyseres lokalt; ingenting lastes opp.",
+    "title": "Sertifikatdekoder",
+    "subtitle": "Dekod X.509-sertifikater og CSR-er fra PEM",
     "pemLabel": "PEM-inndata",
     "clear": "Tøm",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2257,8 +2257,8 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL-formaterer",
-    "subtitle": "Formatter SQL for MySQL, PostgreSQL eller SQLite. Kjører i nettleseren; ingenting lastes opp.",
+    "title": "SQL-formatering",
+    "subtitle": "Formater SQL pent for MySQL, PostgreSQL og SQLite",
     "dialectLabel": "Dialekt",
     "keywordsLabel": "Nøkkelord",
     "indentLabel": "Innrykk",
@@ -2287,8 +2287,8 @@
     }
   },
   "YamlFormatter": {
-    "title": "YAML-formaterer",
-    "subtitle": "Formater, valider og konverter YAML i nettleseren. Ingenting lastes opp.",
+    "title": "YAML-formatering",
+    "subtitle": "Formater, valider og konverter YAML",
     "outputLabel": "Utdata",
     "outputModes": {
       "yaml": "YAML (formatert)",
@@ -2308,8 +2308,8 @@
     }
   },
   "GraphqlFormatter": {
-    "title": "GraphQL-formaterer",
-    "subtitle": "Formater GraphQL-spørsmål, mutasjoner og abonnementer i nettleseren. Ingenting lastes opp.",
+    "title": "GraphQL-formatering",
+    "subtitle": "Formater queries, mutations og subscriptions",
     "tabs": {
       "format": "Formater",
       "build": "Spørringsbygger"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "Regex-tester",
-    "subtitle": "JavaScript-lignende regex live mot teksten din. Treff markeres; ingenting forlater nettleseren.",
+    "subtitle": "Test JavaScript-regex med treff uthevet live",
     "patternLabel": "Mønster",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Timestamp-konverter",
-    "subtitle": "Unix-sekunder (≤10 sifre) eller millisekunder (lengre heltall), <code>ISO-8601</code> eller strenger som nettleseren kan tolke. Alt kjører lokalt.",
+    "title": "Tidsstempelkonverterer",
+    "subtitle": "Konverter Unix-tidsstempler, ISO-8601 og datostrenger",
     "inputLabel": "Inndata",
     "placeholder": "1744200000 eller 2025-04-09T12:00:00Z",
     "now": "Nå",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "HTTP-statuskoder",
-    "subtitle": "Søk og bla i HTTP-statuskoder for svar (<code>1xx</code>–<code>5xx</code>) med korte beskrivelser og RFC-referanser. Kjøres lokalt.",
+    "subtitle": "Søk i statuskoder 1xx–5xx med RFC-referanser",
     "header": {
       "title": "HTTP-statuskoder",
       "description": "Søkbar referanse for HTTP-svarskoder med beskrivelser og RFC-referanser."
@@ -2431,8 +2431,8 @@
     "copied": "Kode kopiert"
   },
   "CronBuilder": {
-    "title": "Cron-uttrykbygger",
-    "subtitle": "Standard 5-felts cron: <mono>minute hour day month weekday</mono>. Parseren bruker seconds=<code>0</code> internt. Valgfritt 6-felts format (<mono>sec min hour dom mon dow</mono>) fungerer i uttrykkseditoren.",
+    "title": "Cron-bygger",
+    "subtitle": "Bygg og forklar cron-uttrykk med 5 eller 6 felter",
     "tabs": {
       "builder": "Visuell bygger",
       "expression": "Uttrykk"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64-koder / dekoder",
-    "subtitle": "Kode tekst til Base64 eller dekode Base64-strenger",
+    "title": "Base64-koder",
+    "subtitle": "Kod tekst til Base64 og dekod tilbake",
     "upload": "Last opp",
     "clear": "Tøm",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL-koder / dekoder",
-    "subtitle": "Prosentkoding/-dekoding med encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "URL-koder",
+    "subtitle": "Prosentkod og dekod tekst (UTF-8)",
     "upload": "Last opp",
     "clear": "Tøm",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "URL-parser",
-    "subtitle": "Del opp en URL i protokoll, vert, sti, spørringsparametre og hash (fragment).",
+    "subtitle": "Del opp en URL i protokoll, vert, sti, query og hash",
     "upload": "Last opp",
     "clear": "Tøm",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "UUID-/ULID-generator",
-    "subtitle": "Generer RFC 9562-UUID-er eller ULID-er i nettleseren. Masseeksport opptil {max} per kjøring.",
+    "title": "UUID-generator",
+    "subtitle": "Generer UUID-er og ULID-er — bulkeksport opptil {max}",
     "format": "Format",
     "kindHints": {
       "ulid": "Sorterbar, URL-sikker identifikator på 26 tegn",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Generator for hemmelighet / API-nøkkel",
-    "subtitle": "Generer kryptografisk tilfeldige strenger med konfigurerbar lengde og alfabet. Masseeksport opptil {max} per kjøring. Supplerer <uuid>UUID-/ULID-generator</uuid>.",
+    "title": "API-nøkkelgenerator",
+    "subtitle": "Generer kryptografisk tilfeldige hemmeligheter og nøkler",
     "alphabetLabel": "Alfabet",
     "alphabetHint": "Duplikater fjernes. Hvert symbol velges uniformt med crypto.getRandomValues og avvisningsutvalg (ingen modulo-skjevhet).",
     "alphabetCount": "{count} unike symboler",
@@ -2705,8 +2705,8 @@
     }
   },
   "LoremIpsum": {
-    "title": "Lorem Ipsum Generator",
-    "subtitle": "Generer latinsk plassholdertekst for dine oppsett og prototyper.",
+    "title": "Lorem Ipsum-generator",
+    "subtitle": "Generer fylltekst for layouter og mockuper",
     "paragraphs": "Avsnitt",
     "sentences": "Setninger",
     "words": "Ord",
@@ -2723,8 +2723,8 @@
     "download": "Last ned"
   },
   "ColorPicker": {
-    "title": "Fargevelger og konverter",
-    "subtitle": "Konverter HEX, RGB og HSL; bygg harmoniske paletter. All behandling skjer i nettleseren din.",
+    "title": "Fargevelger",
+    "subtitle": "Konverter HEX, RGB og HSL, og bygg paletter",
     "nativePicker": "Innebygd velger",
     "chooseColor": "Velg farge",
     "eyeDropper": "Øyedråper",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "Kvadratisk"
   },
   "ContrastChecker": {
-    "title": "Kontrastkontroll",
-    "subtitle": "Beregner WCAG 2.1-kontrastforholdet mellom forgrunn og bakgrunn. Viser AA og AAA for normal og stor tekst. Alt skjer i nettleseren.",
+    "title": "Kontrastsjekker",
+    "subtitle": "Sjekk WCAG-kontrastforhold for AA og AAA",
     "foreground": "Tekst / forgrunn",
     "background": "Bakgrunn",
     "hexPlaceholder": "#RRGGBB",
@@ -2771,7 +2771,7 @@
   },
   "DiffChecker": {
     "title": "Diff-sjekker",
-    "subtitle": "Side-ved-side-linjediff av to tekster. Alt forblir i nettleseren din.",
+    "subtitle": "Sammenlign to tekster side om side, linje for linje",
     "rowsCount": "{count} rader",
     "truncatedWarning": "Viser de første {max} radene.",
     "limitExceeded": "Hver side er begrenset til {max} tegn.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Skriv inn tekst i begge paneler for å sammenligne."
   },
   "JsonSchemaGenerator": {
-    "title": "JSON-skjemagenerator",
-    "subtitle": "Lim inn gyldig JSON for å generere JSON-skjema eller typede modeller. Alt kjører i nettleseren.",
+    "title": "JSON Schema-generator",
+    "subtitle": "Generer JSON Schema eller typede modeller fra eksempel-JSON",
     "languageLabel": "Utgangsspråk",
     "inputLabel": "JSON-inndata",
     "inputPlaceholder": "Lim inn JSON her…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "Bilde til Base64",
-    "subtitle": "Slipp et bilde, få en data-URI eller rå Base64-streng. Alt forblir i nettleseren din.",
+    "subtitle": "Gjør et bilde om til en data-URI eller Base64-streng",
     "upload": "Last opp bilde",
     "clear": "Klar",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "Bildekomprimering",
-    "subtitle": "Forminsk JPEG-, PNG- eller WebP-resultat lokalt med kvalitetskontroll — ingenting lastes opp.",
+    "subtitle": "Krymp JPEG, PNG og WebP med kvalitetskontroll",
     "upload": "Last opp bilde",
     "clear": "Tøm",
     "dropHere": "Slipp bildet her",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Komprimert forhåndsvisning vises her."
   },
   "CssGradientBuilder": {
-    "title": "CSS Gradient Builder",
-    "subtitle": "Visuell CSS-gradientbygger med vinkelkontroll, fargestopper og ett-klikks CSS-kopi.",
+    "title": "CSS-gradientbygger",
+    "subtitle": "Design gradienter visuelt og kopier CSS-en",
     "preview": "Forhåndsvisning av gradient",
     "settings": "Innstillinger",
     "type": "Type",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore Generator",
-    "subtitle": "Generer sammenslåtte .gitignore-filer umiddelbart for en spesifikk teknisk stack eller kombinasjon.",
+    "title": ".gitignore-generator",
+    "subtitle": "Generer sammenslåtte .gitignore-filer for enhver stack",
     "searchPlaceholder": "Søk i stabler (f.eks. Node, Python, macOS)...",
     "noResults": "Ingen stabler funnet.",
     "selectedStacks": "Utvalgte stabler",
@@ -2912,8 +2912,8 @@
     "emptyState": "Velg én eller flere teknologistabler for å generere .gitignore."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Last opp CSV eller Excel, rediger JSON, og last ned CSV eller XLSX. Kun tabell data; Excel-datoer blir ISO-tidsstempler i JSON.",
+    "title": "Regneark ↔ JSON",
+    "subtitle": "Konverter CSV- og Excel-filer til JSON og tilbake",
     "dropTitle": "Slipp en CSV- eller Excel-fil",
     "dropHint": "Første ark brukes for .xlsx / .xls. CSV må ha en overskriftsrad.",
     "chooseFile": "Velg fil",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Kodeutklipp-administrator",
-    "subtitle": "Lagre utdrag i nettleseren eller logg inn for å synkronisere med kontoen din. Bytt mellom visning og redigering, kopier med ett klikk, velg språk eller automatisk gjenkjenning, og formater JSON, SQL eller Monaco-støttet kode.",
+    "title": "Snippet-behandler",
+    "subtitle": "Lagre, søk og formater kodesnutter — synk valgfritt",
     "snippets": "Utdrag",
     "newSnippet": "Nytt utdrag",
     "newSnippetTitle": "Nytt utdrag",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "QR-kodegenerator",
-    "subtitle": "Gjør tekst eller URL om til en PNG QR-kode. Alt rendres lokalt i nettleseren.",
+    "subtitle": "Gjør tekst eller URL-er om til stilige QR-koder",
     "contentLabel": "Innhold",
     "contentPlaceholder": "https://example.com, ren tekst, Wi‑Fi-streng, vCard…",
     "styleLabel": "Stil",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "IP-/subnettkalkulator",
-    "subtitle": "IPv4- og IPv6-CIDR i nettleseren—ingen eksterne kall.",
+    "title": "Subnettkalkulator",
+    "subtitle": "Beregn CIDR-detaljer for IPv4 og IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Nettverk",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "Hash-generator",
-    "subtitle": "MD5-, SHA-1- og SHA-2-summer for tekst eller filer; bcrypt for passord (tekstinndata). Alt kjører lokalt i nettleseren.",
+    "subtitle": "Beregn MD5-, SHA- og bcrypt-hasher for tekst eller filer",
     "algorithmLabel": "Algoritme",
     "algorithms": {
       "md5": "MD5",
@@ -3215,7 +3215,7 @@
   },
   "EncryptionPlayground": {
     "title": "Krypteringslekeplass",
-    "subtitle": "AES-GCM i nettleseren: krypter til en JSON-pakke med passordfrase eller rå nøkkel og dekrypter lokalt. Lærerikt og av og til praktisk — ingenting lastes opp.",
+    "subtitle": "Krypter og dekrypter AES-GCM med passfrase eller nøkkel",
     "tabEncrypt": "Krypter",
     "tabDecrypt": "Dekrypter",
     "keyModeLabel": "Nøkkelmateriale",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "HMAC-generator",
-    "subtitle": "For signering av webhooks og testing av API-integrasjoner. HMAC-SHA1/256/384/512 i hex eller Base64—beregnet lokalt i nettleseren.",
+    "subtitle": "Signer payloads med HMAC-SHA i hex eller Base64",
     "secretLabel": "Hemmelig nøkkel",
     "messageLabel": "Melding / nyttelast",
     "placeholderSecret": "Lim inn signeringshemmelighet…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "TOTP / 2FA-kodegenerator",
-    "subtitle": "Lim inn Base32-hemmeligheten og få gjeldende seksifret RFC 6238-kode (SHA-1, 30 s). Kjører lokalt i nettleseren—nyttig for testing av innlogging eller MFA.",
+    "title": "TOTP-generator",
+    "subtitle": "Få live 2FA-koder fra en authenticator-hemmelighet",
     "secretLabel": "Hemmelighet (Base32)",
     "placeholderSecret": "Lim inn den hemmelige nøkkelen (bokstaver A–Z og sifrene 2–7, som ved oppsett av autentisering)…",
     "codeLabel": "Gjeldende kode",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Markdown-forhåndsvisning & HTML",
-    "subtitle": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering. Alt kjører i nettleseren din.",
+    "title": "Markdown-forhåndsvisning",
+    "subtitle": "Render Markdown live og konverter til eller fra HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Markdown-inndata",
@@ -3358,8 +3358,8 @@
     "securityNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
   },
   "NumberBaseConverter": {
-    "title": "Grunntall-konverter",
-    "subtitle": "Konverter heltall mellom baser 2–36. Valgfrie prefikser 0x / 0b / 0o. Alt kjører lokalt i nettleseren.",
+    "title": "Tallbasekonverterer",
+    "subtitle": "Konverter heltall mellom base 2–36",
     "inputBaseLabel": "Fra base",
     "outputBaseLabel": "Til base",
     "inputLabel": "Inndata",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Formatkonverterer",
-    "subtitle": "Konverter mellom JSON, YAML, TOML og XML i hvilken som helst retning. Alle 12 kombinasjoner. Alt kjører i nettleseren din.",
+    "subtitle": "Konverter JSON, YAML, TOML og XML i alle retninger",
     "fromLabel": "Fra",
     "toLabel": "Til",
     "swap": "Bytt",
@@ -3389,8 +3389,8 @@
     "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
   },
   "MimeTypeLookup": {
-    "title": "MIME-type oppslag",
-    "subtitle": "Slå opp MIME-type (medietype) for en filendelse eller et fullt filnavn. Alt kjører lokalt i nettleseren din.",
+    "title": "MIME-type-oppslag",
+    "subtitle": "Finn MIME-typen for enhver filendelse",
     "inputLabel": "Filendelse eller filnavn",
     "placeholder": "f.eks. .png, package.json, photo.jpeg",
     "hint": "Tips: lim inn enten en endelse (med eller uten punktum) eller et fullt filnavn.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "User-Agent-parser",
-    "subtitle": "Lim inn en User-Agent (UA)-streng og få en oversikt over nettleser, OS, engine, enhet og CPU. Alt kjører lokalt i nettleseren din.",
+    "subtitle": "Del opp en UA-streng i nettleser, OS og enhet",
     "inputLabel": "User-Agent-streng",
     "placeholder": "Lim inn User-Agent her…",
     "hint": "Tips: du kan kopiere en UA fra request-headers, logger eller nettleserens devtools.",
@@ -3433,8 +3433,8 @@
     "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
   },
   "MockDataGenerator": {
-    "title": "Mock-datagenerator",
-    "subtitle": "Definer kolonner, velg datatyper og eksporter datasett for seeds, Postman eller tester. Opptil {max} rader, alt i nettleseren — ingenting lastes opp.",
+    "title": "Mockdata-generator",
+    "subtitle": "Definer typede kolonner — eksporter opptil {max} fixture-rader",
     "mockarooLink": "Mockaroo-lignende arbeidsflyt",
     "rowsLabel": "Rader",
     "rowsHint": "Maks {max} rader per kjøring for å holde fanen responsiv.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "SVG-optimalisering",
-    "subtitle": "Lim inn SVG, minifiser med SVGO i nettleseren og sammenlign UTF-8-størrelse før og etter.",
+    "subtitle": "Minifiser SVG med SVGO og sammenlign størrelser",
     "inputLabel": "Inndata",
     "outputLabel": "Optimalisert",
     "placeholder": "Lim inn et <svg>…</svg>-utdrag eller hele filen…",
@@ -3565,8 +3565,8 @@
     }
   },
   "UnitConverter": {
-    "title": "Enhetsomregner",
-    "subtitle": "Konverter mellom <strong>323 enheter</strong> på tvers av <strong>43 kategorier</strong>",
+    "title": "Enhetskonverterer",
+    "subtitle": "Konverter 323 enheter i 43 kategorier",
     "category": "Kategori",
     "from": "Fra",
     "to": "Til",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Docker Compose-generator",
-    "subtitle": "Velg populære databaser, cache, meldingskøer, omvendte proxyer og observabilitet — kopier en docker-compose.yml klar for lokal utvikling.",
+    "subtitle": "Generer docker-compose.yml for lokale dev-stacker",
     "searchPlaceholder": "Søk (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Tjenester",
     "selectedCount": "{count, plural, one {# tjeneste} other {# tjenester}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Spillet er over"
   },
   "SshKeyGenerator": {
-    "title": "SSH / RSA nøkkelgenerator",
-    "subtitle": "Generer Ed25519- eller RSA-nøkkelpar i nettleseren din. Last ned private og offentlige nøkler i OpenSSH- og PEM-formater. Ingenting lastes opp.",
+    "title": "SSH-nøkkelgenerator",
+    "subtitle": "Generer Ed25519- eller RSA-nøkkelpar i OpenSSH og PEM",
     "keyTypeLabel": "Nøkkeltype",
     "recommended": "anbefalt",
     "ed25519Desc": "Rask, liten og moderne. Støttet av GitHub, GitLab og alle store SSH-servere.",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "DNS-oppslag",
-    "subtitle": "Spør etter DNS-poster for et hvilket som helst domene — A, AAAA, MX, TXT, NS, CNAME.",
+    "subtitle": "Slå opp A, AAAA, MX, TXT, NS og mer for ethvert domene",
     "placeholder": "Skriv inn domene (f.eks. github.com)",
     "lookupBtn": "Oppslag",
     "looking": "Oppslag pågår…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL til kode",
+    "subtitle": "Gjør curl-kommandoer om til fetch, axios, Python og mer",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON til kode",
+    "subtitle": "Generer typede modeller fra en eksempel-JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "JSON-visualisering",
+    "subtitle": "Utforsk JSON som en interaktiv nodegraf",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Beautify & minify",
+    "subtitle": "Forskjønn eller minifiser HTML, CSS, JavaScript, XML og JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Case-konverterer",
+    "subtitle": "Konverter mellom camelCase, snake_case, kebab-case og mer",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Linjesortering",
+    "subtitle": "Sorter, fjern duplikater, trim og rydd lister med linjer",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Strenginspektør",
+    "subtitle": "Tell tegn, ord og bytes; avslør skjulte tegn",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Streng-escaper",
+    "subtitle": "Escape HTML-entiteter, backslashes, hex og Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt-generator og -kontroll",
-    "subtitle": "Hash passord med bcrypt, og verifiser hasher — alt forblir i nettleseren din",
+    "title": "Bcrypt-generator",
+    "subtitle": "Hash og verifiser passord med bcrypt",
     "tabs": {
       "hash": "Hash",
       "verify": "Verifiser"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Chmod-kalkulator",
-    "subtitle": "Konverter Unix-filtillatelser mellom avkrysningsbokser, oktal og symbolsk notasjon",
+    "subtitle": "Konverter Unix-rettigheter mellom oktal og symbolsk",
     "grid": {
       "title": "Tillatelser",
       "read": "Les",
@@ -4069,8 +4069,8 @@
     }
   },
   "CodeScreenshot": {
-    "title": "Kodeskjermbilde",
-    "subtitle": "Gjør kode om til vakre, delbare bilder",
+    "title": "Kode-skjermbilde",
+    "subtitle": "Gjør kode om til pene bilder du kan dele",
     "languageLabel": "Språk",
     "autoDetect": "Automatisk gjenkjenning",
     "backgroundLabel": "Bakgrunn",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "CSS-generatorer",
-    "subtitle": "Box-shadow, border-radius og flytende clamp() — kopier CSS-en.",
+    "subtitle": "Generer CSS for box-shadow, border-radius og clamp()",
     "preview": "Forhåndsvisning",
     "output": "CSS",
     "copy": "Kopier",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF-visning og -fjerning",
-    "subtitle": "Inspiser bilders metadata, og fjern dem i nettleseren din",
+    "title": "EXIF-viser",
+    "subtitle": "Inspiser og fjern fotometadata",
     "dropTitle": "Slipp et bilde her",
     "dropHint": "eller klikk for å bla — bildet ditt forlater aldri enheten din",
     "browse": "Velg bilde",
@@ -4223,7 +4223,7 @@
   },
   "FaviconGenerator": {
     "title": "Favicon-generator",
-    "subtitle": "Lag favicons og app-ikoner fra ett bilde",
+    "subtitle": "Lag favicons og appikoner fra ett bilde",
     "dropTitle": "Slipp et bilde her",
     "dropHint": "PNG, JPEG eller SVG — klikk for å bla",
     "browse": "Velg bilde",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "JSON-diff",
-    "subtitle": "Semantisk, strukturbevisst sammenligning av to JSON-dokumenter — nøkkelrekkefølge og formatering ignoreres",
+    "subtitle": "Sammenlign JSON strukturelt — nøkkelrekkefølge ignoreres",
     "options": {
       "ignoreArrayOrder": "Ignorer array-rekkefølge"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "JSONPath-lekeplass",
-    "subtitle": "Spør JSON-dokumenter med JSONPath eller JMESPath, og se resultater live",
+    "subtitle": "Spør JSON live med JSONPath eller JMESPath",
     "engineLabel": "Motor",
     "queryLabel": "Spørring",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Kopiert"
   },
   "KeycodeInspector": {
-    "title": "Tastekode-inspektør",
-    "subtitle": "Trykk på en hvilken som helst tast for å inspisere JavaScript-tastaturhendelsen dens",
+    "title": "Keycode-inspektør",
+    "subtitle": "Trykk en tast og inspiser tastaturhendelsen",
     "capture": {
       "prompt": "Trykk på en hvilken som helst tast…",
       "ready": "Lytter — trykk på en hvilken som helst tast på tastaturet",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Markdown-tabellgenerator",
-    "subtitle": "Rediger et rutenett, lim inn fra et regneark, og kopier en pent justert Markdown- eller HTML-tabell",
+    "subtitle": "Rediger et rutenett og kopier en justert Markdown- eller HTML-tabell",
     "addRow": "Legg til rad",
     "addColumn": "Legg til kolonne",
     "importLabel": "Importer",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "Tidssonekonverterer",
-    "subtitle": "Konverter ett øyeblikk på tvers av verden for møteplanlegging.",
+    "subtitle": "Konverter ett tidspunkt på tvers av tidssoner",
     "dateTimeLabel": "Dato og tid",
     "now": "Nå",
     "sourceZoneLabel": "Kilde-tidssone",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "LLM-token-teller",
-    "subtitle": "Tell tokens, visualiser chunker, og estimer API-kostnad.",
+    "title": "LLM-tokenteller",
+    "subtitle": "Tell tokens, visualiser chunker og estimer kostnad",
     "inputLabel": "Tekst",
     "sample": "Eksempel",
     "clear": "Tøm",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Webhook-tester",
-    "subtitle": "Opprett en midlertidig URL, og inspiser innkommende webhook-forespørsler live.",
+    "subtitle": "Opprett en midlertidig URL og inspiser webhooks live",
     "intro": {
       "title": "Opprett en webhook-URL for å begynne å fange opp forespørsler",
       "hint": "Du får en ugjettbar URL som registrerer hver innkommende forespørsel. Den utløper etter 24 timer."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "WebSocket-tester",
-    "subtitle": "Koble til et WebSocket-endepunkt, og send, motta og inspiser meldinger live",
+    "subtitle": "Koble til, send og inspiser WebSocket-meldinger live",
     "urlLabel": "Endepunkt-URL",
     "protocolsLabel": "Underprotokoller",
     "protocolsPlaceholder": "valgfritt, kommaseparert",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Whois-oppslag",
-    "subtitle": "Slå opp registreringsdetaljer for et hvilket som helst domene eller IP-adresse via RDAP",
+    "subtitle": "Slå opp domene- og IP-registrering via RDAP",
     "placeholder": "example.com eller 8.8.8.8",
     "lookupBtn": "Slå opp",
     "looking": "Slår opp…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Skriv inn et gyldig domenenavn eller IP-adresse",
       "lookupFailed": "Oppslag mislyktes (status {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100 % offline"
   }
 }

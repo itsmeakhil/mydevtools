@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "ヘルプとドキュメント",
-    "subtitle": "MyDevTools の全体像、各アプリの使い方、そしてセキュリティと暗号化がデータをどのように保護するかを説明します。",
+    "subtitle": "MyDevToolsの仕組みとデータ保護の概要",
     "tabs": {
       "overview": "概要",
       "apps": "アプリ",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "JWTデコーダー",
-    "subtitle": "ヘッダーとペイロードを確認します。有効期限は <code>exp</code> クレームを使用します。サーバーへ送信されず、署名は検証されません。",
+    "subtitle": "ヘッダー・ペイロード・有効期限を確認 — 署名は未検証",
     "tokenLabel": "トークン",
     "clear": "クリア",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "証明書 / PEM デコーダ",
-    "subtitle": "X.509 証明書 (<code>-----BEGIN CERTIFICATE-----</code>) または CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) を貼り付けます。サブジェクト、発行者、日付、SAN はローカルで解析され、アップロードは行われません。",
+    "title": "証明書デコーダー",
+    "subtitle": "PEMのX.509証明書とCSRをデコード",
     "pemLabel": "PEM 入力",
     "clear": "クリア",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "SQLフォーマッター",
-    "subtitle": "MySQL / PostgreSQL / SQLite のSQLを整形します。ブラウザ内で実行され、アップロードされません。",
+    "subtitle": "MySQL・PostgreSQL・SQLiteのSQLを整形",
     "dialectLabel": "方言",
     "keywordsLabel": "キーワード",
     "indentLabel": "インデント",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "YAMLフォーマッター",
-    "subtitle": "YAMLをブラウザ内で整形・検証・変換します。アップロードされません。",
+    "subtitle": "YAMLの整形・検証・変換",
     "outputLabel": "出力",
     "outputModes": {
       "yaml": "YAML（整形済み）",
@@ -2308,8 +2308,8 @@
     }
   },
   "GraphqlFormatter": {
-    "title": "GraphQL フォーマッター",
-    "subtitle": "ブラウザで GraphQL のクエリ・ミューテーション・サブスクリプションを整形します。アップロードは行われません。",
+    "title": "GraphQLフォーマッター",
+    "subtitle": "クエリ・ミューテーション・サブスクリプションを整形",
     "tabs": {
       "format": "整形",
       "build": "クエリビルダー"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "正規表現テスター",
-    "subtitle": "JavaScript 形式の正規表現をテキストに対してライブ実行します。一致箇所はハイライトされ、ブラウザ外へ送信されません。",
+    "subtitle": "JavaScriptの正規表現をライブハイライトで検証",
     "patternLabel": "パターン",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2383,7 +2383,7 @@
   },
   "TimestampConverter": {
     "title": "タイムスタンプ変換",
-    "subtitle": "Unix秒（10桁以下）またはミリ秒（それ以上の整数）、<code>ISO-8601</code>、またはブラウザが解釈できる文字列に対応します。すべてローカルで動作します。",
+    "subtitle": "Unixタイムスタンプ・ISO-8601・日付文字列を相互変換",
     "inputLabel": "入力",
     "placeholder": "1744200000 または 2025-04-09T12:00:00Z",
     "now": "今",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "HTTPステータスコード",
-    "subtitle": "HTTPレスポンスのステータスコード（<code>1xx</code>–<code>5xx</code>）を検索・参照できます。短い説明とRFC参照付き。ローカルで動作します。",
+    "subtitle": "1xx〜5xxをRFC参照付きで検索",
     "header": {
       "title": "HTTPステータスコード",
       "description": "HTTPレスポンスコードの検索可能なリファレンス。説明とRFC参照付き。"
@@ -2431,8 +2431,8 @@
     "copied": "コピーしました"
   },
   "CronBuilder": {
-    "title": "Cron 式ビルダー",
-    "subtitle": "標準の5フィールドcron: <mono>minute hour day month weekday</mono>。パーサーは内部で seconds=<code>0</code> を使用します。式エディターでは任意の6フィールド（<mono>sec min hour dom mon dow</mono>）も利用できます。",
+    "title": "Cronビルダー",
+    "subtitle": "5〜6フィールドのcron式を作成・解説",
     "tabs": {
       "builder": "ビジュアルビルダー",
       "expression": "式"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64 エンコード / デコード",
-    "subtitle": "テキストを Base64 にエンコード、または Base64 文字列をデコードします",
+    "title": "Base64エンコーダー",
+    "subtitle": "テキストをBase64にエンコード・デコード",
     "upload": "アップロード",
     "clear": "クリア",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL エンコード / デコード",
-    "subtitle": "encodeURIComponent / decodeURIComponent（UTF‑8）でパーセントエンコード/デコードします",
+    "title": "URLエンコーダー",
+    "subtitle": "テキストをパーセントエンコード・デコード（UTF-8）",
     "upload": "アップロード",
     "clear": "クリア",
     "modes": {
@@ -2584,8 +2584,8 @@
     }
   },
   "UrlParser": {
-    "title": "URL パーサー",
-    "subtitle": "URL をプロトコル、ホスト、パス、クエリパラメータ、ハッシュ（フラグメント）に分解します。",
+    "title": "URLパーサー",
+    "subtitle": "URLをプロトコル・ホスト・パス・クエリ・ハッシュに分解",
     "upload": "アップロード",
     "clear": "クリア",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "UUID / ULID ジェネレーター",
-    "subtitle": "ブラウザで RFC 9562 UUID または ULID を生成します。1回あたり最大 {max} 件まで一括エクスポートできます。",
+    "title": "UUIDジェネレーター",
+    "subtitle": "UUIDとULIDを生成 — 最大{max}件を一括エクスポート",
     "format": "形式",
     "kindHints": {
       "ulid": "並べ替え可能で URL セーフな 26 文字 ID",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "シークレット / APIキー ジェネレーター",
-    "subtitle": "長さとアルファベットを指定して暗号論的乱数文字列を生成します。1回あたり最大 {max} 件まで一括出力。<uuid>UUID / ULID ジェネレーター</uuid>と併用できます。",
+    "title": "APIキージェネレーター",
+    "subtitle": "暗号学的に安全なシークレットとキーを生成",
     "alphabetLabel": "アルファベット",
     "alphabetHint": "重複文字は除去されます。各文字は crypto.getRandomValues と棄却サンプリングで一様に選ばれます（モジュロバイアスなし）。",
     "alphabetCount": "ユニーク文字数 {count}",
@@ -2705,8 +2705,8 @@
     }
   },
   "LoremIpsum": {
-    "title": "Lorem Ipsum ジェネレーター",
-    "subtitle": "レイアウトやモックアップ用のラテン語プレースホルダーテキストを生成します。",
+    "title": "Lorem Ipsumジェネレーター",
+    "subtitle": "レイアウトやモックアップ用のダミーテキストを生成",
     "paragraphs": "段落",
     "sentences": "文",
     "words": "単語",
@@ -2723,8 +2723,8 @@
     "download": "ダウンロード"
   },
   "ColorPicker": {
-    "title": "カラーピッカーとコンバーター",
-    "subtitle": "HEX、RGB、HSLを変換し、ハーモニックパレットを作成します。すべての処理はブラウザ内で行われます。",
+    "title": "カラーピッカー",
+    "subtitle": "HEX・RGB・HSLを変換しパレットを作成",
     "nativePicker": "ネイティブピッカー",
     "chooseColor": "色を選択",
     "eyeDropper": "スポイト",
@@ -2745,7 +2745,7 @@
   },
   "ContrastChecker": {
     "title": "コントラストチェッカー",
-    "subtitle": "前景色と背景色の WCAG 2.1 コントラスト比を計算します。通常テキスト・大きいテキストの AA / AAA を表示。すべてブラウザ内で処理されます。",
+    "subtitle": "WCAG AA・AAAのコントラスト比を確認",
     "foreground": "テキスト / 前景",
     "background": "背景",
     "hexPlaceholder": "#RRGGBB",
@@ -2771,7 +2771,7 @@
   },
   "DiffChecker": {
     "title": "差分チェッカー",
-    "subtitle": "2つのテキストを並べて行単位で比較します。すべてブラウザ内で処理されます。",
+    "subtitle": "2つのテキストを行単位で並べて比較",
     "rowsCount": "{count} 行",
     "truncatedWarning": "最初の {max} 行を表示中。",
     "limitExceeded": "各側は {max} 文字に制限されています。",
@@ -2784,8 +2784,8 @@
     "emptyState": "両方のパネルにテキストを入力して比較してください。"
   },
   "JsonSchemaGenerator": {
-    "title": "JSONスキーマジェネレーター",
-    "subtitle": "有効なJSONを貼り付けてJSONスキーマや型付きモデルを生成します。すべてブラウザ内で処理されます。",
+    "title": "JSON Schemaジェネレーター",
+    "subtitle": "サンプルJSONからJSON Schemaや型付きモデルを生成",
     "languageLabel": "出力言語",
     "inputLabel": "JSON入力",
     "inputPlaceholder": "JSONをここに貼り付け…",
@@ -2812,8 +2812,8 @@
     "download": "Download"
   },
   "ImageToBase64": {
-    "title": "画像をBase64に変換",
-    "subtitle": "画像をドロップし、データ URI または生の Base64 文字列を取得します。すべてがブラウザ内に残ります。",
+    "title": "画像 → Base64",
+    "subtitle": "画像をdata URIやBase64文字列に変換",
     "upload": "画像をアップロードする",
     "clear": "クリア",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "画像圧縮",
-    "subtitle": "JPEG / PNG / WebP を品質調整でローカル圧縮。アップロードはありません。",
+    "subtitle": "JPEG・PNG・WebPを品質指定で圧縮",
     "upload": "画像をアップロード",
     "clear": "クリア",
     "dropHere": "ここに画像をドロップ",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "圧縮プレビューはここに表示されます。"
   },
   "CssGradientBuilder": {
-    "title": "CSS グラデーション ビルダー",
-    "subtitle": "角度コントロール、カラーストップ、ワンクリック CSS コピーを備えたビジュアル CSS グラデーション ビルダー。",
+    "title": "CSSグラデーションビルダー",
+    "subtitle": "グラデーションを視覚的に作成しCSSをコピー",
     "preview": "グラデーションのプレビュー",
     "settings": "設定",
     "type": "タイプ",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore ジェネレーター",
-    "subtitle": "特定の技術スタックまたは組み合わせに対して、マージされた .gitignore ファイルを即座に生成します。",
+    "title": ".gitignoreジェネレーター",
+    "subtitle": "任意のスタック向けに.gitignoreを統合生成",
     "searchPlaceholder": "検索スタック (例: Node、Python、macOS)...",
     "noResults": "スタックが見つかりませんでした。",
     "selectedStacks": "選択されたスタック",
@@ -2912,8 +2912,8 @@
     "emptyState": ".gitignore を生成するには、1 つ以上の技術スタックを選択します。"
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "CSV または Excel をアップロードし、JSON を編集してから CSV または XLSX をダウンロード。表形式データのみ。Excel の日付セルは JSON では ISO 形式になります。",
+    "title": "スプレッドシート ↔ JSON",
+    "subtitle": "CSVやExcelとJSONを相互変換",
     "dropTitle": "CSV または Excel ファイルをドロップ",
     "dropHint": ".xlsx / .xls は先頭のシートを使用します。CSV はヘッダー行が必要です。",
     "chooseFile": "ファイルを選択",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "コードスニペットマネージャー",
-    "subtitle": "ブラウザにスニペットを保存するか、サインインしてアカウントと同期します。表示と編集の切り替え、ワンクリックコピー、言語の選択または自動検出、JSON・SQL・Monaco 対応コードの整形ができます。",
+    "title": "スニペットマネージャー",
+    "subtitle": "コードスニペットを保存・検索・整形 — 同期は任意",
     "snippets": "スニペット",
     "newSnippet": "新しいスニペット",
     "newSnippetTitle": "新しいスニペット",
@@ -3080,8 +3080,8 @@
     }
   },
   "QrCodeGenerator": {
-    "title": "QRコード生成",
-    "subtitle": "テキストやURLをPNGのQRコードに変換します。描画はすべてブラウザ内で行われます。",
+    "title": "QRコードジェネレーター",
+    "subtitle": "テキストやURLをスタイル付きQRコードに変換",
     "contentLabel": "内容",
     "contentPlaceholder": "https://example.com、プレーンテキスト、Wi‑Fi文字列、vCard…",
     "styleLabel": "スタイル",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "IP／サブネット計算",
-    "subtitle": "ブラウザ内で IPv4／IPv6 の CIDR を計算—外部通信なし。",
+    "title": "サブネット計算機",
+    "subtitle": "IPv4・IPv6のCIDR詳細を計算",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "ネットワーク",
@@ -3169,8 +3169,8 @@
     }
   },
   "HashGenerator": {
-    "title": "ハッシュ生成",
-    "subtitle": "テキストまたはファイル向けの MD5・SHA-1・SHA-2 ダイジェスト、パスワード向けの bcrypt（テキスト入力）。すべてブラウザ内でローカル計算されます。",
+    "title": "ハッシュジェネレーター",
+    "subtitle": "テキストやファイルのMD5・SHA・bcryptを計算",
     "algorithmLabel": "アルゴリズム",
     "algorithms": {
       "md5": "MD5",
@@ -3215,7 +3215,7 @@
   },
   "EncryptionPlayground": {
     "title": "暗号化プレイグラウンド",
-    "subtitle": "ブラウザ上の AES-GCM：パスフレーズまたは生キーで JSON バンドルに暗号化し、ローカルで復号。学習向けで時には実用的 — アップロードはありません。",
+    "subtitle": "パスフレーズやキーでAES-GCM暗号化・復号",
     "tabEncrypt": "暗号化",
     "tabDecrypt": "復号",
     "keyModeLabel": "鍵素材",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "HMACジェネレーター",
-    "subtitle": "Webhookの署名とAPI連携のテスト用。HMAC-SHA1/256/384/512 を hex または Base64 で出力—すべてブラウザ内で計算。",
+    "subtitle": "HMAC-SHAで署名しhexやBase64で出力",
     "secretLabel": "秘密鍵",
     "messageLabel": "メッセージ / ペイロード",
     "placeholderSecret": "署名用シークレットを貼り付け…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "TOTP / 2FA コードジェネレーター",
-    "subtitle": "認証アプリの Base32 秘密鍵を貼り付けて、現在の6桁 RFC 6238 コード（SHA-1、30秒）を表示。ブラウザ内のみで処理—ログインやMFAのテストに便利です。",
+    "title": "TOTPジェネレーター",
+    "subtitle": "認証シークレットから2FAコードをリアルタイム生成",
     "secretLabel": "秘密鍵（Base32）",
     "placeholderSecret": "秘密鍵を貼り付け（A–Z と 2–7 の数字、認証アプリ設定時と同じ形式）…",
     "codeLabel": "現在のコード",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Markdownプレビュー & HTML",
-    "subtitle": "HTMLエクスポートとHTML → Markdown変換を備えたライブMarkdownレンダラー。すべてブラウザで動作します。",
+    "title": "Markdownプレビュー",
+    "subtitle": "Markdownをライブ表示しHTMLと相互変換",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Markdown入力",
@@ -3359,7 +3359,7 @@
   },
   "NumberBaseConverter": {
     "title": "基数変換",
-    "subtitle": "2～36進法の整数を変換。0x / 0b / 0o プレフィックスに対応。すべてブラウザ内で計算されます。",
+    "subtitle": "2〜36進数の整数を相互変換",
     "inputBaseLabel": "変換元の基数",
     "outputBaseLabel": "変換先の基数",
     "inputLabel": "入力値",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "フォーマット変換",
-    "subtitle": "JSON、YAML、TOML、XML間を任意の方向に変換。12通りすべての組み合わせに対応。すべてブラウザ上で動作します。",
+    "subtitle": "JSON・YAML・TOML・XMLを相互変換",
     "fromLabel": "変換元",
     "toLabel": "変換先",
     "swap": "入れ替え",
@@ -3389,8 +3389,8 @@
     "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
   },
   "MimeTypeLookup": {
-    "title": "MIME タイプ検索",
-    "subtitle": "拡張子またはファイル名から MIME タイプ（メディアタイプ）を調べます。すべてローカルでブラウザ内にて実行されます。",
+    "title": "MIMEタイプ検索",
+    "subtitle": "拡張子からMIMEタイプを検索",
     "inputLabel": "拡張子またはファイル名",
     "placeholder": "例: .png、package.json、photo.jpeg",
     "hint": "ヒント: 拡張子（ドットあり/なし）または完全なファイル名を貼り付けてください。",
@@ -3410,8 +3410,8 @@
     "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
   },
   "UserAgentParser": {
-    "title": "User-Agent 解析",
-    "subtitle": "User-Agent（UA）文字列を貼り付けて、ブラウザ・OS・エンジン・デバイス・CPU の内訳を確認します。すべてブラウザ内でローカルに動作します。",
+    "title": "User-Agentパーサー",
+    "subtitle": "UA文字列をブラウザ・OS・デバイスに分解",
     "inputLabel": "User-Agent 文字列",
     "placeholder": "ここに User-Agent を貼り付けてください…",
     "hint": "ヒント: UA はリクエストヘッダー、ログ、ブラウザの DevTools からコピーできます。",
@@ -3434,7 +3434,7 @@
   },
   "MockDataGenerator": {
     "title": "モックデータジェネレーター",
-    "subtitle": "列を定義し型を選び、シードや Postman、テスト用のデータをエクスポートします。最大 {max} 行、すべてブラウザ内で処理されアップロードはありません。",
+    "subtitle": "型付きカラムを定義 — 最大{max}行をエクスポート",
     "mockarooLink": "Mockaroo 風のワークフロー",
     "rowsLabel": "行数",
     "rowsHint": "タブを軽く保つため、1 回あたり最大 {max} 行です。",
@@ -3537,8 +3537,8 @@
     "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
-    "title": "SVG 最適化",
-    "subtitle": "SVG を貼り付け、ブラウザ上で SVGO により圧縮し、UTF-8 サイズを前後比較します。",
+    "title": "SVGオプティマイザー",
+    "subtitle": "SVGOでSVGを最小化しサイズを比較",
     "inputLabel": "入力",
     "outputLabel": "最適化後",
     "placeholder": "<svg>…</svg> の断片またはファイル全体を貼り付け…",
@@ -3565,8 +3565,8 @@
     }
   },
   "UnitConverter": {
-    "title": "単位変換器",
-    "subtitle": "<strong>43カテゴリ</strong>にわたる<strong>323単位</strong>間の変換",
+    "title": "単位変換",
+    "subtitle": "43カテゴリ323単位を変換",
     "category": "カテゴリ",
     "from": "変換前",
     "to": "変換後",
@@ -3580,8 +3580,8 @@
     "noResults": "カテゴリが見つかりません。"
   },
   "DockerComposeGenerator": {
-    "title": "Docker Compose ジェネレーター",
-    "subtitle": "代表的なデータベース、キャッシュ、メッセージキュー、リバースプロキシ、可観測性を選んで、ローカル開発向けの docker-compose.yml をコピーできます。",
+    "title": "Docker Composeジェネレーター",
+    "subtitle": "ローカル開発用のdocker-compose.ymlを生成",
     "searchPlaceholder": "検索（postgres, redis, kafka, nginx, grafana…）",
     "selectedLabel": "サービス",
     "selectedCount": "{count, plural, other {# 件のサービス}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "ゲームオーバー"
   },
   "SshKeyGenerator": {
-    "title": "SSH / RSA 鍵ジェネレーター",
-    "subtitle": "ブラウザでEd25519またはRSA鍵ペアを生成します。OpenSSHとPEM形式で秘密鍵と公開鍵をダウンロードできます。何もアップロードされません。",
+    "title": "SSHキージェネレーター",
+    "subtitle": "Ed25519やRSAの鍵ペアをOpenSSH・PEM形式で生成",
     "keyTypeLabel": "鍵の種類",
     "recommended": "推奨",
     "ed25519Desc": "高速、コンパクト、モダン。GitHub、GitLab、および主要なSSHサーバーすべてで対応。",
@@ -3781,8 +3781,8 @@
     }
   },
   "DnsLookup": {
-    "title": "DNS ルックアップ",
-    "subtitle": "任意のドメインの DNS レコードを照会 — A、AAAA、MX、TXT、NS、CNAME。",
+    "title": "DNSルックアップ",
+    "subtitle": "A・AAAA・MX・TXT・NSなどをドメインごとに照会",
     "placeholder": "ドメインを入力（例: github.com）",
     "lookupBtn": "検索",
     "looking": "検索中…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL → コード",
+    "subtitle": "curlコマンドをfetch・axios・Pythonなどに変換",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON → コード",
+    "subtitle": "サンプルJSONから型付きモデルを生成",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "JSONビジュアライザー",
+    "subtitle": "JSONをインタラクティブなノードグラフで探索",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "整形＆ミニファイ",
+    "subtitle": "HTML・CSS・JavaScript・XML・JSONを整形・最小化",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "ケース変換",
+    "subtitle": "camelCase・snake_case・kebab-caseなどを相互変換",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "行ソーター",
+    "subtitle": "行のソート・重複削除・トリム・整理",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "文字列インスペクター",
+    "subtitle": "文字・単語・バイト数を集計し不可視文字を可視化",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "文字列エスケープ",
+    "subtitle": "HTMLエンティティ・バックスラッシュ・hex・Unicodeをエスケープ",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt 生成・検証",
-    "subtitle": "bcrypt でパスワードをハッシュ化し、ハッシュを検証 — すべてブラウザ内で完結します",
+    "title": "Bcryptジェネレーター",
+    "subtitle": "bcryptでパスワードをハッシュ化・検証",
     "tabs": {
       "hash": "ハッシュ",
       "verify": "検証"
@@ -4015,8 +4015,8 @@
     }
   },
   "ChmodCalculator": {
-    "title": "Chmod 計算機",
-    "subtitle": "Unix ファイルのパーミッションをチェックボックス、8 進数、シンボリック表記の間で変換します",
+    "title": "Chmod計算機",
+    "subtitle": "Unixパーミッションを8進数と記号表記で相互変換",
     "grid": {
       "title": "パーミッション",
       "read": "読み取り",
@@ -4107,8 +4107,8 @@
     }
   },
   "CssGenerators": {
-    "title": "CSS ジェネレーター",
-    "subtitle": "Box-shadow、border-radius、流動的な clamp() — CSS をコピー。",
+    "title": "CSSジェネレーター",
+    "subtitle": "box-shadow・border-radius・clamp()のCSSを生成",
     "preview": "プレビュー",
     "output": "CSS",
     "copy": "コピー",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF ビューアー・除去",
-    "subtitle": "写真のメタデータを確認し、ブラウザ内で除去します",
+    "title": "EXIFビューアー",
+    "subtitle": "写真のメタデータを確認・削除",
     "dropTitle": "ここに画像をドロップ",
     "dropHint": "またはクリックして選択 — 画像がデバイスから送信されることはありません",
     "browse": "画像を選択",
@@ -4222,8 +4222,8 @@
     }
   },
   "FaviconGenerator": {
-    "title": "Favicon ジェネレーター",
-    "subtitle": "1 枚の画像から favicon とアプリアイコンを作成",
+    "title": "ファビコンジェネレーター",
+    "subtitle": "1枚の画像からファビコンとアプリアイコンを作成",
     "dropTitle": "ここに画像をドロップ",
     "dropHint": "PNG、JPEG、SVG — クリックして選択",
     "browse": "画像を選択",
@@ -4244,8 +4244,8 @@
     "downloadZip": "すべてダウンロード (.zip)"
   },
   "JsonDiff": {
-    "title": "JSON 差分",
-    "subtitle": "2 つの JSON ドキュメントを意味的・構造的に比較 — キーの順序や書式は無視されます",
+    "title": "JSON差分",
+    "subtitle": "JSONを構造で比較 — キー順は無視",
     "options": {
       "ignoreArrayOrder": "配列の順序を無視"
     },
@@ -4276,8 +4276,8 @@
     "identical": "2 つのドキュメントは意味的に同一です。"
   },
   "JsonpathPlayground": {
-    "title": "JSONPath プレイグラウンド",
-    "subtitle": "JSONPath または JMESPath で JSON ドキュメントをクエリし、結果をリアルタイムで確認します",
+    "title": "JSONPathプレイグラウンド",
+    "subtitle": "JSONPathやJMESPathでJSONをリアルタイム照会",
     "engineLabel": "エンジン",
     "queryLabel": "クエリ",
     "engines": {
@@ -4319,7 +4319,7 @@
   },
   "KeycodeInspector": {
     "title": "キーコードインスペクター",
-    "subtitle": "任意のキーを押して JavaScript のキーボードイベントを確認します",
+    "subtitle": "キーを押してキーボードイベントを確認",
     "capture": {
       "prompt": "任意のキーを押してください…",
       "ready": "待機中 — キーボードの任意のキーを押してください",
@@ -4353,8 +4353,8 @@
     }
   },
   "MarkdownTableGenerator": {
-    "title": "Markdown テーブルジェネレーター",
-    "subtitle": "グリッドを編集し、スプレッドシートから貼り付け、きれいに整列した Markdown または HTML テーブルをコピーします",
+    "title": "Markdownテーブルジェネレーター",
+    "subtitle": "グリッドを編集して整列済みのMarkdown・HTML表をコピー",
     "addRow": "行を追加",
     "addColumn": "列を追加",
     "importLabel": "インポート",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "タイムゾーン変換",
-    "subtitle": "会議の計画のために、ある瞬間を世界中の時刻に変換します。",
+    "subtitle": "同じ瞬間を複数のタイムゾーンで表示",
     "dateTimeLabel": "日付と時刻",
     "now": "現在",
     "sourceZoneLabel": "変換元のタイムゾーン",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "LLM トークンカウンター",
-    "subtitle": "トークンを数え、チャンクを可視化し、API コストを見積もります。",
+    "title": "LLMトークンカウンター",
+    "subtitle": "トークンを集計しチャンクを可視化、コストを試算",
     "inputLabel": "テキスト",
     "sample": "サンプル",
     "clear": "クリア",
@@ -4449,8 +4449,8 @@
     }
   },
   "WebhookTester": {
-    "title": "Webhook テスター",
-    "subtitle": "一時的な URL を作成し、受信した webhook リクエストをライブで確認します。",
+    "title": "Webhookテスター",
+    "subtitle": "一時URLを作成してWebhookをリアルタイム確認",
     "intro": {
       "title": "webhook URL を作成してリクエストのキャプチャを開始",
       "hint": "推測できない URL が発行され、受信したすべてのリクエストを記録します。24 時間後に期限切れになります。"
@@ -4488,8 +4488,8 @@
     }
   },
   "WebsocketTester": {
-    "title": "WebSocket テスター",
-    "subtitle": "WebSocket エンドポイントに接続し、メッセージの送受信と確認をライブで行います",
+    "title": "WebSocketテスター",
+    "subtitle": "接続・送信してWebSocketメッセージをリアルタイム確認",
     "urlLabel": "エンドポイント URL",
     "protocolsLabel": "サブプロトコル",
     "protocolsPlaceholder": "任意、カンマ区切り",
@@ -4535,8 +4535,8 @@
     }
   },
   "WhoisLookup": {
-    "title": "Whois 検索",
-    "subtitle": "RDAP を使って任意のドメインや IP アドレスの登録情報を調べます",
+    "title": "Whoisルックアップ",
+    "subtitle": "RDAPでドメインとIPの登録情報を照会",
     "placeholder": "example.com または 8.8.8.8",
     "lookupBtn": "検索",
     "looking": "検索中…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "有効なドメイン名または IP アドレスを入力してください",
       "lookupFailed": "検索に失敗しました (ステータス {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "完全オフライン"
   }
 }

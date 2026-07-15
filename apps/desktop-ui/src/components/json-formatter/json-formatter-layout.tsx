@@ -488,7 +488,6 @@ export function JsonFormatterLayout() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                variant="gradient"
                 size="icon"
                 className="h-8 w-8"
                 onClick={() => handleSave(pane)}

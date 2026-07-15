@@ -4,7 +4,13 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useDebounce } from "use-debounce";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+
+// Notes mutations throw a user-facing reason when the vault is locked or no
+// workspace is active (cipher key unavailable). Surface it instead of letting
+// the rejection bubble up as an uncaught runtime error.
+const toastActionError = (e: unknown) => toast.error(e instanceof Error ? e.message : String(e));
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -95,8 +101,12 @@ const NoteItem = React.memo(({
 
     const handleCreateChild = async (e: React.MouseEvent) => {
         e.stopPropagation();
-        await createNote(note.id);
-        onExpandPath(note.id);
+        try {
+            await createNote(note.id);
+            onExpandPath(note.id);
+        } catch (err) {
+            toastActionError(err);
+        }
     };
 
     const handleDeleteClick = (e: React.MouseEvent) => {
@@ -106,7 +116,11 @@ const NoteItem = React.memo(({
 
     const handleDuplicate = async (e: React.MouseEvent) => {
         e.stopPropagation();
-        await duplicateNote(note.id);
+        try {
+            await duplicateNote(note.id);
+        } catch (err) {
+            toastActionError(err);
+        }
     };
 
     const handleEmojiSelect = async (emoji: string) => {
@@ -415,7 +429,7 @@ export default function NotesSidebar() {
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                onClick={() => createNote(null)}
+                                onClick={() => createNote(null).catch(toastActionError)}
                                 className="h-8 w-8 cursor-pointer"
                                 aria-label={t("createNoteAria")}
                             >
@@ -513,7 +527,7 @@ export default function NotesSidebar() {
                                         <Button
                                             size="sm"
                                             variant="outline"
-                                            onClick={() => createNote(null)}
+                                            onClick={() => createNote(null).catch(toastActionError)}
                                             className="h-8 text-xs cursor-pointer"
                                         >
                                             <Plus className="h-3.5 w-3.5 mr-1.5" />

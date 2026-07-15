@@ -292,7 +292,7 @@ export function SecretApiKeyGeneratorLayout() {
           </div>
 
           <div className="flex flex-wrap gap-2 pt-1">
-            <Button type="button" variant="gradient" onClick={runGenerate} className="w-full gap-1.5 sm:w-auto">
+            <Button type="button" onClick={runGenerate} className="w-full gap-1.5 sm:w-auto">
               <RefreshCw className="h-3.5 w-3.5" />
               {t('generate')}
             </Button>

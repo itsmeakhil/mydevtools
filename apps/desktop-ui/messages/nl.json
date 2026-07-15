@@ -79,8 +79,8 @@
     "whoisLookup": "Whois-opzoeking"
   },
   "Help": {
-    "title": "Help en documentatie",
-    "subtitle": "Hoe MyDevTools in elkaar zit, wat elke app doet en hoe beveiliging en versleuteling je gegevens beschermen.",
+    "title": "Hulp & documentatie",
+    "subtitle": "Hoe MyDevTools in elkaar zit en hoe je gegevens beschermd zijn",
     "tabs": {
       "overview": "Overzicht",
       "apps": "Apps",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "JWT-decoder",
-    "subtitle": "Bekijk header en payload. Vervaldatum gebruikt de <code>exp</code>-claim. Er wordt niets naar een server gestuurd; de handtekening wordt niet geverifieerd.",
+    "subtitle": "Bekijk header, payload en vervaltijd — handtekening niet geverifieerd",
     "tokenLabel": "Token",
     "clear": "Wissen",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Certificaat- / PEM-decoder",
-    "subtitle": "Plak een X.509-certificaat (<code>-----BEGIN CERTIFICATE-----</code>) of een CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subject, uitgever, datums en SAN’s worden lokaal verwerkt; er wordt niets geüpload.",
+    "title": "Certificaatdecoder",
+    "subtitle": "Decodeer X.509-certificaten en CSR's uit PEM",
     "pemLabel": "PEM-invoer",
     "clear": "Wissen",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "SQL-formatter",
-    "subtitle": "Maak SQL netjes voor MySQL, PostgreSQL of SQLite. Draait in je browser; er wordt niets geüpload.",
+    "subtitle": "Maak SQL netjes voor MySQL, PostgreSQL en SQLite",
     "dialectLabel": "Dialect",
     "keywordsLabel": "Trefwoorden",
     "indentLabel": "Inspringing",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "YAML-formatter",
-    "subtitle": "Formatteer, valideer en converteer YAML in uw browser. Er wordt niets geüpload.",
+    "subtitle": "Formatteer, valideer en converteer YAML",
     "outputLabel": "Uitvoer",
     "outputModes": {
       "yaml": "YAML (geformatteerd)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "GraphQL-formatter",
-    "subtitle": "Formatteer GraphQL-query’s, mutaties en subscriptions in je browser. Er wordt niets geüpload.",
+    "subtitle": "Formatteer queries, mutations en subscriptions",
     "tabs": {
       "format": "Formatteren",
       "build": "Querybouwer"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "Regex-tester",
-    "subtitle": "JavaScript-achtige regex live op je tekst. Matches worden gemarkeerd; niets verlaat je browser.",
+    "subtitle": "Test JavaScript-regex met live gemarkeerde matches",
     "patternLabel": "Patroon",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2383,7 +2383,7 @@
   },
   "TimestampConverter": {
     "title": "Timestamp-converter",
-    "subtitle": "Unix-seconden (≤10 cijfers) of milliseconden (langere integers), <code>ISO-8601</code> of strings die je browser kan parsen. Alles draait lokaal.",
+    "subtitle": "Converteer Unix-timestamps, ISO-8601 en datumstrings",
     "inputLabel": "Invoer",
     "placeholder": "1744200000 of 2025-04-09T12:00:00Z",
     "now": "Nu",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "HTTP-statuscodes",
-    "subtitle": "Zoek en bekijk HTTP-responsstatuscodes (<code>1xx</code>–<code>5xx</code>) met korte beschrijvingen en RFC-verwijzingen. Werkt lokaal.",
+    "subtitle": "Zoek statuscodes 1xx–5xx met RFC-verwijzingen",
     "header": {
       "title": "HTTP-statuscodes",
       "description": "Doorzoekbare referentie van HTTP-responscodes met beschrijvingen en RFC-verwijzingen."
@@ -2431,8 +2431,8 @@
     "copied": "Code gekopieerd"
   },
   "CronBuilder": {
-    "title": "Cron-expressiebouwer",
-    "subtitle": "Standaard 5-veld cron: <mono>minute hour day month weekday</mono>. De parser gebruikt intern seconds=<code>0</code>. Optioneel 6-veld (<mono>sec min hour dom mon dow</mono>) werkt in de expressie-editor.",
+    "title": "Cron-builder",
+    "subtitle": "Bouw en verklaar cron-expressies met 5 of 6 velden",
     "tabs": {
       "builder": "Visuele bouwer",
       "expression": "Expressie"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64-encoder / -decoder",
-    "subtitle": "Encodeer tekst naar Base64 of decodeer Base64-strings",
+    "title": "Base64-encoder",
+    "subtitle": "Codeer tekst naar Base64 en decodeer terug",
     "upload": "Uploaden",
     "clear": "Wissen",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL-encoder / -decoder",
-    "subtitle": "Procentcoderen/decoderen met encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "URL-encoder",
+    "subtitle": "Percent-encodeer en decodeer tekst (UTF-8)",
     "upload": "Uploaden",
     "clear": "Wissen",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "URL-parser",
-    "subtitle": "Splits een URL op in protocol, host, pad, queryparameters en hash (fragment).",
+    "subtitle": "Splits een URL in protocol, host, pad, query en hash",
     "upload": "Uploaden",
     "clear": "Wissen",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "UUID-/ULID-generator",
-    "subtitle": "Genereer RFC 9562-UUID’s of ULID’s in de browser. Bulkexport tot {max} per run.",
+    "title": "UUID-generator",
+    "subtitle": "Genereer UUID's en ULID's — bulkexport tot {max}",
     "format": "Formaat",
     "kindHints": {
       "ulid": "Sorteerbare, URL-veilige identificatie van 26 tekens",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Generator voor geheim / API-sleutel",
-    "subtitle": "Genereer cryptografisch willekeurige strings met configureerbare lengte en alfabet. Bulkexport tot {max} per run. Past bij de <uuid>UUID-/ULID-generator</uuid>.",
+    "title": "API-sleutelgenerator",
+    "subtitle": "Genereer cryptografisch willekeurige secrets en sleutels",
     "alphabetLabel": "Alfabet",
     "alphabetHint": "Dubbele tekens worden verwijderd. Elk symbool wordt uniform gekozen met crypto.getRandomValues en rejection sampling (geen modulo-bias).",
     "alphabetCount": "{count} unieke symbolen",
@@ -2705,8 +2705,8 @@
     }
   },
   "LoremIpsum": {
-    "title": "Lorem Ipsum Generator",
-    "subtitle": "Genereer Latijnse plaatsaanduidingstekst voor je lay-outs en mockups.",
+    "title": "Lorem Ipsum-generator",
+    "subtitle": "Genereer opvultekst voor lay-outs en mockups",
     "paragraphs": "Alinea's",
     "sentences": "Zinnen",
     "words": "Woorden",
@@ -2723,8 +2723,8 @@
     "download": "Downloaden"
   },
   "ColorPicker": {
-    "title": "Kleurkiezer en converter",
-    "subtitle": "Converteer HEX, RGB en HSL; maak harmonische paletten. Alle verwerking vindt plaats in je browser.",
+    "title": "Kleurenkiezer",
+    "subtitle": "Converteer HEX, RGB en HSL en bouw paletten",
     "nativePicker": "Ingebouwde kiezer",
     "chooseColor": "Kies een kleur",
     "eyeDropper": "Pipet",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "Vierkant"
   },
   "ContrastChecker": {
-    "title": "Contrastcontrole",
-    "subtitle": "Berekent de WCAG 2.1-contrastverhouding tussen voorgrond en achtergrond. Toont AA en AAA voor normale en grote tekst. Alles in uw browser.",
+    "title": "Contrastchecker",
+    "subtitle": "Controleer WCAG-contrastratio's voor AA en AAA",
     "foreground": "Tekst / voorgrond",
     "background": "Achtergrond",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Grote tekst: 18 pt+ normaal of 14 pt+ vet (WCAG-definities)."
   },
   "DiffChecker": {
-    "title": "Verschilcontrole",
-    "subtitle": "Regel-voor-regel vergelijking van twee teksten naast elkaar. Alles blijft in uw browser.",
+    "title": "Diff-checker",
+    "subtitle": "Vergelijk twee teksten naast elkaar, regel voor regel",
     "rowsCount": "{count} rijen",
     "truncatedWarning": "Eerste {max} rijen worden weergegeven.",
     "limitExceeded": "Elke zijde is beperkt tot {max} tekens.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Voer tekst in beide panelen in om te vergelijken."
   },
   "JsonSchemaGenerator": {
-    "title": "JSON-schema-generator",
-    "subtitle": "Plak geldige JSON om een JSON-schema of getypeerde modellen te genereren. Alles draait in je browser.",
+    "title": "JSON Schema-generator",
+    "subtitle": "Genereer JSON Schema of getypeerde modellen uit voorbeeld-JSON",
     "languageLabel": "Uitvoertaal",
     "inputLabel": "JSON-invoer",
     "inputPlaceholder": "Plak JSON hier…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "Afbeelding naar Base64",
-    "subtitle": "Zet een afbeelding neer, haal een gegevens-URI of onbewerkte Base64-tekenreeks op. Alles blijft in uw browser.",
+    "subtitle": "Maak van een afbeelding een data-URI of Base64-string",
     "upload": "Afbeelding uploaden",
     "clear": "Duidelijk",
     "modes": {
@@ -2837,8 +2837,8 @@
     }
   },
   "ImageCompressor": {
-    "title": "Afbeeldingscompressie",
-    "subtitle": "Verklein JPEG-, PNG- of WebP-uitvoer lokaal met kwaliteitsregeling — er wordt niets geüpload.",
+    "title": "Afbeeldingscompressor",
+    "subtitle": "Verklein JPEG, PNG en WebP met kwaliteitsregelaar",
     "upload": "Afbeelding uploaden",
     "clear": "Wissen",
     "dropHere": "Sleep afbeelding hierheen",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Gecomprimeerde preview verschijnt hier."
   },
   "CssGradientBuilder": {
-    "title": "CSS-verloopbouwer",
-    "subtitle": "Visuele CSS-gradiëntbouwer met hoekcontrole, kleurstops en CSS-kopie met één klik.",
+    "title": "CSS-gradient-builder",
+    "subtitle": "Ontwerp gradients visueel en kopieer de CSS",
     "preview": "Verloopvoorbeeld",
     "settings": "Instellingen",
     "type": "Type",
@@ -2897,7 +2897,7 @@
   },
   "GitignoreGenerator": {
     "title": ".gitignore-generator",
-    "subtitle": "Genereer direct samengevoegde .gitignore-bestanden voor een specifieke tech-stack of combinatie.",
+    "subtitle": "Genereer samengevoegde .gitignore-bestanden voor elke stack",
     "searchPlaceholder": "Zoekstapels (bijv. Node, Python, macOS)...",
     "noResults": "Geen stapels gevonden.",
     "selectedStacks": "Geselecteerde stapels",
@@ -2912,8 +2912,8 @@
     "emptyState": "Selecteer een of meer tech-stacks om uw .gitignore te genereren."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Upload CSV of Excel, bewerk JSON en download CSV of XLSX. Alleen tabelgegevens; Excel-datums worden ISO-tijdstempels in JSON.",
+    "title": "Spreadsheet ↔ JSON",
+    "subtitle": "Converteer CSV- en Excel-bestanden naar JSON en terug",
     "dropTitle": "Sleep een CSV- of Excel-bestand hierheen",
     "dropHint": "Voor .xlsx / .xls wordt het eerste werkblad gebruikt. CSV moet een kopregel hebben.",
     "chooseFile": "Bestand kiezen",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Codefragmentbeheer",
-    "subtitle": "Bewaar snippets in je browser of log in om ze met je account te synchroniseren. Wissel tussen bekijken en bewerken, kopieer met één klik, kies een taal of automatische detectie en formatteer JSON, SQL of door Monaco ondersteunde code.",
+    "title": "Snippetbeheer",
+    "subtitle": "Bewaar, doorzoek en formatteer codesnippets — sync optioneel",
     "snippets": "Fragmenten",
     "newSnippet": "Nieuw fragment",
     "newSnippetTitle": "Nieuw fragment",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "QR-codegenerator",
-    "subtitle": "Zet tekst of een URL om in een PNG QR-code. Alles wordt lokaal in de browser gerenderd.",
+    "subtitle": "Maak van tekst of URL's gestylede QR-codes",
     "contentLabel": "Inhoud",
     "contentPlaceholder": "https://voorbeeld.nl, platte tekst, Wi‑Fi-tekenreeks, vCard…",
     "styleLabel": "Stijl",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "IP-/subnetcalculator",
-    "subtitle": "IPv4- en IPv6-CIDR in de browser—geen externe netwerkverzoeken.",
+    "title": "Subnetcalculator",
+    "subtitle": "Bereken CIDR-details voor IPv4 en IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Netwerk",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "Hash-generator",
-    "subtitle": "MD5-, SHA-1- en SHA-2-digest voor tekst of bestanden; bcrypt voor wachtwoorden (tekstinvoer). Alles lokaal in je browser.",
+    "subtitle": "Bereken MD5-, SHA- en bcrypt-hashes voor tekst of bestanden",
     "algorithmLabel": "Algoritme",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "Encryptie-speeltuin",
-    "subtitle": "AES-GCM in de browser: versleutel naar een JSON-bundel met wachtwoordzin of ruwe sleutel en ontsleutel lokaal. Educatief en soms praktisch — er wordt niets geüpload.",
+    "title": "Encryptie-playground",
+    "subtitle": "Versleutel en ontsleutel AES-GCM met wachtwoordzin of sleutel",
     "tabEncrypt": "Versleutelen",
     "tabDecrypt": "Ontsleutelen",
     "keyModeLabel": "Sleutelmateriaal",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "HMAC-generator",
-    "subtitle": "Voor het ondertekenen van webhooks en het testen van API-integraties. HMAC-SHA1/256/384/512 in hex of Base64—lokaal in je browser berekend.",
+    "subtitle": "Onderteken payloads met HMAC-SHA in hex of Base64",
     "secretLabel": "Geheime sleutel",
     "messageLabel": "Bericht / payload",
     "placeholderSecret": "Plak je signing secret…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "TOTP / 2FA-codegenerator",
-    "subtitle": "Plak het Base32-geheim en zie de actuele zescijferige RFC 6238-code (SHA-1, 30 s). Alles lokaal in je browser—handig voor het testen van login of MFA.",
+    "title": "TOTP-generator",
+    "subtitle": "Krijg live 2FA-codes uit een authenticator-secret",
     "secretLabel": "Geheim (Base32)",
     "placeholderSecret": "Plak de geheime sleutel (letters A–Z en cijfers 2–7, zoals bij het instellen van de authenticator)…",
     "codeLabel": "Huidige code",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Markdown-voorbeeld & HTML",
-    "subtitle": "Live Markdown-renderer met HTML-export en HTML → Markdown-conversie. Alles draait in uw browser.",
+    "title": "Markdown-voorbeeld",
+    "subtitle": "Render Markdown live en converteer van of naar HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Markdown-invoer",
@@ -3358,8 +3358,8 @@
     "securityNote": "Alles wordt lokaal in uw browser uitgevoerd. Er wordt niets geüpload."
   },
   "NumberBaseConverter": {
-    "title": "Grondtal-converter",
-    "subtitle": "Converteer gehele getallen tussen grondtallen 2–36. Optionele prefixen 0x / 0b / 0o. Alles lokaal in je browser.",
+    "title": "Talstelselconverter",
+    "subtitle": "Converteer gehele getallen tussen grondtal 2–36",
     "inputBaseLabel": "Van grondtal",
     "outputBaseLabel": "Naar grondtal",
     "inputLabel": "Invoergetal",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Formaatconverter",
-    "subtitle": "Converteer tussen JSON, YAML, TOML en XML in elke richting. Alle 12 combinaties. Alles draait in uw browser.",
+    "subtitle": "Converteer JSON, YAML, TOML en XML in elke richting",
     "fromLabel": "Van",
     "toLabel": "Naar",
     "swap": "Omwisselen",
@@ -3390,7 +3390,7 @@
   },
   "MimeTypeLookup": {
     "title": "MIME-type opzoeken",
-    "subtitle": "Zoek het MIME-type (mediatype) op voor een extensie of volledige bestandsnaam. Alles draait lokaal in uw browser.",
+    "subtitle": "Vind het MIME-type voor elke bestandsextensie",
     "inputLabel": "Extensie of bestandsnaam",
     "placeholder": "bijv. .png, package.json, photo.jpeg",
     "hint": "Tip: plak een extensie (met of zonder punt) of een volledige bestandsnaam.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "User-Agent-parser",
-    "subtitle": "Plak een User-Agent (UA)-string en krijg een uitsplitsing van browser, OS, engine, apparaat en CPU. Alles draait lokaal in uw browser.",
+    "subtitle": "Splits een UA-string in browser, OS en apparaat",
     "inputLabel": "User-Agent-string",
     "placeholder": "Plak uw User-Agent hier…",
     "hint": "Tip: u kunt een UA kopiëren uit request-headers, logs of de browser-devtools.",
@@ -3433,8 +3433,8 @@
     "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
   },
   "MockDataGenerator": {
-    "title": "Mock-datagenerator",
-    "subtitle": "Definieer kolommen, kies gegevenstypen en exporteer fixtures voor seeds, Postman of tests. Tot {max} rijen, alles in je browser — er wordt niets geüpload.",
+    "title": "Mockdata-generator",
+    "subtitle": "Definieer getypeerde kolommen — exporteer tot {max} fixture-rijen",
     "mockarooLink": "Mockaroo-achtige workflow",
     "rowsLabel": "Rijen",
     "rowsHint": "Maximaal {max} rijen per run om het tabblad vlot te houden.",
@@ -3537,8 +3537,8 @@
     "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
-    "title": "SVG-optimalisatie",
-    "subtitle": "Plak SVG, minificeer met SVGO in je browser en vergelijk UTF-8-grootte voor en na.",
+    "title": "SVG-optimizer",
+    "subtitle": "Minificeer SVG met SVGO en vergelijk groottes",
     "inputLabel": "Invoer",
     "outputLabel": "Geoptimaliseerd",
     "placeholder": "Plak een <svg>…</svg>-fragment of heel bestand…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "Eenhedenconverter",
-    "subtitle": "Converteren tussen <strong>323 eenheden</strong> in <strong>43 categorieën</strong>",
+    "subtitle": "Converteer 323 eenheden in 43 categorieën",
     "category": "Categorie",
     "from": "Van",
     "to": "Naar",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Docker Compose-generator",
-    "subtitle": "Kies populaire databases, caches, messaging, reverse proxy’s en observability — kopieer een werkend docker-compose.yml voor lokale ontwikkeling.",
+    "subtitle": "Genereer docker-compose.yml voor lokale dev-stacks",
     "searchPlaceholder": "Zoeken (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Services",
     "selectedCount": "{count, plural, one {# service} other {# services}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Game over"
   },
   "SshKeyGenerator": {
-    "title": "SSH / RSA-sleutelgenerator",
-    "subtitle": "Genereer Ed25519- of RSA-sleutelparen in je browser. Download privé- en openbare sleutels in OpenSSH- en PEM-formaten. Er wordt niets geüpload.",
+    "title": "SSH-sleutelgenerator",
+    "subtitle": "Genereer Ed25519- of RSA-sleutelparen in OpenSSH en PEM",
     "keyTypeLabel": "Sleuteltype",
     "recommended": "aanbevolen",
     "ed25519Desc": "Snel, klein en modern. Ondersteund door GitHub, GitLab en alle grote SSH-servers.",
@@ -3781,8 +3781,8 @@
     }
   },
   "DnsLookup": {
-    "title": "DNS-opzoeking",
-    "subtitle": "Zoek DNS-records op voor elk domein — A, AAAA, MX, TXT, NS, CNAME.",
+    "title": "DNS-lookup",
+    "subtitle": "Vraag A, AAAA, MX, TXT, NS en meer op voor elk domein",
     "placeholder": "Voer een domein in (bijv. github.com)",
     "lookupBtn": "Opzoeken",
     "looking": "Bezig met opzoeken…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL naar code",
+    "subtitle": "Zet curl-commando's om in fetch, axios, Python en meer",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON naar code",
+    "subtitle": "Genereer getypeerde modellen uit een voorbeeld-JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "JSON-visualizer",
+    "subtitle": "Verken JSON als interactieve node-graaf",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Beautify & minify",
+    "subtitle": "Beautify of minify HTML, CSS, JavaScript, XML en JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Case-converter",
+    "subtitle": "Converteer tussen camelCase, snake_case, kebab-case en meer",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Regelsorteerder",
+    "subtitle": "Sorteer, ontdubbel, trim en schoon lijsten met regels op",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "String-inspector",
+    "subtitle": "Tel tekens, woorden en bytes; toon verborgen tekens",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "String-escaper",
+    "subtitle": "Escape HTML-entiteiten, backslashes, hex en Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt-generator en -controle",
-    "subtitle": "Hash wachtwoorden met bcrypt en verifieer hashes — alles blijft in je browser",
+    "title": "Bcrypt-generator",
+    "subtitle": "Hash en verifieer wachtwoorden met bcrypt",
     "tabs": {
       "hash": "Hashen",
       "verify": "Verifiëren"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Chmod-calculator",
-    "subtitle": "Zet Unix-bestandsrechten om tussen selectievakjes, octaal en symbolische notatie",
+    "subtitle": "Converteer Unix-rechten tussen octaal en symbolisch",
     "grid": {
       "title": "Rechten",
       "read": "Lezen",
@@ -4069,8 +4069,8 @@
     }
   },
   "CodeScreenshot": {
-    "title": "Code-screenshot",
-    "subtitle": "Zet code om in mooie, deelbare afbeeldingen",
+    "title": "Codescreenshot",
+    "subtitle": "Maak van code mooie, deelbare afbeeldingen",
     "languageLabel": "Taal",
     "autoDetect": "Automatisch detecteren",
     "backgroundLabel": "Achtergrond",
@@ -4107,8 +4107,8 @@
     }
   },
   "CssGenerators": {
-    "title": "CSS-generatoren",
-    "subtitle": "Box-shadow, border-radius en vloeiende clamp() — kopieer de CSS.",
+    "title": "CSS-generators",
+    "subtitle": "Genereer CSS voor box-shadow, border-radius en clamp()",
     "preview": "Voorbeeld",
     "output": "CSS",
     "copy": "Kopiëren",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF-viewer en -verwijderaar",
-    "subtitle": "Inspecteer foto-metadata en verwijder ze in je browser",
+    "title": "EXIF-viewer",
+    "subtitle": "Bekijk en verwijder fotometadata",
     "dropTitle": "Sleep hier een afbeelding",
     "dropHint": "of klik om te bladeren — je afbeelding verlaat nooit je apparaat",
     "browse": "Afbeelding kiezen",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "JSON-diff",
-    "subtitle": "Semantische, structuurbewuste vergelijking van twee JSON-documenten — sleutelvolgorde en opmaak worden genegeerd",
+    "subtitle": "Vergelijk JSON structureel — sleutelvolgorde genegeerd",
     "options": {
       "ignoreArrayOrder": "Arrayvolgorde negeren"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "JSONPath-playground",
-    "subtitle": "Bevraag JSON-documenten met JSONPath of JMESPath en zie de resultaten live",
+    "subtitle": "Bevraag JSON live met JSONPath of JMESPath",
     "engineLabel": "Engine",
     "queryLabel": "Query",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Gekopieerd"
   },
   "KeycodeInspector": {
-    "title": "Keycode-inspecteur",
-    "subtitle": "Druk op een willekeurige toets om het JavaScript-toetsenbordevent te inspecteren",
+    "title": "Keycode-inspector",
+    "subtitle": "Druk op een toets en bekijk het keyboard-event",
     "capture": {
       "prompt": "Druk op een willekeurige toets…",
       "ready": "Aan het luisteren — druk op een willekeurige toets op je toetsenbord",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Markdown-tabelgenerator",
-    "subtitle": "Bewerk een raster, plak uit een spreadsheet en kopieer een netjes uitgelijnde Markdown- of HTML-tabel",
+    "subtitle": "Bewerk een raster en kopieer een uitgelijnde Markdown- of HTML-tabel",
     "addRow": "Rij toevoegen",
     "addColumn": "Kolom toevoegen",
     "importLabel": "Importeren",
@@ -4385,8 +4385,8 @@
     "copied": "Gekopieerd"
   },
   "TimezoneConverter": {
-    "title": "Tijdzone-converter",
-    "subtitle": "Zet één moment om over de hele wereld voor het plannen van vergaderingen.",
+    "title": "Tijdzoneconverter",
+    "subtitle": "Reken één moment om naar andere tijdzones",
     "dateTimeLabel": "Datum en tijd",
     "now": "Nu",
     "sourceZoneLabel": "Brontijdzone",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "LLM-token-teller",
-    "subtitle": "Tel tokens, visualiseer chunks en schat de API-kosten.",
+    "title": "LLM-tokenteller",
+    "subtitle": "Tel tokens, visualiseer chunks en schat kosten",
     "inputLabel": "Tekst",
     "sample": "Voorbeeld laden",
     "clear": "Wissen",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Webhook-tester",
-    "subtitle": "Maak een tijdelijke URL en inspecteer inkomende webhook-verzoeken live.",
+    "subtitle": "Maak een tijdelijke URL en bekijk webhooks live",
     "intro": {
       "title": "Maak een webhook-URL om verzoeken te gaan vastleggen",
       "hint": "Je krijgt een niet te raden URL die elk inkomend verzoek registreert. Deze verloopt na 24 uur."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "WebSocket-tester",
-    "subtitle": "Verbind met een WebSocket-endpoint en verzend, ontvang en inspecteer berichten live",
+    "subtitle": "Verbind, verstuur en bekijk WebSocket-berichten live",
     "urlLabel": "Endpoint-URL",
     "protocolsLabel": "Subprotocollen",
     "protocolsPlaceholder": "optioneel, gescheiden door komma's",
@@ -4535,8 +4535,8 @@
     }
   },
   "WhoisLookup": {
-    "title": "Whois-opzoeking",
-    "subtitle": "Zoek registratiegegevens van elk domein of IP-adres op via RDAP",
+    "title": "Whois-lookup",
+    "subtitle": "Zoek domein- en IP-registratie op via RDAP",
     "placeholder": "example.com of 8.8.8.8",
     "lookupBtn": "Opzoeken",
     "looking": "Bezig met opzoeken…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Voer een geldige domeinnaam of IP-adres in",
       "lookupFailed": "Opzoeken mislukt (status {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% offline"
   }
 }

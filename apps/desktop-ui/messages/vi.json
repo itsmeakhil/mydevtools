@@ -79,8 +79,8 @@
     "whoisLookup": "Tra cứu Whois"
   },
   "Help": {
-    "title": "Trợ giúp & tài liệu",
-    "subtitle": "MyDevTools hoạt động như thế nào, mỗi ứng dụng làm gì, và bảo mật/mã hóa bảo vệ dữ liệu của bạn ra sao.",
+    "title": "Trợ giúp & Tài liệu",
+    "subtitle": "Cách MyDevTools vận hành và cách dữ liệu của bạn được bảo vệ",
     "tabs": {
       "overview": "Tổng quan",
       "apps": "Ứng dụng",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "Trình giải mã JWT",
-    "subtitle": "Xem header và payload. Hết hạn dùng claim <code>exp</code>. Không gửi lên máy chủ; chữ ký không được xác minh.",
+    "subtitle": "Xem header, payload và hạn dùng — chữ ký không được xác minh",
     "tokenLabel": "Token",
     "clear": "Xóa",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Bộ giải mã chứng chỉ / PEM",
-    "subtitle": "Dán chứng chỉ X.509 (<code>-----BEGIN CERTIFICATE-----</code>) hoặc CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Chủ thể, nhà phát hành, ngày và SAN được phân tích cục bộ; không tải lên.",
+    "title": "Trình giải mã chứng chỉ",
+    "subtitle": "Giải mã chứng chỉ X.509 và CSR từ PEM",
     "pemLabel": "Đầu vào PEM",
     "clear": "Xóa",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "Trình định dạng SQL",
-    "subtitle": "Định dạng SQL cho MySQL, PostgreSQL hoặc SQLite. Chạy trong trình duyệt; không tải lên gì cả.",
+    "subtitle": "Định dạng đẹp SQL cho MySQL, PostgreSQL và SQLite",
     "dialectLabel": "Phương ngữ",
     "keywordsLabel": "Từ khóa",
     "indentLabel": "Thụt lề",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "Trình định dạng YAML",
-    "subtitle": "Định dạng, xác thực và chuyển đổi YAML trong trình duyệt. Không có gì được tải lên.",
+    "subtitle": "Định dạng, kiểm tra và chuyển đổi YAML",
     "outputLabel": "Đầu ra",
     "outputModes": {
       "yaml": "YAML (đã định dạng)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "Trình định dạng GraphQL",
-    "subtitle": "Định dạng truy vấn, mutation và subscription GraphQL trong trình duyệt. Không tải dữ liệu lên.",
+    "subtitle": "Định dạng query, mutation và subscription",
     "tabs": {
       "format": "Định dạng",
       "build": "Trình tạo truy vấn"
@@ -2347,8 +2347,8 @@
     }
   },
   "RegexTester": {
-    "title": "Trình thử Regex",
-    "subtitle": "Regex kiểu JavaScript chạy trực tiếp trên văn bản. Kết quả khớp được tô sáng; không có gì rời khỏi trình duyệt.",
+    "title": "Trình kiểm tra Regex",
+    "subtitle": "Kiểm tra regex JavaScript với tô sáng kết quả trực tiếp",
     "patternLabel": "Mẫu",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Trình chuyển đổi dấu thời gian",
-    "subtitle": "Giây Unix (≤10 chữ số) hoặc mili giây (số nguyên dài hơn), <code>ISO-8601</code> hoặc chuỗi mà trình duyệt có thể phân tích. Mọi thứ chạy cục bộ.",
+    "title": "Trình chuyển đổi Timestamp",
+    "subtitle": "Chuyển đổi timestamp Unix, ISO-8601 và chuỗi ngày",
     "inputLabel": "Đầu vào",
     "placeholder": "1744200000 hoặc 2025-04-09T12:00:00Z",
     "now": "Bây giờ",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "Mã trạng thái HTTP",
-    "subtitle": "Tìm kiếm và duyệt mã trạng thái phản hồi HTTP (<code>1xx</code>–<code>5xx</code>) với mô tả ngắn và tham chiếu RFC. Chạy cục bộ trên trình duyệt.",
+    "subtitle": "Tra cứu mã trạng thái 1xx–5xx kèm tham chiếu RFC",
     "header": {
       "title": "Mã trạng thái HTTP",
       "description": "Danh sách mã phản hồi HTTP có thể tìm kiếm, kèm mô tả và tham chiếu RFC."
@@ -2431,8 +2431,8 @@
     "copied": "Đã sao chép mã"
   },
   "CronBuilder": {
-    "title": "Trình tạo biểu thức Cron",
-    "subtitle": "Cron tiêu chuẩn 5 trường: <mono>minute hour day month weekday</mono>. Bộ phân tích dùng seconds=<code>0</code> nội bộ. Định dạng 6 trường tùy chọn (<mono>sec min hour dom mon dow</mono>) hoạt động trong trình soạn thảo.",
+    "title": "Trình tạo Cron",
+    "subtitle": "Tạo và giải thích biểu thức cron 5 hoặc 6 trường",
     "tabs": {
       "builder": "Trình tạo trực quan",
       "expression": "Biểu thức"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Mã hóa / giải mã Base64",
-    "subtitle": "Mã hóa văn bản sang Base64 hoặc giải mã chuỗi Base64",
+    "title": "Bộ mã hóa Base64",
+    "subtitle": "Mã hóa văn bản sang Base64 và giải mã ngược lại",
     "upload": "Tải lên",
     "clear": "Xóa",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "Mã hóa / giải mã URL",
-    "subtitle": "Mã hóa/giải mã theo phần trăm bằng encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "Bộ mã hóa URL",
+    "subtitle": "Mã hóa phần trăm và giải mã văn bản (UTF-8)",
     "upload": "Tải lên",
     "clear": "Xóa",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "Trình phân tích URL",
-    "subtitle": "Tách URL thành giao thức, host, đường dẫn, tham số truy vấn và hash (fragment).",
+    "subtitle": "Tách URL thành giao thức, host, path, query và hash",
     "upload": "Tải lên",
     "clear": "Xóa",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "Trình tạo UUID / ULID",
-    "subtitle": "Tạo UUID (RFC 9562) hoặc ULID trong trình duyệt. Xuất hàng loạt tối đa {max} mỗi lần chạy.",
+    "title": "Trình tạo UUID",
+    "subtitle": "Tạo UUID và ULID — xuất hàng loạt tới {max}",
     "format": "Định dạng",
     "kindHints": {
       "ulid": "Định danh 26 ký tự có thể sắp xếp, an toàn cho URL",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Trình tạo bí mật / khóa API",
-    "subtitle": "Tạo chuỗi ngẫu nhiên mật mã với độ dài và bảng chữ cái có thể cấu hình. Xuất hàng loạt tối đa {max} mỗi lần chạy. Đi cùng <uuid>trình tạo UUID / ULID</uuid>.",
+    "title": "Trình tạo khóa API",
+    "subtitle": "Tạo secret và khóa ngẫu nhiên theo chuẩn mật mã",
     "alphabetLabel": "Bảng chữ cái",
     "alphabetHint": "Các ký tự trùng lặp bị loại bỏ. Mỗi ký hiệu được chọn đều bằng crypto.getRandomValues và lấy mẫu loại trừ (không lệch modulo).",
     "alphabetCount": "{count} ký hiệu duy nhất",
@@ -2705,8 +2705,8 @@
     }
   },
   "LoremIpsum": {
-    "title": "Bộ Tạo Lorem Ipsum",
-    "subtitle": "Tạo văn bản Latin giữ chỗ cho bố cục và mockup của bạn.",
+    "title": "Trình tạo Lorem Ipsum",
+    "subtitle": "Tạo văn bản giữ chỗ cho bố cục và bản mẫu",
     "paragraphs": "Đoạn văn",
     "sentences": "Câu",
     "words": "Từ",
@@ -2723,8 +2723,8 @@
     "download": "Tải xuống"
   },
   "ColorPicker": {
-    "title": "Bộ chọn và chuyển đổi màu sắc",
-    "subtitle": "Chuyển đổi HEX, RGB và HSL; tạo bảng màu hài hòa. Tất cả xử lý diễn ra trong trình duyệt của bạn.",
+    "title": "Bộ chọn màu",
+    "subtitle": "Chuyển đổi HEX, RGB, HSL và tạo bảng màu",
     "nativePicker": "Bộ chọn gốc",
     "chooseColor": "Chọn màu",
     "eyeDropper": "Ống nhỏ giọt",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "Hình vuông"
   },
   "ContrastChecker": {
-    "title": "Kiểm tra độ tương phản",
-    "subtitle": "Tính tỷ lệ tương phản WCAG 2.1 giữa chữ và nền. Kiểm tra AA và AAA cho chữ thường và chữ lớn. Chạy hoàn toàn trên trình duyệt.",
+    "title": "Kiểm tra tương phản",
+    "subtitle": "Kiểm tra tỷ lệ tương phản WCAG AA và AAA",
     "foreground": "Chữ / tiền cảnh",
     "background": "Nền",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Chữ lớn: từ 18 pt thường hoặc từ 14 pt đậm (theo WCAG)."
   },
   "DiffChecker": {
-    "title": "Kiểm tra sự khác biệt",
-    "subtitle": "So sánh từng dòng giữa hai văn bản cạnh nhau. Mọi thứ đều ở lại trong trình duyệt của bạn.",
+    "title": "Kiểm tra Diff",
+    "subtitle": "So sánh hai văn bản song song, từng dòng một",
     "rowsCount": "{count} hàng",
     "truncatedWarning": "Hiển thị {max} hàng đầu tiên.",
     "limitExceeded": "Mỗi bên bị giới hạn {max} ký tự.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Nhập văn bản vào cả hai bảng để so sánh."
   },
   "JsonSchemaGenerator": {
-    "title": "Trình tạo lược đồ JSON",
-    "subtitle": "Dán JSON hợp lệ để tạo lược đồ JSON hoặc mô hình có kiểu. Mọi thứ chạy trong trình duyệt.",
+    "title": "Trình tạo JSON Schema",
+    "subtitle": "Tạo JSON Schema hoặc model có kiểu từ JSON mẫu",
     "languageLabel": "Ngôn ngữ đầu ra",
     "inputLabel": "Đầu vào JSON",
     "inputPlaceholder": "Dán JSON vào đây…",
@@ -2812,8 +2812,8 @@
     "download": "Download"
   },
   "ImageToBase64": {
-    "title": "Hình ảnh tới Base64",
-    "subtitle": "Thả hình ảnh, lấy URI dữ liệu hoặc chuỗi Base64 thô. Mọi thứ vẫn ở trong trình duyệt của bạn.",
+    "title": "Ảnh sang Base64",
+    "subtitle": "Biến ảnh thành data URI hoặc chuỗi Base64",
     "upload": "Tải hình ảnh lên",
     "clear": "Thông thoáng",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "Nén ảnh",
-    "subtitle": "Giảm kích thước đầu ra JPEG, PNG hoặc WebP cục bộ với chất lượng — không tải lên máy chủ.",
+    "subtitle": "Thu nhỏ JPEG, PNG và WebP với điều chỉnh chất lượng",
     "upload": "Tải ảnh lên",
     "clear": "Xóa",
     "dropHere": "Thả ảnh vào đây",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Xem trước đã nén hiển thị tại đây."
   },
   "CssGradientBuilder": {
-    "title": "Trình tạo độ dốc CSS",
-    "subtitle": "Trình tạo gradient CSS trực quan với khả năng kiểm soát góc, điểm dừng màu và sao chép CSS chỉ bằng một cú nhấp chuột.",
+    "title": "Trình tạo Gradient CSS",
+    "subtitle": "Thiết kế gradient trực quan và sao chép CSS",
     "preview": "Xem trước độ dốc",
     "settings": "Cài đặt",
     "type": "Kiểu",
@@ -2897,7 +2897,7 @@
   },
   "GitignoreGenerator": {
     "title": "Trình tạo .gitignore",
-    "subtitle": "Tạo các tệp .gitignore đã hợp nhất ngay lập tức cho một tổ hợp hoặc ngăn xếp công nghệ cụ thể.",
+    "subtitle": "Tạo tệp .gitignore gộp cho mọi stack",
     "searchPlaceholder": "Ngăn xếp tìm kiếm (ví dụ: Node, Python, macOS)...",
     "noResults": "Không tìm thấy ngăn xếp nào.",
     "selectedStacks": "Ngăn xếp đã chọn",
@@ -2912,8 +2912,8 @@
     "emptyState": "Chọn một hoặc nhiều nhóm công nghệ để tạo .gitignore của bạn."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Tải CSV hoặc Excel, chỉnh JSON, rồi tải CSV hoặc XLSX. Chỉ dữ liệu dạng bảng; ô ngày trong Excel thành dấu thời gian ISO trong JSON.",
+    "title": "Bảng tính ↔ JSON",
+    "subtitle": "Chuyển đổi tệp CSV và Excel sang JSON và ngược lại",
     "dropTitle": "Thả file CSV hoặc Excel",
     "dropHint": "Với .xlsx / .xls dùng sheet đầu tiên. CSV cần có dòng tiêu đề.",
     "chooseFile": "Chọn file",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Trình quản lý đoạn mã",
-    "subtitle": "Lưu đoạn mã trong trình duyệt hoặc đăng nhập để đồng bộ với tài khoản. Chuyển giữa xem và sửa, sao chép một cú nhấp, chọn ngôn ngữ hoặc tự động nhận diện, và định dạng JSON, SQL hoặc mã được Monaco hỗ trợ.",
+    "title": "Quản lý Snippet",
+    "subtitle": "Lưu, tìm và định dạng snippet mã — đồng bộ tùy chọn",
     "snippets": "Đoạn mã",
     "newSnippet": "Đoạn mới",
     "newSnippetTitle": "Đoạn mới",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "Trình tạo mã QR",
-    "subtitle": "Chuyển mọi văn bản hoặc URL thành mã QR PNG. Mọi thứ được kết xuất cục bộ trong trình duyệt.",
+    "subtitle": "Biến văn bản hoặc URL thành mã QR có kiểu dáng",
     "contentLabel": "Nội dung",
     "contentPlaceholder": "https://example.com, văn bản thuần, chuỗi Wi‑Fi, vCard…",
     "styleLabel": "Kiểu",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "Máy tính IP / mạng con",
-    "subtitle": "Chi tiết CIDR IPv4 và IPv6 trong trình duyệt—không gửi yêu cầu ra ngoài.",
+    "title": "Máy tính Subnet",
+    "subtitle": "Tính chi tiết CIDR cho IPv4 và IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Mạng",
@@ -3169,8 +3169,8 @@
     }
   },
   "HashGenerator": {
-    "title": "Trình tạo hash",
-    "subtitle": "Bản tóm lược MD5, SHA-1 và SHA-2 cho văn bản hoặc tệp; bcrypt cho mật khẩu (nhập văn bản). Tất cả chạy cục bộ trong trình duyệt.",
+    "title": "Trình tạo Hash",
+    "subtitle": "Tính hash MD5, SHA và bcrypt cho văn bản hoặc tệp",
     "algorithmLabel": "Thuật toán",
     "algorithms": {
       "md5": "MD5",
@@ -3215,7 +3215,7 @@
   },
   "EncryptionPlayground": {
     "title": "Sân chơi mã hóa",
-    "subtitle": "AES-GCM trong trình duyệt: mã hóa thành gói JSON bằng cụm mật khẩu hoặc khóa thô, rồi giải mã cục bộ. Mang tính học tập và đôi khi thực dụng — không tải dữ liệu lên.",
+    "subtitle": "Mã hóa và giải mã AES-GCM bằng passphrase hoặc khóa",
     "tabEncrypt": "Mã hóa",
     "tabDecrypt": "Giải mã",
     "keyModeLabel": "Nguyên liệu khóa",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "Trình tạo HMAC",
-    "subtitle": "Để ký webhook và kiểm thử tích hợp API. HMAC-SHA1/256/384/512 dạng hex hoặc Base64—tính cục bộ trong trình duyệt.",
+    "subtitle": "Ký payload bằng HMAC-SHA ở dạng hex hoặc Base64",
     "secretLabel": "Khóa bí mật",
     "messageLabel": "Thông điệp / payload",
     "placeholderSecret": "Dán bí mật ký…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "Trình tạo mã TOTP / 2FA",
-    "subtitle": "Dán bí mật Base32 và lấy mã sáu chữ số RFC 6238 hiện tại (SHA-1, 30 giây). Chạy cục bộ trong trình duyệt—hữu ích khi thử đăng nhập hoặc MFA.",
+    "title": "Trình tạo TOTP",
+    "subtitle": "Nhận mã 2FA trực tiếp từ secret của trình xác thực",
     "secretLabel": "Bí mật (Base32)",
     "placeholderSecret": "Dán khóa bí mật (chữ A–Z và số 2–7, như khi thiết lập ứng dụng xác thực)…",
     "codeLabel": "Mã hiện tại",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Xem trước Markdown & HTML",
-    "subtitle": "Trình kết xuất Markdown trực tiếp với xuất HTML và chuyển đổi HTML → Markdown. Tất cả chạy trong trình duyệt của bạn.",
+    "title": "Xem trước Markdown",
+    "subtitle": "Hiển thị Markdown trực tiếp và chuyển đổi qua lại với HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Đầu vào Markdown",
@@ -3358,8 +3358,8 @@
     "securityNote": "Tất cả chạy cục bộ trong trình duyệt của bạn. Không có gì được tải lên."
   },
   "NumberBaseConverter": {
-    "title": "Chuyển đổi cơ số",
-    "subtitle": "Chuyển đổi số nguyên giữa cơ số 2–36. Hỗ trợ tiền tố tùy chọn 0x / 0b / 0o. Tất cả chạy cục bộ trong trình duyệt.",
+    "title": "Chuyển đổi hệ cơ số",
+    "subtitle": "Chuyển đổi số nguyên giữa các hệ cơ số 2–36",
     "inputBaseLabel": "Từ cơ số",
     "outputBaseLabel": "Sang cơ số",
     "inputLabel": "Số nhập",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Chuyển đổi định dạng",
-    "subtitle": "Chuyển đổi giữa JSON, YAML, TOML và XML theo bất kỳ hướng nào. Tất cả 12 tổ hợp. Mọi thứ chạy trên trình duyệt của bạn.",
+    "subtitle": "Chuyển đổi JSON, YAML, TOML và XML theo mọi chiều",
     "fromLabel": "Từ",
     "toLabel": "Đến",
     "swap": "Hoán đổi",
@@ -3390,7 +3390,7 @@
   },
   "MimeTypeLookup": {
     "title": "Tra cứu loại MIME",
-    "subtitle": "Tra cứu loại MIME (media type) theo phần mở rộng hoặc tên tệp đầy đủ. Mọi thứ chạy cục bộ trên trình duyệt của bạn.",
+    "subtitle": "Tìm loại MIME cho mọi phần mở rộng tệp",
     "inputLabel": "Phần mở rộng hoặc tên tệp",
     "placeholder": "ví dụ .png, package.json, photo.jpeg",
     "hint": "Mẹo: dán phần mở rộng (có hoặc không có dấu chấm) hoặc tên tệp đầy đủ.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "Trình phân tích User-Agent",
-    "subtitle": "Dán chuỗi User-Agent (UA) để xem phân tích trình duyệt, hệ điều hành, engine, thiết bị và CPU. Mọi thứ chạy cục bộ trên trình duyệt của bạn.",
+    "subtitle": "Tách chuỗi UA thành trình duyệt, hệ điều hành và thiết bị",
     "inputLabel": "Chuỗi User-Agent",
     "placeholder": "Dán User-Agent của bạn vào đây…",
     "hint": "Mẹo: bạn có thể sao chép UA từ header yêu cầu, log hoặc devtools của trình duyệt.",
@@ -3434,7 +3434,7 @@
   },
   "MockDataGenerator": {
     "title": "Trình tạo dữ liệu giả",
-    "subtitle": "Định nghĩa cột, chọn kiểu dữ liệu và xuất bộ dữ liệu cho seed, Postman hoặc kiểm thử. Tối đa {max} dòng, tất cả trong trình duyệt — không tải lên.",
+    "subtitle": "Định nghĩa cột có kiểu — xuất tới {max} dòng fixture",
     "mockarooLink": "Quy trình kiểu Mockaroo",
     "rowsLabel": "Số dòng",
     "rowsHint": "Tối đa {max} dòng mỗi lần tạo để tab mượt.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "Tối ưu SVG",
-    "subtitle": "Dán SVG, thu gọn bằng SVGO ngay trên trình duyệt và so sánh kích thước UTF-8 trước/sau.",
+    "subtitle": "Nén SVG bằng SVGO và so sánh kích thước",
     "inputLabel": "Đầu vào",
     "outputLabel": "Đã tối ưu",
     "placeholder": "Dán đoạn <svg>…</svg> hoặc toàn bộ tệp…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "Chuyển đổi đơn vị",
-    "subtitle": "Chuyển đổi giữa <strong>323 đơn vị</strong> trong <strong>43 danh mục</strong>",
+    "subtitle": "Chuyển đổi 323 đơn vị thuộc 43 danh mục",
     "category": "Danh mục",
     "from": "Từ",
     "to": "Sang",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Trình tạo Docker Compose",
-    "subtitle": "Chọn cơ sở dữ liệu, cache, hàng đợi tin nhắn, reverse proxy và quan sát — sao chép docker-compose.yml sẵn sàng cho phát triển cục bộ.",
+    "subtitle": "Tạo docker-compose.yml cho stack dev cục bộ",
     "searchPlaceholder": "Tìm (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Dịch vụ",
     "selectedCount": "{count, plural, other {# dịch vụ}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Kết thúc"
   },
   "SshKeyGenerator": {
-    "title": "Trình tạo khóa SSH / RSA",
-    "subtitle": "Tạo cặp khóa Ed25519 hoặc RSA trong trình duyệt của bạn. Tải xuống khóa riêng tư và công khai ở định dạng OpenSSH và PEM. Không có gì được tải lên.",
+    "title": "Trình tạo khóa SSH",
+    "subtitle": "Tạo cặp khóa Ed25519 hoặc RSA dạng OpenSSH và PEM",
     "keyTypeLabel": "Loại khóa",
     "recommended": "khuyến nghị",
     "ed25519Desc": "Nhanh, nhỏ và hiện đại. Được hỗ trợ bởi GitHub, GitLab và tất cả các máy chủ SSH lớn.",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "Tra cứu DNS",
-    "subtitle": "Truy vấn bản ghi DNS cho bất kỳ tên miền nào — A, AAAA, MX, TXT, NS, CNAME.",
+    "subtitle": "Truy vấn A, AAAA, MX, TXT, NS và hơn nữa cho mọi tên miền",
     "placeholder": "Nhập tên miền (vd: github.com)",
     "lookupBtn": "Tra cứu",
     "looking": "Đang tra cứu…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL sang mã",
+    "subtitle": "Biến lệnh curl thành fetch, axios, Python và hơn nữa",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON sang mã",
+    "subtitle": "Tạo model có kiểu từ payload JSON mẫu",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "Trực quan hóa JSON",
+    "subtitle": "Khám phá JSON dưới dạng đồ thị nút tương tác",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Làm đẹp & Nén",
+    "subtitle": "Làm đẹp hoặc nén HTML, CSS, JavaScript, XML và JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Chuyển đổi Case",
+    "subtitle": "Chuyển đổi giữa camelCase, snake_case, kebab-case và hơn nữa",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Sắp xếp dòng",
+    "subtitle": "Sắp xếp, khử trùng lặp, cắt gọn và làm sạch danh sách dòng",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Kiểm tra chuỗi",
+    "subtitle": "Đếm ký tự, từ và byte; hiển thị ký tự ẩn",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Escape chuỗi",
+    "subtitle": "Escape thực thể HTML, backslash, hex và Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Trình tạo & kiểm tra Bcrypt",
-    "subtitle": "Băm mật khẩu bằng bcrypt và xác minh băm — mọi thứ diễn ra trong trình duyệt của bạn",
+    "title": "Trình tạo Bcrypt",
+    "subtitle": "Băm và xác minh mật khẩu bằng bcrypt",
     "tabs": {
       "hash": "Băm",
       "verify": "Xác minh"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Máy tính Chmod",
-    "subtitle": "Chuyển đổi quyền tệp Unix giữa hộp kiểm, bát phân và ký hiệu tượng trưng",
+    "subtitle": "Chuyển đổi quyền Unix giữa dạng bát phân và ký hiệu",
     "grid": {
       "title": "Quyền",
       "read": "Đọc",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "Trình tạo CSS",
-    "subtitle": "Box-shadow, border-radius và clamp() linh hoạt — sao chép CSS.",
+    "subtitle": "Tạo CSS box-shadow, border-radius và clamp()",
     "preview": "Xem trước",
     "output": "CSS",
     "copy": "Sao chép",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "Trình xem & xóa EXIF",
-    "subtitle": "Kiểm tra metadata của ảnh và xóa chúng ngay trong trình duyệt",
+    "title": "Trình xem EXIF",
+    "subtitle": "Xem và loại bỏ metadata của ảnh",
     "dropTitle": "Thả một ảnh vào đây",
     "dropHint": "hoặc nhấn để duyệt — ảnh của bạn không bao giờ rời khỏi thiết bị",
     "browse": "Chọn ảnh",
@@ -4244,8 +4244,8 @@
     "downloadZip": "Tải tất cả (.zip)"
   },
   "JsonDiff": {
-    "title": "So sánh JSON",
-    "subtitle": "So sánh hai tài liệu JSON theo ngữ nghĩa và cấu trúc — bỏ qua thứ tự khóa và định dạng",
+    "title": "JSON Diff",
+    "subtitle": "So sánh JSON theo cấu trúc — bỏ qua thứ tự khóa",
     "options": {
       "ignoreArrayOrder": "Bỏ qua thứ tự mảng"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "Sân chơi JSONPath",
-    "subtitle": "Truy vấn các tài liệu JSON bằng JSONPath hoặc JMESPath và xem kết quả trực tiếp",
+    "subtitle": "Truy vấn JSON bằng JSONPath hoặc JMESPath, trực tiếp",
     "engineLabel": "Bộ máy",
     "queryLabel": "Truy vấn",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Đã sao chép"
   },
   "KeycodeInspector": {
-    "title": "Trình kiểm tra mã phím",
-    "subtitle": "Nhấn phím bất kỳ để kiểm tra sự kiện bàn phím JavaScript của nó",
+    "title": "Kiểm tra Keycode",
+    "subtitle": "Nhấn phím bất kỳ để xem sự kiện bàn phím của nó",
     "capture": {
       "prompt": "Nhấn phím bất kỳ…",
       "ready": "Đang lắng nghe — nhấn phím bất kỳ trên bàn phím",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Trình tạo bảng Markdown",
-    "subtitle": "Chỉnh sửa lưới, dán từ bảng tính và sao chép bảng Markdown hoặc HTML được căn chỉnh đẹp mắt",
+    "subtitle": "Chỉnh lưới và sao chép bảng Markdown hoặc HTML căn chỉnh",
     "addRow": "Thêm hàng",
     "addColumn": "Thêm cột",
     "importLabel": "Nhập",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "Chuyển đổi múi giờ",
-    "subtitle": "Chuyển đổi một thời điểm trên khắp thế giới để lên kế hoạch họp.",
+    "subtitle": "Chuyển đổi một thời điểm qua các múi giờ",
     "dateTimeLabel": "Ngày & giờ",
     "now": "Bây giờ",
     "sourceZoneLabel": "Múi giờ nguồn",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "Bộ đếm token LLM",
-    "subtitle": "Đếm token, trực quan hóa các khối và ước tính chi phí API.",
+    "title": "Đếm token LLM",
+    "subtitle": "Đếm token, trực quan hóa các đoạn và ước tính chi phí",
     "inputLabel": "Văn bản",
     "sample": "Ví dụ",
     "clear": "Xóa",
@@ -4449,8 +4449,8 @@
     }
   },
   "WebhookTester": {
-    "title": "Trình kiểm tra Webhook",
-    "subtitle": "Tạo một URL tạm thời và kiểm tra các yêu cầu webhook đến trực tiếp.",
+    "title": "Kiểm tra Webhook",
+    "subtitle": "Tạo URL tạm thời và theo dõi webhook trực tiếp",
     "intro": {
       "title": "Tạo một URL webhook để bắt đầu ghi lại các yêu cầu",
       "hint": "Bạn sẽ nhận được một URL không thể đoán, ghi lại mọi yêu cầu đến. Nó hết hạn sau 24 giờ."
@@ -4488,8 +4488,8 @@
     }
   },
   "WebsocketTester": {
-    "title": "Trình kiểm tra WebSocket",
-    "subtitle": "Kết nối tới một điểm cuối WebSocket và gửi, nhận, kiểm tra tin nhắn trực tiếp",
+    "title": "Kiểm tra WebSocket",
+    "subtitle": "Kết nối, gửi và xem tin nhắn WebSocket trực tiếp",
     "urlLabel": "URL điểm cuối",
     "protocolsLabel": "Giao thức phụ",
     "protocolsPlaceholder": "tùy chọn, phân tách bằng dấu phẩy",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Tra cứu Whois",
-    "subtitle": "Tra cứu thông tin đăng ký cho bất kỳ tên miền hoặc địa chỉ IP nào qua RDAP",
+    "subtitle": "Tra cứu đăng ký tên miền và IP qua RDAP",
     "placeholder": "example.com hoặc 8.8.8.8",
     "lookupBtn": "Tra cứu",
     "looking": "Đang tra cứu…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Nhập một tên miền hoặc địa chỉ IP hợp lệ",
       "lookupFailed": "Tra cứu thất bại (trạng thái {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% ngoại tuyến"
   }
 }

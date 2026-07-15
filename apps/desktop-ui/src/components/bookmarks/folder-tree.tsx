@@ -75,18 +75,43 @@ export default function FolderTree({ onSelectFolder }: FolderTreeProps) {
 }
 
 function RootFolders({ onSelectFolder }: { onSelectFolder: (id: string | null) => void }) {
+    const t = useTranslations("Bookmarks")
     const rootFolders = useChildFolders(null)
+    const [collapsed, setCollapsed] = useState(false)
+
+    if (rootFolders.length === 0) return null
 
     return (
         <div className="space-y-0.5">
-            {rootFolders.map(folder => (
-                <FolderNode
-                    key={folder.id}
-                    folder={folder}
-                    depth={0}
-                    onSelectFolder={onSelectFolder}
+            <button
+                onClick={() => setCollapsed(c => !c)}
+                className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70 hover:text-foreground transition-colors"
+            >
+                <IconChevronRight
+                    className={cn("h-3 w-3 transition-transform duration-200", !collapsed && "rotate-90")}
                 />
-            ))}
+                {t("foldersHeading")}
+            </button>
+            <AnimatePresence initial={false}>
+                {!collapsed && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden space-y-0.5"
+                    >
+                        {rootFolders.map(folder => (
+                            <FolderNode
+                                key={folder.id}
+                                folder={folder}
+                                depth={0}
+                                onSelectFolder={onSelectFolder}
+                            />
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }

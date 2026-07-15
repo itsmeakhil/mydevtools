@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "راهنما و مستندات",
-    "subtitle": "این‌که MyDevTools چگونه کنار هم کار می‌کند، هر برنامه چه کاری انجام می‌دهد و امنیت و رمزنگاری چگونه از داده‌های شما محافظت می‌کنند.",
+    "subtitle": "MyDevTools چگونه کار می‌کند و داده‌های شما چگونه محافظت می‌شود",
     "tabs": {
       "overview": "نمای کلی",
       "apps": "برنامه‌ها",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "رمزگشای JWT",
-    "subtitle": "سربرگ و بار داده را بررسی کنید. انقضا از ادعای <code>exp</code> استفاده می‌کند. چیزی به سرور ارسال نمی‌شود؛ امضا تأیید نمی‌شود.",
+    "subtitle": "بررسی هدر، payload و انقضا — امضا تأیید نمی‌شود",
     "tokenLabel": "توکن",
     "clear": "پاک کردن",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "رمزگشای گواهی / PEM",
-    "subtitle": "یک گواهی X.509 (<code>-----BEGIN CERTIFICATE-----</code>) یا CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) بچسبانید. موضوع، صادرکننده، تاریخ‌ها و SAN به‌صورت محلی تجزیه می‌شود؛ چیزی آپلود نمی‌شود.",
+    "title": "رمزگشای گواهی",
+    "subtitle": "رمزگشایی گواهی‌های X.509 و CSR از PEM",
     "pemLabel": "ورودی PEM",
     "clear": "پاک کردن",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2257,8 +2257,8 @@
     }
   },
   "SqlFormatter": {
-    "title": "فرمت‌کننده SQL",
-    "subtitle": "SQL را برای MySQL، PostgreSQL یا SQLite مرتب کنید. در مرورگر اجرا می‌شود؛ چیزی آپلود نمی‌شود.",
+    "title": "قالب‌بند SQL",
+    "subtitle": "قالب‌بندی SQL برای MySQL، PostgreSQL و SQLite",
     "dialectLabel": "گویش",
     "keywordsLabel": "کلیدواژه‌ها",
     "indentLabel": "تورفتگی",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "قالب‌بند YAML",
-    "subtitle": "YAML را در مرورگر خود قالب‌بندی، اعتبارسنجی و تبدیل کنید. هیچ چیز آپلود نمی‌شود.",
+    "subtitle": "قالب‌بندی، اعتبارسنجی و تبدیل YAML",
     "outputLabel": "خروجی",
     "outputModes": {
       "yaml": "YAML (قالب‌بندی‌شده)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "قالب‌بند GraphQL",
-    "subtitle": "پرس‌وجوها، جهش‌ها و اشتراک‌های GraphQL را در مرورگر قالب‌بندی کنید. چیزی آپلود نمی‌شود.",
+    "subtitle": "قالب‌بندی کوئری‌ها، mutationها و subscriptionها",
     "tabs": {
       "format": "قالب‌بندی",
       "build": "سازندهٔ پرس‌وجو"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "آزمایشگر Regex",
-    "subtitle": "Regex به سبک JavaScript به‌صورت زنده روی متن شما. تطبیق‌ها هایلایت می‌شوند و چیزی از مرورگر خارج نمی‌شود.",
+    "subtitle": "آزمایش regex در JavaScript با برجسته‌سازی زنده تطابق‌ها",
     "patternLabel": "الگو",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "مبدل تایم‌استمپ",
-    "subtitle": "ثانیهٔ یونیکس (≤۱۰ رقم) یا میلی‌ثانیه (اعداد بلندتر)، <code>ISO-8601</code> یا رشته‌هایی که مرورگر می‌تواند تحلیل کند. همه چیز محلی اجرا می‌شود.",
+    "title": "مبدل مهر زمانی",
+    "subtitle": "تبدیل مهرهای زمانی Unix، ISO-8601 و رشته‌های تاریخ",
     "inputLabel": "ورودی",
     "placeholder": "1744200000 یا 2025-04-09T12:00:00Z",
     "now": "اکنون",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "کدهای وضعیت HTTP",
-    "subtitle": "کدهای وضعیت پاسخ‌های HTTP را جستجو و مرور کنید (<code>1xx</code>–<code>5xx</code>) همراه با توضیحات کوتاه و ارجاع‌های RFC. به‌صورت محلی اجرا می‌شود.",
+    "subtitle": "جستجوی کدهای وضعیت 1xx–5xx با ارجاع به RFC",
     "header": {
       "title": "کدهای وضعیت HTTP",
       "description": "فهرست قابل جستجو از کدهای پاسخ HTTP همراه با توضیحات و ارجاع‌های RFC."
@@ -2431,8 +2431,8 @@
     "copied": "کد کپی شد"
   },
   "CronBuilder": {
-    "title": "سازندهٔ عبارت Cron",
-    "subtitle": "کرون استاندارد ۵ فیلدی: <mono>minute hour day month weekday</mono>. مفسر به‌صورت داخلی seconds=<code>0</code> را استفاده می‌کند. فرمت اختیاری ۶ فیلدی (<mono>sec min hour dom mon dow</mono>) در ویرایشگر عبارت کار می‌کند.",
+    "title": "سازنده Cron",
+    "subtitle": "ساخت و توضیح عبارت‌های cron با ۵ یا ۶ فیلد",
     "tabs": {
       "builder": "سازندهٔ بصری",
       "expression": "عبارت"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "رمزگذار / رمزگشای Base64",
-    "subtitle": "متن را به Base64 رمزگذاری کنید یا رشته‌های Base64 را رمزگشایی کنید",
+    "title": "رمزگذار Base64",
+    "subtitle": "رمزگذاری متن به Base64 و رمزگشایی آن",
     "upload": "آپلود",
     "clear": "پاک کردن",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "رمزگذار / رمزگشای URL",
-    "subtitle": "رمزگذاری/رمزگشایی درصدی با encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "رمزگذار URL",
+    "subtitle": "کدگذاری درصدی متن و رمزگشایی آن (UTF-8)",
     "upload": "آپلود",
     "clear": "پاک کردن",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "تجزیه‌گر URL",
-    "subtitle": "یک URL را به پروتکل، میزبان، مسیر، پارامترهای پرس‌وجو و هش (بخش) تقسیم کنید.",
+    "subtitle": "تفکیک URL به پروتکل، میزبان، مسیر، کوئری و hash",
     "upload": "بارگذاری",
     "clear": "پاک کردن",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "مولد UUID / ULID",
-    "subtitle": "UUIDهای RFC 9562 یا ULID را در مرورگر تولید کنید. خروجی گروهی تا {max} در هر اجرا.",
+    "title": "مولد UUID",
+    "subtitle": "تولید UUID و ULID — خروجی انبوه تا {max}",
     "format": "فرمت",
     "kindHints": {
       "ulid": "شناسهٔ ۲۶ کاراکتری قابل مرتب‌سازی و امن برای URL",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "مولد رمز / کلید API",
-    "subtitle": "رشته‌های تصادفی رمزنگاری‌شده با طول و الفبای قابل تنظیم بسازید. خروجی انبوه تا {max} در هر اجرا. مکمل <uuid>مولد UUID / ULID</uuid>.",
+    "title": "مولد کلید API",
+    "subtitle": "تولید کلیدها و رازهای تصادفی رمزنگارانه",
     "alphabetLabel": "الفبا",
     "alphabetHint": "نویسه‌های تکراری حذف می‌شوند. هر نماد به‌صورت یکنواخت با crypto.getRandomValues و نمونه‌گیری ردّی انتخاب می‌شود (بدون سوگیری پیمانه).",
     "alphabetCount": "{count} نماد یکتا",
@@ -2705,8 +2705,8 @@
     }
   },
   "LoremIpsum": {
-    "title": "مولد متن لورم ایپسوم",
-    "subtitle": "متن لاتین موقت برای طرح‌بندی‌ها و ماکت‌های خود تولید کنید.",
+    "title": "مولد Lorem Ipsum",
+    "subtitle": "تولید متن جای‌نگهدار برای چیدمان‌ها و ماکت‌ها",
     "paragraphs": "پاراگراف‌ها",
     "sentences": "جملات",
     "words": "کلمات",
@@ -2723,8 +2723,8 @@
     "download": "دانلود"
   },
   "ColorPicker": {
-    "title": "انتخابگر و مبدل رنگ",
-    "subtitle": "HEX، RGB و HSL را تبدیل کنید؛ پالت‌های هارمونیک بسازید. تمام پردازش در مرورگر شما انجام می‌شود.",
+    "title": "انتخابگر رنگ",
+    "subtitle": "تبدیل HEX، RGB و HSL و ساخت پالت رنگ",
     "nativePicker": "انتخابگر بومی",
     "chooseColor": "انتخاب رنگ",
     "eyeDropper": "قطره‌چکان",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "مربع"
   },
   "ContrastChecker": {
-    "title": "بررسی کنتراست",
-    "subtitle": "نسبت کنتراست WCAG 2.1 بین پیش‌زمینه و پس‌زمینه را محاسبه می‌کند. انطباق AA و AAA را برای متن معمولی و بزرگ نشان می‌دهد. همه در مرورگر شما.",
+    "title": "بررسی‌کننده کنتراست",
+    "subtitle": "بررسی نسبت کنتراست طبق WCAG AA و AAA",
     "foreground": "متن / پیش‌زمینه",
     "background": "پس‌زمینه",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "متن بزرگ: ۱۸ پوینت به بالا معمولی یا ۱۴ پوینت به بالا پررنگ (تعاریف WCAG)."
   },
   "DiffChecker": {
-    "title": "مقایسه تفاوت‌ها",
-    "subtitle": "مقایسه خط‌به‌خط دو متن در کنار هم. همه چیز در مرورگر شما می‌ماند.",
+    "title": "بررسی‌کننده تفاوت",
+    "subtitle": "مقایسه دو متن کنار هم، خط به خط",
     "rowsCount": "{count} ردیف",
     "truncatedWarning": "نمایش {max} ردیف اول.",
     "limitExceeded": "هر طرف محدود به {max} کاراکتر است.",
@@ -2784,8 +2784,8 @@
     "emptyState": "متن را در هر دو پنل وارد کنید تا مقایسه شود."
   },
   "JsonSchemaGenerator": {
-    "title": "تولیدکنندهٔ طرح JSON",
-    "subtitle": "JSON معتبر بچسبانید تا طرح JSON یا مدل‌های نوع‌دار بسازید. همه‌چیز در مرورگر شما اجرا می‌شود.",
+    "title": "مولد JSON Schema",
+    "subtitle": "تولید JSON Schema یا مدل‌های تایپ‌دار از JSON نمونه",
     "languageLabel": "زبان خروجی",
     "inputLabel": "ورودی JSON",
     "inputPlaceholder": "JSON را اینجا بچسبانید…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "تصویر به Base64",
-    "subtitle": "یک تصویر رها کنید، یک URI داده یا رشته خام Base64 دریافت کنید. همه چیز در مرورگر شما باقی می ماند.",
+    "subtitle": "تبدیل تصویر به data URI یا رشته Base64",
     "upload": "آپلود تصویر",
     "clear": "پاک کردن",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "فشرده‌ساز تصویر",
-    "subtitle": "خروجی JPEG یا PNG یا WebP را محلی با کنترل کیفیت کوچک کنید — چیزی آپلود نمی‌شود.",
+    "subtitle": "کوچک‌سازی JPEG، PNG و WebP با کنترل کیفیت",
     "upload": "بارگذاری تصویر",
     "clear": "پاک کردن",
     "dropHere": "تصویر را اینجا رها کنید",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "پیش‌نمایش فشرده اینجا نمایش داده می‌شود."
   },
   "CssGradientBuilder": {
-    "title": "CSS Gradient Builder",
-    "subtitle": "سازنده گرادیان CSS ویژوال با کنترل زاویه، توقف رنگ و کپی CSS با یک کلیک.",
+    "title": "سازنده گرادیان CSS",
+    "subtitle": "طراحی بصری گرادیان‌ها و کپی کد CSS",
     "preview": "پیش نمایش گرادیان",
     "settings": "تنظیمات",
     "type": "تایپ کنید",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore Generator",
-    "subtitle": "فایل‌های .gitignore ادغام شده را فوراً برای یک پشته یا ترکیب فنی خاص ایجاد کنید.",
+    "title": "مولد .gitignore",
+    "subtitle": "تولید فایل‌های .gitignore ادغام‌شده برای هر پشته",
     "searchPlaceholder": "پشته های جستجو (به عنوان مثال Node، Python، macOS)...",
     "noResults": "پشته ای پیدا نشد.",
     "selectedStacks": "پشته های انتخاب شده",
@@ -2912,8 +2912,8 @@
     "emptyState": "برای ایجاد .gitignore خود یک یا چند پشته فناوری انتخاب کنید."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "CSV یا Excel را بارگذاری کنید، JSON را ویرایش کنید، سپس CSV یا XLSX را دانلود کنید. فقط داده جدولی؛ سلول‌های تاریخ Excel در JSON به برچسب زمانی ISO تبدیل می‌شوند.",
+    "title": "صفحه‌گسترده ↔ JSON",
+    "subtitle": "تبدیل فایل‌های CSV و Excel به JSON و برعکس",
     "dropTitle": "فایل CSV یا Excel را رها کنید",
     "dropHint": "برای .xlsx / .xls از اولین برگه استفاده می‌شود. CSV باید سطر سرستون داشته باشد.",
     "chooseFile": "انتخاب فایل",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "مدیریت قطعه‌کد",
-    "subtitle": "قطعه‌کدها را در مرورگر نگه دارید یا برای همگام‌سازی با حساب وارد شوید. بین مشاهده و ویرایش جابه‌جا شوید، با یک کلیک کپی کنید، زبان را انتخاب یا خودکار تشخیص دهید و JSON، SQL یا کد پشتیبانی‌شده توسط Monaco را قالب‌بندی کنید.",
+    "title": "مدیر قطعه‌کد",
+    "subtitle": "ذخیره، جستجو و قالب‌بندی قطعه‌کدها — همگام‌سازی اختیاری",
     "snippets": "قطعه‌کدها",
     "newSnippet": "قطعه‌کد جدید",
     "newSnippetTitle": "قطعه‌کد جدید",
@@ -3080,8 +3080,8 @@
     }
   },
   "QrCodeGenerator": {
-    "title": "تولیدکنندهٔ QR",
-    "subtitle": "هر متن یا URL را به PNG QR تبدیل کنید. همه‌چیز به‌صورت محلی در مرورگر رندر می‌شود.",
+    "title": "مولد کد QR",
+    "subtitle": "تبدیل متن یا URL به کدهای QR سبک‌دار",
     "contentLabel": "محتوا",
     "contentPlaceholder": "https://example.com، متن ساده، رشتهٔ Wi‑Fi، vCard…",
     "styleLabel": "سبک",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "ماشین‌حساب IP / زیرشبکه",
-    "subtitle": "جزئیات CIDR برای IPv4 و IPv6 در مرورگر—بدون درخواست شبکهٔ خارجی.",
+    "title": "ماشین‌حساب زیرشبکه",
+    "subtitle": "محاسبه جزئیات CIDR برای IPv4 و IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "شبکه",
@@ -3169,8 +3169,8 @@
     }
   },
   "HashGenerator": {
-    "title": "تولیدکنندهٔ هش",
-    "subtitle": "چکسام‌های MD5 و SHA-1 و SHA-2 برای متن یا فایل؛ bcrypt برای گذرواژه‌ها (ورودی متنی). همه‌چیز به‌صورت محلی در مرورگر.",
+    "title": "مولد هش",
+    "subtitle": "محاسبه هش‌های MD5، SHA و bcrypt برای متن یا فایل",
     "algorithmLabel": "الگوریتم",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "زمین بازی رمزنگاری",
-    "subtitle": "AES-GCM در مرورگر: رمزنگاری به بسته JSON با عبارت عبور یا کلید خام و رمزگشایی محلی. آموزشی و گاهی کاربردی — چیزی آپلود نمی‌شود.",
+    "title": "محیط آزمایش رمزنگاری",
+    "subtitle": "رمزگذاری و رمزگشایی AES-GCM با عبارت عبور یا کلید",
     "tabEncrypt": "رمزنگاری",
     "tabDecrypt": "رمزگشایی",
     "keyModeLabel": "ماده کلیدی",
@@ -3266,8 +3266,8 @@
     }
   },
   "HmacGenerator": {
-    "title": "تولیدکنندهٔ HMAC",
-    "subtitle": "برای امضای وب‌هوک‌ها و آزمایش یکپارچگی API. HMAC-SHA1/256/384/512 به صورت hex یا Base64—به‌صورت محلی در مرورگر.",
+    "title": "مولد HMAC",
+    "subtitle": "امضای داده‌ها با HMAC-SHA به صورت hex یا Base64",
     "secretLabel": "کلید مخفی",
     "messageLabel": "پیام / بار مفید",
     "placeholderSecret": "رمز امضا را بچسبانید…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "تولیدکنندهٔ کد TOTP / 2FA",
-    "subtitle": "راز Base32 را بچسبانید و کد شش‌رقمی فعلی RFC 6238 (SHA-1، ۳۰ ث) را بگیرید. همه‌چیز محلی در مرورگر—مفید برای آزمایش ورود یا MFA.",
+    "title": "مولد TOTP",
+    "subtitle": "دریافت کدهای زنده 2FA از راز برنامه احراز هویت",
     "secretLabel": "راز (Base32)",
     "placeholderSecret": "کلید مخفی را بچسبانید (حروف A–Z و ارقام ۲–۷، همان‌طور که در راه‌اندازی نمایش داده می‌شود)…",
     "codeLabel": "کد فعلی",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "پیش‌نمایش Markdown و HTML",
-    "subtitle": "رندر زنده Markdown با صادرکردن HTML و تبدیل HTML → Markdown. همه چیز در مرورگر شما اجرا می‌شود.",
+    "title": "پیش‌نمایش Markdown",
+    "subtitle": "رندر زنده Markdown و تبدیل به HTML و برعکس",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "ورودی Markdown",
@@ -3358,8 +3358,8 @@
     "securityNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. هیچ چیزی آپلود نمی‌شود."
   },
   "NumberBaseConverter": {
-    "title": "مبدّل مبنای عددی",
-    "subtitle": "تبدیل اعداد صحیح بین مبناهای ۲–۳۶. پیشوندهای اختیاری 0x / 0b / 0o. همه‌چیز به‌صورت محلی در مرورگر.",
+    "title": "مبدل مبنای عددی",
+    "subtitle": "تبدیل اعداد صحیح بین مبناهای ۲ تا ۳۶",
     "inputBaseLabel": "از مبنا",
     "outputBaseLabel": "به مبنا",
     "inputLabel": "عدد ورودی",
@@ -3376,8 +3376,8 @@
     }
   },
   "FormatConverter": {
-    "title": "مبدّل فرمت",
-    "subtitle": "بین JSON، YAML، TOML و XML در هر جهتی تبدیل کنید. تمام ۱۲ ترکیب. همه چیز در مرورگر شما اجرا می‌شود.",
+    "title": "مبدل قالب",
+    "subtitle": "تبدیل JSON، YAML، TOML و XML در هر جهت",
     "fromLabel": "از",
     "toLabel": "به",
     "swap": "تعویض",
@@ -3390,7 +3390,7 @@
   },
   "MimeTypeLookup": {
     "title": "جستجوی نوع MIME",
-    "subtitle": "نوع MIME (media type) را بر اساس پسوند یا نام کامل فایل پیدا کنید. همه چیز به صورت محلی در مرورگر شما اجرا می‌شود.",
+    "subtitle": "یافتن نوع MIME برای هر پسوند فایل",
     "inputLabel": "پسوند یا نام فایل",
     "placeholder": "مثلاً .png، package.json، photo.jpeg",
     "hint": "نکته: می‌توانید پسوند (با یا بدون نقطه) یا نام کامل فایل را وارد کنید.",
@@ -3410,8 +3410,8 @@
     "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
   },
   "UserAgentParser": {
-    "title": "تحلیلگر User-Agent",
-    "subtitle": "یک رشته User-Agent (UA) را وارد کنید تا جزئیات مرورگر، سیستم‌عامل، موتور، دستگاه و CPU را ببینید. همه چیز به صورت محلی در مرورگر شما اجرا می‌شود.",
+    "title": "تجزیه‌گر User-Agent",
+    "subtitle": "تفکیک رشته UA به مرورگر، سیستم‌عامل و دستگاه",
     "inputLabel": "رشته User-Agent",
     "placeholder": "User-Agent را اینجا بچسبانید…",
     "hint": "نکته: می‌توانید UA را از هدرهای درخواست، لاگ‌ها یا devtools مرورگر کپی کنید.",
@@ -3433,8 +3433,8 @@
     "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
   },
   "MockDataGenerator": {
-    "title": "مولد دادهٔ آزمایشی",
-    "subtitle": "ستون‌ها را تعریف کنید، نوع داده را انتخاب کنید و مجموعه‌ها را برای seed، Postman یا آزمون برون‌بری کنید. تا {max} سطر، همه در مرورگر — بدون بارگذاری.",
+    "title": "مولد داده آزمایشی",
+    "subtitle": "تعریف ستون‌های تایپ‌دار — خروجی تا {max} ردیف",
     "mockarooLink": "گردش کار شبیه Mockaroo",
     "rowsLabel": "سطرها",
     "rowsHint": "حداکثر {max} سطر در هر تولید برای سبک ماندن زبانه.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "بهینه‌ساز SVG",
-    "subtitle": "SVG را بچسبانید، در مرورگر با SVGO فشرده کنید و اندازه UTF-8 را قبل و بعد مقایسه کنید.",
+    "subtitle": "کوچک‌سازی SVG با SVGO و مقایسه اندازه‌ها",
     "inputLabel": "ورودی",
     "outputLabel": "بهینه‌شده",
     "placeholder": "قطعه <svg>…</svg> یا کل فایل را بچسبانید…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "مبدل واحد",
-    "subtitle": "تبدیل بین <strong>323 واحد</strong> در <strong>43 دسته</strong>",
+    "subtitle": "تبدیل ۳۲۳ واحد در ۴۳ دسته",
     "category": "دسته‌بندی",
     "from": "از",
     "to": "به",
@@ -3580,8 +3580,8 @@
     "noResults": "دسته‌بندی‌ای یافت نشد."
   },
   "DockerComposeGenerator": {
-    "title": "تولیدکننده Docker Compose",
-    "subtitle": "پایگاه‌داده‌های رایج، کش، صف پیام، پروکسی معکوس و قابلیت مشاهده را انتخاب کنید — docker-compose.yml آماده توسعه محلی را کپی کنید.",
+    "title": "مولد Docker Compose",
+    "subtitle": "تولید docker-compose.yml برای پشته‌های توسعه محلی",
     "searchPlaceholder": "جستجو (postgres، redis، kafka، nginx، grafana…)",
     "selectedLabel": "سرویس‌ها",
     "selectedCount": "{count, plural, one {# سرویس} other {# سرویس}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "پایان بازی"
   },
   "SshKeyGenerator": {
-    "title": "تولیدکننده کلید SSH / RSA",
-    "subtitle": "جفت کلیدهای Ed25519 یا RSA را در مرورگرتان تولید کنید. کلیدهای خصوصی و عمومی را در قالب‌های OpenSSH و PEM دانلود کنید. هیچ چیزی آپلود نمی‌شود.",
+    "title": "مولد کلید SSH",
+    "subtitle": "تولید جفت‌کلید Ed25519 یا RSA در OpenSSH و PEM",
     "keyTypeLabel": "نوع کلید",
     "recommended": "پیشنهادی",
     "ed25519Desc": "سریع، کوچک و مدرن. پشتیبانی‌شده توسط GitHub، GitLab و تمام سرورهای SSH اصلی.",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "جستجوی DNS",
-    "subtitle": "رکوردهای DNS هر دامنه را جستجو کنید — A، AAAA، MX، TXT، NS، CNAME.",
+    "subtitle": "استعلام A، AAAA، MX، TXT، NS و موارد دیگر برای هر دامنه",
     "placeholder": "دامنه را وارد کنید (مثلاً github.com)",
     "lookupBtn": "جستجو",
     "looking": "در حال جستجو…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL به کد",
+    "subtitle": "تبدیل دستورات curl به fetch، axios، Python و موارد دیگر",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON به کد",
+    "subtitle": "تولید مدل‌های تایپ‌دار از یک payload نمونه JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "نمایشگر JSON",
+    "subtitle": "کاوش JSON به‌صورت گراف گره‌ای تعاملی",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "زیباسازی و فشرده‌سازی",
+    "subtitle": "زیباسازی یا فشرده‌سازی HTML، CSS، JavaScript، XML و JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "مبدل حالت حروف",
+    "subtitle": "تبدیل بین camelCase، snake_case، kebab-case و بیشتر",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "مرتب‌ساز خطوط",
+    "subtitle": "مرتب‌سازی، حذف تکرار و پاک‌سازی فهرست خطوط",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "بازرس رشته",
+    "subtitle": "شمارش نویسه‌ها، واژه‌ها و بایت‌ها؛ نمایش موارد پنهان",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "گریزدهنده رشته",
+    "subtitle": "گریز موجودیت‌های HTML، بک‌اسلش، hex و Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "مولد و بررسی‌کننده Bcrypt",
-    "subtitle": "گذرواژه‌ها را با bcrypt هش کنید و هش‌ها را تأیید کنید — همه‌چیز در مرورگر شما می‌ماند",
+    "title": "مولد Bcrypt",
+    "subtitle": "هش و تأیید گذرواژه‌ها با bcrypt",
     "tabs": {
       "hash": "هش",
       "verify": "تأیید"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "ماشین‌حساب Chmod",
-    "subtitle": "مجوزهای فایل یونیکس را بین چک‌باکس، هشت‌هشتی و نماد نمادین تبدیل کنید",
+    "subtitle": "تبدیل مجوزهای Unix بین اکتال و نمادین",
     "grid": {
       "title": "مجوزها",
       "read": "خواندن",
@@ -4070,7 +4070,7 @@
   },
   "CodeScreenshot": {
     "title": "اسکرین‌شات کد",
-    "subtitle": "کد را به تصاویر زیبا و قابل‌اشتراک تبدیل کنید",
+    "subtitle": "تبدیل کد به تصاویر زیبا و قابل اشتراک",
     "languageLabel": "زبان",
     "autoDetect": "تشخیص خودکار",
     "backgroundLabel": "پس‌زمینه",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "مولدهای CSS",
-    "subtitle": "box-shadow، border-radius و clamp() سیّال — کد CSS را کپی کنید.",
+    "subtitle": "تولید کد box-shadow، border-radius و clamp()",
     "preview": "پیش‌نمایش",
     "output": "CSS",
     "copy": "کپی",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "نمایشگر و حذف‌کننده EXIF",
-    "subtitle": "متادیتای عکس را بررسی و در مرورگر خود حذف کنید",
+    "title": "نمایشگر EXIF",
+    "subtitle": "بررسی و حذف فراداده عکس‌ها",
     "dropTitle": "تصویری را اینجا رها کنید",
     "dropHint": "یا برای مرور کلیک کنید — تصویر شما هرگز دستگاهتان را ترک نمی‌کند",
     "browse": "انتخاب تصویر",
@@ -4223,7 +4223,7 @@
   },
   "FaviconGenerator": {
     "title": "مولد Favicon",
-    "subtitle": "از یک تصویر، favicon و آیکون‌های اپ بسازید",
+    "subtitle": "ساخت favicon و آیکون برنامه از یک تصویر",
     "dropTitle": "تصویری را اینجا رها کنید",
     "dropHint": "PNG، JPEG یا SVG — برای مرور کلیک کنید",
     "browse": "انتخاب تصویر",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "تفاوت JSON",
-    "subtitle": "مقایسه معنایی و ساختارآگاه دو سند JSON — ترتیب کلیدها و قالب‌بندی نادیده گرفته می‌شود",
+    "subtitle": "مقایسه ساختاری JSON — بدون توجه به ترتیب کلیدها",
     "options": {
       "ignoreArrayOrder": "نادیده‌گرفتن ترتیب آرایه"
     },
@@ -4276,8 +4276,8 @@
     "identical": "دو سند از نظر معنایی یکسان هستند."
   },
   "JsonpathPlayground": {
-    "title": "زمین بازی JSONPath",
-    "subtitle": "اسناد JSON را با JSONPath یا JMESPath پرس‌وجو کنید و نتایج زنده را ببینید",
+    "title": "محیط آزمایش JSONPath",
+    "subtitle": "کوئری زنده JSON با JSONPath یا JMESPath",
     "engineLabel": "موتور",
     "queryLabel": "پرس‌وجو",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "کپی شد"
   },
   "KeycodeInspector": {
-    "title": "بازرس کدِ کلید",
-    "subtitle": "هر کلیدی را فشار دهید تا رویداد صفحه‌کلید JavaScript آن را بررسی کنید",
+    "title": "بازرس Keycode",
+    "subtitle": "هر کلیدی را بزنید تا رویداد صفحه‌کلید آن بررسی شود",
     "capture": {
       "prompt": "هر کلیدی را فشار دهید…",
       "ready": "در حال گوش‌دادن — هر کلیدی روی صفحه‌کلید خود فشار دهید",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "مولد جدول Markdown",
-    "subtitle": "یک شبکه را ویرایش کنید، از صفحه‌گسترده بچسبانید و جدول Markdown یا HTML با تراز زیبا کپی کنید",
+    "subtitle": "ویرایش شبکه و کپی جدول ترازشده Markdown یا HTML",
     "addRow": "افزودن ردیف",
     "addColumn": "افزودن ستون",
     "importLabel": "درون‌ریزی",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "مبدل منطقه زمانی",
-    "subtitle": "یک لحظه را در سراسر جهان برای برنامه‌ریزی جلسات تبدیل کنید.",
+    "subtitle": "تبدیل یک لحظه بین منطقه‌های زمانی",
     "dateTimeLabel": "تاریخ و زمان",
     "now": "اکنون",
     "sourceZoneLabel": "منطقه زمانی مبدأ",
@@ -4408,7 +4408,7 @@
   },
   "TokenCounter": {
     "title": "شمارنده توکن LLM",
-    "subtitle": "توکن‌ها را بشمارید، تکه‌ها را تجسم کنید و هزینه API را تخمین بزنید.",
+    "subtitle": "شمارش توکن‌ها، نمایش قطعه‌ها و برآورد هزینه",
     "inputLabel": "متن",
     "sample": "نمونه",
     "clear": "پاک کردن",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "آزمایشگر Webhook",
-    "subtitle": "یک URL موقت بسازید و درخواست‌های ورودی webhook را زنده بررسی کنید.",
+    "subtitle": "ساخت URL موقت و بررسی زنده webhookها",
     "intro": {
       "title": "برای شروع ثبت درخواست‌ها یک URL webhook بسازید",
       "hint": "یک URL غیرقابل‌حدس دریافت می‌کنید که هر درخواست ورودی را ثبت می‌کند. پس از ۲۴ ساعت منقضی می‌شود."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "آزمایشگر WebSocket",
-    "subtitle": "به یک نقطه پایانی WebSocket متصل شوید و پیام‌ها را زنده بفرستید، دریافت و بررسی کنید",
+    "subtitle": "اتصال، ارسال و بررسی زنده پیام‌های WebSocket",
     "urlLabel": "URL نقطه پایانی",
     "protocolsLabel": "زیرپروتکل‌ها",
     "protocolsPlaceholder": "اختیاری، جداشده با کاما",
@@ -4535,8 +4535,8 @@
     }
   },
   "WhoisLookup": {
-    "title": "جست‌وجوی Whois",
-    "subtitle": "جزئیات ثبت هر دامنه یا آدرس IP را از طریق RDAP جست‌وجو کنید",
+    "title": "جستجوی Whois",
+    "subtitle": "استعلام ثبت دامنه و IP از طریق RDAP",
     "placeholder": "example.com یا 8.8.8.8",
     "lookupBtn": "جست‌وجو",
     "looking": "در حال جست‌وجو…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "یک نام دامنه یا آدرس IP معتبر وارد کنید",
       "lookupFailed": "جست‌وجو ناموفق بود (وضعیت {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "۱۰۰٪ آفلاین"
   }
 }

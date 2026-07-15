@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 
@@ -9,6 +10,8 @@ interface ToolPageHeaderProps {
   title: string
   description: React.ReactNode
   accent?: { bg: string; text: string }
+  /** Set false on tools that talk to the network (lookups, testers). */
+  offline?: boolean
   className?: string
 }
 
@@ -22,8 +25,10 @@ export function ToolPageHeader({
   title,
   description,
   accent = CATEGORY_ACCENT.Formatters,
+  offline = true,
   className,
 }: ToolPageHeaderProps) {
+  const t = useTranslations('ToolPageHeader')
   return (
     <div className={cn('flex items-center gap-3', className)}>
       <span
@@ -36,7 +41,15 @@ export function ToolPageHeader({
         <Icon className="h-[18px] w-[18px]" aria-hidden />
       </span>
       <div className="min-w-0">
-        <h1 className="truncate text-lg font-bold tracking-tight md:text-xl">{title}</h1>
+        <div className="flex min-w-0 items-center gap-2">
+          <h1 className="truncate text-lg font-bold tracking-tight md:text-xl">{title}</h1>
+          {offline ? (
+            <span className="hidden shrink-0 items-center gap-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium leading-none text-emerald-600 sm:inline-flex dark:text-emerald-400">
+              <span className="h-1 w-1 rounded-full bg-current" aria-hidden />
+              {t('offline')}
+            </span>
+          ) : null}
+        </div>
         <p className="truncate text-xs text-muted-foreground md:text-sm">{description}</p>
       </div>
     </div>

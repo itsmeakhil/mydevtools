@@ -21,8 +21,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { CopyButton } from '@/components/tools/copy-button'
-import { ToolHeader } from '@/components/tools/tool-header'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { ToolWrapper } from '@/components/tools/tool-wrapper'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { IconListNumbers } from '@tabler/icons-react'
 import { HTTP_STATUS_CODES, type HttpStatusClass } from '@/lib/http-status-codes'
 
 type ClassFilter = 'all' | HttpStatusClass
@@ -74,10 +76,11 @@ export function HttpStatusCodesLayout() {
 
   return (
     <ToolWrapper toolId="http-status-codes" maxWidth="5xl">
-      <ToolHeader
-        title={t('header.title')}
-        description={t('header.description')}
-        toolId="http-status-codes"
+      <ToolPageHeader
+        icon={IconListNumbers}
+        title={t('title')}
+        description={t('subtitle')}
+        accent={CATEGORY_ACCENT['Network & API']}
       />
 
       <div className="mt-6 space-y-4">

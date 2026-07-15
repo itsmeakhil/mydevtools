@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Ajuda i documentació",
-    "subtitle": "Com encaixa MyDevTools, què fa cada aplicació i com la seguretat i el xifrat protegeixen les teves dades.",
+    "subtitle": "Com funciona MyDevTools i com es protegeixen les teves dades",
     "tabs": {
       "overview": "Visió general",
       "apps": "Aplicacions",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "Descodificador JWT",
-    "subtitle": "Inspecciona la capçalera i el payload. La caducitat usa la reclamació <code>exp</code>. No s’envia res a un servidor; la signatura no es verifica.",
+    "subtitle": "Inspecciona capçalera, payload i caducitat — signatura no verificada",
     "tokenLabel": "Token",
     "clear": "Netejar",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Descodificador de certificats / PEM",
-    "subtitle": "Enganxa un certificat X.509 (<code>-----BEGIN CERTIFICATE-----</code>) o una CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjecte, emissor, dates i SAN s'analitzen localment; no es puja res.",
+    "title": "Descodificador de certificats",
+    "subtitle": "Descodifica certificats X.509 i CSR en format PEM",
     "pemLabel": "Entrada PEM",
     "clear": "Netejar",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "Formatador SQL",
-    "subtitle": "Dona format a SQL per MySQL, PostgreSQL o SQLite. S’executa al navegador; no es puja res.",
+    "subtitle": "Dona format a SQL per a MySQL, PostgreSQL i SQLite",
     "dialectLabel": "Dialecte",
     "keywordsLabel": "Paraules clau",
     "indentLabel": "Sagnat",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "Formatador YAML",
-    "subtitle": "Formata, valida i converteix YAML al teu navegador. Res no es puja.",
+    "subtitle": "Formata, valida i converteix YAML",
     "outputLabel": "Sortida",
     "outputModes": {
       "yaml": "YAML (formatat)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "Formatador GraphQL",
-    "subtitle": "Formata consultes, mutacions i subscripcions GraphQL al navegador. No es puja res.",
+    "subtitle": "Formata consultes, mutacions i subscripcions",
     "tabs": {
       "format": "Formata",
       "build": "Editor de consulta"
@@ -2347,8 +2347,8 @@
     }
   },
   "RegexTester": {
-    "title": "Testador de regex",
-    "subtitle": "Regex d’estil JavaScript en directe sobre el teu text. Les coincidències es ressalten; res no surt del navegador.",
+    "title": "Provador de regex",
+    "subtitle": "Prova regex de JavaScript amb ressaltat de coincidències en viu",
     "patternLabel": "Patró",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Convertidor de marques de temps",
-    "subtitle": "Segons Unix (≤10 dígits) o mil·lisegons (enters més llargs), <code>ISO-8601</code> o cadenes que el navegador pugui interpretar. Tot s’executa localment.",
+    "title": "Convertidor de timestamps",
+    "subtitle": "Converteix timestamps Unix, ISO-8601 i cadenes de data",
     "inputLabel": "Entrada",
     "placeholder": "1744200000 o 2025-04-09T12:00:00Z",
     "now": "Ara",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "Codis d’estat HTTP",
-    "subtitle": "Cerca i explora codis d’estat de respostes HTTP (<code>1xx</code>–<code>5xx</code>) amb descripcions breus i referències RFC. S’executa localment.",
+    "subtitle": "Cerca codis 1xx–5xx amb referències a les RFC",
     "header": {
       "title": "Codis d’estat HTTP",
       "description": "Referència amb cerca de codis de resposta HTTP amb descripcions i referències RFC."
@@ -2431,8 +2431,8 @@
     "copied": "Codi copiat"
   },
   "CronBuilder": {
-    "title": "Constructor d’expressions Cron",
-    "subtitle": "Cron estàndard de 5 camps: <mono>minute hour day month weekday</mono>. El parser usa seconds=<code>0</code> internament. El format opcional de 6 camps (<mono>sec min hour dom mon dow</mono>) funciona a l’editor.",
+    "title": "Constructor de cron",
+    "subtitle": "Crea i explica expressions cron de 5 o 6 camps",
     "tabs": {
       "builder": "Constructor visual",
       "expression": "Expressió"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Codificador / descodificador Base64",
-    "subtitle": "Codifica text a Base64 o descodifica cadenes Base64",
+    "title": "Codificador Base64",
+    "subtitle": "Codifica text a Base64 i descodifica’l de nou",
     "upload": "Puja",
     "clear": "Neteja",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "Codificador / descodificador d’URL",
-    "subtitle": "Codifica/descodifica en percentatge amb encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "Codificador d’URL",
+    "subtitle": "Codifica i descodifica text amb percentatges (UTF-8)",
     "upload": "Puja",
     "clear": "Neteja",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "Analitzador d’URL",
-    "subtitle": "Desglossa un URL en protocol, amfitrió, camí, paràmetres de consulta i hash (fragment).",
+    "subtitle": "Divideix un URL en protocol, host, camí, consulta i hash",
     "upload": "Puja",
     "clear": "Neteja",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "Generador UUID / ULID",
-    "subtitle": "Genera UUID (RFC 9562) o ULID al navegador. Exportació en bloc fins a {max} per execució.",
+    "title": "Generador d’UUID",
+    "subtitle": "Genera UUID i ULID — exportació massiva fins a {max}",
     "format": "Format",
     "kindHints": {
       "ulid": "Identificador de 26 caràcters ordenable i segur per a URL",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Generador de secret / clau API",
-    "subtitle": "Genera cad aleatòries criptogràfiques amb longitud i alfabet configurables. Exportació massiva fins a {max} per execució. Complementa el <uuid>generador UUID / ULID</uuid>.",
+    "title": "Generador de claus API",
+    "subtitle": "Genera secrets i claus criptogràficament aleatoris",
     "alphabetLabel": "Alfabet",
     "alphabetHint": "Se suprimeixen els caràcters duplicats. Cada símbol es tria de manera uniforme amb crypto.getRandomValues i mostreig per rebuig (sense biaix de mòdul).",
     "alphabetCount": "{count} símbols únics",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Generador de Lorem Ipsum",
-    "subtitle": "Genereu text llatí de substitució per als vostres dissenys i maquetes.",
+    "subtitle": "Genera text de farciment per a maquetes i dissenys",
     "paragraphs": "Paràgrafs",
     "sentences": "Frases",
     "words": "Paraules",
@@ -2723,8 +2723,8 @@
     "download": "Descarregar"
   },
   "ColorPicker": {
-    "title": "Selector i convertidor de color",
-    "subtitle": "Converteix HEX, RGB i HSL; crea paletes harmòniques. Tot el processament es fa al teu navegador.",
+    "title": "Selector de color",
+    "subtitle": "Converteix HEX, RGB i HSL i crea paletes",
     "nativePicker": "Selector natiu",
     "chooseColor": "Tria un color",
     "eyeDropper": "Comptagotes",
@@ -2745,7 +2745,7 @@
   },
   "ContrastChecker": {
     "title": "Verificador de contrast",
-    "subtitle": "Calcula la ràtio de contrast WCAG 2.1 entre primer pla i fons. Comprova AA i AAA per a text normal i gran. Tot al navegador.",
+    "subtitle": "Comprova les ràtios de contrast WCAG AA i AAA",
     "foreground": "Text / primer pla",
     "background": "Fons",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Text gran: 18 pt+ normal o 14 pt+ negreta (definicions WCAG)."
   },
   "DiffChecker": {
-    "title": "Comparador de diferències",
-    "subtitle": "Comparació de línies entre dos textos costat a costat. Tot es queda al vostre navegador.",
+    "title": "Comparador de textos",
+    "subtitle": "Compara dos textos costat a costat, línia per línia",
     "rowsCount": "{count} files",
     "truncatedWarning": "Mostrant les primeres {max} files.",
     "limitExceeded": "Cada costat està limitat a {max} caràcters.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Introduïu text als dos panells per comparar."
   },
   "JsonSchemaGenerator": {
-    "title": "Generador d'esquema JSON",
-    "subtitle": "Enganxa JSON vàlid per generar un esquema JSON o models tipats. Tot s'executa al navegador.",
+    "title": "Generador de JSON Schema",
+    "subtitle": "Genera JSON Schema o models tipats a partir d’un JSON d’exemple",
     "languageLabel": "Idioma de sortida",
     "inputLabel": "Entrada JSON",
     "inputPlaceholder": "Enganxa el JSON aquí…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "Imatge a Base64",
-    "subtitle": "Deixeu anar una imatge, obteniu un URI de dades o una cadena Base64 en brut. Tot es queda al vostre navegador.",
+    "subtitle": "Converteix una imatge en data URI o cadena Base64",
     "upload": "Carrega la imatge",
     "clear": "Clar",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "Compressor d’imatges",
-    "subtitle": "Redueix la sortida JPEG, PNG o WebP localment amb control de qualitat — res es puja al servidor.",
+    "subtitle": "Redueix JPEG, PNG i WebP amb control de qualitat",
     "upload": "Puja una imatge",
     "clear": "Neteja",
     "dropHere": "Deixa anar la imatge aquí",
@@ -2874,7 +2874,7 @@
   },
   "CssGradientBuilder": {
     "title": "Creador de degradats CSS",
-    "subtitle": "Creador de degradat CSS visual amb control d'angle, parades de color i còpia CSS d'un sol clic.",
+    "subtitle": "Dissenya degradats visualment i copia el CSS",
     "preview": "Vista prèvia del degradat",
     "settings": "Configuració",
     "type": "Tipus",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": "Generador .gitignore",
-    "subtitle": "Genereu fitxers .gitignore combinats a l'instant per a una pila o combinació tecnològica específica.",
+    "title": "Generador de .gitignore",
+    "subtitle": "Genera fitxers .gitignore combinats per a qualsevol stack",
     "searchPlaceholder": "Cerca piles (per exemple, Node, Python, macOS)...",
     "noResults": "No s'han trobat piles.",
     "selectedStacks": "Piles seleccionades",
@@ -2912,8 +2912,8 @@
     "emptyState": "Seleccioneu una o més piles de tecnologia per generar el vostre .gitignore."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Puja CSV o Excel, edita el JSON i descarrega CSV o XLSX. Només dades tabulars; les dates d’Excel passen a ISO al JSON.",
+    "title": "Full de càlcul ↔ JSON",
+    "subtitle": "Converteix fitxers CSV i Excel a JSON i viceversa",
     "dropTitle": "Deixa anar un CSV o Excel",
     "dropHint": "Per a .xlsx / .xls s’usa el primer full. El CSV ha de tenir fila de capçalera.",
     "chooseFile": "Trieu un fitxer",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Gestor de fragments de codi",
-    "subtitle": "Emmagatzema fragments al navegador o inicia sessió per sincronitzar-los amb el teu compte. Canvia entre veure i editar, copia amb un clic, tria idioma o detecció automàtica i formata JSON, SQL o codi compatible amb Monaco.",
+    "title": "Gestor de snippets",
+    "subtitle": "Desa, cerca i formata snippets — sincronització opcional",
     "snippets": "Fragments",
     "newSnippet": "Fragment nou",
     "newSnippetTitle": "Fragment nou",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "Generador de codis QR",
-    "subtitle": "Converteix qualsevol text o URL en un codi QR PNG. Tot es renderitza localment al navegador.",
+    "subtitle": "Converteix text o URL en codis QR amb estil",
     "contentLabel": "Contingut",
     "contentPlaceholder": "https://exemple.cat, text pla, cadena Wi‑Fi, vCard…",
     "styleLabel": "Estil",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "Calculadora IP / subxarxa",
-    "subtitle": "Detalls CIDR IPv4 i IPv6 al navegador—sense sol·licituds externs.",
+    "title": "Calculadora de subxarxes",
+    "subtitle": "Calcula detalls CIDR d’IPv4 i IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Xarxa",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "Generador de hash",
-    "subtitle": "Resums MD5, SHA-1 i SHA-2 per a text o fitxers; bcrypt per a contrasenyes (entrada de text). Tot es calcula localment al navegador.",
+    "subtitle": "Calcula hash MD5, SHA i bcrypt de text o fitxers",
     "algorithmLabel": "Algorisme",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "Terreny de joc del xifratge",
-    "subtitle": "AES-GCM al navegador: xifra en un paquet JSON amb contrasenya o clau en brut i desxifra localment. Educatiu i de vegades pràctic — no es puja res.",
+    "title": "Laboratori de xifratge",
+    "subtitle": "Xifra i desxifra amb AES-GCM amb frase secreta o clau",
     "tabEncrypt": "Xifrar",
     "tabDecrypt": "Desxifrar",
     "keyModeLabel": "Material de clau",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "Generador HMAC",
-    "subtitle": "Per signar webhooks i provar integracions d’API. HMAC-SHA1/256/384/512 en hex o Base64—calculat localment al navegador.",
+    "subtitle": "Signa payloads amb HMAC-SHA en hex o Base64",
     "secretLabel": "Clau secreta",
     "messageLabel": "Missatge / càrrega útil",
     "placeholderSecret": "Enganxeu el secret de signatura…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "Generador de codi TOTP / 2FA",
-    "subtitle": "Enganxa el secret Base32 i obtén el codi actual de sis xifres RFC 6238 (SHA-1, 30 s). Tot al navegador—útil per provar inici de sessió o MFA.",
+    "title": "Generador TOTP",
+    "subtitle": "Obtén codis 2FA en viu a partir d’un secret d’autenticació",
     "secretLabel": "Secret (Base32)",
     "placeholderSecret": "Enganxa la clau secreta (lletres A–Z i dígits 2–7, com en configurar l’autenticador)…",
     "codeLabel": "Codi actual",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Previsualització Markdown & HTML",
-    "subtitle": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown. Tot s'executa al vostre navegador.",
+    "title": "Previsualització de Markdown",
+    "subtitle": "Renderitza Markdown en viu i converteix a i des d’HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Entrada Markdown",
@@ -3358,8 +3358,8 @@
     "securityNote": "Tot s'executa localment al vostre navegador. No es carrega res."
   },
   "NumberBaseConverter": {
-    "title": "Conversor de base numèrica",
-    "subtitle": "Converteix enters entre bases 2–36. Prefixos opcionals 0x / 0b / 0o. Tot es calcula localment al navegador.",
+    "title": "Convertidor de bases numèriques",
+    "subtitle": "Converteix enters entre les bases 2–36",
     "inputBaseLabel": "Des de la base",
     "outputBaseLabel": "A la base",
     "inputLabel": "Nombre d’entrada",
@@ -3376,8 +3376,8 @@
     }
   },
   "FormatConverter": {
-    "title": "Conversor de formats",
-    "subtitle": "Converteix entre JSON, YAML, TOML i XML en qualsevol direcció. Les 12 combinacions. Tot funciona al teu navegador.",
+    "title": "Convertidor de formats",
+    "subtitle": "Converteix JSON, YAML, TOML i XML en qualsevol direcció",
     "fromLabel": "De",
     "toLabel": "A",
     "swap": "Intercanviar",
@@ -3390,7 +3390,7 @@
   },
   "MimeTypeLookup": {
     "title": "Cerca de tipus MIME",
-    "subtitle": "Cerca el tipus MIME (tipus de mitjà) per una extensió o un nom de fitxer complet. Tot funciona localment al teu navegador.",
+    "subtitle": "Troba el tipus MIME de qualsevol extensió de fitxer",
     "inputLabel": "Extensió o nom de fitxer",
     "placeholder": "p. ex. .png, package.json, photo.jpeg",
     "hint": "Consell: enganxa una extensió (amb o sense punt) o un nom de fitxer complet.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "Analitzador de User-Agent",
-    "subtitle": "Enganxa una cadena User-Agent (UA) i obtén el desglossament de navegador, SO, motor, dispositiu i CPU. Tot funciona localment al teu navegador.",
+    "subtitle": "Desglossa una cadena UA en navegador, SO i dispositiu",
     "inputLabel": "Cadena User-Agent",
     "placeholder": "Enganxa el teu User-Agent aquí…",
     "hint": "Consell: pots copiar un UA des dels encapçalaments de la sol·licitud, els logs o les devtools del navegador.",
@@ -3433,8 +3433,8 @@
     "localNote": "Tot funciona localment al teu navegador. No es puja res."
   },
   "MockDataGenerator": {
-    "title": "Generador de dades de prova",
-    "subtitle": "Definiu columnes, trieu tipus i exporteu conjunts de dades per a llavors, Postman o proves. Fins a {max} files, tot al navegador: no es puja res.",
+    "title": "Generador de dades fictícies",
+    "subtitle": "Defineix columnes tipades — exporta fins a {max} files",
     "mockarooLink": "Flux com a Mockaroo",
     "rowsLabel": "Files",
     "rowsHint": "Com a màxim {max} files per generació per mantenir la pestanya fluida.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "Optimitzador SVG",
-    "subtitle": "Enganxa SVG, minifica amb SVGO al navegador i compara la mida UTF-8 abans i després.",
+    "subtitle": "Minifica SVG amb SVGO i compara mides",
     "inputLabel": "Entrada",
     "outputLabel": "Optimitzat",
     "placeholder": "Enganxa un fragment <svg>…</svg> o el fitxer sencer…",
@@ -3565,8 +3565,8 @@
     }
   },
   "UnitConverter": {
-    "title": "Convertidor d'unitats",
-    "subtitle": "Converteix entre <strong>323 unitats</strong> en <strong>43 categories</strong>",
+    "title": "Convertidor d’unitats",
+    "subtitle": "Converteix 323 unitats en 43 categories",
     "category": "Categoria",
     "from": "De",
     "to": "A",
@@ -3580,8 +3580,8 @@
     "noResults": "No s'ha trobat cap categoria."
   },
   "DockerComposeGenerator": {
-    "title": "Generador Docker Compose",
-    "subtitle": "Trieu bases de dades populars, memòries cau, cues de missatges, proxies inversos i observabilitat — copieu un docker-compose.yml llest per al desenvolupament local.",
+    "title": "Generador de Docker Compose",
+    "subtitle": "Genera docker-compose.yml per a stacks de desenvolupament local",
     "searchPlaceholder": "Cerca (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Serveis",
     "selectedCount": "{count, plural, one {# servei} other {# serveis}}",
@@ -3758,8 +3758,8 @@
     }
   },
   "SshKeyGenerator": {
-    "title": "Generador de claus SSH / RSA",
-    "subtitle": "Genera parells de claus Ed25519 o RSA al teu navegador. Descarrega les claus privada i pública en formats OpenSSH i PEM. Res no es puja.",
+    "title": "Generador de claus SSH",
+    "subtitle": "Genera parells Ed25519 o RSA en OpenSSH i PEM",
     "keyTypeLabel": "Tipus de clau",
     "recommended": "recomanat",
     "ed25519Desc": "Ràpid, petit i modern. Compatible amb GitHub, GitLab i tots els servidors SSH principals.",
@@ -3781,8 +3781,8 @@
     }
   },
   "DnsLookup": {
-    "title": "Cerca DNS",
-    "subtitle": "Consulta els registres DNS de qualsevol domini — A, AAAA, MX, TXT, NS, CNAME.",
+    "title": "Consulta DNS",
+    "subtitle": "Consulta A, AAAA, MX, TXT, NS i més de qualsevol domini",
     "placeholder": "Introdueix un domini (p. ex. github.com)",
     "lookupBtn": "Cerca",
     "looking": "Cercant…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL a codi",
+    "subtitle": "Converteix ordres curl en fetch, axios, Python i més",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON a codi",
+    "subtitle": "Genera models tipats a partir d’un JSON d’exemple",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "Visualitzador JSON",
+    "subtitle": "Explora JSON com un graf de nodes interactiu",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Embellir i minificar",
+    "subtitle": "Embelleix o minifica HTML, CSS, JavaScript, XML i JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Convertidor de capitalització",
+    "subtitle": "Converteix entre camelCase, snake_case, kebab-case i més",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Ordenador de línies",
+    "subtitle": "Ordena, elimina duplicats i neteja llistes de línies",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Inspector de cadenes",
+    "subtitle": "Compta caràcters, paraules i bytes; revela els ocults",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Escapador de cadenes",
+    "subtitle": "Escapa entitats HTML, barres invertides, hex i Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Generador i verificador Bcrypt",
-    "subtitle": "Genera hash de contrasenyes amb bcrypt i verifica hashes — tot es queda al teu navegador",
+    "title": "Generador bcrypt",
+    "subtitle": "Fes hash i verifica contrasenyes amb bcrypt",
     "tabs": {
       "hash": "Hash",
       "verify": "Verifica"
@@ -4015,8 +4015,8 @@
     }
   },
   "ChmodCalculator": {
-    "title": "Calculadora Chmod",
-    "subtitle": "Converteix permisos de fitxer Unix entre caselles de selecció, octal i notació simbòlica",
+    "title": "Calculadora chmod",
+    "subtitle": "Converteix permisos Unix entre octal i simbòlic",
     "grid": {
       "title": "Permisos",
       "read": "Lectura",
@@ -4070,7 +4070,7 @@
   },
   "CodeScreenshot": {
     "title": "Captura de codi",
-    "subtitle": "Converteix codi en imatges boniques i compartibles",
+    "subtitle": "Converteix codi en imatges elegants per compartir",
     "languageLabel": "Llenguatge",
     "autoDetect": "Detecció automàtica",
     "backgroundLabel": "Fons",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "Generadors CSS",
-    "subtitle": "Box-shadow, border-radius i clamp() fluid — copia el CSS.",
+    "subtitle": "Genera CSS de box-shadow, border-radius i clamp()",
     "preview": "Vista prèvia",
     "output": "CSS",
     "copy": "Copia",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "Visualitzador i eliminador EXIF",
-    "subtitle": "Inspecciona les metadades de les fotos i elimina-les al teu navegador",
+    "title": "Visualitzador EXIF",
+    "subtitle": "Inspecciona i elimina metadades de fotos",
     "dropTitle": "Deixa anar una imatge aquí",
     "dropHint": "o fes clic per navegar — la teva imatge no surt mai del teu dispositiu",
     "browse": "Tria una imatge",
@@ -4222,8 +4222,8 @@
     }
   },
   "FaviconGenerator": {
-    "title": "Generador de favicon",
-    "subtitle": "Crea favicons i icones d'app a partir d'una imatge",
+    "title": "Generador de favicons",
+    "subtitle": "Crea favicons i icones d’app a partir d’una imatge",
     "dropTitle": "Deixa anar una imatge aquí",
     "dropHint": "PNG, JPEG o SVG — fes clic per navegar",
     "browse": "Tria una imatge",
@@ -4244,8 +4244,8 @@
     "downloadZip": "Descarrega-ho tot (.zip)"
   },
   "JsonDiff": {
-    "title": "Diff JSON",
-    "subtitle": "Comparació semàntica i conscient de l'estructura de dos documents JSON — s'ignoren l'ordre de les claus i el format",
+    "title": "Diff de JSON",
+    "subtitle": "Compara JSON estructuralment — s’ignora l’ordre de claus",
     "options": {
       "ignoreArrayOrder": "Ignora l'ordre dels arrays"
     },
@@ -4276,8 +4276,8 @@
     "identical": "Els dos documents són semànticament idèntics."
   },
   "JsonpathPlayground": {
-    "title": "Playground JSONPath",
-    "subtitle": "Consulta documents JSON amb JSONPath o JMESPath i mira els resultats en directe",
+    "title": "Laboratori JSONPath",
+    "subtitle": "Consulta JSON amb JSONPath o JMESPath, en viu",
     "engineLabel": "Motor",
     "queryLabel": "Consulta",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Copiat"
   },
   "KeycodeInspector": {
-    "title": "Inspector de keycode",
-    "subtitle": "Prem qualsevol tecla per inspeccionar el seu esdeveniment de teclat JavaScript",
+    "title": "Inspector de keycodes",
+    "subtitle": "Prem una tecla per inspeccionar-ne l’esdeveniment de teclat",
     "capture": {
       "prompt": "Prem qualsevol tecla…",
       "ready": "Escoltant — prem qualsevol tecla del teu teclat",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Generador de taules Markdown",
-    "subtitle": "Edita una graella, enganxa des d'un full de càlcul i copia una taula Markdown o HTML ben alineada",
+    "subtitle": "Edita una graella i copia una taula Markdown o HTML alineada",
     "addRow": "Afegeix una fila",
     "addColumn": "Afegeix una columna",
     "importLabel": "Importa",
@@ -4385,8 +4385,8 @@
     "copied": "Copiat"
   },
   "TimezoneConverter": {
-    "title": "Convertidor de zona horària",
-    "subtitle": "Converteix un moment arreu del món per planificar reunions.",
+    "title": "Convertidor de fusos horaris",
+    "subtitle": "Converteix un mateix instant entre fusos horaris",
     "dateTimeLabel": "Data i hora",
     "now": "Ara",
     "sourceZoneLabel": "Zona horària d'origen",
@@ -4408,7 +4408,7 @@
   },
   "TokenCounter": {
     "title": "Comptador de tokens LLM",
-    "subtitle": "Compta tokens, visualitza chunks i estima el cost de l'API.",
+    "subtitle": "Compta tokens, visualitza chunks i estima el cost",
     "inputLabel": "Text",
     "sample": "Exemple",
     "clear": "Netejar",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Provador de webhooks",
-    "subtitle": "Crea una URL temporal i inspecciona les peticions de webhook entrants en directe.",
+    "subtitle": "Crea un URL temporal i inspecciona webhooks en viu",
     "intro": {
       "title": "Crea una URL de webhook per començar a capturar peticions",
       "hint": "Rebràs una URL impossible d'endevinar que registra cada petició entrant. Caduca al cap de 24 hores."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "Provador de WebSocket",
-    "subtitle": "Connecta't a un endpoint WebSocket i envia, rep i inspecciona missatges en directe",
+    "subtitle": "Connecta, envia i inspecciona missatges WebSocket en viu",
     "urlLabel": "URL de l'endpoint",
     "protocolsLabel": "Subprotocols",
     "protocolsPlaceholder": "opcional, separats per comes",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Consulta Whois",
-    "subtitle": "Consulta les dades de registre de qualsevol domini o adreça IP mitjançant RDAP",
+    "subtitle": "Consulta el registre de dominis i IP via RDAP",
     "placeholder": "example.com o 8.8.8.8",
     "lookupBtn": "Consulta",
     "looking": "Consultant…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Introdueix un nom de domini o adreça IP vàlids",
       "lookupFailed": "La consulta ha fallat (estat {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% fora de línia"
   }
 }

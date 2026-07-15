@@ -341,7 +341,7 @@ export function SshKeyGeneratorLayout() {
           </div>
         </div>
 
-        <Button onClick={generate} variant="gradient" disabled={generating} className="w-full sm:w-auto gap-2">
+        <Button onClick={generate} disabled={generating} className="w-full sm:w-auto gap-2">
           <RefreshCw className={cn('h-4 w-4', generating && 'animate-spin')} />
           {generating
             ? (keyType === 'rsa-4096' ? t('generatingLong') : t('generating'))

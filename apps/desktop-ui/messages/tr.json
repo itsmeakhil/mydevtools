@@ -79,8 +79,8 @@
     "whoisLookup": "Whois Sorgulama"
   },
   "Help": {
-    "title": "Yardım ve dokümantasyon",
-    "subtitle": "MyDevTools’un nasıl çalıştığı, her uygulamanın ne yaptığı ve güvenlik ile şifrelemenin verilerinizi nasıl koruduğu.",
+    "title": "Yardım ve Dokümantasyon",
+    "subtitle": "MyDevTools nasıl çalışır ve verileriniz nasıl korunur",
     "tabs": {
       "overview": "Genel bakış",
       "apps": "Uygulamalar",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "JWT Çözücü",
-    "subtitle": "Başlık ve yükü inceleyin. Süre, <code>exp</code> claim’ini kullanır. Sunucuya veri gönderilmez; imza doğrulanmaz.",
+    "subtitle": "Header, payload ve süreyi incele — imza doğrulanmaz",
     "tokenLabel": "Token",
     "clear": "Temizle",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Sertifika / PEM çözücü",
-    "subtitle": "Bir X.509 sertifikası (<code>-----BEGIN CERTIFICATE-----</code>) veya CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>) yapıştırın. Konu, veren, tarihler ve SAN yerel olarak ayrıştırılır; hiçbir şey yüklenmez.",
+    "title": "Sertifika Çözücü",
+    "subtitle": "PEM içindeki X.509 sertifikalarını ve CSR'leri çöz",
     "pemLabel": "PEM girişi",
     "clear": "Temizle",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "SQL Biçimlendirici",
-    "subtitle": "MySQL, PostgreSQL veya SQLite için SQL’i biçimlendir. Tarayıcıda çalışır; hiçbir şey yüklenmez.",
+    "subtitle": "MySQL, PostgreSQL ve SQLite için SQL biçimlendir",
     "dialectLabel": "Lehçe",
     "keywordsLabel": "Anahtar kelimeler",
     "indentLabel": "Girinti",
@@ -2287,8 +2287,8 @@
     }
   },
   "YamlFormatter": {
-    "title": "YAML Biçimleyici",
-    "subtitle": "YAML'ı tarayıcınızda biçimlendirin, doğrulayın ve dönüştürün. Hiçbir şey yüklenmez.",
+    "title": "YAML Biçimlendirici",
+    "subtitle": "YAML biçimlendir, doğrula ve dönüştür",
     "outputLabel": "Çıktı",
     "outputModes": {
       "yaml": "YAML (biçimlendirilmiş)",
@@ -2308,8 +2308,8 @@
     }
   },
   "GraphqlFormatter": {
-    "title": "GraphQL biçimlendirici",
-    "subtitle": "GraphQL sorgularını, mutasyonlarını ve aboneliklerini tarayıcıda biçimlendirin. Hiçbir şey yüklenmez.",
+    "title": "GraphQL Biçimlendirici",
+    "subtitle": "Sorguları, mutation ve subscription'ları biçimlendir",
     "tabs": {
       "format": "Biçimlendir",
       "build": "Sorgu oluşturucu"
@@ -2347,8 +2347,8 @@
     }
   },
   "RegexTester": {
-    "title": "Regex Testi",
-    "subtitle": "Metninize karşı canlı JavaScript tarzı regex. Eşleşmeler vurgulanır; hiçbir şey tarayıcınızdan çıkmaz.",
+    "title": "Regex Test Aracı",
+    "subtitle": "JavaScript regex'i canlı eşleşme vurgusuyla test et",
     "patternLabel": "Desen",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Zaman damgası dönüştürücü",
-    "subtitle": "Unix saniyeleri (≤10 basamak) veya milisaniyeler (daha uzun tam sayılar), <code>ISO-8601</code> ya da tarayıcınızın ayrıştırabildiği dizeler. Her şey yerelde çalışır.",
+    "title": "Zaman Damgası Dönüştürücü",
+    "subtitle": "Unix zaman damgalarını, ISO-8601 ve tarihleri dönüştür",
     "inputLabel": "Girdi",
     "placeholder": "1744200000 veya 2025-04-09T12:00:00Z",
     "now": "Şimdi",
@@ -2410,8 +2410,8 @@
     }
   },
   "HttpStatusCodes": {
-    "title": "HTTP durum kodları",
-    "subtitle": "HTTP yanıt durum kodlarını (<code>1xx</code>–<code>5xx</code>) kısa açıklamalar ve RFC referanslarıyla arayın ve göz atın. Yerel olarak çalışır.",
+    "title": "HTTP Durum Kodları",
+    "subtitle": "1xx–5xx durum kodlarını RFC referanslarıyla ara",
     "header": {
       "title": "HTTP durum kodları",
       "description": "Açıklamalar ve RFC referanslarıyla HTTP yanıt kodları için aranabilir başvuru."
@@ -2431,8 +2431,8 @@
     "copied": "Kod kopyalandı"
   },
   "CronBuilder": {
-    "title": "Cron ifade oluşturucu",
-    "subtitle": "Standart 5 alanlı cron: <mono>minute hour day month weekday</mono>. Ayrıştırıcı dahili olarak seconds=<code>0</code> kullanır. İfade düzenleyicide isteğe bağlı 6 alan (<mono>sec min hour dom mon dow</mono>) da çalışır.",
+    "title": "Cron Oluşturucu",
+    "subtitle": "5 veya 6 alanlı cron ifadeleri oluştur ve açıkla",
     "tabs": {
       "builder": "Görsel oluşturucu",
       "expression": "İfade"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64 Kodlayıcı / Çözücü",
-    "subtitle": "Metni Base64’e kodlayın veya Base64 dizelerini çözün",
+    "title": "Base64 Kodlayıcı",
+    "subtitle": "Metni Base64'e kodla ve geri çöz",
     "upload": "Yükle",
     "clear": "Temizle",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL Kodlayıcı / Çözücü",
-    "subtitle": "encodeURIComponent / decodeURIComponent (UTF‑8) ile yüzde kodla/çöz",
+    "title": "URL Kodlayıcı",
+    "subtitle": "Metni yüzde kodla ve çöz (UTF-8)",
     "upload": "Yükle",
     "clear": "Temizle",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "URL Ayrıştırıcı",
-    "subtitle": "Bir URL'yi protokol, host, yol, sorgu parametreleri ve hash (parça) olarak ayırın.",
+    "subtitle": "URL'yi protokol, host, yol, sorgu ve hash olarak ayır",
     "upload": "Yükle",
     "clear": "Temizle",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "UUID / ULID Oluşturucu",
-    "subtitle": "Tarayıcıda RFC 9562 UUID’leri veya ULID’ler oluşturun. Toplu dışa aktarma: çalıştırma başına {max} adede kadar.",
+    "title": "UUID Üretici",
+    "subtitle": "UUID ve ULID üret — {max} adede kadar toplu dışa aktar",
     "format": "Biçim",
     "kindHints": {
       "ulid": "Sıralanabilir, URL için güvenli 26 karakterlik tanımlayıcı",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Gizli / API anahtarı oluşturucu",
-    "subtitle": "Yapılandırılabilir uzunluk ve alfabe ile kriptografik rastgele dizeler oluşturun. Çalıştırma başına {max} adede kadar toplu dışa aktarma. <uuid>UUID / ULID oluşturucu</uuid> ile birlikte kullanıma uygundur.",
+    "title": "API Anahtarı Üretici",
+    "subtitle": "Kriptografik rastgele gizli değerler ve anahtarlar üret",
     "alphabetLabel": "Alfabe",
     "alphabetHint": "Yinelenen karakterler kaldırılır. Her simge crypto.getRandomValues ve reddetme örneklemesiyle tekdüze seçilir (modül yanlılığı yok).",
     "alphabetCount": "{count} benzersiz simge",
@@ -2705,8 +2705,8 @@
     }
   },
   "LoremIpsum": {
-    "title": "Lorem Ipsum Oluşturucu",
-    "subtitle": "Düzenleriniz ve maketleriniz için Latince yer tutucu metin oluşturun.",
+    "title": "Lorem Ipsum Üretici",
+    "subtitle": "Yerleşimler ve taslaklar için dolgu metni üret",
     "paragraphs": "Paragraflar",
     "sentences": "Cümleler",
     "words": "Kelimeler",
@@ -2723,8 +2723,8 @@
     "download": "İndir"
   },
   "ColorPicker": {
-    "title": "Renk seçici ve dönüştürücü",
-    "subtitle": "HEX, RGB ve HSL'yi dönüştürün; uyumlu paletler oluşturun. Tüm işlemler tarayıcınızda gerçekleşir.",
+    "title": "Renk Seçici",
+    "subtitle": "HEX, RGB ve HSL dönüştür ve paletler oluştur",
     "nativePicker": "Yerleşik seçici",
     "chooseColor": "Renk seçin",
     "eyeDropper": "Göz damlası",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "Kare"
   },
   "ContrastChecker": {
-    "title": "Kontrast denetleyici",
-    "subtitle": "Ön plan ve arka plan arasında WCAG 2.1 kontrast oranını hesaplar. Normal ve büyük metin için AA ve AAA durumunu gösterir. Tümü tarayıcınızda çalışır.",
+    "title": "Kontrast Denetleyici",
+    "subtitle": "WCAG AA ve AAA kontrast oranlarını denetle",
     "foreground": "Metin / ön plan",
     "background": "Arka plan",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Büyük metin: 18 pt+ düz veya 14 pt+ kalın (WCAG tanımları)."
   },
   "DiffChecker": {
-    "title": "Fark denetleyici",
-    "subtitle": "İki metnin satır satır yan yana karşılaştırması. Her şey tarayıcınızda kalır.",
+    "title": "Fark Denetleyici",
+    "subtitle": "İki metni yan yana, satır satır karşılaştır",
     "rowsCount": "{count} satır",
     "truncatedWarning": "İlk {max} satır gösteriliyor.",
     "limitExceeded": "Her taraf {max} karakterle sınırlıdır.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Karşılaştırmak için her iki panele de metin girin."
   },
   "JsonSchemaGenerator": {
-    "title": "JSON Şema Oluşturucu",
-    "subtitle": "JSON Şeması veya tipli modeller üretmek için geçerli JSON yapıştırın. Her şey tarayıcınızda çalışır.",
+    "title": "JSON Schema Üretici",
+    "subtitle": "Örnek JSON'dan JSON Schema veya tipli modeller üret",
     "languageLabel": "Çıktı dili",
     "inputLabel": "JSON girdisi",
     "inputPlaceholder": "JSON’u buraya yapıştırın…",
@@ -2812,8 +2812,8 @@
     "download": "Download"
   },
   "ImageToBase64": {
-    "title": "Base64'e görüntü",
-    "subtitle": "Bir görüntüyü bırakın, bir veri URI'si veya ham Base64 dizesi alın. Her şey tarayıcınızda kalır.",
+    "title": "Görselden Base64'e",
+    "subtitle": "Görseli data URI veya Base64 dizesine dönüştür",
     "upload": "Resim Yükle",
     "clear": "Temizlemek",
     "modes": {
@@ -2837,8 +2837,8 @@
     }
   },
   "ImageCompressor": {
-    "title": "Görüntü sıkıştırıcı",
-    "subtitle": "JPEG, PNG veya WebP çıktısını yerelde kaliteyle küçültün — hiçbir şey yüklenmez.",
+    "title": "Görsel Sıkıştırıcı",
+    "subtitle": "JPEG, PNG ve WebP'yi kalite kontrolüyle küçült",
     "upload": "Görüntü yükle",
     "clear": "Temizle",
     "dropHere": "Görüntüyü buraya bırakın",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Sıkıştırılmış önizleme burada görünür."
   },
   "CssGradientBuilder": {
-    "title": "CSS Degrade Oluşturucu",
-    "subtitle": "Açı kontrolü, renk durakları ve tek tıklamayla CSS kopyalama özelliklerine sahip görsel CSS degrade oluşturucu.",
+    "title": "CSS Gradyan Oluşturucu",
+    "subtitle": "Gradyanları görsel olarak tasarla ve CSS'i kopyala",
     "preview": "Degrade Önizleme",
     "settings": "Ayarlar",
     "type": "Tip",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore Oluşturucu",
-    "subtitle": "Belirli bir teknoloji yığını veya birleşimi için birleştirilmiş .gitignore dosyalarını anında oluşturun.",
+    "title": ".gitignore Üretici",
+    "subtitle": "Her yığın için birleşik .gitignore dosyaları üret",
     "searchPlaceholder": "Yığınlarda arama yapın (ör. Node, Python, macOS)...",
     "noResults": "Yığın bulunamadı.",
     "selectedStacks": "Seçilen Yığınlar",
@@ -2912,8 +2912,8 @@
     "emptyState": ".gitignore'unuzu oluşturmak için bir veya daha fazla teknoloji yığını seçin."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "CSV veya Excel yükleyin, JSON’u düzenleyin, ardından CSV veya XLSX indirin. Yalnızca tablo verisi; Excel tarih hücreleri JSON’da ISO zaman damgası olur.",
+    "title": "Tablo ↔ JSON",
+    "subtitle": "CSV ve Excel dosyalarını JSON'a ve geriye dönüştür",
     "dropTitle": "CSV veya Excel dosyasını bırakın",
     "dropHint": ".xlsx / .xls için ilk çalışma sayfası kullanılır. CSV’de başlık satırı olmalıdır.",
     "chooseFile": "Dosya seç",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Kod parçacığı yöneticisi",
-    "subtitle": "Parçacıkları tarayıcıda saklayın veya hesabınızla eşitlemek için oturum açın. Görüntüleme ve düzenleme arasında geçiş yapın, tek tıkla kopyalayın, dil seçin veya otomatik algılayın ve JSON, SQL veya Monaco destekli kodu biçimlendirin.",
+    "title": "Snippet Yöneticisi",
+    "subtitle": "Kod parçalarını kaydet, ara, biçimlendir — senkron isteğe bağlı",
     "snippets": "Parçacıklar",
     "newSnippet": "Yeni parçacık",
     "newSnippetTitle": "Yeni parçacık",
@@ -3080,8 +3080,8 @@
     }
   },
   "QrCodeGenerator": {
-    "title": "QR kod oluşturucu",
-    "subtitle": "Herhangi bir metni veya URL’yi PNG QR koda dönüştürün. İşlem tamamen tarayıcıda yerel olarak yapılır.",
+    "title": "QR Kod Üretici",
+    "subtitle": "Metni veya URL'leri şık QR kodlarına dönüştür",
     "contentLabel": "İçerik",
     "contentPlaceholder": "https://ornek.com, düz metin, Wi‑Fi dizesi, vCard…",
     "styleLabel": "Stil",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "IP / alt ağ hesaplayıcı",
-    "subtitle": "IPv4 ve IPv6 CIDR ayrıntıları tarayıcıda—dış istek yok.",
+    "title": "Alt Ağ Hesaplayıcı",
+    "subtitle": "IPv4 ve IPv6 CIDR ayrıntılarını hesapla",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Ağ",
@@ -3169,8 +3169,8 @@
     }
   },
   "HashGenerator": {
-    "title": "Hash oluşturucu",
-    "subtitle": "Metin veya dosyalar için MD5, SHA-1 ve SHA-2 özetleri; parolalar için bcrypt (metin girişi). Tümü tarayıcıda yerel olarak hesaplanır.",
+    "title": "Hash Üretici",
+    "subtitle": "Metin veya dosyalar için MD5, SHA ve bcrypt hesapla",
     "algorithmLabel": "Algoritma",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "Şifreleme oyun alanı",
-    "subtitle": "Tarayıcıda AES-GCM: parola veya ham anahtarla JSON paketine şifreleyin, yerel olarak çözün. Öğretici ve bazen pratik — hiçbir şey yüklenmez.",
+    "title": "Şifreleme Alanı",
+    "subtitle": "Parola veya anahtarla AES-GCM şifrele ve çöz",
     "tabEncrypt": "Şifrele",
     "tabDecrypt": "Şifreyi çöz",
     "keyModeLabel": "Anahtar malzemesi",
@@ -3266,8 +3266,8 @@
     }
   },
   "HmacGenerator": {
-    "title": "HMAC oluşturucu",
-    "subtitle": "Webhook imzalamak ve API entegrasyonlarını test etmek için. HMAC-SHA1/256/384/512 hex veya Base64—tarayıcıda yerel hesaplanır.",
+    "title": "HMAC Üretici",
+    "subtitle": "Verileri hex veya Base64 olarak HMAC-SHA ile imzala",
     "secretLabel": "Gizli anahtar",
     "messageLabel": "İleti / yük",
     "placeholderSecret": "İmzalama sırrını yapıştırın…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "TOTP / 2FA kod üreticisi",
-    "subtitle": "Base32 gizli anahtarı yapıştırın ve güncel altı haneli RFC 6238 kodunu (SHA-1, 30 sn) alın. Tamamen tarayıcıda çalışır—oturum açma veya MFA testleri için uygundur.",
+    "title": "TOTP Üretici",
+    "subtitle": "Doğrulayıcı gizli anahtarından canlı 2FA kodları al",
     "secretLabel": "Gizli anahtar (Base32)",
     "placeholderSecret": "Gizli anahtarı yapıştırın (A–Z harfleri ve 2–7 rakamları, doğrulayıcı kurulumunda gösterildiği gibi)…",
     "codeLabel": "Güncel kod",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Markdown Önizleme & HTML",
-    "subtitle": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer. Her şey tarayıcınızda çalışır.",
+    "title": "Markdown Önizleme",
+    "subtitle": "Markdown'ı canlı görüntüle, HTML'e ve HTML'den dönüştür",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Markdown girişi",
@@ -3358,8 +3358,8 @@
     "securityNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   },
   "NumberBaseConverter": {
-    "title": "Sayı tabanı dönüştürücü",
-    "subtitle": "2–36 tabanları arasında tam sayı dönüşümü. İsteğe bağlı 0x / 0b / 0o önekleri. Tümü tarayıcıda yerel.",
+    "title": "Sayı Tabanı Dönüştürücü",
+    "subtitle": "Tam sayıları 2–36 tabanları arasında dönüştür",
     "inputBaseLabel": "Kaynak taban",
     "outputBaseLabel": "Hedef taban",
     "inputLabel": "Girdi sayısı",
@@ -3376,8 +3376,8 @@
     }
   },
   "FormatConverter": {
-    "title": "Format Dönüştürücü",
-    "subtitle": "JSON, YAML, TOML ve XML arasında her yönde dönüştürün. 12 kombinasyonun tamamı. Her şey tarayıcınızda çalışır.",
+    "title": "Biçim Dönüştürücü",
+    "subtitle": "JSON, YAML, TOML ve XML'i her yönde dönüştür",
     "fromLabel": "Kaynak",
     "toLabel": "Hedef",
     "swap": "Değiştir",
@@ -3389,8 +3389,8 @@
     "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   },
   "MimeTypeLookup": {
-    "title": "MIME türü arama",
-    "subtitle": "Dosya uzantısına veya tam dosya adına göre MIME türünü (media type) bulun. Her şey tarayıcınızda yerel olarak çalışır.",
+    "title": "MIME Türü Arama",
+    "subtitle": "Her dosya uzantısı için MIME türünü bul",
     "inputLabel": "Uzantı veya dosya adı",
     "placeholder": "örn. .png, package.json, photo.jpeg",
     "hint": "İpucu: bir uzantı (noktalı/noktasıız) veya tam dosya adı yapıştırın.",
@@ -3410,8 +3410,8 @@
     "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   },
   "UserAgentParser": {
-    "title": "User-Agent ayrıştırıcı",
-    "subtitle": "Bir User-Agent (UA) dizesi yapıştırın ve tarayıcı, işletim sistemi, motor, cihaz ve CPU detaylarını görün. Her şey tarayıcınızda yerel olarak çalışır.",
+    "title": "User-Agent Ayrıştırıcı",
+    "subtitle": "UA dizesini tarayıcı, işletim sistemi ve cihaza ayır",
     "inputLabel": "User-Agent dizesi",
     "placeholder": "User-Agent'i buraya yapıştırın…",
     "hint": "İpucu: UA’yı istek başlıklarından, loglardan veya tarayıcı devtools’tan kopyalayabilirsiniz.",
@@ -3433,8 +3433,8 @@
     "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
   },
   "MockDataGenerator": {
-    "title": "Sahte veri üreticisi",
-    "subtitle": "Sütunları tanımlayın, veri türlerini seçin ve tohum, Postman veya test için dışa aktarın. En fazla {max} satır, hepsi tarayıcıda — yükleme yok.",
+    "title": "Sahte Veri Üretici",
+    "subtitle": "Tipli sütunlar tanımla — {max} satıra kadar dışa aktar",
     "mockarooLink": "Mockaroo tarzı akış",
     "rowsLabel": "Satırlar",
     "rowsHint": "Sekmeyi akıcı tutmak için oluşturma başına en fazla {max} satır.",
@@ -3537,8 +3537,8 @@
     "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
-    "title": "SVG Optimize",
-    "subtitle": "SVG yapıştırın, tarayıcıda SVGO ile küçültün ve UTF-8 boyutunu önce/sonra karşılaştırın.",
+    "title": "SVG Optimize Edici",
+    "subtitle": "SVG'yi SVGO ile küçült ve boyutları karşılaştır",
     "inputLabel": "Girdi",
     "outputLabel": "Optimize",
     "placeholder": "<svg>…</svg> parçası veya tüm dosyayı yapıştırın…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "Birim Dönüştürücü",
-    "subtitle": "<strong>43 kategori</strong>de <strong>323 birim</strong> arasında dönüştürün",
+    "subtitle": "43 kategoride 323 birimi dönüştür",
     "category": "Kategori",
     "from": "Kaynak",
     "to": "Hedef",
@@ -3580,8 +3580,8 @@
     "noResults": "Kategori bulunamadı."
   },
   "DockerComposeGenerator": {
-    "title": "Docker Compose Oluşturucu",
-    "subtitle": "Popüler veritabanları, önbellek, mesaj kuyrukları, ters proxy ve gözlemlenebilirlik seçin — yerel geliştirme için hazır docker-compose.yml kopyalayın.",
+    "title": "Docker Compose Üretici",
+    "subtitle": "Yerel geliştirme için docker-compose.yml üret",
     "searchPlaceholder": "Ara (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Hizmetler",
     "selectedCount": "{count, plural, one {# hizmet} other {# hizmet}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Oyun bitti"
   },
   "SshKeyGenerator": {
-    "title": "SSH / RSA Anahtar Oluşturucu",
-    "subtitle": "Tarayıcınızda Ed25519 veya RSA anahtar çiftleri oluşturun. Özel ve genel anahtarları OpenSSH ve PEM formatlarında indirin. Hiçbir şey yüklenmez.",
+    "title": "SSH Anahtarı Üretici",
+    "subtitle": "OpenSSH ve PEM'de Ed25519 veya RSA anahtar çiftleri üret",
     "keyTypeLabel": "Anahtar Türü",
     "recommended": "önerilen",
     "ed25519Desc": "Hızlı, küçük ve modern. GitHub, GitLab ve tüm büyük SSH sunucuları tarafından desteklenir.",
@@ -3781,8 +3781,8 @@
     }
   },
   "DnsLookup": {
-    "title": "DNS Sorgulama",
-    "subtitle": "Herhangi bir alan adı için DNS kayıtlarını sorgulayın — A, AAAA, MX, TXT, NS, CNAME.",
+    "title": "DNS Sorgu",
+    "subtitle": "Her alan adı için A, AAAA, MX, TXT, NS ve dahasını sorgula",
     "placeholder": "Alan adını girin (ör. github.com)",
     "lookupBtn": "Sorgula",
     "looking": "Sorgulanıyor…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL'den Koda",
+    "subtitle": "curl komutlarını fetch, axios, Python ve dahasına çevir",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON'dan Koda",
+    "subtitle": "Örnek JSON verisinden tipli modeller üret",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "JSON Görselleştirici",
+    "subtitle": "JSON'ı etkileşimli düğüm grafiği olarak keşfet",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Güzelleştir ve Küçült",
+    "subtitle": "HTML, CSS, JavaScript, XML ve JSON güzelleştir veya küçült",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Harf Durumu Dönüştürücü",
+    "subtitle": "camelCase, snake_case, kebab-case ve dahası arasında dönüştür",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Satır Sıralayıcı",
+    "subtitle": "Satır listelerini sırala, tekilleştir, kırp ve temizle",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Metin İnceleyici",
+    "subtitle": "Karakter, kelime ve bayt say; gizli olanları göster",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Metin Kaçış Aracı",
+    "subtitle": "HTML varlıkları, ters bölü, hex ve Unicode kaçışları uygula",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt Üretici ve Doğrulayıcı",
-    "subtitle": "Parolaları bcrypt ile hash'leyin ve hash'leri doğrulayın — her şey tarayıcınızda kalır",
+    "title": "Bcrypt Üretici",
+    "subtitle": "Parolaları bcrypt ile hashle ve doğrula",
     "tabs": {
       "hash": "Hash'le",
       "verify": "Doğrula"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Chmod Hesaplayıcı",
-    "subtitle": "Unix dosya izinlerini onay kutuları, sekizlik ve sembolik gösterim arasında dönüştürün",
+    "subtitle": "Unix izinlerini sekizlik ve sembolik arasında dönüştür",
     "grid": {
       "title": "İzinler",
       "read": "Okuma",
@@ -4070,7 +4070,7 @@
   },
   "CodeScreenshot": {
     "title": "Kod Ekran Görüntüsü",
-    "subtitle": "Kodu güzel, paylaşılabilir görsellere dönüştürün",
+    "subtitle": "Kodu güzel, paylaşılabilir görsellere dönüştür",
     "languageLabel": "Dil",
     "autoDetect": "Otomatik algıla",
     "backgroundLabel": "Arka plan",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "CSS Üreticileri",
-    "subtitle": "box-shadow, border-radius ve akışkan clamp() — CSS'i kopyalayın.",
+    "subtitle": "box-shadow, border-radius ve clamp() CSS üret",
     "preview": "Önizleme",
     "output": "CSS",
     "copy": "Kopyala",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF Görüntüleyici ve Temizleyici",
-    "subtitle": "Fotoğraf meta verilerini inceleyin ve tarayıcınızda temizleyin",
+    "title": "EXIF Görüntüleyici",
+    "subtitle": "Fotoğraf meta verilerini incele ve temizle",
     "dropTitle": "Bir görseli buraya bırakın",
     "dropHint": "veya göz atmak için tıklayın — görseliniz asla cihazınızdan çıkmaz",
     "browse": "Görsel seç",
@@ -4222,8 +4222,8 @@
     }
   },
   "FaviconGenerator": {
-    "title": "Favicon Üreticisi",
-    "subtitle": "Tek bir görselden favicon ve uygulama simgeleri oluşturun",
+    "title": "Favicon Üretici",
+    "subtitle": "Tek görselden favicon ve uygulama simgeleri oluştur",
     "dropTitle": "Bir görseli buraya bırakın",
     "dropHint": "PNG, JPEG veya SVG — göz atmak için tıklayın",
     "browse": "Görsel seç",
@@ -4244,8 +4244,8 @@
     "downloadZip": "Tümünü indir (.zip)"
   },
   "JsonDiff": {
-    "title": "JSON Karşılaştırma",
-    "subtitle": "İki JSON belgesinin anlamsal, yapı farkında karşılaştırması — anahtar sırası ve biçimlendirme yok sayılır",
+    "title": "JSON Fark",
+    "subtitle": "JSON'ı yapısal karşılaştır — anahtar sırası yok sayılır",
     "options": {
       "ignoreArrayOrder": "Dizi sırasını yok say"
     },
@@ -4276,8 +4276,8 @@
     "identical": "İki belge anlamsal olarak aynı."
   },
   "JsonpathPlayground": {
-    "title": "JSONPath Oyun Alanı",
-    "subtitle": "JSON belgelerini JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün",
+    "title": "JSONPath Alanı",
+    "subtitle": "JSON'ı JSONPath veya JMESPath ile canlı sorgula",
     "engineLabel": "Motor",
     "queryLabel": "Sorgu",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Kopyalandı"
   },
   "KeycodeInspector": {
-    "title": "Tuş Kodu İnceleyici",
-    "subtitle": "JavaScript klavye olayını incelemek için herhangi bir tuşa basın",
+    "title": "Keycode İnceleyici",
+    "subtitle": "Klavye olayını incelemek için herhangi bir tuşa bas",
     "capture": {
       "prompt": "Herhangi bir tuşa basın…",
       "ready": "Dinleniyor — klavyenizde herhangi bir tuşa basın",
@@ -4353,8 +4353,8 @@
     }
   },
   "MarkdownTableGenerator": {
-    "title": "Markdown Tablosu Üreticisi",
-    "subtitle": "Bir ızgarayı düzenleyin, elektronik tablodan yapıştırın ve düzgün hizalanmış bir Markdown veya HTML tablosu kopyalayın",
+    "title": "Markdown Tablo Üretici",
+    "subtitle": "Tablo düzenle, hizalı Markdown veya HTML tablosu kopyala",
     "addRow": "Satır ekle",
     "addColumn": "Sütun ekle",
     "importLabel": "İçe aktar",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "Saat Dilimi Dönüştürücü",
-    "subtitle": "Toplantı planlaması için bir anı dünya genelinde dönüştürün.",
+    "subtitle": "Bir anı saat dilimleri arasında dönüştür",
     "dateTimeLabel": "Tarih ve saat",
     "now": "Şimdi",
     "sourceZoneLabel": "Kaynak saat dilimi",
@@ -4408,7 +4408,7 @@
   },
   "TokenCounter": {
     "title": "LLM Token Sayacı",
-    "subtitle": "Token'ları sayın, parçaları görselleştirin ve API maliyetini tahmin edin.",
+    "subtitle": "Token say, parçaları görselleştir ve maliyeti tahmin et",
     "inputLabel": "Metin",
     "sample": "Örnek",
     "clear": "Temizle",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Webhook Test Aracı",
-    "subtitle": "Geçici bir URL oluşturun ve gelen webhook isteklerini canlı inceleyin.",
+    "subtitle": "Geçici bir URL oluştur ve webhook'ları canlı incele",
     "intro": {
       "title": "İstekleri yakalamaya başlamak için bir webhook URL'si oluşturun",
       "hint": "Her gelen isteği kaydeden, tahmin edilemez bir URL alacaksınız. 24 saat sonra süresi dolar."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "WebSocket Test Aracı",
-    "subtitle": "Bir WebSocket uç noktasına bağlanın ve mesajları canlı gönderin, alın ve inceleyin",
+    "subtitle": "Bağlan, gönder ve WebSocket mesajlarını canlı incele",
     "urlLabel": "Uç nokta URL'si",
     "protocolsLabel": "Alt protokoller",
     "protocolsPlaceholder": "isteğe bağlı, virgülle ayrılmış",
@@ -4535,8 +4535,8 @@
     }
   },
   "WhoisLookup": {
-    "title": "Whois Sorgulama",
-    "subtitle": "Herhangi bir alan adı veya IP adresinin kayıt bilgilerini RDAP üzerinden sorgulayın",
+    "title": "Whois Sorgu",
+    "subtitle": "Alan adı ve IP kayıtlarını RDAP ile sorgula",
     "placeholder": "example.com veya 8.8.8.8",
     "lookupBtn": "Sorgula",
     "looking": "Sorgulanıyor…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Geçerli bir alan adı veya IP adresi girin",
       "lookupFailed": "Sorgulama başarısız (durum {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "%100 çevrimdışı"
   }
 }

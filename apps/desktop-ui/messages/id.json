@@ -79,8 +79,8 @@
     "whoisLookup": "Pencarian Whois"
   },
   "Help": {
-    "title": "Bantuan & dokumentasi",
-    "subtitle": "Cara MyDevTools bekerja, apa yang dilakukan tiap aplikasi, dan bagaimana keamanan serta enkripsi melindungi data Anda.",
+    "title": "Bantuan & Dokumentasi",
+    "subtitle": "Cara kerja MyDevTools dan bagaimana data Anda dilindungi",
     "tabs": {
       "overview": "Ringkasan",
       "apps": "Aplikasi",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "Dekoder JWT",
-    "subtitle": "Periksa header dan payload. Kedaluwarsa menggunakan klaim <code>exp</code>. Tidak ada yang dikirim ke server; tanda tangan tidak diverifikasi.",
+    "subtitle": "Periksa header, payload, dan kedaluwarsa — tanda tangan tidak diverifikasi",
     "tokenLabel": "Token",
     "clear": "Bersihkan",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Dekoder sertifikat / PEM",
-    "subtitle": "Tempel sertifikat X.509 (<code>-----BEGIN CERTIFICATE-----</code>) atau CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjek, penerbit, tanggal, dan SAN diproses secara lokal; tidak ada yang diunggah.",
+    "title": "Dekoder Sertifikat",
+    "subtitle": "Dekode sertifikat X.509 dan CSR dari PEM",
     "pemLabel": "Masukan PEM",
     "clear": "Hapus",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "Pemformat SQL",
-    "subtitle": "Rapikan SQL untuk MySQL, PostgreSQL, atau SQLite. Berjalan di browser; tidak ada yang diunggah.",
+    "subtitle": "Rapikan SQL untuk MySQL, PostgreSQL, dan SQLite",
     "dialectLabel": "Dialek",
     "keywordsLabel": "Kata kunci",
     "indentLabel": "Indentasi",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "Pemformat YAML",
-    "subtitle": "Format, validasi, dan konversi YAML di browser Anda. Tidak ada yang diunggah.",
+    "subtitle": "Format, validasi, dan konversi YAML",
     "outputLabel": "Keluaran",
     "outputModes": {
       "yaml": "YAML (diformat)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "Pemformat GraphQL",
-    "subtitle": "Format kueri, mutasi, dan langganan GraphQL di peramban. Tidak ada yang diunggah.",
+    "subtitle": "Format query, mutation, dan subscription",
     "tabs": {
       "format": "Format",
       "build": "Pembangun kueri"
@@ -2347,8 +2347,8 @@
     }
   },
   "RegexTester": {
-    "title": "Penguji regex",
-    "subtitle": "Regex gaya JavaScript secara langsung pada teks Anda. Kecocokan disorot; tidak ada yang keluar dari browser.",
+    "title": "Penguji Regex",
+    "subtitle": "Uji regex JavaScript dengan sorotan kecocokan langsung",
     "patternLabel": "Pola",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Konverter timestamp",
-    "subtitle": "Detik Unix (≤10 digit) atau milidetik (bilangan lebih panjang), <code>ISO-8601</code>, atau string yang bisa diparse browser. Semua berjalan lokal.",
+    "title": "Konverter Timestamp",
+    "subtitle": "Konversi timestamp Unix, ISO-8601, dan string tanggal",
     "inputLabel": "Input",
     "placeholder": "1744200000 atau 2025-04-09T12:00:00Z",
     "now": "Sekarang",
@@ -2410,8 +2410,8 @@
     }
   },
   "HttpStatusCodes": {
-    "title": "Kode status HTTP",
-    "subtitle": "Cari dan jelajahi kode status respons HTTP (<code>1xx</code>–<code>5xx</code>) dengan deskripsi singkat dan referensi RFC. Berjalan secara lokal.",
+    "title": "Kode Status HTTP",
+    "subtitle": "Cari kode status 1xx–5xx dengan referensi RFC",
     "header": {
       "title": "Kode status HTTP",
       "description": "Referensi yang dapat dicari untuk kode respons HTTP beserta deskripsi dan referensi RFC."
@@ -2431,8 +2431,8 @@
     "copied": "Kode disalin"
   },
   "CronBuilder": {
-    "title": "Pembuat ekspresi Cron",
-    "subtitle": "Cron standar 5 bidang: <mono>minute hour day month weekday</mono>. Parser menggunakan seconds=<code>0</code> secara internal. Format opsional 6 bidang (<mono>sec min hour dom mon dow</mono>) berfungsi di editor ekspresi.",
+    "title": "Pembuat Cron",
+    "subtitle": "Susun dan jelaskan ekspresi cron 5 atau 6 kolom",
     "tabs": {
       "builder": "Pembuat visual",
       "expression": "Ekspresi"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Encoder / Decoder Base64",
-    "subtitle": "Encode teks ke Base64 atau decode string Base64",
+    "title": "Enkoder Base64",
+    "subtitle": "Enkode teks ke Base64 dan dekode kembali",
     "upload": "Unggah",
     "clear": "Bersihkan",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "Encoder / Decoder URL",
-    "subtitle": "Percent-encode/decode dengan encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "Enkoder URL",
+    "subtitle": "Enkode persen dan dekode teks (UTF-8)",
     "upload": "Unggah",
     "clear": "Bersihkan",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "Parser URL",
-    "subtitle": "Uraikan URL menjadi protokol, host, path, parameter kueri, dan hash (fragmen).",
+    "subtitle": "Pecah URL menjadi protokol, host, path, query, dan hash",
     "upload": "Unggah",
     "clear": "Bersihkan",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "Generator UUID / ULID",
-    "subtitle": "Buat UUID (RFC 9562) atau ULID di browser. Ekspor massal hingga {max} per sekali jalan.",
+    "title": "Generator UUID",
+    "subtitle": "Hasilkan UUID dan ULID — ekspor massal hingga {max}",
     "format": "Format",
     "kindHints": {
       "ulid": "ID 26 karakter yang dapat diurutkan dan aman untuk URL",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Generator rahasia / kunci API",
-    "subtitle": "Hasilkan string acak kriptografis dengan panjang dan alfabet yang dapat dikonfigurasi. Ekspor massal hingga {max} per eksekusi. Melengkapi <uuid>generator UUID / ULID</uuid>.",
+    "title": "Generator Kunci API",
+    "subtitle": "Hasilkan secret dan kunci acak secara kriptografis",
     "alphabetLabel": "Alfabet",
     "alphabetHint": "Karakter duplikat dihapus. Setiap simbol dipilih seragam dengan crypto.getRandomValues dan rejection sampling (tanpa bias modulo).",
     "alphabetCount": "{count} simbol unik",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Generator Lorem Ipsum",
-    "subtitle": "Hasilkan teks Latin pengganti untuk tata letak dan mockup Anda.",
+    "subtitle": "Hasilkan teks placeholder untuk tata letak dan mockup",
     "paragraphs": "Paragraf",
     "sentences": "Kalimat",
     "words": "Kata",
@@ -2723,8 +2723,8 @@
     "download": "Unduh"
   },
   "ColorPicker": {
-    "title": "Pemilih dan konverter warna",
-    "subtitle": "Konversi HEX, RGB, dan HSL; buat palet harmonis. Semua pemrosesan dilakukan di browser Anda.",
+    "title": "Pemilih Warna",
+    "subtitle": "Konversi HEX, RGB, dan HSL, serta susun palet",
     "nativePicker": "Pemilih bawaan",
     "chooseColor": "Pilih warna",
     "eyeDropper": "Penetes mata",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "Persegi"
   },
   "ContrastChecker": {
-    "title": "Pemeriksa kontras",
-    "subtitle": "Menghitung rasio kontras WCAG 2.1 antara latar depan dan latar belakang. Memeriksa AA dan AAA untuk teks normal dan besar. Semua di browser Anda.",
+    "title": "Pemeriksa Kontras",
+    "subtitle": "Periksa rasio kontras WCAG AA dan AAA",
     "foreground": "Teks / latar depan",
     "background": "Latar belakang",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Teks besar: 18 pt+ reguler atau 14 pt+ tebal (definisi WCAG)."
   },
   "DiffChecker": {
-    "title": "Pemeriksa Perbedaan",
-    "subtitle": "Perbandingan baris per baris dua teks secara berdampingan. Semuanya tetap di browser Anda.",
+    "title": "Pemeriksa Diff",
+    "subtitle": "Bandingkan dua teks berdampingan, baris demi baris",
     "rowsCount": "{count} baris",
     "truncatedWarning": "Menampilkan {max} baris pertama.",
     "limitExceeded": "Setiap sisi dibatasi hingga {max} karakter.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Masukkan teks di kedua panel untuk membandingkan."
   },
   "JsonSchemaGenerator": {
-    "title": "Generator Skema JSON",
-    "subtitle": "Tempel JSON yang valid untuk menghasilkan skema JSON atau model bertipe. Semua berjalan di peramban Anda.",
+    "title": "Generator JSON Schema",
+    "subtitle": "Hasilkan JSON Schema atau model bertipe dari contoh JSON",
     "languageLabel": "Bahasa keluaran",
     "inputLabel": "Masukan JSON",
     "inputPlaceholder": "Tempel JSON di sini…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "Gambar ke Base64",
-    "subtitle": "Jatuhkan gambar, dapatkan URI data atau string Base64 mentah. Semuanya tetap ada di browser Anda.",
+    "subtitle": "Ubah gambar menjadi data URI atau string Base64",
     "upload": "Unggah Gambar",
     "clear": "Jernih",
     "modes": {
@@ -2837,8 +2837,8 @@
     }
   },
   "ImageCompressor": {
-    "title": "Kompresor gambar",
-    "subtitle": "Perkecil keluaran JPEG, PNG, atau WebP secara lokal dengan kontrol kualitas — tidak ada unggahan.",
+    "title": "Kompresor Gambar",
+    "subtitle": "Perkecil JPEG, PNG, dan WebP dengan kontrol kualitas",
     "upload": "Unggah gambar",
     "clear": "Hapus",
     "dropHere": "Letakkan gambar di sini",
@@ -2874,7 +2874,7 @@
   },
   "CssGradientBuilder": {
     "title": "Pembuat Gradien CSS",
-    "subtitle": "Pembuat gradien CSS visual dengan kontrol sudut, penghentian warna, dan salinan CSS sekali klik.",
+    "subtitle": "Rancang gradien secara visual dan salin CSS-nya",
     "preview": "Pratinjau Gradien",
     "settings": "Pengaturan",
     "type": "Jenis",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore Generator",
-    "subtitle": "Hasilkan file .gitignore gabungan secara instan untuk tumpukan atau kombinasi teknologi tertentu.",
+    "title": "Generator .gitignore",
+    "subtitle": "Hasilkan file .gitignore gabungan untuk stack apa pun",
     "searchPlaceholder": "Tumpukan pencarian (misalnya Node, Python, macOS)...",
     "noResults": "Tidak ada tumpukan yang ditemukan.",
     "selectedStacks": "Tumpukan yang Dipilih",
@@ -2912,8 +2912,8 @@
     "emptyState": "Pilih satu atau lebih tumpukan teknologi untuk menghasilkan .gitignore Anda."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Unggah CSV atau Excel, edit JSON, lalu unduh CSV atau XLSX. Hanya data tabular; tanggal Excel menjadi stempel waktu ISO di JSON.",
+    "title": "Spreadsheet ↔ JSON",
+    "subtitle": "Konversi file CSV dan Excel ke JSON dan sebaliknya",
     "dropTitle": "Letakkan file CSV atau Excel",
     "dropHint": "Untuk .xlsx / .xls digunakan lembar pertama. CSV harus punya baris header.",
     "chooseFile": "Pilih file",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Pengelola cuplikan kode",
-    "subtitle": "Simpan cuplikan di browser atau masuk untuk menyinkronkannya dengan akun Anda. Beralih antara lihat dan sunting, salin sekali klik, pilih bahasa atau deteksi otomatis, dan format JSON, SQL, atau kode yang didukung Monaco.",
+    "title": "Pengelola Snippet",
+    "subtitle": "Simpan, cari, dan format snippet kode — sinkronisasi opsional",
     "snippets": "Cuplikan",
     "newSnippet": "Cuplikan baru",
     "newSnippetTitle": "Cuplikan baru",
@@ -3080,8 +3080,8 @@
     }
   },
   "QrCodeGenerator": {
-    "title": "Generator kode QR",
-    "subtitle": "Ubah teks atau URL apa pun menjadi kode QR PNG. Semua diproses secara lokal di peramban.",
+    "title": "Generator Kode QR",
+    "subtitle": "Ubah teks atau URL menjadi kode QR bergaya",
     "contentLabel": "Konten",
     "contentPlaceholder": "https://example.com, teks biasa, string Wi‑Fi, vCard…",
     "styleLabel": "Gaya",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "Kalkulator IP / subnet",
-    "subtitle": "Detail CIDR IPv4 dan IPv6 di peramban—tanpa permintaan jaringan.",
+    "title": "Kalkulator Subnet",
+    "subtitle": "Hitung detail CIDR IPv4 dan IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Jaringan",
@@ -3169,8 +3169,8 @@
     }
   },
   "HashGenerator": {
-    "title": "Generator hash",
-    "subtitle": "Ringkasan MD5, SHA-1, dan SHA-2 untuk teks atau file; bcrypt untuk kata sandi (input teks). Semua dihitung lokal di peramban.",
+    "title": "Generator Hash",
+    "subtitle": "Hitung hash MD5, SHA, dan bcrypt untuk teks atau file",
     "algorithmLabel": "Algoritme",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "Arena enkripsi",
-    "subtitle": "AES-GCM di peramban: enkripsi ke paket JSON dengan frasa sandi atau kunci mentah, lalu dekripsi secara lokal. Edukatif dan kadang praktis — tidak ada unggahan.",
+    "title": "Playground Enkripsi",
+    "subtitle": "Enkripsi dan dekripsi AES-GCM dengan frasa sandi atau kunci",
     "tabEncrypt": "Enkripsi",
     "tabDecrypt": "Dekripsi",
     "keyModeLabel": "Material kunci",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "Generator HMAC",
-    "subtitle": "Untuk menandatangani webhook dan menguji integrasi API. HMAC-SHA1/256/384/512 dalam hex atau Base64—dihitung secara lokal di peramban.",
+    "subtitle": "Tandatangani payload dengan HMAC-SHA dalam hex atau Base64",
     "secretLabel": "Kunci rahasia",
     "messageLabel": "Pesan / muatan",
     "placeholderSecret": "Tempel rahasia penandatanganan…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "Generator kode TOTP / 2FA",
-    "subtitle": "Tempel rahasia Base32 dan dapatkan kode enam digit RFC 6238 saat ini (SHA-1, 30 dtk). Berjalan lokal di browser—berguna untuk menguji login atau MFA.",
+    "title": "Generator TOTP",
+    "subtitle": "Dapatkan kode 2FA langsung dari secret autentikator",
     "secretLabel": "Rahasia (Base32)",
     "placeholderSecret": "Tempel kunci rahasia (huruf A–Z dan angka 2–7, seperti saat menyiapkan autentikator)…",
     "codeLabel": "Kode saat ini",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Pratinjau Markdown & HTML",
-    "subtitle": "Renderer Markdown langsung dengan ekspor HTML dan konversi HTML → Markdown. Semua berjalan di browser Anda.",
+    "title": "Pratinjau Markdown",
+    "subtitle": "Render Markdown langsung dan konversi ke atau dari HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Input Markdown",
@@ -3358,8 +3358,8 @@
     "securityNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   },
   "NumberBaseConverter": {
-    "title": "Konverter basis angka",
-    "subtitle": "Konversi bilangan bulat antar basis 2–36. Awalan opsional 0x / 0b / 0o. Semua dihitung lokal di peramban.",
+    "title": "Konverter Basis Bilangan",
+    "subtitle": "Konversi bilangan bulat antar basis 2–36",
     "inputBaseLabel": "Dari basis",
     "outputBaseLabel": "Ke basis",
     "inputLabel": "Angka masukan",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Konverter Format",
-    "subtitle": "Konversi antara JSON, YAML, TOML, dan XML dalam arah apapun. Semua 12 kombinasi. Semua berjalan di browser Anda.",
+    "subtitle": "Konversi JSON, YAML, TOML, dan XML ke segala arah",
     "fromLabel": "Dari",
     "toLabel": "Ke",
     "swap": "Tukar",
@@ -3389,8 +3389,8 @@
     "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   },
   "MimeTypeLookup": {
-    "title": "Pencarian tipe MIME",
-    "subtitle": "Cari tipe MIME (media type) untuk ekstensi file atau nama file lengkap. Semua berjalan secara lokal di browser Anda.",
+    "title": "Pencarian Tipe MIME",
+    "subtitle": "Temukan tipe MIME untuk ekstensi file apa pun",
     "inputLabel": "Ekstensi atau nama file",
     "placeholder": "mis. .png, package.json, photo.jpeg",
     "hint": "Tip: tempel ekstensi (dengan atau tanpa titik) atau nama file lengkap.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "Parser User-Agent",
-    "subtitle": "Tempel string User-Agent (UA) dan dapatkan rincian browser, OS, engine, perangkat, dan CPU. Semua berjalan secara lokal di browser Anda.",
+    "subtitle": "Urai string UA menjadi browser, OS, dan perangkat",
     "inputLabel": "String User-Agent",
     "placeholder": "Tempel User-Agent Anda di sini…",
     "hint": "Tip: Anda dapat menyalin UA dari header permintaan, log, atau devtools browser.",
@@ -3433,8 +3433,8 @@
     "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
   },
   "MockDataGenerator": {
-    "title": "Generator data mock",
-    "subtitle": "Tentukan kolom, pilih tipe data, dan ekspor set data untuk benih, Postman, atau pengujian. Hingga {max} baris, semua di peramban — tidak ada unggahan.",
+    "title": "Generator Data Tiruan",
+    "subtitle": "Tentukan kolom bertipe — ekspor hingga {max} baris fixture",
     "mockarooLink": "Alur kerja ala Mockaroo",
     "rowsLabel": "Baris",
     "rowsHint": "Maksimum {max} baris per pembuatan agar tab tetap responsif.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "Pengoptimal SVG",
-    "subtitle": "Tempel SVG, minify dengan SVGO di peramban, dan bandingkan ukuran UTF-8 sebelum/sesudah.",
+    "subtitle": "Minifikasi SVG dengan SVGO dan bandingkan ukurannya",
     "inputLabel": "Masukan",
     "outputLabel": "Dioptimalkan",
     "placeholder": "Tempel cuplikan <svg>…</svg> atau seluruh berkas…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "Konverter Satuan",
-    "subtitle": "Konversi antara <strong>323 satuan</strong> di <strong>43 kategori</strong>",
+    "subtitle": "Konversi 323 satuan dalam 43 kategori",
     "category": "Kategori",
     "from": "Dari",
     "to": "Ke",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Generator Docker Compose",
-    "subtitle": "Pilih basis data populer, cache, antrean pesan, reverse proxy, dan observabilitas — salin docker-compose.yml siap pakai untuk pengembangan lokal.",
+    "subtitle": "Hasilkan docker-compose.yml untuk stack dev lokal",
     "searchPlaceholder": "Cari (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Layanan",
     "selectedCount": "{count, plural, other {# layanan}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Permainan berakhir"
   },
   "SshKeyGenerator": {
-    "title": "Generator Kunci SSH / RSA",
-    "subtitle": "Buat pasangan kunci Ed25519 atau RSA di browser Anda. Unduh kunci privat dan publik dalam format OpenSSH dan PEM. Tidak ada yang diunggah.",
+    "title": "Generator Kunci SSH",
+    "subtitle": "Hasilkan pasangan kunci Ed25519 atau RSA dalam OpenSSH dan PEM",
     "keyTypeLabel": "Jenis Kunci",
     "recommended": "disarankan",
     "ed25519Desc": "Cepat, kecil, modern. Didukung oleh GitHub, GitLab, dan semua server SSH utama.",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "Pencarian DNS",
-    "subtitle": "Kueri rekaman DNS untuk domain apa pun — A, AAAA, MX, TXT, NS, CNAME.",
+    "subtitle": "Kueri A, AAAA, MX, TXT, NS, dan lainnya untuk domain apa pun",
     "placeholder": "Masukkan domain (mis. github.com)",
     "lookupBtn": "Cari",
     "looking": "Mencari…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL ke Kode",
+    "subtitle": "Ubah perintah curl menjadi fetch, axios, Python, dan lainnya",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON ke Kode",
+    "subtitle": "Hasilkan model bertipe dari contoh payload JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "Visualisasi JSON",
+    "subtitle": "Jelajahi JSON sebagai graf node interaktif",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Perindah & Minifikasi",
+    "subtitle": "Perindah atau minifikasi HTML, CSS, JavaScript, XML, dan JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Konverter Case",
+    "subtitle": "Konversi antara camelCase, snake_case, kebab-case, dan lainnya",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Pengurut Baris",
+    "subtitle": "Urutkan, deduplikasi, pangkas, dan bersihkan daftar baris",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Inspektur String",
+    "subtitle": "Hitung karakter, kata, dan byte; tampilkan yang tersembunyi",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Escape String",
+    "subtitle": "Escape entitas HTML, backslash, hex, dan Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Generator & Pemeriksa Bcrypt",
-    "subtitle": "Hash kata sandi dengan bcrypt dan verifikasi hash — semuanya tetap di browser Anda",
+    "title": "Generator Bcrypt",
+    "subtitle": "Hash dan verifikasi kata sandi dengan bcrypt",
     "tabs": {
       "hash": "Hash",
       "verify": "Verifikasi"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Kalkulator Chmod",
-    "subtitle": "Konversi izin file Unix antara kotak centang, oktal, dan notasi simbolik",
+    "subtitle": "Konversi izin Unix antara oktal dan simbolik",
     "grid": {
       "title": "Izin",
       "read": "Baca",
@@ -4069,8 +4069,8 @@
     }
   },
   "CodeScreenshot": {
-    "title": "Tangkapan Kode",
-    "subtitle": "Ubah kode menjadi gambar indah yang mudah dibagikan",
+    "title": "Tangkapan Layar Kode",
+    "subtitle": "Ubah kode menjadi gambar indah siap dibagikan",
     "languageLabel": "Bahasa",
     "autoDetect": "Deteksi otomatis",
     "backgroundLabel": "Latar belakang",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "Generator CSS",
-    "subtitle": "Box-shadow, border-radius, dan clamp() fluid — salin CSS-nya.",
+    "subtitle": "Hasilkan CSS box-shadow, border-radius, dan clamp()",
     "preview": "Pratinjau",
     "output": "CSS",
     "copy": "Salin",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "Penampil & Penghapus EXIF",
-    "subtitle": "Periksa metadata foto dan hapus di browser Anda",
+    "title": "Penampil EXIF",
+    "subtitle": "Periksa dan hapus metadata foto",
     "dropTitle": "Jatuhkan gambar di sini",
     "dropHint": "atau klik untuk menjelajah — gambar Anda tidak pernah meninggalkan perangkat",
     "browse": "Pilih gambar",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "Diff JSON",
-    "subtitle": "Perbandingan semantik dan sadar struktur atas dua dokumen JSON — urutan kunci dan format diabaikan",
+    "subtitle": "Bandingkan JSON secara struktural — urutan kunci diabaikan",
     "options": {
       "ignoreArrayOrder": "Abaikan urutan array"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "Playground JSONPath",
-    "subtitle": "Kueri dokumen JSON dengan JSONPath atau JMESPath dan lihat hasilnya secara langsung",
+    "subtitle": "Kueri JSON dengan JSONPath atau JMESPath secara langsung",
     "engineLabel": "Engine",
     "queryLabel": "Kueri",
     "engines": {
@@ -4319,7 +4319,7 @@
   },
   "KeycodeInspector": {
     "title": "Inspektur Keycode",
-    "subtitle": "Tekan tombol apa saja untuk memeriksa event keyboard JavaScript-nya",
+    "subtitle": "Tekan tombol apa pun untuk memeriksa event keyboard-nya",
     "capture": {
       "prompt": "Tekan tombol apa saja…",
       "ready": "Mendengarkan — tekan tombol apa saja di keyboard Anda",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Generator Tabel Markdown",
-    "subtitle": "Edit grid, tempel dari spreadsheet, dan salin tabel Markdown atau HTML yang tersejajar rapi",
+    "subtitle": "Edit grid dan salin tabel Markdown atau HTML yang rapi",
     "addRow": "Tambah baris",
     "addColumn": "Tambah kolom",
     "importLabel": "Impor",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "Konverter Zona Waktu",
-    "subtitle": "Konversi satu momen ke seluruh dunia untuk merencanakan rapat.",
+    "subtitle": "Konversi satu momen antar zona waktu",
     "dateTimeLabel": "Tanggal & waktu",
     "now": "Sekarang",
     "sourceZoneLabel": "Zona waktu sumber",
@@ -4408,7 +4408,7 @@
   },
   "TokenCounter": {
     "title": "Penghitung Token LLM",
-    "subtitle": "Hitung token, visualisasikan potongan, dan perkirakan biaya API.",
+    "subtitle": "Hitung token, visualisasikan potongan, dan perkirakan biaya",
     "inputLabel": "Teks",
     "sample": "Contoh",
     "clear": "Bersihkan",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Penguji Webhook",
-    "subtitle": "Buat URL sementara dan periksa permintaan webhook masuk secara langsung.",
+    "subtitle": "Buat URL sementara dan pantau webhook secara langsung",
     "intro": {
       "title": "Buat URL webhook untuk mulai menangkap permintaan",
       "hint": "Anda akan mendapat URL yang tidak dapat ditebak yang merekam setiap permintaan masuk. URL kedaluwarsa setelah 24 jam."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "Penguji WebSocket",
-    "subtitle": "Sambungkan ke endpoint WebSocket lalu kirim, terima, dan periksa pesan secara langsung",
+    "subtitle": "Hubungkan, kirim, dan periksa pesan WebSocket langsung",
     "urlLabel": "URL endpoint",
     "protocolsLabel": "Subprotokol",
     "protocolsPlaceholder": "opsional, dipisahkan koma",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Pencarian Whois",
-    "subtitle": "Cari detail pendaftaran untuk domain atau alamat IP apa pun melalui RDAP",
+    "subtitle": "Cari registrasi domain dan IP melalui RDAP",
     "placeholder": "example.com atau 8.8.8.8",
     "lookupBtn": "Cari",
     "looking": "Mencari…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Masukkan nama domain atau alamat IP yang valid",
       "lookupFailed": "Pencarian gagal (status {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% offline"
   }
 }

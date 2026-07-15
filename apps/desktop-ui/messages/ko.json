@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "도움말 및 문서",
-    "subtitle": "MyDevTools의 구성, 각 앱의 기능, 그리고 보안과 암호화가 데이터를 어떻게 보호하는지 안내합니다.",
+    "subtitle": "MyDevTools의 구조와 데이터 보호 방식",
     "tabs": {
       "overview": "개요",
       "apps": "앱",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "JWT 디코더",
-    "subtitle": "헤더와 페이로드를 확인합니다. 만료는 <code>exp</code> 클레임을 사용합니다. 서버로 전송되지 않으며 서명은 검증되지 않습니다.",
+    "subtitle": "헤더, 페이로드, 만료 확인 — 서명은 검증하지 않음",
     "tokenLabel": "토큰",
     "clear": "지우기",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "인증서 / PEM 디코더",
-    "subtitle": "X.509 인증서(<code>-----BEGIN CERTIFICATE-----</code>) 또는 CSR(<code>-----BEGIN CERTIFICATE REQUEST-----</code>)을 붙여넣으세요. 주체, 발급자, 날짜, SAN은 로컬에서 분석되며 업로드되지 않습니다.",
+    "title": "인증서 디코더",
+    "subtitle": "PEM의 X.509 인증서와 CSR 디코딩",
     "pemLabel": "PEM 입력",
     "clear": "지우기",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "SQL 포매터",
-    "subtitle": "MySQL, PostgreSQL 또는 SQLite용 SQL을 보기 좋게 정리합니다. 브라우저에서 실행되며 업로드되지 않습니다.",
+    "subtitle": "MySQL, PostgreSQL, SQLite용 SQL 정리",
     "dialectLabel": "방언",
     "keywordsLabel": "키워드",
     "indentLabel": "들여쓰기",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "YAML 포매터",
-    "subtitle": "브라우저에서 YAML을 형식화, 유효성 검사, 변환합니다. 업로드되지 않습니다.",
+    "subtitle": "YAML 정리, 검증, 변환",
     "outputLabel": "출력",
     "outputModes": {
       "yaml": "YAML (형식화됨)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "GraphQL 포매터",
-    "subtitle": "브라우저에서 GraphQL 쿼리·뮤테이션·구독을 포맷합니다. 업로드되지 않습니다.",
+    "subtitle": "쿼리, 뮤테이션, 서브스크립션 정리",
     "tabs": {
       "format": "포맷",
       "build": "쿼리 빌더"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "정규식 테스터",
-    "subtitle": "텍스트에 대해 JavaScript 스타일 정규식을 실시간으로 실행합니다. 매칭은 강조 표시되며 브라우저 밖으로 나가지 않습니다.",
+    "subtitle": "JavaScript 정규식을 실시간 매치 하이라이트로 테스트",
     "patternLabel": "패턴",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2383,7 +2383,7 @@
   },
   "TimestampConverter": {
     "title": "타임스탬프 변환기",
-    "subtitle": "Unix 초(≤10자리) 또는 밀리초(더 긴 정수), <code>ISO-8601</code>, 혹은 브라우저가 파싱할 수 있는 문자열을 변환합니다. 모두 로컬에서 실행됩니다.",
+    "subtitle": "Unix 타임스탬프, ISO-8601, 날짜 문자열 변환",
     "inputLabel": "입력",
     "placeholder": "1744200000 또는 2025-04-09T12:00:00Z",
     "now": "지금",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "HTTP 상태 코드",
-    "subtitle": "HTTP 응답 상태 코드(<code>1xx</code>–<code>5xx</code>)를 검색/탐색하세요. 짧은 설명과 RFC 참조를 제공합니다. 로컬에서 실행됩니다.",
+    "subtitle": "1xx–5xx 상태 코드를 RFC 참조와 함께 검색",
     "header": {
       "title": "HTTP 상태 코드",
       "description": "설명과 RFC 참조가 포함된 HTTP 응답 코드 검색형 레퍼런스입니다."
@@ -2431,8 +2431,8 @@
     "copied": "상태 코드를 복사했어요"
   },
   "CronBuilder": {
-    "title": "Cron 표현식 빌더",
-    "subtitle": "표준 5필드 cron: <mono>minute hour day month weekday</mono>. 파서는 내부적으로 seconds=<code>0</code>을 사용합니다. 표현식 편집기에서는 선택적 6필드(<mono>sec min hour dom mon dow</mono>)도 지원합니다.",
+    "title": "Cron 빌더",
+    "subtitle": "5–6필드 cron 표현식 작성과 해설",
     "tabs": {
       "builder": "비주얼 빌더",
       "expression": "표현식"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64 인코더 / 디코더",
-    "subtitle": "텍스트를 Base64로 인코딩하거나 Base64 문자열을 디코딩합니다",
+    "title": "Base64 인코더",
+    "subtitle": "텍스트를 Base64로 인코딩·디코딩",
     "upload": "업로드",
     "clear": "지우기",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL 인코더 / 디코더",
-    "subtitle": "encodeURIComponent / decodeURIComponent(UTF‑8)로 퍼센트 인코딩/디코딩",
+    "title": "URL 인코더",
+    "subtitle": "텍스트 퍼센트 인코딩·디코딩 (UTF-8)",
     "upload": "업로드",
     "clear": "지우기",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "URL 파서",
-    "subtitle": "URL을 프로토콜, 호스트, 경로, 쿼리 파라미터, 해시(프래그먼트)로 분해합니다.",
+    "subtitle": "URL을 프로토콜, 호스트, 경로, 쿼리, 해시로 분해",
     "upload": "업로드",
     "clear": "지우기",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "UUID / ULID 생성기",
-    "subtitle": "브라우저에서 RFC 9562 UUID 또는 ULID를 생성합니다. 한 번에 최대 {max}개까지 일괄 내보내기.",
+    "title": "UUID 생성기",
+    "subtitle": "UUID와 ULID 생성 — 최대 {max}개 일괄 내보내기",
     "format": "형식",
     "kindHints": {
       "ulid": "정렬 가능하고 URL 안전한 26자 식별자",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "비밀 / API 키 생성기",
-    "subtitle": "길이와 문자 집합을 지정해 암호학적 난수 문자열을 생성합니다. 실행당 최대 {max}개까지 대량보내기. <uuid>UUID / ULID 생성기</uuid>와 함께 쓰기 좋습니다.",
+    "title": "API 키 생성기",
+    "subtitle": "암호학적으로 안전한 시크릿과 키 생성",
     "alphabetLabel": "문자 집합",
     "alphabetHint": "중복 문자는 제거됩니다. crypto.getRandomValues와 기각 샘플링으로 각 문자를 균일하게 선택합니다(모듈로 편향 없음).",
     "alphabetCount": "고유 문자 {count}개",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Lorem Ipsum 생성기",
-    "subtitle": "레이아웃과 목업을 위한 라틴어 플레이스홀더 텍스트를 생성합니다.",
+    "subtitle": "레이아웃·목업용 더미 텍스트 생성",
     "paragraphs": "단락",
     "sentences": "문장",
     "words": "단어",
@@ -2723,8 +2723,8 @@
     "download": "다운로드"
   },
   "ColorPicker": {
-    "title": "색상 선택기 및 변환기",
-    "subtitle": "HEX, RGB, HSL을 변환하고 조화로운 팔레트를 만드세요. 모든 처리는 브라우저에서 이루어집니다.",
+    "title": "색상 선택기",
+    "subtitle": "HEX, RGB, HSL 변환과 팔레트 구성",
     "nativePicker": "기본 선택기",
     "chooseColor": "색상 선택",
     "eyeDropper": "스포이트",
@@ -2745,7 +2745,7 @@
   },
   "ContrastChecker": {
     "title": "대비 검사기",
-    "subtitle": "전경과 배경 사이의 WCAG 2.1 대비 비율을 계산합니다. 일반 텍스트와 큰 텍스트에 대한 AA·AAA 준수 여부를 표시합니다. 모두 브라우저에서 처리됩니다.",
+    "subtitle": "WCAG AA·AAA 대비율 확인",
     "foreground": "텍스트 / 전경",
     "background": "배경",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "큰 텍스트: 일반 18pt 이상 또는 굵게 14pt 이상(WCAG 정의)."
   },
   "DiffChecker": {
-    "title": "차이 확인기",
-    "subtitle": "두 텍스트를 나란히 행 단위로 비교합니다. 모든 처리는 브라우저에서 이루어집니다.",
+    "title": "차이 비교기",
+    "subtitle": "두 텍스트를 나란히 줄 단위로 비교",
     "rowsCount": "{count} 행",
     "truncatedWarning": "처음 {max} 행을 표시합니다.",
     "limitExceeded": "각 측면은 {max} 문자로 제한됩니다.",
@@ -2784,8 +2784,8 @@
     "emptyState": "두 패널 모두에 텍스트를 입력하여 비교하세요."
   },
   "JsonSchemaGenerator": {
-    "title": "JSON 스키마 생성기",
-    "subtitle": "유효한 JSON을 붙여넣어 JSON 스키마 또는 타입 모델을 생성합니다. 모든 처리는 브라우저에서 이루어집니다.",
+    "title": "JSON Schema 생성기",
+    "subtitle": "샘플 JSON에서 JSON Schema나 타입 모델 생성",
     "languageLabel": "출력 언어",
     "inputLabel": "JSON 입력",
     "inputPlaceholder": "JSON을 여기에 붙여넣기…",
@@ -2812,8 +2812,8 @@
     "download": "Download"
   },
   "ImageToBase64": {
-    "title": "이미지를 Base64로",
-    "subtitle": "이미지를 삭제하고 데이터 URI 또는 ​​원시 Base64 문자열을 가져옵니다. 모든 것이 브라우저에 유지됩니다.",
+    "title": "이미지 → Base64",
+    "subtitle": "이미지를 data URI나 Base64 문자열로 변환",
     "upload": "이미지 업로드",
     "clear": "분명한",
     "modes": {
@@ -2837,8 +2837,8 @@
     }
   },
   "ImageCompressor": {
-    "title": "이미지 압축",
-    "subtitle": "JPEG·PNG·WebP 출력을 품질 조절로 로컬에서 줄입니다. 업로드되지 않습니다.",
+    "title": "이미지 압축기",
+    "subtitle": "품질 조절로 JPEG, PNG, WebP 압축",
     "upload": "이미지 업로드",
     "clear": "지우기",
     "dropHere": "이미지를 여기에 놓으세요",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "압축 미리보기가 여기에 표시됩니다."
   },
   "CssGradientBuilder": {
-    "title": "CSS 그라디언트 빌더",
-    "subtitle": "각도 제어, 색상 중지 및 원클릭 CSS 복사 기능을 갖춘 시각적 CSS 그라데이션 빌더입니다.",
+    "title": "CSS 그레이디언트 빌더",
+    "subtitle": "그레이디언트를 시각적으로 만들고 CSS 복사",
     "preview": "그라데이션 미리보기",
     "settings": "설정",
     "type": "유형",
@@ -2897,7 +2897,7 @@
   },
   "GitignoreGenerator": {
     "title": ".gitignore 생성기",
-    "subtitle": "특정 기술 스택 또는 조합에 대해 병합된 .gitignore 파일을 즉시 생성합니다.",
+    "subtitle": "어떤 스택이든 병합된 .gitignore 생성",
     "searchPlaceholder": "검색 스택(예: Node, Python, macOS)...",
     "noResults": "스택을 찾을 수 없습니다.",
     "selectedStacks": "선택된 스택",
@@ -2912,8 +2912,8 @@
     "emptyState": ".gitignore를 생성하려면 하나 이상의 기술 스택을 선택하세요."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "CSV 또는 Excel을 업로드하고 JSON을 편집한 뒤 CSV 또는 XLSX로 다운로드합니다. 표 형식 데이터만 지원합니다. Excel 날짜 셀은 JSON에서 ISO 타임스탬프로 변환됩니다.",
+    "title": "스프레드시트 ↔ JSON",
+    "subtitle": "CSV, Excel 파일과 JSON 상호 변환",
     "dropTitle": "CSV 또는 Excel 파일을 놓으세요",
     "dropHint": ".xlsx / .xls는 첫 번째 시트를 사용합니다. CSV에는 헤더 행이 있어야 합니다.",
     "chooseFile": "파일 선택",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "코드 스니펫 관리자",
-    "subtitle": "브라우저에 스니펫을 저장하거나 로그인해 계정과 동기화하세요. 보기와 편집 전환, 한 번의 클릭으로 복사, 언어 선택 또는 자동 감지, JSON·SQL·Monaco 지원 코드 포맷을 사용할 수 있습니다.",
+    "title": "스니펫 관리자",
+    "subtitle": "코드 스니펫 저장, 검색, 정리 — 동기화는 선택",
     "snippets": "스니펫",
     "newSnippet": "새 스니펫",
     "newSnippetTitle": "새 스니펫",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "QR 코드 생성기",
-    "subtitle": "텍스트나 URL을 PNG QR 코드로 바꿉니다. 렌더링은 모두 브라우저에서 처리됩니다.",
+    "subtitle": "텍스트나 URL을 스타일 QR 코드로 변환",
     "contentLabel": "내용",
     "contentPlaceholder": "https://example.com, 일반 텍스트, Wi‑Fi 문자열, vCard…",
     "styleLabel": "스타일",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "IP / 서브넷 계산기",
-    "subtitle": "브라우저에서 IPv4·IPv6 CIDR 정보—외부 요청 없음.",
+    "title": "서브넷 계산기",
+    "subtitle": "IPv4, IPv6 CIDR 상세 계산",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "네트워크",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "해시 생성기",
-    "subtitle": "텍스트나 파일용 MD5·SHA-1·SHA-2 다이제스트, 비밀번호용 bcrypt(텍스트 입력). 모두 브라우저에서 로컬로 계산됩니다.",
+    "subtitle": "텍스트·파일의 MD5, SHA, bcrypt 해시 계산",
     "algorithmLabel": "알고리즘",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "암호화 연습장",
-    "subtitle": "브라우저의 AES-GCM: 암호 또는 원시 키로 JSON 번들에 암호화한 뒤 로컬에서 복호화합니다. 교육용이며 가끔 실용적 — 업로드 없음.",
+    "title": "암호화 플레이그라운드",
+    "subtitle": "패스프레이즈나 키로 AES-GCM 암복호화",
     "tabEncrypt": "암호화",
     "tabDecrypt": "복호화",
     "keyModeLabel": "키 자료",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "HMAC 생성기",
-    "subtitle": "웹훅 서명과 API 연동 테스트용. HMAC-SHA1/256/384/512를 hex 또는 Base64로—브라우저에서 로컬 계산.",
+    "subtitle": "HMAC-SHA 서명을 hex나 Base64로 출력",
     "secretLabel": "비밀 키",
     "messageLabel": "메시지 / 페이로드",
     "placeholderSecret": "서명 비밀값을 붙여넣기…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "TOTP / 2FA 코드 생성기",
-    "subtitle": "Base32 비밀키를 붙여넣어 현재 6자리 RFC 6238 코드(SHA-1, 30초)를 확인합니다. 브라우저에서만 처리—로그인 또는 MFA 테스트에 적합합니다.",
+    "title": "TOTP 생성기",
+    "subtitle": "인증 시크릿으로 실시간 2FA 코드 생성",
     "secretLabel": "비밀키(Base32)",
     "placeholderSecret": "비밀키를 붙여넣기(A–Z와 2–7 숫자, 인증 앱 설정 시와 동일)…",
     "codeLabel": "현재 코드",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "마크다운 미리보기 & HTML",
-    "subtitle": "HTML 내보내기 및 HTML → Markdown 변환이 포함된 실시간 Markdown 렌더러. 모든 것이 브라우저에서 실행됩니다.",
+    "title": "Markdown 미리보기",
+    "subtitle": "Markdown 실시간 렌더링과 HTML 상호 변환",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Markdown 입력",
@@ -3358,8 +3358,8 @@
     "securityNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 업로드되는 것이 없습니다."
   },
   "NumberBaseConverter": {
-    "title": "진법 변환기",
-    "subtitle": "2~36진법 정수 변환. 선택적 0x / 0b / 0o 접두사 지원. 모두 브라우저에서 로컬 계산.",
+    "title": "진수 변환기",
+    "subtitle": "2–36진수 정수 변환",
     "inputBaseLabel": "입력 진법",
     "outputBaseLabel": "출력 진법",
     "inputLabel": "입력 숫자",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "포맷 변환기",
-    "subtitle": "JSON, YAML, TOML, XML 간을 어떤 방향으로도 변환하세요. 12가지 조합 모두 지원. 모든 것이 브라우저에서 실행됩니다.",
+    "subtitle": "JSON, YAML, TOML, XML 상호 변환",
     "fromLabel": "원본",
     "toLabel": "대상",
     "swap": "교환",
@@ -3390,7 +3390,7 @@
   },
   "MimeTypeLookup": {
     "title": "MIME 타입 조회",
-    "subtitle": "파일 확장자 또는 전체 파일명으로 MIME 타입(미디어 타입)을 조회합니다. 모든 작업은 브라우저에서 로컬로 실행됩니다.",
+    "subtitle": "파일 확장자의 MIME 타입 찾기",
     "inputLabel": "확장자 또는 파일명",
     "placeholder": "예: .png, package.json, photo.jpeg",
     "hint": "팁: 확장자(점 포함/미포함) 또는 전체 파일명을 붙여넣으세요.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "User-Agent 파서",
-    "subtitle": "User-Agent(UA) 문자열을 붙여넣고 브라우저, OS, 엔진, 디바이스, CPU 정보를 확인하세요. 모든 작업은 브라우저에서 로컬로 실행됩니다.",
+    "subtitle": "UA 문자열을 브라우저, OS, 기기로 분해",
     "inputLabel": "User-Agent 문자열",
     "placeholder": "여기에 User-Agent를 붙여넣으세요…",
     "hint": "팁: 요청 헤더, 로그, 또는 브라우저 개발자 도구에서 UA를 복사할 수 있습니다.",
@@ -3434,7 +3434,7 @@
   },
   "MockDataGenerator": {
     "title": "모의 데이터 생성기",
-    "subtitle": "열을 정의하고 유형을 선택한 뒤 시드, Postman 또는 테스트용 데이터를 보냅니다. 최대 {max}행, 모두 브라우저에서 처리되며 업로드되지 않습니다.",
+    "subtitle": "타입 컬럼 정의 — 최대 {max}행 내보내기",
     "mockarooLink": "Mockaroo 스타일 워크플로",
     "rowsLabel": "행 수",
     "rowsHint": "탭 반응성을 위해 한 번에 최대 {max}행입니다.",
@@ -3537,8 +3537,8 @@
     "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
-    "title": "SVG 최적화",
-    "subtitle": "SVG를 붙여넣고 브라우저에서 SVGO로 축소한 뒤 UTF-8 크기를 전후로 비교합니다.",
+    "title": "SVG 최적화기",
+    "subtitle": "SVGO로 SVG 최소화, 크기 비교",
     "inputLabel": "입력",
     "outputLabel": "최적화됨",
     "placeholder": "<svg>…</svg> 조각 또는 전체 파일을 붙여넣기…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "단위 변환기",
-    "subtitle": "<strong>43개 카테고리</strong>의 <strong>323개 단위</strong> 간 변환",
+    "subtitle": "43개 카테고리 323개 단위 변환",
     "category": "카테고리",
     "from": "변환 전",
     "to": "변환 후",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Docker Compose 생성기",
-    "subtitle": "인기 있는 데이터베이스, 캐시, 메시지 큐, 리버스 프록시, 관측 가능성을 선택해 로컬 개발용 docker-compose.yml 을 복사하세요.",
+    "subtitle": "로컬 개발 스택용 docker-compose.yml 생성",
     "searchPlaceholder": "검색 (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "서비스",
     "selectedCount": "{count, plural, other {#개 서비스}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "게임 오버"
   },
   "SshKeyGenerator": {
-    "title": "SSH / RSA 키 생성기",
-    "subtitle": "브라우저에서 Ed25519 또는 RSA 키 쌍을 생성합니다. OpenSSH 및 PEM 형식으로 개인 키와 공개 키를 다운로드하세요. 아무것도 업로드되지 않습니다.",
+    "title": "SSH 키 생성기",
+    "subtitle": "Ed25519·RSA 키 쌍을 OpenSSH, PEM으로 생성",
     "keyTypeLabel": "키 유형",
     "recommended": "권장",
     "ed25519Desc": "빠르고 작고 현대적입니다. GitHub, GitLab 및 모든 주요 SSH 서버에서 지원됩니다.",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "DNS 조회",
-    "subtitle": "도메인의 DNS 레코드를 조회합니다 — A, AAAA, MX, TXT, NS, CNAME.",
+    "subtitle": "도메인의 A, AAAA, MX, TXT, NS 등 조회",
     "placeholder": "도메인 입력 (예: github.com)",
     "lookupBtn": "조회",
     "looking": "조회 중…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL → 코드",
+    "subtitle": "curl 명령을 fetch, axios, Python 등으로 변환",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON → 코드",
+    "subtitle": "샘플 JSON에서 타입 모델 생성",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "JSON 시각화",
+    "subtitle": "JSON을 인터랙티브 노드 그래프로 탐색",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "정리 & 압축",
+    "subtitle": "HTML, CSS, JavaScript, XML, JSON 정리·최소화",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "케이스 변환기",
+    "subtitle": "camelCase, snake_case, kebab-case 등 변환",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "줄 정렬기",
+    "subtitle": "줄 정렬, 중복 제거, 공백 정리",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "문자열 검사기",
+    "subtitle": "문자·단어·바이트 수 집계, 숨은 문자 표시",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "문자열 이스케이프",
+    "subtitle": "HTML 엔티티, 백슬래시, hex, Unicode 이스케이프",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt 생성 및 검증",
-    "subtitle": "bcrypt로 비밀번호를 해시하고 해시를 검증 — 모든 작업이 브라우저 안에서 이루어집니다",
+    "title": "Bcrypt 생성기",
+    "subtitle": "bcrypt로 비밀번호 해시·검증",
     "tabs": {
       "hash": "해시",
       "verify": "검증"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Chmod 계산기",
-    "subtitle": "Unix 파일 권한을 체크박스, 8진수, 기호 표기 간에 변환합니다",
+    "subtitle": "Unix 권한을 8진수와 기호 표기로 변환",
     "grid": {
       "title": "권한",
       "read": "읽기",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "CSS 생성기",
-    "subtitle": "Box-shadow, border-radius, 유동적 clamp() — CSS를 복사하세요.",
+    "subtitle": "box-shadow, border-radius, clamp() CSS 생성",
     "preview": "미리보기",
     "output": "CSS",
     "copy": "복사",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF 뷰어 및 제거",
-    "subtitle": "사진 메타데이터를 확인하고 브라우저에서 제거합니다",
+    "title": "EXIF 뷰어",
+    "subtitle": "사진 메타데이터 확인·제거",
     "dropTitle": "여기에 이미지를 놓으세요",
     "dropHint": "또는 클릭하여 찾아보기 — 이미지는 기기를 벗어나지 않습니다",
     "browse": "이미지 선택",
@@ -4222,8 +4222,8 @@
     }
   },
   "FaviconGenerator": {
-    "title": "Favicon 생성기",
-    "subtitle": "하나의 이미지로 favicon과 앱 아이콘을 만듭니다",
+    "title": "파비콘 생성기",
+    "subtitle": "이미지 하나로 파비콘과 앱 아이콘 생성",
     "dropTitle": "여기에 이미지를 놓으세요",
     "dropHint": "PNG, JPEG 또는 SVG — 클릭하여 찾아보기",
     "browse": "이미지 선택",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "JSON 비교",
-    "subtitle": "두 JSON 문서를 의미론적, 구조 인식 방식으로 비교 — 키 순서와 서식은 무시됩니다",
+    "subtitle": "JSON 구조 비교 — 키 순서 무시",
     "options": {
       "ignoreArrayOrder": "배열 순서 무시"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "JSONPath 플레이그라운드",
-    "subtitle": "JSONPath 또는 JMESPath로 JSON 문서를 쿼리하고 결과를 실시간으로 확인합니다",
+    "subtitle": "JSONPath·JMESPath로 JSON 실시간 쿼리",
     "engineLabel": "엔진",
     "queryLabel": "쿼리",
     "engines": {
@@ -4319,7 +4319,7 @@
   },
   "KeycodeInspector": {
     "title": "키코드 검사기",
-    "subtitle": "아무 키나 눌러 JavaScript 키보드 이벤트를 검사합니다",
+    "subtitle": "키를 눌러 키보드 이벤트 확인",
     "capture": {
       "prompt": "아무 키나 누르세요…",
       "ready": "수신 중 — 키보드에서 아무 키나 누르세요",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Markdown 표 생성기",
-    "subtitle": "그리드를 편집하고, 스프레드시트에서 붙여넣고, 깔끔하게 정렬된 Markdown 또는 HTML 표를 복사합니다",
+    "subtitle": "그리드 편집 후 정렬된 Markdown·HTML 표 복사",
     "addRow": "행 추가",
     "addColumn": "열 추가",
     "importLabel": "가져오기",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "시간대 변환기",
-    "subtitle": "회의 계획을 위해 하나의 순간을 전 세계 시각으로 변환합니다.",
+    "subtitle": "한 시각을 여러 시간대로 변환",
     "dateTimeLabel": "날짜 및 시간",
     "now": "지금",
     "sourceZoneLabel": "원본 시간대",
@@ -4408,7 +4408,7 @@
   },
   "TokenCounter": {
     "title": "LLM 토큰 카운터",
-    "subtitle": "토큰을 세고, 청크를 시각화하며, API 비용을 추정합니다.",
+    "subtitle": "토큰 집계, 청크 시각화, 비용 추정",
     "inputLabel": "텍스트",
     "sample": "샘플",
     "clear": "지우기",
@@ -4449,8 +4449,8 @@
     }
   },
   "WebhookTester": {
-    "title": "Webhook 테스터",
-    "subtitle": "임시 URL을 만들고 수신되는 webhook 요청을 실시간으로 검사합니다.",
+    "title": "웹훅 테스터",
+    "subtitle": "임시 URL 생성 후 웹훅 실시간 확인",
     "intro": {
       "title": "webhook URL을 만들어 요청 캡처를 시작하세요",
       "hint": "추측할 수 없는 URL이 발급되어 수신되는 모든 요청을 기록합니다. 24시간 후에 만료됩니다."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "WebSocket 테스터",
-    "subtitle": "WebSocket 엔드포인트에 연결하여 메시지를 실시간으로 전송, 수신, 검사합니다",
+    "subtitle": "연결·전송하며 WebSocket 메시지 실시간 확인",
     "urlLabel": "엔드포인트 URL",
     "protocolsLabel": "하위 프로토콜",
     "protocolsPlaceholder": "선택 사항, 쉼표로 구분",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Whois 조회",
-    "subtitle": "RDAP를 통해 도메인이나 IP 주소의 등록 정보를 조회합니다",
+    "subtitle": "RDAP로 도메인·IP 등록 정보 조회",
     "placeholder": "example.com 또는 8.8.8.8",
     "lookupBtn": "조회",
     "looking": "조회 중…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "유효한 도메인 이름이나 IP 주소를 입력하세요",
       "lookupFailed": "조회 실패 (상태 {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% 오프라인"
   }
 }

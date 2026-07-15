@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Ajuda e documentação",
-    "subtitle": "Como o MyDevTools se encaixa, o que cada app faz e como segurança e criptografia protegem seus dados.",
+    "subtitle": "Como o MyDevTools funciona e como seus dados são protegidos",
     "tabs": {
       "overview": "Visão geral",
       "apps": "Apps",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "Decodificador JWT",
-    "subtitle": "Inspecione header e payload. A expiração usa a claim <code>exp</code>. Nada é enviado a um servidor; a assinatura não é verificada.",
+    "subtitle": "Inspecione cabeçalho, payload e expiração — assinatura não verificada",
     "tokenLabel": "Token",
     "clear": "Limpar",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Decodificador de certificado / PEM",
-    "subtitle": "Cole um certificado X.509 (<code>-----BEGIN CERTIFICATE-----</code>) ou um CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Assunto, emissor, datas e SAN são analisados localmente; nada é enviado.",
+    "title": "Decodificador de certificados",
+    "subtitle": "Decodifique certificados X.509 e CSR em formato PEM",
     "pemLabel": "Entrada PEM",
     "clear": "Limpar",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "Formatador SQL",
-    "subtitle": "Formate SQL para MySQL, PostgreSQL ou SQLite. Roda no navegador; nada é enviado.",
+    "subtitle": "Formate SQL para MySQL, PostgreSQL e SQLite",
     "dialectLabel": "Dialeto",
     "keywordsLabel": "Palavras-chave",
     "indentLabel": "Indentação",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "Formatador YAML",
-    "subtitle": "Formate, valide e converta YAML no navegador. Nada é enviado.",
+    "subtitle": "Formate, valide e converta YAML",
     "outputLabel": "Saída",
     "outputModes": {
       "yaml": "YAML (formatado)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "Formatador GraphQL",
-    "subtitle": "Formate consultas, mutações e assinaturas GraphQL no navegador. Nada é enviado.",
+    "subtitle": "Formate queries, mutations e subscriptions",
     "tabs": {
       "format": "Formatar",
       "build": "Editor de consulta"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "Testador de regex",
-    "subtitle": "Regex estilo JavaScript ao vivo no seu texto. As correspondências são destacadas; nada sai do seu navegador.",
+    "subtitle": "Teste regex de JavaScript com destaque de correspondências ao vivo",
     "patternLabel": "Padrão",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2382,8 +2382,8 @@
     }
   },
   "TimestampConverter": {
-    "title": "Conversor de timestamp",
-    "subtitle": "Segundos Unix (≤10 dígitos) ou milissegundos (inteiros maiores), <code>ISO-8601</code> ou textos que o navegador consegue interpretar. Tudo roda localmente.",
+    "title": "Conversor de timestamps",
+    "subtitle": "Converta timestamps Unix, ISO-8601 e strings de data",
     "inputLabel": "Entrada",
     "placeholder": "1744200000 ou 2025-04-09T12:00:00Z",
     "now": "Agora",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "Códigos de status HTTP",
-    "subtitle": "Pesquise e navegue pelos códigos de status de respostas HTTP (<code>1xx</code>–<code>5xx</code>) com descrições curtas e referências RFC. Funciona localmente.",
+    "subtitle": "Pesquise códigos 1xx–5xx com referências às RFC",
     "header": {
       "title": "Códigos de status HTTP",
       "description": "Referência pesquisável de códigos de resposta HTTP com descrições e referências RFC."
@@ -2431,8 +2431,8 @@
     "copied": "Código copiado"
   },
   "CronBuilder": {
-    "title": "Construtor de expressão Cron",
-    "subtitle": "Cron padrão de 5 campos: <mono>minute hour day month weekday</mono>. O parser usa seconds=<code>0</code> internamente. O formato opcional de 6 campos (<mono>sec min hour dom mon dow</mono>) funciona no editor.",
+    "title": "Construtor de cron",
+    "subtitle": "Crie e explique expressões cron de 5 ou 6 campos",
     "tabs": {
       "builder": "Construtor visual",
       "expression": "Expressão"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Codificador / decodificador Base64",
-    "subtitle": "Codifique texto em Base64 ou decodifique strings Base64",
+    "title": "Codificador Base64",
+    "subtitle": "Codifique texto em Base64 e decodifique de volta",
     "upload": "Enviar",
     "clear": "Limpar",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "Codificador / decodificador de URL",
-    "subtitle": "Codifique/decodifique por porcentagem com encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "Codificador de URL",
+    "subtitle": "Codifique e decodifique texto por porcentagem (UTF-8)",
     "upload": "Enviar",
     "clear": "Limpar",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "Analisador de URL",
-    "subtitle": "Quebre uma URL em protocolo, host, caminho, parâmetros de query e hash (fragmento).",
+    "subtitle": "Divida uma URL em protocolo, host, caminho, query e hash",
     "upload": "Enviar",
     "clear": "Limpar",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "Gerador de UUID / ULID",
-    "subtitle": "Gere UUIDs (RFC 9562) ou ULIDs no navegador. Exportação em lote de até {max} por execução.",
+    "title": "Gerador de UUID",
+    "subtitle": "Gere UUID e ULID — exportação em massa de até {max}",
     "format": "Formato",
     "kindHints": {
       "ulid": "Identificador ordenável, seguro para URL, 26 caracteres",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Gerador de segredo / chave de API",
-    "subtitle": "Gere strings aleatórias criptográficas com tamanho e alfabeto configuráveis. Exportação em massa de até {max} por execução. Complementa o <uuid>gerador UUID / ULID</uuid>.",
+    "title": "Gerador de chaves de API",
+    "subtitle": "Gere segredos e chaves criptograficamente aleatórios",
     "alphabetLabel": "Alfabeto",
     "alphabetHint": "Caracteres duplicados são removidos. Cada símbolo é escolhido de forma uniforme com crypto.getRandomValues e amostragem por rejeição (sem viés de módulo).",
     "alphabetCount": "{count} símbolos únicos",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Gerador de Lorem Ipsum",
-    "subtitle": "Gere texto latino de espaço reservado para seus layouts e mockups.",
+    "subtitle": "Gere texto de preenchimento para layouts e mockups",
     "paragraphs": "Parágrafos",
     "sentences": "Frases",
     "words": "Palavras",
@@ -2723,8 +2723,8 @@
     "download": "Baixar"
   },
   "ColorPicker": {
-    "title": "Seletor e conversor de cores",
-    "subtitle": "Converta HEX, RGB e HSL; crie paletas harmônicas. Todo o processamento ocorre no seu navegador.",
+    "title": "Seletor de cores",
+    "subtitle": "Converta HEX, RGB e HSL e crie paletas",
     "nativePicker": "Seletor nativo",
     "chooseColor": "Escolha uma cor",
     "eyeDropper": "Conta-gotas",
@@ -2745,7 +2745,7 @@
   },
   "ContrastChecker": {
     "title": "Verificador de contraste",
-    "subtitle": "Calcula a proporção de contraste WCAG 2.1 entre primeiro plano e fundo. Verifica AA e AAA para texto normal e grande. Tudo roda no seu navegador.",
+    "subtitle": "Verifique razões de contraste WCAG AA e AAA",
     "foreground": "Texto / primeiro plano",
     "background": "Fundo",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Texto grande: 18 pt+ regular ou 14 pt+ em negrito (definições WCAG)."
   },
   "DiffChecker": {
-    "title": "Verificador de diferenças",
-    "subtitle": "Comparação linha a linha de dois textos lado a lado. Tudo permanece no seu navegador.",
+    "title": "Comparador de textos",
+    "subtitle": "Compare dois textos lado a lado, linha por linha",
     "rowsCount": "{count} linhas",
     "truncatedWarning": "Exibindo as primeiras {max} linhas.",
     "limitExceeded": "Cada lado é limitado a {max} caracteres.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Insira texto em ambos os painéis para comparar."
   },
   "JsonSchemaGenerator": {
-    "title": "Gerador de esquema JSON",
-    "subtitle": "Cole JSON válido para gerar um esquema JSON ou modelos tipados. Tudo roda no seu navegador.",
+    "title": "Gerador de JSON Schema",
+    "subtitle": "Gere JSON Schema ou modelos tipados a partir de JSON de exemplo",
     "languageLabel": "Idioma de saída",
     "inputLabel": "Entrada JSON",
     "inputPlaceholder": "Cole o JSON aqui…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "Imagem para Base64",
-    "subtitle": "Solte uma imagem, obtenha um URI de dados ou uma string Base64 bruta. Tudo fica no seu navegador.",
+    "subtitle": "Transforme uma imagem em data URI ou string Base64",
     "upload": "Carregar imagem",
     "clear": "Claro",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "Compressor de imagens",
-    "subtitle": "Reduza a saída JPEG, PNG ou WebP localmente com controle de qualidade — nada é enviado.",
+    "subtitle": "Reduza JPEG, PNG e WebP com controle de qualidade",
     "upload": "Enviar imagem",
     "clear": "Limpar",
     "dropHere": "Solte a imagem aqui",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "A visualização comprimida aparece aqui."
   },
   "CssGradientBuilder": {
-    "title": "Construtor de gradiente CSS",
-    "subtitle": "Construtor de gradiente visual CSS com controle de ângulo, limites de cores e cópia CSS com um clique.",
+    "title": "Construtor de gradientes CSS",
+    "subtitle": "Crie gradientes visualmente e copie o CSS",
     "preview": "Pré-visualização do gradiente",
     "settings": "Configurações",
     "type": "Tipo",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": "Gerador .gitignore",
-    "subtitle": "Gere arquivos .gitignore mesclados instantaneamente para uma pilha ou combinação de tecnologia específica.",
+    "title": "Gerador de .gitignore",
+    "subtitle": "Gere arquivos .gitignore combinados para qualquer stack",
     "searchPlaceholder": "Pilhas de pesquisa (por exemplo, Node, Python, macOS)...",
     "noResults": "Nenhuma pilha encontrada.",
     "selectedStacks": "Pilhas selecionadas",
@@ -2912,8 +2912,8 @@
     "emptyState": "Selecione uma ou mais pilhas de tecnologia para gerar seu .gitignore."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Envie CSV ou Excel, edite o JSON e baixe CSV ou XLSX. Apenas dados tabulares; datas do Excel viram ISO no JSON.",
+    "title": "Planilha ↔ JSON",
+    "subtitle": "Converta arquivos CSV e Excel em JSON e vice-versa",
     "dropTitle": "Solte um arquivo CSV ou Excel",
     "dropHint": "Para .xlsx / .xls usa-se a primeira planilha. O CSV precisa de linha de cabeçalho.",
     "chooseFile": "Escolher arquivo",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Gerenciador de trechos de código",
-    "subtitle": "Armazene trechos no navegador ou entre para sincronizá-los com sua conta. Alterne entre ver e editar, copie com um clique, escolha a linguagem ou detecção automática e formate JSON, SQL ou código suportado pelo Monaco.",
+    "title": "Gerenciador de snippets",
+    "subtitle": "Salve, pesquise e formate snippets — sincronização opcional",
     "snippets": "Trechos",
     "newSnippet": "Novo trecho",
     "newSnippetTitle": "Novo trecho",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "Gerador de QR Code",
-    "subtitle": "Transforme qualquer texto ou URL em um QR Code PNG. Tudo é renderizado localmente no navegador.",
+    "subtitle": "Transforme texto ou URL em QR Codes estilizados",
     "contentLabel": "Conteúdo",
     "contentPlaceholder": "https://exemplo.com.br, texto simples, string Wi‑Fi, vCard…",
     "styleLabel": "Estilo",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "Calculadora IP / sub-rede",
-    "subtitle": "Detalhes de CIDR IPv4 e IPv6 no navegador—sem requisições externas.",
+    "title": "Calculadora de sub-redes",
+    "subtitle": "Calcule detalhes CIDR de IPv4 e IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Rede",
@@ -3169,8 +3169,8 @@
     }
   },
   "HashGenerator": {
-    "title": "Gerador de hash",
-    "subtitle": "Resumos MD5, SHA-1 e SHA-2 para texto ou arquivos; bcrypt para senhas (entrada de texto). Tudo é calculado localmente no navegador.",
+    "title": "Gerador de hashes",
+    "subtitle": "Calcule hashes MD5, SHA e bcrypt de texto ou arquivos",
     "algorithmLabel": "Algoritmo",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "Laboratório de criptografia",
-    "subtitle": "AES-GCM no navegador: criptografar em um pacote JSON com senha ou chave bruta e descriptografar localmente. Educacional e às vezes prático — nada é enviado.",
+    "title": "Playground de criptografia",
+    "subtitle": "Criptografe e descriptografe com AES-GCM usando senha ou chave",
     "tabEncrypt": "Criptografar",
     "tabDecrypt": "Descriptografar",
     "keyModeLabel": "Material da chave",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "Gerador HMAC",
-    "subtitle": "Para assinar webhooks e testar integrações de API. HMAC-SHA1/256/384/512 em hex ou Base64—calculado localmente no navegador.",
+    "subtitle": "Assine payloads com HMAC-SHA em hex ou Base64",
     "secretLabel": "Chave secreta",
     "messageLabel": "Mensagem / payload",
     "placeholderSecret": "Cole seu segredo de assinatura…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "Gerador de código TOTP / 2FA",
-    "subtitle": "Cole o segredo Base32 do autenticador e veja o código de seis dígitos RFC 6238 atual (SHA-1, 30 s). Roda localmente no navegador—útil para testar login ou MFA.",
+    "title": "Gerador TOTP",
+    "subtitle": "Obtenha códigos 2FA ao vivo a partir de um segredo",
     "secretLabel": "Segredo (Base32)",
     "placeholderSecret": "Cole a chave secreta (letras A–Z e dígitos 2–7, como ao configurar o app autenticador)…",
     "codeLabel": "Código atual",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Pré-visualização Markdown & HTML",
-    "subtitle": "Renderizador Markdown em tempo real com exportação HTML e conversão HTML → Markdown. Tudo roda no seu navegador.",
+    "title": "Pré-visualização de Markdown",
+    "subtitle": "Renderize Markdown ao vivo e converta de e para HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Entrada Markdown",
@@ -3358,8 +3358,8 @@
     "securityNote": "Tudo é executado localmente no seu navegador. Nada é enviado."
   },
   "NumberBaseConverter": {
-    "title": "Conversor de base numérica",
-    "subtitle": "Converta inteiros entre bases 2–36. Prefixos opcionais 0x / 0b / 0o. Tudo é calculado localmente no navegador.",
+    "title": "Conversor de bases numéricas",
+    "subtitle": "Converta inteiros entre as bases 2–36",
     "inputBaseLabel": "Da base",
     "outputBaseLabel": "Para a base",
     "inputLabel": "Número de entrada",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Conversor de formatos",
-    "subtitle": "Converta entre JSON, YAML, TOML e XML em qualquer direção. Todas as 12 combinações. Tudo funciona no seu navegador.",
+    "subtitle": "Converta JSON, YAML, TOML e XML em qualquer direção",
     "fromLabel": "De",
     "toLabel": "Para",
     "swap": "Inverter",
@@ -3389,8 +3389,8 @@
     "localNote": "Tudo funciona localmente no seu navegador. Nada é enviado."
   },
   "MimeTypeLookup": {
-    "title": "Pesquisa de tipo MIME",
-    "subtitle": "Pesquise o tipo MIME (tipo de mídia) para uma extensão ou nome de arquivo completo. Tudo funciona localmente no seu navegador.",
+    "title": "Busca de tipos MIME",
+    "subtitle": "Encontre o tipo MIME de qualquer extensão de arquivo",
     "inputLabel": "Extensão ou nome do arquivo",
     "placeholder": "ex.: .png, package.json, photo.jpeg",
     "hint": "Dica: cole uma extensão (com ou sem ponto) ou um nome de arquivo completo.",
@@ -3410,8 +3410,8 @@
     "localNote": "Tudo funciona localmente no seu navegador. Nada é enviado."
   },
   "UserAgentParser": {
-    "title": "Parser de User-Agent",
-    "subtitle": "Cole uma string User-Agent (UA) e veja a decomposição de navegador, SO, engine, dispositivo e CPU. Tudo funciona localmente no seu navegador.",
+    "title": "Analisador de User-Agent",
+    "subtitle": "Divida uma string UA em navegador, SO e dispositivo",
     "inputLabel": "String User-Agent",
     "placeholder": "Cole seu User-Agent aqui…",
     "hint": "Dica: você pode copiar um UA dos cabeçalhos da requisição, logs ou das devtools do navegador.",
@@ -3433,8 +3433,8 @@
     "localNote": "Tudo funciona localmente no seu navegador. Nada é enviado."
   },
   "MockDataGenerator": {
-    "title": "Gerador de dados mock",
-    "subtitle": "Defina colunas, escolha tipos e exporte conjuntos de dados para seeds, Postman ou testes. Até {max} linhas, tudo no navegador — nada é enviado.",
+    "title": "Gerador de dados fictícios",
+    "subtitle": "Defina colunas tipadas — exporte até {max} linhas",
     "mockarooLink": "Fluxo estilo Mockaroo",
     "rowsLabel": "Linhas",
     "rowsHint": "No máximo {max} linhas por geração para manter a aba responsiva.",
@@ -3537,8 +3537,8 @@
     "seedRandomize": "Randomize seed"
   },
   "SvgOptimizer": {
-    "title": "Otimizador SVG",
-    "subtitle": "Cole SVG, minifique com SVGO no navegador e compare o tamanho UTF-8 antes e depois.",
+    "title": "Otimizador de SVG",
+    "subtitle": "Minifique SVG com SVGO e compare tamanhos",
     "inputLabel": "Entrada",
     "outputLabel": "Otimizado",
     "placeholder": "Cole um trecho <svg>…</svg> ou o arquivo completo…",
@@ -3565,8 +3565,8 @@
     }
   },
   "UnitConverter": {
-    "title": "Conversor de Unidades",
-    "subtitle": "Converta entre <strong>323 unidades</strong> em <strong>43 categorias</strong>",
+    "title": "Conversor de unidades",
+    "subtitle": "Converta 323 unidades em 43 categorias",
     "category": "Categoria",
     "from": "De",
     "to": "Para",
@@ -3580,8 +3580,8 @@
     "noResults": "Nenhuma categoria encontrada."
   },
   "DockerComposeGenerator": {
-    "title": "Gerador Docker Compose",
-    "subtitle": "Selecione bancos de dados, caches, filas, proxies reversos e observabilidade — copie um docker-compose.yml pronto para desenvolvimento local.",
+    "title": "Gerador de Docker Compose",
+    "subtitle": "Gere docker-compose.yml para stacks de desenvolvimento local",
     "searchPlaceholder": "Buscar (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Serviços",
     "selectedCount": "{count, plural, one {# serviço} other {# serviços}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Fim de jogo"
   },
   "SshKeyGenerator": {
-    "title": "Gerador de chaves SSH / RSA",
-    "subtitle": "Gere pares de chaves Ed25519 ou RSA no seu navegador. Baixe as chaves privada e pública nos formatos OpenSSH e PEM. Nada é enviado.",
+    "title": "Gerador de chaves SSH",
+    "subtitle": "Gere pares Ed25519 ou RSA em OpenSSH e PEM",
     "keyTypeLabel": "Tipo de chave",
     "recommended": "recomendado",
     "ed25519Desc": "Rápido, pequeno e moderno. Compatível com GitHub, GitLab e todos os principais servidores SSH.",
@@ -3781,8 +3781,8 @@
     }
   },
   "DnsLookup": {
-    "title": "Pesquisa DNS",
-    "subtitle": "Consulte registros DNS de qualquer domínio — A, AAAA, MX, TXT, NS, CNAME.",
+    "title": "Consulta DNS",
+    "subtitle": "Consulte A, AAAA, MX, TXT, NS e mais de qualquer domínio",
     "placeholder": "Digite um domínio (ex.: github.com)",
     "lookupBtn": "Consultar",
     "looking": "Consultando…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL para código",
+    "subtitle": "Transforme comandos curl em fetch, axios, Python e mais",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON para código",
+    "subtitle": "Gere modelos tipados a partir de um JSON de exemplo",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "Visualizador JSON",
+    "subtitle": "Explore JSON como um grafo de nós interativo",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Embelezar e minificar",
+    "subtitle": "Embeleze ou minifique HTML, CSS, JavaScript, XML e JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Conversor de capitalização",
+    "subtitle": "Converta entre camelCase, snake_case, kebab-case e mais",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Ordenador de linhas",
+    "subtitle": "Ordene, remova duplicatas e limpe listas de linhas",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Inspetor de strings",
+    "subtitle": "Conte caracteres, palavras e bytes; revele os ocultos",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Escapador de strings",
+    "subtitle": "Escape entidades HTML, barras invertidas, hex e Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Gerador e Verificador Bcrypt",
-    "subtitle": "Gere hash de senhas com bcrypt e verifique hashes — tudo permanece no seu navegador",
+    "title": "Gerador bcrypt",
+    "subtitle": "Gere e verifique hashes de senhas com bcrypt",
     "tabs": {
       "hash": "Hash",
       "verify": "Verificar"
@@ -4015,8 +4015,8 @@
     }
   },
   "ChmodCalculator": {
-    "title": "Calculadora Chmod",
-    "subtitle": "Converta permissões de arquivo Unix entre caixas de seleção, octal e notação simbólica",
+    "title": "Calculadora chmod",
+    "subtitle": "Converta permissões Unix entre octal e simbólico",
     "grid": {
       "title": "Permissões",
       "read": "Leitura",
@@ -4069,8 +4069,8 @@
     }
   },
   "CodeScreenshot": {
-    "title": "Captura de Código",
-    "subtitle": "Transforme código em belas imagens compartilháveis",
+    "title": "Captura de código",
+    "subtitle": "Transforme código em imagens bonitas para compartilhar",
     "languageLabel": "Linguagem",
     "autoDetect": "Detecção automática",
     "backgroundLabel": "Plano de fundo",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "Geradores CSS",
-    "subtitle": "Box-shadow, border-radius e clamp() fluido — copie o CSS.",
+    "subtitle": "Gere CSS de box-shadow, border-radius e clamp()",
     "preview": "Pré-visualização",
     "output": "CSS",
     "copy": "Copiar",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "Visualizador e Removedor EXIF",
-    "subtitle": "Inspecione os metadados de fotos e remova-os no seu navegador",
+    "title": "Visualizador EXIF",
+    "subtitle": "Inspecione e remova metadados de fotos",
     "dropTitle": "Solte uma imagem aqui",
     "dropHint": "ou clique para procurar — sua imagem nunca sai do seu dispositivo",
     "browse": "Escolher imagem",
@@ -4222,7 +4222,7 @@
     }
   },
   "FaviconGenerator": {
-    "title": "Gerador de Favicon",
+    "title": "Gerador de favicons",
     "subtitle": "Crie favicons e ícones de app a partir de uma imagem",
     "dropTitle": "Solte uma imagem aqui",
     "dropHint": "PNG, JPEG ou SVG — clique para procurar",
@@ -4244,8 +4244,8 @@
     "downloadZip": "Baixar tudo (.zip)"
   },
   "JsonDiff": {
-    "title": "Diff JSON",
-    "subtitle": "Comparação semântica e ciente de estrutura de dois documentos JSON — ordem de chaves e formatação ignoradas",
+    "title": "Diff de JSON",
+    "subtitle": "Compare JSON estruturalmente — ordem das chaves ignorada",
     "options": {
       "ignoreArrayOrder": "Ignorar ordem dos arrays"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "Playground JSONPath",
-    "subtitle": "Consulte documentos JSON com JSONPath ou JMESPath e veja resultados ao vivo",
+    "subtitle": "Consulte JSON com JSONPath ou JMESPath, ao vivo",
     "engineLabel": "Motor",
     "queryLabel": "Consulta",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Copiado"
   },
   "KeycodeInspector": {
-    "title": "Inspetor de Keycode",
-    "subtitle": "Pressione qualquer tecla para inspecionar seu evento de teclado JavaScript",
+    "title": "Inspetor de keycodes",
+    "subtitle": "Pressione uma tecla para inspecionar o evento de teclado",
     "capture": {
       "prompt": "Pressione qualquer tecla…",
       "ready": "Ouvindo — pressione qualquer tecla no seu teclado",
@@ -4353,8 +4353,8 @@
     }
   },
   "MarkdownTableGenerator": {
-    "title": "Gerador de Tabela Markdown",
-    "subtitle": "Edite uma grade, cole de uma planilha e copie uma tabela Markdown ou HTML bem alinhada",
+    "title": "Gerador de tabelas Markdown",
+    "subtitle": "Edite uma grade e copie uma tabela Markdown ou HTML alinhada",
     "addRow": "Adicionar linha",
     "addColumn": "Adicionar coluna",
     "importLabel": "Importar",
@@ -4385,8 +4385,8 @@
     "copied": "Copiado"
   },
   "TimezoneConverter": {
-    "title": "Conversor de Fuso Horário",
-    "subtitle": "Converta um momento pelo mundo para planejar reuniões.",
+    "title": "Conversor de fusos horários",
+    "subtitle": "Converta um mesmo instante entre fusos horários",
     "dateTimeLabel": "Data e hora",
     "now": "Agora",
     "sourceZoneLabel": "Fuso de origem",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "Contador de Tokens LLM",
-    "subtitle": "Conte tokens, visualize chunks e estime o custo de API.",
+    "title": "Contador de tokens LLM",
+    "subtitle": "Conte tokens, visualize chunks e estime o custo",
     "inputLabel": "Texto",
     "sample": "Exemplo",
     "clear": "Limpar",
@@ -4449,8 +4449,8 @@
     }
   },
   "WebhookTester": {
-    "title": "Testador de Webhook",
-    "subtitle": "Crie uma URL temporária e inspecione requisições de webhook recebidas ao vivo.",
+    "title": "Testador de webhooks",
+    "subtitle": "Crie uma URL temporária e inspecione webhooks ao vivo",
     "intro": {
       "title": "Crie uma URL de webhook para começar a capturar requisições",
       "hint": "Você receberá uma URL impossível de adivinhar que registra cada requisição recebida. Ela expira após 24 horas."
@@ -4488,8 +4488,8 @@
     }
   },
   "WebsocketTester": {
-    "title": "Testador de WebSocket",
-    "subtitle": "Conecte-se a um endpoint WebSocket e envie, receba e inspecione mensagens ao vivo",
+    "title": "Testador WebSocket",
+    "subtitle": "Conecte, envie e inspecione mensagens WebSocket ao vivo",
     "urlLabel": "URL do endpoint",
     "protocolsLabel": "Subprotocolos",
     "protocolsPlaceholder": "opcional, separados por vírgula",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Consulta Whois",
-    "subtitle": "Consulte detalhes de registro de qualquer domínio ou endereço IP via RDAP",
+    "subtitle": "Consulte o registro de domínios e IP via RDAP",
     "placeholder": "example.com ou 8.8.8.8",
     "lookupBtn": "Consultar",
     "looking": "Consultando…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Digite um nome de domínio ou endereço IP válido",
       "lookupFailed": "Falha na consulta (status {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% offline"
   }
 }

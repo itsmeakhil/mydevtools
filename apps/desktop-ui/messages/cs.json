@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Nápověda a dokumentace",
-    "subtitle": "Jak MyDevTools funguje, co dělá každá aplikace a jak bezpečnost a šifrování chrání vaše data.",
+    "subtitle": "Jak MyDevTools funguje a jak jsou chráněna vaše data",
     "tabs": {
       "overview": "Přehled",
       "apps": "Aplikace",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "Dekodér JWT",
-    "subtitle": "Prohlédněte si hlavičku a payload. Exspirace používá claim <code>exp</code>. Nic se neposílá na server; podpis se neověřuje.",
+    "subtitle": "Prohlédněte hlavičku, payload a expiraci — podpis se neověřuje",
     "tokenLabel": "Token",
     "clear": "Vymazat",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Dekodér certifikátů / PEM",
-    "subtitle": "Vložte certifikát X.509 (<code>-----BEGIN CERTIFICATE-----</code>) nebo CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Subjekt, vydavatel, data a SAN se zpracují lokálně; nic se nenahrává.",
+    "title": "Dekodér certifikátů",
+    "subtitle": "Dekódujte certifikáty X.509 a CSR z PEM",
     "pemLabel": "Vstup PEM",
     "clear": "Vymazat",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2258,7 +2258,7 @@
   },
   "SqlFormatter": {
     "title": "Formátovač SQL",
-    "subtitle": "Formátujte SQL pro MySQL, PostgreSQL nebo SQLite. Běží v prohlížeči; nic se neodesílá.",
+    "subtitle": "Formátujte SQL pro MySQL, PostgreSQL a SQLite",
     "dialectLabel": "Dialekt",
     "keywordsLabel": "Klíčová slova",
     "indentLabel": "Odsazení",
@@ -2288,7 +2288,7 @@
   },
   "YamlFormatter": {
     "title": "Formátovač YAML",
-    "subtitle": "Formátujte, ověřujte a převádějte YAML v prohlížeči. Nic se nenahrává.",
+    "subtitle": "Formátujte, validujte a převádějte YAML",
     "outputLabel": "Výstup",
     "outputModes": {
       "yaml": "YAML (formátovaný)",
@@ -2309,7 +2309,7 @@
   },
   "GraphqlFormatter": {
     "title": "Formátovač GraphQL",
-    "subtitle": "Formátujte dotazy, mutace a odběry GraphQL v prohlížeči. Nic se neodesílá.",
+    "subtitle": "Formátujte dotazy, mutace a subskripce",
     "tabs": {
       "format": "Formátovat",
       "build": "Editor dotazu"
@@ -2347,8 +2347,8 @@
     }
   },
   "RegexTester": {
-    "title": "Tester regex",
-    "subtitle": "Regex ve stylu JavaScript živě nad vaším textem. Shody jsou zvýrazněny; nic neopustí prohlížeč.",
+    "title": "Tester regexů",
+    "subtitle": "Testujte regex JavaScriptu se zvýrazněním shod naživo",
     "patternLabel": "Vzor",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2383,7 +2383,7 @@
   },
   "TimestampConverter": {
     "title": "Převodník časových razítek",
-    "subtitle": "Unix sekundy (≤10 číslic) nebo milisekundy (delší celá čísla), <code>ISO-8601</code> nebo řetězce, které prohlížeč umí přečíst. Vše běží lokálně.",
+    "subtitle": "Převádějte Unix časy, ISO-8601 a datové řetězce",
     "inputLabel": "Vstup",
     "placeholder": "1744200000 nebo 2025-04-09T12:00:00Z",
     "now": "Teď",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "Stavové kódy HTTP",
-    "subtitle": "Vyhledávejte a procházejte stavové kódy HTTP odpovědí (<code>1xx</code>–<code>5xx</code>) s krátkými popisy a odkazy na RFC. Běží lokálně v prohlížeči.",
+    "subtitle": "Hledejte kódy 1xx–5xx s odkazy na RFC",
     "header": {
       "title": "Stavové kódy HTTP",
       "description": "Prohledávatelný seznam HTTP kódů odpovědí s popisy a odkazy na RFC."
@@ -2432,7 +2432,7 @@
   },
   "CronBuilder": {
     "title": "Tvůrce cron výrazů",
-    "subtitle": "Standardní cron s 5 poli: <mono>minute hour day month weekday</mono>. Parser interně používá seconds=<code>0</code>. Volitelný 6-pólový formát (<mono>sec min hour dom mon dow</mono>) funguje v editoru.",
+    "subtitle": "Sestavujte a vysvětlujte cron výrazy s 5 či 6 poli",
     "tabs": {
       "builder": "Vizuální tvůrce",
       "expression": "Výraz"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64 kodér / dekodér",
-    "subtitle": "Kódujte text do Base64 nebo dekódujte Base64 řetězce",
+    "title": "Kodér Base64",
+    "subtitle": "Kódujte text do Base64 a dekódujte zpět",
     "upload": "Nahrát",
     "clear": "Vymazat",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL enkodér / dekodér",
-    "subtitle": "Procentové kódování/dekódování pomocí encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "Kodér URL",
+    "subtitle": "Procentně kódujte a dekódujte text (UTF-8)",
     "upload": "Nahrát",
     "clear": "Vymazat",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "Parser URL",
-    "subtitle": "Rozdělte URL na protokol, host, cestu, dotazové parametry a hash (fragment).",
+    "subtitle": "Rozdělte URL na protokol, host, cestu, dotaz a hash",
     "upload": "Nahrát",
     "clear": "Vymazat",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "Generátor UUID / ULID",
-    "subtitle": "Generujte UUID (RFC 9562) nebo ULID v prohlížeči. Hromadný export až {max} na spuštění.",
+    "title": "Generátor UUID",
+    "subtitle": "Generujte UUID a ULID — hromadný export až {max}",
     "format": "Formát",
     "kindHints": {
       "ulid": "Řaditelný, URL-bezpečný identifikátor o 26 znacích",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Generátor tajného klíče / API klíče",
-    "subtitle": "Generujte kryptograficky náhodné řetězce s nastavitelnou délkou a abecedou. Hromadný export až {max} na běh. Doplňuje <uuid>generátor UUID / ULID</uuid>.",
+    "title": "Generátor API klíčů",
+    "subtitle": "Generujte kryptograficky náhodné tajné klíče",
     "alphabetLabel": "Abeceda",
     "alphabetHint": "Duplicitní znaky se odstraní. Každý symbol se volí rovnoměrně pomocí crypto.getRandomValues a metody odmítnutí (bez modulové zkreslení).",
     "alphabetCount": "{count} jedinečných symbolů",
@@ -2706,7 +2706,7 @@
   },
   "LoremIpsum": {
     "title": "Generátor Lorem Ipsum",
-    "subtitle": "Generujte zástupný latinský text pro vaše rozvržení a makety.",
+    "subtitle": "Generujte výplňový text pro layouty a makety",
     "paragraphs": "Odstavce",
     "sentences": "Věty",
     "words": "Slova",
@@ -2723,8 +2723,8 @@
     "download": "Stáhnout"
   },
   "ColorPicker": {
-    "title": "Výběr a převodník barev",
-    "subtitle": "Převádějte HEX, RGB a HSL; vytvářejte harmonické palety. Veškeré zpracování probíhá v prohlížeči.",
+    "title": "Výběr barev",
+    "subtitle": "Převádějte HEX, RGB a HSL a tvořte palety",
     "nativePicker": "Nativní výběr",
     "chooseColor": "Vyberte barvu",
     "eyeDropper": "Kapátko",
@@ -2745,7 +2745,7 @@
   },
   "ContrastChecker": {
     "title": "Kontrola kontrastu",
-    "subtitle": "Vypočítá kontrastní poměr WCAG 2.1 mezi popředím a pozadím. Zkontroluje AA a AAA pro běžný a velký text. Vše v prohlížeči.",
+    "subtitle": "Ověřujte kontrastní poměry WCAG AA a AAA",
     "foreground": "Text / popředí",
     "background": "Pozadí",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Velký text: 18 pt+ řezný nebo 14 pt+ tučný (definice WCAG)."
   },
   "DiffChecker": {
-    "title": "Porovnávač rozdílů",
-    "subtitle": "Porovnání řádků dvou textů vedle sebe. Vše zůstává ve vašem prohlížeči.",
+    "title": "Porovnání textů",
+    "subtitle": "Porovnávejte dva texty vedle sebe, řádek po řádku",
     "rowsCount": "{count} řádků",
     "truncatedWarning": "Zobrazuje se prvních {max} řádků.",
     "limitExceeded": "Každá strana je omezena na {max} znaků.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Zadejte text do obou panelů pro porovnání."
   },
   "JsonSchemaGenerator": {
-    "title": "Generátor JSON schématu",
-    "subtitle": "Vložte platný JSON a vygenerujte JSON schéma nebo typované modely. Vše běží v prohlížeči.",
+    "title": "Generátor JSON Schema",
+    "subtitle": "Generujte JSON Schema nebo typované modely z ukázky JSON",
     "languageLabel": "Jazyk výstupu",
     "inputLabel": "Vstup JSON",
     "inputPlaceholder": "Vložte JSON sem…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "Obrázek do Base64",
-    "subtitle": "Pusťte obrázek, získejte URI dat nebo nezpracovaný řetězec Base64. Vše zůstane ve vašem prohlížeči.",
+    "subtitle": "Proměňte obrázek v data URI nebo řetězec Base64",
     "upload": "Nahrát obrázek",
     "clear": "Jasný",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "Komprese obrázků",
-    "subtitle": "Zmenšete výstup JPEG, PNG nebo WebP lokálně s ovládáním kvality — nic se nenahrává.",
+    "subtitle": "Zmenšujte JPEG, PNG a WebP s kontrolou kvality",
     "upload": "Nahrát obrázek",
     "clear": "Vymazat",
     "dropHere": "Přetáhněte obrázek sem",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Náhled po kompresi se zobrazí zde."
   },
   "CssGradientBuilder": {
-    "title": "CSS Gradient Builder",
-    "subtitle": "Vizuální tvůrce přechodů CSS s ovládáním úhlu, zarážkami barev a kopírováním CSS jedním kliknutím.",
+    "title": "Tvůrce CSS přechodů",
+    "subtitle": "Navrhujte přechody vizuálně a kopírujte CSS",
     "preview": "Náhled přechodu",
     "settings": "Nastavení",
     "type": "Typ",
@@ -2897,7 +2897,7 @@
   },
   "GitignoreGenerator": {
     "title": "Generátor .gitignore",
-    "subtitle": "Okamžitě vygenerujte sloučené soubory .gitignore pro konkrétní sadu technologií nebo kombinaci.",
+    "subtitle": "Generujte sloučené .gitignore pro libovolný stack",
     "searchPlaceholder": "Prohledat zásobníky (např. Node, Python, macOS)...",
     "noResults": "Nebyly nalezeny žádné zásobníky.",
     "selectedStacks": "Vybrané zásobníky",
@@ -2912,8 +2912,8 @@
     "emptyState": "Vyberte jeden nebo více technologických zásobníků pro generování vašeho .gitignore."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Nahrajte CSV nebo Excel, upravte JSON a stáhněte CSV nebo XLSX. Pouze tabulková data; data z Excelu budou v JSON jako ISO časové značky.",
+    "title": "Tabulka ↔ JSON",
+    "subtitle": "Převádějte soubory CSV a Excel na JSON a zpět",
     "dropTitle": "Přetáhněte soubor CSV nebo Excel",
     "dropHint": "U .xlsx / .xls se použije první list. CSV musí mít řádek záhlaví.",
     "chooseFile": "Vybrat soubor",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Správce úryvků kódu",
-    "subtitle": "Ukládejte úryvky v prohlížeči nebo se přihlaste a synchronizujte je s účtem. Přepínejte zobrazení a úpravy, kopírujte jedním kliknutím, volte jazyk nebo automatickou detekci a formátujte JSON, SQL nebo kód podporovaný Monacem.",
+    "title": "Správce snippetů",
+    "subtitle": "Ukládejte, hledejte a formátujte snippety — synchronizace volitelná",
     "snippets": "Úryvky",
     "newSnippet": "Nový úryvek",
     "newSnippetTitle": "Nový úryvek",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "Generátor QR kódů",
-    "subtitle": "Převeďte libovolný text nebo URL na PNG QR kód. Vykreslení probíhá lokálně v prohlížeči.",
+    "subtitle": "Proměňte text nebo URL ve stylové QR kódy",
     "contentLabel": "Obsah",
     "contentPlaceholder": "https://example.com, prostý text, řetězec Wi‑Fi, vCard…",
     "styleLabel": "Styl",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "Kalkulačka IP / podsítě",
-    "subtitle": "IPv4 a IPv6 CIDR přímo v prohlížeči—bez síťových požadavků.",
+    "title": "Kalkulačka podsítí",
+    "subtitle": "Počítejte parametry CIDR pro IPv4 a IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Síť",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "Generátor hashů",
-    "subtitle": "MD5, SHA-1 a SHA-2 pro text nebo soubory; bcrypt pro hesla (textový vstup). Vše proběhne lokálně v prohlížeči.",
+    "subtitle": "Počítejte MD5, SHA a bcrypt pro text i soubory",
     "algorithmLabel": "Algoritmus",
     "algorithms": {
       "md5": "MD5",
@@ -3214,8 +3214,8 @@
     "verifyMismatch": "Mismatch"
   },
   "EncryptionPlayground": {
-    "title": "Hraviště šifrování",
-    "subtitle": "AES-GCM v prohlížeči: šifrovat do JSON balíčku přístupovou frází nebo holým klíčem a dešifrovat lokálně. Výukové a občas praktické — nic se nenahrává.",
+    "title": "Šifrovací hřiště",
+    "subtitle": "Šifrujte a dešifrujte AES-GCM heslem nebo klíčem",
     "tabEncrypt": "Zašifrovat",
     "tabDecrypt": "Dešifrovat",
     "keyModeLabel": "Klíčový materiál",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "Generátor HMAC",
-    "subtitle": "Pro podepisování webhooků a testování integrací API. HMAC-SHA1/256/384/512 v hex nebo Base64—počítáno lokálně v prohlížeči.",
+    "subtitle": "Podepisujte data HMAC-SHA v hex nebo Base64",
     "secretLabel": "Tajný klíč",
     "messageLabel": "Zpráva / payload",
     "placeholderSecret": "Vložte podpisové tajemství…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "Generátor kódu TOTP / 2FA",
-    "subtitle": "Vložte Base32 tajemství a získejte aktuální šestimístný kód RFC 6238 (SHA-1, 30 s). Vše lokálně v prohlížeči—užitečné pro testování přihlášení nebo MFA.",
+    "title": "Generátor TOTP",
+    "subtitle": "Získávejte živé kódy 2FA z tajného klíče autentifikátoru",
     "secretLabel": "Tajemství (Base32)",
     "placeholderSecret": "Vložte tajný klíč (písmena A–Z a číslice 2–7, jako při nastavení autentikátoru)…",
     "codeLabel": "Aktuální kód",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Náhled Markdown & HTML",
-    "subtitle": "Živý renderer Markdown s exportem HTML a převodem HTML → Markdown. Vše běží ve vašem prohlížeči.",
+    "title": "Náhled Markdownu",
+    "subtitle": "Vykreslujte Markdown naživo a převádějte z/do HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Vstup Markdown",
@@ -3359,7 +3359,7 @@
   },
   "NumberBaseConverter": {
     "title": "Převodník číselných soustav",
-    "subtitle": "Převod celých čísel mezi soustavami 2–36. Volitelné prefixy 0x / 0b / 0o. Vše lokálně v prohlížeči.",
+    "subtitle": "Převádějte celá čísla mezi soustavami 2–36",
     "inputBaseLabel": "Ze základu",
     "outputBaseLabel": "Do základu",
     "inputLabel": "Vstupní číslo",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Převodník formátů",
-    "subtitle": "Převádějte mezi JSON, YAML, TOML a XML v libovolném směru. Všech 12 kombinací. Vše běží ve vašem prohlížeči.",
+    "subtitle": "Převádějte JSON, YAML, TOML a XML libovolným směrem",
     "fromLabel": "Z",
     "toLabel": "Do",
     "swap": "Přepnout",
@@ -3389,8 +3389,8 @@
     "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
   },
   "MimeTypeLookup": {
-    "title": "Vyhledání MIME typu",
-    "subtitle": "Vyhledejte MIME typ (media type) podle přípony nebo celého názvu souboru. Vše běží lokálně ve vašem prohlížeči.",
+    "title": "Vyhledávání MIME typů",
+    "subtitle": "Najděte MIME typ pro libovolnou příponu souboru",
     "inputLabel": "Přípona nebo název souboru",
     "placeholder": "např. .png, package.json, photo.jpeg",
     "hint": "Tip: vložte příponu (s tečkou nebo bez) nebo celý název souboru.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "Parser User-Agent",
-    "subtitle": "Vložte řetězec User-Agent (UA) a získejte rozpis prohlížeče, OS, enginu, zařízení a CPU. Vše běží lokálně ve vašem prohlížeči.",
+    "subtitle": "Rozložte řetězec UA na prohlížeč, OS a zařízení",
     "inputLabel": "Řetězec User-Agent",
     "placeholder": "Vložte sem svůj User-Agent…",
     "hint": "Tip: UA můžete zkopírovat z hlaviček požadavku, logů nebo z devtools prohlížeče.",
@@ -3434,7 +3434,7 @@
   },
   "MockDataGenerator": {
     "title": "Generátor testovacích dat",
-    "subtitle": "Definujte sloupce, zvolte typy a exportujte sady pro seedy, Postman nebo testy. Až {max} řádků, vše v prohlížeči — nic se nenahrává.",
+    "subtitle": "Definujte typované sloupce — export až {max} řádků",
     "mockarooLink": "Postup jako v Mockaroo",
     "rowsLabel": "Řádky",
     "rowsHint": "Nejvýše {max} řádků na generování, aby karta zůstala svižná.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "Optimalizátor SVG",
-    "subtitle": "Vložte SVG, minifikujte pomocí SVGO v prohlížeči a porovnejte velikost UTF-8 před a po.",
+    "subtitle": "Minifikujte SVG pomocí SVGO a porovnejte velikosti",
     "inputLabel": "Vstup",
     "outputLabel": "Optimalizováno",
     "placeholder": "Vložte úryvek <svg>…</svg> nebo celý soubor…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "Převodník jednotek",
-    "subtitle": "Převádějte mezi <strong>323 jednotkami</strong> ve <strong>43 kategoriích</strong>",
+    "subtitle": "Převádějte 323 jednotek ve 43 kategoriích",
     "category": "Kategorie",
     "from": "Z",
     "to": "Na",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Generátor Docker Compose",
-    "subtitle": "Vyberte populární databáze, cache, fronty zpráv, reverzní proxy a observabilitu — zkopírujte funkční docker-compose.yml pro lokální vývoj.",
+    "subtitle": "Generujte docker-compose.yml pro lokální dev stacky",
     "searchPlaceholder": "Hledat (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Služby",
     "selectedCount": "{count, plural, one {# služba} few {# služby} many {# služeb} other {# služeb}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Konec hry"
   },
   "SshKeyGenerator": {
-    "title": "Generátor klíčů SSH / RSA",
-    "subtitle": "Generujte páry klíčů Ed25519 nebo RSA ve svém prohlížeči. Stáhněte soukromé a veřejné klíče ve formátech OpenSSH a PEM. Nic se nenahrává.",
+    "title": "Generátor SSH klíčů",
+    "subtitle": "Generujte páry klíčů Ed25519 nebo RSA v OpenSSH a PEM",
     "keyTypeLabel": "Typ klíče",
     "recommended": "doporučeno",
     "ed25519Desc": "Rychlý, malý, moderní. Podporován GitHubem, GitLabem a všemi hlavními SSH servery.",
@@ -3781,8 +3781,8 @@
     }
   },
   "DnsLookup": {
-    "title": "Vyhledávání DNS",
-    "subtitle": "Dotazujte DNS záznamy pro libovolnou doménu — A, AAAA, MX, TXT, NS, CNAME.",
+    "title": "DNS dotazy",
+    "subtitle": "Dotazujte se na A, AAAA, MX, TXT, NS a další záznamy domény",
     "placeholder": "Zadejte doménu (např. github.com)",
     "lookupBtn": "Vyhledat",
     "looking": "Vyhledávám…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL do kódu",
+    "subtitle": "Proměňte příkazy curl ve fetch, axios, Python a další",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON do kódu",
+    "subtitle": "Generujte typované modely z ukázkového JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "Vizualizace JSON",
+    "subtitle": "Prozkoumejte JSON jako interaktivní graf uzlů",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Formátování a minifikace",
+    "subtitle": "Formátujte či minifikujte HTML, CSS, JavaScript, XML a JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Převodník zápisu",
+    "subtitle": "Převádějte mezi camelCase, snake_case, kebab-case a dalšími",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Řazení řádků",
+    "subtitle": "Řaďte, odstraňujte duplicity a čistěte seznamy řádků",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Inspektor řetězců",
+    "subtitle": "Počítejte znaky, slova a bajty; odhalte skryté znaky",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Escapování řetězců",
+    "subtitle": "Escapujte HTML entity, zpětná lomítka, hex a Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt generátor a ověřovač",
-    "subtitle": "Hashujte hesla pomocí bcrypt a ověřujte hashe — vše zůstává ve vašem prohlížeči",
+    "title": "Generátor bcrypt",
+    "subtitle": "Hashujte a ověřujte hesla pomocí bcrypt",
     "tabs": {
       "hash": "Hash",
       "verify": "Ověřit"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Kalkulačka chmod",
-    "subtitle": "Převádějte unixová oprávnění souborů mezi zaškrtávacími políčky, osmičkovým a symbolickým zápisem",
+    "subtitle": "Převádějte oprávnění Unix mezi osmičkovým a symbolickým zápisem",
     "grid": {
       "title": "Oprávnění",
       "read": "Čtení",
@@ -4069,8 +4069,8 @@
     }
   },
   "CodeScreenshot": {
-    "title": "Snímek kódu",
-    "subtitle": "Proměňte kód v krásné sdílitelné obrázky",
+    "title": "Screenshot kódu",
+    "subtitle": "Proměňte kód v krásné obrázky ke sdílení",
     "languageLabel": "Jazyk",
     "autoDetect": "Automatická detekce",
     "backgroundLabel": "Pozadí",
@@ -4107,8 +4107,8 @@
     }
   },
   "CssGenerators": {
-    "title": "CSS generátory",
-    "subtitle": "Box-shadow, border-radius a plynulý clamp() — zkopírujte CSS.",
+    "title": "Generátory CSS",
+    "subtitle": "Generujte CSS pro box-shadow, border-radius a clamp()",
     "preview": "Náhled",
     "output": "CSS",
     "copy": "Kopírovat",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF prohlížeč a odstraňovač",
-    "subtitle": "Prohlížejte metadata fotek a odstraňte je ve svém prohlížeči",
+    "title": "Zobrazení EXIF",
+    "subtitle": "Zobrazte a odstraňte metadata fotografií",
     "dropTitle": "Sem přetáhněte obrázek",
     "dropHint": "nebo klikněte pro procházení — váš obrázek nikdy neopustí vaše zařízení",
     "browse": "Vybrat obrázek",
@@ -4223,7 +4223,7 @@
   },
   "FaviconGenerator": {
     "title": "Generátor favicon",
-    "subtitle": "Vytvořte favicony a ikony aplikací z jednoho obrázku",
+    "subtitle": "Vytvářejte favicony a ikony aplikací z jednoho obrázku",
     "dropTitle": "Sem přetáhněte obrázek",
     "dropHint": "PNG, JPEG nebo SVG — klikněte pro procházení",
     "browse": "Vybrat obrázek",
@@ -4244,8 +4244,8 @@
     "downloadZip": "Stáhnout vše (.zip)"
   },
   "JsonDiff": {
-    "title": "JSON diff",
-    "subtitle": "Sémantické porovnání dvou JSON dokumentů zohledňující strukturu — pořadí klíčů a formátování se ignoruje",
+    "title": "Porovnání JSON",
+    "subtitle": "Porovnávejte JSON strukturně — pořadí klíčů se ignoruje",
     "options": {
       "ignoreArrayOrder": "Ignorovat pořadí polí"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "JSONPath hřiště",
-    "subtitle": "Dotazujte se na JSON dokumenty pomocí JSONPath nebo JMESPath a sledujte živé výsledky",
+    "subtitle": "Dotazujte JSON přes JSONPath nebo JMESPath naživo",
     "engineLabel": "Engine",
     "queryLabel": "Dotaz",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Zkopírováno"
   },
   "KeycodeInspector": {
-    "title": "Inspektor kláves",
-    "subtitle": "Stiskněte libovolnou klávesu a prozkoumejte její JavaScriptovou klávesovou událost",
+    "title": "Inspektor kódů kláves",
+    "subtitle": "Stiskněte klávesu a prozkoumejte její událost",
     "capture": {
       "prompt": "Stiskněte libovolnou klávesu…",
       "ready": "Naslouchám — stiskněte libovolnou klávesu na klávesnici",
@@ -4353,8 +4353,8 @@
     }
   },
   "MarkdownTableGenerator": {
-    "title": "Generátor Markdown tabulek",
-    "subtitle": "Upravujte mřížku, vkládejte ze sešitu a kopírujte pěkně zarovnanou Markdown nebo HTML tabulku",
+    "title": "Generátor tabulek Markdown",
+    "subtitle": "Upravte mřížku a kopírujte tabulku v Markdownu nebo HTML",
     "addRow": "Přidat řádek",
     "addColumn": "Přidat sloupec",
     "importLabel": "Import",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "Převodník časových pásem",
-    "subtitle": "Převeďte jeden okamžik po celém světě pro plánování schůzek.",
+    "subtitle": "Převádějte jeden okamžik mezi časovými pásmy",
     "dateTimeLabel": "Datum a čas",
     "now": "Nyní",
     "sourceZoneLabel": "Zdrojové časové pásmo",
@@ -4408,7 +4408,7 @@
   },
   "TokenCounter": {
     "title": "Počítadlo LLM tokenů",
-    "subtitle": "Počítejte tokeny, vizualizujte bloky a odhadněte náklady na API.",
+    "subtitle": "Počítejte tokeny, vizualizujte chunky a odhadujte cenu",
     "inputLabel": "Text",
     "sample": "Ukázka",
     "clear": "Vymazat",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Tester webhooků",
-    "subtitle": "Vytvořte dočasnou URL a živě prohlížejte příchozí webhook požadavky.",
+    "subtitle": "Vytvořte dočasnou URL a sledujte webhooky naživo",
     "intro": {
       "title": "Vytvořte webhook URL pro zahájení zachytávání požadavků",
       "hint": "Získáte neuhodnutelnou URL, která zaznamenává každý příchozí požadavek. Vyprší po 24 hodinách."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "Tester WebSocket",
-    "subtitle": "Připojte se k WebSocket koncovému bodu a živě odesílejte, přijímejte a prohlížejte zprávy",
+    "subtitle": "Připojte se, odesílejte a sledujte zprávy WebSocket naživo",
     "urlLabel": "URL koncového bodu",
     "protocolsLabel": "Subprotokoly",
     "protocolsPlaceholder": "volitelné, oddělené čárkou",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Whois vyhledávání",
-    "subtitle": "Vyhledejte registrační údaje libovolné domény nebo IP adresy přes RDAP",
+    "subtitle": "Ověřujte registraci domén a IP přes RDAP",
     "placeholder": "example.com nebo 8.8.8.8",
     "lookupBtn": "Vyhledat",
     "looking": "Vyhledávám…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Zadejte platný název domény nebo IP adresu",
       "lookupFailed": "Vyhledávání se nezdařilo (stav {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100% offline"
   }
 }

@@ -79,8 +79,8 @@
     "whoisLookup": "Whois-opslag"
   },
   "Help": {
-    "title": "Hjælp og dokumentation",
-    "subtitle": "Sådan hænger MyDevTools sammen, hvad hver app gør, og hvordan sikkerhed og kryptering beskytter dine data.",
+    "title": "Hjælp & dokumentation",
+    "subtitle": "Sådan hænger MyDevTools sammen, og sådan beskyttes dine data",
     "tabs": {
       "overview": "Overblik",
       "apps": "Apps",
@@ -2124,7 +2124,7 @@
   },
   "JwtDecoder": {
     "title": "JWT-dekoder",
-    "subtitle": "Inspicér header og payload. Udløb bruger <code>exp</code>-claim. Intet sendes til en server; signaturen verificeres ikke.",
+    "subtitle": "Undersøg header, payload og udløb — signaturen verificeres ikke",
     "tokenLabel": "Token",
     "clear": "Ryd",
     "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -2214,8 +2214,8 @@
     }
   },
   "CertificatePemDecoder": {
-    "title": "Certifikat / PEM-afkoder",
-    "subtitle": "Indsæt et X.509-certifikat (<code>-----BEGIN CERTIFICATE-----</code>) eller en CSR (<code>-----BEGIN CERTIFICATE REQUEST-----</code>). Emne, udsteder, datoer og SAN analyseres lokalt; intet uploades.",
+    "title": "Certifikatdekoder",
+    "subtitle": "Afkod X.509-certifikater og CSR'er fra PEM",
     "pemLabel": "PEM-input",
     "clear": "Ryd",
     "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
@@ -2257,8 +2257,8 @@
     }
   },
   "SqlFormatter": {
-    "title": "SQL-formater",
-    "subtitle": "Formatér SQL til MySQL, PostgreSQL eller SQLite. Kører i din browser; intet uploades.",
+    "title": "SQL-formatter",
+    "subtitle": "Formatér SQL pænt til MySQL, PostgreSQL og SQLite",
     "dialectLabel": "Dialekt",
     "keywordsLabel": "Nøgleord",
     "indentLabel": "Indrykning",
@@ -2287,8 +2287,8 @@
     }
   },
   "YamlFormatter": {
-    "title": "YAML-formatering",
-    "subtitle": "Formater, valider og konverter YAML i din browser. Intet uploades.",
+    "title": "YAML-formatter",
+    "subtitle": "Formatér, validér og konvertér YAML",
     "outputLabel": "Output",
     "outputModes": {
       "yaml": "YAML (formateret)",
@@ -2308,8 +2308,8 @@
     }
   },
   "GraphqlFormatter": {
-    "title": "GraphQL-formater",
-    "subtitle": "Formatér GraphQL-forespørgsler, mutationer og abonnementer i browseren. Intet uploades.",
+    "title": "GraphQL-formatter",
+    "subtitle": "Formatér queries, mutations og subscriptions",
     "tabs": {
       "format": "Formatér",
       "build": "Forespørgselsbygger"
@@ -2348,7 +2348,7 @@
   },
   "RegexTester": {
     "title": "Regex-tester",
-    "subtitle": "JavaScript-lignende regex live mod din tekst. Matches fremhæves; intet forlader din browser.",
+    "subtitle": "Test JavaScript-regex med live fremhævede match",
     "patternLabel": "Mønster",
     "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
     "flags": {
@@ -2383,7 +2383,7 @@
   },
   "TimestampConverter": {
     "title": "Timestamp-konverter",
-    "subtitle": "Unix-sekunder (≤10 cifre) eller millisekunder (længere heltal), <code>ISO-8601</code> eller strenge som din browser kan parse. Alt kører lokalt.",
+    "subtitle": "Konvertér Unix-timestamps, ISO-8601 og datostrenge",
     "inputLabel": "Input",
     "placeholder": "1744200000 eller 2025-04-09T12:00:00Z",
     "now": "Nu",
@@ -2411,7 +2411,7 @@
   },
   "HttpStatusCodes": {
     "title": "HTTP-statuskoder",
-    "subtitle": "Søg og gennemse HTTP-statuskoder for svar (<code>1xx</code>–<code>5xx</code>) med korte beskrivelser og RFC-referencer. Kører lokalt.",
+    "subtitle": "Søg i statuskoder 1xx–5xx med RFC-referencer",
     "header": {
       "title": "HTTP-statuskoder",
       "description": "Søgbar reference over HTTP-svarskoder med beskrivelser og RFC-referencer."
@@ -2431,8 +2431,8 @@
     "copied": "Kode kopieret"
   },
   "CronBuilder": {
-    "title": "Cron-udtryksbygger",
-    "subtitle": "Standard 5-felts cron: <mono>minute hour day month weekday</mono>. Parseren bruger seconds=<code>0</code> internt. Valgfrit 6-felts format (<mono>sec min hour dom mon dow</mono>) virker i editoren.",
+    "title": "Cron-bygger",
+    "subtitle": "Byg og forklar cron-udtryk med 5 eller 6 felter",
     "tabs": {
       "builder": "Visuel bygger",
       "expression": "Udtryk"
@@ -2516,8 +2516,8 @@
     }
   },
   "Base64": {
-    "title": "Base64-koder / dekoder",
-    "subtitle": "Kod tekst til Base64 eller dekod Base64-strenge",
+    "title": "Base64-encoder",
+    "subtitle": "Kodér tekst til Base64 og afkod igen",
     "upload": "Upload",
     "clear": "Ryd",
     "modes": {
@@ -2550,8 +2550,8 @@
     }
   },
   "UrlEncode": {
-    "title": "URL-koder / dekoder",
-    "subtitle": "Procentkod/afkod med encodeURIComponent / decodeURIComponent (UTF‑8)",
+    "title": "URL-encoder",
+    "subtitle": "Procentkodér og afkod tekst (UTF-8)",
     "upload": "Upload",
     "clear": "Ryd",
     "modes": {
@@ -2585,7 +2585,7 @@
   },
   "UrlParser": {
     "title": "URL-parser",
-    "subtitle": "Opdel en URL i protokol, vært, sti, forespørgselsparametre og hash (fragment).",
+    "subtitle": "Opdel en URL i protokol, host, sti, query og hash",
     "upload": "Upload",
     "clear": "Ryd",
     "panels": {
@@ -2620,8 +2620,8 @@
     }
   },
   "UuidGenerator": {
-    "title": "UUID / ULID-generator",
-    "subtitle": "Generér RFC 9562-UUID’er eller ULID’er i browseren. Masseeksport op til {max} pr. kørsel.",
+    "title": "UUID-generator",
+    "subtitle": "Generér UUID'er og ULID'er — bulkeksport op til {max}",
     "format": "Format",
     "kindHints": {
       "ulid": "Sortérbar, URL-sikker identifikator på 26 tegn",
@@ -2664,8 +2664,8 @@
     }
   },
   "SecretApiKeyGenerator": {
-    "title": "Generator til hemmelighed / API-nøgle",
-    "subtitle": "Generér kryptografisk tilfældige strenge med konfigurerbar længde og alfabet. Masseeksport op til {max} pr. kørsel. Supplerer <uuid>UUID-/ULID-generator</uuid>.",
+    "title": "API-nøglegenerator",
+    "subtitle": "Generér kryptografisk tilfældige hemmeligheder og nøgler",
     "alphabetLabel": "Alfabet",
     "alphabetHint": "Dubletter fjernes. Hvert symbol vælges ensartet med crypto.getRandomValues og rejection sampling (ingen modulo-bias).",
     "alphabetCount": "{count} unikke symboler",
@@ -2705,8 +2705,8 @@
     }
   },
   "LoremIpsum": {
-    "title": "Lorem Ipsum Generator",
-    "subtitle": "Generer latinsk plassholdertekst til dine layouts og mockups.",
+    "title": "Lorem Ipsum-generator",
+    "subtitle": "Generér fyldtekst til layouts og mockups",
     "paragraphs": "Afsnit",
     "sentences": "Sætninger",
     "words": "Ord",
@@ -2723,8 +2723,8 @@
     "download": "Download"
   },
   "ColorPicker": {
-    "title": "Farvevælger og konverter",
-    "subtitle": "Konverter HEX, RGB og HSL; byg harmoniske paletter. Al behandling sker i din browser.",
+    "title": "Farvevælger",
+    "subtitle": "Konvertér HEX, RGB og HSL, og byg paletter",
     "nativePicker": "Indbygget vælger",
     "chooseColor": "Vælg farve",
     "eyeDropper": "Øjedråber",
@@ -2744,8 +2744,8 @@
     "paletteSquare": "Firkantet"
   },
   "ContrastChecker": {
-    "title": "Kontrastkontrol",
-    "subtitle": "Beregner WCAG 2.1-kontrastforholdet mellem forgrund og baggrund. Viser AA og AAA for normal og stor tekst. Kører i din browser.",
+    "title": "Kontrasttjekker",
+    "subtitle": "Tjek WCAG-kontrastforhold for AA og AAA",
     "foreground": "Tekst / forgrund",
     "background": "Baggrund",
     "hexPlaceholder": "#RRGGBB",
@@ -2770,8 +2770,8 @@
     "largeTextHint": "Stor tekst: 18 pt+ almindelig eller 14 pt+ fed (WCAG-definitioner)."
   },
   "DiffChecker": {
-    "title": "Diff-kontrol",
-    "subtitle": "Side-om-side linjediff af to tekster. Alt forbliver i din browser.",
+    "title": "Diff-tjekker",
+    "subtitle": "Sammenlign to tekster side om side, linje for linje",
     "rowsCount": "{count} rækker",
     "truncatedWarning": "Viser de første {max} rækker.",
     "limitExceeded": "Hver side er begrænset til {max} tegn.",
@@ -2784,8 +2784,8 @@
     "emptyState": "Indtast tekst i begge paneler for at sammenligne."
   },
   "JsonSchemaGenerator": {
-    "title": "JSON-skemagenerator",
-    "subtitle": "Indsæt gyldig JSON for at generere JSON-skema eller typede modeller. Alt kører i din browser.",
+    "title": "JSON Schema-generator",
+    "subtitle": "Generér JSON Schema eller typede modeller fra eksempel-JSON",
     "languageLabel": "Outputsprog",
     "inputLabel": "JSON-input",
     "inputPlaceholder": "Indsæt JSON her…",
@@ -2813,7 +2813,7 @@
   },
   "ImageToBase64": {
     "title": "Billede til Base64",
-    "subtitle": "Slip et billede, få en data-URI eller rå Base64-streng. Alt forbliver i din browser.",
+    "subtitle": "Lav et billede om til en data-URI eller Base64-streng",
     "upload": "Upload billede",
     "clear": "Klar",
     "modes": {
@@ -2838,7 +2838,7 @@
   },
   "ImageCompressor": {
     "title": "Billedkomprimering",
-    "subtitle": "Formindsk JPEG-, PNG- eller WebP-output lokalt med kvalitetskontrol — intet uploades.",
+    "subtitle": "Formindsk JPEG, PNG og WebP med kvalitetskontrol",
     "upload": "Upload billede",
     "clear": "Ryd",
     "dropHere": "Slip billede her",
@@ -2873,8 +2873,8 @@
     "emptyCompressed": "Komprimeret forhåndsvisning vises her."
   },
   "CssGradientBuilder": {
-    "title": "CSS Gradient Builder",
-    "subtitle": "Visuel CSS-gradientbygger med vinkelkontrol, farvestop og CSS-kopi med et enkelt klik.",
+    "title": "CSS-gradientbygger",
+    "subtitle": "Design gradienter visuelt og kopiér CSS'en",
     "preview": "Forhåndsvisning af gradient",
     "settings": "Indstillinger",
     "type": "Type",
@@ -2896,8 +2896,8 @@
     "downloadImage": "Download"
   },
   "GitignoreGenerator": {
-    "title": ".gitignore Generator",
-    "subtitle": "Generer flettede .gitignore-filer øjeblikkeligt til en specifik teknisk stak eller kombination.",
+    "title": ".gitignore-generator",
+    "subtitle": "Generér sammenflettede .gitignore-filer til enhver stack",
     "searchPlaceholder": "Søg stakke (f.eks. Node, Python, macOS)...",
     "noResults": "Ingen stakke fundet.",
     "selectedStacks": "Udvalgte stakke",
@@ -2912,8 +2912,8 @@
     "emptyState": "Vælg en eller flere tekniske stakke for at generere din .gitignore."
   },
   "CsvExcelJson": {
-    "title": "CSV / Excel ↔ JSON",
-    "subtitle": "Upload CSV eller Excel, rediger JSON, og download CSV eller XLSX. Kun tabeldata; Excel-datoer bliver ISO-tidsstempler i JSON.",
+    "title": "Regneark ↔ JSON",
+    "subtitle": "Konvertér CSV- og Excel-filer til JSON og tilbage",
     "dropTitle": "Slip en CSV- eller Excel-fil",
     "dropHint": "Første ark bruges til .xlsx / .xls. CSV skal have en header-række.",
     "chooseFile": "Vælg fil",
@@ -2949,8 +2949,8 @@
     }
   },
   "SnippetManager": {
-    "title": "Kodestykke-manager",
-    "subtitle": "Gem snippets i browseren eller log ind for at synkronisere med din konto. Skift mellem visning og redigering, kopiér med ét klik, vælg sprog eller autodetektér, og formatér JSON, SQL eller Monaco-understøttet kode.",
+    "title": "Snippet-manager",
+    "subtitle": "Gem, søg og formatér kodesnippets — synk valgfrit",
     "snippets": "Snippets",
     "newSnippet": "Nyt snippet",
     "newSnippetTitle": "Nyt snippet",
@@ -3081,7 +3081,7 @@
   },
   "QrCodeGenerator": {
     "title": "QR-kodegenerator",
-    "subtitle": "Gør enhver tekst eller URL til en PNG QR-kode. Alt gengives lokalt i browseren.",
+    "subtitle": "Lav tekst eller URL'er om til stylede QR-koder",
     "contentLabel": "Indhold",
     "contentPlaceholder": "https://example.com, almindelig tekst, Wi‑Fi-streng, vCard…",
     "styleLabel": "Stil",
@@ -3129,8 +3129,8 @@
     }
   },
   "IpSubnetCalculator": {
-    "title": "IP-/subnetberegner",
-    "subtitle": "IPv4- og IPv6-CIDR i browseren—ingen eksterne kald.",
+    "title": "Subnet-beregner",
+    "subtitle": "Beregn CIDR-detaljer for IPv4 og IPv6",
     "tabIpv4": "IPv4",
     "tabIpv6": "IPv6",
     "inputLabel": "Netværk",
@@ -3170,7 +3170,7 @@
   },
   "HashGenerator": {
     "title": "Hash-generator",
-    "subtitle": "MD5-, SHA-1- og SHA-2-summer for tekst eller filer; bcrypt til adgangskoder (tekstinput). Alt kører lokalt i din browser.",
+    "subtitle": "Beregn MD5-, SHA- og bcrypt-hashes for tekst eller filer",
     "algorithmLabel": "Algoritme",
     "algorithms": {
       "md5": "MD5",
@@ -3215,7 +3215,7 @@
   },
   "EncryptionPlayground": {
     "title": "Krypteringslegeplads",
-    "subtitle": "AES-GCM i browseren: kryptér til en JSON-pakke med adgangssætning eller rå nøgle og dekryptér lokalt. Pædagogisk og nogle gange praktisk — intet uploades.",
+    "subtitle": "Kryptér og dekryptér AES-GCM med passphrase eller nøgle",
     "tabEncrypt": "Kryptér",
     "tabDecrypt": "Dekryptér",
     "keyModeLabel": "Nøglemateriale",
@@ -3267,7 +3267,7 @@
   },
   "HmacGenerator": {
     "title": "HMAC-generator",
-    "subtitle": "Til underskrift af webhooks og test af API-integrationer. HMAC-SHA1/256/384/512 i hex eller Base64—beregnet lokalt i din browser.",
+    "subtitle": "Signér payloads med HMAC-SHA i hex eller Base64",
     "secretLabel": "Hemmelig nøgle",
     "messageLabel": "Besked / payload",
     "placeholderSecret": "Indsæt din underskriftshemmelighed…",
@@ -3303,8 +3303,8 @@
     "verifyMismatch": "Mismatch"
   },
   "TotpGenerator": {
-    "title": "TOTP / 2FA-kodegenerator",
-    "subtitle": "Indsæt Base32-hemmeligheden og få den aktuelle sekscifrede RFC 6238-kode (SHA-1, 30 s). Kører lokalt i browseren—nyttig til test af login eller MFA.",
+    "title": "TOTP-generator",
+    "subtitle": "Få live 2FA-koder fra en authenticator-hemmelighed",
     "secretLabel": "Hemmelighed (Base32)",
     "placeholderSecret": "Indsæt den hemmelige nøgle (bogstaver A–Z og cifre 2–7, som ved opsætning af autentifikatoren)…",
     "codeLabel": "Aktuel kode",
@@ -3337,8 +3337,8 @@
     }
   },
   "MarkdownPreview": {
-    "title": "Markdown-forhåndsvisning & HTML",
-    "subtitle": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering. Alt kører i din browser.",
+    "title": "Markdown-forhåndsvisning",
+    "subtitle": "Render Markdown live og konvertér til eller fra HTML",
     "tabMarkdownToHtml": "Markdown → HTML",
     "tabHtmlToMd": "HTML → Markdown",
     "inputLabel": "Markdown-input",
@@ -3358,8 +3358,8 @@
     "securityNote": "Alt kører lokalt i din browser. Intet uploades."
   },
   "NumberBaseConverter": {
-    "title": "Talsystem-konverter",
-    "subtitle": "Konverter heltal mellem baser 2–36. Valgfri 0x / 0b / 0o-præfiks. Alt kører lokalt i din browser.",
+    "title": "Talbase-konverter",
+    "subtitle": "Konvertér heltal mellem base 2–36",
     "inputBaseLabel": "Fra base",
     "outputBaseLabel": "Til base",
     "inputLabel": "Inputtal",
@@ -3377,7 +3377,7 @@
   },
   "FormatConverter": {
     "title": "Formatkonverter",
-    "subtitle": "Konverter mellem JSON, YAML, TOML og XML i enhver retning. Alle 12 kombinationer. Alt kører i din browser.",
+    "subtitle": "Konvertér JSON, YAML, TOML og XML i alle retninger",
     "fromLabel": "Fra",
     "toLabel": "Til",
     "swap": "Skift",
@@ -3389,8 +3389,8 @@
     "localNote": "Alt kører lokalt i din browser. Intet uploades."
   },
   "MimeTypeLookup": {
-    "title": "MIME-type opslag",
-    "subtitle": "Slå MIME-type (medietype) op for en filendelse eller et fuldt filnavn. Alt kører lokalt i din browser.",
+    "title": "MIME-type-opslag",
+    "subtitle": "Find MIME-typen for enhver filendelse",
     "inputLabel": "Filendelse eller filnavn",
     "placeholder": "fx .png, package.json, photo.jpeg",
     "hint": "Tip: indsæt enten en endelse (med eller uden punktum) eller et fuldt filnavn.",
@@ -3411,7 +3411,7 @@
   },
   "UserAgentParser": {
     "title": "User-Agent-parser",
-    "subtitle": "Indsæt en User-Agent (UA)-streng og få en oversigt over browser, OS, engine, enhed og CPU. Alt kører lokalt i din browser.",
+    "subtitle": "Opdel en UA-streng i browser, OS og enhed",
     "inputLabel": "User-Agent-streng",
     "placeholder": "Indsæt din User-Agent her…",
     "hint": "Tip: du kan kopiere en UA fra request-headers, logs eller browserens devtools.",
@@ -3433,8 +3433,8 @@
     "localNote": "Alt kører lokalt i din browser. Intet uploades."
   },
   "MockDataGenerator": {
-    "title": "Mock-datagenerator",
-    "subtitle": "Definér kolonner, vælg datatyper og eksporter datasæt til seeds, Postman eller tests. Op til {max} rækker, alt i browseren — intet uploades.",
+    "title": "Mockdata-generator",
+    "subtitle": "Definér typede kolonner — eksportér op til {max} fixture-rækker",
     "mockarooLink": "Mockaroo-lignende arbejdsgang",
     "rowsLabel": "Rækker",
     "rowsHint": "Højst {max} rækker pr. kørsel for at holde fanen responsiv.",
@@ -3538,7 +3538,7 @@
   },
   "SvgOptimizer": {
     "title": "SVG-optimering",
-    "subtitle": "Indsæt SVG, minificér med SVGO i browseren og sammenlign UTF-8-størrelse før og efter.",
+    "subtitle": "Minificér SVG med SVGO og sammenlign størrelser",
     "inputLabel": "Input",
     "outputLabel": "Optimeret",
     "placeholder": "Indsæt et <svg>…</svg>-uddrag eller hele filen…",
@@ -3566,7 +3566,7 @@
   },
   "UnitConverter": {
     "title": "Enhedskonverter",
-    "subtitle": "Konverter mellem <strong>323 enheder</strong> på tværs af <strong>43 kategorier</strong>",
+    "subtitle": "Konvertér 323 enheder i 43 kategorier",
     "category": "Kategori",
     "from": "Fra",
     "to": "Til",
@@ -3581,7 +3581,7 @@
   },
   "DockerComposeGenerator": {
     "title": "Docker Compose-generator",
-    "subtitle": "Vælg populære databaser, caches, beskedkøer, reverse proxyer og observabilitet — kopiér en docker-compose.yml klar til lokal udvikling.",
+    "subtitle": "Generér docker-compose.yml til lokale dev-stacks",
     "searchPlaceholder": "Søg (postgres, redis, kafka, nginx, grafana…)",
     "selectedLabel": "Tjenester",
     "selectedCount": "{count, plural, one {# tjeneste} other {# tjenester}}",
@@ -3758,8 +3758,8 @@
     "gameOver": "Spillet er slut"
   },
   "SshKeyGenerator": {
-    "title": "SSH / RSA nøglegenerator",
-    "subtitle": "Generer Ed25519 eller RSA nøglepar i din browser. Download private og offentlige nøgler i OpenSSH og PEM-formater. Intet uploades.",
+    "title": "SSH-nøglegenerator",
+    "subtitle": "Generér Ed25519- eller RSA-nøglepar i OpenSSH og PEM",
     "keyTypeLabel": "Nøgletype",
     "recommended": "anbefalet",
     "ed25519Desc": "Hurtig, lille og moderne. Understøttet af GitHub, GitLab og alle større SSH-servere.",
@@ -3782,7 +3782,7 @@
   },
   "DnsLookup": {
     "title": "DNS-opslag",
-    "subtitle": "Forespørg DNS-poster for ethvert domæne — A, AAAA, MX, TXT, NS, CNAME.",
+    "subtitle": "Slå A, AAAA, MX, TXT, NS og mere op for ethvert domæne",
     "placeholder": "Indtast domæne (f.eks. github.com)",
     "lookupBtn": "Slå op",
     "looking": "Slår op…",
@@ -3795,8 +3795,8 @@
     }
   },
   "CurlToCode": {
-    "title": "cURL to Code",
-    "subtitle": "Convert a curl command into fetch, axios, Python, Go, and more.",
+    "title": "cURL til kode",
+    "subtitle": "Lav curl-kommandoer om til fetch, axios, Python og mere",
     "panels": {
       "input": "curl command",
       "output": "Generated code"
@@ -3809,8 +3809,8 @@
     "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
-    "title": "JSON to Code",
-    "subtitle": "Generate typed models in your language from a sample JSON payload.",
+    "title": "JSON til kode",
+    "subtitle": "Generér typede modeller fra en eksempel-JSON",
     "panels": {
       "input": "JSON input",
       "output": "Generated code"
@@ -3824,8 +3824,8 @@
     "outputPlaceholder": "Generated type models will appear here…"
   },
   "JsonVisualizer": {
-    "title": "JSON Visualizer",
-    "subtitle": "Visualize JSON as an interactive node graph — search, collapse, and export as an image.",
+    "title": "JSON-visualisering",
+    "subtitle": "Udforsk JSON som en interaktiv nodegraf",
     "panels": {
       "input": "JSON input",
       "graph": "Graph"
@@ -3857,8 +3857,8 @@
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
   },
   "BeautifyMinify": {
-    "title": "Beautify & Minify",
-    "subtitle": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON.",
+    "title": "Beautify & minify",
+    "subtitle": "Forskøn eller minificér HTML, CSS, JavaScript, XML og JSON",
     "langLabel": "Language",
     "actionLabel": "Action",
     "beautify": "Beautify",
@@ -3875,8 +3875,8 @@
     "outputPlaceholder": "Formatted output will appear here…"
   },
   "StringCaseConverter": {
-    "title": "String Case Converter",
-    "subtitle": "Convert text between camelCase, snake_case, kebab-case, and more.",
+    "title": "Case-konverter",
+    "subtitle": "Konvertér mellem camelCase, snake_case, kebab-case og mere",
     "panels": {
       "input": "Input",
       "output": "Case variants"
@@ -3888,8 +3888,8 @@
     "emptyHint": "—"
   },
   "LineSortDedupe": {
-    "title": "Line Sort & Dedupe",
-    "subtitle": "Sort, deduplicate, trim, and clean up lists of lines.",
+    "title": "Linjesortering",
+    "subtitle": "Sortér, fjern dubletter, trim og ryd op i lister af linjer",
     "opts": {
       "sort": "Sort",
       "dedupe": "Remove duplicates",
@@ -3917,8 +3917,8 @@
     "outputPlaceholder": "Processed lines will appear here…"
   },
   "StringInspector": {
-    "title": "String Inspector",
-    "subtitle": "Count characters, words, and bytes, and reveal hidden characters.",
+    "title": "Strenginspektør",
+    "subtitle": "Tæl tegn, ord og bytes; afslør skjulte tegn",
     "panels": {
       "input": "Input"
     },
@@ -3950,8 +3950,8 @@
     "nonAscii": "Non-ASCII character"
   },
   "EscapeEncode": {
-    "title": "Escape / Encode",
-    "subtitle": "Escape and unescape HTML entities, backslash strings, hex, and Unicode.",
+    "title": "Streng-escaper",
+    "subtitle": "Escape HTML-entiteter, backslashes, hex og Unicode",
     "modeLabel": "Mode",
     "modes": {
       "html": "HTML Entities",
@@ -3974,8 +3974,8 @@
     "outputPlaceholder": "Result will appear here…"
   },
   "BcryptGenerator": {
-    "title": "Bcrypt-generator og -kontrol",
-    "subtitle": "Hash adgangskoder med bcrypt, og verificér hashes — alt bliver i din browser",
+    "title": "Bcrypt-generator",
+    "subtitle": "Hash og verificér adgangskoder med bcrypt",
     "tabs": {
       "hash": "Hash",
       "verify": "Verificér"
@@ -4016,7 +4016,7 @@
   },
   "ChmodCalculator": {
     "title": "Chmod-beregner",
-    "subtitle": "Konvertér Unix-filtilladelser mellem afkrydsningsfelter, oktal og symbolsk notation",
+    "subtitle": "Konvertér Unix-rettigheder mellem oktal og symbolsk",
     "grid": {
       "title": "Tilladelser",
       "read": "Læs",
@@ -4069,8 +4069,8 @@
     }
   },
   "CodeScreenshot": {
-    "title": "Kodeskærmbillede",
-    "subtitle": "Forvandl kode til smukke, delbare billeder",
+    "title": "Kode-screenshot",
+    "subtitle": "Lav kode om til flotte billeder, du kan dele",
     "languageLabel": "Sprog",
     "autoDetect": "Automatisk registrering",
     "backgroundLabel": "Baggrund",
@@ -4108,7 +4108,7 @@
   },
   "CssGenerators": {
     "title": "CSS-generatorer",
-    "subtitle": "Box-shadow, border-radius og flydende clamp() — kopiér CSS'en.",
+    "subtitle": "Generér CSS til box-shadow, border-radius og clamp()",
     "preview": "Forhåndsvisning",
     "output": "CSS",
     "copy": "Kopiér",
@@ -4172,8 +4172,8 @@
     }
   },
   "ExifViewer": {
-    "title": "EXIF-fremviser og -fjerner",
-    "subtitle": "Inspicér fotos' metadata, og fjern dem i din browser",
+    "title": "EXIF-fremviser",
+    "subtitle": "Undersøg og fjern fotometadata",
     "dropTitle": "Slip et billede her",
     "dropHint": "eller klik for at gennemse — dit billede forlader aldrig din enhed",
     "browse": "Vælg billede",
@@ -4223,7 +4223,7 @@
   },
   "FaviconGenerator": {
     "title": "Favicon-generator",
-    "subtitle": "Opret favicons og app-ikoner ud fra ét billede",
+    "subtitle": "Lav favicons og appikoner ud fra ét billede",
     "dropTitle": "Slip et billede her",
     "dropHint": "PNG, JPEG eller SVG — klik for at gennemse",
     "browse": "Vælg billede",
@@ -4245,7 +4245,7 @@
   },
   "JsonDiff": {
     "title": "JSON-diff",
-    "subtitle": "Semantisk, strukturbevidst sammenligning af to JSON-dokumenter — nøglerækkefølge og formatering ignoreres",
+    "subtitle": "Sammenlign JSON strukturelt — nøglerækkefølge ignoreres",
     "options": {
       "ignoreArrayOrder": "Ignorér array-rækkefølge"
     },
@@ -4277,7 +4277,7 @@
   },
   "JsonpathPlayground": {
     "title": "JSONPath-legeplads",
-    "subtitle": "Forespørg JSON-dokumenter med JSONPath eller JMESPath, og se resultater live",
+    "subtitle": "Forespørg JSON live med JSONPath eller JMESPath",
     "engineLabel": "Motor",
     "queryLabel": "Forespørgsel",
     "engines": {
@@ -4318,8 +4318,8 @@
     "copied": "Kopieret"
   },
   "KeycodeInspector": {
-    "title": "Tastekode-inspektør",
-    "subtitle": "Tryk på en vilkårlig tast for at inspicere dens JavaScript-tastaturhændelse",
+    "title": "Keycode-inspektør",
+    "subtitle": "Tryk på en tast og undersøg dens keyboard-event",
     "capture": {
       "prompt": "Tryk på en vilkårlig tast…",
       "ready": "Lytter — tryk på en vilkårlig tast på dit tastatur",
@@ -4354,7 +4354,7 @@
   },
   "MarkdownTableGenerator": {
     "title": "Markdown-tabelgenerator",
-    "subtitle": "Rediger et gitter, indsæt fra et regneark, og kopiér en pænt justeret Markdown- eller HTML-tabel",
+    "subtitle": "Redigér et gitter og kopiér en justeret Markdown- eller HTML-tabel",
     "addRow": "Tilføj række",
     "addColumn": "Tilføj kolonne",
     "importLabel": "Importér",
@@ -4386,7 +4386,7 @@
   },
   "TimezoneConverter": {
     "title": "Tidszonekonverter",
-    "subtitle": "Konvertér ét øjeblik på tværs af verden til mødeplanlægning.",
+    "subtitle": "Konvertér ét tidspunkt på tværs af tidszoner",
     "dateTimeLabel": "Dato og tid",
     "now": "Nu",
     "sourceZoneLabel": "Kilde-tidszone",
@@ -4407,8 +4407,8 @@
     }
   },
   "TokenCounter": {
-    "title": "LLM-token-tæller",
-    "subtitle": "Tæl tokens, visualisér chunks, og estimér API-omkostninger.",
+    "title": "LLM-tokentæller",
+    "subtitle": "Tæl tokens, visualisér chunks og estimér omkostninger",
     "inputLabel": "Tekst",
     "sample": "Eksempel",
     "clear": "Ryd",
@@ -4450,7 +4450,7 @@
   },
   "WebhookTester": {
     "title": "Webhook-tester",
-    "subtitle": "Opret en midlertidig URL, og inspicér indgående webhook-anmodninger live.",
+    "subtitle": "Opret en midlertidig URL og undersøg webhooks live",
     "intro": {
       "title": "Opret en webhook-URL for at begynde at opfange anmodninger",
       "hint": "Du får en ugættelig URL, der registrerer hver indgående anmodning. Den udløber efter 24 timer."
@@ -4489,7 +4489,7 @@
   },
   "WebsocketTester": {
     "title": "WebSocket-tester",
-    "subtitle": "Forbind til et WebSocket-endpoint, og send, modtag og inspicér beskeder live",
+    "subtitle": "Forbind, send og undersøg WebSocket-beskeder live",
     "urlLabel": "Endpoint-URL",
     "protocolsLabel": "Subprotokoller",
     "protocolsPlaceholder": "valgfrit, kommasepareret",
@@ -4536,7 +4536,7 @@
   },
   "WhoisLookup": {
     "title": "Whois-opslag",
-    "subtitle": "Slå registreringsoplysninger op for ethvert domæne eller IP-adresse via RDAP",
+    "subtitle": "Slå domæne- og IP-registrering op via RDAP",
     "placeholder": "example.com eller 8.8.8.8",
     "lookupBtn": "Slå op",
     "looking": "Slår op…",
@@ -4569,5 +4569,8 @@
       "invalidTarget": "Indtast et gyldigt domænenavn eller IP-adresse",
       "lookupFailed": "Opslag mislykkedes (status {status})"
     }
+  },
+  "ToolPageHeader": {
+    "offline": "100 % offline"
   }
 }

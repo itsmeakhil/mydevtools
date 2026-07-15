@@ -298,7 +298,7 @@ export function UuidGeneratorLayout() {
             <Button
               type="button"
               onClick={runGenerate}
-              className="gap-1.5 w-full sm:w-auto border-0 text-white shadow-sm shadow-purple-500/25 bg-[linear-gradient(100deg,#7c3aed,#a855f7_55%,#c084fc)] hover:shadow-md hover:shadow-purple-500/30 hover:brightness-[1.06]"
+              className="gap-1.5 w-full sm:w-auto"
             >
               <RefreshCw className="h-3.5 w-3.5" />
               {t('generate')}

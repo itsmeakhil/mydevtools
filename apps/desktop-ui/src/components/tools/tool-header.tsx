@@ -7,6 +7,8 @@ import { getRouteConfig } from '@/lib/route-config';
 import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store';
 import { useWorkspaceStore } from '@/store/workspace-store';
 import { normalizePinnedToolPath } from '@/lib/pinned-tools-path';
+import { toolCategoryMap } from '@/lib/tool-categories';
+import { categoryAccent } from '@/components/dashboard/types';
 import { cn } from '@/lib/utils';
 
 export function ToolPinButton({
@@ -78,6 +80,8 @@ export function ToolHeader({ title, description, toolId, className }: ToolHeader
   // Compact single-row header — the tool's identity already lives in the tab
   // and sidebar, so the in-page header stays out of the content's way.
   const Icon = getRouteConfig(normalizePinnedToolPath(toolId))?.icon;
+  const slug = toolId.split('/').filter(Boolean).pop() ?? toolId;
+  const accent = categoryAccent(toolCategoryMap[slug] ?? '');
 
   return (
     <CardHeader
@@ -87,7 +91,7 @@ export function ToolHeader({ title, description, toolId, className }: ToolHeader
       )}
     >
       {Icon ? (
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
+        <span className={cn('flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset ring-border/50', accent.bg, accent.text)}>
           <Icon className="h-4 w-4" strokeWidth={2} />
         </span>
       ) : null}

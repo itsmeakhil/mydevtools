@@ -100,7 +100,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'S3 Drive lets you connect multiple AWS S3 or DigitalOcean Spaces buckets, browse folders, upload and download files, and manage objects — all with credentials encrypted locally before being stored.',
     },
     'url-encode': {
-        title: 'URL Encoder / Decoder',
+        title: 'URL Encoder',
         description: 'Percent-encode or decode text for query strings and URI components with UTF-8 support.',
         keywords: ['url encode', 'url decode', 'percent encode', 'uri encode', 'encodeURIComponent'],
         aiSummary: 'Percent-encode text for URLs or decode encoded strings — answers "URL encode online", "encodeURIComponent online", or "decode %20 in URL". UTF-8 support. Runs in browser.',
@@ -112,13 +112,13 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'Paste any URL to break it into protocol, host, pathname, query parameters, and hash. Answers "parse URL online", "extract query params from URL", or "URL components breakdown".',
     },
     'uuid-generator': {
-        title: 'UUID / ULID Generator',
+        title: 'UUID Generator',
         description: 'Generate UUID v1–v7 or ULIDs with namespace options and bulk copy or download.',
         keywords: ['uuid generator', 'ulid generator', 'guid', 'uuid v4', 'uuid v7', 'bulk uuid'],
         aiSummary: 'Generate UUID v1 through v7 or ULIDs, bulk-generate multiple IDs, and copy or download. Answers "UUID generator online", "ULID generator", "generate UUID v4 online".',
     },
     'secret-api-key-generator': {
-        title: 'Secret / API Key Generator',
+        title: 'API Key Generator',
         description: 'Generate cryptographically random strings with a configurable alphabet and length. Bulk copy or download; pairs with the UUID generator.',
         keywords: ['api key generator', 'secret generator', 'random string', 'crypto random', 'token generator', 'getrandomvalues'],
         aiSummary: 'Generate cryptographically random API keys, tokens, or secrets with custom length and alphabet (hex, alphanumeric, base62). Uses browser crypto.getRandomValues — answers "generate random API key online".',
@@ -136,7 +136,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'Look up DNS records (A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, PTR) for any domain. Shows TTL values, MX priority, and SOA fields. Answers "check DNS records online", "MX record lookup", or "DNS propagation checker".',
     },
     'ip-subnet-calculator': {
-        title: 'IP / Subnet Calculator',
+        title: 'Subnet Calculator',
         description: 'Compute IPv4 and IPv6 CIDR details: netmask, wildcard, broadcast, first and last host, and subnet size. Runs locally in your browser.',
         keywords: ['subnet calculator', 'cidr calculator', 'ip calculator', 'netmask', 'ipv6 subnet', 'network calculator', 'ip range'],
         aiSummary: 'Enter an IP/CIDR (e.g. 192.168.1.0/24) to get netmask, wildcard, broadcast, first/last host, and total hosts. IPv4 and IPv6. Answers "subnet calculator online" or "CIDR to IP range".',
@@ -160,7 +160,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'AES-256-GCM encrypt/decrypt in the browser using a raw key or passphrase (PBKDF2). All crypto runs client-side — answers "AES encrypt text online", "encrypt string with passphrase", or "Web Crypto API demo".',
     },
     'totp-generator': {
-        title: 'TOTP / 2FA Code Generator',
+        title: 'TOTP Generator',
         description: 'Paste a Base32 authenticator secret and see the current six-digit RFC 6238 TOTP code refresh every 30 seconds. SHA-1, 30-second step—ideal for testing MFA and sign-in flows. Runs entirely in your browser.',
         keywords: ['totp', '2fa', 'two factor', 'authenticator', 'google authenticator', 'RFC 6238', 'one-time password', 'MFA test', 'otp'],
         aiSummary: 'Paste a Base32 TOTP secret to get the current 6-digit 2FA code refreshing every 30 seconds. Answers "generate TOTP code online", "test authenticator secret", or "RFC 6238 OTP generator".',
@@ -190,13 +190,13 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'Paste a JWT to inspect header and payload (exp / iat / nbf) locally — answers “decode JWT online”, “JWT debugger”, or “read JWT without verifying signature”.',
     },
     'ssh-key-generator': {
-        title: 'SSH / RSA Key Generator',
+        title: 'SSH Key Generator',
         description: 'Generate Ed25519 or RSA key pairs (2048/4096-bit) in your browser. Download private key (PKCS#8 PEM) and public key in OpenSSH and SPKI PEM formats. Nothing is uploaded.',
         keywords: ['ssh key generator', 'rsa key generator', 'ed25519 key', 'generate ssh key', 'public private key pair', 'openssh key', 'pkcs8', 'rsa 4096'],
         aiSummary: 'Generate Ed25519 or RSA-2048/4096 key pairs entirely in the browser. Outputs PKCS#8 private key PEM, OpenSSH public key (.pub), and SPKI PEM. Answers "generate SSH key online", "create RSA key pair", or "Ed25519 key generator".',
     },
     'certificate-pem-decoder': {
-        title: 'Certificate / PEM Decoder',
+        title: 'Certificate Decoder',
         description: 'Paste an X.509 PEM certificate or PKCS#10 CSR to inspect subject, issuer, validity, serial, SHA-256 fingerprint, and Subject Alternative Names. Runs locally in your browser.',
         keywords: ['x509 decoder', 'pem decoder', 'certificate parser', 'csr decoder', 'subject alternative name', 'san', 'ssl certificate', 'pkcs10'],
         aiSummary: 'Paste an X.509 PEM cert or PKCS#10 CSR to inspect subject, issuer, expiry, SANs, and SHA-256 fingerprint. Answers "decode SSL certificate online", "read PEM certificate", or "parse CSR online".',
@@ -244,7 +244,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'Compare two texts side by side with additions in green and removals in red. Answers "text diff checker online", "compare two texts", or "side-by-side diff tool".',
     },
     'base64': {
-        title: 'Base64 Encoder / Decoder',
+        title: 'Base64 Encoder',
         description: 'Encode text to Base64 or decode Base64 strings instantly, with UTF-8 support. Runs entirely in your browser.',
         keywords: ['base64 encode', 'base64 decode', 'base64 converter', 'encode text', 'decode base64'],
         aiSummary: 'Encode text to Base64 or decode Base64 strings in the browser. UTF-8 support. Answers "base64 encode online", "base64 decode", or "convert text to base64".',
@@ -299,13 +299,13 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
             'Free browser tool: tick databases (Postgres, MySQL, MongoDB, ClickHouse), caches (Redis, Valkey, Memcached), queues (RabbitMQ, NATS, Kafka, Redpanda), search (Elasticsearch, Meilisearch), proxies (Traefik, Caddy, NGINX), observability (Prometheus, Grafana, Jaeger, Loki), and admin UIs — then copy or download docker-compose.yml.',
     },
     'csv-excel-json': {
-        title: 'CSV / Excel ↔ JSON Converter',
+        title: 'Spreadsheet ↔ JSON',
         description: 'Upload CSV or Excel files and convert to JSON, or export a JSON array of objects back to CSV and XLSX. Dates from Excel become ISO strings. Runs in your browser.',
         keywords: ['csv to json', 'excel to json', 'xlsx to json', 'json to csv', 'json to excel', 'spreadsheet converter', 'tabular data'],
         aiSummary: 'Convert CSV or Excel (.xlsx) files to JSON, or export JSON arrays back to CSV/Excel. Dates from Excel convert to ISO strings. Answers "CSV to JSON converter online", "Excel to JSON", or "JSON to CSV download".',
     },
     'snippet-manager': {
-        title: 'Code Snippet Manager',
+        title: 'Snippet Manager',
         description: 'Save, edit, and copy code snippets with Monaco syntax highlighting, auto-detect language, view and edit modes, and format JSON, SQL, and more. Stored locally in your browser.',
         keywords: ['code snippets', 'snippet manager', 'syntax highlighting', 'paste bin', 'developer snippets', 'monaco editor'],
         aiSummary: 'Save and organize code snippets with Monaco syntax highlighting and auto language detection. Format JSON/SQL, copy with one click. Answers "code snippet manager online" or "developer snippet organizer".',
@@ -413,13 +413,13 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'One tool to beautify (pretty-print) or minify HTML, CSS, JavaScript, XML, and JSON. Answers "minify CSS online", "beautify HTML", or "format JS". Runs locally in your browser — no upload.',
     },
     'string-case-converter': {
-        title: 'String Case Converter',
+        title: 'Case Converter',
         description: 'Convert text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, Title Case, and more.',
         keywords: ['case converter', 'camelcase converter', 'snake case', 'kebab case', 'convert case online', 'string case', 'constant case'],
         aiSummary: 'Convert any text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, dot.case, Title Case, and more — all variants shown at once with copy buttons. Answers "convert to snake_case" or "camelCase converter online".',
     },
     'line-sort-dedupe': {
-        title: 'Line Sort & Dedupe',
+        title: 'Line Sorter',
         description: 'Sort lines alphabetically or by length, remove duplicates, trim whitespace, and clean up lists locally.',
         keywords: ['sort lines', 'remove duplicate lines', 'dedupe lines', 'sort list online', 'alphabetize lines', 'unique lines', 'text sorter'],
         aiSummary: 'Sort lines (A–Z, Z–A, natural, by length, reverse), remove duplicate and empty lines, and trim whitespace in one pass. Answers "sort lines online", "remove duplicate lines", or "alphabetize a list". Runs in your browser.',
@@ -431,13 +431,13 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: 'Inspect any string: character, word, line, sentence, and byte (UTF-8) counts plus a table of invisible and non-ASCII characters with Unicode code points. Answers "count characters online" or "find invisible characters".',
     },
     'escape-encode': {
-        title: 'Escape / Encode',
+        title: 'String Escaper',
         description: 'Escape and unescape HTML entities, backslash (JS/JSON) strings, hex ↔ ASCII, and Unicode \\uXXXX sequences.',
         keywords: ['html entity encode', 'html escape', 'backslash escape', 'unescape string', 'hex to ascii', 'unicode escape', 'string escape'],
         aiSummary: 'One tool to escape or unescape HTML entities, backslash JS/JSON strings, hex ↔ ASCII, and Unicode \\uXXXX. Answers "HTML entity encode", "escape a string", "hex to text", or "unicode escape". Runs in your browser.',
     },
     'bcrypt-generator': {
-        title: "Bcrypt Generator & Checker",
+        title: "Bcrypt Generator",
         description: "Generate bcrypt password hashes with a configurable cost factor and verify passwords against existing hashes. Runs entirely in your browser.",
         keywords: ["bcrypt generator", "bcrypt hash", "bcrypt checker", "password hash", "verify bcrypt", "bcrypt online", "cost factor", "salt rounds"],
         aiSummary: "Generates bcrypt password hashes with a selectable cost factor (4-15) and verifies passwords against existing bcrypt hashes, with a breakdown of the hash's algorithm, cost, salt, and digest segments. All hashing runs locally in the browser, so passwords never leave your machine.",
@@ -461,7 +461,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         aiSummary: "A browser-based CSS generator with three tools: a multi-layer box-shadow builder with presets, a per-corner border-radius and organic blob generator, and a fluid clamp() typography calculator. All computation runs client-side and outputs copyable CSS.",
     },
     'exif-viewer': {
-        title: "EXIF Viewer & Remover",
+        title: "EXIF Viewer",
         description: "View camera, GPS and EXIF metadata in your photos, then losslessly strip it. JPEG, PNG, WebP, HEIC and TIFF, all processed in your browser.",
         keywords: ["exif viewer", "exif remover", "remove exif data", "photo metadata", "strip gps from photo", "image metadata viewer", "remove image metadata", "exif gps location"],
         aiSummary: "A free browser-based EXIF viewer and remover that reveals camera settings, timestamps and GPS location embedded in photos, then strips that metadata. JPEGs are cleaned losslessly by rewriting segments; PNG and WebP are re-encoded. Everything runs locally, so your photos are never uploaded.",
