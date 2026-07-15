@@ -4,7 +4,9 @@
 //!
 //! Rust-side HTTP has no CORS. Unlike the web proxy, localhost/private
 //! targets are allowed (it's the user's own machine); only cloud metadata
-//! endpoints stay blocked.
+//! endpoints stay blocked. The system proxy is bypassed for loopback/private
+//! targets (browsers do this; reqwest doesn't) so a dev's `HTTP_PROXY` env
+//! doesn't break `127.0.0.1` requests.
 
 use base64::Engine;
 use dashmap::DashMap;
@@ -51,6 +53,37 @@ fn assert_hop_allowed(url: &reqwest::Url) -> Result<(), String> {
     Ok(())
 }
 
+/// reqwest's `Display` only prints the top-level message ("error sending request
+/// for url (…)") and swallows the actual cause (connection refused, proxy failure,
+/// DNS, TLS). Walk the source chain so the user sees why it failed.
+fn full_error_chain(e: &dyn std::error::Error) -> String {
+    let mut msg = e.to_string();
+    let mut src = e.source();
+    while let Some(inner) = src {
+        msg.push_str(": ");
+        msg.push_str(&inner.to_string());
+        src = inner.source();
+    }
+    msg
+}
+
+/// Browsers bypass the system proxy for loopback/private hosts; reqwest does not.
+/// A dev with `HTTP_PROXY`/`ALL_PROXY` set would otherwise route `127.0.0.1:8000`
+/// through the proxy and fail. Bypass the proxy for local targets, keep it for the rest.
+fn is_local_target(url: &reqwest::Url) -> bool {
+    let host = url.host_str().unwrap_or("").to_lowercase();
+    if host == "localhost" || host.ends_with(".localhost") {
+        return true;
+    }
+    // ponytail: string parse over url::Host; bracketed IPv6 (`[::1]`) won't parse
+    // here but `localhost`/IPv4 loopback (the common dev cases) are covered.
+    match host.parse::<std::net::IpAddr>() {
+        Ok(std::net::IpAddr::V4(v4)) => v4.is_loopback() || v4.is_private() || v4.is_link_local(),
+        Ok(std::net::IpAddr::V6(v6)) => v6.is_loopback(),
+        Err(_) => false,
+    }
+}
+
 fn is_textual_content_type(ct: &str) -> bool {
     let l = ct.to_lowercase();
     l.starts_with("text/")
@@ -59,12 +92,14 @@ fn is_textual_content_type(ct: &str) -> bool {
             .any(|t| l.contains(t))
 }
 
-fn plain_client() -> Result<reqwest::Client, String> {
-    reqwest::Client::builder()
+fn plain_client(bypass_proxy: bool) -> Result<reqwest::Client, String> {
+    let mut builder = reqwest::Client::builder()
         .redirect(reqwest::redirect::Policy::none())
-        .user_agent("mydevtools-desktop")
-        .build()
-        .map_err(|e| e.to_string())
+        .user_agent("mydevtools-desktop");
+    if bypass_proxy {
+        builder = builder.no_proxy();
+    }
+    builder.build().map_err(|e| e.to_string())
 }
 
 fn build_body(body: &Value) -> Result<Option<BodyKind>, String> {
@@ -166,7 +201,7 @@ async fn fetch_following_redirects(
             }
         }
 
-        let response = req.send().await.map_err(|e| e.to_string())?;
+        let response = req.send().await.map_err(|e| full_error_chain(&e))?;
         let status = response.status().as_u16();
         let is_redirect = (300..400).contains(&status) && status != 304;
         if !is_redirect {
@@ -215,7 +250,7 @@ pub async fn http_request(input: Value) -> Value {
     };
     let is_multipart = matches!(body, Some(BodyKind::Multipart(_)));
 
-    let client = match plain_client() {
+    let client = match plain_client(is_local_target(&parsed)) {
         Ok(c) => c,
         Err(e) => return envelope_error(0, "Error", &e),
     };
@@ -293,6 +328,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
     }
     let parsed = reqwest::Url::parse(&url).map_err(|_| "Invalid URL format".to_string())?;
     assert_hop_allowed(&parsed)?;
+    let bypass_proxy = is_local_target(&parsed);
     let method = input["method"].as_str().unwrap_or("GET").to_string();
     let headers = input["headers"].as_object().cloned().unwrap_or_default();
     let body = input["body"].as_str().map(str::to_string);
@@ -305,7 +341,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
         let emit = |v: Value| {
             let _ = channel.send(v);
         };
-        let client = match plain_client() {
+        let client = match plain_client(bypass_proxy) {
             Ok(c) => c,
             Err(e) => {
                 emit(json!({ "kind": "error", "message": e }));
@@ -331,7 +367,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
         let response = match req.send().await {
             Ok(r) => r,
             Err(e) => {
-                emit(json!({ "kind": "error", "message": e.to_string() }));
+                emit(json!({ "kind": "error", "message": full_error_chain(&e) }));
                 streams().remove(&id);
                 return;
             }
@@ -376,6 +412,18 @@ pub fn cancel_stream(id: u64) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn local_target_detection() {
+        let local = |u: &str| is_local_target(&reqwest::Url::parse(u).unwrap());
+        assert!(local("http://127.0.0.1:8000/health"));
+        assert!(local("http://localhost:3000"));
+        assert!(local("http://api.localhost/v1"));
+        assert!(local("http://10.0.0.5/x"));
+        assert!(local("http://192.168.1.10:8080"));
+        assert!(!local("https://api.example.com/v1"));
+        assert!(!local("http://8.8.8.8/x"));
+    }
 
     #[test]
     fn textual_content_type_detection() {

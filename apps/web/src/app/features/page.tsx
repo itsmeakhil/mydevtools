@@ -4,7 +4,7 @@ import { getPlatformSeoPage } from '@/lib/seo/platform-pages'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 const page = getPlatformSeoPage('features')
-const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(page?.title ?? 'MyDevTools')}&description=${encodeURIComponent(page?.description ?? 'Online developer tools')}`
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent(page?.title ?? 'MyDevTools')}&description=${encodeURIComponent(page?.description ?? 'All-in-one desktop developer tools')}`
 
 export const metadata: Metadata = {
   title: page?.title,

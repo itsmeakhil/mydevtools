@@ -151,7 +151,7 @@ export const sidebarData: SidebarData = {
           title: 'SSH / RSA Key Generator',
           url: '/app/ssh-key-generator',
           icon: IconFingerprint,
-          description: 'Generate Ed25519 or RSA key pairs in your browser. Download in OpenSSH and PEM formats.',
+          description: 'Generate Ed25519 or RSA key pairs locally. Download in OpenSSH and PEM formats.',
         },
         {
           title: 'Encryption Playground',
@@ -223,7 +223,7 @@ export const sidebarData: SidebarData = {
           title: 'YAML Formatter',
           url: '/app/yaml-formatter',
           icon: IconFileCode,
-          description: 'Format, validate, and convert YAML to JSON in the browser.',
+          description: 'Format, validate, and convert YAML to JSON locally.',
         },
         {
           title: 'Markdown Preview',
@@ -289,7 +289,7 @@ export const sidebarData: SidebarData = {
           title: 'Number Base Converter',
           url: '/app/number-base-converter',
           icon: IconArrowsExchange,
-          description: 'Convert integers between bases 2–36 locally in your browser.',
+          description: 'Convert integers between bases 2–36 locally on your machine.',
         },
         {
           title: 'Timestamp Converter',
@@ -379,7 +379,7 @@ export const sidebarData: SidebarData = {
           title: 'QR Code Generator',
           url: '/app/qr-code-generator',
           icon: IconQrcode,
-          description: 'Create PNG QR codes from text or URLs locally in your browser.',
+          description: 'Create PNG QR codes from text or URLs locally on your machine.',
         },
         {
           title: '.gitignore Generator',
@@ -416,13 +416,13 @@ export const sidebarData: SidebarData = {
           title: 'Hash Generator',
           url: '/app/hash-generator',
           icon: IconHash,
-          description: 'MD5, SHA-1, SHA-256/384/512 digests for text or files in your browser.',
+          description: 'MD5, SHA-1, SHA-256/384/512 digests for text or files, computed locally.',
         },
         {
           title: 'HMAC Generator',
           url: '/app/hmac-generator',
           icon: IconCircleKey,
-          description: 'HMAC-SHA1/256/384/512 for webhooks and API signing tests in your browser.',
+          description: 'HMAC-SHA1/256/384/512 for webhooks and API signing tests, computed locally.',
         },
         {
           title: 'TOTP / 2FA Code Generator',
@@ -470,7 +470,7 @@ export const sidebarData: SidebarData = {
           title: 'IP / Subnet Calculator',
           url: '/app/ip-subnet-calculator',
           icon: IconHierarchy2,
-          description: 'IPv4 and IPv6 CIDR: netmask, host range, and address counts in your browser.',
+          description: 'IPv4 and IPv6 CIDR: netmask, host range, and address counts, computed locally.',
         },
         {
           title: 'User-Agent Parser',

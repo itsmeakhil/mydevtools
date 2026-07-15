@@ -19,54 +19,54 @@ export type ComparisonPage = {
 export const comparisonPages: ComparisonPage[] = [
   {
     slug: 'best-online-developer-tools',
-    title: 'Best Online Developer Tools',
+    title: 'Best Developer Tools — All-in-One Desktop Toolkit',
     description:
-      'Compare MyDevTools with single-purpose online developer tools and see why a unified developer toolkit is better for everyday engineering workflows.',
+      'Compare MyDevTools with scattered single-purpose developer tools and see why an all-in-one desktop toolkit is better for everyday engineering workflows.',
     eyebrow: 'Best Developer Tools',
-    heading: 'Best online developer tools for fast browser-based workflows',
+    heading: 'Best all-in-one desktop developer toolkit for fast local workflows',
     intro:
-      'Most developers collect dozens of single-purpose formatter, decoder, generator, and API testing websites. MyDevTools brings those daily utilities into one searchable toolkit with public tool pages and an app dashboard.',
+      'Most developers collect dozens of single-purpose formatter, decoder, generator, and API testing tools. MyDevTools brings 80+ daily utilities into one offline desktop app with a searchable dashboard — everything runs locally on your machine.',
     primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
     sections: [
       {
         title: 'Why a toolkit beats a bookmark folder',
         body:
-          'Single-purpose sites are useful, but they create tab sprawl and inconsistent privacy expectations. A unified toolkit gives developers one place to start.',
+          'Single-purpose tools are useful, but they create tab sprawl and inconsistent privacy expectations. An all-in-one desktop toolkit gives developers one place to start — and your data never leaves your device.',
         bullets: [
-          'Use JSON, JWT, regex, UUID, Base64, API, hashing, timestamp, and generator tools from one domain.',
-          'Move between related utilities without searching for another website.',
-          'Use public landing pages for discovery and the app dashboard for daily work.',
+          'Use JSON, JWT, regex, UUID, Base64, API, hashing, timestamp, and generator tools from one app.',
+          'Move between related utilities without hunting for another tool.',
+          'Work offline with a fast native dashboard for daily development.',
         ],
       },
       {
         title: 'When single-purpose tools still win',
         body:
-          'A dedicated website can be best when it has one highly specialized feature, a familiar interface, or team muscle memory.',
+          'A dedicated tool can be best when it has one highly specialized feature, a familiar interface, or team muscle memory.',
         bullets: [
           'Use regex101 when you need its specific regex explanation workflow.',
           'Use Postman or Insomnia when you need full team API lifecycle management.',
-          'Use MyDevTools when you need broad, fast browser utilities in one unified workspace.',
+          'Use MyDevTools when you need broad, fast, offline utilities in one unified workspace.',
         ],
       },
       {
         title: 'Why developers choose MyDevTools',
         body:
-          'MyDevTools is strongest as an everyday browser toolkit for quick operations, learning, and debugging.',
+          'MyDevTools is strongest as an everyday desktop toolkit for quick operations, learning, and debugging — all processed locally.',
         bullets: [
           'Consistent, actively maintained toolkit with regular updates.',
-          'Public SEO pages for each tool, plus authenticated workspace features when needed.',
-          'Team workspaces with role-based access for developers and teams.',
+          '80+ built-in tools plus SQL, NoSQL (MongoDB), and Redis database clients in one place.',
+          'Local-first and privacy-first — nothing you paste leaves your device.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools a replacement for every developer tool?',
-        a: 'No. It is best for everyday browser-based utilities and quick workflows. Specialized desktop or enterprise tools can still be better for deep team workflows.',
+        a: 'No. It is best for everyday developer utilities and quick local workflows. Specialized enterprise tools can still be better for deep team workflows.',
       },
       {
         q: 'Why use MyDevTools instead of separate tool websites?',
-        a: 'It reduces context switching and gives you one searchable toolkit for common developer tasks like formatting JSON, decoding JWTs, testing regexes, generating UUIDs, and more.',
+        a: 'It reduces context switching and gives you one offline toolkit for common developer tasks like formatting JSON, decoding JWTs, testing regexes, generating UUIDs, and more.',
       },
     ],
   },
@@ -78,7 +78,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs JSONFormatter.org',
     intro:
-      'JSONFormatter.org is useful for focused JSON formatting. MyDevTools includes JSON formatting as part of a broader online developer toolkit for API, encoding, security, generator, and productivity workflows.',
+      'JSONFormatter.org is useful for focused JSON formatting. MyDevTools includes JSON formatting as part of a broader all-in-one desktop developer toolkit for API, encoding, security, generator, and productivity workflows.',
     competitor: 'JSONFormatter.org',
     toolSlug: 'json-formatter',
     primaryCta: { href: '/tools/json-formatter', label: 'Try JSON Formatter' },
@@ -99,8 +99,8 @@ export const comparisonPages: ComparisonPage[] = [
           'JSON work rarely happens alone. Developers often need to decode tokens, inspect URLs, test APIs, generate IDs, compare diffs, and transform formats in the same session.',
         bullets: [
           'Use JSON formatting alongside JWT, API client, URL parser, Base64, hash, UUID, and mock data tools.',
-          'Stay in one browser-based developer toolkit instead of opening multiple unrelated sites.',
-          'Save and sync your snippets across devices with an account.',
+          'Stay in one desktop developer toolkit instead of opening multiple unrelated sites.',
+          'Keep your snippets and history saved locally in one app.',
         ],
       },
       {
@@ -110,18 +110,18 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best single-purpose fit: JSONFormatter.org.',
           'Best multi-tool workflow fit: MyDevTools.',
-          'Best all-in-one cloud toolkit: MyDevTools.',
+          'Best all-in-one desktop toolkit: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Does MyDevTools include a JSON formatter?',
-        a: 'Yes. MyDevTools includes a JSON formatter/editor landing page and app tool, plus related tools for JWT, APIs, URLs, Base64, diffs, and schema workflows.',
+        a: 'Yes. MyDevTools includes a JSON formatter/editor plus related tools for JWT, APIs, URLs, Base64, diffs, and schema workflows.',
       },
       {
         q: 'Is MyDevTools only for JSON?',
-        a: 'No. JSON is one tool in a larger online developer toolkit with 50+ utilities.',
+        a: 'No. JSON is one tool in a larger desktop developer toolkit with 80+ utilities.',
       },
     ],
   },
@@ -129,7 +129,7 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-jwt-io',
     title: 'MyDevTools vs jwt.io',
     description:
-      'Compare MyDevTools with jwt.io for JWT decoding and broader browser-based security and developer workflows.',
+      'Compare MyDevTools with jwt.io for JWT decoding and broader offline security and developer workflows.',
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs jwt.io',
     intro:
@@ -172,7 +172,7 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Can MyDevTools decode JWTs?',
-        a: 'Yes. The JWT Decoder lets you inspect JWT header and payload fields in the browser.',
+        a: 'Yes. The JWT Decoder lets you inspect JWT header and payload fields locally.',
       },
       {
         q: 'Does MyDevTools verify JWT signatures?',
@@ -184,11 +184,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-regex101',
     title: 'MyDevTools vs regex101',
     description:
-      'Compare MyDevTools with regex101 for regex testing and broader online developer toolkit workflows.',
+      'Compare MyDevTools with regex101 for regex testing and broader all-in-one desktop developer toolkit workflows.',
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs regex101',
     intro:
-      'regex101 is excellent for deep regex explanation and pattern sharing. MyDevTools includes regex testing as part of a larger online toolkit for formatting, parsing, generating, and debugging developer data.',
+      'regex101 is excellent for deep regex explanation and pattern sharing. MyDevTools includes regex testing as part of a larger all-in-one desktop toolkit for formatting, parsing, generating, and debugging developer data.',
     competitor: 'regex101',
     toolSlug: 'regex-tester',
     primaryCta: { href: '/tools/regex-tester', label: 'Try Regex Tester' },
@@ -209,7 +209,7 @@ export const comparisonPages: ComparisonPage[] = [
           'Regex testing is often part of larger cleanup or validation work with URLs, JSON payloads, logs, encoded strings, and generated test data.',
         bullets: [
           'Test regex patterns alongside JSON, URL, Base64, timestamp, and mock data tools.',
-          'Use one browser toolkit for common developer utilities.',
+          'Use one desktop toolkit for common developer utilities.',
           'Save patterns and reuse them across your projects.',
         ],
       },
@@ -227,7 +227,7 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Does MyDevTools have a regex tester?',
-        a: 'Yes. MyDevTools includes an online regex tester for checking JavaScript regular expressions in the browser.',
+        a: 'Yes. MyDevTools includes a regex tester for checking JavaScript regular expressions locally.',
       },
       {
         q: 'Is MyDevTools better than regex101?',
@@ -239,7 +239,7 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'cyberchef-alternative',
     title: 'CyberChef Alternative',
     description:
-      'Looking for a CyberChef alternative for everyday browser developer utilities? Compare MyDevTools for formatting, decoding, encoding, hashing, and generator workflows.',
+      'Looking for a CyberChef alternative for everyday desktop developer utilities? Compare MyDevTools for formatting, decoding, encoding, hashing, and generator workflows.',
     eyebrow: 'Alternative',
     heading: 'CyberChef alternative for everyday developer workflows',
     intro:
@@ -260,7 +260,7 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is aimed at common engineering workflows where you want named tools, landing pages, and app navigation.',
+          'MyDevTools is aimed at common engineering workflows where you want named tools and a fast app dashboard.',
         bullets: [
           'Use dedicated tools for JSON, JWT, regex, UUID, Base64, hashing, timestamps, and APIs.',
           'Keep everyday developer utilities discoverable in one dashboard.',
@@ -291,13 +291,13 @@ export const comparisonPages: ComparisonPage[] = [
   },
   {
     slug: 'postman-alternative-online',
-    title: 'Online Postman Alternative',
+    title: 'Postman Alternative — Lightweight Desktop API Client',
     description:
-      'Compare MyDevTools as a lightweight online Postman alternative for quick API testing alongside JSON, JWT, URL, encoding, and generator tools.',
+      'Compare MyDevTools as a lightweight desktop Postman alternative for quick API testing alongside JSON, JWT, URL, encoding, and generator tools.',
     eyebrow: 'Alternative',
-    heading: 'Online Postman alternative for quick API testing',
+    heading: 'Postman alternative for quick, offline API testing',
     intro:
-      'Postman is a full API platform. MyDevTools is a lightweight online developer toolkit with an API client plus surrounding utilities developers often need during API debugging.',
+      'Postman is a full API platform. MyDevTools is a lightweight all-in-one desktop developer toolkit with an API client plus surrounding utilities developers often need during API debugging.',
     competitor: 'Postman',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -315,28 +315,28 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'Sometimes you just need to send a request, inspect a response, decode a token, format JSON, and generate test data without opening a heavy desktop workflow.',
+          'Sometimes you just need to send a request, inspect a response, decode a token, format JSON, and generate test data without opening a heavy platform.',
         bullets: [
           'Use the API client for quick request testing.',
           'Pair API testing with JSON, JWT, URL, Base64, timestamp, and mock data tools.',
-          'Use the browser-based toolkit when speed and context switching matter more than enterprise API management.',
+          'Use the desktop toolkit when speed and context switching matter more than enterprise API management.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Postman is stronger as a full API platform. MyDevTools is useful as a fast online toolkit around lightweight API debugging.',
+          'Postman is stronger as a full API platform. MyDevTools is useful as a fast desktop toolkit around lightweight API debugging.',
         bullets: [
           'Best enterprise API platform: Postman.',
-          'Best quick browser toolkit around API debugging: MyDevTools.',
-          'Best all-in-one cloud toolkit path: MyDevTools.',
+          'Best quick desktop toolkit around API debugging: MyDevTools.',
+          'Best all-in-one desktop toolkit path: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools a full Postman replacement?',
-        a: 'No. MyDevTools is better described as a lightweight online API client inside a broader developer toolkit.',
+        a: 'No. MyDevTools is better described as a lightweight API client inside a broader desktop developer toolkit.',
       },
       {
         q: 'Why use MyDevTools for API debugging?',
@@ -348,11 +348,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-postman',
     title: 'MyDevTools vs Postman',
     description:
-      'Compare MyDevTools with Postman for browser-based API testing, developer utilities, JSON formatting, JWT decoding, and lightweight request debugging.',
+      'Compare MyDevTools with Postman for desktop API testing, developer utilities, JSON formatting, JWT decoding, and lightweight request debugging.',
     eyebrow: 'Comparison',
-    heading: 'MyDevTools vs Postman: lightweight browser API testing',
+    heading: 'MyDevTools vs Postman: lightweight desktop API testing',
     intro:
-      'Postman is a full API platform for teams, collections, environments, and API lifecycle workflows. MyDevTools is a browser-based developer toolkit with a lightweight API client plus JSON, JWT, URL, timestamp, mock data, and security tools for quick debugging sessions.',
+      'Postman is a full API platform for teams, collections, environments, and API lifecycle workflows. MyDevTools is an all-in-one desktop developer toolkit with a lightweight API client plus JSON, JWT, URL, timestamp, mock data, and security tools for quick debugging sessions.',
     competitor: 'Postman',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -370,28 +370,28 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is better for quick browser-based debugging where an API request is only one part of a larger utility workflow.',
+          'MyDevTools is better for quick local debugging where an API request is only one part of a larger utility workflow.',
         bullets: [
           'Send a request, format the JSON response, decode a JWT, and parse URLs in the same toolkit.',
-          'Use a lightweight browser workflow without installing a desktop API client.',
-          'Sync requests and history across devices when you need continuity.',
+          'Run a fast local workflow with everything in one app.',
+          'Keep requests and history saved locally as you work.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Postman remains the better full API platform. MyDevTools is the better lightweight browser alternative for quick API debugging plus surrounding developer utilities.',
+          'Postman remains the better full API platform. MyDevTools is the better lightweight desktop alternative for quick API debugging plus surrounding developer utilities.',
         bullets: [
           'Best enterprise API platform: Postman.',
-          'Best browser-based quick API workflow: MyDevTools.',
-          'Best API client plus 50+ utility toolkit: MyDevTools.',
+          'Best quick local API workflow: MyDevTools.',
+          'Best API client plus 80+ utility toolkit: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools a Postman replacement?',
-        a: 'Not for full enterprise API lifecycle management. MyDevTools is a lightweight online alternative when you need quick API requests plus related developer tools.',
+        a: 'Not for full enterprise API lifecycle management. MyDevTools is a lightweight desktop alternative when you need quick API requests plus related developer tools.',
       },
       {
         q: 'What makes MyDevTools useful for API debugging?',
@@ -401,13 +401,13 @@ export const comparisonPages: ComparisonPage[] = [
   },
   {
     slug: 'uuid-generator-online',
-    title: 'Best Free UUID Generator Online',
+    title: 'Best Free UUID Generator',
     description:
-      'Generate UUID v4, v7, and other versions instantly in your browser. Compare online UUID generators and learn when to use each UUID version.',
+      'Generate UUID v4, v7, and other versions instantly on your machine. Compare UUID generators and learn when to use each UUID version.',
     eyebrow: 'UUID Generator',
-    heading: 'Best free online UUID generator: v4, v7, bulk generation',
+    heading: 'Best free UUID generator: v4, v7, bulk generation',
     intro:
-      'Most UUID generator sites produce a single v4 UUID. MyDevTools UUID Generator lets you choose the version (v4, v7, ULID), generate in bulk, and stay inside a broader developer toolkit for API keys, hashing, QR codes, and other generator workflows.',
+      'Most UUID generator tools produce a single v4 UUID. MyDevTools UUID Generator lets you choose the version (v4, v7, ULID), generate in bulk, and stay inside a broader developer toolkit for API keys, hashing, QR codes, and other generator workflows.',
     toolSlug: 'uuid-generator',
     primaryCta: { href: '/tools/uuid-generator', label: 'Generate UUIDs' },
     sections: [
@@ -427,7 +427,7 @@ export const comparisonPages: ComparisonPage[] = [
           'After generating UUIDs you often need to build a request body, format JSON, or generate an API key — all in the same session.',
         bullets: [
           'Generate UUIDs and API keys from the same generator section.',
-          'Paste generated IDs into the API client or JSON formatter without switching tabs.',
+          'Paste generated IDs into the API client or JSON formatter without switching tools.',
           'Use mock data generator when you need multiple IDs alongside other test fields.',
         ],
       },
@@ -436,7 +436,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'Any UUID generator produces valid v4 UUIDs. Choose one that integrates into your broader workflow.',
         bullets: [
-          'Best single v4: any online generator.',
+          'Best single v4: any basic generator.',
           'Best version choice + bulk + context: MyDevTools.',
           'Best all-in-one toolkit: MyDevTools.',
         ],
@@ -444,24 +444,24 @@ export const comparisonPages: ComparisonPage[] = [
     ],
     faqs: [
       {
-        q: 'Is it safe to use an online UUID generator?',
-        a: 'UUID v4 generators use cryptographically random bytes and do not transmit anything sensitive. MyDevTools UUID Generator runs in your browser with no server round-trip.',
+        q: 'Is it safe to use a UUID generator?',
+        a: 'UUID v4 generators use cryptographically random bytes and do not transmit anything sensitive. MyDevTools UUID Generator runs locally with no server round-trip.',
       },
       {
-        q: 'Can I generate UUIDs in bulk online?',
+        q: 'Can I generate UUIDs in bulk?',
         a: 'Yes. MyDevTools UUID Generator lets you set a count and generate multiple UUIDs at once, ready to copy as a list.',
       },
     ],
   },
   {
     slug: 'base64-encoder-decoder-online',
-    title: 'Free Online Base64 Encoder and Decoder',
+    title: 'Free Base64 Encoder and Decoder',
     description:
-      'Encode text or binary to Base64 and decode Base64 back to text instantly in your browser. Compare online Base64 tools and understand when to use Base64URL.',
+      'Encode text or binary to Base64 and decode Base64 back to text instantly on your device. Compare Base64 tools and understand when to use Base64URL.',
     eyebrow: 'Base64 Encoder / Decoder',
-    heading: 'Free online Base64 encoder and decoder — text, file, and URL-safe',
+    heading: 'Free Base64 encoder and decoder — text, file, and URL-safe',
     intro:
-      'Base64 encoding is a daily task for developers working with APIs, JWTs, images, and authentication headers. MyDevTools Base64 tool handles standard encoding, URL-safe Base64, and file input — all in the browser, no install.',
+      'Base64 encoding is a daily task for developers working with APIs, JWTs, images, and authentication headers. MyDevTools Base64 tool handles standard encoding, URL-safe Base64, and file input — all handled locally on your device.',
     toolSlug: 'base64',
     primaryCta: { href: '/tools/base64', label: 'Open Base64 Tool' },
     sections: [
@@ -488,9 +488,9 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Verdict',
         body:
-          'Any online Base64 encoder produces correct output for text input. MyDevTools adds file input, URL-safe mode, and related tools in one place.',
+          'Any Base64 encoder produces correct output for text input. MyDevTools adds file input, URL-safe mode, and related tools in one place.',
         bullets: [
-          'Best for text encoding: any online tool.',
+          'Best for text encoding: any basic tool.',
           'Best for file + URL-safe + toolkit context: MyDevTools.',
           'Best all-in-one toolkit: MyDevTools.',
         ],
@@ -509,67 +509,67 @@ export const comparisonPages: ComparisonPage[] = [
   },
   {
     slug: 'online-diff-checker',
-    title: 'Online Diff Checker — Compare Text, Code, and JSON',
+    title: 'Diff Checker — Compare Text, Code, and JSON',
     description:
-      'Compare two blocks of text, code, or JSON side by side and highlight differences instantly in the browser. Find the best online diff tool for your workflow.',
+      'Compare two blocks of text, code, or JSON side by side and highlight differences instantly on your machine. Find the best diff tool for your workflow.',
     eyebrow: 'Diff Checker',
-    heading: 'Online diff checker: compare text, code, and JSON side by side',
+    heading: 'Diff checker: compare text, code, and JSON side by side',
     intro:
-      'Online diff tools let you paste two versions of a file and instantly see additions, deletions, and changes highlighted. MyDevTools Diff Checker works in the browser alongside JSON formatting, URL parsing, and other utilities developers use in the same session.',
+      'A diff tool lets you paste two versions of a file and instantly see additions, deletions, and changes highlighted. MyDevTools Diff Checker works locally alongside JSON formatting, URL parsing, and other utilities developers use in the same session.',
     toolSlug: 'diff-checker',
     primaryCta: { href: '/tools/diff-checker', label: 'Try Diff Checker' },
     sections: [
       {
-        title: 'When to use an online diff checker',
+        title: 'When to use a quick diff checker',
         body:
-          'Online diff is fastest for one-off comparisons: reviewing a config change, checking a response before and after a fix, or comparing two API payloads.',
+          'A quick diff is fastest for one-off comparisons: reviewing a config change, checking a response before and after a fix, or comparing two API payloads.',
         bullets: [
           'Compare JSON responses before and after an API change.',
-          'Check .env files or config differences without a local IDE.',
+          'Check .env files or config differences without opening a full IDE.',
           'Review copied text for hidden differences (whitespace, encoding).',
         ],
       },
       {
-        title: 'When to use a local diff tool',
+        title: 'When to use a repository diff tool',
         body:
-          'For large files, version history, and repository diffs, local tools like git diff or VS Code built-in diff are better suited.',
+          'For large files, version history, and repository diffs, tools like git diff or VS Code built-in diff are better suited.',
         bullets: [
           'Use git diff for code review of committed changes.',
-          'Use VS Code diff for large files where browser performance matters.',
-          'Use online diff for quick one-off comparisons without opening a project.',
+          'Use VS Code diff for large files where editor performance matters.',
+          'Use MyDevTools diff for quick one-off comparisons without opening a project.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Online diff checkers are best for quick, one-off comparisons. MyDevTools adds JSON formatting and related tools in the same workspace.',
+          'A quick diff checker is best for one-off comparisons. MyDevTools adds JSON formatting and related tools in the same workspace.',
         bullets: [
           'Best for quick text/JSON diff: MyDevTools or diffchecker.com.',
           'Best for repository diffs: git diff / VS Code.',
-          'Best all-in-one browser toolkit: MyDevTools.',
+          'Best all-in-one desktop toolkit: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
-        q: 'Can I diff JSON with an online diff checker?',
+        q: 'Can I diff JSON with a diff checker?',
         a: 'Yes. Paste two JSON objects and the diff checker highlights the changed fields line by line. For better readability, format the JSON first using the JSON formatter.',
       },
       {
-        q: 'Is my text safe in an online diff tool?',
-        a: 'MyDevTools Diff Checker runs the comparison in your browser with no server upload. Avoid pasting credentials or private keys into any online tool.',
+        q: 'Is my text safe in a diff tool?',
+        a: 'MyDevTools Diff Checker runs the comparison locally with no server upload. Avoid pasting credentials or private keys into any untrusted tool.',
       },
     ],
   },
   {
     slug: 'hash-generator-online',
-    title: 'Online Hash Generator — MD5, SHA-1, SHA-256, SHA-512',
+    title: 'Hash Generator — MD5, SHA-1, SHA-256, SHA-512',
     description:
-      'Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from any text instantly in your browser. Compare online hash generators and understand which algorithm to use.',
+      'Generate MD5, SHA-1, SHA-256, and SHA-512 hashes from any text instantly on your machine. Compare hash generators and understand which algorithm to use.',
     eyebrow: 'Hash Generator',
-    heading: 'Online hash generator: MD5, SHA-1, SHA-256, SHA-512 in the browser',
+    heading: 'Hash generator: MD5, SHA-1, SHA-256, SHA-512, computed locally',
     intro:
-      'Hashing is used for checksums, data integrity verification, password storage (with salt), API signatures, and fingerprinting content. MyDevTools Hash Generator runs all major algorithms in the browser without sending your data to a server.',
+      'Hashing is used for checksums, data integrity verification, password storage (with salt), API signatures, and fingerprinting content. MyDevTools Hash Generator runs all major algorithms locally without sending your data to a server.',
     toolSlug: 'hash-generator',
     primaryCta: { href: '/tools/hash-generator', label: 'Generate Hashes' },
     sections: [
@@ -597,9 +597,9 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Verdict',
         body:
-          'Any online hash tool generates correct hashes. MyDevTools adds HMAC, encryption, JWT, and password tools in the same security-focused section.',
+          'Any hash tool generates correct hashes. MyDevTools adds HMAC, encryption, JWT, and password tools in the same security-focused section.',
         bullets: [
-          'Best single-hash generation: any online tool.',
+          'Best single-hash generation: any basic tool.',
           'Best hash + HMAC + encryption toolkit: MyDevTools.',
           'Best all-in-one toolkit: MyDevTools.',
         ],
@@ -645,7 +645,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Use format converter, JSON formatter, and CSV tools alongside API client and JWT decoder.',
           'Stay in one toolkit instead of bookmarking 10 different sites.',
-          'Sync your work across devices with an account for team use.',
+          'Keep everything in one offline desktop app for daily development.',
         ],
       },
       {
@@ -672,20 +672,20 @@ export const comparisonPages: ComparisonPage[] = [
   },
   {
     slug: 'qr-code-generator-online',
-    title: 'Free Online QR Code Generator',
+    title: 'Free QR Code Generator',
     description:
-      'Generate QR codes from URLs, text, or contact info instantly in your browser. No watermarks, no account required. Download as PNG or SVG.',
+      'Generate QR codes from URLs, text, or contact info instantly on your machine. No watermarks, no account required. Download as PNG or SVG.',
     eyebrow: 'QR Code Generator',
-    heading: 'Free online QR code generator: URL, text, vCard — download as PNG or SVG',
+    heading: 'Free QR code generator: URL, text, vCard — download as PNG or SVG',
     intro:
-      'QR code generators are a common developer utility for sharing links, embedding URLs in print materials, and testing mobile deep links. MyDevTools QR Code Generator runs in the browser with no ads, no watermarks, and no account required.',
+      'QR code generators are a common developer utility for sharing links, embedding URLs in print materials, and testing mobile deep links. MyDevTools QR Code Generator runs locally with no ads, no watermarks, and no account required.',
     toolSlug: 'qr-code-generator',
     primaryCta: { href: '/tools/qr-code-generator', label: 'Generate QR Code' },
     sections: [
       {
         title: 'What to look for in a QR code generator',
         body:
-          'Most online generators add watermarks or require sign-up for PNG downloads. Browser-based generation avoids the data being sent to a third-party server.',
+          'Most online generators add watermarks or require sign-up for PNG downloads. Local generation avoids the data being sent to a third-party server.',
         bullets: [
           'No watermarks on downloaded codes.',
           'No account required for basic generation.',
@@ -705,7 +705,7 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Verdict',
         body:
-          'Any browser-based QR generator works for basic needs. MyDevTools adds QR generation alongside API client, URL parser, and other daily developer tools in one workspace.',
+          'Any basic QR generator works for simple needs. MyDevTools adds QR generation alongside API client, URL parser, and other daily developer tools in one workspace.',
         bullets: [
           'Best for quick generation: MyDevTools or qr-code-generator.com.',
           'Best for developer toolkit context: MyDevTools.',
@@ -715,8 +715,8 @@ export const comparisonPages: ComparisonPage[] = [
     ],
     faqs: [
       {
-        q: 'Are QR codes generated online safe?',
-        a: 'The safety concern is whether your URL or text is sent to a server. MyDevTools QR Code Generator renders the code in your browser using a local library — your input is not transmitted.',
+        q: 'Are QR codes generated by a tool safe?',
+        a: 'The safety concern is whether your URL or text is sent to a server. MyDevTools QR Code Generator renders the code locally — your input is not transmitted.',
       },
       {
         q: 'What file formats can I download QR codes in?',
@@ -728,11 +728,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-it-tools-tech',
     title: 'MyDevTools vs it-tools.tech',
     description:
-      'Compare MyDevTools with it-tools.tech for browser-based developer utilities, tool coverage, and everyday workflow fit.',
+      'Compare MyDevTools with it-tools.tech for desktop developer utilities, tool coverage, and everyday workflow fit.',
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs it-tools.tech',
     intro:
-      'it-tools.tech is a strong collection of developer utilities. MyDevTools targets similar daily developer needs while adding product-style landing pages, workspace flows, cloud sync, and tools such as API, database, productivity, and secure sync workflows.',
+      'it-tools.tech is a strong collection of developer utilities. MyDevTools targets similar daily developer needs while adding an offline desktop app, 80+ built-in tools, and SQL, MongoDB, and Redis database clients.',
     competitor: 'it-tools.tech',
     primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
     sections: [
@@ -749,32 +749,32 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is a better fit when you want a broader product experience around daily development tasks, public tool pages, and optional account-backed workflows.',
+          'MyDevTools is a better fit when you want a broader product experience around daily development tasks, plus database clients and offline workflows.',
         bullets: [
           'Use API, database, productivity, formatter, converter, generator, and security tools together.',
-          'Use public /tools pages for discovery and a dashboard for daily use.',
-          'Use the managed cloud with account-backed sync across devices.',
+          'Use a searchable dashboard to launch 80+ tools for daily use.',
+          'Work fully offline with local-first data processing.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Both projects are useful. it-tools.tech is a focused utility collection; MyDevTools is positioned as a broader developer tools platform.',
+          'Both projects are useful. it-tools.tech is a focused utility collection; MyDevTools is positioned as a broader desktop developer toolkit.',
         bullets: [
           'Best lightweight utility collection: it-tools.tech.',
           'Best broader developer tools platform: MyDevTools.',
-          'Best broader cloud product direction: MyDevTools.',
+          'Best all-in-one desktop toolkit: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools an alternative to it-tools.tech?',
-        a: 'Yes. MyDevTools overlaps on many browser-based utility workflows while also adding a broader dashboard, public landing pages, and additional developer productivity tools.',
+        a: 'Yes. MyDevTools overlaps on many utility workflows while also adding an offline desktop app, database clients, and additional developer productivity tools.',
       },
       {
         q: 'How do the two projects differ?',
-        a: 'it-tools.tech is a focused utility collection; MyDevTools is a broader developer tools platform with public tool pages, a dashboard, and account-backed cloud sync.',
+        a: 'it-tools.tech is a focused browser utility collection; MyDevTools is a broader desktop toolkit with 80+ tools, database clients, and local-first data processing.',
       },
     ],
   },
@@ -782,11 +782,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-it-tools',
     title: 'MyDevTools vs IT Tools',
     description:
-      'Compare MyDevTools with IT Tools / it-tools.tech for online developer utilities, tool coverage, and browser-based workflows.',
+      'Compare MyDevTools with IT Tools / it-tools.tech for developer utilities, tool coverage, and offline desktop workflows.',
     eyebrow: 'Comparison',
-    heading: 'MyDevTools vs IT Tools: online developer utility platforms',
+    heading: 'MyDevTools vs IT Tools: developer utility platforms',
     intro:
-      'IT Tools (it-tools.tech) is a popular collection of browser utilities. MyDevTools targets the same everyday developer utility need while adding public tool landing pages, dashboard flows, cloud sync, and a broader product surface.',
+      'IT Tools (it-tools.tech) is a popular collection of browser utilities. MyDevTools targets the same everyday developer utility need while adding an offline desktop app, 80+ built-in tools, SQL, MongoDB, and Redis database clients, and a broader product surface.',
     competitor: 'IT Tools',
     primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
     sections: [
@@ -803,11 +803,11 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is built as a broader developer tools platform with public SEO pages, an app dashboard, and cloud workflows.',
+          'MyDevTools is built as a broader desktop developer toolkit with a searchable dashboard, 80+ tools, and local-first workflows.',
         bullets: [
-          'Use utilities plus API, database, productivity, security, and sync-oriented workflows.',
-          'Link to canonical /tools pages for each utility.',
-          'Use managed cloud with account-backed sync across devices.',
+          'Use utilities plus API, database, productivity, and security tools in one app.',
+          'Launch 80+ tools plus SQL, MongoDB, and Redis clients from one place.',
+          'Work fully offline with data processed locally on your machine.',
         ],
       },
       {
@@ -816,19 +816,19 @@ export const comparisonPages: ComparisonPage[] = [
           'Both are useful developer utility platforms. IT Tools is strongest as a focused utility collection; MyDevTools is strongest as a broader developer tools product.',
         bullets: [
           'Best simple utility collection: IT Tools.',
-          'Best broader platform and content structure: MyDevTools.',
-          'Best broader cloud product path: MyDevTools.',
+          'Best broader desktop platform: MyDevTools.',
+          'Best all-in-one offline toolkit: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools an IT Tools alternative?',
-        a: 'Yes. MyDevTools overlaps with many browser utility workflows while adding a broader dashboard, public tool pages, and product-oriented platform pages.',
+        a: 'Yes. MyDevTools overlaps with many utility workflows while adding an offline desktop app, database clients, and a broader product surface.',
       },
       {
-        q: 'Which offers cloud sync across devices?',
-        a: 'MyDevTools offers account-backed cloud sync across devices as a core product path. IT Tools is primarily a local browser utility collection.',
+        q: 'Which runs fully offline?',
+        a: 'MyDevTools is an offline desktop app that processes your data locally. IT Tools is primarily a browser utility collection.',
       },
     ],
   },
@@ -836,13 +836,13 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-devutils-app',
     title: 'MyDevTools vs DevUtils.app',
     description:
-      'Compare MyDevTools with DevUtils.app for developer utilities, browser-based tools, and cross-device workflows.',
+      'Compare MyDevTools with DevUtils.app for developer utilities, offline desktop tools, and cross-platform workflows.',
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs DevUtils.app',
     intro:
-      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is browser-based and works across devices and operating systems without installing a desktop app.',
+      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is a cross-platform desktop app that runs offline on macOS, Windows, and Linux, with 80+ tools plus SQL, MongoDB, and Redis database clients.',
     competitor: 'DevUtils.app',
-    primaryCta: { href: '/tools', label: 'Browse Browser Tools' },
+    primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
     sections: [
       {
         title: 'Choose DevUtils.app when',
@@ -850,51 +850,51 @@ export const comparisonPages: ComparisonPage[] = [
           'A native desktop app is ideal when you want offline-first performance and a polished Mac-specific utility experience.',
         bullets: [
           'You primarily work on macOS.',
-          'You prefer local desktop apps over browser tabs.',
+          'You want a macOS-only native experience.',
           'You want a native utility launcher for personal use.',
         ],
       },
       {
         title: 'Choose MyDevTools when',
         body:
-          'A browser-based toolkit is better when you switch machines, use multiple operating systems, or want a browser-based web app.',
+          'An all-in-one desktop toolkit is better when you work across operating systems or want more than utilities in one app.',
         bullets: [
-          'Open tools from any modern browser without installing a Mac app.',
-          'Use the same toolkit on macOS, Windows, Linux, or shared machines.',
-          'Sync your work across devices for internal team access.',
+          'Run the same offline app on macOS, Windows, and Linux — not just Mac.',
+          'Use 80+ tools plus SQL, MongoDB, and Redis database clients in one place.',
+          'Process everything locally — your data never leaves your machine.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'DevUtils.app wins for native Mac utility workflows. MyDevTools wins for browser access and cross-device availability.',
+          'DevUtils.app wins for native Mac-only utility workflows. MyDevTools wins for cross-platform desktop coverage and a broader toolkit.',
         bullets: [
           'Best native Mac utility app: DevUtils.app.',
-          'Best browser-based toolkit: MyDevTools.',
-          'Best cross-device web option: MyDevTools.',
+          'Best cross-platform desktop toolkit: MyDevTools.',
+          'Best all-in-one offline toolkit: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools a DevUtils.app alternative?',
-        a: 'Yes, for browser-based developer utility workflows. DevUtils.app remains stronger if you specifically want a native Mac app.',
+        a: 'Yes, for cross-platform desktop developer utility workflows. DevUtils.app remains stronger if you specifically want a Mac-only native app.',
       },
       {
         q: 'Does MyDevTools work on Windows and Linux?',
-        a: 'Yes. MyDevTools runs in the browser, so it is not tied to macOS.',
+        a: 'Yes. MyDevTools is a cross-platform desktop app that runs on macOS, Windows, and Linux.',
       },
     ],
   },
   {
     slug: 'insomnia-alternative-online',
-    title: 'Online Insomnia Alternative',
+    title: 'Insomnia Alternative for Lightweight API Debugging',
     description:
-      'Compare MyDevTools with Insomnia for lightweight browser-based API testing and surrounding developer utilities.',
+      'Compare MyDevTools with Insomnia for lightweight desktop API testing and surrounding developer utilities.',
     eyebrow: 'Alternative',
-    heading: 'Online Insomnia alternative for lightweight API debugging',
+    heading: 'Insomnia alternative for lightweight, offline API debugging',
     intro:
-      'Insomnia is a dedicated desktop API client. MyDevTools offers a lightweight browser API client alongside JSON, JWT, URL, timestamp, mock data, and security tools that are often needed during API debugging.',
+      'Insomnia is a dedicated desktop API client. MyDevTools offers a lightweight API client alongside JSON, JWT, URL, timestamp, mock data, and security tools that are often needed during API debugging — all in one offline app.',
     competitor: 'Insomnia',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -912,32 +912,32 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is useful for quick API debugging in a browser, especially when the request workflow connects to common utility tasks.',
+          'MyDevTools is useful for quick API debugging, especially when the request workflow connects to common utility tasks.',
         bullets: [
           'Test API requests and then format JSON responses nearby.',
           'Decode JWTs, parse URLs, convert timestamps, and generate mock data in one toolkit.',
-          'Use a browser-based tool when installing a desktop client is unnecessary.',
+          'Keep API debugging next to 80+ other tools in one desktop app.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Insomnia is the better full API client. MyDevTools is a lightweight online alternative for quick debugging plus related developer utilities.',
+          'Insomnia is the better full API client. MyDevTools is a lightweight all-in-one alternative for quick debugging plus related developer utilities.',
         bullets: [
           'Best dedicated desktop API client: Insomnia.',
-          'Best browser toolkit around API debugging: MyDevTools.',
-          'Best no-install quick workflow: MyDevTools.',
+          'Best toolkit around API debugging: MyDevTools.',
+          'Best no-fuss quick workflow: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools a full Insomnia replacement?',
-        a: 'No. It is a lightweight browser-based API client inside a larger toolkit, not a complete desktop API platform.',
+        a: 'No. It is a lightweight API client inside a larger all-in-one toolkit, not a complete API lifecycle platform.',
       },
       {
         q: 'Why use MyDevTools for API testing?',
-        a: 'Use it when you want quick API requests plus JSON, JWT, URL, timestamp, and mock data tools in the same browser workspace.',
+        a: 'Use it when you want quick API requests plus JSON, JWT, URL, timestamp, and mock data tools in the same offline workspace.',
       },
     ],
   },

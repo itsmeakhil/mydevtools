@@ -14,7 +14,7 @@ export const homepageFaqItems = [
   },
   {
     q: 'Is my data secure?',
-    a: 'Sensitive data is encrypted in your browser before it reaches the server where supported. The server stores encrypted blobs for vault-style data instead of readable plaintext.',
+    a: 'Sensitive data is encrypted on your device before it reaches the server where supported. The server stores encrypted blobs for vault-style data instead of readable plaintext.',
   },
   {
     q: 'Do I need an account to use the tools?',
@@ -22,7 +22,7 @@ export const homepageFaqItems = [
   },
   {
     q: 'Does it work offline?',
-    a: 'Many tools are fully client-side and can work without server processing. Tools that connect to external services, sync data, or send API requests need a network connection.',
+    a: 'Yes. MyDevTools is a desktop app — most tools run fully offline on your machine. Tools that connect to external services, sync data, or send API requests need a network connection.',
   },
 ]
 
@@ -38,7 +38,7 @@ export function buildToolRichDescription(slug: string, tool: ToolMetadataEntry):
   const parts = [
     tool.aiSummary ?? tool.description,
     `Learn about this tool: ${url}.`,
-    'Free web app on MyDevTools; most tools run client-side in your browser (no install).',
+    'Part of MyDevTools, an all-in-one desktop developer app; most tools run locally on your device and work offline.',
   ]
   if (tool.keywords?.length) {
     parts.push(`Common searches: ${tool.keywords.slice(0, 12).join('; ')}.`)
@@ -118,7 +118,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             '@type': 'HowToStep',
             position: 2,
             name: 'Enter your data',
-            text: `Paste or type your input directly in the browser. ${tool.title} processes data locally on your device.`,
+            text: `Paste or type your input directly. ${tool.title} processes data locally on your device.`,
             url: appUrl,
           },
           {
@@ -139,7 +139,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             name: `Is ${tool.title} free to use?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes. ${tool.title} on MyDevTools is free. No account required to try it — just open the tool in your browser.`,
+              text: `Yes. ${tool.title} on MyDevTools is free. No account required to start — just open the tool in the MyDevTools desktop app.`,
             },
           },
           {
@@ -147,7 +147,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             name: `Does ${tool.title} store or upload my data?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `${tool.title} is designed for browser-based use. Many MyDevTools utilities process data locally; tools that require sync or external connections may send only the data needed for that workflow.`,
+              text: `${tool.title} runs in the MyDevTools desktop app. Many utilities process data locally on your device; tools that require sync or external connections may send only the data needed for that workflow.`,
             },
           },
           {
@@ -155,7 +155,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             name: `Do I need to install anything to use ${tool.title}?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `No installation required. ${tool.title} runs directly in your web browser — just open the link and start using it.`,
+              text: `Install MyDevTools once, then ${tool.title} and 80+ other tools are available offline on your desktop.`,
             },
           },
           {
@@ -205,11 +205,10 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
         '@id': `${baseUrl}/#webapp`,
         name: 'MyDevTools',
         applicationCategory: 'DeveloperApplication',
-        applicationSubCategory: 'Online Developer Tools',
-        operatingSystem: 'Web browser',
+        applicationSubCategory: 'Developer Tools',
+        operatingSystem: 'macOS, Windows, Linux',
         url: baseUrl,
         description: siteMetadata.description,
-        browserRequirements: 'Requires JavaScript.',
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -224,8 +223,8 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
           url: baseUrl,
         },
         featureList: [
-          'Online developer tools',
-          'Browser-based developer toolkit',
+          'All-in-one developer tools',
+          'Offline desktop developer toolkit',
           'Public tool landing pages',
           'Managed cloud hosting',
         ],
@@ -292,11 +291,10 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         '@id': `${baseUrl}/#webapp`,
         name: 'MyDevTools',
         applicationCategory: 'DeveloperApplication',
-        applicationSubCategory: 'Online Developer Tools',
-        operatingSystem: 'Web browser',
+        applicationSubCategory: 'Developer Tools',
+        operatingSystem: 'macOS, Windows, Linux',
         url: baseUrl,
         description: siteMetadata.description,
-        browserRequirements: 'Requires JavaScript.',
         offers: {
           '@type': 'Offer',
           price: '0',
@@ -312,7 +310,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           'Base64 encoder/decoder, UUID generator, hash generator',
           'Crypto tools: encryption playground, HMAC, TOTP 2FA, SSH key generator',
           'Data converters: CSV to JSON, YAML formatter, format converter',
-          'Privacy-first architecture: client-side processing, AES-256 encryption',
+          'Privacy-first architecture: local processing, AES-256 encryption',
           'Team workspaces with role-based access control',
           'Persistent storage: snippets, notes, tasks, bookmarks, password vault',
         ],
@@ -328,9 +326,9 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
       {
         '@type': 'ItemList',
         '@id': `${baseUrl}/#tools-index`,
-        name: 'MyDevTools — online developer utilities',
+        name: 'MyDevTools — all-in-one developer utilities',
         description:
-          'Index of free browser-based developer tools (JSON, API, crypto, SQL, regex, JWT, and more). Use this list for discovery in search and AI assistants.',
+          'Index of free developer tools in the MyDevTools desktop app (JSON, API, crypto, SQL, regex, JWT, and more). Use this list for discovery in search and AI assistants.',
         numberOfItems: itemListElement.length,
         itemListElement,
       },
@@ -362,7 +360,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
 export function buildLlmsTxtBody(): string {
   const lines: string[] = [
     '# MyDevTools',
-    '> Free, browser-based developer tools. Optimized for discovery from search engines and AI assistants (ChatGPT, Gemini, Claude, etc.).',
+    '> Free, all-in-one desktop developer tools. Runs offline, processes data locally. Optimized for discovery from search engines and AI assistants (ChatGPT, Gemini, Claude, etc.).',
     '',
     '## Site',
     `- ${baseUrl}`,

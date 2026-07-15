@@ -25,6 +25,7 @@ import {
 } from '@/lib/generate-ids';
 import { Toggle } from '@/components/ui/toggle';
 import { formatUuid, idsAsJsonArray } from '@/lib/format-ids';
+import { decodeIdTimestamp, idHasTimestamp } from '@/lib/id-timestamp';
 import { useTranslations } from 'next-intl';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
 import { IconFingerprint } from '@tabler/icons-react';
@@ -93,6 +94,10 @@ export function UuidGeneratorLayout() {
   const displayLines = useMemo(
     () => outputLines.map((id) => formatUuid(id, { uppercase, hyphens })),
     [outputLines, uppercase, hyphens]
+  );
+  const timestamps = useMemo(
+    () => (idHasTimestamp(kind) ? outputLines.map((id) => decodeIdTimestamp(id, kind)) : []),
+    [outputLines, kind]
   );
   const output = displayLines.join('\n');
 
@@ -290,7 +295,11 @@ export function UuidGeneratorLayout() {
           )}
 
           <div className="sticky bottom-0 z-10 -mx-4 -mb-4 mt-auto flex flex-wrap gap-2 border-t border-border/50 bg-card px-4 py-3 lg:static lg:z-auto lg:m-0 lg:mt-0 lg:border-0 lg:bg-transparent lg:p-0 lg:pt-1">
-            <Button type="button" variant="gradient" onClick={runGenerate} className="gap-1.5 w-full sm:w-auto">
+            <Button
+              type="button"
+              onClick={runGenerate}
+              className="gap-1.5 w-full sm:w-auto border-0 text-white shadow-sm shadow-purple-500/25 bg-[linear-gradient(100deg,#7c3aed,#a855f7_55%,#c084fc)] hover:shadow-md hover:shadow-purple-500/30 hover:brightness-[1.06]"
+            >
               <RefreshCw className="h-3.5 w-3.5" />
               {t('generate')}
             </Button>
@@ -366,13 +375,16 @@ export function UuidGeneratorLayout() {
             ) : displayLines.length > 0 ? (
               <div>
                 {displayLines.map((id, i) => (
-                  <IdRow key={i} id={id} index={i} />
+                  <IdRow key={i} id={id} index={i} timestamp={timestamps[i]} />
                 ))}
               </div>
             ) : (
-              <p className="p-4 font-mono text-sm text-muted-foreground/50">
-                {t('outputPlaceholder')}
-              </p>
+              <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-center">
+                <IconFingerprint className="h-8 w-8 text-muted-foreground/30" aria-hidden />
+                <p className="font-mono text-sm text-muted-foreground/50">
+                  {t('outputPlaceholder')}
+                </p>
+              </div>
             )}
           </div>
         </Card>

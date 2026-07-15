@@ -3,12 +3,10 @@
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { RotateCw } from 'lucide-react'
-import { MdtStatusPage } from '@/components/mdt-status-page'
 import './globals.css'
 
 // Catches errors thrown in the root layout itself — must render its own <html>/<body>.
 export default function GlobalError({
-  error,
   reset,
 }: {
   error: Error & { digest?: string }
@@ -17,25 +15,20 @@ export default function GlobalError({
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
-        <MdtStatusPage
-          code="500"
-          kicker="Something broke"
-          title="The app failed to load."
-          description={
-            error.digest
-              ? `A critical error occurred. Reference: ${error.digest}`
-              : 'A critical error occurred while loading MyDevTools. Try reloading.'
-          }
-        >
+        <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
+          <h1 className="text-lg font-semibold">Something went wrong</h1>
+          <p className="max-w-sm text-sm text-muted-foreground">
+            An unexpected error occurred. Try reloading.
+          </p>
           <button
             type="button"
             onClick={reset}
-            className="mdt-btn-grad inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-medium"
+            className="inline-flex h-10 items-center justify-center rounded-md border px-5 text-sm font-medium transition-colors hover:bg-muted"
           >
             <RotateCw className="mr-2 h-4 w-4" />
             Reload
           </button>
-        </MdtStatusPage>
+        </div>
       </body>
     </html>
   )

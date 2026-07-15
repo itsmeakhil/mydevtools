@@ -14,17 +14,12 @@ import { CookieJarDialog } from "./cookie-jar-dialog"
 import { WebSocketPanel } from "./websocket-panel"
 import { GrpcPanel } from "./grpc-panel"
 import { SaveExampleDialog } from "./save-example-dialog"
-import { PerfRunDialog } from "./perf-run-dialog"
-import { PublicMocksDialog } from "./public-mocks-dialog"
-import { PluginsDialog } from "./plugins-dialog"
 import { loadPlugins, instantiatePlugin, applyBeforeSend, applyAfterResponse, type PluginInstance } from "@/lib/plugins/plugin-runtime"
 import { MetricsDialog } from "./metrics-dialog"
 import { recordMetric, recordLog } from "@/lib/observability/metrics"
 import { OfflineIndicator } from "./offline-indicator"
 import { putCachedResponse, getCachedResponse } from "@/lib/cache/response-cache"
 import { registerApiClientServiceWorker } from "@/lib/sw/register-api-client-sw"
-import { FuzzRunDialog } from "./fuzz-run-dialog"
-import { RecorderDialog } from "./recorder-dialog"
 import { listenForExtensionImports, capturedToTab } from "@/lib/extension/listen"
 import { recordExchange } from "@/lib/recorder/traffic-recorder"
 import type { SavedExample } from "./types"
@@ -50,7 +45,7 @@ import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, PanelRight, MoreVertical, MoreHorizontal, Cookie, Download, Gauge, Shuffle, Puzzle, Activity, Server, Radio, Keyboard } from "lucide-react"
+import { FolderOpen, PanelRight, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
@@ -64,7 +59,6 @@ import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { resolveResponsePath } from "@/lib/response-path"
 import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
-import { streamSseRequest } from "@/lib/sse-client"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
 import { useJsonBodyValidation } from "./use-json-validation"
@@ -142,12 +136,7 @@ function ApiClientInner() {
     const [cookieJarOpen, setCookieJarOpen] = React.useState(false)
     const [importOpen, setImportOpen] = React.useState(false)
     const [saveExampleOpen, setSaveExampleOpen] = React.useState(false)
-    const [perfOpen, setPerfOpen] = React.useState(false)
-    const [publicMocksOpen, setPublicMocksOpen] = React.useState(false)
-    const [pluginsOpen, setPluginsOpen] = React.useState(false)
     const [metricsOpen, setMetricsOpen] = React.useState(false)
-    const [fuzzOpen, setFuzzOpen] = React.useState(false)
-    const [recorderOpen, setRecorderOpen] = React.useState(false)
 
     /** Register the offline-cache service worker on mount. */
     React.useEffect(() => { void registerApiClientServiceWorker() }, [])
@@ -173,19 +162,15 @@ function ApiClientInner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab.id])
 
-    /** Compiled plugin instances; reloaded when the dialog closes. */
+    /** Compiled plugin instances; loaded once on mount. */
     const pluginInstancesRef = React.useRef<PluginInstance[]>([])
     React.useEffect(() => {
-        const compile = () => {
-            pluginInstancesRef.current = loadPlugins()
-                .filter((p) => p.enabled)
-                .map((p) => instantiatePlugin(p))
-                .filter((r) => r.instance)
-                .map((r) => r.instance!)
-        }
-        compile()
-        if (!pluginsOpen) compile()  // pick up edits after dialog closed
-    }, [pluginsOpen])
+        pluginInstancesRef.current = loadPlugins()
+            .filter((p) => p.enabled)
+            .map((p) => instantiatePlugin(p))
+            .filter((r) => r.instance)
+            .map((r) => r.instance!)
+    }, [])
 
     const handleSaveExample = (name: string) => {
         if (!activeTab.response) return
@@ -754,59 +739,6 @@ function ApiClientInner() {
                 return
             }
 
-            // ── Streaming branch (SSE / chunked) ─────────────────────────
-            // Auto-promote to streaming when `Accept: text/event-stream` is set.
-            const acceptKey = Object.keys(headersObj).find((k) => k.toLowerCase() === "accept")
-            const sseAutoDetect = acceptKey ? (headersObj[acceptKey] ?? "").toLowerCase().includes("text/event-stream") : false
-            if (activeTab.streamResponse || sseAutoDetect) {
-                updateActiveTab({ streamEvents: [] })
-                let metaCaptured = false
-                await streamSseRequest({
-                    url: urlObj.toString(),
-                    method: workMethod,
-                    headers: headersObj,
-                    body: typeof bodyPayload === "string" ? bodyPayload : (bodyContent ?? undefined),
-                    signal: controller.signal,
-                    onMeta: (meta) => {
-                        if (metaCaptured) return
-                        metaCaptured = true
-                        updateActiveTab({
-                            response: {
-                                status: meta.status,
-                                statusText: meta.statusText,
-                                headers: meta.headers,
-                                body: "",
-                                time: 0,
-                                size: 0,
-                            },
-                        })
-                    },
-                    onEvent: (ev) => {
-                        updateActiveTab((tab) => ({
-                            streamEvents: [
-                                ...(tab.streamEvents ?? []),
-                                { event: ev.event, data: ev.data, id: ev.id, timestamp: ev.timestamp },
-                            ],
-                        }))
-                    },
-                    onClose: () => {
-                        updateActiveTab({ isLoading: false })
-                    },
-                })
-
-                addHistoryItem({
-                    method: workMethod as RequestMethod,
-                    url: activeTab.url,
-                    params: activeTab.params,
-                    headers: activeTab.headers,
-                    body: activeTab.body,
-                    auth: activeTab.auth,
-                    preRequestScript: activeTab.preRequestScript,
-                    testScript: activeTab.testScript,
-                }, historyName(activeTab.name, workMethod, activeTab.url), 200)
-                return
-            }
-
             // Plugins: onBeforeSend lets installed plugins mutate URL / headers / body.
             const pluginRequest = {
                 method: workMethod,
@@ -1088,6 +1020,50 @@ function ApiClientInner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [addTab, closeTab, handleSend, activeTabId])
 
+    // Desktop request column — reused whether it sits full-width (no response yet)
+    // or inside the resizable split (once a response exists / is loading).
+    const desktopRequestContent = (
+        <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
+            <RequestPanel
+                method={activeTab.method}
+                setMethod={handleMethodChange}
+                url={activeTab.url}
+                setUrl={handleUrlChange}
+                onSend={handleSend}
+                onCancel={handleCancel}
+                isLoading={activeTab.isLoading}
+                isBodyInvalid={isBodyInvalid}
+                onPaste={handleCurlPaste}
+                urlHistory={urlHistory}
+                tabId={activeTab.id}
+            />
+            <div className="flex-1 min-h-0">
+                <RequestTabs
+                    params={activeTab.params}
+                    setParams={(params) => updateActiveTab({ params })}
+                    headers={activeTab.headers}
+                    setHeaders={(headers) => updateActiveTab({ headers })}
+                    body={activeTab.body}
+                    setBody={(body) => updateActiveTab({ body })}
+                    auth={activeTab.auth}
+                    setAuth={(auth) => updateActiveTab({ auth })}
+                    preRequestScript={activeTab.preRequestScript}
+                    setPreRequestScript={(s) => updateActiveTab({ preRequestScript: s })}
+                    testScript={activeTab.testScript}
+                    setTestScript={(s) => updateActiveTab({ testScript: s })}
+                    graphqlUrl={activeTab.url}
+                    graphqlSchema={activeTab.graphqlSchema}
+                    setGraphqlSchema={(s) => updateActiveTab({ graphqlSchema: s })}
+                    examples={activeTab.examples}
+                    onDeleteExample={handleDeleteExample}
+                    onLoadExample={handleLoadExample}
+                    comments={activeTab.comments}
+                    setComments={(next) => updateActiveTab({ comments: next })}
+                />
+            </div>
+        </div>
+    )
+
     return (
         <div className="flex h-full min-h-0 w-full flex-col gap-4 mobile-nav-offset lg:flex-row">
             <div className="flex-1 flex flex-col gap-4 min-w-0 h-full">
@@ -1149,29 +1125,9 @@ function ApiClientInner() {
                                             {t("toolbar.cookies")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem onSelect={() => setPerfOpen(true)}>
-                                            <Gauge className="h-4 w-4 mr-2" />
-                                            {t("toolbar.perfRun")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setFuzzOpen(true)}>
-                                            <Shuffle className="h-4 w-4 mr-2" />
-                                            {t("toolbar.fuzzRun")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setPublicMocksOpen(true)}>
-                                            <Server className="h-4 w-4 mr-2" />
-                                            {t("toolbar.publicMocks")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
-                                            <Puzzle className="h-4 w-4 mr-2" />
-                                            {t("toolbar.plugins")}
-                                        </DropdownMenuItem>
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
                                             <Activity className="h-4 w-4 mr-2" />
                                             {t("toolbar.metrics")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setRecorderOpen(true)}>
-                                            <Radio className="h-4 w-4 mr-2" />
-                                            {t("toolbar.recorder")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setHelpOpen(true)}>
@@ -1259,29 +1215,9 @@ function ApiClientInner() {
                                             {t("toolbar.cookies")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem onSelect={() => setPerfOpen(true)}>
-                                            <Gauge className="h-4 w-4 mr-2" />
-                                            {t("toolbar.perfRun")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setFuzzOpen(true)}>
-                                            <Shuffle className="h-4 w-4 mr-2" />
-                                            {t("toolbar.fuzzRun")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setPublicMocksOpen(true)}>
-                                            <Server className="h-4 w-4 mr-2" />
-                                            {t("toolbar.publicMocks")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
-                                            <Puzzle className="h-4 w-4 mr-2" />
-                                            {t("toolbar.plugins")}
-                                        </DropdownMenuItem>
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
                                             <Activity className="h-4 w-4 mr-2" />
                                             {t("toolbar.metrics")}
-                                        </DropdownMenuItem>
-                                        <DropdownMenuItem onSelect={() => setRecorderOpen(true)}>
-                                            <Radio className="h-4 w-4 mr-2" />
-                                            {t("toolbar.recorder")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setHelpOpen(true)}>
@@ -1335,16 +1271,7 @@ function ApiClientInner() {
                             defaultName={`${activeTab.method} ${activeTab.response?.status ?? "200"}`}
                             onSave={handleSaveExample}
                         />
-                        <PerfRunDialog
-                            open={perfOpen}
-                            onOpenChange={setPerfOpen}
-                            tab={activeTab}
-                        />
-                        <PublicMocksDialog open={publicMocksOpen} onOpenChange={setPublicMocksOpen} />
-                        <PluginsDialog open={pluginsOpen} onOpenChange={setPluginsOpen} />
                         <MetricsDialog open={metricsOpen} onOpenChange={setMetricsOpen} />
-                        <FuzzRunDialog open={fuzzOpen} onOpenChange={setFuzzOpen} tab={activeTab} />
-                        <RecorderDialog open={recorderOpen} onOpenChange={setRecorderOpen} />
                     </div>
                 </div>
 
@@ -1431,8 +1358,6 @@ function ApiClientInner() {
                                             onPaste={handleCurlPaste}
                                             urlHistory={urlHistory}
                                             tabId={activeTab.id}
-                                            streamResponse={activeTab.streamResponse}
-                                            setStreamResponse={(v) => updateActiveTab({ streamResponse: v })}
                                         />
                                         <RequestTabs
                                             params={activeTab.params}
@@ -1464,62 +1389,27 @@ function ApiClientInner() {
                                     onScroll={(e) => { scrollMemory.current.response = (e.target as HTMLDivElement).scrollTop }}
                                 >
                                     <div className="p-4">
-                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} streamEvents={activeTab.streamEvents} onSaveExample={activeTab.response ? () => setSaveExampleOpen(true) : undefined} />
+                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} onSaveExample={activeTab.response ? () => setSaveExampleOpen(true) : undefined} />
                                     </div>
                                 </div>
                             </>
+                        ) : !activeTab.response && !activeTab.isLoading ? (
+                            /* Desktop: no response yet — request panel gets the full width */
+                            <div className="h-full flex flex-col">
+                                {desktopRequestContent}
+                            </div>
                         ) : (
-                            /* Desktop: side-by-side resizable panels */
+                            /* Desktop: side-by-side resizable panels once a response exists / is loading */
                             <ResizablePanelGroup direction="horizontal" className="h-full w-full">
                                 <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full">
-                                    <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
-                                        <RequestPanel
-                                            method={activeTab.method}
-                                            setMethod={handleMethodChange}
-                                            url={activeTab.url}
-                                            setUrl={handleUrlChange}
-                                            onSend={handleSend}
-                                            onCancel={handleCancel}
-                                            isLoading={activeTab.isLoading}
-                                            isBodyInvalid={isBodyInvalid}
-                                            onPaste={handleCurlPaste}
-                                            urlHistory={urlHistory}
-                                            tabId={activeTab.id}
-                                            streamResponse={activeTab.streamResponse}
-                                            setStreamResponse={(v) => updateActiveTab({ streamResponse: v })}
-                                        />
-                                        <div className="flex-1 min-h-0">
-                                            <RequestTabs
-                                                params={activeTab.params}
-                                                setParams={(params) => updateActiveTab({ params })}
-                                                headers={activeTab.headers}
-                                                setHeaders={(headers) => updateActiveTab({ headers })}
-                                                body={activeTab.body}
-                                                setBody={(body) => updateActiveTab({ body })}
-                                                auth={activeTab.auth}
-                                                setAuth={(auth) => updateActiveTab({ auth })}
-                                                preRequestScript={activeTab.preRequestScript}
-                                                setPreRequestScript={(s) => updateActiveTab({ preRequestScript: s })}
-                                                testScript={activeTab.testScript}
-                                                setTestScript={(s) => updateActiveTab({ testScript: s })}
-                                                graphqlUrl={activeTab.url}
-                                                graphqlSchema={activeTab.graphqlSchema}
-                                                setGraphqlSchema={(s) => updateActiveTab({ graphqlSchema: s })}
-                                                examples={activeTab.examples}
-                                                onDeleteExample={handleDeleteExample}
-                                                onLoadExample={handleLoadExample}
-                                                comments={activeTab.comments}
-                                                setComments={(next) => updateActiveTab({ comments: next })}
-                                            />
-                                        </div>
-                                    </div>
+                                    {desktopRequestContent}
                                 </ResizablePanel>
 
                                 <ResizableHandle withHandle className="w-1.5 bg-border/40 hover:bg-primary/20 transition-colors" />
 
                                 <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
                                     <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
-                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} streamEvents={activeTab.streamEvents} onSaveExample={activeTab.response ? () => setSaveExampleOpen(true) : undefined} />
+                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} onSaveExample={activeTab.response ? () => setSaveExampleOpen(true) : undefined} />
                                     </div>
                                 </ResizablePanel>
                             </ResizablePanelGroup>
@@ -1538,6 +1428,7 @@ function ApiClientInner() {
                 >
                     <CollectionsSidebar
                         onLoadRequest={handleLoadRequest}
+                        onCollapse={() => setSidebarOpen(false)}
                     />
                 </div>
             )}

@@ -6,16 +6,17 @@ import { Footer } from '@/components/footer'
 import { blogPosts } from '@/lib/blog/posts'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
-const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent('33 SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.')}`
+const postCount = blogPosts.length
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent(`${postCount} SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.`)}`
 
 export const metadata: Metadata = {
-  title: { absolute: 'Developer Blog — 33 Guides on Tools & Coding | MyDevTools' },
+  title: { absolute: `Developer Blog — ${postCount} Guides on Tools & Coding | MyDevTools` },
   description:
-    '33 practical developer guides: JWT decoding, JSON formatting, regex patterns, SQL queries, hash generation, URL parsing, CSV conversion, SSH keys, QR codes, encryption, email validation, Redis, certificates, and more.',
+    `${postCount} practical developer guides: JWT decoding, JSON formatting, regex patterns, SQL queries, hash generation, URL parsing, CSV conversion, SSH keys, QR codes, encryption, email validation, Redis, certificates, and more.`,
   alternates: { canonical: `${baseUrl}/blog` },
   openGraph: {
     title: 'Developer Blog — MyDevTools',
-    description: '33 SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.',
+    description: `${postCount} SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.`,
     url: `${baseUrl}/blog`,
     siteName: 'MyDevTools',
     type: 'website',
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Developer Blog — MyDevTools',
-    description: '33 practical guides: decode JWTs, format JSON, parse URLs, query SQL, generate hashes, validate emails, and more.',
+    description: `${postCount} practical guides: decode JWTs, format JSON, parse URLs, query SQL, generate hashes, validate emails, and more.`,
     images: [ogImage],
   },
 }
@@ -92,7 +93,7 @@ export default function BlogPage() {
             </nav>
 
             <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-[1.08]">
-              33 SEO-optimized developer guides
+              {postCount} SEO-optimized developer guides
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
               In-depth explanations covering databases (SQL, Redis, MongoDB), cryptography (SSH keys, encryption, hashing), data conversion (CSV, YAML, JSON), utilities (URL parsing, email validation, QR codes), and more. Written for search engines and AI agents.

@@ -183,7 +183,7 @@ const howItWorks = [
     step: "03",
     title: "Work Privately",
     description:
-      "Data is AES-256 encrypted in your browser before sync. The server never sees your plaintext.",
+      "Data is AES-256 encrypted on your device before sync. The server never sees your plaintext.",
     icon: Shield,
     gradient: "from-emerald-500 to-teal-400",
   },
@@ -316,7 +316,7 @@ export default function Page() {
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                 </motion.span>
-                Online developer tools in one browser tab
+                One all-in-one developer toolkit, on your desktop
               </Badge>
             </motion.div>
 
@@ -326,10 +326,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">Online Developer Tools</span>
+              <span className="text-foreground">All-in-One Developer Tools</span>
               <br />
               <span className="mdt-grad-text mdt-grad-anim">
-                JSON, JWT, Regex &amp; {allAppTools.length}+ More
+                JSON, JWT, Regex &amp; 80+ More
               </span>
             </motion.h1>
 
@@ -340,8 +340,9 @@ export default function Page() {
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
               Format JSON, decode JWTs, test APIs, build regexes, generate UUIDs,
-              encode Base64, and use dozens more browser-based developer tools in
-              one unified toolkit.
+              encode Base64, and query SQL, MongoDB &amp; Redis — 80+ developer
+              tools in one desktop app that runs offline and processes everything
+              locally.
             </motion.p>
 
             {/* CTAs */}
@@ -374,7 +375,7 @@ export default function Page() {
               className="mt-7 mx-auto grid max-w-lg grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0b12]/80 backdrop-blur-md divide-x divide-white/10 shadow-xl shadow-black/40"
             >
               {[
-                { value: `${allAppTools.length}+`, label: "Online Tools" },
+                { value: "80+", label: "Built-in Tools" },
                 { value: "AES-256", label: "Encrypted Sync" },
                 { value: "Free", label: "To Get Started" },
               ].map((s, i) => (
@@ -442,13 +443,13 @@ export default function Page() {
               className="prose prose-invert max-w-none text-center text-foreground/90 space-y-4"
             >
               <p className="text-lg leading-relaxed">
-                MyDevTools is the unified developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 60+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one workspace.
+                MyDevTools is the all-in-one desktop developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 80+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one desktop workspace.
               </p>
               <p className="text-lg leading-relaxed">
-                Privacy-first architecture means your data is processed in your browser whenever possible. Sensitive credentials are AES-256 encrypted before sync. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption. Get started free, then upgrade when you want unlimited cloud usage.
+                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted before any optional sync. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption—nothing leaves your device unless you choose to sync. Get started free, then upgrade when you want unlimited cloud usage.
               </p>
               <p className="text-lg leading-relaxed">
-                Trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), single-purpose online tools, and other dev tool platforms—we unify what others scatter across 20 tabs.
+                Trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
               </p>
             </motion.div>
           </motion.div>
@@ -559,7 +560,7 @@ export default function Page() {
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed mb-6 max-w-md text-sm md:text-base">
                     JSON, SQL, Markdown — formatters and editors that run
-                    entirely in your browser. No round-trips, no copy-paste
+                    entirely on your machine. No round-trips, no copy-paste
                     detours.
                   </p>
 
@@ -775,11 +776,11 @@ export default function Page() {
               className="text-center mb-10 md:mb-12"
             >
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
-                {allAppTools.length}+ Tools, One Dashboard
+                80+ Tools, One Dashboard
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
                 From JSON formatters to API clients, generators, and database
-                explorers — everything you need in one online developer toolkit.
+                explorers — everything you need in one desktop developer toolkit.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link
@@ -894,7 +895,7 @@ export default function Page() {
                 href="/tools"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
-                See all {allAppTools.length} tools
+                See all tools
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
@@ -973,7 +974,7 @@ export default function Page() {
                     Zero-Knowledge Privacy
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base flex-1">
-                    Sensitive synced data is encrypted in your browser before
+                    Sensitive synced data is encrypted on your device before
                     transmission. The server stores encrypted blobs, not your
                     readable vault data.
                   </p>

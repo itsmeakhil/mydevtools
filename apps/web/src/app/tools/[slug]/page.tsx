@@ -13,7 +13,7 @@ import { getBlogPost, blogPosts } from '@/lib/blog/posts'
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 
 function featureSentence(keyword: string, toolTitle: string) {
-  return `${toolTitle} supports ${keyword} workflows for quick browser-based developer tasks.`
+  return `${toolTitle} supports ${keyword} workflows in one all-in-one desktop toolkit.`
 }
 
 export function generateStaticParams() {
@@ -142,7 +142,7 @@ export default async function ToolLandingPage({
           <div className="container px-4 md:px-6 mx-auto max-w-4xl">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">About {tool.title}</h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
-              {tool.description} Runs entirely in your browser — no installation, no account required to try it.
+              {tool.description} Part of MyDevTools — an all-in-one desktop toolkit that runs offline and processes your data locally on your machine.
             </p>
 
             <div className="grid gap-5 md:grid-cols-2 mb-10">
@@ -186,7 +186,7 @@ export default async function ToolLandingPage({
               ))}
               <li className="flex items-center gap-2.5 text-sm text-muted-foreground">
                 <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
-                <span>Runs in your browser — no install</span>
+                <span>Runs offline on your desktop</span>
               </li>
               <li className="flex items-center gap-2.5 text-sm text-muted-foreground">
                 <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-500" />
@@ -206,11 +206,11 @@ export default async function ToolLandingPage({
               {[
                 {
                   q: `Is ${tool.title} free to use?`,
-                  a: `Yes. ${tool.title} is available through MyDevTools with a public landing page and browser-based app experience.`,
+                  a: `Yes. ${tool.title} is part of MyDevTools, the all-in-one developer desktop app, and is free to use.`,
                 },
                 {
                   q: `Do I need to install anything for ${tool.title}?`,
-                  a: `No. ${tool.title} runs in a web browser, so you can open it from any modern device without installing a desktop utility.`,
+                  a: `${tool.title} is one of 80+ tools in the MyDevTools desktop app. Install MyDevTools once and every tool works offline, with your data processed locally.`,
                 },
                 {
                   q: `What is ${tool.title} best for?`,
@@ -241,8 +241,8 @@ export default async function ToolLandingPage({
             <h2 className="text-2xl md:text-3xl font-bold mb-8">How to Use {tool.title}</h2>
             <ol className="space-y-6">
               {[
-                { step: '01', title: 'Open the tool', body: `Click "Use ${tool.title} Free" above — no download or account required.` },
-                { step: '02', title: 'Enter your data', body: 'Paste or type your input directly in the browser. Processing happens locally on your device.' },
+                { step: '01', title: 'Open the tool', body: `Open ${tool.title} in the MyDevTools desktop app — no account required to start.` },
+                { step: '02', title: 'Enter your data', body: 'Paste or type your input directly. Processing happens locally on your device.' },
                 { step: '03', title: 'Copy the result', body: 'Get your output instantly. Copy it, download it, or keep working in the same tab.' },
               ].map((s) => (
                 <li key={s.step} className="flex gap-5">

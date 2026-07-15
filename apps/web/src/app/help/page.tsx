@@ -37,7 +37,7 @@ const appDetails: Record<
     howItWorks: [
       'Set a master password once per session to unlock your vault.',
       'Add, edit, search, and generate strong passwords; import/export is available from the manager UI.',
-      'Entries are encrypted in your browser before anything sensitive is sent to the server.',
+      'Entries are encrypted on your device before anything sensitive is sent to the server.',
     ],
     dataNote:
       'The server stores only ciphertext and IVs for vault metadata and entries. Your master password is never transmitted.',
@@ -50,7 +50,7 @@ const appDetails: Record<
       'Copy a formatted .env file to the clipboard when you need it locally.',
     ],
     dataNote:
-      'Each set is stored as ciphertext plus an IV; plaintext keys and values exist only in your browser after unlock.',
+      'Each set is stored as ciphertext plus an IV; plaintext keys and values exist only on your device after unlock.',
   },
   '/app/bookmarks': {
     howItWorks: [
@@ -61,14 +61,14 @@ const appDetails: Record<
   '/app/json-formatter': {
     howItWorks: [
       'Paste or write JSON, then format, minify, validate, and switch between text and tree views.',
-      'Processing runs in the browser; nothing is sent to the server for formatting.',
+      'Processing runs locally; nothing is sent to the server for formatting.',
     ],
   },
   '/app/json-schema-generator': {
     howItWorks: [
       'Paste valid JSON (including nested objects and arrays). The tool infers a structural schema from your sample.',
       'Choose an output language to generate JSON Schema (Draft 2020-12) or starter types for Python, TypeScript, Go, Rust, Java, C#, Dart, or Swift.',
-      'All inference and code generation run locally in your browser.',
+      'All inference and code generation run locally on your device.',
     ],
   },
   '/app/api-client': {
@@ -83,7 +83,7 @@ const appDetails: Record<
   '/app/database-explorer': {
     howItWorks: [
       'Connect to MongoDB using a connection string, browse databases and collections, and run queries.',
-      'Saved connections are encrypted with your global master key in the browser; the backend stores ciphertext only.',
+      'Saved connections are encrypted with your global master key on your device; the backend stores ciphertext only.',
     ],
     dataNote:
       'You are responsible for connection strings and data accessed on your databases.',

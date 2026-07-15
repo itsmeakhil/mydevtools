@@ -4,31 +4,30 @@ import { ArrowRight } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { ToolsGrid } from '@/components/tools-grid'
-import { publicToolSlugs } from '@/lib/tool-categories'
 import { MdtFx } from '@/components/mdt-fx'
 import MdtAurora from '@/components/mdt-aurora'
 import { MdtBoot } from '@/components/mdt-boot'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
-const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Online Developer Tools')}&description=${encodeURIComponent('Browse 50+ browser-based developer tools. No install required.')}`
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('All-in-One Developer Tools')}&description=${encodeURIComponent('80+ developer tools in one desktop app. Offline, local-first, privacy-first.')}`
 
 export const metadata: Metadata = {
-  title: 'Online Developer Tools | MyDevTools',
+  title: 'All-in-One Developer Tools | MyDevTools',
   description:
-    'Browse 50+ browser-based developer tools: JSON formatter, JWT decoder, API client, UUID generator, regex tester, and more. No install required.',
+    '80+ developer tools in one desktop app: JSON formatter, JWT decoder, API client, UUID generator, regex tester, SQL/MongoDB/Redis clients, and more. Offline and local-first.',
   alternates: { canonical: `${baseUrl}/tools` },
   openGraph: {
-    title: 'Online Developer Tools | MyDevTools',
-    description: 'Browse 50+ browser-based developer tools. No install required.',
+    title: 'All-in-One Developer Tools | MyDevTools',
+    description: '80+ developer tools in one desktop app. Offline, local-first, privacy-first.',
     url: `${baseUrl}/tools`,
     siteName: 'MyDevTools',
     type: 'website',
-    images: [{ url: ogImage, width: 1200, height: 630, alt: 'Online Developer Tools | MyDevTools' }],
+    images: [{ url: ogImage, width: 1200, height: 630, alt: 'All-in-One Developer Tools | MyDevTools' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Online Developer Tools | MyDevTools',
-    description: 'Browse 50+ browser-based developer tools. No install required.',
+    title: 'All-in-One Developer Tools | MyDevTools',
+    description: '80+ developer tools in one desktop app. Offline, local-first, privacy-first.',
     images: [ogImage],
   },
 }
@@ -75,14 +74,14 @@ export default function ToolsIndexPage() {
             </nav>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 leading-[1.1]">
-              Online{' '}
+              All-in-One{' '}
               <span className="mdt-grad-text mdt-grad-anim">
                 Developer Tools
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
-              {publicToolSlugs.length}+ browser-based utilities. No install, no account required to
-              try them. Sign in to sync your data across devices.
+              80+ developer utilities in one desktop app. Runs offline and processes
+              your data locally. Sign in to sync across devices.
             </p>
 
             <Link

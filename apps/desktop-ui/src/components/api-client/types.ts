@@ -251,14 +251,6 @@ export interface ApiRequestState {
         logs: ScriptLog[]
         errors: string[]
     }
-    /** When true, Send goes through `/api/proxy-stream` and SSE events accumulate in `streamEvents`. */
-    streamResponse?: boolean
-    streamEvents?: Array<{
-        event?: string
-        data: string
-        id?: string
-        timestamp: number
-    }>
     /** Saved response snapshots — copied from the request when loaded from a collection,
      *  appended when the user clicks Save-as-example. */
     examples?: SavedExample[]

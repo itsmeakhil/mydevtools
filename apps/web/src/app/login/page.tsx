@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const FEATURES = [
   {
     icon: Zap,
-    title: "60+ tools, zero installs",
+    title: "80+ tools, one desktop app",
     body: "Formatters, generators, API client, SQL, crypto — all in one tab.",
   },
   {

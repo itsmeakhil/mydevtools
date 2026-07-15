@@ -32,9 +32,6 @@ interface RequestPanelProps {
     urlHistory?: string[]
     /** Pass activeTab.id so local URL state resets on tab switch. */
     tabId?: string
-    /** When true, Send goes through the streaming proxy (SSE / chunked). */
-    streamResponse?: boolean
-    setStreamResponse?: (v: boolean) => void
 }
 
 const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
@@ -73,8 +70,6 @@ function RequestPanelImpl({
     onPaste,
     urlHistory = [],
     tabId,
-    streamResponse = false,
-    setStreamResponse,
 }: RequestPanelProps) {
     const { activeEnvironmentVariables } = useEnvironmentsState()
     const t = useTranslations("ApiClient.requestPanel")
@@ -297,7 +292,10 @@ function RequestPanelImpl({
                         }}
                         onPaste={(e) => {
                             const text = e.clipboardData.getData("text")
-                            if (text.trim().startsWith("curl ")) {
+                            // Match `curl`, `curl.exe`, leading whitespace, or a trailing
+                            // newline — anything else pastes as a normal URL. `\b` stops
+                            // false positives like "curly".
+                            if (/^\s*curl\b/i.test(text)) {
                                 e.preventDefault()
                                 onPaste(text)
                             }
@@ -356,17 +354,6 @@ function RequestPanelImpl({
                     </Button>
                 ) : (
                 <>
-                {setStreamResponse && (
-                    <Button
-                        type="button"
-                        variant={streamResponse ? "default" : "outline"}
-                        onClick={() => setStreamResponse(!streamResponse)}
-                        className={cn("h-10 px-3 font-bold", streamResponse && "bg-purple-500/15 text-purple-600 border-purple-500/30")}
-                        title="Toggle SSE / streaming response mode"
-                    >
-                        Stream
-                    </Button>
-                )}
                 <Button
                     onClick={onSend}
                     disabled={isLoading || !localUrl || isBodyInvalid}

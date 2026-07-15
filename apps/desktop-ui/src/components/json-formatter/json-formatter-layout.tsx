@@ -5,6 +5,7 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useTranslations } from 'next-intl'
 import { useIsMobile } from '@/components/hooks/use-mobile'
 import {
+  IconAlignLeft,
   IconArrowsMinimize,
   IconBraces,
   IconChevronDown,
@@ -14,7 +15,9 @@ import {
   IconFolderOpen,
   IconJson,
   IconRefresh,
+  IconSitemap,
   IconSortAscendingLetters,
+  IconTable,
   IconTransform,
   IconWand,
 } from '@tabler/icons-react'
@@ -25,7 +28,6 @@ import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs'
 import { RevealItem } from '@/components/dashboard/dashboard-reveal'
 import { Button } from '@/components/ui/button'
-import { SendToMenu } from '@/components/ui/send-to-menu'
 import useAuth from '@/utils/useAuth'
 import { backendFetch } from '@/lib/backend-auth'
 import { repairJSON } from '@/lib/json-utils/repair'
@@ -85,7 +87,14 @@ interface PaneState {
   documentId: string | null
   isSaving: boolean
   newDocumentCount: number
+  mode: Mode
 }
+
+const MODES: { mode: Mode; label: string; Icon: typeof IconTable }[] = [
+  { mode: 'text' as Mode, label: 'Text', Icon: IconAlignLeft },
+  { mode: 'tree' as Mode, label: 'Tree', Icon: IconSitemap },
+  { mode: 'table' as Mode, label: 'Table', Icon: IconTable },
+]
 
 type JsonFormatterDocumentOut = {
   id: string
@@ -98,12 +107,13 @@ type JsonFormatterDocumentOut = {
 
 const DOCS_PAGE_SIZE = 500
 
-const createPaneState = (initialName: string): PaneState => ({
+const createPaneState = (initialName: string, mode: Mode): PaneState => ({
   content: { json: initialJson },
   documentName: initialName,
   documentId: null,
   isSaving: false,
   newDocumentCount: 1,
+  mode,
 })
 
 export function JsonFormatterLayout() {
@@ -141,12 +151,12 @@ export function JsonFormatterLayout() {
       }
     }
     return {
-      ...createPaneState(t('documentNameText', { n: 1 })),
+      ...createPaneState(t('documentNameText', { n: 1 }), 'text' as Mode),
       content,
     };
   })
   const [rightPane, setRightPane] = useState<PaneState>(() =>
-    createPaneState(t('documentNameTree', { n: 1 }))
+    createPaneState(t('documentNameTree', { n: 1 }), 'tree' as Mode)
   )
 
   const isMobile = useIsMobile()
@@ -188,6 +198,10 @@ export function JsonFormatterLayout() {
       ...prev,
       documentName: name,
     }))
+  }
+
+  const handleModeChange = (pane: PaneKey, mode: Mode) => {
+    updatePane(pane, (prev) => ({ ...prev, mode }))
   }
 
   const handleNewDocument = (pane: PaneKey) => {
@@ -397,7 +411,7 @@ export function JsonFormatterLayout() {
 
   const renderPaneToolbar = (pane: PaneKey) => {
     const state = pane === 'left' ? leftPane : rightPane
-    const isTextPane = pane === 'left'
+    const isTextMode = state.mode === ('text' as Mode)
     return (
       <div className="flex flex-wrap items-center gap-1 border-b border-border/60 bg-muted/30 px-2 py-1.5">
         <DropdownMenu>
@@ -435,7 +449,29 @@ export function JsonFormatterLayout() {
 
         <div className="mx-1 h-4 w-px shrink-0 bg-border" aria-hidden />
 
-        {isTextPane && (
+        <div className="flex items-center rounded-md border border-border/60 p-0.5">
+          {MODES.map(({ mode, label, Icon }) => (
+            <Tooltip key={mode}>
+              <TooltipTrigger asChild>
+                <Button
+                  variant={state.mode === mode ? 'secondary' : 'ghost'}
+                  size="icon"
+                  className="h-7 w-7"
+                  onClick={() => handleModeChange(pane, mode)}
+                  aria-label={label}
+                  aria-pressed={state.mode === mode}
+                >
+                  <Icon className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{label}</TooltipContent>
+            </Tooltip>
+          ))}
+        </div>
+
+        <div className="mx-1 h-4 w-px shrink-0 bg-border" aria-hidden />
+
+        {isTextMode && (
           <>
             {renderToolbarIconButton(t('format'), IconBraces, () => handleFormat(pane))}
             {renderToolbarIconButton(t('compact'), IconArrowsMinimize, () => handleCompact(pane))}
@@ -449,7 +485,6 @@ export function JsonFormatterLayout() {
 
         <div className="ml-auto flex items-center gap-1">
           {renderToolbarIconButton(t('copy'), IconCopy, () => handleCopy(pane))}
-          <SendToMenu content={contentToText(state.content)} className="h-8" />
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -467,6 +502,24 @@ export function JsonFormatterLayout() {
           </Tooltip>
         </div>
       </div>
+    )
+  }
+
+  const renderEditor = (pane: PaneKey) => {
+    const state = pane === 'left' ? leftPane : rightPane
+    const isTextMode = state.mode === ('text' as Mode)
+    return (
+      <VanillaEditor
+        mode={state.mode}
+        content={state.content}
+        onChange={(updated, previous, status) =>
+          handlePaneChange(pane, updated, previous, status)
+        }
+        onEditorReady={(editor) => (editorRefs.current[pane] = editor)}
+        mainMenuBar={false}
+        navigationBar={!isTextMode}
+        statusBar={isTextMode}
+      />
     )
   }
 
@@ -494,32 +547,7 @@ export function JsonFormatterLayout() {
         /* Mobile: single full-height pane, toggled by tabs */
         <div className="min-h-0 flex-1 rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden flex flex-col">
           {renderPaneToolbar(activePane)}
-          <div className="min-h-0 flex-1">
-            {activePane === 'left' ? (
-              <VanillaEditor
-                mode={'text' as Mode}
-                content={leftPane.content}
-                onChange={(updated, previous, status) =>
-                  handlePaneChange('left', updated, previous, status)
-                }
-                onEditorReady={(editor) => (editorRefs.current.left = editor)}
-                mainMenuBar={false}
-                navigationBar={false}
-                statusBar={true}
-              />
-            ) : (
-              <VanillaEditor
-                mode={'tree' as Mode}
-                content={rightPane.content}
-                onChange={(updated, previous, status) =>
-                  handlePaneChange('right', updated, previous, status)
-                }
-                onEditorReady={(editor) => (editorRefs.current.right = editor)}
-                mainMenuBar={false}
-                navigationBar={true}
-              />
-            )}
-          </div>
+          <div className="min-h-0 flex-1">{renderEditor(activePane)}</div>
         </div>
       ) : (
         /* Desktop: side-by-side resizable panes */
@@ -530,19 +558,7 @@ export function JsonFormatterLayout() {
           <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
             <div className="flex h-full min-h-0 flex-col">
               {renderPaneToolbar('left')}
-              <div className="min-h-0 flex-1">
-                <VanillaEditor
-                  mode={'text' as Mode}
-                  content={leftPane.content}
-                  onChange={(updated, previous, status) =>
-                    handlePaneChange('left', updated, previous, status)
-                  }
-                  onEditorReady={(editor) => (editorRefs.current.left = editor)}
-                  mainMenuBar={false}
-                  navigationBar={false}
-                  statusBar={true}
-                />
-              </div>
+              <div className="min-h-0 flex-1">{renderEditor('left')}</div>
             </div>
           </ResizablePanel>
 
@@ -551,18 +567,7 @@ export function JsonFormatterLayout() {
           <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
             <div className="flex h-full min-h-0 flex-col">
               {renderPaneToolbar('right')}
-              <div className="min-h-0 flex-1">
-                <VanillaEditor
-                  mode={'tree' as Mode}
-                  content={rightPane.content}
-                  onChange={(updated, previous, status) =>
-                    handlePaneChange('right', updated, previous, status)
-                  }
-                  onEditorReady={(editor) => (editorRefs.current.right = editor)}
-                  mainMenuBar={false}
-                  navigationBar={true}
-                />
-              </div>
+              <div className="min-h-0 flex-1">{renderEditor('right')}</div>
             </div>
           </ResizablePanel>
         </ResizablePanelGroup>

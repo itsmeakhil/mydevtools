@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe } from "lucide-react"
+import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, PanelRightClose } from "lucide-react"
 import { buildShareUrl } from "@/lib/share-link"
 import { backendFetch } from "@/lib/backend-auth"
 import { toast } from "sonner"
@@ -49,10 +49,12 @@ import { useDebouncedValue } from "@/lib/use-debounced-value"
 
 interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
+    onCollapse?: () => void
 }
 
 export function CollectionsSidebar({
     onLoadRequest,
+    onCollapse,
 }: CollectionsSidebarProps) {
     const { collections, isLoading } = useCollectionsState()
     const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
@@ -212,6 +214,17 @@ export function CollectionsSidebar({
                             >
                                 <FolderPlus className="h-4 w-4" />
                             </Button>
+                            {onCollapse && (
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="h-7 w-7 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
+                                    onClick={onCollapse}
+                                    title={tRoot("layout.closeSidebar")}
+                                >
+                                    <PanelRightClose className="h-4 w-4" />
+                                </Button>
+                            )}
                         </div>
                     </div>
                     <div className="px-3 pb-1">

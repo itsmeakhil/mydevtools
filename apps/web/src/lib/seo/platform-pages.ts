@@ -18,20 +18,20 @@ export type PlatformSeoPage = {
 export const platformSeoPages: PlatformSeoPage[] = [
   {
     slug: 'developer-tools',
-    title: 'Online Developer Tools Platform',
+    title: 'All-in-One Developer Tools Platform',
     description:
-      'MyDevTools is an online developer tools platform with 50+ browser-based utilities for formatting, testing APIs, generating data, managing secrets, and shipping faster.',
+      'MyDevTools is an all-in-one desktop developer platform with 80+ tools for formatting, testing APIs, generating data, managing secrets, and shipping faster — offline and local-first.',
     keywords: [
-      'online developer tools',
-      'developer tools online',
+      'all-in-one developer tools',
+      'desktop developer tools',
       'developer toolkit',
-      'browser developer tools',
-      'web developer tools',
+      'offline developer tools',
+      'local-first developer tools',
     ],
     eyebrow: 'Developer Tools Platform',
-    heading: 'One online developer toolkit for everyday engineering work',
+    heading: 'One all-in-one developer toolkit for everyday engineering work',
     intro:
-      'MyDevTools brings the utilities developers reach for every day into one browser-based workspace: format data, test APIs, generate tokens, inspect encodings, manage secure notes, and stay in flow.',
+      'MyDevTools brings the utilities developers reach for every day into one desktop workspace that runs offline: format data, test APIs, generate tokens, inspect encodings, manage secure notes, and stay in flow — with everything processed locally.',
     primaryCta: { href: '/tools', label: 'Browse all tools' },
     secondaryCta: { href: '/login', label: 'Open dashboard' },
     sections: [
@@ -51,7 +51,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
           'A single toolkit reduces the switching cost of jumping between browser tabs, npm packages, desktop apps, and random pastebin-style websites.',
         bullets: [
           'Use related tools from one dashboard and command palette.',
-          'Keep common developer utilities available on any machine with a browser.',
+          'Keep every utility available offline on your machine — no network required.',
           'Sync your work across devices with an account when you want continuity.',
         ],
       },
@@ -71,11 +71,11 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'features',
     title: 'Developer Toolkit Features',
     description:
-      'Explore MyDevTools features: unified dashboard, command palette, team workspaces with role-based access, browser-based tools, secure sync, and managed cloud hosting.',
+      'Explore MyDevTools features: unified dashboard, command palette, team workspaces with role-based access, offline desktop tools, secure sync, and managed cloud hosting.',
     keywords: [
       'developer toolkit features',
-      'browser developer tools features',
-      'online developer dashboard',
+      'desktop developer tools features',
+      'offline developer dashboard',
       'developer tools command palette',
       'team workspaces developer tools',
       'role based access developer tools',
@@ -83,7 +83,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Features',
     heading: 'Features built for fast, private developer workflows',
     intro:
-      'MyDevTools combines small daily utilities with a dashboard, search, privacy controls, and cloud sync so developers can work without installing another desktop app.',
+      'MyDevTools combines small daily utilities with a dashboard, search, privacy controls, and cloud sync in one desktop app — so developers stop juggling a dozen scattered websites and single-purpose apps.',
     primaryCta: { href: '/tools', label: 'See tools' },
     secondaryCta: { href: '/security', label: 'Review security' },
     sections: [
@@ -108,13 +108,13 @@ export const platformSeoPages: PlatformSeoPage[] = [
         ],
       },
       {
-        title: 'Browser-based utilities',
+        title: 'Offline, local-first utilities',
         body:
-          'Many tools run locally in the browser, which keeps common formatting and generation work fast.',
+          'Most tools run locally on your machine and work fully offline, which keeps common formatting and generation work instant.',
         bullets: [
-          'No desktop installer for common utilities.',
-          'Immediate access from shared, temporary, or new machines.',
-          'Local-first processing for many formatter, parser, and generator workflows.',
+          'Every utility ships in one desktop app — no chasing a dozen websites.',
+          'Works offline on a plane, behind a locked-down network, or air-gapped.',
+          'Local-first processing for formatter, parser, and generator workflows.',
         ],
       },
       {
@@ -133,24 +133,24 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'security',
     title: 'Security and Privacy',
     description:
-      'Learn how MyDevTools handles security, client-side encryption, zero-knowledge vault data, local browser processing, account sync, and encrypted data handling.',
+      'Learn how MyDevTools handles security, client-side encryption, zero-knowledge vault data, local on-device processing, account sync, and encrypted data handling.',
     keywords: [
       'developer tools security',
       'zero knowledge developer tools',
       'encrypted developer toolkit',
-      'secure online developer tools',
+      'secure offline developer tools',
     ],
     eyebrow: 'Security',
-    heading: 'Security and privacy for browser-based developer tools',
+    heading: 'Security and privacy for a local-first developer toolkit',
     intro:
-      'MyDevTools is built around a simple principle: keep local work local where possible, and encrypt sensitive synced data before it leaves the browser.',
+      'MyDevTools is built around a simple principle: keep local work local where possible, and encrypt sensitive synced data before it leaves your device.',
     primaryCta: { href: '/help', label: 'Read help docs' },
     secondaryCta: { href: '/features', label: 'Explore features' },
     sections: [
       {
         title: 'What runs locally',
         body:
-          'Formatter, parser, converter, and generator workflows are designed to run directly in the browser whenever the tool does not need a network service.',
+          'Formatter, parser, converter, and generator workflows are designed to run directly on your device whenever the tool does not need a network service.',
         bullets: [
           'JSON formatting, Base64 encoding, UUID generation, and similar operations avoid server round-trips.',
           'Tools that connect to external services, such as API or database clients, necessarily send requests to the targets you choose.',
@@ -160,7 +160,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
       {
         title: 'Encrypted sync',
         body:
-          'Sensitive persisted data such as vault-style records is encrypted in the browser before sync.',
+          'Sensitive persisted data such as vault-style records is encrypted on your device before sync.',
         bullets: [
           'The server stores ciphertext and metadata required for sync, not readable vault plaintext.',
           'Your master password is not transmitted for vault unlock flows.',
@@ -170,7 +170,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
       {
         title: 'Honest limits',
         body:
-          'Security depends on the browser, the deployment, and the external services you choose to connect.',
+          'Security depends on your device, the deployment, and the external services you choose to connect.',
         bullets: [
           'Do not paste highly sensitive production secrets into tools you do not control.',
           'Sensitive vault data is encrypted client-side before it syncs to our cloud.',
@@ -188,7 +188,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
       'mydevtools pricing',
       'developer tools pricing',
       'developer tools subscription pricing',
-      'online developer toolkit pricing',
+      'desktop developer toolkit pricing',
     ],
     eyebrow: 'Pricing',
     heading: 'Start free. Upgrade when you want more.',
@@ -202,7 +202,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'use-cases',
     title: 'Developer Tool Use Cases',
     description:
-      'See how frontend developers, backend developers, DevOps engineers, students, and teams use MyDevTools as an online developer toolkit.',
+      'See how frontend developers, backend developers, DevOps engineers, students, and teams use MyDevTools as an all-in-one desktop developer toolkit.',
     keywords: [
       'developer tool use cases',
       'tools for frontend developers',
@@ -213,7 +213,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Use Cases',
     heading: 'How different developers use MyDevTools',
     intro:
-      'MyDevTools supports everyday workflows across frontend, backend, DevOps, security, data, and learning use cases without requiring a local desktop toolbox.',
+      'MyDevTools supports everyday workflows across frontend, backend, DevOps, security, data, and learning use cases in one desktop toolbox instead of a dozen scattered websites.',
     primaryCta: { href: '/tools', label: 'Browse by tool' },
     secondaryCta: { href: '/developer-tools', label: 'View platform' },
     sections: [

@@ -1,9 +1,17 @@
 'use client';
 
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
-import { Check, Copy } from 'lucide-react';
+import { Check, Copy, Clock } from 'lucide-react';
 
-export function IdRow({ id, index }: { id: string; index: number }) {
+export function IdRow({
+  id,
+  index,
+  timestamp,
+}: {
+  id: string;
+  index: number;
+  timestamp?: Date | null;
+}) {
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
 
   const handleCopy = () => {
@@ -15,9 +23,18 @@ export function IdRow({ id, index }: { id: string; index: number }) {
       <span className="w-5 shrink-0 text-[11px] tabular-nums text-muted-foreground/50 select-none">
         {index + 1}
       </span>
-      <span className="flex-1 font-mono text-[13px] leading-tight break-all text-foreground">
+      <span className="flex-1 min-w-0 font-mono text-[13px] leading-tight break-all text-foreground">
         {id}
       </span>
+      {timestamp && (
+        <span
+          className="hidden md:flex shrink-0 items-center gap-1 text-[11px] tabular-nums text-muted-foreground/70 select-none"
+          title={`Embedded timestamp · ${timestamp.toISOString()}`}
+        >
+          <Clock className="h-3 w-3" aria-hidden />
+          {timestamp.toLocaleString()}
+        </span>
+      )}
       <button
         type="button"
         onClick={handleCopy}

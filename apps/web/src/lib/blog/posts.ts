@@ -20,13 +20,13 @@ export type BlogPost = {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'how-to-decode-a-jwt',
-    title: 'How to Decode a JWT Token Online',
+    title: 'How to Decode a JWT Token Offline',
     description:
-      'Learn what a JSON Web Token (JWT) is, how to read its header and payload, and how to decode one instantly in the browser without installing anything.',
+      'Learn what a JSON Web Token (JWT) is, how to read its header and payload, and how to decode one instantly and offline in MyDevTools, the all-in-one desktop developer toolkit.',
     publishedAt: '2025-10-15',
     category: 'Security',
     toolSlug: 'jwt-decoder',
-    keywords: ['decode jwt', 'jwt decoder online', 'how to read jwt', 'jwt header payload', 'json web token'],
+    keywords: ['decode jwt', 'offline jwt decoder', 'how to read jwt', 'jwt header payload', 'json web token'],
     readingTimeMin: 5,
     sections: [
       {
@@ -50,8 +50,8 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
         codeLanguage: 'bash',
       },
       {
-        heading: 'How to decode a JWT online (instant, no install)',
-        body: `The fastest way to read a JWT during debugging is to paste it into an online decoder. MyDevTools JWT Decoder runs entirely in your browser — your token is never sent to a server. The tool splits the token into its three parts, decodes the header and payload to readable JSON, and highlights the expiration time (\`exp\`) as a human-readable date so you can instantly see whether a token is still valid.\n\nWhen to use an online decoder: during API debugging to check which claims a token carries, after a login flow to verify the payload matches expected user data, and when reviewing third-party tokens to understand their structure.`,
+        heading: 'How to decode a JWT offline in MyDevTools',
+        body: `The fastest way to read a JWT during debugging is to paste it into a decoder. The JWT Decoder in MyDevTools runs entirely on your machine — offline and local, so your token is never sent to a server. The tool splits the token into its three parts, decodes the header and payload to readable JSON, and highlights the expiration time (\`exp\`) as a human-readable date so you can instantly see whether a token is still valid.\n\nWhen to use an offline decoder: during API debugging to check which claims a token carries, after a login flow to verify the payload matches expected user data, and when reviewing third-party tokens to understand their structure.`,
       },
       {
         heading: 'Common JWT claim fields',
@@ -64,8 +64,8 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
     ],
     faqs: [
       {
-        q: 'Is it safe to paste my JWT into an online decoder?',
-        a: 'Use a browser-based decoder that processes the token locally without sending it to a server. MyDevTools JWT Decoder works entirely in your browser — the token never leaves your machine. Avoid decoders that require submitting the token to an external endpoint.',
+        q: 'Is it safe to paste my JWT into a JWT decoder?',
+        a: 'Use a decoder that processes the token locally without sending it to a server. MyDevTools is a desktop app that decodes JWTs entirely offline on your machine — the token never leaves your device. Avoid decoders that require submitting the token to an external endpoint.',
       },
       {
         q: 'Can I decode a JWT without the secret key?',
@@ -83,13 +83,13 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
   },
   {
     slug: 'how-to-format-json-online',
-    title: 'How to Format JSON Online: Beautify, Validate & Minify',
+    title: 'How to Format JSON Offline: Beautify, Validate & Minify',
     description:
-      'Format messy JSON into readable, indented output instantly in the browser. Learn JSON formatting best practices, common errors, and how to minify JSON for production.',
+      'Format messy JSON into readable, indented output instantly and offline on your machine. Learn JSON formatting best practices, common errors, and how to minify JSON for production.',
     publishedAt: '2025-10-22',
     category: 'Formatters',
     toolSlug: 'json-formatter',
-    keywords: ['format json online', 'json formatter', 'json beautifier', 'json validator', 'json minifier', 'pretty print json'],
+    keywords: ['format json offline', 'json formatter', 'json beautifier', 'json validator', 'json minifier', 'pretty print json'],
     readingTimeMin: 5,
     sections: [
       {
@@ -107,8 +107,8 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
         codeLanguage: 'json',
       },
       {
-        heading: 'How to format JSON online',
-        body: `The quickest path is to paste your JSON into a browser-based formatter. MyDevTools JSON Formatter parses and indents your JSON with 2-space indentation, highlights syntax errors with line numbers, and lets you copy the formatted result with one click. It runs locally in your browser — no API call, no data upload.\n\nUseful scenarios: formatting API responses during debugging, cleaning up configuration files before committing, comparing two JSON payloads in a diff tool, and quickly checking whether a response is valid JSON before parsing it in code.`,
+        heading: 'How to format JSON offline in MyDevTools',
+        body: `The quickest path is to paste your JSON into the JSON Formatter in MyDevTools. It parses and indents your JSON with 2-space indentation, highlights syntax errors with line numbers, and lets you copy the formatted result with one click. It runs locally on your machine — no API call, no data upload, and it works offline.\n\nUseful scenarios: formatting API responses during debugging, cleaning up configuration files before committing, comparing two JSON payloads in a diff tool, and quickly checking whether a response is valid JSON before parsing it in code.`,
       },
       {
         heading: 'Minifying JSON',
@@ -135,12 +135,12 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
         a: 'Formatting adds indentation and line breaks to make JSON readable. Validation checks whether the JSON conforms to the JSON specification (valid syntax). A good formatter always validates first and rejects malformed input.',
       },
       {
-        q: 'Is it safe to paste sensitive JSON (API keys, tokens) into an online formatter?',
-        a: 'Use a formatter that runs locally in the browser with no server upload. MyDevTools JSON Formatter processes your JSON in-browser — nothing is sent to a backend. For highly sensitive data, consider running a local CLI formatter like jq instead.',
+        q: 'Is it safe to paste sensitive JSON (API keys, tokens) into a JSON formatter?',
+        a: 'Use a formatter that runs locally with no server upload. MyDevTools is a desktop app that processes your JSON entirely on your machine, offline — nothing is sent to a backend. For a command-line option, the jq CLI works locally too.',
       },
       {
         q: 'What is the difference between JSON and JSON5?',
-        a: 'JSON5 is a superset of JSON that allows comments, trailing commas, and single-quoted strings. It is useful in configuration files but is not valid JSON and cannot be parsed by standard JSON.parse(). Most online formatters target standard JSON.',
+        a: 'JSON5 is a superset of JSON that allows comments, trailing commas, and single-quoted strings. It is useful in configuration files but is not valid JSON and cannot be parsed by standard JSON.parse(). Most formatters target standard JSON.',
       },
       {
         q: 'Can I format nested JSON arrays inside a JSON formatter?',
@@ -152,7 +152,7 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
     slug: 'regex-lookahead-lookbehind-examples',
     title: 'Regex Lookahead and Lookbehind: Practical Examples',
     description:
-      'Master regex lookahead and lookbehind assertions with real-world examples. Test patterns in your browser and learn when to use each type of zero-width assertion.',
+      'Master regex lookahead and lookbehind assertions with real-world examples. Test patterns offline in MyDevTools and learn when to use each type of zero-width assertion.',
     publishedAt: '2025-11-01',
     category: 'Formatters',
     toolSlug: 'regex-tester',
@@ -229,7 +229,7 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
       },
       {
         heading: 'Browser support and JavaScript notes',
-        body: `Lookbehind (\`(?<=...)\` and \`(?<!...)\`) requires ES2018+ (Chrome 62+, Firefox 78+, Node 8+). Positive and negative lookahead have been supported in JavaScript since ES3 and work in all browsers.\n\nFor complex patterns, test them in an online regex tester before embedding them in code. MyDevTools Regex Tester lets you paste input, write the pattern, and see matches highlighted in real time with match groups, indices, and explanations.`,
+        body: `Lookbehind (\`(?<=...)\` and \`(?<!...)\`) requires ES2018+ (Chrome 62+, Firefox 78+, Node 8+). Positive and negative lookahead have been supported in JavaScript since ES3 and work in all browsers.\n\nFor complex patterns, test them in a regex tester before embedding them in code. The Regex Tester in MyDevTools runs offline on your desktop and lets you paste input, write the pattern, and see matches highlighted in real time with match groups, indices, and explanations.`,
       },
       {
         heading: 'Practical use cases',
@@ -255,11 +255,11 @@ echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
     slug: 'base64-encoding-explained',
     title: 'Base64 Encoding Explained: How It Works and When to Use It',
     description:
-      'Understand what Base64 encoding is, how it converts binary data to text, common use cases in web development, and how to encode or decode Base64 instantly online.',
+      'Understand what Base64 encoding is, how it converts binary data to text, common use cases in web development, and how to encode or decode Base64 instantly and offline in MyDevTools.',
     publishedAt: '2025-11-10',
     category: 'Converters',
     toolSlug: 'base64',
-    keywords: ['base64 encoding', 'base64 decode', 'base64 encode online', 'what is base64', 'base64 url safe'],
+    keywords: ['base64 encoding', 'base64 decode', 'offline base64 encoder', 'what is base64', 'base64 url safe'],
     readingTimeMin: 5,
     sections: [
       {
@@ -313,8 +313,8 @@ Buffer.from("hello world").toString("base64url")
         a: 'Base64URL replaces + with - and / with _ and omits = padding. This makes it safe to use in URLs and HTTP headers without percent-encoding. JWTs use Base64URL.',
       },
       {
-        q: 'Can I encode a file to Base64 online?',
-        a: 'Yes. MyDevTools Base64 encoder lets you paste text or load a file and produces the Base64 output in the browser without uploading anything to a server.',
+        q: 'Can I encode a file to Base64 offline?',
+        a: 'Yes. The Base64 encoder in MyDevTools lets you paste text or load a file and produces the Base64 output locally on your machine, offline, without uploading anything to a server.',
       },
     ],
   },
@@ -322,11 +322,11 @@ Buffer.from("hello world").toString("base64url")
     slug: 'uuid-guide-generate-and-understand',
     title: 'UUID Guide: What They Are, Version Differences, and How to Generate Them',
     description:
-      'Learn what UUIDs are, the difference between UUID v1, v4, and v7, when to use each, and how to generate UUIDs instantly online without any library.',
+      'Learn what UUIDs are, the difference between UUID v1, v4, and v7, when to use each, and how to generate UUIDs instantly and offline in MyDevTools without any library.',
     publishedAt: '2025-11-20',
     category: 'Generators',
     toolSlug: 'uuid-generator',
-    keywords: ['uuid generator', 'generate uuid online', 'uuid v4', 'uuid v7', 'uuid vs ulid', 'universally unique identifier'],
+    keywords: ['uuid generator', 'generate uuid offline', 'uuid v4', 'uuid v7', 'uuid vs ulid', 'universally unique identifier'],
     readingTimeMin: 5,
     sections: [
       {
@@ -489,7 +489,7 @@ crypto.randomUUID()`,
       },
       {
         heading: 'Validating cron expressions',
-        body: `Off-by-one errors and ambiguous day-of-week numbering are the most common cron mistakes. Some systems use 0 for Sunday, some use 7, and some accept both. Use an online cron builder to preview the next 10 scheduled runs before deploying. MyDevTools Cron Builder shows a human-readable description ("At 9:30 AM, every Monday") and lists the next occurrences so you can confirm the schedule is exactly what you intend.`,
+        body: `Off-by-one errors and ambiguous day-of-week numbering are the most common cron mistakes. Some systems use 0 for Sunday, some use 7, and some accept both. Use a cron builder to preview the next 10 scheduled runs before deploying. The Cron Builder in MyDevTools runs offline on your desktop and shows a human-readable description ("At 9:30 AM, every Monday") and lists the next occurrences so you can confirm the schedule is exactly what you intend.`,
       },
     ],
     faqs: [
@@ -519,7 +519,7 @@ crypto.randomUUID()`,
     publishedAt: '2025-12-10',
     category: 'Converters',
     toolSlug: 'timestamp-converter',
-    keywords: ['unix timestamp', 'timestamp to date', 'epoch time converter', 'unix time', 'convert timestamp online'],
+    keywords: ['unix timestamp', 'timestamp to date', 'epoch time converter', 'unix time', 'convert timestamp offline'],
     readingTimeMin: 5,
     sections: [
       {
@@ -596,8 +596,8 @@ print(int(time.time()))`,
         a: 'Epoch time is another term for Unix timestamp — the number of seconds elapsed since January 1, 1970, 00:00:00 UTC.',
       },
       {
-        q: 'How do I convert a timestamp to a readable date online?',
-        a: 'Paste the timestamp into MyDevTools Timestamp Converter and it instantly shows the UTC datetime, local datetime, relative time ("3 days ago"), and ISO 8601 format without any sign-in or install.',
+        q: 'How do I convert a timestamp to a readable date offline?',
+        a: 'Paste the timestamp into the Timestamp Converter in MyDevTools and it instantly shows the UTC datetime, local datetime, relative time ("3 days ago"), and ISO 8601 format locally on your machine, offline, without any sign-in.',
       },
       {
         q: 'Why is my timestamp 1000x too large?',
@@ -671,20 +671,20 @@ print(int(time.time()))`,
     slug: 'password-manager-for-developers',
     title: 'Password Manager for Developers: Secure Storage Without a SaaS Subscription',
     description:
-      'Learn how developer-focused password managers work, why browser-based encrypted vaults are useful for local credential storage, and how to protect secrets without leaking them.',
+      'Learn how developer-focused password managers work, why local desktop encrypted vaults are useful for credential storage, and how to protect secrets without leaking them.',
     publishedAt: '2026-01-08',
     category: 'Security',
     toolSlug: 'password-manager',
-    keywords: ['password manager developer', 'browser password vault', 'secure credential storage', 'encrypted passwords local', 'developer secrets manager'],
+    keywords: ['password manager developer', 'local password vault', 'secure credential storage', 'encrypted passwords local', 'developer secrets manager'],
     readingTimeMin: 6,
     sections: [
       {
         heading: 'Why developers need a dedicated password manager',
-        body: `Developers accumulate secrets faster than almost any other role: database credentials, API keys, staging logins, SSH passphrases, service accounts, .env values, and personal accounts all pile up across projects.\n\nUsing a browser autofill or a sticky note for these is a significant security risk. A proper password manager encrypts credentials at rest with a master password derived key — so even if the storage medium is compromised, the attacker gets ciphertext, not plaintext.`,
+        body: `Developers accumulate secrets faster than almost any other role: database credentials, API keys, staging logins, SSH passphrases, service accounts, .env values, and personal accounts all pile up across projects.\n\nUsing a browser autofill or a sticky note for these is a significant security risk. A proper desktop password manager encrypts credentials at rest with a master password derived key — so even if the storage medium is compromised, the attacker gets ciphertext, not plaintext.`,
       },
       {
         heading: 'How password managers encrypt your data',
-        body: `Most password managers use AES-256 encryption with a key derived from the master password using a slow key derivation function (KDF) like PBKDF2, bcrypt, or Argon2. The KDF makes brute-forcing the master password computationally expensive even with modern hardware.\n\nThe encryption and decryption happen on the client — the server (or file) only ever sees ciphertext. This is called zero-knowledge architecture: the service provider cannot decrypt your vault even if subpoenaed.`,
+        body: `Most password managers use AES-256 encryption with a key derived from the master password using a slow key derivation function (KDF) like PBKDF2, bcrypt, or Argon2. The KDF makes brute-forcing the master password computationally expensive even with modern hardware.\n\nThe encryption and decryption happen locally on your machine — any file or sync target only ever sees ciphertext. This is called zero-knowledge architecture: the service provider cannot decrypt your vault even if subpoenaed.`,
         code: `// Simplified: what happens when you unlock a vault
 const masterPassword = "my-strong-passphrase"
 const salt = getCryptographicSalt()  // stored alongside ciphertext
@@ -707,22 +707,22 @@ const aesKey = await crypto.subtle.deriveKey(
         codeLanguage: 'javascript',
       },
       {
-        heading: 'Browser-based vs cloud-synced password managers',
-        body: `**Cloud-synced** (1Password, Bitwarden, Dashlane): your encrypted vault is stored on the provider's servers. Sync across devices is automatic. The trade-off is trusting the provider's infrastructure and zero-knowledge claims.\n\n**Local / self-hosted** (KeePass, Bitwarden self-hosted, browser-based vaults): the encrypted file lives on your machine or your own server. No third-party ever holds your ciphertext. Sync requires your own solution (e.g., Syncthing, a personal S3 bucket).\n\n**Browser-based vault tools** like MyDevTools Password Manager store credentials in your browser's encrypted local storage — useful for development credentials, staging tokens, and project-specific secrets that you do not want in a cloud service.`,
+        heading: 'Local desktop vs cloud-synced password managers',
+        body: `**Cloud-synced** (1Password, Bitwarden, Dashlane): your encrypted vault is stored on the provider's servers. Sync across devices is automatic. The trade-off is trusting the provider's infrastructure and zero-knowledge claims.\n\n**Local / self-hosted** (KeePass, Bitwarden self-hosted, local desktop vaults): the encrypted vault lives on your machine or your own server. No third-party ever holds your ciphertext. Sync requires your own solution (e.g., Syncthing, a personal S3 bucket).\n\n**Local desktop vault tools** like the MyDevTools Password Manager store credentials in an encrypted local vault on your machine — useful for development credentials, staging tokens, and project-specific secrets that you do not want in a cloud service.`,
       },
       {
         heading: 'Best practices for developer secrets',
         body: `**Use a strong, unique master password** — at least 20 characters, ideally a passphrase. Never reuse it.\n\n**Never commit secrets to git** — use environment variables, .env files (in .gitignore), or a secrets manager like AWS Secrets Manager or HashiCorp Vault for production.\n\n**Rotate credentials after a breach** — if a service is compromised, assume all stored credentials for that service are exposed.\n\n**Separate personal and work vaults** — keep work credentials in an org-controlled manager; personal credentials in your own.\n\n**Enable 2FA on the password manager itself** — your manager is the master key to everything else. Protect it accordingly.`,
       },
       {
-        heading: 'When to use a browser-based vault vs a full password manager',
-        body: `A browser-based vault is ideal for: development environment credentials you access frequently during a session, staging and test account logins, tool-specific API keys used in the browser, and temporary project secrets.\n\nUse a full cross-device password manager (1Password, Bitwarden) for: personal login credentials, production secrets you need on mobile or multiple machines, and anything that must survive a browser profile wipe.`,
+        heading: 'When to use a local desktop vault vs a full password manager',
+        body: `A local desktop vault is ideal for: development environment credentials you access frequently during a session, staging and test account logins, tool-specific API keys you use while coding, and temporary project secrets.\n\nUse a full cross-device password manager (1Password, Bitwarden) for: personal login credentials, production secrets you need on mobile or multiple machines, and anything that must survive a machine wipe.`,
       },
     ],
     faqs: [
       {
-        q: 'Is a browser-based password manager safe?',
-        a: 'Yes, if the vault is encrypted with AES-256 and a master password before storing locally. The critical requirement is that plaintext credentials never leave the browser — all encryption and decryption must happen client-side.',
+        q: 'Is a local desktop password manager safe?',
+        a: 'Yes, if the vault is encrypted with AES-256 and a master password before storing locally. The critical requirement is that plaintext credentials never leave your machine — all encryption and decryption must happen locally on your device.',
       },
       {
         q: 'Should I use a password manager for API keys?',
@@ -741,18 +741,18 @@ const aesKey = await crypto.subtle.deriveKey(
 
   {
     slug: 'how-to-test-rest-api-online',
-    title: 'How to Test a REST API Online Without Postman',
+    title: 'How to Test a REST API Offline Without Postman',
     description:
-      'Learn how to send API requests, inspect responses, set headers, use authentication tokens, and debug REST endpoints directly in your browser — no desktop install required.',
+      'Learn how to send API requests, inspect responses, set headers, use authentication tokens, and debug REST endpoints from your desktop with the offline API client in MyDevTools.',
     publishedAt: '2026-01-15',
     category: 'Network & API',
     toolSlug: 'api-client',
-    keywords: ['test rest api online', 'api client browser', 'postman alternative online', 'send http request browser', 'rest api testing tool'],
+    keywords: ['test rest api offline', 'desktop api client', 'postman alternative offline', 'send http request desktop', 'rest api testing tool'],
     readingTimeMin: 7,
     sections: [
       {
-        heading: 'Why test APIs directly in the browser',
-        body: `Desktop API clients like Postman and Insomnia are powerful for team collaboration, collection management, and test automation. But for quick one-off requests — checking a public endpoint, debugging an auth header, or verifying a payload format — launching a desktop app adds friction.\n\nA browser-based API client lets you send requests immediately without installing anything, switching applications, or maintaining a collection. It is particularly useful when you are already debugging in the browser DevTools or working from a machine where you cannot install software.`,
+        heading: 'Why test APIs from an all-in-one desktop toolkit',
+        body: `Heavy API clients like Postman and Insomnia are powerful for team collaboration, collection management, and test automation. But for quick one-off requests — checking a public endpoint, debugging an auth header, or verifying a payload format — launching a separate heavyweight app and signing in adds friction.\n\nAn API client built into an all-in-one desktop toolkit lets you send requests immediately, offline, without maintaining a collection or juggling separate apps. It is particularly useful when you are already working locally alongside your other developer tools.`,
       },
       {
         heading: 'Anatomy of a REST API request',
@@ -794,8 +794,8 @@ GET https://api.example.com/data?api_key=abc123`,
         body: `**Forgetting Content-Type** — POST/PUT requests with a JSON body must include \`Content-Type: application/json\`. Without it, many servers reject or misparse the body.\n\n**Sending expired tokens** — JWT access tokens expire (typically 15 minutes to 1 hour). Decode the token and check the \`exp\` claim before a test run.\n\n**Trailing slashes** — Some APIs treat \`/users\` and \`/users/\` differently. Check the API documentation.\n\n**Case-sensitive headers** — HTTP/2 requires lowercase headers. Some API gateways normalize these; others do not. Use lowercase when in doubt.\n\n**Ignoring CORS errors** — CORS is a browser security restriction, not a server-side API error. If you get a CORS error in the browser, the request may succeed from a server-side client (curl, Node). Check whether the API allows browser origins.`,
       },
       {
-        heading: 'Testing with curl vs a browser API client',
-        body: `curl is ideal for scripting, CI pipelines, and reproducing requests in documentation. A browser API client is faster for interactive exploration, header autocompletion, and working alongside other browser tools.\n\nMyDevTools API Client runs entirely in the browser, supports GET/POST/PUT/PATCH/DELETE, custom headers, authentication, JSON body editing, and shows the formatted response and status side by side.`,
+        heading: 'Testing with curl vs a desktop API client',
+        body: `curl is ideal for scripting, CI pipelines, and reproducing requests in documentation. A desktop API client is faster for interactive exploration, header autocompletion, and working alongside your other developer tools.\n\nThe API Client in MyDevTools runs offline on your machine, supports GET/POST/PUT/PATCH/DELETE, custom headers, authentication, JSON body editing, and shows the formatted response and status side by side.`,
         code: `# Equivalent curl command for the browser request
 curl -X POST https://api.example.com/users \\
   -H "Authorization: Bearer <token>" \\
@@ -810,8 +810,8 @@ curl -X POST https://api.example.com/users \\
         a: 'REST uses multiple endpoints with specific HTTP methods. GraphQL uses a single endpoint (usually POST) with a query or mutation in the body. For GraphQL, use the GraphQL Formatter to write and validate queries, then send them via an API client.',
       },
       {
-        q: 'Can I test APIs that require OAuth 2.0 in a browser API client?',
-        a: 'Yes, if you manually obtain the access token first (via the token endpoint or a browser-based OAuth flow) and paste it into the Authorization header.',
+        q: 'Can I test APIs that require OAuth 2.0 in a desktop API client?',
+        a: 'Yes, if you manually obtain the access token first (via the token endpoint or an OAuth flow) and paste it into the Authorization header.',
       },
       {
         q: 'Why does my API request work in curl but fail in the browser?',
@@ -826,18 +826,18 @@ curl -X POST https://api.example.com/users \\
 
   {
     slug: 'mongodb-browser-client-guide',
-    title: 'How to Browse and Query MongoDB Online Without Installing a Client',
+    title: 'How to Browse and Query MongoDB from an All-in-One Desktop Toolkit',
     description:
-      'Connect to a MongoDB database, browse collections, run queries, and inspect documents directly in your browser. Learn the basics of NoSQL document querying.',
+      'Connect to a MongoDB database, browse collections, run queries, and inspect documents from your desktop with the built-in NoSQL client in MyDevTools. Learn the basics of NoSQL document querying.',
     publishedAt: '2026-01-22',
-    category: 'Database',
+    category: 'Databases',
     toolSlug: 'database-explorer',
-    keywords: ['mongodb browser client', 'database explorer online', 'query mongodb online', 'mongodb gui browser', 'browse mongodb collections'],
+    keywords: ['mongodb desktop client', 'database explorer desktop', 'query mongodb offline', 'mongodb gui', 'browse mongodb collections'],
     readingTimeMin: 6,
     sections: [
       {
         heading: 'What is a NoSQL database browser?',
-        body: `A NoSQL database browser is a GUI or web interface that lets you connect to a document database (like MongoDB), explore its structure, and run queries without a local client installation.\n\nFor MongoDB specifically, the traditional options are the mongo shell, MongoDB Compass (desktop app), or Atlas UI (cloud-only). A browser-based NoSQL explorer is useful when you are on a machine without Compass installed, connecting to a shared staging database, or debugging a quick data issue during development.`,
+        body: `A NoSQL database browser is a GUI that lets you connect to a document database (like MongoDB), explore its structure, and run queries.\n\nFor MongoDB specifically, the traditional options are the mongo shell, MongoDB Compass (a single-purpose desktop app), or Atlas UI (cloud-only). A NoSQL explorer bundled into an all-in-one desktop toolkit is useful when you want database browsing alongside your other developer tools, connecting to a shared staging database, or debugging a quick data issue during development — without installing yet another standalone client.`,
       },
       {
         heading: 'MongoDB data model: databases, collections, documents',
@@ -902,7 +902,7 @@ db.users.find({
       },
       {
         heading: 'Connecting to MongoDB securely',
-        body: `Always use connection strings with authentication. MongoDB connection strings follow the format:\n\n\`mongodb://username:password@host:27017/dbname\`\n\nOr with SRV (Atlas/cloud):\n\n\`mongodb+srv://username:password@cluster.mongodb.net/dbname\`\n\nFor a browser-based NoSQL explorer, the connection is made through the server-side proxy to avoid exposing credentials in the browser. Only connect to databases you own or have explicit authorization to access.`,
+        body: `Always use connection strings with authentication. MongoDB connection strings follow the format:\n\n\`mongodb://username:password@host:27017/dbname\`\n\nOr with SRV (Atlas/cloud):\n\n\`mongodb+srv://username:password@cluster.mongodb.net/dbname\`\n\nFor the NoSQL Explorer in MyDevTools, the desktop app connects to MongoDB directly from your machine, so your connection string and credentials stay local. Only connect to databases you own or have explicit authorization to access.`,
         code: `// Standard connection string
 mongodb://admin:secretpassword@localhost:27017/myapp
 
@@ -916,16 +916,16 @@ mongodb://user:pass@host:27017/db?authSource=admin&ssl=true`,
     ],
     faqs: [
       {
-        q: 'Is it safe to use a browser-based MongoDB client?',
-        a: 'Use one where the connection is proxied server-side and credentials are not stored in the browser. MyDevTools NoSQL Explorer connects through a backend proxy — your connection string is not exposed in browser storage or network requests.',
+        q: 'Is it safe to use a desktop MongoDB client?',
+        a: 'Use one that connects directly from your machine and keeps credentials local. The MyDevTools NoSQL Explorer is a desktop app that connects to MongoDB locally — your connection string stays on your device rather than passing through a third-party server.',
       },
       {
         q: 'What is the difference between MongoDB and SQL databases?',
         a: 'SQL databases use tables with a fixed schema, rows, and columns. MongoDB stores flexible JSON-like documents in collections with no enforced schema. SQL uses JOIN for relations; MongoDB typically embeds related data in the document or uses application-level references.',
       },
       {
-        q: 'How do I run an aggregation pipeline in a browser-based MongoDB client?',
-        a: 'An aggregation pipeline is a series of stages ($match, $group, $sort, $project, $lookup) that transform documents. In a browser client that supports raw query input, you can enter the pipeline array directly.',
+        q: 'How do I run an aggregation pipeline in a desktop MongoDB client?',
+        a: 'An aggregation pipeline is a series of stages ($match, $group, $sort, $project, $lookup) that transform documents. In a client that supports raw query input, you can enter the pipeline array directly.',
       },
       {
         q: 'Does MongoDB have transactions?',
@@ -936,13 +936,13 @@ mongodb://user:pass@host:27017/db?authSource=admin&ssl=true`,
 
   {
     slug: 'how-to-format-sql-online',
-    title: 'How to Format and Beautify SQL Queries Online',
+    title: 'How to Format and Beautify SQL Queries Offline',
     description:
-      'Format messy SQL into readable, indented queries instantly in the browser. Learn SQL formatting conventions, when to use uppercase keywords, and how formatting helps catch bugs.',
+      'Format messy SQL into readable, indented queries instantly and offline on your desktop. Learn SQL formatting conventions, when to use uppercase keywords, and how formatting helps catch bugs.',
     publishedAt: '2026-01-29',
     category: 'Formatters',
     toolSlug: 'sql-formatter',
-    keywords: ['format sql online', 'sql formatter', 'sql beautifier', 'sql pretty print', 'sql query formatter free'],
+    keywords: ['format sql offline', 'sql formatter', 'sql beautifier', 'sql pretty print', 'sql query formatter free'],
     readingTimeMin: 4,
     sections: [
       {
@@ -982,7 +982,7 @@ WHERE b.val = 1`,
       },
       {
         heading: 'SQL dialects: MySQL, PostgreSQL, SQL Server, BigQuery',
-        body: `SQL keywords are standardized in ANSI SQL, but each database has dialect-specific syntax. A good SQL formatter supports multiple dialects:\n\n- **MySQL**: backtick identifiers, \`LIMIT\`/\`OFFSET\`, \`AUTO_INCREMENT\`.\n- **PostgreSQL**: double-quoted identifiers, \`SERIAL\`, \`RETURNING\`, \`ILIKE\`, dollar-quoted strings.\n- **SQL Server**: bracket identifiers (\`[table]\`), \`TOP\`, \`NOLOCK\`, \`NVARCHAR\`.\n- **BigQuery**: backtick identifiers, \`ARRAY\`, \`STRUCT\`, \`UNNEST\`.\n\nMyDevTools SQL Formatter supports MySQL, PostgreSQL, SQL Server, and other dialects — specify the dialect to get accurate formatting for dialect-specific keywords.`,
+        body: `SQL keywords are standardized in ANSI SQL, but each database has dialect-specific syntax. A good SQL formatter supports multiple dialects:\n\n- **MySQL**: backtick identifiers, \`LIMIT\`/\`OFFSET\`, \`AUTO_INCREMENT\`.\n- **PostgreSQL**: double-quoted identifiers, \`SERIAL\`, \`RETURNING\`, \`ILIKE\`, dollar-quoted strings.\n- **SQL Server**: bracket identifiers (\`[table]\`), \`TOP\`, \`NOLOCK\`, \`NVARCHAR\`.\n- **BigQuery**: backtick identifiers, \`ARRAY\`, \`STRUCT\`, \`UNNEST\`.\n\nThe SQL Formatter in MyDevTools runs offline on your desktop and supports MySQL, PostgreSQL, SQL Server, and other dialects — specify the dialect to get accurate formatting for dialect-specific keywords.`,
       },
     ],
     faqs: [
@@ -1153,11 +1153,11 @@ docker compose up -d --scale worker=3`,
     slug: 'totp-two-factor-authentication-explained',
     title: 'TOTP Explained: How Time-Based One-Time Passwords Work',
     description:
-      'Understand how TOTP (Time-Based One-Time Passwords) generate 6-digit 2FA codes, the cryptography behind them, how to implement TOTP, and how to generate test codes online.',
+      'Understand how TOTP (Time-Based One-Time Passwords) generate 6-digit 2FA codes, the cryptography behind them, how to implement TOTP, and how to generate test codes offline in MyDevTools.',
     publishedAt: '2026-02-12',
     category: 'Security',
     toolSlug: 'totp-generator',
-    keywords: ['totp', 'time-based one-time password', 'how totp works', 'totp 2fa', 'totp implementation', 'totp generator online', 'authenticator app how it works'],
+    keywords: ['totp', 'time-based one-time password', 'how totp works', 'totp 2fa', 'totp implementation', 'offline totp generator', 'authenticator app how it works'],
     readingTimeMin: 6,
     sections: [
       {
@@ -1217,7 +1217,7 @@ otpauth://totp/GitHub:alice@example.com?secret=JBSWY3DPEHPK3PXP&issuer=GitHub
       },
       {
         q: 'Can I use TOTP for my own application?',
-        a: 'Yes. Libraries exist for all major languages (speakeasy for Node.js, pyotp for Python, otplib for TypeScript). Generate a secret, show it as a QR code, verify codes server-side. The MyDevTools TOTP Generator can generate test codes from a secret for development and debugging.',
+        a: 'Yes. Libraries exist for all major languages (speakeasy for Node.js, pyotp for Python, otplib for TypeScript). Generate a secret, show it as a QR code, verify codes server-side. The TOTP Generator in MyDevTools runs offline on your desktop and can generate test codes from a secret for development and debugging.',
       },
       {
         q: 'What happens if I lose my TOTP device?',
@@ -1380,7 +1380,7 @@ faker.seed()`,
       },
       {
         heading: 'Database seeding patterns',
-        body: `**Development seeding**: populate a local database with realistic records to develop against. Run a seed script on \`npm run dev:setup\` or before tests.\n\n**Factory pattern**: define a factory function per model. Compose factories for related records (a user factory that creates associated orders).\n\n**Fixtures**: static JSON or SQL files with known data. Used for specific test scenarios where exact values matter (e.g., testing boundary conditions).\n\n**Online generators**: useful for one-off needs — generate 50 user records as JSON, paste into Postman or a database client. MyDevTools Mock Data Generator produces JSON, CSV, or SQL INSERT statements ready to use.`,
+        body: `**Development seeding**: populate a local database with realistic records to develop against. Run a seed script on \`npm run dev:setup\` or before tests.\n\n**Factory pattern**: define a factory function per model. Compose factories for related records (a user factory that creates associated orders).\n\n**Fixtures**: static JSON or SQL files with known data. Used for specific test scenarios where exact values matter (e.g., testing boundary conditions).\n\n**Offline generators**: useful for one-off needs — generate 50 user records as JSON, paste into an API client or a database client. The Mock Data Generator in MyDevTools runs locally on your desktop and produces JSON, CSV, or SQL INSERT statements ready to use.`,
         code: `// Factory pattern example
 function createUser(overrides = {}) {
   return {
@@ -1427,7 +1427,7 @@ const bulkUsers = Array.from({ length: 50 }, () => createUser())`,
     publishedAt: '2026-03-05',
     category: 'Security',
     toolSlug: 'hmac-generator',
-    keywords: ['hmac', 'hmac sha256', 'hmac api authentication', 'webhook signature verification', 'sign http request', 'hmac generator online'],
+    keywords: ['hmac', 'hmac sha256', 'hmac api authentication', 'webhook signature verification', 'sign http request', 'offline hmac generator'],
     readingTimeMin: 6,
     sections: [
       {
@@ -1529,7 +1529,7 @@ if hmac.compare_digest(computed_sig, received_sig):
       },
       {
         q: 'How do I test HMAC signatures during development?',
-        a: 'Use MyDevTools HMAC Generator to compute HMAC-SHA256 (or other variants) for any key and message directly in the browser, without writing a script. Useful for verifying your implementation produces the expected output.',
+        a: 'Use the HMAC Generator in MyDevTools to compute HMAC-SHA256 (or other variants) for any key and message locally on your desktop, offline, without writing a script. Useful for verifying your implementation produces the expected output.',
       },
     ],
   },
@@ -1647,7 +1647,7 @@ git config --global core.excludesfile ~/.gitignore_global`,
     slug: 'aes-256-encrypted-notes-for-developers',
     title: 'AES-256 Encrypted Notes for Developers: What to Store and What to Avoid',
     description:
-      'A practical guide to AES-256 encrypted notes, vault-style developer data, and when to use MyDevTools Password Manager for sensitive snippets.',
+      'A practical guide to AES-256 encrypted notes, vault-style developer data, and when to use the offline MyDevTools Password Manager for sensitive snippets.',
     publishedAt: '2025-12-12',
     category: 'Security',
     toolSlug: 'password-manager',
@@ -1656,11 +1656,11 @@ git config --global core.excludesfile ~/.gitignore_global`,
     sections: [
       {
         heading: 'Why developers need encrypted notes',
-        body: `Developers often need to keep short sensitive snippets close at hand: staging credentials, recovery codes, API tokens for local testing, database connection notes, SSH hints, internal URLs, and setup instructions. Plain text notes are convenient, but they are a poor fit for secrets or anything that could expose a system if copied into the wrong place.\n\nAES-256 encrypted notes are useful when the content should be searchable and accessible to you, but unreadable to the server storing it. In a zero-knowledge-style workflow, encryption happens in the browser before sync, so the backend stores ciphertext rather than readable plaintext.`,
+        body: `Developers often need to keep short sensitive snippets close at hand: staging credentials, recovery codes, API tokens for local testing, database connection notes, SSH hints, internal URLs, and setup instructions. Plain text notes are convenient, but they are a poor fit for secrets or anything that could expose a system if copied into the wrong place.\n\nAES-256 encrypted notes are useful when the content should be searchable and accessible to you, but unreadable to anything storing it. In a zero-knowledge-style workflow, encryption happens locally on your machine before any sync, so a backend stores ciphertext rather than readable plaintext.`,
       },
       {
         heading: 'What AES-256 protects',
-        body: `AES-256 is a symmetric encryption algorithm widely used for protecting data at rest. In a browser-based vault workflow, your passphrase or vault key is used locally to encrypt data before it is uploaded. The server can store and sync encrypted blobs, but it should not receive the raw note content or master password.\n\nThat model is strongest when paired with good key derivation, authenticated encryption modes such as AES-GCM, and careful session handling. It protects synced data from casual exposure on the backend, but it does not protect against a compromised browser, malicious extension, weak master password, or phishing attack.`,
+        body: `AES-256 is a symmetric encryption algorithm widely used for protecting data at rest. In a local desktop vault workflow, your passphrase or vault key is used locally to encrypt data before any of it is synced. A server can store and sync encrypted blobs, but it should not receive the raw note content or master password.\n\nThat model is strongest when paired with good key derivation, authenticated encryption modes such as AES-GCM, and careful session handling. It protects synced data from casual exposure on the backend, but it does not protect against a compromised machine, malicious software, weak master password, or phishing attack.`,
       },
       {
         heading: 'What developers should store in encrypted notes',
@@ -1668,7 +1668,7 @@ git config --global core.excludesfile ~/.gitignore_global`,
       },
       {
         heading: 'Using MyDevTools Password Manager for secure notes',
-        body: `MyDevTools Password Manager is designed for vault-style sensitive records. It encrypts sensitive data in the browser before sync where supported, so the backend stores encrypted data instead of readable vault content.\n\nUse it when you need a developer-friendly place for passwords, short sensitive notes, and account context, with encrypted cross-device sync so your vault follows you.`,
+        body: `The MyDevTools Password Manager is a desktop tool designed for vault-style sensitive records. It encrypts sensitive data locally on your machine before any sync, so a backend stores encrypted data instead of readable vault content.\n\nUse it when you need a developer-friendly place for passwords, short sensitive notes, and account context, with encrypted cross-device sync so your vault follows you.`,
       },
     ],
     faqs: [
@@ -1678,27 +1678,27 @@ git config --global core.excludesfile ~/.gitignore_global`,
       },
       {
         q: 'Does encryption mean the server cannot read my notes?',
-        a: 'If encryption happens in the browser before sync and the server never receives the key or plaintext, the server stores ciphertext rather than readable note content.',
+        a: 'If encryption happens locally on your machine before sync and the server never receives the key or plaintext, the server stores ciphertext rather than readable note content.',
       },
       {
         q: 'Where are encrypted notes stored?',
-        a: 'With client-side encryption, notes are encrypted in your browser before sync, so the server stores ciphertext rather than readable content. This does not replace good key management or secure browser practices.',
+        a: 'With local encryption, notes are encrypted on your machine before sync, so any server stores ciphertext rather than readable content. This does not replace good key management or secure local practices.',
       },
     ],
   },
   {
     slug: 'how-to-query-sql-databases-online',
-    title: 'How to Query SQL Databases Online: Connect PostgreSQL, MySQL, MariaDB',
-    description: 'Connect to PostgreSQL, MySQL, or MariaDB from your browser. Run SQL queries, explore schemas, and export results without installing a database client. All credentials are AES-256 encrypted.',
+    title: 'How to Query SQL Databases from Your Desktop: Connect PostgreSQL, MySQL, MariaDB',
+    description: 'Connect to PostgreSQL, MySQL, or MariaDB from your desktop with the built-in SQL client in MyDevTools. Run SQL queries, explore schemas, and export results without a separate database app. All credentials are AES-256 encrypted locally.',
     publishedAt: '2026-01-05',
     category: 'Databases',
     toolSlug: 'sql-client',
-    keywords: ['sql client online', 'query database browser', 'postgresql gui online', 'mysql client', 'sql query tool'],
+    keywords: ['desktop sql client', 'query database offline', 'postgresql gui desktop', 'mysql client', 'sql query tool'],
     readingTimeMin: 6,
     sections: [
       {
-        heading: 'Why use an online SQL client?',
-        body: `Database clients like DBeaver, TablePlus, and pgAdmin are desktop or web apps that connect to your database. But they require installation, local memory, and management. A browser-based SQL client eliminates setup friction: open your browser, enter your connection details, and start querying—no download, no configuration, no persistence on your machine.\n\nMyDevTools SQL Client runs in your browser, encrypts your credentials with AES-256 before storing them, and keeps your connection details local. You can run SELECT, INSERT, UPDATE, DELETE, and administrative queries directly against PostgreSQL, MySQL, and MariaDB instances.`,
+        heading: 'Why use the SQL client in an all-in-one desktop toolkit?',
+        body: `Single-purpose database clients like DBeaver, TablePlus, and pgAdmin connect to your database, but each is a separate app to install and manage. A SQL client bundled into an all-in-one desktop toolkit lives alongside your other developer tools: open MyDevTools, enter your connection details, and start querying—no extra app, no cloud round-trip.\n\nThe SQL Client in MyDevTools runs locally on your desktop, encrypts your credentials with AES-256 before storing them, and keeps your connection details on your machine. You can run SELECT, INSERT, UPDATE, DELETE, and administrative queries directly against PostgreSQL, MySQL, and MariaDB instances.`,
       },
       {
         heading: 'How to connect to your database',
@@ -1718,7 +1718,7 @@ Password: ••••••••`,
       },
       {
         heading: 'Running queries and exploring schemas',
-        body: `Once connected, write any SQL query. The interface shows results in a table, with column headers, data types, and row counts. For larger result sets, pagination prevents the browser from loading millions of rows at once.\n\nOn the left sidebar, you can browse your database structure: list tables, columns, and their types. This schema explorer saves you from memorizing table names and column definitions.`,
+        body: `Once connected, write any SQL query. The interface shows results in a table, with column headers, data types, and row counts. For larger result sets, pagination prevents the app from loading millions of rows at once.\n\nOn the left sidebar, you can browse your database structure: list tables, columns, and their types. This schema explorer saves you from memorizing table names and column definitions.`,
         code: `-- List all tables
 SELECT table_name FROM information_schema.tables
 WHERE table_schema = 'public';
@@ -1734,17 +1734,17 @@ ORDER BY created_at DESC;`,
       },
       {
         heading: 'Exporting results and managing connections',
-        body: `Results can be exported to CSV for further analysis in spreadsheet tools. Multiple database connections can be saved securely—your credentials are encrypted with AES-256 in your browser storage before any sync, so the server never sees plaintext passwords.\n\nUse the browser-based storage to quickly switch between development, staging, and production databases (with appropriate caution and role-based permissions on your database users).`,
+        body: `Results can be exported to CSV for further analysis in spreadsheet tools. Multiple database connections can be saved securely—your credentials are encrypted with AES-256 in local storage on your machine before any sync, so the server never sees plaintext passwords.\n\nUse the saved connections to quickly switch between development, staging, and production databases (with appropriate caution and role-based permissions on your database users).`,
       },
       {
         heading: 'Security: credentials and encrypted storage',
-        body: `Your database credentials are sensitive. MyDevTools SQL Client encrypts them with AES-256 in the browser before storing locally, so plaintext passwords never leave your machine. For production databases, follow your organization's credential policies: use temporary tokens, short-lived credentials, or SSH tunneling if available.`,
+        body: `Your database credentials are sensitive. The MyDevTools SQL Client encrypts them with AES-256 on your desktop before storing locally, so plaintext passwords never leave your machine. For production databases, follow your organization's credential policies: use temporary tokens, short-lived credentials, or SSH tunneling if available.`,
       },
     ],
     faqs: [
       {
-        q: 'Is it safe to paste my database password into an online SQL client?',
-        a: 'Use a browser-based client that encrypts credentials locally before storage. MyDevTools SQL Client uses AES-256 encryption in your browser, so passwords never reach the server unencrypted. Avoid clients that send credentials over unencrypted connections.',
+        q: 'Is it safe to paste my database password into a SQL client?',
+        a: 'Use a client that encrypts credentials locally before storage. The MyDevTools SQL Client is a desktop app that uses AES-256 encryption on your machine, so passwords never reach a server unencrypted. Avoid clients that send credentials over unencrypted connections.',
       },
       {
         q: 'Can I use SQL Client to manage production databases?',
@@ -1762,12 +1762,12 @@ ORDER BY created_at DESC;`,
   },
   {
     slug: 'hash-generator-md5-sha256-online',
-    title: 'Hash Generator: MD5, SHA-256, SHA-512 Online Tool',
-    description: 'Generate MD5, SHA-256, SHA-384, SHA-512, and other cryptographic hashes online. Hash text or files instantly in your browser without any upload.',
+    title: 'Hash Generator: MD5, SHA-256, SHA-512 Offline Desktop Tool',
+    description: 'Generate MD5, SHA-256, SHA-384, SHA-512, and other cryptographic hashes offline. Hash text or files instantly on your desktop without any upload.',
     publishedAt: '2026-01-06',
     category: 'Security',
     toolSlug: 'hash-generator',
-    keywords: ['hash generator online', 'sha256 hash', 'md5 hash generator', 'sha512 online', 'file hash calculator'],
+    keywords: ['offline hash generator', 'sha256 hash', 'md5 hash generator', 'sha512 offline', 'file hash calculator'],
     readingTimeMin: 5,
     sections: [
       {
@@ -1820,12 +1820,12 @@ echo -n "hello world" | sha256sum
   },
   {
     slug: 'url-parser-extract-components',
-    title: 'URL Parser: Extract URL Components Online',
-    description: 'Parse any URL into protocol, host, pathname, query parameters, and hash. Understand URL structure instantly.',
+    title: 'URL Parser: Extract URL Components Offline',
+    description: 'Parse any URL into protocol, host, pathname, query parameters, and hash. Understand URL structure instantly and offline on your desktop.',
     publishedAt: '2026-01-07',
     category: 'Utilities',
     toolSlug: 'url-parser',
-    keywords: ['url parser online', 'parse url', 'url components', 'extract query params', 'url structure'],
+    keywords: ['offline url parser', 'parse url', 'url components', 'extract query params', 'url structure'],
     readingTimeMin: 4,
     sections: [
       {
@@ -1844,8 +1844,8 @@ Fragment: features`,
         codeLanguage: 'text',
       },
       {
-        heading: 'Using the URL Parser online',
-        body: `Paste any URL and instantly see all components broken down: protocol, host, port, pathname, individual query parameters, and fragment. Useful when debugging URLs in logs, understanding API redirects, or validating user-provided URLs.`,
+        heading: 'Using the URL Parser in MyDevTools',
+        body: `Paste any URL and instantly see all components broken down: protocol, host, port, pathname, individual query parameters, and fragment. It runs offline on your desktop — useful when debugging URLs in logs, understanding API redirects, or validating user-provided URLs.`,
       },
       {
         heading: 'JavaScript URL parsing',
@@ -1885,8 +1885,8 @@ console.log(url.searchParams.get('page')); // "1"`,
   },
   {
     slug: 'convert-csv-excel-to-json-online',
-    title: 'Convert CSV to JSON, Excel to JSON Online',
-    description: 'Upload CSV or Excel files and convert to JSON instantly. Export JSON arrays back to CSV or XLSX. All processing happens in your browser.',
+    title: 'Convert CSV to JSON, Excel to JSON Offline',
+    description: 'Load CSV or Excel files and convert to JSON instantly. Export JSON arrays back to CSV or XLSX. All processing happens locally on your desktop.',
     publishedAt: '2026-01-08',
     category: 'Converters',
     toolSlug: 'csv-excel-json',
@@ -1947,18 +1947,18 @@ Bob,2024-06-20,65000
       },
       {
         q: 'Is the file upload secure?',
-        a: 'MyDevTools CSV/Excel converter processes files entirely in your browser. Nothing is uploaded to a server — your file stays on your machine.',
+        a: 'The MyDevTools CSV/Excel converter is a desktop tool that processes files entirely on your machine, offline. Nothing is uploaded to a server — your file stays on your device.',
       },
     ],
   },
   {
     slug: 'yaml-formatter-validator-online',
-    title: 'Format YAML Online: Validator & Converter',
-    description: 'Format YAML with indentation validation. Convert YAML to JSON and back. Check for syntax errors instantly.',
+    title: 'Format YAML Offline: Validator & Converter',
+    description: 'Format YAML with indentation validation, offline on your desktop. Convert YAML to JSON and back. Check for syntax errors instantly.',
     publishedAt: '2026-01-09',
     category: 'Formatters',
     toolSlug: 'yaml-formatter',
-    keywords: ['yaml formatter online', 'yaml validator', 'yaml to json', 'json to yaml', 'format yaml'],
+    keywords: ['offline yaml formatter', 'yaml validator', 'yaml to json', 'json to yaml', 'format yaml'],
     readingTimeMin: 5,
     sections: [
       {
@@ -1988,7 +1988,7 @@ name: Alice
       },
       {
         heading: 'Converting between YAML and JSON',
-        body: `YAML and JSON represent the same data structures (objects, arrays, strings, numbers). MyDevTools YAML Formatter lets you convert between them:\n\n- Paste YAML → see equivalent JSON.\n- Paste JSON → see equivalent YAML.\n\nThis is useful when integrating YAML-based tools with JSON APIs, or when you need to validate YAML structure by converting it to JSON and back.`,
+        body: `YAML and JSON represent the same data structures (objects, arrays, strings, numbers). The YAML Formatter in MyDevTools runs offline on your desktop and lets you convert between them:\n\n- Paste YAML → see equivalent JSON.\n- Paste JSON → see equivalent YAML.\n\nThis is useful when integrating YAML-based tools with JSON APIs, or when you need to validate YAML structure by converting it to JSON and back.`,
       },
       {
         heading: 'Common YAML errors and fixes',
@@ -2012,8 +2012,8 @@ name: Alice
   },
   {
     slug: 'graphql-formatter-minify-online',
-    title: 'Format GraphQL Queries Online: Minify & Pretty Print',
-    description: 'Format and minify GraphQL queries, mutations, and subscriptions instantly in your browser. Check syntax and beautify complex queries.',
+    title: 'Format GraphQL Queries Offline: Minify & Pretty Print',
+    description: 'Format and minify GraphQL queries, mutations, and subscriptions instantly and offline on your desktop. Check syntax and beautify complex queries.',
     publishedAt: '2026-01-10',
     category: 'Formatters',
     toolSlug: 'graphql-formatter',
@@ -2131,17 +2131,17 @@ query GetUser($id:ID!){user(id:$id){id name email posts{title createdAt}}}
   },
   {
     slug: 'generate-ssh-keys-online',
-    title: 'Generate SSH Keys Online: Ed25519 vs RSA, OpenSSH Format',
-    description: 'Generate Ed25519 or RSA (2048/4096-bit) SSH key pairs in your browser. Download PKCS#8 private keys and OpenSSH public keys instantly.',
+    title: 'Generate SSH Keys Offline: Ed25519 vs RSA, OpenSSH Format',
+    description: 'Generate Ed25519 or RSA (2048/4096-bit) SSH key pairs locally on your desktop. Download PKCS#8 private keys and OpenSSH public keys instantly.',
     publishedAt: '2026-01-12',
     category: 'Security',
     toolSlug: 'ssh-key-generator',
-    keywords: ['ssh key generator', 'generate ssh key online', 'ed25519 key', 'rsa key pair', 'openssh format'],
+    keywords: ['ssh key generator', 'generate ssh key offline', 'ed25519 key', 'rsa key pair', 'openssh format'],
     readingTimeMin: 6,
     sections: [
       {
-        heading: 'Why generate SSH keys online?',
-        body: `SSH keys are the secure way to authenticate to servers, Git repositories, and cloud platforms without typing a password. Generating them locally (with \`ssh-keygen\`) is standard, but an online generator in the browser is convenient for quick key creation without leaving your browser.\n\nMyDevTools SSH Key Generator creates key pairs entirely client-side — the private key never leaves your machine. Download it, store it securely, and add the public key to your servers or platforms.`,
+        heading: 'Why generate SSH keys in an offline desktop tool?',
+        body: `SSH keys are the secure way to authenticate to servers, Git repositories, and cloud platforms without typing a password. Generating them with \`ssh-keygen\` is standard, but an offline generator inside your all-in-one desktop toolkit is convenient for quick key creation alongside your other developer tools.\n\nThe SSH Key Generator in MyDevTools creates key pairs entirely on your machine — the private key never leaves your device. Download it, store it securely, and add the public key to your servers or platforms.`,
       },
       {
         heading: 'Ed25519 vs RSA: which should you use?',
@@ -2171,7 +2171,7 @@ MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCx...
     faqs: [
       {
         q: 'Can I use a password-protected SSH key?',
-        a: 'Yes. When generating a key locally with ssh-keygen, you can set a passphrase. The key generator online does not support passphrases yet — protect the downloaded file with your OS file system security.',
+        a: 'Yes. When generating a key with ssh-keygen, you can set a passphrase. The desktop key generator does not support passphrases yet — protect the downloaded file with your OS file system security.',
       },
       {
         q: 'What if I lose my private key?',
@@ -2182,15 +2182,15 @@ MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCx...
         a: 'Yes, add the same public key to authorized_keys on all servers. Using the same key across multiple systems is fine.',
       },
       {
-        q: 'Is it safe to generate SSH keys in a browser?',
-        a: 'Yes, if the generator runs locally in the browser with no server upload. MyDevTools SSH Key Generator is client-side only.',
+        q: 'Is it safe to generate SSH keys in a desktop tool?',
+        a: 'Yes, if the generator runs locally with no server upload. The MyDevTools SSH Key Generator runs entirely on your machine, offline.',
       },
     ],
   },
   {
     slug: 'number-base-converter-binary-hex',
-    title: 'Number Base Converter: Binary, Hex, Decimal, Octal Online',
-    description: 'Convert integers between number bases 2-36 instantly. Convert binary to hex, decimal to octal, and more.',
+    title: 'Number Base Converter: Binary, Hex, Decimal, Octal Offline',
+    description: 'Convert integers between number bases 2-36 instantly and offline on your desktop. Convert binary to hex, decimal to octal, and more.',
     publishedAt: '2026-01-13',
     category: 'Converters',
     toolSlug: 'number-base-converter',
@@ -2236,12 +2236,12 @@ MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCx...
   },
   {
     slug: 'format-converter-json-yaml-toml-xml',
-    title: 'Format Converter: JSON to YAML, TOML, XML Online',
-    description: 'Convert between JSON, YAML, TOML, and XML instantly. All 12 combinations supported. Validate syntax instantly.',
+    title: 'Format Converter: JSON to YAML, TOML, XML Offline',
+    description: 'Convert between JSON, YAML, TOML, and XML instantly and offline on your desktop. All 12 combinations supported. Validate syntax instantly.',
     publishedAt: '2026-01-14',
     category: 'Converters',
     toolSlug: 'format-converter',
-    keywords: ['format converter online', 'json to yaml', 'yaml to json', 'json to xml', 'toml converter'],
+    keywords: ['offline format converter', 'json to yaml', 'yaml to json', 'json to xml', 'toml converter'],
     readingTimeMin: 5,
     sections: [
       {
@@ -2296,12 +2296,12 @@ active = true
   },
   {
     slug: 'generate-qr-codes-online',
-    title: 'Generate QR Codes Online: Text, URL, WiFi',
-    description: 'Create QR codes from URLs, text, WiFi credentials, or vCards instantly. Download as PNG or SVG. No upload, fully browser-based.',
+    title: 'Generate QR Codes Offline: Text, URL, WiFi',
+    description: 'Create QR codes from URLs, text, WiFi credentials, or vCards instantly. Download as PNG or SVG. No upload, fully offline on your desktop.',
     publishedAt: '2026-01-15',
     category: 'Generators',
     toolSlug: 'qr-code-generator',
-    keywords: ['qr code generator online', 'generate qr code', 'qr code maker', 'wifi qr code', 'qr code png'],
+    keywords: ['offline qr code generator', 'generate qr code', 'qr code maker', 'wifi qr code', 'qr code png'],
     readingTimeMin: 4,
     sections: [
       {
@@ -2341,19 +2341,19 @@ END:VCARD`,
         a: 'QR codes with "H" error correction can recover if up to 30% of the code is damaged. Higher error correction makes the code more robust but slightly larger.',
       },
       {
-        q: 'Is it safe to generate QR codes in a browser?',
-        a: 'Yes, QR generation is client-side only. Nothing leaves your browser.',
+        q: 'Is it safe to generate QR codes in a desktop tool?',
+        a: 'Yes, QR generation runs locally on your machine. Nothing leaves your device.',
       },
     ],
   },
   {
     slug: 'markdown-to-html-live-preview',
     title: 'Markdown to HTML: Live Preview & Converter',
-    description: 'Write Markdown and preview HTML output side-by-side. Convert Markdown to HTML instantly in your browser.',
+    description: 'Write Markdown and preview HTML output side-by-side. Convert Markdown to HTML instantly and offline on your desktop.',
     publishedAt: '2026-01-16',
     category: 'Converters',
     toolSlug: 'markdown-preview-html',
-    keywords: ['markdown to html', 'markdown converter', 'markdown preview online', 'html to markdown'],
+    keywords: ['markdown to html', 'markdown converter', 'offline markdown preview', 'html to markdown'],
     readingTimeMin: 5,
     sections: [
       {
@@ -2407,7 +2407,7 @@ console.log("code block");
     publishedAt: '2026-01-17',
     category: 'Validators',
     toolSlug: 'email-validator',
-    keywords: ['email validator', 'email validation online', 'check email', 'mx record lookup', 'email checker'],
+    keywords: ['email validator', 'offline email validation', 'check email', 'mx record lookup', 'email checker'],
     readingTimeMin: 5,
     sections: [
       {
@@ -2456,16 +2456,16 @@ alice@.example.com     (empty local part)`,
   {
     slug: 'redis-cli-alternative-gui-online',
     title: 'Redis Commander: CLI Alternative for Connecting & Managing Redis',
-    description: 'Connect to Redis instances from your browser. Browse keys, edit values, run commands, and flush patterns. No install needed.',
+    description: 'Connect to Redis instances from your desktop with the built-in Redis client in MyDevTools. Browse keys, edit values, run commands, and flush patterns — offline and local.',
     publishedAt: '2026-01-18',
     category: 'Databases',
     toolSlug: 'redis-commander',
-    keywords: ['redis cli online', 'redis gui', 'redis commander', 'redis browser', 'manage redis online'],
+    keywords: ['redis cli desktop', 'redis gui', 'redis commander', 'redis browser', 'manage redis offline'],
     readingTimeMin: 6,
     sections: [
       {
         heading: 'What is Redis and why use a GUI?',
-        body: `Redis is an in-memory data store and cache used for sessions, real-time counters, pub/sub messaging, and job queues. The standard way to interact with Redis is the \`redis-cli\` command-line tool.\n\nA GUI alternative is useful when:\n\n- You want a visual interface to browse keys.\n- You need to inspect complex data types (hashes, lists, sets) without memorizing commands.\n- You want to manage Redis from a browser without SSH or \`redis-cli\` installed.\n- You are debugging and need to see what data is in Redis at a glance.`,
+        body: `Redis is an in-memory data store and cache used for sessions, real-time counters, pub/sub messaging, and job queues. The standard way to interact with Redis is the \`redis-cli\` command-line tool.\n\nA GUI alternative is useful when:\n\n- You want a visual interface to browse keys.\n- You need to inspect complex data types (hashes, lists, sets) without memorizing commands.\n- You want to manage Redis from your desktop toolkit without SSH or a separate \`redis-cli\` setup.\n- You are debugging and need to see what data is in Redis at a glance.`,
       },
       {
         heading: 'Connecting to Redis',
@@ -2491,13 +2491,13 @@ Password: your_redis_password`,
       },
       {
         heading: 'Security: credentials and encryption',
-        body: `Redis credentials are sensitive. MyDevTools Redis Commander encrypts credentials with AES-256 in the browser before storage, so the server does not see plaintext passwords. For production, use Redis with password authentication or network-level security (firewall, VPN, SSH tunnel).`,
+        body: `Redis credentials are sensitive. The MyDevTools Redis Commander encrypts credentials with AES-256 locally on your machine before storage, so no server sees plaintext passwords. For production, use Redis with password authentication or network-level security (firewall, VPN, SSH tunnel).`,
       },
     ],
     faqs: [
       {
-        q: 'Is it safe to connect to a production Redis instance from an online tool?',
-        a: 'Use an encrypted connection tool (HTTPS) and credentials encryption (like MyDevTools). For maximum security, use a firewall or SSH tunnel to restrict access.',
+        q: 'Is it safe to connect to a production Redis instance from a desktop tool?',
+        a: 'Use a tool that connects over an encrypted channel and encrypts credentials locally (like MyDevTools). For maximum security, use a firewall or SSH tunnel to restrict access.',
       },
       {
         q: 'Can I delete keys and clear data with Redis Commander?',
@@ -2511,7 +2511,7 @@ Password: your_redis_password`,
   },
   {
     slug: 'decode-ssl-certificate-pem-online',
-    title: 'How to Decode SSL Certificates: Read PEM, X.509, CSR Online',
+    title: 'How to Decode SSL Certificates: Read PEM, X.509, CSR Offline',
     description: 'Paste an SSL certificate (PEM format) or CSR and inspect subject, issuer, expiry, SANs, and SHA-256 fingerprint instantly.',
     publishedAt: '2026-01-19',
     category: 'Security',
@@ -2568,11 +2568,11 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'task-manager-todo-list-for-developers',
     title: 'Task Manager: To-Do List for Developers',
-    description: 'Organize your work with a simple, browser-based to-do list. Track tasks, set priorities, and boost productivity without leaving your workflow.',
+    description: 'Organize your work with a simple, offline to-do list on your desktop. Track tasks, set priorities, and boost productivity without leaving your workflow.',
     publishedAt: '2026-01-20',
     category: 'Utilities',
     toolSlug: 'to-do',
-    keywords: ['to do list', 'task manager', 'productivity app', 'todo list online', 'task organizer'],
+    keywords: ['to do list', 'task manager', 'productivity app', 'offline todo list', 'task organizer'],
     readingTimeMin: 5,
     sections: [
       {
@@ -2610,11 +2610,11 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'markdown-notes-app-for-developers',
     title: 'Markdown Notes: Quick Note-Taking for Developers',
-    description: 'Create and organize Markdown notes online with zero friction. Sync across devices, search, and keep your knowledge base accessible.',
+    description: 'Create and organize Markdown notes on your desktop with zero friction. Sync across devices, search, and keep your knowledge base accessible.',
     publishedAt: '2026-01-21',
     category: 'Utilities',
     toolSlug: 'notes',
-    keywords: ['notes app', 'markdown notes', 'quick notes online', 'developer notes', 'note-taking tool'],
+    keywords: ['notes app', 'markdown notes', 'offline notes app', 'developer notes', 'note-taking tool'],
     readingTimeMin: 5,
     sections: [
       {
@@ -2631,7 +2631,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         heading: 'MyDevTools Notes features',
-        body: `- **Live Markdown preview** — see formatting as you type.\n- **Full-text search** — find notes by keyword.\n- **Cross-device sync** — write on desktop, read on phone.\n- **No install** — browser-based, zero friction.\n- **Encrypted on sync** — sensitive notes stay private.`,
+        body: `- **Live Markdown preview** — see formatting as you type.\n- **Full-text search** — find notes by keyword.\n- **Cross-device sync** — write on desktop, read on phone.\n- **Local-first** — notes live on your machine, zero friction.\n- **Encrypted on sync** — sensitive notes stay private.`,
       },
     ],
     faqs: [
@@ -2651,12 +2651,12 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 'bookmark-manager-for-developer-resources',
-    title: 'Bookmark Manager: Organize Developer Resources Online',
-    description: 'Save and tag your favorite developer links, articles, and tools. Instant access from anywhere without browser clutter.',
+    title: 'Bookmark Manager: Organize Developer Resources on Your Desktop',
+    description: 'Save and tag your favorite developer links, articles, and tools. Instant access from your desktop toolkit without browser clutter.',
     publishedAt: '2026-01-22',
     category: 'Utilities',
     toolSlug: 'bookmarks',
-    keywords: ['bookmark manager', 'link organizer', 'save links online', 'developer bookmarks', 'bookmark organizer'],
+    keywords: ['bookmark manager', 'link organizer', 'save links offline', 'developer bookmarks', 'bookmark organizer'],
     readingTimeMin: 5,
     sections: [
       {
@@ -2716,7 +2716,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         heading: 'MyDevTools Environment Manager',
-        body: `- **Encrypted storage** — AES-256-GCM encryption in your browser before sync.\n- **Per-project organization** — separate vars for different apps.\n- **Environment templates** — dev/staging/prod presets.\n- **Export to .env format** — copy directly into your project.\n- **Search and filter** — find vars by key or project.`,
+        body: `- **Encrypted storage** — AES-256-GCM encryption locally on your machine before sync.\n- **Per-project organization** — separate vars for different apps.\n- **Environment templates** — dev/staging/prod presets.\n- **Export to .env format** — copy directly into your project.\n- **Search and filter** — find vars by key or project.`,
       },
       {
         heading: 'Best practices for environment secrets',
@@ -2725,8 +2725,8 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     ],
     faqs: [
       {
-        q: 'Is it safe to store passwords in an online tool?',
-        a: 'MyDevTools encrypts secrets in your browser with AES-256 before sending to servers. For maximum security, use a dedicated secrets manager like 1Password, Vault, or AWS Secrets Manager.',
+        q: 'Is it safe to store passwords in this tool?',
+        a: 'MyDevTools is a desktop app that encrypts secrets locally on your machine with AES-256 before any sync. For maximum security, use a dedicated secrets manager like 1Password, Vault, or AWS Secrets Manager.',
       },
       {
         q: 'Can I share environment vars with my team?',
@@ -2741,7 +2741,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'json-schema-generator-type-models-online',
     title: 'JSON Schema Generator: Create Type Models from JSON',
-    description: 'Generate JSON Schema or typed models (TypeScript, Python, Go, Rust, Java) from sample JSON instantly. No install required.',
+    description: 'Generate JSON Schema or typed models (TypeScript, Python, Go, Rust, Java) from sample JSON instantly and offline on your desktop.',
     publishedAt: '2026-01-24',
     category: 'Formatters',
     toolSlug: 'json-schema-generator',
@@ -2783,7 +2783,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 's3-drive-aws-bucket-manager-online',
-    title: 'S3 Drive: Browse and Manage AWS S3 Buckets Online',
+    title: 'S3 Drive: Browse and Manage AWS S3 Buckets from Your Desktop',
     description: 'Connect to AWS S3 or DigitalOcean Spaces, browse objects, upload/download files. Credentials encrypted locally before storage.',
     publishedAt: '2026-01-26',
     category: 'Databases',
@@ -2793,7 +2793,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     sections: [
       {
         heading: 'Manage cloud storage without the CLI',
-        body: `AWS S3 and DigitalOcean Spaces are object storage services. The AWS CLI is powerful but requires installation and terminal familiarity. A web-based S3 manager offers:\n\n- **Browse buckets** — navigate folder-like structures.\n- **Upload files** — drag-and-drop or select files.\n- **Download objects** — fetch any file directly.\n- **Delete or move** — manage objects without CLI commands.\n- **Credentials encrypted** — your AWS keys stay local, never exposed to servers.`,
+        body: `AWS S3 and DigitalOcean Spaces are object storage services. The AWS CLI is powerful but requires setup and terminal familiarity. An S3 manager built into an all-in-one desktop toolkit offers:\n\n- **Browse buckets** — navigate folder-like structures.\n- **Upload files** — drag-and-drop or select files.\n- **Download objects** — fetch any file directly.\n- **Delete or move** — manage objects without CLI commands.\n- **Credentials encrypted** — your AWS keys stay local, never exposed to servers.`,
       },
       {
         heading: 'S3 bucket structure',
@@ -2811,8 +2811,8 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     ],
     faqs: [
       {
-        q: 'Is it safe to paste AWS credentials into a web tool?',
-        a: 'MyDevTools encrypts credentials with AES-256 in your browser before sync. For maximum security, use AWS temporary credentials (STS) or bucket-specific IAM policies.',
+        q: 'Is it safe to paste AWS credentials into this tool?',
+        a: 'MyDevTools is a desktop app that encrypts credentials with AES-256 locally on your machine before any sync. For maximum security, use AWS temporary credentials (STS) or bucket-specific IAM policies.',
       },
       {
         q: 'Can I upload large files?',
@@ -2869,7 +2869,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 'generate-random-api-keys-secrets-online',
-    title: 'Secret Generator: Create Random API Keys & Tokens Online',
+    title: 'Secret Generator: Create Random API Keys & Tokens Offline',
     description: 'Generate cryptographically random secrets, API keys, and tokens with customizable length and alphabet.',
     publishedAt: '2026-01-28',
     category: 'Security',
@@ -2891,12 +2891,12 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         heading: 'Best practices for secrets',
-        body: `- **Generate offline** — use a browser-based tool, no server transmission.\n- **Store securely** — environment variables, secrets manager, not hardcoded.\n- **Rotate regularly** — change secrets quarterly or after incidents.\n- **Audit access** — track who has each secret.\n- **Never commit** — exclude \`.env\` and secrets from version control.`,
+        body: `- **Generate offline** — use a local desktop tool, no server transmission.\n- **Store securely** — environment variables, secrets manager, not hardcoded.\n- **Rotate regularly** — change secrets quarterly or after incidents.\n- **Audit access** — track who has each secret.\n- **Never commit** — exclude \`.env\` and secrets from version control.`,
       },
     ],
     faqs: [
       {
-        q: 'Is browser-based generation truly random?',
+        q: 'Is offline local generation truly random?',
         a: 'Yes, \`crypto.getRandomValues()\` is cryptographically secure. It uses OS randomness (entropy from hardware and kernel).',
       },
       {
@@ -2911,7 +2911,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 'dns-lookup-records-checker-online',
-    title: 'DNS Lookup: Check A, MX, TXT, NS Records Online',
+    title: 'DNS Lookup: Check A, MX, TXT, NS Records from Your Desktop',
     description: 'Query DNS records for any domain: A, AAAA, MX, CNAME, TXT, NS, SOA, CAA, and PTR. Instant lookup with TTL and details.',
     publishedAt: '2026-01-29',
     category: 'Network & API',
@@ -2953,12 +2953,12 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 'encrypt-decrypt-text-aes-gcm-online',
-    title: 'Encryption Playground: AES-256-GCM Encrypt/Decrypt Online',
-    description: 'Encrypt text using AES-GCM with a passphrase or raw key. Decrypt messages. Educational and client-side secure.',
+    title: 'Encryption Playground: AES-256-GCM Encrypt/Decrypt Offline',
+    description: 'Encrypt text using AES-GCM with a passphrase or raw key. Decrypt messages. Educational and locally secure on your desktop.',
     publishedAt: '2026-01-30',
     category: 'Security',
     toolSlug: 'encryption-playground',
-    keywords: ['aes gcm', 'aes 256 encryption', 'encrypt online', 'decrypt text', 'web crypto api'],
+    keywords: ['aes gcm', 'aes 256 encryption', 'encrypt offline', 'decrypt text', 'web crypto api'],
     readingTimeMin: 6,
     sections: [
       {
@@ -2986,7 +2986,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     faqs: [
       {
         q: 'Is this secure for real use?',
-        a: 'Encryption is secure, but browser-based key management is not enterprise-grade. Use a password manager or key vault for production secrets.',
+        a: 'Encryption is secure, but this playground key management is not enterprise-grade. Use a password manager or key vault for production secrets.',
       },
       {
         q: 'What if I forget the passphrase?',
@@ -3042,7 +3042,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 'color-picker-converter-hex-rgb-hsl',
-    title: 'Color Picker & Converter: HEX, RGB, HSL Online',
+    title: 'Color Picker & Converter: HEX, RGB, HSL Offline',
     description: 'Pick colors or convert between HEX, RGB, and HSL formats. Generate harmonic palettes (shades, complementary, triadic).',
     publishedAt: '2026-02-01',
     category: 'Formatters',
@@ -3127,7 +3127,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'text-diff-checker-side-by-side-compare',
     title: 'Text Diff Checker: Compare Text Side by Side',
-    description: 'Compare two texts and highlight additions (green) and deletions (red). Fast, browser-based diff tool.',
+    description: 'Compare two texts and highlight additions (green) and deletions (red). Fast, offline desktop diff tool.',
     publishedAt: '2026-02-03',
     category: 'Formatters',
     toolSlug: 'diff-checker',
@@ -3169,7 +3169,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'image-compressor-online-reduce-file-size',
     title: 'Image Compressor: Reduce JPEG, PNG, WebP File Size',
-    description: 'Compress images locally in your browser with a quality slider. No server upload, instant download.',
+    description: 'Compress images locally on your desktop with a quality slider. No server upload, instant download.',
     publishedAt: '2026-02-04',
     category: 'Converters',
     toolSlug: 'image-compressor',
@@ -3382,7 +3382,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'unit-converter-scientific-engineering-units',
     title: 'Unit Converter: 323 Units Across 43 Categories',
-    description: 'Convert between length, mass, pressure, temperature, electrical, and other scientific units. Instant conversion online.',
+    description: 'Convert between length, mass, pressure, temperature, electrical, and other scientific units. Instant conversion offline on your desktop.',
     publishedAt: '2026-02-09',
     category: 'Converters',
     toolSlug: 'unit-converter',
@@ -3428,7 +3428,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     publishedAt: '2026-02-10',
     category: 'Formatters',
     toolSlug: 'svg-optimizer',
-    keywords: ['svg optimizer', 'svg minify', 'svgo online', 'compress svg', 'optimize svg'],
+    keywords: ['svg optimizer', 'svg minify', 'svgo offline', 'compress svg', 'optimize svg'],
     readingTimeMin: 4,
     sections: [
       {
@@ -3466,7 +3466,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: '2048-game-puzzle-break',
-    title: 'Play 2048: Slide and Merge Tiles Online',
+    title: 'Play 2048: Slide and Merge Tiles Offline',
     description: 'Slide tiles to merge matching numbers and reach 2048. A classic puzzle game to clear your head between coding.',
     publishedAt: '2026-02-11',
     category: 'Generators',
@@ -3504,12 +3504,12 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 'sudoku-game-online-puzzles',
-    title: 'Play Sudoku: 450 Unique Puzzles Online',
-    description: 'Play Sudoku with 150 puzzles per difficulty (easy, medium, hard). Sign in to save progress.',
+    title: 'Play Sudoku: 450 Unique Puzzles Offline',
+    description: 'Play Sudoku with 150 puzzles per difficulty (easy, medium, hard) in the MyDevTools break room. Sign in to save progress.',
     publishedAt: '2026-02-12',
     category: 'Generators',
     toolSlug: 'break-room/sudoku',
-    keywords: ['sudoku', 'sudoku online', 'sudoku game', 'sudoku puzzle', 'brain game'],
+    keywords: ['sudoku', 'sudoku offline', 'sudoku game', 'sudoku puzzle', 'brain game'],
     readingTimeMin: 4,
     sections: [
       {
@@ -3546,12 +3546,12 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   },
   {
     slug: 'snake-game-online-classic',
-    title: 'Play Snake: Classic Game Online',
-    description: 'Play the classic Snake game in your browser. Eat food, grow your snake, avoid walls and yourself.',
+    title: 'Play Snake: Classic Game Offline',
+    description: 'Play the classic Snake game on your desktop. Eat food, grow your snake, avoid walls and yourself.',
     publishedAt: '2026-02-13',
     category: 'Generators',
     toolSlug: 'break-room/snake',
-    keywords: ['snake game', 'snake online', 'classic snake', 'browser game', 'developer break'],
+    keywords: ['snake game', 'snake offline', 'classic snake', 'desktop game', 'developer break'],
     readingTimeMin: 3,
     sections: [
       {
@@ -3589,7 +3589,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     publishedAt: '2026-02-14',
     category: 'Generators',
     toolSlug: 'break-room/minesweeper',
-    keywords: ['minesweeper', 'minesweeper online', 'classic minesweeper', 'puzzle game', 'brain game'],
+    keywords: ['minesweeper', 'minesweeper offline', 'classic minesweeper', 'puzzle game', 'brain game'],
     readingTimeMin: 4,
     sections: [
       {
@@ -3627,11 +3627,11 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'tetris-game-online-classic',
     title: 'Play Tetris: Classic Block Puzzle Game',
-    description: 'Play classic Tetris in your browser. Stack falling Tetrimino pieces, clear lines, and level up.',
+    description: 'Play classic Tetris on your desktop. Stack falling Tetrimino pieces, clear lines, and level up.',
     publishedAt: '2026-02-15',
     category: 'Generators',
     toolSlug: 'break-room/tetris',
-    keywords: ['tetris', 'tetris online', 'classic tetris', 'block puzzle', 'browser game'],
+    keywords: ['tetris', 'tetris offline', 'classic tetris', 'block puzzle', 'desktop game'],
     readingTimeMin: 3,
     sections: [
       {

@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
                             display: 'flex',
                         }}
                     />
-                    Online developer tools — runs in your browser
+                    All-in-one developer toolkit — offline on your desktop
                 </div>
             </div>
         ),

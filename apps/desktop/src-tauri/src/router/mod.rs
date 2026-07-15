@@ -4,6 +4,7 @@ pub mod backup;
 pub mod backup_codes;
 pub mod bookmarks;
 pub mod entries;
+pub mod json_formatter;
 pub mod master_vault;
 pub mod notes;
 pub mod preferences;
@@ -114,6 +115,9 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
 
     if let Some(rest) = rel.strip_prefix("/code-snippets") {
         return snippets::handle(state, method, rest, body);
+    }
+    if let Some(rest) = rel.strip_prefix("/json-formatter/documents") {
+        return json_formatter::handle(state, method, rest, query, body);
     }
     if let Some(rest) = rel.strip_prefix("/bookmark-folders") {
         return bookmarks::handle_folders(state, method, rest, body);
@@ -452,6 +456,37 @@ mod tests {
         // Bad version rejected.
         let r = route(&dst, "POST", "/desktop/backup/import", Some(r#"{"version":99,"entries":[]}"#)).unwrap();
         assert_eq!(r.status, 422);
+    }
+
+    #[test]
+    fn json_formatter_documents_crud_and_paginate() {
+        let state = AppState::in_memory();
+        let base = "/api/v1/json-formatter/documents";
+        let r = route(&state, "POST", base, Some(r#"{"title":"a","pane":"left","content":"{}"}"#)).unwrap();
+        let created = body_json(&r);
+        let id = created["id"].as_str().unwrap().to_string();
+        assert_eq!(created["title"], "a");
+        assert_eq!(created["pane"], "left");
+        assert!(created["createdAt"].as_i64().unwrap() > 0);
+
+        // single fetch returns full content
+        let r = route(&state, "GET", &format!("{base}/{id}"), None).unwrap();
+        assert_eq!(body_json(&r)["content"], "{}");
+
+        // rename via PATCH
+        let r = route(&state, "PATCH", &format!("{base}/{id}"), Some(r#"{"title":"b"}"#)).unwrap();
+        assert_eq!(body_json(&r)["title"], "b");
+
+        // pagination: skip past the only row → empty
+        let r = route(&state, "GET", &format!("{base}?skip=1&limit=500"), None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
+        let r = route(&state, "GET", &format!("{base}?skip=0&limit=500"), None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 1);
+
+        let r = route(&state, "DELETE", &format!("{base}/{id}"), None).unwrap();
+        assert_eq!(r.status, 204);
+        let r = route(&state, "GET", base, None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
     }
 
     #[test]

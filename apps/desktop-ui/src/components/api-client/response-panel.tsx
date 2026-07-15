@@ -117,12 +117,11 @@ interface ResponsePanelProps {
         logs: ScriptLog[]
         errors: string[]
     }
-    streamEvents?: Array<{ event?: string; data: string; id?: string; timestamp: number }>
     /** When set, the toolbar shows a bookmark button that calls back to start the save-example flow. */
     onSaveExample?: () => void
 }
 
-export function ResponsePanel({ response, isLoading, scriptResults, streamEvents, onSaveExample }: ResponsePanelProps) {
+export function ResponsePanel({ response, isLoading, scriptResults, onSaveExample }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
     const tApi = useTranslations("ApiClient")
     const { copyToClipboard } = useCopyToClipboard()
@@ -245,10 +244,7 @@ export function ResponsePanel({ response, isLoading, scriptResults, streamEvents
     const cookies = parseSetCookieHeaders(response.headers, response.setCookies)
     const redirectChain = response.redirectChain ?? []
     const hasPreview = response.isBase64 || isHtmlResponse
-    const isStream = !!streamEvents && streamEvents.length > 0
-    const defaultTab = isStream
-        ? "stream"
-        : (isHtmlResponse && !response.isBase64) ||
+    const defaultTab = (isHtmlResponse && !response.isBase64) ||
           (response.isBase64 &&
               (contentType.includes("image/") || contentType.includes("application/pdf")))
             ? "preview"
@@ -283,12 +279,6 @@ export function ResponsePanel({ response, isLoading, scriptResults, streamEvents
                                 <Cookie className="h-3.5 w-3.5" />
                                 Cookies
                                 <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{cookies.length}</span>
-                            </TabsTrigger>
-                        )}
-                        {streamEvents && streamEvents.length > 0 && (
-                            <TabsTrigger value="stream" className="px-4 flex items-center gap-1.5">
-                                Stream
-                                <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{streamEvents.length}</span>
                             </TabsTrigger>
                         )}
                         {scriptResults && (scriptResults.tests.length > 0 || scriptResults.logs.length > 0 || scriptResults.errors.length > 0) && (() => {
@@ -439,32 +429,6 @@ export function ResponsePanel({ response, isLoading, scriptResults, streamEvents
                                                 {cookie.httpOnly && <span className="text-amber-600 font-medium">HttpOnly</span>}
                                                 {cookie.secure && <span className="text-emerald-600 font-medium">Secure</span>}
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </ScrollArea>
-                        </TabsContent>
-                    )}
-                    {streamEvents && streamEvents.length > 0 && (
-                        <TabsContent value="stream" className="mt-0 h-full absolute inset-0">
-                            <ScrollArea className="h-full">
-                                <div className="p-3 space-y-1.5">
-                                    {streamEvents.map((ev, i) => (
-                                        <div key={i} className="border rounded-lg p-2 bg-muted/20 text-xs space-y-0.5">
-                                            <div className="flex flex-wrap items-center gap-2">
-                                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                                                    {new Date(ev.timestamp).toLocaleTimeString()}
-                                                </span>
-                                                {ev.event && (
-                                                    <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-600">
-                                                        event: {ev.event}
-                                                    </span>
-                                                )}
-                                                {ev.id && (
-                                                    <span className="font-mono text-[10px] text-muted-foreground">id: {ev.id}</span>
-                                                )}
-                                            </div>
-                                            <pre className="font-mono whitespace-pre-wrap break-all">{ev.data}</pre>
                                         </div>
                                     ))}
                                 </div>

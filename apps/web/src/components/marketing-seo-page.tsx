@@ -159,7 +159,7 @@ export function MarketingSeoPage({
             <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
                 <h2 className="text-2xl font-bold md:text-3xl">
-                  Popular online developer tools
+                  Popular developer tools
                 </h2>
                 <p className="mt-2 max-w-2xl text-muted-foreground">
                   Continue from the platform page into canonical public tool pages.
