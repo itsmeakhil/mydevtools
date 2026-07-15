@@ -13,20 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # macOS universal (Intel + Apple Silicon)
+          # macOS universal (Intel + Apple Silicon).
+          # macOS-only for now — Windows/Linux runners were dropped to conserve
+          # the org's free Actions minutes (macOS bills at 10x). Re-add matrix
+          # entries here to build those platforms again.
           - platform: macos-latest
             args: '--target universal-apple-darwin'
             rust_target: 'aarch64-apple-darwin,x86_64-apple-darwin'
-
-          # Windows x64
-          - platform: windows-latest
-            args: ''
-            rust_target: ''
-
-          # Linux x64
-          - platform: ubuntu-22.04
-            args: ''
-            rust_target: ''
 
     runs-on: ${{ matrix.platform }}
 
@@ -53,18 +46,6 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: apps/desktop/src-tauri -> target
-
-      - name: Install Linux system dependencies
-        if: matrix.platform == 'ubuntu-22.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libwebkit2gtk-4.1-dev \
-            libappindicator3-dev \
-            librsvg2-dev \
-            patchelf \
-            libssl-dev \
-            pkg-config
 
       - name: Install frontend dependencies
         run: pnpm install
@@ -97,7 +78,7 @@ jobs:
           releaseName: MyDevTools ${{ github.ref_name }}
           releaseBody: |
             See [CHANGELOG](https://github.com/itsmeakhil/mydevtools/blob/main/CHANGELOG.md) for details.
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
           updaterJsonPath: latest.json
