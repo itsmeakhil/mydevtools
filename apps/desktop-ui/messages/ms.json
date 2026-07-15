@@ -80,21 +80,21 @@
   },
   "Help": {
     "title": "Bantuan & Dokumentasi",
-    "subtitle": "Cara MyDevTools berfungsi dan bagaimana data anda dilindungi",
+    "subtitle": "Cara MyDevTools berfungsi secara luar talian dan cara data anda dilindungi",
     "tabs": {
-      "overview": "Gambaran keseluruhan",
+      "overview": "Gambaran Keseluruhan",
       "apps": "Aplikasi",
       "security": "Keselamatan",
       "tips": "Petua"
     },
     "overview": {
       "whatIs": {
-        "title": "Apakah MyDevTools?",
-        "description": "Ruang kerja pembangun dengan log masuk: papan pemuka dan set alat untuk tugasan harian.",
-        "p1": "Selepas anda log masuk, aplikasi mewujudkan sesi dengan MyDevTools API supaya alat boleh memuat dan menyimpan data anda. Bar sisi menyenaraikan semua aplikasi; anda boleh menyembunyikan alat yang tidak digunakan dari",
+        "title": "Apakah itu MyDevTools?",
+        "description": "Ruang kerja pembangun yang luar talian: sebuah papan pemuka dan 80+ alat yang berjalan sepenuhnya pada peranti anda.",
+        "p1": "MyDevTools berjalan sepenuhnya secara luar talian. Selepas pengaktifan sekali sahaja dalam pelayar anda, segalanya berfungsi pada peranti ini tanpa log masuk akaun dan tanpa memerlukan sambungan internet. Bar sisi menyenaraikan setiap aplikasi; anda boleh menyembunyikan alat yang tidak anda gunakan daripada",
         "settingsLink": "Tetapan",
         "p1After": ".",
-        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci vault global) supaya rahsia seperti kata laluan dan rentetan sambungan disulitkan pada peranti anda sebelum sampai ke pelayan."
+        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci peti besi global) supaya rahsia seperti kata laluan dan rentetan sambungan pangkalan data disulitkan pada peranti anda. Data anda disimpan dalam pangkalan data tersulit setempat dan tidak pernah dihantar ke pelayan."
       },
       "quickLinks": {
         "title": "Pautan pantas",
@@ -103,44 +103,45 @@
       }
     },
     "apps": {
-      "intro": "Buka mana-mana alat dari bar sisi atau papan pemuka. Di bawah ialah panduan ringkas untuk setiap aplikasi.",
+      "intro": "Buka mana-mana alat daripada bar sisi atau papan pemuka. Di bawah ialah panduan ringkas bagi setiap aplikasi.",
       "open": "Buka",
       "howItWorks": "Cara ia berfungsi",
-      "generic": "Gunakan alat ini dari bar sisi untuk aliran kerja khususnya."
+      "generic": "Gunakan alat ini daripada bar sisi untuk aliran kerja khususnya."
     },
     "security": {
-      "session": {
-        "title": "Log masuk dan sesi API",
-        "description": "Identiti dan cara pelayar berkomunikasi dengan backend.",
+      "access": {
+        "title": "Pengaktifan & akses luar talian",
+        "description": "Bagaimana aplikasi dibuka kunci buat kali pertama, kemudian berjalan secara luar talian.",
         "items": {
-          "authentication": "<strong>Pengesahan</strong> menggunakan Firebase untuk log masuk. Selepas log masuk, aplikasi menukar token ID Firebase anda kepada kuki API.",
-          "accessTokens": "<strong>Token akses</strong> ialah JWT yang ditandatangani pelayan (HS256) untuk membuktikan pengguna yang memanggil API.",
-          "refreshTokens": "<strong>Token segar semula</strong> disimpan dalam kuki HttpOnly; pelayan menyimpan hash SHA-256 token, bukan token mentah."
+          "activation": "<strong>Pengaktifan sekali sahaja</strong> berlaku dalam pelayar anda pada kali pertama anda membuka aplikasi. Ia merekod pelan anda dan membuka kunci aplikasi pada peranti ini.",
+          "offline": "<strong>Tiada sesi log masuk.</strong> Selepas pengaktifan, tiada log masuk bagi setiap sesi dan tiada semakan semula berkala—aplikasi terus berfungsi tanpa sambungan internet.",
+          "storage": "<strong>Storan setempat.</strong> Semua data anda berada dalam pangkalan data SQLCipher tersulit pada peranti anda, dikunci dengan kunci rawak yang disimpan dalam keychain sistem pengendalian anda."
         }
       },
       "encryption": {
-        "title": "Penyulitan yang perlu diketahui",
-        "description": "Kripto sisi klien untuk vault dan data sambungan sensitif.",
-        "p1": "Untuk <strong>pengurus kata laluan</strong>, <strong>pengurus persekitaran</strong> dan sambungan tersimpan dalam <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pelayar:",
+        "title": "Penyulitan yang perlu anda ketahui",
+        "description": "Kriptografi bahagian klien untuk peti besi dan data sambungan sensitif.",
+        "p1": "Bagi sambungan tersimpan <strong>pengurus kata laluan</strong>, <strong>pengurus persekitaran</strong>, dan <strong>NoSQL Explorer</strong>, aplikasi menggunakan <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100,000</strong> iterasi dan salt rawak menjana kunci 256-bit daripada kata laluan induk anda.",
-          "aes": "<strong>AES-256-GCM</strong> menyulitkan data; <strong>IV 12 bait</strong> rawak digunakan bagi setiap penyulitan.",
-          "scope": "Kunci terbitan kekal dalam pelayar (tidak boleh diekstrak). Pelayan hanya menerima <strong>ciphertext dan IV</strong>, bukan kata laluan induk atau rahsia dalam teks biasa."
+          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>600,000</strong> lelaran, dan garam rawak menerbitkan kunci 256-bit daripada kata laluan induk anda.",
+          "aes": "<strong>AES-256-GCM</strong> menyulitkan muatan; satu <strong>12-byte IV</strong> rawak digunakan bagi setiap penyulitan.",
+          "scope": "Kunci terbitan kekal dalam aplikasi (tidak boleh diekstrak) dan kata laluan induk anda tidak pernah meninggalkan peranti anda. Hanya <strong>teks sifer dan IVs</strong> yang ditulis ke pangkalan data setempat."
         },
-        "warning": "Jika anda terlupa kata laluan induk, data yang disulitkan tidak boleh dipulihkan. Simpan dengan selamat."
+        "warning": "Jika anda terlupa kata laluan induk, data tersulit tidak boleh dipulihkan. Simpannya dengan selamat."
       },
-      "logout": {
-        "title": "Log keluar dan data tempatan",
-        "body": "Log keluar akan mengosongkan rahsia dalam ingatan, status vault, dan (jika berkenaan) bahan kunci induk daripada IndexedDB serta menamatkan sesi API. Data yang hanya berada dalam storan tempatan peranti mungkin kekal sehingga anda memadamkannya dalam pelayar."
+      "local": {
+        "title": "Penguncian & data setempat",
+        "body": "Mengunci peti besi akan mengosongkan rahsia dalam memori dan bahan kunci induk; pangkalan data tersulit anda kekal pada cakera sehingga anda mengalih keluarnya. Tiada log keluar—yang mengosongkan segalanya ialah menetapkan semula data aplikasi atau memadamkan aplikasi, jadi simpanlah sandaran anda sendiri bagi apa-apa yang penting."
       }
     },
     "tips": {
       "title": "Menggunakan MyDevTools dengan selamat",
       "items": {
-        "masterPassword": "Gunakan kata laluan induk yang kuat dan unik untuk ciri vault.",
-        "apiClient": "Anggap API Client seperti klien HTTP biasa: elakkan menampal rahsia produksi ke persekitaran kongsi jika anda tidak tahu siapa yang boleh melihatnya.",
-        "nosql": "Penjelajah Pangkalan Data menyambung ke pangkalan data yang anda konfigurasi; gunakan akaun keistimewaan minimum dan peraturan rangkaian jika boleh.",
-        "json": "Pemformat JSON berjalan secara tempatan dalam pelayar—masih elakkan menampal data yang sangat sensitif pada mesin kongsi.",
+        "masterPassword": "Gunakan kata laluan induk yang kukuh dan unik untuk ciri peti besi.",
+        "backup": "Data anda berada hanya pada peranti ini—eksport atau sandarkannya secara berkala supaya anda tidak kehilangannya jika peranti rosak.",
+        "apiClient": "Layani API Client seperti mana-mana klien HTTP: elakkan menampal rahsia pengeluaran ke dalam persekitaran dikongsi melainkan anda memahami siapa yang boleh melihatnya.",
+        "nosql": "Database Explorer bersambung ke pangkalan data yang anda konfigurasikan; gunakan pengguna keistimewaan paling minimum dan peraturan rangkaian jika boleh.",
+        "json": "JSON Formatter berjalan sepenuhnya pada peranti anda—namun tetap elakkan menampal data yang amat sensitif pada mesin dikongsi.",
         "settings": "Sesuaikan alat yang kelihatan dalam Tetapan untuk memastikan bar sisi kekal fokus."
       }
     }

@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Ajuda i documentació",
-    "subtitle": "Com funciona MyDevTools i com es protegeixen les teves dades",
+    "subtitle": "Com funciona MyDevTools sense connexió i com es protegeixen les teves dades",
     "tabs": {
       "overview": "Visió general",
       "apps": "Aplicacions",
@@ -90,11 +90,11 @@
     "overview": {
       "whatIs": {
         "title": "Què és MyDevTools?",
-        "description": "Un espai de treball per a desenvolupadors amb inici de sessió: un tauler i un conjunt d’eines per al dia a dia.",
-        "p1": "Després d’iniciar sessió, l’app estableix una sessió amb l’API de MyDevTools perquè les eines puguin carregar i desar les teves dades. La barra lateral llista totes les apps; pots amagar les eines que no fas servir a",
+        "description": "Un espai de treball per a desenvolupadors sense connexió: un tauler i més de 80 eines que s'executen completament al teu dispositiu.",
+        "p1": "MyDevTools funciona completament sense connexió. Després d'una activació única al navegador, tot funciona en aquest dispositiu, sense inici de sessió amb compte i sense connexió a internet. La barra lateral mostra totes les aplicacions; les eines que no facis servir les pots amagar des de",
         "settingsLink": "Configuració",
         "p1After": ".",
-        "p2": "Algunes funcions utilitzen una <strong>contrasenya mestra</strong> (o clau global del vault) perquè secrets com contrasenyes i cadenes de connexió es xifrin al teu dispositiu abans d’arribar al servidor."
+        "p2": "Algunes funcions fan servir una <strong>contrasenya mestra</strong> (o clau global de la caixa forta) perquè els secrets com ara contrasenyes i cadenes de connexió a bases de dades s'encriptin al teu dispositiu. Les teves dades es desen en una base de dades local encriptada i mai no s'envien a cap servidor."
       },
       "quickLinks": {
         "title": "Enllaços ràpids",
@@ -103,45 +103,46 @@
       }
     },
     "apps": {
-      "intro": "Obre qualsevol eina des de la barra lateral o el tauler. A continuació tens una guia breu per aplicació.",
-      "open": "Obrir",
+      "intro": "Obre qualsevol eina des de la barra lateral o el tauler. A continuació hi ha una breu guia per a cada aplicació.",
+      "open": "Obre",
       "howItWorks": "Com funciona",
       "generic": "Fes servir aquesta eina des de la barra lateral per al seu flux de treball dedicat."
     },
     "security": {
-      "session": {
-        "title": "Inici de sessió i sessió d’API",
-        "description": "Identitat i com el navegador es comunica amb el backend.",
+      "access": {
+        "title": "Activació i accés sense connexió",
+        "description": "Com es desbloqueja l'aplicació la primera vegada i després s'executa sense connexió.",
         "items": {
-          "authentication": "<strong>Autenticació</strong> mitjançant Firebase. Després del login, l’app intercanvia el teu Firebase ID token per cookies de l’API.",
-          "accessTokens": "<strong>Tokens d’accés</strong> són JWT signats al servidor (HS256) que proven quin usuari crida l’API.",
-          "refreshTokens": "<strong>Tokens de refresc</strong> es guarden en cookies HttpOnly; el servidor desa un hash SHA-256 del token, no el token en brut."
+          "activation": "L'<strong>activació única</strong> es fa al navegador el primer cop que obres l'aplicació. Registra el teu pla i desbloqueja l'aplicació en aquest dispositiu.",
+          "offline": "<strong>Sense sessions d'inici.</strong> Després de l'activació no hi ha cap inici de sessió per sessió ni cap comprovació periòdica: l'aplicació continua funcionant sense connexió a internet.",
+          "storage": "<strong>Emmagatzematge local.</strong> Totes les teves dades resideixen en una base de dades SQLCipher encriptada al teu dispositiu, protegida amb una clau aleatòria guardada al clauer del teu sistema operatiu."
         }
       },
       "encryption": {
-        "title": "Xifrat que has de conèixer",
-        "description": "Criptografia al client per al vault i dades sensibles de connexió.",
-        "p1": "Per al <strong>gestor de contrasenyes</strong>, el <strong>gestor d'entorns</strong> i les connexions desades del <strong>explorador NoSQL</strong>, l'aplicació web utilitza la <strong>Web Crypto API</strong> del navegador:",
+        "title": "Encriptació que hauries de conèixer",
+        "description": "Criptografia del costat del client per a la caixa forta i les dades de connexió sensibles.",
+        "p1": "Per a les connexions desades del <strong>gestor de contrasenyes</strong>, el <strong>gestor d'entorns</strong> i el <strong>NoSQL Explorer</strong>, l'aplicació fa servir la <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> amb <strong>SHA-256</strong>, <strong>100.000</strong> iteracions i una sal aleatòria deriva una clau de 256 bits a partir de la contrasenya mestra.",
-          "aes": "<strong>AES-256-GCM</strong> xifra dades; s’utilitza un <strong>IV de 12 bytes</strong> aleatori per cada xifrat.",
-          "scope": "La clau derivada es manté al navegador (no exportable). El servidor només rep <strong>xifrat i IV</strong>, no la contrasenya mestra ni secrets en clar."
+          "kdf": "<strong>PBKDF2</strong> amb <strong>SHA-256</strong>, <strong>600,000</strong> iteracions i un salt aleatori deriva una clau de 256 bits a partir de la teva contrasenya mestra.",
+          "aes": "<strong>AES-256-GCM</strong> encripta les dades; s'utilitza un <strong>IV aleatori de 12-byte</strong> per a cada encriptació.",
+          "scope": "La clau derivada roman dins de l'aplicació (no extraïble) i la teva contrasenya mestra mai no surt del teu dispositiu. A la base de dades local només s'hi escriuen <strong>text xifrat i IVs</strong>."
         },
-        "warning": "Si oblides la contrasenya mestra, no es poden recuperar les dades xifrades. Desa-la de manera segura."
+        "warning": "Si oblides la contrasenya mestra, les dades encriptades no es poden recuperar. Guarda-la en un lloc segur."
       },
-      "logout": {
-        "title": "Tancar sessió i dades locals",
-        "body": "En tancar sessió s’esborren secrets en memòria, estat del vault i, si escau, material de la clau mestra d’IndexedDB, i es finalitza la sessió de l’API. Les dades que només estiguin a l’emmagatzematge local poden romandre fins que les esborris al navegador."
+      "local": {
+        "title": "Bloqueig i dades locals",
+        "body": "En bloquejar la caixa forta s'esborren de la memòria els secrets i el material de la clau mestra; la teva base de dades encriptada roman al disc fins que la treguis. No hi ha tancament de sessió: restablir les dades de l'aplicació o eliminar-la és el que ho esborra tot, així que fes-te les teves pròpies còpies de seguretat de tot allò important."
       }
     },
     "tips": {
-      "title": "Fer servir MyDevTools de manera segura",
+      "title": "Fes servir MyDevTools de manera segura",
       "items": {
-        "masterPassword": "Fes servir una contrasenya mestra forta i única per a les funcions del vault.",
-        "apiClient": "Tracta el Client API com qualsevol client HTTP: evita enganxar secrets de producció en entorns compartits si no saps qui els pot veure.",
-        "nosql": "L’Explorador de base de dades es connecta a bases de dades que configures; fes servir usuaris amb mínims privilegis i regles de xarxa quan sigui possible.",
-        "json": "El formatador JSON funciona localment al navegador—tot i així evita enganxar dades molt sensibles en equips compartits.",
-        "settings": "Personalitza les eines visibles a Configuració per mantenir la barra lateral enfocada."
+        "masterPassword": "Fes servir una contrasenya mestra forta i única per a les funcions de la caixa forta.",
+        "backup": "Les teves dades només existeixen en aquest dispositiu: exporta-les o fes-ne còpies de seguretat regularment perquè no les perdis si el dispositiu falla.",
+        "apiClient": "Tracta l'API Client com qualsevol client HTTP: evita enganxar secrets de producció en entorns compartits tret que entenguis qui els pot veure.",
+        "nosql": "Database Explorer es connecta a les bases de dades que configuris; fes servir usuaris amb els mínims privilegis i regles de xarxa sempre que sigui possible.",
+        "json": "JSON Formatter s'executa completament al teu dispositiu; així i tot, evita enganxar dades molt sensibles en màquines compartides.",
+        "settings": "Personalitza les eines visibles a Configuració per mantenir la barra lateral centrada."
       }
     }
   },

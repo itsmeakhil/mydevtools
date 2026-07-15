@@ -80,21 +80,21 @@
   },
   "Help": {
     "title": "Ajuda e documentação",
-    "subtitle": "Como o MyDevTools funciona e como seus dados são protegidos",
+    "subtitle": "Como o MyDevTools funciona offline e como seus dados são protegidos",
     "tabs": {
       "overview": "Visão geral",
-      "apps": "Apps",
+      "apps": "Aplicativos",
       "security": "Segurança",
       "tips": "Dicas"
     },
     "overview": {
       "whatIs": {
         "title": "O que é o MyDevTools?",
-        "description": "Um workspace para devs com login: um painel e um conjunto de ferramentas do dia a dia.",
-        "p1": "Depois de fazer login, o app cria uma sessão com a API do MyDevTools para que as ferramentas possam carregar e salvar seus dados. A barra lateral lista todos os apps; você pode ocultar ferramentas que não usa em",
+        "description": "Um espaço de trabalho offline para desenvolvedores: um painel e mais de 80 ferramentas que rodam inteiramente no seu dispositivo.",
+        "p1": "O MyDevTools funciona totalmente offline. Após uma ativação única no seu navegador, tudo funciona neste dispositivo, sem login em conta e sem conexão com a internet. A barra lateral lista todos os aplicativos; você pode ocultar as ferramentas que não usa nas",
         "settingsLink": "Configurações",
         "p1After": ".",
-        "p2": "Alguns recursos usam uma <strong>senha mestra</strong> (ou chave global do cofre) para que segredos como senhas e strings de conexão sejam criptografados no seu dispositivo antes de chegar ao servidor."
+        "p2": "Alguns recursos usam uma <strong>senha mestra</strong> (ou chave global do cofre) para que dados sensíveis, como senhas e strings de conexão de banco de dados, sejam criptografados no seu dispositivo. Seus dados são armazenados em um banco de dados local criptografado e nunca são enviados para um servidor."
       },
       "quickLinks": {
         "title": "Links rápidos",
@@ -103,45 +103,46 @@
       }
     },
     "apps": {
-      "intro": "Abra qualquer ferramenta pela barra lateral ou pelo painel. Abaixo está um guia curto por app.",
+      "intro": "Abra qualquer ferramenta pela barra lateral ou pelo painel. Abaixo há um breve guia de cada aplicativo.",
       "open": "Abrir",
       "howItWorks": "Como funciona",
-      "generic": "Use esta ferramenta pela barra lateral para o fluxo de trabalho dedicado."
+      "generic": "Use esta ferramenta pela barra lateral para o seu fluxo de trabalho dedicado."
     },
     "security": {
-      "session": {
-        "title": "Login e sessão de API",
-        "description": "Identidade e como o navegador conversa com o backend.",
+      "access": {
+        "title": "Ativação e acesso offline",
+        "description": "Como o aplicativo é desbloqueado na primeira vez e depois funciona offline.",
         "items": {
-          "authentication": "<strong>Autenticação</strong> usa Firebase para login. Depois, o app troca seu Firebase ID token por cookies da API.",
-          "accessTokens": "<strong>Tokens de acesso</strong> são JWT assinados no servidor (HS256) e provam qual usuário está chamando a API.",
-          "refreshTokens": "<strong>Tokens de refresh</strong> ficam em cookies HttpOnly; o servidor armazena um hash SHA-256 do token, não o token em si."
+          "activation": "A <strong>ativação única</strong> ocorre no seu navegador na primeira vez que você abre o aplicativo. Ela registra seu plano e desbloqueia o aplicativo neste dispositivo.",
+          "offline": "<strong>Sem sessões de login.</strong> Após a ativação não há login por sessão nem verificações periódicas — o aplicativo continua funcionando sem conexão com a internet.",
+          "storage": "<strong>Armazenamento local.</strong> Todos os seus dados ficam em um banco de dados SQLCipher criptografado no seu dispositivo, protegido por uma chave aleatória guardada no chaveiro do seu sistema operacional."
         }
       },
       "encryption": {
-        "title": "Criptografia que você deve conhecer",
-        "description": "Cripto no cliente para o cofre e dados sensíveis de conexão.",
-        "p1": "Para o <strong>gerenciador de senhas</strong>, o <strong>gerenciador de ambientes</strong> e as conexões salvas no <strong>NoSQL Explorer</strong>, o aplicativo web usa a <strong>Web Crypto API</strong> do navegador:",
+        "title": "A criptografia que você deve conhecer",
+        "description": "Criptografia no lado do cliente para o cofre e dados de conexão sensíveis.",
+        "p1": "Para o <strong>gerenciador de senhas</strong>, o <strong>gerenciador de ambientes</strong> e as conexões salvas do <strong>NoSQL Explorer</strong>, o aplicativo usa a <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> com <strong>SHA-256</strong>, <strong>100.000</strong> iterações e um salt aleatório deriva uma chave de 256 bits a partir da senha mestra.",
-          "aes": "<strong>AES-256-GCM</strong> criptografa os dados; um <strong>IV de 12 bytes</strong> aleatório é usado por criptografia.",
-          "scope": "A chave derivada fica no navegador (não extraível). O servidor recebe apenas <strong>ciphertext e IVs</strong>, nunca sua senha mestra ou segredos em texto puro."
+          "kdf": "<strong>PBKDF2</strong> com <strong>SHA-256</strong>, <strong>600,000</strong> iterações e um salt aleatório deriva uma chave de 256 bits a partir da sua senha mestra.",
+          "aes": "<strong>AES-256-GCM</strong> criptografa os dados; um <strong>12-byte IV</strong> aleatório é usado a cada criptografia.",
+          "scope": "A chave derivada permanece no aplicativo (não extraível) e sua senha mestra nunca sai do seu dispositivo. Apenas o <strong>texto cifrado e os IVs</strong> são gravados no banco de dados local."
         },
-        "warning": "Se você esquecer a senha mestra, os dados criptografados não podem ser recuperados. Guarde-a com segurança."
+        "warning": "Se você esquecer a senha mestra, os dados criptografados não poderão ser recuperados. Guarde-a com segurança."
       },
-      "logout": {
-        "title": "Sair e dados locais",
-        "body": "Ao sair, o app limpa segredos em memória, estado do cofre e material de chave mestra do IndexedDB quando aplicável, e encerra a sessão da API. O que estiver apenas no armazenamento local pode permanecer até você limpar no navegador."
+      "local": {
+        "title": "Bloqueio e dados locais",
+        "body": "Bloquear o cofre apaga da memória os segredos e o material da chave mestra; seu banco de dados criptografado permanece no disco até você removê-lo. Não há logout — redefinir os dados do aplicativo ou excluí-lo é o que apaga tudo, então mantenha seus próprios backups de tudo o que for importante."
       }
     },
     "tips": {
       "title": "Usando o MyDevTools com segurança",
       "items": {
-        "masterPassword": "Use uma senha mestra forte e única para recursos do cofre.",
-        "apiClient": "Trate o Cliente API como qualquer cliente HTTP: evite colar segredos de produção em ambientes compartilhados sem saber quem pode vê-los.",
-        "nosql": "O Explorador de banco de dados se conecta a bancos que você configura; use usuários com menor privilégio e regras de rede quando possível.",
-        "json": "O Formatador JSON é local no navegador—mesmo assim evite colar dados muito sensíveis em máquinas compartilhadas.",
-        "settings": "Personalize as ferramentas visíveis em Configurações para manter a barra lateral focada."
+        "masterPassword": "Use uma senha mestra forte e exclusiva para os recursos do cofre.",
+        "backup": "Seus dados ficam apenas neste dispositivo — exporte-os ou faça backup regularmente para não perdê-los caso o dispositivo falhe.",
+        "apiClient": "Trate o API Client como qualquer cliente HTTP: evite colar segredos de produção em ambientes compartilhados, a menos que você saiba quem pode vê-los.",
+        "nosql": "O Database Explorer se conecta aos bancos de dados que você configurar; use usuários com privilégios mínimos e regras de rede sempre que possível.",
+        "json": "O JSON Formatter roda inteiramente no seu dispositivo — ainda assim, evite colar dados muito sensíveis em máquinas compartilhadas.",
+        "settings": "Personalize as ferramentas visíveis nas Configurações para manter a barra lateral organizada."
       }
     }
   },

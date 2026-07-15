@@ -80,68 +80,69 @@
   },
   "Help": {
     "title": "Nápověda a dokumentace",
-    "subtitle": "Jak MyDevTools funguje a jak jsou chráněna vaše data",
+    "subtitle": "Jak MyDevTools funguje offline a jak jsou chráněna vaše data",
     "tabs": {
       "overview": "Přehled",
       "apps": "Aplikace",
-      "security": "Bezpečnost",
+      "security": "Zabezpečení",
       "tips": "Tipy"
     },
     "overview": {
       "whatIs": {
         "title": "Co je MyDevTools?",
-        "description": "Vývojářský workspace s přihlášením: přehled a sada nástrojů pro každodenní práci.",
-        "p1": "Po přihlášení aplikace naváže relaci s MyDevTools API, aby nástroje mohly načítat a ukládat vaše data. Postranní panel zobrazuje všechny aplikace; nástroje, které nepoužíváte, můžete skrýt v",
+        "description": "Offline vývojářské prostředí: řídicí panel a více než 80 nástrojů, které běží zcela na vašem zařízení.",
+        "p1": "MyDevTools funguje plně offline. Po jednorázové aktivaci v prohlížeči vše funguje na tomto zařízení bez přihlašování k účtu a bez připojení k internetu. V postranním panelu jsou uvedeny všechny aplikace; nástroje, které nepoužíváte, můžete skrýt v sekci",
         "settingsLink": "Nastavení",
         "p1After": ".",
-        "p2": "Některé funkce používají <strong>hlavní heslo</strong> (nebo globální klíč trezoru), aby se tajné údaje jako hesla a connection stringy šifrovaly na vašem zařízení dříve, než dorazí na server."
+        "p2": "Některé funkce používají <strong>hlavní heslo</strong> (nebo globální klíč trezoru), aby byly tajné údaje jako hesla a připojovací řetězce k databázím zašifrovány na vašem zařízení. Vaše data jsou uložena v lokální šifrované databázi a nikdy nejsou odesílána na server."
       },
       "quickLinks": {
         "title": "Rychlé odkazy",
-        "dashboard": "Přehled",
+        "dashboard": "Řídicí panel",
         "settings": "Nastavení"
       }
     },
     "apps": {
-      "intro": "Otevřete libovolný nástroj z postranního panelu nebo přehledu. Níže je stručný průvodce pro každou aplikaci.",
+      "intro": "Otevřete jakýkoli nástroj z postranního panelu nebo řídicího panelu. Níže najdete stručného průvodce ke každé aplikaci.",
       "open": "Otevřít",
       "howItWorks": "Jak to funguje",
-      "generic": "Používejte tento nástroj z postranního panelu v jeho vyhrazeném pracovním postupu."
+      "generic": "Použijte tento nástroj z postranního panelu pro jeho vyhrazený pracovní postup."
     },
     "security": {
-      "session": {
-        "title": "Přihlášení a API relace",
-        "description": "Identita a jak prohlížeč komunikuje s backendem.",
+      "access": {
+        "title": "Aktivace a offline přístup",
+        "description": "Jak se aplikace poprvé odemkne a poté běží offline.",
         "items": {
-          "authentication": "<strong>Ověřování</strong> používá Firebase. Po přihlášení aplikace vymění váš Firebase ID token za API cookies.",
-          "accessTokens": "<strong>Přístupové tokeny</strong> jsou JWT podepsané na serveru (HS256) a dokazují, který uživatel volá API.",
-          "refreshTokens": "<strong>Obnovovací tokeny</strong> jsou uloženy v HttpOnly cookies; server ukládá SHA-256 hash tokenu, ne jeho surovou hodnotu."
+          "activation": "<strong>Jednorázová aktivace</strong> proběhne v prohlížeči při prvním otevření aplikace. Zaznamená váš plán a odemkne aplikaci na tomto zařízení.",
+          "offline": "<strong>Žádné přihlašovací relace.</strong> Po aktivaci není potřeba přihlašování při každé relaci ani pravidelné opětovné ověřování — aplikace funguje dál bez připojení k internetu.",
+          "storage": "<strong>Lokální úložiště.</strong> Všechna vaše data se nacházejí v šifrované databázi SQLCipher na vašem zařízení, zabezpečené náhodným klíčem uloženým v klíčence vašeho operačního systému."
         }
       },
       "encryption": {
-        "title": "Šifrování, které byste měli znát",
-        "description": "Kryptografie na straně klienta pro trezor a citlivé údaje o připojení.",
-        "p1": "Pro <strong>správce hesel</strong>, <strong>správce prostředí</strong> a uložená připojení v <strong>NoSQL Exploreru</strong> webová aplikace používá v prohlížeči <strong>Web Crypto API</strong>:",
+        "title": "Co byste měli vědět o šifrování",
+        "description": "Šifrování na straně klienta pro trezor a citlivé údaje o připojení.",
+        "p1": "Pro uložená připojení <strong>správce hesel</strong>, <strong>správce prostředí</strong> a <strong>NoSQL Explorer</strong> aplikace používá <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> s <strong>SHA-256</strong>, <strong>100 000</strong> iteracemi a náhodnou solí odvodí 256bitový klíč z hlavního hesla.",
-          "aes": "<strong>AES-256-GCM</strong> šifruje data; pro každé šifrování se používá náhodný <strong>12bajtový IV</strong>.",
-          "scope": "Odvozený klíč zůstává v prohlížeči (nelze exportovat). Server dostává pouze <strong>šifrotext a IV</strong>, nikoliv hlavní heslo ani tajná data v otevřené podobě."
+          "kdf": "<strong>PBKDF2</strong> s <strong>SHA-256</strong>, <strong>600,000</strong> iteracemi a náhodnou solí odvozuje 256bitový klíč z vašeho hlavního hesla.",
+          "aes": "<strong>AES-256-GCM</strong> šifruje data; při každém šifrování se používá náhodný <strong>12-byte IV</strong>.",
+          "scope": "Odvozený klíč zůstává v aplikaci (nelze jej exportovat) a vaše hlavní heslo nikdy neopustí vaše zařízení. Do lokální databáze se zapisuje pouze <strong>šifrový text a IVs</strong>."
         },
-        "warning": "Pokud zapomenete hlavní heslo, šifrovaná data nelze obnovit. Bezpečně si ho uložte."
+        "warning": "Pokud zapomenete hlavní heslo, šifrovaná data nelze obnovit. Uchovávejte je na bezpečném místě."
       },
-      "logout": {
-        "title": "Odhlášení a lokální data",
-        "body": "Odhlášení vymaže tajné údaje v paměti, stav trezoru a (pokud je to relevantní) materiál hlavního klíče z IndexedDB a ukončí API relaci. Data uložená pouze v lokálním úložišti zařízení mohou zůstat, dokud je nevymažete v prohlížeči."
+      "local": {
+        "title": "Uzamčení a lokální data",
+        "body": "Uzamčení trezoru vymaže tajné údaje a materiál hlavního klíče z paměti; vaše šifrovaná databáze zůstává na disku, dokud ji neodstraníte. Neexistuje odhlášení — vše smaže až resetování dat aplikace nebo odstranění aplikace, proto si dělejte vlastní zálohy všeho důležitého."
       }
     },
     "tips": {
       "title": "Bezpečné používání MyDevTools",
       "items": {
-        "masterPassword": "Používejte silné, jedinečné hlavní heslo pro funkce trezoru.",
-        "apiClient": "S API klientem zacházejte jako s běžným HTTP klientem: nevkládejte produkční tajemství do sdílených prostředí, pokud nevíte, kdo je může vidět.",
-        "nosql": "Průzkumník databází se připojuje k databázím, které nastavíte; používejte účty s minimálními právy a síťová pravidla, pokud je to možné.",
-        "json": "Formátovač JSON běží lokálně v prohlížeči—i tak se vyhněte vkládání velmi citlivých dat na sdílených počítačích.",
-        "settings": "Přizpůsobte viditelné nástroje v Nastavení, aby postranní panel zůstal přehledný."
+        "masterPassword": "Pro funkce trezoru používejte silné, jedinečné hlavní heslo.",
+        "backup": "Vaše data jsou pouze na tomto zařízení — pravidelně je exportujte nebo zálohujte, abyste o ně nepřišli při selhání zařízení.",
+        "apiClient": "K API Client přistupujte jako ke každému HTTP klientovi: nevkládejte produkční tajné údaje do sdílených prostředí, pokud nevíte, kdo je může vidět.",
+        "nosql": "Database Explorer se připojuje k databázím, které nakonfigurujete; pokud je to možné, používejte uživatele s minimálními oprávněními a síťová pravidla.",
+        "json": "JSON Formatter běží zcela na vašem zařízení — přesto se vyhněte vkládání vysoce citlivých dat na sdílených počítačích.",
+        "settings": "Přizpůsobte si viditelné nástroje v Nastavení, aby postranní panel zůstal přehledný."
       }
     }
   },

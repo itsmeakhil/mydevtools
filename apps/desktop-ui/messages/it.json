@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Guida e documentazione",
-    "subtitle": "Come funziona MyDevTools e come sono protetti i tuoi dati",
+    "subtitle": "Come funziona MyDevTools offline e come vengono protetti i tuoi dati",
     "tabs": {
       "overview": "Panoramica",
       "apps": "App",
@@ -89,59 +89,60 @@
     },
     "overview": {
       "whatIs": {
-        "title": "Che cos’è MyDevTools?",
-        "description": "Uno spazio di lavoro per sviluppatori con accesso: una dashboard e una raccolta di strumenti quotidiani.",
-        "p1": "Dopo l’accesso, l’app stabilisce una sessione con l’API di MyDevTools per consentire agli strumenti di caricare e salvare i tuoi dati. La barra laterale elenca tutte le app; puoi nascondere gli strumenti che non usi da",
+        "title": "Che cos'è MyDevTools?",
+        "description": "Uno spazio di lavoro offline per sviluppatori: una dashboard e oltre 80 strumenti che vengono eseguiti interamente sul tuo dispositivo.",
+        "p1": "MyDevTools funziona completamente offline. Dopo un'attivazione una tantum nel browser, tutto funziona su questo dispositivo senza accesso a un account e senza connessione a Internet. La barra laterale elenca tutte le app; puoi nascondere gli strumenti che non usi dalle",
         "settingsLink": "Impostazioni",
         "p1After": ".",
-        "p2": "Alcune funzionalità usano una <strong>password principale</strong> (o chiave globale del vault) così che segreti come password e stringhe di connessione vengano crittografati sul tuo dispositivo prima di arrivare al server."
+        "p2": "Alcune funzionalità utilizzano una <strong>password principale</strong> (o chiave globale della cassaforte) affinché i dati sensibili come password e stringhe di connessione ai database siano cifrati sul tuo dispositivo. I tuoi dati vengono archiviati in un database locale cifrato e non vengono mai inviati a un server."
       },
       "quickLinks": {
-        "title": "Link rapidi",
-        "dashboard": "Pannello di controllo",
+        "title": "Collegamenti rapidi",
+        "dashboard": "Dashboard",
         "settings": "Impostazioni"
       }
     },
     "apps": {
-      "intro": "Apri qualsiasi strumento dalla barra laterale o dalla dashboard. Qui sotto trovi una guida breve per ogni app.",
+      "intro": "Apri qualsiasi strumento dalla barra laterale o dalla dashboard. Di seguito trovi una breve guida per ogni app.",
       "open": "Apri",
       "howItWorks": "Come funziona",
       "generic": "Usa questo strumento dalla barra laterale per il suo flusso di lavoro dedicato."
     },
     "security": {
-      "session": {
-        "title": "Accesso e sessione API",
-        "description": "Identità e come il browser comunica con il backend.",
+      "access": {
+        "title": "Attivazione e accesso offline",
+        "description": "Come si sblocca l'app la prima volta e come funziona poi offline.",
         "items": {
-          "authentication": "<strong>Autenticazione</strong> tramite Firebase. Dopo il login, l’app scambia l’ID token di Firebase con cookie dell’API.",
-          "accessTokens": "<strong>Token di accesso</strong> sono JWT firmati sul server (HS256) e indicano quale utente sta chiamando l’API.",
-          "refreshTokens": "<strong>Token di refresh</strong> sono salvati in cookie HttpOnly; il server conserva un hash SHA-256 del token, non il token in chiaro."
+          "activation": "L'<strong>attivazione una tantum</strong> avviene nel browser la prima volta che apri l'app. Registra il tuo piano e sblocca l'app su questo dispositivo.",
+          "offline": "<strong>Nessuna sessione di accesso.</strong> Dopo l'attivazione non c'è alcun accesso per sessione né controlli periodici: l'app continua a funzionare senza connessione a Internet.",
+          "storage": "<strong>Archiviazione locale.</strong> Tutti i tuoi dati risiedono in un database SQLCipher cifrato sul tuo dispositivo, protetto da una chiave casuale conservata nel portachiavi del tuo sistema operativo."
         }
       },
       "encryption": {
-        "title": "Crittografia da conoscere",
-        "description": "Crittografia lato client per vault e dati di connessione sensibili.",
-        "p1": "Per il <strong>gestore delle password</strong>, il <strong>gestore degli ambienti</strong> e le connessioni salvate in <strong>NoSQL Explorer</strong>, l'app web usa la <strong>Web Crypto API</strong> del browser:",
+        "title": "La cifratura che dovresti conoscere",
+        "description": "Crittografia lato client per la cassaforte e i dati di connessione sensibili.",
+        "p1": "Per il <strong>gestore di password</strong>, il <strong>gestore degli ambienti</strong> e le connessioni salvate di <strong>NoSQL Explorer</strong>, l'app utilizza la <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> con <strong>SHA-256</strong>, <strong>100.000</strong> iterazioni e un salt casuale deriva una chiave a 256 bit dalla password principale.",
-          "aes": "<strong>AES-256-GCM</strong> cifra i dati; viene usato un <strong>IV di 12 byte</strong> casuale per ogni cifratura.",
-          "scope": "La chiave derivata resta nel browser (non esportabile). Il server riceve solo <strong>ciphertext e IV</strong>, non la password principale né segreti in chiaro."
+          "kdf": "<strong>PBKDF2</strong> con <strong>SHA-256</strong>, <strong>600,000</strong> iterazioni e un salt casuale deriva una chiave a 256 bit dalla tua password principale.",
+          "aes": "<strong>AES-256-GCM</strong> cifra i dati; a ogni cifratura viene usato un <strong>12-byte IV</strong> casuale.",
+          "scope": "La chiave derivata resta nell'app (non estraibile) e la tua password principale non lascia mai il tuo dispositivo. Nel database locale vengono scritti solo il <strong>testo cifrato e gli IVs</strong>."
         },
-        "warning": "Se dimentichi la password principale, i dati crittografati non possono essere recuperati. Conservala con cura."
+        "warning": "Se dimentichi la password principale, i dati cifrati non potranno essere recuperati. Conservala in un luogo sicuro."
       },
-      "logout": {
-        "title": "Logout e dati locali",
-        "body": "Il logout elimina i segreti in memoria, lo stato del vault e, quando applicabile, il materiale della chiave principale da IndexedDB, e termina la sessione API. I dati mantenuti solo nello storage locale del dispositivo possono rimanere finché non li cancelli dal browser."
+      "local": {
+        "title": "Blocco e dati locali",
+        "body": "Bloccando la cassaforte si cancellano dalla memoria i segreti e il materiale della chiave principale; il tuo database cifrato rimane sul disco finché non lo rimuovi. Non c'è alcuna disconnessione: solo il ripristino dei dati dell'app o l'eliminazione dell'app cancella tutto, quindi conserva backup personali di tutto ciò che è importante."
       }
     },
     "tips": {
       "title": "Usare MyDevTools in sicurezza",
       "items": {
-        "masterPassword": "Usa una password principale forte e unica per le funzionalità del vault.",
-        "apiClient": "Tratta il Cliente API come qualsiasi client HTTP: evita di incollare segreti di produzione in ambienti condivisi se non sai chi può vederli.",
-        "nosql": "Esplora database si collega a database configurati da te; usa utenti a privilegi minimi e regole di rete quando possibile.",
-        "json": "JSON Formatter è locale nel browser—evita comunque di incollare dati molto sensibili su macchine condivise.",
-        "settings": "Personalizza gli strumenti visibili in Impostazioni per mantenere la barra laterale più pulita."
+        "masterPassword": "Usa una password principale forte e univoca per le funzionalità della cassaforte.",
+        "backup": "I tuoi dati risiedono solo su questo dispositivo: esportali o eseguine il backup regolarmente per non perderli in caso di guasto del dispositivo.",
+        "apiClient": "Tratta l'API Client come qualsiasi client HTTP: evita di incollare segreti di produzione in ambienti condivisi a meno che tu non sappia chi può vederli.",
+        "nosql": "Il Database Explorer si connette ai database che configuri; usa quando possibile utenti con privilegi minimi e regole di rete.",
+        "json": "Il JSON Formatter viene eseguito interamente sul tuo dispositivo, ma evita comunque di incollare dati molto sensibili su macchine condivise.",
+        "settings": "Personalizza gli strumenti visibili nelle Impostazioni per mantenere la barra laterale ordinata."
       }
     }
   },

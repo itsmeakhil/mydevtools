@@ -80,9 +80,9 @@
   },
   "Help": {
     "title": "Yardım ve Dokümantasyon",
-    "subtitle": "MyDevTools nasıl çalışır ve verileriniz nasıl korunur",
+    "subtitle": "MyDevTools çevrimdışı nasıl çalışır ve verileriniz nasıl korunur",
     "tabs": {
-      "overview": "Genel bakış",
+      "overview": "Genel Bakış",
       "apps": "Uygulamalar",
       "security": "Güvenlik",
       "tips": "İpuçları"
@@ -90,58 +90,59 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools nedir?",
-        "description": "Giriş yapılan bir geliştirici çalışma alanı: bir gösterge paneli ve günlük araçlar.",
-        "p1": "Hesabınızla giriş yaptıktan sonra uygulama, araçların verilerinizi yükleyip kaydedebilmesi için MyDevTools API ile bir oturum kurar. Yan menü tüm uygulamaları listeler; kullanmadığınız araçları",
+        "description": "Çevrimdışı bir geliştirici çalışma alanı: tamamen cihazınızda çalışan bir pano ve 80+ araç.",
+        "p1": "MyDevTools tamamen çevrimdışı çalışır. Tarayıcınızda tek seferlik bir etkinleştirmenin ardından her şey bu cihazda çalışır; hesap girişi veya internet bağlantısı gerekmez. Kenar çubuğu tüm uygulamaları listeler; kullanmadığınız araçları şuradan gizleyebilirsiniz:",
         "settingsLink": "Ayarlar",
-        "p1After": "sayfasından gizleyebilirsiniz.",
-        "p2": "Bazı özellikler <strong>ana parola</strong> (veya global kasa anahtarı) kullanır; böylece parolalar ve bağlantı dizeleri gibi sırlar sunucuya ulaşmadan önce cihazınızda şifrelenir."
+        "p1After": ".",
+        "p2": "Bazı özellikler bir <strong>ana parola</strong> (veya genel kasa anahtarı) kullanır; böylece parolalar ve veritabanı bağlantı dizeleri gibi gizli bilgiler cihazınızda şifrelenir. Verileriniz yerel bir şifreli veritabanında saklanır ve asla bir sunucuya gönderilmez."
       },
       "quickLinks": {
         "title": "Hızlı bağlantılar",
-        "dashboard": "Gösterge Paneli",
+        "dashboard": "Pano",
         "settings": "Ayarlar"
       }
     },
     "apps": {
-      "intro": "Herhangi bir aracı yan menüden veya gösterge panelinden açın. Aşağıda her uygulama için kısa bir rehber var.",
+      "intro": "Herhangi bir aracı kenar çubuğundan veya panodan açın. Aşağıda her uygulama için kısa bir kılavuz bulunmaktadır.",
       "open": "Aç",
       "howItWorks": "Nasıl çalışır",
-      "generic": "Bu aracı yan menüden, kendi iş akışı üzerinden kullanın."
+      "generic": "Bu aracı kendine özel iş akışı için kenar çubuğundan kullanın."
     },
     "security": {
-      "session": {
-        "title": "Giriş ve API oturumu",
-        "description": "Kimlik ve tarayıcının backend ile nasıl konuştuğu.",
+      "access": {
+        "title": "Etkinleştirme ve çevrimdışı erişim",
+        "description": "Uygulamanın ilk seferde nasıl kilidinin açıldığı ve ardından çevrimdışı nasıl çalıştığı.",
         "items": {
-          "authentication": "<strong>Kimlik doğrulama</strong> için Firebase kullanılır. Girişten sonra uygulama Firebase ID token’ınızı API çerezleriyle değiştirir.",
-          "accessTokens": "<strong>Erişim token’ları</strong> sunucuda imzalanan JWT’lerdir (HS256) ve API’yi çağıran kullanıcıyı kanıtlar.",
-          "refreshTokens": "<strong>Yenileme token’ları</strong> HttpOnly çerezlerde saklanır; sunucu ham token yerine SHA-256 hash’ini tutar."
+          "activation": "<strong>Tek seferlik etkinleştirme</strong>, uygulamayı ilk açtığınızda tarayıcınızda gerçekleşir. Planınızı kaydeder ve uygulamanın bu cihazdaki kilidini açar.",
+          "offline": "<strong>Oturum girişi yok.</strong> Etkinleştirmeden sonra oturum başına giriş veya periyodik yeniden kontrol yoktur; uygulama internet bağlantısı olmadan çalışmaya devam eder.",
+          "storage": "<strong>Yerel depolama.</strong> Tüm verileriniz cihazınızdaki şifreli bir SQLCipher veritabanında yaşar ve işletim sistemi anahtarlığınızda tutulan rastgele bir anahtarla anahtarlanır."
         }
       },
       "encryption": {
         "title": "Bilmeniz gereken şifreleme",
-        "description": "Kasa ve hassas bağlantı verileri için istemci tarafı kripto.",
-        "p1": "<strong>Şifre yöneticisi</strong>, <strong>ortam yöneticisi</strong> ve <strong>NoSQL Explorer</strong> kayıtlı bağlantıları için web uygulaması tarayıcının <strong>Web Crypto API</strong> özelliğini kullanır:",
+        "description": "Kasa ve hassas bağlantı verileri için istemci tarafı kriptografi.",
+        "p1": "<strong>Parola yöneticisi</strong>, <strong>ortam yöneticisi</strong> ve <strong>NoSQL Explorer</strong> kayıtlı bağlantıları için uygulama <strong>Web Crypto API</strong> kullanır:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> (<strong>SHA-256</strong>, <strong>100.000</strong> iterasyon, rastgele salt) ana parolanızdan 256-bit anahtar türetir.",
-          "aes": "<strong>AES-256-GCM</strong> veriyi şifreler; her şifreleme için rastgele <strong>12 bayt IV</strong> kullanılır.",
-          "scope": "Türetilen anahtar tarayıcıda kalır (dışa aktarılamaz). Sunucu yalnızca <strong>şifreli metin ve IV</strong> alır; ana parola veya düz metin sırlar gönderilmez."
+          "kdf": "<strong>SHA-256</strong>, <strong>600,000</strong> yineleme ve rastgele bir tuz kullanan <strong>PBKDF2</strong>, ana parolanızdan 256-bit bir anahtar türetir.",
+          "aes": "<strong>AES-256-GCM</strong> yükleri şifreler; her şifreleme için rastgele bir <strong>12-byte IV</strong> kullanılır.",
+          "scope": "Türetilen anahtar uygulamada kalır (dışa aktarılamaz) ve ana parolanız asla cihazınızdan çıkmaz. Yerel veritabanına yalnızca <strong>şifreli metin ve IVs</strong> yazılır."
         },
-        "warning": "Ana parolanızı unutursanız, şifrelenmiş veriler kurtarılamaz. Güvenle saklayın."
+        "warning": "Ana parolanızı unutursanız şifreli veriler kurtarılamaz. Onu güvenli bir şekilde saklayın."
       },
-      "logout": {
-        "title": "Çıkış ve yerel veriler",
-        "body": "Çıkış yapmak bellek içindeki sırları, kasa durumunu ve (varsa) IndexedDB’deki ana anahtar materyalini temizler ve API oturumunu sonlandırır. Yalnızca yerel depoda tutulan veriler, tarayıcıdan temizleyene kadar kalabilir."
+      "local": {
+        "title": "Kilitleme ve yerel veriler",
+        "body": "Kasayı kilitlemek, bellekteki gizli bilgileri ve ana anahtar materyalini temizler; şifreli veritabanınız siz kaldırana kadar diskte kalır. Oturum kapatma yoktur; her şeyi temizleyen şey, uygulama verilerini sıfırlamak veya uygulamayı silmektir; bu nedenle önemli olan her şeyin kendi yedeklerinizi tutun."
       }
     },
     "tips": {
-      "title": "MyDevTools’u güvenli kullanma",
+      "title": "MyDevTools'u güvenle kullanma",
       "items": {
         "masterPassword": "Kasa özellikleri için güçlü ve benzersiz bir ana parola kullanın.",
-        "apiClient": "API İstemcisini herhangi bir HTTP istemcisi gibi kullanın: kimlerin görebileceğini bilmiyorsanız üretim sırlarını paylaşılan ortamlara yapıştırmayın.",
-        "nosql": "Veritabanı Gezgini sizin yapılandırdığınız veritabanlarına bağlanır; mümkünse en az ayrıcalıklı kullanıcıları ve ağ kurallarını kullanın.",
-        "json": "JSON biçimleyici tarayıcıda yerel çalışır—yine de paylaşılan cihazlarda çok hassas verileri yapıştırmaktan kaçının.",
-        "settings": "Yan menüyü odaklı tutmak için Ayarlar’dan görünür araçları özelleştirin."
+        "backup": "Verileriniz yalnızca bu cihazda yaşar; cihaz arızalanırsa kaybetmemeniz için düzenli olarak dışa aktarın veya yedekleyin.",
+        "apiClient": "API Client'ı herhangi bir HTTP istemcisi gibi ele alın: kimlerin görebileceğini anlamadığınız sürece üretim gizli bilgilerini paylaşılan ortamlara yapıştırmaktan kaçının.",
+        "nosql": "Database Explorer, yapılandırdığınız veritabanlarına bağlanır; mümkün olduğunca en az ayrıcalıklı kullanıcılar ve ağ kuralları kullanın.",
+        "json": "JSON Formatter tamamen cihazınızda çalışır; yine de paylaşılan makinelerde son derece hassas verileri yapıştırmaktan kaçının.",
+        "settings": "Kenar çubuğunu odaklı tutmak için görünür araçları Ayarlar'dan özelleştirin."
       }
     }
   },

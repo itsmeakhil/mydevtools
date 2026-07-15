@@ -80,9 +80,9 @@
   },
   "Help": {
     "title": "Bantuan & Dokumentasi",
-    "subtitle": "Cara kerja MyDevTools dan bagaimana data Anda dilindungi",
+    "subtitle": "Cara MyDevTools bekerja secara offline dan cara data Anda dilindungi",
     "tabs": {
-      "overview": "Ringkasan",
+      "overview": "Ikhtisar",
       "apps": "Aplikasi",
       "security": "Keamanan",
       "tips": "Tips"
@@ -90,11 +90,11 @@
     "overview": {
       "whatIs": {
         "title": "Apa itu MyDevTools?",
-        "description": "Workspace developer dengan login: dasbor dan kumpulan tools untuk kebutuhan sehari-hari.",
-        "p1": "Setelah login, aplikasi membuat sesi dengan MyDevTools API agar tools dapat memuat dan menyimpan data Anda. Sidebar menampilkan semua aplikasi; Anda dapat menyembunyikan tools yang tidak digunakan dari",
+        "description": "Ruang kerja pengembang yang offline: sebuah dasbor dan 80+ alat yang berjalan sepenuhnya di perangkat Anda.",
+        "p1": "MyDevTools berjalan sepenuhnya secara offline. Setelah aktivasi sekali saja di browser Anda, semuanya bekerja di perangkat ini tanpa login akun dan tanpa memerlukan koneksi internet. Bilah samping menampilkan setiap aplikasi; Anda dapat menyembunyikan alat yang tidak Anda gunakan dari",
         "settingsLink": "Pengaturan",
         "p1After": ".",
-        "p2": "Beberapa fitur menggunakan <strong>kata sandi utama</strong> (atau kunci vault global) agar rahasia seperti kata sandi dan connection string dienkripsi di perangkat Anda sebelum mencapai server."
+        "p2": "Beberapa fitur menggunakan <strong>kata sandi utama</strong> (atau kunci brankas global) sehingga rahasia seperti kata sandi dan string koneksi basis data terenkripsi di perangkat Anda. Data Anda disimpan dalam basis data terenkripsi lokal dan tidak pernah dikirim ke server."
       },
       "quickLinks": {
         "title": "Tautan cepat",
@@ -103,45 +103,46 @@
       }
     },
     "apps": {
-      "intro": "Buka tool apa pun dari sidebar atau dasbor. Berikut panduan singkat untuk tiap aplikasi.",
+      "intro": "Buka alat apa pun dari bilah samping atau dasbor. Di bawah ini adalah panduan singkat untuk setiap aplikasi.",
       "open": "Buka",
-      "howItWorks": "Cara kerja",
-      "generic": "Gunakan tool ini dari sidebar untuk workflow khususnya."
+      "howItWorks": "Cara kerjanya",
+      "generic": "Gunakan alat ini dari bilah samping untuk alur kerja khususnya."
     },
     "security": {
-      "session": {
-        "title": "Login dan sesi API",
-        "description": "Identitas dan cara browser berkomunikasi dengan backend.",
+      "access": {
+        "title": "Aktivasi & akses offline",
+        "description": "Bagaimana aplikasi terbuka pertama kali, lalu berjalan secara offline.",
         "items": {
-          "authentication": "<strong>Autentikasi</strong> menggunakan Firebase untuk login. Setelah login, aplikasi menukar Firebase ID token Anda menjadi cookie API.",
-          "accessTokens": "<strong>Access token</strong> adalah JWT yang ditandatangani server (HS256) untuk membuktikan pengguna yang memanggil API.",
-          "refreshTokens": "<strong>Refresh token</strong> disimpan di cookie HttpOnly; server menyimpan hash SHA-256 dari token, bukan token mentahnya."
+          "activation": "<strong>Aktivasi sekali saja</strong> terjadi di browser Anda saat pertama kali membuka aplikasi. Aktivasi mencatat paket Anda dan membuka kunci aplikasi di perangkat ini.",
+          "offline": "<strong>Tanpa sesi login.</strong> Setelah aktivasi, tidak ada login per sesi dan tidak ada pemeriksaan ulang berkala—aplikasi tetap bekerja tanpa koneksi internet.",
+          "storage": "<strong>Penyimpanan lokal.</strong> Semua data Anda berada dalam basis data SQLCipher terenkripsi di perangkat Anda, dikunci dengan kunci acak yang disimpan di keychain sistem operasi Anda."
         }
       },
       "encryption": {
-        "title": "Enkripsi yang perlu diketahui",
-        "description": "Kripto sisi klien untuk vault dan data koneksi sensitif.",
-        "p1": "Untuk <strong>pengelola kata sandi</strong>, <strong>pengelola lingkungan</strong>, dan koneksi tersimpan di <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> browser:",
+        "title": "Enkripsi yang perlu Anda ketahui",
+        "description": "Kriptografi sisi klien untuk brankas dan data koneksi sensitif.",
+        "p1": "Untuk koneksi tersimpan pada <strong>pengelola kata sandi</strong>, <strong>pengelola lingkungan</strong>, dan <strong>NoSQL Explorer</strong>, aplikasi menggunakan <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100.000</strong> iterasi, dan salt acak menurunkan kunci 256-bit dari kata sandi utama Anda.",
-          "aes": "<strong>AES-256-GCM</strong> mengenkripsi data; <strong>IV 12-byte</strong> acak digunakan untuk setiap enkripsi.",
-          "scope": "Kunci turunan tetap di browser (tidak dapat diekstrak). Server hanya menerima <strong>ciphertext dan IV</strong>, bukan kata sandi utama atau rahasia dalam plaintext."
+          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>600,000</strong> iterasi, dan salt acak menurunkan kunci 256-bit dari kata sandi utama Anda.",
+          "aes": "<strong>AES-256-GCM</strong> mengenkripsi payload; sebuah <strong>12-byte IV</strong> acak digunakan untuk setiap enkripsi.",
+          "scope": "Kunci turunan tetap berada di dalam aplikasi (tidak dapat diekstraksi) dan kata sandi utama Anda tidak pernah keluar dari perangkat. Hanya <strong>ciphertext dan IVs</strong> yang ditulis ke basis data lokal."
         },
         "warning": "Jika Anda lupa kata sandi utama, data terenkripsi tidak dapat dipulihkan. Simpan dengan aman."
       },
-      "logout": {
-        "title": "Logout dan data lokal",
-        "body": "Logout akan menghapus rahasia di memori, status vault, dan (jika berlaku) material kunci utama dari IndexedDB, serta mengakhiri sesi API. Data yang hanya tersimpan di penyimpanan lokal perangkat dapat tetap ada sampai Anda menghapusnya di browser."
+      "local": {
+        "title": "Penguncian & data lokal",
+        "body": "Mengunci brankas akan menghapus rahasia di memori dan materi kunci utama; basis data terenkripsi Anda tetap ada di disk sampai Anda menghapusnya. Tidak ada keluar akun—yang menghapus semuanya adalah mengatur ulang data aplikasi atau menghapus aplikasi, jadi simpanlah cadangan Anda sendiri untuk hal-hal yang penting."
       }
     },
     "tips": {
       "title": "Menggunakan MyDevTools dengan aman",
       "items": {
-        "masterPassword": "Gunakan kata sandi utama yang kuat dan unik untuk fitur vault.",
-        "apiClient": "Perlakukan API Client seperti HTTP client lainnya: hindari menempelkan rahasia produksi ke lingkungan bersama jika Anda tidak tahu siapa yang bisa melihatnya.",
-        "nosql": "Penjelajah Basis Data terhubung ke database yang Anda konfigurasi; gunakan akun dengan hak minimum dan aturan jaringan bila memungkinkan.",
-        "json": "Pemformat JSON berjalan lokal di browser—tetap hindari menempelkan data sangat sensitif di mesin bersama.",
-        "settings": "Sesuaikan tools yang terlihat di Pengaturan agar sidebar tetap fokus."
+        "masterPassword": "Gunakan kata sandi utama yang kuat dan unik untuk fitur brankas.",
+        "backup": "Data Anda hanya berada di perangkat ini—ekspor atau cadangkan secara berkala agar tidak hilang jika perangkat rusak.",
+        "apiClient": "Perlakukan API Client seperti klien HTTP mana pun: hindari menempelkan rahasia produksi ke lingkungan bersama kecuali Anda memahami siapa saja yang dapat melihatnya.",
+        "nosql": "Database Explorer terhubung ke basis data yang Anda konfigurasikan; gunakan pengguna dengan hak akses paling minim dan aturan jaringan bila memungkinkan.",
+        "json": "JSON Formatter berjalan sepenuhnya di perangkat Anda—tetap hindari menempelkan data yang sangat sensitif di komputer bersama.",
+        "settings": "Sesuaikan alat yang terlihat di Pengaturan agar bilah samping tetap fokus."
       }
     }
   },

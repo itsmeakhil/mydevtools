@@ -79,10 +79,10 @@
     "whoisLookup": "Whois-opslag"
   },
   "Help": {
-    "title": "Hjælp & dokumentation",
-    "subtitle": "Sådan hænger MyDevTools sammen, og sådan beskyttes dine data",
+    "title": "Hjælp og dokumentation",
+    "subtitle": "Sådan fungerer MyDevTools offline, og sådan beskyttes dine data",
     "tabs": {
-      "overview": "Overblik",
+      "overview": "Oversigt",
       "apps": "Apps",
       "security": "Sikkerhed",
       "tips": "Tips"
@@ -90,58 +90,59 @@
     "overview": {
       "whatIs": {
         "title": "Hvad er MyDevTools?",
-        "description": "Et udvikler‑workspace med login: en oversigt og et sæt værktøjer til hverdagsopgaver.",
-        "p1": "Når du har logget ind, opretter appen en session med MyDevTools API, så værktøjer kan indlæse og gemme dine data. Sidebaren viser alle apps; du kan skjule værktøjer, du ikke bruger, i",
+        "description": "Et offline-arbejdsrum for udviklere: et dashboard og over 80 værktøjer, der kører helt på din enhed.",
+        "p1": "MyDevTools kører helt offline. Efter en engangsaktivering i din browser fungerer alt på denne enhed, uden kontologin og uden internetforbindelse. Sidepanelet viser alle apps; værktøjer, du ikke bruger, kan du skjule under",
         "settingsLink": "Indstillinger",
         "p1After": ".",
-        "p2": "Nogle funktioner bruger en <strong>masteradgangskode</strong> (eller global vault‑nøgle), så hemmeligheder som adgangskoder og forbindelsesstrenge krypteres på din enhed, før de når serveren."
+        "p2": "Nogle funktioner bruger en <strong>hovedadgangskode</strong> (eller en global boksnøgle), så hemmeligheder som adgangskoder og forbindelsesstrenge til databaser krypteres på din enhed. Dine data gemmes i en lokal krypteret database og sendes aldrig til en server."
       },
       "quickLinks": {
-        "title": "Hurtige links",
-        "dashboard": "Oversigt",
+        "title": "Genveje",
+        "dashboard": "Dashboard",
         "settings": "Indstillinger"
       }
     },
     "apps": {
-      "intro": "Åbn et værktøj fra sidebaren eller oversigten. Nedenfor er en kort guide pr. app.",
+      "intro": "Åbn et hvilket som helst værktøj fra sidepanelet eller dashboardet. Nedenfor er en kort vejledning pr. app.",
       "open": "Åbn",
       "howItWorks": "Sådan fungerer det",
-      "generic": "Brug dette værktøj fra sidebaren til dets dedikerede arbejdsgang."
+      "generic": "Brug dette værktøj fra sidepanelet til dets dedikerede arbejdsgang."
     },
     "security": {
-      "session": {
-        "title": "Login og API‑session",
-        "description": "Identitet og hvordan browseren taler med din backend.",
+      "access": {
+        "title": "Aktivering og offline-adgang",
+        "description": "Sådan låses appen op første gang og kører derefter offline.",
         "items": {
-          "authentication": "<strong>Godkendelse</strong> bruger Firebase til login. Efter login udveksler appen din Firebase ID‑token til API‑cookies.",
-          "accessTokens": "<strong>Access tokens</strong> er JWT’er signeret på serveren (HS256), som viser hvilken bruger der kalder API’et.",
-          "refreshTokens": "<strong>Refresh tokens</strong> gemmes i HttpOnly cookies; serveren gemmer en SHA‑256 hash af tokenet, ikke selve tokenet."
+          "activation": "<strong>Engangsaktivering</strong> sker i din browser, første gang du åbner appen. Den registrerer dit abonnement og låser appen op på denne enhed.",
+          "offline": "<strong>Ingen login-sessioner.</strong> Efter aktivering er der ingen login pr. session og ingen periodisk kontrol—appen fortsætter med at fungere uden internetforbindelse.",
+          "storage": "<strong>Lokal lagring.</strong> Alle dine data ligger i en krypteret SQLCipher-database på din enhed, sikret med en tilfældig nøgle i dit operativsystems nøglering."
         }
       },
       "encryption": {
-        "title": "Kryptering du bør kende",
-        "description": "Klientside‑krypto for vault og følsomme forbindelsesdata.",
-        "p1": "Til <strong>adgangskodeadministration</strong>, <strong>miljøadministration</strong> og gemte forbindelser i <strong>NoSQL Explorer</strong> bruger webappen browserens <strong>Web Crypto API</strong>:",
+        "title": "Kryptering, du bør kende til",
+        "description": "Kryptografi på klientsiden til boksen og følsomme forbindelsesdata.",
+        "p1": "Til de gemte forbindelser i <strong>adgangskodehåndteringen</strong>, <strong>miljøhåndteringen</strong> og <strong>NoSQL Explorer</strong> bruger appen <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> med <strong>SHA‑256</strong>, <strong>100.000</strong> iterationer og en tilfældig salt afleder en 256‑bit nøgle fra din masteradgangskode.",
-          "aes": "<strong>AES‑256‑GCM</strong> krypterer data; en tilfældig <strong>12‑byte IV</strong> bruges for hver kryptering.",
-          "scope": "Den afledte nøgle bliver i browseren (ikke‑udtrækkelig). Serveren modtager kun <strong>ciphertext og IV’er</strong>, ikke din masteradgangskode eller hemmeligheder i klartekst."
+          "kdf": "<strong>PBKDF2</strong> med <strong>SHA-256</strong>, <strong>600,000</strong> iterationer og et tilfældigt salt udleder en 256-bit nøgle fra din hovedadgangskode.",
+          "aes": "<strong>AES-256-GCM</strong> krypterer nyttedataene; en tilfældig <strong>12-byte IV</strong> bruges pr. kryptering.",
+          "scope": "Den udledte nøgle bliver i appen (kan ikke udtrækkes), og din hovedadgangskode forlader aldrig din enhed. Kun <strong>chiffertekst og IVs</strong> skrives til den lokale database."
         },
-        "warning": "Hvis du glemmer masteradgangskoden, kan krypterede data ikke gendannes. Opbevar den sikkert."
+        "warning": "Hvis du glemmer hovedadgangskoden, kan krypterede data ikke gendannes. Opbevar den sikkert."
       },
-      "logout": {
-        "title": "Log ud og lokale data",
-        "body": "Log ud rydder hemmeligheder i hukommelsen, vault‑tilstand og (hvis relevant) master‑key‑materiale fra IndexedDB og afslutter API‑sessionen. Data, der kun ligger i lokal lagring på enheden, kan blive liggende, indtil du rydder dem i browseren."
+      "local": {
+        "title": "Låsning og lokale data",
+        "body": "Når du låser boksen, ryddes hemmeligheder og hovednøglemateriale fra hukommelsen; din krypterede database bliver på disken, indtil du fjerner den. Der er ingen logud—det er nulstilling af appens data eller sletning af appen, der rydder alt, så hold dine egne sikkerhedskopier af alt vigtigt."
       }
     },
     "tips": {
       "title": "Brug MyDevTools sikkert",
       "items": {
-        "masterPassword": "Brug en stærk og unik masteradgangskode til vault‑funktioner.",
-        "apiClient": "Behandl API‑klienten som enhver HTTP‑klient: undgå at indsætte produktions‑secrets i delte miljøer, hvis du ikke ved hvem der kan se dem.",
-        "nosql": "Databaseudforskeren forbinder til databaser du konfigurerer; brug mindst‑privilegerede brugere og netværksregler hvor muligt.",
-        "json": "JSON‑formateringen kører lokalt i browseren—undgå stadig at indsætte meget følsomme data på delte maskiner.",
-        "settings": "Tilpas synlige værktøjer i Indstillinger for at holde sidebaren fokuseret."
+        "masterPassword": "Brug en stærk, unik hovedadgangskode til boksfunktionerne.",
+        "backup": "Dine data findes kun på denne enhed—eksportér eller sikkerhedskopiér dem regelmæssigt, så du ikke mister dem, hvis enheden svigter.",
+        "apiClient": "Behandl API Client som enhver anden HTTP-klient: undgå at indsætte produktionshemmeligheder i delte miljøer, medmindre du forstår, hvem der kan se dem.",
+        "nosql": "Database Explorer opretter forbindelse til databaser, du selv konfigurerer; brug brugere med færrest mulige rettigheder og netværksregler, hvor det er muligt.",
+        "json": "JSON Formatter kører helt på din enhed—undgå alligevel at indsætte meget følsomme data på delte maskiner.",
+        "settings": "Tilpas de synlige værktøjer under Indstillinger for at holde sidepanelet fokuseret."
       }
     }
   },

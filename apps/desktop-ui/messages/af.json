@@ -79,22 +79,22 @@
     "whoisLookup": "Whois-opsoek"
   },
   "Help": {
-    "title": "Hulp & Dokumentasie",
-    "subtitle": "Hoe MyDevTools inmekaarsteek en hoe jou data beskerm word",
+    "title": "Hulp en dokumentasie",
+    "subtitle": "Hoe MyDevTools vanlyn werk en hoe jou data beskerm word",
     "tabs": {
       "overview": "Oorsig",
-      "apps": "Apps",
+      "apps": "Programme",
       "security": "Sekuriteit",
       "tips": "Wenke"
     },
     "overview": {
       "whatIs": {
         "title": "Wat is MyDevTools?",
-        "description": "’n Ontwikkelaar-werkspasie met aanmelding: ’n paneelbord en ’n stel gereedskap vir alledaagse take.",
-        "p1": "Nadat jy aanmeld, vestig die app ’n sessie met die MyDevTools API sodat gereedskap jou data kan laai en stoor. Die sybalk wys elke app; jy kan gereedskap wat jy nie gebruik nie wegsteek in",
+        "description": "'n Vanlyn werkspasie vir ontwikkelaars: 'n paneelbord en meer as 80 gereedskap wat heeltemal op jou toestel loop.",
+        "p1": "MyDevTools loop heeltemal vanlyn. Ná 'n eenmalige aktivering in jou blaaier werk alles op hierdie toestel, sonder rekeninginteken en sonder internetverbinding. Die sybalk lys al die programme; gereedskap wat jy nie gebruik nie, kan jy versteek by",
         "settingsLink": "Instellings",
         "p1After": ".",
-        "p2": "Sommige funksies gebruik ’n <strong>meesterwagwoord</strong> (of globale kluis-sleutel) sodat geheime soos wagwoorde en verbindingsstringe op jou toestel geënkripteer word voordat dit die bediener bereik."
+        "p2": "Sommige funksies gebruik 'n <strong>meesterwagwoord</strong> (of globale kluissleutel) sodat geheime soos wagwoorde en databasisverbindingstringe op jou toestel geënkripteer word. Jou data word in 'n plaaslike geënkripteerde databasis gestoor en word nooit na 'n bediener gestuur nie."
       },
       "quickLinks": {
         "title": "Vinnige skakels",
@@ -103,45 +103,46 @@
       }
     },
     "apps": {
-      "intro": "Maak enige hulpmiddel oop vanaf die sybalk of paneelbord. Hieronder is ’n kort gids per app.",
+      "intro": "Maak enige gereedskap oop vanaf die sybalk of paneelbord. Hieronder is 'n kort gids per program.",
       "open": "Maak oop",
       "howItWorks": "Hoe dit werk",
-      "generic": "Gebruik hierdie hulpmiddel vanaf die sybalk vir sy toegewyde werkvloei."
+      "generic": "Gebruik hierdie gereedskap vanaf die sybalk vir sy toegewyde werkstroom."
     },
     "security": {
-      "session": {
-        "title": "Aanmelding en API-sessie",
-        "description": "Identiteit en hoe die blaaier met jou backend praat.",
+      "access": {
+        "title": "Aktivering en vanlyn toegang",
+        "description": "Hoe die program die eerste keer ontsluit en daarna vanlyn loop.",
         "items": {
-          "authentication": "<strong>Verifikasie</strong> gebruik Firebase vir aanmelding. Ná login ruil die app jou Firebase ID-token vir API-koekies.",
-          "accessTokens": "<strong>Toegang-tokens</strong> is JWT’s wat op die bediener geteken word (HS256) en bewys watter gebruiker die API oproep.",
-          "refreshTokens": "<strong>Verfris-tokens</strong> word in HttpOnly-koekies gestoor; die bediener stoor ’n SHA-256 hash van die token, nie die rou token nie."
+          "activation": "<strong>Eenmalige aktivering</strong> gebeur in jou blaaier die eerste keer wat jy die program oopmaak. Dit registreer jou plan en ontsluit die program op hierdie toestel.",
+          "offline": "<strong>Geen aantekensessies nie.</strong> Ná aktivering is daar geen aanmelding per sessie en geen periodieke herkontrole nie—die program bly werk sonder internetverbinding.",
+          "storage": "<strong>Plaaslike berging.</strong> Al jou data lê in 'n geënkripteerde SQLCipher-databasis op jou toestel, beveilig met 'n lukrake sleutel in jou bedryfstelsel se sleutelhouer."
         }
       },
       "encryption": {
-        "title": "Enkripsie om te ken",
-        "description": "Kliënt-kant kripto vir die kluis en sensitiewe verbindingsdata.",
-        "p1": "Vir die <strong>wagwoordbestuurder</strong>, <strong>omgewingbestuurder</strong> en gestoorde koppelings in <strong>NoSQL Explorer</strong> gebruik die webtoepassing die blaaier se <strong>Web Crypto API</strong>:",
+        "title": "Enkripsie waarvan jy moet weet",
+        "description": "Kliëntkant-kriptografie vir die kluis en sensitiewe verbindingsdata.",
+        "p1": "Vir die gestoorde verbindings van die <strong>wagwoordbestuurder</strong>, die <strong>omgewingsbestuurder</strong> en die <strong>NoSQL Explorer</strong> gebruik die program die <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>100 000</strong> iterasies en ’n ewekansige sout lei ’n 256-bis sleutel uit jou meesterwagwoord af.",
-          "aes": "<strong>AES-256-GCM</strong> enkripteer data; ’n ewekansige <strong>12-byte IV</strong> word per enkripsie gebruik.",
-          "scope": "Die afgeleide sleutel bly in die blaaier (nie-uittrekbaar). Die bediener ontvang slegs <strong>ciphertext en IV’s</strong>, nie jou meesterwagwoord of plaintext geheime nie."
+          "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>600,000</strong> iterasies en 'n lukrake sout lei 'n 256-bis sleutel af uit jou meesterwagwoord.",
+          "aes": "<strong>AES-256-GCM</strong> enkripteer die vragte; 'n lukrake <strong>12-byte IV</strong> word per enkripsie gebruik.",
+          "scope": "Die afgeleide sleutel bly in die program (nie-onttrekbaar) en jou meesterwagwoord verlaat nooit jou toestel nie. Slegs <strong>syferteks en IVs</strong> word na die plaaslike databasis geskryf."
         },
-        "warning": "As jy die meesterwagwoord vergeet, kan geënkripteerde data nie herstel word nie. Bêre dit veilig."
+        "warning": "As jy die meesterwagwoord vergeet, kan geënkripteerde data nie herstel word nie. Bewaar dit veilig."
       },
-      "logout": {
-        "title": "Afmeld en plaaslike data",
-        "body": "Afmeld maak geheime in geheue skoon, kluis-verwante toestand, en meester-sleutelmateriaal uit IndexedDB waar van toepassing, en beëindig die API-sessie. Data wat net in plaaslike berging is kan bly totdat jy dit in die blaaier uitvee."
+      "local": {
+        "title": "Sluiting en plaaslike data",
+        "body": "Wanneer jy die kluis sluit, word geheime en meestersleutelmateriaal uit die geheue gevee; jou geënkripteerde databasis bly op skyf totdat jy dit verwyder. Daar is geen afteken nie—dit is die herstel van programdata of die verwydering van die program wat alles skoonvee, so hou jou eie rugsteun van enigiets belangrik."
       }
     },
     "tips": {
       "title": "Gebruik MyDevTools veilig",
       "items": {
-        "masterPassword": "Gebruik ’n sterk, unieke meesterwagwoord vir kluis-funksies.",
-        "apiClient": "Behandel die API-kliënt soos enige HTTP-kliënt: moenie produksie-geheime in gedeelde omgewings plak as jy nie weet wie dit kan sien nie.",
-        "nosql": "Databasis Verkenner koppel aan databasisse wat jy konfigureer; gebruik minste-voorreg gebruikers en netwerkreëls waar moontlik.",
-        "json": "JSON-formateerder werk plaaslik in die blaaier—vermy steeds om baie sensitiewe data op gedeelde masjiene te plak.",
-        "settings": "Pas sigbare gereedskap in Instellings aan om die sybalk gefokus te hou."
+        "masterPassword": "Gebruik 'n sterk, unieke meesterwagwoord vir die kluisfunksies.",
+        "backup": "Jou data bestaan net op hierdie toestel—voer dit uit of rugsteun dit gereeld sodat jy dit nie verloor as die toestel faal nie.",
+        "apiClient": "Behandel die API Client soos enige HTTP-kliënt: vermy dit om produksiegeheime in gedeelde omgewings te plak tensy jy verstaan wie dit kan sien.",
+        "nosql": "Database Explorer koppel aan databasisse wat jy self opstel; gebruik gebruikers met die minste voorregte en netwerkreëls waar moontlik.",
+        "json": "JSON Formatter loop heeltemal op jou toestel—vermy tog om hoogs sensitiewe data op gedeelde masjiene te plak.",
+        "settings": "Pas die sigbare gereedskap in Instellings aan om die sybalk gefokus te hou."
       }
     }
   },

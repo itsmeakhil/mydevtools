@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
-    "subtitle": "Jak działa MyDevTools i jak chronione są Twoje dane",
+    "subtitle": "Jak MyDevTools działa offline i jak chronione są Twoje dane",
     "tabs": {
       "overview": "Przegląd",
       "apps": "Aplikacje",
@@ -90,58 +90,59 @@
     "overview": {
       "whatIs": {
         "title": "Czym jest MyDevTools?",
-        "description": "Środowisko dla programistów z logowaniem: dashboard i zestaw narzędzi na co dzień.",
-        "p1": "Po zalogowaniu aplikacja ustanawia sesję z API MyDevTools, dzięki czemu narzędzia mogą wczytywać i zapisywać Twoje dane. Pasek boczny pokazuje wszystkie aplikacje; nieużywane narzędzia możesz ukryć w",
-        "settingsLink": "Settings",
+        "description": "Offline'owe środowisko dla programistów: panel oraz ponad 80 narzędzi działających w całości na Twoim urządzeniu.",
+        "p1": "MyDevTools działa w pełni offline. Po jednorazowej aktywacji w przeglądarce wszystko działa na tym urządzeniu bez logowania do konta i bez połączenia z internetem. Na pasku bocznym wymienione są wszystkie aplikacje; nieużywane narzędzia możesz ukryć w sekcji",
+        "settingsLink": "Ustawienia",
         "p1After": ".",
-        "p2": "Niektóre funkcje używają <strong>hasła głównego</strong> (lub globalnego klucza sejfu), aby sekrety takie jak hasła i connection stringi były szyfrowane na Twoim urządzeniu zanim trafią na serwer."
+        "p2": "Niektóre funkcje korzystają z <strong>hasła głównego</strong> (lub globalnego klucza sejfu), aby sekrety takie jak hasła i ciągi połączeń z bazami danych były szyfrowane na Twoim urządzeniu. Twoje dane są przechowywane w lokalnej, zaszyfrowanej bazie danych i nigdy nie są wysyłane na serwer."
       },
       "quickLinks": {
-        "title": "Szybkie linki",
-        "dashboard": "Dashboard",
-        "settings": "Settings"
+        "title": "Szybkie odnośniki",
+        "dashboard": "Panel",
+        "settings": "Ustawienia"
       }
     },
     "apps": {
-      "intro": "Otwórz dowolne narzędzie z paska bocznego lub dashboardu. Poniżej krótki opis każdej aplikacji.",
+      "intro": "Otwórz dowolne narzędzie z paska bocznego lub panelu. Poniżej znajdziesz krótki przewodnik po każdej aplikacji.",
       "open": "Otwórz",
       "howItWorks": "Jak to działa",
-      "generic": "Korzystaj z tego narzędzia z paska bocznego w jego dedykowanym workflow."
+      "generic": "Użyj tego narzędzia z paska bocznego, aby skorzystać z jego dedykowanego przepływu pracy."
     },
     "security": {
-      "session": {
-        "title": "Logowanie i sesja API",
-        "description": "Tożsamość i sposób, w jaki przeglądarka komunikuje się z backendem.",
+      "access": {
+        "title": "Aktywacja i dostęp offline",
+        "description": "Jak aplikacja odblokowuje się za pierwszym razem, a następnie działa offline.",
         "items": {
-          "authentication": "<strong>Uwierzytelnianie</strong> korzysta z Firebase. Po zalogowaniu aplikacja wymienia Firebase ID token na ciasteczka API.",
-          "accessTokens": "<strong>Tokeny dostępu</strong> to podpisane na serwerze JWT (HS256), które potwierdzają użytkownika wywołującego API.",
-          "refreshTokens": "<strong>Tokeny odświeżania</strong> są przechowywane w HttpOnly cookies; serwer trzyma hash SHA-256 tokenu, a nie sam token."
+          "activation": "<strong>Jednorazowa aktywacja</strong> odbywa się w przeglądarce przy pierwszym uruchomieniu aplikacji. Rejestruje ona Twój plan i odblokowuje aplikację na tym urządzeniu.",
+          "offline": "<strong>Brak sesji logowania.</strong> Po aktywacji nie ma logowania przy każdej sesji ani okresowej ponownej weryfikacji — aplikacja działa dalej bez połączenia z internetem.",
+          "storage": "<strong>Pamięć lokalna.</strong> Wszystkie Twoje dane znajdują się w zaszyfrowanej bazie danych SQLCipher na Twoim urządzeniu, zabezpieczonej losowym kluczem przechowywanym w pęku kluczy Twojego systemu operacyjnego."
         }
       },
       "encryption": {
-        "title": "Szyfrowanie, które warto znać",
-        "description": "Kryptografia po stronie klienta dla sejfu i wrażliwych danych połączeń.",
-        "p1": "Dla <strong>menedżera haseł</strong>, <strong>menedżera środowisk</strong> i zapisanych połączeń w <strong>NoSQL Explorer</strong> aplikacja webowa używa <strong>Web Crypto API</strong> przeglądarki:",
+        "title": "Co warto wiedzieć o szyfrowaniu",
+        "description": "Szyfrowanie po stronie klienta dla sejfu i wrażliwych danych połączeń.",
+        "p1": "W przypadku zapisanych połączeń <strong>menedżera haseł</strong>, <strong>menedżera środowisk</strong> oraz <strong>NoSQL Explorer</strong> aplikacja korzysta z <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> z <strong>SHA-256</strong>, <strong>100 000</strong> iteracji i losową solą wyprowadza 256-bitowy klucz z hasła głównego.",
-          "aes": "<strong>AES-256-GCM</strong> szyfruje dane; dla każdego szyfrowania używany jest losowy <strong>12-bajtowy IV</strong>.",
-          "scope": "Wyprowadzony klucz pozostaje w przeglądarce (nie da się go wyeksportować). Serwer otrzymuje tylko <strong>szyfrogram i IV</strong>, nie hasło główne ani sekrety w postaci jawnej."
+          "kdf": "<strong>PBKDF2</strong> z <strong>SHA-256</strong>, <strong>600,000</strong> iteracji i losową solą wyprowadza 256-bitowy klucz z Twojego hasła głównego.",
+          "aes": "<strong>AES-256-GCM</strong> szyfruje dane; przy każdym szyfrowaniu używany jest losowy <strong>12-byte IV</strong>.",
+          "scope": "Wyprowadzony klucz pozostaje w aplikacji (niemożliwy do wyeksportowania), a Twoje hasło główne nigdy nie opuszcza urządzenia. Do lokalnej bazy danych zapisywane są wyłącznie <strong>szyfrogram i IVs</strong>."
         },
-        "warning": "Jeśli zapomnisz hasła głównego, zaszyfrowanych danych nie da się odzyskać. Przechowuj je bezpiecznie."
+        "warning": "Jeśli zapomnisz hasła głównego, zaszyfrowanych danych nie da się odzyskać. Przechowuj je w bezpiecznym miejscu."
       },
-      "logout": {
-        "title": "Wylogowanie i dane lokalne",
-        "body": "Wylogowanie czyści sekrety z pamięci, stan sejfu i (jeśli dotyczy) materiał klucza głównego z IndexedDB oraz kończy sesję API. Dane zapisane tylko w local storage mogą pozostać, dopóki nie wyczyścisz ich w przeglądarce."
+      "local": {
+        "title": "Blokowanie i dane lokalne",
+        "body": "Zablokowanie sejfu usuwa sekrety i materiał klucza głównego z pamięci; Twoja zaszyfrowana baza danych pozostaje na dysku, dopóki jej nie usuniesz. Nie ma wylogowania — to zresetowanie danych aplikacji lub usunięcie aplikacji czyści wszystko, dlatego twórz własne kopie zapasowe wszystkiego, co ważne."
       }
     },
     "tips": {
       "title": "Bezpieczne korzystanie z MyDevTools",
       "items": {
-        "masterPassword": "Używaj silnego, unikalnego hasła głównego dla funkcji sejfu.",
-        "apiClient": "Traktuj API Client jak każdy klient HTTP: nie wklejaj sekretów produkcyjnych do współdzielonych środowisk, jeśli nie wiesz, kto może je zobaczyć.",
-        "nosql": "Eksplorator baz danych łączy się z bazami, które konfigurujesz; używaj kont z minimalnymi uprawnieniami i reguł sieciowych, jeśli to możliwe.",
-        "json": "Formatowanie JSON działa lokalnie w przeglądarce—mimo to unikaj wklejania bardzo wrażliwych danych na współdzielonych urządzeniach.",
-        "settings": "Dostosuj widoczne narzędzia w Settings, aby pasek boczny był bardziej przejrzysty."
+        "masterPassword": "Używaj silnego, unikalnego hasła głównego do funkcji sejfu.",
+        "backup": "Twoje dane znajdują się tylko na tym urządzeniu — regularnie eksportuj je lub twórz kopie zapasowe, aby ich nie utracić w razie awarii urządzenia.",
+        "apiClient": "Traktuj API Client jak każdego klienta HTTP: unikaj wklejania produkcyjnych sekretów do współdzielonych środowisk, jeśli nie wiesz, kto może je zobaczyć.",
+        "nosql": "Database Explorer łączy się z bazami danych, które skonfigurujesz; w miarę możliwości używaj użytkowników o minimalnych uprawnieniach i reguł sieciowych.",
+        "json": "JSON Formatter działa w całości na Twoim urządzeniu — mimo to unikaj wklejania bardzo wrażliwych danych na współdzielonych komputerach.",
+        "settings": "Dostosuj widoczne narzędzia w Ustawieniach, aby pasek boczny pozostał przejrzysty."
       }
     }
   },

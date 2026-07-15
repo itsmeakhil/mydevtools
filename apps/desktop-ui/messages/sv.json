@@ -79,8 +79,8 @@
     "whoisLookup": "Whois-uppslag"
   },
   "Help": {
-    "title": "Hjälp & dokumentation",
-    "subtitle": "Så hänger MyDevTools ihop och så skyddas dina data",
+    "title": "Hjälp och dokumentation",
+    "subtitle": "Hur MyDevTools fungerar offline och hur dina data skyddas",
     "tabs": {
       "overview": "Översikt",
       "apps": "Appar",
@@ -90,11 +90,11 @@
     "overview": {
       "whatIs": {
         "title": "Vad är MyDevTools?",
-        "description": "En utvecklar‑workspace med inloggning: ett instrumentpanel och en uppsättning verktyg för vardagen.",
-        "p1": "Efter att du loggat in skapar appen en session med MyDevTools API så att verktygen kan läsa in och spara dina data. Sidofältet listar alla appar; du kan dölja verktyg du inte använder i",
+        "description": "En offline-arbetsyta för utvecklare: en instrumentpanel och över 80 verktyg som körs helt på din enhet.",
+        "p1": "MyDevTools körs helt offline. Efter en engångsaktivering i din webbläsare fungerar allt på den här enheten, utan kontoinloggning och utan internetanslutning. I sidofältet listas alla appar; verktyg du inte använder kan du dölja via",
         "settingsLink": "Inställningar",
         "p1After": ".",
-        "p2": "Vissa funktioner använder ett <strong>huvudlösenord</strong> (eller global vault‑nyckel) så att hemligheter som lösenord och anslutningssträngar krypteras på din enhet innan de når servern."
+        "p2": "Vissa funktioner använder ett <strong>huvudlösenord</strong> (eller en global valvnyckel) så att hemligheter som lösenord och anslutningssträngar till databaser krypteras på din enhet. Dina data lagras i en lokal krypterad databas och skickas aldrig till en server."
       },
       "quickLinks": {
         "title": "Snabblänkar",
@@ -103,45 +103,46 @@
       }
     },
     "apps": {
-      "intro": "Öppna valfritt verktyg från sidofältet eller instrumentpanelen. Nedan finns en kort guide per app.",
+      "intro": "Öppna vilket verktyg som helst från sidofältet eller instrumentpanelen. Nedan finns en kort guide per app.",
       "open": "Öppna",
       "howItWorks": "Så fungerar det",
-      "generic": "Använd det här verktyget från sidofältet för dess dedikerade arbetsflöde."
+      "generic": "Använd det här verktyget från sidofältet för dess särskilda arbetsflöde."
     },
     "security": {
-      "session": {
-        "title": "Inloggning och API‑session",
-        "description": "Identitet och hur webbläsaren pratar med din backend.",
+      "access": {
+        "title": "Aktivering och offlineåtkomst",
+        "description": "Hur appen låses upp första gången och sedan körs offline.",
         "items": {
-          "authentication": "<strong>Autentisering</strong> använder Firebase för inloggning. Efter inloggning byter appen din Firebase ID‑token mot API‑cookies.",
-          "accessTokens": "<strong>Åtkomsttoken</strong> är JWT:er signerade på servern (HS256) som bevisar vilken användare som anropar API:et.",
-          "refreshTokens": "<strong>Refresh‑token</strong> lagras i HttpOnly cookies; servern sparar en SHA‑256‑hash av token, inte token i klartext."
+          "activation": "<strong>Engångsaktivering</strong> sker i din webbläsare första gången du öppnar appen. Den registrerar din prenumeration och låser upp appen på den här enheten.",
+          "offline": "<strong>Inga inloggningssessioner.</strong> Efter aktiveringen finns ingen inloggning per session och ingen periodisk kontroll—appen fortsätter fungera utan internetanslutning.",
+          "storage": "<strong>Lokal lagring.</strong> Alla dina data finns i en krypterad SQLCipher-databas på din enhet, skyddad med en slumpmässig nyckel i operativsystemets nyckelring."
         }
       },
       "encryption": {
         "title": "Kryptering du bör känna till",
-        "description": "Klientside‑krypto för vault och känslig anslutningsdata.",
-        "p1": "För <strong>lösenordshanteraren</strong>, <strong>miljöhanteraren</strong> och sparade anslutningar i <strong>NoSQL Explorer</strong> använder webbappen webbläsarens <strong>Web Crypto API</strong>:",
+        "description": "Kryptografi på klientsidan för valvet och känsliga anslutningsdata.",
+        "p1": "För sparade anslutningar i <strong>lösenordshanteraren</strong>, <strong>miljöhanteraren</strong> och <strong>NoSQL Explorer</strong> använder appen <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> med <strong>SHA‑256</strong>, <strong>100 000</strong> iterationer och slumpmässig salt härleder en 256‑bitars nyckel från ditt huvudlösenord.",
-          "aes": "<strong>AES‑256‑GCM</strong> krypterar data; en slumpmässig <strong>12‑byte IV</strong> används per kryptering.",
-          "scope": "Den härledda nyckeln stannar i webbläsaren (ej exporterbar). Servern tar bara emot <strong>ciphertext och IV</strong>, inte ditt huvudlösenord eller hemligheter i klartext."
+          "kdf": "<strong>PBKDF2</strong> med <strong>SHA-256</strong>, <strong>600,000</strong> iterationer och ett slumpmässigt salt härleder en 256-bitars nyckel från ditt huvudlösenord.",
+          "aes": "<strong>AES-256-GCM</strong> krypterar nyttolasten; en slumpmässig <strong>12-byte IV</strong> används per kryptering.",
+          "scope": "Den härledda nyckeln stannar kvar i appen (icke-extraherbar) och ditt huvudlösenord lämnar aldrig din enhet. Endast <strong>chiffertext och IVs</strong> skrivs till den lokala databasen."
         },
         "warning": "Om du glömmer huvudlösenordet kan krypterade data inte återställas. Förvara det säkert."
       },
-      "logout": {
-        "title": "Logga ut och lokal data",
-        "body": "Utloggning rensar hemligheter i minnet, vault‑status och (om tillämpligt) huvudnyckelmaterial från IndexedDB och avslutar API‑sessionen. Data som endast finns i lokal lagring kan ligga kvar tills du rensar den i webbläsaren."
+      "local": {
+        "title": "Låsning och lokala data",
+        "body": "När du låser valvet rensas hemligheter och huvudnyckelmaterial ur minnet; din krypterade databas ligger kvar på disken tills du tar bort den. Det finns ingen utloggning—det är att återställa appdata eller radera appen som rensar allt, så håll egna säkerhetskopior av allt som är viktigt."
       }
     },
     "tips": {
       "title": "Använd MyDevTools säkert",
       "items": {
-        "masterPassword": "Använd ett starkt och unikt huvudlösenord för vault‑funktioner.",
-        "apiClient": "Behandla API‑klienten som vilken HTTP‑klient som helst: undvik att klistra in produktionshemligheter i delade miljöer om du inte vet vem som kan se dem.",
-        "nosql": "Databasutforskaren ansluter till databaser som du konfigurerar; använd minst privilegierade användare och nätverksregler där det går.",
-        "json": "JSON‑formateraren kör lokalt i webbläsaren—undvik ändå att klistra in mycket känsliga data på delade datorer.",
-        "settings": "Anpassa synliga verktyg i Inställningar för att hålla sidofältet fokuserat."
+        "masterPassword": "Använd ett starkt, unikt huvudlösenord för valvfunktionerna.",
+        "backup": "Dina data finns bara på den här enheten—exportera eller säkerhetskopiera dem regelbundet så att du inte förlorar dem om enheten går sönder.",
+        "apiClient": "Behandla API Client som vilken HTTP-klient som helst: undvik att klistra in produktionshemligheter i delade miljöer om du inte vet vem som kan se dem.",
+        "nosql": "Database Explorer ansluter till databaser du konfigurerar; använd användare med minsta möjliga behörighet och nätverksregler där det går.",
+        "json": "JSON Formatter körs helt på din enhet—undvik ändå att klistra in mycket känsliga data på delade datorer.",
+        "settings": "Anpassa vilka verktyg som visas i Inställningar för att hålla sidofältet fokuserat."
       }
     }
   },

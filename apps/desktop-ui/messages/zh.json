@@ -80,68 +80,69 @@
   },
   "Help": {
     "title": "帮助与文档",
-    "subtitle": "了解 MyDevTools 的构成与数据保护方式",
+    "subtitle": "MyDevTools 如何离线运行，以及您的数据如何受到保护",
     "tabs": {
       "overview": "概览",
       "apps": "应用",
       "security": "安全",
-      "tips": "提示"
+      "tips": "使用技巧"
     },
     "overview": {
       "whatIs": {
         "title": "什么是 MyDevTools？",
-        "description": "一个可登录的开发者工作区：包含控制台与日常工具集合。",
-        "p1": "登录后，应用会与 MyDevTools API 建立会话，让工具能够加载与保存你的数据。侧边栏列出所有应用；你可以在",
+        "description": "一个离线的开发者工作空间：包含一个仪表盘和 80 多款完全在您设备上运行的工具。",
+        "p1": "MyDevTools 完全离线运行。在浏览器中完成一次性激活后，一切都在本设备上运行，无需登录账户，也无需联网。侧边栏列出了每一款应用；您可以在",
         "settingsLink": "设置",
-        "p1After": "中隐藏不常用的工具。",
-        "p2": "部分功能使用 <strong>主密码</strong>（或全局保险库密钥），使密码、数据库连接串等敏感信息在到达服务器前先在你的设备上完成加密。"
+        "p1After": "中隐藏您不使用的工具。",
+        "p2": "部分功能使用<strong>主密码</strong>（或全局保险库密钥），以便在您的设备上加密密码、数据库连接字符串等机密信息。您的数据存储在本地加密数据库中，绝不会发送到任何服务器。"
       },
       "quickLinks": {
-        "title": "快捷链接",
-        "dashboard": "控制台",
+        "title": "快速链接",
+        "dashboard": "仪表盘",
         "settings": "设置"
       }
     },
     "apps": {
-      "intro": "你可以从侧边栏或控制台打开任何工具。下面是每个应用的简要说明。",
+      "intro": "从侧边栏或仪表盘打开任意工具。以下是各款应用的简要指南。",
       "open": "打开",
-      "howItWorks": "工作方式",
-      "generic": "请从侧边栏使用该工具的专用工作流程。"
+      "howItWorks": "工作原理",
+      "generic": "从侧边栏使用此工具，体验其专属工作流程。"
     },
     "security": {
-      "session": {
-        "title": "登录与 API 会话",
-        "description": "身份与浏览器如何与后端通信。",
+      "access": {
+        "title": "激活与离线访问",
+        "description": "应用首次如何解锁，之后如何离线运行。",
         "items": {
-          "authentication": "<strong>认证</strong> 使用 Firebase 登录。登录后，应用会将 Firebase ID Token 交换为 API Cookie。",
-          "accessTokens": "<strong>访问令牌</strong> 为服务器签名的 JWT（HS256），用于证明调用 API 的用户身份。",
-          "refreshTokens": "<strong>刷新令牌</strong> 存放在 HttpOnly Cookie 中；服务器保存的是刷新令牌的 SHA-256 哈希值，而不是原始令牌。"
+          "activation": "首次打开应用时，会在您的浏览器中进行<strong>一次性激活</strong>。它会记录您的套餐并在本设备上解锁应用。",
+          "offline": "<strong>无需登录会话。</strong>激活后，无需每次会话登录，也没有定期重新校验——应用在无网络连接的情况下持续运行。",
+          "storage": "<strong>本地存储。</strong>您的所有数据都保存在设备上一个加密的 SQLCipher 数据库中，并由保存在您操作系统钥匙串中的随机密钥加密。"
         }
       },
       "encryption": {
-        "title": "你需要了解的加密",
-        "description": "保险库与敏感连接数据的客户端加密。",
-        "p1": "对于<strong>密码管理器</strong>、<strong>环境管理器</strong>以及 <strong>NoSQL Explorer</strong> 中保存的连接，Web 应用使用浏览器的 <strong>Web Crypto API</strong>：",
+        "title": "您应当了解的加密机制",
+        "description": "用于保险库和敏感连接数据的客户端加密。",
+        "p1": "对于<strong>密码管理器</strong>、<strong>环境变量管理器</strong>以及 <strong>NoSQL Explorer</strong> 保存的连接，应用使用 <strong>Web Crypto API</strong>：",
         "items": {
-          "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 次迭代与随机盐）从主密码派生 256 位密钥。",
-          "aes": "<strong>AES-256-GCM</strong> 加密数据；每次加密都会使用随机的 <strong>12 字节 IV</strong>。",
-          "scope": "派生密钥保留在浏览器中（不可导出）。服务器只接收 <strong>密文与 IV</strong>，不会接收主密码或明文秘密。"
+          "kdf": "使用 <strong>PBKDF2</strong> 搭配 <strong>SHA-256</strong>、<strong>600,000</strong> 次迭代和随机盐值，从您的主密码派生出一个 256-bit 密钥。",
+          "aes": "<strong>AES-256-GCM</strong> 加密数据载荷；每次加密都使用一个随机的 <strong>12-byte IV</strong>。",
+          "scope": "派生出的密钥留在应用内（不可导出），您的主密码绝不会离开您的设备。只有<strong>密文和 IVs</strong> 会写入本地数据库。"
         },
-        "warning": "如果你忘记主密码，加密数据将无法恢复。请妥善保管。"
+        "warning": "如果您忘记了主密码，加密数据将无法恢复。请妥善保管。"
       },
-      "logout": {
-        "title": "退出登录与本地数据",
-        "body": "退出登录会清除内存中的敏感信息、保险库相关状态，并在适用时从 IndexedDB 清除主密钥材料，同时结束 API 会话。仅保存在设备本地存储中的数据可能会保留，直到你在浏览器中清理。"
+      "local": {
+        "title": "锁定与本地数据",
+        "body": "锁定保险库会清除内存中的机密信息和主密钥材料；您的加密数据库会一直保留在磁盘上，直到您将其删除。这里没有退出登录——重置应用数据或删除应用才会清空所有内容，因此请自行备份任何重要资料。"
       }
     },
     "tips": {
-      "title": "安全使用 MyDevTools",
+      "title": "安全地使用 MyDevTools",
       "items": {
-        "masterPassword": "为保险库功能设置强且唯一的主密码。",
-        "apiClient": "将 API 客户端视为普通 HTTP 客户端：不了解可见范围时，避免在共享环境中粘贴生产密钥。",
-        "nosql": "数据库浏览器连接到你配置的数据库；尽量使用最小权限账号与网络规则。",
-        "json": "JSON 格式化在浏览器本地运行——在共享设备上仍应避免粘贴高度敏感数据。",
-        "settings": "在设置中自定义可见工具，让侧边栏更聚焦。"
+        "masterPassword": "为保险库功能设置一个强而唯一的主密码。",
+        "backup": "您的数据仅保存在本设备上——请定期导出或备份，以免设备故障时丢失。",
+        "apiClient": "将 API Client 视同任何 HTTP 客户端：除非您清楚谁能看到，否则请勿将生产环境的机密信息粘贴到共享环境中。",
+        "nosql": "Database Explorer 会连接到您配置的数据库；请尽量使用最小权限用户和网络规则。",
+        "json": "JSON Formatter 完全在您的设备上运行——但在共享机器上仍应避免粘贴高度敏感的数据。",
+        "settings": "在“设置”中自定义可见工具，让侧边栏保持简洁聚焦。"
       }
     }
   },
