@@ -191,7 +191,7 @@ export default function BookmarksManager() {
         <div className="flex h-full w-full overflow-hidden bg-background mobile-nav-offset">
             {/* Sidebar */}
             <AnimatePresence mode="wait">
-                {(showSidebar || !isMobile) && (
+                {showSidebar && (
                     <>
                         {/* Mobile backdrop overlay */}
                         {isMobile && (
@@ -228,16 +228,14 @@ export default function BookmarksManager() {
                                     >
                                         <IconFolderPlus className="h-4.5 w-4.5" />
                                     </Button>
-                                    {isMobile && (
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="h-8 w-8"
-                                            onClick={() => setShowSidebar(false)}
-                                        >
-                                            <IconX className="h-4 w-4" />
-                                        </Button>
-                                    )}
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-8 w-8"
+                                        onClick={() => setShowSidebar(false)}
+                                    >
+                                        <IconX className="h-4 w-4" />
+                                    </Button>
                                 </div>
                             </div>
 
@@ -288,8 +286,8 @@ export default function BookmarksManager() {
             <div className="flex-1 flex flex-col min-h-0 bg-background">
                 {/* Toolbar - Fixed height, not scrollable */}
                 <div className="shrink-0 h-16 px-4 border-b border-border/40 flex items-center gap-4 bg-background/80 backdrop-blur-md z-10">
-                    {/* Mobile Menu Button */}
-                    {isMobile && (
+                    {/* Sidebar Toggle — shows whenever sidebar collapsed */}
+                    {!showSidebar && (
                         <Button
                             variant="ghost"
                             size="icon"
