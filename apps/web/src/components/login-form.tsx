@@ -72,7 +72,7 @@ function WebLoginForm() {
     setLoadingProvider("passkey");
     setError("");
     const NO_PASSKEY_MSG =
-      "No passkey found for this site. Sign in with Google or GitHub first, then add a passkey from Settings → Security.";
+      "No passkey found for this site. Sign in with Google or GitHub first, then add a passkey from your Dashboard.";
     try {
       await signInWithPasskey();
       router.push(await handleInviteToken());

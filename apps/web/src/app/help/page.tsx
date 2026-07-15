@@ -150,7 +150,7 @@ export default function HelpPage() {
             <CardContent className="space-y-4 text-sm text-muted-foreground">
               <p>
                 {t('overview.whatIs.p1')}{' '}
-                <Link href="/settings" className="text-primary underline-offset-4 hover:underline">
+                <Link href="/login" className="text-primary underline-offset-4 hover:underline">
                   {t('overview.whatIs.settingsLink')}
                 </Link>
                 {t('overview.whatIs.p1After')}
@@ -170,13 +170,13 @@ export default function HelpPage() {
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               <Link
-                href="/dashboard"
+                href="/login"
                 className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
               >
                 {t('overview.quickLinks.dashboard')}
               </Link>
               <Link
-                href="/settings"
+                href="/login"
                 className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
               >
                 {t('overview.quickLinks.settings')}

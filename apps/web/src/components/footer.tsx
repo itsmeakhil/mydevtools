@@ -7,7 +7,7 @@ import { ArrowUp } from "lucide-react";
 import { Logo } from "./logo";
 
 const footerLinks = [
-  { href: "/dashboard", label: "Dashboard" },
+  { href: "/login", label: "Sign in" },
   { href: "/blog", label: "Blog" },
   { href: "/developer-tools", label: "Platform" },
   { href: "/features", label: "Features" },

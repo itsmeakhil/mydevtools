@@ -144,5 +144,30 @@
         "settings": "Personalizza gli strumenti visibili in Impostazioni per mantenere la barra laterale più pulita."
       }
     }
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "passkeysTitle": "Passkeys",
+    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
+    "passkeyNotSupported": "Your browser does not support passkeys.",
+    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
+    "addPasskey": "Add passkey",
+    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
+    "renamePrompt": "Rename this passkey",
+    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
+    "unnamedPasskey": "Unnamed passkey",
+    "backedUp": "Synced",
+    "added": "Added",
+    "lastUsed": "Last used",
+    "neverUsed": "Never used",
+    "rename": "Rename",
+    "delete": "Delete",
+    "passkeyAdded": "Passkey added",
+    "passkeyAddError": "Could not add passkey",
+    "passkeyRenamed": "Passkey renamed",
+    "passkeyRenameError": "Could not rename passkey",
+    "passkeyDeleted": "Passkey removed",
+    "passkeyDeleteError": "Could not remove passkey",
+    "passkeysLoadError": "Could not load passkeys"
   }
 }

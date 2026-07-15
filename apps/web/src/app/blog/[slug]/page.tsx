@@ -60,7 +60,7 @@ export default async function BlogPostPage({
 
   const relatedTool = post.toolSlug ? toolsMetadata[post.toolSlug] : null
   const toolUrl = post.toolSlug ? `/tools/${post.toolSlug}` : null
-  const appUrl = post.toolSlug ? `/app/${post.toolSlug}` : null
+  const appUrl = post.toolSlug ? '/login' : null
   const relatedPosts = blogPosts
     .filter((candidate) => candidate.slug !== post.slug)
     .map((candidate) => {
@@ -203,7 +203,7 @@ export default async function BlogPostPage({
               <div className="container mx-auto max-w-3xl px-4 md:px-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <p className="text-sm text-muted-foreground">
-                    Try the free online tool mentioned in this guide:
+                    Get the tool mentioned in this guide in the desktop app:
                     <span className="ml-1 font-medium text-foreground">{relatedTool.title}</span>
                   </p>
                   <div className="flex items-center gap-2 shrink-0">
@@ -211,7 +211,7 @@ export default async function BlogPostPage({
                       href={appUrl}
                       className="inline-flex items-center justify-center h-9 px-5 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 transition-all"
                     >
-                      Open tool
+                      Get the app
                       <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
                     </Link>
                     <Link
@@ -306,17 +306,17 @@ export default async function BlogPostPage({
             <div className="container mx-auto max-w-3xl px-4 md:px-6">
               <div className="rounded-2xl border border-border/50 bg-card/50 p-8 text-center">
                 <h2 className="text-xl md:text-2xl font-bold mb-2">
-                  Try {relatedTool.title} for free
+                  Get {relatedTool.title} in the desktop app
                 </h2>
                 <p className="text-muted-foreground mb-6 max-w-lg mx-auto text-sm">
-                  {relatedTool.description} No install, no account required to try it.
+                  {relatedTool.description} Runs fully offline in the MyDevTools desktop app.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <Link
                     href={appUrl}
                     className="inline-flex items-center justify-center h-11 px-7 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md transition-all hover:scale-[1.03] active:scale-[0.98]"
                   >
-                    Open {relatedTool.title}
+                    Get the desktop app
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                   <Link

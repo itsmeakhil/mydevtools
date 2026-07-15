@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
+import useAuth from "@/utils/useAuth";
 import { Logo } from "./logo";
 import { AnnouncementBanner } from "./announcement-banner";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,6 +51,13 @@ type HeaderProps = {
 export function Header({ showThemeToggle = true }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { user } = useAuth(false);
+  // Signed-in users go to the web dashboard (subscription/billing + passkeys);
+  // everyone else gets the sign-in CTA. Default to "Get Started" until auth
+  // resolves so SSR/first paint never flashes "Dashboard".
+  const cta = user
+    ? { href: "/dashboard", label: "Dashboard" }
+    : { href: "/login", label: "Get Started" };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -163,6 +171,12 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
               {showThemeToggle ? <ModeToggle /> : null}
+              <Link
+                href={cta.href}
+                className="mdt-btn-grad inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-medium"
+              >
+                {cta.label}
+              </Link>
             </div>
           </div>
         </div>
@@ -218,9 +232,25 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                     </motion.div>
                   ))}
 
+                  <motion.div
+                    custom={mobileNavLinks.length}
+                    variants={menuItemVariants}
+                    initial="closed"
+                    animate="open"
+                    className="pt-2 border-t border-border/40 mt-2"
+                  >
+                    <Link
+                      href={cta.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="mdt-btn-grad flex h-12 items-center justify-center rounded-xl px-4 text-base font-medium"
+                    >
+                      {cta.label}
+                    </Link>
+                  </motion.div>
+
                   {showThemeToggle ? (
                     <motion.div
-                      custom={mobileNavLinks.length}
+                      custom={mobileNavLinks.length + 1}
                       variants={menuItemVariants}
                       initial="closed"
                       animate="open"

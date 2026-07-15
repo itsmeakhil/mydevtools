@@ -196,38 +196,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
       'MyDevTools gives you a free tier to start, with paid plans that unlock unlimited cloud usage, sync, and team features.',
     primaryCta: { href: '/login', label: 'Start with cloud' },
     secondaryCta: { href: '/features', label: 'See features' },
-    sections: [
-      {
-        title: 'Free',
-        body:
-          'Use the core developer tools with capped cloud usage — no card required.',
-        bullets: [
-          '$0 forever — no card required.',
-          'All core developer tools included.',
-          'Capped cloud usage to try before you buy.',
-        ],
-      },
-      {
-        title: 'Pro & Team',
-        body:
-          'Managed cloud for developers who would rather not run infrastructure. Pro is $9/mo per developer; Team is $15/mo per user.',
-        bullets: [
-          'Pro: unlimited cloud usage, cross-device sync, private history.',
-          'Team: shared workspace, roles, and centralized billing.',
-          'Annual billing saves roughly two months.',
-        ],
-      },
-      {
-        title: 'Enterprise',
-        body:
-          'Custom plans for organizations that need SSO, compliance, and support at scale.',
-        bullets: [
-          'SSO / SAML, audit logs, and a security review.',
-          'Dedicated support SLA.',
-          'Dedicated onboarding — contact support@mydevtools.tech.',
-        ],
-      },
-    ],
+    sections: [],
   },
   {
     slug: 'use-cases',

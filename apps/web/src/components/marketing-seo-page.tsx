@@ -127,6 +127,7 @@ export function MarketingSeoPage({
 
         {children}
 
+        {page.sections.length > 0 && (
         <section className="border-y border-border/40 bg-muted/20 py-14 md:py-20">
           <div className="container mx-auto grid max-w-6xl gap-5 px-4 md:grid-cols-3 md:px-6">
             {page.sections.map((section) => (
@@ -151,6 +152,7 @@ export function MarketingSeoPage({
             ))}
           </div>
         </section>
+        )}
 
         <section className="py-14 md:py-20">
           <div className="container mx-auto max-w-6xl px-4 md:px-6">

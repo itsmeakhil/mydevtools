@@ -49,8 +49,9 @@ export function buildToolRichDescription(slug: string, tool: ToolMetadataEntry):
 export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unknown> | null {
   const tool = toolsMetadata[slug]
   if (!tool) return null
-  const appUrl = `${baseUrl}/app/${slug}`
   const landingUrl = `${baseUrl}/tools/${slug}`
+  // App is desktop-only — point JSON-LD at the public tool page, not a dead web /app route.
+  const appUrl = landingUrl
   const appId = `${landingUrl}#software`
   const breadcrumbId = `${landingUrl}#breadcrumb`
   const howToId = `${landingUrl}#howto`

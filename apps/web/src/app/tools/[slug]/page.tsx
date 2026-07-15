@@ -64,7 +64,8 @@ export default async function ToolLandingPage({
   const tool = toolsMetadata[slug]
   if (!tool) notFound()
 
-  const appUrl = `/app/${slug}`
+  // App is desktop-only now — CTAs route to /login (browser activation), not a web /app route.
+  const appUrl = '/login'
   const category = toolCategoryMap[slug] ?? 'Developer Tools'
   const related = getRelatedTools(slug, 8)
   const comparisons = getComparisonPagesForTool(slug)
@@ -123,7 +124,7 @@ export default async function ToolLandingPage({
                 href={appUrl}
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
               >
-                Use {tool.title}
+                Get the desktop app
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link
@@ -150,11 +151,11 @@ export default async function ToolLandingPage({
                   Common {tool.title} use cases
                 </h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  Use {tool.title} when you need a fast, browser-based way to work
+                  Use {tool.title} when you need a fast, dedicated way to work
                   with {primaryKeyword}. It is useful during API debugging, code
                   reviews, documentation cleanup, test data preparation, and quick
-                  checks on a new machine where you do not want to install a desktop
-                  app. Because MyDevTools keeps related utilities together, you can
+                  checks. Because MyDevTools keeps related utilities together in one
+                  offline desktop app, you can
                   move from {tool.title} into nearby tools like formatters,
                   converters, generators, encoders, decoders, and API helpers
                   without leaving the same toolkit.
@@ -261,7 +262,7 @@ export default async function ToolLandingPage({
                 href={appUrl}
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
               >
-                Open {tool.title}
+                Get the desktop app
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Link>
             </div>
