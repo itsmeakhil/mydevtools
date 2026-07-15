@@ -1,9 +1,13 @@
 name: Release Desktop App
 
 on:
+  # Cut a release by pushing/merging to the `release` branch. The version comes
+  # from apps/desktop/src-tauri/tauri.conf.json — bump it before each release, or
+  # the build fails trying to re-create an existing tag. Every push here runs a
+  # full macOS build (~200 billed Actions minutes), so promote to `release`
+  # deliberately, not casually.
   push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+    branches: [release]
 
 jobs:
   build-and-release:
@@ -74,8 +78,10 @@ jobs:
           NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
         with:
           projectPath: apps/desktop
-          tagName: ${{ github.ref_name }}
-          releaseName: MyDevTools ${{ github.ref_name }}
+          # __VERSION__ is replaced by tauri-action with the version from
+          # tauri.conf.json, so the release/tag is v<version> (e.g. v0.1.0).
+          tagName: v__VERSION__
+          releaseName: MyDevTools v__VERSION__
           releaseBody: |
             See [CHANGELOG](https://github.com/itsmeakhil/mydevtools/blob/main/CHANGELOG.md) for details.
           releaseDraft: false
