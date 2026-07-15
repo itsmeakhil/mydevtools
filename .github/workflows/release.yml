@@ -34,7 +34,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          # no 'cache: pnpm' — pnpm-lock.yaml is gitignored in this repo, so it
+          # isn't present on the runner for the cache action to hash.
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
