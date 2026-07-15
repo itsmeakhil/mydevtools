@@ -23,6 +23,8 @@ interface ResponsiveModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   children: React.ReactNode
+  /** Extra classes for the desktop DialogContent (e.g. width override). */
+  className?: string
 }
 
 /**
@@ -30,7 +32,7 @@ interface ResponsiveModalProps {
  * Use the sub-components (ResponsiveModalHeader, etc.) for consistent layout
  * across both variants.
  */
-function ResponsiveModal({ open, onOpenChange, children }: ResponsiveModalProps) {
+function ResponsiveModal({ open, onOpenChange, children, className }: ResponsiveModalProps) {
   const isMobile = useIsMobile()
 
   if (isMobile) {
@@ -43,7 +45,7 @@ function ResponsiveModal({ open, onOpenChange, children }: ResponsiveModalProps)
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>{children}</DialogContent>
+      <DialogContent className={className}>{children}</DialogContent>
     </Dialog>
   )
 }

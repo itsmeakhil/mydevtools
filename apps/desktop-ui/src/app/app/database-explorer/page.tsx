@@ -824,7 +824,7 @@ export default function NoSQLExplorerPage() {
                 </div>
             </div>
 
-            <ResponsiveModal open={isConnectionDialogOpen} onOpenChange={setIsConnectionDialogOpen}>
+            <ResponsiveModal open={isConnectionDialogOpen} onOpenChange={setIsConnectionDialogOpen} className="sm:max-w-3xl">
                 <ResponsiveModalHeader>
                     <ResponsiveModalTitle>{t("dialogAddConnection")}</ResponsiveModalTitle>
                 </ResponsiveModalHeader>

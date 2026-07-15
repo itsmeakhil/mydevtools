@@ -157,8 +157,8 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     };
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-1 max-h-[70vh] overflow-hidden">
-            <div className="space-y-6 overflow-y-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-1 md:max-h-[70vh] md:overflow-hidden">
+            <div className="space-y-6 md:min-h-0 md:overflow-y-auto">
                 <div className="space-y-2">
                     <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
                         <IconBrandMongodb className="w-8 h-8 text-green-500" />
