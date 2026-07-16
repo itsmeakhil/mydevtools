@@ -19,12 +19,12 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { Check, Copy, FileCode, ImageDown, Trash2 } from 'lucide-react'
+import { Check, Copy, FileCode, ImageDown, Trash2, Wand2 } from 'lucide-react'
 import { IconPhotoCode } from '@tabler/icons-react'
 import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { RevealItem } from '@/components/dashboard/dashboard-reveal'
 import { CATEGORY_ACCENT } from '@/components/dashboard/types'
-import { BACKGROUNDS, LANGUAGES, highlightCode } from '@/lib/code-screenshot'
+import { BACKGROUNDS, LANGUAGES, canFormat, formatCode, highlightCode } from '@/lib/code-screenshot'
 
 /**
  * highlight.js theme scoped under .cshot-code so it can never bleed into the
@@ -106,6 +106,18 @@ export function CodeScreenshotLayout() {
   }, [])
 
   const highlighted = useMemo(() => highlightCode(code, lang), [code, lang])
+  const effectiveLang = lang === 'auto' ? highlighted.language : lang
+  const formatSupported = canFormat(effectiveLang)
+
+  const formatSource = useCallback(async () => {
+    const res = await formatCode(code, effectiveLang)
+    if (res.error) {
+      toast.error(t('formatFailed'))
+      return
+    }
+    setCode(res.output)
+  }, [code, effectiveLang, t])
+
   const background = BACKGROUNDS.find((b) => b.id === backgroundId) ?? BACKGROUNDS[0]
   const isDarkWindow = windowTheme === 'dark'
 
@@ -301,16 +313,29 @@ export function CodeScreenshotLayout() {
                 </span>
               ) : null}
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7"
-              onClick={() => setCode('')}
-              disabled={!code}
-              title={t('clear')}
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-            </Button>
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 gap-1.5 px-2 text-xs"
+                onClick={formatSource}
+                disabled={!code || !formatSupported}
+                title={formatSupported ? t('format') : t('formatUnsupported')}
+              >
+                <Wand2 className="h-3.5 w-3.5" />
+                {t('format')}
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                onClick={() => setCode('')}
+                disabled={!code}
+                title={t('clear')}
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            </div>
           </div>
           <div className="relative min-h-[160px] flex-1">
             <textarea

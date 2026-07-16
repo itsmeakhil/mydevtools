@@ -1,4 +1,11 @@
-import { BACKGROUNDS, LANGUAGES, escapeHtml, highlightCode } from '@/lib/code-screenshot';
+import {
+  BACKGROUNDS,
+  LANGUAGES,
+  canFormat,
+  escapeHtml,
+  formatCode,
+  highlightCode,
+} from '@/lib/code-screenshot';
 
 describe('highlightCode', () => {
   it('returns empty html for empty input', () => {
@@ -56,6 +63,50 @@ describe('escapeHtml', () => {
 
   it('leaves plain text untouched', () => {
     expect(escapeHtml('hello world 123')).toBe('hello world 123');
+  });
+});
+
+describe('formatCode', () => {
+  it('reports which languages are formattable', () => {
+    for (const l of ['javascript', 'typescript', 'json', 'css', 'xml', 'sql']) {
+      expect(canFormat(l)).toBe(true);
+    }
+    for (const l of ['python', 'rust', 'plaintext', 'auto']) {
+      expect(canFormat(l)).toBe(false);
+    }
+  });
+
+  it('formats minified JSON', async () => {
+    const res = await formatCode('{"a":1,"b":[2,3]}', 'json');
+    expect(res.error).toBeNull();
+    expect(res.output).toBe('{\n  "a": 1,\n  "b": [\n    2,\n    3\n  ]\n}');
+  });
+
+  it('formats JavaScript and SQL', async () => {
+    const js = await formatCode('function f(){return 1;}', 'javascript');
+    expect(js.error).toBeNull();
+    expect(js.output).toContain('\n');
+
+    const sql = await formatCode('select id,name from users where id=1', 'sql');
+    expect(sql.error).toBeNull();
+    expect(sql.output.toLowerCase()).toContain('select');
+    expect(sql.output).toContain('\n');
+  });
+
+  it('returns input unchanged with error for unsupported language', async () => {
+    const res = await formatCode('print("hi")', 'python');
+    expect(res.output).toBe('print("hi")');
+    expect(res.error).toBeTruthy();
+  });
+
+  it('returns input unchanged with error for invalid JSON', async () => {
+    const res = await formatCode('{oops', 'json');
+    expect(res.output).toBe('{oops');
+    expect(res.error).toBeTruthy();
+  });
+
+  it('passes empty input through', async () => {
+    expect(await formatCode('  ', 'json')).toEqual({ output: '  ', error: null });
   });
 });
 

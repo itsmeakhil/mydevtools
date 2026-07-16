@@ -384,9 +384,7 @@ export function FaviconGeneratorLayout() {
 
             <Card className="p-4">
               <div className="mb-2 flex items-center justify-between">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  site.webmanifest
-                </h3>
+                <h3 className="font-mono text-xs font-semibold text-muted-foreground">site.webmanifest</h3>
                 <Button size="sm" variant="secondary" onClick={() => copySnippet('manifest', manifestSnippet)}>
                   {copiedKey === 'manifest' ? (
                     <Check className="mr-1.5 h-4 w-4 text-emerald-600" />
