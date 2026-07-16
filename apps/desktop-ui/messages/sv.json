@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Anteckningsnavigering",
-      "openMenuAria": "Öppna anteckningsmeny"
+      "openMenuAria": "Öppna anteckningsmeny",
+      "showSidebarAria": "Visa sidopanel"
     },
     "sidebar": {
       "title": "Anteckningar",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Är du säker på att du vill ta bort \"{title}\"? Denna åtgärd kan inte ångras.",
       "cancel": "Avbryt",
       "confirmDelete": "Ta bort",
-      "noteOptionsAria": "Anteckningsalternativ"
+      "noteOptionsAria": "Anteckningsalternativ",
+      "hideSidebarAria": "Dölj sidopanel"
     },
     "editor": {
       "emptyState": "Välj en anteckning eller skapa en ny för att komma igång.",
@@ -934,7 +936,8 @@
       "loading": "Laddar…",
       "searchHint": "för att söka",
       "focusHint": "fokusläge",
-      "notePath": "Anteckningssökväg"
+      "notePath": "Anteckningssökväg",
+      "export": "Exportera"
     },
     "context": {
       "authRequiredError": "Användaren är inte autentiserad",

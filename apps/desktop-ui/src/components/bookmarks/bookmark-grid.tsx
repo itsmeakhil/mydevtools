@@ -3,7 +3,8 @@
 import { Bookmark } from "@/store/bookmark-store"
 import BookmarkCard from "./bookmark-card"
 import { motion } from "framer-motion"
-import { IconBookmarkOff } from "@tabler/icons-react"
+import { IconBookmarkOff, IconPlus, IconUpload } from "@tabler/icons-react"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useIsMobile } from "@/components/hooks/use-mobile"
@@ -16,6 +17,8 @@ interface BookmarkGridProps {
     selectedBookmarkIds: Set<string>
     onToggleSelect: (id: string) => void
     onTagClick?: (tag: string) => void
+    onAdd?: () => void
+    onImport?: () => void
 }
 
 export default function BookmarkGrid({
@@ -26,8 +29,11 @@ export default function BookmarkGrid({
     selectedBookmarkIds,
     onToggleSelect,
     onTagClick,
+    onAdd,
+    onImport,
 }: BookmarkGridProps) {
     const tEmpty = useTranslations("Bookmarks.grid")
+    const tManager = useTranslations("Bookmarks.manager")
     const isMobile = useIsMobile()
 
     if (bookmarks.length === 0) {
@@ -44,6 +50,22 @@ export default function BookmarkGrid({
                 <p className="text-sm text-muted-foreground max-w-sm">
                     {tEmpty("emptyDescription")}
                 </p>
+                {(onAdd || onImport) && (
+                    <div className="mt-6 flex items-center gap-2">
+                        {onAdd && (
+                            <Button onClick={onAdd}>
+                                <IconPlus className="h-4 w-4 mr-2" />
+                                {tManager("addBookmark")}
+                            </Button>
+                        )}
+                        {onImport && (
+                            <Button variant="outline" onClick={onImport}>
+                                <IconUpload className="h-4 w-4 mr-2" />
+                                {tManager("import")}
+                            </Button>
+                        )}
+                    </div>
+                )}
             </motion.div>
         )
     }

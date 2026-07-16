@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "메모 내비게이션",
-      "openMenuAria": "메모 메뉴 열기"
+      "openMenuAria": "메모 메뉴 열기",
+      "showSidebarAria": "사이드바 표시"
     },
     "sidebar": {
       "title": "메모",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "\"{title}\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
       "cancel": "취소",
       "confirmDelete": "삭제",
-      "noteOptionsAria": "메모 옵션"
+      "noteOptionsAria": "메모 옵션",
+      "hideSidebarAria": "사이드바 숨기기"
     },
     "editor": {
       "emptyState": "메모를 선택하거나 새로 만들어 시작하세요.",
@@ -934,7 +936,8 @@
       "loading": "불러오는 중…",
       "searchHint": "검색하려면",
       "focusHint": "집중 모드",
-      "notePath": "노트 경로"
+      "notePath": "노트 경로",
+      "export": "내보내기"
     },
     "context": {
       "authRequiredError": "사용자가 인증되지 않았습니다",

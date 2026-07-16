@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Noter Navigation",
-      "openMenuAria": "Åbn notemenuen"
+      "openMenuAria": "Åbn notemenuen",
+      "showSidebarAria": "Vis sidepanel"
     },
     "sidebar": {
       "title": "Noter",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Er du sikker på, at du vil slette \"{title}\"? Denne handling kan ikke fortrydes.",
       "cancel": "Ophæve",
       "confirmDelete": "Slet",
-      "noteOptionsAria": "Bemærk muligheder"
+      "noteOptionsAria": "Bemærk muligheder",
+      "hideSidebarAria": "Skjul sidepanel"
     },
     "editor": {
       "emptyState": "Vælg en note, eller opret en ny for at komme i gang.",
@@ -934,7 +936,8 @@
       "loading": "Indlæser…",
       "searchHint": "for at søge",
       "focusHint": "fokustilstand",
-      "notePath": "Notesti"
+      "notePath": "Notesti",
+      "export": "Eksportér"
     },
     "context": {
       "authRequiredError": "Brugeren er ikke godkendt",

@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "ノートナビゲーション",
-      "openMenuAria": "ノートメニューを開く"
+      "openMenuAria": "ノートメニューを開く",
+      "showSidebarAria": "サイドバーを表示"
     },
     "sidebar": {
       "title": "ノート",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "「{title}」を削除してもよろしいですか？この操作は取り消せません。",
       "cancel": "キャンセル",
       "confirmDelete": "削除",
-      "noteOptionsAria": "ノートオプション"
+      "noteOptionsAria": "ノートオプション",
+      "hideSidebarAria": "サイドバーを非表示"
     },
     "editor": {
       "emptyState": "ノートを選択するか、新しいノートを作成してください。",
@@ -934,7 +936,8 @@
       "loading": "読み込み中…",
       "searchHint": "で検索",
       "focusHint": "集中モード",
-      "notePath": "ノートのパス"
+      "notePath": "ノートのパス",
+      "export": "エクスポート"
     },
     "context": {
       "authRequiredError": "ユーザーが認証されていません",

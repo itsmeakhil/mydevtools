@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notlar Gezintisi",
-      "openMenuAria": "Not menüsünü aç"
+      "openMenuAria": "Not menüsünü aç",
+      "showSidebarAria": "Kenar çubuğunu göster"
     },
     "sidebar": {
       "title": "Notlar",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "\"{title}\" notunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
       "cancel": "İptal",
       "confirmDelete": "Sil",
-      "noteOptionsAria": "Not seçenekleri"
+      "noteOptionsAria": "Not seçenekleri",
+      "hideSidebarAria": "Kenar çubuğunu gizle"
     },
     "editor": {
       "emptyState": "Başlamak için bir not seçin veya yeni bir not oluşturun.",
@@ -934,7 +936,8 @@
       "loading": "Yükleniyor…",
       "searchHint": "aramak için",
       "focusHint": "odak modu",
-      "notePath": "Not yolu"
+      "notePath": "Not yolu",
+      "export": "Dışa aktar"
     },
     "context": {
       "authRequiredError": "Kullanıcı kimliği doğrulanmadı",

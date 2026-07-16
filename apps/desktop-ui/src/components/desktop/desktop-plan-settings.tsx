@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { isDesktop } from '@/lib/desktop/is-desktop'
 import type { ActivationRecord } from '@/lib/desktop/activation'
+import { DesktopUpdateDialog } from './desktop-update-dialog'
 
 /** Settings card: locally-stored plan summary + link to the web plan page. */
 export function DesktopPlanSettings() {
@@ -58,11 +59,12 @@ export function DesktopPlanSettings() {
           {grantedAt ? ` · ${t('grantedOn')} ${grantedAt}` : ''}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex items-center justify-between gap-4">
         <Button variant="outline" size="sm" onClick={() => void openPlanPage()}>
           <ExternalLink className="mr-2 h-4 w-4" />
           {t('manage')}
         </Button>
+        <DesktopUpdateDialog />
       </CardContent>
     </Card>
   )

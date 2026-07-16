@@ -918,7 +918,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notes Navigation",
-      "openMenuAria": "Open notes menu"
+      "openMenuAria": "Open notes menu",
+      "showSidebarAria": "Show sidebar"
     },
     "sidebar": {
       "title": "Notes",
@@ -935,7 +936,8 @@
       "deleteConfirmDescription": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
       "cancel": "Cancel",
       "confirmDelete": "Delete",
-      "noteOptionsAria": "Note options"
+      "noteOptionsAria": "Note options",
+      "hideSidebarAria": "Hide sidebar"
     },
     "editor": {
       "emptyState": "Select a note or create a new one to get started.",
@@ -958,7 +960,8 @@
       "loading": "Loading…",
       "searchHint": "to search",
       "focusHint": "focus mode",
-      "notePath": "Note path"
+      "notePath": "Note path",
+      "export": "Export"
     },
     "context": {
       "authRequiredError": "User not authenticated",

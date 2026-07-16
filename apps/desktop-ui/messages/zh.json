@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "笔记导航",
-      "openMenuAria": "打开笔记菜单"
+      "openMenuAria": "打开笔记菜单",
+      "showSidebarAria": "显示侧边栏"
     },
     "sidebar": {
       "title": "笔记",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "确定要删除「{title}」吗？此操作无法撤销。",
       "cancel": "取消",
       "confirmDelete": "删除",
-      "noteOptionsAria": "笔记选项"
+      "noteOptionsAria": "笔记选项",
+      "hideSidebarAria": "隐藏侧边栏"
     },
     "editor": {
       "emptyState": "选择一篇笔记或新建一篇以开始。",
@@ -934,7 +936,8 @@
       "loading": "加载中…",
       "searchHint": "以搜索",
       "focusHint": "专注模式",
-      "notePath": "笔记路径"
+      "notePath": "笔记路径",
+      "export": "导出"
     },
     "context": {
       "authRequiredError": "用户未登录",

@@ -29,6 +29,7 @@ import {
     ArrowUpDown,
     NotebookPen,
     FileText,
+    PanelLeftClose,
     ArrowUp,
     ArrowDown,
 } from "lucide-react";
@@ -268,7 +269,7 @@ NoteItem.displayName = "NoteItem";
 export default function NotesSidebar() {
     const t = useTranslations("Notes.sidebar");
     const { notes, noteById, isLoading } = useNotesData();
-    const { activeNoteId } = useNotesUI();
+    const { activeNoteId, setSidebarOpen } = useNotesUI();
     const { createNote, deleteNote, moveNote } = useNotesActions();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [noteToMove, setNoteToMove] = useState<Note | null>(null);
@@ -434,6 +435,17 @@ export default function NotesSidebar() {
                                 aria-label={t("createNoteAria")}
                             >
                                 <Plus className="h-4 w-4" />
+                            </Button>
+                            {/* Collapse — desktop only; on mobile the sidebar lives in a Sheet */}
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => setSidebarOpen(false)}
+                                className="h-8 w-8 cursor-pointer hidden md:inline-flex"
+                                aria-label={t("hideSidebarAria")}
+                                title={t("hideSidebarAria")}
+                            >
+                                <PanelLeftClose className="h-4 w-4" />
                             </Button>
                         </div>
                     </div>

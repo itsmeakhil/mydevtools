@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Navegação de Notas",
-      "openMenuAria": "Abrir menu de notas"
+      "openMenuAria": "Abrir menu de notas",
+      "showSidebarAria": "Mostrar barra lateral"
     },
     "sidebar": {
       "title": "Notas",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Tem certeza de que deseja excluir \"{title}\"? Esta ação não pode ser desfeita.",
       "cancel": "Cancelar",
       "confirmDelete": "Excluir",
-      "noteOptionsAria": "Opções da nota"
+      "noteOptionsAria": "Opções da nota",
+      "hideSidebarAria": "Ocultar barra lateral"
     },
     "editor": {
       "emptyState": "Selecione uma nota ou crie uma nova para começar.",
@@ -934,7 +936,8 @@
       "loading": "Carregando…",
       "searchHint": "para pesquisar",
       "focusHint": "modo foco",
-      "notePath": "Caminho da nota"
+      "notePath": "Caminho da nota",
+      "export": "Exportar"
     },
     "context": {
       "authRequiredError": "Usuário não autenticado",
