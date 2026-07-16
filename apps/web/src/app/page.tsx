@@ -31,7 +31,9 @@ import {
   Users,
   Building2,
   Check,
+  Download as DownloadIcon,
 } from "lucide-react";
+import { AppleGlyph, DMG_URL } from "@/components/download-desktop-button";
 import { sidebarData } from "@/components/sidebar/data/sidebar-data";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
 import MdtAurora from "@/components/mdt-aurora";
@@ -352,32 +354,27 @@ export default function Page() {
               className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2"
             >
               <Magnetic strength={0.4} className="w-full sm:w-auto">
-                <button
-                  onClick={goToLogin}
-                  className="mdt-btn-grad inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium w-full sm:w-auto"
+                <a
+                  href={DMG_URL}
+                  download
+                  className="mdt-btn-grad inline-flex items-center justify-center gap-2 h-12 px-8 rounded-full text-sm font-medium w-full sm:w-auto"
                 >
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </button>
+                  <AppleGlyph className="h-4 w-4" />
+                  Download for macOS
+                  <DownloadIcon className="h-4 w-4 opacity-80" />
+                </a>
               </Magnetic>
-              <Link
-                href="/developer-tools"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium border border-border/60 dark:border-white/10 bg-background/50 backdrop-blur-md text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
-              >
-                Explore Platform
-              </Link>
             </motion.div>
 
             {/* Stats row */}
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, delay: 0.32 }}
-              className="mt-7 mx-auto grid max-w-lg grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0b12]/80 backdrop-blur-md divide-x divide-white/10 shadow-xl shadow-black/40"
+              className="mt-7 mx-auto grid max-w-lg grid-cols-2 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0b12]/80 backdrop-blur-md divide-x divide-white/10 shadow-xl shadow-black/40"
             >
               {[
                 { value: "80+", label: "Built-in Tools" },
                 { value: "AES-256", label: "Encrypted Sync" },
-                { value: "Free", label: "To Get Started" },
               ].map((s, i) => (
                 <div key={i} className="px-2 py-4 text-center">
                   <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap mdt-grad-text">
