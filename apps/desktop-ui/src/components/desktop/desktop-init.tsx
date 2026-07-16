@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { isDesktop } from "@/lib/desktop/is-desktop";
 
@@ -36,18 +35,18 @@ export function DesktopInit() {
       await initDeepLinkListener().catch(() => {});
       await checkRemoteSession().catch(() => {});
     })();
-    // Fire-and-forget update check — nudge the user if a newer build exists.
+    // Fully silent auto-update: on launch, if a newer signed build exists,
+    // download + install it and relaunch into it — no prompt, no button. The
+    // update is verified against the baked-in pubkey and the local database is
+    // never touched. Offline / mid-download failures stay silent and retry next
+    // launch.
     void import("@/lib/desktop/updater").then(async ({ checkForUpdate, installUpdate }) => {
       try {
         const update = await checkForUpdate();
         if (!update) return;
-        toast(`Update available — version ${update.version}`, {
-          description: "Installs in place; your offline data isn't affected.",
-          duration: 12_000,
-          action: { label: "Update now", onClick: () => void installUpdate() },
-        });
+        await installUpdate();
       } catch {
-        // offline or endpoint unreachable — silent
+        // offline, endpoint unreachable, or install interrupted — retry next launch
       }
     });
   }, []);
