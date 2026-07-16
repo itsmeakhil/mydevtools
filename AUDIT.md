@@ -1,10 +1,10 @@
 # MyDevTools — UI/UX & Performance Audit
 
-_Date: 2026-07-16 · Auditor: automated senior-frontend audit (Claude Code) · Status: DRAFT — measurements in progress_
+_Date: 2026-07-16 · Auditor: automated senior-frontend audit (Claude Code)_
 
 ## If you do only three things this week
 
-(placeholder — filled after Phase 3)
+Merge the three reference PRs. **(1)** `audit/pr1-web-lcp`: the marketing home held its hero invisible behind a framer-motion `initial="hidden"` fade and a ~4 s CRT boot overlay on every hard load — mobile LCP was 9.3 s; painting the hero at first paint (CSS, transform-only on LCP elements) and playing the boot overlay once per browser cuts it to 5.2 s (−44 %), and the remaining gap is the 391 KB client-JS chain (findings #4/#6). **(2)** `audit/pr2-monaco-selfhost`: every Monaco editor tool silently downloaded ~4–5 MB from cdn.jsdelivr.net at runtime (14 requests) — broken offline and a third-party call the product's privacy story says doesn't exist; self-hosting the already-installed `monaco-editor` package takes it to 0 with no First-Load change. **(3)** `audit/pr3-favicon-privacy`: bookmarks and the password manager sent the domain of every stored entry to Google/DuckDuckGo favicon services; the fetch is now disabled (existing letter-avatar fallbacks take over) with a guard test so it can't quietly return.
 
 ---
 
@@ -161,11 +161,56 @@ The issues are the un-migrated tail, not the core:
 
 ## 7. Reference PRs
 
-(placeholder)
+All three branch off `main` (`97ec0984`), independently mergeable. Before = fresh `main` build, after = branch build, identical commands (Appendix A), Turbopack both sides.
+
+### PR1 — `audit/pr1-web-lcp` (2 commits)
+
+**Change**: `apps/web` — hero entrance converted from framer-motion `initial="hidden"` to CSS animation (`.hero-fade`), with the two LCP elements (h1, subtitle) animating **transform only** (`.hero-slide`); `MdtBoot` CRT overlay now plays once per browser (localStorage flag set on completion — StrictMode-safe — plus an inline script that hides the SSR overlay at parse time on return visits). Files: `src/app/page.tsx`, `src/app/globals.css`, `src/components/mdt-boot.tsx`.
+
+**Why transform-only**: measured, not guessed — an opacity ramp is composited, so the browser records the text's paint-timing entry only when the main thread repaints after hydration; with opacity animation the LCP stayed ~6 s even though the filmstrip showed the hero visually complete at 1.3 s.
+
+| Page (mobile, median of 3) | LCP before | LCP after | Perf before | Perf after |
+|---|---|---|---|---|
+| `/` | 9 309 ms | **5 182 ms (−44 %)** | 72 | 77 |
+| `/pricing` (not touched by this PR) | 6 010 ms | 5 263 ms | 76 | 78 |
+| `/` desktop | 1 272 ms | 921 ms | 91 | 93 |
+
+Isolation experiments (single runs, recorded): boot overlay ≈ −400 ms, fonts ≈ −400 ms; the remaining ~4–5 s is the 391 KB gz client-JS chain of the fully-client landing page — that ceiling belongs to findings #4/#6, not to animation. Follow-up: `/pricing`'s own hero (via `marketing-seo-page`) has the same `initial="hidden"` pattern and deserves the same treatment.
+
+**No new egress**: third-party host set identical before/after (LH `network-requests`; only per-run Clarity subdomain shuffle). **Nothing broke**: build green; CLS unchanged (0.017); a11y 100 before and after; below-fold scroll animations retained.
+
+### PR2 — `audit/pr2-monaco-selfhost` (1 commit)
+
+**Change**: `apps/desktop-ui` — new `src/components/lazy/monaco.ts` bundles the local `monaco-editor@0.53` via `loader.config({ monaco })` + local language workers (`new URL(..., import.meta.url)`); all 5 dynamic-import sites (`LazyMonaco`, `ui/code-editor`, `format-converter`, `snippet-manager`, `json-schema-generator`) route through it. Monaco stays lazily loaded exactly as before.
+
+**Measurement** (scripted headless probe, Appendix A — activation/auth lab-bypassed via stubbed Tauri bridge + seeded Firebase persistence, identitytoolkit blocked):
+
+| Opening `/app/format-converter` until editor mounts | before (main) | after (PR2) |
+|---|---|---|
+| Requests to `cdn.jsdelivr.net` | **14** | **0** |
+| `.monaco-editor` mounts | yes | yes |
+| First Load JS (uuid-generator / format-converter / snippet-manager) | 572.4 / 610.8 / 591.1 KB gz | 572.4 / 610.9 / 591.3 KB gz |
+
+**Nothing broke**: `tsc --noEmit` clean; jest 99/100 suites green (the failing suite is the pre-existing `react-window` one — fails identically on `main`). Editor tools now work with no network at all.
+
+### PR3 — `audit/pr3-favicon-privacy` (1 commit)
+
+**Change**: `apps/desktop-ui` — `useFaviconSrc` (`src/lib/desktop/use-favicon.ts`) no longer resolves Google/DuckDuckGo favicon-service URLs; it returns `null` and every caller (bookmark cards, password-manager cards/list/swipeable rows) renders its existing local letter-avatar fallback. Guard test `src/components/__tests__/favicon-img.test.tsx` fails if the remote fetch is reintroduced without an explicit opt-in.
+
+**Measurement**: outbound favicon-service requests per rendered bookmark/password entry: N → **0** (the sole code path that produced `www.google.com/s2/favicons` / `icons.duckduckgo.com` URLs into `<img>` is severed at its single choke point; verified by test + grep — no other consumer of `getFaviconUrl` bypasses `useFaviconSrc`/`FaviconImg`). **Nothing broke**: `tsc` clean, build green, guard test passes. Visual change only: letter avatars instead of fetched icons; re-adding icons later should be an off-by-default setting.
 
 ## 8. Backlog & rejected ideas
 
-(placeholder)
+**Recommended next (evidence in §5)**: web SSG restoration (#4 — the audit's biggest structural web win; M effort because of cookie-locale; marketing is English-only per project docs, so public routes can prerender `en`); desktop-ui i18n payload split (#5); `/app` layout shell diet (#6, firebase ≈40 KB on every tool page); diff-checker virtualization (#7); `MotionConfig reducedMotion="user"` (#8); `/activate` contrast token (#9); `marketing-seo-page` hero = same LCP treatment as PR1.
+
+**Hygiene**: remove dead deps `mongodb`/`pg`/`mysql2`/`ioredis` + `src/lib/{sql,nosql}-client-pool.ts`; drop stale `remotePatterns` (qrserver, www.google.com) from both `next.config.ts`; bump `@next/bundle-analyzer` (v15 vs Next 16); migrate the ~17 off-pattern tool headers and 9 hand-rolled copy paths (real bug: silent copy failure in `color-picker-tool-layout.tsx:93`); boot-log copy "60 utilities" → "80+".
+
+**Rejected / disproven during the audit**:
+- "QR generator phones home" — false; generation is local, `api.qrserver.com` is config residue.
+- "DB drivers bloat the client bundle" — false; only a BPE-vocab token matched the grep, drivers are dead code (still worth deleting, but no perf urgency).
+- "gpt-tokenizer needs code-splitting" — already per-encoding dynamic-imported; its 1.4 MB gz loads only in token-counter.
+- "Debounce tool inputs / move parsing to workers" (from the original brief) — mostly already done: 24 files debounce, 5 real workers, and the regex/diff caps keep worst-legal-input keystroke cost at 1 ms / 18 ms. The measured residual risk is DOM-bound (diff-checker's 10 000 unvirtualized rows), not compute-bound.
+- Desktop-ui in-browser Lighthouse for tool pages — the activation+auth gate means a browser lab measures the activation screen; kept honest by relabeling those rows (§4) and building the scripted bypass only for the PR2 egress probe.
 
 ## Appendix A — Reproduce every number
 
@@ -181,12 +226,20 @@ ANALYZE=true ./node_modules/.bin/next build --webpack      # each app; output .n
 (cd apps/desktop-ui && ./node_modules/.bin/next start -p 3200) &
 # shared chunk
 node -e "const m=require('./.next/build-manifest.json'),z=require('zlib'),f=require('fs');let t=0;for(const x of m.rootMainFiles)t+=z.gzipSync(f.readFileSync('.next/'+x)).length;console.log((t/1024).toFixed(1)+' KB gz')"
-# per-route First Load JS (script in audit scratchpad; reproduced in this repo under scripts/ if adopted)
-node route-sweep.js http://localhost:3200 apps/desktop-ui /dashboard /app/uuid-generator ...
+# per-route First Load JS
+node scripts/audit/route-sweep.js http://localhost:3200 apps/desktop-ui /dashboard /app/uuid-generator ...
 # DB-driver check
 grep -rlE "MongoClient|createPool|ioredis" apps/desktop-ui/.next/static/chunks/
 # lighthouse (3 runs x mobile+desktop per URL, Chrome for Testing 150 pinned)
 npx lighthouse@12 "$URL" --chrome-flags="--headless=new" --only-categories=performance,accessibility --output=json [--preset=desktop]
 # TTFB
 curl -so /dev/null -w "%{time_starttransfer}s " "$URL"   # x5
+# keystroke cost at max legal input (regex-tester / diff-checker lib functions)
+node --experimental-strip-types scripts/audit/keystroke-cost.mts
+# Monaco CDN egress probe (lab bypass of activation+auth; needs puppeteer-core + CHROME_PATH)
+node scripts/audit/monaco-egress.js http://localhost:3200/app/format-converter "$NEXT_PUBLIC_FIREBASE_API_KEY"
+# LH runner used for all matrices (3x mobile + 3x desktop per URL)
+scripts/audit/lh-run.sh <name> <url>
 ```
+
+Conditions worth restating: Lighthouse default = simulated throttling (Lantern); isolation experiments in §7 that state "devtools" used `--throttling-method=devtools`. `next start` caches the build — always restart the server after rebuilding before measuring (two stale-server traps were caught and re-measured during this audit). LH runs use a fresh profile, so "first visit" behavior (boot overlay) is always included.
