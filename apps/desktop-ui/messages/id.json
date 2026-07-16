@@ -3550,7 +3550,7 @@
     "subtitle": "Minifikasi SVG dengan SVGO dan bandingkan ukurannya",
     "inputLabel": "Masukan",
     "outputLabel": "Dioptimalkan",
-    "placeholder": "Tempel cuplikan <svg>…</svg> atau seluruh berkas…",
+    "placeholder": "Tempel cuplikan SVG atau seluruh berkas…",
     "outputPlaceholder": "SVG teroptimalkan muncul di sini…",
     "chars": "{count} karakter • {bytes} byte (UTF-8)",
     "preview": "Pratinjau",

@@ -3550,7 +3550,7 @@
     "subtitle": "صغّر SVG باستخدام SVGO وقارن الأحجام",
     "inputLabel": "الإدخال",
     "outputLabel": "مُحسَّن",
-    "placeholder": "الصق جزء <svg>…</svg> أو الملف كاملاً…",
+    "placeholder": "الصق جزء SVG أو الملف كاملاً…",
     "outputPlaceholder": "يظهر SVG المحسّن هنا…",
     "chars": "{count} حرفًا • {bytes} بايت (UTF-8)",
     "preview": "معاينة",

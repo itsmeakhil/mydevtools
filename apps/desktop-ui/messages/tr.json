@@ -3550,7 +3550,7 @@
     "subtitle": "SVG'yi SVGO ile küçült ve boyutları karşılaştır",
     "inputLabel": "Girdi",
     "outputLabel": "Optimize",
-    "placeholder": "<svg>…</svg> parçası veya tüm dosyayı yapıştırın…",
+    "placeholder": "SVG parçası veya tüm dosyayı yapıştırın…",
     "outputPlaceholder": "Optimize SVG burada görünür…",
     "chars": "{count} karakter • {bytes} bayt (UTF-8)",
     "preview": "Önizleme",

@@ -5,8 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ToolHeader } from "@/components/tools/tool-header";
-import { ToolWrapper } from "@/components/tools/tool-wrapper";
+import { ToolPageHeader } from "@/components/tools/tool-page-header";
+import { RevealItem } from "@/components/dashboard/dashboard-reveal";
+import { CATEGORY_ACCENT } from "@/components/dashboard/types";
 import {
     IconCheck,
     IconX,
@@ -20,9 +21,10 @@ import {
     IconSearch,
     IconChevronDown,
     IconFileSpreadsheet,
-    IconFileTypeCsv
+    IconFileTypeCsv,
+    IconMailCheck
 } from "@tabler/icons-react";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
     Table,
@@ -86,7 +88,6 @@ export function EmailValidator() {
     const [dragActive, setDragActive] = useState(false);
     const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { toast } = useToast();
     const { copyToClipboard, isCopied } = useCopyToClipboard();
     const t = useTranslations("EmailValidator");
 
@@ -127,20 +128,12 @@ export function EmailValidator() {
 
     const handleValidate = async () => {
         if (!email) {
-            toast({
-                title: t("toasts.errorTitle"),
-                description: t("toasts.enterEmail"),
-                variant: "destructive",
-            });
+            toast.error(t("toasts.errorTitle"), { description: t("toasts.enterEmail") });
             return;
         }
 
         if (!isValidFormat) {
-            toast({
-                title: t("toasts.invalidFormatTitle"),
-                description: t("toasts.invalidFormatDescription"),
-                variant: "destructive",
-            });
+            toast.error(t("toasts.invalidFormatTitle"), { description: t("toasts.invalidFormatDescription") });
             return;
         }
 
@@ -158,12 +151,8 @@ export function EmailValidator() {
 
             const data = await response.json();
             setResult(data);
-        } catch (error) {
-            toast({
-                title: t("toasts.errorTitle"),
-                description: t("toasts.validateFailedDescription"),
-                variant: "destructive",
-            });
+        } catch {
+            toast.error(t("toasts.errorTitle"), { description: t("toasts.validateFailedDescription") });
         } finally {
             setLoading(false);
         }
@@ -229,21 +218,13 @@ export function EmailValidator() {
                 const emails = allEmails.slice(0, 4000);
 
                 if (emails.length === 0) {
-                    toast({
-                        title: t("toasts.noEmailsTitle"),
-                        description: t("toasts.noEmailsDescription"),
-                        variant: "destructive",
-                    });
+                    toast.error(t("toasts.noEmailsTitle"), { description: t("toasts.noEmailsDescription") });
                     setUploadedFileName(null);
                     return;
                 }
 
                 if (totalEmails > 4000) {
-                    toast({
-                        title: t("toasts.fileTooLargeTitle"),
-                        description: t("toasts.fileTooLargeDescription", { total: totalEmails }),
-                        variant: "destructive",
-                    });
+                    toast.error(t("toasts.fileTooLargeTitle"), { description: t("toasts.fileTooLargeDescription", { total: totalEmails }) });
                 }
 
                 setBulkLoading(true);
@@ -276,17 +257,10 @@ export function EmailValidator() {
                     setProgress(Math.round(((i + 1) / batches) * 100));
                 }
 
-                toast({
-                    title: t("toasts.successTitle"),
-                    description: t("toasts.successValidated", { count: emails.length }),
-                });
+                toast.success(t("toasts.successTitle"), { description: t("toasts.successValidated", { count: emails.length }) });
             } catch (error) {
                 console.error("Bulk validation error:", error);
-                toast({
-                    title: t("toasts.batchFailedTitle"),
-                    description: t("toasts.batchFailedDescription"),
-                    variant: "destructive",
-                });
+                toast.error(t("toasts.batchFailedTitle"), { description: t("toasts.batchFailedDescription") });
             } finally {
                 setBulkLoading(false);
                 if (fileInputRef.current) fileInputRef.current.value = "";
@@ -322,11 +296,7 @@ export function EmailValidator() {
             : bulkResults;
 
         if (dataToExport.length === 0) {
-            toast({
-                title: t("toasts.noExportTitle"),
-                description: validOnly ? t("toasts.noExportValidOnly") : t("toasts.noExportAll"),
-                variant: "destructive",
-            });
+            toast.error(t("toasts.noExportTitle"), { description: validOnly ? t("toasts.noExportValidOnly") : t("toasts.noExportAll") });
             return;
         }
 
@@ -354,8 +324,7 @@ export function EmailValidator() {
         XLSX.utils.book_append_sheet(wb, ws, validOnly ? t("sheets.validEmails") : t("sheets.results"));
         XLSX.writeFile(wb, validOnly ? "valid_emails.xlsx" : "email_validation_results.xlsx");
 
-        toast({
-            title: t("toasts.exportSuccessTitle"),
+        toast.success(t("toasts.exportSuccessTitle"), {
             description: validOnly
                 ? t("toasts.exportSuccessExcelValid", { count: dataToExport.length })
                 : t("toasts.exportSuccessExcelAll", { count: dataToExport.length }),
@@ -368,11 +337,7 @@ export function EmailValidator() {
             : bulkResults;
 
         if (dataToExport.length === 0) {
-            toast({
-                title: t("toasts.noExportTitle"),
-                description: validOnly ? t("toasts.noExportValidOnly") : t("toasts.noExportAll"),
-                variant: "destructive",
-            });
+            toast.error(t("toasts.noExportTitle"), { description: validOnly ? t("toasts.noExportValidOnly") : t("toasts.noExportAll") });
             return;
         }
 
@@ -422,8 +387,7 @@ export function EmailValidator() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
 
-        toast({
-            title: t("toasts.exportSuccessTitle"),
+        toast.success(t("toasts.exportSuccessTitle"), {
             description: validOnly
                 ? t("toasts.exportSuccessCsvValid", { count: dataToExport.length })
                 : t("toasts.exportSuccessCsvAll", { count: dataToExport.length }),
@@ -448,10 +412,16 @@ export function EmailValidator() {
         }
     };
 
-    const ValidationItem = ({ label, value, isWarning = false, warningCondition = false, tooltip }: any) => {
+    const ValidationItem = ({ label, value, isWarning = false, warningCondition = false, tooltip }: {
+        label: string;
+        value: boolean;
+        isWarning?: boolean;
+        warningCondition?: boolean;
+        tooltip?: string;
+    }) => {
         const isActuallyWarning = isWarning && warningCondition;
         const content = (
-            <div className={`flex items-center justify-between p-3.5 rounded-lg border transition-all ${isActuallyWarning
+            <div className={`flex items-center justify-between p-3.5 rounded-lg border transition-colors cursor-help ${isActuallyWarning
                 ? "bg-yellow-500/5 border-yellow-500/30 text-yellow-700 dark:text-yellow-400"
                 : "bg-card border-border/50 hover:border-border"
                 }`}>
@@ -483,14 +453,18 @@ export function EmailValidator() {
     };
 
     return (
-        <ToolWrapper toolId="email-validator" maxWidth="5xl">
-            <ToolHeader
-                title={t("header.title")}
-                description={t("header.description")}
-                toolId="email-validator"
-            />
+        <div className="flex h-full min-h-0 w-full flex-col gap-4 overflow-y-auto">
+            <RevealItem index={0} className="shrink-0">
+                <ToolPageHeader
+                    icon={IconMailCheck}
+                    title={t("header.title")}
+                    description={t("header.description")}
+                    accent={CATEGORY_ACCENT["Security"]}
+                    offline={false}
+                />
+            </RevealItem>
 
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-6">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-4">
                 <div className="flex justify-center">
                     <TabsList className="grid w-full max-w-md grid-cols-2 p-1">
                         <TabsTrigger value="single">{t("tabs.single")}</TabsTrigger>
@@ -498,8 +472,8 @@ export function EmailValidator() {
                     </TabsList>
                 </div>
 
-                <TabsContent value="single" className="space-y-6 focus-visible:outline-none">
-                    <Card className="border-border/40 bg-background/50 backdrop-blur-sm shadow-sm">
+                <TabsContent value="single" className="space-y-4 focus-visible:outline-none">
+                    <Card>
                         <CardHeader>
                             <CardTitle className="text-lg font-medium text-center">{t("single.cardTitle")}</CardTitle>
                             <CardDescription className="text-center">{t("single.cardDescription")}</CardDescription>
@@ -542,7 +516,7 @@ export function EmailValidator() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="space-y-6"
+                            className="space-y-4"
                         >
                             {result.validations.is_disposable && (
                                 <Alert variant="destructive" className="bg-yellow-500/10 border-yellow-500/20 text-yellow-700 dark:text-yellow-400">
@@ -556,8 +530,8 @@ export function EmailValidator() {
                                 </Alert>
                             )}
 
-                            <div className="grid gap-6 md:grid-cols-12">
-                                <Card className="col-span-12 md:col-span-4 border-border/40 bg-background/50 backdrop-blur-sm h-full shadow-sm flex flex-col">
+                            <div className="grid gap-4 md:grid-cols-12">
+                                <Card className="col-span-12 md:col-span-4 h-full flex flex-col">
                                     <CardHeader>
                                         <CardTitle className="text-base font-medium text-center text-muted-foreground">{t("score.reliabilityTitle")}</CardTitle>
                                     </CardHeader>
@@ -591,7 +565,7 @@ export function EmailValidator() {
                                                             <Button
                                                                 variant="ghost"
                                                                 size="icon"
-                                                                className="h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                                className="h-6 w-6 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
                                                                 onClick={() => copyToClipboard(result.email, t("copy.emailCopied"))}
                                                             >
                                                                 <IconCopy className={`h-3.5 w-3.5 ${isCopied ? "text-green-500" : ""}`} />
@@ -605,7 +579,7 @@ export function EmailValidator() {
                                     </CardContent>
                                 </Card>
 
-                                <Card className="col-span-12 md:col-span-8 border-border/40 bg-background/50 backdrop-blur-sm shadow-sm h-full">
+                                <Card className="col-span-12 md:col-span-8 h-full">
                                     <CardHeader>
                                         <CardTitle className="text-base font-medium">{t("details.sectionTitle")}</CardTitle>
                                     </CardHeader>
@@ -653,10 +627,11 @@ export function EmailValidator() {
                     )}
                 </TabsContent>
 
-                <TabsContent value="bulk" className="space-y-6 focus-visible:outline-none">
+                <TabsContent value="bulk" className="space-y-4 focus-visible:outline-none">
                     {!bulkLoading && bulkResults.length === 0 && (
                         <Card className={`border-dashed border-2 transition-all ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "bg-muted/20 hover:bg-muted/40"}`}>
                             <CardContent className="flex flex-col items-center justify-center py-12 px-4 text-center cursor-pointer"
+                                onClick={() => fileInputRef.current?.click()}
                                 onDragOver={onDragOver}
                                 onDrop={onDrop}
                                 onDragLeave={onDragLeave}
@@ -678,10 +653,10 @@ export function EmailValidator() {
                                 )}
                                 <div className="flex gap-3 flex-wrap justify-center">
                                     <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept=".xlsx,.xls,.csv" className="hidden" />
-                                    <Button onClick={() => fileInputRef.current?.click()}>
+                                    <Button>
                                         {t("bulk.selectFile")}
                                     </Button>
-                                    <Button variant="outline" onClick={downloadTemplate}>
+                                    <Button variant="outline" onClick={(e) => { e.stopPropagation(); downloadTemplate(); }}>
                                         <IconDownload className="mr-2 h-4 w-4" /> {t("bulk.downloadTemplate")}
                                     </Button>
                                 </div>
@@ -690,7 +665,7 @@ export function EmailValidator() {
                     )}
 
                     {bulkLoading && (
-                        <Card className="border-border/40 bg-background/50 backdrop-blur-sm p-8 text-center">
+                        <Card className="p-8 text-center">
                             <div className="max-w-md mx-auto space-y-6">
                                 <div className="flex flex-col items-center gap-4">
                                     <div className="relative">
@@ -706,9 +681,9 @@ export function EmailValidator() {
                     )}
 
                     {bulkResults.length > 0 && !bulkLoading && (
-                        <div className="space-y-6">
-                            <div className="grid gap-4 md:grid-cols-4">
-                                <Card className="bg-background/50 border-border/40 p-4 flex flex-col justify-between">
+                        <div className="space-y-4">
+                            <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+                                <Card className="p-4 flex flex-col justify-between gap-1">
                                     <span className="text-sm font-medium text-muted-foreground">{t("stats.totalProcessed")}</span>
                                     <span className="text-2xl font-bold">{bulkStats.total}</span>
                                 </Card>
@@ -726,7 +701,7 @@ export function EmailValidator() {
                                 </Card>
                             </div>
 
-                            <Card className="border-border/40 bg-background/50 backdrop-blur-sm overflow-hidden">
+                            <Card className="overflow-hidden">
                                 <div className="p-4 border-b border-border/40 bg-muted/20">
                                     <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
                                         <h3 className="font-medium">{t("results.detailedTitle")}</h3>
@@ -852,6 +827,6 @@ export function EmailValidator() {
                     )}
                 </TabsContent>
             </Tabs>
-        </ToolWrapper>
+        </div>
     );
 }

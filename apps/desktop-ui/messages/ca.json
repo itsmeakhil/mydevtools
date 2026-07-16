@@ -3550,7 +3550,7 @@
     "subtitle": "Minifica SVG amb SVGO i compara mides",
     "inputLabel": "Entrada",
     "outputLabel": "Optimitzat",
-    "placeholder": "Enganxa un fragment <svg>…</svg> o el fitxer sencer…",
+    "placeholder": "Enganxa un fragment SVG o el fitxer sencer…",
     "outputPlaceholder": "El SVG optimitzat apareix aquí…",
     "chars": "{count} caràcters • {bytes} bytes (UTF-8)",
     "preview": "Vista prèvia",

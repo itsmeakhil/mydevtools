@@ -3550,7 +3550,7 @@
     "subtitle": "Minifiseer SVG met SVGO en vergelyk groottes",
     "inputLabel": "Inset",
     "outputLabel": "Geoptimaliseer",
-    "placeholder": "Plak 'n <svg>…</svg>-fragment of die hele lêer…",
+    "placeholder": "Plak 'n SVG-fragment of die hele lêer…",
     "outputPlaceholder": "Geoptimaliseerde SVG verskyn hier…",
     "chars": "{count} karakters • {bytes} grepe (UTF-8)",
     "preview": "Voorskou",

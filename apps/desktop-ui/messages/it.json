@@ -3550,7 +3550,7 @@
     "subtitle": "Minifica SVG con SVGO e confronta le dimensioni",
     "inputLabel": "Input",
     "outputLabel": "Ottimizzato",
-    "placeholder": "Incolla un frammento <svg>…</svg> o il file intero…",
+    "placeholder": "Incolla un frammento SVG o il file intero…",
     "outputPlaceholder": "L’SVG ottimizzato compare qui…",
     "chars": "{count} caratteri • {bytes} byte (UTF-8)",
     "preview": "Anteprima",

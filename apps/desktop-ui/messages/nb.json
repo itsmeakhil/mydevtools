@@ -3550,7 +3550,7 @@
     "subtitle": "Minifiser SVG med SVGO og sammenlign størrelser",
     "inputLabel": "Inndata",
     "outputLabel": "Optimalisert",
-    "placeholder": "Lim inn et <svg>…</svg>-utdrag eller hele filen…",
+    "placeholder": "Lim inn et SVG-utdrag eller hele filen…",
     "outputPlaceholder": "Optimalisert SVG vises her…",
     "chars": "{count} tegn • {bytes} byte (UTF-8)",
     "preview": "Forhåndsvisning",

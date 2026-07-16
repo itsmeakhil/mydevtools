@@ -3550,7 +3550,7 @@
     "subtitle": "کوچک‌سازی SVG با SVGO و مقایسه اندازه‌ها",
     "inputLabel": "ورودی",
     "outputLabel": "بهینه‌شده",
-    "placeholder": "قطعه <svg>…</svg> یا کل فایل را بچسبانید…",
+    "placeholder": "قطعه SVG یا کل فایل را بچسبانید…",
     "outputPlaceholder": "SVG بهینه‌شده اینجا نمایش داده می‌شود…",
     "chars": "{count} نویسه • {bytes} بایت (UTF-8)",
     "preview": "پیش‌نمایش",

@@ -3550,7 +3550,7 @@
     "subtitle": "Minifiera SVG med SVGO och jämför storlekar",
     "inputLabel": "Indata",
     "outputLabel": "Optimerad",
-    "placeholder": "Klistra in ett <svg>…</svg>-utdrag eller hela filen…",
+    "placeholder": "Klistra in ett SVG-utdrag eller hela filen…",
     "outputPlaceholder": "Optimerad SVG visas här…",
     "chars": "{count} tecken • {bytes} byte (UTF-8)",
     "preview": "Förhandsvisning",

@@ -3550,7 +3550,7 @@
     "subtitle": "SVGO로 SVG 최소화, 크기 비교",
     "inputLabel": "입력",
     "outputLabel": "최적화됨",
-    "placeholder": "<svg>…</svg> 조각 또는 전체 파일을 붙여넣기…",
+    "placeholder": "SVG 조각 또는 전체 파일을 붙여넣기…",
     "outputPlaceholder": "최적화된 SVG가 여기에 표시됩니다…",
     "chars": "{count}자 • {bytes}바이트(UTF-8)",
     "preview": "미리보기",

@@ -3550,7 +3550,7 @@
     "subtitle": "Σμίκρυνση SVG με SVGO και σύγκριση μεγεθών",
     "inputLabel": "Είσοδος",
     "outputLabel": "Βελτιστοποιημένο",
-    "placeholder": "Επικολλήστε απόσπασμα <svg>…</svg> ή ολόκληρο αρχείο…",
+    "placeholder": "Επικολλήστε απόσπασμα SVG ή ολόκληρο αρχείο…",
     "outputPlaceholder": "Το βελτιστοποιημένο SVG εμφανίζεται εδώ…",
     "chars": "{count} χαρακτήρες • {bytes} bytes (UTF-8)",
     "preview": "Προεπισκόπηση",

@@ -13,12 +13,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import {
     DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Search, Copy, Eye, EyeOff, Trash2, KeyRound, Pencil, MoreVertical, ArrowDownAZ, Clock, Layers } from "lucide-react"
+import { Search, Copy, Check, Eye, EyeOff, Trash2, KeyRound, Pencil, MoreVertical, ArrowDownAZ, Clock, Layers, Plus } from "lucide-react"
 import { toast } from "sonner"
 import { deleteApiKeyEntry } from "@/lib/api-key-vault-api"
 import { cn } from "@/lib/utils"
 import { formatDistanceToNow } from "date-fns"
-import { EditApiKeyDialog } from "./add-api-key-dialog"
+import { AddApiKeyDialog, EditApiKeyDialog } from "./add-api-key-dialog"
 
 const REVEAL_TIMEOUT_MS = 30_000
 
@@ -57,9 +57,32 @@ async function copy(text: string, label: string) {
     try {
         await navigator.clipboard.writeText(text)
         toast.success(`${label} copied`)
+        return true
     } catch {
         toast.error(`Failed to copy ${label.toLowerCase()}`)
+        return false
     }
+}
+
+// Copy icon flips to a check for 1.5s — feedback right at the cursor.
+function CopyButton({ text, label }: { text: string; label: string }) {
+    const [copied, setCopied] = useState(false)
+    return (
+        <Button
+            size="icon"
+            variant="ghost"
+            className="h-8 w-8"
+            onClick={async () => {
+                if (await copy(text, label)) {
+                    setCopied(true)
+                    setTimeout(() => setCopied(false), 1500)
+                }
+            }}
+            aria-label={`Copy ${label.toLowerCase()}`}
+        >
+            {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+        </Button>
+    )
 }
 
 export function ApiKeyList() {
@@ -205,6 +228,13 @@ export function ApiKeyList() {
                             ? "Add your first key — name, value, environment. Encrypted on your device before sync."
                             : "Try a different search or environment filter."}
                     </p>
+                    {entries.length === 0 && (
+                        <AddApiKeyDialog>
+                            <Button className="mt-4">
+                                <Plus className="mr-2 h-4 w-4" /> Add API Key
+                            </Button>
+                        </AddApiKeyDialog>
+                    )}
                 </div>
             )}
 
@@ -270,7 +300,12 @@ export function ApiKeyList() {
                                 <div className="space-y-1.5">
                                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Key</p>
                                     <div className="flex items-center gap-1">
-                                        <code className="flex-1 text-xs font-mono bg-muted/60 px-2 py-1.5 rounded truncate">
+                                        <code
+                                            className={cn(
+                                                "flex-1 text-xs font-mono bg-muted/60 px-2 py-1.5 rounded min-w-0",
+                                                keyShown ? "break-all select-all" : "truncate"
+                                            )}
+                                        >
                                             {keyShown ? entry.apiKey : maskValue(entry.apiKey)}
                                         </code>
                                         <Button
@@ -283,15 +318,7 @@ export function ApiKeyList() {
                                         >
                                             {keyShown ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                         </Button>
-                                        <Button
-                                            size="icon"
-                                            variant="ghost"
-                                            className="h-8 w-8"
-                                            onClick={() => copy(entry.apiKey, "Key")}
-                                            aria-label="Copy key"
-                                        >
-                                            <Copy className="h-4 w-4" />
-                                        </Button>
+                                        <CopyButton text={entry.apiKey} label="Key" />
                                     </div>
                                 </div>
 
@@ -299,7 +326,12 @@ export function ApiKeyList() {
                                     <div className="space-y-1.5">
                                         <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Secret</p>
                                         <div className="flex items-center gap-1">
-                                            <code className="flex-1 text-xs font-mono bg-muted/60 px-2 py-1.5 rounded truncate">
+                                            <code
+                                                className={cn(
+                                                    "flex-1 text-xs font-mono bg-muted/60 px-2 py-1.5 rounded min-w-0",
+                                                    secretShown ? "break-all select-all" : "truncate"
+                                                )}
+                                            >
                                                 {secretShown ? entry.secret : maskValue(entry.secret)}
                                             </code>
                                             <Button
@@ -312,15 +344,7 @@ export function ApiKeyList() {
                                             >
                                                 {secretShown ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                             </Button>
-                                            <Button
-                                                size="icon"
-                                                variant="ghost"
-                                                className="h-8 w-8"
-                                                onClick={() => copy(entry.secret, "Secret")}
-                                                aria-label="Copy secret"
-                                            >
-                                                <Copy className="h-4 w-4" />
-                                            </Button>
+                                            <CopyButton text={entry.secret} label="Secret" />
                                         </div>
                                     </div>
                                 )}

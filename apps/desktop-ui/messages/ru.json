@@ -3550,7 +3550,7 @@
     "subtitle": "Минифицируйте SVG через SVGO и сравнивайте размеры",
     "inputLabel": "Ввод",
     "outputLabel": "Оптимизировано",
-    "placeholder": "Вставьте фрагмент <svg>…</svg> или весь файл…",
+    "placeholder": "Вставьте фрагмент SVG или весь файл…",
     "outputPlaceholder": "Оптимизированный SVG появится здесь…",
     "chars": "{count} симв. • {bytes} байт (UTF-8)",
     "preview": "Предпросмотр",

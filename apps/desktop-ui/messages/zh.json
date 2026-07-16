@@ -3550,7 +3550,7 @@
     "subtitle": "用 SVGO 压缩 SVG 并对比大小",
     "inputLabel": "输入",
     "outputLabel": "已优化",
-    "placeholder": "粘贴 <svg>…</svg> 片段或完整文件…",
+    "placeholder": "粘贴 SVG 片段或完整文件…",
     "outputPlaceholder": "优化后的 SVG 将显示在这里…",
     "chars": "{count} 个字符 • {bytes} 字节（UTF-8）",
     "preview": "预览",

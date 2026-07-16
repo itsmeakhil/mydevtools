@@ -3550,7 +3550,7 @@
     "subtitle": "SVG mit SVGO minifizieren und Größen vergleichen",
     "inputLabel": "Eingabe",
     "outputLabel": "Optimiert",
-    "placeholder": "<svg>…</svg>-Ausschnitt oder ganze Datei einfügen…",
+    "placeholder": "SVG-Ausschnitt oder ganze Datei einfügen…",
     "outputPlaceholder": "Optimiertes SVG erscheint hier…",
     "chars": "{count} Zeichen • {bytes} Bytes (UTF-8)",
     "preview": "Vorschau",

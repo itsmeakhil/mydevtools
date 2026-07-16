@@ -3584,7 +3584,7 @@
     "subtitle": "Minify SVG with SVGO and compare sizes",
     "inputLabel": "Input",
     "outputLabel": "Optimized",
-    "placeholder": "Paste an <svg>…</svg> snippet or full file…",
+    "placeholder": "Paste an SVG snippet or full file…",
     "outputPlaceholder": "Optimized SVG appears here…",
     "chars": "{count} chars • {bytes} bytes (UTF-8)",
     "preview": "Preview",

@@ -3550,7 +3550,7 @@
     "subtitle": "Minifikujte SVG pomocí SVGO a porovnejte velikosti",
     "inputLabel": "Vstup",
     "outputLabel": "Optimalizováno",
-    "placeholder": "Vložte úryvek <svg>…</svg> nebo celý soubor…",
+    "placeholder": "Vložte úryvek SVG nebo celý soubor…",
     "outputPlaceholder": "Optimalizované SVG se zobrazí zde…",
     "chars": "{count} znaků • {bytes} bajtů (UTF-8)",
     "preview": "Náhled",

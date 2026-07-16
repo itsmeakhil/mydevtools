@@ -3550,7 +3550,7 @@
     "subtitle": "Minificér SVG med SVGO og sammenlign størrelser",
     "inputLabel": "Input",
     "outputLabel": "Optimeret",
-    "placeholder": "Indsæt et <svg>…</svg>-uddrag eller hele filen…",
+    "placeholder": "Indsæt et SVG-uddrag eller hele filen…",
     "outputPlaceholder": "Optimeret SVG vises her…",
     "chars": "{count} tegn • {bytes} bytes (UTF-8)",
     "preview": "Forhåndsvisning",

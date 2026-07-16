@@ -3550,7 +3550,7 @@
     "subtitle": "SVGOでSVGを最小化しサイズを比較",
     "inputLabel": "入力",
     "outputLabel": "最適化後",
-    "placeholder": "<svg>…</svg> の断片またはファイル全体を貼り付け…",
+    "placeholder": "SVG の断片またはファイル全体を貼り付け…",
     "outputPlaceholder": "最適化された SVG がここに表示されます…",
     "chars": "{count} 文字 • {bytes} バイト（UTF-8）",
     "preview": "プレビュー",

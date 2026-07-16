@@ -3550,7 +3550,7 @@
     "subtitle": "Nén SVG bằng SVGO và so sánh kích thước",
     "inputLabel": "Đầu vào",
     "outputLabel": "Đã tối ưu",
-    "placeholder": "Dán đoạn <svg>…</svg> hoặc toàn bộ tệp…",
+    "placeholder": "Dán đoạn SVG hoặc toàn bộ tệp…",
     "outputPlaceholder": "SVG đã tối ưu hiển thị tại đây…",
     "chars": "{count} ký tự • {bytes} byte (UTF-8)",
     "preview": "Xem trước",

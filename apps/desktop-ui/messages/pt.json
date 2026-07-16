@@ -3550,7 +3550,7 @@
     "subtitle": "Minifique SVG com SVGO e compare tamanhos",
     "inputLabel": "Entrada",
     "outputLabel": "Otimizado",
-    "placeholder": "Cole um trecho <svg>…</svg> ou o ficheiro completo…",
+    "placeholder": "Cole um trecho SVG ou o ficheiro completo…",
     "outputPlaceholder": "O SVG otimizado aparece aqui…",
     "chars": "{count} caracteres • {bytes} bytes (UTF-8)",
     "preview": "Pré-visualização",

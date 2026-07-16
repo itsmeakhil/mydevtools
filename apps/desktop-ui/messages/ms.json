@@ -3550,7 +3550,7 @@
     "subtitle": "Minifikasi SVG dengan SVGO dan bandingkan saiz",
     "inputLabel": "Input",
     "outputLabel": "Dioptimumkan",
-    "placeholder": "Tampal serpihan <svg>…</svg> atau keseluruhan fail…",
+    "placeholder": "Tampal serpihan SVG atau keseluruhan fail…",
     "outputPlaceholder": "SVG teroptimum dipaparkan di sini…",
     "chars": "{count} aksara • {bytes} bait (UTF-8)",
     "preview": "Pratonton",

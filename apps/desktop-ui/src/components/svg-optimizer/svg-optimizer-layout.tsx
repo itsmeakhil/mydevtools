@@ -10,7 +10,11 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Check, Copy, Download, Trash2, Sparkles } from 'lucide-react'
+import { IconFileTypeSvg } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { RevealItem } from '@/components/dashboard/dashboard-reveal'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { utf8ByteLength } from '@/lib/svg-optimize'
 import { useSvgOptimizeWorker } from '@/hooks/use-svg-optimize-worker'
 
@@ -83,10 +87,14 @@ export function SvgOptimizerLayout() {
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+      <RevealItem index={0} className="shrink-0">
+        <ToolPageHeader
+          icon={IconFileTypeSvg}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT['Media & Design']}
+        />
+      </RevealItem>
 
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 xl:grid-cols-2">
         <Card className="flex min-h-[220px] flex-col gap-3 p-4">
