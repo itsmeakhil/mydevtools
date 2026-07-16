@@ -120,8 +120,11 @@ node -e '
 echo "▸ [5/5] Publishing to ${PUBLIC_REPO} ..."
 gh release create "$TAG" --repo "$PUBLIC_REPO" \
   --title "MyDevTools $TAG" --notes "MyDevTools desktop $TAG"
+# MyDevTools.dmg (version-less copy) keeps the website's download button URL
+# stable: .../releases/latest/download/MyDevTools.dmg always serves the newest.
+cp "$DMG" "$OUT/MyDevTools.dmg"
 gh release upload "$TAG" --repo "$PUBLIC_REPO" --clobber \
-  "$DMG" "$TARGZ" "$SIG" "$LATEST"
+  "$DMG" "$OUT/MyDevTools.dmg" "$TARGZ" "$SIG" "$LATEST"
 
 echo ""
 echo "✅ Published v$VERSION. Installed apps will offer the update on next launch."
