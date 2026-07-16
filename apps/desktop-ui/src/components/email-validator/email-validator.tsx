@@ -46,34 +46,10 @@ import {
 import { motion } from "framer-motion";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useTranslations } from "next-intl";
+import { validateEmail, validateEmails, type EmailValidationResult } from "@/lib/email-validator";
 
-interface EmailValidation {
-    email: string;
-    validations: {
-        syntax: boolean;
-        domain_exists: boolean;
-        mx_records: boolean;
-        mailbox_exists: boolean;
-        is_disposable: boolean;
-        is_role_based: boolean;
-    };
-    score: number;
-    status: string;
-}
-
-interface BulkResult {
-    email: string;
-    status: string;
-    score: number;
-    validations: {
-        syntax: boolean;
-        domain_exists: boolean;
-        mx_records: boolean;
-        mailbox_exists: boolean;
-        is_disposable: boolean;
-        is_role_based: boolean;
-    };
-}
+type EmailValidation = EmailValidationResult;
+type BulkResult = EmailValidationResult;
 
 export function EmailValidator() {
     const [email, setEmail] = useState("");
@@ -101,7 +77,7 @@ export function EmailValidator() {
     // Stats for Bulk Validation
     const bulkStats = useMemo(() => {
         const valid = bulkResults.filter(r => r.status === "VALID").length;
-        const risky = bulkResults.filter(r => r.status === "DISPOSABLE" || r.status === "CATCH_ALL").length;
+        const risky = bulkResults.filter(r => r.status === "DISPOSABLE").length;
         return {
             total: bulkResults.length,
             valid,
@@ -142,14 +118,7 @@ export function EmailValidator() {
         setActiveTab("single");
 
         try {
-            const response = await fetch(
-                `/api/validate-email?email=${encodeURIComponent(email)}`,
-                { credentials: "include", headers: { accept: "application/json" } }
-            );
-
-            if (!response.ok) throw new Error("Failed to validate email");
-
-            const data = await response.json();
+            const data = await validateEmail(email);
             setResult(data);
         } catch {
             toast.error(t("toasts.errorTitle"), { description: t("toasts.validateFailedDescription") });
@@ -238,24 +207,11 @@ export function EmailValidator() {
                 const batchSize = 500;
                 const batches = Math.ceil(emails.length / batchSize);
                 setTotalBatches(batches);
-                let allResults: BulkResult[] = [];
 
-                for (let i = 0; i < batches; i++) {
-                    const batch = emails.slice(i * batchSize, (i + 1) * batchSize);
-                    const response = await fetch("/api/validate-email", {
-                        method: "POST",
-                        credentials: "include",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ emails: batch }),
-                    });
-
-                    if (!response.ok) throw new Error(`Failed to validate batch ${i + 1}`);
-
-                    const data = await response.json();
-                    allResults = [...allResults, ...data.results];
-                    setBulkResults([...allResults]);
-                    setProgress(Math.round(((i + 1) / batches) * 100));
-                }
+                const results = await validateEmails(emails, new Map(), (done, total) => {
+                    setProgress(Math.round((done / total) * 100));
+                });
+                setBulkResults(results);
 
                 toast.success(t("toasts.successTitle"), { description: t("toasts.successValidated", { count: emails.length }) });
             } catch (error) {
