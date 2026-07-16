@@ -24,8 +24,8 @@ const FEATURES = [
   },
   {
     icon: ShieldCheck,
-    title: "Encrypted, cross-device sync",
-    body: "Sensitive data is AES-256 encrypted before it ever leaves your browser.",
+    title: "Offline & encrypted",
+    body: "Everything stays on your device, AES-256 encrypted. No cloud sync, no data leaves your machine.",
   },
 ];
 

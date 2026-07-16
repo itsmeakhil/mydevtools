@@ -443,7 +443,7 @@ export default function Page() {
                 MyDevTools is the all-in-one desktop developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 80+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one desktop workspace.
               </p>
               <p className="text-lg leading-relaxed">
-                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted before any optional sync. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption—nothing leaves your device unless you choose to sync. Get started free, then upgrade when you want unlimited cloud usage.
+                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption—nothing ever leaves your device. Get started free, then upgrade to lock in launch pricing.
               </p>
               <p className="text-lg leading-relaxed">
                 Trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
@@ -971,9 +971,9 @@ export default function Page() {
                     Zero-Knowledge Privacy
                   </h3>
                   <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base flex-1">
-                    Sensitive synced data is encrypted on your device before
-                    transmission. The server stores encrypted blobs, not your
-                    readable vault data.
+                    Sensitive data is encrypted in a local vault with a
+                    password only you know. Nothing is transmitted — your
+                    vault never leaves your device.
                   </p>
                 </div>
               </motion.div>

@@ -80,8 +80,8 @@ export default function ToolsIndexPage() {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
-              80+ developer utilities in one desktop app. Runs offline and processes
-              your data locally. Sign in to sync across devices.
+              80+ developer utilities in one desktop app. Runs fully offline and
+              processes your data locally — nothing leaves your device.
             </p>
 
             <Link
