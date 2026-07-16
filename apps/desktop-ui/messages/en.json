@@ -3455,7 +3455,6 @@
   "MockDataGenerator": {
     "title": "Mock Data Generator",
     "subtitle": "Define typed columns — export up to {max} fixture rows",
-    "mockarooLink": "Mockaroo-style workflow",
     "rowsLabel": "Rows",
     "rowsHint": "Maximum {max} rows per generation to keep the tab responsive.",
     "formatLabel": "Format",
@@ -3499,12 +3498,16 @@
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
     "seedRandomize": "Randomize seed",
+    "importSchema": "Import schema",
+    "exportSchema": "Export schema",
+    "importSchemaError": "Invalid schema file — expected a JSON array of { name, type } columns.",
     "groups": {
       "personal": "Personal",
       "location": "Location",
       "internetApi": "Internet & API",
       "numbersIds": "Numbers & IDs",
       "dateTime": "Date & time",
+      "commerce": "Commerce",
       "textDesign": "Text & design",
       "custom": "Custom"
     },
@@ -3553,7 +3556,26 @@
       "rgb_color": "RGB color",
       "currency_code": "Currency code",
       "language_code": "Language tag",
-      "custom_list": "Custom list"
+      "custom_list": "Custom list",
+      "gender": "Gender",
+      "us_state": "US state",
+      "us_state_abbr": "US state (abbr.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME type",
+      "file_name": "File name",
+      "port": "Port",
+      "md5": "MD5 hash",
+      "sha256": "SHA-256 hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Time",
+      "weekday": "Weekday",
+      "month": "Month",
+      "product_name": "Product name",
+      "product_category": "Product category",
+      "department": "Department",
+      "color_name": "Color name",
+      "catch_phrase": "Catch phrase"
     }
   },
   "UserAgentParser": {
@@ -3609,7 +3631,7 @@
   },
   "UnitConverter": {
     "title": "Unit Converter",
-    "subtitle": "Convert 323 units across 43 categories",
+    "subtitle": "Convert 292 units across 44 categories",
     "category": "Category",
     "from": "From",
     "to": "To",

@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Mock-Daten-Generator",
     "subtitle": "Typisierte Spalten definieren — bis zu {max} Fixture-Zeilen exportieren",
-    "mockarooLink": "Workflow wie bei Mockaroo",
     "rowsLabel": "Zeilen",
     "rowsHint": "Maximal {max} Zeilen pro Lauf, damit der Tab reaktionsfähig bleibt.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Zahlen & IDs",
       "dateTime": "Datum & Uhrzeit",
       "textDesign": "Text & Gestaltung",
-      "custom": "Benutzerdefiniert"
+      "custom": "Benutzerdefiniert",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Vorname",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Währungscode",
       "language_code": "Sprach-Tag",
-      "custom_list": "Eigene Liste"
+      "custom_list": "Eigene Liste",
+      "gender": "Geschlecht",
+      "us_state": "US-Bundesstaat",
+      "us_state_abbr": "US-Bundesstaat (Abk.)",
+      "user_agent": "User-Agent",
+      "mime_type": "MIME-Typ",
+      "file_name": "Dateiname",
+      "port": "Port",
+      "md5": "MD5-Hash",
+      "sha256": "SHA-256-Hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Uhrzeit",
+      "weekday": "Wochentag",
+      "month": "Monat",
+      "product_name": "Produktname",
+      "product_category": "Produktkategorie",
+      "department": "Abteilung",
+      "color_name": "Farbname",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Schema importieren",
+    "exportSchema": "Schema exportieren",
+    "importSchemaError": "Ungültige Schemadatei — erwartet wird ein JSON-Array aus { name, type }-Spalten."
   },
   "SvgOptimizer": {
     "title": "SVG-Optimierer",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Einheiten-Konverter",
-    "subtitle": "323 Einheiten in 43 Kategorien umrechnen",
+    "subtitle": "292 Einheiten in 44 Kategorien umrechnen",
     "category": "Kategorie",
     "from": "Von",
     "to": "Nach",

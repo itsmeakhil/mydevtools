@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Generator danych testowych",
     "subtitle": "Zdefiniuj typowane kolumny — eksport do {max} wierszy",
-    "mockarooLink": "Przepływ jak w Mockaroo",
     "rowsLabel": "Wiersze",
     "rowsHint": "Maks. {max} wierszy na generację, by karta była responsywna.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Liczby i identyfikatory",
       "dateTime": "Data i czas",
       "textDesign": "Tekst i wygląd",
-      "custom": "Niestandardowe"
+      "custom": "Niestandardowe",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Imię",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Kod waluty",
       "language_code": "Znacznik języka",
-      "custom_list": "Lista niestandardowa"
+      "custom_list": "Lista niestandardowa",
+      "gender": "Płeć",
+      "us_state": "Stan USA",
+      "us_state_abbr": "Stan USA (skrót)",
+      "user_agent": "User agent",
+      "mime_type": "Typ MIME",
+      "file_name": "Nazwa pliku",
+      "port": "Port",
+      "md5": "Skrót MD5",
+      "sha256": "Skrót SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Godzina",
+      "weekday": "Dzień tygodnia",
+      "month": "Miesiąc",
+      "product_name": "Nazwa produktu",
+      "product_category": "Kategoria produktu",
+      "department": "Dział",
+      "color_name": "Nazwa koloru",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importuj schemat",
+    "exportSchema": "Eksportuj schemat",
+    "importSchemaError": "Nieprawidłowy plik schematu — oczekiwana jest tablica JSON kolumn { name, type }."
   },
   "SvgOptimizer": {
     "title": "Optymalizator SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Konwerter jednostek",
-    "subtitle": "Konwertuj 323 jednostki w 43 kategoriach",
+    "subtitle": "Konwertuj 292 jednostki w 44 kategoriach",
     "category": "Kategoria",
     "from": "Z",
     "to": "Na",

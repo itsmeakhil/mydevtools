@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Генератор тестовых данных",
     "subtitle": "Задайте типы колонок — экспорт до {max} строк фикстур",
-    "mockarooLink": "Сценарий как в Mockaroo",
     "rowsLabel": "Строки",
     "rowsHint": "Не более {max} строк за генерацию, чтобы вкладка оставалась отзывчивой.",
     "formatLabel": "Формат",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Числа и идентификаторы",
       "dateTime": "Дата и время",
       "textDesign": "Текст и оформление",
-      "custom": "Пользовательский"
+      "custom": "Пользовательский",
+      "commerce": "Коммерция"
     },
     "fieldTypes": {
       "first_name": "Имя",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Код валюты",
       "language_code": "Языковой тег",
-      "custom_list": "Пользовательский список"
+      "custom_list": "Пользовательский список",
+      "gender": "Пол",
+      "us_state": "Штат США",
+      "us_state_abbr": "Штат США (сокр.)",
+      "user_agent": "User agent",
+      "mime_type": "Тип MIME",
+      "file_name": "Имя файла",
+      "port": "Порт",
+      "md5": "Хеш MD5",
+      "sha256": "Хеш SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Время",
+      "weekday": "День недели",
+      "month": "Месяц",
+      "product_name": "Название товара",
+      "product_category": "Категория товара",
+      "department": "Отдел",
+      "color_name": "Название цвета",
+      "catch_phrase": "Слоган"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Импортировать схему",
+    "exportSchema": "Экспортировать схему",
+    "importSchemaError": "Недопустимый файл схемы — ожидается JSON-массив столбцов { name, type }."
   },
   "SvgOptimizer": {
     "title": "Оптимизатор SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Конвертер величин",
-    "subtitle": "Конвертируйте 323 единицы в 43 категориях",
+    "subtitle": "Конвертируйте 292 единицы в 44 категориях",
     "category": "Категория",
     "from": "Из",
     "to": "В",

@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "モックデータジェネレーター",
     "subtitle": "型付きカラムを定義 — 最大{max}行をエクスポート",
-    "mockarooLink": "Mockaroo 風のワークフロー",
     "rowsLabel": "行数",
     "rowsHint": "タブを軽く保つため、1 回あたり最大 {max} 行です。",
     "formatLabel": "形式",
@@ -3491,7 +3490,8 @@
       "numbersIds": "数値とID",
       "dateTime": "日付と時刻",
       "textDesign": "テキストとデザイン",
-      "custom": "カスタム"
+      "custom": "カスタム",
+      "commerce": "コマース"
     },
     "fieldTypes": {
       "first_name": "名",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "通貨コード",
       "language_code": "言語タグ",
-      "custom_list": "カスタム一覧"
+      "custom_list": "カスタム一覧",
+      "gender": "性別",
+      "us_state": "米国の州",
+      "us_state_abbr": "米国の州（略称）",
+      "user_agent": "ユーザーエージェント",
+      "mime_type": "MIME タイプ",
+      "file_name": "ファイル名",
+      "port": "ポート",
+      "md5": "MD5 ハッシュ",
+      "sha256": "SHA-256 ハッシュ",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "時刻",
+      "weekday": "曜日",
+      "month": "月",
+      "product_name": "商品名",
+      "product_category": "商品カテゴリ",
+      "department": "部署",
+      "color_name": "色名",
+      "catch_phrase": "キャッチフレーズ"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "スキーマをインポート",
+    "exportSchema": "スキーマをエクスポート",
+    "importSchemaError": "無効なスキーマファイルです — { name, type } 列の JSON 配列が必要です。"
   },
   "SvgOptimizer": {
     "title": "SVGオプティマイザー",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "単位変換",
-    "subtitle": "43カテゴリ323単位を変換",
+    "subtitle": "44カテゴリ292単位を変換",
     "category": "カテゴリ",
     "from": "変換前",
     "to": "変換後",

@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Générateur de données factices",
     "subtitle": "Définissez des colonnes typées — exportez jusqu’à {max} lignes",
-    "mockarooLink": "Flux de travail façon Mockaroo",
     "rowsLabel": "Lignes",
     "rowsHint": "Au plus {max} lignes par génération pour garder l’onglet réactif.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Nombres & ID",
       "dateTime": "Date & heure",
       "textDesign": "Texte & design",
-      "custom": "Personnalisé"
+      "custom": "Personnalisé",
+      "commerce": "Commerce"
     },
     "fieldTypes": {
       "first_name": "Prénom",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Code devise",
       "language_code": "Étiquette de langue",
-      "custom_list": "Liste personnalisée"
+      "custom_list": "Liste personnalisée",
+      "gender": "Genre",
+      "us_state": "État américain",
+      "us_state_abbr": "État américain (abr.)",
+      "user_agent": "User agent",
+      "mime_type": "Type MIME",
+      "file_name": "Nom de fichier",
+      "port": "Port",
+      "md5": "Hachage MD5",
+      "sha256": "Hachage SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Heure",
+      "weekday": "Jour de la semaine",
+      "month": "Mois",
+      "product_name": "Nom du produit",
+      "product_category": "Catégorie de produit",
+      "department": "Département",
+      "color_name": "Nom de couleur",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importer le schéma",
+    "exportSchema": "Exporter le schéma",
+    "importSchemaError": "Fichier de schéma non valide — un tableau JSON de colonnes { name, type } est attendu."
   },
   "SvgOptimizer": {
     "title": "Optimiseur SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Convertisseur d’unités",
-    "subtitle": "Convertissez 323 unités dans 43 catégories",
+    "subtitle": "Convertissez 292 unités dans 44 catégories",
     "category": "Catégorie",
     "from": "De",
     "to": "Vers",

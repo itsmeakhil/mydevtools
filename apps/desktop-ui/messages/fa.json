@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "مولد داده آزمایشی",
     "subtitle": "تعریف ستون‌های تایپ‌دار — خروجی تا {max} ردیف",
-    "mockarooLink": "گردش کار شبیه Mockaroo",
     "rowsLabel": "سطرها",
     "rowsHint": "حداکثر {max} سطر در هر تولید برای سبک ماندن زبانه.",
     "formatLabel": "قالب",
@@ -3491,7 +3490,8 @@
       "numbersIds": "اعداد و شناسه‌ها",
       "dateTime": "تاریخ و زمان",
       "textDesign": "متن و طراحی",
-      "custom": "سفارشی"
+      "custom": "سفارشی",
+      "commerce": "تجارت"
     },
     "fieldTypes": {
       "first_name": "نام",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "کد ارز",
       "language_code": "برچسب زبان",
-      "custom_list": "فهرست سفارشی"
+      "custom_list": "فهرست سفارشی",
+      "gender": "جنسیت",
+      "us_state": "ایالت آمریکا",
+      "us_state_abbr": "ایالت آمریکا (مخفف)",
+      "user_agent": "عامل کاربر",
+      "mime_type": "نوع MIME",
+      "file_name": "نام فایل",
+      "port": "پورت",
+      "md5": "هش MD5",
+      "sha256": "هش SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "زمان",
+      "weekday": "روز هفته",
+      "month": "ماه",
+      "product_name": "نام محصول",
+      "product_category": "دسته‌بندی محصول",
+      "department": "بخش",
+      "color_name": "نام رنگ",
+      "catch_phrase": "شعار"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "درون‌ریزی طرح",
+    "exportSchema": "برون‌بری طرح",
+    "importSchemaError": "فایل طرح نامعتبر است — آرایه JSON از ستون‌های { name, type } انتظار می‌رود."
   },
   "SvgOptimizer": {
     "title": "بهینه‌ساز SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "مبدل واحد",
-    "subtitle": "تبدیل ۳۲۳ واحد در ۴۳ دسته",
+    "subtitle": "تبدیل ۲۹۲ واحد در ۴۴ دسته",
     "category": "دسته‌بندی",
     "from": "از",
     "to": "به",

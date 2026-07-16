@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Mockdata-generator",
     "subtitle": "Definer typede kolonner — eksporter opptil {max} fixture-rader",
-    "mockarooLink": "Mockaroo-lignende arbeidsflyt",
     "rowsLabel": "Rader",
     "rowsHint": "Maks {max} rader per kjøring for å holde fanen responsiv.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Tall og ID-er",
       "dateTime": "Dato og klokkeslett",
       "textDesign": "Tekst og design",
-      "custom": "Tilpasset"
+      "custom": "Tilpasset",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Fornavn",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Valutakode",
       "language_code": "Språkkode",
-      "custom_list": "Tilpasset liste"
+      "custom_list": "Tilpasset liste",
+      "gender": "Kjønn",
+      "us_state": "Amerikansk delstat",
+      "us_state_abbr": "Amerikansk delstat (fork.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-type",
+      "file_name": "Filnavn",
+      "port": "Port",
+      "md5": "MD5-hash",
+      "sha256": "SHA-256-hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Klokkeslett",
+      "weekday": "Ukedag",
+      "month": "Måned",
+      "product_name": "Produktnavn",
+      "product_category": "Produktkategori",
+      "department": "Avdeling",
+      "color_name": "Fargenavn",
+      "catch_phrase": "Slagord"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importer skjema",
+    "exportSchema": "Eksporter skjema",
+    "importSchemaError": "Ugyldig skjemafil — forventer en JSON-liste med { name, type }-kolonner."
   },
   "SvgOptimizer": {
     "title": "SVG-optimalisering",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Enhetskonverterer",
-    "subtitle": "Konverter 323 enheter i 43 kategorier",
+    "subtitle": "Konverter 292 enheter i 44 kategorier",
     "category": "Kategori",
     "from": "Fra",
     "to": "Til",

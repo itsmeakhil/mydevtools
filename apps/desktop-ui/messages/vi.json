@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Trình tạo dữ liệu giả",
     "subtitle": "Định nghĩa cột có kiểu — xuất tới {max} dòng fixture",
-    "mockarooLink": "Quy trình kiểu Mockaroo",
     "rowsLabel": "Số dòng",
     "rowsHint": "Tối đa {max} dòng mỗi lần tạo để tab mượt.",
     "formatLabel": "Định dạng",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Số & ID",
       "dateTime": "Ngày & giờ",
       "textDesign": "Văn bản & thiết kế",
-      "custom": "Tùy chỉnh"
+      "custom": "Tùy chỉnh",
+      "commerce": "Thương mại"
     },
     "fieldTypes": {
       "first_name": "Tên",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Mã tiền tệ",
       "language_code": "Thẻ ngôn ngữ",
-      "custom_list": "Danh sách tùy chỉnh"
+      "custom_list": "Danh sách tùy chỉnh",
+      "gender": "Giới tính",
+      "us_state": "Tiểu bang Hoa Kỳ",
+      "us_state_abbr": "Tiểu bang Hoa Kỳ (viết tắt)",
+      "user_agent": "User agent",
+      "mime_type": "Loại MIME",
+      "file_name": "Tên tệp",
+      "port": "Cổng",
+      "md5": "Băm MD5",
+      "sha256": "Băm SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Thời gian",
+      "weekday": "Ngày trong tuần",
+      "month": "Tháng",
+      "product_name": "Tên sản phẩm",
+      "product_category": "Danh mục sản phẩm",
+      "department": "Phòng ban",
+      "color_name": "Tên màu",
+      "catch_phrase": "Khẩu hiệu"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Nhập lược đồ",
+    "exportSchema": "Xuất lược đồ",
+    "importSchemaError": "Tệp lược đồ không hợp lệ — cần một mảng JSON gồm các cột { name, type }."
   },
   "SvgOptimizer": {
     "title": "Tối ưu SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Chuyển đổi đơn vị",
-    "subtitle": "Chuyển đổi 323 đơn vị thuộc 43 danh mục",
+    "subtitle": "Chuyển đổi 292 đơn vị thuộc 44 danh mục",
     "category": "Danh mục",
     "from": "Từ",
     "to": "Sang",

@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Sahte Veri Üretici",
     "subtitle": "Tipli sütunlar tanımla — {max} satıra kadar dışa aktar",
-    "mockarooLink": "Mockaroo tarzı akış",
     "rowsLabel": "Satırlar",
     "rowsHint": "Sekmeyi akıcı tutmak için oluşturma başına en fazla {max} satır.",
     "formatLabel": "Biçim",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Sayılar ve kimlikler",
       "dateTime": "Tarih ve saat",
       "textDesign": "Metin ve tasarım",
-      "custom": "Özel"
+      "custom": "Özel",
+      "commerce": "Ticaret"
     },
     "fieldTypes": {
       "first_name": "Ad",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Para birimi kodu",
       "language_code": "Dil etiketi",
-      "custom_list": "Özel liste"
+      "custom_list": "Özel liste",
+      "gender": "Cinsiyet",
+      "us_state": "ABD eyaleti",
+      "us_state_abbr": "ABD eyaleti (kısaltma)",
+      "user_agent": "Kullanıcı aracısı",
+      "mime_type": "MIME türü",
+      "file_name": "Dosya adı",
+      "port": "Port",
+      "md5": "MD5 karması",
+      "sha256": "SHA-256 karması",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Saat",
+      "weekday": "Haftanın günü",
+      "month": "Ay",
+      "product_name": "Ürün adı",
+      "product_category": "Ürün kategorisi",
+      "department": "Departman",
+      "color_name": "Renk adı",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Şemayı içe aktar",
+    "exportSchema": "Şemayı dışa aktar",
+    "importSchemaError": "Geçersiz şema dosyası — { name, type } sütunlarından oluşan bir JSON dizisi bekleniyor."
   },
   "SvgOptimizer": {
     "title": "SVG Optimize Edici",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Birim Dönüştürücü",
-    "subtitle": "43 kategoride 323 birimi dönüştür",
+    "subtitle": "44 kategoride 292 birimi dönüştür",
     "category": "Kategori",
     "from": "Kaynak",
     "to": "Hedef",

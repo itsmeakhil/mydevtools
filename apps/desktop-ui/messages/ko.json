@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "모의 데이터 생성기",
     "subtitle": "타입 컬럼 정의 — 최대 {max}행 내보내기",
-    "mockarooLink": "Mockaroo 스타일 워크플로",
     "rowsLabel": "행 수",
     "rowsHint": "탭 반응성을 위해 한 번에 최대 {max}행입니다.",
     "formatLabel": "형식",
@@ -3491,7 +3490,8 @@
       "numbersIds": "숫자 및 ID",
       "dateTime": "날짜 및 시간",
       "textDesign": "텍스트 및 디자인",
-      "custom": "사용자 정의"
+      "custom": "사용자 정의",
+      "commerce": "커머스"
     },
     "fieldTypes": {
       "first_name": "이름",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "통화 코드",
       "language_code": "언어 태그",
-      "custom_list": "사용자 정의 목록"
+      "custom_list": "사용자 정의 목록",
+      "gender": "성별",
+      "us_state": "미국 주",
+      "us_state_abbr": "미국 주 (약어)",
+      "user_agent": "사용자 에이전트",
+      "mime_type": "MIME 타입",
+      "file_name": "파일 이름",
+      "port": "포트",
+      "md5": "MD5 해시",
+      "sha256": "SHA-256 해시",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "시간",
+      "weekday": "요일",
+      "month": "월",
+      "product_name": "제품명",
+      "product_category": "제품 카테고리",
+      "department": "부서",
+      "color_name": "색상 이름",
+      "catch_phrase": "캐치프레이즈"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "스키마 가져오기",
+    "exportSchema": "스키마 내보내기",
+    "importSchemaError": "잘못된 스키마 파일 — { name, type } 열로 이루어진 JSON 배열이 필요합니다."
   },
   "SvgOptimizer": {
     "title": "SVG 최적화기",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "단위 변환기",
-    "subtitle": "43개 카테고리 323개 단위 변환",
+    "subtitle": "44개 카테고리 292개 단위 변환",
     "category": "카테고리",
     "from": "변환 전",
     "to": "변환 후",

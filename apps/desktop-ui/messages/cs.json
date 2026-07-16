@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Generátor testovacích dat",
     "subtitle": "Definujte typované sloupce — export až {max} řádků",
-    "mockarooLink": "Postup jako v Mockaroo",
     "rowsLabel": "Řádky",
     "rowsHint": "Nejvýše {max} řádků na generování, aby karta zůstala svižná.",
     "formatLabel": "Formát",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Čísla a identifikátory",
       "dateTime": "Datum a čas",
       "textDesign": "Text a vzhled",
-      "custom": "Vlastní"
+      "custom": "Vlastní",
+      "commerce": "Obchod"
     },
     "fieldTypes": {
       "first_name": "Jméno",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Kód měny",
       "language_code": "Jazyková značka",
-      "custom_list": "Vlastní seznam"
+      "custom_list": "Vlastní seznam",
+      "gender": "Pohlaví",
+      "us_state": "Stát USA",
+      "us_state_abbr": "Stát USA (zkr.)",
+      "user_agent": "User agent",
+      "mime_type": "Typ MIME",
+      "file_name": "Název souboru",
+      "port": "Port",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Čas",
+      "weekday": "Den v týdnu",
+      "month": "Měsíc",
+      "product_name": "Název produktu",
+      "product_category": "Kategorie produktu",
+      "department": "Oddělení",
+      "color_name": "Název barvy",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importovat schéma",
+    "exportSchema": "Exportovat schéma",
+    "importSchemaError": "Neplatný soubor schématu — očekává se JSON pole sloupců { name, type }."
   },
   "SvgOptimizer": {
     "title": "Optimalizátor SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Převodník jednotek",
-    "subtitle": "Převádějte 323 jednotek ve 43 kategoriích",
+    "subtitle": "Převádějte 292 jednotek ve 44 kategoriích",
     "category": "Kategorie",
     "from": "Z",
     "to": "Na",

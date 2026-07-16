@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Генератор тестових даних",
     "subtitle": "Задайте типи колонок — експорт до {max} рядків фікстур",
-    "mockarooLink": "Сценарій як у Mockaroo",
     "rowsLabel": "Рядки",
     "rowsHint": "Щонайбільше {max} рядків за генерацію, щоб вкладка лишалась швидкою.",
     "formatLabel": "Формат",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Числа та ідентифікатори",
       "dateTime": "Дата й час",
       "textDesign": "Текст і оформлення",
-      "custom": "Власний"
+      "custom": "Власний",
+      "commerce": "Комерція"
     },
     "fieldTypes": {
       "first_name": "Ім'я",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Код валюти",
       "language_code": "Мовна мітка",
-      "custom_list": "Власний список"
+      "custom_list": "Власний список",
+      "gender": "Стать",
+      "us_state": "Штат США",
+      "us_state_abbr": "Штат США (скор.)",
+      "user_agent": "User agent",
+      "mime_type": "Тип MIME",
+      "file_name": "Ім'я файлу",
+      "port": "Порт",
+      "md5": "Хеш MD5",
+      "sha256": "Хеш SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Час",
+      "weekday": "День тижня",
+      "month": "Місяць",
+      "product_name": "Назва товару",
+      "product_category": "Категорія товару",
+      "department": "Відділ",
+      "color_name": "Назва кольору",
+      "catch_phrase": "Слоган"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Імпортувати схему",
+    "exportSchema": "Експортувати схему",
+    "importSchemaError": "Недійсний файл схеми — очікується JSON-масив стовпців { name, type }."
   },
   "SvgOptimizer": {
     "title": "Оптимізатор SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Конвертер величин",
-    "subtitle": "Конвертуйте 323 одиниці в 43 категоріях",
+    "subtitle": "Конвертуйте 292 одиниці в 44 категоріях",
     "category": "Категорія",
     "from": "З",
     "to": "В",

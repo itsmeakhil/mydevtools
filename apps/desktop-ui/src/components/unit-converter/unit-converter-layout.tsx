@@ -72,6 +72,7 @@ export function UnitConverterLayout() {
   }, [inputValue, fromKey, toKey, category])
 
   const resultText = result !== null ? formatResult(result) : ''
+  const fromSymbol = category?.units[fromKey]?.symbol ?? ''
   const toSymbol = category?.units[toKey]?.symbol ?? ''
 
   function swap() {
@@ -172,6 +173,7 @@ export function UnitConverterLayout() {
           className="shrink-0 mb-0.5"
           onClick={swap}
           title={t('swapUnits')}
+          aria-label={t('swapUnits')}
         >
           <ArrowRightLeft className="h-4 w-4" />
         </Button>
@@ -206,30 +208,41 @@ export function UnitConverterLayout() {
         />
       </div>
 
-      {/* Result */}
-      {result !== null && (
-        <Card>
-          <CardContent className="pt-5 pb-5">
-            <div className="flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-2xl font-mono font-semibold tracking-tight break-all">
-                  {resultText}
+      {/* Result — always rendered so the layout never jumps on invalid input */}
+      <Card aria-live="polite">
+        <CardContent className="pt-5 pb-5">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              {result !== null && (
+                <p className="text-sm text-muted-foreground font-mono">
+                  {inputValue.trim()} {fromSymbol} =
                 </p>
-                <p className="text-sm text-muted-foreground mt-0.5">{toSymbol}</p>
-              </div>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={copyResult}
-                title={t('copyResult')}
-                className="shrink-0"
-              >
-                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-              </Button>
+              )}
+              <p className="text-2xl font-mono font-semibold tracking-tight break-all">
+                {result !== null ? (
+                  <>
+                    {resultText}{' '}
+                    <span className="text-base font-normal text-muted-foreground">{toSymbol}</span>
+                  </>
+                ) : (
+                  <span className="text-muted-foreground">—</span>
+                )}
+              </p>
             </div>
-          </CardContent>
-        </Card>
-      )}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={copyResult}
+              disabled={result === null}
+              title={t('copyResult')}
+              aria-label={t('copyResult')}
+              className="shrink-0"
+            >
+              {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
       </div>
     </div>
   )

@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Generator Data Tiruan",
     "subtitle": "Tentukan kolom bertipe — ekspor hingga {max} baris fixture",
-    "mockarooLink": "Alur kerja ala Mockaroo",
     "rowsLabel": "Baris",
     "rowsHint": "Maksimum {max} baris per pembuatan agar tab tetap responsif.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Angka & ID",
       "dateTime": "Tanggal & waktu",
       "textDesign": "Teks & desain",
-      "custom": "Kustom"
+      "custom": "Kustom",
+      "commerce": "Perdagangan"
     },
     "fieldTypes": {
       "first_name": "Nama depan",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Kode mata uang",
       "language_code": "Tag bahasa",
-      "custom_list": "Daftar kustom"
+      "custom_list": "Daftar kustom",
+      "gender": "Jenis kelamin",
+      "us_state": "Negara bagian AS",
+      "us_state_abbr": "Negara bagian AS (singkatan)",
+      "user_agent": "User agent",
+      "mime_type": "Tipe MIME",
+      "file_name": "Nama file",
+      "port": "Port",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Waktu",
+      "weekday": "Hari dalam minggu",
+      "month": "Bulan",
+      "product_name": "Nama produk",
+      "product_category": "Kategori produk",
+      "department": "Departemen",
+      "color_name": "Nama warna",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Impor skema",
+    "exportSchema": "Ekspor skema",
+    "importSchemaError": "File skema tidak valid — diharapkan array JSON berisi kolom { name, type }."
   },
   "SvgOptimizer": {
     "title": "Pengoptimal SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Konverter Satuan",
-    "subtitle": "Konversi 323 satuan dalam 43 kategori",
+    "subtitle": "Konversi 292 satuan dalam 44 kategori",
     "category": "Kategori",
     "from": "Dari",
     "to": "Ke",

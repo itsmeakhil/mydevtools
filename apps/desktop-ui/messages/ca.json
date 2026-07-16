@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Generador de dades fictícies",
     "subtitle": "Defineix columnes tipades — exporta fins a {max} files",
-    "mockarooLink": "Flux com a Mockaroo",
     "rowsLabel": "Files",
     "rowsHint": "Com a màxim {max} files per generació per mantenir la pestanya fluida.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Nombres i IDs",
       "dateTime": "Data i hora",
       "textDesign": "Text i disseny",
-      "custom": "Personalitzat"
+      "custom": "Personalitzat",
+      "commerce": "Comerç"
     },
     "fieldTypes": {
       "first_name": "Nom",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Codi de moneda",
       "language_code": "Etiqueta d’idioma",
-      "custom_list": "Llista personalitzada"
+      "custom_list": "Llista personalitzada",
+      "gender": "Gènere",
+      "us_state": "Estat dels EUA",
+      "us_state_abbr": "Estat dels EUA (abr.)",
+      "user_agent": "Agent d'usuari",
+      "mime_type": "Tipus MIME",
+      "file_name": "Nom de fitxer",
+      "port": "Port",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Hora",
+      "weekday": "Dia de la setmana",
+      "month": "Mes",
+      "product_name": "Nom del producte",
+      "product_category": "Categoria de producte",
+      "department": "Departament",
+      "color_name": "Nom del color",
+      "catch_phrase": "Eslògan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importa l'esquema",
+    "exportSchema": "Exporta l'esquema",
+    "importSchemaError": "Fitxer d'esquema no vàlid — s'espera una matriu JSON de columnes { name, type }."
   },
   "SvgOptimizer": {
     "title": "Optimitzador SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Convertidor d’unitats",
-    "subtitle": "Converteix 323 unitats en 43 categories",
+    "subtitle": "Converteix 292 unitats en 44 categories",
     "category": "Categoria",
     "from": "De",
     "to": "A",

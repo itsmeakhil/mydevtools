@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Γεννήτρια Εικονικών Δεδομένων",
     "subtitle": "Ορισμός τυποποιημένων στηλών — εξαγωγή έως {max} γραμμών",
-    "mockarooLink": "Ροή εργασίας σαν το Mockaroo",
     "rowsLabel": "Γραμμές",
     "rowsHint": "Έως {max} γραμμές ανά δημιουργία για να παραμείνει η καρτέλα γρήγορη.",
     "formatLabel": "Μορφή",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Αριθμοί & αναγνωριστικά",
       "dateTime": "Ημερομηνία & ώρα",
       "textDesign": "Κείμενο & σχεδίαση",
-      "custom": "Προσαρμοσμένο"
+      "custom": "Προσαρμοσμένο",
+      "commerce": "Εμπόριο"
     },
     "fieldTypes": {
       "first_name": "Όνομα",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Κωδικός νομίσματος",
       "language_code": "Ετικέτα γλώσσας",
-      "custom_list": "Προσαρμοσμένη λίστα"
+      "custom_list": "Προσαρμοσμένη λίστα",
+      "gender": "Φύλο",
+      "us_state": "Πολιτεία ΗΠΑ",
+      "us_state_abbr": "Πολιτεία ΗΠΑ (συντ.)",
+      "user_agent": "User agent",
+      "mime_type": "Τύπος MIME",
+      "file_name": "Όνομα αρχείου",
+      "port": "Θύρα",
+      "md5": "Κατακερματισμός MD5",
+      "sha256": "Κατακερματισμός SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Ώρα",
+      "weekday": "Ημέρα εβδομάδας",
+      "month": "Μήνας",
+      "product_name": "Όνομα προϊόντος",
+      "product_category": "Κατηγορία προϊόντος",
+      "department": "Τμήμα",
+      "color_name": "Όνομα χρώματος",
+      "catch_phrase": "Σλόγκαν"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Εισαγωγή σχήματος",
+    "exportSchema": "Εξαγωγή σχήματος",
+    "importSchemaError": "Μη έγκυρο αρχείο σχήματος — αναμένεται πίνακας JSON με στήλες { name, type }."
   },
   "SvgOptimizer": {
     "title": "Βελτιστοποιητής SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Μετατροπέας Μονάδων",
-    "subtitle": "Μετατροπή 323 μονάδων σε 43 κατηγορίες",
+    "subtitle": "Μετατροπή 292 μονάδων σε 44 κατηγορίες",
     "category": "Κατηγορία",
     "from": "Από",
     "to": "Σε",

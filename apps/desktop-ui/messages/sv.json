@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Mockdatagenerator",
     "subtitle": "Definiera typade kolumner — exportera upp till {max} fixturrader",
-    "mockarooLink": "Mockaroo-liknande arbetsflöde",
     "rowsLabel": "Rader",
     "rowsHint": "Högst {max} rader per körning för att hålla fliken responsiv.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Tal och ID",
       "dateTime": "Datum och tid",
       "textDesign": "Text och design",
-      "custom": "Anpassat"
+      "custom": "Anpassat",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Förnamn",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Valutakod",
       "language_code": "Språktagg",
-      "custom_list": "Anpassad lista"
+      "custom_list": "Anpassad lista",
+      "gender": "Kön",
+      "us_state": "Amerikansk delstat",
+      "us_state_abbr": "Amerikansk delstat (förk.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-typ",
+      "file_name": "Filnamn",
+      "port": "Port",
+      "md5": "MD5-hash",
+      "sha256": "SHA-256-hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Tid",
+      "weekday": "Veckodag",
+      "month": "Månad",
+      "product_name": "Produktnamn",
+      "product_category": "Produktkategori",
+      "department": "Avdelning",
+      "color_name": "Färgnamn",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importera schema",
+    "exportSchema": "Exportera schema",
+    "importSchemaError": "Ogiltig schemafil — en JSON-array med { name, type }-kolumner förväntas."
   },
   "SvgOptimizer": {
     "title": "SVG-optimerare",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Enhetskonverterare",
-    "subtitle": "Konvertera 323 enheter i 43 kategorier",
+    "subtitle": "Konvertera 292 enheter i 44 kategorier",
     "category": "Kategori",
     "from": "Från",
     "to": "Till",

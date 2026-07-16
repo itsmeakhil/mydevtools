@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Penjana Data Olokan",
     "subtitle": "Takrifkan lajur bertaip — eksport sehingga {max} baris fixture",
-    "mockarooLink": "Aliran kerja ala Mockaroo",
     "rowsLabel": "Baris",
     "rowsHint": "Maksimum {max} baris setiap penjanaan supaya tab kekal responsif.",
     "formatLabel": "Format",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Nombor & ID",
       "dateTime": "Tarikh & masa",
       "textDesign": "Teks & reka bentuk",
-      "custom": "Tersuai"
+      "custom": "Tersuai",
+      "commerce": "Perdagangan"
     },
     "fieldTypes": {
       "first_name": "Nama pertama",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Kod mata wang",
       "language_code": "Tag bahasa",
-      "custom_list": "Senarai tersuai"
+      "custom_list": "Senarai tersuai",
+      "gender": "Jantina",
+      "us_state": "Negeri AS",
+      "us_state_abbr": "Negeri AS (singkatan)",
+      "user_agent": "Ejen pengguna",
+      "mime_type": "Jenis MIME",
+      "file_name": "Nama fail",
+      "port": "Port",
+      "md5": "Cincangan MD5",
+      "sha256": "Cincangan SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Masa",
+      "weekday": "Hari dalam minggu",
+      "month": "Bulan",
+      "product_name": "Nama produk",
+      "product_category": "Kategori produk",
+      "department": "Jabatan",
+      "color_name": "Nama warna",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Import skema",
+    "exportSchema": "Eksport skema",
+    "importSchemaError": "Fail skema tidak sah — tatasusunan JSON lajur { name, type } dijangka."
   },
   "SvgOptimizer": {
     "title": "Pengoptimum SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Penukar Unit",
-    "subtitle": "Tukar 323 unit merentas 43 kategori",
+    "subtitle": "Tukar 292 unit merentas 44 kategori",
     "category": "Kategori",
     "from": "Dari",
     "to": "Ke",

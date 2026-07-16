@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "模拟数据生成器",
     "subtitle": "定义类型化列 — 导出最多 {max} 行测试数据",
-    "mockarooLink": "Mockaroo 式工作流",
     "rowsLabel": "行数",
     "rowsHint": "每次生成最多 {max} 行，以保持标签页流畅。",
     "formatLabel": "格式",
@@ -3491,7 +3490,8 @@
       "numbersIds": "数字与标识",
       "dateTime": "日期与时间",
       "textDesign": "文本与设计",
-      "custom": "自定义"
+      "custom": "自定义",
+      "commerce": "商务"
     },
     "fieldTypes": {
       "first_name": "名",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "货币代码",
       "language_code": "语言标签",
-      "custom_list": "自定义列表"
+      "custom_list": "自定义列表",
+      "gender": "性别",
+      "us_state": "美国州",
+      "us_state_abbr": "美国州（缩写）",
+      "user_agent": "用户代理",
+      "mime_type": "MIME 类型",
+      "file_name": "文件名",
+      "port": "端口",
+      "md5": "MD5 哈希",
+      "sha256": "SHA-256 哈希",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "时间",
+      "weekday": "星期",
+      "month": "月份",
+      "product_name": "产品名称",
+      "product_category": "产品类别",
+      "department": "部门",
+      "color_name": "颜色名称",
+      "catch_phrase": "宣传语"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "导入架构",
+    "exportSchema": "导出架构",
+    "importSchemaError": "架构文件无效 — 需要由 { name, type } 列组成的 JSON 数组。"
   },
   "SvgOptimizer": {
     "title": "SVG 优化器",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "单位换算器",
-    "subtitle": "覆盖 43 类 323 种单位换算",
+    "subtitle": "覆盖 44 类 292 种单位换算",
     "category": "类别",
     "from": "从",
     "to": "到",

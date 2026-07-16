@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Skyndata-genereerder",
     "subtitle": "Definieer getipeerde kolomme — voer tot {max} fixture-rye uit",
-    "mockarooLink": "Mockaroo-agtige werkstroom",
     "rowsLabel": "Rye",
     "rowsHint": "Maksimum {max} rye per generasie om die oortjie vinnig te hou.",
     "formatLabel": "Formaat",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Syfers en ID’s",
       "dateTime": "Datum en tyd",
       "textDesign": "Teks en ontwerp",
-      "custom": "Aangepas"
+      "custom": "Aangepas",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Voornaam",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Geldkode",
       "language_code": "Taalkode",
-      "custom_list": "Pasgemaakte lys"
+      "custom_list": "Pasgemaakte lys",
+      "gender": "Geslag",
+      "us_state": "VSA-staat",
+      "us_state_abbr": "VSA-staat (afk.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-tipe",
+      "file_name": "Lêernaam",
+      "port": "Poort",
+      "md5": "MD5-hutswaarde",
+      "sha256": "SHA-256-hutswaarde",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Tyd",
+      "weekday": "Weeksdag",
+      "month": "Maand",
+      "product_name": "Produknaam",
+      "product_category": "Produkkategorie",
+      "department": "Departement",
+      "color_name": "Kleurnaam",
+      "catch_phrase": "Slagspreuk"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Voer skema in",
+    "exportSchema": "Voer skema uit",
+    "importSchemaError": "Ongeldige skemalêer — 'n JSON-lys van { name, type }-kolomme word verwag."
   },
   "SvgOptimizer": {
     "title": "SVG-optimeerder",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Eenheid-omskakelaar",
-    "subtitle": "Skakel 323 eenhede in 43 kategorieë om",
+    "subtitle": "Skakel 292 eenhede in 44 kategorieë om",
     "category": "Kategorie",
     "from": "Van",
     "to": "Na",

@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Gerador de dados fictícios",
     "subtitle": "Defina colunas tipadas — exporte até {max} linhas",
-    "mockarooLink": "Fluxo ao estilo Mockaroo",
     "rowsLabel": "Linhas",
     "rowsHint": "No máximo {max} linhas por geração para manter o separador fluido.",
     "formatLabel": "Formato",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Números e IDs",
       "dateTime": "Data e hora",
       "textDesign": "Texto e design",
-      "custom": "Personalizado"
+      "custom": "Personalizado",
+      "commerce": "Comércio"
     },
     "fieldTypes": {
       "first_name": "Nome próprio",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Código da moeda",
       "language_code": "Etiqueta de idioma",
-      "custom_list": "Lista personalizada"
+      "custom_list": "Lista personalizada",
+      "gender": "Género",
+      "us_state": "Estado dos EUA",
+      "us_state_abbr": "Estado dos EUA (abrev.)",
+      "user_agent": "User agent",
+      "mime_type": "Tipo MIME",
+      "file_name": "Nome do ficheiro",
+      "port": "Porta",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Hora",
+      "weekday": "Dia da semana",
+      "month": "Mês",
+      "product_name": "Nome do produto",
+      "product_category": "Categoria de produto",
+      "department": "Departamento",
+      "color_name": "Nome da cor",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importar esquema",
+    "exportSchema": "Exportar esquema",
+    "importSchemaError": "Ficheiro de esquema inválido — é esperado um array JSON de colunas { name, type }."
   },
   "SvgOptimizer": {
     "title": "Otimizador de SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Conversor de unidades",
-    "subtitle": "Converta 323 unidades em 43 categorias",
+    "subtitle": "Converta 292 unidades em 44 categorias",
     "category": "Categoria",
     "from": "De",
     "to": "Para",

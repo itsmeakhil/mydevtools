@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Generatore di dati fittizi",
     "subtitle": "Definisci colonne tipizzate — esporta fino a {max} righe",
-    "mockarooLink": "Flusso in stile Mockaroo",
     "rowsLabel": "Righe",
     "rowsHint": "Massimo {max} righe per generazione per mantenere la scheda reattiva.",
     "formatLabel": "Formato",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Numeri e ID",
       "dateTime": "Data e ora",
       "textDesign": "Testo e design",
-      "custom": "Personalizzato"
+      "custom": "Personalizzato",
+      "commerce": "Commercio"
     },
     "fieldTypes": {
       "first_name": "Nome",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Codice valuta",
       "language_code": "Tag lingua",
-      "custom_list": "Elenco personalizzato"
+      "custom_list": "Elenco personalizzato",
+      "gender": "Genere",
+      "us_state": "Stato USA",
+      "us_state_abbr": "Stato USA (abbr.)",
+      "user_agent": "User agent",
+      "mime_type": "Tipo MIME",
+      "file_name": "Nome file",
+      "port": "Porta",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Ora",
+      "weekday": "Giorno della settimana",
+      "month": "Mese",
+      "product_name": "Nome prodotto",
+      "product_category": "Categoria prodotto",
+      "department": "Reparto",
+      "color_name": "Nome colore",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importa schema",
+    "exportSchema": "Esporta schema",
+    "importSchemaError": "File di schema non valido — è previsto un array JSON di colonne { name, type }."
   },
   "SvgOptimizer": {
     "title": "Ottimizzatore SVG",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Convertitore di unità",
-    "subtitle": "Converti 323 unità in 43 categorie",
+    "subtitle": "Converti 292 unità in 44 categorie",
     "category": "Categoria",
     "from": "Da",
     "to": "A",

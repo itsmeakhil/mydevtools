@@ -3444,7 +3444,6 @@
   "MockDataGenerator": {
     "title": "Mockdata-generator",
     "subtitle": "Definieer getypeerde kolommen — exporteer tot {max} fixture-rijen",
-    "mockarooLink": "Mockaroo-achtige workflow",
     "rowsLabel": "Rijen",
     "rowsHint": "Maximaal {max} rijen per run om het tabblad vlot te houden.",
     "formatLabel": "Formaat",
@@ -3491,7 +3490,8 @@
       "numbersIds": "Getallen & ID’s",
       "dateTime": "Datum & tijd",
       "textDesign": "Tekst & vormgeving",
-      "custom": "Aangepast"
+      "custom": "Aangepast",
+      "commerce": "Commercie"
     },
     "fieldTypes": {
       "first_name": "Voornaam",
@@ -3538,12 +3538,34 @@
       "rgb_color": "RGB color",
       "currency_code": "Valutacode",
       "language_code": "Taalcode",
-      "custom_list": "Aangepaste lijst"
+      "custom_list": "Aangepaste lijst",
+      "gender": "Geslacht",
+      "us_state": "Amerikaanse staat",
+      "us_state_abbr": "Amerikaanse staat (afk.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-type",
+      "file_name": "Bestandsnaam",
+      "port": "Poort",
+      "md5": "MD5-hash",
+      "sha256": "SHA-256-hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Tijd",
+      "weekday": "Weekdag",
+      "month": "Maand",
+      "product_name": "Productnaam",
+      "product_category": "Productcategorie",
+      "department": "Afdeling",
+      "color_name": "Kleurnaam",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Schema importeren",
+    "exportSchema": "Schema exporteren",
+    "importSchemaError": "Ongeldig schemabestand — een JSON-array van { name, type }-kolommen wordt verwacht."
   },
   "SvgOptimizer": {
     "title": "SVG-optimizer",
@@ -3575,7 +3597,7 @@
   },
   "UnitConverter": {
     "title": "Eenhedenconverter",
-    "subtitle": "Converteer 323 eenheden in 43 categorieën",
+    "subtitle": "Converteer 292 eenheden in 44 categorieën",
     "category": "Categorie",
     "from": "Van",
     "to": "Naar",
