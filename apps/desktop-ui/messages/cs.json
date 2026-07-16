@@ -1084,6 +1084,7 @@
       "pasteLabel": "Vložit JSON data",
       "pastePlaceholder": "[{\"service\": \"Příklad\", \"username\": \"uzivatel\", \"password\": \"123\", ...}]",
       "pasteHint": "Vložte obsah dříve exportovaného JSON souboru.",
+      "selectFile": "Vybrat soubor JSON",
       "importing": "Importování...",
       "importPasswords": "Importovat hesla",
       "trigger": "Import / export",

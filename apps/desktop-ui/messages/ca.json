@@ -1084,6 +1084,7 @@
       "pasteLabel": "Enganxa dades JSON",
       "pastePlaceholder": "[{\"service\": \"Exemple\", \"username\": \"usuari\", \"password\": \"123\", ...}]",
       "pasteHint": "Enganxa aquí el contingut d'un fitxer JSON exportat anteriorment.",
+      "selectFile": "Selecciona un fitxer JSON",
       "importing": "S'està important...",
       "importPasswords": "Importa contrasenyes",
       "trigger": "Importa / exporta",

@@ -1084,6 +1084,7 @@
       "pasteLabel": "Colar dados JSON",
       "pastePlaceholder": "[{\"service\": \"Exemplo\", \"username\": \"utilizador\", \"password\": \"123\", ...}]",
       "pasteHint": "Cola o conteúdo de um ficheiro JSON exportado anteriormente aqui.",
+      "selectFile": "Selecionar ficheiro JSON",
       "importing": "A importar...",
       "importPasswords": "Importar palavras-passe",
       "trigger": "Importar / exportar",

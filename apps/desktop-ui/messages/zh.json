@@ -1084,6 +1084,7 @@
       "pasteLabel": "粘贴 JSON 数据",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "在此粘贴先前导出的 JSON 文件内容。",
+      "selectFile": "选择 JSON 文件",
       "importing": "导入中…",
       "importPasswords": "导入密码",
       "trigger": "导入 / 导出",

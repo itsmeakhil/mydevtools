@@ -1084,6 +1084,7 @@
       "pasteLabel": "JSONデータを貼り付け",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "以前にエクスポートしたJSONファイルの内容をここに貼り付けてください。",
+      "selectFile": "JSONファイルを選択",
       "importing": "インポート中...",
       "importPasswords": "パスワードをインポート",
       "trigger": "インポート / エクスポート",

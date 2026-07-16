@@ -1084,6 +1084,7 @@
       "pasteLabel": "Вставте дані JSON",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Вставте вміст раніше експортованого JSON-файлу сюди.",
+      "selectFile": "Вибрати файл JSON",
       "importing": "Імпорт...",
       "importPasswords": "Імпортувати паролі",
       "trigger": "Імпорт / експорт",

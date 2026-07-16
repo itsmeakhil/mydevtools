@@ -6,7 +6,6 @@ import { X, Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
 import { cn } from '@/lib/utils'
-import { ModeToggle } from '@/components/modeToggle'
 import {
   Tooltip,
   TooltipContent,
@@ -250,11 +249,6 @@ export function TabBar({ onNewTab }: TabBarProps) {
           </TooltipContent>
         </Tooltip>
 
-        {/* Global context chrome — same set & order as the NavBar. */}
-        <div className="mx-1.5 hidden h-4 w-px shrink-0 bg-border/60 md:block" />
-        <div className="hidden shrink-0 items-center gap-1.5 pr-1 md:flex">
-          <ModeToggle />
-        </div>
       </div>
     </TooltipProvider>
   )

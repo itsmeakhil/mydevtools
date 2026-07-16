@@ -1084,6 +1084,7 @@
       "pasteLabel": "JSON 데이터 붙여넣기",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "이전에 내보낸 JSON 파일의 내용을 여기에 붙여넣으세요.",
+      "selectFile": "JSON 파일 선택",
       "importing": "가져오는 중...",
       "importPasswords": "비밀번호 가져오기",
       "trigger": "가져오기 / 내보내기",

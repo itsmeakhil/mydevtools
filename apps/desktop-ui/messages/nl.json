@@ -1084,6 +1084,7 @@
       "pasteLabel": "JSON-gegevens plakken",
       "pastePlaceholder": "[{\"service\": \"Voorbeeld\", \"username\": \"gebruiker\", \"password\": \"123\", ...}]",
       "pasteHint": "Plak hier de inhoud van een eerder geëxporteerd JSON-bestand.",
+      "selectFile": "JSON-bestand selecteren",
       "importing": "Importeren...",
       "importPasswords": "Wachtwoorden importeren",
       "trigger": "Importeren / exporteren",

@@ -1084,6 +1084,7 @@
       "pasteLabel": "Tampal data JSON",
       "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
       "pasteHint": "Tampal kandungan fail JSON yang telah dieksport sebelum ini di sini.",
+      "selectFile": "Pilih fail JSON",
       "importing": "Mengimport...",
       "importPasswords": "Import kata laluan",
       "trigger": "Import / eksport",

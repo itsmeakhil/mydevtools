@@ -1084,6 +1084,7 @@
       "pasteLabel": "JSON verilerini yapıştırın",
       "pastePlaceholder": "[{\"service\": \"Örnek\", \"username\": \"kullanici\", \"password\": \"123\", ...}]",
       "pasteHint": "Daha önce dışa aktarılmış bir JSON dosyasının içeriğini buraya yapıştırın.",
+      "selectFile": "JSON dosyası seç",
       "importing": "İçe aktarılıyor...",
       "importPasswords": "Şifreleri içe aktar",
       "trigger": "İçe / dışa aktar",

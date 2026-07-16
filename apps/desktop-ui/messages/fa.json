@@ -1084,6 +1084,7 @@
       "pasteLabel": "داده های JSON را جایگذاری کنید",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "محتوای یک فایل JSON قبلا صادر شده را در اینجا جای‌گذاری کنید.",
+      "selectFile": "انتخاب فایل JSON",
       "importing": "واردات...",
       "importPasswords": "وارد کردن رمزهای عبور",
       "trigger": "واردات / صادرات",

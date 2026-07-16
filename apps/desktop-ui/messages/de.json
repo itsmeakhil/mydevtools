@@ -1084,6 +1084,7 @@
       "pasteLabel": "JSON-Daten einfügen",
       "pastePlaceholder": "[{\"service\": \"Beispiel\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Inhalt einer zuvor exportierten JSON-Datei hier einfügen.",
+      "selectFile": "JSON-Datei auswählen",
       "importing": "Importiere...",
       "importPasswords": "Passwörter importieren",
       "trigger": "Import / Export",

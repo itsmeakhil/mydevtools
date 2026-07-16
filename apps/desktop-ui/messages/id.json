@@ -1084,6 +1084,7 @@
       "pasteLabel": "Tempel data JSON",
       "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
       "pasteHint": "Tempel konten file JSON yang sebelumnya diekspor di sini.",
+      "selectFile": "Pilih file JSON",
       "importing": "Mengimpor",
       "importPasswords": "Impor Kata Sandi",
       "trigger": "Impor/Ekspor",

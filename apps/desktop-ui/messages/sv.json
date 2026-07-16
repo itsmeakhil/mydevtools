@@ -1084,6 +1084,7 @@
       "pasteLabel": "Klistra in JSON-data",
       "pastePlaceholder": "[{\"service\": \"Exempel\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Klistra in innehållet från en tidigare exporterad JSON-fil här.",
+      "selectFile": "Välj JSON-fil",
       "importing": "Importerar...",
       "importPasswords": "Importera lösenord",
       "trigger": "Importera / exportera",

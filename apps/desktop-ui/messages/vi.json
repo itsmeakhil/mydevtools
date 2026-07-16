@@ -1084,6 +1084,7 @@
       "pasteLabel": "Dán dữ liệu JSON",
       "pastePlaceholder": "[{\"service\": \"Ví dụ\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Dán nội dung tệp JSON đã xuất trước đó vào đây.",
+      "selectFile": "Chọn tệp JSON",
       "importing": "Đang nhập...",
       "importPasswords": "Nhập mật khẩu",
       "trigger": "Nhập / xuất",

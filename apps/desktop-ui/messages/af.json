@@ -1084,6 +1084,7 @@
       "pasteLabel": "Plak JSON-data",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Plak die inhoud van 'n voorheen uitgevoerde JSON-lêer hier.",
+      "selectFile": "Kies JSON-lêer",
       "importing": "Besig om in te voer...",
       "importPasswords": "Voer wagwoorde in",
       "trigger": "Invoer / uitvoer",

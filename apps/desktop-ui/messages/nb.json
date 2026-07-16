@@ -1084,6 +1084,7 @@
       "pasteLabel": "Lim inn JSON-data",
       "pastePlaceholder": "[{\"service\": \"Eksempel\", \"username\": \"bruker\", \"password\": \"123\", ...}]",
       "pasteHint": "Lim inn innholdet i en tidligere eksportert JSON-fil her.",
+      "selectFile": "Velg JSON-fil",
       "importing": "Importerer...",
       "importPasswords": "Importer passord",
       "trigger": "Importer / eksporter",
