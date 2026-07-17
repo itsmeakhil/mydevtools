@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import {
@@ -18,7 +17,6 @@ import {
   ArrowRight,
   Zap,
   Shield,
-  Sparkles,
   Star,
   ChevronDown,
   LogIn,
@@ -301,26 +299,6 @@ export default function Page() {
             variants={stagger}
             className="space-y-8 max-w-4xl mx-auto"
           >
-            {/* Pill badge */}
-            <motion.div variants={fadeUp} transition={{ duration: 0.55 }}>
-              <Badge
-                variant="secondary"
-                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full border border-border/60 bg-muted/70 backdrop-blur-md text-foreground"
-              >
-                <motion.span
-                  animate={reduceMotion ? undefined : { rotate: [0, 18, -18, 0] }}
-                  transition={
-                    reduceMotion
-                      ? undefined
-                      : { duration: 2.5, repeat: Infinity, repeatDelay: 4 }
-                  }
-                  className="inline-flex"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                </motion.span>
-                One all-in-one developer toolkit, on your desktop
-              </Badge>
-            </motion.div>
 
             {/* Headline */}
             <motion.h1
@@ -462,13 +440,6 @@ export default function Page() {
               transition={{ duration: 0.6 }}
               className="text-center mb-14"
             >
-              <Badge
-                variant="secondary"
-                className="mb-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium"
-              >
-                <Sparkles className="w-3 h-3" />
-                Get Started in Seconds
-              </Badge>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
                 How It Works
               </h2>
@@ -1062,15 +1033,6 @@ export default function Page() {
           <Section>
             <motion.div variants={fadeUp} transition={{ duration: 0.55 }}>
               <div className="glass-modal rounded-3xl px-8 py-14 md:px-16 md:py-20 max-w-3xl mx-auto">
-                <div className="mb-6">
-                  <Badge
-                    variant="secondary"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium"
-                  >
-                    <Sparkles className="w-3 h-3" />
-                    Free to get started · Upgrade anytime
-                  </Badge>
-                </div>
 
                 <motion.h2
                   variants={fadeUp}
