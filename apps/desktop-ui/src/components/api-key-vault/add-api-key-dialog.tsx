@@ -319,7 +319,7 @@ export function AddApiKeyDialog({ children }: { children?: React.ReactNode }) {
             onOpenChange={setOpen}
             trigger={trigger}
             title="Add API Key"
-            description="Encrypted on your device before sync. Server never sees plaintext."
+            description="Encrypted and stored on your device."
         >
             <FormBody
                 initial={EMPTY}
