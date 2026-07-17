@@ -328,20 +328,21 @@ export default function RedisCommanderPage() {
                     >
                         <IconPlus className="size-4" />
                     </Button>
-                    <Button
-                        size="icon"
-                        variant="ghost"
-                        className="size-7 shrink-0 text-muted-foreground"
-                        onClick={() => {
-                            setTabs([]);
-                            setActiveTabId(null);
-                        }}
-                        title="Close all tabs"
-                    >
-                        <IconX className="size-4" />
-                    </Button>
                     {activeTab && (
                         <div className="ml-auto flex items-center gap-2 px-2 shrink-0">
+                            <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-7 text-xs gap-1 text-muted-foreground"
+                                onClick={() => {
+                                    setTabs([]);
+                                    setActiveTabId(null);
+                                }}
+                                title="Close all tabs"
+                            >
+                                <IconX className="size-3.5" />
+                                Close all
+                            </Button>
                             <label className="flex items-center gap-1 text-xs text-muted-foreground">
                                 DB
                                 <select
