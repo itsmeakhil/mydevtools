@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Điều hướng ghi chú",
-      "openMenuAria": "Mở menu ghi chú"
+      "openMenuAria": "Mở menu ghi chú",
+      "showSidebarAria": "Hiện thanh bên"
     },
     "sidebar": {
       "title": "Ghi chú",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Bạn có chắc muốn xóa \"{title}\"? Hành động này không thể hoàn tác.",
       "cancel": "Hủy",
       "confirmDelete": "Xóa",
-      "noteOptionsAria": "Tùy chọn ghi chú"
+      "noteOptionsAria": "Tùy chọn ghi chú",
+      "hideSidebarAria": "Ẩn thanh bên"
     },
     "editor": {
       "emptyState": "Chọn ghi chú hoặc tạo mới để bắt đầu.",
@@ -934,7 +936,8 @@
       "loading": "Đang tải…",
       "searchHint": "để tìm kiếm",
       "focusHint": "chế độ tập trung",
-      "notePath": "Đường dẫn ghi chú"
+      "notePath": "Đường dẫn ghi chú",
+      "export": "Xuất"
     },
     "context": {
       "authRequiredError": "Người dùng chưa xác thực",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Dán dữ liệu JSON",
       "pastePlaceholder": "[{\"service\": \"Ví dụ\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Dán nội dung tệp JSON đã xuất trước đó vào đây.",
+      "selectFile": "Chọn tệp JSON",
       "importing": "Đang nhập...",
       "importPasswords": "Nhập mật khẩu",
       "trigger": "Nhập / xuất",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Xóa thư mục \"{name}\"?",
       "deleteFolderDescription": "Hành động này sẽ xóa thư mục và tất cả thư mục con. Dấu trang trong các thư mục này sẽ được chuyển sang Chưa phân loại."
     },
+    "foldersHeading": "Thư mục",
     "import": {
       "title": "Nhập dấu trang",
       "description": "Nhập dấu trang từ tệp xuất của trình duyệt.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Cập nhật & Kết nối",
       "connect": "Kết nối",
       "cancelEdit": "Hủy sửa",
+      "cancel": "Hủy",
       "savedConnections": "Kết nối đã lưu",
       "emptySaved": "Chưa có kết nối nào được lưu.",
       "lastUsed": "Sử dụng lần cuối {time}",
       "toastTestOk": "Kết nối thành công!",
       "toastTestFail": "Kết nối thất bại: {message}",
+      "toastConnectFail": "Không thể kết nối với {name}",
       "toastUpdated": "Đã cập nhật kết nối",
       "confirmDelete": "Bạn có chắc muốn xóa kết nối đã lưu này?",
+      "menuDeleteConnection": "Xóa kết nối",
       "toastDeletedConn": "Đã xóa kết nối",
       "toastDeleteFail": "Không thể xóa kết nối",
       "copyStringTitle": "Sao chép chuỗi kết nối",
       "toastStringCopied": "Đã sao chép chuỗi kết nối!",
       "editTitle": "Sửa",
-      "deleteTitle": "Xóa"
+      "deleteTitle": "Xóa",
+      "labelColor": "Nhãn màu",
+      "colorNone": "Không màu",
+      "hintColor": "Gắn nhãn môi trường — ví dụ màu đỏ cho production.",
+      "labelReadOnly": "Kết nối chỉ đọc",
+      "hintReadOnly": "Chặn thêm, sửa, xóa và drop cho kết nối này."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Chỉ đọc",
+      "cellUpdated": "Đã cập nhật giá trị",
+      "cellUpdateFail": "Không thể cập nhật giá trị",
+      "cellFilterByValue": "Lọc theo giá trị này",
+      "cellExcludeValue": "Loại trừ giá trị này",
+      "cellSortAsc": "Sắp xếp tăng dần",
+      "cellSortDesc": "Sắp xếp giảm dần",
+      "cellCopyValue": "Sao chép giá trị",
+      "cellEditValue": "Chỉnh sửa giá trị",
+      "explainTitle": "Kế hoạch thực thi",
+      "explainLoading": "Đang chạy explain…",
+      "explainFail": "Explain thất bại",
+      "explainCollscan": "Quét toàn bộ collection",
+      "explainIndexUsed": "Chỉ mục: {name}",
+      "explainReturned": "{n} được trả về",
+      "explainDocsExamined": "{n} được kiểm tra",
+      "explainCollscanHint": "Truy vấn này quét mọi tài liệu trong collection. Cân nhắc tạo chỉ mục trên các trường được lọc.",
+      "explainRawLabel": "Kết quả explain"
     },
     "tabs": {
       "filterActive": "Bộ lọc đang áp dụng",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Đếm/Tổng)",
       "format": "Định dạng",
       "formattedJson": "JSON đã định dạng",
-      "runQuery": "Chạy truy vấn"
+      "runQuery": "Chạy truy vấn",
+      "savedQueries": "Truy vấn đã lưu",
+      "noHistory": "Không có truy vấn gần đây",
+      "saveNamePlaceholder": "Tên truy vấn",
+      "saveCurrentQuery": "Lưu truy vấn hiện tại",
+      "save": "Lưu",
+      "saveQueryFail": "Không thể lưu truy vấn",
+      "querySaved": "Đã lưu “{name}”",
+      "explainQuery": "Giải thích truy vấn",
+      "stagesMode": "Giai đoạn",
+      "invalidStageJson": "Một giai đoạn pipeline chứa JSON không hợp lệ"
     },
     "export": {
       "selectFieldsError": "Vui lòng chọn ít nhất một trường để xuất",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# trường đã chọn} other {# trường đã chọn}}",
       "cancel": "Hủy",
       "export": "Xuất",
-      "sheetName": "Dữ liệu"
+      "sheetName": "Dữ liệu",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Kiểu: {type}",
       "itemSummary": "{count, plural, one {# mục} other {# mục}}"
+    },
+    "pipeline": {
+      "empty": "Chưa có giai đoạn nào. Thêm giai đoạn để xây dựng pipeline.",
+      "addStage": "Thêm giai đoạn",
+      "stageEnabled": "Giai đoạn được bật",
+      "preview": "Xem trước",
+      "previewToHere": "Chạy pipeline đến giai đoạn này (10 tài liệu đầu tiên)",
+      "previewResult": "Kết quả xem trước ({count})",
+      "previewEmpty": "Không có tài liệu ở giai đoạn này",
+      "previewFail": "Xem trước thất bại"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Trình tạo dữ liệu giả",
     "subtitle": "Định nghĩa cột có kiểu — xuất tới {max} dòng fixture",
-    "mockarooLink": "Quy trình kiểu Mockaroo",
     "rowsLabel": "Số dòng",
     "rowsHint": "Tối đa {max} dòng mỗi lần tạo để tab mượt.",
     "formatLabel": "Định dạng",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Số & ID",
       "dateTime": "Ngày & giờ",
       "textDesign": "Văn bản & thiết kế",
-      "custom": "Tùy chỉnh"
+      "custom": "Tùy chỉnh",
+      "commerce": "Thương mại"
     },
     "fieldTypes": {
       "first_name": "Tên",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Mã tiền tệ",
       "language_code": "Thẻ ngôn ngữ",
-      "custom_list": "Danh sách tùy chỉnh"
+      "custom_list": "Danh sách tùy chỉnh",
+      "gender": "Giới tính",
+      "us_state": "Tiểu bang Hoa Kỳ",
+      "us_state_abbr": "Tiểu bang Hoa Kỳ (viết tắt)",
+      "user_agent": "User agent",
+      "mime_type": "Loại MIME",
+      "file_name": "Tên tệp",
+      "port": "Cổng",
+      "md5": "Băm MD5",
+      "sha256": "Băm SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Thời gian",
+      "weekday": "Ngày trong tuần",
+      "month": "Tháng",
+      "product_name": "Tên sản phẩm",
+      "product_category": "Danh mục sản phẩm",
+      "department": "Phòng ban",
+      "color_name": "Tên màu",
+      "catch_phrase": "Khẩu hiệu"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Nhập lược đồ",
+    "exportSchema": "Xuất lược đồ",
+    "importSchemaError": "Tệp lược đồ không hợp lệ — cần một mảng JSON gồm các cột { name, type }."
   },
   "SvgOptimizer": {
     "title": "Tối ưu SVG",
     "subtitle": "Nén SVG bằng SVGO và so sánh kích thước",
     "inputLabel": "Đầu vào",
     "outputLabel": "Đã tối ưu",
-    "placeholder": "Dán đoạn <svg>…</svg> hoặc toàn bộ tệp…",
+    "placeholder": "Dán đoạn SVG hoặc toàn bộ tệp…",
     "outputPlaceholder": "SVG đã tối ưu hiển thị tại đây…",
     "chars": "{count} ký tự • {bytes} byte (UTF-8)",
     "preview": "Xem trước",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Chuyển đổi đơn vị",
-    "subtitle": "Chuyển đổi 323 đơn vị thuộc 43 danh mục",
+    "subtitle": "Chuyển đổi 292 đơn vị thuộc 44 danh mục",
     "category": "Danh mục",
     "from": "Từ",
     "to": "Sang",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Mã",
     "detected": "Đã nhận diện: {language}",
     "clear": "Xóa",
+    "format": "Định dạng",
+    "formatUnsupported": "Định dạng không khả dụng cho ngôn ngữ này",
+    "formatFailed": "Không thể định dạng mã",
     "placeholder": "Dán mã của bạn vào đây…",
     "previewLabel": "Xem trước",
     "emptyPreview": "Bản xem trước mã của bạn sẽ hiển thị ở đây",

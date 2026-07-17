@@ -48,16 +48,19 @@ function FieldCard({
   deprecatedLabel?: string
 }) {
   return (
-    <Card className="flex flex-col gap-1 p-4">
-      <div className="flex items-center gap-2">
-        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{label}</Label>
+    <Card className="flex min-w-0 flex-col gap-1 p-4">
+      <div className="flex min-w-0 items-center justify-between gap-2">
+        <Label className="min-w-0 truncate font-mono text-xs font-medium text-muted-foreground">{label}</Label>
         {deprecated && (
-          <Badge variant="outline" className="border-amber-500/40 px-1.5 py-0 text-[10px] text-amber-600 dark:text-amber-400">
+          <Badge
+            variant="outline"
+            className="shrink-0 border-amber-500/40 px-1.5 py-0 text-[10px] text-amber-600 dark:text-amber-400"
+          >
             {deprecatedLabel}
           </Badge>
         )}
       </div>
-      <div className="truncate font-mono text-xl font-semibold">{value}</div>
+      <div className="min-w-0 break-words font-mono text-xl font-semibold">{value}</div>
     </Card>
   )
 }
@@ -109,6 +112,7 @@ export function KeycodeInspectorLayout() {
             <div
               tabIndex={0}
               role="textbox"
+              autoFocus
               aria-label={t('capture.prompt')}
               onKeyDown={onKeyDown}
               onFocus={() => setFocused(true)}
@@ -119,10 +123,10 @@ export function KeycodeInspectorLayout() {
             >
               {current ? (
                 <>
-                  <div className="max-w-full truncate font-mono text-5xl font-bold tracking-tight md:text-6xl">
+                  <div className="max-w-full break-words font-mono text-5xl font-bold tracking-tight md:text-6xl">
                     {displayKey(current.key, t('hero.spaceKey'))}
                   </div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground">{t('hero.keyLabel')}</div>
+                  <div className="font-mono text-xs text-muted-foreground">{t('hero.keyLabel')}</div>
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     {MODIFIERS.map((m) => (
                       <Badge

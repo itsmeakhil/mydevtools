@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notas-navigasie",
-      "openMenuAria": "Maak notasmenu oop"
+      "openMenuAria": "Maak notasmenu oop",
+      "showSidebarAria": "Wys sypaneel"
     },
     "sidebar": {
       "title": "Notas",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Is jy seker jy wil \"{title}\" uitvee? Hierdie aksie kan nie ongedaan gemaak word nie.",
       "cancel": "Kanselleer",
       "confirmDelete": "Vee uit",
-      "noteOptionsAria": "Nota-opsies"
+      "noteOptionsAria": "Nota-opsies",
+      "hideSidebarAria": "Versteek sypaneel"
     },
     "editor": {
       "emptyState": "Kies 'n nota of skep 'n nuwe een om te begin.",
@@ -934,7 +936,8 @@
       "loading": "Laai tans…",
       "searchHint": "om te soek",
       "focusHint": "fokusmodus",
-      "notePath": "Notapad"
+      "notePath": "Notapad",
+      "export": "Voer uit"
     },
     "context": {
       "authRequiredError": "Gebruiker nie geverifieer nie",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Plak JSON-data",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Plak die inhoud van 'n voorheen uitgevoerde JSON-lêer hier.",
+      "selectFile": "Kies JSON-lêer",
       "importing": "Besig om in te voer...",
       "importPasswords": "Voer wagwoorde in",
       "trigger": "Invoer / uitvoer",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Vee vouer \"{name}\" uit?",
       "deleteFolderDescription": "Dit sal die vouer en al sy subvouers uitvee. Boekmerke in hierdie vouers word na Ongekategoriseer geskuif."
     },
+    "foldersHeading": "Vouers",
     "import": {
       "title": "Voer boekmerke in",
       "description": "Voer boekmerke in vanaf jou blaaier se uitgevoerde lêer.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Werk by en koppel",
       "connect": "Koppel",
       "cancelEdit": "Kanselleer wysiging",
+      "cancel": "Kanselleer",
       "savedConnections": "Gestoorde koppelings",
       "emptySaved": "Nog geen gestoorde koppelings nie.",
       "lastUsed": "Laas gebruik {time}",
       "toastTestOk": "Koppeling suksesvol!",
       "toastTestFail": "Koppeling het misluk: {message}",
+      "toastConnectFail": "Kon nie aan {name} koppel nie",
       "toastUpdated": "Koppeling bygewerk",
       "confirmDelete": "Is jy seker jy wil hierdie gestoorde koppeling uitvee?",
+      "menuDeleteConnection": "Verwyder verbinding",
       "toastDeletedConn": "Koppeling uitgevee",
       "toastDeleteFail": "Kon nie koppeling uitvee nie",
       "copyStringTitle": "Kopieer koppelingsstring",
       "toastStringCopied": "Koppelingsstring gekopieer!",
       "editTitle": "Wysig",
-      "deleteTitle": "Vee uit"
+      "deleteTitle": "Vee uit",
+      "labelColor": "Kleuretiket",
+      "colorNone": "Geen kleur nie",
+      "hintColor": "Merk omgewings — bv. rooi vir produksie.",
+      "labelReadOnly": "Leesalleen-verbinding",
+      "hintReadOnly": "Blokkeer invoegings, wysigings, uitvee en drops vir hierdie verbinding."
     },
     "sidebar": {
       "explorer": "Verkenner",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Leesalleen",
+      "cellUpdated": "Waarde opgedateer",
+      "cellUpdateFail": "Kon nie waarde opdateer nie",
+      "cellFilterByValue": "Filtreer volgens hierdie waarde",
+      "cellExcludeValue": "Sluit hierdie waarde uit",
+      "cellSortAsc": "Sorteer stygend",
+      "cellSortDesc": "Sorteer dalend",
+      "cellCopyValue": "Kopieer waarde",
+      "cellEditValue": "Wysig waarde",
+      "explainTitle": "Uitvoeringsplan",
+      "explainLoading": "Explain word uitgevoer…",
+      "explainFail": "Explain het misluk",
+      "explainCollscan": "Volledige collection-skandering",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} teruggegee",
+      "explainDocsExamined": "{n} ondersoek",
+      "explainCollscanHint": "Hierdie navraag deursoek elke dokument in die collection. Oorweeg 'n indeks op die gefiltreerde velde.",
+      "explainRawLabel": "Explain-uitset"
     },
     "tabs": {
       "filterActive": "Aktiewe filter toegepas",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Tel/Som)",
       "format": "Formaat",
       "formattedJson": "Geformateerde JSON",
-      "runQuery": "Voer navraag uit"
+      "runQuery": "Voer navraag uit",
+      "savedQueries": "Gestoorde navrae",
+      "noHistory": "Geen onlangse navrae nie",
+      "saveNamePlaceholder": "Navraagnaam",
+      "saveCurrentQuery": "Stoor huidige navraag",
+      "save": "Stoor",
+      "saveQueryFail": "Kon nie navraag stoor nie",
+      "querySaved": "“{name}” gestoor",
+      "explainQuery": "Verduidelik navraag",
+      "stagesMode": "Fases",
+      "invalidStageJson": "'n Pyplynfase bevat ongeldige JSON"
     },
     "export": {
       "selectFieldsError": "Kies asseblief minstens een veld om uit te voer",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# veld gekies} other {# velde gekies}}",
       "cancel": "Kanselleer",
       "export": "Uitvoer",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tipe: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "Nog geen fases nie. Voeg 'n fase by om jou pyplyn te bou.",
+      "addStage": "Voeg fase by",
+      "stageEnabled": "Fase geaktiveer",
+      "preview": "Voorskou",
+      "previewToHere": "Voer die pyplyn tot hierdie fase uit (eerste 10 dokumente)",
+      "previewResult": "Voorskouresultate ({count})",
+      "previewEmpty": "Geen dokumente in hierdie fase nie",
+      "previewFail": "Voorskou het misluk"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Skyndata-genereerder",
     "subtitle": "Definieer getipeerde kolomme — voer tot {max} fixture-rye uit",
-    "mockarooLink": "Mockaroo-agtige werkstroom",
     "rowsLabel": "Rye",
     "rowsHint": "Maksimum {max} rye per generasie om die oortjie vinnig te hou.",
     "formatLabel": "Formaat",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Syfers en ID’s",
       "dateTime": "Datum en tyd",
       "textDesign": "Teks en ontwerp",
-      "custom": "Aangepas"
+      "custom": "Aangepas",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Voornaam",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Geldkode",
       "language_code": "Taalkode",
-      "custom_list": "Pasgemaakte lys"
+      "custom_list": "Pasgemaakte lys",
+      "gender": "Geslag",
+      "us_state": "VSA-staat",
+      "us_state_abbr": "VSA-staat (afk.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-tipe",
+      "file_name": "Lêernaam",
+      "port": "Poort",
+      "md5": "MD5-hutswaarde",
+      "sha256": "SHA-256-hutswaarde",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Tyd",
+      "weekday": "Weeksdag",
+      "month": "Maand",
+      "product_name": "Produknaam",
+      "product_category": "Produkkategorie",
+      "department": "Departement",
+      "color_name": "Kleurnaam",
+      "catch_phrase": "Slagspreuk"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Voer skema in",
+    "exportSchema": "Voer skema uit",
+    "importSchemaError": "Ongeldige skemalêer — 'n JSON-lys van { name, type }-kolomme word verwag."
   },
   "SvgOptimizer": {
     "title": "SVG-optimeerder",
     "subtitle": "Minifiseer SVG met SVGO en vergelyk groottes",
     "inputLabel": "Inset",
     "outputLabel": "Geoptimaliseer",
-    "placeholder": "Plak 'n <svg>…</svg>-fragment of die hele lêer…",
+    "placeholder": "Plak 'n SVG-fragment of die hele lêer…",
     "outputPlaceholder": "Geoptimaliseerde SVG verskyn hier…",
     "chars": "{count} karakters • {bytes} grepe (UTF-8)",
     "preview": "Voorskou",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Eenheid-omskakelaar",
-    "subtitle": "Skakel 323 eenhede in 43 kategorieë om",
+    "subtitle": "Skakel 292 eenhede in 44 kategorieë om",
     "category": "Kategorie",
     "from": "Van",
     "to": "Na",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Kode",
     "detected": "Bespeur: {language}",
     "clear": "Vee uit",
+    "format": "Formateer",
+    "formatUnsupported": "Formatering nie beskikbaar vir hierdie taal nie",
+    "formatFailed": "Kon nie kode formateer nie",
     "placeholder": "Plak jou kode hier…",
     "previewLabel": "Voorskou",
     "emptyPreview": "Jou kodevoorskou sal hier verskyn",

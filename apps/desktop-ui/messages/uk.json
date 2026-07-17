@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Навігація нотатками",
-      "openMenuAria": "Відкрити меню нотаток"
+      "openMenuAria": "Відкрити меню нотаток",
+      "showSidebarAria": "Показати бічну панель"
     },
     "sidebar": {
       "title": "Нотатки",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Ви впевнені, що хочете видалити \"{title}\"? Цю дію не можна скасувати.",
       "cancel": "Скасувати",
       "confirmDelete": "Видалити",
-      "noteOptionsAria": "Опції нотатки"
+      "noteOptionsAria": "Опції нотатки",
+      "hideSidebarAria": "Приховати бічну панель"
     },
     "editor": {
       "emptyState": "Оберіть нотатку або створіть нову, щоб почати.",
@@ -934,7 +936,8 @@
       "loading": "Завантаження…",
       "searchHint": "для пошуку",
       "focusHint": "режим фокусування",
-      "notePath": "Шлях нотатки"
+      "notePath": "Шлях нотатки",
+      "export": "Експорт"
     },
     "context": {
       "authRequiredError": "Користувач не автентифікований",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Вставте дані JSON",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Вставте вміст раніше експортованого JSON-файлу сюди.",
+      "selectFile": "Вибрати файл JSON",
       "importing": "Імпорт...",
       "importPasswords": "Імпортувати паролі",
       "trigger": "Імпорт / експорт",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Видалити теку \"{name}\"?",
       "deleteFolderDescription": "Це видалить теку та всі підтеки. Закладки в цих теках буде переміщено до \"Без категорії\"."
     },
+    "foldersHeading": "Папки",
     "import": {
       "title": "Імпорт закладок",
       "description": "Імпортуйте закладки з експортованого файлу браузера.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Оновити та підключити",
       "connect": "Підключити",
       "cancelEdit": "Скасувати редагування",
+      "cancel": "Скасувати",
       "savedConnections": "Збережені підключення",
       "emptySaved": "Збережених підключень поки немає.",
       "lastUsed": "Останнє використання {time}",
       "toastTestOk": "Підключення успішне!",
       "toastTestFail": "Підключення не вдалося: {message}",
+      "toastConnectFail": "Не вдалося підключитися до {name}",
       "toastUpdated": "Підключення оновлено",
       "confirmDelete": "Ви впевнені, що хочете видалити це збережене підключення?",
+      "menuDeleteConnection": "Видалити підключення",
       "toastDeletedConn": "Підключення видалено",
       "toastDeleteFail": "Не вдалося видалити підключення",
       "copyStringTitle": "Копіювати рядок підключення",
       "toastStringCopied": "Рядок підключення скопійовано!",
       "editTitle": "Редагувати",
-      "deleteTitle": "Видалити"
+      "deleteTitle": "Видалити",
+      "labelColor": "Кольорова мітка",
+      "colorNone": "Без кольору",
+      "hintColor": "Позначайте середовища — наприклад, червоний для продакшену.",
+      "labelReadOnly": "Підключення лише для читання",
+      "hintReadOnly": "Блокує вставлення, редагування, видалення та drop-операції для цього підключення."
     },
     "sidebar": {
       "explorer": "Провідник",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Лише читання",
+      "cellUpdated": "Значення оновлено",
+      "cellUpdateFail": "Не вдалося оновити значення",
+      "cellFilterByValue": "Фільтрувати за цим значенням",
+      "cellExcludeValue": "Виключити це значення",
+      "cellSortAsc": "Сортувати за зростанням",
+      "cellSortDesc": "Сортувати за спаданням",
+      "cellCopyValue": "Копіювати значення",
+      "cellEditValue": "Редагувати значення",
+      "explainTitle": "План виконання",
+      "explainLoading": "Виконується explain…",
+      "explainFail": "Помилка explain",
+      "explainCollscan": "Повне сканування колекції",
+      "explainIndexUsed": "Індекс: {name}",
+      "explainReturned": "{n} повернуто",
+      "explainDocsExamined": "{n} перевірено",
+      "explainCollscanHint": "Цей запит сканує кожен документ колекції. Розгляньте створення індексу для фільтрованих полів.",
+      "explainRawLabel": "Вивід explain"
     },
     "tabs": {
       "filterActive": "Активний фільтр застосовано",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Підрахунок/Сума)",
       "format": "Формат",
       "formattedJson": "Форматований JSON",
-      "runQuery": "Виконати запит"
+      "runQuery": "Виконати запит",
+      "savedQueries": "Збережені запити",
+      "noHistory": "Немає останніх запитів",
+      "saveNamePlaceholder": "Назва запиту",
+      "saveCurrentQuery": "Зберегти поточний запит",
+      "save": "Зберегти",
+      "saveQueryFail": "Не вдалося зберегти запит",
+      "querySaved": "«{name}» збережено",
+      "explainQuery": "Пояснити запит",
+      "stagesMode": "Етапи",
+      "invalidStageJson": "Етап конвеєра містить неправильний JSON"
     },
     "export": {
       "selectFieldsError": "Оберіть щонайменше одне поле для експорту",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# поле обрано} few {# поля обрано} other {# полів обрано}}",
       "cancel": "Скасувати",
       "export": "Експорт",
-      "sheetName": "Дані"
+      "sheetName": "Дані",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Тип: {type}",
       "itemSummary": "{count, plural, one {# елемент} few {# елементи} other {# елементів}}"
+    },
+    "pipeline": {
+      "empty": "Ще немає етапів. Додайте етап, щоб побудувати конвеєр.",
+      "addStage": "Додати етап",
+      "stageEnabled": "Етап увімкнено",
+      "preview": "Попередній перегляд",
+      "previewToHere": "Виконати конвеєр до цього етапу (перші 10 документів)",
+      "previewResult": "Результати перегляду ({count})",
+      "previewEmpty": "На цьому етапі немає документів",
+      "previewFail": "Помилка попереднього перегляду"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Генератор тестових даних",
     "subtitle": "Задайте типи колонок — експорт до {max} рядків фікстур",
-    "mockarooLink": "Сценарій як у Mockaroo",
     "rowsLabel": "Рядки",
     "rowsHint": "Щонайбільше {max} рядків за генерацію, щоб вкладка лишалась швидкою.",
     "formatLabel": "Формат",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Числа та ідентифікатори",
       "dateTime": "Дата й час",
       "textDesign": "Текст і оформлення",
-      "custom": "Власний"
+      "custom": "Власний",
+      "commerce": "Комерція"
     },
     "fieldTypes": {
       "first_name": "Ім'я",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Код валюти",
       "language_code": "Мовна мітка",
-      "custom_list": "Власний список"
+      "custom_list": "Власний список",
+      "gender": "Стать",
+      "us_state": "Штат США",
+      "us_state_abbr": "Штат США (скор.)",
+      "user_agent": "User agent",
+      "mime_type": "Тип MIME",
+      "file_name": "Ім'я файлу",
+      "port": "Порт",
+      "md5": "Хеш MD5",
+      "sha256": "Хеш SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Час",
+      "weekday": "День тижня",
+      "month": "Місяць",
+      "product_name": "Назва товару",
+      "product_category": "Категорія товару",
+      "department": "Відділ",
+      "color_name": "Назва кольору",
+      "catch_phrase": "Слоган"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Імпортувати схему",
+    "exportSchema": "Експортувати схему",
+    "importSchemaError": "Недійсний файл схеми — очікується JSON-масив стовпців { name, type }."
   },
   "SvgOptimizer": {
     "title": "Оптимізатор SVG",
     "subtitle": "Мініфікуйте SVG через SVGO і порівнюйте розміри",
     "inputLabel": "Вхід",
     "outputLabel": "Оптимізовано",
-    "placeholder": "Вставте фрагмент <svg>…</svg> або весь файл…",
+    "placeholder": "Вставте фрагмент SVG або весь файл…",
     "outputPlaceholder": "Оптимізований SVG з’явиться тут…",
     "chars": "{count} симв. • {bytes} байт (UTF-8)",
     "preview": "Перегляд",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Конвертер величин",
-    "subtitle": "Конвертуйте 323 одиниці в 43 категоріях",
+    "subtitle": "Конвертуйте 292 одиниці в 44 категоріях",
     "category": "Категорія",
     "from": "З",
     "to": "В",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Код",
     "detected": "Визначено: {language}",
     "clear": "Очистити",
+    "format": "Форматувати",
+    "formatUnsupported": "Форматування недоступне для цієї мови",
+    "formatFailed": "Не вдалося відформатувати код",
     "placeholder": "Вставте ваш код сюди…",
     "previewLabel": "Перегляд",
     "emptyPreview": "Тут з'явиться перегляд вашого коду",

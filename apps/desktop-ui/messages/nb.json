@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notatnavigasjon",
-      "openMenuAria": "Åpne notatmeny"
+      "openMenuAria": "Åpne notatmeny",
+      "showSidebarAria": "Vis sidepanel"
     },
     "sidebar": {
       "title": "Notater",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Er du sikker på at du vil slette «{title}»? Denne handlingen kan ikke angres.",
       "cancel": "Avbryt",
       "confirmDelete": "Slett",
-      "noteOptionsAria": "Notatalternativer"
+      "noteOptionsAria": "Notatalternativer",
+      "hideSidebarAria": "Skjul sidepanel"
     },
     "editor": {
       "emptyState": "Velg et notat eller opprett et nytt for å komme i gang.",
@@ -934,7 +936,8 @@
       "loading": "Laster…",
       "searchHint": "for å søke",
       "focusHint": "fokusmodus",
-      "notePath": "Notatsti"
+      "notePath": "Notatsti",
+      "export": "Eksporter"
     },
     "context": {
       "authRequiredError": "Bruker ikke autentisert",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Lim inn JSON-data",
       "pastePlaceholder": "[{\"service\": \"Eksempel\", \"username\": \"bruker\", \"password\": \"123\", ...}]",
       "pasteHint": "Lim inn innholdet i en tidligere eksportert JSON-fil her.",
+      "selectFile": "Velg JSON-fil",
       "importing": "Importerer...",
       "importPasswords": "Importer passord",
       "trigger": "Importer / eksporter",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Slette mappen «{name}»?",
       "deleteFolderDescription": "Dette vil slette mappen og alle undermapper. Bokmerker i disse mappene flyttes til Ukategorisert."
     },
+    "foldersHeading": "Mapper",
     "import": {
       "title": "Importer bokmerker",
       "description": "Importer bokmerker fra nettleserens eksporterte fil.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Oppdater og koble til",
       "connect": "Koble til",
       "cancelEdit": "Avbryt redigering",
+      "cancel": "Avbryt",
       "savedConnections": "Lagrede tilkoblinger",
       "emptySaved": "Ingen lagrede tilkoblinger ennå.",
       "lastUsed": "Sist brukt {time}",
       "toastTestOk": "Tilkobling vellykket!",
       "toastTestFail": "Tilkobling mislyktes: {message}",
+      "toastConnectFail": "Kunne ikke koble til {name}",
       "toastUpdated": "Tilkobling oppdatert",
       "confirmDelete": "Er du sikker på at du vil slette denne lagrede tilkoblingen?",
+      "menuDeleteConnection": "Slett tilkobling",
       "toastDeletedConn": "Tilkobling slettet",
       "toastDeleteFail": "Kunne ikke slette tilkobling",
       "copyStringTitle": "Kopier tilkoblingsstreng",
       "toastStringCopied": "Tilkoblingsstreng kopiert!",
       "editTitle": "Rediger",
-      "deleteTitle": "Slett"
+      "deleteTitle": "Slett",
+      "labelColor": "Fargemerke",
+      "colorNone": "Ingen farge",
+      "hintColor": "Merk miljøer — f.eks. rødt for produksjon.",
+      "labelReadOnly": "Skrivebeskyttet tilkobling",
+      "hintReadOnly": "Blokkerer innsettinger, redigeringer, slettinger og drops for denne tilkoblingen."
     },
     "sidebar": {
       "explorer": "Utforsker",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Skrivebeskyttet",
+      "cellUpdated": "Verdi oppdatert",
+      "cellUpdateFail": "Kunne ikke oppdatere verdien",
+      "cellFilterByValue": "Filtrer på denne verdien",
+      "cellExcludeValue": "Ekskluder denne verdien",
+      "cellSortAsc": "Sorter stigende",
+      "cellSortDesc": "Sorter synkende",
+      "cellCopyValue": "Kopier verdi",
+      "cellEditValue": "Rediger verdi",
+      "explainTitle": "Utførelsesplan",
+      "explainLoading": "Kjører explain…",
+      "explainFail": "Explain mislyktes",
+      "explainCollscan": "Full collection-skanning",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} returnert",
+      "explainDocsExamined": "{n} undersøkt",
+      "explainCollscanHint": "Denne spørringen skanner alle dokumenter i collectionen. Vurder å opprette en indeks på de filtrerte feltene.",
+      "explainRawLabel": "Explain-utdata"
     },
     "tabs": {
       "filterActive": "Aktivt filter brukt",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Telling/Sum)",
       "format": "Formater",
       "formattedJson": "Formatert JSON",
-      "runQuery": "Kjør spørring"
+      "runQuery": "Kjør spørring",
+      "savedQueries": "Lagrede spørringer",
+      "noHistory": "Ingen nylige spørringer",
+      "saveNamePlaceholder": "Spørringsnavn",
+      "saveCurrentQuery": "Lagre gjeldende spørring",
+      "save": "Lagre",
+      "saveQueryFail": "Kunne ikke lagre spørringen",
+      "querySaved": "«{name}» lagret",
+      "explainQuery": "Forklar spørring",
+      "stagesMode": "Trinn",
+      "invalidStageJson": "Et pipelinetrinn inneholder ugyldig JSON"
     },
     "export": {
       "selectFieldsError": "Vennligst velg minst ett felt å eksportere",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# felt valgt} other {# felt valgt}}",
       "cancel": "Avbryt",
       "export": "Eksporter",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type: {type}",
       "itemSummary": "{count, plural, one {# element} other {# elementer}}"
+    },
+    "pipeline": {
+      "empty": "Ingen trinn ennå. Legg til et trinn for å bygge pipelinen.",
+      "addStage": "Legg til trinn",
+      "stageEnabled": "Trinn aktivert",
+      "preview": "Forhåndsvisning",
+      "previewToHere": "Kjør pipelinen til dette trinnet (første 10 dokumenter)",
+      "previewResult": "Forhåndsvisningsresultater ({count})",
+      "previewEmpty": "Ingen dokumenter på dette trinnet",
+      "previewFail": "Forhåndsvisning mislyktes"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Mockdata-generator",
     "subtitle": "Definer typede kolonner — eksporter opptil {max} fixture-rader",
-    "mockarooLink": "Mockaroo-lignende arbeidsflyt",
     "rowsLabel": "Rader",
     "rowsHint": "Maks {max} rader per kjøring for å holde fanen responsiv.",
     "formatLabel": "Format",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Tall og ID-er",
       "dateTime": "Dato og klokkeslett",
       "textDesign": "Tekst og design",
-      "custom": "Tilpasset"
+      "custom": "Tilpasset",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Fornavn",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Valutakode",
       "language_code": "Språkkode",
-      "custom_list": "Tilpasset liste"
+      "custom_list": "Tilpasset liste",
+      "gender": "Kjønn",
+      "us_state": "Amerikansk delstat",
+      "us_state_abbr": "Amerikansk delstat (fork.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-type",
+      "file_name": "Filnavn",
+      "port": "Port",
+      "md5": "MD5-hash",
+      "sha256": "SHA-256-hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Klokkeslett",
+      "weekday": "Ukedag",
+      "month": "Måned",
+      "product_name": "Produktnavn",
+      "product_category": "Produktkategori",
+      "department": "Avdeling",
+      "color_name": "Fargenavn",
+      "catch_phrase": "Slagord"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importer skjema",
+    "exportSchema": "Eksporter skjema",
+    "importSchemaError": "Ugyldig skjemafil — forventer en JSON-liste med { name, type }-kolonner."
   },
   "SvgOptimizer": {
     "title": "SVG-optimalisering",
     "subtitle": "Minifiser SVG med SVGO og sammenlign størrelser",
     "inputLabel": "Inndata",
     "outputLabel": "Optimalisert",
-    "placeholder": "Lim inn et <svg>…</svg>-utdrag eller hele filen…",
+    "placeholder": "Lim inn et SVG-utdrag eller hele filen…",
     "outputPlaceholder": "Optimalisert SVG vises her…",
     "chars": "{count} tegn • {bytes} byte (UTF-8)",
     "preview": "Forhåndsvisning",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Enhetskonverterer",
-    "subtitle": "Konverter 323 enheter i 43 kategorier",
+    "subtitle": "Konverter 292 enheter i 44 kategorier",
     "category": "Kategori",
     "from": "Fra",
     "to": "Til",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Kode",
     "detected": "Gjenkjent: {language}",
     "clear": "Tøm",
+    "format": "Formater",
+    "formatUnsupported": "Formatering er ikke tilgjengelig for dette språket",
+    "formatFailed": "Kunne ikke formatere koden",
     "placeholder": "Lim inn koden din her…",
     "previewLabel": "Forhåndsvisning",
     "emptyPreview": "Forhåndsvisningen av koden din vises her",

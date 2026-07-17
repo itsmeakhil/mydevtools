@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 import { isDesktop } from "@/lib/desktop/is-desktop";
+import { useWorkspaceStore } from "@/store/workspace-store";
 
 /**
  * Desktop-only bootstrap: mandatory one-time activation gate, deep-link
@@ -35,19 +35,25 @@ export function DesktopInit() {
       ]);
       await initDeepLinkListener().catch(() => {});
       await checkRemoteSession().catch(() => {});
+      // Hydrate the workspace store so encrypted tools (API keys, password
+      // manager, environment manager) resolve the always-present local personal
+      // workspace. Without this the store stays empty offline → activeWs null →
+      // cipher key null → "No active workspace." Runs after the session probe so
+      // a remote session (if any) merges in.
+      await useWorkspaceStore.getState().loadFromBackend().catch(() => {});
     })();
-    // Fire-and-forget update check — nudge the user if a newer build exists.
+    // Fully silent auto-update: on launch, if a newer signed build exists,
+    // download + install it and relaunch into it — no prompt, no button. The
+    // update is verified against the baked-in pubkey and the local database is
+    // never touched. Offline / mid-download failures stay silent and retry next
+    // launch.
     void import("@/lib/desktop/updater").then(async ({ checkForUpdate, installUpdate }) => {
       try {
         const update = await checkForUpdate();
         if (!update) return;
-        toast(`Update available — version ${update.version}`, {
-          description: "Installs in place; your offline data isn't affected.",
-          duration: 12_000,
-          action: { label: "Update now", onClick: () => void installUpdate() },
-        });
+        await installUpdate();
       } catch {
-        // offline or endpoint unreachable — silent
+        // offline, endpoint unreachable, or install interrupted — retry next launch
       }
     });
   }, []);

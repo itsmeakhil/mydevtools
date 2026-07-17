@@ -283,13 +283,20 @@ export function PasswordList() {
                             : t("emptyHintDesktop")}
                     </p>
                 </div>
-                {isMobile && (
-                    <AddPasswordDialog>
-                        <Button size="lg" className="mt-4 rounded-xl">
-                            <Plus className="mr-2 h-5 w-5" /> {t("addPassword")}
+                <div className={cn("flex flex-col items-center gap-2", isMobile && "mt-4")}>
+                    {isMobile && (
+                        <AddPasswordDialog>
+                            <Button size="lg" className="rounded-xl">
+                                <Plus className="mr-2 h-5 w-5" /> {t("addPassword")}
+                            </Button>
+                        </AddPasswordDialog>
+                    )}
+                    <ImportExportDialog>
+                        <Button variant="outline" size={isMobile ? "lg" : "default"} className={cn(isMobile && "rounded-xl")}>
+                            <FileJson className="mr-2 h-4 w-4" /> {t("importExport")}
                         </Button>
-                    </AddPasswordDialog>
-                )}
+                    </ImportExportDialog>
+                </div>
             </div>
         )
     }

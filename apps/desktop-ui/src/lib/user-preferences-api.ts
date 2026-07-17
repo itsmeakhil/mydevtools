@@ -75,3 +75,34 @@ export async function putNosqlQueryHistory(params: {
 }): Promise<NosqlQueryHistoryOut> {
     return apiRequest<NosqlQueryHistoryOut>("PUT", `${BASE}/nosql-query-history`, params)
 }
+
+export type NosqlSavedQuery = {
+    name: string
+    query: string
+}
+
+export type NosqlSavedQueriesOut = {
+    connectionName: string
+    dbName: string
+    collectionName: string
+    queries: NosqlSavedQuery[]
+    updatedAt: number
+}
+
+export async function getNosqlSavedQueries(params: {
+    connectionName: string
+    dbName: string
+    collectionName: string
+}): Promise<NosqlSavedQueriesOut> {
+    const q = new URLSearchParams(params)
+    return apiRequest<NosqlSavedQueriesOut>("GET", `${BASE}/nosql-saved-queries?${q.toString()}`)
+}
+
+export async function putNosqlSavedQueries(params: {
+    connectionName: string
+    dbName: string
+    collectionName: string
+    queries: NosqlSavedQuery[]
+}): Promise<NosqlSavedQueriesOut> {
+    return apiRequest<NosqlSavedQueriesOut>("PUT", `${BASE}/nosql-saved-queries`, params)
+}

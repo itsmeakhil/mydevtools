@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notlar Gezintisi",
-      "openMenuAria": "Not menüsünü aç"
+      "openMenuAria": "Not menüsünü aç",
+      "showSidebarAria": "Kenar çubuğunu göster"
     },
     "sidebar": {
       "title": "Notlar",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "\"{title}\" notunu silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
       "cancel": "İptal",
       "confirmDelete": "Sil",
-      "noteOptionsAria": "Not seçenekleri"
+      "noteOptionsAria": "Not seçenekleri",
+      "hideSidebarAria": "Kenar çubuğunu gizle"
     },
     "editor": {
       "emptyState": "Başlamak için bir not seçin veya yeni bir not oluşturun.",
@@ -934,7 +936,8 @@
       "loading": "Yükleniyor…",
       "searchHint": "aramak için",
       "focusHint": "odak modu",
-      "notePath": "Not yolu"
+      "notePath": "Not yolu",
+      "export": "Dışa aktar"
     },
     "context": {
       "authRequiredError": "Kullanıcı kimliği doğrulanmadı",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "JSON verilerini yapıştırın",
       "pastePlaceholder": "[{\"service\": \"Örnek\", \"username\": \"kullanici\", \"password\": \"123\", ...}]",
       "pasteHint": "Daha önce dışa aktarılmış bir JSON dosyasının içeriğini buraya yapıştırın.",
+      "selectFile": "JSON dosyası seç",
       "importing": "İçe aktarılıyor...",
       "importPasswords": "Şifreleri içe aktar",
       "trigger": "İçe / dışa aktar",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "\"{name}\" klasörü silinsin mi?",
       "deleteFolderDescription": "Bu, klasörü ve tüm alt klasörlerini silecektir. Bu klasörlerdeki yer imleri Kategorisiz'e taşınacaktır."
     },
+    "foldersHeading": "Klasörler",
     "import": {
       "title": "Yer İmlerini İçe Aktar",
       "description": "Tarayıcınızın dışa aktarılmış dosyasından yer imlerini içe aktarın.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Güncelle ve Bağlan",
       "connect": "Bağlan",
       "cancelEdit": "Düzenlemeyi İptal Et",
+      "cancel": "İptal",
       "savedConnections": "Kayıtlı Bağlantılar",
       "emptySaved": "Henüz kayıtlı bağlantı yok.",
       "lastUsed": "Son kullanım: {time}",
       "toastTestOk": "Bağlantı başarılı!",
       "toastTestFail": "Bağlantı başarısız: {message}",
+      "toastConnectFail": "{name} bağlantısı başarısız oldu",
       "toastUpdated": "Bağlantı güncellendi",
       "confirmDelete": "Bu kayıtlı bağlantıyı silmek istediğinizden emin misiniz?",
+      "menuDeleteConnection": "Bağlantıyı sil",
       "toastDeletedConn": "Bağlantı silindi",
       "toastDeleteFail": "Bağlantı silinemedi",
       "copyStringTitle": "Bağlantı dizesini kopyala",
       "toastStringCopied": "Bağlantı dizesi kopyalandı!",
       "editTitle": "Düzenle",
-      "deleteTitle": "Sil"
+      "deleteTitle": "Sil",
+      "labelColor": "Renk etiketi",
+      "colorNone": "Renk yok",
+      "hintColor": "Ortamları etiketleyin — örn. üretim için kırmızı.",
+      "labelReadOnly": "Salt okunur bağlantı",
+      "hintReadOnly": "Bu bağlantı için ekleme, düzenleme, silme ve drop işlemlerini engeller."
     },
     "sidebar": {
       "explorer": "Gezgin",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Salt okunur",
+      "cellUpdated": "Değer güncellendi",
+      "cellUpdateFail": "Değer güncellenemedi",
+      "cellFilterByValue": "Bu değere göre filtrele",
+      "cellExcludeValue": "Bu değeri hariç tut",
+      "cellSortAsc": "Artan sırala",
+      "cellSortDesc": "Azalan sırala",
+      "cellCopyValue": "Değeri kopyala",
+      "cellEditValue": "Değeri düzenle",
+      "explainTitle": "Yürütme planı",
+      "explainLoading": "Explain çalışıyor…",
+      "explainFail": "Explain başarısız",
+      "explainCollscan": "Tam koleksiyon taraması",
+      "explainIndexUsed": "Dizin: {name}",
+      "explainReturned": "{n} döndürüldü",
+      "explainDocsExamined": "{n} incelendi",
+      "explainCollscanHint": "Bu sorgu koleksiyondaki her belgeyi tarıyor. Filtrelenen alanlarda bir dizin oluşturmayı düşünün.",
+      "explainRawLabel": "Explain çıktısı"
     },
     "tabs": {
       "filterActive": "Aktif filtre uygulandı",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Sayma/Toplam)",
       "format": "Biçimlendir",
       "formattedJson": "Biçimlendirilmiş JSON",
-      "runQuery": "Sorguyu Çalıştır"
+      "runQuery": "Sorguyu Çalıştır",
+      "savedQueries": "Kaydedilmiş sorgular",
+      "noHistory": "Yakın zamanda sorgu yok",
+      "saveNamePlaceholder": "Sorgu adı",
+      "saveCurrentQuery": "Geçerli sorguyu kaydet",
+      "save": "Kaydet",
+      "saveQueryFail": "Sorgu kaydedilemedi",
+      "querySaved": "“{name}” kaydedildi",
+      "explainQuery": "Sorguyu açıkla",
+      "stagesMode": "Aşamalar",
+      "invalidStageJson": "Bir pipeline aşaması geçersiz JSON içeriyor"
     },
     "export": {
       "selectFieldsError": "Lütfen dışa aktarmak için en az bir alan seçin",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# alan seçildi} other {# alan seçildi}}",
       "cancel": "İptal",
       "export": "Dışa Aktar",
-      "sheetName": "Veri"
+      "sheetName": "Veri",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tür: {type}",
       "itemSummary": "{count, plural, one {# öğe} other {# öğe}}"
+    },
+    "pipeline": {
+      "empty": "Henüz aşama yok. Pipeline'ınızı oluşturmak için bir aşama ekleyin.",
+      "addStage": "Aşama ekle",
+      "stageEnabled": "Aşama etkin",
+      "preview": "Önizleme",
+      "previewToHere": "Pipeline'ı bu aşamaya kadar çalıştır (ilk 10 belge)",
+      "previewResult": "Önizleme sonuçları ({count})",
+      "previewEmpty": "Bu aşamada belge yok",
+      "previewFail": "Önizleme başarısız"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Sahte Veri Üretici",
     "subtitle": "Tipli sütunlar tanımla — {max} satıra kadar dışa aktar",
-    "mockarooLink": "Mockaroo tarzı akış",
     "rowsLabel": "Satırlar",
     "rowsHint": "Sekmeyi akıcı tutmak için oluşturma başına en fazla {max} satır.",
     "formatLabel": "Biçim",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Sayılar ve kimlikler",
       "dateTime": "Tarih ve saat",
       "textDesign": "Metin ve tasarım",
-      "custom": "Özel"
+      "custom": "Özel",
+      "commerce": "Ticaret"
     },
     "fieldTypes": {
       "first_name": "Ad",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Para birimi kodu",
       "language_code": "Dil etiketi",
-      "custom_list": "Özel liste"
+      "custom_list": "Özel liste",
+      "gender": "Cinsiyet",
+      "us_state": "ABD eyaleti",
+      "us_state_abbr": "ABD eyaleti (kısaltma)",
+      "user_agent": "Kullanıcı aracısı",
+      "mime_type": "MIME türü",
+      "file_name": "Dosya adı",
+      "port": "Port",
+      "md5": "MD5 karması",
+      "sha256": "SHA-256 karması",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Saat",
+      "weekday": "Haftanın günü",
+      "month": "Ay",
+      "product_name": "Ürün adı",
+      "product_category": "Ürün kategorisi",
+      "department": "Departman",
+      "color_name": "Renk adı",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Şemayı içe aktar",
+    "exportSchema": "Şemayı dışa aktar",
+    "importSchemaError": "Geçersiz şema dosyası — { name, type } sütunlarından oluşan bir JSON dizisi bekleniyor."
   },
   "SvgOptimizer": {
     "title": "SVG Optimize Edici",
     "subtitle": "SVG'yi SVGO ile küçült ve boyutları karşılaştır",
     "inputLabel": "Girdi",
     "outputLabel": "Optimize",
-    "placeholder": "<svg>…</svg> parçası veya tüm dosyayı yapıştırın…",
+    "placeholder": "SVG parçası veya tüm dosyayı yapıştırın…",
     "outputPlaceholder": "Optimize SVG burada görünür…",
     "chars": "{count} karakter • {bytes} bayt (UTF-8)",
     "preview": "Önizleme",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Birim Dönüştürücü",
-    "subtitle": "43 kategoride 323 birimi dönüştür",
+    "subtitle": "44 kategoride 292 birimi dönüştür",
     "category": "Kategori",
     "from": "Kaynak",
     "to": "Hedef",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Kod",
     "detected": "Algılanan: {language}",
     "clear": "Temizle",
+    "format": "Biçimlendir",
+    "formatUnsupported": "Bu dil için biçimlendirme kullanılamıyor",
+    "formatFailed": "Kod biçimlendirilemedi",
     "placeholder": "Kodunuzu buraya yapıştırın…",
     "previewLabel": "Önizleme",
     "emptyPreview": "Kod önizlemeniz burada görünecek",

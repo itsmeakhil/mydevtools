@@ -1,4 +1,4 @@
-import { generateMockData, type FieldSchema } from '../mock-data-generator'
+import { ALL_FIELD_TYPES, generateMockData, type FieldSchema } from '../mock-data-generator'
 
 // Explicit date ranges so output is byte-identical across days (see JSDoc on seed).
 const SCHEMA: FieldSchema[] = [
@@ -59,5 +59,50 @@ describe('generateMockData seeding', () => {
   it('empty-string seed is treated as unseeded', () => {
     const opts = { schema: SCHEMA, rows: 50, format: 'json' as const, seed: '' }
     expect(generateMockData(opts)).not.toBe(generateMockData(opts))
+  })
+})
+
+describe('field type coverage', () => {
+  it('every field type produces a non-empty value (except custom_list without values)', () => {
+    const schema: FieldSchema[] = ALL_FIELD_TYPES
+      .filter((t) => t !== 'custom_list')
+      .map((t) => ({ name: t, type: t }))
+    const rows = JSON.parse(
+      generateMockData({ schema, rows: 3, format: 'json', seed: 42 })
+    ) as Record<string, unknown>[]
+    for (const row of rows) {
+      for (const t of Object.keys(row)) {
+        expect(row[t]).not.toBeNull()
+        expect(String(row[t]).length).toBeGreaterThan(0)
+      }
+    }
+  })
+
+  it('hash/id/format types match expected shapes', () => {
+    const schema: FieldSchema[] = [
+      { name: 'md5', type: 'md5' },
+      { name: 'sha256', type: 'sha256' },
+      { name: 'nanoid', type: 'nanoid' },
+      { name: 'isbn', type: 'isbn' },
+      { name: 'time', type: 'time' },
+      { name: 'port', type: 'port' },
+    ]
+    const rows = JSON.parse(
+      generateMockData({ schema, rows: 20, format: 'json', seed: 7 })
+    ) as { md5: string; sha256: string; nanoid: string; isbn: string; time: string; port: number }[]
+    for (const row of rows) {
+      expect(row.md5).toMatch(/^[0-9a-f]{32}$/)
+      expect(row.sha256).toMatch(/^[0-9a-f]{64}$/)
+      expect(row.nanoid).toMatch(/^[A-Za-z0-9_-]{21}$/)
+      expect(row.time).toMatch(/^([01]\d|2[0-3]):[0-5]\d:[0-5]\d$/)
+      expect(row.port).toBeGreaterThanOrEqual(1024)
+      expect(row.port).toBeLessThanOrEqual(65535)
+      // ISBN-13: 978 prefix + valid check digit
+      const digits = row.isbn.replace(/-/g, '').split('').map(Number)
+      expect(digits).toHaveLength(13)
+      expect(row.isbn.startsWith('978')).toBe(true)
+      const sum = digits.reduce((acc, d, i) => acc + d * (i % 2 === 0 ? 1 : 3), 0)
+      expect(sum % 10).toBe(0)
+    }
   })
 })

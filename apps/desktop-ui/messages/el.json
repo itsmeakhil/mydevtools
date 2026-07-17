@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Σημειώσεις Πλοήγηση",
-      "openMenuAria": "Ανοίξτε το μενού σημειώσεων"
+      "openMenuAria": "Ανοίξτε το μενού σημειώσεων",
+      "showSidebarAria": "Εμφάνιση πλευρικής στήλης"
     },
     "sidebar": {
       "title": "Σημειώσεις",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Είστε βέβαιοι ότι θέλετε να διαγράψετε το \"{title}\"; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
       "cancel": "Ματαίωση",
       "confirmDelete": "Διαγράφω",
-      "noteOptionsAria": "Επιλογές σημειώσεων"
+      "noteOptionsAria": "Επιλογές σημειώσεων",
+      "hideSidebarAria": "Απόκρυψη πλευρικής στήλης"
     },
     "editor": {
       "emptyState": "Επιλέξτε μια σημείωση ή δημιουργήστε μια νέα για να ξεκινήσετε.",
@@ -934,7 +936,8 @@
       "loading": "Φόρτωση…",
       "searchHint": "για αναζήτηση",
       "focusHint": "λειτουργία εστίασης",
-      "notePath": "Διαδρομή σημείωσης"
+      "notePath": "Διαδρομή σημείωσης",
+      "export": "Εξαγωγή"
     },
     "context": {
       "authRequiredError": "Ο χρήστης δεν έχει επικυρωθεί",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Επικόλληση δεδομένων JSON",
       "pastePlaceholder": "[{\"υπηρεσία\": \"Παράδειγμα\", \"όνομα χρήστη\": \"χρήστης\", \"κωδικός πρόσβασης\": \"123\", ...}]",
       "pasteHint": "Επικολλήστε εδώ το περιεχόμενο ενός αρχείου JSON που έχει εξαχθεί προηγουμένως.",
+      "selectFile": "Επιλογή αρχείου JSON",
       "importing": "Εισαγωγή...",
       "importPasswords": "Εισαγωγή κωδικών πρόσβασης",
       "trigger": "Εισαγωγή / εξαγωγή",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Διαγραφή του φακέλου \"{name}\";",
       "deleteFolderDescription": "Αυτό θα διαγράψει τον φάκελο και όλους τους υποφακέλους του. Οι σελιδοδείκτες σε αυτούς τους φακέλους θα μετακινηθούν στο Uncategorized."
     },
+    "foldersHeading": "Φάκελοι",
     "import": {
       "title": "Εισαγωγή σελιδοδεικτών",
       "description": "Εισαγάγετε σελιδοδείκτες από το εξαγόμενο αρχείο του προγράμματος περιήγησής σας.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Ενημέρωση & Σύνδεση",
       "connect": "Συνδέω",
       "cancelEdit": "Ακύρωση επεξεργασίας",
+      "cancel": "Ακύρωση",
       "savedConnections": "Αποθηκευμένες συνδέσεις",
       "emptySaved": "Δεν υπάρχουν ακόμα αποθηκευμένες συνδέσεις.",
       "lastUsed": "Τελευταία χρήση {time}",
       "toastTestOk": "Επιτυχής σύνδεση!",
       "toastTestFail": "Η σύνδεση απέτυχε: {message}",
+      "toastConnectFail": "Αποτυχία σύνδεσης με {name}",
       "toastUpdated": "Η σύνδεση ενημερώθηκε",
       "confirmDelete": "Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την αποθηκευμένη σύνδεση;",
+      "menuDeleteConnection": "Διαγραφή σύνδεσης",
       "toastDeletedConn": "Η σύνδεση διαγράφηκε",
       "toastDeleteFail": "Η διαγραφή της σύνδεσης απέτυχε",
       "copyStringTitle": "Αντιγραφή συμβολοσειράς σύνδεσης",
       "toastStringCopied": "Η συμβολοσειρά σύνδεσης αντιγράφηκε!",
       "editTitle": "Εκδίδω",
-      "deleteTitle": "Διαγράφω"
+      "deleteTitle": "Διαγράφω",
+      "labelColor": "Ετικέτα χρώματος",
+      "colorNone": "Χωρίς χρώμα",
+      "hintColor": "Επισημάνετε περιβάλλοντα — π.χ. κόκκινο για την παραγωγή.",
+      "labelReadOnly": "Σύνδεση μόνο ανάγνωσης",
+      "hintReadOnly": "Αποκλείει εισαγωγές, επεξεργασίες, διαγραφές και drops για αυτήν τη σύνδεση."
     },
     "sidebar": {
       "explorer": "Εξερευνητής",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Μόνο ανάγνωση",
+      "cellUpdated": "Η τιμή ενημερώθηκε",
+      "cellUpdateFail": "Αποτυχία ενημέρωσης τιμής",
+      "cellFilterByValue": "Φίλτρο με αυτήν την τιμή",
+      "cellExcludeValue": "Εξαίρεση αυτής της τιμής",
+      "cellSortAsc": "Αύξουσα ταξινόμηση",
+      "cellSortDesc": "Φθίνουσα ταξινόμηση",
+      "cellCopyValue": "Αντιγραφή τιμής",
+      "cellEditValue": "Επεξεργασία τιμής",
+      "explainTitle": "Σχέδιο εκτέλεσης",
+      "explainLoading": "Εκτελείται explain…",
+      "explainFail": "Αποτυχία explain",
+      "explainCollscan": "Πλήρης σάρωση της συλλογής",
+      "explainIndexUsed": "Ευρετήριο: {name}",
+      "explainReturned": "{n} επιστράφηκαν",
+      "explainDocsExamined": "{n} εξετάστηκαν",
+      "explainCollscanHint": "Αυτό το ερώτημα σαρώνει κάθε έγγραφο της συλλογής. Εξετάστε τη δημιουργία ευρετηρίου στα φιλτραρισμένα πεδία.",
+      "explainRawLabel": "Έξοδος explain"
     },
     "tabs": {
       "filterActive": "Εφαρμόστηκε ενεργό φίλτρο",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Count/Sum)",
       "format": "Σχήμα και διάταξις βιβλίου",
       "formattedJson": "Μορφοποιημένο JSON",
-      "runQuery": "Εκτελέστε το ερώτημα"
+      "runQuery": "Εκτελέστε το ερώτημα",
+      "savedQueries": "Αποθηκευμένα ερωτήματα",
+      "noHistory": "Κανένα πρόσφατο ερώτημα",
+      "saveNamePlaceholder": "Όνομα ερωτήματος",
+      "saveCurrentQuery": "Αποθήκευση τρέχοντος ερωτήματος",
+      "save": "Αποθήκευση",
+      "saveQueryFail": "Αποτυχία αποθήκευσης ερωτήματος",
+      "querySaved": "Το «{name}» αποθηκεύτηκε",
+      "explainQuery": "Επεξήγηση ερωτήματος",
+      "stagesMode": "Στάδια",
+      "invalidStageJson": "Ένα στάδιο του pipeline περιέχει μη έγκυρο JSON"
     },
     "export": {
       "selectFieldsError": "Επιλέξτε τουλάχιστον ένα πεδίο για εξαγωγή",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# επιλεγμένο πεδίο} other {# επιλεγμένα πεδία}}",
       "cancel": "Ματαίωση",
       "export": "Εξαγωγή",
-      "sheetName": "Δεδομένα"
+      "sheetName": "Δεδομένα",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Τύπος: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "Κανένα στάδιο ακόμα. Προσθέστε ένα στάδιο για να φτιάξετε το pipeline.",
+      "addStage": "Προσθήκη σταδίου",
+      "stageEnabled": "Στάδιο ενεργό",
+      "preview": "Προεπισκόπηση",
+      "previewToHere": "Εκτέλεση του pipeline έως αυτό το στάδιο (πρώτα 10 έγγραφα)",
+      "previewResult": "Αποτελέσματα προεπισκόπησης ({count})",
+      "previewEmpty": "Κανένα έγγραφο σε αυτό το στάδιο",
+      "previewFail": "Αποτυχία προεπισκόπησης"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Γεννήτρια Εικονικών Δεδομένων",
     "subtitle": "Ορισμός τυποποιημένων στηλών — εξαγωγή έως {max} γραμμών",
-    "mockarooLink": "Ροή εργασίας σαν το Mockaroo",
     "rowsLabel": "Γραμμές",
     "rowsHint": "Έως {max} γραμμές ανά δημιουργία για να παραμείνει η καρτέλα γρήγορη.",
     "formatLabel": "Μορφή",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Αριθμοί & αναγνωριστικά",
       "dateTime": "Ημερομηνία & ώρα",
       "textDesign": "Κείμενο & σχεδίαση",
-      "custom": "Προσαρμοσμένο"
+      "custom": "Προσαρμοσμένο",
+      "commerce": "Εμπόριο"
     },
     "fieldTypes": {
       "first_name": "Όνομα",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Κωδικός νομίσματος",
       "language_code": "Ετικέτα γλώσσας",
-      "custom_list": "Προσαρμοσμένη λίστα"
+      "custom_list": "Προσαρμοσμένη λίστα",
+      "gender": "Φύλο",
+      "us_state": "Πολιτεία ΗΠΑ",
+      "us_state_abbr": "Πολιτεία ΗΠΑ (συντ.)",
+      "user_agent": "User agent",
+      "mime_type": "Τύπος MIME",
+      "file_name": "Όνομα αρχείου",
+      "port": "Θύρα",
+      "md5": "Κατακερματισμός MD5",
+      "sha256": "Κατακερματισμός SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Ώρα",
+      "weekday": "Ημέρα εβδομάδας",
+      "month": "Μήνας",
+      "product_name": "Όνομα προϊόντος",
+      "product_category": "Κατηγορία προϊόντος",
+      "department": "Τμήμα",
+      "color_name": "Όνομα χρώματος",
+      "catch_phrase": "Σλόγκαν"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Εισαγωγή σχήματος",
+    "exportSchema": "Εξαγωγή σχήματος",
+    "importSchemaError": "Μη έγκυρο αρχείο σχήματος — αναμένεται πίνακας JSON με στήλες { name, type }."
   },
   "SvgOptimizer": {
     "title": "Βελτιστοποιητής SVG",
     "subtitle": "Σμίκρυνση SVG με SVGO και σύγκριση μεγεθών",
     "inputLabel": "Είσοδος",
     "outputLabel": "Βελτιστοποιημένο",
-    "placeholder": "Επικολλήστε απόσπασμα <svg>…</svg> ή ολόκληρο αρχείο…",
+    "placeholder": "Επικολλήστε απόσπασμα SVG ή ολόκληρο αρχείο…",
     "outputPlaceholder": "Το βελτιστοποιημένο SVG εμφανίζεται εδώ…",
     "chars": "{count} χαρακτήρες • {bytes} bytes (UTF-8)",
     "preview": "Προεπισκόπηση",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Μετατροπέας Μονάδων",
-    "subtitle": "Μετατροπή 323 μονάδων σε 43 κατηγορίες",
+    "subtitle": "Μετατροπή 292 μονάδων σε 44 κατηγορίες",
     "category": "Κατηγορία",
     "from": "Από",
     "to": "Σε",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Κώδικας",
     "detected": "Ανιχνεύθηκε: {language}",
     "clear": "Καθαρισμός",
+    "format": "Μορφοποίηση",
+    "formatUnsupported": "Η μορφοποίηση δεν είναι διαθέσιμη για αυτή τη γλώσσα",
+    "formatFailed": "Αποτυχία μορφοποίησης του κώδικα",
     "placeholder": "Επικολλήστε τον κώδικά σας εδώ…",
     "previewLabel": "Προεπισκόπηση",
     "emptyPreview": "Η προεπισκόπηση του κώδικά σας θα εμφανιστεί εδώ",

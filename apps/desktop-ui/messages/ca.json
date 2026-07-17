@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Navegació de notes",
-      "openMenuAria": "Obre el menú de notes"
+      "openMenuAria": "Obre el menú de notes",
+      "showSidebarAria": "Mostra la barra lateral"
     },
     "sidebar": {
       "title": "Notes",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Segur que vols eliminar «{title}»? Aquesta acció no es pot desfer.",
       "cancel": "Cancel·la",
       "confirmDelete": "Elimina",
-      "noteOptionsAria": "Opcions de la nota"
+      "noteOptionsAria": "Opcions de la nota",
+      "hideSidebarAria": "Amaga la barra lateral"
     },
     "editor": {
       "emptyState": "Selecciona una nota o crea'n una de nova per començar.",
@@ -934,7 +936,8 @@
       "loading": "Carregant…",
       "searchHint": "per cercar",
       "focusHint": "mode concentració",
-      "notePath": "Camí de la nota"
+      "notePath": "Camí de la nota",
+      "export": "Exporta"
     },
     "context": {
       "authRequiredError": "Usuari no autenticat",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Enganxa dades JSON",
       "pastePlaceholder": "[{\"service\": \"Exemple\", \"username\": \"usuari\", \"password\": \"123\", ...}]",
       "pasteHint": "Enganxa aquí el contingut d'un fitxer JSON exportat anteriorment.",
+      "selectFile": "Selecciona un fitxer JSON",
       "importing": "S'està important...",
       "importPasswords": "Importa contrasenyes",
       "trigger": "Importa / exporta",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Vols eliminar la carpeta «{name}»?",
       "deleteFolderDescription": "S'eliminarà la carpeta i totes les subcarpetes. Els marcadors aniran a Sense categoria."
     },
+    "foldersHeading": "Carpetes",
     "import": {
       "title": "Importa marcadors",
       "description": "Importa marcadors des del fitxer exportat del navegador.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Actualitza i connecta",
       "connect": "Connecta",
       "cancelEdit": "Cancel·la l'edició",
+      "cancel": "Cancel·la",
       "savedConnections": "Connexions desades",
       "emptySaved": "Encara no hi ha connexions desades.",
       "lastUsed": "Últim ús {time}",
       "toastTestOk": "Connexió correcta!",
       "toastTestFail": "Connexió fallida: {message}",
+      "toastConnectFail": "No s'ha pogut connectar a {name}",
       "toastUpdated": "Connexió actualitzada",
       "confirmDelete": "Segur que vols eliminar aquesta connexió desada?",
+      "menuDeleteConnection": "Elimina la connexió",
       "toastDeletedConn": "Connexió eliminada",
       "toastDeleteFail": "No s'ha pogut eliminar la connexió",
       "copyStringTitle": "Copia la cadena de connexió",
       "toastStringCopied": "Cadena de connexió copiada!",
       "editTitle": "Edita",
-      "deleteTitle": "Elimina"
+      "deleteTitle": "Elimina",
+      "labelColor": "Etiqueta de color",
+      "colorNone": "Sense color",
+      "hintColor": "Etiqueta els entorns — p. ex., vermell per a producció.",
+      "labelReadOnly": "Connexió de només lectura",
+      "hintReadOnly": "Bloqueja insercions, edicions, supressions i drops per a aquesta connexió."
     },
     "sidebar": {
       "explorer": "Explorador",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Només lectura",
+      "cellUpdated": "Valor actualitzat",
+      "cellUpdateFail": "No s'ha pogut actualitzar el valor",
+      "cellFilterByValue": "Filtra per aquest valor",
+      "cellExcludeValue": "Exclou aquest valor",
+      "cellSortAsc": "Ordena ascendent",
+      "cellSortDesc": "Ordena descendent",
+      "cellCopyValue": "Copia el valor",
+      "cellEditValue": "Edita el valor",
+      "explainTitle": "Pla d'execució",
+      "explainLoading": "Executant explain…",
+      "explainFail": "L'explain ha fallat",
+      "explainCollscan": "Escaneig complet de la col·lecció",
+      "explainIndexUsed": "Índex: {name}",
+      "explainReturned": "{n} retornats",
+      "explainDocsExamined": "{n} examinats",
+      "explainCollscanHint": "Aquesta consulta escaneja tots els documents de la col·lecció. Considera crear un índex sobre els camps filtrats.",
+      "explainRawLabel": "Sortida d'explain"
     },
     "tabs": {
       "filterActive": "Filtre actiu aplicat",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Comptar/Suma)",
       "format": "Formata",
       "formattedJson": "JSON formatat",
-      "runQuery": "Executa la consulta"
+      "runQuery": "Executa la consulta",
+      "savedQueries": "Consultes desades",
+      "noHistory": "Cap consulta recent",
+      "saveNamePlaceholder": "Nom de la consulta",
+      "saveCurrentQuery": "Desa la consulta actual",
+      "save": "Desa",
+      "saveQueryFail": "No s'ha pogut desar la consulta",
+      "querySaved": "“{name}” desada",
+      "explainQuery": "Explica la consulta",
+      "stagesMode": "Etapes",
+      "invalidStageJson": "Una etapa del pipeline conté JSON no vàlid"
     },
     "export": {
       "selectFieldsError": "Selecciona com a mínim un camp per exportar",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# camp seleccionat} other {# camps seleccionats}}",
       "cancel": "Cancel·la",
       "export": "Exporta",
-      "sheetName": "Dades"
+      "sheetName": "Dades",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tipus: {type}",
       "itemSummary": "{count, plural, one {# element} other {# elements}}"
+    },
+    "pipeline": {
+      "empty": "Encara no hi ha etapes. Afegeix una etapa per construir el pipeline.",
+      "addStage": "Afegeix etapa",
+      "stageEnabled": "Etapa activada",
+      "preview": "Previsualització",
+      "previewToHere": "Executa el pipeline fins a aquesta etapa (primers 10 documents)",
+      "previewResult": "Resultats de previsualització ({count})",
+      "previewEmpty": "Cap document en aquesta etapa",
+      "previewFail": "La previsualització ha fallat"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Generador de dades fictícies",
     "subtitle": "Defineix columnes tipades — exporta fins a {max} files",
-    "mockarooLink": "Flux com a Mockaroo",
     "rowsLabel": "Files",
     "rowsHint": "Com a màxim {max} files per generació per mantenir la pestanya fluida.",
     "formatLabel": "Format",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Nombres i IDs",
       "dateTime": "Data i hora",
       "textDesign": "Text i disseny",
-      "custom": "Personalitzat"
+      "custom": "Personalitzat",
+      "commerce": "Comerç"
     },
     "fieldTypes": {
       "first_name": "Nom",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Codi de moneda",
       "language_code": "Etiqueta d’idioma",
-      "custom_list": "Llista personalitzada"
+      "custom_list": "Llista personalitzada",
+      "gender": "Gènere",
+      "us_state": "Estat dels EUA",
+      "us_state_abbr": "Estat dels EUA (abr.)",
+      "user_agent": "Agent d'usuari",
+      "mime_type": "Tipus MIME",
+      "file_name": "Nom de fitxer",
+      "port": "Port",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Hora",
+      "weekday": "Dia de la setmana",
+      "month": "Mes",
+      "product_name": "Nom del producte",
+      "product_category": "Categoria de producte",
+      "department": "Departament",
+      "color_name": "Nom del color",
+      "catch_phrase": "Eslògan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importa l'esquema",
+    "exportSchema": "Exporta l'esquema",
+    "importSchemaError": "Fitxer d'esquema no vàlid — s'espera una matriu JSON de columnes { name, type }."
   },
   "SvgOptimizer": {
     "title": "Optimitzador SVG",
     "subtitle": "Minifica SVG amb SVGO i compara mides",
     "inputLabel": "Entrada",
     "outputLabel": "Optimitzat",
-    "placeholder": "Enganxa un fragment <svg>…</svg> o el fitxer sencer…",
+    "placeholder": "Enganxa un fragment SVG o el fitxer sencer…",
     "outputPlaceholder": "El SVG optimitzat apareix aquí…",
     "chars": "{count} caràcters • {bytes} bytes (UTF-8)",
     "preview": "Vista prèvia",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Convertidor d’unitats",
-    "subtitle": "Converteix 323 unitats en 43 categories",
+    "subtitle": "Converteix 292 unitats en 44 categories",
     "category": "Categoria",
     "from": "De",
     "to": "A",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Codi",
     "detected": "Detectat: {language}",
     "clear": "Netejar",
+    "format": "Formata",
+    "formatUnsupported": "El format no està disponible per a aquest llenguatge",
+    "formatFailed": "No s’ha pogut formatar el codi",
     "placeholder": "Enganxa el teu codi aquí…",
     "previewLabel": "Vista prèvia",
     "emptyPreview": "La vista prèvia del teu codi apareixerà aquí",

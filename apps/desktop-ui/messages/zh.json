@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "笔记导航",
-      "openMenuAria": "打开笔记菜单"
+      "openMenuAria": "打开笔记菜单",
+      "showSidebarAria": "显示侧边栏"
     },
     "sidebar": {
       "title": "笔记",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "确定要删除「{title}」吗？此操作无法撤销。",
       "cancel": "取消",
       "confirmDelete": "删除",
-      "noteOptionsAria": "笔记选项"
+      "noteOptionsAria": "笔记选项",
+      "hideSidebarAria": "隐藏侧边栏"
     },
     "editor": {
       "emptyState": "选择一篇笔记或新建一篇以开始。",
@@ -934,7 +936,8 @@
       "loading": "加载中…",
       "searchHint": "以搜索",
       "focusHint": "专注模式",
-      "notePath": "笔记路径"
+      "notePath": "笔记路径",
+      "export": "导出"
     },
     "context": {
       "authRequiredError": "用户未登录",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "粘贴 JSON 数据",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "在此粘贴先前导出的 JSON 文件内容。",
+      "selectFile": "选择 JSON 文件",
       "importing": "导入中…",
       "importPasswords": "导入密码",
       "trigger": "导入 / 导出",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "删除文件夹「{name}」？",
       "deleteFolderDescription": "将删除该文件夹及其所有子文件夹。其中的书签将移至未分类。"
     },
+    "foldersHeading": "文件夹",
     "import": {
       "title": "导入书签",
       "description": "从浏览器导出的文件导入书签。",
@@ -1496,19 +1501,27 @@
       "updateConnect": "更新并连接",
       "connect": "连接",
       "cancelEdit": "取消编辑",
+      "cancel": "取消",
       "savedConnections": "已保存的连接",
       "emptySaved": "暂无已保存的连接。",
       "lastUsed": "上次使用 {time}",
       "toastTestOk": "连接成功！",
       "toastTestFail": "连接失败：{message}",
+      "toastConnectFail": "无法连接到 {name}",
       "toastUpdated": "连接已更新",
       "confirmDelete": "确定要删除此已保存的连接吗？",
+      "menuDeleteConnection": "删除连接",
       "toastDeletedConn": "连接已删除",
       "toastDeleteFail": "删除连接失败",
       "copyStringTitle": "复制连接字符串",
       "toastStringCopied": "连接字符串已复制！",
       "editTitle": "编辑",
-      "deleteTitle": "删除"
+      "deleteTitle": "删除",
+      "labelColor": "颜色标签",
+      "colorNone": "无颜色",
+      "hintColor": "标记环境 — 例如生产环境用红色。",
+      "labelReadOnly": "只读连接",
+      "hintReadOnly": "禁止对此连接进行插入、编辑、删除和删除集合操作。"
     },
     "sidebar": {
       "explorer": "浏览器",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "只读",
+      "cellUpdated": "值已更新",
+      "cellUpdateFail": "更新值失败",
+      "cellFilterByValue": "按此值筛选",
+      "cellExcludeValue": "排除此值",
+      "cellSortAsc": "升序排序",
+      "cellSortDesc": "降序排序",
+      "cellCopyValue": "复制值",
+      "cellEditValue": "编辑值",
+      "explainTitle": "执行计划",
+      "explainLoading": "正在运行 explain…",
+      "explainFail": "explain 失败",
+      "explainCollscan": "全集合扫描",
+      "explainIndexUsed": "索引：{name}",
+      "explainReturned": "返回 {n} 条",
+      "explainDocsExamined": "检查 {n} 条",
+      "explainCollscanHint": "此查询会扫描集合中的每个文档。考虑在筛选字段上创建索引。",
+      "explainRawLabel": "explain 输出"
     },
     "tabs": {
       "filterActive": "已应用筛选",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group（计数/求和）",
       "format": "格式化",
       "formattedJson": "格式化 JSON",
-      "runQuery": "运行查询"
+      "runQuery": "运行查询",
+      "savedQueries": "已保存的查询",
+      "noHistory": "没有最近的查询",
+      "saveNamePlaceholder": "查询名称",
+      "saveCurrentQuery": "保存当前查询",
+      "save": "保存",
+      "saveQueryFail": "保存查询失败",
+      "querySaved": "已保存“{name}”",
+      "explainQuery": "解释查询",
+      "stagesMode": "阶段",
+      "invalidStageJson": "某个管道阶段包含无效的 JSON"
     },
     "export": {
       "selectFieldsError": "请至少选择一个要导出的字段",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {已选 # 个字段} other {已选 # 个字段}}",
       "cancel": "取消",
       "export": "导出",
-      "sheetName": "数据"
+      "sheetName": "数据",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "类型：{type}",
       "itemSummary": "{count, plural, one {# 项} other {# 项}}"
+    },
+    "pipeline": {
+      "empty": "还没有阶段。添加一个阶段来构建管道。",
+      "addStage": "添加阶段",
+      "stageEnabled": "阶段已启用",
+      "preview": "预览",
+      "previewToHere": "运行管道至此阶段（前 10 个文档）",
+      "previewResult": "预览结果（{count}）",
+      "previewEmpty": "此阶段没有文档",
+      "previewFail": "预览失败"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "模拟数据生成器",
     "subtitle": "定义类型化列 — 导出最多 {max} 行测试数据",
-    "mockarooLink": "Mockaroo 式工作流",
     "rowsLabel": "行数",
     "rowsHint": "每次生成最多 {max} 行，以保持标签页流畅。",
     "formatLabel": "格式",
@@ -3483,7 +3534,8 @@
       "numbersIds": "数字与标识",
       "dateTime": "日期与时间",
       "textDesign": "文本与设计",
-      "custom": "自定义"
+      "custom": "自定义",
+      "commerce": "商务"
     },
     "fieldTypes": {
       "first_name": "名",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "货币代码",
       "language_code": "语言标签",
-      "custom_list": "自定义列表"
+      "custom_list": "自定义列表",
+      "gender": "性别",
+      "us_state": "美国州",
+      "us_state_abbr": "美国州（缩写）",
+      "user_agent": "用户代理",
+      "mime_type": "MIME 类型",
+      "file_name": "文件名",
+      "port": "端口",
+      "md5": "MD5 哈希",
+      "sha256": "SHA-256 哈希",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "时间",
+      "weekday": "星期",
+      "month": "月份",
+      "product_name": "产品名称",
+      "product_category": "产品类别",
+      "department": "部门",
+      "color_name": "颜色名称",
+      "catch_phrase": "宣传语"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "导入架构",
+    "exportSchema": "导出架构",
+    "importSchemaError": "架构文件无效 — 需要由 { name, type } 列组成的 JSON 数组。"
   },
   "SvgOptimizer": {
     "title": "SVG 优化器",
     "subtitle": "用 SVGO 压缩 SVG 并对比大小",
     "inputLabel": "输入",
     "outputLabel": "已优化",
-    "placeholder": "粘贴 <svg>…</svg> 片段或完整文件…",
+    "placeholder": "粘贴 SVG 片段或完整文件…",
     "outputPlaceholder": "优化后的 SVG 将显示在这里…",
     "chars": "{count} 个字符 • {bytes} 字节（UTF-8）",
     "preview": "预览",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "单位换算器",
-    "subtitle": "覆盖 43 类 323 种单位换算",
+    "subtitle": "覆盖 44 类 292 种单位换算",
     "category": "类别",
     "from": "从",
     "to": "到",
@@ -4089,6 +4163,9 @@
     "inputLabel": "代码",
     "detected": "已检测：{language}",
     "clear": "清空",
+    "format": "格式化",
+    "formatUnsupported": "此语言不支持格式化",
+    "formatFailed": "代码格式化失败",
     "placeholder": "在此粘贴你的代码…",
     "previewLabel": "预览",
     "emptyPreview": "你的代码预览将显示在这里",

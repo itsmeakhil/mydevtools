@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notes Navigation",
-      "openMenuAria": "Open notes menu"
+      "openMenuAria": "Open notes menu",
+      "showSidebarAria": "Pokaż pasek boczny"
     },
     "sidebar": {
       "title": "Notes",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
       "cancel": "Cancel",
       "confirmDelete": "Delete",
-      "noteOptionsAria": "Note options"
+      "noteOptionsAria": "Note options",
+      "hideSidebarAria": "Ukryj pasek boczny"
     },
     "editor": {
       "emptyState": "Select a note or create a new one to get started.",
@@ -934,7 +936,8 @@
       "loading": "Ładowanie…",
       "searchHint": "aby wyszukać",
       "focusHint": "tryb skupienia",
-      "notePath": "Ścieżka notatki"
+      "notePath": "Ścieżka notatki",
+      "export": "Eksportuj"
     },
     "context": {
       "authRequiredError": "User not authenticated",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Paste JSON data",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Paste the content of a previously exported JSON file here.",
+      "selectFile": "Wybierz plik JSON",
       "importing": "Importing...",
       "importPasswords": "Import passwords",
       "trigger": "Import / export",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Delete folder \"{name}\"?",
       "deleteFolderDescription": "This will delete the folder and all its subfolders. Bookmarks in these folders will be moved to Uncategorized."
     },
+    "foldersHeading": "Foldery",
     "import": {
       "title": "Import Bookmarks",
       "description": "Import bookmarks from your browser's exported file.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Update & Connect",
       "connect": "Connect",
       "cancelEdit": "Cancel Edit",
+      "cancel": "Anuluj",
       "savedConnections": "Saved Connections",
       "emptySaved": "No saved connections yet.",
       "lastUsed": "Last used {time}",
       "toastTestOk": "Connection successful!",
       "toastTestFail": "Connection failed: {message}",
+      "toastConnectFail": "Nie udało się połączyć z {name}",
       "toastUpdated": "Connection updated",
       "confirmDelete": "Are you sure you want to delete this saved connection?",
+      "menuDeleteConnection": "Usuń połączenie",
       "toastDeletedConn": "Connection deleted",
       "toastDeleteFail": "Failed to delete connection",
       "copyStringTitle": "Copy connection string",
       "toastStringCopied": "Connection string copied!",
       "editTitle": "Edit",
-      "deleteTitle": "Delete"
+      "deleteTitle": "Delete",
+      "labelColor": "Etykieta koloru",
+      "colorNone": "Bez koloru",
+      "hintColor": "Oznacz środowiska — np. czerwony dla produkcji.",
+      "labelReadOnly": "Połączenie tylko do odczytu",
+      "hintReadOnly": "Blokuje wstawianie, edycję, usuwanie i operacje drop dla tego połączenia."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Tylko do odczytu",
+      "cellUpdated": "Wartość zaktualizowana",
+      "cellUpdateFail": "Nie udało się zaktualizować wartości",
+      "cellFilterByValue": "Filtruj według tej wartości",
+      "cellExcludeValue": "Wyklucz tę wartość",
+      "cellSortAsc": "Sortuj rosnąco",
+      "cellSortDesc": "Sortuj malejąco",
+      "cellCopyValue": "Kopiuj wartość",
+      "cellEditValue": "Edytuj wartość",
+      "explainTitle": "Plan wykonania",
+      "explainLoading": "Trwa explain…",
+      "explainFail": "Explain nie powiódł się",
+      "explainCollscan": "Pełne skanowanie kolekcji",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} zwróconych",
+      "explainDocsExamined": "{n} zbadanych",
+      "explainCollscanHint": "To zapytanie skanuje każdy dokument w kolekcji. Rozważ utworzenie indeksu na filtrowanych polach.",
+      "explainRawLabel": "Wynik explain"
     },
     "tabs": {
       "filterActive": "Active filter applied",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Count/Sum)",
       "format": "Format",
       "formattedJson": "Formatted JSON",
-      "runQuery": "Run Query"
+      "runQuery": "Run Query",
+      "savedQueries": "Zapisane zapytania",
+      "noHistory": "Brak ostatnich zapytań",
+      "saveNamePlaceholder": "Nazwa zapytania",
+      "saveCurrentQuery": "Zapisz bieżące zapytanie",
+      "save": "Zapisz",
+      "saveQueryFail": "Nie udało się zapisać zapytania",
+      "querySaved": "Zapisano „{name}”",
+      "explainQuery": "Wyjaśnij zapytanie",
+      "stagesMode": "Etapy",
+      "invalidStageJson": "Etap pipeline'u zawiera nieprawidłowy JSON"
     },
     "export": {
       "selectFieldsError": "Please select at least one field to export",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# field selected} other {# fields selected}}",
       "cancel": "Cancel",
       "export": "Export",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "Brak etapów. Dodaj etap, aby zbudować pipeline.",
+      "addStage": "Dodaj etap",
+      "stageEnabled": "Etap włączony",
+      "preview": "Podgląd",
+      "previewToHere": "Uruchom pipeline do tego etapu (pierwsze 10 dokumentów)",
+      "previewResult": "Wyniki podglądu ({count})",
+      "previewEmpty": "Brak dokumentów na tym etapie",
+      "previewFail": "Podgląd nie powiódł się"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Generator danych testowych",
     "subtitle": "Zdefiniuj typowane kolumny — eksport do {max} wierszy",
-    "mockarooLink": "Przepływ jak w Mockaroo",
     "rowsLabel": "Wiersze",
     "rowsHint": "Maks. {max} wierszy na generację, by karta była responsywna.",
     "formatLabel": "Format",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Liczby i identyfikatory",
       "dateTime": "Data i czas",
       "textDesign": "Tekst i wygląd",
-      "custom": "Niestandardowe"
+      "custom": "Niestandardowe",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Imię",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Kod waluty",
       "language_code": "Znacznik języka",
-      "custom_list": "Lista niestandardowa"
+      "custom_list": "Lista niestandardowa",
+      "gender": "Płeć",
+      "us_state": "Stan USA",
+      "us_state_abbr": "Stan USA (skrót)",
+      "user_agent": "User agent",
+      "mime_type": "Typ MIME",
+      "file_name": "Nazwa pliku",
+      "port": "Port",
+      "md5": "Skrót MD5",
+      "sha256": "Skrót SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Godzina",
+      "weekday": "Dzień tygodnia",
+      "month": "Miesiąc",
+      "product_name": "Nazwa produktu",
+      "product_category": "Kategoria produktu",
+      "department": "Dział",
+      "color_name": "Nazwa koloru",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importuj schemat",
+    "exportSchema": "Eksportuj schemat",
+    "importSchemaError": "Nieprawidłowy plik schematu — oczekiwana jest tablica JSON kolumn { name, type }."
   },
   "SvgOptimizer": {
     "title": "Optymalizator SVG",
     "subtitle": "Minifikuj SVG przez SVGO i porównuj rozmiary",
     "inputLabel": "Wejście",
     "outputLabel": "Zoptymalizowano",
-    "placeholder": "Wklej fragment <svg>…</svg> lub cały plik…",
+    "placeholder": "Wklej fragment SVG lub cały plik…",
     "outputPlaceholder": "Zoptymalizowany SVG pojawi się tutaj…",
     "chars": "{count} znaków • {bytes} bajtów (UTF-8)",
     "preview": "Podgląd",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Konwerter jednostek",
-    "subtitle": "Konwertuj 323 jednostki w 43 kategoriach",
+    "subtitle": "Konwertuj 292 jednostki w 44 kategoriach",
     "category": "Kategoria",
     "from": "Z",
     "to": "Na",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Kod",
     "detected": "Wykryto: {language}",
     "clear": "Wyczyść",
+    "format": "Formatuj",
+    "formatUnsupported": "Formatowanie nie jest dostępne dla tego języka",
+    "formatFailed": "Nie udało się sformatować kodu",
     "placeholder": "Wklej swój kod tutaj…",
     "previewLabel": "Podgląd",
     "emptyPreview": "Podgląd Twojego kodu pojawi się tutaj",

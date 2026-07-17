@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Anteckningsnavigering",
-      "openMenuAria": "Öppna anteckningsmeny"
+      "openMenuAria": "Öppna anteckningsmeny",
+      "showSidebarAria": "Visa sidopanel"
     },
     "sidebar": {
       "title": "Anteckningar",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Är du säker på att du vill ta bort \"{title}\"? Denna åtgärd kan inte ångras.",
       "cancel": "Avbryt",
       "confirmDelete": "Ta bort",
-      "noteOptionsAria": "Anteckningsalternativ"
+      "noteOptionsAria": "Anteckningsalternativ",
+      "hideSidebarAria": "Dölj sidopanel"
     },
     "editor": {
       "emptyState": "Välj en anteckning eller skapa en ny för att komma igång.",
@@ -934,7 +936,8 @@
       "loading": "Laddar…",
       "searchHint": "för att söka",
       "focusHint": "fokusläge",
-      "notePath": "Anteckningssökväg"
+      "notePath": "Anteckningssökväg",
+      "export": "Exportera"
     },
     "context": {
       "authRequiredError": "Användaren är inte autentiserad",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Klistra in JSON-data",
       "pastePlaceholder": "[{\"service\": \"Exempel\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Klistra in innehållet från en tidigare exporterad JSON-fil här.",
+      "selectFile": "Välj JSON-fil",
       "importing": "Importerar...",
       "importPasswords": "Importera lösenord",
       "trigger": "Importera / exportera",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Ta bort mapp \"{name}\"?",
       "deleteFolderDescription": "Detta kommer ta bort mappen och alla undermappar. Bokmärken i dessa mappar flyttas till Okategoriserade."
     },
+    "foldersHeading": "Mappar",
     "import": {
       "title": "Importera bokmärken",
       "description": "Importera bokmärken från din webbläsares exporterade fil.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Uppdatera och anslut",
       "connect": "Anslut",
       "cancelEdit": "Avbryt redigering",
+      "cancel": "Avbryt",
       "savedConnections": "Sparade anslutningar",
       "emptySaved": "Inga sparade anslutningar ännu.",
       "lastUsed": "Senast använd {time}",
       "toastTestOk": "Anslutning lyckades!",
       "toastTestFail": "Anslutning misslyckades: {message}",
+      "toastConnectFail": "Det gick inte att ansluta till {name}",
       "toastUpdated": "Anslutning uppdaterad",
       "confirmDelete": "Är du säker på att du vill ta bort denna sparade anslutning?",
+      "menuDeleteConnection": "Ta bort anslutning",
       "toastDeletedConn": "Anslutning borttagen",
       "toastDeleteFail": "Misslyckades att ta bort anslutning",
       "copyStringTitle": "Kopiera anslutningssträng",
       "toastStringCopied": "Anslutningssträng kopierad!",
       "editTitle": "Redigera",
-      "deleteTitle": "Ta bort"
+      "deleteTitle": "Ta bort",
+      "labelColor": "Färgetikett",
+      "colorNone": "Ingen färg",
+      "hintColor": "Märk miljöer — t.ex. rött för produktion.",
+      "labelReadOnly": "Skrivskyddad anslutning",
+      "hintReadOnly": "Blockerar inlägg, redigeringar, borttagningar och drops för denna anslutning."
     },
     "sidebar": {
       "explorer": "Utforskare",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Skrivskyddad",
+      "cellUpdated": "Värde uppdaterat",
+      "cellUpdateFail": "Kunde inte uppdatera värdet",
+      "cellFilterByValue": "Filtrera på detta värde",
+      "cellExcludeValue": "Exkludera detta värde",
+      "cellSortAsc": "Sortera stigande",
+      "cellSortDesc": "Sortera fallande",
+      "cellCopyValue": "Kopiera värde",
+      "cellEditValue": "Redigera värde",
+      "explainTitle": "Exekveringsplan",
+      "explainLoading": "Kör explain…",
+      "explainFail": "Explain misslyckades",
+      "explainCollscan": "Fullständig collection-skanning",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} returnerade",
+      "explainDocsExamined": "{n} granskade",
+      "explainCollscanHint": "Denna fråga skannar varje dokument i collectionen. Överväg att skapa ett index på de filtrerade fälten.",
+      "explainRawLabel": "Explain-utdata"
     },
     "tabs": {
       "filterActive": "Aktivt filter tillämpat",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (Antal/Summa)",
       "format": "Formatera",
       "formattedJson": "Formaterad JSON",
-      "runQuery": "Kör fråga"
+      "runQuery": "Kör fråga",
+      "savedQueries": "Sparade frågor",
+      "noHistory": "Inga senaste frågor",
+      "saveNamePlaceholder": "Frågenamn",
+      "saveCurrentQuery": "Spara aktuell fråga",
+      "save": "Spara",
+      "saveQueryFail": "Kunde inte spara frågan",
+      "querySaved": "”{name}” sparad",
+      "explainQuery": "Förklara fråga",
+      "stagesMode": "Steg",
+      "invalidStageJson": "Ett pipelinesteg innehåller ogiltig JSON"
     },
     "export": {
       "selectFieldsError": "Välj minst ett fält att exportera",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# fält valt} other {# fält valda}}",
       "cancel": "Avbryt",
       "export": "Exportera",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Typ: {type}",
       "itemSummary": "{count, plural, one {# objekt} other {# objekt}}"
+    },
+    "pipeline": {
+      "empty": "Inga steg ännu. Lägg till ett steg för att bygga din pipeline.",
+      "addStage": "Lägg till steg",
+      "stageEnabled": "Steg aktiverat",
+      "preview": "Förhandsgranskning",
+      "previewToHere": "Kör pipelinen till detta steg (första 10 dokumenten)",
+      "previewResult": "Förhandsgranskningsresultat ({count})",
+      "previewEmpty": "Inga dokument i detta steg",
+      "previewFail": "Förhandsgranskning misslyckades"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Mockdatagenerator",
     "subtitle": "Definiera typade kolumner — exportera upp till {max} fixturrader",
-    "mockarooLink": "Mockaroo-liknande arbetsflöde",
     "rowsLabel": "Rader",
     "rowsHint": "Högst {max} rader per körning för att hålla fliken responsiv.",
     "formatLabel": "Format",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Tal och ID",
       "dateTime": "Datum och tid",
       "textDesign": "Text och design",
-      "custom": "Anpassat"
+      "custom": "Anpassat",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Förnamn",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Valutakod",
       "language_code": "Språktagg",
-      "custom_list": "Anpassad lista"
+      "custom_list": "Anpassad lista",
+      "gender": "Kön",
+      "us_state": "Amerikansk delstat",
+      "us_state_abbr": "Amerikansk delstat (förk.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-typ",
+      "file_name": "Filnamn",
+      "port": "Port",
+      "md5": "MD5-hash",
+      "sha256": "SHA-256-hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Tid",
+      "weekday": "Veckodag",
+      "month": "Månad",
+      "product_name": "Produktnamn",
+      "product_category": "Produktkategori",
+      "department": "Avdelning",
+      "color_name": "Färgnamn",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importera schema",
+    "exportSchema": "Exportera schema",
+    "importSchemaError": "Ogiltig schemafil — en JSON-array med { name, type }-kolumner förväntas."
   },
   "SvgOptimizer": {
     "title": "SVG-optimerare",
     "subtitle": "Minifiera SVG med SVGO och jämför storlekar",
     "inputLabel": "Indata",
     "outputLabel": "Optimerad",
-    "placeholder": "Klistra in ett <svg>…</svg>-utdrag eller hela filen…",
+    "placeholder": "Klistra in ett SVG-utdrag eller hela filen…",
     "outputPlaceholder": "Optimerad SVG visas här…",
     "chars": "{count} tecken • {bytes} byte (UTF-8)",
     "preview": "Förhandsvisning",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Enhetskonverterare",
-    "subtitle": "Konvertera 323 enheter i 43 kategorier",
+    "subtitle": "Konvertera 292 enheter i 44 kategorier",
     "category": "Kategori",
     "from": "Från",
     "to": "Till",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Kod",
     "detected": "Identifierat: {language}",
     "clear": "Rensa",
+    "format": "Formatera",
+    "formatUnsupported": "Formatering är inte tillgänglig för detta språk",
+    "formatFailed": "Det gick inte att formatera koden",
     "placeholder": "Klistra in din kod här…",
     "previewLabel": "Förhandsgranskning",
     "emptyPreview": "Förhandsgranskningen av din kod visas här",

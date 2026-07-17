@@ -28,6 +28,8 @@ interface NotesUI {
     setActiveNoteId: (id: string | null) => void;
     focusMode: boolean;
     setFocusMode: (v: boolean) => void;
+    sidebarOpen: boolean;
+    setSidebarOpen: (v: boolean) => void;
 }
 
 interface NotesActions {
@@ -53,6 +55,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const [isContentLoading, setIsContentLoading] = useState(false);
     const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
     const [focusMode, setFocusMode] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(true);
     const contentLoadedIds = useRef<Set<string>>(new Set());
     // Notes whose content is an envelope we couldn't decrypt (vault locked). Their
     // in-state `content` is a null placeholder — writing it back would clobber the
@@ -284,8 +287,8 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     );
 
     const uiValue = useMemo<NotesUI>(
-        () => ({ activeNoteId, setActiveNoteId, focusMode, setFocusMode }),
-        [activeNoteId, focusMode]
+        () => ({ activeNoteId, setActiveNoteId, focusMode, setFocusMode, sidebarOpen, setSidebarOpen }),
+        [activeNoteId, focusMode, sidebarOpen]
     );
 
     const actionsValue = useMemo<NotesActions>(

@@ -132,7 +132,7 @@ export default function ApiKeyVaultPage() {
         >
             <ToolHeader
                 title="API Keys"
-                description="AES-256-GCM encrypted and Storedon your device."
+                description="AES-256-GCM encrypted and stored on your device."
                 toolId="/app/api-keys"
                 className="shrink-0"
             />

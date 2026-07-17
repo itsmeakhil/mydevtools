@@ -15,9 +15,15 @@ import {
     IconChevronRight, IconServer, IconDatabase, IconFolder, IconFolderOpen,
     IconRowInsertBottom, IconLayoutRows, IconArrowsMaximize, IconArrowsMinimize,
     IconUpload, IconListDetails, IconSchema, IconArrowsExchange, IconChevronDown,
+    IconFilter, IconFilterX, IconSortAscending, IconSortDescending, IconLock,
+    IconAlertTriangle, IconLoader2,
 } from "@tabler/icons-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+    ContextMenu, ContextMenuContent, ContextMenuItem,
+    ContextMenuSeparator, ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import Editor from "@/components/lazy/LazyMonaco";
@@ -29,6 +35,7 @@ import { ImportDialog } from "./import-dialog";
 import { IndexManager } from "./index-manager";
 import { QueryBuilder } from "./query-builder";
 import { CellValue, SkeletonRow } from "./cells";
+import { summarizeExplain } from "@/lib/nosql-explain";
 import { SchemaView } from "./schema-view";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -70,6 +77,9 @@ interface DocumentViewProps {
     onLoadIndexes?: () => Promise<{ indexes: any[]; totalIndexSize?: number }>;
     onDropIndex?: (indexName: string) => Promise<void>;
     onCreateIndex?: (keys: Record<string, number>, options: Record<string, any>) => Promise<void>;
+    onExplain?: (query: string) => Promise<any>;
+    onPreviewPipeline?: (pipelineJson: string) => Promise<{ documents: unknown[] }>;
+    readOnly?: boolean;
 }
 
 
@@ -105,6 +115,9 @@ export function DocumentView({
     onLoadIndexes,
     onDropIndex,
     onCreateIndex,
+    onExplain,
+    onPreviewPipeline,
+    readOnly = false,
 }: DocumentViewProps) {
     const t = useTranslations("NoSqlExplorer.document");
     const [viewMode, setViewMode] = useState<"table" | "json" | "tree" | "schema" | "indexes">("table");
@@ -127,8 +140,81 @@ export function DocumentView({
     const [indexesData, setIndexesData] = useState<{ indexes: any[]; totalIndexSize?: number } | null>(null);
     const [indexesLoading, setIndexesLoading] = useState(false);
     const [indexesError, setIndexesError] = useState<string | null>(null);
+    const [editingCell, setEditingCell] = useState<{ docId: string; field: string } | null>(null);
+    const [editCellValue, setEditCellValue] = useState("");
+    const [editCellSaving, setEditCellSaving] = useState(false);
+    const [explainOpen, setExplainOpen] = useState(false);
+    const [explainLoading, setExplainLoading] = useState(false);
+    const [explainData, setExplainData] = useState<any>(null);
     const { theme } = useTheme();
     const { copyToClipboard } = useCopyToClipboard();
+
+    const isScalar = (v: unknown) => v === null || ["string", "number", "boolean"].includes(typeof v);
+
+    const startCellEdit = (doc: Document, field: string) => {
+        if (readOnly || field === "_id") return;
+        const value = doc[field];
+        if (!isScalar(value) && value !== undefined) {
+            // Nested values go through the full document editor
+            handleEdit(doc);
+            return;
+        }
+        setEditingCell({ docId: doc._id, field });
+        setEditCellValue(value === null || value === undefined ? "" : String(value));
+    };
+
+    const commitCellEdit = async (doc: Document) => {
+        if (!editingCell || editCellSaving) return;
+        const raw = editCellValue.trim();
+        const original = doc[editingCell.field];
+        // Auto-type like the query builder: number / boolean / null, else string
+        let parsed: unknown = editCellValue;
+        if (raw === "null") parsed = null;
+        else if (raw === "true") parsed = true;
+        else if (raw === "false") parsed = false;
+        else if (raw !== "" && !isNaN(Number(raw)) && typeof original !== "string") parsed = Number(raw);
+        if (parsed === original) {
+            setEditingCell(null);
+            return;
+        }
+        setEditCellSaving(true);
+        try {
+            await onUpdate(doc._id, { [editingCell.field]: parsed });
+            toast.success(t("cellUpdated"));
+            setEditingCell(null);
+        } catch (e: any) {
+            toast.error(e.message || t("cellUpdateFail"));
+        } finally {
+            setEditCellSaving(false);
+        }
+    };
+
+    const applyCellFilter = (field: string, value: unknown, exclude = false) => {
+        let q: Record<string, unknown> = {};
+        try {
+            const parsed = JSON.parse(searchQuery || "{}");
+            if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) q = parsed;
+        } catch { /* start fresh */ }
+        q[field] = exclude ? { $ne: value } : value;
+        const next = JSON.stringify(q);
+        setSearchQuery(next);
+        onSearch(next);
+    };
+
+    const runExplain = async (query: string) => {
+        if (!onExplain) return;
+        setExplainOpen(true);
+        setExplainLoading(true);
+        setExplainData(null);
+        try {
+            setExplainData(await onExplain(query));
+        } catch (e: any) {
+            toast.error(e.message || t("explainFail"));
+            setExplainOpen(false);
+        } finally {
+            setExplainLoading(false);
+        }
+    };
 
     const tableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -330,7 +416,7 @@ export function DocumentView({
         } catch { return false; }
     }, [searchQuery]);
 
-    const showSelectMode = viewMode === 'table' && !!onBulkDelete;
+    const showSelectMode = viewMode === 'table' && !!onBulkDelete && !readOnly;
 
     const viewModeOptions = [
         { mode: 'table', icon: IconTable, label: t("table") },
@@ -352,6 +438,12 @@ export function DocumentView({
                 <span className="text-border">/</span>
                 <IconFolder className="h-3 w-3 text-yellow-500 shrink-0" />
                 <span className="font-medium text-foreground truncate max-w-[140px]">{collectionName}</span>
+                {readOnly && (
+                    <Badge variant="outline" className="h-4 px-1.5 text-[9px] gap-0.5 border-amber-500/50 text-amber-600 dark:text-amber-400 shrink-0">
+                        <IconLock className="h-2.5 w-2.5" />
+                        {t("readOnlyBadge")}
+                    </Badge>
+                )}
                 {!loading && total > 0 && (
                     <>
                         <span className="text-border ml-auto shrink-0">·</span>
@@ -379,6 +471,8 @@ export function DocumentView({
                         connectionName={connectionName}
                         dbName={dbName}
                         collectionName={collectionName}
+                        onExplain={onExplain ? runExplain : undefined}
+                        onPreviewPipeline={onPreviewPipeline}
                     />
                 </div>
 
@@ -471,10 +565,12 @@ export function DocumentView({
                             </Tooltip>
                         </TooltipProvider>
 
-                        <Button size="sm" onClick={openInsertDialog} className="h-8 px-2 md:px-3 text-xs">
-                            <IconPlus className="h-3.5 w-3.5 md:mr-1" />
-                            <span className="hidden md:inline">{t("insert")}</span>
-                        </Button>
+                        {!readOnly && (
+                            <Button size="sm" onClick={openInsertDialog} className="h-8 px-2 md:px-3 text-xs">
+                                <IconPlus className="h-3.5 w-3.5 md:mr-1" />
+                                <span className="hidden md:inline">{t("insert")}</span>
+                            </Button>
+                        )}
                         <Button
                             size="sm"
                             variant="outline"
@@ -521,6 +617,7 @@ export function DocumentView({
                     <SchemaView onLoad={onLoadSchema} />
                 ) : viewMode === 'indexes' ? (
                     <IndexManager
+                        readOnly={readOnly}
                         indexes={indexesData?.indexes || []}
                         totalIndexSize={indexesData?.totalIndexSize}
                         loading={indexesLoading}
@@ -584,10 +681,12 @@ export function DocumentView({
                                     <p className="text-sm text-muted-foreground mt-1">{t("emptyCollectionHint")}</p>
                                 </div>
                                 <div className="flex flex-wrap gap-2 justify-center">
-                                    <Button size="sm" onClick={openInsertDialog}>
-                                        <IconPlus className="h-3.5 w-3.5 mr-1.5" />
-                                        {t("insertDocument")}
-                                    </Button>
+                                    {!readOnly && (
+                                        <Button size="sm" onClick={openInsertDialog}>
+                                            <IconPlus className="h-3.5 w-3.5 mr-1.5" />
+                                            {t("insertDocument")}
+                                        </Button>
+                                    )}
                                     <Button size="sm" variant="outline" onClick={() => setIsImportExportChooserOpen(true)}>
                                         <IconArrowsExchange className="h-3.5 w-3.5 mr-1.5" />
                                         {t("importExport")}
@@ -645,15 +744,19 @@ export function DocumentView({
                                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)}>
                                             <IconCopy className="h-3 w-3" />
                                         </Button>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)}>
-                                            <IconPlus className="h-3 w-3 text-blue-500" />
-                                        </Button>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
-                                            <IconPencil className="h-3 w-3" />
-                                        </Button>
-                                        <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => onDelete(doc._id)}>
-                                            <IconTrash className="h-3 w-3" />
-                                        </Button>
+                                        {!readOnly && (
+                                            <>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)}>
+                                                    <IconPlus className="h-3 w-3 text-blue-500" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
+                                                    <IconPencil className="h-3 w-3" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => onDelete(doc._id)}>
+                                                    <IconTrash className="h-3 w-3" />
+                                                </Button>
+                                            </>
+                                        )}
                                     </div>
                                     <JsonTree
                                         key={`${doc._id}-${treeExpandAll}`}
@@ -744,32 +847,109 @@ export function DocumentView({
                                             <td className={cn("px-4 py-3 w-[50px] font-mono text-xs text-center text-muted-foreground sticky z-10 bg-background group-hover:bg-muted/50 transition-colors", showSelectMode ? "left-[44px]" : "left-0", isSelected && "bg-primary/5 group-hover:bg-primary/10")}>
                                                 {index + 1 + (page - 1) * limit}
                                             </td>
-                                            {allFields.map((key) => (
-                                                <td
-                                                    key={key}
-                                                    className="px-4 py-3 align-top truncate border-r relative overflow-hidden"
-                                                    style={{
-                                                        maxWidth: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
-                                                        width: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`
-                                                    }}
-                                                >
-                                                    <CellValue value={doc[key]} onViewClick={handleViewValue} />
-                                                </td>
-                                            ))}
+                                            {allFields.map((key) => {
+                                                const value = doc[key];
+                                                const isEditingThis = editingCell?.docId === doc._id && editingCell?.field === key;
+                                                const cellStyle = {
+                                                    maxWidth: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
+                                                    width: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
+                                                };
+                                                if (isEditingThis) {
+                                                    return (
+                                                        <td key={key} className="px-2 py-2 align-top border-r relative" style={cellStyle}>
+                                                            <Input
+                                                                autoFocus
+                                                                value={editCellValue}
+                                                                disabled={editCellSaving}
+                                                                onChange={(e) => setEditCellValue(e.target.value)}
+                                                                onKeyDown={(e) => {
+                                                                    if (e.key === "Enter") commitCellEdit(doc);
+                                                                    if (e.key === "Escape") setEditingCell(null);
+                                                                }}
+                                                                onBlur={() => { if (!editCellSaving) setEditingCell(null); }}
+                                                                className="h-7 text-xs font-mono"
+                                                            />
+                                                        </td>
+                                                    );
+                                                }
+                                                return (
+                                                    <ContextMenu key={key}>
+                                                        <ContextMenuTrigger asChild>
+                                                            <td
+                                                                className="px-4 py-3 align-top truncate border-r relative overflow-hidden"
+                                                                style={cellStyle}
+                                                                onDoubleClick={() => startCellEdit(doc, key)}
+                                                            >
+                                                                <CellValue value={value} onViewClick={handleViewValue} />
+                                                            </td>
+                                                        </ContextMenuTrigger>
+                                                        <ContextMenuContent className="min-w-[190px]">
+                                                            {isScalar(value) && (
+                                                                <>
+                                                                    <ContextMenuItem className="text-xs gap-2" onClick={() => applyCellFilter(key, value)}>
+                                                                        <IconFilter className="h-3.5 w-3.5" />
+                                                                        {t("cellFilterByValue")}
+                                                                    </ContextMenuItem>
+                                                                    <ContextMenuItem className="text-xs gap-2" onClick={() => applyCellFilter(key, value, true)}>
+                                                                        <IconFilterX className="h-3.5 w-3.5" />
+                                                                        {t("cellExcludeValue")}
+                                                                    </ContextMenuItem>
+                                                                    <ContextMenuSeparator />
+                                                                </>
+                                                            )}
+                                                            <ContextMenuItem className="text-xs gap-2" onClick={() => onSortChange(key, 'asc')}>
+                                                                <IconSortAscending className="h-3.5 w-3.5" />
+                                                                {t("cellSortAsc")}
+                                                            </ContextMenuItem>
+                                                            <ContextMenuItem className="text-xs gap-2" onClick={() => onSortChange(key, 'desc')}>
+                                                                <IconSortDescending className="h-3.5 w-3.5" />
+                                                                {t("cellSortDesc")}
+                                                            </ContextMenuItem>
+                                                            <ContextMenuSeparator />
+                                                            <ContextMenuItem
+                                                                className="text-xs gap-2"
+                                                                onClick={() => {
+                                                                    const text = isScalar(value) ? String(value) : JSON.stringify(value, null, 2);
+                                                                    void copyToClipboard(text, t("copiedClipboard"));
+                                                                }}
+                                                            >
+                                                                <IconCopy className="h-3.5 w-3.5" />
+                                                                {t("cellCopyValue")}
+                                                            </ContextMenuItem>
+                                                            {!readOnly && (() => {
+                                                                const wholeDoc = key === "_id" || (!isScalar(value) && value !== undefined);
+                                                                return (
+                                                                    <ContextMenuItem
+                                                                        className="text-xs gap-2"
+                                                                        onClick={() => (wholeDoc ? handleEdit(doc) : startCellEdit(doc, key))}
+                                                                    >
+                                                                        <IconPencil className="h-3.5 w-3.5" />
+                                                                        {wholeDoc ? t("editDoc") : t("cellEditValue")}
+                                                                    </ContextMenuItem>
+                                                                );
+                                                            })()}
+                                                        </ContextMenuContent>
+                                                    </ContextMenu>
+                                                );
+                                            })}
                                             <td className="px-4 py-3 align-top">
                                                 <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
                                                     <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
                                                         <IconCopy className="h-3 w-3" />
                                                     </Button>
-                                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
-                                                        <IconPlus className="h-3 w-3 text-blue-500" />
-                                                    </Button>
-                                                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title={t("editDoc")}>
-                                                        <IconPencil className="h-3 w-3" />
-                                                    </Button>
-                                                    <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)} title={t("deleteDoc")}>
-                                                        <IconTrash className="h-3 w-3" />
-                                                    </Button>
+                                                    {!readOnly && (
+                                                        <>
+                                                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
+                                                                <IconPlus className="h-3 w-3 text-blue-500" />
+                                                            </Button>
+                                                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title={t("editDoc")}>
+                                                                <IconPencil className="h-3 w-3" />
+                                                            </Button>
+                                                            <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={() => onDelete(doc._id)} title={t("deleteDoc")}>
+                                                                <IconTrash className="h-3 w-3" />
+                                                            </Button>
+                                                        </>
+                                                    )}
                                                 </div>
                                             </td>
                                         </tr>
@@ -868,7 +1048,7 @@ export function DocumentView({
                         </DialogDescription>
                     </DialogHeader>
                     <div className="px-3 pb-4 space-y-1.5">
-                        {onImport && (
+                        {onImport && !readOnly && (
                             <button
                                 type="button"
                                 className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
@@ -917,6 +1097,79 @@ export function DocumentView({
                     collectionName={collectionName}
                 />
             )}
+
+            {/* Explain plan */}
+            <Dialog open={explainOpen} onOpenChange={setExplainOpen}>
+                <DialogContent className="max-w-3xl h-[75vh] flex flex-col">
+                    <DialogHeader>
+                        <DialogTitle>{t("explainTitle")}</DialogTitle>
+                    </DialogHeader>
+                    {explainLoading ? (
+                        <div className="flex-1 flex items-center justify-center text-muted-foreground gap-2 text-sm">
+                            <IconLoader2 className="h-4 w-4 animate-spin" />
+                            {t("explainLoading")}
+                        </div>
+                    ) : explainData ? (() => {
+                        const summary = summarizeExplain(explainData);
+                        return (
+                            <div className="flex-1 flex flex-col min-h-0 gap-3">
+                                <div className="flex flex-wrap items-center gap-2">
+                                    {summary.collscan ? (
+                                        <Badge variant="outline" className="gap-1 border-destructive/50 text-destructive">
+                                            <IconAlertTriangle className="h-3 w-3" />
+                                            {t("explainCollscan")}
+                                        </Badge>
+                                    ) : summary.indexNames.length > 0 && (
+                                        <Badge variant="outline" className="gap-1 border-green-500/50 text-green-600 dark:text-green-400">
+                                            <IconDatabase className="h-3 w-3" />
+                                            {t("explainIndexUsed", { name: summary.indexNames.join(", ") })}
+                                        </Badge>
+                                    )}
+                                    {summary.executionTimeMillis !== undefined && (
+                                        <Badge variant="secondary" className="font-mono text-[10px]">
+                                            {summary.executionTimeMillis} ms
+                                        </Badge>
+                                    )}
+                                    {summary.nReturned !== undefined && (
+                                        <Badge variant="secondary" className="font-mono text-[10px]">
+                                            {t("explainReturned", { n: summary.nReturned })}
+                                        </Badge>
+                                    )}
+                                    {summary.totalDocsExamined !== undefined && (
+                                        <Badge
+                                            variant="secondary"
+                                            className={cn(
+                                                "font-mono text-[10px]",
+                                                summary.nReturned !== undefined &&
+                                                summary.totalDocsExamined > Math.max(10, summary.nReturned * 10) &&
+                                                "text-amber-600 dark:text-amber-400"
+                                            )}
+                                        >
+                                            {t("explainDocsExamined", { n: summary.totalDocsExamined })}
+                                        </Badge>
+                                    )}
+                                    {summary.stages.length > 0 && (
+                                        <span className="text-[10px] font-mono text-muted-foreground truncate">
+                                            {summary.stages.join(" → ")}
+                                        </span>
+                                    )}
+                                </div>
+                                {summary.collscan && (
+                                    <p className="text-xs text-muted-foreground bg-amber-500/10 border border-amber-500/30 rounded-md px-3 py-2">
+                                        {t("explainCollscanHint")}
+                                    </p>
+                                )}
+                                <div className="flex-1 min-h-0 border rounded-md overflow-auto bg-card p-2">
+                                    <JsonTree data={explainData} label={t("explainRawLabel")} defaultExpanded={false} />
+                                </div>
+                            </div>
+                        );
+                    })() : null}
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setExplainOpen(false)}>{t("close")}</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
 
             {/* Bulk delete confirmation */}
             <AlertDialog open={bulkDeleteConfirm} onOpenChange={setBulkDeleteConfirm}>

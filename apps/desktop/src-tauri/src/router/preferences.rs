@@ -13,6 +13,7 @@ use crate::state::AppState;
 
 const KV_KEY: &str = "user_preferences";
 const MAX_NOSQL_HISTORY_QUERIES: usize = 10;
+const MAX_NOSQL_SAVED_QUERIES: usize = 50;
 
 // Keep in sync with backend DEFAULT_ENABLED_TOOLS (user_preferences/schema.py)
 const DEFAULT_ENABLED_TOOLS: &[&str] = &[
@@ -88,13 +89,61 @@ fn save(db: &rusqlite::Connection, prefs: &Value) -> Result<()> {
     Ok(())
 }
 
-fn nosql_history_key(query_or_body: &Value) -> String {
+fn nosql_kv_key(namespace: &str, query_or_body: &Value) -> String {
     format!(
-        "nosql_query_history:{}|{}|{}",
+        "{namespace}:{}|{}|{}",
         query_or_body["connectionName"].as_str().unwrap_or(""),
         query_or_body["dbName"].as_str().unwrap_or(""),
         query_or_body["collectionName"].as_str().unwrap_or(""),
     )
+}
+
+/// GET/PUT a per-collection query list stored in `kv` (history + saved queries).
+fn nosql_query_list(
+    db: &rusqlite::Connection,
+    method: &str,
+    namespace: &str,
+    max_len: usize,
+    query: &str,
+    body: Option<&str>,
+) -> Result<ApiResponse> {
+    match method {
+        "GET" => {
+            let params = json!({
+                "connectionName": query_param(query, "connectionName").unwrap_or(""),
+                "dbName": query_param(query, "dbName").unwrap_or(""),
+                "collectionName": query_param(query, "collectionName").unwrap_or(""),
+            });
+            let key = nosql_kv_key(namespace, &params);
+            let raw: Option<String> = db
+                .query_row("SELECT v FROM kv WHERE k = ?1", [&key], |r| r.get(0))
+                .optional()?;
+            match raw {
+                Some(v) => Ok(ApiResponse { status: 200, body: v }),
+                None => {
+                    let mut empty = params;
+                    empty["queries"] = json!([]);
+                    empty["updatedAt"] = json!(now_ms());
+                    ApiResponse::ok(&empty)
+                }
+            }
+        }
+        "PUT" => {
+            let mut req = parse_body(body)?;
+            if let Some(queries) = req["queries"].as_array_mut() {
+                queries.truncate(max_len);
+            }
+            req["updatedAt"] = json!(now_ms());
+            let key = nosql_kv_key(namespace, &req);
+            let jsonv = serde_json::to_string(&req)?;
+            db.execute(
+                "INSERT INTO kv (k, v) VALUES (?1, ?2) ON CONFLICT(k) DO UPDATE SET v = excluded.v",
+                [&key, &jsonv],
+            )?;
+            ApiResponse::ok(&req)
+        }
+        _ => Ok(ApiResponse::detail(404, "Not found")),
+    }
 }
 
 pub fn handle(
@@ -126,39 +175,11 @@ pub fn handle(
             save(&db, &prefs)?;
             ApiResponse::ok(&json!({ "ok": true }))
         }
-        ("GET", "/nosql-query-history") => {
-            let params = json!({
-                "connectionName": query_param(query, "connectionName").unwrap_or(""),
-                "dbName": query_param(query, "dbName").unwrap_or(""),
-                "collectionName": query_param(query, "collectionName").unwrap_or(""),
-            });
-            let key = nosql_history_key(&params);
-            let raw: Option<String> = db
-                .query_row("SELECT v FROM kv WHERE k = ?1", [&key], |r| r.get(0))
-                .optional()?;
-            match raw {
-                Some(v) => Ok(ApiResponse { status: 200, body: v }),
-                None => {
-                    let mut empty = params;
-                    empty["queries"] = json!([]);
-                    empty["updatedAt"] = json!(now_ms());
-                    ApiResponse::ok(&empty)
-                }
-            }
+        (m, "/nosql-query-history") => {
+            nosql_query_list(&db, m, "nosql_query_history", MAX_NOSQL_HISTORY_QUERIES, query, body)
         }
-        ("PUT", "/nosql-query-history") => {
-            let mut req = parse_body(body)?;
-            if let Some(queries) = req["queries"].as_array_mut() {
-                queries.truncate(MAX_NOSQL_HISTORY_QUERIES);
-            }
-            req["updatedAt"] = json!(now_ms());
-            let key = nosql_history_key(&req);
-            let jsonv = serde_json::to_string(&req)?;
-            db.execute(
-                "INSERT INTO kv (k, v) VALUES (?1, ?2) ON CONFLICT(k) DO UPDATE SET v = excluded.v",
-                [&key, &jsonv],
-            )?;
-            ApiResponse::ok(&req)
+        (m, "/nosql-saved-queries") => {
+            nosql_query_list(&db, m, "nosql_saved_queries", MAX_NOSQL_SAVED_QUERIES, query, body)
         }
         _ => Ok(ApiResponse::detail(404, "Not found")),
     }

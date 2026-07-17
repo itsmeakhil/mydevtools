@@ -180,11 +180,34 @@ pub async fn handle(method: &str, rest: &str, body: Option<&str>) -> HandlerResu
         return Ok(err(400, "Invalid MongoDB connection string"));
     }
 
+    // Read-only connections: reject every mutating route (defense in depth —
+    // the UI hides write affordances, this catches anything that slips through).
+    if req["readOnly"].as_bool().unwrap_or(false) && is_write_route(method, rest) {
+        return Ok(err(403, "Connection is read-only"));
+    }
+
     let result = dispatch(method, rest, &req, conn_str).await;
     match result {
         Ok(r) => Ok(r),
         Err(e) => Ok(err(500, &sanitize(&e, conn_str))),
     }
+}
+
+fn is_write_route(method: &str, rest: &str) -> bool {
+    matches!(
+        (method, rest),
+        ("POST", "/documents")
+            | ("PUT", "/documents")
+            | ("DELETE", "/documents")
+            | ("POST", "/bulk-delete")
+            | ("POST", "/import")
+            | ("POST", "/indexes")
+            | ("DELETE", "/indexes")
+            | ("POST", "/collection/drop")
+            | ("POST", "/collection/rename")
+            | ("POST", "/database/drop")
+            | ("POST", "/database/rename")
+    )
 }
 
 async fn dispatch(method: &str, rest: &str, req: &Value, conn_str: &str) -> HandlerResult {
@@ -273,6 +296,7 @@ async fn dispatch(method: &str, rest: &str, req: &Value, conn_str: &str) -> Hand
             Ok(ok(&json!({ "result": { "acknowledged": true, "deletedCount": res.deleted_count } })))
         }
         ("POST", "/documents/query") => query_documents(&client, req).await,
+        ("POST", "/explain") => explain_query(&client, req).await,
         ("POST", "/bulk-delete") => {
             let (db_name, coll) = match required(req, &["dbName", "collectionName"]) {
                 Ok(v) => (v[0].to_string(), v[1].to_string()),
@@ -526,6 +550,59 @@ async fn query_documents(client: &Client, req: &Value) -> HandlerResult {
     let docs: Vec<Document> = cursor.try_collect().await.map_err(|e| e.to_string())?;
     let documents: Vec<Value> = docs.iter().map(doc_to_json).collect();
     Ok(ok(&json!({ "documents": documents, "total": total })))
+}
+
+/// Explain the current find filter or aggregation pipeline (executionStats).
+/// Mirrors query_documents' query parsing: a JSON array runs as a pipeline.
+async fn explain_query(client: &Client, req: &Value) -> HandlerResult {
+    let (db_name, coll_name) = match required(req, &["dbName", "collectionName"]) {
+        Ok(v) => (v[0].to_string(), v[1].to_string()),
+        Err(r) => return Ok(r),
+    };
+    let sort_field = req["sortField"].as_str().unwrap_or("");
+    let sort_dir: i32 = if req["sortDirection"].as_str() == Some("desc") { -1 } else { 1 };
+
+    let raw_query = &req["query"];
+    let parsed: Value = match raw_query {
+        Value::String(s) => {
+            let s = if s.trim().is_empty() { "{}" } else { s };
+            match serde_json::from_str(s) {
+                Ok(v) => v,
+                Err(_) => return Ok(err(400, "Invalid JSON in query parameter")),
+            }
+        }
+        Value::Null => json!({}),
+        other => other.clone(),
+    };
+
+    let explained = if let Value::Array(stages_json) = &parsed {
+        if let Err(e) = validate_pipeline(stages_json) {
+            return Ok(err(400, &e));
+        }
+        let stages: Vec<Bson> = stages_json
+            .iter()
+            .map(|s| json_to_doc(s).map(Bson::Document))
+            .collect::<Result<_, _>>()
+            .map_err(|_| "Invalid aggregation stage".to_string())?;
+        doc! {
+            "explain": { "aggregate": coll_name, "pipeline": stages, "cursor": {} },
+            "verbosity": "executionStats",
+        }
+    } else {
+        let filter = json_to_doc(&parsed)?;
+        let mut find = doc! { "find": coll_name, "filter": filter };
+        if !sort_field.is_empty() {
+            find.insert("sort", doc! { sort_field: sort_dir });
+        }
+        doc! { "explain": find, "verbosity": "executionStats" }
+    };
+
+    let result = client
+        .database(&db_name)
+        .run_command(explained)
+        .await
+        .map_err(|e| e.to_string())?;
+    Ok(ok(&json!({ "explain": doc_to_json(&result) })))
 }
 
 fn bucket_type(b: &Bson) -> String {

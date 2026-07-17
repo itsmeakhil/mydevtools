@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { GeistSans } from 'geist/font/sans'
@@ -101,6 +102,7 @@ export default async function RootLayout({
   const messages = await getMessages();
   const dir = locale === 'ar' || locale === 'fa' ? 'rtl' : 'ltr';
   const htmlLang = locale === 'zh' ? 'zh-Hans' : locale;
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang={htmlLang} dir={dir} suppressHydrationWarning className={cn(
@@ -119,6 +121,22 @@ export default async function RootLayout({
         <SiteWideJsonLd />
       </head>
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');
+              `}
+            </Script>
+          </>
+        )}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

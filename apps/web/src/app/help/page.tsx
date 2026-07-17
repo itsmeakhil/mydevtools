@@ -55,7 +55,7 @@ const appDetails: Record<
   '/app/bookmarks': {
     howItWorks: [
       'Save URLs in folders, edit titles, and open links quickly from the grid.',
-      'Signed-in users keep bookmarks synced via the backend.',
+      'Bookmarks are stored locally on your device and work fully offline.',
     ],
   },
   '/app/json-formatter': {

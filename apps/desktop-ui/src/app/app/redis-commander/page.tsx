@@ -20,6 +20,7 @@ import {
     IconChartBar,
     IconFolder,
     IconSearch,
+    IconX,
 } from "@tabler/icons-react";
 import {
     Dialog,
@@ -271,10 +272,26 @@ export default function RedisCommanderPage() {
                         Credentials are encrypted and never stored in plaintext.
                     </p>
                 </div>
-                <Button onClick={() => setIsConnectionDialogOpen(true)}>
-                    <IconPlus className="mr-2 size-4" />
-                    New Connection
-                </Button>
+                {connections.length > 0 ? (
+                    <div className="flex w-full max-w-xs flex-col gap-1.5">
+                        {connections.map((conn) => (
+                            <Button
+                                key={conn.id}
+                                variant="outline"
+                                className="justify-start"
+                                onClick={() => openConnection(conn)}
+                            >
+                                <IconBrandRedux className="mr-2 size-4 text-red-500" />
+                                <span className="truncate">{conn.name}</span>
+                            </Button>
+                        ))}
+                    </div>
+                ) : (
+                    <Button onClick={() => setIsConnectionDialogOpen(true)}>
+                        <IconPlus className="mr-2 size-4" />
+                        New Connection
+                    </Button>
+                )}
             </div>
         ) : (
             <div className="flex h-full flex-col">
@@ -302,8 +319,30 @@ export default function RedisCommanderPage() {
                             </button>
                         </div>
                     ))}
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        className="size-7 mx-1 shrink-0"
+                        onClick={() => setIsConnectionDialogOpen(true)}
+                        title="New connection"
+                    >
+                        <IconPlus className="size-4" />
+                    </Button>
                     {activeTab && (
                         <div className="ml-auto flex items-center gap-2 px-2 shrink-0">
+                            <Button
+                                size="sm"
+                                variant="ghost"
+                                className="h-7 text-xs gap-1 text-muted-foreground"
+                                onClick={() => {
+                                    setTabs([]);
+                                    setActiveTabId(null);
+                                }}
+                                title="Close all tabs"
+                            >
+                                <IconX className="size-3.5" />
+                                Close all
+                            </Button>
                             <label className="flex items-center gap-1 text-xs text-muted-foreground">
                                 DB
                                 <select

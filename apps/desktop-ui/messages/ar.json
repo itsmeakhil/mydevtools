@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "تنقل الملاحظات",
-      "openMenuAria": "فتح قائمة الملاحظات"
+      "openMenuAria": "فتح قائمة الملاحظات",
+      "showSidebarAria": "إظهار الشريط الجانبي"
     },
     "sidebar": {
       "title": "الملاحظات",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "هل تريد حذف \"{title}\"؟ لا يمكن التراجع عن هذا الإجراء.",
       "cancel": "إلغاء",
       "confirmDelete": "حذف",
-      "noteOptionsAria": "خيارات الملاحظة"
+      "noteOptionsAria": "خيارات الملاحظة",
+      "hideSidebarAria": "إخفاء الشريط الجانبي"
     },
     "editor": {
       "emptyState": "اختر ملاحظة أو أنشئ ملاحظة جديدة للبدء.",
@@ -934,7 +936,8 @@
       "loading": "جارٍ التحميل…",
       "searchHint": "للبحث",
       "focusHint": "وضع التركيز",
-      "notePath": "مسار الملاحظة"
+      "notePath": "مسار الملاحظة",
+      "export": "تصدير"
     },
     "context": {
       "authRequiredError": "المستخدم غير مصادق",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "لصق بيانات JSON",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "الصق محتوى ملف JSON مُصدَّر سابقاً هنا.",
+      "selectFile": "اختر ملف JSON",
       "importing": "جاري الاستيراد...",
       "importPasswords": "استيراد كلمات المرور",
       "trigger": "استيراد / تصدير",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "حذف المجلد \"{name}\"؟",
       "deleteFolderDescription": "سيُحذف المجلد وكل المجلدات الفرعية. تُنقل الإشارات إلى غير مصنّف."
     },
+    "foldersHeading": "المجلدات",
     "import": {
       "title": "استيراد الإشارات",
       "description": "استورد الإشارات من ملف مُصدَّر من المتصفح.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "تحديث والاتصال",
       "connect": "اتصال",
       "cancelEdit": "إلغاء التعديل",
+      "cancel": "إلغاء",
       "savedConnections": "اتصالات محفوظة",
       "emptySaved": "لا اتصالات محفوظة بعد.",
       "lastUsed": "آخر استخدام {time}",
       "toastTestOk": "نجح الاتصال!",
       "toastTestFail": "فشل الاتصال: {message}",
+      "toastConnectFail": "فشل الاتصال بـ {name}",
       "toastUpdated": "تم تحديث الاتصال",
       "confirmDelete": "هل تريد حذف هذا الاتصال المحفوظ؟",
+      "menuDeleteConnection": "حذف الاتصال",
       "toastDeletedConn": "تم حذف الاتصال",
       "toastDeleteFail": "فشل حذف الاتصال",
       "copyStringTitle": "نسخ سلسلة الاتصال",
       "toastStringCopied": "تم نسخ سلسلة الاتصال!",
       "editTitle": "تعديل",
-      "deleteTitle": "حذف"
+      "deleteTitle": "حذف",
+      "labelColor": "وسم اللون",
+      "colorNone": "بدون لون",
+      "hintColor": "ميّز البيئات — مثلاً الأحمر للإنتاج.",
+      "labelReadOnly": "اتصال للقراءة فقط",
+      "hintReadOnly": "يمنع الإدراج والتعديل والحذف وعمليات الإسقاط لهذا الاتصال."
     },
     "sidebar": {
       "explorer": "المستكشف",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "للقراءة فقط",
+      "cellUpdated": "تم تحديث القيمة",
+      "cellUpdateFail": "فشل تحديث القيمة",
+      "cellFilterByValue": "تصفية حسب هذه القيمة",
+      "cellExcludeValue": "استبعاد هذه القيمة",
+      "cellSortAsc": "ترتيب تصاعدي",
+      "cellSortDesc": "ترتيب تنازلي",
+      "cellCopyValue": "نسخ القيمة",
+      "cellEditValue": "تحرير القيمة",
+      "explainTitle": "خطة التنفيذ",
+      "explainLoading": "جارٍ تنفيذ explain…",
+      "explainFail": "فشل explain",
+      "explainCollscan": "فحص كامل للمجموعة",
+      "explainIndexUsed": "الفهرس: {name}",
+      "explainReturned": "{n} مُرجع",
+      "explainDocsExamined": "{n} مفحوص",
+      "explainCollscanHint": "يفحص هذا الاستعلام كل مستند في المجموعة. فكر في إنشاء فهرس على الحقول المصفاة.",
+      "explainRawLabel": "مخرجات explain"
     },
     "tabs": {
       "filterActive": "مرشح نشط مطبّق",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$group (عدد/مجموع)",
       "format": "تنسيق",
       "formattedJson": "JSON مُنسَّق",
-      "runQuery": "تشغيل الاستعلام"
+      "runQuery": "تشغيل الاستعلام",
+      "savedQueries": "الاستعلامات المحفوظة",
+      "noHistory": "لا توجد استعلامات حديثة",
+      "saveNamePlaceholder": "اسم الاستعلام",
+      "saveCurrentQuery": "حفظ الاستعلام الحالي",
+      "save": "حفظ",
+      "saveQueryFail": "فشل حفظ الاستعلام",
+      "querySaved": "تم حفظ «{name}»",
+      "explainQuery": "شرح الاستعلام",
+      "stagesMode": "المراحل",
+      "invalidStageJson": "تحتوي إحدى مراحل الـ pipeline على JSON غير صالح"
     },
     "export": {
       "selectFieldsError": "اختر حقلاً واحداً على الأقل للتصدير",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# حقل محدد} other {# حقول محددة}}",
       "cancel": "إلغاء",
       "export": "تصدير",
-      "sheetName": "بيانات"
+      "sheetName": "بيانات",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "النوع: {type}",
       "itemSummary": "{count, plural, one {# عنصر} other {# عناصر}}"
+    },
+    "pipeline": {
+      "empty": "لا توجد مراحل بعد. أضف مرحلة لبناء الـ pipeline.",
+      "addStage": "إضافة مرحلة",
+      "stageEnabled": "المرحلة مفعلة",
+      "preview": "معاينة",
+      "previewToHere": "تشغيل الـ pipeline حتى هذه المرحلة (أول 10 مستندات)",
+      "previewResult": "نتائج المعاينة ({count})",
+      "previewEmpty": "لا توجد مستندات في هذه المرحلة",
+      "previewFail": "فشلت المعاينة"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "مولد البيانات الوهمية",
     "subtitle": "عرّف أعمدة مصنفة — صدّر حتى {max} صفًا تجريبيًا",
-    "mockarooLink": "مسار عمل يشبه Mockaroo",
     "rowsLabel": "الصفوف",
     "rowsHint": "بحد أقصى {max} صفًا لكل توليد ليبقى التبويب سريعًا.",
     "formatLabel": "التنسيق",
@@ -3483,7 +3534,8 @@
       "numbersIds": "أرقام والمعرّفات",
       "dateTime": "التاريخ والوقت",
       "textDesign": "النص والتصميم",
-      "custom": "مخصّص"
+      "custom": "مخصّص",
+      "commerce": "التجارة"
     },
     "fieldTypes": {
       "first_name": "الاسم الأول",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "رمز العملة",
       "language_code": "وسم اللغة",
-      "custom_list": "قائمة مخصصة"
+      "custom_list": "قائمة مخصصة",
+      "gender": "الجنس",
+      "us_state": "ولاية أمريكية",
+      "us_state_abbr": "ولاية أمريكية (اختصار)",
+      "user_agent": "وكيل المستخدم",
+      "mime_type": "نوع MIME",
+      "file_name": "اسم الملف",
+      "port": "المنفذ",
+      "md5": "تجزئة MD5",
+      "sha256": "تجزئة SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "الوقت",
+      "weekday": "يوم الأسبوع",
+      "month": "الشهر",
+      "product_name": "اسم المنتج",
+      "product_category": "فئة المنتج",
+      "department": "القسم",
+      "color_name": "اسم اللون",
+      "catch_phrase": "شعار دعائي"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "استيراد المخطط",
+    "exportSchema": "تصدير المخطط",
+    "importSchemaError": "ملف مخطط غير صالح — يُتوقع مصفوفة JSON من أعمدة { name, type }."
   },
   "SvgOptimizer": {
     "title": "محسّن SVG",
     "subtitle": "صغّر SVG باستخدام SVGO وقارن الأحجام",
     "inputLabel": "الإدخال",
     "outputLabel": "مُحسَّن",
-    "placeholder": "الصق جزء <svg>…</svg> أو الملف كاملاً…",
+    "placeholder": "الصق جزء SVG أو الملف كاملاً…",
     "outputPlaceholder": "يظهر SVG المحسّن هنا…",
     "chars": "{count} حرفًا • {bytes} بايت (UTF-8)",
     "preview": "معاينة",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "محول الوحدات",
-    "subtitle": "حوّل 323 وحدة عبر 43 فئة",
+    "subtitle": "حوّل 292 وحدة عبر 44 فئة",
     "category": "الفئة",
     "from": "من",
     "to": "إلى",
@@ -4089,6 +4163,9 @@
     "inputLabel": "الكود",
     "detected": "المكتشَف: {language}",
     "clear": "مسح",
+    "format": "تنسيق",
+    "formatUnsupported": "التنسيق غير متاح لهذه اللغة",
+    "formatFailed": "فشل تنسيق الكود",
     "placeholder": "الصق الكود هنا…",
     "previewLabel": "معاينة",
     "emptyPreview": "ستظهر معاينة الكود هنا",

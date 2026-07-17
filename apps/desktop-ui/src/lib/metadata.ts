@@ -342,9 +342,9 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     },
     'mock-data-generator': {
         title: 'Mock Data Generator',
-        description: 'Build a field schema with dozens of data types, optional blanks, sequences, and export JSON, CSV, SQL, or XML up to thousands of rows — all locally in your browser.',
-        keywords: ['mock data', 'test data generator', 'fake data', 'json fixtures', 'csv generator', 'sql insert generator', 'api testing', 'mockaroo'],
-        aiSummary: 'Schema-based fake data for APIs and tests: export JSON, CSV, SQL, or XML (similar to “Mockaroo online” but in-browser). Good for “generate sample users JSON” or “CSV test data”.',
+        description: 'Build a field schema with 60+ data types, optional blanks, sequences, seeded runs, and export JSON, CSV, SQL, or XML up to thousands of rows — all locally on your device.',
+        keywords: ['mock data', 'test data generator', 'fake data', 'json fixtures', 'csv generator', 'sql insert generator', 'api testing'],
+        aiSummary: 'Schema-based fake data for APIs and tests: 60+ field types, reproducible seeds, schema import/export, output as JSON, CSV, SQL, or XML. Good for “generate sample users JSON” or “CSV test data”.',
     },
     'unit-converter': {
         title: 'Unit Converter',

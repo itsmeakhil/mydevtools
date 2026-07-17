@@ -44,6 +44,10 @@ export interface SavedConnection {
      */
     connectionString: string;
     name: string;
+    /** Environment accent color (hex), e.g. red for production. Not sensitive. */
+    color?: string | null;
+    /** Blocks all write operations (UI + Rust guard) when true. */
+    readOnly?: boolean;
     createdAt: number | FirestoreTimestampLike | null;
     lastUsedAt: number | FirestoreTimestampLike | null;
     /** Content-edit clock (sync LWW); server-managed. */
@@ -67,6 +71,10 @@ export interface ExplorerTab {
     id: string;
     connectionId: string;
     connectionName: string;
+    /** Copied from the connection at open time for tab tinting. */
+    connectionColor?: string | null;
+    /** Copied from the connection at open time; gates write UI. */
+    readOnly?: boolean;
     dbName: string;
     collectionName: string;
     documents: Document[];

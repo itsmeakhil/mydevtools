@@ -39,7 +39,7 @@ const TIERS: Tier[] = [
     features: [
       'Everything in Yearly',
       'Never expires — pay once, yours for life',
-      'Cross-device sync',
+      '100% offline — your data never leaves your device',
       'Priority support',
     ],
   },

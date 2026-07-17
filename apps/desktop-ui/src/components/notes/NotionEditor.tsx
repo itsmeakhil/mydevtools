@@ -25,6 +25,12 @@ import {
 } from "lucide-react";
 import { marked } from "marked";
 import { cn } from "@/lib/utils";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { TemplatePickerDialog } from "./template-picker-dialog";
 import { type NoteTemplate } from "@/app/app/notes/utils/noteTemplates";
 import {
@@ -363,33 +369,32 @@ export default function NotionEditor() {
                             <span className="hidden sm:inline">{tEditor("template")}</span>
                         </Button>
 
-                        {/* Export markdown */}
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="h-7 text-xs gap-1.5 cursor-pointer"
-                            onClick={handleExportMarkdown}
-                            title={tEditor("exportMd")}
-                            aria-label={tEditor("exportMd")}
-                        >
-                            <Download className="h-3.5 w-3.5" />
-                            <span className="hidden sm:inline">{tEditor("exportMdLabel")}</span>
-                        </Button>
-
-                        {/* Export HTML */}
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="h-7 text-xs gap-1.5 cursor-pointer"
-                            onClick={handleExportHtml}
-                            title={tEditor("exportHtml")}
-                            aria-label={tEditor("exportHtml")}
-                        >
-                            <FileCode className="h-3.5 w-3.5" />
-                            <span className="hidden sm:inline">{tEditor("exportHtmlLabel")}</span>
-                        </Button>
+                        {/* Export (.md / .html) */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-7 text-xs gap-1.5 cursor-pointer"
+                                    title={tEditor("export")}
+                                    aria-label={tEditor("export")}
+                                >
+                                    <Download className="h-3.5 w-3.5" />
+                                    <span className="hidden sm:inline">{tEditor("export")}</span>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={handleExportMarkdown}>
+                                    <Download className="h-3.5 w-3.5 mr-2" />
+                                    {tEditor("exportMd")}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={handleExportHtml}>
+                                    <FileCode className="h-3.5 w-3.5 mr-2" />
+                                    {tEditor("exportHtml")}
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
 
                         {/* Focus mode */}
                         <Button

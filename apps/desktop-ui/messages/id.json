@@ -894,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Catatan Navigasi",
-      "openMenuAria": "Buka menu catatan"
+      "openMenuAria": "Buka menu catatan",
+      "showSidebarAria": "Tampilkan bilah samping"
     },
     "sidebar": {
       "title": "Ket",
@@ -911,7 +912,8 @@
       "deleteConfirmDescription": "Anda yakin ingin menghapus \"{title}\"? Tindakan ini tidak dapat dibatalkan.",
       "cancel": "Batalkan",
       "confirmDelete": "Hapus ",
-      "noteOptionsAria": "Opsi catatan"
+      "noteOptionsAria": "Opsi catatan",
+      "hideSidebarAria": "Sembunyikan bilah samping"
     },
     "editor": {
       "emptyState": "Pilih catatan atau buat catatan baru untuk memulai.",
@@ -934,7 +936,8 @@
       "loading": "Memuat…",
       "searchHint": "untuk mencari",
       "focusHint": "mode fokus",
-      "notePath": "Jalur catatan"
+      "notePath": "Jalur catatan",
+      "export": "Ekspor"
     },
     "context": {
       "authRequiredError": "Pengguna tidak diautentikasi",
@@ -1084,6 +1087,7 @@
       "pasteLabel": "Tempel data JSON",
       "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
       "pasteHint": "Tempel konten file JSON yang sebelumnya diekspor di sini.",
+      "selectFile": "Pilih file JSON",
       "importing": "Mengimpor",
       "importPasswords": "Impor Kata Sandi",
       "trigger": "Impor/Ekspor",
@@ -1254,6 +1258,7 @@
       "deleteFolderTitle": "Hapus folder \"{name}\"?",
       "deleteFolderDescription": "Ini akan menghapus folder dan semua subfoldernya. Bookmark di folder ini akan dipindahkan ke Uncategorized."
     },
+    "foldersHeading": "Folder",
     "import": {
       "title": "Impor Markah",
       "description": "Impor bookmark dari file yang diekspor browser Anda.",
@@ -1496,19 +1501,27 @@
       "updateConnect": "Perbarui & Hubungkan",
       "connect": "Hubungkan",
       "cancelEdit": "Batalkan Edit",
+      "cancel": "Batal",
       "savedConnections": "Koneksi Tersimpan",
       "emptySaved": "Belum ada koneksi yang tersimpan.",
       "lastUsed": "Terakhir digunakan {time}",
       "toastTestOk": "Koneksi berhasil!",
       "toastTestFail": "Koneksi gagal: {message}",
+      "toastConnectFail": "Gagal terhubung ke {name}",
       "toastUpdated": "Koneksi diperbarui",
       "confirmDelete": "Anda yakin ingin menghapus koneksi yang disimpan ini?",
+      "menuDeleteConnection": "Hapus koneksi",
       "toastDeletedConn": "Koneksi dihapus",
       "toastDeleteFail": "Gagal menghapus koneksi",
       "copyStringTitle": "String koneksi",
       "toastStringCopied": "String koneksi disalin!",
       "editTitle": "Edit",
-      "deleteTitle": "Hapus "
+      "deleteTitle": "Hapus ",
+      "labelColor": "Label warna",
+      "colorNone": "Tanpa warna",
+      "hintColor": "Tandai lingkungan — mis. merah untuk produksi.",
+      "labelReadOnly": "Koneksi hanya baca",
+      "hintReadOnly": "Memblokir penyisipan, pengeditan, penghapusan, dan drop untuk koneksi ini."
     },
     "sidebar": {
       "explorer": "Penjelajah",
@@ -1613,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Hanya baca",
+      "cellUpdated": "Nilai diperbarui",
+      "cellUpdateFail": "Gagal memperbarui nilai",
+      "cellFilterByValue": "Filter berdasarkan nilai ini",
+      "cellExcludeValue": "Kecualikan nilai ini",
+      "cellSortAsc": "Urutkan naik",
+      "cellSortDesc": "Urutkan turun",
+      "cellCopyValue": "Salin nilai",
+      "cellEditValue": "Edit nilai",
+      "explainTitle": "Rencana eksekusi",
+      "explainLoading": "Menjalankan explain…",
+      "explainFail": "Explain gagal",
+      "explainCollscan": "Pemindaian koleksi penuh",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} dikembalikan",
+      "explainDocsExamined": "{n} diperiksa",
+      "explainCollscanHint": "Kueri ini memindai setiap dokumen dalam koleksi. Pertimbangkan membuat indeks pada bidang yang difilter.",
+      "explainRawLabel": "Keluaran explain"
     },
     "tabs": {
       "filterActive": "Filter aktif diterapkan",
@@ -1663,7 +1694,17 @@
       "templateGroup": "$grup (Hitungan/Jumlah)",
       "format": "Format",
       "formattedJson": "JSON Berformat",
-      "runQuery": "Jalankan Kueri"
+      "runQuery": "Jalankan Kueri",
+      "savedQueries": "Kueri tersimpan",
+      "noHistory": "Tidak ada kueri terbaru",
+      "saveNamePlaceholder": "Nama kueri",
+      "saveCurrentQuery": "Simpan kueri saat ini",
+      "save": "Simpan",
+      "saveQueryFail": "Gagal menyimpan kueri",
+      "querySaved": "“{name}” disimpan",
+      "explainQuery": "Jelaskan kueri",
+      "stagesMode": "Tahapan",
+      "invalidStageJson": "Sebuah tahap pipeline berisi JSON yang tidak valid"
     },
     "export": {
       "selectFieldsError": "Pilih setidaknya satu bidang untuk diekspor",
@@ -1678,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# bidang dipilih} other {# bidang dipilih}}",
       "cancel": "Batalkan",
       "export": "Ekspor",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tipe: {type}",
       "itemSummary": "{count, plural, one {# item} other {# item}}"
+    },
+    "pipeline": {
+      "empty": "Belum ada tahap. Tambahkan tahap untuk membangun pipeline Anda.",
+      "addStage": "Tambah tahap",
+      "stageEnabled": "Tahap diaktifkan",
+      "preview": "Pratinjau",
+      "previewToHere": "Jalankan pipeline hingga tahap ini (10 dokumen pertama)",
+      "previewResult": "Hasil pratinjau ({count})",
+      "previewEmpty": "Tidak ada dokumen pada tahap ini",
+      "previewFail": "Pratinjau gagal"
     }
   },
   "ApiClient": {
@@ -3436,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Generator Data Tiruan",
     "subtitle": "Tentukan kolom bertipe — ekspor hingga {max} baris fixture",
-    "mockarooLink": "Alur kerja ala Mockaroo",
     "rowsLabel": "Baris",
     "rowsHint": "Maksimum {max} baris per pembuatan agar tab tetap responsif.",
     "formatLabel": "Format",
@@ -3483,7 +3534,8 @@
       "numbersIds": "Angka & ID",
       "dateTime": "Tanggal & waktu",
       "textDesign": "Teks & desain",
-      "custom": "Kustom"
+      "custom": "Kustom",
+      "commerce": "Perdagangan"
     },
     "fieldTypes": {
       "first_name": "Nama depan",
@@ -3530,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Kode mata uang",
       "language_code": "Tag bahasa",
-      "custom_list": "Daftar kustom"
+      "custom_list": "Daftar kustom",
+      "gender": "Jenis kelamin",
+      "us_state": "Negara bagian AS",
+      "us_state_abbr": "Negara bagian AS (singkatan)",
+      "user_agent": "User agent",
+      "mime_type": "Tipe MIME",
+      "file_name": "Nama file",
+      "port": "Port",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Waktu",
+      "weekday": "Hari dalam minggu",
+      "month": "Bulan",
+      "product_name": "Nama produk",
+      "product_category": "Kategori produk",
+      "department": "Departemen",
+      "color_name": "Nama warna",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Impor skema",
+    "exportSchema": "Ekspor skema",
+    "importSchemaError": "File skema tidak valid — diharapkan array JSON berisi kolom { name, type }."
   },
   "SvgOptimizer": {
     "title": "Pengoptimal SVG",
     "subtitle": "Minifikasi SVG dengan SVGO dan bandingkan ukurannya",
     "inputLabel": "Masukan",
     "outputLabel": "Dioptimalkan",
-    "placeholder": "Tempel cuplikan <svg>…</svg> atau seluruh berkas…",
+    "placeholder": "Tempel cuplikan SVG atau seluruh berkas…",
     "outputPlaceholder": "SVG teroptimalkan muncul di sini…",
     "chars": "{count} karakter • {bytes} byte (UTF-8)",
     "preview": "Pratinjau",
@@ -3567,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Konverter Satuan",
-    "subtitle": "Konversi 323 satuan dalam 43 kategori",
+    "subtitle": "Konversi 292 satuan dalam 44 kategori",
     "category": "Kategori",
     "from": "Dari",
     "to": "Ke",
@@ -4089,6 +4163,9 @@
     "inputLabel": "Kode",
     "detected": "Terdeteksi: {language}",
     "clear": "Bersihkan",
+    "format": "Format",
+    "formatUnsupported": "Pemformatan tidak tersedia untuk bahasa ini",
+    "formatFailed": "Gagal memformat kode",
     "placeholder": "Tempel kode Anda di sini…",
     "previewLabel": "Pratinjau",
     "emptyPreview": "Pratinjau kode Anda akan muncul di sini",
