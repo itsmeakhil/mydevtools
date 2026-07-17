@@ -20,7 +20,7 @@ import { Star } from 'lucide-react'
 import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
 import {
   CATEGORY_ORDER, RECENT_STORAGE_KEY, STATIC_ENTRIES_WITH_SEARCH,
-  getToolEntries, type PaletteEntry,
+  getToolEntries, paletteFilter, type PaletteEntry,
 } from './palette-entries'
 
 export function GlobalCommandPalette() {
@@ -185,6 +185,7 @@ export function GlobalCommandPalette() {
             commandSurfaceClass
           )}
           shouldFilter
+          filter={paletteFilter}
           loop
         >
           <CommandInput
@@ -202,7 +203,8 @@ export function GlobalCommandPalette() {
                     return (
                       <CommandItem
                         key={`recent-${entry.url}`}
-                        value={`recent ${entry.searchValue} ${entry.url}`.toLowerCase()}
+                        value={`recent-${entry.url}`}
+                        keywords={[entry.title.toLowerCase(), entry.searchValue]}
                         onSelect={() => run(entry)}
                         className={itemClass}
                       >
@@ -234,7 +236,8 @@ export function GlobalCommandPalette() {
                     return (
                       <CommandItem
                         key={`pinned-${entry.url}`}
-                        value={`pinned ${entry.searchValue} ${entry.url}`.toLowerCase()}
+                        value={`pinned-${entry.url}`}
+                        keywords={[entry.title.toLowerCase(), entry.searchValue]}
                         onSelect={() => run(entry)}
                         className={itemClass}
                       >
@@ -271,7 +274,8 @@ export function GlobalCommandPalette() {
                     return (
                     <CommandItem
                       key={entry.url}
-                      value={`${entry.searchValue} ${entry.url}`.toLowerCase()}
+                      value={entry.url}
+                      keywords={[entry.title.toLowerCase(), entry.searchValue]}
                       onSelect={() => run(entry)}
                       className={itemClass}
                     >

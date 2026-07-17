@@ -129,3 +129,26 @@ export const STATIC_ENTRIES_WITH_SEARCH = STATIC_ENTRIES.map((s) => ({
   ...s,
   searchValue: buildSearchValue(s),
 })) as PaletteEntry[]
+
+/**
+ * cmdk custom filter. Substring match with title-first ranking instead of
+ * cmdk's default fuzzy subsequence scorer (which over-matches — "json" would
+ * hit any tool whose blob happens to contain j…s…o…n as a subsequence).
+ *
+ * `keywords[0]` = lowercased title, `keywords[1]` = full searchValue blob.
+ * Returns a 0–1 score; 0 hides the item.
+ */
+export function paletteFilter(_value: string, search: string, keywords?: string[]): number {
+  const q = search.trim().toLowerCase()
+  if (!q) return 1
+  const title = keywords?.[0] ?? ''
+  const blob = keywords?.[1] ?? ''
+  if (title === q) return 1
+  if (title.startsWith(q)) return 0.9
+  if ((' ' + title).includes(' ' + q)) return 0.8 // matches a word start inside the title
+  if (title.includes(q)) return 0.6
+  if (blob.includes(q)) return 0.4
+  const tokens = q.split(/\s+/).filter(Boolean)
+  if (tokens.length > 1 && tokens.every((t) => blob.includes(t))) return 0.2 // all words present, any order
+  return 0
+}

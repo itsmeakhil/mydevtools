@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { X, Plus, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, Grid2x2Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
 import { cn } from '@/lib/utils'
@@ -13,13 +13,14 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 
-const iconColors = [
-  'text-sky-400',
-  'text-violet-400',
-  'text-emerald-400',
-  'text-rose-400',
-  'text-amber-400',
-  'text-indigo-400',
+// App-icon chip background tints (matches the blue "Z" badge in the reference).
+const chipColors = [
+  'bg-sky-500',
+  'bg-violet-500',
+  'bg-emerald-500',
+  'bg-rose-500',
+  'bg-amber-500',
+  'bg-indigo-500',
 ]
 
 interface TabBarProps {
@@ -136,7 +137,7 @@ export function TabBar({ onNewTab }: TabBarProps) {
 
   return (
     <TooltipProvider delayDuration={500}>
-      <div className="flex h-12 w-full shrink-0 items-center border-b bg-background px-2 gap-1">
+      <div className="flex h-12 w-full shrink-0 items-center border-b bg-background/95 px-2 gap-1 backdrop-blur">
 
         {/* Left scroll arrow */}
         <button
@@ -161,7 +162,7 @@ export function TabBar({ onNewTab }: TabBarProps) {
             const Icon = config?.icon
             const title = config?.title ?? tab.path.split('/').pop() ?? tab.path
             const isActive = tab.path === activeTabPath
-            const iconColor = iconColors[i % iconColors.length]
+            const chipColor = chipColors[i % chipColors.length]
 
             return (
               <Tooltip key={tab.path}>
@@ -170,20 +171,22 @@ export function TabBar({ onNewTab }: TabBarProps) {
                     ref={isActive ? activeTabRef : null}
                     onClick={() => handleTabClick(tab.path)}
                     className={cn(
-                      'group relative flex h-7 max-w-[200px] min-w-[80px] shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-3 text-xs font-medium transition-all duration-150',
+                      'group relative flex h-8 max-w-[200px] min-w-[80px] shrink-0 cursor-pointer items-center gap-2 rounded-full border px-2.5 text-xs font-medium transition-all duration-150',
                       isActive
-                        ? 'bg-secondary text-secondary-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                        ? 'border-border/60 bg-foreground/[0.07] text-foreground shadow-[inset_0_1px_0_hsl(var(--foreground)/0.06)] backdrop-blur-sm'
+                        : 'border-transparent text-muted-foreground hover:bg-foreground/[0.04] hover:text-foreground'
                     )}
                   >
                     {Icon && (
-                      <Icon
+                      <span
                         className={cn(
-                          'h-3.5 w-3.5 shrink-0 transition-colors',
-                          isActive ? iconColor : 'text-muted-foreground/50 group-hover:text-muted-foreground'
+                          'flex h-4 w-4 shrink-0 items-center justify-center rounded-[5px] shadow-sm transition-all',
+                          chipColor,
+                          isActive ? 'opacity-100' : 'opacity-60 saturate-[0.7] group-hover:opacity-90'
                         )}
-                        strokeWidth={2}
-                      />
+                      >
+                        <Icon className="h-2.5 w-2.5 text-white" strokeWidth={2.5} />
+                      </span>
                     )}
 
                     <span className="min-w-0 flex-1 truncate text-left leading-none tracking-tight">
@@ -241,7 +244,7 @@ export function TabBar({ onNewTab }: TabBarProps) {
               className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               aria-label="Open tool (⌘K)"
             >
-              <Plus className="h-3.5 w-3.5" strokeWidth={2.5} />
+              <Grid2x2Plus className="h-4 w-4" strokeWidth={2} />
             </button>
           </TooltipTrigger>
           <TooltipContent side="bottom" className="text-xs">
