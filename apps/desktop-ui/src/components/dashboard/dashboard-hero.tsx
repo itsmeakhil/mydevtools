@@ -48,7 +48,7 @@ function Stat({
           'flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset ring-border/50',
           isZero
             ? 'bg-muted text-muted-foreground'
-            : 'bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary',
+            : 'bg-primary/[0.12] text-primary',
         )}
       >
         <Icon size={14} className={isZero ? 'text-muted-foreground' : 'text-primary'} />
@@ -120,10 +120,10 @@ export function DashboardHero({
         <div className="hidden md:flex flex-col gap-4">
           <div className="space-y-1.5">
             <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               {dashboardGreeting(t)}
             </p>
-            <h1 className="dash-greeting text-2xl sm:text-[1.75rem] font-bold tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-[1.75rem] font-bold tracking-tight leading-tight text-foreground">
               {user?.displayName
                 ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
                 : t('welcomeBack')}

@@ -213,7 +213,7 @@ export function RegexTesterLayout() {
       </Card>
 
       <Card className="flex flex-col flex-1 min-h-0 overflow-hidden p-0">
-        <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30 shrink-0">
+        <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-[hsl(var(--surface-2))] shrink-0">
           <Label htmlFor="regex-text" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             {t('testTextLabel')}
           </Label>

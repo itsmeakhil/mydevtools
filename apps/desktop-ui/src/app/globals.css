@@ -38,7 +38,7 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --radius: 0.375rem;
     --surface-1: 0 0% 100%;
     --surface-2: 225 24% 97.5%;
     --surface-3: 225 22% 94.5%;
@@ -61,144 +61,50 @@ body {
   }
 
   .dark {
-    /* Minimalist dark theme - shadcn neutral zinc defaults */
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    /* Chart colors remain balanced */
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --card: 240 10% 5.5%;
-    --surface-1: 240 8% 7%;
-    --surface-2: 240 7% 9%;
-    --surface-3: 240 6% 12%;
-    /* Sidebar aligned to the deck blue-black theme (was a desaturated grey) */
-    --sidebar-background: 240 10% 5%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 240 5.9% 10%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 240 4.9% 83.9%;
+    /* Pro Instrument — graphite blue-black (hue ~225, low chroma). Surfaces
+       step by lightness; one electric-indigo accent; hairline borders. */
+    --background: 225 14% 8%;          /* app base behind panels + titlebar */
+    --foreground: 220 16% 96%;
+    --card: 225 13% 11%;               /* = surface-1 (content panels) */
+    --card-foreground: 220 16% 96%;
+    --popover: 225 14% 13%;            /* menus / ⌘K palette, slightly lifted */
+    --popover-foreground: 220 16% 96%;
+    --primary: 235 84% 67%;            /* signature accent — electric indigo */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 225 10% 16%;
+    --secondary-foreground: 220 14% 92%;
+    --muted: 225 10% 15%;
+    --muted-foreground: 222 10% 64%;   /* ≥4.5:1 on surfaces */
+    --accent: 225 11% 18%;             /* hover tint (neutral, not brand) */
+    --accent-foreground: 220 16% 96%;
+    --destructive: 0 72% 57%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 225 9% 20%;              /* hairline */
+    --input: 225 9% 22%;
+    --ring: 235 84% 67%;
+    /* Chart / category palette (kept vivid for data + category accents) */
+    --chart-1: 235 84% 67%;
+    --chart-2: 190 80% 55%;
+    --chart-3: 160 60% 50%;
+    --chart-4: 40 90% 62%;
+    --chart-5: 330 75% 62%;
+    --surface-1: 225 13% 11%;
+    --surface-2: 225 12% 13%;
+    --surface-3: 225 11% 16%;
+    --sidebar-background: 225 14% 9%;
+    --sidebar-foreground: 222 11% 72%;
+    --sidebar-primary: 235 84% 67%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 225 12% 15%;
+    --sidebar-accent-foreground: 220 16% 96%;
+    --sidebar-border: 225 9% 18%;
+    --sidebar-ring: 235 84% 67%;
   }
 
-  /* Color Theme Overrides - Light Mode */
-  :root.blue {
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 217.2 91.2% 59.8%;
-    --sidebar-primary: 217.2 91.2% 59.8%;
-  }
-
-  :root.purple {
-    --primary: 258.3 89.5% 66.3%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 258.3 89.5% 66.3%;
-    --sidebar-primary: 258.3 89.5% 66.3%;
-  }
-
-  :root.green {
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 142.1 76.2% 36.3%;
-    --sidebar-primary: 142.1 76.2% 36.3%;
-  }
-
-  :root.orange {
-    --primary: 24.6 95% 53.1%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 24.6 95% 53.1%;
-    --sidebar-primary: 24.6 95% 53.1%;
-  }
-
-  :root.red {
-    --primary: 0 72.2% 50.6%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 0 72.2% 50.6%;
-    --sidebar-primary: 0 72.2% 50.6%;
-  }
-
-  :root.pink {
-    --primary: 340.7 82.1% 52.7%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 340.7 82.1% 52.7%;
-    --sidebar-primary: 340.7 82.1% 52.7%;
-  }
-
-  :root.cyan {
-    --primary: 199.1 89.1% 48.2%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 199.1 89.1% 48.2%;
-    --sidebar-primary: 199.1 89.1% 48.2%;
-  }
-
-  :root.indigo {
-    --primary: 239.4 83.9% 66.7%;
-    --primary-foreground: 0 0% 98%;
-    --ring: 239.4 83.9% 66.7%;
-    --sidebar-primary: 239.4 83.9% 66.7%;
-  }
-
-  /* Color Theme Overrides - Dark Mode */
-  .dark.blue {
-    --primary: 217.2 91.2% 59.8%;
-    --sidebar-primary: 217.2 91.2% 59.8%;
-  }
-
-  .dark.purple {
-    --primary: 258.3 89.5% 66.3%;
-    --sidebar-primary: 258.3 89.5% 66.3%;
-  }
-
-  .dark.green {
-    --primary: 142.1 70.6% 45.3%;
-    --sidebar-primary: 142.1 70.6% 45.3%;
-  }
-
-  .dark.orange {
-    --primary: 24.6 95% 53.1%;
-    --sidebar-primary: 24.6 95% 53.1%;
-  }
-
-  .dark.red {
-    --primary: 0 72.2% 50.6%;
-    --sidebar-primary: 0 72.2% 50.6%;
-  }
-
-  .dark.pink {
-    --primary: 340.7 82.1% 52.7%;
-    --sidebar-primary: 340.7 82.1% 52.7%;
-  }
-
-  .dark.cyan {
-    --primary: 199.1 89.1% 48.2%;
-    --sidebar-primary: 199.1 89.1% 48.2%;
-  }
-
-  .dark.indigo {
-    --primary: 239.4 83.9% 66.7%;
-    --sidebar-primary: 239.4 83.9% 66.7%;
-  }
+  /* Pro Instrument commits to ONE brand accent (electric indigo, set above).
+     The user-selectable accent-color overrides were removed intentionally —
+     multiple brand colors dilute identity and read as a web-app template.
+     Per-category tool accents live in CATEGORY_ACCENT, not here. */
 }
 
 /* Custom Scrollbar for Sidebar */

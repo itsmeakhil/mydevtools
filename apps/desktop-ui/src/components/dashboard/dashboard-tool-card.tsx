@@ -95,7 +95,7 @@ export const ToolCard = React.memo(function ToolCard({
         <Card
           ref={cardRef}
           className={cn(
-            'dash-card-sheen relative h-full overflow-hidden rounded-xl border border-border bg-gradient-to-br from-card to-card/80',
+            'dash-card-sheen relative h-full overflow-hidden rounded-lg border border-border bg-card',
             'shadow-sm dark:shadow-none',
             'transition-[colors,transform,box-shadow,border-color] duration-200 ease-out',
             'hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 motion-safe:hover:-translate-y-0.5',
