@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription, DialogFooter } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -29,6 +29,18 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
     const [open, setOpen] = useState(false)
     const [importData, setImportData] = useState("")
     const [loading, setLoading] = useState(false)
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
+    const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        e.target.value = ""
+        if (!file) return
+        try {
+            setImportData(await file.text())
+        } catch {
+            toast.error(t("toastImportFailed"))
+        }
+    }
 
     const handleExport = () => {
         try {
@@ -169,6 +181,16 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
                                 {t("pasteHint")}
                             </p>
                         </div>
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept=".json,application/json"
+                            className="hidden"
+                            onChange={handleFileSelect}
+                        />
+                        <Button variant="outline" className="w-full" onClick={() => fileInputRef.current?.click()}>
+                            <FileJson className="mr-2 h-4 w-4" /> {t("selectFile")}
+                        </Button>
                         <DialogFooter>
                             <Button onClick={handleImport} disabled={loading || !importData}>
                                 {loading ? t("importing") : (

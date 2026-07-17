@@ -76,6 +76,18 @@ export function TetrisLayout() {
   const [dasMs, setDasMs]           = useState(133)
   const [arrMs, setArrMs]           = useState(10)
   const [showSettings, setShowSettings] = useState(false)
+  const [cell, setCell]             = useState(CELL)
+
+  const gameAreaRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const fit = () => {
+      const top = gameAreaRef.current?.getBoundingClientRect().top ?? 0
+      setCell(Math.max(20, Math.min(CELL, Math.floor((window.innerHeight - top - 40) / ROWS))))
+    }
+    fit()
+    window.addEventListener('resize', fit)
+    return () => window.removeEventListener('resize', fit)
+  }, [showSettings])
 
   const boardRef     = useRef<Board>(emptyBoard())
   const pieceRef     = useRef<Piece | null>(null)
@@ -456,8 +468,8 @@ export function TetrisLayout() {
   }
 
   const levelProgress   = Math.min(100, (lines % 10) / 10 * 100)
-  const BOARD_W         = COLS * CELL
-  const BOARD_H         = ROWS * CELL
+  const BOARD_W         = COLS * cell
+  const BOARD_H         = ROWS * cell
   const PANEL_W         = 130
   const ultraRemaining  = Math.max(0, ULTRA_MS - elapsedMs)
   const timerDisplay    = gameMode === 'sprint' ? formatTime(elapsedMs) : gameMode === 'ultra' ? formatTime(ultraRemaining) : null
@@ -578,7 +590,7 @@ export function TetrisLayout() {
         )}
 
         {/* Game area */}
-        <div className="flex gap-3 items-start">
+        <div ref={gameAreaRef} className="flex gap-3 items-start">
 
           {/* Left panel */}
           <div className="flex flex-col gap-3" style={{ width: PANEL_W }}>
@@ -645,8 +657,8 @@ export function TetrisLayout() {
           >
             {/* Grid */}
             <svg className="absolute inset-0 pointer-events-none" width={BOARD_W} height={BOARD_H} style={{ opacity: 0.055 }}>
-              {Array.from({ length: COLS + 1 }, (_, c) => <line key={`v${c}`} x1={c*CELL} y1={0} x2={c*CELL} y2={BOARD_H} stroke="white" strokeWidth={1} />)}
-              {Array.from({ length: ROWS + 1 }, (_, r) => <line key={`h${r}`} x1={0} y1={r*CELL} x2={BOARD_W} y2={r*CELL} stroke="white" strokeWidth={1} />)}
+              {Array.from({ length: COLS + 1 }, (_, c) => <line key={`v${c}`} x1={c*cell} y1={0} x2={c*cell} y2={BOARD_H} stroke="white" strokeWidth={1} />)}
+              {Array.from({ length: ROWS + 1 }, (_, r) => <line key={`h${r}`} x1={0} y1={r*cell} x2={BOARD_W} y2={r*cell} stroke="white" strokeWidth={1} />)}
             </svg>
 
             {/* Drop trail */}
@@ -655,8 +667,8 @@ export function TetrisLayout() {
               if (nc < 0 || nc >= COLS) return null
               return (
                 <div key={sc} style={{
-                  position: 'absolute', left: nc*CELL+2, top: dropTrail.yFrom*CELL,
-                  width: CELL-4, height: (dropTrail.yTo-dropTrail.yFrom)*CELL,
+                  position: 'absolute', left: nc*cell+2, top: dropTrail.yFrom*cell,
+                  width: cell-4, height: (dropTrail.yTo-dropTrail.yFrom)*cell,
                   borderRadius: 4, backgroundColor: piece.color, opacity: 0.25,
                   animation: 't-drop-trail 0.16s ease forwards', pointerEvents: 'none',
                 }} />
@@ -671,7 +683,7 @@ export function TetrisLayout() {
               const isLocked   = lockFlash && !isGhost && color !== null && !isFlashing
               return (
                 <div key={`${r}-${c}`} style={{
-                  position: 'absolute', left: c*CELL+1, top: r*CELL+1, width: CELL-2, height: CELL-2, borderRadius: 4,
+                  position: 'absolute', left: c*cell+1, top: r*cell+1, width: cell-2, height: cell-2, borderRadius: 4,
                   ...(isFlashing ? {
                     backgroundColor: 'white', animation: 't-flash 0.23s ease infinite',
                   } : isGhost && ghostColor ? {

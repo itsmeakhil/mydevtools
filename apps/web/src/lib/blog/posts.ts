@@ -1668,7 +1668,7 @@ git config --global core.excludesfile ~/.gitignore_global`,
       },
       {
         heading: 'Using MyDevTools Password Manager for secure notes',
-        body: `The MyDevTools Password Manager is a desktop tool designed for vault-style sensitive records. It encrypts sensitive data locally on your machine before any sync, so a backend stores encrypted data instead of readable vault content.\n\nUse it when you need a developer-friendly place for passwords, short sensitive notes, and account context, with encrypted cross-device sync so your vault follows you.`,
+        body: `The MyDevTools Password Manager is a desktop tool designed for vault-style sensitive records. It encrypts sensitive data locally on your machine with a vault password only you know — your vault never leaves your device.\n\nUse it when you need a developer-friendly place for passwords, short sensitive notes, and account context, fully offline with no cloud dependency.`,
       },
     ],
     faqs: [
@@ -2610,7 +2610,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
   {
     slug: 'markdown-notes-app-for-developers',
     title: 'Markdown Notes: Quick Note-Taking for Developers',
-    description: 'Create and organize Markdown notes on your desktop with zero friction. Sync across devices, search, and keep your knowledge base accessible.',
+    description: 'Create and organize Markdown notes on your desktop with zero friction. Fully offline, searchable, and your knowledge base stays on your device.',
     publishedAt: '2026-01-21',
     category: 'Utilities',
     toolSlug: 'notes',
@@ -2631,7 +2631,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         heading: 'MyDevTools Notes features',
-        body: `- **Live Markdown preview** — see formatting as you type.\n- **Full-text search** — find notes by keyword.\n- **Cross-device sync** — write on desktop, read on phone.\n- **Local-first** — notes live on your machine, zero friction.\n- **Encrypted on sync** — sensitive notes stay private.`,
+        body: `- **Live Markdown preview** — see formatting as you type.\n- **Full-text search** — find notes by keyword.\n- **Fully offline** — no cloud, no account round-trips, notes never leave your device.\n- **Local-first** — notes live on your machine, zero friction.\n- **Encrypted vault** — sensitive notes stay private.`,
       },
     ],
     faqs: [
@@ -2641,7 +2641,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         q: 'Is there offline support?',
-        a: 'Notes sync when online. For offline editing, use a local Markdown editor and sync later.',
+        a: 'Yes — notes are fully offline. They are stored locally on your device and never require a network connection.',
       },
       {
         q: 'Can I collaborate on notes?',
@@ -2673,7 +2673,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         heading: 'MyDevTools Bookmarks features',
-        body: `- **Tags and folders** — organize hundreds of links.\n- **Full-text search** — find by keyword, not just title.\n- **Public/private** — share specific bookmarks or keep personal.\n- **Rich notes** — add context to why you saved a link.\n- **Sync across devices** — your bookmarks follow you.`,
+        body: `- **Tags and folders** — organize hundreds of links.\n- **Full-text search** — find by keyword, not just title.\n- **Public/private** — share specific bookmarks or keep personal.\n- **Rich notes** — add context to why you saved a link.\n- **Fully offline** — bookmarks stay on your device, no cloud needed.`,
       },
     ],
     faqs: [

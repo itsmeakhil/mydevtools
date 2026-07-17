@@ -22,8 +22,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { IconArrowsDiagonalMinimize2 } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 import { useDebouncedCallback } from 'use-debounce';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
 const MAX_CANVAS_EDGE = 8192;
@@ -85,6 +89,7 @@ export function ImageCompressorLayout() {
   const [processing, setProcessing] = useState(false);
   const bitmapRef = useRef<ImageBitmap | null>(null);
   const [bitmapReady, setBitmapReady] = useState(0);
+  const encodeSeqRef = useRef(0);
 
   const closeBitmap = useCallback(() => {
     if (bitmapRef.current) {
@@ -99,6 +104,8 @@ export function ImageCompressorLayout() {
   }, [sourceUrl, compressedUrl]);
 
   const resetOutputs = useCallback(() => {
+    encodeSeqRef.current++; // invalidate any in-flight encode
+    setProcessing(false);
     setCompressedUrl((prev) => {
       if (prev) URL.revokeObjectURL(prev);
       return null;
@@ -121,9 +128,9 @@ export function ImageCompressorLayout() {
     async (mime: OutputMime, quality: number | undefined) => {
       const bitmap = bitmapRef.current;
       if (!bitmap) return;
+      const seq = ++encodeSeqRef.current;
       setProcessing(true);
       setError('');
-      resetOutputs();
       try {
         const { width, height } = scaleToMaxEdge(bitmap.width, bitmap.height, MAX_CANVAS_EDGE);
         const canvas = document.createElement('canvas');
@@ -142,24 +149,30 @@ export function ImageCompressorLayout() {
           canvas.toBlob((b) => resolve(b), mime, q);
         });
         if (!blob) throw new Error('toBlob');
+        if (seq !== encodeSeqRef.current) return; // stale — a newer encode superseded this one
 
         const url = URL.createObjectURL(blob);
         setCompressedBlob(blob);
-        setCompressedUrl(url);
+        setCompressedUrl((prev) => {
+          if (prev) URL.revokeObjectURL(prev);
+          return url;
+        });
         setCompressedBytes(blob.size);
         if (isMobile) setMobileTab('compressed');
       } catch {
-        setError(t('compressFailed'));
+        if (seq === encodeSeqRef.current) setError(t('compressFailed'));
       } finally {
-        setProcessing(false);
+        if (seq === encodeSeqRef.current) setProcessing(false);
       }
     },
-    [isMobile, resetOutputs, t]
+    [isMobile, t]
   );
 
+  // maxWait keeps encodes flowing mid-drag so the preview tracks in real time.
   const debouncedEncode = useDebouncedCallback(
     (mime: OutputMime, quality: number | undefined) => void encode(mime, quality),
-    200
+    150,
+    { maxWait: 300 }
   );
 
   const loadFile = useCallback(
@@ -173,14 +186,15 @@ export function ImageCompressorLayout() {
         return;
       }
       setError('');
-      revokeUrls();
+      if (sourceUrl) URL.revokeObjectURL(sourceUrl);
+      resetOutputs();
       const nextSource = URL.createObjectURL(file);
       setSourceFile(file);
       setSourceUrl(nextSource);
       setOriginalBytes(file.size);
       setOutputMime(defaultOutputMime(file.type));
     },
-    [revokeUrls, t]
+    [resetOutputs, sourceUrl, t]
   );
 
   // Decode the source once per file; re-encoding reuses this bitmap.
@@ -239,11 +253,14 @@ export function ImageCompressorLayout() {
 
   return (
     <div className="flex h-full min-h-0 flex-col gap-4">
-      <div className="flex shrink-0 flex-col items-start justify-between gap-3 sm:flex-row sm:items-center md:hidden">
-        <div>
-          <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-          <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-        </div>
+      <RevealItem index={0} className="shrink-0">
+        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+        <ToolPageHeader
+          icon={IconArrowsDiagonalMinimize2}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT['Media & Design']}
+        />
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
@@ -270,7 +287,8 @@ export function ImageCompressorLayout() {
             {t('clear')}
           </Button>
         </div>
-      </div>
+        </div>
+      </RevealItem>
 
       <Card className="shrink-0 border-border/60 p-4">
         <div className="grid gap-4 sm:grid-cols-2">
@@ -303,7 +321,7 @@ export function ImageCompressorLayout() {
               min={5}
               max={100}
               step={1}
-              disabled={!sourceFile || outputMime === 'image/png'}
+              disabled={outputMime === 'image/png'}
               onValueChange={(v) => setQualityPercent(v[0] ?? 82)}
               className={cn(outputMime === 'image/png' && 'opacity-50')}
             />
@@ -426,13 +444,13 @@ export function ImageCompressorLayout() {
             </Button>
           </div>
           <div className="relative flex flex-1 items-center justify-center p-4">
-            {processing && (
+            {processing && !compressedUrl && (
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-background/70">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 <span className="text-xs text-muted-foreground">{t('processing')}</span>
               </div>
             )}
-            {compressedUrl && !processing ? (
+            {compressedUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={compressedUrl} alt="" decoding="async" className="max-h-[min(55vh,420px)] max-w-full object-contain" />
             ) : !sourceUrl ? (

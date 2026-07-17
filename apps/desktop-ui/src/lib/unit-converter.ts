@@ -2,6 +2,7 @@ export interface UnitDef {
   label: string
   symbol: string
   factor: number // multiplies this unit to get the base unit
+  offset?: number // added after factor (absolute temperature scales)
 }
 
 export interface CategoryDef {
@@ -158,6 +159,17 @@ export const UNIT_CATEGORIES: Record<string, CategoryDef> = {
       kcal_mol: { label: 'Kilocalorie/Mole',   symbol: 'kcal/mol', factor: 4184 },
       BTU_mol:  { label: 'BTU/Mole',           symbol: 'BTU/mol',  factor: 1055.06 },
       eV_mol:   { label: 'Electron Volt/Mole', symbol: 'eV/mol',   factor: 1.60218e-19 },
+    },
+  },
+
+  temperature: {
+    label: 'Temperature',
+    baseUnit: 'K',
+    units: {
+      K:    { label: 'Kelvin',            symbol: 'K',  factor: 1 },
+      degC: { label: 'Degree Celsius',    symbol: '°C', factor: 1,     offset: 273.15 },
+      degF: { label: 'Degree Fahrenheit', symbol: '°F', factor: 5 / 9, offset: 459.67 * 5 / 9 },
+      degR: { label: 'Degree Rankine',    symbol: '°R', factor: 5 / 9 },
     },
   },
 
@@ -605,7 +617,8 @@ export function convert(value: number, fromKey: string, toKey: string, category:
   const from = category.units[fromKey]
   const to   = category.units[toKey]
   if (!from || !to) return NaN
-  return value * (from.factor / to.factor)
+  const base = value * from.factor + (from.offset ?? 0)
+  return (base - (to.offset ?? 0)) / to.factor
 }
 
 export function getCategoryKeys(): string[] {

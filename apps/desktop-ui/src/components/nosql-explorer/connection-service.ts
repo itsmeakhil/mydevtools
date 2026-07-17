@@ -46,14 +46,15 @@ export const saveConnection = async (
     _userId: string,
     connectionString: string,
     name: string = "My Connection",
-    encryptionKey: CryptoKey
+    encryptionKey: CryptoKey,
+    extras: { color?: string | null; readOnly?: boolean } = {}
 ): Promise<string> => {
     const { encrypted, iv } = await encryptData(encryptionKey, connectionString);
 
     const created = await proxyRequest<ConnectionRaw>(
         "POST",
         "/api/v1/nosql/connections",
-        { encryptedData: encrypted, iv, name }
+        { encryptedData: encrypted, iv, name, color: extras.color ?? null, readOnly: extras.readOnly ?? false }
     );
     return created.id;
 };
@@ -121,13 +122,19 @@ export const updateConnectionName = async (
 export const updateConnectionDetails = async (
     _userId: string,
     connectionId: string,
-    updates: { name?: string; connectionString?: string },
+    updates: { name?: string; connectionString?: string; color?: string | null; readOnly?: boolean },
     encryptionKey: CryptoKey
 ): Promise<void> => {
-    const patch: Record<string, string> = {};
+    const patch: Record<string, unknown> = {};
 
     if (updates.name !== undefined) {
         patch.name = updates.name;
+    }
+    if (updates.color !== undefined) {
+        patch.color = updates.color;
+    }
+    if (updates.readOnly !== undefined) {
+        patch.readOnly = updates.readOnly;
     }
     if (updates.connectionString !== undefined) {
         const { encrypted, iv } = await encryptData(encryptionKey, updates.connectionString);

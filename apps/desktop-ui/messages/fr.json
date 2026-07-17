@@ -79,22 +79,22 @@
     "whoisLookup": "Recherche Whois"
   },
   "Help": {
-    "title": "Aide et documentation",
-    "subtitle": "Comment MyDevTools fonctionne et comment vos données sont protégées",
+    "title": "Aide & documentation",
+    "subtitle": "Comment MyDevTools fonctionne hors ligne et comment vos données sont protégées",
     "tabs": {
       "overview": "Aperçu",
-      "apps": "Apps",
+      "apps": "Applications",
       "security": "Sécurité",
-      "tips": "Conseils"
+      "tips": "Astuces"
     },
     "overview": {
       "whatIs": {
-        "title": "Qu’est-ce que MyDevTools ?",
-        "description": "Un espace de travail développeur avec connexion : un tableau de bord et des outils pour le quotidien.",
-        "p1": "Après connexion, l’app établit une session avec l’API MyDevTools pour charger et enregistrer vos données. La barre latérale liste toutes les apps ; vous pouvez masquer celles que vous n’utilisez pas depuis",
+        "title": "Qu'est-ce que MyDevTools ?",
+        "description": "Un espace de travail hors ligne pour les développeurs : un tableau de bord et plus de 80 outils qui s'exécutent entièrement sur votre appareil.",
+        "p1": "MyDevTools fonctionne entièrement hors ligne. Après une activation unique dans votre navigateur, tout fonctionne sur cet appareil, sans connexion à un compte ni connexion Internet. La barre latérale répertorie toutes les applications ; vous pouvez masquer les outils que vous n'utilisez pas depuis les",
         "settingsLink": "Paramètres",
         "p1After": ".",
-        "p2": "Certaines fonctionnalités utilisent un <strong>mot de passe maître</strong> (ou une clé de coffre globale) afin que des secrets comme les mots de passe et chaînes de connexion soient chiffrés sur votre appareil avant d’atteindre le serveur."
+        "p2": "Certaines fonctionnalités utilisent un <strong>mot de passe maître</strong> (ou une clé de coffre globale) afin que les données sensibles comme les mots de passe et les chaînes de connexion aux bases de données soient chiffrées sur votre appareil. Vos données sont stockées dans une base de données locale chiffrée et ne sont jamais envoyées à un serveur."
       },
       "quickLinks": {
         "title": "Liens rapides",
@@ -103,45 +103,46 @@
       }
     },
     "apps": {
-      "intro": "Ouvrez un outil depuis la barre latérale ou le tableau de bord. Voici un guide rapide par app.",
+      "intro": "Ouvrez n'importe quel outil depuis la barre latérale ou le tableau de bord. Vous trouverez ci-dessous un guide succinct pour chaque application.",
       "open": "Ouvrir",
       "howItWorks": "Fonctionnement",
       "generic": "Utilisez cet outil depuis la barre latérale pour son flux de travail dédié."
     },
     "security": {
-      "session": {
-        "title": "Connexion et session API",
-        "description": "Identité et communication entre le navigateur et votre backend.",
+      "access": {
+        "title": "Activation & accès hors ligne",
+        "description": "Comment l'application se déverrouille la première fois, puis fonctionne hors ligne.",
         "items": {
-          "authentication": "<strong>Authentification</strong> via Firebase. Après connexion, l’app échange votre jeton d’ID Firebase contre des cookies API.",
-          "accessTokens": "<strong>Jetons d’accès</strong> : JWT signés côté serveur (HS256) qui prouvent quel utilisateur appelle l’API.",
-          "refreshTokens": "<strong>Jetons de rafraîchissement</strong> : stockés en cookies HttpOnly ; le serveur conserve un hash SHA-256 du jeton, pas le jeton brut."
+          "activation": "L'<strong>activation unique</strong> a lieu dans votre navigateur lors de la première ouverture de l'application. Elle enregistre votre forfait et déverrouille l'application sur cet appareil.",
+          "offline": "<strong>Aucune session de connexion.</strong> Après l'activation, il n'y a pas de connexion par session ni de nouvelle vérification périodique : l'application continue de fonctionner sans connexion Internet.",
+          "storage": "<strong>Stockage local.</strong> Toutes vos données résident dans une base de données SQLCipher chiffrée sur votre appareil, protégée par une clé aléatoire conservée dans le trousseau de votre système d'exploitation."
         }
       },
       "encryption": {
-        "title": "Chiffrement à connaître",
-        "description": "Crypto côté client pour le coffre et les données de connexion sensibles.",
-        "p1": "Pour le <strong>gestionnaire de mots de passe</strong>, le <strong>gestionnaire d'environnement</strong> et les connexions enregistrées dans <strong>NoSQL Explorer</strong>, l'application web utilise la <strong>Web Crypto API</strong> du navigateur :",
+        "title": "Le chiffrement que vous devez connaître",
+        "description": "Chiffrement côté client pour le coffre et les données de connexion sensibles.",
+        "p1": "Pour le <strong>gestionnaire de mots de passe</strong>, le <strong>gestionnaire d'environnements</strong> et les connexions enregistrées du <strong>NoSQL Explorer</strong>, l'application utilise la <strong>Web Crypto API</strong> :",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> avec <strong>SHA-256</strong>, <strong>100 000</strong> itérations et un sel aléatoire dérive une clé 256 bits depuis votre mot de passe maître.",
-          "aes": "<strong>AES-256-GCM</strong> chiffre les données ; un <strong>IV de 12 octets</strong> aléatoire est utilisé à chaque chiffrement.",
-          "scope": "La clé dérivée reste dans le navigateur (non extractible). Le serveur reçoit <strong>le texte chiffré et les IV</strong>, pas votre mot de passe maître ni des secrets en clair."
+          "kdf": "<strong>PBKDF2</strong> avec <strong>SHA-256</strong>, <strong>600,000</strong> itérations et un sel aléatoire dérive une clé de 256 bits à partir de votre mot de passe maître.",
+          "aes": "<strong>AES-256-GCM</strong> chiffre les données ; un <strong>12-byte IV</strong> aléatoire est utilisé à chaque chiffrement.",
+          "scope": "La clé dérivée reste dans l'application (non extractible) et votre mot de passe maître ne quitte jamais votre appareil. Seuls le <strong>texte chiffré et les IVs</strong> sont écrits dans la base de données locale."
         },
-        "warning": "Si vous oubliez le mot de passe maître, les données chiffrées ne peuvent pas être récupérées. Conservez-le en lieu sûr."
+        "warning": "Si vous oubliez le mot de passe maître, les données chiffrées ne pourront pas être récupérées. Conservez-le en lieu sûr."
       },
-      "logout": {
-        "title": "Déconnexion et données locales",
-        "body": "La déconnexion efface les secrets en mémoire, l’état du coffre et, si applicable, le matériel de clé maître dans IndexedDB, et termine la session API. Les données uniquement en stockage local peuvent rester jusqu’à suppression dans le navigateur."
+      "local": {
+        "title": "Verrouillage & données locales",
+        "body": "Verrouiller le coffre efface les secrets en mémoire et le matériel de la clé maître ; votre base de données chiffrée reste sur le disque jusqu'à ce que vous la supprimiez. Il n'y a pas de déconnexion : c'est la réinitialisation des données de l'application ou sa suppression qui efface tout. Conservez donc vos propres sauvegardes de tout ce qui est important."
       }
     },
     "tips": {
       "title": "Utiliser MyDevTools en toute sécurité",
       "items": {
-        "masterPassword": "Utilisez un mot de passe maître fort et unique pour les fonctions de coffre.",
-        "apiClient": "Traitez le Client API comme tout client HTTP : évitez de coller des secrets de production dans des environnements partagés sans savoir qui peut les voir.",
-        "nosql": "L’Explorateur de base de données se connecte à des bases que vous configurez ; utilisez des comptes au moindre privilège et des règles réseau si possible.",
-        "json": "Le formateur JSON fonctionne localement dans le navigateur—évitez quand même de coller des données très sensibles sur des machines partagées.",
-        "settings": "Personnalisez les outils visibles dans Paramètres pour garder la barre latérale focalisée."
+        "masterPassword": "Utilisez un mot de passe maître fort et unique pour les fonctionnalités du coffre.",
+        "backup": "Vos données ne résident que sur cet appareil : exportez-les ou sauvegardez-les régulièrement afin de ne pas les perdre en cas de défaillance de l'appareil.",
+        "apiClient": "Traitez l'API Client comme n'importe quel client HTTP : évitez de coller des secrets de production dans des environnements partagés, sauf si vous savez qui peut les consulter.",
+        "nosql": "Le Database Explorer se connecte aux bases de données que vous configurez ; utilisez autant que possible des utilisateurs à privilèges minimaux et des règles réseau.",
+        "json": "Le JSON Formatter s'exécute entièrement sur votre appareil : évitez néanmoins de coller des données très sensibles sur des machines partagées.",
+        "settings": "Personnalisez les outils visibles dans les Paramètres pour garder la barre latérale épurée."
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Navigation des notes",
-      "openMenuAria": "Ouvrir le menu des notes"
+      "openMenuAria": "Ouvrir le menu des notes",
+      "showSidebarAria": "Afficher la barre latérale"
     },
     "sidebar": {
       "title": "Notes",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "Supprimer « {title} » ? Cette action est irréversible.",
       "cancel": "Annuler",
       "confirmDelete": "Supprimer",
-      "noteOptionsAria": "Options de la note"
+      "noteOptionsAria": "Options de la note",
+      "hideSidebarAria": "Masquer la barre latérale"
     },
     "editor": {
       "emptyState": "Sélectionnez une note ou créez-en une pour commencer.",
@@ -933,7 +936,8 @@
       "loading": "Chargement…",
       "searchHint": "pour rechercher",
       "focusHint": "mode concentration",
-      "notePath": "Chemin de la note"
+      "notePath": "Chemin de la note",
+      "export": "Exporter"
     },
     "context": {
       "authRequiredError": "Utilisateur non authentifié",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "Coller les données JSON",
       "pastePlaceholder": "[{\"service\": \"Exemple\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Collez ici le contenu d’un export JSON précédent.",
+      "selectFile": "Sélectionner un fichier JSON",
       "importing": "Import…",
       "importPasswords": "Importer",
       "trigger": "Importer / exporter",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "Supprimer le dossier « {name} » ?",
       "deleteFolderDescription": "Le dossier et ses sous-dossiers seront supprimés. Les signets iront dans Sans catégorie."
     },
+    "foldersHeading": "Dossiers",
     "import": {
       "title": "Importer des signets",
       "description": "Importez depuis un fichier exporté par votre navigateur.",
@@ -1495,19 +1501,27 @@
       "updateConnect": "Mettre à jour et connecter",
       "connect": "Connecter",
       "cancelEdit": "Annuler",
+      "cancel": "Annuler",
       "savedConnections": "Connexions enregistrées",
       "emptySaved": "Aucune connexion enregistrée.",
       "lastUsed": "Dernière utilisation {time}",
       "toastTestOk": "Connexion réussie !",
       "toastTestFail": "Échec : {message}",
+      "toastConnectFail": "Échec de la connexion à {name}",
       "toastUpdated": "Connexion mise à jour",
       "confirmDelete": "Supprimer cette connexion enregistrée ?",
+      "menuDeleteConnection": "Supprimer la connexion",
       "toastDeletedConn": "Connexion supprimée",
       "toastDeleteFail": "Impossible de supprimer la connexion",
       "copyStringTitle": "Copier la chaîne de connexion",
       "toastStringCopied": "Chaîne copiée !",
       "editTitle": "Modifier",
-      "deleteTitle": "Supprimer"
+      "deleteTitle": "Supprimer",
+      "labelColor": "Étiquette de couleur",
+      "colorNone": "Aucune couleur",
+      "hintColor": "Marquez vos environnements — p. ex. rouge pour la production.",
+      "labelReadOnly": "Connexion en lecture seule",
+      "hintReadOnly": "Bloque les insertions, modifications, suppressions et drops pour cette connexion."
     },
     "sidebar": {
       "explorer": "Explorateur",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Lecture seule",
+      "cellUpdated": "Valeur mise à jour",
+      "cellUpdateFail": "Échec de la mise à jour de la valeur",
+      "cellFilterByValue": "Filtrer par cette valeur",
+      "cellExcludeValue": "Exclure cette valeur",
+      "cellSortAsc": "Tri croissant",
+      "cellSortDesc": "Tri décroissant",
+      "cellCopyValue": "Copier la valeur",
+      "cellEditValue": "Modifier la valeur",
+      "explainTitle": "Plan d'exécution",
+      "explainLoading": "Explain en cours…",
+      "explainFail": "Échec de l'explain",
+      "explainCollscan": "Analyse complète de la collection",
+      "explainIndexUsed": "Index : {name}",
+      "explainReturned": "{n} renvoyés",
+      "explainDocsExamined": "{n} examinés",
+      "explainCollscanHint": "Cette requête parcourt chaque document de la collection. Envisagez de créer un index sur les champs filtrés.",
+      "explainRawLabel": "Sortie explain"
     },
     "tabs": {
       "filterActive": "Filtre actif",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group (compte/somme)",
       "format": "Formater",
       "formattedJson": "JSON formaté",
-      "runQuery": "Exécuter"
+      "runQuery": "Exécuter",
+      "savedQueries": "Requêtes enregistrées",
+      "noHistory": "Aucune requête récente",
+      "saveNamePlaceholder": "Nom de la requête",
+      "saveCurrentQuery": "Enregistrer la requête actuelle",
+      "save": "Enregistrer",
+      "saveQueryFail": "Échec de l'enregistrement de la requête",
+      "querySaved": "« {name} » enregistrée",
+      "explainQuery": "Expliquer la requête",
+      "stagesMode": "Étapes",
+      "invalidStageJson": "Une étape du pipeline contient du JSON invalide"
     },
     "export": {
       "selectFieldsError": "Sélectionnez au moins un champ à exporter",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# champ sélectionné} other {# champs sélectionnés}}",
       "cancel": "Annuler",
       "export": "Exporter",
-      "sheetName": "Données"
+      "sheetName": "Données",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type : {type}",
       "itemSummary": "{count, plural, one {# élément} other {# éléments}}"
+    },
+    "pipeline": {
+      "empty": "Aucune étape pour l'instant. Ajoutez une étape pour construire votre pipeline.",
+      "addStage": "Ajouter une étape",
+      "stageEnabled": "Étape activée",
+      "preview": "Aperçu",
+      "previewToHere": "Exécuter le pipeline jusqu'à cette étape (10 premiers documents)",
+      "previewResult": "Résultats de l'aperçu ({count})",
+      "previewEmpty": "Aucun document à cette étape",
+      "previewFail": "Échec de l'aperçu"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Générateur de données factices",
     "subtitle": "Définissez des colonnes typées — exportez jusqu’à {max} lignes",
-    "mockarooLink": "Flux de travail façon Mockaroo",
     "rowsLabel": "Lignes",
     "rowsHint": "Au plus {max} lignes par génération pour garder l’onglet réactif.",
     "formatLabel": "Format",
@@ -3482,7 +3534,8 @@
       "numbersIds": "Nombres & ID",
       "dateTime": "Date & heure",
       "textDesign": "Texte & design",
-      "custom": "Personnalisé"
+      "custom": "Personnalisé",
+      "commerce": "Commerce"
     },
     "fieldTypes": {
       "first_name": "Prénom",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Code devise",
       "language_code": "Étiquette de langue",
-      "custom_list": "Liste personnalisée"
+      "custom_list": "Liste personnalisée",
+      "gender": "Genre",
+      "us_state": "État américain",
+      "us_state_abbr": "État américain (abr.)",
+      "user_agent": "User agent",
+      "mime_type": "Type MIME",
+      "file_name": "Nom de fichier",
+      "port": "Port",
+      "md5": "Hachage MD5",
+      "sha256": "Hachage SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Heure",
+      "weekday": "Jour de la semaine",
+      "month": "Mois",
+      "product_name": "Nom du produit",
+      "product_category": "Catégorie de produit",
+      "department": "Département",
+      "color_name": "Nom de couleur",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importer le schéma",
+    "exportSchema": "Exporter le schéma",
+    "importSchemaError": "Fichier de schéma non valide — un tableau JSON de colonnes { name, type } est attendu."
   },
   "SvgOptimizer": {
     "title": "Optimiseur SVG",
     "subtitle": "Minifiez le SVG avec SVGO et comparez les tailles",
     "inputLabel": "Entrée",
     "outputLabel": "Optimisé",
-    "placeholder": "Collez un extrait <svg>…</svg> ou un fichier complet…",
+    "placeholder": "Collez un extrait SVG ou un fichier complet…",
     "outputPlaceholder": "Le SVG optimisé apparaît ici…",
     "chars": "{count} caractères • {bytes} octets (UTF-8)",
     "preview": "Aperçu",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Convertisseur d’unités",
-    "subtitle": "Convertissez 323 unités dans 43 catégories",
+    "subtitle": "Convertissez 292 unités dans 44 catégories",
     "category": "Catégorie",
     "from": "De",
     "to": "Vers",
@@ -4088,6 +4163,9 @@
     "inputLabel": "Code",
     "detected": "Détecté : {language}",
     "clear": "Effacer",
+    "format": "Formater",
+    "formatUnsupported": "Le formatage n’est pas disponible pour ce langage",
+    "formatFailed": "Échec du formatage du code",
     "placeholder": "Collez votre code ici…",
     "previewLabel": "Aperçu",
     "emptyPreview": "L'aperçu de votre code apparaîtra ici",

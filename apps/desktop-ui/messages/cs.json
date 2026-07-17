@@ -80,68 +80,69 @@
   },
   "Help": {
     "title": "Nápověda a dokumentace",
-    "subtitle": "Jak MyDevTools funguje a jak jsou chráněna vaše data",
+    "subtitle": "Jak MyDevTools funguje offline a jak jsou chráněna vaše data",
     "tabs": {
       "overview": "Přehled",
       "apps": "Aplikace",
-      "security": "Bezpečnost",
+      "security": "Zabezpečení",
       "tips": "Tipy"
     },
     "overview": {
       "whatIs": {
         "title": "Co je MyDevTools?",
-        "description": "Vývojářský workspace s přihlášením: přehled a sada nástrojů pro každodenní práci.",
-        "p1": "Po přihlášení aplikace naváže relaci s MyDevTools API, aby nástroje mohly načítat a ukládat vaše data. Postranní panel zobrazuje všechny aplikace; nástroje, které nepoužíváte, můžete skrýt v",
+        "description": "Offline vývojářské prostředí: řídicí panel a více než 80 nástrojů, které běží zcela na vašem zařízení.",
+        "p1": "MyDevTools funguje plně offline. Po jednorázové aktivaci v prohlížeči vše funguje na tomto zařízení bez přihlašování k účtu a bez připojení k internetu. V postranním panelu jsou uvedeny všechny aplikace; nástroje, které nepoužíváte, můžete skrýt v sekci",
         "settingsLink": "Nastavení",
         "p1After": ".",
-        "p2": "Některé funkce používají <strong>hlavní heslo</strong> (nebo globální klíč trezoru), aby se tajné údaje jako hesla a connection stringy šifrovaly na vašem zařízení dříve, než dorazí na server."
+        "p2": "Některé funkce používají <strong>hlavní heslo</strong> (nebo globální klíč trezoru), aby byly tajné údaje jako hesla a připojovací řetězce k databázím zašifrovány na vašem zařízení. Vaše data jsou uložena v lokální šifrované databázi a nikdy nejsou odesílána na server."
       },
       "quickLinks": {
         "title": "Rychlé odkazy",
-        "dashboard": "Přehled",
+        "dashboard": "Řídicí panel",
         "settings": "Nastavení"
       }
     },
     "apps": {
-      "intro": "Otevřete libovolný nástroj z postranního panelu nebo přehledu. Níže je stručný průvodce pro každou aplikaci.",
+      "intro": "Otevřete jakýkoli nástroj z postranního panelu nebo řídicího panelu. Níže najdete stručného průvodce ke každé aplikaci.",
       "open": "Otevřít",
       "howItWorks": "Jak to funguje",
-      "generic": "Používejte tento nástroj z postranního panelu v jeho vyhrazeném pracovním postupu."
+      "generic": "Použijte tento nástroj z postranního panelu pro jeho vyhrazený pracovní postup."
     },
     "security": {
-      "session": {
-        "title": "Přihlášení a API relace",
-        "description": "Identita a jak prohlížeč komunikuje s backendem.",
+      "access": {
+        "title": "Aktivace a offline přístup",
+        "description": "Jak se aplikace poprvé odemkne a poté běží offline.",
         "items": {
-          "authentication": "<strong>Ověřování</strong> používá Firebase. Po přihlášení aplikace vymění váš Firebase ID token za API cookies.",
-          "accessTokens": "<strong>Přístupové tokeny</strong> jsou JWT podepsané na serveru (HS256) a dokazují, který uživatel volá API.",
-          "refreshTokens": "<strong>Obnovovací tokeny</strong> jsou uloženy v HttpOnly cookies; server ukládá SHA-256 hash tokenu, ne jeho surovou hodnotu."
+          "activation": "<strong>Jednorázová aktivace</strong> proběhne v prohlížeči při prvním otevření aplikace. Zaznamená váš plán a odemkne aplikaci na tomto zařízení.",
+          "offline": "<strong>Žádné přihlašovací relace.</strong> Po aktivaci není potřeba přihlašování při každé relaci ani pravidelné opětovné ověřování — aplikace funguje dál bez připojení k internetu.",
+          "storage": "<strong>Lokální úložiště.</strong> Všechna vaše data se nacházejí v šifrované databázi SQLCipher na vašem zařízení, zabezpečené náhodným klíčem uloženým v klíčence vašeho operačního systému."
         }
       },
       "encryption": {
-        "title": "Šifrování, které byste měli znát",
-        "description": "Kryptografie na straně klienta pro trezor a citlivé údaje o připojení.",
-        "p1": "Pro <strong>správce hesel</strong>, <strong>správce prostředí</strong> a uložená připojení v <strong>NoSQL Exploreru</strong> webová aplikace používá v prohlížeči <strong>Web Crypto API</strong>:",
+        "title": "Co byste měli vědět o šifrování",
+        "description": "Šifrování na straně klienta pro trezor a citlivé údaje o připojení.",
+        "p1": "Pro uložená připojení <strong>správce hesel</strong>, <strong>správce prostředí</strong> a <strong>NoSQL Explorer</strong> aplikace používá <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> s <strong>SHA-256</strong>, <strong>100 000</strong> iteracemi a náhodnou solí odvodí 256bitový klíč z hlavního hesla.",
-          "aes": "<strong>AES-256-GCM</strong> šifruje data; pro každé šifrování se používá náhodný <strong>12bajtový IV</strong>.",
-          "scope": "Odvozený klíč zůstává v prohlížeči (nelze exportovat). Server dostává pouze <strong>šifrotext a IV</strong>, nikoliv hlavní heslo ani tajná data v otevřené podobě."
+          "kdf": "<strong>PBKDF2</strong> s <strong>SHA-256</strong>, <strong>600,000</strong> iteracemi a náhodnou solí odvozuje 256bitový klíč z vašeho hlavního hesla.",
+          "aes": "<strong>AES-256-GCM</strong> šifruje data; při každém šifrování se používá náhodný <strong>12-byte IV</strong>.",
+          "scope": "Odvozený klíč zůstává v aplikaci (nelze jej exportovat) a vaše hlavní heslo nikdy neopustí vaše zařízení. Do lokální databáze se zapisuje pouze <strong>šifrový text a IVs</strong>."
         },
-        "warning": "Pokud zapomenete hlavní heslo, šifrovaná data nelze obnovit. Bezpečně si ho uložte."
+        "warning": "Pokud zapomenete hlavní heslo, šifrovaná data nelze obnovit. Uchovávejte je na bezpečném místě."
       },
-      "logout": {
-        "title": "Odhlášení a lokální data",
-        "body": "Odhlášení vymaže tajné údaje v paměti, stav trezoru a (pokud je to relevantní) materiál hlavního klíče z IndexedDB a ukončí API relaci. Data uložená pouze v lokálním úložišti zařízení mohou zůstat, dokud je nevymažete v prohlížeči."
+      "local": {
+        "title": "Uzamčení a lokální data",
+        "body": "Uzamčení trezoru vymaže tajné údaje a materiál hlavního klíče z paměti; vaše šifrovaná databáze zůstává na disku, dokud ji neodstraníte. Neexistuje odhlášení — vše smaže až resetování dat aplikace nebo odstranění aplikace, proto si dělejte vlastní zálohy všeho důležitého."
       }
     },
     "tips": {
       "title": "Bezpečné používání MyDevTools",
       "items": {
-        "masterPassword": "Používejte silné, jedinečné hlavní heslo pro funkce trezoru.",
-        "apiClient": "S API klientem zacházejte jako s běžným HTTP klientem: nevkládejte produkční tajemství do sdílených prostředí, pokud nevíte, kdo je může vidět.",
-        "nosql": "Průzkumník databází se připojuje k databázím, které nastavíte; používejte účty s minimálními právy a síťová pravidla, pokud je to možné.",
-        "json": "Formátovač JSON běží lokálně v prohlížeči—i tak se vyhněte vkládání velmi citlivých dat na sdílených počítačích.",
-        "settings": "Přizpůsobte viditelné nástroje v Nastavení, aby postranní panel zůstal přehledný."
+        "masterPassword": "Pro funkce trezoru používejte silné, jedinečné hlavní heslo.",
+        "backup": "Vaše data jsou pouze na tomto zařízení — pravidelně je exportujte nebo zálohujte, abyste o ně nepřišli při selhání zařízení.",
+        "apiClient": "K API Client přistupujte jako ke každému HTTP klientovi: nevkládejte produkční tajné údaje do sdílených prostředí, pokud nevíte, kdo je může vidět.",
+        "nosql": "Database Explorer se připojuje k databázím, které nakonfigurujete; pokud je to možné, používejte uživatele s minimálními oprávněními a síťová pravidla.",
+        "json": "JSON Formatter běží zcela na vašem zařízení — přesto se vyhněte vkládání vysoce citlivých dat na sdílených počítačích.",
+        "settings": "Přizpůsobte si viditelné nástroje v Nastavení, aby postranní panel zůstal přehledný."
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Navigace poznámek",
-      "openMenuAria": "Otevřít nabídku poznámek"
+      "openMenuAria": "Otevřít nabídku poznámek",
+      "showSidebarAria": "Zobrazit boční panel"
     },
     "sidebar": {
       "title": "Poznámky",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "Opravdu chcete smazat „{title}“? Tuto akci nelze vrátit.",
       "cancel": "Zrušit",
       "confirmDelete": "Smazat",
-      "noteOptionsAria": "Možnosti poznámky"
+      "noteOptionsAria": "Možnosti poznámky",
+      "hideSidebarAria": "Skrýt boční panel"
     },
     "editor": {
       "emptyState": "Vyberte poznámku nebo vytvořte novou.",
@@ -933,7 +936,8 @@
       "loading": "Načítání…",
       "searchHint": "pro vyhledávání",
       "focusHint": "režim soustředění",
-      "notePath": "Cesta poznámky"
+      "notePath": "Cesta poznámky",
+      "export": "Exportovat"
     },
     "context": {
       "authRequiredError": "Uživatel není přihlášen",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "Vložit JSON data",
       "pastePlaceholder": "[{\"service\": \"Příklad\", \"username\": \"uzivatel\", \"password\": \"123\", ...}]",
       "pasteHint": "Vložte obsah dříve exportovaného JSON souboru.",
+      "selectFile": "Vybrat soubor JSON",
       "importing": "Importování...",
       "importPasswords": "Importovat hesla",
       "trigger": "Import / export",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "Smazat složku „{name}“?",
       "deleteFolderDescription": "Smaže složku a všechny podsložky. Záložky budou přesunuty do Bez kategorie."
     },
+    "foldersHeading": "Složky",
     "import": {
       "title": "Import záložek",
       "description": "Import záložek z exportovaného souboru prohlížeče.",
@@ -1495,19 +1501,27 @@
       "updateConnect": "Aktualizovat a připojit",
       "connect": "Připojit",
       "cancelEdit": "Zrušit úpravy",
+      "cancel": "Zrušit",
       "savedConnections": "Uložená připojení",
       "emptySaved": "Zatím žádná uložená připojení.",
       "lastUsed": "Naposledy {time}",
       "toastTestOk": "Připojení úspěšné!",
       "toastTestFail": "Připojení selhalo: {message}",
+      "toastConnectFail": "Připojení k {name} se nezdařilo",
       "toastUpdated": "Připojení aktualizováno",
       "confirmDelete": "Opravdu chcete smazat toto uložené připojení?",
+      "menuDeleteConnection": "Smazat připojení",
       "toastDeletedConn": "Připojení smazáno",
       "toastDeleteFail": "Smazání připojení se nezdařilo",
       "copyStringTitle": "Kopírovat connection string",
       "toastStringCopied": "Connection string zkopírován!",
       "editTitle": "Upravit",
-      "deleteTitle": "Smazat"
+      "deleteTitle": "Smazat",
+      "labelColor": "Barevný štítek",
+      "colorNone": "Bez barvy",
+      "hintColor": "Označte prostředí — např. červenou pro produkci.",
+      "labelReadOnly": "Připojení jen ke čtení",
+      "hintReadOnly": "Blokuje vkládání, úpravy, mazání a drop operace pro toto připojení."
     },
     "sidebar": {
       "explorer": "Průzkumník",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Jen ke čtení",
+      "cellUpdated": "Hodnota aktualizována",
+      "cellUpdateFail": "Hodnotu se nepodařilo aktualizovat",
+      "cellFilterByValue": "Filtrovat podle této hodnoty",
+      "cellExcludeValue": "Vyloučit tuto hodnotu",
+      "cellSortAsc": "Seřadit vzestupně",
+      "cellSortDesc": "Seřadit sestupně",
+      "cellCopyValue": "Kopírovat hodnotu",
+      "cellEditValue": "Upravit hodnotu",
+      "explainTitle": "Plán provedení",
+      "explainLoading": "Probíhá explain…",
+      "explainFail": "Explain se nezdařil",
+      "explainCollscan": "Úplné skenání kolekce",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} vráceno",
+      "explainDocsExamined": "{n} prozkoumáno",
+      "explainCollscanHint": "Tento dotaz prochází každý dokument v kolekci. Zvažte vytvoření indexu na filtrovaných polích.",
+      "explainRawLabel": "Výstup explain"
     },
     "tabs": {
       "filterActive": "Aktivní filtr",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group (počet/součet)",
       "format": "Formátovat",
       "formattedJson": "Formátovaný JSON",
-      "runQuery": "Spustit dotaz"
+      "runQuery": "Spustit dotaz",
+      "savedQueries": "Uložené dotazy",
+      "noHistory": "Žádné nedávné dotazy",
+      "saveNamePlaceholder": "Název dotazu",
+      "saveCurrentQuery": "Uložit aktuální dotaz",
+      "save": "Uložit",
+      "saveQueryFail": "Dotaz se nepodařilo uložit",
+      "querySaved": "„{name}“ uloženo",
+      "explainQuery": "Vysvětlit dotaz",
+      "stagesMode": "Fáze",
+      "invalidStageJson": "Fáze pipeline obsahuje neplatný JSON"
     },
     "export": {
       "selectFieldsError": "Vyberte alespoň jedno pole k exportu",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# pole vybráno} few {# pole vybrána} many {# polí vybráno} other {# polí vybráno}}",
       "cancel": "Zrušit",
       "export": "Export",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Typ: {type}",
       "itemSummary": "{count, plural, one {# položka} few {# položky} many {# položek} other {# položek}}"
+    },
+    "pipeline": {
+      "empty": "Zatím žádné fáze. Přidejte fázi a sestavte pipeline.",
+      "addStage": "Přidat fázi",
+      "stageEnabled": "Fáze povolena",
+      "preview": "Náhled",
+      "previewToHere": "Spustit pipeline po tuto fázi (prvních 10 dokumentů)",
+      "previewResult": "Výsledky náhledu ({count})",
+      "previewEmpty": "V této fázi nejsou žádné dokumenty",
+      "previewFail": "Náhled se nezdařil"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Generátor testovacích dat",
     "subtitle": "Definujte typované sloupce — export až {max} řádků",
-    "mockarooLink": "Postup jako v Mockaroo",
     "rowsLabel": "Řádky",
     "rowsHint": "Nejvýše {max} řádků na generování, aby karta zůstala svižná.",
     "formatLabel": "Formát",
@@ -3482,7 +3534,8 @@
       "numbersIds": "Čísla a identifikátory",
       "dateTime": "Datum a čas",
       "textDesign": "Text a vzhled",
-      "custom": "Vlastní"
+      "custom": "Vlastní",
+      "commerce": "Obchod"
     },
     "fieldTypes": {
       "first_name": "Jméno",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Kód měny",
       "language_code": "Jazyková značka",
-      "custom_list": "Vlastní seznam"
+      "custom_list": "Vlastní seznam",
+      "gender": "Pohlaví",
+      "us_state": "Stát USA",
+      "us_state_abbr": "Stát USA (zkr.)",
+      "user_agent": "User agent",
+      "mime_type": "Typ MIME",
+      "file_name": "Název souboru",
+      "port": "Port",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Čas",
+      "weekday": "Den v týdnu",
+      "month": "Měsíc",
+      "product_name": "Název produktu",
+      "product_category": "Kategorie produktu",
+      "department": "Oddělení",
+      "color_name": "Název barvy",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importovat schéma",
+    "exportSchema": "Exportovat schéma",
+    "importSchemaError": "Neplatný soubor schématu — očekává se JSON pole sloupců { name, type }."
   },
   "SvgOptimizer": {
     "title": "Optimalizátor SVG",
     "subtitle": "Minifikujte SVG pomocí SVGO a porovnejte velikosti",
     "inputLabel": "Vstup",
     "outputLabel": "Optimalizováno",
-    "placeholder": "Vložte úryvek <svg>…</svg> nebo celý soubor…",
+    "placeholder": "Vložte úryvek SVG nebo celý soubor…",
     "outputPlaceholder": "Optimalizované SVG se zobrazí zde…",
     "chars": "{count} znaků • {bytes} bajtů (UTF-8)",
     "preview": "Náhled",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Převodník jednotek",
-    "subtitle": "Převádějte 323 jednotek ve 43 kategoriích",
+    "subtitle": "Převádějte 292 jednotek ve 44 kategoriích",
     "category": "Kategorie",
     "from": "Z",
     "to": "Na",
@@ -4088,6 +4163,9 @@
     "inputLabel": "Kód",
     "detected": "Detekováno: {language}",
     "clear": "Vymazat",
+    "format": "Formátovat",
+    "formatUnsupported": "Formátování není pro tento jazyk k dispozici",
+    "formatFailed": "Kód se nepodařilo naformátovat",
     "placeholder": "Vložte sem svůj kód…",
     "previewLabel": "Náhled",
     "emptyPreview": "Náhled vašeho kódu se zobrazí zde",

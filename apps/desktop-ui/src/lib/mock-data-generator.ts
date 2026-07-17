@@ -1,13 +1,19 @@
 export type FieldType =
   | 'first_name' | 'last_name' | 'full_name' | 'email' | 'username' | 'password'
-  | 'phone' | 'company' | 'job_title'
+  | 'phone' | 'company' | 'job_title' | 'gender'
   | 'city' | 'country' | 'country_code' | 'street_address' | 'zip_code' | 'latitude' | 'longitude'
+  | 'us_state' | 'us_state_abbr'
   | 'url' | 'domain' | 'ip_address' | 'ipv6' | 'mac_address'
+  | 'user_agent' | 'mime_type' | 'file_name' | 'port'
   | 'uuid' | 'boolean' | 'integer' | 'float'
+  | 'md5' | 'sha256' | 'nanoid' | 'isbn'
   | 'date' | 'datetime' | 'unix_timestamp'
+  | 'time' | 'weekday' | 'month'
   | 'word' | 'sentence' | 'paragraph' | 'hex_color' | 'rgb_color' | 'currency_code'
+  | 'color_name' | 'catch_phrase'
   | 'credit_card' | 'http_method' | 'http_status' | 'semver' | 'slug'
   | 'language_code' | 'timezone' | 'avatar_url'
+  | 'product_name' | 'product_category' | 'department'
   | 'row_index' | 'sequence'
   | 'custom_list'
 
@@ -69,36 +75,44 @@ export const FIELD_TYPE_GROUP_STRUCTURE: { groupKey: string; types: FieldType[] 
   {
     groupKey: 'personal',
     types: [
-      'first_name', 'last_name', 'full_name', 'email', 'username', 'password',
+      'first_name', 'last_name', 'full_name', 'gender', 'email', 'username', 'password',
       'phone', 'company', 'job_title', 'avatar_url',
     ],
   },
   {
     groupKey: 'location',
     types: [
-      'city', 'country', 'country_code', 'street_address', 'zip_code', 'latitude', 'longitude',
+      'city', 'country', 'country_code', 'us_state', 'us_state_abbr',
+      'street_address', 'zip_code', 'latitude', 'longitude',
     ],
   },
   {
     groupKey: 'internetApi',
     types: [
-      'url', 'domain', 'ip_address', 'ipv6', 'mac_address', 'http_method', 'http_status',
+      'url', 'domain', 'ip_address', 'ipv6', 'mac_address', 'port', 'user_agent',
+      'mime_type', 'file_name', 'http_method', 'http_status',
     ],
   },
   {
     groupKey: 'numbersIds',
     types: [
-      'integer', 'float', 'boolean', 'uuid', 'credit_card', 'semver', 'row_index', 'sequence',
+      'integer', 'float', 'boolean', 'uuid', 'nanoid', 'md5', 'sha256', 'isbn',
+      'credit_card', 'semver', 'row_index', 'sequence',
     ],
   },
   {
     groupKey: 'dateTime',
-    types: ['date', 'datetime', 'unix_timestamp', 'timezone'],
+    types: ['date', 'datetime', 'time', 'unix_timestamp', 'weekday', 'month', 'timezone'],
+  },
+  {
+    groupKey: 'commerce',
+    types: ['product_name', 'product_category', 'department'],
   },
   {
     groupKey: 'textDesign',
     types: [
-      'word', 'sentence', 'paragraph', 'slug', 'hex_color', 'rgb_color', 'currency_code', 'language_code',
+      'word', 'sentence', 'paragraph', 'catch_phrase', 'slug', 'hex_color', 'rgb_color',
+      'color_name', 'currency_code', 'language_code',
     ],
   },
   {
@@ -241,6 +255,107 @@ const TIMEZONES = [
 ]
 
 const LANGUAGE_TAGS = ['en', 'en-US', 'en-GB', 'de-DE', 'fr-FR', 'es-ES', 'ja-JP', 'pt-BR', 'zh-Hans', 'ko-KR']
+
+const GENDERS = ['Male', 'Female', 'Non-binary']
+
+const US_STATES = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
+  'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+  'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+  'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+  'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
+]
+
+const US_STATE_ABBRS = [
+  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+  'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+  'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+  'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+  'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
+]
+
+const USER_AGENTS = [
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0',
+  'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1',
+  'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36',
+  'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0',
+  'curl/8.6.0',
+  'PostmanRuntime/7.39.0',
+]
+
+const MIME_TYPES = [
+  'application/json', 'application/xml', 'application/pdf', 'application/zip', 'application/octet-stream',
+  'application/x-www-form-urlencoded', 'application/javascript', 'text/html', 'text/plain', 'text/css',
+  'text/csv', 'text/markdown', 'image/png', 'image/jpeg', 'image/svg+xml', 'image/webp', 'image/gif',
+  'audio/mpeg', 'video/mp4', 'multipart/form-data',
+]
+
+const FILE_EXTENSIONS = [
+  'pdf', 'docx', 'xlsx', 'csv', 'json', 'xml', 'txt', 'md', 'png', 'jpg',
+  'svg', 'zip', 'tar.gz', 'mp4', 'mp3', 'log', 'sql', 'yaml',
+]
+
+const WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
+const PRODUCT_ADJECTIVES = [
+  'Ergonomic', 'Rustic', 'Sleek', 'Incredible', 'Practical', 'Handcrafted', 'Refined', 'Modern',
+  'Luxurious', 'Compact', 'Durable', 'Lightweight', 'Premium', 'Classic', 'Portable', 'Smart',
+]
+
+const PRODUCT_MATERIALS = [
+  'Steel', 'Wooden', 'Cotton', 'Plastic', 'Granite', 'Leather', 'Ceramic', 'Bamboo',
+  'Aluminum', 'Glass', 'Wool', 'Carbon', 'Titanium', 'Linen',
+]
+
+const PRODUCT_NOUNS = [
+  'Chair', 'Table', 'Lamp', 'Keyboard', 'Mouse', 'Bottle', 'Backpack', 'Watch',
+  'Speaker', 'Wallet', 'Desk', 'Headphones', 'Notebook', 'Mug', 'Stand', 'Charger',
+]
+
+const PRODUCT_CATEGORIES = [
+  'Electronics', 'Home & Kitchen', 'Clothing', 'Sports & Outdoors', 'Books', 'Toys & Games',
+  'Beauty', 'Health', 'Automotive', 'Garden', 'Office Supplies', 'Pet Supplies',
+  'Grocery', 'Jewelry', 'Footwear', 'Furniture', 'Music', 'Baby', 'Tools', 'Software',
+]
+
+const DEPARTMENTS = [
+  'Engineering', 'Marketing', 'Sales', 'Human Resources', 'Finance', 'Operations',
+  'Customer Support', 'Legal', 'Product', 'Design', 'IT', 'Research & Development',
+  'Procurement', 'Quality Assurance', 'Business Development',
+]
+
+const COLOR_NAMES = [
+  'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'Purple', 'Pink', 'Brown',
+  'Black', 'White', 'Gray', 'Cyan', 'Magenta', 'Teal', 'Maroon', 'Navy', 'Olive', 'Lime',
+  'Coral', 'Turquoise', 'Salmon', 'Khaki', 'Crimson', 'Lavender', 'Beige', 'Ivory', 'Gold', 'Silver',
+]
+
+const CATCH_VERBS = [
+  'streamline', 'empower', 'optimize', 'transform', 'leverage', 'orchestrate', 'unlock',
+  'accelerate', 'reinvent', 'harness', 'scale', 'automate',
+]
+
+const CATCH_ADJECTIVES = [
+  'scalable', 'seamless', 'next-generation', 'robust', 'intuitive', 'end-to-end',
+  'cloud-ready', 'mission-critical', 'frictionless', 'data-driven', 'turn-key', 'best-in-class',
+]
+
+const CATCH_NOUNS = [
+  'workflows', 'solutions', 'platforms', 'ecosystems', 'pipelines', 'experiences',
+  'infrastructures', 'architectures', 'deliverables', 'synergies', 'paradigms', 'integrations',
+]
+
+/** nanoid default alphabet (A-Za-z0-9_-). */
+const NANOID_ALPHABET = 'useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict'
 
 /** Test PANs only — safe for fixtures (not real cards). */
 const TEST_CREDIT_CARDS = [
@@ -467,6 +582,55 @@ function genCustomList(values: string): string {
   return list.length > 0 ? pick(list) : ''
 }
 
+function genGender(): string { return pick(GENDERS) }
+function genUsState(): string { return pick(US_STATES) }
+function genUsStateAbbr(): string { return pick(US_STATE_ABBRS) }
+function genUserAgent(): string { return pick(USER_AGENTS) }
+function genMimeType(): string { return pick(MIME_TYPES) }
+
+function genFileName(): string {
+  return `${pick(LOREM_WORDS)}_${pick(LOREM_WORDS)}.${pick(FILE_EXTENSIONS)}`
+}
+
+function genPort(): number { return rand(1024, 65535) }
+
+function genHex(length: number): string {
+  return Array.from({ length }, () => rand(0, 15).toString(16)).join('')
+}
+
+function genNanoid(): string {
+  return Array.from({ length: 21 }, () => NANOID_ALPHABET[rand(0, NANOID_ALPHABET.length - 1)]).join('')
+}
+
+/** ISBN-13 with valid check digit, 978 prefix. */
+function genIsbn(): string {
+  const digits = [9, 7, 8, ...Array.from({ length: 9 }, () => rand(0, 9))]
+  const sum = digits.reduce((acc, d, i) => acc + d * (i % 2 === 0 ? 1 : 3), 0)
+  const check = (10 - (sum % 10)) % 10
+  return `${digits.slice(0, 3).join('')}-${digits.slice(3, 4).join('')}-${digits.slice(4, 9).join('')}-${digits.slice(9).join('')}-${check}`
+}
+
+function genTime(): string {
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${p(rand(0, 23))}:${p(rand(0, 59))}:${p(rand(0, 59))}`
+}
+
+function genWeekday(): string { return pick(WEEKDAYS) }
+function genMonth(): string { return pick(MONTHS) }
+
+function genProductName(): string {
+  return `${pick(PRODUCT_ADJECTIVES)} ${pick(PRODUCT_MATERIALS)} ${pick(PRODUCT_NOUNS)}`
+}
+
+function genProductCategory(): string { return pick(PRODUCT_CATEGORIES) }
+function genDepartment(): string { return pick(DEPARTMENTS) }
+function genColorName(): string { return pick(COLOR_NAMES) }
+
+function genCatchPhrase(): string {
+  const verb = pick(CATCH_VERBS)
+  return `${verb.charAt(0).toUpperCase()}${verb.slice(1)} ${pick(CATCH_ADJECTIVES)} ${pick(CATCH_NOUNS)}`
+}
+
 // ─── Core ─────────────────────────────────────────────────────────────────────
 
 function generateValue(field: FieldSchema, rowIndex: number): unknown {
@@ -516,6 +680,25 @@ function generateValue(field: FieldSchema, rowIndex: number): unknown {
     case 'language_code':   return genLanguageCode()
     case 'timezone':        return genTimezone()
     case 'avatar_url':      return genAvatarUrl()
+    case 'gender':          return genGender()
+    case 'us_state':        return genUsState()
+    case 'us_state_abbr':   return genUsStateAbbr()
+    case 'user_agent':      return genUserAgent()
+    case 'mime_type':       return genMimeType()
+    case 'file_name':       return genFileName()
+    case 'port':            return genPort()
+    case 'md5':             return genHex(32)
+    case 'sha256':          return genHex(64)
+    case 'nanoid':          return genNanoid()
+    case 'isbn':            return genIsbn()
+    case 'time':            return genTime()
+    case 'weekday':         return genWeekday()
+    case 'month':           return genMonth()
+    case 'product_name':    return genProductName()
+    case 'product_category': return genProductCategory()
+    case 'department':      return genDepartment()
+    case 'color_name':      return genColorName()
+    case 'catch_phrase':    return genCatchPhrase()
     case 'row_index':       return rowIndex + (opts.rowIndexBase ?? 1)
     case 'sequence':        return (opts.min ?? 1) + rowIndex * (opts.step ?? 1)
     case 'custom_list':     return genCustomList(opts.values ?? '')

@@ -23,6 +23,7 @@ import ruby from 'highlight.js/lib/languages/ruby'
 import kotlin from 'highlight.js/lib/languages/kotlin'
 import swift from 'highlight.js/lib/languages/swift'
 import plaintext from 'highlight.js/lib/languages/plaintext'
+import { beautify, type BeautifyLang } from '@/lib/beautify-minify'
 
 export interface CodeLanguage {
   /** highlight.js language id */
@@ -128,6 +129,50 @@ export function highlightCode(code: string, lang: string): HighlightResult {
   } catch {
     return { html: escapeHtml(code), language: 'plaintext' }
   }
+}
+
+/* ------------------------------ formatting ------------------------------- */
+
+/** Map a highlight.js language id to the beautifier that can format it. */
+const FORMATTER_LANG: Record<string, BeautifyLang> = {
+  javascript: 'js',
+  typescript: 'js',
+  json: 'json',
+  css: 'css',
+  xml: 'html',
+}
+
+/** Languages `formatCode` can format ('sql' via sql-formatter, rest via beautify). */
+export function canFormat(lang: string): boolean {
+  return lang === 'sql' || lang in FORMATTER_LANG
+}
+
+export interface FormatResult {
+  output: string
+  error: string | null
+}
+
+/**
+ * Format `code` for `lang` (a highlight.js id; resolve 'auto' to the detected
+ * language before calling). Unsupported languages return the input unchanged
+ * with an error. Never throws.
+ */
+export async function formatCode(code: string, lang: string): Promise<FormatResult> {
+  if (!code.trim()) return { output: code, error: null }
+  if (lang === 'sql') {
+    try {
+      const { format } = await import('sql-formatter')
+      return { output: format(code, { language: 'sql', tabWidth: 2 }), error: null }
+    } catch (e) {
+      return { output: code, error: e instanceof Error ? e.message : 'Format failed' }
+    }
+  }
+  const target = FORMATTER_LANG[lang]
+  if (!target) return { output: code, error: 'unsupported' }
+  const res = beautify(code, target, 2)
+  return res.error || !res.output
+    ? { output: code, error: res.error ?? 'Format failed' }
+    : { output: res.output, error: null }
 }
 
 /* ------------------------------ backgrounds ------------------------------ */

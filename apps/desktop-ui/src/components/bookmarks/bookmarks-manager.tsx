@@ -191,7 +191,7 @@ export default function BookmarksManager() {
         <div className="flex h-full w-full overflow-hidden bg-background mobile-nav-offset">
             {/* Sidebar */}
             <AnimatePresence mode="wait">
-                {(showSidebar || !isMobile) && (
+                {showSidebar && (
                     <>
                         {/* Mobile backdrop overlay */}
                         {isMobile && (
@@ -228,16 +228,14 @@ export default function BookmarksManager() {
                                     >
                                         <IconFolderPlus className="h-4.5 w-4.5" />
                                     </Button>
-                                    {isMobile && (
-                                        <Button
-                                            variant="ghost"
-                                            size="icon"
-                                            className="h-8 w-8"
-                                            onClick={() => setShowSidebar(false)}
-                                        >
-                                            <IconX className="h-4 w-4" />
-                                        </Button>
-                                    )}
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="h-8 w-8"
+                                        onClick={() => setShowSidebar(false)}
+                                    >
+                                        <IconX className="h-4 w-4" />
+                                    </Button>
                                 </div>
                             </div>
 
@@ -288,8 +286,8 @@ export default function BookmarksManager() {
             <div className="flex-1 flex flex-col min-h-0 bg-background">
                 {/* Toolbar - Fixed height, not scrollable */}
                 <div className="shrink-0 h-16 px-4 border-b border-border/40 flex items-center gap-4 bg-background/80 backdrop-blur-md z-10">
-                    {/* Mobile Menu Button */}
-                    {isMobile && (
+                    {/* Sidebar Toggle — shows whenever sidebar collapsed */}
+                    {!showSidebar && (
                         <Button
                             variant="ghost"
                             size="icon"
@@ -356,16 +354,7 @@ export default function BookmarksManager() {
 
                         <Separator orientation="vertical" className="h-6 mx-1" />
 
-                        <Button
-                            variant={selectionMode ? "secondary" : "ghost"}
-                            size="sm"
-                            className="h-9"
-                            onClick={() => setSelectionMode((prev) => !prev)}
-                        >
-                            <IconCheck className="h-4 w-4 mr-2" />
-                            {selectionMode ? "Done" : "Select"}
-                        </Button>
-                        {selectionMode && (
+                        {selectionMode ? (
                             <>
                                 <Button variant="ghost" size="sm" className="h-9" onClick={selectAllVisible}>
                                     Select all
@@ -383,37 +372,39 @@ export default function BookmarksManager() {
                                     <IconTrash className="h-4 w-4 mr-2" />
                                     Delete ({selectedBookmarkIds.size})
                                 </Button>
-                            </>
-                        )}
-
-                        {/* Import */}
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-9 hover:bg-muted/60"
-                            onClick={() => setIsImportOpen(true)}
-                        >
-                            <IconUpload className="h-4 w-4 mr-2 text-muted-foreground" />
-                            {t("import")}
-                        </Button>
-
-                        {/* Export */}
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="sm" className="h-9 hover:bg-muted/60">
-                                    <IconDownload className="h-4 w-4 mr-2 text-muted-foreground" />
-                                    {t("export")}
+                                <Button variant="secondary" size="sm" className="h-9" onClick={() => setSelectionMode(false)}>
+                                    <IconCheck className="h-4 w-4 mr-2" />
+                                    Done
                                 </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                <DropdownMenuItem onClick={handleExportHTML}>
-                                    {t("exportAsHtml")}
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onClick={handleExportJSON}>
-                                    {t("exportAsJson")}
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                            </>
+                        ) : (
+                            /* Select / Import / Export live in one overflow menu to keep the toolbar quiet */
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" size="icon" className="h-9 w-9">
+                                        <IconDotsVertical className="h-4 w-4" />
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end" className="w-48">
+                                    <DropdownMenuItem onClick={() => setSelectionMode(true)}>
+                                        <IconCheck className="h-4 w-4 mr-2" />
+                                        Select bookmarks
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setIsImportOpen(true)}>
+                                        <IconUpload className="h-4 w-4 mr-2" />
+                                        {t("import")}
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={handleExportHTML}>
+                                        <IconDownload className="h-4 w-4 mr-2" />
+                                        {t("exportAsHtml")}
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={handleExportJSON}>
+                                        <IconDownload className="h-4 w-4 mr-2" />
+                                        {t("exportAsJson")}
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        )}
 
                         {/* Add Bookmark */}
                         <Button onClick={() => setIsAddBookmarkOpen(true)} className="ml-2 shadow-sm">
@@ -526,6 +517,8 @@ export default function BookmarksManager() {
                             selectedBookmarkIds={selectedBookmarkIds}
                             onToggleSelect={toggleBookmarkSelected}
                             onTagClick={(tag) => setSearchQuery(`#${tag}`)}
+                            onAdd={!searchQuery ? () => setIsAddBookmarkOpen(true) : undefined}
+                            onImport={!searchQuery ? () => setIsImportOpen(true) : undefined}
                         />
                         {bmHasMore && (
                             <div className="space-y-4">

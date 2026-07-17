@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "ヘルプとドキュメント",
-    "subtitle": "MyDevToolsの仕組みとデータ保護の概要",
+    "subtitle": "MyDevTools がオフラインで動作する仕組みと、データが保護される方法",
     "tabs": {
       "overview": "概要",
       "apps": "アプリ",
@@ -90,11 +90,11 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools とは？",
-        "description": "ログインして使う開発者向けワークスペース。ダッシュボードと日常ツール群を提供します。",
-        "p1": "ログイン後、アプリは MyDevTools API とセッションを確立し、各ツールがデータを読み書きできるようにします。サイドバーにはすべてのアプリが表示され、使わないツールは",
+        "description": "オフラインの開発者ワークスペース。ダッシュボードと、すべてデバイス上で動作する 80 以上のツールを備えています。",
+        "p1": "MyDevTools は完全にオフラインで動作します。ブラウザで一度アクティベーションを行えば、アカウントへのログインもインターネット接続も不要で、すべてがこのデバイス上で動作します。サイドバーにはすべてのアプリが表示されます。使わないツールは",
         "settingsLink": "設定",
-        "p1After": "で非表示にできます。",
-        "p2": "一部の機能では <strong>マスターパスワード</strong>（またはグローバルなボールトキー）を使用し、パスワードや接続文字列などの機密情報をサーバーに送る前に端末内で暗号化します。"
+        "p1After": "から非表示にできます。",
+        "p2": "一部の機能では<strong>マスターパスワード</strong>（またはグローバルボルトキー）を使用し、パスワードやデータベース接続文字列などの機密情報をデバイス上で暗号化します。データはローカルの暗号化データベースに保存され、サーバーへ送信されることは一切ありません。"
       },
       "quickLinks": {
         "title": "クイックリンク",
@@ -106,42 +106,43 @@
       "intro": "サイドバーまたはダッシュボードから任意のツールを開けます。以下は各アプリの簡単なガイドです。",
       "open": "開く",
       "howItWorks": "仕組み",
-      "generic": "このツールはサイドバーから開いて専用のワークフローで使用してください。"
+      "generic": "このツールはサイドバーから開き、専用のワークフローで利用してください。"
     },
     "security": {
-      "session": {
-        "title": "ログインと API セッション",
-        "description": "認証とブラウザがバックエンドと通信する仕組み。",
+      "access": {
+        "title": "アクティベーションとオフラインアクセス",
+        "description": "アプリが初回に解除される仕組みと、その後オフラインで動作する方法。",
         "items": {
-          "authentication": "<strong>認証</strong>は Firebase を使用します。ログイン後、Firebase の ID トークンを API の Cookie に交換します。",
-          "accessTokens": "<strong>アクセストークン</strong>はサーバーで署名された JWT（HS256）で、API を呼び出すユーザーを証明します。",
-          "refreshTokens": "<strong>リフレッシュトークン</strong>は HttpOnly Cookie に保存され、サーバー側にはトークンそのものではなく SHA-256 ハッシュが保存されます。"
+          "activation": "アプリを初めて開くとき、ブラウザで<strong>一度限りのアクティベーション</strong>が行われます。これによりプランが記録され、このデバイス上でアプリのロックが解除されます。",
+          "offline": "<strong>ログインセッションはありません。</strong>アクティベーション後は、セッションごとのサインインも定期的な再チェックもありません。アプリはインターネット接続なしで動作し続けます。",
+          "storage": "<strong>ローカルストレージ。</strong>すべてのデータはデバイス上の暗号化された SQLCipher データベースに保存され、オペレーティングシステムのキーチェーンに保持されたランダムキーで暗号化されます。"
         }
       },
       "encryption": {
-        "title": "知っておくべき暗号化",
-        "description": "ボールトや機密の接続データのためのクライアント側暗号化。",
-        "p1": "<strong>パスワードマネージャー</strong>、<strong>環境変数マネージャー</strong>、<strong>NoSQL Explorer</strong> の保存接続では、ブラウザの <strong>Web Crypto API</strong> を使用します:",
+        "title": "知っておくべき暗号化について",
+        "description": "ボルトおよび機密性の高い接続データ向けのクライアントサイド暗号化。",
+        "p1": "<strong>パスワードマネージャー</strong>、<strong>環境変数マネージャー</strong>、および <strong>NoSQL Explorer</strong> で保存された接続情報について、アプリは <strong>Web Crypto API</strong> を使用します：",
         "items": {
-          "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 回、ランダム salt）でマスターパスワードから 256-bit キーを導出します。",
-          "aes": "<strong>AES-256-GCM</strong> で暗号化し、暗号化ごとにランダムな <strong>12 バイト IV</strong> を使用します。",
-          "scope": "導出キーはブラウザ内に保持され（取り出し不可）、サーバーに送られるのは <strong>暗号文と IV</strong> のみです。マスターパスワードや平文の秘密は送信されません。"
+          "kdf": "<strong>PBKDF2</strong> を <strong>SHA-256</strong>、<strong>600,000</strong> 回の反復、およびランダムなソルトと組み合わせて、マスターパスワードから 256-bit のキーを導出します。",
+          "aes": "<strong>AES-256-GCM</strong> がペイロードを暗号化します。暗号化ごとにランダムな <strong>12-byte IV</strong> が使用されます。",
+          "scope": "導出されたキーはアプリ内に留まり（エクスポート不可）、マスターパスワードがデバイスから外に出ることはありません。ローカルデータベースに書き込まれるのは<strong>暗号文と IVs</strong> のみです。"
         },
-        "warning": "マスターパスワードを忘れると暗号化されたデータは復元できません。安全に保管してください。"
+        "warning": "マスターパスワードを忘れると、暗号化されたデータは復元できません。安全に保管してください。"
       },
-      "logout": {
-        "title": "ログアウトとローカルデータ",
-        "body": "ログアウト時にメモリ上の機密情報、ボールト状態、（該当する場合）IndexedDB 上のマスターキー素材を消去し、API セッションを終了します。端末のローカルストレージのみに残るデータは、ブラウザで削除するまで残る場合があります。"
+      "local": {
+        "title": "ロックとローカルデータ",
+        "body": "ボルトをロックすると、メモリ上の機密情報とマスターキーの素材がクリアされます。暗号化されたデータベースは、削除するまでディスク上に残ります。サインアウトという概念はありません。アプリデータをリセットするか、アプリを削除することですべてがクリアされるため、重要なものは必ずご自身でバックアップを取ってください。"
       }
     },
     "tips": {
-      "title": "安全に使うためのヒント",
+      "title": "MyDevTools を安全に使う",
       "items": {
-        "masterPassword": "ボールト機能には強力で一意なマスターパスワードを使用してください。",
-        "apiClient": "API クライアントは通常の HTTP クライアントと同様に扱い、共有環境では本番のシークレットを貼り付けないようにしてください。",
-        "nosql": "データベースエクスプローラーはあなたが設定した DB に接続します。可能なら最小権限ユーザーとネットワーク制限を使ってください。",
-        "json": "JSON フォーマッターはブラウザ内で処理されますが、共有端末では機密情報の貼り付けを避けてください。",
-        "settings": "設定で表示ツールをカスタマイズしてサイドバーを整理できます。"
+        "masterPassword": "ボルト機能には、強力で固有のマスターパスワードを使用してください。",
+        "backup": "データはこのデバイスにのみ保存されます。デバイスの故障で失わないよう、定期的にエクスポートまたはバックアップしてください。",
+        "apiClient": "API Client は他の HTTP クライアントと同様に扱ってください。誰が閲覧できるかを理解していない限り、本番環境の機密情報を共有環境に貼り付けないようにしましょう。",
+        "nosql": "Database Explorer は設定したデータベースに接続します。可能な限り最小権限のユーザーとネットワークルールを使用してください。",
+        "json": "JSON Formatter は完全にデバイス上で動作しますが、それでも共有マシンでは機密性の高いデータの貼り付けは避けてください。",
+        "settings": "設定で表示するツールをカスタマイズし、サイドバーをすっきりと保ちましょう。"
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "ノートナビゲーション",
-      "openMenuAria": "ノートメニューを開く"
+      "openMenuAria": "ノートメニューを開く",
+      "showSidebarAria": "サイドバーを表示"
     },
     "sidebar": {
       "title": "ノート",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "「{title}」を削除してもよろしいですか？この操作は取り消せません。",
       "cancel": "キャンセル",
       "confirmDelete": "削除",
-      "noteOptionsAria": "ノートオプション"
+      "noteOptionsAria": "ノートオプション",
+      "hideSidebarAria": "サイドバーを非表示"
     },
     "editor": {
       "emptyState": "ノートを選択するか、新しいノートを作成してください。",
@@ -933,7 +936,8 @@
       "loading": "読み込み中…",
       "searchHint": "で検索",
       "focusHint": "集中モード",
-      "notePath": "ノートのパス"
+      "notePath": "ノートのパス",
+      "export": "エクスポート"
     },
     "context": {
       "authRequiredError": "ユーザーが認証されていません",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "JSONデータを貼り付け",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "以前にエクスポートしたJSONファイルの内容をここに貼り付けてください。",
+      "selectFile": "JSONファイルを選択",
       "importing": "インポート中...",
       "importPasswords": "パスワードをインポート",
       "trigger": "インポート / エクスポート",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "フォルダー「{name}」を削除しますか？",
       "deleteFolderDescription": "このフォルダーとすべてのサブフォルダーが削除されます。これらのフォルダー内のブックマークは未分類に移動されます。"
     },
+    "foldersHeading": "フォルダー",
     "import": {
       "title": "ブックマークをインポート",
       "description": "ブラウザからエクスポートしたファイルからブックマークをインポートします。",
@@ -1495,19 +1501,27 @@
       "updateConnect": "更新して接続",
       "connect": "接続",
       "cancelEdit": "編集をキャンセル",
+      "cancel": "キャンセル",
       "savedConnections": "保存済み接続",
       "emptySaved": "保存済みの接続はまだありません。",
       "lastUsed": "最終使用：{time}",
       "toastTestOk": "接続に成功しました！",
       "toastTestFail": "接続に失敗しました：{message}",
+      "toastConnectFail": "{name} への接続に失敗しました",
       "toastUpdated": "接続を更新しました",
       "confirmDelete": "この保存済み接続を削除してもよろしいですか？",
+      "menuDeleteConnection": "接続を削除",
       "toastDeletedConn": "接続を削除しました",
       "toastDeleteFail": "接続の削除に失敗しました",
       "copyStringTitle": "接続文字列をコピー",
       "toastStringCopied": "接続文字列をコピーしました！",
       "editTitle": "編集",
-      "deleteTitle": "削除"
+      "deleteTitle": "削除",
+      "labelColor": "カラータグ",
+      "colorNone": "色なし",
+      "hintColor": "環境をタグ付け — 例：本番環境は赤。",
+      "labelReadOnly": "読み取り専用接続",
+      "hintReadOnly": "この接続での挿入・編集・削除・ドロップをブロックします。"
     },
     "sidebar": {
       "explorer": "エクスプローラー",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "読み取り専用",
+      "cellUpdated": "値を更新しました",
+      "cellUpdateFail": "値の更新に失敗しました",
+      "cellFilterByValue": "この値でフィルター",
+      "cellExcludeValue": "この値を除外",
+      "cellSortAsc": "昇順に並べ替え",
+      "cellSortDesc": "降順に並べ替え",
+      "cellCopyValue": "値をコピー",
+      "cellEditValue": "値を編集",
+      "explainTitle": "実行プラン",
+      "explainLoading": "explainを実行中…",
+      "explainFail": "explainに失敗しました",
+      "explainCollscan": "コレクション全件スキャン",
+      "explainIndexUsed": "インデックス: {name}",
+      "explainReturned": "{n} 件返却",
+      "explainDocsExamined": "{n} 件検査",
+      "explainCollscanHint": "このクエリはコレクション内の全ドキュメントをスキャンします。フィルター対象のフィールドにインデックスの作成を検討してください。",
+      "explainRawLabel": "explain出力"
     },
     "tabs": {
       "filterActive": "アクティブなフィルターが適用されています",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group（カウント/合計）",
       "format": "整形",
       "formattedJson": "整形済みJSON",
-      "runQuery": "クエリを実行"
+      "runQuery": "クエリを実行",
+      "savedQueries": "保存済みクエリ",
+      "noHistory": "最近のクエリはありません",
+      "saveNamePlaceholder": "クエリ名",
+      "saveCurrentQuery": "現在のクエリを保存",
+      "save": "保存",
+      "saveQueryFail": "クエリの保存に失敗しました",
+      "querySaved": "「{name}」を保存しました",
+      "explainQuery": "クエリを説明",
+      "stagesMode": "ステージ",
+      "invalidStageJson": "パイプラインのステージに無効なJSONが含まれています"
     },
     "export": {
       "selectFieldsError": "エクスポートするフィールドを少なくとも1つ選択してください",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {#フィールド選択済み} other {#フィールド選択済み}}",
       "cancel": "キャンセル",
       "export": "エクスポート",
-      "sheetName": "データ"
+      "sheetName": "データ",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "型：{type}",
       "itemSummary": "{count, plural, one {#項目} other {#項目}}"
+    },
+    "pipeline": {
+      "empty": "ステージがありません。ステージを追加してパイプラインを作成してください。",
+      "addStage": "ステージを追加",
+      "stageEnabled": "ステージ有効",
+      "preview": "プレビュー",
+      "previewToHere": "このステージまでパイプラインを実行（最初の10件）",
+      "previewResult": "プレビュー結果（{count}）",
+      "previewEmpty": "このステージにドキュメントはありません",
+      "previewFail": "プレビューに失敗しました"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "モックデータジェネレーター",
     "subtitle": "型付きカラムを定義 — 最大{max}行をエクスポート",
-    "mockarooLink": "Mockaroo 風のワークフロー",
     "rowsLabel": "行数",
     "rowsHint": "タブを軽く保つため、1 回あたり最大 {max} 行です。",
     "formatLabel": "形式",
@@ -3482,7 +3534,8 @@
       "numbersIds": "数値とID",
       "dateTime": "日付と時刻",
       "textDesign": "テキストとデザイン",
-      "custom": "カスタム"
+      "custom": "カスタム",
+      "commerce": "コマース"
     },
     "fieldTypes": {
       "first_name": "名",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "通貨コード",
       "language_code": "言語タグ",
-      "custom_list": "カスタム一覧"
+      "custom_list": "カスタム一覧",
+      "gender": "性別",
+      "us_state": "米国の州",
+      "us_state_abbr": "米国の州（略称）",
+      "user_agent": "ユーザーエージェント",
+      "mime_type": "MIME タイプ",
+      "file_name": "ファイル名",
+      "port": "ポート",
+      "md5": "MD5 ハッシュ",
+      "sha256": "SHA-256 ハッシュ",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "時刻",
+      "weekday": "曜日",
+      "month": "月",
+      "product_name": "商品名",
+      "product_category": "商品カテゴリ",
+      "department": "部署",
+      "color_name": "色名",
+      "catch_phrase": "キャッチフレーズ"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "スキーマをインポート",
+    "exportSchema": "スキーマをエクスポート",
+    "importSchemaError": "無効なスキーマファイルです — { name, type } 列の JSON 配列が必要です。"
   },
   "SvgOptimizer": {
     "title": "SVGオプティマイザー",
     "subtitle": "SVGOでSVGを最小化しサイズを比較",
     "inputLabel": "入力",
     "outputLabel": "最適化後",
-    "placeholder": "<svg>…</svg> の断片またはファイル全体を貼り付け…",
+    "placeholder": "SVG の断片またはファイル全体を貼り付け…",
     "outputPlaceholder": "最適化された SVG がここに表示されます…",
     "chars": "{count} 文字 • {bytes} バイト（UTF-8）",
     "preview": "プレビュー",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "単位変換",
-    "subtitle": "43カテゴリ323単位を変換",
+    "subtitle": "44カテゴリ292単位を変換",
     "category": "カテゴリ",
     "from": "変換前",
     "to": "変換後",
@@ -4088,6 +4163,9 @@
     "inputLabel": "コード",
     "detected": "検出: {language}",
     "clear": "クリア",
+    "format": "フォーマット",
+    "formatUnsupported": "この言語ではフォーマットを利用できません",
+    "formatFailed": "コードのフォーマットに失敗しました",
     "placeholder": "ここにコードを貼り付け…",
     "previewLabel": "プレビュー",
     "emptyPreview": "コードのプレビューがここに表示されます",

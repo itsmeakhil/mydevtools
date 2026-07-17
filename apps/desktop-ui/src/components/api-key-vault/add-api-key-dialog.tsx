@@ -118,7 +118,12 @@ function FormBody({
                         <SelectItem value="production">Production</SelectItem>
                     </SelectContent>
                 </Select>
-                <p className="text-[11px] text-muted-foreground">{ENV_HINT[formData.env]}</p>
+                <p className={cn(
+                    "text-[11px]",
+                    formData.env === "production" ? "text-rose-600 dark:text-rose-400" : "text-muted-foreground"
+                )}>
+                    {ENV_HINT[formData.env]}
+                </p>
             </div>
 
             <div className="space-y-2">
@@ -314,7 +319,7 @@ export function AddApiKeyDialog({ children }: { children?: React.ReactNode }) {
             onOpenChange={setOpen}
             trigger={trigger}
             title="Add API Key"
-            description="Encrypted on your device before sync. Server never sees plaintext."
+            description="Encrypted and stored on your device."
         >
             <FormBody
                 initial={EMPTY}

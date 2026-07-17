@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "도움말 및 문서",
-    "subtitle": "MyDevTools의 구조와 데이터 보호 방식",
+    "subtitle": "MyDevTools가 오프라인으로 작동하는 방식과 데이터가 보호되는 방법",
     "tabs": {
       "overview": "개요",
       "apps": "앱",
@@ -90,58 +90,59 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools란?",
-        "description": "로그인 기반 개발자 워크스페이스: 대시보드와 일상적인 도구 모음.",
-        "p1": "로그인하면 앱이 MyDevTools API와 세션을 설정해 도구가 데이터를 불러오고 저장할 수 있습니다. 사이드바에는 모든 앱이 표시되며, 사용하지 않는 도구는",
+        "description": "오프라인 개발자 작업 공간입니다. 대시보드와 함께 전적으로 기기에서 실행되는 80개 이상의 도구를 제공합니다.",
+        "p1": "MyDevTools는 완전히 오프라인으로 작동합니다. 브라우저에서 한 번만 활성화하면 계정 로그인이나 인터넷 연결 없이 이 기기에서 모든 것이 작동합니다. 사이드바에는 모든 앱이 나열되며, 사용하지 않는 도구는",
         "settingsLink": "설정",
         "p1After": "에서 숨길 수 있습니다.",
-        "p2": "일부 기능은 <strong>마스터 비밀번호</strong>(또는 전역 볼트 키)를 사용하여 비밀번호나 DB 연결 문자열 같은 민감 정보가 서버로 전송되기 전에 기기에서 암호화되도록 합니다."
+        "p2": "일부 기능은 <strong>마스터 비밀번호</strong>(또는 전역 볼트 키)를 사용하여 비밀번호나 데이터베이스 연결 문자열과 같은 비밀 정보를 기기에서 암호화합니다. 데이터는 로컬 암호화 데이터베이스에 저장되며 서버로 전송되지 않습니다."
       },
       "quickLinks": {
-        "title": "빠른 링크",
+        "title": "바로 가기",
         "dashboard": "대시보드",
         "settings": "설정"
       }
     },
     "apps": {
-      "intro": "사이드바 또는 대시보드에서 어떤 도구든 열 수 있습니다. 아래는 각 앱에 대한 간단한 안내입니다.",
+      "intro": "사이드바나 대시보드에서 원하는 도구를 열 수 있습니다. 아래는 각 앱에 대한 간단한 안내입니다.",
       "open": "열기",
       "howItWorks": "작동 방식",
-      "generic": "이 도구는 사이드바에서 열어 전용 워크플로로 사용하세요."
+      "generic": "사이드바에서 이 도구를 열어 전용 워크플로를 이용하세요."
     },
     "security": {
-      "session": {
-        "title": "로그인 및 API 세션",
-        "description": "신원 확인과 브라우저가 백엔드와 통신하는 방식.",
+      "access": {
+        "title": "활성화 및 오프라인 접근",
+        "description": "앱이 처음 잠금 해제되는 방식과 이후 오프라인으로 실행되는 방법.",
         "items": {
-          "authentication": "<strong>인증</strong>은 Firebase를 사용합니다. 로그인 후 앱이 Firebase ID 토큰을 API 쿠키로 교환합니다.",
-          "accessTokens": "<strong>액세스 토큰</strong>은 서버에서 서명된 JWT(HS256)로, API를 호출하는 사용자를 증명합니다.",
-          "refreshTokens": "<strong>리프레시 토큰</strong>은 HttpOnly 쿠키에 저장되며, 서버는 토큰 원문이 아닌 SHA-256 해시를 저장합니다."
+          "activation": "앱을 처음 열 때 브라우저에서 <strong>일회성 활성화</strong>가 진행됩니다. 이를 통해 요금제가 기록되고 이 기기에서 앱의 잠금이 해제됩니다.",
+          "offline": "<strong>로그인 세션이 없습니다.</strong> 활성화 이후에는 세션마다 로그인하거나 주기적으로 재확인할 필요가 없으며, 앱은 인터넷 연결 없이도 계속 작동합니다.",
+          "storage": "<strong>로컬 저장소.</strong> 모든 데이터는 기기의 암호화된 SQLCipher 데이터베이스에 저장되며, 운영 체제 키체인에 보관된 무작위 키로 암호화됩니다."
         }
       },
       "encryption": {
-        "title": "알아두면 좋은 암호화",
-        "description": "볼트 및 민감한 연결 데이터에 대한 클라이언트 측 암호화.",
-        "p1": "<strong>비밀번호 관리자</strong>, <strong>환경 변수 관리자</strong>, <strong>NoSQL Explorer</strong>에 저장된 연결을 위해 웹앱은 브라우저의 <strong>Web Crypto API</strong>를 사용합니다:",
+        "title": "알아두어야 할 암호화",
+        "description": "볼트 및 민감한 연결 데이터를 위한 클라이언트 측 암호화.",
+        "p1": "<strong>비밀번호 관리자</strong>, <strong>환경 변수 관리자</strong>, 그리고 <strong>NoSQL Explorer</strong>에 저장된 연결 정보에 대해 앱은 <strong>Web Crypto API</strong>를 사용합니다:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong>(<strong>SHA-256</strong>, <strong>100,000</strong>회 반복, 랜덤 salt)로 마스터 비밀번호에서 256비트 키를 파생합니다.",
-          "aes": "<strong>AES-256-GCM</strong>으로 데이터를 암호화하며, 매 암호화마다 랜덤 <strong>12바이트 IV</strong>를 사용합니다.",
-          "scope": "파생 키는 브라우저에 남아(추출 불가) 서버에는 <strong>암호문과 IV</strong>만 전달됩니다. 마스터 비밀번호나 평문 비밀은 전송되지 않습니다."
+          "kdf": "<strong>PBKDF2</strong>를 <strong>SHA-256</strong>, <strong>600,000</strong>회 반복, 그리고 무작위 솔트와 함께 사용하여 마스터 비밀번호로부터 256-bit 키를 파생합니다.",
+          "aes": "<strong>AES-256-GCM</strong>이 페이로드를 암호화하며, 암호화할 때마다 무작위 <strong>12-byte IV</strong>가 사용됩니다.",
+          "scope": "파생된 키는 앱 내부에 남아 있으며(추출 불가), 마스터 비밀번호는 절대 기기를 벗어나지 않습니다. 로컬 데이터베이스에는 <strong>암호문과 IVs</strong>만 기록됩니다."
         },
-        "warning": "마스터 비밀번호를 잊으면 암호화된 데이터를 복구할 수 없습니다. 안전하게 보관하세요."
+        "warning": "마스터 비밀번호를 잊어버리면 암호화된 데이터는 복구할 수 없습니다. 안전하게 보관하세요."
       },
-      "logout": {
-        "title": "로그아웃 및 로컬 데이터",
-        "body": "로그아웃 시 메모리의 민감 정보, 볼트 상태, (해당되는 경우) IndexedDB의 마스터 키 자료를 삭제하고 API 세션을 종료합니다. 기기의 로컬 저장소에만 있는 데이터는 브라우저에서 지우기 전까지 남아 있을 수 있습니다."
+      "local": {
+        "title": "잠금 및 로컬 데이터",
+        "body": "볼트를 잠그면 메모리에 있는 비밀 정보와 마스터 키 자료가 지워집니다. 암호화된 데이터베이스는 삭제하기 전까지 디스크에 그대로 남아 있습니다. 로그아웃이라는 개념은 없으며, 앱 데이터를 초기화하거나 앱을 삭제해야 모든 것이 지워지므로 중요한 데이터는 직접 백업해 두세요."
       }
     },
     "tips": {
-      "title": "안전하게 사용하기",
+      "title": "MyDevTools 안전하게 사용하기",
       "items": {
         "masterPassword": "볼트 기능에는 강력하고 고유한 마스터 비밀번호를 사용하세요.",
-        "apiClient": "API 클라이언트는 일반 HTTP 클라이언트처럼 사용하세요. 공유 환경에서는 누가 볼 수 있는지 모르면 운영 비밀키를 붙여넣지 마세요.",
-        "nosql": "데이터베이스 탐색기는 사용자가 설정한 DB에 연결합니다. 가능하면 최소 권한 계정과 네트워크 규칙을 사용하세요.",
-        "json": "JSON 포맷터는 브라우저에서 로컬로 동작하지만, 공유 기기에서는 민감한 데이터를 붙여넣지 마세요.",
-        "settings": "설정에서 표시할 도구를 선택해 사이드바를 더 깔끔하게 유지하세요."
+        "backup": "데이터는 이 기기에만 저장됩니다. 기기 고장 시 잃어버리지 않도록 정기적으로 내보내거나 백업하세요.",
+        "apiClient": "API Client는 다른 HTTP 클라이언트와 마찬가지로 다루세요. 누가 볼 수 있는지 명확히 알지 못하는 한 프로덕션 비밀 정보를 공유 환경에 붙여넣지 마세요.",
+        "nosql": "Database Explorer는 사용자가 구성한 데이터베이스에 연결됩니다. 가능한 한 최소 권한 사용자와 네트워크 규칙을 사용하세요.",
+        "json": "JSON Formatter는 전적으로 기기에서 실행되지만, 그래도 공유 컴퓨터에서는 매우 민감한 데이터를 붙여넣지 마세요.",
+        "settings": "설정에서 표시할 도구를 사용자 지정하여 사이드바를 간결하게 유지하세요."
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "메모 내비게이션",
-      "openMenuAria": "메모 메뉴 열기"
+      "openMenuAria": "메모 메뉴 열기",
+      "showSidebarAria": "사이드바 표시"
     },
     "sidebar": {
       "title": "메모",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "\"{title}\"을(를) 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
       "cancel": "취소",
       "confirmDelete": "삭제",
-      "noteOptionsAria": "메모 옵션"
+      "noteOptionsAria": "메모 옵션",
+      "hideSidebarAria": "사이드바 숨기기"
     },
     "editor": {
       "emptyState": "메모를 선택하거나 새로 만들어 시작하세요.",
@@ -933,7 +936,8 @@
       "loading": "불러오는 중…",
       "searchHint": "검색하려면",
       "focusHint": "집중 모드",
-      "notePath": "노트 경로"
+      "notePath": "노트 경로",
+      "export": "내보내기"
     },
     "context": {
       "authRequiredError": "사용자가 인증되지 않았습니다",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "JSON 데이터 붙여넣기",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "이전에 내보낸 JSON 파일의 내용을 여기에 붙여넣으세요.",
+      "selectFile": "JSON 파일 선택",
       "importing": "가져오는 중...",
       "importPasswords": "비밀번호 가져오기",
       "trigger": "가져오기 / 내보내기",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "\"{name}\" 폴더를 삭제하시겠습니까?",
       "deleteFolderDescription": "이 폴더와 모든 하위 폴더가 삭제됩니다. 이 폴더의 북마크는 미분류로 이동됩니다."
     },
+    "foldersHeading": "폴더",
     "import": {
       "title": "북마크 가져오기",
       "description": "브라우저에서 내보낸 파일에서 북마크를 가져오세요.",
@@ -1495,19 +1501,27 @@
       "updateConnect": "업데이트 및 연결",
       "connect": "연결",
       "cancelEdit": "편집 취소",
+      "cancel": "취소",
       "savedConnections": "저장된 연결",
       "emptySaved": "아직 저장된 연결이 없습니다.",
       "lastUsed": "마지막 사용: {time}",
       "toastTestOk": "연결 성공!",
       "toastTestFail": "연결 실패: {message}",
+      "toastConnectFail": "{name}에 연결하지 못했습니다",
       "toastUpdated": "연결이 업데이트되었습니다",
       "confirmDelete": "이 저장된 연결을 삭제하시겠습니까?",
+      "menuDeleteConnection": "연결 삭제",
       "toastDeletedConn": "연결이 삭제되었습니다",
       "toastDeleteFail": "연결 삭제에 실패했습니다",
       "copyStringTitle": "연결 문자열 복사",
       "toastStringCopied": "연결 문자열이 복사되었습니다!",
       "editTitle": "수정",
-      "deleteTitle": "삭제"
+      "deleteTitle": "삭제",
+      "labelColor": "색상 태그",
+      "colorNone": "색상 없음",
+      "hintColor": "환경을 태그하세요 — 예: 프로덕션은 빨강.",
+      "labelReadOnly": "읽기 전용 연결",
+      "hintReadOnly": "이 연결에서 삽입, 편집, 삭제, 드롭을 차단합니다."
     },
     "sidebar": {
       "explorer": "탐색기",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "읽기 전용",
+      "cellUpdated": "값이 업데이트되었습니다",
+      "cellUpdateFail": "값 업데이트에 실패했습니다",
+      "cellFilterByValue": "이 값으로 필터",
+      "cellExcludeValue": "이 값 제외",
+      "cellSortAsc": "오름차순 정렬",
+      "cellSortDesc": "내림차순 정렬",
+      "cellCopyValue": "값 복사",
+      "cellEditValue": "값 편집",
+      "explainTitle": "실행 계획",
+      "explainLoading": "explain 실행 중…",
+      "explainFail": "explain 실패",
+      "explainCollscan": "컬렉션 전체 스캔",
+      "explainIndexUsed": "인덱스: {name}",
+      "explainReturned": "{n}건 반환",
+      "explainDocsExamined": "{n}건 검사",
+      "explainCollscanHint": "이 쿼리는 컬렉션의 모든 문서를 스캔합니다. 필터링된 필드에 인덱스 생성을 고려하세요.",
+      "explainRawLabel": "explain 출력"
     },
     "tabs": {
       "filterActive": "활성 필터 적용됨",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group (카운트/합계)",
       "format": "포맷",
       "formattedJson": "포맷된 JSON",
-      "runQuery": "쿼리 실행"
+      "runQuery": "쿼리 실행",
+      "savedQueries": "저장된 쿼리",
+      "noHistory": "최근 쿼리가 없습니다",
+      "saveNamePlaceholder": "쿼리 이름",
+      "saveCurrentQuery": "현재 쿼리 저장",
+      "save": "저장",
+      "saveQueryFail": "쿼리 저장에 실패했습니다",
+      "querySaved": "“{name}” 저장됨",
+      "explainQuery": "쿼리 설명",
+      "stagesMode": "단계",
+      "invalidStageJson": "파이프라인 단계에 잘못된 JSON이 있습니다"
     },
     "export": {
       "selectFieldsError": "내보낼 필드를 하나 이상 선택해 주세요",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {#개 필드 선택됨} other {#개 필드 선택됨}}",
       "cancel": "취소",
       "export": "내보내기",
-      "sheetName": "데이터"
+      "sheetName": "데이터",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "타입: {type}",
       "itemSummary": "{count, plural, one {#개 항목} other {#개 항목}}"
+    },
+    "pipeline": {
+      "empty": "아직 단계가 없습니다. 단계를 추가해 파이프라인을 만드세요.",
+      "addStage": "단계 추가",
+      "stageEnabled": "단계 활성화",
+      "preview": "미리보기",
+      "previewToHere": "이 단계까지 파이프라인 실행 (처음 10건)",
+      "previewResult": "미리보기 결과 ({count})",
+      "previewEmpty": "이 단계에 문서가 없습니다",
+      "previewFail": "미리보기 실패"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "모의 데이터 생성기",
     "subtitle": "타입 컬럼 정의 — 최대 {max}행 내보내기",
-    "mockarooLink": "Mockaroo 스타일 워크플로",
     "rowsLabel": "행 수",
     "rowsHint": "탭 반응성을 위해 한 번에 최대 {max}행입니다.",
     "formatLabel": "형식",
@@ -3482,7 +3534,8 @@
       "numbersIds": "숫자 및 ID",
       "dateTime": "날짜 및 시간",
       "textDesign": "텍스트 및 디자인",
-      "custom": "사용자 정의"
+      "custom": "사용자 정의",
+      "commerce": "커머스"
     },
     "fieldTypes": {
       "first_name": "이름",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "통화 코드",
       "language_code": "언어 태그",
-      "custom_list": "사용자 정의 목록"
+      "custom_list": "사용자 정의 목록",
+      "gender": "성별",
+      "us_state": "미국 주",
+      "us_state_abbr": "미국 주 (약어)",
+      "user_agent": "사용자 에이전트",
+      "mime_type": "MIME 타입",
+      "file_name": "파일 이름",
+      "port": "포트",
+      "md5": "MD5 해시",
+      "sha256": "SHA-256 해시",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "시간",
+      "weekday": "요일",
+      "month": "월",
+      "product_name": "제품명",
+      "product_category": "제품 카테고리",
+      "department": "부서",
+      "color_name": "색상 이름",
+      "catch_phrase": "캐치프레이즈"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "스키마 가져오기",
+    "exportSchema": "스키마 내보내기",
+    "importSchemaError": "잘못된 스키마 파일 — { name, type } 열로 이루어진 JSON 배열이 필요합니다."
   },
   "SvgOptimizer": {
     "title": "SVG 최적화기",
     "subtitle": "SVGO로 SVG 최소화, 크기 비교",
     "inputLabel": "입력",
     "outputLabel": "최적화됨",
-    "placeholder": "<svg>…</svg> 조각 또는 전체 파일을 붙여넣기…",
+    "placeholder": "SVG 조각 또는 전체 파일을 붙여넣기…",
     "outputPlaceholder": "최적화된 SVG가 여기에 표시됩니다…",
     "chars": "{count}자 • {bytes}바이트(UTF-8)",
     "preview": "미리보기",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "단위 변환기",
-    "subtitle": "43개 카테고리 323개 단위 변환",
+    "subtitle": "44개 카테고리 292개 단위 변환",
     "category": "카테고리",
     "from": "변환 전",
     "to": "변환 후",
@@ -4088,6 +4163,9 @@
     "inputLabel": "코드",
     "detected": "감지됨: {language}",
     "clear": "지우기",
+    "format": "포맷",
+    "formatUnsupported": "이 언어에서는 포맷을 사용할 수 없습니다",
+    "formatFailed": "코드 포맷에 실패했습니다",
     "placeholder": "여기에 코드를 붙여넣으세요…",
     "previewLabel": "미리보기",
     "emptyPreview": "코드 미리보기가 여기에 표시됩니다",

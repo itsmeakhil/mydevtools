@@ -21,7 +21,7 @@ interface ExportDialogProps {
 export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDialogProps) {
     const t = useTranslations("NoSqlExplorer.export");
     const [selectedFields, setSelectedFields] = useState<string[]>(fields);
-    const [format, setFormat] = useState<"xlsx" | "csv">("xlsx");
+    const [format, setFormat] = useState<"xlsx" | "csv" | "json">("xlsx");
 
     const handleSelectAll = (checked: boolean) => {
         if (checked) {
@@ -46,6 +46,28 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
         }
 
         try {
+            const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+            const filename = `export_${timestamp}.${format}`;
+
+            if (format === "json") {
+                // Keep nested values as real JSON, not stringified cells
+                const rows = documents.map(doc => {
+                    const newDoc: any = {};
+                    selectedFields.forEach(field => { newDoc[field] = doc[field]; });
+                    return newDoc;
+                });
+                const blob = new Blob([JSON.stringify(rows, null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = filename;
+                a.click();
+                URL.revokeObjectURL(url);
+                toast.success(t("success", { filename }));
+                onOpenChange(false);
+                return;
+            }
+
             const XLSX = await import("xlsx");
 
             const dataToExport = documents.map(doc => {
@@ -64,9 +86,6 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
             const worksheet = XLSX.utils.json_to_sheet(dataToExport);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, t("sheetName"));
-
-            const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-            const filename = `export_${timestamp}.${format}`;
 
             if (format === "csv") {
                 XLSX.writeFile(workbook, filename, { bookType: "csv" });
@@ -92,7 +111,7 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
                 <div className="space-y-4 py-2">
                     <div className="space-y-2">
                         <Label className="text-sm font-medium">{t("formatLabel")}</Label>
-                        <RadioGroup value={format} onValueChange={(v) => setFormat(v as "xlsx" | "csv")} className="flex gap-4">
+                        <RadioGroup value={format} onValueChange={(v) => setFormat(v as "xlsx" | "csv" | "json")} className="flex gap-4">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="xlsx" id="xlsx" />
                                 <Label htmlFor="xlsx">{t("formatXlsx")}</Label>
@@ -100,6 +119,10 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="csv" id="csv" />
                                 <Label htmlFor="csv">{t("formatCsv")}</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="json" id="json" />
+                                <Label htmlFor="json">{t("formatJson")}</Label>
                             </div>
                         </RadioGroup>
                     </div>

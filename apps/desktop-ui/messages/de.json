@@ -80,7 +80,7 @@
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
-    "subtitle": "Wie MyDevTools zusammenspielt und wie deine Daten geschützt sind",
+    "subtitle": "Wie MyDevTools offline funktioniert und wie Ihre Daten geschützt werden",
     "tabs": {
       "overview": "Übersicht",
       "apps": "Apps",
@@ -90,58 +90,59 @@
     "overview": {
       "whatIs": {
         "title": "Was ist MyDevTools?",
-        "description": "Ein Entwickler‑Workspace mit Login: Dashboard und Tools für den Alltag.",
-        "p1": "Nach dem Anmelden stellt die App eine Sitzung mit der MyDevTools‑API her, damit Tools Daten laden und speichern können. Die Seitenleiste listet alle Apps; ungenutzte Tools kannst du in",
+        "description": "Ein Offline-Arbeitsbereich für Entwickler: ein Dashboard und über 80 Tools, die vollständig auf Ihrem Gerät laufen.",
+        "p1": "MyDevTools läuft vollständig offline. Nach einer einmaligen Aktivierung in Ihrem Browser funktioniert alles auf diesem Gerät – ohne Konto-Anmeldung und ohne Internetverbindung. In der Seitenleiste sind alle Apps aufgeführt; Tools, die Sie nicht verwenden, können Sie in den",
         "settingsLink": "Einstellungen",
         "p1After": "ausblenden.",
-        "p2": "Einige Funktionen nutzen ein <strong>Master‑Passwort</strong> (oder einen globalen Vault‑Key), sodass Geheimnisse wie Passwörter und Verbindungsstrings auf deinem Gerät verschlüsselt werden, bevor sie den Server erreichen."
+        "p2": "Einige Funktionen verwenden ein <strong>Master-Passwort</strong> (oder einen globalen Tresor-Schlüssel), damit vertrauliche Daten wie Passwörter und Datenbank-Verbindungszeichenfolgen auf Ihrem Gerät verschlüsselt werden. Ihre Daten werden in einer lokalen, verschlüsselten Datenbank gespeichert und niemals an einen Server gesendet."
       },
       "quickLinks": {
-        "title": "Schnelllinks",
+        "title": "Schnellzugriff",
         "dashboard": "Dashboard",
         "settings": "Einstellungen"
       }
     },
     "apps": {
-      "intro": "Öffne ein Tool über die Seitenleiste oder das Dashboard. Unten findest du eine kurze Anleitung pro App.",
+      "intro": "Öffnen Sie ein beliebiges Tool über die Seitenleiste oder das Dashboard. Nachfolgend finden Sie eine kurze Anleitung pro App.",
       "open": "Öffnen",
-      "howItWorks": "So funktioniert’s",
-      "generic": "Nutze dieses Tool über die Seitenleiste für den vorgesehenen Workflow."
+      "howItWorks": "Funktionsweise",
+      "generic": "Verwenden Sie dieses Tool über die Seitenleiste für seinen speziellen Arbeitsablauf."
     },
     "security": {
-      "session": {
-        "title": "Login und API‑Sitzung",
-        "description": "Identität und wie der Browser mit deinem Backend spricht.",
+      "access": {
+        "title": "Aktivierung & Offline-Zugriff",
+        "description": "Wie die App beim ersten Mal freigeschaltet wird und danach offline läuft.",
         "items": {
-          "authentication": "<strong>Authentifizierung</strong> erfolgt über Firebase. Nach dem Login tauscht die App dein Firebase‑ID‑Token gegen API‑Cookies.",
-          "accessTokens": "<strong>Access‑Tokens</strong> sind serverseitig signierte JWTs (HS256). Sie zeigen, welcher Nutzer die API aufruft.",
-          "refreshTokens": "<strong>Refresh‑Tokens</strong> liegen in HttpOnly‑Cookies; der Server speichert einen SHA‑256‑Hash des Tokens, nicht das Token im Klartext."
+          "activation": "Die <strong>einmalige Aktivierung</strong> erfolgt beim ersten Öffnen der App in Ihrem Browser. Sie erfasst Ihren Plan und schaltet die App auf diesem Gerät frei.",
+          "offline": "<strong>Keine Anmeldesitzungen.</strong> Nach der Aktivierung gibt es keine Anmeldung pro Sitzung und keine regelmäßige Überprüfung – die App funktioniert weiter, ganz ohne Internetverbindung.",
+          "storage": "<strong>Lokale Speicherung.</strong> Alle Ihre Daten liegen in einer verschlüsselten SQLCipher-Datenbank auf Ihrem Gerät, gesichert durch einen zufälligen Schlüssel, der im Schlüsselbund Ihres Betriebssystems hinterlegt ist."
         }
       },
       "encryption": {
-        "title": "Wichtige Verschlüsselung",
-        "description": "Client‑seitige Krypto für Vault und sensible Verbindungsdaten.",
-        "p1": "Für den <strong>Passwort‑Manager</strong>, den <strong>Umgebungs‑Manager</strong> und gespeicherte Verbindungen im <strong>NoSQL‑Explorer</strong> nutzt die Web‑App die <strong>Web Crypto API</strong> des Browsers:",
+        "title": "Verschlüsselung, die Sie kennen sollten",
+        "description": "Clientseitige Kryptografie für Tresor- und sensible Verbindungsdaten.",
+        "p1": "Für den <strong>Passwort-Manager</strong>, den <strong>Umgebungs-Manager</strong> und die gespeicherten Verbindungen des <strong>NoSQL Explorer</strong> verwendet die App die <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> mit <strong>SHA‑256</strong>, <strong>100.000</strong> Iterationen und zufälligem Salt leitet aus dem Master‑Passwort einen 256‑Bit‑Key ab.",
-          "aes": "<strong>AES‑256‑GCM</strong> verschlüsselt Nutzdaten; pro Verschlüsselung wird ein zufälliger <strong>12‑Byte‑IV</strong> verwendet.",
-          "scope": "Der abgeleitete Schlüssel bleibt im Browser (nicht exportierbar). Der Server erhält <strong>Ciphertext und IVs</strong>, nicht dein Master‑Passwort oder Klartext‑Geheimnisse."
+          "kdf": "<strong>PBKDF2</strong> mit <strong>SHA-256</strong>, <strong>600,000</strong> Iterationen und einem zufälligen Salt leitet aus Ihrem Master-Passwort einen 256-Bit-Schlüssel ab.",
+          "aes": "<strong>AES-256-GCM</strong> verschlüsselt die Nutzdaten; pro Verschlüsselung wird ein zufälliger <strong>12-byte IV</strong> verwendet.",
+          "scope": "Der abgeleitete Schlüssel bleibt in der App (nicht extrahierbar) und Ihr Master-Passwort verlässt niemals Ihr Gerät. In die lokale Datenbank werden nur <strong>Chiffretext und IVs</strong> geschrieben."
         },
-        "warning": "Wenn du das Master‑Passwort vergisst, können verschlüsselte Daten nicht wiederhergestellt werden. Bewahre es sicher auf."
+        "warning": "Wenn Sie das Master-Passwort vergessen, können verschlüsselte Daten nicht wiederhergestellt werden. Bewahren Sie es sicher auf."
       },
-      "logout": {
-        "title": "Abmelden und lokale Daten",
-        "body": "Beim Abmelden werden Secrets im Speicher, Vault‑Status und – falls zutreffend – Master‑Key‑Material aus IndexedDB gelöscht und die API‑Sitzung beendet. Daten, die nur im lokalen Speicher liegen, bleiben ggf. bis zur Browser‑Bereinigung erhalten."
+      "local": {
+        "title": "Sperren & lokale Daten",
+        "body": "Beim Sperren des Tresors werden im Arbeitsspeicher befindliche Geheimnisse und das Master-Schlüsselmaterial gelöscht; Ihre verschlüsselte Datenbank bleibt auf der Festplatte, bis Sie sie entfernen. Es gibt keine Abmeldung – erst das Zurücksetzen der App-Daten oder das Löschen der App entfernt alles. Erstellen Sie daher eigene Sicherungen aller wichtigen Daten."
       }
     },
     "tips": {
-      "title": "MyDevTools sicher nutzen",
+      "title": "MyDevTools sicher verwenden",
       "items": {
-        "masterPassword": "Nutze ein starkes, einzigartiges Master‑Passwort für Vault‑Funktionen.",
-        "apiClient": "Behandle den API‑Client wie jeden HTTP‑Client: füge keine Produktions‑Secrets in geteilte Umgebungen ein, wenn du nicht weißt, wer sie sieht.",
-        "nosql": "Der Datenbank‑Explorer verbindet sich mit von dir konfigurierten Datenbanken; nutze Least‑Privilege‑Accounts und Netzregeln, wenn möglich.",
-        "json": "Der JSON‑Formatierer läuft lokal im Browser—trotzdem keine hochsensiblen Daten auf geteilten Geräten einfügen.",
-        "settings": "Blende Tools in den Einstellungen aus, um die Seitenleiste fokussiert zu halten."
+        "masterPassword": "Verwenden Sie für die Tresor-Funktionen ein starkes, einzigartiges Master-Passwort.",
+        "backup": "Ihre Daten liegen nur auf diesem Gerät – exportieren oder sichern Sie sie regelmäßig, damit sie bei einem Geräteausfall nicht verloren gehen.",
+        "apiClient": "Behandeln Sie den API Client wie jeden anderen HTTP-Client: Fügen Sie keine Produktionsgeheimnisse in geteilte Umgebungen ein, es sei denn, Sie wissen genau, wer sie sehen kann.",
+        "nosql": "Der Database Explorer stellt Verbindungen zu den von Ihnen konfigurierten Datenbanken her; verwenden Sie nach Möglichkeit Benutzer mit minimalen Rechten und Netzwerkregeln.",
+        "json": "Der JSON Formatter läuft vollständig auf Ihrem Gerät – vermeiden Sie dennoch das Einfügen hochsensibler Daten auf gemeinsam genutzten Rechnern.",
+        "settings": "Passen Sie in den Einstellungen die sichtbaren Tools an, um die Seitenleiste übersichtlich zu halten."
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notizen-Navigation",
-      "openMenuAria": "Notizmenü öffnen"
+      "openMenuAria": "Notizmenü öffnen",
+      "showSidebarAria": "Seitenleiste anzeigen"
     },
     "sidebar": {
       "title": "Notizen",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "„{title}“ wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
       "cancel": "Abbrechen",
       "confirmDelete": "Löschen",
-      "noteOptionsAria": "Notizoptionen"
+      "noteOptionsAria": "Notizoptionen",
+      "hideSidebarAria": "Seitenleiste ausblenden"
     },
     "editor": {
       "emptyState": "Wählen Sie eine Notiz oder legen Sie eine neue an.",
@@ -933,7 +936,8 @@
       "loading": "Wird geladen…",
       "searchHint": "zum Suchen",
       "focusHint": "Fokusmodus",
-      "notePath": "Notizpfad"
+      "notePath": "Notizpfad",
+      "export": "Exportieren"
     },
     "context": {
       "authRequiredError": "Benutzer nicht angemeldet",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "JSON-Daten einfügen",
       "pastePlaceholder": "[{\"service\": \"Beispiel\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Inhalt einer zuvor exportierten JSON-Datei hier einfügen.",
+      "selectFile": "JSON-Datei auswählen",
       "importing": "Importiere...",
       "importPasswords": "Passwörter importieren",
       "trigger": "Import / Export",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "Ordner „{name}“ löschen?",
       "deleteFolderDescription": "Der Ordner und alle Unterordner werden gelöscht. Lesezeichen werden nach „Ohne Kategorie“ verschoben."
     },
+    "foldersHeading": "Ordner",
     "import": {
       "title": "Lesezeichen importieren",
       "description": "Lesezeichen aus einer vom Browser exportierten Datei importieren.",
@@ -1495,19 +1501,27 @@
       "updateConnect": "Aktualisieren & verbinden",
       "connect": "Verbinden",
       "cancelEdit": "Bearbeitung abbrechen",
+      "cancel": "Abbrechen",
       "savedConnections": "Gespeicherte Verbindungen",
       "emptySaved": "Noch keine gespeicherten Verbindungen.",
       "lastUsed": "Zuletzt genutzt {time}",
       "toastTestOk": "Verbindung erfolgreich!",
       "toastTestFail": "Verbindung fehlgeschlagen: {message}",
+      "toastConnectFail": "Verbindung zu {name} fehlgeschlagen",
       "toastUpdated": "Verbindung aktualisiert",
       "confirmDelete": "Diese gespeicherte Verbindung wirklich löschen?",
+      "menuDeleteConnection": "Verbindung löschen",
       "toastDeletedConn": "Verbindung gelöscht",
       "toastDeleteFail": "Verbindung konnte nicht gelöscht werden",
       "copyStringTitle": "Verbindungszeichenfolge kopieren",
       "toastStringCopied": "Verbindungszeichenfolge kopiert!",
       "editTitle": "Bearbeiten",
-      "deleteTitle": "Löschen"
+      "deleteTitle": "Löschen",
+      "labelColor": "Farbmarkierung",
+      "colorNone": "Keine Farbe",
+      "hintColor": "Umgebungen markieren — z. B. Rot für Produktion.",
+      "labelReadOnly": "Schreibgeschützte Verbindung",
+      "hintReadOnly": "Blockiert Einfügen, Bearbeiten, Löschen und Drops für diese Verbindung."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Schreibgeschützt",
+      "cellUpdated": "Wert aktualisiert",
+      "cellUpdateFail": "Wert konnte nicht aktualisiert werden",
+      "cellFilterByValue": "Nach diesem Wert filtern",
+      "cellExcludeValue": "Diesen Wert ausschließen",
+      "cellSortAsc": "Aufsteigend sortieren",
+      "cellSortDesc": "Absteigend sortieren",
+      "cellCopyValue": "Wert kopieren",
+      "cellEditValue": "Wert bearbeiten",
+      "explainTitle": "Ausführungsplan",
+      "explainLoading": "Explain wird ausgeführt…",
+      "explainFail": "Explain fehlgeschlagen",
+      "explainCollscan": "Vollständiger Collection-Scan",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} zurückgegeben",
+      "explainDocsExamined": "{n} untersucht",
+      "explainCollscanHint": "Diese Abfrage durchsucht jedes Dokument der Collection. Erwäge einen Index auf den gefilterten Feldern.",
+      "explainRawLabel": "Explain-Ausgabe"
     },
     "tabs": {
       "filterActive": "Filter aktiv",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group (Anzahl/Summe)",
       "format": "Formatieren",
       "formattedJson": "Formatiertes JSON",
-      "runQuery": "Abfrage ausführen"
+      "runQuery": "Abfrage ausführen",
+      "savedQueries": "Gespeicherte Abfragen",
+      "noHistory": "Keine letzten Abfragen",
+      "saveNamePlaceholder": "Abfragename",
+      "saveCurrentQuery": "Aktuelle Abfrage speichern",
+      "save": "Speichern",
+      "saveQueryFail": "Abfrage konnte nicht gespeichert werden",
+      "querySaved": "„{name}“ gespeichert",
+      "explainQuery": "Abfrage erklären",
+      "stagesMode": "Stufen",
+      "invalidStageJson": "Eine Pipeline-Stufe enthält ungültiges JSON"
     },
     "export": {
       "selectFieldsError": "Bitte mindestens ein Feld zum Exportieren wählen",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# Feld gewählt} other {# Felder gewählt}}",
       "cancel": "Abbrechen",
       "export": "Exportieren",
-      "sheetName": "Daten"
+      "sheetName": "Daten",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Typ: {type}",
       "itemSummary": "{count, plural, one {# Element} other {# Elemente}}"
+    },
+    "pipeline": {
+      "empty": "Noch keine Stufen. Füge eine Stufe hinzu, um deine Pipeline zu erstellen.",
+      "addStage": "Stufe hinzufügen",
+      "stageEnabled": "Stufe aktiviert",
+      "preview": "Vorschau",
+      "previewToHere": "Pipeline bis zu dieser Stufe ausführen (erste 10 Dokumente)",
+      "previewResult": "Vorschauergebnisse ({count})",
+      "previewEmpty": "Keine Dokumente in dieser Stufe",
+      "previewFail": "Vorschau fehlgeschlagen"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Mock-Daten-Generator",
     "subtitle": "Typisierte Spalten definieren — bis zu {max} Fixture-Zeilen exportieren",
-    "mockarooLink": "Workflow wie bei Mockaroo",
     "rowsLabel": "Zeilen",
     "rowsHint": "Maximal {max} Zeilen pro Lauf, damit der Tab reaktionsfähig bleibt.",
     "formatLabel": "Format",
@@ -3482,7 +3534,8 @@
       "numbersIds": "Zahlen & IDs",
       "dateTime": "Datum & Uhrzeit",
       "textDesign": "Text & Gestaltung",
-      "custom": "Benutzerdefiniert"
+      "custom": "Benutzerdefiniert",
+      "commerce": "Handel"
     },
     "fieldTypes": {
       "first_name": "Vorname",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Währungscode",
       "language_code": "Sprach-Tag",
-      "custom_list": "Eigene Liste"
+      "custom_list": "Eigene Liste",
+      "gender": "Geschlecht",
+      "us_state": "US-Bundesstaat",
+      "us_state_abbr": "US-Bundesstaat (Abk.)",
+      "user_agent": "User-Agent",
+      "mime_type": "MIME-Typ",
+      "file_name": "Dateiname",
+      "port": "Port",
+      "md5": "MD5-Hash",
+      "sha256": "SHA-256-Hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Uhrzeit",
+      "weekday": "Wochentag",
+      "month": "Monat",
+      "product_name": "Produktname",
+      "product_category": "Produktkategorie",
+      "department": "Abteilung",
+      "color_name": "Farbname",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Schema importieren",
+    "exportSchema": "Schema exportieren",
+    "importSchemaError": "Ungültige Schemadatei — erwartet wird ein JSON-Array aus { name, type }-Spalten."
   },
   "SvgOptimizer": {
     "title": "SVG-Optimierer",
     "subtitle": "SVG mit SVGO minifizieren und Größen vergleichen",
     "inputLabel": "Eingabe",
     "outputLabel": "Optimiert",
-    "placeholder": "<svg>…</svg>-Ausschnitt oder ganze Datei einfügen…",
+    "placeholder": "SVG-Ausschnitt oder ganze Datei einfügen…",
     "outputPlaceholder": "Optimiertes SVG erscheint hier…",
     "chars": "{count} Zeichen • {bytes} Bytes (UTF-8)",
     "preview": "Vorschau",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Einheiten-Konverter",
-    "subtitle": "323 Einheiten in 43 Kategorien umrechnen",
+    "subtitle": "292 Einheiten in 44 Kategorien umrechnen",
     "category": "Kategorie",
     "from": "Von",
     "to": "Nach",
@@ -4088,6 +4163,9 @@
     "inputLabel": "Code",
     "detected": "Erkannt: {language}",
     "clear": "Leeren",
+    "format": "Formatieren",
+    "formatUnsupported": "Formatierung für diese Sprache nicht verfügbar",
+    "formatFailed": "Code konnte nicht formatiert werden",
     "placeholder": "Füge deinen Code hier ein…",
     "previewLabel": "Vorschau",
     "emptyPreview": "Die Vorschau deines Codes erscheint hier",

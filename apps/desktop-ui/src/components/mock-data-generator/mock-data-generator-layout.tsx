@@ -1,12 +1,12 @@
 'use client'
 
-import { useCallback, useId, useMemo, useState } from 'react'
+import { useCallback, useId, useMemo, useRef, useState } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useMockDataWorker } from '@/hooks/use-mock-data-worker'
 import { useIsMobile } from '@/components/hooks/use-mobile'
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Dices, Download, Plus, Trash2, RefreshCw, CopyPlus, Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
+import { Dices, Download, Plus, Trash2, RefreshCw, CopyPlus, Loader2, FileUp, FileDown } from 'lucide-react'
 import { IconClipboardData } from '@tabler/icons-react'
 import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { RevealItem } from '@/components/dashboard/dashboard-reveal'
@@ -37,6 +37,7 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 import {
+  ALL_FIELD_TYPES,
   FIELD_TYPE_GROUP_STRUCTURE,
   MAX_MOCK_ROWS,
   schemaHasDuplicateFieldNames,
@@ -203,6 +204,43 @@ export function MockDataGeneratorLayout() {
     }
   }
 
+  const importInputRef = useRef<HTMLInputElement>(null)
+
+  const handleExportSchema = () => {
+    const blob = new Blob([JSON.stringify(toFieldSchema(schemaRows), null, 2)], {
+      type: 'application/json;charset=utf-8',
+    })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'mock-data-schema.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleImportSchema = async (file: File) => {
+    try {
+      const parsed: unknown = JSON.parse(await file.text())
+      if (!Array.isArray(parsed) || parsed.length === 0) throw new Error()
+      const rows = parsed.map((f) => {
+        const field = f as Partial<FieldSchema>
+        if (typeof field.name !== 'string' || !ALL_FIELD_TYPES.includes(field.type as FieldType)) {
+          throw new Error()
+        }
+        return newRow({
+          name: field.name,
+          type: field.type,
+          options: typeof field.options === 'object' && field.options !== null ? field.options : {},
+        })
+      })
+      setSchemaRows(rows)
+      resetCopied()
+      setOutput('')
+    } catch {
+      toast.error(t('importSchemaError'))
+    }
+  }
+
   const showTypeOptions = (type: FieldType) => TYPES_WITH_OPTIONS.includes(type)
 
   return (
@@ -216,17 +254,6 @@ export function MockDataGeneratorLayout() {
           accent={CATEGORY_ACCENT.Generators}
         />
       </RevealItem>
-
-      <p className="hidden shrink-0 text-[11px] text-muted-foreground md:block">
-        <Link
-          href="https://www.mockaroo.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-foreground"
-        >
-          {t('mockarooLink')}
-        </Link>
-      </p>
 
       {isMobile && (
         <ToolMobileTabs
@@ -348,16 +375,49 @@ export function MockDataGeneratorLayout() {
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               {t('schemaHeading')}
             </span>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="h-8 gap-1.5"
-              onClick={() => setSchemaRows((r) => [...r, newRow()])}
-            >
-              <Plus className="h-3.5 w-3.5" />
-              {t('addField')}
-            </Button>
+            <div className="flex gap-1.5">
+              <input
+                ref={importInputRef}
+                type="file"
+                accept="application/json,.json"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) void handleImportSchema(file)
+                  e.target.value = ''
+                }}
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="h-8 gap-1.5"
+                onClick={() => importInputRef.current?.click()}
+              >
+                <FileUp className="h-3.5 w-3.5" />
+                {t('importSchema')}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="h-8 gap-1.5"
+                onClick={handleExportSchema}
+              >
+                <FileDown className="h-3.5 w-3.5" />
+                {t('exportSchema')}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-8 gap-1.5"
+                onClick={() => setSchemaRows((r) => [...r, newRow()])}
+              >
+                <Plus className="h-3.5 w-3.5" />
+                {t('addField')}
+              </Button>
+            </div>
           </div>
 
           <div className="flex-1 min-h-0 rounded-md border overflow-auto">

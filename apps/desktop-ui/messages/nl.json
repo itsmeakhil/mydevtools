@@ -79,8 +79,8 @@
     "whoisLookup": "Whois-opzoeking"
   },
   "Help": {
-    "title": "Hulp & documentatie",
-    "subtitle": "Hoe MyDevTools in elkaar zit en hoe je gegevens beschermd zijn",
+    "title": "Help en documentatie",
+    "subtitle": "Hoe MyDevTools offline werkt en hoe je gegevens worden beschermd",
     "tabs": {
       "overview": "Overzicht",
       "apps": "Apps",
@@ -90,58 +90,59 @@
     "overview": {
       "whatIs": {
         "title": "Wat is MyDevTools?",
-        "description": "Een developer-workspace met login: een dashboard en een set tools voor dagelijks gebruik.",
-        "p1": "Na het inloggen maakt de app een sessie met de MyDevTools API zodat tools je data kunnen laden en opslaan. De zijbalk toont alle apps; tools die je niet gebruikt kun je verbergen via",
+        "description": "Een offline ontwikkelaarswerkplek: een dashboard en meer dan 80 tools die volledig op je apparaat draaien.",
+        "p1": "MyDevTools werkt volledig offline. Na een eenmalige activering in je browser werkt alles op dit apparaat, zonder accountaanmelding en zonder internetverbinding. In de zijbalk staan alle apps; tools die je niet gebruikt, kun je verbergen via",
         "settingsLink": "Instellingen",
         "p1After": ".",
-        "p2": "Sommige functies gebruiken een <strong>masterwachtwoord</strong> (of globale vault-sleutel) zodat geheimen zoals wachtwoorden en connection strings op je apparaat worden versleuteld voordat ze de server bereiken."
+        "p2": "Sommige functies gebruiken een <strong>hoofdwachtwoord</strong> (of globale kluissleutel) zodat geheimen zoals wachtwoorden en databaseverbindingsstrings versleuteld worden op je apparaat. Je gegevens worden opgeslagen in een lokale versleutelde database en worden nooit naar een server gestuurd."
       },
       "quickLinks": {
-        "title": "Snelle links",
+        "title": "Snelkoppelingen",
         "dashboard": "Dashboard",
         "settings": "Instellingen"
       }
     },
     "apps": {
-      "intro": "Open een tool via de zijbalk of het dashboard. Hieronder staat een korte gids per app.",
+      "intro": "Open een tool vanuit de zijbalk of het dashboard. Hieronder vind je een korte handleiding per app.",
       "open": "Openen",
       "howItWorks": "Hoe het werkt",
-      "generic": "Gebruik deze tool via de zijbalk voor de bijbehorende workflow."
+      "generic": "Gebruik deze tool vanuit de zijbalk voor de bijbehorende workflow."
     },
     "security": {
-      "session": {
-        "title": "Inloggen en API-sessie",
-        "description": "Identiteit en hoe de browser met je backend praat.",
+      "access": {
+        "title": "Activering en offline toegang",
+        "description": "Hoe de app de eerste keer wordt ontgrendeld en daarna offline draait.",
         "items": {
-          "authentication": "<strong>Authenticatie</strong> gebruikt Firebase voor inloggen. Na login wisselt de app je Firebase ID-token om voor API-cookies.",
-          "accessTokens": "<strong>Access tokens</strong> zijn server-ondertekende JWT’s (HS256) en tonen welke gebruiker de API aanroept.",
-          "refreshTokens": "<strong>Refresh tokens</strong> worden opgeslagen in HttpOnly cookies; de server bewaart een SHA-256 hash van de refresh token, niet de ruwe token."
+          "activation": "<strong>Eenmalige activering</strong> vindt plaats in je browser wanneer je de app voor het eerst opent. Hierbij wordt je abonnement geregistreerd en de app op dit apparaat ontgrendeld.",
+          "offline": "<strong>Geen aanmeldsessies.</strong> Na activering is er geen aanmelding per sessie en geen periodieke hercontrole—de app blijft werken zonder internetverbinding.",
+          "storage": "<strong>Lokale opslag.</strong> Al je gegevens staan in een versleutelde SQLCipher-database op je apparaat, beveiligd met een willekeurige sleutel in de sleutelhanger van je besturingssysteem."
         }
       },
       "encryption": {
         "title": "Versleuteling die je moet kennen",
-        "description": "Client-side crypto voor vault en gevoelige connectiegegevens.",
-        "p1": "Voor de <strong>wachtwoordbeheerder</strong>, <strong>omgevingsbeheer</strong> en opgeslagen verbindingen in <strong>NoSQL Explorer</strong> gebruikt de webapp de <strong>Web Crypto API</strong> van de browser:",
+        "description": "Client-side cryptografie voor de kluis en gevoelige verbindingsgegevens.",
+        "p1": "Voor de opgeslagen verbindingen van de <strong>wachtwoordbeheerder</strong>, de <strong>omgevingsbeheerder</strong> en de <strong>NoSQL Explorer</strong> gebruikt de app de <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>100.000</strong> iteraties en een willekeurige salt leidt een 256-bit sleutel af uit je masterwachtwoord.",
-          "aes": "<strong>AES-256-GCM</strong> versleutelt payloads; per versleuteling wordt een willekeurige <strong>12-byte IV</strong> gebruikt.",
-          "scope": "De afgeleide sleutel blijft in de browser (niet exporteerbaar). De server ontvangt alleen <strong>ciphertext en IV’s</strong>, niet je masterwachtwoord of plaintext secrets."
+          "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>600,000</strong> iteraties en een willekeurige salt leidt een 256-bit sleutel af uit je hoofdwachtwoord.",
+          "aes": "<strong>AES-256-GCM</strong> versleutelt de payloads; per versleuteling wordt een willekeurige <strong>12-byte IV</strong> gebruikt.",
+          "scope": "De afgeleide sleutel blijft in de app (niet-extraheerbaar) en je hoofdwachtwoord verlaat nooit je apparaat. Alleen <strong>ciphertext en IVs</strong> worden naar de lokale database geschreven."
         },
-        "warning": "Als je het masterwachtwoord vergeet, kunnen versleutelde gegevens niet worden hersteld. Bewaar het veilig."
+        "warning": "Als je je hoofdwachtwoord vergeet, kunnen versleutelde gegevens niet worden hersteld. Bewaar het veilig."
       },
-      "logout": {
-        "title": "Uitloggen en lokale data",
-        "body": "Uitloggen wist geheimen in het geheugen, vault-status en (waar van toepassing) masterkey-materiaal uit IndexedDB en beëindigt de API-sessie. Data die alleen in lokale opslag staat kan blijven totdat je die in de browser wist."
+      "local": {
+        "title": "Vergrendelen en lokale gegevens",
+        "body": "Bij het vergrendelen van de kluis worden geheimen en hoofdsleutelmateriaal uit het geheugen gewist; je versleutelde database blijft op schijf staan tot je die verwijdert. Er is geen afmelding—alleen het resetten van de app-gegevens of het verwijderen van de app wist alles, dus maak zelf back-ups van alles wat belangrijk is."
       }
     },
     "tips": {
       "title": "MyDevTools veilig gebruiken",
       "items": {
-        "masterPassword": "Gebruik een sterk, uniek masterwachtwoord voor vault-functies.",
-        "apiClient": "Behandel de API-client als elke HTTP-client: plak geen productiegeheimen in gedeelde omgevingen als je niet weet wie ze kan zien.",
-        "nosql": "De Databaseverkenner maakt verbinding met databases die jij configureert; gebruik accounts met minimale rechten en netwerkregels waar mogelijk.",
-        "json": "De JSON-formatter werkt lokaal in de browser—plak alsnog geen zeer gevoelige data op gedeelde apparaten.",
-        "settings": "Pas zichtbare tools aan in Instellingen om de zijbalk gefocust te houden."
+        "masterPassword": "Gebruik een sterk, uniek hoofdwachtwoord voor de kluisfuncties.",
+        "backup": "Je gegevens staan alleen op dit apparaat—exporteer ze of maak er regelmatig een back-up van, zodat je ze niet kwijtraakt als het apparaat het begeeft.",
+        "apiClient": "Behandel de API Client zoals elke HTTP-client: plak geen productiegeheimen in gedeelde omgevingen tenzij je weet wie ze kan zien.",
+        "nosql": "Database Explorer maakt verbinding met databases die je zelf configureert; gebruik waar mogelijk gebruikers met minimale rechten en netwerkregels.",
+        "json": "JSON Formatter draait volledig op je apparaat—vermijd toch het plakken van zeer gevoelige gegevens op gedeelde machines.",
+        "settings": "Pas de zichtbare tools aan in Instellingen om de zijbalk overzichtelijk te houden."
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notitienavigatie",
-      "openMenuAria": "Notitiemenu openen"
+      "openMenuAria": "Notitiemenu openen",
+      "showSidebarAria": "Zijbalk tonen"
     },
     "sidebar": {
       "title": "Notities",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "Weet je zeker dat je \"{title}\" wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
       "cancel": "Annuleren",
       "confirmDelete": "Verwijderen",
-      "noteOptionsAria": "Notitieopties"
+      "noteOptionsAria": "Notitieopties",
+      "hideSidebarAria": "Zijbalk verbergen"
     },
     "editor": {
       "emptyState": "Selecteer een notitie of maak een nieuwe aan om te beginnen.",
@@ -933,7 +936,8 @@
       "loading": "Laden…",
       "searchHint": "om te zoeken",
       "focusHint": "focusmodus",
-      "notePath": "Notitiepad"
+      "notePath": "Notitiepad",
+      "export": "Exporteren"
     },
     "context": {
       "authRequiredError": "Gebruiker niet geauthenticeerd",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "JSON-gegevens plakken",
       "pastePlaceholder": "[{\"service\": \"Voorbeeld\", \"username\": \"gebruiker\", \"password\": \"123\", ...}]",
       "pasteHint": "Plak hier de inhoud van een eerder geëxporteerd JSON-bestand.",
+      "selectFile": "JSON-bestand selecteren",
       "importing": "Importeren...",
       "importPasswords": "Wachtwoorden importeren",
       "trigger": "Importeren / exporteren",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "Map \"{name}\" verwijderen?",
       "deleteFolderDescription": "Dit verwijdert de map en alle submappen. Bladwijzers in deze mappen worden verplaatst naar Niet gecategoriseerd."
     },
+    "foldersHeading": "Mappen",
     "import": {
       "title": "Bladwijzers importeren",
       "description": "Importeer bladwijzers vanuit het exportbestand van je browser.",
@@ -1495,19 +1501,27 @@
       "updateConnect": "Bijwerken & verbinden",
       "connect": "Verbinden",
       "cancelEdit": "Bewerking annuleren",
+      "cancel": "Annuleren",
       "savedConnections": "Opgeslagen verbindingen",
       "emptySaved": "Nog geen opgeslagen verbindingen.",
       "lastUsed": "Laatst gebruikt {time}",
       "toastTestOk": "Verbinding geslaagd!",
       "toastTestFail": "Verbinding mislukt: {message}",
+      "toastConnectFail": "Kan geen verbinding maken met {name}",
       "toastUpdated": "Verbinding bijgewerkt",
       "confirmDelete": "Weet je zeker dat je deze opgeslagen verbinding wilt verwijderen?",
+      "menuDeleteConnection": "Verbinding verwijderen",
       "toastDeletedConn": "Verbinding verwijderd",
       "toastDeleteFail": "Verbinding verwijderen mislukt",
       "copyStringTitle": "Verbindingsreeks kopiëren",
       "toastStringCopied": "Verbindingsreeks gekopieerd!",
       "editTitle": "Bewerken",
-      "deleteTitle": "Verwijderen"
+      "deleteTitle": "Verwijderen",
+      "labelColor": "Kleurlabel",
+      "colorNone": "Geen kleur",
+      "hintColor": "Markeer omgevingen — bijv. rood voor productie.",
+      "labelReadOnly": "Alleen-lezen verbinding",
+      "hintReadOnly": "Blokkeert invoegen, bewerken, verwijderen en drops voor deze verbinding."
     },
     "sidebar": {
       "explorer": "Verkenner",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Alleen-lezen",
+      "cellUpdated": "Waarde bijgewerkt",
+      "cellUpdateFail": "Waarde bijwerken mislukt",
+      "cellFilterByValue": "Filteren op deze waarde",
+      "cellExcludeValue": "Deze waarde uitsluiten",
+      "cellSortAsc": "Oplopend sorteren",
+      "cellSortDesc": "Aflopend sorteren",
+      "cellCopyValue": "Waarde kopiëren",
+      "cellEditValue": "Waarde bewerken",
+      "explainTitle": "Uitvoeringsplan",
+      "explainLoading": "Explain wordt uitgevoerd…",
+      "explainFail": "Explain mislukt",
+      "explainCollscan": "Volledige collectiescan",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} geretourneerd",
+      "explainDocsExamined": "{n} onderzocht",
+      "explainCollscanHint": "Deze query doorloopt elk document in de collectie. Overweeg een index op de gefilterde velden.",
+      "explainRawLabel": "Explain-uitvoer"
     },
     "tabs": {
       "filterActive": "Actief filter toegepast",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group (Tel/Som)",
       "format": "Formatteren",
       "formattedJson": "Geformatteerde JSON",
-      "runQuery": "Query uitvoeren"
+      "runQuery": "Query uitvoeren",
+      "savedQueries": "Opgeslagen query's",
+      "noHistory": "Geen recente query's",
+      "saveNamePlaceholder": "Querynaam",
+      "saveCurrentQuery": "Huidige query opslaan",
+      "save": "Opslaan",
+      "saveQueryFail": "Query opslaan mislukt",
+      "querySaved": "“{name}” opgeslagen",
+      "explainQuery": "Query uitleggen",
+      "stagesMode": "Fasen",
+      "invalidStageJson": "Een pipelinefase bevat ongeldige JSON"
     },
     "export": {
       "selectFieldsError": "Selecteer minimaal één veld om te exporteren",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# veld geselecteerd} other {# velden geselecteerd}}",
       "cancel": "Annuleren",
       "export": "Exporteren",
-      "sheetName": "Gegevens"
+      "sheetName": "Gegevens",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "Nog geen fasen. Voeg een fase toe om je pipeline op te bouwen.",
+      "addStage": "Fase toevoegen",
+      "stageEnabled": "Fase ingeschakeld",
+      "preview": "Voorbeeld",
+      "previewToHere": "Pipeline tot deze fase uitvoeren (eerste 10 documenten)",
+      "previewResult": "Voorbeeldresultaten ({count})",
+      "previewEmpty": "Geen documenten in deze fase",
+      "previewFail": "Voorbeeld mislukt"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Mockdata-generator",
     "subtitle": "Definieer getypeerde kolommen — exporteer tot {max} fixture-rijen",
-    "mockarooLink": "Mockaroo-achtige workflow",
     "rowsLabel": "Rijen",
     "rowsHint": "Maximaal {max} rijen per run om het tabblad vlot te houden.",
     "formatLabel": "Formaat",
@@ -3482,7 +3534,8 @@
       "numbersIds": "Getallen & ID’s",
       "dateTime": "Datum & tijd",
       "textDesign": "Tekst & vormgeving",
-      "custom": "Aangepast"
+      "custom": "Aangepast",
+      "commerce": "Commercie"
     },
     "fieldTypes": {
       "first_name": "Voornaam",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Valutacode",
       "language_code": "Taalcode",
-      "custom_list": "Aangepaste lijst"
+      "custom_list": "Aangepaste lijst",
+      "gender": "Geslacht",
+      "us_state": "Amerikaanse staat",
+      "us_state_abbr": "Amerikaanse staat (afk.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME-type",
+      "file_name": "Bestandsnaam",
+      "port": "Poort",
+      "md5": "MD5-hash",
+      "sha256": "SHA-256-hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Tijd",
+      "weekday": "Weekdag",
+      "month": "Maand",
+      "product_name": "Productnaam",
+      "product_category": "Productcategorie",
+      "department": "Afdeling",
+      "color_name": "Kleurnaam",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Schema importeren",
+    "exportSchema": "Schema exporteren",
+    "importSchemaError": "Ongeldig schemabestand — een JSON-array van { name, type }-kolommen wordt verwacht."
   },
   "SvgOptimizer": {
     "title": "SVG-optimizer",
     "subtitle": "Minificeer SVG met SVGO en vergelijk groottes",
     "inputLabel": "Invoer",
     "outputLabel": "Geoptimaliseerd",
-    "placeholder": "Plak een <svg>…</svg>-fragment of heel bestand…",
+    "placeholder": "Plak een SVG-fragment of heel bestand…",
     "outputPlaceholder": "Geoptimaliseerde SVG verschijnt hier…",
     "chars": "{count} tekens • {bytes} bytes (UTF-8)",
     "preview": "Voorbeeld",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Eenhedenconverter",
-    "subtitle": "Converteer 323 eenheden in 43 categorieën",
+    "subtitle": "Converteer 292 eenheden in 44 categorieën",
     "category": "Categorie",
     "from": "Van",
     "to": "Naar",
@@ -4088,6 +4163,9 @@
     "inputLabel": "Code",
     "detected": "Gedetecteerd: {language}",
     "clear": "Wissen",
+    "format": "Formatteren",
+    "formatUnsupported": "Formattering is niet beschikbaar voor deze taal",
+    "formatFailed": "Kon de code niet formatteren",
     "placeholder": "Plak hier je code…",
     "previewLabel": "Voorbeeld",
     "emptyPreview": "Het voorbeeld van je code verschijnt hier",

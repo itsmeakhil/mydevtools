@@ -80,21 +80,21 @@
   },
   "Help": {
     "title": "Bantuan & Dokumentasi",
-    "subtitle": "Cara MyDevTools berfungsi dan bagaimana data anda dilindungi",
+    "subtitle": "Cara MyDevTools berfungsi secara luar talian dan cara data anda dilindungi",
     "tabs": {
-      "overview": "Gambaran keseluruhan",
+      "overview": "Gambaran Keseluruhan",
       "apps": "Aplikasi",
       "security": "Keselamatan",
       "tips": "Petua"
     },
     "overview": {
       "whatIs": {
-        "title": "Apakah MyDevTools?",
-        "description": "Ruang kerja pembangun dengan log masuk: papan pemuka dan set alat untuk tugasan harian.",
-        "p1": "Selepas anda log masuk, aplikasi mewujudkan sesi dengan MyDevTools API supaya alat boleh memuat dan menyimpan data anda. Bar sisi menyenaraikan semua aplikasi; anda boleh menyembunyikan alat yang tidak digunakan dari",
+        "title": "Apakah itu MyDevTools?",
+        "description": "Ruang kerja pembangun yang luar talian: sebuah papan pemuka dan 80+ alat yang berjalan sepenuhnya pada peranti anda.",
+        "p1": "MyDevTools berjalan sepenuhnya secara luar talian. Selepas pengaktifan sekali sahaja dalam pelayar anda, segalanya berfungsi pada peranti ini tanpa log masuk akaun dan tanpa memerlukan sambungan internet. Bar sisi menyenaraikan setiap aplikasi; anda boleh menyembunyikan alat yang tidak anda gunakan daripada",
         "settingsLink": "Tetapan",
         "p1After": ".",
-        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci vault global) supaya rahsia seperti kata laluan dan rentetan sambungan disulitkan pada peranti anda sebelum sampai ke pelayan."
+        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci peti besi global) supaya rahsia seperti kata laluan dan rentetan sambungan pangkalan data disulitkan pada peranti anda. Data anda disimpan dalam pangkalan data tersulit setempat dan tidak pernah dihantar ke pelayan."
       },
       "quickLinks": {
         "title": "Pautan pantas",
@@ -103,44 +103,45 @@
       }
     },
     "apps": {
-      "intro": "Buka mana-mana alat dari bar sisi atau papan pemuka. Di bawah ialah panduan ringkas untuk setiap aplikasi.",
+      "intro": "Buka mana-mana alat daripada bar sisi atau papan pemuka. Di bawah ialah panduan ringkas bagi setiap aplikasi.",
       "open": "Buka",
       "howItWorks": "Cara ia berfungsi",
-      "generic": "Gunakan alat ini dari bar sisi untuk aliran kerja khususnya."
+      "generic": "Gunakan alat ini daripada bar sisi untuk aliran kerja khususnya."
     },
     "security": {
-      "session": {
-        "title": "Log masuk dan sesi API",
-        "description": "Identiti dan cara pelayar berkomunikasi dengan backend.",
+      "access": {
+        "title": "Pengaktifan & akses luar talian",
+        "description": "Bagaimana aplikasi dibuka kunci buat kali pertama, kemudian berjalan secara luar talian.",
         "items": {
-          "authentication": "<strong>Pengesahan</strong> menggunakan Firebase untuk log masuk. Selepas log masuk, aplikasi menukar token ID Firebase anda kepada kuki API.",
-          "accessTokens": "<strong>Token akses</strong> ialah JWT yang ditandatangani pelayan (HS256) untuk membuktikan pengguna yang memanggil API.",
-          "refreshTokens": "<strong>Token segar semula</strong> disimpan dalam kuki HttpOnly; pelayan menyimpan hash SHA-256 token, bukan token mentah."
+          "activation": "<strong>Pengaktifan sekali sahaja</strong> berlaku dalam pelayar anda pada kali pertama anda membuka aplikasi. Ia merekod pelan anda dan membuka kunci aplikasi pada peranti ini.",
+          "offline": "<strong>Tiada sesi log masuk.</strong> Selepas pengaktifan, tiada log masuk bagi setiap sesi dan tiada semakan semula berkala—aplikasi terus berfungsi tanpa sambungan internet.",
+          "storage": "<strong>Storan setempat.</strong> Semua data anda berada dalam pangkalan data SQLCipher tersulit pada peranti anda, dikunci dengan kunci rawak yang disimpan dalam keychain sistem pengendalian anda."
         }
       },
       "encryption": {
-        "title": "Penyulitan yang perlu diketahui",
-        "description": "Kripto sisi klien untuk vault dan data sambungan sensitif.",
-        "p1": "Untuk <strong>pengurus kata laluan</strong>, <strong>pengurus persekitaran</strong> dan sambungan tersimpan dalam <strong>NoSQL Explorer</strong>, aplikasi web menggunakan <strong>Web Crypto API</strong> pelayar:",
+        "title": "Penyulitan yang perlu anda ketahui",
+        "description": "Kriptografi bahagian klien untuk peti besi dan data sambungan sensitif.",
+        "p1": "Bagi sambungan tersimpan <strong>pengurus kata laluan</strong>, <strong>pengurus persekitaran</strong>, dan <strong>NoSQL Explorer</strong>, aplikasi menggunakan <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100,000</strong> iterasi dan salt rawak menjana kunci 256-bit daripada kata laluan induk anda.",
-          "aes": "<strong>AES-256-GCM</strong> menyulitkan data; <strong>IV 12 bait</strong> rawak digunakan bagi setiap penyulitan.",
-          "scope": "Kunci terbitan kekal dalam pelayar (tidak boleh diekstrak). Pelayan hanya menerima <strong>ciphertext dan IV</strong>, bukan kata laluan induk atau rahsia dalam teks biasa."
+          "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>600,000</strong> lelaran, dan garam rawak menerbitkan kunci 256-bit daripada kata laluan induk anda.",
+          "aes": "<strong>AES-256-GCM</strong> menyulitkan muatan; satu <strong>12-byte IV</strong> rawak digunakan bagi setiap penyulitan.",
+          "scope": "Kunci terbitan kekal dalam aplikasi (tidak boleh diekstrak) dan kata laluan induk anda tidak pernah meninggalkan peranti anda. Hanya <strong>teks sifer dan IVs</strong> yang ditulis ke pangkalan data setempat."
         },
-        "warning": "Jika anda terlupa kata laluan induk, data yang disulitkan tidak boleh dipulihkan. Simpan dengan selamat."
+        "warning": "Jika anda terlupa kata laluan induk, data tersulit tidak boleh dipulihkan. Simpannya dengan selamat."
       },
-      "logout": {
-        "title": "Log keluar dan data tempatan",
-        "body": "Log keluar akan mengosongkan rahsia dalam ingatan, status vault, dan (jika berkenaan) bahan kunci induk daripada IndexedDB serta menamatkan sesi API. Data yang hanya berada dalam storan tempatan peranti mungkin kekal sehingga anda memadamkannya dalam pelayar."
+      "local": {
+        "title": "Penguncian & data setempat",
+        "body": "Mengunci peti besi akan mengosongkan rahsia dalam memori dan bahan kunci induk; pangkalan data tersulit anda kekal pada cakera sehingga anda mengalih keluarnya. Tiada log keluar—yang mengosongkan segalanya ialah menetapkan semula data aplikasi atau memadamkan aplikasi, jadi simpanlah sandaran anda sendiri bagi apa-apa yang penting."
       }
     },
     "tips": {
       "title": "Menggunakan MyDevTools dengan selamat",
       "items": {
-        "masterPassword": "Gunakan kata laluan induk yang kuat dan unik untuk ciri vault.",
-        "apiClient": "Anggap API Client seperti klien HTTP biasa: elakkan menampal rahsia produksi ke persekitaran kongsi jika anda tidak tahu siapa yang boleh melihatnya.",
-        "nosql": "Penjelajah Pangkalan Data menyambung ke pangkalan data yang anda konfigurasi; gunakan akaun keistimewaan minimum dan peraturan rangkaian jika boleh.",
-        "json": "Pemformat JSON berjalan secara tempatan dalam pelayar—masih elakkan menampal data yang sangat sensitif pada mesin kongsi.",
+        "masterPassword": "Gunakan kata laluan induk yang kukuh dan unik untuk ciri peti besi.",
+        "backup": "Data anda berada hanya pada peranti ini—eksport atau sandarkannya secara berkala supaya anda tidak kehilangannya jika peranti rosak.",
+        "apiClient": "Layani API Client seperti mana-mana klien HTTP: elakkan menampal rahsia pengeluaran ke dalam persekitaran dikongsi melainkan anda memahami siapa yang boleh melihatnya.",
+        "nosql": "Database Explorer bersambung ke pangkalan data yang anda konfigurasikan; gunakan pengguna keistimewaan paling minimum dan peraturan rangkaian jika boleh.",
+        "json": "JSON Formatter berjalan sepenuhnya pada peranti anda—namun tetap elakkan menampal data yang amat sensitif pada mesin dikongsi.",
         "settings": "Sesuaikan alat yang kelihatan dalam Tetapan untuk memastikan bar sisi kekal fokus."
       }
     }
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Navigasi Nota",
-      "openMenuAria": "Buka menu nota"
+      "openMenuAria": "Buka menu nota",
+      "showSidebarAria": "Tunjukkan bar sisi"
     },
     "sidebar": {
       "title": "Nota",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "Adakah anda pasti mahu memadam \"{title}\"? Tindakan ini tidak boleh dibuat asal.",
       "cancel": "Batal",
       "confirmDelete": "Padam",
-      "noteOptionsAria": "Pilihan nota"
+      "noteOptionsAria": "Pilihan nota",
+      "hideSidebarAria": "Sembunyikan bar sisi"
     },
     "editor": {
       "emptyState": "Pilih nota atau cipta yang baharu untuk bermula.",
@@ -933,7 +936,8 @@
       "loading": "Memuatkan…",
       "searchHint": "untuk mencari",
       "focusHint": "mod fokus",
-      "notePath": "Laluan nota"
+      "notePath": "Laluan nota",
+      "export": "Eksport"
     },
     "context": {
       "authRequiredError": "Pengguna tidak disahkan",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "Tampal data JSON",
       "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
       "pasteHint": "Tampal kandungan fail JSON yang telah dieksport sebelum ini di sini.",
+      "selectFile": "Pilih fail JSON",
       "importing": "Mengimport...",
       "importPasswords": "Import kata laluan",
       "trigger": "Import / eksport",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "Padam folder \"{name}\"?",
       "deleteFolderDescription": "Ini akan memadam folder dan semua subfoldernya. Penanda halaman dalam folder ini akan dipindahkan ke Tidak Dikategorikan."
     },
+    "foldersHeading": "Folder",
     "import": {
       "title": "Import Penanda Halaman",
       "description": "Import penanda halaman dari fail eksport pelayar anda.",
@@ -1495,19 +1501,27 @@
       "updateConnect": "Kemas Kini & Sambung",
       "connect": "Sambung",
       "cancelEdit": "Batal Edit",
+      "cancel": "Batal",
       "savedConnections": "Sambungan Tersimpan",
       "emptySaved": "Belum ada sambungan tersimpan.",
       "lastUsed": "Terakhir digunakan {time}",
       "toastTestOk": "Sambungan berjaya!",
       "toastTestFail": "Sambungan gagal: {message}",
+      "toastConnectFail": "Gagal menyambung ke {name}",
       "toastUpdated": "Sambungan dikemas kini",
       "confirmDelete": "Adakah anda pasti mahu memadam sambungan tersimpan ini?",
+      "menuDeleteConnection": "Padam sambungan",
       "toastDeletedConn": "Sambungan dipadam",
       "toastDeleteFail": "Gagal memadam sambungan",
       "copyStringTitle": "Salin rentetan sambungan",
       "toastStringCopied": "Rentetan sambungan disalin!",
       "editTitle": "Edit",
-      "deleteTitle": "Padam"
+      "deleteTitle": "Padam",
+      "labelColor": "Label warna",
+      "colorNone": "Tiada warna",
+      "hintColor": "Tandakan persekitaran — cth. merah untuk pengeluaran.",
+      "labelReadOnly": "Sambungan baca sahaja",
+      "hintReadOnly": "Menyekat sisipan, suntingan, pemadaman dan drop untuk sambungan ini."
     },
     "sidebar": {
       "explorer": "Penjelajah",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Baca sahaja",
+      "cellUpdated": "Nilai dikemas kini",
+      "cellUpdateFail": "Gagal mengemas kini nilai",
+      "cellFilterByValue": "Tapis mengikut nilai ini",
+      "cellExcludeValue": "Kecualikan nilai ini",
+      "cellSortAsc": "Isih menaik",
+      "cellSortDesc": "Isih menurun",
+      "cellCopyValue": "Salin nilai",
+      "cellEditValue": "Sunting nilai",
+      "explainTitle": "Pelan pelaksanaan",
+      "explainLoading": "Menjalankan explain…",
+      "explainFail": "Explain gagal",
+      "explainCollscan": "Imbasan penuh koleksi",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} dikembalikan",
+      "explainDocsExamined": "{n} diperiksa",
+      "explainCollscanHint": "Pertanyaan ini mengimbas setiap dokumen dalam koleksi. Pertimbangkan untuk mencipta indeks pada medan yang ditapis.",
+      "explainRawLabel": "Output explain"
     },
     "tabs": {
       "filterActive": "Penapis aktif digunakan",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group (Kira/Jumlah)",
       "format": "Format",
       "formattedJson": "JSON Terformat",
-      "runQuery": "Jalankan Pertanyaan"
+      "runQuery": "Jalankan Pertanyaan",
+      "savedQueries": "Pertanyaan tersimpan",
+      "noHistory": "Tiada pertanyaan terkini",
+      "saveNamePlaceholder": "Nama pertanyaan",
+      "saveCurrentQuery": "Simpan pertanyaan semasa",
+      "save": "Simpan",
+      "saveQueryFail": "Gagal menyimpan pertanyaan",
+      "querySaved": "“{name}” disimpan",
+      "explainQuery": "Terangkan pertanyaan",
+      "stagesMode": "Peringkat",
+      "invalidStageJson": "Satu peringkat pipeline mengandungi JSON tidak sah"
     },
     "export": {
       "selectFieldsError": "Sila pilih sekurang-kurangnya satu medan untuk dieksport",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# medan dipilih} other {# medan dipilih}}",
       "cancel": "Batal",
       "export": "Eksport",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Jenis: {type}",
       "itemSummary": "{count, plural, one {# item} other {# item}}"
+    },
+    "pipeline": {
+      "empty": "Belum ada peringkat. Tambah peringkat untuk membina pipeline anda.",
+      "addStage": "Tambah peringkat",
+      "stageEnabled": "Peringkat diaktifkan",
+      "preview": "Pratonton",
+      "previewToHere": "Jalankan pipeline hingga peringkat ini (10 dokumen pertama)",
+      "previewResult": "Hasil pratonton ({count})",
+      "previewEmpty": "Tiada dokumen pada peringkat ini",
+      "previewFail": "Pratonton gagal"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Penjana Data Olokan",
     "subtitle": "Takrifkan lajur bertaip — eksport sehingga {max} baris fixture",
-    "mockarooLink": "Aliran kerja ala Mockaroo",
     "rowsLabel": "Baris",
     "rowsHint": "Maksimum {max} baris setiap penjanaan supaya tab kekal responsif.",
     "formatLabel": "Format",
@@ -3482,7 +3534,8 @@
       "numbersIds": "Nombor & ID",
       "dateTime": "Tarikh & masa",
       "textDesign": "Teks & reka bentuk",
-      "custom": "Tersuai"
+      "custom": "Tersuai",
+      "commerce": "Perdagangan"
     },
     "fieldTypes": {
       "first_name": "Nama pertama",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Kod mata wang",
       "language_code": "Tag bahasa",
-      "custom_list": "Senarai tersuai"
+      "custom_list": "Senarai tersuai",
+      "gender": "Jantina",
+      "us_state": "Negeri AS",
+      "us_state_abbr": "Negeri AS (singkatan)",
+      "user_agent": "Ejen pengguna",
+      "mime_type": "Jenis MIME",
+      "file_name": "Nama fail",
+      "port": "Port",
+      "md5": "Cincangan MD5",
+      "sha256": "Cincangan SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Masa",
+      "weekday": "Hari dalam minggu",
+      "month": "Bulan",
+      "product_name": "Nama produk",
+      "product_category": "Kategori produk",
+      "department": "Jabatan",
+      "color_name": "Nama warna",
+      "catch_phrase": "Slogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Import skema",
+    "exportSchema": "Eksport skema",
+    "importSchemaError": "Fail skema tidak sah — tatasusunan JSON lajur { name, type } dijangka."
   },
   "SvgOptimizer": {
     "title": "Pengoptimum SVG",
     "subtitle": "Minifikasi SVG dengan SVGO dan bandingkan saiz",
     "inputLabel": "Input",
     "outputLabel": "Dioptimumkan",
-    "placeholder": "Tampal serpihan <svg>…</svg> atau keseluruhan fail…",
+    "placeholder": "Tampal serpihan SVG atau keseluruhan fail…",
     "outputPlaceholder": "SVG teroptimum dipaparkan di sini…",
     "chars": "{count} aksara • {bytes} bait (UTF-8)",
     "preview": "Pratonton",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Penukar Unit",
-    "subtitle": "Tukar 323 unit merentas 43 kategori",
+    "subtitle": "Tukar 292 unit merentas 44 kategori",
     "category": "Kategori",
     "from": "Dari",
     "to": "Ke",
@@ -4088,6 +4163,9 @@
     "inputLabel": "Kod",
     "detected": "Dikesan: {language}",
     "clear": "Kosongkan",
+    "format": "Format",
+    "formatUnsupported": "Pemformatan tidak tersedia untuk bahasa ini",
+    "formatFailed": "Gagal memformat kod",
     "placeholder": "Tampal kod anda di sini…",
     "previewLabel": "Pratonton",
     "emptyPreview": "Pratonton kod anda akan muncul di sini",

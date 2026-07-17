@@ -6,15 +6,15 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 export const homepageFaqItems = [
   {
     q: 'Is MyDevTools free?',
-    a: 'The Free plan is free forever — sign in and use the core developer tools with capped cloud usage, no card required. Pro unlocks unlimited usage, cross-device sync, and priority support.',
+    a: 'Yes, while we are getting started — the first 250 signups get lifetime Pro for free. After that, plans are $59/year or $100 lifetime, no card required to try.',
   },
   {
     q: 'What is the difference between the Free and Pro plans?',
-    a: 'The Free plan gives you the core developer tools with capped cloud usage at no cost. Pro adds unlimited usage, encrypted cross-device sync, private history, and priority support.',
+    a: 'The Free plan gives you the core developer tools at no cost. Pro adds unlimited usage, private history, saved snippets, and priority support — all still fully offline on your device.',
   },
   {
     q: 'Is my data secure?',
-    a: 'Sensitive data is encrypted on your device before it reaches the server where supported. The server stores encrypted blobs for vault-style data instead of readable plaintext.',
+    a: 'Your data stays on your device — there is no cloud sync. Vault-style data is additionally encrypted locally with a password only you know.',
   },
   {
     q: 'Do I need an account to use the tools?',
@@ -22,7 +22,7 @@ export const homepageFaqItems = [
   },
   {
     q: 'Does it work offline?',
-    a: 'Yes. MyDevTools is a desktop app — most tools run fully offline on your machine. Tools that connect to external services, sync data, or send API requests need a network connection.',
+    a: 'Yes. MyDevTools is a desktop app — most tools run fully offline on your machine. Tools that connect to external services or send API requests need a network connection.',
   },
 ]
 

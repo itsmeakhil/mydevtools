@@ -70,6 +70,22 @@ export default function NoSQLExplorerPage() {
 
     const connectionCacheRef = useRef<Map<string, SavedConnection>>(new Map());
 
+    // Keep tab color/read-only flags in sync when connections are (re)loaded —
+    // persisted tabs may carry stale copies from a previous session.
+    const syncTabsWithConnections = (conns: SavedConnection[]) => {
+        const byId = new Map(conns.map((c) => [c.id, c]));
+        setTabs((prev) =>
+            prev.map((tab) => {
+                const conn = byId.get(tab.connectionId);
+                if (!conn) return tab;
+                const color = conn.color ?? null;
+                const readOnly = conn.readOnly ?? false;
+                if (tab.connectionColor === color && (tab.readOnly ?? false) === readOnly) return tab;
+                return { ...tab, connectionColor: color, readOnly };
+            })
+        );
+    };
+
     // Check for connections + prime cache so auto-fetch doesn't trigger a second
     // getConnections round-trip on the cold path.
     useEffect(() => {
@@ -78,6 +94,7 @@ export default function NoSQLExplorerPage() {
                 try {
                     const connections = await getConnections(user.uid, encryptionKey);
                     connections.forEach((c) => connectionCacheRef.current.set(c.id, c));
+                    syncTabsWithConnections(connections);
                     setHasConnections(connections.length > 0);
                 } catch (error) {
                     console.error("Failed to check connections", error);
@@ -129,6 +146,8 @@ export default function NoSQLExplorerPage() {
             id: t.id,
             connectionId: t.connectionId,
             connectionName: t.connectionName,
+            connectionColor: t.connectionColor ?? null,
+            readOnly: t.readOnly ?? false,
             dbName: t.dbName,
             collectionName: t.collectionName,
             page: t.page,
@@ -189,6 +208,8 @@ export default function NoSQLExplorerPage() {
             id: tabId,
             connectionId: connection.id!,
             connectionName: connection.name,
+            connectionColor: connection.color ?? null,
+            readOnly: connection.readOnly ?? false,
             dbName,
             collectionName,
             documents: [],
@@ -308,6 +329,7 @@ export default function NoSQLExplorerPage() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     connectionString: conn.connectionString,
+                    readOnly: conn.readOnly ?? false,
                     dbName: activeTab.dbName,
                     collectionName: activeTab.collectionName,
                     document: doc,
@@ -331,6 +353,7 @@ export default function NoSQLExplorerPage() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     connectionString: conn.connectionString,
+                    readOnly: conn.readOnly ?? false,
                     dbName: activeTab.dbName,
                     collectionName: activeTab.collectionName,
                     documentId: id,
@@ -361,6 +384,7 @@ export default function NoSQLExplorerPage() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     connectionString: conn.connectionString,
+                    readOnly: conn.readOnly ?? false,
                     dbName: activeTab.dbName,
                     collectionName: activeTab.collectionName,
                     documentId: id,
@@ -423,6 +447,7 @@ export default function NoSQLExplorerPage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 connectionString: conn.connectionString,
+                readOnly: conn.readOnly ?? false,
                 dbName: activeTab.dbName,
                 collectionName: activeTab.collectionName,
                 documentIds: ids,
@@ -442,6 +467,7 @@ export default function NoSQLExplorerPage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 connectionString: conn.connectionString,
+                readOnly: conn.readOnly ?? false,
                 dbName: activeTab.dbName,
                 collectionName: activeTab.collectionName,
                 documents,
@@ -497,6 +523,7 @@ export default function NoSQLExplorerPage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 connectionString: conn.connectionString,
+                readOnly: conn.readOnly ?? false,
                 dbName: activeTab.dbName,
                 collectionName: activeTab.collectionName,
                 indexName,
@@ -515,6 +542,7 @@ export default function NoSQLExplorerPage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 connectionString: conn.connectionString,
+                readOnly: conn.readOnly ?? false,
                 dbName: activeTab.dbName,
                 collectionName: activeTab.collectionName,
                 keys,
@@ -524,6 +552,48 @@ export default function NoSQLExplorerPage() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error);
     };
+
+    const handleExplain = useCallback(async (query: string) => {
+        if (!activeTab) throw new Error("No active tab");
+        const conn = await getConnectionForTab(activeTab);
+
+        const res = await apiFetch("/api/nosql/explain", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                query,
+                sortField: activeTab.sortField,
+                sortDirection: activeTab.sortDirection || "asc",
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        return data.explain;
+    }, [activeTab, getConnectionForTab]);
+
+    const handlePreviewPipeline = useCallback(async (pipelineJson: string) => {
+        if (!activeTab) throw new Error("No active tab");
+        const conn = await getConnectionForTab(activeTab);
+
+        const res = await apiFetch("/api/nosql/documents/query", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                query: pipelineJson,
+                limit: 10,
+                skip: 0,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        return { documents: data.documents as unknown[] };
+    }, [activeTab, getConnectionForTab]);
 
     const performFetch = async (tab: ExplorerTab) => {
         try {
@@ -645,6 +715,7 @@ export default function NoSQLExplorerPage() {
                         onConnectionsLoaded={(conns) => {
                             connectionCacheRef.current.clear();
                             conns.forEach(c => connectionCacheRef.current.set(c.id, c));
+                            syncTabsWithConnections(conns);
                         }}
                     />
                     <div
@@ -674,6 +745,7 @@ export default function NoSQLExplorerPage() {
                             onConnectionsLoaded={(conns) => {
                                 connectionCacheRef.current.clear();
                                 conns.forEach(c => connectionCacheRef.current.set(c.id, c));
+                                syncTabsWithConnections(conns);
                             }}
                         />
                     </SheetContent>
@@ -757,6 +829,9 @@ export default function NoSQLExplorerPage() {
                             onLoadIndexes={handleLoadIndexes}
                             onDropIndex={handleDropIndex}
                             onCreateIndex={handleCreateIndex}
+                            onExplain={handleExplain}
+                            onPreviewPipeline={handlePreviewPipeline}
+                            readOnly={activeTab.readOnly ?? false}
                         />
                     ) : (
                         <div className="flex flex-col items-center justify-center h-full text-muted-foreground p-8 animate-in fade-in zoom-in duration-300">

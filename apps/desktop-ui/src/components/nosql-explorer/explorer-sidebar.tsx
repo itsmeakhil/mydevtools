@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Database, Collection, SavedConnection } from "./types";
-import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle, IconLoader2 } from "@tabler/icons-react";
+import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle, IconLoader2, IconLock } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import React, { useState, useEffect, useRef } from "react";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
@@ -567,7 +567,10 @@ export function ExplorerSidebar({
                                                             <IconChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
                                                         )}
                                                         <div className="relative shrink-0">
-                                                            <IconServer className="h-4 w-4 text-purple-500" />
+                                                            <IconServer
+                                                                className={cn("h-4 w-4", !node.connection.color && "text-purple-500")}
+                                                                style={node.connection.color ? { color: node.connection.color } : undefined}
+                                                            />
                                                             {/* Status dot */}
                                                             <span className={cn(
                                                                 "absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-background",
@@ -577,7 +580,10 @@ export function ExplorerSidebar({
                                                                             "bg-muted-foreground/40"
                                                             )} />
                                                         </div>
-                                                        <span className="truncate flex-1 text-left text-sm">{node.connection.name}</span>
+                                                        <span className="flex-1 min-w-0 text-left text-sm flex items-center gap-1.5">
+                                                            <span className="truncate">{node.connection.name}</span>
+                                                            {node.connection.readOnly && <IconLock className="h-3 w-3 text-amber-500 shrink-0" />}
+                                                        </span>
 
                                                         <div className="absolute right-1 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
                                                             <DropdownMenu>
@@ -685,18 +691,22 @@ export function ExplorerSidebar({
                                                                     }}>
                                                                         <IconCopy className="h-3 w-3 mr-2" /> {t("copyDbName")}
                                                                     </DropdownMenuItem>
-                                                                    <DropdownMenuItem onClick={() => setRenameDatabaseDialog({
-                                                                        open: true,
-                                                                        connection: node.connection,
-                                                                        dbName: db.name,
-                                                                        newName: db.name
-                                                                    })}>
-                                                                        <IconEdit className="h-3 w-3 mr-2" /> {t("menuRename")}
-                                                                    </DropdownMenuItem>
-                                                                    <DropdownMenuSeparator />
-                                                                    <DropdownMenuItem className="text-destructive" onClick={() => handleDropDatabase(index, db.name)}>
-                                                                        <IconTrash className="h-3 w-3 mr-2" /> {t("dropDatabase")}
-                                                                    </DropdownMenuItem>
+                                                                    {!node.connection.readOnly && (
+                                                                        <>
+                                                                            <DropdownMenuItem onClick={() => setRenameDatabaseDialog({
+                                                                                open: true,
+                                                                                connection: node.connection,
+                                                                                dbName: db.name,
+                                                                                newName: db.name
+                                                                            })}>
+                                                                                <IconEdit className="h-3 w-3 mr-2" /> {t("menuRename")}
+                                                                            </DropdownMenuItem>
+                                                                            <DropdownMenuSeparator />
+                                                                            <DropdownMenuItem className="text-destructive" onClick={() => handleDropDatabase(index, db.name)}>
+                                                                                <IconTrash className="h-3 w-3 mr-2" /> {t("dropDatabase")}
+                                                                            </DropdownMenuItem>
+                                                                        </>
+                                                                    )}
                                                                 </DropdownMenuContent>
                                                             </DropdownMenu>
                                                         </div>
@@ -721,16 +731,18 @@ export function ExplorerSidebar({
                                                                             const isSelected = selectedCollections.has(selKey);
                                                                             return (
                                                                             <div key={col.name} className="group/col flex items-center pr-2">
-                                                                                <div className={isSelected ? "opacity-100" : "opacity-0 group-hover/col:opacity-100 transition-opacity"}>
-                                                                                    <input
-                                                                                        type="checkbox"
-                                                                                        checked={isSelected}
-                                                                                        onChange={() => toggleCollectionSelection(node.connection.id || "", db.name, col.name)}
-                                                                                        onClick={(e) => e.stopPropagation()}
-                                                                                        className="ml-1 mr-1 h-3 w-3 shrink-0 cursor-pointer accent-primary"
-                                                                                        aria-label={`Select ${col.name}`}
-                                                                                    />
-                                                                                </div>
+                                                                                {!node.connection.readOnly && (
+                                                                                    <div className={isSelected ? "opacity-100" : "opacity-0 group-hover/col:opacity-100 transition-opacity"}>
+                                                                                        <input
+                                                                                            type="checkbox"
+                                                                                            checked={isSelected}
+                                                                                            onChange={() => toggleCollectionSelection(node.connection.id || "", db.name, col.name)}
+                                                                                            onClick={(e) => e.stopPropagation()}
+                                                                                            className="ml-1 mr-1 h-3 w-3 shrink-0 cursor-pointer accent-primary"
+                                                                                            aria-label={`Select ${col.name}`}
+                                                                                        />
+                                                                                    </div>
+                                                                                )}
                                                                                 <Button
                                                                                     variant="ghost"
                                                                                     size="sm"
@@ -749,6 +761,7 @@ export function ExplorerSidebar({
                                                                                         </span>
                                                                                     )}
                                                                                 </Button>
+                                                                                {!node.connection.readOnly && (
                                                                                 <DropdownMenu>
                                                                                     <DropdownMenuTrigger asChild>
                                                                                         <Button variant="ghost" size="icon" className="h-8 w-8 md:h-6 md:w-6 opacity-100 md:opacity-0 group-hover/col:opacity-100 transition-opacity">
@@ -771,6 +784,7 @@ export function ExplorerSidebar({
                                                                                         </DropdownMenuItem>
                                                                                     </DropdownMenuContent>
                                                                                 </DropdownMenu>
+                                                                                )}
                                                                             </div>
                                                                             );
                                                                         })

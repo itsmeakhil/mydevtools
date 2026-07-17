@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,12 +10,24 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { auth } from "@/database/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getNosqlQueryHistory, putNosqlQueryHistory } from "@/lib/user-preferences-api";
+import {
+    getNosqlQueryHistory, putNosqlQueryHistory,
+    getNosqlSavedQueries, putNosqlSavedQueries, NosqlSavedQuery,
+} from "@/lib/user-preferences-api";
 import Editor from "@/components/lazy/LazyMonaco";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay } from "@tabler/icons-react";
+import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay, IconBookmark, IconBookmarkFilled, IconReportSearch, IconStack2 } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
+import { PipelineBuilder, PipelineStage, newStage, parsePipeline, stagesToPipeline } from "./pipeline-builder";
+
+// MongoDB query + aggregation operators offered by the Monaco completion provider.
+const MONGO_OPERATORS = [
+    "$eq", "$ne", "$gt", "$gte", "$lt", "$lte", "$in", "$nin", "$exists", "$regex",
+    "$and", "$or", "$not", "$nor", "$type", "$size", "$all", "$elemMatch", "$expr",
+    "$match", "$project", "$group", "$sort", "$limit", "$skip", "$lookup", "$unwind",
+    "$addFields", "$count", "$sum", "$avg", "$min", "$max", "$first", "$last", "$push",
+];
 
 interface QueryBuilderProps {
     query: string;
@@ -24,6 +36,8 @@ interface QueryBuilderProps {
     connectionName: string;
     dbName: string;
     collectionName: string;
+    onExplain?: (query: string) => void;
+    onPreviewPipeline?: (pipelineJson: string) => Promise<{ documents: unknown[] }>;
 }
 
 type FilterOperator = "$eq" | "$gt" | "$lt" | "$gte" | "$lte" | "$ne" | "$in" | "$nin" | "$regex" | "$exists";
@@ -44,18 +58,66 @@ export function QueryBuilder({
     connectionName,
     dbName,
     collectionName,
+    onExplain,
+    onPreviewPipeline,
 }: QueryBuilderProps) {
     const t = useTranslations("NoSqlExplorer.query");
     const queryPlaceholder = String(t.raw("placeholder"));
     const [textQuery, setTextQuery] = useState(query);
     const [rules, setRules] = useState<FilterRule[]>([]);
     const [historyOpen, setHistoryOpen] = useState(false);
+    const [historyTab, setHistoryTab] = useState<"history" | "saved">("history");
     const [queryHistory, setQueryHistory] = useState<string[]>([]);
+    const [savedQueries, setSavedQueries] = useState<NosqlSavedQuery[]>([]);
+    const [saveName, setSaveName] = useState("");
     const [builderOpen, setBuilderOpen] = useState(false);
     const [user] = useAuthState(auth);
     const { theme } = useTheme();
     const [advancedOpen, setAdvancedOpen] = useState(false);
+    const [advancedMode, setAdvancedMode] = useState<"json" | "stages">("json");
+    const [stages, setStages] = useState<PipelineStage[]>([]);
     const [queryError, setQueryError] = useState<string | null>(null);
+
+    // Monaco field/operator completion — the provider is registered once per
+    // mount and reads the latest fields through a ref (docs change per page).
+    const fieldsRef = useRef<string[]>(fields);
+    useEffect(() => { fieldsRef.current = fields; }, [fields]);
+    const completionRef = useRef<{ dispose: () => void } | null>(null);
+    useEffect(() => () => { completionRef.current?.dispose(); completionRef.current = null; }, []);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const registerCompletion = (monaco: any) => {
+        if (completionRef.current) return;
+        completionRef.current = monaco.languages.registerCompletionItemProvider("json", {
+            triggerCharacters: ['"', "$"],
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            provideCompletionItems: (model: any, position: any) => {
+                const word = model.getWordUntilPosition(position);
+                const range = {
+                    startLineNumber: position.lineNumber,
+                    endLineNumber: position.lineNumber,
+                    startColumn: word.startColumn,
+                    endColumn: word.endColumn,
+                };
+                return {
+                    suggestions: [
+                        ...fieldsRef.current.map((f) => ({
+                            label: f,
+                            kind: monaco.languages.CompletionItemKind.Field,
+                            insertText: f,
+                            range,
+                        })),
+                        ...MONGO_OPERATORS.map((op) => ({
+                            label: op,
+                            kind: monaco.languages.CompletionItemKind.Keyword,
+                            insertText: op,
+                            range,
+                        })),
+                    ],
+                };
+            },
+        });
+    };
 
     // Sync internal state with props
     useEffect(() => {
@@ -132,6 +194,43 @@ export function QueryBuilder({
             cancelled = true;
         };
     }, [user, connectionName, dbName, collectionName]);
+
+    // Load saved (named) queries
+    useEffect(() => {
+        if (!user) {
+            setSavedQueries([]);
+            return;
+        }
+        let cancelled = false;
+        getNosqlSavedQueries({ connectionName, dbName, collectionName })
+            .then((out) => { if (!cancelled) setSavedQueries(out.queries ?? []); })
+            .catch((e) => { console.error("Failed to load saved queries", e); });
+        return () => { cancelled = true; };
+    }, [user, connectionName, dbName, collectionName]);
+
+    const persistSavedQueries = async (next: NosqlSavedQuery[]) => {
+        try {
+            const out = await putNosqlSavedQueries({ connectionName, dbName, collectionName, queries: next });
+            setSavedQueries(out.queries);
+        } catch (e) {
+            console.error("Failed to save query", e);
+            toast.error(t("saveQueryFail"));
+        }
+    };
+
+    const handleSaveQuery = async () => {
+        const name = saveName.trim();
+        if (!name || !textQuery || !user) return;
+        const next = [{ name, query: textQuery }, ...savedQueries.filter((s) => s.name !== name)];
+        await persistSavedQueries(next);
+        setSaveName("");
+        toast.success(t("querySaved", { name }));
+    };
+
+    const deleteSavedQuery = async (e: React.MouseEvent, name: string) => {
+        e.stopPropagation();
+        await persistSavedQueries(savedQueries.filter((s) => s.name !== name));
+    };
 
     const saveQueryToHistory = async (q: string) => {
         if (!q || q === "{}" || !user) return;
@@ -495,44 +594,137 @@ export function QueryBuilder({
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent align="end" className="w-[400px] p-0">
-                            <div className="p-2 border-b bg-muted/50 text-xs font-medium text-muted-foreground">
-                                {t("queryHistory")}
+                            <div className="flex border-b bg-muted/50">
+                                {([["history", t("queryHistory")], ["saved", t("savedQueries")]] as const).map(([tab, label]) => (
+                                    <button
+                                        key={tab}
+                                        className={cn(
+                                            "flex-1 p-2 text-xs font-medium transition-colors",
+                                            historyTab === tab
+                                                ? "text-foreground border-b-2 border-primary bg-background"
+                                                : "text-muted-foreground hover:text-foreground"
+                                        )}
+                                        onClick={() => setHistoryTab(tab)}
+                                    >
+                                        {label}
+                                    </button>
+                                ))}
                             </div>
-                            <ScrollArea className="h-[300px]">
-                                {queryHistory.length === 0 ? (
-                                    <div className="p-4 text-center text-xs text-muted-foreground">
-                                        {t("noSavedQueries")}
-                                    </div>
-                                ) : (
-                                    <div className="p-1">
-                                        {queryHistory.map((q, i) => (
-                                            <div
-                                                key={i}
-                                                className="flex items-center justify-between p-2 hover:bg-muted rounded-sm cursor-pointer group text-xs font-mono"
-                                                onClick={() => {
-                                                    setTextQuery(q);
-                                                    setHistoryOpen(false);
-                                                    onSearch(q);
-                                                }}
-                                            >
-                                                <div className="truncate flex-1 mr-2" title={q}>
-                                                    {q}
-                                                </div>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
-                                                    onClick={(e) => deleteFromHistory(e, q)}
+                            {historyTab === "history" ? (
+                                <ScrollArea className="h-[300px]">
+                                    {queryHistory.length === 0 ? (
+                                        <div className="p-4 text-center text-xs text-muted-foreground">
+                                            {t("noHistory")}
+                                        </div>
+                                    ) : (
+                                        <div className="p-1">
+                                            {queryHistory.map((q, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="flex items-center justify-between p-2 hover:bg-muted rounded-sm cursor-pointer group text-xs font-mono"
+                                                    onClick={() => {
+                                                        setTextQuery(q);
+                                                        setHistoryOpen(false);
+                                                        onSearch(q);
+                                                    }}
                                                 >
-                                                    <IconX className="h-3 w-3" />
-                                                </Button>
-                                            </div>
-                                        ))}
+                                                    <div className="truncate flex-1 mr-2" title={q}>
+                                                        {q}
+                                                    </div>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                                                        onClick={(e) => deleteFromHistory(e, q)}
+                                                    >
+                                                        <IconX className="h-3 w-3" />
+                                                    </Button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </ScrollArea>
+                            ) : (
+                                <>
+                                    <div className="flex items-center gap-1.5 p-2 border-b">
+                                        <Input
+                                            value={saveName}
+                                            onChange={(e) => setSaveName(e.target.value)}
+                                            placeholder={t("saveNamePlaceholder")}
+                                            className="h-7 text-xs"
+                                            onKeyDown={(e) => { if (e.key === "Enter") handleSaveQuery(); }}
+                                        />
+                                        <Button
+                                            size="sm"
+                                            className="h-7 text-xs shrink-0"
+                                            disabled={!saveName.trim() || !textQuery || textQuery === "{}"}
+                                            onClick={handleSaveQuery}
+                                            title={t("saveCurrentQuery")}
+                                        >
+                                            <IconBookmark className="h-3 w-3 mr-1" />
+                                            {t("save")}
+                                        </Button>
                                     </div>
-                                )}
-                            </ScrollArea>
+                                    <ScrollArea className="h-[260px]">
+                                        {savedQueries.length === 0 ? (
+                                            <div className="p-4 text-center text-xs text-muted-foreground">
+                                                {t("noSavedQueries")}
+                                            </div>
+                                        ) : (
+                                            <div className="p-1">
+                                                {savedQueries.map((sq) => (
+                                                    <div
+                                                        key={sq.name}
+                                                        className="flex items-center justify-between p-2 hover:bg-muted rounded-sm cursor-pointer group text-xs gap-2"
+                                                        onClick={() => {
+                                                            setTextQuery(sq.query);
+                                                            setHistoryOpen(false);
+                                                            onSearch(sq.query);
+                                                        }}
+                                                    >
+                                                        <IconBookmarkFilled className="h-3 w-3 text-primary shrink-0" />
+                                                        <div className="flex-1 min-w-0">
+                                                            <div className="font-medium truncate">{sq.name}</div>
+                                                            <div className="font-mono text-muted-foreground truncate" title={sq.query}>
+                                                                {sq.query}
+                                                            </div>
+                                                        </div>
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            className="h-5 w-5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                                                            onClick={(e) => deleteSavedQuery(e, sq.name)}
+                                                        >
+                                                            <IconX className="h-3 w-3" />
+                                                        </Button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </ScrollArea>
+                                </>
+                            )}
                         </PopoverContent>
                     </Popover>
+
+                    {onExplain && (
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7 text-muted-foreground hover:text-foreground"
+                            title={t("explainQuery")}
+                            onClick={() => {
+                                try {
+                                    JSON.parse(textQuery || "{}");
+                                    onExplain(textQuery || "{}");
+                                } catch {
+                                    toast.error(t("invalidJsonQuery"));
+                                }
+                            }}
+                        >
+                            <IconReportSearch className="h-4 w-4" />
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
@@ -545,8 +737,55 @@ export function QueryBuilder({
             <Dialog open={advancedOpen} onOpenChange={setAdvancedOpen}>
                 <DialogContent className="max-w-4xl w-[90vw] h-[80vh] flex flex-col p-0 gap-0 [&>button]:hidden">
                     <div className="flex items-center justify-between px-4 py-2 border-b">
-                        <DialogTitle className="text-sm font-medium">{t("advancedEditorTitle")}</DialogTitle>
+                        <div className="flex items-center gap-3">
+                            <DialogTitle className="text-sm font-medium">{t("advancedEditorTitle")}</DialogTitle>
+                            <div className="flex items-center rounded-md border p-0.5">
+                                <Button
+                                    variant={advancedMode === "json" ? "secondary" : "ghost"}
+                                    size="sm"
+                                    className="h-6 text-[11px] px-2"
+                                    onClick={() => {
+                                        if (advancedMode === "stages") {
+                                            // Sync builder state back to text (skip stages with invalid JSON)
+                                            try { setTextQuery(stagesToPipeline(stages)); } catch { /* keep text */ }
+                                        }
+                                        setAdvancedMode("json");
+                                    }}
+                                >
+                                    <IconBraces className="h-3 w-3 mr-1" />
+                                    JSON
+                                </Button>
+                                <Button
+                                    variant={advancedMode === "stages" ? "secondary" : "ghost"}
+                                    size="sm"
+                                    className="h-6 text-[11px] px-2"
+                                    onClick={() => {
+                                        const parsed = parsePipeline(textQuery);
+                                        if (parsed) {
+                                            setStages(parsed);
+                                        } else if (stages.length === 0) {
+                                            // A plain filter becomes the first $match stage
+                                            try {
+                                                const obj = JSON.parse(textQuery);
+                                                const match = newStage("$match");
+                                                if (obj && typeof obj === "object" && Object.keys(obj).length > 0) {
+                                                    match.body = JSON.stringify(obj, null, 2);
+                                                }
+                                                setStages([match]);
+                                            } catch {
+                                                setStages([newStage()]);
+                                            }
+                                        }
+                                        setAdvancedMode("stages");
+                                    }}
+                                >
+                                    <IconStack2 className="h-3 w-3 mr-1" />
+                                    {t("stagesMode")}
+                                </Button>
+                            </div>
+                        </div>
                         <div className="flex items-center gap-2">
+                            {advancedMode === "json" && (
                             <Select
                                 onValueChange={(val) => {
                                     if (val === "lookup") {
@@ -592,6 +831,8 @@ export function QueryBuilder({
                                     <SelectItem value="group">{t("templateGroup")}</SelectItem>
                                 </SelectContent>
                             </Select>
+                            )}
+                            {advancedMode === "json" && (
                             <Button
                                 variant="outline"
                                 size="sm"
@@ -609,10 +850,23 @@ export function QueryBuilder({
                                 <IconBraces className="h-3 w-3 mr-1" />
                                 {t("format")}
                             </Button>
+                            )}
                             <Button
                                 size="sm"
                                 className="h-7 text-xs"
                                 onClick={() => {
+                                    if (advancedMode === "stages") {
+                                        try {
+                                            const pipeline = stagesToPipeline(stages);
+                                            setTextQuery(pipeline);
+                                            saveQueryToHistory(pipeline);
+                                            onSearch(pipeline);
+                                            setAdvancedOpen(false);
+                                        } catch {
+                                            toast.error(t("invalidStageJson"));
+                                        }
+                                        return;
+                                    }
                                     handleTextSearch();
                                     setAdvancedOpen(false);
                                 }}
@@ -630,14 +884,22 @@ export function QueryBuilder({
                             </Button>
                         </div>
                     </div>
-                    <div className={cn("flex-1 min-h-0", theme === 'dark' ? 'bg-[#1e1e1e]' : 'bg-white')}>
+                    <div className={cn("flex-1 min-h-0", advancedMode === "json" && (theme === 'dark' ? 'bg-[#1e1e1e]' : 'bg-white'))}>
+                        {advancedMode === "stages" ? (
+                            <PipelineBuilder
+                                stages={stages}
+                                onChange={setStages}
+                                onPreview={onPreviewPipeline}
+                            />
+                        ) : (
                         <Editor
                             height="100%"
                             defaultLanguage="json"
                             theme={theme === 'dark' ? 'vs-dark' : 'light'}
                             value={textQuery}
                             onChange={(value) => setTextQuery(value || "")}
-                            onMount={(editor) => {
+                            onMount={(editor, monaco) => {
+                                registerCompletion(monaco);
                                 // Cmd/Ctrl+Enter to run query
                                 editor.addCommand(
                                     // Monaco.KeyMod.CtrlCmd | Monaco.KeyCode.Enter
@@ -655,8 +917,11 @@ export function QueryBuilder({
                                 scrollBeyondLastLine: false,
                                 automaticLayout: true,
                                 tabSize: 2,
+                                quickSuggestions: { strings: true, other: true, comments: false },
+                                wordBasedSuggestions: "off",
                             }}
                         />
+                        )}
                     </div>
                 </DialogContent>
             </Dialog>

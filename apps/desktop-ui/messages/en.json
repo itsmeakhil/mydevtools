@@ -104,7 +104,7 @@
   },
   "Help": {
     "title": "Help & Documentation",
-    "subtitle": "How MyDevTools fits together and how your data is protected",
+    "subtitle": "How MyDevTools works offline and how your data is protected",
     "tabs": {
       "overview": "Overview",
       "apps": "Apps",
@@ -114,11 +114,11 @@
     "overview": {
       "whatIs": {
         "title": "What is MyDevTools?",
-        "description": "A signed-in developer workspace: a dashboard and a set of tools for everyday tasks.",
-        "p1": "After you sign in with your account, the app establishes a session with the MyDevTools API so tools can load and save your data. The sidebar lists every app; you can hide tools you do not use from",
+        "description": "An offline developer workspace: a dashboard and 80+ tools that run entirely on your device.",
+        "p1": "MyDevTools runs fully offline. After a one-time activation in your browser, everything works on this device with no account login and no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted on your device before they reach the server."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted on your device. Your data is stored in a local encrypted database and is never sent to a server."
       },
       "quickLinks": {
         "title": "Quick links",
@@ -133,38 +133,39 @@
       "generic": "Use this tool from the sidebar for its dedicated workflow."
     },
     "security": {
-      "session": {
-        "title": "Sign-in and API session",
-        "description": "Identity and how the browser talks to your backend.",
+      "access": {
+        "title": "Activation & offline access",
+        "description": "How the app unlocks the first time, then runs offline.",
         "items": {
-          "authentication": "<strong>Authentication</strong> uses Firebase for sign-in. After login, the app exchanges your Firebase ID token for API cookies.",
-          "accessTokens": "<strong>Access tokens</strong> are JWTs signed on the server (HS256). They prove which user is calling the API.",
-          "refreshTokens": "<strong>Refresh tokens</strong> are stored in HttpOnly cookies; the server stores a SHA-256 hash of the refresh token, not the raw token."
+          "activation": "<strong>One-time activation</strong> happens in your browser the first time you open the app. It records your plan and unlocks the app on this device.",
+          "offline": "<strong>No login sessions.</strong> After activation there is no per-session sign-in and no periodic re-check—the app keeps working with no internet connection.",
+          "storage": "<strong>Local storage.</strong> All your data lives in an encrypted SQLCipher database on your device, keyed by a random key held in your operating system keychain."
         }
       },
       "encryption": {
         "title": "Encryption you should know about",
         "description": "Client-side crypto for vault and sensitive connection data.",
-        "p1": "For the <strong>password manager</strong>, <strong>environment manager</strong>, and <strong>NoSQL Explorer</strong> saved connections, the web app uses the browser <strong>Web Crypto API</strong>:",
+        "p1": "For the <strong>password manager</strong>, <strong>environment manager</strong>, and <strong>NoSQL Explorer</strong> saved connections, the app uses the <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> with <strong>SHA-256</strong>, <strong>100,000</strong> iterations, and a random salt derives a 256-bit key from your master password.",
+          "kdf": "<strong>PBKDF2</strong> with <strong>SHA-256</strong>, <strong>600,000</strong> iterations, and a random salt derives a 256-bit key from your master password.",
           "aes": "<strong>AES-256-GCM</strong> encrypts payloads; a random <strong>12-byte IV</strong> is used per encryption.",
-          "scope": "The derived key stays in the browser (non-extractable). The server receives <strong>ciphertext and IVs</strong>, not your master password or plaintext secrets."
+          "scope": "The derived key stays in the app (non-extractable) and your master password never leaves your device. Only <strong>ciphertext and IVs</strong> are written to the local database."
         },
         "warning": "If you forget the master password, encrypted data cannot be recovered. Store it safely."
       },
-      "logout": {
-        "title": "Logout and local data",
-        "body": "Logging out clears in-memory secrets, vault-related state, and master key material from IndexedDB where applicable, and ends the API session. Anything kept only in local storage on a device may remain until you clear it in the browser."
+      "local": {
+        "title": "Locking & local data",
+        "body": "Locking the vault clears in-memory secrets and master key material; your encrypted database stays on disk until you remove it. There is no sign-out—resetting app data or deleting the app is what clears everything, so keep your own backups of anything important."
       }
     },
     "tips": {
       "title": "Using MyDevTools safely",
       "items": {
         "masterPassword": "Use a strong, unique master password for vault features.",
+        "backup": "Your data lives only on this device—export or back it up regularly so you do not lose it if the device fails.",
         "apiClient": "Treat the API Client like any HTTP client: avoid pasting production secrets into shared environments unless you understand who can see them.",
         "nosql": "Database Explorer connects to databases you configure; use least-privilege users and network rules where possible.",
-        "json": "JSON Formatter is local to the browser—still avoid pasting highly sensitive data on shared machines.",
+        "json": "JSON Formatter runs entirely on your device—still avoid pasting highly sensitive data on shared machines.",
         "settings": "Customize visible tools in Settings to keep the sidebar focused."
       }
     }
@@ -917,7 +918,8 @@
     },
     "layout": {
       "mobileNavTitle": "Notes Navigation",
-      "openMenuAria": "Open notes menu"
+      "openMenuAria": "Open notes menu",
+      "showSidebarAria": "Show sidebar"
     },
     "sidebar": {
       "title": "Notes",
@@ -934,7 +936,8 @@
       "deleteConfirmDescription": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
       "cancel": "Cancel",
       "confirmDelete": "Delete",
-      "noteOptionsAria": "Note options"
+      "noteOptionsAria": "Note options",
+      "hideSidebarAria": "Hide sidebar"
     },
     "editor": {
       "emptyState": "Select a note or create a new one to get started.",
@@ -957,7 +960,8 @@
       "loading": "Loading…",
       "searchHint": "to search",
       "focusHint": "focus mode",
-      "notePath": "Note path"
+      "notePath": "Note path",
+      "export": "Export"
     },
     "context": {
       "authRequiredError": "User not authenticated",
@@ -1107,6 +1111,7 @@
       "pasteLabel": "Paste JSON data",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "Paste the content of a previously exported JSON file here.",
+      "selectFile": "Select JSON file",
       "importing": "Importing...",
       "importPasswords": "Import passwords",
       "trigger": "Import / export",
@@ -1277,6 +1282,7 @@
       "deleteFolderTitle": "Delete folder \"{name}\"?",
       "deleteFolderDescription": "This will delete the folder and all its subfolders. Bookmarks in these folders will be moved to Uncategorized."
     },
+    "foldersHeading": "Folders",
     "import": {
       "title": "Import Bookmarks",
       "description": "Import bookmarks from your browser's exported file.",
@@ -1519,19 +1525,27 @@
       "updateConnect": "Update & Connect",
       "connect": "Connect",
       "cancelEdit": "Cancel Edit",
+      "cancel": "Cancel",
       "savedConnections": "Saved Connections",
       "emptySaved": "No saved connections yet.",
       "lastUsed": "Last used {time}",
       "toastTestOk": "Connection successful!",
       "toastTestFail": "Connection failed: {message}",
+      "toastConnectFail": "Failed to connect to {name}",
       "toastUpdated": "Connection updated",
       "confirmDelete": "Are you sure you want to delete this saved connection?",
+      "menuDeleteConnection": "Delete connection",
       "toastDeletedConn": "Connection deleted",
       "toastDeleteFail": "Failed to delete connection",
       "copyStringTitle": "Copy connection string",
       "toastStringCopied": "Connection string copied!",
       "editTitle": "Edit",
-      "deleteTitle": "Delete"
+      "deleteTitle": "Delete",
+      "labelColor": "Color Tag",
+      "colorNone": "No color",
+      "hintColor": "Tag environments — e.g. red for production.",
+      "labelReadOnly": "Read-only connection",
+      "hintReadOnly": "Blocks inserts, edits, deletes, and drops for this connection."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1636,7 +1650,25 @@
       "saveChanges": "Save Changes",
       "close": "Close",
       "cancel": "Cancel",
-      "insertButton": "Insert"
+      "insertButton": "Insert",
+      "readOnlyBadge": "Read-only",
+      "cellUpdated": "Value updated",
+      "cellUpdateFail": "Failed to update value",
+      "cellFilterByValue": "Filter by this value",
+      "cellExcludeValue": "Exclude this value",
+      "cellSortAsc": "Sort ascending",
+      "cellSortDesc": "Sort descending",
+      "cellCopyValue": "Copy value",
+      "cellEditValue": "Edit value",
+      "explainTitle": "Explain Plan",
+      "explainLoading": "Running explain…",
+      "explainFail": "Explain failed",
+      "explainCollscan": "Full collection scan",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} returned",
+      "explainDocsExamined": "{n} examined",
+      "explainCollscanHint": "This query scans every document in the collection. Consider creating an index on the filtered fields.",
+      "explainRawLabel": "Explain output"
     },
     "tabs": {
       "filterActive": "Active filter applied",
@@ -1686,7 +1718,17 @@
       "templateGroup": "$group (Count/Sum)",
       "format": "Format",
       "formattedJson": "Formatted JSON",
-      "runQuery": "Run Query"
+      "runQuery": "Run Query",
+      "savedQueries": "Saved Queries",
+      "noHistory": "No recent queries",
+      "saveNamePlaceholder": "Query name",
+      "saveCurrentQuery": "Save current query",
+      "save": "Save",
+      "saveQueryFail": "Failed to save query",
+      "querySaved": "Saved “{name}”",
+      "explainQuery": "Explain query",
+      "stagesMode": "Stages",
+      "invalidStageJson": "A pipeline stage contains invalid JSON"
     },
     "export": {
       "selectFieldsError": "Please select at least one field to export",
@@ -1701,11 +1743,22 @@
       "fieldsSelected": "{count, plural, one {# field selected} other {# fields selected}}",
       "cancel": "Cancel",
       "export": "Export",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "No stages yet. Add a stage to build your pipeline.",
+      "addStage": "Add Stage",
+      "stageEnabled": "Stage enabled",
+      "preview": "Preview",
+      "previewToHere": "Run the pipeline up to this stage (first 10 documents)",
+      "previewResult": "Preview results ({count})",
+      "previewEmpty": "No documents at this stage",
+      "previewFail": "Preview failed"
     }
   },
   "ApiClient": {
@@ -3446,7 +3499,6 @@
   "MockDataGenerator": {
     "title": "Mock Data Generator",
     "subtitle": "Define typed columns — export up to {max} fixture rows",
-    "mockarooLink": "Mockaroo-style workflow",
     "rowsLabel": "Rows",
     "rowsHint": "Maximum {max} rows per generation to keep the tab responsive.",
     "formatLabel": "Format",
@@ -3490,12 +3542,16 @@
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
     "seedRandomize": "Randomize seed",
+    "importSchema": "Import schema",
+    "exportSchema": "Export schema",
+    "importSchemaError": "Invalid schema file — expected a JSON array of { name, type } columns.",
     "groups": {
       "personal": "Personal",
       "location": "Location",
       "internetApi": "Internet & API",
       "numbersIds": "Numbers & IDs",
       "dateTime": "Date & time",
+      "commerce": "Commerce",
       "textDesign": "Text & design",
       "custom": "Custom"
     },
@@ -3544,7 +3600,26 @@
       "rgb_color": "RGB color",
       "currency_code": "Currency code",
       "language_code": "Language tag",
-      "custom_list": "Custom list"
+      "custom_list": "Custom list",
+      "gender": "Gender",
+      "us_state": "US state",
+      "us_state_abbr": "US state (abbr.)",
+      "user_agent": "User agent",
+      "mime_type": "MIME type",
+      "file_name": "File name",
+      "port": "Port",
+      "md5": "MD5 hash",
+      "sha256": "SHA-256 hash",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Time",
+      "weekday": "Weekday",
+      "month": "Month",
+      "product_name": "Product name",
+      "product_category": "Product category",
+      "department": "Department",
+      "color_name": "Color name",
+      "catch_phrase": "Catch phrase"
     }
   },
   "UserAgentParser": {
@@ -3575,7 +3650,7 @@
     "subtitle": "Minify SVG with SVGO and compare sizes",
     "inputLabel": "Input",
     "outputLabel": "Optimized",
-    "placeholder": "Paste an <svg>…</svg> snippet or full file…",
+    "placeholder": "Paste an SVG snippet or full file…",
     "outputPlaceholder": "Optimized SVG appears here…",
     "chars": "{count} chars • {bytes} bytes (UTF-8)",
     "preview": "Preview",
@@ -3600,7 +3675,7 @@
   },
   "UnitConverter": {
     "title": "Unit Converter",
-    "subtitle": "Convert 323 units across 43 categories",
+    "subtitle": "Convert 292 units across 44 categories",
     "category": "Category",
     "from": "From",
     "to": "To",
@@ -4122,6 +4197,9 @@
     "inputLabel": "Code",
     "detected": "Detected: {language}",
     "clear": "Clear",
+    "format": "Format",
+    "formatUnsupported": "Formatting not available for this language",
+    "formatFailed": "Failed to format code",
     "placeholder": "Paste your code here…",
     "previewLabel": "Preview",
     "emptyPreview": "Your code preview will appear here",

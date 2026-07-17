@@ -10,7 +10,11 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { contrastRatio, meetsLevel, WCAG_THRESHOLDS } from '@/lib/wcag-contrast';
 import { Check, Copy, ArrowDownUp, Pipette } from 'lucide-react';
+import { IconContrast } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 const DEFAULT_FG = '#0f172a';
 const DEFAULT_BG = '#f8fafc';
@@ -135,10 +139,14 @@ export function ContrastCheckerToolLayout() {
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+      <RevealItem index={0} className="shrink-0">
+        <ToolPageHeader
+          icon={IconContrast}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT['Media & Design']}
+        />
+      </RevealItem>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 shrink-0">
         <Card className="p-4 space-y-5">

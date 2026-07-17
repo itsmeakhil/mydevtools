@@ -80,68 +80,69 @@
   },
   "Help": {
     "title": "Ayuda y documentación",
-    "subtitle": "Cómo funciona MyDevTools y cómo se protegen tus datos",
+    "subtitle": "Cómo funciona MyDevTools sin conexión y cómo se protegen tus datos",
     "tabs": {
       "overview": "Resumen",
-      "apps": "Apps",
+      "apps": "Aplicaciones",
       "security": "Seguridad",
       "tips": "Consejos"
     },
     "overview": {
       "whatIs": {
         "title": "¿Qué es MyDevTools?",
-        "description": "Un espacio de trabajo para desarrolladores con inicio de sesión: un tablero y un conjunto de herramientas para tareas diarias.",
-        "p1": "Después de iniciar sesión con tu cuenta, la app establece una sesión con la API de MyDevTools para que las herramientas puedan cargar y guardar tus datos. La barra lateral muestra todas las apps; puedes ocultar las herramientas que no usas desde",
-        "settingsLink": "Configuraciones",
+        "description": "Un espacio de trabajo para desarrolladores sin conexión: un panel y más de 80 herramientas que se ejecutan por completo en tu dispositivo.",
+        "p1": "MyDevTools funciona totalmente sin conexión. Tras una activación única en tu navegador, todo funciona en este dispositivo sin necesidad de iniciar sesión con una cuenta ni de conexión a Internet. La barra lateral muestra todas las aplicaciones; puedes ocultar las herramientas que no uses desde",
+        "settingsLink": "Ajustes",
         "p1After": ".",
-        "p2": "Algunas funciones usan una <strong>contraseña maestra</strong> (o clave global del cofre) para que secretos como contraseñas y cadenas de conexión se cifren en tu dispositivo antes de llegar al servidor."
+        "p2": "Algunas funciones usan una <strong>contraseña maestra</strong> (o clave global de la bóveda) para que los datos sensibles, como contraseñas y cadenas de conexión a bases de datos, se cifren en tu dispositivo. Tus datos se guardan en una base de datos local cifrada y nunca se envían a un servidor."
       },
       "quickLinks": {
         "title": "Enlaces rápidos",
-        "dashboard": "Tablero",
-        "settings": "Configuraciones"
+        "dashboard": "Panel",
+        "settings": "Ajustes"
       }
     },
     "apps": {
-      "intro": "Abre cualquier herramienta desde la barra lateral o el tablero. Abajo tienes una guía corta por app.",
+      "intro": "Abre cualquier herramienta desde la barra lateral o el panel. A continuación encontrarás una breve guía de cada aplicación.",
       "open": "Abrir",
       "howItWorks": "Cómo funciona",
       "generic": "Usa esta herramienta desde la barra lateral para su flujo de trabajo específico."
     },
     "security": {
-      "session": {
-        "title": "Inicio de sesión y sesión de API",
-        "description": "Identidad y cómo el navegador se comunica con tu backend.",
+      "access": {
+        "title": "Activación y acceso sin conexión",
+        "description": "Cómo se desbloquea la aplicación la primera vez y luego funciona sin conexión.",
         "items": {
-          "authentication": "<strong>Autenticación</strong> usa Firebase para iniciar sesión. Después, la app intercambia tu token de ID de Firebase por cookies de la API.",
-          "accessTokens": "<strong>Tokens de acceso</strong> son JWT firmados en el servidor (HS256). Identifican al usuario que llama a la API.",
-          "refreshTokens": "<strong>Tokens de refresco</strong> se guardan en cookies HttpOnly; el servidor guarda un hash SHA-256 del token, no el token en claro."
+          "activation": "La <strong>activación única</strong> se realiza en tu navegador la primera vez que abres la aplicación. Registra tu plan y desbloquea la aplicación en este dispositivo.",
+          "offline": "<strong>Sin sesiones de inicio de sesión.</strong> Tras la activación no hay inicio de sesión por sesión ni comprobaciones periódicas: la aplicación sigue funcionando sin conexión a Internet.",
+          "storage": "<strong>Almacenamiento local.</strong> Todos tus datos residen en una base de datos SQLCipher cifrada en tu dispositivo, protegida por una clave aleatoria guardada en el llavero de tu sistema operativo."
         }
       },
       "encryption": {
-        "title": "Cifrado que debes conocer",
-        "description": "Criptografía del lado del cliente para el cofre y datos sensibles de conexión.",
-        "p1": "Para el <strong>gestor de contraseñas</strong>, el <strong>gestor de entornos</strong> y las conexiones guardadas en <strong>NoSQL Explorer</strong>, la aplicación web usa la <strong>Web Crypto API</strong> del navegador:",
+        "title": "El cifrado que conviene conocer",
+        "description": "Criptografía del lado del cliente para la bóveda y los datos de conexión sensibles.",
+        "p1": "Para el <strong>gestor de contraseñas</strong>, el <strong>gestor de entornos</strong> y las conexiones guardadas del <strong>NoSQL Explorer</strong>, la aplicación utiliza la <strong>Web Crypto API</strong>:",
         "items": {
-          "kdf": "<strong>PBKDF2</strong> con <strong>SHA-256</strong>, <strong>100.000</strong> iteraciones y una sal aleatoria deriva una clave de 256 bits desde tu contraseña maestra.",
-          "aes": "<strong>AES-256-GCM</strong> cifra los datos; se usa un <strong>IV de 12 bytes</strong> aleatorio por cifrado.",
-          "scope": "La clave derivada se mantiene en el navegador (no extraíble). El servidor recibe <strong>cifrado e IVs</strong>, no tu contraseña maestra ni secretos en texto plano."
+          "kdf": "<strong>PBKDF2</strong> con <strong>SHA-256</strong>, <strong>600,000</strong> iteraciones y una sal aleatoria deriva una clave de 256 bits a partir de tu contraseña maestra.",
+          "aes": "<strong>AES-256-GCM</strong> cifra los datos; se usa un <strong>12-byte IV</strong> aleatorio en cada cifrado.",
+          "scope": "La clave derivada permanece en la aplicación (no extraíble) y tu contraseña maestra nunca sale de tu dispositivo. En la base de datos local solo se escriben el <strong>texto cifrado y los IVs</strong>."
         },
-        "warning": "Si olvidas la contraseña maestra, los datos cifrados no se pueden recuperar. Guárdala de forma segura."
+        "warning": "Si olvidas la contraseña maestra, los datos cifrados no se podrán recuperar. Guárdala en un lugar seguro."
       },
-      "logout": {
-        "title": "Cerrar sesión y datos locales",
-        "body": "Al cerrar sesión se limpian secretos en memoria, estado del cofre y material de clave maestra de IndexedDB cuando aplica, y se termina la sesión de la API. Lo que solo esté en almacenamiento local del dispositivo puede permanecer hasta que lo borres en el navegador."
+      "local": {
+        "title": "Bloqueo y datos locales",
+        "body": "Al bloquear la bóveda se borran de la memoria los secretos y el material de la clave maestra; tu base de datos cifrada permanece en el disco hasta que la elimines. No hay cierre de sesión: restablecer los datos de la aplicación o eliminarla es lo que borra todo, así que mantén tus propias copias de seguridad de todo lo importante."
       }
     },
     "tips": {
       "title": "Usar MyDevTools de forma segura",
       "items": {
-        "masterPassword": "Usa una contraseña maestra fuerte y única para las funciones del cofre.",
-        "apiClient": "Trata el Cliente API como cualquier cliente HTTP: evita pegar secretos de producción en entornos compartidos si no sabes quién puede verlos.",
-        "nosql": "El Explorador de bases de datos se conecta a bases que configuras; usa usuarios con privilegios mínimos y reglas de red cuando sea posible.",
-        "json": "El Formateador JSON es local al navegador—aun así evita pegar datos muy sensibles en máquinas compartidas.",
-        "settings": "Personaliza las herramientas visibles en Configuraciones para mantener la barra lateral enfocada."
+        "masterPassword": "Usa una contraseña maestra fuerte y única para las funciones de la bóveda.",
+        "backup": "Tus datos solo residen en este dispositivo: expórtalos o haz copias de seguridad con regularidad para no perderlos si el dispositivo falla.",
+        "apiClient": "Trata el API Client como cualquier cliente HTTP: evita pegar secretos de producción en entornos compartidos a menos que sepas quién puede verlos.",
+        "nosql": "El Database Explorer se conecta a las bases de datos que configures; usa usuarios con privilegios mínimos y reglas de red siempre que sea posible.",
+        "json": "El JSON Formatter se ejecuta por completo en tu dispositivo, pero aun así evita pegar datos muy sensibles en equipos compartidos.",
+        "settings": "Personaliza las herramientas visibles en Ajustes para mantener la barra lateral despejada."
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "Navegación de notas",
-      "openMenuAria": "Abrir menú de notas"
+      "openMenuAria": "Abrir menú de notas",
+      "showSidebarAria": "Mostrar barra lateral"
     },
     "sidebar": {
       "title": "Notas",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "¿Seguro que quieres eliminar \"{title}\"? Esta acción no se puede deshacer.",
       "cancel": "Cancelar",
       "confirmDelete": "Eliminar",
-      "noteOptionsAria": "Opciones de la nota"
+      "noteOptionsAria": "Opciones de la nota",
+      "hideSidebarAria": "Ocultar barra lateral"
     },
     "editor": {
       "emptyState": "Selecciona una nota o crea una nueva para comenzar.",
@@ -933,7 +936,8 @@
       "loading": "Cargando…",
       "searchHint": "para buscar",
       "focusHint": "modo concentración",
-      "notePath": "Ruta de la nota"
+      "notePath": "Ruta de la nota",
+      "export": "Exportar"
     },
     "context": {
       "authRequiredError": "Usuario no autenticado",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "Pegar datos JSON",
       "pastePlaceholder": "[{\"service\": \"Ejemplo\", \"username\": \"usuario\", \"password\": \"123\", ...}]",
       "pasteHint": "Pega aquí el contenido de un archivo JSON exportado previamente.",
+      "selectFile": "Seleccionar archivo JSON",
       "importing": "Importando...",
       "importPasswords": "Importar contraseñas",
       "trigger": "Importar / exportar",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "¿Eliminar carpeta \"{name}\"?",
       "deleteFolderDescription": "Se eliminará la carpeta y todas sus subcarpetas. Los marcadores pasarán a Sin categoría."
     },
+    "foldersHeading": "Carpetas",
     "import": {
       "title": "Importar marcadores",
       "description": "Importa marcadores desde el archivo exportado por tu navegador.",
@@ -1495,19 +1501,27 @@
       "updateConnect": "Actualizar y conectar",
       "connect": "Conectar",
       "cancelEdit": "Cancelar edición",
+      "cancel": "Cancelar",
       "savedConnections": "Conexiones guardadas",
       "emptySaved": "Aún no hay conexiones guardadas.",
       "lastUsed": "Último uso: {time}",
       "toastTestOk": "¡Conexión correcta!",
       "toastTestFail": "Error de conexión: {message}",
+      "toastConnectFail": "No se pudo conectar a {name}",
       "toastUpdated": "Conexión actualizada",
       "confirmDelete": "¿Eliminar esta conexión guardada?",
+      "menuDeleteConnection": "Eliminar conexión",
       "toastDeletedConn": "Conexión eliminada",
       "toastDeleteFail": "No se pudo eliminar la conexión",
       "copyStringTitle": "Copiar cadena de conexión",
       "toastStringCopied": "¡Cadena copiada!",
       "editTitle": "Editar",
-      "deleteTitle": "Eliminar"
+      "deleteTitle": "Eliminar",
+      "labelColor": "Etiqueta de color",
+      "colorNone": "Sin color",
+      "hintColor": "Etiqueta tus entornos — p. ej., rojo para producción.",
+      "labelReadOnly": "Conexión de solo lectura",
+      "hintReadOnly": "Bloquea inserciones, ediciones, eliminaciones y drops en esta conexión."
     },
     "sidebar": {
       "explorer": "Explorador",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Solo lectura",
+      "cellUpdated": "Valor actualizado",
+      "cellUpdateFail": "No se pudo actualizar el valor",
+      "cellFilterByValue": "Filtrar por este valor",
+      "cellExcludeValue": "Excluir este valor",
+      "cellSortAsc": "Orden ascendente",
+      "cellSortDesc": "Orden descendente",
+      "cellCopyValue": "Copiar valor",
+      "cellEditValue": "Editar valor",
+      "explainTitle": "Plan de ejecución",
+      "explainLoading": "Ejecutando explain…",
+      "explainFail": "Explain falló",
+      "explainCollscan": "Escaneo completo de la colección",
+      "explainIndexUsed": "Índice: {name}",
+      "explainReturned": "{n} devueltos",
+      "explainDocsExamined": "{n} examinados",
+      "explainCollscanHint": "Esta consulta escanea todos los documentos de la colección. Considera crear un índice sobre los campos filtrados.",
+      "explainRawLabel": "Salida de explain"
     },
     "tabs": {
       "filterActive": "Filtro activo",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group (conteo/suma)",
       "format": "Formatear",
       "formattedJson": "JSON formateado",
-      "runQuery": "Ejecutar consulta"
+      "runQuery": "Ejecutar consulta",
+      "savedQueries": "Consultas guardadas",
+      "noHistory": "Sin consultas recientes",
+      "saveNamePlaceholder": "Nombre de la consulta",
+      "saveCurrentQuery": "Guardar consulta actual",
+      "save": "Guardar",
+      "saveQueryFail": "No se pudo guardar la consulta",
+      "querySaved": "“{name}” guardada",
+      "explainQuery": "Explicar consulta",
+      "stagesMode": "Etapas",
+      "invalidStageJson": "Una etapa del pipeline contiene JSON no válido"
     },
     "export": {
       "selectFieldsError": "Selecciona al menos un campo",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# campo seleccionado} other {# campos seleccionados}}",
       "cancel": "Cancelar",
       "export": "Exportar",
-      "sheetName": "Datos"
+      "sheetName": "Datos",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tipo: {type}",
       "itemSummary": "{count, plural, one {# elemento} other {# elementos}}"
+    },
+    "pipeline": {
+      "empty": "Aún no hay etapas. Agrega una etapa para construir tu pipeline.",
+      "addStage": "Agregar etapa",
+      "stageEnabled": "Etapa habilitada",
+      "preview": "Vista previa",
+      "previewToHere": "Ejecutar el pipeline hasta esta etapa (primeros 10 documentos)",
+      "previewResult": "Resultados de vista previa ({count})",
+      "previewEmpty": "No hay documentos en esta etapa",
+      "previewFail": "Falló la vista previa"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "Generador de datos de prueba",
     "subtitle": "Define columnas tipadas — exporta hasta {max} filas",
-    "mockarooLink": "Flujo estilo Mockaroo",
     "rowsLabel": "Filas",
     "rowsHint": "Como máximo {max} filas por generación para mantener la pestaña fluida.",
     "formatLabel": "Formato",
@@ -3482,7 +3534,8 @@
       "numbersIds": "Números e IDs",
       "dateTime": "Fecha y hora",
       "textDesign": "Texto y diseño",
-      "custom": "Personalizado"
+      "custom": "Personalizado",
+      "commerce": "Comercio"
     },
     "fieldTypes": {
       "first_name": "Nombre",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "Código de moneda",
       "language_code": "Etiqueta de idioma",
-      "custom_list": "Lista personalizada"
+      "custom_list": "Lista personalizada",
+      "gender": "Género",
+      "us_state": "Estado de EE. UU.",
+      "us_state_abbr": "Estado de EE. UU. (abrev.)",
+      "user_agent": "Agente de usuario",
+      "mime_type": "Tipo MIME",
+      "file_name": "Nombre de archivo",
+      "port": "Puerto",
+      "md5": "Hash MD5",
+      "sha256": "Hash SHA-256",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "Hora",
+      "weekday": "Día de la semana",
+      "month": "Mes",
+      "product_name": "Nombre del producto",
+      "product_category": "Categoría de producto",
+      "department": "Departamento",
+      "color_name": "Nombre del color",
+      "catch_phrase": "Eslogan"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "Importar esquema",
+    "exportSchema": "Exportar esquema",
+    "importSchemaError": "Archivo de esquema no válido — se espera un array JSON de columnas { name, type }."
   },
   "SvgOptimizer": {
     "title": "Optimizador SVG",
     "subtitle": "Minifica SVG con SVGO y compara tamaños",
     "inputLabel": "Entrada",
     "outputLabel": "Optimizado",
-    "placeholder": "Pega un fragmento <svg>…</svg> o el archivo completo…",
+    "placeholder": "Pega un fragmento SVG o el archivo completo…",
     "outputPlaceholder": "El SVG optimizado aparece aquí…",
     "chars": "{count} caracteres • {bytes} bytes (UTF-8)",
     "preview": "Vista previa",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "Conversor de unidades",
-    "subtitle": "Convierte 323 unidades en 43 categorías",
+    "subtitle": "Convierte 292 unidades en 44 categorías",
     "category": "Categoría",
     "from": "De",
     "to": "A",
@@ -4088,6 +4163,9 @@
     "inputLabel": "Código",
     "detected": "Detectado: {language}",
     "clear": "Limpiar",
+    "format": "Formatear",
+    "formatUnsupported": "El formateo no está disponible para este lenguaje",
+    "formatFailed": "No se pudo formatear el código",
     "placeholder": "Pega tu código aquí…",
     "previewLabel": "Vista previa",
     "emptyPreview": "La vista previa de tu código aparecerá aquí",

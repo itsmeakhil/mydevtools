@@ -10,8 +10,6 @@ import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
-import { DesktopBackupSettings } from '@/components/desktop/desktop-backup-settings'
-import { DesktopUpdateSettings } from '@/components/desktop/desktop-update-settings'
 import { DesktopPlanSettings } from '@/components/desktop/desktop-plan-settings'
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { Briefcase } from 'lucide-react'
@@ -69,10 +67,6 @@ export default function SettingsPage() {
       <div className="grid gap-6">
 
         <DesktopPlanSettings />
-
-        <DesktopUpdateSettings />
-
-        <DesktopBackupSettings />
 
         <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
           <CardHeader>

@@ -48,9 +48,9 @@ function TermsBody() {
         <h3 className="text-sm font-semibold text-foreground">4. Your data and encryption</h3>
         <p>
           The Service is local-first: the content you create with the tools is stored on your
-          device. If you enable cloud sync, your data is encrypted on your device with a vault
-          password that only you know, and only the encrypted result is sent to us. We never
-          receive your vault password and cannot decrypt or recover your synced data.
+          device and is never sent to us. Sensitive data you place in the vault is encrypted on
+          your device with a vault password that only you know; encryption happens entirely on
+          your machine. We never receive your vault password or vault contents.
         </p>
         <p className="font-medium text-foreground">
           If you lose your vault password, your encrypted data cannot be recovered by anyone,
@@ -125,17 +125,17 @@ function PrivacyBody() {
         <p>
           The content you create with the tools (notes, snippets, requests, keys, and other tool
           data) is saved locally on your device. It is not sent to us and is not part of your
-          account unless you enable cloud sync.
+          account. There is no cloud sync — your tool data never leaves your machine.
         </p>
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">4. Optional cloud sync (zero-knowledge)</h3>
+        <h3 className="text-sm font-semibold text-foreground">4. Vault encryption (zero-knowledge)</h3>
         <p>
-          If you turn on cloud sync in Settings, your data is encrypted on your device with a vault
-          password that only you know. Only the resulting encrypted blob is transmitted and stored.
-          We never receive your vault password and have no way to decrypt or view your raw data —
-          only you can, with your vault password.
+          Sensitive data you place in the vault is encrypted on your device with a vault password
+          that only you know. Encryption and decryption happen entirely on your machine. We never
+          receive your vault password or your vault contents and have no way to decrypt or view
+          your raw data — only you can, with your vault password.
         </p>
       </section>
 
@@ -160,8 +160,8 @@ function PrivacyBody() {
         <h3 className="text-sm font-semibold text-foreground">7. Retention &amp; deletion</h3>
         <p>
           We keep account and billing data for as long as your account is active or as required by
-          law. When you delete your account, we delete your account data and any encrypted synced
-          blobs; data stored only on your device is removed when you delete it locally.
+          law. When you delete your account, we delete your account data; tool data is stored
+          only on your device and is removed when you delete it locally.
         </p>
       </section>
 

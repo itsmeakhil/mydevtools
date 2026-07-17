@@ -83,7 +83,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Features',
     heading: 'Features built for fast, private developer workflows',
     intro:
-      'MyDevTools combines small daily utilities with a dashboard, search, privacy controls, and cloud sync in one desktop app — so developers stop juggling a dozen scattered websites and single-purpose apps.',
+      'MyDevTools combines small daily utilities with a dashboard, search, and privacy controls in one offline desktop app — so developers stop juggling a dozen scattered websites and single-purpose apps.',
     primaryCta: { href: '/tools', label: 'See tools' },
     secondaryCta: { href: '/security', label: 'Review security' },
     sections: [
@@ -118,13 +118,13 @@ export const platformSeoPages: PlatformSeoPage[] = [
         ],
       },
       {
-        title: 'Cloud that scales with you',
+        title: 'Simple pricing that scales with you',
         body:
-          'Start free, then upgrade when you need unlimited usage and team features.',
+          'Start free, then upgrade when you want to lock in launch pricing.',
         bullets: [
-          'Free tier with capped usage — no card required to start.',
-          'Pro unlocks unlimited usage, cross-device sync, and private history.',
-          'Team plans add shared workspaces, roles, and centralized billing.',
+          'Free for the first 250 users — no card required to start.',
+          'Pro unlocks unlimited usage, private history, and priority support.',
+          'Everything runs offline on your device — no cloud dependency.',
         ],
       },
     ],
@@ -143,7 +143,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Security',
     heading: 'Security and privacy for a local-first developer toolkit',
     intro:
-      'MyDevTools is built around a simple principle: keep local work local where possible, and encrypt sensitive synced data before it leaves your device.',
+      'MyDevTools is built around a simple principle: your work stays local. Everything runs offline on your device, and sensitive data is encrypted in a local vault.',
     primaryCta: { href: '/help', label: 'Read help docs' },
     secondaryCta: { href: '/features', label: 'Explore features' },
     sections: [
@@ -183,7 +183,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'pricing',
     title: 'Pricing',
     description:
-      'Compare MyDevTools Free, Pro, Team, and Enterprise plans. Start free, then upgrade for unlimited cloud usage and team features.',
+      'MyDevTools pricing: free for the first 250 users, then $59/year or $100 lifetime. One offline desktop app, all 80+ tools.',
     keywords: [
       'mydevtools pricing',
       'developer tools pricing',
@@ -193,8 +193,8 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Pricing',
     heading: 'Start free. Upgrade when you want more.',
     intro:
-      'MyDevTools gives you a free tier to start, with paid plans that unlock unlimited cloud usage, sync, and team features.',
-    primaryCta: { href: '/login', label: 'Start with cloud' },
+      'MyDevTools is free for the first 250 users. Paid plans lock in launch pricing — $59/year or $100 lifetime — for the full offline desktop toolkit.',
+    primaryCta: { href: '/login', label: 'Get started free' },
     secondaryCta: { href: '/features', label: 'See features' },
     sections: [],
   },

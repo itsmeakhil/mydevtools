@@ -80,68 +80,69 @@
   },
   "Help": {
     "title": "帮助与文档",
-    "subtitle": "了解 MyDevTools 的构成与数据保护方式",
+    "subtitle": "MyDevTools 如何离线运行，以及您的数据如何受到保护",
     "tabs": {
       "overview": "概览",
       "apps": "应用",
       "security": "安全",
-      "tips": "提示"
+      "tips": "使用技巧"
     },
     "overview": {
       "whatIs": {
         "title": "什么是 MyDevTools？",
-        "description": "一个可登录的开发者工作区：包含控制台与日常工具集合。",
-        "p1": "登录后，应用会与 MyDevTools API 建立会话，让工具能够加载与保存你的数据。侧边栏列出所有应用；你可以在",
+        "description": "一个离线的开发者工作空间：包含一个仪表盘和 80 多款完全在您设备上运行的工具。",
+        "p1": "MyDevTools 完全离线运行。在浏览器中完成一次性激活后，一切都在本设备上运行，无需登录账户，也无需联网。侧边栏列出了每一款应用；您可以在",
         "settingsLink": "设置",
-        "p1After": "中隐藏不常用的工具。",
-        "p2": "部分功能使用 <strong>主密码</strong>（或全局保险库密钥），使密码、数据库连接串等敏感信息在到达服务器前先在你的设备上完成加密。"
+        "p1After": "中隐藏您不使用的工具。",
+        "p2": "部分功能使用<strong>主密码</strong>（或全局保险库密钥），以便在您的设备上加密密码、数据库连接字符串等机密信息。您的数据存储在本地加密数据库中，绝不会发送到任何服务器。"
       },
       "quickLinks": {
-        "title": "快捷链接",
-        "dashboard": "控制台",
+        "title": "快速链接",
+        "dashboard": "仪表盘",
         "settings": "设置"
       }
     },
     "apps": {
-      "intro": "你可以从侧边栏或控制台打开任何工具。下面是每个应用的简要说明。",
+      "intro": "从侧边栏或仪表盘打开任意工具。以下是各款应用的简要指南。",
       "open": "打开",
-      "howItWorks": "工作方式",
-      "generic": "请从侧边栏使用该工具的专用工作流程。"
+      "howItWorks": "工作原理",
+      "generic": "从侧边栏使用此工具，体验其专属工作流程。"
     },
     "security": {
-      "session": {
-        "title": "登录与 API 会话",
-        "description": "身份与浏览器如何与后端通信。",
+      "access": {
+        "title": "激活与离线访问",
+        "description": "应用首次如何解锁，之后如何离线运行。",
         "items": {
-          "authentication": "<strong>认证</strong> 使用 Firebase 登录。登录后，应用会将 Firebase ID Token 交换为 API Cookie。",
-          "accessTokens": "<strong>访问令牌</strong> 为服务器签名的 JWT（HS256），用于证明调用 API 的用户身份。",
-          "refreshTokens": "<strong>刷新令牌</strong> 存放在 HttpOnly Cookie 中；服务器保存的是刷新令牌的 SHA-256 哈希值，而不是原始令牌。"
+          "activation": "首次打开应用时，会在您的浏览器中进行<strong>一次性激活</strong>。它会记录您的套餐并在本设备上解锁应用。",
+          "offline": "<strong>无需登录会话。</strong>激活后，无需每次会话登录，也没有定期重新校验——应用在无网络连接的情况下持续运行。",
+          "storage": "<strong>本地存储。</strong>您的所有数据都保存在设备上一个加密的 SQLCipher 数据库中，并由保存在您操作系统钥匙串中的随机密钥加密。"
         }
       },
       "encryption": {
-        "title": "你需要了解的加密",
-        "description": "保险库与敏感连接数据的客户端加密。",
-        "p1": "对于<strong>密码管理器</strong>、<strong>环境管理器</strong>以及 <strong>NoSQL Explorer</strong> 中保存的连接，Web 应用使用浏览器的 <strong>Web Crypto API</strong>：",
+        "title": "您应当了解的加密机制",
+        "description": "用于保险库和敏感连接数据的客户端加密。",
+        "p1": "对于<strong>密码管理器</strong>、<strong>环境变量管理器</strong>以及 <strong>NoSQL Explorer</strong> 保存的连接，应用使用 <strong>Web Crypto API</strong>：",
         "items": {
-          "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 次迭代与随机盐）从主密码派生 256 位密钥。",
-          "aes": "<strong>AES-256-GCM</strong> 加密数据；每次加密都会使用随机的 <strong>12 字节 IV</strong>。",
-          "scope": "派生密钥保留在浏览器中（不可导出）。服务器只接收 <strong>密文与 IV</strong>，不会接收主密码或明文秘密。"
+          "kdf": "使用 <strong>PBKDF2</strong> 搭配 <strong>SHA-256</strong>、<strong>600,000</strong> 次迭代和随机盐值，从您的主密码派生出一个 256-bit 密钥。",
+          "aes": "<strong>AES-256-GCM</strong> 加密数据载荷；每次加密都使用一个随机的 <strong>12-byte IV</strong>。",
+          "scope": "派生出的密钥留在应用内（不可导出），您的主密码绝不会离开您的设备。只有<strong>密文和 IVs</strong> 会写入本地数据库。"
         },
-        "warning": "如果你忘记主密码，加密数据将无法恢复。请妥善保管。"
+        "warning": "如果您忘记了主密码，加密数据将无法恢复。请妥善保管。"
       },
-      "logout": {
-        "title": "退出登录与本地数据",
-        "body": "退出登录会清除内存中的敏感信息、保险库相关状态，并在适用时从 IndexedDB 清除主密钥材料，同时结束 API 会话。仅保存在设备本地存储中的数据可能会保留，直到你在浏览器中清理。"
+      "local": {
+        "title": "锁定与本地数据",
+        "body": "锁定保险库会清除内存中的机密信息和主密钥材料；您的加密数据库会一直保留在磁盘上，直到您将其删除。这里没有退出登录——重置应用数据或删除应用才会清空所有内容，因此请自行备份任何重要资料。"
       }
     },
     "tips": {
-      "title": "安全使用 MyDevTools",
+      "title": "安全地使用 MyDevTools",
       "items": {
-        "masterPassword": "为保险库功能设置强且唯一的主密码。",
-        "apiClient": "将 API 客户端视为普通 HTTP 客户端：不了解可见范围时，避免在共享环境中粘贴生产密钥。",
-        "nosql": "数据库浏览器连接到你配置的数据库；尽量使用最小权限账号与网络规则。",
-        "json": "JSON 格式化在浏览器本地运行——在共享设备上仍应避免粘贴高度敏感数据。",
-        "settings": "在设置中自定义可见工具，让侧边栏更聚焦。"
+        "masterPassword": "为保险库功能设置一个强而唯一的主密码。",
+        "backup": "您的数据仅保存在本设备上——请定期导出或备份，以免设备故障时丢失。",
+        "apiClient": "将 API Client 视同任何 HTTP 客户端：除非您清楚谁能看到，否则请勿将生产环境的机密信息粘贴到共享环境中。",
+        "nosql": "Database Explorer 会连接到您配置的数据库；请尽量使用最小权限用户和网络规则。",
+        "json": "JSON Formatter 完全在您的设备上运行——但在共享机器上仍应避免粘贴高度敏感的数据。",
+        "settings": "在“设置”中自定义可见工具，让侧边栏保持简洁聚焦。"
       }
     }
   },
@@ -893,7 +894,8 @@
     },
     "layout": {
       "mobileNavTitle": "笔记导航",
-      "openMenuAria": "打开笔记菜单"
+      "openMenuAria": "打开笔记菜单",
+      "showSidebarAria": "显示侧边栏"
     },
     "sidebar": {
       "title": "笔记",
@@ -910,7 +912,8 @@
       "deleteConfirmDescription": "确定要删除「{title}」吗？此操作无法撤销。",
       "cancel": "取消",
       "confirmDelete": "删除",
-      "noteOptionsAria": "笔记选项"
+      "noteOptionsAria": "笔记选项",
+      "hideSidebarAria": "隐藏侧边栏"
     },
     "editor": {
       "emptyState": "选择一篇笔记或新建一篇以开始。",
@@ -933,7 +936,8 @@
       "loading": "加载中…",
       "searchHint": "以搜索",
       "focusHint": "专注模式",
-      "notePath": "笔记路径"
+      "notePath": "笔记路径",
+      "export": "导出"
     },
     "context": {
       "authRequiredError": "用户未登录",
@@ -1083,6 +1087,7 @@
       "pasteLabel": "粘贴 JSON 数据",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
       "pasteHint": "在此粘贴先前导出的 JSON 文件内容。",
+      "selectFile": "选择 JSON 文件",
       "importing": "导入中…",
       "importPasswords": "导入密码",
       "trigger": "导入 / 导出",
@@ -1253,6 +1258,7 @@
       "deleteFolderTitle": "删除文件夹「{name}」？",
       "deleteFolderDescription": "将删除该文件夹及其所有子文件夹。其中的书签将移至未分类。"
     },
+    "foldersHeading": "文件夹",
     "import": {
       "title": "导入书签",
       "description": "从浏览器导出的文件导入书签。",
@@ -1495,19 +1501,27 @@
       "updateConnect": "更新并连接",
       "connect": "连接",
       "cancelEdit": "取消编辑",
+      "cancel": "取消",
       "savedConnections": "已保存的连接",
       "emptySaved": "暂无已保存的连接。",
       "lastUsed": "上次使用 {time}",
       "toastTestOk": "连接成功！",
       "toastTestFail": "连接失败：{message}",
+      "toastConnectFail": "无法连接到 {name}",
       "toastUpdated": "连接已更新",
       "confirmDelete": "确定要删除此已保存的连接吗？",
+      "menuDeleteConnection": "删除连接",
       "toastDeletedConn": "连接已删除",
       "toastDeleteFail": "删除连接失败",
       "copyStringTitle": "复制连接字符串",
       "toastStringCopied": "连接字符串已复制！",
       "editTitle": "编辑",
-      "deleteTitle": "删除"
+      "deleteTitle": "删除",
+      "labelColor": "颜色标签",
+      "colorNone": "无颜色",
+      "hintColor": "标记环境 — 例如生产环境用红色。",
+      "labelReadOnly": "只读连接",
+      "hintReadOnly": "禁止对此连接进行插入、编辑、删除和删除集合操作。"
     },
     "sidebar": {
       "explorer": "浏览器",
@@ -1612,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "只读",
+      "cellUpdated": "值已更新",
+      "cellUpdateFail": "更新值失败",
+      "cellFilterByValue": "按此值筛选",
+      "cellExcludeValue": "排除此值",
+      "cellSortAsc": "升序排序",
+      "cellSortDesc": "降序排序",
+      "cellCopyValue": "复制值",
+      "cellEditValue": "编辑值",
+      "explainTitle": "执行计划",
+      "explainLoading": "正在运行 explain…",
+      "explainFail": "explain 失败",
+      "explainCollscan": "全集合扫描",
+      "explainIndexUsed": "索引：{name}",
+      "explainReturned": "返回 {n} 条",
+      "explainDocsExamined": "检查 {n} 条",
+      "explainCollscanHint": "此查询会扫描集合中的每个文档。考虑在筛选字段上创建索引。",
+      "explainRawLabel": "explain 输出"
     },
     "tabs": {
       "filterActive": "已应用筛选",
@@ -1662,7 +1694,17 @@
       "templateGroup": "$group（计数/求和）",
       "format": "格式化",
       "formattedJson": "格式化 JSON",
-      "runQuery": "运行查询"
+      "runQuery": "运行查询",
+      "savedQueries": "已保存的查询",
+      "noHistory": "没有最近的查询",
+      "saveNamePlaceholder": "查询名称",
+      "saveCurrentQuery": "保存当前查询",
+      "save": "保存",
+      "saveQueryFail": "保存查询失败",
+      "querySaved": "已保存“{name}”",
+      "explainQuery": "解释查询",
+      "stagesMode": "阶段",
+      "invalidStageJson": "某个管道阶段包含无效的 JSON"
     },
     "export": {
       "selectFieldsError": "请至少选择一个要导出的字段",
@@ -1677,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {已选 # 个字段} other {已选 # 个字段}}",
       "cancel": "取消",
       "export": "导出",
-      "sheetName": "数据"
+      "sheetName": "数据",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "类型：{type}",
       "itemSummary": "{count, plural, one {# 项} other {# 项}}"
+    },
+    "pipeline": {
+      "empty": "还没有阶段。添加一个阶段来构建管道。",
+      "addStage": "添加阶段",
+      "stageEnabled": "阶段已启用",
+      "preview": "预览",
+      "previewToHere": "运行管道至此阶段（前 10 个文档）",
+      "previewResult": "预览结果（{count}）",
+      "previewEmpty": "此阶段没有文档",
+      "previewFail": "预览失败"
     }
   },
   "ApiClient": {
@@ -3435,7 +3488,6 @@
   "MockDataGenerator": {
     "title": "模拟数据生成器",
     "subtitle": "定义类型化列 — 导出最多 {max} 行测试数据",
-    "mockarooLink": "Mockaroo 式工作流",
     "rowsLabel": "行数",
     "rowsHint": "每次生成最多 {max} 行，以保持标签页流畅。",
     "formatLabel": "格式",
@@ -3482,7 +3534,8 @@
       "numbersIds": "数字与标识",
       "dateTime": "日期与时间",
       "textDesign": "文本与设计",
-      "custom": "自定义"
+      "custom": "自定义",
+      "commerce": "商务"
     },
     "fieldTypes": {
       "first_name": "名",
@@ -3529,19 +3582,41 @@
       "rgb_color": "RGB color",
       "currency_code": "货币代码",
       "language_code": "语言标签",
-      "custom_list": "自定义列表"
+      "custom_list": "自定义列表",
+      "gender": "性别",
+      "us_state": "美国州",
+      "us_state_abbr": "美国州（缩写）",
+      "user_agent": "用户代理",
+      "mime_type": "MIME 类型",
+      "file_name": "文件名",
+      "port": "端口",
+      "md5": "MD5 哈希",
+      "sha256": "SHA-256 哈希",
+      "nanoid": "Nano ID",
+      "isbn": "ISBN-13",
+      "time": "时间",
+      "weekday": "星期",
+      "month": "月份",
+      "product_name": "产品名称",
+      "product_category": "产品类别",
+      "department": "部门",
+      "color_name": "颜色名称",
+      "catch_phrase": "宣传语"
     },
     "seedLabel": "Seed (optional)",
     "seedPlaceholder": "e.g. 42",
     "seedHint": "Same seed + same schema reproduces the same data.",
-    "seedRandomize": "Randomize seed"
+    "seedRandomize": "Randomize seed",
+    "importSchema": "导入架构",
+    "exportSchema": "导出架构",
+    "importSchemaError": "架构文件无效 — 需要由 { name, type } 列组成的 JSON 数组。"
   },
   "SvgOptimizer": {
     "title": "SVG 优化器",
     "subtitle": "用 SVGO 压缩 SVG 并对比大小",
     "inputLabel": "输入",
     "outputLabel": "已优化",
-    "placeholder": "粘贴 <svg>…</svg> 片段或完整文件…",
+    "placeholder": "粘贴 SVG 片段或完整文件…",
     "outputPlaceholder": "优化后的 SVG 将显示在这里…",
     "chars": "{count} 个字符 • {bytes} 字节（UTF-8）",
     "preview": "预览",
@@ -3566,7 +3641,7 @@
   },
   "UnitConverter": {
     "title": "单位换算器",
-    "subtitle": "覆盖 43 类 323 种单位换算",
+    "subtitle": "覆盖 44 类 292 种单位换算",
     "category": "类别",
     "from": "从",
     "to": "到",
@@ -4088,6 +4163,9 @@
     "inputLabel": "代码",
     "detected": "已检测：{language}",
     "clear": "清空",
+    "format": "格式化",
+    "formatUnsupported": "此语言不支持格式化",
+    "formatFailed": "代码格式化失败",
     "placeholder": "在此粘贴你的代码…",
     "previewLabel": "预览",
     "emptyPreview": "你的代码预览将显示在这里",
