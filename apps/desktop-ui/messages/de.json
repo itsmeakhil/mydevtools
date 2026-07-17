@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Verbindungszeichenfolge kopieren",
       "toastStringCopied": "Verbindungszeichenfolge kopiert!",
       "editTitle": "Bearbeiten",
-      "deleteTitle": "Löschen"
+      "deleteTitle": "Löschen",
+      "labelColor": "Farbmarkierung",
+      "colorNone": "Keine Farbe",
+      "hintColor": "Umgebungen markieren — z. B. Rot für Produktion.",
+      "labelReadOnly": "Schreibgeschützte Verbindung",
+      "hintReadOnly": "Blockiert Einfügen, Bearbeiten, Löschen und Drops für diese Verbindung."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Schreibgeschützt",
+      "cellUpdated": "Wert aktualisiert",
+      "cellUpdateFail": "Wert konnte nicht aktualisiert werden",
+      "cellFilterByValue": "Nach diesem Wert filtern",
+      "cellExcludeValue": "Diesen Wert ausschließen",
+      "cellSortAsc": "Aufsteigend sortieren",
+      "cellSortDesc": "Absteigend sortieren",
+      "cellCopyValue": "Wert kopieren",
+      "cellEditValue": "Wert bearbeiten",
+      "explainTitle": "Ausführungsplan",
+      "explainLoading": "Explain wird ausgeführt…",
+      "explainFail": "Explain fehlgeschlagen",
+      "explainCollscan": "Vollständiger Collection-Scan",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} zurückgegeben",
+      "explainDocsExamined": "{n} untersucht",
+      "explainCollscanHint": "Diese Abfrage durchsucht jedes Dokument der Collection. Erwäge einen Index auf den gefilterten Feldern.",
+      "explainRawLabel": "Explain-Ausgabe"
     },
     "tabs": {
       "filterActive": "Filter aktiv",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Anzahl/Summe)",
       "format": "Formatieren",
       "formattedJson": "Formatiertes JSON",
-      "runQuery": "Abfrage ausführen"
+      "runQuery": "Abfrage ausführen",
+      "savedQueries": "Gespeicherte Abfragen",
+      "noHistory": "Keine letzten Abfragen",
+      "saveNamePlaceholder": "Abfragename",
+      "saveCurrentQuery": "Aktuelle Abfrage speichern",
+      "save": "Speichern",
+      "saveQueryFail": "Abfrage konnte nicht gespeichert werden",
+      "querySaved": "„{name}“ gespeichert",
+      "explainQuery": "Abfrage erklären",
+      "stagesMode": "Stufen",
+      "invalidStageJson": "Eine Pipeline-Stufe enthält ungültiges JSON"
     },
     "export": {
       "selectFieldsError": "Bitte mindestens ein Feld zum Exportieren wählen",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# Feld gewählt} other {# Felder gewählt}}",
       "cancel": "Abbrechen",
       "export": "Exportieren",
-      "sheetName": "Daten"
+      "sheetName": "Daten",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Typ: {type}",
       "itemSummary": "{count, plural, one {# Element} other {# Elemente}}"
+    },
+    "pipeline": {
+      "empty": "Noch keine Stufen. Füge eine Stufe hinzu, um deine Pipeline zu erstellen.",
+      "addStage": "Stufe hinzufügen",
+      "stageEnabled": "Stufe aktiviert",
+      "preview": "Vorschau",
+      "previewToHere": "Pipeline bis zu dieser Stufe ausführen (erste 10 Dokumente)",
+      "previewResult": "Vorschauergebnisse ({count})",
+      "previewEmpty": "Keine Dokumente in dieser Stufe",
+      "previewFail": "Vorschau fehlgeschlagen"
     }
   },
   "ApiClient": {

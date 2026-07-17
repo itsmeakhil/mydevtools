@@ -13,7 +13,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { PALETTE_GROUPS } from '@/lib/color-palettes';
 import { Check, Copy, Pipette } from 'lucide-react';
+import { IconPalette } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 
 type PaletteId = (typeof PALETTE_GROUPS)[number]['id'];
@@ -143,10 +147,14 @@ export function ColorPickerToolLayout() {
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+      <RevealItem index={0} className="shrink-0">
+        <ToolPageHeader
+          icon={IconPalette}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT['Media & Design']}
+        />
+      </RevealItem>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 shrink-0">
         <Card className="p-4 space-y-4">

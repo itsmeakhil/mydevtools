@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Copia la cadena de connexió",
       "toastStringCopied": "Cadena de connexió copiada!",
       "editTitle": "Edita",
-      "deleteTitle": "Elimina"
+      "deleteTitle": "Elimina",
+      "labelColor": "Etiqueta de color",
+      "colorNone": "Sense color",
+      "hintColor": "Etiqueta els entorns — p. ex., vermell per a producció.",
+      "labelReadOnly": "Connexió de només lectura",
+      "hintReadOnly": "Bloqueja insercions, edicions, supressions i drops per a aquesta connexió."
     },
     "sidebar": {
       "explorer": "Explorador",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Només lectura",
+      "cellUpdated": "Valor actualitzat",
+      "cellUpdateFail": "No s'ha pogut actualitzar el valor",
+      "cellFilterByValue": "Filtra per aquest valor",
+      "cellExcludeValue": "Exclou aquest valor",
+      "cellSortAsc": "Ordena ascendent",
+      "cellSortDesc": "Ordena descendent",
+      "cellCopyValue": "Copia el valor",
+      "cellEditValue": "Edita el valor",
+      "explainTitle": "Pla d'execució",
+      "explainLoading": "Executant explain…",
+      "explainFail": "L'explain ha fallat",
+      "explainCollscan": "Escaneig complet de la col·lecció",
+      "explainIndexUsed": "Índex: {name}",
+      "explainReturned": "{n} retornats",
+      "explainDocsExamined": "{n} examinats",
+      "explainCollscanHint": "Aquesta consulta escaneja tots els documents de la col·lecció. Considera crear un índex sobre els camps filtrats.",
+      "explainRawLabel": "Sortida d'explain"
     },
     "tabs": {
       "filterActive": "Filtre actiu aplicat",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Comptar/Suma)",
       "format": "Formata",
       "formattedJson": "JSON formatat",
-      "runQuery": "Executa la consulta"
+      "runQuery": "Executa la consulta",
+      "savedQueries": "Consultes desades",
+      "noHistory": "Cap consulta recent",
+      "saveNamePlaceholder": "Nom de la consulta",
+      "saveCurrentQuery": "Desa la consulta actual",
+      "save": "Desa",
+      "saveQueryFail": "No s'ha pogut desar la consulta",
+      "querySaved": "“{name}” desada",
+      "explainQuery": "Explica la consulta",
+      "stagesMode": "Etapes",
+      "invalidStageJson": "Una etapa del pipeline conté JSON no vàlid"
     },
     "export": {
       "selectFieldsError": "Selecciona com a mínim un camp per exportar",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# camp seleccionat} other {# camps seleccionats}}",
       "cancel": "Cancel·la",
       "export": "Exporta",
-      "sheetName": "Dades"
+      "sheetName": "Dades",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tipus: {type}",
       "itemSummary": "{count, plural, one {# element} other {# elements}}"
+    },
+    "pipeline": {
+      "empty": "Encara no hi ha etapes. Afegeix una etapa per construir el pipeline.",
+      "addStage": "Afegeix etapa",
+      "stageEnabled": "Etapa activada",
+      "preview": "Previsualització",
+      "previewToHere": "Executa el pipeline fins a aquesta etapa (primers 10 documents)",
+      "previewResult": "Resultats de previsualització ({count})",
+      "previewEmpty": "Cap document en aquesta etapa",
+      "previewFail": "La previsualització ha fallat"
     }
   },
   "ApiClient": {

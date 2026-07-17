@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Sao chép chuỗi kết nối",
       "toastStringCopied": "Đã sao chép chuỗi kết nối!",
       "editTitle": "Sửa",
-      "deleteTitle": "Xóa"
+      "deleteTitle": "Xóa",
+      "labelColor": "Nhãn màu",
+      "colorNone": "Không màu",
+      "hintColor": "Gắn nhãn môi trường — ví dụ màu đỏ cho production.",
+      "labelReadOnly": "Kết nối chỉ đọc",
+      "hintReadOnly": "Chặn thêm, sửa, xóa và drop cho kết nối này."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Chỉ đọc",
+      "cellUpdated": "Đã cập nhật giá trị",
+      "cellUpdateFail": "Không thể cập nhật giá trị",
+      "cellFilterByValue": "Lọc theo giá trị này",
+      "cellExcludeValue": "Loại trừ giá trị này",
+      "cellSortAsc": "Sắp xếp tăng dần",
+      "cellSortDesc": "Sắp xếp giảm dần",
+      "cellCopyValue": "Sao chép giá trị",
+      "cellEditValue": "Chỉnh sửa giá trị",
+      "explainTitle": "Kế hoạch thực thi",
+      "explainLoading": "Đang chạy explain…",
+      "explainFail": "Explain thất bại",
+      "explainCollscan": "Quét toàn bộ collection",
+      "explainIndexUsed": "Chỉ mục: {name}",
+      "explainReturned": "{n} được trả về",
+      "explainDocsExamined": "{n} được kiểm tra",
+      "explainCollscanHint": "Truy vấn này quét mọi tài liệu trong collection. Cân nhắc tạo chỉ mục trên các trường được lọc.",
+      "explainRawLabel": "Kết quả explain"
     },
     "tabs": {
       "filterActive": "Bộ lọc đang áp dụng",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Đếm/Tổng)",
       "format": "Định dạng",
       "formattedJson": "JSON đã định dạng",
-      "runQuery": "Chạy truy vấn"
+      "runQuery": "Chạy truy vấn",
+      "savedQueries": "Truy vấn đã lưu",
+      "noHistory": "Không có truy vấn gần đây",
+      "saveNamePlaceholder": "Tên truy vấn",
+      "saveCurrentQuery": "Lưu truy vấn hiện tại",
+      "save": "Lưu",
+      "saveQueryFail": "Không thể lưu truy vấn",
+      "querySaved": "Đã lưu “{name}”",
+      "explainQuery": "Giải thích truy vấn",
+      "stagesMode": "Giai đoạn",
+      "invalidStageJson": "Một giai đoạn pipeline chứa JSON không hợp lệ"
     },
     "export": {
       "selectFieldsError": "Vui lòng chọn ít nhất một trường để xuất",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# trường đã chọn} other {# trường đã chọn}}",
       "cancel": "Hủy",
       "export": "Xuất",
-      "sheetName": "Dữ liệu"
+      "sheetName": "Dữ liệu",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Kiểu: {type}",
       "itemSummary": "{count, plural, one {# mục} other {# mục}}"
+    },
+    "pipeline": {
+      "empty": "Chưa có giai đoạn nào. Thêm giai đoạn để xây dựng pipeline.",
+      "addStage": "Thêm giai đoạn",
+      "stageEnabled": "Giai đoạn được bật",
+      "preview": "Xem trước",
+      "previewToHere": "Chạy pipeline đến giai đoạn này (10 tài liệu đầu tiên)",
+      "previewResult": "Kết quả xem trước ({count})",
+      "previewEmpty": "Không có tài liệu ở giai đoạn này",
+      "previewFail": "Xem trước thất bại"
     }
   },
   "ApiClient": {

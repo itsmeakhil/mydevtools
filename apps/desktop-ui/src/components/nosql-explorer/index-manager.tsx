@@ -38,6 +38,7 @@ interface IndexManagerProps {
     onRefresh: () => void;
     onDropIndex: (indexName: string) => Promise<void>;
     onCreateIndex: (keys: Record<string, number>, options: Record<string, any>) => Promise<void>;
+    readOnly?: boolean;
 }
 
 function formatKeySpec(key: Record<string, number | string>): string {
@@ -60,6 +61,7 @@ export function IndexManager({
     onRefresh,
     onDropIndex,
     onCreateIndex,
+    readOnly = false,
 }: IndexManagerProps) {
     const [dropConfirm, setDropConfirm] = useState<string | null>(null);
     const [dropping, setDropping] = useState(false);
@@ -142,10 +144,12 @@ export function IndexManager({
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={onRefresh}>
                         <IconRefresh className="h-3.5 w-3.5" />
                     </Button>
-                    <Button size="sm" className="h-7 text-xs" onClick={() => setShowCreate(true)}>
-                        <IconPlus className="h-3.5 w-3.5 mr-1" />
-                        New Index
-                    </Button>
+                    {!readOnly && (
+                        <Button size="sm" className="h-7 text-xs" onClick={() => setShowCreate(true)}>
+                            <IconPlus className="h-3.5 w-3.5 mr-1" />
+                            New Index
+                        </Button>
+                    )}
                 </div>
             </div>
 
@@ -212,7 +216,7 @@ export function IndexManager({
                                 </div>
                                 <p className="text-[11px] font-mono text-muted-foreground">{formatKeySpec(idx.key)}</p>
                             </div>
-                            {idx.name !== '_id_' && (
+                            {idx.name !== '_id_' && !readOnly && (
                                 <Button
                                     variant="ghost"
                                     size="icon"

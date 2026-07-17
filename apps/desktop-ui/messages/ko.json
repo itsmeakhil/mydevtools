@@ -1516,7 +1516,12 @@
       "copyStringTitle": "연결 문자열 복사",
       "toastStringCopied": "연결 문자열이 복사되었습니다!",
       "editTitle": "수정",
-      "deleteTitle": "삭제"
+      "deleteTitle": "삭제",
+      "labelColor": "색상 태그",
+      "colorNone": "색상 없음",
+      "hintColor": "환경을 태그하세요 — 예: 프로덕션은 빨강.",
+      "labelReadOnly": "읽기 전용 연결",
+      "hintReadOnly": "이 연결에서 삽입, 편집, 삭제, 드롭을 차단합니다."
     },
     "sidebar": {
       "explorer": "탐색기",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "읽기 전용",
+      "cellUpdated": "값이 업데이트되었습니다",
+      "cellUpdateFail": "값 업데이트에 실패했습니다",
+      "cellFilterByValue": "이 값으로 필터",
+      "cellExcludeValue": "이 값 제외",
+      "cellSortAsc": "오름차순 정렬",
+      "cellSortDesc": "내림차순 정렬",
+      "cellCopyValue": "값 복사",
+      "cellEditValue": "값 편집",
+      "explainTitle": "실행 계획",
+      "explainLoading": "explain 실행 중…",
+      "explainFail": "explain 실패",
+      "explainCollscan": "컬렉션 전체 스캔",
+      "explainIndexUsed": "인덱스: {name}",
+      "explainReturned": "{n}건 반환",
+      "explainDocsExamined": "{n}건 검사",
+      "explainCollscanHint": "이 쿼리는 컬렉션의 모든 문서를 스캔합니다. 필터링된 필드에 인덱스 생성을 고려하세요.",
+      "explainRawLabel": "explain 출력"
     },
     "tabs": {
       "filterActive": "활성 필터 적용됨",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (카운트/합계)",
       "format": "포맷",
       "formattedJson": "포맷된 JSON",
-      "runQuery": "쿼리 실행"
+      "runQuery": "쿼리 실행",
+      "savedQueries": "저장된 쿼리",
+      "noHistory": "최근 쿼리가 없습니다",
+      "saveNamePlaceholder": "쿼리 이름",
+      "saveCurrentQuery": "현재 쿼리 저장",
+      "save": "저장",
+      "saveQueryFail": "쿼리 저장에 실패했습니다",
+      "querySaved": "“{name}” 저장됨",
+      "explainQuery": "쿼리 설명",
+      "stagesMode": "단계",
+      "invalidStageJson": "파이프라인 단계에 잘못된 JSON이 있습니다"
     },
     "export": {
       "selectFieldsError": "내보낼 필드를 하나 이상 선택해 주세요",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {#개 필드 선택됨} other {#개 필드 선택됨}}",
       "cancel": "취소",
       "export": "내보내기",
-      "sheetName": "데이터"
+      "sheetName": "데이터",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "타입: {type}",
       "itemSummary": "{count, plural, one {#개 항목} other {#개 항목}}"
+    },
+    "pipeline": {
+      "empty": "아직 단계가 없습니다. 단계를 추가해 파이프라인을 만드세요.",
+      "addStage": "단계 추가",
+      "stageEnabled": "단계 활성화",
+      "preview": "미리보기",
+      "previewToHere": "이 단계까지 파이프라인 실행 (처음 10건)",
+      "previewResult": "미리보기 결과 ({count})",
+      "previewEmpty": "이 단계에 문서가 없습니다",
+      "previewFail": "미리보기 실패"
     }
   },
   "ApiClient": {

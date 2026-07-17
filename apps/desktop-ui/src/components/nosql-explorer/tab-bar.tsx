@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { IconX, IconFolder } from "@tabler/icons-react";
+import { IconX, IconFolder, IconLock } from "@tabler/icons-react";
 import { ExplorerTab } from "./types";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -56,8 +56,10 @@ export function TabBar({ tabs, activeTabId, onTabChange, onTabClose, onCloseAll 
                                                     : "text-muted-foreground"
                                             )}
                                             onClick={() => onTabChange(tab.id)}
+                                            style={tab.connectionColor ? { boxShadow: `inset 0 2px 0 0 ${tab.connectionColor}` } : undefined}
                                         >
                                             <IconFolder className={cn("h-3.5 w-3.5 shrink-0", isActive ? "text-yellow-500" : "text-yellow-500/60")} />
+                                            {tab.readOnly && <IconLock className="h-3 w-3 text-amber-500 shrink-0" />}
                                             <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-xs">
                                                 {tab.collectionName}
                                             </span>

@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Kopieer koppelingsstring",
       "toastStringCopied": "Koppelingsstring gekopieer!",
       "editTitle": "Wysig",
-      "deleteTitle": "Vee uit"
+      "deleteTitle": "Vee uit",
+      "labelColor": "Kleuretiket",
+      "colorNone": "Geen kleur nie",
+      "hintColor": "Merk omgewings — bv. rooi vir produksie.",
+      "labelReadOnly": "Leesalleen-verbinding",
+      "hintReadOnly": "Blokkeer invoegings, wysigings, uitvee en drops vir hierdie verbinding."
     },
     "sidebar": {
       "explorer": "Verkenner",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Leesalleen",
+      "cellUpdated": "Waarde opgedateer",
+      "cellUpdateFail": "Kon nie waarde opdateer nie",
+      "cellFilterByValue": "Filtreer volgens hierdie waarde",
+      "cellExcludeValue": "Sluit hierdie waarde uit",
+      "cellSortAsc": "Sorteer stygend",
+      "cellSortDesc": "Sorteer dalend",
+      "cellCopyValue": "Kopieer waarde",
+      "cellEditValue": "Wysig waarde",
+      "explainTitle": "Uitvoeringsplan",
+      "explainLoading": "Explain word uitgevoer…",
+      "explainFail": "Explain het misluk",
+      "explainCollscan": "Volledige collection-skandering",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} teruggegee",
+      "explainDocsExamined": "{n} ondersoek",
+      "explainCollscanHint": "Hierdie navraag deursoek elke dokument in die collection. Oorweeg 'n indeks op die gefiltreerde velde.",
+      "explainRawLabel": "Explain-uitset"
     },
     "tabs": {
       "filterActive": "Aktiewe filter toegepas",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Tel/Som)",
       "format": "Formaat",
       "formattedJson": "Geformateerde JSON",
-      "runQuery": "Voer navraag uit"
+      "runQuery": "Voer navraag uit",
+      "savedQueries": "Gestoorde navrae",
+      "noHistory": "Geen onlangse navrae nie",
+      "saveNamePlaceholder": "Navraagnaam",
+      "saveCurrentQuery": "Stoor huidige navraag",
+      "save": "Stoor",
+      "saveQueryFail": "Kon nie navraag stoor nie",
+      "querySaved": "“{name}” gestoor",
+      "explainQuery": "Verduidelik navraag",
+      "stagesMode": "Fases",
+      "invalidStageJson": "'n Pyplynfase bevat ongeldige JSON"
     },
     "export": {
       "selectFieldsError": "Kies asseblief minstens een veld om uit te voer",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# veld gekies} other {# velde gekies}}",
       "cancel": "Kanselleer",
       "export": "Uitvoer",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tipe: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "Nog geen fases nie. Voeg 'n fase by om jou pyplyn te bou.",
+      "addStage": "Voeg fase by",
+      "stageEnabled": "Fase geaktiveer",
+      "preview": "Voorskou",
+      "previewToHere": "Voer die pyplyn tot hierdie fase uit (eerste 10 dokumente)",
+      "previewResult": "Voorskouresultate ({count})",
+      "previewEmpty": "Geen dokumente in hierdie fase nie",
+      "previewFail": "Voorskou het misluk"
     }
   },
   "ApiClient": {

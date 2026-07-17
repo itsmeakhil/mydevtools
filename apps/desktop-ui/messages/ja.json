@@ -1516,7 +1516,12 @@
       "copyStringTitle": "接続文字列をコピー",
       "toastStringCopied": "接続文字列をコピーしました！",
       "editTitle": "編集",
-      "deleteTitle": "削除"
+      "deleteTitle": "削除",
+      "labelColor": "カラータグ",
+      "colorNone": "色なし",
+      "hintColor": "環境をタグ付け — 例：本番環境は赤。",
+      "labelReadOnly": "読み取り専用接続",
+      "hintReadOnly": "この接続での挿入・編集・削除・ドロップをブロックします。"
     },
     "sidebar": {
       "explorer": "エクスプローラー",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "読み取り専用",
+      "cellUpdated": "値を更新しました",
+      "cellUpdateFail": "値の更新に失敗しました",
+      "cellFilterByValue": "この値でフィルター",
+      "cellExcludeValue": "この値を除外",
+      "cellSortAsc": "昇順に並べ替え",
+      "cellSortDesc": "降順に並べ替え",
+      "cellCopyValue": "値をコピー",
+      "cellEditValue": "値を編集",
+      "explainTitle": "実行プラン",
+      "explainLoading": "explainを実行中…",
+      "explainFail": "explainに失敗しました",
+      "explainCollscan": "コレクション全件スキャン",
+      "explainIndexUsed": "インデックス: {name}",
+      "explainReturned": "{n} 件返却",
+      "explainDocsExamined": "{n} 件検査",
+      "explainCollscanHint": "このクエリはコレクション内の全ドキュメントをスキャンします。フィルター対象のフィールドにインデックスの作成を検討してください。",
+      "explainRawLabel": "explain出力"
     },
     "tabs": {
       "filterActive": "アクティブなフィルターが適用されています",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group（カウント/合計）",
       "format": "整形",
       "formattedJson": "整形済みJSON",
-      "runQuery": "クエリを実行"
+      "runQuery": "クエリを実行",
+      "savedQueries": "保存済みクエリ",
+      "noHistory": "最近のクエリはありません",
+      "saveNamePlaceholder": "クエリ名",
+      "saveCurrentQuery": "現在のクエリを保存",
+      "save": "保存",
+      "saveQueryFail": "クエリの保存に失敗しました",
+      "querySaved": "「{name}」を保存しました",
+      "explainQuery": "クエリを説明",
+      "stagesMode": "ステージ",
+      "invalidStageJson": "パイプラインのステージに無効なJSONが含まれています"
     },
     "export": {
       "selectFieldsError": "エクスポートするフィールドを少なくとも1つ選択してください",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {#フィールド選択済み} other {#フィールド選択済み}}",
       "cancel": "キャンセル",
       "export": "エクスポート",
-      "sheetName": "データ"
+      "sheetName": "データ",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "型：{type}",
       "itemSummary": "{count, plural, one {#項目} other {#項目}}"
+    },
+    "pipeline": {
+      "empty": "ステージがありません。ステージを追加してパイプラインを作成してください。",
+      "addStage": "ステージを追加",
+      "stageEnabled": "ステージ有効",
+      "preview": "プレビュー",
+      "previewToHere": "このステージまでパイプラインを実行（最初の10件）",
+      "previewResult": "プレビュー結果（{count}）",
+      "previewEmpty": "このステージにドキュメントはありません",
+      "previewFail": "プレビューに失敗しました"
     }
   },
   "ApiClient": {

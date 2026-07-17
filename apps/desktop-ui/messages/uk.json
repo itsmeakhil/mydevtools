@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Копіювати рядок підключення",
       "toastStringCopied": "Рядок підключення скопійовано!",
       "editTitle": "Редагувати",
-      "deleteTitle": "Видалити"
+      "deleteTitle": "Видалити",
+      "labelColor": "Кольорова мітка",
+      "colorNone": "Без кольору",
+      "hintColor": "Позначайте середовища — наприклад, червоний для продакшену.",
+      "labelReadOnly": "Підключення лише для читання",
+      "hintReadOnly": "Блокує вставлення, редагування, видалення та drop-операції для цього підключення."
     },
     "sidebar": {
       "explorer": "Провідник",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Лише читання",
+      "cellUpdated": "Значення оновлено",
+      "cellUpdateFail": "Не вдалося оновити значення",
+      "cellFilterByValue": "Фільтрувати за цим значенням",
+      "cellExcludeValue": "Виключити це значення",
+      "cellSortAsc": "Сортувати за зростанням",
+      "cellSortDesc": "Сортувати за спаданням",
+      "cellCopyValue": "Копіювати значення",
+      "cellEditValue": "Редагувати значення",
+      "explainTitle": "План виконання",
+      "explainLoading": "Виконується explain…",
+      "explainFail": "Помилка explain",
+      "explainCollscan": "Повне сканування колекції",
+      "explainIndexUsed": "Індекс: {name}",
+      "explainReturned": "{n} повернуто",
+      "explainDocsExamined": "{n} перевірено",
+      "explainCollscanHint": "Цей запит сканує кожен документ колекції. Розгляньте створення індексу для фільтрованих полів.",
+      "explainRawLabel": "Вивід explain"
     },
     "tabs": {
       "filterActive": "Активний фільтр застосовано",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Підрахунок/Сума)",
       "format": "Формат",
       "formattedJson": "Форматований JSON",
-      "runQuery": "Виконати запит"
+      "runQuery": "Виконати запит",
+      "savedQueries": "Збережені запити",
+      "noHistory": "Немає останніх запитів",
+      "saveNamePlaceholder": "Назва запиту",
+      "saveCurrentQuery": "Зберегти поточний запит",
+      "save": "Зберегти",
+      "saveQueryFail": "Не вдалося зберегти запит",
+      "querySaved": "«{name}» збережено",
+      "explainQuery": "Пояснити запит",
+      "stagesMode": "Етапи",
+      "invalidStageJson": "Етап конвеєра містить неправильний JSON"
     },
     "export": {
       "selectFieldsError": "Оберіть щонайменше одне поле для експорту",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# поле обрано} few {# поля обрано} other {# полів обрано}}",
       "cancel": "Скасувати",
       "export": "Експорт",
-      "sheetName": "Дані"
+      "sheetName": "Дані",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Тип: {type}",
       "itemSummary": "{count, plural, one {# елемент} few {# елементи} other {# елементів}}"
+    },
+    "pipeline": {
+      "empty": "Ще немає етапів. Додайте етап, щоб побудувати конвеєр.",
+      "addStage": "Додати етап",
+      "stageEnabled": "Етап увімкнено",
+      "preview": "Попередній перегляд",
+      "previewToHere": "Виконати конвеєр до цього етапу (перші 10 документів)",
+      "previewResult": "Результати перегляду ({count})",
+      "previewEmpty": "На цьому етапі немає документів",
+      "previewFail": "Помилка попереднього перегляду"
     }
   },
   "ApiClient": {

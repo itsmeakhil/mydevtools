@@ -1540,7 +1540,12 @@
       "copyStringTitle": "Copy connection string",
       "toastStringCopied": "Connection string copied!",
       "editTitle": "Edit",
-      "deleteTitle": "Delete"
+      "deleteTitle": "Delete",
+      "labelColor": "Color Tag",
+      "colorNone": "No color",
+      "hintColor": "Tag environments — e.g. red for production.",
+      "labelReadOnly": "Read-only connection",
+      "hintReadOnly": "Blocks inserts, edits, deletes, and drops for this connection."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1645,7 +1650,25 @@
       "saveChanges": "Save Changes",
       "close": "Close",
       "cancel": "Cancel",
-      "insertButton": "Insert"
+      "insertButton": "Insert",
+      "readOnlyBadge": "Read-only",
+      "cellUpdated": "Value updated",
+      "cellUpdateFail": "Failed to update value",
+      "cellFilterByValue": "Filter by this value",
+      "cellExcludeValue": "Exclude this value",
+      "cellSortAsc": "Sort ascending",
+      "cellSortDesc": "Sort descending",
+      "cellCopyValue": "Copy value",
+      "cellEditValue": "Edit value",
+      "explainTitle": "Explain Plan",
+      "explainLoading": "Running explain…",
+      "explainFail": "Explain failed",
+      "explainCollscan": "Full collection scan",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} returned",
+      "explainDocsExamined": "{n} examined",
+      "explainCollscanHint": "This query scans every document in the collection. Consider creating an index on the filtered fields.",
+      "explainRawLabel": "Explain output"
     },
     "tabs": {
       "filterActive": "Active filter applied",
@@ -1695,7 +1718,17 @@
       "templateGroup": "$group (Count/Sum)",
       "format": "Format",
       "formattedJson": "Formatted JSON",
-      "runQuery": "Run Query"
+      "runQuery": "Run Query",
+      "savedQueries": "Saved Queries",
+      "noHistory": "No recent queries",
+      "saveNamePlaceholder": "Query name",
+      "saveCurrentQuery": "Save current query",
+      "save": "Save",
+      "saveQueryFail": "Failed to save query",
+      "querySaved": "Saved “{name}”",
+      "explainQuery": "Explain query",
+      "stagesMode": "Stages",
+      "invalidStageJson": "A pipeline stage contains invalid JSON"
     },
     "export": {
       "selectFieldsError": "Please select at least one field to export",
@@ -1710,11 +1743,22 @@
       "fieldsSelected": "{count, plural, one {# field selected} other {# fields selected}}",
       "cancel": "Cancel",
       "export": "Export",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "No stages yet. Add a stage to build your pipeline.",
+      "addStage": "Add Stage",
+      "stageEnabled": "Stage enabled",
+      "preview": "Preview",
+      "previewToHere": "Run the pipeline up to this stage (first 10 documents)",
+      "previewResult": "Preview results ({count})",
+      "previewEmpty": "No documents at this stage",
+      "previewFail": "Preview failed"
     }
   },
   "ApiClient": {

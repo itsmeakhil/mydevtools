@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Copier la chaîne de connexion",
       "toastStringCopied": "Chaîne copiée !",
       "editTitle": "Modifier",
-      "deleteTitle": "Supprimer"
+      "deleteTitle": "Supprimer",
+      "labelColor": "Étiquette de couleur",
+      "colorNone": "Aucune couleur",
+      "hintColor": "Marquez vos environnements — p. ex. rouge pour la production.",
+      "labelReadOnly": "Connexion en lecture seule",
+      "hintReadOnly": "Bloque les insertions, modifications, suppressions et drops pour cette connexion."
     },
     "sidebar": {
       "explorer": "Explorateur",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Lecture seule",
+      "cellUpdated": "Valeur mise à jour",
+      "cellUpdateFail": "Échec de la mise à jour de la valeur",
+      "cellFilterByValue": "Filtrer par cette valeur",
+      "cellExcludeValue": "Exclure cette valeur",
+      "cellSortAsc": "Tri croissant",
+      "cellSortDesc": "Tri décroissant",
+      "cellCopyValue": "Copier la valeur",
+      "cellEditValue": "Modifier la valeur",
+      "explainTitle": "Plan d'exécution",
+      "explainLoading": "Explain en cours…",
+      "explainFail": "Échec de l'explain",
+      "explainCollscan": "Analyse complète de la collection",
+      "explainIndexUsed": "Index : {name}",
+      "explainReturned": "{n} renvoyés",
+      "explainDocsExamined": "{n} examinés",
+      "explainCollscanHint": "Cette requête parcourt chaque document de la collection. Envisagez de créer un index sur les champs filtrés.",
+      "explainRawLabel": "Sortie explain"
     },
     "tabs": {
       "filterActive": "Filtre actif",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (compte/somme)",
       "format": "Formater",
       "formattedJson": "JSON formaté",
-      "runQuery": "Exécuter"
+      "runQuery": "Exécuter",
+      "savedQueries": "Requêtes enregistrées",
+      "noHistory": "Aucune requête récente",
+      "saveNamePlaceholder": "Nom de la requête",
+      "saveCurrentQuery": "Enregistrer la requête actuelle",
+      "save": "Enregistrer",
+      "saveQueryFail": "Échec de l'enregistrement de la requête",
+      "querySaved": "« {name} » enregistrée",
+      "explainQuery": "Expliquer la requête",
+      "stagesMode": "Étapes",
+      "invalidStageJson": "Une étape du pipeline contient du JSON invalide"
     },
     "export": {
       "selectFieldsError": "Sélectionnez au moins un champ à exporter",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# champ sélectionné} other {# champs sélectionnés}}",
       "cancel": "Annuler",
       "export": "Exporter",
-      "sheetName": "Données"
+      "sheetName": "Données",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type : {type}",
       "itemSummary": "{count, plural, one {# élément} other {# éléments}}"
+    },
+    "pipeline": {
+      "empty": "Aucune étape pour l'instant. Ajoutez une étape pour construire votre pipeline.",
+      "addStage": "Ajouter une étape",
+      "stageEnabled": "Étape activée",
+      "preview": "Aperçu",
+      "previewToHere": "Exécuter le pipeline jusqu'à cette étape (10 premiers documents)",
+      "previewResult": "Résultats de l'aperçu ({count})",
+      "previewEmpty": "Aucun document à cette étape",
+      "previewFail": "Échec de l'aperçu"
     }
   },
   "ApiClient": {

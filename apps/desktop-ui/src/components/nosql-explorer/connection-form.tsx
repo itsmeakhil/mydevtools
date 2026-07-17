@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { IconDatabase, IconTrash, IconHistory, IconPencil, IconPlugConnected, IconCheck, IconX, IconBrandMongodb, IconServer, IconCopy } from "@tabler/icons-react";
+import { IconDatabase, IconTrash, IconHistory, IconPencil, IconPlugConnected, IconCheck, IconX, IconBrandMongodb, IconServer, IconCopy, IconLock } from "@tabler/icons-react";
+import { Switch } from "@/components/ui/switch";
 import { SavedConnection } from "./types";
 import { getConnections, deleteConnection, saveConnection, updateConnectionDetails } from "./connection-service";
 import { backendFetch } from "@/lib/backend-auth";
@@ -36,6 +37,11 @@ interface ConnectionFormProps {
     error: string | null;
 }
 
+// Environment accent colors (hex kept literal so Tailwind can't purge them)
+export const CONNECTION_COLORS = [
+    "#ef4444", "#f59e0b", "#22c55e", "#3b82f6", "#a855f7", "#64748b",
+] as const;
+
 export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProps) {
     const t = useTranslations("NoSqlExplorer.connection");
     const locale = useLocale();
@@ -47,6 +53,8 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     const { copyToClipboard } = useCopyToClipboard();
     const [connectionString, setConnectionString] = useState("");
     const [name, setName] = useState("My Connection");
+    const [color, setColor] = useState<string | null>(null);
+    const [readOnly, setReadOnly] = useState(false);
     const [savedConnections, setSavedConnections] = useState<SavedConnection[]>([]);
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
@@ -100,10 +108,10 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
 
         try {
             if (editingId) {
-                await updateConnectionDetails(user.uid, editingId, { name, connectionString }, encryptionKey);
+                await updateConnectionDetails(user.uid, editingId, { name, connectionString, color, readOnly }, encryptionKey);
                 toast.success(t("toastUpdated"));
             } else {
-                await saveConnection(user.uid, connectionString, name, encryptionKey);
+                await saveConnection(user.uid, connectionString, name, encryptionKey, { color, readOnly });
             }
             await loadConnections();
         } catch (e) {
@@ -119,6 +127,8 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     const handleSelectConnection = (conn: SavedConnection) => {
         setConnectionString(conn.connectionString);
         setName(conn.name);
+        setColor(conn.color ?? null);
+        setReadOnly(conn.readOnly ?? false);
         setEditingId(null);
     };
 
@@ -127,12 +137,16 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
         setEditingId(conn.id);
         setConnectionString(conn.connectionString);
         setName(conn.name);
+        setColor(conn.color ?? null);
+        setReadOnly(conn.readOnly ?? false);
     };
 
     const handleCancelEdit = () => {
         setEditingId(null);
         setConnectionString("");
         setName("My Connection");
+        setColor(null);
+        setReadOnly(false);
     };
 
     const handleDeleteConnection = async (e: React.MouseEvent, id: string) => {
@@ -199,6 +213,48 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                 <p className="text-[10px] text-muted-foreground">
                                     {t("hintFormat")}
                                 </p>
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label className="text-xs font-medium uppercase text-muted-foreground">{t("labelColor")}</Label>
+                                <div className="flex items-center gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setColor(null)}
+                                        className={cn(
+                                            "w-6 h-6 rounded-full border-2 flex items-center justify-center text-muted-foreground transition-transform",
+                                            color === null ? "border-primary scale-110" : "border-border hover:scale-105"
+                                        )}
+                                        title={t("colorNone")}
+                                    >
+                                        <IconX className="w-3 h-3" />
+                                    </button>
+                                    {CONNECTION_COLORS.map((c) => (
+                                        <button
+                                            key={c}
+                                            type="button"
+                                            onClick={() => setColor(c)}
+                                            className={cn(
+                                                "w-6 h-6 rounded-full border-2 transition-transform",
+                                                color === c ? "border-primary scale-110" : "border-transparent hover:scale-105"
+                                            )}
+                                            style={{ backgroundColor: c }}
+                                            aria-label={c}
+                                        />
+                                    ))}
+                                </div>
+                                <p className="text-[10px] text-muted-foreground">{t("hintColor")}</p>
+                            </div>
+
+                            <div className="flex items-center justify-between rounded-lg border p-3">
+                                <div className="space-y-0.5 pr-3">
+                                    <Label className="text-xs font-medium flex items-center gap-1.5">
+                                        <IconLock className="w-3.5 h-3.5 text-amber-500" />
+                                        {t("labelReadOnly")}
+                                    </Label>
+                                    <p className="text-[10px] text-muted-foreground">{t("hintReadOnly")}</p>
+                                </div>
+                                <Switch checked={readOnly} onCheckedChange={setReadOnly} />
                             </div>
 
                             {error && (
@@ -268,8 +324,12 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                         >
                                             <div className="flex-1 overflow-hidden space-y-1.5">
                                                 <div className="font-semibold text-sm truncate flex items-center gap-2">
-                                                    <div className={cn("w-2 h-2 rounded-full", editingId === conn.id ? "bg-primary" : "bg-green-500/50")} />
+                                                    <div
+                                                        className={cn("w-2 h-2 rounded-full", !conn.color && (editingId === conn.id ? "bg-primary" : "bg-green-500/50"))}
+                                                        style={conn.color ? { backgroundColor: conn.color } : undefined}
+                                                    />
                                                     {conn.name}
+                                                    {conn.readOnly && <IconLock className="w-3 h-3 text-amber-500 shrink-0" />}
                                                 </div>
                                                 <div className="flex items-center gap-1.5 max-w-full">
                                                     <div className="text-xs text-muted-foreground font-mono bg-muted/50 p-1.5 rounded-md border border-border/50 truncate max-w-[200px]" title={conn.connectionString.replace(/:([^@]+)@/, ":****@")}>

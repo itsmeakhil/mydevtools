@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Kopiér forbindelsesstrengen",
       "toastStringCopied": "Forbindelsesstrengen er kopieret!",
       "editTitle": "Redigere",
-      "deleteTitle": "Slet"
+      "deleteTitle": "Slet",
+      "labelColor": "Farvemærke",
+      "colorNone": "Ingen farve",
+      "hintColor": "Markér miljøer — f.eks. rød for produktion.",
+      "labelReadOnly": "Skrivebeskyttet forbindelse",
+      "hintReadOnly": "Blokerer indsættelser, redigeringer, sletninger og drops for denne forbindelse."
     },
     "sidebar": {
       "explorer": "Explorer",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Skrivebeskyttet",
+      "cellUpdated": "Værdi opdateret",
+      "cellUpdateFail": "Kunne ikke opdatere værdien",
+      "cellFilterByValue": "Filtrer efter denne værdi",
+      "cellExcludeValue": "Udeluk denne værdi",
+      "cellSortAsc": "Sorter stigende",
+      "cellSortDesc": "Sorter faldende",
+      "cellCopyValue": "Kopiér værdi",
+      "cellEditValue": "Rediger værdi",
+      "explainTitle": "Eksekveringsplan",
+      "explainLoading": "Kører explain…",
+      "explainFail": "Explain mislykkedes",
+      "explainCollscan": "Fuld collection-scanning",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} returneret",
+      "explainDocsExamined": "{n} undersøgt",
+      "explainCollscanHint": "Denne forespørgsel scanner alle dokumenter i collectionen. Overvej at oprette et indeks på de filtrerede felter.",
+      "explainRawLabel": "Explain-output"
     },
     "tabs": {
       "filterActive": "Aktivt filter anvendt",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$gruppe (antal/sum)",
       "format": "Format",
       "formattedJson": "Formateret JSON",
-      "runQuery": "Kør forespørgsel"
+      "runQuery": "Kør forespørgsel",
+      "savedQueries": "Gemte forespørgsler",
+      "noHistory": "Ingen seneste forespørgsler",
+      "saveNamePlaceholder": "Forespørgselsnavn",
+      "saveCurrentQuery": "Gem aktuel forespørgsel",
+      "save": "Gem",
+      "saveQueryFail": "Kunne ikke gemme forespørgslen",
+      "querySaved": "“{name}” gemt",
+      "explainQuery": "Forklar forespørgsel",
+      "stagesMode": "Trin",
+      "invalidStageJson": "Et pipelinetrin indeholder ugyldig JSON"
     },
     "export": {
       "selectFieldsError": "Vælg venligst mindst ét ​​felt til eksport",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# field selected} other {# fields selected}}",
       "cancel": "Ophæve",
       "export": "Eksportere",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Type: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "Ingen trin endnu. Tilføj et trin for at bygge din pipeline.",
+      "addStage": "Tilføj trin",
+      "stageEnabled": "Trin aktiveret",
+      "preview": "Forhåndsvisning",
+      "previewToHere": "Kør pipelinen til dette trin (første 10 dokumenter)",
+      "previewResult": "Forhåndsvisningsresultater ({count})",
+      "previewEmpty": "Ingen dokumenter på dette trin",
+      "previewFail": "Forhåndsvisning mislykkedes"
     }
   },
   "ApiClient": {

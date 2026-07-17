@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Копировать строку подключения",
       "toastStringCopied": "Строка подключения скопирована!",
       "editTitle": "Редактировать",
-      "deleteTitle": "Удалить"
+      "deleteTitle": "Удалить",
+      "labelColor": "Цветовая метка",
+      "colorNone": "Без цвета",
+      "hintColor": "Помечайте окружения — например, красный для продакшена.",
+      "labelReadOnly": "Подключение только для чтения",
+      "hintReadOnly": "Блокирует вставку, изменение, удаление и drop-операции для этого подключения."
     },
     "sidebar": {
       "explorer": "Обозреватель",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Только чтение",
+      "cellUpdated": "Значение обновлено",
+      "cellUpdateFail": "Не удалось обновить значение",
+      "cellFilterByValue": "Фильтр по этому значению",
+      "cellExcludeValue": "Исключить это значение",
+      "cellSortAsc": "Сортировать по возрастанию",
+      "cellSortDesc": "Сортировать по убыванию",
+      "cellCopyValue": "Копировать значение",
+      "cellEditValue": "Изменить значение",
+      "explainTitle": "План выполнения",
+      "explainLoading": "Выполняется explain…",
+      "explainFail": "Ошибка explain",
+      "explainCollscan": "Полное сканирование коллекции",
+      "explainIndexUsed": "Индекс: {name}",
+      "explainReturned": "{n} возвращено",
+      "explainDocsExamined": "{n} проверено",
+      "explainCollscanHint": "Этот запрос сканирует каждый документ коллекции. Рассмотрите создание индекса по фильтруемым полям.",
+      "explainRawLabel": "Вывод explain"
     },
     "tabs": {
       "filterActive": "Активный фильтр применён",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Подсчёт/Сумма)",
       "format": "Формат",
       "formattedJson": "Форматированный JSON",
-      "runQuery": "Выполнить запрос"
+      "runQuery": "Выполнить запрос",
+      "savedQueries": "Сохранённые запросы",
+      "noHistory": "Нет недавних запросов",
+      "saveNamePlaceholder": "Имя запроса",
+      "saveCurrentQuery": "Сохранить текущий запрос",
+      "save": "Сохранить",
+      "saveQueryFail": "Не удалось сохранить запрос",
+      "querySaved": "«{name}» сохранён",
+      "explainQuery": "Объяснить запрос",
+      "stagesMode": "Этапы",
+      "invalidStageJson": "Этап конвейера содержит неверный JSON"
     },
     "export": {
       "selectFieldsError": "Пожалуйста, выберите хотя бы одно поле для экспорта",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# поле выбрано} few {# поля выбрано} other {# полей выбрано}}",
       "cancel": "Отмена",
       "export": "Экспорт",
-      "sheetName": "Данные"
+      "sheetName": "Данные",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Тип: {type}",
       "itemSummary": "{count, plural, one {# элемент} few {# элемента} other {# элементов}}"
+    },
+    "pipeline": {
+      "empty": "Пока нет этапов. Добавьте этап, чтобы собрать конвейер.",
+      "addStage": "Добавить этап",
+      "stageEnabled": "Этап включён",
+      "preview": "Предпросмотр",
+      "previewToHere": "Выполнить конвейер до этого этапа (первые 10 документов)",
+      "previewResult": "Результаты предпросмотра ({count})",
+      "previewEmpty": "На этом этапе нет документов",
+      "previewFail": "Ошибка предпросмотра"
     }
   },
   "ApiClient": {

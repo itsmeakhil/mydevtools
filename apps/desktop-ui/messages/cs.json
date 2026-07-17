@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Kopírovat connection string",
       "toastStringCopied": "Connection string zkopírován!",
       "editTitle": "Upravit",
-      "deleteTitle": "Smazat"
+      "deleteTitle": "Smazat",
+      "labelColor": "Barevný štítek",
+      "colorNone": "Bez barvy",
+      "hintColor": "Označte prostředí — např. červenou pro produkci.",
+      "labelReadOnly": "Připojení jen ke čtení",
+      "hintReadOnly": "Blokuje vkládání, úpravy, mazání a drop operace pro toto připojení."
     },
     "sidebar": {
       "explorer": "Průzkumník",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Jen ke čtení",
+      "cellUpdated": "Hodnota aktualizována",
+      "cellUpdateFail": "Hodnotu se nepodařilo aktualizovat",
+      "cellFilterByValue": "Filtrovat podle této hodnoty",
+      "cellExcludeValue": "Vyloučit tuto hodnotu",
+      "cellSortAsc": "Seřadit vzestupně",
+      "cellSortDesc": "Seřadit sestupně",
+      "cellCopyValue": "Kopírovat hodnotu",
+      "cellEditValue": "Upravit hodnotu",
+      "explainTitle": "Plán provedení",
+      "explainLoading": "Probíhá explain…",
+      "explainFail": "Explain se nezdařil",
+      "explainCollscan": "Úplné skenání kolekce",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} vráceno",
+      "explainDocsExamined": "{n} prozkoumáno",
+      "explainCollscanHint": "Tento dotaz prochází každý dokument v kolekci. Zvažte vytvoření indexu na filtrovaných polích.",
+      "explainRawLabel": "Výstup explain"
     },
     "tabs": {
       "filterActive": "Aktivní filtr",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (počet/součet)",
       "format": "Formátovat",
       "formattedJson": "Formátovaný JSON",
-      "runQuery": "Spustit dotaz"
+      "runQuery": "Spustit dotaz",
+      "savedQueries": "Uložené dotazy",
+      "noHistory": "Žádné nedávné dotazy",
+      "saveNamePlaceholder": "Název dotazu",
+      "saveCurrentQuery": "Uložit aktuální dotaz",
+      "save": "Uložit",
+      "saveQueryFail": "Dotaz se nepodařilo uložit",
+      "querySaved": "„{name}“ uloženo",
+      "explainQuery": "Vysvětlit dotaz",
+      "stagesMode": "Fáze",
+      "invalidStageJson": "Fáze pipeline obsahuje neplatný JSON"
     },
     "export": {
       "selectFieldsError": "Vyberte alespoň jedno pole k exportu",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# pole vybráno} few {# pole vybrána} many {# polí vybráno} other {# polí vybráno}}",
       "cancel": "Zrušit",
       "export": "Export",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Typ: {type}",
       "itemSummary": "{count, plural, one {# položka} few {# položky} many {# položek} other {# položek}}"
+    },
+    "pipeline": {
+      "empty": "Zatím žádné fáze. Přidejte fázi a sestavte pipeline.",
+      "addStage": "Přidat fázi",
+      "stageEnabled": "Fáze povolena",
+      "preview": "Náhled",
+      "previewToHere": "Spustit pipeline po tuto fázi (prvních 10 dokumentů)",
+      "previewResult": "Výsledky náhledu ({count})",
+      "previewEmpty": "V této fázi nejsou žádné dokumenty",
+      "previewFail": "Náhled se nezdařil"
     }
   },
   "ApiClient": {

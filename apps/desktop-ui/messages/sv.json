@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Kopiera anslutningssträng",
       "toastStringCopied": "Anslutningssträng kopierad!",
       "editTitle": "Redigera",
-      "deleteTitle": "Ta bort"
+      "deleteTitle": "Ta bort",
+      "labelColor": "Färgetikett",
+      "colorNone": "Ingen färg",
+      "hintColor": "Märk miljöer — t.ex. rött för produktion.",
+      "labelReadOnly": "Skrivskyddad anslutning",
+      "hintReadOnly": "Blockerar inlägg, redigeringar, borttagningar och drops för denna anslutning."
     },
     "sidebar": {
       "explorer": "Utforskare",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Skrivskyddad",
+      "cellUpdated": "Värde uppdaterat",
+      "cellUpdateFail": "Kunde inte uppdatera värdet",
+      "cellFilterByValue": "Filtrera på detta värde",
+      "cellExcludeValue": "Exkludera detta värde",
+      "cellSortAsc": "Sortera stigande",
+      "cellSortDesc": "Sortera fallande",
+      "cellCopyValue": "Kopiera värde",
+      "cellEditValue": "Redigera värde",
+      "explainTitle": "Exekveringsplan",
+      "explainLoading": "Kör explain…",
+      "explainFail": "Explain misslyckades",
+      "explainCollscan": "Fullständig collection-skanning",
+      "explainIndexUsed": "Index: {name}",
+      "explainReturned": "{n} returnerade",
+      "explainDocsExamined": "{n} granskade",
+      "explainCollscanHint": "Denna fråga skannar varje dokument i collectionen. Överväg att skapa ett index på de filtrerade fälten.",
+      "explainRawLabel": "Explain-utdata"
     },
     "tabs": {
       "filterActive": "Aktivt filter tillämpat",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Antal/Summa)",
       "format": "Formatera",
       "formattedJson": "Formaterad JSON",
-      "runQuery": "Kör fråga"
+      "runQuery": "Kör fråga",
+      "savedQueries": "Sparade frågor",
+      "noHistory": "Inga senaste frågor",
+      "saveNamePlaceholder": "Frågenamn",
+      "saveCurrentQuery": "Spara aktuell fråga",
+      "save": "Spara",
+      "saveQueryFail": "Kunde inte spara frågan",
+      "querySaved": "”{name}” sparad",
+      "explainQuery": "Förklara fråga",
+      "stagesMode": "Steg",
+      "invalidStageJson": "Ett pipelinesteg innehåller ogiltig JSON"
     },
     "export": {
       "selectFieldsError": "Välj minst ett fält att exportera",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# fält valt} other {# fält valda}}",
       "cancel": "Avbryt",
       "export": "Exportera",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Typ: {type}",
       "itemSummary": "{count, plural, one {# objekt} other {# objekt}}"
+    },
+    "pipeline": {
+      "empty": "Inga steg ännu. Lägg till ett steg för att bygga din pipeline.",
+      "addStage": "Lägg till steg",
+      "stageEnabled": "Steg aktiverat",
+      "preview": "Förhandsgranskning",
+      "previewToHere": "Kör pipelinen till detta steg (första 10 dokumenten)",
+      "previewResult": "Förhandsgranskningsresultat ({count})",
+      "previewEmpty": "Inga dokument i detta steg",
+      "previewFail": "Förhandsgranskning misslyckades"
     }
   },
   "ApiClient": {

@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Copiar cadena de conexión",
       "toastStringCopied": "¡Cadena copiada!",
       "editTitle": "Editar",
-      "deleteTitle": "Eliminar"
+      "deleteTitle": "Eliminar",
+      "labelColor": "Etiqueta de color",
+      "colorNone": "Sin color",
+      "hintColor": "Etiqueta tus entornos — p. ej., rojo para producción.",
+      "labelReadOnly": "Conexión de solo lectura",
+      "hintReadOnly": "Bloquea inserciones, ediciones, eliminaciones y drops en esta conexión."
     },
     "sidebar": {
       "explorer": "Explorador",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Solo lectura",
+      "cellUpdated": "Valor actualizado",
+      "cellUpdateFail": "No se pudo actualizar el valor",
+      "cellFilterByValue": "Filtrar por este valor",
+      "cellExcludeValue": "Excluir este valor",
+      "cellSortAsc": "Orden ascendente",
+      "cellSortDesc": "Orden descendente",
+      "cellCopyValue": "Copiar valor",
+      "cellEditValue": "Editar valor",
+      "explainTitle": "Plan de ejecución",
+      "explainLoading": "Ejecutando explain…",
+      "explainFail": "Explain falló",
+      "explainCollscan": "Escaneo completo de la colección",
+      "explainIndexUsed": "Índice: {name}",
+      "explainReturned": "{n} devueltos",
+      "explainDocsExamined": "{n} examinados",
+      "explainCollscanHint": "Esta consulta escanea todos los documentos de la colección. Considera crear un índice sobre los campos filtrados.",
+      "explainRawLabel": "Salida de explain"
     },
     "tabs": {
       "filterActive": "Filtro activo",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (conteo/suma)",
       "format": "Formatear",
       "formattedJson": "JSON formateado",
-      "runQuery": "Ejecutar consulta"
+      "runQuery": "Ejecutar consulta",
+      "savedQueries": "Consultas guardadas",
+      "noHistory": "Sin consultas recientes",
+      "saveNamePlaceholder": "Nombre de la consulta",
+      "saveCurrentQuery": "Guardar consulta actual",
+      "save": "Guardar",
+      "saveQueryFail": "No se pudo guardar la consulta",
+      "querySaved": "“{name}” guardada",
+      "explainQuery": "Explicar consulta",
+      "stagesMode": "Etapas",
+      "invalidStageJson": "Una etapa del pipeline contiene JSON no válido"
     },
     "export": {
       "selectFieldsError": "Selecciona al menos un campo",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# campo seleccionado} other {# campos seleccionados}}",
       "cancel": "Cancelar",
       "export": "Exportar",
-      "sheetName": "Datos"
+      "sheetName": "Datos",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Tipo: {type}",
       "itemSummary": "{count, plural, one {# elemento} other {# elementos}}"
+    },
+    "pipeline": {
+      "empty": "Aún no hay etapas. Agrega una etapa para construir tu pipeline.",
+      "addStage": "Agregar etapa",
+      "stageEnabled": "Etapa habilitada",
+      "preview": "Vista previa",
+      "previewToHere": "Ejecutar el pipeline hasta esta etapa (primeros 10 documentos)",
+      "previewResult": "Resultados de vista previa ({count})",
+      "previewEmpty": "No hay documentos en esta etapa",
+      "previewFail": "Falló la vista previa"
     }
   },
   "ApiClient": {

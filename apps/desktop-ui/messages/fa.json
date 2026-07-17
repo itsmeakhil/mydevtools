@@ -1516,7 +1516,12 @@
       "copyStringTitle": "رشته اتصال را کپی کنید",
       "toastStringCopied": "رشته اتصال کپی شد!",
       "editTitle": "ویرایش کنید",
-      "deleteTitle": "حذف کنید"
+      "deleteTitle": "حذف کنید",
+      "labelColor": "برچسب رنگی",
+      "colorNone": "بدون رنگ",
+      "hintColor": "محیط‌ها را علامت‌گذاری کنید — مثلاً قرمز برای محیط عملیاتی.",
+      "labelReadOnly": "اتصال فقط خواندنی",
+      "hintReadOnly": "درج، ویرایش، حذف و عملیات drop را برای این اتصال مسدود می‌کند."
     },
     "sidebar": {
       "explorer": "کاوشگر",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "فقط خواندنی",
+      "cellUpdated": "مقدار به‌روز شد",
+      "cellUpdateFail": "به‌روزرسانی مقدار ناموفق بود",
+      "cellFilterByValue": "فیلتر بر اساس این مقدار",
+      "cellExcludeValue": "حذف این مقدار از نتایج",
+      "cellSortAsc": "مرتب‌سازی صعودی",
+      "cellSortDesc": "مرتب‌سازی نزولی",
+      "cellCopyValue": "کپی مقدار",
+      "cellEditValue": "ویرایش مقدار",
+      "explainTitle": "طرح اجرا",
+      "explainLoading": "در حال اجرای explain…",
+      "explainFail": "explain ناموفق بود",
+      "explainCollscan": "اسکن کامل کلکسیون",
+      "explainIndexUsed": "ایندکس: {name}",
+      "explainReturned": "{n} بازگردانده شد",
+      "explainDocsExamined": "{n} بررسی شد",
+      "explainCollscanHint": "این کوئری همه اسناد کلکسیون را اسکن می‌کند. ساخت ایندکس روی فیلدهای فیلترشده را در نظر بگیرید.",
+      "explainRawLabel": "خروجی explain"
     },
     "tabs": {
       "filterActive": "فیلتر فعال اعمال شد",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Count/Sum)",
       "format": "قالب",
       "formattedJson": "JSON فرمت شده",
-      "runQuery": "Query را اجرا کنید"
+      "runQuery": "Query را اجرا کنید",
+      "savedQueries": "کوئری‌های ذخیره‌شده",
+      "noHistory": "کوئری اخیری وجود ندارد",
+      "saveNamePlaceholder": "نام کوئری",
+      "saveCurrentQuery": "ذخیره کوئری فعلی",
+      "save": "ذخیره",
+      "saveQueryFail": "ذخیره کوئری ناموفق بود",
+      "querySaved": "«{name}» ذخیره شد",
+      "explainQuery": "توضیح کوئری",
+      "stagesMode": "مراحل",
+      "invalidStageJson": "یکی از مراحل pipeline حاوی JSON نامعتبر است"
     },
     "export": {
       "selectFieldsError": "لطفاً حداقل یک فیلد را برای صادرات انتخاب کنید",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# field selected} other {# fields selected}}",
       "cancel": "لغو کنید",
       "export": "صادرات",
-      "sheetName": "داده ها"
+      "sheetName": "داده ها",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "نوع: {type}",
       "itemSummary": "{count, plural, one {# item} other {# items}}"
+    },
+    "pipeline": {
+      "empty": "هنوز مرحله‌ای وجود ندارد. برای ساخت pipeline یک مرحله اضافه کنید.",
+      "addStage": "افزودن مرحله",
+      "stageEnabled": "مرحله فعال",
+      "preview": "پیش‌نمایش",
+      "previewToHere": "اجرای pipeline تا این مرحله (۱۰ سند اول)",
+      "previewResult": "نتایج پیش‌نمایش ({count})",
+      "previewEmpty": "سندی در این مرحله وجود ندارد",
+      "previewFail": "پیش‌نمایش ناموفق بود"
     }
   },
   "ApiClient": {

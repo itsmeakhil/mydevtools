@@ -1516,7 +1516,12 @@
       "copyStringTitle": "نسخ سلسلة الاتصال",
       "toastStringCopied": "تم نسخ سلسلة الاتصال!",
       "editTitle": "تعديل",
-      "deleteTitle": "حذف"
+      "deleteTitle": "حذف",
+      "labelColor": "وسم اللون",
+      "colorNone": "بدون لون",
+      "hintColor": "ميّز البيئات — مثلاً الأحمر للإنتاج.",
+      "labelReadOnly": "اتصال للقراءة فقط",
+      "hintReadOnly": "يمنع الإدراج والتعديل والحذف وعمليات الإسقاط لهذا الاتصال."
     },
     "sidebar": {
       "explorer": "المستكشف",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "للقراءة فقط",
+      "cellUpdated": "تم تحديث القيمة",
+      "cellUpdateFail": "فشل تحديث القيمة",
+      "cellFilterByValue": "تصفية حسب هذه القيمة",
+      "cellExcludeValue": "استبعاد هذه القيمة",
+      "cellSortAsc": "ترتيب تصاعدي",
+      "cellSortDesc": "ترتيب تنازلي",
+      "cellCopyValue": "نسخ القيمة",
+      "cellEditValue": "تحرير القيمة",
+      "explainTitle": "خطة التنفيذ",
+      "explainLoading": "جارٍ تنفيذ explain…",
+      "explainFail": "فشل explain",
+      "explainCollscan": "فحص كامل للمجموعة",
+      "explainIndexUsed": "الفهرس: {name}",
+      "explainReturned": "{n} مُرجع",
+      "explainDocsExamined": "{n} مفحوص",
+      "explainCollscanHint": "يفحص هذا الاستعلام كل مستند في المجموعة. فكر في إنشاء فهرس على الحقول المصفاة.",
+      "explainRawLabel": "مخرجات explain"
     },
     "tabs": {
       "filterActive": "مرشح نشط مطبّق",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (عدد/مجموع)",
       "format": "تنسيق",
       "formattedJson": "JSON مُنسَّق",
-      "runQuery": "تشغيل الاستعلام"
+      "runQuery": "تشغيل الاستعلام",
+      "savedQueries": "الاستعلامات المحفوظة",
+      "noHistory": "لا توجد استعلامات حديثة",
+      "saveNamePlaceholder": "اسم الاستعلام",
+      "saveCurrentQuery": "حفظ الاستعلام الحالي",
+      "save": "حفظ",
+      "saveQueryFail": "فشل حفظ الاستعلام",
+      "querySaved": "تم حفظ «{name}»",
+      "explainQuery": "شرح الاستعلام",
+      "stagesMode": "المراحل",
+      "invalidStageJson": "تحتوي إحدى مراحل الـ pipeline على JSON غير صالح"
     },
     "export": {
       "selectFieldsError": "اختر حقلاً واحداً على الأقل للتصدير",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# حقل محدد} other {# حقول محددة}}",
       "cancel": "إلغاء",
       "export": "تصدير",
-      "sheetName": "بيانات"
+      "sheetName": "بيانات",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "النوع: {type}",
       "itemSummary": "{count, plural, one {# عنصر} other {# عناصر}}"
+    },
+    "pipeline": {
+      "empty": "لا توجد مراحل بعد. أضف مرحلة لبناء الـ pipeline.",
+      "addStage": "إضافة مرحلة",
+      "stageEnabled": "المرحلة مفعلة",
+      "preview": "معاينة",
+      "previewToHere": "تشغيل الـ pipeline حتى هذه المرحلة (أول 10 مستندات)",
+      "previewResult": "نتائج المعاينة ({count})",
+      "previewEmpty": "لا توجد مستندات في هذه المرحلة",
+      "previewFail": "فشلت المعاينة"
     }
   },
   "ApiClient": {

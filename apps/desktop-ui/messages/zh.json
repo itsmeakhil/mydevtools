@@ -1516,7 +1516,12 @@
       "copyStringTitle": "复制连接字符串",
       "toastStringCopied": "连接字符串已复制！",
       "editTitle": "编辑",
-      "deleteTitle": "删除"
+      "deleteTitle": "删除",
+      "labelColor": "颜色标签",
+      "colorNone": "无颜色",
+      "hintColor": "标记环境 — 例如生产环境用红色。",
+      "labelReadOnly": "只读连接",
+      "hintReadOnly": "禁止对此连接进行插入、编辑、删除和删除集合操作。"
     },
     "sidebar": {
       "explorer": "浏览器",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "只读",
+      "cellUpdated": "值已更新",
+      "cellUpdateFail": "更新值失败",
+      "cellFilterByValue": "按此值筛选",
+      "cellExcludeValue": "排除此值",
+      "cellSortAsc": "升序排序",
+      "cellSortDesc": "降序排序",
+      "cellCopyValue": "复制值",
+      "cellEditValue": "编辑值",
+      "explainTitle": "执行计划",
+      "explainLoading": "正在运行 explain…",
+      "explainFail": "explain 失败",
+      "explainCollscan": "全集合扫描",
+      "explainIndexUsed": "索引：{name}",
+      "explainReturned": "返回 {n} 条",
+      "explainDocsExamined": "检查 {n} 条",
+      "explainCollscanHint": "此查询会扫描集合中的每个文档。考虑在筛选字段上创建索引。",
+      "explainRawLabel": "explain 输出"
     },
     "tabs": {
       "filterActive": "已应用筛选",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group（计数/求和）",
       "format": "格式化",
       "formattedJson": "格式化 JSON",
-      "runQuery": "运行查询"
+      "runQuery": "运行查询",
+      "savedQueries": "已保存的查询",
+      "noHistory": "没有最近的查询",
+      "saveNamePlaceholder": "查询名称",
+      "saveCurrentQuery": "保存当前查询",
+      "save": "保存",
+      "saveQueryFail": "保存查询失败",
+      "querySaved": "已保存“{name}”",
+      "explainQuery": "解释查询",
+      "stagesMode": "阶段",
+      "invalidStageJson": "某个管道阶段包含无效的 JSON"
     },
     "export": {
       "selectFieldsError": "请至少选择一个要导出的字段",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {已选 # 个字段} other {已选 # 个字段}}",
       "cancel": "取消",
       "export": "导出",
-      "sheetName": "数据"
+      "sheetName": "数据",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "类型：{type}",
       "itemSummary": "{count, plural, one {# 项} other {# 项}}"
+    },
+    "pipeline": {
+      "empty": "还没有阶段。添加一个阶段来构建管道。",
+      "addStage": "添加阶段",
+      "stageEnabled": "阶段已启用",
+      "preview": "预览",
+      "previewToHere": "运行管道至此阶段（前 10 个文档）",
+      "previewResult": "预览结果（{count}）",
+      "previewEmpty": "此阶段没有文档",
+      "previewFail": "预览失败"
     }
   },
   "ApiClient": {

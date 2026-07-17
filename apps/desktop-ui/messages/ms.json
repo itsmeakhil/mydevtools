@@ -1516,7 +1516,12 @@
       "copyStringTitle": "Salin rentetan sambungan",
       "toastStringCopied": "Rentetan sambungan disalin!",
       "editTitle": "Edit",
-      "deleteTitle": "Padam"
+      "deleteTitle": "Padam",
+      "labelColor": "Label warna",
+      "colorNone": "Tiada warna",
+      "hintColor": "Tandakan persekitaran — cth. merah untuk pengeluaran.",
+      "labelReadOnly": "Sambungan baca sahaja",
+      "hintReadOnly": "Menyekat sisipan, suntingan, pemadaman dan drop untuk sambungan ini."
     },
     "sidebar": {
       "explorer": "Penjelajah",
@@ -1621,7 +1626,25 @@
       "importExportImportHint": "JSON array, object, or NDJSON file",
       "importExportExportHint": "Spreadsheet (XLSX or CSV)",
       "schema": "Schema",
-      "indexes": "Indexes"
+      "indexes": "Indexes",
+      "readOnlyBadge": "Baca sahaja",
+      "cellUpdated": "Nilai dikemas kini",
+      "cellUpdateFail": "Gagal mengemas kini nilai",
+      "cellFilterByValue": "Tapis mengikut nilai ini",
+      "cellExcludeValue": "Kecualikan nilai ini",
+      "cellSortAsc": "Isih menaik",
+      "cellSortDesc": "Isih menurun",
+      "cellCopyValue": "Salin nilai",
+      "cellEditValue": "Sunting nilai",
+      "explainTitle": "Pelan pelaksanaan",
+      "explainLoading": "Menjalankan explain…",
+      "explainFail": "Explain gagal",
+      "explainCollscan": "Imbasan penuh koleksi",
+      "explainIndexUsed": "Indeks: {name}",
+      "explainReturned": "{n} dikembalikan",
+      "explainDocsExamined": "{n} diperiksa",
+      "explainCollscanHint": "Pertanyaan ini mengimbas setiap dokumen dalam koleksi. Pertimbangkan untuk mencipta indeks pada medan yang ditapis.",
+      "explainRawLabel": "Output explain"
     },
     "tabs": {
       "filterActive": "Penapis aktif digunakan",
@@ -1671,7 +1694,17 @@
       "templateGroup": "$group (Kira/Jumlah)",
       "format": "Format",
       "formattedJson": "JSON Terformat",
-      "runQuery": "Jalankan Pertanyaan"
+      "runQuery": "Jalankan Pertanyaan",
+      "savedQueries": "Pertanyaan tersimpan",
+      "noHistory": "Tiada pertanyaan terkini",
+      "saveNamePlaceholder": "Nama pertanyaan",
+      "saveCurrentQuery": "Simpan pertanyaan semasa",
+      "save": "Simpan",
+      "saveQueryFail": "Gagal menyimpan pertanyaan",
+      "querySaved": "“{name}” disimpan",
+      "explainQuery": "Terangkan pertanyaan",
+      "stagesMode": "Peringkat",
+      "invalidStageJson": "Satu peringkat pipeline mengandungi JSON tidak sah"
     },
     "export": {
       "selectFieldsError": "Sila pilih sekurang-kurangnya satu medan untuk dieksport",
@@ -1686,11 +1719,22 @@
       "fieldsSelected": "{count, plural, one {# medan dipilih} other {# medan dipilih}}",
       "cancel": "Batal",
       "export": "Eksport",
-      "sheetName": "Data"
+      "sheetName": "Data",
+      "formatJson": "JSON"
     },
     "jsonTree": {
       "typeLabel": "Jenis: {type}",
       "itemSummary": "{count, plural, one {# item} other {# item}}"
+    },
+    "pipeline": {
+      "empty": "Belum ada peringkat. Tambah peringkat untuk membina pipeline anda.",
+      "addStage": "Tambah peringkat",
+      "stageEnabled": "Peringkat diaktifkan",
+      "preview": "Pratonton",
+      "previewToHere": "Jalankan pipeline hingga peringkat ini (10 dokumen pertama)",
+      "previewResult": "Hasil pratonton ({count})",
+      "previewEmpty": "Tiada dokumen pada peringkat ini",
+      "previewFail": "Pratonton gagal"
     }
   },
   "ApiClient": {
