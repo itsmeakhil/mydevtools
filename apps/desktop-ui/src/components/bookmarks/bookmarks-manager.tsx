@@ -190,7 +190,7 @@ export default function BookmarksManager() {
     return (
         <div className="flex h-full w-full overflow-hidden bg-background mobile-nav-offset">
             {/* Sidebar */}
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
                 {showSidebar && (
                     <>
                         {/* Mobile backdrop overlay */}
@@ -205,17 +205,23 @@ export default function BookmarksManager() {
                             />
                         )}
                         <motion.div
-                            initial={{ x: -300, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            exit={{ x: -300, opacity: 0 }}
-                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                            // Mobile: overlay slides (fixed, no layout impact). Desktop: collapse
+                            // width so the flex slot reflows in step with the animation — animating
+                            // x alone leaves the 288px gap until unmount, which reads as a lag.
+                            initial={isMobile ? { x: -300, opacity: 0 } : { width: 0, opacity: 0 }}
+                            animate={isMobile ? { x: 0, opacity: 1 } : { width: 288, opacity: 1 }}
+                            exit={isMobile ? { x: -300, opacity: 0 } : { width: 0, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: "easeInOut" }}
                             className={cn(
-                                "w-72 border-r border-border/40 flex flex-col",
+                                "border-r border-border/40 flex flex-col overflow-hidden",
                                 isMobile
-                                    ? "fixed inset-y-0 left-0 z-50 shadow-2xl bg-background"
+                                    ? "w-72 fixed inset-y-0 left-0 z-50 shadow-2xl bg-background"
                                     : "relative bg-muted/30"
                             )}
                         >
+                          {/* Fixed-width inner wrapper: keeps content from squishing while the
+                              outer width animates to 0 on close. */}
+                          <div className="w-72 h-full flex flex-col shrink-0">
                             {/* Sidebar Header */}
                             <div className="h-16 px-4 flex items-center justify-between border-b border-border/40 bg-background/50 backdrop-blur-sm">
                                 <h2 className="font-semibold text-base tracking-tight">{t("foldersHeading")}</h2>
@@ -277,6 +283,7 @@ export default function BookmarksManager() {
                                     </div>
                                 </>
                             )}
+                          </div>
                         </motion.div>
                     </>
                 )}
