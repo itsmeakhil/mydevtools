@@ -40,8 +40,9 @@ export function AnnouncementBanner() {
           Launch offer
         </span>
         <p className="truncate">
-          First <span className="font-bold">250 accounts</span> get every Pro &amp; Team feature,
-          free. No card needed.
+          First{" "}
+          <span className="font-bold">250 accounts</span>{" "}
+          get every Pro &amp; Team feature, free. No card needed.
         </p>
         <Link
           href="/login"

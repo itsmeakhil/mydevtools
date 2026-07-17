@@ -11,6 +11,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
 import { DesktopPlanSettings } from '@/components/desktop/desktop-plan-settings'
+import { AppVersionLabel } from '@/components/desktop/app-version-label'
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { Briefcase } from 'lucide-react'
 const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
@@ -192,6 +193,8 @@ export default function SettingsPage() {
             </p>
           </CardContent>
         </Card>
+
+        <AppVersionLabel />
       </div>
     </div>
   )

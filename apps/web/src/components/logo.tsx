@@ -42,9 +42,6 @@ export function Logo({ size = 32, className = '', showText = true }: LogoProps) 
                             className="hidden dark:block object-contain"
                         />
                     </div>
-                    <span className="ml-2 inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-primary shadow-sm ring-1 ring-primary/20">
-                        Beta
-                    </span>
                 </div>
             )}
         </div>

@@ -15,7 +15,6 @@ import {
 import { NavGroup } from './nav-group'
 import { NavUser } from './nav-user'
 import { FeedbackDialog } from '@/components/feedback-dialog'
-import { AppVersionLabel } from '@/components/desktop/app-version-label'
 import { Logo } from '../logo'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import { LayoutDashboard, Sparkles } from 'lucide-react'
@@ -132,9 +131,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   className="hidden dark:block object-contain object-left"
                 />
               </div>
-              <span className="inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-primary ring-1 ring-primary/20 whitespace-nowrap">
-                Beta
-              </span>
             </div>
             <p className="text-[10px] text-muted-foreground/80 font-medium tracking-wider uppercase pl-0.5 whitespace-nowrap">Developer&apos;s Toolkit</p>
           </div>
@@ -192,7 +188,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter className="hidden md:block border-t border-border/30 dark:border-white/5">
         <FeedbackDialog variant="sidebar" />
         <NavUser user={user} onSignout={handleSignOut} />
-        <AppVersionLabel />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
