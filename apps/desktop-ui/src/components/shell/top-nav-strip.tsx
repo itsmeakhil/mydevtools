@@ -17,7 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
+import { usePinnedToolsForActiveWorkspace, usePinnedToolsStore } from '@/store/pinned-tools-store'
 import { useActiveWorkspace } from '@/store/workspace-store'
 import {
   buildPinnedNavItems,
@@ -75,11 +75,13 @@ function GroupMenu({
   leadingIcon: LeadingIcon,
   tools,
   onNavigate,
+  onUnpin,
 }: {
   label: string
   leadingIcon?: React.ElementType
   tools: NavLink[]
   onNavigate: (url: string) => void
+  onUnpin?: (url: string) => void
 }) {
   const pathname = usePathname()
   const tNav = useTranslations('Navigation')
@@ -151,6 +153,21 @@ function GroupMenu({
                 />
               ) : null}
               <span className="truncate">{label}</span>
+              {onUnpin ? (
+                <button
+                  type="button"
+                  aria-label={`Unpin ${label}`}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    onUnpin(url)
+                  }}
+                  className="ml-auto shrink-0 rounded p-0.5 text-primary opacity-80 transition-opacity hover:opacity-100"
+                >
+                  <Star className="h-3.5 w-3.5 fill-primary" aria-hidden />
+                </button>
+              ) : null}
             </DropdownMenuItem>
           )
         })}
@@ -166,6 +183,13 @@ export function TopNavStrip() {
   const activeWs = useActiveWorkspace()
   const pinned = buildPinnedNavItems(pinnedTools, activeWs)
   const categories = useMemo(() => buildCategoryGroups(), [])
+  const togglePin = usePinnedToolsStore((s) => s.togglePin)
+  const unpin = useCallback(
+    (url: string) => {
+      if (activeWs) togglePin(activeWs.id, url)
+    },
+    [activeWs, togglePin],
+  )
 
   const navigate = useCallback((url: string) => router.push(url), [router])
   const openPalette = useCallback(() => {
@@ -225,7 +249,13 @@ export function TopNavStrip() {
             style={{ paddingBottom: 24, marginBottom: -24 }}
           >
             {pinned.length > 0 ? (
-              <GroupMenu label="Pinned" leadingIcon={Star} tools={pinned} onNavigate={navigate} />
+              <GroupMenu
+                label="Pinned"
+                leadingIcon={Star}
+                tools={pinned}
+                onNavigate={navigate}
+                onUnpin={unpin}
+              />
             ) : null}
             {categories.map((group) => (
               <GroupMenu
