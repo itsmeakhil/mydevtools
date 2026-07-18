@@ -24,6 +24,7 @@ const TIERS: Tier[] = [
     period: 'per year',
     cta: { href: '/login', label: 'Get Yearly' },
     features: [
+      '100% offline desktop app — your data never leaves your device',
       'Unlimited use of all developer tools',
       'Private history & saved snippets',
     ],
@@ -56,6 +57,9 @@ export function PricingTiers() {
           <p className="max-w-2xl text-muted-foreground">
             Free while we&apos;re getting started. Lock in launch pricing before it goes up.
           </p>
+          <p className="max-w-2xl text-sm font-medium text-foreground">
+            Every plan is the full offline desktop app — no cloud, no tracking. Your data stays on your device.
+          </p>
           <p className="mdt-pill inline-flex items-center gap-1.5 text-sm">
             <span aria-hidden>🎉</span> Free for the first 250 users — after that, pick a plan below.
           </p>
@@ -67,7 +71,7 @@ export function PricingTiers() {
               key={tier.name}
               className={`glass-overlay mdt-card-hover relative flex flex-col overflow-hidden p-6 ${
                 tier.highlight
-                  ? 'z-10 ring-2 ring-violet-400/60 shadow-2xl shadow-violet-500/25'
+                  ? 'z-10 ring-2 ring-indigo-400/60 shadow-2xl shadow-indigo-500/25'
                   : ''
               }`}
             >

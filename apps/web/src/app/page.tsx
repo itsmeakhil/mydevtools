@@ -136,9 +136,9 @@ const toolCategories = buildToolCategories();
 const allAppTools: HomeToolEntry[] = toolCategories.flatMap((c) => c.tools);
 
 const toolListGradients = [
-  "from-sky-500 to-cyan-400",
-  "from-violet-500 to-purple-400",
-  "from-emerald-500 to-teal-400",
+  "from-indigo-500 to-indigo-400",
+  "from-indigo-500 to-indigo-400",
+  "from-indigo-500 to-indigo-400",
   "from-rose-500 to-orange-400",
   "from-amber-500 to-yellow-400",
   "from-indigo-500 to-blue-400",
@@ -170,14 +170,14 @@ const howItWorks = [
     description:
       "One-click Google Sign-In on our cloud. No email or password friction. Start free in seconds.",
     icon: LogIn,
-    gradient: "from-sky-500 to-cyan-400",
+    gradient: "from-indigo-500 to-indigo-400",
   },
   {
     step: "02",
     title: "Pick Your Tool",
     description: `Choose from ${allAppTools.length} tools in one unified dashboard. Everything in a single tab.`,
     icon: LayoutGrid,
-    gradient: "from-violet-500 to-purple-400",
+    gradient: "from-indigo-500 to-indigo-400",
   },
   {
     step: "03",
@@ -185,7 +185,7 @@ const howItWorks = [
     description:
       "Data is AES-256 encrypted on your device before sync. The server never sees your plaintext.",
     icon: Shield,
-    gradient: "from-emerald-500 to-teal-400",
+    gradient: "from-indigo-500 to-indigo-400",
   },
 ];
 
@@ -234,8 +234,8 @@ export default function Page() {
           <defs>
             <linearGradient id="mdtGrad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#5b63f0" />
-              <stop offset="52%" stopColor="#9a5cf2" />
-              <stop offset="100%" stopColor="#4fd0e6" />
+              <stop offset="52%" stopColor="#6d7cf5" />
+              <stop offset="100%" stopColor="#8a95f7" />
             </linearGradient>
           </defs>
         </svg>
@@ -250,7 +250,7 @@ export default function Page() {
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <MdtAurora />
           <motion.div
-            className="absolute -top-48 -left-48 w-[500px] h-[500px] rounded-full bg-violet-500/15 blur-[120px]"
+            className="absolute -top-48 -left-48 w-[500px] h-[500px] rounded-full bg-indigo-500/15 blur-[120px]"
             animate={
               reduceMotion ? undefined : { x: [0, 50, 0], y: [0, -50, 0], scale: [1, 1.12, 1] }
             }
@@ -259,7 +259,7 @@ export default function Page() {
             }
           />
           <motion.div
-            className="absolute -top-24 -right-48 w-[500px] h-[500px] rounded-full bg-sky-500/15 blur-[120px]"
+            className="absolute -top-24 -right-48 w-[500px] h-[500px] rounded-full bg-indigo-400/12 blur-[120px]"
             animate={
               reduceMotion ? undefined : { x: [0, -50, 0], y: [0, 50, 0], scale: [1, 1.18, 1] }
             }
@@ -270,7 +270,7 @@ export default function Page() {
             }
           />
           <motion.div
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full bg-pink-500/10 blur-[100px]"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full bg-indigo-600/10 blur-[100px]"
             animate={
               reduceMotion ? undefined : { scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }
             }
@@ -355,7 +355,7 @@ export default function Page() {
                 { value: "AES-256", label: "Encrypted Sync" },
               ].map((s, i) => (
                 <div key={i} className="px-2 py-4 text-center">
-                  <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap mdt-grad-text">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap mdt-grad-text mdt-grad-anim">
                     {s.value}
                   </div>
                   <div className="mt-1 text-xs md:text-sm font-medium leading-snug text-[color:var(--mdt-muted)]">
@@ -376,7 +376,7 @@ export default function Page() {
                 <MdtDashboard />
               </Tilt>
               {/* Glow beneath the screenshot */}
-              <div className="absolute -bottom-6 inset-x-8 h-16 bg-violet-500/20 blur-2xl rounded-full pointer-events-none" />
+              <div className="absolute -bottom-6 inset-x-8 h-16 bg-indigo-500/20 blur-2xl rounded-full pointer-events-none" />
             </motion.div>
 
             {/* Product Hunt badge */}
@@ -494,7 +494,7 @@ export default function Page() {
               className="text-center mb-12 md:mb-14"
             >
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
-                Built for Modern Developers
+                Fast, offline, and entirely yours
               </h2>
               <p className="text-muted-foreground text-lg max-w-xl mx-auto">
                 Real tools, real previews — speed and privacy by default.
@@ -520,7 +520,7 @@ export default function Page() {
                       </div>
                     </div>
                     <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                      Lightning Fast
+                      Instant — and offline
                     </span>
                   </div>
                   <h3 className="relative z-10 text-2xl font-semibold mb-3">
@@ -570,9 +570,9 @@ export default function Page() {
                   href="/tools/password-manager"
                   className="group relative flex h-full min-h-[180px] flex-col overflow-hidden rounded-2xl glass-overlay p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl dark:hover:shadow-black/40"
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-emerald-500 to-teal-400" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-indigo-500 to-indigo-400" />
                   <div className="relative z-10 flex items-center gap-2 mb-3">
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-400 p-px shadow-md">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-400 p-px shadow-md">
                       <div className="w-full h-full rounded-[7px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
                         <Lock className="w-4 h-4 text-foreground" />
                       </div>
@@ -615,9 +615,9 @@ export default function Page() {
                   href="/tools/api-client"
                   className="group relative flex h-full min-h-[180px] flex-col overflow-hidden rounded-2xl glass-overlay p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl dark:hover:shadow-black/40"
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-violet-500 to-blue-400" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-indigo-500 to-indigo-400" />
                   <div className="relative z-10 flex items-center gap-2 mb-3">
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-500 to-blue-400 p-px shadow-md">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-400 p-px shadow-md">
                       <div className="w-full h-full rounded-[7px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
                         <Globe className="w-4 h-4 text-foreground" />
                       </div>
@@ -660,31 +660,30 @@ export default function Page() {
                   href="/login"
                   className="group relative flex flex-col gap-6 overflow-hidden rounded-2xl glass-overlay p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl dark:hover:shadow-black/40 md:flex-row md:items-center md:p-8"
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-sky-500 to-indigo-400" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-indigo-500 to-indigo-400" />
 
                   <div className="relative z-10 flex-1">
                     <div className="mb-4 flex items-center gap-2">
-                      <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-400 p-px shadow-md">
+                      <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-400 p-px shadow-md">
                         <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-card dark:bg-[hsl(var(--surface-2))]">
                           <Users className="h-4 w-4 text-foreground" />
                         </div>
                       </div>
                       <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                        Built for Teams
+                        Workspaces
                       </span>
                       <span className="mdt-pill text-[10px]">NEW</span>
                     </div>
                     <h3 className="relative z-10 mb-3 text-2xl font-semibold">
-                      One platform. Your whole team.
+                      A workspace for every project
                     </h3>
                     <p className="max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">
-                      Create organizations and shared workspaces, invite teammates, and control
-                      exactly who can use what — owners, admins, developers, and viewers each get
-                      the right level of access. Switch between personal and team context in one
-                      click; every tool follows.
+                      Keep each project in its own workspace — separate tools, notes, snippets,
+                      and vaults — and switch between them in a click. Everything stays local on
+                      your device. Shared team workspaces &amp; collaboration are on the roadmap.
                     </p>
                     <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 transition-colors group-hover:text-foreground">
-                      <span>Set up your team workspace</span>
+                      <span>Create a workspace</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </div>
@@ -694,20 +693,20 @@ export default function Page() {
                     <div className="overflow-hidden rounded-xl border border-border/40 bg-background font-mono text-xs dark:border-white/5">
                       <div className="flex items-center gap-2 border-b border-border/40 bg-muted/40 px-3 py-2">
                         <Building2 className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="font-semibold">Acme Engineering</span>
-                        <span className="ml-auto rounded bg-sky-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-sky-600 dark:text-sky-400">
-                          Team workspace
+                        <span className="font-semibold">Workspaces</span>
+                        <span className="ml-auto rounded bg-indigo-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">
+                          On your device
                         </span>
                       </div>
                       <div className="divide-y divide-border/30 dark:divide-white/5">
                         {[
-                          { name: "ada@acme.dev", role: "Owner" },
-                          { name: "grace@acme.dev", role: "Admin" },
-                          { name: "linus@acme.dev", role: "Developer" },
-                          { name: "margaret@acme.dev", role: "Viewer" },
+                          { name: "Personal", role: "Active" },
+                          { name: "Client — Acme", role: "Project" },
+                          { name: "Side project", role: "Project" },
+                          { name: "Team collaboration", role: "Soon" },
                         ].map((m) => (
                           <div key={m.name} className="flex items-center gap-2 px-3 py-2">
-                            <Check className="h-3 w-3 shrink-0 text-emerald-500" />
+                            <Check className="h-3 w-3 shrink-0 text-indigo-500" />
                             <span className="truncate text-muted-foreground">{m.name}</span>
                             <span className="ml-auto rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-foreground/70">
                               {m.role}
@@ -882,7 +881,7 @@ export default function Page() {
               className="text-center mb-14"
             >
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
-                Built on Trust Signals Developers Can Verify
+                Proof, not promises
               </h2>
               <p className="text-muted-foreground text-lg max-w-xl mx-auto">
                 Public product proof and browser-side encryption instead of
@@ -932,8 +931,8 @@ export default function Page() {
                 transition={{ duration: 0.55, delay: 0.2 }}
               >
                 <div className="group relative h-full rounded-2xl glass-overlay p-7 hover:scale-[1.015] hover:shadow-2xl dark:hover:shadow-black/40 transition-all duration-300 overflow-hidden flex flex-col">
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 bg-gradient-to-br from-emerald-500 to-teal-400" />
-                  <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 p-px mb-6 shadow-lg">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 bg-gradient-to-br from-indigo-500 to-indigo-400" />
+                  <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-400 p-px mb-6 shadow-lg">
                     <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
                       <Shield className="w-5 h-5 text-foreground" />
                     </div>
@@ -1014,9 +1013,9 @@ export default function Page() {
       <section className="py-24 md:py-36 relative overflow-hidden">
         {/* Decorative glow blobs */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sky-500/12 blur-[100px]" />
-          <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-violet-500/12 blur-[100px]" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[200px] rounded-full bg-pink-500/8 blur-[80px]" />
+          <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-indigo-500/12 blur-[100px]" />
+          <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-indigo-400/12 blur-[100px]" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[200px] rounded-full bg-indigo-600/8 blur-[80px]" />
         </div>
 
         {/* Grid */}
