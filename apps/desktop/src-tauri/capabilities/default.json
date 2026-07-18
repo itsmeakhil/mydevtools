@@ -3,5 +3,5 @@
   "identifier": "default",
   "description": "Default capability for the main window",
   "windows": ["main"],
-  "permissions": ["core:default", "core:window:allow-start-dragging", "deep-link:default", "opener:default", "updater:default", "process:default"]
+  "permissions": ["core:default", "core:window:allow-start-dragging", "core:window:allow-is-fullscreen", "deep-link:default", "opener:default", "updater:default", "process:default"]
 }

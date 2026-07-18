@@ -51,3 +51,28 @@ export function buildPinnedNavItems(
     return hasPermission(activeWs, slug, "read")
   })
 }
+
+export interface CategoryGroup {
+  title: string
+  tools: NavLink[]
+}
+
+/**
+ * All tool categories with their tools flattened (nested collapsibles inlined),
+ * for the grouped top-nav menus. RBAC is enforced at the tool itself, so this
+ * is an unfiltered structural view of the catalog.
+ */
+export function buildCategoryGroups(): CategoryGroup[] {
+  return sidebarData.navGroups
+    .map((group) => ({
+      title: group.title,
+      tools: group.items.flatMap((item) =>
+        !("items" in item)
+          ? [item as NavLink]
+          : (item as NavCollapsible).items.map(
+              (sub) => ({ ...sub, icon: sub.icon ?? item.icon } as NavLink),
+            ),
+      ),
+    }))
+    .filter((g) => g.tools.length > 0)
+}
