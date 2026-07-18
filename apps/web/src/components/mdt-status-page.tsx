@@ -38,7 +38,7 @@ function GlitchCode({ text, reduce }: { text: string; reduce: boolean }) {
       <span className="mdt-grad-text mdt-grad-anim relative block font-bold leading-none tracking-tight">
         {text}
       </span>
-      <motion.span aria-hidden className={common} {...jitter('#4fd0e6', 1)}>
+      <motion.span aria-hidden className={common} {...jitter('#8a95f7', 1)}>
         {text}
       </motion.span>
       <motion.span aria-hidden className={common} {...jitter('#f0509a', -1)}>
@@ -187,9 +187,9 @@ export function MdtStatusPage({
         <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden focusable="false">
           <defs>
             <linearGradient id="mdtGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#5b63f0" />
-              <stop offset="52%" stopColor="#9a5cf2" />
-              <stop offset="100%" stopColor="#4fd0e6" />
+              <stop offset="0%" stopColor="#4f56e6" />
+              <stop offset="52%" stopColor="#6d7cf5" />
+              <stop offset="100%" stopColor="#8a95f7" />
             </linearGradient>
           </defs>
         </svg>

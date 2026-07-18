@@ -1573,12 +1573,12 @@ body {
   --mdt-muted: #9aa0b4;
   --mdt-faint: #5b6076;
   --mdt-indigo: #5b63f0;
-  --mdt-violet: #9a5cf2;
-  --mdt-cyan: #4fd0e6;
+  --mdt-violet: #6d7cf5;
+  --mdt-cyan: #8a95f7;
   --mdt-green: #3fd79a;
   --mdt-amber: #f2a93b;
-  --mdt-grad: linear-gradient(100deg, #5b63f0 0%, #9a5cf2 52%, #4fd0e6 100%);
-  --mdt-grad-soft: linear-gradient(100deg, rgba(91,99,240,.16), rgba(154,92,242,.16) 52%, rgba(79,208,230,.16));
+  --mdt-grad: linear-gradient(100deg, #4f56e6 0%, #6d7cf5 52%, #8a95f7 100%);
+  --mdt-grad-soft: linear-gradient(100deg, rgba(79,86,230,.16), rgba(109,124,245,.16) 52%, rgba(138,149,247,.16));
 }
 
 /* dark base retuned to the deck palette */
@@ -1731,7 +1731,7 @@ html { overflow-x: hidden; }
 .mdt-deck .mdt-beam::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
   pointer-events: none; z-index: 3;
-  background: conic-gradient(from var(--mdt-angle), transparent 0 62%, #5b63f0 78%, #9a5cf2 88%, #4fd0e6 96%, transparent 100%);
+  background: conic-gradient(from var(--mdt-angle), transparent 0 62%, #5b63f0 78%, #6d7cf5 88%, #8a95f7 96%, transparent 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
@@ -1748,7 +1748,7 @@ html { overflow-x: hidden; }
 }
 .mdt-loading__ring {
   position: absolute; width: 8.5rem; height: 8.5rem; border-radius: 50%;
-  background: conic-gradient(from var(--mdt-angle), transparent 0 58%, #5b63f0 74%, #9a5cf2 86%, #4fd0e6 95%, transparent 100%);
+  background: conic-gradient(from var(--mdt-angle), transparent 0 58%, #5b63f0 74%, #6d7cf5 86%, #8a95f7 95%, transparent 100%);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
           mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
   animation: mdt-spin 1.4s linear infinite;
@@ -1784,7 +1784,7 @@ html { overflow-x: hidden; }
 /* Compact branded spinner for per-tool lazy loading */
 .mdt-tool-spinner {
   width: 2.25rem; height: 2.25rem; border-radius: 50%;
-  background: conic-gradient(from var(--mdt-angle), transparent 0 55%, #5b63f0 74%, #9a5cf2 88%, #4fd0e6 96%, transparent 100%);
+  background: conic-gradient(from var(--mdt-angle), transparent 0 55%, #5b63f0 74%, #6d7cf5 88%, #8a95f7 96%, transparent 100%);
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
           mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
   animation: mdt-spin 1.1s linear infinite;
@@ -1880,7 +1880,7 @@ html { overflow-x: hidden; }
 
 
 /* dashboard editor caret */
-.mdt-dash-caret { background: var(--mdt-cyan); box-shadow: 0 0 8px var(--mdt-cyan); border-radius: 1px; animation: mdt-caret-blink 1.1s steps(2) infinite; }
+.mdt-dash-caret { background: #6d7cf5; box-shadow: 0 0 8px #6d7cf5; border-radius: 1px; animation: mdt-caret-blink 1.1s steps(2) infinite; }
 @keyframes mdt-caret-blink { 50% { opacity: 0; } }
 
 /* ============================================

@@ -234,8 +234,8 @@ export default function Page() {
           <defs>
             <linearGradient id="mdtGrad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#5b63f0" />
-              <stop offset="52%" stopColor="#9a5cf2" />
-              <stop offset="100%" stopColor="#4fd0e6" />
+              <stop offset="52%" stopColor="#6d7cf5" />
+              <stop offset="100%" stopColor="#8a95f7" />
             </linearGradient>
           </defs>
         </svg>
@@ -308,7 +308,7 @@ export default function Page() {
             >
               <span className="text-foreground">All-in-One Developer Tools</span>
               <br />
-              <span className="text-indigo-400">
+              <span className="mdt-grad-text mdt-grad-anim">
                 JSON, JWT, Regex &amp; 80+ More
               </span>
             </motion.h1>
@@ -355,7 +355,7 @@ export default function Page() {
                 { value: "AES-256", label: "Encrypted Sync" },
               ].map((s, i) => (
                 <div key={i} className="px-2 py-4 text-center">
-                  <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap text-indigo-400">
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap mdt-grad-text mdt-grad-anim">
                     {s.value}
                   </div>
                   <div className="mt-1 text-xs md:text-sm font-medium leading-snug text-[color:var(--mdt-muted)]">
@@ -1039,7 +1039,7 @@ export default function Page() {
                   className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight"
                 >
                   Ready to Build{" "}
-                  <span className="text-indigo-400">
+                  <span className="mdt-grad-text mdt-grad-anim">
                     Faster?
                   </span>
                 </motion.h2>

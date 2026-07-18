@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Search, Play, ChevronDown } from "lucide-react";
 
 // Palette matched to the revamped desktop app: graphite blue-black surfaces,
@@ -68,12 +69,13 @@ export function MdtDashboard() {
         </div>
 
         <div className="ml-1 flex items-center gap-2">
-          <span
-            className="grid h-5 w-5 place-items-center rounded-[5px] text-[11px] font-bold"
-            style={{ background: C.indigo, color: "#0b0d16" }}
-          >
-            ◆
-          </span>
+          <Image
+            src="/logo-light.png"
+            alt="MyDevTools"
+            width={20}
+            height={20}
+            className="h-5 w-5 shrink-0 object-contain"
+          />
           <span className="text-[13px] font-semibold tracking-tight" style={{ color: C.ink }}>
             mydevtools
           </span>
