@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { LayoutDashboard, LayoutGrid, Star, ChevronDown, X } from 'lucide-react'
+import { LayoutDashboard, Grid2x2Plus, Star, ChevronDown, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
   Tooltip,
@@ -406,7 +406,7 @@ export function TopNavStrip() {
 
         <div className="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden />
 
-        <NavIcon label="All tools · ⌘K" icon={LayoutGrid} onClick={openPalette} />
+        <NavIcon label="Open tool (⌘K)" icon={Grid2x2Plus} onClick={openPalette} />
       </nav>
     </TooltipProvider>
   )
