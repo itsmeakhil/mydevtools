@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Settings, LogOut, User as UserIcon, HelpCircle } from 'lucide-react'
+import { Settings, LogOut, User as UserIcon, HelpCircle, Moon } from 'lucide-react'
 import { Logo } from '@/components/logo'
 import { ModeToggle } from '@/components/modeToggle'
+import { TopNavStrip } from '@/components/shell/top-nav-strip'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -51,6 +52,32 @@ export function TopBar() {
     }
   }, [])
 
+  // macOS hides the traffic lights in fullscreen, so the left inset that
+  // reserves room for them is only needed when the window is NOT fullscreen.
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  useEffect(() => {
+    if (!isDesktop()) return
+    let cancelled = false
+    let unlisten: (() => void) | undefined
+    void (async () => {
+      const { getCurrentWindow } = await import('@tauri-apps/api/window')
+      const win = getCurrentWindow()
+      const sync = () =>
+        win
+          .isFullscreen()
+          .then((v) => {
+            if (!cancelled) setIsFullscreen(v)
+          })
+          .catch(() => {})
+      sync()
+      unlisten = await win.onResized(sync)
+    })()
+    return () => {
+      cancelled = true
+      unlisten?.()
+    }
+  }, [])
+
   const isLoggedIn = Boolean(user.name || user.email)
   const displayName = user.name?.trim() || user.email?.split('@')[0] || 'User'
   const initial = (user.name?.trim()?.[0] || user.email?.[0] || '?').toUpperCase()
@@ -60,7 +87,7 @@ export function TopBar() {
       data-tauri-drag-region
       className={cn(
         'flex h-14 w-full shrink-0 items-center gap-3 border-b border-border bg-[hsl(var(--surface-2))]',
-        isTauri ? 'pl-[22px] pr-6' : 'px-4',
+        !isTauri ? 'px-4' : isFullscreen ? 'pl-4 pr-6' : 'pl-[74px] pr-6',
       )}
     >
       {/* Brand → dashboard. Icon (logo mark) + a larger wordmark, sized
@@ -92,23 +119,15 @@ export function TopBar() {
         ) : null}
       </button>
 
+      {/* Favorites strip — replaces the left panel */}
+      <div className="mx-1 hidden h-5 w-px shrink-0 bg-border sm:block" aria-hidden />
+      <TopNavStrip />
+
       {/* Draggable spacer — the breathing room in the middle */}
       <div data-tauri-drag-region className="h-full flex-1" />
 
-      {/* Right cluster */}
+      {/* Right cluster — just the account menu (theme + settings live inside it) */}
       <div className="flex shrink-0 items-center gap-2">
-        <ModeToggle />
-
-        <div className="mx-0.5 h-5 w-px bg-border" />
-
-        <Link
-          href="/settings"
-          className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground"
-          aria-label="Settings"
-        >
-          <Settings className="h-[18px] w-[18px]" strokeWidth={1.75} />
-        </Link>
-
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button
@@ -149,6 +168,13 @@ export function TopBar() {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
+                <div className="flex items-center justify-between gap-2 px-2 py-1.5">
+                  <span className="flex items-center gap-2.5 text-sm">
+                    <Moon className="h-4 w-4 text-muted-foreground" /> Theme
+                  </span>
+                  <ModeToggle />
+                </div>
+                <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => void signOut()}
                   className={cn('cursor-pointer gap-2.5 text-destructive focus:text-destructive')}
@@ -157,11 +183,20 @@ export function TopBar() {
                 </DropdownMenuItem>
               </>
             ) : (
-              <DropdownMenuItem asChild>
-                <Link href="/login" className="cursor-pointer gap-2.5">
-                  <UserIcon className="h-4 w-4 text-muted-foreground" /> Sign in
-                </Link>
-              </DropdownMenuItem>
+              <>
+                <div className="flex items-center justify-between gap-2 px-2 py-1.5">
+                  <span className="flex items-center gap-2.5 text-sm">
+                    <Moon className="h-4 w-4 text-muted-foreground" /> Theme
+                  </span>
+                  <ModeToggle />
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/login" className="cursor-pointer gap-2.5">
+                    <UserIcon className="h-4 w-4 text-muted-foreground" /> Sign in
+                  </Link>
+                </DropdownMenuItem>
+              </>
             )}
           </DropdownMenuContent>
         </DropdownMenu>

@@ -2,7 +2,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
-import { AppSidebar } from "./app-sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
 import { TabBar } from '@/components/tab-bar/tab-bar';
@@ -82,19 +81,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     >
       <TabSyncer />
       <TopBar />
-      {/* transform establishes a containing block so the sidebar's `fixed`
-          positioning is bounded to this row (below the top bar) instead of
-          the viewport top — otherwise it overlaps the top bar / logo. */}
-      <div className="flex min-h-0 w-full flex-1" style={{ transform: 'translateZ(0)' }}>
-        <aside
-          className={`${state === 'collapsed' ? 'w-[var(--sidebar-width-icon)]' : 'w-[var(--sidebar-width)]'} ${state === 'collapsed' ? '' : 'border-r'
-            } p-4 hidden md:flex flex-col z-30 relative shrink-0`}
-        >
-          <div className="flex-1 overflow-y-auto">
-            <AppSidebar />
-          </div>
-        </aside>
-
+      <div className="flex min-h-0 w-full flex-1">
         <main
           className={`flex-1 font-mono flex flex-col transition-all duration-300 ease-in-out pb-16 md:pb-0 min-w-0 overflow-hidden ${state === 'collapsed' ? 'pl-0' : ''
             }`}
