@@ -21,7 +21,7 @@ import { usePinnedToolsForActiveWorkspace, usePinnedToolsStore } from '@/store/p
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
-import { buildPinnedNavItems, getSidebarToolIcon } from '@/components/sidebar/app-sidebar.helpers'
+import { buildPinnedNavItems } from '@/components/sidebar/app-sidebar.helpers'
 import type { NavLink } from '@/components/sidebar/types'
 import { getToolMessageKey } from '@/lib/tool-i18n'
 
@@ -318,7 +318,7 @@ export function TopNavStrip() {
                 (key ? tNav(key as never) : config?.title) ??
                 tab.path.split('/').pop() ??
                 tab.path
-              const Icon = getSidebarToolIcon(tab.path) ?? config?.icon
+              const Icon = config?.icon
               const isActive = pathname === tab.path
               const prevActive = i > 0 && tabs[i - 1].path === pathname
               const showDivider = i > 0 && !isActive && !prevActive
@@ -359,6 +359,7 @@ export function TopNavStrip() {
                                 ? 'text-primary'
                                 : 'text-muted-foreground/70 group-hover:text-foreground/70',
                             )}
+                            strokeWidth={2}
                             aria-hidden
                           />
                         ) : null}

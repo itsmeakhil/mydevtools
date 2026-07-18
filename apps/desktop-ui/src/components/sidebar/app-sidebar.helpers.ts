@@ -52,27 +52,6 @@ export function buildPinnedNavItems(
   })
 }
 
-// Lazy url→icon map over the whole catalog, so tab chips reuse the exact
-// sidebar (@tabler) icons instead of the lucide route-config ones.
-let iconByUrl: Map<string, NavLink["icon"]> | null = null
-export function getSidebarToolIcon(url: string): NavLink["icon"] | undefined {
-  if (!iconByUrl) {
-    iconByUrl = new Map()
-    for (const group of sidebarData.navGroups) {
-      for (const item of group.items) {
-        if (!("items" in item)) {
-          iconByUrl.set(String((item as NavLink).url), (item as NavLink).icon)
-        } else {
-          for (const sub of (item as NavCollapsible).items) {
-            iconByUrl.set(String(sub.url), sub.icon ?? item.icon)
-          }
-        }
-      }
-    }
-  }
-  return iconByUrl.get(url)
-}
-
 export interface CategoryGroup {
   title: string
   tools: NavLink[]
