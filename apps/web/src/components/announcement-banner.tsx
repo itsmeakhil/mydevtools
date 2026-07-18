@@ -34,7 +34,7 @@ export function AnnouncementBanner() {
   if (!visible) return null;
 
   return (
-    <div className="relative z-[60] bg-[linear-gradient(100deg,#5b63f0,#9a5cf2_52%,#4fd0e6)] text-white">
+    <div className="relative z-[60] bg-[linear-gradient(100deg,#5b63f0,#6d7cf5_52%,#8a95f7)] text-white">
       <div className="container mx-auto flex items-center justify-center gap-2 px-10 py-2 text-center text-[13px] font-medium sm:gap-3">
         <span className="hidden rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider ring-1 ring-inset ring-white/25 sm:inline-flex">
           Launch offer
