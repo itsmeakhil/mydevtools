@@ -156,11 +156,11 @@ export function GlobalCommandPalette() {
   const commandSurfaceClass =
     '[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.14em] [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-14 [&_[cmdk-input]]:text-base'
 
-  // Shared row treatment — gradient selection sweep + icon chip (Raycast-style).
+  // Shared row treatment — solid accent selection + icon chip.
   const itemClass =
-    'group mx-1 flex items-center gap-3 rounded-xl px-2 py-2 transition-colors aria-selected:bg-gradient-to-r aria-selected:from-primary/[0.14] aria-selected:via-primary/[0.06] aria-selected:to-transparent aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/20'
+    'group mx-1 flex items-center gap-3 rounded-lg px-2 py-2 transition-colors aria-selected:bg-primary/10 aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/20'
   const chipClass =
-    'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground ring-1 ring-inset ring-border/50 transition-colors group-aria-selected:bg-gradient-to-br group-aria-selected:from-primary/20 group-aria-selected:to-violet-500/10 group-aria-selected:text-primary group-aria-selected:ring-primary/20'
+    'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[hsl(var(--surface-3))] text-muted-foreground ring-1 ring-inset ring-border/50 transition-colors group-aria-selected:bg-primary/15 group-aria-selected:text-primary group-aria-selected:ring-primary/30'
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -169,16 +169,12 @@ export function GlobalCommandPalette() {
         className={cn(
           'overflow-hidden p-0 gap-0 max-w-2xl',
           'max-h-[min(85vh,640px)] flex flex-col',
-          'rounded-2xl border-border/60 bg-popover/90 backdrop-blur-2xl',
-          'shadow-2xl shadow-primary/10 ring-1 ring-inset ring-white/[0.04]'
+          'rounded-xl border-border bg-popover/95 backdrop-blur-xl',
+          'shadow-2xl shadow-black/40'
         )}
       >
         <DialogTitle className="sr-only">Search tools and pages</DialogTitle>
-        {/* Gradient hairline — the palette's signature accent */}
-        <div
-          aria-hidden
-          className="h-px w-full shrink-0 bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-        />
+        <div aria-hidden className="h-px w-full shrink-0 bg-border" />
         <Command
           className={cn(
             'rounded-none border-none bg-transparent shadow-none',
