@@ -38,6 +38,7 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { EditEnvironmentSetDialog } from "./edit-environment-set-dialog"
+import { AddEnvironmentSetDialog } from "./add-environment-set-dialog"
 import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/components/hooks/use-mobile"
@@ -183,6 +184,11 @@ export function EnvironmentSetList() {
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    {!isMobile && (
+                        <div className="shrink-0">
+                            <AddEnvironmentSetDialog />
+                        </div>
+                    )}
                 </div>
 
                 {isLoading ? (

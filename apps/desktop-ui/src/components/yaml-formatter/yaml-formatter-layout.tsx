@@ -128,7 +128,7 @@ export function YamlFormatterLayout() {
               <SelectContent>
                 {['2', '4'].map((n) => (
                   <SelectItem key={n} value={n}>
-                    {t('spaces', { n })}
+                    {n}
                   </SelectItem>
                 ))}
               </SelectContent>

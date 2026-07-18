@@ -177,6 +177,7 @@ export function ApiKeyList() {
     return (
         <div className="flex flex-col gap-4 pb-8">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sticky top-0 z-10 bg-background/95 backdrop-blur py-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 min-w-0">
                 <div className="relative flex-1 max-w-md">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
@@ -213,6 +214,12 @@ export function ApiKeyList() {
                         </SelectItem>
                     </SelectContent>
                 </Select>
+              </div>
+                <AddApiKeyDialog>
+                    <Button className="hidden sm:inline-flex shrink-0 shadow-sm hover:shadow-md transition-shadow">
+                        <Plus className="mr-2 h-4 w-4" /> Add API Key
+                    </Button>
+                </AddApiKeyDialog>
             </div>
 
             {!isLoading && filteredSorted.length === 0 && (

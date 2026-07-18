@@ -119,12 +119,7 @@ export default function EnvironmentManagerPage() {
             }
         >
             {!isMobile && (
-                <div className="shrink-0">
-                    <ToolHeader title={t("title")} toolId="/app/environment-manager" />
-                    <div className="flex justify-end py-3">
-                        <AddEnvironmentSetDialog />
-                    </div>
-                </div>
+                <ToolHeader title={t("title")} toolId="/app/environment-manager" className="shrink-0 px-0 sm:px-0" />
             )}
 
             <div className="flex-1 min-h-0 flex flex-col">

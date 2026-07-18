@@ -318,11 +318,11 @@ export const TaskContainer = () => {
             <CardHeader className="p-3 md:pb-3">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 bg-primary/10 rounded-xl shadow-sm transition-all hover:bg-primary/20 hover:scale-105">
-                    <ListTodo className="h-5 w-5 text-primary" />
-                  </div>
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                    <ListTodo className="h-3.5 w-3.5" />
+                  </span>
                   <div>
-                    <h1 className="font-display text-xl md:text-2xl font-semibold tracking-tight text-foreground">
+                    <h1 className="text-sm font-semibold tracking-tight text-foreground">
                       {tPage("myTasksTitle")}
                     </h1>
                     <p className="font-meta text-[10px] uppercase tracking-wider text-muted-foreground mt-1 hidden sm:block">

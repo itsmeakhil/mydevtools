@@ -4,12 +4,13 @@ import { NotesProvider, useNotesUI } from "./context/NotesContext";
 import NotesSidebar from "@/components/notes/NotesSidebar";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Menu, PanelLeftOpen } from "lucide-react";
+import { Menu, PanelLeftOpen, NotebookPen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 function NotesLayout({ children }: { children: React.ReactNode }) {
     const t = useTranslations("Notes.layout");
+    const tSidebar = useTranslations("Notes.sidebar");
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const { focusMode, sidebarOpen, setSidebarOpen } = useNotesUI();
     const sidebarCollapsed = isDesktop && !focusMode && !sidebarOpen;
@@ -20,7 +21,7 @@ function NotesLayout({ children }: { children: React.ReactNode }) {
 
             <main className={`flex-1 h-full min-h-0 overflow-hidden relative flex flex-col ${sidebarCollapsed ? "pt-12" : "pt-12 md:pt-0"}`}>
                 {sidebarCollapsed && (
-                    <div className="absolute top-3 left-3 z-50">
+                    <div className="absolute top-3 left-3 z-50 flex items-center gap-2">
                         <Button
                             variant="outline"
                             size="icon"
@@ -31,6 +32,12 @@ function NotesLayout({ children }: { children: React.ReactNode }) {
                         >
                             <PanelLeftOpen className="h-5 w-5" />
                         </Button>
+                        <div className="flex items-center gap-2 font-semibold text-sm">
+                            <span className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-primary">
+                                <NotebookPen className="h-3.5 w-3.5" />
+                            </span>
+                            {tSidebar("title")}
+                        </div>
                     </div>
                 )}
                 {!isDesktop && !focusMode && (

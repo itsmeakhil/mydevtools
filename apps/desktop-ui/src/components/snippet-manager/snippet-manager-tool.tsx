@@ -28,6 +28,7 @@ import {
   IconX,
   IconTag,
   IconFiles,
+  IconCode,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { useIsMobile } from "@/components/hooks/use-mobile";
@@ -911,7 +912,10 @@ export function SnippetManagerTool() {
             <div className="flex h-full min-h-0 flex-col border-r border-border/50">
               {/* List header */}
               <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border/50 px-2 py-1.5 sm:px-3 sm:py-2">
-                <span className="min-w-0 truncate text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <span className="flex min-w-0 items-center gap-2 truncate text-sm font-semibold">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                    <IconCode className="h-3.5 w-3.5" />
+                  </span>
                   {t("snippets")}
                 </span>
                 <div className="flex shrink-0 items-center gap-0.5">

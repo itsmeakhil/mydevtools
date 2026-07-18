@@ -134,14 +134,8 @@ export default function ApiKeyVaultPage() {
                 title="API Keys"
                 description="AES-256-GCM encrypted and stored on your device."
                 toolId="/app/api-keys"
-                className="shrink-0"
+                className="shrink-0 px-0 sm:px-0"
             />
-
-            {!isMobile && (
-                <div className="flex justify-end py-3 shrink-0">
-                    <AddApiKeyDialog />
-                </div>
-            )}
 
             <div className="flex-1 min-h-0 flex flex-col">
                 <ApiKeyList />

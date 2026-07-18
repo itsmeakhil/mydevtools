@@ -99,7 +99,7 @@ function HashAnatomy({ parsed }: { parsed: ParsedBcryptHash }) {
       <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
         {t('hash.anatomy.title')}
       </Label>
-      <div className="break-all rounded-md border border-border/50 bg-muted/30 p-3 font-mono text-sm">
+      <div className="break-all rounded-md border border-border bg-[hsl(var(--surface-2))] p-3 font-mono text-sm">
         <span className="text-muted-foreground">$</span>
         <span className={SEGMENT_STYLES.version}>{parsed.version}</span>
         <span className="text-muted-foreground">$</span>
@@ -177,24 +177,28 @@ function HashTab() {
           step={1}
           aria-label={t('hash.costLabel')}
         />
+        <div className="flex justify-between font-mono text-[10px] text-muted-foreground">
+          <span>4</span>
+          <span>15</span>
+        </div>
         <p className="text-xs text-muted-foreground">{t('hash.costHint')}</p>
         {cost >= SLOW_COST_THRESHOLD && (
-          <div className="flex items-center gap-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
+          <div role="status" className="flex items-center gap-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
             <TriangleAlert className="h-3.5 w-3.5 shrink-0" />
             {t('hash.slowWarning')}
           </div>
         )}
       </div>
 
-      <Button onClick={() => void generate()} disabled={!password || hashing}>
+      <Button className="w-full" onClick={() => void generate()} disabled={!password || hashing}>
         <KeyRound className="mr-1.5 h-4 w-4" />
         {hashing ? t('hash.generating') : t('hash.generate')}
       </Button>
 
-      {error && <div className="text-sm text-destructive">{error}</div>}
+      {error && <div role="alert" className="text-sm text-destructive">{error}</div>}
 
       {result && (
-        <div className="space-y-4 rounded-lg border border-border/50 p-4">
+        <div role="status" aria-live="polite" className="space-y-4 rounded-lg border border-border p-4">
           <div className="flex items-center justify-between gap-2">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('hash.resultLabel')}
@@ -214,7 +218,7 @@ function HashTab() {
               </Button>
             </div>
           </div>
-          <div className="break-all rounded-md bg-muted/40 p-3 font-mono text-sm">{result.hash}</div>
+          <div className="break-all rounded-md border border-border bg-[hsl(var(--surface-2))] p-3 font-mono text-sm">{result.hash}</div>
           {parsed && <HashAnatomy parsed={parsed} />}
         </div>
       )}
@@ -281,34 +285,36 @@ function VerifyTab() {
         />
       </div>
 
-      {state === 'idle' && (
-        <div className="rounded-md border border-border/50 bg-muted/30 px-3 py-2.5 text-sm text-muted-foreground">
-          {t('verify.idle')}
-        </div>
-      )}
-      {state === 'invalid' && (
-        <div className="flex items-center gap-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-3 py-2.5 text-sm text-amber-700 dark:text-amber-400">
-          <TriangleAlert className="h-4 w-4 shrink-0" />
-          {t('verify.invalidHash')}
-        </div>
-      )}
-      {state === 'checking' && (
-        <div className="rounded-md border border-border/50 bg-muted/30 px-3 py-2.5 text-sm text-muted-foreground">
-          {t('verify.checking')}
-        </div>
-      )}
-      {state === 'match' && (
-        <div className="flex items-center gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-sm font-medium text-emerald-700 dark:text-emerald-400">
-          <CircleCheck className="h-4 w-4 shrink-0" />
-          {t('verify.match')}
-        </div>
-      )}
-      {state === 'nomatch' && (
-        <div className="flex items-center gap-2 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2.5 text-sm font-medium text-red-700 dark:text-red-400">
-          <CircleX className="h-4 w-4 shrink-0" />
-          {t('verify.noMatch')}
-        </div>
-      )}
+      <div role="status" aria-live="polite">
+        {state === 'idle' && (
+          <div className="rounded-md border border-border bg-[hsl(var(--surface-2))] px-3 py-2.5 text-sm text-muted-foreground">
+            {t('verify.idle')}
+          </div>
+        )}
+        {state === 'invalid' && (
+          <div className="flex items-center gap-2 rounded-md border border-amber-500/30 bg-amber-500/10 px-3 py-2.5 text-sm text-amber-700 dark:text-amber-400">
+            <TriangleAlert className="h-4 w-4 shrink-0" />
+            {t('verify.invalidHash')}
+          </div>
+        )}
+        {state === 'checking' && (
+          <div className="rounded-md border border-border bg-[hsl(var(--surface-2))] px-3 py-2.5 text-sm text-muted-foreground">
+            {t('verify.checking')}
+          </div>
+        )}
+        {state === 'match' && (
+          <div className="flex items-center gap-2 rounded-md border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-sm font-medium text-emerald-700 dark:text-emerald-400">
+            <CircleCheck className="h-4 w-4 shrink-0" />
+            {t('verify.match')}
+          </div>
+        )}
+        {state === 'nomatch' && (
+          <div className="flex items-center gap-2 rounded-md border border-red-500/30 bg-red-500/10 px-3 py-2.5 text-sm font-medium text-red-700 dark:text-red-400">
+            <CircleX className="h-4 w-4 shrink-0" />
+            {t('verify.noMatch')}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

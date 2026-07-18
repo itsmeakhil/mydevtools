@@ -16,7 +16,8 @@ import {
     IconDotsVertical,
     IconCheck,
     IconTrash,
-    IconLoader2
+    IconLoader2,
+    IconBookmark
 } from "@tabler/icons-react"
 import { useBookmarkStore, useFilteredBookmarks, useAllTags } from "@/store/bookmark-store"
 import { cn } from "@/lib/utils"
@@ -44,6 +45,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function BookmarksManager() {
     const t = useTranslations("Bookmarks.manager")
+    const tNav = useTranslations("Navigation")
     const isMobile = useIsMobile()
     const [showSidebar, setShowSidebar] = useState(!isMobile)
     const [isAddBookmarkOpen, setIsAddBookmarkOpen] = useState(false)
@@ -295,14 +297,22 @@ export default function BookmarksManager() {
                 <div className="shrink-0 h-16 px-4 border-b border-border/40 flex items-center gap-4 bg-background/80 backdrop-blur-md z-10">
                     {/* Sidebar Toggle — shows whenever sidebar collapsed */}
                     {!showSidebar && (
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="-ml-2 shrink-0"
-                            onClick={() => setShowSidebar(true)}
-                        >
-                            <IconList className="h-5 w-5" />
-                        </Button>
+                        <>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="-ml-2 shrink-0"
+                                onClick={() => setShowSidebar(true)}
+                            >
+                                <IconList className="h-5 w-5" />
+                            </Button>
+                            <div className="flex items-center gap-2 font-semibold text-sm shrink-0">
+                                <span className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-primary">
+                                    <IconBookmark className="h-3.5 w-3.5" />
+                                </span>
+                                {tNav("bookmarks")}
+                            </div>
+                        </>
                     )}
 
                     {/* Search */}

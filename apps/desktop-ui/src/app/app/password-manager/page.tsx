@@ -20,6 +20,9 @@ import { fetchAllPages } from "@/lib/fetch-all-pages"
 import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
 import { useActiveWorkspace } from "@/store/workspace-store"
 import { hasWorkspaceEncryption } from "@/lib/workspace-rbac"
+import { IconShieldLock } from "@tabler/icons-react"
+import { CATEGORY_ACCENT } from "@/components/dashboard/types"
+import { cn } from "@/lib/utils"
 
 const PASSWORDS_PAGE_SIZE = 500
 
@@ -129,7 +132,18 @@ export default function PasswordManagerPage() {
         >
             {!isMobile && (
                 <div className="flex justify-between items-center py-6 shrink-0">
-                    <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
+                    <div className="flex items-center gap-3">
+                        <span
+                            className={cn(
+                                "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm ring-1 ring-inset ring-border/60",
+                                CATEGORY_ACCENT.Security.bg,
+                                CATEGORY_ACCENT.Security.text,
+                            )}
+                        >
+                            <IconShieldLock className="h-[22px] w-[22px]" aria-hidden />
+                        </span>
+                        <h1 className="text-sm font-semibold tracking-tight">{t("title")}</h1>
+                    </div>
                     <AddPasswordDialog />
                 </div>
             )}

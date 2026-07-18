@@ -40,7 +40,7 @@ export function ToolPageHeader({
       <div className="flex min-w-0 flex-col gap-0.5">
         <h1
           title={title}
-          className="truncate text-3xl font-bold tracking-tight md:text-4xl"
+          className="truncate text-sm font-semibold tracking-tight"
         >
           {title}
         </h1>
