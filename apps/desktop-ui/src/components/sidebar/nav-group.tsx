@@ -243,10 +243,10 @@ const SidebarMenuLink = ({
           {isActive && (
             <motion.div
               layoutId="sidebar-active-pill"
-              className="absolute inset-0 -z-10 rounded-md bg-gradient-to-r from-primary/15 to-primary/[0.03] ring-1 ring-inset ring-primary/15 dark:from-primary/25 dark:to-primary/5"
+              className="absolute inset-0 -z-10 rounded-md bg-primary/10 ring-1 ring-inset ring-primary/20"
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
             >
-              <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-gradient-to-b from-primary to-violet-500" />
+              <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-primary" />
             </motion.div>
           )}
           {item.icon && (

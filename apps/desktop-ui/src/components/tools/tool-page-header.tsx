@@ -33,7 +33,7 @@ export function ToolPageHeader({
     <div className={cn('flex items-start gap-3', className)}>
       <span
         className={cn(
-          'mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl shadow-sm ring-1 ring-inset ring-border/60',
+          'mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ring-1 ring-inset ring-border/60',
           accent.bg,
           accent.text,
         )}

@@ -413,7 +413,7 @@ export function JsonFormatterLayout() {
     const state = pane === 'left' ? leftPane : rightPane
     const isTextMode = state.mode === ('text' as Mode)
     return (
-      <div className="flex flex-wrap items-center gap-1 border-b border-border/60 bg-muted/30 px-2 py-1.5">
+      <div className="flex flex-wrap items-center gap-1 border-b border-border bg-[hsl(var(--surface-2))] px-2 py-1.5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm" className="h-8 max-w-[180px] gap-1 px-2">
@@ -544,7 +544,7 @@ export function JsonFormatterLayout() {
 
       {isMobile ? (
         /* Mobile: single full-height pane, toggled by tabs */
-        <div className="min-h-0 flex-1 rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden flex flex-col">
+        <div className="min-h-0 flex-1 rounded-lg border border-border bg-card overflow-hidden flex flex-col">
           {renderPaneToolbar(activePane)}
           <div className="min-h-0 flex-1">{renderEditor(activePane)}</div>
         </div>
@@ -552,7 +552,7 @@ export function JsonFormatterLayout() {
         /* Desktop: side-by-side resizable panes */
         <ResizablePanelGroup
           direction="horizontal"
-          className="min-h-0 flex-1 rounded-xl border border-border/70 bg-card shadow-sm overflow-hidden"
+          className="min-h-0 flex-1 rounded-lg border border-border bg-card overflow-hidden"
         >
           <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
             <div className="flex h-full min-h-0 flex-col">

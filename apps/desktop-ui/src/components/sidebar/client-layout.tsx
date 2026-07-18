@@ -6,6 +6,7 @@ import { AppSidebar } from "./app-sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
 import { TabBar } from '@/components/tab-bar/tab-bar';
+import { TopBar } from '@/components/shell/top-bar';
 import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
@@ -77,10 +78,14 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div
       style={{ "--sidebar-width": "16rem", "--sidebar-width-icon": "3rem" } as React.CSSProperties}
-      className="group/sidebar-wrapper flex h-screen w-full has-[[data-variant=inset]]:bg-sidebar relative overflow-hidden"
+      className="group/sidebar-wrapper flex flex-col h-screen w-full has-[[data-variant=inset]]:bg-sidebar relative overflow-hidden"
     >
       <TabSyncer />
-      <div className="flex h-full w-full">
+      <TopBar />
+      {/* transform establishes a containing block so the sidebar's `fixed`
+          positioning is bounded to this row (below the top bar) instead of
+          the viewport top — otherwise it overlaps the top bar / logo. */}
+      <div className="flex min-h-0 w-full flex-1" style={{ transform: 'translateZ(0)' }}>
         <aside
           className={`${state === 'collapsed' ? 'w-[var(--sidebar-width-icon)]' : 'w-[var(--sidebar-width)]'} ${state === 'collapsed' ? '' : 'border-r'
             } p-4 hidden md:flex flex-col z-30 relative shrink-0`}

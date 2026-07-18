@@ -13,16 +13,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 
-// App-icon chip background tints (matches the blue "Z" badge in the reference).
-const chipColors = [
-  'bg-sky-500',
-  'bg-violet-500',
-  'bg-emerald-500',
-  'bg-rose-500',
-  'bg-amber-500',
-  'bg-indigo-500',
-]
-
 interface TabBarProps {
   onNewTab?: () => void
 }
@@ -137,15 +127,17 @@ export function TabBar({ onNewTab }: TabBarProps) {
 
   return (
     <TooltipProvider delayDuration={500}>
-      <div className="flex h-12 w-full shrink-0 items-center border-b bg-background/95 px-2 gap-1 backdrop-blur">
+      {/* Raised strip; tabs align to its bottom edge and weld to the content
+          below across the shared seam (the strip's bottom border). */}
+      <div className="flex h-11 w-full shrink-0 items-end gap-0 border-b border-border bg-[hsl(var(--surface-2))] pl-2 pr-1.5">
 
         {/* Left scroll arrow */}
         <button
           onClick={() => scroll('left')}
           aria-hidden={!canScrollLeft}
           className={cn(
-            'flex h-6 w-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-all hover:bg-muted hover:text-foreground',
-            canScrollLeft ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            'mb-[9px] flex h-6 shrink-0 items-center justify-center rounded text-muted-foreground transition-all duration-150 hover:bg-[hsl(var(--surface-3))] hover:text-foreground',
+            canScrollLeft ? 'w-5 opacity-100 pointer-events-auto' : 'w-0 opacity-0 pointer-events-none'
           )}
         >
           <ChevronLeft className="h-3.5 w-3.5" strokeWidth={2.5} />
@@ -154,7 +146,7 @@ export function TabBar({ onNewTab }: TabBarProps) {
         {/* Scrollable tab list */}
         <div
           ref={scrollRef}
-          className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto py-1.5"
+          className="flex min-w-0 flex-1 items-end gap-0 overflow-x-auto"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {tabs.map((tab, i) => {
@@ -162,61 +154,80 @@ export function TabBar({ onNewTab }: TabBarProps) {
             const Icon = config?.icon
             const title = config?.title ?? tab.path.split('/').pop() ?? tab.path
             const isActive = tab.path === activeTabPath
-            const chipColor = chipColors[i % chipColors.length]
+            const prevActive = i > 0 && tabs[i - 1].path === activeTabPath
+            // Bifurcation between two inactive neighbours; suppressed next to the
+            // active tab, whose own border already separates it. Always occupies
+            // 1px so tabs never shift when the divider toggles.
+            const showDivider = i > 0 && !isActive && !prevActive
 
             return (
-              <Tooltip key={tab.path}>
-                <TooltipTrigger asChild>
-                  <button
-                    ref={isActive ? activeTabRef : null}
-                    onClick={() => handleTabClick(tab.path)}
-                    className={cn(
-                      'group relative flex h-8 max-w-[200px] min-w-[80px] shrink-0 cursor-pointer items-center gap-2 rounded-full border px-2.5 text-xs font-medium transition-all duration-150',
-                      isActive
-                        ? 'border-border/60 bg-foreground/[0.07] text-foreground shadow-[inset_0_1px_0_hsl(var(--foreground)/0.06)] backdrop-blur-sm'
-                        : 'border-transparent text-muted-foreground hover:bg-foreground/[0.04] hover:text-foreground'
-                    )}
-                  >
-                    {Icon && (
-                      <span
-                        className={cn(
-                          'flex h-4 w-4 shrink-0 items-center justify-center rounded-[5px] shadow-sm transition-all',
-                          chipColor,
-                          isActive ? 'opacity-100' : 'opacity-60 saturate-[0.7] group-hover:opacity-90'
-                        )}
-                      >
-                        <Icon className="h-2.5 w-2.5 text-white" strokeWidth={2.5} />
-                      </span>
-                    )}
-
-                    <span className="min-w-0 flex-1 truncate text-left leading-none tracking-tight">
-                      {title}
-                    </span>
-
-                    <span
-                      role="button"
-                      aria-label={`Close ${title}`}
-                      onClick={(e) => handleClose(e, tab.path)}
+              <React.Fragment key={tab.path}>
+                <div
+                  aria-hidden
+                  className={cn(
+                    'h-5 w-px shrink-0 self-center bg-border transition-opacity duration-150',
+                    showDivider ? 'opacity-100' : 'opacity-0'
+                  )}
+                />
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      ref={isActive ? activeTabRef : null}
+                      onClick={() => handleTabClick(tab.path)}
                       className={cn(
-                        'flex h-3.5 w-3.5 shrink-0 cursor-pointer items-center justify-center rounded-full transition-all duration-100',
+                        'group relative flex h-[34px] max-w-[230px] min-w-[144px] shrink-0 cursor-pointer items-center gap-2.5 rounded-t-[8px] border border-b-0 px-4 text-[13px] font-medium leading-none transition-colors duration-150',
                         isActive
-                          ? 'text-muted-foreground hover:bg-muted hover:text-foreground opacity-100'
-                          : 'text-muted-foreground/30 hover:bg-muted hover:text-foreground opacity-0 group-hover:opacity-100'
+                          // Welded to content: content surface, sits 1px over the
+                          // strip's bottom border (breaks the seam), accent cap on top.
+                          ? 'z-10 -mb-px border-border bg-[hsl(var(--surface-1))] text-foreground'
+                          : 'border-transparent text-foreground/60 hover:bg-foreground/[0.05] hover:text-foreground/90'
                       )}
                     >
-                      <X className="h-2.5 w-2.5" strokeWidth={2.5} />
-                    </span>
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="flex items-center gap-1.5 text-xs">
-                  {title}
-                  {i < 9 && (
-                    <kbd className="rounded border border-border/60 bg-muted/60 px-1 font-mono text-[10px] text-muted-foreground">
-                      ⌥{i + 1}
-                    </kbd>
-                  )}
-                </TooltipContent>
-              </Tooltip>
+                      {isActive && (
+                        <span className="pointer-events-none absolute inset-x-0 top-0 h-0.5 rounded-t-[8px] bg-primary" />
+                      )}
+
+                      {Icon && (
+                        <Icon
+                          className={cn(
+                            'h-3.5 w-3.5 shrink-0 transition-colors',
+                            isActive
+                              ? 'text-primary'
+                              : 'text-muted-foreground/70 group-hover:text-foreground/70'
+                          )}
+                          strokeWidth={2}
+                        />
+                      )}
+
+                      <span className="min-w-0 flex-1 truncate text-left">
+                        {title}
+                      </span>
+
+                      <span
+                        role="button"
+                        aria-label={`Close ${title}`}
+                        onClick={(e) => handleClose(e, tab.path)}
+                        className={cn(
+                          'flex h-4 w-4 shrink-0 cursor-pointer items-center justify-center rounded transition-all duration-100 hover:bg-[hsl(var(--surface-3))] hover:text-foreground',
+                          isActive
+                            ? 'text-muted-foreground opacity-100'
+                            : 'text-muted-foreground/40 opacity-0 group-hover:opacity-100'
+                        )}
+                      >
+                        <X className="h-3 w-3" strokeWidth={2.5} />
+                      </span>
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="flex items-center gap-1.5 text-xs">
+                    {title}
+                    {i < 9 && (
+                      <kbd className="rounded border border-border/60 bg-muted/60 px-1 font-mono text-[10px] text-muted-foreground">
+                        ⌥{i + 1}
+                      </kbd>
+                    )}
+                  </TooltipContent>
+                </Tooltip>
+              </React.Fragment>
             )
           })}
         </div>
@@ -226,22 +237,22 @@ export function TabBar({ onNewTab }: TabBarProps) {
           onClick={() => scroll('right')}
           aria-hidden={!canScrollRight}
           className={cn(
-            'flex h-6 w-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-all hover:bg-muted hover:text-foreground',
-            canScrollRight ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            'mb-[9px] flex h-6 shrink-0 items-center justify-center rounded text-muted-foreground transition-all duration-150 hover:bg-[hsl(var(--surface-3))] hover:text-foreground',
+            canScrollRight ? 'w-5 opacity-100 pointer-events-auto' : 'w-0 opacity-0 pointer-events-none'
           )}
         >
           <ChevronRight className="h-3.5 w-3.5" strokeWidth={2.5} />
         </button>
 
         {/* Divider */}
-        <div className="mx-0.5 h-4 w-px shrink-0 bg-border/60" />
+        <div className="mx-1 mb-[9px] h-5 w-px shrink-0 self-center bg-border" />
 
         {/* New tab button */}
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               onClick={onNewTab}
-              className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="mb-[9px] flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded text-muted-foreground transition-colors duration-150 hover:bg-[hsl(var(--surface-3))] hover:text-foreground"
               aria-label="Open tool (⌘K)"
             >
               <Grid2x2Plus className="h-4 w-4" strokeWidth={2} />
