@@ -17,10 +17,11 @@ export default function MdtAurora() {
     if (!ctx) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // One indigo family (no violet/cyan) to match the app's single-accent identity.
     const blobs = [
-      { x: 0.28, y: 0.32, r: 0.55, c: "91,99,240" },
-      { x: 0.72, y: 0.4, r: 0.5, c: "154,92,242" },
-      { x: 0.5, y: 0.72, r: 0.55, c: "79,208,230" },
+      { x: 0.28, y: 0.32, r: 0.55, c: "99,106,245" },
+      { x: 0.72, y: 0.4, r: 0.5, c: "112,102,240" },
+      { x: 0.5, y: 0.72, r: 0.55, c: "76,96,235" },
     ];
     const pointer = { x: 0.5, y: 0.4, tx: 0.5, ty: 0.4 };
     let raf = 0;
@@ -45,7 +46,7 @@ export default function MdtAurora() {
         const py = (b.y + Math.cos(t * 0.00026 + i * 1.3) * drift + (pointer.y - 0.5) * pull) * h;
         const rad = b.r * Math.min(w, h) * 1.1;
         const g = ctx.createRadialGradient(px, py, 0, px, py, rad);
-        g.addColorStop(0, `rgba(${b.c},0.55)`);
+        g.addColorStop(0, `rgba(${b.c},0.42)`);
         g.addColorStop(1, `rgba(${b.c},0)`);
         ctx.fillStyle = g;
         ctx.beginPath();
