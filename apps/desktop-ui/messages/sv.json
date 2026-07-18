@@ -196,6 +196,19 @@
         "system": "System"
       }
     },
+    "security": {
+      "title": "Säkerhet",
+      "description": "Styr hur ditt krypterade valv låses.",
+      "autoLock": {
+        "label": "Automatisk låsning av valv",
+        "never": "Aldrig",
+        "min5": "Efter 5 minuter",
+        "min15": "Efter 15 minuter",
+        "min30": "Efter 30 minuter",
+        "min60": "Efter 1 timme",
+        "helpText": "Låser ditt valv efter så lång tids inaktivitet och kräver ditt huvudlösenord för att låsa upp."
+      }
+    },
     "language": {
       "title": "Språk",
       "description": "Ställ in språket som används på plattformen.",

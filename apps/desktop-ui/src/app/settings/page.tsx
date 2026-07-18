@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Sun, Globe, Palette, Check } from 'lucide-react'
+import { Sun, Globe, Palette, Check, Lock } from 'lucide-react'
+import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
@@ -33,10 +34,17 @@ export default function SettingsPage() {
   const { colorTheme, setColorTheme } = useColorTheme()
   const activeWorkspace = useActiveWorkspace()
   const [mounted, setMounted] = useState(false)
+  const [idleTimeout, setIdleTimeout] = useState('15')
 
   useEffect(() => {
     setMounted(true)
+    setIdleTimeout(String(getIdleTimeoutMinutes()))
   }, [])
+
+  const handleIdleTimeoutChange = (value: string) => {
+    window.localStorage.setItem(IDLE_TIMEOUT_KEY, value)
+    setIdleTimeout(value)
+  }
 
   if (!mounted) {
     return null // Avoid hydration mismatch
@@ -134,6 +142,38 @@ export default function SettingsPage() {
                   })}
                 </div>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
+                <Lock className="h-4 w-4" />
+              </span>
+              {t('security.title')}
+            </CardTitle>
+            <CardDescription>
+              {t('security.description')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2 max-w-xs">
+              <Label>{t('security.autoLock.label')}</Label>
+              <Select value={idleTimeout} onValueChange={handleIdleTimeoutChange}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="rounded-lg">
+                  <SelectItem value="0">{t('security.autoLock.never')}</SelectItem>
+                  <SelectItem value="5">{t('security.autoLock.min5')}</SelectItem>
+                  <SelectItem value="15">{t('security.autoLock.min15')}</SelectItem>
+                  <SelectItem value="30">{t('security.autoLock.min30')}</SelectItem>
+                  <SelectItem value="60">{t('security.autoLock.min60')}</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">{t('security.autoLock.helpText')}</p>
             </div>
           </CardContent>
         </Card>

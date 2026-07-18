@@ -17,6 +17,7 @@ interface MasterKeyStore {
 
     setKey: (key: CryptoKey) => void
     clearKey: () => void
+    lock: () => void
     setVaultStatus: (status: VaultStatus) => void
     setVault: (vault: MasterVaultOut | null) => void
     setRestoreError: (err: string | null) => void
@@ -50,6 +51,17 @@ export const useMasterKeyStore = create<MasterKeyStore>((set) => ({
             restoreError: null,
             vaultGateOpen: false,
         }),
+
+    // Re-lock and prompt: drop the in-memory key but keep the cached vault so the
+    // gate shows unlock (not setup). Used by idle auto-lock and manual "Lock".
+    lock: () =>
+        set((s) => ({
+            encryptionKey: null,
+            vaultStatus: "locked",
+            isUnlocked: false,
+            vaultGateOpen: s.vault != null,
+            restoreError: null,
+        })),
 
     setVaultStatus: (status) =>
         set({ vaultStatus: status, isUnlocked: status === "unlocked" }),

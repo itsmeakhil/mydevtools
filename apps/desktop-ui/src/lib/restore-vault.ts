@@ -7,35 +7,22 @@ export type RestoreResult =
     | { status: "error"; message: string }
 
 export interface RestoreDeps {
-    loadMasterKey: () => Promise<CryptoKey | null>
     getMasterVaultOrNull: () => Promise<MasterVaultOut | null>
-    verifyKey: (
-        key: CryptoKey,
-        encrypted: string,
-        iv: string,
-    ) => Promise<boolean>
+    // Wipes any master key left in IndexedDB by an older build. The key is no
+    // longer persisted across restarts (memory-only), so this is one-time cleanup.
     clearMasterKey: () => Promise<void>
 }
 
+// The master key is never persisted across app restarts — it lives only in the
+// in-memory store while the app runs. So on boot a configured vault is always
+// "locked" and the user must re-enter their master password.
 export async function restoreVault(deps: RestoreDeps): Promise<RestoreResult> {
     try {
         const vault = await deps.getMasterVaultOrNull()
         if (!vault) return { status: "not-configured" }
 
-        const savedKey = await deps.loadMasterKey()
-        if (!savedKey) return { status: "locked", vault }
-
-        const valid = await deps.verifyKey(
-            savedKey,
-            vault.verifier.encrypted,
-            vault.verifier.iv,
-        )
-        if (!valid) {
-            await deps.clearMasterKey()
-            return { status: "locked", vault }
-        }
-
-        return { status: "unlocked", vault, key: savedKey }
+        await deps.clearMasterKey()
+        return { status: "locked", vault }
     } catch (err) {
         const message = err instanceof Error ? err.message : "Restore failed"
         return { status: "error", message }

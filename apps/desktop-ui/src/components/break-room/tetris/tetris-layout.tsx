@@ -530,7 +530,7 @@ export function TetrisLayout() {
         {/* Header */}
         <div style={{ width: BOARD_W + PANEL_W * 2 + 24, maxWidth: '100%' }} className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight leading-none">Tetris</h1>
+            <h1 className="text-3xl font-bold tracking-tight leading-none md:text-4xl">Tetris</h1>
             <p className="text-[11px] text-muted-foreground mt-0.5 hidden sm:block">
               ← → · ↑ rotate · Space drop · C hold · P pause
             </p>

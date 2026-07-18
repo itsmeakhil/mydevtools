@@ -196,6 +196,19 @@
         "system": "Système"
       }
     },
+    "security": {
+      "title": "Sécurité",
+      "description": "Contrôlez le verrouillage de votre coffre chiffré.",
+      "autoLock": {
+        "label": "Verrouillage automatique du coffre",
+        "never": "Jamais",
+        "min5": "Au bout de 5 minutes",
+        "min15": "Au bout de 15 minutes",
+        "min30": "Au bout de 30 minutes",
+        "min60": "Au bout d'1 heure",
+        "helpText": "Verrouille votre coffre après cette durée d'inactivité et exige votre mot de passe maître pour le déverrouiller."
+      }
+    },
     "language": {
       "title": "Langue",
       "description": "Définissez la langue utilisée sur la plateforme.",

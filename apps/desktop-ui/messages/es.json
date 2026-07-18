@@ -196,6 +196,19 @@
         "system": "Sistema"
       }
     },
+    "security": {
+      "title": "Seguridad",
+      "description": "Controla cómo se bloquea tu bóveda cifrada.",
+      "autoLock": {
+        "label": "Bloqueo automático de la bóveda",
+        "never": "Nunca",
+        "min5": "Después de 5 minutos",
+        "min15": "Después de 15 minutos",
+        "min30": "Después de 30 minutos",
+        "min60": "Después de 1 hora",
+        "helpText": "Bloquea tu bóveda tras este tiempo de inactividad y requiere tu contraseña maestra para desbloquearla."
+      }
+    },
     "language": {
       "title": "Idioma",
       "description": "Configura el idioma usado en toda la plataforma.",

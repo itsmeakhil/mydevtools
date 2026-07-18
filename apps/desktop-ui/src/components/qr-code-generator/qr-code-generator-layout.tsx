@@ -197,6 +197,7 @@ export function QrCodeGeneratorLayout() {
           title={t('title')}
           description={t('subtitle')}
           accent={CATEGORY_ACCENT.Generators}
+          offline={false}
         />
       </RevealItem>
 

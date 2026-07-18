@@ -43,6 +43,7 @@ export function CurlToCodeLayout() {
           title={t('title')}
           description={t('subtitle')}
           accent={CATEGORY_ACCENT['Network & API']}
+          offline={false}
         />
       </RevealItem>
 

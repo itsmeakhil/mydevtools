@@ -196,6 +196,19 @@
         "system": "Sistem"
       }
     },
+    "security": {
+      "title": "Güvenlik",
+      "description": "Şifrelenmiş kasanızın nasıl kilitleneceğini denetleyin.",
+      "autoLock": {
+        "label": "Kasa otomatik kilitleme",
+        "never": "Asla",
+        "min5": "5 dakika sonra",
+        "min15": "15 dakika sonra",
+        "min30": "30 dakika sonra",
+        "min60": "1 saat sonra",
+        "helpText": "Bu süre boyunca işlem yapılmazsa kasanızı kilitler ve kilidi açmak için ana parolanızı gerektirir."
+      }
+    },
     "language": {
       "title": "Dil",
       "description": "Platform genelinde kullanılan dili ayarlayın.",

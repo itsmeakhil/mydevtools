@@ -196,6 +196,19 @@
         "system": "Systeem"
       }
     },
+    "security": {
+      "title": "Beveiliging",
+      "description": "Bepaal hoe je versleutelde kluis wordt vergrendeld.",
+      "autoLock": {
+        "label": "Kluis automatisch vergrendelen",
+        "never": "Nooit",
+        "min5": "Na 5 minuten",
+        "min15": "Na 15 minuten",
+        "min30": "Na 30 minuten",
+        "min60": "Na 1 uur",
+        "helpText": "Vergrendelt je kluis na deze periode van inactiviteit en vereist je hoofdwachtwoord om te ontgrendelen."
+      }
+    },
     "language": {
       "title": "Taal",
       "description": "Stel de taal in die op het platform wordt gebruikt.",

@@ -80,9 +80,9 @@ export const clearKey = async (): Promise<void> => {
 };
 
 // ── Global master key ─────────────────────────────────────────────────────────
-// Stored in a separate IndexedDB so it is completely isolated from the
-// password-manager vault key.  The CryptoKey object is non-extractable; the
-// raw password is never persisted.
+// The master key is intentionally NOT persisted — it lives only in the in-memory
+// store while the app runs, so the vault re-locks on every restart. clearMasterKey
+// remains to wipe any key left behind by older builds that did persist it.
 
 const MASTER_DB_NAME = "MasterKeyDB";
 const MASTER_STORE_NAME = "keys";
@@ -104,30 +104,6 @@ const openMasterDB = (): Promise<IDBDatabase> =>
         req.onsuccess = () => resolve(req.result);
         req.onerror = () => reject(req.error);
     });
-
-export const saveMasterKey = async (key: CryptoKey): Promise<void> => {
-    const db = await openMasterDB();
-    await new Promise<void>((resolve, reject) => {
-        const tx = db.transaction(MASTER_STORE_NAME, "readwrite");
-        tx.objectStore(MASTER_STORE_NAME).put(key, MASTER_KEY_ID);
-        tx.oncomplete = () => resolve();
-        tx.onerror = () => reject(tx.error);
-    });
-};
-
-export const loadMasterKey = async (): Promise<CryptoKey | null> => {
-    try {
-        const db = await openMasterDB();
-        return new Promise<CryptoKey | null>((resolve, reject) => {
-            const tx = db.transaction(MASTER_STORE_NAME, "readonly");
-            const req = tx.objectStore(MASTER_STORE_NAME).get(MASTER_KEY_ID);
-            req.onsuccess = () => resolve((req.result as CryptoKey) || null);
-            req.onerror = () => reject(req.error);
-        });
-    } catch {
-        return null;
-    }
-};
 
 export const clearMasterKey = async (): Promise<void> => {
     try {

@@ -38,7 +38,6 @@ import {
     decryptWithBackupCode,
     backupCodeId,
 } from "@/lib/encryption"
-import { saveMasterKey } from "@/lib/key-storage"
 import {
     setupMasterVault,
     storeBackupCodes,
@@ -165,8 +164,8 @@ export function MasterPasswordGate() {
             triggerShake()
             return
         }
-        if (strength.score < 2) {
-            setError("Password is too weak — please make it stronger.")
+        if (!strength.acceptable) {
+            setError("Use at least 12 characters with upper, lower, number and symbol; avoid common passwords.")
             triggerShake()
             return
         }
@@ -185,7 +184,6 @@ export function MasterPasswordGate() {
             )
             await storeBackupCodes(encryptedCodes)
 
-            await saveMasterKey(key)
             setKey(key)
             setBackupCodes(codes)
             resetForm()
@@ -209,12 +207,15 @@ export function MasterPasswordGate() {
             let key = await deriveKey(password, vault.salt, 600000)
             let valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
             if (!valid) {
+                // ponytail: legacy 100k vaults stay as-is; upgrade to 600k when a
+                // change-master-password flow lands (re-derives for free), or adopt
+                // DEK indirection. Silent re-encryption isn't crash-safe (entries
+                // local, verifier remote — no atomic cross-store commit).
                 key = await deriveKey(password, vault.salt, 100000)
                 valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
             }
 
             if (valid) {
-                await saveMasterKey(key)
                 setKey(key)
                 resetForm()
             } else {
@@ -251,6 +252,7 @@ export function MasterPasswordGate() {
             let key = await deriveKey(masterPassword, vault.salt, 600000)
             let valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
             if (!valid) {
+                // ponytail: legacy 100k fallback — see handleUnlock note above.
                 key = await deriveKey(masterPassword, vault.salt, 100000)
                 valid = await verifyKey(key, vault.verifier.encrypted, vault.verifier.iv)
             }
@@ -262,7 +264,6 @@ export function MasterPasswordGate() {
             }
 
             await markBackupCodeUsed(codeId)
-            await saveMasterKey(key)
             setKey(key)
             toast.success("Unlocked via backup code. That code is now consumed.")
         } catch (err: any) {

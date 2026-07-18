@@ -5,10 +5,10 @@ import { ClientLayout } from '../../components/sidebar/client-layout';
 import { RequireAuth } from '@/components/require-auth';
 import { MasterPasswordGate } from '@/components/master-password-gate';
 import { useMasterKeyStore } from '@/store/master-key-store';
-import { loadMasterKey, clearMasterKey } from '@/lib/key-storage';
+import { clearMasterKey } from '@/lib/key-storage';
 import { getMasterVaultOrNull } from '@/lib/global-vault-api';
-import { verifyKey } from '@/lib/encryption';
 import { restoreVault } from '@/lib/restore-vault';
+import { useIdleLock } from '@/lib/use-idle-lock';
 import useAuth from '@/utils/useAuth';
 
 // Single restoration path. Runs once per signed-in user mount. Mutates the
@@ -29,9 +29,7 @@ function VaultKeyRestorer() {
 
     (async () => {
       const result = await restoreVault({
-        loadMasterKey,
         getMasterVaultOrNull,
-        verifyKey,
         clearMasterKey,
       });
 
@@ -60,11 +58,17 @@ function VaultKeyRestorer() {
   return null;
 }
 
+function IdleLock() {
+  useIdleLock();
+  return null;
+}
+
 export function AppContent({ children }: { children: React.ReactNode }) {
   return (
     <RequireAuth>
       <MasterPasswordGate />
       <VaultKeyRestorer />
+      <IdleLock />
       <ClientLayout>{children}</ClientLayout>
     </RequireAuth>
   );

@@ -284,7 +284,7 @@ export function MinesweeperLayout() {
         {/* Header */}
         <div className="flex items-start justify-between w-full max-w-3xl">
           <div>
-            <h1 className="text-4xl font-extrabold tracking-tight leading-none">Minesweeper</h1>
+            <h1 className="text-3xl font-bold tracking-tight leading-none md:text-4xl">Minesweeper</h1>
             <p className="text-xs text-muted-foreground mt-1">Left click reveal · Right click flag/? · Double-click chord</p>
           </div>
           <div className="flex gap-2 items-start flex-shrink-0">

@@ -196,6 +196,19 @@
         "system": "Sistem"
       }
     },
+    "security": {
+      "title": "Keselamatan",
+      "description": "Kawal cara peti besi tersulit anda dikunci.",
+      "autoLock": {
+        "label": "Kunci automatik peti besi",
+        "never": "Tidak pernah",
+        "min5": "Selepas 5 minit",
+        "min15": "Selepas 15 minit",
+        "min30": "Selepas 30 minit",
+        "min60": "Selepas 1 jam",
+        "helpText": "Mengunci peti besi anda selepas tempoh tidak aktif ini dan memerlukan kata laluan induk anda untuk membuka kunci."
+      }
+    },
     "language": {
       "title": "Bahasa",
       "description": "Tetapkan bahasa yang digunakan di seluruh platform.",

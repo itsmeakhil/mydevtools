@@ -196,6 +196,19 @@
         "system": "System"
       }
     },
+    "security": {
+      "title": "Sicherheit",
+      "description": "Steuern Sie, wie Ihr verschlüsselter Tresor gesperrt wird.",
+      "autoLock": {
+        "label": "Automatische Tresorsperre",
+        "never": "Nie",
+        "min5": "Nach 5 Minuten",
+        "min15": "Nach 15 Minuten",
+        "min30": "Nach 30 Minuten",
+        "min60": "Nach 1 Stunde",
+        "helpText": "Sperrt Ihren Tresor nach dieser Zeit der Inaktivität und erfordert zum Entsperren Ihr Master-Passwort."
+      }
+    },
     "language": {
       "title": "Sprache",
       "description": "Legen Sie die Sprache für die gesamte Plattform fest.",

@@ -204,6 +204,7 @@ export function FaviconGeneratorLayout() {
             title={t('title')}
             description={t('subtitle')}
             accent={CATEGORY_ACCENT['Media & Design']}
+            offline={false}
           />
         </RevealItem>
         <Card
@@ -258,6 +259,7 @@ export function FaviconGeneratorLayout() {
           title={t('title')}
           description={t('subtitle')}
           accent={CATEGORY_ACCENT['Media & Design']}
+        offline={false}
         />
       </RevealItem>
 

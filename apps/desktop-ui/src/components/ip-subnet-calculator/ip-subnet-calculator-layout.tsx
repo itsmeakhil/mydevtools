@@ -12,6 +12,10 @@ import { Button } from '@/components/ui/button';
 import { Copy, Check } from 'lucide-react';
 import { computeIpv4Subnet, computeIpv6Subnet } from '@/lib/ip-subnet';
 import { cn } from '@/lib/utils';
+import { IconHierarchy2 } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 function Row({
   label,
@@ -75,10 +79,14 @@ export function IpSubnetCalculatorLayout() {
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+      <RevealItem index={0} className="shrink-0">
+        <ToolPageHeader
+          icon={IconHierarchy2}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT['Network & API']}
+        />
+      </RevealItem>
 
       <Tabs value={family} onValueChange={(v) => setFamily(v as 'ipv4' | 'ipv6')} className="flex min-h-0 flex-1 flex-col gap-4">
         <TabsList className="grid w-full max-w-md grid-cols-2">

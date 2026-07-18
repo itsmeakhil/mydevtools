@@ -81,6 +81,7 @@ export function HttpStatusCodesLayout() {
         title={t('title')}
         description={t('subtitle')}
         accent={CATEGORY_ACCENT['Network & API']}
+        offline={false}
       />
 
       <div className="mt-6 space-y-4">

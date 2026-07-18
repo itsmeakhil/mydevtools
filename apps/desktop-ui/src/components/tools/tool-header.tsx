@@ -1,57 +1,20 @@
 'use client';
 
-import { Heart } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { getRouteConfig } from '@/lib/route-config';
-import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store';
-import { useWorkspaceStore } from '@/store/workspace-store';
 import { normalizePinnedToolPath } from '@/lib/pinned-tools-path';
 import { toolCategoryMap } from '@/lib/tool-categories';
 import { categoryAccent } from '@/components/dashboard/types';
 import { cn } from '@/lib/utils';
 
-export function ToolPinButton({
-  toolId,
-  className,
-  iconClassName,
-}: {
+// Pin/favorite toggle removed from tool pages — pinning is managed from the
+// sidebar (star). Kept as a no-op so existing call sites keep compiling.
+export function ToolPinButton(_props: {
   toolId: string;
   className?: string;
   iconClassName?: string;
 }) {
-  const pinnedTools = usePinnedToolsForActiveWorkspace();
-  const togglePinKeyed = usePinnedToolsStore((s) => s.togglePin);
-  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
-  const togglePin = (id: string) => {
-    if (activeWorkspaceId) togglePinKeyed(activeWorkspaceId, id)
-  };
-  const canonical = normalizePinnedToolPath(toolId);
-  const isPinned = pinnedTools.includes(canonical);
-
-  const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    togglePin(toolId);
-  };
-
-  return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon"
-      onClick={handleFavoriteClick}
-      className={cn(
-        'shrink-0 text-muted-foreground hover:text-foreground',
-        className
-      )}
-      aria-label={isPinned ? 'Remove from pinned' : 'Pin to sidebar'}
-    >
-      <Heart
-        className={cn('h-4 w-4', isPinned && 'fill-current', iconClassName)}
-      />
-    </Button>
-  );
+  return null;
 }
 
 interface ToolHeaderProps {
@@ -64,18 +27,8 @@ interface ToolHeaderProps {
 export function ToolHeader({ title, description, toolId, className }: ToolHeaderProps) {
   const hasHeading = Boolean(title?.trim()) || Boolean(description?.trim());
 
-  if (!hasHeading) {
-    return (
-      <CardHeader
-        className={cn(
-          'flex flex-row items-center justify-end space-y-0 p-2 sm:p-3',
-          className
-        )}
-      >
-        <ToolPinButton toolId={toolId} className="h-8 w-8" iconClassName="h-5 w-5" />
-      </CardHeader>
-    );
-  }
+  // Without a heading the header existed only to hold the pin button — now gone.
+  if (!hasHeading) return null;
 
   // Compact single-row header — the tool's identity already lives in the tab
   // and sidebar, so the in-page header stays out of the content's way.
@@ -103,7 +56,6 @@ export function ToolHeader({ title, description, toolId, className }: ToolHeader
           <CardDescription className="truncate text-xs leading-tight">{description}</CardDescription>
         ) : null}
       </div>
-      <ToolPinButton toolId={toolId} className="h-8 w-8" />
     </CardHeader>
   );
 }

@@ -239,7 +239,7 @@ export function SnakeLayout() {
       {/* Header */}
       <div className="flex items-start justify-between w-full max-w-md">
         <div>
-          <h1 className="text-4xl font-extrabold tracking-tight leading-none">{t('title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight leading-none md:text-4xl">{t('title')}</h1>
           <p className="text-xs text-muted-foreground mt-1">{t('subtitle')}</p>
         </div>
         <div className="flex gap-2">

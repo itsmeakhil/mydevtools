@@ -196,6 +196,19 @@
         "system": "System"
       }
     },
+    "security": {
+      "title": "Sikkerhet",
+      "description": "Styr hvordan det krypterte hvelvet ditt låses.",
+      "autoLock": {
+        "label": "Automatisk låsing av hvelv",
+        "never": "Aldri",
+        "min5": "Etter 5 minutter",
+        "min15": "Etter 15 minutter",
+        "min30": "Etter 30 minutter",
+        "min60": "Etter 1 time",
+        "helpText": "Låser hvelvet ditt etter så lang tids inaktivitet og krever hovedpassordet ditt for å låse opp."
+      }
+    },
     "language": {
       "title": "Språk",
       "description": "Angi språket som brukes på plattformen.",

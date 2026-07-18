@@ -196,6 +196,19 @@
         "system": "Sistema"
       }
     },
+    "security": {
+      "title": "Segurança",
+      "description": "Controle como o seu cofre criptografado é bloqueado.",
+      "autoLock": {
+        "label": "Bloqueio automático do cofre",
+        "never": "Nunca",
+        "min5": "Após 5 minutos",
+        "min15": "Após 15 minutos",
+        "min30": "Após 30 minutos",
+        "min60": "Após 1 hora",
+        "helpText": "Bloqueia o seu cofre após esse tempo de inatividade e exige a sua senha mestra para desbloquear."
+      }
+    },
     "language": {
       "title": "Idioma",
       "description": "Defina o idioma usado em toda a plataforma.",

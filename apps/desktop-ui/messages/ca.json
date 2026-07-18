@@ -196,6 +196,19 @@
         "system": "Sistema"
       }
     },
+    "security": {
+      "title": "Seguretat",
+      "description": "Controla com es bloqueja la teva caixa forta xifrada.",
+      "autoLock": {
+        "label": "Bloqueig automàtic de la caixa forta",
+        "never": "Mai",
+        "min5": "Al cap de 5 minuts",
+        "min15": "Al cap de 15 minuts",
+        "min30": "Al cap de 30 minuts",
+        "min60": "Al cap d'1 hora",
+        "helpText": "Bloqueja la teva caixa forta després d'aquest temps d'inactivitat i requereix la teva contrasenya mestra per desbloquejar-la."
+      }
+    },
     "language": {
       "title": "Idioma",
       "description": "Defineix l'idioma emprat a tota la plataforma.",

@@ -196,6 +196,19 @@
         "system": "Hệ thống"
       }
     },
+    "security": {
+      "title": "Bảo mật",
+      "description": "Kiểm soát cách kho được mã hóa của bạn khóa lại.",
+      "autoLock": {
+        "label": "Tự động khóa kho",
+        "never": "Không bao giờ",
+        "min5": "Sau 5 phút",
+        "min15": "Sau 15 phút",
+        "min30": "Sau 30 phút",
+        "min60": "Sau 1 giờ",
+        "helpText": "Khóa kho của bạn sau khoảng thời gian không hoạt động này và yêu cầu mật khẩu chính của bạn để mở khóa."
+      }
+    },
     "language": {
       "title": "Ngôn ngữ",
       "description": "Đặt ngôn ngữ sử dụng trên toàn nền tảng.",

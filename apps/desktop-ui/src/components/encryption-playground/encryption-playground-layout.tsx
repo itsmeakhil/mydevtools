@@ -29,6 +29,10 @@ import {
 } from '@/lib/aes-gcm-playground';
 import { cn } from '@/lib/utils';
 import { mapEncryptError, mapDecryptError } from './error-mapping';
+import { IconShieldLock } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 const AES_BITS: AesBits[] = [128, 192, 256];
 
@@ -116,10 +120,14 @@ export function EncryptionPlaygroundLayout() {
 
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
-      </div>
+      <RevealItem index={0} className="shrink-0">
+        <ToolPageHeader
+          icon={IconShieldLock}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT.Security}
+        />
+      </RevealItem>
 
       <Tabs value={tab} onValueChange={(v) => setTab(v as 'encrypt' | 'decrypt')} className="flex min-h-0 flex-1 flex-col gap-4">
         <TabsList className="grid w-full max-w-md grid-cols-2">

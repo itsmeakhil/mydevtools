@@ -196,6 +196,19 @@
         "system": "跟随系统"
       }
     },
+    "security": {
+      "title": "安全",
+      "description": "控制加密保险库的锁定方式。",
+      "autoLock": {
+        "label": "保险库自动锁定",
+        "never": "从不",
+        "min5": "5 分钟后",
+        "min15": "15 分钟后",
+        "min30": "30 分钟后",
+        "min60": "1 小时后",
+        "helpText": "在此时长无操作后锁定保险库，需要输入主密码才能解锁。"
+      }
+    },
     "language": {
       "title": "语言",
       "description": "设置全站使用的语言。",

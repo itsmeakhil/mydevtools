@@ -196,6 +196,19 @@
         "system": "Podle systému"
       }
     },
+    "security": {
+      "title": "Zabezpečení",
+      "description": "Nastavte, jak se váš šifrovaný trezor uzamyká.",
+      "autoLock": {
+        "label": "Automatické uzamčení trezoru",
+        "never": "Nikdy",
+        "min5": "Po 5 minutách",
+        "min15": "Po 15 minutách",
+        "min30": "Po 30 minutách",
+        "min60": "Po 1 hodině",
+        "helpText": "Uzamkne váš trezor po této době nečinnosti a k odemčení vyžaduje vaše hlavní heslo."
+      }
+    },
     "language": {
       "title": "Jazyk",
       "description": "Nastavte jazyk používaný v celé aplikaci.",

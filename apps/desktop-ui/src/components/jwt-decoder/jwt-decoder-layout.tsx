@@ -13,6 +13,10 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { JwtSignerLayout } from './jwt-signer-layout';
 import { SendToMenu } from '@/components/ui/send-to-menu';
+import { IconKey } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
   const { isCopied: done, copyToClipboard } = useCopyToClipboard();
@@ -76,15 +80,6 @@ function JwtDecodePanel() {
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">
-          {t.rich('subtitle', {
-            code: (chunks) => <code className="text-foreground">{chunks}</code>,
-          })}
-        </p>
-      </div>
-
       <Card className="flex flex-col overflow-hidden shrink-0">
         <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30">
           <Label htmlFor="jwt-input" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -211,6 +206,17 @@ export function JwtDecoderLayout() {
 
   return (
     <Tabs defaultValue="decode" className="flex h-full min-h-0 w-full flex-col gap-4">
+      <RevealItem index={0} className="shrink-0">
+        <ToolPageHeader
+          icon={IconKey}
+          title={t('title')}
+          description={t.rich('subtitle', {
+            code: (chunks) => <code className="text-foreground">{chunks}</code>,
+          })}
+          accent={CATEGORY_ACCENT.Security}
+        />
+      </RevealItem>
+
       <TabsList className="shrink-0 w-fit">
         <TabsTrigger value="decode">{t('tabs.decode')}</TabsTrigger>
         <TabsTrigger value="sign">{t('tabs.sign')}</TabsTrigger>

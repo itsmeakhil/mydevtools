@@ -196,6 +196,19 @@
         "system": "Stelsel"
       }
     },
+    "security": {
+      "title": "Sekuriteit",
+      "description": "Beheer hoe jou geënkripteerde kluis sluit.",
+      "autoLock": {
+        "label": "Kluis outo-sluit",
+        "never": "Nooit",
+        "min5": "Na 5 minute",
+        "min15": "Na 15 minute",
+        "min30": "Na 30 minute",
+        "min60": "Na 1 uur",
+        "helpText": "Sluit jou kluis ná hierdie tydperk van onaktiwiteit, wat jou meesterwagwoord vereis om te ontsluit."
+      }
+    },
     "language": {
       "title": "Taal",
       "description": "Stel die taal wat oor die platform gebruik word.",

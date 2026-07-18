@@ -157,7 +157,7 @@ export function DiffCheckerLayout() {
     <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
       <div className="dash-ambient -z-10" aria-hidden />
       <RevealItem index={0}>
-        <ToolPageHeader icon={IconGitCompare} title={t('title')} description={t('subtitle')} />
+        <ToolPageHeader icon={IconGitCompare} title={t('title')} description={t('subtitle')} offline={false} />
       </RevealItem>
 
       {/* Status + clear row */}

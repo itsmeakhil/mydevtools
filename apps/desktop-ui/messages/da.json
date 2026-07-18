@@ -196,6 +196,19 @@
         "system": "System"
       }
     },
+    "security": {
+      "title": "Sikkerhed",
+      "description": "Styr, hvordan din krypterede boks låses.",
+      "autoLock": {
+        "label": "Automatisk låsning af boks",
+        "never": "Aldrig",
+        "min5": "Efter 5 minutter",
+        "min15": "Efter 15 minutter",
+        "min30": "Efter 30 minutter",
+        "min60": "Efter 1 time",
+        "helpText": "Låser din boks efter så lang tids inaktivitet og kræver din hovedadgangskode for at låse op."
+      }
+    },
     "language": {
       "title": "Sprog",
       "description": "Indstil det sprog, der bruges på tværs af platformen.",

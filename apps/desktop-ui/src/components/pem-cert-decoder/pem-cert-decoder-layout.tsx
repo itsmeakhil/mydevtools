@@ -10,6 +10,10 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { AlertCircle, Check, Copy, Trash2 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { IconCertificate } from '@tabler/icons-react';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
   const { isCopied, copyToClipboard } = useCopyToClipboard();
@@ -181,14 +185,16 @@ export function PemCertDecoderLayout() {
 
   return (
     <div className={cn('flex flex-col h-full gap-4 min-h-0')}>
-      <div className="shrink-0 md:hidden">
-        <h1 className="text-lg font-semibold tracking-tight">{t('title')}</h1>
-        <p className="text-xs text-muted-foreground">
-          {t.rich('subtitle', {
+      <RevealItem index={0} className="shrink-0">
+        <ToolPageHeader
+          icon={IconCertificate}
+          title={t('title')}
+          description={t.rich('subtitle', {
             code: (chunks) => <code className="text-foreground">{chunks}</code>,
           })}
-        </p>
-      </div>
+          accent={CATEGORY_ACCENT.Security}
+        />
+      </RevealItem>
 
       <Card className="flex flex-col overflow-hidden shrink-0">
         <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30">

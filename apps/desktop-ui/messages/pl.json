@@ -196,6 +196,19 @@
         "system": "System"
       }
     },
+    "security": {
+      "title": "Bezpieczeństwo",
+      "description": "Kontroluj, jak blokuje się Twój zaszyfrowany sejf.",
+      "autoLock": {
+        "label": "Automatyczna blokada sejfu",
+        "never": "Nigdy",
+        "min5": "Po 5 minutach",
+        "min15": "Po 15 minutach",
+        "min30": "Po 30 minutach",
+        "min60": "Po 1 godzinie",
+        "helpText": "Blokuje Twój sejf po tym czasie bezczynności i wymaga hasła głównego do odblokowania."
+      }
+    },
     "language": {
       "title": "Language",
       "description": "Set the language used across the platform.",

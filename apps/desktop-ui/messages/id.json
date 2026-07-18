@@ -196,6 +196,19 @@
         "system": "Sistem"
       }
     },
+    "security": {
+      "title": "Keamanan",
+      "description": "Kontrol cara brankas terenkripsi Anda terkunci.",
+      "autoLock": {
+        "label": "Kunci otomatis brankas",
+        "never": "Tidak pernah",
+        "min5": "Setelah 5 menit",
+        "min15": "Setelah 15 menit",
+        "min30": "Setelah 30 menit",
+        "min60": "Setelah 1 jam",
+        "helpText": "Mengunci brankas Anda setelah tidak aktif selama itu, dan memerlukan kata sandi utama Anda untuk membukanya."
+      }
+    },
     "language": {
       "title": "Bahasa",
       "description": "Atur bahasa yang digunakan di seluruh platform.",

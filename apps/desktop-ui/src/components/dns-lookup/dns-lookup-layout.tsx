@@ -22,6 +22,9 @@ import {
 } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 import { dohLookup, type DNSRecord, type DNSLookupResult } from '@/lib/dns-doh';
+import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { CATEGORY_ACCENT } from '@/components/dashboard/types';
 
 const RECORD_TYPES = ['A', 'AAAA', 'MX', 'TXT', 'NS', 'CNAME', 'SOA', 'CAA', 'PTR'] as const;
 type RecordType = (typeof RECORD_TYPES)[number];
@@ -211,6 +214,15 @@ export function DnsLookupLayout() {
   return (
     <TooltipProvider delayDuration={300}>
       <div className="h-full w-full space-y-4">
+        <RevealItem index={0}>
+          <ToolPageHeader
+            icon={IconWorld}
+            title={t('title')}
+            description={t('subtitle')}
+            accent={CATEGORY_ACCENT['Network & API']}
+          />
+        </RevealItem>
+
         {/* Search card */}
         <Card className="p-4 space-y-4">
           <div className="flex gap-2">

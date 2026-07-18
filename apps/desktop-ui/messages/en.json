@@ -263,6 +263,19 @@
         "system": "System"
       }
     },
+    "security": {
+      "title": "Security",
+      "description": "Control how your encrypted vault locks.",
+      "autoLock": {
+        "label": "Vault auto-lock",
+        "never": "Never",
+        "min5": "After 5 minutes",
+        "min15": "After 15 minutes",
+        "min30": "After 30 minutes",
+        "min60": "After 1 hour",
+        "helpText": "Locks your vault after this much inactivity, requiring your master password to unlock."
+      }
+    },
     "language": {
       "title": "Language",
       "description": "Set the language used across the platform.",
