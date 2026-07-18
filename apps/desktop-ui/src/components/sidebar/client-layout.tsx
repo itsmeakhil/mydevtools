@@ -1,10 +1,9 @@
 'use client'
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
-import { TabBar } from '@/components/tab-bar/tab-bar';
 import { TopBar } from '@/components/shell/top-bar';
 import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
@@ -67,11 +66,6 @@ function Layout({ children }: { children: React.ReactNode }) {
   // previous workspace's data.
   const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId);
 
-  // Open command palette for new tab via "+" button
-  const openCommandPalette = useCallback(() => {
-    document.dispatchEvent(new CustomEvent('open-command-palette'));
-  }, []);
-
   const inTabMode = isTabRoute(pathname) && tabs.length > 0;
 
   return (
@@ -87,11 +81,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             }`}
         >
           <div className="shrink-0 z-20 bg-background">
-            {inTabMode ? (
-              <TabBar onNewTab={openCommandPalette} />
-            ) : (
-              <NavBar />
-            )}
+            {!inTabMode && <NavBar />}
             <MigrationBanner />
             <MobileDesktopHint />
           </div>

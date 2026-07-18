@@ -1,9 +1,9 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { LayoutDashboard, LayoutGrid, Star, ChevronDown } from 'lucide-react'
+import { LayoutDashboard, LayoutGrid, Star, ChevronDown, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
   Tooltip,
@@ -19,17 +19,16 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { usePinnedToolsForActiveWorkspace, usePinnedToolsStore } from '@/store/pinned-tools-store'
 import { useActiveWorkspace } from '@/store/workspace-store'
-import {
-  buildPinnedNavItems,
-  buildCategoryGroups,
-} from '@/components/sidebar/app-sidebar.helpers'
+import { useTabStore } from '@/store/tab-store'
+import { getRouteConfig } from '@/lib/route-config'
+import { buildPinnedNavItems, getSidebarToolIcon } from '@/components/sidebar/app-sidebar.helpers'
 import type { NavLink } from '@/components/sidebar/types'
 import { getToolMessageKey } from '@/lib/tool-i18n'
 
 /**
- * Grouped top-nav — replaces the left panel. Dashboard, a "Pinned" group of
- * favorites, then each tool category; hovering a group drops its tools down.
- * ⌘K at the end opens the full palette. Reuses the exact pinned + catalog data.
+ * Grouped top-nav — replaces the left panel AND the old tab strip. Dashboard,
+ * a "Pinned" group of favorites, then one chip per open tool tab (opened tools
+ * dock here; ⌥1–9 jumps, ⌥W closes). ⌘K at the end opens the full palette.
  */
 
 /** Icon-only entry (Dashboard, ⌘K) with a hover tooltip. */
@@ -69,19 +68,15 @@ function NavIcon({
   )
 }
 
-/** A group label that reveals its tools on hover (Pinned or a category). */
-function GroupMenu({
-  label,
-  leadingIcon: LeadingIcon,
+/** The "Pinned" label revealing favorite tools on hover. */
+function PinnedMenu({
   tools,
   onNavigate,
   onUnpin,
 }: {
-  label: string
-  leadingIcon?: React.ElementType
   tools: NavLink[]
   onNavigate: (url: string) => void
-  onUnpin?: (url: string) => void
+  onUnpin: (url: string) => void
 }) {
   const pathname = usePathname()
   const tNav = useTranslations('Navigation')
@@ -116,14 +111,12 @@ function GroupMenu({
               : 'text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground',
           )}
         >
-          {LeadingIcon ? (
-            <LeadingIcon
-              className={cn('h-3.5 w-3.5', groupActive && 'text-primary')}
-              strokeWidth={1.75}
-              aria-hidden
-            />
-          ) : null}
-          <span className="whitespace-nowrap">{label}</span>
+          <Star
+            className={cn('h-3.5 w-3.5', groupActive && 'text-primary')}
+            strokeWidth={1.75}
+            aria-hidden
+          />
+          <span className="whitespace-nowrap">Pinned</span>
           <ChevronDown className="h-3 w-3 opacity-50" aria-hidden />
         </button>
       </DropdownMenuTrigger>
@@ -153,21 +146,19 @@ function GroupMenu({
                 />
               ) : null}
               <span className="truncate">{label}</span>
-              {onUnpin ? (
-                <button
-                  type="button"
-                  aria-label={`Unpin ${label}`}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    onUnpin(url)
-                  }}
-                  className="ml-auto shrink-0 rounded p-0.5 text-primary opacity-80 transition-opacity hover:opacity-100"
-                >
-                  <Star className="h-3.5 w-3.5 fill-primary" aria-hidden />
-                </button>
-              ) : null}
+              <button
+                type="button"
+                aria-label={`Unpin ${label}`}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  onUnpin(url)
+                }}
+                className="ml-auto shrink-0 rounded p-0.5 text-primary opacity-80 transition-opacity hover:opacity-100"
+              >
+                <Star className="h-3.5 w-3.5 fill-primary" aria-hidden />
+              </button>
             </DropdownMenuItem>
           )
         })}
@@ -179,11 +170,12 @@ function GroupMenu({
 export function TopNavStrip() {
   const router = useRouter()
   const pathname = usePathname()
+  const tNav = useTranslations('Navigation')
   const pinnedTools = usePinnedToolsForActiveWorkspace()
   const activeWs = useActiveWorkspace()
   const pinned = buildPinnedNavItems(pinnedTools, activeWs)
-  const categories = useMemo(() => buildCategoryGroups(), [])
   const togglePin = usePinnedToolsStore((s) => s.togglePin)
+  const { tabs, closeTab } = useTabStore()
   const unpin = useCallback(
     (url: string) => {
       if (activeWs) togglePin(activeWs.id, url)
@@ -196,10 +188,53 @@ export function TopNavStrip() {
     document.dispatchEvent(new CustomEvent('open-command-palette'))
   }, [])
 
+  const closeTabAndNavigate = useCallback(
+    (path: string) => {
+      const { tabs, activeTabPath } = useTabStore.getState()
+      const idx = tabs.findIndex((t) => t.path === path)
+      const newTabs = tabs.filter((t) => t.path !== path)
+      if (activeTabPath === path) {
+        const next = newTabs[idx]?.path ?? newTabs[Math.max(0, idx - 1)]?.path ?? null
+        router.push(next ?? '/dashboard')
+      }
+      closeTab(path)
+    },
+    [router, closeTab],
+  )
+
+  // Keyboard shortcuts: ⌥1–9 jump to tab, ⌥W close active tab.
+  // (⌘W / ⌘1–9 are browser-reserved and cannot be intercepted.)
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!e.altKey || e.metaKey || e.ctrlKey || e.shiftKey) return
+      const t = e.target as HTMLElement | null
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return
+      // e.code is layout-independent — on macOS ⌥ changes e.key ('w' → '∑').
+      if (e.code === 'KeyW') {
+        const { activeTabPath } = useTabStore.getState()
+        if (!activeTabPath) return
+        e.preventDefault()
+        closeTabAndNavigate(activeTabPath)
+        return
+      }
+      const digit = /^Digit([1-9])$/.exec(e.code)
+      if (digit) {
+        const { tabs, activeTabPath } = useTabStore.getState()
+        const tab = tabs[Number(digit[1]) - 1]
+        if (!tab) return
+        e.preventDefault()
+        if (tab.path !== activeTabPath) router.push(tab.path)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [router, closeTabAndNavigate])
+
   const isDashboard = pathname === '/dashboard'
 
   // Edge-fade affordance: show a fade only on the side that has more to scroll.
   const scrollRef = useRef<HTMLDivElement>(null)
+  const activeTabRef = useRef<HTMLButtonElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(false)
   const updateScroll = useCallback(() => {
@@ -219,7 +254,21 @@ export function TopNavStrip() {
       el.removeEventListener('scroll', updateScroll)
       ro.disconnect()
     }
-  }, [updateScroll, categories.length, pinned.length])
+  }, [updateScroll, tabs.length, pinned.length])
+
+  // Keep the active tab chip in view when it changes.
+  useEffect(() => {
+    const btn = activeTabRef.current
+    const container = scrollRef.current
+    if (!btn || !container) return
+    const { offsetLeft, offsetWidth } = btn
+    const { scrollLeft, clientWidth } = container
+    if (offsetLeft < scrollLeft) {
+      container.scrollTo({ left: offsetLeft - 8, behavior: 'smooth' })
+    } else if (offsetLeft + offsetWidth > scrollLeft + clientWidth) {
+      container.scrollTo({ left: offsetLeft + offsetWidth - clientWidth + 8, behavior: 'smooth' })
+    }
+  }, [pathname])
 
   return (
     <TooltipProvider delayDuration={300}>
@@ -232,6 +281,14 @@ export function TopNavStrip() {
         />
 
         <div className="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden />
+
+        {/* Pinned stays fixed — only the tab strip scrolls. */}
+        {pinned.length > 0 ? (
+          <>
+            <PinnedMenu tools={pinned} onNavigate={navigate} onUnpin={unpin} />
+            <div className="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden />
+          </>
+        ) : null}
 
         {/* overflow-hidden wrapper physically clips the horizontal scrollbar
             (which the scroll child pushes below its own box via pb+/-mb). */}
@@ -248,23 +305,95 @@ export function TopNavStrip() {
             className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto overflow-y-hidden"
             style={{ paddingBottom: 24, marginBottom: -24 }}
           >
-            {pinned.length > 0 ? (
-              <GroupMenu
-                label="Pinned"
-                leadingIcon={Star}
-                tools={pinned}
-                onNavigate={navigate}
-                onUnpin={unpin}
-              />
-            ) : null}
-            {categories.map((group) => (
-              <GroupMenu
-                key={group.title}
-                label={group.title}
-                tools={group.tools}
-                onNavigate={navigate}
-              />
-            ))}
+            {/* Open tool tabs — one per open tool, docked next to Pinned.
+                Same design as the old tab strip: 1px bifurcation between two
+                inactive neighbours, suppressed next to the active tab, always
+                occupying 1px so tabs never shift when the divider toggles.
+                gap-0 wrapper so dividers sit flush like the old strip. */}
+            <div className="flex shrink-0 items-center">
+            {tabs.map((tab, i) => {
+              const config = getRouteConfig(tab.path)
+              const key = getToolMessageKey(tab.path)
+              const title =
+                (key ? tNav(key as never) : config?.title) ??
+                tab.path.split('/').pop() ??
+                tab.path
+              const Icon = getSidebarToolIcon(tab.path) ?? config?.icon
+              const isActive = pathname === tab.path
+              const prevActive = i > 0 && tabs[i - 1].path === pathname
+              const showDivider = i > 0 && !isActive && !prevActive
+              return (
+                <React.Fragment key={tab.path}>
+                  {i > 0 ? (
+                    <div
+                      aria-hidden
+                      className={cn(
+                        'h-5 w-px shrink-0 self-center bg-border transition-opacity duration-150',
+                        showDivider ? 'opacity-100' : 'opacity-0',
+                      )}
+                    />
+                  ) : null}
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        ref={isActive ? activeTabRef : undefined}
+                        onClick={() => {
+                          if (tab.path !== pathname) router.push(tab.path)
+                        }}
+                        className={cn(
+                          'group relative flex h-8 min-w-[144px] max-w-[230px] shrink-0 cursor-pointer items-center gap-2.5 rounded-md border px-3 text-[13px] font-medium leading-none transition-colors duration-150',
+                          isActive
+                            ? 'border-border bg-[hsl(var(--surface-1))] text-foreground'
+                            : 'border-transparent text-foreground/60 hover:bg-foreground/[0.05] hover:text-foreground/90',
+                        )}
+                      >
+                        {isActive && (
+                          <span className="pointer-events-none absolute inset-x-0 top-0 h-0.5 rounded-t-md bg-primary" />
+                        )}
+                        {Icon ? (
+                          <Icon
+                            className={cn(
+                              'h-3.5 w-3.5 shrink-0 transition-colors',
+                              isActive
+                                ? 'text-primary'
+                                : 'text-muted-foreground/70 group-hover:text-foreground/70',
+                            )}
+                            aria-hidden
+                          />
+                        ) : null}
+                        <span className="min-w-0 flex-1 truncate text-left">{title}</span>
+                        <span
+                          role="button"
+                          aria-label={`Close ${title}`}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            closeTabAndNavigate(tab.path)
+                          }}
+                          className={cn(
+                            'flex h-4 w-4 shrink-0 items-center justify-center rounded transition-all duration-100 hover:bg-[hsl(var(--surface-3))] hover:text-foreground',
+                            isActive
+                              ? 'text-muted-foreground opacity-100'
+                              : 'text-muted-foreground/40 opacity-0 group-hover:opacity-100',
+                          )}
+                        >
+                          <X className="h-3 w-3" strokeWidth={2.5} aria-hidden />
+                        </span>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" sideOffset={8} className="flex items-center gap-1.5 text-xs">
+                      {title}
+                      {i < 9 ? (
+                        <kbd className="rounded border border-border/60 bg-muted/60 px-1 font-mono text-[10px] text-muted-foreground">
+                          ⌥{i + 1}
+                        </kbd>
+                      ) : null}
+                    </TooltipContent>
+                  </Tooltip>
+                </React.Fragment>
+              )
+            })}
+            </div>
           </div>
           <div
             aria-hidden
