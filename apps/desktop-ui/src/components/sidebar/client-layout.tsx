@@ -9,6 +9,7 @@ import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
 import { MigrationBanner } from '@/components/migration-banner';
+import { isDesktop } from '@/lib/desktop/is-desktop';
 import { MobileDesktopHint } from '@/components/mobile-desktop-hint';
 import { useWorkspaceStore } from '@/store/workspace-store';
 import { initWorkspaceScopeReset } from '@/lib/workspace-scope-reset';
@@ -82,7 +83,8 @@ function Layout({ children }: { children: React.ReactNode }) {
         >
           <div className="shrink-0 z-20 bg-background">
             {!inTabMode && <NavBar />}
-            <MigrationBanner />
+            {/* Web-account migration poll — desktop local API has no /auth/me */}
+            {!isDesktop() && <MigrationBanner />}
             <MobileDesktopHint />
           </div>
 

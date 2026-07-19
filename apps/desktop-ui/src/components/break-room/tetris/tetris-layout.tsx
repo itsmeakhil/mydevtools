@@ -1,7 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { IconDeviceGamepad2 } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import {
   COLS, ROWS, CELL, BEST_KEY, SPRINT_LINES, ULTRA_MS,
   PIECES, calcScore, clearLines, collides, detectTSpin, emptyBoard,
@@ -51,6 +55,7 @@ function StatCard({ label, value, highlight }: { label: string; value: string | 
 interface ScorePop { id: number; val: number; label?: string }
 
 export function TetrisLayout() {
+  const t = useTranslations('Tetris')
   const [board, setBoard]           = useState<Board>(emptyBoard)
   const [piece, setPiece]           = useState<Piece | null>(null)
   const [next, setNext]             = useState<Piece>(() => { resetBag(); return randomPiece() })
@@ -529,12 +534,12 @@ export function TetrisLayout() {
 
         {/* Header */}
         <div style={{ width: BOARD_W + PANEL_W * 2 + 24, maxWidth: '100%' }} className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight leading-none md:text-4xl">Tetris</h1>
-            <p className="text-[11px] text-muted-foreground mt-0.5 hidden sm:block">
-              ← → · ↑ rotate · Space drop · C hold · P pause
-            </p>
-          </div>
+          <ToolPageHeader
+            icon={IconDeviceGamepad2}
+            title={t('title')}
+            description={<span className="hidden sm:block">← → · ↑ rotate · Space drop · C hold · P pause</span>}
+            accent={CATEGORY_ACCENT['Break Room']}
+          />
           <div className="flex gap-2 items-center">
             <button
               onClick={() => setShowSettings(s => !s)}

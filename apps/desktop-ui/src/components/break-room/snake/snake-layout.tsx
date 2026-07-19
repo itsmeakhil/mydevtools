@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { IconDeviceGamepad2 } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { cn } from '@/lib/utils'
 import {
   BEST_KEY, CELL, COLS, DIFFICULTY_CONFIG, INIT_SNAKE, OPPOSITE,
@@ -238,10 +241,12 @@ export function SnakeLayout() {
     <div className="flex flex-col items-center gap-4 select-none py-2 md:py-6">
       {/* Header */}
       <div className="flex items-start justify-between w-full max-w-md">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight leading-none md:text-4xl">{t('title')}</h1>
-          <p className="text-xs text-muted-foreground mt-1">{t('subtitle')}</p>
-        </div>
+        <ToolPageHeader
+          icon={IconDeviceGamepad2}
+          title={t('title')}
+          description={t('subtitle')}
+          accent={CATEGORY_ACCENT['Break Room']}
+        />
         <div className="flex gap-2">
           <div className="bg-muted rounded-lg px-3 py-1.5 text-center min-w-[64px]">
             <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">{t('score')}</div>

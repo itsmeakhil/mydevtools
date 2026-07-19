@@ -1,7 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { IconDeviceGamepad2 } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { cn } from '@/lib/utils'
 import {
   BEST_KEY, BSTREAK_KEY, NUM_COLOR, PRESET, STREAK_KEY,
@@ -12,6 +16,7 @@ import {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function MinesweeperLayout() {
+  const t = useTranslations('Minesweeper')
   const [difficulty, setDifficulty]     = useState<Difficulty>('beginner')
   const [board, setBoard]               = useState<Cell[][] | null>(null)
   const [status, setStatus]             = useState<Status>('idle')
@@ -283,10 +288,12 @@ export function MinesweeperLayout() {
 
         {/* Header */}
         <div className="flex items-start justify-between w-full max-w-3xl">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight leading-none md:text-4xl">Minesweeper</h1>
-            <p className="text-xs text-muted-foreground mt-1">Left click reveal · Right click flag/? · Double-click chord</p>
-          </div>
+          <ToolPageHeader
+            icon={IconDeviceGamepad2}
+            title={t('title')}
+            description="Left click reveal · Right click flag/? · Double-click chord"
+            accent={CATEGORY_ACCENT['Break Room']}
+          />
           <div className="flex gap-2 items-start flex-shrink-0">
             {/* Streak */}
             {(streak > 0 || bestStreak > 0) && (

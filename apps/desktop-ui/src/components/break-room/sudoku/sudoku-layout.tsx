@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { IconDeviceGamepad2 } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
+import { ToolPageHeader } from '@/components/tools/tool-page-header'
+import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { cn } from '@/lib/utils'
 import {
   buildConflicts, calcScore, DIFFICULTIES, emptyGrid, emptyNotes, generatePuzzle,
@@ -249,12 +252,12 @@ export function SudokuLayout() {
     <div className="flex flex-col items-center gap-4 select-none py-2 md:py-4 px-2">
       {/* Header */}
       <div className="flex items-start justify-between w-full max-w-xl">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight leading-none md:text-4xl">{t('title')}</h1>
-          <p className="text-xs text-muted-foreground mt-1">
-            {completedStages}/150 {t('stagesCompleted')}
-          </p>
-        </div>
+        <ToolPageHeader
+          icon={IconDeviceGamepad2}
+          title={t('title')}
+          description={`${completedStages}/150 ${t('stagesCompleted')}`}
+          accent={CATEGORY_ACCENT['Break Room']}
+        />
         <div className="flex gap-2">
           {mistakes > 0 && (
             <div className="bg-muted rounded-lg px-3 py-1.5 text-center min-w-[56px]">

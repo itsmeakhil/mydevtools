@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Settings, LogOut, User as UserIcon, HelpCircle, Moon } from 'lucide-react'
+import { Settings, LogOut, User as UserIcon, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
 import { Logo } from '@/components/logo'
 import { ModeToggle } from '@/components/modeToggle'
-import { TopNavStrip } from '@/components/shell/top-nav-strip'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { TopNavStrip, NavIcon } from '@/components/shell/top-nav-strip'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -126,8 +127,15 @@ export function TopBar() {
       {/* Draggable spacer — the breathing room in the middle */}
       <div data-tauri-drag-region className="h-full flex-1" />
 
-      {/* Right cluster — just the account menu (theme + settings live inside it) */}
+      {/* Right cluster — open tool + account menu (theme + settings live inside it) */}
       <div className="flex shrink-0 items-center gap-2">
+        <TooltipProvider delayDuration={300}>
+          <NavIcon
+            label="Open tool (⌘K)"
+            icon={Grid2x2Plus}
+            onClick={() => document.dispatchEvent(new CustomEvent('open-command-palette'))}
+          />
+        </TooltipProvider>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button

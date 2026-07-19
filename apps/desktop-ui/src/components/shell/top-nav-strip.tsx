@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { LayoutDashboard, Grid2x2Plus, Star, ChevronDown, X } from 'lucide-react'
+import { LayoutDashboard, Star, ChevronDown, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
   Tooltip,
@@ -21,7 +21,7 @@ import { usePinnedToolsForActiveWorkspace, usePinnedToolsStore } from '@/store/p
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
-import { buildPinnedNavItems } from '@/components/sidebar/app-sidebar.helpers'
+import { buildPinnedNavItems, getSidebarToolIcon } from '@/components/sidebar/app-sidebar.helpers'
 import type { NavLink } from '@/components/sidebar/types'
 import { getToolMessageKey } from '@/lib/tool-i18n'
 
@@ -32,7 +32,7 @@ import { getToolMessageKey } from '@/lib/tool-i18n'
  */
 
 /** Icon-only entry (Dashboard, ⌘K) with a hover tooltip. */
-function NavIcon({
+export function NavIcon({
   label,
   icon: Icon,
   active,
@@ -184,9 +184,6 @@ export function TopNavStrip() {
   )
 
   const navigate = useCallback((url: string) => router.push(url), [router])
-  const openPalette = useCallback(() => {
-    document.dispatchEvent(new CustomEvent('open-command-palette'))
-  }, [])
 
   const closeTabAndNavigate = useCallback(
     (path: string) => {
@@ -318,7 +315,9 @@ export function TopNavStrip() {
                 (key ? tNav(key as never) : config?.title) ??
                 tab.path.split('/').pop() ??
                 tab.path
-              const Icon = config?.icon
+              // Per-tool @tabler sidebar icon (same as Pinned/sidebar); the
+              // generic route-config lucide icon only when the catalog has none.
+              const Icon = getSidebarToolIcon(tab.path) ?? config?.icon
               const isActive = pathname === tab.path
               const prevActive = i > 0 && tabs[i - 1].path === pathname
               const showDivider = i > 0 && !isActive && !prevActive
@@ -405,9 +404,6 @@ export function TopNavStrip() {
           />
         </div>
 
-        <div className="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden />
-
-        <NavIcon label="Open tool (⌘K)" icon={Grid2x2Plus} onClick={openPalette} />
       </nav>
     </TooltipProvider>
   )

@@ -107,8 +107,11 @@ export const useWorkspaceStore = create<State & Actions>()(
   ),
 )
 
-// Initialize broadcast subscription on module load
-useWorkspaceStore.getState().subscribeOnce()
+// Initialize broadcast subscription on module load. Client only — on the
+// server this set() would make persist warn that localStorage is unavailable.
+if (typeof window !== "undefined") {
+  useWorkspaceStore.getState().subscribeOnce()
+}
 
 export const useActiveWorkspace = (): Workspace | null => {
   return useWorkspaceStore((s) => {
