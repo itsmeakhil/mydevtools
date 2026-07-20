@@ -382,9 +382,9 @@ export function ExplorerSidebar({
         clearSelection();
 
         if (errors.length > 0) {
-            toast.error(`Failed to delete ${errors.length} collection(s)`);
+            toast.error(t("bulkDeleteFailed", { count: errors.length }));
         } else {
-            toast.success(`Deleted ${toDelete.length} collection(s)`);
+            toast.success(t("bulkDeleted", { count: toDelete.length }));
         }
     };
 
@@ -816,7 +816,7 @@ export function ExplorerSidebar({
                         onClick={() => setBulkDeleteDialog({ open: true })}
                     >
                         <IconTrash className="h-3 w-3 mr-1.5" />
-                        Delete ({selectedCollections.size}) Collection{selectedCollections.size !== 1 ? "s" : ""}
+                        {t("bulkDeleteButton", { count: selectedCollections.size })}
                     </Button>
                 </div>
             )}

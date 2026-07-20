@@ -38,6 +38,8 @@ export function DashboardSearchBar({
   // Cmd/Ctrl + K focuses search
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
+      // Inactive tool tabs stay mounted under display:none — ignore global shortcuts there.
+      if (!searchInputRef.current || searchInputRef.current.offsetParent === null) return
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
         searchInputRef.current?.focus()

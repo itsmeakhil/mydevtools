@@ -267,7 +267,7 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                         isSuccess ? "border-emerald-500/20 bg-emerald-500/[0.02]" : isError ? "border-rose-500/20 bg-rose-500/[0.02]" : ""
                     )}
                 >
-                    <TabsList className="h-9 p-1 bg-muted/50 border rounded-lg">
+                    <TabsList className="h-9 p-1 bg-muted/50 border rounded-lg max-w-full overflow-x-auto custom-scrollbar [&>*]:shrink-0">
                         <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
                         {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
                         <TabsTrigger value="tree" className="px-4">Tree</TabsTrigger>

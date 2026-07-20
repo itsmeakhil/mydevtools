@@ -26,6 +26,8 @@ import type { SavedExample } from "./types"
 import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
+import { generateCode } from "./generate-code"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
 import dynamic from "next/dynamic"
 import {
@@ -117,7 +119,7 @@ function ApiClientInner() {
     const { format: formatJson } = useJsonFormatter()
     const { run: runScript } = useScriptsRunner()
     const { collections } = useCollectionsState()
-    const { saveRequest } = useCollectionsActions()
+    const { saveRequest, addFolder, createCollection } = useCollectionsActions()
     const { history } = useHistoryState()
     const { addHistoryItem } = useHistoryActions()
     const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
@@ -301,6 +303,14 @@ function ApiClientInner() {
             toast.error(t("toasts.curlParseFailed"))
         }
     }
+
+    const { copyToClipboard } = useCopyToClipboard()
+    const handleCopyCurl = React.useCallback(() => {
+        void copyToClipboard(generateCode(activeTab, "curl"), {
+            successMessage: t("toasts.curlCopied"),
+            errorMessage: t("toasts.copyFailed"),
+        })
+    }, [activeTab, copyToClipboard, t])
 
     const handleSaveRequest = (parentId: string, name: string) => {
         const requestToSave: CollectionRequest = {
@@ -1063,6 +1073,7 @@ function ApiClientInner() {
                 isLoading={activeTab.isLoading}
                 isBodyInvalid={isBodyInvalid}
                 onPaste={handleCurlPaste}
+                onCopyCurl={handleCopyCurl}
                 urlHistory={urlHistory}
                 tabId={activeTab.id}
             />
@@ -1220,6 +1231,8 @@ function ApiClientInner() {
                                 <SaveRequestDialog
                                     collections={collections}
                                     onSave={handleSaveRequest}
+                                    onCreateFolder={addFolder}
+                                    onCreateCollection={createCollection}
                                     defaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                 />
                                 <ImportCurlDialog onImport={handleImportCurl} />
@@ -1285,6 +1298,8 @@ function ApiClientInner() {
                                 <SaveRequestDialog
                                     collections={collections}
                                     onSave={handleSaveRequest}
+                                    onCreateFolder={addFolder}
+                                    onCreateCollection={createCollection}
                                     defaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
                                     open={saveOpen}
                                     onOpenChange={setSaveOpen}
@@ -1385,6 +1400,7 @@ function ApiClientInner() {
                                             isLoading={activeTab.isLoading}
                                             isBodyInvalid={isBodyInvalid}
                                             onPaste={handleCurlPaste}
+                                            onCopyCurl={handleCopyCurl}
                                             urlHistory={urlHistory}
                                             tabId={activeTab.id}
                                         />

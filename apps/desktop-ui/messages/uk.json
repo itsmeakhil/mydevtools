@@ -1580,7 +1580,10 @@
       "cancel": "Скасувати",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {Не вдалося видалити # колекцію} few {Не вдалося видалити # колекції} other {Не вдалося видалити # колекцій}}",
+      "bulkDeleted": "{count, plural, one {Видалено # колекцію} few {Видалено # колекції} other {Видалено # колекцій}}",
+      "bulkDeleteButton": "Видалити {count, plural, one {# колекцію} few {# колекції} other {# колекцій}}"
     },
     "document": {
       "docsBreadcrumb": "{n} документів",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} повернуто",
       "explainDocsExamined": "{n} перевірено",
       "explainCollscanHint": "Цей запит сканує кожен документ колекції. Розгляньте створення індексу для фільтрованих полів.",
-      "explainRawLabel": "Вивід explain"
+      "explainRawLabel": "Вивід explain",
+      "docInsertFailed": "Не вдалося вставити документ",
+      "docUpdateFailed": "Не вдалося оновити документ",
+      "indexesLoadFail": "Не вдалося завантажити індекси",
+      "bulkDeleted": "{count, plural, one {# документ видалено} few {# документи видалено} other {# документів видалено}}",
+      "bulkDeleteFailed": "Масове видалення не вдалося",
+      "selectedCount": "{count, plural, one {# документ обрано} few {# документи обрано} other {# документів обрано}}",
+      "deleteSelected": "Видалити обрані",
+      "clearSelection": "Очистити",
+      "statusLoading": "Завантаження...",
+      "statusShowing": "Показано {from}–{to} з {total} документів",
+      "statusEmpty": "0 документів",
+      "statusSelected": "{count} обрано",
+      "bulkDeleteTitle": "Видалити {count, plural, one {# документ} few {# документи} other {# документів}}?",
+      "bulkDeleteDescription": "Це назавжди видалить {count, plural, one {# документ} few {# документи} other {# документів}} з {collection}. Цю дію не можна скасувати.",
+      "bulkDeleting": "Видалення...",
+      "bulkDeleteConfirm": "Видалити все",
+      "queryErrorTitle": "Не вдалося завантажити документи",
+      "retry": "Повторити"
     },
     "tabs": {
       "filterActive": "Активний фільтр застосовано",
@@ -1733,7 +1754,8 @@
       "cancel": "Скасувати",
       "export": "Експорт",
       "sheetName": "Дані",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Експортує лише поточну сторінку ({count, plural, one {# документ} few {# документи} other {# документів}})"
     },
     "jsonTree": {
       "typeLabel": "Тип: {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "Результати перегляду ({count})",
       "previewEmpty": "На цьому етапі немає документів",
       "previewFail": "Помилка попереднього перегляду"
+    },
+    "indexManager": {
+      "loading": "Завантаження індексів...",
+      "retry": "Повторити",
+      "countLabel": "{count, plural, one {# індекс} few {# індекси} other {# індексів}}",
+      "totalSize": "{size} загалом",
+      "statsDocs": "{count, plural, one {# док} few {# док} other {# док}}",
+      "statsStorage": "{size} сховище",
+      "statsAvgObj": "{size} серед./док",
+      "newIndex": "Новий індекс",
+      "createTitle": "Створити індекс",
+      "fieldPlaceholder": "Назва поля",
+      "ascending": "За зростанням",
+      "descending": "За спаданням",
+      "addField": "Додати поле",
+      "unique": "Унікальний",
+      "sparse": "Розріджений",
+      "ttlLabel": "TTL (секунди)",
+      "ttlPlaceholder": "напр. 3600",
+      "cancel": "Скасувати",
+      "create": "Створити",
+      "creating": "Створення...",
+      "created": "Індекс створено",
+      "createFailed": "Не вдалося створити індекс",
+      "fieldRequired": "Потрібна назва поля",
+      "dropped": "Індекс \"{name}\" видалено",
+      "dropFailed": "Не вдалося видалити індекс",
+      "dropTitle": "Видалити індекс?",
+      "dropDescription": "Це назавжди видалить індекс \"{name}\". Запити, що використовують цей індекс, сповільняться.",
+      "dropping": "Видалення...",
+      "dropConfirm": "Видалити індекс",
+      "badgeSystem": "системний",
+      "badgeUnique": "унікальний",
+      "badgeSparse": "розріджений",
+      "badgeTtl": "TTL",
+      "empty": "Індексів не знайдено"
+    },
+    "importDialog": {
+      "title": "Імпорт документів у {collection}",
+      "onlyJson": "Підтримуються лише файли .json",
+      "invalidStructure": "Файл має містити масив JSON або обʼєкт",
+      "invalidJson": "Некоректний JSON: не вдалося розібрати файл",
+      "imported": "{count, plural, one {Імпортовано # документ} few {Імпортовано # документи} other {Імпортовано # документів}}",
+      "importFailed": "Імпорт не вдався",
+      "dropHint": "Перетягніть або натисніть, щоб завантажити",
+      "dropSubHint": "Підтримує масив JSON або NDJSON",
+      "docsCount": "{count, plural, one {# док} few {# док} other {# док}}",
+      "previewLabel": "Попередній перегляд (перші 3 документи)",
+      "moreDocs": "... і ще {count} документів",
+      "cancel": "Скасувати",
+      "importing": "Імпортування...",
+      "importCount": "{count, plural, one {Імпортувати # док} few {Імпортувати # док} other {Імпортувати # док}}",
+      "importBtn": "Імпортувати"
+    },
+    "schemaView": {
+      "analyzing": "Аналіз схеми...",
+      "loadFailed": "Не вдалося проаналізувати схему",
+      "retry": "Повторити",
+      "noDocs": "Немає документів для аналізу",
+      "sampled": "Проаналізовано {docs} документів · {fields} полів",
+      "colField": "Поле",
+      "colTypes": "Типи",
+      "colCoverage": "Покриття"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL вставлено та розібрано успішно",
       "responseCopied": "Відповідь скопійовано до буфера обміну",
       "codeCopied": "Код скопійовано до буфера обміну",
-      "copyFailed": "Не вдалося скопіювати до буфера обміну"
+      "copyFailed": "Не вдалося скопіювати до буфера обміну",
+      "curlCopied": "Команду cURL скопійовано"
     },
     "layout": {
       "collections": "Колекції",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Надсилання...",
       "send": "Надіслати",
-      "invalidJsonBodyHelp": "Неможливо надіслати: тіло JSON недійсне"
+      "invalidJsonBodyHelp": "Неможливо надіслати: тіло JSON недійсне",
+      "copyCurl": "Копіювати як cURL"
     },
     "requestTabs": {
       "params": "Параметри",
@@ -1915,7 +2002,10 @@
       "placeholderName": "Мій запит",
       "labelFolder": "Тека",
       "placeholderFolder": "Обрати теку",
-      "save": "Зберегти"
+      "save": "Зберегти",
+      "newFolder": "Нова папка",
+      "newFolderPlaceholder": "Назва папки",
+      "create": "Створити"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Виконання запиту…",
       "emptyTitle": "Виконайте запит для перегляду результатів",
       "emptyHint": "Натисніть ⌘↩ або кнопку Виконати",
-      "toastNoConnection": "Немає активного підключення."
+      "toastNoConnection": "Немає активного підключення.",
+      "btnHistory": "Історія",
+      "btnSaveQuery": "Зберегти запит",
+      "savedSection": "Збережені",
+      "recentSection": "Останні",
+      "emptyHistory": "Поки що порожньо — виконайте або збережіть запит",
+      "savePlaceholder": "Назва запиту",
+      "deleteSaved": "Видалити",
+      "toastQuerySaved": "Запит збережено"
     },
     "results": {
       "filterPlaceholder": "Фільтр результатів…",
+      "editHint": "Двічі клацніть клітинку для редагування",
+      "toastRowUpdated": "Рядок оновлено",
+      "toastRowsUpdated": "{count, plural, one {Оновлено # рядок} few {Оновлено # рядки} many {Оновлено # рядків} other {Оновлено # рядка}}",
       "rowCount": "{count} {count, plural, one {рядок} few {рядки} many {рядків} other {рядків}}",
       "rowCountFiltered": "{filtered} / {total} рядків",
       "exportCsv": "CSV",

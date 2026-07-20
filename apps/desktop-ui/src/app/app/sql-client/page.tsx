@@ -106,7 +106,7 @@ export default function SqlClientPage() {
         openQueryTab(conn);
     };
 
-    const openQueryTab = (conn: SavedSqlConnection, initialQuery?: string) => {
+    const openQueryTab = (conn: SavedSqlConnection, initialQuery?: string, table?: QueryTab["table"]) => {
         setActiveConnectionId(conn.id);
         const id = newTabId();
         const newTab: QueryTab = {
@@ -118,6 +118,7 @@ export default function SqlClientPage() {
             result: null,
             error: null,
             loading: false,
+            table,
         };
         setTabs((prev) => [...prev, newTab]);
         setActiveTabId(id);
@@ -126,7 +127,7 @@ export default function SqlClientPage() {
     const handleSelectTable = (conn: SavedSqlConnection, table: TableInfo) => {
         setMobileSidebarOpen(false);
         const query = `SELECT *\nFROM ${table.schema !== "public" && table.schema ? `"${table.schema}".` : ""}"${table.name}"\nLIMIT 100;`;
-        openQueryTab(conn, query);
+        openQueryTab(conn, query, { schema: table.schema, name: table.name });
     };
 
     const handleSelectConnection = (conn: SavedSqlConnection) => {
@@ -264,7 +265,15 @@ export default function SqlClientPage() {
                             key={activeTab.id}
                             tab={activeTab}
                             connection={activeConnection}
-                            onQueryChange={(q) => updateTab(activeTab.id, { query: q })}
+                            onQueryChange={(q) =>
+                                // Editing the query text detaches the tab from its source
+                                // table — grid edits must never target a table the rows
+                                // no longer come from.
+                                updateTab(activeTab.id, {
+                                    query: q,
+                                    table: q === activeTab.query ? activeTab.table : undefined,
+                                })
+                            }
                             onResult={(result, error) => updateTab(activeTab.id, { result, error })}
                             onClose={() => closeTab(activeTab.id)}
                         />

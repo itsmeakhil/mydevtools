@@ -203,6 +203,7 @@ pub async fn handle(method: &str, rest: &str, body: Option<&str>) -> HandlerResu
         "/connect" => connect(&req).await,
         "/query" => query(&req).await,
         "/tables" => tables(&req).await,
+        "/update-row" => update_row(&req).await,
         _ => Ok(err(404, "Not found")),
     }
 }
@@ -326,9 +327,23 @@ async fn tables(req: &Value) -> HandlerResult {
             usize::MAX,
         )
         .await?;
+        let (primary_keys, ..) = pg_statement(
+            &client,
+            "SELECT kcu.table_schema AS schema, kcu.table_name, kcu.column_name
+             FROM information_schema.table_constraints tc
+             JOIN information_schema.key_column_usage kcu
+               ON tc.constraint_name = kcu.constraint_name
+              AND tc.table_schema = kcu.table_schema
+              AND tc.table_name = kcu.table_name
+             WHERE tc.constraint_type = 'PRIMARY KEY'
+               AND tc.table_schema NOT IN ('pg_catalog', 'information_schema')
+             ORDER BY kcu.table_schema, kcu.table_name, kcu.ordinal_position",
+            usize::MAX,
+        )
+        .await?;
         parse_numeric_fields(&mut tables, &["column_count"]);
         parse_numeric_fields(&mut columns, &["ordinal_position"]);
-        Ok(ok(&json!({ "tables": tables, "columns": columns })))
+        Ok(ok(&json!({ "tables": tables, "columns": columns, "primaryKeys": primary_keys })))
     } else {
         let mut conn = mysql_connect(&cfg).await?;
         let (tables, ..) = mysql_statement(
@@ -348,7 +363,164 @@ async fn tables(req: &Value) -> HandlerResult {
             usize::MAX,
         )
         .await?;
+        let (primary_keys, ..) = mysql_statement(
+            &mut conn,
+            "SELECT table_schema AS `schema`, table_name, column_name
+             FROM information_schema.key_column_usage
+             WHERE constraint_name = 'PRIMARY' AND table_schema = DATABASE()
+             ORDER BY table_name, ordinal_position",
+            usize::MAX,
+        )
+        .await?;
         let _ = conn.disconnect().await;
-        Ok(ok(&json!({ "tables": tables, "columns": columns })))
+        Ok(ok(&json!({ "tables": tables, "columns": columns, "primaryKeys": primary_keys })))
+    }
+}
+
+// ── Row editing ─────────────────────────────────────────────────────────────
+//
+// The UI builds `where` from the table's primary key, so updates are
+// single-row in practice; rowCount is reported back so the client can warn
+// if a non-PK filter matched more.
+
+fn pg_ident(name: &str) -> String {
+    format!("\"{}\"", name.replace('"', "\"\""))
+}
+
+fn mysql_ident(name: &str) -> String {
+    format!("`{}`", name.replace('`', "``"))
+}
+
+/// Postgres literal. Quoted literals are the "unknown" type — the server
+/// coerces them to the column type, so strings work for int/date/bool
+/// columns too. standard_conforming_strings (default on) makes quote
+/// doubling sufficient.
+fn pg_literal(v: &Value) -> String {
+    match v {
+        Value::Null => "NULL".into(),
+        Value::Bool(b) => (if *b { "TRUE" } else { "FALSE" }).into(),
+        Value::Number(n) => n.to_string(),
+        Value::String(s) => format!("'{}'", s.replace('\'', "''")),
+        other => format!("'{}'", other.to_string().replace('\'', "''")),
+    }
+}
+
+fn mysql_param(v: &Value) -> mysql_async::Value {
+    use mysql_async::Value as M;
+    match v {
+        Value::Null => M::NULL,
+        Value::Bool(b) => M::Int(*b as i64),
+        Value::Number(n) => n
+            .as_i64()
+            .map(M::Int)
+            .or_else(|| n.as_u64().map(M::UInt))
+            .unwrap_or(M::Double(n.as_f64().unwrap_or(0.0))),
+        Value::String(s) => M::Bytes(s.clone().into_bytes()),
+        other => M::Bytes(other.to_string().into_bytes()),
+    }
+}
+
+fn entries(v: &Value) -> Vec<(String, Value)> {
+    v.as_object()
+        .map(|m| m.iter().map(|(k, val)| (k.clone(), val.clone())).collect())
+        .unwrap_or_default()
+}
+
+async fn update_row(req: &Value) -> HandlerResult {
+    let cfg = match config_from(req, true) {
+        Ok(c) => c,
+        Err(r) => return Ok(r),
+    };
+    let table = req["table"].as_str().unwrap_or("");
+    let set = entries(&req["set"]);
+    let filter = entries(&req["where"]);
+    if table.is_empty() || set.is_empty() {
+        return Ok(err(400, "table and set are required"));
+    }
+    if filter.is_empty() {
+        return Ok(err(400, "where is required — refusing to update every row"));
+    }
+    let schema = req["schema"].as_str().unwrap_or("");
+
+    let row_count: u64 = if cfg.ty == "postgresql" {
+        let target = if schema.is_empty() {
+            pg_ident(table)
+        } else {
+            format!("{}.{}", pg_ident(schema), pg_ident(table))
+        };
+        let sets: Vec<String> = set
+            .iter()
+            .map(|(k, v)| format!("{} = {}", pg_ident(k), pg_literal(v)))
+            .collect();
+        let wheres: Vec<String> = filter
+            .iter()
+            .map(|(k, v)| match v {
+                Value::Null => format!("{} IS NULL", pg_ident(k)),
+                _ => format!("{} = {}", pg_ident(k), pg_literal(v)),
+            })
+            .collect();
+        let sql = format!(
+            "UPDATE {target} SET {} WHERE {}",
+            sets.join(", "),
+            wheres.join(" AND ")
+        );
+        let client = pg_connect(&cfg).await?;
+        let (_, _, n) = pg_statement(&client, &sql, 0).await?;
+        n
+    } else {
+        use mysql_async::prelude::Queryable;
+        let target = if schema.is_empty() {
+            mysql_ident(table)
+        } else {
+            format!("{}.{}", mysql_ident(schema), mysql_ident(table))
+        };
+        let sets: Vec<String> = set.iter().map(|(k, _)| format!("{} = ?", mysql_ident(k))).collect();
+        let mut params: Vec<mysql_async::Value> = set.iter().map(|(_, v)| mysql_param(v)).collect();
+        let mut wheres: Vec<String> = Vec::new();
+        for (k, v) in &filter {
+            if v.is_null() {
+                wheres.push(format!("{} IS NULL", mysql_ident(k)));
+            } else {
+                wheres.push(format!("{} = ?", mysql_ident(k)));
+                params.push(mysql_param(v));
+            }
+        }
+        let sql = format!(
+            "UPDATE {target} SET {} WHERE {}",
+            sets.join(", "),
+            wheres.join(" AND ")
+        );
+        let mut conn = mysql_connect(&cfg).await?;
+        let result = conn
+            .exec_iter(sql, mysql_async::Params::Positional(params))
+            .await
+            .map_err(|e| e.to_string())?;
+        let n = result.affected_rows();
+        drop(result);
+        let _ = conn.disconnect().await;
+        n
+    };
+
+    Ok(ok(&json!({ "success": true, "rowCount": row_count })))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn identifiers_escape_quotes() {
+        assert_eq!(pg_ident(r#"we"ird"#), r#""we""ird""#);
+        assert_eq!(mysql_ident("we`ird"), "`we``ird`");
+    }
+
+    #[test]
+    fn pg_literals_escape_and_type() {
+        assert_eq!(pg_literal(&json!("O'Brien")), "'O''Brien'");
+        assert_eq!(pg_literal(&json!(42)), "42");
+        assert_eq!(pg_literal(&json!(true)), "TRUE");
+        assert_eq!(pg_literal(&Value::Null), "NULL");
+        // Injection attempt stays inside the literal.
+        assert_eq!(pg_literal(&json!("'; DROP TABLE users; --")), "'''; DROP TABLE users; --'");
     }
 }

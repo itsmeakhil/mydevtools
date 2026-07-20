@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Send, Loader2, X, Globe } from "lucide-react"
+import { Send, Loader2, X, Globe, Terminal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -29,6 +29,8 @@ interface RequestPanelProps {
     /** When true, the Send button is disabled and an SR hint is shown. */
     isBodyInvalid?: boolean
     onPaste: (text: string) => void
+    /** Copies the current request as a cURL command; button hidden when absent. */
+    onCopyCurl?: () => void
     urlHistory?: string[]
     /** Pass activeTab.id so local URL state resets on tab switch. */
     tabId?: string
@@ -68,6 +70,7 @@ function RequestPanelImpl({
     isLoading,
     isBodyInvalid = false,
     onPaste,
+    onCopyCurl,
     urlHistory = [],
     tabId,
 }: RequestPanelProps) {
@@ -342,6 +345,20 @@ function RequestPanelImpl({
                         </div>
                     )}
                 </div>
+
+                {onCopyCurl && (
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        className="h-10 w-10 shrink-0"
+                        onClick={onCopyCurl}
+                        disabled={!localUrl}
+                        title={t("copyCurl")}
+                        aria-label={t("copyCurl")}
+                    >
+                        <Terminal className="h-4 w-4" />
+                    </Button>
+                )}
 
                 {isLoading && onCancel ? (
                     <Button

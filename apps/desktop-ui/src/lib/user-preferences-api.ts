@@ -106,3 +106,37 @@ export async function putNosqlSavedQueries(params: {
 }): Promise<NosqlSavedQueriesOut> {
     return apiRequest<NosqlSavedQueriesOut>("PUT", `${BASE}/nosql-saved-queries`, params)
 }
+
+// ── SQL client — same generic list store, keyed by connection + database ────
+
+export async function getSqlQueryHistory(params: {
+    connectionName: string
+    dbName: string
+}): Promise<NosqlQueryHistoryOut> {
+    const q = new URLSearchParams({ ...params, collectionName: "" })
+    return apiRequest<NosqlQueryHistoryOut>("GET", `${BASE}/sql-query-history?${q.toString()}`)
+}
+
+export async function putSqlQueryHistory(params: {
+    connectionName: string
+    dbName: string
+    queries: string[]
+}): Promise<NosqlQueryHistoryOut> {
+    return apiRequest<NosqlQueryHistoryOut>("PUT", `${BASE}/sql-query-history`, { ...params, collectionName: "" })
+}
+
+export async function getSqlSavedQueries(params: {
+    connectionName: string
+    dbName: string
+}): Promise<NosqlSavedQueriesOut> {
+    const q = new URLSearchParams({ ...params, collectionName: "" })
+    return apiRequest<NosqlSavedQueriesOut>("GET", `${BASE}/sql-saved-queries?${q.toString()}`)
+}
+
+export async function putSqlSavedQueries(params: {
+    connectionName: string
+    dbName: string
+    queries: NosqlSavedQuery[]
+}): Promise<NosqlSavedQueriesOut> {
+    return apiRequest<NosqlSavedQueriesOut>("PUT", `${BASE}/sql-saved-queries`, { ...params, collectionName: "" })
+}

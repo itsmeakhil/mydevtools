@@ -165,6 +165,8 @@ export const TaskContainer = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // `event.key` is undefined for IME composition / autofill events — bail early.
       if (!event.key) return;
+      // Inactive tool tabs stay mounted under display:none — ignore global shortcuts there.
+      if (!searchInputRef.current || searchInputRef.current.offsetParent === null) return;
       const target = event.target as HTMLElement | null;
       const isTypingInField =
         target?.tagName === "INPUT" ||

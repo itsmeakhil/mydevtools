@@ -179,6 +179,7 @@ export function useCollections() {
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             broadcastApiClientUpdate("collections")
+            return newFolder.id
         } catch (e) {
             setCollections(prev)
             console.error("Error adding folder", e)
@@ -490,6 +491,7 @@ export function useCollections() {
             setCollections((prev) => sortCollections([...prev, created]))
             broadcastApiClientUpdate("collections")
             toast.success("Collection created")
+            return created
         } catch (e) {
             console.error("Error creating collection", e)
             toast.error("Failed to create collection")

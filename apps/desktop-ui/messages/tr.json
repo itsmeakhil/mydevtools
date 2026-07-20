@@ -1580,7 +1580,10 @@
       "cancel": "İptal",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {# koleksiyon silinemedi} other {# koleksiyon silinemedi}}",
+      "bulkDeleted": "{count, plural, one {# koleksiyon silindi} other {# koleksiyon silindi}}",
+      "bulkDeleteButton": "{count, plural, one {# Koleksiyonu Sil} other {# Koleksiyonu Sil}}"
     },
     "document": {
       "docsBreadcrumb": "{n} belge",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} döndürüldü",
       "explainDocsExamined": "{n} incelendi",
       "explainCollscanHint": "Bu sorgu koleksiyondaki her belgeyi tarıyor. Filtrelenen alanlarda bir dizin oluşturmayı düşünün.",
-      "explainRawLabel": "Explain çıktısı"
+      "explainRawLabel": "Explain çıktısı",
+      "docInsertFailed": "Belge eklenemedi",
+      "docUpdateFailed": "Belge güncellenemedi",
+      "indexesLoadFail": "Dizinler yüklenemedi",
+      "bulkDeleted": "{count, plural, one {# belge silindi} other {# belge silindi}}",
+      "bulkDeleteFailed": "Toplu silme başarısız",
+      "selectedCount": "{count, plural, one {# belge seçildi} other {# belge seçildi}}",
+      "deleteSelected": "Seçilenleri Sil",
+      "clearSelection": "Temizle",
+      "statusLoading": "Yükleniyor...",
+      "statusShowing": "{total} belgeden {from}–{to} arası gösteriliyor",
+      "statusEmpty": "0 belge",
+      "statusSelected": "{count} seçili",
+      "bulkDeleteTitle": "{count, plural, one {# belge} other {# belge}} silinsin mi?",
+      "bulkDeleteDescription": "Bu işlem {collection} koleksiyonundan {count, plural, one {# belgeyi} other {# belgeyi}} kalıcı olarak silecek. Bu geri alınamaz.",
+      "bulkDeleting": "Siliniyor...",
+      "bulkDeleteConfirm": "Tümünü Sil",
+      "queryErrorTitle": "Belgeler yüklenemedi",
+      "retry": "Yeniden dene"
     },
     "tabs": {
       "filterActive": "Aktif filtre uygulandı",
@@ -1733,7 +1754,8 @@
       "cancel": "İptal",
       "export": "Dışa Aktar",
       "sheetName": "Veri",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Yalnızca geçerli sayfayı dışa aktarır ({count, plural, one {# belge} other {# belge}})"
     },
     "jsonTree": {
       "typeLabel": "Tür: {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "Önizleme sonuçları ({count})",
       "previewEmpty": "Bu aşamada belge yok",
       "previewFail": "Önizleme başarısız"
+    },
+    "indexManager": {
+      "loading": "Dizinler yükleniyor...",
+      "retry": "Yeniden dene",
+      "countLabel": "{count, plural, one {# dizin} other {# dizin}}",
+      "totalSize": "toplam {size}",
+      "statsDocs": "{count, plural, one {# belge} other {# belge}}",
+      "statsStorage": "{size} depolama",
+      "statsAvgObj": "{size} ort/belge",
+      "newIndex": "Yeni Dizin",
+      "createTitle": "Dizin Oluştur",
+      "fieldPlaceholder": "Alan adı",
+      "ascending": "Artan",
+      "descending": "Azalan",
+      "addField": "Alan ekle",
+      "unique": "Benzersiz",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (saniye)",
+      "ttlPlaceholder": "örn. 3600",
+      "cancel": "İptal",
+      "create": "Oluştur",
+      "creating": "Oluşturuluyor...",
+      "created": "Dizin oluşturuldu",
+      "createFailed": "Dizin oluşturulamadı",
+      "fieldRequired": "Alan adı gerekli",
+      "dropped": "\"{name}\" dizini silindi",
+      "dropFailed": "Dizin silinemedi",
+      "dropTitle": "Dizin silinsin mi?",
+      "dropDescription": "Bu işlem \"{name}\" dizinini kalıcı olarak silecek. Bu dizini kullanan sorgular yavaşlayacak.",
+      "dropping": "Siliniyor...",
+      "dropConfirm": "Dizini Sil",
+      "badgeSystem": "sistem",
+      "badgeUnique": "benzersiz",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "Dizin bulunamadı"
+    },
+    "importDialog": {
+      "title": "Belgeleri {collection} koleksiyonuna aktar",
+      "onlyJson": "Yalnızca .json dosyaları desteklenir",
+      "invalidStructure": "Dosya bir JSON dizisi veya nesnesi içermelidir",
+      "invalidJson": "Geçersiz JSON: dosya ayrıştırılamadı",
+      "imported": "{count, plural, one {# belge içe aktarıldı} other {# belge içe aktarıldı}}",
+      "importFailed": "İçe aktarma başarısız",
+      "dropHint": "Sürükleyip bırakın veya yüklemek için tıklayın",
+      "dropSubHint": "JSON dizisi veya NDJSON destekler",
+      "docsCount": "{count, plural, one {# belge} other {# belge}}",
+      "previewLabel": "Önizleme (ilk 3 belge)",
+      "moreDocs": "... ve {count} belge daha",
+      "cancel": "İptal",
+      "importing": "İçe aktarılıyor...",
+      "importCount": "{count, plural, one {# Belgeyi Aktar} other {# Belgeyi Aktar}}",
+      "importBtn": "İçe Aktar"
+    },
+    "schemaView": {
+      "analyzing": "Şema analiz ediliyor...",
+      "loadFailed": "Şema analiz edilemedi",
+      "retry": "Yeniden dene",
+      "noDocs": "Analiz edilecek belge yok",
+      "sampled": "{docs} belge örneklendi · {fields} alan",
+      "colField": "Alan",
+      "colTypes": "Türler",
+      "colCoverage": "Kapsam"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL yapıştırıldı ve başarıyla ayrıştırıldı",
       "responseCopied": "Yanıt panoya kopyalandı",
       "codeCopied": "Kod panoya kopyalandı",
-      "copyFailed": "Panoya kopyalanamadı"
+      "copyFailed": "Panoya kopyalanamadı",
+      "curlCopied": "cURL komutu kopyalandı"
     },
     "layout": {
       "collections": "Koleksiyonlar",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.ornek.com/v1/...",
       "sending": "Gönderiliyor...",
       "send": "Gönder",
-      "invalidJsonBodyHelp": "Gönderilemedi: JSON gövdesi geçersiz"
+      "invalidJsonBodyHelp": "Gönderilemedi: JSON gövdesi geçersiz",
+      "copyCurl": "cURL olarak kopyala"
     },
     "requestTabs": {
       "params": "Parametreler",
@@ -1915,7 +2002,10 @@
       "placeholderName": "İsteğim",
       "labelFolder": "Klasör",
       "placeholderFolder": "Bir klasör seçin",
-      "save": "Kaydet"
+      "save": "Kaydet",
+      "newFolder": "Yeni klasör",
+      "newFolderPlaceholder": "Klasör adı",
+      "create": "Oluştur"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Sorgu çalıştırılıyor…",
       "emptyTitle": "Sonuçları görmek için sorgu çalıştırın",
       "emptyHint": "⌘↩ basın veya Çalıştır'a tıklayın",
-      "toastNoConnection": "Aktif bağlantı yok."
+      "toastNoConnection": "Aktif bağlantı yok.",
+      "btnHistory": "Geçmiş",
+      "btnSaveQuery": "Sorguyu kaydet",
+      "savedSection": "Kayıtlı",
+      "recentSection": "Son",
+      "emptyHistory": "Henüz bir şey yok — bir sorgu çalıştırın veya kaydedin",
+      "savePlaceholder": "Sorgu adı",
+      "deleteSaved": "Sil",
+      "toastQuerySaved": "Sorgu kaydedildi"
     },
     "results": {
       "filterPlaceholder": "Sonuçları filtrele…",
+      "editHint": "Düzenlemek için hücreye çift tıklayın",
+      "toastRowUpdated": "Satır güncellendi",
+      "toastRowsUpdated": "{count, plural, one {# satır güncellendi} other {# satır güncellendi}}",
       "rowCount": "{count} satır",
       "rowCountFiltered": "{filtered} / {total} satır",
       "exportCsv": "CSV",

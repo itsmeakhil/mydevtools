@@ -6,7 +6,6 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { Document } from "./types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
     IconPlus, IconRefresh, IconTrash, IconPencil, IconTable,
@@ -61,9 +60,10 @@ interface DocumentViewProps {
     page: number;
     limit: number;
     loading: boolean;
+    error?: string | null;
     onRefresh: () => void;
     onInsert: (doc: any) => Promise<void>;
-    onUpdate: (id: string, update: any) => Promise<void>;
+    onUpdate: (id: string, update: any, mode?: "merge" | "replace") => Promise<void>;
     onDelete: (id: string) => Promise<void>;
     onSearch: (query: string) => void;
     onPageChange: (page: number) => void;
@@ -74,7 +74,7 @@ interface DocumentViewProps {
     onBulkDelete?: (ids: string[]) => Promise<void>;
     onImport?: (documents: any[]) => Promise<void>;
     onLoadSchema?: () => Promise<{ fields: any[]; sampleSize: number }>;
-    onLoadIndexes?: () => Promise<{ indexes: any[]; totalIndexSize?: number }>;
+    onLoadIndexes?: () => Promise<{ indexes: any[]; totalIndexSize?: number; stats?: any }>;
     onDropIndex?: (indexName: string) => Promise<void>;
     onCreateIndex?: (keys: Record<string, number>, options: Record<string, any>) => Promise<void>;
     onExplain?: (query: string) => Promise<any>;
@@ -90,6 +90,35 @@ interface DocumentViewProps {
 // let thead and tbody size independently and drift out of alignment.
 const DEFAULT_COL_WIDTH = 200;
 
+// Local input state so keystrokes don't re-render the whole document grid.
+function EditableCell({
+    initialValue,
+    saving,
+    onCommit,
+    onCancel,
+}: {
+    initialValue: string;
+    saving: boolean;
+    onCommit: (raw: string) => void;
+    onCancel: () => void;
+}) {
+    const [value, setValue] = useState(initialValue);
+    return (
+        <Input
+            autoFocus
+            value={value}
+            disabled={saving}
+            onChange={(e) => setValue(e.target.value)}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") onCommit(value);
+                if (e.key === "Escape") onCancel();
+            }}
+            onBlur={() => { if (!saving) onCancel(); }}
+            className="h-7 text-xs font-mono"
+        />
+    );
+}
+
 export function DocumentView({
     connectionName,
     dbName,
@@ -99,6 +128,7 @@ export function DocumentView({
     page,
     limit,
     loading,
+    error = null,
     onRefresh,
     onInsert,
     onUpdate,
@@ -137,11 +167,10 @@ export function DocumentView({
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
     const [bulkDeleteConfirm, setBulkDeleteConfirm] = useState(false);
     const [bulkDeleteLoading, setBulkDeleteLoading] = useState(false);
-    const [indexesData, setIndexesData] = useState<{ indexes: any[]; totalIndexSize?: number } | null>(null);
+    const [indexesData, setIndexesData] = useState<{ indexes: any[]; totalIndexSize?: number; stats?: any } | null>(null);
     const [indexesLoading, setIndexesLoading] = useState(false);
     const [indexesError, setIndexesError] = useState<string | null>(null);
     const [editingCell, setEditingCell] = useState<{ docId: string; field: string } | null>(null);
-    const [editCellValue, setEditCellValue] = useState("");
     const [editCellSaving, setEditCellSaving] = useState(false);
     const [explainOpen, setExplainOpen] = useState(false);
     const [explainLoading, setExplainLoading] = useState(false);
@@ -160,15 +189,14 @@ export function DocumentView({
             return;
         }
         setEditingCell({ docId: doc._id, field });
-        setEditCellValue(value === null || value === undefined ? "" : String(value));
     };
 
-    const commitCellEdit = async (doc: Document) => {
+    const commitCellEdit = async (doc: Document, rawValue: string) => {
         if (!editingCell || editCellSaving) return;
-        const raw = editCellValue.trim();
+        const raw = rawValue.trim();
         const original = doc[editingCell.field];
         // Auto-type like the query builder: number / boolean / null, else string
-        let parsed: unknown = editCellValue;
+        let parsed: unknown = rawValue;
         if (raw === "null") parsed = null;
         else if (raw === "true") parsed = true;
         else if (raw === "false") parsed = false;
@@ -225,6 +253,15 @@ export function DocumentView({
         overscan: 10,
     });
 
+    const treeContainerRef = useRef<HTMLDivElement>(null);
+
+    const treeVirtualizer = useVirtualizer({
+        count: documents.length,
+        getScrollElement: () => treeContainerRef.current,
+        estimateSize: () => 120,
+        overscan: 5,
+    });
+
     const openImportFromChooser = () => {
         setIsImportExportChooserOpen(false);
         setIsImportDialogOpen(true);
@@ -235,7 +272,10 @@ export function DocumentView({
         setIsExportDialogOpen(true);
     };
 
+    // Only serialize when the JSON view is actually visible — stringifying 2000
+    // large docs on every fetch in table mode is wasted MBs of work.
     useEffect(() => {
+        if (viewMode !== "json") return;
         if (documents.length === 0) {
             setJsonViewContent("[]");
             return;
@@ -244,7 +284,7 @@ export function DocumentView({
             setJsonViewContent(JSON.stringify(documents, null, 2));
         }, 0);
         return () => clearTimeout(id);
-    }, [documents]);
+    }, [documents, viewMode]);
 
     // Clear selection when documents change
     useEffect(() => {
@@ -266,7 +306,7 @@ export function DocumentView({
             const data = await onLoadIndexes();
             setIndexesData(data);
         } catch (e: any) {
-            setIndexesError(e.message || 'Failed to load indexes');
+            setIndexesError(e.message || t("indexesLoadFail"));
         } finally {
             setIndexesLoading(false);
         }
@@ -300,25 +340,29 @@ export function DocumentView({
     };
 
     const handleSaveEdit = async () => {
+        let updatedDoc: any;
+        try { updatedDoc = JSON.parse(editorContent); }
+        catch { toast.error(t("invalidJsonShort")); return; }
+        if (!selectedDoc) return;
         try {
-            const updatedDoc = JSON.parse(editorContent);
-            if (selectedDoc) {
-                await onUpdate(selectedDoc._id, updatedDoc);
-                setIsEditDialogOpen(false);
-                toast.success(t("docUpdated"));
-                onRefresh();
-            }
-        } catch { toast.error(t("invalidJsonShort")); }
+            // replace: fields removed in the editor get removed in the DB too
+            await onUpdate(selectedDoc._id, updatedDoc, "replace");
+            setIsEditDialogOpen(false);
+            toast.success(t("docUpdated"));
+            onRefresh();
+        } catch (e: any) { toast.error(e.message || t("docUpdateFailed")); }
     };
 
     const handleInsert = async () => {
+        let newDoc: any;
+        try { newDoc = JSON.parse(editorContent); }
+        catch { toast.error(t("invalidJsonShort")); return; }
         try {
-            const newDoc = JSON.parse(editorContent);
             await onInsert(newDoc);
             setIsInsertDialogOpen(false);
             toast.success(t("docInserted"));
             onRefresh();
-        } catch { toast.error(t("invalidJsonShort")); }
+        } catch (e: any) { toast.error(e.message || t("docInsertFailed")); }
     };
 
     const openInsertDialog = () => {
@@ -364,11 +408,11 @@ export function DocumentView({
         setBulkDeleteLoading(true);
         try {
             await onBulkDelete(Array.from(selectedIds));
-            toast.success(`${selectedIds.size} document${selectedIds.size > 1 ? 's' : ''} deleted`);
+            toast.success(t("bulkDeleted", { count: selectedIds.size }));
             setSelectedIds(new Set());
             setBulkDeleteConfirm(false);
         } catch (e: any) {
-            toast.error(e.message || 'Bulk delete failed');
+            toast.error(e.message || t("bulkDeleteFailed"));
         } finally {
             setBulkDeleteLoading(false);
         }
@@ -588,7 +632,7 @@ export function DocumentView({
             {selectedIds.size > 0 && (
                 <div className="flex items-center gap-3 px-4 py-2 border-b bg-primary/5 shrink-0 animate-in slide-in-from-top-1 duration-150">
                     <span className="text-sm font-medium text-primary">
-                        {selectedIds.size} document{selectedIds.size > 1 ? 's' : ''} selected
+                        {t("selectedCount", { count: selectedIds.size })}
                     </span>
                     <Button
                         variant="destructive"
@@ -597,7 +641,7 @@ export function DocumentView({
                         onClick={() => setBulkDeleteConfirm(true)}
                     >
                         <IconTrash className="h-3.5 w-3.5 mr-1.5" />
-                        Delete Selected
+                        {t("deleteSelected")}
                     </Button>
                     <Button
                         variant="ghost"
@@ -606,7 +650,7 @@ export function DocumentView({
                         onClick={() => setSelectedIds(new Set())}
                     >
                         <IconX className="h-3.5 w-3.5 mr-1" />
-                        Clear
+                        {t("clearSelection")}
                     </Button>
                 </div>
             )}
@@ -620,6 +664,7 @@ export function DocumentView({
                         readOnly={readOnly}
                         indexes={indexesData?.indexes || []}
                         totalIndexSize={indexesData?.totalIndexSize}
+                        stats={indexesData?.stats}
                         loading={indexesLoading}
                         error={indexesError}
                         onRefresh={() => { setIndexesData(null); loadIndexes(); }}
@@ -657,6 +702,28 @@ export function DocumentView({
                                 ))}
                             </tbody>
                         </table>
+                    </div>
+                ) : error ? (
+                    <div className="flex flex-col items-center justify-center h-full text-center px-6 py-10 gap-4">
+                        <div className="w-14 h-14 rounded-2xl bg-destructive/10 flex items-center justify-center">
+                            <IconAlertTriangle className="w-7 h-7 text-destructive" />
+                        </div>
+                        <div>
+                            <p className="font-medium text-foreground">{t("queryErrorTitle")}</p>
+                            <p className="text-sm text-destructive mt-1 max-w-md break-words font-mono">{error}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-2 justify-center">
+                            <Button variant="outline" size="sm" onClick={onRefresh}>
+                                <IconRefresh className="h-3.5 w-3.5 mr-1.5" />
+                                {t("retry")}
+                            </Button>
+                            {isFilterActive && (
+                                <Button variant="outline" size="sm" onClick={() => { setSearchQuery("{}"); onSearch("{}"); }}>
+                                    <IconX className="h-3.5 w-3.5 mr-1.5" />
+                                    {t("clearFilter")}
+                                </Button>
+                            )}
+                        </div>
                     </div>
                 ) : documents.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-full text-center px-6 py-10 gap-4">
@@ -736,38 +803,56 @@ export function DocumentView({
                         </div>
                     </div>
                 ) : viewMode === "tree" ? (
-                    <ScrollArea className="h-full p-4">
-                        <div className="space-y-4">
-                            {documents.map((doc, index) => (
-                                <div key={doc._id} className="border rounded-lg p-2 bg-card relative group">
-                                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2 z-10">
-                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)}>
-                                            <IconCopy className="h-3 w-3" />
-                                        </Button>
-                                        {!readOnly && (
-                                            <>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)}>
-                                                    <IconPlus className="h-3 w-3 text-blue-500" />
+                    <div ref={treeContainerRef} className="h-full overflow-auto p-4">
+                        <div style={{ height: `${treeVirtualizer.getTotalSize()}px`, position: "relative" }}>
+                            {treeVirtualizer.getVirtualItems().map((virtualRow) => {
+                                const doc = documents[virtualRow.index];
+                                const index = virtualRow.index;
+                                return (
+                                    <div
+                                        key={doc._id}
+                                        data-index={virtualRow.index}
+                                        ref={treeVirtualizer.measureElement}
+                                        style={{
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 0,
+                                            width: "100%",
+                                            transform: `translateY(${virtualRow.start}px)`,
+                                        }}
+                                        className="pb-4"
+                                    >
+                                        <div className="border rounded-lg p-2 bg-card relative group">
+                                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2 z-10">
+                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)}>
+                                                    <IconCopy className="h-3 w-3" />
                                                 </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
-                                                    <IconPencil className="h-3 w-3" />
-                                                </Button>
-                                                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => onDelete(doc._id)}>
-                                                    <IconTrash className="h-3 w-3" />
-                                                </Button>
-                                            </>
-                                        )}
+                                                {!readOnly && (
+                                                    <>
+                                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)}>
+                                                            <IconPlus className="h-3 w-3 text-blue-500" />
+                                                        </Button>
+                                                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
+                                                            <IconPencil className="h-3 w-3" />
+                                                        </Button>
+                                                        <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive hover:text-destructive" onClick={() => onDelete(doc._id)}>
+                                                            <IconTrash className="h-3 w-3" />
+                                                        </Button>
+                                                    </>
+                                                )}
+                                            </div>
+                                            <JsonTree
+                                                key={`${doc._id}-${treeExpandAll}`}
+                                                data={doc}
+                                                label={t("documentLabel", { n: index + 1 + (page - 1) * limit })}
+                                                defaultExpanded={treeExpandAll}
+                                            />
+                                        </div>
                                     </div>
-                                    <JsonTree
-                                        key={`${doc._id}-${treeExpandAll}`}
-                                        data={doc}
-                                        label={t("documentLabel", { n: index + 1 + (page - 1) * limit })}
-                                        defaultExpanded={treeExpandAll}
-                                    />
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
-                    </ScrollArea>
+                    </div>
                 ) : (
                     /* Table view */
                     <div ref={tableContainerRef} className="h-full w-full overflow-auto">
@@ -857,17 +942,11 @@ export function DocumentView({
                                                 if (isEditingThis) {
                                                     return (
                                                         <td key={key} className="px-2 py-2 align-top border-r relative" style={cellStyle}>
-                                                            <Input
-                                                                autoFocus
-                                                                value={editCellValue}
-                                                                disabled={editCellSaving}
-                                                                onChange={(e) => setEditCellValue(e.target.value)}
-                                                                onKeyDown={(e) => {
-                                                                    if (e.key === "Enter") commitCellEdit(doc);
-                                                                    if (e.key === "Escape") setEditingCell(null);
-                                                                }}
-                                                                onBlur={() => { if (!editCellSaving) setEditingCell(null); }}
-                                                                className="h-7 text-xs font-mono"
+                                                            <EditableCell
+                                                                initialValue={value === null || value === undefined ? "" : String(value)}
+                                                                saving={editCellSaving}
+                                                                onCommit={(raw) => commitCellEdit(doc, raw)}
+                                                                onCancel={() => setEditingCell(null)}
                                                             />
                                                         </td>
                                                     );
@@ -964,13 +1043,17 @@ export function DocumentView({
             {/* Status bar */}
             <div className="border-t bg-muted/10 px-4 py-1.5 flex items-center justify-between text-[10px] text-muted-foreground font-mono shrink-0">
                 <span>
-                    {loading ? 'Loading...' : documents.length > 0
-                        ? `Showing ${(page - 1) * limit + 1}–${Math.min((page - 1) * limit + documents.length, total)} of ${total.toLocaleString()} documents`
-                        : `0 documents`
+                    {loading ? t("statusLoading") : documents.length > 0
+                        ? t("statusShowing", {
+                            from: (page - 1) * limit + 1,
+                            to: Math.min((page - 1) * limit + documents.length, total),
+                            total: total.toLocaleString(),
+                        })
+                        : t("statusEmpty")
                     }
                 </span>
                 {selectedIds.size > 0 && (
-                    <span className="text-primary font-medium">{selectedIds.size} selected</span>
+                    <span className="text-primary font-medium">{t("statusSelected", { count: selectedIds.size })}</span>
                 )}
             </div>
 
@@ -1175,9 +1258,9 @@ export function DocumentView({
             <AlertDialog open={bulkDeleteConfirm} onOpenChange={setBulkDeleteConfirm}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete {selectedIds.size} document{selectedIds.size > 1 ? 's' : ''}?</AlertDialogTitle>
+                        <AlertDialogTitle>{t("bulkDeleteTitle", { count: selectedIds.size })}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This will permanently delete {selectedIds.size} document{selectedIds.size > 1 ? 's' : ''} from <strong>{collectionName}</strong>. This cannot be undone.
+                            {t("bulkDeleteDescription", { count: selectedIds.size, collection: collectionName })}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -1187,7 +1270,7 @@ export function DocumentView({
                             disabled={bulkDeleteLoading}
                             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
-                            {bulkDeleteLoading ? 'Deleting...' : 'Delete All'}
+                            {bulkDeleteLoading ? t("bulkDeleting") : t("bulkDeleteConfirm")}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

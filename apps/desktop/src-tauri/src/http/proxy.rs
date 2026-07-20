@@ -41,7 +41,7 @@ fn envelope_error(status: u16, status_text: &str, msg: &str) -> Value {
     })
 }
 
-fn assert_hop_allowed(url: &reqwest::Url) -> Result<(), String> {
+pub(crate) fn assert_hop_allowed(url: &reqwest::Url) -> Result<(), String> {
     match url.scheme() {
         "http" | "https" => {}
         s => return Err(format!("Blocked scheme: {s}:")),

@@ -1580,7 +1580,10 @@
       "cancel": "Batal",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {Gagal memadam # koleksi} other {Gagal memadam # koleksi}}",
+      "bulkDeleted": "{count, plural, one {# koleksi dipadam} other {# koleksi dipadam}}",
+      "bulkDeleteButton": "Padam {count, plural, one {# Koleksi} other {# Koleksi}}"
     },
     "document": {
       "docsBreadcrumb": "{n} dokumen",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} dikembalikan",
       "explainDocsExamined": "{n} diperiksa",
       "explainCollscanHint": "Pertanyaan ini mengimbas setiap dokumen dalam koleksi. Pertimbangkan untuk mencipta indeks pada medan yang ditapis.",
-      "explainRawLabel": "Output explain"
+      "explainRawLabel": "Output explain",
+      "docInsertFailed": "Gagal menyisipkan dokumen",
+      "docUpdateFailed": "Gagal mengemas kini dokumen",
+      "indexesLoadFail": "Gagal memuatkan indeks",
+      "bulkDeleted": "{count, plural, one {# dokumen dipadam} other {# dokumen dipadam}}",
+      "bulkDeleteFailed": "Pemadaman pukal gagal",
+      "selectedCount": "{count, plural, one {# dokumen dipilih} other {# dokumen dipilih}}",
+      "deleteSelected": "Padam Yang Dipilih",
+      "clearSelection": "Kosongkan",
+      "statusLoading": "Memuatkan...",
+      "statusShowing": "Memaparkan {from}–{to} daripada {total} dokumen",
+      "statusEmpty": "0 dokumen",
+      "statusSelected": "{count} dipilih",
+      "bulkDeleteTitle": "Padam {count, plural, one {# dokumen} other {# dokumen}}?",
+      "bulkDeleteDescription": "Ini akan memadam {count, plural, one {# dokumen} other {# dokumen}} daripada {collection} secara kekal. Tindakan ini tidak boleh dibuat asal.",
+      "bulkDeleting": "Memadam...",
+      "bulkDeleteConfirm": "Padam Semua",
+      "queryErrorTitle": "Gagal memuatkan dokumen",
+      "retry": "Cuba Semula"
     },
     "tabs": {
       "filterActive": "Penapis aktif digunakan",
@@ -1733,7 +1754,8 @@
       "cancel": "Batal",
       "export": "Eksport",
       "sheetName": "Data",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Mengeksport halaman semasa sahaja ({count, plural, one {# dokumen} other {# dokumen}})"
     },
     "jsonTree": {
       "typeLabel": "Jenis: {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "Hasil pratonton ({count})",
       "previewEmpty": "Tiada dokumen pada peringkat ini",
       "previewFail": "Pratonton gagal"
+    },
+    "indexManager": {
+      "loading": "Memuatkan indeks...",
+      "retry": "Cuba Semula",
+      "countLabel": "{count, plural, one {# indeks} other {# indeks}}",
+      "totalSize": "{size} jumlah",
+      "statsDocs": "{count, plural, one {# dok} other {# dok}}",
+      "statsStorage": "{size} storan",
+      "statsAvgObj": "{size} purata/dok",
+      "newIndex": "Indeks Baharu",
+      "createTitle": "Cipta Indeks",
+      "fieldPlaceholder": "Nama medan",
+      "ascending": "Menaik",
+      "descending": "Menurun",
+      "addField": "Tambah medan",
+      "unique": "Unik",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (saat)",
+      "ttlPlaceholder": "cth. 3600",
+      "cancel": "Batal",
+      "create": "Cipta",
+      "creating": "Mencipta...",
+      "created": "Indeks dicipta",
+      "createFailed": "Gagal mencipta indeks",
+      "fieldRequired": "Nama medan diperlukan",
+      "dropped": "Indeks \"{name}\" digugurkan",
+      "dropFailed": "Gagal menggugurkan indeks",
+      "dropTitle": "Gugurkan indeks?",
+      "dropDescription": "Ini akan menggugurkan indeks \"{name}\" secara kekal. Pertanyaan yang menggunakan indeks ini akan menjadi perlahan.",
+      "dropping": "Menggugurkan...",
+      "dropConfirm": "Gugurkan Indeks",
+      "badgeSystem": "sistem",
+      "badgeUnique": "unik",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "Tiada indeks ditemui"
+    },
+    "importDialog": {
+      "title": "Import Dokumen ke dalam {collection}",
+      "onlyJson": "Hanya fail .json disokong",
+      "invalidStructure": "Fail mesti mengandungi tatasusunan atau objek JSON",
+      "invalidJson": "JSON tidak sah: fail tidak dapat dihurai",
+      "imported": "{count, plural, one {# dokumen diimport} other {# dokumen diimport}}",
+      "importFailed": "Import gagal",
+      "dropHint": "Seret & lepas atau klik untuk muat naik",
+      "dropSubHint": "Menyokong tatasusunan JSON atau NDJSON",
+      "docsCount": "{count, plural, one {# dok} other {# dok}}",
+      "previewLabel": "Pratonton (3 dokumen pertama)",
+      "moreDocs": "... dan {count} lagi dokumen",
+      "cancel": "Batal",
+      "importing": "Mengimport...",
+      "importCount": "{count, plural, one {Import # Dok} other {Import # Dok}}",
+      "importBtn": "Import"
+    },
+    "schemaView": {
+      "analyzing": "Menganalisis skema...",
+      "loadFailed": "Gagal menganalisis skema",
+      "retry": "Cuba Semula",
+      "noDocs": "Tiada dokumen untuk dianalisis",
+      "sampled": "Sampel {docs} dokumen · {fields} medan",
+      "colField": "Medan",
+      "colTypes": "Jenis",
+      "colCoverage": "Liputan"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL ditampal dan dihurai dengan berjaya",
       "responseCopied": "Respons disalin ke papan klip",
       "codeCopied": "Kod disalin ke papan klip",
-      "copyFailed": "Gagal menyalin ke papan klip"
+      "copyFailed": "Gagal menyalin ke papan klip",
+      "curlCopied": "Perintah cURL disalin"
     },
     "layout": {
       "collections": "Koleksi",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.contoh.com/v1/...",
       "sending": "Menghantar...",
       "send": "Hantar",
-      "invalidJsonBodyHelp": "Tidak boleh hantar: kandungan JSON tidak sah"
+      "invalidJsonBodyHelp": "Tidak boleh hantar: kandungan JSON tidak sah",
+      "copyCurl": "Salin sebagai cURL"
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1915,7 +2002,10 @@
       "placeholderName": "Permintaan saya",
       "labelFolder": "Folder",
       "placeholderFolder": "Pilih folder",
-      "save": "Simpan"
+      "save": "Simpan",
+      "newFolder": "Folder baharu",
+      "newFolderPlaceholder": "Nama folder",
+      "create": "Cipta"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Menjalankan pertanyaan…",
       "emptyTitle": "Jalankan pertanyaan untuk melihat keputusan",
       "emptyHint": "Tekan ⌘↩ atau klik Jalankan",
-      "toastNoConnection": "Tiada sambungan aktif."
+      "toastNoConnection": "Tiada sambungan aktif.",
+      "btnHistory": "Sejarah",
+      "btnSaveQuery": "Simpan pertanyaan",
+      "savedSection": "Disimpan",
+      "recentSection": "Terkini",
+      "emptyHistory": "Belum ada apa-apa — jalankan atau simpan pertanyaan",
+      "savePlaceholder": "Nama pertanyaan",
+      "deleteSaved": "Padam",
+      "toastQuerySaved": "Pertanyaan disimpan"
     },
     "results": {
       "filterPlaceholder": "Tapis keputusan…",
+      "editHint": "Klik dua kali sel untuk mengedit",
+      "toastRowUpdated": "Baris dikemas kini",
+      "toastRowsUpdated": "{count, plural, other {# baris dikemas kini}}",
       "rowCount": "{count} baris",
       "rowCountFiltered": "{filtered} / {total} baris",
       "exportCsv": "CSV",

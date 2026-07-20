@@ -165,6 +165,8 @@ export default function BookmarksManager() {
 
     useEffect(() => {
         const onKeyDown = (event: KeyboardEvent) => {
+            // Inactive tool tabs stay mounted under display:none — ignore global shortcuts there.
+            if (!searchInputRef.current || searchInputRef.current.offsetParent === null) return
             const target = event.target as HTMLElement | null
             const isTyping =
                 target?.tagName === "INPUT" ||

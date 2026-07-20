@@ -1580,7 +1580,10 @@
       "cancel": "Annuler",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {Échec de la suppression de # collection} other {Échec de la suppression de # collections}}",
+      "bulkDeleted": "{count, plural, one {# collection supprimée} other {# collections supprimées}}",
+      "bulkDeleteButton": "Supprimer {count, plural, one {# collection} other {# collections}}"
     },
     "document": {
       "docsBreadcrumb": "{n} docs",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} renvoyés",
       "explainDocsExamined": "{n} examinés",
       "explainCollscanHint": "Cette requête parcourt chaque document de la collection. Envisagez de créer un index sur les champs filtrés.",
-      "explainRawLabel": "Sortie explain"
+      "explainRawLabel": "Sortie explain",
+      "docInsertFailed": "Échec de l'insertion du document",
+      "docUpdateFailed": "Échec de la mise à jour du document",
+      "indexesLoadFail": "Échec du chargement des index",
+      "bulkDeleted": "{count, plural, one {# document supprimé} other {# documents supprimés}}",
+      "bulkDeleteFailed": "Échec de la suppression en masse",
+      "selectedCount": "{count, plural, one {# document sélectionné} other {# documents sélectionnés}}",
+      "deleteSelected": "Supprimer la sélection",
+      "clearSelection": "Effacer",
+      "statusLoading": "Chargement...",
+      "statusShowing": "Affichage de {from}–{to} sur {total} documents",
+      "statusEmpty": "0 document",
+      "statusSelected": "{count} sélectionné(s)",
+      "bulkDeleteTitle": "Supprimer {count, plural, one {# document} other {# documents}} ?",
+      "bulkDeleteDescription": "Cela supprimera définitivement {count, plural, one {# document} other {# documents}} de {collection}. Cette action est irréversible.",
+      "bulkDeleting": "Suppression...",
+      "bulkDeleteConfirm": "Tout supprimer",
+      "queryErrorTitle": "Échec du chargement des documents",
+      "retry": "Réessayer"
     },
     "tabs": {
       "filterActive": "Filtre actif",
@@ -1733,7 +1754,8 @@
       "cancel": "Annuler",
       "export": "Exporter",
       "sheetName": "Données",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Exporte uniquement la page actuelle ({count, plural, one {# document} other {# documents}})"
     },
     "jsonTree": {
       "typeLabel": "Type : {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "Résultats de l'aperçu ({count})",
       "previewEmpty": "Aucun document à cette étape",
       "previewFail": "Échec de l'aperçu"
+    },
+    "indexManager": {
+      "loading": "Chargement des index...",
+      "retry": "Réessayer",
+      "countLabel": "{count, plural, one {# index} other {# index}}",
+      "totalSize": "{size} au total",
+      "statsDocs": "{count, plural, one {# doc} other {# docs}}",
+      "statsStorage": "{size} de stockage",
+      "statsAvgObj": "{size} moy./doc",
+      "newIndex": "Nouvel index",
+      "createTitle": "Créer un index",
+      "fieldPlaceholder": "Nom du champ",
+      "ascending": "Croissant",
+      "descending": "Décroissant",
+      "addField": "Ajouter un champ",
+      "unique": "Unique",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (secondes)",
+      "ttlPlaceholder": "ex. 3600",
+      "cancel": "Annuler",
+      "create": "Créer",
+      "creating": "Création...",
+      "created": "Index créé",
+      "createFailed": "Échec de la création de l'index",
+      "fieldRequired": "Le nom du champ est requis",
+      "dropped": "Index \"{name}\" supprimé",
+      "dropFailed": "Échec de la suppression de l'index",
+      "dropTitle": "Supprimer l'index ?",
+      "dropDescription": "Cela supprimera définitivement l'index \"{name}\". Les requêtes utilisant cet index seront ralenties.",
+      "dropping": "Suppression...",
+      "dropConfirm": "Supprimer l'index",
+      "badgeSystem": "système",
+      "badgeUnique": "unique",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "Aucun index trouvé"
+    },
+    "importDialog": {
+      "title": "Importer des documents dans {collection}",
+      "onlyJson": "Seuls les fichiers .json sont pris en charge",
+      "invalidStructure": "Le fichier doit contenir un tableau ou un objet JSON",
+      "invalidJson": "JSON invalide : impossible d'analyser le fichier",
+      "imported": "{count, plural, one {# document importé} other {# documents importés}}",
+      "importFailed": "Échec de l'importation",
+      "dropHint": "Glissez-déposez ou cliquez pour téléverser",
+      "dropSubHint": "Prend en charge les tableaux JSON et NDJSON",
+      "docsCount": "{count, plural, one {# doc} other {# docs}}",
+      "previewLabel": "Aperçu (3 premiers documents)",
+      "moreDocs": "... et {count} documents de plus",
+      "cancel": "Annuler",
+      "importing": "Importation...",
+      "importCount": "{count, plural, one {Importer # doc} other {Importer # docs}}",
+      "importBtn": "Importer"
+    },
+    "schemaView": {
+      "analyzing": "Analyse du schéma...",
+      "loadFailed": "Échec de l'analyse du schéma",
+      "retry": "Réessayer",
+      "noDocs": "Aucun document à analyser",
+      "sampled": "Échantillon de {docs} documents · {fields} champs",
+      "colField": "Champ",
+      "colTypes": "Types",
+      "colCoverage": "Couverture"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL collé et analysé",
       "responseCopied": "Réponse copiée",
       "codeCopied": "Code copié",
-      "copyFailed": "Impossible de copier dans le presse-papiers"
+      "copyFailed": "Impossible de copier dans le presse-papiers",
+      "curlCopied": "Commande cURL copiée"
     },
     "layout": {
       "collections": "Collections",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Envoi…",
       "send": "Envoyer",
-      "invalidJsonBodyHelp": "Envoi impossible : le corps JSON est invalide"
+      "invalidJsonBodyHelp": "Envoi impossible : le corps JSON est invalide",
+      "copyCurl": "Copier en cURL"
     },
     "requestTabs": {
       "params": "Paramètres",
@@ -1915,7 +2002,10 @@
       "placeholderName": "Ma requête",
       "labelFolder": "Dossier",
       "placeholderFolder": "Choisir un dossier",
-      "save": "Enregistrer"
+      "save": "Enregistrer",
+      "newFolder": "Nouveau dossier",
+      "newFolderPlaceholder": "Nom du dossier",
+      "create": "Créer"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Exécution en cours…",
       "emptyTitle": "Exécutez une requête pour voir les résultats",
       "emptyHint": "Appuyez sur ⌘↩ ou cliquez sur Exécuter",
-      "toastNoConnection": "Aucune connexion active."
+      "toastNoConnection": "Aucune connexion active.",
+      "btnHistory": "Historique",
+      "btnSaveQuery": "Enregistrer la requête",
+      "savedSection": "Enregistrées",
+      "recentSection": "Récentes",
+      "emptyHistory": "Rien pour l'instant — exécutez ou enregistrez une requête",
+      "savePlaceholder": "Nom de la requête",
+      "deleteSaved": "Supprimer",
+      "toastQuerySaved": "Requête enregistrée"
     },
     "results": {
       "filterPlaceholder": "Filtrer les résultats…",
+      "editHint": "Double-cliquez sur une cellule pour modifier",
+      "toastRowUpdated": "Ligne mise à jour",
+      "toastRowsUpdated": "{count, plural, one {# ligne mise à jour} other {# lignes mises à jour}}",
       "rowCount": "{count} {count, plural, one {ligne} other {lignes}}",
       "rowCountFiltered": "{filtered} / {total} lignes",
       "exportCsv": "CSV",

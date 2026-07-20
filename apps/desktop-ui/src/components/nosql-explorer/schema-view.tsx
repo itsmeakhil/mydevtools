@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconRefresh } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,6 +15,7 @@ export function SchemaView({
 }: {
     onLoad: () => Promise<SchemaData>;
 }) {
+    const t = useTranslations("NoSqlExplorer.schemaView");
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<SchemaData | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -26,7 +28,7 @@ export function SchemaView({
             setData(result);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
-            setError(e.message || 'Failed to analyze schema');
+            setError(e.message || t("loadFailed"));
         } finally {
             setLoading(false);
         }
@@ -48,7 +50,7 @@ export function SchemaView({
     if (loading) {
         return (
             <div className="h-full flex items-center justify-center">
-                <div className="text-sm text-muted-foreground animate-pulse">Analyzing schema...</div>
+                <div className="text-sm text-muted-foreground animate-pulse">{t("analyzing")}</div>
             </div>
         );
     }
@@ -59,7 +61,7 @@ export function SchemaView({
                 <p className="text-sm text-destructive">{error}</p>
                 <Button variant="outline" size="sm" onClick={load}>
                     <IconRefresh className="h-3.5 w-3.5 mr-1.5" />
-                    Retry
+                    {t("retry")}
                 </Button>
             </div>
         );
@@ -68,7 +70,7 @@ export function SchemaView({
     if (!data || data.fields.length === 0) {
         return (
             <div className="h-full flex items-center justify-center">
-                <p className="text-sm text-muted-foreground">No documents to analyze</p>
+                <p className="text-sm text-muted-foreground">{t("noDocs")}</p>
             </div>
         );
     }
@@ -76,7 +78,7 @@ export function SchemaView({
     return (
         <div className="h-full flex flex-col">
             <div className="px-4 py-2 border-b bg-muted/10 text-xs text-muted-foreground shrink-0 flex items-center justify-between">
-                <span>Sampled {data.sampleSize} documents · {data.fields.length} fields</span>
+                <span>{t("sampled", { docs: data.sampleSize, fields: data.fields.length })}</span>
                 <Button variant="ghost" size="icon" className="h-6 w-6" onClick={load}>
                     <IconRefresh className="h-3 w-3" />
                 </Button>
@@ -85,9 +87,9 @@ export function SchemaView({
                 <table className="min-w-full text-sm">
                     <thead className="text-xs text-muted-foreground uppercase bg-muted sticky top-0">
                         <tr>
-                            <th className="px-4 py-2.5 text-left font-medium">Field</th>
-                            <th className="px-4 py-2.5 text-left font-medium">Types</th>
-                            <th className="px-4 py-2.5 text-right font-medium w-24">Coverage</th>
+                            <th className="px-4 py-2.5 text-left font-medium">{t("colField")}</th>
+                            <th className="px-4 py-2.5 text-left font-medium">{t("colTypes")}</th>
+                            <th className="px-4 py-2.5 text-right font-medium w-24">{t("colCoverage")}</th>
                         </tr>
                     </thead>
                     <tbody>

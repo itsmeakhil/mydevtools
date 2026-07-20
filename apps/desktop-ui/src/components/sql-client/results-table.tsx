@@ -1,35 +1,144 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { IconDownload, IconSearch, IconX } from "@tabler/icons-react";
+import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { QueryResult } from "./types";
+import { QueryResult, SchemaInfo, SqlConnectionConfig } from "./types";
+import { typeCellInput } from "@/lib/sql-cell";
 
 interface ResultsTableProps {
     result: QueryResult;
+    /** Present when the result is a plain table select — enables cell editing. */
+    editable?: { config: SqlConnectionConfig; schema: string; table: string };
 }
 
-export function ResultsTable({ result }: ResultsTableProps) {
+export function ResultsTable({ result, editable }: ResultsTableProps) {
     const t = useTranslations("SqlClient.results");
     const [filter, setFilter] = useState("");
+    // Primary-key columns for the edited table; [] = no PK (editing disabled).
+    const [pkCols, setPkCols] = useState<string[]>([]);
+    // Committed edits, keyed by original row index — result props stay immutable.
+    const [overrides, setOverrides] = useState<Record<number, Record<string, unknown>>>({});
+    const [editing, setEditing] = useState<{ row: number; col: string } | null>(null);
+    const [editValue, setEditValue] = useState("");
+    const [saving, setSaving] = useState(false);
+    const editInputRef = useRef<HTMLInputElement | null>(null);
 
-    const filteredRows = filter
-        ? result.rows.filter((row) =>
-              Object.values(row).some((v) =>
-                  String(v ?? "").toLowerCase().includes(filter.toLowerCase())
-              )
+    useEffect(() => {
+        if (!editable) return;
+        let cancelled = false;
+        (async () => {
+            try {
+                const res = await apiFetch("/api/sql-client/tables", {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(editable.config),
+                });
+                if (!res.ok) return;
+                const schema = (await res.json()) as SchemaInfo;
+                if (cancelled) return;
+                const pks = (schema.primaryKeys ?? [])
+                    .filter(
+                        (pk) =>
+                            pk.table_name === editable.table &&
+                            (!editable.schema || !pk.schema || pk.schema === editable.schema),
+                    )
+                    .map((pk) => pk.column_name);
+                setPkCols(pks);
+            } catch {
+                // No PK info → editing stays disabled; the grid still renders.
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, [editable]);
+
+    useEffect(() => {
+        if (editing) editInputRef.current?.focus();
+    }, [editing]);
+
+    // New result rows → old index-keyed edits no longer apply.
+    useEffect(() => {
+        setOverrides({});
+        setEditing(null);
+    }, [result]);
+
+    const cellValue = (origIdx: number, col: string): unknown => {
+        const o = overrides[origIdx];
+        return o && col in o ? o[col] : result.rows[origIdx]?.[col];
+    };
+
+    // Filter over effective (edited) values, carrying original indexes.
+    const indexedRows = result.rows.map((_, i) => i);
+    const filteredIdx = filter
+        ? indexedRows.filter((i) =>
+              result.columns.some((col) =>
+                  String(cellValue(i, col) ?? "").toLowerCase().includes(filter.toLowerCase()),
+              ),
           )
-        : result.rows;
+        : indexedRows;
+
+    const canEdit =
+        !!editable &&
+        pkCols.length > 0 &&
+        pkCols.every((pk) => result.columns.includes(pk));
+
+    const commitEdit = async (origIdx: number, col: string) => {
+        if (!editable || saving) return;
+        const newValue = typeCellInput(editValue);
+        const current = cellValue(origIdx, col);
+        if (newValue === current) {
+            setEditing(null);
+            return;
+        }
+        setSaving(true);
+        try {
+            const where: Record<string, unknown> = {};
+            for (const pk of pkCols) where[pk] = cellValue(origIdx, pk);
+            const res = await apiFetch("/api/sql-client/update-row", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    ...editable.config,
+                    schema: editable.schema,
+                    table: editable.table,
+                    set: { [col]: newValue },
+                    where,
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+            setOverrides((prev) => ({
+                ...prev,
+                [origIdx]: { ...prev[origIdx], [col]: newValue },
+            }));
+            if (data.rowCount === 1) {
+                toast.success(t("toastRowUpdated"));
+            } else {
+                toast.warning(t("toastRowsUpdated", { count: Number(data.rowCount ?? 0) }));
+            }
+            setEditing(null);
+        } catch (err) {
+            toast.error(err instanceof Error ? err.message : String(err));
+        } finally {
+            setSaving(false);
+        }
+    };
 
     const handleExportCSV = () => {
         const header = result.columns.join(",");
-        const rows = result.rows.map((row) =>
+        const rows = indexedRows.map((i) =>
             result.columns
                 .map((col) => {
-                    const val = row[col];
+                    const val = cellValue(i, col);
                     const str = val == null ? "" : typeof val === "object" ? JSON.stringify(val) : String(val);
                     return `"${str.replace(/"/g, '""')}"`;
                 })
@@ -74,8 +183,9 @@ export function ResultsTable({ result }: ResultsTableProps) {
                 </div>
 
                 <span className="text-xs text-muted-foreground ml-auto">
-                    {filteredRows.length !== result.rows.length
-                        ? t("rowCountFiltered", { filtered: filteredRows.length, total: result.rows.length })
+                    {canEdit && <span className="mr-2 opacity-70">{t("editHint")}</span>}
+                    {filteredIdx.length !== result.rows.length
+                        ? t("rowCountFiltered", { filtered: filteredIdx.length, total: result.rows.length })
                         : t("rowCount", { count: result.rowCount })}{" "}
                     · {result.executionTime}ms
                 </span>
@@ -101,12 +211,15 @@ export function ResultsTable({ result }: ResultsTableProps) {
                                         className="px-3 py-1.5 text-left font-medium border-b border-r whitespace-nowrap font-mono"
                                     >
                                         {col}
+                                        {canEdit && pkCols.includes(col) && (
+                                            <span className="ml-1 text-[9px] text-muted-foreground align-top">PK</span>
+                                        )}
                                     </th>
                                 ))}
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredRows.length === 0 ? (
+                            {filteredIdx.length === 0 ? (
                                 <tr>
                                     <td
                                         colSpan={result.columns.length + 1}
@@ -116,19 +229,44 @@ export function ResultsTable({ result }: ResultsTableProps) {
                                     </td>
                                 </tr>
                             ) : (
-                                filteredRows.map((row, i) => (
-                                    <tr key={i} className="hover:bg-muted/40 group">
+                                filteredIdx.map((origIdx, displayIdx) => (
+                                    <tr key={origIdx} className="hover:bg-muted/40 group">
                                         <td className="px-2 py-1 text-muted-foreground border-b border-r text-right select-none tabular-nums">
-                                            {i + 1}
+                                            {displayIdx + 1}
                                         </td>
                                         {result.columns.map((col) => {
-                                            const val = row[col];
+                                            const val = cellValue(origIdx, col);
                                             const isNull = val === null || val === undefined;
+                                            const isEditing = editing?.row === origIdx && editing?.col === col;
+                                            if (isEditing) {
+                                                return (
+                                                    <td key={col} className="p-0 border-b border-r max-w-[300px]">
+                                                        <Input
+                                                            ref={editInputRef}
+                                                            className="h-6 rounded-none border-primary text-xs font-mono px-2"
+                                                            value={editValue}
+                                                            disabled={saving}
+                                                            onChange={(e) => setEditValue(e.target.value)}
+                                                            onKeyDown={(e) => {
+                                                                if (e.key === "Enter") void commitEdit(origIdx, col);
+                                                                if (e.key === "Escape") setEditing(null);
+                                                            }}
+                                                            onBlur={() => { if (!saving) setEditing(null); }}
+                                                        />
+                                                    </td>
+                                                );
+                                            }
                                             return (
                                                 <td
                                                     key={col}
                                                     className="px-3 py-1 border-b border-r max-w-[300px] truncate font-mono"
                                                     title={isNull ? "NULL" : String(val)}
+                                                    onDoubleClick={() => {
+                                                        // PK cells are the row identity — not editable in place.
+                                                        if (!canEdit || pkCols.includes(col)) return;
+                                                        setEditing({ row: origIdx, col });
+                                                        setEditValue(isNull ? "" : formatCell(val));
+                                                    }}
                                                 >
                                                     {isNull ? (
                                                         <span className="text-muted-foreground/50 italic">NULL</span>

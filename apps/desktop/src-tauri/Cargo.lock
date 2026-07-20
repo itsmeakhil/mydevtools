@@ -2892,10 +2892,13 @@ name = "mydevtools-desktop"
 version = "0.1.7"
 dependencies = [
  "base64 0.22.1",
+ "bytes",
  "chrono",
  "cookie_store 0.21.1",
  "dashmap",
  "futures-util",
+ "h2",
+ "http",
  "keyring",
  "mongodb",
  "mysql_async",
@@ -2917,6 +2920,7 @@ dependencies = [
  "tauri-plugin-window-state",
  "thiserror 2.0.18",
  "tokio",
+ "tokio-native-tls",
  "tokio-postgres",
  "uuid",
 ]
