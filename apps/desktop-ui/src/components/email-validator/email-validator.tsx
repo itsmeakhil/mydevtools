@@ -429,13 +429,13 @@ export function EmailValidator() {
                 </div>
 
                 <TabsContent value="single" className="space-y-4 focus-visible:outline-none">
-                    <Card>
+                    <Card className={result ? "" : "max-w-2xl mx-auto"}>
                         <CardHeader>
                             <CardTitle className="text-lg font-medium text-center">{t("single.cardTitle")}</CardTitle>
                             <CardDescription className="text-center">{t("single.cardDescription")}</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <div className="flex gap-3 max-w-xl mx-auto">
+                            <div className="flex gap-3">
                                 <div className="relative flex-1">
                                     <Input
                                         type="email"
@@ -585,7 +585,7 @@ export function EmailValidator() {
 
                 <TabsContent value="bulk" className="space-y-4 focus-visible:outline-none">
                     {!bulkLoading && bulkResults.length === 0 && (
-                        <Card className={`border-dashed border-2 transition-all ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "bg-muted/20 hover:bg-muted/40"}`}>
+                        <Card className={`max-w-2xl mx-auto border-dashed border-2 transition-all ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "bg-muted/20 hover:bg-muted/40"}`}>
                             <CardContent className="flex flex-col items-center justify-center py-12 px-4 text-center cursor-pointer"
                                 onClick={() => fileInputRef.current?.click()}
                                 onDragOver={onDragOver}
@@ -621,7 +621,7 @@ export function EmailValidator() {
                     )}
 
                     {bulkLoading && (
-                        <Card className="p-8 text-center">
+                        <Card className="max-w-2xl mx-auto p-8 text-center">
                             <div className="max-w-md mx-auto space-y-6">
                                 <div className="flex flex-col items-center gap-4">
                                     <div className="relative">

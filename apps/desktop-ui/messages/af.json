@@ -1580,7 +1580,10 @@
       "cancel": "Kanselleer",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {Kon nie # versameling uitvee nie} other {Kon nie # versamelings uitvee nie}}",
+      "bulkDeleted": "{count, plural, one {# versameling uitgevee} other {# versamelings uitgevee}}",
+      "bulkDeleteButton": "Vee {count, plural, one {# versameling} other {# versamelings}} uit"
     },
     "document": {
       "docsBreadcrumb": "{n} dokumente",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} teruggegee",
       "explainDocsExamined": "{n} ondersoek",
       "explainCollscanHint": "Hierdie navraag deursoek elke dokument in die collection. Oorweeg 'n indeks op die gefiltreerde velde.",
-      "explainRawLabel": "Explain-uitset"
+      "explainRawLabel": "Explain-uitset",
+      "docInsertFailed": "Kon nie dokument invoeg nie",
+      "docUpdateFailed": "Kon nie dokument opdateer nie",
+      "indexesLoadFail": "Kon nie indekse laai nie",
+      "bulkDeleted": "{count, plural, one {# dokument uitgevee} other {# dokumente uitgevee}}",
+      "bulkDeleteFailed": "Massa-uitvee het misluk",
+      "selectedCount": "{count, plural, one {# dokument gekies} other {# dokumente gekies}}",
+      "deleteSelected": "Vee gekose uit",
+      "clearSelection": "Maak skoon",
+      "statusLoading": "Laai tans...",
+      "statusShowing": "Wys {from}–{to} van {total} dokumente",
+      "statusEmpty": "0 dokumente",
+      "statusSelected": "{count} gekies",
+      "bulkDeleteTitle": "Vee {count, plural, one {# dokument} other {# dokumente}} uit?",
+      "bulkDeleteDescription": "Dit sal {count, plural, one {# dokument} other {# dokumente}} permanent uit {collection} uitvee. Dit kan nie ongedaan gemaak word nie.",
+      "bulkDeleting": "Vee tans uit...",
+      "bulkDeleteConfirm": "Vee alles uit",
+      "queryErrorTitle": "Kon nie dokumente laai nie",
+      "retry": "Probeer weer"
     },
     "tabs": {
       "filterActive": "Aktiewe filter toegepas",
@@ -1733,7 +1754,8 @@
       "cancel": "Kanselleer",
       "export": "Uitvoer",
       "sheetName": "Data",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Voer slegs die huidige bladsy uit ({count, plural, one {# dokument} other {# dokumente}})"
     },
     "jsonTree": {
       "typeLabel": "Tipe: {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "Voorskouresultate ({count})",
       "previewEmpty": "Geen dokumente in hierdie fase nie",
       "previewFail": "Voorskou het misluk"
+    },
+    "indexManager": {
+      "loading": "Laai tans indekse...",
+      "retry": "Probeer weer",
+      "countLabel": "{count, plural, one {# indeks} other {# indekse}}",
+      "totalSize": "{size} totaal",
+      "statsDocs": "{count, plural, one {# dok.} other {# dok.}}",
+      "statsStorage": "{size} berging",
+      "statsAvgObj": "{size} gem./dok.",
+      "newIndex": "Nuwe indeks",
+      "createTitle": "Skep indeks",
+      "fieldPlaceholder": "Veldnaam",
+      "ascending": "Stygend",
+      "descending": "Dalend",
+      "addField": "Voeg veld by",
+      "unique": "Uniek",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (sekondes)",
+      "ttlPlaceholder": "bv. 3600",
+      "cancel": "Kanselleer",
+      "create": "Skep",
+      "creating": "Skep tans...",
+      "created": "Indeks geskep",
+      "createFailed": "Kon nie indeks skep nie",
+      "fieldRequired": "Veldnaam word vereis",
+      "dropped": "Indeks \"{name}\" is laat val",
+      "dropFailed": "Kon nie indeks laat val nie",
+      "dropTitle": "Laat indeks val?",
+      "dropDescription": "Dit sal indeks \"{name}\" permanent laat val. Navrae wat hierdie indeks gebruik, sal stadiger word.",
+      "dropping": "Laat tans val...",
+      "dropConfirm": "Laat indeks val",
+      "badgeSystem": "stelsel",
+      "badgeUnique": "uniek",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "Geen indekse gevind nie"
+    },
+    "importDialog": {
+      "title": "Voer dokumente in {collection} in",
+      "onlyJson": "Slegs .json-lêers word ondersteun",
+      "invalidStructure": "Lêer moet 'n JSON-array of -objek bevat",
+      "invalidJson": "Ongeldige JSON: kon nie lêer ontleed nie",
+      "imported": "{count, plural, one {# dokument ingevoer} other {# dokumente ingevoer}}",
+      "importFailed": "Invoer het misluk",
+      "dropHint": "Sleep en los of klik om op te laai",
+      "dropSubHint": "Ondersteun JSON-array of NDJSON",
+      "docsCount": "{count, plural, one {# dok.} other {# dok.}}",
+      "previewLabel": "Voorskou (eerste 3 dokumente)",
+      "moreDocs": "... en nog {count} dokumente",
+      "cancel": "Kanselleer",
+      "importing": "Voer tans in...",
+      "importCount": "{count, plural, one {Voer # dok. in} other {Voer # dok. in}}",
+      "importBtn": "Voer in"
+    },
+    "schemaView": {
+      "analyzing": "Ontleed tans skema...",
+      "loadFailed": "Kon nie skema ontleed nie",
+      "retry": "Probeer weer",
+      "noDocs": "Geen dokumente om te ontleed nie",
+      "sampled": "{docs} dokumente gemonster · {fields} velde",
+      "colField": "Veld",
+      "colTypes": "Tipes",
+      "colCoverage": "Dekking"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL geplak en suksesvol ontleed",
       "responseCopied": "Antwoord na knipbord gekopieer",
       "codeCopied": "Kode na knipbord gekopieer",
-      "copyFailed": "Failed to copy to clipboard"
+      "copyFailed": "Failed to copy to clipboard",
+      "curlCopied": "cURL-opdrag gekopieer"
     },
     "layout": {
       "collections": "Versamelings",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Besig om te stuur...",
       "send": "Stuur",
-      "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid"
+      "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid",
+      "copyCurl": "Kopieer as cURL"
     },
     "requestTabs": {
       "params": "Params",
@@ -1915,7 +2002,10 @@
       "placeholderName": "My versoek",
       "labelFolder": "Vouer",
       "placeholderFolder": "Kies 'n vouer",
-      "save": "Stoor"
+      "save": "Stoor",
+      "newFolder": "Nuwe gids",
+      "newFolderPlaceholder": "Gidsnaam",
+      "create": "Skep"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Navraag word uitgevoer…",
       "emptyTitle": "Voer 'n navraag uit om resultate te sien",
       "emptyHint": "Druk ⌘↩ of klik Voer uit",
-      "toastNoConnection": "Geen aktiewe verbinding nie."
+      "toastNoConnection": "Geen aktiewe verbinding nie.",
+      "btnHistory": "Geskiedenis",
+      "btnSaveQuery": "Stoor navraag",
+      "savedSection": "Gestoor",
+      "recentSection": "Onlangs",
+      "emptyHistory": "Nog niks hier nie — voer 'n navraag uit of stoor een",
+      "savePlaceholder": "Navraagnaam",
+      "deleteSaved": "Verwyder",
+      "toastQuerySaved": "Navraag gestoor"
     },
     "results": {
       "filterPlaceholder": "Filtreer resultate…",
+      "editHint": "Dubbelklik op 'n sel om te wysig",
+      "toastRowUpdated": "Ry opgedateer",
+      "toastRowsUpdated": "{count, plural, one {# ry opgedateer} other {# rye opgedateer}}",
       "rowCount": "{count} ry(e)",
       "rowCountFiltered": "{filtered} / {total} rye",
       "exportCsv": "CSV",

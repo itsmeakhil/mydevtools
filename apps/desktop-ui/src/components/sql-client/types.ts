@@ -46,9 +46,16 @@ export interface ColumnInfo {
     ordinal_position: number;
 }
 
+export interface PrimaryKeyInfo {
+    schema: string;
+    table_name: string;
+    column_name: string;
+}
+
 export interface SchemaInfo {
     tables: TableInfo[];
     columns: ColumnInfo[];
+    primaryKeys?: PrimaryKeyInfo[];
 }
 
 export interface QueryResult {
@@ -67,4 +74,6 @@ export interface QueryTab {
     result: QueryResult | null;
     error: string | null;
     loading: boolean;
+    /** Source table when opened via the schema sidebar — enables grid editing. */
+    table?: { schema: string; name: string };
 }

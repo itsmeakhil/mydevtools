@@ -349,7 +349,7 @@ export function RequestTabs({
 
     return (
         <Tabs defaultValue="params" className="w-full h-full flex flex-col min-h-0">
-            <TabsList className="w-full justify-start h-10 p-1 bg-muted/50 border rounded-lg">
+            <TabsList className="w-full justify-start h-10 p-1 bg-muted/50 border rounded-lg overflow-x-auto custom-scrollbar shrink-0 [&>*]:shrink-0">
                 <TabsTrigger value="params" className="flex items-center gap-2 px-4">
                     {t("params")}
                     {activeParamsCount > 0 && (

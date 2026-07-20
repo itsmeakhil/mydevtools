@@ -1580,7 +1580,10 @@
       "cancel": "Cancellare",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {Impossibile eliminare # collezione} other {Impossibile eliminare # collezioni}}",
+      "bulkDeleted": "{count, plural, one {# collezione eliminata} other {# collezioni eliminate}}",
+      "bulkDeleteButton": "Elimina {count, plural, one {# collezione} other {# collezioni}}"
     },
     "document": {
       "docsBreadcrumb": "{n} documenti",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} restituiti",
       "explainDocsExamined": "{n} esaminati",
       "explainCollscanHint": "Questa query scansiona ogni documento della collection. Valuta la creazione di un indice sui campi filtrati.",
-      "explainRawLabel": "Output explain"
+      "explainRawLabel": "Output explain",
+      "docInsertFailed": "Impossibile inserire il documento",
+      "docUpdateFailed": "Impossibile aggiornare il documento",
+      "indexesLoadFail": "Impossibile caricare gli indici",
+      "bulkDeleted": "{count, plural, one {# documento eliminato} other {# documenti eliminati}}",
+      "bulkDeleteFailed": "Eliminazione in blocco non riuscita",
+      "selectedCount": "{count, plural, one {# documento selezionato} other {# documenti selezionati}}",
+      "deleteSelected": "Elimina selezionati",
+      "clearSelection": "Deseleziona",
+      "statusLoading": "Caricamento...",
+      "statusShowing": "Visualizzazione di {from}–{to} su {total} documenti",
+      "statusEmpty": "0 documenti",
+      "statusSelected": "{count} selezionati",
+      "bulkDeleteTitle": "Eliminare {count, plural, one {# documento} other {# documenti}}?",
+      "bulkDeleteDescription": "Questo eliminerà definitivamente {count, plural, one {# documento} other {# documenti}} da {collection}. L'operazione non può essere annullata.",
+      "bulkDeleting": "Eliminazione...",
+      "bulkDeleteConfirm": "Elimina tutto",
+      "queryErrorTitle": "Impossibile caricare i documenti",
+      "retry": "Riprova"
     },
     "tabs": {
       "filterActive": "Filtro attivo applicato",
@@ -1729,15 +1750,16 @@
       "formatCsv": "CSV",
       "selectFields": "Seleziona Campi",
       "selectAll": "Seleziona tutto",
-      "fieldsSelected": "{contare, plurale, uno {# field selected} altro {# fields selected}}",
+      "fieldsSelected": "{count, plural, one {# campo selezionato} other {# campi selezionati}}",
       "cancel": "Cancellare",
       "export": "Esportare",
       "sheetName": "Dati",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Esporta solo la pagina corrente ({count, plural, one {# documento} other {# documenti}})"
     },
     "jsonTree": {
       "typeLabel": "Tipo: {type}",
-      "itemSummary": "{contare, plurale, uno {# item} altro {# items}}"
+      "itemSummary": "{count, plural, one {# elemento} other {# elementi}}"
     },
     "pipeline": {
       "empty": "Nessuna fase ancora. Aggiungi una fase per costruire la pipeline.",
@@ -1748,6 +1770,69 @@
       "previewResult": "Risultati anteprima ({count})",
       "previewEmpty": "Nessun documento in questa fase",
       "previewFail": "Anteprima non riuscita"
+    },
+    "indexManager": {
+      "loading": "Caricamento indici...",
+      "retry": "Riprova",
+      "countLabel": "{count, plural, one {# indice} other {# indici}}",
+      "totalSize": "{size} in totale",
+      "statsDocs": "{count, plural, one {# doc} other {# doc}}",
+      "statsStorage": "{size} di archiviazione",
+      "statsAvgObj": "{size} media/doc",
+      "newIndex": "Nuovo indice",
+      "createTitle": "Crea indice",
+      "fieldPlaceholder": "Nome del campo",
+      "ascending": "Crescente",
+      "descending": "Decrescente",
+      "addField": "Aggiungi campo",
+      "unique": "Univoco",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (secondi)",
+      "ttlPlaceholder": "es. 3600",
+      "cancel": "Annulla",
+      "create": "Crea",
+      "creating": "Creazione...",
+      "created": "Indice creato",
+      "createFailed": "Impossibile creare l'indice",
+      "fieldRequired": "Il nome del campo è obbligatorio",
+      "dropped": "Indice \"{name}\" eliminato",
+      "dropFailed": "Impossibile eliminare l'indice",
+      "dropTitle": "Eliminare l'indice?",
+      "dropDescription": "Questo eliminerà definitivamente l'indice \"{name}\". Le query che utilizzano questo indice diventeranno più lente.",
+      "dropping": "Eliminazione...",
+      "dropConfirm": "Elimina indice",
+      "badgeSystem": "sistema",
+      "badgeUnique": "univoco",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "Nessun indice trovato"
+    },
+    "importDialog": {
+      "title": "Importa documenti in {collection}",
+      "onlyJson": "Sono supportati solo file .json",
+      "invalidStructure": "Il file deve contenere un array o un oggetto JSON",
+      "invalidJson": "JSON non valido: impossibile analizzare il file",
+      "imported": "{count, plural, one {# documento importato} other {# documenti importati}}",
+      "importFailed": "Importazione non riuscita",
+      "dropHint": "Trascina qui o fai clic per caricare",
+      "dropSubHint": "Supporta array JSON o NDJSON",
+      "docsCount": "{count, plural, one {# doc} other {# doc}}",
+      "previewLabel": "Anteprima (primi 3 documenti)",
+      "moreDocs": "... e altri {count} documenti",
+      "cancel": "Annulla",
+      "importing": "Importazione...",
+      "importCount": "{count, plural, one {Importa # doc} other {Importa # doc}}",
+      "importBtn": "Importa"
+    },
+    "schemaView": {
+      "analyzing": "Analisi dello schema...",
+      "loadFailed": "Impossibile analizzare lo schema",
+      "retry": "Riprova",
+      "noDocs": "Nessun documento da analizzare",
+      "sampled": "Campione di {docs} documenti · {fields} campi",
+      "colField": "Campo",
+      "colTypes": "Tipi",
+      "colCoverage": "Copertura"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL incollato e analizzato correttamente",
       "responseCopied": "Risposta copiata negli appunti",
       "codeCopied": "Codice copiato negli appunti",
-      "copyFailed": "Copia negli appunti non riuscita"
+      "copyFailed": "Copia negli appunti non riuscita",
+      "curlCopied": "Comando cURL copiato"
     },
     "layout": {
       "collections": "Collezioni",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.esempio.com/v1/...",
       "sending": "Invio...",
       "send": "Inviare",
-      "invalidJsonBodyHelp": "Impossibile inviare: il corpo JSON non è valido"
+      "invalidJsonBodyHelp": "Impossibile inviare: il corpo JSON non è valido",
+      "copyCurl": "Copia come cURL"
     },
     "requestTabs": {
       "params": "Param",
@@ -1915,7 +2002,10 @@
       "placeholderName": "La mia richiesta",
       "labelFolder": "Cartella",
       "placeholderFolder": "Seleziona una cartella",
-      "save": "Salva"
+      "save": "Salva",
+      "newFolder": "Nuova cartella",
+      "newFolderPlaceholder": "Nome cartella",
+      "create": "Crea"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Esecuzione query…",
       "emptyTitle": "Esegui una query per vedere i risultati",
       "emptyHint": "Premi ⌘↩ o clicca Esegui",
-      "toastNoConnection": "Nessuna connessione attiva."
+      "toastNoConnection": "Nessuna connessione attiva.",
+      "btnHistory": "Cronologia",
+      "btnSaveQuery": "Salva query",
+      "savedSection": "Salvate",
+      "recentSection": "Recenti",
+      "emptyHistory": "Ancora niente — esegui o salva una query",
+      "savePlaceholder": "Nome query",
+      "deleteSaved": "Elimina",
+      "toastQuerySaved": "Query salvata"
     },
     "results": {
       "filterPlaceholder": "Filtra risultati…",
+      "editHint": "Fai doppio clic su una cella per modificare",
+      "toastRowUpdated": "Riga aggiornata",
+      "toastRowsUpdated": "{count, plural, one {# riga aggiornata} other {# righe aggiornate}}",
       "rowCount": "{count} {count, plural, one {riga} other {righe}}",
       "rowCountFiltered": "{filtered} / {total} righe",
       "exportCsv": "CSV",

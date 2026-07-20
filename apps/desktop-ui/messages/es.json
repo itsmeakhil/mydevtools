@@ -1580,7 +1580,10 @@
       "cancel": "Cancelar",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {No se pudo eliminar # colección} other {No se pudieron eliminar # colecciones}}",
+      "bulkDeleted": "{count, plural, one {# colección eliminada} other {# colecciones eliminadas}}",
+      "bulkDeleteButton": "Eliminar {count, plural, one {# colección} other {# colecciones}}"
     },
     "document": {
       "docsBreadcrumb": "{n} documentos",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} devueltos",
       "explainDocsExamined": "{n} examinados",
       "explainCollscanHint": "Esta consulta escanea todos los documentos de la colección. Considera crear un índice sobre los campos filtrados.",
-      "explainRawLabel": "Salida de explain"
+      "explainRawLabel": "Salida de explain",
+      "docInsertFailed": "No se pudo insertar el documento",
+      "docUpdateFailed": "No se pudo actualizar el documento",
+      "indexesLoadFail": "No se pudieron cargar los índices",
+      "bulkDeleted": "{count, plural, one {# documento eliminado} other {# documentos eliminados}}",
+      "bulkDeleteFailed": "Falló la eliminación masiva",
+      "selectedCount": "{count, plural, one {# documento seleccionado} other {# documentos seleccionados}}",
+      "deleteSelected": "Eliminar seleccionados",
+      "clearSelection": "Limpiar",
+      "statusLoading": "Cargando...",
+      "statusShowing": "Mostrando {from}–{to} de {total} documentos",
+      "statusEmpty": "0 documentos",
+      "statusSelected": "{count} seleccionados",
+      "bulkDeleteTitle": "¿Eliminar {count, plural, one {# documento} other {# documentos}}?",
+      "bulkDeleteDescription": "Esto eliminará permanentemente {count, plural, one {# documento} other {# documentos}} de {collection}. Esta acción no se puede deshacer.",
+      "bulkDeleting": "Eliminando...",
+      "bulkDeleteConfirm": "Eliminar todo",
+      "queryErrorTitle": "No se pudieron cargar los documentos",
+      "retry": "Reintentar"
     },
     "tabs": {
       "filterActive": "Filtro activo",
@@ -1733,7 +1754,8 @@
       "cancel": "Cancelar",
       "export": "Exportar",
       "sheetName": "Datos",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Exporta solo la página actual ({count, plural, one {# documento} other {# documentos}})"
     },
     "jsonTree": {
       "typeLabel": "Tipo: {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "Resultados de vista previa ({count})",
       "previewEmpty": "No hay documentos en esta etapa",
       "previewFail": "Falló la vista previa"
+    },
+    "indexManager": {
+      "loading": "Cargando índices...",
+      "retry": "Reintentar",
+      "countLabel": "{count, plural, one {# índice} other {# índices}}",
+      "totalSize": "{size} en total",
+      "statsDocs": "{count, plural, one {# doc} other {# docs}}",
+      "statsStorage": "{size} almacenamiento",
+      "statsAvgObj": "{size} media/doc",
+      "newIndex": "Nuevo índice",
+      "createTitle": "Crear índice",
+      "fieldPlaceholder": "Nombre del campo",
+      "ascending": "Ascendente",
+      "descending": "Descendente",
+      "addField": "Añadir campo",
+      "unique": "Único",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (segundos)",
+      "ttlPlaceholder": "p. ej. 3600",
+      "cancel": "Cancelar",
+      "create": "Crear",
+      "creating": "Creando...",
+      "created": "Índice creado",
+      "createFailed": "No se pudo crear el índice",
+      "fieldRequired": "El nombre del campo es obligatorio",
+      "dropped": "Índice \"{name}\" eliminado",
+      "dropFailed": "No se pudo eliminar el índice",
+      "dropTitle": "¿Eliminar índice?",
+      "dropDescription": "Esto eliminará permanentemente el índice \"{name}\". Las consultas que usen este índice se ralentizarán.",
+      "dropping": "Eliminando...",
+      "dropConfirm": "Eliminar índice",
+      "badgeSystem": "sistema",
+      "badgeUnique": "único",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "No se encontraron índices"
+    },
+    "importDialog": {
+      "title": "Importar documentos a {collection}",
+      "onlyJson": "Solo se admiten archivos .json",
+      "invalidStructure": "El archivo debe contener un array u objeto JSON",
+      "invalidJson": "JSON no válido: no se pudo analizar el archivo",
+      "imported": "{count, plural, one {# documento importado} other {# documentos importados}}",
+      "importFailed": "Falló la importación",
+      "dropHint": "Arrastra y suelta o haz clic para subir",
+      "dropSubHint": "Admite array JSON o NDJSON",
+      "docsCount": "{count, plural, one {# doc} other {# docs}}",
+      "previewLabel": "Vista previa (primeros 3 documentos)",
+      "moreDocs": "... y {count} documentos más",
+      "cancel": "Cancelar",
+      "importing": "Importando...",
+      "importCount": "{count, plural, one {Importar # doc} other {Importar # docs}}",
+      "importBtn": "Importar"
+    },
+    "schemaView": {
+      "analyzing": "Analizando esquema...",
+      "loadFailed": "No se pudo analizar el esquema",
+      "retry": "Reintentar",
+      "noDocs": "No hay documentos para analizar",
+      "sampled": "Muestra de {docs} documentos · {fields} campos",
+      "colField": "Campo",
+      "colTypes": "Tipos",
+      "colCoverage": "Cobertura"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL pegado y analizado correctamente",
       "responseCopied": "Respuesta copiada al portapapeles",
       "codeCopied": "Código copiado al portapapeles",
-      "copyFailed": "Error al copiar al portapapeles"
+      "copyFailed": "Error al copiar al portapapeles",
+      "curlCopied": "Comando cURL copiado"
     },
     "layout": {
       "collections": "Colecciones",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.ejemplo.com/v1/...",
       "sending": "Enviando...",
       "send": "Enviar",
-      "invalidJsonBodyHelp": "No se puede enviar: el cuerpo JSON no es válido"
+      "invalidJsonBodyHelp": "No se puede enviar: el cuerpo JSON no es válido",
+      "copyCurl": "Copiar como cURL"
     },
     "requestTabs": {
       "params": "Parámetros",
@@ -1915,7 +2002,10 @@
       "placeholderName": "Mi solicitud",
       "labelFolder": "Carpeta",
       "placeholderFolder": "Selecciona una carpeta",
-      "save": "Guardar"
+      "save": "Guardar",
+      "newFolder": "Nueva carpeta",
+      "newFolderPlaceholder": "Nombre de la carpeta",
+      "create": "Crear"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Ejecutando consulta…",
       "emptyTitle": "Ejecuta una consulta para ver los resultados",
       "emptyHint": "Pulsa ⌘↩ o haz clic en Ejecutar",
-      "toastNoConnection": "No hay conexión activa."
+      "toastNoConnection": "No hay conexión activa.",
+      "btnHistory": "Historial",
+      "btnSaveQuery": "Guardar consulta",
+      "savedSection": "Guardadas",
+      "recentSection": "Recientes",
+      "emptyHistory": "Nada aún — ejecuta o guarda una consulta",
+      "savePlaceholder": "Nombre de la consulta",
+      "deleteSaved": "Eliminar",
+      "toastQuerySaved": "Consulta guardada"
     },
     "results": {
       "filterPlaceholder": "Filtrar resultados…",
+      "editHint": "Haz doble clic en una celda para editar",
+      "toastRowUpdated": "Fila actualizada",
+      "toastRowsUpdated": "{count, plural, one {# fila actualizada} other {# filas actualizadas}}",
       "rowCount": "{count} {count, plural, one {fila} other {filas}}",
       "rowCountFiltered": "{filtered} / {total} filas",
       "exportCsv": "CSV",

@@ -12,11 +12,11 @@ type CollectionsState = {
 }
 
 type CollectionsActions = {
-    addFolder: (parentId: string, name: string) => Promise<void>
+    addFolder: (parentId: string, name: string) => Promise<string | void>
     deleteItem: (itemId: string) => Promise<void>
     saveRequest: (parentId: string, request: import("../types").CollectionRequest) => Promise<void>
     toggleFolder: (folderId: string) => Promise<void>
-    createCollection: (name: string) => Promise<void>
+    createCollection: (name: string) => Promise<Collection | void>
     renameCollection: (collectionId: string, name: string) => Promise<void>
     renameFolder: (folderId: string, name: string) => Promise<void>
     patchFolder: (folderId: string, patch: Partial<import("../types").CollectionFolder>) => Promise<void>

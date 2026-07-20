@@ -1604,7 +1604,10 @@
       "cancel": "Cancel",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {Failed to delete # collection} other {Failed to delete # collections}}",
+      "bulkDeleted": "{count, plural, one {Deleted # collection} other {Deleted # collections}}",
+      "bulkDeleteButton": "Delete {count, plural, one {# Collection} other {# Collections}}"
     },
     "document": {
       "docsBreadcrumb": "{n} docs",
@@ -1681,7 +1684,25 @@
       "explainReturned": "{n} returned",
       "explainDocsExamined": "{n} examined",
       "explainCollscanHint": "This query scans every document in the collection. Consider creating an index on the filtered fields.",
-      "explainRawLabel": "Explain output"
+      "explainRawLabel": "Explain output",
+      "docInsertFailed": "Failed to insert document",
+      "docUpdateFailed": "Failed to update document",
+      "indexesLoadFail": "Failed to load indexes",
+      "bulkDeleted": "{count, plural, one {# document deleted} other {# documents deleted}}",
+      "bulkDeleteFailed": "Bulk delete failed",
+      "selectedCount": "{count, plural, one {# document selected} other {# documents selected}}",
+      "deleteSelected": "Delete Selected",
+      "clearSelection": "Clear",
+      "statusLoading": "Loading...",
+      "statusShowing": "Showing {from}–{to} of {total} documents",
+      "statusEmpty": "0 documents",
+      "statusSelected": "{count} selected",
+      "bulkDeleteTitle": "Delete {count, plural, one {# document} other {# documents}}?",
+      "bulkDeleteDescription": "This will permanently delete {count, plural, one {# document} other {# documents}} from {collection}. This cannot be undone.",
+      "bulkDeleting": "Deleting...",
+      "bulkDeleteConfirm": "Delete All",
+      "queryErrorTitle": "Failed to load documents",
+      "retry": "Retry"
     },
     "tabs": {
       "filterActive": "Active filter applied",
@@ -1757,7 +1778,8 @@
       "cancel": "Cancel",
       "export": "Export",
       "sheetName": "Data",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Exports the current page only ({count, plural, one {# document} other {# documents}})"
     },
     "jsonTree": {
       "typeLabel": "Type: {type}",
@@ -1772,6 +1794,69 @@
       "previewResult": "Preview results ({count})",
       "previewEmpty": "No documents at this stage",
       "previewFail": "Preview failed"
+    },
+    "indexManager": {
+      "loading": "Loading indexes...",
+      "retry": "Retry",
+      "countLabel": "{count, plural, one {# index} other {# indexes}}",
+      "totalSize": "{size} total",
+      "statsDocs": "{count, plural, one {# doc} other {# docs}}",
+      "statsStorage": "{size} storage",
+      "statsAvgObj": "{size} avg/doc",
+      "newIndex": "New Index",
+      "createTitle": "Create Index",
+      "fieldPlaceholder": "Field name",
+      "ascending": "Ascending",
+      "descending": "Descending",
+      "addField": "Add field",
+      "unique": "Unique",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (seconds)",
+      "ttlPlaceholder": "e.g. 3600",
+      "cancel": "Cancel",
+      "create": "Create",
+      "creating": "Creating...",
+      "created": "Index created",
+      "createFailed": "Failed to create index",
+      "fieldRequired": "Field name is required",
+      "dropped": "Index \"{name}\" dropped",
+      "dropFailed": "Failed to drop index",
+      "dropTitle": "Drop index?",
+      "dropDescription": "This will permanently drop index \"{name}\". Queries using this index will slow down.",
+      "dropping": "Dropping...",
+      "dropConfirm": "Drop Index",
+      "badgeSystem": "system",
+      "badgeUnique": "unique",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "No indexes found"
+    },
+    "importDialog": {
+      "title": "Import Documents into {collection}",
+      "onlyJson": "Only .json files are supported",
+      "invalidStructure": "File must contain a JSON array or object",
+      "invalidJson": "Invalid JSON: could not parse file",
+      "imported": "{count, plural, one {Imported # document} other {Imported # documents}}",
+      "importFailed": "Import failed",
+      "dropHint": "Drag & drop or click to upload",
+      "dropSubHint": "Supports JSON array or NDJSON",
+      "docsCount": "{count, plural, one {# doc} other {# docs}}",
+      "previewLabel": "Preview (first 3 documents)",
+      "moreDocs": "... and {count} more documents",
+      "cancel": "Cancel",
+      "importing": "Importing...",
+      "importCount": "{count, plural, one {Import # Doc} other {Import # Docs}}",
+      "importBtn": "Import"
+    },
+    "schemaView": {
+      "analyzing": "Analyzing schema...",
+      "loadFailed": "Failed to analyze schema",
+      "retry": "Retry",
+      "noDocs": "No documents to analyze",
+      "sampled": "Sampled {docs} documents · {fields} fields",
+      "colField": "Field",
+      "colTypes": "Types",
+      "colCoverage": "Coverage"
     }
   },
   "ApiClient": {
@@ -1789,7 +1874,8 @@
       "curlNoUrl": "No URL found in that cURL command",
       "responseCopied": "Response copied to clipboard",
       "codeCopied": "Code copied to clipboard",
-      "copyFailed": "Failed to copy to clipboard"
+      "copyFailed": "Failed to copy to clipboard",
+      "curlCopied": "cURL command copied"
     },
     "layout": {
       "collections": "Collections",
@@ -1803,7 +1889,8 @@
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Sending...",
       "send": "Send",
-      "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid"
+      "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid",
+      "copyCurl": "Copy as cURL"
     },
     "requestTabs": {
       "params": "Params",
@@ -1940,7 +2027,10 @@
       "placeholderName": "My request",
       "labelFolder": "Folder",
       "placeholderFolder": "Select a folder",
-      "save": "Save"
+      "save": "Save",
+      "newFolder": "New folder",
+      "newFolderPlaceholder": "Folder name",
+      "create": "Create"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3444,10 +3534,21 @@
       "executing": "Executing query…",
       "emptyTitle": "Run a query to see results",
       "emptyHint": "Press ⌘↩ or click Run",
-      "toastNoConnection": "No active connection."
+      "toastNoConnection": "No active connection.",
+      "btnHistory": "History",
+      "btnSaveQuery": "Save query",
+      "savedSection": "Saved",
+      "recentSection": "Recent",
+      "emptyHistory": "Nothing here yet — run or save a query",
+      "savePlaceholder": "Query name",
+      "deleteSaved": "Delete",
+      "toastQuerySaved": "Query saved"
     },
     "results": {
       "filterPlaceholder": "Filter results…",
+      "editHint": "Double-click a cell to edit",
+      "toastRowUpdated": "Row updated",
+      "toastRowsUpdated": "{count, plural, one {# row updated} other {# rows updated}}",
       "rowCount": "{count} {count, plural, one {row} other {rows}}",
       "rowCountFiltered": "{filtered} / {total} rows",
       "exportCsv": "CSV",

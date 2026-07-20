@@ -181,6 +181,13 @@ pub fn handle(
         (m, "/nosql-saved-queries") => {
             nosql_query_list(&db, m, "nosql_saved_queries", MAX_NOSQL_SAVED_QUERIES, query, body)
         }
+        // SQL client reuses the same generic list store (collectionName = "").
+        (m, "/sql-query-history") => {
+            nosql_query_list(&db, m, "sql_query_history", MAX_NOSQL_HISTORY_QUERIES, query, body)
+        }
+        (m, "/sql-saved-queries") => {
+            nosql_query_list(&db, m, "sql_saved_queries", MAX_NOSQL_SAVED_QUERIES, query, body)
+        }
         _ => Ok(ApiResponse::detail(404, "Not found")),
     }
 }

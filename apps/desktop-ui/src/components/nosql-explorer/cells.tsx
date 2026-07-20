@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -8,7 +9,9 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { JsonTree } from "./json-tree";
 
-export const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}(T[\d:.\-Z+]+)?$/;
+// Full ISO timestamps only — a bare "YYYY-MM-DD" string is too ambiguous
+// (version strings, ids) to badge as a date.
+export const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T[\d:.\-Z+]+$/;
 export const OBJECTID_RE = /^[0-9a-fA-F]{24}$/;
 
 export function getRelativeTime(date: Date): string {
@@ -65,7 +68,7 @@ export function ObjectIdCell({ value }: { value: string }) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function CellValue({ value, onViewClick }: { value: any; onViewClick: (v: any) => void }) {
+export const CellValue = memo(function CellValue({ value, onViewClick }: { value: any; onViewClick: (v: any) => void }) {
     const t = useTranslations("NoSqlExplorer.document");
     if (value === undefined) return null;
 
@@ -145,7 +148,7 @@ export function CellValue({ value, onViewClick }: { value: any; onViewClick: (v:
     }
 
     return <span className="font-mono text-xs">{str}</span>;
-}
+});
 
 export function SkeletonRow({ colCount }: { colCount: number }) {
     return (

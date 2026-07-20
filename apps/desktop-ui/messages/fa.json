@@ -1580,7 +1580,10 @@
       "cancel": "لغو کنید",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {حذف # مجموعه ناموفق بود} other {حذف # مجموعه ناموفق بود}}",
+      "bulkDeleted": "{count, plural, one {# مجموعه حذف شد} other {# مجموعه حذف شد}}",
+      "bulkDeleteButton": "حذف {count, plural, one {# مجموعه} other {# مجموعه}}"
     },
     "document": {
       "docsBreadcrumb": "{n} اسناد",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} بازگردانده شد",
       "explainDocsExamined": "{n} بررسی شد",
       "explainCollscanHint": "این کوئری همه اسناد کلکسیون را اسکن می‌کند. ساخت ایندکس روی فیلدهای فیلترشده را در نظر بگیرید.",
-      "explainRawLabel": "خروجی explain"
+      "explainRawLabel": "خروجی explain",
+      "docInsertFailed": "درج سند ناموفق بود",
+      "docUpdateFailed": "به‌روزرسانی سند ناموفق بود",
+      "indexesLoadFail": "بارگذاری ایندکس‌ها ناموفق بود",
+      "bulkDeleted": "{count, plural, one {# سند حذف شد} other {# سند حذف شد}}",
+      "bulkDeleteFailed": "حذف گروهی ناموفق بود",
+      "selectedCount": "{count, plural, one {# سند انتخاب شده} other {# سند انتخاب شده}}",
+      "deleteSelected": "حذف موارد انتخاب‌شده",
+      "clearSelection": "پاک کردن",
+      "statusLoading": "در حال بارگذاری...",
+      "statusShowing": "نمایش {from}–{to} از {total} سند",
+      "statusEmpty": "0 سند",
+      "statusSelected": "{count} انتخاب شده",
+      "bulkDeleteTitle": "{count, plural, one {# سند} other {# سند}} حذف شود؟",
+      "bulkDeleteDescription": "این کار {count, plural, one {# سند} other {# سند}} را برای همیشه از {collection} حذف می‌کند. این عمل قابل بازگشت نیست.",
+      "bulkDeleting": "در حال حذف...",
+      "bulkDeleteConfirm": "حذف همه",
+      "queryErrorTitle": "بارگذاری اسناد ناموفق بود",
+      "retry": "تلاش دوباره"
     },
     "tabs": {
       "filterActive": "فیلتر فعال اعمال شد",
@@ -1733,7 +1754,8 @@
       "cancel": "لغو کنید",
       "export": "صادرات",
       "sheetName": "داده ها",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "فقط صفحه فعلی را صادر می‌کند ({count, plural, one {# سند} other {# سند}})"
     },
     "jsonTree": {
       "typeLabel": "نوع: {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "نتایج پیش‌نمایش ({count})",
       "previewEmpty": "سندی در این مرحله وجود ندارد",
       "previewFail": "پیش‌نمایش ناموفق بود"
+    },
+    "indexManager": {
+      "loading": "در حال بارگذاری ایندکس‌ها...",
+      "retry": "تلاش دوباره",
+      "countLabel": "{count, plural, one {# ایندکس} other {# ایندکس}}",
+      "totalSize": "{size} در مجموع",
+      "statsDocs": "{count, plural, one {# سند} other {# سند}}",
+      "statsStorage": "{size} فضای ذخیره‌سازی",
+      "statsAvgObj": "{size} میانگین/سند",
+      "newIndex": "ایندکس جدید",
+      "createTitle": "ایجاد ایندکس",
+      "fieldPlaceholder": "نام فیلد",
+      "ascending": "صعودی",
+      "descending": "نزولی",
+      "addField": "افزودن فیلد",
+      "unique": "یکتا",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (ثانیه)",
+      "ttlPlaceholder": "مثلاً 3600",
+      "cancel": "لغو",
+      "create": "ایجاد",
+      "creating": "در حال ایجاد...",
+      "created": "ایندکس ایجاد شد",
+      "createFailed": "ایجاد ایندکس ناموفق بود",
+      "fieldRequired": "نام فیلد الزامی است",
+      "dropped": "ایندکس \"{name}\" حذف شد",
+      "dropFailed": "حذف ایندکس ناموفق بود",
+      "dropTitle": "ایندکس حذف شود؟",
+      "dropDescription": "این کار ایندکس \"{name}\" را برای همیشه حذف می‌کند. کوئری‌هایی که از این ایندکس استفاده می‌کنند کند خواهند شد.",
+      "dropping": "در حال حذف...",
+      "dropConfirm": "حذف ایندکس",
+      "badgeSystem": "سیستمی",
+      "badgeUnique": "یکتا",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "ایندکسی یافت نشد"
+    },
+    "importDialog": {
+      "title": "وارد کردن اسناد به {collection}",
+      "onlyJson": "فقط فایل‌های .json پشتیبانی می‌شوند",
+      "invalidStructure": "فایل باید شامل یک آرایه یا شیء JSON باشد",
+      "invalidJson": "JSON نامعتبر: تجزیه فایل ممکن نبود",
+      "imported": "{count, plural, one {# سند وارد شد} other {# سند وارد شد}}",
+      "importFailed": "وارد کردن ناموفق بود",
+      "dropHint": "بکشید و رها کنید یا برای بارگذاری کلیک کنید",
+      "dropSubHint": "از آرایه JSON یا NDJSON پشتیبانی می‌کند",
+      "docsCount": "{count, plural, one {# سند} other {# سند}}",
+      "previewLabel": "پیش‌نمایش (3 سند اول)",
+      "moreDocs": "... و {count} سند دیگر",
+      "cancel": "لغو",
+      "importing": "در حال وارد کردن...",
+      "importCount": "{count, plural, one {وارد کردن # سند} other {وارد کردن # سند}}",
+      "importBtn": "وارد کردن"
+    },
+    "schemaView": {
+      "analyzing": "در حال تحلیل اسکیما...",
+      "loadFailed": "تحلیل اسکیما ناموفق بود",
+      "retry": "تلاش دوباره",
+      "noDocs": "سندی برای تحلیل وجود ندارد",
+      "sampled": "نمونه‌گیری از {docs} سند · {fields} فیلد",
+      "colField": "فیلد",
+      "colTypes": "انواع",
+      "colCoverage": "پوشش"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL با موفقیت جای‌گذاری و تجزیه شد",
       "responseCopied": "پاسخ در کلیپ بورد کپی شد",
       "codeCopied": "کد در کلیپ بورد کپی شد",
-      "copyFailed": "کپی در کلیپ‌بورد ناموفق بود"
+      "copyFailed": "کپی در کلیپ‌بورد ناموفق بود",
+      "curlCopied": "دستور cURL کپی شد"
     },
     "layout": {
       "collections": "مجموعه ها",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "ارسال...",
       "send": "ارسال کنید",
-      "invalidJsonBodyHelp": "ارسال امکان‌پذیر نیست: بدنه JSON نامعتبر است"
+      "invalidJsonBodyHelp": "ارسال امکان‌پذیر نیست: بدنه JSON نامعتبر است",
+      "copyCurl": "کپی به‌صورت cURL"
     },
     "requestTabs": {
       "params": "پارامترها",
@@ -1915,7 +2002,10 @@
       "placeholderName": "درخواست من",
       "labelFolder": "پوشه",
       "placeholderFolder": "یک پوشه را انتخاب کنید",
-      "save": "ذخیره کنید"
+      "save": "ذخیره کنید",
+      "newFolder": "پوشه جدید",
+      "newFolderPlaceholder": "نام پوشه",
+      "create": "ایجاد"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "در حال اجرای پرس‌وجو…",
       "emptyTitle": "یک پرس‌وجو اجرا کنید تا نتایج را ببینید",
       "emptyHint": "⌘↩ را فشار دهید یا روی اجرا کلیک کنید",
-      "toastNoConnection": "هیچ اتصال فعالی وجود ندارد."
+      "toastNoConnection": "هیچ اتصال فعالی وجود ندارد.",
+      "btnHistory": "تاریخچه",
+      "btnSaveQuery": "ذخیره کوئری",
+      "savedSection": "ذخیره‌شده",
+      "recentSection": "اخیر",
+      "emptyHistory": "هنوز چیزی نیست — کوئری اجرا یا ذخیره کنید",
+      "savePlaceholder": "نام کوئری",
+      "deleteSaved": "حذف",
+      "toastQuerySaved": "کوئری ذخیره شد"
     },
     "results": {
       "filterPlaceholder": "فیلتر نتایج…",
+      "editHint": "برای ویرایش روی سلول دوبار کلیک کنید",
+      "toastRowUpdated": "ردیف به‌روزرسانی شد",
+      "toastRowsUpdated": "{count, plural, one {# ردیف به‌روزرسانی شد} other {# ردیف به‌روزرسانی شدند}}",
       "rowCount": "{count} ردیف",
       "rowCountFiltered": "{filtered} / {total} ردیف",
       "exportCsv": "CSV",

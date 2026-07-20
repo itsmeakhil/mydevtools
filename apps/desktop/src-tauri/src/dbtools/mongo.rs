@@ -268,17 +268,27 @@ async fn dispatch(method: &str, rest: &str, req: &Value, conn_str: &str) -> Hand
                 };
             let mut update = json_to_doc(&req["update"])?;
             update.remove("_id");
-            let res = client
-                .database(&db_name)
-                .collection::<Document>(&coll)
-                .update_one(id_filter(&doc_id), doc! { "$set": update })
-                .await
-                .map_err(|e| e.to_string())?;
+            let collection = client.database(&db_name).collection::<Document>(&coll);
+            // mode "replace" = full-document editor save (fields removed in the
+            // editor must be removed in the DB); default "$set" merge = cell edit.
+            let (matched, modified, upserted) = if req["mode"].as_str() == Some("replace") {
+                let res = collection
+                    .replace_one(id_filter(&doc_id), update)
+                    .await
+                    .map_err(|e| e.to_string())?;
+                (res.matched_count, res.modified_count, res.upserted_id)
+            } else {
+                let res = collection
+                    .update_one(id_filter(&doc_id), doc! { "$set": update })
+                    .await
+                    .map_err(|e| e.to_string())?;
+                (res.matched_count, res.modified_count, res.upserted_id)
+            };
             Ok(ok(&json!({ "result": {
                 "acknowledged": true,
-                "matchedCount": res.matched_count,
-                "modifiedCount": res.modified_count,
-                "upsertedId": res.upserted_id.as_ref().map(bson_to_json),
+                "matchedCount": matched,
+                "modifiedCount": modified,
+                "upsertedId": upserted.as_ref().map(bson_to_json),
             }})))
         }
         ("DELETE", "/documents") => {
@@ -393,13 +403,36 @@ async fn dispatch(method: &str, rest: &str, req: &Value, conn_str: &str) -> Hand
                 Ok(v) => (v[0].to_string(), v[1].to_string()),
                 Err(r) => return Ok(r),
             };
-            let cursor = client
-                .database(&db_name)
-                .collection::<Document>(&coll)
-                .list_indexes()
-                .await
-                .map_err(|e| e.to_string())?;
+            let collection = client.database(&db_name).collection::<Document>(&coll);
+            let cursor = collection.list_indexes().await.map_err(|e| e.to_string())?;
             let indexes: Vec<_> = cursor.try_collect().await.map_err(|e| e.to_string())?;
+
+            // Best-effort sizes/stats via $collStats (views and very old servers
+            // don't support it — indexes still list, sizes just stay null).
+            let mut index_sizes = Document::new();
+            let mut total_index_size = Value::Null;
+            let mut stats = Value::Null;
+            if let Ok(cursor) = collection
+                .aggregate(vec![doc! { "$collStats": { "storageStats": {} } }])
+                .await
+            {
+                if let Ok(docs) = cursor.try_collect::<Vec<Document>>().await {
+                    if let Some(ss) = docs.first().and_then(|d| d.get_document("storageStats").ok()) {
+                        total_index_size =
+                            ss.get("totalIndexSize").map(bson_to_json).unwrap_or(Value::Null);
+                        if let Ok(sizes) = ss.get_document("indexSizes") {
+                            index_sizes = sizes.clone();
+                        }
+                        stats = json!({
+                            "count": ss.get("count").map(bson_to_json),
+                            "size": ss.get("size").map(bson_to_json),
+                            "storageSize": ss.get("storageSize").map(bson_to_json),
+                            "avgObjSize": ss.get("avgObjSize").map(bson_to_json),
+                        });
+                    }
+                }
+            }
+
             let list: Vec<Value> = indexes
                 .iter()
                 .map(|i| {
@@ -407,6 +440,9 @@ async fn dispatch(method: &str, rest: &str, req: &Value, conn_str: &str) -> Hand
                     if let Some(opts) = &i.options {
                         if let Some(name) = &opts.name {
                             v["name"] = json!(name);
+                            if let Some(size) = index_sizes.get(name) {
+                                v["size"] = bson_to_json(size);
+                            }
                         }
                         if opts.unique == Some(true) {
                             v["unique"] = json!(true);
@@ -414,11 +450,14 @@ async fn dispatch(method: &str, rest: &str, req: &Value, conn_str: &str) -> Hand
                         if opts.sparse == Some(true) {
                             v["sparse"] = json!(true);
                         }
+                        if let Some(ttl) = opts.expire_after {
+                            v["expireAfterSeconds"] = json!(ttl.as_secs());
+                        }
                     }
                     v
                 })
                 .collect();
-            Ok(ok(&json!({ "indexes": list, "totalIndexSize": Value::Null })))
+            Ok(ok(&json!({ "indexes": list, "totalIndexSize": total_index_size, "stats": stats })))
         }
         ("POST", "/collection/drop") => {
             let (db_name, coll) = match required(req, &["dbName", "collectionName"]) {
@@ -488,7 +527,7 @@ async fn query_documents(client: &Client, req: &Value) -> HandlerResult {
         Ok(v) => (v[0].to_string(), v[1].to_string()),
         Err(r) => return Ok(r),
     };
-    let limit = req["limit"].as_i64().unwrap_or(20).clamp(1, 500);
+    let limit = req["limit"].as_i64().unwrap_or(20).clamp(1, 2000);
     let skip = req["skip"].as_i64().unwrap_or(0).max(0) as u64;
     let sort_field = req["sortField"].as_str().unwrap_or("");
     let sort_dir: i32 = if req["sortDirection"].as_str() == Some("desc") { -1 } else { 1 };
@@ -541,7 +580,13 @@ async fn query_documents(client: &Client, req: &Value) -> HandlerResult {
     }
 
     let filter = json_to_doc(&parsed)?;
-    let total = coll.count_documents(filter.clone()).await.map_err(|e| e.to_string())?;
+    // Empty filter: estimated count (metadata read) instead of a full scan-count
+    // on every page change. Filtered queries still count exactly.
+    let total = if filter.is_empty() {
+        coll.estimated_document_count().await.map_err(|e| e.to_string())?
+    } else {
+        coll.count_documents(filter.clone()).await.map_err(|e| e.to_string())?
+    };
     let mut find = coll.find(filter).skip(skip).limit(limit);
     if !sort_field.is_empty() {
         find = find.sort(doc! { sort_field: sort_dir });

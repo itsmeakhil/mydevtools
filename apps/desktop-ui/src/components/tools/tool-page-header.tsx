@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 
 interface ToolPageHeaderProps {
   icon: React.ElementType
@@ -23,7 +22,10 @@ export function ToolPageHeader({
   icon: Icon,
   title,
   description,
-  accent = CATEGORY_ACCENT.Formatters,
+  // `accent` kept for API compatibility but no longer used — the header icon
+  // follows the user-selected accent (--primary) on every tool, not the fixed
+  // per-category color. Section headers still use CATEGORY_ACCENT.
+  accent: _accent,
   className,
 }: ToolPageHeaderProps) {
   return (
@@ -31,8 +33,7 @@ export function ToolPageHeader({
       <span
         className={cn(
           'mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm ring-1 ring-inset ring-border/60',
-          accent.bg,
-          accent.text,
+          'bg-primary/10 text-primary',
         )}
       >
         <Icon className="h-[22px] w-[22px]" aria-hidden />

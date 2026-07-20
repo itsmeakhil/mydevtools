@@ -25,9 +25,20 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
       headers: { "Content-Type": "application/json" },
     });
   }
-  // Advanced proxies not available on desktop yet (v1.1).
+  // Native gRPC → Rust h2 transport (returns the /api/proxy-grpc envelope).
+  if (path.startsWith("/api/proxy-grpc")) {
+    const { invoke } = await import("@tauri-apps/api/core");
+    const input = body ? JSON.parse(body) : {};
+    const envelope = await invoke("proxy_grpc", { input });
+    return new Response(JSON.stringify(envelope), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  // Advanced proxies not available on desktop yet (v1.1). Mock serving on
+  // desktop goes through the Rust loopback server (`mock_server_start`), not
+  // this path — the guard below only catches stale web-origin mock URLs.
   if (
-    path.startsWith("/api/proxy-grpc") ||
     path.startsWith("/api/proxy-ntlm") ||
     path.startsWith("/api/proxy-spnego") ||
     path.startsWith("/api/mock")

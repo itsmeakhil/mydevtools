@@ -31,7 +31,7 @@ export const STAGE_TEMPLATES: Record<string, string> = {
     $bucket: '{\n  "groupBy": "$field",\n  "boundaries": [0, 100],\n  "default": "other"\n}',
 };
 
-const newId = () => Math.random().toString(36).slice(2, 11);
+const newId = () => crypto.randomUUID();
 
 export function newStage(type = "$match"): PipelineStage {
     return { id: newId(), type, body: STAGE_TEMPLATES[type] ?? "{}", enabled: true };

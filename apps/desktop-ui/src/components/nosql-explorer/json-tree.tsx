@@ -15,7 +15,7 @@ interface JsonTreeProps {
     defaultExpanded?: boolean;
 }
 
-export function JsonTree({ data, label, isLast = true, level = 0, defaultExpanded = false }: JsonTreeProps) {
+export const JsonTree = React.memo(function JsonTree({ data, label, isLast = true, level = 0, defaultExpanded = false }: JsonTreeProps) {
     const t = useTranslations("NoSqlExplorer.jsonTree");
     const [isExpanded, setIsExpanded] = useState(defaultExpanded || level < 1);
 
@@ -139,4 +139,4 @@ export function JsonTree({ data, label, isLast = true, level = 0, defaultExpande
             )}
         </div>
     );
-}
+});

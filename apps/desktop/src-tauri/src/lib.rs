@@ -61,6 +61,16 @@ fn http_request_stream_cancel(id: u64) {
 }
 
 #[tauri::command]
+async fn mock_server_start(app: tauri::AppHandle) -> Result<u16, String> {
+    http::mock_server::start(app).await
+}
+
+#[tauri::command]
+async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, String> {
+    Ok(http::grpc::proxy_grpc(input).await)
+}
+
+#[tauri::command]
 async fn await_browser_auth(
     port_channel: tauri::ipc::Channel<serde_json::Value>,
 ) -> Result<String, String> {
@@ -118,6 +128,8 @@ pub fn run() {
             http_request,
             http_request_stream,
             http_request_stream_cancel,
+            mock_server_start,
+            proxy_grpc,
             await_browser_auth
         ])
         .run(tauri::generate_context!())

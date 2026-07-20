@@ -1580,7 +1580,10 @@
       "cancel": "Avbryt",
       "confirmDeleteConnectionDesc": "This will permanently remove this connection. The database itself will not be affected.",
       "confirmDropDbDesc": "This will permanently delete the database and all its collections. This cannot be undone.",
-      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone."
+      "confirmDropCollectionDesc": "This will permanently delete the collection and all its documents. This cannot be undone.",
+      "bulkDeleteFailed": "{count, plural, one {Misslyckades att radera # collection} other {Misslyckades att radera # collections}}",
+      "bulkDeleted": "{count, plural, one {Raderade # collection} other {Raderade # collections}}",
+      "bulkDeleteButton": "Radera {count, plural, one {# collection} other {# collections}}"
     },
     "document": {
       "docsBreadcrumb": "{n} dok",
@@ -1657,7 +1660,25 @@
       "explainReturned": "{n} returnerade",
       "explainDocsExamined": "{n} granskade",
       "explainCollscanHint": "Denna fråga skannar varje dokument i collectionen. Överväg att skapa ett index på de filtrerade fälten.",
-      "explainRawLabel": "Explain-utdata"
+      "explainRawLabel": "Explain-utdata",
+      "docInsertFailed": "Misslyckades att infoga dokument",
+      "docUpdateFailed": "Misslyckades att uppdatera dokument",
+      "indexesLoadFail": "Misslyckades att läsa in index",
+      "bulkDeleted": "{count, plural, one {# dokument raderat} other {# dokument raderade}}",
+      "bulkDeleteFailed": "Massradering misslyckades",
+      "selectedCount": "{count, plural, one {# dokument valt} other {# dokument valda}}",
+      "deleteSelected": "Radera valda",
+      "clearSelection": "Rensa",
+      "statusLoading": "Läser in...",
+      "statusShowing": "Visar {from}–{to} av {total} dokument",
+      "statusEmpty": "0 dokument",
+      "statusSelected": "{count} valda",
+      "bulkDeleteTitle": "Radera {count, plural, one {# dokument} other {# dokument}}?",
+      "bulkDeleteDescription": "Detta raderar permanent {count, plural, one {# dokument} other {# dokument}} från {collection}. Detta kan inte ångras.",
+      "bulkDeleting": "Raderar...",
+      "bulkDeleteConfirm": "Radera alla",
+      "queryErrorTitle": "Misslyckades att läsa in dokument",
+      "retry": "Försök igen"
     },
     "tabs": {
       "filterActive": "Aktivt filter tillämpat",
@@ -1733,7 +1754,8 @@
       "cancel": "Avbryt",
       "export": "Exportera",
       "sheetName": "Data",
-      "formatJson": "JSON"
+      "formatJson": "JSON",
+      "pageOnlyNote": "Exporterar endast aktuell sida ({count, plural, one {# dokument} other {# dokument}})"
     },
     "jsonTree": {
       "typeLabel": "Typ: {type}",
@@ -1748,6 +1770,69 @@
       "previewResult": "Förhandsgranskningsresultat ({count})",
       "previewEmpty": "Inga dokument i detta steg",
       "previewFail": "Förhandsgranskning misslyckades"
+    },
+    "indexManager": {
+      "loading": "Läser in index...",
+      "retry": "Försök igen",
+      "countLabel": "{count, plural, one {# index} other {# index}}",
+      "totalSize": "{size} totalt",
+      "statsDocs": "{count, plural, one {# dok} other {# dok}}",
+      "statsStorage": "{size} lagring",
+      "statsAvgObj": "{size} snitt/dok",
+      "newIndex": "Nytt index",
+      "createTitle": "Skapa index",
+      "fieldPlaceholder": "Fältnamn",
+      "ascending": "Stigande",
+      "descending": "Fallande",
+      "addField": "Lägg till fält",
+      "unique": "Unik",
+      "sparse": "Sparse",
+      "ttlLabel": "TTL (sekunder)",
+      "ttlPlaceholder": "t.ex. 3600",
+      "cancel": "Avbryt",
+      "create": "Skapa",
+      "creating": "Skapar...",
+      "created": "Index skapat",
+      "createFailed": "Misslyckades att skapa index",
+      "fieldRequired": "Fältnamn krävs",
+      "dropped": "Index \"{name}\" borttaget",
+      "dropFailed": "Misslyckades att ta bort index",
+      "dropTitle": "Ta bort index?",
+      "dropDescription": "Detta tar permanent bort indexet \"{name}\". Frågor som använder detta index blir långsammare.",
+      "dropping": "Tar bort...",
+      "dropConfirm": "Ta bort index",
+      "badgeSystem": "system",
+      "badgeUnique": "unik",
+      "badgeSparse": "sparse",
+      "badgeTtl": "TTL",
+      "empty": "Inga index hittades"
+    },
+    "importDialog": {
+      "title": "Importera dokument till {collection}",
+      "onlyJson": "Endast .json-filer stöds",
+      "invalidStructure": "Filen måste innehålla en JSON-array eller ett objekt",
+      "invalidJson": "Ogiltig JSON: kunde inte tolka filen",
+      "imported": "{count, plural, one {Importerade # dokument} other {Importerade # dokument}}",
+      "importFailed": "Import misslyckades",
+      "dropHint": "Dra och släpp eller klicka för att ladda upp",
+      "dropSubHint": "Stöder JSON-array eller NDJSON",
+      "docsCount": "{count, plural, one {# dok} other {# dok}}",
+      "previewLabel": "Förhandsgranskning (första 3 dokumenten)",
+      "moreDocs": "... och {count} dokument till",
+      "cancel": "Avbryt",
+      "importing": "Importerar...",
+      "importCount": "{count, plural, one {Importera # dok} other {Importera # dok}}",
+      "importBtn": "Importera"
+    },
+    "schemaView": {
+      "analyzing": "Analyserar schema...",
+      "loadFailed": "Misslyckades att analysera schema",
+      "retry": "Försök igen",
+      "noDocs": "Inga dokument att analysera",
+      "sampled": "Samplade {docs} dokument · {fields} fält",
+      "colField": "Fält",
+      "colTypes": "Typer",
+      "colCoverage": "Täckning"
     }
   },
   "ApiClient": {
@@ -1764,7 +1849,8 @@
       "curlPasted": "cURL inklistrad och tolkad",
       "responseCopied": "Svar kopierat till urklipp",
       "codeCopied": "Kod kopierad till urklipp",
-      "copyFailed": "Kopiering till urklipp misslyckades"
+      "copyFailed": "Kopiering till urklipp misslyckades",
+      "curlCopied": "cURL-kommando kopierat"
     },
     "layout": {
       "collections": "Samlingar",
@@ -1778,7 +1864,8 @@
       "urlPlaceholder": "https://api.example.com/v1/...",
       "sending": "Skickar...",
       "send": "Skicka",
-      "invalidJsonBodyHelp": "Kan inte skicka: JSON-kroppen är ogiltig"
+      "invalidJsonBodyHelp": "Kan inte skicka: JSON-kroppen är ogiltig",
+      "copyCurl": "Kopiera som cURL"
     },
     "requestTabs": {
       "params": "Parametrar",
@@ -1915,7 +2002,10 @@
       "placeholderName": "Min förfrågan",
       "labelFolder": "Mapp",
       "placeholderFolder": "Välj en mapp",
-      "save": "Spara"
+      "save": "Spara",
+      "newFolder": "Ny mapp",
+      "newFolderPlaceholder": "Mappnamn",
+      "create": "Skapa"
     },
     "shortcuts": {
       "ariaLabel": "Keyboard shortcuts",
@@ -3135,10 +3225,21 @@
       "executing": "Kör fråga…",
       "emptyTitle": "Kör en fråga för att se resultat",
       "emptyHint": "Tryck ⌘↩ eller klicka Kör",
-      "toastNoConnection": "Ingen aktiv anslutning."
+      "toastNoConnection": "Ingen aktiv anslutning.",
+      "btnHistory": "Historik",
+      "btnSaveQuery": "Spara fråga",
+      "savedSection": "Sparade",
+      "recentSection": "Senaste",
+      "emptyHistory": "Inget här ännu — kör eller spara en fråga",
+      "savePlaceholder": "Frågenamn",
+      "deleteSaved": "Ta bort",
+      "toastQuerySaved": "Frågan sparad"
     },
     "results": {
       "filterPlaceholder": "Filtrera resultat…",
+      "editHint": "Dubbelklicka på en cell för att redigera",
+      "toastRowUpdated": "Rad uppdaterad",
+      "toastRowsUpdated": "{count, plural, one {# rad uppdaterad} other {# rader uppdaterade}}",
       "rowCount": "{count} {count, plural, one {rad} other {rader}}",
       "rowCountFiltered": "{filtered} / {total} rader",
       "exportCsv": "CSV",

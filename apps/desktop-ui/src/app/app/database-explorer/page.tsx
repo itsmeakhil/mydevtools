@@ -177,23 +177,6 @@ export default function NoSQLExplorerPage() {
         }
     }, [activeTabId, isInitialized, user]);
 
-    // Auto-connect logic is now handled by the sidebar tree view mostly, 
-    // but we might want to keep the "initial load" behavior if needed.
-    // For now, let's rely on the sidebar to list connections.
-
-    const handleConnect = async (connectionString: string) => {
-        // This is now used by the "Add Connection" dialog
-        try {
-            // We just verify connection here, saving is done by ConnectionForm if we update it
-            // Actually ConnectionForm handles saving. We just need to close dialog and refresh sidebar.
-            setIsConnectionDialogOpen(false);
-            setHasConnections(true);
-            // Sidebar will refresh itself or we trigger a refresh
-        } catch (error: any) {
-            toast.error(error.message);
-        }
-    };
-
     const handleSelectCollection = async (connection: SavedConnection, dbName: string, collectionName: string) => {
         const tabId = `${connection.id}-${dbName}-${collectionName}`;
         const existingTab = tabs.find((t) => t.id === tabId);
@@ -321,51 +304,44 @@ export default function NoSQLExplorerPage() {
 
     const handleInsert = async (doc: any) => {
         if (!activeTab) return;
-        try {
-            const conn = await getConnectionForTab(activeTab);
+        const conn = await getConnectionForTab(activeTab);
 
-            const res = await apiFetch("/api/nosql/documents", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    connectionString: conn.connectionString,
-                    readOnly: conn.readOnly ?? false,
-                    dbName: activeTab.dbName,
-                    collectionName: activeTab.collectionName,
-                    document: doc,
-                }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error);
-            handleRefresh();
-        } catch (error: any) {
-            throw new Error(error.message);
-        }
+        const res = await apiFetch("/api/nosql/documents", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                readOnly: conn.readOnly ?? false,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                document: doc,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        handleRefresh();
     };
 
-    const handleUpdate = async (id: string, update: any) => {
+    const handleUpdate = async (id: string, update: any, mode: "merge" | "replace" = "merge") => {
         if (!activeTab) return;
-        try {
-            const conn = await getConnectionForTab(activeTab);
+        const conn = await getConnectionForTab(activeTab);
 
-            const res = await apiFetch("/api/nosql/documents", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    connectionString: conn.connectionString,
-                    readOnly: conn.readOnly ?? false,
-                    dbName: activeTab.dbName,
-                    collectionName: activeTab.collectionName,
-                    documentId: id,
-                    update,
-                }),
-            });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error);
-            handleRefresh();
-        } catch (error: any) {
-            throw new Error(error.message);
-        }
+        const res = await apiFetch("/api/nosql/documents", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                connectionString: conn.connectionString,
+                readOnly: conn.readOnly ?? false,
+                dbName: activeTab.dbName,
+                collectionName: activeTab.collectionName,
+                documentId: id,
+                update,
+                mode,
+            }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error);
+        handleRefresh();
     };
 
     const handleDelete = async (id: string) => {
@@ -815,6 +791,7 @@ export default function NoSQLExplorerPage() {
                             sortField={activeTab.sortField}
                             sortDirection={activeTab.sortDirection}
                             loading={activeTab.loading}
+                            error={activeTab.error}
                             onRefresh={handleRefresh}
                             onInsert={handleInsert}
                             onUpdate={handleUpdate}

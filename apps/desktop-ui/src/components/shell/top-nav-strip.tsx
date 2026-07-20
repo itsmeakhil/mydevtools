@@ -22,7 +22,6 @@ import { useActiveWorkspace } from '@/store/workspace-store'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
 import { buildPinnedNavItems, getSidebarToolMeta } from '@/components/sidebar/app-sidebar.helpers'
-import { categoryAccent } from '@/components/dashboard/types'
 import type { NavLink } from '@/components/sidebar/types'
 import { getToolMessageKey } from '@/lib/tool-i18n'
 
@@ -151,6 +150,9 @@ function PinnedMenu({
                 type="button"
                 aria-label={`Unpin ${label}`}
                 onPointerDown={(e) => e.stopPropagation()}
+                // Radix synthesizes a click on the menu item from pointerup when it
+                // never saw pointerdown — stop pointerup too or the row navigates.
+                onPointerUp={(e) => e.stopPropagation()}
                 onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
@@ -320,7 +322,9 @@ export function TopNavStrip() {
               // generic route-config lucide icon only when the catalog has none.
               const meta = getSidebarToolMeta(tab.path)
               const Icon = meta?.icon ?? config?.icon
-              const accent = categoryAccent(meta?.category ?? '')
+              // Tab chip icon follows the user-selected accent (--primary), not the
+              // fixed per-category color — the ring/glow derive from it via currentColor.
+              const accent = { bg: 'bg-primary/10', text: 'text-primary' }
               const isActive = pathname === tab.path
               const prevActive = i > 0 && tabs[i - 1].path === pathname
               const showDivider = i > 0 && !isActive && !prevActive

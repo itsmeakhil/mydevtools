@@ -106,6 +106,7 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
             <DialogContent className="max-w-md">
                 <DialogHeader>
                     <DialogTitle>{t("title")}</DialogTitle>
+                    <p className="text-xs text-muted-foreground">{t("pageOnlyNote", { count: documents.length })}</p>
                 </DialogHeader>
 
                 <div className="space-y-4 py-2">

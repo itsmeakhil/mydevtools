@@ -267,7 +267,7 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                         isSuccess ? "border-emerald-500/20 bg-emerald-500/[0.02]" : isError ? "border-rose-500/20 bg-rose-500/[0.02]" : ""
                     )}
                 >
-                    <TabsList className="h-9 p-1 bg-muted/50 border rounded-lg">
+                    <TabsList className="h-9 p-1 bg-muted/50 border rounded-lg max-w-full overflow-x-auto custom-scrollbar [&>*]:shrink-0">
                         <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
                         {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
                         <TabsTrigger value="tree" className="px-4">Tree</TabsTrigger>
@@ -302,6 +302,7 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                         })()}
                     </TabsList>
                     <div className="ml-auto flex items-center flex-wrap justify-end gap-2">
+                        <div className="flex items-center gap-2 shrink-0">
                         <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
                             {isSuccess ? (
                                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
@@ -330,6 +331,8 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                             <Database className="h-3.5 w-3.5 text-muted-foreground/70" />
                             <span className="text-xs font-mono font-semibold">{(response.size / 1024).toFixed(2)} KB</span>
                         </div>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
                         <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleOpenSearch} title="Search in body (Ctrl+F)">
                             <Search className="h-4 w-4" />
                         </Button>
@@ -344,6 +347,7 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                         <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleDownload} title={t("downloadResponse")}>
                             <Download className="h-4 w-4" />
                         </Button>
+                        </div>
                     </div>
                 </div>
                 {redirectChain.length > 0 && (

@@ -792,6 +792,9 @@ body {
       linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
       linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
     background-size: 60px 60px;
+    /* Tool panels sit inset in the padded main column — round the surface so
+       the grid + ambient glow don't end in sharp corners. */
+    border-radius: 0.75rem;
   }
 
   .dark .dashboard-grid-bg {
@@ -862,15 +865,18 @@ body {
     inset: 0 0 auto 0;
     height: 26rem;
     pointer-events: none;
+    /* Match the parent surface's rounding — roots without overflow-hidden
+       would otherwise paint the glow with sharp top corners. */
+    border-radius: inherit;
     background:
-      radial-gradient(58% 100% at 12% 0%, rgba(99, 102, 241, 0.16), transparent 68%),
-      radial-gradient(50% 100% at 50% 0%, rgba(124, 58, 237, 0.10), transparent 70%),
-      radial-gradient(58% 100% at 90% 0%, rgba(34, 211, 238, 0.12), transparent 70%);
+      radial-gradient(58% 100% at 12% 0%, hsl(var(--primary) / 0.16), transparent 68%),
+      radial-gradient(50% 100% at 50% 0%, hsl(var(--primary) / 0.09), transparent 70%),
+      radial-gradient(58% 100% at 90% 0%, hsl(var(--primary) / 0.12), transparent 70%);
   }
   .dark .dash-ambient {
     background:
       radial-gradient(60% 100% at 18% 0%, hsl(var(--primary) / 0.16), transparent 70%),
-      radial-gradient(55% 100% at 88% 0%, rgba(79, 208, 230, 0.12), transparent 70%);
+      radial-gradient(55% 100% at 88% 0%, hsl(var(--primary) / 0.12), transparent 70%);
   }
 
   /* Tool card gradient sheen revealed on hover (transform/opacity only) */
@@ -880,7 +886,7 @@ body {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(130deg, hsl(var(--primary) / 0.55), transparent 40%, transparent 60%, rgba(79, 208, 230, 0.45));
+    background: linear-gradient(130deg, hsl(var(--primary) / 0.55), transparent 40%, transparent 60%, hsl(var(--primary) / 0.4));
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -900,7 +906,7 @@ body {
     background: radial-gradient(
       240px circle at var(--mx, 50%) var(--my, 50%),
       hsl(var(--primary) / 0.13),
-      rgba(79, 208, 230, 0.06) 35%,
+      hsl(var(--primary) / 0.06) 35%,
       transparent 60%
     );
     opacity: 0;

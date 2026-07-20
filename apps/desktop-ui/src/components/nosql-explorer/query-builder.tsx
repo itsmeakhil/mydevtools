@@ -334,7 +334,7 @@ export function QueryBuilder({
     };
 
     const addRule = () => {
-        setRules([...rules, { id: Math.random().toString(36).substr(2, 9), field: "", operator: "$eq", value: "", type: "auto" }]);
+        setRules([...rules, { id: crypto.randomUUID(), field: "", operator: "$eq", value: "", type: "auto" }]);
     };
 
     const removeRule = (id: string) => {
@@ -375,7 +375,7 @@ export function QueryBuilder({
                             }
                             
                             newRules.push({
-                                id: Math.random().toString(36).substr(2, 9),
+                                id: crypto.randomUUID(),
                                 field: key,
                                 operator: op as FilterOperator,
                                 value: ruleValue,
@@ -390,7 +390,7 @@ export function QueryBuilder({
                     if (ruleType === "objectid") ruleValue = value.$oid;
 
                     newRules.push({
-                        id: Math.random().toString(36).substr(2, 9),
+                        id: crypto.randomUUID(),
                         field: key,
                         operator: "$eq",
                         value: ruleValue,
@@ -850,6 +850,27 @@ export function QueryBuilder({
                                 <IconBraces className="h-3 w-3 mr-1" />
                                 {t("format")}
                             </Button>
+                            )}
+                            {onExplain && (
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="h-7 text-xs"
+                                    title={t("explainQuery")}
+                                    onClick={() => {
+                                        let pipeline = textQuery;
+                                        if (advancedMode === "stages") {
+                                            try { pipeline = stagesToPipeline(stages); }
+                                            catch { toast.error(t("invalidStageJson")); return; }
+                                        }
+                                        try { JSON.parse(pipeline || "{}"); }
+                                        catch { toast.error(t("invalidJsonQuery")); return; }
+                                        onExplain(pipeline || "{}");
+                                    }}
+                                >
+                                    <IconReportSearch className="h-3 w-3 mr-1" />
+                                    {t("explainQuery")}
+                                </Button>
                             )}
                             <Button
                                 size="sm"

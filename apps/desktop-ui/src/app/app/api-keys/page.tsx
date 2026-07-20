@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 import { AddApiKeyDialog } from "@/components/api-key-vault/add-api-key-dialog"
 import { ApiKeyList } from "@/components/api-key-vault/api-key-list"
-import { useApiKeyVaultStore, type ApiKeyEntry, type ApiKeyEnv } from "@/store/api-key-vault-store"
+import { useApiKeyVaultStore, type ApiKeyEntry } from "@/store/api-key-vault-store"
 import { ToolHeader } from "@/components/tools/tool-header"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
@@ -18,25 +18,7 @@ import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholde
 import { useActiveWorkspace } from "@/store/workspace-store"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { hasWorkspaceEncryption } from "@/lib/workspace-rbac"
-
-// ponytail: inline parser — one place uses it, no utils file
-function parseApiKeyPayload(plain: string): Omit<ApiKeyEntry, "id" | "createdAt" | "updatedAt"> | null {
-    try {
-        const o = JSON.parse(plain)
-        if (typeof o !== "object" || o === null) return null
-        const env: ApiKeyEnv =
-            o.env === "staging" || o.env === "production" ? o.env : "development"
-        return {
-            name: typeof o.name === "string" ? o.name : "",
-            apiKey: typeof o.apiKey === "string" ? o.apiKey : "",
-            secret: typeof o.secret === "string" ? o.secret : "",
-            env,
-            notes: typeof o.notes === "string" ? o.notes : "",
-        }
-    } catch {
-        return null
-    }
-}
+import { parseApiKeyPayload } from "@/lib/api-key-vault-utils"
 
 export default function ApiKeyVaultPage() {
     // ALL hooks must be called before any early return (Rules of Hooks).
