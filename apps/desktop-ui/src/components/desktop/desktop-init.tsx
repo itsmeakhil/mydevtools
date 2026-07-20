@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { isDesktop } from "@/lib/desktop/is-desktop";
 import { useWorkspaceStore } from "@/store/workspace-store";
@@ -42,20 +43,50 @@ export function DesktopInit() {
       // a remote session (if any) merges in.
       await useWorkspaceStore.getState().loadFromBackend().catch(() => {});
     })();
-    // Fully silent auto-update: on launch, if a newer signed build exists,
-    // download + install it and relaunch into it — no prompt, no button. The
-    // update is verified against the baked-in pubkey and the local database is
-    // never touched. Offline / mid-download failures stay silent and retry next
-    // launch.
-    void import("@/lib/desktop/updater").then(async ({ checkForUpdate, installUpdate }) => {
+  }, []);
+
+  // Auto-update notification: check on launch and every 6h so long-running
+  // sessions still hear about new builds. When a newer signed build exists,
+  // surface a persistent toast — installing relaunches the app, so it's never
+  // done silently out from under the user. Offline / unreachable stays silent
+  // and retries on the next interval or launch.
+  useEffect(() => {
+    if (!isDesktop()) return;
+    let notified = "";
+    const check = async () => {
       try {
-        const update = await checkForUpdate();
-        if (!update) return;
-        await installUpdate();
+        const m = await import("@/lib/desktop/updater");
+        const update = await m.checkForUpdate();
+        if (!update || update.version === notified) return;
+        notified = update.version;
+        toast(`Version ${update.version} is available`, {
+          id: "desktop-update",
+          duration: Infinity,
+          description:
+            "Updates install in place — your offline data is never touched.",
+          action: {
+            label: "Restart & update",
+            onClick: () => {
+              toast.loading("Downloading update…", {
+                id: "desktop-update",
+                duration: Infinity,
+              });
+              m.installUpdate().catch((e) => {
+                toast.error(
+                  e instanceof Error ? e.message : "Update failed to install",
+                  { id: "desktop-update" }
+                );
+              });
+            },
+          },
+        });
       } catch {
-        // offline, endpoint unreachable, or install interrupted — retry next launch
+        // offline or endpoint unreachable — retry later
       }
-    });
+    };
+    void check();
+    const timer = setInterval(() => void check(), 6 * 60 * 60 * 1000);
+    return () => clearInterval(timer);
   }, []);
   return null;
 }

@@ -38,19 +38,8 @@ export function TopBar() {
   // pad the left only inside the Tauri window. Mounted-guarded to avoid an SSR
   // hydration mismatch (isDesktop() is false on the server).
   const [isTauri, setIsTauri] = useState(false)
-  const [version, setVersion] = useState('')
   useEffect(() => {
     setIsTauri(isDesktop())
-    let cancelled = false
-    import('@tauri-apps/api/app')
-      .then((m) => m.getVersion())
-      .then((v) => {
-        if (!cancelled) setVersion(v)
-      })
-      .catch(() => {})
-    return () => {
-      cancelled = true
-    }
   }, [])
 
   // macOS hides the traffic lights in fullscreen, so the left inset that
@@ -113,11 +102,6 @@ export function TopBar() {
             className="hidden object-contain object-left dark:block"
           />
         </span>
-        {version ? (
-          <span className="-ml-1.5 hidden shrink-0 self-center rounded border border-border bg-[hsl(var(--surface-3))] px-1.5 py-0.5 font-mono text-[11px] leading-none text-muted-foreground sm:inline-block">
-            v{version}
-          </span>
-        ) : null}
       </button>
 
       {/* Favorites strip — replaces the left panel */}
