@@ -25,7 +25,9 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
       headers: { "Content-Type": "application/json" },
     });
   }
-  // Advanced proxies not available on desktop yet (v1.1).
+  // Advanced proxies not available on desktop yet (v1.1). Mock serving on
+  // desktop goes through the Rust loopback server (`mock_server_start`), not
+  // this path — the guard below only catches stale web-origin mock URLs.
   if (
     path.startsWith("/api/proxy-grpc") ||
     path.startsWith("/api/proxy-ntlm") ||

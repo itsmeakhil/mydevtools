@@ -58,6 +58,8 @@ import { signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { resolveResponsePath } from "@/lib/response-path"
+import { resolveSecretVariables } from "@/lib/secret-variables"
+import { useCipherKey } from "@/lib/use-cipher-key"
 import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
@@ -120,6 +122,8 @@ function ApiClientInner() {
     const { addHistoryItem } = useHistoryActions()
     const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
     const { setActiveEnvId, updateEnvironment } = useEnvironmentsActions()
+    // Cipher key for cross-tool {{vault.*}} / {{env.*}} secret resolution.
+    const cipherKey = useCipherKey()
     // Session-only variables — set by `pm.variables.set` in scripts and consumed by
     // the next request's variable substitution. Cleared on tab close.
     const sessionVarsRef = React.useRef<Record<string, string>>({})
@@ -365,6 +369,10 @@ function ApiClientInner() {
         // Previous response on the same tab — what `{{response.body.token}}` chains against.
         const previousResponse = activeTab.response
 
+        // Cross-tool secrets ({{vault.*}} / {{env.*}}) — resolved per send below,
+        // never cached in component state.
+        let secretVars: Record<string, string> = {}
+
         const substituteAll = (text: string): string => {
             if (!text) return text
             return text.replace(/\{\{(.+?)\}\}/g, (m, k) => {
@@ -376,7 +384,7 @@ function ApiClientInner() {
                 if (scriptEnvUnsets.has(key)) return m
                 if (key in scriptEnvOverlay) return scriptEnvOverlay[key]
                 if (key in sessionVarsRef.current) return sessionVarsRef.current[key]
-                return activeEnvironmentVariables[key] ?? m
+                return activeEnvironmentVariables[key] ?? secretVars[key] ?? m
             })
         }
 
@@ -422,6 +430,14 @@ function ApiClientInner() {
                 workMethod = (r.request.method || workMethod).toUpperCase()
                 workHeaders = r.request.headers
             }
+
+            // Resolve cross-tool secrets referenced anywhere in the request
+            // (scan the raw tab JSON so params/headers/auth/body are all covered).
+            // Throws a user-facing message when the vault is locked → outer catch.
+            secretVars = await resolveSecretVariables(
+                [workUrl, JSON.stringify(workHeaders), JSON.stringify(activeTab)],
+                cipherKey,
+            )
 
             // Substitute variables in URL
             const finalUrl = substituteAll(workUrl)
@@ -782,10 +798,17 @@ function ApiClientInner() {
                 },
             })
 
-            // Observability: record metric for the metrics dashboard.
+            // Observability: record metric for the metrics dashboard. Resolved
+            // {{vault.*}}/{{env.*}} secrets are redacted back to their tokens —
+            // the metrics panel renders these URLs.
+            const redactSecrets = (text: string): string =>
+                Object.entries(secretVars).reduce(
+                    (acc, [token, value]) => (value ? acc.split(value).join(`{{${token}}}`) : acc),
+                    text,
+                )
             recordMetric({
                 method: beforeApplied.req.method,
-                url: finalUrlFromPlugins,
+                url: redactSecrets(finalUrlFromPlugins),
                 status: proxyData.status ?? 0,
                 timeMs: proxyData.time ?? 0,
                 sizeBytes: proxyData.size ?? 0,
@@ -793,7 +816,7 @@ function ApiClientInner() {
             })
 
             if (proxyData.error) {
-                recordLog({ level: "error", message: `${beforeApplied.req.method} ${finalUrlFromPlugins} → ${proxyData.error}` })
+                recordLog({ level: "error", message: `${beforeApplied.req.method} ${redactSecrets(finalUrlFromPlugins)} → ${proxyData.error}` })
             }
 
             // Cookie jar: persist Set-Cookie headers from the response.
@@ -975,6 +998,7 @@ function ApiClientInner() {
         activeEnvId,
         environments,
         updateEnvironment,
+        cipherKey,
         t,
     ])
 

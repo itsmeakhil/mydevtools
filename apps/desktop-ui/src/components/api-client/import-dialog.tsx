@@ -12,11 +12,12 @@ import {
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
 import { detectImportFormat, type ImportFormat } from "@/lib/import/detect"
-import { importPostmanCollection } from "@/lib/import/postman"
+import { importPostmanCollectionWithMeta } from "@/lib/import/postman"
 import { importHar } from "@/lib/import/har"
 import { importOpenApiSpec } from "@/lib/import/openapi"
 import { generateMockExamplesFromOpenApi } from "@/lib/mocks/openapi-mock-gen"
 import { useCollectionsActions } from "./context/collections-context"
+import { useEnvironmentsActions } from "./context/environments-context"
 import { toast } from "sonner"
 
 interface ImportDialogProps {
@@ -34,6 +35,7 @@ const FORMAT_LABEL: Record<ImportFormat, string> = {
 
 export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
     const { importCollection } = useCollectionsActions()
+    const { addEnvironment, updateEnvironment } = useEnvironmentsActions()
     const [text, setText] = React.useState("")
     const [busy, setBusy] = React.useState(false)
 
@@ -50,11 +52,15 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
         if (!canImport) return
         setBusy(true)
         try {
-            const collection = detected === "postman"
-                ? importPostmanCollection(text)
-                : detected === "har"
-                    ? importHar(text)
-                    : importOpenApiSpec(text)
+            let postmanVariables: Array<{ key: string; value: string }> = []
+            let collection
+            if (detected === "postman") {
+                const result = importPostmanCollectionWithMeta(text)
+                collection = result.collection
+                postmanVariables = result.variables
+            } else {
+                collection = detected === "har" ? importHar(text) : importOpenApiSpec(text)
+            }
             // OpenAPI imports get auto-generated mock examples derived from the
             // spec's 2xx response schemas. Lets users hit the public mock route
             // immediately without crafting Save-as-Example entries by hand.
@@ -63,6 +69,21 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
             }
             const created = await importCollection(collection)
             if (created) {
+                // Postman collection-level variables → an api-client environment,
+                // so {{baseUrl}}-style references resolve right after import.
+                if (postmanVariables.length) {
+                    const envId = await addEnvironment(collection.name)
+                    if (envId) {
+                        await updateEnvironment(envId, {
+                            variables: postmanVariables.map((v) => ({
+                                id: crypto.randomUUID(),
+                                key: v.key,
+                                value: v.value,
+                                enabled: true,
+                            })),
+                        })
+                    }
+                }
                 onOpenChange(false)
                 setText("")
             }

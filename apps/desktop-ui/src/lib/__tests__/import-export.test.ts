@@ -1,4 +1,4 @@
-import { importPostmanCollection } from "../import/postman"
+import { importPostmanCollection, importPostmanCollectionWithMeta } from "../import/postman"
 import { importHar } from "../import/har"
 import { detectImportFormat } from "../import/detect"
 import { exportPostmanCollection } from "../export/postman"
@@ -208,5 +208,128 @@ describe("Postman export round-trip", () => {
         const parsed = JSON.parse(out)
         expect(parsed.info.schema).toContain("v2.1.0")
         expect(parsed.info.name).toBe("y")
+    })
+})
+
+// ── Real-world Postman v2.1 shape: collection auth/scripts/variables,
+//    folder auth/scripts, graphql body ─────────────────────────────────────────
+describe("importPostmanCollectionWithMeta (real-world v2.1)", () => {
+    const realWorld = JSON.stringify({
+        info: {
+            name: "Acme API",
+            schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        },
+        auth: { type: "bearer", bearer: [{ key: "token", value: "{{authToken}}", type: "string" }] },
+        event: [
+            { listen: "prerequest", script: { type: "text/javascript", exec: ["pm.environment.set('ts', Date.now())"] } },
+            { listen: "test", script: { type: "text/javascript", exec: ["pm.test('status ok', () => pm.response.to.have.status(200))"] } },
+        ],
+        variable: [
+            { key: "baseUrl", value: "https://api.acme.test", type: "string" },
+            { key: "authToken", value: "" },
+        ],
+        item: [
+            {
+                name: "Users",
+                auth: { type: "apikey", apikey: [{ key: "key", value: "X-Api-Key" }, { key: "value", value: "{{apiKey}}" }, { key: "in", value: "header" }] },
+                event: [{ listen: "prerequest", script: { exec: "console.log('folder pre')" } }],
+                item: [
+                    {
+                        name: "List users",
+                        request: {
+                            method: "GET",
+                            url: {
+                                raw: "{{baseUrl}}/users?page=1",
+                                host: ["{{baseUrl}}"],
+                                path: ["users"],
+                                query: [{ key: "page", value: "1" }, { key: "debug", value: "true", disabled: true }],
+                            },
+                        },
+                    },
+                ],
+            },
+            {
+                name: "Login",
+                request: {
+                    method: "POST",
+                    url: "{{baseUrl}}/login",
+                    body: { mode: "raw", raw: '{"user":"a"}', options: { raw: { language: "json" } } },
+                },
+                event: [{ listen: "test", script: { exec: ["pm.test('has token', () => true)"] } }],
+            },
+            {
+                name: "GraphQL query",
+                request: {
+                    method: "POST",
+                    url: "{{baseUrl}}/graphql",
+                    body: {
+                        mode: "graphql",
+                        graphql: { query: "query { users { id } }", variables: '{"limit":10}' },
+                    },
+                },
+            },
+        ],
+    })
+
+    it("surfaces collection variables", () => {
+        const { variables } = importPostmanCollectionWithMeta(realWorld)
+        expect(variables).toEqual([
+            { key: "baseUrl", value: "https://api.acme.test" },
+            { key: "authToken", value: "" },
+        ])
+    })
+
+    it("maps folder auth to defaultAuth and folder script to folder preRequestScript", () => {
+        const { collection } = importPostmanCollectionWithMeta(realWorld)
+        const folder = collection.items[0] as import("@/components/api-client/types").CollectionFolder
+        expect(folder.type).toBe("folder")
+        expect(folder.defaultAuth).toEqual({
+            type: "api-key",
+            apiKeyKey: "X-Api-Key",
+            apiKeyValue: "{{apiKey}}",
+            apiKeyLocation: "header",
+        })
+        expect(folder.preRequestScript).toContain("folder pre")
+        // Collection pre-script is prepended to the top-level folder.
+        expect(folder.preRequestScript!.indexOf("pm.environment.set")).toBeLessThan(
+            folder.preRequestScript!.indexOf("folder pre"),
+        )
+    })
+
+    it("bakes collection auth into root requests without their own auth", () => {
+        const { collection } = importPostmanCollectionWithMeta(realWorld)
+        const login = collection.items[1] as CollectionRequest
+        expect(login.auth).toEqual({ type: "bearer", token: "{{authToken}}" })
+        // Request under an auth-carrying folder inherits the folder auth at
+        // runtime instead — stays "none" here.
+        const folder = collection.items[0] as import("@/components/api-client/types").CollectionFolder
+        const listUsers = folder.items[0] as CollectionRequest
+        expect(listUsers.auth).toEqual({ type: "none" })
+    })
+
+    it("prepends collection test script to root request's own tests", () => {
+        const { collection } = importPostmanCollectionWithMeta(realWorld)
+        const login = collection.items[1] as CollectionRequest
+        expect(login.testScript).toContain("status ok")
+        expect(login.testScript).toContain("has token")
+        expect(login.testScript!.indexOf("status ok")).toBeLessThan(login.testScript!.indexOf("has token"))
+    })
+
+    it("imports graphql bodies with query + variables", () => {
+        const { collection } = importPostmanCollectionWithMeta(realWorld)
+        const gql = collection.items[2] as CollectionRequest
+        expect(gql.body).toEqual({
+            type: "graphql",
+            content: "query { users { id } }",
+            graphqlVariables: '{"limit":10}',
+        })
+    })
+
+    it("keeps disabled query params inactive", () => {
+        const { collection } = importPostmanCollectionWithMeta(realWorld)
+        const folder = collection.items[0] as import("@/components/api-client/types").CollectionFolder
+        const listUsers = folder.items[0] as CollectionRequest
+        const debug = listUsers.params.find((p) => p.key === "debug")
+        expect(debug?.active).toBe(false)
     })
 })

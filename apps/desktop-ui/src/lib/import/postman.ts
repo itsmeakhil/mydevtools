@@ -20,6 +20,7 @@ interface PostmanCollection {
     info?: { name?: string; schema?: string; description?: string; _postman_id?: string }
     item?: PostmanItem[]
     auth?: PostmanAuth
+    event?: PostmanEvent[]
     variable?: Array<{ key: string; value?: string }>
 }
 
@@ -28,6 +29,7 @@ interface PostmanItem {
     item?: PostmanItem[]
     request?: PostmanRequest
     event?: PostmanEvent[]
+    auth?: PostmanAuth
 }
 
 interface PostmanEvent {
@@ -70,6 +72,7 @@ interface PostmanBody {
     raw?: string
     urlencoded?: PostmanKV[]
     formdata?: PostmanKV[]
+    graphql?: { query?: string; variables?: string }
     options?: { raw?: { language?: string } }
 }
 
@@ -140,7 +143,14 @@ function convertBody(b: PostmanBody | undefined): RequestBody {
             }))
         return { type: "form-data", content: "", formData: items }
     }
-    // graphql / file / unknown — degrade to text raw body.
+    if (b.mode === "graphql") {
+        return {
+            type: "graphql",
+            content: b.graphql?.query ?? "",
+            graphqlVariables: b.graphql?.variables || undefined,
+        }
+    }
+    // file / unknown — degrade to text raw body.
     return { type: "text", content: b.raw ?? "" }
 }
 
@@ -193,7 +203,7 @@ function convertAuth(a: PostmanAuth | undefined): RequestAuth {
     return { type: "none" }
 }
 
-function convertRequest(item: PostmanItem): CollectionRequest {
+function convertRequest(item: PostmanItem, inheritedAuth?: RequestAuth): CollectionRequest {
     const r = item.request ?? {}
     const { url, query } = readUrl(r.url)
     const method = (r.method ?? "GET").toUpperCase() as RequestMethod
@@ -209,25 +219,42 @@ function convertRequest(item: PostmanItem): CollectionRequest {
         params: kvList(query),
         headers: kvList(r.header),
         body: convertBody(r.body),
-        auth: convertAuth(r.auth),
+        // Postman semantics: no request-level auth → inherit from the nearest
+        // ancestor. Folder auth becomes folder defaultAuth (runtime merge);
+        // collection auth has no runtime home, so it's baked in here.
+        auth: r.auth ? convertAuth(r.auth) : inheritedAuth ?? { type: "none" },
         preRequestScript: preRequestScript || undefined,
         testScript: testScript || undefined,
     }
 }
 
-function convertItems(items: PostmanItem[] | undefined): Array<CollectionFolder | CollectionRequest> {
+function joinScripts(...parts: Array<string | undefined>): string | undefined {
+    const cleaned = parts.map((p) => (p ?? "").trim()).filter(Boolean)
+    return cleaned.length ? cleaned.join("\n\n") : undefined
+}
+
+function convertItems(
+    items: PostmanItem[] | undefined,
+    inheritedAuth?: RequestAuth,
+): Array<CollectionFolder | CollectionRequest> {
     if (!items) return []
     const out: Array<CollectionFolder | CollectionRequest> = []
     for (const item of items) {
         if (item.request) {
-            out.push(convertRequest(item))
+            out.push(convertRequest(item, inheritedAuth))
         } else if (item.item) {
+            const folderAuth = item.auth ? convertAuth(item.auth) : undefined
             out.push({
                 id: id(),
                 name: item.name ?? "Folder",
                 type: "folder",
-                items: convertItems(item.item),
+                // Folder auth applies at runtime via defaultAuth, so children stop
+                // inheriting the collection-level fallback under such a folder.
+                items: convertItems(item.item, folderAuth ? undefined : inheritedAuth),
                 isOpen: false,
+                defaultAuth: folderAuth,
+                preRequestScript: pickScript(item.event, "prerequest") || undefined,
+                testScript: pickScript(item.event, "test") || undefined,
             })
         }
         // Items with neither `request` nor `item` are skipped silently — they're either
@@ -236,15 +263,48 @@ function convertItems(items: PostmanItem[] | undefined): Array<CollectionFolder 
     return out
 }
 
-export function importPostmanCollection(raw: string | unknown): Collection {
+export interface PostmanImportResult {
+    collection: Collection
+    /** Collection-level `variable[]` — offer these as an api-client environment. */
+    variables: Array<{ key: string; value: string }>
+}
+
+export function importPostmanCollectionWithMeta(raw: string | unknown): PostmanImportResult {
     const data: PostmanCollection = typeof raw === "string" ? JSON.parse(raw) : (raw as PostmanCollection)
     if (!data || typeof data !== "object") throw new Error("Not a Postman collection")
     if (!data.info?.name && !Array.isArray(data.item)) {
         throw new Error("Not a Postman collection (missing info.name + item[])")
     }
-    return {
-        id: id(),
-        name: data.info?.name ?? "Imported Postman collection",
-        items: convertItems(data.item),
+    const collectionAuth = data.auth ? convertAuth(data.auth) : undefined
+    const items = convertItems(data.item, collectionAuth?.type === "none" ? undefined : collectionAuth)
+
+    // Collection-level scripts run before everything else. Prepend them at the
+    // top level: folders cascade to children at runtime; bare root requests get
+    // them baked in. (Both CollectionFolder and CollectionRequest carry the
+    // same script fields.)
+    const pre = pickScript(data.event, "prerequest")
+    const test = pickScript(data.event, "test")
+    if (pre || test) {
+        for (const item of items) {
+            item.preRequestScript = joinScripts(pre, item.preRequestScript)
+            item.testScript = joinScripts(test, item.testScript)
+        }
     }
+
+    const variables = (data.variable ?? [])
+        .filter((v) => v && typeof v.key === "string" && v.key)
+        .map((v) => ({ key: v.key, value: v.value ?? "" }))
+
+    return {
+        collection: {
+            id: id(),
+            name: data.info?.name ?? "Imported Postman collection",
+            items,
+        },
+        variables,
+    }
+}
+
+export function importPostmanCollection(raw: string | unknown): Collection {
+    return importPostmanCollectionWithMeta(raw).collection
 }

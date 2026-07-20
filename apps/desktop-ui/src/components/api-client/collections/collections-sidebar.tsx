@@ -46,6 +46,7 @@ import { useCollectionsState, useCollectionsActions } from "../context/collectio
 import { useHistoryState, useHistoryActions } from "../context/history-context"
 import { CollectionsSidebarSkeleton, HistoryListSkeleton } from "../skeletons"
 import { useDebouncedValue } from "@/lib/use-debounced-value"
+import { isDesktop } from "@/lib/desktop/is-desktop"
 
 interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
@@ -361,12 +362,21 @@ export function CollectionsSidebar({
                                                         <DropdownMenuItem
                                                             onClick={async () => {
                                                                 if (typeof window === "undefined") return
-                                                                const baseUrl = `${window.location.origin}/api/mock/${collection.id}/`
                                                                 try {
+                                                                    let baseUrl: string
+                                                                    if (isDesktop()) {
+                                                                        // Desktop: real loopback HTTP server so curl / the
+                                                                        // user's own app can call the mock.
+                                                                        const { invoke } = await import("@tauri-apps/api/core")
+                                                                        const port = await invoke<number>("mock_server_start")
+                                                                        baseUrl = `http://127.0.0.1:${port}/${collection.id}/`
+                                                                    } else {
+                                                                        baseUrl = `${window.location.origin}/api/mock/${collection.id}/`
+                                                                    }
                                                                     await navigator.clipboard.writeText(baseUrl)
                                                                     toast.success("Mock URL copied — append the request path to invoke")
-                                                                } catch {
-                                                                    toast.error("Could not copy to clipboard")
+                                                                } catch (e) {
+                                                                    toast.error((e as Error)?.message || "Could not copy to clipboard")
                                                                 }
                                                             }}
                                                         >
@@ -388,7 +398,8 @@ export function CollectionsSidebar({
                                                             <Link2 className="h-4 w-4 mr-2" />
                                                             Copy share link
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem
+                                                        {/* Public mocks need a hosted origin — desktop is offline-only. */}
+                                                        {!isDesktop() && <DropdownMenuItem
                                                             onClick={async () => {
                                                                 if (typeof window === "undefined") return
                                                                 try {
@@ -413,7 +424,7 @@ export function CollectionsSidebar({
                                                         >
                                                             <Globe className="h-4 w-4 mr-2" />
                                                             Publish as public mock
-                                                        </DropdownMenuItem>
+                                                        </DropdownMenuItem>}
                                                         <DropdownMenuItem onClick={() => downloadCollectionAsPostman(collection)}>
                                                             <FileDown className="h-4 w-4 mr-2" />
                                                             Export (Postman v2.1)
