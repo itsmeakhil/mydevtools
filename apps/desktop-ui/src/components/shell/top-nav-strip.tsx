@@ -21,7 +21,8 @@ import { usePinnedToolsForActiveWorkspace, usePinnedToolsStore } from '@/store/p
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
-import { buildPinnedNavItems, getSidebarToolIcon } from '@/components/sidebar/app-sidebar.helpers'
+import { buildPinnedNavItems, getSidebarToolMeta } from '@/components/sidebar/app-sidebar.helpers'
+import { categoryAccent } from '@/components/dashboard/types'
 import type { NavLink } from '@/components/sidebar/types'
 import { getToolMessageKey } from '@/lib/tool-i18n'
 
@@ -317,7 +318,9 @@ export function TopNavStrip() {
                 tab.path
               // Per-tool @tabler sidebar icon (same as Pinned/sidebar); the
               // generic route-config lucide icon only when the catalog has none.
-              const Icon = getSidebarToolIcon(tab.path) ?? config?.icon
+              const meta = getSidebarToolMeta(tab.path)
+              const Icon = meta?.icon ?? config?.icon
+              const accent = categoryAccent(meta?.category ?? '')
               const isActive = pathname === tab.path
               const prevActive = i > 0 && tabs[i - 1].path === pathname
               const showDivider = i > 0 && !isActive && !prevActive
@@ -351,16 +354,25 @@ export function TopNavStrip() {
                           <span className="pointer-events-none absolute inset-x-0 top-0 h-0.5 rounded-t-md bg-primary" />
                         )}
                         {Icon ? (
-                          <Icon
+                          <span
                             className={cn(
-                              'h-3.5 w-3.5 shrink-0 transition-colors',
+                              'relative flex h-[22px] w-[22px] shrink-0 items-center justify-center overflow-hidden rounded-md transition-all duration-200',
+                              accent.bg,
+                              accent.text,
+                              // colored ring + depth, all derived from the accent via currentColor
+                              'ring-1 ring-inset ring-[color-mix(in_srgb,currentColor_30%,transparent)]',
                               isActive
-                                ? 'text-primary'
-                                : 'text-muted-foreground/70 group-hover:text-foreground/70',
+                                ? 'shadow-[0_0_10px_-2px_currentColor]'
+                                : 'opacity-75 saturate-[.85] group-hover:opacity-100 group-hover:saturate-100',
                             )}
-                            strokeWidth={2}
-                            aria-hidden
-                          />
+                          >
+                            {/* diagonal sheen over the tint — the "premium" glass touch */}
+                            <span
+                              aria-hidden
+                              className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.12] via-transparent to-black/[0.08]"
+                            />
+                            <Icon className="relative h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
+                          </span>
                         ) : null}
                         <span className="min-w-0 flex-1 truncate text-left">{title}</span>
                         <span

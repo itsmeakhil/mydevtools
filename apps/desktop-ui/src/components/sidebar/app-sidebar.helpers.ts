@@ -52,26 +52,36 @@ export function buildPinnedNavItems(
   })
 }
 
-// Lazy url→icon map over the whole catalog, so tab chips reuse the exact
-// sidebar (@tabler) icons shown in Pinned/palette instead of the lucide
-// route-config ones.
-let iconByUrl: Map<string, NavLink["icon"]> | null = null
-export function getSidebarToolIcon(url: string): NavLink["icon"] | undefined {
-  if (!iconByUrl) {
-    iconByUrl = new Map()
+// Lazy url→{icon, category} map over the whole catalog, so tab chips reuse the
+// exact sidebar (@tabler) icons shown in Pinned/palette plus the tool's
+// category (nav group title) for CATEGORY_ACCENT coloring.
+export interface SidebarToolMeta {
+  icon: NavLink["icon"]
+  category: string
+}
+let metaByUrl: Map<string, SidebarToolMeta> | null = null
+export function getSidebarToolMeta(url: string): SidebarToolMeta | undefined {
+  if (!metaByUrl) {
+    metaByUrl = new Map()
     for (const group of sidebarData.navGroups) {
       for (const item of group.items) {
         if (!("items" in item)) {
-          iconByUrl.set(String((item as NavLink).url), (item as NavLink).icon)
+          metaByUrl.set(String((item as NavLink).url), {
+            icon: (item as NavLink).icon,
+            category: group.title,
+          })
         } else {
           for (const sub of (item as NavCollapsible).items) {
-            iconByUrl.set(String(sub.url), sub.icon ?? item.icon)
+            metaByUrl.set(String(sub.url), {
+              icon: sub.icon ?? item.icon,
+              category: group.title,
+            })
           }
         }
       }
     }
   }
-  return iconByUrl.get(url)
+  return metaByUrl.get(url)
 }
 
 export interface CategoryGroup {
