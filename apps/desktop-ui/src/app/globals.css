@@ -101,10 +101,129 @@ body {
     --sidebar-ring: 235 84% 67%;
   }
 
-  /* Pro Instrument commits to ONE brand accent (electric indigo, set above).
-     The user-selectable accent-color overrides were removed intentionally —
-     multiple brand colors dilute identity and read as a web-app template.
-     Per-category tool accents live in CATEGORY_ACCENT, not here. */
+  /* User-selectable accent overrides (ColorThemeProvider toggles these
+     classes on <html>). Light + dark variants; everything accent-colored
+     flows through --primary / --ring / --sidebar-primary. */
+  :root.blue {
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 217.2 91.2% 59.8%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  :root.purple {
+    --primary: 258.3 89.5% 66.3%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 258.3 89.5% 66.3%;
+    --sidebar-primary: 258.3 89.5% 66.3%;
+    --sidebar-ring: 258.3 89.5% 66.3%;
+  }
+
+  :root.green {
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 142.1 76.2% 36.3%;
+    --sidebar-primary: 142.1 76.2% 36.3%;
+    --sidebar-ring: 142.1 76.2% 36.3%;
+  }
+
+  :root.orange {
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 24.6 95% 53.1%;
+    --sidebar-primary: 24.6 95% 53.1%;
+    --sidebar-ring: 24.6 95% 53.1%;
+  }
+
+  :root.red {
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 0 72.2% 50.6%;
+    --sidebar-primary: 0 72.2% 50.6%;
+    --sidebar-ring: 0 72.2% 50.6%;
+  }
+
+  :root.pink {
+    --primary: 340.7 82.1% 52.7%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 340.7 82.1% 52.7%;
+    --sidebar-primary: 340.7 82.1% 52.7%;
+    --sidebar-ring: 340.7 82.1% 52.7%;
+  }
+
+  :root.cyan {
+    --primary: 199.1 89.1% 48.2%;
+    --primary-foreground: 0 0% 98%;
+    --ring: 199.1 89.1% 48.2%;
+    --sidebar-primary: 199.1 89.1% 48.2%;
+    --sidebar-ring: 199.1 89.1% 48.2%;
+  }
+
+  :root.indigo {
+    --primary: 235 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --ring: 235 84% 67%;
+    --sidebar-primary: 235 84% 67%;
+    --sidebar-ring: 235 84% 67%;
+  }
+
+  /* Dark mode: same hues, tuned lightness where needed */
+  .dark.blue {
+    --primary: 217.2 91.2% 59.8%;
+    --ring: 217.2 91.2% 59.8%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark.purple {
+    --primary: 258.3 89.5% 66.3%;
+    --ring: 258.3 89.5% 66.3%;
+    --sidebar-primary: 258.3 89.5% 66.3%;
+    --sidebar-ring: 258.3 89.5% 66.3%;
+  }
+
+  .dark.green {
+    --primary: 142.1 70.6% 45.3%;
+    --ring: 142.1 70.6% 45.3%;
+    --sidebar-primary: 142.1 70.6% 45.3%;
+    --sidebar-ring: 142.1 70.6% 45.3%;
+  }
+
+  .dark.orange {
+    --primary: 24.6 95% 53.1%;
+    --ring: 24.6 95% 53.1%;
+    --sidebar-primary: 24.6 95% 53.1%;
+    --sidebar-ring: 24.6 95% 53.1%;
+  }
+
+  .dark.red {
+    --primary: 0 72.2% 50.6%;
+    --ring: 0 72.2% 50.6%;
+    --sidebar-primary: 0 72.2% 50.6%;
+    --sidebar-ring: 0 72.2% 50.6%;
+  }
+
+  .dark.pink {
+    --primary: 340.7 82.1% 52.7%;
+    --ring: 340.7 82.1% 52.7%;
+    --sidebar-primary: 340.7 82.1% 52.7%;
+    --sidebar-ring: 340.7 82.1% 52.7%;
+  }
+
+  .dark.cyan {
+    --primary: 199.1 89.1% 48.2%;
+    --ring: 199.1 89.1% 48.2%;
+    --sidebar-primary: 199.1 89.1% 48.2%;
+    --sidebar-ring: 199.1 89.1% 48.2%;
+  }
+
+  .dark.indigo {
+    --primary: 235 84% 67%;
+    --ring: 235 84% 67%;
+    --sidebar-primary: 235 84% 67%;
+    --sidebar-ring: 235 84% 67%;
+  }
 }
 
 /* Hidden scrollbar (element still scrolls) — used by the top-nav strip. */

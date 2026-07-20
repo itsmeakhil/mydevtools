@@ -51,7 +51,7 @@ function applyColorTheme(theme: ColorTheme) {
 }
 
 export function ColorThemeProvider({ children }: { children: ReactNode }) {
-  const [colorTheme, setColorThemeState] = useState<ColorTheme>("blue")
+  const [colorTheme, setColorThemeState] = useState<ColorTheme>("indigo")
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export function ColorThemeProvider({ children }: { children: ReactNode }) {
       setColorThemeState(stored)
       applyColorTheme(stored)
     } else {
-      applyColorTheme("blue")
+      applyColorTheme("indigo")
     }
   }, [])
 
