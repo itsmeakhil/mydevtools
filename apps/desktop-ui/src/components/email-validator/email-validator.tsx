@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useMemo } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -428,44 +428,62 @@ export function EmailValidator() {
                     </TabsList>
                 </div>
 
-                <TabsContent value="single" className="space-y-4 focus-visible:outline-none">
-                    <Card className={result ? "" : "max-w-2xl mx-auto"}>
-                        <CardHeader>
-                            <CardTitle className="text-lg font-medium text-center">{t("single.cardTitle")}</CardTitle>
-                            <CardDescription className="text-center">{t("single.cardDescription")}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex gap-3">
-                                <div className="relative flex-1">
-                                    <Input
-                                        type="email"
-                                        placeholder={t("single.placeholder")}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        onKeyDown={(e) => e.key === "Enter" && handleValidate()}
-                                        className={`h-11 pr-10 ${isValidFormat === false ? "border-red-500 focus-visible:ring-red-500" : isValidFormat === true ? "border-green-500 focus-visible:ring-green-500" : ""}`}
-                                        autoFocus
-                                    />
-                                    {email && (
-                                        <button
-                                            onClick={handleClear}
-                                            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md hover:bg-muted transition-colors"
-                                            aria-label={t("single.clearAria")}
-                                        >
-                                            <IconX className="h-4 w-4 text-muted-foreground" />
-                                        </button>
-                                    )}
-                                </div>
-                                <Button onClick={handleValidate} disabled={loading || !email || isValidFormat === false} className="h-11 px-6">
-                                    {loading ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconCheck className="h-4 w-4 mr-2" />}
-                                    {loading ? t("single.validating") : t("single.validate")}
-                                </Button>
+                <TabsContent value="single" className="space-y-6 focus-visible:outline-none">
+                    <div className={`mx-auto w-full max-w-2xl flex flex-col items-center text-center transition-all ${result ? "pt-2" : "pt-6 md:pt-10"}`}>
+                        {!result && (
+                            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-border/60 bg-muted/40">
+                                <IconMailCheck className="h-7 w-7 text-primary" stroke={1.75} />
                             </div>
-                            {isValidFormat === false && (
-                                <p className="text-sm text-red-500 mt-2 text-center">{t("single.formatError")}</p>
-                            )}
-                        </CardContent>
-                    </Card>
+                        )}
+                        <h2 className={`font-semibold tracking-tight ${result ? "text-lg" : "text-2xl"}`}>{t("single.cardTitle")}</h2>
+                        <p className="mt-1.5 max-w-md text-sm text-muted-foreground">{t("single.cardDescription")}</p>
+                        <div className="mt-6 flex w-full gap-3">
+                            <div className="relative flex-1">
+                                <Input
+                                    type="email"
+                                    placeholder={t("single.placeholder")}
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    onKeyDown={(e) => e.key === "Enter" && handleValidate()}
+                                    className={`h-12 pr-10 text-base ${isValidFormat === false ? "border-red-500 focus-visible:ring-red-500" : isValidFormat === true ? "border-green-500 focus-visible:ring-green-500" : ""}`}
+                                    autoFocus
+                                />
+                                {email && (
+                                    <button
+                                        onClick={handleClear}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md hover:bg-muted transition-colors cursor-pointer"
+                                        aria-label={t("single.clearAria")}
+                                    >
+                                        <IconX className="h-4 w-4 text-muted-foreground" />
+                                    </button>
+                                )}
+                            </div>
+                            <Button onClick={handleValidate} disabled={loading || !email || isValidFormat === false} className="h-12 px-6 cursor-pointer">
+                                {loading ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconCheck className="h-4 w-4 mr-2" />}
+                                {loading ? t("single.validating") : t("single.validate")}
+                            </Button>
+                        </div>
+                        {isValidFormat === false && (
+                            <p className="mt-2 text-sm text-red-500">{t("single.formatError")}</p>
+                        )}
+                        {!result && (
+                            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-2">
+                                {[
+                                    t("validation.syntaxLabel"),
+                                    t("validation.domainLabel"),
+                                    t("validation.mxLabel"),
+                                    t("validation.mailboxLabel"),
+                                    t("validation.disposableLabel"),
+                                    t("validation.roleBasedLabel"),
+                                ].map((label) => (
+                                    <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/30 px-3 py-1 text-xs text-muted-foreground">
+                                        <IconCircleCheck className="h-3.5 w-3.5 text-primary/70" stroke={2} />
+                                        {label}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
 
                     {result && (
                         <motion.div
@@ -585,7 +603,7 @@ export function EmailValidator() {
 
                 <TabsContent value="bulk" className="space-y-4 focus-visible:outline-none">
                     {!bulkLoading && bulkResults.length === 0 && (
-                        <Card className={`max-w-2xl mx-auto border-dashed border-2 transition-all ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "bg-muted/20 hover:bg-muted/40"}`}>
+                        <Card className={`max-w-2xl mx-auto mt-6 md:mt-10 border-dashed border-2 transition-all cursor-pointer ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "bg-muted/20 hover:bg-muted/40"}`}>
                             <CardContent className="flex flex-col items-center justify-center py-12 px-4 text-center cursor-pointer"
                                 onClick={() => fileInputRef.current?.click()}
                                 onDragOver={onDragOver}

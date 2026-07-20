@@ -3,7 +3,9 @@ import { DesktopOnlineGate } from "@/components/desktop/desktop-online-gate";
 export default function EmailValidatorPage() {
     return (
         <DesktopOnlineGate toolName="Email Validator">
-            <EmailValidator />
+            <div className="h-full w-full min-h-0 p-2 md:p-4">
+                <EmailValidator />
+            </div>
         </DesktopOnlineGate>
     );
 }
