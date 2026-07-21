@@ -2008,6 +2008,8 @@
     "collectionsSidebar": {
       "title": "API 리소스",
       "newCollection": "새 컬렉션",
+      "openFolderCollection": "폴더를 컬렉션으로 열기",
+      "folderCollection": "폴더 컬렉션",
       "tabCollections": "컬렉션",
       "tabHistory": "기록",
       "noCollectionsTitle": "컬렉션 없음",

@@ -1948,6 +1948,8 @@
     "collectionsSidebar": {
       "title": "API resources",
       "newCollection": "New collection",
+      "openFolderCollection": "Open folder as collection",
+      "folderCollection": "Folder collection",
       "tabCollections": "Collections",
       "tabHistory": "History",
       "noCollectionsTitle": "No collections",

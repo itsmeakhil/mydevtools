@@ -2008,6 +2008,8 @@
     "collectionsSidebar": {
       "title": "API resources",
       "newCollection": "New collection",
+      "openFolderCollection": "Buka folder sebagai koleksi",
+      "folderCollection": "Koleksi folder",
       "tabCollections": "Collections",
       "tabHistory": "History",
       "noCollectionsTitle": "No collections",

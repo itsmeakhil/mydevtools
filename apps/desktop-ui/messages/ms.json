@@ -1923,6 +1923,8 @@
     "collectionsSidebar": {
       "title": "Sumber API",
       "newCollection": "Koleksi baharu",
+      "openFolderCollection": "Buka folder sebagai koleksi",
+      "folderCollection": "Koleksi folder",
       "tabCollections": "Koleksi",
       "tabHistory": "Sejarah",
       "noCollectionsTitle": "Tiada koleksi",

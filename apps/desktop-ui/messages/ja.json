@@ -2008,6 +2008,8 @@
     "collectionsSidebar": {
       "title": "APIリソース",
       "newCollection": "新しいコレクション",
+      "openFolderCollection": "フォルダーをコレクションとして開く",
+      "folderCollection": "フォルダーコレクション",
       "tabCollections": "コレクション",
       "tabHistory": "履歴",
       "noCollectionsTitle": "コレクションなし",

@@ -70,6 +70,17 @@ async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, Strin
     Ok(http::grpc::proxy_grpc(input).await)
 }
 
+/// Recursively allow a folder-collection dir in the fs scope. The dialog plugin
+/// only scopes the picked path itself; files inside it (and registered dirs on
+/// relaunch) need an explicit recursive grant.
+#[tauri::command]
+fn fs_allow_collection_dir(app: tauri::AppHandle, path: String) -> Result<(), String> {
+    use tauri_plugin_fs::FsExt;
+    app.fs_scope()
+        .allow_directory(std::path::Path::new(&path), true)
+        .map_err(|e| e.to_string())
+}
+
 #[tauri::command]
 async fn await_browser_auth(
     port_channel: tauri::ipc::Channel<serde_json::Value>,
@@ -80,6 +91,11 @@ async fn await_browser_auth(
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_deep_link::init())
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_fs::init())
+        // Folder-collection dirs picked via the dialog are added to the fs scope
+        // at runtime; persisted-scope keeps them allowed across restarts.
+        .plugin(tauri_plugin_persisted_scope::init())
         .plugin(tauri_plugin_opener::init())
         // Restore everything except SIZE. Sizes are saved in physical pixels, so
         // a size saved on a HiDPI (scale-2) display restores 2x too large on a
@@ -130,6 +146,7 @@ pub fn run() {
             http_request_stream_cancel,
             mock_server_start,
             proxy_grpc,
+            fs_allow_collection_dir,
             await_browser_auth
         ])
         .run(tauri::generate_context!())

@@ -1923,6 +1923,8 @@
     "collectionsSidebar": {
       "title": "Recursos API",
       "newCollection": "Nueva colección",
+      "openFolderCollection": "Abrir carpeta como colección",
+      "folderCollection": "Colección de carpeta",
       "tabCollections": "Colecciones",
       "tabHistory": "Historial",
       "noCollectionsTitle": "Sin colecciones",

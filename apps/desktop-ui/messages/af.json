@@ -1923,6 +1923,8 @@
     "collectionsSidebar": {
       "title": "API-hulpbronne",
       "newCollection": "Nuwe versameling",
+      "openFolderCollection": "Maak vouer oop as versameling",
+      "folderCollection": "Vouerversameling",
       "tabCollections": "Versamelings",
       "tabHistory": "Geskiedenis",
       "noCollectionsTitle": "Geen versamelings",

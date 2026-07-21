@@ -2008,6 +2008,8 @@
     "collectionsSidebar": {
       "title": "API-ressourcer",
       "newCollection": "Ny kollektion",
+      "openFolderCollection": "Åbn mappe som samling",
+      "folderCollection": "Mappesamling",
       "tabCollections": "Samlinger",
       "tabHistory": "Historie",
       "noCollectionsTitle": "Ingen samlinger",
