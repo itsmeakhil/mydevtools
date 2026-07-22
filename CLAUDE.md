@@ -5,10 +5,9 @@ All-in-one developer toolkit (~80 tools: formatters, security, generators, notes
 ## Product model (current direction — do not regress)
 
 - **The desktop Tauri app is the product.** Fully offline after a mandatory one-time browser activation (loopback OAuth + `mydevtools://` deep link; activation stored in SQLCipher `kv` key `activation`). No per-session login, no periodic recheck.
-- **Web (`apps/web`) = marketing/auth/plan only**: landing, pricing, SEO pages (download CTAs), login handoff, `/account/plan`. Never reintroduce web tool pages or cloud sync.
-- **Plans**: first 250 signups get lifetime Pro (`plan_source="early_adopter"`, atomic counter in backend `users_repo.py`). Users #251+: free, full access, no paywall yet.
-- **Pricing (planned, show both tiers with strikethrough anchor price)**: $59/yr (actual $100) · $100 lifetime (actual $300) · first 250 users free.
-- Vault/masterkey creation is offline-only (desktop Rust mirror). Payments later via Merchant of Record (Lemon Squeezy/Polar — founders are India-based individuals, no Stripe-direct yet).
+- **Free & open source (AGPL-3.0).** No plans, no pricing, no paywalls — never reintroduce them. "Free & Open Source" page; `/account/plan` redirects to `/dashboard` (shipped desktop builds hard-open it).
+- **Web (`apps/web`) = marketing/auth only**: landing, SEO pages (download CTAs), login handoff, `/dashboard` (passkeys). Never reintroduce web tool pages or cloud sync.
+- Vault/masterkey creation is offline-only (desktop Rust mirror).
 
 ## Monorepo (pnpm)
 
@@ -17,7 +16,7 @@ All-in-one developer toolkit (~80 tools: formatters, security, generators, notes
 | `apps/desktop-ui` | Next.js UI the Tauri app builds from — **all tool work happens here** (clone-then-prune of apps/web) |
 | `apps/desktop` | Tauri v2 shell — SQLCipher keyed by macOS Keychain, native Rust DB drivers |
 | `apps/web` | Marketing/SEO/auth site (Next.js 16, React 19, Tailwind, shadcn/ui, next-intl) |
-| `apps/backend` | FastAPI — health + auth + plan grant only |
+| `apps/backend` | FastAPI — health + auth only |
 
 ## Build / verify
 
