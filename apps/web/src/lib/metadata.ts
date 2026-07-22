@@ -42,15 +42,15 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     },
     'environment-manager': {
         title: 'Environment Manager',
-        description: 'Organize environment variables by project and environment. Encrypted on your device with AES-256-GCM before sync.',
+        description: 'Organize environment variables by project and environment. Encrypted on your device with AES-256-GCM.',
         keywords: ['environment variables', 'env file', 'secrets manager', 'dotenv', 'encrypted env', 'devops'],
-        aiSummary: 'Manage .env variables across projects and environments (dev/staging/prod) locally on your device. AES-256-GCM encrypted before sync — a privacy-first dotenv manager.',
+        aiSummary: 'Manage .env variables across projects and environments (dev/staging/prod) locally on your device. AES-256-GCM encrypted in a local vault — a privacy-first dotenv manager.',
     },
     'api-keys': {
         title: 'API Keys',
         description: 'Store API keys and secrets per environment (dev / staging / prod). AES-256-GCM client-side encryption — server only sees encrypted blobs.',
         keywords: ['api key vault', 'api key manager', 'secrets manager', 'encrypted api keys', 'developer credentials', 'dev staging prod keys'],
-        aiSummary: 'Zero-knowledge vault for API keys and secrets, scoped by environment (development / staging / production). AES-256-GCM encrypted locally on your device before sync — a privacy-first personal secrets manager.',
+        aiSummary: 'Zero-knowledge vault for API keys and secrets, scoped by environment (development / staging / production). AES-256-GCM encrypted locally on your device — a privacy-first personal secrets manager.',
     },
     'email-validator': {
         title: 'Email Validator',

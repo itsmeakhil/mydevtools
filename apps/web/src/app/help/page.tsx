@@ -24,23 +24,23 @@ const appDetails: Record<
   '/app/to-do': {
     howItWorks: [
       'Organize work in projects, lists, and tasks with optional Kanban columns.',
-      'When you are signed in, tasks sync to your account so they are available across devices.',
+      'Tasks are stored locally on your device.',
     ],
   },
   '/app/notes': {
     howItWorks: [
       'Create rich notes with formatting, blocks, and media-style editing.',
-      'Notes are tied to your signed-in account for backup and sync.',
+      'Notes are stored locally on your device.',
     ],
   },
   '/app/password-manager': {
     howItWorks: [
       'Set a master password once per session to unlock your vault.',
       'Add, edit, search, and generate strong passwords; import/export is available from the manager UI.',
-      'Entries are encrypted on your device before anything sensitive is sent to the server.',
+      'Entries are encrypted on your device and stored in a local vault.',
     ],
     dataNote:
-      'The server stores only ciphertext and IVs for vault metadata and entries. Your master password is never transmitted.',
+      'Vault entries are stored as ciphertext on your device. Your master password never leaves your machine.',
   },
   '/app/environment-manager': {
     howItWorks: [
@@ -75,7 +75,7 @@ const appDetails: Record<
     howItWorks: [
       'Build HTTP requests with method, URL, query params, headers, and body.',
       'Use environments for variables, save requests into collections, and review history.',
-      'When signed in, collections and history sync to your account; without an account, history may use local storage on this device.',
+      'Collections and history are stored locally on your device.',
     ],
     dataNote:
       'Requests you send go to the targets you choose. Use the app only with APIs you trust.',

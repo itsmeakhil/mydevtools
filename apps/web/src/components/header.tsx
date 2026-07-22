@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
 import useAuth from "@/utils/useAuth";
 import { Logo } from "./logo";
-import { AnnouncementBanner } from "./announcement-banner";
 import { GithubStars } from "./github-stars";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -75,7 +74,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
   }[] = [
     { href: "/", label: "Home" },
     { href: "/features", label: "Features" },
-    { href: "/pricing", label: "Open Source" },
+    { href: "/download", label: "Download" },
     { href: "/developer-tools", label: "Platform" },
     { href: "/tools", label: "Tools" },
   ];
@@ -89,7 +88,6 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
           : "border-b border-transparent bg-transparent"
       )}
     >
-      <AnnouncementBanner />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -119,10 +117,10 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                 Platform
               </Link>
               <Link
-                href="/pricing"
+                href="/download"
                 className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
               >
-                Open Source
+                Download
               </Link>
               <Link
                 href="/tools"

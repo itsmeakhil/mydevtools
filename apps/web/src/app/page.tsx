@@ -19,13 +19,11 @@ import {
   Shield,
   Star,
   ChevronDown,
-  LogIn,
   LayoutGrid,
   Lock,
   Globe,
   CheckCircle2,
   Search,
-  Cloud,
   Users,
   Building2,
   Check,
@@ -165,10 +163,10 @@ const homepageTools = homepageToolSlugs
 const howItWorks = [
   {
     step: "01",
-    title: "Sign In Instantly",
+    title: "Download the App",
     description:
-      "One-click Google Sign-In on our cloud. No email or password friction. Start free in seconds.",
-    icon: LogIn,
+      "Grab the desktop app and activate once in your browser. After that it runs fully offline — no account needed to work.",
+    icon: DownloadIcon,
     gradient: "from-indigo-500 to-indigo-400",
   },
   {
@@ -182,7 +180,7 @@ const howItWorks = [
     step: "03",
     title: "Work Privately",
     description:
-      "Data is AES-256 encrypted on your device before sync. The server never sees your plaintext.",
+      "Everything runs on your machine. Sensitive credentials are AES-256 encrypted in a local vault — nothing leaves your device.",
     icon: Shield,
     gradient: "from-indigo-500 to-indigo-400",
   },
@@ -351,7 +349,7 @@ export default function Page() {
             >
               {[
                 { value: "80+", label: "Built-in Tools" },
-                { value: "AES-256", label: "Encrypted Sync" },
+                { value: "AES-256", label: "Local Vault" },
               ].map((s, i) => (
                 <div key={i} className="px-2 py-4 text-center">
                   <div className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight whitespace-nowrap mdt-grad-text mdt-grad-anim">
@@ -420,7 +418,7 @@ export default function Page() {
                 MyDevTools is the all-in-one desktop developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 80+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one desktop workspace.
               </p>
               <p className="text-lg leading-relaxed">
-                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption—nothing ever leaves your device. Free and open source for everyone.
+                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs on your machine — nothing ever leaves your device unless you point a tool at a destination you choose.
               </p>
               <p className="text-lg leading-relaxed">
                 Trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
@@ -722,9 +720,9 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Free & open source ──────────────────────────────────────────────── */}
+      {/* ── One offline app ─────────────────────────────────────────────────── */}
       <section
-        id="pricing"
+        id="download"
         className="relative overflow-hidden scroll-mt-28 py-16 md:py-24"
       >
         <div className="absolute inset-0 -z-10 bg-muted/20" />
@@ -732,29 +730,18 @@ export default function Page() {
           <Section>
             <motion.div variants={fadeUp} className="mx-auto max-w-2xl text-center">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Free &amp; <span className="mdt-grad-text">open source</span>
+                All 80+ tools, <span className="mdt-grad-text">one desktop app</span>
               </h2>
               <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                MyDevTools is free for everyone and open source under AGPL-3.0.
-                All 80+ tools in one offline desktop app — no plans, no paywalls,
-                no card.
+                Everything runs offline on your device. No tabs, no scattered
+                websites — one workspace for your whole workflow.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Button asChild size="lg">
                   <Link href="/download">
                     <DownloadIcon className="mr-2 h-4 w-4" aria-hidden />
-                    Download for free
+                    Download MyDevTools
                   </Link>
-                </Button>
-                <Button asChild size="lg" variant="outline">
-                  <a
-                    href="https://github.com/mydevtools-tech/mydevtools"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Star className="mr-2 h-4 w-4" aria-hidden />
-                    Star on GitHub
-                  </a>
                 </Button>
               </div>
             </motion.div>
@@ -834,7 +821,7 @@ export default function Page() {
                 { href: "/developer-tools", label: "Developer tools platform" },
                 { href: "/features", label: "Product features" },
                 { href: "/security", label: "Security and privacy" },
-                { href: "/pricing", label: "Free & open source" },
+                { href: "/download", label: "Download the app" },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -1080,8 +1067,7 @@ export default function Page() {
                   className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
                 >
                   Join developers who use MyDevTools to streamline their daily
-                  workflow. Privacy-focused, built for speed — free and open
-                  source for everyone.
+                  workflow. Privacy-focused and built for speed.
                 </motion.p>
 
                 <motion.div
