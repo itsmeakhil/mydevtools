@@ -1763,6 +1763,7 @@
       "saveQueryFail": "Failed to save query",
       "querySaved": "Saved “{name}”",
       "explainQuery": "Explain query",
+      "generateCode": "Generate code",
       "stagesMode": "Stages",
       "invalidStageJson": "A pipeline stage contains invalid JSON"
     },

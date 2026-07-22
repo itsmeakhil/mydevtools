@@ -1769,6 +1769,7 @@
       "saveQueryFail": "クエリの保存に失敗しました",
       "querySaved": "「{name}」を保存しました",
       "explainQuery": "クエリを説明",
+      "generateCode": "Generate code",
       "stagesMode": "ステージ",
       "invalidStageJson": "パイプラインのステージに無効なJSONが含まれています"
     },

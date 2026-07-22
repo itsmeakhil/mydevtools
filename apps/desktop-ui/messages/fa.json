@@ -1748,6 +1748,7 @@
       "saveQueryFail": "ذخیره کوئری ناموفق بود",
       "querySaved": "«{name}» ذخیره شد",
       "explainQuery": "توضیح کوئری",
+      "generateCode": "Generate code",
       "stagesMode": "مراحل",
       "invalidStageJson": "یکی از مراحل pipeline حاوی JSON نامعتبر است"
     },

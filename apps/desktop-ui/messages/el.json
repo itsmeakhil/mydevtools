@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Αποτυχία αποθήκευσης ερωτήματος",
       "querySaved": "Το «{name}» αποθηκεύτηκε",
       "explainQuery": "Επεξήγηση ερωτήματος",
+      "generateCode": "Generate code",
       "stagesMode": "Στάδια",
       "invalidStageJson": "Ένα στάδιο του pipeline περιέχει μη έγκυρο JSON"
     },

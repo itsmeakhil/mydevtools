@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Không thể lưu truy vấn",
       "querySaved": "Đã lưu “{name}”",
       "explainQuery": "Giải thích truy vấn",
+      "generateCode": "Generate code",
       "stagesMode": "Giai đoạn",
       "invalidStageJson": "Một giai đoạn pipeline chứa JSON không hợp lệ"
     },

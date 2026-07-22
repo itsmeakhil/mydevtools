@@ -1769,6 +1769,7 @@
       "saveQueryFail": "No s'ha pogut desar la consulta",
       "querySaved": "“{name}” desada",
       "explainQuery": "Explica la consulta",
+      "generateCode": "Generate code",
       "stagesMode": "Etapes",
       "invalidStageJson": "Una etapa del pipeline conté JSON no vàlid"
     },

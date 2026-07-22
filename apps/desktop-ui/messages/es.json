@@ -1748,6 +1748,7 @@
       "saveQueryFail": "No se pudo guardar la consulta",
       "querySaved": "“{name}” guardada",
       "explainQuery": "Explicar consulta",
+      "generateCode": "Generate code",
       "stagesMode": "Etapas",
       "invalidStageJson": "Una etapa del pipeline contiene JSON no válido"
     },

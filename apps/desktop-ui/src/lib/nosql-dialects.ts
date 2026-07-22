@@ -66,3 +66,19 @@ export function detectDbType(connectionString: string): DbType {
     }
     return "mongodb";
 }
+
+/** Dialects that reject the driver's default retryWrites=true (writes fail silently otherwise). */
+const NO_RETRY_WRITES: ReadonlySet<DbType> = new Set<DbType>(["documentdb", "cosmosdb"]);
+
+/**
+ * Normalize a connection string for the chosen dialect. DocumentDB and Cosmos
+ * (Mongo API) reject `retryWrites=true` — the Mongo driver's default — so writes
+ * error unless `retryWrites=false` is present. Append it when the user hasn't set
+ * `retryWrites` themselves. Returns the string unchanged for other dialects or
+ * when the param is already present.
+ */
+export function normalizeConnectionString(dbType: DbType, connectionString: string): string {
+    const s = connectionString.trim();
+    if (!NO_RETRY_WRITES.has(dbType) || /[?&]retryWrites=/i.test(s)) return s;
+    return s + (s.includes("?") ? "&" : "?") + "retryWrites=false";
+}

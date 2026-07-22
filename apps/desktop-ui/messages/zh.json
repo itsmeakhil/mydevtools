@@ -1769,6 +1769,7 @@
       "saveQueryFail": "保存查询失败",
       "querySaved": "已保存“{name}”",
       "explainQuery": "解释查询",
+      "generateCode": "Generate code",
       "stagesMode": "阶段",
       "invalidStageJson": "某个管道阶段包含无效的 JSON"
     },

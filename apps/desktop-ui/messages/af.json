@@ -1748,6 +1748,7 @@
       "saveQueryFail": "Kon nie navraag stoor nie",
       "querySaved": "“{name}” gestoor",
       "explainQuery": "Verduidelik navraag",
+      "generateCode": "Generate code",
       "stagesMode": "Fases",
       "invalidStageJson": "'n Pyplynfase bevat ongeldige JSON"
     },

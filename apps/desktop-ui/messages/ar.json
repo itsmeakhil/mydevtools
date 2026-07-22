@@ -1769,6 +1769,7 @@
       "saveQueryFail": "فشل حفظ الاستعلام",
       "querySaved": "تم حفظ «{name}»",
       "explainQuery": "شرح الاستعلام",
+      "generateCode": "Generate code",
       "stagesMode": "المراحل",
       "invalidStageJson": "تحتوي إحدى مراحل الـ pipeline على JSON غير صالح"
     },

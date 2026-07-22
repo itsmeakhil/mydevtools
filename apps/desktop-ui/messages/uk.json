@@ -1748,6 +1748,7 @@
       "saveQueryFail": "Не вдалося зберегти запит",
       "querySaved": "«{name}» збережено",
       "explainQuery": "Пояснити запит",
+      "generateCode": "Generate code",
       "stagesMode": "Етапи",
       "invalidStageJson": "Етап конвеєра містить неправильний JSON"
     },

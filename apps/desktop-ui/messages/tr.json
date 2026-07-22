@@ -1748,6 +1748,7 @@
       "saveQueryFail": "Sorgu kaydedilemedi",
       "querySaved": "“{name}” kaydedildi",
       "explainQuery": "Sorguyu açıkla",
+      "generateCode": "Generate code",
       "stagesMode": "Aşamalar",
       "invalidStageJson": "Bir pipeline aşaması geçersiz JSON içeriyor"
     },

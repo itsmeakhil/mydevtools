@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { IconDatabase, IconTrash, IconHistory, IconPencil, IconPlugConnected, IconCheck, IconX, IconBrandMongodb, IconBrandAws, IconBrandAzure, IconServer, IconCopy, IconLock } from "@tabler/icons-react";
 import { Switch } from "@/components/ui/switch";
 import { SavedConnection } from "./types";
-import { DB_DIALECTS, DB_TYPE_ORDER, detectDbType, type DbType } from "@/lib/nosql-dialects";
+import { DB_DIALECTS, DB_TYPE_ORDER, detectDbType, normalizeConnectionString, type DbType } from "@/lib/nosql-dialects";
 import { getConnections, deleteConnection, saveConnection, updateConnectionDetails } from "./connection-service";
 import { backendFetch } from "@/lib/backend-auth";
 import useAuth from "@/utils/useAuth";
@@ -99,7 +99,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
             const res = await backendFetch("/api/nosql/connect", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ connectionString }),
+                body: JSON.stringify({ connectionString: normalizeConnectionString(dbType, connectionString) }),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
@@ -116,12 +116,15 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
         e.preventDefault();
         if (!connectionString || !user || !encryptionKey) return;
 
+        // Persist and connect with the dialect-corrected string (e.g. DocumentDB/Cosmos retryWrites=false).
+        const finalString = normalizeConnectionString(dbType, connectionString);
+
         try {
             if (editingId) {
-                await updateConnectionDetails(user.uid, editingId, { name, connectionString, color, readOnly, dbType }, encryptionKey);
+                await updateConnectionDetails(user.uid, editingId, { name, connectionString: finalString, color, readOnly, dbType }, encryptionKey);
                 toast.success(t("toastUpdated"));
             } else {
-                await saveConnection(user.uid, connectionString, name, encryptionKey, { color, readOnly, dbType });
+                await saveConnection(user.uid, finalString, name, encryptionKey, { color, readOnly, dbType });
             }
             await loadConnections();
         } catch (e) {
@@ -131,7 +134,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
         }
 
         setEditingId(null);
-        await onConnect(connectionString);
+        await onConnect(finalString);
     };
 
     const handleSelectConnection = (conn: SavedConnection) => {

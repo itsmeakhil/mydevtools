@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Dotaz se nepodařilo uložit",
       "querySaved": "„{name}“ uloženo",
       "explainQuery": "Vysvětlit dotaz",
+      "generateCode": "Generate code",
       "stagesMode": "Fáze",
       "invalidStageJson": "Fáze pipeline obsahuje neplatný JSON"
     },

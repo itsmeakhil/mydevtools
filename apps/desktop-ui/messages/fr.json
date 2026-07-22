@@ -1748,6 +1748,7 @@
       "saveQueryFail": "Échec de l'enregistrement de la requête",
       "querySaved": "« {name} » enregistrée",
       "explainQuery": "Expliquer la requête",
+      "generateCode": "Generate code",
       "stagesMode": "Étapes",
       "invalidStageJson": "Une étape du pipeline contient du JSON invalide"
     },

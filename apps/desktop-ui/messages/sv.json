@@ -1748,6 +1748,7 @@
       "saveQueryFail": "Kunde inte spara frågan",
       "querySaved": "”{name}” sparad",
       "explainQuery": "Förklara fråga",
+      "generateCode": "Generate code",
       "stagesMode": "Steg",
       "invalidStageJson": "Ett pipelinesteg innehåller ogiltig JSON"
     },

@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Falha ao guardar a consulta",
       "querySaved": "“{name}” guardada",
       "explainQuery": "Explicar consulta",
+      "generateCode": "Generate code",
       "stagesMode": "Etapas",
       "invalidStageJson": "Uma etapa do pipeline contém JSON inválido"
     },

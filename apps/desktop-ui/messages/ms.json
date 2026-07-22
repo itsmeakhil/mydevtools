@@ -1748,6 +1748,7 @@
       "saveQueryFail": "Gagal menyimpan pertanyaan",
       "querySaved": "“{name}” disimpan",
       "explainQuery": "Terangkan pertanyaan",
+      "generateCode": "Generate code",
       "stagesMode": "Peringkat",
       "invalidStageJson": "Satu peringkat pipeline mengandungi JSON tidak sah"
     },

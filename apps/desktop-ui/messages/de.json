@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Abfrage konnte nicht gespeichert werden",
       "querySaved": "„{name}“ gespeichert",
       "explainQuery": "Abfrage erklären",
+      "generateCode": "Generate code",
       "stagesMode": "Stufen",
       "invalidStageJson": "Eine Pipeline-Stufe enthält ungültiges JSON"
     },

@@ -1769,6 +1769,7 @@
       "saveQueryFail": "쿼리 저장에 실패했습니다",
       "querySaved": "“{name}” 저장됨",
       "explainQuery": "쿼리 설명",
+      "generateCode": "Generate code",
       "stagesMode": "단계",
       "invalidStageJson": "파이프라인 단계에 잘못된 JSON이 있습니다"
     },

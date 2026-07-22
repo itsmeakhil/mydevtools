@@ -1748,6 +1748,7 @@
       "saveQueryFail": "Impossibile salvare la query",
       "querySaved": "“{name}” salvata",
       "explainQuery": "Spiega query",
+      "generateCode": "Generate code",
       "stagesMode": "Fasi",
       "invalidStageJson": "Una fase della pipeline contiene JSON non valido"
     },

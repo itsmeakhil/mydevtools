@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Не удалось сохранить запрос",
       "querySaved": "«{name}» сохранён",
       "explainQuery": "Объяснить запрос",
+      "generateCode": "Generate code",
       "stagesMode": "Этапы",
       "invalidStageJson": "Этап конвейера содержит неверный JSON"
     },

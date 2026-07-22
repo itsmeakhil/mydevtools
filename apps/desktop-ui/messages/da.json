@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Kunne ikke gemme forespørgslen",
       "querySaved": "“{name}” gemt",
       "explainQuery": "Forklar forespørgsel",
+      "generateCode": "Generate code",
       "stagesMode": "Trin",
       "invalidStageJson": "Et pipelinetrin indeholder ugyldig JSON"
     },

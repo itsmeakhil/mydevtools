@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Query opslaan mislukt",
       "querySaved": "“{name}” opgeslagen",
       "explainQuery": "Query uitleggen",
+      "generateCode": "Generate code",
       "stagesMode": "Fasen",
       "invalidStageJson": "Een pipelinefase bevat ongeldige JSON"
     },

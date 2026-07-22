@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Nie udało się zapisać zapytania",
       "querySaved": "Zapisano „{name}”",
       "explainQuery": "Wyjaśnij zapytanie",
+      "generateCode": "Generate code",
       "stagesMode": "Etapy",
       "invalidStageJson": "Etap pipeline'u zawiera nieprawidłowy JSON"
     },

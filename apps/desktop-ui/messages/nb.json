@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Kunne ikke lagre spørringen",
       "querySaved": "«{name}» lagret",
       "explainQuery": "Forklar spørring",
+      "generateCode": "Generate code",
       "stagesMode": "Trinn",
       "invalidStageJson": "Et pipelinetrinn inneholder ugyldig JSON"
     },

@@ -1769,6 +1769,7 @@
       "saveQueryFail": "Gagal menyimpan kueri",
       "querySaved": "“{name}” disimpan",
       "explainQuery": "Jelaskan kueri",
+      "generateCode": "Generate code",
       "stagesMode": "Tahapan",
       "invalidStageJson": "Sebuah tahap pipeline berisi JSON yang tidak valid"
     },
