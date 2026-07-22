@@ -528,7 +528,12 @@ export function ExplorerSidebar({
                     ) : filteredConnections.length === 0 ? (
                         <div className="text-xs text-muted-foreground text-center p-4">{t("noConnectionsFound")}</div>
                     ) : (
-                        visibleConnections.map((node, index) => (
+                        visibleConnections.map((node) => {
+                            // `visibleConnections` is filtered+sliced, so its map index does NOT
+                            // match the real `connections` array that every handler indexes into.
+                            // Derive the real index from the stable connection id.
+                            const index = connections.findIndex(c => c.connection.id === node.connection.id);
+                            return (
                             <div key={node.connection.id}>
                                 <div className="flex items-center group touch-none">
                                     {editingConnectionId === node.connection.id ? (
@@ -797,7 +802,8 @@ export function ExplorerSidebar({
                                     </div>
                                 )}
                             </div>
-                        ))
+                            );
+                        })
                     )}
                     {nosqlHasMore && (
                         <div ref={nosqlSentinelRef} className="flex justify-center py-3">
