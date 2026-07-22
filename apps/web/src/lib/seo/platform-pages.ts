@@ -118,12 +118,12 @@ export const platformSeoPages: PlatformSeoPage[] = [
         ],
       },
       {
-        title: 'Simple pricing that scales with you',
+        title: 'Free and open source',
         body:
-          'Start free, then upgrade when you want to lock in launch pricing.',
+          'MyDevTools is free for everyone and open source under AGPL-3.0.',
         bullets: [
-          'Free for the first 250 users — no card required to start.',
-          'Pro unlocks unlimited usage, private history, and priority support.',
+          'Every tool is free — no plans, no paywalls, no card required.',
+          'The full source code is on GitHub; audit it, fork it, contribute to it.',
           'Everything runs offline on your device — no cloud dependency.',
         ],
       },
@@ -181,22 +181,43 @@ export const platformSeoPages: PlatformSeoPage[] = [
   },
   {
     slug: 'pricing',
-    title: 'Pricing',
+    title: 'Free & Open Source',
     description:
-      'MyDevTools pricing: free for the first 250 users, then $59/year or $100 lifetime. One offline desktop app, all 80+ tools.',
+      'MyDevTools is free and open source under AGPL-3.0. One offline desktop app, all 80+ tools, your data stays on your device.',
     keywords: [
-      'mydevtools pricing',
-      'developer tools pricing',
-      'developer tools subscription pricing',
-      'desktop developer toolkit pricing',
+      'free developer tools',
+      'open source developer tools',
+      'open source desktop developer toolkit',
+      'offline developer tools free',
     ],
-    eyebrow: 'Pricing',
-    heading: 'Start free. Upgrade when you want more.',
+    eyebrow: 'Free & open source',
+    heading: 'Free for everyone. Open source forever.',
     intro:
-      'MyDevTools is free for the first 250 users. Paid plans lock in launch pricing — $59/year or $100 lifetime — for the full offline desktop toolkit.',
-    primaryCta: { href: '/login', label: 'Get started free' },
-    secondaryCta: { href: '/features', label: 'See features' },
-    sections: [],
+      'MyDevTools is free and open source under AGPL-3.0. Every tool in the offline desktop app is available to everyone — no plans, no paywalls, no card.',
+    primaryCta: { href: '/download', label: 'Download for free' },
+    secondaryCta: { href: 'https://github.com/mydevtools-tech/mydevtools', label: 'View source on GitHub' },
+    sections: [
+      {
+        title: 'Free forever',
+        body:
+          'All 80+ tools ship in one desktop app that runs fully offline on your device. There is nothing to unlock and nothing to subscribe to.',
+        bullets: [
+          'Every tool, every feature — free for individuals and teams.',
+          'Fully offline and local-first; your data stays on your device.',
+          'No card, no trial, no upsell.',
+        ],
+      },
+      {
+        title: 'Open source under AGPL-3.0',
+        body:
+          'The entire codebase is public on GitHub. Audit the code your secrets pass through, fork it, or help build it.',
+        bullets: [
+          'Licensed under GNU AGPL-3.0.',
+          'Issues and pull requests welcome on GitHub.',
+          'Star the repo to follow releases.',
+        ],
+      },
+    ],
   },
   {
     slug: 'use-cases',

@@ -2,19 +2,17 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { CreditCard, KeyRound, Loader2 } from 'lucide-react'
+import { KeyRound, Loader2 } from 'lucide-react'
 import { DashboardShell, type DashboardNavItem } from '@/components/dashboard-shell'
-import { PlanCard } from '@/components/plan-card'
 import { PasskeysManager } from '@/components/passkeys-manager'
 import { useAccountProfile } from '@/lib/use-account-profile'
 
 export default function DashboardPage() {
   const t = useTranslations('Dashboard')
   const { profile } = useAccountProfile('/dashboard')
-  const [tab, setTab] = useState('plan')
+  const [tab, setTab] = useState('security')
 
   const items: DashboardNavItem[] = [
-    { key: 'plan', label: t('navPlan'), icon: CreditCard },
     { key: 'security', label: t('navSecurity'), icon: KeyRound },
   ]
 
@@ -26,7 +24,7 @@ export default function DashboardPage() {
     )
   }
 
-  const title = tab === 'plan' ? t('navPlan') : t('navSecurity')
+  const title = t('navSecurity')
 
   return (
     <DashboardShell
@@ -42,7 +40,7 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      {tab === 'plan' ? <PlanCard profile={profile} /> : <PasskeysManager />}
+      <PasskeysManager />
     </DashboardShell>
   )
 }

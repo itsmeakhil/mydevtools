@@ -1,5 +1,5 @@
 /**
- * One-time desktop activation. The record is a plan snapshot captured right
+ * One-time desktop activation. The record is an account snapshot captured right
  * after browser sign-in, stored in the local Rust kv store — its presence is
  * what unlocks the app. Fully offline after that; no periodic recheck.
  */
@@ -10,9 +10,6 @@ export type ActivationRecord = {
   uid: string;
   email: string | null;
   display_name: string | null;
-  plan: string;
-  plan_source: string | null;
-  plan_granted_at: number | null;
   created_at: number | null;
   activated_at?: number;
 };
@@ -33,9 +30,6 @@ export async function completeActivation(): Promise<ActivationRecord> {
     uid: me.uid,
     email: me.email ?? null,
     display_name: me.display_name ?? null,
-    plan: me.plan || "free",
-    plan_source: me.plan_source ?? null,
-    plan_granted_at: me.plan_granted_at ?? null,
     created_at: me.created_at ?? null,
   };
   const saved = await localApi("POST", "/desktop/activation", JSON.stringify(record));

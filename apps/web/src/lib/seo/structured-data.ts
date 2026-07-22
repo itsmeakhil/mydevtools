@@ -6,11 +6,11 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 export const homepageFaqItems = [
   {
     q: 'Is MyDevTools free?',
-    a: 'Yes, while we are getting started — the first 250 signups get lifetime Pro for free. After that, plans are $59/year or $100 lifetime, no card required to try.',
+    a: 'Yes. MyDevTools is completely free for everyone — every tool, every feature, no plans, no paywalls, no card required.',
   },
   {
-    q: 'What is the difference between the Free and Pro plans?',
-    a: 'The Free plan gives you the core developer tools at no cost. Pro adds unlimited usage, private history, saved snippets, and priority support — all still fully offline on your device.',
+    q: 'Is MyDevTools open source?',
+    a: 'Yes. MyDevTools is open source under the GNU AGPL-3.0 license. The full source code is on GitHub — you can audit it, fork it, or contribute.',
   },
   {
     q: 'Is my data secure?',
@@ -214,7 +214,7 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
           price: '0',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
-          description: 'MyDevTools offers a free tier, with paid Pro and Team plans for unlimited usage.',
+          description: 'MyDevTools is free and open source (AGPL-3.0) for everyone.',
         },
         isAccessibleForFree: true,
         publisher: {
@@ -300,7 +300,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           price: '0',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
-          description: 'MyDevTools offers a free tier, with paid Pro and Team plans for unlimited usage.',
+          description: 'MyDevTools is free and open source (AGPL-3.0) for everyone.',
         },
         isAccessibleForFree: true,
         featureList: [

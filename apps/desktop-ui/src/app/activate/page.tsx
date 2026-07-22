@@ -3,14 +3,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { BadgeCheck, Calendar, Crown, Globe, Loader2, PartyPopper, ShieldCheck } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { BadgeCheck, Globe, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { completeActivation, getActivation, type ActivationRecord } from '@/lib/desktop/activation'
-
-/** Signup within this window of activation counts as a brand-new subscription. */
-const FRESH_SIGNUP_WINDOW_MS = 10 * 60 * 1000
 
 type Phase = 'idle' | 'waiting' | 'finishing' | 'done' | 'error'
 
@@ -67,58 +63,19 @@ export default function ActivatePage() {
   }
 
   if (phase === 'done' && record) {
-    const isPro = record.plan === 'pro'
-    const isEarlyAdopter = record.plan_source === 'early_adopter'
-    const freshSignup =
-      record.created_at != null &&
-      record.activated_at != null &&
-      record.activated_at - record.created_at < FRESH_SIGNUP_WINDOW_MS
-    const grantedAt = record.plan_granted_at
-      ? new Date(record.plan_granted_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })
-      : null
-
     return (
       <div className="flex min-h-screen items-center justify-center bg-background p-6">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10">
-              {freshSignup && isPro
-                ? <PartyPopper className="h-6 w-6 text-green-600 dark:text-green-400" />
-                : <BadgeCheck className="h-6 w-6 text-green-600 dark:text-green-400" />}
+              <BadgeCheck className="h-6 w-6 text-green-600 dark:text-green-400" />
             </div>
-            <CardTitle>
-              {freshSignup && isPro ? t('subscriptionCreated') : t('authSuccess')}
-            </CardTitle>
+            <CardTitle>{t('authSuccess')}</CardTitle>
             <CardDescription>
               {record.display_name || record.email}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
-            <div className="flex items-center justify-between rounded-lg border p-3">
-              <span className="flex items-center gap-2 font-medium">
-                <Crown className="h-4 w-4 text-primary" />
-                {t('plan')}
-              </span>
-              {isPro ? (
-                <Badge className="bg-primary/15 text-primary hover:bg-primary/15 border-primary/20">
-                  {isEarlyAdopter ? t('earlyAdopter') : 'Pro'}
-                </Badge>
-              ) : (
-                <Badge variant="secondary">Free</Badge>
-              )}
-            </div>
-            {isPro && (
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <ShieldCheck className="h-4 w-4" />
-                {t('lifetimeNote')}
-              </div>
-            )}
-            {grantedAt && (
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="h-4 w-4" />
-                {t('grantedOn')}: {grantedAt}
-              </div>
-            )}
             <div className="flex items-center gap-2 text-muted-foreground">
               <Globe className="h-4 w-4" />
               {t('offlineNote')}

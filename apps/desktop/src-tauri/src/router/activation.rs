@@ -1,7 +1,7 @@
 //! One-time desktop activation record (`/desktop/activation`).
 //!
-//! Stores the plan snapshot captured at browser sign-in:
-//! `{uid, email, display_name, plan, plan_source, plan_granted_at, activated_at}`.
+//! Stores the account snapshot captured at browser sign-in:
+//! `{uid, email, display_name, created_at, activated_at}`.
 //! The webview owns the shape; Rust stores it as an opaque JSON object in `kv`.
 //! Presence of the row == app is activated; it survives until the user resets
 //! app data (DELETE) or wipes the SQLCipher DB.
@@ -66,19 +66,19 @@ mod tests {
         let r = route(&state, "GET", "/desktop/activation", None).unwrap();
         assert_eq!(r.status, 404);
         // Activate stamps activated_at and round-trips.
-        let body = r#"{"uid":"u1","plan":"pro","plan_source":"early_adopter"}"#;
+        let body = r#"{"uid":"u1","email":"a@b.c"}"#;
         let r = route(&state, "POST", "/desktop/activation", Some(body)).unwrap();
         assert_eq!(r.status, 200);
         let v: serde_json::Value = serde_json::from_str(&r.body).unwrap();
-        assert_eq!(v["plan"], "pro");
+        assert_eq!(v["email"], "a@b.c");
         assert!(v["activated_at"].as_i64().unwrap() > 0);
         let r = route(&state, "GET", "/desktop/activation", None).unwrap();
         assert_eq!(r.status, 200);
         // Re-activation overwrites (fresh sign-in refreshes the snapshot).
-        let r = route(&state, "POST", "/desktop/activation", Some(r#"{"uid":"u1","plan":"free"}"#)).unwrap();
+        let r = route(&state, "POST", "/desktop/activation", Some(r#"{"uid":"u1","email":"new@b.c"}"#)).unwrap();
         assert_eq!(r.status, 200);
         let v: serde_json::Value = serde_json::from_str(&route(&state, "GET", "/desktop/activation", None).unwrap().body).unwrap();
-        assert_eq!(v["plan"], "free");
+        assert_eq!(v["email"], "new@b.c");
         // Reset clears it.
         let r = route(&state, "DELETE", "/desktop/activation", None).unwrap();
         assert_eq!(r.status, 204);

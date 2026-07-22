@@ -1,36 +1,11 @@
 from __future__ import annotations
 
-import logging
 from typing import Any
 
-from app.utils.collection_name import COUNTERS, USERS
+from app.utils.collection_name import USERS
 from app.utils.utils import create_timestamp
 from app.core.cache import bump_version
 from app.database import db_manager
-
-# First N signups ever get a lifetime Pro grant (early-adopter reward).
-EARLY_ADOPTER_LIMIT = 250
-SIGNUP_COUNTER_ID = "signups"
-
-logger = logging.getLogger(__name__)
-
-
-async def _grant_early_adopter_if_slot_free(uid: str, now: int) -> None:
-    # Atomic counter, not count_documents: two concurrent signups at slot 249
-    # would both count 249 and mint 251 Pros.
-    counter = await db_manager.find_one_and_update(
-        COUNTERS,
-        {"_id": SIGNUP_COUNTER_ID},
-        {"$inc": {"seq": 1}},
-        return_document=True,
-        upsert=True,
-    )
-    if counter and counter.get("seq", 0) <= EARLY_ADOPTER_LIMIT:
-        await db_manager.update_one(
-            USERS,
-            {"_id": uid},
-            {"$set": {"plan": "pro", "plan_source": "early_adopter", "plan_granted_at": now}},
-        )
 
 
 async def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
@@ -48,17 +23,12 @@ async def upsert_user_from_firebase_claims(decoded: dict[str, Any]) -> None:
         "disabled": False,
         "updated_at": now,
     }
-    result = await db_manager.update_one(
+    await db_manager.update_one(
         USERS,
         {"_id": uid},
         {"$set": doc, "$setOnInsert": {"created_at": now, "onboarding_completed": False}},
         upsert=True,
     )
-    if getattr(result, "upserted_id", None) is not None:
-        try:
-            await _grant_early_adopter_if_slot_free(uid, now)
-        except Exception:
-            logger.warning("Early-adopter plan grant failed for %s", uid, exc_info=True)
 
 
 async def get_user_doc(uid: str) -> dict[str, Any] | None:

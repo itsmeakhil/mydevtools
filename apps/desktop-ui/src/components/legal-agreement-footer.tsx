@@ -35,17 +35,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">3. Plans &amp; payment</h3>
-        <p>
-          Paid plans are billed through a third-party payment processor. By purchasing a plan you
-          authorize us and our processor to charge the applicable fees. Except where required by
-          law or stated otherwise, fees are non-refundable. We may change pricing on a
-          going-forward basis with notice.
-        </p>
-      </section>
-
-      <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">4. Your data and encryption</h3>
+        <h3 className="text-sm font-semibold text-foreground">3. Your data and encryption</h3>
         <p>
           The Service is local-first: the content you create with the tools is stored on your
           device. If you enable cloud sync, your data is encrypted on your device with a vault
@@ -59,7 +49,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">5. Acceptable use</h3>
+        <h3 className="text-sm font-semibold text-foreground">4. Acceptable use</h3>
         <p>
           You agree to use the Service lawfully and not to infringe others&apos; rights, disrupt the
           Service, or attempt to access accounts or data that are not yours. We may suspend or
@@ -68,7 +58,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">6. Availability &amp; disclaimer</h3>
+        <h3 className="text-sm font-semibold text-foreground">5. Availability &amp; disclaimer</h3>
         <p>
           The Service is provided &quot;as is&quot; without warranties of any kind. We do not
           guarantee uninterrupted or error-free operation. To the maximum extent permitted by law,
@@ -78,7 +68,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">7. Changes</h3>
+        <h3 className="text-sm font-semibold text-foreground">6. Changes</h3>
         <p>
           We may update these terms from time to time. Continued use after changes take effect
           constitutes acceptance of the revised terms.
@@ -86,7 +76,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">8. Contact</h3>
+        <h3 className="text-sm font-semibold text-foreground">7. Contact</h3>
         <p>For questions about these terms, contact us using the details provided on the website.</p>
       </section>
     </div>
@@ -102,7 +92,7 @@ function PrivacyBody() {
         <h3 className="text-sm font-semibold text-foreground">1. Our approach</h3>
         <p>
           MyDevTools is built to be private by design. The only personal information we hold on our
-          servers is your account and billing details. Everything you create with the tools stays on
+          servers is your account details. Everything you create with the tools stays on
           your device unless you choose to sync it — and anything you sync is end-to-end encrypted so
           that we cannot read it.
         </p>
@@ -113,10 +103,6 @@ function PrivacyBody() {
         <p>We store only the minimum needed to run your account:</p>
         <ul className="list-disc space-y-1 pl-5">
           <li>Your name and email address, from the sign-in provider you use.</li>
-          <li>
-            Payment information required to process your subscription. Card details are handled by
-            our third-party payment processor; we do not store full card numbers.
-          </li>
         </ul>
       </section>
 
@@ -151,8 +137,8 @@ function PrivacyBody() {
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">6. How we use what we store</h3>
         <p>
-          We use your account and billing information to provide the Service, process payments,
-          provide support, communicate service-related messages, and comply with legal obligations.
+          We use your account information to provide the Service, provide support, communicate
+          service-related messages, and comply with legal obligations.
         </p>
       </section>
 
