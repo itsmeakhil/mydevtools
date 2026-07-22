@@ -301,9 +301,9 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                             )
                         })()}
                     </TabsList>
-                    <div className="ml-auto flex items-center flex-wrap justify-end gap-2">
-                        <div className="flex items-center gap-2 shrink-0">
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
+                    <div className="ml-auto flex items-center flex-wrap justify-end gap-2 min-w-0">
+                        <div className="flex items-center gap-2 min-w-0">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80 min-w-0">
                             {isSuccess ? (
                                 <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
                             ) : isError ? (
@@ -312,12 +312,12 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                                 <Info className="h-3.5 w-3.5 text-blue-500" />
                             )}
                             <span className={cn(
-                                "text-xs font-bold px-1 rounded",
+                                "text-xs font-bold px-1 rounded shrink-0",
                                 STATUS_COLOR[getStatusColorKey(response.status)]
                             )}>
                                 {response.status}
                             </span>
-                            <span className="text-xs text-muted-foreground hidden sm:inline">
+                            <span className="text-xs text-muted-foreground hidden sm:inline truncate">
                                 {response.statusText === API_CLIENT_ERROR_STATUS_TEXT
                                     ? t("errorStatusLabel")
                                     : response.statusText}
