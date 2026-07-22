@@ -176,8 +176,10 @@ pub async fn handle(method: &str, rest: &str, body: Option<&str>) -> HandlerResu
     if conn_str.is_empty() {
         return Ok(err(400, "Connection string is required"));
     }
+    // All supported dialects (MongoDB, DocumentDB, Cosmos Mongo API, FerretDB)
+    // speak the Mongo wire protocol and use mongodb:// / mongodb+srv:// URIs.
     if !conn_str.starts_with("mongodb://") && !conn_str.starts_with("mongodb+srv://") {
-        return Ok(err(400, "Invalid MongoDB connection string"));
+        return Ok(err(400, "Connection string must start with mongodb:// or mongodb+srv://"));
     }
 
     // Read-only connections: reject every mutating route (defense in depth —
