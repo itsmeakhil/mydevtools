@@ -287,53 +287,43 @@ export const platformSeoPages: PlatformSeoPage[] = [
   },
   {
     slug: 'pricing',
-    title: 'Pricing',
+    title: 'Free & Open Source',
     description:
-      'Compare MyDevTools self-hosted and cloud options. Self-host the open-source developer toolkit for free or use managed cloud hosting for convenience.',
+      'MyDevTools is free and open source under AGPL-3.0. One offline desktop app, all 80+ tools, your data stays on your device.',
     keywords: [
-      'mydevtools pricing',
-      'developer tools pricing',
-      'self hosted developer tools pricing',
-      'online developer toolkit pricing',
+      'free developer tools',
+      'open source developer tools',
+      'open source desktop developer toolkit',
+      'offline developer tools free',
     ],
-    eyebrow: 'Pricing',
-    heading: 'Self-host free. Use cloud when you want managed convenience.',
+    eyebrow: 'Free & open source',
+    heading: 'Free for everyone. Open source forever.',
     intro:
-      'MyDevTools keeps the open-source toolkit self-hostable while offering a managed cloud path for developers who prefer not to run infrastructure.',
-    primaryCta: { href: '/login', label: 'Start with cloud' },
+      'MyDevTools is free and open source under AGPL-3.0. Every tool in the offline desktop app is available to everyone — no plans, no paywalls, no card.',
+    primaryCta: { href: '/download', label: 'Download for free' },
     secondaryCta: {
-      href: 'https://github.com/itsmeakhil/mydevtools.tech',
-      label: 'Self-host for free',
+      href: 'https://github.com/mydevtools-tech/mydevtools',
+      label: 'View source on GitHub',
     },
     sections: [
       {
-        title: 'Free',
+        title: 'Free forever',
         body:
-          'Self-host the GPL-3.0 source on your own infrastructure, or try the cloud with capped usage — no card required.',
+          'All 80+ tools ship in one desktop app that runs fully offline on your device. There is nothing to unlock and nothing to subscribe to.',
         bullets: [
-          '$0 forever — self-host with no license fee.',
-          'All core developer tools included.',
-          'Capped cloud usage to try before you buy.',
+          'Every tool, every feature — free for individuals and teams.',
+          'Fully offline and local-first; your data stays on your device.',
+          'No card, no trial, no upsell.',
         ],
       },
       {
-        title: 'Pro & Team',
+        title: 'Open source under AGPL-3.0',
         body:
-          'Managed cloud for developers who would rather not run infrastructure. Pro is $9/mo per developer; Team is $15/mo per user.',
+          'The entire codebase is public on GitHub. Audit the code your secrets pass through, fork it, or help build it.',
         bullets: [
-          'Pro: unlimited cloud usage, cross-device sync, private history.',
-          'Team: shared workspace, roles, and centralized billing.',
-          'Annual billing saves roughly two months.',
-        ],
-      },
-      {
-        title: 'Enterprise',
-        body:
-          'Custom plans for organizations that need SSO, compliance, and support at scale.',
-        bullets: [
-          'SSO / SAML, audit logs, and a security review.',
-          'Self-host with a support SLA.',
-          'Dedicated onboarding — contact support@mydevtools.tech.',
+          'Licensed under GNU AGPL-3.0.',
+          'Issues and pull requests welcome on GitHub.',
+          'Star the repo to follow releases.',
         ],
       },
     ],

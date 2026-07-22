@@ -1,16 +1,4 @@
 {
-  "AccountPlan": {
-    "title": "Your plan",
-    "earlyAdopter": "Pro · Early adopter",
-    "lifetimeDescription": "You are one of the first 250 users — Pro is yours for life.",
-    "proDescription": "You are on the Pro plan.",
-    "freeDescription": "You are on the Free plan.",
-    "expiry": "Expiry",
-    "neverExpires": "Never expires — lifetime",
-    "grantedOn": "Granted on",
-    "memberSince": "Member since",
-    "viewPlans": "View plans"
-  },
   "Navigation": {
     "dashboard": "Dashboard",
     "settings": "Settings",
@@ -159,7 +147,6 @@
   },
   "Dashboard": {
     "title": "Dashboard",
-    "navPlan": "Plan & billing",
     "navSecurity": "Security",
     "passkeysTitle": "Passkeys",
     "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",

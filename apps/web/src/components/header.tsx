@@ -74,7 +74,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
   }[] = [
     { href: "/", label: "Home" },
     { href: "/features", label: "Features" },
-    { href: "/pricing", label: "Pricing" },
+    { href: "/pricing", label: "Open Source" },
     { href: "/developer-tools", label: "Platform" },
     { href: "/tools", label: "Tools" },
   ];
@@ -121,7 +121,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                 href="/pricing"
                 className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
               >
-                Pricing
+                Open Source
               </Link>
               <Link
                 href="/tools"

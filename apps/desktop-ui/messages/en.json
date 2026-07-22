@@ -6,22 +6,13 @@
     "waitingForBrowser": "Waiting for the browser…",
     "finishing": "Finishing activation…",
     "authSuccess": "Authentication successful",
-    "subscriptionCreated": "Subscription created",
-    "plan": "Plan",
-    "earlyAdopter": "Pro · Early adopter",
-    "lifetimeNote": "Lifetime plan — never expires.",
-    "grantedOn": "Granted on",
     "offlineNote": "Yours forever — the app works fully offline from here on.",
     "start": "Start using MyDevTools",
-    "privacyNote": "Your data stays on this device. The account is only used to activate the app and manage your plan."
+    "privacyNote": "Your data stays on this device. The account is only used to activate the app."
   },
-  "PlanCard": {
-    "title": "Plan",
-    "earlyAdopter": "Pro · Early adopter",
-    "lifetimeDescription": "Lifetime plan — never expires.",
-    "freeDescription": "Free plan.",
-    "grantedOn": "Granted on",
-    "manage": "Manage plan on mydevtools.tech"
+  "AccountCard": {
+    "title": "Account",
+    "manage": "Manage account on mydevtools.tech"
   },
   "Navigation": {
     "dashboard": "Dashboard",

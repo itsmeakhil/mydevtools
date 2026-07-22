@@ -35,22 +35,12 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">3. Plans &amp; payment</h3>
-        <p>
-          Paid plans are billed through a third-party payment processor. By purchasing a plan you
-          authorize us and our processor to charge the applicable fees. Except where required by
-          law or stated otherwise, fees are non-refundable. We may change pricing on a
-          going-forward basis with notice.
-        </p>
-      </section>
-
-      <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">4. Your data and encryption</h3>
+        <h3 className="text-sm font-semibold text-foreground">3. Your data and encryption</h3>
         <p>
           The Service is local-first: the content you create with the tools is stored on your
-          device and is never sent to us. Sensitive data you place in the vault is encrypted on
-          your device with a vault password that only you know; encryption happens entirely on
-          your machine. We never receive your vault password or vault contents.
+          device. If you enable cloud sync, your data is encrypted on your device with a vault
+          password that only you know, and only the encrypted result is sent to us. We never
+          receive your vault password and cannot decrypt or recover your synced data.
         </p>
         <p className="font-medium text-foreground">
           If you lose your vault password, your encrypted data cannot be recovered by anyone,
@@ -59,7 +49,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">5. Acceptable use</h3>
+        <h3 className="text-sm font-semibold text-foreground">4. Acceptable use</h3>
         <p>
           You agree to use the Service lawfully and not to infringe others&apos; rights, disrupt the
           Service, or attempt to access accounts or data that are not yours. We may suspend or
@@ -68,7 +58,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">6. Availability &amp; disclaimer</h3>
+        <h3 className="text-sm font-semibold text-foreground">5. Availability &amp; disclaimer</h3>
         <p>
           The Service is provided &quot;as is&quot; without warranties of any kind. We do not
           guarantee uninterrupted or error-free operation. To the maximum extent permitted by law,
@@ -78,7 +68,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">7. Changes</h3>
+        <h3 className="text-sm font-semibold text-foreground">6. Changes</h3>
         <p>
           We may update these terms from time to time. Continued use after changes take effect
           constitutes acceptance of the revised terms.
@@ -86,7 +76,7 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">8. Contact</h3>
+        <h3 className="text-sm font-semibold text-foreground">7. Contact</h3>
         <p>For questions about these terms, contact us using the details provided on the website.</p>
       </section>
     </div>
@@ -102,7 +92,7 @@ function PrivacyBody() {
         <h3 className="text-sm font-semibold text-foreground">1. Our approach</h3>
         <p>
           MyDevTools is built to be private by design. The only personal information we hold on our
-          servers is your account and billing details. Everything you create with the tools stays on
+          servers is your account details. Everything you create with the tools stays on
           your device unless you choose to sync it — and anything you sync is end-to-end encrypted so
           that we cannot read it.
         </p>
@@ -113,10 +103,6 @@ function PrivacyBody() {
         <p>We store only the minimum needed to run your account:</p>
         <ul className="list-disc space-y-1 pl-5">
           <li>Your name and email address, from the sign-in provider you use.</li>
-          <li>
-            Payment information required to process your subscription. Card details are handled by
-            our third-party payment processor; we do not store full card numbers.
-          </li>
         </ul>
       </section>
 
@@ -125,17 +111,17 @@ function PrivacyBody() {
         <p>
           The content you create with the tools (notes, snippets, requests, keys, and other tool
           data) is saved locally on your device. It is not sent to us and is not part of your
-          account. There is no cloud sync — your tool data never leaves your machine.
+          account unless you enable cloud sync.
         </p>
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">4. Vault encryption (zero-knowledge)</h3>
+        <h3 className="text-sm font-semibold text-foreground">4. Optional cloud sync (zero-knowledge)</h3>
         <p>
-          Sensitive data you place in the vault is encrypted on your device with a vault password
-          that only you know. Encryption and decryption happen entirely on your machine. We never
-          receive your vault password or your vault contents and have no way to decrypt or view
-          your raw data — only you can, with your vault password.
+          If you turn on cloud sync in Settings, your data is encrypted on your device with a vault
+          password that only you know. Only the resulting encrypted blob is transmitted and stored.
+          We never receive your vault password and have no way to decrypt or view your raw data —
+          only you can, with your vault password.
         </p>
       </section>
 
@@ -151,8 +137,8 @@ function PrivacyBody() {
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">6. How we use what we store</h3>
         <p>
-          We use your account and billing information to provide the Service, process payments,
-          provide support, communicate service-related messages, and comply with legal obligations.
+          We use your account information to provide the Service, provide support, communicate
+          service-related messages, and comply with legal obligations.
         </p>
       </section>
 
@@ -160,8 +146,8 @@ function PrivacyBody() {
         <h3 className="text-sm font-semibold text-foreground">7. Retention &amp; deletion</h3>
         <p>
           We keep account and billing data for as long as your account is active or as required by
-          law. When you delete your account, we delete your account data; tool data is stored
-          only on your device and is removed when you delete it locally.
+          law. When you delete your account, we delete your account data and any encrypted synced
+          blobs; data stored only on your device is removed when you delete it locally.
         </p>
       </section>
 

@@ -11,7 +11,7 @@ const footerLinks = [
   { href: "/blog", label: "Blog" },
   { href: "/developer-tools", label: "Platform" },
   { href: "/features", label: "Features" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/pricing", label: "Open Source" },
   { href: "/#tools", label: "Tools" },
   { href: "/security", label: "Security" },
   { href: "/help", label: "Help" },

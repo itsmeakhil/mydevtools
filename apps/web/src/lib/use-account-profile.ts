@@ -4,7 +4,11 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/utils/useAuth'
 import { backendFetch, ensureBackendSession } from '@/lib/backend-auth'
-import type { PlanProfile } from '@/components/plan-card'
+export type AccountProfile = {
+  email: string | null
+  display_name: string | null
+  created_at: number | null
+}
 
 /**
  * Loads the signed-in user's account profile for authed pages (dashboard, plan).
@@ -15,10 +19,10 @@ import type { PlanProfile } from '@/components/plan-card'
  * first mints/verifies that cookie from the Firebase user, so `/auth/me` doesn't
  * 401 → forceLogout → bounce the user straight back to /login.
  */
-export function useAccountProfile(nextPath: string): { profile: PlanProfile | null } {
+export function useAccountProfile(nextPath: string): { profile: AccountProfile | null } {
   const { user, loading } = useAuth(false)
   const router = useRouter()
-  const [profile, setProfile] = useState<PlanProfile | null>(null)
+  const [profile, setProfile] = useState<AccountProfile | null>(null)
 
   useEffect(() => {
     if (loading) return

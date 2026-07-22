@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
 
-const DISMISS_KEY = "mdt-launch-offer-dismissed";
+// New key so users who dismissed the old launch-offer strip see this once.
+const DISMISS_KEY = "mdt-foss-banner-dismissed";
 
 /**
- * Slim launch-offer strip above the marketing header. Dismissible per browser
+ * Slim announcement strip above the marketing header. Dismissible per browser
  * (localStorage). Rendered on marketing pages only via <Header/>.
  */
 export function AnnouncementBanner() {
@@ -37,19 +37,21 @@ export function AnnouncementBanner() {
     <div className="relative z-[60] bg-[linear-gradient(100deg,#5b63f0,#6d7cf5_52%,#8a95f7)] text-white">
       <div className="container mx-auto flex items-center justify-center gap-2 px-10 py-2 text-center text-[13px] font-medium sm:gap-3">
         <span className="hidden rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider ring-1 ring-inset ring-white/25 sm:inline-flex">
-          Launch offer
+          Open source
         </span>
         <p className="truncate">
-          First{" "}
-          <span className="font-bold">250 accounts</span>{" "}
-          get every Pro &amp; Team feature, free. No card needed.
+          MyDevTools is now{" "}
+          <span className="font-bold">free for everyone</span> and open source
+          under AGPL-3.0.
         </p>
-        <Link
-          href="/login"
+        <a
+          href="https://github.com/mydevtools-tech/mydevtools"
+          target="_blank"
+          rel="noopener noreferrer"
           className="hidden shrink-0 items-center gap-1 font-semibold underline decoration-white/50 underline-offset-2 transition-opacity hover:opacity-90 sm:inline-flex"
         >
-          Claim yours <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
+          Star on GitHub <ArrowRight className="h-3.5 w-3.5" />
+        </a>
         <button
           type="button"
           onClick={dismiss}

@@ -40,7 +40,6 @@ import { Magnetic } from "@/components/mdt-magnetic";
 import { Tilt } from "@/components/mdt-tilt";
 import { MdtBoot } from "@/components/mdt-boot";
 import { MdtDashboard } from "@/components/mdt-dashboard";
-import { PricingTiers } from "@/components/pricing-tiers";
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
 
@@ -421,7 +420,7 @@ export default function Page() {
                 MyDevTools is the all-in-one desktop developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 80+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one desktop workspace.
               </p>
               <p className="text-lg leading-relaxed">
-                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption—nothing ever leaves your device. Get started free, then upgrade to lock in launch pricing.
+                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs with zero-knowledge encryption—nothing ever leaves your device. Free and open source for everyone.
               </p>
               <p className="text-lg leading-relaxed">
                 Trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
@@ -723,13 +722,44 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Pricing ─────────────────────────────────────────────────────────── */}
+      {/* ── Free & open source ──────────────────────────────────────────────── */}
       <section
         id="pricing"
-        className="relative overflow-hidden scroll-mt-28"
+        className="relative overflow-hidden scroll-mt-28 py-16 md:py-24"
       >
         <div className="absolute inset-0 -z-10 bg-muted/20" />
-        <PricingTiers />
+        <div className="container px-4 md:px-6 mx-auto">
+          <Section>
+            <motion.div variants={fadeUp} className="mx-auto max-w-2xl text-center">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                Free &amp; <span className="mdt-grad-text">open source</span>
+              </h2>
+              <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+                MyDevTools is free for everyone and open source under AGPL-3.0.
+                All 80+ tools in one offline desktop app — no plans, no paywalls,
+                no card.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <Button asChild size="lg">
+                  <Link href="/download">
+                    <DownloadIcon className="mr-2 h-4 w-4" aria-hidden />
+                    Download for free
+                  </Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <a
+                    href="https://github.com/mydevtools-tech/mydevtools"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Star className="mr-2 h-4 w-4" aria-hidden />
+                    Star on GitHub
+                  </a>
+                </Button>
+              </div>
+            </motion.div>
+          </Section>
+        </div>
       </section>
 
       {/* ── Tools teaser ────────────────────────────────────────────────────── */}
@@ -804,7 +834,7 @@ export default function Page() {
                 { href: "/developer-tools", label: "Developer tools platform" },
                 { href: "/features", label: "Product features" },
                 { href: "/security", label: "Security and privacy" },
-                { href: "/pricing", label: "Pricing plans" },
+                { href: "/pricing", label: "Free & open source" },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -1050,8 +1080,8 @@ export default function Page() {
                   className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
                 >
                   Join developers who use MyDevTools to streamline their daily
-                  workflow. Privacy-focused and built for speed — start free, then
-                  subscribe to our managed cloud when you need more.
+                  workflow. Privacy-focused, built for speed — free and open
+                  source for everyone.
                 </motion.p>
 
                 <motion.div
