@@ -16,11 +16,12 @@ import {
 } from "@/lib/user-preferences-api";
 import Editor from "@/components/lazy/LazyMonaco";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay, IconBookmark, IconBookmarkFilled, IconReportSearch, IconStack2 } from "@tabler/icons-react";
+import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay, IconBookmark, IconBookmarkFilled, IconReportSearch, IconStack2, IconCode } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { PipelineBuilder, PipelineStage, newStage, parsePipeline, stagesToPipeline } from "./pipeline-builder";
 import { MONGO_OPERATORS, MONGO_SNIPPETS } from "@/lib/nosql-snippets";
+import { CodegenDialog } from "./codegen-dialog";
 
 interface QueryBuilderProps {
     query: string;
@@ -70,6 +71,21 @@ export function QueryBuilder({
     const [advancedMode, setAdvancedMode] = useState<"json" | "stages">("json");
     const [stages, setStages] = useState<PipelineStage[]>([]);
     const [queryError, setQueryError] = useState<string | null>(null);
+    const [codegenOpen, setCodegenOpen] = useState(false);
+    const [codegenPayload, setCodegenPayload] = useState<{ kind: "find" | "aggregate"; body: string }>({ kind: "find", body: "{}" });
+
+    const openCodegen = () => {
+        let content = textQuery;
+        if (advancedMode === "stages") {
+            try { content = stagesToPipeline(stages); }
+            catch { toast.error(t("invalidStageJson")); return; }
+        }
+        try { JSON.parse(content || "{}"); }
+        catch { toast.error(t("invalidJsonQuery")); return; }
+        const kind = parsePipeline(content) ? "aggregate" : "find";
+        setCodegenPayload({ kind, body: content || (kind === "aggregate" ? "[]" : "{}") });
+        setCodegenOpen(true);
+    };
 
     // Monaco field/operator completion — the provider is registered once per
     // mount and reads the latest fields through a ref (docs change per page).
@@ -857,6 +873,16 @@ export function QueryBuilder({
                                 {t("format")}
                             </Button>
                             )}
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="h-7 text-xs"
+                                title={t("generateCode")}
+                                onClick={openCodegen}
+                            >
+                                <IconCode className="h-3 w-3 mr-1" />
+                                {t("generateCode")}
+                            </Button>
                             {onExplain && (
                                 <Button
                                     variant="outline"
@@ -952,6 +978,15 @@ export function QueryBuilder({
                     </div>
                 </DialogContent>
             </Dialog>
+
+            <CodegenDialog
+                db={dbName}
+                collection={collectionName}
+                kind={codegenPayload.kind}
+                body={codegenPayload.body}
+                open={codegenOpen}
+                onClose={() => setCodegenOpen(false)}
+            />
         </div>
     );
 }

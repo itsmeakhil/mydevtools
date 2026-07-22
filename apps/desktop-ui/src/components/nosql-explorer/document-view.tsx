@@ -687,7 +687,7 @@ export function DocumentView({
             {/* Content area */}
             <div className="flex-1 overflow-hidden min-h-0">
                 {viewMode === 'schema' && onLoadSchema ? (
-                    <SchemaView onLoad={onLoadSchema} />
+                    <SchemaView onLoad={onLoadSchema} collectionName={collectionName} />
                 ) : viewMode === 'indexes' ? (
                     <IndexManager
                         readOnly={readOnly}

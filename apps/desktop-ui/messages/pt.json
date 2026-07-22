@@ -1874,7 +1874,11 @@
       "sampleAll": "All",
       "sampleSizeN": "{n} docs",
       "allCapped": "capped at 10k",
-      "validatorTitle": "Validation rules"
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     },
     "indexManager": {
       "loading": "A carregar índices…",

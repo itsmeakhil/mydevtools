@@ -4,9 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { IconRefresh, IconShieldCheck, IconChevronRight } from "@tabler/icons-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { IconRefresh, IconShieldCheck, IconChevronRight, IconDownload } from "@tabler/icons-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { generateSchemaExport, SchemaExportFormat } from "@/lib/nosql-schema-export";
 
 export type SampleMode = "random" | "first" | "last" | "all";
 export interface SchemaLoadOptions { sampleMode: SampleMode; sampleSize: number }
@@ -15,8 +17,10 @@ type SchemaData = { fields: any[]; sampleSize: number; validator?: unknown };
 
 export function SchemaView({
     onLoad,
+    collectionName = "collection",
 }: {
     onLoad: (opts: SchemaLoadOptions) => Promise<SchemaData>;
+    collectionName?: string;
 }) {
     const t = useTranslations("NoSqlExplorer.schemaView");
     const [loading, setLoading] = useState(false);
@@ -82,6 +86,16 @@ export function SchemaView({
         );
     }
 
+    const exportSchema = (format: SchemaExportFormat) => {
+        const { content, ext, mime } = generateSchemaExport(format, data!.fields, collectionName);
+        const url = URL.createObjectURL(new Blob([content], { type: mime }));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${collectionName}.${ext}`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
     const validator = data.validator && typeof data.validator === "object" ? data.validator : null;
 
     return (
@@ -115,6 +129,19 @@ export function SchemaView({
                             </SelectContent>
                         </Select>
                     )}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" size="sm" className="h-7 text-xs">
+                                <IconDownload className="h-3.5 w-3.5 mr-1.5" />
+                                {t("exportSchemaBtn")}
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => exportSchema("jsonSchema")}>{t("exportJsonSchema")}</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => exportSchema("mongoose")}>{t("exportMongoose")}</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => exportSchema("html")}>{t("exportHtml")}</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={load}>
                         <IconRefresh className="h-3.5 w-3.5" />
                     </Button>
