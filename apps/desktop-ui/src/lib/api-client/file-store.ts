@@ -21,6 +21,7 @@ import type {
     CollectionFolder,
     CollectionRequest,
     KeyValueItem,
+    RequestAuth,
 } from "@/components/api-client/types"
 
 export const MANIFEST_FILE = "collection.yaml"
@@ -118,6 +119,79 @@ function isFolder(item: CollectionFolder | CollectionRequest): item is Collectio
     return "type" in item && item.type === "folder"
 }
 
+// ── Credential redaction ───────────────────────────────────────────────────
+// Files in a folder collection are meant for git. A `{{vault.*}}` / `{{env.*}}`
+// reference is safe to write (resolved from the encrypted vault at send time);
+// a literal credential is a leak. Literal values in the known-sensitive auth
+// fields below are therefore never serialized — structural, not advisory.
+
+/** `["awsSigV4", "secretAccessKey"]` = auth.awsSigV4.secretAccessKey. */
+export const SENSITIVE_AUTH_FIELDS: string[][] = [
+    ["token"],
+    ["password"],
+    ["apiKeyValue"],
+    ["awsSigV4", "secretAccessKey"],
+    ["awsSigV4", "sessionToken"],
+    ["hawk", "key"],
+    ["ntlm", "password"],
+    ["jwtBearer", "secret"],
+    ["jwtBearer", "privateKeyPem"],
+    ["digest", "password"],
+    ["spnego", "token"],
+    ["oauth2", "clientSecret"],
+    ["oauth2", "password"],
+]
+// OAuth2 token state is both secret and runtime — always stripped.
+const OAUTH2_TOKEN_STATE = ["accessToken", "refreshToken", "tokenType", "expiresAt"]
+
+/** A value referencing a vault/env variable is a pointer, not a secret. */
+export function isVariableReference(value: unknown): boolean {
+    return typeof value === "string" && value.includes("{{")
+}
+
+/** Copy of `auth` with literal credentials removed. Second value = how many were dropped. */
+function redactAuth(auth: RequestAuth | undefined): { auth: RequestAuth | undefined; redacted: number } {
+    if (!auth || auth.type === "none") return { auth, redacted: 0 }
+    const copy: Record<string, unknown> = JSON.parse(JSON.stringify(auth))
+    let redacted = 0
+    for (const path of SENSITIVE_AUTH_FIELDS) {
+        let parent = copy
+        for (const seg of path.slice(0, -1)) {
+            if (typeof parent[seg] !== "object" || parent[seg] === null) { parent = {}; break }
+            parent = parent[seg] as Record<string, unknown>
+        }
+        const leaf = path[path.length - 1]
+        const value = parent[leaf]
+        if (value !== undefined && value !== "" && !isVariableReference(value)) {
+            delete parent[leaf]
+            redacted++
+        }
+    }
+    if (typeof copy.oauth2 === "object" && copy.oauth2 !== null) {
+        for (const key of OAUTH2_TOKEN_STATE) {
+            delete (copy.oauth2 as Record<string, unknown>)[key]
+        }
+    }
+    return { auth: copy as unknown as RequestAuth, redacted }
+}
+
+/** Literal (non-`{{…}}`) credentials in the tree — what redaction WILL drop on write. */
+export function countLiteralAuthSecrets(col: Collection): number {
+    let count = 0
+    const visit = (items: (CollectionFolder | CollectionRequest)[]) => {
+        for (const item of items) {
+            if (isFolder(item)) {
+                count += redactAuth(item.defaultAuth).redacted
+                visit(item.items)
+            } else {
+                count += redactAuth(item.auth).redacted
+            }
+        }
+    }
+    visit(col.items)
+    return count
+}
+
 // ── Serialize ──────────────────────────────────────────────────────────────
 
 function serializeRequestObj(req: CollectionRequest): object {
@@ -139,7 +213,7 @@ function serializeRequestObj(req: CollectionRequest): object {
         params: stripKvIds(req.params),
         headers: stripKvIds(req.headers),
         body: body?.type === "none" ? undefined : body,
-        auth: req.auth?.type === "none" ? undefined : req.auth,
+        auth: req.auth?.type === "none" ? undefined : redactAuth(req.auth).auth,
         timeoutMs: req.timeoutMs,
         useCookieJar: req.useCookieJar === false ? false : undefined,
         preRequestScript: req.preRequestScript || undefined,
@@ -169,7 +243,7 @@ function serializeFolderMeta(folder: CollectionFolder): object {
         id: folder.id,
         name: folder.name,
         defaultHeaders: stripKvIds(folder.defaultHeaders),
-        defaultAuth: folder.defaultAuth?.type === "none" ? undefined : folder.defaultAuth,
+        defaultAuth: folder.defaultAuth?.type === "none" ? undefined : redactAuth(folder.defaultAuth).auth,
         preRequestScript: folder.preRequestScript || undefined,
         testScript: folder.testScript || undefined,
     }

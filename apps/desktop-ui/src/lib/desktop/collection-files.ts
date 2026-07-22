@@ -21,6 +21,45 @@ export async function allowCollectionDir(absPath: string): Promise<void> {
     await invoke("fs_allow_collection_dir", { path: absPath })
 }
 
+// Registry of opened collection dirs lives in the app data dir (Rust command),
+// NOT localStorage: localStorage is origin-scoped, and the dev server vs the
+// installed app are different origins — folders would silently "un-register".
+const LEGACY_REGISTRY_KEY = "api-client-file-collections"
+
+export async function loadCollectionRegistry(): Promise<string[]> {
+    const { invoke } = await import("@tauri-apps/api/core")
+    let paths: string[] = []
+    try {
+        const parsed = JSON.parse(await invoke<string>("file_collections_registry_load"))
+        if (Array.isArray(parsed)) paths = parsed.filter((p): p is string => typeof p === "string")
+    } catch {
+        // Corrupt registry file — start over rather than block the whole feature.
+    }
+    // One-time migration from the old localStorage registry of this origin.
+    try {
+        const legacy = localStorage.getItem(LEGACY_REGISTRY_KEY)
+        if (legacy) {
+            const old = JSON.parse(legacy)
+            if (Array.isArray(old)) {
+                const merged = [...new Set([...paths, ...old.filter((p) => typeof p === "string")])]
+                if (merged.length !== paths.length) {
+                    paths = merged
+                    await saveCollectionRegistry(paths)
+                }
+            }
+            localStorage.removeItem(LEGACY_REGISTRY_KEY)
+        }
+    } catch {
+        // Legacy value unreadable — nothing to migrate.
+    }
+    return paths
+}
+
+export async function saveCollectionRegistry(paths: string[]): Promise<void> {
+    const { invoke } = await import("@tauri-apps/api/core")
+    await invoke("file_collections_registry_save", { json: JSON.stringify(paths) })
+}
+
 /** Native folder picker. Resolves null when the user cancels. */
 export async function pickFolder(): Promise<string | null> {
     const { open } = await import("@tauri-apps/plugin-dialog")

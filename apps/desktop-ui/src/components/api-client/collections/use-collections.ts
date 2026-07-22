@@ -8,27 +8,14 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { backendFetch } from "@/lib/backend-auth"
 import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 import { isDesktop } from "@/lib/desktop/is-desktop"
-import { diffFiles, newManifest, parseCollection, serializeCollection, MANIFEST_FILE } from "@/lib/api-client/file-store"
+import { countLiteralAuthSecrets, diffFiles, newManifest, parseCollection, serializeCollection, MANIFEST_FILE } from "@/lib/api-client/file-store"
+import { moveCollectionSecretsToVault } from "@/lib/api-client/move-to-vault"
+import { useCipherKey } from "@/lib/use-cipher-key"
 
 const STORAGE_KEY = "api-client-collections"
-/** Registered folder-collection paths (desktop only — paths are machine-local). */
-const FILE_REGISTRY_KEY = "api-client-file-collections"
 
 function sortCollections(cols: Collection[]) {
     return [...cols].sort((a, b) => a.name.localeCompare(b.name))
-}
-
-function readFileRegistry(): string[] {
-    try {
-        const parsed = JSON.parse(localStorage.getItem(FILE_REGISTRY_KEY) ?? "[]")
-        return Array.isArray(parsed) ? parsed.filter((p): p is string => typeof p === "string") : []
-    } catch {
-        return []
-    }
-}
-
-function writeFileRegistry(paths: string[]) {
-    localStorage.setItem(FILE_REGISTRY_KEY, JSON.stringify(paths))
 }
 
 /** Carry UI-only open/closed state (stripped from disk) across reloads, by folder id. */
@@ -61,6 +48,12 @@ export function useCollections() {
     const migrationRanRef = React.useRef(false)
     /** Paths already toasted about, so a failing folder doesn't re-toast on every window focus. */
     const failedFilePathsRef = React.useRef(new Set<string>())
+    /** Collections already warned about literal credentials — once per session is enough. */
+    const secretWarnedRef = React.useRef(new Set<string>())
+    const cipherKey = useCipherKey()
+    // Latest file collections for toast-action callbacks (they outlive the closing render).
+    const fileCollectionsRef = React.useRef(fileCollections)
+    fileCollectionsRef.current = fileCollections
 
     // DB collections + folder-backed collections, one list for consumers.
     const allCollections = React.useMemo(
@@ -71,12 +64,14 @@ export function useCollections() {
     /** (Re-)read every registered folder collection from disk. Desktop only. */
     const reloadFileCollections = React.useCallback(async () => {
         if (!isDesktop()) return
-        const paths = readFileRegistry()
+        const { readCollectionFiles, allowCollectionDir, loadCollectionRegistry } = await import(
+            "@/lib/desktop/collection-files"
+        )
+        const paths = await loadCollectionRegistry()
         if (paths.length === 0) {
             setFileCollections((cur) => (cur.length === 0 ? cur : []))
             return
         }
-        const { readCollectionFiles, allowCollectionDir } = await import("@/lib/desktop/collection-files")
         const loaded: Collection[] = []
         for (const path of paths) {
             try {
@@ -121,6 +116,22 @@ export function useCollections() {
     ): Promise<boolean> => {
         const next = { ...target, ...patch, items: nextItems }
         setFileCollections((cur) => cur.map((c) => (c.id === target.id ? next : c)))
+        // Literal credentials are redacted by the serializer (never written to git-able
+        // files) — tell the user once so a "missing" token isn't a mystery, and offer
+        // to move them into the encrypted vault (rewrites fields to {{vault.*}} tokens).
+        if (!secretWarnedRef.current.has(target.id) && countLiteralAuthSecrets(next) > 0) {
+            secretWarnedRef.current.add(target.id)
+            toast.warning(
+                "Credentials typed directly are not saved into collection files — keep them in the encrypted vault as {{vault.NAME}} tokens",
+                {
+                    duration: 10000,
+                    action: {
+                        label: "Move to vault",
+                        onClick: () => void moveFileCollectionSecrets(target.id),
+                    },
+                }
+            )
+        }
         try {
             const { writes, deletes } = diffFiles(serializeCollection(target), serializeCollection(next))
             if (writes.length > 0 || deletes.length > 0) {
@@ -133,6 +144,26 @@ export function useCollections() {
             console.error("Error writing folder collection", e)
             toast.error(`Failed to write collection files: ${e instanceof Error ? e.message : String(e)}`)
             return false
+        }
+    }
+
+    /** Toast action: move every literal credential in a folder collection into the vault. */
+    const moveFileCollectionSecrets = async (collectionId: string) => {
+        const target = fileCollectionsRef.current.find((c) => c.id === collectionId)
+        if (!target) return
+        try {
+            const { collection: moved, moved: count } = await moveCollectionSecretsToVault(target, cipherKey)
+            if (count === 0) return
+            if (await mutateFileCollection(target, moved.items)) {
+                toast.success(
+                    count === 1
+                        ? "1 credential moved to the vault"
+                        : `${count} credentials moved to the vault`
+                )
+            }
+        } catch (e) {
+            console.error("Error moving credentials to vault", e)
+            toast.error(e instanceof Error ? e.message : "Failed to move credentials to the vault")
         }
     }
 
@@ -325,7 +356,8 @@ export function useCollections() {
         // Deleting a folder collection = forget it, never touch the user's files.
         const fileCol = fileCollections.find((c) => c.id === itemId)
         if (fileCol?.source) {
-            writeFileRegistry(readFileRegistry().filter((p) => p !== fileCol.source!.path))
+            const { loadCollectionRegistry, saveCollectionRegistry } = await import("@/lib/desktop/collection-files")
+            await saveCollectionRegistry((await loadCollectionRegistry()).filter((p) => p !== fileCol.source!.path))
             setFileCollections((cur) => cur.filter((c) => c.id !== itemId))
             toast.success("Folder collection removed from list (files kept)")
             return
@@ -705,7 +737,8 @@ export function useCollections() {
             const removedPaths = new Set(
                 fileCollections.filter((c) => fileIds.has(c.id)).map((c) => c.source!.path)
             )
-            writeFileRegistry(readFileRegistry().filter((p) => !removedPaths.has(p)))
+            const { loadCollectionRegistry, saveCollectionRegistry } = await import("@/lib/desktop/collection-files")
+            await saveCollectionRegistry((await loadCollectionRegistry()).filter((p) => !removedPaths.has(p)))
             setFileCollections((cur) => cur.filter((c) => !fileIds.has(c.id)))
             ids = ids.filter((id) => !fileIds.has(id))
             if (ids.length === 0) {
@@ -781,13 +814,12 @@ export function useCollections() {
     const openFolderCollection = async (): Promise<Collection | null> => {
         if (!isDesktop()) return null
         try {
-            const { pickFolder, readCollectionFiles, writeCollectionFiles } = await import(
-                "@/lib/desktop/collection-files"
-            )
+            const { pickFolder, readCollectionFiles, writeCollectionFiles, loadCollectionRegistry, saveCollectionRegistry } =
+                await import("@/lib/desktop/collection-files")
             const path = await pickFolder()
             if (!path) return null
 
-            const registry = readFileRegistry()
+            const registry = await loadCollectionRegistry()
             if (registry.includes(path)) {
                 toast.info("This folder collection is already open")
                 return fileCollections.find((c) => c.source?.path === path) ?? null
@@ -806,7 +838,7 @@ export function useCollections() {
                 col = { id: manifest.id, name, items: [], source: { kind: "file", path } }
             }
 
-            writeFileRegistry([...registry, path])
+            await saveCollectionRegistry([...registry, path])
             setFileCollections((cur) => [...cur.filter((c) => c.id !== col.id), col])
             toast.success(`Opened folder collection "${col.name}"`)
             return col

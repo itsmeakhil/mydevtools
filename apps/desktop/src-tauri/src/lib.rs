@@ -70,6 +70,29 @@ async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, Strin
     Ok(http::grpc::proxy_grpc(input).await)
 }
 
+/// Registry of opened folder-collection dirs, stored as a JSON file in the app
+/// data dir. localStorage is origin-scoped (dev server vs installed app have
+/// different origins), so it silently "forgets" registered folders — this doesn't.
+fn file_collections_registry_path(app: &tauri::AppHandle) -> Result<std::path::PathBuf, String> {
+    let dir = app.path().app_data_dir().map_err(|e| e.to_string())?;
+    Ok(dir.join("file-collections.json"))
+}
+
+#[tauri::command]
+fn file_collections_registry_load(app: tauri::AppHandle) -> Result<String, String> {
+    let path = file_collections_registry_path(&app)?;
+    Ok(std::fs::read_to_string(&path).unwrap_or_else(|_| "[]".to_string()))
+}
+
+#[tauri::command]
+fn file_collections_registry_save(app: tauri::AppHandle, json: String) -> Result<(), String> {
+    let path = file_collections_registry_path(&app)?;
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    std::fs::write(&path, json).map_err(|e| e.to_string())
+}
+
 /// Recursively allow a folder-collection dir in the fs scope. The dialog plugin
 /// only scopes the picked path itself; files inside it (and registered dirs on
 /// relaunch) need an explicit recursive grant.
@@ -147,6 +170,8 @@ pub fn run() {
             mock_server_start,
             proxy_grpc,
             fs_allow_collection_dir,
+            file_collections_registry_load,
+            file_collections_registry_save,
             await_browser_auth
         ])
         .run(tauri::generate_context!())

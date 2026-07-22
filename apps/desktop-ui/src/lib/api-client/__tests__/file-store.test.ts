@@ -1,4 +1,5 @@
 import {
+    countLiteralAuthSecrets,
     diffFiles,
     parseCollection,
     serializeCollection,
@@ -84,6 +85,81 @@ describe("file-store", () => {
         const files = serializeCollection(collection())
         const all = files.map((f) => f.content).join("\n")
         expect(all).toContain("{{vault.apiToken}}")
+    })
+
+    test("literal credentials are redacted; vault tokens and non-secret fields survive", () => {
+        const col: Collection = {
+            id: "c",
+            name: "c",
+            items: [
+                request({
+                    id: "r1",
+                    name: "AWS",
+                    auth: {
+                        type: "aws-sigv4",
+                        awsSigV4: {
+                            accessKeyId: "AKIA123",
+                            secretAccessKey: "SUPER-SECRET-LITERAL",
+                            region: "us-east-1",
+                            service: "s3",
+                        },
+                    },
+                }),
+                request({
+                    id: "r2",
+                    name: "Bearer literal",
+                    auth: { type: "bearer", token: "eyJhbGciOi-literal-jwt" },
+                }),
+                request({
+                    id: "r3",
+                    name: "Bearer vaulted",
+                    auth: { type: "bearer", token: "{{vault.apiToken}}" },
+                }),
+                request({
+                    id: "r4",
+                    name: "OAuth",
+                    auth: {
+                        type: "oauth2",
+                        oauth2: {
+                            grantType: "client_credentials",
+                            tokenUrl: "https://idp/token",
+                            clientId: "public-client-id",
+                            clientSecret: "literal-client-secret",
+                            accessToken: "cached-access-token",
+                        },
+                    },
+                }),
+            ],
+        }
+        const all = serializeCollection(col).map((f) => f.content).join("\n")
+        expect(all).not.toContain("SUPER-SECRET-LITERAL")
+        expect(all).not.toContain("eyJhbGciOi-literal-jwt")
+        expect(all).not.toContain("literal-client-secret")
+        expect(all).not.toContain("cached-access-token")
+        expect(all).toContain("AKIA123") // access key id is not the secret half
+        expect(all).toContain("public-client-id")
+        expect(all).toContain("{{vault.apiToken}}")
+        expect(countLiteralAuthSecrets(col)).toBe(3)
+    })
+
+    test("folder defaultAuth is redacted too", () => {
+        const col: Collection = {
+            id: "c",
+            name: "c",
+            items: [
+                {
+                    id: "f",
+                    name: "F",
+                    type: "folder",
+                    items: [],
+                    defaultAuth: { type: "basic", username: "bob", password: "hunter2" },
+                },
+            ],
+        }
+        const all = serializeCollection(col).map((f) => f.content).join("\n")
+        expect(all).not.toContain("hunter2")
+        expect(all).toContain("bob")
+        expect(countLiteralAuthSecrets(col)).toBe(1)
     })
 
     test("isOpen and KeyValueItem ids never reach disk", () => {
