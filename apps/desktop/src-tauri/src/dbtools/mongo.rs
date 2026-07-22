@@ -207,6 +207,10 @@ fn is_write_route(method: &str, rest: &str) -> bool {
             | ("POST", "/collection/rename")
             | ("POST", "/database/drop")
             | ("POST", "/database/rename")
+            | ("POST", "/kill-op")
+            | ("POST", "/sync")
+            | ("POST", "/gridfs/upload")
+            | ("POST", "/gridfs/delete")
     )
 }
 
@@ -307,6 +311,57 @@ async fn dispatch(method: &str, rest: &str, req: &Value, conn_str: &str) -> Hand
         }
         ("POST", "/documents/query") => query_documents(&client, req).await,
         ("POST", "/explain") => explain_query(&client, req).await,
+        ("POST", "/server-stats") => {
+            let status = client
+                .database("admin")
+                .run_command(doc! { "serverStatus": 1 })
+                .await
+                .map_err(|e| e.to_string())?;
+            Ok(ok(&bson_to_json(&Bson::Document(status))))
+        }
+        ("POST", "/current-ops") => {
+            let resp = client
+                .database("admin")
+                .run_command(doc! { "currentOp": 1 })
+                .await
+                .map_err(|e| e.to_string())?;
+            let inprog: Vec<Value> = resp
+                .get_array("inprog")
+                .map(|a| a.iter().map(bson_to_json).collect())
+                .unwrap_or_default();
+            Ok(ok(&json!({ "inprog": inprog })))
+        }
+        ("POST", "/kill-op") => {
+            if req["opid"].is_null() {
+                return Ok(err(400, "Missing required parameters"));
+            }
+            let opid = json_to_bson(&req["opid"], false);
+            client
+                .database("admin")
+                .run_command(doc! { "killOp": 1, "op": opid })
+                .await
+                .map_err(|e| e.to_string())?;
+            Ok(ok(&json!({ "success": true })))
+        }
+        ("POST", "/sync") => mongo_sync(&client, req).await,
+        ("POST", "/gridfs/list") => gridfs_list(&client, req).await,
+        ("POST", "/gridfs/download") => gridfs_download(&client, req).await,
+        ("POST", "/gridfs/upload") => gridfs_upload(&client, req).await,
+        ("POST", "/gridfs/delete") => {
+            let db_name = match required(req, &["dbName"]) {
+                Ok(v) => v[0].to_string(),
+                Err(r) => return Ok(r),
+            };
+            if req["id"].is_null() {
+                return Ok(err(400, "Missing required parameters"));
+            }
+            let bucket = gridfs_bucket(&client, &db_name, req);
+            bucket
+                .delete(json_to_bson(&req["id"], false))
+                .await
+                .map_err(|e| e.to_string())?;
+            Ok(ok(&json!({ "success": true })))
+        }
         ("POST", "/bulk-delete") => {
             let (db_name, coll) = match required(req, &["dbName", "collectionName"]) {
                 Ok(v) => (v[0].to_string(), v[1].to_string()),
@@ -664,20 +719,200 @@ fn bucket_type(b: &Bson) -> String {
     }
 }
 
+// ── Cross-connection sync ─────────────────────────────────────────────────────
+// Copy a source collection into a target collection on any (possibly different)
+// connection, matched by _id. "insert" adds missing docs only; "overwrite"
+// replaces/inserts. ponytail: naive per-doc loop with a hard scan cap — swap to
+// bulk_write batching if throughput on huge collections ever matters.
+const SYNC_MAX_SCAN: usize = 100_000;
+
+async fn mongo_sync(source_client: &Client, req: &Value) -> HandlerResult {
+    let (src_db, src_coll) = match required(req, &["dbName", "collectionName"]) {
+        Ok(v) => (v[0].to_string(), v[1].to_string()),
+        Err(r) => return Ok(r),
+    };
+    let target = &req["target"];
+    let tgt_conn = target["connectionString"].as_str().unwrap_or("");
+    let tgt_db = target["dbName"].as_str().unwrap_or("");
+    let tgt_coll = target["collectionName"].as_str().unwrap_or("");
+    if tgt_conn.is_empty() || tgt_db.is_empty() || tgt_coll.is_empty() {
+        return Ok(err(400, "Target connection, database and collection are required"));
+    }
+    if !tgt_conn.starts_with("mongodb://") && !tgt_conn.starts_with("mongodb+srv://") {
+        return Ok(err(400, "Invalid target connection string"));
+    }
+    if target["readOnly"].as_bool().unwrap_or(false) {
+        return Ok(err(403, "Target connection is read-only"));
+    }
+    let overwrite = req["mode"].as_str() == Some("overwrite");
+
+    let target_client = get_client(tgt_conn).await?;
+    let target_coll = target_client
+        .database(tgt_db)
+        .collection::<Document>(tgt_coll);
+    let source = source_client
+        .database(&src_db)
+        .collection::<Document>(&src_coll);
+
+    let mut cursor = source.find(doc! {}).await.map_err(|e| e.to_string())?;
+    let (mut inserted, mut modified, mut skipped, mut scanned) = (0u64, 0u64, 0u64, 0usize);
+    while let Some(doc) = cursor.try_next().await.map_err(|e| e.to_string())? {
+        if scanned >= SYNC_MAX_SCAN {
+            break;
+        }
+        scanned += 1;
+        let id = doc.get("_id").cloned().unwrap_or(Bson::Null);
+        if overwrite {
+            let res = target_coll
+                .replace_one(doc! { "_id": id }, doc.clone())
+                .upsert(true)
+                .await
+                .map_err(|e| e.to_string())?;
+            if res.upserted_id.is_some() {
+                inserted += 1;
+            } else {
+                modified += 1;
+            }
+        } else {
+            match target_coll.insert_one(doc.clone()).await {
+                Ok(_) => inserted += 1,
+                // Existing _id (E11000 duplicate key) → skip, that's the point of
+                // insert mode. Any other write error aborts the sync.
+                Err(e) if e.to_string().contains("E11000") => skipped += 1,
+                Err(e) => return Err(e.to_string()),
+            }
+        }
+    }
+
+    Ok(ok(&json!({
+        "scanned": scanned,
+        "inserted": inserted,
+        "modified": modified,
+        "skipped": skipped,
+        "capped": scanned >= SYNC_MAX_SCAN,
+    })))
+}
+
+// ── GridFS ──────────────────────────────────────────────────────────────────
+// base64 over the local IPC boundary; a hard size cap keeps a huge file from
+// ballooning the JSON payload / RSS. ponytail: 32 MiB cap, stream to disk if
+// bigger files ever matter.
+const GRIDFS_MAX_BYTES: u64 = 32 * 1024 * 1024;
+
+fn gridfs_bucket(client: &Client, db_name: &str, req: &Value) -> mongodb::gridfs::GridFsBucket {
+    let name = req["bucket"].as_str().unwrap_or("fs").to_string();
+    client
+        .database(db_name)
+        .gridfs_bucket(mongodb::options::GridFsBucketOptions::builder().bucket_name(name).build())
+}
+
+async fn gridfs_list(client: &Client, req: &Value) -> HandlerResult {
+    let db_name = match required(req, &["dbName"]) {
+        Ok(v) => v[0].to_string(),
+        Err(r) => return Ok(r),
+    };
+    let bucket = gridfs_bucket(client, &db_name, req);
+    let cursor = bucket.find(doc! {}).await.map_err(|e| e.to_string())?;
+    let files: Vec<mongodb::gridfs::FilesCollectionDocument> =
+        cursor.try_collect().await.map_err(|e| e.to_string())?;
+    let out: Vec<Value> = files
+        .into_iter()
+        .map(|f| {
+            json!({
+                "id": bson_to_json(&f.id),
+                "filename": f.filename,
+                "length": f.length,
+                "chunkSize": f.chunk_size_bytes,
+                "uploadDate": bson_to_json(&Bson::DateTime(f.upload_date)),
+                "metadata": f.metadata.map(|m| bson_to_json(&Bson::Document(m))),
+            })
+        })
+        .collect();
+    Ok(ok(&json!({ "files": out })))
+}
+
+async fn gridfs_download(client: &Client, req: &Value) -> HandlerResult {
+    use futures_util::io::AsyncReadExt;
+    let db_name = match required(req, &["dbName"]) {
+        Ok(v) => v[0].to_string(),
+        Err(r) => return Ok(r),
+    };
+    if req["id"].is_null() {
+        return Ok(err(400, "Missing required parameters"));
+    }
+    let bucket = gridfs_bucket(client, &db_name, req);
+    let id = json_to_bson(&req["id"], false);
+    let mut stream = bucket
+        .open_download_stream(id)
+        .await
+        .map_err(|e| e.to_string())?;
+    let mut buf = Vec::new();
+    stream.read_to_end(&mut buf).await.map_err(|e| e.to_string())?;
+    if buf.len() as u64 > GRIDFS_MAX_BYTES {
+        return Ok(err(413, "File exceeds the 32 MB download limit"));
+    }
+    use base64::Engine;
+    let b64 = base64::engine::general_purpose::STANDARD.encode(&buf);
+    Ok(ok(&json!({ "data": b64 })))
+}
+
+async fn gridfs_upload(client: &Client, req: &Value) -> HandlerResult {
+    use futures_util::io::AsyncWriteExt;
+    let (db_name, filename) = match required(req, &["dbName", "filename"]) {
+        Ok(v) => (v[0].to_string(), v[1].to_string()),
+        Err(r) => return Ok(r),
+    };
+    let Some(b64) = req["data"].as_str() else {
+        return Ok(err(400, "data (base64) is required"));
+    };
+    use base64::Engine;
+    let bytes = base64::engine::general_purpose::STANDARD
+        .decode(b64)
+        .map_err(|_| "Invalid base64 data".to_string())?;
+    if bytes.len() as u64 > GRIDFS_MAX_BYTES {
+        return Ok(err(413, "File exceeds the 32 MB upload limit"));
+    }
+    let bucket = gridfs_bucket(client, &db_name, req);
+    let mut stream = bucket.open_upload_stream(&filename).await.map_err(|e| e.to_string())?;
+    stream.write_all(&bytes).await.map_err(|e| e.to_string())?;
+    stream.close().await.map_err(|e| e.to_string())?;
+    Ok(ok(&json!({ "id": bson_to_json(stream.id()) })))
+}
+
 async fn schema(client: &Client, req: &Value) -> HandlerResult {
     let (db_name, coll_name) = match required(req, &["dbName", "collectionName"]) {
         Ok(v) => (v[0].to_string(), v[1].to_string()),
         Err(r) => return Ok(r),
     };
     let sample_size = req["sampleSize"].as_i64().unwrap_or(200).min(1000);
-    let coll = client.database(&db_name).collection::<Document>(&coll_name);
-    let cursor = coll
-        .aggregate(vec![doc! { "$sample": { "size": sample_size } }])
-        .await
-        .map_err(|e| e.to_string())?;
+    let db = client.database(&db_name);
+    let coll = db.collection::<Document>(&coll_name);
+
+    // Sampling strategy. "all" scans up to a hard cap so a huge collection can't
+    // OOM the analyzer; the UI labels it as capped.
+    const ALL_CAP: i64 = 10_000;
+    let pipeline = match req["sampleMode"].as_str().unwrap_or("random") {
+        "first" => vec![doc! { "$limit": sample_size }],
+        "last" => vec![doc! { "$sort": { "_id": -1 } }, doc! { "$limit": sample_size }],
+        "all" => vec![doc! { "$limit": ALL_CAP }],
+        _ => vec![doc! { "$sample": { "size": sample_size } }],
+    };
+    let cursor = coll.aggregate(pipeline).await.map_err(|e| e.to_string())?;
     let docs: Vec<Document> = cursor.try_collect().await.map_err(|e| e.to_string())?;
+
+    // Collection JSON-schema validator (if any) — read-only, best effort.
+    let validator: Value = db
+        .run_command(doc! { "listCollections": 1, "filter": { "name": &coll_name } })
+        .await
+        .ok()
+        .and_then(|r| r.get_document("cursor").ok().cloned())
+        .and_then(|c| c.get_array("firstBatch").ok().and_then(|b| b.first().cloned()))
+        .and_then(|first| first.as_document().and_then(|d| d.get_document("options").ok().cloned()))
+        .and_then(|opts| opts.get_document("validator").ok().map(|v| bson_to_json(&Bson::Document(v.clone()))))
+        .unwrap_or(Value::Null);
+
     if docs.is_empty() {
-        return Ok(ok(&json!({ "fields": [], "sampleSize": 0 })));
+        return Ok(ok(&json!({ "fields": [], "sampleSize": 0, "validator": validator })));
     }
 
     struct FieldStat {
@@ -727,5 +962,5 @@ async fn schema(client: &Client, req: &Value) -> HandlerResult {
             .then(b["coverage"].as_u64().cmp(&a["coverage"].as_u64()))
             .then(a["name"].as_str().cmp(&b["name"].as_str()))
     });
-    Ok(ok(&json!({ "fields": out, "sampleSize": total })))
+    Ok(ok(&json!({ "fields": out, "sampleSize": total, "validator": validator })))
 }

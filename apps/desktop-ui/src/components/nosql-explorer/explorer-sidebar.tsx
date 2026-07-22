@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Database, Collection, SavedConnection } from "./types";
-import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle, IconLoader2, IconLock } from "@tabler/icons-react";
+import { IconDatabase, IconFolder, IconChevronRight, IconChevronDown, IconRefresh, IconSearch, IconPlus, IconServer, IconPencil, IconCheck, IconX, IconDotsVertical, IconTrash, IconEdit, IconCopy, IconAlertCircle, IconLoader2, IconLock, IconActivity, IconFiles, IconArrowsExchange } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import React, { useState, useEffect, useRef } from "react";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
@@ -24,6 +24,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "next-intl";
 import { SidebarDialogs } from "./sidebar-dialogs";
+import { ServerMonitor } from "./server-monitor";
+import { GridFsBrowser } from "./gridfs-browser";
+import { SyncDialog } from "./sync-dialog";
 
 interface ExplorerSidebarProps {
     onSelectCollection: (connection: SavedConnection, dbName: string, collectionName: string) => void;
@@ -58,6 +61,9 @@ export function ExplorerSidebar({
     const [searchQuery, setSearchQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [editingConnectionId, setEditingConnectionId] = useState<string | null>(null);
+    const [monitorConn, setMonitorConn] = useState<SavedConnection | null>(null);
+    const [gridfsTarget, setGridfsTarget] = useState<{ connectionString: string; dbName: string; name: string; readOnly?: boolean } | null>(null);
+    const [syncSource, setSyncSource] = useState<{ connectionString: string; dbName: string; collectionName: string; name: string } | null>(null);
     const [editName, setEditName] = useState("");
 
     // Dialog states
@@ -610,6 +616,12 @@ export function ExplorerSidebar({
                                                                     }}>
                                                                         <IconCopy className="h-3 w-3 mr-2" /> {t("menuCopyConnectionString")}
                                                                     </DropdownMenuItem>
+                                                                    <DropdownMenuItem onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        setMonitorConn(node.connection);
+                                                                    }}>
+                                                                        <IconActivity className="h-3 w-3 mr-2" /> {t("menuMonitorServer")}
+                                                                    </DropdownMenuItem>
                                                                     <DropdownMenuSeparator />
                                                                     <DropdownMenuItem className="text-destructive focus:bg-destructive/10 focus:text-destructive" onClick={(e) => {
                                                                         e.stopPropagation();
@@ -695,6 +707,14 @@ export function ExplorerSidebar({
                                                                         void copyToClipboard(db.name, t("toastDbNameCopied"));
                                                                     }}>
                                                                         <IconCopy className="h-3 w-3 mr-2" /> {t("copyDbName")}
+                                                                    </DropdownMenuItem>
+                                                                    <DropdownMenuItem onClick={() => setGridfsTarget({
+                                                                        connectionString: node.connection.connectionString,
+                                                                        dbName: db.name,
+                                                                        name: `${node.connection.name} / ${db.name}`,
+                                                                        readOnly: node.connection.readOnly,
+                                                                    })}>
+                                                                        <IconFiles className="h-3 w-3 mr-2" /> {t("browseGridfs")}
                                                                     </DropdownMenuItem>
                                                                     {!node.connection.readOnly && (
                                                                         <>
@@ -783,6 +803,14 @@ export function ExplorerSidebar({
                                                                                         })}>
                                                                                             <IconEdit className="h-3 w-3 mr-2" /> {t("menuRename")}
                                                                                         </DropdownMenuItem>
+                                                                                        <DropdownMenuItem onClick={() => setSyncSource({
+                                                                                            connectionString: node.connection.connectionString,
+                                                                                            dbName: db.name,
+                                                                                            collectionName: col.name,
+                                                                                            name: `${node.connection.name} / ${db.name} / ${col.name}`,
+                                                                                        })}>
+                                                                                            <IconArrowsExchange className="h-3 w-3 mr-2" /> {t("menuSyncCollection")}
+                                                                                        </DropdownMenuItem>
                                                                                         <DropdownMenuSeparator />
                                                                                         <DropdownMenuItem className="text-destructive" onClick={() => handleDropCollection(index, db.name, col.name)}>
                                                                                             <IconTrash className="h-3 w-3 mr-2" /> {t("dropCollection")}
@@ -850,6 +878,33 @@ export function ExplorerSidebar({
                 isBulkDeleting={isBulkDeleting}
                 onConfirmBulkDelete={confirmBulkDelete}
             />
+            {monitorConn && (
+                <ServerMonitor
+                    connectionString={monitorConn.connectionString}
+                    name={monitorConn.name}
+                    readOnly={monitorConn.readOnly}
+                    open={!!monitorConn}
+                    onClose={() => setMonitorConn(null)}
+                />
+            )}
+            {gridfsTarget && (
+                <GridFsBrowser
+                    connectionString={gridfsTarget.connectionString}
+                    dbName={gridfsTarget.dbName}
+                    name={gridfsTarget.name}
+                    readOnly={gridfsTarget.readOnly}
+                    open={!!gridfsTarget}
+                    onClose={() => setGridfsTarget(null)}
+                />
+            )}
+            {syncSource && (
+                <SyncDialog
+                    source={syncSource}
+                    targets={connections.map((c) => c.connection)}
+                    open={!!syncSource}
+                    onClose={() => setSyncSource(null)}
+                />
+            )}
         </div>
     );
 }

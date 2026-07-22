@@ -20,14 +20,7 @@ import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFil
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { PipelineBuilder, PipelineStage, newStage, parsePipeline, stagesToPipeline } from "./pipeline-builder";
-
-// MongoDB query + aggregation operators offered by the Monaco completion provider.
-const MONGO_OPERATORS = [
-    "$eq", "$ne", "$gt", "$gte", "$lt", "$lte", "$in", "$nin", "$exists", "$regex",
-    "$and", "$or", "$not", "$nor", "$type", "$size", "$all", "$elemMatch", "$expr",
-    "$match", "$project", "$group", "$sort", "$limit", "$skip", "$lookup", "$unwind",
-    "$addFields", "$count", "$sum", "$avg", "$min", "$max", "$first", "$last", "$push",
-];
+import { MONGO_OPERATORS, MONGO_SNIPPETS } from "@/lib/nosql-snippets";
 
 interface QueryBuilderProps {
     query: string;
@@ -99,6 +92,7 @@ export function QueryBuilder({
                     startColumn: word.startColumn,
                     endColumn: word.endColumn,
                 };
+                const asSnippet = monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet;
                 return {
                     suggestions: [
                         ...fieldsRef.current.map((f) => ({
@@ -107,10 +101,22 @@ export function QueryBuilder({
                             insertText: f,
                             range,
                         })),
-                        ...MONGO_OPERATORS.map((op) => ({
-                            label: op,
+                        ...MONGO_OPERATORS.map((c) => ({
+                            label: c.label,
                             kind: monaco.languages.CompletionItemKind.Keyword,
-                            insertText: op,
+                            detail: c.detail,
+                            documentation: { value: c.doc },
+                            insertText: c.insertText,
+                            insertTextRules: c.snippet ? asSnippet : undefined,
+                            range,
+                        })),
+                        ...MONGO_SNIPPETS.map((c) => ({
+                            label: c.label,
+                            kind: monaco.languages.CompletionItemKind.Snippet,
+                            detail: c.detail,
+                            documentation: { value: c.doc },
+                            insertText: c.insertText,
+                            insertTextRules: asSnippet,
                             range,
                         })),
                     ],

@@ -15,7 +15,7 @@ import {
     IconRowInsertBottom, IconLayoutRows, IconArrowsMaximize, IconArrowsMinimize,
     IconUpload, IconListDetails, IconSchema, IconArrowsExchange, IconChevronDown,
     IconFilter, IconFilterX, IconSortAscending, IconSortDescending, IconLock,
-    IconAlertTriangle, IconLoader2,
+    IconAlertTriangle, IconLoader2, IconChartBar,
 } from "@tabler/icons-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -73,7 +73,7 @@ interface DocumentViewProps {
     onSortChange: (field: string, direction: 'asc' | 'desc') => void;
     onBulkDelete?: (ids: string[]) => Promise<void>;
     onImport?: (documents: any[]) => Promise<void>;
-    onLoadSchema?: () => Promise<{ fields: any[]; sampleSize: number }>;
+    onLoadSchema?: (opts: { sampleMode: string; sampleSize: number }) => Promise<{ fields: any[]; sampleSize: number; validator?: unknown }>;
     onLoadIndexes?: () => Promise<{ indexes: any[]; totalIndexSize?: number; stats?: any }>;
     onDropIndex?: (indexName: string) => Promise<void>;
     onCreateIndex?: (keys: Record<string, number>, options: Record<string, any>) => Promise<void>;
@@ -175,6 +175,11 @@ export function DocumentView({
     const [explainOpen, setExplainOpen] = useState(false);
     const [explainLoading, setExplainLoading] = useState(false);
     const [explainData, setExplainData] = useState<any>(null);
+    const [groupOpen, setGroupOpen] = useState(false);
+    const [groupField, setGroupField] = useState("");
+    const [groupLoading, setGroupLoading] = useState(false);
+    const [groupRows, setGroupRows] = useState<Array<{ _id: unknown; count: number }> | null>(null);
+    const [groupError, setGroupError] = useState<string | null>(null);
     const { theme } = useTheme();
     const { copyToClipboard } = useCopyToClipboard();
 
@@ -241,6 +246,30 @@ export function DocumentView({
             setExplainOpen(false);
         } finally {
             setExplainLoading(false);
+        }
+    };
+
+    // One-click "group by field": distinct values + counts via the aggregation
+    // path we already have (onPreviewPipeline). No new backend.
+    const runGroupBy = async (field: string) => {
+        if (!onPreviewPipeline) return;
+        setGroupField(field);
+        setGroupOpen(true);
+        setGroupLoading(true);
+        setGroupRows(null);
+        setGroupError(null);
+        try {
+            const pipeline = JSON.stringify([
+                { $group: { _id: `$${field}`, count: { $sum: 1 } } },
+                { $sort: { count: -1 } },
+                { $limit: 200 },
+            ]);
+            const res = await onPreviewPipeline(pipeline);
+            setGroupRows((res.documents as Array<{ _id: unknown; count: number }>) ?? []);
+        } catch (e: any) {
+            setGroupError(e.message || t("groupByFail"));
+        } finally {
+            setGroupLoading(false);
         }
     };
 
@@ -896,9 +925,19 @@ export function DocumentView({
                                     <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">{t("actions")}</th>
                                 </tr>
                             </thead>
-                            <tbody
-                                style={{ height: `${rowVirtualizer.getTotalSize()}px`, position: "relative" }}
-                            >
+                            <tbody>
+                                {/* Native padding-spacer virtualization: rows stay in
+                                    normal table flow so the sticky <thead> reliably sits
+                                    above them. Absolute-positioned rows broke in WebKit
+                                    (Tauri) because <tbody> doesn't establish a containing
+                                    block there, so row 0 rendered under the header. */}
+                                {(() => {
+                                    const vRows = rowVirtualizer.getVirtualItems();
+                                    const padTop = vRows.length ? vRows[0].start : 0;
+                                    return padTop > 0 ? (
+                                        <tr aria-hidden="true"><td colSpan={9999} style={{ height: padTop, padding: 0, border: 0 }} /></tr>
+                                    ) : null;
+                                })()}
                                 {rowVirtualizer.getVirtualItems().map((virtualRow) => {
                                     const doc = documents[virtualRow.index];
                                     const index = virtualRow.index;
@@ -908,13 +947,6 @@ export function DocumentView({
                                             key={doc._id}
                                             data-index={virtualRow.index}
                                             ref={rowVirtualizer.measureElement}
-                                            style={{
-                                                position: "absolute",
-                                                top: 0,
-                                                left: 0,
-                                                width: "100%",
-                                                transform: `translateY(${virtualRow.start}px)`,
-                                            }}
                                             className={cn(
                                                 "border-b hover:bg-muted/50 group transition-colors",
                                                 isSelected && "bg-primary/5 hover:bg-primary/10"
@@ -984,6 +1016,12 @@ export function DocumentView({
                                                                 <IconSortDescending className="h-3.5 w-3.5" />
                                                                 {t("cellSortDesc")}
                                                             </ContextMenuItem>
+                                                            {onPreviewPipeline && (
+                                                                <ContextMenuItem className="text-xs gap-2" onClick={() => runGroupBy(key)}>
+                                                                    <IconChartBar className="h-3.5 w-3.5" />
+                                                                    {t("cellGroupBy")}
+                                                                </ContextMenuItem>
+                                                            )}
                                                             <ContextMenuSeparator />
                                                             <ContextMenuItem
                                                                 className="text-xs gap-2"
@@ -1034,6 +1072,15 @@ export function DocumentView({
                                         </tr>
                                     );
                                 })}
+                                {(() => {
+                                    const vRows = rowVirtualizer.getVirtualItems();
+                                    const padBottom = vRows.length
+                                        ? rowVirtualizer.getTotalSize() - vRows[vRows.length - 1].end
+                                        : 0;
+                                    return padBottom > 0 ? (
+                                        <tr aria-hidden="true"><td colSpan={9999} style={{ height: padBottom, padding: 0, border: 0 }} /></tr>
+                                    ) : null;
+                                })()}
                             </tbody>
                         </table>
                     </div>
@@ -1250,6 +1297,61 @@ export function DocumentView({
                     })() : null}
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setExplainOpen(false)}>{t("close")}</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Group by field */}
+            <Dialog open={groupOpen} onOpenChange={setGroupOpen}>
+                <DialogContent className="max-w-lg h-[70vh] flex flex-col">
+                    <DialogHeader>
+                        <DialogTitle className="font-mono text-sm">{t("groupByTitle", { field: groupField })}</DialogTitle>
+                    </DialogHeader>
+                    {groupLoading ? (
+                        <div className="flex-1 flex items-center justify-center text-muted-foreground gap-2 text-sm">
+                            <IconLoader2 className="h-4 w-4 animate-spin" />
+                            {t("groupByLoading")}
+                        </div>
+                    ) : groupError ? (
+                        <div className="flex-1 flex items-center justify-center text-destructive text-sm font-mono px-4 text-center break-words">
+                            {groupError}
+                        </div>
+                    ) : groupRows && groupRows.length > 0 ? (
+                        <div className="flex-1 min-h-0 overflow-auto border rounded-md">
+                            <table className="w-full text-sm">
+                                <thead className="text-xs text-muted-foreground uppercase bg-muted sticky top-0">
+                                    <tr>
+                                        <th className="px-3 py-2 text-left font-medium">{t("groupByValue")}</th>
+                                        <th className="px-3 py-2 text-right font-medium w-24">{t("groupByCount")}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {groupRows.map((row, i) => {
+                                        const scalar = isScalar(row._id);
+                                        const label = row._id === null || row._id === undefined
+                                            ? "null"
+                                            : scalar ? String(row._id) : JSON.stringify(row._id);
+                                        return (
+                                            <tr
+                                                key={i}
+                                                className={cn("border-b hover:bg-muted/50", scalar && "cursor-pointer")}
+                                                onClick={scalar ? () => { applyCellFilter(groupField, row._id); setGroupOpen(false); } : undefined}
+                                            >
+                                                <td className="px-3 py-2 font-mono truncate max-w-[300px]" title={label}>{label}</td>
+                                                <td className="px-3 py-2 text-right font-mono text-muted-foreground">{row.count}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <div className="flex-1 flex items-center justify-center text-muted-foreground text-sm">
+                            {t("groupByEmpty")}
+                        </div>
+                    )}
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setGroupOpen(false)}>{t("close")}</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

@@ -32,12 +32,34 @@ export function ImportDialog({ open, onOpenChange, onImport, collectionName }: I
     };
 
     const processFile = (file: File) => {
-        if (!file.name.endsWith('.json')) {
+        const lower = file.name.toLowerCase();
+        const isSheet = lower.endsWith('.csv') || lower.endsWith('.tsv');
+        if (!lower.endsWith('.json') && !isSheet) {
             setParseError(t("onlyJson"));
             return;
         }
         setFileName(file.name);
         setParseError(null);
+
+        if (isSheet) {
+            // CSV/TSV → one document per row via SheetJS (already a dep). It
+            // infers numbers/dates; blank cells become null, not "".
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const XLSX = await import("xlsx");
+                    const wb = XLSX.read(e.target?.result as ArrayBuffer, { type: "array" });
+                    const ws = wb.Sheets[wb.SheetNames[0]];
+                    const rows = XLSX.utils.sheet_to_json(ws, { defval: null }) as any[];
+                    if (rows.length === 0) setParseError(t("invalidStructure"));
+                    else setParsed(rows);
+                } catch {
+                    setParseError(t("invalidJson"));
+                }
+            };
+            reader.readAsArrayBuffer(file);
+            return;
+        }
 
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -121,7 +143,7 @@ export function ImportDialog({ open, onOpenChange, onImport, collectionName }: I
                             <input
                                 ref={fileRef}
                                 type="file"
-                                accept=".json"
+                                accept=".json,.csv,.tsv"
                                 className="hidden"
                                 onChange={handleFileChange}
                             />

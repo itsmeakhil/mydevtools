@@ -21,7 +21,7 @@ interface ExportDialogProps {
 export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDialogProps) {
     const t = useTranslations("NoSqlExplorer.export");
     const [selectedFields, setSelectedFields] = useState<string[]>(fields);
-    const [format, setFormat] = useState<"xlsx" | "csv" | "json">("xlsx");
+    const [format, setFormat] = useState<"xlsx" | "csv" | "tsv" | "json">("xlsx");
 
     const handleSelectAll = (checked: boolean) => {
         if (checked) {
@@ -89,6 +89,8 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
 
             if (format === "csv") {
                 XLSX.writeFile(workbook, filename, { bookType: "csv" });
+            } else if (format === "tsv") {
+                XLSX.writeFile(workbook, filename, { bookType: "txt" }); // txt = tab-separated
             } else {
                 XLSX.writeFile(workbook, filename);
             }
@@ -112,7 +114,7 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
                 <div className="space-y-4 py-2">
                     <div className="space-y-2">
                         <Label className="text-sm font-medium">{t("formatLabel")}</Label>
-                        <RadioGroup value={format} onValueChange={(v) => setFormat(v as "xlsx" | "csv" | "json")} className="flex gap-4">
+                        <RadioGroup value={format} onValueChange={(v) => setFormat(v as "xlsx" | "csv" | "tsv" | "json")} className="flex gap-4 flex-wrap">
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="xlsx" id="xlsx" />
                                 <Label htmlFor="xlsx">{t("formatXlsx")}</Label>
@@ -120,6 +122,10 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="csv" id="csv" />
                                 <Label htmlFor="csv">{t("formatCsv")}</Label>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <RadioGroupItem value="tsv" id="tsv" />
+                                <Label htmlFor="tsv">{t("formatTsv")}</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="json" id="json" />

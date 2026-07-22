@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { IconDatabase, IconTrash, IconHistory, IconPencil, IconPlugConnected, IconCheck, IconX, IconBrandMongodb, IconServer, IconCopy, IconLock } from "@tabler/icons-react";
+import { IconDatabase, IconTrash, IconHistory, IconPencil, IconPlugConnected, IconCheck, IconX, IconBrandMongodb, IconBrandAws, IconBrandAzure, IconServer, IconCopy, IconLock } from "@tabler/icons-react";
 import { Switch } from "@/components/ui/switch";
 import { SavedConnection } from "./types";
+import { DB_DIALECTS, DB_TYPE_ORDER, detectDbType, type DbType } from "@/lib/nosql-dialects";
 import { getConnections, deleteConnection, saveConnection, updateConnectionDetails } from "./connection-service";
 import { backendFetch } from "@/lib/backend-auth";
 import useAuth from "@/utils/useAuth";
@@ -42,6 +43,14 @@ export const CONNECTION_COLORS = [
     "#ef4444", "#f59e0b", "#22c55e", "#3b82f6", "#a855f7", "#64748b",
 ] as const;
 
+// Per-dialect brand icon. FerretDB has no brand glyph in @tabler — neutral DB icon.
+const DB_ICONS: Record<DbType, typeof IconDatabase> = {
+    mongodb: IconBrandMongodb,
+    documentdb: IconBrandAws,
+    cosmosdb: IconBrandAzure,
+    ferretdb: IconDatabase,
+};
+
 export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProps) {
     const t = useTranslations("NoSqlExplorer.connection");
     const locale = useLocale();
@@ -53,6 +62,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     const { copyToClipboard } = useCopyToClipboard();
     const [connectionString, setConnectionString] = useState("");
     const [name, setName] = useState("My Connection");
+    const [dbType, setDbType] = useState<DbType>("mongodb");
     const [color, setColor] = useState<string | null>(null);
     const [readOnly, setReadOnly] = useState(false);
     const [savedConnections, setSavedConnections] = useState<SavedConnection[]>([]);
@@ -108,10 +118,10 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
 
         try {
             if (editingId) {
-                await updateConnectionDetails(user.uid, editingId, { name, connectionString, color, readOnly }, encryptionKey);
+                await updateConnectionDetails(user.uid, editingId, { name, connectionString, color, readOnly, dbType }, encryptionKey);
                 toast.success(t("toastUpdated"));
             } else {
-                await saveConnection(user.uid, connectionString, name, encryptionKey, { color, readOnly });
+                await saveConnection(user.uid, connectionString, name, encryptionKey, { color, readOnly, dbType });
             }
             await loadConnections();
         } catch (e) {
@@ -127,6 +137,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
     const handleSelectConnection = (conn: SavedConnection) => {
         setConnectionString(conn.connectionString);
         setName(conn.name);
+        setDbType(conn.dbType ?? detectDbType(conn.connectionString));
         setColor(conn.color ?? null);
         setReadOnly(conn.readOnly ?? false);
         setEditingId(null);
@@ -137,6 +148,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
         setEditingId(conn.id);
         setConnectionString(conn.connectionString);
         setName(conn.name);
+        setDbType(conn.dbType ?? detectDbType(conn.connectionString));
         setColor(conn.color ?? null);
         setReadOnly(conn.readOnly ?? false);
     };
@@ -145,6 +157,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
         setEditingId(null);
         setConnectionString("");
         setName("My Connection");
+        setDbType("mongodb");
         setColor(null);
         setReadOnly(false);
     };
@@ -175,7 +188,7 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
             <div className="space-y-6 md:min-h-0 md:overflow-y-auto">
                 <div className="space-y-2">
                     <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-                        <IconBrandMongodb className="w-8 h-8 text-green-500" />
+                        <IconDatabase className="w-8 h-8 text-primary" />
                         {editingId ? t("titleEdit") : t("titleConnect")}
                     </h2>
                     <p className="text-muted-foreground">
@@ -198,11 +211,38 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                 />
                             </div>
                             <div className="space-y-2">
+                                <Label className="text-xs font-medium uppercase text-muted-foreground">{t("labelDbType")}</Label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {DB_TYPE_ORDER.map((type) => {
+                                        const Icon = DB_ICONS[type];
+                                        const active = dbType === type;
+                                        return (
+                                            <button
+                                                key={type}
+                                                type="button"
+                                                onClick={() => setDbType(type)}
+                                                disabled={loading}
+                                                className={cn(
+                                                    "flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-all",
+                                                    active
+                                                        ? "border-primary bg-primary/5 ring-1 ring-primary/20"
+                                                        : "border-border bg-background/50 hover:border-primary/30"
+                                                )}
+                                            >
+                                                <Icon className="w-4 h-4 shrink-0" />
+                                                <span className="truncate">{DB_DIALECTS[type].label}</span>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            <div className="space-y-2">
                                 <Label htmlFor="connection-string" className="text-xs font-medium uppercase text-muted-foreground">{t("labelConnectionString")}</Label>
                                 <div className="relative">
                                     <Input
                                         id="connection-string"
-                                        placeholder={t("placeholderConnectionString")}
+                                        placeholder={DB_DIALECTS[dbType].placeholder}
                                         value={connectionString}
                                         onChange={(e) => setConnectionString(e.target.value)}
                                         disabled={loading}
@@ -311,7 +351,9 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                 </div>
                             ) : (
                                 <div className="space-y-3">
-                                    {savedConnections.map((conn) => (
+                                    {savedConnections.map((conn) => {
+                                        const RowIcon = DB_ICONS[conn.dbType ?? detectDbType(conn.connectionString)];
+                                        return (
                                         <div
                                             key={conn.id}
                                             className={cn(
@@ -325,9 +367,10 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                             <div className="flex-1 overflow-hidden space-y-1.5">
                                                 <div className="font-semibold text-sm truncate flex items-center gap-2">
                                                     <div
-                                                        className={cn("w-2 h-2 rounded-full", !conn.color && (editingId === conn.id ? "bg-primary" : "bg-green-500/50"))}
+                                                        className={cn("w-2 h-2 rounded-full shrink-0", !conn.color && (editingId === conn.id ? "bg-primary" : "bg-green-500/50"))}
                                                         style={conn.color ? { backgroundColor: conn.color } : undefined}
                                                     />
+                                                    <RowIcon className="w-4 h-4 shrink-0 text-muted-foreground" />
                                                     {conn.name}
                                                     {conn.readOnly && <IconLock className="w-3 h-3 text-amber-500 shrink-0" />}
                                                 </div>
@@ -384,7 +427,8 @@ export function ConnectionForm({ onConnect, loading, error }: ConnectionFormProp
                                                 </Button>
                                             </div>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             )}
                         </ScrollArea>

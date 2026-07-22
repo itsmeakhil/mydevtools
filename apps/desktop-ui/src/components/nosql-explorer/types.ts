@@ -27,6 +27,9 @@ export interface Document {
     [key: string]: unknown;
 }
 
+export type { DbType } from "@/lib/nosql-dialects";
+import type { DbType } from "@/lib/nosql-dialects";
+
 export type FirestoreTimestampLike = {
     toDate: () => Date;
 };
@@ -48,6 +51,8 @@ export interface SavedConnection {
     color?: string | null;
     /** Blocks all write operations (UI + Rust guard) when true. */
     readOnly?: boolean;
+    /** Mongo-wire dialect for branding/guidance. Absent on legacy rows — infer via detectDbType. Not sensitive. */
+    dbType?: DbType;
     createdAt: number | FirestoreTimestampLike | null;
     lastUsedAt: number | FirestoreTimestampLike | null;
     /** Content-edit clock (sync LWW); server-managed. */
