@@ -34,15 +34,13 @@ export function UpdateProgressModal() {
   const open = locked || visible || error != null;
 
   const label =
-    error != null
-      ? t("failed")
-      : phase === "installing"
-        ? t("installing")
-        : phase === "restarting"
-          ? t("restarting")
-          : pct !== null
-            ? t("downloadingPct", { pct })
-            : t("downloading");
+    phase === "installing"
+      ? t("installing")
+      : phase === "restarting"
+        ? t("restarting")
+        : pct !== null
+          ? t("downloadingPct", { pct })
+          : t("downloading");
 
   // Corner pill when the run is active but the modal is dismissed (no error).
   if (!open) {
@@ -53,7 +51,7 @@ export function UpdateProgressModal() {
         className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium shadow-lg"
       >
         <Loader2 className="h-3.5 w-3.5 animate-spin text-primary" />
-        {pct !== null ? t("pillPct", { pct }) : t("pill")}
+        {pct !== null && phase === "downloading" ? t("pillPct", { pct }) : t("pill")}
       </button>
     );
   }
@@ -68,7 +66,7 @@ export function UpdateProgressModal() {
     >
       <DialogContent className="sm:max-w-[400px]" showCloseButton={!locked && error == null}>
         <DialogHeader>
-          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogTitle>{error != null ? t("failed") : t("title")}</DialogTitle>
         </DialogHeader>
 
         {error != null ? (
@@ -88,7 +86,7 @@ export function UpdateProgressModal() {
             )}
             <AnimatePresence mode="wait">
               <motion.p
-                key={error != null ? "error" : phase}
+                key={phase}
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
