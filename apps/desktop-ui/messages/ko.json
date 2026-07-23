@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% 오프라인"
+  },
+  "DesktopUpdate": {
+    "title": "MyDevTools 업데이트 중",
+    "downloading": "업데이트 다운로드 중…",
+    "downloadingPct": "업데이트 다운로드 중… {pct}%",
+    "installing": "업데이트 설치 중…",
+    "restarting": "MyDevTools 재시작 중…",
+    "reassurance": "오프라인 데이터는 절대 변경되지 않습니다.",
+    "failed": "업데이트 설치에 실패했습니다",
+    "retry": "다시 시도",
+    "close": "닫기",
+    "pill": "업데이트 중…",
+    "pillPct": "업데이트 중… {pct}%"
   }
 }

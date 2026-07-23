@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "完全オフライン"
+  },
+  "DesktopUpdate": {
+    "title": "MyDevTools を更新しています",
+    "downloading": "更新をダウンロードしています…",
+    "downloadingPct": "更新をダウンロードしています… {pct}%",
+    "installing": "更新をインストールしています…",
+    "restarting": "MyDevTools を再起動しています…",
+    "reassurance": "オフラインデータが変更されることはありません。",
+    "failed": "更新のインストールに失敗しました",
+    "retry": "再試行",
+    "close": "閉じる",
+    "pill": "更新中…",
+    "pillPct": "更新中… {pct}%"
   }
 }

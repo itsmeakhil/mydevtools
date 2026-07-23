@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100 % offline"
+  },
+  "DesktopUpdate": {
+    "title": "Opdaterer MyDevTools",
+    "downloading": "Downloader opdatering…",
+    "downloadingPct": "Downloader opdatering… {pct} %",
+    "installing": "Installerer opdatering…",
+    "restarting": "Genstarter MyDevTools…",
+    "reassurance": "Dine offline-data bliver aldrig rørt.",
+    "failed": "Opdateringen kunne ikke installeres",
+    "retry": "Prøv igen",
+    "close": "Luk",
+    "pill": "Opdaterer…",
+    "pillPct": "Opdaterer… {pct} %"
   }
 }

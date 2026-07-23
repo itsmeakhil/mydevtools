@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% εκτός σύνδεσης"
+  },
+  "DesktopUpdate": {
+    "title": "Ενημέρωση MyDevTools",
+    "downloading": "Λήψη ενημέρωσης…",
+    "downloadingPct": "Λήψη ενημέρωσης… {pct}%",
+    "installing": "Εγκατάσταση ενημέρωσης…",
+    "restarting": "Επανεκκίνηση του MyDevTools…",
+    "reassurance": "Τα δεδομένα σας εκτός σύνδεσης δεν επηρεάζονται ποτέ.",
+    "failed": "Η εγκατάσταση της ενημέρωσης απέτυχε",
+    "retry": "Επανάληψη",
+    "close": "Κλείσιμο",
+    "pill": "Ενημέρωση…",
+    "pillPct": "Ενημέρωση… {pct}%"
   }
 }

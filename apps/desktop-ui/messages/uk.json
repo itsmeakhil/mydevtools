@@ -4788,5 +4788,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% офлайн"
+  },
+  "DesktopUpdate": {
+    "title": "Оновлення MyDevTools",
+    "downloading": "Завантаження оновлення…",
+    "downloadingPct": "Завантаження оновлення… {pct}%",
+    "installing": "Встановлення оновлення…",
+    "restarting": "Перезапуск MyDevTools…",
+    "reassurance": "Ваші офлайн-дані ніколи не змінюються.",
+    "failed": "Не вдалося встановити оновлення",
+    "retry": "Повторити",
+    "close": "Закрити",
+    "pill": "Оновлення…",
+    "pillPct": "Оновлення… {pct}%"
   }
 }

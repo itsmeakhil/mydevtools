@@ -4788,5 +4788,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% sin conexión"
+  },
+  "DesktopUpdate": {
+    "title": "Actualizando MyDevTools",
+    "downloading": "Descargando actualización…",
+    "downloadingPct": "Descargando actualización… {pct}%",
+    "installing": "Instalando actualización…",
+    "restarting": "Reiniciando MyDevTools…",
+    "reassurance": "Tus datos sin conexión nunca se modifican.",
+    "failed": "No se pudo instalar la actualización",
+    "retry": "Reintentar",
+    "close": "Cerrar",
+    "pill": "Actualizando…",
+    "pillPct": "Actualizando… {pct}%"
   }
 }

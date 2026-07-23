@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% fora de línia"
+  },
+  "DesktopUpdate": {
+    "title": "S'està actualitzant MyDevTools",
+    "downloading": "Baixant l'actualització…",
+    "downloadingPct": "Baixant l'actualització… {pct}%",
+    "installing": "Instal·lant l'actualització…",
+    "restarting": "Reiniciant MyDevTools…",
+    "reassurance": "Les teves dades sense connexió mai es toquen.",
+    "failed": "No s'ha pogut instal·lar l'actualització",
+    "retry": "Torna-ho a provar",
+    "close": "Tanca",
+    "pill": "S'està actualitzant…",
+    "pillPct": "S'està actualitzant… {pct}%"
   }
 }

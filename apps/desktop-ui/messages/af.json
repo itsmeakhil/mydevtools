@@ -4788,5 +4788,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% aflyn"
+  },
+  "DesktopUpdate": {
+    "title": "MyDevTools word bygewerk",
+    "downloading": "Opdatering word afgelaai…",
+    "downloadingPct": "Opdatering word afgelaai… {pct}%",
+    "installing": "Opdatering word geïnstalleer…",
+    "restarting": "MyDevTools word herbegin…",
+    "reassurance": "Jou vanlyn-data word nooit aangeraak nie.",
+    "failed": "Opdatering kon nie geïnstalleer word nie",
+    "retry": "Probeer weer",
+    "close": "Sluit",
+    "pill": "Word bygewerk…",
+    "pillPct": "Word bygewerk… {pct}%"
   }
 }

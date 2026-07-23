@@ -4788,5 +4788,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% luar talian"
+  },
+  "DesktopUpdate": {
+    "title": "Mengemas kini MyDevTools",
+    "downloading": "Memuat turun kemas kini…",
+    "downloadingPct": "Memuat turun kemas kini… {pct}%",
+    "installing": "Memasang kemas kini…",
+    "restarting": "Memulakan semula MyDevTools…",
+    "reassurance": "Data luar talian anda tidak pernah disentuh.",
+    "failed": "Kemas kini gagal dipasang",
+    "retry": "Cuba semula",
+    "close": "Tutup",
+    "pill": "Mengemas kini…",
+    "pillPct": "Mengemas kini… {pct}%"
   }
 }

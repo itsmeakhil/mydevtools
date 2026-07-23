@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "DesktopUpdate": {
+    "title": "Aktualizowanie MyDevTools",
+    "downloading": "Pobieranie aktualizacji…",
+    "downloadingPct": "Pobieranie aktualizacji… {pct}%",
+    "installing": "Instalowanie aktualizacji…",
+    "restarting": "Ponowne uruchamianie MyDevTools…",
+    "reassurance": "Twoje dane offline nigdy nie są naruszane.",
+    "failed": "Nie udało się zainstalować aktualizacji",
+    "retry": "Spróbuj ponownie",
+    "close": "Zamknij",
+    "pill": "Aktualizowanie…",
+    "pillPct": "Aktualizowanie… {pct}%"
   }
 }
