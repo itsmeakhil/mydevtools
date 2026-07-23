@@ -31,7 +31,7 @@ export function UpdateProgressModal() {
   const pct = pctOf(status);
   const phase: UpdatePhase = status.phase;
   const locked = phase === "restarting"; // force-open, non-dismissible
-  const open = locked || (visible && !error) || (!!error && visible);
+  const open = locked || visible || error != null;
 
   const label =
     error != null
@@ -45,7 +45,7 @@ export function UpdateProgressModal() {
             : t("downloading");
 
   // Corner pill when the run is active but the modal is dismissed (no error).
-  if (!open && !error) {
+  if (!open) {
     return (
       <button
         type="button"
@@ -66,7 +66,7 @@ export function UpdateProgressModal() {
         if (!o) dismiss();
       }}
     >
-      <DialogContent className="sm:max-w-[400px]">
+      <DialogContent className="sm:max-w-[400px]" showCloseButton={!locked && error == null}>
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>
@@ -88,7 +88,7 @@ export function UpdateProgressModal() {
             )}
             <AnimatePresence mode="wait">
               <motion.p
-                key={label}
+                key={error != null ? "error" : phase}
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
