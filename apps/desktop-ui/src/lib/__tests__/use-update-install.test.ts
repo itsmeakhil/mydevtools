@@ -1,27 +1,32 @@
-let emit: ((s: any) => void) | undefined;
-let resolveInstall: (() => void) | undefined;
+import { installUpdate } from "@/lib/desktop/updater";
 
 jest.mock("@/lib/desktop/updater", () => ({
-  installUpdate: jest.fn((onStatus?: (s: any) => void) => {
-    emit = onStatus;
-    return new Promise<void>((res) => {
-      resolveInstall = res;
-    });
-  }),
+  installUpdate: jest.fn(),
 }));
 
-import { startUpdate, dismissUpdate, reopenUpdate, closeUpdate } from "@/lib/desktop/use-update-install";
-// read module state through a tiny getter the module exposes for tests:
-import { __getState } from "@/lib/desktop/use-update-install";
+import {
+  startUpdate,
+  dismissUpdate,
+  reopenUpdate,
+  closeUpdate,
+  __getState,
+} from "@/lib/desktop/use-update-install";
+
+const mockInstall = installUpdate as jest.Mock;
+let emit: ((s: any) => void) | undefined;
 
 beforeEach(() => {
   emit = undefined;
-  resolveInstall = undefined;
-  closeUpdate(); // reset store between tests
+  closeUpdate(); // reset the module store between tests
+  mockInstall.mockReset();
+  mockInstall.mockImplementation((onStatus?: (s: any) => void) => {
+    emit = onStatus;
+    return new Promise<void>(() => {}); // capture callback, never resolve
+  });
 });
 
 describe("install store", () => {
-  it("startUpdate opens modal and enters downloading", async () => {
+  it("startUpdate opens modal and enters downloading", () => {
     startUpdate();
     expect(__getState().visible).toBe(true);
     expect(__getState().status?.phase).toBe("downloading");
@@ -29,12 +34,12 @@ describe("install store", () => {
 
   it("status emissions update the store", async () => {
     startUpdate();
-    await Promise.resolve(); // let dynamic import().then microtask flush
+    await new Promise((r) => setTimeout(r, 0)); // let dynamic import().then flush
     emit?.({ phase: "installing", downloaded: 5, total: 5 });
     expect(__getState().status?.phase).toBe("installing");
   });
 
-  it("startUpdate is idempotent while running", async () => {
+  it("startUpdate is idempotent while running", () => {
     startUpdate();
     const first = __getState().status;
     startUpdate();
@@ -51,11 +56,9 @@ describe("install store", () => {
   });
 
   it("a rejected install sets error", async () => {
-    const { installUpdate } = require("@/lib/desktop/updater");
-    (installUpdate as jest.Mock).mockImplementationOnce(() => Promise.reject(new Error("boom")));
+    mockInstall.mockImplementationOnce(() => Promise.reject(new Error("boom")));
     startUpdate();
-    await Promise.resolve();
-    await Promise.resolve();
+    await new Promise((r) => setTimeout(r, 0));
     expect(__getState().error).toBe("boom");
   });
 });
