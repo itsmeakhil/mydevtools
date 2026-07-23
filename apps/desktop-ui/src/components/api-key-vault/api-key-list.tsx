@@ -232,7 +232,7 @@ export function ApiKeyList() {
                     </p>
                     <p className="text-sm mt-1 max-w-sm">
                         {entries.length === 0
-                            ? "Add your first key — name, value, environment. Encrypted on your device before sync."
+                            ? "Add your first key — name, value, environment. Encrypted on your device in a local vault."
                             : "Try a different search or environment filter."}
                     </p>
                     {entries.length === 0 && (

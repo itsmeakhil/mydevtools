@@ -162,7 +162,18 @@ export function DocumentView({
     const [viewValue, setViewValue] = useState<string>("");
     const [isViewDialogOpen, setIsViewDialogOpen] = useState(false);
     const [jsonViewContent, setJsonViewContent] = useState("");
-    const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
+    // Column widths persist per collection so a hand-tuned grid survives tab
+    // switches and reloads (localStorage; best-effort, SSR-safe via try/catch).
+    const colWidthKey = `nosql_colw_${connectionName}|${dbName}|${collectionName}`;
+    const [columnWidths, setColumnWidths] = useState<Record<string, number>>(() => {
+        try { return JSON.parse(localStorage.getItem(colWidthKey) || "{}"); } catch { return {}; }
+    });
+    useEffect(() => {
+        try { setColumnWidths(JSON.parse(localStorage.getItem(colWidthKey) || "{}")); } catch { setColumnWidths({}); }
+    }, [colWidthKey]);
+    useEffect(() => {
+        try { localStorage.setItem(colWidthKey, JSON.stringify(columnWidths)); } catch { /* quota / SSR */ }
+    }, [colWidthKey, columnWidths]);
     const [treeExpandAll, setTreeExpandAll] = useState(false);
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
     const [bulkDeleteConfirm, setBulkDeleteConfirm] = useState(false);
