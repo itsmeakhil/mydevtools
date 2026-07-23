@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "DesktopUpdate": {
+    "title": "MyDevTools wordt bijgewerkt",
+    "downloading": "Update wordt gedownload…",
+    "downloadingPct": "Update wordt gedownload… {pct}%",
+    "installing": "Update wordt geïnstalleerd…",
+    "restarting": "MyDevTools wordt opnieuw opgestart…",
+    "reassurance": "Je offline gegevens worden nooit aangeraakt.",
+    "failed": "Update kon niet worden geïnstalleerd",
+    "retry": "Opnieuw proberen",
+    "close": "Sluiten",
+    "pill": "Bijwerken…",
+    "pillPct": "Bijwerken… {pct}%"
   }
 }

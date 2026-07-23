@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% دون اتصال"
+  },
+  "DesktopUpdate": {
+    "title": "جارٍ تحديث MyDevTools",
+    "downloading": "جارٍ تنزيل التحديث…",
+    "downloadingPct": "جارٍ تنزيل التحديث… {pct}%",
+    "installing": "جارٍ تثبيت التحديث…",
+    "restarting": "جارٍ إعادة تشغيل MyDevTools…",
+    "reassurance": "بياناتك دون اتصال لا يتم المساس بها أبدًا.",
+    "failed": "فشل تثبيت التحديث",
+    "retry": "إعادة المحاولة",
+    "close": "إغلاق",
+    "pill": "جارٍ التحديث…",
+    "pillPct": "جارٍ التحديث… {pct}%"
   }
 }

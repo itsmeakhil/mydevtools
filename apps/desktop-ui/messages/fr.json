@@ -4788,5 +4788,18 @@
   },
   "ToolPageHeader": {
     "offline": "100 % hors ligne"
+  },
+  "DesktopUpdate": {
+    "title": "Mise à jour de MyDevTools",
+    "downloading": "Téléchargement de la mise à jour…",
+    "downloadingPct": "Téléchargement de la mise à jour… {pct} %",
+    "installing": "Installation de la mise à jour…",
+    "restarting": "Redémarrage de MyDevTools…",
+    "reassurance": "Vos données hors ligne ne sont jamais touchées.",
+    "failed": "Échec de l'installation de la mise à jour",
+    "retry": "Réessayer",
+    "close": "Fermer",
+    "pill": "Mise à jour…",
+    "pillPct": "Mise à jour… {pct} %"
   }
 }

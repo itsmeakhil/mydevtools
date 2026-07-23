@@ -12,12 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { DownloadProgress, UpdateInfo } from "@/lib/desktop/updater";
-
-function pct(p: DownloadProgress): number | null {
-  if (!p.total) return null;
-  return Math.min(100, Math.round((p.downloaded / p.total) * 100));
-}
+import type { UpdateInfo } from "@/lib/desktop/updater";
 
 /**
  * "Check for updates" button + modal. Shows the running version and, when a
@@ -29,8 +24,6 @@ export function DesktopUpdateDialog() {
   const [version, setVersion] = useState("");
   const [checking, setChecking] = useState(false);
   const [update, setUpdate] = useState<UpdateInfo | null>(null);
-  const [installing, setInstalling] = useState(false);
-  const [progress, setProgress] = useState<DownloadProgress | null>(null);
 
   const check = async () => {
     setOpen(true);
@@ -48,19 +41,10 @@ export function DesktopUpdateDialog() {
   };
 
   const install = async () => {
-    setInstalling(true);
-    try {
-      const { installUpdate } = await import("@/lib/desktop/updater");
-      await installUpdate(setProgress);
-      // On success the app relaunches into the new version; nothing to do here.
-    } catch (e) {
-      setInstalling(false);
-      setProgress(null);
-      toast.error(e instanceof Error ? e.message : "Update failed to install");
-    }
+    const { startUpdate } = await import("@/lib/desktop/use-update-install");
+    startUpdate();
+    setOpen(false); // hand off to the app-wide progress modal
   };
-
-  const percent = progress ? pct(progress) : null;
 
   return (
     <>
@@ -69,7 +53,7 @@ export function DesktopUpdateDialog() {
         Check for updates
       </Button>
 
-      <Dialog open={open} onOpenChange={(o) => !installing && setOpen(o)}>
+      <Dialog open={open} onOpenChange={(o) => setOpen(o)}>
         <DialogContent className="sm:max-w-[420px]">
           <DialogHeader>
             <DialogTitle>Updates</DialogTitle>
@@ -94,24 +78,10 @@ export function DesktopUpdateDialog() {
                   {update.notes}
                 </p>
               ) : null}
-              {installing ? (
-                <div className="mt-3 space-y-1.5">
-                  <div className="h-1.5 w-full overflow-hidden rounded-full bg-border">
-                    <div
-                      className="h-full rounded-full bg-primary transition-all"
-                      style={{ width: `${percent ?? 10}%` }}
-                    />
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    {percent !== null ? `Downloading… ${percent}%` : "Downloading…"}
-                  </p>
-                </div>
-              ) : (
-                <Button className="mt-3" size="sm" onClick={() => void install()}>
-                  <Download className="mr-2 h-4 w-4" />
-                  Download &amp; install
-                </Button>
-              )}
+              <Button className="mt-3" size="sm" onClick={() => void install()}>
+                <Download className="mr-2 h-4 w-4" />
+                Download &amp; install
+              </Button>
             </div>
           ) : (
             <div className="flex items-center gap-2 py-2 text-sm text-muted-foreground">

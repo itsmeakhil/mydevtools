@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "DesktopUpdate": {
+    "title": "Memperbarui MyDevTools",
+    "downloading": "Mengunduh pembaruan…",
+    "downloadingPct": "Mengunduh pembaruan… {pct}%",
+    "installing": "Menginstal pembaruan…",
+    "restarting": "Memulai ulang MyDevTools…",
+    "reassurance": "Data offline Anda tidak akan pernah disentuh.",
+    "failed": "Pembaruan gagal diinstal",
+    "retry": "Coba lagi",
+    "close": "Tutup",
+    "pill": "Memperbarui…",
+    "pillPct": "Memperbarui… {pct}%"
   }
 }

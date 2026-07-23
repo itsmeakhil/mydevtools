@@ -4788,5 +4788,18 @@
   },
   "ToolPageHeader": {
     "offline": "%100 çevrimdışı"
+  },
+  "DesktopUpdate": {
+    "title": "MyDevTools güncelleniyor",
+    "downloading": "Güncelleme indiriliyor…",
+    "downloadingPct": "Güncelleme indiriliyor… %{pct}",
+    "installing": "Güncelleme yükleniyor…",
+    "restarting": "MyDevTools yeniden başlatılıyor…",
+    "reassurance": "Çevrimdışı verileriniz asla değiştirilmez.",
+    "failed": "Güncelleme yüklenemedi",
+    "retry": "Yeniden dene",
+    "close": "Kapat",
+    "pill": "Güncelleniyor…",
+    "pillPct": "Güncelleniyor… %{pct}"
   }
 }

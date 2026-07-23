@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% ngoại tuyến"
+  },
+  "DesktopUpdate": {
+    "title": "Đang cập nhật MyDevTools",
+    "downloading": "Đang tải bản cập nhật…",
+    "downloadingPct": "Đang tải bản cập nhật… {pct}%",
+    "installing": "Đang cài đặt bản cập nhật…",
+    "restarting": "Đang khởi động lại MyDevTools…",
+    "reassurance": "Dữ liệu ngoại tuyến của bạn không bao giờ bị ảnh hưởng.",
+    "failed": "Cài đặt bản cập nhật không thành công",
+    "retry": "Thử lại",
+    "close": "Đóng",
+    "pill": "Đang cập nhật…",
+    "pillPct": "Đang cập nhật… {pct}%"
   }
 }

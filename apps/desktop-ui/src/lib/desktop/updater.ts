@@ -10,7 +10,7 @@
  * Every update is verified against the updater public key baked into
  * tauri.conf.json before it's allowed to install.
  */
-import type { Update } from "@tauri-apps/plugin-updater";
+import type { DownloadEvent, Update } from "@tauri-apps/plugin-updater";
 
 import { isDesktop } from "./is-desktop";
 
@@ -21,7 +21,41 @@ export type UpdateInfo = {
   date?: string;
 };
 
-export type DownloadProgress = { downloaded: number; total: number | null };
+export type UpdatePhase = "downloading" | "installing" | "restarting";
+export type UpdateStatus = {
+  phase: UpdatePhase;
+  downloaded: number;
+  total: number | null;
+};
+
+/** Map a Tauri DownloadEvent to the next status. Pure — unit tested. */
+export function reduceDownloadEvent(
+  prev: { downloaded: number; total: number | null },
+  event: DownloadEvent
+): UpdateStatus {
+  switch (event.event) {
+    case "Started":
+      return {
+        phase: "downloading",
+        downloaded: 0,
+        total: event.data.contentLength ?? null,
+      };
+    case "Progress":
+      return {
+        phase: "downloading",
+        downloaded: prev.downloaded + event.data.chunkLength,
+        total: prev.total,
+      };
+    case "Finished":
+      return { phase: "installing", downloaded: prev.downloaded, total: prev.total };
+  }
+}
+
+/** Download percentage, or null when the server sent no Content-Length. */
+export function pctOf(s: { downloaded: number; total: number | null }): number | null {
+  if (!s.total) return null;
+  return Math.min(100, Math.round((s.downloaded / s.total) * 100));
+}
 
 // Handle to the Update object between check() and install so we don't re-check.
 let pending: Update | null = null;
@@ -46,32 +80,26 @@ export async function checkForUpdate(): Promise<UpdateInfo | null> {
  * Re-checks first if nothing is pending (e.g. called directly).
  */
 export async function installUpdate(
-  onProgress?: (p: DownloadProgress) => void
+  onStatus?: (s: UpdateStatus) => void
 ): Promise<void> {
   if (!pending) {
     await checkForUpdate();
     if (!pending) throw new Error("No update available to install");
   }
   const update = pending;
-  let downloaded = 0;
-  let total: number | null = null;
+  let acc: { downloaded: number; total: number | null } = {
+    downloaded: 0,
+    total: null,
+  };
 
   await update.downloadAndInstall((event) => {
-    switch (event.event) {
-      case "Started":
-        total = event.data.contentLength ?? null;
-        break;
-      case "Progress":
-        downloaded += event.data.chunkLength;
-        onProgress?.({ downloaded, total });
-        break;
-      case "Finished":
-        onProgress?.({ downloaded, total });
-        break;
-    }
+    const s = reduceDownloadEvent(acc, event);
+    acc = { downloaded: s.downloaded, total: s.total };
+    onStatus?.(s);
   });
 
-  // Restart into the freshly installed version.
+  // Bundle swapped in place; now relaunch into the new version.
+  onStatus?.({ phase: "restarting", downloaded: acc.downloaded, total: acc.total });
   const { relaunch } = await import("@tauri-apps/plugin-process");
   await relaunch();
 }

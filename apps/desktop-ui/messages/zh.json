@@ -4873,5 +4873,18 @@
   },
   "ToolPageHeader": {
     "offline": "100% 离线"
+  },
+  "DesktopUpdate": {
+    "title": "正在更新 MyDevTools",
+    "downloading": "正在下载更新…",
+    "downloadingPct": "正在下载更新… {pct}%",
+    "installing": "正在安装更新…",
+    "restarting": "正在重新启动 MyDevTools…",
+    "reassurance": "您的离线数据永远不会被修改。",
+    "failed": "更新安装失败",
+    "retry": "重试",
+    "close": "关闭",
+    "pill": "正在更新…",
+    "pillPct": "正在更新… {pct}%"
   }
 }

@@ -4788,5 +4788,18 @@
   },
   "ToolPageHeader": {
     "offline": "۱۰۰٪ آفلاین"
+  },
+  "DesktopUpdate": {
+    "title": "در حال به‌روزرسانی MyDevTools",
+    "downloading": "در حال دانلود به‌روزرسانی…",
+    "downloadingPct": "در حال دانلود به‌روزرسانی… {pct}٪",
+    "installing": "در حال نصب به‌روزرسانی…",
+    "restarting": "در حال راه‌اندازی مجدد MyDevTools…",
+    "reassurance": "داده‌های آفلاین شما هرگز دستکاری نمی‌شوند.",
+    "failed": "نصب به‌روزرسانی ناموفق بود",
+    "retry": "تلاش دوباره",
+    "close": "بستن",
+    "pill": "در حال به‌روزرسانی…",
+    "pillPct": "در حال به‌روزرسانی… {pct}٪"
   }
 }
