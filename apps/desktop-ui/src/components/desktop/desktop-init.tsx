@@ -67,16 +67,8 @@ export function DesktopInit() {
           action: {
             label: "Restart & update",
             onClick: () => {
-              toast.loading("Downloading update…", {
-                id: "desktop-update",
-                duration: Infinity,
-              });
-              m.installUpdate().catch((e) => {
-                toast.error(
-                  e instanceof Error ? e.message : "Update failed to install",
-                  { id: "desktop-update" }
-                );
-              });
+              toast.dismiss("desktop-update");
+              void import("@/lib/desktop/use-update-install").then((m) => m.startUpdate());
             },
           },
         });
