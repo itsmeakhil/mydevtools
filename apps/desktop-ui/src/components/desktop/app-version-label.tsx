@@ -33,14 +33,14 @@ export function AppVersionLabel() {
   const handleCheck = async () => {
     setChecking(true);
     try {
-      const { checkForUpdate, installUpdate } = await import("@/lib/desktop/updater");
+      const { checkForUpdate } = await import("@/lib/desktop/updater");
       const update = await checkForUpdate();
       if (!update) {
         toast.success("You're on the latest version");
         return;
       }
-      toast.info(`Updating to v${update.version}…`);
-      await installUpdate();
+      const { startUpdate } = await import("@/lib/desktop/use-update-install");
+      startUpdate();
     } catch {
       toast.error("Couldn't check for updates");
     } finally {
