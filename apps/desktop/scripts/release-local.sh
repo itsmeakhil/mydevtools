@@ -54,6 +54,26 @@ if gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
   exit 1
 fi
 
+# Reclaim disk: old DMGs from prior builds are already published — drop them so
+# the target dir doesn't fill up (hdiutil fails with "No space left on device").
+rm -f "$BUNDLE"/dmg/MyDevTools_*_universal.dmg "$BUNDLE"/dmg/MyDevTools.dmg 2>/dev/null || true
+# Single staging workdir, cleaned on ANY exit (so a mid-run failure doesn't leak
+# ~90MB of copied .app each time).
+WORK="$(mktemp -d)"
+trap 'rm -rf "$WORK"' EXIT
+
+# Sign a file with a Developer ID + secure timestamp, retrying transient
+# timestamp.apple.com failures ("A timestamp was expected but was not found").
+codesign_retry() {
+  local target="$1" i
+  for i in 1 2 3 4 5; do
+    if codesign --force --timestamp --sign "$APPLE_SIGNING_IDENTITY" "$target" 2>/tmp/cs_err; then return 0; fi
+    echo "  codesign attempt $i failed: $(cat /tmp/cs_err) — retrying in 10s…" >&2
+    sleep 10
+  done
+  echo "release-local: codesign failed after 5 attempts" >&2; return 1
+}
+
 # ── 1. build: Apple-sign the app AND sign the updater payload ─────────────────
 # createUpdaterArtifacts:true makes tauri build emit + sign the .app.tar.gz, so
 # TAURI_SIGNING_PRIVATE_KEY must be set here. Letting Tauri produce the tarball
@@ -72,7 +92,7 @@ TARBALL_NAME="$(basename "$TARGZ")"
 
 # ── 2. notarize + staple the .app (for the DMG download path) ─────────────────
 echo "▸ [2/5] Notarizing & stapling the app…"
-APP_ZIP="$(mktemp -d)/app.zip"
+APP_ZIP="$WORK/app.zip"
 ditto -c -k --keepParent "$APP" "$APP_ZIP"
 xcrun notarytool submit "$APP_ZIP" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$APP"
@@ -81,13 +101,14 @@ rm -f "$APP_ZIP"
 # ── 3. DMG for fresh downloads: hdiutil (deterministic), sign, notarize, staple ─
 echo "▸ [3/5] Building, signing & notarizing the DMG…"
 mkdir -p "$BUNDLE/dmg"
-STAGE="$(mktemp -d)"
+STAGE="$WORK/stage"
+mkdir -p "$STAGE"
 cp -R "$APP" "$STAGE/"
 ln -s /Applications "$STAGE/Applications"
 rm -f "$DMG"
 hdiutil create -volname "MyDevTools" -srcfolder "$STAGE" -ov -format UDZO "$DMG" >/dev/null
 rm -rf "$STAGE"
-codesign --force --sign "$APPLE_SIGNING_IDENTITY" "$DMG"
+codesign_retry "$DMG"
 xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$DMG"
 
