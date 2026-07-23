@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
 import useAuth from "@/utils/useAuth";
 import { Logo } from "./logo";
-import { GithubStars } from "./github-stars";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -169,7 +168,6 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
-              <GithubStars />
               {showThemeToggle ? <ModeToggle /> : null}
               <Link
                 href={cta.href}
@@ -239,7 +237,6 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                     animate="open"
                     className="pt-2 border-t border-border/40 mt-2 space-y-2"
                   >
-                    <GithubStars className="flex h-12 w-full justify-center rounded-xl text-base" />
                     <Link
                       href={cta.href}
                       onClick={() => setIsMenuOpen(false)}
