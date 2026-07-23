@@ -1656,7 +1656,7 @@ git config --global core.excludesfile ~/.gitignore_global`,
     sections: [
       {
         heading: 'Why developers need encrypted notes',
-        body: `Developers often need to keep short sensitive snippets close at hand: staging credentials, recovery codes, API tokens for local testing, database connection notes, SSH hints, internal URLs, and setup instructions. Plain text notes are convenient, but they are a poor fit for secrets or anything that could expose a system if copied into the wrong place.\n\nAES-256 encrypted notes are useful when the content should be searchable and accessible to you, but unreadable to anything storing it. In a zero-knowledge-style workflow, encryption happens locally on your machine before any sync, so a backend stores ciphertext rather than readable plaintext.`,
+        body: `Developers often need to keep short sensitive snippets close at hand: staging credentials, recovery codes, API tokens for local testing, database connection notes, SSH hints, internal URLs, and setup instructions. Plain text notes are convenient, but they are a poor fit for secrets or anything that could expose a system if copied into the wrong place.\n\nAES-256 encrypted notes are useful when the content should be searchable and accessible to you, but unreadable to anything storing it. In a zero-knowledge-style workflow, encryption happens locally on your machine, so anything that stores the data holds ciphertext rather than readable plaintext.`,
       },
       {
         heading: 'What AES-256 protects',
@@ -1678,11 +1678,11 @@ git config --global core.excludesfile ~/.gitignore_global`,
       },
       {
         q: 'Does encryption mean the server cannot read my notes?',
-        a: 'If encryption happens locally on your machine before sync and the server never receives the key or plaintext, the server stores ciphertext rather than readable note content.',
+        a: 'If encryption happens locally on your machine and the key never leaves your device, only ciphertext is stored, never readable note content.',
       },
       {
         q: 'Where are encrypted notes stored?',
-        a: 'With local encryption, notes are encrypted on your machine before sync, so any server stores ciphertext rather than readable content. This does not replace good key management or secure local practices.',
+        a: 'With local encryption, notes are encrypted on your machine, so only ciphertext is ever stored rather than readable content. This does not replace good key management or secure local practices.',
       },
     ],
   },
@@ -1734,7 +1734,7 @@ ORDER BY created_at DESC;`,
       },
       {
         heading: 'Exporting results and managing connections',
-        body: `Results can be exported to CSV for further analysis in spreadsheet tools. Multiple database connections can be saved securely—your credentials are encrypted with AES-256 in local storage on your machine before any sync, so the server never sees plaintext passwords.\n\nUse the saved connections to quickly switch between development, staging, and production databases (with appropriate caution and role-based permissions on your database users).`,
+        body: `Results can be exported to CSV for further analysis in spreadsheet tools. Multiple database connections can be saved securely—your credentials are encrypted with AES-256 in a local vault on your machine, so plaintext passwords never leave your device.\n\nUse the saved connections to quickly switch between development, staging, and production databases (with appropriate caution and role-based permissions on your database users).`,
       },
       {
         heading: 'Security: credentials and encrypted storage',
@@ -2581,7 +2581,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         heading: 'Features of MyDevTools Task Manager',
-        body: `- **Add tasks quickly** — keyboard-friendly interface.\n- **Set priority levels** — high, medium, low to focus on what matters.\n- **Check off completed tasks** — visual feedback as you work.\n- **Organize by project** — keep work grouped logically.\n- **Persistent storage** — tasks sync to your account, available across devices.\n- **No bloat** — simple and focused, not a complex project management tool.`,
+        body: `- **Add tasks quickly** — keyboard-friendly interface.\n- **Set priority levels** — high, medium, low to focus on what matters.\n- **Check off completed tasks** — visual feedback as you work.\n- **Organize by project** — keep work grouped logically.\n- **Persistent storage** — tasks saved locally on your device.\n- **No bloat** — simple and focused, not a complex project management tool.`,
       },
       {
         heading: 'How to use the task manager',
@@ -2603,7 +2603,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         q: 'Are my tasks backed up?',
-        a: 'Yes, tasks sync to your account. Sign in to any device and your tasks are there.',
+        a: 'Tasks are saved locally on your device, available offline whenever you open the app.',
       },
     ],
   },
@@ -2716,7 +2716,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       },
       {
         heading: 'MyDevTools Environment Manager',
-        body: `- **Encrypted storage** — AES-256-GCM encryption locally on your machine before sync.\n- **Per-project organization** — separate vars for different apps.\n- **Environment templates** — dev/staging/prod presets.\n- **Export to .env format** — copy directly into your project.\n- **Search and filter** — find vars by key or project.`,
+        body: `- **Encrypted storage** — AES-256-GCM encryption in a local vault on your machine.\n- **Per-project organization** — separate vars for different apps.\n- **Environment templates** — dev/staging/prod presets.\n- **Export to .env format** — copy directly into your project.\n- **Search and filter** — find vars by key or project.`,
       },
       {
         heading: 'Best practices for environment secrets',
@@ -2726,7 +2726,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     faqs: [
       {
         q: 'Is it safe to store passwords in this tool?',
-        a: 'MyDevTools is a desktop app that encrypts secrets locally on your machine with AES-256 before any sync. For maximum security, use a dedicated secrets manager like 1Password, Vault, or AWS Secrets Manager.',
+        a: 'MyDevTools is a desktop app that encrypts secrets locally on your machine with AES-256. For maximum security, use a dedicated secrets manager like 1Password, Vault, or AWS Secrets Manager.',
       },
       {
         q: 'Can I share environment vars with my team?',
@@ -2812,7 +2812,7 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
     faqs: [
       {
         q: 'Is it safe to paste AWS credentials into this tool?',
-        a: 'MyDevTools is a desktop app that encrypts credentials with AES-256 locally on your machine before any sync. For maximum security, use AWS temporary credentials (STS) or bucket-specific IAM policies.',
+        a: 'MyDevTools is a desktop app that encrypts credentials with AES-256 locally on your machine. For maximum security, use AWS temporary credentials (STS) or bucket-specific IAM policies.',
       },
       {
         q: 'Can I upload large files?',

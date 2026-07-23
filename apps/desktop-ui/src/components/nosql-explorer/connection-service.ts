@@ -3,6 +3,7 @@ import { encryptData, decryptData } from "@/lib/encryption";
 import { proxyJsonAuthed } from "@/lib/backend-auth";
 import { toast } from "sonner";
 import { SavedConnection } from "./types";
+import type { DbType } from "@/lib/nosql-dialects";
 
 const BACKEND_BASE_URL: string =
     process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
@@ -47,14 +48,14 @@ export const saveConnection = async (
     connectionString: string,
     name: string = "My Connection",
     encryptionKey: CryptoKey,
-    extras: { color?: string | null; readOnly?: boolean } = {}
+    extras: { color?: string | null; readOnly?: boolean; dbType?: DbType } = {}
 ): Promise<string> => {
     const { encrypted, iv } = await encryptData(encryptionKey, connectionString);
 
     const created = await proxyRequest<ConnectionRaw>(
         "POST",
         "/api/v1/nosql/connections",
-        { encryptedData: encrypted, iv, name, color: extras.color ?? null, readOnly: extras.readOnly ?? false }
+        { encryptedData: encrypted, iv, name, color: extras.color ?? null, readOnly: extras.readOnly ?? false, dbType: extras.dbType ?? "mongodb" }
     );
     return created.id;
 };
@@ -122,7 +123,7 @@ export const updateConnectionName = async (
 export const updateConnectionDetails = async (
     _userId: string,
     connectionId: string,
-    updates: { name?: string; connectionString?: string; color?: string | null; readOnly?: boolean },
+    updates: { name?: string; connectionString?: string; color?: string | null; readOnly?: boolean; dbType?: DbType },
     encryptionKey: CryptoKey
 ): Promise<void> => {
     const patch: Record<string, unknown> = {};
@@ -135,6 +136,9 @@ export const updateConnectionDetails = async (
     }
     if (updates.readOnly !== undefined) {
         patch.readOnly = updates.readOnly;
+    }
+    if (updates.dbType !== undefined) {
+        patch.dbType = updates.dbType;
     }
     if (updates.connectionString !== undefined) {
         const { encrypted, iv } = await encryptData(encryptionKey, updates.connectionString);

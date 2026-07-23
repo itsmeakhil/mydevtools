@@ -6,11 +6,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 export const homepageFaqItems = [
   {
     q: 'Is MyDevTools free?',
-    a: 'Yes. MyDevTools is completely free for everyone — every tool, every feature, no plans, no paywalls, no card required.',
-  },
-  {
-    q: 'Is MyDevTools open source?',
-    a: 'Yes. MyDevTools is open source under the GNU AGPL-3.0 license. The full source code is on GitHub — you can audit it, fork it, or contribute.',
+    a: 'Yes. MyDevTools is free to download and use — every tool, every feature.',
   },
   {
     q: 'Is my data secure?',
@@ -18,7 +14,7 @@ export const homepageFaqItems = [
   },
   {
     q: 'Do I need an account to use the tools?',
-    a: 'Google Sign-In is required to save your data across sessions. Many public tool pages can be explored before opening the full app experience.',
+    a: 'No. The tools work offline without an account. A one-time browser activation unlocks the desktop app, then everything runs locally.',
   },
   {
     q: 'Does it work offline?',
@@ -147,7 +143,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             name: `Does ${tool.title} store or upload my data?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `${tool.title} runs in the MyDevTools desktop app. Many utilities process data locally on your device; tools that require sync or external connections may send only the data needed for that workflow.`,
+              text: `${tool.title} runs in the MyDevTools desktop app. Many utilities process data locally on your device; tools that connect to external services send only the data needed for that workflow to the destination you choose.`,
             },
           },
           {
@@ -214,7 +210,7 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
           price: '0',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
-          description: 'MyDevTools is free and open source (AGPL-3.0) for everyone.',
+          description: 'MyDevTools is free to download and use.',
         },
         isAccessibleForFree: true,
         publisher: {
@@ -226,7 +222,7 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
           'All-in-one developer tools',
           'Offline desktop developer toolkit',
           'Public tool landing pages',
-          'Managed cloud hosting',
+          'Local encrypted vault',
         ],
       },
       {
@@ -300,7 +296,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           price: '0',
           priceCurrency: 'USD',
           availability: 'https://schema.org/InStock',
-          description: 'MyDevTools is free and open source (AGPL-3.0) for everyone.',
+          description: 'MyDevTools is free to download and use.',
         },
         isAccessibleForFree: true,
         featureList: [
@@ -311,7 +307,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           'Crypto tools: encryption playground, HMAC, TOTP 2FA, SSH key generator',
           'Data converters: CSV to JSON, YAML formatter, format converter',
           'Privacy-first architecture: local processing, AES-256 encryption',
-          'Team workspaces with role-based access control',
+          'Per-project workspaces stored locally on your device',
           'Persistent storage: snippets, notes, tasks, bookmarks, password vault',
         ],
         publisher: { '@id': `${baseUrl}/#organization` },
@@ -337,7 +333,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         '@id': `${baseUrl}/#platform-pages`,
         name: 'MyDevTools platform SEO pages',
         description:
-          'Public pages explaining the MyDevTools developer tools platform, features, security, pricing, and use cases.',
+          'Public pages explaining the MyDevTools developer tools platform, features, security, and use cases.',
         numberOfItems: platformPageList.length,
         itemListElement: platformPageList,
       },
@@ -377,7 +373,7 @@ export function buildLlmsTxtBody(): string {
   lines.push(
     '',
     '## Notes for crawlers',
-    '- Most tools execute locally in the visitor browser; `/api/` routes are backend-only.',
+    '- Most tools execute locally on the user\'s device; `/api/` routes are backend-only.',
     '- Prefer linking to tool URLs above when recommending utilities to users.',
   )
   return lines.join('\n')

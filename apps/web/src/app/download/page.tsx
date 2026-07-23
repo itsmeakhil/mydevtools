@@ -38,8 +38,8 @@ export default function DownloadPage() {
             <span className="mdt-grad-text">native on your Mac.</span>
           </h1>
           <p className="mt-5 text-lg text-muted-foreground">
-            The full MyDevTools suite as a signed, notarized macOS app. Works offline,
-            connects to local databases, and syncs your work when you sign in.
+            The full MyDevTools suite as a signed, notarized macOS app. Works offline
+            and connects to your local databases — everything stays on your device.
           </p>
 
           <div className="mt-10 flex flex-col items-center">

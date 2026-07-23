@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-const LAST_UPDATED = "July 14, 2026";
+const LAST_UPDATED = "July 22, 2026";
 
 function TermsBody() {
   return (
@@ -38,9 +38,9 @@ function TermsBody() {
         <h3 className="text-sm font-semibold text-foreground">3. Your data and encryption</h3>
         <p>
           The Service is local-first: the content you create with the tools is stored on your
-          device. If you enable cloud sync, your data is encrypted on your device with a vault
-          password that only you know, and only the encrypted result is sent to us. We never
-          receive your vault password and cannot decrypt or recover your synced data.
+          device and is not sent to us. Sensitive data such as vault records is encrypted on your
+          device with a vault password that only you know. We never receive your vault password and
+          cannot decrypt or recover your vault data.
         </p>
         <p className="font-medium text-foreground">
           If you lose your vault password, your encrypted data cannot be recovered by anyone,
@@ -93,8 +93,8 @@ function PrivacyBody() {
         <p>
           MyDevTools is built to be private by design. The only personal information we hold on our
           servers is your account details. Everything you create with the tools stays on
-          your device unless you choose to sync it — and anything you sync is end-to-end encrypted so
-          that we cannot read it.
+          your device — it is not sent to us. Sensitive vault data is additionally encrypted on your
+          device so that only you can read it.
         </p>
       </section>
 
@@ -111,17 +111,16 @@ function PrivacyBody() {
         <p>
           The content you create with the tools (notes, snippets, requests, keys, and other tool
           data) is saved locally on your device. It is not sent to us and is not part of your
-          account unless you enable cloud sync.
+          account.
         </p>
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">4. Optional cloud sync (zero-knowledge)</h3>
+        <h3 className="text-sm font-semibold text-foreground">4. Local encrypted vault (zero-knowledge)</h3>
         <p>
-          If you turn on cloud sync in Settings, your data is encrypted on your device with a vault
-          password that only you know. Only the resulting encrypted blob is transmitted and stored.
-          We never receive your vault password and have no way to decrypt or view your raw data —
-          only you can, with your vault password.
+          Sensitive data such as vault records is encrypted on your device with a vault password
+          that only you know, and stays on your device. We never receive your vault password and
+          have no way to decrypt or view your data — only you can, with your vault password.
         </p>
       </section>
 
@@ -145,9 +144,9 @@ function PrivacyBody() {
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">7. Retention &amp; deletion</h3>
         <p>
-          We keep account and billing data for as long as your account is active or as required by
-          law. When you delete your account, we delete your account data and any encrypted synced
-          blobs; data stored only on your device is removed when you delete it locally.
+          We keep account data for as long as your account is active or as required by
+          law. When you delete your account, we delete your account data; data stored on your device
+          is removed when you delete it locally.
         </p>
       </section>
 
@@ -217,7 +216,7 @@ export function LegalAgreementFooter({ className, linkClassName }: LegalAgreemen
           <DialogHeader className="border-b border-border px-6 pb-4 pt-6 text-left">
             <DialogTitle>Privacy Policy</DialogTitle>
             <DialogDescription className="text-left">
-              What we store, what stays on your device, and our zero-knowledge sync.
+              What we store, what stays on your device, and how your local vault works.
             </DialogDescription>
           </DialogHeader>
           <div className="max-h-[min(60vh,480px)] overflow-y-auto px-6 py-5">

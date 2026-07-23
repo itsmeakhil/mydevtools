@@ -546,7 +546,7 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     if (!tool) {
         return {
             title: 'Developer Tool - MyDevTools',
-            description: 'Online developer tools and utilities.',
+            description: 'Desktop developer tools and utilities.',
         }
     }
 
@@ -643,8 +643,8 @@ export function generatePageMetadata(opts: {
 // Base site metadata
 export const siteMetadata = {
     name: 'MyDevTools',
-    title: 'MyDevTools: 60+ Developer Tools + SQL/NoSQL/Redis Client',
-    description: 'All-in-one developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 60 utilities (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Open source, privacy-first, client-side processing.',
+    title: 'MyDevTools: 80+ Developer Tools + SQL/NoSQL/Redis Client',
+    description: 'All-in-one desktop developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 80+ tools (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Offline, privacy-first, local processing.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — Developer Toolkit', 'SQL + NoSQL + Redis client + 60 developer tools in one workspace. Privacy-first, open source.'),
+    ogImage: ogImageUrl('MyDevTools — Developer Toolkit', 'SQL + NoSQL + Redis client + 80+ developer tools in one desktop workspace. Offline, privacy-first.'),
 }

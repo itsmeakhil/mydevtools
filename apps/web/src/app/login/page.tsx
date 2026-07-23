@@ -84,7 +84,7 @@ export default function LoginPage() {
             <span className="mdt-grad-text mdt-grad-anim">one tab away.</span>
           </h1>
           <p className="mt-5 max-w-md text-pretty text-base leading-relaxed text-muted-foreground">
-            Sign in to sync your work across devices and pick up exactly where you left off.
+            Sign in to activate the desktop app. Your tools and data stay local on your device.
           </p>
 
           <ul className="mt-10 space-y-5">

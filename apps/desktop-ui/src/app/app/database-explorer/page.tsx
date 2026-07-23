@@ -454,7 +454,7 @@ export default function NoSQLExplorerPage() {
         handleRefresh();
     };
 
-    const handleLoadSchema = useCallback(async () => {
+    const handleLoadSchema = useCallback(async (opts?: { sampleMode: string; sampleSize: number }) => {
         if (!activeTab) throw new Error("No active tab");
         const conn = await getConnectionForTab(activeTab);
 
@@ -465,6 +465,8 @@ export default function NoSQLExplorerPage() {
                 connectionString: conn.connectionString,
                 dbName: activeTab.dbName,
                 collectionName: activeTab.collectionName,
+                sampleMode: opts?.sampleMode ?? "random",
+                sampleSize: opts?.sampleSize ?? 200,
             }),
         });
         const data = await res.json();

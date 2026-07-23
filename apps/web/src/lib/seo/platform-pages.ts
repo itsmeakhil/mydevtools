@@ -52,7 +52,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         bullets: [
           'Use related tools from one dashboard and command palette.',
           'Keep every utility available offline on your machine — no network required.',
-          'Sync your work across devices with an account when you want continuity.',
+          'Organize work into per-project workspaces, all stored locally on your device.',
         ],
       },
       {
@@ -71,14 +71,14 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'features',
     title: 'Developer Toolkit Features',
     description:
-      'Explore MyDevTools features: unified dashboard, command palette, team workspaces with role-based access, offline desktop tools, secure sync, and managed cloud hosting.',
+      'Explore MyDevTools features: unified dashboard, command palette, per-project workspaces, offline desktop tools, and a local encrypted vault for sensitive data.',
     keywords: [
       'developer toolkit features',
       'desktop developer tools features',
       'offline developer dashboard',
       'developer tools command palette',
-      'team workspaces developer tools',
-      'role based access developer tools',
+      'local first developer tools',
+      'private developer tools',
     ],
     eyebrow: 'Features',
     heading: 'Features built for fast, private developer workflows',
@@ -98,13 +98,13 @@ export const platformSeoPages: PlatformSeoPage[] = [
         ],
       },
       {
-        title: 'Team workspaces with roles',
+        title: 'Per-project workspaces',
         body:
-          'Create organizations and shared workspaces, invite teammates, and give each person the right level of access — no more pasting secrets over chat.',
+          'Keep each project in its own workspace — separate tools, notes, snippets, and vaults — and switch between them in a click. Everything stays local on your device.',
         bullets: [
-          'Organizations group your workspaces; switch between personal and team context in one click.',
-          'Four roles — owner, admin, developer, viewer — control who can manage members and which tools each role can use.',
-          'Bookmarks, notes, snippets, and connections are scoped per workspace, so team data stays with the team.',
+          'Bookmarks, notes, snippets, and connections are scoped per workspace.',
+          'Switch between personal and project context instantly.',
+          'Shared team workspaces and collaboration are on the roadmap.',
         ],
       },
       {
@@ -118,13 +118,13 @@ export const platformSeoPages: PlatformSeoPage[] = [
         ],
       },
       {
-        title: 'Free and open source',
+        title: 'Private by default',
         body:
-          'MyDevTools is free for everyone and open source under AGPL-3.0.',
+          'Local-first tools process your data on your machine, and sensitive records live in a local encrypted vault.',
         bullets: [
-          'Every tool is free — no plans, no paywalls, no card required.',
-          'The full source code is on GitHub; audit it, fork it, contribute to it.',
-          'Everything runs offline on your device — no cloud dependency.',
+          'Formatters, parsers, and generators run on-device with no server round-trip.',
+          'Secrets and credentials are AES-256 encrypted in a local vault.',
+          'Tools that reach a network only contact the destinations you choose.',
         ],
       },
     ],
@@ -133,7 +133,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'security',
     title: 'Security and Privacy',
     description:
-      'Learn how MyDevTools handles security, client-side encryption, zero-knowledge vault data, local on-device processing, account sync, and encrypted data handling.',
+      'Learn how MyDevTools handles security: local on-device processing, a local encrypted vault, and clear boundaries for tools that reach the destinations you choose.',
     keywords: [
       'developer tools security',
       'zero knowledge developer tools',
@@ -158,63 +158,23 @@ export const platformSeoPages: PlatformSeoPage[] = [
         ],
       },
       {
-        title: 'Encrypted sync',
+        title: 'Local encrypted vault',
         body:
-          'Sensitive persisted data such as vault-style records is encrypted on your device before sync.',
+          'Sensitive persisted data such as vault-style records is encrypted at rest on your device.',
         bullets: [
-          'The server stores ciphertext and metadata required for sync, not readable vault plaintext.',
-          'Your master password is not transmitted for vault unlock flows.',
-          'Encryption keys derive from your master password, which the server never receives.',
+          'Vault contents are AES-256 encrypted on your machine, not stored on a server.',
+          'Your master password is never transmitted and never leaves your device.',
+          'Encryption keys derive from your master password, which nothing else receives.',
         ],
       },
       {
         title: 'Honest limits',
         body:
-          'Security depends on your device, the deployment, and the external services you choose to connect.',
+          'Security depends on your device and the external services you choose to connect.',
         bullets: [
           'Do not paste highly sensitive production secrets into tools you do not control.',
-          'Sensitive vault data is encrypted client-side before it syncs to our cloud.',
+          'API and database tools send requests to the destinations you point them at.',
           'Review our security model and data handling before team-wide adoption.',
-        ],
-      },
-    ],
-  },
-  {
-    slug: 'pricing',
-    title: 'Free & Open Source',
-    description:
-      'MyDevTools is free and open source under AGPL-3.0. One offline desktop app, all 80+ tools, your data stays on your device.',
-    keywords: [
-      'free developer tools',
-      'open source developer tools',
-      'open source desktop developer toolkit',
-      'offline developer tools free',
-    ],
-    eyebrow: 'Free & open source',
-    heading: 'Free for everyone. Open source forever.',
-    intro:
-      'MyDevTools is free and open source under AGPL-3.0. Every tool in the offline desktop app is available to everyone — no plans, no paywalls, no card.',
-    primaryCta: { href: '/download', label: 'Download for free' },
-    secondaryCta: { href: 'https://github.com/mydevtools-tech/mydevtools', label: 'View source on GitHub' },
-    sections: [
-      {
-        title: 'Free forever',
-        body:
-          'All 80+ tools ship in one desktop app that runs fully offline on your device. There is nothing to unlock and nothing to subscribe to.',
-        bullets: [
-          'Every tool, every feature — free for individuals and teams.',
-          'Fully offline and local-first; your data stays on your device.',
-          'No card, no trial, no upsell.',
-        ],
-      },
-      {
-        title: 'Open source under AGPL-3.0',
-        body:
-          'The entire codebase is public on GitHub. Audit the code your secrets pass through, fork it, or help build it.',
-        bullets: [
-          'Licensed under GNU AGPL-3.0.',
-          'Issues and pull requests welcome on GitHub.',
-          'Star the repo to follow releases.',
         ],
       },
     ],
@@ -264,7 +224,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
           'Use MyDevTools for repeatable operational checks, secure workflow notes, and learning-friendly utilities.',
         bullets: [
           'Generate Docker Compose starters, secrets, and environment helpers.',
-          'Share team workspaces with role-based access for internal workflows or classrooms.',
+          'Keep each project in its own local workspace with separate tools, notes, and secrets.',
           'Use one searchable toolkit instead of a long list of single-purpose websites.',
         ],
       },

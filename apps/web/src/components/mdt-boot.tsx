@@ -17,7 +17,7 @@ const CODE: { t: string; accent?: boolean }[] = [
   { t: "[init ] next 16 · react 19 ........ ready" },
   { t: "[net  ] api.mydevtools.tech ....... 200" },
   { t: "[db   ] sql · mongo · redis ....... online" },
-  { t: "[tools] registered 60 utilities ... ok" },
+  { t: "[tools] registered 80 utilities ... ok" },
   { t: "[vault] aes-256 zero-knowledge .... sealed" },
   { t: "[gpu  ] compiling aurora shaders .. ok" },
   { t: "[cache] prefetch routes ........... warm" },
