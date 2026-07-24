@@ -250,10 +250,10 @@ def root() -> HTMLResponse:
       </header>
 
       <main class="container hero">
-        <h1>Minimal, production-ready API starter.</h1>
+        <h1>Auth-only backend.</h1>
         <p>
-          This service exposes health and auth helpers and includes task/project/bookmark modules
-          designed to mirror the existing Firebase payload shape in your web app.
+          This service exposes health and authentication helpers. All tool data lives
+          on the user's device — the desktop app stores it locally, so there are no CRUD endpoints here.
         </p>
 
         <div class="actions">
@@ -264,15 +264,15 @@ def root() -> HTMLResponse:
         <div class="grid">
           <div class="card">
             <h3>Auth</h3>
-            <p>Verify Firebase ID tokens and fetch current user profile.</p>
+            <p>Verify Firebase ID tokens and fetch the current user profile.</p>
           </div>
           <div class="card">
-            <h3>Tasks</h3>
-            <p>Paginated list, status updates, and export/import parity.</p>
+            <h3>Passkeys</h3>
+            <p>WebAuthn register/login and credential management.</p>
           </div>
           <div class="card">
-            <h3>Bookmarks</h3>
-            <p>Folders + bookmarks with upsert import and move/delete actions.</p>
+            <h3>Health</h3>
+            <p>Liveness probe at /api/v1/health.</p>
           </div>
         </div>
       </main>
