@@ -1922,6 +1922,7 @@
     "importDialog": {
       "title": "Import from existing tools",
       "loading": "Looking for connections in Database Explorer and Redis Commander…",
+      "notReady": "Still loading your existing connections — try again in a moment.",
       "empty": "No connections found in Database Explorer or Redis Commander.",
       "allSkipped": "{count, plural, one {# connection has} other {# connections have}} already been imported. Nothing new to bring in.",
       "previewHeading": "{count, plural, one {# connection} other {# connections}} will be imported:",

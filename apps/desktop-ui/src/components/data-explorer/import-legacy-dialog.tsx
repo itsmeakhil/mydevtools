@@ -29,8 +29,16 @@ import type { UnifiedConnection } from "./types";
 interface ImportLegacyDialogProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
-    /** Current unified connections, used to dedupe by (sourceId, name). */
+    /** Current unified connections, used to dedupe by (sourceId, name, config). */
     existing: UnifiedConnection[];
+    /**
+     * True once the shell's own connection list has genuinely finished
+     * loading (see `page.tsx`'s `connectionsLoaded`). A failed or in-flight
+     * load leaves `existing` stale or empty — deduping against that would
+     * silently re-import connections the user already has, so the dialog
+     * refuses to fetch legacy candidates until this is true.
+     */
+    connectionsLoaded: boolean;
     onImported: () => void;
 }
 
@@ -39,9 +47,15 @@ interface ImportLegacyDialogProps {
  * Commander into the unified store. Both legacy stores are read-only here —
  * this never writes to or deletes from them, so the old tools keep working
  * unchanged. Re-running it is safe: `dedupeAgainstExisting` skips anything
- * already imported by (sourceId, name).
+ * already imported by (sourceId, name, config).
  */
-export function ImportLegacyDialog({ open, onOpenChange, existing, onImported }: ImportLegacyDialogProps) {
+export function ImportLegacyDialog({
+    open,
+    onOpenChange,
+    existing,
+    connectionsLoaded,
+    onImported,
+}: ImportLegacyDialogProps) {
     const t = useTranslations("DataExplorer");
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
@@ -55,6 +69,13 @@ export function ImportLegacyDialog({ open, onOpenChange, existing, onImported }:
         if (!open) return;
         setCandidates([]);
         setSkipped(0);
+        // The unified list hasn't genuinely loaded yet — `existing` cannot be
+        // trusted for dedupe, so don't fetch legacy candidates against it.
+        // The effect re-runs once `connectionsLoaded` flips true.
+        if (!connectionsLoaded) {
+            setLoading(false);
+            return;
+        }
         if (!user || !encryptionKey) return;
 
         let cancelled = false;
@@ -89,9 +110,12 @@ export function ImportLegacyDialog({ open, onOpenChange, existing, onImported }:
                 if (cancelled) return;
                 setCandidates(toImport);
                 setSkipped(skippedCount);
-            } catch (e) {
+            } catch {
+                // Never surface the raw error: this flow reads decrypted
+                // credentials, so an uncontrolled message is a risk, not just
+                // an i18n gap.
                 if (cancelled) return;
-                toast.error(e instanceof Error ? e.message : t("toast.legacyImportFailed"));
+                toast.error(t("toast.legacyImportFailed"));
                 onOpenChange(false);
             } finally {
                 if (!cancelled) setLoading(false);
@@ -104,10 +128,10 @@ export function ImportLegacyDialog({ open, onOpenChange, existing, onImported }:
         // Re-run only when the dialog opens or its inputs change identity —
         // not on every `existing` array reference from a parent re-render.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [open, user, encryptionKey]);
+    }, [open, user, encryptionKey, connectionsLoaded]);
 
     async function handleConfirm() {
-        if (!encryptionKey || candidates.length === 0) return;
+        if (!encryptionKey || candidates.length === 0 || !connectionsLoaded) return;
         setImporting(true);
         let imported = 0;
         let failed = 0;
@@ -121,7 +145,10 @@ export function ImportLegacyDialog({ open, onOpenChange, existing, onImported }:
             }
         }
         setImporting(false);
-        toast.success(t("toast.legacyImportResult", { imported, skipped, failed }));
+        const message = t("toast.legacyImportResult", { imported, skipped, failed });
+        // A total failure is not a success — say so.
+        if (imported === 0 && failed > 0) toast.error(message);
+        else toast.success(message);
         onImported();
         onOpenChange(false);
     }
@@ -136,6 +163,10 @@ export function ImportLegacyDialog({ open, onOpenChange, existing, onImported }:
                 {loading ? (
                     <p className="py-6 text-center text-sm text-muted-foreground">
                         {t("importDialog.loading")}
+                    </p>
+                ) : !connectionsLoaded ? (
+                    <p className="py-6 text-center text-sm text-muted-foreground">
+                        {t("importDialog.notReady")}
                     </p>
                 ) : candidates.length === 0 ? (
                     <p className="py-6 text-center text-sm text-muted-foreground">
@@ -177,7 +208,7 @@ export function ImportLegacyDialog({ open, onOpenChange, existing, onImported }:
                     </Button>
                     <Button
                         onClick={() => void handleConfirm()}
-                        disabled={loading || importing || candidates.length === 0}
+                        disabled={loading || importing || candidates.length === 0 || !connectionsLoaded}
                     >
                         {importing
                             ? t("importDialog.importing")

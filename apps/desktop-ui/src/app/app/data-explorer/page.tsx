@@ -284,6 +284,7 @@ export default function DataExplorerPage() {
                 open={importDialogOpen}
                 onOpenChange={setImportDialogOpen}
                 existing={connections}
+                connectionsLoaded={connectionsLoaded}
                 onImported={() => void reloadConnections()}
             />
         </div>

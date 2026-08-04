@@ -46,16 +46,45 @@ export function legacyRedisToUnified(
     };
 }
 
-/** Re-import is safe: an already-imported (sourceId, name) pair is skipped. */
+/**
+ * The one field that makes two same-named connections distinct, pulled from
+ * whichever adapter config shape is present. A structural check on the
+ * config's own fields, not a branch on sourceId — legacy Mongo defaults every
+ * unnamed row's name to "My Connection" (nosql-explorer/connection-service.ts),
+ * so name alone is not enough to tell two rows apart.
+ */
+function configDiscriminator(config: unknown): string {
+    if (config && typeof config === "object") {
+        const c = config as Record<string, unknown>;
+        if (typeof c.connectionString === "string") return c.connectionString;
+        if (typeof c.redisUrl === "string") return c.redisUrl;
+    }
+    return "";
+}
+
+/** Comparison-only normalisation — never mutates the name that gets stored. */
+function normalizeName(name: string): string {
+    return name.trim().toLowerCase();
+}
+
+function dedupeKey(sourceId: string, name: string, config: unknown): string {
+    return `${sourceId}:${normalizeName(name)}:${configDiscriminator(config)}`;
+}
+
+/**
+ * Re-import is safe: an already-imported (sourceId, name, config) triple is
+ * skipped. Also resolves duplicates within a single batch (two same-named,
+ * same-config rows from the same legacy store) via the `seen.add` below.
+ */
 export function dedupeAgainstExisting(
     candidates: LegacyCandidate[],
     existing: UnifiedConnection[]
 ): { toImport: LegacyCandidate[]; skipped: number } {
-    const seen = new Set(existing.map((c) => `${c.sourceId}:${c.name}`));
+    const seen = new Set(existing.map((c) => dedupeKey(c.sourceId, c.name, c.config)));
     const toImport: LegacyCandidate[] = [];
     let skipped = 0;
     for (const candidate of candidates) {
-        const key = `${candidate.sourceId}:${candidate.values.name}`;
+        const key = dedupeKey(candidate.sourceId, candidate.values.name, candidate.values.config);
         if (seen.has(key)) {
             skipped++;
             continue;
