@@ -9,7 +9,14 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { SOURCES, SOURCE_ORDER, getAdapter } from "./sources";
@@ -34,13 +41,23 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
 
     useEffect(() => {
         if (!open) return;
-        setSourceId(editing?.sourceId ?? null);
+        // Creating defaults to the first registered source so the dialog opens
+        // ready to type. Editing pins the connection's own source — changing
+        // what kind of database an existing connection is was never coherent.
+        setSourceId(editing?.sourceId ?? SOURCE_ORDER[0] ?? null);
         setError(null);
         setSaving(false);
         setTestState("idle");
     }, [open, editing]);
 
     const adapter = sourceId ? getAdapter(sourceId) : null;
+
+    /** Switching source discards any error or test result from the previous one. */
+    function handleSourceChange(next: SourceId) {
+        setSourceId(next);
+        setError(null);
+        setTestState("idle");
+    }
 
     /**
      * Explicit, optional user action. Saving never waits on it — a rename or a
@@ -108,31 +125,43 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
                     </DialogTitle>
                 </DialogHeader>
 
-                {!adapter ? (
-                    <div className="space-y-2">
-                        <p className="text-sm text-muted-foreground">
-                            {t("connectionDialog.pickSource")}
-                        </p>
-                        <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-1.5">
+                    <Label htmlFor="data-explorer-source">
+                        {t("connectionDialog.pickSource")}
+                    </Label>
+                    <Select
+                        value={sourceId ?? undefined}
+                        onValueChange={handleSourceChange}
+                        // Editing pins the source: an existing connection cannot
+                        // change what kind of database it points at.
+                        disabled={!!editing || saving}
+                    >
+                        <SelectTrigger id="data-explorer-source" className="w-full">
+                            <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
                             {SOURCE_ORDER.map((id) => {
                                 const candidate = SOURCES[id];
                                 const Icon = candidate.icon;
                                 return (
-                                    <Button
-                                        key={id}
-                                        variant="outline"
-                                        className="h-auto justify-start gap-2 py-3"
-                                        onClick={() => setSourceId(id)}
-                                    >
-                                        <Icon className={cn("size-5", candidate.accent)} />
-                                        <span>{candidate.label}</span>
-                                    </Button>
+                                    <SelectItem key={id} value={id}>
+                                        <span className="flex items-center gap-2">
+                                            <Icon className={cn("size-4", candidate.accent)} />
+                                            {/* Proper noun — never translated. */}
+                                            {candidate.label}
+                                        </span>
+                                    </SelectItem>
                                 );
                             })}
-                        </div>
-                    </div>
-                ) : (
+                        </SelectContent>
+                    </Select>
+                </div>
+
+                {adapter && (
                     <adapter.ConnectionForm
+                        // Remount on source change so no field carries over
+                        // from the previous adapter's form.
+                        key={adapter.id}
                         initial={{
                             name: editing?.name ?? "",
                             folder: editing?.folder ?? "",
