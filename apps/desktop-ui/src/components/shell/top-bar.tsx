@@ -75,8 +75,9 @@ export function TopBar() {
       data-tauri-drag-region
       className={cn(
         'flex h-14 w-full shrink-0 items-center gap-3 border-b border-border bg-[hsl(var(--surface-2))]',
-        !isTauri ? 'px-4' : isFullscreen ? 'pl-4 pr-6' : 'pl-[74px] pr-6',
+        !isTauri ? 'px-4' : 'pr-6',
       )}
+      style={isTauri ? { paddingLeft: isFullscreen ? 16 : 92 } : undefined}
     >
       {/* Brand → dashboard. Text wordmark in Courier Prime, no logo mark. */}
       <button
