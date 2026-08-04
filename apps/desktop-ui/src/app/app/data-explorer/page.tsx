@@ -39,7 +39,7 @@ export default function DataExplorerPage() {
         try {
             setConnections(await listConnections(encryptionKey));
         } catch (e) {
-            toast.error(e instanceof Error ? e.message : "Could not load connections");
+            toast.error(e instanceof Error ? e.message : t("toast.loadFailed"));
         }
     }, [user, encryptionKey]);
 
@@ -47,8 +47,7 @@ export default function DataExplorerPage() {
         void reloadConnections();
     }, [reloadConnections]);
 
-    // Restore tabs. Structural fields only — adapter `state` is rehydrated by
-    // the pane on activation, so a stale payload can't blow the storage quota.
+    // Restore tabs, adapter `state` included.
     useEffect(() => {
         if (!user) return;
         const raw = localStorage.getItem(`data_explorer_tabs_${user.uid}`);
@@ -64,6 +63,10 @@ export default function DataExplorerPage() {
         setIsInitialized(true);
     }, [user]);
 
+    // Persists the whole tab array, adapter `state` included — that is what
+    // restores a Mongo tab's page/query/sort across sessions. Adapter state is
+    // contractually structural-only: fetched rows live in the adapter's actions
+    // hook, never on the tab, so this stays far below the localStorage quota.
     useEffect(() => {
         if (!isInitialized || !user) return;
         const key = `data_explorer_tabs_${user.uid}`;

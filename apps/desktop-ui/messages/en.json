@@ -1911,7 +1911,8 @@
       "saved": "Connection saved",
       "deleted": "Connection deleted",
       "saveFailed": "Could not save the connection",
-      "deleteFailed": "Could not delete the connection"
+      "deleteFailed": "Could not delete the connection",
+      "loadFailed": "Could not load connections"
     }
   },
   "ApiClient": {
