@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Settings, LogOut, User as UserIcon, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
@@ -79,25 +78,17 @@ export function TopBar() {
         !isTauri ? 'px-4' : isFullscreen ? 'pl-4 pr-6' : 'pl-[74px] pr-6',
       )}
     >
-      {/* Brand → dashboard. Wordmark only — no logo mark. */}
+      {/* Brand → dashboard. Text wordmark in Courier Prime, no logo mark. */}
       <button
         onClick={() => router.push('/dashboard')}
-        className="flex shrink-0 items-center gap-2.5 rounded-md px-1.5 py-1.5 transition-colors hover:bg-foreground/[0.06]"
+        className="flex shrink-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-foreground/[0.06]"
         aria-label="Go to dashboard"
       >
-        <span className="relative block h-8 w-40">
-          <Image
-            src="/logo-text-light.png"
-            alt="MyDevTools"
-            fill
-            className="object-contain object-left dark:hidden"
-          />
-          <Image
-            src="/logo-text-dark.png"
-            alt="MyDevTools"
-            fill
-            className="hidden object-contain object-left dark:block"
-          />
+        <span
+          className="text-[15px] font-bold leading-none tracking-wide"
+          style={{ fontFamily: 'var(--font-courier-prime), ui-monospace, monospace' }}
+        >
+          mydevtools.tech
         </span>
       </button>
 
