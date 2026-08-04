@@ -1919,6 +1919,16 @@
       "save": "Save",
       "cancel": "Cancel"
     },
+    "importDialog": {
+      "title": "Import from existing tools",
+      "loading": "Looking for connections in Database Explorer and Redis Commander…",
+      "empty": "No connections found in Database Explorer or Redis Commander.",
+      "allSkipped": "{count, plural, one {# connection has} other {# connections have}} already been imported. Nothing new to bring in.",
+      "previewHeading": "{count, plural, one {# connection} other {# connections}} will be imported:",
+      "skippedNote": "{count, plural, one {# connection was} other {# connections were}} already imported and will be skipped.",
+      "importing": "Importing…",
+      "confirm": "Import {count, plural, one {# connection} other {# connections}}"
+    },
     "toast": {
       "saved": "Connection saved",
       "deleted": "Connection deleted",
@@ -1926,7 +1936,9 @@
       "deleteFailed": "Could not delete the connection",
       "loadFailed": "Could not load connections",
       "fetchFailed": "Failed to fetch documents for {collection}",
-      "docDeleted": "Document deleted"
+      "docDeleted": "Document deleted",
+      "legacyImportFailed": "Could not read existing connections from Database Explorer or Redis Commander",
+      "legacyImportResult": "{imported, plural, =0 {No new connections imported} one {Imported # connection} other {Imported # connections}}{skipped, plural, =0 {} other {, # already imported}}{failed, plural, =0 {} other {, # failed}}"
     },
     "validation": {
       "connectionStringRequired": "Enter a connection string.",

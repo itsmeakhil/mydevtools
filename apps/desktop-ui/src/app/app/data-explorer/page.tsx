@@ -14,6 +14,7 @@ import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton";
 import { UnifiedTabBar } from "@/components/data-explorer/unified-tab-bar";
 import { ConnectionDialog } from "@/components/data-explorer/connection-dialog";
+import { ImportLegacyDialog } from "@/components/data-explorer/import-legacy-dialog";
 import { UnifiedSidebar } from "@/components/data-explorer/unified-sidebar";
 import { listConnections, touchConnection } from "@/components/data-explorer/connection-service";
 import { getAdapter } from "@/components/data-explorer/sources";
@@ -37,7 +38,6 @@ export default function DataExplorerPage() {
     const [isInitialized, setIsInitialized] = useState(false);
     const [connectionDialogOpen, setConnectionDialogOpen] = useState(false);
     const [editingConnection, setEditingConnection] = useState<UnifiedConnection | null>(null);
-    // Consumed by the legacy-import dialog in Task 14.
     const [importDialogOpen, setImportDialogOpen] = useState(false);
     /** True once a connection fetch has *succeeded*. Gates tab pruning. */
     const [connectionsLoaded, setConnectionsLoaded] = useState(false);
@@ -279,6 +279,12 @@ export default function DataExplorerPage() {
                 }}
                 editing={editingConnection}
                 onSaved={() => void reloadConnections()}
+            />
+            <ImportLegacyDialog
+                open={importDialogOpen}
+                onOpenChange={setImportDialogOpen}
+                existing={connections}
+                onImported={() => void reloadConnections()}
             />
         </div>
     );
