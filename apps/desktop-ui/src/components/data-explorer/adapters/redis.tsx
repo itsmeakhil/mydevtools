@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { apiFetch } from "@/lib/desktop/api-fetch";
+import { sanitizeError } from "@/lib/nosql-error-sanitizer";
 import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
 import type { ConnectionFormProps, SourceAdapter } from "../types";
 
@@ -58,17 +59,48 @@ function validate(config: RedisConfig): string | null {
     return null;
 }
 
-/** Strip credentials before any message reaches the UI. */
-function sanitizeRedisError(message: string, redisUrl: string): string {
+function safeDecode(value: string): string {
+    try {
+        return decodeURIComponent(value);
+    } catch {
+        return value;
+    }
+}
+
+/**
+ * Strip credentials before any message reaches the UI. Fail-CLOSED: every
+ * path runs the message through regex scrubbing first, so a message survives
+ * sanitised even when `redisUrl` is too malformed for `new URL()` to parse —
+ * `validate()` only checks the scheme, not full URL well-formedness, so that
+ * case is reachable.
+ */
+export function sanitizeRedisError(message: string, redisUrl: string): string {
+    // 1. Scrub any redis(s):// URL in the message wholesale — mirrors
+    //    nosql-error-sanitizer's mongodb pattern — so the whole URL never
+    //    survives regardless of what credentials it embeds.
+    let out = message.replace(/rediss?:\/\/[^/\s]+(\/[^\s]*)*/gi, "redis://***SANITIZED***");
+    // 2. Generic `user:password@` and email-style-username scrub shared with
+    //    the Mongo adapter.
+    out = sanitizeError(out);
+
+    // 3. Best-effort extra layer: strip this connection's specific
+    //    credentials in both their raw and percent-encoded forms, in case one
+    //    leaked into the message outside URL shape (e.g. a driver echoing
+    //    just the password). Additive only — steps 1-2 already sanitised
+    //    `out` unconditionally, so a parse failure here changes nothing.
     try {
         const parsed = new URL(redisUrl);
-        let out = message;
-        if (parsed.password) out = out.split(parsed.password).join("***");
-        if (parsed.username) out = out.split(parsed.username).join("***");
-        return out;
+        for (const encoded of [parsed.username, parsed.password]) {
+            if (!encoded) continue;
+            const decoded = safeDecode(encoded);
+            out = out.split(encoded).join("***").split(decoded).join("***");
+        }
     } catch {
-        return message;
+        // redisUrl itself didn't parse — nothing more to strip; `out` is
+        // already sanitised by steps 1-2.
     }
+
+    return out;
 }
 
 async function testConnection(config: RedisConfig): Promise<void> {

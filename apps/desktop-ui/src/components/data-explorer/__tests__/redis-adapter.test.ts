@@ -4,7 +4,7 @@
 // mongodb-adapter.test.ts and sources.test.ts).
 jest.mock("next-intl", () => ({ useTranslations: () => (k: string) => k }))
 
-import { redisAdapter, buildRedisUrl } from "../adapters/redis";
+import { redisAdapter, buildRedisUrl, sanitizeRedisError } from "../adapters/redis";
 
 describe("buildRedisUrl", () => {
     const base = { host: "", port: "", username: "", password: "", db: "", tls: false };
@@ -60,5 +60,54 @@ describe("redis adapter", () => {
     it("identifies itself consistently", () => {
         expect(redisAdapter.id).toBe("redis");
         expect(redisAdapter.label).toBe("Redis");
+    });
+});
+
+describe("sanitizeRedisError", () => {
+    // CRITICAL regression: the old implementation failed OPEN — when
+    // `new URL(redisUrl)` threw, the catch returned the raw, unsanitized
+    // message. `validate()` only checks the scheme regex, not full URL
+    // well-formedness, so a `redisUrl` that clears validation can still
+    // blow up `new URL()` (e.g. a non-numeric port).
+    it("still strips credentials when redisUrl fails to parse", () => {
+        // Passes validate()'s scheme check but is invalid to `new URL()`
+        // (non-numeric port) — this is the exact fail-open trigger.
+        expect(() => new URL("redis://host:notaport")).toThrow();
+        expect(redisAdapter.validate({ redisUrl: "redis://host:notaport" })).toBeNull();
+
+        const message = "connect ECONNREFUSED to redis://admin:hunter2@host:notaport";
+        const result = sanitizeRedisError(message, "redis://host:notaport");
+        expect(result).not.toContain("hunter2");
+        expect(result).not.toContain("admin");
+    });
+
+    // A password containing a character that percent-encodes (@) must be
+    // stripped whichever form (raw or encoded) it shows up in — the old
+    // implementation only stripped the exact encoded value `new URL()`
+    // yields, so a driver echoing the raw password would slip through.
+    it("strips a credential in both its raw and percent-encoded form", () => {
+        const redisUrl = buildRedisUrl({
+            host: "h", port: "6379", username: "u", password: "p@ss", db: "", tls: false,
+        });
+        expect(redisUrl).toBe("redis://u:p%40ss@h:6379");
+
+        const rawLeak = sanitizeRedisError("auth failed for password p@ss", redisUrl);
+        expect(rawLeak).not.toContain("p@ss");
+
+        const encodedLeak = sanitizeRedisError("auth failed for password p%40ss", redisUrl);
+        expect(encodedLeak).not.toContain("p%40ss");
+    });
+
+    it("strips a plain redis:// URL's username and password from a message", () => {
+        const message = "connect ECONNREFUSED at redis://user:pass@host:6379";
+        const result = sanitizeRedisError(message, "redis://user:pass@host:6379");
+        expect(result).not.toContain("user:pass");
+        expect(result).not.toContain("user");
+        expect(result).not.toContain("pass");
+    });
+
+    it("passes through a message with no URL in it, still readable", () => {
+        const message = "ECONNREFUSED 127.0.0.1:6379";
+        expect(sanitizeRedisError(message, "redis://localhost:6379")).toBe(message);
     });
 });
