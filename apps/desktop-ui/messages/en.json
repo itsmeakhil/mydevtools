@@ -1922,7 +1922,9 @@
       "deleted": "Connection deleted",
       "saveFailed": "Could not save the connection",
       "deleteFailed": "Could not delete the connection",
-      "loadFailed": "Could not load connections"
+      "loadFailed": "Could not load connections",
+      "fetchFailed": "Failed to fetch documents for {collection}",
+      "docDeleted": "Document deleted"
     },
     "validation": {
       "connectionStringRequired": "Enter a connection string.",
