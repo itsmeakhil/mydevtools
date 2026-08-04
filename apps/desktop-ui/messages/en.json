@@ -1950,8 +1950,6 @@
       "tls": "Use TLS (rediss://)",
       "dbLabel": "db {index}",
       "noMatches": "No matching databases",
-      "db": "DB",
-      "selectDatabase": "Select database (0-15)",
       "tabKeyEditor": "Key Editor",
       "tabConsole": "Console",
       "tabServer": "Server",

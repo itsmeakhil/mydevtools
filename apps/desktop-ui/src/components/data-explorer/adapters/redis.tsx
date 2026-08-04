@@ -28,7 +28,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -169,7 +168,6 @@ function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
     const [name, setName] = useState(initial.name);
     const [folder, setFolder] = useState(initial.folder ?? "");
     const [color, setColor] = useState<string | null>(initial.color ?? null);
-    const [readOnly, setReadOnly] = useState(initial.readOnly ?? false);
 
     const [mode, setMode] = useState<"url" | "builder">("url");
     const [redisUrl, setRedisUrl] = useState(initial.config.redisUrl);
@@ -189,7 +187,9 @@ function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
             mode === "builder"
                 ? buildRedisUrl({ host, port, username, password, db: dbIdx, tls: useTls })
                 : redisUrl.trim();
-        onSubmit({ name, folder, color, readOnly, config: { redisUrl: url } });
+        // `readOnly` is passed through untouched, never edited here — see the
+        // note where the switch used to be.
+        onSubmit({ name, folder, color, readOnly: initial.readOnly, config: { redisUrl: url } });
     }
 
     return (
@@ -338,13 +338,16 @@ function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
                 </div>
             </div>
 
-            <div className="flex items-center justify-between rounded-lg border p-3">
-                <div className="space-y-0.5 pr-3">
-                    <Label className="text-xs font-medium">{t("readOnly")}</Label>
-                    <p className="text-[10px] text-muted-foreground">{t("readOnlyHint")}</p>
-                </div>
-                <Switch checked={readOnly} onCheckedChange={setReadOnly} disabled={saving} />
-            </div>
+            {/* No read-only switch for Redis. `connectionDialog.readOnlyHint`
+                promises "blocks every write operation", and this adapter cannot
+                keep that promise: ValueEditor (save/delete/rename/copy) and
+                CommandPanel (arbitrary DEL / FLUSHALL) live in
+                components/redis-commander/ and accept no `readOnly` prop, so the
+                flag would only hide Flush and BulkActions. The field itself stays
+                in the data model — an already-read-only connection keeps that
+                partial gating in the pane. Restore this switch when
+                value-editor.tsx, command-panel.tsx and bulk-actions.tsx all
+                accept a `readOnly` prop. */}
 
             {error && (
                 <div className="rounded-md bg-destructive/10 p-3 text-sm font-medium text-destructive">
@@ -506,44 +509,25 @@ function RedisPane({ connection, config, tab, state, setState }: PaneProps<Redis
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex shrink-0 items-center justify-end gap-2 border-b px-2 py-1">
-                <label className="flex items-center gap-1 text-xs text-muted-foreground">
-                    {t("redis.db")}
-                    <select
-                        value={state.db}
-                        onChange={(e) => {
-                            const db = parseInt(e.target.value, 10);
-                            // Legacy reset the selection and the key count on every
-                            // db switch (page.tsx:109-112) — a key from db 3 does
-                            // not exist in db 4.
-                            setDbSize(0);
-                            setState((prev) => ({ ...prev, db, selectedKey: null }));
-                        }}
-                        className="h-7 rounded border bg-background px-1 font-mono text-xs"
-                        aria-label={t("redis.selectDatabase")}
+            {/* No db selector here: the tab's id and title encode the db and are
+                shell-owned, so switching db in-pane would leave the tab strip
+                lying about which database it shows (and let a second tab open on
+                the same one). The sidebar tree is the only way to switch — it
+                opens or focuses the correctly-identified tab. */}
+            {!readOnly && (
+                <div className="flex shrink-0 items-center justify-end gap-2 border-b px-2 py-1">
+                    <BulkActions redisUrl={config.redisUrl} db={state.db} onChanged={bumpRefresh} />
+                    <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-7 gap-1 border-destructive/40 text-xs text-destructive hover:bg-destructive/10"
+                        onClick={() => setFlushOpen(true)}
                     >
-                        {DB_INDEXES.map((i) => (
-                            <option key={i} value={i}>
-                                {i}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-                {!readOnly && (
-                    <>
-                        <BulkActions redisUrl={config.redisUrl} db={state.db} onChanged={bumpRefresh} />
-                        <Button
-                            size="sm"
-                            variant="outline"
-                            className="h-7 gap-1 border-destructive/40 text-xs text-destructive hover:bg-destructive/10"
-                            onClick={() => setFlushOpen(true)}
-                        >
-                            <IconTrash className="size-3.5" />
-                            {t("redis.flush")}
-                        </Button>
-                    </>
-                )}
-            </div>
+                        <IconTrash className="size-3.5" />
+                        {t("redis.flush")}
+                    </Button>
+                </div>
+            )}
 
             <div className="min-h-0 flex-1">
                 <ResizablePanelGroup direction="horizontal" className="h-full">
