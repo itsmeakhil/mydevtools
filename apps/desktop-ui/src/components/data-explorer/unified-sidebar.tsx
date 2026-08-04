@@ -56,6 +56,10 @@ interface ConnectionRowProps {
     onEdit: (connection: UnifiedConnection) => void;
     onDelete: (connection: UnifiedConnection) => void;
     onConnectionsChanged: () => void;
+    /** Forwarded to the tree so it can filter its own levels. */
+    searchQuery: string;
+    /** Connections with the same `sourceId`, for cross-connection tree actions. */
+    siblings: UnifiedConnection[];
 }
 
 const ConnectionRow = React.memo(function ConnectionRow({
@@ -66,6 +70,8 @@ const ConnectionRow = React.memo(function ConnectionRow({
     onEdit,
     onDelete,
     onConnectionsChanged,
+    searchQuery,
+    siblings,
 }: ConnectionRowProps) {
     const t = useTranslations("DataExplorer");
     const adapter = getAdapter(connection.sourceId);
@@ -167,6 +173,8 @@ const ConnectionRow = React.memo(function ConnectionRow({
                             config={connection.config}
                             openTab={openTab}
                             onConnectionsChanged={onConnectionsChanged}
+                            searchQuery={searchQuery}
+                            siblings={siblings}
                         />
                     </motion.div>
                 )}
@@ -177,6 +185,9 @@ const ConnectionRow = React.memo(function ConnectionRow({
 
 /** Bucket for connections whose sourceId has no registered adapter. */
 const UNSUPPORTED_GROUP = "__unsupported__";
+
+/** Stable identity so an empty sibling list never re-renders a memoised row. */
+const NO_SIBLINGS: UnifiedConnection[] = [];
 
 export function UnifiedSidebar({
     connections,
@@ -198,8 +209,28 @@ export function UnifiedSidebar({
         const safe = connections.filter(
             (c): c is UnifiedConnection => !!c && typeof c.id === "string"
         );
-        return q ? safe.filter((c) => c.name.toLowerCase().includes(q)) : safe;
-    }, [connections, query]);
+        // A search hides connections whose name does not match — except the ones
+        // the user has expanded. Those keep their row so their tree can filter
+        // its own databases/collections against the same query, which is how an
+        // inner match stays reachable. (The legacy sidebar could only match
+        // inner levels of expanded connections either: collapsed ones have no
+        // loaded children to match against.)
+        return q
+            ? safe.filter((c) => c.name.toLowerCase().includes(q) || expandedIds.has(c.id))
+            : safe;
+    }, [connections, query, expandedIds]);
+
+    /** Connections bucketed by source, so each tree gets its own source's peers. */
+    const siblingsBySource = useMemo(() => {
+        const map = new Map<SourceId, UnifiedConnection[]>();
+        for (const c of connections) {
+            if (!c || typeof c.id !== "string") continue;
+            const bucket = map.get(c.sourceId);
+            if (bucket) bucket.push(c);
+            else map.set(c.sourceId, [c]);
+        }
+        return map;
+    }, [connections]);
 
     const groups = useMemo(() => {
         const byId = new Map<SourceId, UnifiedConnection[]>();
@@ -337,6 +368,11 @@ export function UnifiedSidebar({
                                                     onEdit={onEditConnection}
                                                     onDelete={requestDelete}
                                                     onConnectionsChanged={onConnectionsChanged}
+                                                    searchQuery={query}
+                                                    siblings={
+                                                        siblingsBySource.get(connection.sourceId) ??
+                                                        NO_SIBLINGS
+                                                    }
                                                 />
                                             ))}
                                         </motion.div>

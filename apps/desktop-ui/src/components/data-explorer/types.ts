@@ -79,6 +79,20 @@ export interface SidebarTreeProps<Config, TabState = unknown> {
     openTab: (req: OpenTabRequest<TabState>) => void;
     /** Call after a destructive tree action so the shell refetches connections. */
     onConnectionsChanged: () => void;
+    /**
+     * Raw text from the shell's single search box, trimmed of nothing. The tree
+     * filters its own levels (databases, collections, keyspaces…) with it —
+     * the shell only filters connection *names*, so without this a search can
+     * never reach inside a tree. Never render a second search input.
+     */
+    searchQuery: string;
+    /**
+     * Every saved connection sharing this connection's `sourceId`, including
+     * this one, with `config` already decrypted. For cross-connection actions
+     * such as "sync this collection into another server". The shell selects
+     * them by `sourceId` equality and never inspects the configs.
+     */
+    siblings: UnifiedConnection[];
 }
 
 export interface PaneProps<Config, TabState> {

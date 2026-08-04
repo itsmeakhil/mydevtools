@@ -9,6 +9,7 @@ import {
     IconArrowsExchange,
     IconBrandMongodb,
     IconChevronRight,
+    IconCopy,
     IconDatabase,
     IconDots,
     IconEdit,
@@ -30,6 +31,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { apiFetch } from "@/lib/desktop/api-fetch";
 import {
     sanitizeError,
@@ -255,10 +257,32 @@ async function post<T>(path: string, body: Record<string, unknown>): Promise<T> 
     return data as T;
 }
 
-/** Sanitised server message when there is one, otherwise translated fallback. */
+/**
+ * Sanitised server message when there is one, otherwise translated fallback.
+ * Sanitised again here: `post` already sanitises what it throws, but this also
+ * runs on errors from anywhere else, and connection strings carry passwords.
+ */
 function errorText(e: unknown, fallback: string): string {
-    const message = e instanceof Error ? e.message : "";
+    const message = e instanceof Error ? sanitizeError(e.message) : "";
     return message || fallback;
+}
+
+/**
+ * Maps a `validateDbName` / `validateCollectionName` failure onto its own
+ * translated key, so the user learns *why* the name was rejected. The library
+ * returns English prose; matching its distinct phrases keeps the reason precise
+ * without duplicating the rules. Exported so a unit test locks the mapping to
+ * the library's real output.
+ */
+export function mongoNameErrorKey(result: { valid: boolean; error?: string }): string {
+    const e = result.error ?? "";
+    if (/non-empty/i.test(e)) return "mongo.toast.nameEmpty";
+    if (/exceed/i.test(e)) return "mongo.toast.nameTooLong";
+    if (/forbidden characters/i.test(e)) return "mongo.toast.nameForbiddenChars";
+    if (/consecutive dots/i.test(e)) return "mongo.toast.nameConsecutiveDots";
+    if (/null character/i.test(e)) return "mongo.toast.nameNullChar";
+    if (/start with/i.test(e)) return "mongo.toast.nameReservedPrefix";
+    return "mongo.toast.nameInvalid";
 }
 
 function formatCount(n: number): string {
@@ -277,9 +301,11 @@ interface CollectionRowProps {
     dbName: string;
     collection: Collection;
     readOnly: boolean;
+    selected: boolean;
     /** All callbacks take the entity as arguments so the parent can keep them
      *  `useCallback`-stable — an inline arrow per row would defeat React.memo. */
     onOpen: (dbName: string, collectionName: string) => void;
+    onToggleSelect: (dbName: string, collectionName: string) => void;
     onRename: (dbName: string, collectionName: string) => void;
     onSync: (dbName: string, collectionName: string) => void;
     onDrop: (dbName: string, collectionName: string) => void;
@@ -289,7 +315,9 @@ const CollectionRow = React.memo(function CollectionRow({
     dbName,
     collection,
     readOnly,
+    selected,
     onOpen,
+    onToggleSelect,
     onRename,
     onSync,
     onDrop,
@@ -299,6 +327,20 @@ const CollectionRow = React.memo(function CollectionRow({
 
     return (
         <div className="group/col flex items-center pr-1">
+            {!readOnly && (
+                <input
+                    type="checkbox"
+                    checked={selected}
+                    onChange={() => onToggleSelect(dbName, collection.name)}
+                    aria-label={t("mongo.selectCollection", { name: collection.name })}
+                    className={cn(
+                        "mx-1 size-3 shrink-0 cursor-pointer accent-primary transition-opacity",
+                        selected
+                            ? "opacity-100"
+                            : "opacity-100 md:opacity-0 md:group-focus-within/col:opacity-100 md:group-hover/col:opacity-100"
+                    )}
+                />
+            )}
             <button
                 type="button"
                 onClick={() => onOpen(dbName, collection.name)}
@@ -361,21 +403,31 @@ const CLOSED_DROP_DB: DropDbState = { open: false, connIndex: null, dbName: "" }
 const CLOSED_DROP_COLL: DropCollState = {
     open: false, connIndex: null, dbName: "", collectionName: "",
 };
-// Connection delete and bulk delete live in the unified shell, not in this
-// tree — those branches of `SidebarDialogs` stay permanently closed.
+// Connection delete lives in the unified shell, not in this tree — that branch
+// of `SidebarDialogs` stays permanently closed.
 const NO_DELETE_CONN: DeleteConnState = { open: false, index: null };
-const NO_BULK: BulkDeleteState = { open: false };
-const NO_SELECTION = new Set<string>();
-const NO_ROWS: never[] = [];
 const noop = () => { };
+/** `SidebarDialogs` wants a `{ open }` object; these keep the identity stable. */
+const BULK_STATE: Record<"open" | "closed", BulkDeleteState> = {
+    open: { open: true },
+    closed: { open: false },
+};
+
+/** Selection key format `SidebarDialogs` parses for its bulk-delete list. */
+function selectionKey(connectionId: string, dbName: string, collectionName: string): string {
+    return `${connectionId}|${dbName}|${collectionName}`;
+}
 
 function MongoSidebarTree({
     connection,
     config,
     openTab,
     onConnectionsChanged,
+    searchQuery,
+    siblings,
 }: SidebarTreeProps<MongoConfig, MongoTabState>) {
     const t = useTranslations("DataExplorer");
+    const { copyToClipboard } = useCopyToClipboard();
     const readOnly = !!connection.readOnly;
     // DocumentDB/Cosmos reject the driver default retryWrites=true.
     const connectionString = useMemo(
@@ -384,10 +436,18 @@ function MongoSidebarTree({
     );
 
     const [databases, setDatabases] = useState<Database[] | null>(null);
-    const [dbLoading, setDbLoading] = useState(false);
+    // Seeded true: the mount effect connects immediately, and a false start
+    // flashes "No databases" for one paint.
+    const [dbLoading, setDbLoading] = useState(true);
     const [dbError, setDbError] = useState<string | null>(null);
     const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
     const [collections, setCollections] = useState<Record<string, CollectionsState>>({});
+    /** Multi-select: key → the entity, so nothing has to re-parse the key. */
+    const [selected, setSelected] = useState<Map<string, { dbName: string; collectionName: string }>>(
+        () => new Map()
+    );
+    const [bulkOpen, setBulkOpen] = useState(false);
+    const [bulkDeleting, setBulkDeleting] = useState(false);
 
     const [monitorOpen, setMonitorOpen] = useState(false);
     const [gridfsDb, setGridfsDb] = useState<string | null>(null);
@@ -485,6 +545,18 @@ function MongoSidebarTree({
         [openTab, connection.name]
     );
 
+    const toggleSelect = useCallback(
+        (dbName: string, collectionName: string) => {
+            const key = selectionKey(connection.id, dbName, collectionName);
+            setSelected((prev) => {
+                const next = new Map(prev);
+                if (!next.delete(key)) next.set(key, { dbName, collectionName });
+                return next;
+            });
+        },
+        [connection.id]
+    );
+
     const requestRenameCollection = useCallback((dbName: string, collectionName: string) => {
         setRenameColl({ open: true, connection: null, dbName, collectionName, newName: collectionName });
     }, []);
@@ -500,8 +572,9 @@ function MongoSidebarTree({
     async function handleRenameCollection() {
         const { dbName, collectionName, newName } = renameColl;
         const name = newName.trim();
-        if (!validateCollectionName(name).valid) {
-            toast.error(t("mongo.toast.invalidCollectionName"));
+        const check = validateCollectionName(name);
+        if (!check.valid) {
+            toast.error(t(mongoNameErrorKey(check)));
             return;
         }
         try {
@@ -522,8 +595,9 @@ function MongoSidebarTree({
     async function handleRenameDatabase() {
         const { dbName, newName } = renameDb;
         const name = newName.trim();
-        if (!validateDbName(name).valid) {
-            toast.error(t("mongo.toast.invalidDbName"));
+        const check = validateDbName(name);
+        if (!check.valid) {
+            toast.error(t(mongoNameErrorKey(check)));
             return;
         }
         try {
@@ -559,6 +633,12 @@ function MongoSidebarTree({
         try {
             await post("/api/nosql/collection/drop", { connectionString, dbName, collectionName });
             toast.success(t("mongo.toast.dropped", { name: collectionName }));
+            // Drop it from the multi-select too, or the footer counts a row that is gone.
+            setSelected((prev) => {
+                const next = new Map(prev);
+                next.delete(selectionKey(connection.id, dbName, collectionName));
+                return next;
+            });
             void loadCollections(dbName);
             onConnectionsChanged();
         } catch (e) {
@@ -568,26 +648,78 @@ function MongoSidebarTree({
         }
     }
 
-    // SyncDialog picks its target from saved connections; this tree only knows
-    // its own, so it is the only offered target (same server, other db/collection).
+    /** One drop per selected collection — the API has no bulk endpoint. */
+    async function handleBulkDelete() {
+        setBulkDeleting(true);
+        const targets = Array.from(selected.values());
+        const touchedDbs = new Set(targets.map((s) => s.dbName));
+        let failed = 0;
+        for (const { dbName, collectionName } of targets) {
+            try {
+                await post("/api/nosql/collection/drop", { connectionString, dbName, collectionName });
+            } catch {
+                // Reason is per-collection and already sanitised; the summary
+                // toast below reports the count so one failure cannot spam N toasts.
+                failed += 1;
+            }
+        }
+        setBulkDeleting(false);
+        setBulkOpen(false);
+        setSelected(new Map());
+        for (const dbName of touchedDbs) void loadCollections(dbName);
+        if (failed > 0) toast.error(t("mongo.toast.bulkDropFailed", { count: failed }));
+        else toast.success(t("mongo.toast.bulkDropped", { count: targets.length }));
+        onConnectionsChanged();
+    }
+
+    // Every saved Mongo-family connection is a sync target, so a collection can
+    // be copied to another server — `siblings` already carries decrypted configs.
     const syncTargets = useMemo<SavedConnection[]>(
-        () => [
-            {
-                id: connection.id,
-                userId: connection.userId,
-                encryptedData: connection.encryptedData,
-                iv: connection.iv,
-                connectionString,
-                name: connection.name,
-                color: connection.color,
-                readOnly: connection.readOnly,
-                dbType: config?.dbType,
-                createdAt: connection.createdAt,
-                lastUsedAt: connection.lastUsedAt,
-            },
-        ],
-        [connection, connectionString, config?.dbType]
+        () =>
+            siblings.flatMap((sibling) => {
+                const cfg = sibling.config as MongoConfig | undefined;
+                if (!cfg?.connectionString) return [];
+                return [
+                    {
+                        id: sibling.id,
+                        userId: sibling.userId,
+                        encryptedData: sibling.encryptedData,
+                        iv: sibling.iv,
+                        connectionString: normalizeConnectionString(
+                            cfg.dbType ?? "mongodb",
+                            cfg.connectionString
+                        ),
+                        name: sibling.name,
+                        color: sibling.color,
+                        readOnly: sibling.readOnly,
+                        dbType: cfg.dbType,
+                        createdAt: sibling.createdAt,
+                        lastUsedAt: sibling.lastUsedAt,
+                    },
+                ];
+            }),
+        [siblings]
     );
+
+    // Search comes from the shell's one search box. A connection whose own name
+    // matches shows its whole tree; otherwise levels filter on their own names,
+    // and a database survives when one of its loaded collections matches.
+    const q = searchQuery.trim().toLowerCase();
+    const showAll = !q || connection.name.toLowerCase().includes(q);
+    const matches = (value: string) => value.toLowerCase().includes(q);
+    const visibleDatabases = (databases ?? []).filter(
+        (db) =>
+            showAll ||
+            matches(db.name) ||
+            (collections[db.name]?.items ?? []).some((col) => matches(col.name))
+    );
+
+    /** Only this connection is named in the bulk-delete list `SidebarDialogs` renders. */
+    const dialogRows = useMemo(
+        () => syncTargets.filter((c) => c.id === connection.id).map((c) => ({ connection: c })),
+        [syncTargets, connection.id]
+    );
+    const selectedKeys = useMemo(() => new Set(selected.keys()), [selected]);
 
     return (
         <div className="space-y-0.5 py-0.5">
@@ -622,12 +754,20 @@ function MongoSidebarTree({
                     <IconAlertCircle className="size-3.5 shrink-0" />
                     <span className="truncate">{t("mongo.connectionFailed")}</span>
                 </p>
-            ) : !databases || databases.length === 0 ? (
+            ) : databases === null || databases.length === 0 ? (
                 <p className="px-2 py-1 text-xs text-muted-foreground">{t("mongo.noDatabases")}</p>
+            ) : visibleDatabases.length === 0 ? (
+                <p className="px-2 py-1 text-xs text-muted-foreground">{t("mongo.noMatches")}</p>
             ) : (
-                databases.map((db) => {
+                visibleDatabases.map((db) => {
                     const isOpen = expanded.has(db.name);
                     const state = collections[db.name];
+                    const dbMatches = showAll || matches(db.name);
+                    const visibleCols = state?.items
+                        ? state.items
+                            .filter((col) => dbMatches || matches(col.name))
+                            .sort((a, b) => a.name.localeCompare(b.name))
+                        : null;
                     return (
                         <div key={db.name}>
                             <div className="group/db flex items-center pr-1">
@@ -661,6 +801,14 @@ function MongoSidebarTree({
                                         <DropdownMenuItem onClick={() => void loadCollections(db.name)}>
                                             <IconRefresh className="mr-2 size-3.5" />
                                             {t("mongo.refresh")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem
+                                            onClick={() =>
+                                                void copyToClipboard(db.name, t("mongo.toast.dbNameCopied"))
+                                            }
+                                        >
+                                            <IconCopy className="mr-2 size-3.5" />
+                                            {t("mongo.copyDbName")}
                                         </DropdownMenuItem>
                                         <DropdownMenuItem onClick={() => setGridfsDb(db.name)}>
                                             <IconFiles className="mr-2 size-3.5" />
@@ -711,18 +859,22 @@ function MongoSidebarTree({
                                             <IconAlertCircle className="size-3.5 shrink-0" />
                                             <span className="truncate">{t("mongo.collectionsFailed")}</span>
                                         </p>
-                                    ) : !state.items || state.items.length === 0 ? (
+                                    ) : !visibleCols || visibleCols.length === 0 ? (
                                         <p className="px-2 py-1 text-xs text-muted-foreground">
                                             {t("mongo.noCollections")}
                                         </p>
                                     ) : (
-                                        state.items.map((col) => (
+                                        visibleCols.map((col) => (
                                             <CollectionRow
                                                 key={col.name}
                                                 dbName={db.name}
                                                 collection={col}
                                                 readOnly={readOnly}
+                                                selected={selectedKeys.has(
+                                                    selectionKey(connection.id, db.name, col.name)
+                                                )}
                                                 onOpen={openCollection}
+                                                onToggleSelect={toggleSelect}
                                                 onRename={requestRenameCollection}
                                                 onSync={requestSync}
                                                 onDrop={requestDropCollection}
@@ -736,8 +888,30 @@ function MongoSidebarTree({
                 })
             )}
 
+            {selected.size > 0 && (
+                <div className="flex items-center gap-1 px-1 py-1">
+                    <Button
+                        variant="destructive"
+                        size="sm"
+                        className="h-7 flex-1 gap-1.5 text-xs"
+                        onClick={() => setBulkOpen(true)}
+                    >
+                        <IconTrash className="size-3.5" />
+                        {t("mongo.deleteSelected", { count: selected.size })}
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setSelected(new Map())}
+                    >
+                        {t("mongo.clearSelection")}
+                    </Button>
+                </div>
+            )}
+
             <SidebarDialogs
-                connections={NO_ROWS}
+                connections={dialogRows}
                 renameCollectionDialog={renameColl}
                 setRenameCollectionDialog={setRenameColl}
                 onRenameCollection={() => void handleRenameCollection()}
@@ -753,11 +927,11 @@ function MongoSidebarTree({
                 dropCollDialog={dropColl}
                 setDropCollDialog={setDropColl}
                 onConfirmDropCollection={() => void handleDropCollection()}
-                bulkDeleteDialog={NO_BULK}
-                setBulkDeleteDialog={noop}
-                selectedCollections={NO_SELECTION}
-                isBulkDeleting={false}
-                onConfirmBulkDelete={noop}
+                bulkDeleteDialog={BULK_STATE[bulkOpen ? "open" : "closed"]}
+                setBulkDeleteDialog={(s) => setBulkOpen(s.open)}
+                selectedCollections={selectedKeys}
+                isBulkDeleting={bulkDeleting}
+                onConfirmBulkDelete={() => void handleBulkDelete()}
             />
 
             {monitorOpen && (
