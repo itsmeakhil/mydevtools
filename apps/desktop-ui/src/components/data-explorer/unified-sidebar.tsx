@@ -84,6 +84,7 @@ const ConnectionRow = React.memo(function ConnectionRow({
                 <button
                     type="button"
                     disabled={!supported}
+                    aria-expanded={supported ? expanded : undefined}
                     onClick={() => onToggle(connection.id)}
                     className={cn(
                         "flex min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-sm transition-colors",
@@ -119,7 +120,8 @@ const ConnectionRow = React.memo(function ConnectionRow({
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="size-7 shrink-0 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100"
+                            aria-label={t("connectionActions", { name: connection.name })}
+                            className="size-7 shrink-0 opacity-100 transition-opacity md:opacity-0 md:group-focus-within:opacity-100 md:group-hover:opacity-100 md:focus-visible:opacity-100"
                         >
                             <IconDots className="size-3.5" />
                         </Button>
@@ -296,6 +298,7 @@ export function UnifiedSidebar({
                             <div key={group.id} className="space-y-0.5">
                                 <button
                                     type="button"
+                                    aria-expanded={open}
                                     onClick={() => toggleGroup(group.id)}
                                     className="flex w-full items-center gap-1.5 px-2 py-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70 transition-colors hover:text-foreground"
                                 >

@@ -39,11 +39,14 @@ export default function DataExplorerPage() {
     const [editingConnection, setEditingConnection] = useState<UnifiedConnection | null>(null);
     // Consumed by the legacy-import dialog in Task 14.
     const [importDialogOpen, setImportDialogOpen] = useState(false);
+    /** True once a connection fetch has *succeeded*. Gates tab pruning. */
+    const [connectionsLoaded, setConnectionsLoaded] = useState(false);
 
     const reloadConnections = useCallback(async () => {
         if (!user || !encryptionKey) return;
         try {
             setConnections(await listConnections(encryptionKey));
+            setConnectionsLoaded(true);
         } catch (e) {
             toast.error(e instanceof Error ? e.message : t("toast.loadFailed"));
         }
@@ -125,6 +128,22 @@ export default function DataExplorerPage() {
         []
     );
 
+    // Drop tabs whose connection was deleted, so they never fall through to the
+    // "unsupported source" pane. Gated on BOTH flags: `connections` is [] until
+    // the first fetch resolves and tabs are restored from localStorage on mount,
+    // so pruning any earlier would wipe every restored tab on a cold start. A
+    // failed fetch never sets `connectionsLoaded`, so it never prunes either.
+    // Zero connections is a legitimate loaded state and does prune.
+    useEffect(() => {
+        if (!connectionsLoaded || !isInitialized) return;
+        const live = new Set(connections.map((c) => c.id));
+        if (tabs.some((tab) => !live.has(tab.connectionId))) {
+            setTabs((prev) => prev.filter((tab) => live.has(tab.connectionId)));
+        }
+        const active = tabs.find((tab) => tab.id === activeTabId);
+        if (active && !live.has(active.connectionId)) setActiveTabId(null);
+    }, [connections, connectionsLoaded, isInitialized, tabs, activeTabId]);
+
     const setTabState = useCallback((tabId: string, updater: (prev: unknown) => unknown) => {
         setTabs((prev) =>
             prev.map((tab) => (tab.id === tabId ? { ...tab, state: updater(tab.state) } : tab))
@@ -150,6 +169,23 @@ export default function DataExplorerPage() {
         setActiveTabId(null);
     }, []);
 
+    // Stable identities — the sidebar memoises its connection rows on them.
+    const handleAddConnection = useCallback(() => {
+        setEditingConnection(null);
+        setConnectionDialogOpen(true);
+    }, []);
+
+    const handleEditConnection = useCallback((connection: UnifiedConnection) => {
+        setEditingConnection(connection);
+        setConnectionDialogOpen(true);
+    }, []);
+
+    const handleConnectionsChanged = useCallback(() => {
+        void reloadConnections();
+    }, [reloadConnections]);
+
+    const handleImportLegacy = useCallback(() => setImportDialogOpen(true), []);
+
     const activeTab = useMemo(
         () => tabs.find((tab) => tab.id === activeTabId) ?? null,
         [tabs, activeTabId]
@@ -166,16 +202,10 @@ export default function DataExplorerPage() {
         <UnifiedSidebar
             connections={connections}
             onOpenTab={openTab}
-            onAddConnection={() => {
-                setEditingConnection(null);
-                setConnectionDialogOpen(true);
-            }}
-            onEditConnection={(connection) => {
-                setEditingConnection(connection);
-                setConnectionDialogOpen(true);
-            }}
-            onConnectionsChanged={() => void reloadConnections()}
-            onImportLegacy={() => setImportDialogOpen(true)}
+            onAddConnection={handleAddConnection}
+            onEditConnection={handleEditConnection}
+            onConnectionsChanged={handleConnectionsChanged}
+            onImportLegacy={handleImportLegacy}
         />
     );
 

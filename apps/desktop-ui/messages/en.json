@@ -1889,6 +1889,7 @@
     "unsupportedSource": "Unsupported source",
     "unsupportedSourceHint": "This connection was created by a newer version of the app.",
     "noResults": "No connections match your search.",
+    "connectionActions": "Actions for {name}",
     "menuEdit": "Edit",
     "menuDelete": "Delete",
     "deleteTitle": "Delete connection?",
