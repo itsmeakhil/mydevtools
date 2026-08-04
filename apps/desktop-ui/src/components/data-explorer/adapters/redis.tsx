@@ -1,18 +1,51 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import React, { useCallback, useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
-import { IconBrandRedux, IconX } from "@tabler/icons-react";
+import { toast } from "sonner";
+import {
+    IconActivity,
+    IconBrandRedux,
+    IconBroadcast,
+    IconChartBar,
+    IconDatabase,
+    IconEye,
+    IconSearch,
+    IconTerminal2,
+    IconTrash,
+    IconX,
+} from "@tabler/icons-react";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { apiFetch } from "@/lib/desktop/api-fetch";
 import { sanitizeError } from "@/lib/nosql-error-sanitizer";
 import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
-import type { ConnectionFormProps, SourceAdapter } from "../types";
+import { KeyBrowser } from "@/components/redis-commander/key-browser";
+import { ValueEditor } from "@/components/redis-commander/value-editor";
+import { CommandPanel } from "@/components/redis-commander/command-panel";
+import { ServerDashboard } from "@/components/redis-commander/server-dashboard";
+import { MetricsPane } from "@/components/redis-commander/metrics-pane";
+import { BulkActions } from "@/components/redis-commander/bulk-actions";
+import { PubSubPane } from "@/components/redis-commander/pubsub-pane";
+import { MonitorPane } from "@/components/redis-commander/monitor-pane";
+import { ScannerPane } from "@/components/redis-commander/scanner-pane";
+import { SearchWorkbench } from "@/components/redis-commander/search-workbench";
+import type { ConnectionFormProps, PaneProps, SidebarTreeProps, SourceAdapter } from "../types";
 
 export interface RedisConfig {
     redisUrl: string;
@@ -331,6 +364,330 @@ function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
     );
 }
 
+/* ------------------------------------------------------------------ tree */
+
+/** Redis has a fixed 16 logical databases; there is nothing to fetch. */
+const DB_INDEXES = Array.from({ length: 16 }, (_, i) => i);
+
+interface DbRowProps {
+    index: number;
+    label: string;
+    /** Takes the index so the parent can keep one `useCallback`-stable handler —
+     *  an inline arrow per row would defeat React.memo. */
+    onOpen: (index: number) => void;
+}
+
+const DbRow = React.memo(function DbRow({ index, label, onOpen }: DbRowProps) {
+    return (
+        <button
+            type="button"
+            onClick={() => onOpen(index)}
+            className="flex w-full min-w-0 items-center gap-1.5 rounded-md px-2 py-1 text-left text-xs transition-colors hover:bg-muted/60"
+        >
+            <IconDatabase className="size-3.5 shrink-0 text-red-500" />
+            <span className="min-w-0 flex-1 truncate">{label}</span>
+        </button>
+    );
+});
+
+function RedisSidebarTree({
+    connection,
+    openTab,
+    searchQuery,
+}: SidebarTreeProps<RedisConfig, RedisTabState>) {
+    const t = useTranslations("DataExplorer");
+
+    const openDb = useCallback(
+        (index: number) => {
+            openTab({
+                key: `db${index}`,
+                title: `db ${index}`,
+                subtitle: connection.name,
+                state: { db: index, selectedKey: null, refreshTick: 0 },
+            });
+        },
+        [openTab, connection.name]
+    );
+
+    // Search comes from the shell's one box (never a second input here). A
+    // connection whose own name matches shows all 16; otherwise the rows filter
+    // on their own labels — same rule as the Mongo tree.
+    const q = searchQuery.trim().toLowerCase();
+    const showAll = !q || connection.name.toLowerCase().includes(q);
+    const rows = DB_INDEXES.map((index) => ({ index, label: t("redis.dbLabel", { index }) })).filter(
+        (row) => showAll || row.label.toLowerCase().includes(q)
+    );
+
+    if (rows.length === 0) {
+        return <p className="px-2 py-1 text-xs text-muted-foreground">{t("redis.noMatches")}</p>;
+    }
+
+    return (
+        <div className="space-y-0.5 py-0.5">
+            {rows.map((row) => (
+                <DbRow key={row.index} index={row.index} label={row.label} onOpen={openDb} />
+            ))}
+        </div>
+    );
+}
+
+/* ------------------------------------------------------------------ pane */
+
+const INNER_TAB =
+    "h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none";
+
+/**
+ * Key-browsing workbench, mirroring `redis-commander/page.tsx:384-505`.
+ *
+ * Every imported pane takes `{ redisUrl, db }` and fetches for itself, so this
+ * is composition: the only shared state is the selected key (browser →
+ * editor), the db index, and a refresh tick that remounts `KeyBrowser`.
+ *
+ * `ValueEditor`'s `onKeyDeleted` / `onKeyRenamed` fire *after* the mutation has
+ * already succeeded inside the editor (value-editor.tsx:172,198) — they are
+ * notifications, not actions, so reacting to them is safe.
+ *
+ * Known and inherited: the imported panes carry hardcoded English. Only the
+ * chrome written here is translated.
+ */
+function RedisPane({ connection, config, tab, state, setState }: PaneProps<RedisConfig, RedisTabState>) {
+    const t = useTranslations("DataExplorer");
+    const readOnly = !!connection.readOnly;
+    // Reported up by KeyBrowser and rendered back into it; pane-local because
+    // nothing else needs it and it must not survive a tab restore.
+    const [dbSize, setDbSize] = useState(0);
+    const [flushOpen, setFlushOpen] = useState(false);
+    const [flushPattern, setFlushPattern] = useState("");
+    const [flushing, setFlushing] = useState(false);
+
+    const bumpRefresh = () => setState((prev) => ({ ...prev, refreshTick: prev.refreshTick + 1 }));
+    const selectKey = (key: string) => setState((prev) => ({ ...prev, selectedKey: key }));
+
+    /** Ported from redis-commander/page.tsx:146-176. Errors are sanitised —
+     *  a Redis URL can carry a username and password. */
+    async function handleFlush() {
+        setFlushing(true);
+        try {
+            const res = await apiFetch("/api/redis-commander/flush", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    redisUrl: config.redisUrl,
+                    db: state.db,
+                    pattern: flushPattern.trim() || undefined,
+                }),
+            });
+            const data = (await res.json().catch(() => ({}))) as { deleted?: number; error?: string };
+            // The legacy page only checked `data.error`; a non-OK response with
+            // no error body silently read as success. `!res.ok` closes that.
+            if (!res.ok || data.error) throw new Error(data.error ?? "");
+            // `deleted === -1` is the FLUSHDB (no pattern) reply — a count is
+            // meaningless there.
+            toast.success(
+                data.deleted === -1
+                    ? t("redis.flushedAll")
+                    : t("redis.flushedKeys", { count: data.deleted ?? 0 })
+            );
+            setState((prev) => ({
+                ...prev,
+                selectedKey: null,
+                refreshTick: prev.refreshTick + 1,
+            }));
+        } catch (err) {
+            const raw = err instanceof Error ? err.message : "";
+            toast.error(raw ? sanitizeRedisError(raw, config.redisUrl) : t("redis.flushFailed"));
+        } finally {
+            setFlushing(false);
+            setFlushOpen(false);
+            setFlushPattern("");
+        }
+    }
+
+    return (
+        <div className="flex h-full flex-col">
+            <div className="flex shrink-0 items-center justify-end gap-2 border-b px-2 py-1">
+                <label className="flex items-center gap-1 text-xs text-muted-foreground">
+                    {t("redis.db")}
+                    <select
+                        value={state.db}
+                        onChange={(e) => {
+                            const db = parseInt(e.target.value, 10);
+                            // Legacy reset the selection and the key count on every
+                            // db switch (page.tsx:109-112) — a key from db 3 does
+                            // not exist in db 4.
+                            setDbSize(0);
+                            setState((prev) => ({ ...prev, db, selectedKey: null }));
+                        }}
+                        className="h-7 rounded border bg-background px-1 font-mono text-xs"
+                        aria-label={t("redis.selectDatabase")}
+                    >
+                        {DB_INDEXES.map((i) => (
+                            <option key={i} value={i}>
+                                {i}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                {!readOnly && (
+                    <>
+                        <BulkActions redisUrl={config.redisUrl} db={state.db} onChanged={bumpRefresh} />
+                        <Button
+                            size="sm"
+                            variant="outline"
+                            className="h-7 gap-1 border-destructive/40 text-xs text-destructive hover:bg-destructive/10"
+                            onClick={() => setFlushOpen(true)}
+                        >
+                            <IconTrash className="size-3.5" />
+                            {t("redis.flush")}
+                        </Button>
+                    </>
+                )}
+            </div>
+
+            <div className="min-h-0 flex-1">
+                <ResizablePanelGroup direction="horizontal" className="h-full">
+                    <ResizablePanel defaultSize={22} minSize={16} maxSize={40}>
+                        <KeyBrowser
+                            // Remount on db switch or refresh tick — the browser
+                            // holds its own paged key list and pattern state.
+                            key={`${tab.id}-${state.db}-${state.refreshTick}`}
+                            redisUrl={config.redisUrl}
+                            db={state.db}
+                            selectedKey={state.selectedKey}
+                            onSelectKey={selectKey}
+                            dbSize={dbSize}
+                            onDbSizeChange={setDbSize}
+                        />
+                    </ResizablePanel>
+                    <ResizableHandle />
+                    <ResizablePanel defaultSize={78} minSize={40}>
+                        <Tabs defaultValue="editor" className="flex h-full flex-col">
+                            <TabsList className="h-8 w-full shrink-0 justify-start gap-0 rounded-none border-b bg-transparent p-0">
+                                <TabsTrigger value="editor" className={INNER_TAB}>
+                                    <IconDatabase className="mr-1.5 size-3.5" />
+                                    {t("redis.tabKeyEditor")}
+                                </TabsTrigger>
+                                <TabsTrigger value="console" className={INNER_TAB}>
+                                    <IconTerminal2 className="mr-1.5 size-3.5" />
+                                    {t("redis.tabConsole")}
+                                </TabsTrigger>
+                                <TabsTrigger value="dashboard" className={INNER_TAB}>
+                                    <IconActivity className="mr-1.5 size-3.5" />
+                                    {t("redis.tabServer")}
+                                </TabsTrigger>
+                                <TabsTrigger value="pubsub" className={INNER_TAB}>
+                                    <IconBroadcast className="mr-1.5 size-3.5" />
+                                    {t("redis.tabPubSub")}
+                                </TabsTrigger>
+                                <TabsTrigger value="monitor" className={INNER_TAB}>
+                                    <IconEye className="mr-1.5 size-3.5" />
+                                    {t("redis.tabMonitor")}
+                                </TabsTrigger>
+                                <TabsTrigger value="scanner" className={INNER_TAB}>
+                                    <IconChartBar className="mr-1.5 size-3.5" />
+                                    {t("redis.tabScanner")}
+                                </TabsTrigger>
+                                <TabsTrigger value="search" className={INNER_TAB}>
+                                    <IconSearch className="mr-1.5 size-3.5" />
+                                    {t("redis.tabSearch")}
+                                </TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="editor" className="mt-0 min-h-0 flex-1">
+                                <ValueEditor
+                                    redisUrl={config.redisUrl}
+                                    db={state.db}
+                                    selectedKey={state.selectedKey}
+                                    onKeyDeleted={(k) =>
+                                        setState((prev) => ({
+                                            ...prev,
+                                            selectedKey: prev.selectedKey === k ? null : prev.selectedKey,
+                                            refreshTick: prev.refreshTick + 1,
+                                        }))
+                                    }
+                                    onKeyRenamed={(oldKey, newKey) =>
+                                        setState((prev) =>
+                                            prev.selectedKey === oldKey
+                                                ? { ...prev, selectedKey: newKey }
+                                                : prev
+                                        )
+                                    }
+                                    onRefreshKeys={bumpRefresh}
+                                />
+                            </TabsContent>
+                            <TabsContent value="console" className="mt-0 min-h-0 flex-1">
+                                <CommandPanel
+                                    redisUrl={config.redisUrl}
+                                    db={state.db}
+                                    connectionId={connection.id}
+                                />
+                            </TabsContent>
+                            <TabsContent value="dashboard" className="mt-0 min-h-0 flex-1 overflow-auto">
+                                <div className="border-b p-3">
+                                    <MetricsPane redisUrl={config.redisUrl} db={state.db} />
+                                </div>
+                                <ServerDashboard redisUrl={config.redisUrl} db={state.db} />
+                            </TabsContent>
+                            <TabsContent value="pubsub" className="mt-0 min-h-0 flex-1">
+                                <PubSubPane redisUrl={config.redisUrl} db={state.db} />
+                            </TabsContent>
+                            <TabsContent value="monitor" className="mt-0 min-h-0 flex-1">
+                                <MonitorPane redisUrl={config.redisUrl} db={state.db} />
+                            </TabsContent>
+                            <TabsContent value="scanner" className="mt-0 min-h-0 flex-1">
+                                <ScannerPane
+                                    redisUrl={config.redisUrl}
+                                    db={state.db}
+                                    onSelectKey={selectKey}
+                                />
+                            </TabsContent>
+                            <TabsContent value="search" className="mt-0 min-h-0 flex-1">
+                                <SearchWorkbench
+                                    redisUrl={config.redisUrl}
+                                    db={state.db}
+                                    onSelectKey={selectKey}
+                                />
+                            </TabsContent>
+                        </Tabs>
+                    </ResizablePanel>
+                </ResizablePanelGroup>
+            </div>
+
+            <AlertDialog open={flushOpen} onOpenChange={(open) => { if (!flushing) setFlushOpen(open); }}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{t("redis.flushTitle")}</AlertDialogTitle>
+                        <AlertDialogDescription>{t("redis.flushDescription")}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <div className="space-y-1.5 py-2">
+                        <Label>{t("redis.flushPatternLabel")}</Label>
+                        <Input
+                            placeholder={t("redis.flushPatternPlaceholder")}
+                            value={flushPattern}
+                            onChange={(e) => setFlushPattern(e.target.value)}
+                        />
+                    </div>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={flushing}>
+                            {t("connectionDialog.cancel")}
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                void handleFlush();
+                            }}
+                            disabled={flushing}
+                        >
+                            {flushing ? t("redis.flushing") : t("redis.flush")}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </div>
+    );
+}
+
 export const redisAdapter: SourceAdapter<RedisConfig, RedisTabState> = {
     id: "redis",
     label: "Redis",
@@ -340,8 +697,6 @@ export const redisAdapter: SourceAdapter<RedisConfig, RedisTabState> = {
     validate,
     testConnection,
     ConnectionForm: RedisConnectionForm,
-    // Filled in by Task 13.
-    SidebarTree: () => null,
-    // Filled in by Task 13.
-    Pane: () => null,
+    SidebarTree: RedisSidebarTree,
+    Pane: RedisPane,
 };

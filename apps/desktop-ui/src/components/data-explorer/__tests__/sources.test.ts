@@ -3,6 +3,14 @@
 // transitively import a next-intl-consuming component (see
 // api-client/__tests__/collections-context.test.ts).
 jest.mock("next-intl", () => ({ useTranslations: () => (k: string) => k }))
+// The Redis adapter's pane imports @/components/ui/resizable, whose
+// react-resizable-panels build ships as ESM and cannot be parsed under this
+// node-environment jest config. The registry tests never render, so stub it.
+jest.mock("react-resizable-panels", () => ({
+    Panel: () => null,
+    PanelGroup: () => null,
+    PanelResizeHandle: () => null,
+}))
 
 import { SOURCES, SOURCE_ORDER, getAdapter } from "../sources";
 

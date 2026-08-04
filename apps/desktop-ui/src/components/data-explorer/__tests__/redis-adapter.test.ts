@@ -3,6 +3,14 @@
 // transitively import a next-intl-consuming component (see
 // mongodb-adapter.test.ts and sources.test.ts).
 jest.mock("next-intl", () => ({ useTranslations: () => (k: string) => k }))
+// redis.tsx's pane imports @/components/ui/resizable, whose react-resizable-panels
+// build ships as ESM and cannot be parsed under this node-environment jest
+// config. These logic tests never render the pane, so a stub is enough.
+jest.mock("react-resizable-panels", () => ({
+    Panel: () => null,
+    PanelGroup: () => null,
+    PanelResizeHandle: () => null,
+}))
 
 import { redisAdapter, buildRedisUrl, sanitizeRedisError } from "../adapters/redis";
 
