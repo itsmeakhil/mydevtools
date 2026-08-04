@@ -14,6 +14,7 @@ import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton";
 import { UnifiedTabBar } from "@/components/data-explorer/unified-tab-bar";
 import { ConnectionDialog } from "@/components/data-explorer/connection-dialog";
+import { UnifiedSidebar } from "@/components/data-explorer/unified-sidebar";
 import { listConnections, touchConnection } from "@/components/data-explorer/connection-service";
 import { getAdapter } from "@/components/data-explorer/sources";
 import type {
@@ -36,6 +37,8 @@ export default function DataExplorerPage() {
     const [isInitialized, setIsInitialized] = useState(false);
     const [connectionDialogOpen, setConnectionDialogOpen] = useState(false);
     const [editingConnection, setEditingConnection] = useState<UnifiedConnection | null>(null);
+    // Consumed by the legacy-import dialog in Task 14.
+    const [importDialogOpen, setImportDialogOpen] = useState(false);
 
     const reloadConnections = useCallback(async () => {
         if (!user || !encryptionKey) return;
@@ -159,8 +162,22 @@ export default function DataExplorerPage() {
     if (isRestoring) return <VaultRestoringSkeleton />;
     if (!isUnlocked) return <VaultLockedPlaceholder appName="Data Explorer" />;
 
-    // Sidebar arrives in Task 7; connection dialog in Task 6.
-    const sidebar = <div className="h-full border-r bg-background" />;
+    const sidebar = (
+        <UnifiedSidebar
+            connections={connections}
+            onOpenTab={openTab}
+            onAddConnection={() => {
+                setEditingConnection(null);
+                setConnectionDialogOpen(true);
+            }}
+            onEditConnection={(connection) => {
+                setEditingConnection(connection);
+                setConnectionDialogOpen(true);
+            }}
+            onConnectionsChanged={() => void reloadConnections()}
+            onImportLegacy={() => setImportDialogOpen(true)}
+        />
+    );
 
     const body = (() => {
         if (!activeTab) {
