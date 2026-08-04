@@ -233,6 +233,11 @@ export default function DataExplorerPage() {
         const Pane = adapter.Pane;
         return (
             <Pane
+                // Panes are stable component references, so a same-source tab
+                // switch would otherwise reconcile the SAME instance and carry
+                // the previous collection's documents, view mode, selection and
+                // index data across. Keying per tab forces the remount.
+                key={activeTab.id}
                 connection={activeConnection}
                 config={activeConnection.config}
                 tab={activeTab}

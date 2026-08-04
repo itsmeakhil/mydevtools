@@ -1894,6 +1894,8 @@
     "menuDelete": "Delete",
     "deleteTitle": "Delete connection?",
     "deleteBody": "{name} and its saved credentials will be removed from this device. This cannot be undone.",
+    "deleteDocTitle": "Delete document?",
+    "deleteDocBody": "This document will be permanently removed from the collection. This cannot be undone.",
     "closeAll": "Close all",
     "noTabsTitle": "Nothing open",
     "noTabsBody": "Pick a connection in the sidebar to open a tab.",

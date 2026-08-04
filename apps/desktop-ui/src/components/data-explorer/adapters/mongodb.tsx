@@ -19,6 +19,16 @@ import {
     IconTrash,
     IconX,
 } from "@tabler/icons-react";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -986,12 +996,37 @@ function MongoSidebarTree({
  * Errors and toasts are owned downstream: mutations sanitise and toast inside
  * the hook before re-throwing, and `IndexManager` toasts what `dropIndex` /
  * `createIndex` throw and reloads the index list after each mutation.
+ *
+ * Single-document delete is the one exception. `DocumentView`'s trash button
+ * calls `onDelete` straight away with no prompt of its own (unlike bulk delete,
+ * which it confirms internally), so the confirmation has to live out here — the
+ * legacy page owns the same dialog. Without it one misclick deletes a document
+ * irreversibly.
  */
 function MongoPane({ connection, config, state, setState }: PaneProps<MongoConfig, MongoTabState>) {
+    const t = useTranslations("DataExplorer");
     const readOnly = connection.readOnly ?? false;
     const actions = useMongoActions(config, state, readOnly);
+    const [confirmId, setConfirmId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
+
+    async function confirmDelete() {
+        if (!confirmId || deleting) return;
+        setDeleting(true);
+        try {
+            await actions.remove(confirmId);
+        } catch {
+            // `remove` already toasted the sanitised reason and re-threw only so a
+            // caller could stay open. Swallowed so the rejection cannot go
+            // uncaught; like the legacy dialog, this one closes either way.
+        } finally {
+            setDeleting(false);
+            setConfirmId(null);
+        }
+    }
 
     return (
+        <>
         <DocumentView
             connectionName={connection.name}
             dbName={state.dbName}
@@ -1007,7 +1042,7 @@ function MongoPane({ connection, config, state, setState }: PaneProps<MongoConfi
             onRefresh={actions.refresh}
             onInsert={actions.insert}
             onUpdate={actions.update}
-            onDelete={actions.remove}
+            onDelete={async (id) => setConfirmId(id)}
             onSearch={(query) => setState((prev) => ({ ...prev, query, page: 1 }))}
             onPageChange={(page) => setState((prev) => ({ ...prev, page }))}
             onLimitChange={(limit) => setState((prev) => ({ ...prev, limit, page: 1 }))}
@@ -1024,6 +1059,36 @@ function MongoPane({ connection, config, state, setState }: PaneProps<MongoConfi
             onPreviewPipeline={actions.previewPipeline}
             readOnly={readOnly}
         />
+
+        <AlertDialog
+            open={confirmId !== null}
+            onOpenChange={(open) => {
+                if (!open && !deleting) setConfirmId(null);
+            }}
+        >
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>{t("deleteDocTitle")}</AlertDialogTitle>
+                    <AlertDialogDescription>{t("deleteDocBody")}</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel disabled={deleting}>
+                        {t("connectionDialog.cancel")}
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                        disabled={deleting}
+                        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            void confirmDelete();
+                        }}
+                    >
+                        {t("menuDelete")}
+                    </AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+        </>
     );
 }
 
