@@ -39,6 +39,7 @@ const TAB_REGISTRY: Record<string, React.ComponentType> = {
   '/app/api-client': dynamic(() => import('@/app/app/api-client/page'), { ssr: false, loading }),
   '/app/http-status-codes': dynamic(() => import('@/app/app/http-status-codes/page'), { ssr: false, loading }),
   '/app/database-explorer': dynamic(() => import('@/app/app/database-explorer/page'), { ssr: false, loading }),
+  '/app/data-explorer': dynamic(() => import('@/app/app/data-explorer/page'), { ssr: false, loading }),
   '/app/email-validator': dynamic(() => import('@/app/app/email-validator/page'), { ssr: false, loading }),
   '/app/url-encode': dynamic(() => import('@/app/app/url-encode/page'), { ssr: false, loading }),
   '/app/uuid-generator': dynamic(() => import('@/app/app/uuid-generator/page'), { ssr: false, loading }),

@@ -53,6 +53,7 @@
     "apiClient": "API Client",
     "httpStatusCodes": "HTTP status codes",
     "nosqlExplorer": "Database Explorer",
+    "dataExplorer": "Data Explorer",
     "cssGradientBuilder": "CSS Gradient Builder",
     "gitignoreGenerator": ".gitignore Generator",
     "csvExcelJson": "CSV / Excel ↔ JSON",
@@ -482,6 +483,10 @@
       "nosqlExplorer": {
         "title": "Database Explorer",
         "description": "Explore MongoDB and SQL databases."
+      },
+      "dataExplorer": {
+        "title": "Data Explorer",
+        "description": "One workspace for MongoDB and Redis. Browse, query, and edit with an encrypted credential store."
       },
       "emailValidator": {
         "title": "Email Validator",
@@ -1872,6 +1877,41 @@
       "exportJsonSchema": "JSON Schema",
       "exportMongoose": "Mongoose model",
       "exportHtml": "HTML report"
+    }
+  },
+  "DataExplorer": {
+    "title": "Data Explorer",
+    "emptyTitle": "No connections yet",
+    "emptyBody": "Add a MongoDB or Redis connection to start browsing. Credentials are encrypted on your device.",
+    "addConnection": "New connection",
+    "importLegacy": "Import from existing tools",
+    "searchConnections": "Search connections",
+    "unsupportedSource": "Unsupported source",
+    "unsupportedSourceHint": "This connection was created by a newer version of the app.",
+    "closeAll": "Close all",
+    "noTabsTitle": "Nothing open",
+    "noTabsBody": "Pick a connection in the sidebar to open a tab.",
+    "connectionDialog": {
+      "createTitle": "New connection",
+      "editTitle": "Edit connection",
+      "pickSource": "Data source",
+      "name": "Name",
+      "namePlaceholder": "My connection",
+      "folder": "Folder",
+      "folderPlaceholder": "Optional group",
+      "color": "Colour",
+      "readOnly": "Read-only",
+      "readOnlyHint": "Blocks every write operation for this connection.",
+      "test": "Test connection",
+      "testOk": "Connected",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "toast": {
+      "saved": "Connection saved",
+      "deleted": "Connection deleted",
+      "saveFailed": "Could not save the connection",
+      "deleteFailed": "Could not delete the connection"
     }
   },
   "ApiClient": {

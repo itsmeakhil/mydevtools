@@ -55,6 +55,7 @@ export const toolCategoryMap: Record<string, string> = {
   'mime-type-lookup': 'Network & API',
   'sql-client': 'Database',
   'database-explorer': 'Database',
+  'data-explorer': 'Database',
   's3-drive': 'Database',
   'redis-commander': 'Database',
   'color-picker': 'Media & Design',
