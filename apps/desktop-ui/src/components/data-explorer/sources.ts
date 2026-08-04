@@ -1,4 +1,5 @@
 import { mongodbAdapter } from "./adapters/mongodb";
+import { redisAdapter } from "./adapters/redis";
 import type { SourceAdapter, SourceId } from "./types";
 
 /**
@@ -9,10 +10,11 @@ import type { SourceAdapter, SourceId } from "./types";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SOURCES: Record<SourceId, SourceAdapter<any, any>> = {
     mongodb: mongodbAdapter,
+    redis: redisAdapter,
 };
 
 /** Display order in the sidebar and the source picker. */
-export const SOURCE_ORDER: SourceId[] = ["mongodb"];
+export const SOURCE_ORDER: SourceId[] = ["mongodb", "redis"];
 
 /**
  * Resolve an adapter. Returns null for an unknown id — a connection saved by a

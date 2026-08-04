@@ -1930,7 +1930,24 @@
     },
     "validation": {
       "connectionStringRequired": "Enter a connection string.",
-      "connectionStringScheme": "Connection string must start with mongodb:// or mongodb+srv://."
+      "connectionStringScheme": "Connection string must start with mongodb:// or mongodb+srv://.",
+      "redisUrlRequired": "Enter a Redis URL.",
+      "redisUrlScheme": "Redis URL must start with redis:// or rediss://."
+    },
+    "redis": {
+      "urlMode": "URL",
+      "builderMode": "Builder",
+      "url": "Redis URL",
+      "urlPlaceholder": "redis://localhost:6379 or rediss://user:pass@host:6380",
+      "urlHint": "Supports redis:// and rediss:// (TLS). Credentials are encrypted before storage.",
+      "host": "Host",
+      "port": "Port",
+      "username": "Username (ACL)",
+      "usernamePlaceholder": "default",
+      "password": "Password",
+      "dbIndex": "DB index",
+      "dbIndexPlaceholder": "0",
+      "tls": "Use TLS (rediss://)"
     },
     "mongo": {
       "refreshDatabases": "Refresh databases",
