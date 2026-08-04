@@ -105,6 +105,7 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
         ("/redis-commander/connections", "redis_connections"),
         ("/nosql/connections", "nosql_connections"),
         ("/s3-drive/connections", "s3_connections"),
+        ("/data-explorer/connections", "data_explorer_connections"),
     ] {
         if rel.starts_with(prefix) {
             // rest starts at "/connections..."
@@ -498,5 +499,39 @@ mod tests {
         let r = route(&state, "GET", "/api/v1/s3-drive/connections", None).unwrap();
         assert_eq!(r.status, 200);
         assert_eq!(body_json(&r).as_array().unwrap().len(), 1);
+    }
+
+    #[test]
+    fn data_explorer_connection_vault_crud() {
+        let state = AppState::in_memory();
+        let base = "/api/v1/data-explorer/connections";
+
+        // Create — sourceId is opaque to the store, any string round-trips.
+        let payload = r#"{"sourceId":"redis","name":"cache","encryptedData":"AAA","iv":"BBB"}"#;
+        let r = route(&state, "POST", base, Some(payload)).unwrap();
+        assert_eq!(r.status, 200, "{}", r.body);
+        let created = body_json(&r);
+        let id = created["id"].as_str().unwrap().to_string();
+        assert_eq!(created["sourceId"], "redis");
+        assert_eq!(created["encryptedData"], "AAA");
+
+        // List
+        let r = route(&state, "GET", base, None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 1);
+
+        // Patch advances updatedAt and merges fields
+        let r = route(&state, "PATCH", &format!("{base}/{id}"), Some(r#"{"name":"cache-prod"}"#)).unwrap();
+        assert_eq!(body_json(&r)["name"], "cache-prod");
+        assert_eq!(body_json(&r)["sourceId"], "redis");
+
+        // Touch bumps lastUsedAt only
+        let r = route(&state, "POST", &format!("{base}/{id}/touch"), None).unwrap();
+        assert_eq!(r.status, 200);
+
+        // Delete tombstones
+        let r = route(&state, "DELETE", &format!("{base}/{id}"), None).unwrap();
+        assert_eq!(r.status, 204);
+        let r = route(&state, "GET", base, None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
     }
 }

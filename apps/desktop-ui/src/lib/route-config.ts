@@ -89,6 +89,7 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/api-client': { title: 'API Client', icon: Globe },
   '/app/http-status-codes': { title: 'HTTP Status Codes', icon: List, namespace: 'HttpStatusCodes' },
   '/app/database-explorer': { title: 'Database Explorer', icon: Database },
+  '/app/data-explorer': { title: 'Data Explorer', icon: Database },
   '/app/email-validator': { title: 'Email Validator', icon: Globe },
   '/app/url-encode': { title: 'URL Encoder', icon: Link2, namespace: 'UrlEncode' },
   '/app/uuid-generator': { title: 'UUID Generator', icon: Fingerprint, namespace: 'UuidGenerator' },

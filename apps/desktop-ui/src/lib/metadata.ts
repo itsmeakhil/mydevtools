@@ -93,6 +93,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['redis client', 'redis manager', 'redis browser', 'redis gui', 'redis commander', 'redis keys', 'redis cli'],
         aiSummary: 'Redis Commander lets you connect to Redis instances, browse and edit all key types (string, list, set, zset, hash), run raw commands via a console, and flush keys by pattern — with credentials encrypted locally.',
     },
+    'data-explorer': {
+        title: 'Data Explorer',
+        description: 'One desktop workspace for MongoDB and Redis. Browse collections, query documents, inspect keys, and run commands with credentials encrypted on your device.',
+        keywords: ['data explorer', 'mongodb and redis client', 'database gui', 'nosql explorer', 'redis browser', 'multi database client'],
+        aiSummary: 'Data Explorer is an offline desktop workspace for multiple data sources. Pick MongoDB or Redis per connection and get the full toolset for that source — collection browsing, document queries, aggregation pipelines, index management for MongoDB; key browsing, value editing, pub/sub, and a command console for Redis — with credentials encrypted locally.',
+    },
     's3-drive': {
         title: 'S3 Drive',
         description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, download, and delete files with end-to-end encrypted credentials.',

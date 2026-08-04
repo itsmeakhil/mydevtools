@@ -525,6 +525,12 @@ export const sidebarData: SidebarData = {
           icon: IconBrandRedux,
           description: 'Browse keys, inspect values, run raw commands, and flush patterns — encrypted credential store.',
         },
+        {
+          title: 'Data Explorer',
+          url: '/app/data-explorer',
+          icon: IconDatabase,
+          description: 'One workspace for MongoDB and Redis. Browse, query, and edit with an encrypted credential store.',
+        },
       ],
     },
     {
