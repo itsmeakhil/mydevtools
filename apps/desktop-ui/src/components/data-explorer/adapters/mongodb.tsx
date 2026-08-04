@@ -54,11 +54,13 @@ import {
     type RenameCollectionState,
     type RenameDatabaseState,
 } from "@/components/nosql-explorer/sidebar-dialogs";
+import { DocumentView } from "@/components/nosql-explorer/document-view";
 import { GridFsBrowser } from "@/components/nosql-explorer/gridfs-browser";
 import { SyncDialog } from "@/components/nosql-explorer/sync-dialog";
 import { ServerMonitor } from "@/components/nosql-explorer/server-monitor";
 import type { Collection, Database, SavedConnection } from "@/components/nosql-explorer/types";
-import type { ConnectionFormProps, SidebarTreeProps, SourceAdapter } from "../types";
+import { useMongoActions } from "@/lib/data-explorer/mongo-actions";
+import type { ConnectionFormProps, PaneProps, SidebarTreeProps, SourceAdapter } from "../types";
 
 export interface MongoConfig {
     connectionString: string;
@@ -970,6 +972,61 @@ function MongoSidebarTree({
     );
 }
 
+/* ------------------------------------------------------------------ pane */
+
+/**
+ * Document pane. `DocumentView` already hosts the query builder, aggregation
+ * pipeline builder, schema view, index manager, explain, import/export and
+ * codegen, so wiring its props is the whole feature.
+ *
+ * A `setState` here is what triggers a refetch — `useMongoActions` refreshes
+ * from an effect keyed on the tab state, so no handler calls `refresh()` itself
+ * (the legacy page did, and doing both would double-fetch).
+ *
+ * Errors and toasts are owned downstream: mutations sanitise and toast inside
+ * the hook before re-throwing, and `IndexManager` toasts what `dropIndex` /
+ * `createIndex` throw and reloads the index list after each mutation.
+ */
+function MongoPane({ connection, config, state, setState }: PaneProps<MongoConfig, MongoTabState>) {
+    const readOnly = connection.readOnly ?? false;
+    const actions = useMongoActions(config, state, readOnly);
+
+    return (
+        <DocumentView
+            connectionName={connection.name}
+            dbName={state.dbName}
+            collectionName={state.collectionName}
+            documents={actions.documents}
+            total={actions.total}
+            page={state.page}
+            limit={state.limit}
+            loading={actions.loading}
+            error={actions.error}
+            sortField={state.sortField}
+            sortDirection={state.sortDirection}
+            onRefresh={actions.refresh}
+            onInsert={actions.insert}
+            onUpdate={actions.update}
+            onDelete={actions.remove}
+            onSearch={(query) => setState((prev) => ({ ...prev, query, page: 1 }))}
+            onPageChange={(page) => setState((prev) => ({ ...prev, page }))}
+            onLimitChange={(limit) => setState((prev) => ({ ...prev, limit, page: 1 }))}
+            onSortChange={(sortField, sortDirection) =>
+                setState((prev) => ({ ...prev, sortField, sortDirection, page: 1 }))
+            }
+            onBulkDelete={actions.bulkDelete}
+            onImport={actions.importDocuments}
+            onLoadSchema={actions.loadSchema}
+            onLoadIndexes={actions.loadIndexes}
+            onDropIndex={actions.dropIndex}
+            onCreateIndex={actions.createIndex}
+            onExplain={actions.explain}
+            onPreviewPipeline={actions.previewPipeline}
+            readOnly={readOnly}
+        />
+    );
+}
+
 export const mongodbAdapter: SourceAdapter<MongoConfig, MongoTabState> = {
     id: "mongodb",
     label: "MongoDB",
@@ -980,6 +1037,5 @@ export const mongodbAdapter: SourceAdapter<MongoConfig, MongoTabState> = {
     testConnection,
     ConnectionForm: MongoConnectionForm,
     SidebarTree: MongoSidebarTree,
-    // Replaced in Task 11.
-    Pane: () => null,
+    Pane: MongoPane,
 };
