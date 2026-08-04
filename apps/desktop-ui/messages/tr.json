@@ -1871,6 +1871,7 @@
     "addConnection": "Yeni bağlantı",
     "importLegacy": "Mevcut araçlardan içe aktar",
     "searchConnections": "Bağlantılarda ara",
+    "openSidebar": "Bağlantıları aç",
     "unsupportedSource": "Desteklenmeyen kaynak",
     "unsupportedSourceHint": "Bu bağlantı, uygulamanın daha yeni bir sürümü tarafından oluşturuldu.",
     "noResults": "Aramanızla eşleşen bağlantı yok.",

@@ -122,7 +122,15 @@ async function testConnection(config: MongoConfig): Promise<void> {
  * never calls the connection service, never toasts — the connection dialog
  * owns validate → testConnection → persist and renders `error` inline.
  */
-function MongoConnectionForm({ initial, saving, error, onSubmit, onCancel }: ConnectionFormProps<MongoConfig>) {
+function MongoConnectionForm({
+    initial,
+    saving,
+    error,
+    onTest,
+    testState,
+    onSubmit,
+    onCancel,
+}: ConnectionFormProps<MongoConfig>) {
     const t = useTranslations("DataExplorer.connectionDialog");
     const [name, setName] = useState(initial.name);
     const [folder, setFolder] = useState(initial.folder ?? "");
@@ -239,8 +247,21 @@ function MongoConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
                     {error}
                 </div>
             )}
+            {testState === "ok" && !error && (
+                <div className="rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                    {t("testOk")}
+                </div>
+            )}
 
             <div className="flex justify-end gap-2 pt-2">
+                <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => onTest({ connectionString, dbType })}
+                    disabled={saving || testState === "testing"}
+                >
+                    {t("test")}
+                </Button>
                 <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>
                     {t("cancel")}
                 </Button>

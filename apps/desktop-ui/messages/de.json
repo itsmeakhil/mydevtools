@@ -1956,6 +1956,7 @@
     "addConnection": "Neue Verbindung",
     "importLegacy": "Aus vorhandenen Tools importieren",
     "searchConnections": "Verbindungen suchen",
+    "openSidebar": "Verbindungen öffnen",
     "unsupportedSource": "Nicht unterstützte Quelle",
     "unsupportedSourceHint": "Diese Verbindung wurde mit einer neueren Version der App erstellt.",
     "noResults": "Keine Verbindungen entsprechen Ihrer Suche.",

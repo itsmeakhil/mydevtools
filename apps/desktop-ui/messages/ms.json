@@ -1871,6 +1871,7 @@
     "addConnection": "Sambungan baharu",
     "importLegacy": "Import daripada alat sedia ada",
     "searchConnections": "Cari sambungan",
+    "openSidebar": "Buka sambungan",
     "unsupportedSource": "Sumber tidak disokong",
     "unsupportedSourceHint": "Sambungan ini dicipta oleh versi aplikasi yang lebih baharu.",
     "noResults": "Tiada sambungan sepadan dengan carian anda.",

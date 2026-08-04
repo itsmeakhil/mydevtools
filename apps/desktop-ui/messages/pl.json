@@ -1956,6 +1956,7 @@
     "addConnection": "Nowe połączenie",
     "importLegacy": "Importuj z istniejących narzędzi",
     "searchConnections": "Szukaj połączeń",
+    "openSidebar": "Otwórz połączenia",
     "unsupportedSource": "Nieobsługiwane źródło",
     "unsupportedSourceHint": "To połączenie zostało utworzone przez nowszą wersję aplikacji.",
     "noResults": "Żadne połączenia nie pasują do wyszukiwania.",

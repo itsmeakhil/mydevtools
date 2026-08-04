@@ -1871,6 +1871,7 @@
     "addConnection": "Nuova connessione",
     "importLegacy": "Importa dagli strumenti esistenti",
     "searchConnections": "Cerca connessioni",
+    "openSidebar": "Apri connessioni",
     "unsupportedSource": "Origine non supportata",
     "unsupportedSourceHint": "Questa connessione è stata creata da una versione più recente dell'app.",
     "noResults": "Nessuna connessione corrisponde alla tua ricerca.",

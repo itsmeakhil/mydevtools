@@ -1860,6 +1860,7 @@
     "addConnection": "Kết nối mới",
     "importLegacy": "Nhập từ các công cụ hiện có",
     "searchConnections": "Tìm kiếm kết nối",
+    "openSidebar": "Mở kết nối",
     "unsupportedSource": "Nguồn không được hỗ trợ",
     "unsupportedSourceHint": "Kết nối này được tạo bởi phiên bản ứng dụng mới hơn.",
     "noResults": "Không có kết nối nào khớp với tìm kiếm của bạn.",

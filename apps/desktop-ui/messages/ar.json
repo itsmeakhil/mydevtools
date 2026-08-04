@@ -1956,6 +1956,7 @@
     "addConnection": "اتصال جديد",
     "importLegacy": "الاستيراد من الأدوات الحالية",
     "searchConnections": "البحث في الاتصالات",
+    "openSidebar": "فتح الاتصالات",
     "unsupportedSource": "مصدر غير مدعوم",
     "unsupportedSourceHint": "تم إنشاء هذا الاتصال بواسطة إصدار أحدث من التطبيق.",
     "noResults": "لا توجد اتصالات تطابق بحثك.",

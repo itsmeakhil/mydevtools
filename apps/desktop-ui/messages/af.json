@@ -1871,6 +1871,7 @@
     "addConnection": "Nuwe koppeling",
     "importLegacy": "Voer in vanaf bestaande nutsmiddels",
     "searchConnections": "Soek koppelings",
+    "openSidebar": "Open verbindings",
     "unsupportedSource": "Nie-ondersteunde bron",
     "unsupportedSourceHint": "Hierdie koppeling is deur 'n nuwer weergawe van die app geskep.",
     "noResults": "Geen koppelings pas by jou soektog nie.",

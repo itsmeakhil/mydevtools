@@ -1956,6 +1956,7 @@
     "addConnection": "Nové připojení",
     "importLegacy": "Import ze stávajících nástrojů",
     "searchConnections": "Hledat připojení",
+    "openSidebar": "Otevřít připojení",
     "unsupportedSource": "Nepodporovaný zdroj",
     "unsupportedSourceHint": "Toto připojení bylo vytvořeno novější verzí aplikace.",
     "noResults": "Žádná připojení neodpovídají vašemu hledání.",

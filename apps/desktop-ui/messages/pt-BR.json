@@ -1956,6 +1956,7 @@
     "addConnection": "Nova conexão",
     "importLegacy": "Importar de ferramentas existentes",
     "searchConnections": "Buscar conexões",
+    "openSidebar": "Abrir conexões",
     "unsupportedSource": "Fonte não suportada",
     "unsupportedSourceHint": "Esta conexão foi criada por uma versão mais recente do aplicativo.",
     "noResults": "Nenhuma conexão corresponde à sua busca.",

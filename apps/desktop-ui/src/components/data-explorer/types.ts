@@ -37,7 +37,12 @@ export interface UnifiedTab {
     /** Tooltip second line — e.g. "prod-atlas › orders". */
     subtitle?: string;
     connectionColor?: string | null;
-    readOnly?: boolean;
+    /**
+     * No `readOnly` here on purpose. A tab is persisted to localStorage and
+     * outlives any edit to its connection, so a copy taken at open time goes
+     * stale the moment the user toggles read-only. Read
+     * `connection.readOnly` — it is the only live value.
+     */
     /** Adapter-owned. The shell stores and passes it through, never inspects it. */
     state: unknown;
 }
@@ -69,6 +74,15 @@ export interface ConnectionFormProps<Config> {
     saving: boolean;
     /** Persist or test-connection failure, already sanitised. Render inline. */
     error: string | null;
+    /**
+     * Runs the adapter's `testConnection` against the config currently in the
+     * form. An explicit, optional user action — never a precondition for
+     * saving, so a metadata edit still saves with the server unreachable.
+     * Failures arrive back through `error`; success through `testState`.
+     */
+    onTest: (config: Config) => void;
+    /** `"testing"` while a test is in flight, `"ok"` after one succeeded. */
+    testState: "idle" | "testing" | "ok";
     onSubmit: (values: ConnectionFormValues<Config>) => void;
     onCancel: () => void;
 }

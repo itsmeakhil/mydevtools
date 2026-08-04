@@ -1871,6 +1871,7 @@
     "addConnection": "اتصال جدید",
     "importLegacy": "وارد کردن از ابزارهای موجود",
     "searchConnections": "جستجوی اتصالات",
+    "openSidebar": "باز کردن اتصال‌ها",
     "unsupportedSource": "منبع پشتیبانی‌نشده",
     "unsupportedSourceHint": "این اتصال توسط نسخه جدیدتری از برنامه ایجاد شده است.",
     "noResults": "هیچ اتصالی با جستجوی شما مطابقت ندارد.",

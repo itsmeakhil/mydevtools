@@ -77,6 +77,42 @@ export function buildRedisUrl(opts: {
     return `${proto}://${auth}${host}:${port}${db}`;
 }
 
+/**
+ * Inverse of `buildRedisUrl`: splits a stored URL back into builder fields so
+ * editing a saved connection and switching to the Builder tab does not rebuild
+ * `redis://localhost:6379` over the real one. Returns `null` when the URL is
+ * not a parseable redis(s) URL — the caller then keeps its defaults rather
+ * than throwing. The password comes back for re-assembly only; the caller
+ * never renders or logs it.
+ */
+export function parseRedisUrl(url: string): {
+    host: string;
+    port: string;
+    username: string;
+    password: string;
+    db: string;
+    tls: boolean;
+} | null {
+    try {
+        const parsed = new URL(url.trim());
+        const protocol = parsed.protocol.toLowerCase();
+        if (protocol !== "redis:" && protocol !== "rediss:") return null;
+        // `redis://` parses with an empty host under WHATWG's non-special
+        // scheme rules; nothing usable to seed from.
+        if (!parsed.hostname) return null;
+        return {
+            host: parsed.hostname,
+            port: parsed.port || "6379",
+            username: safeDecode(parsed.username),
+            password: safeDecode(parsed.password),
+            db: parsed.pathname.replace(/^\//, ""),
+            tls: protocol === "rediss:",
+        };
+    } catch {
+        return null;
+    }
+}
+
 function blankConfig(): RedisConfig {
     return { redisUrl: "redis://localhost:6379" };
 }
@@ -162,7 +198,15 @@ async function testConnection(config: RedisConfig): Promise<void> {
  * Unlike that legacy form, this one never calls the connection service or a
  * store directly — it only ever reports `{ redisUrl }` up through `onSubmit`.
  */
-function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: ConnectionFormProps<RedisConfig>) {
+function RedisConnectionForm({
+    initial,
+    saving,
+    error,
+    onTest,
+    testState,
+    onSubmit,
+    onCancel,
+}: ConnectionFormProps<RedisConfig>) {
     const t = useTranslations("DataExplorer.connectionDialog");
     const tr = useTranslations("DataExplorer.redis");
     const [name, setName] = useState(initial.name);
@@ -174,22 +218,38 @@ function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
 
     // Builder fields — only assembled into a URL on submit/preview, never
     // stored independently, so the URL input stays the single source of truth.
-    const [host, setHost] = useState("localhost");
-    const [port, setPort] = useState("6379");
-    const [username, setUsername] = useState("");
+    // Seeded from the connection being edited (parsed once): without this,
+    // opening the Builder tab on a saved connection and saving would submit
+    // the defaults and silently destroy the stored host and credentials.
+    const [seed] = useState(() => parseRedisUrl(initial.config.redisUrl));
+    const [host, setHost] = useState(seed?.host ?? "localhost");
+    const [port, setPort] = useState(seed?.port ?? "6379");
+    const [username, setUsername] = useState(seed?.username ?? "");
+    // The stored password is deliberately NOT seeded into the input — it is
+    // never rendered. It is re-attached on submit unless the user types a
+    // replacement, so a builder save keeps the existing credential.
     const [password, setPassword] = useState("");
-    const [dbIdx, setDbIdx] = useState("");
-    const [useTls, setUseTls] = useState(false);
+    const [passwordEdited, setPasswordEdited] = useState(false);
+    const [dbIdx, setDbIdx] = useState(seed?.db ?? "");
+    const [useTls, setUseTls] = useState(seed?.tls ?? false);
+
+    function currentUrl(): string {
+        if (mode !== "builder") return redisUrl.trim();
+        return buildRedisUrl({
+            host,
+            port,
+            username,
+            password: passwordEdited ? password : seed?.password ?? "",
+            db: dbIdx,
+            tls: useTls,
+        });
+    }
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        const url =
-            mode === "builder"
-                ? buildRedisUrl({ host, port, username, password, db: dbIdx, tls: useTls })
-                : redisUrl.trim();
         // `readOnly` is passed through untouched, never edited here — see the
         // note where the switch used to be.
-        onSubmit({ name, folder, color, readOnly: initial.readOnly, config: { redisUrl: url } });
+        onSubmit({ name, folder, color, readOnly: initial.readOnly, config: { redisUrl: currentUrl() } });
     }
 
     return (
@@ -276,7 +336,14 @@ function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
                             <Input
                                 type="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setPasswordEdited(true);
+                                }}
+                                // Language-neutral marker that a stored
+                                // password is kept unless replaced. The
+                                // password itself is never put in the DOM.
+                                placeholder={seed?.password ? "••••••••" : undefined}
                                 disabled={saving}
                                 className="h-8 font-mono text-xs"
                             />
@@ -354,8 +421,21 @@ function RedisConnectionForm({ initial, saving, error, onSubmit, onCancel }: Con
                     {error}
                 </div>
             )}
+            {testState === "ok" && !error && (
+                <div className="rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                    {t("testOk")}
+                </div>
+            )}
 
             <div className="flex justify-end gap-2 pt-2">
+                <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => onTest({ redisUrl: currentUrl() })}
+                    disabled={saving || testState === "testing"}
+                >
+                    {t("test")}
+                </Button>
                 <Button type="button" variant="outline" onClick={onCancel} disabled={saving}>
                     {t("cancel")}
                 </Button>

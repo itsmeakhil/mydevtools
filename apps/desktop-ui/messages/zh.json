@@ -1860,6 +1860,7 @@
     "addConnection": "新建连接",
     "importLegacy": "从现有工具导入",
     "searchConnections": "搜索连接",
+    "openSidebar": "打开连接",
     "unsupportedSource": "不支持的来源",
     "unsupportedSourceHint": "此连接由更新版本的应用创建。",
     "noResults": "没有连接与您的搜索匹配。",

@@ -1956,6 +1956,7 @@
     "addConnection": "Koneksi baru",
     "importLegacy": "Impor dari alat yang sudah ada",
     "searchConnections": "Cari koneksi",
+    "openSidebar": "Buka koneksi",
     "unsupportedSource": "Sumber tidak didukung",
     "unsupportedSourceHint": "Koneksi ini dibuat oleh versi aplikasi yang lebih baru.",
     "noResults": "Tidak ada koneksi yang cocok dengan pencarian Anda.",

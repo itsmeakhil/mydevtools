@@ -1956,6 +1956,7 @@
     "addConnection": "Connexió nova",
     "importLegacy": "Importa des d'eines existents",
     "searchConnections": "Cerca connexions",
+    "openSidebar": "Obre les connexions",
     "unsupportedSource": "Font no compatible",
     "unsupportedSourceHint": "Aquesta connexió va ser creada per una versió més nova de l'aplicació.",
     "noResults": "Cap connexió coincideix amb la teva cerca.",

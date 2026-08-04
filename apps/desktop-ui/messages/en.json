@@ -1886,6 +1886,7 @@
     "addConnection": "New connection",
     "importLegacy": "Import from existing tools",
     "searchConnections": "Search connections",
+    "openSidebar": "Open connections",
     "unsupportedSource": "Unsupported source",
     "unsupportedSourceHint": "This connection was created by a newer version of the app.",
     "noResults": "No connections match your search.",

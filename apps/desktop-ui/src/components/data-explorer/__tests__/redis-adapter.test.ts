@@ -12,7 +12,48 @@ jest.mock("react-resizable-panels", () => ({
     PanelResizeHandle: () => null,
 }))
 
-import { redisAdapter, buildRedisUrl, sanitizeRedisError } from "../adapters/redis";
+import { redisAdapter, buildRedisUrl, parseRedisUrl, sanitizeRedisError } from "../adapters/redis";
+
+describe("parseRedisUrl", () => {
+    it("round-trips a URL built by buildRedisUrl", () => {
+        const url = buildRedisUrl({
+            host: "prod",
+            port: "6380",
+            username: "u@x",
+            password: "p:w",
+            db: "3",
+            tls: true,
+        });
+        expect(parseRedisUrl(url)).toEqual({
+            host: "prod",
+            port: "6380",
+            username: "u@x",
+            password: "p:w",
+            db: "3",
+            tls: true,
+        });
+    });
+
+    it("defaults host and port for a bare URL", () => {
+        expect(parseRedisUrl("redis://localhost:6379")).toEqual({
+            host: "localhost",
+            port: "6379",
+            username: "",
+            password: "",
+            db: "",
+            tls: false,
+        });
+    });
+
+    // A failed parse must fall back to the form's defaults, never throw —
+    // `validate` only checks the scheme, so a malformed URL is reachable.
+    it("returns null instead of throwing on unparseable or foreign URLs", () => {
+        expect(parseRedisUrl("redis://")).toBeNull();
+        expect(parseRedisUrl("not a url")).toBeNull();
+        expect(parseRedisUrl("http://example.com")).toBeNull();
+        expect(parseRedisUrl("")).toBeNull();
+    });
+});
 
 describe("buildRedisUrl", () => {
     const base = { host: "", port: "", username: "", password: "", db: "", tls: false };

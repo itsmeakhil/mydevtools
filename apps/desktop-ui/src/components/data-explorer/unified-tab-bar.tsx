@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -7,10 +8,13 @@ import { cn } from "@/lib/utils";
 import { IconX, IconLock, IconAlertTriangle } from "@tabler/icons-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { getAdapter } from "./sources";
-import type { UnifiedTab } from "./types";
+import type { UnifiedConnection, UnifiedTab } from "./types";
 
 interface UnifiedTabBarProps {
     tabs: UnifiedTab[];
+    /** Live connections — the lock glyph reads read-only from these, never
+     *  from a snapshot on the tab, so toggling it updates every open tab. */
+    connections: UnifiedConnection[];
     activeTabId: string | null;
     onTabChange: (tabId: string) => void;
     onTabClose: (tabId: string) => void;
@@ -19,12 +23,17 @@ interface UnifiedTabBarProps {
 
 export function UnifiedTabBar({
     tabs,
+    connections,
     activeTabId,
     onTabChange,
     onTabClose,
     onCloseAll,
 }: UnifiedTabBarProps) {
     const t = useTranslations("DataExplorer");
+    const readOnlyIds = useMemo(
+        () => new Set(connections.filter((c) => c.readOnly).map((c) => c.id)),
+        [connections]
+    );
 
     // Defensive: a malformed entry would crash the whole strip on `tab.id`.
     const safeTabs = tabs.filter((tab): tab is UnifiedTab => !!tab && typeof tab.id === "string");
@@ -58,7 +67,7 @@ export function UnifiedTabBar({
                                             }
                                         >
                                             <Icon className={cn("h-3.5 w-3.5 shrink-0", adapter?.accent)} />
-                                            {tab.readOnly && (
+                                            {readOnlyIds.has(tab.connectionId) && (
                                                 <IconLock className="h-3 w-3 text-amber-500 shrink-0" />
                                             )}
                                             <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-xs">

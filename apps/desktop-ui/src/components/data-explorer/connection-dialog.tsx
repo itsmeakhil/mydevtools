@@ -30,15 +30,46 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
     const [sourceId, setSourceId] = useState<SourceId | null>(null);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [testState, setTestState] = useState<"idle" | "testing" | "ok">("idle");
 
     useEffect(() => {
         if (!open) return;
         setSourceId(editing?.sourceId ?? null);
         setError(null);
         setSaving(false);
+        setTestState("idle");
     }, [open, editing]);
 
     const adapter = sourceId ? getAdapter(sourceId) : null;
+
+    /**
+     * Explicit, optional user action. Saving never waits on it — a rename or a
+     * recolour must still persist off-VPN, and a connection to a server that is
+     * not running yet must be creatable. Both outcomes render inline in the
+     * dialog so the form (and anything half-typed in it) survives a retry.
+     */
+    async function handleTest(config: unknown) {
+        if (!adapter) return;
+        setError(null);
+
+        const invalidKey = adapter.validate(config);
+        if (invalidKey) {
+            setError(t(invalidKey));
+            return;
+        }
+
+        setTestState("testing");
+        try {
+            await adapter.testConnection(config);
+            setTestState("ok");
+        } catch (e) {
+            // Adapters throw pre-sanitised messages, or an empty one when there
+            // is nothing reportable. Never a raw config.
+            const message = e instanceof Error ? e.message.trim() : "";
+            setError(message || t("connectionDialog.testFailed"));
+            setTestState("idle");
+        }
+    }
 
     async function handleSubmit(values: ConnectionFormValues<unknown>) {
         if (!adapter || !encryptionKey) return;
@@ -52,7 +83,6 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
 
         setSaving(true);
         try {
-            await adapter.testConnection(values.config);
             if (editing) {
                 await updateConnection(editing.id, values, encryptionKey);
             } else {
@@ -63,7 +93,7 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
             onOpenChange(false);
         } catch (e) {
             const message = e instanceof Error ? e.message.trim() : "";
-            setError(message || t("connectionDialog.testFailed"));
+            setError(message || t("toast.saveFailed"));
         } finally {
             setSaving(false);
         }
@@ -112,6 +142,8 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
                         }}
                         saving={saving}
                         error={error}
+                        onTest={handleTest}
+                        testState={testState}
                         onSubmit={handleSubmit}
                         onCancel={() => onOpenChange(false)}
                     />

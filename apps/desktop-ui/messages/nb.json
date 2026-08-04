@@ -1956,6 +1956,7 @@
     "addConnection": "Ny tilkobling",
     "importLegacy": "Importer fra eksisterende verktøy",
     "searchConnections": "Søk i tilkoblinger",
+    "openSidebar": "Åpne tilkoblinger",
     "unsupportedSource": "Ikke-støttet kilde",
     "unsupportedSourceHint": "Denne tilkoblingen ble opprettet av en nyere versjon av appen.",
     "noResults": "Ingen tilkoblinger samsvarer med søket ditt.",

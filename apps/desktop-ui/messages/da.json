@@ -1956,6 +1956,7 @@
     "addConnection": "Ny forbindelse",
     "importLegacy": "Importer fra eksisterende værktøjer",
     "searchConnections": "Søg forbindelser",
+    "openSidebar": "Åbn forbindelser",
     "unsupportedSource": "Ikke-understøttet kilde",
     "unsupportedSourceHint": "Denne forbindelse blev oprettet af en nyere version af appen.",
     "noResults": "Ingen forbindelser matcher din søgning.",

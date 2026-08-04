@@ -1956,6 +1956,7 @@
     "addConnection": "새 연결",
     "importLegacy": "기존 도구에서 가져오기",
     "searchConnections": "연결 검색",
+    "openSidebar": "연결 열기",
     "unsupportedSource": "지원되지 않는 소스",
     "unsupportedSourceHint": "이 연결은 더 최신 버전의 앱에서 생성되었습니다.",
     "noResults": "검색과 일치하는 연결이 없습니다.",

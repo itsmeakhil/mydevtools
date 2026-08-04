@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { IconAlertTriangle } from "@tabler/icons-react";
+import { IconAlertTriangle, IconMenu2 } from "@tabler/icons-react";
+import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import useAuth from "@/utils/useAuth";
@@ -18,6 +19,7 @@ import { ImportLegacyDialog } from "@/components/data-explorer/import-legacy-dia
 import { UnifiedSidebar } from "@/components/data-explorer/unified-sidebar";
 import { listConnections, touchConnection } from "@/components/data-explorer/connection-service";
 import { getAdapter } from "@/components/data-explorer/sources";
+import { parseStoredTabs } from "@/lib/data-explorer/tab-storage";
 import type {
     OpenTabRequest,
     UnifiedConnection,
@@ -59,13 +61,14 @@ export default function DataExplorerPage() {
     // Restore tabs, adapter `state` included.
     useEffect(() => {
         if (!user) return;
-        const raw = localStorage.getItem(`data_explorer_tabs_${user.uid}`);
+        const tabsKey = `data_explorer_tabs_${user.uid}`;
+        const raw = localStorage.getItem(tabsKey);
         if (raw) {
-            try {
-                setTabs(JSON.parse(raw) as UnifiedTab[]);
-            } catch {
-                localStorage.removeItem(`data_explorer_tabs_${user.uid}`);
-            }
+            // Shape-validated: a value that parses but isn't an array of tabs
+            // would otherwise crash `tabs.find` on mount and never be cleared.
+            const restored = parseStoredTabs(raw);
+            if (restored.length > 0) setTabs(restored);
+            else localStorage.removeItem(tabsKey);
         }
         const savedActive = localStorage.getItem(`data_explorer_active_tab_id_${user.uid}`);
         if (savedActive) setActiveTabId(savedActive);
@@ -117,7 +120,9 @@ export default function DataExplorerPage() {
                         title: req.title,
                         subtitle: req.subtitle,
                         connectionColor: connection.color ?? null,
-                        readOnly: connection.readOnly ?? false,
+                        // No readOnly copy — the tab bar and the panes read it
+                        // live off the connection, so toggling it takes effect
+                        // on already-open tabs.
                         state: req.state,
                     },
                 ];
@@ -262,8 +267,24 @@ export default function DataExplorerPage() {
                 </Sheet>
             )}
             <div className="flex min-w-0 flex-1 flex-col">
+                {/* Narrow viewports keep the sidebar in the Sheet; without this
+                    trigger there is no way to add a connection or open a tab. */}
+                {!isWide && (
+                    <div className="flex shrink-0 items-center border-b px-2 py-1.5">
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            className="size-8"
+                            onClick={() => setMobileSidebarOpen(true)}
+                            aria-label={t("openSidebar")}
+                        >
+                            <IconMenu2 className="size-4" />
+                        </Button>
+                    </div>
+                )}
                 <UnifiedTabBar
                     tabs={tabs}
+                    connections={connections}
                     activeTabId={activeTabId}
                     onTabChange={setActiveTabId}
                     onTabClose={closeTab}

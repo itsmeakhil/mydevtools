@@ -1871,6 +1871,7 @@
     "addConnection": "Ny anslutning",
     "importLegacy": "Importera från befintliga verktyg",
     "searchConnections": "Sök anslutningar",
+    "openSidebar": "Öppna anslutningar",
     "unsupportedSource": "Ej stödd källa",
     "unsupportedSourceHint": "Denna anslutning skapades av en nyare version av appen.",
     "noResults": "Inga anslutningar matchar din sökning.",

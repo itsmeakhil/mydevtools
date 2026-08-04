@@ -1956,6 +1956,7 @@
     "addConnection": "Nieuwe verbinding",
     "importLegacy": "Importeren vanuit bestaande tools",
     "searchConnections": "Verbindingen zoeken",
+    "openSidebar": "Verbindingen openen",
     "unsupportedSource": "Niet-ondersteunde bron",
     "unsupportedSourceHint": "Deze verbinding is aangemaakt met een nieuwere versie van de app.",
     "noResults": "Geen verbindingen komen overeen met je zoekopdracht.",

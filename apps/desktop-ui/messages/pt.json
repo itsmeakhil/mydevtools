@@ -1956,6 +1956,7 @@
     "addConnection": "Nova ligação",
     "importLegacy": "Importar de ferramentas existentes",
     "searchConnections": "Pesquisar ligações",
+    "openSidebar": "Abrir ligações",
     "unsupportedSource": "Fonte não suportada",
     "unsupportedSourceHint": "Esta ligação foi criada por uma versão mais recente da aplicação.",
     "noResults": "Nenhuma ligação corresponde à tua pesquisa.",

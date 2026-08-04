@@ -1956,6 +1956,7 @@
     "addConnection": "新しい接続",
     "importLegacy": "既存のツールからインポート",
     "searchConnections": "接続を検索",
+    "openSidebar": "接続を開く",
     "unsupportedSource": "サポートされていないソース",
     "unsupportedSourceHint": "この接続はより新しいバージョンのアプリで作成されました。",
     "noResults": "検索条件に一致する接続がありません。",
