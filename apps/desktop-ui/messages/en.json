@@ -1913,6 +1913,7 @@
       "readOnlyHint": "Blocks every write operation for this connection.",
       "test": "Test connection",
       "testOk": "Connected",
+      "testFailed": "Could not connect",
       "save": "Save",
       "cancel": "Cancel"
     },
@@ -1922,6 +1923,10 @@
       "saveFailed": "Could not save the connection",
       "deleteFailed": "Could not delete the connection",
       "loadFailed": "Could not load connections"
+    },
+    "validation": {
+      "connectionStringRequired": "Enter a connection string.",
+      "connectionStringScheme": "Connection string must start with mongodb:// or mongodb+srv://."
     }
   },
   "ApiClient": {

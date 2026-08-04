@@ -99,9 +99,20 @@ export interface SourceAdapter<Config = unknown, TabState = unknown> {
     accent: string;
 
     blankConfig: () => Config;
-    /** Returns a user-facing error message, or null when the config is valid. */
+    /**
+     * Returns an i18n key path relative to the `DataExplorer` namespace (e.g.
+     * `"validation.connectionStringRequired"`) identifying the problem, or
+     * `null` when the config is valid. The dialog resolves the key via
+     * `t(key)` before rendering it — never a raw message.
+     */
     validate: (config: Config) => string | null;
-    /** Throws with a user-facing, credential-free message on failure. */
+    /**
+     * Throws on failure. When there is a server-derived, already sanitised,
+     * credential-free message to show, throw with that message and the
+     * dialog renders it as-is. When there is nothing reportable, throw with
+     * an empty message and the dialog supplies its own translated fallback
+     * copy.
+     */
     testConnection: (config: Config) => Promise<void>;
 
     ConnectionForm: React.ComponentType<ConnectionFormProps<Config>>;

@@ -44,9 +44,9 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
         if (!adapter || !encryptionKey) return;
         setError(null);
 
-        const invalid = adapter.validate(values.config);
-        if (invalid) {
-            setError(invalid);
+        const invalidKey = adapter.validate(values.config);
+        if (invalidKey) {
+            setError(t(invalidKey));
             return;
         }
 
@@ -62,7 +62,8 @@ export function ConnectionDialog({ open, onOpenChange, editing, onSaved }: Conne
             onSaved();
             onOpenChange(false);
         } catch (e) {
-            setError(e instanceof Error ? e.message : t("toast.saveFailed"));
+            const message = e instanceof Error ? e.message.trim() : "";
+            setError(message || t("connectionDialog.testFailed"));
         } finally {
             setSaving(false);
         }

@@ -39,11 +39,12 @@ function blankConfig(): MongoConfig {
     return { connectionString: "", dbType: "mongodb" };
 }
 
+/** Keys are relative to the `DataExplorer` namespace; the dialog resolves them via t(). */
 function validate(config: MongoConfig): string | null {
     const value = config.connectionString.trim();
-    if (!value) return "Enter a connection string.";
+    if (!value) return "validation.connectionStringRequired";
     if (!/^mongodb(\+srv)?:\/\//i.test(value)) {
-        return "Connection string must start with mongodb:// or mongodb+srv://.";
+        return "validation.connectionStringScheme";
     }
     return null;
 }
@@ -60,7 +61,8 @@ async function testConnection(config: MongoConfig): Promise<void> {
     });
     const data = await res.json();
     // Sanitised so credentials embedded in the connection string never surface.
-    if (!res.ok || !data.success) throw new Error(sanitizeError(data.error ?? "Connection failed"));
+    // No server message to report → empty message; the dialog supplies its own copy.
+    if (!res.ok || !data.success) throw new Error(data.error ? sanitizeError(data.error) : "");
 }
 
 /**
