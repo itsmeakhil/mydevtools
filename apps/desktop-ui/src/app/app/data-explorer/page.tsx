@@ -13,6 +13,7 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton";
 import { UnifiedTabBar } from "@/components/data-explorer/unified-tab-bar";
+import { ConnectionDialog } from "@/components/data-explorer/connection-dialog";
 import { listConnections, touchConnection } from "@/components/data-explorer/connection-service";
 import { getAdapter } from "@/components/data-explorer/sources";
 import type {
@@ -33,6 +34,8 @@ export default function DataExplorerPage() {
     const [activeTabId, setActiveTabId] = useState<string | null>(null);
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
     const [isInitialized, setIsInitialized] = useState(false);
+    const [connectionDialogOpen, setConnectionDialogOpen] = useState(false);
+    const [editingConnection, setEditingConnection] = useState<UnifiedConnection | null>(null);
 
     const reloadConnections = useCallback(async () => {
         if (!user || !encryptionKey) return;
@@ -216,6 +219,15 @@ export default function DataExplorerPage() {
                 />
                 <div className="min-h-0 flex-1">{body}</div>
             </div>
+            <ConnectionDialog
+                open={connectionDialogOpen}
+                onOpenChange={(open) => {
+                    setConnectionDialogOpen(open);
+                    if (!open) setEditingConnection(null);
+                }}
+                editing={editingConnection}
+                onSaved={() => void reloadConnections()}
+            />
         </div>
     );
 }
