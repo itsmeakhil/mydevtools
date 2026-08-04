@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Settings, LogOut, User as UserIcon, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
-import { Logo } from '@/components/logo'
 import { ModeToggle } from '@/components/modeToggle'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { TopNavStrip, NavIcon } from '@/components/shell/top-nav-strip'
@@ -80,15 +79,13 @@ export function TopBar() {
         !isTauri ? 'px-4' : isFullscreen ? 'pl-4 pr-6' : 'pl-[74px] pr-6',
       )}
     >
-      {/* Brand → dashboard. Icon (logo mark) + a larger wordmark, sized
-          independently so the wordmark can grow without the mark. */}
+      {/* Brand → dashboard. Wordmark only — no logo mark. */}
       <button
         onClick={() => router.push('/dashboard')}
         className="flex shrink-0 items-center gap-2.5 rounded-md px-1.5 py-1.5 transition-colors hover:bg-foreground/[0.06]"
         aria-label="Go to dashboard"
       >
-        <Logo size={28} showText={false} />
-        <span className="relative hidden h-8 w-40 sm:block">
+        <span className="relative block h-8 w-40">
           <Image
             src="/logo-text-light.png"
             alt="MyDevTools"
