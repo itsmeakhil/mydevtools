@@ -88,7 +88,7 @@ export function TopBar() {
           className="text-[15px] font-bold leading-none tracking-wide"
           style={{ fontFamily: 'var(--font-courier-prime), ui-monospace, monospace' }}
         >
-          mydevtools.tech
+          mydevtools<span className="text-primary">.tech</span>
         </span>
       </button>
 
