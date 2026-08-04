@@ -62,9 +62,14 @@ function configDiscriminator(config: unknown): string {
     return "";
 }
 
-/** Comparison-only normalisation — never mutates the name that gets stored. */
+/**
+ * Comparison-only normalisation — never mutates the name that gets stored.
+ * `listConnections`' row filter checks id/sourceId/encryptedData/iv but not
+ * name, so a stored row can reach here with a missing name; guard it rather
+ * than let `.trim()` throw and take down the whole legacy import.
+ */
 function normalizeName(name: string): string {
-    return name.trim().toLowerCase();
+    return String(name ?? "").trim().toLowerCase();
 }
 
 function dedupeKey(sourceId: string, name: string, config: unknown): string {

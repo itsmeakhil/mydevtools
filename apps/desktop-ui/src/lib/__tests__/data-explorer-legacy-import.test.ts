@@ -139,4 +139,20 @@ describe("dedupeAgainstExisting", () => {
         // The candidate's own stored name is untouched — only the comparison key normalises.
         expect(candidate.values.name).toBe("  cache  ");
     });
+
+    it("does not throw on an existing row with a missing name, and still matches an unrelated candidate", () => {
+        const nameless = [
+            {
+                id: "1",
+                sourceId: "redis",
+                // `name` missing entirely, as a pre-name-column legacy row would arrive.
+                config: { redisUrl: "redis://localhost:6379" },
+            } as unknown as UnifiedConnection,
+        ];
+        const candidate = legacyRedisToUnified({ name: "other" }, { redisUrl: "redis://other:6379" });
+        expect(() => dedupeAgainstExisting([candidate], nameless)).not.toThrow();
+        const { toImport, skipped } = dedupeAgainstExisting([candidate], nameless);
+        expect(skipped).toBe(0);
+        expect(toImport).toHaveLength(1);
+    });
 });
