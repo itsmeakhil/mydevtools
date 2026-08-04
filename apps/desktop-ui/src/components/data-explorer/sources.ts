@@ -1,3 +1,4 @@
+import { mongodbAdapter } from "./adapters/mongodb";
 import type { SourceAdapter, SourceId } from "./types";
 
 /**
@@ -6,10 +7,12 @@ import type { SourceAdapter, SourceId } from "./types";
  * Rust router, or the six global tool registries changes.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const SOURCES: Record<SourceId, SourceAdapter<any, any>> = {};
+export const SOURCES: Record<SourceId, SourceAdapter<any, any>> = {
+    mongodb: mongodbAdapter,
+};
 
 /** Display order in the sidebar and the source picker. */
-export const SOURCE_ORDER: SourceId[] = [];
+export const SOURCE_ORDER: SourceId[] = ["mongodb"];
 
 /**
  * Resolve an adapter. Returns null for an unknown id — a connection saved by a

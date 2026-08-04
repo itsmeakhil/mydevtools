@@ -1,3 +1,9 @@
+// sources.ts now pulls in a real adapter (mongodb.tsx) whose form uses
+// next-intl; mock it per this repo's established pattern for test files that
+// transitively import a next-intl-consuming component (see
+// api-client/__tests__/collections-context.test.ts).
+jest.mock("next-intl", () => ({ useTranslations: () => (k: string) => k }))
+
 import { SOURCES, SOURCE_ORDER, getAdapter } from "../sources";
 
 describe("source registry", () => {
