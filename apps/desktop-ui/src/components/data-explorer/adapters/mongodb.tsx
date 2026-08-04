@@ -50,7 +50,7 @@ import {
 } from "@/lib/nosql-error-sanitizer";
 import {
     DB_DIALECTS,
-    DB_TYPE_ORDER,
+    detectDbType,
     normalizeConnectionString,
     type DbType,
 } from "@/lib/nosql-dialects";
@@ -137,7 +137,23 @@ function MongoConnectionForm({
     const [color, setColor] = useState<string | null>(initial.color ?? null);
     const [readOnly, setReadOnly] = useState(initial.readOnly ?? false);
     const [connectionString, setConnectionString] = useState(initial.config.connectionString);
-    const [dbType, setDbType] = useState<DbType>(initial.config.dbType);
+
+    /**
+     * Inferred from the connection string, not picked by the user — the source
+     * dropdown already said "MongoDB" and asking again read as a duplicate.
+     *
+     * `dbType` is still load-bearing: `normalizeConnectionString` appends
+     * `retryWrites=false` for DocumentDB and Cosmos, which reject the driver's
+     * default and would otherwise fail writes silently. Both are identifiable
+     * by their managed hostnames, which is exactly what `detectDbType` matches.
+     * It falls back to "mongodb" when it cannot tell, so keep whatever the
+     * connection was saved with in that case — an explicit FerretDB choice from
+     * an older build then survives an edit.
+     */
+    const dbType = useMemo<DbType>(() => {
+        const detected = detectDbType(connectionString);
+        return detected === "mongodb" ? initial.config.dbType : detected;
+    }, [connectionString, initial.config.dbType]);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -166,28 +182,6 @@ function MongoConnectionForm({
                     placeholder={t("folderPlaceholder")}
                     disabled={saving}
                 />
-            </div>
-
-            <div className="space-y-2">
-                <Label>{t("dbType")}</Label>
-                <div className="grid grid-cols-2 gap-2">
-                    {DB_TYPE_ORDER.map((type) => (
-                        <button
-                            key={type}
-                            type="button"
-                            onClick={() => setDbType(type)}
-                            disabled={saving}
-                            className={cn(
-                                "rounded-lg border px-3 py-2 text-left text-sm font-medium transition-colors",
-                                dbType === type
-                                    ? "border-primary bg-primary/5 ring-1 ring-primary/20"
-                                    : "border-border bg-background/50 hover:border-primary/30"
-                            )}
-                        >
-                            {DB_DIALECTS[type].label}
-                        </button>
-                    ))}
-                </div>
             </div>
 
             <div className="space-y-2">
