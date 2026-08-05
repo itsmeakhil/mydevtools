@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Settings, LogOut, User as UserIcon, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
-import { Logo } from '@/components/logo'
 import { ModeToggle } from '@/components/modeToggle'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { TopNavStrip, NavIcon } from '@/components/shell/top-nav-strip'
@@ -77,30 +75,21 @@ export function TopBar() {
       data-tauri-drag-region
       className={cn(
         'flex h-14 w-full shrink-0 items-center gap-3 border-b border-border bg-[hsl(var(--surface-2))]',
-        !isTauri ? 'px-4' : isFullscreen ? 'pl-4 pr-6' : 'pl-[74px] pr-6',
+        !isTauri ? 'px-4' : 'pr-6',
       )}
+      style={isTauri ? { paddingLeft: isFullscreen ? 16 : 92 } : undefined}
     >
-      {/* Brand → dashboard. Icon (logo mark) + a larger wordmark, sized
-          independently so the wordmark can grow without the mark. */}
+      {/* Brand → dashboard. Text wordmark in Courier Prime, no logo mark. */}
       <button
         onClick={() => router.push('/dashboard')}
-        className="flex shrink-0 items-center gap-2.5 rounded-md px-1.5 py-1.5 transition-colors hover:bg-foreground/[0.06]"
+        className="flex shrink-0 items-center rounded-md px-1.5 py-1.5 transition-colors hover:bg-foreground/[0.06]"
         aria-label="Go to dashboard"
       >
-        <Logo size={28} showText={false} />
-        <span className="relative hidden h-8 w-40 sm:block">
-          <Image
-            src="/logo-text-light.png"
-            alt="MyDevTools"
-            fill
-            className="object-contain object-left dark:hidden"
-          />
-          <Image
-            src="/logo-text-dark.png"
-            alt="MyDevTools"
-            fill
-            className="hidden object-contain object-left dark:block"
-          />
+        <span
+          className="text-[15px] font-bold leading-none tracking-wide"
+          style={{ fontFamily: 'var(--font-courier-prime), ui-monospace, monospace' }}
+        >
+          mydevtools<span className="text-primary">.tech</span>
         </span>
       </button>
 

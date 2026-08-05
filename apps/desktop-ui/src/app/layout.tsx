@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
+import { Courier_Prime } from 'next/font/google'
 
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
@@ -14,6 +15,13 @@ import "./globals.css";
 
 
 import { siteMetadata } from "@/lib/metadata"
+
+// Brand wordmark only — 700 is the heaviest weight Courier Prime ships.
+const courierPrime = Courier_Prime({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-courier-prime',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.url),
@@ -102,7 +110,8 @@ export default async function RootLayout({
   return (
     <html lang={htmlLang} dir={dir} suppressHydrationWarning className={cn(
       GeistSans.variable,
-      GeistMono.variable
+      GeistMono.variable,
+      courierPrime.variable
     )}>
       <head>
         {/* Firebase Auth & token refresh */}
