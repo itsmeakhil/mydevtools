@@ -50,6 +50,7 @@ describe("parseServiceAccount", () => {
     expect(
       parseServiceAccount(JSON.stringify({ ...VALID_SA, project_id: "" })),
     ).toEqual({ errorKey: "validation.serviceAccountNotServiceAccount" });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { client_email: _drop, ...rest } = VALID_SA;
     expect(parseServiceAccount(JSON.stringify(rest))).toEqual({
       errorKey: "validation.serviceAccountNotServiceAccount",

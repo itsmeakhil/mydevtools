@@ -210,25 +210,29 @@ export function FirestoreCollectionPane({
 
     // Refetch from page one whenever the query inputs change.
     useEffect(() => {
-        setPrevTokens([undefined]);
-        setSelected(null);
-        setSubcollections(null);
-        void load(undefined);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const reload = async () => {
+            setPrevTokens([undefined]);
+            setSelected(null);
+            setSubcollections(null);
+            await load(undefined);
+        };
+        void reload();
     }, [load, state.refreshTick]);
 
     // Lazy subcollection lookup for the selected document.
     useEffect(() => {
         if (!selected) return;
         let cancelled = false;
-        setSubcollections(null);
-        listCollectionIds(config, relativeDocPath(selected))
-            .then((ids) => {
+        const run = async () => {
+            setSubcollections(null);
+            try {
+                const ids = await listCollectionIds(config, relativeDocPath(selected));
                 if (!cancelled) setSubcollections(ids);
-            })
-            .catch(() => {
+            } catch {
                 if (!cancelled) setSubcollections([]);
-            });
+            }
+        };
+        void run();
         return () => {
             cancelled = true;
         };
