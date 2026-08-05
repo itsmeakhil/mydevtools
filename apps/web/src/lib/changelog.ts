@@ -26,6 +26,29 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.10',
+    date: '2026-08-05',
+    title: 'Data Explorer — one workspace for MongoDB and Redis',
+    summary:
+      'The separate NoSQL explorer is now Data Explorer: a single workspace where each connection picks its own source and gets the full toolset for it. MongoDB and Redis ship first, with connection credentials encrypted on your device.',
+    changes: [
+      { type: 'added', text: 'Data Explorer — unified sidebar, tab bar, and connection dialog covering every data source in one place.' },
+      { type: 'added', text: 'Redis support: browse keys, edit values, use pub/sub, and run commands from a console.' },
+      { type: 'added', text: 'MongoDB in the new workspace: collection browsing, document queries, aggregation pipelines, and index management.' },
+      { type: 'added', text: 'One-click import of connections saved in the old NoSQL explorer, de-duplicated against connections you already have.' },
+      { type: 'added', text: 'Unified connection vault — every connection is stored as encrypted JSON on your device.' },
+      { type: 'improved', text: 'The MongoDB dialect (MongoDB, DocumentDB, Cosmos DB) is inferred from your connection string instead of being asked for.' },
+      { type: 'improved', text: 'The data source picker is a dropdown, so adding sources no longer crowds the dialog.' },
+      { type: 'improved', text: 'Data Explorer is translated into all 27 in-app languages.' },
+      { type: 'improved', text: 'Cleaner tool headers and a reworked top bar across the app.' },
+      { type: 'fixed', text: 'Redis error messages scrub credentials — connection URLs and passwords never reach a toast, even when the message cannot be parsed.' },
+      { type: 'fixed', text: 'Deleting a single document now asks for confirmation.' },
+      { type: 'fixed', text: 'Read-only mode applies immediately instead of only after reconnecting.' },
+      { type: 'fixed', text: 'Tabs belonging to a removed connection are pruned instead of lingering, and restoring a session no longer reopens invalid tabs.' },
+      { type: 'fixed', text: 'Accessible labels on sidebar controls and a working menu trigger on small windows.' },
+    ],
+  },
+  {
     version: '0.1.9',
     date: '2026-07-24',
     title: 'Update progress, NoSQL depth, open source',
