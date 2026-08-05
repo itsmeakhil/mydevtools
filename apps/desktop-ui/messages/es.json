@@ -53,7 +53,6 @@
     "breakRoom": "Sala de descanso",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander",
     "yamlFormatter": "Formateador YAML",
     "sshKeyGenerator": "Generador de claves SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -528,10 +527,6 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Rompecabezas de números clásicos. 3 niveles de dificultad, 150 etapas cada uno."
-      },
-      "redisCommander": {
-        "title": "Redis Commander",
-        "description": "Explora claves, inspecciona valores y ejecuta comandos en cualquier instancia Redis."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4076,17 +4071,6 @@
     "powerSpeed": "Velocidad x2",
     "powerShield": "Sobrevive una muerte",
     "powerShrink": "Acorta la cola"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Commander",
-      "dialogTitle": "Conexiones Redis",
-      "heroTitle": "Redis Commander",
-      "heroDesc": "Conéctate a instancias Redis. Navega por claves, edita valores y ejecuta comandos. Las credenciales se cifran en tu navegador.",
-      "heroAddConnection": "Agregar conexión",
-      "vaultLockedTitle": "Bóveda bloqueada",
-      "vaultLockedDesc": "Desbloquea tu bóveda para acceder a las conexiones guardadas."
-    }
   },
   "Minesweeper": {
     "title": "Buscaminas",

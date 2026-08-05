@@ -53,7 +53,6 @@
     "breakRoom": "Breek Kamer",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Bestuurder",
     "yamlFormatter": "YAML-formatteerder",
     "sshKeyGenerator": "SSH / RSA-sleutelgenerator",
     "curlToCode": "cURL to Code",
@@ -528,10 +527,6 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassieke getal legkaart. 3 moeilikheidsgraad, 150 stadiums elk."
-      },
-      "redisCommander": {
-        "title": "Redis Bestuurder",
-        "description": "Blaai deur sleutels, inspekteer waardes en voer opdragte op Redis uit."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4076,17 +4071,6 @@
     "powerSpeed": "Spoed x2 (10 beurte)",
     "powerShield": "Een dood oorleef",
     "powerShrink": "Stert verkort"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Bestuurder",
-      "dialogTitle": "Redis Verbindings",
-      "heroTitle": "Redis Bestuurder",
-      "heroDesc": "Verbind met Redis-instansies. Blaai deur sleutels, redigeer waardes, voer opdragte uit. Geloofsbriewe word in u blaaier versleutel.",
-      "heroAddConnection": "Voeg Verbinding By",
-      "vaultLockedTitle": "Kluis Gesluit",
-      "vaultLockedDesc": "Ontsluit u kluis om toegang tot gestoorde verbindings te kry."
-    }
   },
   "Minesweeper": {
     "title": "Mynveer",

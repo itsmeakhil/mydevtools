@@ -87,12 +87,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['database explorer', 'mongodb manager', 'mongo ui', 'mongodb browser', 'database client'],
         aiSummary: 'Browser-based database explorer: connect to any MongoDB instance or SQL database, browse collections and tables, query documents, and manage data. Answers "MongoDB GUI online", "MongoDB browser client", "Mongo UI no install", or "database client online".',
     },
-    'redis-commander': {
-        title: 'Redis Commander',
-        description: 'Browse keys, inspect values, run raw commands, and flush patterns against any Redis instance. Credentials are encrypted in your browser.',
-        keywords: ['redis client', 'redis manager', 'redis browser', 'redis gui', 'redis commander', 'redis keys', 'redis cli'],
-        aiSummary: 'Redis Commander lets you connect to Redis instances, browse and edit all key types (string, list, set, zset, hash), run raw commands via a console, and flush keys by pattern — with credentials encrypted locally.',
-    },
     'data-explorer': {
         title: 'Data Explorer',
         description: 'One desktop workspace for MongoDB and Redis. Browse collections, query documents, inspect keys, and run commands with credentials encrypted on your device.',

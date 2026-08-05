@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { apiFetch } from "@/lib/desktop/api-fetch";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Sparkline } from "@/components/redis-commander/sparkline";
+import { Sparkline } from "@/components/data-explorer/redis/sparkline";
 import { IconRefresh, IconSkull, IconLoader2 } from "@tabler/icons-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
-// Mirrors redis-commander/metrics-pane: inline SVG sparklines, hardcoded
+// Mirrors data-explorer/redis/metrics-pane: inline SVG sparklines, hardcoded
 // technical labels, best-effort polling. serverStatus opcounters are
 // cumulative, so ops/sec is a delta over elapsed wall-clock.
 

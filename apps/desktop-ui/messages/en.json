@@ -68,7 +68,6 @@
     "breakRoom": "Break Room",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander",
     "yamlFormatter": "YAML Formatter",
     "sshKeyGenerator": "SSH / RSA Key Generator",
     "curlToCode": "cURL to Code",
@@ -659,10 +658,6 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Classic number puzzle. 3 difficulty levels, 150 stages each."
-      },
-      "redisCommander": {
-        "title": "Redis Commander",
-        "description": "Browse keys, inspect values, and run commands on any Redis instance."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4065,17 +4060,6 @@
     "mistakes": "Mistakes",
     "failed": "Failed!",
     "mistakeMode": "3-Mistake Mode"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Commander",
-      "dialogTitle": "Redis Connections",
-      "heroTitle": "Redis Commander",
-      "heroDesc": "Connect to Redis instances. Browse keys, edit values, run commands. Credentials are encrypted in your browser and never stored in plaintext.",
-      "heroAddConnection": "Add Connection",
-      "vaultLockedTitle": "Vault Locked",
-      "vaultLockedDesc": "Unlock your vault to access saved connections."
-    }
   },
   "Game2048": {
     "title": "2048",

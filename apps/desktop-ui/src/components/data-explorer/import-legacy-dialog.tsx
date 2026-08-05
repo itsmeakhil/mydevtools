@@ -15,7 +15,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { getConnections as getMongoConnections } from "@/components/nosql-explorer/connection-service";
-import { getConnections as getRedisConnections } from "@/components/redis-commander/connection-service";
+import { getConnections as getRedisConnections } from "@/components/data-explorer/redis/connection-service";
 import {
     dedupeAgainstExisting,
     legacyMongoToUnified,

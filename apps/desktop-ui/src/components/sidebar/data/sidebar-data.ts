@@ -54,7 +54,6 @@ import {
   IconArchive,
   IconDeviceGamepad2,
   IconBucket,
-  IconBrandRedux,
   IconWorld,
   IconTerminal2,
   IconCode,
@@ -518,12 +517,6 @@ export const sidebarData: SidebarData = {
           url: '/app/s3-drive',
           icon: IconBucket,
           description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, and delete files with encrypted credentials.',
-        },
-        {
-          title: 'Redis Commander',
-          url: '/app/redis-commander',
-          icon: IconBrandRedux,
-          description: 'Browse keys, inspect values, run raw commands, and flush patterns — encrypted credential store.',
         },
         {
           title: 'Data Explorer',

@@ -76,6 +76,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
     { href: "/download", label: "Download" },
     { href: "/developer-tools", label: "Platform" },
     { href: "/tools", label: "Tools" },
+    { href: "/changelog", label: "Changelog" },
   ];
 
   return (
@@ -126,6 +127,12 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                 className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
               >
                 Tools
+              </Link>
+              <Link
+                href="/changelog"
+                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
+              >
+                Changelog
               </Link>
             </nav>
           </div>

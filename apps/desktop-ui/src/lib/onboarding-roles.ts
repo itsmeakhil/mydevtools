@@ -67,7 +67,6 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/api-client",
       "/app/sql-client",
       "/app/database-explorer",
-      "/app/redis-commander",
       "/app/jwt-decoder",
       "/app/cron-builder",
       "/app/environment-manager",

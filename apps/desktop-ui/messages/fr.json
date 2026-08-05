@@ -53,7 +53,6 @@
     "breakRoom": "Salle de pause",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander",
     "yamlFormatter": "Formateur YAML",
     "sshKeyGenerator": "Générateur de clés SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -528,10 +527,6 @@
       "sudoku": {
         "title": "Patience",
         "description": "Puzzle à numéro classique. 3 niveaux de difficulté, 150 niveaux chacun."
-      },
-      "redisCommander": {
-        "title": "Redis Commander",
-        "description": "Parcourez les clés, inspectez les valeurs et exécutez des commandes sur n'importe quelle instance Redis."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4076,17 +4071,6 @@
     "powerSpeed": "Vitesse x2",
     "powerShield": "Survive à une mort",
     "powerShrink": "Raccourcit la queue"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Commander",
-      "dialogTitle": "Connexions Redis",
-      "heroTitle": "Redis Commander",
-      "heroDesc": "Connectez-vous à des instances Redis. Parcourez les clés, modifiez les valeurs et exécutez des commandes. Les identifiants sont chiffrés dans votre navigateur.",
-      "heroAddConnection": "Ajouter une connexion",
-      "vaultLockedTitle": "Coffre verrouillé",
-      "vaultLockedDesc": "Déverrouillez votre coffre pour accéder aux connexions enregistrées."
-    }
   },
   "Minesweeper": {
     "title": "Démineur",

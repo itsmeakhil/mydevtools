@@ -8,7 +8,6 @@ const DESKTOP_RECOMMENDED_SLUGS = new Set([
   'api-client',
   'sql-client',
   'database-explorer',
-  'redis-commander',
   'encryption-playground',
   's3-drive',
   'csv-excel-json',

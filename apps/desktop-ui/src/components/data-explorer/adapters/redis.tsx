@@ -34,16 +34,16 @@ import { cn } from "@/lib/utils";
 import { apiFetch } from "@/lib/desktop/api-fetch";
 import { sanitizeError } from "@/lib/nosql-error-sanitizer";
 import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
-import { KeyBrowser } from "@/components/redis-commander/key-browser";
-import { ValueEditor } from "@/components/redis-commander/value-editor";
-import { CommandPanel } from "@/components/redis-commander/command-panel";
-import { ServerDashboard } from "@/components/redis-commander/server-dashboard";
-import { MetricsPane } from "@/components/redis-commander/metrics-pane";
-import { BulkActions } from "@/components/redis-commander/bulk-actions";
-import { PubSubPane } from "@/components/redis-commander/pubsub-pane";
-import { MonitorPane } from "@/components/redis-commander/monitor-pane";
-import { ScannerPane } from "@/components/redis-commander/scanner-pane";
-import { SearchWorkbench } from "@/components/redis-commander/search-workbench";
+import { KeyBrowser } from "@/components/data-explorer/redis/key-browser";
+import { ValueEditor } from "@/components/data-explorer/redis/value-editor";
+import { CommandPanel } from "@/components/data-explorer/redis/command-panel";
+import { ServerDashboard } from "@/components/data-explorer/redis/server-dashboard";
+import { MetricsPane } from "@/components/data-explorer/redis/metrics-pane";
+import { BulkActions } from "@/components/data-explorer/redis/bulk-actions";
+import { PubSubPane } from "@/components/data-explorer/redis/pubsub-pane";
+import { MonitorPane } from "@/components/data-explorer/redis/monitor-pane";
+import { ScannerPane } from "@/components/data-explorer/redis/scanner-pane";
+import { SearchWorkbench } from "@/components/data-explorer/redis/search-workbench";
 import type { ConnectionFormProps, PaneProps, SidebarTreeProps, SourceAdapter } from "../types";
 
 export interface RedisConfig {
@@ -57,7 +57,7 @@ export interface RedisTabState {
     refreshTick: number;
 }
 
-/** Ported verbatim from redis-commander/connection-form.tsx:33-43. */
+/** Ported verbatim from ../redis/connection-form.tsx. */
 export function buildRedisUrl(opts: {
     host: string;
     port: string;
@@ -193,7 +193,7 @@ async function testConnection(config: RedisConfig): Promise<void> {
  * never calls the connection service, never toasts — the connection dialog
  * owns validate → testConnection → persist and renders `error` inline.
  *
- * Two-mode layout ported from redis-commander/connection-form.tsx: a raw URL
+ * Two-mode layout ported from ../redis/connection-form.tsx: a raw URL
  * input, or a host/port/user/password/db/TLS builder that feeds `buildRedisUrl`.
  * Unlike that legacy form, this one never calls the connection service or a
  * store directly — it only ever reports `{ redisUrl }` up through `onSubmit`.
@@ -409,7 +409,7 @@ function RedisConnectionForm({
                 promises "blocks every write operation", and this adapter cannot
                 keep that promise: ValueEditor (save/delete/rename/copy) and
                 CommandPanel (arbitrary DEL / FLUSHALL) live in
-                components/redis-commander/ and accept no `readOnly` prop, so the
+                components/data-explorer/redis/ and accept no `readOnly` prop, so the
                 flag would only hide Flush and BulkActions. The field itself stays
                 in the data model — an already-read-only connection keeps that
                 partial gating in the pane. Restore this switch when
@@ -520,7 +520,7 @@ const INNER_TAB =
     "h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none";
 
 /**
- * Key-browsing workbench, mirroring `redis-commander/page.tsx:384-505`.
+ * Key-browsing workbench.
  *
  * Every imported pane takes `{ redisUrl, db }` and fetches for itself, so this
  * is composition: the only shared state is the selected key (browser →
@@ -546,7 +546,7 @@ function RedisPane({ connection, config, tab, state, setState }: PaneProps<Redis
     const bumpRefresh = () => setState((prev) => ({ ...prev, refreshTick: prev.refreshTick + 1 }));
     const selectKey = (key: string) => setState((prev) => ({ ...prev, selectedKey: key }));
 
-    /** Ported from redis-commander/page.tsx:146-176. Errors are sanitised —
+    /** Errors are sanitised —
      *  a Redis URL can carry a username and password. */
     async function handleFlush() {
         setFlushing(true);

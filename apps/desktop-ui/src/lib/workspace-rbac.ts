@@ -32,7 +32,6 @@ export const TOOL_PERMISSIONS: Record<string, Record<WsRole, Set<Permission>>> =
   "api-client":      PLAINTEXT_ROW,
   "nosql-explorer":  PLAINTEXT_ROW,
   "sql-client":      PLAINTEXT_ROW,
-  "redis-commander": PLAINTEXT_ROW,
   "s3-drive":        PLAINTEXT_ROW,
   "json-formatter":  PLAINTEXT_ROW,
   "dns-lookup":      PLAINTEXT_ROW,

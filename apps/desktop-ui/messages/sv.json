@@ -53,7 +53,6 @@
     "breakRoom": "Pausrum",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander",
     "yamlFormatter": "YAML-formaterare",
     "sshKeyGenerator": "SSH / RSA-nyckelgenerator",
     "curlToCode": "cURL to Code",
@@ -528,10 +527,6 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klassiskt nummerpussel. 3 svårighetsgrader, 150 steg vardera."
-      },
-      "redisCommander": {
-        "title": "Redis Commander",
-        "description": "Bläddra bland nycklar, undersök värden och kör kommandon på valfri Redis-instans."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4076,17 +4071,6 @@
     "powerSpeed": "Hastighet x2",
     "powerShield": "Överlev ett dödsfall",
     "powerShrink": "Förkortar svansen"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Commander",
-      "dialogTitle": "Redis-anslutningar",
-      "heroTitle": "Redis Commander",
-      "heroDesc": "Anslut till Redis-instanser. Bläddra bland nycklar, redigera värden och kör kommandon. Inloggningsuppgifter krypteras i din webbläsare.",
-      "heroAddConnection": "Lägg till anslutning",
-      "vaultLockedTitle": "Valvet är låst",
-      "vaultLockedDesc": "Lås upp valvet för att komma åt sparade anslutningar."
-    }
   },
   "Minesweeper": {
     "title": "Minröjaren",

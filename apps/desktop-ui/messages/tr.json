@@ -53,7 +53,6 @@
     "breakRoom": "Mola Odası",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander",
     "yamlFormatter": "YAML Biçimleyici",
     "sshKeyGenerator": "SSH / RSA Anahtar Oluşturucu",
     "curlToCode": "cURL to Code",
@@ -528,10 +527,6 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Klasik sayı bulmacası. 3 zorluk seviyesi, her biri 150 aşama."
-      },
-      "redisCommander": {
-        "title": "Redis Commander",
-        "description": "Herhangi bir Redis örneğinde anahtarlara göz atın, değerleri inceleyin ve komutlar çalıştırın."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4076,17 +4071,6 @@
     "powerSpeed": "Hız x2",
     "powerShield": "Bir ölümden kurtar",
     "powerShrink": "Kuyruğu kısalt"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Commander",
-      "dialogTitle": "Redis Bağlantıları",
-      "heroTitle": "Redis Commander",
-      "heroDesc": "Redis örneklerine bağlanın. Anahtarlara göz atın, değerleri düzenleyin ve komutlar çalıştırın. Kimlik bilgileri tarayıcınızda şifrelenir.",
-      "heroAddConnection": "Bağlantı Ekle",
-      "vaultLockedTitle": "Kasa kilitli",
-      "vaultLockedDesc": "Kayıtlı bağlantılara erişmek için kasanızı açın."
-    }
   },
   "Minesweeper": {
     "title": "Mayın Tarlası",

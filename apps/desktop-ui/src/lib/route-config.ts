@@ -127,7 +127,6 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/user-agent-parser': { title: 'User Agent Parser', icon: UserCheck },
   '/app/sql-client': { title: 'SQL Client', icon: Server },
   '/app/s3-drive': { title: 'S3 Drive', icon: HardDrive },
-  '/app/redis-commander': { title: 'Redis Commander', icon: Database },
   '/app/curl-to-code': { title: 'cURL to Code', icon: Terminal, namespace: 'CurlToCode' },
   '/app/json-to-code': { title: 'JSON to Code', icon: Code2, namespace: 'JsonToCode' },
   '/app/json-visualizer': { title: 'JSON Visualizer', icon: Waypoints, namespace: 'JsonVisualizer' },

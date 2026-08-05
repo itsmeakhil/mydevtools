@@ -79,7 +79,6 @@ const TAB_REGISTRY: Record<string, React.ComponentType> = {
   '/app/user-agent-parser': dynamic(() => import('@/app/app/user-agent-parser/page'), { ssr: false, loading }),
   '/app/sql-client': dynamic(() => import('@/app/app/sql-client/page'), { ssr: false, loading }),
   '/app/s3-drive': dynamic(() => import('@/app/app/s3-drive/page'), { ssr: false, loading }),
-  '/app/redis-commander': dynamic(() => import('@/app/app/redis-commander/page'), { ssr: false, loading }),
   '/app/curl-to-code': dynamic(() => import('@/app/app/curl-to-code/page'), { ssr: false, loading }),
   '/app/json-to-code': dynamic(() => import('@/app/app/json-to-code/page'), { ssr: false, loading }),
   '/app/json-visualizer': dynamic(() => import('@/app/app/json-visualizer/page'), { ssr: false, loading }),

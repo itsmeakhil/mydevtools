@@ -53,7 +53,6 @@
     "breakRoom": "Spazio per le pause di lavoro",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander",
     "yamlFormatter": "Formattatore YAML",
     "sshKeyGenerator": "Generatore di chiavi SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -528,10 +527,6 @@
       "sudoku": {
         "title": "Sudoku",
         "description": "Classico puzzle numerico. 3 livelli di difficoltà, 150 livelli ciascuno."
-      },
-      "redisCommander": {
-        "title": "Redis Commander",
-        "description": "Sfoglia le chiavi, ispeziona i valori ed esegui comandi su qualsiasi istanza Redis."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4076,17 +4071,6 @@
     "powerSpeed": "Velocità x2",
     "powerShield": "Sopravvivi a una morte",
     "powerShrink": "Accorcia la coda"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Commander",
-      "dialogTitle": "Connessioni Redis",
-      "heroTitle": "Redis Commander",
-      "heroDesc": "Connettiti alle istanze Redis. Sfoglia le chiavi, modifica i valori ed esegui comandi. Le credenziali sono crittografate nel browser.",
-      "heroAddConnection": "Aggiungi connessione",
-      "vaultLockedTitle": "Vault bloccato",
-      "vaultLockedDesc": "Sblocca il vault per accedere alle connessioni salvate."
-    }
   },
   "Minesweeper": {
     "title": "Campo minato",

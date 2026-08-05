@@ -53,7 +53,6 @@
     "breakRoom": "Bilik Rehat",
     "game2048": "2048",
     "sudoku": "Sudoku",
-    "redisCommander": "Redis Commander",
     "yamlFormatter": "Pemformat YAML",
     "sshKeyGenerator": "Penjana Kekunci SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -534,10 +533,6 @@
       "sudoku": {
         "title": "Stone GNOME",
         "description": "Teka-teki nombor klasik. 3 tahap kesukaran, 150 peringkat setiap satu."
-      },
-      "redisCommander": {
-        "title": "Redis Commander",
-        "description": "Semak kunci, periksa nilai dan jalankan arahan pada mana-mana contoh Redis."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4076,17 +4071,6 @@
     "powerSpeed": "Speed x2 (10 ticks)",
     "powerShield": "Survive one death",
     "powerShrink": "Shortens tail"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis Commander",
-      "dialogTitle": "Sambungan Redis",
-      "heroTitle": "Redis Commander",
-      "heroDesc": "Sambung ke contoh Redis. Semak kunci, edit nilai dan jalankan arahan. Kelayakan disulitkan dalam pelayar anda.",
-      "heroAddConnection": "Tambah Sambungan",
-      "vaultLockedTitle": "Peti besi dikunci",
-      "vaultLockedDesc": "Buka kunci peti besi untuk mengakses sambungan yang disimpan."
-    }
   },
   "Minesweeper": {
     "title": "Penyapu Min",

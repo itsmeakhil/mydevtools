@@ -53,7 +53,6 @@
     "breakRoom": "休闲角",
     "game2048": "2048",
     "sudoku": "数独",
-    "redisCommander": "Redis 指挥官",
     "yamlFormatter": "YAML格式化工具",
     "sshKeyGenerator": "SSH / RSA 密钥生成器",
     "curlToCode": "cURL to Code",
@@ -528,10 +527,6 @@
       "sudoku": {
         "title": "数独",
         "description": "经典数字填空游戏。三种难度，每种 150 关。"
-      },
-      "redisCommander": {
-        "title": "Redis 指挥官",
-        "description": "浏览键、检查值并在任意 Redis 实例上执行命令。"
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4065,17 +4060,6 @@
     "powerSpeed": "速度 x2",
     "powerShield": "免疫一次死亡",
     "powerShrink": "缩短尾巴"
-  },
-  "RedisCommander": {
-    "page": {
-      "title": "Redis 指挥官",
-      "dialogTitle": "Redis 连接",
-      "heroTitle": "Redis 指挥官",
-      "heroDesc": "连接到 Redis 实例。浏览键、编辑值并执行命令。凭据在您的浏览器中加密存储。",
-      "heroAddConnection": "添加连接",
-      "vaultLockedTitle": "保险库已锁定",
-      "vaultLockedDesc": "解锁保险库以访问已保存的连接。"
-    }
   },
   "Minesweeper": {
     "title": "扫雷",

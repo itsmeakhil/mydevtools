@@ -57,7 +57,6 @@ export const toolCategoryMap: Record<string, string> = {
   'database-explorer': 'Database',
   'data-explorer': 'Database',
   's3-drive': 'Database',
-  'redis-commander': 'Database',
   'color-picker': 'Media & Design',
   'contrast-checker': 'Media & Design',
   'css-gradient-builder': 'Media & Design',
