@@ -1995,6 +1995,8 @@
       "errNetwork": "Network error — check your connection.",
       "errNotFound": "Database not found. Check the database ID.",
       "errDocTooLarge": "Document exceeds Firestore's 1 MB limit.",
+      "errInvalidDocJson": "The document is not valid JSON.",
+      "errDocNotObject": "A document must be a JSON object at the top level.",
       "toast": {
         "docCreated": "Document created",
         "docUpdated": "Document saved",

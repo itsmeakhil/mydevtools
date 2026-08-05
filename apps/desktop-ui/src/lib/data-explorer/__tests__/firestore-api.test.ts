@@ -428,6 +428,50 @@ describe("mapFirestoreError", () => {
   });
 });
 
+describe("prepareDocumentWrite", () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { prepareDocumentWrite } = require("../firestore-api");
+
+  test("encodes an edit with a mask covering added, kept and deleted keys", () => {
+    const original = {
+      kept: { integerValue: "1" },
+      removed: { stringValue: "x" },
+      ts: { timestampValue: "2026-01-01T00:00:00Z" },
+    };
+    const out = prepareDocumentWrite(
+      JSON.stringify({ kept: 2, added: true, ts: "2027-01-01T00:00:00Z" }),
+      original,
+    );
+    expect(out.fields).toEqual({
+      kept: { integerValue: "2" },
+      added: { booleanValue: true },
+      ts: { timestampValue: "2027-01-01T00:00:00Z" },
+    });
+    expect(out.updateMask.sort()).toEqual(["added", "kept", "removed", "ts"]);
+  });
+
+  test("rejects invalid JSON", () => {
+    expect(prepareDocumentWrite("{nope", {})).toEqual({ error: "invalidJson" });
+  });
+
+  test("rejects non-object roots", () => {
+    expect(prepareDocumentWrite("[1,2]", {})).toEqual({ error: "notObject" });
+    expect(prepareDocumentWrite("42", {})).toEqual({ error: "notObject" });
+    expect(prepareDocumentWrite("null", {})).toEqual({ error: "notObject" });
+  });
+
+  test("rejects documents over 1 MB", () => {
+    const big = JSON.stringify({ blob: "x".repeat(1_000_001) });
+    expect(prepareDocumentWrite(big, {})).toEqual({ error: "tooLarge" });
+  });
+
+  test("works without original fields (create path)", () => {
+    const out = prepareDocumentWrite(JSON.stringify({ a: 1 }));
+    expect(out.fields).toEqual({ a: { integerValue: "1" } });
+    expect(out.updateMask).toEqual(["a"]);
+  });
+});
+
 describe("sanitizeFirestoreError", () => {
   test("strips PEM blocks", () => {
     const out = sanitizeFirestoreError(

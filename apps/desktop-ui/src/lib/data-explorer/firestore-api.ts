@@ -257,6 +257,36 @@ export function buildUpdateMask(
     return [...keys].map(escapeFieldPath);
 }
 
+export type DocumentWriteError = "invalidJson" | "notObject" | "tooLarge";
+
+/**
+ * Turn the JSON a user edited (or typed for a new document) into wire fields
+ * plus a whole-document update mask. Enforces Firestore's 1 MB document
+ * limit before any request is made.
+ */
+export function prepareDocumentWrite(
+    jsonText: string,
+    originalFields: Record<string, FirestoreValue> = {},
+):
+    | { fields: Record<string, FirestoreValue>; updateMask: string[] }
+    | { error: DocumentWriteError } {
+    let plain: unknown;
+    try {
+        plain = JSON.parse(jsonText);
+    } catch {
+        return { error: "invalidJson" };
+    }
+    if (typeof plain !== "object" || plain === null || Array.isArray(plain))
+        return { error: "notObject" };
+    if (new TextEncoder().encode(JSON.stringify(plain)).length > 1_000_000)
+        return { error: "tooLarge" };
+    const record = plain as Record<string, unknown>;
+    return {
+        fields: encodeFields(record, originalFields),
+        updateMask: buildUpdateMask(record, originalFields),
+    };
+}
+
 const QUERY_OPS: Record<string, string> = {
     "==": "EQUAL",
     "!=": "NOT_EQUAL",

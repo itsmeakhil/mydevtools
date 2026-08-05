@@ -2,14 +2,37 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import {
     IconChevronRight,
     IconExternalLink,
     IconFolder,
+    IconPencil,
+    IconPlus,
     IconRefresh,
+    IconTrash,
 } from "@tabler/icons-react";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
     ResizableHandle,
     ResizablePanel,
@@ -27,11 +50,16 @@ import {
     FILTER_OPS,
     FirestoreApiError,
     buildStructuredQuery,
+    createDocument,
     decodeFields,
+    deleteDocument,
     listCollectionIds,
     listDocuments,
+    patchDocument,
+    prepareDocumentWrite,
     runQuery,
     sanitizeFirestoreError,
+    type DocumentWriteError,
     type FirestoreConfig,
     type FirestoreDocument,
 } from "@/lib/data-explorer/firestore-api";
@@ -102,7 +130,6 @@ export function FirestoreCollectionPane({
     const t = useTranslations("DataExplorer.firestore");
     const errorText = useErrorText();
     const readOnly = !!connection.readOnly;
-    void readOnly; // gates the write UI added below
 
     const [docs, setDocs] = useState<FirestoreDocument[]>([]);
     const [loading, setLoading] = useState(false);
@@ -253,6 +280,96 @@ export function FirestoreCollectionPane({
             orderByDir: "asc",
         }));
 
+    // ------------------------------------------------------------- writes
+    const [editing, setEditing] = useState(false);
+    const [editText, setEditText] = useState("");
+    const [newDocOpen, setNewDocOpen] = useState(false);
+    const [newDocId, setNewDocId] = useState("");
+    const [newDocText, setNewDocText] = useState("{\n}");
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    const [mutating, setMutating] = useState(false);
+
+    const writeErrorText = (code: DocumentWriteError): string =>
+        code === "tooLarge"
+            ? t("errDocTooLarge")
+            : code === "notObject"
+              ? t("errDocNotObject")
+              : t("errInvalidDocJson");
+
+    const mutationMessage = (err: unknown): string =>
+        err instanceof FirestoreApiError
+            ? errorText(err).text
+            : sanitizeFirestoreError(err instanceof Error ? err.message : String(err));
+
+    async function saveEdit() {
+        if (readOnly || !selected) return;
+        const prepared = prepareDocumentWrite(editText, selected.fields ?? {});
+        if ("error" in prepared) {
+            toast.error(writeErrorText(prepared.error));
+            return;
+        }
+        setMutating(true);
+        try {
+            const updated = await patchDocument(
+                config,
+                relativeDocPath(selected),
+                prepared.fields,
+                prepared.updateMask,
+            );
+            setSelected(updated);
+            setDocs((prev) => prev.map((d) => (d.name === updated.name ? updated : d)));
+            setEditing(false);
+            toast.success(t("toast.docUpdated"));
+        } catch (err) {
+            toast.error(t("toast.saveFailed", { message: mutationMessage(err) }));
+        } finally {
+            setMutating(false);
+        }
+    }
+
+    async function createDoc() {
+        if (readOnly) return;
+        const prepared = prepareDocumentWrite(newDocText);
+        if ("error" in prepared) {
+            toast.error(writeErrorText(prepared.error));
+            return;
+        }
+        setMutating(true);
+        try {
+            await createDocument(
+                config,
+                state.collectionPath,
+                newDocId.trim() || undefined,
+                prepared.fields,
+            );
+            setNewDocOpen(false);
+            setNewDocId("");
+            setNewDocText("{\n}");
+            toast.success(t("toast.docCreated"));
+            setState((prev) => ({ ...prev, refreshTick: prev.refreshTick + 1 }));
+        } catch (err) {
+            toast.error(t("toast.createFailed", { message: mutationMessage(err) }));
+        } finally {
+            setMutating(false);
+        }
+    }
+
+    async function confirmDelete() {
+        if (readOnly || !selected) return;
+        setMutating(true);
+        try {
+            await deleteDocument(config, relativeDocPath(selected));
+            setDocs((prev) => prev.filter((d) => d.name !== selected.name));
+            setSelected(null);
+            setDeleteOpen(false);
+            toast.success(t("toast.docDeleted"));
+        } catch (err) {
+            toast.error(t("toast.deleteFailed", { message: mutationMessage(err) }));
+        } finally {
+            setMutating(false);
+        }
+    }
+
     const banner = error ? errorText(error) : null;
 
     return (
@@ -319,6 +436,17 @@ export function FirestoreCollectionPane({
                 >
                     <IconRefresh className="size-3.5" />
                 </Button>
+                {!readOnly && (
+                    <Button
+                        type="button"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setNewDocOpen(true)}
+                    >
+                        <IconPlus className="size-3.5" />
+                        {t("newDocument")}
+                    </Button>
+                )}
             </div>
 
             {/* Filter bar */}
@@ -419,7 +547,10 @@ export function FirestoreCollectionPane({
                                         <button
                                             key={doc.name}
                                             type="button"
-                                            onClick={() => setSelected(doc)}
+                                            onClick={() => {
+                                                setSelected(doc);
+                                                setEditing(false);
+                                            }}
                                             className={cn(
                                                 "block w-full border-b px-3 py-1.5 text-left transition-colors hover:bg-muted/60",
                                                 isSelected && "bg-muted",
@@ -482,11 +613,79 @@ export function FirestoreCollectionPane({
                                         {selected.updateTime}
                                     </span>
                                 )}
+                                {!readOnly && !editing && (
+                                    <>
+                                        <Button
+                                            type="button"
+                                            size="sm"
+                                            variant="ghost"
+                                            className="h-6 px-2 text-xs"
+                                            onClick={() => {
+                                                setEditText(
+                                                    JSON.stringify(
+                                                        decodeFields(selected.fields ?? {}),
+                                                        null,
+                                                        2,
+                                                    ),
+                                                );
+                                                setEditing(true);
+                                            }}
+                                        >
+                                            <IconPencil className="size-3" />
+                                            {t("edit")}
+                                        </Button>
+                                        <Button
+                                            type="button"
+                                            size="sm"
+                                            variant="ghost"
+                                            className="h-6 px-2 text-xs text-destructive"
+                                            onClick={() => setDeleteOpen(true)}
+                                        >
+                                            <IconTrash className="size-3" />
+                                        </Button>
+                                    </>
+                                )}
+                                {!readOnly && editing && (
+                                    <>
+                                        <Button
+                                            type="button"
+                                            size="sm"
+                                            className="h-6 px-2 text-xs"
+                                            onClick={saveEdit}
+                                            disabled={mutating}
+                                        >
+                                            {t("save")}
+                                        </Button>
+                                        <Button
+                                            type="button"
+                                            size="sm"
+                                            variant="ghost"
+                                            className="h-6 px-2 text-xs"
+                                            onClick={() => setEditing(false)}
+                                            disabled={mutating}
+                                        >
+                                            {t("cancel")}
+                                        </Button>
+                                    </>
+                                )}
                             </div>
                             <div className="min-h-0 flex-1 overflow-auto p-3">
-                                <pre className="font-mono text-xs whitespace-pre-wrap break-all">
-                                    {JSON.stringify(decodeFields(selected.fields ?? {}), null, 2)}
-                                </pre>
+                                {editing ? (
+                                    <Textarea
+                                        value={editText}
+                                        onChange={(e) => setEditText(e.target.value)}
+                                        disabled={mutating}
+                                        className="h-full min-h-[200px] resize-none font-mono text-xs"
+                                    />
+                                ) : (
+                                    <pre className="font-mono text-xs whitespace-pre-wrap break-all">
+                                        {JSON.stringify(
+                                            decodeFields(selected.fields ?? {}),
+                                            null,
+                                            2,
+                                        )}
+                                    </pre>
+                                )}
                             </div>
                             <div className="border-t px-3 py-2">
                                 <p className="mb-1 text-[10px] font-medium text-muted-foreground uppercase">
@@ -526,6 +725,71 @@ export function FirestoreCollectionPane({
                     )}
                 </ResizablePanel>
             </ResizablePanelGroup>
+
+            <Dialog open={newDocOpen} onOpenChange={(open) => !mutating && setNewDocOpen(open)}>
+                <DialogContent className="sm:max-w-lg">
+                    <DialogHeader>
+                        <DialogTitle>{t("newDocument")}</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-3">
+                        <div className="space-y-1">
+                            <Label htmlFor="fs-new-id" className="text-xs">
+                                {t("docIdLabel")}
+                            </Label>
+                            <Input
+                                id="fs-new-id"
+                                value={newDocId}
+                                onChange={(e) => setNewDocId(e.target.value)}
+                                disabled={mutating}
+                                className="h-8 font-mono text-xs"
+                            />
+                            <p className="text-[10px] text-muted-foreground">{t("docIdAutoHint")}</p>
+                        </div>
+                        <Textarea
+                            value={newDocText}
+                            onChange={(e) => setNewDocText(e.target.value)}
+                            disabled={mutating}
+                            rows={10}
+                            className="font-mono text-xs"
+                        />
+                        <p className="text-[10px] text-muted-foreground">{t("newFieldTypesHint")}</p>
+                    </div>
+                    <DialogFooter>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setNewDocOpen(false)}
+                            disabled={mutating}
+                        >
+                            {t("cancel")}
+                        </Button>
+                        <Button type="button" onClick={createDoc} disabled={mutating}>
+                            {t("create")}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            <AlertDialog open={deleteOpen} onOpenChange={(open) => !mutating && setDeleteOpen(open)}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>{t("deleteDocTitle")}</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            {t("deleteDocBody", { id: selected ? docId(selected) : "" })}
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel disabled={mutating}>{t("cancel")}</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={confirmDelete}
+                            disabled={mutating}
+                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                        >
+                            {t("deleteDocTitle")}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </div>
     );
 }
