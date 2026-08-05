@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
+import { FirestoreCollectionPane } from "@/components/data-explorer/firestore/collection-pane";
 import {
     databasePath,
     firestoreFetch,
@@ -374,14 +375,8 @@ function FirestoreSidebarTree({
 
 /* ------------------------------------------------------------------ pane */
 
-// Placeholder until the collection workbench lands; keeps the adapter
-// contract satisfied so connections can already be created and browsed.
-function FirestorePane({ state }: PaneProps<FirestoreConfig, FirestoreTabState>) {
-    return (
-        <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-            {state.collectionPath}
-        </div>
-    );
+function FirestorePane(props: PaneProps<FirestoreConfig, FirestoreTabState>) {
+    return <FirestoreCollectionPane {...props} />;
 }
 
 export const firestoreAdapter: SourceAdapter<FirestoreConfig, FirestoreTabState> = {
