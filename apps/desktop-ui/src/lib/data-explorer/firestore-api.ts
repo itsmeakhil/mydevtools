@@ -444,3 +444,250 @@ export function sanitizeFirestoreError(message: string): string {
     out = out.replace(/ya29\.[\w.-]+/g, "***TOKEN***");
     return sanitizeError(out);
 }
+
+// ---------------------------------------------------------------------------
+// Auth: service account → OAuth2 access token (jwt-bearer grant)
+// ---------------------------------------------------------------------------
+
+const TOKEN_URL = "https://oauth2.googleapis.com/token";
+const FIRESTORE_BASE = "https://firestore.googleapis.com/v1/";
+
+interface TokenEntry {
+    token: string;
+    expiresAt: number;
+}
+
+const tokenCache = new Map<string, TokenEntry>();
+
+function tokenCacheKey(sa: ServiceAccount): string {
+    return sa.clientEmail + "|" + sa.projectId;
+}
+
+export function evictToken(sa: ServiceAccount): void {
+    tokenCache.delete(tokenCacheKey(sa));
+}
+
+export async function getAccessToken(
+    sa: ServiceAccount,
+    now: number = Date.now(),
+): Promise<string> {
+    const cached = tokenCache.get(tokenCacheKey(sa));
+    // 5-minute margin so a token never expires mid-request.
+    if (cached && now < cached.expiresAt - 300_000) return cached.token;
+
+    // iat backdated 60 s to absorb typical client clock skew.
+    const iat = Math.floor(now / 1000) - 60;
+    const assertion = await signJwt({
+        algorithm: "RS256",
+        privateKeyPem: sa.privateKey,
+        claims: {
+            iss: sa.clientEmail,
+            aud: TOKEN_URL,
+            iat,
+            extra: { scope: "https://www.googleapis.com/auth/datastore" },
+        },
+        ttlSeconds: 3600,
+        now,
+    });
+
+    let res: { ok: boolean; status: number; json: () => Promise<unknown> };
+    try {
+        res = await fetch(TOKEN_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+                grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+                assertion,
+            }),
+        });
+    } catch {
+        throw new FirestoreApiError("network", "network error reaching Google auth");
+    }
+    const body = (await res.json().catch(() => undefined)) as
+        | { access_token?: string; expires_in?: number; error?: string; error_description?: string }
+        | undefined;
+    if (!res.ok || !body?.access_token) {
+        const desc = body?.error_description ?? body?.error ?? `HTTP ${res.status}`;
+        if (body?.error === "invalid_grant" && /iat|exp|expired|too early|clock|short-lived/i.test(desc))
+            throw new FirestoreApiError("clockSkew", desc, res.status);
+        if (/disabled|deleted|not found/i.test(desc))
+            throw new FirestoreApiError("serviceAccountRejected", desc, res.status);
+        throw new FirestoreApiError("auth", desc, res.status);
+    }
+    tokenCache.set(tokenCacheKey(sa), {
+        token: body.access_token,
+        expiresAt: now + (body.expires_in ?? 3600) * 1000,
+    });
+    return body.access_token;
+}
+
+// ---------------------------------------------------------------------------
+// Request wrapper + API methods
+// ---------------------------------------------------------------------------
+
+function requireServiceAccount(config: FirestoreConfig): ServiceAccount {
+    const sa = parseServiceAccount(config.serviceAccountJson);
+    if ("errorKey" in sa)
+        throw new FirestoreApiError("auth", "invalid service account configuration");
+    return sa;
+}
+
+/** `projects/{p}/databases/{db}` for the connection. */
+export function databasePath(config: FirestoreConfig): string {
+    const sa = requireServiceAccount(config);
+    return `projects/${sa.projectId}/databases/${config.databaseId || "(default)"}`;
+}
+
+function encodePathSegments(path: string): string {
+    return path.split("/").map(encodeURIComponent).join("/");
+}
+
+/**
+ * Authenticated call against firestore.googleapis.com/v1. On a 401 the
+ * cached token is evicted and the request retried exactly once.
+ */
+export async function firestoreFetch(
+    config: FirestoreConfig,
+    method: string,
+    path: string,
+    body?: unknown,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> {
+    const sa = requireServiceAccount(config);
+    const doFetch = async (token: string) => {
+        try {
+            return await fetch(FIRESTORE_BASE + path, {
+                method,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    ...(body !== undefined ? { "Content-Type": "application/json" } : {}),
+                },
+                body: body !== undefined ? JSON.stringify(body) : undefined,
+            });
+        } catch {
+            throw new FirestoreApiError("network", "network error reaching Firestore");
+        }
+    };
+    let res = await doFetch(await getAccessToken(sa));
+    if (res.status === 401) {
+        evictToken(sa);
+        res = await doFetch(await getAccessToken(sa));
+    }
+    const json = await res.json().catch(() => undefined);
+    if (!res.ok) throw mapFirestoreError(res.status, json);
+    return json;
+}
+
+/**
+ * All collection ids under the database root, or under `parentDocPath`
+ * (a document path like "users/u1") for subcollections. Follows page
+ * tokens internally so callers always see the full list.
+ */
+export async function listCollectionIds(
+    config: FirestoreConfig,
+    parentDocPath?: string,
+): Promise<string[]> {
+    const parent =
+        databasePath(config) +
+        "/documents" +
+        (parentDocPath ? "/" + encodePathSegments(parentDocPath) : "");
+    const ids: string[] = [];
+    let pageToken: string | undefined;
+    do {
+        const out = await firestoreFetch(config, "POST", `${parent}:listCollectionIds`, {
+            pageSize: 300,
+            ...(pageToken ? { pageToken } : {}),
+        });
+        ids.push(...(out.collectionIds ?? []));
+        pageToken = out.nextPageToken;
+    } while (pageToken);
+    return ids;
+}
+
+export async function listDocuments(
+    config: FirestoreConfig,
+    collectionPath: string,
+    pageSize: number,
+    pageToken?: string,
+): Promise<{ documents: FirestoreDocument[]; nextPageToken?: string }> {
+    const params = new URLSearchParams({ pageSize: String(pageSize) });
+    if (pageToken) params.set("pageToken", pageToken);
+    const out = await firestoreFetch(
+        config,
+        "GET",
+        `${databasePath(config)}/documents/${encodePathSegments(collectionPath)}?${params}`,
+    );
+    return { documents: out.documents ?? [], nextPageToken: out.nextPageToken };
+}
+
+/** Run a StructuredQuery under the root or a parent document. */
+export async function runQuery(
+    config: FirestoreConfig,
+    parentDocPath: string | undefined,
+    structuredQuery: Record<string, unknown>,
+): Promise<FirestoreDocument[]> {
+    const parent =
+        databasePath(config) +
+        "/documents" +
+        (parentDocPath ? "/" + encodePathSegments(parentDocPath) : "");
+    const rows: Array<{ document?: FirestoreDocument }> = await firestoreFetch(
+        config,
+        "POST",
+        `${parent}:runQuery`,
+        { structuredQuery },
+    );
+    return (rows ?? []).flatMap((row) => (row.document ? [row.document] : []));
+}
+
+export async function getDocument(
+    config: FirestoreConfig,
+    docPath: string,
+): Promise<FirestoreDocument> {
+    return firestoreFetch(
+        config,
+        "GET",
+        `${databasePath(config)}/documents/${encodePathSegments(docPath)}`,
+    );
+}
+
+export async function createDocument(
+    config: FirestoreConfig,
+    collectionPath: string,
+    docId: string | undefined,
+    fields: Record<string, FirestoreValue>,
+): Promise<FirestoreDocument> {
+    const params = docId ? `?${new URLSearchParams({ documentId: docId })}` : "";
+    return firestoreFetch(
+        config,
+        "POST",
+        `${databasePath(config)}/documents/${encodePathSegments(collectionPath)}${params}`,
+        { fields },
+    );
+}
+
+export async function patchDocument(
+    config: FirestoreConfig,
+    docPath: string,
+    fields: Record<string, FirestoreValue>,
+    updateMask: string[],
+): Promise<FirestoreDocument> {
+    const params = new URLSearchParams();
+    for (const fieldPath of updateMask) params.append("updateMask.fieldPaths", fieldPath);
+    return firestoreFetch(
+        config,
+        "PATCH",
+        `${databasePath(config)}/documents/${encodePathSegments(docPath)}?${params}`,
+        { fields },
+    );
+}
+
+export async function deleteDocument(
+    config: FirestoreConfig,
+    docPath: string,
+): Promise<void> {
+    await firestoreFetch(
+        config,
+        "DELETE",
+        `${databasePath(config)}/documents/${encodePathSegments(docPath)}`,
+    );
+}
