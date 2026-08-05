@@ -352,9 +352,10 @@ describe("buildStructuredQuery", () => {
 });
 
 describe("mapFirestoreError", () => {
-  const body = (status: string, message: string, details?: unknown[]) => ({
-    error: { code: 0, status, message, details },
-  });
+  const body = (status: string, message: string, details?: unknown[]) =>
+    ({ error: { code: 0, status, message, details } }) as Parameters<
+      typeof mapFirestoreError
+    >[1];
 
   test("SERVICE_DISABLED yields serviceDisabled with activationUrl", () => {
     const err = mapFirestoreError(
