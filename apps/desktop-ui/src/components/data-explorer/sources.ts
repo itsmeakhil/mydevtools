@@ -1,3 +1,4 @@
+import { elasticsearchAdapter } from "./adapters/elasticsearch";
 import { firestoreAdapter } from "./adapters/firestore";
 import { mongodbAdapter } from "./adapters/mongodb";
 import { redisAdapter } from "./adapters/redis";
@@ -13,10 +14,11 @@ export const SOURCES: Record<SourceId, SourceAdapter<any, any>> = {
     mongodb: mongodbAdapter,
     redis: redisAdapter,
     firestore: firestoreAdapter,
+    elasticsearch: elasticsearchAdapter,
 };
 
 /** Display order in the sidebar and the source picker. */
-export const SOURCE_ORDER: SourceId[] = ["mongodb", "redis", "firestore"];
+export const SOURCE_ORDER: SourceId[] = ["mongodb", "redis", "firestore", "elasticsearch"];
 
 /**
  * Resolve an adapter. Returns null for an unknown id — a connection saved by a
