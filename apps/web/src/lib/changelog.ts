@@ -26,6 +26,19 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.11',
+    date: '2026-08-10',
+    title: 'Firestore and Elasticsearch in Data Explorer',
+    summary:
+      'Two more sources join Data Explorer — Cloud Firestore and Elasticsearch — each with the full browse-and-edit toolset and connection credentials encrypted on your device.',
+    changes: [
+      { type: 'added', text: 'Firestore support: browse collections and subcollections, page through documents with filters, and create, edit, and delete with typed-value patches and orphan warnings.' },
+      { type: 'added', text: 'Elasticsearch support: connect to a cluster and search your indices from the Data Explorer.' },
+      { type: 'improved', text: 'Firestore and Elasticsearch are translated into all 27 in-app languages.' },
+      { type: 'improved', text: 'Reworked in-app update experience with a progress modal.' },
+    ],
+  },
+  {
     version: '0.1.10',
     date: '2026-08-05',
     title: 'Data Explorer — one workspace for MongoDB and Redis',
