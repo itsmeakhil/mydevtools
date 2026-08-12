@@ -4,22 +4,46 @@ import { extractPlainText } from "@/app/app/notes/utils/noteContentUtils";
 export type SortKey = "createdAt" | "updatedAt" | "title";
 export type SortDir = "asc" | "desc";
 
-// Module-level incremental cache for plain text. Keyed by `id|updatedAt` so
-// only modified notes recompute when state updates. Bounded to prevent unbounded
-// growth across long sessions where notes are repeatedly edited.
+// Module-level plain-text cache for sidebar search, keyed by note id. Notes hold
+// metadata only (bodies live in NotesContentContext), so entries are written
+// explicitly by the search-index warm and by every content save. Bounded to
+// prevent unbounded growth across long sessions.
 const PLAIN_TEXT_CACHE_MAX = 500;
 const plainTextCache = new Map<string, string>();
-export function getCachedPlainText(note: Note): string {
-    const key = `${note.id}|${note.updatedAt}`;
-    let v = plainTextCache.get(key);
-    if (v === undefined) {
-        if (plainTextCache.size >= PLAIN_TEXT_CACHE_MAX) {
-            const first = plainTextCache.keys().next().value;
-            if (first !== undefined) plainTextCache.delete(first);
-        }
-        v = extractPlainText(note.content);
-        plainTextCache.set(key, v);
+
+function cacheSet(id: string, text: string): void {
+    if (!plainTextCache.has(id) && plainTextCache.size >= PLAIN_TEXT_CACHE_MAX) {
+        const first = plainTextCache.keys().next().value;
+        if (first !== undefined) plainTextCache.delete(first);
     }
+    plainTextCache.set(id, text);
+}
+
+/** Cache a note's body as searchable plain text. */
+export function setCachedPlainText(id: string, content: unknown): void {
+    cacheSet(id, extractPlainText(content));
+}
+
+/** Forget one note's text (deleted note — plaintext shouldn't linger in memory). */
+export function deleteCachedPlainText(id: string): void {
+    plainTextCache.delete(id);
+}
+
+/** Drop all plaintext (vault lock — decrypted bodies must not survive it). */
+export function clearPlainTextCache(): void {
+    plainTextCache.clear();
+}
+
+/**
+ * Plain text for search. Returns "" for a metadata-only note whose body hasn't
+ * been warmed yet — such notes stay title/tag-searchable until the index warms.
+ */
+export function getCachedPlainText(note: Note): string {
+    const hit = plainTextCache.get(note.id);
+    if (hit !== undefined) return hit;
+    if (note.content == null) return "";
+    const v = extractPlainText(note.content);
+    cacheSet(note.id, v);
     return v;
 }
 
