@@ -83,3 +83,8 @@ apps/desktop/src-tauri/target/release/
 
 /apps/web/node_modules
 /apps/web/.next
+
+# OpenNext / Cloudflare Workers build output
+/apps/web/.open-next
+/apps/web/.wrangler
+/apps/web/cloudflare-env.d.ts
