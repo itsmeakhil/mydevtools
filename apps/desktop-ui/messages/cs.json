@@ -207,6 +207,10 @@
         "min30": "Po 30 minutách",
         "min60": "Po 1 hodině",
         "helpText": "Uzamkne váš trezor po této době nečinnosti a k odemčení vyžaduje vaše hlavní heslo."
+      },
+      "vaultIcons": {
+        "label": "Zobrazovat ikony webů v trezoru",
+        "helpText": "Ve výchozím stavu vypnuto. Načtení ikony prozradí externí službě, na kterých webech máte účty."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Opravdu chcete toto heslo smazat? Tuto akci nelze vrátit.",
       "cancel": "Zrušit",
       "delete": "Smazat",
-      "edit": "Upravit"
+      "edit": "Upravit",
+      "ageAging": "3měs+",
+      "ageOld": "6měs+",
+      "ageCritical": "1rok+",
+      "clipboardClears": "Schránka se vymaže za {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Heslo zkopírováno do schránky",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Heslo smazáno",
       "deleteFailed": "Smazání hesla se nezdařilo",
       "vaultLocked": "Trezor zamčen",
-      "importedCount": "Úspěšně importováno {count, plural, one {# heslo} few {# hesla} many {# hesel} other {# hesel}}"
+      "importedCount": "Úspěšně importováno {count, plural, one {# heslo} few {# hesla} many {# hesel} other {# hesel}}",
+      "copiedTotp": "Kód TOTP zkopírován do schránky",
+      "copyFailed": "Nepodařilo se zkopírovat do schránky",
+      "wrongMasterPassword": "Nesprávné hlavní heslo",
+      "importedPartial": "Importováno {imported}, selhalo {failed}"
     },
     "form": {
       "addTitle": "Nové heslo",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Heslo uloženo",
       "toastSaveFailed": "Uložení hesla se nezdařilo",
       "toastUpdated": "Heslo aktualizováno",
-      "toastUpdateFailed": "Aktualizace hesla se nezdařila"
+      "toastUpdateFailed": "Aktualizace hesla se nezdařila",
+      "totpTooShort": "Tajemství TOTP je příliš krátké (minimálně 8 znaků)",
+      "totpNotBase32": "Tajemství TOTP musí být Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Stav trezoru",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Import / export trezoru",
-      "description": "Spravujte data hesel. Export do JSON nebo import z JSON souboru.",
+      "description": "Exportujte trezor nebo importujte ze souboru JSON či CSV.",
       "tabExport": "Export",
       "tabImport": "Import",
       "warningTitle": "Upozornění",
       "warningBody": "Exportované soubory obsahují hesla v čitelné podobě. Uchovávejte je v bezpečí a po použití smažte.",
-      "exportBlurb": "Stáhněte celý trezor jako JSON. Obsahuje služby, uživatelská jména, hesla a poznámky.",
-      "downloadJson": "Stáhnout JSON export",
-      "pasteLabel": "Vložit JSON data",
+      "pasteLabel": "Vložte JSON nebo CSV",
       "pastePlaceholder": "[{\"service\": \"Příklad\", \"username\": \"uzivatel\", \"password\": \"123\", ...}]",
-      "pasteHint": "Vložte obsah dříve exportovaného JSON souboru.",
-      "selectFile": "Vybrat soubor JSON",
+      "pasteHint": "Vložte exportovaný soubor nebo CSV z jiného správce hesel.",
+      "selectFile": "Vybrat soubor",
       "importing": "Importování...",
-      "importPasswords": "Importovat hesla",
       "trigger": "Import / export",
       "toastExported": "Trezor úspěšně exportován",
       "toastExportFailed": "Export trezoru se nezdařil",
-      "toastImportFailed": "Import se nezdařil: neplatný formát JSON"
+      "toastImportFailed": "Import se nezdařil: neplatný formát JSON",
+      "modeEncrypted": "Šifrovaný",
+      "modePlaintext": "Prostý text",
+      "passphraseLabel": "Přístupová fráze pro export",
+      "passphraseHint": "Potřebná k pozdějšímu otevření souboru. Nikde se neukládá.",
+      "passphraseTooShort": "Použijte alespoň 8 znaků",
+      "confirmMasterLabel": "Hlavní heslo",
+      "confirmMasterHint": "Potvrdí vaši totožnost, než se celý trezor zapíše do souboru.",
+      "downloadCount": "Stáhnout ({count})",
+      "importPassphraseLabel": "Přístupová fráze souboru",
+      "previewReady": "Připraveno k importu: {count}",
+      "previewDuplicates": "Již ve vašem trezoru, přeskočeno: {count}",
+      "previewSkipped": "Přeskočeny neúplné řádky: {count}",
+      "confirmImport": "Importovat {count}",
+      "checkFile": "Zkontrolovat soubor"
     },
     "card": {
       "copyUsername": "Kopírovat uživatelské jméno",
@@ -1142,6 +1167,25 @@
       "separator": "Oddělovač",
       "capitalization": "Velká písmena ve slovech",
       "includeNumber": "Zahrnout číslici"
+    },
+    "breach": {
+      "title": "Kontrola úniků dat",
+      "intro": "Zkontroluje uložená hesla proti Have I Been Pwned. Odesílá se jen 5znakový prefix otisku — hesla nikdy neopustí toto zařízení.",
+      "run": "Spustit kontrolu",
+      "needsConnection": "Vyžaduje připojení k internetu.",
+      "progress": "Kontrola {checked} z {total}…",
+      "kAnonymity": "Pomocí k-anonymity — žádné heslo neopustí toto zařízení.",
+      "failed": "Kontrola selhala. Ověřte připojení a zkuste to znovu.",
+      "retry": "Zkusit znovu",
+      "noneFound": "Nebyla nalezena žádná uniklá hesla",
+      "allChecked": "Zkontrolováno: {count}. Žádné se neobjevuje ve známých únicích.",
+      "foundInBreaches": "Nalezeno v únicích: {count}",
+      "changeNow": "Okamžitě je změňte",
+      "exposedTimes": "{count}× vystaveno",
+      "unknownHeading": "Nepodařilo se zkontrolovat: {count}",
+      "unknownBody": "Tato nebyla ověřena, protože dotaz selhal. Považujte je za neznámá, ne za bezpečná.",
+      "useGenerator": "Použijte generátor hesel k vytvoření silných náhrad.",
+      "checkAgain": "Zkontrolovat znovu"
     }
   },
   "EnvironmentManager": {

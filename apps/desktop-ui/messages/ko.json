@@ -207,6 +207,10 @@
         "min30": "30분 후",
         "min60": "1시간 후",
         "helpText": "이 시간 동안 활동이 없으면 볼트를 잠그며, 잠금 해제하려면 마스터 비밀번호가 필요합니다."
+      },
+      "vaultIcons": {
+        "label": "보관함에 사이트 아이콘 표시",
+        "helpText": "기본값은 끔. 아이콘을 가져오면 어떤 사이트에 계정이 있는지 외부 서비스에 알려집니다."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "이 비밀번호를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
       "cancel": "취소",
       "delete": "삭제",
-      "edit": "수정"
+      "edit": "수정",
+      "ageAging": "3개월+",
+      "ageOld": "6개월+",
+      "ageCritical": "1년+",
+      "clipboardClears": "클립보드는 {seconds}초 후 지워집니다"
     },
     "toasts": {
       "copiedPassword": "비밀번호가 클립보드에 복사되었습니다",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "비밀번호가 삭제되었습니다",
       "deleteFailed": "비밀번호 삭제에 실패했습니다",
       "vaultLocked": "볼트가 잠겼습니다",
-      "importedCount": "{count, plural, one {#개의 비밀번호를 가져왔습니다} other {#개의 비밀번호를 가져왔습니다}}"
+      "importedCount": "{count, plural, one {#개의 비밀번호를 가져왔습니다} other {#개의 비밀번호를 가져왔습니다}}",
+      "copiedTotp": "TOTP 코드를 클립보드에 복사했습니다",
+      "copyFailed": "클립보드에 복사하지 못했습니다",
+      "wrongMasterPassword": "마스터 비밀번호가 올바르지 않습니다",
+      "importedPartial": "{imported}개 가져옴, {failed}개 실패"
     },
     "form": {
       "addTitle": "새 비밀번호 추가",
@@ -1063,7 +1075,9 @@
       "toastSaved": "비밀번호가 저장되었습니다",
       "toastSaveFailed": "비밀번호 저장에 실패했습니다",
       "toastUpdated": "비밀번호가 업데이트되었습니다",
-      "toastUpdateFailed": "비밀번호 업데이트에 실패했습니다"
+      "toastUpdateFailed": "비밀번호 업데이트에 실패했습니다",
+      "totpTooShort": "TOTP 비밀키가 너무 짧습니다(최소 8자)",
+      "totpNotBase32": "TOTP 비밀키는 Base32(A–Z, 2–7)여야 합니다"
     },
     "security": {
       "vaultHealth": "볼트 상태",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "볼트 가져오기 / 내보내기",
-      "description": "비밀번호 데이터를 관리하세요. 볼트를 JSON으로 내보내거나 JSON 파일에서 가져올 수 있습니다.",
+      "description": "보관함을 내보내거나 JSON 또는 CSV 파일에서 가져옵니다.",
       "tabExport": "내보내기",
       "tabImport": "가져오기",
       "warningTitle": "경고",
       "warningBody": "내보낸 파일에는 비밀번호가 평문으로 포함되어 있습니다. 이 파일을 안전하게 보관하고 사용 후 삭제하세요.",
-      "exportBlurb": "전체 볼트를 JSON 파일로 다운로드하세요. 모든 서비스, 사용자 이름, 비밀번호 및 메모가 포함됩니다.",
-      "downloadJson": "JSON 내보내기 다운로드",
-      "pasteLabel": "JSON 데이터 붙여넣기",
+      "pasteLabel": "JSON 또는 CSV 붙여넣기",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "이전에 내보낸 JSON 파일의 내용을 여기에 붙여넣으세요.",
-      "selectFile": "JSON 파일 선택",
+      "pasteHint": "내보낸 파일이나 다른 비밀번호 관리자의 CSV를 붙여넣으세요.",
+      "selectFile": "파일 선택",
       "importing": "가져오는 중...",
-      "importPasswords": "비밀번호 가져오기",
       "trigger": "가져오기 / 내보내기",
       "toastExported": "볼트가 내보내졌습니다",
       "toastExportFailed": "볼트 내보내기에 실패했습니다",
-      "toastImportFailed": "가져오기 실패: 잘못된 JSON 형식"
+      "toastImportFailed": "가져오기 실패: 잘못된 JSON 형식",
+      "modeEncrypted": "암호화",
+      "modePlaintext": "일반 텍스트",
+      "passphraseLabel": "내보내기 암호문구",
+      "passphraseHint": "나중에 파일을 열 때 필요합니다. 어디에도 저장되지 않습니다.",
+      "passphraseTooShort": "8자 이상 사용하세요",
+      "confirmMasterLabel": "마스터 비밀번호",
+      "confirmMasterHint": "보관함 전체를 파일로 쓰기 전에 본인임을 확인합니다.",
+      "downloadCount": "다운로드 ({count})",
+      "importPassphraseLabel": "파일 암호문구",
+      "previewReady": "가져올 준비됨: {count}개",
+      "previewDuplicates": "보관함에 이미 있어 건너뜀: {count}개",
+      "previewSkipped": "불완전한 행 건너뜀: {count}개",
+      "confirmImport": "{count}개 가져오기",
+      "checkFile": "파일 확인"
     },
     "card": {
       "copyUsername": "사용자 이름 복사",
@@ -1142,6 +1167,25 @@
       "separator": "구분자",
       "capitalization": "대문자화",
       "includeNumber": "숫자 포함"
+    },
+    "breach": {
+      "title": "유출 검사",
+      "intro": "저장된 비밀번호를 Have I Been Pwned와 대조합니다. 5자 해시 접두사만 전송되며 비밀번호는 이 기기를 벗어나지 않습니다.",
+      "run": "검사 실행",
+      "needsConnection": "인터넷 연결이 필요합니다.",
+      "progress": "{total}개 중 {checked}개 검사 중…",
+      "kAnonymity": "k-익명성 사용 — 비밀번호는 이 기기를 벗어나지 않습니다.",
+      "failed": "검사에 실패했습니다. 연결을 확인하고 다시 시도하세요.",
+      "retry": "다시 시도",
+      "noneFound": "유출된 비밀번호가 없습니다",
+      "allChecked": "검사함: {count}개. 알려진 유출에 포함되지 않았습니다.",
+      "foundInBreaches": "유출에서 발견: {count}개",
+      "changeNow": "즉시 변경하세요",
+      "exposedTimes": "{count}회 노출",
+      "unknownHeading": "검사할 수 없음: {count}개",
+      "unknownBody": "조회 실패로 확인되지 않았습니다. 안전이 아니라 알 수 없음으로 취급하세요.",
+      "useGenerator": "비밀번호 생성기로 강력한 것으로 교체하세요.",
+      "checkAgain": "다시 검사"
     }
   },
   "EnvironmentManager": {

@@ -15,7 +15,8 @@ import { Badge } from "@/components/ui/badge"
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
 import { useCipherKey } from "./encryption-context"
 import { encryptData } from "@/lib/encryption"
-import { validateTotpSecret, calculatePasswordStrength, getStrengthColor, getStrengthLabel } from "@/lib/password-utils"
+import { validateTotpSecret, calculatePasswordStrength, getStrengthColor, getStrengthLabelKey } from "@/lib/password-utils"
+import { usePasswordStrengthReady } from "@/lib/use-password-strength"
 import { auth } from "@/database/firebase"
 import { updatePasswordEntry } from "@/lib/password-manager-api"
 import { cn } from "@/lib/utils"
@@ -30,6 +31,7 @@ interface EditPasswordDialogProps {
 
 export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDialogProps) {
     const t = useTranslations("PasswordManager.form")
+    const strengthReady = usePasswordStrengthReady()
     const cipherKey = useCipherKey()
     const { updatePassword } = usePasswordStore()
     const [loading, setLoading] = useState(false)
@@ -59,6 +61,8 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
     }, [entry])
 
     const strength = calculatePasswordStrength(formData.password)
+    const strengthKey = getStrengthLabelKey(strength)
+    const strengthLabel = strengthKey ? t(strengthKey) : ""
 
     const handleAddTag = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ',') {
@@ -82,7 +86,7 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
         if (formData.totpSecret) {
             const totpError = validateTotpSecret(formData.totpSecret)
             if (totpError) {
-                toast.error(totpError)
+                toast.error(t(totpError))
                 return
             }
         }
@@ -182,7 +186,7 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
                                 strength <= 2 ? "text-red-500" :
                                     strength <= 3 ? "text-yellow-500" : "text-green-500"
                             )}>
-                                {getStrengthLabel(strength)}
+                                {strengthLabel}
                             </span>
                         </div>
                         <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">

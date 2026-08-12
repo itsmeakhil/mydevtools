@@ -6,6 +6,8 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Sun, Globe, Palette, Check, Lock } from 'lucide-react'
 import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
+import { Switch } from '@/components/ui/switch'
+import { getVaultIconsEnabled, setVaultIconsEnabled } from '@/lib/vault-icon-pref'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
@@ -35,10 +37,12 @@ export default function SettingsPage() {
   const activeWorkspace = useActiveWorkspace()
   const [mounted, setMounted] = useState(false)
   const [idleTimeout, setIdleTimeout] = useState('15')
+  const [vaultIcons, setVaultIcons] = useState(false)
 
   useEffect(() => {
     setMounted(true)
     setIdleTimeout(String(getIdleTimeoutMinutes()))
+    setVaultIcons(getVaultIconsEnabled())
   }, [])
 
   const handleIdleTimeoutChange = (value: string) => {
@@ -174,6 +178,23 @@ export default function SettingsPage() {
                 </SelectContent>
               </Select>
               <p className="text-xs text-muted-foreground">{t('security.autoLock.helpText')}</p>
+            </div>
+
+            {/* Off by default: the icon service learns a domain per saved
+                entry, which for a vault is the user's list of accounts. */}
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <Label htmlFor="vault-icons">{t('security.vaultIcons.label')}</Label>
+                <p className="text-xs text-muted-foreground">{t('security.vaultIcons.helpText')}</p>
+              </div>
+              <Switch
+                id="vault-icons"
+                checked={vaultIcons}
+                onCheckedChange={(next) => {
+                  setVaultIconsEnabled(next)
+                  setVaultIcons(next)
+                }}
+              />
             </div>
           </CardContent>
         </Card>

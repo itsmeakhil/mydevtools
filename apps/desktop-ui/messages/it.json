@@ -207,6 +207,10 @@
         "min30": "Dopo 30 minuti",
         "min60": "Dopo 1 ora",
         "helpText": "Blocca la tua cassaforte dopo questo periodo di inattività e richiede la tua password principale per sbloccarla."
+      },
+      "vaultIcons": {
+        "label": "Mostra icone dei siti nella cassaforte",
+        "helpText": "Disattivato per impostazione predefinita. Scaricare un'icona rivela a un servizio esterno su quali siti hai account."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Sei sicuro di voler eliminare questa password? Questa azione non può essere annullata.",
       "cancel": "Cancellare",
       "delete": "Eliminare",
-      "edit": "Modificare"
+      "edit": "Modificare",
+      "ageAging": "3m+",
+      "ageOld": "6m+",
+      "ageCritical": "1a+",
+      "clipboardClears": "Gli appunti verranno svuotati tra {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Password copiata negli appunti",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Password cancellata",
       "deleteFailed": "Impossibile eliminare la password",
       "vaultLocked": "Deposito chiuso a chiave",
-      "importedCount": "Importazione riuscita di {count, plural, one {# password} other {# passwords}}"
+      "importedCount": "Importazione riuscita di {count, plural, one {# password} other {# passwords}}",
+      "copiedTotp": "Codice TOTP copiato negli appunti",
+      "copyFailed": "Impossibile copiare negli appunti",
+      "wrongMasterPassword": "Password principale errata",
+      "importedPartial": "Importate {imported}, fallite {failed}"
     },
     "form": {
       "addTitle": "Aggiungi nuova password",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Password salvata con successo",
       "toastSaveFailed": "Impossibile salvare la password",
       "toastUpdated": "Password aggiornata con successo",
-      "toastUpdateFailed": "Impossibile aggiornare la password"
+      "toastUpdateFailed": "Impossibile aggiornare la password",
+      "totpTooShort": "Il segreto TOTP è troppo corto (minimo 8 caratteri)",
+      "totpNotBase32": "Il segreto TOTP deve essere Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Salute del caveau",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importa/esporta caveau",
-      "description": "Gestisci i dati della tua password. Puoi esportare il tuo vault in JSON o importarlo da un file JSON.",
+      "description": "Esporta la cassaforte o importa da un file JSON o CSV.",
       "tabExport": "Esportare",
       "tabImport": "Importare",
       "warningTitle": "Avvertimento",
       "warningBody": "I file esportati contengono le tue password in testo semplice. Conserva questo file al sicuro ed eliminalo dopo l'uso.",
-      "exportBlurb": "Scarica l'intero vault come file JSON. Ciò include tutti i servizi, nomi utente, password e note.",
-      "downloadJson": "Scarica l'esportazione JSON",
-      "pasteLabel": "Incolla i dati JSON",
+      "pasteLabel": "Incolla JSON o CSV",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Incolla qui il contenuto di un file JSON precedentemente esportato.",
-      "selectFile": "Seleziona file JSON",
+      "pasteHint": "Incolla un file esportato, o un CSV da un altro gestore di password.",
+      "selectFile": "Seleziona file",
       "importing": "Importazione...",
-      "importPasswords": "Importa password",
       "trigger": "Importa/esporta",
       "toastExported": "Vault esportato correttamente",
       "toastExportFailed": "Impossibile esportare il vault",
-      "toastImportFailed": "Impossibile importare: formato JSON non valido"
+      "toastImportFailed": "Impossibile importare: formato JSON non valido",
+      "modeEncrypted": "Cifrato",
+      "modePlaintext": "Testo semplice",
+      "passphraseLabel": "Passphrase di esportazione",
+      "passphraseHint": "Serve per aprire il file in seguito. Non viene salvata da nessuna parte.",
+      "passphraseTooShort": "Usa almeno 8 caratteri",
+      "confirmMasterLabel": "Password principale",
+      "confirmMasterHint": "Conferma la tua identità prima di scrivere l'intera cassaforte su file.",
+      "downloadCount": "Scarica ({count})",
+      "importPassphraseLabel": "Passphrase del file",
+      "previewReady": "Pronte all'importazione: {count}",
+      "previewDuplicates": "Già nella cassaforte, saltate: {count}",
+      "previewSkipped": "Righe incomplete saltate: {count}",
+      "confirmImport": "Importa {count}",
+      "checkFile": "Controlla file"
     },
     "card": {
       "copyUsername": "Copia nome utente",
@@ -1142,6 +1167,25 @@
       "separator": "Separatore",
       "capitalization": "Capitalizzazione",
       "includeNumber": "Includi numero"
+    },
+    "breach": {
+      "title": "Controllo violazioni",
+      "intro": "Controlla le password salvate su Have I Been Pwned. Viene inviato solo un prefisso hash di 5 caratteri — le password non lasciano mai questo dispositivo.",
+      "run": "Esegui controllo",
+      "needsConnection": "Richiede una connessione internet.",
+      "progress": "Controllo {checked} di {total}…",
+      "kAnonymity": "Con k-anonimato — nessuna password lascia questo dispositivo.",
+      "failed": "Controllo non riuscito. Verifica la connessione e riprova.",
+      "retry": "Riprova",
+      "noneFound": "Nessuna password violata trovata",
+      "allChecked": "Controllate: {count}. Nessuna compare in violazioni note.",
+      "foundInBreaches": "Trovate in violazioni: {count}",
+      "changeNow": "Cambiale subito",
+      "exposedTimes": "{count}× esposta",
+      "unknownHeading": "Impossibile controllare: {count}",
+      "unknownBody": "Non verificate perché la ricerca è fallita. Consideralo sconosciuto, non sicuro.",
+      "useGenerator": "Usa il generatore per creare sostituzioni robuste.",
+      "checkAgain": "Controlla di nuovo"
     }
   },
   "EnvironmentManager": {

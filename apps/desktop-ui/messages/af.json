@@ -207,6 +207,10 @@
         "min30": "Na 30 minute",
         "min60": "Na 1 uur",
         "helpText": "Sluit jou kluis ná hierdie tydperk van onaktiwiteit, wat jou meesterwagwoord vereis om te ontsluit."
+      },
+      "vaultIcons": {
+        "label": "Wys werfikone in die kluis",
+        "helpText": "Standaard af. Om 'n ikoon te haal vertel 'n derdeparty-diens by watter werwe jy rekeninge het."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Is jy seker jy wil hierdie wagwoord uitvee? Hierdie aksie kan nie ongedaan gemaak word nie.",
       "cancel": "Kanselleer",
       "delete": "Vee uit",
-      "edit": "Wysig"
+      "edit": "Wysig",
+      "ageAging": "3md+",
+      "ageOld": "6md+",
+      "ageCritical": "1jr+",
+      "clipboardClears": "Knipbord vee oor {seconds}s uit"
     },
     "toasts": {
       "copiedPassword": "Wagwoord na knipbord gekopieer",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Wagwoord uitgevee",
       "deleteFailed": "Kon nie wagwoord uitvee nie",
       "vaultLocked": "Kluis gesluit",
-      "importedCount": "{count, plural, one {# wagwoord} other {# wagwoorde}} suksesvol ingevoer"
+      "importedCount": "{count, plural, one {# wagwoord} other {# wagwoorde}} suksesvol ingevoer",
+      "copiedTotp": "TOTP-kode na knipbord gekopieer",
+      "copyFailed": "Kon nie na die knipbord kopieer nie",
+      "wrongMasterPassword": "Verkeerde meesterwagwoord",
+      "importedPartial": "{imported} ingevoer, {failed} het misluk"
     },
     "form": {
       "addTitle": "Voeg nuwe wagwoord by",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Wagwoord suksesvol gestoor",
       "toastSaveFailed": "Kon nie wagwoord stoor nie",
       "toastUpdated": "Wagwoord suksesvol bygewerk",
-      "toastUpdateFailed": "Kon nie wagwoord bywerk nie"
+      "toastUpdateFailed": "Kon nie wagwoord bywerk nie",
+      "totpTooShort": "TOTP-geheim is te kort (minstens 8 karakters)",
+      "totpNotBase32": "TOTP-geheim moet Base32 wees (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Kluisgesondheid",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Invoer / uitvoer kluis",
-      "description": "Bestuur jou wagwoorddata. Jy kan jou kluis na JSON uitvoer of van 'n JSON-lêer invoer.",
+      "description": "Voer jou kluis uit, of voer in vanaf 'n JSON- of CSV-lêer.",
       "tabExport": "Uitvoer",
       "tabImport": "Invoer",
       "warningTitle": "Waarskuwing",
       "warningBody": "Uitgevoerde lêers bevat jou wagwoorde as plat teks. Hou hierdie lêer veilig en vee dit uit na gebruik.",
-      "exportBlurb": "Laai jou hele kluis as 'n JSON-lêer af. Dit sluit alle dienste, gebruikersname, wagwoorde en notas in.",
-      "downloadJson": "Laai JSON-uitvoer af",
-      "pasteLabel": "Plak JSON-data",
+      "pasteLabel": "Plak JSON of CSV",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Plak die inhoud van 'n voorheen uitgevoerde JSON-lêer hier.",
-      "selectFile": "Kies JSON-lêer",
+      "pasteHint": "Plak 'n uitgevoerde lêer, of 'n CSV van 'n ander wagwoordbestuurder.",
+      "selectFile": "Kies lêer",
       "importing": "Besig om in te voer...",
-      "importPasswords": "Voer wagwoorde in",
       "trigger": "Invoer / uitvoer",
       "toastExported": "Kluis suksesvol uitgevoer",
       "toastExportFailed": "Kon nie kluis uitvoer nie",
-      "toastImportFailed": "Kon nie invoer nie: ongeldige JSON-formaat"
+      "toastImportFailed": "Kon nie invoer nie: ongeldige JSON-formaat",
+      "modeEncrypted": "Geïnkripteer",
+      "modePlaintext": "Gewone teks",
+      "passphraseLabel": "Uitvoer-wagfrase",
+      "passphraseHint": "Nodig om die lêer later oop te maak. Dit word nêrens gestoor nie.",
+      "passphraseTooShort": "Gebruik minstens 8 karakters",
+      "confirmMasterLabel": "Meesterwagwoord",
+      "confirmMasterHint": "Bevestig dat dit jy is voordat die hele kluis na 'n lêer geskryf word.",
+      "downloadCount": "Laai af ({count})",
+      "importPassphraseLabel": "Lêer-wagfrase",
+      "previewReady": "Gereed om in te voer: {count}",
+      "previewDuplicates": "Reeds in jou kluis, oorgeslaan: {count}",
+      "previewSkipped": "Onvolledige rye oorgeslaan: {count}",
+      "confirmImport": "Voer {count} in",
+      "checkFile": "Kontroleer lêer"
     },
     "card": {
       "copyUsername": "Kopieer gebruikersnaam",
@@ -1142,6 +1167,25 @@
       "separator": "Skeidingsteken",
       "capitalization": "Hooflettergebruik",
       "includeNumber": "Sluit syfer in"
+    },
+    "breach": {
+      "title": "Datalek-kontrole",
+      "intro": "Kontroleer jou gestoorde wagwoorde teen Have I Been Pwned. Slegs 'n 5-karakter hutswaarde-voorvoegsel word gestuur — jou wagwoorde verlaat nooit hierdie toestel nie.",
+      "run": "Voer kontrole uit",
+      "needsConnection": "Benodig 'n internetverbinding.",
+      "progress": "Kontroleer tans {checked} van {total}…",
+      "kAnonymity": "Gebruik k-anonimiteit — geen wagwoord verlaat hierdie toestel nie.",
+      "failed": "Kontrole het misluk. Gaan jou verbinding na en probeer weer.",
+      "retry": "Probeer weer",
+      "noneFound": "Geen gelekte wagwoorde gevind nie",
+      "allChecked": "Gekontroleer: {count}. Nie een kom in bekende datalekke voor nie.",
+      "foundInBreaches": "In datalekke gevind: {count}",
+      "changeNow": "Verander hierdie dadelik",
+      "exposedTimes": "{count}× blootgestel",
+      "unknownHeading": "Kon nie gekontroleer word nie: {count}",
+      "unknownBody": "Hierdie is nie geverifieer nie omdat die opsoek misluk het. Behandel hulle as onbekend, nie as veilig nie.",
+      "useGenerator": "Gebruik die wagwoordgenerator om sterk vervangings te skep.",
+      "checkAgain": "Kontroleer weer"
     }
   },
   "EnvironmentManager": {

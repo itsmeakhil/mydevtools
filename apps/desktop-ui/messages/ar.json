@@ -207,6 +207,10 @@
         "min30": "بعد 30 دقيقة",
         "min60": "بعد ساعة واحدة",
         "helpText": "يقفل خزنتك بعد هذه المدة من عدم النشاط، ويتطلب كلمة المرور الرئيسية لفتحها."
+      },
+      "vaultIcons": {
+        "label": "إظهار أيقونات المواقع في الخزنة",
+        "helpText": "معطّل افتراضيًا. جلب الأيقونة يُخبر خدمة خارجية بالمواقع التي تملك فيها حسابات."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "هل تريد حذف كلمة المرور هذه؟ لا يمكن التراجع.",
       "cancel": "إلغاء",
       "delete": "حذف",
-      "edit": "تعديل"
+      "edit": "تعديل",
+      "ageAging": "+٣ أشهر",
+      "ageOld": "+٦ أشهر",
+      "ageCritical": "+سنة",
+      "clipboardClears": "ستُمسح الحافظة خلال {seconds} ثانية"
     },
     "toasts": {
       "copiedPassword": "تم نسخ كلمة المرور",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "تم حذف كلمة المرور",
       "deleteFailed": "فشل حذف كلمة المرور",
       "vaultLocked": "تم قفل الخزنة",
-      "importedCount": "تم استيراد {count, plural, one {# كلمة مرور} other {# كلمات مرور}} بنجاح"
+      "importedCount": "تم استيراد {count, plural, one {# كلمة مرور} other {# كلمات مرور}} بنجاح",
+      "copiedTotp": "تم نسخ رمز TOTP إلى الحافظة",
+      "copyFailed": "تعذّر النسخ إلى الحافظة",
+      "wrongMasterPassword": "كلمة المرور الرئيسية غير صحيحة",
+      "importedPartial": "تم استيراد {imported}، وفشل {failed}"
     },
     "form": {
       "addTitle": "إضافة كلمة مرور جديدة",
@@ -1063,7 +1075,9 @@
       "toastSaved": "تم حفظ كلمة المرور بنجاح",
       "toastSaveFailed": "فشل حفظ كلمة المرور",
       "toastUpdated": "تم تحديث كلمة المرور بنجاح",
-      "toastUpdateFailed": "فشل تحديث كلمة المرور"
+      "toastUpdateFailed": "فشل تحديث كلمة المرور",
+      "totpTooShort": "سر TOTP قصير جدًا (٨ أحرف على الأقل)",
+      "totpNotBase32": "يجب أن يكون سر TOTP بترميز Base32 (A–Z، 2–7)"
     },
     "security": {
       "vaultHealth": "صحة الخزنة",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "استيراد / تصدير الخزنة",
-      "description": "إدارة بيانات كلمات المرور. يمكنك تصدير الخزنة إلى JSON أو الاستيراد من ملف JSON.",
+      "description": "صدّر خزنتك أو استورد من ملف JSON أو CSV.",
       "tabExport": "تصدير",
       "tabImport": "استيراد",
       "warningTitle": "تحذير",
       "warningBody": "ملفات التصدير تحتوي كلمات مرورك كنص عادي. احفظ الملف بأمان واحذفه بعد الاستخدام.",
-      "exportBlurb": "حمّل خزنتك كاملة كملف JSON. يشمل الخدمات وأسماء المستخدمين وكلمات المرور والملاحظات.",
-      "downloadJson": "تنزيل تصدير JSON",
-      "pasteLabel": "لصق بيانات JSON",
+      "pasteLabel": "الصق JSON أو CSV",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "الصق محتوى ملف JSON مُصدَّر سابقاً هنا.",
-      "selectFile": "اختر ملف JSON",
+      "pasteHint": "الصق ملفًا مُصدَّرًا أو ملف CSV من مدير كلمات مرور آخر.",
+      "selectFile": "اختر ملفًا",
       "importing": "جاري الاستيراد...",
-      "importPasswords": "استيراد كلمات المرور",
       "trigger": "استيراد / تصدير",
       "toastExported": "تم تصدير الخزنة بنجاح",
       "toastExportFailed": "فشل تصدير الخزنة",
-      "toastImportFailed": "فشل الاستيراد: تنسيق JSON غير صالح"
+      "toastImportFailed": "فشل الاستيراد: تنسيق JSON غير صالح",
+      "modeEncrypted": "مشفَّر",
+      "modePlaintext": "نص عادي",
+      "passphraseLabel": "عبارة مرور التصدير",
+      "passphraseHint": "لازمة لفتح الملف لاحقًا. لا تُخزَّن في أي مكان.",
+      "passphraseTooShort": "استخدم ٨ أحرف على الأقل",
+      "confirmMasterLabel": "كلمة المرور الرئيسية",
+      "confirmMasterHint": "تؤكد هويتك قبل كتابة الخزنة بالكامل إلى ملف.",
+      "downloadCount": "تنزيل ({count})",
+      "importPassphraseLabel": "عبارة مرور الملف",
+      "previewReady": "جاهز للاستيراد: {count}",
+      "previewDuplicates": "موجود في خزنتك، تم تخطيه: {count}",
+      "previewSkipped": "صفوف ناقصة تم تخطيها: {count}",
+      "confirmImport": "استيراد {count}",
+      "checkFile": "فحص الملف"
     },
     "card": {
       "copyUsername": "نسخ اسم المستخدم",
@@ -1142,6 +1167,25 @@
       "separator": "الفاصل",
       "capitalization": "الأحرف الكبيرة",
       "includeNumber": "تضمين رقم"
+    },
+    "breach": {
+      "title": "فحص تسريبات البيانات",
+      "intro": "يفحص كلمات المرور المحفوظة مقابل Have I Been Pwned. يُرسل فقط بادئة تجزئة من ٥ أحرف — كلمات المرور لا تغادر هذا الجهاز أبدًا.",
+      "run": "تشغيل الفحص",
+      "needsConnection": "يتطلب اتصالاً بالإنترنت.",
+      "progress": "يجري فحص {checked} من {total}…",
+      "kAnonymity": "باستخدام إخفاء الهوية k — لا تغادر أي كلمة مرور هذا الجهاز.",
+      "failed": "فشل الفحص. تحقّق من الاتصال وحاول مجددًا.",
+      "retry": "إعادة المحاولة",
+      "noneFound": "لم يُعثر على كلمات مرور مسرّبة",
+      "allChecked": "تم الفحص: {count}. لا شيء منها يظهر في تسريبات معروفة.",
+      "foundInBreaches": "عُثر عليها في تسريبات: {count}",
+      "changeNow": "غيّرها فورًا",
+      "exposedTimes": "تعرّضت {count}×",
+      "unknownHeading": "تعذّر فحصها: {count}",
+      "unknownBody": "لم يتم التحقق منها لفشل الاستعلام. عاملها كغير معروفة، لا كآمنة.",
+      "useGenerator": "استخدم مولّد كلمات المرور لإنشاء بدائل قوية.",
+      "checkAgain": "إعادة الفحص"
     }
   },
   "EnvironmentManager": {

@@ -10,6 +10,7 @@ import { Copy, RefreshCw, Check } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { calculatePasswordStrength, getStrengthColor } from "@/lib/password-utils"
+import { usePasswordStrengthReady } from "@/lib/use-password-strength"
 import { cn } from "@/lib/utils"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { WORDLIST } from "@/lib/wordlists"
@@ -24,6 +25,7 @@ interface AdvancedGeneratorProps {
 
 export function AdvancedGenerator({ onPasswordChange, initialLength = 16, className, showInput = true }: AdvancedGeneratorProps) {
     const t = useTranslations("PasswordManager.generator")
+    const strengthReady = usePasswordStrengthReady()
     const tForm = useTranslations("PasswordManager.form")
     const [mode, setMode] = useState<"password" | "passphrase">("password")
     const [length, setLength] = useState(initialLength)

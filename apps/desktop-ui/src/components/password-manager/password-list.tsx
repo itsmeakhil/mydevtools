@@ -21,7 +21,10 @@ import { EditPasswordDialog } from "./edit-password-dialog"
 import { AddPasswordDialog } from "./add-password-dialog"
 import { PasswordEntry } from "@/store/password-store"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { CLIPBOARD_CLEAR_SECONDS, copyWithAutoClear } from "@/lib/clipboard-autoclear"
 import { calculatePasswordStrength, getStrengthColor, getFaviconUrl, getPasswordAgeStatus, getPasswordAgeBadge, getPasswordAgeDateColor } from "@/lib/password-utils"
+import { usePasswordStrengthReady } from "@/lib/use-password-strength"
+import { useVaultIconsEnabled } from "@/lib/vault-icon-pref"
 import { FaviconImg } from "@/components/favicon-img"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
@@ -39,7 +42,11 @@ import { checkPasswordsBreached } from "@/lib/hibp"
 export function PasswordList() {
     const t = useTranslations("PasswordManager.list")
     const tToast = useTranslations("PasswordManager.toasts")
-    const { passwords, deletePassword, clearPasswords, isLoading, breachCounts, breachStatus, setBreachResults, setBreachStatus, setBreachProgress, clearBreachResults } = usePasswordStore()
+    const strengthReady = usePasswordStrengthReady()
+    // Opt-in: fetching a site icon discloses the domain to a third-party
+    // service, and for a vault that set of domains is the user's account list.
+    const showIcons = useVaultIconsEnabled()
+    const { passwords, deletePassword, clearPasswords, isLoading, breachResults, breachStatus, setBreachResults, setBreachStatus, setBreachProgress, clearBreachResults } = usePasswordStore()
     const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
     const [searchTerm, setSearchTerm] = useState("")
     const [breachDialogOpen, setBreachDialogOpen] = useState(false)
@@ -91,11 +98,12 @@ export function PasswordList() {
             if (sortBy === "strength") return calculatePasswordStrength(b.password) - calculatePasswordStrength(a.password)
             return a.service.localeCompare(b.service)
         })
-    }, [passwords, searchTerm, quickFilter, reusedPasswordIds, sortBy])
+    }, [passwords, searchTerm, quickFilter, reusedPasswordIds, sortBy, strengthReady])
 
     const weakCount = useMemo(
         () => passwords.filter((entry) => calculatePasswordStrength(entry.password) <= 2).length,
-        [passwords]
+        // strengthReady: scores come from the fallback until the dictionaries land.
+        [passwords, strengthReady]
     )
     const noUrlCount = useMemo(
         () => passwords.filter((entry) => !entry.url?.trim()).length,
@@ -119,8 +127,10 @@ export function PasswordList() {
         }
     }
 
+    // Only entries that actually resolved as breached. An entry whose lookup
+    // failed is `unknown` and is deliberately not counted either way.
     const breachedCount = breachStatus === "done"
-        ? passwords.filter((p) => (breachCounts.get(p.id) ?? 0) > 0).length
+        ? passwords.filter((p) => breachResults.get(p.id)?.status === "breached").length
         : 0
 
     // Each scroll context has its own container ref + infinite scroll hook instance.
@@ -170,19 +180,30 @@ export function PasswordList() {
         setVisiblePasswords(new Set())
     }
 
-    const copyToClipboard = (text: string, type: "Password" | "Username" | "TOTP" = "Password") => {
-        navigator.clipboard.writeText(text)
-        const label = type === "Username" ? tToast("copiedUsername") : type === "TOTP" ? "TOTP code copied" : tToast("copiedPassword")
-        const toastId = toast.success(label, {
-            description: "Clipboard will clear in 30s",
-            duration: 30000,
+    const copyToClipboard = async (text: string, type: "Password" | "Username" | "TOTP" = "Password") => {
+        const label =
+            type === "Username"
+                ? tToast("copiedUsername")
+                : type === "TOTP"
+                  ? tToast("copiedTotp")
+                  : tToast("copiedPassword")
+        // Held in an object because the callback below reads it before it is
+        // assigned: it fires either when the clear runs or when a later copy
+        // supersedes this one, and the "clears in 30s" notice is stale in both.
+        const notice: { id?: string | number } = {}
+        try {
+            await copyWithAutoClear(text, () => {
+                if (notice.id !== undefined) toast.dismiss(notice.id)
+            })
+        } catch {
+            // A refused clipboard write must not be reported as a copy.
+            toast.error(tToast("copyFailed"))
+            return
+        }
+        notice.id = toast.success(label, {
+            description: t("clipboardClears", { seconds: CLIPBOARD_CLEAR_SECONDS }),
+            duration: CLIPBOARD_CLEAR_SECONDS * 1000,
         })
-        const timer = setTimeout(() => {
-            navigator.clipboard.writeText("").catch(() => {})
-            toast.dismiss(toastId)
-        }, 30000)
-        // Cancel the clear if the user manually dismisses
-        return () => clearTimeout(timer)
     }
 
     const handleDeleteClick = (id: string) => {
@@ -656,7 +677,7 @@ export function PasswordList() {
                                                 <div className="flex items-center gap-3">
                                                     <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm select-none overflow-hidden">
                                                         <FaviconImg
-                                                            serviceUrl={entry.url ? getFaviconUrl(entry.url) : null}
+                                                            serviceUrl={showIcons && entry.url ? getFaviconUrl(entry.url) : null}
                                                             className="h-5 w-5 object-contain"
                                                             fallback={<span>{entry.service.charAt(0).toUpperCase()}</span>}
                                                         />
@@ -674,7 +695,7 @@ export function PasswordList() {
                                                                 if (!badge) return null
                                                                 return (
                                                                     <span className={cn("text-[10px] px-1 rounded flex items-center gap-0.5", badge.className)} title={`Last updated: ${new Date(entry.updatedAt).toLocaleDateString()}`}>
-                                                                        <Clock className="h-2.5 w-2.5" />{badge.label}
+                                                                        <Clock className="h-2.5 w-2.5" />{t(badge.labelKey)}
                                                                     </span>
                                                                 )
                                                             })()}

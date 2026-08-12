@@ -1,19 +1,82 @@
 
-export function getStrengthLabel(score: number): string {
-    if (score === 0) return ""
-    if (score <= 2) return "Weak"
-    if (score <= 3) return "Medium"
-    return "Strong"
+/**
+ * Key under `PasswordManager.form`, or null when there
+ * is nothing to label. Callers resolve it with `t()` — returning English prose
+ * from here left the meter untranslated in 26 of the 27 locales.
+ */
+export function getStrengthLabelKey(
+    score: number
+): "strengthWeak" | "strengthMedium" | "strengthStrong" | null {
+    if (score === 0) return null
+    if (score <= 2) return "strengthWeak"
+    if (score <= 3) return "strengthMedium"
+    return "strengthStrong"
 }
 
+/**
+ * zxcvbn's 0–4 guess-based score, shifted to the 1–5 range the UI already uses
+ * (0 stays "empty"). Everything downstream keeps treating `<= 2` as weak.
+ *
+ * The previous implementation added a point per character class, which scored
+ * `Password1!` a perfect 5 and `correct horse battery staple` a 2. In a
+ * password manager the meter is a security control — it is what tells someone
+ * which credentials to replace — so it has to model guessability (dictionary
+ * words, keyboard walks, l33t substitutions, repeats, dates) rather than
+ * count symbol types.
+ *
+ * The matcher options are loaded once, lazily: the dictionaries are large and
+ * most sessions never open the password manager.
+ */
 export function calculatePasswordStrength(password: string): number {
     if (!password) return 0
-    let score = 0
-    if (password.length >= 8) score += 1
-    if (password.length >= 12) score += 1
-    if (/[A-Z]/.test(password)) score += 1
-    if (/[0-9]/.test(password)) score += 1
-    if (/[^A-Za-z0-9]/.test(password)) score += 1
+    const scored = scoreSync(password)
+    return scored + 1
+}
+
+/** Captured on init rather than re-imported per call — a dynamic `import()` is
+ *  async and this has to stay synchronous for render paths. */
+let scorer: ((password: string) => { score: number }) | null = null
+let loading: Promise<void> | null = null
+
+/**
+ * Warms the dictionaries. Until this resolves, {@link calculatePasswordStrength}
+ * falls back to a deliberately pessimistic length estimate — the vault list
+ * renders immediately instead of blocking on a large dictionary load, and
+ * nothing is ever called "strong" purely for being long.
+ *
+ * Concurrent callers share one load.
+ */
+export function initPasswordStrength(): Promise<void> {
+    if (scorer) return Promise.resolve()
+    loading ??= (async () => {
+        const [core, common] = await Promise.all([
+            import("@zxcvbn-ts/core"),
+            import("@zxcvbn-ts/language-common"),
+        ])
+        // v4 has no module-level `zxcvbn`; options are bound to a factory.
+        const factory = new core.ZxcvbnFactory({
+            dictionary: { ...common.dictionary },
+            graphs: common.adjacencyGraphs,
+        })
+        scorer = (password: string) => factory.check(password)
+        scoreCache.clear()
+    })()
+    return loading
+}
+
+/** Keyed by the password itself: the list re-scores every entry on every
+ *  render pass, and a guess-based estimator is far too slow for that. */
+const scoreCache = new Map<string, number>()
+
+function scoreSync(password: string): number {
+    if (!scorer) {
+        return password.length >= 16 ? 3 : password.length >= 12 ? 2 : password.length >= 8 ? 1 : 0
+    }
+    const cached = scoreCache.get(password)
+    if (cached !== undefined) return cached
+    const score = scorer(password).score
+    if (scoreCache.size > 500) scoreCache.clear()
+    scoreCache.set(password, score)
     return score
 }
 
@@ -27,11 +90,12 @@ export function getStrengthColor(score: number): string {
 // Base32 alphabet per RFC 4648 (A-Z, 2-7), 8+ chars minimum for a real TOTP secret
 const BASE32_RE = /^[A-Z2-7]+=*$/
 
-export function validateTotpSecret(secret: string): string | null {
+/** Key path under `PasswordManager.form`, or null when the secret is usable. */
+export function validateTotpSecret(secret: string): "totpTooShort" | "totpNotBase32" | null {
     if (!secret) return null
     const s = secret.replace(/\s/g, "").toUpperCase()
-    if (s.length < 8) return "TOTP secret too short (min 8 characters)"
-    if (!BASE32_RE.test(s)) return "TOTP secret must be Base32 (A-Z, 2-7)"
+    if (s.length < 8) return "totpTooShort"
+    if (!BASE32_RE.test(s)) return "totpNotBase32"
     return null
 }
 
@@ -45,17 +109,19 @@ export function getPasswordAgeStatus(updatedAt: number): PasswordAgeStatus {
     return "critical"
 }
 
+/** `labelKey` resolves under `PasswordManager.list`; only the colour is decided
+ *  here, because only the colour is language-independent. */
 export function getPasswordAgeBadge(status: PasswordAgeStatus): {
-    label: string
+    labelKey: "ageAging" | "ageOld" | "ageCritical"
     className: string
 } | null {
     switch (status) {
         case "aging":
-            return { label: "3mo+", className: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-300" }
+            return { labelKey: "ageAging", className: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-300" }
         case "old":
-            return { label: "6mo+", className: "bg-orange-500/10 text-orange-700 dark:text-orange-300" }
+            return { labelKey: "ageOld", className: "bg-orange-500/10 text-orange-700 dark:text-orange-300" }
         case "critical":
-            return { label: "1yr+", className: "bg-red-500/10 text-red-600 dark:text-red-400" }
+            return { labelKey: "ageCritical", className: "bg-red-500/10 text-red-600 dark:text-red-400" }
         default:
             return null
     }

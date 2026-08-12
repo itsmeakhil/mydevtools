@@ -207,6 +207,10 @@
         "min30": "Sau 30 phút",
         "min60": "Sau 1 giờ",
         "helpText": "Khóa kho của bạn sau khoảng thời gian không hoạt động này và yêu cầu mật khẩu chính của bạn để mở khóa."
+      },
+      "vaultIcons": {
+        "label": "Hiện biểu tượng trang web trong kho",
+        "helpText": "Mặc định tắt. Việc tải biểu tượng cho dịch vụ bên thứ ba biết bạn có tài khoản ở những trang nào."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Bạn có chắc muốn xóa mật khẩu này? Hành động này không thể hoàn tác.",
       "cancel": "Hủy",
       "delete": "Xóa",
-      "edit": "Sửa"
+      "edit": "Sửa",
+      "ageAging": "3th+",
+      "ageOld": "6th+",
+      "ageCritical": "1năm+",
+      "clipboardClears": "Bảng nhớ tạm sẽ được xóa sau {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Đã sao chép mật khẩu vào bộ nhớ tạm",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Đã xóa mật khẩu",
       "deleteFailed": "Không thể xóa mật khẩu",
       "vaultLocked": "Kho đã khóa",
-      "importedCount": "Đã nhập thành công {count, plural, one {# mật khẩu} other {# mật khẩu}}"
+      "importedCount": "Đã nhập thành công {count, plural, one {# mật khẩu} other {# mật khẩu}}",
+      "copiedTotp": "Đã sao chép mã TOTP",
+      "copyFailed": "Không thể sao chép vào bảng nhớ tạm",
+      "wrongMasterPassword": "Mật khẩu chính không đúng",
+      "importedPartial": "Đã nhập {imported}, thất bại {failed}"
     },
     "form": {
       "addTitle": "Thêm mật khẩu mới",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Đã lưu mật khẩu thành công",
       "toastSaveFailed": "Không thể lưu mật khẩu",
       "toastUpdated": "Đã cập nhật mật khẩu thành công",
-      "toastUpdateFailed": "Không thể cập nhật mật khẩu"
+      "toastUpdateFailed": "Không thể cập nhật mật khẩu",
+      "totpTooShort": "Khóa bí mật TOTP quá ngắn (tối thiểu 8 ký tự)",
+      "totpNotBase32": "Khóa bí mật TOTP phải ở dạng Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Sức khỏe kho",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Nhập / xuất kho",
-      "description": "Quản lý dữ liệu mật khẩu. Bạn có thể xuất kho sang JSON hoặc nhập từ tệp JSON.",
+      "description": "Xuất kho của bạn, hoặc nhập từ tệp JSON hay CSV.",
       "tabExport": "Xuất",
       "tabImport": "Nhập",
       "warningTitle": "Cảnh báo",
       "warningBody": "Tệp xuất chứa mật khẩu ở dạng văn bản thuần. Hãy giữ tệp an toàn và xóa sau khi sử dụng.",
-      "exportBlurb": "Tải xuống toàn bộ kho dưới dạng tệp JSON. Bao gồm tất cả dịch vụ, tên đăng nhập, mật khẩu và ghi chú.",
-      "downloadJson": "Tải xuống JSON",
-      "pasteLabel": "Dán dữ liệu JSON",
+      "pasteLabel": "Dán JSON hoặc CSV",
       "pastePlaceholder": "[{\"service\": \"Ví dụ\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Dán nội dung tệp JSON đã xuất trước đó vào đây.",
-      "selectFile": "Chọn tệp JSON",
+      "pasteHint": "Dán tệp đã xuất, hoặc CSV từ trình quản lý mật khẩu khác.",
+      "selectFile": "Chọn tệp",
       "importing": "Đang nhập...",
-      "importPasswords": "Nhập mật khẩu",
       "trigger": "Nhập / xuất",
       "toastExported": "Đã xuất kho thành công",
       "toastExportFailed": "Không thể xuất kho",
-      "toastImportFailed": "Không thể nhập: định dạng JSON không hợp lệ"
+      "toastImportFailed": "Không thể nhập: định dạng JSON không hợp lệ",
+      "modeEncrypted": "Đã mã hóa",
+      "modePlaintext": "Văn bản thuần",
+      "passphraseLabel": "Cụm mật khẩu xuất",
+      "passphraseHint": "Cần để mở tệp sau này. Không được lưu ở bất kỳ đâu.",
+      "passphraseTooShort": "Dùng ít nhất 8 ký tự",
+      "confirmMasterLabel": "Mật khẩu chính",
+      "confirmMasterHint": "Xác nhận đúng là bạn trước khi ghi toàn bộ kho vào một tệp.",
+      "downloadCount": "Tải xuống ({count})",
+      "importPassphraseLabel": "Cụm mật khẩu của tệp",
+      "previewReady": "Sẵn sàng nhập: {count}",
+      "previewDuplicates": "Đã có trong kho, bỏ qua: {count}",
+      "previewSkipped": "Bỏ qua các hàng thiếu dữ liệu: {count}",
+      "confirmImport": "Nhập {count}",
+      "checkFile": "Kiểm tra tệp"
     },
     "card": {
       "copyUsername": "Sao chép tên đăng nhập",
@@ -1142,6 +1167,25 @@
       "separator": "Dấu phân cách",
       "capitalization": "Viết hoa",
       "includeNumber": "Bao gồm số"
+    },
+    "breach": {
+      "title": "Kiểm tra rò rỉ dữ liệu",
+      "intro": "Đối chiếu mật khẩu đã lưu với Have I Been Pwned. Chỉ gửi tiền tố băm 5 ký tự — mật khẩu không bao giờ rời khỏi thiết bị này.",
+      "run": "Chạy kiểm tra",
+      "needsConnection": "Cần kết nối internet.",
+      "progress": "Đang kiểm tra {checked} trên {total}…",
+      "kAnonymity": "Dùng k-ẩn danh — không mật khẩu nào rời khỏi thiết bị này.",
+      "failed": "Kiểm tra thất bại. Hãy kiểm tra kết nối và thử lại.",
+      "retry": "Thử lại",
+      "noneFound": "Không tìm thấy mật khẩu bị rò rỉ",
+      "allChecked": "Đã kiểm tra: {count}. Không có mục nào trong các vụ rò rỉ đã biết.",
+      "foundInBreaches": "Tìm thấy trong rò rỉ: {count}",
+      "changeNow": "Hãy đổi ngay",
+      "exposedTimes": "Bị lộ {count}×",
+      "unknownHeading": "Không kiểm tra được: {count}",
+      "unknownBody": "Chúng chưa được xác minh vì tra cứu thất bại. Hãy coi là chưa rõ, không phải an toàn.",
+      "useGenerator": "Dùng trình tạo mật khẩu để tạo bản thay thế mạnh.",
+      "checkAgain": "Kiểm tra lại"
     }
   },
   "EnvironmentManager": {

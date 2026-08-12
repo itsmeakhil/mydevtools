@@ -207,6 +207,10 @@
         "min30": "Nach 30 Minuten",
         "min60": "Nach 1 Stunde",
         "helpText": "Sperrt Ihren Tresor nach dieser Zeit der Inaktivität und erfordert zum Entsperren Ihr Master-Passwort."
+      },
+      "vaultIcons": {
+        "label": "Website-Symbole im Tresor anzeigen",
+        "helpText": "Standardmäßig aus. Das Laden eines Symbols verrät einem Drittanbieter, bei welchen Seiten Sie Konten haben."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Dieses Passwort wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
       "cancel": "Abbrechen",
       "delete": "Löschen",
-      "edit": "Bearbeiten"
+      "edit": "Bearbeiten",
+      "ageAging": "3M+",
+      "ageOld": "6M+",
+      "ageCritical": "1J+",
+      "clipboardClears": "Zwischenablage wird in {seconds}s geleert"
     },
     "toasts": {
       "copiedPassword": "Passwort in die Zwischenablage kopiert",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Passwort gelöscht",
       "deleteFailed": "Passwort konnte nicht gelöscht werden",
       "vaultLocked": "Tresor gesperrt",
-      "importedCount": "{count, plural, one {# Passwort} other {# Passwörter}} importiert"
+      "importedCount": "{count, plural, one {# Passwort} other {# Passwörter}} importiert",
+      "copiedTotp": "TOTP-Code in die Zwischenablage kopiert",
+      "copyFailed": "Kopieren in die Zwischenablage fehlgeschlagen",
+      "wrongMasterPassword": "Falsches Master-Passwort",
+      "importedPartial": "{imported} importiert, {failed} fehlgeschlagen"
     },
     "form": {
       "addTitle": "Neues Passwort",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Passwort gespeichert",
       "toastSaveFailed": "Speichern fehlgeschlagen",
       "toastUpdated": "Passwort aktualisiert",
-      "toastUpdateFailed": "Aktualisierung fehlgeschlagen"
+      "toastUpdateFailed": "Aktualisierung fehlgeschlagen",
+      "totpTooShort": "TOTP-Geheimnis ist zu kurz (mindestens 8 Zeichen)",
+      "totpNotBase32": "TOTP-Geheimnis muss Base32 sein (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Tresor-Gesundheit",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Tresor importieren / exportieren",
-      "description": "Passwortdaten verwalten. Export als JSON oder Import aus einer JSON-Datei.",
+      "description": "Exportieren Sie Ihren Tresor oder importieren Sie aus einer JSON- oder CSV-Datei.",
       "tabExport": "Export",
       "tabImport": "Import",
       "warningTitle": "Warnung",
       "warningBody": "Exportdateien enthalten Passwörter im Klartext. Datei sicher aufbewahren und nach Gebrauch löschen.",
-      "exportBlurb": "Gesamten Tresor als JSON herunterladen (Dienste, Benutzernamen, Passwörter, Notizen).",
-      "downloadJson": "JSON-Export herunterladen",
-      "pasteLabel": "JSON-Daten einfügen",
+      "pasteLabel": "JSON oder CSV einfügen",
       "pastePlaceholder": "[{\"service\": \"Beispiel\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Inhalt einer zuvor exportierten JSON-Datei hier einfügen.",
-      "selectFile": "JSON-Datei auswählen",
+      "pasteHint": "Fügen Sie eine exportierte Datei ein oder eine CSV aus einem anderen Passwortmanager.",
+      "selectFile": "Datei auswählen",
       "importing": "Importiere...",
-      "importPasswords": "Passwörter importieren",
       "trigger": "Import / Export",
       "toastExported": "Tresor exportiert",
       "toastExportFailed": "Export fehlgeschlagen",
-      "toastImportFailed": "Import fehlgeschlagen: ungültiges JSON"
+      "toastImportFailed": "Import fehlgeschlagen: ungültiges JSON",
+      "modeEncrypted": "Verschlüsselt",
+      "modePlaintext": "Klartext",
+      "passphraseLabel": "Export-Passphrase",
+      "passphraseHint": "Nötig, um die Datei später zu öffnen. Sie wird nirgends gespeichert.",
+      "passphraseTooShort": "Mindestens 8 Zeichen verwenden",
+      "confirmMasterLabel": "Master-Passwort",
+      "confirmMasterHint": "Bestätigt Ihre Identität, bevor der gesamte Tresor in eine Datei geschrieben wird.",
+      "downloadCount": "Herunterladen ({count})",
+      "importPassphraseLabel": "Datei-Passphrase",
+      "previewReady": "Bereit zum Import: {count}",
+      "previewDuplicates": "Bereits im Tresor, übersprungen: {count}",
+      "previewSkipped": "Unvollständige Zeilen übersprungen: {count}",
+      "confirmImport": "{count} importieren",
+      "checkFile": "Datei prüfen"
     },
     "card": {
       "copyUsername": "Benutzername kopieren",
@@ -1142,6 +1167,25 @@
       "separator": "Trennzeichen",
       "capitalization": "Großschreibung",
       "includeNumber": "Ziffer einbeziehen"
+    },
+    "breach": {
+      "title": "Datenleck-Prüfung",
+      "intro": "Prüft Ihre gespeicherten Passwörter gegen Have I Been Pwned. Nur ein 5-stelliges Hash-Präfix wird gesendet — Ihre Passwörter verlassen dieses Gerät nie.",
+      "run": "Prüfung starten",
+      "needsConnection": "Benötigt eine Internetverbindung.",
+      "progress": "Prüfe {checked} von {total}…",
+      "kAnonymity": "Mit k-Anonymität — kein Passwort verlässt dieses Gerät.",
+      "failed": "Prüfung fehlgeschlagen. Verbindung prüfen und erneut versuchen.",
+      "retry": "Erneut versuchen",
+      "noneFound": "Keine geleakten Passwörter gefunden",
+      "allChecked": "Geprüft: {count}. Keines taucht in bekannten Datenlecks auf.",
+      "foundInBreaches": "In Datenlecks gefunden: {count}",
+      "changeNow": "Diese sofort ändern",
+      "exposedTimes": "{count}× offengelegt",
+      "unknownHeading": "Konnten nicht geprüft werden: {count}",
+      "unknownBody": "Diese wurden nicht verifiziert, weil die Abfrage fehlschlug. Behandeln Sie sie als unbekannt, nicht als sicher.",
+      "useGenerator": "Nutzen Sie den Passwortgenerator für starke Alternativen.",
+      "checkAgain": "Erneut prüfen"
     }
   },
   "EnvironmentManager": {

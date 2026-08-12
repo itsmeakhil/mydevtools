@@ -207,6 +207,10 @@
         "min30": "30 dakika sonra",
         "min60": "1 saat sonra",
         "helpText": "Bu süre boyunca işlem yapılmazsa kasanızı kilitler ve kilidi açmak için ana parolanızı gerektirir."
+      },
+      "vaultIcons": {
+        "label": "Kasada site simgelerini göster",
+        "helpText": "Varsayılan olarak kapalı. Simge indirmek, hangi sitelerde hesabınız olduğunu üçüncü taraf bir hizmete bildirir."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Bu şifreyi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
       "cancel": "İptal",
       "delete": "Sil",
-      "edit": "Düzenle"
+      "edit": "Düzenle",
+      "ageAging": "3ay+",
+      "ageOld": "6ay+",
+      "ageCritical": "1yıl+",
+      "clipboardClears": "Pano {seconds} sn içinde temizlenecek"
     },
     "toasts": {
       "copiedPassword": "Şifre panoya kopyalandı",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Şifre silindi",
       "deleteFailed": "Şifre silinemedi",
       "vaultLocked": "Kasa kilitlendi",
-      "importedCount": "{count, plural, one {# şifre} other {# şifre}} başarıyla içe aktarıldı"
+      "importedCount": "{count, plural, one {# şifre} other {# şifre}} başarıyla içe aktarıldı",
+      "copiedTotp": "TOTP kodu panoya kopyalandı",
+      "copyFailed": "Panoya kopyalanamadı",
+      "wrongMasterPassword": "Ana parola yanlış",
+      "importedPartial": "{imported} içe aktarıldı, {failed} başarısız"
     },
     "form": {
       "addTitle": "Yeni şifre ekle",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Şifre başarıyla kaydedildi",
       "toastSaveFailed": "Şifre kaydedilemedi",
       "toastUpdated": "Şifre başarıyla güncellendi",
-      "toastUpdateFailed": "Şifre güncellenemedi"
+      "toastUpdateFailed": "Şifre güncellenemedi",
+      "totpTooShort": "TOTP gizli anahtarı çok kısa (en az 8 karakter)",
+      "totpNotBase32": "TOTP gizli anahtarı Base32 olmalı (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Kasa sağlığı",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Kasayı içe / dışa aktar",
-      "description": "Şifre verilerinizi yönetin. Kasanızı JSON'a dışa aktarabilir veya bir JSON dosyasından içe aktarabilirsiniz.",
+      "description": "Kasanızı dışa aktarın veya JSON ya da CSV dosyasından içe aktarın.",
       "tabExport": "Dışa Aktar",
       "tabImport": "İçe Aktar",
       "warningTitle": "Uyarı",
       "warningBody": "Dışa aktarılan dosyalar şifrelerinizi düz metin olarak içerir. Bu dosyayı güvende tutun ve kullandıktan sonra silin.",
-      "exportBlurb": "Tüm kasanızı JSON dosyası olarak indirin. Bu, tüm hizmetleri, kullanıcı adlarını, şifreleri ve notları içerir.",
-      "downloadJson": "JSON dışa aktarımını indir",
-      "pasteLabel": "JSON verilerini yapıştırın",
+      "pasteLabel": "JSON veya CSV yapıştırın",
       "pastePlaceholder": "[{\"service\": \"Örnek\", \"username\": \"kullanici\", \"password\": \"123\", ...}]",
-      "pasteHint": "Daha önce dışa aktarılmış bir JSON dosyasının içeriğini buraya yapıştırın.",
-      "selectFile": "JSON dosyası seç",
+      "pasteHint": "Dışa aktarılmış bir dosya ya da başka bir parola yöneticisinden CSV yapıştırın.",
+      "selectFile": "Dosya seç",
       "importing": "İçe aktarılıyor...",
-      "importPasswords": "Şifreleri içe aktar",
       "trigger": "İçe / dışa aktar",
       "toastExported": "Kasa başarıyla dışa aktarıldı",
       "toastExportFailed": "Kasa dışa aktarılamadı",
-      "toastImportFailed": "İçe aktarma başarısız: geçersiz JSON formatı"
+      "toastImportFailed": "İçe aktarma başarısız: geçersiz JSON formatı",
+      "modeEncrypted": "Şifreli",
+      "modePlaintext": "Düz metin",
+      "passphraseLabel": "Dışa aktarma parola ifadesi",
+      "passphraseHint": "Dosyayı sonra açmak için gerekir. Hiçbir yerde saklanmaz.",
+      "passphraseTooShort": "En az 8 karakter kullanın",
+      "confirmMasterLabel": "Ana parola",
+      "confirmMasterHint": "Kasanın tamamı bir dosyaya yazılmadan önce kimliğinizi doğrular.",
+      "downloadCount": "İndir ({count})",
+      "importPassphraseLabel": "Dosya parola ifadesi",
+      "previewReady": "İçe aktarmaya hazır: {count}",
+      "previewDuplicates": "Kasanızda zaten var, atlandı: {count}",
+      "previewSkipped": "Eksik satırlar atlandı: {count}",
+      "confirmImport": "{count} tanesini içe aktar",
+      "checkFile": "Dosyayı kontrol et"
     },
     "card": {
       "copyUsername": "Kullanıcı adını kopyala",
@@ -1142,6 +1167,25 @@
       "separator": "Ayırıcı",
       "capitalization": "Büyük harf kullanımı",
       "includeNumber": "Sayı dahil et"
+    },
+    "breach": {
+      "title": "Veri ihlali kontrolü",
+      "intro": "Kayıtlı parolalarınızı Have I Been Pwned ile karşılaştırır. Yalnızca 5 karakterlik özet ön eki gönderilir — parolalarınız bu cihazdan asla çıkmaz.",
+      "run": "Kontrolü çalıştır",
+      "needsConnection": "İnternet bağlantısı gerekir.",
+      "progress": "{total} parolanın {checked} tanesi kontrol ediliyor…",
+      "kAnonymity": "k-anonimlik ile — hiçbir parola bu cihazdan çıkmaz.",
+      "failed": "Kontrol başarısız oldu. Bağlantınızı doğrulayıp tekrar deneyin.",
+      "retry": "Yeniden dene",
+      "noneFound": "İhlale uğramış parola bulunamadı",
+      "allChecked": "Kontrol edilen: {count}. Hiçbiri bilinen ihlallerde görünmüyor.",
+      "foundInBreaches": "İhlallerde bulunan: {count}",
+      "changeNow": "Bunları hemen değiştirin",
+      "exposedTimes": "{count}× ifşa",
+      "unknownHeading": "Kontrol edilemedi: {count}",
+      "unknownBody": "Sorgu başarısız olduğu için doğrulanmadılar. Güvenli değil, bilinmiyor olarak değerlendirin.",
+      "useGenerator": "Güçlü alternatifler için parola üretecini kullanın.",
+      "checkAgain": "Tekrar kontrol et"
     }
   },
   "EnvironmentManager": {

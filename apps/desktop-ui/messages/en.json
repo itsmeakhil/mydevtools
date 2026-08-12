@@ -265,6 +265,10 @@
         "min30": "After 30 minutes",
         "min60": "After 1 hour",
         "helpText": "Locks your vault after this much inactivity, requiring your master password to unlock."
+      },
+      "vaultIcons": {
+        "label": "Show site icons in the vault",
+        "helpText": "Off by default. Fetching an icon tells a third-party service which sites you hold accounts on."
       }
     },
     "language": {
@@ -1038,7 +1042,11 @@
       "deleteDialogDescription": "Are you sure you want to delete this password? This action cannot be undone.",
       "cancel": "Cancel",
       "delete": "Delete",
-      "edit": "Edit"
+      "edit": "Edit",
+      "ageAging": "3mo+",
+      "ageOld": "6mo+",
+      "ageCritical": "1yr+",
+      "clipboardClears": "Clipboard clears in {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Password copied to clipboard",
@@ -1046,7 +1054,11 @@
       "passwordDeleted": "Password deleted",
       "deleteFailed": "Failed to delete password",
       "vaultLocked": "Vault locked",
-      "importedCount": "Successfully imported {count, plural, one {# password} other {# passwords}}"
+      "importedCount": "Successfully imported {count, plural, one {# password} other {# passwords}}",
+      "copiedTotp": "TOTP code copied to clipboard",
+      "copyFailed": "Could not copy to the clipboard",
+      "wrongMasterPassword": "Incorrect master password",
+      "importedPartial": "Imported {imported}, failed {failed}"
     },
     "form": {
       "addTitle": "Add new password",
@@ -1078,7 +1090,9 @@
       "toastSaved": "Password saved successfully",
       "toastSaveFailed": "Failed to save password",
       "toastUpdated": "Password updated successfully",
-      "toastUpdateFailed": "Failed to update password"
+      "toastUpdateFailed": "Failed to update password",
+      "totpTooShort": "TOTP secret is too short (minimum 8 characters)",
+      "totpNotBase32": "TOTP secret must be Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Vault health",
@@ -1105,23 +1119,34 @@
     },
     "importExport": {
       "title": "Import / export vault",
-      "description": "Manage your password data. You can export your vault to JSON or import from a JSON file.",
+      "description": "Export your vault, or import from a JSON or CSV file.",
       "tabExport": "Export",
       "tabImport": "Import",
       "warningTitle": "Warning",
       "warningBody": "Exported files contain your passwords in plain text. Keep this file safe and delete it after use.",
-      "exportBlurb": "Download your entire vault as a JSON file. This includes all services, usernames, passwords, and notes.",
-      "downloadJson": "Download JSON export",
-      "pasteLabel": "Paste JSON data",
+      "pasteLabel": "Paste JSON or CSV",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Paste the content of a previously exported JSON file here.",
-      "selectFile": "Select JSON file",
+      "pasteHint": "Paste an exported file, or a CSV from another password manager.",
+      "selectFile": "Select file",
       "importing": "Importing...",
-      "importPasswords": "Import passwords",
       "trigger": "Import / export",
       "toastExported": "Vault exported successfully",
       "toastExportFailed": "Failed to export vault",
-      "toastImportFailed": "Failed to import: invalid JSON format"
+      "toastImportFailed": "Failed to import: invalid JSON format",
+      "modeEncrypted": "Encrypted",
+      "modePlaintext": "Plain text",
+      "passphraseLabel": "Export passphrase",
+      "passphraseHint": "Needed to open the file later. It is not stored anywhere.",
+      "passphraseTooShort": "Use at least 8 characters",
+      "confirmMasterLabel": "Master password",
+      "confirmMasterHint": "Confirms it is you before the whole vault is written to a file.",
+      "downloadCount": "Download ({count})",
+      "importPassphraseLabel": "File passphrase",
+      "previewReady": "Ready to import: {count}",
+      "previewDuplicates": "Already in your vault, skipped: {count}",
+      "previewSkipped": "Incomplete rows skipped: {count}",
+      "confirmImport": "Import {count}",
+      "checkFile": "Check file"
     },
     "card": {
       "copyUsername": "Copy username",
@@ -1157,6 +1182,25 @@
       "separator": "Separator",
       "capitalization": "Capitalization",
       "includeNumber": "Include number"
+    },
+    "breach": {
+      "title": "Data breach check",
+      "intro": "Checks your saved passwords against Have I Been Pwned. Only a 5-character hash prefix is sent — your passwords never leave this device.",
+      "run": "Run check",
+      "needsConnection": "Needs an internet connection.",
+      "progress": "Checking {checked} of {total}…",
+      "kAnonymity": "Using k-anonymity — no password leaves this device.",
+      "failed": "Check failed. Verify your connection and try again.",
+      "retry": "Retry",
+      "noneFound": "No breached passwords found",
+      "allChecked": "Checked: {count}. None appear in known data breaches.",
+      "foundInBreaches": "Found in data breaches: {count}",
+      "changeNow": "Change these immediately",
+      "exposedTimes": "{count}× exposed",
+      "unknownHeading": "Could not be checked: {count}",
+      "unknownBody": "These were not verified because the lookup failed. Treat them as unknown, not as safe.",
+      "useGenerator": "Use the password generator to create strong replacements.",
+      "checkAgain": "Check again"
     }
   },
   "EnvironmentManager": {

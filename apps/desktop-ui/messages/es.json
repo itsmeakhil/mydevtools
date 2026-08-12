@@ -207,6 +207,10 @@
         "min30": "Después de 30 minutos",
         "min60": "Después de 1 hora",
         "helpText": "Bloquea tu bóveda tras este tiempo de inactividad y requiere tu contraseña maestra para desbloquearla."
+      },
+      "vaultIcons": {
+        "label": "Mostrar iconos de sitios en la bóveda",
+        "helpText": "Desactivado por defecto. Descargar un icono revela a un servicio externo en qué sitios tienes cuentas."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "¿Seguro que quieres eliminar esta contraseña? Esta acción no se puede deshacer.",
       "cancel": "Cancelar",
       "delete": "Eliminar",
-      "edit": "Editar"
+      "edit": "Editar",
+      "ageAging": "3m+",
+      "ageOld": "6m+",
+      "ageCritical": "1a+",
+      "clipboardClears": "El portapapeles se borra en {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Contraseña copiada al portapapeles",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Contraseña eliminada",
       "deleteFailed": "No se pudo eliminar la contraseña",
       "vaultLocked": "Bóveda bloqueada",
-      "importedCount": "Se importaron {count, plural, one {# contraseña} other {# contraseñas}} correctamente"
+      "importedCount": "Se importaron {count, plural, one {# contraseña} other {# contraseñas}} correctamente",
+      "copiedTotp": "Código TOTP copiado al portapapeles",
+      "copyFailed": "No se pudo copiar al portapapeles",
+      "wrongMasterPassword": "Contraseña maestra incorrecta",
+      "importedPartial": "Importadas {imported}, fallidas {failed}"
     },
     "form": {
       "addTitle": "Añadir contraseña",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Contraseña guardada correctamente",
       "toastSaveFailed": "No se pudo guardar la contraseña",
       "toastUpdated": "Contraseña actualizada correctamente",
-      "toastUpdateFailed": "No se pudo actualizar la contraseña"
+      "toastUpdateFailed": "No se pudo actualizar la contraseña",
+      "totpTooShort": "El secreto TOTP es demasiado corto (mínimo 8 caracteres)",
+      "totpNotBase32": "El secreto TOTP debe ser Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Estado de la bóveda",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importar / exportar bóveda",
-      "description": "Administra tus contraseñas. Puedes exportar la bóveda a JSON o importar desde un archivo JSON.",
+      "description": "Exporta tu bóveda o importa desde un archivo JSON o CSV.",
       "tabExport": "Exportar",
       "tabImport": "Importar",
       "warningTitle": "Advertencia",
       "warningBody": "Los archivos exportados contienen tus contraseñas en texto plano. Guárdalos en un lugar seguro y bórralos después de usarlos.",
-      "exportBlurb": "Descarga toda tu bóveda como archivo JSON. Incluye servicios, usuarios, contraseñas y notas.",
-      "downloadJson": "Descargar exportación JSON",
-      "pasteLabel": "Pegar datos JSON",
+      "pasteLabel": "Pega JSON o CSV",
       "pastePlaceholder": "[{\"service\": \"Ejemplo\", \"username\": \"usuario\", \"password\": \"123\", ...}]",
-      "pasteHint": "Pega aquí el contenido de un archivo JSON exportado previamente.",
-      "selectFile": "Seleccionar archivo JSON",
+      "pasteHint": "Pega un archivo exportado, o un CSV de otro gestor de contraseñas.",
+      "selectFile": "Seleccionar archivo",
       "importing": "Importando...",
-      "importPasswords": "Importar contraseñas",
       "trigger": "Importar / exportar",
       "toastExported": "Bóveda exportada correctamente",
       "toastExportFailed": "No se pudo exportar la bóveda",
-      "toastImportFailed": "Error al importar: formato JSON no válido"
+      "toastImportFailed": "Error al importar: formato JSON no válido",
+      "modeEncrypted": "Cifrado",
+      "modePlaintext": "Texto plano",
+      "passphraseLabel": "Frase de contraseña de exportación",
+      "passphraseHint": "Necesaria para abrir el archivo más adelante. No se guarda en ningún sitio.",
+      "passphraseTooShort": "Usa al menos 8 caracteres",
+      "confirmMasterLabel": "Contraseña maestra",
+      "confirmMasterHint": "Confirma que eres tú antes de escribir toda la bóveda en un archivo.",
+      "downloadCount": "Descargar ({count})",
+      "importPassphraseLabel": "Frase del archivo",
+      "previewReady": "Listas para importar: {count}",
+      "previewDuplicates": "Ya en tu bóveda, omitidas: {count}",
+      "previewSkipped": "Filas incompletas omitidas: {count}",
+      "confirmImport": "Importar {count}",
+      "checkFile": "Comprobar archivo"
     },
     "card": {
       "copyUsername": "Copiar usuario",
@@ -1142,6 +1167,25 @@
       "separator": "Separador",
       "capitalization": "Mayúsculas",
       "includeNumber": "Incluir número"
+    },
+    "breach": {
+      "title": "Comprobación de filtraciones",
+      "intro": "Comprueba tus contraseñas guardadas con Have I Been Pwned. Solo se envía un prefijo de hash de 5 caracteres — tus contraseñas nunca salen de este dispositivo.",
+      "run": "Ejecutar comprobación",
+      "needsConnection": "Necesita conexión a internet.",
+      "progress": "Comprobando {checked} de {total}…",
+      "kAnonymity": "Con k-anonimato — ninguna contraseña sale de este dispositivo.",
+      "failed": "La comprobación falló. Revisa tu conexión e inténtalo de nuevo.",
+      "retry": "Reintentar",
+      "noneFound": "No se encontraron contraseñas filtradas",
+      "allChecked": "Comprobadas: {count}. Ninguna aparece en filtraciones conocidas.",
+      "foundInBreaches": "Encontradas en filtraciones: {count}",
+      "changeNow": "Cámbialas de inmediato",
+      "exposedTimes": "{count}× expuesta",
+      "unknownHeading": "No se pudieron comprobar: {count}",
+      "unknownBody": "No se verificaron porque la consulta falló. Trátalas como desconocidas, no como seguras.",
+      "useGenerator": "Usa el generador para crear reemplazos fuertes.",
+      "checkAgain": "Comprobar de nuevo"
     }
   },
   "EnvironmentManager": {

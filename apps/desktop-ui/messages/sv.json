@@ -207,6 +207,10 @@
         "min30": "Efter 30 minuter",
         "min60": "Efter 1 timme",
         "helpText": "Låser ditt valv efter så lång tids inaktivitet och kräver ditt huvudlösenord för att låsa upp."
+      },
+      "vaultIcons": {
+        "label": "Visa webbplatsikoner i valvet",
+        "helpText": "Av som standard. Att hämta en ikon berättar för en tredjepartstjänst vilka webbplatser du har konton på."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Är du säker på att du vill ta bort detta lösenord? Denna åtgärd kan inte ångras.",
       "cancel": "Avbryt",
       "delete": "Ta bort",
-      "edit": "Redigera"
+      "edit": "Redigera",
+      "ageAging": "3mån+",
+      "ageOld": "6mån+",
+      "ageCritical": "1år+",
+      "clipboardClears": "Urklipp töms om {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Lösenord kopierat till urklipp",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Lösenord borttaget",
       "deleteFailed": "Misslyckades att ta bort lösenord",
       "vaultLocked": "Valvet låst",
-      "importedCount": "Importerade {count, plural, one {# lösenord} other {# lösenord}}"
+      "importedCount": "Importerade {count, plural, one {# lösenord} other {# lösenord}}",
+      "copiedTotp": "TOTP-kod kopierad till urklipp",
+      "copyFailed": "Kunde inte kopiera till urklipp",
+      "wrongMasterPassword": "Fel huvudlösenord",
+      "importedPartial": "{imported} importerade, {failed} misslyckades"
     },
     "form": {
       "addTitle": "Lägg till nytt lösenord",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Lösenord sparat",
       "toastSaveFailed": "Misslyckades att spara lösenord",
       "toastUpdated": "Lösenord uppdaterat",
-      "toastUpdateFailed": "Misslyckades att uppdatera lösenord"
+      "toastUpdateFailed": "Misslyckades att uppdatera lösenord",
+      "totpTooShort": "TOTP-hemligheten är för kort (minst 8 tecken)",
+      "totpNotBase32": "TOTP-hemligheten måste vara Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Valvhälsa",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importera / exportera valv",
-      "description": "Hantera dina lösenordsdata. Du kan exportera ditt valv till JSON eller importera från en JSON-fil.",
+      "description": "Exportera valvet, eller importera från en JSON- eller CSV-fil.",
       "tabExport": "Exportera",
       "tabImport": "Importera",
       "warningTitle": "Varning",
       "warningBody": "Exporterade filer innehåller dina lösenord i klartext. Förvara filen säkert och ta bort den efter användning.",
-      "exportBlurb": "Ladda ner hela ditt valv som en JSON-fil. Detta inkluderar alla tjänster, användarnamn, lösenord och anteckningar.",
-      "downloadJson": "Ladda ner JSON-export",
-      "pasteLabel": "Klistra in JSON-data",
+      "pasteLabel": "Klistra in JSON eller CSV",
       "pastePlaceholder": "[{\"service\": \"Exempel\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Klistra in innehållet från en tidigare exporterad JSON-fil här.",
-      "selectFile": "Välj JSON-fil",
+      "pasteHint": "Klistra in en exporterad fil, eller en CSV från en annan lösenordshanterare.",
+      "selectFile": "Välj fil",
       "importing": "Importerar...",
-      "importPasswords": "Importera lösenord",
       "trigger": "Importera / exportera",
       "toastExported": "Valvet exporterat",
       "toastExportFailed": "Misslyckades att exportera valvet",
-      "toastImportFailed": "Misslyckades att importera: ogiltigt JSON-format"
+      "toastImportFailed": "Misslyckades att importera: ogiltigt JSON-format",
+      "modeEncrypted": "Krypterad",
+      "modePlaintext": "Klartext",
+      "passphraseLabel": "Lösenfras för export",
+      "passphraseHint": "Behövs för att öppna filen senare. Den sparas ingenstans.",
+      "passphraseTooShort": "Använd minst 8 tecken",
+      "confirmMasterLabel": "Huvudlösenord",
+      "confirmMasterHint": "Bekräftar att det är du innan hela valvet skrivs till en fil.",
+      "downloadCount": "Ladda ner ({count})",
+      "importPassphraseLabel": "Filens lösenfras",
+      "previewReady": "Redo att importera: {count}",
+      "previewDuplicates": "Redan i valvet, hoppade över: {count}",
+      "previewSkipped": "Ofullständiga rader hoppade över: {count}",
+      "confirmImport": "Importera {count}",
+      "checkFile": "Kontrollera fil"
     },
     "card": {
       "copyUsername": "Kopiera användarnamn",
@@ -1142,6 +1167,25 @@
       "separator": "Separator",
       "capitalization": "Versalisering",
       "includeNumber": "Inkludera siffra"
+    },
+    "breach": {
+      "title": "Kontroll av dataintrång",
+      "intro": "Kontrollerar dina sparade lösenord mot Have I Been Pwned. Bara ett hash-prefix på 5 tecken skickas — dina lösenord lämnar aldrig den här enheten.",
+      "run": "Kör kontroll",
+      "needsConnection": "Kräver internetanslutning.",
+      "progress": "Kontrollerar {checked} av {total}…",
+      "kAnonymity": "Med k-anonymitet — inget lösenord lämnar den här enheten.",
+      "failed": "Kontrollen misslyckades. Kontrollera anslutningen och försök igen.",
+      "retry": "Försök igen",
+      "noneFound": "Inga läckta lösenord hittades",
+      "allChecked": "Kontrollerade: {count}. Inget förekommer i kända intrång.",
+      "foundInBreaches": "Hittade i intrång: {count}",
+      "changeNow": "Byt dem omedelbart",
+      "exposedTimes": "{count}× exponerat",
+      "unknownHeading": "Kunde inte kontrolleras: {count}",
+      "unknownBody": "Dessa verifierades inte eftersom uppslagningen misslyckades. Betrakta dem som okända, inte som säkra.",
+      "useGenerator": "Använd lösenordsgeneratorn för att skapa starka ersättare.",
+      "checkAgain": "Kontrollera igen"
     }
   },
   "EnvironmentManager": {

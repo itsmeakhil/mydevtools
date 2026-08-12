@@ -207,6 +207,10 @@
         "min30": "Setelah 30 menit",
         "min60": "Setelah 1 jam",
         "helpText": "Mengunci brankas Anda setelah tidak aktif selama itu, dan memerlukan kata sandi utama Anda untuk membukanya."
+      },
+      "vaultIcons": {
+        "label": "Tampilkan ikon situs di brankas",
+        "helpText": "Mati secara bawaan. Mengambil ikon memberi tahu layanan pihak ketiga di situs mana Anda punya akun."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Apakah kamu yakin ingin menghapus Iklan ini? Tindakan ini tidak bisa dibatalkan.",
       "cancel": "Batalkan",
       "delete": "Hapus ",
-      "edit": "Edit"
+      "edit": "Edit",
+      "ageAging": "3bln+",
+      "ageOld": "6bln+",
+      "ageCritical": "1thn+",
+      "clipboardClears": "Papan klip dibersihkan dalam {seconds}d"
     },
     "toasts": {
       "copiedPassword": "Kata sandi disalin ke papan klip",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Kata sandi dihapus",
       "deleteFailed": "Gagal menghapus kata sandi",
       "vaultLocked": "Kubah terkunci",
-      "importedCount": "Berhasil mengimpor {count, plural, one {# kata sandi} other {# kata sandi}}"
+      "importedCount": "Berhasil mengimpor {count, plural, one {# kata sandi} other {# kata sandi}}",
+      "copiedTotp": "Kode TOTP disalin ke papan klip",
+      "copyFailed": "Tidak dapat menyalin ke papan klip",
+      "wrongMasterPassword": "Kata sandi utama salah",
+      "importedPartial": "{imported} diimpor, {failed} gagal"
     },
     "form": {
       "addTitle": "Kata sandi baru",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Kata sandi berhasil disimpan",
       "toastSaveFailed": "Gagal menyimpan kata sandi",
       "toastUpdated": "Kata sandi berhasil diperbarui",
-      "toastUpdateFailed": "Gagal memperbarui kata sandi"
+      "toastUpdateFailed": "Gagal memperbarui kata sandi",
+      "totpTooShort": "Rahasia TOTP terlalu pendek (minimal 8 karakter)",
+      "totpNotBase32": "Rahasia TOTP harus Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Kesehatan lemari besi",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Impor / ekspor brankas",
-      "description": "Kelola data kata sandi Anda. Anda dapat mengekspor brankas Anda ke JSON atau mengimpor dari file JSON.",
+      "description": "Ekspor brankas Anda, atau impor dari berkas JSON atau CSV.",
       "tabExport": "Ekspor",
       "tabImport": "Impor",
       "warningTitle": "Perhatian",
       "warningBody": "File yang diekspor berisi kata sandi Anda dalam teks biasa. Simpan file ini dengan aman dan hapus setelah digunakan.",
-      "exportBlurb": "Unduh seluruh brankas Anda sebagai file JSON. Ini termasuk semua layanan, nama pengguna, kata sandi, dan catatan.",
-      "downloadJson": "Unduh ekspor JSON",
-      "pasteLabel": "Tempel data JSON",
+      "pasteLabel": "Tempel JSON atau CSV",
       "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
-      "pasteHint": "Tempel konten file JSON yang sebelumnya diekspor di sini.",
-      "selectFile": "Pilih file JSON",
+      "pasteHint": "Tempel berkas hasil ekspor, atau CSV dari pengelola kata sandi lain.",
+      "selectFile": "Pilih berkas",
       "importing": "Mengimpor",
-      "importPasswords": "Impor Kata Sandi",
       "trigger": "Impor/Ekspor",
       "toastExported": "Vault berhasil diekspor",
       "toastExportFailed": "Gagal mengekspor brankas",
-      "toastImportFailed": "Gagal mengimpor: format JSON tidak valid"
+      "toastImportFailed": "Gagal mengimpor: format JSON tidak valid",
+      "modeEncrypted": "Terenkripsi",
+      "modePlaintext": "Teks biasa",
+      "passphraseLabel": "Frasa sandi ekspor",
+      "passphraseHint": "Diperlukan untuk membuka berkas nanti. Tidak disimpan di mana pun.",
+      "passphraseTooShort": "Gunakan minimal 8 karakter",
+      "confirmMasterLabel": "Kata sandi utama",
+      "confirmMasterHint": "Memastikan ini Anda sebelum seluruh brankas ditulis ke berkas.",
+      "downloadCount": "Unduh ({count})",
+      "importPassphraseLabel": "Frasa sandi berkas",
+      "previewReady": "Siap diimpor: {count}",
+      "previewDuplicates": "Sudah ada di brankas, dilewati: {count}",
+      "previewSkipped": "Baris tidak lengkap dilewati: {count}",
+      "confirmImport": "Impor {count}",
+      "checkFile": "Periksa berkas"
     },
     "card": {
       "copyUsername": "Salin nama pengguna",
@@ -1142,6 +1167,25 @@
       "separator": "Magnetik",
       "capitalization": "Kapitalisasi",
       "includeNumber": "Sertakan nomor"
+    },
+    "breach": {
+      "title": "Pemeriksaan kebocoran data",
+      "intro": "Memeriksa kata sandi tersimpan terhadap Have I Been Pwned. Hanya awalan hash 5 karakter yang dikirim — kata sandi tidak pernah meninggalkan perangkat ini.",
+      "run": "Jalankan pemeriksaan",
+      "needsConnection": "Perlu koneksi internet.",
+      "progress": "Memeriksa {checked} dari {total}…",
+      "kAnonymity": "Menggunakan k-anonimitas — tidak ada kata sandi yang meninggalkan perangkat ini.",
+      "failed": "Pemeriksaan gagal. Periksa koneksi dan coba lagi.",
+      "retry": "Coba lagi",
+      "noneFound": "Tidak ada kata sandi bocor ditemukan",
+      "allChecked": "Diperiksa: {count}. Tidak ada yang muncul dalam kebocoran yang diketahui.",
+      "foundInBreaches": "Ditemukan dalam kebocoran: {count}",
+      "changeNow": "Segera ganti ini",
+      "exposedTimes": "{count}× terekspos",
+      "unknownHeading": "Tidak dapat diperiksa: {count}",
+      "unknownBody": "Ini tidak terverifikasi karena pencarian gagal. Anggap tidak diketahui, bukan aman.",
+      "useGenerator": "Gunakan generator kata sandi untuk membuat pengganti yang kuat.",
+      "checkAgain": "Periksa lagi"
     }
   },
   "EnvironmentManager": {

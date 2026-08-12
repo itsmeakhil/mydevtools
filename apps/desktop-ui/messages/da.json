@@ -207,6 +207,10 @@
         "min30": "Efter 30 minutter",
         "min60": "Efter 1 time",
         "helpText": "Låser din boks efter så lang tids inaktivitet og kræver din hovedadgangskode for at låse op."
+      },
+      "vaultIcons": {
+        "label": "Vis webstedsikoner i boksen",
+        "helpText": "Slået fra som standard. At hente et ikon fortæller en tredjepartstjeneste, hvilke websteder du har konti på."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Er du sikker på, at du vil slette denne adgangskode? Denne handling kan ikke fortrydes.",
       "cancel": "Ophæve",
       "delete": "Slet",
-      "edit": "Redigere"
+      "edit": "Redigere",
+      "ageAging": "3md+",
+      "ageOld": "6md+",
+      "ageCritical": "1år+",
+      "clipboardClears": "Udklipsholderen ryddes om {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Adgangskode kopieret til udklipsholder",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Adgangskode slettet",
       "deleteFailed": "Adgangskoden kunne ikke slettes",
       "vaultLocked": "Hvælving låst",
-      "importedCount": "Importeret {count, plural, one {# password} other {# passwords}}"
+      "importedCount": "Importeret {count, plural, one {# password} other {# passwords}}",
+      "copiedTotp": "TOTP-kode kopieret til udklipsholderen",
+      "copyFailed": "Kunne ikke kopiere til udklipsholderen",
+      "wrongMasterPassword": "Forkert hovedadgangskode",
+      "importedPartial": "Importeret {imported}, mislykkedes {failed}"
     },
     "form": {
       "addTitle": "Tilføj ny adgangskode",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Adgangskoden blev gemt",
       "toastSaveFailed": "Adgangskoden kunne ikke gemmes",
       "toastUpdated": "Adgangskoden blev opdateret",
-      "toastUpdateFailed": "Kunne ikke opdatere adgangskoden"
+      "toastUpdateFailed": "Kunne ikke opdatere adgangskoden",
+      "totpTooShort": "TOTP-hemmeligheden er for kort (mindst 8 tegn)",
+      "totpNotBase32": "TOTP-hemmeligheden skal være Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Vault sundhed",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Import/eksport boks",
-      "description": "Administrer dine adgangskodedata. Du kan eksportere din boks til JSON eller importere fra en JSON-fil.",
+      "description": "Eksportér din boks, eller importér fra en JSON- eller CSV-fil.",
       "tabExport": "Eksportere",
       "tabImport": "Importere",
       "warningTitle": "Advarsel",
       "warningBody": "Eksporterede filer indeholder dine adgangskoder i almindelig tekst. Opbevar denne fil sikkert og slet den efter brug.",
-      "exportBlurb": "Download hele din boks som en JSON-fil. Dette inkluderer alle tjenester, brugernavne, adgangskoder og noter.",
-      "downloadJson": "Download JSON-eksport",
-      "pasteLabel": "Indsæt JSON-data",
+      "pasteLabel": "Indsæt JSON eller CSV",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Indsæt indholdet af en tidligere eksporteret JSON-fil her.",
-      "selectFile": "Vælg JSON-fil",
+      "pasteHint": "Indsæt en eksporteret fil eller en CSV fra en anden adgangskodemanager.",
+      "selectFile": "Vælg fil",
       "importing": "Importerer...",
-      "importPasswords": "Importer adgangskoder",
       "trigger": "Import/eksport",
       "toastExported": "Vault blev eksporteret",
       "toastExportFailed": "Kunne ikke eksportere boksen",
-      "toastImportFailed": "Kunne ikke importeres: ugyldigt JSON-format"
+      "toastImportFailed": "Kunne ikke importeres: ugyldigt JSON-format",
+      "modeEncrypted": "Krypteret",
+      "modePlaintext": "Klartekst",
+      "passphraseLabel": "Adgangssætning til eksport",
+      "passphraseHint": "Nødvendig for at åbne filen senere. Den gemmes ingen steder.",
+      "passphraseTooShort": "Brug mindst 8 tegn",
+      "confirmMasterLabel": "Hovedadgangskode",
+      "confirmMasterHint": "Bekræfter at det er dig, før hele boksen skrives til en fil.",
+      "downloadCount": "Hent ({count})",
+      "importPassphraseLabel": "Filens adgangssætning",
+      "previewReady": "Klar til import: {count}",
+      "previewDuplicates": "Allerede i din boks, sprunget over: {count}",
+      "previewSkipped": "Ufuldstændige rækker sprunget over: {count}",
+      "confirmImport": "Importér {count}",
+      "checkFile": "Tjek fil"
     },
     "card": {
       "copyUsername": "Kopiér brugernavn",
@@ -1142,6 +1167,25 @@
       "separator": "Separator",
       "capitalization": "Brug af store bogstaver",
       "includeNumber": "Inkluder nummer"
+    },
+    "breach": {
+      "title": "Kontrol af datalæk",
+      "intro": "Tjekker dine gemte adgangskoder mod Have I Been Pwned. Kun et 5-tegns hash-præfiks sendes — dine adgangskoder forlader aldrig denne enhed.",
+      "run": "Kør kontrol",
+      "needsConnection": "Kræver en internetforbindelse.",
+      "progress": "Kontrollerer {checked} af {total}…",
+      "kAnonymity": "Bruger k-anonymitet — ingen adgangskode forlader denne enhed.",
+      "failed": "Kontrollen mislykkedes. Tjek din forbindelse og prøv igen.",
+      "retry": "Prøv igen",
+      "noneFound": "Ingen lækkede adgangskoder fundet",
+      "allChecked": "Kontrolleret: {count}. Ingen optræder i kendte datalæk.",
+      "foundInBreaches": "Fundet i datalæk: {count}",
+      "changeNow": "Skift dem straks",
+      "exposedTimes": "{count}× eksponeret",
+      "unknownHeading": "Kunne ikke kontrolleres: {count}",
+      "unknownBody": "Disse blev ikke bekræftet, fordi opslaget mislykkedes. Betragt dem som ukendte, ikke som sikre.",
+      "useGenerator": "Brug adgangskodegeneratoren til at lave stærke erstatninger.",
+      "checkAgain": "Kontrollér igen"
     }
   },
   "EnvironmentManager": {

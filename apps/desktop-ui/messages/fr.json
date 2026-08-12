@@ -207,6 +207,10 @@
         "min30": "Au bout de 30 minutes",
         "min60": "Au bout d'1 heure",
         "helpText": "Verrouille votre coffre après cette durée d'inactivité et exige votre mot de passe maître pour le déverrouiller."
+      },
+      "vaultIcons": {
+        "label": "Afficher les icônes de sites dans le coffre",
+        "helpText": "Désactivé par défaut. Récupérer une icône indique à un service tiers sur quels sites vous avez des comptes."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Supprimer ce mot de passe ? Cette action est irréversible.",
       "cancel": "Annuler",
       "delete": "Supprimer",
-      "edit": "Modifier"
+      "edit": "Modifier",
+      "ageAging": "3m+",
+      "ageOld": "6m+",
+      "ageCritical": "1an+",
+      "clipboardClears": "Le presse-papiers sera vidé dans {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Mot de passe copié",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Mot de passe supprimé",
       "deleteFailed": "Impossible de supprimer le mot de passe",
       "vaultLocked": "Coffre verrouillé",
-      "importedCount": "{count, plural, one {# mot de passe importé} other {# mots de passe importés}}"
+      "importedCount": "{count, plural, one {# mot de passe importé} other {# mots de passe importés}}",
+      "copiedTotp": "Code TOTP copié dans le presse-papiers",
+      "copyFailed": "Impossible de copier dans le presse-papiers",
+      "wrongMasterPassword": "Mot de passe maître incorrect",
+      "importedPartial": "{imported} importés, {failed} en échec"
     },
     "form": {
       "addTitle": "Nouveau mot de passe",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Mot de passe enregistré",
       "toastSaveFailed": "Impossible d’enregistrer",
       "toastUpdated": "Mot de passe mis à jour",
-      "toastUpdateFailed": "Impossible de mettre à jour"
+      "toastUpdateFailed": "Impossible de mettre à jour",
+      "totpTooShort": "Le secret TOTP est trop court (8 caractères minimum)",
+      "totpNotBase32": "Le secret TOTP doit être en Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Santé du coffre",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importer / exporter le coffre",
-      "description": "Gérez vos données. Export JSON ou import depuis un fichier JSON.",
+      "description": "Exportez votre coffre, ou importez depuis un fichier JSON ou CSV.",
       "tabExport": "Exporter",
       "tabImport": "Importer",
       "warningTitle": "Attention",
       "warningBody": "Les fichiers exportés contiennent vos mots de passe en clair. Protégez le fichier et supprimez-le après usage.",
-      "exportBlurb": "Téléchargez tout le coffre en JSON (services, identifiants, mots de passe, notes).",
-      "downloadJson": "Télécharger l’export JSON",
-      "pasteLabel": "Coller les données JSON",
+      "pasteLabel": "Collez du JSON ou du CSV",
       "pastePlaceholder": "[{\"service\": \"Exemple\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "Collez ici le contenu d’un export JSON précédent.",
-      "selectFile": "Sélectionner un fichier JSON",
+      "pasteHint": "Collez un fichier exporté, ou un CSV d'un autre gestionnaire de mots de passe.",
+      "selectFile": "Choisir un fichier",
       "importing": "Import…",
-      "importPasswords": "Importer",
       "trigger": "Importer / exporter",
       "toastExported": "Coffre exporté",
       "toastExportFailed": "Échec de l’export",
-      "toastImportFailed": "Import impossible : JSON invalide"
+      "toastImportFailed": "Import impossible : JSON invalide",
+      "modeEncrypted": "Chiffré",
+      "modePlaintext": "Texte brut",
+      "passphraseLabel": "Phrase secrète d'export",
+      "passphraseHint": "Nécessaire pour ouvrir le fichier plus tard. Elle n'est stockée nulle part.",
+      "passphraseTooShort": "Utilisez au moins 8 caractères",
+      "confirmMasterLabel": "Mot de passe maître",
+      "confirmMasterHint": "Confirme votre identité avant d'écrire tout le coffre dans un fichier.",
+      "downloadCount": "Télécharger ({count})",
+      "importPassphraseLabel": "Phrase secrète du fichier",
+      "previewReady": "Prêts à importer : {count}",
+      "previewDuplicates": "Déjà dans votre coffre, ignorés : {count}",
+      "previewSkipped": "Lignes incomplètes ignorées : {count}",
+      "confirmImport": "Importer {count}",
+      "checkFile": "Vérifier le fichier"
     },
     "card": {
       "copyUsername": "Copier le nom d’utilisateur",
@@ -1142,6 +1167,25 @@
       "separator": "Séparateur",
       "capitalization": "Casse",
       "includeNumber": "Inclure un chiffre"
+    },
+    "breach": {
+      "title": "Vérification des fuites",
+      "intro": "Vérifie vos mots de passe enregistrés auprès de Have I Been Pwned. Seul un préfixe de hachage de 5 caractères est envoyé — vos mots de passe ne quittent jamais cet appareil.",
+      "run": "Lancer la vérification",
+      "needsConnection": "Nécessite une connexion internet.",
+      "progress": "Vérification de {checked} sur {total}…",
+      "kAnonymity": "Avec k-anonymat — aucun mot de passe ne quitte cet appareil.",
+      "failed": "Échec de la vérification. Vérifiez votre connexion et réessayez.",
+      "retry": "Réessayer",
+      "noneFound": "Aucun mot de passe compromis trouvé",
+      "allChecked": "Vérifiés : {count}. Aucun n'apparaît dans une fuite connue.",
+      "foundInBreaches": "Trouvés dans des fuites : {count}",
+      "changeNow": "Changez-les immédiatement",
+      "exposedTimes": "{count}× exposé",
+      "unknownHeading": "Impossible à vérifier : {count}",
+      "unknownBody": "Non vérifiés car la requête a échoué. Considérez-les comme inconnus, pas comme sûrs.",
+      "useGenerator": "Utilisez le générateur pour créer des remplacements solides.",
+      "checkAgain": "Vérifier à nouveau"
     }
   },
   "EnvironmentManager": {

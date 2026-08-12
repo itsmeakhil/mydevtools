@@ -8,6 +8,8 @@ import { Copy, Eye, EyeOff, Trash2, ExternalLink, Pencil, MoreVertical, Clock, C
 import { computeTotp, decodeBase32Secret, getTotpSecondsRemaining } from "@/lib/totp-compute"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { calculatePasswordStrength, getStrengthColor, getFaviconUrl, getPasswordAgeStatus, getPasswordAgeBadge, getPasswordAgeDateColor } from "@/lib/password-utils"
+import { usePasswordStrengthReady } from "@/lib/use-password-strength"
+import { useVaultIconsEnabled } from "@/lib/vault-icon-pref"
 import { FaviconImg } from "@/components/favicon-img"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
@@ -94,6 +96,10 @@ export function PasswordCard({
 }: PasswordCardProps) {
     const t = useTranslations("PasswordManager.card")
     const tList = useTranslations("PasswordManager.list")
+    const strengthReady = usePasswordStrengthReady()
+    // Opt-in: fetching a site icon discloses the domain to a third-party
+    // service, and for a vault that set of domains is the user's account list.
+    const showIcons = useVaultIconsEnabled()
     const [showNotes, setShowNotes] = useState(false)
     const strength = calculatePasswordStrength(entry.password)
     const strengthColor = getStrengthColor(strength)
@@ -119,7 +125,7 @@ export function PasswordCard({
                         <div className="flex items-center gap-3.5 overflow-hidden">
                             <div className="h-12 w-12 shrink-0 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-primary font-bold text-xl select-none shadow-sm ring-1 ring-inset ring-primary/10 group-hover:ring-primary/20 group-hover:scale-105 transition-all duration-300 overflow-hidden">
                                 <FaviconImg
-                                    serviceUrl={entry.url ? getFaviconUrl(entry.url) : null}
+                                    serviceUrl={showIcons && entry.url ? getFaviconUrl(entry.url) : null}
                                     className="h-7 w-7 object-contain"
                                     fallback={<span>{entry.service.charAt(0).toUpperCase()}</span>}
                                 />
@@ -190,7 +196,7 @@ export function PasswordCard({
                         {ageBadge && (
                             <Badge variant="secondary" className={cn("text-[10px] h-5 px-2 gap-1", ageBadge.className)}>
                                 <Clock className="h-2.5 w-2.5" />
-                                {ageBadge.label}
+                                {tList(ageBadge.labelKey)}
                             </Badge>
                         )}
                         {entry.tags?.map(tag => (

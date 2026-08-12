@@ -4,6 +4,7 @@ import { useMemo, useState } from "react"
 import { usePasswordStore, BreachStatus } from "@/store/password-store"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { calculatePasswordStrength } from "@/lib/password-utils"
+import { usePasswordStrengthReady } from "@/lib/use-password-strength"
 import { ShieldCheck, ShieldAlert, AlertTriangle, CheckCircle2, Lock, ChevronDown } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
@@ -13,7 +14,8 @@ import { useTranslations } from "next-intl"
 
 export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
     const t = useTranslations("PasswordManager.security")
-    const { passwords, breachCounts, breachStatus } = usePasswordStore()
+    const strengthReady = usePasswordStrengthReady()
+    const { passwords, breachResults, breachStatus } = usePasswordStore()
     const isMobile = useIsMobile()
     const [expanded, setExpanded] = useState(false)
 
@@ -36,7 +38,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
 
             reusedMap.set(p.password, (reusedMap.get(p.password) || 0) + 1)
 
-            if (breachStatus === "done" && (breachCounts.get(p.id) ?? 0) > 0) breachedCount++
+            if (breachStatus === "done" && breachResults.get(p.id)?.status === "breached") breachedCount++
         })
 
         reusedMap.forEach(count => {
@@ -51,7 +53,7 @@ export function SecurityDashboard({ minimal = true }: { minimal?: boolean }) {
         score = Math.max(0, Math.min(100, score))
 
         return { total, weakCount, mediumCount, strongCount, reusedCount, breachedCount, score }
-    }, [passwords, breachCounts, breachStatus])
+    }, [passwords, breachResults, breachStatus, strengthReady])
 
     if (!metrics) return null
 

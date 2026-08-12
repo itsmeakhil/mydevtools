@@ -207,6 +207,10 @@
         "min30": "Na 30 minuten",
         "min60": "Na 1 uur",
         "helpText": "Vergrendelt je kluis na deze periode van inactiviteit en vereist je hoofdwachtwoord om te ontgrendelen."
+      },
+      "vaultIcons": {
+        "label": "Site-iconen in de kluis tonen",
+        "helpText": "Standaard uit. Een icoon ophalen vertelt een externe dienst bij welke sites je accounts hebt."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Weet je zeker dat je dit wachtwoord wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
       "cancel": "Annuleren",
       "delete": "Verwijderen",
-      "edit": "Bewerken"
+      "edit": "Bewerken",
+      "ageAging": "3mnd+",
+      "ageOld": "6mnd+",
+      "ageCritical": "1jr+",
+      "clipboardClears": "Klembord wordt over {seconds}s gewist"
     },
     "toasts": {
       "copiedPassword": "Wachtwoord gekopieerd naar klembord",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Wachtwoord verwijderd",
       "deleteFailed": "Wachtwoord verwijderen mislukt",
       "vaultLocked": "Kluis vergrendeld",
-      "importedCount": "{count, plural, one {# wachtwoord} other {# wachtwoorden}} succesvol geïmporteerd"
+      "importedCount": "{count, plural, one {# wachtwoord} other {# wachtwoorden}} succesvol geïmporteerd",
+      "copiedTotp": "TOTP-code naar klembord gekopieerd",
+      "copyFailed": "Kon niet naar het klembord kopiëren",
+      "wrongMasterPassword": "Onjuist hoofdwachtwoord",
+      "importedPartial": "{imported} geïmporteerd, {failed} mislukt"
     },
     "form": {
       "addTitle": "Nieuw wachtwoord toevoegen",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Wachtwoord succesvol opgeslagen",
       "toastSaveFailed": "Wachtwoord opslaan mislukt",
       "toastUpdated": "Wachtwoord succesvol bijgewerkt",
-      "toastUpdateFailed": "Wachtwoord bijwerken mislukt"
+      "toastUpdateFailed": "Wachtwoord bijwerken mislukt",
+      "totpTooShort": "TOTP-geheim is te kort (minimaal 8 tekens)",
+      "totpNotBase32": "TOTP-geheim moet Base32 zijn (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Kluisgezondheid",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Kluis importeren / exporteren",
-      "description": "Beheer je wachtwoordgegevens. Je kunt je kluis exporteren naar JSON of importeren vanuit een JSON-bestand.",
+      "description": "Exporteer je kluis, of importeer uit een JSON- of CSV-bestand.",
       "tabExport": "Exporteren",
       "tabImport": "Importeren",
       "warningTitle": "Waarschuwing",
       "warningBody": "Geëxporteerde bestanden bevatten je wachtwoorden in platte tekst. Bewaar dit bestand veilig en verwijder het na gebruik.",
-      "exportBlurb": "Download je hele kluis als een JSON-bestand. Dit omvat alle services, gebruikersnamen, wachtwoorden en notities.",
-      "downloadJson": "JSON-export downloaden",
-      "pasteLabel": "JSON-gegevens plakken",
+      "pasteLabel": "Plak JSON of CSV",
       "pastePlaceholder": "[{\"service\": \"Voorbeeld\", \"username\": \"gebruiker\", \"password\": \"123\", ...}]",
-      "pasteHint": "Plak hier de inhoud van een eerder geëxporteerd JSON-bestand.",
-      "selectFile": "JSON-bestand selecteren",
+      "pasteHint": "Plak een geëxporteerd bestand, of een CSV uit een andere wachtwoordmanager.",
+      "selectFile": "Bestand kiezen",
       "importing": "Importeren...",
-      "importPasswords": "Wachtwoorden importeren",
       "trigger": "Importeren / exporteren",
       "toastExported": "Kluis succesvol geëxporteerd",
       "toastExportFailed": "Kluis exporteren mislukt",
-      "toastImportFailed": "Importeren mislukt: ongeldig JSON-formaat"
+      "toastImportFailed": "Importeren mislukt: ongeldig JSON-formaat",
+      "modeEncrypted": "Versleuteld",
+      "modePlaintext": "Platte tekst",
+      "passphraseLabel": "Wachtwoordzin voor export",
+      "passphraseHint": "Nodig om het bestand later te openen. Wordt nergens bewaard.",
+      "passphraseTooShort": "Gebruik minstens 8 tekens",
+      "confirmMasterLabel": "Hoofdwachtwoord",
+      "confirmMasterHint": "Bevestigt dat jij het bent voordat de hele kluis naar een bestand wordt geschreven.",
+      "downloadCount": "Downloaden ({count})",
+      "importPassphraseLabel": "Wachtwoordzin van het bestand",
+      "previewReady": "Klaar om te importeren: {count}",
+      "previewDuplicates": "Al in je kluis, overgeslagen: {count}",
+      "previewSkipped": "Onvolledige rijen overgeslagen: {count}",
+      "confirmImport": "{count} importeren",
+      "checkFile": "Bestand controleren"
     },
     "card": {
       "copyUsername": "Gebruikersnaam kopiëren",
@@ -1142,6 +1167,25 @@
       "separator": "Scheidingsteken",
       "capitalization": "Hoofdlettergebruik",
       "includeNumber": "Cijfer toevoegen"
+    },
+    "breach": {
+      "title": "Datalekcontrole",
+      "intro": "Controleert je opgeslagen wachtwoorden bij Have I Been Pwned. Alleen een hashprefix van 5 tekens wordt verstuurd — je wachtwoorden verlaten dit apparaat nooit.",
+      "run": "Controle uitvoeren",
+      "needsConnection": "Vereist een internetverbinding.",
+      "progress": "{checked} van {total} gecontroleerd…",
+      "kAnonymity": "Met k-anonimiteit — geen wachtwoord verlaat dit apparaat.",
+      "failed": "Controle mislukt. Controleer je verbinding en probeer opnieuw.",
+      "retry": "Opnieuw",
+      "noneFound": "Geen gelekte wachtwoorden gevonden",
+      "allChecked": "Gecontroleerd: {count}. Geen ervan komt voor in bekende datalekken.",
+      "foundInBreaches": "Gevonden in datalekken: {count}",
+      "changeNow": "Wijzig deze onmiddellijk",
+      "exposedTimes": "{count}× blootgesteld",
+      "unknownHeading": "Kon niet worden gecontroleerd: {count}",
+      "unknownBody": "Deze zijn niet geverifieerd omdat de opvraging mislukte. Beschouw ze als onbekend, niet als veilig.",
+      "useGenerator": "Gebruik de wachtwoordgenerator voor sterke vervangers.",
+      "checkAgain": "Opnieuw controleren"
     }
   },
   "EnvironmentManager": {

@@ -207,6 +207,10 @@
         "min30": "Etter 30 minutter",
         "min60": "Etter 1 time",
         "helpText": "Låser hvelvet ditt etter så lang tids inaktivitet og krever hovedpassordet ditt for å låse opp."
+      },
+      "vaultIcons": {
+        "label": "Vis nettstedsikoner i hvelvet",
+        "helpText": "Av som standard. Å hente et ikon forteller en tredjepartstjeneste hvilke nettsteder du har kontoer på."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Er du sikker på at du vil slette dette passordet? Denne handlingen kan ikke angres.",
       "cancel": "Avbryt",
       "delete": "Slett",
-      "edit": "Rediger"
+      "edit": "Rediger",
+      "ageAging": "3mnd+",
+      "ageOld": "6mnd+",
+      "ageCritical": "1år+",
+      "clipboardClears": "Utklippstavlen tømmes om {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Passord kopiert til utklippstavle",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Passord slettet",
       "deleteFailed": "Kunne ikke slette passord",
       "vaultLocked": "Hvelv låst",
-      "importedCount": "Importerte {count, plural, one {# passord} other {# passord}}"
+      "importedCount": "Importerte {count, plural, one {# passord} other {# passord}}",
+      "copiedTotp": "TOTP-kode kopiert til utklippstavlen",
+      "copyFailed": "Kunne ikke kopiere til utklippstavlen",
+      "wrongMasterPassword": "Feil hovedpassord",
+      "importedPartial": "{imported} importert, {failed} mislyktes"
     },
     "form": {
       "addTitle": "Legg til nytt passord",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Passord lagret",
       "toastSaveFailed": "Kunne ikke lagre passord",
       "toastUpdated": "Passord oppdatert",
-      "toastUpdateFailed": "Kunne ikke oppdatere passord"
+      "toastUpdateFailed": "Kunne ikke oppdatere passord",
+      "totpTooShort": "TOTP-hemmeligheten er for kort (minst 8 tegn)",
+      "totpNotBase32": "TOTP-hemmeligheten må være Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Hvelvhelse",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importer / eksporter hvelv",
-      "description": "Administrer passorddataene dine. Du kan eksportere hvelvet ditt til JSON eller importere fra en JSON-fil.",
+      "description": "Eksporter hvelvet, eller importer fra en JSON- eller CSV-fil.",
       "tabExport": "Eksporter",
       "tabImport": "Importer",
       "warningTitle": "Advarsel",
       "warningBody": "Eksporterte filer inneholder passordene dine i klartekst. Oppbevar denne filen trygt og slett den etter bruk.",
-      "exportBlurb": "Last ned hele hvelvet ditt som en JSON-fil. Dette inkluderer alle tjenester, brukernavn, passord og notater.",
-      "downloadJson": "Last ned JSON-eksport",
-      "pasteLabel": "Lim inn JSON-data",
+      "pasteLabel": "Lim inn JSON eller CSV",
       "pastePlaceholder": "[{\"service\": \"Eksempel\", \"username\": \"bruker\", \"password\": \"123\", ...}]",
-      "pasteHint": "Lim inn innholdet i en tidligere eksportert JSON-fil her.",
-      "selectFile": "Velg JSON-fil",
+      "pasteHint": "Lim inn en eksportert fil, eller en CSV fra en annen passordbehandler.",
+      "selectFile": "Velg fil",
       "importing": "Importerer...",
-      "importPasswords": "Importer passord",
       "trigger": "Importer / eksporter",
       "toastExported": "Hvelv eksportert",
       "toastExportFailed": "Kunne ikke eksportere hvelv",
-      "toastImportFailed": "Kunne ikke importere: ugyldig JSON-format"
+      "toastImportFailed": "Kunne ikke importere: ugyldig JSON-format",
+      "modeEncrypted": "Kryptert",
+      "modePlaintext": "Klartekst",
+      "passphraseLabel": "Passfrase for eksport",
+      "passphraseHint": "Trengs for å åpne filen senere. Den lagres ingen steder.",
+      "passphraseTooShort": "Bruk minst 8 tegn",
+      "confirmMasterLabel": "Hovedpassord",
+      "confirmMasterHint": "Bekrefter at det er deg før hele hvelvet skrives til en fil.",
+      "downloadCount": "Last ned ({count})",
+      "importPassphraseLabel": "Filens passfrase",
+      "previewReady": "Klare til import: {count}",
+      "previewDuplicates": "Allerede i hvelvet, hoppet over: {count}",
+      "previewSkipped": "Ufullstendige rader hoppet over: {count}",
+      "confirmImport": "Importer {count}",
+      "checkFile": "Sjekk fil"
     },
     "card": {
       "copyUsername": "Kopier brukernavn",
@@ -1142,6 +1167,25 @@
       "separator": "Skilletegn",
       "capitalization": "Store forbokstaver",
       "includeNumber": "Inkluder tall"
+    },
+    "breach": {
+      "title": "Kontroll av datalekkasjer",
+      "intro": "Sjekker de lagrede passordene mot Have I Been Pwned. Bare et hash-prefiks på 5 tegn sendes — passordene forlater aldri denne enheten.",
+      "run": "Kjør kontroll",
+      "needsConnection": "Krever internettforbindelse.",
+      "progress": "Sjekker {checked} av {total}…",
+      "kAnonymity": "Bruker k-anonymitet — ingen passord forlater denne enheten.",
+      "failed": "Kontrollen mislyktes. Sjekk tilkoblingen og prøv igjen.",
+      "retry": "Prøv igjen",
+      "noneFound": "Ingen lekkede passord funnet",
+      "allChecked": "Sjekket: {count}. Ingen finnes i kjente lekkasjer.",
+      "foundInBreaches": "Funnet i lekkasjer: {count}",
+      "changeNow": "Endre disse umiddelbart",
+      "exposedTimes": "{count}× eksponert",
+      "unknownHeading": "Kunne ikke sjekkes: {count}",
+      "unknownBody": "Disse ble ikke bekreftet fordi oppslaget mislyktes. Behandle dem som ukjente, ikke som trygge.",
+      "useGenerator": "Bruk passordgeneratoren til å lage sterke erstatninger.",
+      "checkAgain": "Sjekk igjen"
     }
   },
   "EnvironmentManager": {

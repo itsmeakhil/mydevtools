@@ -207,6 +207,10 @@
         "min30": "Selepas 30 minit",
         "min60": "Selepas 1 jam",
         "helpText": "Mengunci peti besi anda selepas tempoh tidak aktif ini dan memerlukan kata laluan induk anda untuk membuka kunci."
+      },
+      "vaultIcons": {
+        "label": "Tunjukkan ikon tapak dalam peti besi",
+        "helpText": "Dimatikan secara lalai. Mengambil ikon memberitahu perkhidmatan pihak ketiga tapak mana anda mempunyai akaun."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Adakah anda pasti mahu memadam kata laluan ini? Tindakan ini tidak boleh dibuat asal.",
       "cancel": "Batal",
       "delete": "Padam",
-      "edit": "Edit"
+      "edit": "Edit",
+      "ageAging": "3bln+",
+      "ageOld": "6bln+",
+      "ageCritical": "1thn+",
+      "clipboardClears": "Papan keratan dikosongkan dalam {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Kata laluan disalin ke papan klip",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Kata laluan dipadam",
       "deleteFailed": "Gagal memadam kata laluan",
       "vaultLocked": "Peti besi dikunci",
-      "importedCount": "Berjaya mengimport {count, plural, one {# kata laluan} other {# kata laluan}}"
+      "importedCount": "Berjaya mengimport {count, plural, one {# kata laluan} other {# kata laluan}}",
+      "copiedTotp": "Kod TOTP disalin ke papan keratan",
+      "copyFailed": "Tidak dapat menyalin ke papan keratan",
+      "wrongMasterPassword": "Kata laluan induk salah",
+      "importedPartial": "{imported} diimport, {failed} gagal"
     },
     "form": {
       "addTitle": "Tambah kata laluan baharu",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Kata laluan berjaya disimpan",
       "toastSaveFailed": "Gagal menyimpan kata laluan",
       "toastUpdated": "Kata laluan berjaya dikemas kini",
-      "toastUpdateFailed": "Gagal mengemas kini kata laluan"
+      "toastUpdateFailed": "Gagal mengemas kini kata laluan",
+      "totpTooShort": "Rahsia TOTP terlalu pendek (minimum 8 aksara)",
+      "totpNotBase32": "Rahsia TOTP mestilah Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Kesihatan peti besi",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Import / eksport peti besi",
-      "description": "Urus data kata laluan anda. Anda boleh mengeksport peti besi ke JSON atau mengimport daripada fail JSON.",
+      "description": "Eksport peti besi anda, atau import daripada fail JSON atau CSV.",
       "tabExport": "Eksport",
       "tabImport": "Import",
       "warningTitle": "Amaran",
       "warningBody": "Fail yang dieksport mengandungi kata laluan anda dalam teks biasa. Simpan fail ini dengan selamat dan padam selepas digunakan.",
-      "exportBlurb": "Muat turun seluruh peti besi anda sebagai fail JSON. Ini termasuk semua perkhidmatan, nama pengguna, kata laluan, dan nota.",
-      "downloadJson": "Muat turun eksport JSON",
-      "pasteLabel": "Tampal data JSON",
+      "pasteLabel": "Tampal JSON atau CSV",
       "pastePlaceholder": "[{\"service\": \"Contoh\", \"username\": \"pengguna\", \"password\": \"123\", ...}]",
-      "pasteHint": "Tampal kandungan fail JSON yang telah dieksport sebelum ini di sini.",
-      "selectFile": "Pilih fail JSON",
+      "pasteHint": "Tampal fail yang dieksport, atau CSV daripada pengurus kata laluan lain.",
+      "selectFile": "Pilih fail",
       "importing": "Mengimport...",
-      "importPasswords": "Import kata laluan",
       "trigger": "Import / eksport",
       "toastExported": "Peti besi berjaya dieksport",
       "toastExportFailed": "Gagal mengeksport peti besi",
-      "toastImportFailed": "Gagal mengimport: format JSON tidak sah"
+      "toastImportFailed": "Gagal mengimport: format JSON tidak sah",
+      "modeEncrypted": "Disulitkan",
+      "modePlaintext": "Teks biasa",
+      "passphraseLabel": "Frasa laluan eksport",
+      "passphraseHint": "Diperlukan untuk membuka fail kemudian. Ia tidak disimpan di mana-mana.",
+      "passphraseTooShort": "Gunakan sekurang-kurangnya 8 aksara",
+      "confirmMasterLabel": "Kata laluan induk",
+      "confirmMasterHint": "Mengesahkan identiti anda sebelum seluruh peti besi ditulis ke fail.",
+      "downloadCount": "Muat turun ({count})",
+      "importPassphraseLabel": "Frasa laluan fail",
+      "previewReady": "Sedia diimport: {count}",
+      "previewDuplicates": "Sudah ada dalam peti besi, dilangkau: {count}",
+      "previewSkipped": "Baris tidak lengkap dilangkau: {count}",
+      "confirmImport": "Import {count}",
+      "checkFile": "Semak fail"
     },
     "card": {
       "copyUsername": "Salin nama pengguna",
@@ -1142,6 +1167,25 @@
       "separator": "Pemisah",
       "capitalization": "Huruf besar",
       "includeNumber": "Sertakan nombor"
+    },
+    "breach": {
+      "title": "Semakan kebocoran data",
+      "intro": "Menyemak kata laluan tersimpan dengan Have I Been Pwned. Hanya awalan cincangan 5 aksara dihantar — kata laluan tidak pernah meninggalkan peranti ini.",
+      "run": "Jalankan semakan",
+      "needsConnection": "Memerlukan sambungan internet.",
+      "progress": "Menyemak {checked} daripada {total}…",
+      "kAnonymity": "Menggunakan k-kerahsiaan — tiada kata laluan meninggalkan peranti ini.",
+      "failed": "Semakan gagal. Sahkan sambungan anda dan cuba lagi.",
+      "retry": "Cuba lagi",
+      "noneFound": "Tiada kata laluan bocor dijumpai",
+      "allChecked": "Disemak: {count}. Tiada yang muncul dalam kebocoran diketahui.",
+      "foundInBreaches": "Dijumpai dalam kebocoran: {count}",
+      "changeNow": "Tukar segera",
+      "exposedTimes": "{count}× terdedah",
+      "unknownHeading": "Tidak dapat disemak: {count}",
+      "unknownBody": "Ini tidak disahkan kerana carian gagal. Anggap sebagai tidak diketahui, bukan selamat.",
+      "useGenerator": "Gunakan penjana kata laluan untuk ganti yang kukuh.",
+      "checkAgain": "Semak semula"
     }
   },
   "EnvironmentManager": {

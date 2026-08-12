@@ -26,6 +26,36 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.12',
+    date: '2026-08-12',
+    title: 'SQL databases in Data Explorer, and a hardened password vault',
+    summary:
+      'Data Explorer becomes a full database workspace: PostgreSQL, MySQL, MariaDB and SQLite join the existing sources, with credentials encrypted on your device. The password manager gets a real strength model, an encrypted export, imports from the other managers, and a breach check that admits when it could not reach the service.',
+    changes: [
+      { type: 'added', text: 'SQL databases in Data Explorer: PostgreSQL, MySQL, and MariaDB, each with a schema tree, a SQL editor, saved queries and history, and an editable result grid.' },
+      { type: 'added', text: 'SQLite support: open a database file straight from disk — no server and no credentials to configure.' },
+      { type: 'added', text: 'Paste a full database connection URL into the host field and every other field fills itself in.' },
+      { type: 'added', text: 'Encrypted vault export, protected by a passphrase you choose, alongside the existing plain-text option.' },
+      { type: 'added', text: 'Import passwords from Bitwarden, 1Password, Chrome, KeePass, and LastPass CSV exports.' },
+      { type: 'improved', text: 'Password strength is now judged by how guessable a password really is — dictionary words, keyboard runs, repeats, and letter-for-symbol substitutions — instead of counting character types. Expect some passwords in your vault to be rescored.' },
+      { type: 'improved', text: 'Importing passwords shows what will be added, what is already in your vault, and what cannot be read, before anything is written.' },
+      { type: 'improved', text: 'Exporting your vault now asks for your master password first.' },
+      { type: 'improved', text: 'Site icons in the password manager are off by default, so no icon service learns which sites you hold accounts on. There is a switch in Settings.' },
+      { type: 'improved', text: 'Read-only database connections are now enforced by the database itself, not only hidden in the interface.' },
+      { type: 'improved', text: 'Long-running SQL queries stop on their own instead of hanging, and you can walk away from one without waiting for it.' },
+      { type: 'improved', text: 'Every new data source and password-manager screen is translated into all 27 in-app languages.' },
+      { type: 'fixed', text: 'A breach lookup that fails now says so, instead of showing the password as safe.' },
+      { type: 'fixed', text: 'Copying a second password no longer wipes it from the clipboard early, and the clipboard is only cleared if it still holds what you copied.' },
+      { type: 'fixed', text: 'An interrupted password import reports how many entries were actually added.' },
+      { type: 'fixed', text: 'Editing a cell whose filter matches more than one row is rolled back instead of quietly changing all of them.' },
+      { type: 'fixed', text: 'Query results containing two columns with the same name no longer lose one of them.' },
+      { type: 'fixed', text: 'Binary column values show as hex with their real size instead of corrupted text, and timestamps keep their fractional seconds.' },
+      { type: 'fixed', text: 'Database errors now say what actually went wrong instead of a generic failure message.' },
+      { type: 'fixed', text: 'A result grid that shows only the first rows now says so, instead of implying it holds the whole table.' },
+      { type: 'fixed', text: 'A mistyped SQLite path reports an error instead of silently creating an empty database.' },
+    ],
+  },
+  {
     version: '0.1.11',
     date: '2026-08-10',
     title: 'Firestore and Elasticsearch in Data Explorer',
@@ -64,9 +94,9 @@ export const changelog: ChangelogEntry[] = [
   {
     version: '0.1.9',
     date: '2026-07-24',
-    title: 'Update progress, NoSQL depth, open source',
+    title: 'Update progress and NoSQL depth',
     summary:
-      'MyDevTools went fully open source under AGPL-3.0. Updates now show live progress instead of applying invisibly, and the NoSQL explorer gained code generation and write-safety guards for hosted Mongo-wire databases.',
+      'Updates now show live progress instead of applying invisibly, and the NoSQL explorer gained code generation and write-safety guards for hosted Mongo-wire databases.',
     changes: [
       { type: 'added', text: 'App-wide update progress modal with a corner pill, so downloads and installs are visible instead of silent.' },
       { type: 'added', text: 'Query code generator and schema export in the NoSQL explorer.' },

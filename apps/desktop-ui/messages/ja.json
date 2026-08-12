@@ -207,6 +207,10 @@
         "min30": "30分後",
         "min60": "1時間後",
         "helpText": "この時間操作がないとボルトをロックし、解除にはマスターパスワードが必要になります。"
+      },
+      "vaultIcons": {
+        "label": "保管庫でサイトアイコンを表示",
+        "helpText": "既定はオフ。アイコンの取得は、どのサイトにアカウントがあるかを外部サービスに知らせます。"
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "このパスワードを削除してもよろしいですか？この操作は取り消せません。",
       "cancel": "キャンセル",
       "delete": "削除",
-      "edit": "編集"
+      "edit": "編集",
+      "ageAging": "3か月+",
+      "ageOld": "6か月+",
+      "ageCritical": "1年+",
+      "clipboardClears": "クリップボードは {seconds} 秒後に消去されます"
     },
     "toasts": {
       "copiedPassword": "パスワードをクリップボードにコピーしました",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "パスワードを削除しました",
       "deleteFailed": "パスワードの削除に失敗しました",
       "vaultLocked": "ボールトをロックしました",
-      "importedCount": "{count, plural, one {#件のパスワード} other {#件のパスワード}}を正常にインポートしました"
+      "importedCount": "{count, plural, one {#件のパスワード} other {#件のパスワード}}を正常にインポートしました",
+      "copiedTotp": "TOTP コードをクリップボードにコピーしました",
+      "copyFailed": "クリップボードにコピーできませんでした",
+      "wrongMasterPassword": "マスターパスワードが違います",
+      "importedPartial": "{imported} 件を取り込み、{failed} 件が失敗"
     },
     "form": {
       "addTitle": "新しいパスワードを追加",
@@ -1063,7 +1075,9 @@
       "toastSaved": "パスワードが正常に保存されました",
       "toastSaveFailed": "パスワードの保存に失敗しました",
       "toastUpdated": "パスワードが正常に更新されました",
-      "toastUpdateFailed": "パスワードの更新に失敗しました"
+      "toastUpdateFailed": "パスワードの更新に失敗しました",
+      "totpTooShort": "TOTP シークレットが短すぎます（8文字以上）",
+      "totpNotBase32": "TOTP シークレットは Base32（A–Z、2–7）である必要があります"
     },
     "security": {
       "vaultHealth": "ボールトの健全性",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "ボールトのインポート / エクスポート",
-      "description": "パスワードデータを管理します。ボールトをJSONにエクスポートしたり、JSONファイルからインポートできます。",
+      "description": "保管庫をエクスポート、または JSON / CSV ファイルからインポートします。",
       "tabExport": "エクスポート",
       "tabImport": "インポート",
       "warningTitle": "警告",
       "warningBody": "エクスポートされたファイルにはパスワードが平文で含まれています。このファイルを安全に保管し、使用後は削除してください。",
-      "exportBlurb": "ボールト全体をJSONファイルとしてダウンロードします。すべてのサービス、ユーザー名、パスワード、メモが含まれます。",
-      "downloadJson": "JSONエクスポートをダウンロード",
-      "pasteLabel": "JSONデータを貼り付け",
+      "pasteLabel": "JSON または CSV を貼り付け",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "以前にエクスポートしたJSONファイルの内容をここに貼り付けてください。",
-      "selectFile": "JSONファイルを選択",
+      "pasteHint": "エクスポートしたファイル、または他のパスワード管理ソフトの CSV を貼り付けてください。",
+      "selectFile": "ファイルを選択",
       "importing": "インポート中...",
-      "importPasswords": "パスワードをインポート",
       "trigger": "インポート / エクスポート",
       "toastExported": "ボールトが正常にエクスポートされました",
       "toastExportFailed": "ボールトのエクスポートに失敗しました",
-      "toastImportFailed": "インポートに失敗しました：無効なJSON形式です"
+      "toastImportFailed": "インポートに失敗しました：無効なJSON形式です",
+      "modeEncrypted": "暗号化",
+      "modePlaintext": "平文",
+      "passphraseLabel": "エクスポート用パスフレーズ",
+      "passphraseHint": "後でファイルを開くのに必要です。どこにも保存されません。",
+      "passphraseTooShort": "8文字以上にしてください",
+      "confirmMasterLabel": "マスターパスワード",
+      "confirmMasterHint": "保管庫全体をファイルに書き出す前に本人確認を行います。",
+      "downloadCount": "ダウンロード ({count})",
+      "importPassphraseLabel": "ファイルのパスフレーズ",
+      "previewReady": "取り込み可能: {count} 件",
+      "previewDuplicates": "保管庫に既存のためスキップ: {count} 件",
+      "previewSkipped": "不完全な行をスキップ: {count} 件",
+      "confirmImport": "{count} 件を取り込む",
+      "checkFile": "ファイルを確認"
     },
     "card": {
       "copyUsername": "ユーザー名をコピー",
@@ -1142,6 +1167,25 @@
       "separator": "区切り文字",
       "capitalization": "大文字化",
       "includeNumber": "数字を含める"
+    },
+    "breach": {
+      "title": "データ漏洩チェック",
+      "intro": "保存済みパスワードを Have I Been Pwned と照合します。送信されるのは 5 文字のハッシュ接頭辞のみで、パスワードがこの端末を離れることはありません。",
+      "run": "チェックを実行",
+      "needsConnection": "インターネット接続が必要です。",
+      "progress": "{total} 件中 {checked} 件を確認中…",
+      "kAnonymity": "k-匿名性を使用 — パスワードはこの端末を離れません。",
+      "failed": "チェックに失敗しました。接続を確認して再試行してください。",
+      "retry": "再試行",
+      "noneFound": "漏洩したパスワードは見つかりません",
+      "allChecked": "確認済み: {count} 件。既知の漏洩には含まれていません。",
+      "foundInBreaches": "漏洩で発見: {count} 件",
+      "changeNow": "直ちに変更してください",
+      "exposedTimes": "{count}× 露出",
+      "unknownHeading": "確認できませんでした: {count} 件",
+      "unknownBody": "照会に失敗したため未確認です。安全ではなく「不明」として扱ってください。",
+      "useGenerator": "パスワード生成ツールで強力なものに置き換えてください。",
+      "checkAgain": "再チェック"
     }
   },
   "EnvironmentManager": {

@@ -207,6 +207,10 @@
         "min30": "پس از ۳۰ دقیقه",
         "min60": "پس از ۱ ساعت",
         "helpText": "گاوصندوق شما را پس از این مدت بی‌فعالیتی قفل می‌کند و برای باز کردن به رمز اصلی شما نیاز دارد."
+      },
+      "vaultIcons": {
+        "label": "نمایش نمادهای سایت در گاوصندوق",
+        "helpText": "به‌طور پیش‌فرض خاموش. دریافت نماد به سرویس ثالث می‌گوید در چه سایت‌هایی حساب دارید."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "آیا مطمئن هستید که می خواهید این رمز عبور را حذف کنید؟ این عمل قابل لغو نیست.",
       "cancel": "لغو کنید",
       "delete": "حذف کنید",
-      "edit": "ویرایش کنید"
+      "edit": "ویرایش کنید",
+      "ageAging": "+۳ ماه",
+      "ageOld": "+۶ ماه",
+      "ageCritical": "+۱ سال",
+      "clipboardClears": "کلیپ‌بورد تا {seconds} ثانیه پاک می‌شود"
     },
     "toasts": {
       "copiedPassword": "رمز عبور در کلیپ بورد کپی شد",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "رمز عبور حذف شد",
       "deleteFailed": "رمز عبور حذف نشد",
       "vaultLocked": "طاق قفل شده",
-      "importedCount": "با موفقیت وارد شد {count, plural, one {# password} other {# passwords}}"
+      "importedCount": "با موفقیت وارد شد {count, plural, one {# password} other {# passwords}}",
+      "copiedTotp": "کد TOTP در کلیپ‌بورد کپی شد",
+      "copyFailed": "کپی در کلیپ‌بورد ممکن نشد",
+      "wrongMasterPassword": "گذرواژه اصلی نادرست است",
+      "importedPartial": "{imported} وارد شد، {failed} ناموفق"
     },
     "form": {
       "addTitle": "رمز عبور جدید اضافه کنید",
@@ -1063,7 +1075,9 @@
       "toastSaved": "رمز عبور با موفقیت ذخیره شد",
       "toastSaveFailed": "رمز عبور ذخیره نشد",
       "toastUpdated": "رمز عبور با موفقیت به روز شد",
-      "toastUpdateFailed": "رمز عبور به روز نشد"
+      "toastUpdateFailed": "رمز عبور به روز نشد",
+      "totpTooShort": "سرّ TOTP خیلی کوتاه است (حداقل ۸ نویسه)",
+      "totpNotBase32": "سرّ TOTP باید Base32 باشد (A–Z، 2–7)"
     },
     "security": {
       "vaultHealth": "سلامت خرک",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "صندوق واردات / صادرات",
-      "description": "اطلاعات رمز عبور خود را مدیریت کنید می توانید صندوق خود را به JSON صادر کنید یا از یک فایل JSON وارد کنید.",
+      "description": "گاوصندوق را خروجی بگیرید یا از فایل JSON یا CSV وارد کنید.",
       "tabExport": "صادرات",
       "tabImport": "واردات",
       "warningTitle": "هشدار",
       "warningBody": "فایل های صادر شده حاوی رمزهای عبور شما به صورت متن ساده هستند. این فایل را ایمن نگه دارید و پس از استفاده آن را حذف کنید.",
-      "exportBlurb": "کل صندوق خود را به عنوان یک فایل JSON دانلود کنید. این شامل تمام خدمات، نام‌های کاربری، رمز عبور و یادداشت‌ها می‌شود.",
-      "downloadJson": "صادرات JSON را دانلود کنید",
-      "pasteLabel": "داده های JSON را جایگذاری کنید",
+      "pasteLabel": "JSON یا CSV را بچسبانید",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "محتوای یک فایل JSON قبلا صادر شده را در اینجا جای‌گذاری کنید.",
-      "selectFile": "انتخاب فایل JSON",
+      "pasteHint": "یک فایل خروجی‌گرفته‌شده یا CSV از مدیر گذرواژه دیگر بچسبانید.",
+      "selectFile": "انتخاب فایل",
       "importing": "واردات...",
-      "importPasswords": "وارد کردن رمزهای عبور",
       "trigger": "واردات / صادرات",
       "toastExported": "خرک با موفقیت صادر شد",
       "toastExportFailed": "صندوق صادرات انجام نشد",
-      "toastImportFailed": "وارد کردن انجام نشد: قالب JSON نامعتبر است"
+      "toastImportFailed": "وارد کردن انجام نشد: قالب JSON نامعتبر است",
+      "modeEncrypted": "رمزگذاری‌شده",
+      "modePlaintext": "متن ساده",
+      "passphraseLabel": "عبارت عبور خروجی",
+      "passphraseHint": "برای باز کردن بعدی فایل لازم است. هیچ‌جا ذخیره نمی‌شود.",
+      "passphraseTooShort": "حداقل ۸ نویسه استفاده کنید",
+      "confirmMasterLabel": "گذرواژه اصلی",
+      "confirmMasterHint": "پیش از نوشتن کل گاوصندوق در یک فایل، هویت شما را تأیید می‌کند.",
+      "downloadCount": "دانلود ({count})",
+      "importPassphraseLabel": "عبارت عبور فایل",
+      "previewReady": "آماده ورود: {count}",
+      "previewDuplicates": "از قبل در گاوصندوق، رد شد: {count}",
+      "previewSkipped": "ردیف‌های ناقص رد شد: {count}",
+      "confirmImport": "ورود {count}",
+      "checkFile": "بررسی فایل"
     },
     "card": {
       "copyUsername": "نام کاربری را کپی کنید",
@@ -1142,6 +1167,25 @@
       "separator": "جداکننده",
       "capitalization": "حروف بزرگ",
       "includeNumber": "شامل شماره"
+    },
+    "breach": {
+      "title": "بررسی نشت داده",
+      "intro": "گذرواژه‌های ذخیره‌شده را با Have I Been Pwned بررسی می‌کند. تنها پیشوند ۵ نویسه‌ای هش ارسال می‌شود — گذرواژه‌ها هرگز این دستگاه را ترک نمی‌کنند.",
+      "run": "اجرای بررسی",
+      "needsConnection": "به اتصال اینترنت نیاز دارد.",
+      "progress": "بررسی {checked} از {total}…",
+      "kAnonymity": "با k-ناشناسی — هیچ گذرواژه‌ای این دستگاه را ترک نمی‌کند.",
+      "failed": "بررسی ناموفق بود. اتصال را بررسی و دوباره تلاش کنید.",
+      "retry": "تلاش دوباره",
+      "noneFound": "گذرواژه نشت‌یافته‌ای یافت نشد",
+      "allChecked": "بررسی‌شده: {count}. هیچ‌کدام در نشت‌های شناخته‌شده نیستند.",
+      "foundInBreaches": "یافت‌شده در نشت‌ها: {count}",
+      "changeNow": "فوراً تغییرشان دهید",
+      "exposedTimes": "{count}× افشا شده",
+      "unknownHeading": "قابل بررسی نبود: {count}",
+      "unknownBody": "به دلیل شکست جست‌وجو تأیید نشدند. آنها را نامعلوم بدانید، نه امن.",
+      "useGenerator": "برای ساخت جایگزین‌های قوی از تولیدکننده گذرواژه استفاده کنید.",
+      "checkAgain": "بررسی دوباره"
     }
   },
   "EnvironmentManager": {

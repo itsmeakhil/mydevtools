@@ -207,6 +207,10 @@
         "min30": "Após 30 minutos",
         "min60": "Após 1 hora",
         "helpText": "Bloqueia o seu cofre após este período de inatividade e exige a sua palavra-passe mestra para desbloquear."
+      },
+      "vaultIcons": {
+        "label": "Mostrar ícones dos sites no cofre",
+        "helpText": "Desativado por predefinição. Obter um ícone revela a um serviço externo em que sites tem contas."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Tens a certeza de que queres eliminar esta palavra-passe? Esta ação não pode ser anulada.",
       "cancel": "Cancelar",
       "delete": "Eliminar",
-      "edit": "Editar"
+      "edit": "Editar",
+      "ageAging": "3m+",
+      "ageOld": "6m+",
+      "ageCritical": "1a+",
+      "clipboardClears": "A área de transferência será limpa em {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Palavra-passe copiada para a área de transferência",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Palavra-passe eliminada",
       "deleteFailed": "Falha ao eliminar palavra-passe",
       "vaultLocked": "Cofre bloqueado",
-      "importedCount": "{count, plural, one {# palavra-passe importada} other {# palavras-passe importadas}} com sucesso"
+      "importedCount": "{count, plural, one {# palavra-passe importada} other {# palavras-passe importadas}} com sucesso",
+      "copiedTotp": "Código TOTP copiado",
+      "copyFailed": "Não foi possível copiar para a área de transferência",
+      "wrongMasterPassword": "Palavra-passe mestra incorreta",
+      "importedPartial": "{imported} importadas, {failed} falharam"
     },
     "form": {
       "addTitle": "Adicionar nova palavra-passe",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Palavra-passe guardada com sucesso",
       "toastSaveFailed": "Falha ao guardar palavra-passe",
       "toastUpdated": "Palavra-passe atualizada com sucesso",
-      "toastUpdateFailed": "Falha ao atualizar palavra-passe"
+      "toastUpdateFailed": "Falha ao atualizar palavra-passe",
+      "totpTooShort": "O segredo TOTP é demasiado curto (mínimo 8 caracteres)",
+      "totpNotBase32": "O segredo TOTP tem de ser Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Saúde do cofre",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importar / exportar cofre",
-      "description": "Gere os teus dados de palavras-passe. Podes exportar o teu cofre para JSON ou importar de um ficheiro JSON.",
+      "description": "Exporte o seu cofre, ou importe de um ficheiro JSON ou CSV.",
       "tabExport": "Exportar",
       "tabImport": "Importar",
       "warningTitle": "Aviso",
       "warningBody": "Ficheiros exportados contêm as tuas palavras-passe em texto simples. Mantém este ficheiro seguro e elimina-o após utilização.",
-      "exportBlurb": "Transfere o teu cofre inteiro como um ficheiro JSON. Isto inclui todos os serviços, utilizadores, palavras-passe e notas.",
-      "downloadJson": "Transferir exportação JSON",
-      "pasteLabel": "Colar dados JSON",
+      "pasteLabel": "Cole JSON ou CSV",
       "pastePlaceholder": "[{\"service\": \"Exemplo\", \"username\": \"utilizador\", \"password\": \"123\", ...}]",
-      "pasteHint": "Cola o conteúdo de um ficheiro JSON exportado anteriormente aqui.",
-      "selectFile": "Selecionar ficheiro JSON",
+      "pasteHint": "Cole um ficheiro exportado, ou um CSV de outro gestor de palavras-passe.",
+      "selectFile": "Selecionar ficheiro",
       "importing": "A importar...",
-      "importPasswords": "Importar palavras-passe",
       "trigger": "Importar / exportar",
       "toastExported": "Cofre exportado com sucesso",
       "toastExportFailed": "Falha ao exportar cofre",
-      "toastImportFailed": "Falha ao importar: formato JSON inválido"
+      "toastImportFailed": "Falha ao importar: formato JSON inválido",
+      "modeEncrypted": "Encriptado",
+      "modePlaintext": "Texto simples",
+      "passphraseLabel": "Frase-passe de exportação",
+      "passphraseHint": "Necessária para abrir o ficheiro mais tarde. Não é guardada em lado nenhum.",
+      "passphraseTooShort": "Use pelo menos 8 caracteres",
+      "confirmMasterLabel": "Palavra-passe mestra",
+      "confirmMasterHint": "Confirma que é você antes de todo o cofre ser escrito num ficheiro.",
+      "downloadCount": "Transferir ({count})",
+      "importPassphraseLabel": "Frase-passe do ficheiro",
+      "previewReady": "Prontas a importar: {count}",
+      "previewDuplicates": "Já no seu cofre, ignoradas: {count}",
+      "previewSkipped": "Linhas incompletas ignoradas: {count}",
+      "confirmImport": "Importar {count}",
+      "checkFile": "Verificar ficheiro"
     },
     "card": {
       "copyUsername": "Copiar utilizador",
@@ -1142,6 +1167,25 @@
       "separator": "Separador",
       "capitalization": "Capitalização",
       "includeNumber": "Incluir número"
+    },
+    "breach": {
+      "title": "Verificação de fugas de dados",
+      "intro": "Verifica as suas palavras-passe guardadas no Have I Been Pwned. Só é enviado um prefixo de hash de 5 caracteres — as palavras-passe nunca saem deste dispositivo.",
+      "run": "Executar verificação",
+      "needsConnection": "Precisa de ligação à internet.",
+      "progress": "A verificar {checked} de {total}…",
+      "kAnonymity": "Com k-anonimato — nenhuma palavra-passe sai deste dispositivo.",
+      "failed": "A verificação falhou. Confirme a ligação e tente novamente.",
+      "retry": "Tentar de novo",
+      "noneFound": "Nenhuma palavra-passe comprometida",
+      "allChecked": "Verificadas: {count}. Nenhuma aparece em fugas conhecidas.",
+      "foundInBreaches": "Encontradas em fugas: {count}",
+      "changeNow": "Altere-as imediatamente",
+      "exposedTimes": "{count}× exposta",
+      "unknownHeading": "Não foi possível verificar: {count}",
+      "unknownBody": "Não foram verificadas porque a consulta falhou. Trate-as como desconhecidas, não como seguras.",
+      "useGenerator": "Use o gerador para criar substituições fortes.",
+      "checkAgain": "Verificar de novo"
     }
   },
   "EnvironmentManager": {

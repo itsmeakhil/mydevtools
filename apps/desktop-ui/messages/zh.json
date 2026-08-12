@@ -207,6 +207,10 @@
         "min30": "30 分钟后",
         "min60": "1 小时后",
         "helpText": "在此时长无操作后锁定保险库，需要输入主密码才能解锁。"
+      },
+      "vaultIcons": {
+        "label": "在保险库中显示网站图标",
+        "helpText": "默认关闭。获取图标会让第三方服务知道你在哪些网站有账户。"
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "确定要删除此密码吗？此操作无法撤销。",
       "cancel": "取消",
       "delete": "删除",
-      "edit": "编辑"
+      "edit": "编辑",
+      "ageAging": "3个月+",
+      "ageOld": "6个月+",
+      "ageCritical": "1年+",
+      "clipboardClears": "剪贴板将在 {seconds} 秒后清空"
     },
     "toasts": {
       "copiedPassword": "密码已复制到剪贴板",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "密码已删除",
       "deleteFailed": "删除密码失败",
       "vaultLocked": "保险库已锁定",
-      "importedCount": "成功导入 {count, plural, one {# 条密码} other {# 条密码}}"
+      "importedCount": "成功导入 {count, plural, one {# 条密码} other {# 条密码}}",
+      "copiedTotp": "已复制 TOTP 验证码",
+      "copyFailed": "无法复制到剪贴板",
+      "wrongMasterPassword": "主密码不正确",
+      "importedPartial": "已导入 {imported} 条，失败 {failed} 条"
     },
     "form": {
       "addTitle": "添加新密码",
@@ -1063,7 +1075,9 @@
       "toastSaved": "密码保存成功",
       "toastSaveFailed": "保存密码失败",
       "toastUpdated": "密码更新成功",
-      "toastUpdateFailed": "更新密码失败"
+      "toastUpdateFailed": "更新密码失败",
+      "totpTooShort": "TOTP 密钥太短（至少 8 个字符）",
+      "totpNotBase32": "TOTP 密钥必须为 Base32（A–Z、2–7）"
     },
     "security": {
       "vaultHealth": "保险库健康度",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "导入 / 导出保险库",
-      "description": "管理密码数据。可将保险库导出为 JSON，或从 JSON 文件导入。",
+      "description": "导出你的保险库，或从 JSON 或 CSV 文件导入。",
       "tabExport": "导出",
       "tabImport": "导入",
       "warningTitle": "警告",
       "warningBody": "导出文件中的密码为明文。请妥善保管并在使用后删除。",
-      "exportBlurb": "将整个保险库下载为 JSON，包含所有服务、用户名、密码与备注。",
-      "downloadJson": "下载 JSON 导出",
-      "pasteLabel": "粘贴 JSON 数据",
+      "pasteLabel": "粘贴 JSON 或 CSV",
       "pastePlaceholder": "[{\"service\": \"Example\", \"username\": \"user\", \"password\": \"123\", ...}]",
-      "pasteHint": "在此粘贴先前导出的 JSON 文件内容。",
-      "selectFile": "选择 JSON 文件",
+      "pasteHint": "粘贴导出的文件，或其他密码管理器的 CSV。",
+      "selectFile": "选择文件",
       "importing": "导入中…",
-      "importPasswords": "导入密码",
       "trigger": "导入 / 导出",
       "toastExported": "保险库导出成功",
       "toastExportFailed": "导出保险库失败",
-      "toastImportFailed": "导入失败：JSON 格式无效"
+      "toastImportFailed": "导入失败：JSON 格式无效",
+      "modeEncrypted": "加密",
+      "modePlaintext": "明文",
+      "passphraseLabel": "导出口令",
+      "passphraseHint": "以后打开该文件时需要。不会保存在任何地方。",
+      "passphraseTooShort": "请至少使用 8 个字符",
+      "confirmMasterLabel": "主密码",
+      "confirmMasterHint": "在把整个保险库写入文件前确认是你本人。",
+      "downloadCount": "下载（{count}）",
+      "importPassphraseLabel": "文件口令",
+      "previewReady": "可导入 {count} 条",
+      "previewDuplicates": "保险库中已存在，跳过 {count} 条",
+      "previewSkipped": "跳过不完整的行 {count} 条",
+      "confirmImport": "导入 {count} 条",
+      "checkFile": "检查文件"
     },
     "card": {
       "copyUsername": "复制用户名",
@@ -1142,6 +1167,25 @@
       "separator": "分隔符",
       "capitalization": "大小写",
       "includeNumber": "包含数字"
+    },
+    "breach": {
+      "title": "数据泄露检查",
+      "intro": "将已保存的密码与 Have I Been Pwned 比对。仅发送 5 个字符的哈希前缀 — 密码绝不会离开本设备。",
+      "run": "开始检查",
+      "needsConnection": "需要互联网连接。",
+      "progress": "正在检查 {total} 条中的 {checked} 条…",
+      "kAnonymity": "使用 k-匿名 — 没有密码会离开本设备。",
+      "failed": "检查失败。请确认网络连接后重试。",
+      "retry": "重试",
+      "noneFound": "未发现已泄露的密码",
+      "allChecked": "已检查 {count} 条，均未出现在已知泄露中。",
+      "foundInBreaches": "在泄露中发现 {count} 条",
+      "changeNow": "请立即更改",
+      "exposedTimes": "已泄露 {count} 次",
+      "unknownHeading": "无法检查 {count} 条",
+      "unknownBody": "因查询失败而未能验证。请视为未知，而非安全。",
+      "useGenerator": "使用密码生成器创建高强度的替代密码。",
+      "checkAgain": "重新检查"
     }
   },
   "EnvironmentManager": {

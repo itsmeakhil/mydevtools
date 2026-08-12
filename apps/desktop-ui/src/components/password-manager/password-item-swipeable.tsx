@@ -5,6 +5,7 @@ import { Copy, Trash2, Eye, EyeOff, ExternalLink, MoreVertical, Pencil, KeyRound
 import { PasswordEntry } from "@/store/password-store"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useVaultIconsEnabled } from "@/lib/vault-icon-pref"
 import { getFaviconUrl } from "@/lib/password-utils"
 import { FaviconImg } from "@/components/favicon-img"
 import { useState } from "react"
@@ -29,6 +30,9 @@ export function PasswordItemSwipeable({
     isVisible
 }: PasswordItemSwipeableProps) {
     const t = useTranslations("PasswordManager.swipeable")
+    // Opt-in: fetching a site icon discloses the domain to a third-party
+    // service, and for a vault that set of domains is the user's account list.
+    const showIcons = useVaultIconsEnabled()
     const [expanded, setExpanded] = useState(false)
     const x = useMotionValue(0)
     const opacityRight = useTransform(x, [30, 80], [0, 1])
@@ -98,7 +102,7 @@ export function PasswordItemSwipeable({
                     {/* Icon */}
                     <div className="h-10 w-10 shrink-0 rounded-lg bg-muted/50 flex items-center justify-center text-primary font-semibold text-base overflow-hidden border border-border/50">
                         <FaviconImg
-                            serviceUrl={entry.url ? getFaviconUrl(entry.url) : null}
+                            serviceUrl={showIcons && entry.url ? getFaviconUrl(entry.url) : null}
                             className="h-6 w-6 object-contain"
                             fallback={<span>{entry.service.charAt(0).toUpperCase()}</span>}
                         />

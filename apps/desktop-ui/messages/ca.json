@@ -207,6 +207,10 @@
         "min30": "Al cap de 30 minuts",
         "min60": "Al cap d'1 hora",
         "helpText": "Bloqueja la teva caixa forta després d'aquest temps d'inactivitat i requereix la teva contrasenya mestra per desbloquejar-la."
+      },
+      "vaultIcons": {
+        "label": "Mostra icones dels llocs a la caixa forta",
+        "helpText": "Desactivat per defecte. Baixar una icona revela a un servei extern a quins llocs tens comptes."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Segur que vols eliminar aquesta contrasenya? Aquesta acció no es pot desfer.",
       "cancel": "Cancel·la",
       "delete": "Elimina",
-      "edit": "Edita"
+      "edit": "Edita",
+      "ageAging": "3m+",
+      "ageOld": "6m+",
+      "ageCritical": "1a+",
+      "clipboardClears": "El porta-retalls s'esborra en {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Contrasenya copiada al porta-retalls",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Contrasenya eliminada",
       "deleteFailed": "No s'ha pogut eliminar la contrasenya",
       "vaultLocked": "Coffre bloquejat",
-      "importedCount": "S'han importat {count, plural, one {# contrasenya} other {# contrasenyes}} correctament"
+      "importedCount": "S'han importat {count, plural, one {# contrasenya} other {# contrasenyes}} correctament",
+      "copiedTotp": "Codi TOTP copiat al porta-retalls",
+      "copyFailed": "No s'ha pogut copiar al porta-retalls",
+      "wrongMasterPassword": "Contrasenya mestra incorrecta",
+      "importedPartial": "Importades {imported}, fallides {failed}"
     },
     "form": {
       "addTitle": "Contrasenya nova",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Contrasenya desada correctament",
       "toastSaveFailed": "No s'ha pogut desar la contrasenya",
       "toastUpdated": "Contrasenya actualitzada correctament",
-      "toastUpdateFailed": "No s'ha pogut actualitzar la contrasenya"
+      "toastUpdateFailed": "No s'ha pogut actualitzar la contrasenya",
+      "totpTooShort": "El secret TOTP és massa curt (mínim 8 caràcters)",
+      "totpNotBase32": "El secret TOTP ha de ser Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Salut del coffre",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importa / exporta el coffre",
-      "description": "Gestiona les dades de contrasenyes. Pots exportar el coffre a JSON o importar des d'un fitxer JSON.",
+      "description": "Exporta la teva caixa forta, o importa des d'un fitxer JSON o CSV.",
       "tabExport": "Exporta",
       "tabImport": "Importa",
       "warningTitle": "Avís",
       "warningBody": "Els fitxers exportats contenen les contrasenyes en text pla. Mantén el fitxer segur i elimina'l després d'usar-lo.",
-      "exportBlurb": "Baixa tot el coffre com a JSON. Inclou serveis, usuaris, contrasenyes i notes.",
-      "downloadJson": "Baixa exportació JSON",
-      "pasteLabel": "Enganxa dades JSON",
+      "pasteLabel": "Enganxa JSON o CSV",
       "pastePlaceholder": "[{\"service\": \"Exemple\", \"username\": \"usuari\", \"password\": \"123\", ...}]",
-      "pasteHint": "Enganxa aquí el contingut d'un fitxer JSON exportat anteriorment.",
-      "selectFile": "Selecciona un fitxer JSON",
+      "pasteHint": "Enganxa un fitxer exportat, o un CSV d'un altre gestor de contrasenyes.",
+      "selectFile": "Selecciona un fitxer",
       "importing": "S'està important...",
-      "importPasswords": "Importa contrasenyes",
       "trigger": "Importa / exporta",
       "toastExported": "Coffre exportat correctament",
       "toastExportFailed": "No s'ha pogut exportar el coffre",
-      "toastImportFailed": "No s'ha pogut importar: format JSON no vàlid"
+      "toastImportFailed": "No s'ha pogut importar: format JSON no vàlid",
+      "modeEncrypted": "Xifrat",
+      "modePlaintext": "Text pla",
+      "passphraseLabel": "Frase de pas d'exportació",
+      "passphraseHint": "Necessària per obrir el fitxer més tard. No es desa enlloc.",
+      "passphraseTooShort": "Fes servir com a mínim 8 caràcters",
+      "confirmMasterLabel": "Contrasenya mestra",
+      "confirmMasterHint": "Confirma que ets tu abans d'escriure tota la caixa forta a un fitxer.",
+      "downloadCount": "Baixa ({count})",
+      "importPassphraseLabel": "Frase de pas del fitxer",
+      "previewReady": "A punt per importar: {count}",
+      "previewDuplicates": "Ja a la teva caixa forta, omeses: {count}",
+      "previewSkipped": "Files incompletes omeses: {count}",
+      "confirmImport": "Importa {count}",
+      "checkFile": "Comprova el fitxer"
     },
     "card": {
       "copyUsername": "Copia l'usuari",
@@ -1142,6 +1167,25 @@
       "separator": "Separador",
       "capitalization": "Majúscules inicials",
       "includeNumber": "Inclou un número"
+    },
+    "breach": {
+      "title": "Comprovació de filtracions",
+      "intro": "Comprova les teves contrasenyes desades contra Have I Been Pwned. Només s'envia un prefix de hash de 5 caràcters — les contrasenyes no surten mai d'aquest dispositiu.",
+      "run": "Executa la comprovació",
+      "needsConnection": "Cal connexió a internet.",
+      "progress": "Comprovant {checked} de {total}…",
+      "kAnonymity": "Amb k-anonimat — cap contrasenya surt d'aquest dispositiu.",
+      "failed": "La comprovació ha fallat. Revisa la connexió i torna-ho a provar.",
+      "retry": "Reintenta",
+      "noneFound": "No s'han trobat contrasenyes filtrades",
+      "allChecked": "Comprovades: {count}. Cap apareix en filtracions conegudes.",
+      "foundInBreaches": "Trobades en filtracions: {count}",
+      "changeNow": "Canvia-les immediatament",
+      "exposedTimes": "{count}× exposada",
+      "unknownHeading": "No s'han pogut comprovar: {count}",
+      "unknownBody": "No s'han verificat perquè la consulta ha fallat. Considera-les desconegudes, no segures.",
+      "useGenerator": "Fes servir el generador per crear substituts forts.",
+      "checkAgain": "Torna a comprovar"
     }
   },
   "EnvironmentManager": {

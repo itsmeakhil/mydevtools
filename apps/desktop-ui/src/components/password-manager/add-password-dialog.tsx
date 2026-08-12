@@ -16,7 +16,8 @@ import { AdvancedGenerator } from "./advanced-generator"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Badge } from "@/components/ui/badge"
 import { encryptData } from "@/lib/encryption"
-import { validateTotpSecret, calculatePasswordStrength, getStrengthColor, getStrengthLabel } from "@/lib/password-utils"
+import { validateTotpSecret, calculatePasswordStrength, getStrengthColor, getStrengthLabelKey } from "@/lib/password-utils"
+import { usePasswordStrengthReady } from "@/lib/use-password-strength"
 import { auth } from "@/database/firebase"
 import { createPasswordEntry } from "@/lib/password-manager-api"
 import { cn } from "@/lib/utils"
@@ -25,6 +26,7 @@ import { useTranslations } from "next-intl"
 
 export function AddPasswordDialog({ children }: { children?: React.ReactNode }) {
     const t = useTranslations("PasswordManager.form")
+    const strengthReady = usePasswordStrengthReady()
     const cipherKey = useCipherKey()
     const { addPassword } = usePasswordStore()
     const [open, setOpen] = useState(false)
@@ -45,6 +47,8 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
     const [showPassword, setShowPassword] = useState(false)
 
     const strength = calculatePasswordStrength(formData.password)
+    const strengthKey = getStrengthLabelKey(strength)
+    const strengthLabel = strengthKey ? t(strengthKey) : ""
 
     const handleAddTag = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ',') {
@@ -68,7 +72,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
         if (formData.totpSecret) {
             const totpError = validateTotpSecret(formData.totpSecret)
             if (totpError) {
-                toast.error(totpError)
+                toast.error(t(totpError))
                 return
             }
         }
@@ -172,7 +176,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                                 strength <= 2 ? "text-red-500" :
                                     strength <= 3 ? "text-yellow-500" : "text-green-500"
                             )}>
-                                {getStrengthLabel(strength)}
+                                {strengthLabel}
                             </span>
                         </div>
                         <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">

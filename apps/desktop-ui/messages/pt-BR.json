@@ -207,6 +207,10 @@
         "min30": "Após 30 minutos",
         "min60": "Após 1 hora",
         "helpText": "Bloqueia o seu cofre após esse tempo de inatividade e exige a sua senha mestra para desbloquear."
+      },
+      "vaultIcons": {
+        "label": "Mostrar ícones dos sites no cofre",
+        "helpText": "Desativado por padrão. Buscar um ícone informa a um serviço externo em quais sites você tem contas."
       }
     },
     "language": {
@@ -1023,7 +1027,11 @@
       "deleteDialogDescription": "Tem certeza de que deseja excluir esta senha? Esta ação não pode ser desfeita.",
       "cancel": "Cancelar",
       "delete": "Excluir",
-      "edit": "Editar"
+      "edit": "Editar",
+      "ageAging": "3m+",
+      "ageOld": "6m+",
+      "ageCritical": "1a+",
+      "clipboardClears": "A área de transferência será limpa em {seconds}s"
     },
     "toasts": {
       "copiedPassword": "Senha copiada para a área de transferência",
@@ -1031,7 +1039,11 @@
       "passwordDeleted": "Senha excluída",
       "deleteFailed": "Falha ao excluir senha",
       "vaultLocked": "Cofre bloqueado",
-      "importedCount": "{count, plural, one {# senha importada} other {# senhas importadas}} com sucesso"
+      "importedCount": "{count, plural, one {# senha importada} other {# senhas importadas}} com sucesso",
+      "copiedTotp": "Código TOTP copiado",
+      "copyFailed": "Não foi possível copiar para a área de transferência",
+      "wrongMasterPassword": "Senha mestra incorreta",
+      "importedPartial": "{imported} importadas, {failed} falharam"
     },
     "form": {
       "addTitle": "Adicionar nova senha",
@@ -1063,7 +1075,9 @@
       "toastSaved": "Senha salva com sucesso",
       "toastSaveFailed": "Falha ao salvar senha",
       "toastUpdated": "Senha atualizada com sucesso",
-      "toastUpdateFailed": "Falha ao atualizar senha"
+      "toastUpdateFailed": "Falha ao atualizar senha",
+      "totpTooShort": "O segredo TOTP é curto demais (mínimo 8 caracteres)",
+      "totpNotBase32": "O segredo TOTP deve ser Base32 (A–Z, 2–7)"
     },
     "security": {
       "vaultHealth": "Saúde do cofre",
@@ -1090,23 +1104,34 @@
     },
     "importExport": {
       "title": "Importar / exportar cofre",
-      "description": "Gerencie seus dados de senhas. Você pode exportar seu cofre para JSON ou importar de um arquivo JSON.",
+      "description": "Exporte seu cofre, ou importe de um arquivo JSON ou CSV.",
       "tabExport": "Exportar",
       "tabImport": "Importar",
       "warningTitle": "Aviso",
       "warningBody": "Arquivos exportados contêm suas senhas em texto simples. Mantenha este arquivo seguro e exclua-o após o uso.",
-      "exportBlurb": "Baixe seu cofre inteiro como um arquivo JSON. Isso inclui todos os serviços, usuários, senhas e notas.",
-      "downloadJson": "Baixar exportação JSON",
-      "pasteLabel": "Colar dados JSON",
+      "pasteLabel": "Cole JSON ou CSV",
       "pastePlaceholder": "[{\"service\": \"Exemplo\", \"username\": \"usuario\", \"password\": \"123\", ...}]",
-      "pasteHint": "Cole o conteúdo de um arquivo JSON exportado anteriormente aqui.",
-      "selectFile": "Selecionar arquivo JSON",
+      "pasteHint": "Cole um arquivo exportado, ou um CSV de outro gerenciador de senhas.",
+      "selectFile": "Selecionar arquivo",
       "importing": "Importando...",
-      "importPasswords": "Importar senhas",
       "trigger": "Importar / exportar",
       "toastExported": "Cofre exportado com sucesso",
       "toastExportFailed": "Falha ao exportar cofre",
-      "toastImportFailed": "Falha ao importar: formato JSON inválido"
+      "toastImportFailed": "Falha ao importar: formato JSON inválido",
+      "modeEncrypted": "Criptografado",
+      "modePlaintext": "Texto simples",
+      "passphraseLabel": "Frase secreta de exportação",
+      "passphraseHint": "Necessária para abrir o arquivo depois. Não é armazenada em lugar nenhum.",
+      "passphraseTooShort": "Use pelo menos 8 caracteres",
+      "confirmMasterLabel": "Senha mestra",
+      "confirmMasterHint": "Confirma que é você antes de todo o cofre ser gravado em um arquivo.",
+      "downloadCount": "Baixar ({count})",
+      "importPassphraseLabel": "Frase secreta do arquivo",
+      "previewReady": "Prontas para importar: {count}",
+      "previewDuplicates": "Já no seu cofre, ignoradas: {count}",
+      "previewSkipped": "Linhas incompletas ignoradas: {count}",
+      "confirmImport": "Importar {count}",
+      "checkFile": "Verificar arquivo"
     },
     "card": {
       "copyUsername": "Copiar usuário",
@@ -1142,6 +1167,25 @@
       "separator": "Separador",
       "capitalization": "Capitalização",
       "includeNumber": "Incluir número"
+    },
+    "breach": {
+      "title": "Verificação de vazamentos",
+      "intro": "Verifica suas senhas salvas no Have I Been Pwned. Só um prefixo de hash de 5 caracteres é enviado — suas senhas nunca saem deste dispositivo.",
+      "run": "Executar verificação",
+      "needsConnection": "Precisa de conexão com a internet.",
+      "progress": "Verificando {checked} de {total}…",
+      "kAnonymity": "Com k-anonimato — nenhuma senha sai deste dispositivo.",
+      "failed": "A verificação falhou. Confira sua conexão e tente de novo.",
+      "retry": "Tentar de novo",
+      "noneFound": "Nenhuma senha vazada encontrada",
+      "allChecked": "Verificadas: {count}. Nenhuma aparece em vazamentos conhecidos.",
+      "foundInBreaches": "Encontradas em vazamentos: {count}",
+      "changeNow": "Troque-as imediatamente",
+      "exposedTimes": "{count}× exposta",
+      "unknownHeading": "Não foi possível verificar: {count}",
+      "unknownBody": "Não foram verificadas porque a consulta falhou. Trate-as como desconhecidas, não como seguras.",
+      "useGenerator": "Use o gerador para criar substituições fortes.",
+      "checkAgain": "Verificar de novo"
     }
   },
   "EnvironmentManager": {
