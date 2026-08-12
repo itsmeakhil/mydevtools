@@ -1952,7 +1952,13 @@
       "esUrlInvalid": "This is not a valid URL.",
       "esUsernameRequired": "Enter a username.",
       "esApiKeyRequired": "Enter an API key.",
-      "esBearerRequired": "Enter a bearer token."
+      "esBearerRequired": "Enter a bearer token.",
+      "sqlHostRequired": "Host is required",
+      "sqlDatabaseRequired": "Database is required",
+      "sqlPortRange": "Port must be between 1 and 65535",
+      "sqlSocketUnsupported": "Unix socket connections are not supported — use a host and port.",
+      "sqlitePathRequired": "A database file is required",
+      "sqlitePathAbsolute": "The path must be absolute"
     },
     "firestore": {
       "serviceAccount": "Service account key (JSON)",
@@ -2141,6 +2147,54 @@
         "saveFailed": "Save failed: {message}",
         "deleteFailed": "Delete failed: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Could not load the schema for {name}",
+        "querySaved": "Query saved"
+      },
+      "host": "Host",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Paste a full connection URL to fill every field.",
+      "port": "Port",
+      "database": "Database",
+      "databaseHint": "One connection covers one database.",
+      "username": "Username",
+      "password": "Password",
+      "ssl": "Use SSL/TLS",
+      "sslVerify": "Verify certificate",
+      "sslVerifyHint": "Reject a certificate the server cannot prove.",
+      "sslVerifyOffWarning": "Any certificate is accepted — the connection is encrypted but not authenticated.",
+      "readOnlyHint": "Blocks writes on the server, not only in the interface.",
+      "toggleColumns": "Show columns of {name}",
+      "loadingColumns": "Loading columns…",
+      "noColumns": "No columns",
+      "refreshSchema": "Refresh schema",
+      "newConsole": "New query tab",
+      "connecting": "Connecting…",
+      "connectionFailed": "Connection failed",
+      "noTables": "No tables",
+      "noMatches": "No matches",
+      "consoleTitle": "Query {n}",
+      "readOnly": "Read-only",
+      "rowLimit": "{count} rows",
+      "history": "History",
+      "historyEmpty": "Nothing saved yet",
+      "savedSection": "Saved",
+      "recentSection": "Recent",
+      "deleteSaved": "Delete saved query",
+      "saveQuery": "Save",
+      "savePlaceholder": "Query name",
+      "run": "Run",
+      "abandon": "Stop ({seconds}s)",
+      "abandoned": "Stopped waiting. The statement may still be running on the server.",
+      "executing": "Running… {seconds}s",
+      "sessionNotice": "Every run opens a new session. Send BEGIN and COMMIT in the same run, or the transaction is rolled back.",
+      "emptyTitle": "No results yet",
+      "emptyHint": "Press Run or ⌘↩",
+      "filePath": "Database file",
+      "filePathHint": "Paste a full path. Quotes and file:// URLs are cleaned up for you.",
+      "readOnlyHintSqlite": "Opens the file read-only, so the write is refused by the system, not the interface."
     }
   },
   "ApiClient": {
@@ -3832,11 +3886,14 @@
       "filterPlaceholder": "Filter results…",
       "editHint": "Double-click a cell to edit",
       "toastRowUpdated": "Row updated",
-      "toastRowsUpdated": "{count, plural, one {# row updated} other {# rows updated}}",
       "rowCount": "{count} {count, plural, one {row} other {rows}}",
       "rowCountFiltered": "{filtered} / {total} rows",
       "exportCsv": "CSV",
-      "noRows": "No rows returned"
+      "noRows": "No rows returned",
+      "truncated": "Showing {shown} of {total} rows — add a LIMIT clause to narrow the result.",
+      "setNull": "Set NULL",
+      "toastRowNotFound": "No row was changed — it may have been deleted, or it already held that value.",
+      "toastRowsMatched": "{count} rows matched — nothing was changed, because the filter is not unique."
     }
   },
   "MarkdownPreview": {

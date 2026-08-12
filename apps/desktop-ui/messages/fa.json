@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "این یک URL معتبر نیست.",
       "esUsernameRequired": "یک نام کاربری وارد کنید.",
       "esApiKeyRequired": "یک کلید API وارد کنید.",
-      "esBearerRequired": "یک توکن Bearer وارد کنید."
+      "esBearerRequired": "یک توکن Bearer وارد کنید.",
+      "sqlHostRequired": "میزبان الزامی است",
+      "sqlDatabaseRequired": "پایگاه داده الزامی است",
+      "sqlPortRange": "درگاه باید بین ۱ و ۶۵۵۳۵ باشد",
+      "sqlSocketUnsupported": "اتصال از طریق سوکت یونیکس پشتیبانی نمی‌شود — از میزبان و درگاه استفاده کنید.",
+      "sqlitePathRequired": "فایل پایگاه داده الزامی است",
+      "sqlitePathAbsolute": "مسیر باید مطلق باشد"
     },
     "firestore": {
       "serviceAccount": "کلید حساب سرویس (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "ذخیره ناموفق بود: {message}",
         "deleteFailed": "حذف ناموفق بود: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "بارگیری طرح‌واره برای {name} ممکن نشد",
+        "querySaved": "پرس‌وجو ذخیره شد"
+      },
+      "host": "میزبان",
+      "hostPlaceholder": "localhost",
+      "hostHint": "یک نشانی اتصال کامل بچسبانید تا همه فیلدها پر شوند.",
+      "port": "درگاه",
+      "database": "پایگاه داده",
+      "databaseHint": "هر اتصال یک پایگاه داده را پوشش می‌دهد.",
+      "username": "نام کاربری",
+      "password": "گذرواژه",
+      "ssl": "استفاده از SSL/TLS",
+      "sslVerify": "بررسی گواهی",
+      "sslVerifyHint": "گواهی‌ای که سرور نتواند اثبات کند رد شود.",
+      "sslVerifyOffWarning": "هر گواهی‌ای پذیرفته می‌شود — اتصال رمزگذاری شده اما احراز هویت نشده است.",
+      "readOnlyHint": "نوشتن را روی سرور مسدود می‌کند، نه فقط در رابط کاربری.",
+      "toggleColumns": "نمایش ستون‌های {name}",
+      "loadingColumns": "در حال بارگیری ستون‌ها…",
+      "noColumns": "بدون ستون",
+      "refreshSchema": "بازخوانی طرح‌واره",
+      "newConsole": "زبانه پرس‌وجوی جدید",
+      "connecting": "در حال اتصال…",
+      "connectionFailed": "اتصال ناموفق بود",
+      "noTables": "بدون جدول",
+      "noMatches": "بدون نتیجه",
+      "consoleTitle": "پرس‌وجوی {n}",
+      "readOnly": "فقط خواندنی",
+      "rowLimit": "{count} ردیف",
+      "history": "تاریخچه",
+      "historyEmpty": "هنوز چیزی ذخیره نشده است",
+      "savedSection": "ذخیره‌شده",
+      "recentSection": "اخیر",
+      "deleteSaved": "حذف پرس‌وجوی ذخیره‌شده",
+      "saveQuery": "ذخیره",
+      "savePlaceholder": "نام پرس‌وجو",
+      "run": "اجرا",
+      "abandon": "توقف ({seconds}ث)",
+      "abandoned": "انتظار متوقف شد. ممکن است دستور هنوز روی سرور در حال اجرا باشد.",
+      "executing": "در حال اجرا… {seconds}ث",
+      "sessionNotice": "هر اجرا یک نشست تازه باز می‌کند. BEGIN و COMMIT را در یک اجرا بفرستید وگرنه تراکنش بازگردانده می‌شود.",
+      "emptyTitle": "هنوز نتیجه‌ای نیست",
+      "emptyHint": "اجرا را بزنید یا ⌘↩",
+      "filePath": "فایل پایگاه داده",
+      "filePathHint": "یک مسیر کامل بچسبانید. گیومه‌ها و نشانی‌های file:// به‌طور خودکار پاک می‌شوند.",
+      "readOnlyHintSqlite": "فایل را فقط‌خواندنی باز می‌کند، پس سیستم نوشتن را رد می‌کند، نه رابط کاربری."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "فیلتر نتایج…",
       "editHint": "برای ویرایش روی سلول دوبار کلیک کنید",
       "toastRowUpdated": "ردیف به‌روزرسانی شد",
-      "toastRowsUpdated": "{count, plural, one {# ردیف به‌روزرسانی شد} other {# ردیف به‌روزرسانی شدند}}",
       "rowCount": "{count} ردیف",
       "rowCountFiltered": "{filtered} / {total} ردیف",
       "exportCsv": "CSV",
-      "noRows": "هیچ ردیفی بازگردانده نشد"
+      "noRows": "هیچ ردیفی بازگردانده نشد",
+      "truncated": "نمایش {shown} از {total} ردیف — برای محدود کردن نتیجه یک عبارت LIMIT اضافه کنید.",
+      "setNull": "تنظیم NULL",
+      "toastRowNotFound": "هیچ ردیفی تغییر نکرد — ممکن است حذف شده باشد یا از قبل همان مقدار را داشته باشد.",
+      "toastRowsMatched": "{count} ردیف مطابقت داشت — چیزی تغییر نکرد، زیرا فیلتر یکتا نیست."
     }
   },
   "QrCodeGenerator": {

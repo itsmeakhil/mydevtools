@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Ini bukan URL yang valid.",
       "esUsernameRequired": "Masukkan nama pengguna.",
       "esApiKeyRequired": "Masukkan kunci API.",
-      "esBearerRequired": "Masukkan token bearer."
+      "esBearerRequired": "Masukkan token bearer.",
+      "sqlHostRequired": "Host wajib diisi",
+      "sqlDatabaseRequired": "Basis data wajib diisi",
+      "sqlPortRange": "Port harus antara 1 dan 65535",
+      "sqlSocketUnsupported": "Koneksi soket Unix tidak didukung — gunakan host dan port.",
+      "sqlitePathRequired": "Berkas basis data wajib diisi",
+      "sqlitePathAbsolute": "Jalur harus absolut"
     },
     "firestore": {
       "serviceAccount": "Kunci akun layanan (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Gagal menyimpan: {message}",
         "deleteFailed": "Gagal menghapus: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Tidak dapat memuat skema untuk {name}",
+        "querySaved": "Kueri disimpan"
+      },
+      "host": "Host",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Tempel URL koneksi lengkap untuk mengisi semua kolom.",
+      "port": "Port",
+      "database": "Basis data",
+      "databaseHint": "Satu koneksi mencakup satu basis data.",
+      "username": "Nama pengguna",
+      "password": "Kata sandi",
+      "ssl": "Gunakan SSL/TLS",
+      "sslVerify": "Verifikasi sertifikat",
+      "sslVerifyHint": "Tolak sertifikat yang tidak dapat dibuktikan server.",
+      "sslVerifyOffWarning": "Sertifikat apa pun diterima — koneksi terenkripsi tetapi tidak terautentikasi.",
+      "readOnlyHint": "Memblokir penulisan di server, bukan hanya di antarmuka.",
+      "toggleColumns": "Tampilkan kolom {name}",
+      "loadingColumns": "Memuat kolom…",
+      "noColumns": "Tidak ada kolom",
+      "refreshSchema": "Muat ulang skema",
+      "newConsole": "Tab kueri baru",
+      "connecting": "Menghubungkan…",
+      "connectionFailed": "Koneksi gagal",
+      "noTables": "Tidak ada tabel",
+      "noMatches": "Tidak ada kecocokan",
+      "consoleTitle": "Kueri {n}",
+      "readOnly": "Hanya-baca",
+      "rowLimit": "{count} baris",
+      "history": "Riwayat",
+      "historyEmpty": "Belum ada yang disimpan",
+      "savedSection": "Tersimpan",
+      "recentSection": "Terbaru",
+      "deleteSaved": "Hapus kueri tersimpan",
+      "saveQuery": "Simpan",
+      "savePlaceholder": "Nama kueri",
+      "run": "Jalankan",
+      "abandon": "Hentikan ({seconds}d)",
+      "abandoned": "Berhenti menunggu. Pernyataan mungkin masih berjalan di server.",
+      "executing": "Berjalan… {seconds}d",
+      "sessionNotice": "Setiap eksekusi membuka sesi baru. Kirim BEGIN dan COMMIT dalam satu eksekusi, atau transaksi akan dibatalkan.",
+      "emptyTitle": "Belum ada hasil",
+      "emptyHint": "Tekan Jalankan atau ⌘↩",
+      "filePath": "Berkas basis data",
+      "filePathHint": "Tempel jalur lengkap. Tanda kutip dan URL file:// dibersihkan otomatis.",
+      "readOnlyHintSqlite": "Membuka berkas hanya-baca, sehingga sistem yang menolak penulisan, bukan antarmuka."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Filter hasil…",
       "editHint": "Klik dua kali sel untuk mengedit",
       "toastRowUpdated": "Baris diperbarui",
-      "toastRowsUpdated": "{count, plural, other {# baris diperbarui}}",
       "rowCount": "{count} baris",
       "rowCountFiltered": "{filtered} / {total} baris",
       "exportCsv": "CSV",
-      "noRows": "Tidak ada baris yang dikembalikan"
+      "noRows": "Tidak ada baris yang dikembalikan",
+      "truncated": "Menampilkan {shown} dari {total} baris — tambahkan klausa LIMIT untuk mempersempit hasil.",
+      "setNull": "Setel NULL",
+      "toastRowNotFound": "Tidak ada baris yang berubah — mungkin sudah dihapus, atau nilainya memang sudah sama.",
+      "toastRowsMatched": "{count} baris cocok — tidak ada yang diubah, karena filter tidak unik."
     }
   },
   "QrCodeGenerator": {

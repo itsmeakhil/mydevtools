@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "これは有効なURLではありません。",
       "esUsernameRequired": "ユーザー名を入力してください。",
       "esApiKeyRequired": "APIキーを入力してください。",
-      "esBearerRequired": "ベアラートークンを入力してください。"
+      "esBearerRequired": "ベアラートークンを入力してください。",
+      "sqlHostRequired": "ホストは必須です",
+      "sqlDatabaseRequired": "データベースは必須です",
+      "sqlPortRange": "ポートは 1 から 65535 の間で指定してください",
+      "sqlSocketUnsupported": "Unix ソケット接続には対応していません — ホストとポートを使用してください。",
+      "sqlitePathRequired": "データベースファイルは必須です",
+      "sqlitePathAbsolute": "パスは絶対パスである必要があります"
     },
     "firestore": {
       "serviceAccount": "サービスアカウントキー（JSON）",
@@ -2115,6 +2121,54 @@
         "saveFailed": "保存に失敗しました: {message}",
         "deleteFailed": "削除に失敗しました: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "{name} のスキーマを読み込めませんでした",
+        "querySaved": "クエリを保存しました"
+      },
+      "host": "ホスト",
+      "hostPlaceholder": "localhost",
+      "hostHint": "接続 URL を貼り付けると全項目が入力されます。",
+      "port": "ポート",
+      "database": "データベース",
+      "databaseHint": "1 つの接続は 1 つのデータベースを対象とします。",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "ssl": "SSL/TLS を使用",
+      "sslVerify": "証明書を検証",
+      "sslVerifyHint": "サーバーが証明できない証明書を拒否します。",
+      "sslVerifyOffWarning": "任意の証明書を受け入れます — 通信は暗号化されますが認証はされません。",
+      "readOnlyHint": "インターフェースだけでなくサーバー側で書き込みを禁止します。",
+      "toggleColumns": "{name} の列を表示",
+      "loadingColumns": "列を読み込み中…",
+      "noColumns": "列がありません",
+      "refreshSchema": "スキーマを再読み込み",
+      "newConsole": "新しいクエリタブ",
+      "connecting": "接続中…",
+      "connectionFailed": "接続に失敗しました",
+      "noTables": "テーブルがありません",
+      "noMatches": "一致するものがありません",
+      "consoleTitle": "クエリ {n}",
+      "readOnly": "読み取り専用",
+      "rowLimit": "{count} 行",
+      "history": "履歴",
+      "historyEmpty": "保存されたものはまだありません",
+      "savedSection": "保存済み",
+      "recentSection": "最近",
+      "deleteSaved": "保存したクエリを削除",
+      "saveQuery": "保存",
+      "savePlaceholder": "クエリ名",
+      "run": "実行",
+      "abandon": "停止 ({seconds}秒)",
+      "abandoned": "待機を中止しました。文はサーバー上でまだ実行中の可能性があります。",
+      "executing": "実行中… {seconds}秒",
+      "sessionNotice": "実行ごとに新しいセッションが開きます。BEGIN と COMMIT は同じ実行で送信してください。さもないとトランザクションはロールバックされます。",
+      "emptyTitle": "まだ結果はありません",
+      "emptyHint": "実行を押すか ⌘↩",
+      "filePath": "データベースファイル",
+      "filePathHint": "フルパスを貼り付けてください。引用符と file:// URL は自動で取り除かれます。",
+      "readOnlyHintSqlite": "ファイルを読み取り専用で開くため、書き込みを拒否するのは画面ではなくシステムです。"
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "結果をフィルタ…",
       "editHint": "セルをダブルクリックで編集",
       "toastRowUpdated": "行を更新しました",
-      "toastRowsUpdated": "{count, plural, other {#行を更新しました}}",
       "rowCount": "{count} 行",
       "rowCountFiltered": "{filtered} / {total} 行",
       "exportCsv": "CSV",
-      "noRows": "行が返されませんでした"
+      "noRows": "行が返されませんでした",
+      "truncated": "{total} 行のうち {shown} 行を表示中 — LIMIT 句を追加して絞り込んでください。",
+      "setNull": "NULL にする",
+      "toastRowNotFound": "行は変更されませんでした — 削除されたか、すでに同じ値だった可能性があります。",
+      "toastRowsMatched": "{count} 行が一致しました — フィルタが一意でないため、何も変更していません。"
     }
   },
   "QrCodeGenerator": {

@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Això no és una URL vàlida.",
       "esUsernameRequired": "Introdueix un nom d'usuari.",
       "esApiKeyRequired": "Introdueix una clau API.",
-      "esBearerRequired": "Introdueix un token de portador."
+      "esBearerRequired": "Introdueix un token de portador.",
+      "sqlHostRequired": "Cal indicar l'amfitrió",
+      "sqlDatabaseRequired": "Cal indicar la base de dades",
+      "sqlPortRange": "El port ha de ser entre 1 i 65535",
+      "sqlSocketUnsupported": "Les connexions per sòcol Unix no s'admeten — utilitzeu amfitrió i port.",
+      "sqlitePathRequired": "Cal un fitxer de base de dades",
+      "sqlitePathAbsolute": "La ruta ha de ser absoluta"
     },
     "firestore": {
       "serviceAccount": "Clau de compte de servei (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Error en desar: {message}",
         "deleteFailed": "Error en eliminar: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "No s'ha pogut carregar l'esquema de {name}",
+        "querySaved": "Consulta desada"
+      },
+      "host": "Amfitrió",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Enganxeu un URL de connexió complet per omplir tots els camps.",
+      "port": "Port",
+      "database": "Base de dades",
+      "databaseHint": "Cada connexió cobreix una base de dades.",
+      "username": "Usuari",
+      "password": "Contrasenya",
+      "ssl": "Utilitza SSL/TLS",
+      "sslVerify": "Verifica el certificat",
+      "sslVerifyHint": "Rebutja un certificat que el servidor no pugui demostrar.",
+      "sslVerifyOffWarning": "S'accepta qualsevol certificat — la connexió està xifrada però no autenticada.",
+      "readOnlyHint": "Bloqueja les escriptures al servidor, no només a la interfície.",
+      "toggleColumns": "Mostra les columnes de {name}",
+      "loadingColumns": "Carregant columnes…",
+      "noColumns": "Cap columna",
+      "refreshSchema": "Actualitza l'esquema",
+      "newConsole": "Nova pestanya de consulta",
+      "connecting": "Connectant…",
+      "connectionFailed": "Ha fallat la connexió",
+      "noTables": "Cap taula",
+      "noMatches": "Cap coincidència",
+      "consoleTitle": "Consulta {n}",
+      "readOnly": "Només lectura",
+      "rowLimit": "{count} files",
+      "history": "Historial",
+      "historyEmpty": "Encara no hi ha res desat",
+      "savedSection": "Desades",
+      "recentSection": "Recents",
+      "deleteSaved": "Elimina la consulta desada",
+      "saveQuery": "Desa",
+      "savePlaceholder": "Nom de la consulta",
+      "run": "Executa",
+      "abandon": "Atura ({seconds}s)",
+      "abandoned": "S'ha deixat d'esperar. La sentència pot continuar executant-se al servidor.",
+      "executing": "Executant… {seconds}s",
+      "sessionNotice": "Cada execució obre una sessió nova. Envieu BEGIN i COMMIT en la mateixa execució o la transacció es desfarà.",
+      "emptyTitle": "Encara no hi ha resultats",
+      "emptyHint": "Premeu Executa o ⌘↩",
+      "filePath": "Fitxer de base de dades",
+      "filePathHint": "Enganxeu una ruta completa. Les cometes i els URL file:// es netegen automàticament.",
+      "readOnlyHintSqlite": "Obre el fitxer en només lectura, de manera que és el sistema qui rebutja l'escriptura, no la interfície."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Filtra els resultats…",
       "editHint": "Fes doble clic en una cel·la per editar",
       "toastRowUpdated": "Fila actualitzada",
-      "toastRowsUpdated": "{count, plural, one {# fila actualitzada} other {# files actualitzades}}",
       "rowCount": "{count} {count, plural, one {fila} other {files}}",
       "rowCountFiltered": "{filtered} / {total} files",
       "exportCsv": "CSV",
-      "noRows": "No s'han retornat files"
+      "noRows": "No s'han retornat files",
+      "truncated": "Es mostren {shown} de {total} files — afegiu una clàusula LIMIT per acotar el resultat.",
+      "setNull": "Estableix NULL",
+      "toastRowNotFound": "No s'ha canviat cap fila — pot haver estat eliminada o ja tenia aquest valor.",
+      "toastRowsMatched": "{count} files coincideixen — no s'ha canviat res, perquè el filtre no és únic."
     }
   },
   "QrCodeGenerator": {

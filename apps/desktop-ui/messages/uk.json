@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Це недійсний URL.",
       "esUsernameRequired": "Введіть ім'я користувача.",
       "esApiKeyRequired": "Введіть ключ API.",
-      "esBearerRequired": "Введіть bearer-токен."
+      "esBearerRequired": "Введіть bearer-токен.",
+      "sqlHostRequired": "Вкажіть хост",
+      "sqlDatabaseRequired": "Вкажіть базу даних",
+      "sqlPortRange": "Порт має бути від 1 до 65535",
+      "sqlSocketUnsupported": "Підключення через Unix-сокет не підтримуються — вкажіть хост і порт.",
+      "sqlitePathRequired": "Вкажіть файл бази даних",
+      "sqlitePathAbsolute": "Шлях має бути абсолютним"
     },
     "firestore": {
       "serviceAccount": "Ключ сервісного облікового запису (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Не вдалося зберегти: {message}",
         "deleteFailed": "Не вдалося видалити: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Не вдалося завантажити схему для {name}",
+        "querySaved": "Запит збережено"
+      },
+      "host": "Хост",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Вставте повну URL-адресу підключення, щоб заповнити всі поля.",
+      "port": "Порт",
+      "database": "База даних",
+      "databaseHint": "Одне підключення охоплює одну базу даних.",
+      "username": "Ім'я користувача",
+      "password": "Пароль",
+      "ssl": "Використовувати SSL/TLS",
+      "sslVerify": "Перевіряти сертифікат",
+      "sslVerifyHint": "Відхиляти сертифікат, який сервер не може підтвердити.",
+      "sslVerifyOffWarning": "Приймається будь-який сертифікат — з'єднання зашифроване, але не автентифіковане.",
+      "readOnlyHint": "Блокує запис на сервері, а не лише в інтерфейсі.",
+      "toggleColumns": "Показати стовпці таблиці {name}",
+      "loadingColumns": "Завантаження стовпців…",
+      "noColumns": "Немає стовпців",
+      "refreshSchema": "Оновити схему",
+      "newConsole": "Нова вкладка запиту",
+      "connecting": "Підключення…",
+      "connectionFailed": "Не вдалося підключитися",
+      "noTables": "Немає таблиць",
+      "noMatches": "Немає збігів",
+      "consoleTitle": "Запит {n}",
+      "readOnly": "Лише для читання",
+      "rowLimit": "{count} рядків",
+      "history": "Історія",
+      "historyEmpty": "Поки нічого не збережено",
+      "savedSection": "Збережені",
+      "recentSection": "Останні",
+      "deleteSaved": "Видалити збережений запит",
+      "saveQuery": "Зберегти",
+      "savePlaceholder": "Назва запиту",
+      "run": "Виконати",
+      "abandon": "Зупинити ({seconds} с)",
+      "abandoned": "Очікування припинено. Оператор може досі виконуватися на сервері.",
+      "executing": "Виконується… {seconds} с",
+      "sessionNotice": "Кожен запуск відкриває новий сеанс. Надсилайте BEGIN і COMMIT в одному запуску, інакше транзакцію буде скасовано.",
+      "emptyTitle": "Результатів ще немає",
+      "emptyHint": "Натисніть «Виконати» або ⌘↩",
+      "filePath": "Файл бази даних",
+      "filePathHint": "Вставте повний шлях. Лапки та адреси file:// прибираються автоматично.",
+      "readOnlyHintSqlite": "Відкриває файл лише для читання, тому запис відхиляє система, а не інтерфейс."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Фільтр результатів…",
       "editHint": "Двічі клацніть клітинку для редагування",
       "toastRowUpdated": "Рядок оновлено",
-      "toastRowsUpdated": "{count, plural, one {Оновлено # рядок} few {Оновлено # рядки} many {Оновлено # рядків} other {Оновлено # рядка}}",
       "rowCount": "{count} {count, plural, one {рядок} few {рядки} many {рядків} other {рядків}}",
       "rowCountFiltered": "{filtered} / {total} рядків",
       "exportCsv": "CSV",
-      "noRows": "Рядки не повернуто"
+      "noRows": "Рядки не повернуто",
+      "truncated": "Показано {shown} з {total} рядків — додайте речення LIMIT, щоб звузити результат.",
+      "setNull": "Задати NULL",
+      "toastRowNotFound": "Жоден рядок не змінено — можливо, його видалено або він уже містив це значення.",
+      "toastRowsMatched": "Збіглося рядків: {count} — нічого не змінено, бо фільтр не унікальний."
     }
   },
   "QrCodeGenerator": {

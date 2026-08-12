@@ -16,6 +16,7 @@ import {
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { SavedSqlConnection, SchemaInfo, TableInfo } from "./types";
+import { sqlBody } from "@/lib/sql-request";
 import { DbIcon, dbTypeLabel } from "./db-icon";
 import { touchConnection } from "./connection-service";
 import { toast } from "sonner";
@@ -72,7 +73,7 @@ export function SchemaSidebar({
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(conn.config),
+                body: JSON.stringify(sqlBody(conn.config)),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);

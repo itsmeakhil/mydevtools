@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Questo non è un URL valido.",
       "esUsernameRequired": "Inserisci un nome utente.",
       "esApiKeyRequired": "Inserisci una chiave API.",
-      "esBearerRequired": "Inserisci un token bearer."
+      "esBearerRequired": "Inserisci un token bearer.",
+      "sqlHostRequired": "L'host è obbligatorio",
+      "sqlDatabaseRequired": "Il database è obbligatorio",
+      "sqlPortRange": "La porta deve essere compresa tra 1 e 65535",
+      "sqlSocketUnsupported": "Le connessioni tramite socket Unix non sono supportate — usa host e porta.",
+      "sqlitePathRequired": "È richiesto un file del database",
+      "sqlitePathAbsolute": "Il percorso deve essere assoluto"
     },
     "firestore": {
       "serviceAccount": "Chiave dell'account di servizio (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Salvataggio non riuscito: {message}",
         "deleteFailed": "Eliminazione non riuscita: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Impossibile caricare lo schema di {name}",
+        "querySaved": "Query salvata"
+      },
+      "host": "Host",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Incolla un URL di connessione completo per compilare tutti i campi.",
+      "port": "Porta",
+      "database": "Database",
+      "databaseHint": "Una connessione copre un database.",
+      "username": "Nome utente",
+      "password": "Password",
+      "ssl": "Usa SSL/TLS",
+      "sslVerify": "Verifica certificato",
+      "sslVerifyHint": "Rifiuta un certificato che il server non è in grado di dimostrare.",
+      "sslVerifyOffWarning": "Viene accettato qualsiasi certificato — la connessione è cifrata ma non autenticata.",
+      "readOnlyHint": "Blocca le scritture sul server, non solo nell'interfaccia.",
+      "toggleColumns": "Mostra le colonne di {name}",
+      "loadingColumns": "Caricamento colonne…",
+      "noColumns": "Nessuna colonna",
+      "refreshSchema": "Aggiorna schema",
+      "newConsole": "Nuova scheda query",
+      "connecting": "Connessione…",
+      "connectionFailed": "Connessione non riuscita",
+      "noTables": "Nessuna tabella",
+      "noMatches": "Nessun risultato",
+      "consoleTitle": "Query {n}",
+      "readOnly": "Sola lettura",
+      "rowLimit": "{count} righe",
+      "history": "Cronologia",
+      "historyEmpty": "Non è ancora stato salvato nulla",
+      "savedSection": "Salvate",
+      "recentSection": "Recenti",
+      "deleteSaved": "Elimina query salvata",
+      "saveQuery": "Salva",
+      "savePlaceholder": "Nome della query",
+      "run": "Esegui",
+      "abandon": "Interrompi ({seconds}s)",
+      "abandoned": "Attesa interrotta. L'istruzione potrebbe essere ancora in esecuzione sul server.",
+      "executing": "In esecuzione… {seconds}s",
+      "sessionNotice": "Ogni esecuzione apre una nuova sessione. Invia BEGIN e COMMIT nella stessa esecuzione, altrimenti la transazione viene annullata.",
+      "emptyTitle": "Ancora nessun risultato",
+      "emptyHint": "Premi Esegui o ⌘↩",
+      "filePath": "File del database",
+      "filePathHint": "Incolla un percorso completo. Virgolette e URL file:// vengono ripuliti automaticamente.",
+      "readOnlyHintSqlite": "Apre il file in sola lettura, così la scrittura la rifiuta il sistema, non l'interfaccia."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Filtra risultati…",
       "editHint": "Fai doppio clic su una cella per modificare",
       "toastRowUpdated": "Riga aggiornata",
-      "toastRowsUpdated": "{count, plural, one {# riga aggiornata} other {# righe aggiornate}}",
       "rowCount": "{count} {count, plural, one {riga} other {righe}}",
       "rowCountFiltered": "{filtered} / {total} righe",
       "exportCsv": "CSV",
-      "noRows": "Nessuna riga restituita"
+      "noRows": "Nessuna riga restituita",
+      "truncated": "Mostrate {shown} di {total} righe — aggiungi una clausola LIMIT per restringere il risultato.",
+      "setNull": "Imposta NULL",
+      "toastRowNotFound": "Nessuna riga è stata modificata — potrebbe essere stata eliminata o avere già quel valore.",
+      "toastRowsMatched": "{count} righe corrispondono — non è stato modificato nulla, perché il filtro non è univoco."
     }
   },
   "QrCodeGenerator": {

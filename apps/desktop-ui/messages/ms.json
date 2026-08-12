@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Ini bukan URL yang sah.",
       "esUsernameRequired": "Masukkan nama pengguna.",
       "esApiKeyRequired": "Masukkan kunci API.",
-      "esBearerRequired": "Masukkan token bearer."
+      "esBearerRequired": "Masukkan token bearer.",
+      "sqlHostRequired": "Hos diperlukan",
+      "sqlDatabaseRequired": "Pangkalan data diperlukan",
+      "sqlPortRange": "Port mesti antara 1 dan 65535",
+      "sqlSocketUnsupported": "Sambungan soket Unix tidak disokong — gunakan hos dan port.",
+      "sqlitePathRequired": "Fail pangkalan data diperlukan",
+      "sqlitePathAbsolute": "Laluan mestilah mutlak"
     },
     "firestore": {
       "serviceAccount": "Kunci akaun perkhidmatan (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Gagal simpan: {message}",
         "deleteFailed": "Gagal padam: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Tidak dapat memuatkan skema untuk {name}",
+        "querySaved": "Pertanyaan disimpan"
+      },
+      "host": "Hos",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Tampal URL sambungan penuh untuk mengisi semua medan.",
+      "port": "Port",
+      "database": "Pangkalan data",
+      "databaseHint": "Satu sambungan meliputi satu pangkalan data.",
+      "username": "Nama pengguna",
+      "password": "Kata laluan",
+      "ssl": "Guna SSL/TLS",
+      "sslVerify": "Sahkan sijil",
+      "sslVerifyHint": "Tolak sijil yang tidak dapat dibuktikan oleh pelayan.",
+      "sslVerifyOffWarning": "Sebarang sijil diterima — sambungan disulitkan tetapi tidak disahkan.",
+      "readOnlyHint": "Menyekat tulisan pada pelayan, bukan hanya dalam antara muka.",
+      "toggleColumns": "Tunjukkan lajur {name}",
+      "loadingColumns": "Memuatkan lajur…",
+      "noColumns": "Tiada lajur",
+      "refreshSchema": "Muat semula skema",
+      "newConsole": "Tab pertanyaan baharu",
+      "connecting": "Menyambung…",
+      "connectionFailed": "Sambungan gagal",
+      "noTables": "Tiada jadual",
+      "noMatches": "Tiada padanan",
+      "consoleTitle": "Pertanyaan {n}",
+      "readOnly": "Baca sahaja",
+      "rowLimit": "{count} baris",
+      "history": "Sejarah",
+      "historyEmpty": "Belum ada apa-apa disimpan",
+      "savedSection": "Disimpan",
+      "recentSection": "Terkini",
+      "deleteSaved": "Padam pertanyaan disimpan",
+      "saveQuery": "Simpan",
+      "savePlaceholder": "Nama pertanyaan",
+      "run": "Jalankan",
+      "abandon": "Henti ({seconds}s)",
+      "abandoned": "Berhenti menunggu. Pernyataan mungkin masih berjalan pada pelayan.",
+      "executing": "Berjalan… {seconds}s",
+      "sessionNotice": "Setiap larian membuka sesi baharu. Hantar BEGIN dan COMMIT dalam larian yang sama, jika tidak transaksi akan digulung semula.",
+      "emptyTitle": "Belum ada keputusan",
+      "emptyHint": "Tekan Jalankan atau ⌘↩",
+      "filePath": "Fail pangkalan data",
+      "filePathHint": "Tampal laluan penuh. Tanda petik dan URL file:// dibersihkan secara automatik.",
+      "readOnlyHintSqlite": "Membuka fail baca-sahaja, jadi sistem yang menolak tulisan, bukan antara muka."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Tapis keputusan…",
       "editHint": "Klik dua kali sel untuk mengedit",
       "toastRowUpdated": "Baris dikemas kini",
-      "toastRowsUpdated": "{count, plural, other {# baris dikemas kini}}",
       "rowCount": "{count} baris",
       "rowCountFiltered": "{filtered} / {total} baris",
       "exportCsv": "CSV",
-      "noRows": "Tiada baris dikembalikan"
+      "noRows": "Tiada baris dikembalikan",
+      "truncated": "Memaparkan {shown} daripada {total} baris — tambah klausa LIMIT untuk memperincikan hasil.",
+      "setNull": "Tetapkan NULL",
+      "toastRowNotFound": "Tiada baris berubah — mungkin telah dipadam, atau nilainya memang sama.",
+      "toastRowsMatched": "{count} baris sepadan — tiada apa-apa diubah, kerana penapis tidak unik."
     }
   },
   "QrCodeGenerator": {

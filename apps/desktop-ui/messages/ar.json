@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "هذا ليس عنوان URL صالحًا.",
       "esUsernameRequired": "أدخل اسم المستخدم.",
       "esApiKeyRequired": "أدخل مفتاح API.",
-      "esBearerRequired": "أدخل رمز Bearer."
+      "esBearerRequired": "أدخل رمز Bearer.",
+      "sqlHostRequired": "المضيف مطلوب",
+      "sqlDatabaseRequired": "قاعدة البيانات مطلوبة",
+      "sqlPortRange": "يجب أن يكون المنفذ بين 1 و65535",
+      "sqlSocketUnsupported": "اتصالات مقبس Unix غير مدعومة — استخدم مضيفًا ومنفذًا.",
+      "sqlitePathRequired": "ملف قاعدة البيانات مطلوب",
+      "sqlitePathAbsolute": "يجب أن يكون المسار مطلقًا"
     },
     "firestore": {
       "serviceAccount": "مفتاح حساب الخدمة (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "فشل الحفظ: {message}",
         "deleteFailed": "فشل الحذف: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "تعذر تحميل مخطط {name}",
+        "querySaved": "تم حفظ الاستعلام"
+      },
+      "host": "المضيف",
+      "hostPlaceholder": "localhost",
+      "hostHint": "الصق عنوان اتصال كاملاً لملء جميع الحقول.",
+      "port": "المنفذ",
+      "database": "قاعدة البيانات",
+      "databaseHint": "كل اتصال يغطي قاعدة بيانات واحدة.",
+      "username": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "ssl": "استخدام SSL/TLS",
+      "sslVerify": "التحقق من الشهادة",
+      "sslVerifyHint": "رفض أي شهادة لا يستطيع الخادم إثباتها.",
+      "sslVerifyOffWarning": "يتم قبول أي شهادة — الاتصال مشفَّر لكنه غير موثَّق.",
+      "readOnlyHint": "يمنع الكتابة على الخادم، وليس في الواجهة فقط.",
+      "toggleColumns": "عرض أعمدة {name}",
+      "loadingColumns": "جارٍ تحميل الأعمدة…",
+      "noColumns": "لا توجد أعمدة",
+      "refreshSchema": "تحديث المخطط",
+      "newConsole": "علامة تبويب استعلام جديدة",
+      "connecting": "جارٍ الاتصال…",
+      "connectionFailed": "فشل الاتصال",
+      "noTables": "لا توجد جداول",
+      "noMatches": "لا توجد نتائج",
+      "consoleTitle": "استعلام {n}",
+      "readOnly": "للقراءة فقط",
+      "rowLimit": "{count} صف",
+      "history": "السجل",
+      "historyEmpty": "لم يتم حفظ أي شيء بعد",
+      "savedSection": "المحفوظة",
+      "recentSection": "الأخيرة",
+      "deleteSaved": "حذف الاستعلام المحفوظ",
+      "saveQuery": "حفظ",
+      "savePlaceholder": "اسم الاستعلام",
+      "run": "تشغيل",
+      "abandon": "إيقاف ({seconds}ث)",
+      "abandoned": "تم إيقاف الانتظار. قد تكون العبارة لا تزال قيد التنفيذ على الخادم.",
+      "executing": "قيد التنفيذ… {seconds}ث",
+      "sessionNotice": "كل تشغيل يفتح جلسة جديدة. أرسل BEGIN وCOMMIT في التشغيل نفسه، وإلا فسيتم التراجع عن المعاملة.",
+      "emptyTitle": "لا توجد نتائج بعد",
+      "emptyHint": "اضغط تشغيل أو ⌘↩",
+      "filePath": "ملف قاعدة البيانات",
+      "filePathHint": "الصق مسارًا كاملاً. تتم إزالة علامات الاقتباس وعناوين file:// تلقائيًا.",
+      "readOnlyHintSqlite": "يفتح الملف للقراءة فقط، فيرفض النظام الكتابة وليس الواجهة."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "تصفية النتائج…",
       "editHint": "انقر نقرًا مزدوجًا على خلية للتحرير",
       "toastRowUpdated": "تم تحديث الصف",
-      "toastRowsUpdated": "{count, plural, zero {لم يتم تحديث أي صف} one {تم تحديث صف واحد} two {تم تحديث صفين} few {تم تحديث # صفوف} many {تم تحديث # صفًا} other {تم تحديث # صف}}",
       "rowCount": "{count} صف",
       "rowCountFiltered": "{filtered} / {total} صف",
       "exportCsv": "CSV",
-      "noRows": "لم يتم إرجاع أي صفوف"
+      "noRows": "لم يتم إرجاع أي صفوف",
+      "truncated": "عرض {shown} من {total} صف — أضف عبارة LIMIT لتضييق النتيجة.",
+      "setNull": "تعيين NULL",
+      "toastRowNotFound": "لم يتغيّر أي صف — ربما تم حذفه أو أنه يحمل تلك القيمة بالفعل.",
+      "toastRowsMatched": "طابق {count} صفوف — لم يتغيّر شيء لأن عامل التصفية غير فريد."
     }
   },
   "QrCodeGenerator": {

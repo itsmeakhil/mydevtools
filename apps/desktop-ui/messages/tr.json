@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Bu geçerli bir URL değil.",
       "esUsernameRequired": "Bir kullanıcı adı girin.",
       "esApiKeyRequired": "Bir API anahtarı girin.",
-      "esBearerRequired": "Bir bearer belirteci girin."
+      "esBearerRequired": "Bir bearer belirteci girin.",
+      "sqlHostRequired": "Sunucu zorunludur",
+      "sqlDatabaseRequired": "Veritabanı zorunludur",
+      "sqlPortRange": "Bağlantı noktası 1 ile 65535 arasında olmalıdır",
+      "sqlSocketUnsupported": "Unix soket bağlantıları desteklenmiyor — sunucu ve bağlantı noktası kullanın.",
+      "sqlitePathRequired": "Veritabanı dosyası zorunludur",
+      "sqlitePathAbsolute": "Yol mutlak olmalıdır"
     },
     "firestore": {
       "serviceAccount": "Hizmet hesabı anahtarı (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Kaydetme başarısız oldu: {message}",
         "deleteFailed": "Silme başarısız oldu: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "{name} için şema yüklenemedi",
+        "querySaved": "Sorgu kaydedildi"
+      },
+      "host": "Sunucu",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Tüm alanları doldurmak için tam bağlantı adresini yapıştırın.",
+      "port": "Bağlantı noktası",
+      "database": "Veritabanı",
+      "databaseHint": "Her bağlantı tek bir veritabanını kapsar.",
+      "username": "Kullanıcı adı",
+      "password": "Parola",
+      "ssl": "SSL/TLS kullan",
+      "sslVerify": "Sertifikayı doğrula",
+      "sslVerifyHint": "Sunucunun kanıtlayamadığı sertifikaları reddet.",
+      "sslVerifyOffWarning": "Her sertifika kabul edilir — bağlantı şifrelidir ancak doğrulanmamıştır.",
+      "readOnlyHint": "Yalnızca arayüzde değil, sunucuda da yazmayı engeller.",
+      "toggleColumns": "{name} sütunlarını göster",
+      "loadingColumns": "Sütunlar yükleniyor…",
+      "noColumns": "Sütun yok",
+      "refreshSchema": "Şemayı yenile",
+      "newConsole": "Yeni sorgu sekmesi",
+      "connecting": "Bağlanıyor…",
+      "connectionFailed": "Bağlantı başarısız",
+      "noTables": "Tablo yok",
+      "noMatches": "Eşleşme yok",
+      "consoleTitle": "Sorgu {n}",
+      "readOnly": "Salt okunur",
+      "rowLimit": "{count} satır",
+      "history": "Geçmiş",
+      "historyEmpty": "Henüz kaydedilen bir şey yok",
+      "savedSection": "Kaydedilenler",
+      "recentSection": "Son kullanılanlar",
+      "deleteSaved": "Kayıtlı sorguyu sil",
+      "saveQuery": "Kaydet",
+      "savePlaceholder": "Sorgu adı",
+      "run": "Çalıştır",
+      "abandon": "Durdur ({seconds}sn)",
+      "abandoned": "Bekleme durduruldu. İfade sunucuda hâlâ çalışıyor olabilir.",
+      "executing": "Çalışıyor… {seconds}sn",
+      "sessionNotice": "Her çalıştırma yeni bir oturum açar. BEGIN ve COMMIT komutlarını aynı çalıştırmada gönderin, aksi hâlde işlem geri alınır.",
+      "emptyTitle": "Henüz sonuç yok",
+      "emptyHint": "Çalıştır'a basın veya ⌘↩",
+      "filePath": "Veritabanı dosyası",
+      "filePathHint": "Tam yolu yapıştırın. Tırnak işaretleri ve file:// adresleri otomatik temizlenir.",
+      "readOnlyHintSqlite": "Dosyayı salt okunur açar; yazmayı arayüz değil, sistem reddeder."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Sonuçları filtrele…",
       "editHint": "Düzenlemek için hücreye çift tıklayın",
       "toastRowUpdated": "Satır güncellendi",
-      "toastRowsUpdated": "{count, plural, one {# satır güncellendi} other {# satır güncellendi}}",
       "rowCount": "{count} satır",
       "rowCountFiltered": "{filtered} / {total} satır",
       "exportCsv": "CSV",
-      "noRows": "Satır döndürülmedi"
+      "noRows": "Satır döndürülmedi",
+      "truncated": "{total} satırdan {shown} tanesi gösteriliyor — sonucu daraltmak için LIMIT ifadesi ekleyin.",
+      "setNull": "NULL yap",
+      "toastRowNotFound": "Hiçbir satır değişmedi — silinmiş olabilir veya zaten aynı değere sahipti.",
+      "toastRowsMatched": "{count} satır eşleşti — filtre benzersiz olmadığı için hiçbir şey değiştirilmedi."
     }
   },
   "QrCodeGenerator": {

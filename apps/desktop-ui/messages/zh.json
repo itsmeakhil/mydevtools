@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "这不是有效的 URL。",
       "esUsernameRequired": "请输入用户名。",
       "esApiKeyRequired": "请输入 API 密钥。",
-      "esBearerRequired": "请输入 Bearer 令牌。"
+      "esBearerRequired": "请输入 Bearer 令牌。",
+      "sqlHostRequired": "必须填写主机",
+      "sqlDatabaseRequired": "必须填写数据库",
+      "sqlPortRange": "端口必须在 1 到 65535 之间",
+      "sqlSocketUnsupported": "不支持 Unix 套接字连接 — 请使用主机和端口。",
+      "sqlitePathRequired": "必须提供数据库文件",
+      "sqlitePathAbsolute": "路径必须是绝对路径"
     },
     "firestore": {
       "serviceAccount": "服务账号密钥（JSON）",
@@ -2115,6 +2121,54 @@
         "saveFailed": "保存失败：{message}",
         "deleteFailed": "删除失败：{message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "无法加载 {name} 的架构",
+        "querySaved": "查询已保存"
+      },
+      "host": "主机",
+      "hostPlaceholder": "localhost",
+      "hostHint": "粘贴完整的连接 URL 即可填充所有字段。",
+      "port": "端口",
+      "database": "数据库",
+      "databaseHint": "一个连接对应一个数据库。",
+      "username": "用户名",
+      "password": "密码",
+      "ssl": "使用 SSL/TLS",
+      "sslVerify": "验证证书",
+      "sslVerifyHint": "拒绝服务器无法证明的证书。",
+      "sslVerifyOffWarning": "接受任何证书 — 连接已加密，但未经过身份验证。",
+      "readOnlyHint": "在服务器端阻止写入，而不仅仅是在界面上。",
+      "toggleColumns": "显示 {name} 的列",
+      "loadingColumns": "正在加载列…",
+      "noColumns": "没有列",
+      "refreshSchema": "刷新架构",
+      "newConsole": "新建查询标签页",
+      "connecting": "正在连接…",
+      "connectionFailed": "连接失败",
+      "noTables": "没有表",
+      "noMatches": "没有匹配项",
+      "consoleTitle": "查询 {n}",
+      "readOnly": "只读",
+      "rowLimit": "{count} 行",
+      "history": "历史记录",
+      "historyEmpty": "尚未保存任何内容",
+      "savedSection": "已保存",
+      "recentSection": "最近",
+      "deleteSaved": "删除已保存的查询",
+      "saveQuery": "保存",
+      "savePlaceholder": "查询名称",
+      "run": "运行",
+      "abandon": "停止（{seconds} 秒）",
+      "abandoned": "已停止等待。该语句可能仍在服务器上运行。",
+      "executing": "正在运行… {seconds} 秒",
+      "sessionNotice": "每次运行都会新开一个会话。请在同一次运行中发送 BEGIN 和 COMMIT，否则事务会被回滚。",
+      "emptyTitle": "暂无结果",
+      "emptyHint": "按运行或 ⌘↩",
+      "filePath": "数据库文件",
+      "filePathHint": "粘贴完整路径。引号和 file:// 地址会自动清理。",
+      "readOnlyHintSqlite": "以只读方式打开文件，因此拒绝写入的是系统而非界面。"
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "筛选结果…",
       "editHint": "双击单元格进行编辑",
       "toastRowUpdated": "行已更新",
-      "toastRowsUpdated": "{count, plural, other {已更新 # 行}}",
       "rowCount": "{count} 行",
       "rowCountFiltered": "{filtered} / {total} 行",
       "exportCsv": "CSV",
-      "noRows": "未返回任何行"
+      "noRows": "未返回任何行",
+      "truncated": "显示 {total} 行中的 {shown} 行 — 添加 LIMIT 子句以缩小结果范围。",
+      "setNull": "设为 NULL",
+      "toastRowNotFound": "没有行被修改 — 它可能已被删除，或本来就是该值。",
+      "toastRowsMatched": "匹配到 {count} 行 — 由于筛选条件不唯一，未做任何修改。"
     }
   },
   "QrCodeGenerator": {

@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Dit is geen geldige URL.",
       "esUsernameRequired": "Voer een gebruikersnaam in.",
       "esApiKeyRequired": "Voer een API-sleutel in.",
-      "esBearerRequired": "Voer een bearertoken in."
+      "esBearerRequired": "Voer een bearertoken in.",
+      "sqlHostRequired": "Host is verplicht",
+      "sqlDatabaseRequired": "Database is verplicht",
+      "sqlPortRange": "De poort moet tussen 1 en 65535 liggen",
+      "sqlSocketUnsupported": "Verbindingen via een Unix-socket worden niet ondersteund — gebruik host en poort.",
+      "sqlitePathRequired": "Een databasebestand is verplicht",
+      "sqlitePathAbsolute": "Het pad moet absoluut zijn"
     },
     "firestore": {
       "serviceAccount": "Serviceaccountsleutel (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Opslaan mislukt: {message}",
         "deleteFailed": "Verwijderen mislukt: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Kon het schema voor {name} niet laden",
+        "querySaved": "Query opgeslagen"
+      },
+      "host": "Host",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Plak een volledige verbindings-URL om alle velden te vullen.",
+      "port": "Poort",
+      "database": "Database",
+      "databaseHint": "Eén verbinding dekt één database.",
+      "username": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "ssl": "SSL/TLS gebruiken",
+      "sslVerify": "Certificaat verifiëren",
+      "sslVerifyHint": "Weiger een certificaat dat de server niet kan aantonen.",
+      "sslVerifyOffWarning": "Elk certificaat wordt geaccepteerd — de verbinding is versleuteld maar niet geverifieerd.",
+      "readOnlyHint": "Blokkeert schrijfacties op de server, niet alleen in de interface.",
+      "toggleColumns": "Kolommen van {name} tonen",
+      "loadingColumns": "Kolommen laden…",
+      "noColumns": "Geen kolommen",
+      "refreshSchema": "Schema vernieuwen",
+      "newConsole": "Nieuw querytabblad",
+      "connecting": "Verbinden…",
+      "connectionFailed": "Verbinding mislukt",
+      "noTables": "Geen tabellen",
+      "noMatches": "Geen resultaten",
+      "consoleTitle": "Query {n}",
+      "readOnly": "Alleen-lezen",
+      "rowLimit": "{count} rijen",
+      "history": "Geschiedenis",
+      "historyEmpty": "Nog niets opgeslagen",
+      "savedSection": "Opgeslagen",
+      "recentSection": "Recent",
+      "deleteSaved": "Opgeslagen query verwijderen",
+      "saveQuery": "Opslaan",
+      "savePlaceholder": "Naam van de query",
+      "run": "Uitvoeren",
+      "abandon": "Stoppen ({seconds}s)",
+      "abandoned": "Gestopt met wachten. De instructie draait mogelijk nog op de server.",
+      "executing": "Bezig… {seconds}s",
+      "sessionNotice": "Elke uitvoering opent een nieuwe sessie. Stuur BEGIN en COMMIT in dezelfde uitvoering, anders wordt de transactie teruggedraaid.",
+      "emptyTitle": "Nog geen resultaten",
+      "emptyHint": "Druk op Uitvoeren of ⌘↩",
+      "filePath": "Databasebestand",
+      "filePathHint": "Plak een volledig pad. Aanhalingstekens en file://-URL's worden automatisch opgeschoond.",
+      "readOnlyHintSqlite": "Opent het bestand alleen-lezen, dus het systeem weigert de schrijfactie, niet de interface."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Resultaten filteren…",
       "editHint": "Dubbelklik op een cel om te bewerken",
       "toastRowUpdated": "Rij bijgewerkt",
-      "toastRowsUpdated": "{count, plural, one {# rij bijgewerkt} other {# rijen bijgewerkt}}",
       "rowCount": "{count} {count, plural, one {rij} other {rijen}}",
       "rowCountFiltered": "{filtered} / {total} rijen",
       "exportCsv": "CSV",
-      "noRows": "Geen rijen geretourneerd"
+      "noRows": "Geen rijen geretourneerd",
+      "truncated": "{shown} van {total} rijen weergegeven — voeg een LIMIT-clausule toe om het resultaat te beperken.",
+      "setNull": "NULL instellen",
+      "toastRowNotFound": "Er is geen rij gewijzigd — deze is mogelijk verwijderd of had die waarde al.",
+      "toastRowsMatched": "{count} rijen kwamen overeen — er is niets gewijzigd, omdat het filter niet uniek is."
     }
   },
   "QrCodeGenerator": {

@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Dette er ikke en gyldig URL.",
       "esUsernameRequired": "Indtast et brugernavn.",
       "esApiKeyRequired": "Indtast en API-nøgle.",
-      "esBearerRequired": "Indtast et bearer-token."
+      "esBearerRequired": "Indtast et bearer-token.",
+      "sqlHostRequired": "Vært er påkrævet",
+      "sqlDatabaseRequired": "Database er påkrævet",
+      "sqlPortRange": "Porten skal være mellem 1 og 65535",
+      "sqlSocketUnsupported": "Unix-socketforbindelser understøttes ikke — brug vært og port.",
+      "sqlitePathRequired": "Der kræves en databasefil",
+      "sqlitePathAbsolute": "Stien skal være absolut"
     },
     "firestore": {
       "serviceAccount": "Tjenestekontonøgle (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Kunne ikke gemme: {message}",
         "deleteFailed": "Kunne ikke slette: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Kunne ikke indlæse skemaet for {name}",
+        "querySaved": "Forespørgsel gemt"
+      },
+      "host": "Vært",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Indsæt en fuld forbindelses-URL for at udfylde alle felter.",
+      "port": "Port",
+      "database": "Database",
+      "databaseHint": "Én forbindelse dækker én database.",
+      "username": "Brugernavn",
+      "password": "Adgangskode",
+      "ssl": "Brug SSL/TLS",
+      "sslVerify": "Verificer certifikat",
+      "sslVerifyHint": "Afvis et certifikat, som serveren ikke kan bevise.",
+      "sslVerifyOffWarning": "Ethvert certifikat accepteres — forbindelsen er krypteret, men ikke godtgjort.",
+      "readOnlyHint": "Blokerer skrivninger på serveren, ikke kun i brugerfladen.",
+      "toggleColumns": "Vis kolonner i {name}",
+      "loadingColumns": "Indlæser kolonner…",
+      "noColumns": "Ingen kolonner",
+      "refreshSchema": "Opdater skema",
+      "newConsole": "Ny forespørgselsfane",
+      "connecting": "Forbinder…",
+      "connectionFailed": "Forbindelsen mislykkedes",
+      "noTables": "Ingen tabeller",
+      "noMatches": "Ingen resultater",
+      "consoleTitle": "Forespørgsel {n}",
+      "readOnly": "Skrivebeskyttet",
+      "rowLimit": "{count} rækker",
+      "history": "Historik",
+      "historyEmpty": "Intet gemt endnu",
+      "savedSection": "Gemte",
+      "recentSection": "Seneste",
+      "deleteSaved": "Slet gemt forespørgsel",
+      "saveQuery": "Gem",
+      "savePlaceholder": "Navn på forespørgsel",
+      "run": "Kør",
+      "abandon": "Stop ({seconds}s)",
+      "abandoned": "Ventetiden er afbrudt. Sætningen kører muligvis stadig på serveren.",
+      "executing": "Kører… {seconds}s",
+      "sessionNotice": "Hver kørsel åbner en ny session. Send BEGIN og COMMIT i samme kørsel, ellers rulles transaktionen tilbage.",
+      "emptyTitle": "Ingen resultater endnu",
+      "emptyHint": "Tryk Kør eller ⌘↩",
+      "filePath": "Databasefil",
+      "filePathHint": "Indsæt en fuld sti. Anførselstegn og file://-URL'er fjernes automatisk.",
+      "readOnlyHintSqlite": "Åbner filen skrivebeskyttet, så det er systemet der afviser skrivningen, ikke brugerfladen."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Filtrer resultater…",
       "editHint": "Dobbeltklik på en celle for at redigere",
       "toastRowUpdated": "Række opdateret",
-      "toastRowsUpdated": "{count, plural, one {# række opdateret} other {# rækker opdateret}}",
       "rowCount": "{count} {count, plural, one {række} other {rækker}}",
       "rowCountFiltered": "{filtered} / {total} rækker",
       "exportCsv": "CSV",
-      "noRows": "Ingen rækker returneret"
+      "noRows": "Ingen rækker returneret",
+      "truncated": "Viser {shown} af {total} rækker — tilføj en LIMIT-klausul for at indsnævre resultatet.",
+      "setNull": "Sæt NULL",
+      "toastRowNotFound": "Ingen række blev ændret — den kan være slettet, eller den havde allerede den værdi.",
+      "toastRowsMatched": "{count} rækker matchede — intet blev ændret, fordi filteret ikke er entydigt."
     }
   },
   "QrCodeGenerator": {

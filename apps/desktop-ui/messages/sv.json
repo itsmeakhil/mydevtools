@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Detta är inte en giltig URL.",
       "esUsernameRequired": "Ange ett användarnamn.",
       "esApiKeyRequired": "Ange en API-nyckel.",
-      "esBearerRequired": "Ange en bearer-token."
+      "esBearerRequired": "Ange en bearer-token.",
+      "sqlHostRequired": "Värd krävs",
+      "sqlDatabaseRequired": "Databas krävs",
+      "sqlPortRange": "Porten måste vara mellan 1 och 65535",
+      "sqlSocketUnsupported": "Anslutningar via Unix-socket stöds inte — använd värd och port.",
+      "sqlitePathRequired": "En databasfil krävs",
+      "sqlitePathAbsolute": "Sökvägen måste vara absolut"
     },
     "firestore": {
       "serviceAccount": "Tjänstekontonyckel (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Det gick inte att spara: {message}",
         "deleteFailed": "Det gick inte att ta bort: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Det gick inte att läsa in schemat för {name}",
+        "querySaved": "Frågan sparades"
+      },
+      "host": "Värd",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Klistra in en fullständig anslutnings-URL för att fylla i alla fält.",
+      "port": "Port",
+      "database": "Databas",
+      "databaseHint": "En anslutning omfattar en databas.",
+      "username": "Användarnamn",
+      "password": "Lösenord",
+      "ssl": "Använd SSL/TLS",
+      "sslVerify": "Verifiera certifikat",
+      "sslVerifyHint": "Avvisa ett certifikat som servern inte kan styrka.",
+      "sslVerifyOffWarning": "Vilket certifikat som helst godtas — anslutningen är krypterad men inte autentiserad.",
+      "readOnlyHint": "Blockerar skrivningar på servern, inte bara i gränssnittet.",
+      "toggleColumns": "Visa kolumner i {name}",
+      "loadingColumns": "Läser in kolumner…",
+      "noColumns": "Inga kolumner",
+      "refreshSchema": "Uppdatera schema",
+      "newConsole": "Ny frågeflik",
+      "connecting": "Ansluter…",
+      "connectionFailed": "Anslutningen misslyckades",
+      "noTables": "Inga tabeller",
+      "noMatches": "Inga träffar",
+      "consoleTitle": "Fråga {n}",
+      "readOnly": "Skrivskyddad",
+      "rowLimit": "{count} rader",
+      "history": "Historik",
+      "historyEmpty": "Inget sparat ännu",
+      "savedSection": "Sparade",
+      "recentSection": "Senaste",
+      "deleteSaved": "Ta bort sparad fråga",
+      "saveQuery": "Spara",
+      "savePlaceholder": "Namn på frågan",
+      "run": "Kör",
+      "abandon": "Stoppa ({seconds}s)",
+      "abandoned": "Slutade vänta. Satsen kan fortfarande köras på servern.",
+      "executing": "Kör… {seconds}s",
+      "sessionNotice": "Varje körning öppnar en ny session. Skicka BEGIN och COMMIT i samma körning, annars återställs transaktionen.",
+      "emptyTitle": "Inga resultat ännu",
+      "emptyHint": "Tryck på Kör eller ⌘↩",
+      "filePath": "Databasfil",
+      "filePathHint": "Klistra in en fullständig sökväg. Citattecken och file://-adresser rensas automatiskt.",
+      "readOnlyHintSqlite": "Öppnar filen skrivskyddad, så det är systemet som nekar skrivningen, inte gränssnittet."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Filtrera resultat…",
       "editHint": "Dubbelklicka på en cell för att redigera",
       "toastRowUpdated": "Rad uppdaterad",
-      "toastRowsUpdated": "{count, plural, one {# rad uppdaterad} other {# rader uppdaterade}}",
       "rowCount": "{count} {count, plural, one {rad} other {rader}}",
       "rowCountFiltered": "{filtered} / {total} rader",
       "exportCsv": "CSV",
-      "noRows": "Inga rader returnerades"
+      "noRows": "Inga rader returnerades",
+      "truncated": "Visar {shown} av {total} rader — lägg till en LIMIT-klausul för att begränsa resultatet.",
+      "setNull": "Ange NULL",
+      "toastRowNotFound": "Ingen rad ändrades — den kan ha tagits bort, eller hade redan det värdet.",
+      "toastRowsMatched": "{count} rader matchade — inget ändrades, eftersom filtret inte är unikt."
     }
   },
   "QrCodeGenerator": {

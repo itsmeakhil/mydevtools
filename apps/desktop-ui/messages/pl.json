@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "To nie jest prawidłowy URL.",
       "esUsernameRequired": "Wprowadź nazwę użytkownika.",
       "esApiKeyRequired": "Wprowadź klucz API.",
-      "esBearerRequired": "Wprowadź token Bearer."
+      "esBearerRequired": "Wprowadź token Bearer.",
+      "sqlHostRequired": "Host jest wymagany",
+      "sqlDatabaseRequired": "Baza danych jest wymagana",
+      "sqlPortRange": "Port musi mieścić się w zakresie od 1 do 65535",
+      "sqlSocketUnsupported": "Połączenia przez gniazdo Unix nie są obsługiwane — użyj hosta i portu.",
+      "sqlitePathRequired": "Plik bazy danych jest wymagany",
+      "sqlitePathAbsolute": "Ścieżka musi być bezwzględna"
     },
     "firestore": {
       "serviceAccount": "Klucz konta usługi (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Nie udało się zapisać: {message}",
         "deleteFailed": "Nie udało się usunąć: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Nie udało się wczytać schematu dla {name}",
+        "querySaved": "Zapytanie zapisane"
+      },
+      "host": "Host",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Wklej pełny adres połączenia, aby wypełnić wszystkie pola.",
+      "port": "Port",
+      "database": "Baza danych",
+      "databaseHint": "Jedno połączenie obejmuje jedną bazę danych.",
+      "username": "Nazwa użytkownika",
+      "password": "Hasło",
+      "ssl": "Użyj SSL/TLS",
+      "sslVerify": "Weryfikuj certyfikat",
+      "sslVerifyHint": "Odrzuć certyfikat, którego serwer nie potrafi potwierdzić.",
+      "sslVerifyOffWarning": "Akceptowany jest dowolny certyfikat — połączenie jest szyfrowane, ale nieuwierzytelnione.",
+      "readOnlyHint": "Blokuje zapisy na serwerze, nie tylko w interfejsie.",
+      "toggleColumns": "Pokaż kolumny tabeli {name}",
+      "loadingColumns": "Wczytywanie kolumn…",
+      "noColumns": "Brak kolumn",
+      "refreshSchema": "Odśwież schemat",
+      "newConsole": "Nowa karta zapytania",
+      "connecting": "Łączenie…",
+      "connectionFailed": "Połączenie nie powiodło się",
+      "noTables": "Brak tabel",
+      "noMatches": "Brak dopasowań",
+      "consoleTitle": "Zapytanie {n}",
+      "readOnly": "Tylko do odczytu",
+      "rowLimit": "{count} wierszy",
+      "history": "Historia",
+      "historyEmpty": "Nic jeszcze nie zapisano",
+      "savedSection": "Zapisane",
+      "recentSection": "Ostatnie",
+      "deleteSaved": "Usuń zapisane zapytanie",
+      "saveQuery": "Zapisz",
+      "savePlaceholder": "Nazwa zapytania",
+      "run": "Uruchom",
+      "abandon": "Zatrzymaj ({seconds}s)",
+      "abandoned": "Przerwano oczekiwanie. Instrukcja może nadal działać na serwerze.",
+      "executing": "Trwa… {seconds}s",
+      "sessionNotice": "Każde uruchomienie otwiera nową sesję. Wyślij BEGIN i COMMIT w jednym uruchomieniu, w przeciwnym razie transakcja zostanie wycofana.",
+      "emptyTitle": "Brak wyników",
+      "emptyHint": "Naciśnij Uruchom lub ⌘↩",
+      "filePath": "Plik bazy danych",
+      "filePathHint": "Wklej pełną ścieżkę. Cudzysłowy i adresy file:// są usuwane automatycznie.",
+      "readOnlyHintSqlite": "Otwiera plik tylko do odczytu, więc zapis odrzuca system, a nie interfejs."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Filtruj wyniki…",
       "editHint": "Kliknij dwukrotnie komórkę, aby edytować",
       "toastRowUpdated": "Wiersz zaktualizowany",
-      "toastRowsUpdated": "{count, plural, one {# wiersz zaktualizowany} few {# wiersze zaktualizowane} many {# wierszy zaktualizowanych} other {# wiersza zaktualizowanego}}",
       "rowCount": "{count} {count, plural, one {wiersz} few {wiersze} many {wierszy} other {wierszy}}",
       "rowCountFiltered": "{filtered} / {total} wierszy",
       "exportCsv": "CSV",
-      "noRows": "Nie zwrócono wierszy"
+      "noRows": "Nie zwrócono wierszy",
+      "truncated": "Wyświetlono {shown} z {total} wierszy — dodaj klauzulę LIMIT, aby zawęzić wynik.",
+      "setNull": "Ustaw NULL",
+      "toastRowNotFound": "Żaden wiersz nie został zmieniony — mógł zostać usunięty albo już miał tę wartość.",
+      "toastRowsMatched": "Dopasowano {count} wierszy — nic nie zmieniono, ponieważ filtr nie jest unikalny."
     }
   },
   "QrCodeGenerator": {

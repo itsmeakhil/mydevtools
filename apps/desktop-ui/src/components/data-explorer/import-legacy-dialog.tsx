@@ -16,10 +16,12 @@ import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { getConnections as getMongoConnections } from "@/components/nosql-explorer/connection-service";
 import { getConnections as getRedisConnections } from "@/components/data-explorer/redis/connection-service";
+import { getConnections as getSqlConnections } from "@/components/sql-client/connection-service";
 import {
     dedupeAgainstExisting,
     legacyMongoToUnified,
     legacyRedisToUnified,
+    legacySqlToUnified,
     type LegacyCandidate,
 } from "@/lib/data-explorer/legacy-import";
 import { SOURCES } from "./sources";
@@ -83,18 +85,22 @@ export function ImportLegacyDialog({
 
         (async () => {
             try {
-                const [mongoRows, redisRows] = await Promise.all([
+                // allSettled, not all: these are three independent cloud stores
+                // and one being unreachable must not cost the user the other
+                // two. Whatever resolved still gets imported.
+                const [mongo, redis, sql] = await Promise.allSettled([
                     getMongoConnections(user.uid, encryptionKey),
                     getRedisConnections(encryptionKey),
+                    getSqlConnections(encryptionKey),
                 ]);
 
-                const mongoCandidates = mongoRows.map((row) =>
+                const mongoCandidates = (mongo.status === "fulfilled" ? mongo.value : []).map((row) =>
                     legacyMongoToUnified(
                         { name: row.name, color: row.color, readOnly: row.readOnly, dbType: row.dbType },
                         row.connectionString
                     )
                 );
-                const redisCandidates = redisRows
+                const redisCandidates = (redis.status === "fulfilled" ? redis.value : [])
                     .filter((row) => !!row.config)
                     .map((row) =>
                         legacyRedisToUnified(
@@ -102,9 +108,18 @@ export function ImportLegacyDialog({
                             row.config as { redisUrl: string; folder?: string }
                         )
                     );
+                const sqlCandidates = (sql.status === "fulfilled" ? sql.value : [])
+                    .flatMap((row) => {
+                        if (!row.config) return [];
+                        // A row whose `type` is not one of the three engines
+                        // has no adapter to import into — skip it rather than
+                        // create a connection nothing can open.
+                        const candidate = legacySqlToUnified({ name: row.name, type: row.type }, row.config);
+                        return candidate ? [candidate] : [];
+                    });
 
                 const { toImport, skipped: skippedCount } = dedupeAgainstExisting(
-                    [...mongoCandidates, ...redisCandidates],
+                    [...sqlCandidates, ...mongoCandidates, ...redisCandidates],
                     existing
                 );
                 if (cancelled) return;

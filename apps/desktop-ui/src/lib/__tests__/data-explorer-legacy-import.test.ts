@@ -1,9 +1,123 @@
 import {
     legacyMongoToUnified,
     legacyRedisToUnified,
+    legacySqlToUnified,
     dedupeAgainstExisting,
 } from "../data-explorer/legacy-import";
 import type { UnifiedConnection } from "@/components/data-explorer/types";
+import type { SqlConnectionConfig } from "@/components/sql-client/types";
+
+const sqlConfig = (overrides: Partial<SqlConnectionConfig> = {}): SqlConnectionConfig => ({
+    type: "postgresql",
+    host: "db.example.com",
+    port: 5432,
+    database: "shop",
+    username: "alice",
+    password: "pw",
+    ssl: false,
+    ...overrides,
+});
+
+describe("legacySqlToUnified", () => {
+    it("maps the unencrypted engine column onto the source id", () => {
+        expect(legacySqlToUnified({ name: "prod", type: "postgresql" }, sqlConfig())?.sourceId).toBe(
+            "postgresql"
+        );
+        expect(
+            legacySqlToUnified({ name: "prod", type: "mariadb" }, sqlConfig({ type: "mariadb" }))
+                ?.sourceId
+        ).toBe("mariadb");
+    });
+
+    it("pins sslVerify to false so the imported connection still works", () => {
+        // Legacy rows were created against a stack that accepted any
+        // certificate. Written explicitly, not left absent, so the form can
+        // show the warning and let the user tighten it.
+        const candidate = legacySqlToUnified({ name: "prod", type: "postgresql" }, sqlConfig());
+        expect((candidate?.values.config as SqlConnectionConfig).sslVerify).toBe(false);
+    });
+
+    it("keeps an explicit sslVerify that is already set", () => {
+        const candidate = legacySqlToUnified(
+            { name: "prod", type: "postgresql" },
+            sqlConfig({ sslVerify: true })
+        );
+        expect((candidate?.values.config as SqlConnectionConfig).sslVerify).toBe(true);
+    });
+
+    it("skips a row whose engine has no adapter", () => {
+        // Better no connection than one nothing can open.
+        expect(legacySqlToUnified({ name: "x", type: "oracle" }, sqlConfig())).toBeNull();
+        expect(legacySqlToUnified({ name: "x", type: "" }, sqlConfig())).toBeNull();
+    });
+
+    it("trusts the row's engine over whatever the blob says", () => {
+        const candidate = legacySqlToUnified(
+            { name: "x", type: "mysql" },
+            sqlConfig({ type: "postgresql" })
+        );
+        expect((candidate?.values.config as SqlConnectionConfig).type).toBe("mysql");
+    });
+});
+
+describe("dedupeAgainstExisting for SQL rows", () => {
+    const candidate = (name: string, config: Partial<SqlConnectionConfig>) =>
+        legacySqlToUnified({ name, type: "postgresql" }, sqlConfig(config))!;
+
+    const asExisting = (name: string, config: Partial<SqlConnectionConfig>): UnifiedConnection =>
+        ({
+            id: name,
+            sourceId: "postgresql",
+            name,
+            config: sqlConfig(config),
+        }) as unknown as UnifiedConnection;
+
+    it("imports two same-named connections pointing at different hosts", () => {
+        // Before the SQL branch existed both produced an empty discriminator,
+        // so one was silently dropped.
+        const { toImport, skipped } = dedupeAgainstExisting(
+            [candidate("prod", { host: "a.example.com" }), candidate("prod", { host: "b.example.com" })],
+            []
+        );
+        expect(toImport).toHaveLength(2);
+        expect(skipped).toBe(0);
+    });
+
+    it("separates same-named connections by database and by port", () => {
+        expect(
+            dedupeAgainstExisting(
+                [candidate("prod", { database: "shop" }), candidate("prod", { database: "billing" })],
+                []
+            ).toImport
+        ).toHaveLength(2);
+        expect(
+            dedupeAgainstExisting(
+                [candidate("prod", { port: 5432 }), candidate("prod", { port: 5433 })],
+                []
+            ).toImport
+        ).toHaveLength(2);
+    });
+
+    it("skips a connection already imported", () => {
+        const { toImport, skipped } = dedupeAgainstExisting(
+            [candidate("prod", {})],
+            [asExisting("prod", {})]
+        );
+        expect(toImport).toHaveLength(0);
+        expect(skipped).toBe(1);
+    });
+
+    it("treats a changed password as the same connection, not a new one", () => {
+        // The discriminator leaves the password out on purpose: re-importing
+        // after a password change should update, not duplicate.
+        const { toImport, skipped } = dedupeAgainstExisting(
+            [candidate("prod", { password: "new-password" })],
+            [asExisting("prod", { password: "old-password" })]
+        );
+        expect(toImport).toHaveLength(0);
+        expect(skipped).toBe(1);
+    });
+});
 
 describe("legacyMongoToUnified", () => {
     it("wraps the bare connection string into a JSON config", () => {

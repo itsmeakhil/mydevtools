@@ -8,6 +8,13 @@ export interface SqlConnectionConfig {
     username: string;
     password: string;
     ssl: boolean;
+    /**
+     * Verify the server's TLS certificate. Absent on connections saved before
+     * this existed — those were created against a stack that accepted any
+     * certificate, so `sqlBody` sends `false` for them and they keep working.
+     * Anything new defaults to verifying. See `lib/sql-request.ts`.
+     */
+    sslVerify?: boolean;
 }
 
 export interface SavedSqlConnection {
@@ -59,9 +66,18 @@ export interface SchemaInfo {
 }
 
 export interface QueryResult {
-    rows: Record<string, unknown>[];
+    /**
+     * Positional against `columns`, not keyed by column name: `SELECT a.id,
+     * b.id` produces two columns called `id`, and an object would keep only
+     * the second. Also keeps a column literally named `__proto__` from
+     * poisoning the row object.
+     */
+    rows: unknown[][];
     columns: string[];
+    /** Rows the statement produced, before the server's display cap. */
     rowCount: number;
+    /** `rows` holds fewer than `rowCount` — say so rather than imply totality. */
+    truncated?: boolean;
     executionTime: number;
 }
 

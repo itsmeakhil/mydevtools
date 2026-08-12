@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Это недействительный URL.",
       "esUsernameRequired": "Введите имя пользователя.",
       "esApiKeyRequired": "Введите ключ API.",
-      "esBearerRequired": "Введите bearer-токен."
+      "esBearerRequired": "Введите bearer-токен.",
+      "sqlHostRequired": "Укажите хост",
+      "sqlDatabaseRequired": "Укажите базу данных",
+      "sqlPortRange": "Порт должен быть от 1 до 65535",
+      "sqlSocketUnsupported": "Подключения через Unix-сокет не поддерживаются — укажите хост и порт.",
+      "sqlitePathRequired": "Укажите файл базы данных",
+      "sqlitePathAbsolute": "Путь должен быть абсолютным"
     },
     "firestore": {
       "serviceAccount": "Ключ сервисного аккаунта (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Не удалось сохранить: {message}",
         "deleteFailed": "Не удалось удалить: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Не удалось загрузить схему для {name}",
+        "querySaved": "Запрос сохранён"
+      },
+      "host": "Хост",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Вставьте полный URL подключения, чтобы заполнить все поля.",
+      "port": "Порт",
+      "database": "База данных",
+      "databaseHint": "Одно подключение охватывает одну базу данных.",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "ssl": "Использовать SSL/TLS",
+      "sslVerify": "Проверять сертификат",
+      "sslVerifyHint": "Отклонять сертификат, который сервер не может подтвердить.",
+      "sslVerifyOffWarning": "Принимается любой сертификат — соединение зашифровано, но не аутентифицировано.",
+      "readOnlyHint": "Блокирует запись на сервере, а не только в интерфейсе.",
+      "toggleColumns": "Показать столбцы таблицы {name}",
+      "loadingColumns": "Загрузка столбцов…",
+      "noColumns": "Нет столбцов",
+      "refreshSchema": "Обновить схему",
+      "newConsole": "Новая вкладка запроса",
+      "connecting": "Подключение…",
+      "connectionFailed": "Не удалось подключиться",
+      "noTables": "Нет таблиц",
+      "noMatches": "Совпадений нет",
+      "consoleTitle": "Запрос {n}",
+      "readOnly": "Только чтение",
+      "rowLimit": "{count} строк",
+      "history": "История",
+      "historyEmpty": "Пока ничего не сохранено",
+      "savedSection": "Сохранённые",
+      "recentSection": "Недавние",
+      "deleteSaved": "Удалить сохранённый запрос",
+      "saveQuery": "Сохранить",
+      "savePlaceholder": "Название запроса",
+      "run": "Выполнить",
+      "abandon": "Остановить ({seconds} с)",
+      "abandoned": "Ожидание прервано. Оператор может всё ещё выполняться на сервере.",
+      "executing": "Выполняется… {seconds} с",
+      "sessionNotice": "Каждый запуск открывает новый сеанс. Отправляйте BEGIN и COMMIT в одном запуске, иначе транзакция будет отменена.",
+      "emptyTitle": "Результатов пока нет",
+      "emptyHint": "Нажмите «Выполнить» или ⌘↩",
+      "filePath": "Файл базы данных",
+      "filePathHint": "Вставьте полный путь. Кавычки и адреса file:// удаляются автоматически.",
+      "readOnlyHintSqlite": "Открывает файл только для чтения, поэтому запись отклоняет система, а не интерфейс."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Фильтр результатов…",
       "editHint": "Дважды щёлкните ячейку для редактирования",
       "toastRowUpdated": "Строка обновлена",
-      "toastRowsUpdated": "{count, plural, one {Обновлена # строка} few {Обновлены # строки} many {Обновлено # строк} other {Обновлено # строки}}",
       "rowCount": "{count} {count, plural, one {строка} few {строки} other {строк}}",
       "rowCountFiltered": "{filtered} / {total} строк",
       "exportCsv": "CSV",
-      "noRows": "Строки не возвращены"
+      "noRows": "Строки не возвращены",
+      "truncated": "Показано {shown} из {total} строк — добавьте предложение LIMIT, чтобы сузить результат.",
+      "setNull": "Задать NULL",
+      "toastRowNotFound": "Ни одна строка не изменена — возможно, она удалена или уже содержала это значение.",
+      "toastRowsMatched": "Совпало строк: {count} — ничего не изменено, потому что фильтр не уникален."
     }
   },
   "QrCodeGenerator": {

@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Toto není platná URL.",
       "esUsernameRequired": "Zadejte uživatelské jméno.",
       "esApiKeyRequired": "Zadejte API klíč.",
-      "esBearerRequired": "Zadejte bearer token."
+      "esBearerRequired": "Zadejte bearer token.",
+      "sqlHostRequired": "Hostitel je povinný",
+      "sqlDatabaseRequired": "Databáze je povinná",
+      "sqlPortRange": "Port musí být mezi 1 a 65535",
+      "sqlSocketUnsupported": "Připojení přes unixový soket nejsou podporována — použijte hostitele a port.",
+      "sqlitePathRequired": "Soubor databáze je povinný",
+      "sqlitePathAbsolute": "Cesta musí být absolutní"
     },
     "firestore": {
       "serviceAccount": "Klíč servisního účtu (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Uložení se nezdařilo: {message}",
         "deleteFailed": "Smazání se nezdařilo: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Nepodařilo se načíst schéma pro {name}",
+        "querySaved": "Dotaz uložen"
+      },
+      "host": "Hostitel",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Vložte úplnou URL připojení a vyplní se všechna pole.",
+      "port": "Port",
+      "database": "Databáze",
+      "databaseHint": "Jedno připojení pokrývá jednu databázi.",
+      "username": "Uživatelské jméno",
+      "password": "Heslo",
+      "ssl": "Použít SSL/TLS",
+      "sslVerify": "Ověřit certifikát",
+      "sslVerifyHint": "Odmítnout certifikát, který server nedokáže prokázat.",
+      "sslVerifyOffWarning": "Přijímá se libovolný certifikát — spojení je šifrované, ale neověřené.",
+      "readOnlyHint": "Blokuje zápisy na serveru, nejen v rozhraní.",
+      "toggleColumns": "Zobrazit sloupce tabulky {name}",
+      "loadingColumns": "Načítání sloupců…",
+      "noColumns": "Žádné sloupce",
+      "refreshSchema": "Obnovit schéma",
+      "newConsole": "Nová karta dotazu",
+      "connecting": "Připojování…",
+      "connectionFailed": "Připojení selhalo",
+      "noTables": "Žádné tabulky",
+      "noMatches": "Žádné shody",
+      "consoleTitle": "Dotaz {n}",
+      "readOnly": "Jen pro čtení",
+      "rowLimit": "{count} řádků",
+      "history": "Historie",
+      "historyEmpty": "Zatím nic uloženo",
+      "savedSection": "Uložené",
+      "recentSection": "Nedávné",
+      "deleteSaved": "Smazat uložený dotaz",
+      "saveQuery": "Uložit",
+      "savePlaceholder": "Název dotazu",
+      "run": "Spustit",
+      "abandon": "Zastavit ({seconds}s)",
+      "abandoned": "Čekání ukončeno. Příkaz může na serveru stále běžet.",
+      "executing": "Probíhá… {seconds}s",
+      "sessionNotice": "Každé spuštění otevírá novou relaci. Pošlete BEGIN a COMMIT v jednom spuštění, jinak se transakce vrátí zpět.",
+      "emptyTitle": "Zatím žádné výsledky",
+      "emptyHint": "Stiskněte Spustit nebo ⌘↩",
+      "filePath": "Soubor databáze",
+      "filePathHint": "Vložte úplnou cestu. Uvozovky a adresy file:// se odstraní automaticky.",
+      "readOnlyHintSqlite": "Otevře soubor jen pro čtení, takže zápis odmítne systém, nikoli rozhraní."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Filtrovat výsledky…",
       "editHint": "Dvojklikem na buňku upravíte",
       "toastRowUpdated": "Řádek aktualizován",
-      "toastRowsUpdated": "{count, plural, one {# řádek aktualizován} few {# řádky aktualizovány} many {# řádku aktualizováno} other {# řádků aktualizováno}}",
       "rowCount": "{count} {count, plural, one {řádek} few {řádky} other {řádků}}",
       "rowCountFiltered": "{filtered} / {total} řádků",
       "exportCsv": "CSV",
-      "noRows": "Žádné řádky nebyly vráceny"
+      "noRows": "Žádné řádky nebyly vráceny",
+      "truncated": "Zobrazeno {shown} z {total} řádků — přidejte klauzuli LIMIT pro zúžení výsledku.",
+      "setNull": "Nastavit NULL",
+      "toastRowNotFound": "Nezměnil se žádný řádek — mohl být smazán nebo už tuto hodnotu měl.",
+      "toastRowsMatched": "Odpovídá {count} řádků — nic se nezměnilo, protože filtr není jedinečný."
     }
   },
   "QrCodeGenerator": {

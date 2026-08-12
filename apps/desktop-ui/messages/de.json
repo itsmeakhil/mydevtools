@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Dies ist keine gültige URL.",
       "esUsernameRequired": "Geben Sie einen Benutzernamen ein.",
       "esApiKeyRequired": "Geben Sie einen API-Schlüssel ein.",
-      "esBearerRequired": "Geben Sie ein Bearer-Token ein."
+      "esBearerRequired": "Geben Sie ein Bearer-Token ein.",
+      "sqlHostRequired": "Host ist erforderlich",
+      "sqlDatabaseRequired": "Datenbank ist erforderlich",
+      "sqlPortRange": "Der Port muss zwischen 1 und 65535 liegen",
+      "sqlSocketUnsupported": "Unix-Socket-Verbindungen werden nicht unterstützt — verwenden Sie Host und Port.",
+      "sqlitePathRequired": "Eine Datenbankdatei ist erforderlich",
+      "sqlitePathAbsolute": "Der Pfad muss absolut sein"
     },
     "firestore": {
       "serviceAccount": "Dienstkonto-Schlüssel (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Speichern fehlgeschlagen: {message}",
         "deleteFailed": "Löschen fehlgeschlagen: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Schema für {name} konnte nicht geladen werden",
+        "querySaved": "Abfrage gespeichert"
+      },
+      "host": "Host",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Fügen Sie eine vollständige Verbindungs-URL ein, um alle Felder zu füllen.",
+      "port": "Port",
+      "database": "Datenbank",
+      "databaseHint": "Eine Verbindung deckt eine Datenbank ab.",
+      "username": "Benutzername",
+      "password": "Passwort",
+      "ssl": "SSL/TLS verwenden",
+      "sslVerify": "Zertifikat prüfen",
+      "sslVerifyHint": "Ein Zertifikat ablehnen, das der Server nicht nachweisen kann.",
+      "sslVerifyOffWarning": "Jedes Zertifikat wird akzeptiert — die Verbindung ist verschlüsselt, aber nicht authentifiziert.",
+      "readOnlyHint": "Blockiert Schreibvorgänge auf dem Server, nicht nur in der Oberfläche.",
+      "toggleColumns": "Spalten von {name} anzeigen",
+      "loadingColumns": "Spalten werden geladen…",
+      "noColumns": "Keine Spalten",
+      "refreshSchema": "Schema aktualisieren",
+      "newConsole": "Neuer Abfrage-Tab",
+      "connecting": "Verbindung wird hergestellt…",
+      "connectionFailed": "Verbindung fehlgeschlagen",
+      "noTables": "Keine Tabellen",
+      "noMatches": "Keine Treffer",
+      "consoleTitle": "Abfrage {n}",
+      "readOnly": "Schreibgeschützt",
+      "rowLimit": "{count} Zeilen",
+      "history": "Verlauf",
+      "historyEmpty": "Noch nichts gespeichert",
+      "savedSection": "Gespeichert",
+      "recentSection": "Zuletzt",
+      "deleteSaved": "Gespeicherte Abfrage löschen",
+      "saveQuery": "Speichern",
+      "savePlaceholder": "Name der Abfrage",
+      "run": "Ausführen",
+      "abandon": "Stopp ({seconds}s)",
+      "abandoned": "Warten abgebrochen. Die Anweisung läuft möglicherweise weiter auf dem Server.",
+      "executing": "Läuft… {seconds}s",
+      "sessionNotice": "Jede Ausführung öffnet eine neue Sitzung. Senden Sie BEGIN und COMMIT in derselben Ausführung, sonst wird die Transaktion zurückgerollt.",
+      "emptyTitle": "Noch keine Ergebnisse",
+      "emptyHint": "Ausführen drücken oder ⌘↩",
+      "filePath": "Datenbankdatei",
+      "filePathHint": "Fügen Sie einen vollständigen Pfad ein. Anführungszeichen und file://-URLs werden bereinigt.",
+      "readOnlyHintSqlite": "Öffnet die Datei schreibgeschützt, sodass das System den Schreibvorgang ablehnt, nicht die Oberfläche."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Ergebnisse filtern…",
       "editHint": "Zum Bearbeiten Zelle doppelklicken",
       "toastRowUpdated": "Zeile aktualisiert",
-      "toastRowsUpdated": "{count, plural, one {# Zeile aktualisiert} other {# Zeilen aktualisiert}}",
       "rowCount": "{count} {count, plural, one {Zeile} other {Zeilen}}",
       "rowCountFiltered": "{filtered} / {total} Zeilen",
       "exportCsv": "CSV",
-      "noRows": "Keine Zeilen zurückgegeben"
+      "noRows": "Keine Zeilen zurückgegeben",
+      "truncated": "{shown} von {total} Zeilen angezeigt — fügen Sie eine LIMIT-Klausel hinzu, um das Ergebnis einzugrenzen.",
+      "setNull": "NULL setzen",
+      "toastRowNotFound": "Keine Zeile wurde geändert — sie wurde möglicherweise gelöscht oder hatte diesen Wert bereits.",
+      "toastRowsMatched": "{count} Zeilen stimmten überein — es wurde nichts geändert, weil der Filter nicht eindeutig ist."
     }
   },
   "QrCodeGenerator": {

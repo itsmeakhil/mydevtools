@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Đây không phải là URL hợp lệ.",
       "esUsernameRequired": "Nhập tên người dùng.",
       "esApiKeyRequired": "Nhập khóa API.",
-      "esBearerRequired": "Nhập token bearer."
+      "esBearerRequired": "Nhập token bearer.",
+      "sqlHostRequired": "Cần nhập máy chủ",
+      "sqlDatabaseRequired": "Cần nhập cơ sở dữ liệu",
+      "sqlPortRange": "Cổng phải nằm trong khoảng 1 đến 65535",
+      "sqlSocketUnsupported": "Không hỗ trợ kết nối qua socket Unix — hãy dùng máy chủ và cổng.",
+      "sqlitePathRequired": "Cần có tệp cơ sở dữ liệu",
+      "sqlitePathAbsolute": "Đường dẫn phải là tuyệt đối"
     },
     "firestore": {
       "serviceAccount": "Khóa tài khoản dịch vụ (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Lưu thất bại: {message}",
         "deleteFailed": "Xóa thất bại: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Không tải được lược đồ của {name}",
+        "querySaved": "Đã lưu truy vấn"
+      },
+      "host": "Máy chủ",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Dán URL kết nối đầy đủ để điền mọi trường.",
+      "port": "Cổng",
+      "database": "Cơ sở dữ liệu",
+      "databaseHint": "Mỗi kết nối bao gồm một cơ sở dữ liệu.",
+      "username": "Tên người dùng",
+      "password": "Mật khẩu",
+      "ssl": "Dùng SSL/TLS",
+      "sslVerify": "Xác minh chứng chỉ",
+      "sslVerifyHint": "Từ chối chứng chỉ mà máy chủ không chứng minh được.",
+      "sslVerifyOffWarning": "Mọi chứng chỉ đều được chấp nhận — kết nối được mã hóa nhưng không được xác thực.",
+      "readOnlyHint": "Chặn ghi trên máy chủ, không chỉ trong giao diện.",
+      "toggleColumns": "Hiện các cột của {name}",
+      "loadingColumns": "Đang tải cột…",
+      "noColumns": "Không có cột",
+      "refreshSchema": "Tải lại lược đồ",
+      "newConsole": "Tab truy vấn mới",
+      "connecting": "Đang kết nối…",
+      "connectionFailed": "Kết nối thất bại",
+      "noTables": "Không có bảng",
+      "noMatches": "Không có kết quả khớp",
+      "consoleTitle": "Truy vấn {n}",
+      "readOnly": "Chỉ đọc",
+      "rowLimit": "{count} hàng",
+      "history": "Lịch sử",
+      "historyEmpty": "Chưa lưu gì",
+      "savedSection": "Đã lưu",
+      "recentSection": "Gần đây",
+      "deleteSaved": "Xóa truy vấn đã lưu",
+      "saveQuery": "Lưu",
+      "savePlaceholder": "Tên truy vấn",
+      "run": "Chạy",
+      "abandon": "Dừng ({seconds}s)",
+      "abandoned": "Đã ngừng chờ. Câu lệnh có thể vẫn đang chạy trên máy chủ.",
+      "executing": "Đang chạy… {seconds}s",
+      "sessionNotice": "Mỗi lần chạy mở một phiên mới. Hãy gửi BEGIN và COMMIT trong cùng một lần chạy, nếu không giao dịch sẽ bị hoàn tác.",
+      "emptyTitle": "Chưa có kết quả",
+      "emptyHint": "Nhấn Chạy hoặc ⌘↩",
+      "filePath": "Tệp cơ sở dữ liệu",
+      "filePathHint": "Dán đường dẫn đầy đủ. Dấu nháy và URL file:// sẽ được dọn tự động.",
+      "readOnlyHintSqlite": "Mở tệp ở chế độ chỉ đọc, nên hệ thống mới là bên từ chối ghi, không phải giao diện."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Lọc kết quả…",
       "editHint": "Nhấp đúp vào ô để chỉnh sửa",
       "toastRowUpdated": "Đã cập nhật hàng",
-      "toastRowsUpdated": "{count, plural, other {Đã cập nhật # hàng}}",
       "rowCount": "{count} hàng",
       "rowCountFiltered": "{filtered} / {total} hàng",
       "exportCsv": "CSV",
-      "noRows": "Không có hàng nào được trả về"
+      "noRows": "Không có hàng nào được trả về",
+      "truncated": "Đang hiển thị {shown} trên {total} hàng — thêm mệnh đề LIMIT để thu hẹp kết quả.",
+      "setNull": "Đặt NULL",
+      "toastRowNotFound": "Không có hàng nào thay đổi — có thể nó đã bị xóa, hoặc vốn đã mang giá trị đó.",
+      "toastRowsMatched": "{count} hàng khớp — không có gì được thay đổi, vì bộ lọc không duy nhất."
     }
   },
   "QrCodeGenerator": {

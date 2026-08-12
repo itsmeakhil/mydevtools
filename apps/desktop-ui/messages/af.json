@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Dit is nie 'n geldige URL nie.",
       "esUsernameRequired": "Voer 'n gebruikersnaam in.",
       "esApiKeyRequired": "Voer 'n API-sleutel in.",
-      "esBearerRequired": "Voer 'n draertoken in."
+      "esBearerRequired": "Voer 'n draertoken in.",
+      "sqlHostRequired": "Gasheer word vereis",
+      "sqlDatabaseRequired": "Databasis word vereis",
+      "sqlPortRange": "Poort moet tussen 1 en 65535 wees",
+      "sqlSocketUnsupported": "Unix-soketverbindings word nie ondersteun nie — gebruik 'n gasheer en poort.",
+      "sqlitePathRequired": "'n Databasislêer word vereis",
+      "sqlitePathAbsolute": "Die pad moet absoluut wees"
     },
     "firestore": {
       "serviceAccount": "Diensrekeningsleutel (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Kon nie stoor nie: {message}",
         "deleteFailed": "Kon nie uitvee nie: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Kon nie die skema vir {name} laai nie",
+        "querySaved": "Navraag gestoor"
+      },
+      "host": "Gasheer",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Plak 'n volledige verbindings-URL om elke veld te vul.",
+      "port": "Poort",
+      "database": "Databasis",
+      "databaseHint": "Een verbinding dek een databasis.",
+      "username": "Gebruikersnaam",
+      "password": "Wagwoord",
+      "ssl": "Gebruik SSL/TLS",
+      "sslVerify": "Verifieer sertifikaat",
+      "sslVerifyHint": "Verwerp 'n sertifikaat wat die bediener nie kan bewys nie.",
+      "sslVerifyOffWarning": "Enige sertifikaat word aanvaar — die verbinding is geïnkripteer maar nie geverifieer nie.",
+      "readOnlyHint": "Blokkeer skryfbewerkings op die bediener, nie net in die koppelvlak nie.",
+      "toggleColumns": "Wys kolomme van {name}",
+      "loadingColumns": "Laai kolomme…",
+      "noColumns": "Geen kolomme",
+      "refreshSchema": "Herlaai skema",
+      "newConsole": "Nuwe navraagoortjie",
+      "connecting": "Verbind tans…",
+      "connectionFailed": "Verbinding het misluk",
+      "noTables": "Geen tabelle",
+      "noMatches": "Geen resultate",
+      "consoleTitle": "Navraag {n}",
+      "readOnly": "Slegs-lees",
+      "rowLimit": "{count} rye",
+      "history": "Geskiedenis",
+      "historyEmpty": "Nog niks gestoor nie",
+      "savedSection": "Gestoor",
+      "recentSection": "Onlangs",
+      "deleteSaved": "Verwyder gestoorde navraag",
+      "saveQuery": "Stoor",
+      "savePlaceholder": "Navraagnaam",
+      "run": "Voer uit",
+      "abandon": "Stop ({seconds}s)",
+      "abandoned": "Ophou wag. Die stelling loop dalk steeds op die bediener.",
+      "executing": "Loop tans… {seconds}s",
+      "sessionNotice": "Elke uitvoering open 'n nuwe sessie. Stuur BEGIN en COMMIT in dieselfde uitvoering, anders word die transaksie teruggerol.",
+      "emptyTitle": "Nog geen resultate nie",
+      "emptyHint": "Druk Voer uit of ⌘↩",
+      "filePath": "Databasislêer",
+      "filePathHint": "Plak 'n volledige pad. Aanhalingstekens en file://-URL's word vir jou opgeruim.",
+      "readOnlyHintSqlite": "Open die lêer slegs-lees, sodat die stelsel die skryf weier, nie die koppelvlak nie."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Filtreer resultate…",
       "editHint": "Dubbelklik op 'n sel om te wysig",
       "toastRowUpdated": "Ry opgedateer",
-      "toastRowsUpdated": "{count, plural, one {# ry opgedateer} other {# rye opgedateer}}",
       "rowCount": "{count} ry(e)",
       "rowCountFiltered": "{filtered} / {total} rye",
       "exportCsv": "CSV",
-      "noRows": "Geen rye teruggekeer nie"
+      "noRows": "Geen rye teruggekeer nie",
+      "truncated": "Wys {shown} van {total} rye — voeg 'n LIMIT-klousule by om die resultaat te verklein.",
+      "setNull": "Stel NULL",
+      "toastRowNotFound": "Geen ry is verander nie — dit is dalk verwyder, of dit het reeds daardie waarde gehad.",
+      "toastRowsMatched": "{count} rye het gepas — niks is verander nie, want die filter is nie uniek nie."
     }
   },
   "QrCodeGenerator": {

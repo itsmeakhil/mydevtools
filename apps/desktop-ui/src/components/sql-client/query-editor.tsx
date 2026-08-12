@@ -24,6 +24,7 @@ import {
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { QueryResult, QueryTab, SavedSqlConnection } from "./types";
+import { sqlBody } from "@/lib/sql-request";
 import { ResultsTable } from "./results-table";
 import { DbIcon, dbTypeLabel } from "./db-icon";
 import MonacoEditor from "@/components/lazy/LazyMonaco";
@@ -128,7 +129,7 @@ export function QueryEditor({ tab, connection, onQueryChange, onResult, onClose 
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ ...connection.config, query }),
+                body: JSON.stringify(sqlBody(connection.config, { query })),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);

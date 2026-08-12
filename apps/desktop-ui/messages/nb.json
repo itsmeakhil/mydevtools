@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "Dette er ikke en gyldig URL.",
       "esUsernameRequired": "Skriv inn et brukernavn.",
       "esApiKeyRequired": "Skriv inn en API-nøkkel.",
-      "esBearerRequired": "Skriv inn et bearer-token."
+      "esBearerRequired": "Skriv inn et bearer-token.",
+      "sqlHostRequired": "Vert er påkrevd",
+      "sqlDatabaseRequired": "Database er påkrevd",
+      "sqlPortRange": "Porten må være mellom 1 og 65535",
+      "sqlSocketUnsupported": "Unix-socket-tilkoblinger støttes ikke — bruk vert og port.",
+      "sqlitePathRequired": "Det kreves en databasefil",
+      "sqlitePathAbsolute": "Stien må være absolutt"
     },
     "firestore": {
       "serviceAccount": "Tjenestekontonøkkel (JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "Kunne ikke lagre: {message}",
         "deleteFailed": "Kunne ikke slette: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Kunne ikke laste skjemaet for {name}",
+        "querySaved": "Spørring lagret"
+      },
+      "host": "Vert",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Lim inn en fullstendig tilkoblings-URL for å fylle ut alle feltene.",
+      "port": "Port",
+      "database": "Database",
+      "databaseHint": "Én tilkobling dekker én database.",
+      "username": "Brukernavn",
+      "password": "Passord",
+      "ssl": "Bruk SSL/TLS",
+      "sslVerify": "Kontroller sertifikat",
+      "sslVerifyHint": "Avvis et sertifikat serveren ikke kan bevise.",
+      "sslVerifyOffWarning": "Ethvert sertifikat godtas — tilkoblingen er kryptert, men ikke autentisert.",
+      "readOnlyHint": "Blokkerer skriving på serveren, ikke bare i grensesnittet.",
+      "toggleColumns": "Vis kolonner i {name}",
+      "loadingColumns": "Laster kolonner…",
+      "noColumns": "Ingen kolonner",
+      "refreshSchema": "Oppdater skjema",
+      "newConsole": "Ny spørringsfane",
+      "connecting": "Kobler til…",
+      "connectionFailed": "Tilkoblingen mislyktes",
+      "noTables": "Ingen tabeller",
+      "noMatches": "Ingen treff",
+      "consoleTitle": "Spørring {n}",
+      "readOnly": "Skrivebeskyttet",
+      "rowLimit": "{count} rader",
+      "history": "Historikk",
+      "historyEmpty": "Ingenting lagret ennå",
+      "savedSection": "Lagrede",
+      "recentSection": "Nylige",
+      "deleteSaved": "Slett lagret spørring",
+      "saveQuery": "Lagre",
+      "savePlaceholder": "Navn på spørring",
+      "run": "Kjør",
+      "abandon": "Stopp ({seconds}s)",
+      "abandoned": "Sluttet å vente. Setningen kan fortsatt kjøre på serveren.",
+      "executing": "Kjører… {seconds}s",
+      "sessionNotice": "Hver kjøring åpner en ny økt. Send BEGIN og COMMIT i samme kjøring, ellers rulles transaksjonen tilbake.",
+      "emptyTitle": "Ingen resultater ennå",
+      "emptyHint": "Trykk Kjør eller ⌘↩",
+      "filePath": "Databasefil",
+      "filePathHint": "Lim inn en fullstendig sti. Anførselstegn og file://-URL-er ryddes bort automatisk.",
+      "readOnlyHintSqlite": "Åpner filen skrivebeskyttet, så det er systemet som avviser skrivingen, ikke grensesnittet."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "Filtrer resultater…",
       "editHint": "Dobbeltklikk på en celle for å redigere",
       "toastRowUpdated": "Rad oppdatert",
-      "toastRowsUpdated": "{count, plural, one {# rad oppdatert} other {# rader oppdatert}}",
       "rowCount": "{count} {count, plural, one {rad} other {rader}}",
       "rowCountFiltered": "{filtered} / {total} rader",
       "exportCsv": "CSV",
-      "noRows": "Ingen rader returnert"
+      "noRows": "Ingen rader returnert",
+      "truncated": "Viser {shown} av {total} rader — legg til en LIMIT-klausul for å snevre inn resultatet.",
+      "setNull": "Sett NULL",
+      "toastRowNotFound": "Ingen rad ble endret — den kan være slettet, eller den hadde allerede den verdien.",
+      "toastRowsMatched": "{count} rader traff — ingenting ble endret, fordi filteret ikke er entydig."
     }
   },
   "QrCodeGenerator": {

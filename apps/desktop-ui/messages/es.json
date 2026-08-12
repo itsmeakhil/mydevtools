@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Esto no es una URL válida.",
       "esUsernameRequired": "Introduce un nombre de usuario.",
       "esApiKeyRequired": "Introduce una clave API.",
-      "esBearerRequired": "Introduce un token de portador."
+      "esBearerRequired": "Introduce un token de portador.",
+      "sqlHostRequired": "El host es obligatorio",
+      "sqlDatabaseRequired": "La base de datos es obligatoria",
+      "sqlPortRange": "El puerto debe estar entre 1 y 65535",
+      "sqlSocketUnsupported": "Las conexiones por socket Unix no se admiten — usa host y puerto.",
+      "sqlitePathRequired": "Se requiere un archivo de base de datos",
+      "sqlitePathAbsolute": "La ruta debe ser absoluta"
     },
     "firestore": {
       "serviceAccount": "Clave de cuenta de servicio (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Error al guardar: {message}",
         "deleteFailed": "Error al eliminar: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "No se pudo cargar el esquema de {name}",
+        "querySaved": "Consulta guardada"
+      },
+      "host": "Host",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Pega una URL de conexión completa para rellenar todos los campos.",
+      "port": "Puerto",
+      "database": "Base de datos",
+      "databaseHint": "Cada conexión cubre una base de datos.",
+      "username": "Usuario",
+      "password": "Contraseña",
+      "ssl": "Usar SSL/TLS",
+      "sslVerify": "Verificar certificado",
+      "sslVerifyHint": "Rechazar un certificado que el servidor no pueda demostrar.",
+      "sslVerifyOffWarning": "Se acepta cualquier certificado — la conexión está cifrada pero no autenticada.",
+      "readOnlyHint": "Bloquea las escrituras en el servidor, no solo en la interfaz.",
+      "toggleColumns": "Mostrar columnas de {name}",
+      "loadingColumns": "Cargando columnas…",
+      "noColumns": "Sin columnas",
+      "refreshSchema": "Actualizar esquema",
+      "newConsole": "Nueva pestaña de consulta",
+      "connecting": "Conectando…",
+      "connectionFailed": "Error de conexión",
+      "noTables": "Sin tablas",
+      "noMatches": "Sin coincidencias",
+      "consoleTitle": "Consulta {n}",
+      "readOnly": "Solo lectura",
+      "rowLimit": "{count} filas",
+      "history": "Historial",
+      "historyEmpty": "Todavía no hay nada guardado",
+      "savedSection": "Guardadas",
+      "recentSection": "Recientes",
+      "deleteSaved": "Eliminar consulta guardada",
+      "saveQuery": "Guardar",
+      "savePlaceholder": "Nombre de la consulta",
+      "run": "Ejecutar",
+      "abandon": "Detener ({seconds}s)",
+      "abandoned": "Se dejó de esperar. La sentencia puede seguir ejecutándose en el servidor.",
+      "executing": "Ejecutando… {seconds}s",
+      "sessionNotice": "Cada ejecución abre una sesión nueva. Envía BEGIN y COMMIT en la misma ejecución o la transacción se revertirá.",
+      "emptyTitle": "Aún no hay resultados",
+      "emptyHint": "Pulsa Ejecutar o ⌘↩",
+      "filePath": "Archivo de base de datos",
+      "filePathHint": "Pega una ruta completa. Las comillas y las URL file:// se limpian automáticamente.",
+      "readOnlyHintSqlite": "Abre el archivo en solo lectura, de modo que la escritura la rechaza el sistema, no la interfaz."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Filtrar resultados…",
       "editHint": "Haz doble clic en una celda para editar",
       "toastRowUpdated": "Fila actualizada",
-      "toastRowsUpdated": "{count, plural, one {# fila actualizada} other {# filas actualizadas}}",
       "rowCount": "{count} {count, plural, one {fila} other {filas}}",
       "rowCountFiltered": "{filtered} / {total} filas",
       "exportCsv": "CSV",
-      "noRows": "No se devolvieron filas"
+      "noRows": "No se devolvieron filas",
+      "truncated": "Mostrando {shown} de {total} filas — añade una cláusula LIMIT para acotar el resultado.",
+      "setNull": "Establecer NULL",
+      "toastRowNotFound": "No se cambió ninguna fila — puede que se haya eliminado o que ya tuviera ese valor.",
+      "toastRowsMatched": "Coincidieron {count} filas — no se cambió nada, porque el filtro no es único."
     }
   },
   "QrCodeGenerator": {

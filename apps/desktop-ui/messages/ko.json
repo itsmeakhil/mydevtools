@@ -1926,7 +1926,13 @@
       "esUrlInvalid": "유효한 URL이 아닙니다.",
       "esUsernameRequired": "사용자 이름을 입력하세요.",
       "esApiKeyRequired": "API 키를 입력하세요.",
-      "esBearerRequired": "베어러 토큰을 입력하세요."
+      "esBearerRequired": "베어러 토큰을 입력하세요.",
+      "sqlHostRequired": "호스트는 필수입니다",
+      "sqlDatabaseRequired": "데이터베이스는 필수입니다",
+      "sqlPortRange": "포트는 1에서 65535 사이여야 합니다",
+      "sqlSocketUnsupported": "Unix 소켓 연결은 지원되지 않습니다 — 호스트와 포트를 사용하세요.",
+      "sqlitePathRequired": "데이터베이스 파일은 필수입니다",
+      "sqlitePathAbsolute": "경로는 절대 경로여야 합니다"
     },
     "firestore": {
       "serviceAccount": "서비스 계정 키(JSON)",
@@ -2115,6 +2121,54 @@
         "saveFailed": "저장 실패: {message}",
         "deleteFailed": "삭제 실패: {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "{name}의 스키마를 불러오지 못했습니다",
+        "querySaved": "쿼리를 저장했습니다"
+      },
+      "host": "호스트",
+      "hostPlaceholder": "localhost",
+      "hostHint": "전체 연결 URL을 붙여넣으면 모든 항목이 채워집니다.",
+      "port": "포트",
+      "database": "데이터베이스",
+      "databaseHint": "연결 하나가 데이터베이스 하나를 담당합니다.",
+      "username": "사용자 이름",
+      "password": "비밀번호",
+      "ssl": "SSL/TLS 사용",
+      "sslVerify": "인증서 검증",
+      "sslVerifyHint": "서버가 증명하지 못하는 인증서를 거부합니다.",
+      "sslVerifyOffWarning": "모든 인증서를 허용합니다 — 연결은 암호화되지만 인증되지는 않습니다.",
+      "readOnlyHint": "인터페이스뿐 아니라 서버에서 쓰기를 차단합니다.",
+      "toggleColumns": "{name}의 열 보기",
+      "loadingColumns": "열 불러오는 중…",
+      "noColumns": "열 없음",
+      "refreshSchema": "스키마 새로 고침",
+      "newConsole": "새 쿼리 탭",
+      "connecting": "연결 중…",
+      "connectionFailed": "연결 실패",
+      "noTables": "테이블 없음",
+      "noMatches": "일치 항목 없음",
+      "consoleTitle": "쿼리 {n}",
+      "readOnly": "읽기 전용",
+      "rowLimit": "{count}행",
+      "history": "기록",
+      "historyEmpty": "아직 저장된 항목이 없습니다",
+      "savedSection": "저장됨",
+      "recentSection": "최근",
+      "deleteSaved": "저장된 쿼리 삭제",
+      "saveQuery": "저장",
+      "savePlaceholder": "쿼리 이름",
+      "run": "실행",
+      "abandon": "중지 ({seconds}초)",
+      "abandoned": "대기를 중단했습니다. 문이 서버에서 계속 실행 중일 수 있습니다.",
+      "executing": "실행 중… {seconds}초",
+      "sessionNotice": "실행할 때마다 새 세션이 열립니다. BEGIN과 COMMIT을 한 번의 실행으로 보내지 않으면 트랜잭션이 롤백됩니다.",
+      "emptyTitle": "아직 결과가 없습니다",
+      "emptyHint": "실행을 누르거나 ⌘↩",
+      "filePath": "데이터베이스 파일",
+      "filePathHint": "전체 경로를 붙여넣으세요. 따옴표와 file:// URL은 자동으로 정리됩니다.",
+      "readOnlyHintSqlite": "파일을 읽기 전용으로 열기 때문에 인터페이스가 아니라 시스템이 쓰기를 거부합니다."
     }
   },
   "ApiClient": {
@@ -3521,11 +3575,14 @@
       "filterPlaceholder": "결과 필터…",
       "editHint": "셀을 더블클릭하여 편집",
       "toastRowUpdated": "행이 업데이트되었습니다",
-      "toastRowsUpdated": "{count, plural, other {#개 행이 업데이트되었습니다}}",
       "rowCount": "{count}행",
       "rowCountFiltered": "{filtered} / {total}행",
       "exportCsv": "CSV",
-      "noRows": "반환된 행 없음"
+      "noRows": "반환된 행 없음",
+      "truncated": "{total}행 중 {shown}행 표시 중 — LIMIT 절을 추가해 결과를 좁히세요.",
+      "setNull": "NULL로 설정",
+      "toastRowNotFound": "변경된 행이 없습니다 — 삭제되었거나 이미 같은 값이었을 수 있습니다.",
+      "toastRowsMatched": "{count}개 행이 일치했습니다 — 필터가 고유하지 않아 아무것도 변경하지 않았습니다."
     }
   },
   "QrCodeGenerator": {

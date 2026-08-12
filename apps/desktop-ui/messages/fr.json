@@ -1937,7 +1937,13 @@
       "esUrlInvalid": "Ceci n'est pas une URL valide.",
       "esUsernameRequired": "Saisissez un nom d'utilisateur.",
       "esApiKeyRequired": "Saisissez une clé API.",
-      "esBearerRequired": "Saisissez un jeton bearer."
+      "esBearerRequired": "Saisissez un jeton bearer.",
+      "sqlHostRequired": "L'hôte est obligatoire",
+      "sqlDatabaseRequired": "La base de données est obligatoire",
+      "sqlPortRange": "Le port doit être compris entre 1 et 65535",
+      "sqlSocketUnsupported": "Les connexions par socket Unix ne sont pas prises en charge — utilisez un hôte et un port.",
+      "sqlitePathRequired": "Un fichier de base de données est obligatoire",
+      "sqlitePathAbsolute": "Le chemin doit être absolu"
     },
     "firestore": {
       "serviceAccount": "Clé de compte de service (JSON)",
@@ -2126,6 +2132,54 @@
         "saveFailed": "Échec de l'enregistrement : {message}",
         "deleteFailed": "Échec de la suppression : {message}"
       }
+    },
+    "sql": {
+      "toast": {
+        "schemaFailed": "Impossible de charger le schéma de {name}",
+        "querySaved": "Requête enregistrée"
+      },
+      "host": "Hôte",
+      "hostPlaceholder": "localhost",
+      "hostHint": "Collez une URL de connexion complète pour remplir tous les champs.",
+      "port": "Port",
+      "database": "Base de données",
+      "databaseHint": "Une connexion couvre une base de données.",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "ssl": "Utiliser SSL/TLS",
+      "sslVerify": "Vérifier le certificat",
+      "sslVerifyHint": "Refuser un certificat que le serveur ne peut pas prouver.",
+      "sslVerifyOffWarning": "N'importe quel certificat est accepté — la connexion est chiffrée mais non authentifiée.",
+      "readOnlyHint": "Bloque les écritures sur le serveur, pas seulement dans l'interface.",
+      "toggleColumns": "Afficher les colonnes de {name}",
+      "loadingColumns": "Chargement des colonnes…",
+      "noColumns": "Aucune colonne",
+      "refreshSchema": "Actualiser le schéma",
+      "newConsole": "Nouvel onglet de requête",
+      "connecting": "Connexion…",
+      "connectionFailed": "Échec de la connexion",
+      "noTables": "Aucune table",
+      "noMatches": "Aucun résultat",
+      "consoleTitle": "Requête {n}",
+      "readOnly": "Lecture seule",
+      "rowLimit": "{count} lignes",
+      "history": "Historique",
+      "historyEmpty": "Rien d'enregistré pour l'instant",
+      "savedSection": "Enregistrées",
+      "recentSection": "Récentes",
+      "deleteSaved": "Supprimer la requête enregistrée",
+      "saveQuery": "Enregistrer",
+      "savePlaceholder": "Nom de la requête",
+      "run": "Exécuter",
+      "abandon": "Arrêter ({seconds}s)",
+      "abandoned": "Attente interrompue. L'instruction peut encore s'exécuter sur le serveur.",
+      "executing": "Exécution… {seconds}s",
+      "sessionNotice": "Chaque exécution ouvre une nouvelle session. Envoyez BEGIN et COMMIT dans la même exécution, sinon la transaction est annulée.",
+      "emptyTitle": "Pas encore de résultats",
+      "emptyHint": "Appuyez sur Exécuter ou ⌘↩",
+      "filePath": "Fichier de base de données",
+      "filePathHint": "Collez un chemin complet. Les guillemets et les URL file:// sont nettoyés automatiquement.",
+      "readOnlyHintSqlite": "Ouvre le fichier en lecture seule : c'est le système qui refuse l'écriture, pas l'interface."
     }
   },
   "ApiClient": {
@@ -3532,11 +3586,14 @@
       "filterPlaceholder": "Filtrer les résultats…",
       "editHint": "Double-cliquez sur une cellule pour modifier",
       "toastRowUpdated": "Ligne mise à jour",
-      "toastRowsUpdated": "{count, plural, one {# ligne mise à jour} other {# lignes mises à jour}}",
       "rowCount": "{count} {count, plural, one {ligne} other {lignes}}",
       "rowCountFiltered": "{filtered} / {total} lignes",
       "exportCsv": "CSV",
-      "noRows": "Aucune ligne retournée"
+      "noRows": "Aucune ligne retournée",
+      "truncated": "Affichage de {shown} sur {total} lignes — ajoutez une clause LIMIT pour restreindre le résultat.",
+      "setNull": "Définir NULL",
+      "toastRowNotFound": "Aucune ligne n'a été modifiée — elle a peut-être été supprimée, ou contenait déjà cette valeur.",
+      "toastRowsMatched": "{count} lignes correspondent — rien n'a été modifié, car le filtre n'est pas unique."
     }
   },
   "QrCodeGenerator": {

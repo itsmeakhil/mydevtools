@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { DbType, SavedSqlConnection, SqlConnectionConfig } from "./types";
+import { sqlBody } from "@/lib/sql-request";
 import { saveConnection, updateConnection, deleteConnection } from "./connection-service";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { formatDistanceToNow } from "date-fns";
@@ -89,7 +90,7 @@ export function ConnectionForm({
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(config),
+                body: JSON.stringify(sqlBody(config)),
             });
             const data = await res.json();
             if (!res.ok) throw new Error(data.error);
