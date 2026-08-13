@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
+import { CONNECTION_COLORS } from "@/components/data-explorer/connection-colors";
 import { FirestoreCollectionPane } from "@/components/data-explorer/firestore/collection-pane";
 import {
     databasePath,

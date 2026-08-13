@@ -2,7 +2,7 @@
 // parsed under this node-environment jest config. This suite never renders.
 jest.mock("next-intl", () => ({ useTranslations: () => (k: string) => k }));
 
-import { formatBinary } from "../results-table";
+import { formatBinary } from "../sql/results-table";
 
 describe("formatBinary", () => {
     it("summarises a blob as hex plus its true length", () => {

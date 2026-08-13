@@ -8,9 +8,15 @@
 .pnp.*
 
 # Package manager
+# Artefacts of the wrong package manager — this repo is pnpm (see the root
+# "packageManager" field). pnpm-lock.yaml is deliberately NOT ignored: apps/web
+# deploys to Cloudflare, whose runner installs from the repo. Without the
+# lockfile it resolves every "^" range fresh, so a build cannot be reproduced,
+# the dependency cache has nothing reliable to key on (a newly added package
+# went missing on the runner while everything else resolved, 2026-08-12), and
+# nothing identifies pnpm as the package manager.
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
 .yarn/*
 !.yarn/patches
 !.yarn/plugins

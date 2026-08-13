@@ -33,7 +33,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { apiFetch } from "@/lib/desktop/api-fetch";
 import { sanitizeError } from "@/lib/nosql-error-sanitizer";
-import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
+import { CONNECTION_COLORS } from "@/components/data-explorer/connection-colors";
 import { KeyBrowser } from "@/components/data-explorer/redis/key-browser";
 import { ValueEditor } from "@/components/data-explorer/redis/value-editor";
 import { CommandPanel } from "@/components/data-explorer/redis/command-panel";

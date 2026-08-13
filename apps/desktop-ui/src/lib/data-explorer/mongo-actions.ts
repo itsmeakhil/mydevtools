@@ -1,7 +1,5 @@
-// ponytail: handler bodies copied from src/app/app/database-explorer/page.tsx
-// (lines 215-583) rather than extracted, because the existing tool must not be
-// modified. If these two copies start drifting, extract a shared hook and point
-// both pages at it.
+// Mongo handler bodies originally lived in the standalone Database Explorer
+// page, which was retired once this adapter reached parity. Sole copy now.
 
 "use client";
 
@@ -12,7 +10,7 @@ import { apiFetch } from "@/lib/desktop/api-fetch";
 import { normalizeConnectionString } from "@/lib/nosql-dialects";
 import { sanitizeError } from "@/lib/nosql-error-sanitizer";
 import type { MongoConfig, MongoTabState } from "@/components/data-explorer/adapters/mongodb";
-import type { Document } from "@/components/nosql-explorer/types";
+import type { Document } from "@/components/data-explorer/mongodb/types";
 
 export interface MongoActions {
     documents: Document[];

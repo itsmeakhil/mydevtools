@@ -6,8 +6,7 @@ import { Monitor, X } from 'lucide-react'
 
 const DESKTOP_RECOMMENDED_SLUGS = new Set([
   'api-client',
-  'sql-client',
-  'database-explorer',
+  'data-explorer',
   'encryption-playground',
   's3-drive',
   'csv-excel-json',

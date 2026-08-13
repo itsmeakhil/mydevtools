@@ -7,6 +7,10 @@ export interface AppTab {
   path: string
 }
 
+// Routes that no longer exist. Persisted tabs pointing at them would render a
+// dead chip with null content, so they are dropped on rehydrate.
+const REMOVED_TAB_PATHS = new Set(['/app/sql-client', '/app/database-explorer'])
+
 interface TabStore {
   tabs: AppTab[]
   activeTabPath: string | null
@@ -49,6 +53,16 @@ export const useTabStore = create<TabStore>()(
 
       closeAllTabs: () => set({ tabs: [], activeTabPath: null }),
     }),
-    { name: 'mdt-app-tabs' }
+    {
+      name: 'mdt-app-tabs',
+      merge: (persisted, current) => {
+        const state = { ...current, ...(persisted as Partial<TabStore>) }
+        state.tabs = (state.tabs ?? []).filter(t => !REMOVED_TAB_PATHS.has(t.path))
+        if (state.activeTabPath && REMOVED_TAB_PATHS.has(state.activeTabPath)) {
+          state.activeTabPath = state.tabs[0]?.path ?? null
+        }
+        return state
+      },
+    }
   )
 )

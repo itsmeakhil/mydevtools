@@ -53,7 +53,7 @@ export function MdtDashboard() {
         </div>
         <div className="mx-auto flex h-7 max-w-[60%] flex-1 items-center gap-2 rounded-md border border-[color:var(--mdt-border)] bg-black/30 px-3 font-mono text-[11px] text-[color:var(--mdt-muted)]">
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--mdt-green)" }} />
-          <span className="truncate">mydevtools.tech/app/sql-client</span>
+          <span className="truncate">mydevtools.tech/app/data-explorer</span>
         </div>
         <div className="hidden items-center gap-1.5 rounded-md border border-[color:var(--mdt-border)] bg-black/20 px-2 py-1 font-mono text-[10px] text-[color:var(--mdt-faint)] sm:flex">
           <Search className="h-3 w-3" /> ⌘K

@@ -37,8 +37,8 @@ import {
     putSqlSavedQueries,
     type NosqlSavedQuery,
 } from "@/lib/user-preferences-api";
-import { ResultsTable } from "@/components/sql-client/results-table";
-import type { QueryResult } from "@/components/sql-client/types";
+import { ResultsTable } from "./results-table";
+import type { QueryResult } from "./types";
 import type { PaneProps } from "../types";
 import type { SqlTabState } from "../adapters/sql";
 

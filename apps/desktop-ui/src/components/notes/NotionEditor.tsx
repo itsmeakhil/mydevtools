@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
-import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
+import { useNotesData, useNotesContent, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
 import { NoteMarkdownEditor } from "@/components/notes/markdown-editor/NoteMarkdownEditor";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
@@ -45,10 +45,14 @@ import type { Note } from "@/app/app/notes/types/Note";
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
     const tCtx = useTranslations("Notes.context");
-    const { noteById, isContentLoading } = useNotesData();
+    const { noteById } = useNotesData();
+    const { contentById, isContentLoading } = useNotesContent();
     const { activeNoteId, focusMode, setActiveNoteId, setFocusMode } = useNotesUI();
     const { updateNote } = useNotesActions();
     const activeNote = activeNoteId ? noteById.get(activeNoteId) : undefined;
+    // Bodies live in the content context, not on the note — a body write must not
+    // re-render the sidebar.
+    const activeContent = activeNoteId ? contentById.get(activeNoteId) : undefined;
     const { user } = useAuth();
 
     const [title, setTitle] = useState("");
@@ -158,8 +162,8 @@ export default function NotionEditor() {
             return pendingTemplateContent.markdown;
         }
         // Normalizes both new (string) and legacy (tree) content to markdown.
-        return noteContentToMarkdown(activeNote?.content);
-    }, [activeNoteId, editorKey, activeNote?.content, pendingTemplateContent]);
+        return noteContentToMarkdown(activeContent);
+    }, [activeNoteId, editorKey, activeContent, pendingTemplateContent]);
 
     const activePath = useMemo<Note[]>(() => {
         if (!activeNote) return [];
@@ -199,14 +203,14 @@ export default function NotionEditor() {
     // Defer word-count compute: the heavy extract runs at most every 500ms
     // instead of every keystroke.
     const { wordCount, readTime } = useMemo(() => {
-        const src = wordCountSource ?? activeNote?.content;
+        const src = wordCountSource ?? activeContent;
         const text = extractPlainText(src);
         const wc = countWords(text);
         return { wordCount: wc, readTime: readingTimeMinutes(wc) };
-    }, [wordCountSource, activeNote?.content]);
+    }, [wordCountSource, activeContent]);
 
     const handleExportMarkdown = useCallback(() => {
-        const src = latestMarkdownRef.current ?? activeNote?.content;
+        const src = latestMarkdownRef.current ?? activeContent;
         const md = contentToMarkdown(title || "Untitled", src);
         const blob = new Blob([md], { type: "text/markdown" });
         const url = URL.createObjectURL(blob);
@@ -215,10 +219,10 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.md`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [activeNote?.content, title]);
+    }, [activeContent, title]);
 
     const handleExportHtml = useCallback(() => {
-        const src = latestMarkdownRef.current ?? activeNote?.content;
+        const src = latestMarkdownRef.current ?? activeContent;
         const body = noteContentToMarkdown(src);
         const bodyHtml = marked.parse(body, { async: false }) as string;
         const html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8" />\n<title>${title || "Note"}</title>\n</head>\n<body>\n<h1 style="font-size:2rem;font-weight:bold;margin-bottom:1rem">${title || "Untitled"}</h1>\n${bodyHtml}</body>\n</html>`;
@@ -229,7 +233,7 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.html`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [activeNote?.content, title]);
+    }, [activeContent, title]);
 
     const handleApplyTemplate = useCallback((tpl: NoteTemplate) => {
         if (!activeNoteId) return;

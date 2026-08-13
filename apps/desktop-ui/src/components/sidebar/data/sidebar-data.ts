@@ -501,18 +501,6 @@ export const sidebarData: SidebarData = {
       icon: IconServer,
       items: [
         {
-          title: 'SQL Client',
-          url: '/app/sql-client',
-          icon: IconSql,
-          description: 'Connect to PostgreSQL, MySQL, and MariaDB. Run queries with an encrypted credential store.',
-        },
-        {
-          title: 'Database Explorer',
-          url: '/app/database-explorer',
-          icon: IconDatabase,
-          description: 'Explore MongoDB databases.',
-        },
-        {
           title: 'S3 Drive',
           url: '/app/s3-drive',
           icon: IconBucket,
@@ -522,7 +510,7 @@ export const sidebarData: SidebarData = {
           title: 'Data Explorer',
           url: '/app/data-explorer',
           icon: IconDatabase,
-          description: 'One workspace for MongoDB and Redis. Browse, query, and edit with an encrypted credential store.',
+          description: 'One workspace for PostgreSQL, MySQL, MongoDB, Redis, Firestore, and Elasticsearch. Browse, query, and edit with an encrypted credential store.',
         },
       ],
     },

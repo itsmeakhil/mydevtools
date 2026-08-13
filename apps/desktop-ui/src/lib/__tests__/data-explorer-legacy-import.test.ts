@@ -5,7 +5,7 @@ import {
     dedupeAgainstExisting,
 } from "../data-explorer/legacy-import";
 import type { UnifiedConnection } from "@/components/data-explorer/types";
-import type { SqlConnectionConfig } from "@/components/sql-client/types";
+import type { SqlConnectionConfig } from "@/components/data-explorer/sql/types";
 
 const sqlConfig = (overrides: Partial<SqlConnectionConfig> = {}): SqlConnectionConfig => ({
     type: "postgresql",

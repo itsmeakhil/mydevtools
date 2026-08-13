@@ -2,7 +2,7 @@ import { detectDbType, type DbType } from "@/lib/nosql-dialects";
 import type { ConnectionFormValues, UnifiedConnection } from "@/components/data-explorer/types";
 import type { MongoConfig } from "@/components/data-explorer/adapters/mongodb";
 import type { RedisConfig } from "@/components/data-explorer/adapters/redis";
-import type { SqlConnectionConfig } from "@/components/sql-client/types";
+import type { SqlConnectionConfig } from "@/components/data-explorer/sql/types";
 import { SQL_ENGINES, type SqlEngine } from "@/lib/data-explorer/sql-api";
 
 export interface LegacyCandidate {
@@ -76,7 +76,7 @@ export function legacySqlToUnified(
  * The one field that makes two same-named connections distinct, pulled from
  * whichever adapter config shape is present. A structural check on the
  * config's own fields, not a branch on sourceId — legacy Mongo defaults every
- * unnamed row's name to "My Connection" (nosql-explorer/connection-service.ts),
+ * unnamed row's name to "My Connection" (data-explorer/mongodb/connection-service.ts),
  * so name alone is not enough to tell two rows apart.
  *
  * The SQL branch deliberately leaves the password out: re-importing after a

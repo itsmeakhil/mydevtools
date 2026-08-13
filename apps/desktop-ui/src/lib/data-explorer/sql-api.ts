@@ -1,4 +1,4 @@
-import type { DbType, SqlConnectionConfig } from "@/components/sql-client/types";
+import type { DbType, SqlConnectionConfig } from "@/components/data-explorer/sql/types";
 
 /**
  * Pure logic for the Data Explorer SQL adapters. No React, no fetch — the
