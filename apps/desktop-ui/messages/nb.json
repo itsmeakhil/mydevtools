@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Vis nettstedsikoner i hvelvet",
         "helpText": "Av som standard. Å hente et ikon forteller en tredjepartstjeneste hvilke nettsteder du har kontoer på."
+      },
+      "telemetry": {
+        "label": "Del anonyme bruksdata",
+        "helpText": "Av som standard. Sender hvilke verktøy du åpner, appversjonen og språket ditt. Ingen konto, ingen enhets-ID og ingenting av det du skriver i et verktøy."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Lukk",
     "pill": "Oppdaterer…",
     "pillPct": "Oppdaterer… {pct} %"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Vil du hjelpe med å bestemme hva som lages neste gang?",
+      "body": "Del bruk anonymt: hvilke verktøy du åpner, appversjonen og språket ditt. Ingen konto, ingen enhets-ID og ingenting av det du skriver i et verktøy. Du kan endre dette når som helst i Innstillinger.",
+      "accept": "Del anonymt",
+      "decline": "Nei takk"
+    }
   }
 }

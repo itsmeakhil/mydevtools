@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 import useAuth from '@/utils/useAuth';
 import { trackToolUsageApi } from '@/lib/user-preferences-api';
+import { track } from '@/lib/telemetry';
 import {
   appendEvent,
   deriveRecents,
@@ -57,6 +58,10 @@ export function useToolUsage() {
         console.error('Error updating tool stats:', error);
       });
     }
+
+    // Anonymous, opt-in, and a no-op unless the user turned it on. The tool
+    // slug is the only thing sent — never the URL, which can carry state.
+    track('tool_opened', { tool: toolId });
   }, [user?.uid]);
 
   const getRecentlyUsedTools = useCallback(

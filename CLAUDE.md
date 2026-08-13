@@ -10,6 +10,7 @@ All-in-one developer toolkit (~80 tools: formatters, security, generators, notes
 - Identity is local: fixed `uid` `"local"` from `utils/useAuth`, editable display name/avatar in local preferences (`useAppUser`).
 - All app data goes through `lib/backend-api.ts` / `lib/desktop/api-fetch.ts` → Tauri `local_api` → SQLCipher. The `/api/v1/...` paths are the local Rust router's contract, never HTTP.
 - Vault/masterkey creation is offline-only (desktop Rust mirror).
+- Usage analytics = `lib/telemetry.ts` only: opt-in, anonymous (rotating session id, app version, locale), two events (`app_started`, `tool_opened {tool}`). Never send tool input, paths, or any stable id. Vercel Analytics / Clarity are marketing-site-only — never re-add them to `apps/desktop-ui`.
 
 ## Monorepo (pnpm)
 

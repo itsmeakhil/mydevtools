@@ -8,6 +8,7 @@ import { Sun, Globe, Palette, Check, Lock } from 'lucide-react'
 import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
 import { Switch } from '@/components/ui/switch'
 import { getVaultIconsEnabled, setVaultIconsEnabled } from '@/lib/vault-icon-pref'
+import { getConsent, setConsent } from '@/lib/telemetry'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
@@ -38,11 +39,13 @@ export default function SettingsPage() {
   const [mounted, setMounted] = useState(false)
   const [idleTimeout, setIdleTimeout] = useState('15')
   const [vaultIcons, setVaultIcons] = useState(false)
+  const [telemetry, setTelemetry] = useState(false)
 
   useEffect(() => {
     setMounted(true)
     setIdleTimeout(String(getIdleTimeoutMinutes()))
     setVaultIcons(getVaultIconsEnabled())
+    setTelemetry(getConsent() === 'granted')
   }, [])
 
   const handleIdleTimeoutChange = (value: string) => {
@@ -193,6 +196,23 @@ export default function SettingsPage() {
                 onCheckedChange={(next) => {
                   setVaultIconsEnabled(next)
                   setVaultIcons(next)
+                }}
+              />
+            </div>
+
+            {/* Off until explicitly granted — see lib/telemetry.ts for what
+                a granted event actually contains. */}
+            <div className="flex items-start justify-between gap-4">
+              <div className="space-y-1">
+                <Label htmlFor="telemetry">{t('security.telemetry.label')}</Label>
+                <p className="text-xs text-muted-foreground">{t('security.telemetry.helpText')}</p>
+              </div>
+              <Switch
+                id="telemetry"
+                checked={telemetry}
+                onCheckedChange={(next) => {
+                  setConsent(next ? 'granted' : 'denied')
+                  setTelemetry(next)
                 }}
               />
             </div>

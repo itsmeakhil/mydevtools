@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Tampilkan ikon situs di brankas",
         "helpText": "Mati secara bawaan. Mengambil ikon memberi tahu layanan pihak ketiga di situs mana Anda punya akun."
+      },
+      "telemetry": {
+        "label": "Bagikan data penggunaan anonim",
+        "helpText": "Nonaktif secara bawaan. Mengirim alat apa yang Anda buka, versi aplikasi, dan bahasa Anda. Tanpa akun, tanpa ID perangkat, dan tanpa apa pun yang Anda ketik di dalam alat."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Tutup",
     "pill": "Memperbarui…",
     "pillPct": "Memperbarui… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Bantu tentukan apa yang dibuat berikutnya?",
+      "body": "Bagikan penggunaan secara anonim: alat apa yang Anda buka, versi aplikasi, dan bahasa Anda. Tanpa akun, tanpa ID perangkat, dan tanpa apa pun yang Anda ketik di dalam alat. Anda dapat mengubahnya kapan saja di Pengaturan.",
+      "accept": "Bagikan secara anonim",
+      "decline": "Tidak, terima kasih"
+    }
   }
 }

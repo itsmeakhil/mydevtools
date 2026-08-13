@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Website-Symbole im Tresor anzeigen",
         "helpText": "Standardmäßig aus. Das Laden eines Symbols verrät einem Drittanbieter, bei welchen Seiten Sie Konten haben."
+      },
+      "telemetry": {
+        "label": "Anonyme Nutzungsdaten teilen",
+        "helpText": "Standardmäßig aus. Sendet, welche Tools Sie öffnen, die App-Version und Ihre Sprache. Kein Konto, keine Geräte-ID und nichts, was Sie in ein Tool eingeben."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Schließen",
     "pill": "Wird aktualisiert…",
     "pillPct": "Wird aktualisiert… {pct} %"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Möchten Sie mitentscheiden, was als Nächstes entsteht?",
+      "body": "Nutzung anonym teilen: welche Tools Sie öffnen, die App-Version und Ihre Sprache. Kein Konto, keine Geräte-ID und nichts, was Sie in ein Tool eingeben. Sie können das jederzeit in den Einstellungen ändern.",
+      "accept": "Anonym teilen",
+      "decline": "Nein, danke"
+    }
   }
 }

@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Hiện biểu tượng trang web trong kho",
         "helpText": "Mặc định tắt. Việc tải biểu tượng cho dịch vụ bên thứ ba biết bạn có tài khoản ở những trang nào."
+      },
+      "telemetry": {
+        "label": "Chia sẻ dữ liệu sử dụng ẩn danh",
+        "helpText": "Mặc định tắt. Gửi những công cụ bạn mở, phiên bản ứng dụng và ngôn ngữ của bạn. Không tài khoản, không ID thiết bị và không có bất kỳ nội dung nào bạn nhập trong công cụ."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Đóng",
     "pill": "Đang cập nhật…",
     "pillPct": "Đang cập nhật… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Bạn muốn giúp quyết định điều gì sẽ được xây dựng tiếp theo?",
+      "body": "Chia sẻ ẩn danh cách bạn dùng ứng dụng: những công cụ bạn mở, phiên bản ứng dụng và ngôn ngữ. Không tài khoản, không ID thiết bị và không có bất kỳ nội dung nào bạn nhập trong công cụ. Bạn có thể thay đổi bất cứ lúc nào trong Cài đặt.",
+      "accept": "Chia sẻ ẩn danh",
+      "decline": "Không, cảm ơn"
+    }
   }
 }

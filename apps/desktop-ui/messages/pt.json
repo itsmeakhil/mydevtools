@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Mostrar ícones dos sites no cofre",
         "helpText": "Desativado por predefinição. Obter um ícone revela a um serviço externo em que sites tem contas."
+      },
+      "telemetry": {
+        "label": "Partilhar dados de utilização anónimos",
+        "helpText": "Desativado por predefinição. Envia que ferramentas abre, a versão da aplicação e o seu idioma. Sem conta, sem identificador de dispositivo e sem nada do que escreve numa ferramenta."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Fechar",
     "pill": "A atualizar…",
     "pillPct": "A atualizar… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Quer ajudar a decidir o que se constrói a seguir?",
+      "body": "Partilhe a utilização de forma anónima: que ferramentas abre, a versão da aplicação e o seu idioma. Sem conta, sem identificador de dispositivo e sem nada do que escreve numa ferramenta. Pode alterar isto a qualquer momento nas Definições.",
+      "accept": "Partilhar anonimamente",
+      "decline": "Não, obrigado"
+    }
   }
 }

@@ -290,8 +290,13 @@ export default function Page() {
         />
 
         <div className="container px-4 md:px-6 mx-auto text-center">
+          {/* initial={false} — the hero renders in its final state server-side
+              instead of at opacity:0. An entrance animation here would delay the
+              paint of the LCP element (the H1) until JS hydrates, and hide the
+              headline entirely if it never does. Below-the-fold sections keep
+              their scroll reveals; the ambient orbs still animate. */}
           <motion.div
-            initial="hidden"
+            initial={false}
             animate="visible"
             variants={stagger}
             className="space-y-8 max-w-4xl mx-auto"
@@ -303,7 +308,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">All-in-One Developer Tools</span>
+              {/* Non-breaking space before the break: a plain trailing space is
+                  collapsed away, so textContent reads "ToolsJSON" to anything
+                  that does not treat <br/> as whitespace. Invisible at line end. */}
+              <span className="text-foreground">All-in-One Developer Tools&nbsp;</span>
               <br />
               <span className="mdt-grad-text mdt-grad-anim">
                 JSON, JWT, Regex &amp; 80+ More
@@ -430,7 +438,7 @@ export default function Page() {
                 Local-first architecture means your data is processed on your machine and works fully offline. There is no account and no server: nothing to sign up for, nothing to sign in to, and nothing for us to store. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs on your machine — nothing ever leaves your device unless you point a tool at a destination you choose.
               </p>
               <p className="text-lg leading-relaxed">
-                Free for everyone — every tool, every feature, no paid tier and no limits — and open source under the GNU AGPL v3, so you can read exactly what it does. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
+                Free for everyone — every tool, every feature, no paid tier and no limits — and open source under the GNU AGPL v3, so you can read exactly what it does. No ads, no data harvesting, and no tracking: usage stats are anonymous, off by default, and yours to switch on. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
               </p>
             </motion.div>
           </motion.div>

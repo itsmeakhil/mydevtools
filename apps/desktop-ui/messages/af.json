@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Wys werfikone in die kluis",
         "helpText": "Standaard af. Om 'n ikoon te haal vertel 'n derdeparty-diens by watter werwe jy rekeninge het."
+      },
+      "telemetry": {
+        "label": "Deel anonieme gebruiksdata",
+        "helpText": "Standaard af. Stuur watter gereedskap jy oopmaak, die weergawe van die program en jou taal. Geen rekening, geen toestel-ID, en niks wat jy in 'n hulpmiddel tik nie."
       }
     },
     "language": {
@@ -5114,5 +5118,13 @@
     "close": "Sluit",
     "pill": "Word bygewerk…",
     "pillPct": "Word bygewerk… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Help besluit wat volgende gebou word?",
+      "body": "Deel anonieme gebruik: watter gereedskap jy oopmaak, die weergawe van die program en jou taal. Geen rekening, geen toestel-ID, en niks wat jy in 'n hulpmiddel tik nie. Jy kan dit enige tyd in Instellings verander.",
+      "accept": "Deel anoniem",
+      "decline": "Nee dankie"
+    }
   }
 }
