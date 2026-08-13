@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Zobrazovat ikony webů v trezoru",
         "helpText": "Ve výchozím stavu vypnuto. Načtení ikony prozradí externí službě, na kterých webech máte účty."
+      },
+      "telemetry": {
+        "label": "Sdílet anonymní data o používání",
+        "helpText": "Ve výchozím nastavení vypnuto. Odesílá, které nástroje otevíráte, verzi aplikace a váš jazyk. Žádný účet, žádné ID zařízení a nic, co v nástroji napíšete."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Zavřít",
     "pill": "Aktualizace…",
     "pillPct": "Aktualizace… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Pomůžete rozhodnout, co vznikne příště?",
+      "body": "Sdílejte používání anonymně: které nástroje otevíráte, verzi aplikace a váš jazyk. Žádný účet, žádné ID zařízení a nic, co v nástroji napíšete. Kdykoli to můžete změnit v Nastavení.",
+      "accept": "Sdílet anonymně",
+      "decline": "Ne, děkuji"
+    }
   }
 }

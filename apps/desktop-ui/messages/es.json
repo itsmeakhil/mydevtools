@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Mostrar iconos de sitios en la bóveda",
         "helpText": "Desactivado por defecto. Descargar un icono revela a un servicio externo en qué sitios tienes cuentas."
+      },
+      "telemetry": {
+        "label": "Compartir datos de uso anónimos",
+        "helpText": "Desactivado por defecto. Envía qué herramientas abres, la versión de la aplicación y tu idioma. Sin cuenta, sin identificador de dispositivo y sin nada de lo que escribes en una herramienta."
       }
     },
     "language": {
@@ -5114,5 +5118,13 @@
     "close": "Cerrar",
     "pill": "Actualizando…",
     "pillPct": "Actualizando… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "¿Nos ayudas a decidir qué construir a continuación?",
+      "body": "Comparte el uso de forma anónima: qué herramientas abres, la versión de la aplicación y tu idioma. Sin cuenta, sin identificador de dispositivo y sin nada de lo que escribes en una herramienta. Puedes cambiarlo cuando quieras en Ajustes.",
+      "accept": "Compartir de forma anónima",
+      "decline": "No, gracias"
+    }
   }
 }

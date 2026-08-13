@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Show site icons in the vault",
         "helpText": "Off by default. Fetching an icon tells a third-party service which sites you hold accounts on."
+      },
+      "telemetry": {
+        "label": "Share anonymous usage data",
+        "helpText": "Off by default. Sends which tools you open, the app version and your language. No account, no device ID, and nothing you type in a tool."
       }
     },
     "language": {
@@ -5124,5 +5128,13 @@
     "close": "Close",
     "pill": "Updating…",
     "pillPct": "Updating… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Help decide what gets built next?",
+      "body": "Share anonymous usage: which tools you open, the app version and your language. No account, no device ID, and nothing you type in a tool. You can change this any time in Settings.",
+      "accept": "Share anonymously",
+      "decline": "No thanks"
+    }
   }
 }

@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Site-iconen in de kluis tonen",
         "helpText": "Standaard uit. Een icoon ophalen vertelt een externe dienst bij welke sites je accounts hebt."
+      },
+      "telemetry": {
+        "label": "Anonieme gebruiksgegevens delen",
+        "helpText": "Standaard uit. Verstuurt welke tools je opent, de app-versie en je taal. Geen account, geen apparaat-ID en niets van wat je in een tool typt."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Sluiten",
     "pill": "Bijwerken…",
     "pillPct": "Bijwerken… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Help je bepalen wat we hierna bouwen?",
+      "body": "Deel je gebruik anoniem: welke tools je opent, de app-versie en je taal. Geen account, geen apparaat-ID en niets van wat je in een tool typt. Je kunt dit altijd wijzigen in Instellingen.",
+      "accept": "Anoniem delen",
+      "decline": "Nee, bedankt"
+    }
   }
 }

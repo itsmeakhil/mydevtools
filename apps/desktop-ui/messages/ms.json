@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Tunjukkan ikon tapak dalam peti besi",
         "helpText": "Dimatikan secara lalai. Mengambil ikon memberitahu perkhidmatan pihak ketiga tapak mana anda mempunyai akaun."
+      },
+      "telemetry": {
+        "label": "Kongsi data penggunaan tanpa nama",
+        "helpText": "Dimatikan secara lalai. Menghantar alat yang anda buka, versi aplikasi dan bahasa anda. Tiada akaun, tiada ID peranti, dan tiada apa-apa yang anda taip dalam alat."
       }
     },
     "language": {
@@ -5114,5 +5118,13 @@
     "close": "Tutup",
     "pill": "Mengemas kini…",
     "pillPct": "Mengemas kini… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Bantu tentukan apa yang dibina seterusnya?",
+      "body": "Kongsi penggunaan tanpa nama: alat yang anda buka, versi aplikasi dan bahasa anda. Tiada akaun, tiada ID peranti, dan tiada apa-apa yang anda taip dalam alat. Anda boleh mengubahnya bila-bila masa dalam Tetapan.",
+      "accept": "Kongsi tanpa nama",
+      "decline": "Tidak, terima kasih"
+    }
   }
 }

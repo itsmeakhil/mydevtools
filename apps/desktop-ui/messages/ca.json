@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Mostra icones dels llocs a la caixa forta",
         "helpText": "Desactivat per defecte. Baixar una icona revela a un servei extern a quins llocs tens comptes."
+      },
+      "telemetry": {
+        "label": "Comparteix dades d'ús anònimes",
+        "helpText": "Desactivat per defecte. Envia quines eines obres, la versió de l'aplicació i el teu idioma. Sense compte, sense identificador de dispositiu i sense res del que escrius a les eines."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Tanca",
     "pill": "S'està actualitzant…",
     "pillPct": "S'està actualitzant… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Vols ajudar a decidir què construïm després?",
+      "body": "Comparteix l'ús de manera anònima: quines eines obres, la versió de l'aplicació i el teu idioma. Sense compte, sense identificador de dispositiu i sense res del que escrius a les eines. Ho pots canviar en qualsevol moment a Configuració.",
+      "accept": "Comparteix anònimament",
+      "decline": "No, gràcies"
+    }
   }
 }

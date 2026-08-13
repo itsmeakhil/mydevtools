@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Kasada site simgelerini göster",
         "helpText": "Varsayılan olarak kapalı. Simge indirmek, hangi sitelerde hesabınız olduğunu üçüncü taraf bir hizmete bildirir."
+      },
+      "telemetry": {
+        "label": "Anonim kullanım verilerini paylaş",
+        "helpText": "Varsayılan olarak kapalı. Hangi araçları açtığınızı, uygulama sürümünü ve dilinizi gönderir. Hesap yok, cihaz kimliği yok ve bir araca yazdığınız hiçbir şey gönderilmez."
       }
     },
     "language": {
@@ -5114,5 +5118,13 @@
     "close": "Kapat",
     "pill": "Güncelleniyor…",
     "pillPct": "Güncelleniyor… %{pct}"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Sırada ne yapılacağına karar vermeye yardım eder misiniz?",
+      "body": "Kullanımı anonim olarak paylaşın: hangi araçları açtığınız, uygulama sürümü ve diliniz. Hesap yok, cihaz kimliği yok ve bir araca yazdığınız hiçbir şey gönderilmez. Bunu istediğiniz zaman Ayarlar'dan değiştirebilirsiniz.",
+      "accept": "Anonim olarak paylaş",
+      "decline": "Hayır, teşekkürler"
+    }
   }
 }

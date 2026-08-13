@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Pokazuj ikony witryn w sejfie",
         "helpText": "Domyślnie wyłączone. Pobranie ikony ujawnia zewnętrznej usłudze, na jakich witrynach masz konta."
+      },
+      "telemetry": {
+        "label": "Udostępniaj anonimowe dane o użyciu",
+        "helpText": "Domyślnie wyłączone. Wysyła, które narzędzia otwierasz, wersję aplikacji i Twój język. Bez konta, bez identyfikatora urządzenia i bez niczego, co wpisujesz w narzędziu."
       }
     },
     "language": {
@@ -5103,5 +5107,13 @@
     "close": "Zamknij",
     "pill": "Aktualizowanie…",
     "pillPct": "Aktualizowanie… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Pomożesz zdecydować, co powstanie w następnej kolejności?",
+      "body": "Udostępnij anonimowe dane o użyciu: które narzędzia otwierasz, wersję aplikacji i Twój język. Bez konta, bez identyfikatora urządzenia i bez niczego, co wpisujesz w narzędziu. Możesz to zmienić w każdej chwili w Ustawieniach.",
+      "accept": "Udostępnij anonimowo",
+      "decline": "Nie, dziękuję"
+    }
   }
 }

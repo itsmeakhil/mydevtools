@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Visa webbplatsikoner i valvet",
         "helpText": "Av som standard. Att hämta en ikon berättar för en tredjepartstjänst vilka webbplatser du har konton på."
+      },
+      "telemetry": {
+        "label": "Dela anonym användningsdata",
+        "helpText": "Av som standard. Skickar vilka verktyg du öppnar, appens version och ditt språk. Inget konto, inget enhets-ID och inget av det du skriver i ett verktyg."
       }
     },
     "language": {
@@ -5114,5 +5118,13 @@
     "close": "Stäng",
     "pill": "Uppdaterar…",
     "pillPct": "Uppdaterar… {pct} %"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Vill du hjälpa till att avgöra vad som byggs härnäst?",
+      "body": "Dela användning anonymt: vilka verktyg du öppnar, appens version och ditt språk. Inget konto, inget enhets-ID och inget av det du skriver i ett verktyg. Du kan ändra detta när som helst i Inställningar.",
+      "accept": "Dela anonymt",
+      "decline": "Nej tack"
+    }
   }
 }

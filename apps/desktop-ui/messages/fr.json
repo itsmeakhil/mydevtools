@@ -216,6 +216,10 @@
       "vaultIcons": {
         "label": "Afficher les icônes de sites dans le coffre",
         "helpText": "Désactivé par défaut. Récupérer une icône indique à un service tiers sur quels sites vous avez des comptes."
+      },
+      "telemetry": {
+        "label": "Partager des données d'utilisation anonymes",
+        "helpText": "Désactivé par défaut. Envoie les outils que vous ouvrez, la version de l'application et votre langue. Aucun compte, aucun identifiant d'appareil et rien de ce que vous saisissez dans un outil."
       }
     },
     "language": {
@@ -5114,5 +5118,13 @@
     "close": "Fermer",
     "pill": "Mise à jour…",
     "pillPct": "Mise à jour… {pct} %"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Vous voulez aider à décider de la suite ?",
+      "body": "Partagez votre utilisation de façon anonyme : les outils que vous ouvrez, la version de l'application et votre langue. Aucun compte, aucun identifiant d'appareil et rien de ce que vous saisissez dans un outil. Vous pouvez changer d'avis à tout moment dans les Paramètres.",
+      "accept": "Partager anonymement",
+      "decline": "Non merci"
+    }
   }
 }
