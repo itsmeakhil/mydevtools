@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic"
 import { Suspense, type ReactNode } from "react"
 import { AppUpdateNotifier } from "@/components/app-update-notifier"
-import { AuthLogoutListener } from "@/components/auth-logout-listener"
 
 const ClientAnalytics = dynamic(
   () => import('@vercel/analytics/next').then((m) => m.Analytics),
@@ -30,7 +29,6 @@ export function ClientShell({ children }: Props) {
   return (
     <>
       <AppUpdateNotifier />
-      <AuthLogoutListener />
       {children}
       <Suspense fallback={null}>
         <ClientAnalytics />

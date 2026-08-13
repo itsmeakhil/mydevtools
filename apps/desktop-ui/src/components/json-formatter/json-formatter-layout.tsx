@@ -28,8 +28,7 @@ import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs'
 import { RevealItem } from '@/components/dashboard/dashboard-reveal'
 import { Button } from '@/components/ui/button'
-import useAuth from '@/utils/useAuth'
-import { backendFetch } from '@/lib/backend-auth'
+import { apiFetch } from '@/lib/desktop/api-fetch'
 import { repairJSON } from '@/lib/json-utils/repair'
 import { sortKeysDeep } from '@/lib/json-utils/sort'
 import { VanillaEditor, type VanillaEditorInstance } from './vanilla-editor'
@@ -118,15 +117,13 @@ const createPaneState = (initialName: string, mode: Mode): PaneState => ({
 
 export function JsonFormatterLayout() {
   const t = useTranslations('JsonFormatter')
-  const { user } = useAuth(false)
   const { copyToClipboard } = useCopyToClipboard()
   const searchParams = useSearchParams()
   const initialInputParam = searchParams.get('input')
 
-  const authedFetch = useCallback(
+  const storeFetch = useCallback(
     async (path: string, init?: RequestInit) => {
-      if (!user) throw new Error('Not authenticated')
-      const res = await backendFetch(path, {
+      const res = await apiFetch(path, {
         ...init,
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +136,7 @@ export function JsonFormatterLayout() {
       }
       return res
     },
-    [user]
+    []
   )
   const [leftPane, setLeftPane] = useState<PaneState>(() => {
     let content: Content = { json: initialJson };
@@ -287,11 +284,6 @@ export function JsonFormatterLayout() {
   }
 
   const handleSave = async (pane: PaneKey) => {
-    if (!user) {
-      toast.error(t('toastLoginRequired'))
-      return
-    }
-
     const paneState = pane === 'left' ? leftPane : rightPane
     try {
       updatePane(pane, (prev) => ({ ...prev, isSaving: true }))
@@ -303,14 +295,14 @@ export function JsonFormatterLayout() {
       }
 
       if (paneState.documentId) {
-        const res = await authedFetch(
+        const res = await storeFetch(
           `/api/backend/json-formatter/documents/${paneState.documentId}`,
           { method: 'PATCH', body: JSON.stringify(body) }
         )
         const saved = (await res.json()) as { id: string }
         updatePane(pane, (prev) => ({ ...prev, documentId: saved.id }))
       } else {
-        const res = await authedFetch('/api/backend/json-formatter/documents', {
+        const res = await storeFetch('/api/backend/json-formatter/documents', {
           method: 'POST',
           body: JSON.stringify(body),
         })
@@ -331,7 +323,7 @@ export function JsonFormatterLayout() {
     const allDocs = await fetchAllPages<JsonFormatterDocumentOut>({
       pageSize: DOCS_PAGE_SIZE,
       fetchPage: async (skip, limit) => {
-        const res = await authedFetch(
+        const res = await storeFetch(
           `/api/backend/json-formatter/documents?skip=${skip}&limit=${limit}`
         )
         return (await res.json()) as JsonFormatterDocumentOut[]
@@ -342,10 +334,6 @@ export function JsonFormatterLayout() {
   }
 
   const openLoadDialog = async (pane: PaneKey) => {
-    if (!user) {
-      toast.error(t('toastLoginRequired'))
-      return
-    }
     setLoadPane(pane)
     setLoadOpen(true)
     setDocsLoading(true)
@@ -362,7 +350,7 @@ export function JsonFormatterLayout() {
 
   const loadDocumentIntoPane = async (pane: PaneKey, docId: string) => {
     try {
-      const res = await authedFetch(`/api/backend/json-formatter/documents/${docId}`)
+      const res = await storeFetch(`/api/backend/json-formatter/documents/${docId}`)
       const doc = (await res.json()) as JsonFormatterDocumentOut
       const title = doc?.title || ''
       const contentText = doc?.content || ''

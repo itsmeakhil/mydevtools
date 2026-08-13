@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "什么是 MyDevTools？",
         "description": "一个离线的开发者工作空间：包含一个仪表盘和 80 多款完全在您设备上运行的工具。",
-        "p1": "MyDevTools 完全离线运行。在浏览器中完成一次性激活后，一切都在本设备上运行，无需登录账户，也无需联网。侧边栏列出了每一款应用；您可以在",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "设置",
         "p1After": "中隐藏您不使用的工具。",
-        "p2": "部分功能使用<strong>主密码</strong>（或全局保险库密钥），以便在您的设备上加密密码、数据库连接字符串等机密信息。您的数据存储在本地加密数据库中，绝不会发送到任何服务器。"
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "快速链接",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "激活与离线访问",
-        "description": "应用首次如何解锁，之后如何离线运行。",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "首次打开应用时，会在您的浏览器中进行<strong>一次性激活</strong>。它会记录您的套餐并在本设备上解锁应用。",
-          "offline": "<strong>无需登录会话。</strong>激活后，无需每次会话登录，也没有定期重新校验——应用在无网络连接的情况下持续运行。",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>本地存储。</strong>您的所有数据都保存在设备上一个加密的 SQLCipher 数据库中，并由保存在您操作系统钥匙串中的随机密钥加密。"
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "设置",
-    "subtitle": "管理你的账户设置与偏好。",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "用户资料",
-      "description": "你的个人信息与账户详情。",
-      "avatarAlt": "用户",
-      "anonymousUser": "匿名用户",
-      "noEmailProvided": "未提供邮箱",
-      "notLoggedIn": "未登录。"
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "工具与功能",
@@ -247,49 +252,6 @@
         "uk": "Українська",
         "sv": "Svenska",
         "tr": "Türkçe"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +590,9 @@
     },
     "analytics": {
       "title": "数据一览",
-      "subtitle": "与服务器账户同步的计数。",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "无法加载分析数据。",
       "retry": "重试",
-      "loginHint": "登录后可查看使用分析与界面偏好。",
       "passwordEntries": "密码条目",
       "bookmarks": "书签",
       "bookmarkFolders": "书签文件夹",
@@ -664,9 +625,8 @@
     },
     "ui": {
       "title": "界面偏好",
-      "subtitle": "主题、语言与侧边栏显示的工具 — 来自账户设置。",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "无法加载偏好设置。",
-      "loginHint": "登录后可查看已保存的界面偏好。",
       "theme": "主题",
       "accent": "强调色",
       "locale": "语言",
@@ -674,13 +634,9 @@
       "favoriteTools": "收藏的工具",
       "toolsWithUsage": "已记录使用情况的工具"
     },
-    "signIn": "登录",
     "noResults": "没有工具与您的搜索匹配",
     "noResultsHint": "尝试不同的关键词或清除筛选条件。",
     "filterAll": "全部",
-    "loginCta": {
-      "description": "登录以跟踪您最近使用的工具。"
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +913,8 @@
       "export": "导出"
     },
     "context": {
-      "authRequiredError": "用户未登录",
       "defaultTitle": "无标题",
-      "cloudSyncImageError": "开启云同步以存储笔记图片。文本笔记保留在本地。"
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1165,7 @@
       "cancel": "取消",
       "confirmDelete": "删除",
       "deleteDialogTitle": "删除环境集合？",
-      "deleteDialogDescription": "将从账户中移除加密数据，无法撤销。",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2600,6 @@
     "toastCopiedText": "已复制文本面板",
     "toastCopiedTree": "已复制树形面板",
     "toastCopyFailed": "复制 JSON 失败",
-    "toastLoginRequired": "请登录以保存文档",
     "toastSaved": "文档已保存",
     "toastSaveFailed": "文档保存失败",
     "format": "格式化",

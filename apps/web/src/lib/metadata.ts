@@ -650,7 +650,7 @@ export function generatePageMetadata(opts: {
 export const siteMetadata = {
     name: 'MyDevTools',
     title: 'MyDevTools: 80+ Desktop Developer Tools + SQL/NoSQL/Redis Client',
-    description: 'All-in-one desktop developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 80+ utilities (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Privacy-first, offline, local-first.',
+    description: 'All-in-one desktop developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 80+ utilities (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Completely offline, no account required, free and open source.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — Desktop Developer Toolkit', 'SQL + NoSQL + Redis client + 80+ developer tools in one desktop workspace. Privacy-first.'),
+    ogImage: ogImageUrl('MyDevTools — Desktop Developer Toolkit', 'SQL + NoSQL + Redis client + 80+ developer tools in one desktop app. Offline, no account, free for everyone.'),
 }

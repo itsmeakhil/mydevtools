@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Що таке MyDevTools?",
-        "description": "Робочий простір розробника з входом: панель та набір інструментів для щоденних задач.",
-        "p1": "Після входу застосунок встановлює сесію з MyDevTools API, щоб інструменти могли завантажувати та зберігати ваші дані. Бічна панель показує всі застосунки; непотрібні інструменти можна приховати в",
-        "settingsLink": "Налаштуваннях",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Деякі функції використовують <strong>майстер‑пароль</strong> (або глобальний ключ сховища), щоб секрети на кшталт паролів і рядків підключення шифрувалися на вашому пристрої до того, як потраплять на сервер."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Швидкі посилання",
-        "dashboard": "Панель",
-        "settings": "Налаштування"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Користуйтеся цим інструментом з бічної панелі — там знаходиться його основний робочий процес."
     },
     "security": {
-      "session": {
-        "title": "Вхід і API‑сесія",
-        "description": "Ідентичність і те, як браузер взаємодіє з бекендом.",
-        "items": {
-          "authentication": "<strong>Автентифікація</strong> використовує Firebase для входу. Після входу застосунок обмінює Firebase ID‑токен на cookies API.",
-          "accessTokens": "<strong>Токени доступу</strong> — це JWT, підписані на сервері (HS256), які підтверджують користувача при виклику API.",
-          "refreshTokens": "<strong>Токени оновлення</strong> зберігаються в HttpOnly cookies; сервер зберігає SHA-256 хеш токена, а не сам токен."
-        }
-      },
       "encryption": {
         "title": "Шифрування, яке варто знати",
         "description": "Криптографія на стороні клієнта для сховища та чутливих даних підключень.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> з <strong>SHA-256</strong>, <strong>100 000</strong> ітерацій і випадковою сіллю виводить 256‑бітний ключ з майстер‑пароля.",
           "aes": "<strong>AES‑256‑GCM</strong> шифрує дані; для кожного шифрування використовується випадковий <strong>IV 12 байт</strong>.",
-          "scope": "Похідний ключ залишається в браузері (не експортується). Сервер отримує лише <strong>шифртекст та IV</strong>, а не майстер‑пароль чи секрети у відкритому вигляді."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Якщо ви забудете майстер‑пароль, зашифровані дані неможливо відновити. Зберігайте його безпечно."
-      },
-      "logout": {
-        "title": "Вихід і локальні дані",
-        "body": "Вихід очищає секрети в пам’яті, стан сховища та (за потреби) матеріал майстер‑ключа з IndexedDB, а також завершує API‑сесію. Дані, що зберігаються лише в локальному сховищі, можуть залишатися, доки ви не очистите їх у браузері."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Налаштуйте видимі інструменти в Налаштуваннях, щоб бічна панель залишалася охайною."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

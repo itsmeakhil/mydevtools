@@ -13,7 +13,6 @@ import {
   CommandSeparator,
 } from '@/components/ui/command'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
-import { requiresAuth } from '@/lib/tool-config'
 import useAuth from '@/utils/useAuth'
 import { cn } from '@/lib/utils'
 import { Star } from 'lucide-react'
@@ -126,13 +125,6 @@ export function GlobalCommandPalette() {
 
   const run = React.useCallback(
     (entry: PaletteEntry) => {
-      if (entry.requiresAuth && !user) {
-        setOpen(false)
-        setTimeout(() => {
-          window.location.href = '/login'
-        }, 0)
-        return
-      }
       setRecentEntries((prev) => {
         const nextUrls = [entry.url, ...prev.map((e) => e.url).filter((u) => u !== entry.url)].slice(0, 8)
         const mapped = nextUrls

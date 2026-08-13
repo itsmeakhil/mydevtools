@@ -1,14 +1,8 @@
-import { auth } from "@/database/firebase";
 import { encryptData, decryptData } from "@/lib/encryption";
-import { proxyJsonAuthed } from "@/lib/backend-auth";
+import { apiRequestRaw } from "@/lib/backend-api";
 import { toast } from "sonner";
 import { SavedConnection } from "./types";
 import type { DbType } from "@/lib/nosql-dialects";
-
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000";
 
 // ── proxy helper (with automatic token refresh on 401) ───────────────────────
 
@@ -17,9 +11,8 @@ const proxyRequest = async <T,>(
     path: string,
     body?: unknown
 ): Promise<T> => {
-    if (!auth.currentUser) throw new Error("Not authenticated.");
 
-    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+    const { status, data } = await apiRequestRaw<T>(method, path, body);
 
     if (status < 200 || status >= 300) {
         const err = data as Record<string, unknown> | null;

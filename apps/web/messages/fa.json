@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools چیست؟",
-        "description": "یک فضای کاری توسعه‌دهنده با ورود: داشبورد و مجموعه‌ای از ابزارهای روزمره.",
-        "p1": "پس از ورود، برنامه یک نشست با API MyDevTools برقرار می‌کند تا ابزارها بتوانند داده‌های شما را بارگیری و ذخیره کنند. نوار کناری همه برنامه‌ها را نشان می‌دهد؛ می‌توانید ابزارهایی را که استفاده نمی‌کنید از",
-        "settingsLink": "تنظیمات",
-        "p1After": "مخفی کنید.",
-        "p2": "برخی قابلیت‌ها از <strong>رمز اصلی</strong> (یا کلید کلی خزانه) استفاده می‌کنند تا اطلاعات حساسی مثل گذرواژه‌ها و رشته‌های اتصال، قبل از رسیدن به سرور روی دستگاه شما رمزنگاری شوند."
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
+        "p1After": ".",
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "پیوندهای سریع",
-        "dashboard": "داشبورد",
-        "settings": "تنظیمات"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "این ابزار را از نوار کناری و مطابق گردش‌کار اختصاصی خودش استفاده کنید."
     },
     "security": {
-      "session": {
-        "title": "ورود و نشست API",
-        "description": "هویت و این‌که مرورگر چگونه با بک‌اند ارتباط برقرار می‌کند.",
-        "items": {
-          "authentication": "<strong>احراز هویت</strong> از Firebase برای ورود استفاده می‌کند. پس از ورود، برنامه توکن شناسه Firebase را با کوکی‌های API مبادله می‌کند.",
-          "accessTokens": "<strong>توکن‌های دسترسی</strong> JWTهای امضاشده در سرور (HS256) هستند و مشخص می‌کنند کدام کاربر API را فراخوانی می‌کند.",
-          "refreshTokens": "<strong>توکن‌های نوسازی</strong> در کوکی‌های HttpOnly ذخیره می‌شوند؛ سرور هش SHA-256 توکن را نگه می‌دارد، نه خود توکن خام را."
-        }
-      },
       "encryption": {
         "title": "رمزنگاری مهم",
         "description": "رمزنگاری سمت کلاینت برای خزانه و داده‌های اتصال حساس.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> با <strong>SHA-256</strong>، <strong>100,000</strong> تکرار و salt تصادفی، یک کلید 256 بیتی را از رمز اصلی مشتق می‌کند.",
           "aes": "<strong>AES-256-GCM</strong> داده‌ها را رمزنگاری می‌کند؛ برای هر رمزنگاری از <strong>IV 12 بایتی</strong> تصادفی استفاده می‌شود.",
-          "scope": "کلید مشتق‌شده داخل مرورگر می‌ماند (غیرقابل استخراج). سرور فقط <strong>متن رمز و IV</strong> را دریافت می‌کند، نه رمز اصلی یا داده‌های محرمانه به‌صورت متن ساده."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "اگر رمز اصلی را فراموش کنید، داده‌های رمزنگاری‌شده قابل بازیابی نیستند. آن را امن نگه دارید."
-      },
-      "logout": {
-        "title": "خروج و داده‌های محلی",
-        "body": "خروج، اطلاعات حساسِ حافظه، وضعیت خزانه و (در صورت وجود) مواد کلید اصلی را از IndexedDB پاک می‌کند و نشست API را پایان می‌دهد. داده‌هایی که فقط در ذخیره‌سازی محلی دستگاه هستند ممکن است تا زمانی که در مرورگر پاکشان کنید باقی بمانند."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "در تنظیمات ابزارهای قابل مشاهده را شخصی‌سازی کنید تا نوار کناری متمرکز بماند."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

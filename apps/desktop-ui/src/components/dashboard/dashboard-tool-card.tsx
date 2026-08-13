@@ -7,7 +7,6 @@ import { Sparkles, Pin } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { requiresAuth } from '@/lib/tool-config'
 import { TOOL_PATH_TO_MESSAGE_KEY } from '@/lib/tool-i18n'
 import { cn } from '@/lib/utils'
 import { type ToolCardProps, DEFAULT_ACCENT, formatRelativeTime } from './types'
@@ -62,15 +61,7 @@ export const ToolCard = React.memo(function ToolCard({
       })()
     : item.description
 
-  const itemRequiresAuth = item.url ? requiresAuth(item.url.toString()) : false
   const a = accent ?? DEFAULT_ACCENT
-
-  const handleClick = (e: React.MouseEvent) => {
-    if (itemRequiresAuth && !user) {
-      e.preventDefault()
-      window.location.href = '/login'
-    }
-  }
 
   const pinned = item.url ? isPinned(item.url.toString()) : false
 
@@ -88,7 +79,6 @@ export const ToolCard = React.memo(function ToolCard({
       <Link
         href={item.url || '#'}
         className="block group h-full rounded-xl focus-visible:outline-none"
-        onClick={handleClick}
         onMouseMove={handleMove}
         title={displayTitle}
       >

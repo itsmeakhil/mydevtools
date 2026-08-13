@@ -4,7 +4,7 @@ import * as React from "react"
 import { CloudOff, Cloud, RefreshCw } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { drainQueue, listQueue, subscribe, type QueuedMutation } from "@/lib/offline/queue"
-import { backendFetch } from "@/lib/backend-auth"
+import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
 
 export function OfflineIndicator() {
@@ -31,7 +31,7 @@ export function OfflineIndicator() {
         if (listQueue().length === 0) return
         setDraining(true)
         try {
-            const result = await drainQueue((path, init) => backendFetch(path, init))
+            const result = await drainQueue((path, init) => apiFetch(path, init))
             if (result.succeeded > 0) {
                 toast.success(`Replayed ${result.succeeded} pending change${result.succeeded === 1 ? "" : "s"}`)
             }

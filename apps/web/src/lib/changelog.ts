@@ -26,6 +26,23 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.13',
+    date: '2026-08-13',
+    title: 'Open source, and no account at all',
+    summary:
+      'MyDevTools is now open source under the GNU AGPLv3, and the account layer is gone for good. There is no sign-up, no sign-in and no activation — download the app, open it, and start working. The server it used to talk to has been deleted from the project, so the app is completely offline and free for everyone.',
+    changes: [
+      { type: 'added', text: 'MyDevTools is open source, licensed under the GNU AGPLv3. Read the code, build it yourself, or fork it.' },
+      { type: 'added', text: 'A local profile in Settings: set the display name and avatar the app shows you. It lives on your device and is not an account.' },
+      { type: 'added', text: 'Images in notes work offline — they are stored inside the note itself, in the encrypted local database, up to 2 MB each.' },
+      { type: 'removed', text: 'Accounts, sign-in and the one-time browser activation. The app opens straight to your dashboard.' },
+      { type: 'removed', text: 'Passkeys, the web dashboard, and everything else that existed only to identify you to a server.' },
+      { type: 'removed', text: 'Shared and team workspaces, which needed an account to work. Your local workspace is unchanged.' },
+      { type: 'improved', text: 'Your encrypted vault, master password, and backup codes are untouched by this change — same keys, same data, same lock.' },
+      { type: 'improved', text: 'Updating to this version deletes the leftover sign-in tokens from your local database. Nothing on your device still holds a session for a service that no longer exists.' },
+    ],
+  },
+  {
     version: '0.1.12',
     date: '2026-08-12',
     title: 'SQL databases in Data Explorer, and a hardened password vault',

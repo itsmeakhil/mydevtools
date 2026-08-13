@@ -2,19 +2,13 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { Note } from "../types/Note";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/database/firebase";
 import { useTranslations } from "next-intl";
 import { fetchAllPages } from "@/lib/fetch-all-pages";
-import { proxyJsonAuthed } from "@/lib/backend-auth";
+import { apiRequestRaw } from "@/lib/backend-api";
 import { useCipherKey, cipherKeyErrorMessage } from "@/lib/use-cipher-key";
 import { encryptField, decryptField, isEnvelope, type ContentEnvelope } from "@/lib/content-envelope";
 import { setCachedPlainText, deleteCachedPlainText, clearPlainTextCache } from "@/components/notes/notes-helpers";
 
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000";
 const NOTES_PAGE_SIZE = 500;
 const EMPTY_CONTENT: Map<string, unknown> = new Map();
 
@@ -66,7 +60,6 @@ const NotesActionsContext = createContext<NotesActions | undefined>(undefined);
 
 export function NotesProvider({ children }: { children: React.ReactNode }) {
     const t = useTranslations("Notes.context");
-    const [user] = useAuthState(auth);
     const [notes, setNotes] = useState<Note[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isContentLoading, setIsContentLoading] = useState(false);
@@ -100,11 +93,9 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     // Refs to read latest state inside stable action callbacks
     const notesRef = useRef<Note[]>(notes);
     const activeNoteIdRef = useRef<string | null>(activeNoteId);
-    const userRef = useRef(user);
     const cipherKeyRef = useRef<CryptoKey | null>(cipherKey);
     useEffect(() => { notesRef.current = notes; }, [notes]);
     useEffect(() => { activeNoteIdRef.current = activeNoteId; }, [activeNoteId]);
-    useEffect(() => { userRef.current = user; }, [user]);
     useEffect(() => { cipherKeyRef.current = cipherKey; }, [cipherKey]);
 
     const setContent = useCallback((id: string, content: unknown) => {
@@ -141,10 +132,8 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
 
     const apiRequest = useCallback(
         async <T,>(method: string, path: string, body?: unknown): Promise<T> => {
-            const currentUser = userRef.current;
-            if (!currentUser) throw new Error(t("authRequiredError"));
 
-            const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+            const { status, data } = await apiRequestRaw<T>(method, path, body);
             if (status < 200 || status >= 300) {
                 throw new Error(`API ${method} ${path} failed (${status})`);
             }
@@ -154,7 +143,6 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     );
 
     const refreshNotes = useCallback(async () => {
-        if (!userRef.current) return;
         // Metadata only: the list endpoint nulls bodies. Bodies load per opened
         // note, and in bulk on the first search (warmSearchIndex). No crypto here.
         const allNotes = await fetchAllPages<Note>({
@@ -203,13 +191,6 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     }, [activeNoteId]);
 
     useEffect(() => {
-        if (!user) {
-            setNotes([]);
-            setIsLoading(false);
-            setActiveNoteId(null);
-            return;
-        }
-
         (async () => {
             try {
                 setIsLoading(true);
@@ -220,7 +201,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         })();
         // No cipherKey dep: metadata is plaintext on the wire and doesn't depend
         // on the vault key. Bodies are handled by the effect below.
-    }, [refreshNotes, user]);
+    }, [refreshNotes]);
 
     // Vault lock/unlock: bodies and the search index invalidate themselves (both
     // are tagged with their key), but the plain-text cache is module state —
@@ -264,7 +245,6 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     }, [apiRequest, decryptBody]);
 
     const createNote = useCallback(async (parentId: string | null = null) => {
-        if (!userRef.current) throw new Error(t("authRequiredError"));
         const created = await apiRequest<Note>("POST", "/api/v1/notes", {
             title: t("defaultTitle"),
             content: await encryptContent({}),
@@ -281,7 +261,6 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     }, [apiRequest, t, encryptContent, setContent]);
 
     const updateNote = useCallback(async (id: string, updates: Partial<Note>) => {
-        if (!userRef.current) return;
         // Block body writes while locked — persisting would clobber the real
         // (undecryptable) content with an empty one.
         if (updates.content !== undefined && (lockedIds.current.has(id) || !cipherKeyRef.current)) {
@@ -365,7 +344,6 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     }, [updateNote]);
 
     const deleteNote = useCallback(async (id: string) => {
-        if (!userRef.current) return;
         await apiRequest<void>("DELETE", `/api/v1/notes/${id}?recursive=true`);
 
         // Local mutation: compute descendant set, prune in one pass — skip full refetch.

@@ -55,6 +55,12 @@ const MIGRATIONS: &[&str] = &[
     );
     CREATE INDEX idx_conflicts_open ON conflicts(created_at) WHERE resolved_at IS NULL;
     ",
+    // v3 — accounts removed. Drop the leftovers of the old sign-in flow: the
+    // serialized backend cookie jar (session tokens for a backend that no
+    // longer exists) and the activation snapshot that used to gate the app.
+    "
+    DELETE FROM kv WHERE k IN ('cookie_jar', 'activation');
+    ",
 ];
 
 /// Highest schema version this build knows how to migrate to.

@@ -2,19 +2,16 @@
 
 import React, { useEffect, useRef } from 'react';
 import { ClientLayout } from '../../components/sidebar/client-layout';
-import { RequireAuth } from '@/components/require-auth';
 import { MasterPasswordGate } from '@/components/master-password-gate';
 import { useMasterKeyStore } from '@/store/master-key-store';
 import { clearMasterKey } from '@/lib/key-storage';
 import { getMasterVaultOrNull } from '@/lib/global-vault-api';
 import { restoreVault } from '@/lib/restore-vault';
 import { useIdleLock } from '@/lib/use-idle-lock';
-import useAuth from '@/utils/useAuth';
 
-// Single restoration path. Runs once per signed-in user mount. Mutates the
-// store with the final state — modal and pages read from store only.
+// Single restoration path. Runs once per mount. Mutates the store with the
+// final state — modal and pages read from store only.
 function VaultKeyRestorer() {
-  const { user } = useAuth(false);
   const { vaultStatus, setKey, setVaultStatus, setVault, setRestoreError } =
     useMasterKeyStore();
   const ranRef = useRef(false);
@@ -24,7 +21,7 @@ function VaultKeyRestorer() {
       ranRef.current = false;
       return;
     }
-    if (!user || ranRef.current) return;
+    if (ranRef.current) return;
     ranRef.current = true;
 
     (async () => {
@@ -53,7 +50,7 @@ function VaultKeyRestorer() {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, vaultStatus]);
+  }, [vaultStatus]);
 
   return null;
 }
@@ -65,11 +62,11 @@ function IdleLock() {
 
 export function AppContent({ children }: { children: React.ReactNode }) {
   return (
-    <RequireAuth>
+    <>
       <MasterPasswordGate />
       <VaultKeyRestorer />
       <IdleLock />
       <ClientLayout>{children}</ClientLayout>
-    </RequireAuth>
+    </>
   );
 }

@@ -18,7 +18,6 @@ import { Badge } from "@/components/ui/badge"
 import { encryptData } from "@/lib/encryption"
 import { validateTotpSecret, calculatePasswordStrength, getStrengthColor, getStrengthLabelKey } from "@/lib/password-utils"
 import { usePasswordStrengthReady } from "@/lib/use-password-strength"
-import { auth } from "@/database/firebase"
 import { createPasswordEntry } from "@/lib/password-manager-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
@@ -67,7 +66,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!cipherKey || !auth.currentUser) return
+        if (!cipherKey) return
 
         if (formData.totpSecret) {
             const totpError = validateTotpSecret(formData.totpSecret)

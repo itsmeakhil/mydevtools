@@ -1,12 +1,14 @@
 # MyDevTools — Claude Code instructions
 
-All-in-one developer toolkit (~80 tools: formatters, security, generators, notes, bookmarks, tasks, API client…). Full product doc: `docs/MYDEVTOOLS.md`. Web-redesign handoff: `HANDOFF.md`.
+All-in-one developer toolkit (~80 tools: formatters, security, generators, notes, bookmarks, tasks, API client…). Full product doc: `docs/MYDEVTOOLS.md`.
 
 ## Product model (current direction — do not regress)
 
-- **The desktop Tauri app is the product.** Fully offline after a mandatory one-time browser activation (loopback OAuth + `mydevtools://` deep link; activation stored in SQLCipher `kv` key `activation`). No per-session login, no periodic recheck.
-- **Free & open source (AGPL-3.0).** No plans, no pricing, no paywalls — never reintroduce them. "Free & Open Source" page; `/account/plan` redirects to `/dashboard` (shipped desktop builds hard-open it).
-- **Web (`apps/web`) = marketing/auth only**: landing, SEO pages (download CTAs), login handoff, `/dashboard` (passkeys). Never reintroduce web tool pages or cloud sync.
+- **The desktop Tauri app is the product.** Fully offline, no server. **No accounts, no sign-in, no activation** — the app opens straight to the dashboard. Never reintroduce auth, Firebase, or a backend.
+- **Free & open source (AGPL-3.0).** No plans, no pricing, no paywalls — never reintroduce them. "Free & Open Source" page; `/account/plan` redirects to `/download` (shipped desktop builds hard-open the URL).
+- **Web (`apps/web`) = marketing/SEO only**: landing, SEO pages (download CTAs). No login, no dashboard, no API routes except `/api/app-version` (updater). Never reintroduce web tool pages or cloud sync.
+- Identity is local: fixed `uid` `"local"` from `utils/useAuth`, editable display name/avatar in local preferences (`useAppUser`).
+- All app data goes through `lib/backend-api.ts` / `lib/desktop/api-fetch.ts` → Tauri `local_api` → SQLCipher. The `/api/v1/...` paths are the local Rust router's contract, never HTTP.
 - Vault/masterkey creation is offline-only (desktop Rust mirror).
 
 ## Monorepo (pnpm)
@@ -15,14 +17,14 @@ All-in-one developer toolkit (~80 tools: formatters, security, generators, notes
 |---|---|
 | `apps/desktop-ui` | Next.js UI the Tauri app builds from — **all tool work happens here** (clone-then-prune of apps/web) |
 | `apps/desktop` | Tauri v2 shell — SQLCipher keyed by macOS Keychain, native Rust DB drivers |
-| `apps/web` | Marketing/SEO/auth site (Next.js 16, React 19, Tailwind, shadcn/ui, next-intl) |
-| `apps/backend` | FastAPI — health + auth only |
+| `apps/web` | Marketing/SEO site (Next.js 16, React 19, Tailwind, shadcn/ui, next-intl) |
 
 ## Build / verify
 
 - `pnpm exec` is broken (implicit install fails on ignored build scripts). Use repo-local bins: `./node_modules/.bin/tsc --noEmit`, `./node_modules/.bin/jest`, `./node_modules/.bin/next dev`. Node at `/Users/max/.nvm/versions/node/v24.18.0/bin`.
 - Run `next typegen` after adding routes, else tsc errors on stale `.next/dev/types`.
-- Known pre-existing failing suites (ignore): react-window, pending-invitations-badge, encrypted-tool-placeholder, workspace-store.
+- Known pre-existing failing suite (ignore): react-window (`react-window` is not installed).
+- Rust: `cargo check` / `cargo test` in `apps/desktop/src-tauri`.
 - Desktop-ui: `pnpm dev:tauri` (sets `NEXT_PUBLIC_TAURI=1`), `pnpm build:tauri`.
 
 ## Adding a tool

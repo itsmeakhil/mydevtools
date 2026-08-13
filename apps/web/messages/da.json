@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Hvad er MyDevTools?",
-        "description": "Et udvikler‑workspace med login: en oversigt og et sæt værktøjer til hverdagsopgaver.",
-        "p1": "Når du har logget ind, opretter appen en session med MyDevTools API, så værktøjer kan indlæse og gemme dine data. Sidebaren viser alle apps; du kan skjule værktøjer, du ikke bruger, i",
-        "settingsLink": "Indstillinger",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Nogle funktioner bruger en <strong>masteradgangskode</strong> (eller global vault‑nøgle), så hemmeligheder som adgangskoder og forbindelsesstrenge krypteres på din enhed, før de når serveren."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Hurtige links",
-        "dashboard": "Oversigt",
-        "settings": "Indstillinger"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Brug dette værktøj fra sidebaren til dets dedikerede arbejdsgang."
     },
     "security": {
-      "session": {
-        "title": "Login og API‑session",
-        "description": "Identitet og hvordan browseren taler med din backend.",
-        "items": {
-          "authentication": "<strong>Godkendelse</strong> bruger Firebase til login. Efter login udveksler appen din Firebase ID‑token til API‑cookies.",
-          "accessTokens": "<strong>Access tokens</strong> er JWT’er signeret på serveren (HS256), som viser hvilken bruger der kalder API’et.",
-          "refreshTokens": "<strong>Refresh tokens</strong> gemmes i HttpOnly cookies; serveren gemmer en SHA‑256 hash af tokenet, ikke selve tokenet."
-        }
-      },
       "encryption": {
         "title": "Kryptering du bør kende",
         "description": "Klientside‑krypto for vault og følsomme forbindelsesdata.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> med <strong>SHA‑256</strong>, <strong>100.000</strong> iterationer og en tilfældig salt afleder en 256‑bit nøgle fra din masteradgangskode.",
           "aes": "<strong>AES‑256‑GCM</strong> krypterer data; en tilfældig <strong>12‑byte IV</strong> bruges for hver kryptering.",
-          "scope": "Den afledte nøgle bliver i browseren (ikke‑udtrækkelig). Serveren modtager kun <strong>ciphertext og IV’er</strong>, ikke din masteradgangskode eller hemmeligheder i klartekst."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Hvis du glemmer masteradgangskoden, kan krypterede data ikke gendannes. Opbevar den sikkert."
-      },
-      "logout": {
-        "title": "Log ud og lokale data",
-        "body": "Log ud rydder hemmeligheder i hukommelsen, vault‑tilstand og (hvis relevant) master‑key‑materiale fra IndexedDB og afslutter API‑sessionen. Data, der kun ligger i lokal lagring på enheden, kan blive liggende, indtil du rydder dem i browseren."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Tilpas synlige værktøjer i Indstillinger for at holde sidebaren fokuseret."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

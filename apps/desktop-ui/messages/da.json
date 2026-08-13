@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Hvad er MyDevTools?",
         "description": "Et offline-arbejdsrum for udviklere: et dashboard og over 80 værktøjer, der kører helt på din enhed.",
-        "p1": "MyDevTools kører helt offline. Efter en engangsaktivering i din browser fungerer alt på denne enhed, uden kontologin og uden internetforbindelse. Sidepanelet viser alle apps; værktøjer, du ikke bruger, kan du skjule under",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Indstillinger",
         "p1After": ".",
-        "p2": "Nogle funktioner bruger en <strong>hovedadgangskode</strong> (eller en global boksnøgle), så hemmeligheder som adgangskoder og forbindelsesstrenge til databaser krypteres på din enhed. Dine data gemmes i en lokal krypteret database og sendes aldrig til en server."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Genveje",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Aktivering og offline-adgang",
-        "description": "Sådan låses appen op første gang og kører derefter offline.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Engangsaktivering</strong> sker i din browser, første gang du åbner appen. Den registrerer dit abonnement og låser appen op på denne enhed.",
-          "offline": "<strong>Ingen login-sessioner.</strong> Efter aktivering er der ingen login pr. session og ingen periodisk kontrol—appen fortsætter med at fungere uden internetforbindelse.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Lokal lagring.</strong> Alle dine data ligger i en krypteret SQLCipher-database på din enhed, sikret med en tilfældig nøgle i dit operativsystems nøglering."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Indstillinger",
-    "subtitle": "Administrer dine kontoindstillinger og præferencer.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Brugerprofil",
-      "description": "Dine personlige oplysninger og kontooplysninger.",
-      "avatarAlt": "Bruger",
-      "anonymousUser": "Anonym bruger",
-      "noEmailProvided": "Ingen e-mail angivet",
-      "notLoggedIn": "Ikke logget ind."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Værktøjer og funktioner",
@@ -247,49 +252,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +590,9 @@
     },
     "analytics": {
       "title": "Dine data på et øjeblik",
-      "subtitle": "Antal synkroniseret med din konto på serveren.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Kunne ikke indlæse analyse.",
       "retry": "Prøv igen",
-      "loginHint": "Log ind for at se brugsanalyse og grænsefladeindstillinger.",
       "passwordEntries": "Adgangskodeposter",
       "bookmarks": "Bogmærker",
       "bookmarkFolders": "Bogmærkemapper",
@@ -664,9 +625,8 @@
     },
     "ui": {
       "title": "Brugerfladeindstillinger",
-      "subtitle": "Tema, sprog og synlige værktøjer i sidebjælken — fra dine kontoindstillinger.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Kunne ikke indlæse indstillinger.",
-      "loginHint": "Log ind for at se dine gemte grænsefladeindstillinger.",
       "theme": "Tema",
       "accent": "Accentfarve",
       "locale": "Sprog",
@@ -674,13 +634,9 @@
       "favoriteTools": "Foretrukne værktøjer",
       "toolsWithUsage": "Værktøjer med brugsstatistik"
     },
-    "signIn": "Log ind",
     "noResults": "Ingen værktøjer matcher din søgning",
     "noResultsHint": "Prøv et andet nøgleord, eller ryd filteret.",
     "filterAll": "Alle",
-    "loginCta": {
-      "description": "Log ind for at spore dine senest brugte værktøjer."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +913,8 @@
       "export": "Eksportér"
     },
     "context": {
-      "authRequiredError": "Brugeren er ikke godkendt",
       "defaultTitle": "Uden titel",
-      "cloudSyncImageError": "Slå cloudsynkronisering til for at gemme notebilleder. Tekstnoter forbliver lokale."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1165,7 @@
       "cancel": "Annuller",
       "confirmDelete": "Slet",
       "deleteDialogTitle": "Slet miljøsæt?",
-      "deleteDialogDescription": "Dette fjerner den krypterede blob fra din konto. Kan ikke fortrydes.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2600,6 @@
     "toastCopiedText": "Tekstpanel kopieret",
     "toastCopiedTree": "Træpanel kopieret",
     "toastCopyFailed": "Kunne ikke kopiere JSON",
-    "toastLoginRequired": "Log ind for at gemme dokumenter",
     "toastSaved": "Dokument gemt",
     "toastSaveFailed": "Kunne ikke gemme dokument",
     "format": "Formatér",

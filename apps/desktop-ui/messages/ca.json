@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Què és MyDevTools?",
         "description": "Un espai de treball per a desenvolupadors sense connexió: un tauler i més de 80 eines que s'executen completament al teu dispositiu.",
-        "p1": "MyDevTools funciona completament sense connexió. Després d'una activació única al navegador, tot funciona en aquest dispositiu, sense inici de sessió amb compte i sense connexió a internet. La barra lateral mostra totes les aplicacions; les eines que no facis servir les pots amagar des de",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Configuració",
         "p1After": ".",
-        "p2": "Algunes funcions fan servir una <strong>contrasenya mestra</strong> (o clau global de la caixa forta) perquè els secrets com ara contrasenyes i cadenes de connexió a bases de dades s'encriptin al teu dispositiu. Les teves dades es desen en una base de dades local encriptada i mai no s'envien a cap servidor."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Enllaços ràpids",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Activació i accés sense connexió",
-        "description": "Com es desbloqueja l'aplicació la primera vegada i després s'executa sense connexió.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "L'<strong>activació única</strong> es fa al navegador el primer cop que obres l'aplicació. Registra el teu pla i desbloqueja l'aplicació en aquest dispositiu.",
-          "offline": "<strong>Sense sessions d'inici.</strong> Després de l'activació no hi ha cap inici de sessió per sessió ni cap comprovació periòdica: l'aplicació continua funcionant sense connexió a internet.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Emmagatzematge local.</strong> Totes les teves dades resideixen en una base de dades SQLCipher encriptada al teu dispositiu, protegida amb una clau aleatòria guardada al clauer del teu sistema operatiu."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Configuració",
-    "subtitle": "Gestiona la configuració i les preferències del teu compte.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Perfil d'usuari",
-      "description": "La teva informació personal i els detalls del compte.",
-      "avatarAlt": "Usuari",
-      "anonymousUser": "Usuari anònim",
-      "noEmailProvided": "No s'ha proporcionat cap correu",
-      "notLoggedIn": "No has iniciat sessió."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Eines i funcions",
@@ -247,49 +252,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +590,9 @@
     },
     "analytics": {
       "title": "Les teves dades d’un cop d’ull",
-      "subtitle": "Recomptes sincronitzats amb el teu compte al servidor.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "No s’han pogut carregar les estadístiques.",
       "retry": "Torna-ho a provar",
-      "loginHint": "Inicia la sessió per veure l’anàlisi d’ús i les preferències d’interfície.",
       "passwordEntries": "Entrades de contrasenyes",
       "bookmarks": "Marcadors",
       "bookmarkFolders": "Carpetes de marcadors",
@@ -664,9 +625,8 @@
     },
     "ui": {
       "title": "Preferències d’interfície",
-      "subtitle": "Tema, idioma i eines visibles a la barra lateral — des de la configuració del compte.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "No s’han pogut carregar les preferències.",
-      "loginHint": "Inicia la sessió per veure les preferències d’interfície desades.",
       "theme": "Tema",
       "accent": "Color d’accent",
       "locale": "Idioma",
@@ -674,13 +634,9 @@
       "favoriteTools": "Eines favorites",
       "toolsWithUsage": "Eines amb ús registrat"
     },
-    "signIn": "Inicia la sessió",
     "noResults": "Cap eina coincideix amb la vostra cerca",
     "noResultsHint": "Proveu una paraula clau diferent o elimineu el filtre.",
     "filterAll": "Tot",
-    "loginCta": {
-      "description": "Inicieu sessió per fer un seguiment de les eines utilitzades recentment."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +913,8 @@
       "export": "Exporta"
     },
     "context": {
-      "authRequiredError": "Usuari no autenticat",
       "defaultTitle": "Sense títol",
-      "cloudSyncImageError": "Activa la sincronització al núvol per desar imatges de les notes. Les notes de text es queden localment."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1165,7 @@
       "cancel": "Cancel·la",
       "confirmDelete": "Suprimeix",
       "deleteDialogTitle": "Vols suprimir el conjunt d'entorn?",
-      "deleteDialogDescription": "Això elimina el blob xifrat del teu compte. No es pot desfer.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2600,6 @@
     "toastCopiedText": "Panell de text copiat",
     "toastCopiedTree": "Panell d'arbre copiat",
     "toastCopyFailed": "No s'ha pogut copiar el JSON",
-    "toastLoginRequired": "Inicia sessió per desar documents",
     "toastSaved": "Document desat",
     "toastSaveFailed": "No s'ha pogut desar el document",
     "format": "Formata",

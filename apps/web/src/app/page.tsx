@@ -165,7 +165,7 @@ const howItWorks = [
     step: "01",
     title: "Download the App",
     description:
-      "Grab the desktop app and activate once in your browser. After that it runs fully offline — no account needed to work.",
+      "Grab the desktop app and open it. No sign-up, no sign-in, no setup — it runs fully offline from the first launch.",
     icon: DownloadIcon,
     gradient: "from-indigo-500 to-indigo-400",
   },
@@ -198,7 +198,7 @@ const getModKeyServer = () => "⌘";
 
 export default function Page() {
   const router = useRouter();
-  const goToLogin = () => router.push("/login");
+  const goToDownload = () => router.push("/download");
 
   const reduceMotion = useReducedMotion();
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null);
@@ -318,8 +318,8 @@ export default function Page() {
             >
               Format JSON, decode JWTs, test APIs, build regexes, generate UUIDs,
               encode Base64, and query SQL, MongoDB &amp; Redis — 80+ developer
-              tools in one desktop app that runs offline and processes everything
-              locally.
+              tools in one desktop app that runs completely offline, needs no
+              account, and is free for everyone.
             </motion.p>
 
             {/* CTAs */}
@@ -340,6 +340,15 @@ export default function Page() {
                 </a>
               </Magnetic>
             </motion.div>
+
+            {/* Trust line — the three things that matter before the fold */}
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.6, delay: 0.28 }}
+              className="text-sm text-muted-foreground"
+            >
+              Free and open source · No account required · Works completely offline
+            </motion.p>
 
             {/* Stats row */}
             <motion.div
@@ -418,10 +427,10 @@ export default function Page() {
                 MyDevTools is the all-in-one desktop developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 80+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one desktop workspace.
               </p>
               <p className="text-lg leading-relaxed">
-                Local-first architecture means your data is processed on your machine and works fully offline. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs on your machine — nothing ever leaves your device unless you point a tool at a destination you choose.
+                Local-first architecture means your data is processed on your machine and works fully offline. There is no account and no server: nothing to sign up for, nothing to sign in to, and nothing for us to store. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs on your machine — nothing ever leaves your device unless you point a tool at a destination you choose.
               </p>
               <p className="text-lg leading-relaxed">
-                Trusted by developers. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
+                Free for everyone — every tool, every feature, no paid tier and no limits — and open source under the GNU AGPL v3, so you can read exactly what it does. No ads, no tracking, no data harvesting. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
               </p>
             </motion.div>
           </motion.div>
@@ -654,7 +663,7 @@ export default function Page() {
                 className="md:col-span-3"
               >
                 <Link
-                  href="/login"
+                  href="/download"
                   className="group relative flex flex-col gap-6 overflow-hidden rounded-2xl glass-overlay p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl dark:hover:shadow-black/40 md:flex-row md:items-center md:p-8"
                 >
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-indigo-500 to-indigo-400" />
@@ -680,7 +689,7 @@ export default function Page() {
                       your device. Shared team workspaces &amp; collaboration are on the roadmap.
                     </p>
                     <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 transition-colors group-hover:text-foreground">
-                      <span>Create a workspace</span>
+                      <span>Get the app</span>
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </div>
@@ -734,7 +743,8 @@ export default function Page() {
               </h2>
               <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
                 Everything runs offline on your device. No tabs, no scattered
-                websites — one workspace for your whole workflow.
+                websites, no account — one workspace for your whole workflow,
+                free for everyone.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Button asChild size="lg">
@@ -1076,7 +1086,7 @@ export default function Page() {
                   className="flex flex-col sm:flex-row items-center justify-center gap-3"
                 >
                   <button
-                    onClick={goToLogin}
+                    onClick={goToDownload}
                     className="inline-flex items-center justify-center h-14 px-10 rounded-full text-base font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:shadow-lg hover:scale-[1.05] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
                   >
                     Start Using Tools Now

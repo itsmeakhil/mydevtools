@@ -2,9 +2,8 @@
 
 import { useState, useCallback, useEffect, useRef } from "react"
 import { HistoryRequest, CollectionRequest } from "./types"
-import { auth } from "@/database/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { backendFetch } from "@/lib/backend-auth"
+import useAuth from "@/utils/useAuth"
+import { apiFetch } from "@/lib/desktop/api-fetch"
 import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
 const HISTORY_STORAGE_KEY = "api-client-history"
@@ -71,7 +70,7 @@ function persistHistoryWithFallback(items: HistoryRequest[]): HistoryRequest[] {
 }
 
 export function useHistory() {
-    const [user, loading] = useAuthState(auth)
+    const { user, loading } = useAuth()
     const [history, setHistory] = useState<HistoryRequest[]>([])
     const [isHistoryLoading, setIsHistoryLoading] = useState(true)
     const migrationRanRef = useRef(false)
@@ -79,7 +78,7 @@ export function useHistory() {
     const authedFetch = useCallback(
         async (path: string, init?: RequestInit) => {
             if (!user) throw new Error("Not authenticated")
-            const res = await backendFetch(path, {
+            const res = await apiFetch(path, {
                 ...init,
                 headers: {
                     "Content-Type": "application/json",

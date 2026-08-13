@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools とは？",
-        "description": "ログインして使う開発者向けワークスペース。ダッシュボードと日常ツール群を提供します。",
-        "p1": "ログイン後、アプリは MyDevTools API とセッションを確立し、各ツールがデータを読み書きできるようにします。サイドバーにはすべてのアプリが表示され、使わないツールは",
-        "settingsLink": "設定",
-        "p1After": "で非表示にできます。",
-        "p2": "一部の機能では <strong>マスターパスワード</strong>（またはグローバルなボールトキー）を使用し、パスワードや接続文字列などの機密情報をサーバーに送る前に端末内で暗号化します。"
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
+        "p1After": ".",
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "クイックリンク",
-        "dashboard": "ダッシュボード",
-        "settings": "設定"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "このツールはサイドバーから開いて専用のワークフローで使用してください。"
     },
     "security": {
-      "session": {
-        "title": "ログインと API セッション",
-        "description": "認証とブラウザがバックエンドと通信する仕組み。",
-        "items": {
-          "authentication": "<strong>認証</strong>は Firebase を使用します。ログイン後、Firebase の ID トークンを API の Cookie に交換します。",
-          "accessTokens": "<strong>アクセストークン</strong>はサーバーで署名された JWT（HS256）で、API を呼び出すユーザーを証明します。",
-          "refreshTokens": "<strong>リフレッシュトークン</strong>は HttpOnly Cookie に保存され、サーバー側にはトークンそのものではなく SHA-256 ハッシュが保存されます。"
-        }
-      },
       "encryption": {
         "title": "知っておくべき暗号化",
         "description": "ボールトや機密の接続データのためのクライアント側暗号化。",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 回、ランダム salt）でマスターパスワードから 256-bit キーを導出します。",
           "aes": "<strong>AES-256-GCM</strong> で暗号化し、暗号化ごとにランダムな <strong>12 バイト IV</strong> を使用します。",
-          "scope": "導出キーはブラウザ内に保持され（取り出し不可）、サーバーに送られるのは <strong>暗号文と IV</strong> のみです。マスターパスワードや平文の秘密は送信されません。"
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "マスターパスワードを忘れると暗号化されたデータは復元できません。安全に保管してください。"
-      },
-      "logout": {
-        "title": "ログアウトとローカルデータ",
-        "body": "ログアウト時にメモリ上の機密情報、ボールト状態、（該当する場合）IndexedDB 上のマスターキー素材を消去し、API セッションを終了します。端末のローカルストレージのみに残るデータは、ブラウザで削除するまで残る場合があります。"
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "設定で表示ツールをカスタマイズしてサイドバーを整理できます。"
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

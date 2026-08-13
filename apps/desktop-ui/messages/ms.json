@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Apakah itu MyDevTools?",
         "description": "Ruang kerja pembangun yang luar talian: sebuah papan pemuka dan 80+ alat yang berjalan sepenuhnya pada peranti anda.",
-        "p1": "MyDevTools berjalan sepenuhnya secara luar talian. Selepas pengaktifan sekali sahaja dalam pelayar anda, segalanya berfungsi pada peranti ini tanpa log masuk akaun dan tanpa memerlukan sambungan internet. Bar sisi menyenaraikan setiap aplikasi; anda boleh menyembunyikan alat yang tidak anda gunakan daripada",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Tetapan",
         "p1After": ".",
-        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci peti besi global) supaya rahsia seperti kata laluan dan rentetan sambungan pangkalan data disulitkan pada peranti anda. Data anda disimpan dalam pangkalan data tersulit setempat dan tidak pernah dihantar ke pelayan."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Pautan pantas",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Pengaktifan & akses luar talian",
-        "description": "Bagaimana aplikasi dibuka kunci buat kali pertama, kemudian berjalan secara luar talian.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Pengaktifan sekali sahaja</strong> berlaku dalam pelayar anda pada kali pertama anda membuka aplikasi. Ia merekod pelan anda dan membuka kunci aplikasi pada peranti ini.",
-          "offline": "<strong>Tiada sesi log masuk.</strong> Selepas pengaktifan, tiada log masuk bagi setiap sesi dan tiada semakan semula berkala—aplikasi terus berfungsi tanpa sambungan internet.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Storan setempat.</strong> Semua data anda berada dalam pangkalan data SQLCipher tersulit pada peranti anda, dikunci dengan kunci rawak yang disimpan dalam keychain sistem pengendalian anda."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Tetapan",
-    "subtitle": "Urus tetapan akaun dan keutamaan anda.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Profil Pengguna",
-      "description": "Maklumat peribadi dan butiran akaun anda.",
-      "avatarAlt": "Pengguna",
-      "anonymousUser": "Pengguna Tanpa Nama",
-      "noEmailProvided": "Tiada e-mel disediakan",
-      "notLoggedIn": "Belum log masuk."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Alat & Ciri",
@@ -248,58 +253,12 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
-      }
     }
   },
   "Dashboard": {
     "noResults": "Tiada alat yang sepadan dengan carian anda",
     "noResultsHint": "Cuba kata kunci lain atau kosongkan penapis.",
     "filterAll": "Semua",
-    "loginCta": {
-      "description": "Log masuk untuk menjejaki alat yang baru-baru ini digunakan."
-    },
     "greeting": {
       "morning": "Selamat pagi",
       "afternoon": "Selamat petang",
@@ -634,10 +593,9 @@
     },
     "analytics": {
       "title": "Data anda sekilas",
-      "subtitle": "Kiraan disegerakkan dengan akaun anda pada pelayan.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Tidak dapat memuatkan analitik.",
       "retry": "Cuba lagi",
-      "loginHint": "Log masuk untuk melihat analitik penggunaan dan pilihan antara muka.",
       "passwordEntries": "Entri kata laluan",
       "bookmarks": "Penanda halaman",
       "bookmarkFolders": "Folder penanda",
@@ -670,9 +628,8 @@
     },
     "ui": {
       "title": "Pilihan antara muka",
-      "subtitle": "Tema, bahasa dan alat yang kelihatan di bar sisi — daripada tetapan akaun.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Tidak dapat memuatkan pilihan.",
-      "loginHint": "Log masuk untuk melihat pilihan antara muka yang disimpan.",
       "theme": "Tema",
       "accent": "Warna aksen",
       "locale": "Bahasa",
@@ -680,7 +637,6 @@
       "favoriteTools": "Alat kegemaran",
       "toolsWithUsage": "Alat dengan penjejakan penggunaan"
     },
-    "signIn": "Log masuk",
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +913,8 @@
       "export": "Eksport"
     },
     "context": {
-      "authRequiredError": "Pengguna tidak disahkan",
       "defaultTitle": "Tanpa Tajuk",
-      "cloudSyncImageError": "Hidupkan Penyegerakan Awan untuk menyimpan imej nota. Nota teks kekal setempat."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1165,7 @@
       "cancel": "Batal",
       "confirmDelete": "Padam",
       "deleteDialogTitle": "Padam set persekitaran?",
-      "deleteDialogDescription": "Ini memadam blob disulitkan daripada akaun anda. Tidak boleh dibuat asal.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2656,7 +2611,6 @@
     "toastCopiedText": "Panel teks disalin",
     "toastCopiedTree": "Panel pokok disalin",
     "toastCopyFailed": "Gagal menyalin JSON",
-    "toastLoginRequired": "Sila log masuk untuk menyimpan dokumen",
     "toastSaved": "Dokumen disimpan",
     "toastSaveFailed": "Gagal menyimpan dokumen",
     "format": "Format",

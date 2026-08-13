@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./modeToggle";
-import useAuth from "@/utils/useAuth";
 import { Logo } from "./logo";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -50,13 +49,8 @@ type HeaderProps = {
 export function Header({ showThemeToggle = true }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { user } = useAuth(false);
-  // Signed-in users go to the web dashboard (subscription/billing + passkeys);
-  // everyone else gets the sign-in CTA. Default to "Get Started" until auth
-  // resolves so SSR/first paint never flashes "Dashboard".
-  const cta = user
-    ? { href: "/dashboard", label: "Dashboard" }
-    : { href: "/login", label: "Get Started" };
+  // No accounts — the only action is getting the app.
+  const cta = { href: "/download", label: "Download" };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);

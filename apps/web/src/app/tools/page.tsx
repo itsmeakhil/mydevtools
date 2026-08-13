@@ -85,10 +85,10 @@ export default function ToolsIndexPage() {
             </p>
 
             <Link
-              href="/login"
+              href="/download"
               className="mdt-btn-grad inline-flex items-center justify-center h-12 px-8 rounded-full text-sm font-medium"
             >
-              Get Full Access
+              Download Free
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
