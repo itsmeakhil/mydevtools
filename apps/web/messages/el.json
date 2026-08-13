@@ -90,7 +90,6 @@
     "overview": {
       "whatIs": {
         "title": "Τι είναι το MyDevTools;",
-        "p1": "Αφού συνδεθείτε, η εφαρμογή δημιουργεί μια συνεδρία με το MyDevTools API ώστε τα εργαλεία να μπορούν να φορτώνουν και να αποθηκεύουν τα δεδομένα σας. Η πλευρική γραμμή εμφανίζει όλες τις εφαρμογές· μπορείτε να κρύψετε εργαλεία που δεν χρησιμοποιείτε από τις",
         "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
         "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Settings",
