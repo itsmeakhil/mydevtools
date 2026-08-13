@@ -36,7 +36,6 @@ import {
 import { NavCollapsible, NavItem, NavLink } from "./types"; // Import types
 import useAuth from "@/utils/useAuth"; // Import useAuth
 import { useTranslations } from "next-intl";
-import { requiresAuth } from "@/lib/tool-config";
 import { getToolMessageKey } from "@/lib/tool-i18n";
 import { Star } from "lucide-react";
 import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from "@/store/pinned-tools-store";
@@ -63,11 +62,9 @@ interface NavGroupProps {
 function NavLinkGated({
   item,
   href,
-  onClick,
 }: {
   item: NavLink;
   href: string;
-  onClick: (e: React.MouseEvent) => void;
 }) {
   const itemUrl = typeof item.url === "string" ? item.url : item.url.toString();
   const slug = sidebarUrlToToolSlug(itemUrl);
@@ -76,10 +73,10 @@ function NavLinkGated({
 
   // Non-matrix URLs (e.g. /dashboard) and personal workspaces always render.
   if (!slug || activeWs?.is_personal) {
-    return <SidebarMenuLink item={item} href={href} onClick={onClick} />;
+    return <SidebarMenuLink item={item} href={href} />;
   }
   if (!canRead) return null;
-  return <SidebarMenuLink item={item} href={href} onClick={onClick} />;
+  return <SidebarMenuLink item={item} href={href} />;
 }
 
 // Main NavGroup Component
@@ -100,19 +97,6 @@ export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hidd
     return null;
   }
 
-  // Use centralized requiresAuth function from tool-config
-
-  const handleClick = (e: React.MouseEvent, url: string) => {
-    if (loading) {
-      e.preventDefault();
-      return;
-    }
-    if (!user && requiresAuth(url)) {
-      e.preventDefault();
-      window.location.href = "/login";
-    }
-  };
-
   const content = (
     <SidebarMenu>
       {visibleItems.map((item) => {
@@ -122,12 +106,7 @@ export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hidd
           const itemUrl =
             typeof item.url === "string" ? item.url : item.url.toString();
           return (
-            <NavLinkGated
-              key={key}
-              item={item as NavLink}
-              href={pathname}
-              onClick={(e) => handleClick(e, itemUrl)}
-            />
+            <NavLinkGated key={key} item={item as NavLink} href={pathname} />
           );
         }
 
@@ -202,11 +181,9 @@ export function NavGroup({ title, titleKey, items, collapsible, icon: Icon, hidd
 const SidebarMenuLink = ({
   item,
   href,
-  onClick,
 }: {
   item: NavLink;
   href: string;
-  onClick: (e: React.MouseEvent) => void;
 }) => {
   const { setOpenMobile, state } = useSidebar();
   const tNav = useTranslations("Navigation");
@@ -232,14 +209,7 @@ const SidebarMenuLink = ({
         tooltip={displayTitle}
         className={cn("transition-all duration-200", isActive && "bg-transparent dark:bg-transparent hover:bg-transparent")}
       >
-        <Link
-          href={item.url}
-          onClick={(e) => {
-            onClick(e);
-            // setOpenMobile(false); // Uncomment if you want to close mobile sidebar on click
-          }}
-          className="relative flex items-center"
-        >
+        <Link href={item.url} className="relative flex items-center">
           {isActive && (
             <motion.div
               layoutId="sidebar-active-pill"
@@ -297,19 +267,6 @@ const SidebarMenuCollapsible = ({
   const tNav = useTranslations("Navigation");
   const parentLabel = item.titleKey ? tNav(item.titleKey as never) : item.title;
 
-  // Use centralized requiresAuth function from tool-config
-
-  const handleSubLinkClick = (e: React.MouseEvent, subUrl: string) => {
-    if (loading) {
-      e.preventDefault();
-      return;
-    }
-    if (!user && requiresAuth(subUrl)) {
-      e.preventDefault();
-      window.location.href = "/login";
-    }
-  };
-
   return (
     <Collapsible
       asChild
@@ -344,10 +301,7 @@ const SidebarMenuCollapsible = ({
                     >
                       <Link
                         href={subItem.url}
-                        onClick={(e) => {
-                          handleSubLinkClick(e, subItemUrl);
-                          setOpenMobile(false);
-                        }}
+                        onClick={() => setOpenMobile(false)}
                         className="relative flex items-center pl-4 overflow-hidden"
                       >
                         {isSubActive && (
@@ -391,19 +345,6 @@ const SidebarMenuCollapsedDropdown = ({
   const tNav = useTranslations("Navigation");
   const parentLabel = item.titleKey ? tNav(item.titleKey as never) : item.title;
 
-  // Use centralized requiresAuth function from tool-config
-
-  const handleSubLinkClick = (e: React.MouseEvent, subUrl: string) => {
-    if (loading) {
-      e.preventDefault();
-      return;
-    }
-    if (!user && requiresAuth(subUrl)) {
-      e.preventDefault();
-      window.location.href = "/login";
-    }
-  };
-
   return (
     <SidebarMenuItem suppressHydrationWarning>
       <div suppressHydrationWarning>
@@ -432,7 +373,6 @@ const SidebarMenuCollapsedDropdown = ({
                   <Link
                     href={sub.url}
                     className={`${checkIsActive(href, sub) ? "bg-secondary" : ""}`}
-                    onClick={(e) => handleSubLinkClick(e, subUrl)}
                   >
                     {sub.icon && <sub.icon />}
                     <span className="max-w-52 text-wrap">{sub.title}</span>

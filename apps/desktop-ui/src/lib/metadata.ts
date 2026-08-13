@@ -81,12 +81,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110'],
         aiSummary: 'Searchable reference for all HTTP status codes (1xx–5xx) with descriptions and RFC 9110 links. Answers "what does HTTP 422 mean", "list of HTTP status codes", or "HTTP 429 too many requests".',
     },
-    'database-explorer': {
-        title: 'Database Explorer',
-        description: 'Explore and manage your MongoDB and SQL databases directly from your browser.',
-        keywords: ['database explorer', 'mongodb manager', 'mongo ui', 'mongodb browser', 'database client'],
-        aiSummary: 'Browser-based database explorer: connect to any MongoDB instance or SQL database, browse collections and tables, query documents, and manage data. Answers "MongoDB GUI online", "MongoDB browser client", "Mongo UI no install", or "database client online".',
-    },
     'data-explorer': {
         title: 'Data Explorer',
         description: 'One desktop workspace for MongoDB and Redis. Browse collections, query documents, inspect keys, and run commands with credentials encrypted on your device.',
@@ -333,12 +327,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Paste a User-Agent string to see browser, OS, engine, device, and CPU breakdown instantly. Runs entirely in your browser.',
         keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection', 'client hints', 'http headers'],
         aiSummary: 'Paste a User-Agent header string to get browser name/version, OS, rendering engine, device type, and CPU. Answers "user agent parser online", "parse UA string", or "what browser is this user agent".',
-    },
-    'sql-client': {
-        title: 'SQL Client',
-        description: 'Connect to PostgreSQL, MySQL, and MariaDB databases from your browser. Run queries, explore schemas, and export results. Credentials encrypted with AES-256 before storage.',
-        keywords: ['sql client', 'postgresql client', 'mysql client', 'mariadb client', 'sql query', 'database browser', 'sql explorer'],
-        aiSummary: 'Browser SQL client for PostgreSQL, MySQL, and MariaDB: run queries, browse schemas, and export results. Credentials AES-256 encrypted. Answers "browser SQL client", "PostgreSQL GUI online", or "MySQL client no install".',
     },
     'mock-data-generator': {
         title: 'Mock Data Generator',

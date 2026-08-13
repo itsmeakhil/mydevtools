@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Què és MyDevTools?",
-        "description": "Un espai de treball per a desenvolupadors amb inici de sessió: un tauler i un conjunt d’eines per al dia a dia.",
-        "p1": "Després d’iniciar sessió, l’app estableix una sessió amb l’API de MyDevTools perquè les eines puguin carregar i desar les teves dades. La barra lateral llista totes les apps; pots amagar les eines que no fas servir a",
-        "settingsLink": "Configuració",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Algunes funcions utilitzen una <strong>contrasenya mestra</strong> (o clau global del vault) perquè secrets com contrasenyes i cadenes de connexió es xifrin al teu dispositiu abans d’arribar al servidor."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Enllaços ràpids",
-        "dashboard": "Tauler",
-        "settings": "Configuració"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Fes servir aquesta eina des de la barra lateral per al seu flux de treball dedicat."
     },
     "security": {
-      "session": {
-        "title": "Inici de sessió i sessió d’API",
-        "description": "Identitat i com el navegador es comunica amb el backend.",
-        "items": {
-          "authentication": "<strong>Autenticació</strong> mitjançant Firebase. Després del login, l’app intercanvia el teu Firebase ID token per cookies de l’API.",
-          "accessTokens": "<strong>Tokens d’accés</strong> són JWT signats al servidor (HS256) que proven quin usuari crida l’API.",
-          "refreshTokens": "<strong>Tokens de refresc</strong> es guarden en cookies HttpOnly; el servidor desa un hash SHA-256 del token, no el token en brut."
-        }
-      },
       "encryption": {
         "title": "Xifrat que has de conèixer",
         "description": "Criptografia al client per al vault i dades sensibles de connexió.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> amb <strong>SHA-256</strong>, <strong>100.000</strong> iteracions i una sal aleatòria deriva una clau de 256 bits a partir de la contrasenya mestra.",
           "aes": "<strong>AES-256-GCM</strong> xifra dades; s’utilitza un <strong>IV de 12 bytes</strong> aleatori per cada xifrat.",
-          "scope": "La clau derivada es manté al navegador (no exportable). El servidor només rep <strong>xifrat i IV</strong>, no la contrasenya mestra ni secrets en clar."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Si oblides la contrasenya mestra, no es poden recuperar les dades xifrades. Desa-la de manera segura."
-      },
-      "logout": {
-        "title": "Tancar sessió i dades locals",
-        "body": "En tancar sessió s’esborren secrets en memòria, estat del vault i, si escau, material de la clau mestra d’IndexedDB, i es finalitza la sessió de l’API. Les dades que només estiguin a l’emmagatzematge local poden romandre fins que les esborris al navegador."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Personalitza les eines visibles a Configuració per mantenir la barra lateral enfocada."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

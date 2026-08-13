@@ -3,10 +3,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
-import { useAuthState } from "react-firebase-hooks/auth";
+import useAuth from "@/utils/useAuth";
 import { useTranslations } from "next-intl";
 import { useDebouncedCallback } from "use-debounce";
-import { auth } from "@/database/firebase";
 import {
   createCodeSnippetApi,
   deleteCodeSnippetApi,
@@ -97,7 +96,7 @@ const FORMAT_SUPPORTED_LANGS = new Set([
 
 export function SnippetManagerTool() {
   const t = useTranslations("SnippetManager");
-  const [user, authLoading] = useAuthState(auth);
+  const { user, loading: authLoading } = useAuth();
   const userRef = useRef(user);
   userRef.current = user;
 

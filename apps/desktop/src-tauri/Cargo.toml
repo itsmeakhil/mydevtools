@@ -1,6 +1,6 @@
 [package]
 name = "mydevtools-desktop"
-version = "0.1.12"
+version = "0.1.13"
 description = "MyDevTools desktop app"
 edition = "2021"
 
@@ -23,9 +23,6 @@ rand = "0.8"
 thiserror = "2"
 reqwest = { version = "0.12", features = ["json", "gzip", "multipart", "stream"] }
 base64 = "0.22"
-reqwest_cookie_store = "0.8"
-cookie_store = "0.21"
-tauri-plugin-deep-link = "2"
 tauri-plugin-opener = "2"
 tauri-plugin-window-state = "2"
 tauri-plugin-updater = "2"

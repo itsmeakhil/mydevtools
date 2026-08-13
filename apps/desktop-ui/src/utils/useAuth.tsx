@@ -1,36 +1,39 @@
 "use client";
-import { useEffect, useState } from "react";
-import { auth } from "../database/firebase";
-import { User } from "firebase/auth";
-
-// Export the return type
-export interface AuthState {
-  user: User | null;
-  loading: boolean;
-}
 
 /**
- * Desktop: the one-time activation record is the real gate (see RequireAuth /
- * DesktopInit). Firebase auth state is informational only — the user persists
- * locally from the activation sign-in — so `requireAuth` never redirects; the
- * app must keep working fully offline.
+ * Local identity. There are no accounts and no sign-in — the app is offline and
+ * single-user, so this resolves synchronously to one fixed user. `uid` is the
+ * scoping key for per-user local storage keys, `created_by` fields and query
+ * keys; keeping it constant means those keep working without a server.
+ *
+ * The display name and avatar are user-editable and live in local preferences
+ * (see `useAppUser`), not here — `useAuth` is only about identity.
  */
-const useAuth = (_requireAuth: boolean = false): AuthState => {
-  // auth.currentUser is synchronously available once Firebase has resolved auth
-  // state. On client-side navigation within the app it is already populated, so
-  // we avoid a spurious full-screen loading flash on every route change.
-  const [user, setUser] = useState<User | null>(() => auth.currentUser);
-  const [loading, setLoading] = useState(() => auth.currentUser === null);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
-      setUser(firebaseUser);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+export const LOCAL_UID = "local";
 
-  return { user, loading };
+export interface LocalUser {
+  uid: typeof LOCAL_UID;
+  displayName: string | null;
+  email: null;
+  photoURL: string | null;
+}
+
+export interface AuthState {
+  user: LocalUser;
+  loading: false;
+}
+
+const LOCAL_USER: LocalUser = {
+  uid: LOCAL_UID,
+  displayName: null,
+  email: null,
+  photoURL: null,
 };
+
+const STATE: AuthState = { user: LOCAL_USER, loading: false };
+
+/** @param _requireAuth ignored — there is nothing to require. */
+const useAuth = (_requireAuth: boolean = false): AuthState => STATE;
 
 export default useAuth;

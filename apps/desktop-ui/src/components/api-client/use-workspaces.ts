@@ -1,9 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { auth } from "@/database/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { backendFetch } from "@/lib/backend-auth"
+import useAuth from "@/utils/useAuth"
+import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
 
 export interface Workspace {
@@ -15,7 +14,7 @@ export interface Workspace {
 const ACTIVE_KEY = "api-client-active-workspace"
 
 export function useWorkspaces() {
-    const [user, loadingUser] = useAuthState(auth)
+    const { user, loading: loadingUser } = useAuth()
     const [workspaces, setWorkspaces] = React.useState<Workspace[]>([])
     const [activeId, setActiveId] = React.useState<string | null>(null)
     const [isLoading, setIsLoading] = React.useState(true)
@@ -37,7 +36,7 @@ export function useWorkspaces() {
     const reload = React.useCallback(async () => {
         if (!user) return
         try {
-            const res = await backendFetch("/api/backend/api-client/workspaces")
+            const res = await apiFetch("/api/backend/api-client/workspaces")
             if (!res.ok) throw new Error(`HTTP ${res.status}`)
             setWorkspaces(await res.json())
         } catch (e) {
@@ -56,7 +55,7 @@ export function useWorkspaces() {
     const createWorkspace = async (name: string): Promise<Workspace | null> => {
         if (!user) return null
         try {
-            const res = await backendFetch("/api/backend/api-client/workspaces", {
+            const res = await apiFetch("/api/backend/api-client/workspaces", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name }),
@@ -75,7 +74,7 @@ export function useWorkspaces() {
     const renameWorkspace = async (id: string, name: string) => {
         if (!user) return
         try {
-            const res = await backendFetch(`/api/backend/api-client/workspaces/${id}`, {
+            const res = await apiFetch(`/api/backend/api-client/workspaces/${id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name }),
@@ -93,7 +92,7 @@ export function useWorkspaces() {
     const deleteWorkspace = async (id: string) => {
         if (!user) return
         try {
-            const res = await backendFetch(`/api/backend/api-client/workspaces/${id}`, { method: "DELETE" })
+            const res = await apiFetch(`/api/backend/api-client/workspaces/${id}`, { method: "DELETE" })
             if (!res.ok && res.status !== 204) throw new Error(`HTTP ${res.status}`)
             setWorkspaces((prev) => prev.filter((w) => w.id !== id))
             if (activeId === id) setActiveId(null)

@@ -2,24 +2,33 @@
 
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { Note } from "../types/Note";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@/database/firebase";
 import { useTranslations } from "next-intl";
 import { fetchAllPages } from "@/lib/fetch-all-pages";
-import { proxyJsonAuthed } from "@/lib/backend-auth";
+import { apiRequestRaw } from "@/lib/backend-api";
 import { useCipherKey, cipherKeyErrorMessage } from "@/lib/use-cipher-key";
 import { encryptField, decryptField, isEnvelope, type ContentEnvelope } from "@/lib/content-envelope";
+import { setCachedPlainText, deleteCachedPlainText, clearPlainTextCache } from "@/components/notes/notes-helpers";
 
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000";
 const NOTES_PAGE_SIZE = 500;
+const EMPTY_CONTENT: Map<string, unknown> = new Map();
+
+/** Decrypted bodies plus the cipher key they belong to (see `contentStore`). */
+interface ContentStore {
+    key: CryptoKey | null;
+    map: Map<string, unknown>;
+}
 
 interface NotesData {
+    /** Metadata only — `content` is always null. Bodies live in NotesContentContext. */
     notes: Note[];
     noteById: Map<string, Note>;
     isLoading: boolean;
+    /** True once every body has been decrypted into the plain-text search cache. */
+    searchIndexReady: boolean;
+}
+
+interface NotesContent {
+    contentById: Map<string, unknown>;
     isContentLoading: boolean;
 }
 
@@ -39,23 +48,38 @@ interface NotesActions {
     pinNote: (id: string, pinned: boolean) => Promise<void>;
     duplicateNote: (id: string) => Promise<string>;
     moveNote: (id: string, newParentId: string | null) => Promise<void>;
+    warmSearchIndex: () => Promise<void>;
 }
 
-type NotesContextType = NotesData & NotesUI & NotesActions;
+type NotesContextType = NotesData & NotesContent & NotesUI & NotesActions;
 
 const NotesDataContext = createContext<NotesData | undefined>(undefined);
+const NotesContentContext = createContext<NotesContent | undefined>(undefined);
 const NotesUIContext = createContext<NotesUI | undefined>(undefined);
 const NotesActionsContext = createContext<NotesActions | undefined>(undefined);
 
 export function NotesProvider({ children }: { children: React.ReactNode }) {
     const t = useTranslations("Notes.context");
-    const [user] = useAuthState(auth);
     const [notes, setNotes] = useState<Note[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isContentLoading, setIsContentLoading] = useState(false);
     const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
     const [focusMode, setFocusMode] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    // Decrypted bodies, tagged with the key they were decrypted under: a vault
+    // lock/unlock invalidates the whole map on read, with no reset effect.
+    const [contentStore, setContentStore] = useState<ContentStore>({ key: null, map: EMPTY_CONTENT });
+    // Same trick for the search index.
+    const [warmedKey, setWarmedKey] = useState<CryptoKey | null>(null);
+    const contentStoreRef = useRef(contentStore);
+    useEffect(() => { contentStoreRef.current = contentStore; }, [contentStore]);
+    // Body saves bump updatedAt server-side. Writing that into `notes` on every
+    // autosave would re-render the whole sidebar once per second, so it's parked
+    // here and flushed when the user switches notes.
+    const pendingMetaTouch = useRef<Map<string, string>>(new Map());
+    const warmedKeyRef = useRef<CryptoKey | null>(warmedKey);
+    useEffect(() => { warmedKeyRef.current = warmedKey; }, [warmedKey]);
+    const warmInFlight = useRef<Promise<void> | null>(null);
     const contentLoadedIds = useRef<Set<string>>(new Set());
     // Notes whose content is an envelope we couldn't decrypt (vault locked). Their
     // in-state `content` is a null placeholder — writing it back would clobber the
@@ -69,27 +93,32 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     // Refs to read latest state inside stable action callbacks
     const notesRef = useRef<Note[]>(notes);
     const activeNoteIdRef = useRef<string | null>(activeNoteId);
-    const userRef = useRef(user);
     const cipherKeyRef = useRef<CryptoKey | null>(cipherKey);
     useEffect(() => { notesRef.current = notes; }, [notes]);
     useEffect(() => { activeNoteIdRef.current = activeNoteId; }, [activeNoteId]);
-    useEffect(() => { userRef.current = user; }, [user]);
     useEffect(() => { cipherKeyRef.current = cipherKey; }, [cipherKey]);
 
-    // Decrypt a note's content envelope into plaintext for in-state use. Legacy
-    // plaintext notes (pre-encryption) pass through untouched. When locked, the
-    // body becomes a null placeholder and the note is flagged in `lockedIds`.
-    const decryptNote = useCallback(async (n: Note): Promise<Note> => {
-        if (!isEnvelope(n.content)) { lockedIds.current.delete(n.id); return n; }
+    const setContent = useCallback((id: string, content: unknown) => {
         const key = cipherKeyRef.current;
-        if (!key) { lockedIds.current.add(n.id); return { ...n, content: null }; }
+        setContentStore((prev) => (prev.key === key
+            ? { key, map: new Map(prev.map).set(id, content) }
+            : { key, map: new Map([[id, content]]) }));
+    }, []);
+
+    // Decrypt one note's body. Legacy plaintext notes (pre-encryption) pass
+    // through untouched. Returns null (and flags the note locked) when the key is
+    // unavailable — writing that placeholder back would clobber the real body.
+    const decryptBody = useCallback(async (n: Note): Promise<unknown> => {
+        if (!isEnvelope(n.content)) { lockedIds.current.delete(n.id); return n.content ?? null; }
+        const key = cipherKeyRef.current;
+        if (!key) { lockedIds.current.add(n.id); return null; }
         try {
             const content = await decryptField(key, n.content as ContentEnvelope);
             lockedIds.current.delete(n.id);
-            return { ...n, content };
+            return content;
         } catch {
             lockedIds.current.add(n.id);
-            return { ...n, content: null };
+            return null;
         }
     }, []);
 
@@ -103,10 +132,8 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
 
     const apiRequest = useCallback(
         async <T,>(method: string, path: string, body?: unknown): Promise<T> => {
-            const currentUser = userRef.current;
-            if (!currentUser) throw new Error(t("authRequiredError"));
 
-            const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+            const { status, data } = await apiRequestRaw<T>(method, path, body);
             if (status < 200 || status >= 300) {
                 throw new Error(`API ${method} ${path} failed (${status})`);
             }
@@ -116,7 +143,8 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     );
 
     const refreshNotes = useCallback(async () => {
-        if (!userRef.current) return;
+        // Metadata only: the list endpoint nulls bodies. Bodies load per opened
+        // note, and in bulk on the first search (warmSearchIndex). No crypto here.
         const allNotes = await fetchAllPages<Note>({
             pageSize: NOTES_PAGE_SIZE,
             fetchPage: (skip, limit) =>
@@ -125,10 +153,8 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                     `/api/v1/notes?skip=${skip}&limit=${limit}`
                 ),
         });
-        contentLoadedIds.current.clear();
-        const decrypted = await Promise.all(allNotes.map(decryptNote));
-        setNotes([...decrypted].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
-    }, [apiRequest, decryptNote]);
+        setNotes([...allNotes].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+    }, [apiRequest]);
 
     useEffect(() => {
         if (!activeNoteId || contentLoadedIds.current.has(activeNoteId)) return;
@@ -137,25 +163,34 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         apiRequest<Note>("GET", `/api/v1/notes/${activeNoteId}`)
             .then(async (full) => {
                 if (!full?.id) return;
-                const dec = await decryptNote(full);
+                const body = await decryptBody(full);
                 if (cancelled) return;
                 // Only mark loaded once the body is actually available (unlocked).
-                if (!lockedIds.current.has(dec.id)) contentLoadedIds.current.add(activeNoteId);
-                setNotes((prev) => prev.map((n) => (n.id === dec.id ? dec : n)));
+                if (!lockedIds.current.has(full.id)) {
+                    contentLoadedIds.current.add(activeNoteId);
+                    setCachedPlainText(full.id, body);
+                }
+                setContent(full.id, body);
             })
             .catch(() => { /* note may have been deleted */ })
             .finally(() => { if (!cancelled) setIsContentLoading(false); });
         return () => { cancelled = true; };
-    }, [activeNoteId, apiRequest, decryptNote]);
+    }, [activeNoteId, apiRequest, decryptBody, setContent]);
+
+    // Flush parked updatedAt bumps from body saves when the user leaves a note —
+    // one re-render per switch instead of one per autosave.
+    useEffect(() => {
+        const pending = pendingMetaTouch.current;
+        if (!pending.size) return;
+        const touches = new Map(pending);
+        pending.clear();
+        setNotes((prev) => prev.map((n) => {
+            const ts = touches.get(n.id);
+            return ts && ts !== n.updatedAt ? { ...n, updatedAt: ts } : n;
+        }));
+    }, [activeNoteId]);
 
     useEffect(() => {
-        if (!user) {
-            setNotes([]);
-            setIsLoading(false);
-            setActiveNoteId(null);
-            return;
-        }
-
         (async () => {
             try {
                 setIsLoading(true);
@@ -164,11 +199,52 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                 setIsLoading(false);
             }
         })();
-        // cipherKey in deps: re-fetch + decrypt bodies once the vault unlocks.
-    }, [refreshNotes, user, cipherKey]);
+        // No cipherKey dep: metadata is plaintext on the wire and doesn't depend
+        // on the vault key. Bodies are handled by the effect below.
+    }, [refreshNotes]);
+
+    // Vault lock/unlock: bodies and the search index invalidate themselves (both
+    // are tagged with their key), but the plain-text cache is module state —
+    // clear it so decrypted text doesn't outlive the unlocked session. The
+    // active note then refetches under the new key state. No mass refetch.
+    useEffect(() => {
+        contentLoadedIds.current.clear();
+        lockedIds.current.clear();
+        clearPlainTextCache();
+    }, [cipherKey]);
+
+    /**
+     * Decrypt every note body once into the plain-text search cache. Only the
+     * extracted text is retained — raw bodies are dropped — so memory doesn't
+     * double. Concurrent callers share the in-flight promise.
+     */
+    const warmSearchIndex = useCallback(async (): Promise<void> => {
+        const key = cipherKeyRef.current;
+        if (key && warmedKeyRef.current === key) return;
+        if (warmInFlight.current) return warmInFlight.current;
+        const run = (async () => {
+            const all = await fetchAllPages<Note>({
+                pageSize: NOTES_PAGE_SIZE,
+                fetchPage: (skip, limit) =>
+                    apiRequest<Note[]>(
+                        "GET",
+                        `/api/v1/notes?content=1&skip=${skip}&limit=${limit}`
+                    ),
+            });
+            await Promise.all(all.map(async (n) => {
+                setCachedPlainText(n.id, await decryptBody(n));
+            }));
+            setWarmedKey(key);
+        })();
+        warmInFlight.current = run;
+        try {
+            await run;
+        } finally {
+            warmInFlight.current = null;
+        }
+    }, [apiRequest, decryptBody]);
 
     const createNote = useCallback(async (parentId: string | null = null) => {
-        if (!userRef.current) throw new Error(t("authRequiredError"));
         const created = await apiRequest<Note>("POST", "/api/v1/notes", {
             title: t("defaultTitle"),
             content: await encryptContent({}),
@@ -177,15 +253,14 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         });
         if (!created?.id) throw new Error("Note create failed");
         contentLoadedIds.current.add(created.id);
+        setContent(created.id, {});
         setActiveNoteId(created.id);
-        // Server echoes the envelope back; keep decrypted (empty) body in state.
-        const local: Note = { ...created, content: {} };
-        setNotes((prev) => [...prev, local].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+        // Server echoes the envelope back; the metadata array never carries a body.
+        setNotes((prev) => [...prev, { ...created, content: null }].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
         return created.id;
-    }, [apiRequest, t, encryptContent]);
+    }, [apiRequest, t, encryptContent, setContent]);
 
     const updateNote = useCallback(async (id: string, updates: Partial<Note>) => {
-        if (!userRef.current) return;
         // Block body writes while locked — persisting would clobber the real
         // (undecryptable) content with an empty one.
         if (updates.content !== undefined && (lockedIds.current.has(id) || !cipherKeyRef.current)) {
@@ -203,12 +278,30 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
 
         const updated = await apiRequest<Note>("PATCH", `/api/v1/notes/${id}`, payload);
         if (!updated?.id) throw new Error("Update failed: empty response");
-        if (updates.content !== undefined) contentLoadedIds.current.add(id);
-        // Merge server echo but keep the plaintext body we already hold in memory.
-        setNotes((prev) => prev.map((n) => (n.id === updated.id
-            ? { ...updated, content: updates.content !== undefined ? updates.content : n.content }
-            : n)));
-    }, [apiRequest, encryptContent]);
+
+        const contentOnly = updates.content !== undefined
+            && updates.title === undefined && updates.parentId === undefined
+            && updates.icon === undefined && updates.pinned === undefined
+            && updates.tags === undefined;
+
+        if (updates.content !== undefined) {
+            contentLoadedIds.current.add(id);
+            setContent(id, updates.content);
+            // Keep the note searchable under its edited text without a re-warm.
+            setCachedPlainText(id, updates.content);
+        }
+
+        if (contentOnly) {
+            // ponytail: sidebar "Last modified" lags until the next note switch
+            // flushes this. Sorting live would cost a whole-sidebar re-render per
+            // autosave — the exact churn this split removes.
+            pendingMetaTouch.current.set(id, updated.updatedAt);
+            return;
+        }
+
+        // Metadata echo only — the body stays in contentById.
+        setNotes((prev) => prev.map((n) => (n.id === updated.id ? { ...updated, content: null } : n)));
+    }, [apiRequest, encryptContent, setContent]);
 
     const pinNote = useCallback(async (id: string, pinned: boolean) => {
         await updateNote(id, { pinned });
@@ -217,14 +310,17 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const duplicateNote = useCallback(async (id: string) => {
         const src = notesRef.current.find((n) => n.id === id);
         if (!src) throw new Error("Note not found");
-        let content = src.content;
+        const store = contentStoreRef.current;
+        let content: unknown = (store.key === cipherKeyRef.current ? store.map.get(id) : undefined) ?? null;
         if (!contentLoadedIds.current.has(id)) {
             const full = await apiRequest<Note>("GET", `/api/v1/notes/${id}`);
             if (!full?.id) throw new Error("Note fetch failed");
-            const dec = await decryptNote(full);
-            if (!lockedIds.current.has(dec.id)) contentLoadedIds.current.add(id);
-            setNotes((prev) => prev.map((n) => (n.id === dec.id ? dec : n)));
-            content = dec.content;
+            content = await decryptBody(full);
+            if (!lockedIds.current.has(id)) {
+                contentLoadedIds.current.add(id);
+                setContent(id, content);
+                setCachedPlainText(id, content);
+            }
         }
         if (lockedIds.current.has(id) || !cipherKeyRef.current) throw new Error(cipherKeyErrorMessage());
         const created = await apiRequest<Note>("POST", "/api/v1/notes", {
@@ -236,18 +332,18 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         });
         if (!created?.id) throw new Error("Note duplicate failed");
         contentLoadedIds.current.add(created.id);
+        setContent(created.id, content);
+        setCachedPlainText(created.id, content);
         setActiveNoteId(created.id);
-        const local: Note = { ...created, content };
-        setNotes((prev) => [...prev, local].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+        setNotes((prev) => [...prev, { ...created, content: null }].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
         return created.id;
-    }, [apiRequest, t, decryptNote, encryptContent]);
+    }, [apiRequest, t, decryptBody, encryptContent, setContent]);
 
     const moveNote = useCallback(async (id: string, newParentId: string | null) => {
         await updateNote(id, { parentId: newParentId });
     }, [updateNote]);
 
     const deleteNote = useCallback(async (id: string) => {
-        if (!userRef.current) return;
         await apiRequest<void>("DELETE", `/api/v1/notes/${id}?recursive=true`);
 
         // Local mutation: compute descendant set, prune in one pass — skip full refetch.
@@ -268,7 +364,17 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
                 if (!toDelete.has(k)) { toDelete.add(k); stack.push(k); }
             }
         }
-        for (const did of toDelete) contentLoadedIds.current.delete(did);
+        for (const did of toDelete) {
+            contentLoadedIds.current.delete(did);
+            lockedIds.current.delete(did);
+            pendingMetaTouch.current.delete(did);
+            deleteCachedPlainText(did);
+        }
+        setContentStore((prev) => {
+            const next = new Map(prev.map);
+            for (const did of toDelete) next.delete(did);
+            return { key: prev.key, map: next };
+        });
         if (activeNoteIdRef.current && toDelete.has(activeNoteIdRef.current)) {
             setActiveNoteId(null);
         }
@@ -281,9 +387,18 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         return map;
     }, [notes]);
 
+    // Warmed/decrypted under a different key (or none) means it's stale.
+    const searchIndexReady = warmedKey !== null && warmedKey === cipherKey;
+    const contentById = contentStore.key === cipherKey ? contentStore.map : EMPTY_CONTENT;
+
     const dataValue = useMemo<NotesData>(
-        () => ({ notes, noteById, isLoading, isContentLoading }),
-        [notes, noteById, isLoading, isContentLoading]
+        () => ({ notes, noteById, isLoading, searchIndexReady }),
+        [notes, noteById, isLoading, searchIndexReady]
+    );
+
+    const contentValue = useMemo<NotesContent>(
+        () => ({ contentById, isContentLoading }),
+        [contentById, isContentLoading]
     );
 
     const uiValue = useMemo<NotesUI>(
@@ -292,15 +407,17 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     );
 
     const actionsValue = useMemo<NotesActions>(
-        () => ({ createNote, updateNote, deleteNote, pinNote, duplicateNote, moveNote }),
-        [createNote, updateNote, deleteNote, pinNote, duplicateNote, moveNote]
+        () => ({ createNote, updateNote, deleteNote, pinNote, duplicateNote, moveNote, warmSearchIndex }),
+        [createNote, updateNote, deleteNote, pinNote, duplicateNote, moveNote, warmSearchIndex]
     );
 
     return (
         <NotesActionsContext.Provider value={actionsValue}>
             <NotesUIContext.Provider value={uiValue}>
                 <NotesDataContext.Provider value={dataValue}>
-                    {children}
+                    <NotesContentContext.Provider value={contentValue}>
+                        {children}
+                    </NotesContentContext.Provider>
                 </NotesDataContext.Provider>
             </NotesUIContext.Provider>
         </NotesActionsContext.Provider>
@@ -310,6 +427,12 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
 export function useNotesData(): NotesData {
     const ctx = useContext(NotesDataContext);
     if (ctx === undefined) throw new Error("useNotesData must be used within a NotesProvider");
+    return ctx;
+}
+
+export function useNotesContent(): NotesContent {
+    const ctx = useContext(NotesContentContext);
+    if (ctx === undefined) throw new Error("useNotesContent must be used within a NotesProvider");
     return ctx;
 }
 
@@ -331,5 +454,5 @@ export function useNotesActions(): NotesActions {
  * needs a subset, so it doesn't re-render on unrelated changes.
  */
 export function useNotes(): NotesContextType {
-    return { ...useNotesData(), ...useNotesUI(), ...useNotesActions() };
+    return { ...useNotesData(), ...useNotesContent(), ...useNotesUI(), ...useNotesActions() };
 }

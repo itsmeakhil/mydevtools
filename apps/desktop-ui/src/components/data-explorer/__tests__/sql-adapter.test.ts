@@ -15,7 +15,7 @@ import { getAdapter, SOURCE_ORDER, SOURCES } from "../sources";
 import { normalizeSqlTabState } from "../adapters/sql";
 import { sqlBody } from "@/lib/sql-request";
 import { blankSqlConfig } from "@/lib/data-explorer/sql-api";
-import type { SqlConnectionConfig } from "@/components/sql-client/types";
+import type { SqlConnectionConfig } from "@/components/data-explorer/sql/types";
 
 const ENGINES = ["postgresql", "mysql", "mariadb"] as const;
 

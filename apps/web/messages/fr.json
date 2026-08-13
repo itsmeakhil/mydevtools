@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Qu’est-ce que MyDevTools ?",
-        "description": "Un espace de travail développeur avec connexion : un tableau de bord et des outils pour le quotidien.",
-        "p1": "Après connexion, l’app établit une session avec l’API MyDevTools pour charger et enregistrer vos données. La barre latérale liste toutes les apps ; vous pouvez masquer celles que vous n’utilisez pas depuis",
-        "settingsLink": "Paramètres",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Certaines fonctionnalités utilisent un <strong>mot de passe maître</strong> (ou une clé de coffre globale) afin que des secrets comme les mots de passe et chaînes de connexion soient chiffrés sur votre appareil avant d’atteindre le serveur."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Liens rapides",
-        "dashboard": "Tableau de bord",
-        "settings": "Paramètres"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Utilisez cet outil depuis la barre latérale pour son flux de travail dédié."
     },
     "security": {
-      "session": {
-        "title": "Connexion et session API",
-        "description": "Identité et communication entre le navigateur et votre backend.",
-        "items": {
-          "authentication": "<strong>Authentification</strong> via Firebase. Après connexion, l’app échange votre jeton d’ID Firebase contre des cookies API.",
-          "accessTokens": "<strong>Jetons d’accès</strong> : JWT signés côté serveur (HS256) qui prouvent quel utilisateur appelle l’API.",
-          "refreshTokens": "<strong>Jetons de rafraîchissement</strong> : stockés en cookies HttpOnly ; le serveur conserve un hash SHA-256 du jeton, pas le jeton brut."
-        }
-      },
       "encryption": {
         "title": "Chiffrement à connaître",
         "description": "Crypto côté client pour le coffre et les données de connexion sensibles.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> avec <strong>SHA-256</strong>, <strong>100 000</strong> itérations et un sel aléatoire dérive une clé 256 bits depuis votre mot de passe maître.",
           "aes": "<strong>AES-256-GCM</strong> chiffre les données ; un <strong>IV de 12 octets</strong> aléatoire est utilisé à chaque chiffrement.",
-          "scope": "La clé dérivée reste dans le navigateur (non extractible). Le serveur reçoit <strong>le texte chiffré et les IV</strong>, pas votre mot de passe maître ni des secrets en clair."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Si vous oubliez le mot de passe maître, les données chiffrées ne peuvent pas être récupérées. Conservez-le en lieu sûr."
-      },
-      "logout": {
-        "title": "Déconnexion et données locales",
-        "body": "La déconnexion efface les secrets en mémoire, l’état du coffre et, si applicable, le matériel de clé maître dans IndexedDB, et termine la session API. Les données uniquement en stockage local peuvent rester jusqu’à suppression dans le navigateur."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Personnalisez les outils visibles dans Paramètres pour garder la barre latérale focalisée."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

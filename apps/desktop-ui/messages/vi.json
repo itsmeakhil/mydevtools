@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "MyDevTools là gì?",
         "description": "Một không gian làm việc ngoại tuyến dành cho lập trình viên: một bảng điều khiển và hơn 80 công cụ chạy hoàn toàn trên thiết bị của bạn.",
-        "p1": "MyDevTools chạy hoàn toàn ngoại tuyến. Sau một lần kích hoạt trong trình duyệt, mọi thứ đều hoạt động trên thiết bị này mà không cần đăng nhập tài khoản và không cần kết nối internet. Thanh bên liệt kê mọi ứng dụng; bạn có thể ẩn những công cụ không dùng đến trong phần",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Cài đặt",
         "p1After": ".",
-        "p2": "Một số tính năng sử dụng <strong>mật khẩu chính</strong> (hoặc khóa kho toàn cục) để các thông tin bí mật như mật khẩu và chuỗi kết nối cơ sở dữ liệu được mã hóa ngay trên thiết bị của bạn. Dữ liệu của bạn được lưu trong một cơ sở dữ liệu mã hóa cục bộ và không bao giờ được gửi đến máy chủ."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Liên kết nhanh",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Kích hoạt & truy cập ngoại tuyến",
-        "description": "Cách ứng dụng mở khóa lần đầu, sau đó chạy ngoại tuyến.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Kích hoạt một lần</strong> diễn ra trong trình duyệt của bạn khi bạn mở ứng dụng lần đầu tiên. Nó ghi lại gói dịch vụ của bạn và mở khóa ứng dụng trên thiết bị này.",
-          "offline": "<strong>Không có phiên đăng nhập.</strong> Sau khi kích hoạt, không cần đăng nhập theo từng phiên và không có việc kiểm tra lại định kỳ — ứng dụng vẫn tiếp tục hoạt động mà không cần kết nối internet.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Lưu trữ cục bộ.</strong> Toàn bộ dữ liệu của bạn nằm trong một cơ sở dữ liệu SQLCipher được mã hóa trên thiết bị, được khóa bằng một khóa ngẫu nhiên lưu giữ trong keychain của hệ điều hành."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Cài đặt",
-    "subtitle": "Quản lý cài đặt tài khoản và tùy chọn của bạn.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Hồ sơ người dùng",
-      "description": "Thông tin cá nhân và chi tiết tài khoản của bạn.",
-      "avatarAlt": "Người dùng",
-      "anonymousUser": "Người dùng ẩn danh",
-      "noEmailProvided": "Chưa cung cấp email",
-      "notLoggedIn": "Chưa đăng nhập."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Công cụ & Tính năng",
@@ -247,49 +252,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +590,9 @@
     },
     "analytics": {
       "title": "Dữ liệu của bạn trong nháy mắt",
-      "subtitle": "Số liệu đồng bộ với tài khoản trên máy chủ.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Không tải được phân tích.",
       "retry": "Thử lại",
-      "loginHint": "Đăng nhập để xem phân tích sử dụng và tùy chọn giao diện.",
       "passwordEntries": "Mục mật khẩu",
       "bookmarks": "Dấu trang",
       "bookmarkFolders": "Thư mục dấu trang",
@@ -664,9 +625,8 @@
     },
     "ui": {
       "title": "Tùy chọn giao diện",
-      "subtitle": "Chủ đề, ngôn ngữ và công cụ hiển thị trên thanh bên — từ cài đặt tài khoản.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Không tải được tùy chọn.",
-      "loginHint": "Đăng nhập để xem tùy chọn giao diện đã lưu.",
       "theme": "Chủ đề",
       "accent": "Màu nhấn",
       "locale": "Ngôn ngữ",
@@ -674,13 +634,9 @@
       "favoriteTools": "Công cụ yêu thích",
       "toolsWithUsage": "Công cụ có theo dõi sử dụng"
     },
-    "signIn": "Đăng nhập",
     "noResults": "Không có công cụ nào phù hợp với tìm kiếm của bạn",
     "noResultsHint": "Thử từ khóa khác hoặc xóa bộ lọc.",
     "filterAll": "Tất cả",
-    "loginCta": {
-      "description": "Đăng nhập để theo dõi các công cụ bạn sử dụng gần đây."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +913,8 @@
       "export": "Xuất"
     },
     "context": {
-      "authRequiredError": "Người dùng chưa xác thực",
       "defaultTitle": "Không tiêu đề",
-      "cloudSyncImageError": "Bật Đồng bộ Đám mây để lưu trữ hình ảnh ghi chú. Ghi chú văn bản vẫn ở cục bộ."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1165,7 @@
       "cancel": "Hủy",
       "confirmDelete": "Xóa",
       "deleteDialogTitle": "Xóa bộ môi trường?",
-      "deleteDialogDescription": "Dữ liệu mã hóa sẽ bị xóa khỏi tài khoản. Không hoàn tác được.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2600,6 @@
     "toastCopiedText": "Đã sao chép bảng văn bản",
     "toastCopiedTree": "Đã sao chép bảng cây",
     "toastCopyFailed": "Không thể sao chép JSON",
-    "toastLoginRequired": "Vui lòng đăng nhập để lưu tài liệu",
     "toastSaved": "Đã lưu tài liệu",
     "toastSaveFailed": "Không thể lưu tài liệu",
     "format": "Định dạng",

@@ -14,9 +14,9 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
-import { getConnections as getMongoConnections } from "@/components/nosql-explorer/connection-service";
+import { getConnections as getMongoConnections } from "@/components/data-explorer/mongodb/connection-service";
 import { getConnections as getRedisConnections } from "@/components/data-explorer/redis/connection-service";
-import { getConnections as getSqlConnections } from "@/components/sql-client/connection-service";
+import { getConnections as getSqlConnections } from "@/components/data-explorer/sql/connection-service";
 import {
     dedupeAgainstExisting,
     legacyMongoToUnified,

@@ -10,7 +10,6 @@ import { Upload, Download, FileJson, AlertTriangle, ShieldCheck } from "lucide-r
 import { usePasswordStore, PasswordEntry } from "@/store/password-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { toast } from "sonner"
-import { auth } from "@/database/firebase"
 import { createPasswordEntry } from "@/lib/password-manager-api"
 import { encryptData } from "@/lib/encryption"
 import { reauthenticate } from "@/lib/verify-master-password"
@@ -154,7 +153,7 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
      */
     const handleImport = async () => {
         if (!preview || preview.entries.length === 0) return
-        if (!encryptionKey || !auth.currentUser) return
+        if (!encryptionKey) return
 
         setLoading(true)
         let imported = 0

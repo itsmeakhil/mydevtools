@@ -1,5 +1,5 @@
 // apps/web/src/lib/workspace-api.ts
-import { backendFetch } from "./backend-auth"
+import { apiFetch } from "./desktop/api-fetch"
 
 export type WorkspaceEncryption = {
   scheme: string
@@ -24,19 +24,19 @@ export type Workspace = {
 const BASE = "/api/backend/workspaces-api"
 
 export async function listWorkspaces(): Promise<Workspace[]> {
-  const res = await backendFetch(`${BASE}/workspaces`)
+  const res = await apiFetch(`${BASE}/workspaces`)
   if (!res.ok) throw new Error(`listWorkspaces failed (${res.status})`)
   return res.json()
 }
 
 export async function getWorkspace(id: string): Promise<Workspace> {
-  const res = await backendFetch(`${BASE}/workspaces/${encodeURIComponent(id)}`)
+  const res = await apiFetch(`${BASE}/workspaces/${encodeURIComponent(id)}`)
   if (!res.ok) throw new Error(`getWorkspace failed (${res.status})`)
   return res.json()
 }
 
 export async function setActiveWorkspace(id: string): Promise<void> {
-  const res = await backendFetch(`${BASE}/workspaces/active`, {
+  const res = await apiFetch(`${BASE}/workspaces/active`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ workspace_id: id }),

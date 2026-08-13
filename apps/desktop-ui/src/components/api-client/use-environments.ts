@@ -2,9 +2,8 @@
 
 import * as React from "react"
 import { toast } from "sonner"
-import { auth } from "@/database/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { backendFetch } from "@/lib/backend-auth"
+import useAuth from "@/utils/useAuth"
+import { apiFetch } from "@/lib/desktop/api-fetch"
 import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
 export interface EnvironmentVariable {
@@ -29,7 +28,7 @@ function sortEnvs(envs: Environment[]) {
 }
 
 export function useEnvironments() {
-    const [user, loading] = useAuthState(auth)
+    const { user, loading } = useAuth()
     const [environments, setEnvironments] = React.useState<Environment[]>([])
     const [activeEnvId, setActiveEnvId] = React.useState<string | null>(null)
     const [isLoading, setIsLoading] = React.useState(true)
@@ -42,7 +41,7 @@ export function useEnvironments() {
     const authedFetch = React.useCallback(
         async (path: string, init?: RequestInit) => {
             if (!user) throw new Error("Not authenticated")
-            const res = await backendFetch(path, {
+            const res = await apiFetch(path, {
                 ...init,
                 headers: {
                     "Content-Type": "application/json",

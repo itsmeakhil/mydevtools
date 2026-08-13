@@ -268,9 +268,9 @@ NoteItem.displayName = "NoteItem";
 
 export default function NotesSidebar() {
     const t = useTranslations("Notes.sidebar");
-    const { notes, noteById, isLoading } = useNotesData();
+    const { notes, noteById, isLoading, searchIndexReady } = useNotesData();
     const { activeNoteId, setSidebarOpen } = useNotesUI();
-    const { createNote, deleteNote, moveNote } = useNotesActions();
+    const { createNote, deleteNote, moveNote, warmSearchIndex } = useNotesActions();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [noteToMove, setNoteToMove] = useState<Note | null>(null);
     const [searchQuery, setSearchQuery] = useState("");
@@ -279,6 +279,13 @@ export default function NotesSidebar() {
     const [sortKey, setSortKey] = useState<SortKey>("createdAt");
     const [sortDir, setSortDir] = useState<SortDir>("desc");
     const searchInputRef = useRef<HTMLInputElement>(null);
+
+    // Bodies aren't in memory after the metadata/body split — decrypt them once,
+    // on the first search of the session. Until then, matching is title/tag only.
+    useEffect(() => {
+        if (!debouncedQuery.trim() || searchIndexReady) return;
+        void warmSearchIndex().catch(() => { /* locked vault: titles still match */ });
+    }, [debouncedQuery, searchIndexReady, warmSearchIndex]);
 
     const childrenMap = useMemo(() => buildChildrenMap(notes), [notes]);
 
@@ -305,7 +312,9 @@ export default function NotesSidebar() {
         const out: { note: Note; snippet?: string; parent?: Note }[] = [];
         for (const n of sortedNotes) {
             const titleHit = (n.title || "").toLowerCase().includes(q);
-            const text = getCachedPlainText(n);
+            // Body text comes from the plain-text cache, which only holds every
+            // note once warmSearchIndex has run.
+            const text = searchIndexReady ? getCachedPlainText(n) : "";
             const bodyHit = text.toLowerCase().includes(q);
             if (!titleHit && !bodyHit) continue;
             out.push({
@@ -315,7 +324,8 @@ export default function NotesSidebar() {
             });
         }
         return out;
-    }, [sortedNotes, debouncedQuery, noteById]);
+        // searchIndexReady: recompute once the warm lands so body matches appear.
+    }, [sortedNotes, debouncedQuery, noteById, searchIndexReady]);
 
     const notesScrollRef = useRef<HTMLDivElement>(null);
     const listLength = searchResults ? searchResults.length : rootNotes.length;
@@ -485,7 +495,9 @@ export default function NotesSidebar() {
                             <div className="p-4 text-xs text-muted-foreground text-center">{t("loading")}</div>
                         ) : searchResults !== null ? (
                             searchResults.length === 0 ? (
-                                <div className="p-4 text-xs text-muted-foreground text-center">{t("noNotesFound")}</div>
+                                <div className="p-4 text-xs text-muted-foreground text-center">
+                                    {searchIndexReady ? t("noNotesFound") : t("loading")}
+                                </div>
                             ) : (
                                 searchResults.slice(0, displayCount).map(({ note, snippet, parent }) => (
                                     <NoteItem

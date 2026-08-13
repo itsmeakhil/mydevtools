@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Τι είναι το MyDevTools;",
-        "description": "Ένας χώρος εργασίας για προγραμματιστές με σύνδεση: ταμπλό και εργαλεία για καθημερινές εργασίες.",
-        "p1": "Αφού συνδεθείτε, η εφαρμογή δημιουργεί μια συνεδρία με το MyDevTools API ώστε τα εργαλεία να μπορούν να φορτώνουν και να αποθηκεύουν τα δεδομένα σας. Η πλευρική γραμμή εμφανίζει όλες τις εφαρμογές· μπορείτε να κρύψετε εργαλεία που δεν χρησιμοποιείτε από τις",
-        "settingsLink": "Ρυθμίσεις",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Ορισμένες λειτουργίες χρησιμοποιούν <strong>κύριο κωδικό</strong> (ή καθολικό κλειδί θησαυροφυλακίου) ώστε μυστικά όπως κωδικοί και strings σύνδεσης να κρυπτογραφούνται στη συσκευή σας πριν φτάσουν στον διακομιστή."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Γρήγοροι σύνδεσμοι",
-        "dashboard": "Ταμπλό",
-        "settings": "Ρυθμίσεις"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Χρησιμοποιήστε αυτό το εργαλείο από την πλευρική γραμμή για τη ροή εργασίας του."
     },
     "security": {
-      "session": {
-        "title": "Σύνδεση και συνεδρία API",
-        "description": "Ταυτότητα και πώς ο browser επικοινωνεί με το backend.",
-        "items": {
-          "authentication": "<strong>Αυθεντικοποίηση</strong> με Firebase. Μετά το login, η εφαρμογή ανταλλάσσει το Firebase ID token με cookies API.",
-          "accessTokens": "<strong>Access tokens</strong> είναι JWT υπογεγραμμένα στον server (HS256) και αποδεικνύουν ποιος χρήστης καλεί το API.",
-          "refreshTokens": "<strong>Refresh tokens</strong> αποθηκεύονται σε HttpOnly cookies· ο server κρατά SHA-256 hash του token, όχι το ίδιο το token."
-        }
-      },
       "encryption": {
         "title": "Κρυπτογράφηση που πρέπει να γνωρίζετε",
         "description": "Κρυπτογραφία στην πλευρά του πελάτη για το θησαυροφυλάκιο και ευαίσθητα δεδομένα σύνδεσης.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> με <strong>SHA-256</strong>, <strong>100.000</strong> επαναλήψεις και τυχαίο salt παράγει κλειδί 256-bit από τον κύριο κωδικό.",
           "aes": "<strong>AES-256-GCM</strong> κρυπτογραφεί δεδομένα· χρησιμοποιείται τυχαίο <strong>IV 12 bytes</strong> σε κάθε κρυπτογράφηση.",
-          "scope": "Το παράγωγο κλειδί μένει στον browser (μη εξαγώγιμο). Ο server λαμβάνει μόνο <strong>ciphertext και IV</strong>, όχι τον κύριο κωδικό ή μυστικά σε απλό κείμενο."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Αν ξεχάσετε τον κύριο κωδικό, τα κρυπτογραφημένα δεδομένα δεν μπορούν να ανακτηθούν. Φυλάξτε τον με ασφάλεια."
-      },
-      "logout": {
-        "title": "Αποσύνδεση και τοπικά δεδομένα",
-        "body": "Η αποσύνδεση καθαρίζει μυστικά από τη μνήμη, κατάσταση του θησαυροφυλακίου και (όπου ισχύει) υλικό κύριου κλειδιού από το IndexedDB και τερματίζει τη συνεδρία API. Δεδομένα που υπάρχουν μόνο στο local storage μπορεί να παραμείνουν μέχρι να τα διαγράψετε στον browser."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Προσαρμόστε τα ορατά εργαλεία στις Ρυθμίσεις για να παραμείνει εστιασμένη η πλευρική γραμμή."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

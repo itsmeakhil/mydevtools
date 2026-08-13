@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // MUST match the Worker this deploys to. The OpenNext adapter derives its
+  // `WORKER_SELF_REFERENCE` service binding (the Worker calling itself, for ISR
+  // and on-demand revalidation) from this name. When they disagree, upload
+  // fails with:
+  //
+  //   Service binding 'WORKER_SELF_REFERENCE' references Worker 'web'
+  //   which was not found. [code: 10143]
+  //
+  // which is exactly what happened on 2026-08-12: the config said "web" while
+  // the deploy targeted "mydevtools". Never "fix" that error by pointing the
+  // self-reference somewhere else — it has to be this Worker.
+  "name": "mydevtools",
+
+  "main": ".open-next/worker.js",
+
+  // OpenNext requires nodejs_compat and a compatibility date no earlier than
+  // 2024-09-23 (when nodejs_compat v2 became the default behaviour).
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}

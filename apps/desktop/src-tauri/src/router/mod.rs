@@ -1,4 +1,3 @@
-pub mod activation;
 pub mod api_client;
 pub mod backup;
 pub mod backup_codes;
@@ -45,10 +44,6 @@ impl ApiResponse {
     }
 }
 
-/// Remote-only path prefixes (relative to /api/v1). Empty since S3 went
-/// direct-to-bucket and DNS moved to DoH — kept for the next cloud-only tool.
-const REMOTE_ONLY: &[&str] = &[];
-
 /// Dispatch a request against the local store. Paths are normalized FastAPI
 /// paths (`/api/v1/...`); query strings are split off here and passed along.
 pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>) -> Result<ApiResponse> {
@@ -58,18 +53,6 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
     };
     let path = path.trim_end_matches('/');
 
-    // Session endpoints: the local store is authorized by OS login + master
-    // vault, so session checks always succeed offline.
-    match (method, path) {
-        ("GET", "/api/v1/auth/session/check") => return Ok(ApiResponse::detail(200, "ok")),
-        ("POST", "/api/v1/auth/refresh") => return Ok(ApiResponse::detail(200, "ok")),
-        ("POST", "/api/v1/auth/logout") => return Ok(ApiResponse::detail(200, "ok")),
-        _ => {}
-    }
-
-    if let Some(rest) = path.strip_prefix("/desktop/activation") {
-        return activation::handle(state, method, rest, body);
-    }
     if let Some(rest) = path.strip_prefix("/desktop/backup") {
         return backup::handle(state, method, rest, body);
     }
@@ -140,13 +123,6 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
     }
     if let Some(rest) = rel.strip_prefix("/user-preferences") {
         return preferences::handle(state, method, rest, query, body);
-    }
-
-    if REMOTE_ONLY.iter().any(|p| rel.starts_with(p)) {
-        return Ok(ApiResponse::detail(
-            503,
-            "This tool requires a network connection and cloud sign-in",
-        ));
     }
 
     stubs::handle(method, path)
@@ -221,13 +197,6 @@ mod tests {
         let r = route(&state, "GET", "/api/v1/nonexistent", None).unwrap();
         assert_eq!(r.status, 501);
         assert!(r.body.contains("nonexistent"));
-    }
-
-    #[test]
-    fn session_check_ok_offline() {
-        let state = AppState::in_memory();
-        let r = route(&state, "GET", "/api/v1/auth/session/check", None).unwrap();
-        assert_eq!(r.status, 200);
     }
 
     #[test]

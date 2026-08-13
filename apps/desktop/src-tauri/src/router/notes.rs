@@ -1,6 +1,7 @@
 //! Local mirror of `/api/v1/notes` (plaintext docs, ISO-8601 timestamps).
 
 use serde_json::{json, Value};
+use std::collections::{HashMap, HashSet};
 
 use crate::error::Result;
 use crate::router::entries::*;
@@ -24,7 +25,15 @@ pub fn handle(
     let ws = active_workspace(&db);
     match (method, rest) {
         ("GET", "") => {
-            let docs = list_docs(&db, KIND, &ws)?;
+            let mut docs = list_docs(&db, KIND, &ws)?;
+            // Bodies are large encrypted envelopes and the sidebar only needs
+            // metadata, so the list drops them. `?content=1` opts back in — used
+            // once per session by the search-index warm.
+            if query_param(query, "content") != Some("1") {
+                for doc in docs.iter_mut() {
+                    doc["content"] = Value::Null;
+                }
+            }
             let skip: usize = query_param(query, "skip").and_then(|v| v.parse().ok()).unwrap_or(0);
             let limit: usize = query_param(query, "limit")
                 .and_then(|v| v.parse().ok())
@@ -71,16 +80,29 @@ pub fn handle(
                 return Ok(ApiResponse::detail(404, "Note not found"));
             }
             if recursive {
-                // Tombstone all descendants (parentId chains).
-                let mut frontier = vec![id.to_string()];
+                // One pass over the workspace's notes, then walk the
+                // parentId -> children map. (Was: a full list_docs scan per level.)
+                let docs = list_docs(&db, KIND, &ws)?;
+                let mut children: HashMap<&str, Vec<&str>> = HashMap::new();
+                for doc in &docs {
+                    if let (Some(child_id), Some(parent)) =
+                        (doc["id"].as_str(), doc["parentId"].as_str())
+                    {
+                        children.entry(parent).or_default().push(child_id);
+                    }
+                }
+                let mut seen: HashSet<&str> = HashSet::new();
+                seen.insert(id);
+                let mut frontier: Vec<&str> = vec![id];
                 while let Some(parent) = frontier.pop() {
-                    for doc in list_docs(&db, KIND, &ws)? {
-                        if doc["parentId"].as_str() == Some(parent.as_str()) {
-                            if let Some(child_id) = doc["id"].as_str() {
-                                tombstone(&db, KIND, &ws, child_id)?;
-                                frontier.push(child_id.to_string());
-                            }
+                    let Some(kids) = children.get(parent) else { continue };
+                    for kid in kids {
+                        // Guard against a cycle in parentId chains.
+                        if !seen.insert(kid) {
+                            continue;
                         }
+                        tombstone(&db, KIND, &ws, kid)?;
+                        frontier.push(kid);
                     }
                 }
             }

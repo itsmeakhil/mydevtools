@@ -59,12 +59,16 @@ fn defaults() -> Value {
         "theme": "system",
         "accentColor": "blue",
         "locale": "en",
+        // Local profile: what the app calls you. There is no account behind it.
+        "displayName": null,
+        "avatar": null,
+        // First-run walkthrough state (used to live on the user account).
+        "onboardingCompleted": false,
+        "persona": null,
         "enabledTools": DEFAULT_ENABLED_TOOLS,
         "toolFavorites": [],
         "pinnedToolsByWorkspace": {},
         "toolStats": {},
-        // updatedAt=0 marks an unconfigured (never-persisted) baseline so cloud
-        // sync (LWW) prefers the remote prefs until the user changes one here.
         "createdAt": 0,
         "updatedAt": 0,
     })

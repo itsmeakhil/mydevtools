@@ -12,7 +12,6 @@ import { Plus, Eye, EyeOff, KeyRound } from "lucide-react"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { useApiKeyVaultStore, type ApiKeyEntry, type ApiKeyEnv } from "@/store/api-key-vault-store"
 import { encryptData } from "@/lib/encryption"
-import { auth } from "@/database/firebase"
 import { createApiKeyEntry, updateApiKeyEntry } from "@/lib/api-key-vault-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
@@ -270,10 +269,6 @@ export function AddApiKeyDialog({ children }: { children?: React.ReactNode }) {
     if (!canWrite) return null
 
     const handleSubmit = async (data: FormState) => {
-        if (!auth.currentUser) {
-            toast.error("Sign in to continue")
-            return
-        }
         if (!encryptionKey) {
             toast.error(cipherKeyErrorMessage())
             return
@@ -351,10 +346,6 @@ export function EditApiKeyDialog({
     if (!canWrite) return null
 
     const handleSubmit = async (data: FormState) => {
-        if (!auth.currentUser) {
-            toast.error("Sign in to continue")
-            return
-        }
         if (!encryptionKey) {
             toast.error(cipherKeyErrorMessage())
             return

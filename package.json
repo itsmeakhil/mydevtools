@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "pnpm --filter @mydevtools/web dev",
     "dev:web": "pnpm --filter @mydevtools/web dev",
-    "dev:backend": "pnpm --filter @mydevtools/backend dev",
     "build": "pnpm -r --if-present build",
     "start": "pnpm --filter @mydevtools/web start",
     "lint": "pnpm -r --if-present lint",

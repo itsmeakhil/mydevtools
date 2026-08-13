@@ -1,37 +1,29 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import useAuth from "@/utils/useAuth"
-import { getMe } from "@/lib/onboarding-api"
+import { getUserPreferences } from "@/lib/user-preferences-api"
 import { OnboardingModal } from "@/components/onboarding-modal"
 
 type State = "loading" | "show" | "done"
 
+/** First-run walkthrough. Whether it has run is local preference state. */
 export function OnboardingGate() {
-  const { user, loading: authLoading } = useAuth(false)
   const [state, setState] = useState<State>("loading")
 
   useEffect(() => {
-    if (authLoading || !user) return
     let cancelled = false
-
-    const check = async () => {
-      try {
-        const profile = await getMe()
-        if (!cancelled) {
-          setState(profile.onboarding_completed ? "done" : "show")
-        }
-      } catch {
-        // If we can't fetch, don't block the user — skip onboarding
+    void getUserPreferences()
+      .then((prefs) => {
+        if (!cancelled) setState(prefs.onboardingCompleted ? "done" : "show")
+      })
+      .catch(() => {
+        // Store unavailable — never block the app on the walkthrough.
         if (!cancelled) setState("done")
-      }
-    }
-
-    void check()
+      })
     return () => {
       cancelled = true
     }
-  }, [user, authLoading])
+  }, [])
 
   if (state !== "show") return null
 

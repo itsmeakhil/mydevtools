@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "ما هو MyDevTools؟",
-        "description": "مساحة عمل للمطورين مع تسجيل الدخول: لوحة تحكم ومجموعة أدوات للمهام اليومية.",
-        "p1": "بعد تسجيل الدخول، ينشئ التطبيق جلسة مع واجهة MyDevTools API حتى تتمكن الأدوات من تحميل بياناتك وحفظها. تعرض القائمة الجانبية جميع التطبيقات؛ ويمكنك إخفاء الأدوات التي لا تستخدمها من",
-        "settingsLink": "الإعدادات",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "تستخدم بعض الميزات <strong>كلمة مرور رئيسية</strong> (أو مفتاح خزنة عام) بحيث يتم تشفير الأسرار مثل كلمات المرور وسلاسل الاتصال على جهازك قبل وصولها إلى الخادم."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "روابط سريعة",
-        "dashboard": "لوحة التحكم",
-        "settings": "الإعدادات"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "استخدم هذه الأداة من الشريط الجانبي لسير عملها المخصص."
     },
     "security": {
-      "session": {
-        "title": "تسجيل الدخول وجلسة API",
-        "description": "الهوية وكيف يتواصل المتصفح مع الخادم الخلفي.",
-        "items": {
-          "authentication": "يستخدم <strong>التوثيق</strong> Firebase لتسجيل الدخول. بعد ذلك يتم استبدال رمز Firebase ID بملفات تعريف ارتباط للـ API.",
-          "accessTokens": "<strong>رموز الوصول</strong> هي JWT موقعة على الخادم (HS256) وتحدد المستخدم الذي يستدعي الـ API.",
-          "refreshTokens": "<strong>رموز التحديث</strong> محفوظة في Cookies من نوع HttpOnly؛ ويخزن الخادم قيمة SHA-256 للرمز وليس الرمز الخام."
-        }
-      },
       "encryption": {
         "title": "التشفير المهم معرفته",
         "description": "تشفير من جهة العميل لخزنة البيانات وبيانات الاتصال الحساسة.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "تقوم <strong>PBKDF2</strong> مع <strong>SHA-256</strong> و<strong>100,000</strong> تكرار وملح عشوائي باشتقاق مفتاح 256-بت من كلمة المرور الرئيسية.",
           "aes": "تقوم <strong>AES-256-GCM</strong> بتشفير البيانات؛ ويتم استخدام <strong>IV بطول 12 بايت</strong> عشوائي لكل عملية تشفير.",
-          "scope": "يبقى المفتاح المشتق داخل المتصفح (غير قابل للاستخراج). يستلم الخادم <strong>نصًا مُشفّرًا وIV</strong> وليس كلمة المرور الرئيسية أو نصًا صريحًا."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "إذا نسيت كلمة المرور الرئيسية فلن يمكن استعادة البيانات المشفرة. احتفظ بها بأمان."
-      },
-      "logout": {
-        "title": "تسجيل الخروج والبيانات المحلية",
-        "body": "عند تسجيل الخروج يتم مسح الأسرار من الذاكرة وحالة الخزنة ومادة المفتاح من IndexedDB عند توفرها، وإنهاء جلسة الـ API. وقد تبقى البيانات المخزنة محليًا على الجهاز حتى تقوم بمسحها من المتصفح."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "خصص الأدوات الظاهرة من الإعدادات للحفاظ على تركيز الشريط الجانبي."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

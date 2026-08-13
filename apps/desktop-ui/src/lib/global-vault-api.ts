@@ -10,7 +10,7 @@
  * stored on the server.
  */
 
-import { backendFetch } from "./backend-auth"
+import { apiFetch } from "./desktop/api-fetch"
 
 export type KeyVerifier = {
     encrypted: string
@@ -33,7 +33,7 @@ export type MasterVaultSetupRequest = {
  * their master password.
  */
 export async function getMasterVaultOrNull(): Promise<MasterVaultOut | null> {
-    const res = await backendFetch("/api/backend/auth/master-vault")
+    const res = await apiFetch("/api/backend/auth/master-vault")
     if (res.status === 404) return null
     if (!res.ok) {
         throw new Error(`Failed to fetch master vault (${res.status})`)
@@ -49,7 +49,7 @@ export async function getMasterVaultOrNull(): Promise<MasterVaultOut | null> {
 export async function setupMasterVault(
     body: MasterVaultSetupRequest
 ): Promise<MasterVaultOut> {
-    const res = await backendFetch("/api/backend/auth/master-vault", {
+    const res = await apiFetch("/api/backend/auth/master-vault", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -78,7 +78,7 @@ export type BackupCodeDataOut = {
 }
 
 export async function storeBackupCodes(codes: BackupCodeEntry[]): Promise<void> {
-    const res = await backendFetch("/api/backend/auth/backup-codes", {
+    const res = await apiFetch("/api/backend/auth/backup-codes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ codes }),
@@ -89,7 +89,7 @@ export async function storeBackupCodes(codes: BackupCodeEntry[]): Promise<void> 
 }
 
 export async function lookupBackupCode(codeId: string): Promise<BackupCodeDataOut> {
-    const res = await backendFetch("/api/backend/auth/backup-codes/lookup", {
+    const res = await apiFetch("/api/backend/auth/backup-codes/lookup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ codeId }),
@@ -100,7 +100,7 @@ export async function lookupBackupCode(codeId: string): Promise<BackupCodeDataOu
 }
 
 export async function markBackupCodeUsed(codeId: string): Promise<void> {
-    await backendFetch("/api/backend/auth/backup-codes/use", {
+    await apiFetch("/api/backend/auth/backup-codes/use", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ codeId }),

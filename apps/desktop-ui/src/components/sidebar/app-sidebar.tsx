@@ -6,11 +6,9 @@ import { cn } from '@/lib/utils'
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { NavGroup } from './nav-group'
-import { FeedbackDialog } from '@/components/feedback-dialog'
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import { LayoutDashboard, Sparkles } from 'lucide-react'
 import { usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
@@ -78,9 +76,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </div>
         )}
       </SidebarContent>
-      <SidebarFooter className="hidden md:block border-t border-border/30 dark:border-white/5">
-        <FeedbackDialog variant="sidebar" />
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

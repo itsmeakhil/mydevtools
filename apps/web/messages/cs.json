@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Co je MyDevTools?",
-        "description": "Vývojářský workspace s přihlášením: přehled a sada nástrojů pro každodenní práci.",
-        "p1": "Po přihlášení aplikace naváže relaci s MyDevTools API, aby nástroje mohly načítat a ukládat vaše data. Postranní panel zobrazuje všechny aplikace; nástroje, které nepoužíváte, můžete skrýt v",
-        "settingsLink": "Nastavení",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Některé funkce používají <strong>hlavní heslo</strong> (nebo globální klíč trezoru), aby se tajné údaje jako hesla a connection stringy šifrovaly na vašem zařízení dříve, než dorazí na server."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Rychlé odkazy",
-        "dashboard": "Přehled",
-        "settings": "Nastavení"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Používejte tento nástroj z postranního panelu v jeho vyhrazeném pracovním postupu."
     },
     "security": {
-      "session": {
-        "title": "Přihlášení a API relace",
-        "description": "Identita a jak prohlížeč komunikuje s backendem.",
-        "items": {
-          "authentication": "<strong>Ověřování</strong> používá Firebase. Po přihlášení aplikace vymění váš Firebase ID token za API cookies.",
-          "accessTokens": "<strong>Přístupové tokeny</strong> jsou JWT podepsané na serveru (HS256) a dokazují, který uživatel volá API.",
-          "refreshTokens": "<strong>Obnovovací tokeny</strong> jsou uloženy v HttpOnly cookies; server ukládá SHA-256 hash tokenu, ne jeho surovou hodnotu."
-        }
-      },
       "encryption": {
         "title": "Šifrování, které byste měli znát",
         "description": "Kryptografie na straně klienta pro trezor a citlivé údaje o připojení.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> s <strong>SHA-256</strong>, <strong>100 000</strong> iteracemi a náhodnou solí odvodí 256bitový klíč z hlavního hesla.",
           "aes": "<strong>AES-256-GCM</strong> šifruje data; pro každé šifrování se používá náhodný <strong>12bajtový IV</strong>.",
-          "scope": "Odvozený klíč zůstává v prohlížeči (nelze exportovat). Server dostává pouze <strong>šifrotext a IV</strong>, nikoliv hlavní heslo ani tajná data v otevřené podobě."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Pokud zapomenete hlavní heslo, šifrovaná data nelze obnovit. Bezpečně si ho uložte."
-      },
-      "logout": {
-        "title": "Odhlášení a lokální data",
-        "body": "Odhlášení vymaže tajné údaje v paměti, stav trezoru a (pokud je to relevantní) materiál hlavního klíče z IndexedDB a ukončí API relaci. Data uložená pouze v lokálním úložišti zařízení mohou zůstat, dokud je nevymažete v prohlížeči."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Přizpůsobte viditelné nástroje v Nastavení, aby postranní panel zůstal přehledný."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

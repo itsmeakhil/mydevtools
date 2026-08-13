@@ -53,8 +53,6 @@ export const toolCategoryMap: Record<string, string> = {
   'ip-subnet-calculator': 'Network & API',
   'user-agent-parser': 'Network & API',
   'mime-type-lookup': 'Network & API',
-  'sql-client': 'Database',
-  'database-explorer': 'Database',
   'data-explorer': 'Database',
   's3-drive': 'Database',
   'color-picker': 'Media & Design',

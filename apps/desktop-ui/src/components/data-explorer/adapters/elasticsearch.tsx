@@ -15,7 +15,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
+import { CONNECTION_COLORS } from "@/components/data-explorer/connection-colors";
 import { ElasticsearchSearchPane } from "@/components/data-explorer/elasticsearch/search-pane";
 import {
     listIndices,

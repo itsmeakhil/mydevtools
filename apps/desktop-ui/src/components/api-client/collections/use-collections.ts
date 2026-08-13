@@ -3,9 +3,8 @@
 import * as React from "react"
 import { Collection, CollectionFolder, CollectionRequest } from "../types"
 import { toast } from "sonner"
-import { auth } from "@/database/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { backendFetch } from "@/lib/backend-auth"
+import useAuth from "@/utils/useAuth"
+import { apiFetch } from "@/lib/desktop/api-fetch"
 import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
 const STORAGE_KEY = "api-client-collections"
@@ -15,7 +14,7 @@ function sortCollections(cols: Collection[]) {
 }
 
 export function useCollections() {
-    const [user, loading] = useAuthState(auth)
+    const { user, loading } = useAuth()
     const [collections, setCollections] = React.useState<Collection[]>([])
     const [isLoading, setIsLoading] = React.useState(true)
     const migrationRanRef = React.useRef(false)
@@ -27,7 +26,7 @@ export function useCollections() {
     const authedFetch = React.useCallback(
         async (path: string, init?: RequestInit) => {
             if (!user) throw new Error("Not authenticated")
-            const res = await backendFetch(path, {
+            const res = await apiFetch(path, {
                 ...init,
                 headers: {
                     "Content-Type": "application/json",

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-const LAST_UPDATED = "July 22, 2026";
+const LAST_UPDATED = "August 13, 2026";
 
 function TermsBody() {
   return (
@@ -26,11 +26,10 @@ function TermsBody() {
       </section>
 
       <section className="space-y-2">
-        <h3 className="text-sm font-semibold text-foreground">2. Your account</h3>
+        <h3 className="text-sm font-semibold text-foreground">2. No account</h3>
         <p>
-          You sign in with a supported provider, and we associate your account with your name and
-          email address. You are responsible for keeping your account and sign-in credentials
-          secure and for all activity under your account.
+          MyDevTools has no accounts and no sign-in. You download the app and use it. We do not
+          issue credentials, and there is nothing for you to register.
         </p>
       </section>
 
@@ -51,9 +50,9 @@ function TermsBody() {
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">4. Acceptable use</h3>
         <p>
-          You agree to use the Service lawfully and not to infringe others&apos; rights, disrupt the
-          Service, or attempt to access accounts or data that are not yours. We may suspend or
-          terminate access for conduct that we reasonably believe violates these terms.
+          You agree to use the Service lawfully and not to infringe others&apos; rights or attempt
+          to access data that is not yours. The app is licensed under the GNU AGPL v3; your rights
+          to use, modify, and redistribute it are governed by that license.
         </p>
       </section>
 
@@ -91,27 +90,28 @@ function PrivacyBody() {
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">1. Our approach</h3>
         <p>
-          MyDevTools is built to be private by design. The only personal information we hold on our
-          servers is your account details. Everything you create with the tools stays on
-          your device — it is not sent to us. Sensitive vault data is additionally encrypted on your
-          device so that only you can read it.
+          MyDevTools is built to be private by design. The app has no accounts and no backend: we
+          hold no personal information about you at all. Everything you create with the tools stays
+          on your device — it is not sent to us. Sensitive vault data is additionally encrypted on
+          your device so that only you can read it.
         </p>
       </section>
 
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">2. Information we store</h3>
-        <p>We store only the minimum needed to run your account:</p>
-        <ul className="list-disc space-y-1 pl-5">
-          <li>Your name and email address, from the sign-in provider you use.</li>
-        </ul>
+        <p>
+          The app stores nothing with us. This website uses privacy-oriented analytics (page views
+          and aggregate usage) to understand what people find useful. Those analytics are not tied
+          to an identity, because there is no identity to tie them to.
+        </p>
       </section>
 
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">3. Your tool data stays local</h3>
         <p>
           The content you create with the tools (notes, snippets, requests, keys, and other tool
-          data) is saved locally on your device. It is not sent to us and is not part of your
-          account.
+          data) is saved locally on your device. It is never sent to us — the app works fully
+          offline and has no server to send it to.
         </p>
       </section>
 
@@ -136,25 +136,25 @@ function PrivacyBody() {
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">6. How we use what we store</h3>
         <p>
-          We use your account information to provide the Service, provide support, communicate
-          service-related messages, and comply with legal obligations.
+          Website analytics are used only to understand which pages and tools people find useful.
+          They are not used for advertising and are not shared or sold.
         </p>
       </section>
 
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">7. Retention &amp; deletion</h3>
         <p>
-          We keep account data for as long as your account is active or as required by
-          law. When you delete your account, we delete your account data; data stored on your device
-          is removed when you delete it locally.
+          We hold no account data to retain or delete. Data stored on your device is removed when
+          you delete it locally or uninstall the app.
         </p>
       </section>
 
       <section className="space-y-2">
         <h3 className="text-sm font-semibold text-foreground">8. Your rights</h3>
         <p>
-          Depending on your location, you may have rights to access, correct, export, or delete your
-          personal information. Contact us to exercise these rights.
+          Depending on your location, you may have rights to access, correct, export, or delete
+          personal information a service holds about you. We hold none, so there is nothing for us
+          to produce or erase. Contact us with any question about this.
         </p>
       </section>
 

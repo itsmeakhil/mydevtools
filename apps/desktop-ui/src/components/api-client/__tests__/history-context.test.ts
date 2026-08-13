@@ -1,8 +1,4 @@
-jest.mock("react-firebase-hooks/auth", () => ({
-    useAuthState: () => [null, false],
-}))
-jest.mock("@/database/firebase", () => ({ auth: {} }))
-jest.mock("@/lib/backend-auth", () => ({ backendFetch: jest.fn() }))
+jest.mock("@/lib/desktop/api-fetch", () => ({ apiFetch: jest.fn() }))
 
 /**
  * Tests for HistoryContext (history-context.tsx).

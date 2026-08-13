@@ -20,14 +20,14 @@ import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { apiFetch } from "@/lib/desktop/api-fetch";
 import { sqlBody } from "@/lib/sql-request";
-import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
-import { DbIcon } from "@/components/sql-client/db-icon";
+import { CONNECTION_COLORS } from "@/components/data-explorer/connection-colors";
+import { DbIcon } from "@/components/data-explorer/sql/db-icon";
 import type {
     ColumnInfo,
     SchemaInfo,
     SqlConnectionConfig,
     TableInfo,
-} from "@/components/sql-client/types";
+} from "@/components/data-explorer/sql/types";
 import {
     applyPastedHost,
     blankSqlConfig,

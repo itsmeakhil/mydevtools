@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "O que é o MyDevTools?",
-        "description": "Um workspace para devs com login: um painel e um conjunto de ferramentas do dia a dia.",
-        "p1": "Depois de fazer login, o app cria uma sessão com a API do MyDevTools para que as ferramentas possam carregar e salvar seus dados. A barra lateral lista todos os apps; você pode ocultar ferramentas que não usa em",
-        "settingsLink": "Configurações",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Alguns recursos usam uma <strong>senha mestra</strong> (ou chave global do cofre) para que segredos como senhas e strings de conexão sejam criptografados no seu dispositivo antes de chegar ao servidor."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Links rápidos",
-        "dashboard": "Painel",
-        "settings": "Configurações"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Use esta ferramenta pela barra lateral para o fluxo de trabalho dedicado."
     },
     "security": {
-      "session": {
-        "title": "Login e sessão de API",
-        "description": "Identidade e como o navegador conversa com o backend.",
-        "items": {
-          "authentication": "<strong>Autenticação</strong> usa Firebase para login. Depois, o app troca seu Firebase ID token por cookies da API.",
-          "accessTokens": "<strong>Tokens de acesso</strong> são JWT assinados no servidor (HS256) e provam qual usuário está chamando a API.",
-          "refreshTokens": "<strong>Tokens de refresh</strong> ficam em cookies HttpOnly; o servidor armazena um hash SHA-256 do token, não o token em si."
-        }
-      },
       "encryption": {
         "title": "Criptografia que você deve conhecer",
         "description": "Cripto no cliente para o cofre e dados sensíveis de conexão.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> com <strong>SHA-256</strong>, <strong>100.000</strong> iterações e um salt aleatório deriva uma chave de 256 bits a partir da senha mestra.",
           "aes": "<strong>AES-256-GCM</strong> criptografa os dados; um <strong>IV de 12 bytes</strong> aleatório é usado por criptografia.",
-          "scope": "A chave derivada fica no navegador (não extraível). O servidor recebe apenas <strong>ciphertext e IVs</strong>, nunca sua senha mestra ou segredos em texto puro."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Se você esquecer a senha mestra, os dados criptografados não podem ser recuperados. Guarde-a com segurança."
-      },
-      "logout": {
-        "title": "Sair e dados locais",
-        "body": "Ao sair, o app limpa segredos em memória, estado do cofre e material de chave mestra do IndexedDB quando aplicável, e encerra a sessão da API. O que estiver apenas no armazenamento local pode permanecer até você limpar no navegador."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Personalize as ferramentas visíveis em Configurações para manter a barra lateral focada."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

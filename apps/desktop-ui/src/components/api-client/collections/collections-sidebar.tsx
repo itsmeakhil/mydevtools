@@ -8,7 +8,7 @@ import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
 import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, PanelRightClose } from "lucide-react"
 import { buildShareUrl } from "@/lib/share-link"
-import { backendFetch } from "@/lib/backend-auth"
+import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
 import { downloadCollectionAsPostman } from "@/lib/export/postman"
 import { downloadCollectionAsOpenApi } from "@/lib/export/openapi"
@@ -340,7 +340,7 @@ export function CollectionsSidebar({
                                                                 const idx = Number(choice)
                                                                 const target = idx === 0 ? null : workspaces[idx - 1]?.id ?? null
                                                                 try {
-                                                                    const res = await backendFetch(`/api/backend/api-client/collections/${collection.id}`, {
+                                                                    const res = await apiFetch(`/api/backend/api-client/collections/${collection.id}`, {
                                                                         method: "PATCH",
                                                                         headers: { "Content-Type": "application/json" },
                                                                         body: JSON.stringify({ workspace: target }),
@@ -403,7 +403,7 @@ export function CollectionsSidebar({
                                                             onClick={async () => {
                                                                 if (typeof window === "undefined") return
                                                                 try {
-                                                                    const res = await backendFetch("/api/backend/api-client/public-mocks", {
+                                                                    const res = await apiFetch("/api/backend/api-client/public-mocks", {
                                                                         method: "POST",
                                                                         headers: { "Content-Type": "application/json" },
                                                                         body: JSON.stringify({

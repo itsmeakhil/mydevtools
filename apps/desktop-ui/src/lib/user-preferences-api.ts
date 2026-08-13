@@ -13,6 +13,12 @@ export type UserPreferencesOut = {
     theme: ThemePreference
     accentColor: string
     locale: string
+    /** Local profile — what the app calls you. No account behind it. */
+    displayName?: string | null
+    avatar?: string | null
+    /** First-run walkthrough state. */
+    onboardingCompleted?: boolean
+    persona?: string | null
     enabledTools: string[]
     toolFavorites: string[]
     /** Keyed pinned-tools map added in T24. Present on all responses after backend migration. */
@@ -26,6 +32,10 @@ export type UserPreferencesPatch = {
     theme?: ThemePreference
     accentColor?: string
     locale?: string
+    displayName?: string | null
+    avatar?: string | null
+    onboardingCompleted?: boolean
+    persona?: string | null
     enabledTools?: string[]
     /** Legacy flat array — only accepted by backend for one-release compat. */
     toolFavorites?: string[]

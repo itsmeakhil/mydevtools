@@ -36,6 +36,12 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    // Deploy tooling config, not app source. `next build` type-checks
+    // everything in `include`, so leaving this in meant the whole site build
+    // failed whenever the Cloudflare adapter was not installed — which is the
+    // normal case on a build runner, where NODE_ENV=production makes pnpm skip
+    // devDependencies. The app must not depend on its deploy tooling to compile.
+    "open-next.config.ts"
   ]
 }

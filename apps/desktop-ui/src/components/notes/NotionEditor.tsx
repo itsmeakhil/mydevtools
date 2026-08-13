@@ -1,12 +1,8 @@
 import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
-import { useNotesData, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
+import { useNotesData, useNotesContent, useNotesUI, useNotesActions } from "@/app/app/notes/context/NotesContext";
 import { NoteMarkdownEditor } from "@/components/notes/markdown-editor/NoteMarkdownEditor";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
-import { storage } from "@/database/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import useAuth from "@/utils/useAuth";
-import { isDesktop } from "@/lib/desktop/is-desktop";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -24,6 +20,9 @@ import {
     ChevronRight,
 } from "lucide-react";
 import { marked } from "marked";
+
+/** Inline note images live in the note body; keep them small. */
+const MAX_INLINE_IMAGE_BYTES = 2 * 1024 * 1024;
 import { cn } from "@/lib/utils";
 import {
     DropdownMenu,
@@ -45,11 +44,14 @@ import type { Note } from "@/app/app/notes/types/Note";
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
     const tCtx = useTranslations("Notes.context");
-    const { noteById, isContentLoading } = useNotesData();
+    const { noteById } = useNotesData();
+    const { contentById, isContentLoading } = useNotesContent();
     const { activeNoteId, focusMode, setActiveNoteId, setFocusMode } = useNotesUI();
     const { updateNote } = useNotesActions();
     const activeNote = activeNoteId ? noteById.get(activeNoteId) : undefined;
-    const { user } = useAuth();
+    // Bodies live in the content context, not on the note — a body write must not
+    // re-render the sidebar.
+    const activeContent = activeNoteId ? contentById.get(activeNoteId) : undefined;
 
     const [title, setTitle] = useState("");
     const [isMounted, setIsMounted] = useState(false);
@@ -137,18 +139,20 @@ export default function NotionEditor() {
         }
     };
 
+    // Images are embedded in the note body as data URLs — they stay inside the
+    // encrypted local store like the rest of the note, with no upload target.
+    // ponytail: capped at 2 MB because the body is one row; move to a
+    // content-addressed blob table if people start pasting screenshots in bulk.
     const handleUploadImage = async (file: File): Promise<string> => {
-        if (!user) throw new Error(tCtx("authRequiredError"));
-        // Desktop: note images live in Firebase Storage (cloud). Desktop data
-        // stays on the machine, so image upload is web-only.
-        if (isDesktop()) {
-            throw new Error(tCtx("cloudSyncImageError"));
+        if (file.size > MAX_INLINE_IMAGE_BYTES) {
+            throw new Error(tCtx("imageTooLargeError"));
         }
-        const timestamp = Date.now();
-        const safeName = sanitizeFileName(file.name);
-        const storageRef = ref(storage, `notes/${user.uid}/${activeNoteId}/${timestamp}_${safeName}`);
-        await uploadBytes(storageRef, file);
-        return getDownloadURL(storageRef);
+        const buffer = await file.arrayBuffer();
+        let binary = "";
+        const bytes = new Uint8Array(buffer);
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]!);
+        const type = file.type || "image/png";
+        return `data:${type};base64,${btoa(binary)}`;
     };
 
     const initialMarkdown = useMemo(() => {
@@ -158,8 +162,8 @@ export default function NotionEditor() {
             return pendingTemplateContent.markdown;
         }
         // Normalizes both new (string) and legacy (tree) content to markdown.
-        return noteContentToMarkdown(activeNote?.content);
-    }, [activeNoteId, editorKey, activeNote?.content, pendingTemplateContent]);
+        return noteContentToMarkdown(activeContent);
+    }, [activeNoteId, editorKey, activeContent, pendingTemplateContent]);
 
     const activePath = useMemo<Note[]>(() => {
         if (!activeNote) return [];
@@ -199,14 +203,14 @@ export default function NotionEditor() {
     // Defer word-count compute: the heavy extract runs at most every 500ms
     // instead of every keystroke.
     const { wordCount, readTime } = useMemo(() => {
-        const src = wordCountSource ?? activeNote?.content;
+        const src = wordCountSource ?? activeContent;
         const text = extractPlainText(src);
         const wc = countWords(text);
         return { wordCount: wc, readTime: readingTimeMinutes(wc) };
-    }, [wordCountSource, activeNote?.content]);
+    }, [wordCountSource, activeContent]);
 
     const handleExportMarkdown = useCallback(() => {
-        const src = latestMarkdownRef.current ?? activeNote?.content;
+        const src = latestMarkdownRef.current ?? activeContent;
         const md = contentToMarkdown(title || "Untitled", src);
         const blob = new Blob([md], { type: "text/markdown" });
         const url = URL.createObjectURL(blob);
@@ -215,10 +219,10 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.md`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [activeNote?.content, title]);
+    }, [activeContent, title]);
 
     const handleExportHtml = useCallback(() => {
-        const src = latestMarkdownRef.current ?? activeNote?.content;
+        const src = latestMarkdownRef.current ?? activeContent;
         const body = noteContentToMarkdown(src);
         const bodyHtml = marked.parse(body, { async: false }) as string;
         const html = `<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8" />\n<title>${title || "Note"}</title>\n</head>\n<body>\n<h1 style="font-size:2rem;font-weight:bold;margin-bottom:1rem">${title || "Untitled"}</h1>\n${bodyHtml}</body>\n</html>`;
@@ -229,7 +233,7 @@ export default function NotionEditor() {
         a.download = `${(title || "note").replace(/\s+/g, "-")}.html`;
         a.click();
         URL.revokeObjectURL(url);
-    }, [activeNote?.content, title]);
+    }, [activeContent, title]);
 
     const handleApplyTemplate = useCallback((tpl: NoteTemplate) => {
         if (!activeNoteId) return;
@@ -503,9 +507,3 @@ export default function NotionEditor() {
     );
 }
 
-function sanitizeFileName(name: string): string {
-    return name
-        .replace(/[^a-zA-Z0-9._-]/g, "_")
-        .replace(/_{2,}/g, "_")
-        .slice(0, 200);
-}

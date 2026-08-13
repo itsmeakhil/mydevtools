@@ -10,7 +10,6 @@ export type PaletteEntry = {
   category: string
   searchValue: string
   Icon: React.ElementType
-  requiresAuth: boolean
 }
 
 export const CATEGORY_ORDER = ['Site', 'Productivity', 'Security', 'Formatters', 'Converters', 'Generators', 'Network & API', 'Database', 'PDF', 'Media & Design'] as const
@@ -23,7 +22,6 @@ const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
     description: 'Landing page and all tools',
     category: 'Site',
     Icon: Home,
-    requiresAuth: false,
   },
   {
     title: 'Dashboard',
@@ -31,7 +29,6 @@ const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
     description: 'Your tools dashboard',
     category: 'Site',
     Icon: LayoutDashboard,
-    requiresAuth: false,
   },
   {
     title: 'Settings',
@@ -39,7 +36,6 @@ const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
     description: 'Account, theme, and tool visibility',
     category: 'Site',
     Icon: Settings,
-    requiresAuth: false,
   },
   {
     title: 'Help',
@@ -47,7 +43,6 @@ const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
     description: 'Documentation and support',
     category: 'Site',
     Icon: HelpCircle,
-    requiresAuth: false,
   },
   {
     title: 'Log in',
@@ -55,7 +50,6 @@ const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
     description: 'Sign in to your account',
     category: 'Site',
     Icon: LogIn,
-    requiresAuth: false,
   },
 ]
 
@@ -119,7 +113,6 @@ export function getToolEntries(): PaletteEntry[] {
           keywords: tool.keywords,
         }),
         Icon,
-        requiresAuth: tool.requiresAuth,
       }
     })
   return cachedToolEntries

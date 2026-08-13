@@ -1,12 +1,13 @@
 packages:
   - "apps/*"
 allowBuilds:
-  "@firebase/util": true
   "@parcel/watcher": true
   "@swc/core": true
   core-js: true
+  esbuild: true
   protobufjs: true
   sharp: true
   unrs-resolver: true
+  workerd: true
 patchedDependencies:
   next-themes@0.4.6: patches/next-themes@0.4.6.patch

@@ -6,8 +6,10 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { Logo } from "./logo";
 
+/** Source repository — AGPL v3. Built releases live in mydevtools-releases. */
+export const SOURCE_URL = "https://github.com/mydevtools-tech/mydevtools";
+
 const footerLinks = [
-  { href: "/login", label: "Sign in" },
   { href: "/blog", label: "Blog" },
   { href: "/changelog", label: "Changelog" },
   { href: "/developer-tools", label: "Platform" },
@@ -16,6 +18,7 @@ const footerLinks = [
   { href: "/#tools", label: "Tools" },
   { href: "/security", label: "Security" },
   { href: "/help", label: "Help" },
+  { href: SOURCE_URL, label: "Source", external: true },
 ];
 
 export function Footer() {
@@ -39,15 +42,27 @@ export function Footer() {
 
             {/* Nav links */}
             <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {footerLinks.map((link) =>
+                link.external ? (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
             </nav>
           </div>
         </div>

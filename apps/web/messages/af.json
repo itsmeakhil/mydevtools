@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Wat is MyDevTools?",
-        "description": "’n Ontwikkelaar-werkspasie met aanmelding: ’n paneelbord en ’n stel gereedskap vir alledaagse take.",
-        "p1": "Nadat jy aanmeld, vestig die app ’n sessie met die MyDevTools API sodat gereedskap jou data kan laai en stoor. Die sybalk wys elke app; jy kan gereedskap wat jy nie gebruik nie wegsteek in",
-        "settingsLink": "Instellings",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Sommige funksies gebruik ’n <strong>meesterwagwoord</strong> (of globale kluis-sleutel) sodat geheime soos wagwoorde en verbindingsstringe op jou toestel geënkripteer word voordat dit die bediener bereik."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Vinnige skakels",
-        "dashboard": "Paneelbord",
-        "settings": "Instellings"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Gebruik hierdie hulpmiddel vanaf die sybalk vir sy toegewyde werkvloei."
     },
     "security": {
-      "session": {
-        "title": "Aanmelding en API-sessie",
-        "description": "Identiteit en hoe die blaaier met jou backend praat.",
-        "items": {
-          "authentication": "<strong>Verifikasie</strong> gebruik Firebase vir aanmelding. Ná login ruil die app jou Firebase ID-token vir API-koekies.",
-          "accessTokens": "<strong>Toegang-tokens</strong> is JWT’s wat op die bediener geteken word (HS256) en bewys watter gebruiker die API oproep.",
-          "refreshTokens": "<strong>Verfris-tokens</strong> word in HttpOnly-koekies gestoor; die bediener stoor ’n SHA-256 hash van die token, nie die rou token nie."
-        }
-      },
       "encryption": {
         "title": "Enkripsie om te ken",
         "description": "Kliënt-kant kripto vir die kluis en sensitiewe verbindingsdata.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> met <strong>SHA-256</strong>, <strong>100 000</strong> iterasies en ’n ewekansige sout lei ’n 256-bis sleutel uit jou meesterwagwoord af.",
           "aes": "<strong>AES-256-GCM</strong> enkripteer data; ’n ewekansige <strong>12-byte IV</strong> word per enkripsie gebruik.",
-          "scope": "Die afgeleide sleutel bly in die blaaier (nie-uittrekbaar). Die bediener ontvang slegs <strong>ciphertext en IV’s</strong>, nie jou meesterwagwoord of plaintext geheime nie."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "As jy die meesterwagwoord vergeet, kan geënkripteerde data nie herstel word nie. Bêre dit veilig."
-      },
-      "logout": {
-        "title": "Afmeld en plaaslike data",
-        "body": "Afmeld maak geheime in geheue skoon, kluis-verwante toestand, en meester-sleutelmateriaal uit IndexedDB waar van toepassing, en beëindig die API-sessie. Data wat net in plaaslike berging is kan bly totdat jy dit in die blaaier uitvee."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Pas sigbare gereedskap in Instellings aan om die sybalk gefokus te hou."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }
