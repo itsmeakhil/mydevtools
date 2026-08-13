@@ -6,11 +6,8 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { Logo } from "./logo";
 
-/**
- * Public GitHub repo. Points at the releases repo for now — repoint at the
- * AGPL v3 source repo (and rename the link to "Source") once that is public.
- */
-export const SOURCE_URL = "https://github.com/mydevtools-tech/mydevtools-releases";
+/** Source repository — AGPL v3. Built releases live in mydevtools-releases. */
+export const SOURCE_URL = "https://github.com/mydevtools-tech/mydevtools";
 
 const footerLinks = [
   { href: "/blog", label: "Blog" },
@@ -21,7 +18,7 @@ const footerLinks = [
   { href: "/#tools", label: "Tools" },
   { href: "/security", label: "Security" },
   { href: "/help", label: "Help" },
-  { href: SOURCE_URL, label: "GitHub", external: true },
+  { href: SOURCE_URL, label: "Source", external: true },
 ];
 
 export function Footer() {

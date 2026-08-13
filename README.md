@@ -180,8 +180,8 @@ reads and writes the local encrypted database on your machine.
 
 ```bash
 # Clone the repository
-git clone https://github.com/itsmeakhil/mydevtools.tech.git
-cd mydevtools.tech
+git clone https://github.com/mydevtools-tech/mydevtools.git
+cd mydevtools
 
 # Install all workspace dependencies
 pnpm install
@@ -276,8 +276,8 @@ Have an idea for a new tool or improvement? We'd love to hear it!
 
 ## 🧑‍💻 Contributors
 
-<a href="https://github.com/itsmeakhil/mydevtools.tech/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=itsmeakhil/mydevtools.tech" />
+<a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mydevtools-tech/mydevtools" />
 </a>
 
 ---
@@ -286,7 +286,7 @@ Have an idea for a new tool or improvement? We'd love to hear it!
 
 If MyDevTools saves you time, consider giving it a **star** on GitHub — it helps others discover the project and motivates us to keep building!
 
-[![Star on GitHub](https://img.shields.io/github/stars/itsmeakhil/mydevtools.tech?style=social)](https://github.com/itsmeakhil/mydevtools.tech)
+[![Star on GitHub](https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=social)](https://github.com/mydevtools-tech/mydevtools)
 
 ---
 
@@ -297,5 +297,5 @@ This project is licensed under the [GNU Affero General Public License v3.0](http
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/itsmeakhil">Akhil</a> and <a href="https://github.com/itsmeakhil/mydevtools.tech/graphs/contributors">contributors</a>
+  Made with ❤️ by <a href="https://github.com/itsmeakhil">Akhil</a> and <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">contributors</a>
 </p>
