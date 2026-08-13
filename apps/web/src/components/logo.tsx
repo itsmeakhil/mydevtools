@@ -29,16 +29,20 @@ export function Logo({ size = 32, className = '', showText = true }: LogoProps) 
             {showText && (
                 <div className="relative h-8 w-32 hidden sm:flex items-center">
                     <div className="relative h-8 w-24">
+                        {/* sizes matches the w-24 box — without it Next requests the
+                            3840px source for a 96px wordmark, twice per page. */}
                         <Image
                             src="/logo-text-light.png"
                             alt="MyDevTools"
                             fill
+                            sizes="96px"
                             className="dark:hidden object-contain"
                         />
                         <Image
                             src="/logo-text-dark.png"
                             alt="MyDevTools"
                             fill
+                            sizes="96px"
                             className="hidden dark:block object-contain"
                         />
                     </div>

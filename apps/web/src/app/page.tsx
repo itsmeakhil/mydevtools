@@ -303,7 +303,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.08 }}
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
-              <span className="text-foreground">All-in-One Developer Tools</span>
+              {/* Non-breaking space before the break: a plain trailing space is
+                  collapsed away, so textContent reads "ToolsJSON" to anything
+                  that does not treat <br/> as whitespace. Invisible at line end. */}
+              <span className="text-foreground">All-in-One Developer Tools&nbsp;</span>
               <br />
               <span className="mdt-grad-text mdt-grad-anim">
                 JSON, JWT, Regex &amp; 80+ More
