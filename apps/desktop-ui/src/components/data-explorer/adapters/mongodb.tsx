@@ -54,7 +54,7 @@ import {
     normalizeConnectionString,
     type DbType,
 } from "@/lib/nosql-dialects";
-import { CONNECTION_COLORS } from "@/components/nosql-explorer/connection-form";
+import { CONNECTION_COLORS } from "@/components/data-explorer/connection-colors";
 import {
     SidebarDialogs,
     type BulkDeleteState,
@@ -63,12 +63,12 @@ import {
     type DropDbState,
     type RenameCollectionState,
     type RenameDatabaseState,
-} from "@/components/nosql-explorer/sidebar-dialogs";
-import { DocumentView } from "@/components/nosql-explorer/document-view";
-import { GridFsBrowser } from "@/components/nosql-explorer/gridfs-browser";
-import { SyncDialog } from "@/components/nosql-explorer/sync-dialog";
-import { ServerMonitor } from "@/components/nosql-explorer/server-monitor";
-import type { Collection, Database, SavedConnection } from "@/components/nosql-explorer/types";
+} from "@/components/data-explorer/mongodb/sidebar-dialogs";
+import { DocumentView } from "@/components/data-explorer/mongodb/document-view";
+import { GridFsBrowser } from "@/components/data-explorer/mongodb/gridfs-browser";
+import { SyncDialog } from "@/components/data-explorer/mongodb/sync-dialog";
+import { ServerMonitor } from "@/components/data-explorer/mongodb/server-monitor";
+import type { Collection, Database, SavedConnection } from "@/components/data-explorer/mongodb/types";
 import { useMongoActions } from "@/lib/data-explorer/mongo-actions";
 import type { ConnectionFormProps, PaneProps, SidebarTreeProps, SourceAdapter } from "../types";
 

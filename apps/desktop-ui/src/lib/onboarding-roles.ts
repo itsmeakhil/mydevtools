@@ -65,8 +65,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     IconServer2,
     [
       "/app/api-client",
-      "/app/sql-client",
-      "/app/database-explorer",
+      "/app/data-explorer",
       "/app/jwt-decoder",
       "/app/cron-builder",
       "/app/environment-manager",
@@ -82,14 +81,14 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     [
       "/app/api-client",
       "/app/json-formatter",
-      "/app/sql-client",
+      "/app/data-explorer",
       "/app/jwt-decoder",
       "/app/environment-manager",
       "/app/regex-tester",
       "/app/docker-compose-generator",
       "/app/uuid-generator",
     ],
-    ["/app/database-explorer", "/app/diff-checker", "/app/http-status-codes", "/app/color-picker"],
+    ["/app/diff-checker", "/app/http-status-codes", "/app/color-picker"],
   ),
   role(
     "devops",

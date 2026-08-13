@@ -37,7 +37,6 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/contrast-checker': 'contrastChecker',
   '/app/api-client': 'apiClient',
   '/app/http-status-codes': 'httpStatusCodes',
-  '/app/database-explorer': 'nosqlExplorer',
   '/app/data-explorer': 'dataExplorer',
   '/app/image-to-base64': 'imageToBase64',
   '/app/image-compressor': 'imageCompressor',

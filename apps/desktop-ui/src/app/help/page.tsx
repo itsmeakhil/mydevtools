@@ -80,9 +80,9 @@ const appDetails: Record<
     dataNote:
       'Requests you send go to the targets you choose over your own network connection. Use the app only with APIs you trust.',
   },
-  '/app/database-explorer': {
+  '/app/data-explorer': {
     howItWorks: [
-      'Connect to MongoDB using a connection string, browse databases and collections, and run queries.',
+      'Connect to PostgreSQL, MySQL, MongoDB, Redis, Firestore, or Elasticsearch, browse the tree, and run queries.',
       'Saved connections are encrypted with your global master key on your device; only ciphertext is written to the local database.',
     ],
     dataNote:
