@@ -1,13 +1,7 @@
 import { useDeferredValue, useMemo } from "react"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
-import { auth } from "@/database/firebase"
-import { proxyJsonAuthed } from "@/lib/backend-auth"
-
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000"
+import { apiRequestRaw } from "@/lib/backend-api"
 
 export interface Bookmark {
     id: string
@@ -103,10 +97,7 @@ const proxyRequest = async <T,>(
     path: string,
     body?: unknown
 ): Promise<T> => {
-    const currentUser = auth.currentUser
-    if (!currentUser) throw new Error("Not authenticated.")
-
-    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body)
+    const { status, data } = await apiRequestRaw<T>(method, path, body)
     if (status < 200 || status >= 300) {
         throw new Error(`Request failed (${status})`)
     }

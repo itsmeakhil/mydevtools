@@ -8,8 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { auth } from "@/database/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import useAuth from "@/utils/useAuth";
 import {
     getNosqlQueryHistory, putNosqlQueryHistory,
     getNosqlSavedQueries, putNosqlSavedQueries, NosqlSavedQuery,
@@ -65,7 +64,7 @@ export function QueryBuilder({
     const [savedQueries, setSavedQueries] = useState<NosqlSavedQuery[]>([]);
     const [saveName, setSaveName] = useState("");
     const [builderOpen, setBuilderOpen] = useState(false);
-    const [user] = useAuthState(auth);
+    const { user } = useAuth();
     const { theme } = useTheme();
     const [advancedOpen, setAdvancedOpen] = useState(false);
     const [advancedMode, setAdvancedMode] = useState<"json" | "stages">("json");

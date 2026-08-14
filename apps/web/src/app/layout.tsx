@@ -110,11 +110,6 @@ export default async function RootLayout({
       GeistMono.variable
     )}>
       <head>
-        {/* Firebase Auth & token refresh */}
-        <link rel="preconnect" href="https://identitytoolkit.googleapis.com" />
-        <link rel="preconnect" href="https://securetoken.googleapis.com" />
-        {/* Firebase Storage */}
-        <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
         {/* Vercel Speed Insights */}
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
         <link rel="sitemap" type="application/xml" href="/sitemap.xml" />

@@ -6,15 +6,19 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 export const homepageFaqItems = [
   {
     q: 'Is MyDevTools free?',
-    a: 'Yes. MyDevTools is free to download and use — every tool, every feature.',
+    a: 'Yes — free for everyone. Every tool and every feature, with no paid tier, no trial and no limits.',
+  },
+  {
+    q: 'Is MyDevTools open source?',
+    a: 'Yes. MyDevTools is open source under the GNU AGPL v3 — you can read the code, build it yourself, or fork it.',
   },
   {
     q: 'Is my data secure?',
-    a: 'Your data stays on your device — there is no cloud sync. Vault-style data is additionally encrypted locally with a password only you know.',
+    a: 'Your data stays on your device — there is no cloud sync and no server to sync to. Vault-style data is additionally encrypted locally with a password only you know.',
   },
   {
     q: 'Do I need an account to use the tools?',
-    a: 'No. The tools work offline without an account. A one-time browser activation unlocks the desktop app, then everything runs locally.',
+    a: 'No. MyDevTools has no accounts at all — no sign-up, no sign-in, no activation. Download the app, open it, and start working.',
   },
   {
     q: 'Does it work offline?',

@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "MyDevTools چیست؟",
         "description": "یک فضای کاری آفلاین برای توسعه‌دهندگان: یک داشبورد و بیش از ۸۰ ابزار که کاملاً روی دستگاه شما اجرا می‌شوند.",
-        "p1": "MyDevTools کاملاً آفلاین اجرا می‌شود. پس از یک فعال‌سازی یک‌باره در مرورگر شما، همه چیز روی این دستگاه کار می‌کند، بدون نیاز به ورود به حساب کاربری و بدون نیاز به اتصال اینترنت. نوار کناری همه‌ی برنامه‌ها را فهرست می‌کند؛ می‌توانید ابزارهایی را که استفاده نمی‌کنید از",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "تنظیمات",
         "p1After": " پنهان کنید.",
-        "p2": "برخی از قابلیت‌ها از یک <strong>رمز اصلی</strong> (یا کلید سراسری گاوصندوق) استفاده می‌کنند تا اسراری مانند رمزهای عبور و رشته‌های اتصال پایگاه داده روی دستگاه شما رمزنگاری شوند. داده‌های شما در یک پایگاه داده‌ی محلی رمزنگاری‌شده ذخیره می‌شوند و هرگز به سرور ارسال نمی‌شوند."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "پیوندهای سریع",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "فعال‌سازی و دسترسی آفلاین",
-        "description": "چگونه برنامه بار اول باز می‌شود و سپس آفلاین اجرا می‌شود.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>فعال‌سازی یک‌باره</strong> نخستین باری که برنامه را باز می‌کنید در مرورگر شما انجام می‌شود. این کار پلن شما را ثبت کرده و قفل برنامه را روی این دستگاه باز می‌کند.",
-          "offline": "<strong>بدون نشست‌های ورود.</strong> پس از فعال‌سازی، هیچ ورود جداگانه برای هر نشست و هیچ بازبینی دوره‌ای وجود ندارد؛ برنامه بدون اتصال اینترنت به کار خود ادامه می‌دهد.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>ذخیره‌سازی محلی.</strong> همه‌ی داده‌های شما در یک پایگاه داده‌ی رمزنگاری‌شده‌ی SQLCipher روی دستگاه شما قرار دارند که با یک کلید تصادفی نگهداری‌شده در کی‌چین سیستم‌عامل شما ایمن شده است."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "تنظیمات",
-    "subtitle": "تنظیمات و تنظیمات برگزیده حساب خود را مدیریت کنید.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "نمایه کاربر",
-      "description": "اطلاعات شخصی و جزئیات حساب شما.",
-      "avatarAlt": "کاربر",
-      "anonymousUser": "کاربر ناشناس",
-      "noEmailProvided": "ایمیلی ارائه نشده است",
-      "notLoggedIn": "وارد نشده اید."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "ابزارها و ویژگی ها",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "نمایش نمادهای سایت در گاوصندوق",
         "helpText": "به‌طور پیش‌فرض خاموش. دریافت نماد به سرویس ثالث می‌گوید در چه سایت‌هایی حساب دارید."
+      },
+      "telemetry": {
+        "label": "اشتراک‌گذاری داده‌های ناشناس استفاده",
+        "helpText": "به‌طور پیش‌فرض خاموش است. ارسال می‌کند که چه ابزارهایی را باز می‌کنید، نسخهٔ برنامه و زبان شما. بدون حساب کاربری، بدون شناسهٔ دستگاه و بدون هیچ چیزی که در ابزار می‌نویسید."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "tr": "Türkçe",
         "uk": "Українська",
         "fa": "فارسی"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "داده‌های شما در یک نگاه",
-      "subtitle": "شمارش‌ها همگام‌شده با حساب شما روی سرور.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "بارگذاری تحلیل ممکن نشد.",
       "retry": "تلاش دوباره",
-      "loginHint": "برای دیدن تحلیل استفاده و ترجیحات رابط وارد شوید.",
       "passwordEntries": "ورودی‌های گذرواژه",
       "bookmarks": "نشانک‌ها",
       "bookmarkFolders": "پوشه‌های نشانک",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "ترجیحات رابط",
-      "subtitle": "پوسته، زبان و ابزارهای نوار کناری — از تنظیمات حساب.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "بارگذاری ترجیحات ممکن نشد.",
-      "loginHint": "برای دیدن ترجیحات ذخیره‌شده وارد شوید.",
       "theme": "پوسته",
       "accent": "رنگ تأکید",
       "locale": "زبان",
@@ -674,13 +638,9 @@
       "favoriteTools": "ابزارهای مورد علاقه",
       "toolsWithUsage": "ابزارها با آمار استفاده"
     },
-    "signIn": "ورود",
     "noResults": "هیچ ابزاری با جستجوی شما مطابقت ندارد",
     "noResultsHint": "یک کلیدواژه متفاوت امتحان کنید یا فیلتر را پاک کنید.",
     "filterAll": "همه",
-    "loginCta": {
-      "description": "وارد شوید تا ابزارهای اخیراً استفاده شده خود را دنبال کنید."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "خروجی گرفتن"
     },
     "context": {
-      "authRequiredError": "کاربر احراز هویت نشده است",
       "defaultTitle": "بدون عنوان",
-      "cloudSyncImageError": "برای ذخیره تصاویر یادداشت، همگام‌سازی ابری را روشن کنید. یادداشت‌های متنی محلی می‌مانند."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "لغو",
       "confirmDelete": "حذف",
       "deleteDialogTitle": "حذف مجموعه محیط؟",
-      "deleteDialogDescription": "بلاب رمزگذاری‌شده از حساب شما حذف می‌شود. قابل بازگشت نیست.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2656,7 +2615,6 @@
     "toastCopiedText": "پنل متن کپی شد",
     "toastCopiedTree": "پنل درختی کپی شد",
     "toastCopyFailed": "کپی JSON ناموفق بود",
-    "toastLoginRequired": "برای ذخیره اسناد وارد شوید",
     "toastSaved": "سند ذخیره شد",
     "toastSaveFailed": "ذخیره سند ناموفق بود",
     "format": "قالب‌بندی",
@@ -5160,5 +5118,13 @@
     "close": "بستن",
     "pill": "در حال به‌روزرسانی…",
     "pillPct": "در حال به‌روزرسانی… {pct}٪"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "کمک می‌کنید تصمیم بگیریم بعد چه چیزی ساخته شود؟",
+      "body": "استفاده را به‌صورت ناشناس به اشتراک بگذارید: چه ابزارهایی را باز می‌کنید، نسخهٔ برنامه و زبان شما. بدون حساب کاربری، بدون شناسهٔ دستگاه و بدون هیچ چیزی که در ابزار می‌نویسید. هر زمان می‌توانید این را در تنظیمات تغییر دهید.",
+      "accept": "اشتراک‌گذاری ناشناس",
+      "decline": "نه، ممنون"
+    }
   }
 }

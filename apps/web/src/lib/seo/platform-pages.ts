@@ -143,7 +143,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Security',
     heading: 'Security and privacy for a local-first developer toolkit',
     intro:
-      'MyDevTools is built around a simple principle: your work stays local. Everything runs offline on your device, and sensitive data is encrypted in a local vault.',
+      'MyDevTools is built around a simple principle: your work stays local. Everything runs offline on your device, there is no account and no server to hold anything, and sensitive data is encrypted in a local vault. The source is open under the GNU AGPL v3, so none of this has to be taken on trust.',
     primaryCta: { href: '/help', label: 'Read help docs' },
     secondaryCta: { href: '/features', label: 'Explore features' },
     sections: [
@@ -165,6 +165,16 @@ export const platformSeoPages: PlatformSeoPage[] = [
           'Vault contents are AES-256 encrypted on your machine, not stored on a server.',
           'Your master password is never transmitted and never leaves your device.',
           'Encryption keys derive from your master password, which nothing else receives.',
+        ],
+      },
+      {
+        title: 'No account, and open source',
+        body:
+          'There is nothing to sign up for and nothing to sign in to, so there is no account data to leak, and the code that makes those claims is public.',
+        bullets: [
+          'No sign-up, no sign-in, no activation and no license key — the app has no user accounts at all.',
+          'The app ships with no backend: there is no server for your data to reach even by mistake.',
+          'The source is released under the GNU AGPL v3, so you can audit the encryption and network behavior yourself, or build it from source.',
         ],
       },
       {

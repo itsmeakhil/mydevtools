@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Wat is MyDevTools?",
         "description": "'n Vanlyn werkspasie vir ontwikkelaars: 'n paneelbord en meer as 80 gereedskap wat heeltemal op jou toestel loop.",
-        "p1": "MyDevTools loop heeltemal vanlyn. Ná 'n eenmalige aktivering in jou blaaier werk alles op hierdie toestel, sonder rekeninginteken en sonder internetverbinding. Die sybalk lys al die programme; gereedskap wat jy nie gebruik nie, kan jy versteek by",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Instellings",
         "p1After": ".",
-        "p2": "Sommige funksies gebruik 'n <strong>meesterwagwoord</strong> (of globale kluissleutel) sodat geheime soos wagwoorde en databasisverbindingstringe op jou toestel geënkripteer word. Jou data word in 'n plaaslike geënkripteerde databasis gestoor en word nooit na 'n bediener gestuur nie."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Vinnige skakels",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Aktivering en vanlyn toegang",
-        "description": "Hoe die program die eerste keer ontsluit en daarna vanlyn loop.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Eenmalige aktivering</strong> gebeur in jou blaaier die eerste keer wat jy die program oopmaak. Dit registreer jou plan en ontsluit die program op hierdie toestel.",
-          "offline": "<strong>Geen aantekensessies nie.</strong> Ná aktivering is daar geen aanmelding per sessie en geen periodieke herkontrole nie—die program bly werk sonder internetverbinding.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Plaaslike berging.</strong> Al jou data lê in 'n geënkripteerde SQLCipher-databasis op jou toestel, beveilig met 'n lukrake sleutel in jou bedryfstelsel se sleutelhouer."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Instellings",
-    "subtitle": "Bestuur jou rekeninginstellings en voorkeure.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Gebruikerprofiel",
-      "description": "Jou persoonlike inligting en rekeningbesonderhede.",
-      "avatarAlt": "Gebruiker",
-      "anonymousUser": "Anonieme gebruiker",
-      "noEmailProvided": "Geen e-pos verskaf nie",
-      "notLoggedIn": "Nie aangemeld nie."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Gereedskap en funksies",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Wys werfikone in die kluis",
         "helpText": "Standaard af. Om 'n ikoon te haal vertel 'n derdeparty-diens by watter werwe jy rekeninge het."
+      },
+      "telemetry": {
+        "label": "Deel anonieme gebruiksdata",
+        "helpText": "Standaard af. Stuur watter gereedskap jy oopmaak, die weergawe van die program en jou taal. Geen rekening, geen toestel-ID, en niks wat jy in 'n hulpmiddel tik nie."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "Jou data in ’n oogopslag",
-      "subtitle": "Tellinge gesinkroniseer met jou rekening op die bediener.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Kon nie ontleding laai nie.",
       "retry": "Probeer weer",
-      "loginHint": "Meld aan om gebruik-ontleding en koppelvlakvoorkeure te sien.",
       "passwordEntries": "Wagwoord-inskrywings",
       "bookmarks": "Boekmerke",
       "bookmarkFolders": "Boekmerkvouers",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Koppelvlakvoorkeure",
-      "subtitle": "Tema, taal en sigbare gereedskap in die sybalk — vanaf jou rekeninginstellings.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Kon nie voorkeure laai nie.",
-      "loginHint": "Meld aan om gestoorde koppelvlakvoorkeure te sien.",
       "theme": "Tema",
       "accent": "Aksentkleur",
       "locale": "Taal",
@@ -674,13 +638,9 @@
       "favoriteTools": "Gunsteling-gereedskap",
       "toolsWithUsage": "Gereedskap met gebruikstatistiek"
     },
-    "signIn": "Meld aan",
     "noResults": "Geen gereedskap stem ooreen met jou soektog nie",
     "noResultsHint": "Probeer 'n ander sleutelwoord of maak die filter skoon.",
     "filterAll": "Alles",
-    "loginCta": {
-      "description": "Meld aan om jou onlangs gebruikte gereedskap te volg."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Voer uit"
     },
     "context": {
-      "authRequiredError": "Gebruiker nie geverifieer nie",
       "defaultTitle": "Sonder titel",
-      "cloudSyncImageError": "Skakel Wolksinkronisasie aan om notaprente te stoor. Teksnotas bly plaaslik."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "Kanselleer",
       "confirmDelete": "Vee uit",
       "deleteDialogTitle": "Omgewingstel uitvee?",
-      "deleteDialogDescription": "Dit verwyder die geënkripteerde data uit jou rekening. Dit kan nie ongedaan gemaak word nie.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2656,7 +2615,6 @@
     "toastCopiedText": "Tekspaneel gekopieer",
     "toastCopiedTree": "Boompaneel gekopieer",
     "toastCopyFailed": "Kon nie JSON kopieer nie",
-    "toastLoginRequired": "Meld asseblief aan om dokumente te stoor",
     "toastSaved": "Dokument gestoor",
     "toastSaveFailed": "Kon nie dokument stoor nie",
     "format": "Formateer",
@@ -5160,5 +5118,13 @@
     "close": "Sluit",
     "pill": "Word bygewerk…",
     "pillPct": "Word bygewerk… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Help besluit wat volgende gebou word?",
+      "body": "Deel anonieme gebruik: watter gereedskap jy oopmaak, die weergawe van die program en jou taal. Geen rekening, geen toestel-ID, en niks wat jy in 'n hulpmiddel tik nie. Jy kan dit enige tyd in Instellings verander.",
+      "accept": "Deel anoniem",
+      "decline": "Nee dankie"
+    }
   }
 }

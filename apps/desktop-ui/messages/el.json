@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Τι είναι το MyDevTools;",
         "description": "Ένας χώρος εργασίας για προγραμματιστές εκτός σύνδεσης: ένας πίνακας ελέγχου και πάνω από 80 εργαλεία που εκτελούνται εξ ολοκλήρου στη συσκευή σας.",
-        "p1": "Το MyDevTools λειτουργεί πλήρως εκτός σύνδεσης. Μετά από μια εφάπαξ ενεργοποίηση στο πρόγραμμα περιήγησής σας, όλα λειτουργούν σε αυτή τη συσκευή χωρίς σύνδεση σε λογαριασμό και χωρίς να απαιτείται σύνδεση στο διαδίκτυο. Η πλαϊνή γραμμή παραθέτει όλες τις εφαρμογές· μπορείτε να αποκρύψετε τα εργαλεία που δεν χρησιμοποιείτε από τις",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Ρυθμίσεις",
         "p1After": ".",
-        "p2": "Ορισμένες λειτουργίες χρησιμοποιούν έναν <strong>κύριο κωδικό πρόσβασης</strong> (ή καθολικό κλειδί θησαυροφυλακίου), ώστε μυστικά όπως κωδικοί πρόσβασης και συμβολοσειρές σύνδεσης βάσεων δεδομένων να κρυπτογραφούνται στη συσκευή σας. Τα δεδομένα σας αποθηκεύονται σε μια τοπική κρυπτογραφημένη βάση δεδομένων και δεν αποστέλλονται ποτέ σε διακομιστή."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Γρήγοροι σύνδεσμοι",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Ενεργοποίηση και πρόσβαση εκτός σύνδεσης",
-        "description": "Πώς ξεκλειδώνει η εφαρμογή την πρώτη φορά και στη συνέχεια λειτουργεί εκτός σύνδεσης.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "Η <strong>εφάπαξ ενεργοποίηση</strong> πραγματοποιείται στο πρόγραμμα περιήγησής σας την πρώτη φορά που ανοίγετε την εφαρμογή. Καταγράφει το πρόγραμμά σας και ξεκλειδώνει την εφαρμογή σε αυτή τη συσκευή.",
-          "offline": "<strong>Καμία σύνδεση ανά συνεδρία.</strong> Μετά την ενεργοποίηση δεν υπάρχει σύνδεση ανά συνεδρία ούτε περιοδικός επανέλεγχος—η εφαρμογή συνεχίζει να λειτουργεί χωρίς σύνδεση στο διαδίκτυο.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Τοπική αποθήκευση.</strong> Όλα τα δεδομένα σας βρίσκονται σε μια κρυπτογραφημένη βάση δεδομένων SQLCipher στη συσκευή σας, με κλειδί ένα τυχαίο κλειδί που φυλάσσεται στην κλειδοθήκη του λειτουργικού σας συστήματος."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Ρυθμίσεις",
-    "subtitle": "Διαχειριστείτε τις ρυθμίσεις και τις προτιμήσεις του λογαριασμού σας.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Προφίλ χρήστη",
-      "description": "Τα προσωπικά σας στοιχεία και τα στοιχεία του λογαριασμού σας.",
-      "avatarAlt": "Χρήστης",
-      "anonymousUser": "Ανώνυμος χρήστης",
-      "noEmailProvided": "Δεν παρέχεται email",
-      "notLoggedIn": "Δεν έχετε συνδεθεί."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Εργαλεία & Χαρακτηριστικά",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Εμφάνιση εικονιδίων ιστότοπων",
         "helpText": "Ανενεργό από προεπιλογή. Η λήψη εικονιδίου αποκαλύπτει σε τρίτη υπηρεσία σε ποιους ιστότοπους έχετε λογαριασμούς."
+      },
+      "telemetry": {
+        "label": "Κοινοποίηση ανώνυμων δεδομένων χρήσης",
+        "helpText": "Απενεργοποιημένο από προεπιλογή. Στέλνει ποια εργαλεία ανοίγετε, την έκδοση της εφαρμογής και τη γλώσσα σας. Χωρίς λογαριασμό, χωρίς αναγνωριστικό συσκευής και χωρίς τίποτα από όσα πληκτρολογείτε σε ένα εργαλείο."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "Τα δεδομένα σας με μια ματιά",
-      "subtitle": "Μετρήσεις συγχρονισμένες με τον λογαριασμό σας στον διακομιστή.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Δεν ήταν δυνατή η φόρτωση αναλυτικών.",
       "retry": "Επανάληψη",
-      "loginHint": "Συνδεθείτε για να δείτε αναλυτικά χρήσης και προτιμήσεις διεπαφής.",
       "passwordEntries": "Καταχωρήσεις κωδικών",
       "bookmarks": "Σελιδοδείκτες",
       "bookmarkFolders": "Φάκελοι σελιδοδεικτών",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Προτιμήσεις διεπαφής",
-      "subtitle": "Θέμα, γλώσσα και ορατά εργαλεία στην πλευρική γραμμή — από τις ρυθμίσεις λογαριασμού.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Δεν ήταν δυνατή η φόρτωση προτιμήσεων.",
-      "loginHint": "Συνδεθείτε για να δείτε τις αποθηκευμένες προτιμήσεις διεπαφής.",
       "theme": "Θέμα",
       "accent": "Χρώμα έμφασης",
       "locale": "Γλώσσα",
@@ -674,13 +638,9 @@
       "favoriteTools": "Αγαπημένα εργαλεία",
       "toolsWithUsage": "Εργαλεία με παρακολούθηση χρήσης"
     },
-    "signIn": "Σύνδεση",
     "noResults": "Κανένα εργαλείο δεν ταιριάζει με την αναζήτησή σας",
     "noResultsHint": "Δοκιμάστε διαφορετική λέξη-κλειδί ή καθαρίστε το φίλτρο.",
     "filterAll": "Όλα",
-    "loginCta": {
-      "description": "Συνδεθείτε για να παρακολουθείτε τα πρόσφατα χρησιμοποιημένα εργαλεία σας."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Εξαγωγή"
     },
     "context": {
-      "authRequiredError": "Ο χρήστης δεν έχει επικυρωθεί",
       "defaultTitle": "Χωρίς τίτλο",
-      "cloudSyncImageError": "Ενεργοποιήστε τον συγχρονισμό cloud για αποθήκευση εικόνων σημειώσεων. Οι σημειώσεις κειμένου παραμένουν τοπικές."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "Ακύρωση",
       "confirmDelete": "Διαγραφή",
       "deleteDialogTitle": "Διαγραφή συνόλου περιβάλλοντος;",
-      "deleteDialogDescription": "Αφαιρεί το κρυπτογραφημένο αρχείο από τον λογαριασμό σας. Δεν μπορεί να αναιρεθεί.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2604,6 @@
     "toastCopiedText": "Το πάνελ κειμένου αντιγράφηκε",
     "toastCopiedTree": "Το πάνελ δέντρου αντιγράφηκε",
     "toastCopyFailed": "Αποτυχία αντιγραφής JSON",
-    "toastLoginRequired": "Συνδεθείτε για να αποθηκεύσετε έγγραφα",
     "toastSaved": "Το έγγραφο αποθηκεύτηκε",
     "toastSaveFailed": "Αποτυχία αποθήκευσης εγγράφου",
     "format": "Μορφοποίηση",
@@ -5149,5 +5107,13 @@
     "close": "Κλείσιμο",
     "pill": "Ενημέρωση…",
     "pillPct": "Ενημέρωση… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Θέλετε να βοηθήσετε να αποφασιστεί τι θα φτιαχτεί στη συνέχεια;",
+      "body": "Μοιραστείτε ανώνυμα τη χρήση: ποια εργαλεία ανοίγετε, την έκδοση της εφαρμογής και τη γλώσσα σας. Χωρίς λογαριασμό, χωρίς αναγνωριστικό συσκευής και χωρίς τίποτα από όσα πληκτρολογείτε σε ένα εργαλείο. Μπορείτε να το αλλάξετε οποιαδήποτε στιγμή στις Ρυθμίσεις.",
+      "accept": "Ανώνυμη κοινοποίηση",
+      "decline": "Όχι, ευχαριστώ"
+    }
   }
 }

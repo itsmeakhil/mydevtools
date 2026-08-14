@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Che cos'è MyDevTools?",
         "description": "Uno spazio di lavoro offline per sviluppatori: una dashboard e oltre 80 strumenti che vengono eseguiti interamente sul tuo dispositivo.",
-        "p1": "MyDevTools funziona completamente offline. Dopo un'attivazione una tantum nel browser, tutto funziona su questo dispositivo senza accesso a un account e senza connessione a Internet. La barra laterale elenca tutte le app; puoi nascondere gli strumenti che non usi dalle",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Impostazioni",
         "p1After": ".",
-        "p2": "Alcune funzionalità utilizzano una <strong>password principale</strong> (o chiave globale della cassaforte) affinché i dati sensibili come password e stringhe di connessione ai database siano cifrati sul tuo dispositivo. I tuoi dati vengono archiviati in un database locale cifrato e non vengono mai inviati a un server."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Collegamenti rapidi",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Attivazione e accesso offline",
-        "description": "Come si sblocca l'app la prima volta e come funziona poi offline.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "L'<strong>attivazione una tantum</strong> avviene nel browser la prima volta che apri l'app. Registra il tuo piano e sblocca l'app su questo dispositivo.",
-          "offline": "<strong>Nessuna sessione di accesso.</strong> Dopo l'attivazione non c'è alcun accesso per sessione né controlli periodici: l'app continua a funzionare senza connessione a Internet.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Archiviazione locale.</strong> Tutti i tuoi dati risiedono in un database SQLCipher cifrato sul tuo dispositivo, protetto da una chiave casuale conservata nel portachiavi del tuo sistema operativo."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Impostazioni",
-    "subtitle": "Gestisci le impostazioni e le preferenze del tuo account.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Profilo utente",
-      "description": "Le tue informazioni personali e i dettagli dell'account.",
-      "avatarAlt": "Utente",
-      "anonymousUser": "Utente anonimo",
-      "noEmailProvided": "Nessuna e-mail fornita",
-      "notLoggedIn": "Non effettuato l'accesso."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Strumenti e funzionalità",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Mostra icone dei siti nella cassaforte",
         "helpText": "Disattivato per impostazione predefinita. Scaricare un'icona rivela a un servizio esterno su quali siti hai account."
+      },
+      "telemetry": {
+        "label": "Condividi dati di utilizzo anonimi",
+        "helpText": "Disattivato per impostazione predefinita. Invia quali strumenti apri, la versione dell'app e la tua lingua. Nessun account, nessun ID dispositivo e nulla di ciò che digiti in uno strumento."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "I tuoi dati a colpo d’occhio",
-      "subtitle": "Conteggi sincronizzati con il tuo account sul server.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Impossibile caricare le statistiche.",
       "retry": "Riprova",
-      "loginHint": "Accedi per vedere analisi d’uso e preferenze di interfaccia.",
       "passwordEntries": "Voci password",
       "bookmarks": "Segnalibri",
       "bookmarkFolders": "Cartelle segnalibri",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Preferenze interfaccia",
-      "subtitle": "Tema, lingua e strumenti visibili nella barra laterale — dalle impostazioni account.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Impossibile caricare le preferenze.",
-      "loginHint": "Accedi per vedere le preferenze di interfaccia salvate.",
       "theme": "Tema",
       "accent": "Colore accento",
       "locale": "Lingua",
@@ -674,13 +638,9 @@
       "favoriteTools": "Strumenti preferiti",
       "toolsWithUsage": "Strumenti con utilizzo tracciato"
     },
-    "signIn": "Accedi",
     "noResults": "Nessuno strumento corrisponde alla tua ricerca",
     "noResultsHint": "Prova una parola chiave diversa o cancella il filtro.",
     "filterAll": "Tutti",
-    "loginCta": {
-      "description": "Accedi per tenere traccia degli strumenti usati di recente."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Esporta"
     },
     "context": {
-      "authRequiredError": "Utente non autenticato",
       "defaultTitle": "Senza titolo",
-      "cloudSyncImageError": "Attiva la sincronizzazione cloud per salvare le immagini delle note. Le note di testo restano locali."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "Annulla",
       "confirmDelete": "Elimina",
       "deleteDialogTitle": "Eliminare il set di ambiente?",
-      "deleteDialogDescription": "Rimuove il blob crittografato dal tuo account. Operazione irreversibile.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2656,7 +2615,6 @@
     "toastCopiedText": "Pannello testo copiato",
     "toastCopiedTree": "Pannello albero copiato",
     "toastCopyFailed": "Impossibile copiare il JSON",
-    "toastLoginRequired": "Accedi per salvare i documenti",
     "toastSaved": "Documento salvato",
     "toastSaveFailed": "Impossibile salvare il documento",
     "format": "Formatta",
@@ -5160,5 +5118,13 @@
     "close": "Chiudi",
     "pill": "Aggiornamento…",
     "pillPct": "Aggiornamento… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Vuoi aiutarci a decidere cosa costruire dopo?",
+      "body": "Condividi l'utilizzo in forma anonima: quali strumenti apri, la versione dell'app e la tua lingua. Nessun account, nessun ID dispositivo e nulla di ciò che digiti in uno strumento. Puoi cambiare idea in qualsiasi momento nelle Impostazioni.",
+      "accept": "Condividi in forma anonima",
+      "decline": "No, grazie"
+    }
   }
 }

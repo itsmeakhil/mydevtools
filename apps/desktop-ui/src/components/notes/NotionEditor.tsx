@@ -3,10 +3,6 @@ import { useNotesData, useNotesContent, useNotesUI, useNotesActions } from "@/ap
 import { NoteMarkdownEditor } from "@/components/notes/markdown-editor/NoteMarkdownEditor";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
-import { storage } from "@/database/firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import useAuth from "@/utils/useAuth";
-import { isDesktop } from "@/lib/desktop/is-desktop";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -24,6 +20,9 @@ import {
     ChevronRight,
 } from "lucide-react";
 import { marked } from "marked";
+
+/** Inline note images live in the note body; keep them small. */
+const MAX_INLINE_IMAGE_BYTES = 2 * 1024 * 1024;
 import { cn } from "@/lib/utils";
 import {
     DropdownMenu,
@@ -53,7 +52,6 @@ export default function NotionEditor() {
     // Bodies live in the content context, not on the note — a body write must not
     // re-render the sidebar.
     const activeContent = activeNoteId ? contentById.get(activeNoteId) : undefined;
-    const { user } = useAuth();
 
     const [title, setTitle] = useState("");
     const [isMounted, setIsMounted] = useState(false);
@@ -141,18 +139,20 @@ export default function NotionEditor() {
         }
     };
 
+    // Images are embedded in the note body as data URLs — they stay inside the
+    // encrypted local store like the rest of the note, with no upload target.
+    // ponytail: capped at 2 MB because the body is one row; move to a
+    // content-addressed blob table if people start pasting screenshots in bulk.
     const handleUploadImage = async (file: File): Promise<string> => {
-        if (!user) throw new Error(tCtx("authRequiredError"));
-        // Desktop: note images live in Firebase Storage (cloud). Desktop data
-        // stays on the machine, so image upload is web-only.
-        if (isDesktop()) {
-            throw new Error(tCtx("cloudSyncImageError"));
+        if (file.size > MAX_INLINE_IMAGE_BYTES) {
+            throw new Error(tCtx("imageTooLargeError"));
         }
-        const timestamp = Date.now();
-        const safeName = sanitizeFileName(file.name);
-        const storageRef = ref(storage, `notes/${user.uid}/${activeNoteId}/${timestamp}_${safeName}`);
-        await uploadBytes(storageRef, file);
-        return getDownloadURL(storageRef);
+        const buffer = await file.arrayBuffer();
+        let binary = "";
+        const bytes = new Uint8Array(buffer);
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]!);
+        const type = file.type || "image/png";
+        return `data:${type};base64,${btoa(binary)}`;
     };
 
     const initialMarkdown = useMemo(() => {
@@ -507,9 +507,3 @@ export default function NotionEditor() {
     );
 }
 
-function sanitizeFileName(name: string): string {
-    return name
-        .replace(/[^a-zA-Z0-9._-]/g, "_")
-        .replace(/_{2,}/g, "_")
-        .slice(0, 200);
-}

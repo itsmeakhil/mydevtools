@@ -6,8 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Trash2, MessageSquare } from "lucide-react"
 import type { RequestComment } from "./types"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { auth } from "@/database/firebase"
+import { useAppUser } from "@/hooks/use-app-user"
 
 /** Pulled out so the lint rule for impure render-time calls doesn't flag the inline use. */
 const nowMs = (): number => Date.now()
@@ -18,11 +17,11 @@ interface CommentsPanelProps {
 }
 
 export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
-    const [user] = useAuthState(auth)
+    const user = useAppUser()
     const [draft, setDraft] = React.useState("")
     const list = comments ?? []
 
-    const myName = user?.displayName ?? user?.email ?? "Anonymous"
+    const myName = user.name || "Anonymous"
 
     const handlePost = () => {
         const text = draft.trim()

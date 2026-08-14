@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "MyDevTools とは？",
         "description": "オフラインの開発者ワークスペース。ダッシュボードと、すべてデバイス上で動作する 80 以上のツールを備えています。",
-        "p1": "MyDevTools は完全にオフラインで動作します。ブラウザで一度アクティベーションを行えば、アカウントへのログインもインターネット接続も不要で、すべてがこのデバイス上で動作します。サイドバーにはすべてのアプリが表示されます。使わないツールは",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "設定",
         "p1After": "から非表示にできます。",
-        "p2": "一部の機能では<strong>マスターパスワード</strong>（またはグローバルボルトキー）を使用し、パスワードやデータベース接続文字列などの機密情報をデバイス上で暗号化します。データはローカルの暗号化データベースに保存され、サーバーへ送信されることは一切ありません。"
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "クイックリンク",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "アクティベーションとオフラインアクセス",
-        "description": "アプリが初回に解除される仕組みと、その後オフラインで動作する方法。",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "アプリを初めて開くとき、ブラウザで<strong>一度限りのアクティベーション</strong>が行われます。これによりプランが記録され、このデバイス上でアプリのロックが解除されます。",
-          "offline": "<strong>ログインセッションはありません。</strong>アクティベーション後は、セッションごとのサインインも定期的な再チェックもありません。アプリはインターネット接続なしで動作し続けます。",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>ローカルストレージ。</strong>すべてのデータはデバイス上の暗号化された SQLCipher データベースに保存され、オペレーティングシステムのキーチェーンに保持されたランダムキーで暗号化されます。"
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "設定",
-    "subtitle": "アカウント設定と環境設定を管理します。",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "ユーザープロフィール",
-      "description": "個人情報とアカウントの詳細です。",
-      "avatarAlt": "ユーザー",
-      "anonymousUser": "匿名ユーザー",
-      "noEmailProvided": "メールアドレス未設定",
-      "notLoggedIn": "ログインしていません。"
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "ツールと機能",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "保管庫でサイトアイコンを表示",
         "helpText": "既定はオフ。アイコンの取得は、どのサイトにアカウントがあるかを外部サービスに知らせます。"
+      },
+      "telemetry": {
+        "label": "匿名の利用データを共有",
+        "helpText": "既定はオフ。開いたツール、アプリのバージョン、言語を送信します。アカウントも端末IDもなく、ツールに入力した内容は一切送信されません。"
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "データの概要",
-      "subtitle": "サーバー上のアカウントと同期された件数です。",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "分析を読み込めませんでした。",
       "retry": "再試行",
-      "loginHint": "ログインすると利用状況の分析とインターフェース設定を表示できます。",
       "passwordEntries": "パスワード項目",
       "bookmarks": "ブックマーク",
       "bookmarkFolders": "ブックマークフォルダ",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "インターフェース設定",
-      "subtitle": "テーマ・言語・サイドバーに表示するツール — アカウント設定から。",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "設定を読み込めませんでした。",
-      "loginHint": "ログインすると保存したインターフェース設定を表示できます。",
       "theme": "テーマ",
       "accent": "アクセントカラー",
       "locale": "言語",
@@ -674,13 +638,9 @@
       "favoriteTools": "お気に入りのツール",
       "toolsWithUsage": "利用状況が記録されたツール"
     },
-    "signIn": "ログイン",
     "noResults": "検索に一致するツールがありません",
     "noResultsHint": "別のキーワードを試すか、フィルターをクリアしてください。",
     "filterAll": "すべて",
-    "loginCta": {
-      "description": "ログインして最近使用したツールを追跡しましょう。"
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "エクスポート"
     },
     "context": {
-      "authRequiredError": "ユーザーが認証されていません",
       "defaultTitle": "無題",
-      "cloudSyncImageError": "ノート画像を保存するにはクラウド同期をオンにしてください。テキストノートはローカルに保存されます。"
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "キャンセル",
       "confirmDelete": "削除",
       "deleteDialogTitle": "環境セットを削除しますか？",
-      "deleteDialogDescription": "アカウントから暗号化データが削除されます。元に戻せません。",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2604,6 @@
     "toastCopiedText": "テキストパネルをコピーしました",
     "toastCopiedTree": "ツリーパネルをコピーしました",
     "toastCopyFailed": "JSONのコピーに失敗しました",
-    "toastLoginRequired": "ドキュメントを保存するにはログインしてください",
     "toastSaved": "ドキュメントを保存しました",
     "toastSaveFailed": "ドキュメントの保存に失敗しました",
     "format": "整形",
@@ -5149,5 +5107,13 @@
     "close": "閉じる",
     "pill": "更新中…",
     "pillPct": "更新中… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "次に作るものを決めるのを手伝いませんか？",
+      "body": "利用状況を匿名で共有します。送るのは、開いたツール、アプリのバージョン、言語だけです。アカウントも端末IDもなく、ツールに入力した内容は一切送信されません。設定からいつでも変更できます。",
+      "accept": "匿名で共有",
+      "decline": "共有しない"
+    }
   }
 }

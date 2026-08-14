@@ -1,12 +1,7 @@
 import { encryptData, decryptData } from "@/lib/encryption";
-import { proxyJsonAuthed } from "@/lib/backend-auth";
+import { apiRequestRaw } from "@/lib/backend-api";
 import { toast } from "sonner";
 import type { ConnectionFormValues, SourceId, UnifiedConnection } from "./types";
-
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000";
 
 const BASE_PATH = "/api/v1/data-explorer/connections";
 
@@ -14,7 +9,7 @@ const BASE_PATH = "/api/v1/data-explorer/connections";
 export type UnifiedConnectionRaw = Omit<UnifiedConnection, "config">;
 
 async function proxyRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+    const { status, data } = await apiRequestRaw<T>(method, path, body);
     if (status < 200 || status >= 300) {
         const err = data as Record<string, unknown> | null;
         throw new Error(

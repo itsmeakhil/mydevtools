@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "Apakah MyDevTools?",
-        "description": "Ruang kerja pembangun dengan log masuk: papan pemuka dan set alat untuk tugasan harian.",
-        "p1": "Selepas anda log masuk, aplikasi mewujudkan sesi dengan MyDevTools API supaya alat boleh memuat dan menyimpan data anda. Bar sisi menyenaraikan semua aplikasi; anda boleh menyembunyikan alat yang tidak digunakan dari",
-        "settingsLink": "Tetapan",
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Sesetengah ciri menggunakan <strong>kata laluan induk</strong> (atau kunci vault global) supaya rahsia seperti kata laluan dan rentetan sambungan disulitkan pada peranti anda sebelum sampai ke pelayan."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Pautan pantas",
-        "dashboard": "Papan Pemuka",
-        "settings": "Tetapan"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "Gunakan alat ini dari bar sisi untuk aliran kerja khususnya."
     },
     "security": {
-      "session": {
-        "title": "Log masuk dan sesi API",
-        "description": "Identiti dan cara pelayar berkomunikasi dengan backend.",
-        "items": {
-          "authentication": "<strong>Pengesahan</strong> menggunakan Firebase untuk log masuk. Selepas log masuk, aplikasi menukar token ID Firebase anda kepada kuki API.",
-          "accessTokens": "<strong>Token akses</strong> ialah JWT yang ditandatangani pelayan (HS256) untuk membuktikan pengguna yang memanggil API.",
-          "refreshTokens": "<strong>Token segar semula</strong> disimpan dalam kuki HttpOnly; pelayan menyimpan hash SHA-256 token, bukan token mentah."
-        }
-      },
       "encryption": {
         "title": "Penyulitan yang perlu diketahui",
         "description": "Kripto sisi klien untuk vault dan data sambungan sensitif.",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong> dengan <strong>SHA-256</strong>, <strong>100,000</strong> iterasi dan salt rawak menjana kunci 256-bit daripada kata laluan induk anda.",
           "aes": "<strong>AES-256-GCM</strong> menyulitkan data; <strong>IV 12 bait</strong> rawak digunakan bagi setiap penyulitan.",
-          "scope": "Kunci terbitan kekal dalam pelayar (tidak boleh diekstrak). Pelayan hanya menerima <strong>ciphertext dan IV</strong>, bukan kata laluan induk atau rahsia dalam teks biasa."
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "Jika anda terlupa kata laluan induk, data yang disulitkan tidak boleh dipulihkan. Simpan dengan selamat."
-      },
-      "logout": {
-        "title": "Log keluar dan data tempatan",
-        "body": "Log keluar akan mengosongkan rahsia dalam ingatan, status vault, dan (jika berkenaan) bahan kunci induk daripada IndexedDB serta menamatkan sesi API. Data yang hanya berada dalam storan tempatan peranti mungkin kekal sehingga anda memadamkannya dalam pelayar."
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "Sesuaikan alat yang kelihatan dalam Tetapan untuk memastikan bar sisi kekal fokus."
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

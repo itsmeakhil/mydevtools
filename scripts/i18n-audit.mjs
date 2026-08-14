@@ -14,7 +14,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const messagesDir = path.join(__dirname, '../apps/web/messages');
+// Defaults to the desktop UI (the app whose 27 locales carry the product);
+// pass a different app dir to audit the marketing site instead.
+const messagesDir = path.resolve(
+  __dirname,
+  '..',
+  process.argv[2] ?? 'apps/desktop-ui/messages'
+);
 const enPath = path.join(messagesDir, 'en.json');
 
 function isPlainObject(v) {

@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "ما هو MyDevTools؟",
         "description": "مساحة عمل للمطورين تعمل دون اتصال: لوحة تحكم وأكثر من 80 أداة تعمل بالكامل على جهازك.",
-        "p1": "يعمل MyDevTools بالكامل دون اتصال بالإنترنت. بعد تفعيل لمرة واحدة في متصفحك، يعمل كل شيء على هذا الجهاز دون الحاجة إلى تسجيل الدخول إلى حساب أو اتصال بالإنترنت. يعرض الشريط الجانبي جميع التطبيقات؛ ويمكنك إخفاء الأدوات التي لا تستخدمها من",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "الإعدادات",
         "p1After": ".",
-        "p2": "تستخدم بعض الميزات <strong>كلمة مرور رئيسية</strong> (أو مفتاح خزنة عام) بحيث تُشفَّر الأسرار مثل كلمات المرور وسلاسل اتصال قواعد البيانات على جهازك. تُخزَّن بياناتك في قاعدة بيانات محلية مشفَّرة ولا تُرسَل أبدًا إلى خادم."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "روابط سريعة",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "التفعيل والوصول دون اتصال",
-        "description": "كيف يُفتح قفل التطبيق في المرة الأولى، ثم يعمل دون اتصال.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>تفعيل لمرة واحدة</strong> يحدث في متصفحك عند فتح التطبيق للمرة الأولى. فهو يسجّل خطتك ويفتح قفل التطبيق على هذا الجهاز.",
-          "offline": "<strong>لا جلسات تسجيل دخول.</strong> بعد التفعيل لا يوجد تسجيل دخول لكل جلسة ولا إعادة فحص دورية، ويستمر التطبيق في العمل دون اتصال بالإنترنت.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>تخزين محلي.</strong> تعيش جميع بياناتك في قاعدة بيانات SQLCipher مشفَّرة على جهازك، ومؤمَّنة بمفتاح عشوائي محفوظ في سلسلة مفاتيح نظام التشغيل لديك."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "الإعدادات",
-    "subtitle": "إدارة إعدادات حسابك وتفضيلاتك.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "الملف الشخصي",
-      "description": "معلوماتك الشخصية وتفاصيل الحساب.",
-      "avatarAlt": "المستخدم",
-      "anonymousUser": "مستخدم مجهول",
-      "noEmailProvided": "لم يُقدَّم بريد إلكتروني",
-      "notLoggedIn": "لم يتم تسجيل الدخول."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "الأدوات والميزات",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "إظهار أيقونات المواقع في الخزنة",
         "helpText": "معطّل افتراضيًا. جلب الأيقونة يُخبر خدمة خارجية بالمواقع التي تملك فيها حسابات."
+      },
+      "telemetry": {
+        "label": "مشاركة بيانات الاستخدام المجهولة",
+        "helpText": "معطّل افتراضيًا. يُرسل الأدوات التي تفتحها وإصدار التطبيق ولغتك. بدون حساب، وبدون معرّف جهاز، وبدون أي شيء تكتبه داخل الأدوات."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "بياناتك في لمحة",
-      "subtitle": "أعداد متزامنة مع حسابك على الخادم.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "تعذّر تحميل التحليلات.",
       "retry": "إعادة المحاولة",
-      "loginHint": "سجّل الدخول لعرض تحليلات الاستخدام وتفضيلات الواجهة.",
       "passwordEntries": "إدخالات كلمات المرور",
       "bookmarks": "الإشارات المرجعية",
       "bookmarkFolders": "مجلدات الإشارات",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "تفضيلات الواجهة",
-      "subtitle": "المظهر واللغة والأدوات الظاهرة في الشريط الجانبي — من إعدادات الحساب.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "تعذّر تحميل التفضيلات.",
-      "loginHint": "سجّل الدخول لعرض تفضيلات الواجهة المحفوظة.",
       "theme": "المظهر",
       "accent": "لون التمييز",
       "locale": "اللغة",
@@ -674,13 +638,9 @@
       "favoriteTools": "الأدوات المفضلة",
       "toolsWithUsage": "أدوات مع تتبع الاستخدام"
     },
-    "signIn": "تسجيل الدخول",
     "noResults": "لا توجد أدوات تطابق بحثك",
     "noResultsHint": "جرّب كلمة مفتاحية مختلفة أو امسح الفلتر.",
     "filterAll": "الكل",
-    "loginCta": {
-      "description": "سجّل الدخول لتتبع أدواتك المستخدمة مؤخرًا."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "تصدير"
     },
     "context": {
-      "authRequiredError": "المستخدم غير مصادق",
       "defaultTitle": "بدون عنوان",
-      "cloudSyncImageError": "فعّل المزامنة السحابية لتخزين صور الملاحظات. تبقى الملاحظات النصية محلية."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "إلغاء",
       "confirmDelete": "حذف",
       "deleteDialogTitle": "حذف مجموعة البيئة؟",
-      "deleteDialogDescription": "يُزال النص المشفّر من حسابك. لا يمكن التراجع.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2604,6 @@
     "toastCopiedText": "تم نسخ لوحة النص",
     "toastCopiedTree": "تم نسخ لوحة الشجرة",
     "toastCopyFailed": "فشل نسخ JSON",
-    "toastLoginRequired": "يرجى تسجيل الدخول لحفظ المستندات",
     "toastSaved": "تم حفظ المستند",
     "toastSaveFailed": "فشل حفظ المستند",
     "format": "تنسيق",
@@ -5149,5 +5107,13 @@
     "close": "إغلاق",
     "pill": "جارٍ التحديث…",
     "pillPct": "جارٍ التحديث… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "هل تساعدنا في تحديد ما نبنيه لاحقًا؟",
+      "body": "شارك الاستخدام بشكل مجهول: الأدوات التي تفتحها وإصدار التطبيق ولغتك. بدون حساب، وبدون معرّف جهاز، وبدون أي شيء تكتبه داخل الأدوات. يمكنك تغيير ذلك في أي وقت من الإعدادات.",
+      "accept": "المشاركة بشكل مجهول",
+      "decline": "لا، شكرًا"
+    }
   }
 }

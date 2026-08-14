@@ -1,19 +1,10 @@
-import { auth } from "@/database/firebase";
 import { encryptData, decryptData } from "@/lib/encryption";
 import { toast } from "sonner";
-import { proxyJsonAuthed } from "@/lib/backend-auth";
+import { apiRequestRaw } from "@/lib/backend-api";
 import { SavedSqlConnection, SqlConnectionConfig } from "./types";
 
-const BACKEND_BASE_URL: string =
-    process.env.NEXT_PUBLIC_FASTAPI_BASE_URL ||
-    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
-    "http://localhost:8000";
-
 async function proxyRequest<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const currentUser = auth.currentUser;
-    if (!currentUser) throw new Error("Not authenticated.");
-
-    const { status, data } = await proxyJsonAuthed<T>(BACKEND_BASE_URL, method, path, body);
+    const { status, data } = await apiRequestRaw<T>(method, path, body);
     if (status < 200 || status >= 300) {
         throw new Error(`Request failed (${status})`);
     }

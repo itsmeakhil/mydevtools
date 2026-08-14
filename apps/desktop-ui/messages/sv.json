@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Vad är MyDevTools?",
         "description": "En offline-arbetsyta för utvecklare: en instrumentpanel och över 80 verktyg som körs helt på din enhet.",
-        "p1": "MyDevTools körs helt offline. Efter en engångsaktivering i din webbläsare fungerar allt på den här enheten, utan kontoinloggning och utan internetanslutning. I sidofältet listas alla appar; verktyg du inte använder kan du dölja via",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Inställningar",
         "p1After": ".",
-        "p2": "Vissa funktioner använder ett <strong>huvudlösenord</strong> (eller en global valvnyckel) så att hemligheter som lösenord och anslutningssträngar till databaser krypteras på din enhet. Dina data lagras i en lokal krypterad databas och skickas aldrig till en server."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Snabblänkar",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Aktivering och offlineåtkomst",
-        "description": "Hur appen låses upp första gången och sedan körs offline.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Engångsaktivering</strong> sker i din webbläsare första gången du öppnar appen. Den registrerar din prenumeration och låser upp appen på den här enheten.",
-          "offline": "<strong>Inga inloggningssessioner.</strong> Efter aktiveringen finns ingen inloggning per session och ingen periodisk kontroll—appen fortsätter fungera utan internetanslutning.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Lokal lagring.</strong> Alla dina data finns i en krypterad SQLCipher-databas på din enhet, skyddad med en slumpmässig nyckel i operativsystemets nyckelring."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Inställningar",
-    "subtitle": "Hantera dina kontoinställningar och preferenser.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Användarprofil",
-      "description": "Din personliga information och kontouppgifter.",
-      "avatarAlt": "Användare",
-      "anonymousUser": "Anonym användare",
-      "noEmailProvided": "Ingen e-post angiven",
-      "notLoggedIn": "Inte inloggad."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Verktyg och funktioner",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Visa webbplatsikoner i valvet",
         "helpText": "Av som standard. Att hämta en ikon berättar för en tredjepartstjänst vilka webbplatser du har konton på."
+      },
+      "telemetry": {
+        "label": "Dela anonym användningsdata",
+        "helpText": "Av som standard. Skickar vilka verktyg du öppnar, appens version och ditt språk. Inget konto, inget enhets-ID och inget av det du skriver i ett verktyg."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "Dina data i korthet",
-      "subtitle": "Antal synkroniserade med ditt konto på servern.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Kunde inte ladda analys.",
       "retry": "Försök igen",
-      "loginHint": "Logga in för att se användningsanalys och gränssnittsinställningar.",
       "passwordEntries": "Lösenordsposter",
       "bookmarks": "Bokmärken",
       "bookmarkFolders": "Bokmärkesmappar",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Gränssnittsinställningar",
-      "subtitle": "Tema, språk och synliga verktyg i sidofältet — från dina kontoinställningar.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Kunde inte ladda inställningar.",
-      "loginHint": "Logga in för att se dina sparade gränssnittsinställningar.",
       "theme": "Tema",
       "accent": "Accentfärg",
       "locale": "Språk",
@@ -674,13 +638,9 @@
       "favoriteTools": "Favoritverktyg",
       "toolsWithUsage": "Verktyg med användningsstatistik"
     },
-    "signIn": "Logga in",
     "noResults": "Inga verktyg matchar din sökning",
     "noResultsHint": "Prova ett annat sökord eller rensa filtret.",
     "filterAll": "Alla",
-    "loginCta": {
-      "description": "Logga in för att spåra dina senast använda verktyg."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Exportera"
     },
     "context": {
-      "authRequiredError": "Användaren är inte autentiserad",
       "defaultTitle": "Namnlös",
-      "cloudSyncImageError": "Aktivera molnsynkronisering för att lagra anteckningsbilder. Textanteckningar förblir lokala."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "Avbryt",
       "confirmDelete": "Ta bort",
       "deleteDialogTitle": "Ta bort miljöuppsättning?",
-      "deleteDialogDescription": "Detta tar bort den krypterade blobben från ditt konto. Kan inte ångras.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2656,7 +2615,6 @@
     "toastCopiedText": "Textpanelen kopierad",
     "toastCopiedTree": "Trädpanelen kopierad",
     "toastCopyFailed": "Kunde inte kopiera JSON",
-    "toastLoginRequired": "Logga in för att spara dokument",
     "toastSaved": "Dokument sparat",
     "toastSaveFailed": "Kunde inte spara dokument",
     "format": "Formatera",
@@ -5160,5 +5118,13 @@
     "close": "Stäng",
     "pill": "Uppdaterar…",
     "pillPct": "Uppdaterar… {pct} %"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Vill du hjälpa till att avgöra vad som byggs härnäst?",
+      "body": "Dela användning anonymt: vilka verktyg du öppnar, appens version och ditt språk. Inget konto, inget enhets-ID och inget av det du skriver i ett verktyg. Du kan ändra detta när som helst i Inställningar.",
+      "accept": "Dela anonymt",
+      "decline": "Nej tack"
+    }
   }
 }

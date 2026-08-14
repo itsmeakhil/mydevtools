@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Home, LayoutGrid, LogOut, User as UserIcon, Moon, Sun, Settings, HelpCircle } from "lucide-react"
+import { Home, LayoutGrid, Lock, User as UserIcon, Moon, Sun, Settings, HelpCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useSidebar } from "@/components/ui/sidebar"
 import {
@@ -13,14 +13,11 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import useAuth from "@/utils/useAuth"
-import { signOut as firebaseSignOut } from "firebase/auth"
-import { auth } from "@/database/firebase"
+import { useAppUser } from "@/hooks/use-app-user"
 import { usePasswordStore } from "@/store/password-store"
 import { useEnvironmentManagerStore } from "@/store/environment-manager-store"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { clearMasterKey } from "@/lib/key-storage"
-import { logoutBackendSession } from "@/lib/backend-auth"
 import { useThemeAnimation } from "@space-man/react-theme-animation"
 import { motion } from "framer-motion"
 
@@ -33,14 +30,16 @@ const navItems = [
 
 export function MobileNav() {
     const pathname = usePathname()
-    const router = useRouter()
     const { toggleSidebar, openMobile } = useSidebar()
-    const { user } = useAuth()
+    const user = useAppUser()
     const { clearPasswords } = usePasswordStore()
     const { clearSets } = useEnvironmentManagerStore()
-    const { clearKey: clearMasterKeyStore } = useMasterKeyStore()
+    const lockVault = useMasterKeyStore((s) => s.lock)
     const { theme, toggleTheme, ref } = useThemeAnimation()
     const [mounted, setMounted] = useState(false)
+
+    const displayName = user.name?.trim() || 'You'
+    const initial = displayName[0]!.toUpperCase()
 
     // Avoid hydration mismatch for theme
     useEffect(() => {
@@ -55,11 +54,13 @@ export function MobileNav() {
     }
     const activeTab = getActiveTab()
 
-    const handleSignOut = async () => {
+    // Manual vault lock: drop every decrypted secret we hold, in memory and in
+    // IndexedDB. The vault gate then asks for the master password again.
+    const handleLockVault = async () => {
         try {
             clearPasswords()     // clear decrypted passwords from memory
             clearSets()          // clear decrypted environment sets from memory
-            clearMasterKeyStore() // clear global master key in-memory state
+            lockVault()          // drop the in-memory master key, keep the vault
 
             // Clear password-manager vault key from IndexedDB
             if (typeof window !== 'undefined' && window.indexedDB) {
@@ -82,12 +83,8 @@ export function MobileNav() {
 
             // Clear global master key from IndexedDB
             await clearMasterKey()
-
-            await logoutBackendSession()
-            await firebaseSignOut(auth);
-            router.push('/login');
         } catch (error) {
-            console.error('Error signing out:', error);
+            console.error('Error locking vault:', error);
         }
     };
 
@@ -160,9 +157,8 @@ export function MobileNav() {
                 <span className="mt-0.5">Tools</span>
             </button>
 
-            {/* Profile / Login */}
-            {user ? (
-                <DropdownMenu>
+            {/* Profile */}
+            <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <button
                             className={cn(navItemStyles, "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2")}
@@ -177,13 +173,11 @@ export function MobileNav() {
                             )}
                             <div className="relative">
                                 <Avatar className="h-6 w-6 ring-2 ring-background shadow-sm">
-                                    <AvatarImage src={user.photoURL || ""} alt={user.displayName || "User"} />
+                                    <AvatarImage src={user.avatar} alt={displayName} />
                                     <AvatarFallback className="text-[10px] font-semibold bg-primary/10 text-primary">
-                                        {user.displayName?.[0] || "U"}
+                                        {initial}
                                     </AvatarFallback>
                                 </Avatar>
-                                {/* Online indicator */}
-                                <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-background" />
                             </div>
                             <span className="mt-0.5">Profile</span>
                         </button>
@@ -197,19 +191,14 @@ export function MobileNav() {
                         <DropdownMenuLabel className="font-normal p-3">
                             <div className="flex items-center gap-3">
                                 <Avatar className="h-10 w-10">
-                                    <AvatarImage src={user.photoURL || ""} alt={user.displayName || "User"} />
+                                    <AvatarImage src={user.avatar} alt={displayName} />
                                     <AvatarFallback className="text-sm font-semibold bg-primary/10 text-primary">
-                                        {user.displayName?.[0] || "U"}
+                                        {initial}
                                     </AvatarFallback>
                                 </Avatar>
-                                <div className="flex flex-col space-y-0.5 overflow-hidden">
-                                    <p className="text-sm font-semibold leading-none truncate">
-                                        {user.displayName}
-                                    </p>
-                                    <p className="text-xs leading-none text-muted-foreground truncate">
-                                        {user.email}
-                                    </p>
-                                </div>
+                                <p className="truncate text-sm font-semibold leading-none">
+                                    {displayName}
+                                </p>
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
@@ -240,26 +229,14 @@ export function MobileNav() {
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
-                            onClick={handleSignOut}
+                            onClick={() => void handleLockVault()}
                             className="text-destructive focus:text-destructive focus:bg-destructive/10 cursor-pointer py-2.5"
                         >
-                            <LogOut className="mr-2 h-4 w-4" />
-                            <span>Log out</span>
+                            <Lock className="mr-2 h-4 w-4" />
+                            <span>Lock vault</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            ) : (
-                <Link
-                    href="/login"
-                    className={cn(navItemStyles, pathname === "/login" && activeStyles)}
-                    aria-current={pathname === "/login" ? "page" : undefined}
-                >
-                    <div className="relative p-1.5 rounded-full bg-primary/10">
-                        <UserIcon className="h-4 w-4 text-primary" strokeWidth={2} />
-                    </div>
-                    <span className="mt-0.5">Login</span>
-                </Link>
-            )}
         </nav>
     )
 }

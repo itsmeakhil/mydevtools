@@ -5,15 +5,12 @@ import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { completeOnboarding, savePersona } from "@/lib/onboarding-api"
 import { usePinnedToolsStore } from "@/store/pinned-tools-store"
 import { useWorkspaceStore } from "@/store/workspace-store"
 import { patchUserPreferences } from "@/lib/user-preferences-api"
 import { ONBOARDING_ROLES, type OnboardingRole } from "@/lib/onboarding-roles"
 import { Input } from "@/components/ui/input"
 import useAuth from "@/utils/useAuth"
-import { updateProfile } from "firebase/auth"
-import { auth } from "@/database/firebase"
 import {
   IconRocket,
   IconShield,
@@ -735,14 +732,10 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
         prefsPatch.pinnedToolsByWorkspace = { [activeWorkspaceId]: tools }
       }
       const trimmedName = name.trim()
-      await Promise.all([
-        completeOnboarding(),
-        patchUserPreferences(prefsPatch),
-        role ? savePersona(role.id).catch(() => {}) : Promise.resolve(),
-        trimmedName && auth.currentUser && trimmedName !== auth.currentUser.displayName
-          ? updateProfile(auth.currentUser, { displayName: trimmedName }).catch(() => {})
-          : Promise.resolve(),
-      ])
+      if (trimmedName) prefsPatch.displayName = trimmedName
+      if (role) prefsPatch.persona = role.id
+      prefsPatch.onboardingCompleted = true
+      await patchUserPreferences(prefsPatch)
     } catch {
       // non-blocking — user can still proceed
     }

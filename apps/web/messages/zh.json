@@ -90,16 +90,16 @@
     "overview": {
       "whatIs": {
         "title": "什么是 MyDevTools？",
-        "description": "一个可登录的开发者工作区：包含控制台与日常工具集合。",
-        "p1": "登录后，应用会与 MyDevTools API 建立会话，让工具能够加载与保存你的数据。侧边栏列出所有应用；你可以在",
-        "settingsLink": "设置",
-        "p1After": "中隐藏不常用的工具。",
-        "p2": "部分功能使用 <strong>主密码</strong>（或全局保险库密钥），使密码、数据库连接串等敏感信息在到达服务器前先在你的设备上完成加密。"
+        "description": "A local-first developer toolkit: a desktop app with 80+ tools for everyday tasks.",
+        "p1": "Everything runs on your device — no account, no sign-in, no server. The sidebar lists every app; you can hide tools you do not use from",
+        "settingsLink": "Settings",
+        "p1After": ".",
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "快捷链接",
-        "dashboard": "控制台",
-        "settings": "设置"
+        "download": "Download",
+        "security": "Security"
       }
     },
     "apps": {
@@ -109,15 +109,6 @@
       "generic": "请从侧边栏使用该工具的专用工作流程。"
     },
     "security": {
-      "session": {
-        "title": "登录与 API 会话",
-        "description": "身份与浏览器如何与后端通信。",
-        "items": {
-          "authentication": "<strong>认证</strong> 使用 Firebase 登录。登录后，应用会将 Firebase ID Token 交换为 API Cookie。",
-          "accessTokens": "<strong>访问令牌</strong> 为服务器签名的 JWT（HS256），用于证明调用 API 的用户身份。",
-          "refreshTokens": "<strong>刷新令牌</strong> 存放在 HttpOnly Cookie 中；服务器保存的是刷新令牌的 SHA-256 哈希值，而不是原始令牌。"
-        }
-      },
       "encryption": {
         "title": "你需要了解的加密",
         "description": "保险库与敏感连接数据的客户端加密。",
@@ -125,13 +116,9 @@
         "items": {
           "kdf": "<strong>PBKDF2</strong>（<strong>SHA-256</strong>、<strong>100,000</strong> 次迭代与随机盐）从主密码派生 256 位密钥。",
           "aes": "<strong>AES-256-GCM</strong> 加密数据；每次加密都会使用随机的 <strong>12 字节 IV</strong>。",
-          "scope": "派生密钥保留在浏览器中（不可导出）。服务器只接收 <strong>密文与 IV</strong>，不会接收主密码或明文秘密。"
+          "scope": "The derived key stays in the app (non-extractable) and only <strong>ciphertext and IVs</strong> are written to disk — never your master password or plaintext secrets."
         },
         "warning": "如果你忘记主密码，加密数据将无法恢复。请妥善保管。"
-      },
-      "logout": {
-        "title": "退出登录与本地数据",
-        "body": "退出登录会清除内存中的敏感信息、保险库相关状态，并在适用时从 IndexedDB 清除主密钥材料，同时结束 API 会话。仅保存在设备本地存储中的数据可能会保留，直到你在浏览器中清理。"
       }
     },
     "tips": {
@@ -144,32 +131,5 @@
         "settings": "在设置中自定义可见工具，让侧边栏更聚焦。"
       }
     }
-  },
-  "Dashboard": {
-    "title": "Dashboard",
-    "navPlan": "Plan & billing",
-    "navSecurity": "Security",
-    "passkeysTitle": "Passkeys",
-    "passkeysDescription": "Passwordless sign-in for your account. Add a passkey to sign in with Face ID, Touch ID, or your device PIN.",
-    "passkeyNotSupported": "Your browser does not support passkeys.",
-    "passkeysEmpty": "No passkeys yet. Add one to sign in without a password.",
-    "addPasskey": "Add passkey",
-    "namePrompt": "Name this passkey (e.g. \"MacBook\", \"iPhone\")",
-    "renamePrompt": "Rename this passkey",
-    "deleteConfirm": "Remove this passkey? You won't be able to sign in with it anymore.",
-    "unnamedPasskey": "Unnamed passkey",
-    "backedUp": "Synced",
-    "added": "Added",
-    "lastUsed": "Last used",
-    "neverUsed": "Never used",
-    "rename": "Rename",
-    "delete": "Delete",
-    "passkeyAdded": "Passkey added",
-    "passkeyAddError": "Could not add passkey",
-    "passkeyRenamed": "Passkey renamed",
-    "passkeyRenameError": "Could not rename passkey",
-    "passkeyDeleted": "Passkey removed",
-    "passkeyDeleteError": "Could not remove passkey",
-    "passkeysLoadError": "Could not load passkeys"
   }
 }

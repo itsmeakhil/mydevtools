@@ -1,19 +1,4 @@
 {
-  "Activate": {
-    "title": "Activate MyDevTools",
-    "subtitle": "Sign in once with your browser to activate the app. After that, everything works fully offline.",
-    "signInWithBrowser": "Sign in with your browser",
-    "waitingForBrowser": "Waiting for the browser…",
-    "finishing": "Finishing activation…",
-    "authSuccess": "Authentication successful",
-    "offlineNote": "Yours forever — the app works fully offline from here on.",
-    "start": "Start using MyDevTools",
-    "privacyNote": "Your data stays on this device. The account is only used to activate the app."
-  },
-  "AccountCard": {
-    "title": "Account",
-    "manage": "Manage account on mydevtools.tech"
-  },
   "Navigation": {
     "dashboard": "Dashboard",
     "settings": "Settings",
@@ -106,10 +91,10 @@
       "whatIs": {
         "title": "What is MyDevTools?",
         "description": "An offline developer workspace: a dashboard and 80+ tools that run entirely on your device.",
-        "p1": "MyDevTools runs fully offline. After a one-time activation in your browser, everything works on this device with no account login and no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Settings",
         "p1After": ".",
-        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted on your device. Your data is stored in a local encrypted database and is never sent to a server."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Quick links",
@@ -125,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Activation & offline access",
-        "description": "How the app unlocks the first time, then runs offline.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>One-time activation</strong> happens in your browser the first time you open the app. It records your plan and unlocks the app on this device.",
-          "offline": "<strong>No login sessions.</strong> After activation there is no per-session sign-in and no periodic re-check—the app keeps working with no internet connection.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Local storage.</strong> All your data lives in an encrypted SQLCipher database on your device, keyed by a random key held in your operating system keychain."
         }
       },
@@ -188,61 +173,23 @@
   },
   "SettingsPage": {
     "title": "Settings",
-    "subtitle": "Manage your account settings and preferences.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "User Profile",
-      "description": "Your personal information and account details.",
-      "avatarAlt": "User",
-      "anonymousUser": "Anonymous User",
-      "noEmailProvided": "No email provided",
-      "notLoggedIn": "Not logged in."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Tools & Features",
       "description": "Choose which tools appear in your navigation sidebar."
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
-      }
     },
     "appearance": {
       "title": "Appearance",
@@ -269,6 +216,10 @@
       "vaultIcons": {
         "label": "Show site icons in the vault",
         "helpText": "Off by default. Fetching an icon tells a third-party service which sites you hold accounts on."
+      },
+      "telemetry": {
+        "label": "Share anonymous usage data",
+        "helpText": "Off by default. Sends which tools you open, the app version and your language. No account, no device ID, and nothing you type in a tool."
       }
     },
     "language": {
@@ -314,9 +265,6 @@
     "popularTools": "Popular tools",
     "filterAll": "All",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
-    "loginCta": {
-      "description": "Sign in to track your recently used tools."
-    },
     "greeting": {
       "morning": "Good morning",
       "afternoon": "Good afternoon",
@@ -328,7 +276,6 @@
     "tagline": "What would you like to build today?",
     "brandName": "MyDevTools",
     "viewActivity": "Recent activity",
-    "signIn": "Sign in",
     "stats": {
       "tools": "Tools",
       "favorites": "Favorites",
@@ -351,7 +298,7 @@
     },
     "analytics": {
       "title": "Your data at a glance",
-      "subtitle": "Counts synced with your account on the server.",
+      "subtitle": "Counts recorded on this device.",
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
@@ -363,7 +310,6 @@
       "loadingLabel": "Syncing your stats…",
       "loadError": "Could not load analytics.",
       "retry": "Retry",
-      "loginHint": "Sign in to see usage analytics and interface preferences.",
       "passwordEntries": "Password entries",
       "bookmarks": "Bookmarks",
       "bookmarkFolders": "Bookmark folders",
@@ -387,9 +333,8 @@
     },
     "ui": {
       "title": "Interface preferences",
-      "subtitle": "Theme, language, and which tools appear in the sidebar — from your account settings.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Could not load preferences.",
-      "loginHint": "Sign in to see your saved interface preferences.",
       "theme": "Theme",
       "accent": "Accent color",
       "locale": "Language",
@@ -972,9 +917,8 @@
       "export": "Export"
     },
     "context": {
-      "authRequiredError": "User not authenticated",
       "defaultTitle": "Untitled",
-      "cloudSyncImageError": "Turn on Cloud Sync to store note images. Text notes stay local."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1230,7 +1174,7 @@
       "cancel": "Cancel",
       "confirmDelete": "Delete",
       "deleteDialogTitle": "Delete environment set?",
-      "deleteDialogDescription": "This removes the encrypted blob from your account. You cannot undo this.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "noResultsTitle": "No results",
       "noResultsHint": "No sets match your search or filter. Try adjusting your query.",
       "sort": {
@@ -2681,7 +2625,6 @@
     "toastCopiedText": "Text pane copied",
     "toastCopiedTree": "Tree pane copied",
     "toastCopyFailed": "Failed to copy JSON",
-    "toastLoginRequired": "Please sign in to save documents",
     "toastSaved": "Document saved",
     "toastSaveFailed": "Failed to save document",
     "format": "Format",
@@ -5185,5 +5128,13 @@
     "close": "Close",
     "pill": "Updating…",
     "pillPct": "Updating… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Help decide what gets built next?",
+      "body": "Share anonymous usage: which tools you open, the app version and your language. No account, no device ID, and nothing you type in a tool. You can change this any time in Settings.",
+      "accept": "Share anonymously",
+      "decline": "No thanks"
+    }
   }
 }

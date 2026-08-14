@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Settings, LogOut, User as UserIcon, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
+import { Settings, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
 import { ModeToggle } from '@/components/modeToggle'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { TopNavStrip, NavIcon } from '@/components/shell/top-nav-strip'
@@ -16,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAppUser } from '@/hooks/use-app-user'
-import { useSignOut } from '@/hooks/use-sign-out'
 import { isDesktop } from '@/lib/desktop/is-desktop'
 import { cn } from '@/lib/utils'
 
@@ -30,7 +29,6 @@ import { cn } from '@/lib/utils'
 export function TopBar() {
   const router = useRouter()
   const user = useAppUser()
-  const signOut = useSignOut()
 
   // macOS traffic lights are inset into this bar (titleBarStyle: Overlay), so
   // pad the left only inside the Tauri window. Mounted-guarded to avoid an SSR
@@ -66,9 +64,8 @@ export function TopBar() {
     }
   }, [])
 
-  const isLoggedIn = Boolean(user.name || user.email)
-  const displayName = user.name?.trim() || user.email?.split('@')[0] || 'User'
-  const initial = (user.name?.trim()?.[0] || user.email?.[0] || '?').toUpperCase()
+  const displayName = user.name?.trim() || 'You'
+  const initial = displayName[0]!.toUpperCase()
 
   return (
     <header
@@ -124,61 +121,27 @@ export function TopBar() {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" sideOffset={8} className="w-56">
-            {isLoggedIn ? (
-              <>
-                <div className="px-2 py-1.5">
-                  <p className="truncate text-sm font-medium">{displayName}</p>
-                  {user.email ? (
-                    <p className="truncate text-xs text-muted-foreground">{user.email}</p>
-                  ) : null}
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/profile" className="cursor-pointer gap-2.5">
-                    <UserIcon className="h-4 w-4 text-muted-foreground" /> Profile
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/settings" className="cursor-pointer gap-2.5">
-                    <Settings className="h-4 w-4 text-muted-foreground" /> Settings
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/help" className="cursor-pointer gap-2.5">
-                    <HelpCircle className="h-4 w-4 text-muted-foreground" /> Help
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <div className="flex items-center justify-between gap-2 px-2 py-1.5">
-                  <span className="flex items-center gap-2.5 text-sm">
-                    <Moon className="h-4 w-4 text-muted-foreground" /> Theme
-                  </span>
-                  <ModeToggle />
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  onClick={() => void signOut()}
-                  className={cn('cursor-pointer gap-2.5 text-destructive focus:text-destructive')}
-                >
-                  <LogOut className="h-4 w-4" /> Sign out
-                </DropdownMenuItem>
-              </>
-            ) : (
-              <>
-                <div className="flex items-center justify-between gap-2 px-2 py-1.5">
-                  <span className="flex items-center gap-2.5 text-sm">
-                    <Moon className="h-4 w-4 text-muted-foreground" /> Theme
-                  </span>
-                  <ModeToggle />
-                </div>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/login" className="cursor-pointer gap-2.5">
-                    <UserIcon className="h-4 w-4 text-muted-foreground" /> Sign in
-                  </Link>
-                </DropdownMenuItem>
-              </>
-            )}
+            <div className="px-2 py-1.5">
+              <p className="truncate text-sm font-medium">{displayName}</p>
+            </div>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/settings" className="cursor-pointer gap-2.5">
+                <Settings className="h-4 w-4 text-muted-foreground" /> Settings
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/help" className="cursor-pointer gap-2.5">
+                <HelpCircle className="h-4 w-4 text-muted-foreground" /> Help
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <div className="flex items-center justify-between gap-2 px-2 py-1.5">
+              <span className="flex items-center gap-2.5 text-sm">
+                <Moon className="h-4 w-4 text-muted-foreground" /> Theme
+              </span>
+              <ModeToggle />
+            </div>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

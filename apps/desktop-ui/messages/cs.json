@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Co je MyDevTools?",
         "description": "Offline vývojářské prostředí: řídicí panel a více než 80 nástrojů, které běží zcela na vašem zařízení.",
-        "p1": "MyDevTools funguje plně offline. Po jednorázové aktivaci v prohlížeči vše funguje na tomto zařízení bez přihlašování k účtu a bez připojení k internetu. V postranním panelu jsou uvedeny všechny aplikace; nástroje, které nepoužíváte, můžete skrýt v sekci",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Nastavení",
         "p1After": ".",
-        "p2": "Některé funkce používají <strong>hlavní heslo</strong> (nebo globální klíč trezoru), aby byly tajné údaje jako hesla a připojovací řetězce k databázím zašifrovány na vašem zařízení. Vaše data jsou uložena v lokální šifrované databázi a nikdy nejsou odesílána na server."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Rychlé odkazy",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Aktivace a offline přístup",
-        "description": "Jak se aplikace poprvé odemkne a poté běží offline.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Jednorázová aktivace</strong> proběhne v prohlížeči při prvním otevření aplikace. Zaznamená váš plán a odemkne aplikaci na tomto zařízení.",
-          "offline": "<strong>Žádné přihlašovací relace.</strong> Po aktivaci není potřeba přihlašování při každé relaci ani pravidelné opětovné ověřování — aplikace funguje dál bez připojení k internetu.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Lokální úložiště.</strong> Všechna vaše data se nacházejí v šifrované databázi SQLCipher na vašem zařízení, zabezpečené náhodným klíčem uloženým v klíčence vašeho operačního systému."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Nastavení",
-    "subtitle": "Spravujte nastavení účtu a předvolby.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Uživatelský profil",
-      "description": "Vaše osobní údaje a informace o účtu.",
-      "avatarAlt": "Uživatel",
-      "anonymousUser": "Anonymní uživatel",
-      "noEmailProvided": "E-mail není uveden",
-      "notLoggedIn": "Nejste přihlášeni."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Nástroje a funkce",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Zobrazovat ikony webů v trezoru",
         "helpText": "Ve výchozím stavu vypnuto. Načtení ikony prozradí externí službě, na kterých webech máte účty."
+      },
+      "telemetry": {
+        "label": "Sdílet anonymní data o používání",
+        "helpText": "Ve výchozím nastavení vypnuto. Odesílá, které nástroje otevíráte, verzi aplikace a váš jazyk. Žádný účet, žádné ID zařízení a nic, co v nástroji napíšete."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "Vaše data na první pohled",
-      "subtitle": "Počty synchronizované s vaším účtem na serveru.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Nelze načíst analytiku.",
       "retry": "Zkusit znovu",
-      "loginHint": "Přihlaste se pro zobrazení analytiky a předvoleb rozhraní.",
       "passwordEntries": "Záznamů hesel",
       "bookmarks": "Záložky",
       "bookmarkFolders": "Složky záložek",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Předvolby rozhraní",
-      "subtitle": "Motiv, jazyk a viditelné nástroje v postranním panelu — z nastavení účtu.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Nelze načíst předvolby.",
-      "loginHint": "Přihlaste se pro zobrazení uložených předvoleb rozhraní.",
       "theme": "Motiv",
       "accent": "Barva zvýraznění",
       "locale": "Jazyk",
@@ -674,13 +638,9 @@
       "favoriteTools": "Oblíbené nástroje",
       "toolsWithUsage": "Nástroje se sledováním použití"
     },
-    "signIn": "Přihlásit se",
     "noResults": "Žádné nástroje neodpovídají vašemu hledání",
     "noResultsHint": "Zkuste jiné klíčové slovo nebo vymažte filtr.",
     "filterAll": "Vše",
-    "loginCta": {
-      "description": "Přihlaste se a sledujte naposledy použité nástroje."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Exportovat"
     },
     "context": {
-      "authRequiredError": "Uživatel není přihlášen",
       "defaultTitle": "Bez názvu",
-      "cloudSyncImageError": "Zapněte cloudovou synchronizaci pro ukládání obrázků poznámek. Textové poznámky zůstávají místní."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "Zrušit",
       "confirmDelete": "Smazat",
       "deleteDialogTitle": "Smazat sadu prostředí?",
-      "deleteDialogDescription": "Tím se odstraní šifrovaná data z účtu. Akci nelze vrátit zpět.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2604,6 @@
     "toastCopiedText": "Textový panel zkopírován",
     "toastCopiedTree": "Stromový panel zkopírován",
     "toastCopyFailed": "Nepodařilo se zkopírovat JSON",
-    "toastLoginRequired": "Pro uložení dokumentů se přihlaste",
     "toastSaved": "Dokument uložen",
     "toastSaveFailed": "Nepodařilo se uložit dokument",
     "format": "Formátovat",
@@ -5149,5 +5107,13 @@
     "close": "Zavřít",
     "pill": "Aktualizace…",
     "pillPct": "Aktualizace… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Pomůžete rozhodnout, co vznikne příště?",
+      "body": "Sdílejte používání anonymně: které nástroje otevíráte, verzi aplikace a váš jazyk. Žádný účet, žádné ID zařízení a nic, co v nástroji napíšete. Kdykoli to můžete změnit v Nastavení.",
+      "accept": "Sdílet anonymně",
+      "decline": "Ne, děkuji"
+    }
   }
 }

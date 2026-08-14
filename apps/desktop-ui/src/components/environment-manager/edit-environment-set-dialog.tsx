@@ -18,7 +18,6 @@ import { useCipherKey } from "@/lib/use-cipher-key"
 import { Badge } from "@/components/ui/badge"
 import { EnvPasteCollapsible } from "@/components/environment-manager/env-paste-collapsible"
 import { encryptData } from "@/lib/encryption"
-import { auth } from "@/database/firebase"
 import { updateEnvSetEntry } from "@/lib/environment-manager-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
@@ -89,7 +88,7 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!encryptionKey || !auth.currentUser || !entry) return
+        if (!encryptionKey || !entry) return
         const proj = project.trim()
         const env = environment.trim()
         if (!proj || !env) {

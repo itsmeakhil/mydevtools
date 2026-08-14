@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Що таке MyDevTools?",
         "description": "Офлайн-середовище для розробників: панель керування та понад 80 інструментів, що працюють повністю на вашому пристрої.",
-        "p1": "MyDevTools працює повністю офлайн. Після одноразової активації в браузері все працює на цьому пристрої без входу в обліковий запис і без підключення до інтернету. На бічній панелі перелічено всі застосунки; інструменти, якими ви не користуєтесь, можна приховати в розділі",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Налаштування",
         "p1After": ".",
-        "p2": "Деякі функції використовують <strong>майстер-пароль</strong> (або глобальний ключ сховища), щоб такі секрети, як паролі та рядки підключення до баз даних, були зашифровані на вашому пристрої. Ваші дані зберігаються в локальній зашифрованій базі даних і ніколи не надсилаються на сервер."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Швидкі посилання",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Активація та офлайн-доступ",
-        "description": "Як застосунок розблоковується вперше, а потім працює офлайн.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Одноразова активація</strong> відбувається у браузері під час першого запуску застосунку. Вона фіксує ваш тарифний план і розблоковує застосунок на цьому пристрої.",
-          "offline": "<strong>Жодних сеансів входу.</strong> Після активації немає входу під час кожного сеансу та періодичних повторних перевірок — застосунок продовжує працювати без підключення до інтернету.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Локальне сховище.</strong> Усі ваші дані зберігаються в зашифрованій базі даних SQLCipher на вашому пристрої, ключем до якої є випадковий ключ, що зберігається у зв'язці ключів вашої операційної системи."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Налаштування",
-    "subtitle": "Керуйте налаштуваннями облікового запису та вподобаннями.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Профіль користувача",
-      "description": "Ваша особиста інформація та дані облікового запису.",
-      "avatarAlt": "Користувач",
-      "anonymousUser": "Анонімний користувач",
-      "noEmailProvided": "Email не вказано",
-      "notLoggedIn": "Не авторизовано."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Інструменти та функції",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Показувати значки сайтів у сховищі",
         "helpText": "Типово вимкнено. Завантаження значка повідомляє сторонньому сервісу, на яких сайтах у вас є облікові записи."
+      },
+      "telemetry": {
+        "label": "Ділитися анонімними даними про використання",
+        "helpText": "Типово вимкнено. Надсилає, які інструменти ви відкриваєте, версію застосунку та вашу мову. Без облікового запису, без ідентифікатора пристрою й без того, що ви вводите в інструментах."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "Ваші дані коротко",
-      "subtitle": "Лічильники синхронізовано з обліковим записом на сервері.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Не вдалося завантажити аналітику.",
       "retry": "Повторити",
-      "loginHint": "Увійдіть, щоб бачити аналітику та налаштування інтерфейсу.",
       "passwordEntries": "Записів паролів",
       "bookmarks": "Закладки",
       "bookmarkFolders": "Папки закладок",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Налаштування інтерфейсу",
-      "subtitle": "Тема, мова та видимі інструменти на бічній панелі — з налаштувань облікового запису.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Не вдалося завантажити налаштування.",
-      "loginHint": "Увійдіть, щоб бачити збережені налаштування інтерфейсу.",
       "theme": "Тема",
       "accent": "Колір акценту",
       "locale": "Мова",
@@ -674,13 +638,9 @@
       "favoriteTools": "Обрані інструменти",
       "toolsWithUsage": "Інструменти зі статистикою"
     },
-    "signIn": "Увійти",
     "noResults": "Жоден інструмент не відповідає вашому пошуку",
     "noResultsHint": "Спробуйте інше ключове слово або очистіть фільтр.",
     "filterAll": "Усі",
-    "loginCta": {
-      "description": "Увійдіть, щоб відстежувати нещодавно використані інструменти."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Експорт"
     },
     "context": {
-      "authRequiredError": "Користувач не автентифікований",
       "defaultTitle": "Без назви",
-      "cloudSyncImageError": "Увімкніть хмарну синхронізацію, щоб зберігати зображення нотаток. Текстові нотатки залишаються локальними."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "Скасувати",
       "confirmDelete": "Видалити",
       "deleteDialogTitle": "Видалити набір середовища?",
-      "deleteDialogDescription": "Зашифровані дані буде видалено з облікового запису. Це незворотно.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2656,7 +2615,6 @@
     "toastCopiedText": "Текстову панель скопійовано",
     "toastCopiedTree": "Панель дерева скопійовано",
     "toastCopyFailed": "Не вдалося скопіювати JSON",
-    "toastLoginRequired": "Увійдіть, щоб зберігати документи",
     "toastSaved": "Документ збережено",
     "toastSaveFailed": "Не вдалося зберегти документ",
     "format": "Форматувати",
@@ -5160,5 +5118,13 @@
     "close": "Закрити",
     "pill": "Оновлення…",
     "pillPct": "Оновлення… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Допоможете вирішити, що створити далі?",
+      "body": "Діліться анонімними даними: які інструменти ви відкриваєте, версія застосунку та ваша мова. Без облікового запису, без ідентифікатора пристрою й без того, що ви вводите в інструментах. Це можна змінити будь-коли в налаштуваннях.",
+      "accept": "Ділитися анонімно",
+      "decline": "Ні, дякую"
+    }
   }
 }

@@ -18,7 +18,6 @@ import { useActiveToolPermissions } from "@/lib/workspace-rbac"
 import { Badge } from "@/components/ui/badge"
 import { EnvPasteCollapsible } from "@/components/environment-manager/env-paste-collapsible"
 import { encryptData } from "@/lib/encryption"
-import { auth } from "@/database/firebase"
 import { createEnvSetEntry } from "@/lib/environment-manager-api"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
@@ -81,7 +80,7 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        if (!encryptionKey || !auth.currentUser) return
+        if (!encryptionKey) return
         const proj = project.trim()
         const env = environment.trim()
         if (!proj || !env) {

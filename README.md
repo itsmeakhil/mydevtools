@@ -5,11 +5,12 @@
 <h1 align="center">MyDevTools.tech</h1>
 
 <p align="center">
-  <strong>Your all-in-one developer toolkit — fast, private, and beautifully crafted.</strong>
+  <strong>80+ developer tools in one desktop app.<br />
+  Completely offline. No account required. Free for everyone.</strong>
 </p>
 
 <p align="center">
-  <a href="https://mydevtools.tech">🌐 Live App</a> •
+  <a href="https://mydevtools.tech/download">⬇️ Download</a> •
   <a href="#-tools--features">✨ Tools</a> •
   <a href="#-tech-stack">🏗️ Stack</a> •
   <a href="#-getting-started">🚀 Get Started</a> •
@@ -20,10 +21,16 @@
   <img src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/FastAPI-Python-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
-  <img src="https://img.shields.io/badge/Firebase-12-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase" />
-  <img src="https://img.shields.io/badge/MongoDB-supported-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  <img src="https://img.shields.io/badge/Tauri-2-24C8DB?style=for-the-badge&logo=tauri&logoColor=white" alt="Tauri" />
+  <img src="https://img.shields.io/badge/Rust-stable-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
+  <img src="https://img.shields.io/badge/SQLCipher-encrypted-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLCipher" />
   <img src="https://img.shields.io/badge/License-AGPL%203.0-blue?style=for-the-badge" alt="License" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/100%25-Offline-22c55e?style=for-the-badge" alt="100% Offline" />
+  <img src="https://img.shields.io/badge/Accounts-None-8b5cf6?style=for-the-badge" alt="No account required" />
+  <img src="https://img.shields.io/badge/Price-Free%20for%20everyone-0ea5e9?style=for-the-badge" alt="Free for everyone" />
 </p>
 
 <p align="center">
@@ -36,13 +43,14 @@
 
 ## 🔥 Why MyDevTools?
 
-Most developer tools are scattered across dozens of tabs, riddled with ads, or send your data to unknown servers. **MyDevTools** changes that:
+Most developer tools are scattered across dozens of tabs, riddled with ads, gated behind a sign-up, or quietly sending your data to someone else's server. **MyDevTools** changes that:
 
-- ⚡ **Local-first** — Your data is processed on your device wherever possible. No unnecessary server round-trips.
-- 🔒 **Privacy by design** — No ad tracking, no data harvesting. Your vault stays yours.
-- 🎨 **Premium UI/UX** — Dark/light mode, silky animations, fully responsive across all devices.
-- 🌍 **Internationalization** — Built-in i18n support via `next-intl`.
-- 💯 **Free & open source** — Free for everyone, licensed under **GNU AGPLv3**. See [LICENSE](LICENSE).
+- 🔌 **Completely offline** — A desktop app with no backend behind it. The app itself never needs a network: your data is processed and stored on your machine. Only tools you deliberately point at something remote (API client, database clients, DNS/WHOIS lookups) reach out, and only to the destination you choose.
+- 🙅 **No account required** — No sign-up, no sign-in, no activation, no license key. Install it, open it, start working.
+- 💯 **Free for everyone** — Every tool and every feature. No paid tier, no trial, no seat limits, no upsell.
+- 🔒 **Privacy by design** — Nothing to harvest, because there is nowhere to send it. Credentials live in an AES-256 vault encrypted with a password only you know.
+- 📖 **Open source** — Licensed under **GNU AGPLv3**. Read it, build it, fork it. See [LICENSE](LICENSE).
+- 🎨 **Premium UI/UX** — Dark/light mode, silky animations, 27 languages.
 
 ---
 
@@ -115,15 +123,6 @@ Most developer tools are scattered across dozens of tabs, riddled with ads, or s
 | **🔐 Password Manager** | Store credentials securely with client-side encryption. Your vault, your keys |
 | **✅ Task Manager** | Organize tasks with priorities, statuses, and drag-and-drop reordering |
 
-### 👤 Public Developer Profile
-
-Share your developer identity with a public profile page at `mydevtools.tech/<username>`:
-
-- Display name, avatar, and bio
-- Social links (Twitter/X, LinkedIn, GitHub, Instagram, YouTube, Dev.to, Hashnode, personal website)
-- GitHub contribution calendar and streak stats
-- Shareable URL — no account required to view
-
 ---
 
 ## 🏗️ Tech Stack
@@ -146,31 +145,26 @@ Share your developer identity with a public profile page at `mydevtools.tech/<us
 | **Date Utilities** | [date-fns](https://date-fns.org/) |
 | **Analytics** | [Vercel Analytics](https://vercel.com/analytics) + [Speed Insights](https://vercel.com/docs/speed-insights) |
 
-### Backend
+### Desktop shell
 
 | Layer | Technology |
 |-------|------------|
-| **Framework** | [FastAPI](https://fastapi.tiangolo.com/) (Python 3.10+) |
-| **Server** | [Uvicorn](https://www.uvicorn.org/) (ASGI) |
-| **Validation** | [Pydantic](https://docs.pydantic.dev/) + `pydantic-settings` |
-| **Auth** | [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) + `python-jose` (JWT) |
-| **Linting** | [Ruff](https://docs.astral.sh/ruff/) |
-| **Testing** | [Pytest](https://pytest.org/) + [HTTPX](https://www.python-httpx.org/) |
+| **Shell** | [Tauri v2](https://v2.tauri.app/) (Rust) |
+| **Storage** | [SQLCipher](https://www.zetetic.net/sqlcipher/) via `rusqlite`, keyed from the OS keychain |
+| **Database drivers** | Native Rust clients for PostgreSQL, MySQL, MongoDB and Redis (Data Explorer) |
+| **HTTP / gRPC** | `reqwest` + `h2`, so the API Client is not bound by browser CORS |
 
-### Database & Cloud Services
-
-| Service | Purpose |
-|---------|---------|
-| **[Firebase Auth](https://firebase.google.com/docs/auth)** | Authentication — email/password, OAuth providers |
-| **[MongoDB](https://www.mongodb.com/)** | Primary NoSQL database for user data (notes, tasks, bookmarks, passwords), Direct connection support via the NoSQL Explorer tool |
+There is no server. The app has no accounts, no sign-in and no sync: every tool
+reads and writes the local encrypted database on your machine.
 
 ### Monorepo Infrastructure
 
 | Tool | Purpose |
 |------|---------|
 | **[pnpm Workspaces](https://pnpm.io/workspaces)** | Fast, efficient monorepo package management |
-| **`apps/web`** | Next.js 16 frontend application |
-| **`apps/backend`** | FastAPI Python backend service |
+| **`apps/desktop-ui`** | Next.js UI the desktop app is built from |
+| **`apps/desktop`** | Tauri v2 shell (Rust) |
+| **`apps/web`** | Marketing and SEO site |
 
 ---
 
@@ -180,39 +174,34 @@ Share your developer identity with a public profile page at `mydevtools.tech/<us
 
 - **Node.js** ≥ 22
 - **pnpm** ≥ 9 (recommended)
-- **Python** ≥ 3.10 (for backend)
+- **Rust** stable (for the desktop shell)
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/itsmeakhil/mydevtools.tech.git
-cd mydevtools.tech
+git clone https://github.com/mydevtools-tech/mydevtools.git
+cd mydevtools
 
 # Install all workspace dependencies
 pnpm install
-
-# Set up environment variables
-cp .env.example .env
-# Fill in your Firebase credentials and other config
 ```
 
-### Running the Web App
+No configuration step: the app needs no API keys, no accounts and no services.
+
+### Running the Desktop App
+
+```bash
+pnpm dev:desktop
+```
+
+### Running the Marketing Site
 
 ```bash
 pnpm dev
 ```
 
-The frontend will be live at **[http://localhost:3000](http://localhost:3000)** 🎉
-
-### Running the Backend
-
-```bash
-pnpm dev:backend
-```
-
-The FastAPI backend will be live at **[http://localhost:8000](http://localhost:8000)**  
-Interactive API docs available at **[http://localhost:8000/docs](http://localhost:8000/docs)**
+The site will be live at **[http://localhost:3000](http://localhost:3000)** 🎉
 
 ---
 
@@ -220,10 +209,11 @@ Interactive API docs available at **[http://localhost:8000/docs](http://localhos
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev` | Start the Next.js frontend dev server with Turbopack |
-| `pnpm dev:backend` | Start the FastAPI backend with hot reload |
+| `pnpm dev` | Start the marketing site dev server with Turbopack |
+| `pnpm dev:desktop` | Start the Tauri desktop app in dev mode |
+| `pnpm build:desktop` | Build the desktop app |
 | `pnpm build` | Build all workspaces |
-| `pnpm start` | Start the frontend production server |
+| `pnpm start` | Start the marketing site production server |
 | `pnpm lint` | Run linting across all workspaces |
 | `pnpm clean-install` | Fresh dependency install for the entire monorepo |
 
@@ -234,95 +224,26 @@ Interactive API docs available at **[http://localhost:8000/docs](http://localhos
 ```
 mydevtools.tech/
 ├── apps/
-│   ├── web/                          # Next.js 16 frontend (App Router)
+│   ├── desktop-ui/                   # Next.js UI the desktop app is built from
 │   │   ├── src/
-│   │   │   ├── app/
-│   │   │   │   ├── [username]/       # Public developer profile pages
-│   │   │   │   ├── app/              # Tool pages (70+ tools)
-│   │   │   │   │   ├── api-client/
-│   │   │   │   │   ├── base64/
-│   │   │   │   │   ├── bookmarks/
-│   │   │   │   │   ├── break-room/
-│   │   │   │   │   ├── certificate-pem-decoder/
-│   │   │   │   │   ├── color-picker/
-│   │   │   │   │   ├── contrast-checker/
-│   │   │   │   │   ├── cron-builder/
-│   │   │   │   │   ├── csv-excel-json/
-│   │   │   │   │   ├── diff-checker/
-│   │   │   │   │   ├── docker-compose-generator/
-│   │   │   │   │   ├── email-validator/
-│   │   │   │   │   ├── encryption-playground/
-│   │   │   │   │   ├── environment-manager/
-│   │   │   │   │   ├── excel-to-pdf/
-│   │   │   │   │   ├── format-converter/
-│   │   │   │   │   ├── graphql-formatter/
-│   │   │   │   │   ├── hash-generator/
-│   │   │   │   │   ├── hmac-generator/
-│   │   │   │   │   ├── html-to-pdf/
-│   │   │   │   │   ├── http-status-codes/
-│   │   │   │   │   ├── image-compressor/
-│   │   │   │   │   ├── image-to-base64/
-│   │   │   │   │   ├── ip-subnet-calculator/
-│   │   │   │   │   ├── jpg-to-pdf/
-│   │   │   │   │   ├── json-formatter/
-│   │   │   │   │   ├── json-schema-generator/
-│   │   │   │   │   ├── jwt-decoder/
-│   │   │   │   │   ├── lorem-ipsum/
-│   │   │   │   │   ├── markdown-preview-html/
-│   │   │   │   │   ├── mime-type-lookup/
-│   │   │   │   │   ├── mock-data-generator/
-│   │   │   │   │   ├── nosql-explorer/
-│   │   │   │   │   ├── notes/
-│   │   │   │   │   ├── number-base-converter/
-│   │   │   │   │   ├── password-manager/
-│   │   │   │   │   ├── qr-code-generator/
-│   │   │   │   │   ├── regex-tester/
-│   │   │   │   │   ├── secret-api-key-generator/
-│   │   │   │   │   ├── snippet-manager/
-│   │   │   │   │   ├── sql-client/
-│   │   │   │   │   ├── sql-formatter/
-│   │   │   │   │   ├── svg-optimizer/
-│   │   │   │   │   ├── timestamp-converter/
-│   │   │   │   │   ├── to-do/
-│   │   │   │   │   ├── totp-generator/
-│   │   │   │   │   ├── unit-converter/
-│   │   │   │   │   ├── url-encode/
-│   │   │   │   │   ├── url-parser/
-│   │   │   │   │   ├── user-agent-parser/
-│   │   │   │   │   └── uuid-generator/
-│   │   │   │   ├── api/              # Next.js route handlers
-│   │   │   │   ├── dashboard/        # User dashboard
-│   │   │   │   ├── login/            # Auth page
-│   │   │   │   ├── profile/          # User profile settings
-│   │   │   │   └── settings/         # App settings
+│   │   │   ├── app/app/              # Tool pages (80+ tools)
+│   │   │   ├── app/dashboard/        # Home
+│   │   │   ├── app/settings/         # App settings + local profile
 │   │   │   ├── components/           # Shared UI components
 │   │   │   ├── store/                # Zustand state stores
 │   │   │   ├── hooks/                # Custom React hooks
-│   │   │   ├── lib/                  # Utilities and helpers
-│   │   │   ├── i18n/                 # Internationalization config
-│   │   │   └── database/             # Firebase client setup
-│   │   ├── messages/                 # next-intl locale files
-│   │   └── public/                   # Static assets
+│   │   │   ├── lib/                  # Tool logic, crypto, local API client
+│   │   │   └── i18n/                 # Internationalization config
+│   │   └── messages/                 # next-intl locale files (27 languages)
 │   │
-│   └── backend/                      # FastAPI Python backend
-│       ├── app/
-│       │   ├── api/
-│       │   │   └── routes/           # API route modules
-│       │   │       ├── auth/
-│       │   │       ├── notes/
-│       │   │       ├── tasks/
-│       │   │       ├── bookmarks/
-│       │   │       ├── passwords/
-│       │   │       ├── nosql/
-│       │   │       ├── api_client/
-│       │   │       ├── environment_manager/
-│       │   │       ├── analytics/
-│       │   │       ├── users/
-│       │   │       └── user_preferences/
-│       │   ├── core/                 # Config, DB, Firebase admin, auth
-│       │   └── main.py               # FastAPI app entry point
-│       ├── tests/                    # Pytest test suite
-│       └── pyproject.toml
+│   ├── desktop/                      # Tauri v2 shell
+│   │   └── src-tauri/src/
+│   │       ├── router/               # Local API over SQLCipher
+│   │       ├── dbtools/              # Native Postgres/MySQL/Mongo/Redis drivers
+│   │       ├── http/                 # Request proxy, gRPC, mock server
+│   │       └── db/                   # Schema migrations, device key
+│   │
+│   └── web/                          # Marketing and SEO site
 │
 ├── pnpm-workspace.yaml               # Workspace configuration
 ├── package.json                      # Root monorepo scripts
@@ -355,8 +276,8 @@ Have an idea for a new tool or improvement? We'd love to hear it!
 
 ## 🧑‍💻 Contributors
 
-<a href="https://github.com/itsmeakhil/mydevtools.tech/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=itsmeakhil/mydevtools.tech" />
+<a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mydevtools-tech/mydevtools" />
 </a>
 
 ---
@@ -365,7 +286,7 @@ Have an idea for a new tool or improvement? We'd love to hear it!
 
 If MyDevTools saves you time, consider giving it a **star** on GitHub — it helps others discover the project and motivates us to keep building!
 
-[![Star on GitHub](https://img.shields.io/github/stars/itsmeakhil/mydevtools.tech?style=social)](https://github.com/itsmeakhil/mydevtools.tech)
+[![Star on GitHub](https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=social)](https://github.com/mydevtools-tech/mydevtools)
 
 ---
 
@@ -376,5 +297,5 @@ This project is licensed under the [GNU Affero General Public License v3.0](http
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/itsmeakhil">Akhil</a> and <a href="https://github.com/itsmeakhil/mydevtools.tech/graphs/contributors">contributors</a>
+  Made with ❤️ by <a href="https://github.com/itsmeakhil">Akhil</a> and <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">contributors</a>
 </p>

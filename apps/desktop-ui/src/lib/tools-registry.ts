@@ -4,7 +4,6 @@
 
 import { sidebarData } from '@/components/sidebar/data/sidebar-data';
 import { ToolMetadata } from './tool-config';
-import { requiresAuth } from './tool-config';
 
 /**
  * Extract enhanced metadata from sidebar data
@@ -25,7 +24,6 @@ export function getAllToolsMetadata(): ToolMetadata[] {
             tags: extractTags(item.title, item.description || '', group.title),
             category: group.title,
             keywords: extractKeywords(item.title, item.description || ''),
-            requiresAuth: requiresAuth(url),
             badge: item.badge,
             featured: false,
           });
@@ -42,8 +40,7 @@ export function getAllToolsMetadata(): ToolMetadata[] {
               tags: extractTags(subItem.title, subItem.description || '', item.title, group.title),
               category: `${group.title} > ${item.title}`,
               keywords: extractKeywords(subItem.title, subItem.description || ''),
-              requiresAuth: requiresAuth(url),
-              badge: subItem.badge,
+                badge: subItem.badge,
               featured: false,
             });
           }

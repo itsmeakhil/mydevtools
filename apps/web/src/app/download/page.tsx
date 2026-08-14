@@ -9,11 +9,11 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mydevtools.tech";
 export const metadata: Metadata = {
   title: "Download MyDevTools for macOS",
   description:
-    "Download the MyDevTools desktop app for macOS — your entire dev toolkit, native. Universal build for Apple Silicon and Intel, signed and notarized by Apple.",
+    "Download the MyDevTools desktop app for macOS — your entire dev toolkit, native. Completely offline, no account required, free for everyone. Universal build for Apple Silicon and Intel, signed and notarized by Apple.",
   alternates: { canonical: `${baseUrl}/download` },
   openGraph: {
     title: "Download MyDevTools for macOS | MyDevTools",
-    description: "Native macOS desktop app — signed & notarized. Apple Silicon and Intel.",
+    description: "Native macOS desktop app — offline, no account, free for everyone. Signed & notarized, Apple Silicon and Intel.",
     url: `${baseUrl}/download`,
     siteName: "MyDevTools",
     type: "website",
@@ -38,8 +38,9 @@ export default function DownloadPage() {
             <span className="mdt-grad-text">native on your Mac.</span>
           </h1>
           <p className="mt-5 text-lg text-muted-foreground">
-            The full MyDevTools suite as a signed, notarized macOS app. Works offline
-            and connects to your local databases — everything stays on your device.
+            The full MyDevTools suite as a signed, notarized macOS app. Works completely
+            offline and connects to your local databases — everything stays on your
+            device. No account, no sign-in, free for everyone.
           </p>
 
           <div className="mt-10 flex flex-col items-center">
@@ -53,7 +54,7 @@ export default function DownloadPage() {
               Each release ships a <code>.sha256</code> checksum on the{" "}
               <a
                 className="underline underline-offset-2"
-                href="https://github.com/itsmeakhil/mydevtools/releases/latest"
+                href="https://github.com/mydevtools-tech/mydevtools-releases/releases/latest"
                 target="_blank"
                 rel="noreferrer"
               >

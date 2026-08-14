@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "Что такое MyDevTools?",
         "description": "Офлайн-среда для разработчиков: панель управления и более 80 инструментов, работающих полностью на вашем устройстве.",
-        "p1": "MyDevTools работает полностью офлайн. После однократной активации в браузере всё работает на этом устройстве без входа в учётную запись и без подключения к интернету. На боковой панели перечислены все приложения; неиспользуемые инструменты можно скрыть в разделе",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Настройки",
         "p1After": ".",
-        "p2": "Некоторые функции используют <strong>мастер-пароль</strong> (или глобальный ключ хранилища), чтобы такие секреты, как пароли и строки подключения к базам данных, были зашифрованы на вашем устройстве. Ваши данные хранятся в локальной зашифрованной базе данных и никогда не отправляются на сервер."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Быстрые ссылки",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Активация и офлайн-доступ",
-        "description": "Как приложение разблокируется в первый раз, а затем работает офлайн.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Однократная активация</strong> выполняется в браузере при первом запуске приложения. Она фиксирует ваш тарифный план и разблокирует приложение на этом устройстве.",
-          "offline": "<strong>Никаких сеансов входа.</strong> После активации нет входа в систему при каждом сеансе и периодических повторных проверок — приложение продолжает работать без подключения к интернету.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Локальное хранилище.</strong> Все ваши данные находятся в зашифрованной базе данных SQLCipher на вашем устройстве, ключом к которой служит случайный ключ, хранящийся в связке ключей вашей операционной системы."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Настройки",
-    "subtitle": "Управление настройками учётной записи и предпочтениями.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Профиль пользователя",
-      "description": "Ваша личная информация и данные учётной записи.",
-      "avatarAlt": "Пользователь",
-      "anonymousUser": "Анонимный пользователь",
-      "noEmailProvided": "Email не указан",
-      "notLoggedIn": "Не авторизован."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Инструменты и функции",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Показывать значки сайтов в хранилище",
         "helpText": "По умолчанию выключено. Загрузка значка сообщает стороннему сервису, на каких сайтах у вас есть аккаунты."
+      },
+      "telemetry": {
+        "label": "Делиться анонимными данными об использовании",
+        "helpText": "По умолчанию выключено. Отправляет, какие инструменты вы открываете, версию приложения и ваш язык. Без аккаунта, без идентификатора устройства и без того, что вы вводите в инструментах."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "Ваши данные кратко",
-      "subtitle": "Счётчики синхронизированы с вашей учётной записью на сервере.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Не удалось загрузить аналитику.",
       "retry": "Повторить",
-      "loginHint": "Войдите, чтобы видеть аналитику использования и настройки интерфейса.",
       "passwordEntries": "Записей паролей",
       "bookmarks": "Закладки",
       "bookmarkFolders": "Папки закладок",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Настройки интерфейса",
-      "subtitle": "Тема, язык и видимые инструменты на боковой панели — из настроек аккаунта.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Не удалось загрузить настройки.",
-      "loginHint": "Войдите, чтобы видеть сохранённые настройки интерфейса.",
       "theme": "Тема",
       "accent": "Цвет акцента",
       "locale": "Язык",
@@ -674,13 +638,9 @@
       "favoriteTools": "Избранные инструменты",
       "toolsWithUsage": "Инструменты со статистикой"
     },
-    "signIn": "Войти",
     "noResults": "Ни один инструмент не соответствует вашему поиску",
     "noResultsHint": "Попробуйте другое ключевое слово или очистите фильтр.",
     "filterAll": "Все",
-    "loginCta": {
-      "description": "Войдите, чтобы отслеживать недавно используемые инструменты."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Экспорт"
     },
     "context": {
-      "authRequiredError": "Пользователь не авторизован",
       "defaultTitle": "Без названия",
-      "cloudSyncImageError": "Включите облачную синхронизацию, чтобы сохранять изображения заметок. Текстовые заметки остаются локальными."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "Отмена",
       "confirmDelete": "Удалить",
       "deleteDialogTitle": "Удалить набор окружения?",
-      "deleteDialogDescription": "Зашифрованные данные будут удалены из аккаунта. Действие необратимо.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2645,7 +2604,6 @@
     "toastCopiedText": "Текстовая панель скопирована",
     "toastCopiedTree": "Панель дерева скопирована",
     "toastCopyFailed": "Не удалось скопировать JSON",
-    "toastLoginRequired": "Войдите, чтобы сохранять документы",
     "toastSaved": "Документ сохранён",
     "toastSaveFailed": "Не удалось сохранить документ",
     "format": "Форматировать",
@@ -5149,5 +5107,13 @@
     "close": "Закрыть",
     "pill": "Обновление…",
     "pillPct": "Обновление… {pct}%"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Поможете решить, что делать дальше?",
+      "body": "Делитесь анонимными данными: какие инструменты вы открываете, версия приложения и ваш язык. Без аккаунта, без идентификатора устройства и без того, что вы вводите в инструментах. Изменить это можно в любой момент в настройках.",
+      "accept": "Делиться анонимно",
+      "decline": "Нет, спасибо"
+    }
   }
 }

@@ -150,7 +150,7 @@ export default function HelpPage() {
             <CardContent className="space-y-4 text-sm text-muted-foreground">
               <p>
                 {t('overview.whatIs.p1')}{' '}
-                <Link href="/login" className="text-primary underline-offset-4 hover:underline">
+                <Link href="/download" className="text-primary underline-offset-4 hover:underline">
                   {t('overview.whatIs.settingsLink')}
                 </Link>
                 {t('overview.whatIs.p1After')}
@@ -170,16 +170,16 @@ export default function HelpPage() {
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               <Link
-                href="/login"
+                href="/download"
                 className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
               >
-                {t('overview.quickLinks.dashboard')}
+                {t('overview.quickLinks.download')}
               </Link>
               <Link
-                href="/login"
+                href="/security"
                 className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
               >
-                {t('overview.quickLinks.settings')}
+                {t('overview.quickLinks.security')}
               </Link>
             </CardContent>
           </Card>
@@ -254,38 +254,6 @@ export default function HelpPage() {
         <TabsContent value="security" className="mt-0 space-y-4 outline-none">
           <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle>{t('security.session.title')}</CardTitle>
-              <CardDescription>{t('security.session.description')}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-muted-foreground">
-              <ul className="list-disc pl-5 space-y-2">
-                <li>
-                  {t.rich('security.session.items.authentication', {
-                    strong: (chunks) => (
-                      <strong className="text-foreground font-medium">{chunks}</strong>
-                    ),
-                  })}
-                </li>
-                <li>
-                  {t.rich('security.session.items.accessTokens', {
-                    strong: (chunks) => (
-                      <strong className="text-foreground font-medium">{chunks}</strong>
-                    ),
-                  })}
-                </li>
-                <li>
-                  {t.rich('security.session.items.refreshTokens', {
-                    strong: (chunks) => (
-                      <strong className="text-foreground font-medium">{chunks}</strong>
-                    ),
-                  })}
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-            <CardHeader>
               <CardTitle>{t('security.encryption.title')}</CardTitle>
               <CardDescription>{t('security.encryption.description')}</CardDescription>
             </CardHeader>
@@ -322,17 +290,6 @@ export default function HelpPage() {
               </ul>
               <p className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-xs leading-relaxed text-foreground/90">
                 {t('security.encryption.warning')}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle>{t('security.logout.title')}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm text-muted-foreground">
-              <p>
-                {t('security.logout.body')}
               </p>
             </CardContent>
           </Card>

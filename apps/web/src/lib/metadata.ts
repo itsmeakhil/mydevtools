@@ -649,8 +649,11 @@ export function generatePageMetadata(opts: {
 // Base site metadata
 export const siteMetadata = {
     name: 'MyDevTools',
-    title: 'MyDevTools: 80+ Desktop Developer Tools + SQL/NoSQL/Redis Client',
-    description: 'All-in-one desktop developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 80+ utilities (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Privacy-first, offline, local-first.',
+    // 56 chars — under the ~60 SERP clip. "Desktop" was dropped rather than
+    // "Developer Tools" (the higher-volume phrase) or the database keywords.
+    title: 'MyDevTools: 80+ Developer Tools + SQL/NoSQL/Redis Client',
+    // Kept under ~160 chars so the closing claim survives SERP truncation.
+    description: 'All-in-one desktop developer toolkit: SQL, MongoDB & Redis clients plus 80+ utilities. Completely offline, no account required, free and open source.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — Desktop Developer Toolkit', 'SQL + NoSQL + Redis client + 80+ developer tools in one desktop workspace. Privacy-first.'),
+    ogImage: ogImageUrl('MyDevTools — Desktop Developer Toolkit', 'SQL + NoSQL + Redis client + 80+ developer tools in one desktop app. Offline, no account, free for everyone.'),
 }

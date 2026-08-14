@@ -13,7 +13,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Task, NewTask } from "@/app/app/to-do/types/Task";
 import { format } from "date-fns";
 import useAuth, { AuthState } from "@/utils/useAuth";
-import { backendFetch } from "@/lib/backend-auth";
+import { apiFetch } from "@/lib/desktop/api-fetch";
 import { fetchAllPages } from "@/lib/fetch-all-pages";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -136,7 +136,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   const authedFetch = useCallback(
     async (path: string, init?: RequestInit) => {
       if (!user) throw new Error("Not authenticated");
-      const res = await backendFetch(path, {
+      const res = await apiFetch(path, {
         ...init,
         headers: {
           "Content-Type": "application/json",

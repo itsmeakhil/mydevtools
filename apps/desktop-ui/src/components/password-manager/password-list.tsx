@@ -12,7 +12,6 @@ import { Search, Copy, Eye, EyeOff, Trash2, ExternalLink, LayoutGrid, List, Lock
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { toast } from "sonner"
-import { auth } from "@/database/firebase"
 import { deletePasswordEntry } from "@/lib/password-manager-api"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
@@ -212,7 +211,7 @@ export function PasswordList() {
     }
 
     const handleDeleteConfirm = async () => {
-        if (!auth.currentUser || !passwordToDelete) return
+        if (!passwordToDelete) return
 
         try {
             await deletePasswordEntry(passwordToDelete)

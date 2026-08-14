@@ -91,10 +91,10 @@
       "whatIs": {
         "title": "MyDevTools nedir?",
         "description": "Çevrimdışı bir geliştirici çalışma alanı: tamamen cihazınızda çalışan bir pano ve 80+ araç.",
-        "p1": "MyDevTools tamamen çevrimdışı çalışır. Tarayıcınızda tek seferlik bir etkinleştirmenin ardından her şey bu cihazda çalışır; hesap girişi veya internet bağlantısı gerekmez. Kenar çubuğu tüm uygulamaları listeler; kullanmadığınız araçları şuradan gizleyebilirsiniz:",
+        "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Ayarlar",
         "p1After": ".",
-        "p2": "Bazı özellikler bir <strong>ana parola</strong> (veya genel kasa anahtarı) kullanır; böylece parolalar ve veritabanı bağlantı dizeleri gibi gizli bilgiler cihazınızda şifrelenir. Verileriniz yerel bir şifreli veritabanında saklanır ve asla bir sunucuya gönderilmez."
+        "p2": "Some features use a <strong>master password</strong> (or global vault key) so that secrets like passwords and database connection strings are encrypted at rest on your device."
       },
       "quickLinks": {
         "title": "Hızlı bağlantılar",
@@ -110,11 +110,11 @@
     },
     "security": {
       "access": {
-        "title": "Etkinleştirme ve çevrimdışı erişim",
-        "description": "Uygulamanın ilk seferde nasıl kilidinin açıldığı ve ardından çevrimdışı nasıl çalıştığı.",
+        "title": "Offline access",
+        "description": "How the app opens, and where your data lives.",
         "items": {
-          "activation": "<strong>Tek seferlik etkinleştirme</strong>, uygulamayı ilk açtığınızda tarayıcınızda gerçekleşir. Planınızı kaydeder ve uygulamanın bu cihazdaki kilidini açar.",
-          "offline": "<strong>Oturum girişi yok.</strong> Etkinleştirmeden sonra oturum başına giriş veya periyodik yeniden kontrol yoktur; uygulama internet bağlantısı olmadan çalışmaya devam eder.",
+          "activation": "<strong>No account.</strong> Install the app and open it — there is nothing to register, activate or sign in to.",
+          "offline": "<strong>No sessions.</strong> There is no sign-in, no token refresh and no periodic re-check, so the app keeps working with no internet connection.",
           "storage": "<strong>Yerel depolama.</strong> Tüm verileriniz cihazınızdaki şifreli bir SQLCipher veritabanında yaşar ve işletim sistemi anahtarlığınızda tutulan rastgele bir anahtarla anahtarlanır."
         }
       },
@@ -173,14 +173,19 @@
   },
   "SettingsPage": {
     "title": "Ayarlar",
-    "subtitle": "Hesap ayarlarınızı ve tercihlerinizi yönetin.",
+    "subtitle": "Manage your app settings and preferences.",
     "userProfile": {
-      "title": "Kullanıcı Profili",
-      "description": "Kişisel bilgileriniz ve hesap detaylarınız.",
-      "avatarAlt": "Kullanıcı",
-      "anonymousUser": "Anonim Kullanıcı",
-      "noEmailProvided": "E-posta belirtilmedi",
-      "notLoggedIn": "Giriş yapılmadı."
+      "title": "Profile",
+      "description": "The name and avatar this app shows you. Stored on this device — there is no account.",
+      "avatarAlt": "Avatar",
+      "anonymousUser": "You",
+      "nameLabel": "Display name",
+      "namePlaceholder": "e.g. Alex",
+      "avatarLabel": "Avatar URL",
+      "avatarPlaceholder": "https://…",
+      "save": "Save",
+      "saved": "Profile saved",
+      "saveError": "Could not save your profile"
     },
     "tools": {
       "title": "Araçlar ve Özellikler",
@@ -211,6 +216,10 @@
       "vaultIcons": {
         "label": "Kasada site simgelerini göster",
         "helpText": "Varsayılan olarak kapalı. Simge indirmek, hangi sitelerde hesabınız olduğunu üçüncü taraf bir hizmete bildirir."
+      },
+      "telemetry": {
+        "label": "Anonim kullanım verilerini paylaş",
+        "helpText": "Varsayılan olarak kapalı. Hangi araçları açtığınızı, uygulama sürümünü ve dilinizi gönderir. Hesap yok, cihaz kimliği yok ve bir araca yazdığınız hiçbir şey gönderilmez."
       }
     },
     "language": {
@@ -247,49 +256,6 @@
         "sv": "Svenska",
         "tr": "Türkçe",
         "uk": "Українська"
-      }
-    },
-    "passkeys": {
-      "title": "Passkeys",
-      "description": "Sign in faster and more securely with Face ID, Touch ID, Windows Hello, or a hardware key.",
-      "addButton": "Add passkey",
-      "loading": "Loading…",
-      "none": "No passkeys yet.",
-      "count": "{count, plural, one {# passkey registered.} other {# passkeys registered.}}",
-      "addedOn": "Added {date}",
-      "lastUsedOn": "Last used {date}",
-      "synced": "Synced",
-      "rename": "Rename",
-      "renamePrompt": "Rename passkey",
-      "addedToast": "Passkey added.",
-      "renamedToast": "Passkey renamed.",
-      "removedToast": "Passkey removed.",
-      "loadError": "Could not load passkeys.",
-      "addError": "Could not add passkey.",
-      "renameError": "Could not rename passkey.",
-      "deleteError": "Could not delete passkey.",
-      "dialog": {
-        "title": "Add a passkey",
-        "description": "Your device will prompt you for a biometric or PIN. Give the passkey a name you'll recognize later.",
-        "nameLabel": "Device name (optional)",
-        "namePlaceholder": "e.g. MacBook Touch ID",
-        "cancel": "Cancel",
-        "continue": "Continue",
-        "waiting": "Waiting for device…"
-      },
-      "delete": {
-        "title": "Remove passkey?",
-        "description": "You won't be able to sign in with this passkey anymore. You can always add a new one later.",
-        "cancel": "Cancel",
-        "confirm": "Remove"
-      },
-      "prompt": {
-        "title": "Sign in faster next time",
-        "description": "Set up a passkey on this device. Use Face ID, Touch ID, Windows Hello, or a hardware key to sign in — no password or OAuth round-trip needed.",
-        "skip": "Maybe later",
-        "setup": "Set up passkey",
-        "successToast": "Passkey added — try signing out and back in to test it.",
-        "errorToast": "Could not add passkey. You can try again from Settings."
       }
     }
   },
@@ -628,10 +594,9 @@
     },
     "analytics": {
       "title": "Verilerinize genel bakış",
-      "subtitle": "Sunucudaki hesabınızla senkronize sayılar.",
+      "subtitle": "Counts recorded on this device.",
       "loadError": "Analitik yüklenemedi.",
       "retry": "Yeniden dene",
-      "loginHint": "Kullanım analitiği ve arayüz tercihleri için giriş yapın.",
       "passwordEntries": "Parola kayıtları",
       "bookmarks": "Yer imleri",
       "bookmarkFolders": "Yer imi klasörleri",
@@ -664,9 +629,8 @@
     },
     "ui": {
       "title": "Arayüz tercihleri",
-      "subtitle": "Tema, dil ve kenar çubuğundaki araçlar — hesap ayarlarınızdan.",
+      "subtitle": "Theme, language, and which tools appear in the sidebar.",
       "loadError": "Tercihler yüklenemedi.",
-      "loginHint": "Kayıtlı arayüz tercihlerinizi görmek için giriş yapın.",
       "theme": "Tema",
       "accent": "Vurgu rengi",
       "locale": "Dil",
@@ -674,13 +638,9 @@
       "favoriteTools": "Favori araçlar",
       "toolsWithUsage": "Kullanımı izlenen araçlar"
     },
-    "signIn": "Giriş yap",
     "noResults": "Aramanızla eşleşen araç bulunamadı",
     "noResultsHint": "Farklı bir anahtar kelime deneyin veya filtreyi temizleyin.",
     "filterAll": "Tümü",
-    "loginCta": {
-      "description": "Son kullandığınız araçları takip etmek için giriş yapın."
-    },
     "popularTools": "Popular tools",
     "pinnedEmpty": "Pin your most-used tools — hover a card and click the pin icon.",
     "viewActivity": "Recent activity",
@@ -957,9 +917,8 @@
       "export": "Dışa aktar"
     },
     "context": {
-      "authRequiredError": "Kullanıcı kimliği doğrulanmadı",
       "defaultTitle": "Başlıksız",
-      "cloudSyncImageError": "Not görsellerini depolamak için Bulut Eşitlemeyi açın. Metin notları yerel kalır."
+      "imageTooLargeError": "That image is too large to embed. Images are stored inside the note and are capped at 2 MB."
     }
   },
   "PasswordManager": {
@@ -1210,7 +1169,7 @@
       "cancel": "İptal",
       "confirmDelete": "Sil",
       "deleteDialogTitle": "Ortam kümesi silinsin mi?",
-      "deleteDialogDescription": "Şifreli veri hesabınızdan kaldırılır. Geri alınamaz.",
+      "deleteDialogDescription": "This removes the encrypted blob from this device. You cannot undo this.",
       "view": "View",
       "viewDialogSubtitle": "Decrypted variables in .env format. Do not share your screen in untrusted environments.",
       "viewNoVariables": "No variables in this set.",
@@ -2656,7 +2615,6 @@
     "toastCopiedText": "Metin paneli kopyalandı",
     "toastCopiedTree": "Ağaç paneli kopyalandı",
     "toastCopyFailed": "JSON kopyalanamadı",
-    "toastLoginRequired": "Belgeleri kaydetmek için giriş yapın",
     "toastSaved": "Belge kaydedildi",
     "toastSaveFailed": "Belge kaydedilemedi",
     "format": "Biçimlendir",
@@ -5160,5 +5118,13 @@
     "close": "Kapat",
     "pill": "Güncelleniyor…",
     "pillPct": "Güncelleniyor… %{pct}"
+  },
+  "Telemetry": {
+    "consent": {
+      "title": "Sırada ne yapılacağına karar vermeye yardım eder misiniz?",
+      "body": "Kullanımı anonim olarak paylaşın: hangi araçları açtığınız, uygulama sürümü ve diliniz. Hesap yok, cihaz kimliği yok ve bir araca yazdığınız hiçbir şey gönderilmez. Bunu istediğiniz zaman Ayarlar'dan değiştirebilirsiniz.",
+      "accept": "Anonim olarak paylaş",
+      "decline": "Hayır, teşekkürler"
+    }
   }
 }
