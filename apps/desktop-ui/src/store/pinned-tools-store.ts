@@ -72,13 +72,16 @@ export const usePinnedToolsStore = create<PinnedToolsStore>()(
 
 /** Returns true once the persisted state has finished rehydrating from storage. */
 export function usePinnedToolsHydrated(): boolean {
-  const [hydrated, setHydrated] = useState(() => usePinnedToolsStore.persist.hasHydrated())
+  // `.persist` is absent during the static-export prerender (no storage on the
+  // server), so guard every access — "hydrated" is simply false there, and the
+  // real value resolves on the client where the persist API exists.
+  const [hydrated, setHydrated] = useState(() => usePinnedToolsStore.persist?.hasHydrated?.() ?? false)
   useEffect(() => {
-    if (usePinnedToolsStore.persist.hasHydrated()) {
+    if (usePinnedToolsStore.persist?.hasHydrated?.()) {
       setHydrated(true)
       return
     }
-    const unsub = usePinnedToolsStore.persist.onFinishHydration(() => setHydrated(true))
+    const unsub = usePinnedToolsStore.persist?.onFinishHydration?.(() => setHydrated(true))
     return unsub
   }, [])
   return hydrated
