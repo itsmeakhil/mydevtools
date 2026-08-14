@@ -27,7 +27,7 @@ set -euo pipefail
 
 # ── config ───────────────────────────────────────────────────────────────────
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-: "${PUBLIC_REPO:=mydevtools-tech/mydevtools-releases}"
+: "${PUBLIC_REPO:=mydevtools-tech/mydevtools}"
 : "${APPLE_SIGNING_IDENTITY:=Developer ID Application: Nishanth P V (STTF2NVQK8)}"
 : "${NOTARY_PROFILE:=mydevtools-notary}"
 KEYFILE="$HOME/.tauri/mydevtools-updater.key"

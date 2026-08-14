@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
  * release-local.sh uploads a version-less MyDevTools.dmg to every release.
  */
 export const DMG_URL =
-  "https://github.com/mydevtools-tech/mydevtools-releases/releases/latest/download/MyDevTools.dmg";
+  "https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools.dmg";
 
 /** Minimal Apple logo (lucide has no Apple icon in this version). */
 export function AppleGlyph({ className }: { className?: string }) {
