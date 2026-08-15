@@ -148,7 +148,7 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header showThemeToggle={false} />
+      <Header />
 
       <main className="flex-1">
         <article>

@@ -211,21 +211,6 @@ export function Header() {
                       </Link>
                     </motion.div>
                   ))}
-
-                  {showThemeToggle ? (
-                    <motion.div
-                      custom={mobileNavLinks.length}
-                      variants={menuItemVariants}
-                      initial="closed"
-                      animate="open"
-                      className="pt-2 border-t border-border/40 mt-2"
-                    >
-                      <div className="flex items-center justify-between px-4 py-3">
-                        <span className="text-sm font-medium text-muted-foreground">Theme</span>
-                        <ModeToggle />
-                      </div>
-                    </motion.div>
-                  ) : null}
                 </div>
               </nav>
             </motion.div>
