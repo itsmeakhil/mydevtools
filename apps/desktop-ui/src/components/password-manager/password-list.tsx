@@ -380,7 +380,7 @@ export function PasswordList() {
             }
         >
         <div className={cn(
-            isMobile ? "flex flex-col h-full" : "flex-1 flex flex-col min-h-0 px-4"
+            isMobile ? "flex flex-col h-full" : "flex-1 flex flex-col min-h-0 px-4 py-4"
         )}>
             {/* Mobile Header */}
             {isMobile && (

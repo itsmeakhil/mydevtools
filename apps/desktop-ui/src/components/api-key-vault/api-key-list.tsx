@@ -207,7 +207,7 @@ export function ApiKeyList() {
                 />
             }
         >
-        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pb-8">
+        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pt-4 pb-8">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sticky top-0 z-10 bg-background/95 backdrop-blur py-2">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 min-w-0">
                 <div className="relative flex-1 max-w-md">
