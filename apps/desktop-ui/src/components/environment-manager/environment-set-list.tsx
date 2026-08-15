@@ -400,6 +400,8 @@ export function EnvironmentSetList() {
                                             <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
                                                 <code
                                                     className="hljs language-properties !bg-transparent"
+                                                    // highlight.js escapes the .env text it is handed.
+                                                    // threatcrush-disable-next-line js-unescaped-html-sink
                                                     dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
                                                 />
                                             </pre>
@@ -466,6 +468,8 @@ export function EnvironmentSetList() {
                                             <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
                                                 <code
                                                     className="hljs language-properties !bg-transparent"
+                                                    // highlight.js escapes the .env text it is handed.
+                                                    // threatcrush-disable-next-line js-unescaped-html-sink
                                                     dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
                                                 />
                                             </pre>

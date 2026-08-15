@@ -20,4 +20,8 @@ scripts/audit
 # Generated / local-only trees. Not in a CI checkout, noisy in a local run.
 .claude/worktrees
 .open-next
+
+# Test suites: fixture credentials ("hunter2000", a PEM header over the string
+# "abc") that exist to exercise parsers and redaction. Keep real secrets out of
+# fixtures — nothing scans them any more.
 **/__tests__

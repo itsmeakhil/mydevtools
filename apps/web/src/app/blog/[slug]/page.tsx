@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, ArrowLeft, Clock, CheckCircle2 } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { JsonLd } from '@/components/seo/json-ld'
 import { blogPosts, getBlogPost } from '@/lib/blog/posts'
 import { toolsMetadata } from '@/lib/metadata'
 
@@ -144,10 +145,7 @@ export default async function BlogPostPage({
 
   return (
     <div className="dark flex min-h-screen flex-col bg-background text-foreground font-sans">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <Header />
 
       <main className="flex-1">
@@ -243,6 +241,8 @@ export default async function BlogPostPage({
                                 {lines.map((line, k) => (
                                   <li key={k} className="flex gap-2.5">
                                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sky-400" />
+                                    {/* Bold/code spans of our own build-time posts.ts prose — no external input reaches here. */}
+                                    {/* threatcrush-disable-next-line js-unescaped-html-sink */}
                                     <span dangerouslySetInnerHTML={{ __html: line.slice(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/`(.*?)`/g, '<code class="font-mono text-sm bg-muted rounded px-1 py-0.5">$1</code>') }} />
                                   </li>
                                 ))}
@@ -253,6 +253,7 @@ export default async function BlogPostPage({
                         return (
                           <p
                             key={j}
+                            // threatcrush-disable-next-line js-unescaped-html-sink
                             dangerouslySetInnerHTML={{
                               __html: para
                                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')

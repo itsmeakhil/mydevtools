@@ -438,6 +438,6 @@ mod tests {
         // They would resolve against a working directory the user cannot see.
         assert!(config_from(&json!({ "path": "app.db" })).is_err());
         assert!(config_from(&json!({ "path": "" })).is_err());
-        assert!(config_from(&json!({ "path": "/tmp/app.db" })).is_ok());
+        assert!(config_from(&json!({ "path": "/tmp/app.db" })).is_ok()); // threatcrush-disable-line insecure-temp-file
     }
 }

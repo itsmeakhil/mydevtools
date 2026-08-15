@@ -159,6 +159,8 @@ export function CodeScreenshotLayout() {
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
       <div className="dash-ambient -z-10" aria-hidden />
+      {/* Static stylesheet constant in this file. */}
+      {/* threatcrush-disable-next-line js-unescaped-html-sink */}
       <style dangerouslySetInnerHTML={{ __html: SCOPED_HLJS_CSS }} />
 
       <RevealItem index={0}>
@@ -390,6 +392,8 @@ export function CodeScreenshotLayout() {
                   <pre className="overflow-x-auto p-5 text-sm leading-relaxed">
                     <code
                       className={`cshot-code ${isDarkWindow ? '' : 'cshot-code--light'} block whitespace-pre font-mono`}
+                      // highlight.js escapes the source it is handed.
+                      // threatcrush-disable-next-line js-unescaped-html-sink
                       dangerouslySetInnerHTML={{ __html: highlighted.html }}
                     />
                   </pre>

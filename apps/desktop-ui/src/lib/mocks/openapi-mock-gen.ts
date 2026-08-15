@@ -49,6 +49,8 @@ function parseSpec(raw: string | object): Spec {
     if (typeof raw === "object" && raw !== null) return raw as Spec
     const text = String(raw).trim()
     if (text.startsWith("{")) return JSON.parse(text) as Spec
+    // js-yaml v4: load() is the safe schema, !!js/function was removed.
+    // threatcrush-disable-next-line js-unsafe-yaml-load
     const parsed = yaml.load(text)
     return (parsed && typeof parsed === "object") ? (parsed as Spec) : {}
 }
