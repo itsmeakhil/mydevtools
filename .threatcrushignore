@@ -25,3 +25,13 @@ scripts/audit
 # "abc") that exist to exercise parsers and redaction. Keep real secrets out of
 # fixtures — nothing scans them any more.
 **/__tests__
+
+# Upstream false positive: `manifest-typosquat` reads the `color` dependency
+# (30M downloads/week, imported in 6 files here) as a one-edit lookalike of
+# `colors`, because ThreatCrush's POPULAR_NPM list has `colors` but not
+# `color`. The rule has no per-rule suppression and JSON takes no comments, so
+# the whole manifest goes. Cost: this file loses the install/postinstall
+# lifecycle-script check too — it has no such scripts today, and every other
+# package.json in the repo is still scanned. Drop this line once `color` is
+# allowlisted upstream.
+apps/desktop-ui/package.json
