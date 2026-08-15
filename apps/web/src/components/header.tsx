@@ -3,7 +3,6 @@ import { useState, useEffect, type ElementType } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "./modeToggle";
 import { Logo } from "./logo";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -41,12 +40,7 @@ const menuItemVariants = {
   }),
 };
 
-type HeaderProps = {
-  /** When false, theme toggle is hidden (e.g. marketing page fixed to dark). */
-  showThemeToggle?: boolean;
-};
-
-export function Header({ showThemeToggle = true }: HeaderProps) {
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -164,11 +158,6 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                 )}
               </AnimatePresence>
             </Button>
-
-            {/* Desktop Actions */}
-            <div className="hidden md:flex items-center gap-3">
-              {showThemeToggle ? <ModeToggle /> : null}
-            </div>
           </div>
         </div>
       </div>
