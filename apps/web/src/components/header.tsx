@@ -49,8 +49,6 @@ type HeaderProps = {
 export function Header({ showThemeToggle = true }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  // No accounts — the only action is getting the app.
-  const cta = { href: "/download", label: "Download" };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -170,12 +168,6 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3">
               {showThemeToggle ? <ModeToggle /> : null}
-              <Link
-                href={cta.href}
-                className="mdt-btn-grad inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-medium"
-              >
-                {cta.label}
-              </Link>
             </div>
           </div>
         </div>
@@ -231,25 +223,9 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                     </motion.div>
                   ))}
 
-                  <motion.div
-                    custom={mobileNavLinks.length}
-                    variants={menuItemVariants}
-                    initial="closed"
-                    animate="open"
-                    className="pt-2 border-t border-border/40 mt-2 space-y-2"
-                  >
-                    <Link
-                      href={cta.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="mdt-btn-grad flex h-12 items-center justify-center rounded-xl px-4 text-base font-medium"
-                    >
-                      {cta.label}
-                    </Link>
-                  </motion.div>
-
                   {showThemeToggle ? (
                     <motion.div
-                      custom={mobileNavLinks.length + 1}
+                      custom={mobileNavLinks.length}
                       variants={menuItemVariants}
                       initial="closed"
                       animate="open"
