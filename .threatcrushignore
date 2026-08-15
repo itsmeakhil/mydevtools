@@ -20,3 +20,4 @@ scripts/audit
 # Generated / local-only trees. Not in a CI checkout, noisy in a local run.
 .claude/worktrees
 .open-next
+**/__tests__
