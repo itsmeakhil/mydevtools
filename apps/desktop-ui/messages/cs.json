@@ -709,6 +709,7 @@
       "all": "Vše",
       "total": "Celkem",
       "allProjects": "Všechny projekty",
+      "projectsHeading": "Projekty",
       "export": "Export",
       "kanban": "Kanban",
       "list": "Seznam",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Klepněte na + a přidejte první heslo",
       "emptyHintDesktop": "Zatím nemáte uložená žádná hesla. Začněte tlačítkem „Přidat heslo“ výše.",
       "addPassword": "Přidat heslo",
+      "title": "Hesla",
+      "filters": {
+        "heading": "Stav trezoru",
+        "all": "Všechna hesla",
+        "weak": "Slabá",
+        "reused": "Opakovaná",
+        "noUrl": "Bez URL",
+        "tagsHeading": "Štítky",
+        "allTags": "Všechny štítky"
+      },
       "searchPlaceholderMobile": "Hledat v trezoru...",
       "searchPlaceholderDesktop": "Hledat v trezoru...",
       "importExport": "Import / export",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Vytvořte sadu pro každý projekt a prostředí (např. produkční API klíče). Vše se před nahráním šifruje v prohlížeči.",
       "searchPlaceholder": "Hledat projekt, prostředí, značky, poznámky…",
       "tagFilterPlaceholder": "Filtrovat podle značky",
+      "allProjects": "Všechny projekty",
+      "projectsHeading": "Projekty",
       "variableCount": "{count, plural, one {# proměnná} few {# proměnné} other {# proměnných}}",
       "updatedAgo": "Aktualizováno {time}",
       "copyDotEnv": "Kopírovat .env",
@@ -5094,6 +5107,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Zobrazit postranní panel",
+    "hide": "Skrýt postranní panel"
   },
   "DesktopUpdate": {
     "title": "Aktualizace MyDevTools",

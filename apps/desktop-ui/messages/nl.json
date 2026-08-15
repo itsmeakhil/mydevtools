@@ -709,6 +709,7 @@
       "all": "Alles",
       "total": "Totaal",
       "allProjects": "Alle projecten",
+      "projectsHeading": "Projecten",
       "export": "Exporteren",
       "kanban": "Kanban",
       "list": "Lijst",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Tik op de + knop om je eerste wachtwoord toe te voegen",
       "emptyHintDesktop": "Je hebt nog geen wachtwoorden opgeslagen. Klik op de knop \"Wachtwoord toevoegen\" hierboven om te beginnen.",
       "addPassword": "Wachtwoord toevoegen",
+      "title": "Wachtwoorden",
+      "filters": {
+        "heading": "Kluisstatus",
+        "all": "Alle wachtwoorden",
+        "weak": "Zwak",
+        "reused": "Hergebruikt",
+        "noUrl": "Geen URL",
+        "tagsHeading": "Tags",
+        "allTags": "Alle tags"
+      },
       "searchPlaceholderMobile": "Doorzoek je kluis...",
       "searchPlaceholderDesktop": "Kluis doorzoeken...",
       "importExport": "Importeren / exporteren",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Maak een set per project en omgeving (bijv. productie-API-sleutels). Alles wordt in uw browser versleuteld vóór upload.",
       "searchPlaceholder": "Zoek project, omgeving, tags, notities…",
       "tagFilterPlaceholder": "Filter op tag",
+      "allProjects": "Alle projecten",
+      "projectsHeading": "Projecten",
       "variableCount": "{count, plural, one {# variabele} other {# variabelen}}",
       "updatedAgo": "Bijgewerkt {time}",
       "copyDotEnv": ".env kopiëren",
@@ -5094,6 +5107,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Zijbalk tonen",
+    "hide": "Zijbalk verbergen"
   },
   "DesktopUpdate": {
     "title": "MyDevTools wordt bijgewerkt",

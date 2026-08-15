@@ -29,7 +29,6 @@ import {
     ArrowUpDown,
     NotebookPen,
     FileText,
-    PanelLeftClose,
     ArrowUp,
     ArrowDown,
 } from "lucide-react";
@@ -56,6 +55,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Note } from "@/app/app/notes/types/Note";
+import { ToolSidebarActions, useToolSidebarPanel } from "@/components/tools/tool-sidebar";
 import { useTranslations } from "next-intl";
 import { extractSnippet } from "@/app/app/notes/utils/noteContentUtils";
 import { type ChildrenMap, type SortDir, type SortKey, buildChildrenMap, getCachedPlainText } from "./notes-helpers";
@@ -83,6 +83,7 @@ const NoteItem = React.memo(({
     const t = useTranslations("Notes.sidebar");
     const { activeNoteId, setActiveNoteId } = useNotesUI();
     const { createNote, pinNote, duplicateNote, updateNote } = useNotesActions();
+    const panel = useToolSidebarPanel();
     const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
     const children = childrenMap.get(note.id) ?? [];
@@ -98,6 +99,9 @@ const NoteItem = React.memo(({
     const handleSelect = () => {
         setActiveNoteId(note.id);
         onExpandPath(note.id);
+        // On mobile the panel is a sheet over the editor — close it so the
+        // opened note is actually visible.
+        if (panel?.isMobile) panel.close();
     };
 
     const handleCreateChild = async (e: React.MouseEvent) => {
@@ -269,7 +273,7 @@ NoteItem.displayName = "NoteItem";
 export default function NotesSidebar() {
     const t = useTranslations("Notes.sidebar");
     const { notes, noteById, isLoading, searchIndexReady } = useNotesData();
-    const { activeNoteId, setSidebarOpen } = useNotesUI();
+    const { activeNoteId } = useNotesUI();
     const { createNote, deleteNote, moveNote, warmSearchIndex } = useNotesActions();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [noteToMove, setNoteToMove] = useState<Note | null>(null);
@@ -404,17 +408,11 @@ export default function NotesSidebar() {
 
     return (
         <>
-            <div className="flex flex-col h-full border-r bg-muted/10 w-64 flex-shrink-0">
-                <div className="p-4 border-b flex flex-col gap-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 font-semibold text-sm">
-                            <span className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                                <NotebookPen className="h-3.5 w-3.5" />
-                            </span>
-                            {t("title")}
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <DropdownMenu>
+            {/* Header (icon, title, collapse) is owned by ToolSidebarLayout in
+                app/app/notes/notes-client-layout.tsx. Sort and create ride the
+                actions portal because their state is local to this component. */}
+            <ToolSidebarActions>
+                <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer" title="Sort notes">
                                         <ArrowUpDown className="h-3.5 w-3.5" />
@@ -438,29 +436,19 @@ export default function NotesSidebar() {
                                             : <><ArrowDown className="h-3.5 w-3.5 mr-2" />Descending</>}
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
-                            </DropdownMenu>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => createNote(null).catch(toastActionError)}
-                                className="h-8 w-8 cursor-pointer"
-                                aria-label={t("createNoteAria")}
-                            >
-                                <Plus className="h-4 w-4" />
-                            </Button>
-                            {/* Collapse — desktop only; on mobile the sidebar lives in a Sheet */}
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => setSidebarOpen(false)}
-                                className="h-8 w-8 cursor-pointer hidden md:inline-flex"
-                                aria-label={t("hideSidebarAria")}
-                                title={t("hideSidebarAria")}
-                            >
-                                <PanelLeftClose className="h-4 w-4" />
-                            </Button>
-                        </div>
-                    </div>
+                </DropdownMenu>
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => createNote(null).catch(toastActionError)}
+                    className="h-8 w-8 cursor-pointer"
+                    aria-label={t("createNoteAria")}
+                >
+                    <Plus className="h-4 w-4" />
+                </Button>
+            </ToolSidebarActions>
+
+            <div className="shrink-0 border-b p-4">
                     <div className="relative">
                         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
@@ -489,7 +477,7 @@ export default function NotesSidebar() {
                     </div>
                 </div>
 
-                <div ref={notesScrollRef} className="flex-1 overflow-y-auto">
+                <div ref={notesScrollRef} className="min-h-0 flex-1 overflow-y-auto">
                     <div className="p-2">
                         {isLoading ? (
                             <div className="p-4 text-xs text-muted-foreground text-center">{t("loading")}</div>
@@ -585,7 +573,6 @@ export default function NotesSidebar() {
                         )}
                     </div>
                 </div>
-            </div>
 
             <AlertDialog open={!!noteToDelete} onOpenChange={(open) => !open && setNoteToDelete(null)}>
                 <AlertDialogContent>

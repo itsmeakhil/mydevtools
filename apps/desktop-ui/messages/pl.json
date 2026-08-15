@@ -709,6 +709,7 @@
       "all": "All",
       "total": "Total",
       "allProjects": "All Projects",
+      "projectsHeading": "Projekty",
       "export": "Export",
       "kanban": "Kanban",
       "list": "List",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Tap the + button to add your first password",
       "emptyHintDesktop": "You have not stored any passwords yet. Click the \"Add password\" button above to get started.",
       "addPassword": "Add password",
+      "title": "Hasła",
+      "filters": {
+        "heading": "Stan sejfu",
+        "all": "Wszystkie hasła",
+        "weak": "Słabe",
+        "reused": "Powtórzone",
+        "noUrl": "Bez adresu URL",
+        "tagsHeading": "Tagi",
+        "allTags": "Wszystkie tagi"
+      },
       "searchPlaceholderMobile": "Search your vault...",
       "searchPlaceholderDesktop": "Search vault...",
       "importExport": "Import / export",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Utwórz zestaw dla każdego projektu i środowiska (np. klucze API produkcji). Wszystko jest szyfrowane w przeglądarce przed wysłaniem.",
       "searchPlaceholder": "Szukaj projektu, środowiska, tagów, notatek…",
       "tagFilterPlaceholder": "Filtruj według tagu",
+      "allProjects": "Wszystkie projekty",
+      "projectsHeading": "Projekty",
       "variableCount": "{count, plural, one {# zmienna} few {# zmienne} other {# zmiennych}}",
       "updatedAgo": "Zaktualizowano {time}",
       "copyDotEnv": "Kopiuj .env",
@@ -5094,6 +5107,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Pokaż pasek boczny",
+    "hide": "Ukryj pasek boczny"
   },
   "DesktopUpdate": {
     "title": "Aktualizowanie MyDevTools",

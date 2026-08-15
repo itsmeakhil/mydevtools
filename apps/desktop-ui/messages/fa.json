@@ -709,6 +709,7 @@
       "all": "همه",
       "total": "مجموع",
       "allProjects": "همه پروژه ها",
+      "projectsHeading": "پروژه‌ها",
       "export": "صادرات",
       "kanban": "کانبان",
       "list": "فهرست کنید",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "روی دکمه + ضربه بزنید تا اولین رمز عبور خود را اضافه کنید",
       "emptyHintDesktop": "شما هنوز هیچ رمز عبوری را ذخیره نکرده اید. برای شروع روی دکمه «افزودن رمز عبور» در بالا کلیک کنید.",
       "addPassword": "اضافه کردن رمز عبور",
+      "title": "گذرواژه‌ها",
+      "filters": {
+        "heading": "سلامت گاوصندوق",
+        "all": "همه گذرواژه‌ها",
+        "weak": "ضعیف",
+        "reused": "تکراری",
+        "noUrl": "بدون نشانی",
+        "tagsHeading": "برچسب‌ها",
+        "allTags": "همه برچسب‌ها"
+      },
       "searchPlaceholderMobile": "خزانه خود را جستجو کنید ...",
       "searchPlaceholderDesktop": "صندوق جستجو...",
       "importExport": "واردات / صادرات",
@@ -1161,6 +1172,8 @@
       "emptyHint": "برای هر پروژه و محیط یک مجموعه بسازید (مثلاً کلیدهای API تولید). همه قبل از آپلود در مرورگر شما رمزگذاری می‌شوند.",
       "searchPlaceholder": "جستجوی پروژه، محیط، برچسب، یادداشت…",
       "tagFilterPlaceholder": "فیلتر با برچسب",
+      "allProjects": "همه پروژه‌ها",
+      "projectsHeading": "پروژه‌ها",
       "variableCount": "{count, plural, one {# متغیر} other {# متغیر}}",
       "updatedAgo": "به‌روزرسانی {time}",
       "copyDotEnv": "کپی .env",
@@ -5105,6 +5118,10 @@
   },
   "ToolPageHeader": {
     "offline": "۱۰۰٪ آفلاین"
+  },
+  "ToolSidebar": {
+    "show": "نمایش نوار کناری",
+    "hide": "پنهان کردن نوار کناری"
   },
   "DesktopUpdate": {
     "title": "در حال به‌روزرسانی MyDevTools",

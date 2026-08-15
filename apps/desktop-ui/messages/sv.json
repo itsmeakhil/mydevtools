@@ -709,6 +709,7 @@
       "all": "Alla",
       "total": "Totalt",
       "allProjects": "Alla projekt",
+      "projectsHeading": "Projekt",
       "export": "Exportera",
       "kanban": "Kanban",
       "list": "Lista",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Tryck på +-knappen för att lägga till ditt första lösenord",
       "emptyHintDesktop": "Du har inte lagrat några lösenord ännu. Klicka på knappen \"Lägg till lösenord\" ovan för att komma igång.",
       "addPassword": "Lägg till lösenord",
+      "title": "Lösenord",
+      "filters": {
+        "heading": "Valvets status",
+        "all": "Alla lösenord",
+        "weak": "Svaga",
+        "reused": "Återanvända",
+        "noUrl": "Ingen URL",
+        "tagsHeading": "Taggar",
+        "allTags": "Alla taggar"
+      },
       "searchPlaceholderMobile": "Sök i ditt valv...",
       "searchPlaceholderDesktop": "Sök i valvet...",
       "importExport": "Importera / exportera",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Skapa en uppsättning för varje projekt och miljö (t.ex. produktions-API-nycklar). Allt krypteras i webbläsaren före uppladdning.",
       "searchPlaceholder": "Sök projekt, miljö, taggar, anteckningar…",
       "tagFilterPlaceholder": "Filtrera på tagg",
+      "allProjects": "Alla projekt",
+      "projectsHeading": "Projekt",
       "variableCount": "{count, plural, one {# variabel} other {# variabler}}",
       "updatedAgo": "Uppdaterad {time}",
       "copyDotEnv": "Kopiera .env",
@@ -5105,6 +5118,10 @@
   },
   "ToolPageHeader": {
     "offline": "100 % offline"
+  },
+  "ToolSidebar": {
+    "show": "Visa sidopanel",
+    "hide": "Dölj sidopanel"
   },
   "DesktopUpdate": {
     "title": "Uppdaterar MyDevTools",

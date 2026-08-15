@@ -709,6 +709,7 @@
       "all": "Все",
       "total": "Итого",
       "allProjects": "Все проекты",
+      "projectsHeading": "Проекты",
       "export": "Экспорт",
       "kanban": "Канбан",
       "list": "Список",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Нажмите кнопку +, чтобы добавить первый пароль",
       "emptyHintDesktop": "У вас пока нет сохранённых паролей. Нажмите «Добавить пароль», чтобы начать.",
       "addPassword": "Добавить пароль",
+      "title": "Пароли",
+      "filters": {
+        "heading": "Состояние хранилища",
+        "all": "Все пароли",
+        "weak": "Слабые",
+        "reused": "Повторяющиеся",
+        "noUrl": "Без URL",
+        "tagsHeading": "Теги",
+        "allTags": "Все теги"
+      },
       "searchPlaceholderMobile": "Поиск по хранилищу...",
       "searchPlaceholderDesktop": "Поиск по хранилищу...",
       "importExport": "Импорт / экспорт",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Создайте набор для каждого проекта и среды (например, ключи API продакшена). Всё шифруется в браузере перед загрузкой.",
       "searchPlaceholder": "Поиск по проекту, среде, тегам, заметкам…",
       "tagFilterPlaceholder": "Фильтр по тегу",
+      "allProjects": "Все проекты",
+      "projectsHeading": "Проекты",
       "variableCount": "{count, plural, one {# переменная} few {# переменные} other {# переменных}}",
       "updatedAgo": "Обновлено {time}",
       "copyDotEnv": "Копировать .env",
@@ -5094,6 +5107,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% офлайн"
+  },
+  "ToolSidebar": {
+    "show": "Показать боковую панель",
+    "hide": "Скрыть боковую панель"
   },
   "DesktopUpdate": {
     "title": "Обновление MyDevTools",

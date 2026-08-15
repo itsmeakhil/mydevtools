@@ -3,14 +3,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { IconAlertTriangle, IconMenu2 } from "@tabler/icons-react";
+import { IconAlertTriangle, IconDatabase, IconPlus } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import useAuth from "@/utils/useAuth";
 import { useMasterKeyStore } from "@/store/master-key-store";
 import { useVaultGuard } from "@/hooks/use-vault-guard";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { ToolSidebarLayout } from "@/components/tools/tool-sidebar";
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder";
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton";
 import { UnifiedTabBar } from "@/components/data-explorer/unified-tab-bar";
@@ -31,12 +29,10 @@ export default function DataExplorerPage() {
     const { user } = useAuth();
     const { encryptionKey } = useMasterKeyStore();
     const { isUnlocked, isRestoring } = useVaultGuard();
-    const isWide = useMediaQuery("(min-width: 768px)");
 
     const [connections, setConnections] = useState<UnifiedConnection[]>([]);
     const [tabs, setTabs] = useState<UnifiedTab[]>([]);
     const [activeTabId, setActiveTabId] = useState<string | null>(null);
-    const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
     const [isInitialized, setIsInitialized] = useState(false);
     const [connectionDialogOpen, setConnectionDialogOpen] = useState(false);
     const [editingConnection, setEditingConnection] = useState<UnifiedConnection | null>(null);
@@ -108,7 +104,6 @@ export default function DataExplorerPage() {
     const openTab = useCallback(
         (connection: UnifiedConnection, req: OpenTabRequest) => {
             const id = `${connection.id}:${req.key}`;
-            setMobileSidebarOpen(false);
             setTabs((prev) => {
                 if (prev.some((tab) => tab.id === id)) return prev;
                 return [
@@ -253,35 +248,24 @@ export default function DataExplorerPage() {
     })();
 
     return (
-        <div className="flex h-full min-h-0">
-            {isWide ? (
-                <div className="w-64 shrink-0">{sidebar}</div>
-            ) : (
-                <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
-                    <SheetContent side="left" className="w-72 p-0">
-                        <VisuallyHidden>
-                            <SheetTitle>{t("title")}</SheetTitle>
-                        </VisuallyHidden>
-                        {sidebar}
-                    </SheetContent>
-                </Sheet>
-            )}
+        <ToolSidebarLayout
+            toolId="data-explorer"
+            icon={IconDatabase}
+            title={t("title")}
+            actions={
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8"
+                    aria-label={t("addConnection")}
+                    onClick={handleAddConnection}
+                >
+                    <IconPlus className="size-4" />
+                </Button>
+            }
+            sidebar={sidebar}
+        >
             <div className="flex min-w-0 flex-1 flex-col">
-                {/* Narrow viewports keep the sidebar in the Sheet; without this
-                    trigger there is no way to add a connection or open a tab. */}
-                {!isWide && (
-                    <div className="flex shrink-0 items-center border-b px-2 py-1.5">
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="size-8"
-                            onClick={() => setMobileSidebarOpen(true)}
-                            aria-label={t("openSidebar")}
-                        >
-                            <IconMenu2 className="size-4" />
-                        </Button>
-                    </div>
-                )}
                 <UnifiedTabBar
                     tabs={tabs}
                     connections={connections}
@@ -308,6 +292,6 @@ export default function DataExplorerPage() {
                 connectionsLoaded={connectionsLoaded}
                 onImported={() => void reloadConnections()}
             />
-        </div>
+        </ToolSidebarLayout>
     );
 }

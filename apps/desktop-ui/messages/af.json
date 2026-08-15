@@ -709,6 +709,7 @@
       "all": "Alles",
       "total": "Totaal",
       "allProjects": "Alle projekte",
+      "projectsHeading": "Projekte",
       "export": "Uitvoer",
       "kanban": "Kanban",
       "list": "Lys",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Tik die +-knoppie om jou eerste wagwoord by te voeg",
       "emptyHintDesktop": "Jy het nog geen wagwoorde gestoor nie. Klik die \"Voeg wagwoord by\"-knoppie hierbo om te begin.",
       "addPassword": "Voeg wagwoord by",
+      "title": "Wagwoorde",
+      "filters": {
+        "heading": "Kluisgesondheid",
+        "all": "Alle wagwoorde",
+        "weak": "Swak",
+        "reused": "Hergebruik",
+        "noUrl": "Geen URL",
+        "tagsHeading": "Etikette",
+        "allTags": "Alle etikette"
+      },
       "searchPlaceholderMobile": "Soek in jou kluis...",
       "searchPlaceholderDesktop": "Soek kluis...",
       "importExport": "Invoer / uitvoer",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Skep 'n stel vir elke projek en omgewing (bv. produksie API-sleutels). Alles word in jou blaaier geënkripteer voor oplaai.",
       "searchPlaceholder": "Soek projek, omgewing, etikette, notas…",
       "tagFilterPlaceholder": "Filter volgens etiket",
+      "allProjects": "Alle projekte",
+      "projectsHeading": "Projekte",
       "variableCount": "{count, plural, one {# veranderlike} other {# veranderlikes}}",
       "updatedAgo": "Bygewerk {time}",
       "copyDotEnv": "Kopieer .env",
@@ -5105,6 +5118,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% aflyn"
+  },
+  "ToolSidebar": {
+    "show": "Wys sybalk",
+    "hide": "Versteek sybalk"
   },
   "DesktopUpdate": {
     "title": "MyDevTools word bygewerk",

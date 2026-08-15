@@ -709,6 +709,7 @@
       "all": "Totes",
       "total": "Total",
       "allProjects": "Tots els projectes",
+      "projectsHeading": "Projectes",
       "export": "Exporta",
       "kanban": "Kanban",
       "list": "Llista",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Toca el botó + per afegir la primera contrasenya",
       "emptyHintDesktop": "Encara no has desat cap contrasenya. Fes clic a «Afegeix contrasenya» a dalt per començar.",
       "addPassword": "Afegeix contrasenya",
+      "title": "Contrasenyes",
+      "filters": {
+        "heading": "Salut de la caixa forta",
+        "all": "Totes les contrasenyes",
+        "weak": "Febles",
+        "reused": "Reutilitzades",
+        "noUrl": "Sense URL",
+        "tagsHeading": "Etiquetes",
+        "allTags": "Totes les etiquetes"
+      },
       "searchPlaceholderMobile": "Cerca al coffre...",
       "searchPlaceholderDesktop": "Cerca al coffre...",
       "importExport": "Importa / exporta",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Crea un conjunt per a cada projecte i entorn (p. ex. claus d'API de producció). Tot es xifra al navegador abans de pujar-lo.",
       "searchPlaceholder": "Cerca projecte, entorn, etiquetes, notes…",
       "tagFilterPlaceholder": "Filtra per etiqueta",
+      "allProjects": "Tots els projectes",
+      "projectsHeading": "Projectes",
       "variableCount": "{count, plural, one {# variable} other {# variables}}",
       "updatedAgo": "Actualitzat {time}",
       "copyDotEnv": "Copia .env",
@@ -5094,6 +5107,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% fora de línia"
+  },
+  "ToolSidebar": {
+    "show": "Mostra la barra lateral",
+    "hide": "Amaga la barra lateral"
   },
   "DesktopUpdate": {
     "title": "S'està actualitzant MyDevTools",

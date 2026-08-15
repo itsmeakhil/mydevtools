@@ -709,6 +709,7 @@
       "all": "Усі",
       "total": "Всього",
       "allProjects": "Усі проєкти",
+      "projectsHeading": "Проєкти",
       "export": "Експорт",
       "kanban": "Канбан",
       "list": "Список",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Натисніть кнопку +, щоб додати перший пароль",
       "emptyHintDesktop": "Ви ще не зберегли жодного паролю. Натисніть кнопку «Додати пароль» вище, щоб почати.",
       "addPassword": "Додати пароль",
+      "title": "Паролі",
+      "filters": {
+        "heading": "Стан сховища",
+        "all": "Усі паролі",
+        "weak": "Слабкі",
+        "reused": "Повторювані",
+        "noUrl": "Без URL",
+        "tagsHeading": "Теги",
+        "allTags": "Усі теги"
+      },
       "searchPlaceholderMobile": "Пошук у сховищі...",
       "searchPlaceholderDesktop": "Пошук у сховищі...",
       "importExport": "Імпорт / експорт",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Створіть набір для кожного проєкту й середовища (наприклад, ключі API продакшену). Усе шифрується в браузері перед завантаженням.",
       "searchPlaceholder": "Пошук за проєктом, середовищем, тегами, нотатками…",
       "tagFilterPlaceholder": "Фільтр за тегом",
+      "allProjects": "Усі проєкти",
+      "projectsHeading": "Проєкти",
       "variableCount": "{count, plural, one {# змінна} few {# змінні} other {# змінних}}",
       "updatedAgo": "Оновлено {time}",
       "copyDotEnv": "Копіювати .env",
@@ -5105,6 +5118,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% офлайн"
+  },
+  "ToolSidebar": {
+    "show": "Показати бічну панель",
+    "hide": "Сховати бічну панель"
   },
   "DesktopUpdate": {
     "title": "Оновлення MyDevTools",

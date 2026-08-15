@@ -709,6 +709,7 @@
       "all": "Alle",
       "total": "Total",
       "allProjects": "Alle projekter",
+      "projectsHeading": "Projekter",
       "export": "Eksportere",
       "kanban": "Kanban",
       "list": "Liste",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Tryk på knappen + for at tilføje din første adgangskode",
       "emptyHintDesktop": "Du har ikke gemt nogen adgangskoder endnu. Klik på knappen \"Tilføj adgangskode\" ovenfor for at komme i gang.",
       "addPassword": "Tilføj adgangskode",
+      "title": "Adgangskoder",
+      "filters": {
+        "heading": "Boksens tilstand",
+        "all": "Alle adgangskoder",
+        "weak": "Svage",
+        "reused": "Genbrugte",
+        "noUrl": "Ingen URL",
+        "tagsHeading": "Tags",
+        "allTags": "Alle tags"
+      },
       "searchPlaceholderMobile": "Søg i din boks...",
       "searchPlaceholderDesktop": "Søg i boksen...",
       "importExport": "Import/eksport",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Opret et sæt for hvert projekt og miljø (f.eks. produktions-API-nøgler). Alt krypteres i din browser før upload.",
       "searchPlaceholder": "Søg projekt, miljø, tags, noter…",
       "tagFilterPlaceholder": "Filtrér efter tag",
+      "allProjects": "Alle projekter",
+      "projectsHeading": "Projekter",
       "variableCount": "{count, plural, one {# variabel} other {# variabler}}",
       "updatedAgo": "Opdateret {time}",
       "copyDotEnv": "Kopiér .env",
@@ -5094,6 +5107,10 @@
   },
   "ToolPageHeader": {
     "offline": "100 % offline"
+  },
+  "ToolSidebar": {
+    "show": "Vis sidepanel",
+    "hide": "Skjul sidepanel"
   },
   "DesktopUpdate": {
     "title": "Opdaterer MyDevTools",

@@ -709,6 +709,7 @@
       "all": "Alle",
       "total": "Gesamt",
       "allProjects": "Alle Projekte",
+      "projectsHeading": "Projekte",
       "export": "Exportieren",
       "kanban": "Kanban",
       "list": "Liste",
@@ -966,6 +967,16 @@
       "emptyHintMobile": "Tippen Sie auf +, um Ihr erstes Passwort hinzuzufügen",
       "emptyHintDesktop": "Noch keine Passwörter. Klicken Sie oben auf „Passwort hinzufügen“.",
       "addPassword": "Passwort hinzufügen",
+      "title": "Passwörter",
+      "filters": {
+        "heading": "Tresor-Status",
+        "all": "Alle Passwörter",
+        "weak": "Schwach",
+        "reused": "Mehrfach genutzt",
+        "noUrl": "Ohne URL",
+        "tagsHeading": "Tags",
+        "allTags": "Alle Tags"
+      },
       "searchPlaceholderMobile": "Tresor durchsuchen...",
       "searchPlaceholderDesktop": "Tresor durchsuchen...",
       "importExport": "Import / Export",
@@ -1161,6 +1172,8 @@
       "emptyHint": "Legen Sie ein Set pro Projekt und Umgebung an (z. B. Produktions-API-Schlüssel). Alles wird vor dem Upload im Browser verschlüsselt.",
       "searchPlaceholder": "Projekt, Umgebung, Tags, Notizen durchsuchen…",
       "tagFilterPlaceholder": "Nach Tag filtern",
+      "allProjects": "Alle Projekte",
+      "projectsHeading": "Projekte",
       "variableCount": "{count, plural, one {# Variable} other {# Variablen}}",
       "updatedAgo": "Aktualisiert {time}",
       "copyDotEnv": ".env kopieren",
@@ -5094,6 +5107,10 @@
   },
   "ToolPageHeader": {
     "offline": "100 % offline"
+  },
+  "ToolSidebar": {
+    "show": "Seitenleiste einblenden",
+    "hide": "Seitenleiste ausblenden"
   },
   "DesktopUpdate": {
     "title": "MyDevTools wird aktualisiert",

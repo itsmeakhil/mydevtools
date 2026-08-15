@@ -25,12 +25,17 @@ import { calculatePasswordStrength, getStrengthColor, getFaviconUrl, getPassword
 import { usePasswordStrengthReady } from "@/lib/use-password-strength"
 import { useVaultIconsEnabled } from "@/lib/vault-icon-pref"
 import { FaviconImg } from "@/components/favicon-img"
+import { IconShieldLock } from "@tabler/icons-react"
+import {
+    ToolSidebarFilterList,
+    ToolSidebarLayout,
+    type ToolSidebarFilterItem,
+} from "@/components/tools/tool-sidebar"
 import { Badge } from "@/components/ui/badge"
 import { formatDistanceToNow } from "date-fns"
 import { ImportExportDialog } from "./import-export-dialog"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { PasswordItemSwipeable } from "./password-item-swipeable"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import { PasswordCard } from "./password-card"
 import { SecurityDashboard } from "./security-dashboard"
 import { BreachCheckDialog } from "./breach-check-dialog"
@@ -52,6 +57,7 @@ export function PasswordList() {
     const [visiblePasswords, setVisiblePasswords] = useState<Set<string>>(new Set())
     const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
     const [quickFilter, setQuickFilter] = useState<"all" | "weak" | "reused" | "no-url">("all")
+    const [tagFilter, setTagFilter] = useState("all")
     const [sortBy, setSortBy] = useState<"name" | "date" | "strength">("name")
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
     const [passwordToDelete, setPasswordToDelete] = useState<string | null>(null)
@@ -91,13 +97,16 @@ export function PasswordList() {
         } else if (quickFilter === "no-url") {
             filtered = bySearch.filter((entry) => !entry.url?.trim())
         }
+        if (tagFilter !== "all") {
+            filtered = filtered.filter((entry) => entry.tags?.includes(tagFilter))
+        }
 
         return [...filtered].sort((a, b) => {
             if (sortBy === "date") return b.updatedAt - a.updatedAt
             if (sortBy === "strength") return calculatePasswordStrength(b.password) - calculatePasswordStrength(a.password)
             return a.service.localeCompare(b.service)
         })
-    }, [passwords, searchTerm, quickFilter, reusedPasswordIds, sortBy, strengthReady])
+    }, [passwords, searchTerm, quickFilter, tagFilter, reusedPasswordIds, sortBy, strengthReady])
 
     const weakCount = useMemo(
         () => passwords.filter((entry) => calculatePasswordStrength(entry.password) <= 2).length,
@@ -110,6 +119,21 @@ export function PasswordList() {
     )
     const reusedCount = reusedPasswordIds.size
     const hasActiveQuickFilter = quickFilter !== "all"
+
+    const securityFilters: ToolSidebarFilterItem[] = [
+        { id: "all", label: t("filters.all"), count: passwords.length },
+        { id: "weak", label: t("filters.weak"), count: weakCount, icon: AlertTriangle },
+        { id: "reused", label: t("filters.reused"), count: reusedCount, icon: Repeat },
+        { id: "no-url", label: t("filters.noUrl"), count: noUrlCount, icon: Link2Off },
+    ]
+
+    const tagFilters: ToolSidebarFilterItem[] = useMemo(() => {
+        const counts = new Map<string, number>()
+        passwords.forEach((p) => p.tags?.forEach((tag) => counts.set(tag, (counts.get(tag) ?? 0) + 1)))
+        return [...counts.entries()]
+            .sort((a, b) => a[0].localeCompare(b[0]))
+            .map(([tag, count]) => ({ id: tag, label: tag, count }))
+    }, [passwords])
 
     const runBreachCheck = async () => {
         if (breachStatus === "checking") return
@@ -236,6 +260,7 @@ export function PasswordList() {
     const clearFilters = () => {
         setSearchTerm("")
         setQuickFilter("all")
+        setTagFilter("all")
     }
 
     useEffect(() => {
@@ -324,15 +349,43 @@ export function PasswordList() {
     }
 
     return (
+        <ToolSidebarLayout
+            toolId="password-manager"
+            icon={IconShieldLock}
+            title={t("title")}
+            actions={
+                <AddPasswordDialog>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={t("addPassword")}>
+                        <Plus className="h-4 w-4" />
+                    </Button>
+                </AddPasswordDialog>
+            }
+            sidebar={
+                <div className="min-h-0 flex-1 overflow-y-auto">
+                    <ToolSidebarFilterList
+                        items={securityFilters}
+                        value={quickFilter}
+                        onChange={(id) => setQuickFilter(id as typeof quickFilter)}
+                        heading={t("filters.heading")}
+                    />
+                    {tagFilters.length > 0 && (
+                        <ToolSidebarFilterList
+                            items={[{ id: "all", label: t("filters.allTags") }, ...tagFilters]}
+                            value={tagFilter}
+                            onChange={setTagFilter}
+                            heading={t("filters.tagsHeading")}
+                        />
+                    )}
+                </div>
+            }
+        >
         <div className={cn(
-            isMobile ? "flex flex-col h-full" : "flex-1 flex flex-col min-h-0"
+            isMobile ? "flex flex-col h-full" : "flex-1 flex flex-col min-h-0 px-4"
         )}>
             {/* Mobile Header */}
             {isMobile && (
                 <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-4 pt-2 shrink-0">
                     <div className="flex items-center gap-2 px-4 py-2">
-                        <SidebarTrigger className="-ml-2 h-10 w-10 text-muted-foreground/80 hover:bg-transparent hover:text-foreground" />
-
                         <div className="relative flex-1 h-10">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
                             <Input
@@ -551,25 +604,13 @@ export function PasswordList() {
                 </div>
             )}
 
-            {!isMobile && (
+            {/* Security and tag facets moved to the ToolSidebarLayout panel; the
+                reset shortcut stays here next to the search it also clears. */}
+            {!isMobile && (hasActiveQuickFilter || tagFilter !== "all" || searchTerm) && (
                 <div className="mb-4 flex items-center gap-2 flex-wrap">
-                    <Button size="sm" variant={quickFilter === "all" ? "default" : "outline"} className="h-7 rounded-full text-xs" onClick={() => setQuickFilter("all")}>
-                        All ({passwords.length})
+                    <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={clearFilters}>
+                        <X className="h-3.5 w-3.5 mr-1" /> Reset
                     </Button>
-                    <Button size="sm" variant={quickFilter === "weak" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("weak")}>
-                        <AlertTriangle className="h-3 w-3" /> Weak ({weakCount})
-                    </Button>
-                    <Button size="sm" variant={quickFilter === "reused" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("reused")}>
-                        <Repeat className="h-3 w-3" /> Reused ({reusedCount})
-                    </Button>
-                    <Button size="sm" variant={quickFilter === "no-url" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5" onClick={() => setQuickFilter("no-url")}>
-                        <Link2Off className="h-3 w-3" /> No URL ({noUrlCount})
-                    </Button>
-                    {(hasActiveQuickFilter || searchTerm) && (
-                        <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={clearFilters}>
-                            <X className="h-3.5 w-3.5 mr-1" /> Reset
-                        </Button>
-                    )}
                     <div className="ml-auto text-[10px] text-muted-foreground border rounded px-1.5 py-0.5 hidden lg:block">
                         Cmd/Ctrl+K search • Cmd/Ctrl+Shift+L lock
                     </div>
@@ -796,5 +837,6 @@ export function PasswordList() {
 
             <BreachCheckDialog open={breachDialogOpen} onOpenChange={setBreachDialogOpen} />
         </div>
+        </ToolSidebarLayout>
     )
 }

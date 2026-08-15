@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react"
 import { AddEnvironmentSetDialog } from "@/components/environment-manager/add-environment-set-dialog"
 import { EnvironmentSetList } from "@/components/environment-manager/environment-set-list"
-import { ToolHeader } from "@/components/tools/tool-header"
 import { useEnvironmentManagerStore, type EnvSetEntry } from "@/store/environment-manager-store"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
@@ -110,22 +109,11 @@ export default function EnvironmentManagerPage() {
 
     if (!user) return null
 
+    // Tool identity lives in the ToolSidebarLayout header EnvironmentSetList
+    // renders — no separate page header row.
     return (
-        <div
-            className={
-                isMobile
-                    ? "h-full bg-background flex flex-col min-h-0"
-                    : "h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8 min-h-0"
-            }
-        >
-            {!isMobile && (
-                <ToolHeader title={t("title")} toolId="/app/environment-manager" className="shrink-0 px-0 sm:px-0" />
-            )}
-
-            <div className="flex-1 min-h-0 flex flex-col">
-                <EnvironmentSetList />
-            </div>
-
+        <div className="h-full min-h-0 bg-background">
+            <EnvironmentSetList />
             {isMobile && <AddEnvironmentSetDialog />}
         </div>
     )
