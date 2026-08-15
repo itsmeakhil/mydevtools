@@ -1,0 +1,22 @@
+# Paths ThreatCrush should not scan. Everything listed here is sample data,
+# UI copy, or generated output — never a credential this repo actually holds.
+# Real code stays scanned: for a one-off false positive in source, put a
+# `threatcrush-disable-next-line <rule-id>` comment above the line instead of
+# excluding the whole file.
+
+# Locale catalogues (27 locales x 2 apps). These are the UI strings for the
+# SSH-key, JWT, S3 and database tools: example PEM markers, sample connection
+# strings and placeholder keys shown to the user. 41 findings, all copy.
+apps/*/messages
+
+# Blog posts: long-form tutorial prose with illustrative credentials in code
+# fences ("mongodb://admin:secret@localhost", a demo master key).
+apps/*/src/lib/blog/posts.ts
+
+# Audit lab scripts: fake tokens injected into a throwaway browser session to
+# measure egress. Nothing here authenticates against anything.
+scripts/audit
+
+# Generated / local-only trees. Not in a CI checkout, noisy in a local run.
+.claude/worktrees
+.open-next

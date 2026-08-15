@@ -41,6 +41,7 @@ export const DB_DIALECTS: Record<DbType, NoSqlDialect> = {
         type: "cosmosdb",
         label: "Azure Cosmos DB",
         placeholder:
+            // threatcrush-disable-next-line secret-database-url
             "mongodb://acct:key@acct.mongo.cosmos.azure.com:10255/?ssl=true&retryWrites=false",
         hostMatch: /\.mongo\.cosmos\.azure\.com/i,
     },

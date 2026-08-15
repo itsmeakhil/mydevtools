@@ -754,6 +754,7 @@ export function PasswordList() {
                                             <TableCell>
                                                 <div className="flex items-center gap-2 max-w-[200px]">
                                                     <div className="font-mono text-sm truncate flex-1 bg-muted/30 px-2 py-1 rounded border border-border/50">
+                                                        {/* threatcrush-disable-next-line secret-generic-credential */}
                                                         {visiblePasswords.has(entry.id) ? entry.password : "••••••••••••"}
                                                     </div>
                                                     <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => toggleVisibility(entry.id)}>
