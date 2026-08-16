@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect, type ElementType } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
+import { SOURCE_URL } from "./footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -63,6 +64,7 @@ export function Header() {
     { href: "/developer-tools", label: "Platform" },
     { href: "/tools", label: "Tools" },
     { href: "/changelog", label: "Changelog" },
+    { href: SOURCE_URL, label: "GitHub", icon: Github, external: true },
   ];
 
   return (
@@ -125,6 +127,23 @@ export function Header() {
 
           {/* Desktop Actions */}
           <div className="flex items-center gap-3">
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              className="hidden md:inline-flex h-10 w-10"
+            >
+              <a
+                href={SOURCE_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="MyDevTools on GitHub"
+                title="Star MyDevTools on GitHub"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+            </Button>
+
             {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"
