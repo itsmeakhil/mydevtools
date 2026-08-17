@@ -195,6 +195,8 @@
       "title": "ظاهر",
       "description": "نحوه ظاهر برنامه را در دستگاه خود سفارشی کنید.",
       "themePreference": "اولویت تم",
+      "accentColor": "رنگ تأکید",
+      "customColor": "رنگ سفارشی",
       "themes": {
         "light": "نور",
         "dark": "تاریک",

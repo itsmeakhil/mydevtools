@@ -195,6 +195,8 @@
       "title": "Weergave",
       "description": "Pas het uiterlijk van de applicatie aan op je apparaat.",
       "themePreference": "Themavoorkeur",
+      "accentColor": "Accentkleur",
+      "customColor": "Aangepaste kleur",
       "themes": {
         "light": "Licht",
         "dark": "Donker",

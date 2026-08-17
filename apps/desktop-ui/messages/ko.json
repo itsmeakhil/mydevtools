@@ -195,6 +195,8 @@
       "title": "외관",
       "description": "기기에서 애플리케이션의 모양을 사용자 지정하세요.",
       "themePreference": "테마 설정",
+      "accentColor": "강조 색상",
+      "customColor": "사용자 지정 색상",
       "themes": {
         "light": "라이트",
         "dark": "다크",

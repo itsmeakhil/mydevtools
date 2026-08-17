@@ -195,6 +195,8 @@
       "title": "Utseende",
       "description": "Anpassa hur applikationen ser ut på din enhet.",
       "themePreference": "Temainställning",
+      "accentColor": "Accentfärg",
+      "customColor": "Anpassad färg",
       "themes": {
         "light": "Ljust",
         "dark": "Mörkt",

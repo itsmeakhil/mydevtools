@@ -195,6 +195,8 @@
       "title": "Aparência",
       "description": "Personaliza o aspeto da aplicação no teu dispositivo.",
       "themePreference": "Preferência de Tema",
+      "accentColor": "Cor de destaque",
+      "customColor": "Cor personalizada",
       "themes": {
         "light": "Claro",
         "dark": "Escuro",

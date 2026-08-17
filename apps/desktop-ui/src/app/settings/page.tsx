@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Sun, Globe, Palette, Check, Lock } from 'lucide-react'
+import { Sun, Globe, Palette, Lock, Pipette } from 'lucide-react'
 import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
 import { Switch } from '@/components/ui/switch'
 import { getVaultIconsEnabled, setVaultIconsEnabled } from '@/lib/vault-icon-pref'
@@ -13,21 +13,12 @@ import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from '@/hooks/use-color-theme'
+import { useColorTheme } from '@/hooks/use-color-theme'
+import { ACCENT_PRESETS, accentHex, isCustomAccent } from '@/lib/accent-color'
 import { ProfileCard } from '@/components/settings/profile-card'
 import { AppVersionLabel } from '@/components/desktop/app-version-label'
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { Briefcase } from 'lucide-react'
-const colorDisplay: Record<ColorTheme, { swatchClass: string; name: string }> = {
-  cyan: { swatchClass: 'bg-cyan-500', name: 'Teal' },
-  blue: { swatchClass: 'bg-blue-500', name: 'Blue' },
-  indigo: { swatchClass: 'bg-indigo-500', name: 'Indigo' },
-  purple: { swatchClass: 'bg-purple-500', name: 'Purple' },
-  green: { swatchClass: 'bg-green-500', name: 'Green' },
-  orange: { swatchClass: 'bg-orange-500', name: 'Orange' },
-  red: { swatchClass: 'bg-red-500', name: 'Red' },
-  pink: { swatchClass: 'bg-pink-500', name: 'Pink' },
-}
 
 export default function SettingsPage() {
   const t = useTranslations('SettingsPage')
@@ -56,6 +47,8 @@ export default function SettingsPage() {
   if (!mounted) {
     return null // Avoid hydration mismatch
   }
+
+  const customAccent = isCustomAccent(colorTheme)
 
   const handleLanguageChange = (value: string) => {
     document.cookie = `NEXT_LOCALE=${value}; path=/; max-age=31536000; SameSite=Lax`
@@ -100,7 +93,11 @@ export default function SettingsPage() {
 
             <div className="flex flex-col sm:flex-row sm:items-start gap-6">
               <div className="space-y-2 sm:min-w-[180px]">
-                <Label>{t('appearance.themePreference')}</Label>
+                {/* Fixed-height label rows keep both dropdowns on the same baseline,
+                    even though only the accent label carries an icon. */}
+                <div className="flex h-5 items-center">
+                  <Label>{t('appearance.themePreference')}</Label>
+                </div>
                 <Select value={theme} onValueChange={setTheme}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select theme" />
@@ -113,40 +110,69 @@ export default function SettingsPage() {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <Palette className="h-4 w-4 text-muted-foreground" />
-                  <Label>Accent color</Label>
+              <div className="space-y-2 sm:w-[220px]">
+                <div className="flex h-5 items-center gap-2">
+                  <Palette className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <Label>{t('appearance.accentColor')}</Label>
                 </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {COLOR_THEME_OPTIONS.map((color) => {
-                    const isSelected = colorTheme === color
-                    const { swatchClass, name } = colorDisplay[color]
+                <div className="flex items-center gap-2">
+                  {/* Trigger is w-full by default: flex-1 keeps it from squeezing the
+                      picker swatch out of the row. */}
+                  <Select value={colorTheme} onValueChange={setColorTheme}>
+                    <SelectTrigger className="flex-1 min-w-0">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-lg">
+                      {/* Custom picks are not in the preset list; keep one item so the
+                          trigger can render the active hex. */}
+                      {customAccent ? (
+                        <SelectItem value={colorTheme}>
+                          <span
+                            className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-inset ring-black/10"
+                            style={{ backgroundColor: accentHex(colorTheme) }}
+                          />
+                          <span className="font-mono">{accentHex(colorTheme)}</span>
+                        </SelectItem>
+                      ) : null}
+                      {ACCENT_PRESETS.map(({ id, name, hex }) => (
+                        <SelectItem key={id} value={id}>
+                          <span
+                            className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-inset ring-black/10"
+                            style={{ backgroundColor: hex }}
+                          />
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
 
-                    return (
-                      <button
-                        key={color}
-                        type="button"
-                        onClick={() => setColorTheme(color)}
-                        className={cn(
-                          'relative h-10 w-10 rounded-full border-2 transition-all',
-                          isSelected
-                            ? 'border-primary scale-105 shadow-md shadow-primary/25'
-                            : 'border-transparent hover:border-border'
-                        )}
-                        aria-label={`Use ${name} accent color`}
-                        aria-pressed={isSelected}
-                        title={name}
-                      >
-                        <span className={cn('block h-full w-full rounded-full', swatchClass)} />
-                        {isSelected ? (
-                          <span className="absolute inset-0 flex items-center justify-center text-white">
-                            <Check className="h-4 w-4 drop-shadow-sm" />
-                          </span>
-                        ) : null}
-                      </button>
-                    )
-                  })}
+                  {/* Native picker: no dependency, and the OS eyedropper comes free. */}
+                  <label
+                    className="relative flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-input shadow-sm transition-colors hover:border-border"
+                    title={t('appearance.customColor')}
+                  >
+                    <span
+                      className="absolute inset-0"
+                      style={{
+                        background: customAccent
+                          ? accentHex(colorTheme)
+                          : 'conic-gradient(#ef4444,#eab308,#22c55e,#06b6d4,#6366f1,#d946ef,#ef4444)',
+                      }}
+                    />
+                    <Pipette
+                      className={cn(
+                        'relative h-4 w-4 drop-shadow-sm',
+                        customAccent ? 'text-primary-foreground' : 'text-white'
+                      )}
+                    />
+                    <input
+                      type="color"
+                      value={accentHex(colorTheme)}
+                      onChange={(event) => setColorTheme(event.target.value)}
+                      className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                      aria-label={t('appearance.customColor')}
+                    />
+                  </label>
                 </div>
               </div>
             </div>

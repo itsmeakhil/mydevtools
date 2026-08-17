@@ -195,6 +195,8 @@
       "title": "Aparença",
       "description": "Personalitza com es veu l'aplicació al teu dispositiu.",
       "themePreference": "Preferència de tema",
+      "accentColor": "Color d'accent",
+      "customColor": "Color personalitzat",
       "themes": {
         "light": "Clar",
         "dark": "Fosc",

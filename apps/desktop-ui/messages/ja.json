@@ -195,6 +195,8 @@
       "title": "外観",
       "description": "デバイスでのアプリケーションの表示をカスタマイズします。",
       "themePreference": "テーマ設定",
+      "accentColor": "アクセントカラー",
+      "customColor": "カスタムカラー",
       "themes": {
         "light": "ライト",
         "dark": "ダーク",

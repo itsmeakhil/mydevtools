@@ -195,6 +195,8 @@
       "title": "Vzhled",
       "description": "Přizpůsobte vzhled aplikace na vašem zařízení.",
       "themePreference": "Motiv",
+      "accentColor": "Barva zvýraznění",
+      "customColor": "Vlastní barva",
       "themes": {
         "light": "Světlý",
         "dark": "Tmavý",

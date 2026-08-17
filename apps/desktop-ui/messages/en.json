@@ -195,6 +195,8 @@
       "title": "Appearance",
       "description": "Customize how the application looks on your device.",
       "themePreference": "Theme Preference",
+      "accentColor": "Accent color",
+      "customColor": "Custom color",
       "themes": {
         "light": "Light",
         "dark": "Dark",

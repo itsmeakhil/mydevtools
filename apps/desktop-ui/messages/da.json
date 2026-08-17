@@ -195,6 +195,8 @@
       "title": "Udseende",
       "description": "Tilpas, hvordan applikationen ser ud på din enhed.",
       "themePreference": "Temapræference",
+      "accentColor": "Accentfarve",
+      "customColor": "Tilpasset farve",
       "themes": {
         "light": "Lys",
         "dark": "Mørk",

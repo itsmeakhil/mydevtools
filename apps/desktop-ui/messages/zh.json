@@ -195,6 +195,8 @@
       "title": "外观",
       "description": "自定义应用在你设备上的显示方式。",
       "themePreference": "主题偏好",
+      "accentColor": "强调色",
+      "customColor": "自定义颜色",
       "themes": {
         "light": "浅色",
         "dark": "深色",

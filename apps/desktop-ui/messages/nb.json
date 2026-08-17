@@ -195,6 +195,8 @@
       "title": "Utseende",
       "description": "Tilpass hvordan applikasjonen ser ut på enheten din.",
       "themePreference": "Temapreferanse",
+      "accentColor": "Aksentfarge",
+      "customColor": "Egendefinert farge",
       "themes": {
         "light": "Lys",
         "dark": "Mørk",
