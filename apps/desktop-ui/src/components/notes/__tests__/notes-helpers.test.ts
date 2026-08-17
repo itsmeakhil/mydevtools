@@ -4,6 +4,9 @@ import {
     deleteCachedPlainText,
     clearPlainTextCache,
     buildChildrenMap,
+    mergePendingUpdate,
+    requeuePendingUpdates,
+    type PendingUpdates,
 } from "../notes-helpers";
 import type { Note } from "@/app/app/notes/types/Note";
 
@@ -63,5 +66,29 @@ describe("buildChildrenMap", () => {
         ]);
         expect(map.get(null)?.map((n) => n.id)).toEqual(["root"]);
         expect(map.get("root")?.map((n) => n.id)).toEqual(["kid"]);
+    });
+});
+
+describe("pending update queue", () => {
+    it("merges fields instead of replacing (body edit survives a title keystroke)", () => {
+        const queue: PendingUpdates = new Map();
+        mergePendingUpdate(queue, "a", { content: "body text" });
+        mergePendingUpdate(queue, "a", { title: "Renamed" });
+        expect(queue.get("a")).toEqual({ content: "body text", title: "Renamed" });
+    });
+
+    it("keeps notes separate", () => {
+        const queue: PendingUpdates = new Map();
+        mergePendingUpdate(queue, "a", { content: "a body" });
+        mergePendingUpdate(queue, "b", { content: "b body" });
+        expect(queue.get("a")).toEqual({ content: "a body" });
+        expect(queue.get("b")).toEqual({ content: "b body" });
+    });
+
+    it("requeues a failed batch without clobbering newer edits", () => {
+        const queue: PendingUpdates = new Map();
+        mergePendingUpdate(queue, "a", { content: "newer", tags: ["t"] });
+        requeuePendingUpdates(queue, [["a", { content: "failed", title: "T" }]]);
+        expect(queue.get("a")).toEqual({ content: "newer", tags: ["t"], title: "T" });
     });
 });

@@ -104,7 +104,7 @@ export default function ChangelogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header showThemeToggle={false} />
+      <Header />
 
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">

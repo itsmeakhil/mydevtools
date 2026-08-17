@@ -195,6 +195,8 @@
       "title": "外观",
       "description": "自定义应用在你设备上的显示方式。",
       "themePreference": "主题偏好",
+      "accentColor": "强调色",
+      "customColor": "自定义颜色",
       "themes": {
         "light": "浅色",
         "dark": "深色",
@@ -257,6 +259,20 @@
         "sv": "Svenska",
         "tr": "Türkçe"
       }
+    },
+    "about": {
+      "title": "关于",
+      "running": "正在运行 MyDevTools",
+      "runningVersion": "正在运行 MyDevTools v{version}",
+      "checkButton": "检查更新",
+      "checking": "检查中…",
+      "dialogTitle": "更新",
+      "dialogDescription": "MyDevTools 会就地自我更新——无需重新安装，且绝不会触碰你的离线数据。",
+      "onVersion": "你当前使用的版本是 {version}。",
+      "available": "版本 {version} 可用。",
+      "install": "下载并安装",
+      "upToDate": "已是最新版本。",
+      "checkError": "无法检查更新。你是否已联网？"
     }
   },
   "Dashboard": {

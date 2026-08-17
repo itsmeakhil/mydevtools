@@ -10,27 +10,17 @@ import {
   type ReactNode,
 } from "react"
 
-export type ColorTheme =
-  | "blue"
-  | "purple"
-  | "green"
-  | "orange"
-  | "red"
-  | "pink"
-  | "cyan"
-  | "indigo"
+import {
+  DEFAULT_ACCENT,
+  accentCssVars,
+  isAccentColor,
+  type AccentColor,
+} from "@/lib/accent-color"
+
+/** Preset id (see ACCENT_PRESETS) or a custom `#rrggbb` from the color picker. */
+export type ColorTheme = AccentColor
 
 const COLOR_THEME_KEY = "app-color-theme"
-export const COLOR_THEME_OPTIONS: ColorTheme[] = [
-  "cyan",
-  "blue",
-  "indigo",
-  "purple",
-  "green",
-  "orange",
-  "red",
-  "pink",
-]
 
 type ColorThemeContextValue = {
   colorTheme: ColorTheme
@@ -40,28 +30,26 @@ type ColorThemeContextValue = {
 
 const ColorThemeContext = createContext<ColorThemeContextValue | null>(null)
 
-function isValidColorTheme(theme: string): theme is ColorTheme {
-  return COLOR_THEME_OPTIONS.includes(theme as ColorTheme)
-}
-
+/** Accent vars go inline on <html> so custom hex picks work without new CSS. */
 function applyColorTheme(theme: ColorTheme) {
-  const root = document.documentElement
-  root.classList.remove(...COLOR_THEME_OPTIONS)
-  root.classList.add(theme)
+  const { style } = document.documentElement
+  for (const [name, value] of Object.entries(accentCssVars(theme))) {
+    style.setProperty(name, value)
+  }
 }
 
 export function ColorThemeProvider({ children }: { children: ReactNode }) {
-  const [colorTheme, setColorThemeState] = useState<ColorTheme>("indigo")
+  const [colorTheme, setColorThemeState] = useState<ColorTheme>(DEFAULT_ACCENT)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    const stored = localStorage.getItem(COLOR_THEME_KEY) as ColorTheme | null
-    if (stored && isValidColorTheme(stored)) {
+    const stored = localStorage.getItem(COLOR_THEME_KEY)
+    if (isAccentColor(stored)) {
       setColorThemeState(stored)
       applyColorTheme(stored)
     } else {
-      applyColorTheme("indigo")
+      applyColorTheme(DEFAULT_ACCENT)
     }
   }, [])
 

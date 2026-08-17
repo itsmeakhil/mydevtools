@@ -195,6 +195,8 @@
       "title": "Зовнішній вигляд",
       "description": "Налаштуйте вигляд програми на вашому пристрої.",
       "themePreference": "Вибір теми",
+      "accentColor": "Акцентний колір",
+      "customColor": "Власний колір",
       "themes": {
         "light": "Світла",
         "dark": "Темна",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Про програму",
+      "running": "MyDevTools запущено",
+      "runningVersion": "MyDevTools v{version} запущено",
+      "checkButton": "Перевірити оновлення",
+      "checking": "Перевірка…",
+      "dialogTitle": "Оновлення",
+      "dialogDescription": "MyDevTools оновлюється на місці — без перевстановлення, і ваші офлайн-дані ніколи не змінюються.",
+      "onVersion": "У вас версія {version}.",
+      "available": "Доступна версія {version}.",
+      "install": "Завантажити й встановити",
+      "upToDate": "У вас найновіша версія.",
+      "checkError": "Не вдалося перевірити оновлення. Ви онлайн?"
     }
   },
   "Dashboard": {

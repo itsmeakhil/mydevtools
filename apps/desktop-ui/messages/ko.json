@@ -195,6 +195,8 @@
       "title": "외관",
       "description": "기기에서 애플리케이션의 모양을 사용자 지정하세요.",
       "themePreference": "테마 설정",
+      "accentColor": "강조 색상",
+      "customColor": "사용자 지정 색상",
       "themes": {
         "light": "라이트",
         "dark": "다크",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "정보",
+      "running": "MyDevTools 실행 중",
+      "runningVersion": "MyDevTools v{version} 실행 중",
+      "checkButton": "업데이트 확인",
+      "checking": "확인 중…",
+      "dialogTitle": "업데이트",
+      "dialogDescription": "MyDevTools는 그 자리에서 스스로 업데이트됩니다. 재설치가 필요 없고 오프라인 데이터는 절대 건드리지 않습니다.",
+      "onVersion": "현재 버전은 {version}입니다.",
+      "available": "버전 {version}을(를) 사용할 수 있습니다.",
+      "install": "다운로드 및 설치",
+      "upToDate": "최신 버전입니다.",
+      "checkError": "업데이트를 확인할 수 없습니다. 인터넷에 연결되어 있나요?"
     }
   },
   "Dashboard": {

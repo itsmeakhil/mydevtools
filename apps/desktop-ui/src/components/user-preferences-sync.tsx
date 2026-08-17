@@ -5,7 +5,8 @@ import { useTheme } from "next-themes";
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import useAuth from "@/utils/useAuth";
-import { COLOR_THEME_OPTIONS, type ColorTheme, useColorTheme } from "@/hooks/use-color-theme";
+import { useColorTheme } from "@/hooks/use-color-theme";
+import { isAccentColor } from "@/lib/accent-color";
 import { getUserPreferences, patchUserPreferences, type ThemePreference, type UserPreferencesOut } from "@/lib/user-preferences-api";
 
 const SUPPORTED_LOCALES = [
@@ -50,9 +51,8 @@ function setLocaleCookie(locale: string) {
   document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`;
 }
 
-function isColorTheme(value: string | undefined): value is ColorTheme {
-  return !!value && (COLOR_THEME_OPTIONS as readonly string[]).includes(value);
-}
+/** Accepts preset ids and custom hex picks alike (see lib/accent-color.ts). */
+const isColorTheme = isAccentColor;
 
 export function UserPreferencesSync() {
   const { user, loading: authLoading } = useAuth(false);

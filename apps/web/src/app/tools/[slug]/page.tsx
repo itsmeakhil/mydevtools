@@ -83,7 +83,7 @@ export default async function ToolLandingPage({
         />
       )}
 
-      <Header showThemeToggle={false} />
+      <Header />
 
       <main className="flex-1">
         {/* ── Hero ── */}

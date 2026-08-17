@@ -195,6 +195,8 @@
       "title": "Apparence",
       "description": "Personnalisez l’apparence de l’application sur votre appareil.",
       "themePreference": "Thème",
+      "accentColor": "Couleur d'accentuation",
+      "customColor": "Couleur personnalisée",
       "themes": {
         "light": "Clair",
         "dark": "Sombre",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "À propos",
+      "running": "MyDevTools en cours d'exécution",
+      "runningVersion": "MyDevTools v{version} en cours d'exécution",
+      "checkButton": "Rechercher des mises à jour",
+      "checking": "Recherche…",
+      "dialogTitle": "Mises à jour",
+      "dialogDescription": "MyDevTools se met à jour sur place — aucune réinstallation, et vos données hors ligne ne sont jamais touchées.",
+      "onVersion": "Vous utilisez la version {version}.",
+      "available": "La version {version} est disponible.",
+      "install": "Télécharger et installer",
+      "upToDate": "Vous êtes à jour.",
+      "checkError": "Impossible de rechercher des mises à jour. Êtes-vous en ligne ?"
     }
   },
   "Dashboard": {

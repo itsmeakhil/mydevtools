@@ -47,6 +47,30 @@ export function getCachedPlainText(note: Note): string {
     return v;
 }
 
+// ── Pending-save queue ────────────────────────────────────────────────────────
+// The editor shares ONE debounced save across title, tags and body, so a title
+// keystroke landing inside the body's debounce window would otherwise replace
+// the queued body edit with itself. Updates are queued per note and merged.
+
+export type PendingUpdates = Map<string, Partial<Note>>;
+
+/** Queue one note update; later edits win field-by-field. */
+export function mergePendingUpdate(
+    queue: PendingUpdates,
+    id: string,
+    updates: Partial<Note>,
+): void {
+    queue.set(id, { ...queue.get(id), ...updates });
+}
+
+/** Put a failed batch back in the queue without clobbering newer edits. */
+export function requeuePendingUpdates(
+    queue: PendingUpdates,
+    batch: Array<[string, Partial<Note>]>,
+): void {
+    for (const [id, updates] of batch) queue.set(id, { ...updates, ...queue.get(id) });
+}
+
 // Pre-computed map from parentId -> children (avoids O(n²) per render)
 export type ChildrenMap = Map<string | null, Note[]>;
 

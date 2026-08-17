@@ -195,6 +195,8 @@
       "title": "外観",
       "description": "デバイスでのアプリケーションの表示をカスタマイズします。",
       "themePreference": "テーマ設定",
+      "accentColor": "アクセントカラー",
+      "customColor": "カスタムカラー",
       "themes": {
         "light": "ライト",
         "dark": "ダーク",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "このアプリについて",
+      "running": "MyDevTools を実行中",
+      "runningVersion": "MyDevTools v{version} を実行中",
+      "checkButton": "更新を確認",
+      "checking": "確認中…",
+      "dialogTitle": "更新",
+      "dialogDescription": "MyDevTools はその場で自動更新されます。再インストールは不要で、オフラインデータには一切触れません。",
+      "onVersion": "現在のバージョンは {version} です。",
+      "available": "バージョン {version} が利用可能です。",
+      "install": "ダウンロードしてインストール",
+      "upToDate": "最新の状態です。",
+      "checkError": "更新を確認できませんでした。オンラインですか？"
     }
   },
   "Dashboard": {

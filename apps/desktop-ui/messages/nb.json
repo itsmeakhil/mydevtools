@@ -195,6 +195,8 @@
       "title": "Utseende",
       "description": "Tilpass hvordan applikasjonen ser ut på enheten din.",
       "themePreference": "Temapreferanse",
+      "accentColor": "Aksentfarge",
+      "customColor": "Egendefinert farge",
       "themes": {
         "light": "Lys",
         "dark": "Mørk",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Om",
+      "running": "Kjører MyDevTools",
+      "runningVersion": "Kjører MyDevTools v{version}",
+      "checkButton": "Se etter oppdateringer",
+      "checking": "Søker…",
+      "dialogTitle": "Oppdateringer",
+      "dialogDescription": "MyDevTools oppdaterer seg selv på stedet — ingen reinstallering, og offline-dataene dine blir aldri berørt.",
+      "onVersion": "Du bruker versjon {version}.",
+      "available": "Versjon {version} er tilgjengelig.",
+      "install": "Last ned og installer",
+      "upToDate": "Du er oppdatert.",
+      "checkError": "Kunne ikke se etter oppdateringer. Er du på nett?"
     }
   },
   "Dashboard": {

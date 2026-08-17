@@ -195,6 +195,8 @@
       "title": "Εμφάνιση",
       "description": "Προσαρμόστε τον τρόπο εμφάνισης της εφαρμογής στη συσκευή σας.",
       "themePreference": "Προτίμηση θέματος",
+      "accentColor": "Χρώμα τόνου",
+      "customColor": "Προσαρμοσμένο χρώμα",
       "themes": {
         "light": "Φως",
         "dark": "Σκοτάδι",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Σχετικά",
+      "running": "Εκτελείται το MyDevTools",
+      "runningVersion": "Εκτελείται το MyDevTools v{version}",
+      "checkButton": "Έλεγχος για ενημερώσεις",
+      "checking": "Έλεγχος…",
+      "dialogTitle": "Ενημερώσεις",
+      "dialogDescription": "Το MyDevTools ενημερώνεται επί τόπου — χωρίς επανεγκατάσταση, και τα offline δεδομένα σας δεν αγγίζονται ποτέ.",
+      "onVersion": "Χρησιμοποιείτε την έκδοση {version}.",
+      "available": "Η έκδοση {version} είναι διαθέσιμη.",
+      "install": "Λήψη και εγκατάσταση",
+      "upToDate": "Είστε ενημερωμένοι.",
+      "checkError": "Δεν ήταν δυνατός ο έλεγχος για ενημερώσεις. Είστε συνδεδεμένοι;"
     }
   },
   "Dashboard": {

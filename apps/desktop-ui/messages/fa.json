@@ -195,6 +195,8 @@
       "title": "ظاهر",
       "description": "نحوه ظاهر برنامه را در دستگاه خود سفارشی کنید.",
       "themePreference": "اولویت تم",
+      "accentColor": "رنگ تأکید",
+      "customColor": "رنگ سفارشی",
       "themes": {
         "light": "نور",
         "dark": "تاریک",
@@ -257,6 +259,20 @@
         "uk": "Українська",
         "fa": "فارسی"
       }
+    },
+    "about": {
+      "title": "درباره",
+      "running": "در حال اجرای MyDevTools",
+      "runningVersion": "در حال اجرای MyDevTools نسخه {version}",
+      "checkButton": "بررسی به‌روزرسانی‌ها",
+      "checking": "در حال بررسی…",
+      "dialogTitle": "به‌روزرسانی‌ها",
+      "dialogDescription": "MyDevTools خودش را در همان محل به‌روزرسانی می‌کند — بدون نصب مجدد و داده‌های آفلاین شما هرگز دست‌کاری نمی‌شود.",
+      "onVersion": "شما از نسخه {version} استفاده می‌کنید.",
+      "available": "نسخه {version} در دسترس است.",
+      "install": "دانلود و نصب",
+      "upToDate": "شما به‌روز هستید.",
+      "checkError": "بررسی به‌روزرسانی‌ها ممکن نشد. آیا به اینترنت متصل هستید؟"
     }
   },
   "Dashboard": {

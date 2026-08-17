@@ -195,6 +195,8 @@
       "title": "Appearance",
       "description": "Customize how the application looks on your device.",
       "themePreference": "Theme Preference",
+      "accentColor": "Kolor akcentu",
+      "customColor": "Kolor własny",
       "themes": {
         "light": "Light",
         "dark": "Dark",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "O aplikacji",
+      "running": "Działa MyDevTools",
+      "runningVersion": "Działa MyDevTools v{version}",
+      "checkButton": "Sprawdź aktualizacje",
+      "checking": "Sprawdzanie…",
+      "dialogTitle": "Aktualizacje",
+      "dialogDescription": "MyDevTools aktualizuje się na miejscu — bez ponownej instalacji, a Twoje dane offline nigdy nie są ruszane.",
+      "onVersion": "Używasz wersji {version}.",
+      "available": "Wersja {version} jest dostępna.",
+      "install": "Pobierz i zainstaluj",
+      "upToDate": "Masz najnowszą wersję.",
+      "checkError": "Nie udało się sprawdzić aktualizacji. Czy jesteś online?"
     }
   },
   "Dashboard": {

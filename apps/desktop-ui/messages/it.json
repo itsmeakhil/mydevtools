@@ -195,6 +195,8 @@
       "title": "Aspetto",
       "description": "Personalizza l'aspetto dell'applicazione sul tuo dispositivo.",
       "themePreference": "Preferenza tema",
+      "accentColor": "Colore d'accento",
+      "customColor": "Colore personalizzato",
       "themes": {
         "light": "Leggero",
         "dark": "Buio",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Informazioni",
+      "running": "MyDevTools in esecuzione",
+      "runningVersion": "MyDevTools v{version} in esecuzione",
+      "checkButton": "Controlla aggiornamenti",
+      "checking": "Controllo…",
+      "dialogTitle": "Aggiornamenti",
+      "dialogDescription": "MyDevTools si aggiorna sul posto — nessuna reinstallazione e i tuoi dati offline non vengono mai toccati.",
+      "onVersion": "Stai usando la versione {version}.",
+      "available": "La versione {version} è disponibile.",
+      "install": "Scarica e installa",
+      "upToDate": "Sei aggiornato.",
+      "checkError": "Impossibile controllare gli aggiornamenti. Sei online?"
     }
   },
   "Dashboard": {

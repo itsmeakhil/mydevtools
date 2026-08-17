@@ -195,6 +195,8 @@
       "title": "Giao diện",
       "description": "Tùy chỉnh giao diện ứng dụng trên thiết bị của bạn.",
       "themePreference": "Tùy chọn giao diện",
+      "accentColor": "Màu nhấn",
+      "customColor": "Màu tùy chỉnh",
       "themes": {
         "light": "Sáng",
         "dark": "Tối",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Giới thiệu",
+      "running": "Đang chạy MyDevTools",
+      "runningVersion": "Đang chạy MyDevTools v{version}",
+      "checkButton": "Kiểm tra bản cập nhật",
+      "checking": "Đang kiểm tra…",
+      "dialogTitle": "Bản cập nhật",
+      "dialogDescription": "MyDevTools tự cập nhật ngay tại chỗ — không cần cài lại và dữ liệu ngoại tuyến của bạn không bao giờ bị ảnh hưởng.",
+      "onVersion": "Bạn đang dùng phiên bản {version}.",
+      "available": "Đã có phiên bản {version}.",
+      "install": "Tải xuống và cài đặt",
+      "upToDate": "Bạn đang dùng bản mới nhất.",
+      "checkError": "Không thể kiểm tra bản cập nhật. Bạn có đang trực tuyến không?"
     }
   },
   "Dashboard": {

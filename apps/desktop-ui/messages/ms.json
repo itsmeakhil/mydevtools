@@ -195,6 +195,8 @@
       "title": "Penampilan",
       "description": "Sesuaikan rupa aplikasi pada peranti anda.",
       "themePreference": "Keutamaan Tema",
+      "accentColor": "Warna aksen",
+      "customColor": "Warna tersuai",
       "themes": {
         "light": "Cerah",
         "dark": "Gelap",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Perihal",
+      "running": "Menjalankan MyDevTools",
+      "runningVersion": "Menjalankan MyDevTools v{version}",
+      "checkButton": "Periksa kemas kini",
+      "checking": "Memeriksa…",
+      "dialogTitle": "Kemas kini",
+      "dialogDescription": "MyDevTools mengemas kini dirinya di tempat — tanpa pemasangan semula, dan data luar talian anda tidak pernah disentuh.",
+      "onVersion": "Anda menggunakan versi {version}.",
+      "available": "Versi {version} tersedia.",
+      "install": "Muat turun dan pasang",
+      "upToDate": "Anda sudah terkini.",
+      "checkError": "Tidak dapat memeriksa kemas kini. Adakah anda dalam talian?"
     }
   },
   "Dashboard": {

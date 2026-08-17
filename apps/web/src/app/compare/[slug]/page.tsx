@@ -100,7 +100,7 @@ export default async function ComparisonPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header showThemeToggle={false} />
+      <Header />
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
