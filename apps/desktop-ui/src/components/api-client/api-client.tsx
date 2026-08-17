@@ -29,6 +29,7 @@ import { parseCurlCommand } from "@/utils/curl-parser"
 import { generateCode } from "./generate-code"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
+import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
 import dynamic from "next/dynamic"
 import {
     RequestMethod,
@@ -44,13 +45,11 @@ import type { ScriptContext } from "./workers/scripts-runner.worker"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, PanelRight, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard } from "lucide-react"
+import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
-import { cn } from "@/lib/utils"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { ensureFreshToken } from "@/lib/oauth2"
@@ -131,8 +130,6 @@ function ApiClientInner() {
     const sessionVarsRef = React.useRef<Record<string, string>>({})
 
     const isMobile = useIsMobile()
-    const [collectionsOpen, setCollectionsOpen] = React.useState(false)
-    const [sidebarOpen, setSidebarOpen] = React.useState(true)
     const [mobilePanel, setMobilePanel] = React.useState<'request' | 'response'>('request')
     const [envMgrOpen, setEnvMgrOpen] = React.useState(false)
     const [codeGenOpen, setCodeGenOpen] = React.useState(false)
@@ -1105,31 +1102,15 @@ function ApiClientInner() {
     )
 
     return (
-        <div className="flex h-full min-h-0 w-full flex-col gap-4 mobile-nav-offset lg:flex-row">
+        <ToolSidebarLayout
+            toolId="api-client"
+            icon={FolderOpen}
+            title={t("layout.collections")}
+            sidebar={<CollectionsSidebar onLoadRequest={handleLoadRequest} />}
+            className="mobile-nav-offset"
+        >
             <div className="flex-1 flex flex-col gap-4 min-w-0 h-full">
                 <div className="flex flex-wrap justify-between items-center gap-2">
-                    {/* Mobile Collections Button */}
-                    {isMobile && (
-                        <Sheet open={collectionsOpen} onOpenChange={setCollectionsOpen}>
-                            <SheetTrigger asChild>
-                                <Button variant="outline" size="sm" className="touch-target-sm rounded-lg bg-background/50 shadow-sm">
-                                    <FolderOpen className="h-4 w-4 mr-2" />
-                                    {t("layout.collections")}
-                                </Button>
-                            </SheetTrigger>
-                            <SheetContent side="bottom" className="h-[75vh] bottom-sheet rounded-t-3xl border-t shadow-2xl">
-                                <div className="bottom-sheet-handle w-12 h-1.5 bg-muted rounded-full mx-auto my-3" />
-                                <div className="px-4 h-full overflow-hidden">
-                                    <CollectionsSidebar
-                                        onLoadRequest={(request) => {
-                                            handleLoadRequest(request)
-                                            setCollectionsOpen(false)
-                                        }}
-                                    />
-                                </div>
-                            </SheetContent>
-                        </Sheet>
-                    )}
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
                         {isMobile ? (
                             /* Mobile: secondary actions collapsed into dropdown */
@@ -1270,15 +1251,6 @@ function ApiClientInner() {
                                 </DropdownMenu>
                                 <div className="h-6 w-px bg-border/50 mx-1" />
                                 <OfflineIndicator />
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="h-8 w-8"
-                                    onClick={() => setSidebarOpen(!sidebarOpen)}
-                                    title={sidebarOpen ? t("layout.closeSidebar") : t("layout.openSidebar")}
-                                >
-                                    <PanelRight className="h-4 w-4 text-muted-foreground" />
-                                </Button>
                             </>
                         )}
                         {/* Dialogs rendered outside the conditional so state is preserved */}
@@ -1462,22 +1434,7 @@ function ApiClientInner() {
                     </div>
                 </Card>
             </div>
-
-            {/* Desktop Collections Sidebar */}
-            {!isMobile && (
-                <div
-                    className={cn(
-                        "shrink-0 h-full border rounded-2xl bg-card/50 backdrop-blur-sm shadow-lg shadow-primary/[0.01] overflow-hidden transition-all duration-300 ease-in-out",
-                        sidebarOpen ? "w-80 opacity-100" : "w-0 opacity-0 border-transparent overflow-hidden"
-                    )}
-                >
-                    <CollectionsSidebar
-                        onLoadRequest={handleLoadRequest}
-                        onCollapse={() => setSidebarOpen(false)}
-                    />
-                </div>
-            )}
-        </div>
+        </ToolSidebarLayout>
     )
 }
 

@@ -5,7 +5,10 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { marked } from 'marked';
 import TurndownService from 'turndown';
+import { toast } from 'sonner';
+import { safeFileName } from '@/lib/markdown-preview-html';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -76,6 +79,7 @@ export function MarkdownPreviewLayout() {
   // Markdown → HTML tab
   const [markdown, setMarkdown] = useState('');
   const [outputTab, setOutputTab] = useState<'preview' | 'html'>('preview');
+  const [fileName, setFileName] = useState('export');
   const { isCopied: copiedHtml, copyToClipboard: copyHtml } = useCopyToClipboard();
 
   // HTML → Markdown tab
@@ -92,14 +96,16 @@ export function MarkdownPreviewLayout() {
 
   const handleExportHtml = useCallback(() => {
     if (!renderedHtml) return;
+    const name = `${safeFileName(fileName)}.html`;
     const blob = new Blob([buildFullHtml(renderedHtml)], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'export.html';
+    a.download = name;
     a.click();
     URL.revokeObjectURL(url);
-  }, [renderedHtml]);
+    toast.success(t('exportSuccess', { name }));
+  }, [renderedHtml, fileName, t]);
 
   const handleCopyMd = useCallback(() => {
     if (!convertedMarkdown) return;
@@ -153,7 +159,17 @@ export function MarkdownPreviewLayout() {
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center rounded-md border bg-background pr-2 focus-within:ring-1 focus-within:ring-ring">
+                    <Input
+                      value={fileName}
+                      onChange={(e) => setFileName(e.target.value)}
+                      aria-label={t('fileNameLabel')}
+                      placeholder={t('fileNamePlaceholder')}
+                      className="h-8 w-28 border-0 bg-transparent px-2 text-xs shadow-none focus-visible:ring-0"
+                    />
+                    <span className="text-xs text-muted-foreground">.html</span>
+                  </div>
                   <Button size="sm" variant="secondary" disabled={!renderedHtml} onClick={handleCopyHtml}>
                     {copiedHtml ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
                     {copiedHtml ? t('copied') : t('copyHtml')}

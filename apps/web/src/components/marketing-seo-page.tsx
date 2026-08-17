@@ -6,6 +6,7 @@ import { Footer } from '@/components/footer'
 import { MdtFx } from '@/components/mdt-fx'
 import MdtAurora from '@/components/mdt-aurora'
 import { MdtBoot } from '@/components/mdt-boot'
+import { JsonLd } from '@/components/seo/json-ld'
 import type { PlatformSeoPage } from '@/lib/seo/platform-pages'
 import { publicToolSlugs } from '@/lib/tool-categories'
 import { toolsMetadata } from '@/lib/metadata'
@@ -80,12 +81,7 @@ export function MarketingSeoPage({
       </div>
       <MdtFx />
       <MdtBoot />
-      {jsonLd ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      ) : null}
+      {jsonLd ? <JsonLd data={jsonLd} /> : null}
       <Header />
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">

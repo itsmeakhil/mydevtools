@@ -195,6 +195,8 @@
       "title": "Voorkoms",
       "description": "Pas aan hoe die toepassing op jou toestel lyk.",
       "themePreference": "Temavoorkeur",
+      "accentColor": "Aksentkleur",
+      "customColor": "Pasgemaakte kleur",
       "themes": {
         "light": "Lig",
         "dark": "Donker",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Oor",
+      "running": "Tans op MyDevTools",
+      "runningVersion": "Tans op MyDevTools v{version}",
+      "checkButton": "Kyk vir opdaterings",
+      "checking": "Kyk…",
+      "dialogTitle": "Opdaterings",
+      "dialogDescription": "MyDevTools dateer homself ter plaatse op — geen herinstallasie nie, en jou aflyn data word nooit geraak nie.",
+      "onVersion": "Jy is op weergawe {version}.",
+      "available": "Weergawe {version} is beskikbaar.",
+      "install": "Laai af en installeer",
+      "upToDate": "Jy is op datum.",
+      "checkError": "Kon nie vir opdaterings kyk nie. Is jy aanlyn?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Alles",
       "total": "Totaal",
       "allProjects": "Alle projekte",
+      "projectsHeading": "Projekte",
       "export": "Uitvoer",
       "kanban": "Kanban",
       "list": "Lys",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Tik die +-knoppie om jou eerste wagwoord by te voeg",
       "emptyHintDesktop": "Jy het nog geen wagwoorde gestoor nie. Klik die \"Voeg wagwoord by\"-knoppie hierbo om te begin.",
       "addPassword": "Voeg wagwoord by",
+      "title": "Wagwoorde",
+      "filters": {
+        "heading": "Kluisgesondheid",
+        "all": "Alle wagwoorde",
+        "weak": "Swak",
+        "reused": "Hergebruik",
+        "noUrl": "Geen URL",
+        "tagsHeading": "Etikette",
+        "allTags": "Alle etikette"
+      },
       "searchPlaceholderMobile": "Soek in jou kluis...",
       "searchPlaceholderDesktop": "Soek kluis...",
       "importExport": "Invoer / uitvoer",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Skep 'n stel vir elke projek en omgewing (bv. produksie API-sleutels). Alles word in jou blaaier geënkripteer voor oplaai.",
       "searchPlaceholder": "Soek projek, omgewing, etikette, notas…",
       "tagFilterPlaceholder": "Filter volgens etiket",
+      "allProjects": "Alle projekte",
+      "projectsHeading": "Projekte",
       "variableCount": "{count, plural, one {# veranderlike} other {# veranderlikes}}",
       "updatedAgo": "Bygewerk {time}",
       "copyDotEnv": "Kopieer .env",
@@ -3870,6 +3899,9 @@
     "copyHtml": "Kopieer HTML",
     "copyMarkdown": "Kopieer Markdown",
     "exportHtml": "Voer HTML uit",
+    "fileNameLabel": "Lêernaam",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "{name} gestoor",
     "copied": "Gekopieer",
     "charCount": "{count, plural, one {# karakter} other {# karakters}}",
     "emptyHint": "Begin Markdown tik om die lewendige voorskou en HTML-uitvoer te sien.",
@@ -5105,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% aflyn"
+  },
+  "ToolSidebar": {
+    "show": "Wys sybalk",
+    "hide": "Versteek sybalk"
   },
   "DesktopUpdate": {
     "title": "MyDevTools word bygewerk",

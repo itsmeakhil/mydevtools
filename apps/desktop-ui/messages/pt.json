@@ -195,6 +195,8 @@
       "title": "Aparência",
       "description": "Personaliza o aspeto da aplicação no teu dispositivo.",
       "themePreference": "Preferência de Tema",
+      "accentColor": "Cor de destaque",
+      "customColor": "Cor personalizada",
       "themes": {
         "light": "Claro",
         "dark": "Escuro",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Acerca de",
+      "running": "A executar o MyDevTools",
+      "runningVersion": "A executar o MyDevTools v{version}",
+      "checkButton": "Procurar atualizações",
+      "checking": "A procurar…",
+      "dialogTitle": "Atualizações",
+      "dialogDescription": "O MyDevTools atualiza-se no local — sem reinstalar nada, e os seus dados offline nunca são tocados.",
+      "onVersion": "Está na versão {version}.",
+      "available": "A versão {version} está disponível.",
+      "install": "Transferir e instalar",
+      "upToDate": "Está atualizado.",
+      "checkError": "Não foi possível procurar atualizações. Está online?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Todas",
       "total": "Total",
       "allProjects": "Todos os Projetos",
+      "projectsHeading": "Projetos",
       "export": "Exportar",
       "kanban": "Kanban",
       "list": "Lista",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Toca no botão + para adicionar a tua primeira palavra-passe",
       "emptyHintDesktop": "Ainda não armazenaste nenhuma palavra-passe. Clica no botão \"Adicionar palavra-passe\" acima para começar.",
       "addPassword": "Adicionar palavra-passe",
+      "title": "Palavras-passe",
+      "filters": {
+        "heading": "Estado do cofre",
+        "all": "Todas as palavras-passe",
+        "weak": "Fracas",
+        "reused": "Reutilizadas",
+        "noUrl": "Sem URL",
+        "tagsHeading": "Etiquetas",
+        "allTags": "Todas as etiquetas"
+      },
       "searchPlaceholderMobile": "Pesquisar no cofre...",
       "searchPlaceholderDesktop": "Pesquisar no cofre...",
       "importExport": "Importar / exportar",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Crie um conjunto por projeto e ambiente (ex.: chaves API de produção). Tudo é encriptado no navegador antes do envio.",
       "searchPlaceholder": "Pesquisar projeto, ambiente, etiquetas, notas…",
       "tagFilterPlaceholder": "Filtrar por etiqueta",
+      "allProjects": "Todos os projetos",
+      "projectsHeading": "Projetos",
       "variableCount": "{count, plural, one {# variável} other {# variáveis}}",
       "updatedAgo": "Atualizado {time}",
       "copyDotEnv": "Copiar .env",
@@ -3859,6 +3888,9 @@
     "copyHtml": "Copiar HTML",
     "copyMarkdown": "Copiar Markdown",
     "exportHtml": "Exportar HTML",
+    "fileNameLabel": "Nome do ficheiro",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "{name} guardado",
     "copied": "Copiado",
     "charCount": "{count, plural, one {# carácter} other {# caracteres}}",
     "emptyHint": "Comece a escrever Markdown para ver a pré-visualização em tempo real e a saída HTML.",
@@ -5094,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Mostrar barra lateral",
+    "hide": "Ocultar barra lateral"
   },
   "DesktopUpdate": {
     "title": "A atualizar o MyDevTools",

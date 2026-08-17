@@ -195,6 +195,8 @@
       "title": "Weergave",
       "description": "Pas het uiterlijk van de applicatie aan op je apparaat.",
       "themePreference": "Themavoorkeur",
+      "accentColor": "Accentkleur",
+      "customColor": "Aangepaste kleur",
       "themes": {
         "light": "Licht",
         "dark": "Donker",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Over",
+      "running": "MyDevTools wordt uitgevoerd",
+      "runningVersion": "MyDevTools v{version} wordt uitgevoerd",
+      "checkButton": "Controleren op updates",
+      "checking": "Controleren…",
+      "dialogTitle": "Updates",
+      "dialogDescription": "MyDevTools werkt zichzelf ter plekke bij — geen herinstallatie, en je offlinegegevens worden nooit aangeraakt.",
+      "onVersion": "Je gebruikt versie {version}.",
+      "available": "Versie {version} is beschikbaar.",
+      "install": "Downloaden en installeren",
+      "upToDate": "Je bent up-to-date.",
+      "checkError": "Kon niet op updates controleren. Ben je online?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Alles",
       "total": "Totaal",
       "allProjects": "Alle projecten",
+      "projectsHeading": "Projecten",
       "export": "Exporteren",
       "kanban": "Kanban",
       "list": "Lijst",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Tik op de + knop om je eerste wachtwoord toe te voegen",
       "emptyHintDesktop": "Je hebt nog geen wachtwoorden opgeslagen. Klik op de knop \"Wachtwoord toevoegen\" hierboven om te beginnen.",
       "addPassword": "Wachtwoord toevoegen",
+      "title": "Wachtwoorden",
+      "filters": {
+        "heading": "Kluisstatus",
+        "all": "Alle wachtwoorden",
+        "weak": "Zwak",
+        "reused": "Hergebruikt",
+        "noUrl": "Geen URL",
+        "tagsHeading": "Tags",
+        "allTags": "Alle tags"
+      },
       "searchPlaceholderMobile": "Doorzoek je kluis...",
       "searchPlaceholderDesktop": "Kluis doorzoeken...",
       "importExport": "Importeren / exporteren",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Maak een set per project en omgeving (bijv. productie-API-sleutels). Alles wordt in uw browser versleuteld vóór upload.",
       "searchPlaceholder": "Zoek project, omgeving, tags, notities…",
       "tagFilterPlaceholder": "Filter op tag",
+      "allProjects": "Alle projecten",
+      "projectsHeading": "Projecten",
       "variableCount": "{count, plural, one {# variabele} other {# variabelen}}",
       "updatedAgo": "Bijgewerkt {time}",
       "copyDotEnv": ".env kopiëren",
@@ -3859,6 +3888,9 @@
     "copyHtml": "HTML kopiëren",
     "copyMarkdown": "Markdown kopiëren",
     "exportHtml": "HTML exporteren",
+    "fileNameLabel": "Bestandsnaam",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "{name} opgeslagen",
     "copied": "Gekopieerd",
     "charCount": "{count, plural, one {# teken} other {# tekens}}",
     "emptyHint": "Begin met het typen van Markdown om de live preview en HTML-uitvoer te zien.",
@@ -5094,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Zijbalk tonen",
+    "hide": "Zijbalk verbergen"
   },
   "DesktopUpdate": {
     "title": "MyDevTools wordt bijgewerkt",

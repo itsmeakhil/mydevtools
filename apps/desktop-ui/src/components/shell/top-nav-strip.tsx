@@ -178,7 +178,11 @@ export function TopNavStrip() {
   const activeWs = useActiveWorkspace()
   const pinned = buildPinnedNavItems(pinnedTools, activeWs)
   const togglePin = usePinnedToolsStore((s) => s.togglePin)
-  const { tabs, closeTab } = useTabStore()
+  const { tabs, closeTab, moveTab } = useTabStore()
+
+  // Drag-to-reorder (native HTML5 DnD, same as the API-client tab bar).
+  const [draggedPath, setDraggedPath] = useState<string | null>(null)
+  const [dragOverPath, setDragOverPath] = useState<string | null>(null)
   const unpin = useCallback(
     (url: string) => {
       if (activeWs) togglePin(activeWs.id, url)
@@ -234,7 +238,7 @@ export function TopNavStrip() {
 
   // Edge-fade affordance: show a fade only on the side that has more to scroll.
   const scrollRef = useRef<HTMLDivElement>(null)
-  const activeTabRef = useRef<HTMLButtonElement>(null)
+  const activeTabRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(false)
   const updateScroll = useCallback(() => {
@@ -341,17 +345,53 @@ export function TopNavStrip() {
                   ) : null}
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <button
-                        type="button"
+                      {/* div, not <button>: WebKit/Firefox refuse to start a
+                          native drag from a form control. */}
+                      <div
+                        role="button"
+                        tabIndex={0}
                         ref={isActive ? activeTabRef : undefined}
+                        draggable
+                        onDragStart={(e) => {
+                          setDraggedPath(tab.path)
+                          e.dataTransfer.effectAllowed = 'move'
+                          // Firefox refuses to start a drag without payload.
+                          e.dataTransfer.setData('text/plain', tab.path)
+                        }}
+                        onDragOver={(e) => {
+                          if (!draggedPath) return
+                          e.preventDefault()
+                          e.dataTransfer.dropEffect = 'move'
+                          if (tab.path !== draggedPath) setDragOverPath(tab.path)
+                        }}
+                        onDragLeave={() => setDragOverPath((p) => (p === tab.path ? null : p))}
+                        onDrop={(e) => {
+                          e.preventDefault()
+                          if (draggedPath) moveTab(draggedPath, tab.path)
+                          setDraggedPath(null)
+                          setDragOverPath(null)
+                        }}
+                        onDragEnd={() => {
+                          setDraggedPath(null)
+                          setDragOverPath(null)
+                        }}
                         onClick={() => {
                           if (tab.path !== pathname) router.push(tab.path)
                         }}
+                        onKeyDown={(e) => {
+                          if (e.key !== 'Enter' && e.key !== ' ') return
+                          e.preventDefault()
+                          if (tab.path !== pathname) router.push(tab.path)
+                        }}
                         className={cn(
-                          'group relative flex h-8 min-w-[144px] max-w-[230px] shrink-0 cursor-pointer items-center gap-2.5 rounded-md border px-3 text-[13px] font-medium leading-none transition-colors duration-150',
+                          'group relative flex h-8 min-w-[144px] max-w-[230px] shrink-0 cursor-pointer select-none items-center gap-2.5 rounded-md border px-3 text-[13px] font-medium leading-none outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring',
                           isActive
                             ? 'border-border bg-[hsl(var(--surface-1))] text-foreground'
                             : 'border-transparent text-foreground/60 hover:bg-foreground/[0.05] hover:text-foreground/90',
+                          draggedPath === tab.path && 'opacity-40',
+                          dragOverPath === tab.path &&
+                            draggedPath !== tab.path &&
+                            'ring-2 ring-inset ring-primary/50',
                         )}
                       >
                         {isActive && (
@@ -395,7 +435,7 @@ export function TopNavStrip() {
                         >
                           <X className="h-3 w-3" strokeWidth={2.5} aria-hidden />
                         </span>
-                      </button>
+                      </div>
                     </TooltipTrigger>
                     <TooltipContent side="bottom" sideOffset={8} className="flex items-center gap-1.5 text-xs">
                       {title}

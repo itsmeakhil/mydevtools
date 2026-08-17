@@ -212,6 +212,7 @@ export function PasswordCard({
                         <div className="relative group/pass">
                             <div className="flex items-center gap-2 bg-muted/30 p-1 pl-3 pr-1 rounded-xl border border-transparent group-hover/pass:border-primary/10 group-hover/pass:bg-muted/50 transition-all">
                                 <div className="flex-1 font-mono text-sm truncate tracking-wider text-foreground/80">
+                                    {/* threatcrush-disable-next-line secret-generic-credential */}
                                     {isVisible ? entry.password : "••••••••••••"}
                                 </div>
                                 <div className="flex gap-0.5">

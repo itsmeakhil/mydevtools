@@ -195,6 +195,8 @@
       "title": "Vzhled",
       "description": "Přizpůsobte vzhled aplikace na vašem zařízení.",
       "themePreference": "Motiv",
+      "accentColor": "Barva zvýraznění",
+      "customColor": "Vlastní barva",
       "themes": {
         "light": "Světlý",
         "dark": "Tmavý",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "O aplikaci",
+      "running": "Běží MyDevTools",
+      "runningVersion": "Běží MyDevTools v{version}",
+      "checkButton": "Zkontrolovat aktualizace",
+      "checking": "Kontrola…",
+      "dialogTitle": "Aktualizace",
+      "dialogDescription": "MyDevTools se aktualizuje na místě — žádná reinstalace a vašich offline dat se to nikdy nedotkne.",
+      "onVersion": "Máte verzi {version}.",
+      "available": "Verze {version} je dostupná.",
+      "install": "Stáhnout a nainstalovat",
+      "upToDate": "Máte nejnovější verzi.",
+      "checkError": "Aktualizace se nepodařilo zkontrolovat. Jste online?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Vše",
       "total": "Celkem",
       "allProjects": "Všechny projekty",
+      "projectsHeading": "Projekty",
       "export": "Export",
       "kanban": "Kanban",
       "list": "Seznam",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Klepněte na + a přidejte první heslo",
       "emptyHintDesktop": "Zatím nemáte uložená žádná hesla. Začněte tlačítkem „Přidat heslo“ výše.",
       "addPassword": "Přidat heslo",
+      "title": "Hesla",
+      "filters": {
+        "heading": "Stav trezoru",
+        "all": "Všechna hesla",
+        "weak": "Slabá",
+        "reused": "Opakovaná",
+        "noUrl": "Bez URL",
+        "tagsHeading": "Štítky",
+        "allTags": "Všechny štítky"
+      },
       "searchPlaceholderMobile": "Hledat v trezoru...",
       "searchPlaceholderDesktop": "Hledat v trezoru...",
       "importExport": "Import / export",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Vytvořte sadu pro každý projekt a prostředí (např. produkční API klíče). Vše se před nahráním šifruje v prohlížeči.",
       "searchPlaceholder": "Hledat projekt, prostředí, značky, poznámky…",
       "tagFilterPlaceholder": "Filtrovat podle značky",
+      "allProjects": "Všechny projekty",
+      "projectsHeading": "Projekty",
       "variableCount": "{count, plural, one {# proměnná} few {# proměnné} other {# proměnných}}",
       "updatedAgo": "Aktualizováno {time}",
       "copyDotEnv": "Kopírovat .env",
@@ -3859,6 +3888,9 @@
     "copyHtml": "Kopírovat HTML",
     "copyMarkdown": "Kopírovat Markdown",
     "exportHtml": "Exportovat HTML",
+    "fileNameLabel": "Název souboru",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "Uloženo {name}",
     "copied": "Zkopírováno",
     "charCount": "{count, plural, one {# znak} few {# znaky} other {# znaků}}",
     "emptyHint": "Začněte psát Markdown pro zobrazení živého náhledu a HTML výstupu.",
@@ -5094,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Zobrazit postranní panel",
+    "hide": "Skrýt postranní panel"
   },
   "DesktopUpdate": {
     "title": "Aktualizace MyDevTools",

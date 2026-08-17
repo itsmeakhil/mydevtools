@@ -101,6 +101,8 @@ function claimInfo(
   return { unix, date, labelKey };
 }
 
+// Inspection only: no signature check, and no authorization decision is made
+// from the result. threatcrush-disable-next-line js-jwt-decode-without-verify
 export function decodeJwt(token: string): JwtDecodeResult {
   const trimmed = token.trim().replace(/^Bearer\s+/i, '');
   if (!trimmed) {

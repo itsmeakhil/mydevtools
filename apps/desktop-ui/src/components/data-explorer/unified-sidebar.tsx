@@ -35,6 +35,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
+import { useToolSidebarPanel } from "@/components/tools/tool-sidebar";
 import { SOURCES, SOURCE_ORDER, getAdapter } from "./sources";
 import { deleteConnection } from "./connection-service";
 import type { OpenTabRequest, SourceId, UnifiedConnection } from "./types";
@@ -198,11 +199,22 @@ export function UnifiedSidebar({
     onImportLegacy,
 }: UnifiedSidebarProps) {
     const t = useTranslations("DataExplorer");
+    const panel = useToolSidebarPanel();
     const [query, setQuery] = useState("");
     const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
     const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
     const [pendingDelete, setPendingDelete] = useState<UnifiedConnection | null>(null);
     const [deleting, setDeleting] = useState(false);
+
+    // On mobile the panel is a sheet over the tab body — opening a tab has to
+    // dismiss it or the new tab stays hidden behind the sheet.
+    const handleOpenTab = useCallback(
+        (connection: UnifiedConnection, req: OpenTabRequest) => {
+            onOpenTab(connection, req);
+            if (panel?.isMobile) panel.close();
+        },
+        [onOpenTab, panel]
+    );
 
     const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();
@@ -281,20 +293,10 @@ export function UnifiedSidebar({
     }
 
     return (
-        <div className="flex h-full flex-col overflow-hidden border-r bg-muted/10">
-            <div className="space-y-2 border-b p-3">
-                <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold">{t("title")}</span>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="size-7"
-                        aria-label={t("addConnection")}
-                        onClick={onAddConnection}
-                    >
-                        <IconPlus className="size-4" />
-                    </Button>
-                </div>
+        // Header (title, add, collapse) is owned by ToolSidebarLayout in
+        // app/app/data-explorer/page.tsx — this renders the panel body only.
+        <>
+            <div className="shrink-0 border-b p-3">
                 <div className="relative">
                     <IconSearch className="absolute left-2 top-1/2 size-3 -translate-y-1/2 text-muted-foreground" />
                     <Input
@@ -364,7 +366,7 @@ export function UnifiedSidebar({
                                                     connection={connection}
                                                     expanded={expandedIds.has(connection.id)}
                                                     onToggle={toggleConnection}
-                                                    onOpenTab={onOpenTab}
+                                                    onOpenTab={handleOpenTab}
                                                     onEdit={onEditConnection}
                                                     onDelete={requestDelete}
                                                     onConnectionsChanged={onConnectionsChanged}
@@ -384,7 +386,7 @@ export function UnifiedSidebar({
                 )}
             </div>
 
-            <div className="border-t p-2">
+            <div className="shrink-0 border-t p-2">
                 <Button
                     variant="ghost"
                     size="sm"
@@ -426,6 +428,6 @@ export function UnifiedSidebar({
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </div>
+        </>
     );
 }
