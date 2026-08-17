@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Quant a",
+      "running": "S'està executant MyDevTools",
+      "runningVersion": "S'està executant MyDevTools v{version}",
+      "checkButton": "Comprova si hi ha actualitzacions",
+      "checking": "S'està comprovant…",
+      "dialogTitle": "Actualitzacions",
+      "dialogDescription": "MyDevTools s’actualitza sobre si mateix — sense reinstal·lar res, i les teves dades fora de línia no es toquen mai.",
+      "onVersion": "Tens la versió {version}.",
+      "available": "La versió {version} està disponible.",
+      "install": "Baixa i instal·la",
+      "upToDate": "Estàs al dia.",
+      "checkError": "No s'han pogut comprovar les actualitzacions. Estàs connectat?"
     }
   },
   "Dashboard": {

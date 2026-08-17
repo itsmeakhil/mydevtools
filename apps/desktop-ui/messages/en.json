@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "About",
+      "running": "Running MyDevTools",
+      "runningVersion": "Running MyDevTools v{version}",
+      "checkButton": "Check for updates",
+      "checking": "Checking…",
+      "dialogTitle": "Updates",
+      "dialogDescription": "MyDevTools updates itself in place — no reinstall, and your offline data is never touched.",
+      "onVersion": "You're on version {version}.",
+      "available": "Version {version} is available.",
+      "install": "Download & install",
+      "upToDate": "You're up to date.",
+      "checkError": "Couldn't check for updates. Are you online?"
     }
   },
   "Dashboard": {

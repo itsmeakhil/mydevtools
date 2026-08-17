@@ -81,6 +81,9 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => { warmedKeyRef.current = warmedKey; }, [warmedKey]);
     const warmInFlight = useRef<Promise<void> | null>(null);
     const contentLoadedIds = useRef<Set<string>>(new Set());
+    // Cipher key the loaded bodies were decrypted under — a mismatch invalidates
+    // them (see the body-loading effect below).
+    const loadedUnderKey = useRef<CryptoKey | null>(null);
     // Notes whose content is an envelope we couldn't decrypt (vault locked). Their
     // in-state `content` is a null placeholder — writing it back would clobber the
     // real body, so content writes are blocked until unlock.
@@ -156,7 +159,19 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         setNotes([...allNotes].sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
     }, [apiRequest]);
 
+    // Body of the active note. Runs on cipherKey change too: a note opened while
+    // the vault was locked holds a null placeholder, and the plain-text cache is
+    // module state — both must be invalidated and refetched under the new key, or
+    // the editor shows an empty document and the next keystroke saves that over
+    // the real body. (Invalidation lives here, not in its own [cipherKey] effect,
+    // so it can't run *after* this one and leave the refetch skipped.)
     useEffect(() => {
+        if (loadedUnderKey.current !== cipherKey) {
+            loadedUnderKey.current = cipherKey;
+            contentLoadedIds.current.clear();
+            lockedIds.current.clear();
+            clearPlainTextCache();
+        }
         if (!activeNoteId || contentLoadedIds.current.has(activeNoteId)) return;
         let cancelled = false;
         setIsContentLoading(true);
@@ -175,7 +190,7 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
             .catch(() => { /* note may have been deleted */ })
             .finally(() => { if (!cancelled) setIsContentLoading(false); });
         return () => { cancelled = true; };
-    }, [activeNoteId, apiRequest, decryptBody, setContent]);
+    }, [activeNoteId, cipherKey, apiRequest, decryptBody, setContent]);
 
     // Flush parked updatedAt bumps from body saves when the user leaves a note —
     // one re-render per switch instead of one per autosave.
@@ -202,16 +217,6 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
         // No cipherKey dep: metadata is plaintext on the wire and doesn't depend
         // on the vault key. Bodies are handled by the effect below.
     }, [refreshNotes]);
-
-    // Vault lock/unlock: bodies and the search index invalidate themselves (both
-    // are tagged with their key), but the plain-text cache is module state —
-    // clear it so decrypted text doesn't outlive the unlocked session. The
-    // active note then refetches under the new key state. No mass refetch.
-    useEffect(() => {
-        contentLoadedIds.current.clear();
-        lockedIds.current.clear();
-        clearPlainTextCache();
-    }, [cipherKey]);
 
     /**
      * Decrypt every note body once into the plain-text search cache. Only the

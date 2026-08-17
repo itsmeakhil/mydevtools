@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Tentang",
+      "running": "Menjalankan MyDevTools",
+      "runningVersion": "Menjalankan MyDevTools v{version}",
+      "checkButton": "Periksa pembaruan",
+      "checking": "Memeriksa…",
+      "dialogTitle": "Pembaruan",
+      "dialogDescription": "MyDevTools memperbarui dirinya di tempat — tanpa instal ulang, dan data offline Anda tidak pernah tersentuh.",
+      "onVersion": "Anda menggunakan versi {version}.",
+      "available": "Versi {version} tersedia.",
+      "install": "Unduh dan pasang",
+      "upToDate": "Anda sudah menggunakan versi terbaru.",
+      "checkError": "Tidak dapat memeriksa pembaruan. Apakah Anda online?"
     }
   },
   "Dashboard": {

@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Om",
+      "running": "Kör MyDevTools",
+      "runningVersion": "Kör MyDevTools v{version}",
+      "checkButton": "Sök efter uppdateringar",
+      "checking": "Söker…",
+      "dialogTitle": "Uppdateringar",
+      "dialogDescription": "MyDevTools uppdaterar sig själv på plats — ingen ominstallation, och dina offlinedata berörs aldrig.",
+      "onVersion": "Du använder version {version}.",
+      "available": "Version {version} är tillgänglig.",
+      "install": "Ladda ner och installera",
+      "upToDate": "Du är uppdaterad.",
+      "checkError": "Kunde inte söka efter uppdateringar. Är du online?"
     }
   },
   "Dashboard": {

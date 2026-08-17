@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "О приложении",
+      "running": "MyDevTools запущен",
+      "runningVersion": "MyDevTools v{version} запущен",
+      "checkButton": "Проверить обновления",
+      "checking": "Проверка…",
+      "dialogTitle": "Обновления",
+      "dialogDescription": "MyDevTools обновляется на месте — без переустановки, и ваши офлайн-данные никогда не затрагиваются.",
+      "onVersion": "У вас версия {version}.",
+      "available": "Доступна версия {version}.",
+      "install": "Скачать и установить",
+      "upToDate": "У вас последняя версия.",
+      "checkError": "Не удалось проверить обновления. Вы онлайн?"
     }
   },
   "Dashboard": {

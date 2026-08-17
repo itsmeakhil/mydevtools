@@ -11,7 +11,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { PROFILE_UPDATED_EVENT } from '@/hooks/use-app-user'
 import { getUserPreferences, patchUserPreferences } from '@/lib/user-preferences-api'
-import { DesktopUpdateDialog } from '@/components/desktop/desktop-update-dialog'
 
 /**
  * Local profile: the name and avatar the app shows you. Stored in local
@@ -92,12 +91,9 @@ export function ProfileCard() {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-4">
-          <Button size="sm" onClick={() => void save()} disabled={saving}>
-            {t('save')}
-          </Button>
-          <DesktopUpdateDialog />
-        </div>
+        <Button size="sm" onClick={() => void save()} disabled={saving}>
+          {t('save')}
+        </Button>
       </CardContent>
     </Card>
   )

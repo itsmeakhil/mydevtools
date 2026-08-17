@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Info",
+      "running": "MyDevTools läuft",
+      "runningVersion": "MyDevTools v{version} läuft",
+      "checkButton": "Nach Updates suchen",
+      "checking": "Suche…",
+      "dialogTitle": "Updates",
+      "dialogDescription": "MyDevTools aktualisiert sich direkt an Ort und Stelle — keine Neuinstallation, und deine Offline-Daten werden nie angetastet.",
+      "onVersion": "Du nutzt Version {version}.",
+      "available": "Version {version} ist verfügbar.",
+      "install": "Herunterladen und installieren",
+      "upToDate": "Du bist auf dem neuesten Stand.",
+      "checkError": "Suche nach Updates fehlgeschlagen. Bist du online?"
     }
   },
   "Dashboard": {

@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Acerca de",
+      "running": "A executar o MyDevTools",
+      "runningVersion": "A executar o MyDevTools v{version}",
+      "checkButton": "Procurar atualizações",
+      "checking": "A procurar…",
+      "dialogTitle": "Atualizações",
+      "dialogDescription": "O MyDevTools atualiza-se no local — sem reinstalar nada, e os seus dados offline nunca são tocados.",
+      "onVersion": "Está na versão {version}.",
+      "available": "A versão {version} está disponível.",
+      "install": "Transferir e instalar",
+      "upToDate": "Está atualizado.",
+      "checkError": "Não foi possível procurar atualizações. Está online?"
     }
   },
   "Dashboard": {

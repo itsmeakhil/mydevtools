@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "O aplikaci",
+      "running": "Běží MyDevTools",
+      "runningVersion": "Běží MyDevTools v{version}",
+      "checkButton": "Zkontrolovat aktualizace",
+      "checking": "Kontrola…",
+      "dialogTitle": "Aktualizace",
+      "dialogDescription": "MyDevTools se aktualizuje na místě — žádná reinstalace a vašich offline dat se to nikdy nedotkne.",
+      "onVersion": "Máte verzi {version}.",
+      "available": "Verze {version} je dostupná.",
+      "install": "Stáhnout a nainstalovat",
+      "upToDate": "Máte nejnovější verzi.",
+      "checkError": "Aktualizace se nepodařilo zkontrolovat. Jste online?"
     }
   },
   "Dashboard": {

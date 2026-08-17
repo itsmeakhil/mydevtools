@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Hakkında",
+      "running": "MyDevTools çalışıyor",
+      "runningVersion": "MyDevTools v{version} çalışıyor",
+      "checkButton": "Güncellemeleri denetle",
+      "checking": "Denetleniyor…",
+      "dialogTitle": "Güncellemeler",
+      "dialogDescription": "MyDevTools kendini yerinde günceller — yeniden kurulum gerekmez ve çevrimdışı verilerinize asla dokunulmaz.",
+      "onVersion": "{version} sürümünü kullanıyorsunuz.",
+      "available": "{version} sürümü kullanılabilir.",
+      "install": "İndir ve kur",
+      "upToDate": "En son sürümü kullanıyorsunuz.",
+      "checkError": "Güncellemeler denetlenemedi. Çevrimiçi misiniz?"
     }
   },
   "Dashboard": {

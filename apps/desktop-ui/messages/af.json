@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Oor",
+      "running": "Tans op MyDevTools",
+      "runningVersion": "Tans op MyDevTools v{version}",
+      "checkButton": "Kyk vir opdaterings",
+      "checking": "Kyk…",
+      "dialogTitle": "Opdaterings",
+      "dialogDescription": "MyDevTools dateer homself ter plaatse op — geen herinstallasie nie, en jou aflyn data word nooit geraak nie.",
+      "onVersion": "Jy is op weergawe {version}.",
+      "available": "Weergawe {version} is beskikbaar.",
+      "install": "Laai af en installeer",
+      "upToDate": "Jy is op datum.",
+      "checkError": "Kon nie vir opdaterings kyk nie. Is jy aanlyn?"
     }
   },
   "Dashboard": {

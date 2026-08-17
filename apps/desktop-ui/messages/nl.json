@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Over",
+      "running": "MyDevTools wordt uitgevoerd",
+      "runningVersion": "MyDevTools v{version} wordt uitgevoerd",
+      "checkButton": "Controleren op updates",
+      "checking": "Controleren…",
+      "dialogTitle": "Updates",
+      "dialogDescription": "MyDevTools werkt zichzelf ter plekke bij — geen herinstallatie, en je offlinegegevens worden nooit aangeraakt.",
+      "onVersion": "Je gebruikt versie {version}.",
+      "available": "Versie {version} is beschikbaar.",
+      "install": "Downloaden en installeren",
+      "upToDate": "Je bent up-to-date.",
+      "checkError": "Kon niet op updates controleren. Ben je online?"
     }
   },
   "Dashboard": {

@@ -257,6 +257,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "حول",
+      "running": "تشغيل MyDevTools",
+      "runningVersion": "تشغيل MyDevTools الإصدار {version}",
+      "checkButton": "التحقق من التحديثات",
+      "checking": "جارٍ التحقق…",
+      "dialogTitle": "التحديثات",
+      "dialogDescription": "يقوم MyDevTools بتحديث نفسه في مكانه — بدون إعادة تثبيت، ولا يتم المساس ببياناتك دون اتصال أبدًا.",
+      "onVersion": "أنت تستخدم الإصدار {version}.",
+      "available": "الإصدار {version} متوفر.",
+      "install": "التنزيل والتثبيت",
+      "upToDate": "أنت على أحدث إصدار.",
+      "checkError": "تعذّر التحقق من التحديثات. هل أنت متصل بالإنترنت؟"
     }
   },
   "Dashboard": {

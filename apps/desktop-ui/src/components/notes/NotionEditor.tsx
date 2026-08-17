@@ -40,6 +40,11 @@ import {
     readingTimeMinutes,
 } from "@/app/app/notes/utils/noteContentUtils";
 import type { Note } from "@/app/app/notes/types/Note";
+import {
+    mergePendingUpdate,
+    requeuePendingUpdates,
+    type PendingUpdates,
+} from "@/components/notes/notes-helpers";
 
 export default function NotionEditor() {
     const tEditor = useTranslations("Notes.editor");
@@ -100,33 +105,46 @@ export default function NotionEditor() {
         return () => clearTimeout(timeout);
     }, [saveState]);
 
-    const handleUpdate = useCallback(async (id: string, updates: Partial<Note>) => {
-        if (id) {
-            setSaveState("saving");
+    // Title, tags and body all share one debounced save, so pending edits are
+    // queued per note and merged — a title keystroke inside the body's debounce
+    // window must not replace the queued body edit with itself.
+    const pendingUpdatesRef = useRef<PendingUpdates>(new Map());
+
+    const flushUpdates = useCallback(async () => {
+        const batch = [...pendingUpdatesRef.current];
+        if (!batch.length) return;
+        pendingUpdatesRef.current.clear();
+        setSaveState("saving");
+        try {
+            for (const [id, updates] of batch) await updateNote(id, updates);
             isDirtyRef.current = false;
-            try {
-                await updateNote(id, updates);
-                setLastSavedAt(new Date());
-                setSaveState("saved");
-            } catch (err) {
-                // Vault locked / no workspace: surface the reason and keep the
-                // note dirty so the next edit retries instead of silently dropping.
-                isDirtyRef.current = true;
-                setSaveState("idle");
-                toast.error(err instanceof Error ? err.message : String(err));
-            }
+            setLastSavedAt(new Date());
+            setSaveState("saved");
+        } catch (err) {
+            // Vault locked / no workspace: surface the reason and requeue so the
+            // next edit retries instead of silently dropping.
+            requeuePendingUpdates(pendingUpdatesRef.current, batch);
+            isDirtyRef.current = true;
+            setSaveState("idle");
+            toast.error(err instanceof Error ? err.message : String(err));
         }
     }, [updateNote]);
 
-    const debouncedUpdate = useDebouncedCallback(handleUpdate, 1000);
+    // flushOnExit: unmount (navigating away, vault auto-lock swapping in the
+    // locked placeholder) must not drop an edit that already showed "Saving…".
+    const debouncedUpdate = useDebouncedCallback(flushUpdates, 1000, { flushOnExit: true });
+
+    const queueUpdate = useCallback((id: string | null, updates: Partial<Note>) => {
+        if (!id) return;
+        mergePendingUpdate(pendingUpdatesRef.current, id, updates);
+        setSaveState("saving");
+        debouncedUpdate();
+    }, [debouncedUpdate]);
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newTitle = e.target.value;
         setTitle(newTitle);
-        if (activeNoteId) {
-            setSaveState("saving");
-            debouncedUpdate(activeNoteId, { title: newTitle });
-        }
+        queueUpdate(activeNoteId, { title: newTitle });
     };
 
     const handleEditorChange = (markdown: string) => {
@@ -134,8 +152,7 @@ export default function NotionEditor() {
         pushWordCount(markdown);
         if (activeNoteId) {
             isDirtyRef.current = true;
-            setSaveState("saving");
-            debouncedUpdate(activeNoteId, { content: markdown });
+            queueUpdate(activeNoteId, { content: markdown });
         }
     };
 
@@ -191,14 +208,14 @@ export default function NotionEditor() {
         if (!tag || tags.includes(tag) || tags.length >= 20) return;
         const next = [...tags, tag];
         setTags(next);
-        if (activeNoteId) debouncedUpdate(activeNoteId, { tags: next });
-    }, [tags, activeNoteId, debouncedUpdate]);
+        queueUpdate(activeNoteId, { tags: next });
+    }, [tags, activeNoteId, queueUpdate]);
 
     const removeTag = useCallback((tag: string) => {
         const next = tags.filter(t => t !== tag);
         setTags(next);
-        if (activeNoteId) debouncedUpdate(activeNoteId, { tags: next });
-    }, [tags, activeNoteId, debouncedUpdate]);
+        queueUpdate(activeNoteId, { tags: next });
+    }, [tags, activeNoteId, queueUpdate]);
 
     // Defer word-count compute: the heavy extract runs at most every 500ms
     // instead of every keystroke.
@@ -237,8 +254,7 @@ export default function NotionEditor() {
 
     const handleApplyTemplate = useCallback((tpl: NoteTemplate) => {
         if (!activeNoteId) return;
-        setSaveState("saving");
-        debouncedUpdate(activeNoteId, { content: tpl.content, title: tpl.defaultTitle });
+        queueUpdate(activeNoteId, { content: tpl.content, title: tpl.defaultTitle });
         setTitle(tpl.defaultTitle);
         latestMarkdownRef.current = tpl.content;
         setWordCountSource(tpl.content);
@@ -248,7 +264,7 @@ export default function NotionEditor() {
         // clobber the title/content we just set.
         setPendingTemplateContent({ noteId: activeNoteId, markdown: tpl.content });
         setEditorKey(k => k + 1);
-    }, [activeNoteId, debouncedUpdate]);
+    }, [activeNoteId, queueUpdate]);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
