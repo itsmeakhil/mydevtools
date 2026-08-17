@@ -725,6 +725,7 @@
       "all": "全部",
       "total": "总计",
       "allProjects": "所有项目",
+      "projectsHeading": "项目",
       "export": "导出",
       "kanban": "看板",
       "list": "列表",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "点击 + 添加第一条密码",
       "emptyHintDesktop": "尚未保存任何密码。点击上方「添加密码」开始。",
       "addPassword": "添加密码",
+      "title": "密码",
+      "filters": {
+        "heading": "保险库健康度",
+        "all": "所有密码",
+        "weak": "弱密码",
+        "reused": "重复使用",
+        "noUrl": "无网址",
+        "tagsHeading": "标签",
+        "allTags": "所有标签"
+      },
       "searchPlaceholderMobile": "搜索保险库…",
       "searchPlaceholderDesktop": "搜索保险库…",
       "importExport": "导入 / 导出",
@@ -1177,6 +1188,8 @@
       "emptyHint": "为每个项目与环境创建集合（例如生产环境 API 密钥）。上传前均在浏览器中加密。",
       "searchPlaceholder": "搜索项目、环境、标签、备注…",
       "tagFilterPlaceholder": "按标签筛选",
+      "allProjects": "所有项目",
+      "projectsHeading": "项目",
       "variableCount": "{count, plural, other {# 个变量}}",
       "updatedAgo": "更新于 {time}",
       "copyDotEnv": "复制 .env",
@@ -5113,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% 离线"
+  },
+  "ToolSidebar": {
+    "show": "显示侧边栏",
+    "hide": "隐藏侧边栏"
   },
   "DesktopUpdate": {
     "title": "正在更新 MyDevTools",

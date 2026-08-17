@@ -68,11 +68,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import { ToolSidebarActions, ToolSidebarLayout } from "@/components/tools/tool-sidebar";
 import { cn } from "@/lib/utils";
 import {
   SnippetMonaco,
@@ -899,38 +895,21 @@ export function SnippetManagerTool() {
 
   // ── Desktop layout ────────────────────────────────────────────────────────
 
-  return (
-    <ToolWrapper toolId="snippet-manager" maxWidth="full" fillMain className="min-h-0">
-      <div className="flex min-h-0 flex-1 flex-col gap-1.5">
-        <ResizablePanelGroup
-          direction="horizontal"
-          className="min-h-0 flex-1 overflow-hidden rounded-lg border border-border/50 md:rounded-xl"
+  const snippetPanel = (
+    <>
+      {/* Header (icon, title, collapse) is owned by ToolSidebarLayout. */}
+      <ToolSidebarActions>
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          className="h-8 w-8 cursor-pointer"
+          onClick={handleNew}
+          aria-label={t("newSnippet")}
         >
-          {/* List panel */}
-          <ResizablePanel defaultSize={26} minSize={18} maxSize={38}>
-            <div className="flex h-full min-h-0 flex-col border-r border-border/50">
-              {/* List header */}
-              <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border/50 px-2 py-1.5 sm:px-3 sm:py-2">
-                <span className="flex min-w-0 items-center gap-2 truncate text-sm font-semibold">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-                    <IconCode className="h-3.5 w-3.5" />
-                  </span>
-                  {t("snippets")}
-                </span>
-                <div className="flex shrink-0 items-center gap-0.5">
-                  <ToolPinButton toolId="snippet-manager" className="h-6 w-6" />
-                  <Button
-                    type="button"
-                    size="icon"
-                    variant="ghost"
-                    className="h-6 w-6 cursor-pointer"
-                    onClick={handleNew}
-                    aria-label={t("newSnippet")}
-                  >
-                    <IconPlus className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-              </div>
+          <IconPlus className="h-4 w-4" />
+        </Button>
+      </ToolSidebarActions>
 
               {/* Search */}
               <div className="shrink-0 px-3 py-2">
@@ -965,25 +944,29 @@ export function SnippetManagerTool() {
                 }}
               />
 
-              {/* Count */}
-              {filtered.length > 0 && (
-                <div className="shrink-0 border-t border-border/50 px-3 py-2">
-                  <p className="text-center text-[11px] text-muted-foreground/60">
-                    {snHasMore ? `${snDisplayCount} / ${filtered.length}` : filtered.length}{" "}
-                    {filtered.length === 1 ? "snippet" : "snippets"}
-                  </p>
-                </div>
-              )}
-            </div>
-          </ResizablePanel>
+      {/* Count */}
+      {filtered.length > 0 && (
+        <div className="shrink-0 border-t border-border/50 px-3 py-2">
+          <p className="text-center text-[11px] text-muted-foreground/60">
+            {snHasMore ? `${snDisplayCount} / ${filtered.length}` : filtered.length}{" "}
+            {filtered.length === 1 ? "snippet" : "snippets"}
+          </p>
+        </div>
+      )}
+    </>
+  );
 
-          <ResizableHandle withHandle />
-
-          {/* Editor panel */}
-          <ResizablePanel defaultSize={74} minSize={40}>
-            {editorPanel}
-          </ResizablePanel>
-        </ResizablePanelGroup>
+  return (
+    <ToolSidebarLayout
+      toolId="snippet-manager"
+      icon={IconCode}
+      title={t("snippets")}
+      sidebar={snippetPanel}
+    >
+      <div className="flex min-h-0 flex-1 flex-col p-1 md:p-2">
+        <div className="min-h-0 flex-1 overflow-hidden rounded-lg border border-border/50 md:rounded-xl">
+          {editorPanel}
+        </div>
       </div>
 
       <DeleteDialog
@@ -992,7 +975,7 @@ export function SnippetManagerTool() {
         onConfirm={confirmDelete}
         t={t}
       />
-    </ToolWrapper>
+    </ToolSidebarLayout>
   );
 }
 

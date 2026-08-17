@@ -725,6 +725,7 @@
       "all": "Alle",
       "total": "Totalt",
       "allProjects": "Alle prosjekter",
+      "projectsHeading": "Prosjekter",
       "export": "Eksporter",
       "kanban": "Kanban",
       "list": "Liste",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "Trykk på +-knappen for å legge til ditt første passord",
       "emptyHintDesktop": "Du har ikke lagret noen passord ennå. Klikk på «Legg til passord»-knappen ovenfor for å komme i gang.",
       "addPassword": "Legg til passord",
+      "title": "Passord",
+      "filters": {
+        "heading": "Hvelvets tilstand",
+        "all": "Alle passord",
+        "weak": "Svake",
+        "reused": "Gjenbrukte",
+        "noUrl": "Ingen URL",
+        "tagsHeading": "Merkelapper",
+        "allTags": "Alle merkelapper"
+      },
       "searchPlaceholderMobile": "Søk i hvelvet ditt...",
       "searchPlaceholderDesktop": "Søk i hvelv...",
       "importExport": "Importer / eksporter",
@@ -1177,6 +1188,8 @@
       "emptyHint": "Opprett et sett for hvert prosjekt og miljø (f.eks. produksjons-API-nøkler). Alt krypteres i nettleseren før opplasting.",
       "searchPlaceholder": "Søk prosjekt, miljø, tagger, notater…",
       "tagFilterPlaceholder": "Filtrer på tagg",
+      "allProjects": "Alle prosjekter",
+      "projectsHeading": "Prosjekter",
       "variableCount": "{count, plural, one {# variabel} other {# variabler}}",
       "updatedAgo": "Oppdatert {time}",
       "copyDotEnv": "Kopier .env",
@@ -5113,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100 % offline"
+  },
+  "ToolSidebar": {
+    "show": "Vis sidepanel",
+    "hide": "Skjul sidepanel"
   },
   "DesktopUpdate": {
     "title": "Oppdaterer MyDevTools",

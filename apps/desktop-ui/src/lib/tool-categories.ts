@@ -5,6 +5,7 @@ export const toolCategoryMap: Record<string, string> = {
   notes: 'Productivity',
   'snippet-manager': 'Productivity',
   'to-do': 'Productivity',
+  'api-keys': 'Security',
   'email-validator': 'Security',
   'environment-manager': 'Security',
   'jwt-decoder': 'Security',

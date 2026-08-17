@@ -725,6 +725,7 @@
       "all": "すべて",
       "total": "合計",
       "allProjects": "すべてのプロジェクト",
+      "projectsHeading": "プロジェクト",
       "export": "エクスポート",
       "kanban": "カンバン",
       "list": "リスト",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "+ボタンをタップして最初のパスワードを追加してください",
       "emptyHintDesktop": "パスワードはまだ保存されていません。上の「パスワードを追加」ボタンをクリックして始めましょう。",
       "addPassword": "パスワードを追加",
+      "title": "パスワード",
+      "filters": {
+        "heading": "保管庫の状態",
+        "all": "すべてのパスワード",
+        "weak": "脆弱",
+        "reused": "使い回し",
+        "noUrl": "URLなし",
+        "tagsHeading": "タグ",
+        "allTags": "すべてのタグ"
+      },
       "searchPlaceholderMobile": "ボールトを検索...",
       "searchPlaceholderDesktop": "ボールトを検索...",
       "importExport": "インポート / エクスポート",
@@ -1177,6 +1188,8 @@
       "emptyHint": "プロジェクトと環境ごとにセットを作成します（例: 本番 API キー）。アップロード前にブラウザで暗号化されます。",
       "searchPlaceholder": "プロジェクト・環境・タグ・メモを検索…",
       "tagFilterPlaceholder": "タグで絞り込み",
+      "allProjects": "すべてのプロジェクト",
+      "projectsHeading": "プロジェクト",
       "variableCount": "{count, plural, other {# 件の変数}}",
       "updatedAgo": "更新 {time}",
       "copyDotEnv": ".env をコピー",
@@ -5113,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "完全オフライン"
+  },
+  "ToolSidebar": {
+    "show": "サイドバーを表示",
+    "hide": "サイドバーを非表示"
   },
   "DesktopUpdate": {
     "title": "MyDevTools を更新しています",

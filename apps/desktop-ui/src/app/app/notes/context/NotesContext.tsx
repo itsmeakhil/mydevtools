@@ -37,8 +37,6 @@ interface NotesUI {
     setActiveNoteId: (id: string | null) => void;
     focusMode: boolean;
     setFocusMode: (v: boolean) => void;
-    sidebarOpen: boolean;
-    setSidebarOpen: (v: boolean) => void;
 }
 
 interface NotesActions {
@@ -65,7 +63,6 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     const [isContentLoading, setIsContentLoading] = useState(false);
     const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
     const [focusMode, setFocusMode] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(true);
     // Decrypted bodies, tagged with the key they were decrypted under: a vault
     // lock/unlock invalidates the whole map on read, with no reset effect.
     const [contentStore, setContentStore] = useState<ContentStore>({ key: null, map: EMPTY_CONTENT });
@@ -407,8 +404,8 @@ export function NotesProvider({ children }: { children: React.ReactNode }) {
     );
 
     const uiValue = useMemo<NotesUI>(
-        () => ({ activeNoteId, setActiveNoteId, focusMode, setFocusMode, sidebarOpen, setSidebarOpen }),
-        [activeNoteId, focusMode, sidebarOpen]
+        () => ({ activeNoteId, setActiveNoteId, focusMode, setFocusMode }),
+        [activeNoteId, focusMode]
     );
 
     const actionsValue = useMemo<NotesActions>(

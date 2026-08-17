@@ -155,6 +155,7 @@ export function PasswordItemSwipeable({
                         {/* Password Row */}
                         <div className="flex items-center justify-between bg-background p-2.5 rounded-lg border border-border/50 shadow-sm">
                             <span className="font-mono text-sm truncate flex-1 mr-2 text-foreground/80">
+                                {/* threatcrush-disable-next-line secret-generic-credential */}
                                 {isVisible ? entry.password : "••••••••••••"}
                             </span>
                             <div className="flex gap-1">

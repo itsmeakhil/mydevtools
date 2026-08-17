@@ -62,6 +62,7 @@ export function parseServiceAccount(
     if (!privateKey.includes("\n") && privateKey.includes("\\n")) {
         privateKey = privateKey.replace(/\\n/g, "\n");
     }
+    // threatcrush-disable-next-line secret-private-key
     if (!privateKey.includes("-----BEGIN PRIVATE KEY-----")) {
         return { errorKey: "validation.serviceAccountBadKey" };
     }

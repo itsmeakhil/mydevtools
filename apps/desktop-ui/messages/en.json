@@ -725,6 +725,7 @@
       "all": "All",
       "total": "Total",
       "allProjects": "All Projects",
+      "projectsHeading": "Projects",
       "export": "Export",
       "kanban": "Kanban",
       "list": "List",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "Tap the + button to add your first password",
       "emptyHintDesktop": "You have not stored any passwords yet. Click the \"Add password\" button above to get started.",
       "addPassword": "Add password",
+      "title": "Passwords",
+      "filters": {
+        "heading": "Vault health",
+        "all": "All passwords",
+        "weak": "Weak",
+        "reused": "Reused",
+        "noUrl": "No URL",
+        "tagsHeading": "Tags",
+        "allTags": "All tags"
+      },
       "searchPlaceholderMobile": "Search your vault...",
       "searchPlaceholderDesktop": "Search vault...",
       "importExport": "Import / export",
@@ -1177,6 +1188,8 @@
       "emptyHint": "Create a set for each project and environment (e.g. production API keys). Everything is encrypted in your browser before upload.",
       "searchPlaceholder": "Search project, environment, tags, notes...",
       "tagFilterPlaceholder": "Filter by tag",
+      "allProjects": "All projects",
+      "projectsHeading": "Projects",
       "variableCount": "{count, plural, one {# variable} other {# variables}}",
       "updatedAgo": "Updated {time}",
       "copyDotEnv": "Copy .env",
@@ -5134,6 +5147,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Show sidebar",
+    "hide": "Hide sidebar"
   },
   "DesktopUpdate": {
     "title": "Updating MyDevTools",

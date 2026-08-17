@@ -725,6 +725,7 @@
       "all": "Tutto",
       "total": "Totale",
       "allProjects": "Tutti i progetti",
+      "projectsHeading": "Progetti",
       "export": "Esportare",
       "kanban": "Kanban",
       "list": "Lista",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "Tocca il pulsante + per aggiungere la tua prima password",
       "emptyHintDesktop": "Non hai ancora memorizzato alcuna password. Fai clic sul pulsante \"Aggiungi password\" qui sopra per iniziare.",
       "addPassword": "Aggiungi password",
+      "title": "Password",
+      "filters": {
+        "heading": "Stato della cassaforte",
+        "all": "Tutte le password",
+        "weak": "Deboli",
+        "reused": "Riutilizzate",
+        "noUrl": "Senza URL",
+        "tagsHeading": "Tag",
+        "allTags": "Tutti i tag"
+      },
       "searchPlaceholderMobile": "Cerca nel tuo caveau...",
       "searchPlaceholderDesktop": "Cerca nel caveau...",
       "importExport": "Importa/esporta",
@@ -1177,6 +1188,8 @@
       "emptyHint": "Crea un set per ogni progetto e ambiente (es. chiavi API di produzione). Tutto viene crittografato nel browser prima del caricamento.",
       "searchPlaceholder": "Cerca progetto, ambiente, tag, note…",
       "tagFilterPlaceholder": "Filtra per tag",
+      "allProjects": "Tutti i progetti",
+      "projectsHeading": "Progetti",
       "variableCount": "{count, plural, one {# variabile} other {# variabili}}",
       "updatedAgo": "Aggiornato {time}",
       "copyDotEnv": "Copia .env",
@@ -5124,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Mostra barra laterale",
+    "hide": "Nascondi barra laterale"
   },
   "DesktopUpdate": {
     "title": "Aggiornamento di MyDevTools",

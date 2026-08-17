@@ -20,9 +20,6 @@ import { fetchAllPages } from "@/lib/fetch-all-pages"
 import { EncryptedToolPlaceholder } from "@/components/encrypted-tool-placeholder"
 import { useActiveWorkspace } from "@/store/workspace-store"
 import { hasWorkspaceEncryption } from "@/lib/workspace-rbac"
-import { IconShieldLock } from "@tabler/icons-react"
-import { CATEGORY_ACCENT } from "@/components/dashboard/types"
-import { cn } from "@/lib/utils"
 
 const PASSWORDS_PAGE_SIZE = 500
 
@@ -122,34 +119,11 @@ export default function PasswordManagerPage() {
 
     if (!user) return null
 
+    // Tool identity and the add action live in the ToolSidebarLayout header
+    // PasswordList renders — no separate page header row.
     return (
-        <div
-            className={
-                isMobile
-                    ? "h-full bg-background"
-                    : "h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8"
-            }
-        >
-            {!isMobile && (
-                <div className="flex justify-between items-center py-6 shrink-0">
-                    <div className="flex items-center gap-3">
-                        <span
-                            className={cn(
-                                "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm ring-1 ring-inset ring-border/60",
-                                CATEGORY_ACCENT.Security.bg,
-                                CATEGORY_ACCENT.Security.text,
-                            )}
-                        >
-                            <IconShieldLock className="h-[22px] w-[22px]" aria-hidden />
-                        </span>
-                        <h1 className="text-sm font-semibold tracking-tight">{t("title")}</h1>
-                    </div>
-                    <AddPasswordDialog />
-                </div>
-            )}
-
+        <div className="h-full min-h-0 bg-background">
             <PasswordList />
-
             {isMobile && <AddPasswordDialog />}
         </div>
     )

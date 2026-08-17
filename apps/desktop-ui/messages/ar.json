@@ -725,6 +725,7 @@
       "all": "الكل",
       "total": "الإجمالي",
       "allProjects": "كل المشاريع",
+      "projectsHeading": "المشاريع",
       "export": "تصدير",
       "kanban": "كانبان",
       "list": "قائمة",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "اضغط زر + لإضافة أول كلمة مرور",
       "emptyHintDesktop": "لم تخزّن كلمات مرور بعد. انقر \"إضافة كلمة مرور\" أعلاه للبدء.",
       "addPassword": "إضافة كلمة مرور",
+      "title": "كلمات المرور",
+      "filters": {
+        "heading": "سلامة الخزنة",
+        "all": "كل كلمات المرور",
+        "weak": "ضعيفة",
+        "reused": "مُعاد استخدامها",
+        "noUrl": "بدون رابط",
+        "tagsHeading": "الوسوم",
+        "allTags": "كل الوسوم"
+      },
       "searchPlaceholderMobile": "ابحث في خزنتك...",
       "searchPlaceholderDesktop": "ابحث في الخزنة...",
       "importExport": "استيراد / تصدير",
@@ -1177,6 +1188,8 @@
       "emptyHint": "أنشئ مجموعة لكل مشروع وبيئة (مثل مفاتيح واجهة الإنتاج). يُشفّر كل شيء في متصفحك قبل الرفع.",
       "searchPlaceholder": "ابحث في المشروع والبيئة والوسوم والملاحظات…",
       "tagFilterPlaceholder": "تصفية حسب الوسم",
+      "allProjects": "كل المشاريع",
+      "projectsHeading": "المشاريع",
       "variableCount": "{count, plural, one {# متغير} other {# متغيرات}}",
       "updatedAgo": "عُدّل {time}",
       "copyDotEnv": "نسخ .env",
@@ -5113,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% دون اتصال"
+  },
+  "ToolSidebar": {
+    "show": "إظهار الشريط الجانبي",
+    "hide": "إخفاء الشريط الجانبي"
   },
   "DesktopUpdate": {
     "title": "جارٍ تحديث MyDevTools",

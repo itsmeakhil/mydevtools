@@ -65,5 +65,7 @@ if (result.status !== 0) {
 }
 
 const outDir = path.join(uiRoot, "out");
+// outDir is derived from this script's own location and quoted by JSON.stringify.
+// threatcrush-disable-next-line js-shell-exec-interpolation
 const pageCount = execSync(`find ${JSON.stringify(outDir)} -name '*.html' | wc -l`).toString().trim();
 console.log(`build-tauri: OK — ${pageCount} HTML pages in apps/desktop-ui/out/`);

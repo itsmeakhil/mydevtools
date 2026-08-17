@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { JsonLd } from '@/components/seo/json-ld'
 import {
   comparisonPageSlugs,
   getComparisonPage,
@@ -96,10 +97,7 @@ export default async function ComparisonPage({
 
   return (
     <div className="dark flex min-h-screen flex-col bg-background text-foreground font-sans">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <Header />
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">

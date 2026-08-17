@@ -1,0 +1,262 @@
+'use client'
+
+import * as React from 'react'
+import { createPortal } from 'react-dom'
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { useIsMobile } from '@/components/hooks/use-mobile'
+import { useToolSidebarStore } from '@/store/tool-sidebar-store'
+import { toolCategoryMap } from '@/lib/tool-categories'
+import { categoryAccent } from '@/components/dashboard/types'
+import { cn } from '@/lib/utils'
+
+/**
+ * The one in-tool left panel. Every app-like tool (notes, bookmarks, api-client,
+ * data-explorer, s3-drive, snippet-manager, password-manager, api-keys,
+ * environment-manager, to-do) renders its list/tree through this so the chrome —
+ * width, header, collapse affordance, mobile sheet — is identical everywhere.
+ *
+ * Desktop collapse state is persisted per tool; the mobile sheet is ephemeral.
+ */
+
+interface ToolSidebarContextValue {
+  /** True when the panel is inside the mobile sheet rather than the column. */
+  isMobile: boolean
+  /**
+   * Dismiss the panel. No-op on desktop when the panel is pinned open — call it
+   * from list rows so picking an item on mobile closes the sheet instead of
+   * leaving it covering the result.
+   */
+  close: () => void
+}
+
+const ToolSidebarContext = React.createContext<ToolSidebarContextValue | null>(null)
+const ActionsSlotContext = React.createContext<HTMLElement | null>(null)
+
+/** Panel-side helper. Returns null outside a ToolSidebarLayout. */
+export function useToolSidebarPanel() {
+  return React.useContext(ToolSidebarContext)
+}
+
+/**
+ * Renders header buttons into the panel header from *inside* the panel, so a
+ * sidebar whose actions depend on its own local state (sort order, filters)
+ * doesn't have to lift that state into the page just to reach the header.
+ * Prefer the `actions` prop when the page already owns the handler.
+ */
+export function ToolSidebarActions({ children }: { children: React.ReactNode }) {
+  const slot = React.useContext(ActionsSlotContext)
+  return slot ? createPortal(children, slot) : null
+}
+
+export interface ToolSidebarFilterItem {
+  id: string
+  label: string
+  count?: number
+  /** Tailwind bg-* class for a leading status dot. */
+  dot?: string
+  icon?: React.ElementType
+}
+
+/**
+ * The standard panel body for tools that group items by a facet (tags, project,
+ * environment, status) rather than a tree. One row per bucket, with counts.
+ */
+export function ToolSidebarFilterList({
+  items,
+  value,
+  onChange,
+  heading,
+  className,
+}: {
+  items: ToolSidebarFilterItem[]
+  value: string
+  onChange: (id: string) => void
+  /** Optional uppercase section label above the rows. */
+  heading?: string
+  className?: string
+}) {
+  const panel = useToolSidebarPanel()
+  return (
+    <div className={cn('space-y-0.5 p-2', className)}>
+      {heading && (
+        <p className="px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+          {heading}
+        </p>
+      )}
+      {items.map((item) => {
+        const Icon = item.icon
+        const active = item.id === value
+        return (
+          <button
+            key={item.id}
+            type="button"
+            aria-current={active ? 'true' : undefined}
+            onClick={() => {
+              onChange(item.id)
+              if (panel?.isMobile) panel.close()
+            }}
+            className={cn(
+              'flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors',
+              active
+                ? 'bg-primary/10 font-medium text-foreground'
+                : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground',
+            )}
+          >
+            {item.dot && (
+              <span className={cn('size-2 shrink-0 rounded-full', item.dot)} aria-hidden />
+            )}
+            {Icon && <Icon className="size-4 shrink-0" aria-hidden />}
+            <span className="min-w-0 flex-1 truncate">{item.label}</span>
+            {item.count !== undefined && (
+              <span className="shrink-0 text-xs tabular-nums text-muted-foreground/70">
+                {item.count}
+              </span>
+            )}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+interface ToolSidebarLayoutProps {
+  /** Stable id — also the persistence key for the collapse state. */
+  toolId: string
+  icon: React.ElementType
+  title: string
+  /** Header buttons (add, sort, filter…) rendered left of the collapse toggle. */
+  actions?: React.ReactNode
+  /**
+   * Panel body: the tool's list, tree, or filter set. Laid out as a flex column
+   * that does NOT scroll — the panel owns its own `overflow-y-auto` region so a
+   * search field or footer can stay pinned while the list scrolls under it.
+   */
+  sidebar: React.ReactNode
+  children: React.ReactNode
+  className?: string
+}
+
+export function ToolSidebarLayout({
+  toolId,
+  icon: Icon,
+  title,
+  actions,
+  sidebar,
+  children,
+  className,
+}: ToolSidebarLayoutProps) {
+  const t = useTranslations('ToolSidebar')
+  const isMobile = useIsMobile()
+  const collapsed = useToolSidebarStore((s) => !!s.collapsed[toolId])
+  const setCollapsed = useToolSidebarStore((s) => s.setCollapsed)
+  const [sheetOpen, setSheetOpen] = React.useState(false)
+  const [actionsSlot, setActionsSlot] = React.useState<HTMLDivElement | null>(null)
+  // Same category tint the dashboard card for this tool uses, so the identity
+  // colour is continuous from the grid to the tool. Falls back to primary.
+  const accent = categoryAccent(toolCategoryMap[toolId] ?? '')
+
+  const close = React.useCallback(() => {
+    if (isMobile) setSheetOpen(false)
+    else setCollapsed(toolId, true)
+  }, [isMobile, setCollapsed, toolId])
+
+  const ctx = React.useMemo<ToolSidebarContextValue>(
+    () => ({ isMobile, close }),
+    [isMobile, close],
+  )
+
+  const panel = (
+    <div className="flex h-full min-h-0 flex-col border-r bg-muted/10">
+      <div className="flex shrink-0 items-center justify-between gap-2 border-b px-3 py-2">
+        <div className="flex min-w-0 items-center gap-2 text-sm font-semibold">
+          <span
+            className={cn(
+              'flex h-6 w-6 shrink-0 items-center justify-center rounded-md',
+              accent.bg,
+              accent.text,
+            )}
+          >
+            <Icon className="h-3.5 w-3.5" />
+          </span>
+          <span className="truncate">{title}</span>
+        </div>
+        <div className="flex shrink-0 items-center gap-0.5">
+          {actions}
+          <div ref={setActionsSlot} className="flex items-center gap-0.5" />
+          {!isMobile && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 cursor-pointer"
+              onClick={() => setCollapsed(toolId, true)}
+              aria-label={t('hide')}
+              title={t('hide')}
+            >
+              <PanelLeftClose className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
+      </div>
+      <ActionsSlotContext.Provider value={actionsSlot}>
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">{sidebar}</div>
+      </ActionsSlotContext.Provider>
+    </div>
+  )
+
+  const hidden = isMobile || collapsed
+
+  return (
+    <ToolSidebarContext.Provider value={ctx}>
+      <div className={cn('flex h-full min-h-0 w-full overflow-hidden', className)}>
+        {!isMobile && !collapsed && <div className="w-64 shrink-0">{panel}</div>}
+
+        {isMobile && (
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+            <SheetContent side="left" className="w-72 p-0">
+              <SheetHeader className="sr-only">
+                <SheetTitle>{title}</SheetTitle>
+              </SheetHeader>
+              {panel}
+            </SheetContent>
+          </Sheet>
+        )}
+
+        {/* Re-open lives in a 40px rail, not a floating overlay: every tool's
+            main pane already puts a toolbar or header at the top-left, and an
+            absolutely-positioned button would sit on top of it. */}
+        {hidden && (
+          <div className="flex w-10 shrink-0 flex-col items-center border-r bg-muted/10 pt-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 cursor-pointer"
+              onClick={() => (isMobile ? setSheetOpen(true) : setCollapsed(toolId, false))}
+              aria-label={t('show')}
+              title={t('show')}
+            >
+              <PanelLeftOpen className="h-4 w-4" />
+            </Button>
+          </div>
+        )}
+
+        {/* Same surface the 71 single-pane tools paint (dashboard-grid-bg +
+            dash-ambient), so moving between a converter and a workspace tool
+            doesn't change the background under you. */}
+        <div
+          className="dashboard-grid-bg relative flex min-w-0 flex-1 flex-col overflow-hidden"
+          // .dashboard-grid-bg rounds its corners for the padded single-pane
+          // column; this pane is flush against the panel border, and the radius
+          // would clip content corners under overflow-hidden. Inline beats the
+          // utilities-layer rule.
+          style={{ borderRadius: 0 }}
+        >
+          <div className="dash-ambient -z-10" aria-hidden />
+          {children}
+        </div>
+      </div>
+    </ToolSidebarContext.Provider>
+  )
+}

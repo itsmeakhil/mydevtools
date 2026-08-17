@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react"
 import { AddApiKeyDialog } from "@/components/api-key-vault/add-api-key-dialog"
 import { ApiKeyList } from "@/components/api-key-vault/api-key-list"
 import { useApiKeyVaultStore, type ApiKeyEntry } from "@/store/api-key-vault-store"
-import { ToolHeader } from "@/components/tools/tool-header"
 import { useVaultGuard } from "@/hooks/use-vault-guard"
 import { VaultLockedPlaceholder } from "@/components/vault-locked-placeholder"
 import { VaultRestoringSkeleton } from "@/components/vault-restoring-skeleton"
@@ -104,25 +103,11 @@ export default function ApiKeyVaultPage() {
 
     if (!user) return null
 
+    // Tool identity and the add action live in the ToolSidebarLayout header
+    // that ApiKeyList renders — no separate page header row.
     return (
-        <div
-            className={
-                isMobile
-                    ? "h-full bg-background flex flex-col min-h-0"
-                    : "h-full flex flex-col container mx-auto px-4 md:px-6 lg:px-8 min-h-0"
-            }
-        >
-            <ToolHeader
-                title="API Keys"
-                description="AES-256-GCM encrypted and stored on your device."
-                toolId="/app/api-keys"
-                className="shrink-0 px-0 sm:px-0"
-            />
-
-            <div className="flex-1 min-h-0 flex flex-col">
-                <ApiKeyList />
-            </div>
-
+        <div className="h-full min-h-0 bg-background">
+            <ApiKeyList />
             {isMobile && <AddApiKeyDialog />}
         </div>
     )

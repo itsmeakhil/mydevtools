@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { ArrowRight, CheckCircle2, ExternalLink, Layers, BookOpen } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { JsonLd } from '@/components/seo/json-ld'
 import { toolsMetadata, toolSeoTitle } from '@/lib/metadata'
 import { buildSoftwareApplicationJsonLd } from '@/lib/seo/structured-data'
 import { publicToolSlugs, getRelatedTools, toolCategoryMap } from '@/lib/tool-categories'
@@ -76,12 +77,7 @@ export default async function ToolLandingPage({
 
   return (
     <div className="dark flex flex-col min-h-screen bg-background text-foreground font-sans">
-      {jsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      )}
+      {jsonLd && <JsonLd data={jsonLd} />}
 
       <Header />
 

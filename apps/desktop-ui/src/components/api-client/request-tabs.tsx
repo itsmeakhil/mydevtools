@@ -1189,6 +1189,7 @@ export function RequestTabs({
                                         <textarea
                                             value={auth.jwtBearer?.privateKeyPem ?? ""}
                                             onChange={(e) => updateJwtCfg({ privateKeyPem: e.target.value })}
+                                            // threatcrush-disable-next-line secret-private-key
                                             placeholder="-----BEGIN PRIVATE KEY-----"
                                             className="w-full min-h-[100px] border rounded p-2 font-mono text-xs"
                                         />

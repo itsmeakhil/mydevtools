@@ -725,6 +725,7 @@
       "all": "전체",
       "total": "합계",
       "allProjects": "모든 프로젝트",
+      "projectsHeading": "프로젝트",
       "export": "내보내기",
       "kanban": "칸반",
       "list": "목록",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "+ 버튼을 눌러 첫 번째 비밀번호를 추가하세요",
       "emptyHintDesktop": "아직 저장된 비밀번호가 없습니다. 위의 \"비밀번호 추가\" 버튼을 클릭하여 시작하세요.",
       "addPassword": "비밀번호 추가",
+      "title": "비밀번호",
+      "filters": {
+        "heading": "보관함 상태",
+        "all": "모든 비밀번호",
+        "weak": "취약",
+        "reused": "재사용",
+        "noUrl": "URL 없음",
+        "tagsHeading": "태그",
+        "allTags": "모든 태그"
+      },
       "searchPlaceholderMobile": "볼트 검색...",
       "searchPlaceholderDesktop": "볼트 검색...",
       "importExport": "가져오기 / 내보내기",
@@ -1177,6 +1188,8 @@
       "emptyHint": "프로젝트와 환경마다 세트를 만드세요(예: 프로덕션 API 키). 업로드 전 브라우저에서 암호화됩니다.",
       "searchPlaceholder": "프로젝트, 환경, 태그, 메모 검색…",
       "tagFilterPlaceholder": "태그로 필터",
+      "allProjects": "모든 프로젝트",
+      "projectsHeading": "프로젝트",
       "variableCount": "{count, plural, other {#개 변수}}",
       "updatedAgo": "업데이트 {time}",
       "copyDotEnv": ".env 복사",
@@ -5113,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% 오프라인"
+  },
+  "ToolSidebar": {
+    "show": "사이드바 표시",
+    "hide": "사이드바 숨기기"
   },
   "DesktopUpdate": {
     "title": "MyDevTools 업데이트 중",

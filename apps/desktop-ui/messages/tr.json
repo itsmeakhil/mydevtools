@@ -725,6 +725,7 @@
       "all": "Tümü",
       "total": "Toplam",
       "allProjects": "Tüm Projeler",
+      "projectsHeading": "Projeler",
       "export": "Dışa Aktar",
       "kanban": "Kanban",
       "list": "Liste",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "İlk şifrenizi eklemek için + düğmesine dokunun",
       "emptyHintDesktop": "Henüz kayıtlı şifreniz yok. Başlamak için yukarıdaki \"Şifre ekle\" düğmesine tıklayın.",
       "addPassword": "Şifre ekle",
+      "title": "Parolalar",
+      "filters": {
+        "heading": "Kasa durumu",
+        "all": "Tüm parolalar",
+        "weak": "Zayıf",
+        "reused": "Tekrar kullanılan",
+        "noUrl": "URL yok",
+        "tagsHeading": "Etiketler",
+        "allTags": "Tüm etiketler"
+      },
       "searchPlaceholderMobile": "Kasanızda arayın...",
       "searchPlaceholderDesktop": "Kasada ara...",
       "importExport": "İçe / dışa aktar",
@@ -1177,6 +1188,8 @@
       "emptyHint": "Her proje ve ortam için bir küme oluşturun (ör. üretim API anahtarları). Yüklemeden önce her şey tarayıcınızda şifrelenir.",
       "searchPlaceholder": "Proje, ortam, etiket, not ara…",
       "tagFilterPlaceholder": "Etikete göre filtrele",
+      "allProjects": "Tüm projeler",
+      "projectsHeading": "Projeler",
       "variableCount": "{count, plural, one {# değişken} other {# değişken}}",
       "updatedAgo": "Güncellendi {time}",
       "copyDotEnv": ".env kopyala",
@@ -5124,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "%100 çevrimdışı"
+  },
+  "ToolSidebar": {
+    "show": "Kenar çubuğunu göster",
+    "hide": "Kenar çubuğunu gizle"
   },
   "DesktopUpdate": {
     "title": "MyDevTools güncelleniyor",

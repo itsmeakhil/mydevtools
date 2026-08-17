@@ -725,6 +725,7 @@
       "all": "Todas",
       "total": "Total",
       "allProjects": "Todos os Projetos",
+      "projectsHeading": "Projetos",
       "export": "Exportar",
       "kanban": "Kanban",
       "list": "Lista",
@@ -982,6 +983,16 @@
       "emptyHintMobile": "Toque no botão + para adicionar sua primeira senha",
       "emptyHintDesktop": "Você ainda não armazenou nenhuma senha. Clique no botão \"Adicionar senha\" acima para começar.",
       "addPassword": "Adicionar senha",
+      "title": "Senhas",
+      "filters": {
+        "heading": "Saúde do cofre",
+        "all": "Todas as senhas",
+        "weak": "Fracas",
+        "reused": "Reutilizadas",
+        "noUrl": "Sem URL",
+        "tagsHeading": "Tags",
+        "allTags": "Todas as tags"
+      },
       "searchPlaceholderMobile": "Buscar no cofre...",
       "searchPlaceholderDesktop": "Buscar no cofre...",
       "importExport": "Importar / exportar",
@@ -1177,6 +1188,8 @@
       "emptyHint": "Crie um conjunto para cada projeto e ambiente (ex.: chaves de API de produção). Tudo é criptografado no navegador antes do envio.",
       "searchPlaceholder": "Buscar projeto, ambiente, tags, notas…",
       "tagFilterPlaceholder": "Filtrar por tag",
+      "allProjects": "Todos os projetos",
+      "projectsHeading": "Projetos",
       "variableCount": "{count, plural, one {# variável} other {# variáveis}}",
       "updatedAgo": "Atualizado {time}",
       "copyDotEnv": "Copiar .env",
@@ -5113,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Mostrar barra lateral",
+    "hide": "Ocultar barra lateral"
   },
   "DesktopUpdate": {
     "title": "Atualizando o MyDevTools",

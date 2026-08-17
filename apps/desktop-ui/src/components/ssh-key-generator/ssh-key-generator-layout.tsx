@@ -67,6 +67,8 @@ async function exportRsaPrivatePem(key: CryptoKey): Promise<string> {
   const der = await crypto.subtle.exportKey('pkcs8', key);
   const b64 = arrayBufferToBase64(der);
   const lines = b64.match(/.{1,64}/g)?.join('\n') ?? b64;
+  // PEM framing for a key this tool just generated in the user's browser.
+  // threatcrush-disable-next-line secret-private-key
   return `-----BEGIN PRIVATE KEY-----\n${lines}\n-----END PRIVATE KEY-----`;
 }
 
@@ -163,6 +165,7 @@ async function exportEd25519PrivatePem(key: CryptoKey): Promise<string> {
   const pkcs8 = await crypto.subtle.exportKey('pkcs8', key);
   const b64 = arrayBufferToBase64(pkcs8);
   const lines = b64.match(/.{1,64}/g)?.join('\n') ?? b64;
+  // threatcrush-disable-next-line secret-private-key
   return `-----BEGIN PRIVATE KEY-----\n${lines}\n-----END PRIVATE KEY-----`;
 }
 

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useCallback, useEffect, useMemo, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
 import {
@@ -23,12 +22,11 @@ import { useBookmarkStore, useFilteredBookmarks, useAllTags } from "@/store/book
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll"
-import { useIsMobile } from "@/components/hooks/use-mobile"
 import FolderTree from "./folder-tree"
 import BookmarkGrid from "./bookmark-grid"
+import { ToolSidebarLayout, useToolSidebarPanel } from "@/components/tools/tool-sidebar"
 // ponytail: dialogs lazy-loaded; only fetched when user opens them
 const AddBookmarkDialog = dynamic(() => import("./add-bookmark-dialog"))
 const ImportDialog = dynamic(() => import("./import-dialog"))
@@ -43,11 +41,21 @@ import { exportBookmarksToHTML, exportBookmarksToJSON } from "@/lib/bookmark-par
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
 
+/** Lives inside ToolSidebarLayout so it can dismiss the mobile sheet on pick. */
+function FolderPanel({ onSelectFolder }: { onSelectFolder: (id: string | null) => void }) {
+    const panel = useToolSidebarPanel()
+    return (
+        <FolderTree
+            onSelectFolder={(id: string | null) => {
+                onSelectFolder(id)
+                if (panel?.isMobile) panel.close()
+            }}
+        />
+    )
+}
+
 export default function BookmarksManager() {
     const t = useTranslations("Bookmarks.manager")
-    const tNav = useTranslations("Navigation")
-    const isMobile = useIsMobile()
-    const [showSidebar, setShowSidebar] = useState(!isMobile)
     const [isAddBookmarkOpen, setIsAddBookmarkOpen] = useState(false)
     const [isImportOpen, setIsImportOpen] = useState(false)
     const [isAddFolderOpen, setIsAddFolderOpen] = useState(false)
@@ -191,131 +199,64 @@ export default function BookmarksManager() {
         return () => window.removeEventListener("keydown", onKeyDown)
     }, [selectionMode])
 
-    return (
-        <div className="flex h-full w-full overflow-hidden bg-background mobile-nav-offset">
-            {/* Sidebar */}
-            <AnimatePresence>
-                {showSidebar && (
-                    <>
-                        {/* Mobile backdrop overlay */}
-                        {isMobile && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="fixed inset-0 bg-black/60 z-40 md:hidden"
-                                onClick={() => setShowSidebar(false)}
-                            />
+    const sidebar = (
+        <>
+            {/* Folder Tree */}
+            <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
+                <FolderPanel onSelectFolder={setSelectedFolder} />
+            </div>
+
+            {/* Tags Section */}
+            {allTags.length > 0 && (
+                <div className="shrink-0 border-t border-border/40 p-4">
+                    <h3 className="text-sm font-medium text-muted-foreground mb-2">{t("tagsHeading")}</h3>
+                    <div className="flex flex-wrap gap-1">
+                        {(showAllTags ? allTags : allTags.slice(0, 10)).map(tag => (
+                            <button
+                                key={tag}
+                                onClick={() => setSearchQuery(`#${tag}`)}
+                                className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                            >
+                                #{tag}
+                            </button>
+                        ))}
+                        {allTags.length > 10 && (
+                            <button
+                                onClick={() => setShowAllTags(prev => !prev)}
+                                className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
+                            >
+                                {showAllTags ? t("tagsShowLess") : t("tagsMore", { count: allTags.length - 10 })}
+                            </button>
                         )}
-                        <motion.div
-                            // Mobile: overlay slides (fixed, no layout impact). Desktop: collapse
-                            // width so the flex slot reflows in step with the animation — animating
-                            // x alone leaves the 288px gap until unmount, which reads as a lag.
-                            initial={isMobile ? { x: -300, opacity: 0 } : { width: 0, opacity: 0 }}
-                            animate={isMobile ? { x: 0, opacity: 1 } : { width: 288, opacity: 1 }}
-                            exit={isMobile ? { x: -300, opacity: 0 } : { width: 0, opacity: 0 }}
-                            transition={{ duration: 0.2, ease: "easeInOut" }}
-                            className={cn(
-                                "border-r border-border/40 flex flex-col overflow-hidden",
-                                isMobile
-                                    ? "w-72 fixed inset-y-0 left-0 z-50 shadow-2xl bg-background"
-                                    : "relative bg-muted/30"
-                            )}
-                        >
-                          {/* Fixed-width inner wrapper: keeps content from squishing while the
-                              outer width animates to 0 on close. */}
-                          <div className="w-72 h-full flex flex-col shrink-0">
-                            {/* Sidebar Header */}
-                            <div className="h-16 px-4 flex items-center justify-between border-b border-border/40 bg-background/50 backdrop-blur-sm">
-                                <h2 className="font-semibold text-base tracking-tight">{t("foldersHeading")}</h2>
-                                <div className="flex items-center gap-1">
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                                        onClick={() => setIsAddFolderOpen(true)}
-                                    >
-                                        <IconFolderPlus className="h-4.5 w-4.5" />
-                                    </Button>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="h-8 w-8"
-                                        onClick={() => setShowSidebar(false)}
-                                    >
-                                        <IconX className="h-4 w-4" />
-                                    </Button>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+            )}
+        </>
+    )
 
-                            {/* Folder Tree */}
-                            <ScrollArea className="flex-1 px-3 py-4">
-                                <FolderTree
-                                    onSelectFolder={(id: string | null) => {
-                                        setSelectedFolder(id)
-                                        if (isMobile) setShowSidebar(false)
-                                    }}
-                                />
-                            </ScrollArea>
-
-                            {/* Tags Section */}
-                            {allTags.length > 0 && (
-                                <>
-                                    <Separator />
-                                    <div className="p-4">
-                                        <h3 className="text-sm font-medium text-muted-foreground mb-2">{t("tagsHeading")}</h3>
-                                        <div className="flex flex-wrap gap-1">
-                                            {(showAllTags ? allTags : allTags.slice(0, 10)).map(tag => (
-                                                <button
-                                                    key={tag}
-                                                    onClick={() => setSearchQuery(`#${tag}`)}
-                                                    className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-                                                >
-                                                    #{tag}
-                                                </button>
-                                            ))}
-                                            {allTags.length > 10 && (
-                                                <button
-                                                    onClick={() => setShowAllTags(prev => !prev)}
-                                                    className="text-xs px-2 py-1 rounded-full bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
-                                                >
-                                                    {showAllTags ? t("tagsShowLess") : t("tagsMore", { count: allTags.length - 10 })}
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-                          </div>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
-
+    return (
+        <ToolSidebarLayout
+            toolId="bookmarks"
+            icon={IconBookmark}
+            title={t("foldersHeading")}
+            actions={
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-muted-foreground hover:text-foreground"
+                    aria-label={t("foldersHeading")}
+                    onClick={() => setIsAddFolderOpen(true)}
+                >
+                    <IconFolderPlus className="h-4 w-4" />
+                </Button>
+            }
+            sidebar={sidebar}
+            className="bg-background mobile-nav-offset"
+        >
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-0 bg-background">
                 {/* Toolbar - Fixed height, not scrollable */}
                 <div className="shrink-0 h-16 px-4 border-b border-border/40 flex items-center gap-4 bg-background/80 backdrop-blur-md z-10">
-                    {/* Sidebar Toggle — shows whenever sidebar collapsed */}
-                    {!showSidebar && (
-                        <>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="-ml-2 shrink-0"
-                                onClick={() => setShowSidebar(true)}
-                            >
-                                <IconList className="h-5 w-5" />
-                            </Button>
-                            <div className="flex items-center gap-2 font-semibold text-sm shrink-0">
-                                <span className="h-6 w-6 rounded-md bg-primary/10 flex items-center justify-center text-primary">
-                                    <IconBookmark className="h-3.5 w-3.5" />
-                                </span>
-                                {tNav("bookmarks")}
-                            </div>
-                        </>
-                    )}
 
                     {/* Search */}
                     <div className="relative flex-1 max-w-xl">
@@ -594,6 +535,6 @@ export default function BookmarksManager() {
                     onOpenChange={setIsAddFolderOpen}
                 />
             )}
-        </div>
+        </ToolSidebarLayout>
     )
 }
