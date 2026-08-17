@@ -195,6 +195,8 @@
       "title": "Giao diện",
       "description": "Tùy chỉnh giao diện ứng dụng trên thiết bị của bạn.",
       "themePreference": "Tùy chọn giao diện",
+      "accentColor": "Màu nhấn",
+      "customColor": "Màu tùy chỉnh",
       "themes": {
         "light": "Sáng",
         "dark": "Tối",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Giới thiệu",
+      "running": "Đang chạy MyDevTools",
+      "runningVersion": "Đang chạy MyDevTools v{version}",
+      "checkButton": "Kiểm tra bản cập nhật",
+      "checking": "Đang kiểm tra…",
+      "dialogTitle": "Bản cập nhật",
+      "dialogDescription": "MyDevTools tự cập nhật ngay tại chỗ — không cần cài lại và dữ liệu ngoại tuyến của bạn không bao giờ bị ảnh hưởng.",
+      "onVersion": "Bạn đang dùng phiên bản {version}.",
+      "available": "Đã có phiên bản {version}.",
+      "install": "Tải xuống và cài đặt",
+      "upToDate": "Bạn đang dùng bản mới nhất.",
+      "checkError": "Không thể kiểm tra bản cập nhật. Bạn có đang trực tuyến không?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Tất cả",
       "total": "Tổng",
       "allProjects": "Tất cả dự án",
+      "projectsHeading": "Dự án",
       "export": "Xuất",
       "kanban": "Kanban",
       "list": "Danh sách",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Nhấn nút + để thêm mật khẩu đầu tiên",
       "emptyHintDesktop": "Bạn chưa lưu mật khẩu nào. Nhấn nút \"Thêm mật khẩu\" ở trên để bắt đầu.",
       "addPassword": "Thêm mật khẩu",
+      "title": "Mật khẩu",
+      "filters": {
+        "heading": "Tình trạng kho",
+        "all": "Tất cả mật khẩu",
+        "weak": "Yếu",
+        "reused": "Dùng lại",
+        "noUrl": "Không có URL",
+        "tagsHeading": "Thẻ",
+        "allTags": "Tất cả thẻ"
+      },
       "searchPlaceholderMobile": "Tìm trong kho...",
       "searchPlaceholderDesktop": "Tìm trong kho...",
       "importExport": "Nhập / xuất",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Tạo một bộ cho mỗi dự án và môi trường (ví dụ khóa API production). Mọi thứ được mã hóa trong trình duyệt trước khi tải lên.",
       "searchPlaceholder": "Tìm dự án, môi trường, thẻ, ghi chú…",
       "tagFilterPlaceholder": "Lọc theo thẻ",
+      "allProjects": "Tất cả dự án",
+      "projectsHeading": "Dự án",
       "variableCount": "{count, plural, other {# biến}}",
       "updatedAgo": "Cập nhật {time}",
       "copyDotEnv": "Sao chép .env",
@@ -5097,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% ngoại tuyến"
+  },
+  "ToolSidebar": {
+    "show": "Hiện thanh bên",
+    "hide": "Ẩn thanh bên"
   },
   "DesktopUpdate": {
     "title": "Đang cập nhật MyDevTools",

@@ -195,6 +195,8 @@
       "title": "Penampilan",
       "description": "Sesuaikan rupa aplikasi pada peranti anda.",
       "themePreference": "Keutamaan Tema",
+      "accentColor": "Warna aksen",
+      "customColor": "Warna tersuai",
       "themes": {
         "light": "Cerah",
         "dark": "Gelap",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Perihal",
+      "running": "Menjalankan MyDevTools",
+      "runningVersion": "Menjalankan MyDevTools v{version}",
+      "checkButton": "Periksa kemas kini",
+      "checking": "Memeriksa…",
+      "dialogTitle": "Kemas kini",
+      "dialogDescription": "MyDevTools mengemas kini dirinya di tempat — tanpa pemasangan semula, dan data luar talian anda tidak pernah disentuh.",
+      "onVersion": "Anda menggunakan versi {version}.",
+      "available": "Versi {version} tersedia.",
+      "install": "Muat turun dan pasang",
+      "upToDate": "Anda sudah terkini.",
+      "checkError": "Tidak dapat memeriksa kemas kini. Adakah anda dalam talian?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Semua",
       "total": "Jumlah",
       "allProjects": "Semua Projek",
+      "projectsHeading": "Projek",
       "export": "Eksport",
       "kanban": "Kanban",
       "list": "Senarai",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Ketik butang + untuk menambah kata laluan pertama anda",
       "emptyHintDesktop": "Anda belum menyimpan sebarang kata laluan. Klik butang \"Tambah kata laluan\" di atas untuk bermula.",
       "addPassword": "Tambah kata laluan",
+      "title": "Kata laluan",
+      "filters": {
+        "heading": "Kesihatan peti besi",
+        "all": "Semua kata laluan",
+        "weak": "Lemah",
+        "reused": "Diguna semula",
+        "noUrl": "Tiada URL",
+        "tagsHeading": "Tag",
+        "allTags": "Semua tag"
+      },
       "searchPlaceholderMobile": "Cari peti besi anda...",
       "searchPlaceholderDesktop": "Cari peti besi...",
       "importExport": "Import / eksport",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Cipta set untuk setiap projek dan persekitaran (cth. kunci API pengeluaran). Semua disulitkan dalam pelayar sebelum dimuat naik.",
       "searchPlaceholder": "Cari projek, persekitaran, teg, nota…",
       "tagFilterPlaceholder": "Tapis mengikut teg",
+      "allProjects": "Semua projek",
+      "projectsHeading": "Projek",
       "variableCount": "{count, plural, other {# pemboleh ubah}}",
       "updatedAgo": "Dikemas kini {time}",
       "copyDotEnv": "Salin .env",
@@ -5108,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% luar talian"
+  },
+  "ToolSidebar": {
+    "show": "Tunjukkan bar sisi",
+    "hide": "Sembunyikan bar sisi"
   },
   "DesktopUpdate": {
     "title": "Mengemas kini MyDevTools",

@@ -202,6 +202,9 @@ function runScriptSync(script: string, ctx: ScriptContext): ScriptResult {
     }
 
     try {
+        // Running the user's own pre/post-request script is the feature; it is
+        // confined to this worker with a pm/console surface and no DOM.
+        // threatcrush-disable-next-line js-dynamic-code-execution
         const runner = new Function("pm", "console", `"use strict";\n${script}`)
         runner(pm, sandboxConsole)
     } catch (err) {

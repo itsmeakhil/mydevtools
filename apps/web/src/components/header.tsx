@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect, type ElementType } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Github, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ModeToggle } from "./modeToggle";
 import { Logo } from "./logo";
+import { SOURCE_URL } from "./footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -41,16 +41,9 @@ const menuItemVariants = {
   }),
 };
 
-type HeaderProps = {
-  /** When false, theme toggle is hidden (e.g. marketing page fixed to dark). */
-  showThemeToggle?: boolean;
-};
-
-export function Header({ showThemeToggle = true }: HeaderProps) {
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  // No accounts — the only action is getting the app.
-  const cta = { href: "/download", label: "Download" };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -71,6 +64,7 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
     { href: "/developer-tools", label: "Platform" },
     { href: "/tools", label: "Tools" },
     { href: "/changelog", label: "Changelog" },
+    { href: SOURCE_URL, label: "GitHub", icon: Github, external: true },
   ];
 
   return (
@@ -133,6 +127,23 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
 
           {/* Desktop Actions */}
           <div className="flex items-center gap-3">
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              className="hidden md:inline-flex h-10 w-10"
+            >
+              <a
+                href={SOURCE_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="MyDevTools on GitHub"
+                title="Star MyDevTools on GitHub"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+            </Button>
+
             {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"
@@ -166,17 +177,6 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                 )}
               </AnimatePresence>
             </Button>
-
-            {/* Desktop Actions */}
-            <div className="hidden md:flex items-center gap-3">
-              {showThemeToggle ? <ModeToggle /> : null}
-              <Link
-                href={cta.href}
-                className="mdt-btn-grad inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-medium"
-              >
-                {cta.label}
-              </Link>
-            </div>
           </div>
         </div>
       </div>
@@ -230,37 +230,6 @@ export function Header({ showThemeToggle = true }: HeaderProps) {
                       </Link>
                     </motion.div>
                   ))}
-
-                  <motion.div
-                    custom={mobileNavLinks.length}
-                    variants={menuItemVariants}
-                    initial="closed"
-                    animate="open"
-                    className="pt-2 border-t border-border/40 mt-2 space-y-2"
-                  >
-                    <Link
-                      href={cta.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className="mdt-btn-grad flex h-12 items-center justify-center rounded-xl px-4 text-base font-medium"
-                    >
-                      {cta.label}
-                    </Link>
-                  </motion.div>
-
-                  {showThemeToggle ? (
-                    <motion.div
-                      custom={mobileNavLinks.length + 1}
-                      variants={menuItemVariants}
-                      initial="closed"
-                      animate="open"
-                      className="pt-2 border-t border-border/40 mt-2"
-                    >
-                      <div className="flex items-center justify-between px-4 py-3">
-                        <span className="text-sm font-medium text-muted-foreground">Theme</span>
-                        <ModeToggle />
-                      </div>
-                    </motion.div>
-                  ) : null}
                 </div>
               </nav>
             </motion.div>

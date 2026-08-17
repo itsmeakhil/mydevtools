@@ -12,9 +12,9 @@ import { listConnections } from "@/lib/s3-drive-api"
 import { decryptData } from "@/lib/encryption"
 import { BucketSidebar } from "@/components/s3-drive/bucket-sidebar"
 import { FileBrowser } from "@/components/s3-drive/file-browser"
+import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
 import { IconBucket, IconCloud, IconArrowRight } from "@tabler/icons-react"
 import { Skeleton } from "@/components/ui/skeleton"
-import { cn } from "@/lib/utils"
 import { DesktopOnlineGate } from "@/components/desktop/desktop-online-gate"
 
 export default function S3DrivePage() {
@@ -67,7 +67,7 @@ function S3DriveInner() {
         return (
             <div className="flex h-full">
                 {/* Sidebar skeleton */}
-                <div className="w-56 border-r p-3 space-y-3 shrink-0 bg-sidebar">
+                <div className="w-64 border-r p-3 space-y-3 shrink-0 bg-muted/10">
                     <div className="flex items-center gap-2 mb-4">
                         <Skeleton className="size-7 rounded-lg" />
                         <Skeleton className="h-4 w-16" />
@@ -120,11 +120,12 @@ function S3DriveInner() {
     const activeConn = connections.find((c) => c.id === activeConnectionId) ?? null
 
     return (
-        <div className="flex h-full overflow-hidden">
-            <div className={cn("w-56 shrink-0 overflow-hidden flex flex-col")}>
-                <BucketSidebar encryptionKey={encryptionKey} />
-            </div>
-
+        <ToolSidebarLayout
+            toolId="s3-drive"
+            icon={IconBucket}
+            title="Buckets"
+            sidebar={<BucketSidebar encryptionKey={encryptionKey} />}
+        >
             <div className="flex-1 overflow-hidden flex flex-col">
                 {activeConn ? (
                     <FileBrowser
@@ -162,6 +163,6 @@ function S3DriveInner() {
                     </div>
                 )}
             </div>
-        </div>
+        </ToolSidebarLayout>
     )
 }

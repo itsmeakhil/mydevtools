@@ -33,7 +33,6 @@ export const platformSeoPages: PlatformSeoPage[] = [
     intro:
       'MyDevTools brings the utilities developers reach for every day into one desktop workspace that runs offline: format data, test APIs, generate tokens, inspect encodings, manage secure notes, and stay in flow — with everything processed locally.',
     primaryCta: { href: '/tools', label: 'Browse all tools' },
-    secondaryCta: { href: '/login', label: 'Open dashboard' },
     sections: [
       {
         title: 'Built for search-worthy developer workflows',

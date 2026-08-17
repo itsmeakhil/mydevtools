@@ -114,8 +114,9 @@ export function instantiatePlugin(plugin: PluginSource): InstantiateResult {
     }
 
     try {
+        // Executing a plugin the user installed is the feature.
         // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
-        const fn = new Function("plugin", "console", `"use strict";\n${plugin.source}`)
+        const fn = new Function("plugin", "console", `"use strict";\n${plugin.source}`) // threatcrush-disable-line js-dynamic-code-execution
         const wallStart = Date.now()
         fn(api, sandboxConsole)
         if (Date.now() - wallStart > SCRIPT_TIMEOUT_MS) {

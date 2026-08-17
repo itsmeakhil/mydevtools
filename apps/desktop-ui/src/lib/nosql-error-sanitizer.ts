@@ -9,8 +9,13 @@ export function sanitizeError(error: unknown): string {
   let message = error instanceof Error ? error.message : String(error)
 
   // Remove connection strings in format: mongodb[+srv]://[user:password@]host[:port][/db]
+  // Two fixes over the original /mongodb\+?srv?:\/\/[^/\s]+(\/[^\s]*)*/:
+  // `srv?` required a literal "sr", so plain mongodb:// URLs fell through this
+  // rule entirely and only their user:pass@ part was masked below; and the
+  // nested quantifier matched the same span as \S* while backtracking
+  // exponentially on a long near-match of attacker-influenced driver text.
   message = message.replace(
-    /mongodb\+?srv?:\/\/[^/\s]+(\/[^\s]*)*/gi,
+    /mongodb(\+srv)?:\/\/\S*/gi,
     "mongodb://***SANITIZED***"
   )
 

@@ -4,7 +4,6 @@ import { useState } from "react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -24,6 +23,7 @@ import {
 import { IconBucket, IconPlus, IconDots, IconPencil, IconTrash, IconBrandAws, IconCloud, IconServer } from "@tabler/icons-react"
 import { deleteConnection } from "@/lib/s3-drive-api"
 import { useS3DriveStore, type DecryptedConnection } from "@/store/s3-drive-store"
+import { useToolSidebarPanel } from "@/components/tools/tool-sidebar"
 import { AddBucketDialog } from "./add-bucket-dialog"
 
 type Props = {
@@ -60,6 +60,7 @@ function connSubtitle(conn: DecryptedConnection): string {
 
 export function BucketSidebar({ encryptionKey }: Props) {
     const { connections, activeConnectionId, setActiveConnection, removeConnection } = useS3DriveStore()
+    const panel = useToolSidebarPanel()
     const [addOpen, setAddOpen] = useState(false)
     const [editTarget, setEditTarget] = useState<DecryptedConnection | null>(null)
     const [deleteTarget, setDeleteTarget] = useState<DecryptedConnection | null>(null)
@@ -80,44 +81,24 @@ export function BucketSidebar({ encryptionKey }: Props) {
         }
     }
 
+    // Header (icon, title, collapse) is owned by ToolSidebarLayout in
+    // app/app/s3-drive/page.tsx — this renders the panel body only.
     return (
-        <div className="flex flex-col h-full border-r bg-sidebar">
-            {/* Header */}
-            <div className="shrink-0 px-3 pt-3 pb-2">
-                <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-2">
-                        <div className="size-7 rounded-lg bg-orange-500/10 flex items-center justify-center">
-                            <IconBucket className="size-3.5 text-orange-600 dark:text-orange-400" />
-                        </div>
-                        <span className="text-sm font-semibold text-foreground tracking-tight">Buckets</span>
-                    </div>
-                    <Button
-                        size="icon"
-                        variant="ghost"
-                        className="size-7 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
-                        onClick={() => setAddOpen(true)}
-                    >
-                        <IconPlus className="size-4" />
-                    </Button>
-                </div>
-                {connections.length > 0 && (
-                    <p className="text-[10px] text-muted-foreground/60 pl-9">
-                        {connections.length} connection{connections.length !== 1 ? "s" : ""}
-                    </p>
-                )}
-            </div>
+        <>
+            {connections.length > 0 && (
+                <p className="shrink-0 px-3 pt-2 text-[10px] text-muted-foreground/60">
+                    {connections.length} connection{connections.length !== 1 ? "s" : ""}
+                </p>
+            )}
 
-            <div className="mx-3 border-b border-border/50" />
-
-            <ScrollArea className="flex-1">
-                <div className="p-2 space-y-0.5">
+            <div className="min-h-0 flex-1 overflow-y-auto p-2 space-y-0.5">
                     {connections.length === 0 && (
                         <div className="flex flex-col items-center gap-3 px-3 py-8 text-center">
                             <div className="relative">
                                 <div className="size-16 rounded-2xl bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
                                     <IconBucket className="size-8 text-muted-foreground/30" />
                                 </div>
-                                <div className="absolute -bottom-1 -right-1 size-6 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-sidebar">
+                                <div className="absolute -bottom-1 -right-1 size-6 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-background">
                                     <IconPlus className="size-3 text-primary" />
                                 </div>
                             </div>
@@ -149,7 +130,12 @@ export function BucketSidebar({ encryptionKey }: Props) {
                                         ? "bg-primary/8 text-foreground shadow-sm ring-1 ring-primary/10"
                                         : "hover:bg-accent/50 text-muted-foreground hover:text-foreground",
                                 )}
-                                onClick={() => setActiveConnection(conn.id)}
+                                onClick={() => {
+                                    setActiveConnection(conn.id)
+                                    // On mobile the panel is a sheet covering the
+                                    // browser — close it so the pick is visible.
+                                    if (panel?.isMobile) panel.close()
+                                }}
                             >
                                 {/* Active indicator line */}
                                 <div className={cn(
@@ -206,12 +192,11 @@ export function BucketSidebar({ encryptionKey }: Props) {
                             </div>
                         )
                     })}
-                </div>
-            </ScrollArea>
+            </div>
 
             {/* Footer */}
             {connections.length > 0 && (
-                <div className="shrink-0 border-t border-border/50 px-3 py-2">
+                <div className="mt-auto shrink-0 border-t border-border/50 px-3 py-2">
                     <Button
                         variant="ghost"
                         size="sm"
@@ -247,6 +232,6 @@ export function BucketSidebar({ encryptionKey }: Props) {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </div>
+        </>
     )
 }

@@ -239,7 +239,7 @@ export default function Page() {
       </div>
       <MdtFx />
       <MdtBoot />
-      <Header showThemeToggle={false} />
+      <Header />
 
       {/* ── Hero ────────────────────────────────────────────────────────────── */}
       <section className="relative py-24 sm:py-32 md:py-40 lg:py-48 overflow-hidden">

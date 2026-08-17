@@ -234,6 +234,8 @@ export function JsonSchemaGeneratorLayout() {
                       <pre className="m-0 font-mono">
                         <code
                           className="hljs"
+                          // highlight.js escapes the JSON it is handed.
+                          // threatcrush-disable-next-line js-unescaped-html-sink
                           dangerouslySetInnerHTML={{ __html: highlightedOutput }}
                         />
                       </pre>

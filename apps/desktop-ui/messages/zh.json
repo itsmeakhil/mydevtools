@@ -195,6 +195,8 @@
       "title": "外观",
       "description": "自定义应用在你设备上的显示方式。",
       "themePreference": "主题偏好",
+      "accentColor": "强调色",
+      "customColor": "自定义颜色",
       "themes": {
         "light": "浅色",
         "dark": "深色",
@@ -257,6 +259,20 @@
         "sv": "Svenska",
         "tr": "Türkçe"
       }
+    },
+    "about": {
+      "title": "关于",
+      "running": "正在运行 MyDevTools",
+      "runningVersion": "正在运行 MyDevTools v{version}",
+      "checkButton": "检查更新",
+      "checking": "检查中…",
+      "dialogTitle": "更新",
+      "dialogDescription": "MyDevTools 会就地自我更新——无需重新安装，且绝不会触碰你的离线数据。",
+      "onVersion": "你当前使用的版本是 {version}。",
+      "available": "版本 {version} 可用。",
+      "install": "下载并安装",
+      "upToDate": "已是最新版本。",
+      "checkError": "无法检查更新。你是否已联网？"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "全部",
       "total": "总计",
       "allProjects": "所有项目",
+      "projectsHeading": "项目",
       "export": "导出",
       "kanban": "看板",
       "list": "列表",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "点击 + 添加第一条密码",
       "emptyHintDesktop": "尚未保存任何密码。点击上方「添加密码」开始。",
       "addPassword": "添加密码",
+      "title": "密码",
+      "filters": {
+        "heading": "保险库健康度",
+        "all": "所有密码",
+        "weak": "弱密码",
+        "reused": "重复使用",
+        "noUrl": "无网址",
+        "tagsHeading": "标签",
+        "allTags": "所有标签"
+      },
       "searchPlaceholderMobile": "搜索保险库…",
       "searchPlaceholderDesktop": "搜索保险库…",
       "importExport": "导入 / 导出",
@@ -1161,6 +1188,8 @@
       "emptyHint": "为每个项目与环境创建集合（例如生产环境 API 密钥）。上传前均在浏览器中加密。",
       "searchPlaceholder": "搜索项目、环境、标签、备注…",
       "tagFilterPlaceholder": "按标签筛选",
+      "allProjects": "所有项目",
+      "projectsHeading": "项目",
       "variableCount": "{count, plural, other {# 个变量}}",
       "updatedAgo": "更新于 {time}",
       "copyDotEnv": "复制 .env",
@@ -5097,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% 离线"
+  },
+  "ToolSidebar": {
+    "show": "显示侧边栏",
+    "hide": "隐藏侧边栏"
   },
   "DesktopUpdate": {
     "title": "正在更新 MyDevTools",

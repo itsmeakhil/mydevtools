@@ -19,6 +19,11 @@ import { useTaskContext } from "@/app/app/to-do/context/TaskContext";
 import { useWorkspaceMembers, memberLabel } from "@/app/app/to-do/hooks/useWorkspaceMembers";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder, Archive, ArchiveRestore, UserRound } from "lucide-react";
+import {
+  ToolSidebarFilterList,
+  ToolSidebarLayout,
+  type ToolSidebarFilterItem,
+} from "@/components/tools/tool-sidebar";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { STATUS_CONFIG } from "./config/constants";
@@ -35,7 +40,6 @@ import {
   DrawerClose,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
 import {
   Select,
@@ -200,7 +204,25 @@ export const TaskContainer = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [hasSearchFilter, isMobile]);
 
+  const projectFilters: ToolSidebarFilterItem[] = [
+    { id: "all", label: tFilters("allProjects") },
+    ...projects.map((project) => ({ id: project.id, label: project.name, dot: project.color })),
+  ];
+
   return (
+    <ToolSidebarLayout
+      toolId="to-do"
+      icon={Folder}
+      title={tPage("myTasksTitle")}
+      sidebar={
+        <ToolSidebarFilterList
+          items={projectFilters}
+          value={filterProject}
+          onChange={setFilterProject}
+          heading={tFilters("projectsHeading")}
+        />
+      }
+    >
     <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
       <div role="status" aria-live="polite" className="sr-only">
         {liveStatsMessage}
@@ -212,8 +234,6 @@ export const TaskContainer = () => {
           style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 0.5rem)" }}
         >
           <div className="flex items-center gap-2 px-4 py-2">
-            <SidebarTrigger className="-ml-2 h-10 w-10 text-muted-foreground/80 hover:bg-transparent hover:text-foreground" />
-
             <div className="relative flex-1 h-10">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
               <Input
@@ -319,19 +339,10 @@ export const TaskContainer = () => {
           <Card className="border shadow-lg bg-card/50 backdrop-blur-sm">
             <CardHeader className="p-3 md:pb-3">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
-                <div className="flex items-center gap-2.5">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-                    <ListTodo className="h-3.5 w-3.5" />
-                  </span>
-                  <div>
-                    <h1 className="text-sm font-semibold tracking-tight text-foreground">
-                      {tPage("myTasksTitle")}
-                    </h1>
-                    <p className="font-meta text-[10px] uppercase tracking-wider text-muted-foreground mt-1 hidden sm:block">
-                      {tPage("statsLineDesktop", { total: allTaskStats.total, percent: completionRate })}
-                    </p>
-                  </div>
-                </div>
+                {/* Tool name + icon live in the ToolSidebarLayout panel header. */}
+                <p className="font-meta text-[10px] uppercase tracking-wider text-muted-foreground hidden sm:block">
+                  {tPage("statsLineDesktop", { total: allTaskStats.total, percent: completionRate })}
+                </p>
 
                 {/* Enhanced Stats with Progress Bars - Hidden on mobile to save space */}
                 <div className="hidden lg:flex items-center gap-2">
@@ -397,27 +408,7 @@ export const TaskContainer = () => {
                   )}
                 </div>
 
-                {/* Project Filter */}
-                <Select value={filterProject} onValueChange={setFilterProject}>
-                  <SelectTrigger className="w-[140px] h-9 text-xs">
-                    <div className="flex items-center gap-2 truncate">
-                      <Folder className="h-3.5 w-3.5 text-muted-foreground" />
-                      <SelectValue placeholder={tFilters("allProjects")} />
-                    </div>
-                  </SelectTrigger>
-                  <SelectContent align="end">
-                    <SelectItem value="all" className="text-xs">{tFilters("allProjects")}</SelectItem>
-                    {projects.length > 0 && <SelectSeparator />}
-                    {projects.map((project) => (
-                      <SelectItem key={project.id} value={project.id} className="text-xs">
-                        <div className="flex items-center gap-2">
-                          <div className={cn("w-2 h-2 rounded-full", project.color)} />
-                          {project.name}
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                {/* Project filter lives in the ToolSidebarLayout panel. */}
 
                 {/* Assignee Filter — only meaningful in a shared workspace */}
                 {isShared && (
@@ -739,5 +730,6 @@ export const TaskContainer = () => {
         </LazyBoundary>
       )}
     </div>
+    </ToolSidebarLayout>
   );
 };

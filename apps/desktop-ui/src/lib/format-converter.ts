@@ -34,6 +34,8 @@ function parseInput(input: string, format: Format): unknown {
     case 'json':
       return JSON.parse(input);
     case 'yaml':
+      // js-yaml v4: load() is the safe schema, !!js/function was removed.
+      // threatcrush-disable-next-line js-unsafe-yaml-load
       return yaml.load(input);
     case 'toml':
       return parseTOML(input);

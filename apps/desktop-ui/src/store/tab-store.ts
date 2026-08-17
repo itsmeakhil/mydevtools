@@ -18,6 +18,7 @@ interface TabStore {
   closeTab: (path: string) => void
   setActiveTab: (path: string) => void
   closeAllTabs: () => void
+  moveTab: (fromPath: string, toPath: string) => void
 }
 
 export const useTabStore = create<TabStore>()(
@@ -52,6 +53,18 @@ export const useTabStore = create<TabStore>()(
       setActiveTab: (path: string) => set({ activeTabPath: path }),
 
       closeAllTabs: () => set({ tabs: [], activeTabPath: null }),
+
+      // Drag-reorder: pull the dragged tab out and drop it at the target's slot.
+      moveTab: (fromPath: string, toPath: string) => {
+        const { tabs } = get()
+        const from = tabs.findIndex(t => t.path === fromPath)
+        const to = tabs.findIndex(t => t.path === toPath)
+        if (from === -1 || to === -1 || from === to) return
+        const next = [...tabs]
+        const [moved] = next.splice(from, 1)
+        next.splice(to, 0, moved)
+        set({ tabs: next })
+      },
     }),
     {
       name: 'mdt-app-tabs',

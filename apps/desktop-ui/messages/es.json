@@ -195,6 +195,8 @@
       "title": "Apariencia",
       "description": "Personaliza cómo se ve la aplicación en tu dispositivo.",
       "themePreference": "Preferencia de tema",
+      "accentColor": "Color de acento",
+      "customColor": "Color personalizado",
       "themes": {
         "light": "Claro",
         "dark": "Oscuro",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Acerca de",
+      "running": "Ejecutando MyDevTools",
+      "runningVersion": "Ejecutando MyDevTools v{version}",
+      "checkButton": "Buscar actualizaciones",
+      "checking": "Buscando…",
+      "dialogTitle": "Actualizaciones",
+      "dialogDescription": "MyDevTools se actualiza en el sitio: sin reinstalar nada y sin tocar nunca tus datos sin conexión.",
+      "onVersion": "Tienes la versión {version}.",
+      "available": "La versión {version} está disponible.",
+      "install": "Descargar e instalar",
+      "upToDate": "Estás al día.",
+      "checkError": "No se pudieron buscar actualizaciones. ¿Estás conectado?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Todas",
       "total": "Total",
       "allProjects": "Todos los proyectos",
+      "projectsHeading": "Proyectos",
       "export": "Exportar",
       "kanban": "Kanban",
       "list": "Lista",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Toca el botón + para añadir tu primera contraseña",
       "emptyHintDesktop": "Aún no has guardado contraseñas. Haz clic en \"Añadir contraseña\" arriba para empezar.",
       "addPassword": "Añadir contraseña",
+      "title": "Contraseñas",
+      "filters": {
+        "heading": "Estado de la bóveda",
+        "all": "Todas las contraseñas",
+        "weak": "Débiles",
+        "reused": "Reutilizadas",
+        "noUrl": "Sin URL",
+        "tagsHeading": "Etiquetas",
+        "allTags": "Todas las etiquetas"
+      },
       "searchPlaceholderMobile": "Buscar en tu bóveda...",
       "searchPlaceholderDesktop": "Buscar en la bóveda...",
       "importExport": "Importar / exportar",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Crea un conjunto por proyecto y entorno (p. ej. claves de API de producción). Todo se cifra en tu navegador antes de subirlo.",
       "searchPlaceholder": "Buscar proyecto, entorno, etiquetas, notas…",
       "tagFilterPlaceholder": "Filtrar por etiqueta",
+      "allProjects": "Todos los proyectos",
+      "projectsHeading": "Proyectos",
       "variableCount": "{count, plural, one {# variable} other {# variables}}",
       "updatedAgo": "Actualizado {time}",
       "copyDotEnv": "Copiar .env",
@@ -5108,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% sin conexión"
+  },
+  "ToolSidebar": {
+    "show": "Mostrar barra lateral",
+    "hide": "Ocultar barra lateral"
   },
   "DesktopUpdate": {
     "title": "Actualizando MyDevTools",

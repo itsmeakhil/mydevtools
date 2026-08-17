@@ -355,6 +355,8 @@ function parseSpec(raw: string | object): OpenAPISpec {
     if (text.startsWith("{") || text.startsWith("[")) {
         return JSON.parse(text) as OpenAPISpec
     }
+    // js-yaml v4: load() is the safe schema, !!js/function was removed.
+    // threatcrush-disable-next-line js-unsafe-yaml-load
     const parsed = yaml.load(text)
     if (!parsed || typeof parsed !== "object") {
         throw new Error("Could not parse OpenAPI document (not JSON or YAML)")

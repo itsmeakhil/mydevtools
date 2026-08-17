@@ -50,7 +50,7 @@ export default function ToolsIndexPage() {
       </div>
       <MdtFx />
       <MdtBoot />
-      <Header showThemeToggle={false} />
+      <Header />
 
       <main className="flex-1">
         {/* ── Hero ── */}

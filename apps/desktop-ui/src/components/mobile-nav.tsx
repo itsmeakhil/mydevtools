@@ -3,7 +3,6 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Home, LayoutGrid, Lock, User as UserIcon, Moon, Sun, Settings, HelpCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { useSidebar } from "@/components/ui/sidebar"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -30,7 +29,6 @@ const navItems = [
 
 export function MobileNav() {
     const pathname = usePathname()
-    const { toggleSidebar, openMobile } = useSidebar()
     const user = useAppUser()
     const { clearPasswords } = usePasswordStore()
     const { clearSets } = useEnvironmentManagerStore()
@@ -47,9 +45,8 @@ export function MobileNav() {
     }, [])
 
     // Determine active tab for indicator animation
-    const getActiveTab = (): 'home' | 'tools' | 'profile' | null => {
+    const getActiveTab = (): 'home' | 'profile' | null => {
         if (pathname === '/dashboard') return 'home'
-        if (openMobile) return 'tools'
         return null
     }
     const activeTab = getActiveTab()
@@ -136,24 +133,15 @@ export function MobileNav() {
                 <span className="mt-0.5">{navItems[0].label}</span>
             </Link>
 
-            {/* Tools Button */}
+            {/* Tools Button — opens the global command palette (same event the
+                TopBar search button dispatches). The old sidebar it used to
+                toggle is gone; the palette is the tool switcher now. */}
             <button
-                onClick={() => toggleSidebar()}
-                className={cn(navItemStyles, openMobile && activeStyles)}
-                aria-expanded={openMobile}
-                aria-label="Toggle tools menu"
+                onClick={() => document.dispatchEvent(new CustomEvent('open-command-palette'))}
+                className={navItemStyles}
+                aria-label="Open tool search"
             >
-                {activeTab === 'tools' && (
-                    <motion.div
-                        layoutId="active-mobile-nav"
-                        className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-violet-500/10 ring-1 ring-inset ring-primary/15 -z-10"
-                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                )}
-                <LayoutGrid
-                    className="h-5 w-5 transition-transform duration-200"
-                    strokeWidth={openMobile ? 2.5 : 2}
-                />
+                <LayoutGrid className="h-5 w-5 transition-transform duration-200" strokeWidth={2} />
                 <span className="mt-0.5">Tools</span>
             </button>
 

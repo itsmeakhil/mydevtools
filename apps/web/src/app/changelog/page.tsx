@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { JsonLd } from '@/components/seo/json-ld'
 import { changelog, changeTypeLabels, latestRelease, type ChangeType } from '@/lib/changelog'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
@@ -100,11 +101,8 @@ export default function ChangelogPage() {
 
   return (
     <div className="dark flex min-h-screen flex-col bg-background text-foreground font-sans">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Header showThemeToggle={false} />
+      <JsonLd data={jsonLd} />
+      <Header />
 
       <main className="flex-1">
         <section className="relative overflow-hidden py-20 md:py-28">

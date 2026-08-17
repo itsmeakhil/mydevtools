@@ -19,6 +19,11 @@ import { deleteApiKeyEntry } from "@/lib/api-key-vault-api"
 import { cn } from "@/lib/utils"
 import { formatDistanceToNow } from "date-fns"
 import { AddApiKeyDialog, EditApiKeyDialog } from "./add-api-key-dialog"
+import {
+    ToolSidebarFilterList,
+    ToolSidebarLayout,
+    type ToolSidebarFilterItem,
+} from "@/components/tools/tool-sidebar"
 
 const REVEAL_TIMEOUT_MS = 30_000
 
@@ -174,8 +179,35 @@ export function ApiKeyList() {
         }
     }
 
+    const envFilters: ToolSidebarFilterItem[] = [
+        { id: "all", label: "All keys", count: entries.length },
+        { id: "development", label: ENV_META.development.label, count: counts.development, dot: ENV_META.development.dot },
+        { id: "staging", label: ENV_META.staging.label, count: counts.staging, dot: ENV_META.staging.dot },
+        { id: "production", label: ENV_META.production.label, count: counts.production, dot: ENV_META.production.dot },
+    ]
+
     return (
-        <div className="flex flex-col gap-4 pb-8">
+        <ToolSidebarLayout
+            toolId="api-keys"
+            icon={KeyRound}
+            title="API Keys"
+            actions={
+                <AddApiKeyDialog>
+                    <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Add API key">
+                        <Plus className="h-4 w-4" />
+                    </Button>
+                </AddApiKeyDialog>
+            }
+            sidebar={
+                <ToolSidebarFilterList
+                    items={envFilters}
+                    value={envFilter}
+                    onChange={(id) => setEnvFilter(id as "all" | ApiKeyEnv)}
+                    heading="Environment"
+                />
+            }
+        >
+        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pt-4 pb-8">
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sticky top-0 z-10 bg-background/95 backdrop-blur py-2">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 min-w-0">
                 <div className="relative flex-1 max-w-md">
@@ -187,17 +219,6 @@ export function ApiKeyList() {
                         className="pl-9"
                     />
                 </div>
-                <Select value={envFilter} onValueChange={(v) => setEnvFilter(v as "all" | ApiKeyEnv)}>
-                    <SelectTrigger className="w-full sm:w-40">
-                        <SelectValue placeholder="All envs" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="all">All ({entries.length})</SelectItem>
-                        <SelectItem value="development">Dev ({counts.development})</SelectItem>
-                        <SelectItem value="staging">Staging ({counts.staging})</SelectItem>
-                        <SelectItem value="production">Prod ({counts.production})</SelectItem>
-                    </SelectContent>
-                </Select>
                 <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortKey)}>
                     <SelectTrigger className="w-full sm:w-44" aria-label="Sort by">
                         <SelectValue />
@@ -389,5 +410,6 @@ export function ApiKeyList() {
                 </AlertDialogContent>
             </AlertDialog>
         </div>
+        </ToolSidebarLayout>
     )
 }

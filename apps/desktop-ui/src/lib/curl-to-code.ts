@@ -702,6 +702,8 @@ function genRuby(p: ParsedCurl): string {
         lines.push(`request.body = ${rubyStr(p.body)}`)
     }
     lines.push("")
+    // Emitted Ruby source, not a request this app makes.
+    // threatcrush-disable-next-line js-ssrf-outbound-request
     lines.push("response = http.request(request)")
     lines.push("puts response.code")
     lines.push("puts response.body")
