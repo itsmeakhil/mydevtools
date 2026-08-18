@@ -7,7 +7,7 @@ import { blogPosts } from '@/lib/blog/posts'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 const postCount = blogPosts.length
-const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent(`${postCount} SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.`)}`
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent(`${postCount} guides for things developers keep re-Googling: JWT claims, cron syntax, regex, SQL, hashing, subnets, data formats.`)}`
 
 export const metadata: Metadata = {
   title: { absolute: `Developer Blog — ${postCount} Guides on Tools & Coding | MyDevTools` },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${baseUrl}/blog` },
   openGraph: {
     title: 'Developer Blog — MyDevTools',
-    description: `${postCount} SEO-optimized guides: JWT decoding, JSON formatting, regex, SQL, cryptography, data conversion, and more.`,
+    description: `${postCount} guides for things developers keep re-Googling: JWT claims, cron syntax, regex, SQL, hashing, subnets, data formats.`,
     url: `${baseUrl}/blog`,
     siteName: 'MyDevTools',
     type: 'website',
@@ -93,10 +93,10 @@ export default function BlogPage() {
             </nav>
 
             <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl leading-[1.08]">
-              {postCount} SEO-optimized developer guides
+              {postCount} guides for things you keep re-Googling
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-              In-depth explanations covering databases (SQL, Redis, MongoDB), cryptography (SSH keys, encryption, hashing), data conversion (CSV, YAML, JSON), utilities (URL parsing, email validation, QR codes), and more. Written for search engines and AI agents.
+              What a JWT claim actually means, why that cron expression fires on the wrong day, which hash to pick, how a subnet mask splits an address. Databases, cryptography, data formats, and everyday utilities — explained once, properly, by people who got tired of looking them up.
             </p>
           </div>
         </section>
