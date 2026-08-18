@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { Logo } from "./logo";
 
-/** Source repository — AGPL v3. Built releases live in mydevtools-releases. */
+/** Source repository — AGPL v3. Built releases ship on this repo's releases page. */
 export const SOURCE_URL = "https://github.com/mydevtools-tech/mydevtools";
 
 const footerLinks = [

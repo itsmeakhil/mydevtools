@@ -2,12 +2,15 @@ import { Download } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
+/** GitHub's permanent "latest release" page — releases live in the source repo. */
+export const RELEASES_URL =
+  "https://github.com/mydevtools-tech/mydevtools/releases/latest";
+
 /**
  * GitHub's permanent "latest release" redirect — always serves the newest DMG.
  * release-local.sh uploads a version-less MyDevTools.dmg to every release.
  */
-export const DMG_URL =
-  "https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools.dmg";
+export const DMG_URL = `${RELEASES_URL}/download/MyDevTools.dmg`;
 
 /** Minimal Apple logo (lucide has no Apple icon in this version). */
 export function AppleGlyph({ className }: { className?: string }) {

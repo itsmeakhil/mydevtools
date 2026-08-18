@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { DownloadDesktopButton } from "@/components/download-desktop-button";
+import { DownloadDesktopButton, RELEASES_URL } from "@/components/download-desktop-button";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mydevtools.tech";
 
@@ -54,7 +54,7 @@ export default function DownloadPage() {
               Each release ships a <code>.sha256</code> checksum on the{" "}
               <a
                 className="underline underline-offset-2"
-                href="https://github.com/mydevtools-tech/mydevtools-releases/releases/latest"
+                href={RELEASES_URL}
                 target="_blank"
                 rel="noreferrer"
               >
