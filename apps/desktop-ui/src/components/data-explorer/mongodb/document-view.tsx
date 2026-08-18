@@ -90,6 +90,15 @@ interface DocumentViewProps {
 // let thead and tbody size independently and drift out of alignment.
 const DEFAULT_COL_WIDTH = 200;
 
+// Pinned cells sit over the horizontally scrolled ones, so their hover/selected
+// tints ride on background-image (gradient) and leave the opaque background-color
+// underneath. A plain `bg-muted/50` here replaces the base colour and the scrolled
+// cells bleed through the 50% alpha.
+const STICKY_CELL =
+    "sticky z-10 bg-background transition-colors bg-gradient-to-r from-transparent to-transparent group-hover:from-muted/50 group-hover:to-muted/50";
+const STICKY_CELL_SELECTED =
+    "from-primary/5 to-primary/5 group-hover:from-primary/10 group-hover:to-primary/10";
+
 // Local input state so keystrokes don't re-render the whole document grid.
 function EditableCell({
     initialValue,
@@ -933,7 +942,7 @@ export function DocumentView({
                                             />
                                         </th>
                                     ))}
-                                    <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 z-20">{t("actions")}</th>
+                                    <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 right-0 z-30 border-l">{t("actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -964,7 +973,7 @@ export function DocumentView({
                                             )}
                                         >
                                             {showSelectMode && (
-                                                <td className={cn("px-3 py-3 sticky left-0 z-10 bg-background group-hover:bg-muted/50 transition-colors", isSelected && "bg-primary/5 group-hover:bg-primary/10")}>
+                                                <td className={cn("px-3 py-3 left-0", STICKY_CELL, isSelected && STICKY_CELL_SELECTED)}>
                                                     <Checkbox
                                                         checked={isSelected}
                                                         onCheckedChange={() => handleSelectRow(doc._id)}
@@ -972,7 +981,7 @@ export function DocumentView({
                                                     />
                                                 </td>
                                             )}
-                                            <td className={cn("px-4 py-3 w-[50px] font-mono text-xs text-center text-muted-foreground sticky z-10 bg-background group-hover:bg-muted/50 transition-colors", showSelectMode ? "left-[44px]" : "left-0", isSelected && "bg-primary/5 group-hover:bg-primary/10")}>
+                                            <td className={cn("px-4 py-3 w-[50px] font-mono text-xs text-center text-muted-foreground", STICKY_CELL, showSelectMode ? "left-[44px]" : "left-0", isSelected && STICKY_CELL_SELECTED)}>
                                                 {index + 1 + (page - 1) * limit}
                                             </td>
                                             {allFields.map((key) => {
@@ -1060,7 +1069,7 @@ export function DocumentView({
                                                     </ContextMenu>
                                                 );
                                             })}
-                                            <td className="px-4 py-3 align-top">
+                                            <td className={cn("px-4 py-3 align-top w-[120px] right-0 border-l", STICKY_CELL, isSelected && STICKY_CELL_SELECTED)}>
                                                 <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
                                                     <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
                                                         <IconCopy className="h-3 w-3" />
