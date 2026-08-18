@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, type ElementType } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Github, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
@@ -41,9 +42,33 @@ const menuItemVariants = {
   }),
 };
 
+type NavLink = {
+  href: string;
+  label: string;
+  icon?: ElementType;
+  external?: boolean;
+};
+
+const NAV_LINKS: NavLink[] = [
+  { href: "/", label: "Home" },
+  { href: "/features", label: "Features" },
+  { href: "/developer-tools", label: "Platform" },
+  { href: "/download", label: "Download" },
+  { href: "/tools", label: "Tools" },
+  { href: "/changelog", label: "Changelog" },
+];
+
+// "/" only matches exactly; every other section also owns its sub-routes
+// (e.g. /tools/json-formatter keeps "Tools" highlighted).
+function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname() ?? "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -52,18 +77,8 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const mobileNavLinks: {
-    href: string;
-    label: string;
-    icon?: ElementType;
-    external?: boolean;
-  }[] = [
-    { href: "/", label: "Home" },
-    { href: "/features", label: "Features" },
-    { href: "/download", label: "Download" },
-    { href: "/developer-tools", label: "Platform" },
-    { href: "/tools", label: "Tools" },
-    { href: "/changelog", label: "Changelog" },
+  const mobileNavLinks: NavLink[] = [
+    ...NAV_LINKS,
     { href: SOURCE_URL, label: "GitHub", icon: Github, external: true },
   ];
 
@@ -86,42 +101,25 @@ export function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <nav className="flex items-center gap-8 text-md font-medium">
-              <Link
-                href="/"
-                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
-              >
-                Home
-              </Link>
-              <Link
-                href="/features"
-                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
-              >
-                Features
-              </Link>
-              <Link
-                href="/developer-tools"
-                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
-              >
-                Platform
-              </Link>
-              <Link
-                href="/download"
-                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
-              >
-                Download
-              </Link>
-              <Link
-                href="/tools"
-                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
-              >
-                Tools
-              </Link>
-              <Link
-                href="/changelog"
-                className="relative py-2 transition-colors hover:text-foreground/80 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-foreground after:transition-all hover:after:w-full"
-              >
-                Changelog
-              </Link>
+              {NAV_LINKS.map((link) => {
+                const active = isActive(pathname, link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "relative py-2 transition-colors",
+                      "after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-foreground after:transition-all hover:after:w-full",
+                      active
+                        ? "text-foreground after:w-full"
+                        : "text-foreground/70 hover:text-foreground after:w-0"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
             </nav>
           </div>
 
@@ -205,7 +203,10 @@ export function Header() {
             >
               <nav className="bg-background/95 backdrop-blur-xl border-t border-border/40 dark:border-white/5">
                 <div className="px-4 py-4 space-y-1">
-                  {mobileNavLinks.map((link, index) => (
+                  {mobileNavLinks.map((link, index) => {
+                    const active =
+                      !link.external && isActive(pathname, link.href);
+                    return (
                     <motion.div
                       key={link.href}
                       custom={index}
@@ -217,19 +218,23 @@ export function Header() {
                         href={link.href}
                         target={link.external ? "_blank" : undefined}
                         rel={link.external ? "noreferrer" : undefined}
+                        aria-current={active ? "page" : undefined}
                         onClick={() => setIsMenuOpen(false)}
                         className={cn(
                           "flex items-center gap-3 px-4 py-3.5 rounded-xl",
                           "text-base font-medium transition-all duration-200",
                           "hover:bg-muted/60 active:scale-[0.98]",
-                          "min-h-[48px]"
+                          "min-h-[48px]",
+                          active &&
+                            "bg-muted text-foreground border-l-2 border-primary rounded-l-md"
                         )}
                       >
                         {link.icon && <link.icon className="h-5 w-5" />}
                         <span>{link.label}</span>
                       </Link>
                     </motion.div>
-                  ))}
+                    );
+                  })}
                 </div>
               </nav>
             </motion.div>
