@@ -2,35 +2,44 @@
   <img src="https://mydevtools.tech/favicon.ico" alt="MyDevTools Logo" width="80" height="80" />
 </p>
 
-<h1 align="center">MyDevTools.tech</h1>
+<h1 align="center">MyDevTools</h1>
 
 <p align="center">
-  <strong>80+ developer tools in one desktop app.<br />
-  Completely offline. No account required. Free for everyone.</strong>
+  <strong>The Offline Developer Workstation</strong>
 </p>
 
 <p align="center">
-  <a href="https://mydevtools.tech/download">⬇️ Download</a> •
-  <a href="#-tools--features">✨ Tools</a> •
-  <a href="#-tech-stack">🏗️ Stack</a> •
-  <a href="#-getting-started">🚀 Get Started</a> •
+  80+ developer tools, an API client, SQL / MongoDB / Redis clients, encryption<br />
+  and productivity utilities — all running locally on your machine.
+</p>
+
+<p align="center">
+  <strong>Free · Open Source · Offline · No Account · No Ads</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ Download</strong></a> •
+  <a href="https://mydevtools.tech"><strong>🌐 Website</strong></a> •
+  <a href="docs/MYDEVTOOLS.md"><strong>📚 Docs</strong></a> •
+  <a href="#-tools">🧰 Tools</a> •
   <a href="#-contributing">🤝 Contribute</a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Tauri-2-24C8DB?style=for-the-badge&logo=tauri&logoColor=white" alt="Tauri" />
-  <img src="https://img.shields.io/badge/Rust-stable-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
-  <img src="https://img.shields.io/badge/SQLCipher-encrypted-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLCipher" />
-  <img src="https://img.shields.io/badge/License-AGPL%203.0-blue?style=for-the-badge" alt="License" />
+  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=for-the-badge&color=6d7cf5" alt="GitHub stars" /></a>
+  <img src="https://img.shields.io/badge/License-AGPL%203.0-blue?style=for-the-badge" alt="License AGPL 3.0" />
+  <img src="https://img.shields.io/badge/100%25-Offline-22c55e?style=for-the-badge" alt="100% Offline" />
+  <img src="https://img.shields.io/badge/Accounts-None-8b5cf6?style=for-the-badge" alt="No account required" />
+  <img src="https://img.shields.io/badge/Price-Free-0ea5e9?style=for-the-badge" alt="Free" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/100%25-Offline-22c55e?style=for-the-badge" alt="100% Offline" />
-  <img src="https://img.shields.io/badge/Accounts-None-8b5cf6?style=for-the-badge" alt="No account required" />
-  <img src="https://img.shields.io/badge/Price-Free%20for%20everyone-0ea5e9?style=for-the-badge" alt="Free for everyone" />
+  <img src="https://img.shields.io/badge/Tauri-2-24C8DB?style=for-the-badge&logo=tauri&logoColor=white" alt="Tauri 2" />
+  <img src="https://img.shields.io/badge/Rust-stable-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
+  <img src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.7" />
+  <img src="https://img.shields.io/badge/SQLCipher-encrypted-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLCipher" />
 </p>
 
 <p align="center">
@@ -41,236 +50,302 @@
 
 ---
 
-## 🔥 Why MyDevTools?
+## What is MyDevTools?
 
-Most developer tools are scattered across dozens of tabs, riddled with ads, gated behind a sign-up, or quietly sending your data to someone else's server. **MyDevTools** changes that:
+MyDevTools is a **desktop application** that replaces the pile of tabs, one-off
+websites and single-purpose apps a developer opens every day. Formatters,
+converters, generators, crypto utilities, an API client, SQL / MongoDB / Redis
+clients, notes, snippets and a credential vault — one app, one search box, one
+keyboard shortcut.
 
-- 🔌 **Completely offline** — A desktop app with no backend behind it. The app itself never needs a network: your data is processed and stored on your machine. Only tools you deliberately point at something remote (API client, database clients, DNS/WHOIS lookups) reach out, and only to the destination you choose.
-- 🙅 **No account required** — No sign-up, no sign-in, no activation, no license key. Install it, open it, start working.
-- 💯 **Free for everyone** — Every tool and every feature. No paid tier, no trial, no seat limits, no upsell.
-- 🔒 **Privacy by design** — Nothing to harvest, because there is nowhere to send it. Credentials live in an AES-256 vault encrypted with a password only you know.
-- 📖 **Open source** — Licensed under **GNU AGPLv3**. Read it, build it, fork it. See [LICENSE](LICENSE).
-- 🎨 **Premium UI/UX** — Dark/light mode, silky animations, 27 languages.
+It runs on your machine. There is no MyDevTools server, no account and no sync.
 
----
+| The usual setup | MyDevTools |
+|---|---|
+| A dozen tabs of single-purpose tool sites | One desktop app, `⌘K` to jump anywhere |
+| Tools that upload your payload to a server to format it | Processing happens on your machine |
+| Sign-up walls and license keys | No account, no sign-in, no activation |
+| Separate apps for SQL, MongoDB and Redis | SQL + MongoDB + Redis + S3 in one place |
+| Paid tiers for basic utilities | Free — every tool, every feature |
+| Closed-source tooling you cannot audit | AGPL-3.0, the whole app is in this repo |
 
-## ✨ Tools & Features
-
-### 🧰 Developer Utilities
-
-| Tool | Description |
-|------|-------------|
-| **📡 API Client** | Test & debug REST APIs with a Postman-like interface — headers, query params, body, response inspector |
-| **🔤 Base64** | Encode and decode Base64 strings with one click |
-| **✨ Beautify & Minify** | Beautify or minify HTML, CSS, JavaScript, XML, and JSON in one tool with a language dropdown |
-| **🔏 Certificate PEM Decoder** | Decode and inspect SSL/TLS certificates from PEM format |
-| **🎨 Color Picker** | Pick, convert, and preview colors across HEX, RGB, HSL formats and more |
-| **♿ Contrast Checker** | Check foreground/background color contrast ratios for WCAG accessibility compliance |
-| **⏰ Cron Builder** | Build and validate cron expressions visually with human-readable output |
-| **📊 CSV / Excel / JSON Converter** | Convert between CSV, Excel, and JSON data formats |
-| **📡 cURL to Code** | Convert a curl command into ready-to-run request code for fetch, axios, Python, Go, PHP, Ruby, Java, and C# |
-| **🔀 Diff Checker** | Side-by-side text diff viewer with inline change highlighting |
-| **🐳 Docker Compose Generator** | Generate `docker-compose.yml` files visually for common service stacks |
-| **📧 Email Validator** | Validate email address format and DNS structure instantly |
-| **🔐 Encryption Playground** | Encrypt and decrypt data with common algorithms (AES, RSA, etc.) |
-| **🌿 Environment Manager** | Manage `.env` files — import, export, diff environments, keep secrets organized |
-| **🔣 Escape / Encode** | Escape and unescape HTML entities, backslash (JS/JSON) strings, hex ↔ ASCII, and Unicode \uXXXX sequences |
-| **🔄 Format Converter** | Convert between data formats like YAML, TOML, JSON, XML, and more |
-| **📊 GraphQL Formatter** | Format and prettify GraphQL queries and schemas |
-| **#️⃣ Hash Generator** | Generate MD5, SHA-1, SHA-256, SHA-512, and other hashes from any input |
-| **🔑 HMAC Generator** | Generate HMAC signatures with configurable keys and hash algorithms |
-| **📖 HTTP Status Codes** | Quick reference for all HTTP status codes with descriptions |
-| **🖼️ Image Compressor** | Compress images client-side with quality control and format output |
-| **🖼️ Image to Base64** | Convert images to Data URI or raw Base64 strings with a visual dropzone |
-| **🌐 IP Subnet Calculator** | Calculate subnets, CIDR ranges, broadcast addresses, and host counts |
-| **📝 JSON Formatter** | Beautify, validate, minify, and explore JSON with Monaco Editor |
-| **📐 JSON Schema Generator** | Auto-generate JSON Schema from any JSON input instantly |
-| **🧩 JSON to Code** | Generate typed models — TypeScript, Go, Rust, Python, Java, Kotlin, Swift, and JSON Schema — from a sample JSON payload |
-| **🙈 .gitignore Generator** | Generate merged .gitignore files instantly from 500+ tech stacks |
-| **🔑 JWT Decoder** | Decode and inspect JWT tokens — header, payload, and signature at a glance |
-| **📑 Line Sort & Dedupe** | Sort lines alphabetically or by length, remove duplicates, trim whitespace, and clean up lists locally |
-| **📋 Lorem Ipsum Generator** | Generate placeholder text in paragraphs, words, or sentences |
-| **📝 Markdown Preview** | Write Markdown and preview rendered HTML output side-by-side |
-| **📂 MIME Type Lookup** | Look up MIME types by file extension or content type string |
-| **🎲 Mock Data Generator** | Generate realistic fake data (names, emails, addresses, etc.) in bulk |
-| **🔢 Number Base Converter** | Convert numbers between binary, octal, decimal, and hexadecimal |
-| **🗄️ NoSQL Explorer** | Connect to MongoDB, browse databases & collections, and run queries with a visual data viewer |
-| **🧬 Regex Tester** | Test regular expressions in real time with match highlighting and capture group breakdown |
-| **📱 QR Code Generator** | Generate QR codes from URLs, text, or custom data |
-| **🔑 Secret / API Key Generator** | Generate cryptographically secure API keys and secrets |
-| **💾 Snippet Manager** | Save, organize, and search code snippets with syntax highlighting |
-| **🛢️ SQL Client** | Connect to SQL databases and run queries with a visual interface |
-| **🛢️ SQL Formatter** | Format and prettify SQL queries with dialect support |
-| **🔡 String Case Converter** | Convert text between camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, Title Case, and more |
-| **🔎 String Inspector** | Count characters, words, lines, and bytes, and reveal invisible or non-ASCII characters with their Unicode code points |
-| **🖌️ SVG Optimizer** | Optimize and minify SVG files while preserving visual output |
-| **⏱️ Timestamp Converter** | Convert Unix timestamps to human-readable dates and vice versa |
-| **🔐 TOTP Generator** | Generate time-based one-time passwords (TOTP/2FA codes) |
-| **📏 Unit Converter** | Convert between units of length, weight, temperature, area, and more |
-| **🌐 URL Encoder/Decoder** | Encode and decode URL components instantly |
-| **🔍 URL Parser** | Parse and inspect URL components — protocol, host, path, query, fragment |
-| **🕵️ User Agent Parser** | Parse and decode browser user agent strings |
-| **🔢 UUID Generator** | Generate UUIDs (v1, v4) in bulk with copy support |
-| **🎨 CSS Gradient Builder** | Visual builder for linear and radial CSS gradients with color stops |
-
-### 📱 Productivity Apps
-
-| Tool | Description |
-|------|-------------|
-| **🔖 Bookmarks** | Save, organize, and manage your favorite links in one central place |
-| **🎮 Break Room** | Quick games and activities to recharge during work breaks |
-| **📓 Notes** | Rich-text note-taking powered by Tiptap — headings, lists, code blocks, images & more |
-| **🔐 Password Manager** | Store credentials securely with client-side encryption. Your vault, your keys |
-| **✅ Task Manager** | Organize tasks with priorities, statuses, and drag-and-drop reordering |
+> **Note on the table above:** it describes the workflow MyDevTools replaces, not
+> any specific competing product. Feature parity with dedicated tools like
+> DBeaver or Postman is not claimed — see [Where MyDevTools stops](#where-mydevtools-stops).
 
 ---
 
-## 🏗️ Tech Stack
+## 🚀 Quick start
 
-### Frontend
+**Download the app** — [latest release](https://github.com/mydevtools-tech/mydevtools/releases/latest)
+(macOS universal build, signed and notarized; Apple Silicon and Intel).
+
+Open it and start working: no sign-up, no configuration, no API keys.
+
+Windows and Linux builds are not published yet — the Tauri shell can be built
+from source on those platforms, but they are untested. See
+[Building from source](#-building-from-source).
+
+---
+
+## 🧰 Tools
+
+83 tools ship in the app today, grouped the way the sidebar groups them.
+
+### 📝 Formatters & validators
+
+| Tool | Description |
+|---|---|
+| **JSON Formatter** | Format, validate and edit JSON in a Monaco editor |
+| **JSON Visualizer** | Explore JSON as an interactive node graph with search and image export |
+| **JSON Diff** | Compare two JSON documents semantically, ignoring key order and formatting |
+| **JSON Schema Generator** | Infer JSON Schema from a sample payload |
+| **JSON to Code** | Generate TypeScript, Go, Rust, Python, Java, Kotlin and Swift models from JSON |
+| **JSONPath Playground** | Query JSON with JSONPath or JMESPath expressions |
+| **YAML Formatter** | Format, validate and convert YAML to JSON |
+| **Format Converter** | Convert between JSON, YAML, TOML and XML in any direction |
+| **Beautify & Minify** | Beautify or minify HTML, CSS, JavaScript, XML and JSON |
+| **SQL Formatter** | Format SQL for MySQL, PostgreSQL and SQLite |
+| **GraphQL Formatter** | Format GraphQL with syntax highlighting and a query builder |
+| **Markdown Preview** | Live Markdown renderer with HTML export and HTML → Markdown |
+| **Diff Checker** | Side-by-side line diff of two texts |
+| **Regex Tester** | Test regex with live match highlighting and capture groups |
+
+### 🌐 Network & API
+
+| Tool | Description |
+|---|---|
+| **API Client** | Build, send and debug HTTP requests — collections, environments, auth, gRPC and a mock server. Not bound by browser CORS |
+| **cURL to Code** | Turn a curl command into fetch, axios, Python, Go, PHP, Ruby, Java or C# |
+| **Webhook Tester** | Capture and inspect incoming webhook requests in real time |
+| **WebSocket Tester** | Connect to WebSocket endpoints and send, receive and inspect messages live |
+| **DNS Lookup** | Query A, AAAA, MX, TXT, NS, CNAME, SOA, CAA and PTR records |
+| **Whois Lookup** | Domain and IP registration details via RDAP/WHOIS |
+| **IP / Subnet Calculator** | IPv4 and IPv6 CIDR: netmask, host range, address counts |
+| **HTTP Status Codes** | Searchable reference for 1xx–5xx |
+| **User-Agent Parser** | Browser, OS and device details from a user-agent string |
+| **MIME Type Lookup** | MIME type for a file extension or filename |
+
+### 🗄️ Database & storage clients
+
+| Tool | Description |
+|---|---|
+| **SQL Client** | Connect to PostgreSQL, MySQL and MariaDB, run queries, browse schemas — credentials in an encrypted store |
+| **Database Explorer** | Browse MongoDB databases, collections and documents |
+| **Redis Commander** | Browse keys, inspect values, run raw commands and flush patterns |
+| **S3 Drive** | Manage AWS S3 and DigitalOcean Spaces buckets — browse, upload, delete |
+
+Database drivers are **native Rust clients** in the Tauri shell, so connections
+go straight from your machine to your database.
+
+### 🔐 Security & crypto
+
+| Tool | Description |
+|---|---|
+| **Password Manager** | Credential vault encrypted with a password only you know |
+| **Encryption Playground** | AES-GCM with a raw key or passphrase; encrypt/decrypt JSON bundles |
+| **JWT Decoder** | Decode JWT header, payload and expiry |
+| **Hash Generator** | MD5, SHA-1, SHA-256/384/512 digests for text or files |
+| **HMAC Generator** | HMAC-SHA1/256/384/512 for webhook and API signing tests |
+| **Bcrypt Generator & Checker** | Hash passwords with bcrypt and verify hashes |
+| **TOTP / 2FA Generator** | Six-digit codes from a Base32 authenticator secret |
+| **SSH / RSA Key Generator** | Ed25519 or RSA key pairs in OpenSSH and PEM formats |
+| **Certificate / PEM Decoder** | X.509 certificates and CSRs: subject, issuer, validity, SANs |
+| **Environment Manager** | Encrypted `.env` sets per project and environment |
+| **Secret / API Key Generator** | Cryptographically random strings with configurable alphabet |
+| **Email Validator** | Verify and validate email addresses |
+
+### 🔄 Converters
+
+| Tool | Description |
+|---|---|
+| **Base64 Encoder** | Encode and decode Base64 |
+| **Image to Base64** | Images to Data URI or raw Base64 |
+| **URL Encoder** · **URL Parser** | Percent-encode/decode, and split a URL into its parts |
+| **Escape / Encode** | HTML entities, backslash strings, hex ↔ ASCII, Unicode `\uXXXX` |
+| **String Case Converter** | camelCase, snake_case, kebab-case, CONSTANT_CASE and more |
+| **String Inspector** | Characters, words, bytes, invisible and non-ASCII code points |
+| **Line Sort & Dedupe** | Sort, deduplicate, trim and clean up lists |
+| **CSV / Excel ↔ JSON** | Convert spreadsheets to JSON and back |
+| **Number Base Converter** | Integers between bases 2–36 |
+| **Timestamp Converter** · **Timezone Converter** | Unix/ISO/relative time, and time across timezones |
+| **Unit Converter** | 323 units across 43 categories |
+| **Chmod Calculator** | Unix permissions between checkboxes, octal and symbolic |
+| **LLM Token Counter** | Count tokens and estimate API cost for any text |
+
+### ⚙️ Generators
+
+| Tool | Description |
+|---|---|
+| **UUID / ULID** | Generate UUIDs and ULIDs with bulk export |
+| **Mock Data Generator** | Define a schema, export random JSON, CSV, SQL or XML |
+| **Cron Builder** | Visual cron builder, presets and parser |
+| **Docker Compose Generator** | Compose local stacks — Postgres, Redis, NGINX, Kafka and more |
+| **.gitignore Generator** | Merged `.gitignore` files from 500+ stacks |
+| **QR Code Generator** | PNG QR codes from text or URLs |
+| **Markdown Table Generator** | Build Markdown and HTML tables in a spreadsheet-like editor |
+| **Lorem Ipsum** | Placeholder text for layouts and mockups |
+
+### 🎨 Media & design
+
+| Tool | Description |
+|---|---|
+| **Color Picker** · **Contrast Checker** | HEX/RGB/HSL conversion, and WCAG 2.1 AA/AAA ratios |
+| **CSS Gradient Builder** · **CSS Generators** | Gradients, box-shadow, border-radius and fluid `clamp()` |
+| **Image Compressor** | Compress JPEG, PNG and WebP with a quality slider |
+| **SVG Optimizer** | Strip junk with SVGO and see the size reduction |
+| **EXIF Viewer & Remover** | Inspect and strip photo metadata |
+| **Favicon Generator** | Favicons, app icons and manifest snippets |
+| **Code Screenshot** | Turn source code into shareable images |
+| **Keycode Inspector** | Inspect JavaScript keyboard events: key, code, modifiers |
+
+### 📱 Productivity
+
+| Tool | Description |
+|---|---|
+| **Notes** | Rich-text notes powered by Tiptap — headings, lists, code blocks, images |
+| **Code Snippets** | Save snippets with syntax highlighting and auto language detection |
+| **Tasks** | To-do lists with priorities, statuses and drag-and-drop |
+| **Bookmarks** | Organize links in one place |
+| **API Keys** | Encrypted API keys and secrets per environment (dev / staging / prod) |
+| **Break Room** | 2048, Sudoku, Snake, Minesweeper, Tetris |
+
+Everything is searchable from one command palette, in dark or light mode, in 27
+languages.
+
+---
+
+## 🔒 Privacy by design
+
+MyDevTools Desktop is built to work locally. Your developer data stays on your
+machine instead of being posted to someone else's tool backend.
+
+- **No MyDevTools server.** There is no backend to sign in to, no sync service
+  and no account system. Tool input, notes, snippets, tasks and bookmarks are
+  written to a local SQLCipher database, encrypted with a key held in the OS
+  keychain.
+- **Credentials are vault-encrypted.** Database passwords, API keys and password
+  manager entries are encrypted locally with a master password only you know.
+- **You choose every outbound connection.** The app itself needs no network, but
+  some tools exist to talk to *your* destinations: the API client sends the
+  requests you write, the database clients connect to the hosts you configure,
+  DNS/WHOIS lookups query public registries, and the updater checks GitHub
+  releases. Those are the connections you asked for — nothing else leaves.
+- **Optional, anonymous usage stats.** Off unless you switch them on. When on,
+  two events (`app_started`, `tool_opened`) are sent with a rotating session id,
+  the app version and the locale. No device id, no paths, nothing typed into a
+  tool. See [`apps/desktop-ui/src/lib/telemetry.ts`](apps/desktop-ui/src/lib/telemetry.ts).
+- **Auditable.** AGPL-3.0. The claims above are in this repo — read them.
+
+### Desktop vs. website
+
+| | What it is |
+|---|---|
+| **MyDevTools Desktop** (this repo, `apps/desktop-ui` + `apps/desktop`) | The product. Runs the 83 tools locally, offline, with no account and no backend |
+| **mydevtools.tech** (`apps/web`) | An informational site: what the app does, tool documentation and the download link. The tools do **not** run there |
+
+The website is a normal marketing site and uses standard web analytics. Its
+privacy properties are not the app's — the app is the offline part.
+
+---
+
+## 🏗️ Architecture
+
+```
+apps/
+├── desktop/          Tauri v2 shell (Rust)
+│   └── src-tauri/src/
+│       ├── router/   Local API over SQLCipher — the /api/v1/... contract, never HTTP
+│       ├── dbtools/  Native Postgres / MySQL / MongoDB / Redis drivers
+│       ├── http/     Request proxy, gRPC, mock server (no browser CORS limits)
+│       └── db/       Schema migrations, device key
+│
+├── desktop-ui/       Next.js UI the desktop app is built from — all 83 tools
+│   ├── src/app/app/  Tool pages
+│   ├── src/lib/      Tool logic (pure, unit-tested), crypto, local API client
+│   └── messages/     next-intl locale files (27 languages)
+│
+└── web/              mydevtools.tech — marketing and SEO site
+```
 
 | Layer | Technology |
-|-------|------------|
-| **Framework** | [Next.js 16](https://nextjs.org/) — App Router, Turbopack, Server Components |
-| **Runtime** | [React 19](https://react.dev/) |
-| **Language** | [TypeScript 5.7](https://www.typescriptlang.org/) |
-| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) + [Shadcn UI](https://ui.shadcn.com/) + [Radix UI](https://www.radix-ui.com/) |
-| **Animations** | [Framer Motion](https://www.framer.com/motion/) + [Motion](https://motion.dev/) |
-| **State Management** | [Zustand](https://github.com/pmndrs/zustand) |
-| **Code Editors** | [Monaco Editor](https://microsoft.github.io/monaco-editor/) · [Tiptap](https://tiptap.dev/) · [Novel](https://novel.sh/) |
-| **Drag & Drop** | [dnd-kit](https://dndkit.com/) |
-| **i18n** | [next-intl](https://next-intl-docs.vercel.app/) |
-| **Icons** | [Lucide React](https://lucide.dev/) + [Tabler Icons](https://tabler.io/icons) |
-| **Notifications** | [Sonner](https://sonner.emilkowal.ski/) |
-| **Date Utilities** | [date-fns](https://date-fns.org/) |
-| **Analytics** | [Vercel Analytics](https://vercel.com/analytics) + [Speed Insights](https://vercel.com/docs/speed-insights) |
-
-### Desktop shell
-
-| Layer | Technology |
-|-------|------------|
+|---|---|
 | **Shell** | [Tauri v2](https://v2.tauri.app/) (Rust) |
 | **Storage** | [SQLCipher](https://www.zetetic.net/sqlcipher/) via `rusqlite`, keyed from the OS keychain |
-| **Database drivers** | Native Rust clients for PostgreSQL, MySQL, MongoDB and Redis (Data Explorer) |
-| **HTTP / gRPC** | `reqwest` + `h2`, so the API Client is not bound by browser CORS |
+| **Database drivers** | Native Rust clients for PostgreSQL, MySQL, MongoDB and Redis |
+| **HTTP / gRPC** | `reqwest` + `h2` |
+| **UI** | [Next.js 16](https://nextjs.org/) · [React 19](https://react.dev/) · [TypeScript 5.7](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) · [shadcn/ui](https://ui.shadcn.com/) · [Radix UI](https://www.radix-ui.com/) |
+| **Editors** | [Monaco](https://microsoft.github.io/monaco-editor/) · [Tiptap](https://tiptap.dev/) |
+| **State** | [Zustand](https://github.com/pmndrs/zustand) |
+| **i18n** | [next-intl](https://next-intl-docs.vercel.app/) — 27 languages |
 
-There is no server. The app has no accounts, no sign-in and no sync: every tool
-reads and writes the local encrypted database on your machine.
-
-### Monorepo Infrastructure
-
-| Tool | Purpose |
-|------|---------|
-| **[pnpm Workspaces](https://pnpm.io/workspaces)** | Fast, efficient monorepo package management |
-| **`apps/desktop-ui`** | Next.js UI the desktop app is built from |
-| **`apps/desktop`** | Tauri v2 shell (Rust) |
-| **`apps/web`** | Marketing and SEO site |
+Longer write-up: [`docs/MYDEVTOOLS.md`](docs/MYDEVTOOLS.md).
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Building from source
 
 ### Prerequisites
 
 - **Node.js** ≥ 22
-- **pnpm** ≥ 9 (recommended)
+- **pnpm** ≥ 9
 - **Rust** stable (for the desktop shell)
 
-### Installation
+### Setup
 
 ```bash
-# Clone the repository
 git clone https://github.com/mydevtools-tech/mydevtools.git
 cd mydevtools
-
-# Install all workspace dependencies
 pnpm install
 ```
 
-No configuration step: the app needs no API keys, no accounts and no services.
+No configuration step — no API keys, no accounts, no services.
 
-### Running the Desktop App
-
-```bash
-pnpm dev:desktop
-```
-
-### Running the Marketing Site
-
-```bash
-pnpm dev
-```
-
-The site will be live at **[http://localhost:3000](http://localhost:3000)** 🎉
-
----
-
-## 📜 Available Scripts
+### Commands
 
 | Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start the marketing site dev server with Turbopack |
-| `pnpm dev:desktop` | Start the Tauri desktop app in dev mode |
+|---|---|
+| `pnpm dev:desktop` | Run the Tauri desktop app in dev mode |
 | `pnpm build:desktop` | Build the desktop app |
+| `pnpm dev` | Run the marketing site at [localhost:3000](http://localhost:3000) |
 | `pnpm build` | Build all workspaces |
-| `pnpm start` | Start the marketing site production server |
-| `pnpm lint` | Run linting across all workspaces |
-| `pnpm clean-install` | Fresh dependency install for the entire monorepo |
+| `pnpm lint` | Lint across all workspaces |
+| `pnpm clean-install` | Fresh dependency install for the monorepo |
 
 ---
 
-## 📁 Project Structure
+## Where MyDevTools stops
 
-```
-mydevtools.tech/
-├── apps/
-│   ├── desktop-ui/                   # Next.js UI the desktop app is built from
-│   │   ├── src/
-│   │   │   ├── app/app/              # Tool pages (80+ tools)
-│   │   │   ├── app/dashboard/        # Home
-│   │   │   ├── app/settings/         # App settings + local profile
-│   │   │   ├── components/           # Shared UI components
-│   │   │   ├── store/                # Zustand state stores
-│   │   │   ├── hooks/                # Custom React hooks
-│   │   │   ├── lib/                  # Tool logic, crypto, local API client
-│   │   │   └── i18n/                 # Internationalization config
-│   │   └── messages/                 # next-intl locale files (27 languages)
-│   │
-│   ├── desktop/                      # Tauri v2 shell
-│   │   └── src-tauri/src/
-│   │       ├── router/               # Local API over SQLCipher
-│   │       ├── dbtools/              # Native Postgres/MySQL/Mongo/Redis drivers
-│   │       ├── http/                 # Request proxy, gRPC, mock server
-│   │       └── db/                   # Schema migrations, device key
-│   │
-│   └── web/                          # Marketing and SEO site
-│
-├── pnpm-workspace.yaml               # Workspace configuration
-├── package.json                      # Root monorepo scripts
-└── scripts/                          # Utility scripts
-```
+Being honest about the edges is more useful than a feature list:
+
+- **macOS only** for published builds today.
+- **Database clients are for everyday work**, not a replacement for a full DBA
+  suite — no visual schema designer, no migration tooling.
+- **No team features.** No shared workspaces, no sync, no collaboration. Local
+  workspaces only.
+- **Some tools need the network by definition** — DNS, WHOIS, webhooks, API
+  requests, database connections.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Whether it's a bug fix, a new tool, a UI improvement, or a docs update — we'd love your help.
+Contributions are welcome — bug fixes, new tools, UI polish, translations and
+docs all count.
 
 1. **Fork** the repository
-2. **Create** your feature branch: `git checkout -b feature/amazing-feature`
-3. **Commit** your changes: `git commit -m 'Add amazing feature'`
-4. **Push** to the branch: `git push origin feature/amazing-feature`
+2. **Branch**: `git checkout -b feature/amazing-feature`
+3. **Commit**: `git commit -m 'Add amazing feature'`
+4. **Push**: `git push origin feature/amazing-feature`
 5. **Open** a Pull Request
 
-Please ensure your code follows the existing style and that linting passes (`pnpm lint`).
+Please make sure `pnpm lint` passes and follow the surrounding code style.
+`CLAUDE.md` documents the repo conventions, including the files and registries a
+new tool has to touch.
 
----
-
-## 💡 Feature Requests
-
-Have an idea for a new tool or improvement? We'd love to hear it!
-
-[**→ Submit a Feature Request**](https://docs.google.com/forms/d/e/1FAIpQLSfrqN2WWGF6weA_hFPsce9U6wjUpvjZzIF7KZABYMvX4xRW3A/viewform?usp=header)
+**Report a bug** or **request a feature** with the
+[issue templates](https://github.com/mydevtools-tech/mydevtools/issues/new/choose).
 
 ---
 
@@ -282,9 +357,10 @@ Have an idea for a new tool or improvement? We'd love to hear it!
 
 ---
 
-## ⭐ Support the Project
+## ⭐ Support the project
 
-If MyDevTools saves you time, consider giving it a **star** on GitHub — it helps others discover the project and motivates us to keep building!
+If MyDevTools saves you time, consider starring the repository — it helps other
+developers find the project and keeps the work going.
 
 [![Star on GitHub](https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=social)](https://github.com/mydevtools-tech/mydevtools)
 
@@ -292,7 +368,7 @@ If MyDevTools saves you time, consider giving it a **star** on GitHub — it hel
 
 ## 📄 License
 
-This project is licensed under the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) — see [LICENSE](LICENSE) for the full text.
+[GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) — see [LICENSE](LICENSE).
 
 ---
 

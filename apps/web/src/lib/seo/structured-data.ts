@@ -24,6 +24,14 @@ export const homepageFaqItems = [
     q: 'Does it work offline?',
     a: 'Yes. MyDevTools is a desktop app — most tools run fully offline on your machine. Tools that connect to external services or send API requests need a network connection.',
   },
+  {
+    q: 'Do the tools run on this website?',
+    a: 'No. This site documents the tools and links to the download; the tools themselves run in the MyDevTools desktop app on your machine. That is what keeps your data local — there is no web app and no server to send it to.',
+  },
+  {
+    q: 'Which databases can MyDevTools connect to?',
+    a: 'PostgreSQL, MySQL and MariaDB through the SQL client, MongoDB through the database explorer, Redis through Redis Commander, plus AWS S3 and DigitalOcean Spaces buckets. The drivers are native, so connections go straight from your machine to your database, and credentials are stored encrypted on your device.',
+  },
 ]
 
 /** Slug from pathname like `/app/json-formatter` → `json-formatter` */
