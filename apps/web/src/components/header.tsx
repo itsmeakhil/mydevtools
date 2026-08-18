@@ -2,7 +2,7 @@
 import { useState, useEffect, type ElementType } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github, Menu, X } from "lucide-react";
+import { Github, Menu, Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { SOURCE_URL } from "./footer";
@@ -65,10 +65,60 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+const STARS_API = SOURCE_URL.replace(
+  "https://github.com/",
+  "https://api.github.com/repos/"
+);
+const STARS_CACHE_KEY = "mdt:gh-stars";
+
+function formatStars(n: number) {
+  return n >= 1000 ? `${(n / 1000).toFixed(1).replace(/\.0$/, "")}k` : `${n}`;
+}
+
+// Unauthenticated GitHub API: 60 req/hour per visitor IP. Cached per session so
+// client-side navigation between pages doesn't refetch. Any failure (offline,
+// rate limited) just leaves the count hidden.
+// ponytail: client fetch — Header isn't in a shared layout, so there's no server
+// component to thread a prop from. Move it server-side if the layout ever unifies.
+function useGithubStars() {
+  const [stars, setStars] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const cached = sessionStorage.getItem(STARS_CACHE_KEY);
+      if (cached) {
+        setStars(Number(cached));
+        return;
+      }
+    } catch {
+      // storage blocked — fall through and fetch
+    }
+
+    const controller = new AbortController();
+    fetch(STARS_API, {
+      headers: { Accept: "application/vnd.github+json" },
+      signal: controller.signal,
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        const count = data?.stargazers_count;
+        if (typeof count !== "number") return;
+        setStars(count);
+        sessionStorage.setItem(STARS_CACHE_KEY, String(count));
+      })
+      .catch(() => {});
+
+    return () => controller.abort();
+  }, []);
+
+  return stars;
+}
+
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname() ?? "/";
+  const stars = useGithubStars();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -128,17 +178,27 @@ export function Header() {
             <Button
               asChild
               variant="ghost"
-              size="icon"
-              className="hidden md:inline-flex h-10 w-10"
+              size="sm"
+              className="hidden md:inline-flex h-10 gap-2 px-3"
             >
               <a
                 href={SOURCE_URL}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="MyDevTools on GitHub"
+                aria-label={
+                  stars === null
+                    ? "MyDevTools on GitHub"
+                    : `MyDevTools on GitHub, ${stars} stars`
+                }
                 title="Star MyDevTools on GitHub"
               >
                 <Github className="h-5 w-5" />
+                {stars !== null && (
+                  <span className="flex items-center gap-1 text-sm font-medium tabular-nums">
+                    <Star className="h-3.5 w-3.5 fill-current" />
+                    {formatStars(stars)}
+                  </span>
+                )}
               </a>
             </Button>
 
@@ -231,6 +291,12 @@ export function Header() {
                       >
                         {link.icon && <link.icon className="h-5 w-5" />}
                         <span>{link.label}</span>
+                        {link.external && stars !== null && (
+                          <span className="ml-auto flex items-center gap-1 text-sm text-foreground/70 tabular-nums">
+                            <Star className="h-3.5 w-3.5 fill-current" />
+                            {formatStars(stars)}
+                          </span>
+                        )}
                       </Link>
                     </motion.div>
                     );
