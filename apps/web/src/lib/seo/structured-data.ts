@@ -319,7 +319,6 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
           'Crypto tools: encryption playground, HMAC, TOTP 2FA, SSH key generator',
           'Data converters: CSV to JSON, YAML formatter, format converter',
           'Privacy-first architecture: local processing, AES-256 encryption',
-          'Per-project workspaces stored locally on your device',
           'Persistent storage: snippets, notes, tasks, bookmarks, password vault',
         ],
         publisher: { '@id': `${baseUrl}/#organization` },
