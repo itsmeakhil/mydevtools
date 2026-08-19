@@ -298,6 +298,20 @@ Two things to watch:
 Improving an existing translation is one of the most useful small contributions
 available, and needs no Rust and no build.
 
+### README translations
+
+`README.md` (English) is canonical. Translated copies live in
+`docs/readme/readme_<locale>.md` using the same locale codes as `messages/`
+(`zh`, `ja`, `ko`, `es`, `pt-BR`, `de`, `fr`, `hi`). They are deliberately
+shorter than the English README — keep the hero, install, privacy, tool
+categories, contributing and license sections; skip the full per-tool tables.
+
+- Fixing wording in an existing translation: edit the file, open a PR.
+- Adding a language: copy `docs/readme/readme_es.md`, translate, add the new
+  language to the language bar at the top of `README.md` **and** of every file in
+  `docs/readme/`. Use the tool names from `messages/<locale>.json`
+  (`Navigation.*`, `Dashboard.tools.*`) so the README matches the app.
+
 ---
 
 ## Improving documentation
@@ -305,7 +319,8 @@ available, and needs no Rust and no build.
 Docs live in:
 
 - `README.md` — the front door
-- `docs/MYDEVTOOLS.md` — the long-form product doc
+- `docs/readme/readme_<locale>.md` — translated READMEs (zh, ja, ko, es, pt-BR, de, fr, hi); English is canonical, translations may lag
+- `docs/ARCHITECTURE.md` — how the shell, router, storage and UI fit together
 - `apps/web/src/lib/metadata.ts` — per-tool descriptions used on the website
 - Tool descriptions in `src/components/sidebar/data/sidebar-data.ts`
 
@@ -347,9 +362,10 @@ this, and whether it fits an offline, local-first, account-free app.
 
 New here? Issues labelled
 [`good first issue`](https://github.com/mydevtools-tech/mydevtools/labels/good%20first%20issue)
-are scoped to be completable without deep knowledge of the codebase.
-[`docs/GOOD_FIRST_ISSUES.md`](docs/GOOD_FIRST_ISSUES.md) lists further starter
-work with the scope and acceptance criteria already written out.
+are scoped to be completable without deep knowledge of the codebase. If none are
+open, improving a translation, a tool description or a README translation is
+always welcome — and testing the desktop build on Windows or Linux is the most
+useful thing a new contributor can do right now.
 
 ---
 

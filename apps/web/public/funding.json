@@ -14,7 +14,7 @@
     {
       "guid": "mydevtools",
       "name": "MyDevTools",
-      "description": "An all-in-one, offline-first developer toolkit desktop app with 80+ tools: formatters, converters, encoders, security and crypto utilities, generators, an API client with mock server and SQL/gRPC support, a data explorer, plus notes, bookmarks and tasks. Fully local: no accounts, no sign-in, no cloud sync, no telemetry beyond an opt-in anonymous ping. Data is stored on-device in an encrypted SQLCipher database. Free and open source under AGPL-3.0, shipped for macOS, Windows and Linux.",
+      "description": "An all-in-one, offline-first developer toolkit desktop app with 80+ tools: formatters, converters, encoders, security and crypto utilities, generators, an API client with mock server and SQL/gRPC support, a data explorer, plus notes, bookmarks and tasks. Fully local: no accounts, no sign-in, no cloud sync, no telemetry beyond an opt-in anonymous ping. Data is stored on-device in an encrypted SQLCipher database. Free and open source under AGPL-3.0, shipped as a signed macOS build (Windows and Linux build from source).",
       "webpageUrl": {
         "url": "https://mydevtools.tech"
       },

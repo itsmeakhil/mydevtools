@@ -1,6 +1,6 @@
 # MyDevTools — Claude Code instructions
 
-All-in-one developer toolkit (~80 tools: formatters, security, generators, notes, bookmarks, tasks, API client…). Full product doc: `docs/MYDEVTOOLS.md`.
+All-in-one developer toolkit (80+ tools: formatters, security, generators, notes, bookmarks, tasks, API client…). Architecture doc: `docs/ARCHITECTURE.md`. Public tool count everywhere is "80+" (never a precise number — registries drift). `docs/` is public (README translations in `docs/readme/`); only `docs/superpowers/` is gitignored. Maintainer-only punch lists live in `.claude/`.
 
 ## Product model (current direction — do not regress)
 

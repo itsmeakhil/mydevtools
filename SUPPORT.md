@@ -10,7 +10,7 @@ Need help with MyDevTools? Here is where to go.
 | Suggest a tool or improvement | [Open a feature request](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
 | Ask a question or get unstuck | [GitHub Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) |
 | Report a security vulnerability | [SECURITY.md](SECURITY.md) — **never** a public issue |
-| Read the docs | [mydevtools.tech](https://mydevtools.tech) · [docs/MYDEVTOOLS.md](docs/MYDEVTOOLS.md) |
+| Read the docs | [mydevtools.tech/help](https://mydevtools.tech/help) · [Tool pages](https://mydevtools.tech/tools) · [Architecture](docs/ARCHITECTURE.md) |
 | Contribute code | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | See what is planned | [ROADMAP.md](ROADMAP.md) |
 | See what changed | [Releases](https://github.com/mydevtools-tech/mydevtools/releases) · [Changelog](https://mydevtools.tech/changelog) |

@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="https://mydevtools.tech/favicon.ico" alt="MyDevTools Logo" width="80" height="80" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-light.png" />
+    <img src="assets/logo-dark.png" alt="MyDevTools logo" width="80" height="80" />
+  </picture>
 </p>
 
 <h1 align="center">MyDevTools</h1>
@@ -18,30 +21,52 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="Latest release" /></a>
+  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/rust.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/rust.yml/badge.svg?branch=main" alt="Rust" /></a>
+  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="Downloads" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="License AGPL-3.0" /></a>
+  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="GitHub stars" /></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Tauri-2-24C8DB?style=flat-square&logo=tauri&logoColor=white" alt="Tauri 2" />
+  <img src="https://img.shields.io/badge/Rust-stable-000000?style=flat-square&logo=rust&logoColor=white" alt="Rust" />
+  <img src="https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js&logoColor=white" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React 19" />
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript 5.7" />
+  <img src="https://img.shields.io/badge/SQLCipher-encrypted-003B57?style=flat-square&logo=sqlite&logoColor=white" alt="SQLCipher" />
+</p>
+
+<p align="center">
+  <strong>English</strong>
+  | <a href="docs/readme/readme_zh.md">简体中文</a>
+  | <a href="docs/readme/readme_ja.md">日本語</a>
+  | <a href="docs/readme/readme_ko.md">한국어</a>
+  | <a href="docs/readme/readme_es.md">Español</a>
+  | <a href="docs/readme/readme_pt-BR.md">Português (BR)</a>
+  | <a href="docs/readme/readme_de.md">Deutsch</a>
+  | <a href="docs/readme/readme_fr.md">Français</a>
+  | <a href="docs/readme/readme_hi.md">हिन्दी</a>
+</p>
+
+<p align="center">
   <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ Download</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 Website</strong></a> •
-  <a href="docs/MYDEVTOOLS.md"><strong>📚 Docs</strong></a> •
+  <a href="https://mydevtools.tech/help"><strong>📚 Docs</strong></a> •
   <a href="#-tools">🧰 Tools</a> •
+  <a href="CHANGELOG.md">📋 Changelog</a> •
+  <a href="ROADMAP.md">🗺️ Roadmap</a> •
   <a href="CONTRIBUTING.md">🤝 Contribute</a> •
-  <a href="ROADMAP.md">🗺️ Roadmap</a>
+  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 Discussions</a>
 </p>
 
+<!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=for-the-badge&color=6d7cf5" alt="GitHub stars" /></a>
-  <img src="https://img.shields.io/badge/License-AGPL%203.0-blue?style=for-the-badge" alt="License AGPL 3.0" />
-  <img src="https://img.shields.io/badge/100%25-Offline-22c55e?style=for-the-badge" alt="100% Offline" />
-  <img src="https://img.shields.io/badge/Accounts-None-8b5cf6?style=for-the-badge" alt="No account required" />
-  <img src="https://img.shields.io/badge/Price-Free-0ea5e9?style=for-the-badge" alt="Free" />
+  <img src="assets/hero-dark.png#gh-dark-mode-only" alt="MyDevTools desktop app — dashboard (dark)" width="900" />
+  <img src="assets/hero-light.png#gh-light-mode-only" alt="MyDevTools desktop app — dashboard (light)" width="900" />
 </p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Tauri-2-24C8DB?style=for-the-badge&logo=tauri&logoColor=white" alt="Tauri 2" />
-  <img src="https://img.shields.io/badge/Rust-stable-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
-  <img src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js 16" />
-  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" />
-  <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.7" />
-  <img src="https://img.shields.io/badge/SQLCipher-encrypted-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLCipher" />
-</p>
+-->
 
 <p align="center">
   <a href="https://www.producthunt.com/products/mydevtools?embed=true&utm_source=badge-featured&utm_medium=badge" target="_blank">
@@ -76,22 +101,20 @@ It runs on your machine. There is no MyDevTools server, no account and no sync.
 
 ---
 
-## 🚀 Quick start
+## 📦 Install
 
-**Download the app** — [latest release](https://github.com/mydevtools-tech/mydevtools/releases/latest)
-(macOS universal build, signed and notarized; Apple Silicon and Intel).
+| Platform | How |
+|---|---|
+| **macOS** (Apple Silicon + Intel) | [Download the latest `.dmg`](https://github.com/mydevtools-tech/mydevtools/releases/latest) — universal build, signed and notarized, updates itself in-app |
+| **Windows / Linux** | Not published yet. The Tauri shell builds on both — see [Building from source](#%EF%B8%8F-building-from-source) and the [roadmap](ROADMAP.md). Testing on these platforms is a great first contribution |
 
 Open it and start working: no sign-up, no configuration, no API keys.
-
-Windows and Linux builds are not published yet — the Tauri shell can be built
-from source on those platforms, but they are untested. See
-[Building from source](#-building-from-source).
 
 ---
 
 ## 🧰 Tools
 
-83 tools ship in the app today, grouped the way the sidebar groups them.
+80+ tools ship in the app today, grouped the way the sidebar groups them.
 
 ### 📝 Formatters & validators
 
@@ -127,6 +150,10 @@ from source on those platforms, but they are untested. See
 | **User-Agent Parser** | Browser, OS and device details from a user-agent string |
 | **MIME Type Lookup** | MIME type for a file extension or filename |
 
+<!-- shot: assets/api-client.png (see assets/SHOT_LIST.md), then uncomment.
+<p align="center"><img src="assets/api-client.png" alt="API Client — request, response and collections" width="900" /></p>
+-->
+
 ### 🗄️ Database & storage clients
 
 | Tool | Description |
@@ -138,6 +165,10 @@ from source on those platforms, but they are untested. See
 
 Database drivers are **native Rust clients** in the Tauri shell, so connections
 go straight from your machine to your database.
+
+<!-- shot: assets/sql-client.png (see assets/SHOT_LIST.md), then uncomment.
+<p align="center"><img src="assets/sql-client.png" alt="SQL Client — query editor and result grid" width="900" /></p>
+-->
 
 ### 🔐 Security & crypto
 
@@ -214,6 +245,10 @@ go straight from your machine to your database.
 Everything is searchable from one command palette, in dark or light mode, in 27
 languages.
 
+<!-- shot: assets/command-palette.png (see assets/SHOT_LIST.md), then uncomment.
+<p align="center"><img src="assets/command-palette.png" alt="⌘K command palette" width="900" /></p>
+-->
+
 ---
 
 ## 🔒 Privacy by design
@@ -242,7 +277,7 @@ machine instead of being posted to someone else's tool backend.
 
 | | What it is |
 |---|---|
-| **MyDevTools Desktop** (this repo, `apps/desktop-ui` + `apps/desktop`) | The product. Runs the 83 tools locally, offline, with no account and no backend |
+| **MyDevTools Desktop** (this repo, `apps/desktop-ui` + `apps/desktop`) | The product. Runs the 80+ tools locally, offline, with no account and no backend |
 | **mydevtools.tech** (`apps/web`) | An informational site: what the app does, tool documentation and the download link. The tools do **not** run there |
 
 The website is a normal marketing site and uses standard web analytics. Its
@@ -261,7 +296,7 @@ apps/
 │       ├── http/     Request proxy, gRPC, mock server (no browser CORS limits)
 │       └── db/       Schema migrations, device key
 │
-├── desktop-ui/       Next.js UI the desktop app is built from — all 83 tools
+├── desktop-ui/       Next.js UI the desktop app is built from — all 80+ tools
 │   ├── src/app/app/  Tool pages
 │   ├── src/lib/      Tool logic (pure, unit-tested), crypto, local API client
 │   └── messages/     next-intl locale files (27 languages)
@@ -281,7 +316,7 @@ apps/
 | **State** | [Zustand](https://github.com/pmndrs/zustand) |
 | **i18n** | [next-intl](https://next-intl-docs.vercel.app/) — 27 languages |
 
-Longer write-up: [`docs/MYDEVTOOLS.md`](docs/MYDEVTOOLS.md).
+Longer write-up: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ---
 
@@ -341,19 +376,26 @@ docs all count.
 4. **Push**: `git push origin feature/amazing-feature`
 5. **Open** a Pull Request
 
-Please make sure `pnpm lint` passes and follow the surrounding code style.
-**[CONTRIBUTING.md](CONTRIBUTING.md)** covers setup, the development commands,
-testing, translations and the six registries a new tool has to be added to.
+Please make sure `tsc --noEmit` and the test suite pass and follow the
+surrounding code style. **[CONTRIBUTING.md](CONTRIBUTING.md)** covers setup, the
+development commands, testing, translations and the six registries a new tool
+has to be added to.
 
-New here? [`docs/GOOD_FIRST_ISSUES.md`](docs/GOOD_FIRST_ISSUES.md) lists scoped
-starter work with acceptance criteria already written out.
+New here? Look for issues labelled
+[`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+— they are scoped to be completable without deep knowledge of the codebase.
+
+**Translations** — the app ships in 27 languages and this README in 9. Improving
+a locale file or a translated README needs no Rust and no build; see
+[Translations in CONTRIBUTING.md](CONTRIBUTING.md#translations).
 
 | | |
 |---|---|
 | 🐛 Report a bug · ✨ Request a feature | [Issue templates](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 Ask a question | [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](SUPPORT.md) |
+| 💬 Ask a question · share a workflow | [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](SUPPORT.md) |
 | 🔒 Report a vulnerability | [SECURITY.md](SECURITY.md) — privately, never a public issue |
 | 🗺️ See what is planned | [ROADMAP.md](ROADMAP.md) |
+| 📋 See what changed | [CHANGELOG.md](CHANGELOG.md) · [Releases](https://github.com/mydevtools-tech/mydevtools/releases) |
 | 🤝 Community standards | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) |
 
 ---
@@ -368,16 +410,24 @@ starter work with acceptance criteria already written out.
 
 ## ⭐ Support the project
 
-If MyDevTools saves you time, consider starring the repository — it helps other
-developers find the project and keeps the work going.
+MyDevTools is free, has no paid tier and never will. If it saves you time:
+
+- **Star the repository** — it is how other developers find the project.
+- **[Sponsor on GitHub](https://github.com/sponsors/itsmeakhil)** — covers code-signing
+  certificates, hosting for the website and the tooling that keeps releases coming.
+- **Tell someone** — a post, a message to a teammate, a review.
 
 [![Star on GitHub](https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=social)](https://github.com/mydevtools-tech/mydevtools)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?style=social&logo=githubsponsors)](https://github.com/sponsors/itsmeakhil)
 
 ---
 
 ## 📄 License
 
 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) — see [LICENSE](LICENSE).
+
+The MyDevTools name and logo identify this project and its official builds; the
+code is AGPL-3.0 and forks are welcome under their own name.
 
 ---
 
