@@ -1,0 +1,66 @@
+name: Rust
+
+# cargo test for the Tauri shell. Runs on Linux to keep Actions minutes cheap;
+# the shell has no platform-specific code paths. The release build (macOS) is
+# a separate workflow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/desktop/src-tauri/**"
+      - ".github/workflows/rust.yml"
+  pull_request:
+    paths:
+      - "apps/desktop/src-tauri/**"
+      - ".github/workflows/rust.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rust-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: 0
+
+jobs:
+  test:
+    name: cargo test
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: apps/desktop/src-tauri
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Tauri Linux prerequisites
+        # Short per-request timeouts + retries: the runner's apt mirror occasionally
+        # stalls for the whole job; fail fast and retry instead of hanging for 45 min.
+        timeout-minutes: 10
+        env:
+          DEBIAN_FRONTEND: noninteractive
+          APT_OPTS: -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 -o Acquire::Retries=3
+        run: |
+          for i in 1 2 3; do sudo apt-get update $APT_OPTS && break || sleep 10; done
+          sudo apt-get install -y --no-install-recommends $APT_OPTS \
+            libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev \
+            libssl-dev libayatana-appindicator3-dev librsvg2-dev
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: apps/desktop/src-tauri -> target
+
+      # SQLCipher + OpenSSL are vendored (rusqlite bundled-sqlcipher-vendored-openssl),
+      # so the first run compiles them; rust-cache makes later runs fast.
+      - name: cargo test
+        run: cargo test --locked

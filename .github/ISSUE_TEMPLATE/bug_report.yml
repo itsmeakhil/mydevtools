@@ -1,0 +1,105 @@
+name: 🐛 Bug report
+description: Something in MyDevTools is broken or behaves unexpectedly
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this.
+
+        **Security vulnerability?** Do **not** file it here — report it privately via
+        [Security advisories](https://github.com/mydevtools-tech/mydevtools/security/advisories/new).
+
+        **Please redact secrets.** No real tokens, passwords or production connection
+        strings in a public issue — reproduce with dummy data.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched [existing issues](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue) and found nothing related.
+          required: true
+        - label: I am on the [latest release](https://github.com/mydevtools-tech/mydevtools/releases/latest), or the bug is also there.
+          required: false
+
+  - type: input
+    id: tool
+    attributes:
+      label: Which tool?
+      placeholder: e.g. JSON Formatter, API Client, SQL Client, Password Manager, app-wide
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what happened instead.
+      placeholder: |
+        1. Open '...'
+        2. Enter '...'
+        3. Click '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: sample
+    attributes:
+      label: Sample input (if relevant)
+      description: The smallest input that triggers it — secrets replaced by dummy values.
+      render: text
+
+  - type: checkboxes
+    id: severity
+    attributes:
+      label: How bad is it?
+      options:
+        - label: Makes MyDevTools unusable for me
+        - label: Slows me down but I can keep working
+        - label: Annoying
+        - label: Worked in a previous version, broken in the current one
+
+  - type: input
+    id: version
+    attributes:
+      label: MyDevTools version
+      description: Settings → About
+      placeholder: e.g. 0.1.14
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS (Apple Silicon)
+        - macOS (Intel)
+        - Windows (built from source)
+        - Linux (built from source)
+        - Other (say which below)
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS version / distro
+      placeholder: e.g. macOS 15.2, Ubuntu 24.04
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: Installed from
+      options:
+        - GitHub release (.dmg)
+        - mydevtools.tech download link
+        - Built from source
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots, logs or anything else
+      description: If it is visual, a screenshot or short clip helps a lot. When it started, whether it is intermittent, etc.

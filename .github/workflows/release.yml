@@ -49,9 +49,8 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          # no 'cache: pnpm' — pnpm-lock.yaml is gitignored in this repo, so it
-          # isn't present on the runner for the cache action to hash.
+          node-version-file: .nvmrc
+          cache: pnpm
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -64,7 +63,7 @@ jobs:
           workspaces: apps/desktop/src-tauri -> target
 
       - name: Install frontend dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build and release
         uses: tauri-apps/tauri-action@v0
@@ -94,13 +93,14 @@ jobs:
           updaterJsonPath: latest.json
           updaterJsonKeepUniversal: true
 
-      # The source repo is private, so its release assets 404 for the public.
-      # Mirror the built artifacts to a PUBLIC releases repo that the updater
-      # endpoint and the website download button point at.
+      # Historical: this repo used to be private, so artifacts were mirrored to a
+      # public releases repo. The repo is public now and both the updater endpoint
+      # (tauri.conf.json) and the website download button point at this repo's
+      # releases; the mirror is kept only for older installs that still poll it.
       - name: Mirror release to public repo
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      # read the private release
-          RELEASES_TOKEN: ${{ secrets.RELEASES_TOKEN }}  # write to the public repo
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      # read this repo's release
+          RELEASES_TOKEN: ${{ secrets.RELEASES_TOKEN }}  # write to the mirror repo
           PUBLIC_REPO: mydevtools-tech/mydevtools-releases
         run: |
           set -euo pipefail
@@ -111,7 +111,7 @@ jobs:
           TARGZ="$(ls "$BUNDLE"/macos/*.app.tar.gz)"
           SIG="$(ls "$BUNDLE"/macos/*.app.tar.gz.sig)"
 
-          # Pull tauri's generated latest.json from the private release.
+          # Pull tauri's generated latest.json from this repo's release.
           # threatcrush-disable-next-line secret-generic-credential
           GH_TOKEN="$GITHUB_TOKEN" gh release download "$TAG" \
             --repo "$GITHUB_REPOSITORY" --pattern latest.json --dir . --clobber

@@ -4,7 +4,6 @@ import dynamic from "next/dynamic"
 import { Suspense, useEffect, type ReactNode } from "react"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
-import { AppUpdateNotifier } from "@/components/app-update-notifier"
 import { initTelemetry } from "@/lib/telemetry"
 
 const GlobalCommandPalette = dynamic(
@@ -38,7 +37,6 @@ export function ClientShell({ children }: Props) {
     <>
       <UserPreferencesSync />
       <PinnedToolsPreferencesSync />
-      <AppUpdateNotifier />
       <Suspense fallback={null}>
         <GlobalCommandPalette />
       </Suspense>

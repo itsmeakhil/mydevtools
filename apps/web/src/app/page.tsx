@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { Footer, SOURCE_URL } from "@/components/footer";
 import {
   Collapsible,
   CollapsibleTrigger,
@@ -27,6 +27,9 @@ import {
   Users,
   Building2,
   Check,
+  Database,
+  Github,
+  Laptop,
   Download as DownloadIcon,
 } from "lucide-react";
 import { AppleGlyph, DMG_URL } from "@/components/download-desktop-button";
@@ -159,6 +162,31 @@ const homepageToolSlugs = [
 const homepageTools = homepageToolSlugs
   .map((slug) => allAppTools.find((tool) => tool.url === `/app/${slug}`))
   .filter((tool): tool is HomeToolEntry => Boolean(tool));
+
+// Database clients ship with native Rust drivers in the desktop shell, so they
+// get their own row instead of being buried in the 80+ tool list.
+const databaseClients = [
+  {
+    title: "SQL Client",
+    href: "/tools/sql-client",
+    description: "PostgreSQL, MySQL and MariaDB with an encrypted credential store.",
+  },
+  {
+    title: "MongoDB Explorer",
+    href: "/tools/database-explorer",
+    description: "Browse MongoDB databases, collections and documents.",
+  },
+  {
+    title: "Redis Commander",
+    href: "/tools/redis-commander",
+    description: "Browse keys, inspect values and run raw commands.",
+  },
+  {
+    title: "S3 Drive",
+    href: "/tools/s3-drive",
+    description: "Manage AWS S3 and DigitalOcean Spaces buckets.",
+  },
+] as const;
 
 const howItWorks = [
   {
@@ -309,12 +337,12 @@ export default function Page() {
               className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.08]"
             >
               {/* Non-breaking space before the break: a plain trailing space is
-                  collapsed away, so textContent reads "ToolsJSON" to anything
+                  collapsed away, so textContent reads "WorkstationJSON" to anything
                   that does not treat <br/> as whitespace. Invisible at line end. */}
-              <span className="text-foreground">All-in-One Developer Tools&nbsp;</span>
+              <span className="text-foreground">The Offline Developer Workstation&nbsp;</span>
               <br />
               <span className="mdt-grad-text mdt-grad-anim">
-                JSON, JWT, Regex &amp; 80+ More
+                JSON, JWT, APIs, SQL &amp; 80+ More
               </span>
             </motion.h1>
 
@@ -324,10 +352,10 @@ export default function Page() {
               transition={{ duration: 0.6, delay: 0.16 }}
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Format JSON, decode JWTs, test APIs, build regexes, generate UUIDs,
-              encode Base64, and query SQL, MongoDB &amp; Redis — 80+ developer
-              tools in one desktop app that runs completely offline, needs no
-              account, and is free for everyone.
+              Format JSON, decode JWTs, test APIs, build regexes, and query SQL,
+              MongoDB &amp; Redis — 80+ developer tools, an API client and database
+              clients in one desktop app. Completely offline, no account required,
+              free and open source.
             </motion.p>
 
             {/* CTAs */}
@@ -432,10 +460,10 @@ export default function Page() {
               className="prose prose-invert max-w-none text-center text-foreground/90 space-y-4"
             >
               <p className="text-lg leading-relaxed">
-                MyDevTools is the all-in-one desktop developer toolkit that brings together everything you need: a powerful SQL, NoSQL (MongoDB), and Redis database client alongside 80+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one desktop workspace.
+                MyDevTools is the offline developer workstation: a desktop app that brings together everything you reach for in a day — a SQL, MongoDB and Redis database client, a full API client, and 80+ utility tools. Stop switching between tabs and apps—format JSON, test APIs, decode JWTs, build regexes, generate UUIDs, and manage databases all in one desktop workspace.
               </p>
               <p className="text-lg leading-relaxed">
-                Local-first architecture means your data is processed on your machine and works fully offline. There is no account and no server: nothing to sign up for, nothing to sign in to, and nothing for us to store. Sensitive credentials are AES-256 encrypted in a local vault. Whether you're testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs on your machine — nothing ever leaves your device unless you point a tool at a destination you choose.
+                Local-first architecture means your data is processed on your machine and works fully offline. There is no account and no server: nothing to sign up for, nothing to sign in to, and nothing for us to store. Sensitive credentials are AES-256 encrypted in a local vault. Whether you&apos;re testing REST endpoints, debugging database queries, or working with cryptographic tools, everything runs on your machine — nothing ever leaves your device unless you point a tool at a destination you choose.
               </p>
               <p className="text-lg leading-relaxed">
                 Free for everyone — every tool, every feature, no paid tier and no limits — and open source under the GNU AGPL v3, so you can read exactly what it does. No ads, no data harvesting, and no tracking: usage stats are anonymous, off by default, and yours to switch on. Compare MyDevTools to Postman (API client alternative), DBeaver (database GUI), scattered single-purpose websites, and other dev tool platforms—we unify what others scatter across 20 tabs.
@@ -563,7 +591,8 @@ export default function Page() {
   "name": "mydevtools",
   "tools": ${allAppTools.length},
   "encrypted": true,
-  "cloud_sync": true
+  "offline": true,
+  "account_required": false
 }`}
                     </pre>
                   </div>
@@ -763,6 +792,131 @@ export default function Page() {
                 </Button>
               </div>
             </motion.div>
+
+            {/* Database clients — native drivers, so they get their own row */}
+            <motion.div variants={fadeUp} className="mx-auto mt-12 max-w-4xl">
+              <p className="text-center text-sm font-medium text-muted-foreground">
+                Database clients included — native drivers, no extra app to install
+              </p>
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {databaseClients.map((client) => (
+                  <Link
+                    key={client.href}
+                    href={client.href}
+                    className="group rounded-xl glass-overlay p-4 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl dark:hover:shadow-black/30"
+                  >
+                    <p className="flex items-center gap-1.5 text-sm font-semibold">
+                      <Database className="h-4 w-4 shrink-0 text-indigo-400" aria-hidden />
+                      {client.title}
+                      <ArrowRight className="h-3.5 w-3.5 shrink-0 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" />
+                    </p>
+                    <p className="mt-1 text-xs leading-snug text-muted-foreground">
+                      {client.description}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          </Section>
+        </div>
+      </section>
+
+      {/* ── Desktop vs website ──────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden py-16 md:py-24">
+        <div className="container px-4 md:px-6 mx-auto">
+          <Section>
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="mx-auto mb-12 max-w-2xl text-center"
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                A desktop app, not another web tool
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                The tools run on your machine. This website only explains what the
+                app does and hands you the download — so there is no confusion about
+                where your data goes.
+              </p>
+            </motion.div>
+
+            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-5 md:grid-cols-2">
+              {/* Desktop */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.55, delay: 0.1 }}>
+                <div className="flex h-full flex-col rounded-2xl glass-overlay p-7">
+                  <div className="mb-5 flex items-center gap-2">
+                    <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-400 p-px shadow-md">
+                      <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-card dark:bg-[hsl(var(--surface-2))]">
+                        <Laptop className="h-4 w-4 text-foreground" aria-hidden />
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                      The product
+                    </span>
+                  </div>
+                  <h3 className="mb-4 text-xl font-semibold">MyDevTools Desktop</h3>
+                  <ul className="space-y-2.5 text-sm text-muted-foreground">
+                    {[
+                      "All 80+ tools run locally on your machine",
+                      "No account, no sign-in, no activation",
+                      "No MyDevTools backend — data lives in a local encrypted database",
+                      "Connects out only where you point a tool: API client, database clients, DNS/WHOIS, app updates",
+                    ].map((line) => (
+                      <li key={line} className="flex gap-2">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-indigo-400" aria-hidden />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-6 pt-1">
+                    <Button asChild size="sm">
+                      <Link href="/download">
+                        <DownloadIcon className="mr-2 h-4 w-4" aria-hidden />
+                        Download the app
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Website */}
+              <motion.div variants={fadeUp} transition={{ duration: 0.55, delay: 0.2 }}>
+                <div className="flex h-full flex-col rounded-2xl glass-overlay p-7">
+                  <div className="mb-5 flex items-center gap-2">
+                    <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-slate-500 to-slate-400 p-px shadow-md">
+                      <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-card dark:bg-[hsl(var(--surface-2))]">
+                        <Globe className="h-4 w-4 text-foreground" aria-hidden />
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
+                      Information only
+                    </span>
+                  </div>
+                  <h3 className="mb-4 text-xl font-semibold">This website</h3>
+                  <ul className="space-y-2.5 text-sm text-muted-foreground">
+                    {[
+                      "Documentation for every tool, plus the changelog and download",
+                      "The tools themselves do not run here",
+                      "Nothing to sign up for — there is no web app and no sync",
+                      "A normal website: it uses standard web analytics, unlike the app",
+                    ].map((line) => (
+                      <li key={line} className="flex gap-2">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-6 flex flex-wrap gap-3 pt-1">
+                    <Button asChild size="sm" variant="outline">
+                      <Link href="/tools">Browse tool docs</Link>
+                    </Button>
+                    <Button asChild size="sm" variant="outline">
+                      <Link href="/security">Privacy &amp; security</Link>
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </Section>
         </div>
       </section>
@@ -919,12 +1073,12 @@ export default function Page() {
                 Proof, not promises
               </h2>
               <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-                Public product proof and browser-side encryption instead of
-                vague promises.
+                A public launch, local encryption and source code you can read —
+                instead of vague promises.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
               {/* Product Hunt card */}
               <motion.div
                 variants={fadeUp}
@@ -980,6 +1134,40 @@ export default function Page() {
                     password only you know. Nothing is transmitted — your
                     vault never leaves your device.
                   </p>
+                </div>
+              </motion.div>
+
+              {/* Open source card */}
+              <motion.div
+                variants={fadeUp}
+                transition={{ duration: 0.55, delay: 0.3 }}
+                className="sm:col-span-2 lg:col-span-1"
+              >
+                <div className="group relative h-full rounded-2xl glass-overlay p-7 hover:scale-[1.015] hover:shadow-2xl dark:hover:shadow-black/40 transition-all duration-300 overflow-hidden flex flex-col">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 bg-gradient-to-br from-indigo-500 to-indigo-400" />
+                  <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-400 p-px mb-6 shadow-lg">
+                    <div className="w-full h-full rounded-[11px] bg-card dark:bg-[hsl(var(--surface-2))] flex items-center justify-center">
+                      <Github className="w-5 h-5 text-foreground" aria-hidden />
+                    </div>
+                  </div>
+                  <h3 className="relative z-10 text-xl font-semibold mb-3">
+                    Built in the open
+                  </h3>
+                  <p className="relative z-10 text-muted-foreground leading-relaxed text-sm md:text-base mb-5 flex-1">
+                    The whole app — desktop shell, tools and this site — is public
+                    under the GNU AGPL v3. Read the code, build it yourself, open an
+                    issue, or send a pull request.
+                  </p>
+                  <a
+                    href={SOURCE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative z-10 inline-flex items-center gap-1.5 self-start text-sm font-medium text-foreground/80 transition-colors hover:text-foreground"
+                  >
+                    <Github className="h-4 w-4" aria-hidden />
+                    View the source on GitHub
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
                 </div>
               </motion.div>
             </div>
@@ -1084,8 +1272,9 @@ export default function Page() {
                   transition={{ duration: 0.6, delay: 0.18 }}
                   className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
                 >
-                  Join developers who use MyDevTools to streamline their daily
-                  workflow. Privacy-focused and built for speed.
+                  Get the offline developer workstation: 80+ tools, an API client
+                  and database clients in one desktop app. Free, open source, and
+                  yours to keep.
                 </motion.p>
 
                 <motion.div
@@ -1097,16 +1286,27 @@ export default function Page() {
                     onClick={goToDownload}
                     className="inline-flex items-center justify-center h-14 px-10 rounded-full text-base font-medium bg-foreground text-background hover:bg-foreground/90 shadow-md hover:shadow-lg hover:scale-[1.05] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
                   >
-                    Start Using Tools Now
+                    Download MyDevTools
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </button>
-                  <Link
-                    href="/developer-tools"
+                  <a
+                    href={SOURCE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center h-14 px-10 rounded-full text-base font-medium border border-border/60 dark:border-white/10 bg-background/60 backdrop-blur-sm text-foreground hover:bg-muted hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
                   >
-                    View Developer Toolkit
-                  </Link>
+                    <Github className="mr-2 h-5 w-5" aria-hidden />
+                    Star on GitHub
+                  </a>
                 </motion.div>
+
+                <motion.p
+                  variants={fadeUp}
+                  transition={{ duration: 0.6, delay: 0.32 }}
+                  className="mt-6 text-sm text-muted-foreground"
+                >
+                  Free and open source · No account required · Works completely offline
+                </motion.p>
               </div>
             </motion.div>
           </Section>

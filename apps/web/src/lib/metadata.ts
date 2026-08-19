@@ -38,7 +38,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         title: 'Password Manager',
         description: 'Securely store and manage passwords with client-side AES-256 encryption. Zero-knowledge vault.',
         keywords: ['password manager', 'password vault', 'secure passwords', 'password storage', 'encrypted vault'],
-        aiSummary: 'Zero-knowledge password vault: AES-256 encryption on your device — data is encrypted locally before anything is stored. A privacy-first, encrypted password vault in the MyDevTools desktop app.',
+        aiSummary: 'Zero-knowledge password vault: AES-256 encryption on your device, stored in a local encrypted database — no server, no sync. A privacy-first, encrypted password vault in the MyDevTools desktop app.',
     },
     'environment-manager': {
         title: 'Environment Manager',
@@ -48,7 +48,7 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     },
     'api-keys': {
         title: 'API Keys',
-        description: 'Store API keys and secrets per environment (dev / staging / prod). AES-256-GCM client-side encryption — server only sees encrypted blobs.',
+        description: 'Store API keys and secrets per environment (dev / staging / prod). AES-256-GCM encryption on your device — there is no server, nothing leaves your machine.',
         keywords: ['api key vault', 'api key manager', 'secrets manager', 'encrypted api keys', 'developer credentials', 'dev staging prod keys'],
         aiSummary: 'Zero-knowledge vault for API keys and secrets, scoped by environment (development / staging / production). AES-256-GCM encrypted locally on your device — a privacy-first personal secrets manager.',
     },

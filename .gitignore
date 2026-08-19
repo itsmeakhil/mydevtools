@@ -78,7 +78,8 @@ apps/web/.codex
 apps/desktop/src-tauri/target/debug/*
 apps/desktop/src-tauri/target/release/
 .claude
-/docs
+# Internal design notes stay local; docs/ itself (README translations, ARCHITECTURE.md) is public.
+docs/superpowers/
 
 .superpowers/apps/desktop/node_modules
 /apps/desktop/src-tauri/target

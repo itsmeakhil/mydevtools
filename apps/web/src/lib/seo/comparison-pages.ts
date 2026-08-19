@@ -941,6 +941,233 @@ export const comparisonPages: ComparisonPage[] = [
       },
     ],
   },
+  {
+    slug: 'dbeaver-alternative',
+    title: 'DBeaver Alternative for Everyday Database Work',
+    description:
+      'Compare MyDevTools with DBeaver for daily SQL, MongoDB and Redis work — a lighter desktop client with 80+ developer tools alongside it, offline and free.',
+    eyebrow: 'Alternative',
+    heading: 'DBeaver alternative for everyday database work',
+    intro:
+      'DBeaver is a comprehensive database tool covering a very wide range of engines and administration features. MyDevTools offers a lighter database client for PostgreSQL, MySQL, MariaDB, MongoDB and Redis, next to the 80+ utilities developers reach for while debugging a query — all in one offline desktop app with encrypted local credentials.',
+    competitor: 'DBeaver',
+    toolSlug: 'sql-client',
+    primaryCta: { href: '/tools/sql-client', label: 'Try the SQL Client' },
+    sections: [
+      {
+        title: 'Choose DBeaver when',
+        body:
+          'DBeaver is the better choice for deep database administration and broad engine coverage.',
+        bullets: [
+          'You need support for a long tail of database engines and drivers.',
+          'You rely on visual schema design, ER diagrams, or advanced data migration.',
+          'You do heavy DBA work rather than everyday application development.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools fits the daily loop of writing a query, inspecting the result, and shaping the data around it.',
+        bullets: [
+          'Query PostgreSQL, MySQL and MariaDB, browse MongoDB, and inspect Redis keys from one app.',
+          'Format the SQL, decode the JWT and reformat the JSON payload without leaving the workspace.',
+          'Keep connection credentials in an encrypted local store, with no account and no sync.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'DBeaver is the more complete database suite. MyDevTools is the lighter everyday client that happens to carry the rest of your toolkit with it.',
+        bullets: [
+          'Best broad database administration suite: DBeaver.',
+          'Best lightweight daily client plus developer utilities: MyDevTools.',
+          'Best fully offline, account-free option: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools a full DBeaver replacement?',
+        a: 'No. MyDevTools covers everyday querying and browsing across PostgreSQL, MySQL, MariaDB, MongoDB and Redis. It does not offer visual schema design, ER diagrams, migration tooling, or the long tail of engines DBeaver supports.',
+      },
+      {
+        q: 'Which databases can MyDevTools connect to?',
+        a: 'PostgreSQL, MySQL and MariaDB through the SQL client, MongoDB through the database explorer, Redis through Redis Commander, plus AWS S3 and DigitalOcean Spaces buckets. The drivers are native, so connections go straight from your machine to your database.',
+      },
+      {
+        q: 'Where are my database credentials stored?',
+        a: 'On your device, in an encrypted local store. There is no MyDevTools account and no server for them to sync to.',
+      },
+    ],
+  },
+  {
+    slug: 'mongodb-compass-alternative',
+    title: 'MongoDB Compass Alternative — Offline Database Explorer',
+    description:
+      'Compare MyDevTools with MongoDB Compass for browsing MongoDB databases, with 80+ developer tools in the same offline desktop app.',
+    eyebrow: 'Alternative',
+    heading: 'MongoDB Compass alternative with the rest of your toolkit attached',
+    intro:
+      'MongoDB Compass is the official GUI for MongoDB, with deep support for aggregation pipelines, indexes and performance analysis. MyDevTools includes a MongoDB explorer for browsing databases, collections and documents — plus a SQL client, a Redis client, an API client and 80+ utilities in the same offline app.',
+    competitor: 'MongoDB Compass',
+    toolSlug: 'database-explorer',
+    primaryCta: { href: '/tools/database-explorer', label: 'Try the Database Explorer' },
+    sections: [
+      {
+        title: 'Choose MongoDB Compass when',
+        body:
+          'Compass is the better tool for MongoDB-specific depth, built by the people who build the database.',
+        bullets: [
+          'You build complex aggregation pipelines with a visual builder.',
+          'You need index analysis, schema profiling and query performance insight.',
+          'You want first-party support for the newest MongoDB features.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools suits developers who touch MongoDB as one part of a wider stack rather than living in it all day.',
+        bullets: [
+          'Browse databases, collections and documents without installing a MongoDB-only app.',
+          'Work across MongoDB, PostgreSQL, MySQL and Redis from one window.',
+          'Format the document you just pulled, hash a value, or fire an API request in the same app.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'Compass is the deeper MongoDB tool. MyDevTools wins when MongoDB is one of several things you touch in a day.',
+        bullets: [
+          'Best MongoDB-specific depth: MongoDB Compass.',
+          'Best multi-database plus utilities workspace: MyDevTools.',
+          'Best offline, account-free setup: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools a full MongoDB Compass replacement?',
+        a: 'No. MyDevTools covers browsing databases, collections and documents. Compass goes further with a visual aggregation pipeline builder, index analysis and schema profiling.',
+      },
+      {
+        q: 'Does MyDevTools connect to MongoDB Atlas?',
+        a: 'The MongoDB explorer connects to the MongoDB instance you configure, using a native driver in the desktop app. Your connection goes straight from your machine to your database — MyDevTools has no server in between.',
+      },
+    ],
+  },
+  {
+    slug: 'redisinsight-alternative',
+    title: 'RedisInsight Alternative — Offline Redis Client',
+    description:
+      'Compare MyDevTools with RedisInsight for browsing Redis keys and running commands, alongside SQL, MongoDB and 80+ developer tools in one offline desktop app.',
+    eyebrow: 'Alternative',
+    heading: 'RedisInsight alternative inside a wider developer toolkit',
+    intro:
+      'RedisInsight is the official Redis GUI, with deep support for Redis modules, profiling and memory analysis. MyDevTools includes Redis Commander for browsing keys, inspecting values, running raw commands and flushing patterns — next to the SQL client, MongoDB explorer and 80+ utilities in one offline app.',
+    competitor: 'RedisInsight',
+    toolSlug: 'redis-commander',
+    primaryCta: { href: '/tools/redis-commander', label: 'Try Redis Commander' },
+    sections: [
+      {
+        title: 'Choose RedisInsight when',
+        body:
+          'RedisInsight is the better tool for Redis-specific depth and operational analysis.',
+        bullets: [
+          'You use Redis modules such as RediSearch, RedisJSON or time series.',
+          'You need memory analysis, slow-log profiling and operational dashboards.',
+          'Redis is core infrastructure you monitor rather than an occasional cache.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools fits developers who check a cache key or clear a pattern as part of a wider debugging session.',
+        bullets: [
+          'Browse keys, inspect values and run raw commands without a Redis-only install.',
+          'Move between Redis, SQL and MongoDB in one window.',
+          'Keep credentials in an encrypted local store, with no account and no cloud.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'RedisInsight is the deeper Redis tool. MyDevTools is the more convenient one when Redis is one tab of many.',
+        bullets: [
+          'Best Redis-specific depth and monitoring: RedisInsight.',
+          'Best everyday key browsing plus a full toolkit: MyDevTools.',
+          'Best offline, account-free option: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools a full RedisInsight replacement?',
+        a: 'No. MyDevTools covers key browsing, value inspection, raw commands and pattern flushing. RedisInsight goes further with module support, memory analysis and operational profiling.',
+      },
+      {
+        q: 'Does Redis Commander store my connection details safely?',
+        a: 'Connection credentials are kept in an encrypted local store on your device. There is no MyDevTools account and no server to sync them to.',
+      },
+    ],
+  },
+  {
+    slug: 'devtoys-alternative',
+    title: 'DevToys Alternative for macOS — Offline Developer Tools',
+    description:
+      'Compare MyDevTools with DevToys: a similar offline all-in-one developer toolkit, with a macOS desktop app, database clients and an API client included.',
+    eyebrow: 'Alternative',
+    heading: 'DevToys alternative for macOS, with database and API clients built in',
+    intro:
+      'DevToys is a well-liked offline developer toolbox that started on Windows. MyDevTools takes the same local-first idea — one app, many everyday utilities, nothing uploaded — and ships a macOS desktop app that also includes an API client and SQL, MongoDB, Redis and S3 clients.',
+    competitor: 'DevToys',
+    primaryCta: { href: '/tools', label: 'Browse all tools' },
+    sections: [
+      {
+        title: 'What the two share',
+        body:
+          'Both are offline, local-first developer toolkits that keep your input on your machine instead of posting it to a web service.',
+        bullets: [
+          'A single searchable app instead of a folder of single-purpose websites.',
+          'Formatters, converters, encoders, hashing and generators covering the daily basics.',
+          'No account required and no data uploaded for processing.',
+        ],
+      },
+      {
+        title: 'Where MyDevTools goes further',
+        body:
+          'MyDevTools adds the connected tools that usually mean opening a second and third application.',
+        bullets: [
+          'A full API client with collections, environments, gRPC and a mock server.',
+          'Database clients for PostgreSQL, MySQL, MariaDB, MongoDB and Redis, plus S3 storage.',
+          'Productivity tools — notes, snippets, tasks and an encrypted credential vault — in the same workspace.',
+        ],
+      },
+      {
+        title: 'Honest differences',
+        body:
+          'These are different projects with different histories, and neither is strictly better.',
+        bullets: [
+          'MyDevTools publishes macOS builds today; Windows and Linux builds are not published yet.',
+          'DevToys has a longer track record on Windows and its own extension ecosystem.',
+          'Both are open source — MyDevTools is licensed under the GNU AGPL v3.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools available on Windows or Linux?',
+        a: 'Not as a published build yet. macOS builds are released today as a signed, notarized universal app. The Tauri shell can be built from source on Windows and Linux, but those builds are untested — see the roadmap.',
+      },
+      {
+        q: 'Is MyDevTools open source like DevToys?',
+        a: 'Yes. MyDevTools is licensed under the GNU AGPL v3, and the whole monorepo — desktop shell, tools and website — is public on GitHub.',
+      },
+      {
+        q: 'Does MyDevTools cost anything?',
+        a: 'No. Every tool and every feature is free, with no paid tier, no trial and no limits.',
+      },
+    ],
+  },
 ]
 
 export const comparisonPageSlugs = comparisonPages.map((page) => page.slug)

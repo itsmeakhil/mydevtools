@@ -1,0 +1,67 @@
+name: CI
+
+# Typecheck + unit tests for the Next.js apps. Lint is deliberately not here yet:
+# the tree has a large pre-existing eslint backlog; it joins CI once that is
+# cleared so the badge means something.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/desktop-ui/**"
+      - "apps/web/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "patches/**"
+      - ".nvmrc"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "apps/desktop-ui/**"
+      - "apps/web/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "patches/**"
+      - ".nvmrc"
+      - ".github/workflows/ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    name: typecheck + test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        # version intentionally omitted — taken from package.json "packageManager"
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck desktop-ui
+        run: pnpm --filter @mydevtools/desktop-ui exec tsc --noEmit
+
+      - name: Typecheck web
+        run: pnpm --filter @mydevtools/web exec tsc --noEmit
+
+      - name: Unit tests (desktop-ui)
+        run: pnpm --filter @mydevtools/desktop-ui exec jest --ci
