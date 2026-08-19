@@ -40,9 +40,15 @@ jobs:
           persist-credentials: false
 
       - name: Tauri Linux prerequisites
+        # Short per-request timeouts + retries: the runner's apt mirror occasionally
+        # stalls for the whole job; fail fast and retry instead of hanging for 45 min.
+        timeout-minutes: 10
+        env:
+          DEBIAN_FRONTEND: noninteractive
+          APT_OPTS: -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20 -o Acquire::Retries=3
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
+          for i in 1 2 3; do sudo apt-get update $APT_OPTS && break || sleep 10; done
+          sudo apt-get install -y --no-install-recommends $APT_OPTS \
             libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev \
             libssl-dev libayatana-appindicator3-dev librsvg2-dev
 
