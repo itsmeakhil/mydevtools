@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Question or discussion
+    url: https://github.com/mydevtools-tech/mydevtools/discussions
+    about: Ask a question, share a workflow, or discuss an idea before it becomes an issue.
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/mydevtools-tech/mydevtools/security/advisories/new
+    about: Report privately. Please do not open a public issue for a security problem.
+  - name: 🆘 Support and troubleshooting
+    url: https://github.com/mydevtools-tech/mydevtools/blob/main/SUPPORT.md
+    about: Common questions, what to include in a report, and where to get help.
+  - name: 🗺️ Roadmap
+    url: https://github.com/mydevtools-tech/mydevtools/blob/main/ROADMAP.md
+    about: See what is being worked on now, what is next, and what is not planned.

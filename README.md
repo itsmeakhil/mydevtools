@@ -22,7 +22,8 @@
   <a href="https://mydevtools.tech"><strong>🌐 Website</strong></a> •
   <a href="docs/MYDEVTOOLS.md"><strong>📚 Docs</strong></a> •
   <a href="#-tools">🧰 Tools</a> •
-  <a href="#-contributing">🤝 Contribute</a>
+  <a href="CONTRIBUTING.md">🤝 Contribute</a> •
+  <a href="ROADMAP.md">🗺️ Roadmap</a>
 </p>
 
 <p align="center">
@@ -341,11 +342,19 @@ docs all count.
 5. **Open** a Pull Request
 
 Please make sure `pnpm lint` passes and follow the surrounding code style.
-`CLAUDE.md` documents the repo conventions, including the files and registries a
-new tool has to touch.
+**[CONTRIBUTING.md](CONTRIBUTING.md)** covers setup, the development commands,
+testing, translations and the six registries a new tool has to be added to.
 
-**Report a bug** or **request a feature** with the
-[issue templates](https://github.com/mydevtools-tech/mydevtools/issues/new/choose).
+New here? [`docs/GOOD_FIRST_ISSUES.md`](docs/GOOD_FIRST_ISSUES.md) lists scoped
+starter work with acceptance criteria already written out.
+
+| | |
+|---|---|
+| 🐛 Report a bug · ✨ Request a feature | [Issue templates](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
+| 💬 Ask a question | [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](SUPPORT.md) |
+| 🔒 Report a vulnerability | [SECURITY.md](SECURITY.md) — privately, never a public issue |
+| 🗺️ See what is planned | [ROADMAP.md](ROADMAP.md) |
+| 🤝 Community standards | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) |
 
 ---
 

@@ -1,0 +1,99 @@
+# Issue and PR labels for MyDevTools.
+#
+# Apply with the GitHub CLI (creates missing labels, updates existing ones):
+#
+#   gh label create "<name>" --color "<color>" --description "<description>" --force
+#
+# Or use a label-sync action pointed at this file. Nothing reads it automatically —
+# it exists so the label set is reviewable in the repo instead of living only in
+# the GitHub UI.
+
+# ─── Type ────────────────────────────────────────────────────────────────────
+
+- name: bug
+  color: d73a4a
+  description: Something is broken or behaves unexpectedly
+
+- name: enhancement
+  color: a2eeef
+  description: Improvement to something that already exists
+
+- name: feature
+  color: 0e8a16
+  description: A new tool or capability
+
+- name: documentation
+  color: 0075ca
+  description: README, contributor docs, tool descriptions, website copy
+
+- name: translation
+  color: 5319e7
+  description: Locale files and translation quality across the 27 languages
+
+- name: chore
+  color: fef2c0
+  description: Dependencies, config, build and tooling
+
+# ─── Area ────────────────────────────────────────────────────────────────────
+
+- name: "area: api-client"
+  color: 1d76db
+  description: The API client — requests, collections, environments, mock server
+
+- name: "area: database"
+  color: 1d76db
+  description: SQL, MongoDB, Redis and S3 clients
+
+- name: "area: desktop-shell"
+  color: 1d76db
+  description: The Tauri/Rust shell — storage, drivers, IPC, packaging
+
+- name: "area: website"
+  color: 1d76db
+  description: mydevtools.tech (apps/web)
+
+# ─── Priority and state ──────────────────────────────────────────────────────
+
+- name: security
+  color: b60205
+  description: Security-relevant issue (public ones only — vulnerabilities go through a private advisory)
+
+- name: performance
+  color: fbca04
+  description: Speed, memory or responsiveness
+
+- name: ux
+  color: c5def5
+  description: Usability, flow and interaction design
+
+- name: accessibility
+  color: c5def5
+  description: Keyboard navigation, screen readers, focus, contrast
+
+- name: good first issue
+  color: 7057ff
+  description: Well-scoped and approachable for a first contribution
+
+- name: help wanted
+  color: 008672
+  description: Maintainers would welcome someone picking this up
+
+- name: needs triage
+  color: ededed
+  description: Not yet reviewed by a maintainer
+
+- name: needs reproduction
+  color: ededed
+  description: Cannot be reproduced yet — more detail needed from the reporter
+
+- name: blocked
+  color: 000000
+  description: Waiting on something else before it can proceed
+
+- name: wontfix
+  color: ffffff
+  description: Out of scope, or conflicts with the offline/no-account/free constraints
+
+- name: duplicate
+  color: cfd3d7
+  description: Already tracked elsewhere

@@ -239,6 +239,131 @@ export const platformSeoPages: PlatformSeoPage[] = [
       },
     ],
   },
+  {
+    slug: 'open-source',
+    title: 'Open Source Developer Tools — AGPL-3.0',
+    description:
+      'MyDevTools is free and open source under the GNU AGPL v3. Read the source, build it yourself, report an issue, or contribute — the desktop app, the tools, and this website are all public.',
+    keywords: [
+      'open source developer tools',
+      'open source developer toolkit',
+      'agpl developer tools',
+      'free open source api client',
+      'open source database client',
+    ],
+    eyebrow: 'Open Source',
+    heading: 'Built in the open. Designed for developers.',
+    intro:
+      'Every part of MyDevTools is public: the Tauri desktop shell, the 80+ tools, the database clients, and this website. It is licensed under the GNU AGPL v3, so the privacy claims on this site are not something you have to take on trust — you can read the code that backs them.',
+    primaryCta: {
+      href: 'https://github.com/mydevtools-tech/mydevtools',
+      label: 'View the source on GitHub',
+    },
+    secondaryCta: { href: '/download', label: 'Download the app' },
+    sections: [
+      {
+        title: 'License and what it means',
+        body:
+          'MyDevTools is licensed under the GNU Affero General Public License v3.0. You can use it for anything, including at work, and you can fork it.',
+        bullets: [
+          'Free for everyone — every tool and every feature, with no paid tier and no limits.',
+          'Read, build, modify and redistribute the source under the AGPL-3.0 terms.',
+          'Derivative works stay open under the same license, which keeps the project auditable.',
+        ],
+      },
+      {
+        title: 'How the project is built',
+        body:
+          'A pnpm monorepo: a Tauri v2 shell in Rust, a Next.js UI the desktop app is built from, and this marketing site. There is no backend anywhere in it.',
+        bullets: [
+          'Tauri v2 shell with SQLCipher storage keyed from the OS keychain.',
+          'Native Rust drivers for PostgreSQL, MySQL, MongoDB and Redis.',
+          'Tool logic lives in pure, unit-tested modules that anyone can read and verify.',
+        ],
+      },
+      {
+        title: 'Contributing and community',
+        body:
+          'Bug reports, new tools, translations across 27 locales, and documentation fixes are all welcome. The contributor guide documents the real setup, commands and conventions.',
+        bullets: [
+          'Start with CONTRIBUTING.md and the issues labelled "good first issue".',
+          'Report bugs and request features through the GitHub issue templates.',
+          'Report vulnerabilities privately through a GitHub security advisory — see SECURITY.md.',
+        ],
+      },
+      {
+        title: 'Roadmap and releases',
+        body:
+          'What is being worked on now, what comes next, and what will never be built is written down publicly rather than implied.',
+        bullets: [
+          'ROADMAP.md separates current work from agreed direction and from ideas under consideration.',
+          'Releases and release notes are published on GitHub, and mirrored to the changelog on this site.',
+          'Cloud sync, accounts and paid tiers are explicitly not planned.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'privacy',
+    title: 'Privacy Architecture — Local-First Developer Tools',
+    description:
+      'How MyDevTools handles your data: local processing, an encrypted database on your device, no account, no backend, and only the outbound connections you ask a tool to make.',
+    keywords: [
+      'private developer tools',
+      'local first developer tools',
+      'offline developer tools privacy',
+      'no account developer tools',
+      'encrypted local storage',
+    ],
+    eyebrow: 'Privacy',
+    heading: 'Your developer data stays on your machine',
+    intro:
+      'MyDevTools Desktop has no account system and no backend. Tool input, notes, snippets and credentials are processed and stored on your device, in a database encrypted with a key from your OS keychain. This page describes exactly what that means — including the connections that do leave your machine, and why.',
+    primaryCta: { href: '/download', label: 'Download the app' },
+    secondaryCta: { href: '/security', label: 'Security details' },
+    sections: [
+      {
+        title: 'Local processing and local storage',
+        body:
+          'The tools run inside the desktop app on your machine. There is no MyDevTools server to send anything to, which is a property of the architecture rather than a promise about our conduct.',
+        bullets: [
+          'Formatting, encoding, hashing and parsing happen on your device.',
+          'App data lives in a local SQLCipher database, encrypted with a key held in your OS keychain.',
+          'Credentials, API keys and password vault entries get a second layer of encryption using a master password only you know.',
+        ],
+      },
+      {
+        title: 'Connections you initiate',
+        body:
+          'The app itself needs no network. Some tools exist precisely to reach somewhere, and those connect to the destination you configure — not through us.',
+        bullets: [
+          'The API client sends the requests you write, to the hosts you choose.',
+          'The SQL, MongoDB, Redis and S3 clients connect straight from your machine to your database or bucket.',
+          'DNS and WHOIS lookups query public registries, and the updater checks GitHub for new releases.',
+        ],
+      },
+      {
+        title: 'No account, no sync, no telemetry by default',
+        body:
+          'There is nothing to sign up for and nothing that quietly phones home. Usage analytics are off until you turn them on.',
+        bullets: [
+          'No sign-up, no sign-in, no activation and no license key.',
+          'No cloud sync and no shared storage — the account layer was removed from the project entirely.',
+          'Optional anonymous usage events (a rotating session id, app version and locale) only if you enable them. No device id, no file paths, nothing typed into a tool.',
+        ],
+      },
+      {
+        title: 'This website is not the app',
+        body:
+          'mydevtools.tech documents the tools and hosts the download. The tools do not run here, and this site has ordinary website properties — it is a normal web page, with standard web analytics.',
+        bullets: [
+          'No web app, no login and no dashboard — there is nothing here to store your data in.',
+          'The privacy properties described above belong to the desktop app on your machine.',
+          'Both are open source under the AGPL-3.0, so either claim can be checked against the code.',
+        ],
+      },
+    ],
+  },
 ]
 
 export const platformSeoPageSlugs = platformSeoPages.map((page) => page.slug)

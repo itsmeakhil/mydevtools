@@ -1,38 +1,53 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: 🐛 Bug report
+about: Something in MyDevTools is broken or behaves unexpectedly
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+<!--
+Security vulnerability? Do NOT file it here — report it privately:
+https://github.com/mydevtools-tech/mydevtools/security/advisories/new
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
+Please redact secrets. No real tokens, passwords or production connection
+strings in a public issue — reproduce with dummy data.
+-->
+
+**Describe the bug**
+A clear and concise description of what goes wrong.
+
+**Which tool?**
+e.g. JSON Formatter, API Client, SQL Client, Password Manager
+
+**To reproduce**
+1. Open '...'
+2. Enter '...'
+3. Click '...'
 4. See error
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+What you expected to happen instead.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Sample input** (if relevant)
+The smallest input that triggers it — with any secrets replaced by dummy values.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+```
+paste here
+```
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+**Screenshots or recording**
+If it is visual, a screenshot or short clip helps a lot.
+
+**Environment**
+ - OS and version: [e.g. macOS 15.2]
+ - Architecture: [Apple Silicon / Intel]
+ - MyDevTools version: [Settings → About, e.g. 0.1.13]
+ - Installed from: [GitHub release / mydevtools.tech / built from source]
+
+**Does it happen on the latest release?**
+[yes / no / not checked] — https://github.com/mydevtools-tech/mydevtools/releases/latest
 
 **Additional context**
-Add any other context about the problem here.
+Anything else worth knowing — when it started, whether it is intermittent, etc.

@@ -16,6 +16,8 @@ const footerLinks = [
   { href: "/features", label: "Features" },
   { href: "/download", label: "Download" },
   { href: "/#tools", label: "Tools" },
+  { href: "/open-source", label: "Open Source" },
+  { href: "/privacy", label: "Privacy" },
   { href: "/security", label: "Security" },
   { href: "/help", label: "Help" },
   { href: SOURCE_URL, label: "Source", external: true },
