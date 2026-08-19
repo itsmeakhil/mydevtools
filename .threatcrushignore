@@ -1,0 +1,37 @@
+# Paths ThreatCrush should not scan. Everything listed here is sample data,
+# UI copy, or generated output — never a credential this repo actually holds.
+# Real code stays scanned: for a one-off false positive in source, put a
+# `threatcrush-disable-next-line <rule-id>` comment above the line instead of
+# excluding the whole file.
+
+# Locale catalogues (27 locales x 2 apps). These are the UI strings for the
+# SSH-key, JWT, S3 and database tools: example PEM markers, sample connection
+# strings and placeholder keys shown to the user. 41 findings, all copy.
+apps/*/messages
+
+# Blog posts: long-form tutorial prose with illustrative credentials in code
+# fences ("mongodb://admin:secret@localhost", a demo master key).
+apps/*/src/lib/blog/posts.ts
+
+# Audit lab scripts: fake tokens injected into a throwaway browser session to
+# measure egress. Nothing here authenticates against anything.
+scripts/audit
+
+# Generated / local-only trees. Not in a CI checkout, noisy in a local run.
+.claude/worktrees
+.open-next
+
+# Test suites: fixture credentials ("hunter2000", a PEM header over the string
+# "abc") that exist to exercise parsers and redaction. Keep real secrets out of
+# fixtures — nothing scans them any more.
+**/__tests__
+
+# Upstream false positive: `manifest-typosquat` reads the `color` dependency
+# (30M downloads/week, imported in 6 files here) as a one-edit lookalike of
+# `colors`, because ThreatCrush's POPULAR_NPM list has `colors` but not
+# `color`. The rule has no per-rule suppression and JSON takes no comments, so
+# the whole manifest goes. Cost: this file loses the install/postinstall
+# lifecycle-script check too — it has no such scripts today, and every other
+# package.json in the repo is still scanned. Drop this line once `color` is
+# allowlisted upstream.
+apps/desktop-ui/package.json

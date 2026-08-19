@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ArrowRight, Clock } from 'lucide-react'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { JsonLd } from '@/components/seo/json-ld'
 import { blogPosts } from '@/lib/blog/posts'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
@@ -69,10 +70,7 @@ export default function BlogPage() {
 
   return (
     <div className="dark flex min-h-screen flex-col bg-background text-foreground font-sans">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <Header />
 
       <main className="flex-1">

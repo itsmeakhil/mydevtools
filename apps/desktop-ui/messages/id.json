@@ -195,6 +195,8 @@
       "title": "Penampilan",
       "description": "Sesuaikan tampilan aplikasi di perangkat Anda.",
       "themePreference": "Preferensi Tema",
+      "accentColor": "Warna aksen",
+      "customColor": "Warna khusus",
       "themes": {
         "light": "Cahaya",
         "dark": "Gelap",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Tentang",
+      "running": "Menjalankan MyDevTools",
+      "runningVersion": "Menjalankan MyDevTools v{version}",
+      "checkButton": "Periksa pembaruan",
+      "checking": "Memeriksa…",
+      "dialogTitle": "Pembaruan",
+      "dialogDescription": "MyDevTools memperbarui dirinya di tempat — tanpa instal ulang, dan data offline Anda tidak pernah tersentuh.",
+      "onVersion": "Anda menggunakan versi {version}.",
+      "available": "Versi {version} tersedia.",
+      "install": "Unduh dan pasang",
+      "upToDate": "Anda sudah menggunakan versi terbaru.",
+      "checkError": "Tidak dapat memeriksa pembaruan. Apakah Anda online?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Semua",
       "total": "Total",
       "allProjects": "Semua Projek",
+      "projectsHeading": "Proyek",
       "export": "Ekspor",
       "kanban": "Kanban",
       "list": "Dunia",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Ketuk tombol + untuk menambahkan kata sandi pertama Anda",
       "emptyHintDesktop": "Anda belum menyimpan kata sandi apa pun. Klik tombol \"Tambahkan kata sandi\" di atas untuk memulai.",
       "addPassword": "Tambah Kata Sandi",
+      "title": "Kata sandi",
+      "filters": {
+        "heading": "Kesehatan brankas",
+        "all": "Semua kata sandi",
+        "weak": "Lemah",
+        "reused": "Dipakai ulang",
+        "noUrl": "Tanpa URL",
+        "tagsHeading": "Tag",
+        "allTags": "Semua tag"
+      },
       "searchPlaceholderMobile": "Cari brankas Anda...",
       "searchPlaceholderDesktop": "Cari brankas...",
       "importExport": "Impor/Ekspor",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Buat set untuk setiap proyek dan lingkungan (mis. kunci API produksi). Semua dienkripsi di browser sebelum diunggah.",
       "searchPlaceholder": "Cari proyek, lingkungan, tag, catatan…",
       "tagFilterPlaceholder": "Saring menurut tag",
+      "allProjects": "Semua proyek",
+      "projectsHeading": "Proyek",
       "variableCount": "{count, plural, other {# variabel}}",
       "updatedAgo": "Diperbarui {time}",
       "copyDotEnv": "Salin .env",
@@ -3859,6 +3888,9 @@
     "copyHtml": "Salin HTML",
     "copyMarkdown": "Salin Markdown",
     "exportHtml": "Ekspor HTML",
+    "fileNameLabel": "Nama file",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "{name} disimpan",
     "copied": "Disalin",
     "charCount": "{count, plural, other {# karakter}}",
     "emptyHint": "Mulai mengetik Markdown untuk melihat pratinjau langsung dan output HTML.",
@@ -5094,6 +5126,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% offline"
+  },
+  "ToolSidebar": {
+    "show": "Tampilkan bilah sisi",
+    "hide": "Sembunyikan bilah sisi"
   },
   "DesktopUpdate": {
     "title": "Memperbarui MyDevTools",

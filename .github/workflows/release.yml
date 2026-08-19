@@ -112,6 +112,7 @@ jobs:
           SIG="$(ls "$BUNDLE"/macos/*.app.tar.gz.sig)"
 
           # Pull tauri's generated latest.json from this repo's release.
+          # threatcrush-disable-next-line secret-generic-credential
           GH_TOKEN="$GITHUB_TOKEN" gh release download "$TAG" \
             --repo "$GITHUB_REPOSITORY" --pattern latest.json --dir . --clobber
 
@@ -127,9 +128,14 @@ jobs:
           '
 
           # Create the public release (once) and upload all four assets.
+          # GH_TOKEN is assigned from an env var, not a literal — the three
+          # lines below are scanner false positives, not embedded tokens.
+          # threatcrush-disable-next-line secret-generic-credential
           if ! GH_TOKEN="$RELEASES_TOKEN" gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
+            # threatcrush-disable-next-line secret-generic-credential
             GH_TOKEN="$RELEASES_TOKEN" gh release create "$TAG" --repo "$PUBLIC_REPO" \
               --title "MyDevTools $TAG" --notes "MyDevTools desktop $TAG"
           fi
+          # threatcrush-disable-next-line secret-generic-credential
           GH_TOKEN="$RELEASES_TOKEN" gh release upload "$TAG" --repo "$PUBLIC_REPO" \
             --clobber "$DMG" "$TARGZ" "$SIG" latest.json

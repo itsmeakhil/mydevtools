@@ -195,6 +195,8 @@
       "title": "Зовнішній вигляд",
       "description": "Налаштуйте вигляд програми на вашому пристрої.",
       "themePreference": "Вибір теми",
+      "accentColor": "Акцентний колір",
+      "customColor": "Власний колір",
       "themes": {
         "light": "Світла",
         "dark": "Темна",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Про програму",
+      "running": "MyDevTools запущено",
+      "runningVersion": "MyDevTools v{version} запущено",
+      "checkButton": "Перевірити оновлення",
+      "checking": "Перевірка…",
+      "dialogTitle": "Оновлення",
+      "dialogDescription": "MyDevTools оновлюється на місці — без перевстановлення, і ваші офлайн-дані ніколи не змінюються.",
+      "onVersion": "У вас версія {version}.",
+      "available": "Доступна версія {version}.",
+      "install": "Завантажити й встановити",
+      "upToDate": "У вас найновіша версія.",
+      "checkError": "Не вдалося перевірити оновлення. Ви онлайн?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Усі",
       "total": "Всього",
       "allProjects": "Усі проєкти",
+      "projectsHeading": "Проєкти",
       "export": "Експорт",
       "kanban": "Канбан",
       "list": "Список",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Натисніть кнопку +, щоб додати перший пароль",
       "emptyHintDesktop": "Ви ще не зберегли жодного паролю. Натисніть кнопку «Додати пароль» вище, щоб почати.",
       "addPassword": "Додати пароль",
+      "title": "Паролі",
+      "filters": {
+        "heading": "Стан сховища",
+        "all": "Усі паролі",
+        "weak": "Слабкі",
+        "reused": "Повторювані",
+        "noUrl": "Без URL",
+        "tagsHeading": "Теги",
+        "allTags": "Усі теги"
+      },
       "searchPlaceholderMobile": "Пошук у сховищі...",
       "searchPlaceholderDesktop": "Пошук у сховищі...",
       "importExport": "Імпорт / експорт",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Створіть набір для кожного проєкту й середовища (наприклад, ключі API продакшену). Усе шифрується в браузері перед завантаженням.",
       "searchPlaceholder": "Пошук за проєктом, середовищем, тегами, нотатками…",
       "tagFilterPlaceholder": "Фільтр за тегом",
+      "allProjects": "Усі проєкти",
+      "projectsHeading": "Проєкти",
       "variableCount": "{count, plural, one {# змінна} few {# змінні} other {# змінних}}",
       "updatedAgo": "Оновлено {time}",
       "copyDotEnv": "Копіювати .env",
@@ -3870,6 +3899,9 @@
     "copyHtml": "Копіювати HTML",
     "copyMarkdown": "Копіювати Markdown",
     "exportHtml": "Експортувати HTML",
+    "fileNameLabel": "Назва файлу",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "Збережено: {name}",
     "copied": "Скопійовано",
     "charCount": "{count, plural, one {# символ} few {# символи} other {# символів}}",
     "emptyHint": "Почніть вводити Markdown, щоб побачити попередній перегляд і HTML вивід.",
@@ -5105,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "100% офлайн"
+  },
+  "ToolSidebar": {
+    "show": "Показати бічну панель",
+    "hide": "Сховати бічну панель"
   },
   "DesktopUpdate": {
     "title": "Оновлення MyDevTools",

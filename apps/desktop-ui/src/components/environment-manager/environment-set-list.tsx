@@ -9,7 +9,12 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search, Copy, Pencil, Trash2, FileCode2, Eye, ArrowUpDown, Check } from "lucide-react"
+import { Search, Copy, Pencil, Trash2, FileCode2, Eye, ArrowUpDown, Check, Folders as IconFolders } from "lucide-react"
+import {
+    ToolSidebarFilterList,
+    ToolSidebarLayout,
+    type ToolSidebarFilterItem,
+} from "@/components/tools/tool-sidebar"
 import { toast } from "sonner"
 import { deleteEnvSetEntry } from "@/lib/environment-manager-api"
 import { formatDotEnv } from "@/lib/environment-manager-utils"
@@ -42,7 +47,6 @@ import { AddEnvironmentSetDialog } from "./add-environment-set-dialog"
 import { formatDistanceToNow } from "date-fns"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/components/hooks/use-mobile"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import {
     Dialog,
     DialogContent,
@@ -77,6 +81,7 @@ export function EnvironmentSetList() {
     const { copyToClipboard } = useCopyToClipboard()
     const [search, setSearch] = useState("")
     const [tagFilter, setTagFilter] = useState("")
+    const [projectFilter, setProjectFilter] = useState("all")
     const [sortOrder, setSortOrder] = useState<SortOrder>("updatedDesc")
     const [editing, setEditing] = useState<EnvSetEntry | null>(null)
     const [editOpen, setEditOpen] = useState(false)
@@ -91,10 +96,23 @@ export function EnvironmentSetList() {
         return [...s].sort()
     }, [sets])
 
+    // Project buckets for the sidebar, sorted by name with an "all" row on top.
+    const projectFilters: ToolSidebarFilterItem[] = useMemo(() => {
+        const counts = new Map<string, number>()
+        sets.forEach((e) => counts.set(e.project, (counts.get(e.project) ?? 0) + 1))
+        return [
+            { id: "all", label: t("allProjects"), count: sets.length },
+            ...[...counts.entries()]
+                .sort((a, b) => a[0].localeCompare(b[0]))
+                .map(([project, count]) => ({ id: project, label: project, count })),
+        ]
+    }, [sets, t])
+
     const filtered = useMemo(() => {
         const q = debouncedSearch.toLowerCase().trim()
         const tf = tagFilter.toLowerCase().trim()
         const result = sets.filter((e) => {
+            if (projectFilter !== "all" && e.project !== projectFilter) return false
             const matchTag =
                 !tf || e.tags.some((x) => x.toLowerCase().includes(tf)) || tf === e.project.toLowerCase()
             if (!q) return matchTag
@@ -107,7 +125,7 @@ export function EnvironmentSetList() {
             if (sortOrder === "updatedAsc") return a.updatedAt - b.updatedAt
             return `${a.project}/${a.environment}`.localeCompare(`${b.project}/${b.environment}`)
         })
-    }, [sets, debouncedSearch, tagFilter, sortOrder])
+    }, [sets, debouncedSearch, tagFilter, projectFilter, sortOrder])
 
     const viewDotEnvRaw = useMemo(
         () => (viewingEntry ? formatDotEnv(viewingEntry.variables).trim() : ""),
@@ -132,20 +150,25 @@ export function EnvironmentSetList() {
     }
 
     return (
-        <>
+        <ToolSidebarLayout
+            toolId="environment-manager"
+            icon={IconFolders}
+            title={t("title")}
+            sidebar={
+                <ToolSidebarFilterList
+                    items={projectFilters}
+                    value={projectFilter}
+                    onChange={setProjectFilter}
+                    heading={t("projectsHeading")}
+                />
+            }
+        >
             <div
                 className={cn(
-                    "flex flex-col gap-4 flex-1 min-h-0",
-                    isMobile ? "px-3 pt-3 pb-24" : "py-4"
+                    "flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto",
+                    isMobile ? "px-3 pt-3 pb-24" : "px-4 py-4"
                 )}
             >
-                {isMobile && (
-                    <div className="flex items-center gap-2 shrink-0">
-                        <SidebarTrigger className="md:hidden" />
-                        <h1 className="text-xl font-bold tracking-tight flex-1">{t("title")}</h1>
-                    </div>
-                )}
-
                 <div className="flex flex-col sm:flex-row gap-2 shrink-0">
                     <div className="relative flex-1">
                         <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -377,6 +400,8 @@ export function EnvironmentSetList() {
                                             <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
                                                 <code
                                                     className="hljs language-properties !bg-transparent"
+                                                    // highlight.js escapes the .env text it is handed.
+                                                    // threatcrush-disable-next-line js-unescaped-html-sink
                                                     dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
                                                 />
                                             </pre>
@@ -443,6 +468,8 @@ export function EnvironmentSetList() {
                                             <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
                                                 <code
                                                     className="hljs language-properties !bg-transparent"
+                                                    // highlight.js escapes the .env text it is handed.
+                                                    // threatcrush-disable-next-line js-unescaped-html-sink
                                                     dangerouslySetInnerHTML={{ __html: viewDotEnvHtml }}
                                                 />
                                             </pre>
@@ -495,6 +522,6 @@ export function EnvironmentSetList() {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-        </>
+        </ToolSidebarLayout>
     )
 }

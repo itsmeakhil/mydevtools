@@ -67,8 +67,8 @@ trap 'rm -rf "$WORK"' EXIT
 codesign_retry() {
   local target="$1" i
   for i in 1 2 3 4 5; do
-    if codesign --force --timestamp --sign "$APPLE_SIGNING_IDENTITY" "$target" 2>/tmp/cs_err; then return 0; fi
-    echo "  codesign attempt $i failed: $(cat /tmp/cs_err) — retrying in 10s…" >&2
+    if codesign --force --timestamp --sign "$APPLE_SIGNING_IDENTITY" "$target" 2>"$WORK/cs_err"; then return 0; fi
+    echo "  codesign attempt $i failed: $(cat "$WORK/cs_err") — retrying in 10s…" >&2
     sleep 10
   done
   echo "release-local: codesign failed after 5 attempts" >&2; return 1

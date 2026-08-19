@@ -76,6 +76,8 @@ export function YamlFormatterLayout() {
     const indentNum = parseInt(indent, 10) || 2
 
     try {
+      // js-yaml v4: load() is the safe schema, !!js/function was removed.
+      // threatcrush-disable-next-line js-unsafe-yaml-load
       const parsed = yaml.load(src)
 
       if (outputMode === 'json') {

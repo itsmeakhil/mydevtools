@@ -69,6 +69,9 @@ function JwtDecodePanel() {
   const searchParams = useSearchParams();
   const initialInput = searchParams.get('input') || '';
   const [input, setInput] = useState(initialInput);
+  // Decoding without verification is this tool's whole purpose — it inspects a
+  // pasted token and holds no signing key.
+  // threatcrush-disable-next-line js-jwt-decode-without-verify
   const result = useMemo(() => decodeJwt(input), [input]);
 
   const relativeText = (n: number, unit: RelativeUnit, direction: 'future' | 'past') => {

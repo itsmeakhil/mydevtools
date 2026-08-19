@@ -195,6 +195,8 @@
       "title": "Utseende",
       "description": "Anpassa hur applikationen ser ut på din enhet.",
       "themePreference": "Temainställning",
+      "accentColor": "Accentfärg",
+      "customColor": "Anpassad färg",
       "themes": {
         "light": "Ljust",
         "dark": "Mörkt",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "Om",
+      "running": "Kör MyDevTools",
+      "runningVersion": "Kör MyDevTools v{version}",
+      "checkButton": "Sök efter uppdateringar",
+      "checking": "Söker…",
+      "dialogTitle": "Uppdateringar",
+      "dialogDescription": "MyDevTools uppdaterar sig själv på plats — ingen ominstallation, och dina offlinedata berörs aldrig.",
+      "onVersion": "Du använder version {version}.",
+      "available": "Version {version} är tillgänglig.",
+      "install": "Ladda ner och installera",
+      "upToDate": "Du är uppdaterad.",
+      "checkError": "Kunde inte söka efter uppdateringar. Är du online?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Alla",
       "total": "Totalt",
       "allProjects": "Alla projekt",
+      "projectsHeading": "Projekt",
       "export": "Exportera",
       "kanban": "Kanban",
       "list": "Lista",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Tryck på +-knappen för att lägga till ditt första lösenord",
       "emptyHintDesktop": "Du har inte lagrat några lösenord ännu. Klicka på knappen \"Lägg till lösenord\" ovan för att komma igång.",
       "addPassword": "Lägg till lösenord",
+      "title": "Lösenord",
+      "filters": {
+        "heading": "Valvets status",
+        "all": "Alla lösenord",
+        "weak": "Svaga",
+        "reused": "Återanvända",
+        "noUrl": "Ingen URL",
+        "tagsHeading": "Taggar",
+        "allTags": "Alla taggar"
+      },
       "searchPlaceholderMobile": "Sök i ditt valv...",
       "searchPlaceholderDesktop": "Sök i valvet...",
       "importExport": "Importera / exportera",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Skapa en uppsättning för varje projekt och miljö (t.ex. produktions-API-nycklar). Allt krypteras i webbläsaren före uppladdning.",
       "searchPlaceholder": "Sök projekt, miljö, taggar, anteckningar…",
       "tagFilterPlaceholder": "Filtrera på tagg",
+      "allProjects": "Alla projekt",
+      "projectsHeading": "Projekt",
       "variableCount": "{count, plural, one {# variabel} other {# variabler}}",
       "updatedAgo": "Uppdaterad {time}",
       "copyDotEnv": "Kopiera .env",
@@ -3870,6 +3899,9 @@
     "copyHtml": "Kopiera HTML",
     "copyMarkdown": "Kopiera Markdown",
     "exportHtml": "Exportera HTML",
+    "fileNameLabel": "Filnamn",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "Sparade {name}",
     "copied": "Kopierat",
     "charCount": "{count, plural, one {# tecken} other {# tecken}}",
     "emptyHint": "Börja skriva Markdown för att se live-förhandsgranskning och HTML-utdata.",
@@ -5105,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "100 % offline"
+  },
+  "ToolSidebar": {
+    "show": "Visa sidopanel",
+    "hide": "Dölj sidopanel"
   },
   "DesktopUpdate": {
     "title": "Uppdaterar MyDevTools",

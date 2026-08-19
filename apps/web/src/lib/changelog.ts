@@ -26,6 +26,19 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.14',
+    date: '2026-08-14',
+    title: 'Reorderable tabs and a refreshed sidebar',
+    summary:
+      'Open tabs can now be dragged into whatever order you like, the tool sidebar has been reworked, and a few rough edges in Notes and the Markdown tool are smoothed out.',
+    changes: [
+      { type: 'added', text: 'Drag open tabs to rearrange them in any order.' },
+      { type: 'improved', text: 'Reworked the tool sidebar.' },
+      { type: 'fixed', text: 'A layout glitch in Notes.' },
+      { type: 'fixed', text: 'The Markdown tool now shows the correct notification after a download.' },
+    ],
+  },
+  {
     version: '0.1.13',
     date: '2026-08-13',
     title: 'Open source, and no account at all',

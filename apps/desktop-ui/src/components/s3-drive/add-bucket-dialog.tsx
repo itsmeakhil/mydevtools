@@ -183,6 +183,7 @@ export function AddBucketDialog({ open, onClose, encryptionKey, editing }: Props
                         <div className="space-y-1.5">
                             <Label>Access Key</Label>
                             <Input
+                                // threatcrush-disable-next-line secret-aws-access-key
                                 placeholder="AKIAIOSFODNN7EXAMPLE"
                                 value={form.accessKey}
                                 onChange={(e) => set("accessKey", e.target.value)}

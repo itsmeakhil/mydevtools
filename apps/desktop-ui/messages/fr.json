@@ -195,6 +195,8 @@
       "title": "Apparence",
       "description": "Personnalisez l’apparence de l’application sur votre appareil.",
       "themePreference": "Thème",
+      "accentColor": "Couleur d'accentuation",
+      "customColor": "Couleur personnalisée",
       "themes": {
         "light": "Clair",
         "dark": "Sombre",
@@ -257,6 +259,20 @@
         "tr": "Türkçe",
         "uk": "Українська"
       }
+    },
+    "about": {
+      "title": "À propos",
+      "running": "MyDevTools en cours d'exécution",
+      "runningVersion": "MyDevTools v{version} en cours d'exécution",
+      "checkButton": "Rechercher des mises à jour",
+      "checking": "Recherche…",
+      "dialogTitle": "Mises à jour",
+      "dialogDescription": "MyDevTools se met à jour sur place — aucune réinstallation, et vos données hors ligne ne sont jamais touchées.",
+      "onVersion": "Vous utilisez la version {version}.",
+      "available": "La version {version} est disponible.",
+      "install": "Télécharger et installer",
+      "upToDate": "Vous êtes à jour.",
+      "checkError": "Impossible de rechercher des mises à jour. Êtes-vous en ligne ?"
     }
   },
   "Dashboard": {
@@ -709,6 +725,7 @@
       "all": "Toutes",
       "total": "Total",
       "allProjects": "Tous les projets",
+      "projectsHeading": "Projets",
       "export": "Exporter",
       "kanban": "Kanban",
       "list": "Liste",
@@ -966,6 +983,16 @@
       "emptyHintMobile": "Appuyez sur + pour ajouter votre premier mot de passe",
       "emptyHintDesktop": "Aucun mot de passe enregistré. Cliquez sur « Ajouter un mot de passe » ci-dessus.",
       "addPassword": "Ajouter un mot de passe",
+      "title": "Mots de passe",
+      "filters": {
+        "heading": "État du coffre",
+        "all": "Tous les mots de passe",
+        "weak": "Faibles",
+        "reused": "Réutilisés",
+        "noUrl": "Sans URL",
+        "tagsHeading": "Étiquettes",
+        "allTags": "Toutes les étiquettes"
+      },
       "searchPlaceholderMobile": "Rechercher dans le coffre…",
       "searchPlaceholderDesktop": "Rechercher…",
       "importExport": "Importer / exporter",
@@ -1161,6 +1188,8 @@
       "emptyHint": "Créez un jeu pour chaque projet et environnement (ex. clés API de production). Tout est chiffré dans votre navigateur avant l'envoi.",
       "searchPlaceholder": "Rechercher projet, environnement, étiquettes, notes…",
       "tagFilterPlaceholder": "Filtrer par étiquette",
+      "allProjects": "Tous les projets",
+      "projectsHeading": "Projets",
       "variableCount": "{count, plural, one {# variable} other {# variables}}",
       "updatedAgo": "Mis à jour {time}",
       "copyDotEnv": "Copier .env",
@@ -3870,6 +3899,9 @@
     "copyHtml": "Copier le HTML",
     "copyMarkdown": "Copier le Markdown",
     "exportHtml": "Exporter le HTML",
+    "fileNameLabel": "Nom du fichier",
+    "fileNamePlaceholder": "export",
+    "exportSuccess": "{name} enregistré",
     "copied": "Copié",
     "charCount": "{count, plural, one {# caractère} other {# caractères}}",
     "emptyHint": "Commencez à taper du Markdown pour voir l'aperçu et la sortie HTML.",
@@ -5105,6 +5137,10 @@
   },
   "ToolPageHeader": {
     "offline": "100 % hors ligne"
+  },
+  "ToolSidebar": {
+    "show": "Afficher la barre latérale",
+    "hide": "Masquer la barre latérale"
   },
   "DesktopUpdate": {
     "title": "Mise à jour de MyDevTools",
