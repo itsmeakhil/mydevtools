@@ -28,7 +28,7 @@
     "@space-man/react-theme-animation": "^1.1.1",
     "@tabler/icons-react": "^3.35.0",
     "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.2.0",
+    "@vercel/speed-insights": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
