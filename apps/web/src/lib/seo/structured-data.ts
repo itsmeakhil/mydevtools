@@ -14,7 +14,7 @@ export const homepageFaqItems = [
   },
   {
     q: 'Is my data secure?',
-    a: 'Your data stays on your device — there is no cloud sync and no server to sync to. Vault-style data is additionally encrypted locally with a password only you know.',
+    a: 'Your data is not sent to MyDevTools servers — there is no cloud sync and no backend. Network tools (API client, database clients) connect only to the destinations you point them at. Vault-style data is additionally encrypted locally with a password only you know.',
   },
   {
     q: 'Do I need an account to use the tools?',
