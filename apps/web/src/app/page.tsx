@@ -24,8 +24,6 @@ import {
   Globe,
   CheckCircle2,
   Search,
-  Users,
-  Building2,
   Check,
   Database,
   Github,
@@ -688,75 +686,6 @@ export default function Page() {
                     </div>
                     <div className="px-3 py-2 text-foreground/80 truncate">
                       {`{ "id": 42, "ok": true }`}
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-
-              {/* T4 — Teams & Workspaces (full-width, NEW) */}
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.55, delay: 0.25 }}
-                className="md:col-span-3"
-              >
-                <Link
-                  href="/download"
-                  className="group relative flex flex-col gap-6 overflow-hidden rounded-2xl glass-overlay p-6 transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl dark:hover:shadow-black/40 md:flex-row md:items-center md:p-8"
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 bg-gradient-to-br from-indigo-500 to-indigo-400" />
-
-                  <div className="relative z-10 flex-1">
-                    <div className="mb-4 flex items-center gap-2">
-                      <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-400 p-px shadow-md">
-                        <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-card dark:bg-[hsl(var(--surface-2))]">
-                          <Users className="h-4 w-4 text-foreground" />
-                        </div>
-                      </div>
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
-                        Workspaces
-                      </span>
-                      <span className="mdt-pill text-[10px]">NEW</span>
-                    </div>
-                    <h3 className="relative z-10 mb-3 text-2xl font-semibold">
-                      A workspace for every project
-                    </h3>
-                    <p className="max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">
-                      Keep each project in its own workspace — separate tools, notes, snippets,
-                      and vaults — and switch between them in a click. Everything stays local on
-                      your device. Shared team workspaces &amp; collaboration are on the roadmap.
-                    </p>
-                    <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/80 transition-colors group-hover:text-foreground">
-                      <span>Get the app</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </div>
-                  </div>
-
-                  {/* Workspace + roles preview */}
-                  <div className="relative z-10 w-full shrink-0 md:w-[340px]">
-                    <div className="overflow-hidden rounded-xl border border-border/40 bg-background font-mono text-xs dark:border-white/5">
-                      <div className="flex items-center gap-2 border-b border-border/40 bg-muted/40 px-3 py-2">
-                        <Building2 className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="font-semibold">Workspaces</span>
-                        <span className="ml-auto rounded bg-indigo-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">
-                          On your device
-                        </span>
-                      </div>
-                      <div className="divide-y divide-border/30 dark:divide-white/5">
-                        {[
-                          { name: "Personal", role: "Active" },
-                          { name: "Client — Acme", role: "Project" },
-                          { name: "Side project", role: "Project" },
-                          { name: "Team collaboration", role: "Soon" },
-                        ].map((m) => (
-                          <div key={m.name} className="flex items-center gap-2 px-3 py-2">
-                            <Check className="h-3 w-3 shrink-0 text-indigo-500" />
-                            <span className="truncate text-muted-foreground">{m.name}</span>
-                            <span className="ml-auto rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-foreground/70">
-                              {m.role}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
                     </div>
                   </div>
                 </Link>
