@@ -2,7 +2,7 @@
 import { useState, useEffect, type ElementType } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github, Menu, Star, X } from "lucide-react";
+import { Download, Github, Menu, Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
 import { SOURCE_URL } from "./footer";
@@ -49,13 +49,13 @@ type NavLink = {
   external?: boolean;
 };
 
+// Logo is "Home"; Platform/Changelog/Help live in the footer. Download is the
+// header's primary action button, not a nav item.
 const NAV_LINKS: NavLink[] = [
-  { href: "/", label: "Home" },
-  { href: "/features", label: "Features" },
-  { href: "/developer-tools", label: "Platform" },
-  { href: "/download", label: "Download" },
   { href: "/tools", label: "Tools" },
-  { href: "/changelog", label: "Changelog" },
+  { href: "/features", label: "Features" },
+  { href: "/open-source", label: "Open Source" },
+  { href: "/blog", label: "Blog" },
 ];
 
 // "/" only matches exactly; every other section also owns its sub-routes
@@ -129,6 +129,7 @@ export function Header() {
 
   const mobileNavLinks: NavLink[] = [
     ...NAV_LINKS,
+    { href: "/download", label: "Download", icon: Download },
     { href: SOURCE_URL, label: "GitHub", icon: Github, external: true },
   ];
 
@@ -200,6 +201,14 @@ export function Header() {
                   </span>
                 )}
               </a>
+            </Button>
+
+            {/* Primary action — same on every page */}
+            <Button asChild size="sm" className="hidden md:inline-flex h-10 gap-2 px-4">
+              <Link href="/download">
+                <Download className="h-4 w-4" aria-hidden />
+                Download
+              </Link>
             </Button>
 
             {/* Mobile Menu Toggle */}
