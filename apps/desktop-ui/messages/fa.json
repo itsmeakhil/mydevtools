@@ -750,6 +750,21 @@
         "description": "کارهایی که تمام شده اند"
       }
     },
+    "manageStatuses": {
+      "manageButton": "وضعیت‌ها",
+      "title": "مدیریت وضعیت‌ها",
+      "description": "برای وضعیت‌های پیش‌فرض رنگ انتخاب کنید و وضعیت‌های خود را اضافه کنید.",
+      "defaults": "وضعیت‌های پیش‌فرض",
+      "custom": "وضعیت‌های سفارشی",
+      "addPlaceholder": "نام وضعیت جدید",
+      "add": "افزودن",
+      "colorAria": "تنظیم رنگ {color}",
+      "deleteAria": "حذف {label}",
+      "deleteConfirmTitle": "حذف «{label}»؟",
+      "deleteConfirmBody": "کارهای دارای این وضعیت به «{fallback}» منتقل می‌شوند.",
+      "cancel": "لغو",
+      "delete": "حذف"
+    },
     "priorities": {
       "high": "بالا",
       "medium": "متوسط",

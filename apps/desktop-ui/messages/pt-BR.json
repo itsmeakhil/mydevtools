@@ -750,6 +750,21 @@
         "description": "Tarefas finalizadas"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Status",
+      "title": "Gerenciar status",
+      "description": "Escolha cores para os status padrão e adicione os seus.",
+      "defaults": "Status padrão",
+      "custom": "Status personalizados",
+      "addPlaceholder": "Nome do novo status",
+      "add": "Adicionar",
+      "colorAria": "Definir cor {color}",
+      "deleteAria": "Excluir {label}",
+      "deleteConfirmTitle": "Excluir “{label}”?",
+      "deleteConfirmBody": "As tarefas com este status serão movidas para “{fallback}”.",
+      "cancel": "Cancelar",
+      "delete": "Excluir"
+    },
     "priorities": {
       "high": "Alta",
       "medium": "Média",

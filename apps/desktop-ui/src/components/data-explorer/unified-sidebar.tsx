@@ -83,8 +83,6 @@ const ConnectionRow = React.memo(function ConnectionRow({
         [onOpenTab, connection]
     );
 
-    const Icon = adapter?.icon ?? IconAlertTriangle;
-
     return (
         <div>
             <div className="group flex items-center pr-1">
@@ -103,12 +101,6 @@ const ConnectionRow = React.memo(function ConnectionRow({
                             "size-3.5 shrink-0 text-muted-foreground transition-transform duration-200",
                             expanded && "rotate-90 text-foreground",
                             !supported && "invisible"
-                        )}
-                    />
-                    <Icon
-                        className={cn(
-                            "size-4 shrink-0",
-                            supported ? adapter?.accent : "text-amber-500"
                         )}
                     />
                     <span className="min-w-0 flex-1 truncate">{connection.name}</span>
@@ -358,7 +350,7 @@ export function UnifiedSidebar({
                                             animate={{ opacity: 1, height: "auto" }}
                                             exit={{ opacity: 0, height: 0 }}
                                             transition={{ duration: 0.2 }}
-                                            className="space-y-0.5 overflow-hidden"
+                                            className="space-y-0.5 overflow-hidden pl-3"
                                         >
                                             {group.items.map((connection) => (
                                                 <ConnectionRow

@@ -15,10 +15,16 @@ const TaskCommandPalette = lazy(() =>
     default: m.TaskCommandPalette,
   }))
 );
+const ManageStatusesDialog = lazy(() => import("@/app/app/to-do/ManageStatusesDialog"));
+const ProjectManagerDialog = lazy(() =>
+  import("@/app/app/to-do/components/ProjectManagerDialog").then((m) => ({
+    default: m.ProjectManagerDialog,
+  }))
+);
 import { useTaskContext } from "@/app/app/to-do/context/TaskContext";
 import { useWorkspaceMembers, memberLabel } from "@/app/app/to-do/hooks/useWorkspaceMembers";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
-import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder, Archive, ArchiveRestore, UserRound } from "lucide-react";
+import { ListTodo, Circle, LayoutGrid, List, Search, X, Plus, Folder, Archive, ArchiveRestore, UserRound, Palette } from "lucide-react";
 import {
   ToolSidebarFilterList,
   ToolSidebarLayout,
@@ -26,7 +32,7 @@ import {
 } from "@/components/tools/tool-sidebar";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { STATUS_CONFIG } from "./config/constants";
+import { useStatuses } from "./hooks/useStatuses";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/components/hooks/use-mobile";
 import { useTranslations } from "next-intl";
@@ -53,8 +59,10 @@ import {
 export const TaskContainer = () => {
   const tPage = useTranslations("Tasks.page");
   const tFilters = useTranslations("Tasks.filters");
-  const tStatus = useTranslations("Tasks.status");
+  const tManage = useTranslations("Tasks.manageStatuses");
   const tDrawer = useTranslations("Tasks.mobileDrawer");
+  const { statuses } = useStatuses();
+  const [isManageStatusesOpen, setIsManageStatusesOpen] = useState(false);
   const isMobile = useIsMobile();
   const [viewMode, setViewMode] = useState<"list" | "kanban">("kanban");
 
@@ -95,6 +103,13 @@ export const TaskContainer = () => {
   const { projects } = useProjectContext();
   const { members, isShared } = useWorkspaceMembers();
 
+  // The stats endpoint only counts the built-in trio; custom statuses show no count.
+  const statusCounts: Record<string, number | undefined> = {
+    "not-started": allTaskStats.notStarted,
+    ongoing: allTaskStats.ongoing,
+    completed: allTaskStats.completed,
+  };
+
   // Filter tasks based on search query + archive state
   const searchFilteredTasks = useMemo(() => {
     const archiveFiltered = tasks.filter(task =>
@@ -123,23 +138,25 @@ export const TaskContainer = () => {
   );
 
   const sortedTasks = useMemo(() => {
-    const statusOrder: { ongoing: number; "not-started": number; completed: number } = {
+    const statusOrder: Record<string, number> = {
       ongoing: 1,
       "not-started": 2,
       completed: 3,
     };
-    return [...filteredTasks].sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+    // Custom statuses sort after the built-ins.
+    return [...filteredTasks].sort((a, b) => (statusOrder[a.status] ?? 4) - (statusOrder[b.status] ?? 4));
   }, [filteredTasks]);
 
   // Calculate statistics using all tasks stats
   const completionRate = allTaskStats.total > 0 ? Math.round((allTaskStats.completed / allTaskStats.total) * 100) : 0;
 
+  // New tasks land in the centrally selected project; "all" creates them unassigned.
   const handleAddTask = useCallback(
     (taskText: string) => {
-      addTask(taskText);
+      addTask(taskText, filterProject !== "all" ? filterProject : undefined);
       setIsDrawerOpen(false);
     },
-    [addTask]
+    [addTask, filterProject]
   );
 
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
@@ -215,12 +232,21 @@ export const TaskContainer = () => {
       icon={Folder}
       title={tPage("myTasksTitle")}
       sidebar={
-        <ToolSidebarFilterList
-          items={projectFilters}
-          value={filterProject}
-          onChange={setFilterProject}
-          heading={tFilters("projectsHeading")}
-        />
+        <div className="flex min-h-0 flex-1 flex-col">
+          <ToolSidebarFilterList
+            items={projectFilters}
+            value={filterProject}
+            onChange={setFilterProject}
+            heading={tFilters("projectsHeading")}
+          />
+          <div className="px-2 pb-2">
+            <LazyBoundary fallback={null}>
+              <Suspense fallback={null}>
+                <ProjectManagerDialog />
+              </Suspense>
+            </LazyBoundary>
+          </div>
+        </div>
       }
     >
     <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
@@ -274,7 +300,7 @@ export const TaskContainer = () => {
             >
               {tFilters("all")}
             </Button>
-            {Object.values(STATUS_CONFIG).map((config) => (
+            {statuses.map((config) => (
               <Button
                 key={config.id}
                 variant={filterStatus === config.id ? "default" : "outline"}
@@ -287,14 +313,14 @@ export const TaskContainer = () => {
               >
                 {/* Only show icon if active or if we want icons in chips */}
                 {filterStatus === config.id && <config.icon className="h-3 w-3" />}
-                {tStatus(`${config.id}.label` as any)}
-                <span className={cn(
-                  "ml-1 text-[10px] opacity-70",
-                )}>
-                  {config.id === "not-started" ? allTaskStats.notStarted :
-                    config.id === "ongoing" ? allTaskStats.ongoing :
-                      allTaskStats.completed}
-                </span>
+                {config.label}
+                {statusCounts[config.id] !== undefined && (
+                  <span className={cn(
+                    "ml-1 text-[10px] opacity-70",
+                  )}>
+                    {statusCounts[config.id]}
+                  </span>
+                )}
               </Button>
             ))}
           </div>
@@ -302,7 +328,7 @@ export const TaskContainer = () => {
             <div className="flex items-center gap-2 px-4 pb-2 overflow-x-auto scrollbar-hide">
               {hasStatusFilter && (
                 <Badge variant="secondary" className="whitespace-nowrap">
-                  {tStatus(`${filterStatus}.label` as any)}
+                  {statuses.find((s) => s.id === filterStatus)?.label ?? filterStatus}
                 </Badge>
               )}
               {hasProjectFilter && activeProject && (
@@ -354,30 +380,22 @@ export const TaskContainer = () => {
                     <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{tFilters("total")}</span>
                   </div>
 
-                  {Object.values(STATUS_CONFIG).map((config) => {
-                    const count = config.id === "not-started"
-                      ? allTaskStats.notStarted
-                      : config.id === "ongoing"
-                        ? allTaskStats.ongoing
-                        : allTaskStats.completed;
-
-                    return (
-                      <div
-                        key={config.id}
-                        className={cn(
-                          "flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg border",
-                          config.bgColor,
-                          config.borderColor
-                        )}
-                      >
-                        <div className="flex items-center gap-1 text-xs font-medium">
-                          <config.icon className={cn("h-3.5 w-3.5", config.color)} />
-                          <span className={cn(config.color, "font-meta tabular-nums")}>{count}</span>
-                        </div>
-                        <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{tStatus(`${config.id}.label` as any)}</span>
+                  {statuses.filter((config) => config.builtIn).map((config) => (
+                    <div
+                      key={config.id}
+                      className={cn(
+                        "flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg border",
+                        config.bgColor,
+                        config.borderColor
+                      )}
+                    >
+                      <div className="flex items-center gap-1 text-xs font-medium">
+                        <config.icon className={cn("h-3.5 w-3.5", config.color)} />
+                        <span className={cn(config.color, "font-meta tabular-nums")}>{statusCounts[config.id]}</span>
                       </div>
-                    );
-                  })}
+                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{config.label}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -458,6 +476,17 @@ export const TaskContainer = () => {
                   <span className="hidden sm:inline text-xs font-medium">{tFilters("export")}</span>
                 </Button>
 
+                {/* Manage Statuses Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsManageStatusesOpen(true)}
+                  className="h-9 px-3 gap-2"
+                >
+                  <Palette className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline text-xs font-medium">{tManage("manageButton")}</span>
+                </Button>
+
                 {/* Enhanced View Toggle - Hidden on mobile since we force list view */}
                 <div className="hidden md:block">
                   <ToggleGroup
@@ -493,7 +522,7 @@ export const TaskContainer = () => {
                 <div className="flex items-center gap-2 mt-2 flex-wrap">
                   {hasStatusFilter && (
                     <Badge variant="secondary" className="gap-1.5">
-                      {tStatus(`${filterStatus}.label` as any)}
+                      {statuses.find((s) => s.id === filterStatus)?.label ?? filterStatus}
                     </Badge>
                   )}
                   {hasProjectFilter && activeProject && (
@@ -543,33 +572,27 @@ export const TaskContainer = () => {
                     </span>
                   </Button>
 
-                  {Object.values(STATUS_CONFIG).map((config) => {
-                    const count = config.id === "not-started"
-                      ? allTaskStats.notStarted
-                      : config.id === "ongoing"
-                        ? allTaskStats.ongoing
-                        : allTaskStats.completed;
-
-                    return (
-                      <Button
-                        key={config.id}
-                        variant={filterStatus === config.id ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setFilterStatus(config.id)}
-                        className="h-7 px-2.5 text-xs whitespace-nowrap flex-shrink-0"
-                        aria-label={tFilters("filterByStatusAria", { status: tStatus(`${config.id}.label` as any) })}
-                      >
-                        <config.icon className={cn("h-3 w-3 mr-1", config.color)} />
-                        {tStatus(`${config.id}.label` as any)}
+                  {statuses.map((config) => (
+                    <Button
+                      key={config.id}
+                      variant={filterStatus === config.id ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setFilterStatus(config.id)}
+                      className="h-7 px-2.5 text-xs whitespace-nowrap flex-shrink-0"
+                      aria-label={tFilters("filterByStatusAria", { status: config.label })}
+                    >
+                      <config.icon className={cn("h-3 w-3 mr-1", config.color)} />
+                      {config.label}
+                      {statusCounts[config.id] !== undefined && (
                         <span className={cn(
                           "ml-1 px-1.5 py-0.5 rounded text-[9px]",
                           filterStatus === config.id ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"
                         )}>
-                          {count}
+                          {statusCounts[config.id]}
                         </span>
-                      </Button>
-                    );
-                  })}
+                      )}
+                    </Button>
+                  ))}
                 </div>
               )}
 
@@ -597,7 +620,7 @@ export const TaskContainer = () => {
 
         {/* Task Form - Hidden on mobile, visible on desktop */}
         <div className="hidden md:block">
-          <TaskForm onAddTask={addTask} inputRef={taskFormInputRef} />
+          <TaskForm onAddTask={handleAddTask} inputRef={taskFormInputRef} />
         </div>
 
         {/* Task View */}
@@ -708,6 +731,17 @@ export const TaskContainer = () => {
               onOpenChange={setIsExportDialogOpen}
               tasks={tasks}
               projects={projects}
+            />
+          </Suspense>
+        </LazyBoundary>
+      )}
+
+      {isManageStatusesOpen && (
+        <LazyBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <ManageStatusesDialog
+              open={isManageStatusesOpen}
+              onOpenChange={setIsManageStatusesOpen}
             />
           </Suspense>
         </LazyBoundary>

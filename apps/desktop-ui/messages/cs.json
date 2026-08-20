@@ -750,6 +750,21 @@
         "description": "Dokončené úkoly"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Stavy",
+      "title": "Správa stavů",
+      "description": "Vyberte barvy výchozích stavů a přidejte vlastní.",
+      "defaults": "Výchozí stavy",
+      "custom": "Vlastní stavy",
+      "addPlaceholder": "Název nového stavu",
+      "add": "Přidat",
+      "colorAria": "Nastavit barvu {color}",
+      "deleteAria": "Smazat {label}",
+      "deleteConfirmTitle": "Smazat „{label}“?",
+      "deleteConfirmBody": "Úkoly s tímto stavem se přesunou do „{fallback}“.",
+      "cancel": "Zrušit",
+      "delete": "Smazat"
+    },
     "priorities": {
       "high": "Vysoká",
       "medium": "Střední",

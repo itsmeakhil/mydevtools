@@ -750,6 +750,21 @@
         "description": "Tâches terminées"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Statuts",
+      "title": "Gérer les statuts",
+      "description": "Choisissez les couleurs des statuts par défaut et ajoutez les vôtres.",
+      "defaults": "Statuts par défaut",
+      "custom": "Statuts personnalisés",
+      "addPlaceholder": "Nom du nouveau statut",
+      "add": "Ajouter",
+      "colorAria": "Définir la couleur {color}",
+      "deleteAria": "Supprimer {label}",
+      "deleteConfirmTitle": "Supprimer « {label} » ?",
+      "deleteConfirmBody": "Les tâches ayant ce statut passeront à « {fallback} ».",
+      "cancel": "Annuler",
+      "delete": "Supprimer"
+    },
     "priorities": {
       "high": "Haute",
       "medium": "Moyenne",

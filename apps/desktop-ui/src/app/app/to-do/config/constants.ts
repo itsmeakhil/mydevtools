@@ -7,10 +7,11 @@ import {
     Zap,
     LucideIcon
 } from "lucide-react";
-import { TaskStatus, TaskPriority } from "../types/Task";
+import { TaskPriority } from "../types/Task";
+import { BuiltInStatus } from "../utils/statusSettings";
 
 export interface StatusConfig {
-    id: TaskStatus;
+    id: BuiltInStatus;
     label: string;
     icon: LucideIcon;
     color: string; // Main color for text/icons
@@ -20,7 +21,7 @@ export interface StatusConfig {
     description: string;
 }
 
-export const STATUS_CONFIG: Record<TaskStatus, StatusConfig> = {
+export const STATUS_CONFIG: Record<BuiltInStatus, StatusConfig> = {
     "not-started": {
         id: "not-started",
         label: "Not Started",

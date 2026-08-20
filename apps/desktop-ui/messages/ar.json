@@ -750,6 +750,21 @@
         "description": "مهام انتهت"
       }
     },
+    "manageStatuses": {
+      "manageButton": "الحالات",
+      "title": "إدارة الحالات",
+      "description": "اختر ألوانًا للحالات الافتراضية وأضف حالاتك الخاصة.",
+      "defaults": "الحالات الافتراضية",
+      "custom": "حالات مخصصة",
+      "addPlaceholder": "اسم الحالة الجديدة",
+      "add": "إضافة",
+      "colorAria": "تعيين اللون {color}",
+      "deleteAria": "حذف {label}",
+      "deleteConfirmTitle": "حذف “{label}”؟",
+      "deleteConfirmBody": "ستنتقل المهام ذات هذه الحالة إلى “{fallback}”.",
+      "cancel": "إلغاء",
+      "delete": "حذف"
+    },
     "priorities": {
       "high": "عالية",
       "medium": "متوسطة",

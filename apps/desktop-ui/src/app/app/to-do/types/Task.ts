@@ -1,5 +1,6 @@
 export type TaskPriority = "low" | "medium" | "high";
-export type TaskStatus = "not-started" | "ongoing" | "completed";
+// Built-in trio plus user-defined custom status ids (see utils/statusSettings.ts).
+export type TaskStatus = string;
 
 export interface SubTask {
   id: string;

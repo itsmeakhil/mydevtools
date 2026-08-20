@@ -28,7 +28,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { STATUS_CONFIG, PRIORITY_CONFIG } from "./config/constants";
+import { PRIORITY_CONFIG } from "./config/constants";
+import { useStatuses } from "./hooks/useStatuses";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { AssigneePicker } from "./components/AssigneePicker";
 
@@ -76,7 +77,8 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const statusConfig = STATUS_CONFIG[task.status];
+  const { getStatus } = useStatuses();
+  const statusConfig = getStatus(task.status);
   const StatusIcon = statusConfig.icon;
 
   // Check if task is overdue

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/command";
 import { useTaskContext } from "@/app/app/to-do/context/TaskContext";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
-import { STATUS_CONFIG } from "@/app/app/to-do/config/constants";
+import { useStatuses } from "@/app/app/to-do/hooks/useStatuses";
 import { Archive, ArchiveRestore, LayoutGrid, List, Plus, X, Folder } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -34,7 +34,7 @@ export function TaskCommandPalette({
   onNewTask,
 }: TaskCommandPaletteProps) {
   const tFilters = useTranslations("Tasks.filters");
-  const tStatus = useTranslations("Tasks.status");
+  const { statuses } = useStatuses();
   const {
     filterStatus,
     setFilterStatus,
@@ -84,17 +84,13 @@ export function TaskCommandPalette({
             {tFilters("all")}
             {filterStatus === "all" && <CommandShortcut>active</CommandShortcut>}
           </CommandItem>
-          {Object.values(STATUS_CONFIG).map((cfg) => (
+          {statuses.map((cfg) => (
             <CommandItem
               key={cfg.id}
               onSelect={() => { setFilterStatus(cfg.id); close(); }}
             >
-              <span className={cn("mr-2 h-2 w-2 rounded-full", {
-                "bg-blue-500": cfg.id === "not-started",
-                "bg-orange-500": cfg.id === "ongoing",
-                "bg-green-500": cfg.id === "completed",
-              })} />
-              {tStatus(`${cfg.id}.label` as any)}
+              <span className={cn("mr-2 h-2 w-2 rounded-full", cfg.dot)} />
+              {cfg.label}
               {filterStatus === cfg.id && <CommandShortcut>active</CommandShortcut>}
             </CommandItem>
           ))}

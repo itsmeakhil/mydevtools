@@ -15,6 +15,7 @@ import { Task } from "@/app/app/to-do/types/Task";
 import { Project } from "@/app/app/to-do/types/Project";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { useStatuses } from "./hooks/useStatuses";
 
 interface ExportImportDialogProps {
   open: boolean;
@@ -30,7 +31,7 @@ export default function ExportImportDialog({
   projects,
 }: ExportImportDialogProps) {
   const t = useTranslations("Tasks.export");
-  const tStatus = useTranslations("Tasks.status");
+  const { statuses } = useStatuses();
   // Filter states
   const [selectedProject, setSelectedProject] = useState<string>("all");
   const [selectedStatus, setSelectedStatus] = useState<string>("all");
@@ -195,9 +196,11 @@ export default function ExportImportDialog({
                 onChange={(e) => setSelectedStatus(e.target.value)}
               >
                 <option value="all">{t("allStatuses")}</option>
-                <option value="not-started">{tStatus("not-started.label")}</option>
-                <option value="ongoing">{tStatus("ongoing.label")}</option>
-                <option value="completed">{tStatus("completed.label")}</option>
+                {statuses.map((status) => (
+                  <option key={status.id} value={status.id}>
+                    {status.label}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="space-y-2">

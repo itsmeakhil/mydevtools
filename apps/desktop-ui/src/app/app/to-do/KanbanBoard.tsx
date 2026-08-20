@@ -14,10 +14,9 @@ import {
 import { Task } from "@/app/app/to-do/types/Task";
 import KanbanCard from "./KanbanCard";
 import KanbanColumn from "./KanbanColumn";
-import { Clock, TrendingUp, CheckCircle2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../../../components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { STATUS_CONFIG } from "./config/constants";
+import { useStatuses } from "./hooks/useStatuses";
 import { useTranslations } from "next-intl";
 
 interface KanbanBoardProps {
@@ -28,14 +27,6 @@ interface KanbanBoardProps {
   isLoading: boolean;
 }
 
-type Status = "not-started" | "ongoing" | "completed";
-
-const columns: { id: Status; icon: typeof Clock }[] = [
-  { id: "not-started", icon: Clock },
-  { id: "ongoing", icon: TrendingUp },
-  { id: "completed", icon: CheckCircle2 },
-];
-
 export default function KanbanBoard({
   tasks,
   onUpdateStatus,
@@ -44,8 +35,8 @@ export default function KanbanBoard({
   isLoading,
 }: KanbanBoardProps) {
   const tKanban = useTranslations("Tasks.kanban");
-  const tStatus = useTranslations("Tasks.status");
-  const [activeTab, setActiveTab] = useState<Status>("not-started");
+  const { statuses } = useStatuses();
+  const [activeTab, setActiveTab] = useState<string>("not-started");
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -55,22 +46,19 @@ export default function KanbanBoard({
     })
   );
 
-  // Group tasks by status
+  // Group tasks by status; unknown statuses (e.g. a deleted custom one) land in the first column
   const tasksByStatus = useMemo(() => {
-    const grouped: Record<Status, Task[]> = {
-      "not-started": [],
-      ongoing: [],
-      completed: [],
-    };
+    const grouped: Record<string, Task[]> = {};
+    statuses.forEach((s) => {
+      grouped[s.id] = [];
+    });
 
     tasks.forEach((task) => {
-      if (grouped[task.status]) {
-        grouped[task.status].push(task);
-      }
+      (grouped[task.status] ?? grouped[statuses[0].id]).push(task);
     });
 
     return grouped;
-  }, [tasks]);
+  }, [tasks, statuses]);
 
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -91,11 +79,11 @@ export default function KanbanBoard({
     if (!task) return;
 
     // Check if dropped on a column (status) or on another task
-    let newStatus: Status;
+    let newStatus: string;
 
     // If dropped directly on a column
-    if (over.id === "not-started" || over.id === "ongoing" || over.id === "completed") {
-      newStatus = over.id as Status;
+    if (statuses.some((s) => s.id === over.id)) {
+      newStatus = over.id as string;
     } else {
       // If dropped on another task, find which column that task belongs to
       const targetTask = tasks.find((t) => t.id === over.id);
@@ -134,43 +122,41 @@ export default function KanbanBoard({
     >
       {/* Mobile View: Tabs */}
       <div className="md:hidden h-full flex flex-col">
-        <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val as Status)} className="h-full flex flex-col">
-          <TabsList className="grid w-full grid-cols-3 mb-4 h-12 bg-muted/50 p-1 rounded-xl">
-            {columns.map((col) => {
-              const config = STATUS_CONFIG[col.id];
-              return (
-                <TabsTrigger
-                  key={col.id}
-                  value={col.id}
-                  className={cn(
-                    "text-xs sm:text-sm font-medium rounded-lg transition-all duration-200",
-                    "data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:scale-[1.02]",
-                    activeTab === col.id && config.color
-                  )}
-                >
-                  <span className="truncate">{tStatus(`${col.id}.label` as any)}</span>
-                  <span className={cn(
-                    "ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full transition-colors",
-                    activeTab === col.id ? "bg-primary/10" : "bg-muted-foreground/10"
-                  )}>
-                    {tasksByStatus[col.id].length}
-                  </span>
-                </TabsTrigger>
-              );
-            })}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
+          <TabsList
+            className="grid w-full mb-4 h-12 bg-muted/50 p-1 rounded-xl"
+            style={{ gridTemplateColumns: `repeat(${statuses.length}, minmax(0, 1fr))` }}
+          >
+            {statuses.map((status) => (
+              <TabsTrigger
+                key={status.id}
+                value={status.id}
+                className={cn(
+                  "text-xs sm:text-sm font-medium rounded-lg transition-all duration-200",
+                  "data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:scale-[1.02]",
+                  activeTab === status.id && status.color
+                )}
+              >
+                <span className="truncate">{status.label}</span>
+                <span className={cn(
+                  "ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full transition-colors",
+                  activeTab === status.id ? "bg-primary/10" : "bg-muted-foreground/10"
+                )}>
+                  {tasksByStatus[status.id].length}
+                </span>
+              </TabsTrigger>
+            ))}
           </TabsList>
 
-          {columns.map((column) => (
+          {statuses.map((status) => (
             <TabsContent
-              key={column.id}
-              value={column.id}
+              key={status.id}
+              value={status.id}
               className="flex-1 mt-0 h-full overflow-hidden data-[state=inactive]:hidden"
             >
               <KanbanColumn
-                id={column.id}
-                title={tStatus(`${column.id}.label` as any)}
-                icon={column.icon}
-                tasks={tasksByStatus[column.id]}
+                status={status}
+                tasks={tasksByStatus[status.id]}
                 onUpdateTask={onUpdateTask}
                 onDeleteTask={onDeleteTask}
               />
@@ -180,14 +166,17 @@ export default function KanbanBoard({
       </div>
 
       {/* Desktop View: Grid */}
-      <div className="hidden md:grid grid-cols-3 gap-4 lg:gap-6 h-full" role="main" aria-label={tKanban("ariaLabel")}>
-        {columns.map((column) => (
+      <div
+        className="hidden md:grid gap-4 lg:gap-6 h-full overflow-x-auto"
+        style={{ gridTemplateColumns: `repeat(${statuses.length}, minmax(260px, 1fr))` }}
+        role="main"
+        aria-label={tKanban("ariaLabel")}
+      >
+        {statuses.map((status) => (
           <KanbanColumn
-            key={column.id}
-            id={column.id}
-            title={tStatus(`${column.id}.label` as any)}
-            icon={column.icon}
-            tasks={tasksByStatus[column.id]}
+            key={status.id}
+            status={status}
+            tasks={tasksByStatus[status.id]}
             onUpdateTask={onUpdateTask}
             onDeleteTask={onDeleteTask}
           />
