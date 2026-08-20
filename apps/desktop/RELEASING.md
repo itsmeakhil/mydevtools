@@ -173,7 +173,7 @@ account, no certificate, no notarytool. You just build and ship the artifacts.
 sudo apt update && sudo apt install -y \
   libwebkit2gtk-4.1-dev build-essential curl wget file \
   libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev patchelf \
-  libdbus-1-dev
+  libdbus-1-dev xdg-utils
 ```
 
 `libdbus-1-dev` is required by the `dbus-secret-service` crate, which backs the
