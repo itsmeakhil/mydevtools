@@ -4,7 +4,7 @@ import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical, Edit, Calendar, Tag, CheckCircle2, MoreHorizontal, Trash2, Copy, Check, Play, Pause, Timer, Archive, ArchiveRestore } from "lucide-react";
+import { GripVertical, Edit, Calendar, CheckCircle2, MoreHorizontal, Trash2, Copy, Check, Play, Pause, Timer, Archive, ArchiveRestore } from "lucide-react";
 import { formatElapsed, getElapsedMinutes } from "@/app/app/to-do/utils/taskTimeUtils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -103,10 +103,9 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
         {...attributes}
         {...listeners}
         className={cn(
-          "group relative p-3 md:p-4 rounded-xl border transition-all duration-200",
-          "hover:shadow-md hover:-translate-y-0.5 bg-card",
-          "cursor-grab active:cursor-grabbing border-border",
-          "hover:border-primary/30",
+          "group relative p-3 rounded-md border border-border/50 bg-card shadow-xs transition-all duration-200",
+          "hover:shadow-sm hover:border-border",
+          "cursor-grab active:cursor-grabbing",
           isDragging && "shadow-2xl scale-105 z-50 rotate-1 opacity-90",
           task.status === "completed" && "opacity-75 bg-muted/30"
         )}
@@ -121,52 +120,46 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
           <GripVertical className="h-4 w-4 text-muted-foreground" />
         </div>
 
-        {/* Status Icon and Task Text - Enhanced */}
-        <div className="flex items-start gap-2.5 mb-3 pr-6">
-          <div
-            className={cn(
-              "flex items-center justify-center p-2 rounded-lg transition-all flex-shrink-0",
-              statusConfig.bgColor,
-              "group-hover:scale-110"
+        {/* Header (priority left, status right) + content */}
+        <div className="mb-2">
+          <div className="flex items-center justify-between gap-1.5 mb-1.5 pr-6">
+            {task.priority && task.priority !== "medium" ? (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className={cn(PRIORITY_CONFIG[task.priority].color, "flex-shrink-0")}>
+                      {React.createElement(PRIORITY_CONFIG[task.priority].icon, { className: "h-3.5 w-3.5" })}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{PRIORITY_CONFIG[task.priority].label} Priority</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ) : (
+              <span />
             )}
-          >
-            <StatusIcon className={cn("h-4 w-4", statusConfig.color)} />
+            <StatusIcon className={cn("h-4 w-4 flex-shrink-0", statusConfig.color)} />
           </div>
-          <div className="flex-1 min-w-0 space-y-1.5">
-            <div className="flex items-start gap-1.5">
-              <h3
-                className={cn(
-                  "text-sm font-semibold flex-1 leading-snug",
-                  task.status === "completed"
-                    ? "text-muted-foreground line-through decoration-muted-foreground/50"
-                    : "text-foreground"
-                )}
-                title={task.text}
-              >
-                {task.text}
-              </h3>
-              {task.priority && task.priority !== "medium" && (
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <span className={cn(PRIORITY_CONFIG[task.priority].color, "flex-shrink-0")}>
-                        {React.createElement(PRIORITY_CONFIG[task.priority].icon, { className: "h-3.5 w-3.5" })}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{PRIORITY_CONFIG[task.priority].label} Priority</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+          <div className="min-w-0 space-y-1.5">
+            <h3
+              className={cn(
+                "text-sm font-semibold leading-snug line-clamp-2",
+                task.status === "completed"
+                  ? "text-muted-foreground line-through decoration-muted-foreground/50"
+                  : "text-foreground"
               )}
-            </div>
+              title={task.text}
+            >
+              {task.text}
+            </h3>
 
             {/* Project Badge */}
             {project && (
               <div>
                 <Badge
                   variant="outline"
-                  className="gap-1.5 px-1.5 py-0 h-5 border text-[10px] font-normal inline-flex"
+                  className="gap-1.5 px-2 py-0 h-5 rounded-full border text-[10px] font-normal text-muted-foreground bg-background inline-flex"
                 >
                   <div className={cn("w-1.5 h-1.5 rounded-full", project.color)} />
                   {project.name}
@@ -187,10 +180,9 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
                   <Badge
                     key={tag.id}
                     variant="outline"
-                    style={{ borderColor: tag.color, color: tag.color }}
-                    className="text-[10px] px-1.5 py-0 h-5 gap-1 hover:bg-muted/50 transition-colors"
+                    className="text-[10px] px-2 py-0 h-5 gap-1.5 rounded-full text-muted-foreground bg-background hover:bg-muted/50 transition-colors"
                   >
-                    <Tag className="h-2.5 w-2.5" />
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: tag.color }} aria-hidden />
                     {tag.name}
                   </Badge>
                 ))}

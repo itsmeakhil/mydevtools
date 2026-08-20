@@ -66,6 +66,7 @@ export const TaskContainer = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+  const [addTaskStatus, setAddTaskStatus] = useState<string | null>(null);
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const {
@@ -140,12 +141,13 @@ export const TaskContainer = () => {
   // Calculate statistics using all tasks stats
   const completionRate = allTaskStats.total > 0 ? Math.round((allTaskStats.completed / allTaskStats.total) * 100) : 0;
 
-  // Template for the create dialog — preselects the centrally selected project.
+  // Template for the create dialog — preselects the centrally selected project
+  // and, when opened from a status group's "+", that status.
   const blankTask = useMemo<Task>(
     () => ({
       id: "",
       text: "",
-      status: "not-started",
+      status: addTaskStatus ?? "not-started",
       statusOrder: 0,
       createdAt: "",
       created_by: "",
@@ -153,8 +155,13 @@ export const TaskContainer = () => {
       subTasks: [],
       projectId: filterProject !== "all" ? filterProject : undefined,
     }),
-    [filterProject]
+    [filterProject, addTaskStatus]
   );
+
+  const openAddTask = useCallback((statusId?: string) => {
+    setAddTaskStatus(statusId ?? null);
+    setIsAddTaskOpen(true);
+  }, []);
 
   const handleCreateTask = useCallback(
     async (updates: Partial<Task>) => {
@@ -218,7 +225,7 @@ export const TaskContainer = () => {
 
       if (!isMobile && event.key?.toLowerCase() === "n" && !isTypingInField) {
         event.preventDefault();
-        setIsAddTaskOpen(true);
+        openAddTask();
       }
     };
 
@@ -434,7 +441,7 @@ export const TaskContainer = () => {
                 {/* Add Task */}
                 <Button
                   size="sm"
-                  onClick={() => setIsAddTaskOpen(true)}
+                  onClick={() => openAddTask()}
                   className="h-9 px-3 gap-2"
                 >
                   <Plus className="h-3.5 w-3.5" />
@@ -668,6 +675,7 @@ export const TaskContainer = () => {
                     onUpdateStatus={updateTaskStatus}
                     onUpdateTask={updateTask}
                     onDeleteTask={deleteTask}
+                    onAddInStatus={openAddTask}
                   />
                 </div>
               ) : (
@@ -680,6 +688,7 @@ export const TaskContainer = () => {
                       onUpdateStatus={updateTaskStatus}
                       onUpdateTask={updateTask}
                       onDeleteTask={deleteTask}
+                      onAddInStatus={openAddTask}
                     />
                   </CardContent>
                 </Card>
@@ -706,7 +715,7 @@ export const TaskContainer = () => {
       <div className="md:hidden">
         <Button
           size="icon"
-          onClick={() => setIsAddTaskOpen(true)}
+          onClick={() => openAddTask()}
           className="fab fab-pulse h-14 w-14 bg-primary hover:bg-primary/90 text-primary-foreground transition-transform active:scale-95"
         >
           <Plus className="h-6 w-6" />
@@ -760,7 +769,7 @@ export const TaskContainer = () => {
               onOpenChange={setIsPaletteOpen}
               viewMode={viewMode}
               onViewModeChange={setViewMode}
-              onNewTask={() => setIsAddTaskOpen(true)}
+              onNewTask={() => openAddTask()}
             />
           </Suspense>
         </LazyBoundary>
