@@ -18,12 +18,12 @@ const LINUX_RELEASE_URL =
 export const metadata: Metadata = {
   title: "MyDevTools for Linux — preview builds",
   description:
-    "Preview builds of the MyDevTools desktop app for Linux. Completely offline, no account required, free for everyone. AppImage and .deb packages.",
+    "Preview builds of the MyDevTools desktop app for Linux, currently ARM64 (aarch64) only. Completely offline, no account required, free for everyone. AppImage and .deb packages.",
   alternates: { canonical: `${baseUrl}/linux-builds` },
   openGraph: {
     title: "MyDevTools for Linux — preview builds | MyDevTools",
     description:
-      "Preview builds of the MyDevTools desktop app for Linux — AppImage and .deb. Offline, no account, free for everyone.",
+      "Preview builds of the MyDevTools desktop app for Linux, ARM64 (aarch64) only. AppImage and .deb. Offline, no account, free for everyone.",
     url: `${baseUrl}/linux-builds`,
     siteName: "MyDevTools",
     type: "website",
@@ -54,11 +54,16 @@ export default function LinuxBuildsPage() {
 
           {/* Preview status — set expectations honestly */}
           <div className="mt-8 mx-auto max-w-xl rounded-xl border border-amber-500/30 bg-amber-500/[0.06] px-5 py-4 text-left">
-            <p className="text-sm font-semibold text-amber-200">Preview build</p>
+            <p className="text-sm font-semibold text-amber-200">
+              Preview build — ARM64 (aarch64) only
+            </p>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              Linux support is new and still being validated. Unlike the macOS build,
-              these packages are not yet covered by automatic updates — grab a newer
-              build from this page when one lands.
+              These packages are built for <strong className="text-foreground">ARM64
+              (aarch64)</strong> machines and will not run on a typical x86_64 desktop
+              — an x86_64 build is not published yet. Linux support is also new and
+              still being validated, and unlike the macOS build these packages are not
+              yet covered by automatic updates; grab a newer build from this page when
+              one lands.
             </p>
           </div>
 
@@ -71,7 +76,7 @@ export default function LinuxBuildsPage() {
               </a>
             </Button>
             <p className="mt-2 text-sm text-muted-foreground">
-              AppImage &amp; .deb · from the GitHub releases page
+              ARM64 (aarch64) · AppImage &amp; .deb · from the GitHub releases page
             </p>
           </div>
 

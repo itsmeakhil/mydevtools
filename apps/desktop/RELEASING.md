@@ -179,6 +179,13 @@ sudo apt update && sudo apt install -y \
 `libdbus-1-dev` is required by the `dbus-secret-service` crate, which backs the
 Linux keyring (see the platform-split `keyring` dependency in `Cargo.toml`).
 
+`xdg-utils` is required by the AppImage bundler — `tauri-plugin-opener` embeds
+`xdg-open`, and bundling fails with "xdg-open binary not found" without it.
+
+> On a memory-constrained builder (e.g. Docker Desktop), the release profile's fat
+> LTO can get the linker OOM-killed (`signal: 9, SIGKILL`). Build with
+> `CARGO_PROFILE_RELEASE_LTO=false` if that happens.
+
 ### Build
 
 ```bash
