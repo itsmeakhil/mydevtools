@@ -163,10 +163,10 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
 
             {/* Project Badge */}
             {project && (
-              <div className="mb-1.5">
+              <div>
                 <Badge
                   variant="outline"
-                  className="gap-1.5 px-2 py-0.5 border text-[10px] font-normal inline-flex"
+                  className="gap-1.5 px-1.5 py-0 h-5 border text-[10px] font-normal inline-flex"
                 >
                   <div className={cn("w-1.5 h-1.5 rounded-full", project.color)} />
                   {project.name}
@@ -188,7 +188,7 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
                     key={tag.id}
                     variant="outline"
                     style={{ borderColor: tag.color, color: tag.color }}
-                    className="text-[10px] px-1.5 py-0.5 h-5 gap-1 hover:bg-muted/50 transition-colors"
+                    className="text-[10px] px-1.5 py-0 h-5 gap-1 hover:bg-muted/50 transition-colors"
                   >
                     <Tag className="h-2.5 w-2.5" />
                     {tag.name}

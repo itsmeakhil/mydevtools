@@ -218,41 +218,16 @@ function TaskItem({
 
             {/* Task Content */}
             <div className="flex-1 min-w-0 space-y-2">
-              <div className="flex items-start gap-2 flex-wrap">
-                <h3
-                  className={cn(
-                    "block text-[15px] md:text-base font-semibold leading-tight transition-all flex-1 min-w-0",
-                    task.status === "completed"
-                      ? "text-muted-foreground line-through decoration-muted-foreground/50"
-                      : "text-foreground"
-                  )}
-                >
-                  {task.text}
-                </h3>
-                {task.priority && task.priority !== "medium" && (
-                  <Badge
-                    variant="outline"
-                    className={cn(
-                      PRIORITY_CONFIG[task.priority].color,
-                      PRIORITY_CONFIG[task.priority].bgColor,
-                      PRIORITY_CONFIG[task.priority].borderColor,
-                      "gap-1.5 px-2 py-0.5 border flex-shrink-0"
-                    )}
-                  >
-                    {React.createElement(PRIORITY_CONFIG[task.priority].icon, { className: "h-3.5 w-3.5" })}
-                    <span className="text-xs font-medium">{PRIORITY_CONFIG[task.priority].label}</span>
-                  </Badge>
+              <h3
+                className={cn(
+                  "text-[15px] md:text-base font-semibold leading-tight transition-all",
+                  task.status === "completed"
+                    ? "text-muted-foreground line-through decoration-muted-foreground/50"
+                    : "text-foreground"
                 )}
-                {project && (
-                  <Badge
-                    variant="outline"
-                    className="gap-1.5 px-2 py-0.5 border text-[10px] font-normal flex-shrink-0"
-                  >
-                    <div className={cn("w-1.5 h-1.5 rounded-full", project.color)} />
-                    {project.name}
-                  </Badge>
-                )}
-              </div>
+              >
+                {task.text}
+              </h3>
 
               {task.description && (
                 <p className="text-xs md:text-sm text-muted-foreground line-clamp-3 leading-relaxed">
@@ -268,7 +243,7 @@ function TaskItem({
                       key={tag.id}
                       variant="outline"
                       style={{ borderColor: tag.color, color: tag.color }}
-                      className="text-[10px] md:text-xs gap-1 px-2 py-0.5 hover:bg-muted/50 transition-colors"
+                      className="text-[10px] gap-1 px-1.5 py-0 h-5 hover:bg-muted/50 transition-colors"
                     >
                       <Tag className="h-3 w-3" />
                       {tag.name}
@@ -295,9 +270,20 @@ function TaskItem({
                 </div>
               )}
 
-              {/* Tags & Metadata Row */}
-              <div className="flex flex-wrap items-center gap-2 mt-1">
-                {/* Priority Badge */}
+              {/* Metadata Row — uniform h-5 chips so everything sits on one line */}
+              <div className="flex flex-wrap items-center gap-1.5">
+                {/* Project */}
+                {project && (
+                  <Badge
+                    variant="outline"
+                    className="gap-1.5 px-1.5 py-0 h-5 border text-[10px] font-normal"
+                  >
+                    <div className={cn("w-1.5 h-1.5 rounded-full", project.color)} />
+                    {project.name}
+                  </Badge>
+                )}
+
+                {/* Priority */}
                 {task.priority && task.priority !== "medium" && (
                   <Badge
                     variant="outline"
@@ -308,6 +294,7 @@ function TaskItem({
                       "gap-1 px-1.5 py-0 border h-5 text-[10px] font-medium"
                     )}
                   >
+                    {React.createElement(PRIORITY_CONFIG[task.priority].icon, { className: "h-3 w-3" })}
                     {PRIORITY_CONFIG[task.priority].label}
                   </Badge>
                 )}
@@ -364,8 +351,8 @@ function TaskItem({
               </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-2 flex-shrink-0 self-start md:self-center">
+            {/* Actions — top-aligned with the title so the status select never drifts */}
+            <div className="flex items-center gap-2 flex-shrink-0 self-start">
               {/* Assignee */}
               <AssigneePicker
                 assigneeUid={task.assigneeUid}
