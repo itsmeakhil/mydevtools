@@ -35,24 +35,3 @@ export interface Task {
   projectId?: string;
   assigneeUid?: string | null; // workspace member uid; null/undefined = unassigned
 }
-
-export interface NewTask {
-  text: string;
-  description?: string;
-  status: TaskStatus;
-  statusOrder: number;
-  priority?: TaskPriority;
-  dueDate?: string;
-  tags?: TaskTag[];
-  subTasks?: SubTask[];
-  createdAt: string;
-  completedAt?: string;
-  created_by: string;
-  archived?: boolean;
-  timeEstimate?: number;
-  timeLogged?: number;
-  isTimerRunning?: boolean;
-  timerStartedAt?: string;
-  projectId?: string;
-  assigneeUid?: string;
-}
