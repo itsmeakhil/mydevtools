@@ -16,6 +16,11 @@ const TaskCommandPalette = lazy(() =>
   }))
 );
 const ManageStatusesDialog = lazy(() => import("@/app/app/to-do/ManageStatusesDialog"));
+const ProjectManagerDialog = lazy(() =>
+  import("@/app/app/to-do/components/ProjectManagerDialog").then((m) => ({
+    default: m.ProjectManagerDialog,
+  }))
+);
 import { useTaskContext } from "@/app/app/to-do/context/TaskContext";
 import { useWorkspaceMembers, memberLabel } from "@/app/app/to-do/hooks/useWorkspaceMembers";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
@@ -145,12 +150,13 @@ export const TaskContainer = () => {
   // Calculate statistics using all tasks stats
   const completionRate = allTaskStats.total > 0 ? Math.round((allTaskStats.completed / allTaskStats.total) * 100) : 0;
 
+  // New tasks land in the centrally selected project; "all" creates them unassigned.
   const handleAddTask = useCallback(
     (taskText: string) => {
-      addTask(taskText);
+      addTask(taskText, filterProject !== "all" ? filterProject : undefined);
       setIsDrawerOpen(false);
     },
-    [addTask]
+    [addTask, filterProject]
   );
 
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
@@ -226,12 +232,21 @@ export const TaskContainer = () => {
       icon={Folder}
       title={tPage("myTasksTitle")}
       sidebar={
-        <ToolSidebarFilterList
-          items={projectFilters}
-          value={filterProject}
-          onChange={setFilterProject}
-          heading={tFilters("projectsHeading")}
-        />
+        <div className="flex min-h-0 flex-1 flex-col">
+          <ToolSidebarFilterList
+            items={projectFilters}
+            value={filterProject}
+            onChange={setFilterProject}
+            heading={tFilters("projectsHeading")}
+          />
+          <div className="px-2 pb-2">
+            <LazyBoundary fallback={null}>
+              <Suspense fallback={null}>
+                <ProjectManagerDialog />
+              </Suspense>
+            </LazyBoundary>
+          </div>
+        </div>
       }
     >
     <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
@@ -605,7 +620,7 @@ export const TaskContainer = () => {
 
         {/* Task Form - Hidden on mobile, visible on desktop */}
         <div className="hidden md:block">
-          <TaskForm onAddTask={addTask} inputRef={taskFormInputRef} />
+          <TaskForm onAddTask={handleAddTask} inputRef={taskFormInputRef} />
         </div>
 
         {/* Task View */}
