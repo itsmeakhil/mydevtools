@@ -14,7 +14,7 @@ const STAGGER_LIMIT = 8;
 interface TaskListProps {
   tasks: Task[];
   isLoading: boolean;
-  onUpdateStatus: (id: string, status: "not-started" | "ongoing" | "completed") => void;
+  onUpdateStatus: (id: string, status: string) => void;
   onUpdateTask: (id: string, updates: Partial<Task>) => Promise<void>;
   onDeleteTask: (id: string) => void;
 }

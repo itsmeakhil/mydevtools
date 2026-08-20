@@ -750,6 +750,21 @@
         "description": "已完成的任务"
       }
     },
+    "manageStatuses": {
+      "manageButton": "状态",
+      "title": "管理状态",
+      "description": "为默认状态选择颜色，并添加自定义状态。",
+      "defaults": "默认状态",
+      "custom": "自定义状态",
+      "addPlaceholder": "新状态名称",
+      "add": "添加",
+      "colorAria": "设置颜色 {color}",
+      "deleteAria": "删除 {label}",
+      "deleteConfirmTitle": "删除“{label}”？",
+      "deleteConfirmBody": "具有此状态的任务将移至“{fallback}”。",
+      "cancel": "取消",
+      "delete": "删除"
+    },
     "priorities": {
       "high": "高",
       "medium": "中",

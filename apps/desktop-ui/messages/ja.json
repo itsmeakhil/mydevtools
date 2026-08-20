@@ -750,6 +750,21 @@
         "description": "完了したタスク"
       }
     },
+    "manageStatuses": {
+      "manageButton": "ステータス",
+      "title": "ステータスの管理",
+      "description": "既定ステータスの色を選び、独自のステータスを追加できます。",
+      "defaults": "既定のステータス",
+      "custom": "カスタムステータス",
+      "addPlaceholder": "新しいステータス名",
+      "add": "追加",
+      "colorAria": "色を {color} に設定",
+      "deleteAria": "{label} を削除",
+      "deleteConfirmTitle": "「{label}」を削除しますか？",
+      "deleteConfirmBody": "このステータスのタスクは「{fallback}」に移動します。",
+      "cancel": "キャンセル",
+      "delete": "削除"
+    },
     "priorities": {
       "high": "高",
       "medium": "中",

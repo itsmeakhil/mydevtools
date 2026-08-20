@@ -750,6 +750,21 @@
         "description": "Tasques finalitzades"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Estats",
+      "title": "Gestiona els estats",
+      "description": "Tria colors per als estats predeterminats i afegeix els teus.",
+      "defaults": "Estats predeterminats",
+      "custom": "Estats personalitzats",
+      "addPlaceholder": "Nom del nou estat",
+      "add": "Afegeix",
+      "colorAria": "Estableix el color {color}",
+      "deleteAria": "Suprimeix {label}",
+      "deleteConfirmTitle": "Vols suprimir “{label}”?",
+      "deleteConfirmBody": "Les tasques amb aquest estat passaran a “{fallback}”.",
+      "cancel": "Cancel·la",
+      "delete": "Suprimeix"
+    },
     "priorities": {
       "high": "Alta",
       "medium": "Mitjana",

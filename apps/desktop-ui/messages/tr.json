@@ -750,6 +750,21 @@
         "description": "Tamamlanmış görevler"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Durumlar",
+      "title": "Durumları yönet",
+      "description": "Varsayılan durumlar için renk seçin ve kendi durumlarınızı ekleyin.",
+      "defaults": "Varsayılan durumlar",
+      "custom": "Özel durumlar",
+      "addPlaceholder": "Yeni durum adı",
+      "add": "Ekle",
+      "colorAria": "{color} rengini ayarla",
+      "deleteAria": "{label} durumunu sil",
+      "deleteConfirmTitle": "“{label}” silinsin mi?",
+      "deleteConfirmBody": "Bu duruma sahip görevler “{fallback}” durumuna taşınacak.",
+      "cancel": "İptal",
+      "delete": "Sil"
+    },
     "priorities": {
       "high": "Yüksek",
       "medium": "Orta",

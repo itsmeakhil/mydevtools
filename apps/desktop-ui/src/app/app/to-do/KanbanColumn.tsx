@@ -6,15 +6,12 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Task } from "@/app/app/to-do/types/Task";
 import KanbanCard from "./KanbanCard";
-import { LucideIcon } from "lucide-react";
-import { STATUS_CONFIG } from "./config/constants";
 import { cn } from "@/lib/utils";
+import { ResolvedStatus } from "./hooks/useStatuses";
 import { useTranslations } from "next-intl";
 
 interface KanbanColumnProps {
-  id: "not-started" | "ongoing" | "completed";
-  title: string;
-  icon: LucideIcon;
+  status: ResolvedStatus;
   tasks: Task[];
   onUpdateTask: (id: string, updates: Partial<Task>) => Promise<void>;
   onDeleteTask: (id: string) => void;
@@ -24,18 +21,16 @@ const VIRTUALIZATION_THRESHOLD = 30;
 const ESTIMATED_CARD_HEIGHT = 160;
 
 export default function KanbanColumn({
-  id,
-  title,
-  icon: Icon,
+  status,
   tasks,
   onUpdateTask,
   onDeleteTask,
 }: KanbanColumnProps) {
   const tKanban = useTranslations("Tasks.kanban");
-  const tStatus = useTranslations("Tasks.status");
-  const { setNodeRef, isOver } = useDroppable({ id });
+  const { setNodeRef, isOver } = useDroppable({ id: status.id });
 
-  const config = STATUS_CONFIG[id];
+  const config = status;
+  const { label: title, icon: Icon } = status;
   const taskIds = tasks.map((task) => task.id);
   const shouldVirtualize = tasks.length > VIRTUALIZATION_THRESHOLD;
 
@@ -52,8 +47,8 @@ export default function KanbanColumn({
       ref={setNodeRef}
       className={cn(
         "flex flex-col h-full rounded-xl border-2 p-4 md:p-5 transition-all duration-300",
-        config.bgColor,
-        config.borderColor,
+        // Neutral column surface — the status color lives in the header (dot, title, count).
+        "bg-muted/30 border-border/60",
         isOver
           ? "ring-1 ring-primary/60 shadow-md scale-[1.005] bg-primary/[0.02]"
           : "hover:shadow-sm"
@@ -63,7 +58,7 @@ export default function KanbanColumn({
     >
       {/* Column Header */}
       <div className="flex items-center gap-3 mb-4 pb-3 border-b border-border/50">
-        <span className="status-dot" data-status={id} aria-hidden />
+        <span className={cn("status-dot", config.dot)} aria-hidden />
         <h3 className={cn("font-display text-xl font-semibold tracking-tight flex-1", config.color)}>
           {title}
         </h3>
@@ -113,9 +108,9 @@ export default function KanbanColumn({
               )}>
                 {isOver ? tKanban("dropHere") : tKanban("noTasksYet")}
               </span>
-              {!isOver && (
+              {!isOver && config.description && (
                 <p className="text-xs text-muted-foreground/50 mt-1">
-                  {tStatus(`${id}.description` as any)}
+                  {config.description}
                 </p>
               )}
             </div>

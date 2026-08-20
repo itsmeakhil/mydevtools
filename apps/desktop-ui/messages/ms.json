@@ -750,6 +750,21 @@
         "description": "Tugasan yang telah siap"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Status",
+      "title": "Urus status",
+      "description": "Pilih warna untuk status lalai dan tambah status anda sendiri.",
+      "defaults": "Status lalai",
+      "custom": "Status tersuai",
+      "addPlaceholder": "Nama status baharu",
+      "add": "Tambah",
+      "colorAria": "Tetapkan warna {color}",
+      "deleteAria": "Padam {label}",
+      "deleteConfirmTitle": "Padam “{label}”?",
+      "deleteConfirmBody": "Tugasan dengan status ini akan dipindahkan ke “{fallback}”.",
+      "cancel": "Batal",
+      "delete": "Padam"
+    },
     "priorities": {
       "high": "Tinggi",
       "medium": "Sederhana",

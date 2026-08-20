@@ -750,6 +750,21 @@
         "description": "Take wat klaar is"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Statusse",
+      "title": "Bestuur statusse",
+      "description": "Kies kleure vir die verstekstatusse en voeg jou eie by.",
+      "defaults": "Verstekstatusse",
+      "custom": "Pasgemaakte statusse",
+      "addPlaceholder": "Nuwe statusnaam",
+      "add": "Voeg by",
+      "colorAria": "Stel kleur {color}",
+      "deleteAria": "Vee {label} uit",
+      "deleteConfirmTitle": "Vee “{label}” uit?",
+      "deleteConfirmBody": "Take met hierdie status skuif na “{fallback}”.",
+      "cancel": "Kanselleer",
+      "delete": "Vee uit"
+    },
     "priorities": {
       "high": "Hoog",
       "medium": "Medium",

@@ -750,6 +750,21 @@
         "description": "Compiti finiti"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Stati",
+      "title": "Gestisci stati",
+      "description": "Scegli i colori per gli stati predefiniti e aggiungi i tuoi.",
+      "defaults": "Stati predefiniti",
+      "custom": "Stati personalizzati",
+      "addPlaceholder": "Nome del nuovo stato",
+      "add": "Aggiungi",
+      "colorAria": "Imposta colore {color}",
+      "deleteAria": "Elimina {label}",
+      "deleteConfirmTitle": "Eliminare “{label}”?",
+      "deleteConfirmBody": "Le attività con questo stato passeranno a “{fallback}”.",
+      "cancel": "Annulla",
+      "delete": "Elimina"
+    },
     "priorities": {
       "high": "Alto",
       "medium": "Medio",

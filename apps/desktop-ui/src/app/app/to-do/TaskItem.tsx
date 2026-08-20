@@ -36,7 +36,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { STATUS_CONFIG, PRIORITY_CONFIG } from "./config/constants";
+import { PRIORITY_CONFIG } from "./config/constants";
+import { useStatuses } from "./hooks/useStatuses";
 import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import { useProjectContext } from "@/app/app/to-do/context/ProjectContext";
 import { useTranslations } from "next-intl";
@@ -56,7 +57,6 @@ function TaskItem({
   onDeleteTask,
 }: TaskItemProps) {
   const tItem = useTranslations("Tasks.taskItem");
-  const tStatus = useTranslations("Tasks.status");
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [justCompleted, setJustCompleted] = useState(false);
@@ -82,7 +82,8 @@ function TaskItem({
   const { projects } = useProjectContext();
   const project = task.projectId ? projects.find(p => p.id === task.projectId) : null;
 
-  const statusConfig = STATUS_CONFIG[task.status] || STATUS_CONFIG["not-started"];
+  const { statuses, getStatus } = useStatuses();
+  const statusConfig = getStatus(task.status);
   const StatusIcon = statusConfig.icon;
 
   // Check if task is overdue
@@ -386,11 +387,11 @@ function TaskItem({
                   </SelectTrigger>
 
                   <SelectContent>
-                    {Object.values(STATUS_CONFIG).map((config) => (
+                    {statuses.map((config) => (
                       <SelectItem key={config.id} value={config.id}>
                         <div className="flex items-center gap-2">
                           <config.icon className={cn("h-3.5 w-3.5", config.color)} />
-                          <span>{tStatus(`${config.id}.label` as any)}</span>
+                          <span>{config.label}</span>
                         </div>
                       </SelectItem>
                     ))}
@@ -433,16 +434,16 @@ function TaskItem({
                     <div className="p-2">
                       <p className="text-xs font-semibold text-muted-foreground mb-2">{tItem("statusHeading")}</p>
                       <div className="grid grid-cols-1 gap-1">
-                        {Object.values(STATUS_CONFIG).map((config) => (
+                        {statuses.map((config) => (
                           <Button
                             key={config.id}
                             variant={task.status === config.id ? "secondary" : "ghost"}
                             size="sm"
                             className="justify-start h-7 text-xs"
-                            onClick={() => handleStatusChange(config.id as Task["status"])}
+                            onClick={() => handleStatusChange(config.id)}
                           >
                             <config.icon className={cn("h-3.5 w-3.5 mr-2", config.color)} />
-                            {tStatus(`${config.id}.label` as any)}
+                            {config.label}
                           </Button>
                         ))}
                       </div>

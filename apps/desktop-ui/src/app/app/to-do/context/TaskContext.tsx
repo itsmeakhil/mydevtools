@@ -22,6 +22,7 @@ import {
   removePendingDelete,
   getAllPendingDeletes,
 } from "@/app/app/to-do/utils/pendingDeletes";
+import { readStatusSettings } from "@/app/app/to-do/hooks/useStatuses";
 
 interface TaskStats {
   total: number;
@@ -42,8 +43,8 @@ interface TaskContextType {
   currentPage: number;
   totalPages: number;
   totalTaskCount: number;
-  filterStatus: "all" | "not-started" | "ongoing" | "completed";
-  setFilterStatus: (status: "all" | "not-started" | "ongoing" | "completed") => void;
+  filterStatus: string; // "all" | any status id (built-in or custom)
+  setFilterStatus: (status: string) => void;
   filterProject: string | "all";
   setFilterProject: (projectId: string | "all") => void;
   filterAssignee: string; // "all" | "me" | "unassigned" | member uid
@@ -56,7 +57,8 @@ interface TaskContextType {
   handlePageChange: (page: number) => void;
   addTask: (text: string, projectId?: string) => Promise<void>;
   updateTask: (taskId: string, updates: Partial<Task>) => Promise<void>;
-  updateTaskStatus: (taskId: string, newStatus: "not-started" | "ongoing" | "completed") => Promise<void>;
+  updateTaskStatus: (taskId: string, newStatus: string) => Promise<void>;
+  reassignStatus: (fromStatus: string) => Promise<void>;
   deleteTask: (taskId: string) => Promise<void>;
   archiveTask: (taskId: string) => Promise<void>;
   restoreTask: (taskId: string) => Promise<void>;
@@ -64,11 +66,6 @@ interface TaskContextType {
   getFilteredTasksForExport: () => Promise<Task[]>;
 }
 
-interface StatusOrderMap {
-  ongoing: number;
-  "not-started": number;
-  completed: number;
-}
 
 type TaskActions = Pick<
   TaskContextType,
@@ -117,7 +114,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [filterStatus, setFilterStatus] = useState<"all" | "not-started" | "ongoing" | "completed">("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
   const [filterProject, setFilterProject] = useState<string | "all">("all");
   const [filterAssignee, setFilterAssignee] = useState<string>("all");
   const [showArchived, setShowArchived] = useState(false);
@@ -335,19 +332,21 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   );
 
   const updateTaskStatus = useCallback(
-    async (taskId: string, newStatus: "not-started" | "ongoing" | "completed"): Promise<void> => {
-      const statusOrder: StatusOrderMap = {
+    async (taskId: string, newStatus: string): Promise<void> => {
+      const builtInOrder: Record<string, number> = {
         ongoing: 1,
         "not-started": 2,
         completed: 3,
       };
+      const customs = readStatusSettings().custom;
+      const customIndex = customs.findIndex((c) => c.id === newStatus);
 
-      if (!(newStatus in statusOrder)) return;
+      if (!(newStatus in builtInOrder) && customIndex === -1) return;
 
       const task = tasksRef.current.find((t) => t.id === taskId);
       const updates: Partial<Task> = {
         status: newStatus,
-        statusOrder: statusOrder[newStatus],
+        statusOrder: builtInOrder[newStatus] ?? 4 + customIndex,
       };
       if (newStatus === "completed") {
         updates.completedAt = format(new Date(), "dd MMM yyyy, hh:mm a");
@@ -371,7 +370,9 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
         }
 
         if (task) {
-          toast.success(tAck("taskMovedTitle", { status: tStatus(`${newStatus}.label` as any) }), {
+          const label =
+            customIndex >= 0 ? customs[customIndex].label : tStatus(`${newStatus}.label` as any);
+          toast.success(tAck("taskMovedTitle", { status: label }), {
             description: task.text.length > 50 ? `${task.text.substring(0, 50)}...` : task.text,
           });
         }
@@ -380,6 +381,34 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       }
     },
     [updateTask, queryClient, tAck, tStatus]
+  );
+
+  // Moves every task with `fromStatus` (used when a custom status is deleted) to "not-started".
+  const reassignStatus = useCallback(
+    async (fromStatus: string): Promise<void> => {
+      if (!user) return;
+      for (const archived of ["false", "true"]) {
+        const params = new URLSearchParams({
+          status: fromStatus,
+          archived,
+          page: "1",
+          // ponytail: one unpaginated fetch; loop pages if a workspace ever holds >100k tasks
+          pageSize: "100000",
+        });
+        const res = await authedFetch(`/api/backend/tasks?${params.toString()}`, { method: "GET" });
+        const data = await res.json();
+        const items: Task[] = data.items ?? [];
+        for (const t of items) {
+          await authedFetch(`/api/backend/tasks/${t.id}`, {
+            method: "PATCH",
+            body: JSON.stringify({ status: "not-started", statusOrder: 2 }),
+          });
+        }
+      }
+      invalidateTasks();
+      invalidateStats();
+    },
+    [user, authedFetch, invalidateTasks, invalidateStats]
   );
 
   const deleteTask = useCallback(
@@ -617,6 +646,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       addTask,
       updateTask,
       updateTaskStatus,
+      reassignStatus,
       deleteTask,
       archiveTask,
       restoreTask,
@@ -640,6 +670,7 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
       addTask,
       updateTask,
       updateTaskStatus,
+      reassignStatus,
       deleteTask,
       archiveTask,
       restoreTask,
