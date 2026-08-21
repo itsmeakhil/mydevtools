@@ -4,14 +4,13 @@ import type { KeywordCase, SqlLanguage } from 'sql-formatter';
 import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useIsMobile } from '@/components/hooks/use-mobile';
 import { IconSql } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel } from '@/components/tools/io-panel';
 import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs';
 import { CopyIconButton } from '@/components/tools/copy-icon-button';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import {
   Select,
   SelectContent,
@@ -21,6 +20,7 @@ import {
 } from '@/components/ui/select';
 import { AlertCircle, Trash2, Wand2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 import CodeEditor from '@/components/ui/code-editor';
 
 const DIALECTS: { value: SqlLanguage; key: 'mysql' | 'postgresql' | 'sqlite' }[] = [
@@ -88,91 +88,88 @@ export function SqlFormatterLayout() {
     void copyToClipboard(output, { silent: true });
   };
 
-  return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader icon={IconSql} title={t('title')} description={t('subtitle')} />
-      </RevealItem>
-
-      <Card className="p-4 shrink-0">
-        <div className="flex flex-wrap items-end gap-3">
-          <div className="space-y-2 w-full sm:w-auto sm:min-w-[140px]">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('dialectLabel')}</Label>
-            <Select value={dialect} onValueChange={(v) => setDialect(v as SqlLanguage)}>
-              <SelectTrigger className="h-9 text-sm w-full sm:w-[180px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {DIALECTS.map((d) => (
-                  <SelectItem key={d.value} value={d.value}>
-                    {t(`dialects.${d.key}` as never)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2 w-full sm:w-auto sm:min-w-[120px]">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('keywordsLabel')}</Label>
-            <Select value={keywordCase} onValueChange={(v) => setKeywordCase(v as KeywordCase)}>
-              <SelectTrigger className="h-9 text-sm w-full sm:w-[140px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {KEYWORD_CASES.map((k) => (
-                  <SelectItem key={k.value} value={k.value}>
-                    {t(`keywordCase.${k.key}` as never)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2 w-full sm:w-auto sm:min-w-[80px]">
-            <Label htmlFor="sql-tab" className="text-xs text-muted-foreground uppercase tracking-wider">
-              {t('indentLabel')}
-            </Label>
-            <Select value={tabWidth} onValueChange={setTabWidth}>
-              <SelectTrigger id="sql-tab" className="h-9 text-sm w-full sm:w-[80px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {['2', '4'].map((n) => (
-                  <SelectItem key={n} value={n}>
-                    {n}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex flex-wrap gap-2 pb-0.5">
-            <Button type="button" size="sm" className="gap-1.5 h-9" onClick={runFormat}>
-              <Wand2 className="h-3.5 w-3.5" />
-              {t('format')}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="gap-1.5 h-9"
-              onClick={() => {
-                setInput('');
-                setOutput('');
-                setError('');
-              }}
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-              {t('clear')}
-            </Button>
-          </div>
+  const toolbar = (
+    <div className="rounded-lg border border-border bg-card px-4 py-3">
+      <div className="flex flex-wrap items-end gap-3">
+        <div className="w-full space-y-2 sm:w-auto sm:min-w-[140px]">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">{t('dialectLabel')}</Label>
+          <Select value={dialect} onValueChange={(v) => setDialect(v as SqlLanguage)}>
+            <SelectTrigger className="h-9 w-full text-sm sm:w-[180px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {DIALECTS.map((d) => (
+                <SelectItem key={d.value} value={d.value}>
+                  {t(`dialects.${d.key}` as never)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
-        <p className="text-[11px] text-muted-foreground mt-3">
-          {t('counter', { current: input.length.toLocaleString(), max: MAX_LEN.toLocaleString() })}
-        </p>
-      </Card>
+        <div className="w-full space-y-2 sm:w-auto sm:min-w-[120px]">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">{t('keywordsLabel')}</Label>
+          <Select value={keywordCase} onValueChange={(v) => setKeywordCase(v as KeywordCase)}>
+            <SelectTrigger className="h-9 w-full text-sm sm:w-[140px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {KEYWORD_CASES.map((k) => (
+                <SelectItem key={k.value} value={k.value}>
+                  {t(`keywordCase.${k.key}` as never)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="w-full space-y-2 sm:w-auto sm:min-w-[80px]">
+          <Label htmlFor="sql-tab" className="text-xs uppercase tracking-wider text-muted-foreground">
+            {t('indentLabel')}
+          </Label>
+          <Select value={tabWidth} onValueChange={setTabWidth}>
+            <SelectTrigger id="sql-tab" className="h-9 w-full text-sm sm:w-[80px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {['2', '4'].map((n) => (
+                <SelectItem key={n} value={n}>
+                  {n}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex flex-wrap gap-2 pb-0.5">
+          <Button type="button" size="sm" className="h-9 gap-1.5" onClick={runFormat}>
+            <Wand2 className="h-3.5 w-3.5" />
+            {t('format')}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="h-9 gap-1.5"
+            onClick={() => {
+              setInput('');
+              setOutput('');
+              setError('');
+            }}
+          >
+            <Trash2 className="h-3.5 w-3.5" />
+            {t('clear')}
+          </Button>
+        </div>
+      </div>
+      <p className="mt-3 text-[11px] text-muted-foreground">
+        {t('counter', { current: input.length.toLocaleString(), max: MAX_LEN.toLocaleString() })}
+      </p>
+    </div>
+  );
 
+  return (
+    <ToolShell icon={IconSql} title={t('title')} description={t('subtitle')} toolbar={toolbar}>
       {error && (
-        <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive shrink-0">
-          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+        <div className="mb-4 flex shrink-0 items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{error}</p>
         </div>
       )}
@@ -188,42 +185,31 @@ export function SqlFormatterLayout() {
         />
       )}
 
-      <div className={`flex-1 ${isMobile ? 'flex flex-col min-h-0' : 'grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0'}`}>
+      <div
+        className={cn(
+          'min-h-0 flex-1',
+          isMobile ? 'mt-4 flex flex-col' : 'grid grid-cols-1 gap-4 lg:grid-cols-2',
+        )}
+      >
         {(!isMobile || mobileTab === 'input') && (
-          <Card className="flex flex-col overflow-hidden min-h-[220px] flex-1">
-            <div className="px-4 py-2.5 border-b border-border/50 bg-muted/30">
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {t('inputPanel')}
-              </Label>
-            </div>
-            <div className="flex-1 min-h-0 relative p-1">
-              <CodeEditor
-                value={input}
-                onChange={setInput}
-                language="sql"
-              />
-            </div>
-          </Card>
+          <IOPanel label={t('inputPanel')} bodyClassName="p-1" className="min-h-[220px] flex-1">
+            <CodeEditor value={input} onChange={setInput} language="sql" />
+          </IOPanel>
         )}
 
         {(!isMobile || mobileTab === 'output') && (
-          <Card className="flex flex-col overflow-hidden min-h-[220px] flex-1">
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {t('formattedPanel')}
-              </Label>
+          <IOPanel
+            label={t('formattedPanel')}
+            bodyClassName="p-1"
+            className="min-h-[220px] flex-1"
+            actions={
               <CopyIconButton onCopy={handleCopy} copied={copied} disabled={!output} label={t('copy')} />
-            </div>
-            <div className="flex-1 min-h-0 relative p-1">
-              <CodeEditor
-                value={output}
-                readOnly
-                language="sql"
-              />
-            </div>
-          </Card>
+            }
+          >
+            <CodeEditor value={output} readOnly language="sql" />
+          </IOPanel>
         )}
       </div>
-    </div>
+    </ToolShell>
   );
 }
