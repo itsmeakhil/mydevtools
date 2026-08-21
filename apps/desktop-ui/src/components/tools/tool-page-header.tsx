@@ -28,7 +28,7 @@ export function ToolPageHeader({
   className,
 }: ToolPageHeaderProps) {
   return (
-    <div className={cn('flex items-start justify-between gap-3', className)}>
+    <div className={cn('flex items-start justify-between gap-3 px-4 pt-2 pb-1', className)}>
       <div className="flex min-w-0 flex-col gap-0.5">
         <h1
           title={title}
