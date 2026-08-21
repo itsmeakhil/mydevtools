@@ -3,10 +3,16 @@
 The app updates itself in place via the Tauri updater — users never re-download or
 reinstall, and the local SQLCipher database is never touched by an update.
 
-Every release is: **build → sign + notarize → sign the update payload → publish to
-the public releases repo**. Both methods below produce the same result and publish to
-[`mydevtools-tech/mydevtools-releases`](https://github.com/mydevtools-tech/mydevtools-releases)
-(public), which the updater endpoint and the website download button point at.
+Every release is: **build → sign + notarize → sign the update payload → publish**.
+Releases go to this repo (`mydevtools-tech/mydevtools`), which the updater endpoint
+and the website download button point at. The old `mydevtools-releases` mirror is
+historical — it only still matters for installs from v0.1.11 and earlier.
+
+`scripts/release-local.sh` publishes **one release containing both macOS and Linux**,
+so users find every platform under a single tag. macOS is built natively; Linux is
+built in Docker (see `Dockerfile.linux`), because it can't be cross-compiled from
+macOS. Set `SKIP_LINUX=1` for a macOS-only release, or `LINUX_PLATFORMS="linux/amd64"`
+to skip the slower ARM build.
 
 - **Local** — run `scripts/release-local.sh` on your Mac. No CI minutes; needs one-time setup.
 - **CI** — push to the `release` branch; GitHub builds it. No local setup; uses Actions minutes.
@@ -98,10 +104,18 @@ That one command:
 2. notarizes + staples the app
 3. tars the app and **signs it with your updater key** → `.app.tar.gz` + `.sig`
 4. builds + signs + notarizes the `.dmg`
-5. writes `latest.json` (version + signature + public URL)
-6. uploads all four to the public repo release `v<version>`
+5. builds the Linux `.deb` + AppImage in Docker (amd64 and arm64)
+6. writes `latest.json` (version + signature + public URL)
+7. uploads everything to a single release `v<version>`
 
-Takes ~10–20 min (Rust compile + two notarization round-trips).
+Takes ~20–40 min (macOS compile, two notarization round-trips, plus the Linux
+builds). Docker must be running for the Linux half; if it isn't, the script says so
+and publishes macOS only.
+
+> **Linux has no auto-update.** Only AppImage can self-update, and `latest.json`
+> currently advertises the `darwin-*` platforms only. Linux users re-download. If you
+> add a `linux-x86_64` entry later, every publisher of that manifest must **merge**
+> into it rather than overwrite, or one platform will wipe the other's entries.
 
 ### Verify
 
@@ -173,11 +187,18 @@ account, no certificate, no notarytool. You just build and ship the artifacts.
 sudo apt update && sudo apt install -y \
   libwebkit2gtk-4.1-dev build-essential curl wget file \
   libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev patchelf \
-  libdbus-1-dev
+  libdbus-1-dev xdg-utils
 ```
 
 `libdbus-1-dev` is required by the `dbus-secret-service` crate, which backs the
 Linux keyring (see the platform-split `keyring` dependency in `Cargo.toml`).
+
+`xdg-utils` is required by the AppImage bundler — `tauri-plugin-opener` embeds
+`xdg-open`, and bundling fails with "xdg-open binary not found" without it.
+
+> On a memory-constrained builder (e.g. Docker Desktop), the release profile's fat
+> LTO can get the linker OOM-killed (`signal: 9, SIGKILL`). Build with
+> `CARGO_PROFILE_RELEASE_LTO=false` if that happens.
 
 ### Build
 

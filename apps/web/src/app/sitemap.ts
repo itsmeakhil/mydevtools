@@ -38,6 +38,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly' as const,
             priority: 0.6,
         },
+        // Download pages are the conversion target, so they belong in the sitemap
+        // even though the header links them — neither was listed before.
+        {
+            url: `${baseUrl}/download`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.95,
+        },
+        {
+            url: `${baseUrl}/linux-builds`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 0.8,
+        },
     ]
 
     const platformPages = platformSeoPageSlugs.map((slug) => ({

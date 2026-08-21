@@ -98,3 +98,5 @@ docs/superpowers/
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 graft/
+# Local Linux build output (published to GitHub releases, never committed)
+dist-linux/

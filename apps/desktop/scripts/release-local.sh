@@ -2,6 +2,10 @@
 # Build a release LOCALLY and publish it so installed apps auto-update — the
 # same end result as the CI workflow, without spending Actions minutes.
 #
+# Publishes ONE release containing BOTH macOS and Linux, so users see every
+# platform under a single tag. Linux packages are built in Docker (they cannot
+# be cross-compiled from macOS); set SKIP_LINUX=1 to publish macOS only.
+#
 # Produces + publishes the four artifacts the updater needs:
 #   1. <app>.app.tar.gz        (updater payload)
 #   2. <app>.app.tar.gz.sig    (signed with YOUR updater key -> installs trust it)
@@ -27,9 +31,13 @@ set -euo pipefail
 
 # ── config ───────────────────────────────────────────────────────────────────
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+REPO_ROOT="$(cd "$ROOT/../.." && pwd)"
 : "${PUBLIC_REPO:=mydevtools-tech/mydevtools}"
 : "${APPLE_SIGNING_IDENTITY:=Developer ID Application: Nishanth P V (STTF2NVQK8)}"
 : "${NOTARY_PROFILE:=mydevtools-notary}"
+# Linux packaging (Docker). SKIP_LINUX=1 publishes a macOS-only release.
+: "${SKIP_LINUX:=0}"
+: "${LINUX_PLATFORMS:=linux/amd64 linux/arm64}"
 KEYFILE="$HOME/.tauri/mydevtools-updater.key"
 PWFILE="$HOME/.tauri/mydevtools-updater.password"
 export APPLE_SIGNING_IDENTITY
@@ -112,7 +120,66 @@ codesign_retry "$DMG"
 xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$DMG"
 
+# ── 3b. Linux packages, built in Docker ──────────────────────────────────────
+# Linux links against webkit2gtk/GTK so it can't be cross-compiled from macOS.
+# The frontend is already built above, so the container only does the Rust half
+# (beforeBuildCommand is disabled) and reuses apps/desktop-ui/out.
+LINUX_ARTIFACTS=()
+if [ "$SKIP_LINUX" = "1" ]; then
+  echo "▸ [3b/5] Skipping Linux (SKIP_LINUX=1)"
+elif ! docker info >/dev/null 2>&1; then
+  echo "▸ [3b/5] Docker is not running — skipping Linux packages." >&2
+  echo "         Start Docker Desktop and re-run, or set SKIP_LINUX=1 to silence this." >&2
+else
+  for PLATFORM in $LINUX_PLATFORMS; do
+    ARCH="${PLATFORM#linux/}"
+    IMAGE="mydevtools-linux:$ARCH"
+    echo "▸ [3b/5] Linux $ARCH — preparing image"
+    docker build --quiet --platform "$PLATFORM" \
+      -f "$ROOT/Dockerfile.linux" -t "$IMAGE" "$ROOT" >/dev/null
+
+    echo "▸ [3b/5] Linux $ARCH — building packages"
+    # LTO off: the fat-LTO link peaks well above what a Docker VM usually has
+    # and gets OOM-killed (signal: 9). Slightly larger binary, reliable build.
+    docker run --rm --platform "$PLATFORM" \
+      -v "$REPO_ROOT":/work \
+      -v "mydevtools-cargo-reg-$ARCH":/root/.cargo/registry \
+      -v "mydevtools-cargo-target-$ARCH":/build \
+      -e CARGO_TARGET_DIR=/build/target \
+      -e APPIMAGE_EXTRACT_AND_RUN=1 \
+      -e CARGO_PROFILE_RELEASE_LTO=false \
+      "$IMAGE" bash -c '
+        set -e
+        cd /work/apps/desktop
+        tauri build --bundles deb,appimage \
+          --config "{\"build\":{\"beforeBuildCommand\":\"\"},\"bundle\":{\"createUpdaterArtifacts\":false}}"
+        mkdir -p /work/dist-linux
+        find "$CARGO_TARGET_DIR/release/bundle" \( -name "*.deb" -o -name "*.AppImage" \) \
+          -exec cp -f {} /work/dist-linux/ \;
+      '
+  done
+  # Stable, arch-suffixed copies so the website can link to a URL that never
+  # changes: .../releases/latest/download/MyDevTools-amd64.deb
+  for f in "$REPO_ROOT"/dist-linux/*.deb "$REPO_ROOT"/dist-linux/*.AppImage; do
+    [ -e "$f" ] || continue
+    LINUX_ARTIFACTS+=("$f")
+    case "$f" in
+      *_amd64.deb)      cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-amd64.deb";      LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-amd64.deb") ;;
+      *_arm64.deb)      cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-arm64.deb";      LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-arm64.deb") ;;
+      # Tauri names the AppImage after the Debian arch (amd64/arm64), not the
+      # GNU triple (x86_64/aarch64), so match BOTH spellings — matching only the
+      # triple silently skipped the alias and left the website's link 404ing.
+      *x86_64.AppImage|*_amd64.AppImage) cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-x86_64.AppImage"; LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-x86_64.AppImage") ;;
+      *aarch64.AppImage|*_arm64.AppImage) cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-aarch64.AppImage"; LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-aarch64.AppImage") ;;
+    esac
+  done
+  echo "▸ [3b/5] Linux artifacts: ${#LINUX_ARTIFACTS[@]}"
+fi
+
 # ── 4. latest.json: manifest the updater reads (signature + public URL) ───────
+# NOTE: darwin-* keys only. Linux packages ship without auto-update for now —
+# only AppImage can self-update, and adding linux-x86_64 here means every
+# publisher of this manifest must merge rather than overwrite it.
 echo "▸ [4/5] Writing latest.json…"
 LATEST="$OUT/latest.json"
 SIG_CONTENT="$(cat "$SIG")" \
@@ -146,6 +213,10 @@ gh release create "$TAG" --repo "$PUBLIC_REPO" \
 cp "$DMG" "$OUT/MyDevTools.dmg"
 gh release upload "$TAG" --repo "$PUBLIC_REPO" --clobber \
   "$DMG" "$OUT/MyDevTools.dmg" "$TARGZ" "$SIG" "$LATEST"
+if [ "${#LINUX_ARTIFACTS[@]}" -gt 0 ]; then
+  echo "▸ [5/5] Uploading ${#LINUX_ARTIFACTS[@]} Linux artifacts…"
+  gh release upload "$TAG" --repo "$PUBLIC_REPO" --clobber "${LINUX_ARTIFACTS[@]}"
+fi
 
 echo ""
 echo "✅ Published v$VERSION. Installed apps will offer the update on next launch."
