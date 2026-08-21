@@ -5,7 +5,6 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { IdRow } from './id-row';
 import { errorKeyFromGenerateIdsErrorKey } from './error-mapping';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -29,11 +28,10 @@ import { decodeIdTimestamp, idHasTimestamp } from '@/lib/id-timestamp';
 import { useTranslations } from 'next-intl';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
 import { IconFingerprint } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel } from '@/components/tools/io-panel';
 import { CopyIconButton } from '@/components/tools/copy-icon-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 
 const KIND_OPTIONS: { value: IdKind; label: string }[] = [
   { value: 'ulid', label: 'ULID' },
@@ -129,21 +127,14 @@ export function UuidGeneratorLayout() {
   };
 
   return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconFingerprint}
-          title={t('title')}
-          description={t('subtitle', { max: MAX_BULK.toLocaleString() })}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconFingerprint}
+      title={t('title')}
+      description={t('subtitle', { max: MAX_BULK.toLocaleString() })}
+    >
       <div className="grid flex-1 min-h-0 grid-cols-1 gap-4 overflow-y-auto lg:grid-cols-2 lg:grid-rows-[minmax(0,1fr)] lg:overflow-hidden">
         {/* Config panel */}
-        <Card className="flex flex-col gap-4 p-4 lg:overflow-y-auto">
+        <div className="flex flex-col gap-4 rounded-lg border border-border bg-card p-4 lg:overflow-y-auto">
           {/* Format: chip row on small screens, Select on md+ — same `kind` state */}
           <div className="space-y-2">
             <Label htmlFor="id-kind" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -304,15 +295,15 @@ export function UuidGeneratorLayout() {
               {t('generate')}
             </Button>
           </div>
-        </Card>
+        </div>
 
         {/* Output panel */}
-        <Card className="flex min-h-[280px] flex-col overflow-hidden">
-          <div className="flex items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {t('output')}
-            </Label>
-            <div className="flex items-center gap-1 shrink-0">
+        <IOPanel
+          className="min-h-[280px]"
+          bodyClassName="overflow-y-auto"
+          label={t('output')}
+          actions={
+            <>
               <span className="text-[10px] text-muted-foreground tabular-nums mr-1">
                 {t('lines', { count: outputLines.length > 0 ? outputLines.length.toLocaleString() : '0' })}
               </span>
@@ -367,28 +358,27 @@ export function UuidGeneratorLayout() {
               >
                 {copiedJson ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Braces className="h-3.5 w-3.5" />}
               </Button>
+            </>
+          }
+        >
+          {error ? (
+            <ToolErrorBanner message={error} className="m-4" />
+          ) : displayLines.length > 0 ? (
+            <div>
+              {displayLines.map((id, i) => (
+                <IdRow key={i} id={id} index={i} timestamp={timestamps[i]} />
+              ))}
             </div>
-          </div>
-          <div className="flex-1 min-h-0 overflow-y-auto">
-            {error ? (
-              <ToolErrorBanner message={error} className="m-4" />
-            ) : displayLines.length > 0 ? (
-              <div>
-                {displayLines.map((id, i) => (
-                  <IdRow key={i} id={id} index={i} timestamp={timestamps[i]} />
-                ))}
-              </div>
-            ) : (
-              <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-center">
-                <IconFingerprint className="h-8 w-8 text-muted-foreground/30" aria-hidden />
-                <p className="font-mono text-sm text-muted-foreground/50">
-                  {t('outputPlaceholder')}
-                </p>
-              </div>
-            )}
-          </div>
-        </Card>
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-center">
+              <IconFingerprint className="h-8 w-8 text-muted-foreground/30" aria-hidden />
+              <p className="font-mono text-sm text-muted-foreground/50">
+                {t('outputPlaceholder')}
+              </p>
+            </div>
+          )}
+        </IOPanel>
       </div>
-    </div>
+    </ToolShell>
   );
 }

@@ -4,9 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Select,
   SelectContent,
@@ -15,9 +13,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { IconCircleKey } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 import { Input } from '@/components/ui/input';
@@ -101,132 +98,141 @@ export function HmacGeneratorLayout() {
     return compareHashes(expectedMac, signature);
   }, [expectedMac, signature]);
 
+  const toolbar = (
+    <div className="grid items-end gap-4 rounded-lg border border-border bg-card px-4 py-3 sm:grid-cols-3">
+      <div className="space-y-2">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('algorithmLabel')}
+        </Label>
+        <Select value={digest} onValueChange={(v) => setDigest(v as HmacDigestId)}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {HMAC_DIGESTS.map((d) => (
+              <SelectItem key={d} value={d}>
+                {t(`algorithms.${DIGEST_MSG[d]}` as 'algorithms.sha256')}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="space-y-2">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('outputFormatLabel')}
+        </Label>
+        <Select
+          value={outputFormat}
+          onValueChange={(v) => setOutputFormat(v as 'hex' | 'base64')}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="hex">{t('formatHex')}</SelectItem>
+            <SelectItem value="base64">{t('formatBase64')}</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="space-y-2">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('keyEncodingLabel')}
+        </Label>
+        <Select value={keyEncoding} onValueChange={(v) => setKeyEncoding(v as HmacKeyEncoding)}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="utf8">{t('keyEncodingUtf8')}</SelectItem>
+            <SelectItem value="hex">{t('keyEncodingHex')}</SelectItem>
+            <SelectItem value="base64">{t('keyEncodingBase64')}</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  );
+
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconCircleKey}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex flex-col gap-4 overflow-auto p-4">
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div className="space-y-2">
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {t('algorithmLabel')}
-              </Label>
-              <Select value={digest} onValueChange={(v) => setDigest(v as HmacDigestId)}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {HMAC_DIGESTS.map((d) => (
-                    <SelectItem key={d} value={d}>
-                      {t(`algorithms.${DIGEST_MSG[d]}` as 'algorithms.sha256')}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {t('outputFormatLabel')}
-              </Label>
-              <Select
-                value={outputFormat}
-                onValueChange={(v) => setOutputFormat(v as 'hex' | 'base64')}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="hex">{t('formatHex')}</SelectItem>
-                  <SelectItem value="base64">{t('formatBase64')}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="space-y-2">
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {t('keyEncodingLabel')}
-              </Label>
-              <Select value={keyEncoding} onValueChange={(v) => setKeyEncoding(v as HmacKeyEncoding)}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="utf8">{t('keyEncodingUtf8')}</SelectItem>
-                  <SelectItem value="hex">{t('keyEncodingHex')}</SelectItem>
-                  <SelectItem value="base64">{t('keyEncodingBase64')}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="hmac-secret">{t('secretLabel')}</Label>
-            <Textarea
+    <ToolShell
+      icon={IconCircleKey}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
+      <ToolPanels className="lg:grid-cols-2">
+        <div className="flex min-h-0 flex-col gap-4">
+          <IOPanel
+            label={t('secretLabel')}
+            className="h-[160px] shrink-0"
+            actions={
+              <span className="text-[10px] tabular-nums text-muted-foreground">
+                {t('keyByteCountHint', { count: secretBytes })}
+              </span>
+            }
+          >
+            <ToolTextArea
               id="hmac-secret"
               value={secret}
               onChange={(e) => setSecret(e.target.value)}
               placeholder={t('placeholderSecret')}
-              className="min-h-[100px] resize-y font-mono text-sm"
-              spellCheck={false}
               autoComplete="off"
             />
-            <p className="text-xs text-muted-foreground">{t('keyByteCountHint', { count: secretBytes })}</p>
-          </div>
+          </IOPanel>
 
-          <div className="space-y-2">
-            <Label htmlFor="hmac-message">{t('messageLabel')}</Label>
-            <Textarea
+          <IOPanel
+            label={t('messageLabel')}
+            className="min-h-[180px] flex-1"
+            actions={
+              <span className="text-[10px] tabular-nums text-muted-foreground">
+                {t('byteCountHint', { count: messageBytes })}
+              </span>
+            }
+          >
+            <ToolTextArea
               id="hmac-message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder={t('placeholderMessage')}
-              className="min-h-[140px] resize-y font-mono text-sm"
-              spellCheck={false}
             />
-            <p className="text-xs text-muted-foreground">{t('byteCountHint', { count: messageBytes })}</p>
-          </div>
-        </Card>
+          </IOPanel>
+        </div>
 
-        <Card className="flex flex-col gap-3 overflow-auto p-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('outputLabel')}
-            </Label>
-            <CopyTextButton
-              onCopy={handleCopy}
-              copied={copied}
-              disabled={!signature}
-              label={t('copyOutput')}
-              copiedLabel={t('copied')}
-            />
-          </div>
-          <div
-            className={cn(
-              'min-h-[120px] rounded-md border bg-muted/30 p-3 font-mono text-sm break-all',
-              working && 'opacity-60'
-            )}
-          >
-            {error ? (
-              <ToolErrorBanner
-                message={error === 'invalidKey' ? t('errors.invalidKey') : t('errors.cryptoFailed')}
+        <div className="flex min-h-0 flex-col gap-4">
+          <IOPanel
+            label={t('outputLabel')}
+            className="min-h-[160px] flex-1"
+            bodyClassName="overflow-auto"
+            actions={
+              <CopyTextButton
+                onCopy={handleCopy}
+                copied={copied}
+                disabled={!signature}
+                label={t('copyOutput')}
+                copiedLabel={t('copied')}
               />
-            ) : signature ? (
-              signature
-            ) : (
-              <span className="text-muted-foreground">
-                {!secret ? t('emptyHint') : '…'}
-              </span>
-            )}
-          </div>
-          <div className="space-y-2 border-t pt-3">
+            }
+          >
+            <div
+              className={cn(
+                'min-h-full p-3 font-mono text-sm break-all',
+                working && 'opacity-60'
+              )}
+            >
+              {error ? (
+                <ToolErrorBanner
+                  message={error === 'invalidKey' ? t('errors.invalidKey') : t('errors.cryptoFailed')}
+                />
+              ) : signature ? (
+                signature
+              ) : (
+                <span className="text-muted-foreground">
+                  {!secret ? t('emptyHint') : '…'}
+                </span>
+              )}
+            </div>
+          </IOPanel>
+
+          <div className="rounded-lg border border-border bg-card p-4 space-y-2">
             <Label
               htmlFor="hmac-verify"
               className="text-xs font-medium uppercase tracking-wider text-muted-foreground"
@@ -254,10 +260,10 @@ export function HmacGeneratorLayout() {
                 {verifyMatch ? t('verifyMatch') : t('verifyMismatch')}
               </p>
             )}
+            <p className="text-xs text-muted-foreground">{t('securityNote')}</p>
           </div>
-          <p className="text-xs text-muted-foreground">{t('securityNote')}</p>
-        </Card>
-      </div>
-    </div>
+        </div>
+      </ToolPanels>
+    </ToolShell>
   );
 }

@@ -3,8 +3,6 @@
 import * as React from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useTranslations } from 'next-intl'
-import { Card } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
@@ -18,10 +16,9 @@ import {
 } from '@/lib/docker-compose-generator'
 import { Download, Search, X } from 'lucide-react'
 import { IconBrandDocker } from '@tabler/icons-react'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { CopyTextButton } from '@/components/tools/copy-text-button'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 
 const PRESETS: { id: string; services: string[] }[] = [
   { id: 'stackWeb', services: ['postgres', 'redis', 'nginx'] },
@@ -108,20 +105,14 @@ export function DockerComposeGeneratorLayout() {
   }
 
   return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconBrandDocker}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 flex-1 min-h-0 overflow-auto pb-4">
+    <ToolShell
+      icon={IconBrandDocker}
+      title={t('title')}
+      description={t('subtitle')}
+    >
+      <ToolPanels className="md:grid-cols-1 lg:grid-cols-2 overflow-auto pb-4">
         <div className="flex flex-col gap-4 min-h-0">
-          <Card className="p-4 flex flex-col gap-3 shrink-0">
+          <div className="rounded-lg border border-border bg-card p-4 flex flex-col gap-3 shrink-0">
             <div className="flex flex-wrap gap-2">
               {PRESETS.map((p) => (
                 <Button
@@ -140,9 +131,9 @@ export function DockerComposeGeneratorLayout() {
               </Button>
             </div>
             <p className="text-xs text-muted-foreground">{t('hintPorts')}</p>
-          </Card>
+          </div>
 
-          <Card className="p-4 flex flex-col flex-1 min-h-[280px] gap-3 overflow-hidden">
+          <div className="rounded-lg border border-border bg-card p-4 flex flex-col flex-1 min-h-[280px] gap-3 overflow-hidden">
             <div className="relative">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -221,13 +212,13 @@ export function DockerComposeGeneratorLayout() {
                 ))}
               </div>
             ) : null}
-          </Card>
+          </div>
         </div>
 
-        <Card className="flex flex-col flex-1 p-4 overflow-hidden min-h-[320px]">
-          <div className="flex items-center justify-between mb-3 gap-2">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('outputTitle')}</Label>
-            <div className="flex gap-2 shrink-0">
+        <IOPanel
+          label={t('outputTitle')}
+          actions={
+            <>
               <Button
                 type="button"
                 variant="ghost"
@@ -247,17 +238,17 @@ export function DockerComposeGeneratorLayout() {
                 copiedLabel={t('copied')}
                 className="h-7 px-2 text-xs"
               />
-            </div>
-          </div>
-          <textarea
+            </>
+          }
+        >
+          <ToolTextArea
             readOnly
             value={yaml}
             placeholder={t('emptyState')}
-            spellCheck={false}
-            className="flex-1 min-h-0 w-full rounded-md border bg-muted/30 p-3 font-mono text-xs leading-relaxed resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="text-xs leading-relaxed"
           />
-        </Card>
-      </div>
-    </div>
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   )
 }

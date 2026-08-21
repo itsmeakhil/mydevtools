@@ -3,7 +3,6 @@
 import { useState, useCallback } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,9 +17,8 @@ import {
 import { Download, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { IconFingerprint } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel } from '@/components/tools/io-panel';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 
@@ -241,10 +239,10 @@ function KeyBlock({
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   if (!value) return null;
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between gap-2">
-        <Label className="text-sm font-medium">{label}</Label>
-        <div className="flex gap-1.5">
+    <IOPanel
+      label={label}
+      actions={
+        <>
           <CopyTextButton
             onCopy={() => copyToClipboard(value, { silent: true, resetMs: 1600 })}
             copied={copied}
@@ -261,15 +259,16 @@ function KeyBlock({
             <Download className="h-3.5 w-3.5" />
             {downloadLabel}
           </button>
-        </div>
-      </div>
+        </>
+      }
+    >
       <Textarea
         readOnly
         value={value}
         className="font-mono text-xs resize-none h-36 bg-muted/20 border-border/50"
         spellCheck={false}
       />
-    </div>
+    </IOPanel>
   );
 }
 
@@ -297,61 +296,60 @@ export function SshKeyGeneratorLayout() {
 
   const keyName = keyType === 'ed25519' ? 'id_ed25519' : 'id_rsa';
 
-  return (
-    <div className="relative flex min-h-full w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconFingerprint}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-      <Card className="p-4 space-y-4">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="key-type">{t('keyTypeLabel')}</Label>
-            <Select value={keyType} onValueChange={(v) => setKeyType(v as KeyType)}>
-              <SelectTrigger id="key-type" className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ed25519">Ed25519 ({t('recommended')})</SelectItem>
-                <SelectItem value="rsa-2048">RSA 2048-bit</SelectItem>
-                <SelectItem value="rsa-4096">RSA 4096-bit</SelectItem>
-              </SelectContent>
-            </Select>
-            <p className="text-xs text-muted-foreground">
-              {keyType === 'ed25519'
-                ? t('ed25519Desc')
-                : keyType === 'rsa-2048'
-                ? t('rsa2048Desc')
-                : t('rsa4096Desc')}
-            </p>
-          </div>
-
-          <div className="space-y-1.5">
-            <Label htmlFor="comment">{t('commentLabel')}</Label>
-            <Input
-              id="comment"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              placeholder="user@hostname"
-              className="font-mono text-sm"
-            />
-            <p className="text-xs text-muted-foreground">{t('commentHint')}</p>
-          </div>
+  const toolbar = (
+    <div className="rounded-lg border border-border bg-card p-4 space-y-4">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-1.5">
+          <Label htmlFor="key-type">{t('keyTypeLabel')}</Label>
+          <Select value={keyType} onValueChange={(v) => setKeyType(v as KeyType)}>
+            <SelectTrigger id="key-type" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ed25519">Ed25519 ({t('recommended')})</SelectItem>
+              <SelectItem value="rsa-2048">RSA 2048-bit</SelectItem>
+              <SelectItem value="rsa-4096">RSA 4096-bit</SelectItem>
+            </SelectContent>
+          </Select>
+          <p className="text-xs text-muted-foreground">
+            {keyType === 'ed25519'
+              ? t('ed25519Desc')
+              : keyType === 'rsa-2048'
+              ? t('rsa2048Desc')
+              : t('rsa4096Desc')}
+          </p>
         </div>
 
-        <Button onClick={generate} disabled={generating} className="w-full sm:w-auto gap-2">
-          <RefreshCw className={cn('h-4 w-4', generating && 'animate-spin')} />
-          {generating
-            ? (keyType === 'rsa-4096' ? t('generatingLong') : t('generating'))
-            : t('generateBtn')}
-        </Button>
-      </Card>
+        <div className="space-y-1.5">
+          <Label htmlFor="comment">{t('commentLabel')}</Label>
+          <Input
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="user@hostname"
+            className="font-mono text-sm"
+          />
+          <p className="text-xs text-muted-foreground">{t('commentHint')}</p>
+        </div>
+      </div>
 
+      <Button onClick={generate} disabled={generating} className="w-full sm:w-auto gap-2">
+        <RefreshCw className={cn('h-4 w-4', generating && 'animate-spin')} />
+        {generating
+          ? (keyType === 'rsa-4096' ? t('generatingLong') : t('generating'))
+          : t('generateBtn')}
+      </Button>
+    </div>
+  );
+
+  return (
+    <ToolShell
+      icon={IconFingerprint}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+      contentClassName="gap-4 overflow-auto"
+    >
       <ToolErrorBanner message={error} />
 
       {keys && (
@@ -382,6 +380,6 @@ export function SshKeyGeneratorLayout() {
           </p>
         </div>
       )}
-    </div>
+    </ToolShell>
   );
 }

@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -23,9 +22,7 @@ import {
 import type QRCodeStyling from 'qr-code-styling';
 import { ChevronDown } from 'lucide-react';
 import { IconClock } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 import { Button } from '@/components/ui/button';
@@ -200,19 +197,9 @@ export function TotpGeneratorLayout() {
   }, [qrOpen, provisioningUri]);
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconClock}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
+    <ToolShell icon={IconClock} title={t('title')} description={t('subtitle')}>
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex flex-col gap-4 overflow-auto p-4">
+        <div className="flex flex-col gap-4 overflow-auto rounded-lg border border-border bg-card p-4">
           <div className="grid gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -305,9 +292,9 @@ export function TotpGeneratorLayout() {
             </div>
             {importError && <p className="text-xs text-destructive">{t(importError)}</p>}
           </div>
-        </Card>
+        </div>
 
-        <Card className="flex flex-col gap-4 overflow-auto p-4">
+        <div className="flex flex-col gap-4 overflow-auto rounded-lg border border-border bg-card p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('codeLabel')}
@@ -391,8 +378,8 @@ export function TotpGeneratorLayout() {
               <p className="text-xs text-muted-foreground">{t('qrHint')}</p>
             </CollapsibleContent>
           </Collapsible>
-        </Card>
+        </div>
       </div>
-    </div>
+    </ToolShell>
   );
 }

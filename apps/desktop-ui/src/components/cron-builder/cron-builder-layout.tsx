@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import { useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -26,9 +25,7 @@ import {
   validateCron,
 } from '@/lib/cron-utils';
 import { IconRepeat } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 import { useLocale, useTranslations } from 'next-intl';
@@ -44,12 +41,12 @@ function QuickPick({
 }) {
   return (
     <Select onValueChange={onPick}>
-      <SelectTrigger className="h-8 w-[min(100%,11rem)] text-xs shrink-0">
+      <SelectTrigger className="h-8 w-[min(100%,11rem)] shrink-0 text-xs">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent className="max-h-60">
         {options.map((o) => (
-          <SelectItem key={`${o.value}-${o.label}`} value={o.value} className="text-xs font-mono">
+          <SelectItem key={`${o.value}-${o.label}`} value={o.value} className="font-mono text-xs">
             {o.label}
           </SelectItem>
         ))}
@@ -168,20 +165,15 @@ export function CronBuilderLayout() {
   }, [t, monthShort, weekdayShort]);
 
   return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-auto dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconRepeat}
-          title={t('title')}
-          description={t.rich('subtitle', {
-            mono: (chunks) => <span className="font-mono text-foreground">{chunks}</span>,
-            code: (chunks) => <code className="text-foreground">{chunks}</code>,
-          })}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconRepeat}
+      title={t('title')}
+      description={t.rich('subtitle', {
+        mono: (chunks) => <span className="font-mono text-foreground">{chunks}</span>,
+        code: (chunks) => <code className="text-foreground">{chunks}</code>,
+      })}
+      contentClassName="gap-4 overflow-auto"
+    >
       <Tabs
         defaultValue="builder"
         className="flex flex-col gap-4"
@@ -201,8 +193,8 @@ export function CronBuilderLayout() {
         </TabsList>
 
         <TabsContent value="builder" className="mt-0 space-y-4">
-          <Card className="p-4 space-y-3">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('presetsLabel')}</Label>
+          <div className="space-y-3 rounded-lg border border-border bg-card p-4">
+            <Label className="text-xs uppercase tracking-wider text-muted-foreground">{t('presetsLabel')}</Label>
             <div className="flex flex-wrap gap-2">
               {CRON_PRESETS.map((p) => (
                 <Button
@@ -210,51 +202,42 @@ export function CronBuilderLayout() {
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="text-xs h-8"
+                  className="h-8 text-xs"
                   onClick={() => commitExpression(p.cron)}
                 >
                   {t(`presets.${p.key}` as never)}
                 </Button>
               ))}
             </div>
-          </Card>
+          </div>
 
-          <Card className="p-4 space-y-4">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('fieldsLabel')}</Label>
+          <div className="space-y-4 rounded-lg border border-border bg-card p-4">
+            <Label className="text-xs uppercase tracking-wider text-muted-foreground">{t('fieldsLabel')}</Label>
             <div className="space-y-3">
               {CRON_FIELD_LABELS.map((label, i) => {
                 const idx = i as 0 | 1 | 2 | 3 | 4;
                 const uiLabel = t(`fields.${label}` as never);
                 return (
-                  <div
-                    key={label}
-                    className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3"
-                  >
-                    <span className="text-xs font-medium text-muted-foreground w-36 shrink-0">
-                      {uiLabel}
-                    </span>
+                  <div key={label} className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                    <span className="w-36 shrink-0 text-xs font-medium text-muted-foreground">{uiLabel}</span>
                     <Input
                       value={five[idx]}
                       onChange={(e) => updateField(idx, e.target.value)}
-                      className="font-mono text-sm h-9 flex-1 min-w-0"
+                      className="h-9 min-w-0 flex-1 font-mono text-sm"
                       spellCheck={false}
                       aria-label={uiLabel}
                     />
-                    <QuickPick
-                      options={PICKS[idx]!}
-                      onPick={(v) => updateField(idx, v)}
-                      placeholder={t('quickPick')}
-                    />
+                    <QuickPick options={PICKS[idx]!} onPick={(v) => updateField(idx, v)} placeholder={t('quickPick')} />
                   </div>
                 );
               })}
             </div>
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="expression" className="mt-0 space-y-3">
-          <Card className="p-4 space-y-2">
-            <Label htmlFor="cron-raw" className="text-xs text-muted-foreground uppercase tracking-wider">
+          <div className="space-y-2 rounded-lg border border-border bg-card p-4">
+            <Label htmlFor="cron-raw" className="text-xs uppercase tracking-wider text-muted-foreground">
               {t('rawExpressionLabel')}
             </Label>
             <textarea
@@ -263,18 +246,16 @@ export function CronBuilderLayout() {
               onChange={(e) => setRawDraft(e.target.value)}
               onBlur={() => commitExpression(rawDraft)}
               spellCheck={false}
-              className="w-full min-h-[100px] rounded-md border border-input bg-transparent px-3 py-2 text-sm font-mono shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
-            <p className="text-[11px] text-muted-foreground">
-              {t('expressionHint', { count: tokenCount })}
-            </p>
-          </Card>
+            <p className="text-[11px] text-muted-foreground">{t('expressionHint', { count: tokenCount })}</p>
+          </div>
         </TabsContent>
       </Tabs>
 
-      <Card className="p-4 space-y-2 shrink-0">
+      <div className="shrink-0 space-y-2 rounded-lg border border-border bg-card p-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('currentExpressionLabel')}</Label>
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">{t('currentExpressionLabel')}</Label>
           <CopyTextButton
             onCopy={copyExpr}
             copied={copied}
@@ -283,10 +264,10 @@ export function CronBuilderLayout() {
             className="h-8 gap-1 text-xs"
           />
         </div>
-        <p className="font-mono text-sm break-all rounded-md bg-muted/50 px-3 py-2">
+        <p className="break-all rounded-md bg-muted/50 px-3 py-2 font-mono text-sm">
           {expression.trim() || t('emptyExpression')}
         </p>
-      </Card>
+      </div>
 
       {validation.ok === false && (
         <ToolErrorBanner
@@ -296,7 +277,7 @@ export function CronBuilderLayout() {
                 {validation.errorKey === 'invalid' ? t('errors.invalid') : t(`errors.${validation.errorKey}` as never)}
               </p>
               {validation.errorKey === 'invalid' && validation.detail ? (
-                <p className="text-xs text-destructive/80 font-mono">{validation.detail}</p>
+                <p className="font-mono text-xs text-destructive/80">{validation.detail}</p>
               ) : null}
             </div>
           }
@@ -304,27 +285,25 @@ export function CronBuilderLayout() {
       )}
 
       {validation.ok && human && (
-        <Card className="p-4 space-y-2 border-primary/20 bg-primary/5">
-          <Label className="text-xs text-muted-foreground uppercase tracking-wider">{t('plainLanguageLabel')}</Label>
+        <div className="space-y-2 rounded-lg border border-primary/20 bg-primary/5 p-4">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">{t('plainLanguageLabel')}</Label>
           <p className="text-sm leading-relaxed">{human}</p>
-        </Card>
+        </div>
       )}
 
       {validation.ok && nextRuns && nextRuns.length > 0 && (
-        <Card className="p-4 space-y-2">
-          <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-            {t('nextRunsLabel')}
-          </Label>
-          <ul className="space-y-1.5 text-sm font-mono text-muted-foreground">
+        <div className="space-y-2 rounded-lg border border-border bg-card p-4">
+          <Label className="text-xs uppercase tracking-wider text-muted-foreground">{t('nextRunsLabel')}</Label>
+          <ul className="space-y-1.5 font-mono text-sm text-muted-foreground">
             {nextRuns.map((d, i) => (
               <li key={i} className="flex gap-2">
-                <span className="text-[10px] w-5 shrink-0 text-muted-foreground/70">{i + 1}.</span>
+                <span className="w-5 shrink-0 text-[10px] text-muted-foreground/70">{i + 1}.</span>
                 <span className="text-foreground">{format(d, 'PPpp')}</span>
               </li>
             ))}
           </ul>
-        </Card>
+        </div>
       )}
-    </div>
+    </ToolShell>
   );
 }

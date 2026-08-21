@@ -8,13 +8,11 @@ import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { Dices, Download, Plus, Trash2, RefreshCw, CopyPlus, Loader2, FileUp, FileDown } from 'lucide-react'
 import { IconClipboardData } from '@tabler/icons-react'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs'
 import { CopyTextButton } from '@/components/tools/copy-text-button'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -244,16 +242,12 @@ export function MockDataGeneratorLayout() {
   const showTypeOptions = (type: FieldType) => TYPES_WITH_OPTIONS.includes(type)
 
   return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconClipboardData}
-          title={t('title')}
-          description={t('subtitle', { max: MAX_MOCK_ROWS })}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
+    <ToolShell
+      icon={IconClipboardData}
+      title={t('title')}
+      description={t('subtitle', { max: MAX_MOCK_ROWS })}
+      contentClassName="min-h-0"
+    >
 
       {isMobile && (
         <ToolMobileTabs
@@ -268,7 +262,7 @@ export function MockDataGeneratorLayout() {
 
       <div className={`flex-1 min-h-0 ${isMobile ? 'flex flex-col' : 'grid grid-cols-1 xl:grid-cols-[1fr_minmax(280px,38%)] gap-4'}`}>
         {(!isMobile || mobileTab === 'schema') && (
-        <Card className="flex flex-col gap-4 p-4 min-h-0 overflow-hidden flex-1">
+        <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden rounded-lg border border-border bg-card p-4">
           <div className="flex flex-wrap items-end gap-3">
             <div className="space-y-1.5">
               <Label htmlFor={`${baseId}-rows`} className="text-xs text-muted-foreground uppercase tracking-wider">
@@ -551,16 +545,15 @@ export function MockDataGeneratorLayout() {
           <p className="text-[11px] text-muted-foreground">
             {t('rowsHint', { max: MAX_MOCK_ROWS })}
           </p>
-        </Card>
+        </div>
         )}
 
         {(!isMobile || mobileTab === 'output') && (
-        <Card className="flex flex-col gap-3 p-4 min-h-0 flex-1">
-          <div className="flex items-center justify-between gap-2 shrink-0">
-            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {t('output')}
-            </Label>
-            <div className="flex gap-2">
+        <IOPanel
+          label={t('output')}
+          className="min-h-0 flex-1"
+          actions={
+            <>
               <CopyTextButton
                 onCopy={handleCopy}
                 copied={copied}
@@ -573,21 +566,14 @@ export function MockDataGeneratorLayout() {
                 <Download className="h-3.5 w-3.5" />
                 {t('download')}
               </Button>
-            </div>
-          </div>
-          <Textarea
-            readOnly
-            value={output}
-            placeholder={t('outputPlaceholder')}
-            className={cn(
-              'flex-1 min-h-[200px] font-mono text-xs resize-none',
-              'bg-muted/30'
-            )}
-          />
-        </Card>
+            </>
+          }
+        >
+          <ToolTextArea readOnly value={output} placeholder={t('outputPlaceholder')} className="text-xs" />
+        </IOPanel>
         )}
       </div>
-    </div>
+    </ToolShell>
   )
 }
 
