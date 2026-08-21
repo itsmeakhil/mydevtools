@@ -7,16 +7,13 @@ import { marked } from 'marked';
 import TurndownService from 'turndown';
 import { toast } from 'sonner';
 import { safeFileName } from '@/lib/markdown-preview-html';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Check, Download, Eye, Code } from 'lucide-react';
 import { IconMarkdown } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 
 // Configure marked for safe, synchronous rendering
 marked.setOptions({ async: false });
@@ -73,6 +70,12 @@ ${bodyHtml}
 </html>`;
 }
 
+const footerNote = (text: string) => (
+  <p className="shrink-0 border-t border-border/50 px-3 py-1.5 text-[11px] text-muted-foreground">
+    {text}
+  </p>
+);
+
 export function MarkdownPreviewLayout() {
   const t = useTranslations('MarkdownPreview');
 
@@ -87,7 +90,7 @@ export function MarkdownPreviewLayout() {
   const { isCopied: copiedMd, copyToClipboard: copyMd } = useCopyToClipboard();
 
   const renderedHtml = useMemo(() => renderMarkdown(markdown), [markdown]);
-  const convertedMarkdown = useMemo(() => htmlInput ? htmlToMarkdown(htmlInput) : '', [htmlInput]);
+  const convertedMarkdown = useMemo(() => (htmlInput ? htmlToMarkdown(htmlInput) : ''), [htmlInput]);
 
   const handleCopyHtml = useCallback(() => {
     if (!renderedHtml) return;
@@ -113,74 +116,73 @@ export function MarkdownPreviewLayout() {
   }, [convertedMarkdown, copyMd]);
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader icon={IconMarkdown} title={t('title')} description={t('subtitle')} />
-      </RevealItem>
-
+    <ToolShell icon={IconMarkdown} title={t('title')} description={t('subtitle')}>
       <Tabs defaultValue="md-to-html" className="flex h-full min-h-0 flex-col gap-4">
-        <TabsList className="shrink-0 w-fit">
+        <TabsList className="w-fit shrink-0">
           <TabsTrigger value="md-to-html">{t('tabMarkdownToHtml')}</TabsTrigger>
           <TabsTrigger value="html-to-md">{t('tabHtmlToMd')}</TabsTrigger>
         </TabsList>
 
         {/* ── Markdown → HTML ── */}
-        <TabsContent value="md-to-html" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
+        <TabsContent value="md-to-html" className="m-0 min-h-0 flex-1 data-[state=inactive]:hidden">
           <div className="grid h-full min-h-0 grid-cols-1 gap-4 lg:grid-cols-2">
-
             {/* Input */}
-            <Card className="flex flex-col gap-3 overflow-auto p-4">
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground shrink-0">
-                {t('inputLabel')}
-              </Label>
-              <Textarea
+            <IOPanel
+              label={t('inputLabel')}
+              actions={
+                <span className="text-[10px] tabular-nums text-muted-foreground">
+                  {t('charCount', { count: markdown.length })}
+                </span>
+              }
+            >
+              <ToolTextArea
                 value={markdown}
                 onChange={(e) => setMarkdown(e.target.value)}
                 placeholder={t('inputPlaceholder')}
-                className="flex-1 min-h-[300px] resize-none font-mono text-sm"
-                spellCheck={false}
               />
-              <p className="text-xs text-muted-foreground shrink-0">
-                {t('charCount', { count: markdown.length })}
-              </p>
-            </Card>
+            </IOPanel>
 
             {/* Output */}
-            <Card className="flex flex-col gap-3 overflow-hidden p-4">
-              <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
+            <IOPanel
+              bodyClassName="flex flex-col"
+              label={
                 <Tabs value={outputTab} onValueChange={(v) => setOutputTab(v as 'preview' | 'html')}>
                   <TabsList className="h-7">
                     <TabsTrigger value="preview" className="h-6 gap-1 px-2 text-xs">
-                      <Eye className="h-3 w-3" />{t('previewLabel')}
+                      <Eye className="h-3 w-3" />
+                      {t('previewLabel')}
                     </TabsTrigger>
                     <TabsTrigger value="html" className="h-6 gap-1 px-2 text-xs">
-                      <Code className="h-3 w-3" />{t('htmlOutputLabel')}
+                      <Code className="h-3 w-3" />
+                      {t('htmlOutputLabel')}
                     </TabsTrigger>
                   </TabsList>
                 </Tabs>
-                <div className="flex items-center gap-2">
+              }
+              actions={
+                <>
                   <div className="flex items-center rounded-md border bg-background pr-2 focus-within:ring-1 focus-within:ring-ring">
                     <Input
                       value={fileName}
                       onChange={(e) => setFileName(e.target.value)}
                       aria-label={t('fileNameLabel')}
                       placeholder={t('fileNamePlaceholder')}
-                      className="h-8 w-28 border-0 bg-transparent px-2 text-xs shadow-none focus-visible:ring-0"
+                      className="h-8 w-24 border-0 bg-transparent px-2 text-xs shadow-none focus-visible:ring-0"
                     />
                     <span className="text-xs text-muted-foreground">.html</span>
                   </div>
-                  <Button size="sm" variant="secondary" disabled={!renderedHtml} onClick={handleCopyHtml}>
+                  <Button size="sm" className="h-8" variant="secondary" disabled={!renderedHtml} onClick={handleCopyHtml}>
                     {copiedHtml ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
                     {copiedHtml ? t('copied') : t('copyHtml')}
                   </Button>
-                  <Button size="sm" variant="secondary" disabled={!renderedHtml} onClick={handleExportHtml}>
-                    <Download className="mr-1.5 h-4 w-4" />{t('exportHtml')}
+                  <Button size="sm" className="h-8" variant="secondary" disabled={!renderedHtml} onClick={handleExportHtml}>
+                    <Download className="mr-1.5 h-4 w-4" />
+                    {t('exportHtml')}
                   </Button>
-                </div>
-              </div>
-
-              <div className="flex-1 min-h-0 overflow-hidden rounded-md border">
+                </>
+              }
+            >
+              <div className="min-h-0 flex-1 overflow-hidden">
                 {outputTab === 'preview' ? (
                   renderedHtml ? (
                     <iframe
@@ -192,70 +194,63 @@ export function MarkdownPreviewLayout() {
                   ) : (
                     <p className="p-4 text-sm text-muted-foreground">{t('emptyHint')}</p>
                   )
+                ) : renderedHtml ? (
+                  <pre className="h-full overflow-auto whitespace-pre-wrap break-all bg-muted/20 p-4 font-mono text-xs">
+                    {renderedHtml}
+                  </pre>
                 ) : (
-                  renderedHtml ? (
-                    <pre className="p-4 text-xs font-mono whitespace-pre-wrap break-all h-full overflow-auto bg-muted/30">
-                      {renderedHtml}
-                    </pre>
-                  ) : (
-                    <p className="p-4 text-sm text-muted-foreground">{t('emptyHint')}</p>
-                  )
+                  <p className="p-4 text-sm text-muted-foreground">{t('emptyHint')}</p>
                 )}
               </div>
-
-              <p className="text-xs text-muted-foreground shrink-0">{t('securityNote')}</p>
-            </Card>
+              {footerNote(t('securityNote'))}
+            </IOPanel>
           </div>
         </TabsContent>
 
         {/* ── HTML → Markdown ── */}
-        <TabsContent value="html-to-md" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
+        <TabsContent value="html-to-md" className="m-0 min-h-0 flex-1 data-[state=inactive]:hidden">
           <div className="grid h-full min-h-0 grid-cols-1 gap-4 lg:grid-cols-2">
-
             {/* HTML Input */}
-            <Card className="flex flex-col gap-3 overflow-auto p-4">
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground shrink-0">
-                {t('htmlInputLabel')}
-              </Label>
-              <Textarea
+            <IOPanel
+              label={t('htmlInputLabel')}
+              actions={
+                <span className="text-[10px] tabular-nums text-muted-foreground">
+                  {t('charCount', { count: htmlInput.length })}
+                </span>
+              }
+            >
+              <ToolTextArea
                 value={htmlInput}
                 onChange={(e) => setHtmlInput(e.target.value)}
                 placeholder={t('htmlInputPlaceholder')}
-                className="flex-1 min-h-[300px] resize-none font-mono text-sm"
-                spellCheck={false}
               />
-              <p className="text-xs text-muted-foreground shrink-0">
-                {t('charCount', { count: htmlInput.length })}
-              </p>
-            </Card>
+            </IOPanel>
 
             {/* Markdown Output */}
-            <Card className="flex flex-col gap-3 overflow-hidden p-4">
-              <div className="flex shrink-0 flex-wrap items-center justify-between gap-2">
-                <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  {t('mdOutputLabel')}
-                </Label>
-                <Button size="sm" variant="secondary" disabled={!convertedMarkdown} onClick={handleCopyMd}>
+            <IOPanel
+              bodyClassName="flex flex-col"
+              label={t('mdOutputLabel')}
+              actions={
+                <Button size="sm" className="h-8" variant="secondary" disabled={!convertedMarkdown} onClick={handleCopyMd}>
                   {copiedMd ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
                   {copiedMd ? t('copied') : t('copyMarkdown')}
                 </Button>
-              </div>
-
-              <div className="flex-1 min-h-0 overflow-auto rounded-md border">
+              }
+            >
+              <div className="min-h-0 flex-1 overflow-auto">
                 {convertedMarkdown ? (
-                  <pre className="p-4 text-sm font-mono whitespace-pre-wrap break-words h-full overflow-auto bg-muted/30">
+                  <pre className="h-full overflow-auto whitespace-pre-wrap break-words bg-muted/20 p-4 font-mono text-sm">
                     {convertedMarkdown}
                   </pre>
                 ) : (
                   <p className="p-4 text-sm text-muted-foreground">{t('emptyHintHtmlToMd')}</p>
                 )}
               </div>
-
-              <p className="text-xs text-muted-foreground shrink-0">{t('securityNote')}</p>
-            </Card>
+              {footerNote(t('securityNote'))}
+            </IOPanel>
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </ToolShell>
   );
 }

@@ -2,8 +2,6 @@
 
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
 import {
   buildLineDiffRows,
   countDiffRows,
@@ -15,9 +13,9 @@ import { Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useIsMobile } from '@/components/hooks/use-mobile';
 import { IconGitCompare } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 
 const SAMPLE_A = `function greet(name) {
   console.log("Hello, " + name);
@@ -90,14 +88,13 @@ export function DiffCheckerLayout() {
     </span>
   );
 
-  const diffPanel = (
-    <Card className="flex flex-col flex-1 min-h-[280px] overflow-hidden p-0">
-      <div className="px-3 py-2 border-b border-border/50 bg-muted/30 shrink-0 flex items-center justify-between">
-        <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-          {t('comparisonLabel')}
-        </Label>
-        {statsBadge}
-      </div>
+  const diffResult = (
+    <IOPanel
+      label={t('comparisonLabel')}
+      actions={statsBadge || undefined}
+      className="flex-1 min-h-[280px]"
+      bodyClassName="flex min-h-0 flex-col overflow-hidden"
+    >
       <div className="flex flex-col md:flex-row flex-1 min-h-0 divide-y md:divide-y-0 md:divide-x divide-border">
         <div
           ref={leftScrollRef}
@@ -116,7 +113,7 @@ export function DiffCheckerLayout() {
                 {i + 1}
               </span>
               <pre className="flex-1 py-0.5 pl-2 pr-2 whitespace-pre-wrap break-all m-0 bg-transparent">
-                {row.left === '' ? '\u00a0' : row.left}
+                {row.left === '' ? ' ' : row.left}
               </pre>
             </div>
           ))}
@@ -141,7 +138,7 @@ export function DiffCheckerLayout() {
                 {i + 1}
               </span>
               <pre className="flex-1 py-0.5 pl-2 pr-2 whitespace-pre-wrap break-all m-0 bg-transparent">
-                {row.right === '' ? '\u00a0' : row.right}
+                {row.right === '' ? ' ' : row.right}
               </pre>
             </div>
           ))}
@@ -150,34 +147,35 @@ export function DiffCheckerLayout() {
           )}
         </div>
       </div>
-    </Card>
+    </IOPanel>
+  );
+
+  const toolbar = (
+    <div className="flex flex-wrap items-center gap-3 text-xs shrink-0">
+      {truncated && (
+        <span className="text-amber-600 dark:text-amber-400">
+          {t('truncatedWarning', { max: DIFF_MAX_ROWS.toLocaleString() })}
+        </span>
+      )}
+      {overLimit && (
+        <span className="text-destructive">
+          {t('limitExceeded', { max: DIFF_MAX_INPUT_CHARS.toLocaleString() })}
+        </span>
+      )}
+      <Button type="button" variant="outline" size="sm" className="h-7 text-xs gap-1 ml-auto" onClick={clearAll}>
+        <Trash2 className="h-3 w-3" />
+        {t('clearBoth')}
+      </Button>
+    </div>
   );
 
   return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader icon={IconGitCompare} title={t('title')} description={t('subtitle')} offline={false} />
-      </RevealItem>
-
-      {/* Status + clear row */}
-      <div className="flex flex-wrap items-center gap-3 text-xs shrink-0">
-        {truncated && (
-          <span className="text-amber-600 dark:text-amber-400">
-            {t('truncatedWarning', { max: DIFF_MAX_ROWS.toLocaleString() })}
-          </span>
-        )}
-        {overLimit && (
-          <span className="text-destructive">
-            {t('limitExceeded', { max: DIFF_MAX_INPUT_CHARS.toLocaleString() })}
-          </span>
-        )}
-        <Button type="button" variant="outline" size="sm" className="h-7 text-xs gap-1 ml-auto" onClick={clearAll}>
-          <Trash2 className="h-3 w-3" />
-          {t('clearBoth')}
-        </Button>
-      </div>
-
+    <ToolShell
+      icon={IconGitCompare}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
       {isMobile ? (
         /* ── Mobile: 3-tab layout (Original / Modified / Diff) ── */
         <>
@@ -193,70 +191,52 @@ export function DiffCheckerLayout() {
 
           <div className="flex-1 min-h-0 flex flex-col">
             {mobileTab === 'original' && (
-              <Card className="flex flex-col flex-1 overflow-hidden">
-                <textarea
+              <IOPanel label={t('original')} className="flex-1">
+                <ToolTextArea
                   id="diff-left"
                   value={leftText}
                   onChange={(e) => setLeftText(e.target.value)}
-                  spellCheck={false}
-                  className="flex-1 resize-none w-full bg-transparent p-3 text-sm font-mono focus:outline-none"
                   placeholder={t('originalPlaceholder')}
                 />
-              </Card>
+              </IOPanel>
             )}
             {mobileTab === 'modified' && (
-              <Card className="flex flex-col flex-1 overflow-hidden">
-                <textarea
+              <IOPanel label={t('modified')} className="flex-1">
+                <ToolTextArea
                   id="diff-right"
                   value={rightText}
                   onChange={(e) => setRightText(e.target.value)}
-                  spellCheck={false}
-                  className="flex-1 resize-none w-full bg-transparent p-3 text-sm font-mono focus:outline-none"
                   placeholder={t('modifiedPlaceholder')}
                 />
-              </Card>
+              </IOPanel>
             )}
-            {mobileTab === 'diff' && diffPanel}
+            {mobileTab === 'diff' && diffResult}
           </div>
         </>
       ) : (
         /* ── Desktop: stacked inputs + full diff below ── */
         <>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 shrink-0 min-h-[160px]">
-            <Card className="flex flex-col overflow-hidden">
-              <div className="px-3 py-2 border-b border-border/50 bg-muted/30">
-                <Label htmlFor="diff-left" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  {t('original')}
-                </Label>
-              </div>
-              <textarea
+          <ToolPanels className="lg:grid-cols-2 flex-none shrink-0 min-h-[160px]">
+            <IOPanel label={t('original')}>
+              <ToolTextArea
                 id="diff-left"
                 value={leftText}
                 onChange={(e) => setLeftText(e.target.value)}
-                spellCheck={false}
-                className="min-h-[160px] flex-1 resize-y w-full bg-transparent p-3 text-sm font-mono focus:outline-none"
                 placeholder={t('originalPlaceholder')}
               />
-            </Card>
-            <Card className="flex flex-col overflow-hidden">
-              <div className="px-3 py-2 border-b border-border/50 bg-muted/30">
-                <Label htmlFor="diff-right" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                  {t('modified')}
-                </Label>
-              </div>
-              <textarea
+            </IOPanel>
+            <IOPanel label={t('modified')}>
+              <ToolTextArea
                 id="diff-right"
                 value={rightText}
                 onChange={(e) => setRightText(e.target.value)}
-                spellCheck={false}
-                className="min-h-[160px] flex-1 resize-y w-full bg-transparent p-3 text-sm font-mono focus:outline-none"
                 placeholder={t('modifiedPlaceholder')}
               />
-            </Card>
-          </div>
-          {diffPanel}
+            </IOPanel>
+          </ToolPanels>
+          {diffResult}
         </>
       )}
-    </div>
+    </ToolShell>
   );
 }

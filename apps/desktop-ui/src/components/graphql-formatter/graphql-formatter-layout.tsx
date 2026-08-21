@@ -1,21 +1,18 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { parse, print, stripIgnoredCharacters } from 'graphql';
 import { AlertCircle, Trash2, Wand2 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { registerGraphqlMonarch } from '@/components/graphql-formatter/register-graphql-monarch';
 import { useIsMobile } from '@/components/hooks/use-mobile';
 import { IconBrandGraphql } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel } from '@/components/tools/io-panel';
 import { ToolMobileTabs } from '@/components/tools/tool-mobile-tabs';
 import { CopyIconButton } from '@/components/tools/copy-icon-button';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -26,7 +23,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
+import { cn } from '@/lib/utils';
 import CodeEditor from '@/components/ui/code-editor';
 
 const SAMPLE = `query UserPosts($userId: ID!, $first: Int = 10) {
@@ -46,14 +43,10 @@ const SAMPLE = `query UserPosts($userId: ID!, $first: Int = 10) {
 
 const MAX_LEN = 500_000;
 
-// Editor options are now largely handled by CodeEditor internally.
-
 type OutputMode = 'pretty' | 'minify';
 
 export function GraphqlFormatterLayout() {
   const t = useTranslations('GraphqlFormatter');
-  const { resolvedTheme } = useTheme();
-  const monacoTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'light';
   const isMobile = useIsMobile();
   const [mobileTab, setMobileTab] = useState<'input' | 'output'>('input');
   const [panelTab, setPanelTab] = useState<'format' | 'build'>('format');
@@ -126,124 +119,121 @@ export function GraphqlFormatterLayout() {
     void copyToClipboard(output, { silent: true });
   };
 
-  return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader icon={IconBrandGraphql} title={t('title')} description={t('subtitle')} />
-      </RevealItem>
-
-      <Card className="p-4 shrink-0 space-y-4">
-        <Tabs value={panelTab} onValueChange={(v) => setPanelTab(v as 'format' | 'build')}>
-          <TabsList className="grid w-full max-w-md grid-cols-2">
-            <TabsTrigger value="format">{t('tabs.format')}</TabsTrigger>
-            <TabsTrigger value="build">{t('tabs.build')}</TabsTrigger>
-          </TabsList>
-          <TabsContent value="format" className="mt-4 space-y-4">
-            <div className="flex flex-wrap items-end gap-3">
-              <div className="space-y-2 w-full sm:w-auto sm:min-w-[140px]">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-                  {t('outputModeLabel')}
-                </Label>
-                <Select value={outputMode} onValueChange={(v) => setOutputMode(v as OutputMode)}>
-                  <SelectTrigger className="h-9 text-sm w-full sm:w-[160px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pretty">{t('outputModes.pretty')}</SelectItem>
-                    <SelectItem value="minify">{t('outputModes.minify')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-wrap gap-2 pb-0.5">
-                <Button type="button" size="sm" className="gap-1.5 h-9" onClick={runFormat}>
-                  <Wand2 className="h-3.5 w-3.5" />
-                  {t('format')}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="gap-1.5 h-9"
-                  onClick={() => {
-                    setInput('');
-                    setOutput('');
-                    setError('');
-                  }}
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                  {t('clear')}
-                </Button>
-              </div>
+  const toolbar = (
+    <div className="shrink-0 space-y-4 rounded-lg border border-border bg-card p-4">
+      <Tabs value={panelTab} onValueChange={(v) => setPanelTab(v as 'format' | 'build')}>
+        <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsTrigger value="format">{t('tabs.format')}</TabsTrigger>
+          <TabsTrigger value="build">{t('tabs.build')}</TabsTrigger>
+        </TabsList>
+        <TabsContent value="format" className="mt-4 space-y-4">
+          <div className="flex flex-wrap items-end gap-3">
+            <div className="w-full space-y-2 sm:w-auto sm:min-w-[140px]">
+              <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                {t('outputModeLabel')}
+              </Label>
+              <Select value={outputMode} onValueChange={(v) => setOutputMode(v as OutputMode)}>
+                <SelectTrigger className="h-9 w-full text-sm sm:w-[160px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pretty">{t('outputModes.pretty')}</SelectItem>
+                  <SelectItem value="minify">{t('outputModes.minify')}</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-          </TabsContent>
-          <TabsContent value="build" className="mt-4 space-y-4">
-            <p className="text-xs text-muted-foreground">{t('builderHint')}</p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-                  {t('builder.operation')}
-                </Label>
-                <Select value={opType} onValueChange={(v) => setOpType(v as typeof opType)}>
-                  <SelectTrigger className="h-9 text-sm">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="query">{t('builder.operations.query')}</SelectItem>
-                    <SelectItem value="mutation">{t('builder.operations.mutation')}</SelectItem>
-                    <SelectItem value="subscription">{t('builder.operations.subscription')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-                  {t('builder.operationName')}
-                </Label>
-                <Input
-                  value={opName}
-                  onChange={(e) => setOpName(e.target.value)}
-                  placeholder={t('builder.operationNamePlaceholder')}
-                  className="h-9 text-sm"
-                />
-              </div>
+            <div className="flex flex-wrap gap-2 pb-0.5">
+              <Button type="button" size="sm" className="h-9 gap-1.5" onClick={runFormat}>
+                <Wand2 className="h-3.5 w-3.5" />
+                {t('format')}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="h-9 gap-1.5"
+                onClick={() => {
+                  setInput('');
+                  setOutput('');
+                  setError('');
+                }}
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                {t('clear')}
+              </Button>
+            </div>
+          </div>
+        </TabsContent>
+        <TabsContent value="build" className="mt-4 space-y-4">
+          <p className="text-xs text-muted-foreground">{t('builderHint')}</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                {t('builder.operation')}
+              </Label>
+              <Select value={opType} onValueChange={(v) => setOpType(v as typeof opType)}>
+                <SelectTrigger className="h-9 text-sm">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="query">{t('builder.operations.query')}</SelectItem>
+                  <SelectItem value="mutation">{t('builder.operations.mutation')}</SelectItem>
+                  <SelectItem value="subscription">{t('builder.operations.subscription')}</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
-              <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-                {t('builder.variableDefs')}
+              <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+                {t('builder.operationName')}
               </Label>
               <Input
-                value={varDefs}
-                onChange={(e) => setVarDefs(e.target.value)}
-                placeholder={t('builder.variableDefsPlaceholder')}
-                className="h-9 text-sm font-mono"
-                spellCheck={false}
+                value={opName}
+                onChange={(e) => setOpName(e.target.value)}
+                placeholder={t('builder.operationNamePlaceholder')}
+                className="h-9 text-sm"
               />
             </div>
-            <div className="space-y-2">
-              <Label className="text-xs text-muted-foreground uppercase tracking-wider">
-                {t('builder.selection')}
-              </Label>
-              <textarea
-                value={selection}
-                onChange={(e) => setSelection(e.target.value)}
-                spellCheck={false}
-                rows={6}
-                className="w-full resize-y rounded-md border border-input bg-transparent px-3 py-2 text-sm font-mono shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-              />
-            </div>
-            <Button type="button" size="sm" onClick={applyBuilder}>
-              {t('builder.apply')}
-            </Button>
-          </TabsContent>
-        </Tabs>
-        <p className="text-[11px] text-muted-foreground">
-          {t('counter', { current: input.length.toLocaleString(), max: MAX_LEN.toLocaleString() })}
-        </p>
-      </Card>
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t('builder.variableDefs')}
+            </Label>
+            <Input
+              value={varDefs}
+              onChange={(e) => setVarDefs(e.target.value)}
+              placeholder={t('builder.variableDefsPlaceholder')}
+              className="h-9 font-mono text-sm"
+              spellCheck={false}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-xs uppercase tracking-wider text-muted-foreground">
+              {t('builder.selection')}
+            </Label>
+            <textarea
+              value={selection}
+              onChange={(e) => setSelection(e.target.value)}
+              spellCheck={false}
+              rows={6}
+              className="w-full resize-y rounded-md border border-input bg-transparent px-3 py-2 font-mono text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            />
+          </div>
+          <Button type="button" size="sm" onClick={applyBuilder}>
+            {t('builder.apply')}
+          </Button>
+        </TabsContent>
+      </Tabs>
+      <p className="text-[11px] text-muted-foreground">
+        {t('counter', { current: input.length.toLocaleString(), max: MAX_LEN.toLocaleString() })}
+      </p>
+    </div>
+  );
 
+  return (
+    <ToolShell icon={IconBrandGraphql} title={t('title')} description={t('subtitle')} toolbar={toolbar}>
       {error && (
-        <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive shrink-0">
-          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+        <div className="mb-4 flex shrink-0 items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{error}</p>
         </div>
       )}
@@ -260,45 +250,40 @@ export function GraphqlFormatterLayout() {
       )}
 
       <div
-        className={`flex-1 min-h-0 ${isMobile ? 'flex flex-col gap-4' : 'grid grid-cols-1 lg:grid-cols-2 gap-4'}`}
+        className={cn(
+          'min-h-0 flex-1',
+          isMobile ? 'mt-4 flex flex-col gap-4' : 'grid grid-cols-1 gap-4 lg:grid-cols-2',
+        )}
       >
         {(!isMobile || mobileTab === 'input') && (
-          <Card className="flex flex-col overflow-hidden min-h-[280px] flex-1">
-            <div className="px-4 py-2.5 border-b border-border/50 bg-muted/30">
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {t('inputPanel')}
-              </Label>
-            </div>
-            <div className="flex-1 min-h-[240px] relative p-1">
-              <CodeEditor
-                language="graphql"
-                value={input}
-                onChange={(v) => setInput(v ?? '')}
-                beforeMount={(monaco) => registerGraphqlMonarch(monaco)}
-              />
-            </div>
-          </Card>
+          <IOPanel label={t('inputPanel')} bodyClassName="p-1" className="min-h-[280px] flex-1">
+            <CodeEditor
+              language="graphql"
+              value={input}
+              onChange={(v) => setInput(v ?? '')}
+              beforeMount={(monaco) => registerGraphqlMonarch(monaco)}
+            />
+          </IOPanel>
         )}
 
         {(!isMobile || mobileTab === 'output') && (
-          <Card className="flex flex-col overflow-hidden min-h-[280px] flex-1">
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {t('outputPanel')}
-              </Label>
+          <IOPanel
+            label={t('outputPanel')}
+            bodyClassName="p-1"
+            className="min-h-[280px] flex-1"
+            actions={
               <CopyIconButton onCopy={handleCopy} copied={copied} disabled={!output} label={t('copy')} />
-            </div>
-            <div className="flex-1 min-h-[240px] relative p-1">
-              <CodeEditor
-                language="graphql"
-                value={output}
-                beforeMount={(monaco) => registerGraphqlMonarch(monaco)}
-                readOnly
-              />
-            </div>
-          </Card>
+            }
+          >
+            <CodeEditor
+              language="graphql"
+              value={output}
+              beforeMount={(monaco) => registerGraphqlMonarch(monaco)}
+              readOnly
+            />
+          </IOPanel>
         )}
       </div>
-    </div>
+    </ToolShell>
   );
 }
