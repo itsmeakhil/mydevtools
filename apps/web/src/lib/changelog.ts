@@ -27,16 +27,21 @@ export const changeTypeLabels: Record<ChangeType, string> = {
 export const changelog: ChangelogEntry[] = [
   {
     version: '0.1.15',
-    date: '2026-08-21',
+    date: '2026-08-22',
     title: 'MyDevTools on Linux',
     summary:
-      'The desktop app now runs on Linux. Every release from here ships macOS and Linux together under one version, so you can grab the build for your machine in one place.',
+      'The desktop app now runs on Linux, published in the same release as macOS so you can grab the build for your machine in one place. This release also brings a consistent layout across 42 tools, a factory reset for your local data, and refreshed database and networking libraries.',
     changes: [
       { type: 'added', text: 'Linux support: install with a .deb on Debian and Ubuntu (22.04 or newer), or run the AppImage without installing anything.' },
-      { type: 'added', text: 'Builds for Intel/AMD and for ARM64 machines.' },
+      { type: 'added', text: 'Linux builds for Intel/AMD (x86_64). ARM64 packages are not part of this release.' },
+      { type: 'added', text: 'Factory reset — wipe every note, bookmark, task and vault entry from your device and start over, from Settings.' },
+      { type: 'added', text: 'A tool launcher that surfaces the tools that match how you actually work.' },
+      { type: 'improved', text: 'All 14 Formatters, 15 Converters and 13 Generators now share the same layout, so input, output and actions sit where you expect in every one of them.' },
       { type: 'improved', text: 'On Linux your database key is kept in the system keyring (GNOME Keyring or KWallet), the same way the macOS build uses the Keychain.' },
       { type: 'improved', text: 'macOS and Linux are now published together in a single release instead of separate ones.' },
+      { type: 'improved', text: 'Updated the bundled database and networking libraries, including the encrypted-database engine.' },
       { type: 'fixed', text: 'The window title bar no longer leaves an empty gap on Linux, where it reserved room for the macOS window buttons.' },
+      { type: 'fixed', text: 'Rough edges in the editor canvas and the Tasks composer.' },
     ],
   },
   {

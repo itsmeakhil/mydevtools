@@ -166,8 +166,11 @@ else
     case "$f" in
       *_amd64.deb)      cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-amd64.deb";      LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-amd64.deb") ;;
       *_arm64.deb)      cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-arm64.deb";      LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-arm64.deb") ;;
-      *x86_64.AppImage) cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-x86_64.AppImage"; LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-x86_64.AppImage") ;;
-      *aarch64.AppImage) cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-aarch64.AppImage"; LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-aarch64.AppImage") ;;
+      # Tauri names the AppImage after the Debian arch (amd64/arm64), not the
+      # GNU triple (x86_64/aarch64), so match BOTH spellings — matching only the
+      # triple silently skipped the alias and left the website's link 404ing.
+      *x86_64.AppImage|*_amd64.AppImage) cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-x86_64.AppImage"; LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-x86_64.AppImage") ;;
+      *aarch64.AppImage|*_arm64.AppImage) cp -f "$f" "$REPO_ROOT/dist-linux/MyDevTools-aarch64.AppImage"; LINUX_ARTIFACTS+=("$REPO_ROOT/dist-linux/MyDevTools-aarch64.AppImage") ;;
     esac
   done
   echo "▸ [3b/5] Linux artifacts: ${#LINUX_ARTIFACTS[@]}"

@@ -1,29 +1,26 @@
 import type { Metadata } from "next";
-import { Download, TerminalSquare } from "lucide-react";
-
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Button } from "@/components/ui/button";
+import { DownloadLinuxButton, RELEASES_URL } from "@/components/download-desktop-button";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mydevtools.tech";
 
 /**
- * Where the Linux artifacts live. Preview builds are published as a GitHub
- * pre-release so the binaries stay out of git; the page links to the tag rather
- * than to a fixed filename, which changes every version.
+ * Linux now ships in the same release as macOS, so this points at the current
+ * release rather than the old v0.1.14-linux-preview pre-release. The download
+ * buttons use the version-less filenames release-local.sh uploads every time.
  */
-const LINUX_RELEASE_URL =
-  "https://github.com/mydevtools-tech/mydevtools/releases/tag/v0.1.14-linux-preview";
+const LINUX_RELEASE_URL = RELEASES_URL;
 
 export const metadata: Metadata = {
-  title: "MyDevTools for Linux — preview builds",
+  title: "Download MyDevTools for Linux",
   description:
-    "Preview builds of the MyDevTools desktop app for Linux — Intel/AMD (x86_64) and ARM64. Completely offline, no account required, free for everyone. AppImage and .deb packages.",
+    "Download the MyDevTools desktop app for Linux — Intel/AMD (x86_64), as an AppImage or a .deb. Completely offline, no account required, free for everyone.",
   alternates: { canonical: `${baseUrl}/linux-builds` },
   openGraph: {
-    title: "MyDevTools for Linux — preview builds | MyDevTools",
+    title: "Download MyDevTools for Linux | MyDevTools",
     description:
-      "Preview builds of the MyDevTools desktop app for Linux — Intel/AMD and ARM64. AppImage and .deb. Offline, no account, free for everyone.",
+      "Download the MyDevTools desktop app for Linux — Intel/AMD, AppImage or .deb. Offline, no account, free for everyone.",
     url: `${baseUrl}/linux-builds`,
     siteName: "MyDevTools",
     type: "website",
@@ -54,7 +51,7 @@ export default function LinuxBuildsPage() {
 
           {/* Preview status — set expectations honestly */}
           <div className="mt-8 mx-auto max-w-xl rounded-xl border border-amber-500/30 bg-amber-500/[0.06] px-5 py-4 text-left">
-            <p className="text-sm font-semibold text-amber-200">Preview build</p>
+            <p className="text-sm font-semibold text-amber-200">Early Linux build</p>
             <p className="mt-1.5 text-sm text-muted-foreground">
               Linux support is new and still being validated. Unlike the macOS build,
               these packages are not yet covered by automatic updates — grab a newer
@@ -64,15 +61,18 @@ export default function LinuxBuildsPage() {
           </div>
 
           <div className="mt-10 flex flex-col items-center">
-            <Button asChild size="lg" className="gap-2">
-              <a href={LINUX_RELEASE_URL} target="_blank" rel="noreferrer">
-                <TerminalSquare className="h-4 w-4" />
-                Get the Linux build
-                <Download className="h-4 w-4 opacity-70" />
+            <DownloadLinuxButton />
+            <p className="mt-3 text-xs text-muted-foreground">
+              Or browse every file on the{" "}
+              <a
+                className="underline underline-offset-2"
+                href={LINUX_RELEASE_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub release page
               </a>
-            </Button>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Intel/AMD &amp; ARM64 · from the GitHub releases page
+              .
             </p>
           </div>
 
@@ -89,8 +89,9 @@ export default function LinuxBuildsPage() {
             </pre>
 
             <p className="mt-4 text-xs text-muted-foreground">
-              On ARM64 (Raspberry Pi, ARM servers) use the <code>arm64.deb</code> or the{" "}
-              <code>aarch64.AppImage</code>. Unsure? Run <code>dpkg --print-architecture</code>.
+              ARM64 machines (Raspberry Pi, ARM servers) are not supported yet — the
+              packages here are Intel/AMD only. Not sure which you have? Run{" "}
+              <code>dpkg --print-architecture</code>.
             </p>
 
             <p className="mt-3 text-sm text-muted-foreground">

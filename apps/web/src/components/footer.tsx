@@ -18,6 +18,7 @@ const footerColumns: { title: string; links: FooterLink[] }[] = [
       { href: "/tools", label: "Tools" },
       { href: "/features", label: "Features" },
       { href: "/download", label: "Download" },
+      { href: "/linux-builds", label: "Download for Linux" },
       { href: "/developer-tools", label: "Platform" },
       { href: "/changelog", label: "Changelog" },
     ],

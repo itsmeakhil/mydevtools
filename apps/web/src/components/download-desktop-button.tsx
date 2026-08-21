@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Download, TerminalSquare } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -11,6 +11,14 @@ export const RELEASES_URL =
  * release-local.sh uploads a version-less MyDevTools.dmg to every release.
  */
 export const DMG_URL = `${RELEASES_URL}/download/MyDevTools.dmg`;
+
+/**
+ * Linux artifacts. release-local.sh uploads arch-suffixed, version-less copies
+ * to every release, so these URLs never need touching on a version bump.
+ * amd64 only for now — the ARM64 packages are not part of the current release.
+ */
+export const DEB_URL = `${RELEASES_URL}/download/MyDevTools-amd64.deb`;
+export const APPIMAGE_URL = `${RELEASES_URL}/download/MyDevTools-x86_64.AppImage`;
 
 /** Minimal Apple logo (lucide has no Apple icon in this version). */
 export function AppleGlyph({ className }: { className?: string }) {
@@ -39,6 +47,46 @@ export function DownloadDesktopButton({
       </Button>
       <p className="mt-2 text-sm text-muted-foreground">
         Universal (Apple Silicon &amp; Intel) · macOS 12+
+      </p>
+    </div>
+  );
+}
+
+/**
+ * Linux download. Two formats because they solve different problems: the .deb
+ * integrates with apt on Debian/Ubuntu, the AppImage runs on anything without
+ * installing. Neither self-updates yet, which /linux-builds says out loud.
+ */
+export function DownloadLinuxButton({
+  size = "lg",
+  className,
+}: {
+  size?: "default" | "sm" | "lg";
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        <Button asChild size={size} variant="outline" className="gap-2">
+          <a href={DEB_URL} download>
+            <TerminalSquare className="h-4 w-4" />
+            Download .deb
+            <Download className="h-4 w-4 opacity-70" />
+          </a>
+        </Button>
+        <Button asChild size={size} variant="outline" className="gap-2">
+          <a href={APPIMAGE_URL} download>
+            <TerminalSquare className="h-4 w-4" />
+            Download AppImage
+            <Download className="h-4 w-4 opacity-70" />
+          </a>
+        </Button>
+      </div>
+      <p className="mt-2 text-sm text-muted-foreground">
+        Intel/AMD (x86_64) · Ubuntu 22.04+ / Debian 12+ ·{" "}
+        <a className="underline underline-offset-2" href="/linux-builds">
+          install guide
+        </a>
       </p>
     </div>
   );
