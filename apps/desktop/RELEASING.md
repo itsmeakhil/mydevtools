@@ -157,3 +157,64 @@ Actions minutes, so promote deliberately.
   would reject every future update and need a manual reinstall.
 - **Always bump the version** before releasing.
 - **Keep the updater key backed up** — it's critical infrastructure.
+
+---
+
+## Building the Linux app
+
+Linux **cannot be cross-compiled from macOS** — the build links against
+webkit2gtk/GTK system libraries, so it has to run on Linux (a machine, a VM, WSL2,
+or a container). Unlike macOS there is **no signing or notarization**: no Apple
+account, no certificate, no notarytool. You just build and ship the artifacts.
+
+### Build dependencies (Debian/Ubuntu)
+
+```bash
+sudo apt update && sudo apt install -y \
+  libwebkit2gtk-4.1-dev build-essential curl wget file \
+  libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev patchelf \
+  libdbus-1-dev
+```
+
+`libdbus-1-dev` is required by the `dbus-secret-service` crate, which backs the
+Linux keyring (see the platform-split `keyring` dependency in `Cargo.toml`).
+
+### Build
+
+```bash
+pnpm install --frozen-lockfile
+cd apps/desktop
+
+# updater artifacts are signed, so the key must be present
+export TAURI_SIGNING_PRIVATE_KEY="$(cat ~/.tauri/mydevtools-updater.key)"
+export TAURI_SIGNING_PRIVATE_KEY_PASSWORD="$(cat ~/.tauri/mydevtools-updater.password)"
+
+pnpm tauri build --bundles deb,appimage
+# → src-tauri/target/release/bundle/{deb,appimage}/
+```
+
+### Verify before shipping
+
+The keyring is the one thing that can compile fine and still fail at runtime: the
+app fetches the SQLCipher key from the Secret Service at startup, and a headless
+shell has no keyring daemon.
+
+```bash
+sudo apt install -y gnome-keyring dbus-x11
+dbus-run-session -- ./src-tauri/target/release/mydevtools-desktop
+```
+
+Then: create a note → quit → **reboot** → reopen. If the note is still there, the
+key persisted correctly.
+
+### Publishing
+
+Only **AppImage** can self-update — Tauri's updater cannot replace a `.deb`/`.rpm`
+(the package manager owns those files), so AppImage is the auto-updating format and
+`.deb` is a manual-install convenience.
+
+> ⚠️ `latest.json` is shared across platforms. The macOS release writes a manifest
+> containing only the `darwin-*` keys, so uploading a Linux manifest with
+> `--clobber` **erases the macOS entries** (and vice versa) and silently breaks
+> auto-update for the other OS. Merge the platform keys into the existing
+> `latest.json` instead of overwriting it.

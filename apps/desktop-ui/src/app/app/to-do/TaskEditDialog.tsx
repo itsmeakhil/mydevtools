@@ -28,6 +28,8 @@ interface TaskEditDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSave: (updatedTask: Partial<Task>) => Promise<void>;
+  /** "create" reuses this dialog for new tasks: add labels, same form. */
+  mode?: "edit" | "create";
 }
 
 const priorityConfig = {
@@ -83,10 +85,16 @@ const predefinedTags = [
   { name: "Meeting", color: "#06b6d4" },
 ];
 
-export default function TaskEditDialog({ task, open, onOpenChange, onSave }: TaskEditDialogProps) {
+export default function TaskEditDialog({ task, open, onOpenChange, onSave, mode = "edit" }: TaskEditDialogProps) {
   const t = useTranslations("Tasks.editDialog");
+  const tDrawer = useTranslations("Tasks.mobileDrawer");
+  const tForm = useTranslations("Tasks.form");
   const { statuses } = useStatuses();
   const tPriorities = useTranslations("Tasks.priorities");
+  const isCreate = mode === "create";
+  const titleText = isCreate ? tDrawer("addNewTaskTitle") : t("title");
+  const descriptionText = isCreate ? tDrawer("addNewTaskDescription") : t("description");
+  const saveText = isCreate ? tForm("addButton") : t("saveChanges");
   const [editedTask, setEditedTask] = useState<Partial<Task>>({});
   const [newSubTask, setNewSubTask] = useState("");
   const [customTagName, setCustomTagName] = useState("");
@@ -545,9 +553,9 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>{t("title")}</DialogTitle>
+            <DialogTitle>{titleText}</DialogTitle>
             <DialogDescription>
-              {t("description")}
+              {descriptionText}
             </DialogDescription>
           </DialogHeader>
           {FormContent}
@@ -556,7 +564,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
               {t("cancel")}
             </Button>
             <Button onClick={handleSave} disabled={isSaving}>
-              {isSaving ? t("saving") : t("saveChanges")}
+              {isSaving ? t("saving") : saveText}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -569,9 +577,9 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
       <DrawerContent>
         <div className="mx-auto w-full max-w-3xl max-h-[90vh] overflow-y-auto">
           <DrawerHeader>
-            <DrawerTitle>{t("title")}</DrawerTitle>
+            <DrawerTitle>{titleText}</DrawerTitle>
             <DrawerDescription>
-              {t("description")}
+              {descriptionText}
             </DrawerDescription>
           </DrawerHeader>
           <div className="px-4">
@@ -579,7 +587,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave }: Tas
           </div>
           <DrawerFooter>
             <Button onClick={handleSave} disabled={isSaving}>
-              {isSaving ? t("saving") : t("saveChanges")}
+              {isSaving ? t("saving") : saveText}
             </Button>
             <DrawerClose asChild>
               <Button variant="outline">{t("cancel")}</Button>

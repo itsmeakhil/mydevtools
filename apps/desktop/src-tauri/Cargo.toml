@@ -16,9 +16,6 @@ tauri = { version = "2", features = [] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 rusqlite = { version = "0.40", features = ["bundled-sqlcipher-vendored-openssl"] }
-# ponytail: keyring 4 restructured stores (keyring-core + per-platform crates); staying on 3
-# until there's a reason to migrate the Keychain-backed SQLCipher key path.
-keyring = { version = "3", features = ["apple-native"] }
 uuid = { version = "1", features = ["v4"] }
 chrono = "0.4"
 getrandom = "0.4"
@@ -42,6 +39,22 @@ mongodb = "3"
 redis = { version = "1", features = ["tokio-comp", "tokio-native-tls-comp"] }
 futures-util = "0.3"
 dashmap = "6"
+
+# The keyring backend is the one genuinely platform-specific dependency: the
+# macOS Keychain vs. the Linux Secret Service (GNOME Keyring / KWallet).
+# db/device_key.rs uses only the portable `Entry` API, so the code is identical
+# on both — only the backend feature differs.
+#
+# Linux uses sync-secret-service, NOT linux-native: the latter stores in kernel
+# keyutils, which is session-scoped and can be lost on reboot. The SQLCipher key
+# must persist or the user loses access to their local database.
+# ponytail: keyring 4 restructured stores (keyring-core + per-platform crates); staying on 3
+# until there's a reason to migrate the Keychain-backed SQLCipher key path.
+[target.'cfg(target_os = "macos")'.dependencies]
+keyring = { version = "3", features = ["apple-native"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+keyring = { version = "3", features = ["sync-secret-service"] }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }

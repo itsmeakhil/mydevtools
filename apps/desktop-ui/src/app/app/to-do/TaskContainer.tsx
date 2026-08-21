@@ -3,8 +3,8 @@
 import { useState, useMemo, useRef, useEffect, useCallback, lazy, Suspense } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import TaskForm from "@/app/app/to-do/TaskForm";
 import TaskList from "@/app/app/to-do/TaskList";
+import type { Task } from "@/app/app/to-do/types/Task";
 import PaginationDemo from "@/app/app/to-do/PaginationS";
 import { LazyBoundary } from "@/app/app/to-do/components/LazyBoundary";
 
@@ -16,6 +16,7 @@ const TaskCommandPalette = lazy(() =>
   }))
 );
 const ManageStatusesDialog = lazy(() => import("@/app/app/to-do/ManageStatusesDialog"));
+const TaskEditDialog = lazy(() => import("@/app/app/to-do/TaskEditDialog"));
 const ProjectManagerDialog = lazy(() =>
   import("@/app/app/to-do/components/ProjectManagerDialog").then((m) => ({
     default: m.ProjectManagerDialog,
@@ -36,16 +37,6 @@ import { useStatuses } from "./hooks/useStatuses";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/components/hooks/use-mobile";
 import { useTranslations } from "next-intl";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerClose,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import { Badge } from "@/components/ui/badge";
 import {
   Select,
@@ -74,10 +65,10 @@ export const TaskContainer = () => {
   }, [isMobile]);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+  const [addTaskStatus, setAddTaskStatus] = useState<string | null>(null);
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const taskFormInputRef = useRef<HTMLInputElement>(null);
   const {
     tasks,
     isLoading,
@@ -150,13 +141,34 @@ export const TaskContainer = () => {
   // Calculate statistics using all tasks stats
   const completionRate = allTaskStats.total > 0 ? Math.round((allTaskStats.completed / allTaskStats.total) * 100) : 0;
 
-  // New tasks land in the centrally selected project; "all" creates them unassigned.
-  const handleAddTask = useCallback(
-    (taskText: string) => {
-      addTask(taskText, filterProject !== "all" ? filterProject : undefined);
-      setIsDrawerOpen(false);
+  // Template for the create dialog — preselects the centrally selected project
+  // and, when opened from a status group's "+", that status.
+  const blankTask = useMemo<Task>(
+    () => ({
+      id: "",
+      text: "",
+      status: addTaskStatus ?? "not-started",
+      statusOrder: 0,
+      createdAt: "",
+      created_by: "",
+      tags: [],
+      subTasks: [],
+      projectId: filterProject !== "all" ? filterProject : undefined,
+    }),
+    [filterProject, addTaskStatus]
+  );
+
+  const openAddTask = useCallback((statusId?: string) => {
+    setAddTaskStatus(statusId ?? null);
+    setIsAddTaskOpen(true);
+  }, []);
+
+  const handleCreateTask = useCallback(
+    async (updates: Partial<Task>) => {
+      const { text = "", projectId, ...rest } = updates;
+      await addTask(text, projectId, rest);
     },
-    [addTask, filterProject]
+    [addTask]
   );
 
   const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
@@ -213,7 +225,7 @@ export const TaskContainer = () => {
 
       if (!isMobile && event.key?.toLowerCase() === "n" && !isTypingInField) {
         event.preventDefault();
-        taskFormInputRef.current?.focus();
+        openAddTask();
       }
     };
 
@@ -426,6 +438,16 @@ export const TaskContainer = () => {
                   )}
                 </div>
 
+                {/* Add Task */}
+                <Button
+                  size="sm"
+                  onClick={() => openAddTask()}
+                  className="h-9 px-3 gap-2"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  <span className="text-xs font-medium">{tDrawer("addTaskSrOnly")}</span>
+                </Button>
+
                 {/* Project filter lives in the ToolSidebarLayout panel. */}
 
                 {/* Assignee Filter — only meaningful in a shared workspace */}
@@ -618,11 +640,6 @@ export const TaskContainer = () => {
           </Card>
         )}
 
-        {/* Task Form - Hidden on mobile, visible on desktop */}
-        <div className="hidden md:block">
-          <TaskForm onAddTask={handleAddTask} inputRef={taskFormInputRef} />
-        </div>
-
         {/* Task View */}
         <div className="flex-1 overflow-hidden flex flex-col">
           {viewMode === "kanban" ? (
@@ -658,6 +675,7 @@ export const TaskContainer = () => {
                     onUpdateStatus={updateTaskStatus}
                     onUpdateTask={updateTask}
                     onDeleteTask={deleteTask}
+                    onAddInStatus={openAddTask}
                   />
                 </div>
               ) : (
@@ -670,6 +688,7 @@ export const TaskContainer = () => {
                       onUpdateStatus={updateTaskStatus}
                       onUpdateTask={updateTask}
                       onDeleteTask={deleteTask}
+                      onAddInStatus={openAddTask}
                     />
                   </CardContent>
                 </Card>
@@ -694,34 +713,29 @@ export const TaskContainer = () => {
 
       {/* Floating Action Button (FAB) - Mobile Only */}
       <div className="md:hidden">
-        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-          <DrawerTrigger asChild>
-            <Button
-              size="icon"
-              className="fab fab-pulse h-14 w-14 bg-primary hover:bg-primary/90 text-primary-foreground transition-transform active:scale-95"
-            >
-              <Plus className="h-6 w-6" />
-              <span className="sr-only">{tDrawer("addTaskSrOnly")}</span>
-            </Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <div className="mx-auto w-full max-w-sm">
-              <DrawerHeader>
-                <DrawerTitle>{tDrawer("addNewTaskTitle")}</DrawerTitle>
-                <DrawerDescription>{tDrawer("addNewTaskDescription")}</DrawerDescription>
-              </DrawerHeader>
-              <div className="p-4 pb-0">
-                <TaskForm onAddTask={handleAddTask} />
-              </div>
-              <DrawerFooter>
-                <DrawerClose asChild>
-                  <Button variant="outline">{tDrawer("cancel")}</Button>
-                </DrawerClose>
-              </DrawerFooter>
-            </div>
-          </DrawerContent>
-        </Drawer>
+        <Button
+          size="icon"
+          onClick={() => openAddTask()}
+          className="fab fab-pulse h-14 w-14 bg-primary hover:bg-primary/90 text-primary-foreground transition-transform active:scale-95"
+        >
+          <Plus className="h-6 w-6" />
+          <span className="sr-only">{tDrawer("addTaskSrOnly")}</span>
+        </Button>
       </div>
+
+      {isAddTaskOpen && (
+        <LazyBoundary fallback={null}>
+          <Suspense fallback={null}>
+            <TaskEditDialog
+              task={blankTask}
+              mode="create"
+              open={isAddTaskOpen}
+              onOpenChange={setIsAddTaskOpen}
+              onSave={handleCreateTask}
+            />
+          </Suspense>
+        </LazyBoundary>
+      )}
 
       {isExportDialogOpen && (
         <LazyBoundary fallback={null}>
@@ -755,10 +769,7 @@ export const TaskContainer = () => {
               onOpenChange={setIsPaletteOpen}
               viewMode={viewMode}
               onViewModeChange={setViewMode}
-              onNewTask={() => {
-                if (isMobile) setIsDrawerOpen(true);
-                else taskFormInputRef.current?.focus();
-              }}
+              onNewTask={() => openAddTask()}
             />
           </Suspense>
         </LazyBoundary>

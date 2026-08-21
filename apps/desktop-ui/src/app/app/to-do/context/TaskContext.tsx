@@ -10,7 +10,7 @@ import React, {
   useMemo,
 } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Task, NewTask } from "@/app/app/to-do/types/Task";
+import { Task } from "@/app/app/to-do/types/Task";
 import { format } from "date-fns";
 import useAuth, { AuthState } from "@/utils/useAuth";
 import { apiFetch } from "@/lib/desktop/api-fetch";
@@ -55,7 +55,7 @@ interface TaskContextType {
   fetchNextPage: () => void;
   fetchPreviousPage: () => void;
   handlePageChange: (page: number) => void;
-  addTask: (text: string, projectId?: string) => Promise<void>;
+  addTask: (text: string, projectId?: string, extras?: Partial<Task>) => Promise<void>;
   updateTask: (taskId: string, updates: Partial<Task>) => Promise<void>;
   updateTaskStatus: (taskId: string, newStatus: string) => Promise<void>;
   reassignStatus: (fromStatus: string) => Promise<void>;
@@ -257,25 +257,26 @@ export function TaskProvider({ children }: { children: React.ReactNode }) {
   }, [queryClient]);
 
   const addTask = useCallback(
-    async (newTaskText: string, projectId?: string): Promise<void> => {
+    async (newTaskText: string, projectId?: string, extras?: Partial<Task>): Promise<void> => {
       if (!user) return;
-      const newTask: NewTask = {
-        text: newTaskText,
-        status: "not-started",
-        statusOrder: 2,
-        createdAt: new Date().toISOString(),
-        created_by: user.uid,
-        projectId,
-      };
       try {
         await authedFetch("/api/backend/tasks", {
           method: "POST",
-          body: JSON.stringify({ text: newTask.text, projectId: newTask.projectId }),
+          body: JSON.stringify({ projectId, ...extras, text: newTaskText }),
         });
 
         // Optimistic stat bump (will be reconciled by stats invalidate)
+        const status = extras?.status ?? "not-started";
         queryClient.setQueryData<TaskStats>(STATS_QUERY_KEY, (old) =>
-          old ? { ...old, total: old.total + 1, notStarted: old.notStarted + 1 } : old
+          old
+            ? {
+                ...old,
+                total: old.total + 1,
+                completed: old.completed + (status === "completed" ? 1 : 0),
+                ongoing: old.ongoing + (status === "ongoing" ? 1 : 0),
+                notStarted: old.notStarted + (status === "not-started" ? 1 : 0),
+              }
+            : old
         );
 
         invalidateTasks();
