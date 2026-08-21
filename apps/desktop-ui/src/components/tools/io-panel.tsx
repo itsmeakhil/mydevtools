@@ -59,14 +59,16 @@ export function IOPanel({
       )}
       {...rest}
     >
-      <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border bg-[hsl(var(--surface-2))] px-3 py-2">
-        <div className="flex min-w-0 items-center gap-2 text-xs font-medium text-muted-foreground">
-          {label}
+      {(label != null || actions != null) && (
+        <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border bg-[hsl(var(--surface-2))] px-3 py-2">
+          <div className="flex min-w-0 items-center gap-2 text-xs font-medium text-muted-foreground">
+            {label}
+          </div>
+          {actions ? (
+            <div className="flex shrink-0 items-center gap-1">{actions}</div>
+          ) : null}
         </div>
-        {actions ? (
-          <div className="flex shrink-0 items-center gap-1">{actions}</div>
-        ) : null}
-      </div>
+      )}
       <div className={cn('relative min-h-0 flex-1', bodyClassName)}>
         {children}
       </div>

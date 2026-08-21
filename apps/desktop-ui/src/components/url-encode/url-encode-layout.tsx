@@ -3,8 +3,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
 import {
   ArrowRightLeft,
   Copy,
@@ -12,7 +10,6 @@ import {
   Trash2,
   Upload,
   Download,
-  FileText,
   AlertCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -20,9 +17,8 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { SendToMenu } from '@/components/ui/send-to-menu';
 import { IconLink } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 
 type Mode = 'encode' | 'decode';
 
@@ -135,20 +131,10 @@ export function UrlEncodeLayout() {
   const charCount = input.length;
   const outputCharCount = output.length;
 
-  return (
-    <div className="relative flex flex-col h-full gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconLink}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
-      <div className="flex items-center gap-2 shrink-0 md:hidden">
+  const toolbar = (
+    <div className="flex shrink-0 flex-col gap-3">
+      {/* Mobile upload/clear actions */}
+      <div className="flex items-center gap-2 md:hidden">
         <Button
           variant="outline"
           size="sm"
@@ -175,8 +161,9 @@ export function UrlEncodeLayout() {
         </Button>
       </div>
 
-      <div className="flex items-center justify-center shrink-0">
-        <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-muted/50 border border-border/50">
+      {/* Mode toggle */}
+      <div className="flex items-center justify-center">
+        <div className="inline-flex items-center gap-1 rounded-xl border border-border/60 bg-[hsl(var(--surface-2))] p-1">
           <button
             type="button"
             onClick={() => {
@@ -186,9 +173,9 @@ export function UrlEncodeLayout() {
               }
             }}
             className={cn(
-              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+              'rounded-lg px-4 py-1.5 text-sm font-medium transition-all duration-200',
               mode === 'encode'
-                ? 'bg-background shadow-sm text-foreground border border-border/50'
+                ? 'border border-border bg-card text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >
@@ -197,7 +184,7 @@ export function UrlEncodeLayout() {
           <button
             type="button"
             onClick={toggleMode}
-            className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/50 transition-colors"
+            className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-card/50 hover:text-foreground"
             title={t('swapTitle')}
           >
             <ArrowRightLeft className="h-4 w-4" />
@@ -211,9 +198,9 @@ export function UrlEncodeLayout() {
               }
             }}
             className={cn(
-              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+              'rounded-lg px-4 py-1.5 text-sm font-medium transition-all duration-200',
               mode === 'decode'
-                ? 'bg-background shadow-sm text-foreground border border-border/50'
+                ? 'border border-border bg-card text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground'
             )}
           >
@@ -221,61 +208,51 @@ export function UrlEncodeLayout() {
           </button>
         </div>
       </div>
+    </div>
+  );
 
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 min-h-0">
-        <Card
-          className={cn(
-            'flex flex-col overflow-hidden transition-colors',
-            isDragging && 'border-primary/50 bg-primary/5'
-          )}
+  return (
+    <ToolShell
+      icon={IconLink}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
+      <ToolPanels>
+        {/* Input */}
+        <IOPanel
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-        >
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {mode === 'encode' ? t('panels.plainText') : t('panels.encodedInput')}
-              </Label>
-            </div>
-            <span className="text-[10px] text-muted-foreground tabular-nums">
+          className={cn('transition-colors', isDragging && 'border-primary/50 bg-primary/5')}
+          label={mode === 'encode' ? t('panels.plainText') : t('panels.encodedInput')}
+          actions={
+            <span className="text-[10px] tabular-nums text-muted-foreground">
               {t('charCount', { count: charCount.toLocaleString() })}
             </span>
-          </div>
-          <div className="flex-1 min-h-0 relative">
-            <textarea
-              value={input}
-              onChange={(e) => handleInputChange(e.target.value)}
-              placeholder={
-                mode === 'encode'
-                  ? t('placeholders.encode')
-                  : t('placeholders.decode')
-              }
-              className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-              spellCheck={false}
-            />
-            {isDragging && (
-              <div className="absolute inset-0 flex items-center justify-center bg-primary/5 backdrop-blur-sm">
-                <div className="flex flex-col items-center gap-2 text-primary">
-                  <Upload className="h-8 w-8" />
-                  <span className="text-sm font-medium">{t('dropHere')}</span>
-                </div>
+          }
+        >
+          <ToolTextArea
+            value={input}
+            onChange={(e) => handleInputChange(e.target.value)}
+            placeholder={mode === 'encode' ? t('placeholders.encode') : t('placeholders.decode')}
+          />
+          {isDragging && (
+            <div className="absolute inset-0 flex items-center justify-center bg-primary/5 backdrop-blur-sm">
+              <div className="flex flex-col items-center gap-2 text-primary">
+                <Upload className="h-8 w-8" />
+                <span className="text-sm font-medium">{t('dropHere')}</span>
               </div>
-            )}
-          </div>
-        </Card>
-
-        <Card className="flex flex-col overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {mode === 'encode' ? t('panels.encodedOutput') : t('panels.decodedText')}
-              </Label>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] text-muted-foreground tabular-nums">
+          )}
+        </IOPanel>
+
+        {/* Output */}
+        <IOPanel
+          label={mode === 'encode' ? t('panels.encodedOutput') : t('panels.decodedText')}
+          actions={
+            <>
+              <span className="text-[10px] tabular-nums text-muted-foreground">
                 {t('charCount', { count: outputCharCount.toLocaleString() })}
               </span>
               <Button
@@ -296,37 +273,26 @@ export function UrlEncodeLayout() {
                 disabled={!output}
                 title={t('copyTitle')}
               >
-                {copied ? (
-                  <Check className="h-3 w-3 text-green-500" />
-                ) : (
-                  <Copy className="h-3 w-3" />
-                )}
+                {copied ? <Check className="h-3 w-3 text-green-500" /> : <Copy className="h-3 w-3" />}
               </Button>
-              <div className="ml-2 border-l pl-2 border-border/50">
+              <div className="ml-1 border-l border-border/50 pl-1">
                 <SendToMenu content={output} disabled={!output} />
               </div>
-            </div>
-          </div>
-          <div className="flex-1 min-h-0 relative">
-            {error ? (
-              <div className="absolute inset-0 flex items-center justify-center p-4">
-                <div className="flex flex-col items-center gap-2 text-destructive">
-                  <AlertCircle className="h-6 w-6" />
-                  <p className="text-sm text-center">{error}</p>
-                </div>
+            </>
+          }
+        >
+          {error ? (
+            <div className="absolute inset-0 flex items-center justify-center p-4">
+              <div className="flex flex-col items-center gap-2 text-destructive">
+                <AlertCircle className="h-6 w-6" />
+                <p className="text-center text-sm">{error}</p>
               </div>
-            ) : (
-              <textarea
-                value={output}
-                readOnly
-                placeholder={t('outputPlaceholder')}
-                className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-                spellCheck={false}
-              />
-            )}
-          </div>
-        </Card>
-      </div>
-    </div>
+            </div>
+          ) : (
+            <ToolTextArea value={output} readOnly placeholder={t('outputPlaceholder')} />
+          )}
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   );
 }

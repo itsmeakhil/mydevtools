@@ -4,15 +4,12 @@ import React, { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Check, Copy, SquareTerminal } from 'lucide-react'
 import { IconLockAccess } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
 import {
   CHMOD_PRESETS,
   PERMISSION_CLASSES,
@@ -82,22 +79,11 @@ export function ChmodCalculatorLayout() {
   }
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconLockAccess}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
+    <ToolShell icon={IconLockAccess} title={t('title')} description={t('subtitle')}>
       <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {/* Checkbox grid */}
-          <Card className="p-5">
+          <div className="rounded-lg border border-border bg-card p-5">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('grid.title')}
             </Label>
@@ -174,11 +160,11 @@ export function ChmodCalculatorLayout() {
                 {!symbolicValid && <p className="text-xs text-destructive">{t('symbolic.invalid')}</p>}
               </div>
             </div>
-          </Card>
+          </div>
 
           <div className="flex flex-col gap-4">
             {/* Output */}
-            <Card className="p-5">
+            <div className="rounded-lg border border-border bg-card p-5">
               <div className="flex items-center justify-between">
                 <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   {t('output.title')}
@@ -204,10 +190,10 @@ export function ChmodCalculatorLayout() {
                 {flags.setgid && <p>{t('explain.setgid')}</p>}
                 {flags.sticky && <p>{t('explain.sticky')}</p>}
               </div>
-            </Card>
+            </div>
 
             {/* Presets */}
-            <Card className="p-5">
+            <div className="rounded-lg border border-border bg-card p-5">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('presets.title')}
               </Label>
@@ -239,10 +225,10 @@ export function ChmodCalculatorLayout() {
                   </tbody>
                 </table>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </ToolShell>
   )
 }

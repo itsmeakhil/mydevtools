@@ -4,15 +4,12 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Clock3, Plus, RotateCcw, X } from 'lucide-react'
 import { IconWorld } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
 import { cn } from '@/lib/utils'
 import {
   convertParts,
@@ -152,21 +149,9 @@ export function TimezoneConverterLayout() {
     setTargets((prev) => prev.filter((z) => z !== tz))
   }
 
-  return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconWorld}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
-      <Card className="flex flex-wrap items-end gap-4 p-4">
-        <div className="space-y-1.5">
+  const toolbar = (
+    <div className="flex shrink-0 flex-wrap items-end gap-4 rounded-lg border border-border bg-card p-4">
+      <div className="space-y-1.5">
           <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             {t('dateTimeLabel')}
           </Label>
@@ -219,8 +204,17 @@ export function TimezoneConverterLayout() {
           </div>
           <Slider value={[scrub]} min={-720} max={720} step={15} onValueChange={(v) => setScrub(v[0] ?? 0)} />
         </div>
-      </Card>
+      </div>
+  )
 
+  return (
+    <ToolShell
+      icon={IconWorld}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+      contentClassName="gap-4"
+    >
       <div className="flex items-center justify-between">
         <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           {t('targetsLabel')}
@@ -257,7 +251,7 @@ export function TimezoneConverterLayout() {
             }).format(effectiveInstant)
             const timeStr = `${String(parts.hh).padStart(2, '0')}:${String(parts.mm).padStart(2, '0')}`
             return (
-              <Card key={tz} className="flex items-center gap-4 px-4 py-3">
+              <div key={tz} className="flex items-center gap-4 rounded-lg border border-border bg-card px-4 py-3">
                 <span
                   className={cn('h-2.5 w-2.5 shrink-0 rounded-full', BAND_DOT[band])}
                   title={t(`bands.${band}`)}
@@ -294,13 +288,13 @@ export function TimezoneConverterLayout() {
                 >
                   <X className="h-3.5 w-3.5" />
                 </Button>
-              </Card>
+              </div>
             )
           })
         ) : (
           <p className="p-4 text-sm text-muted-foreground">{t('invalidDate')}</p>
         )}
       </div>
-    </div>
+    </ToolShell>
   )
 }
