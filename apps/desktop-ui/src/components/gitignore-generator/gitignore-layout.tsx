@@ -4,7 +4,6 @@ import * as React from 'react';
 import { useTranslations } from 'next-intl';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { isDesktop } from '@/lib/desktop/is-desktop';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Check, Download, X, Search, Loader2 } from 'lucide-react';
@@ -14,11 +13,10 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { IconFileMinus } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 
 export function GitignoreLayout() {
   const t = useTranslations('GitignoreGenerator');
@@ -110,22 +108,16 @@ export function GitignoreLayout() {
   };
 
   return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconFileMinus}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
+    <ToolShell
+      icon={IconFileMinus}
+      title={t('title')}
+      description={t('subtitle')}
+    >
+      <ToolPanels className="md:grid-cols-1 lg:grid-cols-2 overflow-auto pb-4">
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 flex-1 min-h-0 overflow-auto pb-4">
-        
         {/* Left Column: Stack Selection */}
         <div className="flex flex-col gap-4">
-          <Card className="p-4 flex flex-col items-start justify-start flex-1 min-h-[300px]">
+          <div className="rounded-lg border border-border bg-card p-4 flex flex-col items-start justify-start flex-1 min-h-[300px]">
             <Label className="text-xs text-muted-foreground uppercase tracking-wider mb-4">
               {t('searchPlaceholder')}
             </Label>
@@ -226,17 +218,19 @@ export function GitignoreLayout() {
                  </ScrollArea>
                )}
             </div>
-          </Card>
+          </div>
         </div>
 
         {/* Right Column: Output */}
-        <Card className="flex flex-col flex-1 p-4 overflow-hidden relative">
-          <div className="flex items-center justify-between mb-4">
-            <Label className="text-xs text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+        <IOPanel
+          label={
+            <>
               {t('output')}
               {loadingOutput && <Loader2 className="h-3 w-3 animate-spin text-primary" />}
-            </Label>
-            <div className="flex gap-2">
+            </>
+          }
+          actions={
+            <>
               <Button type="button" variant="ghost" size="sm" onClick={downloadFile} disabled={!output || loadingOutput} className="h-7 text-xs gap-1.5 px-2">
                 <Download className="h-3.5 w-3.5" />
                 <span className="hidden sm:inline">{t('download')}</span>
@@ -249,27 +243,24 @@ export function GitignoreLayout() {
                 copiedLabel={t('copied')}
                 className="h-7 px-2 text-xs"
               />
+            </>
+          }
+        >
+          {loadingOutput ? (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 backdrop-blur-sm bg-background/50 z-10">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              <p className="text-sm font-medium animate-pulse">{t('generating')}</p>
             </div>
-          </div>
-          
-          <div className="relative flex-1 overflow-hidden rounded-md border bg-muted/30">
-             {loadingOutput ? (
-               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 backdrop-blur-sm bg-background/50 z-10">
-                 <Loader2 className="h-6 w-6 animate-spin text-primary" />
-                 <p className="text-sm font-medium animate-pulse">{t('generating')}</p>
-               </div>
-             ) : null}
-             
-             <textarea
-              readOnly
-              value={output}
-              placeholder={t('emptyState')}
-              className="h-full w-full bg-transparent p-4 font-mono text-sm resize-none focus-visible:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 overflow-auto"
-              spellCheck={false}
-             />
-          </div>
-        </Card>
-      </div>
-    </div>
+          ) : null}
+
+          <ToolTextArea
+            readOnly
+            value={output}
+            placeholder={t('emptyState')}
+            className="overflow-auto"
+          />
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   );
 }
