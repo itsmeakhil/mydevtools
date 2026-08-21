@@ -95,3 +95,6 @@ docs/superpowers/
 /apps/web/.open-next
 /apps/web/.wrangler
 /apps/web/cloudflare-env.d.ts
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+graft/
