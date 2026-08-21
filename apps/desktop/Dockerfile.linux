@@ -1,0 +1,25 @@
+# Linux build environment for the MyDevTools desktop app.
+#
+# Linux packages can't be cross-compiled from macOS (they link against
+# webkit2gtk/GTK), so release-local.sh builds them in this container instead.
+# Build for whichever architecture you want to ship:
+#
+#   docker build --platform linux/amd64 -f Dockerfile.linux -t mydevtools-linux:amd64 .
+#   docker build --platform linux/arm64 -f Dockerfile.linux -t mydevtools-linux:arm64 .
+FROM node:22-bookworm
+
+# libdbus-1-dev  → required by dbus-secret-service, which backs the Linux keyring
+# xdg-utils      → tauri-plugin-opener embeds xdg-open; AppImage bundling fails without it
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      libwebkit2gtk-4.1-dev build-essential curl wget file \
+      libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev \
+      patchelf libdbus-1-dev xdg-utils pkg-config ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+    | sh -s -- -y --default-toolchain stable --profile minimal
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Installed GLOBALLY on purpose: the repo is bind-mounted at build time, and a
+# local node_modules resolve would pick up the host's (macOS) CLI binary.
+RUN npm install -g @tauri-apps/cli@2

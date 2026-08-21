@@ -26,6 +26,20 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.15',
+    date: '2026-08-21',
+    title: 'MyDevTools on Linux',
+    summary:
+      'The desktop app now runs on Linux. Every release from here ships macOS and Linux together under one version, so you can grab the build for your machine in one place.',
+    changes: [
+      { type: 'added', text: 'Linux support: install with a .deb on Debian and Ubuntu (22.04 or newer), or run the AppImage without installing anything.' },
+      { type: 'added', text: 'Builds for Intel/AMD and for ARM64 machines.' },
+      { type: 'improved', text: 'On Linux your database key is kept in the system keyring (GNOME Keyring or KWallet), the same way the macOS build uses the Keychain.' },
+      { type: 'improved', text: 'macOS and Linux are now published together in a single release instead of separate ones.' },
+      { type: 'fixed', text: 'The window title bar no longer leaves an empty gap on Linux, where it reserved room for the macOS window buttons.' },
+    ],
+  },
+  {
     version: '0.1.14',
     date: '2026-08-14',
     title: 'Reorderable tabs and a refreshed sidebar',
