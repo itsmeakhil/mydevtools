@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
 import { TopBar } from '@/components/shell/top-bar';
+import { ToolContextBar } from '@/components/shell/tool-context-bar';
 import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
@@ -75,6 +76,7 @@ function Layout({ children }: { children: React.ReactNode }) {
           <div className="shrink-0 z-20 bg-background">
             {!inTabMode && <NavBar />}
             <MobileDesktopHint />
+            <ToolContextBar />
           </div>
 
           {inTabMode ? (

@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import type { editor } from 'monaco-editor';
+import { defineMdtThemes, mdtThemeName } from '@/lib/monaco-theme';
 
 // Dynamically import Monaco — ~3 MB, only loads when a code editor is first rendered
 const Editor = dynamic(
@@ -36,19 +37,22 @@ export default function CodeEditor({
     onMount,
     beforeMount,
 }: CodeEditorProps) {
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
 
     return (
-        <div className="h-full w-full border rounded-md overflow-hidden bg-background">
+        <div className="h-full w-full border rounded-md overflow-hidden bg-card">
             <Editor
                 height="100%"
                 defaultLanguage={language}
                 language={language}
                 value={value}
                 onChange={(newValue) => onChange?.(newValue || '')}
-                beforeMount={beforeMount}
+                beforeMount={(monaco) => {
+                    defineMdtThemes(monaco);
+                    beforeMount?.(monaco);
+                }}
                 onMount={onMount}
-                theme={theme === 'dark' ? 'vs-dark' : 'light'}
+                theme={mdtThemeName(resolvedTheme)}
                 options={{
                     minimap: { enabled: minimap },
                     fontSize: 13,

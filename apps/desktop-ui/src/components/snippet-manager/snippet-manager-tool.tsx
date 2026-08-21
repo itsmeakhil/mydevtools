@@ -604,7 +604,7 @@ export function SnippetManagerTool() {
   const editorPanel = (
     <div className="flex h-full min-h-0 flex-col">
       {/* Compact single-row toolbar */}
-      <div className="flex shrink-0 items-center gap-1.5 border-b border-border/60 px-3 py-1.5">
+      <div className="flex h-12 shrink-0 items-center gap-1.5 border-b border-border/60 bg-background/70 px-3 backdrop-blur-md">
         {/* Inline title */}
         <Input
           id="snippet-title-d"
