@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { isDesktop } from "@/lib/desktop/is-desktop";
@@ -11,6 +12,7 @@ import { useWorkspaceStore } from "@/store/workspace-store";
  * Renders nothing; a no-op on web (the isDesktop guard compiles to false).
  */
 export function DesktopInit() {
+  const t = useTranslations("SettingsPage.about");
   useEffect(() => {
     if (!isDesktop()) return;
     // Hydrate the workspace store so encrypted tools (API keys, password
@@ -34,13 +36,12 @@ export function DesktopInit() {
         const update = await m.checkForUpdate();
         if (!update || update.version === notified) return;
         notified = update.version;
-        toast(`Version ${update.version} is available`, {
+        toast(t("available", { version: update.version }), {
           id: "desktop-update",
           duration: Infinity,
-          description:
-            "Updates install in place — your offline data is never touched.",
+          description: t("dialogDescription"),
           action: {
-            label: "Restart & update",
+            label: t("install"),
             onClick: () => {
               toast.dismiss("desktop-update");
               void import("@/lib/desktop/use-update-install").then((m) => m.startUpdate());
