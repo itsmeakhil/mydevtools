@@ -655,5 +655,6 @@ export const siteMetadata = {
     // Kept under ~160 chars so the closing claim survives SERP truncation.
     description: 'Open-source offline developer workstation: 80+ developer tools, an API client and SQL, MongoDB & Redis clients in one local-first desktop app. Free, no account.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — The Offline Developer Workstation', '80+ developer tools, API client, SQL, MongoDB & Redis in one desktop app. Open source, local-first, no account.'),
+    // Static landing-page capture (2400x1260). Regenerate after hero changes.
+    ogImage: `${baseUrl}/og-home.jpg`,
 }

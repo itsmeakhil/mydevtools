@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     url: `${baseUrl}/linux-builds`,
     siteName: "MyDevTools",
     type: "website",
+    images: [{ url: `${baseUrl}/og-home.jpg`, width: 1200, height: 630, alt: "MyDevTools — The Offline Developer Workstation" }],
   },
 };
 
