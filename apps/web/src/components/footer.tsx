@@ -103,7 +103,6 @@ export function Footer() {
 
           <div className="flex flex-col items-center gap-2 border-t border-border/40 py-5 text-xs text-muted-foreground sm:flex-row sm:justify-between">
             <span>© {year} MyDevTools · Free &amp; open source under the GNU AGPL v3</span>
-            <span>Made by Akhil and contributors</span>
           </div>
         </div>
       </footer>
