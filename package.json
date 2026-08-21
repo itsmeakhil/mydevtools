@@ -16,6 +16,6 @@
     "build:desktop": "pnpm --filter @mydevtools/desktop build"
   },
   "devDependencies": {
-    "rimraf": "^6.1.0"
+    "rimraf": "^6.1.3"
   }
 }

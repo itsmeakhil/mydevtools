@@ -17,9 +17,8 @@ import {
 import { Switch } from '@/components/ui/switch'
 import { FileText, Sparkles, Trash2 } from 'lucide-react'
 import { IconAbacus } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 import {
   approxClaudeTokens,
   calcCost,
@@ -125,30 +124,24 @@ export function TokenCounterLayout() {
   const fmt = (n: number) => `$${n.toFixed(n < 0.01 ? 6 : 4)}`
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconAbacus}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconAbacus}
+      title={t('title')}
+      description={t('subtitle')}
+    >
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-y-auto lg:grid-cols-2">
         {/* Left: input + stats */}
         <div className="flex min-h-0 flex-col gap-4">
-          <Card className="flex min-h-[220px] flex-1 flex-col overflow-hidden">
-            <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-3 py-2">
-              <div className="flex items-center gap-2">
-                <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-                <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  {t('inputLabel')}
-                </Label>
-              </div>
-              <div className="flex items-center gap-1.5">
+          <IOPanel
+            className="min-h-[220px] flex-1"
+            label={
+              <>
+                <FileText className="h-3.5 w-3.5" aria-hidden />
+                {t('inputLabel')}
+              </>
+            }
+            actions={
+              <>
                 <Button variant="outline" size="sm" onClick={() => setText(SAMPLE_TEXT)}>
                   <Sparkles className="mr-1.5 h-3.5 w-3.5" />
                   {t('sample')}
@@ -163,16 +156,15 @@ export function TokenCounterLayout() {
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                 </Button>
-              </div>
-            </div>
-            <textarea
+              </>
+            }
+          >
+            <ToolTextArea
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder={t('placeholder')}
-              className="min-h-0 flex-1 resize-none bg-transparent p-4 font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none"
-              spellCheck={false}
             />
-          </Card>
+          </IOPanel>
 
           <div className="space-y-3">
             <div className="flex items-end gap-3">
@@ -212,45 +204,44 @@ export function TokenCounterLayout() {
 
         {/* Right: visualization + cost */}
         <div className="flex min-h-0 flex-col gap-4">
-          <Card className="flex min-h-[180px] flex-1 flex-col overflow-hidden">
-            <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-3 py-2">
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {t('viz.title')}
-              </Label>
-              <div className="flex items-center gap-2">
+          <IOPanel
+            className="min-h-[180px] flex-1"
+            bodyClassName="overflow-y-auto p-3"
+            label={t('viz.title')}
+            actions={
+              <>
                 <Switch checked={showViz} onCheckedChange={setShowViz} id="viz-toggle" />
                 <Label htmlFor="viz-toggle" className="text-xs text-muted-foreground">
                   {t('viz.toggle')}
                 </Label>
-              </div>
-            </div>
-            <div className="min-h-0 flex-1 overflow-y-auto p-3">
-              {!showViz ? (
-                <p className="text-xs text-muted-foreground">{t('viz.hint')}</p>
-              ) : viz ? (
-                <>
-                  <div className="font-mono text-sm leading-relaxed">
-                    {viz.chunks.map((chunk, i) => (
-                      <span
-                        key={i}
-                        className={`rounded-sm ${PASTELS[i % PASTELS.length]}`}
-                        style={{ whiteSpace: 'pre-wrap' }}
-                      >
-                        {chunk}
-                      </span>
-                    ))}
-                  </div>
-                  {viz.truncated && (
-                    <p className="mt-3 text-xs text-muted-foreground">
-                      {t('viz.truncated', { limit: CHUNK_LIMIT, total: viz.totalTokens.toLocaleString() })}
-                    </p>
-                  )}
-                </>
-              ) : (
-                <p className="text-xs text-muted-foreground">{t('viz.empty')}</p>
-              )}
-            </div>
-          </Card>
+              </>
+            }
+          >
+            {!showViz ? (
+              <p className="text-xs text-muted-foreground">{t('viz.hint')}</p>
+            ) : viz ? (
+              <>
+                <div className="font-mono text-sm leading-relaxed">
+                  {viz.chunks.map((chunk, i) => (
+                    <span
+                      key={i}
+                      className={`rounded-sm ${PASTELS[i % PASTELS.length]}`}
+                      style={{ whiteSpace: 'pre-wrap' }}
+                    >
+                      {chunk}
+                    </span>
+                  ))}
+                </div>
+                {viz.truncated && (
+                  <p className="mt-3 text-xs text-muted-foreground">
+                    {t('viz.truncated', { limit: CHUNK_LIMIT, total: viz.totalTokens.toLocaleString() })}
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="text-xs text-muted-foreground">{t('viz.empty')}</p>
+            )}
+          </IOPanel>
 
           <Card className="space-y-3 p-4">
             <div className="flex items-center justify-between">
@@ -333,6 +324,6 @@ export function TokenCounterLayout() {
           </Card>
         </div>
       </div>
-    </div>
+    </ToolShell>
   )
 }

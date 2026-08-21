@@ -273,6 +273,40 @@
       "install": "Laai af en installeer",
       "upToDate": "Jy is op datum.",
       "checkError": "Kon nie vir opdaterings kyk nie. Is jy aanlyn?"
+    },
+    "dangerZone": {
+      "title": "Gevaarsone",
+      "description": "Onomkeerbare aksies wat hierdie app se data uitvee.",
+      "resetButton": "Fabriekterugstelling",
+      "dialogTitle": "Fabriekterugstelling",
+      "dialogWarning": "Dit vee alles wat in die app gestoor is permanent uit — kluisinskrywings, notas, take, boekmerke en voorkeure, saam met die enkripsiesleutel. Dit kan nie ongedaan gemaak word nie. Die app sal herbegin en jou weer deur die aanboording neem.",
+      "exportHint": "Opsioneel: laai eers 'n geënkripteerde rugsteun af. Kies 'n rugsteunwagfrase van minstens 8 karakters — jy sal dit nodig hê om te herstel.",
+      "passphrasePlaceholder": "Rugsteunwagfrase",
+      "passphraseTooShort": "Rugsteunwagfrase moet minstens 8 karakters wees",
+      "exportButton": "Voer rugsteun uit",
+      "exportSuccess": "Rugsteun afgelaai",
+      "exportError": "Rugsteunuitvoer het misluk",
+      "confirmCheckbox": "Ek verstaan dat al my data permanent uitgevee sal word",
+      "confirmButton": "Vee alles uit en herbegin",
+      "resetting": "Vee tans uit…",
+      "cancel": "Kanselleer",
+      "resetError": "Fabriekterugstelling het misluk — probeer asseblief weer"
+    },
+    "backup": {
+      "title": "Rugsteun en herstel",
+      "description": "Voer 'n geënkripteerde rugsteun van jou data uit, of herstel een.",
+      "exportHint": "Enkripteer alles met 'n rugsteunwagfrase van minstens 8 karakters — jy sal dit nodig hê om te herstel.",
+      "passphrasePlaceholder": "Rugsteunwagfrase",
+      "passphraseTooShort": "Rugsteunwagfrase moet minstens 8 karakters wees",
+      "exportButton": "Voer rugsteun uit",
+      "exportSuccess": "Rugsteun afgelaai",
+      "exportError": "Rugsteunuitvoer het misluk",
+      "restoreHint": "Herstel voeg die rugsteun by hierdie app. Kluisinskrywings word ontsluit met die meesterwagwoord wat jy gebruik het toe die rugsteun gemaak is.",
+      "chooseFile": "Kies rugsteunlêer",
+      "restoreButton": "Herstel rugsteun",
+      "restoring": "Herstel tans…",
+      "restoreSuccess": "Rugsteun herstel",
+      "restoreError": "Herstel het misluk — verkeerde wagfrase of ongeldige rugsteunlêer"
     }
   },
   "Dashboard": {

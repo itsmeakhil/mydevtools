@@ -7,7 +7,6 @@ import { useMediaQuery } from '@/hooks/use-media-query'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
 import {
@@ -25,7 +24,6 @@ import {
   Copy,
   Crosshair,
   Download,
-  FileText,
   Maximize,
   Route,
   Search,
@@ -35,9 +33,8 @@ import {
   ZoomOut,
 } from 'lucide-react'
 import { IconChartDots3 } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 import { GraphCanvas, type GraphCanvasHandle } from '@/components/json-visualizer/graph-canvas'
 import { NodeTableDialog } from '@/components/json-visualizer/node-table-dialog'
 import {
@@ -202,15 +199,12 @@ export function JsonVisualizerLayout() {
   }, [selectedNode, parsedText])
 
   const editorPane = (
-    <Card className="flex h-full flex-col overflow-hidden min-h-0">
-      <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-        <div className="flex items-center gap-2">
-          <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('panels.input')}
-          </Label>
-        </div>
-        <div className="flex items-center gap-1">
+    <IOPanel
+      label={t('panels.input')}
+      className="h-full"
+      bodyClassName="flex flex-col"
+      actions={
+        <>
           <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={() => setInput(SAMPLE)}>
             {t('sample')}
           </Button>
@@ -224,30 +218,29 @@ export function JsonVisualizerLayout() {
           >
             <Trash2 className="h-3.5 w-3.5" />
           </Button>
-        </div>
-      </div>
+        </>
+      }
+    >
       {error && (
-        <div className="border-b border-destructive/20 bg-destructive/10 px-4 py-2 text-xs text-destructive">
+        <div className="shrink-0 border-b border-destructive/20 bg-destructive/10 px-4 py-2 text-xs text-destructive">
           {error}
         </div>
       )}
       <div className="relative min-h-0 flex-1">
-        <textarea
+        <ToolTextArea
           ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={t('placeholder')}
-          className="absolute inset-0 h-full w-full resize-none bg-transparent p-4 font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none"
-          spellCheck={false}
           autoComplete="off"
         />
       </div>
-    </Card>
+    </IOPanel>
   )
 
   const graphPane = (
-    <Card className="relative flex h-full flex-col overflow-hidden min-h-0">
-      <div className="flex flex-wrap items-center gap-1.5 border-b border-border/50 bg-muted/30 px-3 py-2">
+    <div className="relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg border border-border bg-card">
+      <div className="flex flex-wrap items-center gap-1.5 border-b border-border bg-[hsl(var(--surface-2))] px-3 py-2">
         <div className="relative">
           <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -321,7 +314,7 @@ export function JsonVisualizerLayout() {
         </div>
       )}
 
-      <div className="relative min-h-0 flex-1 dashboard-grid-bg">
+      <div className="dashboard-grid-bg relative min-h-0 flex-1">
         {graph ? (
           <GraphCanvas
             ref={canvasRef}
@@ -390,22 +383,11 @@ export function JsonVisualizerLayout() {
           </div>
         )}
       </div>
-    </Card>
+    </div>
   )
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconChartDots3}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Formatters}
-        />
-      </RevealItem>
-
+    <ToolShell icon={IconChartDots3} title={t('title')} description={t('subtitle')}>
       <div className="min-h-0 flex-1">
         {isDesktop ? (
           <ResizablePanelGroup direction="horizontal" className="h-full min-h-0 gap-0">
@@ -442,6 +424,6 @@ export function JsonVisualizerLayout() {
           title={t('tableTitle')}
         />
       )}
-    </div>
+    </ToolShell>
   )
 }

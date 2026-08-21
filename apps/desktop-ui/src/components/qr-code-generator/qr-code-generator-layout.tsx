@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import {
@@ -20,9 +19,7 @@ import { Download, ImageIcon, Trash2, Upload, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type QRCodeStyling from 'qr-code-styling';
 import { IconQrcode } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 
@@ -189,23 +186,15 @@ export function QrCodeGeneratorLayout() {
   };
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconQrcode}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-          offline={false}
-        />
-      </RevealItem>
-
-      {error && <ToolErrorBanner message={error} className="shrink-0" />}
-
+    <ToolShell
+      icon={IconQrcode}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={error ? <ToolErrorBanner message={error} className="shrink-0" /> : undefined}
+    >
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         {/* Controls Panel */}
-        <Card className="flex flex-col gap-5 overflow-auto p-4">
+        <div className="flex flex-col gap-5 overflow-auto rounded-lg border border-border bg-card p-4">
           {/* Content */}
           <div className="space-y-2">
             <Label htmlFor="qr-content" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -388,10 +377,10 @@ export function QrCodeGeneratorLayout() {
               {t('clear')}
             </Button>
           </div>
-        </Card>
+        </div>
 
         {/* Preview Panel */}
-        <Card className="flex flex-col gap-4 overflow-auto p-4">
+        <div className="flex flex-col gap-4 overflow-auto rounded-lg border border-border bg-card p-4">
           <div className="flex flex-wrap items-center gap-2">
             <Button type="button" size="sm" onClick={() => handleDownload('png')} disabled={!hasContent}>
               <Download className="mr-1.5 h-4 w-4" />
@@ -427,8 +416,8 @@ export function QrCodeGeneratorLayout() {
               </div>
             )}
           </div>
-        </Card>
+        </div>
       </div>
-    </div>
+    </ToolShell>
   );
 }

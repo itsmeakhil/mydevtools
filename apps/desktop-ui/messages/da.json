@@ -273,6 +273,40 @@
       "install": "Download og installer",
       "upToDate": "Du er opdateret.",
       "checkError": "Kunne ikke søge efter opdateringer. Er du online?"
+    },
+    "dangerZone": {
+      "title": "Farezone",
+      "description": "Uigenkaldelige handlinger, der sletter denne apps data.",
+      "resetButton": "Fabriksnulstilling",
+      "dialogTitle": "Fabriksnulstilling",
+      "dialogWarning": "Dette sletter permanent alt, der er gemt i appen — boksposter, noter, opgaver, bogmærker og præferencer samt krypteringsnøglen. Det kan ikke fortrydes. Appen genstarter og fører dig gennem opsætningen igen.",
+      "exportHint": "Valgfrit: download først en krypteret sikkerhedskopi. Vælg en adgangssætning på mindst 8 tegn — du skal bruge den til at gendanne.",
+      "passphrasePlaceholder": "Adgangssætning til sikkerhedskopi",
+      "passphraseTooShort": "Adgangssætningen til sikkerhedskopien skal være på mindst 8 tegn",
+      "exportButton": "Eksportér sikkerhedskopi",
+      "exportSuccess": "Sikkerhedskopi downloadet",
+      "exportError": "Eksport af sikkerhedskopi mislykkedes",
+      "confirmCheckbox": "Jeg forstår, at alle mine data slettes permanent",
+      "confirmButton": "Slet alt og genstart",
+      "resetting": "Sletter…",
+      "cancel": "Annuller",
+      "resetError": "Fabriksnulstilling mislykkedes — prøv igen"
+    },
+    "backup": {
+      "title": "Sikkerhedskopiering og gendannelse",
+      "description": "Eksportér en krypteret sikkerhedskopi af dine data, eller gendan en.",
+      "exportHint": "Krypterer alt med en adgangssætning på mindst 8 tegn — du skal bruge den til at gendanne.",
+      "passphrasePlaceholder": "Adgangssætning til sikkerhedskopi",
+      "passphraseTooShort": "Adgangssætningen til sikkerhedskopien skal være på mindst 8 tegn",
+      "exportButton": "Eksportér sikkerhedskopi",
+      "exportSuccess": "Sikkerhedskopi downloadet",
+      "exportError": "Eksport af sikkerhedskopi mislykkedes",
+      "restoreHint": "Gendannelse fletter sikkerhedskopien ind i denne app. Boksposter låses op med den hovedadgangskode, du brugte, da sikkerhedskopien blev lavet.",
+      "chooseFile": "Vælg sikkerhedskopifil",
+      "restoreButton": "Gendan sikkerhedskopi",
+      "restoring": "Gendanner…",
+      "restoreSuccess": "Sikkerhedskopi gendannet",
+      "restoreError": "Gendannelse mislykkedes — forkert adgangssætning eller ugyldig fil"
     }
   },
   "Dashboard": {

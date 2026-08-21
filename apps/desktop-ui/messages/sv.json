@@ -273,6 +273,40 @@
       "install": "Ladda ner och installera",
       "upToDate": "Du är uppdaterad.",
       "checkError": "Kunde inte söka efter uppdateringar. Är du online?"
+    },
+    "dangerZone": {
+      "title": "Riskzon",
+      "description": "Oåterkalleliga åtgärder som raderar appens data.",
+      "resetButton": "Fabriksåterställning",
+      "dialogTitle": "Fabriksåterställning",
+      "dialogWarning": "Detta raderar permanent allt som är lagrat i appen — valvposter, anteckningar, uppgifter, bokmärken och inställningar, tillsammans med krypteringsnyckeln. Det kan inte ångras. Appen startar om och tar dig genom introduktionen igen.",
+      "exportHint": "Valfritt: ladda först ner en krypterad säkerhetskopia. Välj en lösenfras på minst 8 tecken — du behöver den för att återställa.",
+      "passphrasePlaceholder": "Lösenfras för säkerhetskopia",
+      "passphraseTooShort": "Lösenfrasen måste vara minst 8 tecken",
+      "exportButton": "Exportera säkerhetskopia",
+      "exportSuccess": "Säkerhetskopia nedladdad",
+      "exportError": "Export av säkerhetskopia misslyckades",
+      "confirmCheckbox": "Jag förstår att alla mina data raderas permanent",
+      "confirmButton": "Radera allt och starta om",
+      "resetting": "Raderar…",
+      "cancel": "Avbryt",
+      "resetError": "Fabriksåterställningen misslyckades — försök igen"
+    },
+    "backup": {
+      "title": "Säkerhetskopiering och återställning",
+      "description": "Exportera en krypterad säkerhetskopia av dina data, eller återställ en.",
+      "exportHint": "Krypterar allt med en lösenfras på minst 8 tecken — du behöver den för att återställa.",
+      "passphrasePlaceholder": "Lösenfras för säkerhetskopia",
+      "passphraseTooShort": "Lösenfrasen måste vara minst 8 tecken",
+      "exportButton": "Exportera säkerhetskopia",
+      "exportSuccess": "Säkerhetskopia nedladdad",
+      "exportError": "Export av säkerhetskopia misslyckades",
+      "restoreHint": "Återställning sammanfogar säkerhetskopian med appen. Valvposter låses upp med huvudlösenordet du använde när kopian skapades.",
+      "chooseFile": "Välj säkerhetskopiefil",
+      "restoreButton": "Återställ säkerhetskopia",
+      "restoring": "Återställer…",
+      "restoreSuccess": "Säkerhetskopia återställd",
+      "restoreError": "Återställningen misslyckades — fel lösenfras eller ogiltig fil"
     }
   },
   "Dashboard": {

@@ -18,7 +18,7 @@ import {
  */
 
 // Everyone gets the productivity basics — they're the platform's sticky core.
-const BASICS = ["/app/bookmarks", "/app/notes", "/app/to-do", "/app/snippet-manager"]
+export const BASICS = ["/app/bookmarks", "/app/notes", "/app/to-do", "/app/snippet-manager"]
 
 export interface OnboardingRole {
   id: string

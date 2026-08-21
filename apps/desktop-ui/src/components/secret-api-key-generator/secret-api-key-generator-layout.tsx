@@ -6,13 +6,11 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { Download, RefreshCw } from 'lucide-react';
 import { IconCircleKeyFilled } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
 import { CopyIconButton } from '@/components/tools/copy-icon-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -141,29 +139,23 @@ export function SecretApiKeyGeneratorLayout() {
   };
 
   return (
-    <div className="relative flex h-full min-h-0 flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconCircleKeyFilled}
-          title={t('title')}
-          description={t.rich('subtitle', {
-            max: MAX_SECRET_BULK.toLocaleString(),
-            uuid: (chunks) => (
-              <Link
-                href="/app/uuid-generator"
-                className="font-medium text-primary underline underline-offset-2 hover:no-underline"
-              >
-                {chunks}
-              </Link>
-            ),
-          })}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconCircleKeyFilled}
+      title={t('title')}
+      description={t.rich('subtitle', {
+        max: MAX_SECRET_BULK.toLocaleString(),
+        uuid: (chunks) => (
+          <Link
+            href="/app/uuid-generator"
+            className="font-medium text-primary underline underline-offset-2 hover:no-underline"
+          >
+            {chunks}
+          </Link>
+        ),
+      })}
+    >
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex flex-col gap-4 overflow-auto p-4">
+        <div className="flex flex-col gap-4 overflow-auto rounded-lg border border-border bg-card p-4">
           <div className="space-y-2">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('presetsLabel')}
@@ -297,14 +289,13 @@ export function SecretApiKeyGeneratorLayout() {
               {t('generate')}
             </Button>
           </div>
-        </Card>
+        </div>
 
-        <Card className="flex min-h-[280px] flex-col overflow-hidden">
-          <div className="flex items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('output')}
-            </Label>
-            <div className="flex shrink-0 items-center gap-1">
+        <IOPanel
+          className="min-h-[280px]"
+          label={t('output')}
+          actions={
+            <>
               <span className="mr-1 text-[10px] tabular-nums text-muted-foreground">
                 {t('lines', {
                   count: output ? output.split('\n').length.toLocaleString() : '0',
@@ -328,25 +319,23 @@ export function SecretApiKeyGeneratorLayout() {
                 label={t('copyTitle')}
                 className="h-7 w-7"
               />
+            </>
+          }
+        >
+          {error ? (
+            <div className="p-4">
+              <ToolErrorBanner message={error} />
             </div>
-          </div>
-          <div className="relative min-h-0 flex-1">
-            {error ? (
-              <div className="p-4">
-                <ToolErrorBanner message={error} />
-              </div>
-            ) : (
-              <textarea
-                value={output}
-                readOnly
-                placeholder={t('outputPlaceholder')}
-                className="absolute inset-0 h-full w-full resize-none bg-transparent p-4 font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none"
-                spellCheck={false}
-              />
-            )}
-          </div>
-        </Card>
+          ) : (
+            <ToolTextArea
+              value={output}
+              readOnly
+              placeholder={t('outputPlaceholder')}
+              className="p-4"
+            />
+          )}
+        </IOPanel>
       </div>
-    </div>
+    </ToolShell>
   );
 }

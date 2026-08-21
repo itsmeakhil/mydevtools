@@ -273,6 +273,40 @@
       "install": "Herunterladen und installieren",
       "upToDate": "Du bist auf dem neuesten Stand.",
       "checkError": "Suche nach Updates fehlgeschlagen. Bist du online?"
+    },
+    "dangerZone": {
+      "title": "Gefahrenzone",
+      "description": "Unumkehrbare Aktionen, die die Daten dieser App löschen.",
+      "resetButton": "Auf Werkseinstellungen zurücksetzen",
+      "dialogTitle": "Auf Werkseinstellungen zurücksetzen",
+      "dialogWarning": "Dadurch wird alles in der App Gespeicherte dauerhaft gelöscht — Tresoreinträge, Notizen, Aufgaben, Lesezeichen und Einstellungen sowie der Verschlüsselungsschlüssel. Dies kann nicht rückgängig gemacht werden. Die App startet neu und führt dich erneut durch die Einrichtung.",
+      "exportHint": "Optional: Lade zuerst ein verschlüsseltes Backup herunter. Wähle eine Backup-Passphrase mit mindestens 8 Zeichen — du brauchst sie zur Wiederherstellung.",
+      "passphrasePlaceholder": "Backup-Passphrase",
+      "passphraseTooShort": "Die Backup-Passphrase muss mindestens 8 Zeichen lang sein",
+      "exportButton": "Backup exportieren",
+      "exportSuccess": "Backup heruntergeladen",
+      "exportError": "Backup-Export fehlgeschlagen",
+      "confirmCheckbox": "Ich verstehe, dass alle meine Daten dauerhaft gelöscht werden",
+      "confirmButton": "Alles löschen und neu starten",
+      "resetting": "Wird gelöscht…",
+      "cancel": "Abbrechen",
+      "resetError": "Zurücksetzen fehlgeschlagen — bitte erneut versuchen"
+    },
+    "backup": {
+      "title": "Sichern und Wiederherstellen",
+      "description": "Exportiere ein verschlüsseltes Backup deiner Daten oder stelle eines wieder her.",
+      "exportHint": "Verschlüsselt alles mit einer Backup-Passphrase von mindestens 8 Zeichen — du brauchst sie zur Wiederherstellung.",
+      "passphrasePlaceholder": "Backup-Passphrase",
+      "passphraseTooShort": "Die Backup-Passphrase muss mindestens 8 Zeichen lang sein",
+      "exportButton": "Backup exportieren",
+      "exportSuccess": "Backup heruntergeladen",
+      "exportError": "Backup-Export fehlgeschlagen",
+      "restoreHint": "Die Wiederherstellung führt das Backup mit dieser App zusammen. Tresoreinträge werden mit dem Master-Passwort entsperrt, das du zum Zeitpunkt des Backups verwendet hast.",
+      "chooseFile": "Backup-Datei auswählen",
+      "restoreButton": "Backup wiederherstellen",
+      "restoring": "Wird wiederhergestellt…",
+      "restoreSuccess": "Backup wiederhergestellt",
+      "restoreError": "Wiederherstellung fehlgeschlagen — falsche Passphrase oder ungültige Backup-Datei"
     }
   },
   "Dashboard": {

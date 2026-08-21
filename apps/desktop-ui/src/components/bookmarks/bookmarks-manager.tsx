@@ -256,7 +256,7 @@ export default function BookmarksManager() {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-0 bg-background">
                 {/* Toolbar - Fixed height, not scrollable */}
-                <div className="shrink-0 h-16 px-4 border-b border-border/40 flex items-center gap-4 bg-background/80 backdrop-blur-md z-10">
+                <div className="shrink-0 h-12 px-3 border-b border-border/60 flex items-center gap-3 bg-background/70 backdrop-blur-md z-10">
 
                     {/* Search */}
                     <div className="relative flex-1 max-w-xl">

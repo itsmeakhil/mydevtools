@@ -3,6 +3,7 @@ pub mod backup;
 pub mod backup_codes;
 pub mod bookmarks;
 pub mod entries;
+pub mod factory_reset;
 pub mod json_formatter;
 pub mod master_vault;
 pub mod notes;
@@ -55,6 +56,9 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
 
     if let Some(rest) = path.strip_prefix("/desktop/backup") {
         return backup::handle(state, method, rest, body);
+    }
+    if path == "/desktop/factory-reset" {
+        return factory_reset::handle(state, method);
     }
 
     if path.starts_with("/api/v1/auth/master-vault") {
@@ -170,6 +174,17 @@ mod tests {
         assert_eq!(r.status, 200);
         // Used codes no longer resolve
         let r = route(&state, "POST", "/api/v1/auth/backup-codes/lookup", Some(r#"{"codeId":"c1"}"#)).unwrap();
+        assert_eq!(r.status, 404);
+    }
+
+    #[test]
+    fn factory_reset_route_wired_but_inert_in_memory() {
+        let state = AppState::in_memory();
+        // in_memory has no data_dir, so the route refuses before touching
+        // files or the keychain — proves wiring without side effects.
+        let r = route(&state, "POST", "/desktop/factory-reset", None).unwrap();
+        assert_eq!(r.status, 500);
+        let r = route(&state, "GET", "/desktop/factory-reset", None).unwrap();
         assert_eq!(r.status, 404);
     }
 

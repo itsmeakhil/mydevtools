@@ -4,13 +4,10 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Check, Copy, FileText, Trash2 } from 'lucide-react'
+import { Check, Copy, Trash2 } from 'lucide-react'
 import { IconLetterCase } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 
 /** Split arbitrary text into normalized words, honouring camelCase / ACRONYM / separators. */
 function splitWords(input: string): string[] {
@@ -69,52 +66,31 @@ export function StringCaseConverterLayout() {
   )
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconLetterCase}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex flex-col overflow-hidden min-h-0">
-          <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('panels.input')}</Label>
-            </div>
-            <div className="flex items-center gap-2">
+    <ToolShell icon={IconLetterCase} title={t('title')} description={t('subtitle')}>
+      <ToolPanels className="lg:grid-cols-2">
+        <IOPanel
+          label={t('panels.input')}
+          actions={
+            <>
               <span className="text-[10px] tabular-nums text-muted-foreground">
                 {t('wordCount', { count: words.length })}
               </span>
               <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setInput('')} disabled={!input} title={t('clear')}>
                 <Trash2 className="h-3.5 w-3.5" />
               </Button>
-            </div>
-          </div>
-          <div className="relative min-h-0 flex-1">
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t('placeholder')}
-              className="absolute inset-0 h-full w-full resize-none bg-transparent p-4 font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none"
-              spellCheck={false}
-              autoComplete="off"
-            />
-          </div>
-        </Card>
+            </>
+          }
+        >
+          <ToolTextArea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={t('placeholder')}
+            autoComplete="off"
+          />
+        </IOPanel>
 
-        <Card className="flex flex-col overflow-hidden min-h-0">
-          <div className="flex items-center gap-2 border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('panels.output')}</Label>
-          </div>
-          <div className="min-h-0 flex-1 overflow-auto p-3">
+        <IOPanel label={t('panels.output')} bodyClassName="overflow-auto">
+          <div className="p-3">
             <div className="grid grid-cols-1 gap-2">
               {results.map((r) => (
                 <div key={r.id} className="rounded-lg border border-border/50 bg-muted/20 p-3">
@@ -129,8 +105,8 @@ export function StringCaseConverterLayout() {
               ))}
             </div>
           </div>
-        </Card>
-      </div>
-    </div>
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   )
 }

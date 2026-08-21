@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -25,9 +24,7 @@ import { cn } from '@/lib/utils';
 import { useAutoCopyStore } from '@/store/auto-copy-store';
 import { useSearchParams } from 'next/navigation';
 import { IconHash } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
 import { CopyTextButton } from '@/components/tools/copy-text-button';
 import { ToolErrorBanner } from '@/components/tools/tool-error-banner';
 
@@ -187,19 +184,9 @@ export function HashGeneratorLayout() {
   const verifyMatch = isBcrypt ? bcryptMatch : digestMatch;
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconHash}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
+    <ToolShell icon={IconHash} title={t('title')} description={t('subtitle')}>
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex flex-col gap-4 overflow-auto p-4">
+        <div className="flex flex-col gap-4 overflow-auto rounded-lg border border-border bg-card p-4">
           <div className="space-y-2">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('algorithmLabel')}
@@ -294,9 +281,9 @@ export function HashGeneratorLayout() {
               </p>
             </TabsContent>
           </Tabs>
-        </Card>
+        </div>
 
-        <Card className="flex flex-col gap-3 overflow-auto p-4">
+        <div className="flex flex-col gap-3 overflow-auto rounded-lg border border-border bg-card p-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {isBcrypt ? t('outputLabelBcrypt') : t('outputLabel')}
@@ -359,8 +346,8 @@ export function HashGeneratorLayout() {
             )}
           </div>
           <p className="text-xs text-muted-foreground">{isBcrypt ? t('securityNoteBcrypt') : t('securityNote')}</p>
-        </Card>
+        </div>
       </div>
-    </div>
+    </ToolShell>
   );
 }

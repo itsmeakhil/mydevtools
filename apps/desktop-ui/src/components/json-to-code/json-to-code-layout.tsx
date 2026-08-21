@@ -4,8 +4,6 @@ import React, { useMemo, useState } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import {
   Select,
@@ -14,11 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Check, Copy, FileText, Trash2 } from 'lucide-react'
+import { Check, Copy, Trash2 } from 'lucide-react'
 import { IconCode } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 import { JSON_TO_CODE_TARGETS, jsonToCode, type JsonToCodeTarget } from '@/lib/json-to-code'
 
 const SAMPLE = `{
@@ -42,91 +39,91 @@ export function JsonToCodeLayout() {
     [input, target, rootName],
   )
 
+  const toolbar = (
+    <div className="flex flex-wrap items-end gap-4 rounded-lg border border-border bg-card px-4 py-3">
+      <Select value={target} onValueChange={(v) => setTarget(v as JsonToCodeTarget)}>
+        <SelectTrigger className="h-8 w-[190px] text-xs">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {JSON_TO_CODE_TARGETS.map((tg) => (
+            <SelectItem key={tg.value} value={tg.value}>
+              {tg.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Input
+        value={rootName}
+        onChange={(e) => setRootName(e.target.value)}
+        className="h-8 w-[120px] text-xs"
+        placeholder={t('rootName')}
+        aria-label={t('rootName')}
+      />
+    </div>
+  )
+
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconCode}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Formatters}
-        />
-      </RevealItem>
-
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex flex-col overflow-hidden min-h-0">
-          <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('panels.input')}</Label>
-            </div>
-            <div className="flex items-center gap-1">
+    <ToolShell
+      icon={IconCode}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
+      <ToolPanels className="lg:grid-cols-2">
+        <IOPanel
+          label={t('panels.input')}
+          actions={
+            <>
               <Button variant="ghost" size="sm" className="h-7 px-2 text-xs" onClick={() => setInput(SAMPLE)}>
                 {t('sample')}
               </Button>
-              <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setInput('')} disabled={!input} title={t('clear')}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                onClick={() => setInput('')}
+                disabled={!input}
+                title={t('clear')}
+              >
                 <Trash2 className="h-3.5 w-3.5" />
               </Button>
-            </div>
-          </div>
-          <div className="relative min-h-0 flex-1">
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t('placeholder')}
-              className="absolute inset-0 h-full w-full resize-none bg-transparent p-4 font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none"
-              spellCheck={false}
-              autoComplete="off"
-            />
-          </div>
-        </Card>
+            </>
+          }
+        >
+          <ToolTextArea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={t('placeholder')}
+            autoComplete="off"
+          />
+        </IOPanel>
 
-        <Card className="flex flex-col overflow-hidden min-h-0">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-4 py-2">
-            <div className="flex items-center gap-2">
-              <Select value={target} onValueChange={(v) => setTarget(v as JsonToCodeTarget)}>
-                <SelectTrigger className="h-8 w-[190px] text-xs">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {JSON_TO_CODE_TARGETS.map((tg) => (
-                    <SelectItem key={tg.value} value={tg.value}>
-                      {tg.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Input
-                value={rootName}
-                onChange={(e) => setRootName(e.target.value)}
-                className="h-8 w-[120px] text-xs"
-                placeholder={t('rootName')}
-                aria-label={t('rootName')}
-              />
-            </div>
+        <IOPanel
+          label={t('panels.output')}
+          bodyClassName="overflow-auto"
+          actions={
             <Button
               size="sm"
               variant="secondary"
+              className="h-7"
               disabled={!result.code}
               onClick={() => void copyToClipboard(result.code, { silent: true })}
             >
               {copied ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
               {copied ? t('copied') : t('copy')}
             </Button>
-          </div>
-          <div className="min-h-0 flex-1 overflow-auto">
-            {result.error ? (
-              <div className="p-4 text-sm text-destructive">{result.error}</div>
-            ) : result.code ? (
-              <pre className="p-4 font-mono text-sm leading-relaxed whitespace-pre">{result.code}</pre>
-            ) : (
-              <div className="p-4 text-sm text-muted-foreground">{t('outputPlaceholder')}</div>
-            )}
-          </div>
-        </Card>
-      </div>
-    </div>
+          }
+        >
+          {result.error ? (
+            <div className="p-3 text-sm text-destructive">{result.error}</div>
+          ) : result.code ? (
+            <pre className="whitespace-pre-wrap break-words p-3 font-mono text-sm leading-relaxed">{result.code}</pre>
+          ) : (
+            <div className="p-3 text-sm text-muted-foreground">{t('outputPlaceholder')}</div>
+          )}
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   )
 }

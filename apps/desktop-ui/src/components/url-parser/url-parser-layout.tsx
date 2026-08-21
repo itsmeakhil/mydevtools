@@ -3,15 +3,12 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
-import { Check, Copy, Download, FileText, Trash2, Upload } from 'lucide-react'
+import { Check, Copy, Download, Trash2, Upload } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { IconLink } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 
 type ParsedParam = {
   key: string
@@ -172,99 +169,84 @@ export function UrlParserLayout() {
     }
   }, [parsed])
 
+  const toolbar = (
+    <div className="flex items-center gap-2 shrink-0 md:hidden">
+      <Button
+        variant="outline"
+        size="sm"
+        className="gap-1.5 text-xs"
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <Upload className="h-3.5 w-3.5" />
+        {t('upload')}
+      </Button>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".txt,.json,.xml,.html,.md"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0]
+          if (file) handleFileUpload(file)
+          e.target.value = ''
+        }}
+      />
+      <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
+        <Trash2 className="h-3.5 w-3.5" />
+        {t('clear')}
+      </Button>
+    </div>
+  )
+
   return (
-    <div className="relative flex flex-col h-full gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconLink}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
-      <div className="flex items-center gap-2 shrink-0 md:hidden">
-        <Button
-          variant="outline"
-          size="sm"
-          className="gap-1.5 text-xs"
-          onClick={() => fileInputRef.current?.click()}
-        >
-          <Upload className="h-3.5 w-3.5" />
-          {t('upload')}
-        </Button>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept=".txt,.json,.xml,.html,.md"
-          className="hidden"
-          onChange={(e) => {
-            const file = e.target.files?.[0]
-            if (file) handleFileUpload(file)
-            e.target.value = ''
-          }}
-        />
-        <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
-          <Trash2 className="h-3.5 w-3.5" />
-          {t('clear')}
-        </Button>
-      </div>
-
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
-        <Card
-          className={cn('flex flex-col overflow-hidden transition-colors', isDragging && 'border-primary/50 bg-primary/5')}
+    <ToolShell
+      icon={IconLink}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
+      <ToolPanels className="lg:grid-cols-2">
+        <IOPanel
+          className={cn('transition-colors', isDragging && 'border-primary/50 bg-primary/5')}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-        >
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{t('panels.input')}</Label>
-            </div>
+          label={t('panels.input')}
+          actions={
             <span className="text-[10px] text-muted-foreground tabular-nums">
               {t('charCount', { count: input.length.toLocaleString() })}
             </span>
-          </div>
-          <div className="flex-1 min-h-0 relative">
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t('placeholders.input')}
-              className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-              spellCheck={false}
-            />
-            {isDragging && (
-              <div className="absolute inset-0 flex items-center justify-center bg-primary/5 backdrop-blur-sm">
-                <div className="flex flex-col items-center gap-2 text-primary">
-                  <Upload className="h-8 w-8" />
-                  <span className="text-sm font-medium">{t('dropHere')}</span>
-                </div>
+          }
+        >
+          <ToolTextArea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={t('placeholders.input')}
+          />
+          {isDragging && (
+            <div className="absolute inset-0 flex items-center justify-center bg-primary/5 backdrop-blur-sm">
+              <div className="flex flex-col items-center gap-2 text-primary">
+                <Upload className="h-8 w-8" />
+                <span className="text-sm font-medium">{t('dropHere')}</span>
               </div>
-            )}
-          </div>
-        </Card>
-
-        <Card className="flex flex-col overflow-hidden min-h-0">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{t('panels.output')}</Label>
             </div>
-            <div className="flex items-center gap-2">
-              {outputJson && (
-                <DownloadJsonButton
-                  data={outputJson}
-                  filename={t('download.filename')}
-                  title={t('download.title')}
-                />
-              )}
-            </div>
-          </div>
+          )}
+        </IOPanel>
 
-          <div className="flex-1 min-h-0 overflow-auto p-4">
+        <IOPanel
+          label={t('panels.output')}
+          bodyClassName="overflow-auto p-4"
+          actions={
+            outputJson && (
+              <DownloadJsonButton
+                data={outputJson}
+                filename={t('download.filename')}
+                title={t('download.title')}
+              />
+            )
+          }
+        >
+          <>
             {error ? (
               <div className="text-sm text-destructive">{error}</div>
             ) : !parsed ? (
@@ -338,10 +320,10 @@ export function UrlParserLayout() {
                 </div>
               </div>
             )}
-          </div>
-        </Card>
-      </div>
-    </div>
+          </>
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   )
 }
 

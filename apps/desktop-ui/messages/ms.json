@@ -273,6 +273,40 @@
       "install": "Muat turun dan pasang",
       "upToDate": "Anda sudah terkini.",
       "checkError": "Tidak dapat memeriksa kemas kini. Adakah anda dalam talian?"
+    },
+    "dangerZone": {
+      "title": "Zon bahaya",
+      "description": "Tindakan kekal yang memadamkan data aplikasi ini.",
+      "resetButton": "Tetapan semula kilang",
+      "dialogTitle": "Tetapan semula kilang",
+      "dialogWarning": "Tindakan ini memadamkan secara kekal semua yang disimpan dalam aplikasi — entri bilik kebal, nota, tugasan, penanda halaman dan keutamaan, bersama kunci penyulitan. Ia tidak boleh dibuat asal. Aplikasi akan dimulakan semula dan membawa anda melalui proses permulaan sekali lagi.",
+      "exportHint": "Pilihan: muat turun sandaran tersulit dahulu. Pilih frasa laluan sandaran sekurang-kurangnya 8 aksara — anda memerlukannya untuk memulihkan.",
+      "passphrasePlaceholder": "Frasa laluan sandaran",
+      "passphraseTooShort": "Frasa laluan sandaran mestilah sekurang-kurangnya 8 aksara",
+      "exportButton": "Eksport sandaran",
+      "exportSuccess": "Sandaran dimuat turun",
+      "exportError": "Eksport sandaran gagal",
+      "confirmCheckbox": "Saya faham semua data saya akan dipadamkan secara kekal",
+      "confirmButton": "Padam semuanya dan mulakan semula",
+      "resetting": "Memadam…",
+      "cancel": "Batal",
+      "resetError": "Tetapan semula kilang gagal — sila cuba lagi"
+    },
+    "backup": {
+      "title": "Sandaran dan pemulihan",
+      "description": "Eksport sandaran tersulit data anda, atau pulihkan satu.",
+      "exportHint": "Menyulitkan segalanya dengan frasa laluan sandaran sekurang-kurangnya 8 aksara — anda memerlukannya untuk memulihkan.",
+      "passphrasePlaceholder": "Frasa laluan sandaran",
+      "passphraseTooShort": "Frasa laluan sandaran mestilah sekurang-kurangnya 8 aksara",
+      "exportButton": "Eksport sandaran",
+      "exportSuccess": "Sandaran dimuat turun",
+      "exportError": "Eksport sandaran gagal",
+      "restoreHint": "Pemulihan menggabungkan sandaran ke dalam aplikasi ini. Entri bilik kebal dibuka dengan kata laluan induk yang anda gunakan semasa sandaran dibuat.",
+      "chooseFile": "Pilih fail sandaran",
+      "restoreButton": "Pulihkan sandaran",
+      "restoring": "Memulihkan…",
+      "restoreSuccess": "Sandaran dipulihkan",
+      "restoreError": "Pemulihan gagal — frasa laluan salah atau fail sandaran tidak sah"
     }
   },
   "Dashboard": {

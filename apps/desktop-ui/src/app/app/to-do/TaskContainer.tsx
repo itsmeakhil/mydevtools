@@ -268,7 +268,7 @@ export const TaskContainer = () => {
       {/* Mobile-specific Header */}
       {isMobile && (
         <div
-          className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-2"
+          className="sticky top-0 z-50 bg-background/70 backdrop-blur-md border-b border-border/60 pb-2"
           style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 0.5rem)" }}
         >
           <div className="flex items-center gap-2 px-4 py-2">

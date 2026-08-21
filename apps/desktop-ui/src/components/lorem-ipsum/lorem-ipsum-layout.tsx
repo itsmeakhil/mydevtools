@@ -3,7 +3,6 @@
 import { useCallback, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -16,9 +15,8 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { Download, RefreshCw } from 'lucide-react';
 import { IconQuote } from '@tabler/icons-react';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 import { CopyIconButton } from '@/components/tools/copy-icon-button';
 import {
   generateLorem,
@@ -76,19 +74,13 @@ export function LoremIpsumLayout() {
   };
 
   return (
-    <div className="relative flex flex-col h-full gap-4 min-h-0 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconQuote}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Generators}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconQuote}
+      title={t('title')}
+      description={t('subtitle')}
+    >
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
-        <Card className="flex flex-col gap-4 p-4 overflow-auto">
+        <div className="flex flex-col gap-4 overflow-auto rounded-lg border border-border bg-card p-4">
           <div className="space-y-2">
             <Label
               htmlFor="lorem-unit"
@@ -144,14 +136,13 @@ export function LoremIpsumLayout() {
             <RefreshCw className="h-3.5 w-3.5" />
             {t('generate')}
           </Button>
-        </Card>
+        </div>
 
-        <Card className="flex flex-col overflow-hidden min-h-[280px]">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 gap-2">
-            <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              {t('output')}
-            </Label>
-            <div className="flex items-center gap-1 shrink-0">
+        <IOPanel
+          className="min-h-[280px]"
+          label={t('output')}
+          actions={
+            <>
               <span className="text-[10px] text-muted-foreground tabular-nums mr-1">
                 {output ? `${output.length.toLocaleString()} chars` : '—'}
               </span>
@@ -173,19 +164,17 @@ export function LoremIpsumLayout() {
                 label={t('copy')}
                 className="h-7 w-7"
               />
-            </div>
-          </div>
-          <div className="flex-1 min-h-0 relative">
-            <textarea
-              value={output}
-              readOnly
-              placeholder={t('outputPlaceholder')}
-              className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm leading-relaxed focus:outline-none placeholder:text-muted-foreground/50"
-              spellCheck={false}
-            />
-          </div>
-        </Card>
+            </>
+          }
+        >
+          <ToolTextArea
+            value={output}
+            readOnly
+            placeholder={t('outputPlaceholder')}
+            className="p-4 font-sans"
+          />
+        </IOPanel>
       </div>
-    </div>
+    </ToolShell>
   );
 }

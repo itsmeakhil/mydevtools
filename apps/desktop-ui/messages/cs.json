@@ -273,6 +273,40 @@
       "install": "Stáhnout a nainstalovat",
       "upToDate": "Máte nejnovější verzi.",
       "checkError": "Aktualizace se nepodařilo zkontrolovat. Jste online?"
+    },
+    "dangerZone": {
+      "title": "Nebezpečná zóna",
+      "description": "Nevratné akce, které vymažou data této aplikace.",
+      "resetButton": "Obnovení továrního nastavení",
+      "dialogTitle": "Obnovení továrního nastavení",
+      "dialogWarning": "Tímto trvale smažete vše, co je v aplikaci uloženo — položky trezoru, poznámky, úkoly, záložky a předvolby, včetně šifrovacího klíče. Tuto akci nelze vrátit zpět. Aplikace se restartuje a znovu vás provede úvodním nastavením.",
+      "exportHint": "Volitelné: nejprve si stáhněte šifrovanou zálohu. Zvolte heslo zálohy o délce alespoň 8 znaků — budete ho potřebovat k obnovení.",
+      "passphrasePlaceholder": "Heslo zálohy",
+      "passphraseTooShort": "Heslo zálohy musí mít alespoň 8 znaků",
+      "exportButton": "Exportovat zálohu",
+      "exportSuccess": "Záloha stažena",
+      "exportError": "Export zálohy se nezdařil",
+      "confirmCheckbox": "Rozumím, že všechna má data budou trvale smazána",
+      "confirmButton": "Vymazat vše a restartovat",
+      "resetting": "Mazání…",
+      "cancel": "Zrušit",
+      "resetError": "Obnovení továrního nastavení se nezdařilo — zkuste to prosím znovu"
+    },
+    "backup": {
+      "title": "Zálohování a obnovení",
+      "description": "Exportujte šifrovanou zálohu svých dat, nebo ji obnovte.",
+      "exportHint": "Vše zašifruje heslem zálohy o délce alespoň 8 znaků — budete ho potřebovat k obnovení.",
+      "passphrasePlaceholder": "Heslo zálohy",
+      "passphraseTooShort": "Heslo zálohy musí mít alespoň 8 znaků",
+      "exportButton": "Exportovat zálohu",
+      "exportSuccess": "Záloha stažena",
+      "exportError": "Export zálohy se nezdařil",
+      "restoreHint": "Obnovení sloučí zálohu do této aplikace. Položky trezoru se odemknou hlavním heslem, které jste používali v době vytvoření zálohy.",
+      "chooseFile": "Vybrat soubor zálohy",
+      "restoreButton": "Obnovit zálohu",
+      "restoring": "Obnovování…",
+      "restoreSuccess": "Záloha obnovena",
+      "restoreError": "Obnovení se nezdařilo — špatné heslo nebo neplatný soubor zálohy"
     }
   },
   "Dashboard": {

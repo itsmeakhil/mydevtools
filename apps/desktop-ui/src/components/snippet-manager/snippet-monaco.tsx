@@ -11,6 +11,7 @@ import {
 } from "react";
 import type { editor as MEditor } from "monaco-editor";
 import { useTranslations } from "next-intl";
+import { defineMdtThemes, mdtThemeName } from "@/lib/monaco-theme";
 
 const MonacoEditor = dynamic(
   () => import("@monaco-editor/react").then((mod) => mod.Editor),
@@ -44,7 +45,7 @@ export const SnippetMonaco = forwardRef<SnippetMonacoHandle, Props>(
     ref
   ) {
     const { resolvedTheme } = useTheme();
-    const theme = resolvedTheme === "dark" ? "vs-dark" : "light";
+    const theme = mdtThemeName(resolvedTheme);
     const editorRef = useRef<MEditor.IStandaloneCodeEditor | null>(null);
 
     useImperativeHandle(
@@ -107,7 +108,7 @@ export const SnippetMonaco = forwardRef<SnippetMonacoHandle, Props>(
     );
 
     return (
-      <div className="relative h-full min-h-[320px] w-full overflow-hidden">
+      <div className="relative h-full min-h-[320px] w-full overflow-hidden bg-card">
         <MonacoEditor
           loading={<SnippetMonacoLoading />}
           height="100%"
@@ -116,6 +117,7 @@ export const SnippetMonaco = forwardRef<SnippetMonacoHandle, Props>(
           theme={theme}
           value={value}
           onChange={(v) => onChange?.(v ?? "")}
+          beforeMount={(monaco) => defineMdtThemes(monaco)}
           onMount={onMount}
           options={options}
         />

@@ -273,6 +273,40 @@
       "install": "Last ned og installer",
       "upToDate": "Du er oppdatert.",
       "checkError": "Kunne ikke se etter oppdateringer. Er du på nett?"
+    },
+    "dangerZone": {
+      "title": "Faresone",
+      "description": "Ugjenkallelige handlinger som sletter denne appens data.",
+      "resetButton": "Tilbakestilling til fabrikkinnstillinger",
+      "dialogTitle": "Tilbakestilling til fabrikkinnstillinger",
+      "dialogWarning": "Dette sletter permanent alt som er lagret i appen — hvelvoppføringer, notater, oppgaver, bokmerker og innstillinger, sammen med krypteringsnøkkelen. Det kan ikke angres. Appen starter på nytt og tar deg gjennom oppsettet igjen.",
+      "exportHint": "Valgfritt: last ned en kryptert sikkerhetskopi først. Velg en passfrase på minst 8 tegn — du trenger den for å gjenopprette.",
+      "passphrasePlaceholder": "Passfrase for sikkerhetskopi",
+      "passphraseTooShort": "Passfrasen for sikkerhetskopien må være på minst 8 tegn",
+      "exportButton": "Eksporter sikkerhetskopi",
+      "exportSuccess": "Sikkerhetskopi lastet ned",
+      "exportError": "Eksport av sikkerhetskopi mislyktes",
+      "confirmCheckbox": "Jeg forstår at alle dataene mine blir slettet permanent",
+      "confirmButton": "Slett alt og start på nytt",
+      "resetting": "Sletter…",
+      "cancel": "Avbryt",
+      "resetError": "Fabrikktilbakestilling mislyktes — prøv igjen"
+    },
+    "backup": {
+      "title": "Sikkerhetskopiering og gjenoppretting",
+      "description": "Eksporter en kryptert sikkerhetskopi av dataene dine, eller gjenopprett en.",
+      "exportHint": "Krypterer alt med en passfrase på minst 8 tegn — du trenger den for å gjenopprette.",
+      "passphrasePlaceholder": "Passfrase for sikkerhetskopi",
+      "passphraseTooShort": "Passfrasen for sikkerhetskopien må være på minst 8 tegn",
+      "exportButton": "Eksporter sikkerhetskopi",
+      "exportSuccess": "Sikkerhetskopi lastet ned",
+      "exportError": "Eksport av sikkerhetskopi mislyktes",
+      "restoreHint": "Gjenoppretting fletter sikkerhetskopien inn i denne appen. Hvelvoppføringer låses opp med hovedpassordet du brukte da sikkerhetskopien ble laget.",
+      "chooseFile": "Velg sikkerhetskopifil",
+      "restoreButton": "Gjenopprett sikkerhetskopi",
+      "restoring": "Gjenoppretter…",
+      "restoreSuccess": "Sikkerhetskopi gjenopprettet",
+      "restoreError": "Gjenoppretting mislyktes — feil passfrase eller ugyldig fil"
     }
   },
   "Dashboard": {

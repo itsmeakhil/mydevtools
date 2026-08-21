@@ -88,6 +88,19 @@ export async function exportBackup(passphrase: string): Promise<Blob> {
   return new Blob([JSON.stringify(envelope)], { type: "application/json" });
 }
 
+/** Export and hand the encrypted backup to the browser as a file download. */
+export async function downloadBackup(passphrase: string): Promise<void> {
+  const blob = await exportBackup(passphrase);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `mydevtools-backup-${new Date().toISOString().split("T")[0]}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 /** True if the local vault already has a configured master password. */
 export async function hasConfiguredVault(): Promise<boolean> {
   const res = await localApi("GET", "/api/v1/auth/master-vault");

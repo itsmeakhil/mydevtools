@@ -273,6 +273,40 @@
       "install": "Descargar e instalar",
       "upToDate": "Estás al día.",
       "checkError": "No se pudieron buscar actualizaciones. ¿Estás conectado?"
+    },
+    "dangerZone": {
+      "title": "Zona de peligro",
+      "description": "Acciones irreversibles que borran los datos de esta aplicación.",
+      "resetButton": "Restablecimiento de fábrica",
+      "dialogTitle": "Restablecimiento de fábrica",
+      "dialogWarning": "Esto elimina permanentemente todo lo almacenado en la aplicación — entradas de la bóveda, notas, tareas, marcadores y preferencias, junto con la clave de cifrado. No se puede deshacer. La aplicación se reiniciará y volverás a pasar por la configuración inicial.",
+      "exportHint": "Opcional: descarga primero una copia de seguridad cifrada. Elige una frase de contraseña de al menos 8 caracteres — la necesitarás para restaurar.",
+      "passphrasePlaceholder": "Frase de contraseña de la copia",
+      "passphraseTooShort": "La frase de contraseña debe tener al menos 8 caracteres",
+      "exportButton": "Exportar copia de seguridad",
+      "exportSuccess": "Copia de seguridad descargada",
+      "exportError": "Error al exportar la copia de seguridad",
+      "confirmCheckbox": "Entiendo que todos mis datos se eliminarán permanentemente",
+      "confirmButton": "Borrar todo y reiniciar",
+      "resetting": "Borrando…",
+      "cancel": "Cancelar",
+      "resetError": "El restablecimiento de fábrica falló — inténtalo de nuevo"
+    },
+    "backup": {
+      "title": "Copia de seguridad y restauración",
+      "description": "Exporta una copia de seguridad cifrada de tus datos, o restaura una.",
+      "exportHint": "Cifra todo con una frase de contraseña de al menos 8 caracteres — la necesitarás para restaurar.",
+      "passphrasePlaceholder": "Frase de contraseña de la copia",
+      "passphraseTooShort": "La frase de contraseña debe tener al menos 8 caracteres",
+      "exportButton": "Exportar copia de seguridad",
+      "exportSuccess": "Copia de seguridad descargada",
+      "exportError": "Error al exportar la copia de seguridad",
+      "restoreHint": "La restauración fusiona la copia de seguridad con esta aplicación. Las entradas de la bóveda se desbloquean con la contraseña maestra que usabas cuando se creó la copia.",
+      "chooseFile": "Elegir archivo de copia",
+      "restoreButton": "Restaurar copia de seguridad",
+      "restoring": "Restaurando…",
+      "restoreSuccess": "Copia de seguridad restaurada",
+      "restoreError": "La restauración falló — frase incorrecta o archivo de copia no válido"
     }
   },
   "Dashboard": {

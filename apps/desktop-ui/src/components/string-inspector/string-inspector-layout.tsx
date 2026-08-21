@@ -2,14 +2,11 @@
 
 import React, { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Card } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { FileText, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { IconTextScan2 } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 
 interface SpecialChar {
   cp: number
@@ -109,42 +106,29 @@ export function StringInspectorLayout() {
   ]
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconTextScan2}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex flex-col overflow-hidden min-h-0">
-          <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('panels.input')}</Label>
-            </div>
+    <ToolShell
+      icon={IconTextScan2}
+      title={t('title')}
+      description={t('subtitle')}
+    >
+      <ToolPanels className="lg:grid-cols-2">
+        <IOPanel
+          label={t('panels.input')}
+          actions={
             <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setInput('')} disabled={!input} title={t('clear')}>
               <Trash2 className="h-3.5 w-3.5" />
             </Button>
-          </div>
-          <div className="relative min-h-0 flex-1">
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder={t('placeholder')}
-              className="absolute inset-0 h-full w-full resize-none bg-transparent p-4 font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none"
-              spellCheck={false}
-              autoComplete="off"
-            />
-          </div>
-        </Card>
+          }
+        >
+          <ToolTextArea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder={t('placeholder')}
+            autoComplete="off"
+          />
+        </IOPanel>
 
-        <Card className="flex flex-col overflow-auto min-h-0 p-4">
+        <IOPanel label={null} bodyClassName="overflow-auto p-4">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             {primary.map((p) => (
               <div key={p.label} className="rounded-lg border border-border/50 bg-muted/20 p-3">
@@ -193,8 +177,8 @@ export function StringInspectorLayout() {
               </div>
             )}
           </div>
-        </Card>
-      </div>
-    </div>
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   )
 }
