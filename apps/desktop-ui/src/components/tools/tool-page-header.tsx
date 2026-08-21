@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
+import { ToolLauncher } from '@/components/tools/tool-launcher'
 
 interface ToolPageHeaderProps {
   /** Accepted for call-site compatibility; the header no longer renders an icon. */
@@ -27,7 +28,7 @@ export function ToolPageHeader({
   className,
 }: ToolPageHeaderProps) {
   return (
-    <div className={cn('flex items-start', className)}>
+    <div className={cn('flex items-start justify-between gap-3', className)}>
       <div className="flex min-w-0 flex-col gap-0.5">
         <h1
           title={title}
@@ -42,6 +43,7 @@ export function ToolPageHeader({
           {description}
         </p>
       </div>
+      <ToolLauncher className="mt-0.5" />
     </div>
   )
 }
