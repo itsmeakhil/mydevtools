@@ -18,12 +18,12 @@ const LINUX_RELEASE_URL =
 export const metadata: Metadata = {
   title: "MyDevTools for Linux — preview builds",
   description:
-    "Preview builds of the MyDevTools desktop app for Linux, currently ARM64 (aarch64) only. Completely offline, no account required, free for everyone. AppImage and .deb packages.",
+    "Preview builds of the MyDevTools desktop app for Linux — Intel/AMD (x86_64) and ARM64. Completely offline, no account required, free for everyone. AppImage and .deb packages.",
   alternates: { canonical: `${baseUrl}/linux-builds` },
   openGraph: {
     title: "MyDevTools for Linux — preview builds | MyDevTools",
     description:
-      "Preview builds of the MyDevTools desktop app for Linux, ARM64 (aarch64) only. AppImage and .deb. Offline, no account, free for everyone.",
+      "Preview builds of the MyDevTools desktop app for Linux — Intel/AMD and ARM64. AppImage and .deb. Offline, no account, free for everyone.",
     url: `${baseUrl}/linux-builds`,
     siteName: "MyDevTools",
     type: "website",
@@ -54,16 +54,12 @@ export default function LinuxBuildsPage() {
 
           {/* Preview status — set expectations honestly */}
           <div className="mt-8 mx-auto max-w-xl rounded-xl border border-amber-500/30 bg-amber-500/[0.06] px-5 py-4 text-left">
-            <p className="text-sm font-semibold text-amber-200">
-              Preview build — ARM64 (aarch64) only
-            </p>
+            <p className="text-sm font-semibold text-amber-200">Preview build</p>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              These packages are built for <strong className="text-foreground">ARM64
-              (aarch64)</strong> machines and will not run on a typical x86_64 desktop
-              — an x86_64 build is not published yet. Linux support is also new and
-              still being validated, and unlike the macOS build these packages are not
-              yet covered by automatic updates; grab a newer build from this page when
-              one lands.
+              Linux support is new and still being validated. Unlike the macOS build,
+              these packages are not yet covered by automatic updates — grab a newer
+              build from this page when one lands. Requires Ubuntu 22.04+ or Debian 12+
+              (older releases don't ship <code>libwebkit2gtk-4.1-0</code>).
             </p>
           </div>
 
@@ -76,13 +72,26 @@ export default function LinuxBuildsPage() {
               </a>
             </Button>
             <p className="mt-2 text-sm text-muted-foreground">
-              ARM64 (aarch64) · AppImage &amp; .deb · from the GitHub releases page
+              Intel/AMD &amp; ARM64 · from the GitHub releases page
             </p>
           </div>
 
           {/* Install instructions */}
           <div className="mt-16 mx-auto max-w-xl text-left mdt-surface rounded-xl p-6">
             <h2 className="text-sm font-semibold">Installing</h2>
+
+            <p className="mt-3 text-sm text-muted-foreground">
+              <strong className="text-foreground">Intel or AMD</strong> — both are the same
+              architecture (<code>amd64</code>), so one package covers every normal PC:
+            </p>
+            <pre className="mt-2 overflow-x-auto rounded-lg bg-black/40 p-3 text-xs text-muted-foreground">
+              <code>sudo apt install ./MyDevTools_*_amd64.deb</code>
+            </pre>
+
+            <p className="mt-4 text-xs text-muted-foreground">
+              On ARM64 (Raspberry Pi, ARM servers) use the <code>arm64.deb</code> or the{" "}
+              <code>aarch64.AppImage</code>. Unsure? Run <code>dpkg --print-architecture</code>.
+            </p>
 
             <p className="mt-3 text-sm text-muted-foreground">
               <strong className="text-foreground">AppImage</strong> — runs anywhere, no
