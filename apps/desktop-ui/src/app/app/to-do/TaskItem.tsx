@@ -3,18 +3,10 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { formatElapsed, getElapsedMinutes } from "@/app/app/to-do/utils/taskTimeUtils";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import DeleteButton from "../../../components/ui/DeleteButton";
 import {
-  Edit, Calendar, Tag, MoreVertical, Copy, Check, Trash2, CheckCircle2, Archive, ArchiveRestore, Play, Pause, Timer
+  Edit, Calendar, MoreVertical, Copy, Check, Trash2, CheckCircle2, Archive, ArchiveRestore, Play, Pause, Timer
 } from "lucide-react";
 
 const TaskEditDialog = lazy(() => import("./TaskEditDialog"));
@@ -29,12 +21,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { PRIORITY_CONFIG } from "./config/constants";
 import { useStatuses } from "./hooks/useStatuses";
@@ -45,7 +31,7 @@ import { AssigneePicker } from "./components/AssigneePicker";
 
 interface TaskItemProps {
   task: Task;
-  onUpdateStatus: (id: string, newStatus: Task["status"]) => void;
+  onUpdateStatus: (id: string, newStatus: string) => void;
   onUpdateTask: (id: string, updates: Partial<Task>) => Promise<void>;
   onDeleteTask: (id: string) => void;
 }
@@ -58,7 +44,6 @@ function TaskItem({
 }: TaskItemProps) {
   const tItem = useTranslations("Tasks.taskItem");
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [justCompleted, setJustCompleted] = useState(false);
   const { isCopied: copied, copyToClipboard } = useCopyToClipboard();
   const [elapsed, setElapsed] = useState(() => getElapsedMinutes(task));
@@ -85,10 +70,11 @@ function TaskItem({
   const { statuses, getStatus } = useStatuses();
   const statusConfig = getStatus(task.status);
   const StatusIcon = statusConfig.icon;
+  const isCompleted = task.status === "completed";
 
   // Check if task is overdue
   const dueDateObj = task.dueDate ? safeParseDate(task.dueDate) : null;
-  const isOverdue = dueDateObj && isPast(dueDateObj) && task.status !== "completed";
+  const isOverdue = dueDateObj && isPast(dueDateObj) && !isCompleted;
   const dueInDays = dueDateObj ? differenceInDays(dueDateObj, new Date()) : null;
 
   // Swipe logic
@@ -145,373 +131,243 @@ function TaskItem({
     }
   };
 
+  const priority = task.priority && task.priority !== "medium" ? PRIORITY_CONFIG[task.priority] : null;
+  const subTasksDone = task.subTasks?.filter((st) => st.completed).length ?? 0;
+
   return (
     <>
-      <li
-        className="relative mb-3 group"
-        role="listitem"
-        aria-label={`Task: ${task.text}`}
-      >
+      <li className="relative group" role="listitem" aria-label={`Task: ${task.text}`}>
         {/* Swipe Backgrounds */}
-        <div className="absolute inset-0 rounded-xl overflow-hidden flex pointer-events-none">
-          {/* Left Background (Complete) */}
+        <div className="absolute inset-0 rounded-md overflow-hidden flex pointer-events-none">
           <motion.div
             style={{ opacity: opacityRight, backgroundColor: bgRight }}
             className="flex-1 flex items-center justify-start pl-6"
           >
             <motion.div style={{ scale: opacityRight }}>
-              <CheckCircle2 className="h-6 w-6 text-green-600" />
+              <CheckCircle2 className="h-5 w-5 text-green-600" />
             </motion.div>
           </motion.div>
-
-          {/* Right Background (Delete) */}
           <motion.div
             style={{ opacity: opacityLeft, backgroundColor: bgLeft }}
             className="flex-1 flex items-center justify-end pr-6"
           >
             <motion.div style={{ scale: opacityLeft }}>
-              <Trash2 className="h-6 w-6 text-red-600" />
+              <Trash2 className="h-5 w-5 text-red-600" />
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Draggable Content */}
+        {/* Row */}
         <motion.div
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           onDragEnd={handleDragEnd}
           style={{ x }}
           className={cn(
-            "relative p-3 md:p-4 rounded-2xl border transition-all duration-300 bg-card",
-            "active:scale-[0.98]", // Subtle touch feedback
-            task.status === "completed" ? "opacity-60 bg-muted/40" : "shadow-sm border-muted-foreground/10",
-            justCompleted && "ring-1 ring-green-500/40 shadow-[0_0_0_4px_hsl(145_60%_38%/0.08)]"
+            "relative flex items-center gap-1.5 h-11 px-2 sm:px-3 rounded-md transition-colors",
+            "hover:bg-muted/50",
+            isCompleted && "opacity-60",
+            justCompleted && "bg-green-500/5 ring-1 ring-green-500/30"
           )}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="flex items-start gap-3 md:gap-4">
-            {/* Status Icon - Clickable for quick toggle */}
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    onClick={handleQuickComplete}
-                    className={cn(
-                      "flex items-center justify-center p-2.5 rounded-lg transition-all duration-200",
-                      "hover:scale-110 active:scale-95 cursor-pointer",
-                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
-                      statusConfig.bgColor,
-                      statusConfig.color,
-                      "min-w-[44px] h-[44px]"
-                    )}
-                    aria-label={`Mark as ${task.status === "completed" ? "not completed" : "completed"}`}
-                  >
-                    <StatusIcon className="h-5 w-5" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Click to toggle completion</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+          {/* Priority */}
+          <span className="w-4 flex items-center justify-center shrink-0">
+            {priority &&
+              React.createElement(priority.icon, {
+                className: cn("h-3.5 w-3.5", priority.color),
+                "aria-label": priority.label,
+              })}
+          </span>
 
-            {/* Task Content */}
-            <div className="flex-1 min-w-0 space-y-2">
-              <div className="flex items-start gap-2 flex-wrap">
-                <h3
-                  className={cn(
-                    "block text-[15px] md:text-base font-semibold leading-tight transition-all flex-1 min-w-0",
-                    task.status === "completed"
-                      ? "text-muted-foreground line-through decoration-muted-foreground/50"
-                      : "text-foreground"
-                  )}
+          {/* Status selector */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={cn(
+                  "flex items-center justify-center size-7 rounded-md shrink-0 transition-colors",
+                  "hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                )}
+                aria-label={tItem("changeStatusAria")}
+              >
+                <StatusIcon className={cn("h-4 w-4", statusConfig.color)} />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-44">
+              {statuses.map((config) => (
+                <DropdownMenuItem key={config.id} onClick={() => handleStatusChange(config.id)}>
+                  <config.icon className={cn("h-4 w-4 mr-2", config.color)} />
+                  {config.label}
+                  {task.status === config.id && <Check className="ml-auto h-3.5 w-3.5" />}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Title — opens the edit dialog */}
+          <button
+            onClick={() => setIsEditDialogOpen(true)}
+            className="min-w-0 flex-1 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
+            aria-label={tItem("editTaskAria")}
+          >
+            <span
+              className={cn(
+                "block text-sm font-medium truncate",
+                isCompleted
+                  ? "text-muted-foreground line-through decoration-muted-foreground/50"
+                  : "text-foreground"
+              )}
+            >
+              {task.text}
+            </span>
+          </button>
+
+          {/* Right-side properties */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Subtasks count */}
+            {task.subTasks && task.subTasks.length > 0 && (
+              <span className="hidden sm:flex items-center gap-1 text-[11px] text-muted-foreground tabular-nums">
+                <CheckCircle2 className="h-3 w-3" />
+                {subTasksDone}/{task.subTasks.length}
+              </span>
+            )}
+
+            {/* Tags — dot chips, first two */}
+            {task.tags && task.tags.length > 0 && (
+              <span className="hidden lg:flex items-center gap-1">
+                {task.tags.slice(0, 2).map((tag) => (
+                  <Badge
+                    key={tag.id}
+                    variant="outline"
+                    className="gap-1.5 rounded-full h-5 px-2 text-[10px] font-normal text-muted-foreground bg-background"
+                  >
+                    <span className="size-1.5 rounded-full" style={{ backgroundColor: tag.color }} aria-hidden />
+                    {tag.name}
+                  </Badge>
+                ))}
+                {task.tags.length > 2 && (
+                  <span className="text-[10px] text-muted-foreground">+{task.tags.length - 2}</span>
+                )}
+              </span>
+            )}
+
+            {/* Project — dot chip */}
+            {project && (
+              <Badge
+                variant="outline"
+                className="hidden md:flex gap-1.5 rounded-full h-5 px-2 text-[10px] font-normal text-muted-foreground bg-background"
+              >
+                <span className={cn("size-1.5 rounded-full", project.color)} aria-hidden />
+                {project.name}
+              </Badge>
+            )}
+
+            {/* Timer chip */}
+            {(elapsed > 0 || task.isTimerRunning || task.timeEstimate) && (
+              <span
+                className={cn(
+                  "hidden sm:flex items-center gap-1 h-5 px-1.5 rounded-full text-[10px] font-medium select-none",
+                  task.isTimerRunning
+                    ? "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400"
+                    : "text-muted-foreground"
+                )}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={task.isTimerRunning ? handleStopTimer : handleStartTimer}
+                  className="hover:opacity-70 transition-opacity cursor-pointer"
+                  aria-label={task.isTimerRunning ? "Stop timer" : "Start timer"}
                 >
-                  {task.text}
-                </h3>
-                {task.priority && task.priority !== "medium" && (
-                  <Badge
-                    variant="outline"
-                    className={cn(
-                      PRIORITY_CONFIG[task.priority].color,
-                      PRIORITY_CONFIG[task.priority].bgColor,
-                      PRIORITY_CONFIG[task.priority].borderColor,
-                      "gap-1.5 px-2 py-0.5 border flex-shrink-0"
-                    )}
-                  >
-                    {React.createElement(PRIORITY_CONFIG[task.priority].icon, { className: "h-3.5 w-3.5" })}
-                    <span className="text-xs font-medium">{PRIORITY_CONFIG[task.priority].label}</span>
-                  </Badge>
+                  {task.isTimerRunning ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
+                </button>
+                <Timer className="h-3 w-3" />
+                {elapsed > 0 ? formatElapsed(elapsed) : "0m"}
+                {task.timeEstimate ? ` / ${formatElapsed(task.timeEstimate)}` : ""}
+              </span>
+            )}
+
+            {/* Due date */}
+            {task.dueDate && (
+              <span
+                className={cn(
+                  "flex items-center gap-1 text-[11px] shrink-0",
+                  isOverdue ? "text-red-500 font-medium" : "text-orange-500/90 dark:text-orange-400"
                 )}
-                {project && (
-                  <Badge
-                    variant="outline"
-                    className="gap-1.5 px-2 py-0.5 border text-[10px] font-normal flex-shrink-0"
-                  >
-                    <div className={cn("w-1.5 h-1.5 rounded-full", project.color)} />
-                    {project.name}
-                  </Badge>
-                )}
-              </div>
+              >
+                <Calendar className="h-3 w-3" />
+                {isOverdue
+                  ? "Overdue"
+                  : dueInDays === 0
+                    ? "Today"
+                    : dueInDays === 1
+                      ? "Tmrw"
+                      : dueInDays !== null && dueInDays > 0
+                        ? `${dueInDays}d`
+                        : `${Math.abs(dueInDays!)}d ago`}
+              </span>
+            )}
 
-              {task.description && (
-                <p className="text-xs md:text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-                  {task.description}
-                </p>
-              )}
+            {/* Assignee */}
+            <AssigneePicker
+              assigneeUid={task.assigneeUid}
+              onChange={(uid) => onUpdateTask(task.id, { assigneeUid: uid })}
+            />
 
-              {/* Tags */}
-              {task.tags && task.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {task.tags.map((tag) => (
-                    <Badge
-                      key={tag.id}
-                      variant="outline"
-                      style={{ borderColor: tag.color, color: tag.color }}
-                      className="text-[10px] md:text-xs gap-1 px-2 py-0.5 hover:bg-muted/50 transition-colors"
-                    >
-                      <Tag className="h-3 w-3" />
-                      {tag.name}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-
-              {/* Subtasks Progress */}
-              {task.subTasks && task.subTasks.length > 0 && (
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <CheckCircle2 className="h-3.5 w-3.5" />
-                  <span className="font-medium">
-                    {task.subTasks.filter(st => st.completed).length} / {task.subTasks.length} subtasks
-                  </span>
-                  <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden max-w-[100px]">
-                    <div
-                      className="h-full bg-primary transition-all duration-300"
-                      style={{
-                        width: `${(task.subTasks.filter(st => st.completed).length / task.subTasks.length) * 100}%`
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Tags & Metadata Row */}
-              <div className="flex flex-wrap items-center gap-2 mt-1">
-                {/* Priority Badge */}
-                {task.priority && task.priority !== "medium" && (
-                  <Badge
-                    variant="outline"
-                    className={cn(
-                      PRIORITY_CONFIG[task.priority].color,
-                      PRIORITY_CONFIG[task.priority].bgColor,
-                      PRIORITY_CONFIG[task.priority].borderColor,
-                      "gap-1 px-1.5 py-0 border h-5 text-[10px] font-medium"
-                    )}
-                  >
-                    {PRIORITY_CONFIG[task.priority].label}
-                  </Badge>
-                )}
-
-                {/* Due Date */}
-                {task.dueDate && (
-                  <div className={cn(
-                    "flex items-center gap-1 px-1.5 py-0 h-5 rounded-md text-[10px] font-medium border",
-                    isOverdue
-                      ? "text-red-500 bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-900/30"
-                      : "text-muted-foreground bg-muted/50 border-transparent"
-                  )}>
-                    <Calendar className="h-3 w-3" />
-                    <span>
-                      {isOverdue
-                        ? "Overdue"
-                        : dueInDays === 0
-                          ? "Today"
-                          : dueInDays === 1
-                            ? "Tmrw"
-                            : dueInDays !== null && dueInDays > 0
-                              ? `${dueInDays}d`
-                              : `${Math.abs(dueInDays!)}d ago`
-                      }
-                    </span>
-                  </div>
-                )}
-
-                {/* Timer chip */}
-                {(elapsed > 0 || task.isTimerRunning || task.timeEstimate) && (
-                  <div
-                    className={cn(
-                      "flex items-center gap-1 px-1.5 py-0 h-5 rounded-md text-[10px] font-medium select-none",
-                      task.isTimerRunning
-                        ? "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400"
-                        : "bg-muted/50 text-muted-foreground"
-                    )}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <button
-                      onClick={task.isTimerRunning ? handleStopTimer : handleStartTimer}
-                      className="hover:opacity-70 transition-opacity cursor-pointer"
-                      aria-label={task.isTimerRunning ? "Stop timer" : "Start timer"}
-                    >
-                      {task.isTimerRunning ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
-                    </button>
-                    <Timer className="h-3 w-3" />
-                    <span>
-                      {elapsed > 0 ? formatElapsed(elapsed) : "0m"}
-                      {task.timeEstimate ? ` / ${formatElapsed(task.timeEstimate)}` : ""}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-2 flex-shrink-0 self-start md:self-center">
-              {/* Assignee */}
-              <AssigneePicker
-                assigneeUid={task.assigneeUid}
-                onChange={(uid) => onUpdateTask(task.id, { assigneeUid: uid })}
-                size="md"
-              />
-
-              {/* Status Dropdown - Hidden on mobile to save space, accessible via menu */}
-              <div className="hidden md:block">
-                <Select
-                  value={task.status}
-                  onValueChange={(newStatus) => handleStatusChange(newStatus as Task["status"])}
-                >
-                  <SelectTrigger
-                    className="w-[130px] h-8 text-xs focus:ring-2 focus:ring-primary"
-                    aria-label={tItem("changeStatusAria")}
-                  >
-                    <SelectValue placeholder={tItem("statusPlaceholder")} />
-                  </SelectTrigger>
-
-                  <SelectContent>
-                    {statuses.map((config) => (
-                      <SelectItem key={config.id} value={config.id}>
-                        <div className="flex items-center gap-2">
-                          <config.icon className={cn("h-3.5 w-3.5", config.color)} />
-                          <span>{config.label}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Context Menu - Always visible on mobile, hover on desktop */}
-              <div className="md:hidden">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 w-8 p-0"
-                      aria-label={tItem("taskOptionsAria")}
-                    >
-                      <MoreVertical className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48">
-                    <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
-                      <Edit className="h-4 w-4 mr-2" />
-                      {tItem("editTask")}
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleCopy}>
-                      {copied ? (
-                        <>
-                          <Check className="h-4 w-4 mr-2" />
-                          {tItem("copied")}
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="h-4 w-4 mr-2" />
-                          {tItem("copyTask")}
-                        </>
-                      )}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <div className="p-2">
-                      <p className="text-xs font-semibold text-muted-foreground mb-2">{tItem("statusHeading")}</p>
-                      <div className="grid grid-cols-1 gap-1">
-                        {statuses.map((config) => (
-                          <Button
-                            key={config.id}
-                            variant={task.status === config.id ? "secondary" : "ghost"}
-                            size="sm"
-                            className="justify-start h-7 text-xs"
-                            onClick={() => handleStatusChange(config.id)}
-                          >
-                            <config.icon className={cn("h-3.5 w-3.5 mr-2", config.color)} />
-                            {config.label}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                    <DropdownMenuItem onClick={() => onUpdateTask(task.id, { archived: !task.archived })}>
-                      {task.archived ? (
-                        <>
-                          <ArchiveRestore className="h-4 w-4 mr-2" />
-                          Restore
-                        </>
-                      ) : (
-                        <>
-                          <Archive className="h-4 w-4 mr-2" />
-                          Archive
-                        </>
-                      )}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => onDeleteTask(task.id)}
-                      className="text-red-500 focus:text-red-500 focus:bg-red-50 dark:focus:bg-red-950/20"
-                    >
-                      <Trash2 className="h-4 w-4 mr-2" />
-                      {tItem("deleteTask")}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-
-              {/* Desktop Actions */}
-              <div className="hidden md:flex items-center gap-1">
+            {/* Overflow menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsEditDialogOpen(true)}
-                  className={cn(
-                    "h-8 w-8 p-0 transition-opacity duration-150 ease-out",
-                    isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
-                  )}
-                  aria-label={tItem("editTaskAria")}
+                  className="size-7 p-0 md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100 transition-opacity"
+                  aria-label={tItem("taskOptionsAria")}
                 >
-                  <Edit className="h-4 w-4" />
+                  <MoreVertical className="h-4 w-4" />
                 </Button>
-
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onUpdateTask(task.id, { archived: !task.archived })}
-                  className={cn(
-                    "h-8 w-8 p-0 transition-opacity duration-150 ease-out",
-                    isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-44">
+                <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+                  <Edit className="h-4 w-4 mr-2" />
+                  {tItem("editTask")}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleCopy}>
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4 mr-2" />
+                      {tItem("copied")}
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-4 w-4 mr-2" />
+                      {tItem("copyTask")}
+                    </>
                   )}
-                  aria-label={task.archived ? "Restore task" : "Archive task"}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onUpdateTask(task.id, { archived: !task.archived })}>
+                  {task.archived ? (
+                    <>
+                      <ArchiveRestore className="h-4 w-4 mr-2" />
+                      Restore
+                    </>
+                  ) : (
+                    <>
+                      <Archive className="h-4 w-4 mr-2" />
+                      Archive
+                    </>
+                  )}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => onDeleteTask(task.id)}
+                  className="text-red-500 focus:text-red-500 focus:bg-red-50 dark:focus:bg-red-950/20"
                 >
-                  {task.archived ? <ArchiveRestore className="h-4 w-4" /> : <Archive className="h-4 w-4" />}
-                </Button>
-
-                <div className={cn(
-                  "transition-opacity duration-150 ease-out flex items-center justify-center",
-                  isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-70"
-                )}>
-                  <DeleteButton onDelete={() => onDeleteTask(task.id)} />
-                </div>
-              </div>
-            </div>
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  {tItem("deleteTask")}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </motion.div>
-      </li >
+      </li>
 
       {isEditDialogOpen && (
         <LazyBoundary fallback={null}>
