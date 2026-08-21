@@ -15,14 +15,16 @@ tauri-build = { version = "2", features = [] }
 tauri = { version = "2", features = [] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-rusqlite = { version = "0.32", features = ["bundled-sqlcipher-vendored-openssl"] }
+rusqlite = { version = "0.40", features = ["bundled-sqlcipher-vendored-openssl"] }
+# ponytail: keyring 4 restructured stores (keyring-core + per-platform crates); staying on 3
+# until there's a reason to migrate the Keychain-backed SQLCipher key path.
 keyring = { version = "3", features = ["apple-native"] }
 uuid = { version = "1", features = ["v4"] }
 chrono = "0.4"
-rand = "0.8"
+getrandom = "0.4"
 thiserror = "2"
-reqwest = { version = "0.12", features = ["json", "gzip", "multipart", "stream"] }
-base64 = "0.22"
+reqwest = { version = "0.13", features = ["json", "gzip", "multipart", "stream"] }
+base64 = "0.23"
 tauri-plugin-opener = "2"
 tauri-plugin-window-state = "2"
 tauri-plugin-updater = "2"
@@ -35,9 +37,9 @@ tokio-native-tls = "0.3"
 h2 = "0.4"
 http = "1"
 bytes = "1"
-mysql_async = { version = "0.36", default-features = false, features = ["default-rustls-ring"] }
+mysql_async = { version = "0.37", default-features = false, features = ["default-rustls-ring"] }
 mongodb = "3"
-redis = { version = "0.29", features = ["tokio-comp", "tokio-native-tls-comp"] }
+redis = { version = "1", features = ["tokio-comp", "tokio-native-tls-comp"] }
 futures-util = "0.3"
 dashmap = "6"
 

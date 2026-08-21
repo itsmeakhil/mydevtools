@@ -1,5 +1,4 @@
 use keyring::Entry;
-use rand::RngCore;
 
 use crate::error::Result;
 
@@ -14,7 +13,7 @@ pub fn get_or_create() -> Result<String> {
         Ok(key) => Ok(key),
         Err(keyring::Error::NoEntry) => {
             let mut bytes = [0u8; 32];
-            rand::rngs::OsRng.fill_bytes(&mut bytes);
+            getrandom::fill(&mut bytes).expect("OS entropy source unavailable");
             let key: String = bytes.iter().map(|b| format!("{b:02x}")).collect();
             entry.set_password(&key)?;
             Ok(key)
