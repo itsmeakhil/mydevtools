@@ -31,11 +31,14 @@ export function TopBar() {
   const user = useAppUser()
 
   // macOS traffic lights are inset into this bar (titleBarStyle: Overlay), so
-  // pad the left only inside the Tauri window. Mounted-guarded to avoid an SSR
-  // hydration mismatch (isDesktop() is false on the server).
-  const [isTauri, setIsTauri] = useState(false)
+  // reserve room for them on the left — but ONLY on macOS. titleBarStyle and
+  // trafficLightPosition are macOS-only options; Linux and Windows keep their
+  // native title bar, so the same inset there is just an empty 92px gap.
+  // Mounted-guarded to avoid an SSR hydration mismatch (isDesktop() is false on
+  // the server).
+  const [isMacDesktop, setIsMacDesktop] = useState(false)
   useEffect(() => {
-    setIsTauri(isDesktop())
+    setIsMacDesktop(isDesktop() && /Mac/i.test(navigator.userAgent))
   }, [])
 
   // macOS hides the traffic lights in fullscreen, so the left inset that
@@ -72,9 +75,9 @@ export function TopBar() {
       data-tauri-drag-region
       className={cn(
         'flex h-14 w-full shrink-0 items-center gap-3 border-b border-border bg-[hsl(var(--surface-2))]',
-        !isTauri ? 'px-4' : 'pr-6',
+        !isMacDesktop ? 'px-4' : 'pr-6',
       )}
-      style={isTauri ? { paddingLeft: isFullscreen ? 16 : 92 } : undefined}
+      style={isMacDesktop ? { paddingLeft: isFullscreen ? 16 : 92 } : undefined}
     >
       {/* Brand → dashboard. Text wordmark in Courier Prime, no logo mark. */}
       <button
