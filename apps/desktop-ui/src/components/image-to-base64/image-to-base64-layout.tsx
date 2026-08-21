@@ -3,8 +3,6 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
 import {
   Copy,
   Check,
@@ -18,9 +16,8 @@ import {
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { IconPhoto } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 
 type Mode = 'dataUri' | 'rawString';
 
@@ -100,21 +97,10 @@ export function ImageToBase64Layout() {
   const currentOutput = output ? (mode === 'rawString' ? output.replace(/^data:image\/\w+;base64,/, '') : output) : '';
   const outputCharCount = currentOutput.length;
 
-  return (
-    <div className="relative flex flex-col h-full gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconPhoto}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
+  const toolbar = (
+    <div className="flex shrink-0 flex-col gap-3">
       {/* Mobile upload/clear actions */}
-      <div className="flex items-center gap-2 shrink-0 md:hidden">
+      <div className="flex items-center gap-2 md:hidden">
         <Button
           variant="outline"
           size="sm"
@@ -142,7 +128,7 @@ export function ImageToBase64Layout() {
       </div>
 
       {/* Mode Toggle */}
-      <div className="flex items-center justify-center shrink-0">
+      <div className="flex items-center justify-center">
         <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-muted/50 border border-border/50">
           <button
             onClick={() => setMode('dataUri')}
@@ -168,90 +154,97 @@ export function ImageToBase64Layout() {
           </button>
         </div>
       </div>
+    </div>
+  );
 
-      {/* Panels */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 min-h-0">
+  return (
+    <ToolShell
+      icon={IconPhoto}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
+      <ToolPanels className="lg:grid-cols-2">
         {/* Input */}
-        <Card
-          className={cn(
-            'flex flex-col overflow-hidden transition-colors relative',
-            isDragging && 'border-primary/50 bg-primary/5',
-            !previewUrl && 'border-dashed'
-          )}
+        <IOPanel
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-        >
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 shrink-0">
-            <div className="flex items-center gap-2">
-              <ImageIcon className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {t('panels.imageInput')}
-              </Label>
-            </div>
-            {previewUrl && (
+          className={cn(
+            'transition-colors',
+            isDragging && 'border-primary/50 bg-primary/5',
+            !previewUrl && 'border-dashed'
+          )}
+          bodyClassName="flex items-center justify-center p-4"
+          label={
+            <>
+              <ImageIcon className="h-3.5 w-3.5" aria-hidden />
+              {t('panels.imageInput')}
+            </>
+          }
+          actions={
+            previewUrl ? (
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-6 w-6 -mr-2"
+                className="h-6 w-6"
                 onClick={handleClear}
                 title={t('clear')}
               >
                 <Trash2 className="h-3.5 w-3.5" />
               </Button>
-            )}
-          </div>
-          <div className="flex-1 min-h-0 relative flex items-center justify-center p-4">
-            {previewUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="max-w-full max-h-full object-contain rounded-md"
-              />
-            ) : (
-              <div 
-                className="flex flex-col items-center gap-4 text-center cursor-pointer"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <div className="p-4 rounded-full bg-muted/50">
-                  <Upload className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium">{t('dropHere')}</p>
-                  <p className="text-xs text-muted-foreground">{t('placeholders.uploadImage')}</p>
-                </div>
-                {error && (
-                  <div className="flex items-center gap-1.5 text-xs text-destructive mt-2">
-                    <AlertCircle className="h-3.5 w-3.5" />
-                    <span>{error}</span>
-                  </div>
-                )}
+            ) : null
+          }
+        >
+          {previewUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={previewUrl}
+              alt="Preview"
+              className="max-w-full max-h-full object-contain rounded-md"
+            />
+          ) : (
+            <div
+              className="flex flex-col items-center gap-4 text-center cursor-pointer"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              <div className="p-4 rounded-full bg-muted/50">
+                <Upload className="h-8 w-8 text-muted-foreground" />
               </div>
-            )}
-            
-            {/* Overlay when dragging */}
-            {isDragging && (
-              <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-10">
-                <div className="flex flex-col items-center gap-2 text-primary">
-                  <Upload className="h-8 w-8 animate-bounce" />
-                  <span className="text-sm font-medium">{t('dropHere')}</span>
-                </div>
+              <div className="flex flex-col gap-1">
+                <p className="text-sm font-medium">{t('dropHere')}</p>
+                <p className="text-xs text-muted-foreground">{t('placeholders.uploadImage')}</p>
               </div>
-            )}
-          </div>
-        </Card>
+              {error && (
+                <div className="flex items-center gap-1.5 text-xs text-destructive mt-2">
+                  <AlertCircle className="h-3.5 w-3.5" />
+                  <span>{error}</span>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Overlay when dragging */}
+          {isDragging && (
+            <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-10">
+              <div className="flex flex-col items-center gap-2 text-primary">
+                <Upload className="h-8 w-8 animate-bounce" />
+                <span className="text-sm font-medium">{t('dropHere')}</span>
+              </div>
+            </div>
+          )}
+        </IOPanel>
 
         {/* Output */}
-        <Card className="flex flex-col overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-border/50 bg-muted/30 shrink-0">
-            <div className="flex items-center gap-2">
-              <FileText className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                {t('panels.output')}
-              </Label>
-            </div>
-            <div className="flex items-center gap-2">
+        <IOPanel
+          label={
+            <>
+              <FileText className="h-3.5 w-3.5" aria-hidden />
+              {t('panels.output')}
+            </>
+          }
+          actions={
+            <>
               <span className="text-[10px] text-muted-foreground tabular-nums">
                 {t('charCount', { count: outputCharCount.toLocaleString() })}
               </span>
@@ -279,18 +272,12 @@ export function ImageToBase64Layout() {
                   <Copy className="h-3 w-3" />
                 )}
               </Button>
-            </div>
-          </div>
-          <div className="flex-1 min-h-0 relative">
-            <textarea
-              value={currentOutput}
-              readOnly
-              className="absolute inset-0 w-full h-full resize-none bg-transparent p-4 text-sm font-mono focus:outline-none placeholder:text-muted-foreground/50"
-              spellCheck={false}
-            />
-          </div>
-        </Card>
-      </div>
-    </div>
+            </>
+          }
+        >
+          <ToolTextArea value={currentOutput} readOnly />
+        </IOPanel>
+      </ToolPanels>
+    </ToolShell>
   );
 }

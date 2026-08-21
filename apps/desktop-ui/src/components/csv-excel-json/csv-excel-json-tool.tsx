@@ -13,14 +13,10 @@ import {
   IconUpload,
 } from "@tabler/icons-react";
 import { toast } from "sonner";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { ToolPinButton } from "@/components/tools/tool-header";
-import { ToolPageHeader } from "@/components/tools/tool-page-header";
-import { RevealItem } from "@/components/dashboard/dashboard-reveal";
-import { CATEGORY_ACCENT } from "@/components/dashboard/types";
+import { ToolShell } from "@/components/tools/tool-shell";
+import { IOPanel, ToolTextArea } from "@/components/tools/io-panel";
 import { useToolUsage } from "@/hooks/use-tool-usage";
 import { cn } from "@/lib/utils";
 import {
@@ -152,143 +148,141 @@ export function CsvExcelJsonTool() {
   };
 
   return (
-    <div className="relative flex flex-col h-full min-h-0 overflow-auto pb-4 dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <ToolPageHeader
-            icon={IconFileSpreadsheet}
-            title={t("title")}
-            description={t("subtitle")}
-            accent={CATEGORY_ACCENT.Converters}
-            className="flex-1"
-          />
+    <ToolShell
+      icon={IconFileSpreadsheet}
+      title={t("title")}
+      description={t("subtitle")}
+      toolbar={
+        <div className="flex shrink-0 justify-end">
           <ToolPinButton toolId="csv-excel-json" />
         </div>
-      </RevealItem>
-
-      <Card className="border-border/60 shadow-sm">
-        <CardContent className="space-y-6 pt-2">
-          <div
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                fileRef.current?.click();
-              }
-            }}
-            onDragEnter={(e) => {
+      }
+      contentClassName="overflow-auto"
+    >
+      <div className="space-y-6">
+        <div
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              setDragOver(true);
+              fileRef.current?.click();
+            }
+          }}
+          onDragEnter={(e) => {
+            e.preventDefault();
+            setDragOver(true);
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault();
+            setDragOver(false);
+          }}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={onDrop}
+          className={cn(
+            "rounded-xl border-2 border-dashed p-8 text-center transition-colors",
+            dragOver
+              ? "border-primary bg-primary/5"
+              : "border-muted-foreground/25 bg-muted/20"
+          )}
+        >
+          <IconFileSpreadsheet className="mx-auto h-10 w-10 text-muted-foreground mb-3" />
+          <p className="text-sm font-medium mb-1">{t("dropTitle")}</p>
+          <p className="text-xs text-muted-foreground mb-4">{t("dropHint")}</p>
+          <input
+            ref={fileRef}
+            type="file"
+            accept=".csv,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) void handleFile(f);
+              e.target.value = "";
             }}
-            onDragLeave={(e) => {
-              e.preventDefault();
-              setDragOver(false);
-            }}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={onDrop}
-            className={cn(
-              "rounded-xl border-2 border-dashed p-8 text-center transition-colors",
-              dragOver
-                ? "border-primary bg-primary/5"
-                : "border-muted-foreground/25 bg-muted/20"
-            )}
+          />
+          <Button
+            type="button"
+            variant="secondary"
+            className="gap-2"
+            onClick={() => fileRef.current?.click()}
           >
-            <IconFileSpreadsheet className="mx-auto h-10 w-10 text-muted-foreground mb-3" />
-            <p className="text-sm font-medium mb-1">{t("dropTitle")}</p>
-            <p className="text-xs text-muted-foreground mb-4">
-              {t("dropHint")}
-            </p>
-            <input
-              ref={fileRef}
-              type="file"
-              accept=".csv,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
-              className="hidden"
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (f) void handleFile(f);
-                e.target.value = "";
-              }}
-            />
+            <IconUpload className="h-4 w-4" />
+            {t("chooseFile")}
+          </Button>
+        </div>
+
+        <IOPanel
+          className="h-[320px]"
+          bodyClassName="flex flex-col"
+          label={t("jsonLabel")}
+          actions={
             <Button
               type="button"
-              variant="secondary"
-              className="gap-2"
-              onClick={() => fileRef.current?.click()}
+              variant="ghost"
+              size="sm"
+              className="h-7 text-xs"
+              onClick={loadSample}
             >
-              <IconUpload className="h-4 w-4" />
-              {t("chooseFile")}
+              {t("loadSample")}
             </Button>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <Label htmlFor="csv-json-textarea">{t("jsonLabel")}</Label>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                className="h-8 text-xs"
-                onClick={loadSample}
-              >
-                {t("loadSample")}
-              </Button>
-            </div>
-            <Textarea
+          }
+        >
+          <div className="relative min-h-0 flex-1">
+            <ToolTextArea
               id="csv-json-textarea"
+              aria-label={t("jsonLabel")}
               value={jsonText}
               onChange={(e) => {
                 setJsonText(e.target.value);
                 setError(null);
               }}
               placeholder={t("jsonPlaceholder")}
-              className="min-h-[220px] font-mono text-sm"
-              spellCheck={false}
             />
-            {error && (
-              <p className="text-sm text-destructive" role="alert">
-                {error}
-              </p>
-            )}
           </div>
-
-          <div className="flex flex-wrap gap-2">
-            <Button type="button" variant="outline" size="sm" onClick={formatJson}>
-              {t("actions.format")}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setJsonText("");
-                setError(null);
-              }}
+          {error && (
+            <p
+              className="shrink-0 border-t border-border/50 px-3 py-1.5 text-sm text-destructive"
+              role="alert"
             >
-              <IconTrash className="h-4 w-4 mr-1.5" />
-              {t("actions.clear")}
-            </Button>
-            <Button type="button" variant="outline" size="sm" onClick={copyJson}>
-              <IconCopy className="h-4 w-4 mr-1.5" />
-              {copied ? t("actions.copied") : t("actions.copy")}
-            </Button>
-            <Button type="button" variant="default" size="sm" onClick={downloadCsv}>
-              <IconFileTypeCsv className="h-4 w-4 mr-1.5" />
-              {t("actions.downloadCsv")}
-            </Button>
-            <Button type="button" variant="default" size="sm" onClick={downloadXlsx}>
-              <IconDownload className="h-4 w-4 mr-1.5" />
-              {t("actions.downloadXlsx")}
-            </Button>
-          </div>
+              {error}
+            </p>
+          )}
+        </IOPanel>
 
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            {t("footnote")}
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+        <div className="flex flex-wrap gap-2">
+          <Button type="button" variant="outline" size="sm" onClick={formatJson}>
+            {t("actions.format")}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setJsonText("");
+              setError(null);
+            }}
+          >
+            <IconTrash className="h-4 w-4 mr-1.5" />
+            {t("actions.clear")}
+          </Button>
+          <Button type="button" variant="outline" size="sm" onClick={copyJson}>
+            <IconCopy className="h-4 w-4 mr-1.5" />
+            {copied ? t("actions.copied") : t("actions.copy")}
+          </Button>
+          <Button type="button" variant="default" size="sm" onClick={downloadCsv}>
+            <IconFileTypeCsv className="h-4 w-4 mr-1.5" />
+            {t("actions.downloadCsv")}
+          </Button>
+          <Button type="button" variant="default" size="sm" onClick={downloadXlsx}>
+            <IconDownload className="h-4 w-4 mr-1.5" />
+            {t("actions.downloadXlsx")}
+          </Button>
+        </div>
+
+        <p className="text-xs text-muted-foreground leading-relaxed">
+          {t("footnote")}
+        </p>
+      </div>
+    </ToolShell>
   );
 }

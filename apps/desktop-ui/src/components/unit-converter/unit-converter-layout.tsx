@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { ArrowRightLeft, Copy, Check, ChevronsUpDown, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
@@ -29,9 +28,7 @@ import {
 } from '@/components/ui/command'
 import { convert, UNIT_CATEGORIES, getCategoryKeys, getUnitKeys } from '@/lib/unit-converter'
 import { IconRuler } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
 
 function formatResult(n: number): string {
   if (!isFinite(n)) return '—'
@@ -88,22 +85,8 @@ export function UnitConverterLayout() {
     })
   }, [resultText])
 
-  return (
-    <div className="relative space-y-5 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconRuler}
-          title={t('title')}
-          description={t.rich('subtitle', {
-            strong: (chunks) => <strong>{chunks}</strong>,
-          })}
-          accent={CATEGORY_ACCENT.Converters}
-        />
-      </RevealItem>
-
-      <div className="max-w-2xl mx-auto space-y-5">
+  const toolbar = (
+    <div className="mx-auto w-full max-w-2xl space-y-5 rounded-lg border border-border bg-card px-4 py-4">
       {/* Category — searchable combobox */}
       <div className="space-y-1.5">
         <Label>{t('category')}</Label>
@@ -207,43 +190,54 @@ export function UnitConverterLayout() {
           className="font-mono"
         />
       </div>
-
-      {/* Result — always rendered so the layout never jumps on invalid input */}
-      <Card aria-live="polite">
-        <CardContent className="pt-5 pb-5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="min-w-0">
-              {result !== null && (
-                <p className="text-sm text-muted-foreground font-mono">
-                  {inputValue.trim()} {fromSymbol} =
-                </p>
-              )}
-              <p className="text-2xl font-mono font-semibold tracking-tight break-all">
-                {result !== null ? (
-                  <>
-                    {resultText}{' '}
-                    <span className="text-base font-normal text-muted-foreground">{toSymbol}</span>
-                  </>
-                ) : (
-                  <span className="text-muted-foreground">—</span>
-                )}
-              </p>
-            </div>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={copyResult}
-              disabled={result === null}
-              title={t('copyResult')}
-              aria-label={t('copyResult')}
-              className="shrink-0"
-            >
-              {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-      </div>
     </div>
+  )
+
+  return (
+    <ToolShell
+      icon={IconRuler}
+      title={t('title')}
+      description={t.rich('subtitle', {
+        strong: (chunks) => <strong>{chunks}</strong>,
+      })}
+      toolbar={toolbar}
+    >
+      {/* Result — always rendered so the layout never jumps on invalid input */}
+      <div
+        className="mx-auto w-full max-w-2xl rounded-lg border border-border bg-card p-5"
+        aria-live="polite"
+      >
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            {result !== null && (
+              <p className="text-sm text-muted-foreground font-mono">
+                {inputValue.trim()} {fromSymbol} =
+              </p>
+            )}
+            <p className="text-2xl font-mono font-semibold tracking-tight break-all">
+              {result !== null ? (
+                <>
+                  {resultText}{' '}
+                  <span className="text-base font-normal text-muted-foreground">{toSymbol}</span>
+                </>
+              ) : (
+                <span className="text-muted-foreground">—</span>
+              )}
+            </p>
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={copyResult}
+            disabled={result === null}
+            title={t('copyResult')}
+            aria-label={t('copyResult')}
+            className="shrink-0"
+          >
+            {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+          </Button>
+        </div>
+      </div>
+    </ToolShell>
   )
 }
