@@ -273,6 +273,40 @@
       "install": "İndir ve kur",
       "upToDate": "En son sürümü kullanıyorsunuz.",
       "checkError": "Güncellemeler denetlenemedi. Çevrimiçi misiniz?"
+    },
+    "dangerZone": {
+      "title": "Tehlikeli bölge",
+      "description": "Bu uygulamanın verilerini silen geri alınamaz işlemler.",
+      "resetButton": "Fabrika verilerine sıfırlama",
+      "dialogTitle": "Fabrika verilerine sıfırlama",
+      "dialogWarning": "Bu işlem, uygulamada saklanan her şeyi — kasa kayıtları, notlar, görevler, yer imleri ve tercihlerle birlikte şifreleme anahtarını — kalıcı olarak siler. Geri alınamaz. Uygulama yeniden başlayacak ve kurulum sürecini yeniden geçireceksiniz.",
+      "exportHint": "İsteğe bağlı: önce şifreli bir yedek indirin. En az 8 karakterlik bir yedek parolası seçin — geri yüklemek için gerekecek.",
+      "passphrasePlaceholder": "Yedek parolası",
+      "passphraseTooShort": "Yedek parolası en az 8 karakter olmalıdır",
+      "exportButton": "Yedeği dışa aktar",
+      "exportSuccess": "Yedek indirildi",
+      "exportError": "Yedek dışa aktarımı başarısız oldu",
+      "confirmCheckbox": "Tüm verilerimin kalıcı olarak silineceğini anlıyorum",
+      "confirmButton": "Her şeyi sil ve yeniden başlat",
+      "resetting": "Siliniyor…",
+      "cancel": "İptal",
+      "resetError": "Fabrika sıfırlaması başarısız oldu — lütfen tekrar deneyin"
+    },
+    "backup": {
+      "title": "Yedekleme ve geri yükleme",
+      "description": "Verilerinizin şifreli bir yedeğini dışa aktarın veya bir yedeği geri yükleyin.",
+      "exportHint": "Her şeyi en az 8 karakterlik bir yedek parolasıyla şifreler — geri yüklemek için gerekecek.",
+      "passphrasePlaceholder": "Yedek parolası",
+      "passphraseTooShort": "Yedek parolası en az 8 karakter olmalıdır",
+      "exportButton": "Yedeği dışa aktar",
+      "exportSuccess": "Yedek indirildi",
+      "exportError": "Yedek dışa aktarımı başarısız oldu",
+      "restoreHint": "Geri yükleme, yedeği bu uygulamayla birleştirir. Kasa kayıtları, yedek alındığı sırada kullandığınız ana parolayla açılır.",
+      "chooseFile": "Yedek dosyasını seç",
+      "restoreButton": "Yedeği geri yükle",
+      "restoring": "Geri yükleniyor…",
+      "restoreSuccess": "Yedek geri yüklendi",
+      "restoreError": "Geri yükleme başarısız — yanlış parola veya geçersiz yedek dosyası"
     }
   },
   "Dashboard": {

@@ -273,6 +273,40 @@
       "install": "Downloaden en installeren",
       "upToDate": "Je bent up-to-date.",
       "checkError": "Kon niet op updates controleren. Ben je online?"
+    },
+    "dangerZone": {
+      "title": "Gevarenzone",
+      "description": "Onomkeerbare acties die de gegevens van deze app wissen.",
+      "resetButton": "Fabrieksinstellingen herstellen",
+      "dialogTitle": "Fabrieksinstellingen herstellen",
+      "dialogWarning": "Hiermee wordt alles wat in de app is opgeslagen permanent verwijderd — kluisitems, notities, taken, bladwijzers en voorkeuren, samen met de versleutelingssleutel. Dit kan niet ongedaan worden gemaakt. De app start opnieuw op en doorloopt de eerste installatie opnieuw.",
+      "exportHint": "Optioneel: download eerst een versleutelde back-up. Kies een back-upwachtwoordzin van minimaal 8 tekens — je hebt deze nodig om te herstellen.",
+      "passphrasePlaceholder": "Back-upwachtwoordzin",
+      "passphraseTooShort": "De back-upwachtwoordzin moet minimaal 8 tekens bevatten",
+      "exportButton": "Back-up exporteren",
+      "exportSuccess": "Back-up gedownload",
+      "exportError": "Exporteren van back-up mislukt",
+      "confirmCheckbox": "Ik begrijp dat al mijn gegevens permanent worden verwijderd",
+      "confirmButton": "Alles wissen en opnieuw starten",
+      "resetting": "Wissen…",
+      "cancel": "Annuleren",
+      "resetError": "Fabrieksherstel mislukt — probeer het opnieuw"
+    },
+    "backup": {
+      "title": "Back-up en herstel",
+      "description": "Exporteer een versleutelde back-up van je gegevens, of herstel er een.",
+      "exportHint": "Versleutelt alles met een back-upwachtwoordzin van minimaal 8 tekens — je hebt deze nodig om te herstellen.",
+      "passphrasePlaceholder": "Back-upwachtwoordzin",
+      "passphraseTooShort": "De back-upwachtwoordzin moet minimaal 8 tekens bevatten",
+      "exportButton": "Back-up exporteren",
+      "exportSuccess": "Back-up gedownload",
+      "exportError": "Exporteren van back-up mislukt",
+      "restoreHint": "Herstellen voegt de back-up samen met deze app. Kluisitems worden ontgrendeld met het hoofdwachtwoord dat je gebruikte toen de back-up werd gemaakt.",
+      "chooseFile": "Back-upbestand kiezen",
+      "restoreButton": "Back-up herstellen",
+      "restoring": "Herstellen…",
+      "restoreSuccess": "Back-up hersteld",
+      "restoreError": "Herstellen mislukt — verkeerde wachtwoordzin of ongeldig back-upbestand"
     }
   },
   "Dashboard": {

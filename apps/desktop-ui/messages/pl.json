@@ -273,6 +273,40 @@
       "install": "Pobierz i zainstaluj",
       "upToDate": "Masz najnowszą wersję.",
       "checkError": "Nie udało się sprawdzić aktualizacji. Czy jesteś online?"
+    },
+    "dangerZone": {
+      "title": "Strefa niebezpieczna",
+      "description": "Nieodwracalne działania, które usuwają dane tej aplikacji.",
+      "resetButton": "Przywracanie ustawień fabrycznych",
+      "dialogTitle": "Przywracanie ustawień fabrycznych",
+      "dialogWarning": "Ta operacja trwale usuwa wszystko, co jest zapisane w aplikacji — wpisy sejfu, notatki, zadania, zakładki i preferencje, wraz z kluczem szyfrowania. Nie można jej cofnąć. Aplikacja uruchomi się ponownie i przeprowadzi Cię przez konfigurację od nowa.",
+      "exportHint": "Opcjonalnie: najpierw pobierz zaszyfrowaną kopię zapasową. Wybierz hasło kopii zapasowej o długości co najmniej 8 znaków — będzie potrzebne do przywrócenia.",
+      "passphrasePlaceholder": "Hasło kopii zapasowej",
+      "passphraseTooShort": "Hasło kopii zapasowej musi mieć co najmniej 8 znaków",
+      "exportButton": "Eksportuj kopię zapasową",
+      "exportSuccess": "Kopia zapasowa pobrana",
+      "exportError": "Eksport kopii zapasowej nie powiódł się",
+      "confirmCheckbox": "Rozumiem, że wszystkie moje dane zostaną trwale usunięte",
+      "confirmButton": "Usuń wszystko i uruchom ponownie",
+      "resetting": "Usuwanie…",
+      "cancel": "Anuluj",
+      "resetError": "Przywracanie ustawień fabrycznych nie powiodło się — spróbuj ponownie"
+    },
+    "backup": {
+      "title": "Kopia zapasowa i przywracanie",
+      "description": "Wyeksportuj zaszyfrowaną kopię zapasową swoich danych lub przywróć ją.",
+      "exportHint": "Szyfruje wszystko hasłem kopii zapasowej o długości co najmniej 8 znaków — będzie potrzebne do przywrócenia.",
+      "passphrasePlaceholder": "Hasło kopii zapasowej",
+      "passphraseTooShort": "Hasło kopii zapasowej musi mieć co najmniej 8 znaków",
+      "exportButton": "Eksportuj kopię zapasową",
+      "exportSuccess": "Kopia zapasowa pobrana",
+      "exportError": "Eksport kopii zapasowej nie powiódł się",
+      "restoreHint": "Przywracanie scala kopię zapasową z tą aplikacją. Wpisy sejfu odblokowuje hasło główne używane w chwili tworzenia kopii.",
+      "chooseFile": "Wybierz plik kopii zapasowej",
+      "restoreButton": "Przywróć kopię zapasową",
+      "restoring": "Przywracanie…",
+      "restoreSuccess": "Kopia zapasowa przywrócona",
+      "restoreError": "Przywracanie nie powiodło się — błędne hasło lub nieprawidłowy plik kopii"
     }
   },
   "Dashboard": {

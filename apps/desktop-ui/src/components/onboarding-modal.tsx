@@ -368,7 +368,7 @@ function TagsToolSelection({ selectedUrls, onToggleTool, onToggleCategory }: Sel
                           className={cn(
                             "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-all duration-150",
                             selected
-                              ? "border-transparent bg-gradient-to-r from-[#5b63f0] via-[#9a5cf2] to-[#4fd0e6] text-[#0a0b12] shadow-sm shadow-violet-500/25"
+                              ? "border-transparent bg-primary text-primary-foreground shadow-sm shadow-primary/25"
                               : "border-border bg-muted/40 text-muted-foreground hover:border-primary/40 hover:bg-muted/70 hover:text-foreground"
                           )}
                         >
@@ -905,8 +905,8 @@ export function OnboardingModal({ onComplete }: OnboardingModalProps) {
             size="sm"
             className={cn(
               "gap-2 rounded-full px-5 font-semibold transition-all",
-              "bg-gradient-to-r from-[#5b63f0] via-[#9a5cf2] to-[#4fd0e6] text-[#0a0b12] hover:brightness-110",
-              isLastAction && "shadow-lg shadow-violet-500/30"
+              "bg-primary text-primary-foreground hover:bg-primary/90",
+              isLastAction && "shadow-lg shadow-primary/30"
             )}
           >
             {nextLabel}

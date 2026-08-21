@@ -273,6 +273,40 @@
       "install": "Baixar e instalar",
       "upToDate": "Você está atualizado.",
       "checkError": "Não foi possível verificar atualizações. Você está online?"
+    },
+    "dangerZone": {
+      "title": "Zona de perigo",
+      "description": "Ações irreversíveis que apagam os dados deste aplicativo.",
+      "resetButton": "Restauração de fábrica",
+      "dialogTitle": "Restauração de fábrica",
+      "dialogWarning": "Isso exclui permanentemente tudo o que está armazenado no aplicativo — itens do cofre, notas, tarefas, favoritos e preferências, junto com a chave de criptografia. Não é possível desfazer. O aplicativo será reiniciado e você passará pela configuração inicial novamente.",
+      "exportHint": "Opcional: baixe primeiro um backup criptografado. Escolha uma senha de backup com pelo menos 8 caracteres — você precisará dela para restaurar.",
+      "passphrasePlaceholder": "Senha do backup",
+      "passphraseTooShort": "A senha do backup deve ter pelo menos 8 caracteres",
+      "exportButton": "Exportar backup",
+      "exportSuccess": "Backup baixado",
+      "exportError": "Falha ao exportar o backup",
+      "confirmCheckbox": "Entendo que todos os meus dados serão excluídos permanentemente",
+      "confirmButton": "Apagar tudo e reiniciar",
+      "resetting": "Apagando…",
+      "cancel": "Cancelar",
+      "resetError": "A restauração de fábrica falhou — tente novamente"
+    },
+    "backup": {
+      "title": "Backup e restauração",
+      "description": "Exporte um backup criptografado dos seus dados, ou restaure um.",
+      "exportHint": "Criptografa tudo com uma senha de backup de pelo menos 8 caracteres — você precisará dela para restaurar.",
+      "passphrasePlaceholder": "Senha do backup",
+      "passphraseTooShort": "A senha do backup deve ter pelo menos 8 caracteres",
+      "exportButton": "Exportar backup",
+      "exportSuccess": "Backup baixado",
+      "exportError": "Falha ao exportar o backup",
+      "restoreHint": "A restauração mescla o backup neste aplicativo. Os itens do cofre são desbloqueados com a senha mestra que você usava quando o backup foi criado.",
+      "chooseFile": "Escolher arquivo de backup",
+      "restoreButton": "Restaurar backup",
+      "restoring": "Restaurando…",
+      "restoreSuccess": "Backup restaurado",
+      "restoreError": "A restauração falhou — senha incorreta ou arquivo de backup inválido"
     }
   },
   "Dashboard": {

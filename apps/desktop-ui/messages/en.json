@@ -273,6 +273,40 @@
       "install": "Download & install",
       "upToDate": "You're up to date.",
       "checkError": "Couldn't check for updates. Are you online?"
+    },
+    "dangerZone": {
+      "title": "Danger zone",
+      "description": "Irreversible actions that erase this app's data.",
+      "resetButton": "Factory data reset",
+      "dialogTitle": "Factory data reset",
+      "dialogWarning": "This permanently deletes everything stored in the app — vault entries, notes, tasks, bookmarks, and preferences, along with the encryption key. This cannot be undone. The app will restart and take you through onboarding again.",
+      "exportHint": "Optional: download an encrypted backup first. Choose a backup passphrase of at least 8 characters — you will need it to restore.",
+      "passphrasePlaceholder": "Backup passphrase",
+      "passphraseTooShort": "Backup passphrase must be at least 8 characters",
+      "exportButton": "Export backup",
+      "exportSuccess": "Backup downloaded",
+      "exportError": "Backup export failed",
+      "confirmCheckbox": "I understand all my data will be permanently deleted",
+      "confirmButton": "Erase everything and restart",
+      "resetting": "Erasing…",
+      "cancel": "Cancel",
+      "resetError": "Factory reset failed — please try again"
+    },
+    "backup": {
+      "title": "Backup & restore",
+      "description": "Export an encrypted backup of your data, or restore one.",
+      "exportHint": "Encrypts everything with a backup passphrase of at least 8 characters — you will need it to restore.",
+      "passphrasePlaceholder": "Backup passphrase",
+      "passphraseTooShort": "Backup passphrase must be at least 8 characters",
+      "exportButton": "Export backup",
+      "exportSuccess": "Backup downloaded",
+      "exportError": "Backup export failed",
+      "restoreHint": "Restoring merges the backup into this app. Vault entries unlock with the master password you used when the backup was made.",
+      "chooseFile": "Choose backup file",
+      "restoreButton": "Restore backup",
+      "restoring": "Restoring…",
+      "restoreSuccess": "Backup restored",
+      "restoreError": "Restore failed — wrong passphrase or invalid backup file"
     }
   },
   "Dashboard": {

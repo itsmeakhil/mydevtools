@@ -273,6 +273,40 @@
       "install": "下载并安装",
       "upToDate": "已是最新版本。",
       "checkError": "无法检查更新。你是否已联网？"
+    },
+    "dangerZone": {
+      "title": "危险区域",
+      "description": "将抹除此应用数据的不可逆操作。",
+      "resetButton": "恢复出厂设置",
+      "dialogTitle": "恢复出厂设置",
+      "dialogWarning": "此操作将永久删除应用中存储的所有内容 — 保险库条目、笔记、任务、书签和偏好设置，以及加密密钥。此操作无法撤销。应用将重新启动，并再次引导你完成初始设置。",
+      "exportHint": "可选：请先下载加密备份。设置一个至少 8 个字符的备份口令 — 恢复时需要用到它。",
+      "passphrasePlaceholder": "备份口令",
+      "passphraseTooShort": "备份口令至少需要 8 个字符",
+      "exportButton": "导出备份",
+      "exportSuccess": "备份已下载",
+      "exportError": "备份导出失败",
+      "confirmCheckbox": "我了解我的所有数据将被永久删除",
+      "confirmButton": "抹掉所有内容并重启",
+      "resetting": "正在抹除…",
+      "cancel": "取消",
+      "resetError": "恢复出厂设置失败 — 请重试"
+    },
+    "backup": {
+      "title": "备份与恢复",
+      "description": "导出数据的加密备份，或恢复一份备份。",
+      "exportHint": "使用至少 8 个字符的备份口令加密所有内容 — 恢复时需要用到它。",
+      "passphrasePlaceholder": "备份口令",
+      "passphraseTooShort": "备份口令至少需要 8 个字符",
+      "exportButton": "导出备份",
+      "exportSuccess": "备份已下载",
+      "exportError": "备份导出失败",
+      "restoreHint": "恢复会将备份合并到此应用中。保险库条目使用创建备份时所用的主密码解锁。",
+      "chooseFile": "选择备份文件",
+      "restoreButton": "恢复备份",
+      "restoring": "正在恢复…",
+      "restoreSuccess": "备份已恢复",
+      "restoreError": "恢复失败 — 口令错误或备份文件无效"
     }
   },
   "Dashboard": {

@@ -273,6 +273,40 @@
       "install": "다운로드 및 설치",
       "upToDate": "최신 버전입니다.",
       "checkError": "업데이트를 확인할 수 없습니다. 인터넷에 연결되어 있나요?"
+    },
+    "dangerZone": {
+      "title": "위험 구역",
+      "description": "이 앱의 데이터를 지우는 되돌릴 수 없는 작업입니다.",
+      "resetButton": "공장 초기화",
+      "dialogTitle": "공장 초기화",
+      "dialogWarning": "앱에 저장된 모든 것 — 금고 항목, 메모, 작업, 북마크, 환경설정과 암호화 키 — 이 영구적으로 삭제됩니다. 되돌릴 수 없습니다. 앱이 다시 시작되며 온보딩 과정을 처음부터 다시 진행하게 됩니다.",
+      "exportHint": "선택 사항: 먼저 암호화된 백업을 다운로드하세요. 8자 이상의 백업 암호 문구를 정하세요 — 복원할 때 필요합니다.",
+      "passphrasePlaceholder": "백업 암호 문구",
+      "passphraseTooShort": "백업 암호 문구는 8자 이상이어야 합니다",
+      "exportButton": "백업 내보내기",
+      "exportSuccess": "백업이 다운로드되었습니다",
+      "exportError": "백업 내보내기에 실패했습니다",
+      "confirmCheckbox": "모든 데이터가 영구적으로 삭제된다는 것을 이해합니다",
+      "confirmButton": "모두 지우고 다시 시작",
+      "resetting": "지우는 중…",
+      "cancel": "취소",
+      "resetError": "공장 초기화에 실패했습니다 — 다시 시도해 주세요"
+    },
+    "backup": {
+      "title": "백업 및 복원",
+      "description": "데이터의 암호화된 백업을 내보내거나 복원합니다.",
+      "exportHint": "8자 이상의 백업 암호 문구로 모든 것을 암호화합니다 — 복원할 때 필요합니다.",
+      "passphrasePlaceholder": "백업 암호 문구",
+      "passphraseTooShort": "백업 암호 문구는 8자 이상이어야 합니다",
+      "exportButton": "백업 내보내기",
+      "exportSuccess": "백업이 다운로드되었습니다",
+      "exportError": "백업 내보내기에 실패했습니다",
+      "restoreHint": "복원하면 백업이 이 앱에 병합됩니다. 금고 항목은 백업을 만들 당시 사용하던 마스터 비밀번호로 잠금 해제됩니다.",
+      "chooseFile": "백업 파일 선택",
+      "restoreButton": "백업 복원",
+      "restoring": "복원 중…",
+      "restoreSuccess": "백업이 복원되었습니다",
+      "restoreError": "복원에 실패했습니다 — 잘못된 암호 문구이거나 유효하지 않은 백업 파일입니다"
     }
   },
   "Dashboard": {

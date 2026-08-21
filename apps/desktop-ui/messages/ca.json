@@ -273,6 +273,40 @@
       "install": "Baixa i instal·la",
       "upToDate": "Estàs al dia.",
       "checkError": "No s'han pogut comprovar les actualitzacions. Estàs connectat?"
+    },
+    "dangerZone": {
+      "title": "Zona de perill",
+      "description": "Accions irreversibles que esborren les dades d'aquesta aplicació.",
+      "resetButton": "Restabliment de fàbrica",
+      "dialogTitle": "Restabliment de fàbrica",
+      "dialogWarning": "Això suprimeix permanentment tot el que hi ha desat a l'aplicació — entrades de la caixa forta, notes, tasques, adreces d'interès i preferències, juntament amb la clau de xifratge. No es pot desfer. L'aplicació es reiniciarà i tornaràs a passar per la configuració inicial.",
+      "exportHint": "Opcional: baixa primer una còpia de seguretat xifrada. Tria una contrasenya de còpia de seguretat d'almenys 8 caràcters — la necessitaràs per restaurar.",
+      "passphrasePlaceholder": "Contrasenya de la còpia de seguretat",
+      "passphraseTooShort": "La contrasenya de la còpia de seguretat ha de tenir almenys 8 caràcters",
+      "exportButton": "Exporta la còpia de seguretat",
+      "exportSuccess": "Còpia de seguretat baixada",
+      "exportError": "L'exportació de la còpia de seguretat ha fallat",
+      "confirmCheckbox": "Entenc que totes les meves dades se suprimiran permanentment",
+      "confirmButton": "Esborra-ho tot i reinicia",
+      "resetting": "S'està esborrant…",
+      "cancel": "Cancel·la",
+      "resetError": "El restabliment de fàbrica ha fallat — torna-ho a provar"
+    },
+    "backup": {
+      "title": "Còpia de seguretat i restauració",
+      "description": "Exporta una còpia de seguretat xifrada de les teves dades, o restaura'n una.",
+      "exportHint": "Ho xifra tot amb una contrasenya de còpia de seguretat d'almenys 8 caràcters — la necessitaràs per restaurar.",
+      "passphrasePlaceholder": "Contrasenya de la còpia de seguretat",
+      "passphraseTooShort": "La contrasenya de la còpia de seguretat ha de tenir almenys 8 caràcters",
+      "exportButton": "Exporta la còpia de seguretat",
+      "exportSuccess": "Còpia de seguretat baixada",
+      "exportError": "L'exportació de la còpia de seguretat ha fallat",
+      "restoreHint": "La restauració fusiona la còpia de seguretat amb aquesta aplicació. Les entrades de la caixa forta es desbloquegen amb la contrasenya mestra que feies servir quan es va crear la còpia.",
+      "chooseFile": "Tria el fitxer de còpia de seguretat",
+      "restoreButton": "Restaura la còpia de seguretat",
+      "restoring": "S'està restaurant…",
+      "restoreSuccess": "Còpia de seguretat restaurada",
+      "restoreError": "La restauració ha fallat — contrasenya incorrecta o fitxer de còpia no vàlid"
     }
   },
   "Dashboard": {

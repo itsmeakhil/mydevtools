@@ -273,6 +273,40 @@
       "install": "Transferir e instalar",
       "upToDate": "Está atualizado.",
       "checkError": "Não foi possível procurar atualizações. Está online?"
+    },
+    "dangerZone": {
+      "title": "Zona de perigo",
+      "description": "Ações irreversíveis que apagam os dados desta aplicação.",
+      "resetButton": "Reposição de fábrica",
+      "dialogTitle": "Reposição de fábrica",
+      "dialogWarning": "Isto elimina permanentemente tudo o que está guardado na aplicação — entradas do cofre, notas, tarefas, marcadores e preferências, juntamente com a chave de encriptação. Não pode ser anulado. A aplicação será reiniciada e passará novamente pela configuração inicial.",
+      "exportHint": "Opcional: transfira primeiro uma cópia de segurança encriptada. Escolha uma frase de acesso com pelo menos 8 caracteres — vai precisar dela para restaurar.",
+      "passphrasePlaceholder": "Frase de acesso da cópia de segurança",
+      "passphraseTooShort": "A frase de acesso deve ter pelo menos 8 caracteres",
+      "exportButton": "Exportar cópia de segurança",
+      "exportSuccess": "Cópia de segurança transferida",
+      "exportError": "Falha ao exportar a cópia de segurança",
+      "confirmCheckbox": "Compreendo que todos os meus dados serão eliminados permanentemente",
+      "confirmButton": "Apagar tudo e reiniciar",
+      "resetting": "A apagar…",
+      "cancel": "Cancelar",
+      "resetError": "A reposição de fábrica falhou — tente novamente"
+    },
+    "backup": {
+      "title": "Cópia de segurança e restauro",
+      "description": "Exporte uma cópia de segurança encriptada dos seus dados, ou restaure uma.",
+      "exportHint": "Encripta tudo com uma frase de acesso com pelo menos 8 caracteres — vai precisar dela para restaurar.",
+      "passphrasePlaceholder": "Frase de acesso da cópia de segurança",
+      "passphraseTooShort": "A frase de acesso deve ter pelo menos 8 caracteres",
+      "exportButton": "Exportar cópia de segurança",
+      "exportSuccess": "Cópia de segurança transferida",
+      "exportError": "Falha ao exportar a cópia de segurança",
+      "restoreHint": "O restauro funde a cópia de segurança com esta aplicação. As entradas do cofre desbloqueiam-se com a palavra-passe mestra que usava quando a cópia foi criada.",
+      "chooseFile": "Escolher ficheiro de cópia de segurança",
+      "restoreButton": "Restaurar cópia de segurança",
+      "restoring": "A restaurar…",
+      "restoreSuccess": "Cópia de segurança restaurada",
+      "restoreError": "O restauro falhou — frase de acesso errada ou ficheiro inválido"
     }
   },
   "Dashboard": {

@@ -273,6 +273,40 @@
       "install": "Télécharger et installer",
       "upToDate": "Vous êtes à jour.",
       "checkError": "Impossible de rechercher des mises à jour. Êtes-vous en ligne ?"
+    },
+    "dangerZone": {
+      "title": "Zone de danger",
+      "description": "Actions irréversibles qui effacent les données de cette application.",
+      "resetButton": "Réinitialisation d'usine",
+      "dialogTitle": "Réinitialisation d'usine",
+      "dialogWarning": "Cette action supprime définitivement tout ce qui est stocké dans l'application — entrées du coffre-fort, notes, tâches, favoris et préférences, ainsi que la clé de chiffrement. Elle est irréversible. L'application redémarrera et vous repasserez par la configuration initiale.",
+      "exportHint": "Facultatif : téléchargez d'abord une sauvegarde chiffrée. Choisissez une phrase secrète d'au moins 8 caractères — elle sera nécessaire pour la restauration.",
+      "passphrasePlaceholder": "Phrase secrète de sauvegarde",
+      "passphraseTooShort": "La phrase secrète doit comporter au moins 8 caractères",
+      "exportButton": "Exporter la sauvegarde",
+      "exportSuccess": "Sauvegarde téléchargée",
+      "exportError": "Échec de l'export de la sauvegarde",
+      "confirmCheckbox": "Je comprends que toutes mes données seront définitivement supprimées",
+      "confirmButton": "Tout effacer et redémarrer",
+      "resetting": "Effacement…",
+      "cancel": "Annuler",
+      "resetError": "La réinitialisation d'usine a échoué — veuillez réessayer"
+    },
+    "backup": {
+      "title": "Sauvegarde et restauration",
+      "description": "Exportez une sauvegarde chiffrée de vos données, ou restaurez-en une.",
+      "exportHint": "Chiffre tout avec une phrase secrète d'au moins 8 caractères — elle sera nécessaire pour la restauration.",
+      "passphrasePlaceholder": "Phrase secrète de sauvegarde",
+      "passphraseTooShort": "La phrase secrète doit comporter au moins 8 caractères",
+      "exportButton": "Exporter la sauvegarde",
+      "exportSuccess": "Sauvegarde téléchargée",
+      "exportError": "Échec de l'export de la sauvegarde",
+      "restoreHint": "La restauration fusionne la sauvegarde avec cette application. Les entrées du coffre-fort se déverrouillent avec le mot de passe principal utilisé au moment de la sauvegarde.",
+      "chooseFile": "Choisir le fichier de sauvegarde",
+      "restoreButton": "Restaurer la sauvegarde",
+      "restoring": "Restauration…",
+      "restoreSuccess": "Sauvegarde restaurée",
+      "restoreError": "Échec de la restauration — phrase secrète incorrecte ou fichier non valide"
     }
   },
   "Dashboard": {

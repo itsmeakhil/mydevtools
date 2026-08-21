@@ -273,6 +273,40 @@
       "install": "Scarica e installa",
       "upToDate": "Sei aggiornato.",
       "checkError": "Impossibile controllare gli aggiornamenti. Sei online?"
+    },
+    "dangerZone": {
+      "title": "Zona di pericolo",
+      "description": "Azioni irreversibili che cancellano i dati di questa app.",
+      "resetButton": "Ripristino dati di fabbrica",
+      "dialogTitle": "Ripristino dati di fabbrica",
+      "dialogWarning": "Questa operazione elimina definitivamente tutto ciò che è memorizzato nell'app — voci della cassaforte, note, attività, segnalibri e preferenze, insieme alla chiave di crittografia. Non può essere annullata. L'app si riavvierà e ripeterai la configurazione iniziale.",
+      "exportHint": "Facoltativo: scarica prima un backup crittografato. Scegli una passphrase di backup di almeno 8 caratteri — ti servirà per il ripristino.",
+      "passphrasePlaceholder": "Passphrase del backup",
+      "passphraseTooShort": "La passphrase del backup deve avere almeno 8 caratteri",
+      "exportButton": "Esporta backup",
+      "exportSuccess": "Backup scaricato",
+      "exportError": "Esportazione del backup non riuscita",
+      "confirmCheckbox": "Capisco che tutti i miei dati verranno eliminati definitivamente",
+      "confirmButton": "Cancella tutto e riavvia",
+      "resetting": "Cancellazione…",
+      "cancel": "Annulla",
+      "resetError": "Ripristino di fabbrica non riuscito — riprova"
+    },
+    "backup": {
+      "title": "Backup e ripristino",
+      "description": "Esporta un backup crittografato dei tuoi dati, o ripristinane uno.",
+      "exportHint": "Crittografa tutto con una passphrase di backup di almeno 8 caratteri — ti servirà per il ripristino.",
+      "passphrasePlaceholder": "Passphrase del backup",
+      "passphraseTooShort": "La passphrase del backup deve avere almeno 8 caratteri",
+      "exportButton": "Esporta backup",
+      "exportSuccess": "Backup scaricato",
+      "exportError": "Esportazione del backup non riuscita",
+      "restoreHint": "Il ripristino unisce il backup a questa app. Le voci della cassaforte si sbloccano con la password principale in uso quando è stato creato il backup.",
+      "chooseFile": "Scegli file di backup",
+      "restoreButton": "Ripristina backup",
+      "restoring": "Ripristino…",
+      "restoreSuccess": "Backup ripristinato",
+      "restoreError": "Ripristino non riuscito — passphrase errata o file di backup non valido"
     }
   },
   "Dashboard": {

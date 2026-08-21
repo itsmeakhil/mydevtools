@@ -273,6 +273,40 @@
       "install": "Tải xuống và cài đặt",
       "upToDate": "Bạn đang dùng bản mới nhất.",
       "checkError": "Không thể kiểm tra bản cập nhật. Bạn có đang trực tuyến không?"
+    },
+    "dangerZone": {
+      "title": "Vùng nguy hiểm",
+      "description": "Các hành động không thể hoàn tác sẽ xóa dữ liệu của ứng dụng này.",
+      "resetButton": "Khôi phục cài đặt gốc",
+      "dialogTitle": "Khôi phục cài đặt gốc",
+      "dialogWarning": "Thao tác này xóa vĩnh viễn mọi thứ được lưu trong ứng dụng — các mục trong kho lưu trữ, ghi chú, công việc, dấu trang và tùy chọn, cùng với khóa mã hóa. Không thể hoàn tác. Ứng dụng sẽ khởi động lại và đưa bạn qua quy trình thiết lập ban đầu một lần nữa.",
+      "exportHint": "Tùy chọn: tải xuống bản sao lưu đã mã hóa trước. Chọn cụm mật khẩu sao lưu ít nhất 8 ký tự — bạn sẽ cần nó để khôi phục.",
+      "passphrasePlaceholder": "Cụm mật khẩu sao lưu",
+      "passphraseTooShort": "Cụm mật khẩu sao lưu phải có ít nhất 8 ký tự",
+      "exportButton": "Xuất bản sao lưu",
+      "exportSuccess": "Đã tải xuống bản sao lưu",
+      "exportError": "Xuất bản sao lưu thất bại",
+      "confirmCheckbox": "Tôi hiểu rằng toàn bộ dữ liệu của tôi sẽ bị xóa vĩnh viễn",
+      "confirmButton": "Xóa tất cả và khởi động lại",
+      "resetting": "Đang xóa…",
+      "cancel": "Hủy",
+      "resetError": "Khôi phục cài đặt gốc thất bại — vui lòng thử lại"
+    },
+    "backup": {
+      "title": "Sao lưu và khôi phục",
+      "description": "Xuất bản sao lưu đã mã hóa của dữ liệu, hoặc khôi phục một bản.",
+      "exportHint": "Mã hóa mọi thứ bằng cụm mật khẩu sao lưu ít nhất 8 ký tự — bạn sẽ cần nó để khôi phục.",
+      "passphrasePlaceholder": "Cụm mật khẩu sao lưu",
+      "passphraseTooShort": "Cụm mật khẩu sao lưu phải có ít nhất 8 ký tự",
+      "exportButton": "Xuất bản sao lưu",
+      "exportSuccess": "Đã tải xuống bản sao lưu",
+      "exportError": "Xuất bản sao lưu thất bại",
+      "restoreHint": "Khôi phục sẽ gộp bản sao lưu vào ứng dụng này. Các mục trong kho lưu trữ được mở khóa bằng mật khẩu chính bạn dùng khi tạo bản sao lưu.",
+      "chooseFile": "Chọn tệp sao lưu",
+      "restoreButton": "Khôi phục bản sao lưu",
+      "restoring": "Đang khôi phục…",
+      "restoreSuccess": "Đã khôi phục bản sao lưu",
+      "restoreError": "Khôi phục thất bại — sai cụm mật khẩu hoặc tệp sao lưu không hợp lệ"
     }
   },
   "Dashboard": {

@@ -273,6 +273,40 @@
       "install": "Unduh dan pasang",
       "upToDate": "Anda sudah menggunakan versi terbaru.",
       "checkError": "Tidak dapat memeriksa pembaruan. Apakah Anda online?"
+    },
+    "dangerZone": {
+      "title": "Zona berbahaya",
+      "description": "Tindakan permanen yang menghapus data aplikasi ini.",
+      "resetButton": "Reset data pabrik",
+      "dialogTitle": "Reset data pabrik",
+      "dialogWarning": "Tindakan ini menghapus secara permanen semua yang tersimpan di aplikasi — entri brankas, catatan, tugas, markah, dan preferensi, beserta kunci enkripsi. Tidak dapat dibatalkan. Aplikasi akan dimulai ulang dan membawa Anda melalui proses orientasi lagi.",
+      "exportHint": "Opsional: unduh cadangan terenkripsi terlebih dahulu. Pilih frasa sandi cadangan minimal 8 karakter — Anda akan membutuhkannya untuk memulihkan.",
+      "passphrasePlaceholder": "Frasa sandi cadangan",
+      "passphraseTooShort": "Frasa sandi cadangan minimal 8 karakter",
+      "exportButton": "Ekspor cadangan",
+      "exportSuccess": "Cadangan diunduh",
+      "exportError": "Ekspor cadangan gagal",
+      "confirmCheckbox": "Saya mengerti semua data saya akan dihapus secara permanen",
+      "confirmButton": "Hapus semua dan mulai ulang",
+      "resetting": "Menghapus…",
+      "cancel": "Batal",
+      "resetError": "Reset data pabrik gagal — silakan coba lagi"
+    },
+    "backup": {
+      "title": "Cadangkan dan pulihkan",
+      "description": "Ekspor cadangan terenkripsi dari data Anda, atau pulihkan satu.",
+      "exportHint": "Mengenkripsi semuanya dengan frasa sandi cadangan minimal 8 karakter — Anda akan membutuhkannya untuk memulihkan.",
+      "passphrasePlaceholder": "Frasa sandi cadangan",
+      "passphraseTooShort": "Frasa sandi cadangan minimal 8 karakter",
+      "exportButton": "Ekspor cadangan",
+      "exportSuccess": "Cadangan diunduh",
+      "exportError": "Ekspor cadangan gagal",
+      "restoreHint": "Pemulihan menggabungkan cadangan ke dalam aplikasi ini. Entri brankas dibuka dengan kata sandi utama yang Anda gunakan saat cadangan dibuat.",
+      "chooseFile": "Pilih file cadangan",
+      "restoreButton": "Pulihkan cadangan",
+      "restoring": "Memulihkan…",
+      "restoreSuccess": "Cadangan dipulihkan",
+      "restoreError": "Pemulihan gagal — frasa sandi salah atau file cadangan tidak valid"
     }
   },
   "Dashboard": {
