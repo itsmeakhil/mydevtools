@@ -750,6 +750,21 @@
         "description": "Uppgifter som är klara"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Statusar",
+      "title": "Hantera statusar",
+      "description": "Välj färger för standardstatusarna och lägg till egna.",
+      "defaults": "Standardstatusar",
+      "custom": "Anpassade statusar",
+      "addPlaceholder": "Namn på ny status",
+      "add": "Lägg till",
+      "colorAria": "Ange färgen {color}",
+      "deleteAria": "Ta bort {label}",
+      "deleteConfirmTitle": "Ta bort ”{label}”?",
+      "deleteConfirmBody": "Uppgifter med den här statusen flyttas till ”{fallback}”.",
+      "cancel": "Avbryt",
+      "delete": "Ta bort"
+    },
     "priorities": {
       "high": "Hög",
       "medium": "Medel",

@@ -750,6 +750,21 @@
         "description": "완료된 할 일"
       }
     },
+    "manageStatuses": {
+      "manageButton": "상태",
+      "title": "상태 관리",
+      "description": "기본 상태의 색상을 선택하고 나만의 상태를 추가하세요.",
+      "defaults": "기본 상태",
+      "custom": "사용자 지정 상태",
+      "addPlaceholder": "새 상태 이름",
+      "add": "추가",
+      "colorAria": "{color} 색상 설정",
+      "deleteAria": "{label} 삭제",
+      "deleteConfirmTitle": "“{label}”을(를) 삭제할까요?",
+      "deleteConfirmBody": "이 상태의 작업은 “{fallback}”(으)로 이동합니다.",
+      "cancel": "취소",
+      "delete": "삭제"
+    },
     "priorities": {
       "high": "높음",
       "medium": "보통",

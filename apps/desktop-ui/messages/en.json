@@ -750,6 +750,21 @@
         "description": "Tasks that are finished"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Statuses",
+      "title": "Manage statuses",
+      "description": "Pick colors for the default statuses and add your own.",
+      "defaults": "Default statuses",
+      "custom": "Custom statuses",
+      "addPlaceholder": "New status name",
+      "add": "Add",
+      "colorAria": "Set color {color}",
+      "deleteAria": "Delete {label}",
+      "deleteConfirmTitle": "Delete “{label}”?",
+      "deleteConfirmBody": "Tasks with this status will move to “{fallback}”.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
     "priorities": {
       "high": "High",
       "medium": "Medium",

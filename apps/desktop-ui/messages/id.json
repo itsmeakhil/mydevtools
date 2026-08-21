@@ -750,6 +750,21 @@
         "description": "Tugas yang telah selesai"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Status",
+      "title": "Kelola status",
+      "description": "Pilih warna untuk status bawaan dan tambahkan status Anda sendiri.",
+      "defaults": "Status bawaan",
+      "custom": "Status kustom",
+      "addPlaceholder": "Nama status baru",
+      "add": "Tambah",
+      "colorAria": "Setel warna {color}",
+      "deleteAria": "Hapus {label}",
+      "deleteConfirmTitle": "Hapus “{label}”?",
+      "deleteConfirmBody": "Tugas dengan status ini akan dipindahkan ke “{fallback}”.",
+      "cancel": "Batal",
+      "delete": "Hapus"
+    },
     "priorities": {
       "high": "Tinggi",
       "medium": "Menengah",

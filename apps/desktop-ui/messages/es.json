@@ -750,6 +750,21 @@
         "description": "Tareas que ya terminaron"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Estados",
+      "title": "Gestionar estados",
+      "description": "Elige colores para los estados predeterminados y añade los tuyos.",
+      "defaults": "Estados predeterminados",
+      "custom": "Estados personalizados",
+      "addPlaceholder": "Nombre del nuevo estado",
+      "add": "Añadir",
+      "colorAria": "Establecer color {color}",
+      "deleteAria": "Eliminar {label}",
+      "deleteConfirmTitle": "¿Eliminar “{label}”?",
+      "deleteConfirmBody": "Las tareas con este estado pasarán a “{fallback}”.",
+      "cancel": "Cancelar",
+      "delete": "Eliminar"
+    },
     "priorities": {
       "high": "Alta",
       "medium": "Media",

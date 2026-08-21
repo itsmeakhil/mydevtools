@@ -750,6 +750,21 @@
         "description": "Abgeschlossene Aufgaben"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Status",
+      "title": "Status verwalten",
+      "description": "Wähle Farben für die Standardstatus und füge eigene hinzu.",
+      "defaults": "Standardstatus",
+      "custom": "Eigene Status",
+      "addPlaceholder": "Name des neuen Status",
+      "add": "Hinzufügen",
+      "colorAria": "Farbe {color} festlegen",
+      "deleteAria": "{label} löschen",
+      "deleteConfirmTitle": "„{label}“ löschen?",
+      "deleteConfirmBody": "Aufgaben mit diesem Status werden nach „{fallback}“ verschoben.",
+      "cancel": "Abbrechen",
+      "delete": "Löschen"
+    },
     "priorities": {
       "high": "Hoch",
       "medium": "Mittel",

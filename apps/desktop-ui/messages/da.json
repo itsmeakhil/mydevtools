@@ -750,6 +750,21 @@
         "description": "Opgaver der er færdige"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Statusser",
+      "title": "Administrer statusser",
+      "description": "Vælg farver til standardstatusserne, og tilføj dine egne.",
+      "defaults": "Standardstatusser",
+      "custom": "Brugerdefinerede statusser",
+      "addPlaceholder": "Navn på ny status",
+      "add": "Tilføj",
+      "colorAria": "Vælg farven {color}",
+      "deleteAria": "Slet {label}",
+      "deleteConfirmTitle": "Slet “{label}”?",
+      "deleteConfirmBody": "Opgaver med denne status flyttes til “{fallback}”.",
+      "cancel": "Annuller",
+      "delete": "Slet"
+    },
     "priorities": {
       "high": "Høj",
       "medium": "Medium",

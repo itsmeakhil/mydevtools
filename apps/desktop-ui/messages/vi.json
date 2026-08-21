@@ -750,6 +750,21 @@
         "description": "Công việc đã hoàn thành"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Trạng thái",
+      "title": "Quản lý trạng thái",
+      "description": "Chọn màu cho các trạng thái mặc định và thêm trạng thái của bạn.",
+      "defaults": "Trạng thái mặc định",
+      "custom": "Trạng thái tùy chỉnh",
+      "addPlaceholder": "Tên trạng thái mới",
+      "add": "Thêm",
+      "colorAria": "Đặt màu {color}",
+      "deleteAria": "Xóa {label}",
+      "deleteConfirmTitle": "Xóa “{label}”?",
+      "deleteConfirmBody": "Các công việc có trạng thái này sẽ được chuyển sang “{fallback}”.",
+      "cancel": "Hủy",
+      "delete": "Xóa"
+    },
     "priorities": {
       "high": "Cao",
       "medium": "Trung bình",

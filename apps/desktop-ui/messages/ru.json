@@ -750,6 +750,21 @@
         "description": "Задачи, которые завершены"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Статусы",
+      "title": "Управление статусами",
+      "description": "Выберите цвета для стандартных статусов и добавьте свои.",
+      "defaults": "Стандартные статусы",
+      "custom": "Пользовательские статусы",
+      "addPlaceholder": "Название нового статуса",
+      "add": "Добавить",
+      "colorAria": "Выбрать цвет {color}",
+      "deleteAria": "Удалить {label}",
+      "deleteConfirmTitle": "Удалить «{label}»?",
+      "deleteConfirmBody": "Задачи с этим статусом будут перемещены в «{fallback}».",
+      "cancel": "Отмена",
+      "delete": "Удалить"
+    },
     "priorities": {
       "high": "Высокий",
       "medium": "Средний",

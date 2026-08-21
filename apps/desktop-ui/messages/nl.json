@@ -750,6 +750,21 @@
         "description": "Taken die zijn afgerond"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Statussen",
+      "title": "Statussen beheren",
+      "description": "Kies kleuren voor de standaardstatussen en voeg je eigen toe.",
+      "defaults": "Standaardstatussen",
+      "custom": "Aangepaste statussen",
+      "addPlaceholder": "Naam nieuwe status",
+      "add": "Toevoegen",
+      "colorAria": "Kleur {color} instellen",
+      "deleteAria": "{label} verwijderen",
+      "deleteConfirmTitle": "“{label}” verwijderen?",
+      "deleteConfirmBody": "Taken met deze status gaan naar “{fallback}”.",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen"
+    },
     "priorities": {
       "high": "Hoog",
       "medium": "Gemiddeld",

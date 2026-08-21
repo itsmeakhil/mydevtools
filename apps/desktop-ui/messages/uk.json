@@ -750,6 +750,21 @@
         "description": "Завдання, які виконані"
       }
     },
+    "manageStatuses": {
+      "manageButton": "Статуси",
+      "title": "Керування статусами",
+      "description": "Виберіть кольори для стандартних статусів і додайте власні.",
+      "defaults": "Стандартні статуси",
+      "custom": "Власні статуси",
+      "addPlaceholder": "Назва нового статусу",
+      "add": "Додати",
+      "colorAria": "Встановити колір {color}",
+      "deleteAria": "Видалити {label}",
+      "deleteConfirmTitle": "Видалити «{label}»?",
+      "deleteConfirmBody": "Завдання з цим статусом буде переміщено до «{fallback}».",
+      "cancel": "Скасувати",
+      "delete": "Видалити"
+    },
     "priorities": {
       "high": "Високий",
       "medium": "Середній",
