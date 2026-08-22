@@ -8,6 +8,40 @@ import { localApi, normalizeBackendPath, toResponse } from "./bridge";
  * `/api/backend/*` (and `/api/v1/*`) paths to the Rust local router.
  * Remote routing (shared workspaces / sync) is layered on in Phase 4.
  */
+/**
+ * Send an api-client request and return the `/api/proxy` envelope directly.
+ * On desktop this skips the stringify → Response → json() round-trip that
+ * `apiFetch("/api/proxy")` does purely to fake a fetch — two extra full passes
+ * over a multi-MB body on the UI thread.
+ */
+export interface ProxyEnvelope {
+  status: number;
+  statusText?: string;
+  headers?: Record<string, string>;
+  setCookies?: string[];
+  redirectChain?: unknown[];
+  body?: string;
+  isBase64?: boolean;
+  time?: number;
+  size?: number;
+  error?: string;
+}
+
+export async function sendProxyRequest(input: unknown, signal?: AbortSignal): Promise<ProxyEnvelope> {
+  if (isDesktop()) {
+    const { invoke } = await import("@tauri-apps/api/core");
+    return (await invoke("http_request", { input })) as ProxyEnvelope;
+  }
+  const res = await fetch("/api/proxy", {
+    method: "POST",
+    credentials: "include",
+    signal,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(input),
+  });
+  return res.json();
+}
+
 export async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
   if (!isDesktop()) {
     return fetch(path, init);

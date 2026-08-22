@@ -35,12 +35,20 @@ function TreeNode({ name, value, depth }: TreeNodeProps) {
                 <span className="font-bold">{name}</span>
                 <span className="text-muted-foreground">: {isArr ? "[" : "{"}{entries.length}{isArr ? "]" : "}"}</span>
             </button>
-            {open && entries.map(([k, v]) => (
+            {open && entries.slice(0, MAX_TREE_CHILDREN).map(([k, v]) => (
                 <TreeNode key={String(k)} name={k} value={v} depth={depth + 1} />
             ))}
+            {open && entries.length > MAX_TREE_CHILDREN && (
+                <Leaf name="…" text={`${entries.length - MAX_TREE_CHILDREN} more (download the body to see all)`} tone="text-muted-foreground" depth={depth + 1} />
+            )}
         </div>
     )
 }
+
+// Nothing is virtualised here; a 10k-element array would otherwise mount ~100k
+// DOM nodes when the Tree tab opens. Caps keep the views instant on big bodies.
+const MAX_TREE_CHILDREN = 200
+const MAX_TABLE_ROWS = 500
 
 function Leaf({ name, text, tone, depth }: { name: string | number; text: string; tone: string; depth: number }) {
     return (
@@ -95,7 +103,7 @@ export function JsonTableView({ rows }: { rows: unknown }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {rows.map((r, i) => (
+                    {rows.slice(0, MAX_TABLE_ROWS).map((r, i) => (
                         <tr key={i} className={cn(i % 2 === 0 ? "" : "bg-muted/20")}>
                             {cols.map((c) => {
                                 const v = (r && typeof r === "object" ? (r as Record<string, unknown>)[c] : undefined)
@@ -109,6 +117,11 @@ export function JsonTableView({ rows }: { rows: unknown }) {
                     ))}
                 </tbody>
             </table>
+            {rows.length > MAX_TABLE_ROWS && (
+                <div className="text-[10px] text-muted-foreground px-2 py-1">
+                    Showing {MAX_TABLE_ROWS} of {rows.length} rows
+                </div>
+            )}
         </div>
     )
 }
