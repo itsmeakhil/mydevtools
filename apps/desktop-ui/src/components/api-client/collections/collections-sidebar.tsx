@@ -349,9 +349,17 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                     <p className="text-xs text-muted-foreground mt-1 mb-4">
                                         {t("noCollectionsHint")}
                                     </p>
-                                    <Button size="sm" onClick={() => setNewCollectionDialogOpen(true)}>
-                                        {t("createCollection")}
-                                    </Button>
+                                    <div className="flex flex-col gap-2">
+                                        <Button size="sm" onClick={() => setNewCollectionDialogOpen(true)}>
+                                            {t("createCollection")}
+                                        </Button>
+                                        {desktop && (
+                                            <Button size="sm" variant="outline" onClick={() => void openFolderCollection()}>
+                                                <FolderGit2 className="h-3.5 w-3.5 mr-2" />
+                                                {t("openFolderCollection")}
+                                            </Button>
+                                        )}
+                                    </div>
                                 </div>
                             ) : (
                                 collectionsForActiveWs.map((collection) => (
