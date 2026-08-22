@@ -52,6 +52,38 @@ pub fn list_docs(db: &Connection, kind: &str, ws: &str) -> Result<Vec<Value>> {
     Ok(docs)
 }
 
+/// Newest `limit` docs by insert time — for append-only logs like history,
+/// where loading + sorting every row in Rust grows with lifetime usage.
+pub fn list_docs_recent(db: &Connection, kind: &str, ws: &str, limit: usize) -> Result<Vec<Value>> {
+    let mut stmt = db.prepare(
+        "SELECT meta_json FROM entries
+         WHERE tool_kind = ?1 AND workspace_id = ?2 AND deleted_at IS NULL
+         ORDER BY created_at DESC, rowid DESC LIMIT ?3",
+    )?;
+    let rows = stmt.query_map(params![kind, ws, limit as i64], |r| r.get::<_, String>(0))?;
+    let mut docs = Vec::new();
+    for row in rows {
+        docs.push(serde_json::from_str(&row?)?);
+    }
+    Ok(docs)
+}
+
+/// Physically delete docs of a kind (all, or one by id). Sync is gone, so
+/// tombstones only accumulate; logs that are cleared should actually go.
+pub fn hard_delete(db: &Connection, kind: &str, ws: &str, id: Option<&str>) -> Result<usize> {
+    let n = match id {
+        Some(id) => db.execute(
+            "DELETE FROM entries WHERE tool_kind = ?1 AND workspace_id = ?2 AND id = ?3",
+            params![kind, ws, id],
+        )?,
+        None => db.execute(
+            "DELETE FROM entries WHERE tool_kind = ?1 AND workspace_id = ?2",
+            params![kind, ws],
+        )?,
+    };
+    Ok(n)
+}
+
 pub fn get_doc(db: &Connection, kind: &str, ws: &str, id: &str) -> Result<Option<Value>> {
     let raw: Option<String> = db
         .query_row(

@@ -19,6 +19,10 @@ use tauri::ipc::Channel;
 const MAX_REDIRECTS: usize = 5;
 const DEFAULT_TIMEOUT_MS: u64 = 30_000;
 const MAX_TIMEOUT_MS: u64 = 600_000;
+/// Largest response body the non-streaming path will buffer. The body crosses
+/// the IPC boundary as one JSON string (base64 for binary), so an unbounded
+/// download would freeze or OOM the webview.
+const MAX_BODY_BYTES: usize = 50 * 1024 * 1024;
 
 const METADATA_HOSTS: &[&str] = &[
     "169.254.169.254",
@@ -92,14 +96,23 @@ fn is_textual_content_type(ct: &str) -> bool {
             .any(|t| l.contains(t))
 }
 
+// One pooled client per proxy mode so TLS sessions + keep-alive connections are
+// reused across sends; building a client per request cost a full handshake each time.
+static CLIENTS: [OnceLock<reqwest::Client>; 2] = [OnceLock::new(), OnceLock::new()];
+
 fn plain_client(bypass_proxy: bool) -> Result<reqwest::Client, String> {
+    let slot = &CLIENTS[bypass_proxy as usize];
+    if let Some(c) = slot.get() {
+        return Ok(c.clone());
+    }
     let mut builder = reqwest::Client::builder()
         .redirect(reqwest::redirect::Policy::none())
         .user_agent("mydevtools-desktop");
     if bypass_proxy {
         builder = builder.no_proxy();
     }
-    builder.build().map_err(|e| e.to_string())
+    let client = builder.build().map_err(|e| e.to_string())?;
+    Ok(slot.get_or_init(|| client).clone())
 }
 
 fn build_body(body: &Value) -> Result<Option<BodyKind>, String> {
@@ -228,6 +241,32 @@ async fn fetch_following_redirects(
     Err(format!("Too many redirects (>{MAX_REDIRECTS})"))
 }
 
+fn too_large(len: usize) -> String {
+    format!(
+        "Response body too large ({} MB, limit {} MB)",
+        len / (1024 * 1024),
+        MAX_BODY_BYTES / (1024 * 1024)
+    )
+}
+
+/// Buffer the body, refusing early on a declared oversize length and bailing
+/// mid-stream if an undeclared (chunked) body crosses `MAX_BODY_BYTES`.
+async fn read_body_capped(response: reqwest::Response, declared_len: u64) -> Result<Vec<u8>, String> {
+    if declared_len > MAX_BODY_BYTES as u64 {
+        return Err(too_large(declared_len as usize));
+    }
+    let mut bytes = Vec::with_capacity(declared_len as usize);
+    let mut stream = response.bytes_stream();
+    while let Some(chunk) = stream.next().await {
+        let chunk = chunk.map_err(|e| e.to_string())?;
+        if bytes.len() + chunk.len() > MAX_BODY_BYTES {
+            return Err(too_large(bytes.len() + chunk.len()));
+        }
+        bytes.extend_from_slice(&chunk);
+    }
+    Ok(bytes)
+}
+
 /// Non-streaming request. Returns the `/api/proxy` envelope as JSON.
 pub async fn http_request(input: Value) -> Value {
     let url = input["url"].as_str().unwrap_or("");
@@ -293,9 +332,9 @@ pub async fn http_request(input: Value) -> Value {
         .unwrap_or("")
         .to_string();
 
-    let bytes = match response.bytes().await {
+    let bytes = match read_body_capped(response, declared_len).await {
         Ok(b) => b,
-        Err(e) => return envelope_error(0, "Error", &e.to_string()),
+        Err(e) => return envelope_error(0, "Error", &e),
     };
     let (body_str, is_base64) = if is_textual_content_type(&content_type) {
         (String::from_utf8_lossy(&bytes).to_string(), false)
