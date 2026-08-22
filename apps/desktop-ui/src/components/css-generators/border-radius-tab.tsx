@@ -3,13 +3,13 @@
 import React, { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Switch } from '@/components/ui/switch'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Link2, Shuffle, Unlink2 } from 'lucide-react'
 import { buildBorderRadius, randomBlob, type BorderRadiusState, type RadiusUnit } from '@/lib/css-generators'
+import { IOPanel } from '@/components/tools/io-panel'
 import { CssOutput } from './css-output'
 
 type Corner = 'tl' | 'tr' | 'br' | 'bl'
@@ -49,7 +49,7 @@ export function BorderRadiusTab() {
   return (
     <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
       <div className="flex min-h-0 flex-col gap-4 overflow-y-auto pr-1">
-        <Card className="flex flex-wrap items-center gap-4 p-4">
+        <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border bg-card p-4">
           <div className="space-y-1.5">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('borderRadius.modeLabel')}
@@ -103,10 +103,10 @@ export function BorderRadiusTab() {
               {t('borderRadius.randomize')}
             </Button>
           )}
-        </Card>
+        </div>
 
         {state.mode === 'simple' ? (
-          <Card className="space-y-3 p-4">
+          <div className="space-y-3 rounded-lg border border-border bg-card p-4">
             {CORNERS.map((corner) => (
               <div key={corner} className="grid grid-cols-[6.5rem_1fr_4rem] items-center gap-2">
                 <Label className="text-xs text-muted-foreground">{t(`borderRadius.corners.${corner}`)}</Label>
@@ -122,10 +122,10 @@ export function BorderRadiusTab() {
                 </span>
               </div>
             ))}
-          </Card>
+          </div>
         ) : (
           <>
-            <Card className="space-y-3 p-4">
+            <div className="space-y-3 rounded-lg border border-border bg-card p-4">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('borderRadius.horizontal')}
               </Label>
@@ -136,8 +136,8 @@ export function BorderRadiusTab() {
                   <span className="text-right font-mono text-xs text-muted-foreground">{state.h[i]}%</span>
                 </div>
               ))}
-            </Card>
-            <Card className="space-y-3 p-4">
+            </div>
+            <div className="space-y-3 rounded-lg border border-border bg-card p-4">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('borderRadius.vertical')}
               </Label>
@@ -148,23 +148,20 @@ export function BorderRadiusTab() {
                   <span className="text-right font-mono text-xs text-muted-foreground">{state.v[i]}%</span>
                 </div>
               ))}
-            </Card>
+            </div>
           </>
         )}
       </div>
 
       <div className="flex min-h-0 flex-col gap-4">
-        <Card className="flex flex-1 flex-col overflow-hidden">
-          <div className="border-b border-border/50 bg-muted/30 px-3 py-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('preview')}</Label>
-          </div>
+        <IOPanel label={t('preview')} className="flex-1" bodyClassName="flex flex-col">
           <div className="flex min-h-[220px] flex-1 items-center justify-center p-8">
             <div
               className="h-48 w-48 border border-border/40 bg-gradient-to-br from-pink-500/70 to-violet-500/70"
               style={{ borderRadius: value }}
             />
           </div>
-        </Card>
+        </IOPanel>
         <CssOutput css={css} />
       </div>
     </div>

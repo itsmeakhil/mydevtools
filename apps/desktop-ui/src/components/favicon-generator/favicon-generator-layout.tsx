@@ -7,7 +7,6 @@ import { saveAs } from 'file-saver'
 import { toast } from 'sonner'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
@@ -15,9 +14,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Check, Copy, Download, Package, Trash2, Upload } from 'lucide-react'
 import { IconFavicon } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
 import {
   ICON_SIZES,
   ICO_SIZES,
@@ -196,19 +193,9 @@ export function FaviconGeneratorLayout() {
 
   if (!source) {
     return (
-      <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-        <div className="dash-ambient -z-10" aria-hidden />
-        <RevealItem index={0}>
-          <ToolPageHeader
-            icon={IconFavicon}
-            title={t('title')}
-            description={t('subtitle')}
-            accent={CATEGORY_ACCENT['Media & Design']}
-            offline={false}
-          />
-        </RevealItem>
-        <Card
-          className={`flex flex-1 cursor-pointer flex-col items-center justify-center gap-3 border-2 border-dashed p-8 text-center transition-colors ${
+      <ToolShell icon={IconFavicon} title={t('title')} description={t('subtitle')} offline={false}>
+        <div
+          className={`flex flex-1 cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
             dragOver ? 'border-primary bg-primary/5' : 'border-border/70'
           }`}
           onClick={() => inputRef.current?.click()}
@@ -245,26 +232,15 @@ export function FaviconGeneratorLayout() {
               e.target.value = ''
             }}
           />
-        </Card>
-      </div>
+        </div>
+      </ToolShell>
     )
   }
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconFavicon}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        offline={false}
-        />
-      </RevealItem>
-
+    <ToolShell icon={IconFavicon} title={t('title')} description={t('subtitle')} offline={false}>
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-[300px_1fr]">
-        <Card className="flex flex-col gap-5 p-4">
+        <div className="flex flex-col gap-5 rounded-lg border border-border bg-card p-4">
           <div className="flex items-center justify-between">
             <span className="truncate text-sm font-medium" title={sourceName}>
               {sourceName}
@@ -351,11 +327,11 @@ export function FaviconGeneratorLayout() {
               {t('downloadZip')}
             </Button>
           </div>
-        </Card>
+        </div>
 
         <ScrollArea className="min-h-0">
           <div className="flex flex-col gap-4 pr-3">
-            <Card className="p-4">
+            <div className="rounded-lg border border-border bg-card p-4">
               <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {t('previewLabel')}
               </h3>
@@ -382,9 +358,9 @@ export function FaviconGeneratorLayout() {
                   </div>
                 ))}
               </div>
-            </Card>
+            </div>
 
-            <Card className="p-4">
+            <div className="rounded-lg border border-border bg-card p-4">
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="font-mono text-xs font-semibold text-muted-foreground">site.webmanifest</h3>
                 <Button size="sm" variant="secondary" onClick={() => copySnippet('manifest', manifestSnippet)}>
@@ -397,9 +373,9 @@ export function FaviconGeneratorLayout() {
                 </Button>
               </div>
               <pre className="overflow-x-auto rounded-lg bg-muted/50 p-3 font-mono text-xs">{manifestSnippet}</pre>
-            </Card>
+            </div>
 
-            <Card className="p-4">
+            <div className="rounded-lg border border-border bg-card p-4">
               <div className="mb-2 flex items-center justify-between">
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   {t('headSnippet')}
@@ -414,10 +390,10 @@ export function FaviconGeneratorLayout() {
                 </Button>
               </div>
               <pre className="overflow-x-auto rounded-lg bg-muted/50 p-3 font-mono text-xs">{headSnippet}</pre>
-            </Card>
+            </div>
           </div>
         </ScrollArea>
       </div>
-    </div>
+    </ToolShell>
   )
 }

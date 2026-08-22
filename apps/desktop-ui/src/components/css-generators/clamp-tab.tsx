@@ -2,11 +2,11 @@
 
 import React, { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { buildClamp, clampSizeAtViewport, type ClampResult } from '@/lib/css-generators'
+import { IOPanel } from '@/components/tools/io-panel'
 import { CssOutput } from './css-output'
 
 interface NumberFieldProps {
@@ -61,15 +61,15 @@ export function ClampTab() {
   return (
     <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
       <div className="flex min-h-0 flex-col gap-4 overflow-y-auto pr-1">
-        <Card className="grid grid-cols-2 gap-3 p-4">
+        <div className="grid grid-cols-2 gap-3 rounded-lg border border-border bg-card p-4">
           <NumberField label={t('clamp.minFont')} value={minPx} onChange={setMinPx} min={1} />
           <NumberField label={t('clamp.maxFont')} value={maxPx} onChange={setMaxPx} min={1} />
           <NumberField label={t('clamp.minViewport')} value={minVw} onChange={setMinVw} min={1} />
           <NumberField label={t('clamp.maxViewport')} value={maxVw} onChange={setMaxVw} min={1} />
           <NumberField label={t('clamp.rootFont')} value={rootPx} onChange={setRootPx} min={1} />
-        </Card>
+        </div>
 
-        <Card className="space-y-3 p-4">
+        <div className="space-y-3 rounded-lg border border-border bg-card p-4">
           <div className="flex items-center justify-between">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('clamp.viewportWidth')}
@@ -87,25 +87,22 @@ export function ClampTab() {
             {t('clamp.computedSize')}: <span className="font-mono text-foreground">{sizeAtSim}px</span>
             {' '}({(sizeAtSim / rootPx).toFixed(3)}rem)
           </p>
-        </Card>
+        </div>
 
         {result && (
-          <Card className="space-y-1 p-4 text-xs text-muted-foreground">
+          <div className="space-y-1 rounded-lg border border-border bg-card p-4 text-xs text-muted-foreground">
             <p>
               {t('clamp.slope')}: <span className="font-mono text-foreground">{result.slopeVw}vw</span>
             </p>
             <p>
               {t('clamp.intercept')}: <span className="font-mono text-foreground">{result.interceptRem}rem</span>
             </p>
-          </Card>
+          </div>
         )}
       </div>
 
       <div className="flex min-h-0 flex-col gap-4">
-        <Card className="flex flex-1 flex-col overflow-hidden">
-          <div className="border-b border-border/50 bg-muted/30 px-3 py-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('preview')}</Label>
-          </div>
+        <IOPanel label={t('preview')} className="flex-1" bodyClassName="flex flex-col">
           <div className="flex min-h-[220px] flex-1 items-center justify-center overflow-hidden p-6">
             {result ? (
               <h2
@@ -118,7 +115,7 @@ export function ClampTab() {
               <p className="text-sm text-destructive">{t('clamp.invalid')}</p>
             )}
           </div>
-        </Card>
+        </IOPanel>
         {result && <CssOutput css={css} />}
       </div>
     </div>

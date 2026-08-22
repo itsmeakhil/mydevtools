@@ -12,7 +12,6 @@ import {
   Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import {
@@ -25,9 +24,8 @@ import {
 import { IconArrowsDiagonalMinimize2 } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 import { useDebouncedCallback } from 'use-debounce';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { ToolPanels, IOPanel } from '@/components/tools/io-panel';
 
 const MAX_FILE_BYTES = 20 * 1024 * 1024;
 const MAX_CANVAS_EDGE = 8192;
@@ -251,46 +249,43 @@ export function ImageCompressorLayout() {
       ? Math.round((1 - compressedBytes / originalBytes) * 1000) / 10
       : null;
 
-  return (
-    <div className="flex h-full min-h-0 flex-col gap-4">
-      <RevealItem index={0} className="shrink-0">
-        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-        <ToolPageHeader
-          icon={IconArrowsDiagonalMinimize2}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        />
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-1.5 text-xs"
-            onClick={() => fileInputRef.current?.click()}
-          >
-            <Upload className="h-3.5 w-3.5" />
-            {t('upload')}
-          </Button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/bmp"
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) loadFile(file);
-              e.target.value = '';
-            }}
-          />
-          <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
-            <Trash2 className="h-3.5 w-3.5" />
-            {t('clear')}
-          </Button>
-        </div>
-        </div>
-      </RevealItem>
+  const toolbar = (
+    <div className="flex shrink-0 items-center justify-end gap-2">
+      <Button
+        variant="outline"
+        size="sm"
+        className="gap-1.5 text-xs"
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <Upload className="h-3.5 w-3.5" />
+        {t('upload')}
+      </Button>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif,image/avif,image/bmp"
+        className="hidden"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) loadFile(file);
+          e.target.value = '';
+        }}
+      />
+      <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleClear}>
+        <Trash2 className="h-3.5 w-3.5" />
+        {t('clear')}
+      </Button>
+    </div>
+  );
 
-      <Card className="shrink-0 border-border/60 p-4">
+  return (
+    <ToolShell
+      icon={IconArrowsDiagonalMinimize2}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
+      <div className="shrink-0 rounded-lg border border-border bg-card p-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label className="text-xs font-medium text-muted-foreground">{t('outputFormat')}</Label>
@@ -344,7 +339,7 @@ export function ImageCompressorLayout() {
             )}
           </div>
         )}
-      </Card>
+      </div>
 
       {isMobile && (
         <div className="flex shrink-0 rounded-lg border bg-muted/40 p-1 gap-1">
@@ -365,85 +360,89 @@ export function ImageCompressorLayout() {
         </div>
       )}
 
-      <div className={`min-h-0 flex-1 ${isMobile ? 'flex flex-col' : 'grid grid-cols-2 gap-4'}`}>
-        {(!isMobile || mobileTab === 'original') && <Card
-          className={cn(
-            'relative flex min-h-[220px] flex-col overflow-hidden transition-colors flex-1',
-            isDragging && 'border-primary/50 bg-primary/5',
-            !sourceUrl && 'border-dashed'
-          )}
-          onDrop={handleDrop}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setIsDragging(true);
-          }}
-          onDragLeave={() => setIsDragging(false)}
-        >
-          <div className="flex shrink-0 items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <div className="flex items-center gap-2">
-              <ImageIcon className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+      <ToolPanels>
+        {(!isMobile || mobileTab === 'original') && (
+          <IOPanel
+            onDrop={handleDrop}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setIsDragging(true);
+            }}
+            onDragLeave={() => setIsDragging(false)}
+            className={cn(
+              'min-h-[220px] flex-1 transition-colors',
+              isDragging && 'border-primary/50 bg-primary/5',
+              !sourceUrl && 'border-dashed'
+            )}
+            label={
+              <>
+                <ImageIcon className="h-3.5 w-3.5" aria-hidden />
                 {t('panels.original')}
-              </Label>
-            </div>
-            {sourceUrl && (
-              <Button variant="ghost" size="icon" className="h-6 w-6 -mr-2" onClick={handleClear}>
-                <Trash2 className="h-3.5 w-3.5" />
-              </Button>
-            )}
-          </div>
-          <div
-            className="relative flex flex-1 cursor-pointer items-center justify-center p-4"
-            onClick={() => !sourceUrl && fileInputRef.current?.click()}
+              </>
+            }
+            actions={
+              sourceUrl ? (
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleClear}>
+                  <Trash2 className="h-3.5 w-3.5" />
+                </Button>
+              ) : null
+            }
+            bodyClassName="flex flex-col"
           >
-            {sourceUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={sourceUrl} alt="" decoding="async" className="max-h-[min(55vh,420px)] max-w-full object-contain" />
-            ) : (
-              <div className="flex flex-col items-center gap-3 text-center">
-                <div className="rounded-full bg-muted/50 p-4">
-                  <Upload className="h-8 w-8 text-muted-foreground" />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <p className="text-sm font-medium">{t('dropHere')}</p>
-                  <p className="text-xs text-muted-foreground">{t('placeholders.uploadImage')}</p>
-                </div>
-              </div>
-            )}
-            {isDragging && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-                <div className="flex flex-col items-center gap-2 text-primary">
-                  <Upload className="h-8 w-8 animate-bounce" />
-                  <span className="text-sm font-medium">{t('dropHere')}</span>
-                </div>
-              </div>
-            )}
-          </div>
-          {error && (
-            <div className="flex items-center gap-2 border-t border-destructive/20 bg-destructive/5 px-4 py-2 text-xs text-destructive">
-              <AlertCircle className="h-3.5 w-3.5 shrink-0" />
-              <span>{error}</span>
-            </div>
-          )}
-        </Card>}
-
-        {(!isMobile || mobileTab === 'compressed') && <Card className="flex min-h-[220px] flex-col overflow-hidden flex-1">
-          <div className="flex shrink-0 items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('panels.compressed')}
-            </Label>
-            <Button
-              variant="outline"
-              size="sm"
-              className="h-7 gap-1 text-xs"
-              disabled={!compressedBlob || processing}
-              onClick={handleDownload}
+            <div
+              className="relative flex flex-1 cursor-pointer items-center justify-center p-4"
+              onClick={() => !sourceUrl && fileInputRef.current?.click()}
             >
-              {processing ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />}
-              {t('download')}
-            </Button>
-          </div>
-          <div className="relative flex flex-1 items-center justify-center p-4">
+              {sourceUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={sourceUrl} alt="" decoding="async" className="max-h-[min(55vh,420px)] max-w-full object-contain" />
+              ) : (
+                <div className="flex flex-col items-center gap-3 text-center">
+                  <div className="rounded-full bg-muted/50 p-4">
+                    <Upload className="h-8 w-8 text-muted-foreground" />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-sm font-medium">{t('dropHere')}</p>
+                    <p className="text-xs text-muted-foreground">{t('placeholders.uploadImage')}</p>
+                  </div>
+                </div>
+              )}
+              {isDragging && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+                  <div className="flex flex-col items-center gap-2 text-primary">
+                    <Upload className="h-8 w-8 animate-bounce" />
+                    <span className="text-sm font-medium">{t('dropHere')}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            {error && (
+              <div className="flex items-center gap-2 border-t border-destructive/20 bg-destructive/5 px-4 py-2 text-xs text-destructive">
+                <AlertCircle className="h-3.5 w-3.5 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+          </IOPanel>
+        )}
+
+        {(!isMobile || mobileTab === 'compressed') && (
+          <IOPanel
+            className="min-h-[220px] flex-1"
+            label={t('panels.compressed')}
+            actions={
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-7 gap-1 text-xs"
+                disabled={!compressedBlob || processing}
+                onClick={handleDownload}
+              >
+                {processing ? <Loader2 className="h-3 w-3 animate-spin" /> : <Download className="h-3 w-3" />}
+                {t('download')}
+              </Button>
+            }
+            bodyClassName="flex items-center justify-center p-4"
+          >
             {processing && !compressedUrl && (
               <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-background/70">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -456,9 +455,9 @@ export function ImageCompressorLayout() {
             ) : !sourceUrl ? (
               <p className="text-center text-sm text-muted-foreground">{t('emptyCompressed')}</p>
             ) : null}
-          </div>
-        </Card>}
-      </div>
-    </div>
+          </IOPanel>
+        )}
+      </ToolPanels>
+    </ToolShell>
   );
 }

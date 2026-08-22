@@ -6,7 +6,6 @@ import { toBlob, toPng } from 'html-to-image'
 import { saveAs } from 'file-saver'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
@@ -21,9 +20,8 @@ import {
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Check, Copy, FileCode, ImageDown, Trash2, Wand2 } from 'lucide-react'
 import { IconPhotoCode } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 import { BACKGROUNDS, LANGUAGES, canFormat, formatCode, highlightCode } from '@/lib/code-screenshot'
 
 /**
@@ -156,166 +154,164 @@ export function CodeScreenshotLayout() {
     }
   }, [scale, t])
 
+  const toolbar = (
+    <div className="flex flex-wrap items-end gap-x-5 gap-y-4 rounded-lg border border-border bg-card p-4">
+      <div className="space-y-1.5">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('languageLabel')}
+        </Label>
+        <Select value={lang} onValueChange={setLang}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="auto">{t('autoDetect')}</SelectItem>
+            {LANGUAGES.map((l) => (
+              <SelectItem key={l.value} value={l.value}>
+                {l.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="space-y-1.5">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('backgroundLabel')}
+        </Label>
+        <Select value={backgroundId} onValueChange={setBackgroundId}>
+          <SelectTrigger className="w-[170px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {BACKGROUNDS.map((b) => (
+              <SelectItem key={b.id} value={b.id}>
+                <span className="flex items-center gap-2">
+                  <span
+                    className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-inset ring-border"
+                    style={b.css ? { background: b.css } : CHECKERBOARD}
+                    aria-hidden
+                  />
+                  {t(`backgrounds.${b.id}`)}
+                </span>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="w-[150px] space-y-1.5">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('paddingLabel')} · {padding}px
+        </Label>
+        <Slider
+          value={[padding]}
+          min={16}
+          max={128}
+          step={4}
+          onValueChange={(v) => setPadding(v[0] ?? 48)}
+          className="py-2"
+        />
+      </div>
+
+      <div className="space-y-1.5">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('filenameLabel')}
+        </Label>
+        <Input
+          value={filename}
+          onChange={(e) => setFilename(e.target.value)}
+          placeholder={t('filenamePlaceholder')}
+          className="w-[170px]"
+        />
+      </div>
+
+      <div className="space-y-1.5">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('windowLabel')}
+        </Label>
+        <div className="flex h-9 items-center">
+          <Switch checked={windowControls} onCheckedChange={setWindowControls} />
+        </div>
+      </div>
+
+      <div className="space-y-1.5">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('themeLabel')}
+        </Label>
+        <ToggleGroup
+          type="single"
+          value={windowTheme}
+          onValueChange={(v) => v && setWindowTheme(v as 'dark' | 'light')}
+          className="justify-start"
+        >
+          <ToggleGroupItem value="dark" className="px-3 text-xs">
+            {t('themeDark')}
+          </ToggleGroupItem>
+          <ToggleGroupItem value="light" className="px-3 text-xs">
+            {t('themeLight')}
+          </ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+
+      <div className="space-y-1.5">
+        <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          {t('scaleLabel')}
+        </Label>
+        <ToggleGroup
+          type="single"
+          value={String(scale)}
+          onValueChange={(v) => v && setScale(Number(v))}
+          className="justify-start"
+        >
+          {[1, 2, 3].map((s) => (
+            <ToggleGroupItem key={s} value={String(s)} className="px-3 text-xs">
+              {s}x
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+      </div>
+
+      <div className="ml-auto flex items-end gap-2">
+        <Button size="sm" variant="secondary" onClick={copyImage} disabled={exporting || !code || !canCopyImage}>
+          {imageCopied ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
+          {imageCopied ? t('copied') : t('copyImage')}
+        </Button>
+        <Button size="sm" onClick={exportPng} disabled={exporting || !code}>
+          <ImageDown className="mr-1.5 h-4 w-4" />
+          {t('exportPng')}
+        </Button>
+      </div>
+    </div>
+  )
+
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
+    <ToolShell
+      icon={IconPhotoCode}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
       {/* Static stylesheet constant in this file. */}
       {/* threatcrush-disable-next-line js-unescaped-html-sink */}
       <style dangerouslySetInnerHTML={{ __html: SCOPED_HLJS_CSS }} />
 
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconPhotoCode}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        />
-      </RevealItem>
-
-      <Card className="flex flex-wrap items-end gap-x-5 gap-y-4 p-4">
-        <div className="space-y-1.5">
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('languageLabel')}
-          </Label>
-          <Select value={lang} onValueChange={setLang}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="auto">{t('autoDetect')}</SelectItem>
-              {LANGUAGES.map((l) => (
-                <SelectItem key={l.value} value={l.value}>
-                  {l.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('backgroundLabel')}
-          </Label>
-          <Select value={backgroundId} onValueChange={setBackgroundId}>
-            <SelectTrigger className="w-[170px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {BACKGROUNDS.map((b) => (
-                <SelectItem key={b.id} value={b.id}>
-                  <span className="flex items-center gap-2">
-                    <span
-                      className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-inset ring-border"
-                      style={b.css ? { background: b.css } : CHECKERBOARD}
-                      aria-hidden
-                    />
-                    {t(`backgrounds.${b.id}`)}
-                  </span>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="w-[150px] space-y-1.5">
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('paddingLabel')} · {padding}px
-          </Label>
-          <Slider
-            value={[padding]}
-            min={16}
-            max={128}
-            step={4}
-            onValueChange={(v) => setPadding(v[0] ?? 48)}
-            className="py-2"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('filenameLabel')}
-          </Label>
-          <Input
-            value={filename}
-            onChange={(e) => setFilename(e.target.value)}
-            placeholder={t('filenamePlaceholder')}
-            className="w-[170px]"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('windowLabel')}
-          </Label>
-          <div className="flex h-9 items-center">
-            <Switch checked={windowControls} onCheckedChange={setWindowControls} />
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('themeLabel')}
-          </Label>
-          <ToggleGroup
-            type="single"
-            value={windowTheme}
-            onValueChange={(v) => v && setWindowTheme(v as 'dark' | 'light')}
-            className="justify-start"
-          >
-            <ToggleGroupItem value="dark" className="px-3 text-xs">
-              {t('themeDark')}
-            </ToggleGroupItem>
-            <ToggleGroupItem value="light" className="px-3 text-xs">
-              {t('themeLight')}
-            </ToggleGroupItem>
-          </ToggleGroup>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            {t('scaleLabel')}
-          </Label>
-          <ToggleGroup
-            type="single"
-            value={String(scale)}
-            onValueChange={(v) => v && setScale(Number(v))}
-            className="justify-start"
-          >
-            {[1, 2, 3].map((s) => (
-              <ToggleGroupItem key={s} value={String(s)} className="px-3 text-xs">
-                {s}x
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-        </div>
-
-        <div className="ml-auto flex items-end gap-2">
-          <Button size="sm" variant="secondary" onClick={copyImage} disabled={exporting || !code || !canCopyImage}>
-            {imageCopied ? <Check className="mr-1.5 h-4 w-4 text-emerald-600" /> : <Copy className="mr-1.5 h-4 w-4" />}
-            {imageCopied ? t('copied') : t('copyImage')}
-          </Button>
-          <Button size="sm" onClick={exportPng} disabled={exporting || !code}>
-            <ImageDown className="mr-1.5 h-4 w-4" />
-            {t('exportPng')}
-          </Button>
-        </div>
-      </Card>
-
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card className="flex min-h-0 flex-col overflow-hidden">
-          <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-            <div className="flex items-center gap-2">
-              <FileCode className="h-3.5 w-3.5 text-muted-foreground" />
-              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {t('inputLabel')}
-              </Label>
+        <IOPanel
+          bodyClassName="min-h-[160px]"
+          label={
+            <>
+              <FileCode className="h-3.5 w-3.5" aria-hidden />
+              {t('inputLabel')}
               {lang === 'auto' && code ? (
                 <span className="text-[11px] text-muted-foreground/70">
                   {t('detected', { language: highlighted.language })}
                 </span>
               ) : null}
-            </div>
-            <div className="flex items-center gap-1">
+            </>
+          }
+          actions={
+            <>
               <Button
                 variant="ghost"
                 size="sm"
@@ -337,21 +333,19 @@ export function CodeScreenshotLayout() {
               >
                 <Trash2 className="h-3.5 w-3.5" />
               </Button>
-            </div>
-          </div>
-          <div className="relative min-h-[160px] flex-1">
-            <textarea
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              placeholder={t('placeholder')}
-              className="absolute inset-0 h-full w-full resize-none bg-transparent p-4 font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none"
-              spellCheck={false}
-              autoComplete="off"
-            />
-          </div>
-        </Card>
+            </>
+          }
+        >
+          <ToolTextArea
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            placeholder={t('placeholder')}
+            autoComplete="off"
+            className="p-4"
+          />
+        </IOPanel>
 
-        <Card className="flex min-h-0 flex-col overflow-hidden">
+        <div className="flex min-h-0 flex-col overflow-hidden rounded-lg border border-border bg-card">
           <div className="flex items-center border-b border-border/50 bg-muted/30 px-4 py-2.5">
             <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
               {t('previewLabel')}
@@ -405,8 +399,8 @@ export function CodeScreenshotLayout() {
               </div>
             )}
           </div>
-        </Card>
+        </div>
       </div>
-    </div>
+    </ToolShell>
   )
 }

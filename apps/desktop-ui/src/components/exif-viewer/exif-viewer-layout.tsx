@@ -8,9 +8,7 @@ import { toast } from 'sonner'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Collapsible,
@@ -34,9 +32,8 @@ import {
   Wrench,
 } from 'lucide-react'
 import { IconPhotoSearch } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { IOPanel } from '@/components/tools/io-panel'
 import {
   decimalToDms,
   formatBytes,
@@ -92,7 +89,7 @@ function MetadataCard({
 }) {
   if (entries.length === 0) return null
   return (
-    <Card className="p-4">
+    <div className="rounded-lg border border-border bg-card p-4">
       <div className="mb-2.5 flex items-center gap-2">
         {icon}
         <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h3>
@@ -105,7 +102,7 @@ function MetadataCard({
           </div>
         ))}
       </dl>
-    </Card>
+    </div>
   )
 }
 
@@ -222,121 +219,113 @@ export function ExifViewerLayout() {
 
   if (!image) {
     return (
-      <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-        <div className="dash-ambient -z-10" aria-hidden />
-        <RevealItem index={0}>
-          <ToolPageHeader
-            icon={IconPhotoSearch}
-            title={t('title')}
-            description={t('subtitle')}
-            accent={CATEGORY_ACCENT['Media & Design']}
-          />
-        </RevealItem>
-        <Card
-          className={`flex flex-1 cursor-pointer flex-col items-center justify-center gap-3 border-2 border-dashed p-8 text-center transition-colors ${
-            dragOver ? 'border-primary bg-primary/5' : 'border-border/70'
-          }`}
-          onClick={() => inputRef.current?.click()}
+      <ToolShell icon={IconPhotoSearch} title={t('title')} description={t('subtitle')}>
+        <IOPanel
+          label={t('dropTitle')}
           onDragOver={(e) => {
             e.preventDefault()
             setDragOver(true)
           }}
           onDragLeave={() => setDragOver(false)}
           onDrop={onDrop}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click()
-          }}
+          className={`flex-1 transition-colors ${dragOver ? 'border-primary bg-primary/5' : ''}`}
         >
-          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-pink-500/10 text-pink-600 dark:text-pink-400">
-            <Upload className="h-6 w-6" />
-          </span>
-          <div>
-            <p className="text-sm font-medium">{t('dropTitle')}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{t('dropHint')}</p>
-          </div>
-          <Button size="sm" variant="secondary" type="button">
-            {t('browse')}
-          </Button>
-          <p className="text-[11px] text-muted-foreground/70">{t('formats')}</p>
-          <input
-            ref={inputRef}
-            type="file"
-            accept={ACCEPT}
-            className="hidden"
-            onChange={(e) => {
-              const file = e.target.files?.[0]
-              if (file) void loadFile(file)
-              e.target.value = ''
+          <div
+            className="absolute inset-0 flex cursor-pointer flex-col items-center justify-center gap-3 p-8 text-center"
+            onClick={() => inputRef.current?.click()}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') inputRef.current?.click()
             }}
-          />
-        </Card>
-      </div>
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-pink-500/10 text-pink-600 dark:text-pink-400">
+              <Upload className="h-6 w-6" />
+            </span>
+            <div>
+              <p className="text-sm font-medium">{t('dropTitle')}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{t('dropHint')}</p>
+            </div>
+            <Button size="sm" variant="secondary" type="button">
+              {t('browse')}
+            </Button>
+            <p className="text-[11px] text-muted-foreground/70">{t('formats')}</p>
+            <input
+              ref={inputRef}
+              type="file"
+              accept={ACCEPT}
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (file) void loadFile(file)
+                e.target.value = ''
+              }}
+            />
+          </div>
+        </IOPanel>
+      </ToolShell>
     )
   }
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconPhotoSearch}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        />
-      </RevealItem>
-
+    <ToolShell icon={IconPhotoSearch} title={t('title')} description={t('subtitle')}>
       <ScrollArea className="min-h-0 flex-1">
         <div className="flex flex-col gap-4 pr-3">
-          <Card className="flex flex-wrap items-center gap-4 p-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={image.url}
-              alt={image.file.name}
-              className="h-20 w-20 rounded-lg border border-border/60 object-cover"
-              onLoad={(e) => {
-                const el = e.currentTarget
-                if (el.naturalWidth) setDimensions({ w: el.naturalWidth, h: el.naturalHeight })
-              }}
-              onError={(e) => {
-                e.currentTarget.style.visibility = 'hidden'
-              }}
-            />
-            <dl className="grid flex-1 grid-cols-2 gap-x-6 gap-y-1.5 text-sm sm:grid-cols-4">
-              <div>
-                <dt className="text-xs text-muted-foreground">{t('facts.name')}</dt>
-                <dd className="break-all font-medium">{image.file.name}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted-foreground">{t('facts.type')}</dt>
-                <dd className="font-mono text-xs">{image.file.type || '—'}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted-foreground">{t('facts.dimensions')}</dt>
-                <dd className="font-mono text-xs">{dimensions ? `${dimensions.w} × ${dimensions.h}` : '—'}</dd>
-              </div>
-              <div>
-                <dt className="text-xs text-muted-foreground">{t('facts.size')}</dt>
-                <dd className="font-mono text-xs">{formatBytes(image.file.size)}</dd>
-              </div>
-            </dl>
-            <div className="flex items-center gap-2">
-              {gps && (
-                <Badge className="gap-1 border-amber-500/40 bg-amber-500/15 text-amber-700 dark:text-amber-400" variant="outline">
-                  <ShieldAlert className="h-3.5 w-3.5" />
-                  {t('gpsWarning')}
-                </Badge>
-              )}
-              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={reset} title={t('clear')}>
-                <Trash2 className="h-4 w-4" />
-              </Button>
+          <IOPanel
+            label={image.file.name}
+            actions={
+              <>
+                {gps && (
+                  <Badge className="gap-1 border-amber-500/40 bg-amber-500/15 text-amber-700 dark:text-amber-400" variant="outline">
+                    <ShieldAlert className="h-3.5 w-3.5" />
+                    {t('gpsWarning')}
+                  </Badge>
+                )}
+                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={reset} title={t('clear')}>
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </>
+            }
+          >
+            <div className="flex flex-wrap items-center gap-4 p-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={image.url}
+                alt={image.file.name}
+                className="h-20 w-20 rounded-lg border border-border/60 object-cover"
+                onLoad={(e) => {
+                  const el = e.currentTarget
+                  if (el.naturalWidth) setDimensions({ w: el.naturalWidth, h: el.naturalHeight })
+                }}
+                onError={(e) => {
+                  e.currentTarget.style.visibility = 'hidden'
+                }}
+              />
+              <dl className="grid flex-1 grid-cols-2 gap-x-6 gap-y-1.5 text-sm sm:grid-cols-4">
+                <div>
+                  <dt className="text-xs text-muted-foreground">{t('facts.name')}</dt>
+                  <dd className="break-all font-medium">{image.file.name}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted-foreground">{t('facts.type')}</dt>
+                  <dd className="font-mono text-xs">{image.file.type || '—'}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted-foreground">{t('facts.dimensions')}</dt>
+                  <dd className="font-mono text-xs">{dimensions ? `${dimensions.w} × ${dimensions.h}` : '—'}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted-foreground">{t('facts.size')}</dt>
+                  <dd className="font-mono text-xs">{formatBytes(image.file.size)}</dd>
+                </div>
+              </dl>
             </div>
-          </Card>
+          </IOPanel>
 
           {parsing ? (
-            <Card className="p-6 text-center text-sm text-muted-foreground">{t('parsing')}</Card>
+            <div className="rounded-lg border border-border bg-card p-6 text-center text-sm text-muted-foreground">
+              {t('parsing')}
+            </div>
           ) : hasMetadata && groups ? (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
               <MetadataCard
@@ -355,7 +344,7 @@ export function ExifViewerLayout() {
                 entries={groups.timestamps}
               />
               {gps && (
-                <Card className="border-amber-500/30 p-4">
+                <div className="rounded-lg border border-amber-500/30 bg-card p-4">
                   <div className="mb-2.5 flex items-center gap-2">
                     <MapPin className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
                     <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -391,7 +380,7 @@ export function ExifViewerLayout() {
                     <ExternalLink className="h-3.5 w-3.5" />
                     {t('openMap')}
                   </a>
-                </Card>
+                </div>
               )}
               <MetadataCard
                 title={t('groups.software')}
@@ -400,15 +389,15 @@ export function ExifViewerLayout() {
               />
             </div>
           ) : (
-            <Card className="flex items-center gap-3 p-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-3 rounded-lg border border-border bg-card p-6 text-sm text-muted-foreground">
               <Info className="h-4 w-4 shrink-0" />
               {t('noMetadata')}
-            </Card>
+            </div>
           )}
 
           {tags && hasMetadata && (
             <Collapsible open={rawOpen} onOpenChange={setRawOpen}>
-              <Card className="overflow-hidden">
+              <div className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="flex items-center justify-between px-4 py-2.5">
                   <CollapsibleTrigger asChild>
                     <button
@@ -450,11 +439,11 @@ export function ExifViewerLayout() {
                     </table>
                   </div>
                 </CollapsibleContent>
-              </Card>
+              </div>
             </Collapsible>
           )}
 
-          <Card className="p-4">
+          <div className="rounded-lg border border-border bg-card p-4">
             <h3 className="mb-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {t('remove.title')}
             </h3>
@@ -499,9 +488,9 @@ export function ExifViewerLayout() {
                 </Button>
               </div>
             )}
-          </Card>
+          </div>
         </div>
       </ScrollArea>
-    </div>
+    </ToolShell>
   )
 }

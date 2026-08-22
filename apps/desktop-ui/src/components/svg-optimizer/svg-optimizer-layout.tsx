@@ -4,17 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useDebouncedCallback } from 'use-debounce'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
-import { Card } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Check, Copy, Download, Trash2, Sparkles } from 'lucide-react'
 import { IconFileTypeSvg } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { ToolPanels, IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 import { utf8ByteLength } from '@/lib/svg-optimize'
 import { useSvgOptimizeWorker } from '@/hooks/use-svg-optimize-worker'
 
@@ -86,36 +83,27 @@ export function SvgOptimizerLayout() {
   }
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <RevealItem index={0} className="shrink-0">
-        <ToolPageHeader
-          icon={IconFileTypeSvg}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        />
-      </RevealItem>
-
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 xl:grid-cols-2">
-        <Card className="flex min-h-[220px] flex-col gap-3 p-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <Label htmlFor="svg-input" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('inputLabel')}
-            </Label>
-            <span className="text-xs text-muted-foreground">
+    <ToolShell icon={IconFileTypeSvg} title={t('title')} description={t('subtitle')}>
+      <ToolPanels className="xl:grid-cols-2">
+        <IOPanel
+          label={t('inputLabel')}
+          bodyClassName="flex flex-col"
+          actions={
+            <span className="text-[10px] tabular-nums text-muted-foreground">
               {t('chars', { count: input.length, bytes: beforeBytes })}
             </span>
+          }
+        >
+          <div className="relative min-h-0 flex-1">
+            <ToolTextArea
+              id="svg-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={t('placeholder')}
+              autoComplete="off"
+            />
           </div>
-          <Textarea
-            id="svg-input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={t('placeholder')}
-            spellCheck={false}
-            className="min-h-[200px] flex-1 resize-y font-mono text-sm"
-            autoComplete="off"
-          />
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 border-t border-border/50 p-2">
             <Button type="button" variant="secondary" size="sm" onClick={() => setInput('')}>
               <Trash2 className="mr-1.5 h-4 w-4" />
               {t('actions.clear')}
@@ -125,10 +113,10 @@ export function SvgOptimizerLayout() {
               {t('actions.sample')}
             </Button>
           </div>
-        </Card>
+        </IOPanel>
 
         <div className="flex min-h-0 flex-col gap-4">
-          <Card className="flex flex-col gap-3 p-4">
+          <div className="space-y-3 rounded-lg border border-border bg-card p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('stats.title')}
@@ -155,15 +143,15 @@ export function SvgOptimizerLayout() {
                 <AlertDescription className="break-all font-mono text-xs">{error}</AlertDescription>
               </Alert>
             ) : null}
-          </Card>
+          </div>
 
-          <Card className="flex min-h-[180px] flex-1 flex-col gap-3 p-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <Label htmlFor="svg-output" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                {t('outputLabel')}
-              </Label>
-              <div className="flex flex-wrap gap-2">
-                <Button type="button" size="sm" variant="secondary" disabled={!output} onClick={handleCopy}>
+          <IOPanel
+            label={t('outputLabel')}
+            className="min-h-[180px] flex-1"
+            bodyClassName="flex flex-col"
+            actions={
+              <>
+                <Button type="button" size="sm" variant="secondary" className="h-7" disabled={!output} onClick={handleCopy}>
                   {copied ? (
                     <Check className="mr-1.5 h-4 w-4 text-emerald-600" />
                   ) : (
@@ -171,38 +159,31 @@ export function SvgOptimizerLayout() {
                   )}
                   {copied ? t('actions.copied') : t('actions.copy')}
                 </Button>
-                <Button type="button" size="sm" variant="outline" disabled={!output.trim()} onClick={handleDownload}>
+                <Button type="button" size="sm" variant="outline" className="h-7" disabled={!output.trim()} onClick={handleDownload}>
                   <Download className="mr-1.5 h-4 w-4" />
                   {t('actions.download')}
                 </Button>
-              </div>
+              </>
+            }
+          >
+            <div className="relative min-h-0 flex-1">
+              <ToolTextArea id="svg-output" readOnly value={output} placeholder={t('outputPlaceholder')} />
             </div>
-            <Textarea
-              id="svg-output"
-              readOnly
-              value={output}
-              placeholder={t('outputPlaceholder')}
-              className="min-h-[160px] flex-1 resize-y font-mono text-sm"
-            />
             {previewUrl ? (
-              <div className="space-y-2">
+              <div className="space-y-2 border-t border-border/50 p-3">
                 <p className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">{t('preview')}</p>
-                <div
-                  className={cn(
-                    'flex max-h-40 items-center justify-center overflow-hidden rounded-lg border bg-muted/20 p-4'
-                  )}
-                >
+                <div className={cn('flex max-h-40 items-center justify-center overflow-hidden rounded-lg border bg-muted/20 p-4')}>
                   {/* Dynamic data: URL cannot use next/image */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={previewUrl} alt="" loading="lazy" decoding="async" className="max-h-32 max-w-full object-contain" />
                 </div>
               </div>
             ) : null}
-          </Card>
+          </IOPanel>
         </div>
-      </div>
+      </ToolPanels>
 
-      <p className="text-center text-xs text-muted-foreground">{t('localNote')}</p>
-    </div>
+      <p className="shrink-0 text-center text-xs text-muted-foreground">{t('localNote')}</p>
+    </ToolShell>
   )
 }
