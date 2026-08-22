@@ -2340,6 +2340,8 @@
     "collectionsSidebar": {
       "title": "API resources",
       "newCollection": "New collection",
+      "openFolderCollection": "Otwórz folder jako kolekcję",
+      "folderCollection": "Kolekcja z folderu",
       "tabCollections": "Collections",
       "tabHistory": "History",
       "noCollectionsTitle": "No collections",

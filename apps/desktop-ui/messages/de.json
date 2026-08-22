@@ -2340,6 +2340,8 @@
     "collectionsSidebar": {
       "title": "API-Ressourcen",
       "newCollection": "Neue Sammlung",
+      "openFolderCollection": "Ordner als Sammlung öffnen",
+      "folderCollection": "Ordner-Sammlung",
       "tabCollections": "Sammlungen",
       "tabHistory": "Verlauf",
       "noCollectionsTitle": "Keine Sammlungen",

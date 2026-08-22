@@ -2351,6 +2351,8 @@
     "collectionsSidebar": {
       "title": "منابع API",
       "newCollection": "مجموعه جدید",
+      "openFolderCollection": "باز کردن پوشه به عنوان مجموعه",
+      "folderCollection": "مجموعه پوشه‌ای",
       "tabCollections": "مجموعه ها",
       "tabHistory": "تاریخچه",
       "noCollectionsTitle": "بدون مجموعه",

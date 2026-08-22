@@ -2351,6 +2351,8 @@
     "collectionsSidebar": {
       "title": "Ressources API",
       "newCollection": "Nouvelle collection",
+      "openFolderCollection": "Ouvrir un dossier comme collection",
+      "folderCollection": "Collection de dossier",
       "tabCollections": "Collections",
       "tabHistory": "Historique",
       "noCollectionsTitle": "Aucune collection",

@@ -2340,6 +2340,8 @@
     "collectionsSidebar": {
       "title": "API-ресурсы",
       "newCollection": "Новая коллекция",
+      "openFolderCollection": "Открыть папку как коллекцию",
+      "folderCollection": "Коллекция из папки",
       "tabCollections": "Коллекции",
       "tabHistory": "История",
       "noCollectionsTitle": "Нет коллекций",

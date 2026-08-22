@@ -2351,6 +2351,8 @@
     "collectionsSidebar": {
       "title": "API kaynakları",
       "newCollection": "Yeni koleksiyon",
+      "openFolderCollection": "Klasörü koleksiyon olarak aç",
+      "folderCollection": "Klasör koleksiyonu",
       "tabCollections": "Koleksiyonlar",
       "tabHistory": "Geçmiş",
       "noCollectionsTitle": "Koleksiyon yok",

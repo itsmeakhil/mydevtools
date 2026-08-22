@@ -2340,6 +2340,8 @@
     "collectionsSidebar": {
       "title": "Πόροι API",
       "newCollection": "Νέα συλλογή",
+      "openFolderCollection": "Άνοιγμα φακέλου ως συλλογή",
+      "folderCollection": "Συλλογή φακέλου",
       "tabCollections": "Συλλογές",
       "tabHistory": "Ιστορία",
       "noCollectionsTitle": "Χωρίς συλλογές",

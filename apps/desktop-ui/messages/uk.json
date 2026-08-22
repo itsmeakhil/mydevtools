@@ -2351,6 +2351,8 @@
     "collectionsSidebar": {
       "title": "API ресурси",
       "newCollection": "Нова колекція",
+      "openFolderCollection": "Відкрити папку як колекцію",
+      "folderCollection": "Колекція з папки",
       "tabCollections": "Колекції",
       "tabHistory": "Історія",
       "noCollectionsTitle": "Немає колекцій",

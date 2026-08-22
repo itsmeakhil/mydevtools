@@ -2351,6 +2351,8 @@
     "collectionsSidebar": {
       "title": "API-resurser",
       "newCollection": "Ny samling",
+      "openFolderCollection": "Öppna mapp som samling",
+      "folderCollection": "Mappsamling",
       "tabCollections": "Samlingar",
       "tabHistory": "Historik",
       "noCollectionsTitle": "Inga samlingar",

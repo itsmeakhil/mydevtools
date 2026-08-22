@@ -2340,6 +2340,8 @@
     "collectionsSidebar": {
       "title": "API zdroje",
       "newCollection": "Nová kolekce",
+      "openFolderCollection": "Otevřít složku jako kolekci",
+      "folderCollection": "Kolekce ze složky",
       "tabCollections": "Kolekce",
       "tabHistory": "Historie",
       "noCollectionsTitle": "Žádné kolekce",

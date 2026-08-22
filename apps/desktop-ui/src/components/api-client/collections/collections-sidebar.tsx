@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe } from "lucide-react"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
@@ -67,7 +67,11 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
         [loadRequest, panel],
     )
     const { collections, isLoading } = useCollectionsState()
-    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection } = useCollectionsActions()
+
+    // isDesktop() is false during SSR — gate behind a mounted flag to avoid hydration mismatch.
+    const [desktop, setDesktop] = React.useState(false)
+    React.useEffect(() => { setDesktop(isDesktop()) }, [])
     const { history, isLoading: isHistoryLoading } = useHistoryState()
     const { clearHistory: onClearHistory, deleteHistoryItem: onDeleteHistoryItem } = useHistoryActions()
     const t = useTranslations("ApiClient.collectionsSidebar")
@@ -281,6 +285,17 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                 >
                     <FolderPlus className="h-4 w-4" />
                 </Button>
+                {desktop && (
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
+                        onClick={() => void openFolderCollection()}
+                        title={t("openFolderCollection")}
+                    >
+                        <FolderGit2 className="h-4 w-4" />
+                    </Button>
+                )}
             </ToolSidebarActions>
 
             <Tabs defaultValue="collections" className="flex-1 flex flex-col h-full min-h-0">
@@ -353,6 +368,11 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                 <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 px-1">
                                                     {collection.name}
                                                 </span>
+                                                {collection.source && (
+                                                    <span title={collection.source.path} aria-label={t("folderCollection")}>
+                                                        <FolderGit2 className="h-3 w-3 text-muted-foreground shrink-0" />
+                                                    </span>
+                                                )}
                                             </div>
                                             <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Button

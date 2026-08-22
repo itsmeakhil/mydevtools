@@ -2340,6 +2340,8 @@
     "collectionsSidebar": {
       "title": "API 资源",
       "newCollection": "新建集合",
+      "openFolderCollection": "将文件夹作为集合打开",
+      "folderCollection": "文件夹集合",
       "tabCollections": "集合",
       "tabHistory": "历史",
       "noCollectionsTitle": "暂无集合",

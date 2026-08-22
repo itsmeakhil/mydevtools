@@ -2340,6 +2340,8 @@
     "collectionsSidebar": {
       "title": "API-bronnen",
       "newCollection": "Nieuwe collectie",
+      "openFolderCollection": "Map openen als collectie",
+      "folderCollection": "Mapcollectie",
       "tabCollections": "Collecties",
       "tabHistory": "Geschiedenis",
       "noCollectionsTitle": "Geen collecties",
