@@ -168,7 +168,7 @@ const capabilities = [
   {
     title: "API & Networking",
     icon: Globe,
-    blurb: "Request collections, environments and sockets in one place.",
+    blurb: "REST, GraphQL, WebSocket and gRPC, with a mock server, runner and vault-backed secrets.",
     tools: [
       ["API Client", "api-client"],
       ["WebSocket Tester", "websocket-tester"],

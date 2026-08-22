@@ -291,13 +291,13 @@ export const comparisonPages: ComparisonPage[] = [
   },
   {
     slug: 'postman-alternative-online',
-    title: 'Postman Alternative — Lightweight Desktop API Client',
+    title: 'Postman Alternative — Free Offline Desktop API Client',
     description:
-      'Compare MyDevTools as a lightweight desktop Postman alternative for quick API testing alongside JSON, JWT, URL, encoding, and generator tools.',
+      'Compare MyDevTools as a free, offline Postman alternative: REST, GraphQL, WebSocket and gRPC, mock server, collection runner, scripting and vault-backed secrets.',
     eyebrow: 'Alternative',
-    heading: 'Postman alternative for quick, offline API testing',
+    heading: 'Postman alternative for offline, account-free API testing',
     intro:
-      'Postman is a full API platform. MyDevTools is a lightweight all-in-one desktop developer toolkit with an API client plus surrounding utilities developers often need during API debugging.',
+      'Postman is a cloud API platform built around team workspaces. MyDevTools is a free, open-source desktop API client that covers REST, GraphQL, WebSocket and gRPC, with a local mock server, collection runner, scripting and encrypted secrets — no account, no sync, and 80+ other developer tools in the same app.',
     competitor: 'Postman',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -305,42 +305,42 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose Postman when',
         body:
-          'Postman is better for full API lifecycle management, team collaboration, mock servers, collections, and governance.',
+          'Postman is the better fit when API work is a team process that lives in the cloud.',
         bullets: [
-          'You need enterprise API collaboration.',
-          'You manage large shared API collections.',
-          'You rely on Postman-specific test automation and governance.',
+          'You need shared cloud workspaces, comments and role-based collaboration.',
+          'You run collections from CI with a command-line runner, or rely on monitors and hosted documentation.',
+          'You need API governance features, or Windows and Linux builds — MyDevTools ships macOS builds today.',
         ],
       },
       {
         title: 'Choose MyDevTools when',
         body:
-          'Sometimes you just need to send a request, inspect a response, decode a token, format JSON, and generate test data without opening a heavy platform.',
+          'MyDevTools covers the day-to-day API client feature set without a login, a plan, or a server in between.',
         bullets: [
-          'Use the API client for quick request testing.',
-          'Pair API testing with JSON, JWT, URL, Base64, timestamp, and mock data tools.',
-          'Use the desktop toolkit when speed and context switching matter more than enterprise API management.',
+          'REST, GraphQL with schema introspection, WebSocket, and native gRPC via server reflection or a pasted .proto, including unary and streaming calls.',
+          'Collections with saved examples, environments, response chaining and pre-request/test scripts using the familiar pm.* API — plus a runner with CSV/JSON data files and JUnit export, and a local mock server built from your saved examples.',
+          'Secrets resolved from the encrypted local vault at send time and never written into collections; import Postman v2.1, OpenAPI, HAR and cURL, export Postman, OpenAPI 3.0, HAR and Insomnia.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Postman is stronger as a full API platform. MyDevTools is useful as a fast desktop toolkit around lightweight API debugging.',
+          'Postman remains the stronger choice for cloud team workflows and CI. MyDevTools is the stronger choice for a private, offline client where every feature is free.',
         bullets: [
-          'Best enterprise API platform: Postman.',
-          'Best quick desktop toolkit around API debugging: MyDevTools.',
-          'Best all-in-one desktop toolkit path: MyDevTools.',
+          'Best cloud team platform and CI runner: Postman.',
+          'Best free, offline, account-free API client: MyDevTools.',
+          'Best API client plus 80+ developer tools in one app: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools a full Postman replacement?',
-        a: 'No. MyDevTools is better described as a lightweight API client inside a broader desktop developer toolkit.',
+        a: 'For individual API work, yes: REST, GraphQL, WebSocket, gRPC, collections, environments, scripting, a runner and a mock server are all included and free. It does not replace the Postman cloud workspaces, CLI runner, monitors or governance features.',
       },
       {
-        q: 'Why use MyDevTools for API debugging?',
-        a: 'It keeps API requests close to related tools like JSON formatter, JWT decoder, URL parser, timestamp converter, and mock data generator.',
+        q: 'Can I import my Postman collections?',
+        a: 'Yes. Import Postman v2.1 collections, OpenAPI 3 / Swagger 2, HAR and cURL. You can export back to Postman, OpenAPI 3.0, HAR 1.2 or Insomnia v4 at any time.',
       },
     ],
   },
@@ -348,11 +348,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-postman',
     title: 'MyDevTools vs Postman',
     description:
-      'Compare MyDevTools with Postman for desktop API testing, developer utilities, JSON formatting, JWT decoding, and lightweight request debugging.',
+      'Compare MyDevTools with Postman: a free offline desktop API client with REST, GraphQL, WebSocket, gRPC, mock server, runner and scripting versus a cloud API platform.',
     eyebrow: 'Comparison',
-    heading: 'MyDevTools vs Postman: lightweight desktop API testing',
+    heading: 'MyDevTools vs Postman: offline desktop API client vs cloud platform',
     intro:
-      'Postman is a full API platform for teams, collections, environments, and API lifecycle workflows. MyDevTools is an all-in-one desktop developer toolkit with a lightweight API client plus JSON, JWT, URL, timestamp, mock data, and security tools for quick debugging sessions.',
+      'Postman is a cloud API platform for teams, with workspaces, monitors, governance and a CI runner. MyDevTools is a free, open-source desktop API client that runs fully offline: REST, GraphQL, WebSocket and gRPC, collections and environments, scripting, a collection runner, a local mock server and vault-backed secrets — alongside 80+ developer tools.',
     competitor: 'Postman',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -360,30 +360,30 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose Postman when',
         body:
-          'Postman is strongest when API work is a team process with shared collections, governance, documentation, mock servers, and automated tests.',
+          'Postman is strongest when API work is a shared, cloud-hosted team process.',
         bullets: [
-          'You need a complete API lifecycle platform.',
-          'Your team collaborates on large shared request collections.',
-          'You rely on Postman-specific environments, monitors, and governance features.',
+          'Your team collaborates in shared cloud workspaces with comments and roles.',
+          'You run collections in CI with a command-line runner, or need monitors and hosted documentation.',
+          'You need API governance features, or Windows and Linux builds — MyDevTools ships macOS builds today.',
         ],
       },
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is better for quick local debugging where an API request is only one part of a larger utility workflow.',
+          'MyDevTools is better when you want the full client feature set on your own machine, with no account and nothing uploaded.',
         bullets: [
-          'Send a request, format the JSON response, decode a JWT, and parse URLs in the same toolkit.',
-          'Run a fast local workflow with everything in one app.',
-          'Keep requests and history saved locally as you work.',
+          'Test REST, GraphQL, WebSocket and native gRPC (server reflection or .proto, unary and streaming) from one client.',
+          'Use collections, saved examples, environments, response chaining, pre-request/test scripts (pm.* API), a runner with data files and JUnit export, and a local mock server.',
+          'Keep secrets in the encrypted local vault, store everything in an encrypted SQLCipher database, work in 27 UI languages — then format the JSON, decode the JWT or open the SQL client in the same app.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Postman remains the better full API platform. MyDevTools is the better lightweight desktop alternative for quick API debugging plus surrounding developer utilities.',
+          'Postman wins on cloud collaboration, CI and governance. MyDevTools wins on privacy, price and scope: every feature is free, nothing leaves your device, and the rest of your toolkit is one click away.',
         bullets: [
-          'Best enterprise API platform: Postman.',
-          'Best quick local API workflow: MyDevTools.',
+          'Best cloud team platform and CI runner: Postman.',
+          'Best free, offline, account-free API client: MyDevTools.',
           'Best API client plus 80+ utility toolkit: MyDevTools.',
         ],
       },
@@ -391,11 +391,11 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Is MyDevTools a Postman replacement?',
-        a: 'Not for full enterprise API lifecycle management. MyDevTools is a lightweight desktop alternative when you need quick API requests plus related developer tools.',
+        a: 'For individual and local API work, yes. It covers REST, GraphQL, WebSocket, gRPC, collections, environments, scripting, a runner and a mock server, and imports Postman v2.1 collections. It is not a replacement for the Postman cloud workspaces, CLI runner, monitors or governance.',
       },
       {
         q: 'What makes MyDevTools useful for API debugging?',
-        a: 'API debugging often requires formatting JSON, decoding JWTs, parsing URLs, converting timestamps, and generating mock data. MyDevTools keeps those tools near the API client.',
+        a: 'Everything runs offline on your device with no account. Secrets come from the local encrypted vault, scripts run in a sandboxed worker, and the JSON formatter, JWT decoder, URL parser, timestamp converter and mock data generator sit next to the API client.',
       },
     ],
   },
@@ -888,13 +888,13 @@ export const comparisonPages: ComparisonPage[] = [
   },
   {
     slug: 'insomnia-alternative-online',
-    title: 'Insomnia Alternative for Lightweight API Debugging',
+    title: 'Insomnia Alternative — Free Offline Desktop API Client',
     description:
-      'Compare MyDevTools with Insomnia for lightweight desktop API testing and surrounding developer utilities.',
+      'Compare MyDevTools with Insomnia: a free, offline desktop API client with REST, GraphQL, WebSocket, gRPC, mock server, runner and vault-backed secrets, plus 80+ developer tools.',
     eyebrow: 'Alternative',
-    heading: 'Insomnia alternative for lightweight, offline API debugging',
+    heading: 'Insomnia alternative for offline, account-free API debugging',
     intro:
-      'Insomnia is a dedicated desktop API client. MyDevTools offers a lightweight API client alongside JSON, JWT, URL, timestamp, mock data, and security tools that are often needed during API debugging — all in one offline app.',
+      'Insomnia is a dedicated desktop API client from Kong with cloud and Git sync, a plugin ecosystem and a CLI. MyDevTools is a free, open-source desktop API client that runs fully offline and needs no account: REST, GraphQL, WebSocket and gRPC, collections, environments, scripting, a collection runner and a local mock server — next to 80+ other developer tools.',
     competitor: 'Insomnia',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -902,42 +902,152 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose Insomnia when',
         body:
-          'Insomnia is better for dedicated API development with desktop collections, environments, plugins, and team workflows.',
+          'Insomnia is the better fit when you need its team and automation surface.',
         bullets: [
-          'You need a full desktop API client.',
-          'You manage complex request collections.',
-          'Your team already standardizes on Insomnia.',
+          'Your team shares collections through Kong cloud sync or Git sync.',
+          'You run collections in CI with the Insomnia CLI, or depend on its plugin ecosystem.',
+          'You need Windows or Linux builds — MyDevTools ships macOS builds today.',
         ],
       },
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is useful for quick API debugging, especially when the request workflow connects to common utility tasks.',
+          'MyDevTools gives you the full client feature set locally, with nothing to sign in to and nothing uploaded.',
         bullets: [
-          'Test API requests and then format JSON responses nearby.',
-          'Decode JWTs, parse URLs, convert timestamps, and generate mock data in one toolkit.',
-          'Keep API debugging next to 80+ other tools in one desktop app.',
+          'REST, GraphQL with schema introspection, WebSocket, and native gRPC with server reflection, unary and streaming calls.',
+          'Collections with saved examples, environments and response chaining, pre-request/test scripts, a runner with CSV/JSON data files and JUnit export, and a mock server built from saved examples.',
+          'Secrets from the encrypted local vault, everything stored in an encrypted database, 27 UI languages, and Insomnia v4 export if you ever want to move back.',
         ],
       },
       {
         title: 'Verdict',
         body:
-          'Insomnia is the better full API client. MyDevTools is a lightweight all-in-one alternative for quick debugging plus related developer utilities.',
+          'Insomnia is stronger for cloud and Git sync, plugins and CI. MyDevTools is the stronger free, offline client that also carries the rest of your toolkit.',
         bullets: [
-          'Best dedicated desktop API client: Insomnia.',
-          'Best toolkit around API debugging: MyDevTools.',
-          'Best no-fuss quick workflow: MyDevTools.',
+          'Best team sync, plugins and CLI: Insomnia.',
+          'Best free, offline, account-free API client: MyDevTools.',
+          'Best API client plus 80+ developer tools: MyDevTools.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is MyDevTools a full Insomnia replacement?',
-        a: 'No. It is a lightweight API client inside a larger all-in-one toolkit, not a complete API lifecycle platform.',
+        a: 'For local API work, yes: REST, GraphQL, WebSocket, gRPC, collections, environments, scripting, a runner and a mock server are all included and free. It does not offer cloud or Git sync, plugins, or a CLI runner.',
       },
       {
-        q: 'Why use MyDevTools for API testing?',
-        a: 'Use it when you want quick API requests plus JSON, JWT, URL, timestamp, and mock data tools in the same offline workspace.',
+        q: 'Can I move my Insomnia collections to MyDevTools?',
+        a: 'Export your Insomnia collection as HAR, or as an OpenAPI spec from a design document, and import it into MyDevTools; cURL commands import too. MyDevTools exports to Insomnia v4, so the move works in both directions.',
+      },
+    ],
+  },
+  {
+    slug: 'mydevtools-vs-bruno',
+    title: 'MyDevTools vs Bruno',
+    description:
+      'Compare MyDevTools with Bruno: two open-source desktop API clients. Every MyDevTools feature is free with no paid tier, no account, 27 UI languages and 80+ developer tools in one app.',
+    eyebrow: 'Comparison',
+    heading: 'MyDevTools vs Bruno: open-source desktop API clients compared',
+    intro:
+      'Bruno is an open-source, Git-native API client that stores collections as plain-text files and sells Pro and Ultimate tiers on top. MyDevTools is an open-source (AGPL-3.0) desktop API client where every feature is free for good: REST, GraphQL, WebSocket and gRPC, a local mock server, collection runner, scripting and vault-backed secrets — plus 80+ other developer tools in the same window.',
+    competitor: 'Bruno',
+    toolSlug: 'api-client',
+    primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
+    sections: [
+      {
+        title: 'Choose Bruno when',
+        body:
+          'Bruno is the better fit when your collections must live in a Git repository today.',
+        bullets: [
+          'You want collections as plain-text files reviewed in pull requests, with the native Git commit and push UI on the paid tiers.',
+          'You run collections in CI with the bru CLI, Docker image or GitHub Action.',
+          'You need Windows or Linux builds — MyDevTools ships macOS builds today.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools has no feature gates: nothing is held back for a Pro or Ultimate plan, and there is no account to create.',
+        bullets: [
+          'Secrets from the encrypted local vault, unlimited OpenAPI and Postman imports, and every feature unlocked — nothing behind a $6 or $11 per-user plan.',
+          'REST, GraphQL, WebSocket and native gRPC, plus a local mock server, a runner with data files and JUnit export, and sandboxed pm.* scripts.',
+          'A UI in 27 languages, and JSON, JWT, SQL, MongoDB, Redis and vault tools in the same window.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'Bruno wins when Git-tracked collection files and a CI runner are the priority. MyDevTools wins when you want every feature free, a private offline setup, and the rest of your toolkit alongside the client.',
+        bullets: [
+          'Best Git-native collections and CLI: Bruno.',
+          'Best fully free, account-free API client: MyDevTools.',
+          'Best API client plus 80+ developer tools: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is MyDevTools free like Bruno?',
+        a: 'MyDevTools is free for every feature with no paid tier, ever. The core Bruno client is free and MIT-licensed, but its native Git UI, more than two workspaces, unlimited OpenAPI sync, secret-manager integrations and AI assistant are gated behind Pro and Ultimate plans.',
+      },
+      {
+        q: 'Does MyDevTools store collections as files like Bruno?',
+        a: 'Not today. Collections are stored locally in an encrypted SQLCipher database on your device. You can export to Postman, OpenAPI 3.0, HAR or Insomnia v4 whenever you need a file.',
+      },
+    ],
+  },
+  {
+    slug: 'bruno-alternative',
+    title: 'Bruno Alternative — Free Offline API Client with No Paid Tier',
+    description:
+      'Looking for a Bruno alternative with no Pro tier? MyDevTools is a free, open-source offline desktop API client: REST, GraphQL, WebSocket, gRPC, mock server, runner and vault-backed secrets.',
+    eyebrow: 'Alternative',
+    heading: 'Bruno alternative: every API client feature free, no account, no plan',
+    intro:
+      'Bruno is a well-liked open-source API client, but its Git UI, extra workspaces, unlimited OpenAPI sync, secret-manager integrations and AI assistant sit behind Pro and Ultimate plans. MyDevTools is a free, open-source desktop API client with nothing gated: REST, GraphQL, WebSocket and gRPC, a local mock server, a collection runner, sandboxed scripts and secrets from an encrypted local vault — with 80+ other developer tools in the same app.',
+    competitor: 'Bruno',
+    toolSlug: 'api-client',
+    primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
+    sections: [
+      {
+        title: 'Choose Bruno when',
+        body:
+          'Bruno remains the right choice when the files-on-disk model is the point.',
+        bullets: [
+          'You need collections as plain-text files reviewed in Git today.',
+          'You run collections in CI with the bru CLI, Docker image or GitHub Action.',
+          'You need Windows or Linux builds — MyDevTools ships macOS builds today.',
+        ],
+      },
+      {
+        title: 'Choose MyDevTools when',
+        body:
+          'MyDevTools covers the same daily API work without a paid tier or a sign-in, and goes further on protocols and languages.',
+        bullets: [
+          'REST, GraphQL with introspection, WebSocket, and native gRPC with server reflection, unary and streaming calls.',
+          'Local mock server from saved examples, a runner with CSV/JSON data and JUnit export, environments, response chaining and pm.* scripts.',
+          'Secrets resolved from the encrypted local vault and never written into collections, a UI in 27 languages, and JSON, JWT, SQL, MongoDB and Redis tools one click away.',
+        ],
+      },
+      {
+        title: 'Verdict',
+        body:
+          'Bruno is best for Git-tracked collection files and CI. MyDevTools is best when you want a private, offline client with every feature free and a full toolkit around it.',
+        bullets: [
+          'Best Git-native files and CLI: Bruno.',
+          'Best free, offline, account-free client: MyDevTools.',
+          'Best API client plus 80+ developer tools: MyDevTools.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Does MyDevTools have a paid tier like Bruno Pro?',
+        a: 'No. MyDevTools is licensed under the AGPL-3.0 and every feature — mock server, runner, gRPC, vault-backed secrets, imports and exports — is free with no plan, no trial and no account.',
+      },
+      {
+        q: 'Can I import my Bruno collections?',
+        a: 'Not directly yet. Export from Bruno as a Postman collection and import that into MyDevTools, which also accepts OpenAPI, HAR and cURL.',
       },
     ],
   },
