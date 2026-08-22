@@ -2383,6 +2383,7 @@
       "placeholderNewEnv": "Môi trường mới",
       "variablesHeading": "Biến {name}",
       "addVariable": "Thêm biến",
+      "exportPostman": "Xuất (môi trường Postman)",
       "columnVariable": "Biến",
       "columnValue": "Giá trị",
       "placeholderKey": "Khóa",

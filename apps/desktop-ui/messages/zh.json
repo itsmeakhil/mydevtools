@@ -2383,6 +2383,7 @@
       "placeholderNewEnv": "新环境",
       "variablesHeading": "{name} 变量",
       "addVariable": "添加变量",
+      "exportPostman": "导出（Postman 环境）",
       "columnVariable": "变量",
       "columnValue": "值",
       "placeholderKey": "键",

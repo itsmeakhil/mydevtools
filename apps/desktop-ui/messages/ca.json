@@ -2383,6 +2383,7 @@
       "placeholderNewEnv": "Entorn nou",
       "variablesHeading": "Variables de {name}",
       "addVariable": "Afegeix variable",
+      "exportPostman": "Exporta (entorn de Postman)",
       "columnVariable": "Variable",
       "columnValue": "Valor",
       "placeholderKey": "Clau",

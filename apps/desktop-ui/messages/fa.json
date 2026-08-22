@@ -2394,6 +2394,7 @@
       "placeholderNewEnv": "محیط جدید",
       "variablesHeading": "{name} متغیرها",
       "addVariable": "متغیر اضافه کنید",
+      "exportPostman": "خروجی (محیط Postman)",
       "columnVariable": "متغیر",
       "columnValue": "ارزش",
       "placeholderKey": "کلید",

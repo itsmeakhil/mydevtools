@@ -2394,6 +2394,7 @@
       "placeholderNewEnv": "Yeni ortam",
       "variablesHeading": "{name} değişkenleri",
       "addVariable": "Değişken ekle",
+      "exportPostman": "Dışa aktar (Postman ortamı)",
       "columnVariable": "Değişken",
       "columnValue": "Değer",
       "placeholderKey": "Anahtar",

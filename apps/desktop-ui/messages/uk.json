@@ -2394,6 +2394,7 @@
       "placeholderNewEnv": "Нове середовище",
       "variablesHeading": "Змінні {name}",
       "addVariable": "Додати змінну",
+      "exportPostman": "Експорт (середовище Postman)",
       "columnVariable": "Змінна",
       "columnValue": "Значення",
       "placeholderKey": "Ключ",

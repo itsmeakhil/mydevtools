@@ -2394,6 +2394,7 @@
       "placeholderNewEnv": "Nuwe omgewing",
       "variablesHeading": "{name}-veranderlikes",
       "addVariable": "Voeg veranderlike by",
+      "exportPostman": "Voer uit (Postman-omgewing)",
       "columnVariable": "Veranderlike",
       "columnValue": "Waarde",
       "placeholderKey": "Sleutel",

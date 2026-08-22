@@ -2383,6 +2383,7 @@
       "placeholderNewEnv": "Новое окружение",
       "variablesHeading": "Переменные {name}",
       "addVariable": "Добавить переменную",
+      "exportPostman": "Экспорт (окружение Postman)",
       "columnVariable": "Переменная",
       "columnValue": "Значение",
       "placeholderKey": "Ключ",

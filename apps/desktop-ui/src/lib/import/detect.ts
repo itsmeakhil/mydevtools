@@ -1,4 +1,4 @@
-export type ImportFormat = "postman" | "har" | "openapi" | "curl" | "unknown"
+export type ImportFormat = "postman" | "postman-env" | "har" | "openapi" | "curl" | "unknown"
 
 interface ParsedRoot {
     info?: { schema?: string }
@@ -6,6 +6,7 @@ interface ParsedRoot {
     log?: { entries?: unknown }
     openapi?: string
     swagger?: string
+    values?: unknown
 }
 
 /**
@@ -23,6 +24,9 @@ export function detectImportFormat(raw: string): ImportFormat {
             const data = JSON.parse(t) as ParsedRoot
             if (data?.info?.schema?.includes("schema.getpostman.com")) return "postman"
             if (data?.info && Array.isArray(data.item)) return "postman"
+            // Postman environment: `{ name, values: [{ key, value }] }`, no `info`.
+            if (!data?.info && Array.isArray(data?.values) &&
+                data.values.every((v) => !!v && typeof v === "object" && "key" in (v as object))) return "postman-env"
             if (data?.log && data.log.entries !== undefined) return "har"
             if (typeof data?.openapi === "string") return "openapi"
             if (typeof data?.swagger === "string") return "openapi"

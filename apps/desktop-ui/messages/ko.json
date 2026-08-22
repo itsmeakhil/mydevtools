@@ -2383,6 +2383,7 @@
       "placeholderNewEnv": "새 환경",
       "variablesHeading": "{name} 변수",
       "addVariable": "변수 추가",
+      "exportPostman": "내보내기 (Postman 환경)",
       "columnVariable": "변수",
       "columnValue": "값",
       "placeholderKey": "키",

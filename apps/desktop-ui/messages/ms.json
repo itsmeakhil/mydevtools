@@ -2394,6 +2394,7 @@
       "placeholderNewEnv": "Persekitaran baharu",
       "variablesHeading": "Pembolehubah {name}",
       "addVariable": "Tambah pembolehubah",
+      "exportPostman": "Eksport (persekitaran Postman)",
       "columnVariable": "Pembolehubah",
       "columnValue": "Nilai",
       "placeholderKey": "Kunci",

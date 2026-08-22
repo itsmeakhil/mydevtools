@@ -2395,6 +2395,7 @@
       "placeholderNewEnv": "New environment",
       "variablesHeading": "{name} variables",
       "addVariable": "Add variable",
+      "exportPostman": "Export (Postman environment)",
       "columnVariable": "Variable",
       "columnValue": "Value",
       "placeholderKey": "Key",

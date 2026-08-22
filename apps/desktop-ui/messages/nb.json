@@ -2383,6 +2383,7 @@
       "placeholderNewEnv": "Nytt miljø",
       "variablesHeading": "{name}-variabler",
       "addVariable": "Legg til variabel",
+      "exportPostman": "Eksporter (Postman-miljø)",
       "columnVariable": "Variabel",
       "columnValue": "Verdi",
       "placeholderKey": "Nøkkel",
