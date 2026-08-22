@@ -91,7 +91,8 @@ et aucune synchronisation.
 | Plateforme | Comment |
 |---|---|
 | **macOS** (Apple Silicon + Intel) | [Télécharger le dernier `.dmg`](https://github.com/mydevtools-tech/mydevtools/releases/latest) — build universel, signé et notarisé, se met à jour depuis l’application |
-| **Windows / Linux** | Pas encore publié. Le shell Tauri se compile sur les deux — voir [Compiler depuis les sources](../../README.md#%EF%B8%8F-building-from-source) et la [feuille de route](../../ROADMAP.md). Tester sur ces plateformes est une excellente première contribution |
+| **Linux** (x86_64) | [Téléchargez le `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) ou l'[AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (fonctionne partout, sans installation) — même release et même version que macOS. Pas encore de mise à jour intégrée ; voir le [guide d'installation Linux](https://mydevtools.tech/linux-builds) |
+| **Windows** | Pas de build pour le moment. Le shell Tauri se compile sous Windows — voir [Compiler depuis les sources](../../README.md#%EF%B8%8F-building-from-source) et la [feuille de route](../../ROADMAP.md) |
 
 Ouvrez-la et travaillez : aucune inscription, aucune configuration, aucune clé API.
 

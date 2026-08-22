@@ -89,7 +89,8 @@ Ele roda na sua máquina. Não existe servidor do MyDevTools, nem conta, nem sin
 | Plataforma | Como |
 |---|---|
 | **macOS** (Apple Silicon + Intel) | [Baixe o `.dmg` mais recente](https://github.com/mydevtools-tech/mydevtools/releases/latest) — build universal, assinado e notarizado, com atualização dentro do próprio app |
-| **Windows / Linux** | Ainda não publicados. O shell Tauri compila nos dois — veja [Compilar a partir do código-fonte](../../README.md#%EF%B8%8F-building-from-source) e o [roadmap](../../ROADMAP.md). Testar nessas plataformas é uma ótima primeira contribuição |
+| **Linux** (x86_64) | [Baixe o `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) ou o [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (roda em qualquer lugar, sem instalar) — mesma release e mesma versão do macOS. Ainda sem atualização automática no app; veja o [guia de instalação no Linux](https://mydevtools.tech/linux-builds) |
+| **Windows** | Sem build por enquanto. O shell Tauri compila no Windows — veja [Compilar a partir do código-fonte](../../README.md#%EF%B8%8F-building-from-source) e o [roadmap](../../ROADMAP.md) |
 
 Abra e comece a trabalhar: sem cadastro, sem configuração, sem chaves de API.
 

@@ -52,9 +52,6 @@ Current focus — stability and polish over new surface area.
 
 Agreed direction, not yet scheduled.
 
-- **Windows and Linux builds.** The Tauri shell can already be built on both;
-  what is missing is CI, signing and enough testing to publish them. This is the
-  most-requested item.
 - **More developer utilities**, driven by what people actually ask for in issues.
 - **API client depth**: smoother collection workflows, better environment and
   secret handling, richer request/response inspection.
@@ -79,6 +76,9 @@ Ideas we like, with nothing committed. Feedback genuinely decides these.
   generation and certificate tooling.
 - **Local automation**: chaining tools together for repeated workflows, on-device.
 - **A public tool API** so the desktop app's logic can be scripted locally.
+- **A Windows build.** Not planned for now. The Tauri shell compiles on Windows,
+  but a published build needs CI minutes, a code-signing certificate and regular
+  testing we do not have yet. Linux shipped in 0.1.15.
 
 ## Not planned
 
@@ -104,7 +104,7 @@ The fastest way to move something up this list:
 - **Open an issue** describing the problem, not just the fix you have in mind.
 - **Pick up a [good first issue](https://github.com/mydevtools-tech/mydevtools/labels/good%20first%20issue)** — see [`docs/GOOD_FIRST_ISSUES.md`](docs/GOOD_FIRST_ISSUES.md) for scoped starter work.
 - **Improve a translation** — 27 locales, and native speakers always beat a sync script.
-- **Test on Windows or Linux** and report what breaks. That is the concrete work
-  standing between those builds and a release.
+- **Test on Linux** and report what breaks. The Linux build is new as of 0.1.15
+  and has seen far less use than macOS.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) to get set up.

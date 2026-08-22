@@ -106,7 +106,8 @@ It runs on your machine. There is no MyDevTools server, no account and no sync.
 | Platform | How |
 |---|---|
 | **macOS** (Apple Silicon + Intel) | [Download the latest `.dmg`](https://github.com/mydevtools-tech/mydevtools/releases/latest) — universal build, signed and notarized, updates itself in-app |
-| **Windows / Linux** | Not published yet. The Tauri shell builds on both — see [Building from source](#%EF%B8%8F-building-from-source) and the [roadmap](ROADMAP.md). Testing on these platforms is a great first contribution |
+| **Linux** (x86_64) | [Download the `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) or the [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (runs anywhere, no install) — same release and version as macOS. No in-app updater yet; see the [Linux install guide](https://mydevtools.tech/linux-builds) |
+| **Windows** | No build for now. The Tauri shell compiles on Windows — see [Building from source](#%EF%B8%8F-building-from-source) and the [roadmap](ROADMAP.md) |
 
 Open it and start working: no sign-up, no configuration, no API keys.
 

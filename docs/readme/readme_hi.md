@@ -89,7 +89,8 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 | प्लेटफ़ॉर्म | कैसे |
 |---|---|
 | **macOS** (Apple Silicon + Intel) | [नवीनतम `.dmg` डाउनलोड करें](https://github.com/mydevtools-tech/mydevtools/releases/latest) — यूनिवर्सल बिल्ड, साइन्ड और नोटराइज़्ड, ऐप में ही अपडेट हो जाता है |
-| **Windows / Linux** | अभी पब्लिश नहीं हुआ है। Tauri शेल दोनों पर बिल्ड होता है — देखें [सोर्स से बिल्ड करना](../../README.md#%EF%B8%8F-building-from-source) और [रोडमैप](../../ROADMAP.md)। इन प्लेटफ़ॉर्म्स पर टेस्टिंग करना पहला योगदान देने का बढ़िया तरीका है |
+| **Linux** (x86_64) | [`.deb` डाउनलोड करें](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) या [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (बिना इंस्टॉल किए कहीं भी चलता है) — macOS जैसी ही रिलीज़ और वर्शन। ऐप के अंदर अपडेट अभी नहीं है; देखें [Linux इंस्टॉल गाइड](https://mydevtools.tech/linux-builds) |
+| **Windows** | फ़िलहाल कोई बिल्ड नहीं। Tauri शेल Windows पर कंपाइल होता है — देखें [सोर्स से बिल्ड करना](../../README.md#%EF%B8%8F-building-from-source) और [रोडमैप](../../ROADMAP.md) |
 
 खोलिए और काम शुरू कीजिए: न साइन-अप, न कॉन्फ़िगरेशन, न API keys।
 

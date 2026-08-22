@@ -89,7 +89,8 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 | プラットフォーム | 方法 |
 |---|---|
 | **macOS**（Apple Silicon + Intel） | [最新の `.dmg` をダウンロード](https://github.com/mydevtools-tech/mydevtools/releases/latest) — ユニバーサルビルド、署名・公証済み、アプリ内で自動更新 |
-| **Windows / Linux** | まだ公開していません。Tauri シェルはどちらでもビルドできます — [ソースからのビルド](../../README.md#%EF%B8%8F-building-from-source) と [ロードマップ](../../ROADMAP.md) を参照してください。これらのプラットフォームでの動作確認は、最初のコントリビューションに最適です |
+| **Linux** (x86_64) | [`.deb` をダウンロード](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb)(Debian / Ubuntu 22.04 以降)または [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage)(インストール不要でどこでも動作)— macOS と同じリリース・同じバージョンです。アプリ内アップデートは未対応。[Linux インストールガイド](https://mydevtools.tech/linux-builds) を参照 |
+| **Windows** | 当面ビルドは提供しません。Tauri シェルは Windows でもコンパイルできます — [ソースからのビルド](../../README.md#%EF%B8%8F-building-from-source) と [ロードマップ](../../ROADMAP.md) を参照してください |
 
 開いたらすぐに使えます。会員登録も設定も API キーも不要です。
 
