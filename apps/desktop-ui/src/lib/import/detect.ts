@@ -1,4 +1,8 @@
-export type ImportFormat = "postman" | "postman-env" | "har" | "openapi" | "curl" | "unknown"
+import { looksLikeInsomniaExport } from "./insomnia"
+import { looksLikeBrunoBru, looksLikeOpenCollectionYaml } from "./bruno"
+
+export type ImportFormat =
+    | "postman" | "postman-env" | "har" | "openapi" | "insomnia" | "bruno" | "curl" | "unknown"
 
 interface ParsedRoot {
     info?: { schema?: string }
@@ -22,6 +26,7 @@ export function detectImportFormat(raw: string): ImportFormat {
     if (t.startsWith("{") || t.startsWith("[")) {
         try {
             const data = JSON.parse(t) as ParsedRoot
+            if (looksLikeInsomniaExport(t)) return "insomnia"
             if (data?.info?.schema?.includes("schema.getpostman.com")) return "postman"
             if (data?.info && Array.isArray(data.item)) return "postman"
             // Postman environment: `{ name, values: [{ key, value }] }`, no `info`.
@@ -39,6 +44,10 @@ export function detectImportFormat(raw: string): ImportFormat {
     const head = t.split(/\r?\n/, 5).join("\n")
     if (/^openapi\s*:/m.test(head)) return "openapi"
     if (/^swagger\s*:/m.test(head)) return "openapi"
+
+    // Bruno's `.bru` language and Insomnia/Bruno YAML exports.
+    if (looksLikeInsomniaExport(t)) return "insomnia"
+    if (looksLikeBrunoBru(t) || looksLikeOpenCollectionYaml(t)) return "bruno"
 
     return "unknown"
 }

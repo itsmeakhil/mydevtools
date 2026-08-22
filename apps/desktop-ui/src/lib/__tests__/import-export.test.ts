@@ -31,6 +31,15 @@ describe("detectImportFormat", () => {
     it("detects cURL", () => {
         expect(detectImportFormat("curl https://example.com")).toBe("curl")
     })
+    it("detects Insomnia v4 JSON and v5 YAML", () => {
+        expect(detectImportFormat(JSON.stringify({ _type: "export", __export_format: 4, resources: [] })))
+            .toBe("insomnia")
+        expect(detectImportFormat("type: collection.insomnia.rest/5.0\nname: X\n")).toBe("insomnia")
+    })
+    it("detects Bruno .bru and OpenCollection YAML", () => {
+        expect(detectImportFormat("meta {\n  name: Ping\n}\n\nget {\n  url: https://x/y\n}\n")).toBe("bruno")
+        expect(detectImportFormat("info:\n  name: X\nhttp:\n  method: GET\n  url: https://x/y\n")).toBe("bruno")
+    })
     it("returns unknown on garbage", () => {
         expect(detectImportFormat("{not json")).toBe("unknown")
         expect(detectImportFormat("")).toBe("unknown")
