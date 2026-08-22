@@ -3,7 +3,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -19,9 +18,7 @@ import { Check, Copy, Plus, Trash, Dices, ArrowLeftRight, Download, Wand2 } from
 import { IconColorSwatch } from '@tabler/icons-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
 
 type GradientType = 'linear' | 'radial' | 'conic';
 
@@ -165,21 +162,18 @@ export function GradientLayout() {
   };
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto pb-4">
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconColorSwatch}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        />
-      </RevealItem>
+    <ToolShell
+      icon={IconColorSwatch}
+      title={t('title')}
+      description={t('subtitle')}
+      contentClassName="overflow-auto pb-4"
+    >
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 shrink-0">
         
         {/* Left Column: Preview + Settings */}
         <div className="flex flex-col gap-4">
-          <Card className="p-4 flex flex-col items-center justify-center relative overflow-hidden group">
+          <div className="group relative flex flex-col items-center justify-center overflow-hidden rounded-lg border border-border bg-card p-4">
             <Label className="text-xs text-muted-foreground uppercase w-full text-left tracking-wider mb-3 z-10">
               {t('preview')}
             </Label>
@@ -187,9 +181,9 @@ export function GradientLayout() {
               className="w-full h-48 sm:h-72 rounded-xl border border-border shadow-inner transition-all duration-300 ease-out z-10"
               style={{ background: cssValue }}
             />
-          </Card>
+          </div>
 
-          <Card className="p-4 space-y-5">
+          <div className="space-y-5 rounded-lg border border-border bg-card p-4">
             <div className="flex items-center justify-between">
               <Label className="text-xs text-muted-foreground uppercase tracking-wider">
                 {t('settings')}
@@ -247,9 +241,9 @@ export function GradientLayout() {
                 </div>
               )}
             </div>
-          </Card>
+          </div>
 
-          <Card className="p-4 space-y-3">
+          <div className="space-y-3 rounded-lg border border-border bg-card p-4">
             <div className="flex items-center justify-between">
               <Label className="text-xs text-muted-foreground uppercase tracking-wider">
                 {t('output')}
@@ -277,12 +271,12 @@ export function GradientLayout() {
                 </Button>
               </div>
             </div>
-          </Card>
+          </div>
         </div>
 
         {/* Right Column: Stops & Presets */}
         <div className="flex flex-col gap-4">
-          <Card className="p-4 flex flex-col">
+          <div className="flex flex-col rounded-lg border border-border bg-card p-4">
              <div className="flex items-center justify-between mb-3">
               <Label className="text-xs text-muted-foreground uppercase tracking-wider">
                 {t('presets')}
@@ -317,9 +311,9 @@ export function GradientLayout() {
                </div>
                <ScrollBar orientation="horizontal" />
              </ScrollArea>
-          </Card>
+          </div>
 
-          <Card className="p-4 flex flex-col flex-1">
+          <div className="flex flex-1 flex-col rounded-lg border border-border bg-card p-4">
             <div className="flex items-center justify-between mb-4">
               <Label className="text-xs text-muted-foreground uppercase tracking-wider">
                 {t('stops')}
@@ -406,10 +400,10 @@ export function GradientLayout() {
               ))}
             </div>
             
-          </Card>
+          </div>
         </div>
 
       </div>
-    </div>
+    </ToolShell>
   );
 }

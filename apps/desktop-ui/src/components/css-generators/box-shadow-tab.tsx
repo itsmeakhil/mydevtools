@@ -3,13 +3,13 @@
 import React, { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
 import { Switch } from '@/components/ui/switch'
 import { Plus, Trash2 } from 'lucide-react'
 import { buildBoxShadow, SHADOW_PRESETS, type ShadowLayer } from '@/lib/css-generators'
+import { IOPanel } from '@/components/tools/io-panel'
 import { CssOutput } from './css-output'
 
 const DEFAULT_LAYER: ShadowLayer = { x: 0, y: 4, blur: 12, spread: 0, color: '#000000', alpha: 0.25, inset: false }
@@ -60,7 +60,7 @@ export function BoxShadowTab() {
   return (
     <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
       <div className="flex min-h-0 flex-col gap-4 overflow-y-auto pr-1">
-        <Card className="space-y-2 p-4">
+        <div className="space-y-2 rounded-lg border border-border bg-card p-4">
           <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             {t('boxShadow.presets')}
           </Label>
@@ -78,10 +78,10 @@ export function BoxShadowTab() {
               </Button>
             ))}
           </div>
-        </Card>
+        </div>
 
         {layers.map((layer, i) => (
-          <Card key={i} className="space-y-3 p-4">
+          <div key={i} className="space-y-3 rounded-lg border border-border bg-card p-4">
             <div className="flex items-center justify-between">
               <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t('boxShadow.layer')} {i + 1}
@@ -132,7 +132,7 @@ export function BoxShadowTab() {
                 <Label className="text-xs text-muted-foreground">{t('boxShadow.inset')}</Label>
               </div>
             </div>
-          </Card>
+          </div>
         ))}
 
         <Button type="button" variant="outline" size="sm" onClick={() => setLayers((prev) => [...prev, { ...DEFAULT_LAYER }])}>
@@ -142,10 +142,7 @@ export function BoxShadowTab() {
       </div>
 
       <div className="flex min-h-0 flex-col gap-4">
-        <Card className="flex flex-1 flex-col overflow-hidden">
-          <div className="border-b border-border/50 bg-muted/30 px-3 py-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{t('preview')}</Label>
-          </div>
+        <IOPanel label={t('preview')} className="flex-1" bodyClassName="flex flex-col">
           <div
             className="flex min-h-[220px] flex-1 items-center justify-center p-8"
             style={{
@@ -159,7 +156,7 @@ export function BoxShadowTab() {
               style={{ boxShadow: shadowValue }}
             />
           </div>
-        </Card>
+        </IOPanel>
         <CssOutput css={css} />
       </div>
     </div>
