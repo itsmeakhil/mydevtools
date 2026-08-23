@@ -178,6 +178,48 @@ export default function SettingsPage() {
                   </label>
                 </div>
               </div>
+
+              <div className="space-y-2 sm:w-[220px]">
+                <div className="flex h-5 items-center gap-2">
+                  <Globe className="h-4 w-4 shrink-0 text-muted-foreground" />
+                  <Label>{t('language.selectLanguage')}</Label>
+                </div>
+                <Select value={locale} onValueChange={handleLanguageChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('language.selectPlaceholder')} />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-lg">
+                    <SelectItem value="en">{t('language.languages.en')}</SelectItem>
+                    <SelectItem value="af">{t('language.languages.af')}</SelectItem>
+                    <SelectItem value="ar">{t('language.languages.ar')}</SelectItem>
+                    <SelectItem value="ca">{t('language.languages.ca')}</SelectItem>
+                    <SelectItem value="cs">{t('language.languages.cs')}</SelectItem>
+                    <SelectItem value="da">{t('language.languages.da')}</SelectItem>
+                    <SelectItem value="de">{t('language.languages.de')}</SelectItem>
+                    <SelectItem value="el">{t('language.languages.el')}</SelectItem>
+                    <SelectItem value="es">{t('language.languages.es')}</SelectItem>
+                    <SelectItem value="fa">{t('language.languages.fa')}</SelectItem>
+                    <SelectItem value="fr">{t('language.languages.fr')}</SelectItem>
+                    <SelectItem value="id">{t('language.languages.id')}</SelectItem>
+                    <SelectItem value="it">{t('language.languages.it')}</SelectItem>
+                    <SelectItem value="ja">{t('language.languages.ja')}</SelectItem>
+                    <SelectItem value="ko">{t('language.languages.ko')}</SelectItem>
+                    <SelectItem value="ms">{t('language.languages.ms')}</SelectItem>
+                    <SelectItem value="nb">{t('language.languages.nb')}</SelectItem>
+                    <SelectItem value="nl">{t('language.languages.nl')}</SelectItem>
+                    <SelectItem value="pl">{t('language.languages.pl')}</SelectItem>
+                    <SelectItem value="pt">{t('language.languages.pt')}</SelectItem>
+                    <SelectItem value="pt-BR">{t('language.languages.pt-BR')}</SelectItem>
+                    <SelectItem value="ru">{t('language.languages.ru')}</SelectItem>
+                    <SelectItem value="sv">{t('language.languages.sv')}</SelectItem>
+                    <SelectItem value="tr">{t('language.languages.tr')}</SelectItem>
+                    <SelectItem value="uk">{t('language.languages.uk')}</SelectItem>
+                    <SelectItem value="vi">{t('language.languages.vi')}</SelectItem>
+                    <SelectItem value="zh">{t('language.languages.zh')}</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">{t('language.helpText')}</p>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -245,62 +287,6 @@ export default function SettingsPage() {
                 }}
               />
             </div>
-          </CardContent>
-        </Card>
-
-        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-                <Globe className="h-4 w-4" />
-              </span>
-              {t('language.title')}
-            </CardTitle>
-            <CardDescription>
-              {t('language.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4 max-w-xs">
-              <Label>{t('language.selectLanguage')}</Label>
-              <Select value={locale} onValueChange={handleLanguageChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder={t('language.selectPlaceholder')} />
-                </SelectTrigger>
-                <SelectContent className="rounded-lg">
-                  <SelectItem value="en">{t('language.languages.en')}</SelectItem>
-                  <SelectItem value="af">{t('language.languages.af')}</SelectItem>
-                  <SelectItem value="ar">{t('language.languages.ar')}</SelectItem>
-                  <SelectItem value="ca">{t('language.languages.ca')}</SelectItem>
-                  <SelectItem value="cs">{t('language.languages.cs')}</SelectItem>
-                  <SelectItem value="da">{t('language.languages.da')}</SelectItem>
-                  <SelectItem value="de">{t('language.languages.de')}</SelectItem>
-                  <SelectItem value="el">{t('language.languages.el')}</SelectItem>
-                  <SelectItem value="es">{t('language.languages.es')}</SelectItem>
-                  <SelectItem value="fa">{t('language.languages.fa')}</SelectItem>
-                  <SelectItem value="fr">{t('language.languages.fr')}</SelectItem>
-                  <SelectItem value="id">{t('language.languages.id')}</SelectItem>
-                  <SelectItem value="it">{t('language.languages.it')}</SelectItem>
-                  <SelectItem value="ja">{t('language.languages.ja')}</SelectItem>
-                  <SelectItem value="ko">{t('language.languages.ko')}</SelectItem>
-                  <SelectItem value="ms">{t('language.languages.ms')}</SelectItem>
-                  <SelectItem value="nb">{t('language.languages.nb')}</SelectItem>
-                  <SelectItem value="nl">{t('language.languages.nl')}</SelectItem>
-                  <SelectItem value="pl">{t('language.languages.pl')}</SelectItem>
-                  <SelectItem value="pt">{t('language.languages.pt')}</SelectItem>
-                  <SelectItem value="pt-BR">{t('language.languages.pt-BR')}</SelectItem>
-                  <SelectItem value="ru">{t('language.languages.ru')}</SelectItem>
-                  <SelectItem value="sv">{t('language.languages.sv')}</SelectItem>
-                  <SelectItem value="tr">{t('language.languages.tr')}</SelectItem>
-                  <SelectItem value="uk">{t('language.languages.uk')}</SelectItem>
-                  <SelectItem value="vi">{t('language.languages.vi')}</SelectItem>
-                  <SelectItem value="zh">{t('language.languages.zh')}</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              {t('language.helpText')}
-            </p>
           </CardContent>
         </Card>
 
