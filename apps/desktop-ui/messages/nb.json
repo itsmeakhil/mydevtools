@@ -308,6 +308,22 @@
       "restoring": "Gjenoppretter…",
       "restoreSuccess": "Sikkerhetskopi gjenopprettet",
       "restoreError": "Gjenoppretting mislyktes — feil passfrase eller ugyldig fil"
+    },
+    "backupCodes": {
+      "title": "Sikkerhetskoder",
+      "description": "Engangskoder som gjenoppretter hvelvet hvis du glemmer hovedpassordet.",
+      "remaining": "{remaining} av {total} koder igjen",
+      "none": "Ingen sikkerhetskoder lagret.",
+      "hint": "Nye koder gjør alle eksisterende koder ugyldige.",
+      "passwordPlaceholder": "Hovedpassord",
+      "regenerateButton": "Generer nye koder",
+      "generating": "Genererer…",
+      "wrongPassword": "Feil hovedpassord",
+      "success": "Nye sikkerhetskoder generert",
+      "error": "Kunne ikke generere sikkerhetskoder",
+      "newCodesWarning": "Du kan ikke se dem igjen. Last ned eller kopier dem nå.",
+      "downloadButton": "Last ned",
+      "doneButton": "Jeg har lagret kodene"
     }
   },
   "Dashboard": {

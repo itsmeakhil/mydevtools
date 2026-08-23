@@ -308,6 +308,22 @@
       "restoring": "Restaurando…",
       "restoreSuccess": "Copia de seguridad restaurada",
       "restoreError": "La restauración falló — frase incorrecta o archivo de copia no válido"
+    },
+    "backupCodes": {
+      "title": "Códigos de respaldo",
+      "description": "Códigos de un solo uso que recuperan tu bóveda si olvidas la contraseña maestra.",
+      "remaining": "Quedan {remaining} de {total} códigos",
+      "none": "No hay códigos de respaldo guardados.",
+      "hint": "Generar un conjunto nuevo invalida todos los códigos existentes.",
+      "passwordPlaceholder": "Contraseña maestra",
+      "regenerateButton": "Generar códigos nuevos",
+      "generating": "Generando…",
+      "wrongPassword": "Contraseña maestra incorrecta",
+      "success": "Nuevos códigos de respaldo generados",
+      "error": "No se pudieron generar los códigos de respaldo",
+      "newCodesWarning": "No podrás volver a verlos. Descárgalos o cópialos ahora.",
+      "downloadButton": "Descargar",
+      "doneButton": "Ya guardé mis códigos"
     }
   },
   "Dashboard": {

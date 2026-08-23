@@ -179,6 +179,18 @@ mod tests {
         // Used codes no longer resolve
         let r = route(&state, "POST", "/api/v1/auth/backup-codes/lookup", Some(r#"{"codeId":"c1"}"#)).unwrap();
         assert_eq!(r.status, 404);
+        // Status counts used vs unused
+        let r = route(&state, "GET", "/api/v1/auth/backup-codes", None).unwrap();
+        assert_eq!(r.status, 200);
+        let v = body_json(&r);
+        assert_eq!(v["total"], 1);
+        assert_eq!(v["remaining"], 0);
+        // Re-storing replaces the whole set (regenerate from settings)
+        let fresh = r#"{"codes":[{"codeId":"n1","codeSalt":"s","encrypted":"e","iv":"i"},{"codeId":"n2","codeSalt":"s","encrypted":"e","iv":"i"}]}"#;
+        route(&state, "POST", "/api/v1/auth/backup-codes", Some(fresh)).unwrap();
+        let v = body_json(&route(&state, "GET", "/api/v1/auth/backup-codes", None).unwrap());
+        assert_eq!(v["total"], 2);
+        assert_eq!(v["remaining"], 2);
     }
 
     #[test]

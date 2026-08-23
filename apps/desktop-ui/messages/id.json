@@ -308,6 +308,22 @@
       "restoring": "Memulihkan…",
       "restoreSuccess": "Cadangan dipulihkan",
       "restoreError": "Pemulihan gagal — frasa sandi salah atau file cadangan tidak valid"
+    },
+    "backupCodes": {
+      "title": "Kode cadangan",
+      "description": "Kode sekali pakai untuk memulihkan brankas jika Anda lupa kata sandi utama.",
+      "remaining": "Tersisa {remaining} dari {total} kode",
+      "none": "Belum ada kode cadangan tersimpan.",
+      "hint": "Membuat set baru membatalkan semua kode yang ada.",
+      "passwordPlaceholder": "Kata sandi utama",
+      "regenerateButton": "Buat kode baru",
+      "generating": "Membuat…",
+      "wrongPassword": "Kata sandi utama salah",
+      "success": "Kode cadangan baru dibuat",
+      "error": "Gagal membuat kode cadangan",
+      "newCodesWarning": "Anda tidak dapat melihatnya lagi. Unduh atau salin sekarang.",
+      "downloadButton": "Unduh",
+      "doneButton": "Saya sudah menyimpan kode"
     }
   },
   "Dashboard": {

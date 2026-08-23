@@ -308,6 +308,22 @@
       "restoring": "復元中…",
       "restoreSuccess": "バックアップを復元しました",
       "restoreError": "復元に失敗しました — パスフレーズが違うか、無効なバックアップファイルです"
+    },
+    "backupCodes": {
+      "title": "バックアップコード",
+      "description": "マスターパスワードを忘れたときにボルトを復旧できる、1 回だけ使えるコードです。",
+      "remaining": "残り {remaining} / {total} コード",
+      "none": "バックアップコードは保存されていません。",
+      "hint": "新しく生成すると、既存のコードはすべて無効になります。",
+      "passwordPlaceholder": "マスターパスワード",
+      "regenerateButton": "新しいコードを生成",
+      "generating": "生成中…",
+      "wrongPassword": "マスターパスワードが違います",
+      "success": "新しいバックアップコードを生成しました",
+      "error": "バックアップコードを生成できませんでした",
+      "newCodesWarning": "この画面を離れると再表示できません。今すぐダウンロードまたはコピーしてください。",
+      "downloadButton": "ダウンロード",
+      "doneButton": "コードを保存しました"
     }
   },
   "Dashboard": {

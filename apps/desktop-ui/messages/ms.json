@@ -308,6 +308,22 @@
       "restoring": "Memulihkan…",
       "restoreSuccess": "Sandaran dipulihkan",
       "restoreError": "Pemulihan gagal — frasa laluan salah atau fail sandaran tidak sah"
+    },
+    "backupCodes": {
+      "title": "Kod sandaran",
+      "description": "Kod sekali guna untuk memulihkan peti besi anda jika terlupa kata laluan induk.",
+      "remaining": "{remaining} daripada {total} kod berbaki",
+      "none": "Tiada kod sandaran disimpan.",
+      "hint": "Menjana set baharu membatalkan semua kod sedia ada.",
+      "passwordPlaceholder": "Kata laluan induk",
+      "regenerateButton": "Jana kod baharu",
+      "generating": "Menjana…",
+      "wrongPassword": "Kata laluan induk salah",
+      "success": "Kod sandaran baharu dijana",
+      "error": "Gagal menjana kod sandaran",
+      "newCodesWarning": "Anda tidak boleh melihatnya lagi. Muat turun atau salin sekarang.",
+      "downloadButton": "Muat turun",
+      "doneButton": "Saya telah simpan kod saya"
     }
   },
   "Dashboard": {

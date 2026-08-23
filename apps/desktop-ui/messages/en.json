@@ -308,6 +308,22 @@
       "restoring": "Restoring…",
       "restoreSuccess": "Backup restored",
       "restoreError": "Restore failed — wrong passphrase or invalid backup file"
+    },
+    "backupCodes": {
+      "title": "Backup codes",
+      "description": "One-time codes that recover your vault if you forget your master password.",
+      "remaining": "{remaining} of {total} codes left",
+      "none": "No backup codes stored.",
+      "hint": "Generating a new set invalidates every existing code.",
+      "passwordPlaceholder": "Master password",
+      "regenerateButton": "Generate new codes",
+      "generating": "Generating…",
+      "wrongPassword": "Incorrect master password",
+      "success": "New backup codes generated",
+      "error": "Could not generate backup codes",
+      "newCodesWarning": "You cannot view these again. Download or copy them now.",
+      "downloadButton": "Download",
+      "doneButton": "I've saved my codes"
     }
   },
   "Dashboard": {

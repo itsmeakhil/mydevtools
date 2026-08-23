@@ -308,6 +308,22 @@
       "restoring": "Wird wiederhergestellt…",
       "restoreSuccess": "Backup wiederhergestellt",
       "restoreError": "Wiederherstellung fehlgeschlagen — falsche Passphrase oder ungültige Backup-Datei"
+    },
+    "backupCodes": {
+      "title": "Backup-Codes",
+      "description": "Einmalcodes, mit denen Sie Ihren Tresor wiederherstellen, wenn Sie Ihr Master-Passwort vergessen.",
+      "remaining": "Noch {remaining} von {total} Codes",
+      "none": "Keine Backup-Codes gespeichert.",
+      "hint": "Ein neuer Satz macht alle bestehenden Codes ungültig.",
+      "passwordPlaceholder": "Master-Passwort",
+      "regenerateButton": "Neue Codes erzeugen",
+      "generating": "Wird erzeugt…",
+      "wrongPassword": "Falsches Master-Passwort",
+      "success": "Neue Backup-Codes erzeugt",
+      "error": "Backup-Codes konnten nicht erzeugt werden",
+      "newCodesWarning": "Sie können sie nicht erneut ansehen. Laden Sie sie jetzt herunter oder kopieren Sie sie.",
+      "downloadButton": "Herunterladen",
+      "doneButton": "Ich habe meine Codes gespeichert"
     }
   },
   "Dashboard": {

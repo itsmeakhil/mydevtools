@@ -308,6 +308,22 @@
       "restoring": "Återställer…",
       "restoreSuccess": "Säkerhetskopia återställd",
       "restoreError": "Återställningen misslyckades — fel lösenfras eller ogiltig fil"
+    },
+    "backupCodes": {
+      "title": "Reservkoder",
+      "description": "Engångskoder som återställer ditt valv om du glömmer huvudlösenordet.",
+      "remaining": "{remaining} av {total} koder kvar",
+      "none": "Inga reservkoder sparade.",
+      "hint": "Nya koder gör alla befintliga koder ogiltiga.",
+      "passwordPlaceholder": "Huvudlösenord",
+      "regenerateButton": "Skapa nya koder",
+      "generating": "Skapar…",
+      "wrongPassword": "Fel huvudlösenord",
+      "success": "Nya reservkoder skapade",
+      "error": "Kunde inte skapa reservkoder",
+      "newCodesWarning": "Du kan inte se dem igen. Ladda ner eller kopiera dem nu.",
+      "downloadButton": "Ladda ner",
+      "doneButton": "Jag har sparat mina koder"
     }
   },
   "Dashboard": {

@@ -128,9 +128,20 @@ export async function lookupBackupCode(codeId: string): Promise<BackupCodeDataOu
 }
 
 export async function markBackupCodeUsed(codeId: string): Promise<void> {
-    await apiFetch("/api/backend/auth/backup-codes/use", {
+    const res = await apiFetch("/api/backend/auth/backup-codes/use", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ codeId }),
     })
+    if (!res.ok) {
+        throw new Error(`Failed to consume backup code (${res.status})`)
+    }
+}
+
+export type BackupCodeStatus = { total: number; remaining: number }
+
+export async function getBackupCodeStatus(): Promise<BackupCodeStatus> {
+    const res = await apiFetch("/api/backend/auth/backup-codes")
+    if (!res.ok) throw new Error(`Backup code status failed (${res.status})`)
+    return (await res.json()) as BackupCodeStatus
 }

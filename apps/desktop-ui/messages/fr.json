@@ -308,6 +308,22 @@
       "restoring": "Restauration…",
       "restoreSuccess": "Sauvegarde restaurée",
       "restoreError": "Échec de la restauration — phrase secrète incorrecte ou fichier non valide"
+    },
+    "backupCodes": {
+      "title": "Codes de secours",
+      "description": "Codes à usage unique pour récupérer votre coffre si vous oubliez votre mot de passe maître.",
+      "remaining": "{remaining} sur {total} codes restants",
+      "none": "Aucun code de secours enregistré.",
+      "hint": "Générer une nouvelle série invalide tous les codes existants.",
+      "passwordPlaceholder": "Mot de passe maître",
+      "regenerateButton": "Générer de nouveaux codes",
+      "generating": "Génération…",
+      "wrongPassword": "Mot de passe maître incorrect",
+      "success": "Nouveaux codes de secours générés",
+      "error": "Impossible de générer les codes de secours",
+      "newCodesWarning": "Vous ne pourrez plus les afficher. Téléchargez-les ou copiez-les maintenant.",
+      "downloadButton": "Télécharger",
+      "doneButton": "J'ai enregistré mes codes"
     }
   },
   "Dashboard": {

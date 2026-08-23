@@ -308,6 +308,22 @@
       "restoring": "Przywracanie…",
       "restoreSuccess": "Kopia zapasowa przywrócona",
       "restoreError": "Przywracanie nie powiodło się — błędne hasło lub nieprawidłowy plik kopii"
+    },
+    "backupCodes": {
+      "title": "Kody zapasowe",
+      "description": "Jednorazowe kody przywracające dostęp do sejfu, gdy zapomnisz hasła głównego.",
+      "remaining": "Pozostało {remaining} z {total} kodów",
+      "none": "Brak zapisanych kodów zapasowych.",
+      "hint": "Wygenerowanie nowego zestawu unieważnia wszystkie dotychczasowe kody.",
+      "passwordPlaceholder": "Hasło główne",
+      "regenerateButton": "Wygeneruj nowe kody",
+      "generating": "Generowanie…",
+      "wrongPassword": "Nieprawidłowe hasło główne",
+      "success": "Wygenerowano nowe kody zapasowe",
+      "error": "Nie udało się wygenerować kodów zapasowych",
+      "newCodesWarning": "Nie zobaczysz ich ponownie. Pobierz je lub skopiuj teraz.",
+      "downloadButton": "Pobierz",
+      "doneButton": "Zapisałem kody"
     }
   },
   "Dashboard": {

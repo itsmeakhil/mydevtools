@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
     AlertTriangle,
     CheckCircle2,
-    Copy,
     Download,
     Eye,
     EyeOff,
@@ -48,6 +47,7 @@ import {
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { calcStrength } from "./master-password-gate/password-strength"
 import { downloadBackupCodesFile } from "./master-password-gate/backup-codes-file"
+import { BackupCodesGrid } from "./master-password-gate/backup-codes-grid"
 import { Spinner, ErrorBanner } from "./master-password-gate/gate-helpers"
 
 // ── Gate modal ────────────────────────────────────────────────────────────────
@@ -77,7 +77,6 @@ export function MasterPasswordGate() {
     const [backupCodes, setBackupCodes] = useState<string[]>([])
     const [backupCodesAcknowledged, setBackupCodesAcknowledged] = useState(false)
     const [backupCodeInput, setBackupCodeInput] = useState("")
-    const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
     const strength = calcStrength(password)
     const confirmMismatch = confirmPassword.length > 0 && confirmPassword !== password
@@ -117,12 +116,6 @@ export function MasterPasswordGate() {
         setPassword("")
         setConfirmPassword("")
         setError("")
-    }
-
-    const copyCode = async (code: string, index: number) => {
-        await navigator.clipboard.writeText(code)
-        setCopiedIndex(index)
-        setTimeout(() => setCopiedIndex(null), 1500)
     }
 
     // ── form handlers ─────────────────────────────────────────────────────────
@@ -236,9 +229,14 @@ export function MasterPasswordGate() {
                 return
             }
 
-            await markBackupCodeUsed(codeId)
+            // Unlock first, burn the code second: a failed burn leaves a code
+            // the user can retry with, while burning first would spend it on an
+            // unlock that never happened.
             await unlockSecureVault(masterPassword)
             setKey(key)
+            await markBackupCodeUsed(codeId).catch((err) =>
+                console.error("[MasterPasswordGate] failed to consume backup code:", err),
+            )
             toast.success("Unlocked via backup code. That code is now consumed.")
         } catch (err: any) {
             console.error("[MasterPasswordGate] backup code unlock error:", err)
@@ -329,28 +327,7 @@ export function MasterPasswordGate() {
                                 </AlertDescription>
                             </Alert>
 
-                            <div className="grid grid-cols-2 gap-2">
-                                {backupCodes.map((code, i) => (
-                                    <button
-                                        key={i}
-                                        type="button"
-                                        onClick={() => copyCode(code, i)}
-                                        className="group flex cursor-pointer items-center gap-2 rounded-lg border border-border/60 bg-muted/40 px-3 py-2.5 transition-colors duration-150 hover:bg-muted"
-                                    >
-                                        <span className="w-4 shrink-0 text-xs text-muted-foreground/50">
-                                            {i + 1}
-                                        </span>
-                                        <span className="flex-1 font-mono text-xs tracking-wider text-foreground/80">
-                                            {code}
-                                        </span>
-                                        {copiedIndex === i ? (
-                                            <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
-                                        ) : (
-                                            <Copy className="h-3.5 w-3.5 shrink-0 text-muted-foreground/30 opacity-0 transition-opacity duration-150 group-hover:opacity-100" />
-                                        )}
-                                    </button>
-                                ))}
-                            </div>
+                            <BackupCodesGrid codes={backupCodes} />
 
                             <div className="flex gap-2.5">
                                 <Button

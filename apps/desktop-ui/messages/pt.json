@@ -308,6 +308,22 @@
       "restoring": "A restaurar…",
       "restoreSuccess": "Cópia de segurança restaurada",
       "restoreError": "O restauro falhou — frase de acesso errada ou ficheiro inválido"
+    },
+    "backupCodes": {
+      "title": "Códigos de recuperação",
+      "description": "Códigos de utilização única que recuperam o cofre se esquecer a palavra-passe principal.",
+      "remaining": "Restam {remaining} de {total} códigos",
+      "none": "Nenhum código de recuperação guardado.",
+      "hint": "Gerar um novo conjunto invalida todos os códigos existentes.",
+      "passwordPlaceholder": "Palavra-passe principal",
+      "regenerateButton": "Gerar novos códigos",
+      "generating": "A gerar…",
+      "wrongPassword": "Palavra-passe principal incorreta",
+      "success": "Novos códigos de recuperação gerados",
+      "error": "Não foi possível gerar os códigos",
+      "newCodesWarning": "Não poderá vê-los novamente. Transfira-os ou copie-os agora.",
+      "downloadButton": "Transferir",
+      "doneButton": "Já guardei os meus códigos"
     }
   },
   "Dashboard": {

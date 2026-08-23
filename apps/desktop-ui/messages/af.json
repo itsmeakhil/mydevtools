@@ -308,6 +308,22 @@
       "restoring": "Herstel tans…",
       "restoreSuccess": "Rugsteun herstel",
       "restoreError": "Herstel het misluk — verkeerde wagfrase of ongeldige rugsteunlêer"
+    },
+    "backupCodes": {
+      "title": "Rugsteunkodes",
+      "description": "Eenmalige kodes wat jou kluis herstel as jy jou meesterwagwoord vergeet.",
+      "remaining": "{remaining} van {total} kodes oor",
+      "none": "Geen rugsteunkodes gestoor nie.",
+      "hint": "'n Nuwe stel maak alle bestaande kodes ongeldig.",
+      "passwordPlaceholder": "Meesterwagwoord",
+      "regenerateButton": "Genereer nuwe kodes",
+      "generating": "Genereer tans…",
+      "wrongPassword": "Verkeerde meesterwagwoord",
+      "success": "Nuwe rugsteunkodes gegenereer",
+      "error": "Kon nie rugsteunkodes genereer nie",
+      "newCodesWarning": "Jy kan dit nie weer sien nie. Laai dit af of kopieer dit nou.",
+      "downloadButton": "Laai af",
+      "doneButton": "Ek het my kodes gestoor"
     }
   },
   "Dashboard": {

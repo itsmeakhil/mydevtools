@@ -308,6 +308,22 @@
       "restoring": "복원 중…",
       "restoreSuccess": "백업이 복원되었습니다",
       "restoreError": "복원에 실패했습니다 — 잘못된 암호 문구이거나 유효하지 않은 백업 파일입니다"
+    },
+    "backupCodes": {
+      "title": "백업 코드",
+      "description": "마스터 비밀번호를 잊었을 때 보관함을 복구하는 일회용 코드입니다.",
+      "remaining": "{total}개 중 {remaining}개 남음",
+      "none": "저장된 백업 코드가 없습니다.",
+      "hint": "새로 생성하면 기존 코드는 모두 무효가 됩니다.",
+      "passwordPlaceholder": "마스터 비밀번호",
+      "regenerateButton": "새 코드 생성",
+      "generating": "생성 중…",
+      "wrongPassword": "마스터 비밀번호가 올바르지 않습니다",
+      "success": "새 백업 코드를 생성했습니다",
+      "error": "백업 코드를 생성하지 못했습니다",
+      "newCodesWarning": "다시 볼 수 없습니다. 지금 다운로드하거나 복사하세요.",
+      "downloadButton": "다운로드",
+      "doneButton": "코드를 저장했습니다"
     }
   },
   "Dashboard": {

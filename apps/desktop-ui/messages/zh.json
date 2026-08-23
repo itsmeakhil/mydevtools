@@ -308,6 +308,22 @@
       "restoring": "正在恢复…",
       "restoreSuccess": "备份已恢复",
       "restoreError": "恢复失败 — 口令错误或备份文件无效"
+    },
+    "backupCodes": {
+      "title": "备用代码",
+      "description": "一次性代码，可在忘记主密码时恢复保险库。",
+      "remaining": "剩余 {remaining} / {total} 个代码",
+      "none": "尚未保存备用代码。",
+      "hint": "生成新代码会使现有代码全部失效。",
+      "passwordPlaceholder": "主密码",
+      "regenerateButton": "生成新代码",
+      "generating": "生成中…",
+      "wrongPassword": "主密码不正确",
+      "success": "已生成新的备用代码",
+      "error": "无法生成备用代码",
+      "newCodesWarning": "离开后将无法再次查看，请立即下载或复制。",
+      "downloadButton": "下载",
+      "doneButton": "我已保存代码"
     }
   },
   "Dashboard": {

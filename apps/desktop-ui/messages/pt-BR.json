@@ -308,6 +308,22 @@
       "restoring": "Restaurando…",
       "restoreSuccess": "Backup restaurado",
       "restoreError": "A restauração falhou — senha incorreta ou arquivo de backup inválido"
+    },
+    "backupCodes": {
+      "title": "Códigos de backup",
+      "description": "Códigos de uso único que recuperam seu cofre se você esquecer a senha mestra.",
+      "remaining": "Restam {remaining} de {total} códigos",
+      "none": "Nenhum código de backup salvo.",
+      "hint": "Gerar um novo conjunto invalida todos os códigos existentes.",
+      "passwordPlaceholder": "Senha mestra",
+      "regenerateButton": "Gerar novos códigos",
+      "generating": "Gerando…",
+      "wrongPassword": "Senha mestra incorreta",
+      "success": "Novos códigos de backup gerados",
+      "error": "Não foi possível gerar os códigos de backup",
+      "newCodesWarning": "Você não poderá vê-los novamente. Baixe ou copie agora.",
+      "downloadButton": "Baixar",
+      "doneButton": "Salvei meus códigos"
     }
   },
   "Dashboard": {

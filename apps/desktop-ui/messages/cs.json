@@ -308,6 +308,22 @@
       "restoring": "Obnovování…",
       "restoreSuccess": "Záloha obnovena",
       "restoreError": "Obnovení se nezdařilo — špatné heslo nebo neplatný soubor zálohy"
+    },
+    "backupCodes": {
+      "title": "Záložní kódy",
+      "description": "Jednorázové kódy, které obnoví přístup k trezoru, když zapomenete hlavní heslo.",
+      "remaining": "Zbývá {remaining} z {total} kódů",
+      "none": "Nejsou uloženy žádné záložní kódy.",
+      "hint": "Vygenerování nové sady zneplatní všechny stávající kódy.",
+      "passwordPlaceholder": "Hlavní heslo",
+      "regenerateButton": "Vygenerovat nové kódy",
+      "generating": "Generuji…",
+      "wrongPassword": "Nesprávné hlavní heslo",
+      "success": "Nové záložní kódy byly vygenerovány",
+      "error": "Záložní kódy se nepodařilo vygenerovat",
+      "newCodesWarning": "Znovu je již neuvidíte. Stáhněte si je nebo je zkopírujte.",
+      "downloadButton": "Stáhnout",
+      "doneButton": "Kódy jsem uložil"
     }
   },
   "Dashboard": {

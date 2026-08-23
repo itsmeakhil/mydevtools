@@ -308,6 +308,22 @@
       "restoring": "Gendanner…",
       "restoreSuccess": "Sikkerhedskopi gendannet",
       "restoreError": "Gendannelse mislykkedes — forkert adgangssætning eller ugyldig fil"
+    },
+    "backupCodes": {
+      "title": "Sikkerhedskoder",
+      "description": "Engangskoder, der gendanner din boks, hvis du glemmer din hovedadgangskode.",
+      "remaining": "{remaining} af {total} koder tilbage",
+      "none": "Ingen sikkerhedskoder gemt.",
+      "hint": "Nye koder ugyldiggør alle eksisterende koder.",
+      "passwordPlaceholder": "Hovedadgangskode",
+      "regenerateButton": "Generer nye koder",
+      "generating": "Genererer…",
+      "wrongPassword": "Forkert hovedadgangskode",
+      "success": "Nye sikkerhedskoder genereret",
+      "error": "Kunne ikke generere sikkerhedskoder",
+      "newCodesWarning": "Du kan ikke se dem igen. Download eller kopiér dem nu.",
+      "downloadButton": "Download",
+      "doneButton": "Jeg har gemt mine koder"
     }
   },
   "Dashboard": {

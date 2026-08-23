@@ -308,6 +308,22 @@
       "restoring": "Geri yükleniyor…",
       "restoreSuccess": "Yedek geri yüklendi",
       "restoreError": "Geri yükleme başarısız — yanlış parola veya geçersiz yedek dosyası"
+    },
+    "backupCodes": {
+      "title": "Yedek kodlar",
+      "description": "Ana parolanızı unutursanız kasanızı kurtaran tek kullanımlık kodlar.",
+      "remaining": "{total} koddan {remaining} tanesi kaldı",
+      "none": "Kayıtlı yedek kod yok.",
+      "hint": "Yeni kod üretmek mevcut tüm kodları geçersiz kılar.",
+      "passwordPlaceholder": "Ana parola",
+      "regenerateButton": "Yeni kod üret",
+      "generating": "Üretiliyor…",
+      "wrongPassword": "Ana parola yanlış",
+      "success": "Yeni yedek kodlar üretildi",
+      "error": "Yedek kodlar üretilemedi",
+      "newCodesWarning": "Bunları tekrar göremezsiniz. Şimdi indirin veya kopyalayın.",
+      "downloadButton": "İndir",
+      "doneButton": "Kodlarımı kaydettim"
     }
   },
   "Dashboard": {

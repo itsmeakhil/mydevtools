@@ -308,6 +308,22 @@
       "restoring": "Đang khôi phục…",
       "restoreSuccess": "Đã khôi phục bản sao lưu",
       "restoreError": "Khôi phục thất bại — sai cụm mật khẩu hoặc tệp sao lưu không hợp lệ"
+    },
+    "backupCodes": {
+      "title": "Mã dự phòng",
+      "description": "Mã dùng một lần để khôi phục kho lưu trữ nếu bạn quên mật khẩu chính.",
+      "remaining": "Còn {remaining} trong {total} mã",
+      "none": "Chưa lưu mã dự phòng nào.",
+      "hint": "Tạo bộ mã mới sẽ vô hiệu hóa tất cả mã hiện có.",
+      "passwordPlaceholder": "Mật khẩu chính",
+      "regenerateButton": "Tạo mã mới",
+      "generating": "Đang tạo…",
+      "wrongPassword": "Mật khẩu chính không đúng",
+      "success": "Đã tạo mã dự phòng mới",
+      "error": "Không thể tạo mã dự phòng",
+      "newCodesWarning": "Bạn sẽ không xem lại được. Hãy tải xuống hoặc sao chép ngay.",
+      "downloadButton": "Tải xuống",
+      "doneButton": "Tôi đã lưu mã"
     }
   },
   "Dashboard": {

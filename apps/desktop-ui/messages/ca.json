@@ -308,6 +308,22 @@
       "restoring": "S'està restaurant…",
       "restoreSuccess": "Còpia de seguretat restaurada",
       "restoreError": "La restauració ha fallat — contrasenya incorrecta o fitxer de còpia no vàlid"
+    },
+    "backupCodes": {
+      "title": "Codis de recuperació",
+      "description": "Codis d'un sol ús que recuperen la teva caixa forta si oblides la contrasenya mestra.",
+      "remaining": "Queden {remaining} de {total} codis",
+      "none": "No hi ha cap codi de recuperació desat.",
+      "hint": "Generar un conjunt nou invalida tots els codis existents.",
+      "passwordPlaceholder": "Contrasenya mestra",
+      "regenerateButton": "Genera codis nous",
+      "generating": "S'estan generant…",
+      "wrongPassword": "Contrasenya mestra incorrecta",
+      "success": "S'han generat codis nous",
+      "error": "No s'han pogut generar els codis",
+      "newCodesWarning": "No els podràs tornar a veure. Descarrega'ls o copia'ls ara.",
+      "downloadButton": "Baixa",
+      "doneButton": "Ja he desat els codis"
     }
   },
   "Dashboard": {

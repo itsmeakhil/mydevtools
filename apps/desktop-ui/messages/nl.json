@@ -308,6 +308,22 @@
       "restoring": "Herstellen…",
       "restoreSuccess": "Back-up hersteld",
       "restoreError": "Herstellen mislukt — verkeerde wachtwoordzin of ongeldig back-upbestand"
+    },
+    "backupCodes": {
+      "title": "Back-upcodes",
+      "description": "Eenmalige codes waarmee je je kluis herstelt als je je hoofdwachtwoord vergeet.",
+      "remaining": "Nog {remaining} van {total} codes",
+      "none": "Geen back-upcodes opgeslagen.",
+      "hint": "Een nieuwe set maakt alle bestaande codes ongeldig.",
+      "passwordPlaceholder": "Hoofdwachtwoord",
+      "regenerateButton": "Nieuwe codes genereren",
+      "generating": "Genereren…",
+      "wrongPassword": "Onjuist hoofdwachtwoord",
+      "success": "Nieuwe back-upcodes gegenereerd",
+      "error": "Back-upcodes genereren mislukt",
+      "newCodesWarning": "Je kunt ze niet opnieuw bekijken. Download of kopieer ze nu.",
+      "downloadButton": "Downloaden",
+      "doneButton": "Ik heb mijn codes opgeslagen"
     }
   },
   "Dashboard": {

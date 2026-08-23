@@ -308,6 +308,22 @@
       "restoring": "Ripristino…",
       "restoreSuccess": "Backup ripristinato",
       "restoreError": "Ripristino non riuscito — passphrase errata o file di backup non valido"
+    },
+    "backupCodes": {
+      "title": "Codici di backup",
+      "description": "Codici monouso che recuperano la cassaforte se dimentichi la password principale.",
+      "remaining": "{remaining} di {total} codici rimasti",
+      "none": "Nessun codice di backup salvato.",
+      "hint": "Generare nuovi codici invalida tutti quelli esistenti.",
+      "passwordPlaceholder": "Password principale",
+      "regenerateButton": "Genera nuovi codici",
+      "generating": "Generazione…",
+      "wrongPassword": "Password principale errata",
+      "success": "Nuovi codici di backup generati",
+      "error": "Impossibile generare i codici di backup",
+      "newCodesWarning": "Non potrai più visualizzarli. Scaricali o copiali ora.",
+      "downloadButton": "Scarica",
+      "doneButton": "Ho salvato i codici"
     }
   },
   "Dashboard": {

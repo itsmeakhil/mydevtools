@@ -19,6 +19,7 @@ import { ProfileCard } from '@/components/settings/profile-card'
 import { AppVersionLabel } from '@/components/desktop/app-version-label'
 import { FactoryResetCard } from '@/components/desktop/factory-reset-card'
 import { BackupRestoreCard } from '@/components/desktop/backup-restore-card'
+import { BackupCodesCard } from '@/components/settings/backup-codes-card'
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { Briefcase } from 'lucide-react'
 
@@ -304,6 +305,8 @@ export default function SettingsPage() {
         </Card>
 
         <AppVersionLabel />
+
+        <BackupCodesCard />
 
         <BackupRestoreCard />
 
