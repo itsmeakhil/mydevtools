@@ -42,6 +42,7 @@ import { getFileType, isPreviewable } from "@/components/s3-drive/file-types"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import {
   baseName,
+  blobMime,
   buildFolderTree,
   joinDir,
   looksLikeText,
@@ -68,6 +69,7 @@ import {
   type SecureFilesSettings,
 } from "@/lib/secure-files-api"
 import { FolderTree } from "./folder-tree"
+import { isThumbnailable, useThumbnails } from "./use-thumbnails"
 import { cn } from "@/lib/utils"
 import { safeGetItem, safeGetJSON, safeSetItem, safeSetJSON } from "@/lib/safe-storage"
 
@@ -105,15 +107,6 @@ function findNode(root: FolderNode, path: string): FolderNode | null {
     if (path.startsWith(`${c.path}/`)) return findNode(c, path)
   }
   return null
-}
-
-function blobMime(fileType: string, name: string): string {
-  const ext = name.split(".").pop()?.toLowerCase() ?? ""
-  if (fileType === "pdf") return "application/pdf"
-  if (fileType === "image") return ext === "svg" ? "image/svg+xml" : `image/${ext === "jpg" ? "jpeg" : ext}`
-  if (fileType === "video") return `video/${ext}`
-  if (fileType === "audio") return `audio/${ext}`
-  return "application/octet-stream"
 }
 
 type PathDialogState = {
@@ -419,12 +412,22 @@ export function SecureFilesTool() {
   )
 
   const LIST_ROW_H = 36
-  const GRID_ROW_H = 128
+  const GRID_ROW_H = 152
   const listCols = "grid-cols-[minmax(0,1fr)_6rem_2.5rem] md:grid-cols-[minmax(0,1fr)_6rem_8rem_2.5rem]"
   const cols = view === "grid" ? Math.max(1, Math.floor((viewport.w - 24) / 124)) : 1
   const rowH = view === "grid" ? GRID_ROW_H : LIST_ROW_H
   const rowCount = Math.ceil(items.length / cols)
   const [startRow, endRow] = visibleRange(scrollTop, viewport.h, rowH, rowCount)
+
+  // Thumbnails are decrypted for on-screen tiles only.
+  const visibleFiles = useMemo(
+    () =>
+      view === "grid"
+        ? items.slice(startRow * cols, endRow * cols).flatMap((it) => (it.kind === "file" ? [it.file] : []))
+        : [],
+    [items, startRow, endRow, cols, view],
+  )
+  const thumbs = useThumbnails(visibleFiles, view === "grid")
 
   const listRow = (it: ViewItem) => {
     const cell = "flex h-full min-w-0 items-center"
@@ -459,18 +462,27 @@ export function SecureFilesTool() {
     const isFolder = it.kind === "folder"
     const key = isFolder ? it.folder.path : it.file.id
     const name = isFolder ? it.folder.name : it.file.name
+    const thumb = isFolder ? undefined : thumbs.get(it.file.id)
     return (
       <div key={key} className="group relative min-w-0">
         <button
           type="button"
-          className="flex h-full w-full flex-col items-center gap-1.5 rounded-lg p-3 pt-4 transition-colors hover:bg-muted/60"
+          className="flex h-full w-full flex-col items-center gap-1.5 rounded-lg p-2 pt-3 transition-colors hover:bg-muted/60"
           onClick={() => (isFolder ? setCurrentDir(it.folder.path) : openPreview(it.file))}
         >
-          {isFolder ? (
-            <IconFolder className="size-10 text-amber-500" strokeWidth={1.5} />
-          ) : (
-            <FileIconComp type={getFileType(name)} className="size-10" />
-          )}
+          <span className="flex h-[4.5rem] w-full items-center justify-center overflow-hidden rounded-md bg-muted/40">
+            {isFolder ? (
+              <IconFolder className="size-10 text-amber-500" strokeWidth={1.5} />
+            ) : thumb ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={thumb} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
+            ) : (
+              <FileIconComp
+                type={getFileType(name)}
+                className={cn("size-10", !isFolder && isThumbnailable(it.file) && "animate-pulse")}
+              />
+            )}
+          </span>
           <span className="w-full truncate text-center text-xs" title={name}>{name}</span>
           {!isFolder && <span className="text-[10px] tabular-nums text-muted-foreground">{formatBytes(it.file.size)}</span>}
         </button>

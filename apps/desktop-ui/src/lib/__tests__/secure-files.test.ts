@@ -1,4 +1,4 @@
-import { buildFolderTree, joinDir, looksLikeText, parentDir, visibleRange, type SecureFileEntry } from "../secure-files"
+import { blobMime, buildFolderTree, joinDir, looksLikeText, parentDir, visibleRange, type SecureFileEntry } from "../secure-files"
 
 const f = (name: string, dir: string): SecureFileEntry => ({ id: name, name, dir, size: 1, mtime: 0, importedAt: 0 })
 
@@ -34,6 +34,16 @@ describe("visibleRange", () => {
     expect(s).toBeLessThanOrEqual(e)
     expect(visibleRange(0, 600, 36, 0)).toEqual([0, 0])
     expect(visibleRange(0, 600, 36, 5)).toEqual([0, 5])
+  })
+})
+
+describe("blobMime", () => {
+  it("maps names to media types the webview understands", () => {
+    expect(blobMime("image", "a.jpg")).toBe("image/jpeg")
+    expect(blobMime("image", "a.PNG")).toBe("image/png")
+    expect(blobMime("image", "logo.svg")).toBe("image/svg+xml")
+    expect(blobMime("pdf", "doc.pdf")).toBe("application/pdf")
+    expect(blobMime("file", "secrets.env")).toBe("application/octet-stream")
   })
 })
 

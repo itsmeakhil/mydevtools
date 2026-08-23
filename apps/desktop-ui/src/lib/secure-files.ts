@@ -61,6 +61,16 @@ export function buildFolderTree(files: SecureFileEntry[], extraDirs: Iterable<st
   return root
 }
 
+/** Blob MIME for a decrypted payload, derived from the name (never stored). */
+export function blobMime(fileType: string, name: string): string {
+  const ext = name.split(".").pop()?.toLowerCase() ?? ""
+  if (fileType === "pdf") return "application/pdf"
+  if (fileType === "image") return ext === "svg" ? "image/svg+xml" : `image/${ext === "jpg" ? "jpeg" : ext}`
+  if (fileType === "video") return `video/${ext}`
+  if (fileType === "audio") return `audio/${ext}`
+  return "application/octet-stream"
+}
+
 /** Visible `[start, end)` row range for a fixed-row-height virtual list. */
 export function visibleRange(
   scrollTop: number,
