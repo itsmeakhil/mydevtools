@@ -1,0 +1,89 @@
+/**
+ * Secure Files — pure helpers (no I/O). Logical folders are just the `dir`
+ * prefix carried in each file's encrypted metadata; the tree is derived.
+ */
+
+export type SecureFileEntry = {
+  id: string
+  name: string
+  /** Logical folder, `"a/b"` or `""` for root. */
+  dir: string
+  size: number
+  mtime: number
+  importedAt: number
+}
+
+export type FolderNode = {
+  name: string
+  /** Full logical path, `""` for root. */
+  path: string
+  children: FolderNode[]
+  files: SecureFileEntry[]
+}
+
+export function joinDir(base: string, name: string): string {
+  return base ? `${base}/${name}` : name
+}
+
+export function parentDir(dir: string): string {
+  const i = dir.lastIndexOf("/")
+  return i === -1 ? "" : dir.slice(0, i)
+}
+
+export function baseName(dir: string): string {
+  return dir.slice(dir.lastIndexOf("/") + 1)
+}
+
+/** Build the folder tree from file dirs plus any empty (not yet populated) dirs. */
+export function buildFolderTree(files: SecureFileEntry[], extraDirs: Iterable<string> = []): FolderNode {
+  const root: FolderNode = { name: "", path: "", children: [], files: [] }
+  const byPath = new Map<string, FolderNode>([["", root]])
+
+  const ensure = (dir: string): FolderNode => {
+    const hit = byPath.get(dir)
+    if (hit) return hit
+    const parent = ensure(parentDir(dir))
+    const node: FolderNode = { name: baseName(dir), path: dir, children: [], files: [] }
+    parent.children.push(node)
+    byPath.set(dir, node)
+    return node
+  }
+
+  for (const dir of extraDirs) if (dir) ensure(dir)
+  for (const f of files) ensure(f.dir).files.push(f)
+
+  const sortNode = (n: FolderNode) => {
+    n.children.sort((a, b) => a.name.localeCompare(b.name))
+    n.files.sort((a, b) => a.name.localeCompare(b.name))
+    n.children.forEach(sortNode)
+  }
+  sortNode(root)
+  return root
+}
+
+/** Visible `[start, end)` row range for a fixed-row-height virtual list. */
+export function visibleRange(
+  scrollTop: number,
+  viewportH: number,
+  rowH: number,
+  total: number,
+  overscan = 6,
+): [number, number] {
+  if (total === 0 || rowH <= 0) return [0, 0]
+  const start = Math.max(0, Math.floor(scrollTop / rowH) - overscan)
+  const end = Math.min(total, Math.ceil((scrollTop + viewportH) / rowH) + overscan)
+  return [start, end]
+}
+
+/** Sniff text vs binary so `.env`, `.pem`, extension-less files preview as text. */
+export function looksLikeText(bytes: Uint8Array): boolean {
+  const sample = bytes.subarray(0, 8192)
+  if (sample.length === 0) return true
+  if (sample.includes(0)) return false
+  try {
+    new TextDecoder("utf-8", { fatal: true }).decode(sample)
+    return true
+  } catch {
+    return false
+  }
+}

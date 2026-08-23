@@ -1,6 +1,7 @@
 import {
   CheckSquare,
   FileText,
+  FolderLock,
   Lock,
   Bookmark,
   Globe,
@@ -76,6 +77,7 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/to-do': { title: 'Tasks', icon: CheckSquare },
   '/app/notes': { title: 'Notes', icon: FileText },
   '/app/password-manager': { title: 'Password Manager', icon: Lock },
+  '/app/secure-files': { title: 'Files', icon: FolderLock, namespace: 'SecureFiles' },
   '/app/environment-manager': { title: 'Environment Manager', icon: FileCode2, namespace: 'EnvironmentManager' },
   '/app/api-keys': { title: 'API Keys', icon: Key },
   '/app/bookmarks': { title: 'Bookmarks', icon: Bookmark },

@@ -76,7 +76,8 @@
     "tokenCounter": "Token-räknare",
     "webhookTester": "Webhook-testare",
     "websocketTester": "WebSocket-testare",
-    "whoisLookup": "Whois-uppslag"
+    "whoisLookup": "Whois-uppslag",
+    "secureFiles": "Files"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -635,6 +636,10 @@
       "whoisLookup": {
         "title": "Whois-uppslag",
         "description": "Slå upp registreringsuppgifter för domäner och IP via RDAP."
+      },
+      "secureFiles": {
+        "title": "Files",
+        "description": "Encrypt files and folders into masked .mydt objects; browse and preview them after unlocking."
       }
     },
     "tabs": {
@@ -2278,7 +2283,8 @@
       "responseCopied": "Svar kopierat till urklipp",
       "codeCopied": "Kod kopierad till urklipp",
       "copyFailed": "Kopiering till urklipp misslyckades",
-      "curlCopied": "cURL-kommando kopierat"
+      "curlCopied": "cURL-kommando kopierat",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Samlingar",
@@ -2448,7 +2454,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5211,5 +5226,69 @@
       "accept": "Dela anonymt",
       "decline": "Nej tack"
     }
+  },
+  "SecureFiles": {
+    "title": "Files",
+    "subtitle": "Files that stay private until you unlock them — encrypted on your device, masked on disk",
+    "desktopOnly": "Secure Files is available in the desktop app.",
+    "allFiles": "All files",
+    "breadcrumb": "Folder path",
+    "addFiles": "Add files",
+    "addFolder": "Add folder",
+    "newFolder": "New folder",
+    "lock": "Lock",
+    "settings": "Storage settings",
+    "storageFolder": "Storage folder",
+    "notSet": "Not set",
+    "chooseFolder": "Choose folder",
+    "changeFolder": "Change folder…",
+    "chooseFolderTitle": "Choose where encrypted files are stored",
+    "chooseFolderBody": "Pick any folder on this device or an external drive. Outside MyDevTools it only ever contains masked .mydt files.",
+    "changeFolderTitle": "Move encrypted files?",
+    "changeFolderBody": "All .mydt files will be moved from the current storage folder into the one you pick next.",
+    "folderSet": "Storage folder set",
+    "movedCount": "Moved {count} encrypted files",
+    "importedCount": "Encrypted {count} files",
+    "emptyTitle": "No files here yet",
+    "emptyBody": "Add files or a whole folder. Each file is encrypted into a .mydt object with a random name; the original name, type and contents are only visible here.",
+    "name": "Name",
+    "size": "Size",
+    "modified": "Modified",
+    "actions": "Actions",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "preview": "Preview",
+    "noPreview": "No preview for this file type — export it to open it in another app.",
+    "export": "Export",
+    "exportWarningTitle": "Export a decrypted copy?",
+    "exportWarningBody": "The file will be written unencrypted to the location you choose. Anything on that device can read it.",
+    "exported": "Decrypted copy exported",
+    "replace": "Replace contents…",
+    "replaced": "File contents replaced",
+    "rename": "Rename",
+    "fileName": "File name",
+    "move": "Move to folder",
+    "targetFolder": "Folder",
+    "targetFolderHint": "Use slashes for nested folders, e.g. project/config. Leave empty for the top level.",
+    "folderName": "Folder name",
+    "delete": "Delete",
+    "deleted": "File deleted",
+    "deletedCount": "Deleted {count} files",
+    "deleteFileTitle": "Delete this file?",
+    "deleteFileBody": "\"{name}\" will be permanently removed from the encrypted storage folder.",
+    "deleteFolderTitle": "Delete this folder?",
+    "deleteFolderBody": "Every file under \"{dir}\" will be permanently removed from the encrypted storage folder.",
+    "unreadableCount": "{count} files in the storage folder could not be read",
+    "unreadableHint": "They were encrypted with a different master password, belong to another vault, or are corrupted.",
+    "footerNote": "Files up to 20 MB. Encrypted with Argon2id + XChaCha20-Poly1305; the key lives in memory only while the vault is unlocked.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "folderMissingTitle": "Storage folder not found",
+    "folderMissingBody": "\"{dir}\" is not available — it may be on an unplugged drive or belong to a restored backup from another machine. Reconnect it, or choose a new folder.",
+    "dismiss": "Dismiss",
+    "viewGrid": "Grid view",
+    "viewList": "List view",
+    "emptyFolderAdded": "Folder added — it had no files to encrypt",
+    "importFolder": "Import folder"
   }
 }

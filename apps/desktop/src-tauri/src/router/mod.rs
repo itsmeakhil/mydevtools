@@ -8,6 +8,7 @@ pub mod json_formatter;
 pub mod master_vault;
 pub mod notes;
 pub mod preferences;
+pub mod secure_files;
 pub mod snippets;
 pub mod stubs;
 pub mod tasks;
@@ -127,6 +128,9 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
     }
     if let Some(rest) = rel.strip_prefix("/user-preferences") {
         return preferences::handle(state, method, rest, query, body);
+    }
+    if let Some(rest) = rel.strip_prefix("/secure-files") {
+        return secure_files::handle(state, method, rest, body);
     }
 
     stubs::handle(method, path)

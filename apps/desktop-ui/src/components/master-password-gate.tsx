@@ -43,6 +43,7 @@ import {
     storeBackupCodes,
     lookupBackupCode,
     markBackupCodeUsed,
+    unlockSecureVault,
 } from "@/lib/global-vault-api"
 import { useMasterKeyStore } from "@/store/master-key-store"
 import { calcStrength } from "./master-password-gate/password-strength"
@@ -154,6 +155,7 @@ export function MasterPasswordGate() {
             )
             await storeBackupCodes(encryptedCodes)
 
+            await unlockSecureVault(password)
             setKey(key)
             setBackupCodes(codes)
             resetForm()
@@ -186,6 +188,7 @@ export function MasterPasswordGate() {
             }
 
             if (valid) {
+                await unlockSecureVault(password)
                 setKey(key)
                 resetForm()
             } else {
@@ -234,6 +237,7 @@ export function MasterPasswordGate() {
             }
 
             await markBackupCodeUsed(codeId)
+            await unlockSecureVault(masterPassword)
             setKey(key)
             toast.success("Unlocked via backup code. That code is now consumed.")
         } catch (err: any) {

@@ -11,6 +11,7 @@
  */
 
 import { apiFetch } from "./desktop/api-fetch"
+import { isDesktop } from "./desktop/is-desktop"
 
 export type KeyVerifier = {
     encrypted: string
@@ -59,6 +60,33 @@ export async function setupMasterVault(
         throw new Error(detail || `Failed to setup master vault (${res.status})`)
     }
     return (await res.json()) as MasterVaultOut
+}
+
+// ── Secure Files KEK (desktop only) ───────────────────────────────────────────
+
+/**
+ * After the webview has verified the master password, hand it to Rust once so
+ * Secure Files can derive its own Argon2id key (held in memory, never stored).
+ * Never blocks the webview unlock — a failure only leaves Secure Files locked.
+ */
+export async function unlockSecureVault(password: string): Promise<void> {
+    if (!isDesktop()) return
+    try {
+        const res = await apiFetch("/api/backend/auth/master-vault/unlock", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password }),
+        })
+        if (!res.ok) console.warn("[secure-files] unlock failed:", res.status)
+    } catch (err) {
+        console.warn("[secure-files] unlock failed:", err)
+    }
+}
+
+/** Drop the Rust-side Secure Files key. Fire-and-forget. */
+export function lockSecureVault(): void {
+    if (!isDesktop()) return
+    void apiFetch("/api/backend/auth/master-vault/lock", { method: "POST" }).catch(() => {})
 }
 
 // ── Backup codes ──────────────────────────────────────────────────────────────

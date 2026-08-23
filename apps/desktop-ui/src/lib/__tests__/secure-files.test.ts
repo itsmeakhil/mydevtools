@@ -1,0 +1,47 @@
+import { buildFolderTree, joinDir, looksLikeText, parentDir, visibleRange, type SecureFileEntry } from "../secure-files"
+
+const f = (name: string, dir: string): SecureFileEntry => ({ id: name, name, dir, size: 1, mtime: 0, importedAt: 0 })
+
+describe("buildFolderTree", () => {
+  it("derives nested folders from file dirs and keeps empty extra dirs", () => {
+    const tree = buildFolderTree(
+      [f("z.txt", ""), f("a.txt", "proj/src"), f("b.txt", "proj"), f("c.txt", "proj/src")],
+      ["proj/empty", "other"],
+    )
+    expect(tree.files.map((x) => x.name)).toEqual(["z.txt"])
+    expect(tree.children.map((c) => c.path)).toEqual(["other", "proj"])
+    const proj = tree.children[1]!
+    expect(proj.files.map((x) => x.name)).toEqual(["b.txt"])
+    expect(proj.children.map((c) => c.path)).toEqual(["proj/empty", "proj/src"])
+    expect(proj.children[1]!.files.map((x) => x.name)).toEqual(["a.txt", "c.txt"])
+    expect(proj.children[0]!.files).toEqual([])
+  })
+
+  it("path helpers", () => {
+    expect(joinDir("", "a")).toBe("a")
+    expect(joinDir("a", "b")).toBe("a/b")
+    expect(parentDir("a/b/c")).toBe("a/b")
+    expect(parentDir("a")).toBe("")
+  })
+})
+
+describe("visibleRange", () => {
+  it("windows with overscan and clamps to bounds", () => {
+    expect(visibleRange(0, 600, 36, 100000, 6)).toEqual([0, 23])
+    expect(visibleRange(3600, 600, 36, 100000, 6)).toEqual([94, 123])
+    const [s, e] = visibleRange(100000 * 36, 600, 36, 100000, 6)
+    expect(e).toBe(100000)
+    expect(s).toBeLessThanOrEqual(e)
+    expect(visibleRange(0, 600, 36, 0)).toEqual([0, 0])
+    expect(visibleRange(0, 600, 36, 5)).toEqual([0, 5])
+  })
+})
+
+describe("looksLikeText", () => {
+  it("accepts utf-8, rejects NUL/invalid bytes", () => {
+    expect(looksLikeText(new TextEncoder().encode("KEY=value\n"))).toBe(true)
+    expect(looksLikeText(new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0, 1]))).toBe(false)
+    expect(looksLikeText(new Uint8Array([0xff, 0xfe, 0xfd]))).toBe(false)
+    expect(looksLikeText(new Uint8Array())).toBe(true)
+  })
+})
