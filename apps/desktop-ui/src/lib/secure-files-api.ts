@@ -10,7 +10,10 @@ const BASE = "/api/v1/secure-files"
 
 /** `exists` is false when `dir` is set but missing (restored backup, unplugged drive). */
 export type SecureFilesSettings = { dir: string | null; exists: boolean; unlocked: boolean }
-export type ListResult = { files: SecureFileEntry[]; errors: { id: string; error: string }[] }
+/** `size` is plaintext bytes; `physical` is what the folder occupies on disk
+ *  (container overhead included), counting readable objects only. */
+export type StorageTotals = { count: number; size: number; physical: number }
+export type ListResult = { totals: StorageTotals; files: SecureFileEntry[]; errors: { id: string; error: string }[] }
 /** `dirs` lists every walked directory (logical path) — including empty ones. */
 export type ImportResult = { imported: SecureFileEntry[]; errors: { path: string; error: string }[]; dirs: string[] }
 

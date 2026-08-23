@@ -14,11 +14,12 @@ pub struct AppState {
     /// Secure Files KEK (Argon2id of the master password). `None` = locked.
     /// Dropping the `Zeroizing` wipes the bytes.
     pub kek: Mutex<Option<Zeroizing<[u8; 32]>>>,
-    /// Secure Files decrypted-metadata cache (id → meta), populated by the
-    /// first listing after unlock and kept fresh by write-through + an id-set
-    /// diff against the storage dir. `None` = cold (locked or never listed).
-    /// Plaintext names live here only while the vault is unlocked.
-    pub sf_meta: Mutex<Option<std::collections::HashMap<String, mydt::FileMeta>>>,
+    /// Secure Files decrypted-metadata cache (id → meta + on-disk size),
+    /// populated by the first listing after unlock and kept fresh by
+    /// write-through + an id-set diff against the storage dir. `None` = cold
+    /// (locked or never listed). Plaintext names live here only while the
+    /// vault is unlocked.
+    pub sf_meta: Mutex<Option<crate::router::secure_files::MetaCache>>,
 }
 
 impl AppState {

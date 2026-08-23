@@ -16,6 +16,7 @@ import {
   IconLock,
   IconPencil,
   IconPlus,
+  IconChartPie,
   IconLayoutGrid,
   IconList,
   IconReplace,
@@ -51,6 +52,7 @@ import {
   type FolderNode,
   type SecureFileEntry,
 } from "@/lib/secure-files"
+import type { StorageTotals } from "@/lib/secure-files-api"
 import {
   deleteSecureFile,
   deleteSecureFolder,
@@ -69,6 +71,7 @@ import {
   type SecureFilesSettings,
 } from "@/lib/secure-files-api"
 import { FolderTree } from "./folder-tree"
+import { Overview } from "./overview"
 import { isThumbnailable, useThumbnails } from "./use-thumbnails"
 import { cn } from "@/lib/utils"
 import { safeGetItem, safeGetJSON, safeSetItem, safeSetJSON } from "@/lib/safe-storage"
@@ -127,6 +130,8 @@ export function SecureFilesTool() {
   const [settings, setSettings] = useState<SecureFilesSettings | null>(null)
   const [files, setFiles] = useState<SecureFileEntry[]>([])
   const [errors, setErrors] = useState<{ id: string; error: string }[]>([])
+  const [totals, setTotals] = useState<StorageTotals | null>(null)
+  const [showOverview, setShowOverview] = useState(false)
   const [extraDirs, setExtraDirs] = useState<string[]>(() => safeGetJSON<string[]>(EXTRA_DIRS_KEY) ?? [])
   const [currentDir, setCurrentDir] = useState("")
   const [view, setView] = useState<"list" | "grid">(() => (safeGetItem(VIEW_KEY) === "grid" ? "grid" : "list"))
@@ -166,6 +171,7 @@ export function SecureFilesTool() {
         const r = await listSecureFiles()
         setFiles(r.files)
         setErrors(r.errors)
+        setTotals(r.totals)
       }
     } catch (e) {
       toast.error(errMsg(e))
@@ -507,8 +513,28 @@ export function SecureFilesTool() {
     </>
   )
 
+  const openFolder = useCallback((path: string) => {
+    setShowOverview(false)
+    setCurrentDir(path)
+  }, [])
+
   const sidebar = hasDir ? (
-    <FolderTree root={tree} currentDir={currentDir} onSelect={setCurrentDir} onRename={renameFolder} onDelete={deleteFolder} />
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="border-b p-2">
+        <button
+          type="button"
+          onClick={() => setShowOverview(true)}
+          className={cn(
+            "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted",
+            showOverview && "bg-muted font-medium",
+          )}
+        >
+          <IconChartPie className="size-4 shrink-0 text-muted-foreground" />
+          <span className="truncate">{t("overview")}</span>
+        </button>
+      </div>
+      <FolderTree root={tree} currentDir={showOverview ? " " : currentDir} onSelect={openFolder} onRename={renameFolder} onDelete={deleteFolder} />
+    </div>
   ) : (
     <p className="p-4 text-xs text-muted-foreground">{t("chooseFolderBody")}</p>
   )
@@ -519,16 +545,22 @@ export function SecureFilesTool() {
         {/* Toolbar */}
         <div className="flex shrink-0 flex-wrap items-center gap-2 border-b px-4 py-2">
           <nav className="flex min-w-0 flex-1 items-center gap-1 text-sm" aria-label={t("breadcrumb")}>
-            <button type="button" className="truncate hover:underline" onClick={() => setCurrentDir("")}>{t("allFiles")}</button>
-            {crumbs.map((c, i) => {
-              const path = crumbs.slice(0, i + 1).join("/")
-              return (
-                <React.Fragment key={path}>
-                  <IconChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
-                  <button type="button" className="truncate hover:underline" onClick={() => setCurrentDir(path)}>{c}</button>
-                </React.Fragment>
-              )
-            })}
+            {showOverview ? (
+              <span className="truncate font-medium">{t("overview")}</span>
+            ) : (
+              <>
+                <button type="button" className="truncate hover:underline" onClick={() => openFolder("")}>{t("allFiles")}</button>
+                {crumbs.map((c, i) => {
+                  const path = crumbs.slice(0, i + 1).join("/")
+                  return (
+                    <React.Fragment key={path}>
+                      <IconChevronRight className="size-3.5 shrink-0 text-muted-foreground" />
+                      <button type="button" className="truncate hover:underline" onClick={() => openFolder(path)}>{c}</button>
+                    </React.Fragment>
+                  )
+                })}
+              </>
+            )}
           </nav>
           {hasDir && (
             <>
@@ -599,7 +631,16 @@ export function SecureFilesTool() {
         )}
 
         <div ref={scrollRef} onScroll={(e) => setScrollTop(e.currentTarget.scrollTop)} className="min-h-0 flex-1 overflow-y-auto">
-          {loading ? null : !hasDir ? (
+          {loading ? null : hasDir && showOverview ? (
+            <Overview
+              files={files}
+              tree={tree}
+              totals={totals}
+              errorCount={errors.length}
+              dir={settings?.dir ?? null}
+              onOpenFolder={openFolder}
+            />
+          ) : !hasDir ? (
             <EmptyState
               title={dirMissing ? t("folderMissingTitle") : t("chooseFolderTitle")}
               body={dirMissing ? t("folderMissingBody", { dir: settings?.dir ?? "" }) : t("chooseFolderBody")}

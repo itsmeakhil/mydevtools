@@ -61,6 +61,32 @@ export function buildFolderTree(files: SecureFileEntry[], extraDirs: Iterable<st
   return root
 }
 
+export type TypeStat = { type: string; count: number; size: number }
+
+/**
+ * Per-type counts and sizes, biggest group first. `classify` is injected so
+ * this stays free of component imports (callers pass `getFileType`).
+ */
+export function fileTypeStats(files: SecureFileEntry[], classify: (name: string) => string): TypeStat[] {
+  const acc = new Map<string, TypeStat>()
+  for (const f of files) {
+    const type = classify(f.name)
+    const hit = acc.get(type)
+    if (hit) {
+      hit.count += 1
+      hit.size += f.size
+    } else {
+      acc.set(type, { type, count: 1, size: f.size })
+    }
+  }
+  return [...acc.values()].sort((a, b) => b.count - a.count || b.size - a.size || a.type.localeCompare(b.type))
+}
+
+/** Every folder in the tree, root excluded. */
+export function countFolders(node: FolderNode): number {
+  return node.children.reduce((n, c) => n + 1 + countFolders(c), 0)
+}
+
 /** Blob MIME for a decrypted payload, derived from the name (never stored). */
 export function blobMime(fileType: string, name: string): string {
   const ext = name.split(".").pop()?.toLowerCase() ?? ""

@@ -29,6 +29,16 @@ use crate::state::AppState;
 use mydt::{CryptoError, FileMeta, KdfParams, HEADER_LEN, MAX_FILE_BYTES, MAX_OBJECT_BYTES, SALT_LEN};
 
 pub const KV_KEY: &str = "secure_files";
+
+/// Cached decrypted metadata plus the object's size on disk (plaintext bytes
+/// plus container overhead), so storage totals need no extra stat calls.
+pub struct CachedEntry {
+    pub meta: FileMeta,
+    pub physical: u64,
+}
+
+pub type MetaCache = std::collections::HashMap<String, CachedEntry>;
+
 const EXT: &str = "mydt";
 const TMP_EXT: &str = "mydt.tmp";
 
@@ -108,7 +118,7 @@ pub fn lock(state: &AppState) {
 /// Write-through helpers — no-ops while the cache is cold (next listing scans).
 fn cache_put(state: &AppState, e: &Entry) {
     if let Some(m) = state.sf_meta.lock().unwrap().as_mut() {
-        m.insert(e.id.clone(), e.meta.clone());
+        m.insert(e.id.clone(), CachedEntry { meta: e.meta.clone(), physical: e.physical });
     }
 }
 
@@ -224,6 +234,10 @@ struct Entry {
     id: String,
     #[serde(flatten)]
     meta: FileMeta,
+    /// Bytes this object occupies in the storage folder. Aggregated into the
+    /// listing totals rather than sent per entry.
+    #[serde(skip)]
+    physical: u64,
 }
 
 fn object_path(dir: &Path, id: &str) -> PathBuf {
@@ -251,13 +265,16 @@ fn write_atomic(dir: &Path, id: &str, bytes: &[u8], durable: bool) -> std::io::R
 }
 
 /// Read only header + metadata (not the payload) and decrypt the metadata.
-fn read_entry_meta(c: &Ctx, id: &str) -> Fallible<FileMeta> {
+/// The on-disk size comes from the already-open handle, so it costs no extra
+/// syscall.
+fn read_entry_meta(c: &Ctx, id: &str) -> Fallible<(FileMeta, u64)> {
     let mut f = fs::File::open(object_path(&c.dir, id))?;
+    let physical = f.metadata()?.len();
     let mut buf = vec![0u8; HEADER_LEN];
     f.read_exact(&mut buf).map_err(|_| CryptoError::Format)?;
     let n = crypto::meta_len(&buf)?;
     f.by_ref().take(n as u64).read_to_end(&mut buf)?;
-    Ok(crypto::read_meta(&c.kek, &c.params.salt, &buf)?)
+    Ok((crypto::read_meta(&c.kek, &c.params.salt, &buf)?, physical))
 }
 
 fn read_entry_full(c: &Ctx, id: &str) -> Fallible<(FileMeta, Zeroizing<Vec<u8>>)> {
@@ -305,23 +322,37 @@ fn list_entries(state: &AppState, c: &Ctx) -> Fallible<(Vec<Entry>, Vec<Value>)>
             continue;
         }
         match read_entry_meta(c, id) {
-            Ok(meta) => {
-                map.insert(id.clone(), meta);
+            Ok((meta, physical)) => {
+                map.insert(id.clone(), CachedEntry { meta, physical });
             }
             Err(Fail(_, msg)) => errors.push(json!({ "id": id, "error": msg })),
         }
     }
-    let mut files: Vec<Entry> = map.iter().map(|(id, m)| Entry { id: id.clone(), meta: m.clone() }).collect();
+    let mut files: Vec<Entry> = map
+        .iter()
+        .map(|(id, e)| Entry { id: id.clone(), meta: e.meta.clone(), physical: e.physical })
+        .collect();
     drop(guard);
     files.sort_by(|a, b| (&a.meta.dir, &a.meta.name).cmp(&(&b.meta.dir, &b.meta.name)));
     Ok((files, errors))
+}
+
+/// Aggregate storage figures for the overview. `physical` is what the folder
+/// actually occupies for readable objects (plaintext plus per-file container
+/// overhead); unreadable objects are excluded and reported separately.
+fn totals(files: &[Entry]) -> Value {
+    json!({
+        "count": files.len(),
+        "size": files.iter().map(|e| e.meta.size).sum::<u64>(),
+        "physical": files.iter().map(|e| e.physical).sum::<u64>(),
+    })
 }
 
 fn encrypt_and_store(c: &Ctx, meta: &FileMeta, plaintext: &[u8], durable: bool) -> Fallible<Entry> {
     let id = new_id();
     let bytes = crypto::encrypt_file(&c.kek, &c.params, meta, plaintext)?;
     write_atomic(&c.dir, &id, &bytes, durable)?;
-    Ok(Entry { id, meta: meta.clone() })
+    Ok(Entry { id, meta: meta.clone(), physical: bytes.len() as u64 })
 }
 
 fn mtime_ms(md: &fs::Metadata) -> i64 {
@@ -431,7 +462,7 @@ fn rewrite(c: &Ctx, id: &str, f: impl FnOnce(&mut FileMeta)) -> Fallible<Entry> 
     f(&mut meta);
     let bytes = crypto::encrypt_file(&c.kek, &c.params, &meta, &plaintext)?;
     write_atomic(&c.dir, id, &bytes, true)?;
-    Ok(Entry { id: id.to_string(), meta })
+    Ok(Entry { id: id.to_string(), meta, physical: bytes.len() as u64 })
 }
 
 fn is_inside(path: &Path, dir: &Path) -> bool {
@@ -512,7 +543,7 @@ fn dispatch(state: &AppState, method: &str, rest: &str, body: Option<&str>) -> F
         ("GET", "/files") => {
             let c = ctx(state)?;
             let (files, errors) = list_entries(state, &c)?;
-            ok(&json!({ "files": files, "errors": errors }))
+            ok(&json!({ "totals": totals(&files), "files": files, "errors": errors }))
         }
         ("POST", "/files/import") => {
             #[derive(Deserialize)]
@@ -637,7 +668,7 @@ fn dispatch(state: &AppState, method: &str, rest: &str, body: Option<&str>) -> F
                     meta.mtime = mtime_ms(&md);
                     let bytes = crypto::encrypt_file(&c.kek, &c.params, &meta, &plaintext)?;
                     write_atomic(&c.dir, id, &bytes, true)?;
-                    let e = Entry { id: id.to_string(), meta };
+                    let e = Entry { id: id.to_string(), meta, physical: bytes.len() as u64 };
                     cache_put(state, &e);
                     ok(&e)
                 }
@@ -863,6 +894,10 @@ mod tests {
 
         let l = list(&state);
         assert_eq!(l["files"].as_array().unwrap().len(), 1);
+        // Totals cover readable objects only; unreadable ones are reported apart.
+        assert_eq!(l["totals"]["count"], 1);
+        assert_eq!(l["totals"]["size"], 2);
+        assert!(l["totals"]["physical"].as_u64().unwrap() > l["totals"]["size"].as_u64().unwrap());
         let errs = l["errors"].as_array().unwrap();
         assert_eq!(errs.len(), 3);
         assert!(errs.iter().any(|e| e["error"].as_str().unwrap().contains("another vault")));

@@ -1,4 +1,14 @@
-import { blobMime, buildFolderTree, joinDir, looksLikeText, parentDir, visibleRange, type SecureFileEntry } from "../secure-files"
+import {
+  blobMime,
+  buildFolderTree,
+  countFolders,
+  fileTypeStats,
+  joinDir,
+  looksLikeText,
+  parentDir,
+  visibleRange,
+  type SecureFileEntry,
+} from "../secure-files"
 
 const f = (name: string, dir: string): SecureFileEntry => ({ id: name, name, dir, size: 1, mtime: 0, importedAt: 0 })
 
@@ -34,6 +44,31 @@ describe("visibleRange", () => {
     expect(s).toBeLessThanOrEqual(e)
     expect(visibleRange(0, 600, 36, 0)).toEqual([0, 0])
     expect(visibleRange(0, 600, 36, 5)).toEqual([0, 5])
+  })
+})
+
+describe("fileTypeStats / countFolders", () => {
+  const classify = (name: string) => (name.endsWith(".png") ? "image" : name.endsWith(".ts") ? "code" : "file")
+
+  it("groups by type, biggest group first", () => {
+    const files: SecureFileEntry[] = [
+      { ...f("a.png", ""), size: 100 },
+      { ...f("b.ts", ""), size: 10 },
+      { ...f("c.ts", ""), size: 20 },
+      { ...f("d.bin", ""), size: 5 },
+    ]
+    // Equal counts fall back to size, biggest first.
+    expect(fileTypeStats(files, classify)).toEqual([
+      { type: "code", count: 2, size: 30 },
+      { type: "image", count: 1, size: 100 },
+      { type: "file", count: 1, size: 5 },
+    ])
+    expect(fileTypeStats([], classify)).toEqual([])
+  })
+
+  it("counts every folder except the root", () => {
+    const tree = buildFolderTree([f("x.txt", "a/b"), f("y.txt", "c")], ["d/e/f"])
+    expect(countFolders(tree)).toBe(6) // a, a/b, c, d, d/e, d/e/f
   })
 })
 
