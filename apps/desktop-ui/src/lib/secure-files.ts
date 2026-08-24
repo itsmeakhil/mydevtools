@@ -34,6 +34,15 @@ export function baseName(dir: string): string {
   return dir.slice(dir.lastIndexOf("/") + 1)
 }
 
+/**
+ * `currentDir` value meaning "the overview is showing, no folder is selected".
+ * `""` is the root folder and would highlight it (folder-tree.tsx:70), so the
+ * sentinel has to be a string no path can equal. Written as an escape, not a
+ * raw byte — a literal NUL in the source makes the whole file binary to grep,
+ * ripgrep and diff, which then skip it silently.
+ */
+export const NO_FOLDER = "\u0000"
+
 /** Build the folder tree from file dirs plus any empty (not yet populated) dirs. */
 export function buildFolderTree(files: SecureFileEntry[], extraDirs: Iterable<string> = []): FolderNode {
   const root: FolderNode = { name: "", path: "", children: [], files: [] }

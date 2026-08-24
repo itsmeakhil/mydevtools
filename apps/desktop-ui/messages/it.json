@@ -5223,6 +5223,12 @@
     "offline": "100% offline"
   },
   "ToolSidebar": {
+    "expand": "Espandi barra laterale",
+    "collapse": "Comprimi barra laterale",
+    "resize": "Ridimensiona barra laterale",
+    "resetWidth": "Reimposta larghezza",
+    "moreSections": "Altre sezioni",
+    "sections": "Sezioni della barra laterale",
     "show": "Mostra barra laterale",
     "hide": "Nascondi barra laterale"
   },

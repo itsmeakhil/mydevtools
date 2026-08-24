@@ -90,3 +90,13 @@ describe("looksLikeText", () => {
     expect(looksLikeText(new Uint8Array())).toBe(true)
   })
 })
+
+describe("NO_FOLDER", () => {
+  it("is a value no real folder path can equal", () => {
+    const { NO_FOLDER } = require("../secure-files")
+    expect(typeof NO_FOLDER).toBe("string")
+    // "" is the root folder and must stay distinct from "no selection".
+    expect(NO_FOLDER).not.toBe("")
+    expect(NO_FOLDER).not.toMatch(/^[\w./-]+$/)
+  })
+})

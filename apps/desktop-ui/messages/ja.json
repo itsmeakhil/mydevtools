@@ -5223,6 +5223,12 @@
     "offline": "完全オフライン"
   },
   "ToolSidebar": {
+    "expand": "サイドバーを展開",
+    "collapse": "サイドバーを折りたたむ",
+    "resize": "サイドバーの幅を変更",
+    "resetWidth": "サイドバーの幅をリセット",
+    "moreSections": "その他のセクション",
+    "sections": "サイドバーのセクション",
     "show": "サイドバーを表示",
     "hide": "サイドバーを非表示"
   },

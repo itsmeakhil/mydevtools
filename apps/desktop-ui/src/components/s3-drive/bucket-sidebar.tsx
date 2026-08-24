@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -23,7 +23,7 @@ import {
 import { IconBucket, IconPlus, IconDots, IconPencil, IconTrash, IconBrandAws, IconCloud, IconServer } from "@tabler/icons-react"
 import { deleteConnection } from "@/lib/s3-drive-api"
 import { useS3DriveStore, type DecryptedConnection } from "@/store/s3-drive-store"
-import { useToolSidebarPanel } from "@/components/tools/tool-sidebar"
+import { useToolSidebarPanel, useToolSidebarRail } from "@/components/tools/tool-sidebar"
 import { AddBucketDialog } from "./add-bucket-dialog"
 
 type Props = {
@@ -61,6 +61,23 @@ function connSubtitle(conn: DecryptedConnection): string {
 export function BucketSidebar({ encryptionKey }: Props) {
     const { connections, activeConnectionId, setActiveConnection, removeConnection } = useS3DriveStore()
     const panel = useToolSidebarPanel()
+
+    // Connections stay switchable from the collapsed rail.
+    useToolSidebarRail(
+        "connections",
+        useMemo(
+            () =>
+                connections.slice(0, 8).map((c) => ({
+                    id: c.id,
+                    label: c.name,
+                    icon: IconBucket,
+                    active: c.id === activeConnectionId,
+                    onSelect: () => setActiveConnection(c.id),
+                })),
+            [connections, activeConnectionId, setActiveConnection],
+        ),
+    )
+
     const [addOpen, setAddOpen] = useState(false)
     const [editTarget, setEditTarget] = useState<DecryptedConnection | null>(null)
     const [deleteTarget, setDeleteTarget] = useState<DecryptedConnection | null>(null)

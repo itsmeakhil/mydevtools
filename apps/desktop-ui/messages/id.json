@@ -5223,6 +5223,12 @@
     "offline": "100% offline"
   },
   "ToolSidebar": {
+    "expand": "Bentangkan bilah sisi",
+    "collapse": "Ciutkan bilah sisi",
+    "resize": "Ubah ukuran bilah sisi",
+    "resetWidth": "Atur ulang lebar bilah sisi",
+    "moreSections": "Bagian lainnya",
+    "sections": "Bagian bilah sisi",
     "show": "Tampilkan bilah sisi",
     "hide": "Sembunyikan bilah sisi"
   },

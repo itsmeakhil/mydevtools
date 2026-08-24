@@ -4,12 +4,12 @@ import React from 'react'
 import Link from 'next/link'
 import { Layers, Zap, Pin, Clock, History } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { dashboardGreeting } from './types'
+import { dashboardGreeting, greetingFirstName } from './types'
+import { useAppUser } from '@/hooks/use-app-user'
 import { useCountUp } from '@/hooks/use-count-up'
 import { cn } from '@/lib/utils'
 
 interface DashboardHeroProps {
-  user: { displayName?: string | null } | null
   totalTools: number
   pinnedCount: number
   recentCount: number
@@ -67,7 +67,6 @@ function Stat({
 }
 
 export function DashboardHero({
-  user,
   totalTools,
   pinnedCount,
   recentCount,
@@ -75,6 +74,10 @@ export function DashboardHero({
   desktopOnly,
 }: DashboardHeroProps) {
   const t = useTranslations('Dashboard')
+  // The editable profile name lives in local preferences. `useAuth` is identity
+  // only — its displayName is a hardcoded null, so greeting off it never named
+  // anyone.
+  const firstName = greetingFirstName(useAppUser().name)
 
   return (
     <>
@@ -92,9 +95,7 @@ export function DashboardHero({
                 </div>
                 <p className="text-[11px] text-muted-foreground">
                   {dashboardGreeting(t)}
-                  {user?.displayName
-                    ? t('commaName', { name: user.displayName.split(' ')[0] })
-                    : ''}
+                  {firstName ? t('commaName', { name: firstName }) : ''}
                 </p>
               </div>
             </div>
@@ -124,9 +125,7 @@ export function DashboardHero({
               {dashboardGreeting(t)}
             </p>
             <h1 className="text-2xl sm:text-[1.75rem] font-bold tracking-tight leading-tight text-foreground">
-              {user?.displayName
-                ? t('welcomeBackNamed', { name: user.displayName.split(' ')[0] })
-                : t('welcomeBack')}
+              {firstName ? t('welcomeBackNamed', { name: firstName }) : t('welcomeBack')}
             </h1>
             <p className="text-sm text-muted-foreground">{t('tagline')}</p>
           </div>

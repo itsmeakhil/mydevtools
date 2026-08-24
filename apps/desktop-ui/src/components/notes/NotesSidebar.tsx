@@ -55,7 +55,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Note } from "@/app/app/notes/types/Note";
-import { ToolSidebarActions, useToolSidebarPanel } from "@/components/tools/tool-sidebar";
+import { ToolSidebarActions, useToolSidebarPanel, useToolSidebarRail } from "@/components/tools/tool-sidebar";
 import { useTranslations } from "next-intl";
 import { extractSnippet } from "@/app/app/notes/utils/noteContentUtils";
 import { type ChildrenMap, type SortDir, type SortKey, buildChildrenMap, getCachedPlainText } from "./notes-helpers";
@@ -273,7 +273,7 @@ NoteItem.displayName = "NoteItem";
 export default function NotesSidebar() {
     const t = useTranslations("Notes.sidebar");
     const { notes, noteById, isLoading, searchIndexReady } = useNotesData();
-    const { activeNoteId } = useNotesUI();
+    const { activeNoteId, setActiveNoteId } = useNotesUI();
     const { createNote, deleteNote, moveNote, warmSearchIndex } = useNotesActions();
     const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
     const [noteToMove, setNoteToMove] = useState<Note | null>(null);
@@ -308,6 +308,23 @@ export default function NotesSidebar() {
     const rootNotes = useMemo(() => sortedNotes.filter(n => !n.parentId), [sortedNotes]);
     const pinnedNotes = useMemo(() => rootNotes.filter(n => n.pinned), [rootNotes]);
     const unpinnedNotes = useMemo(() => rootNotes.filter(n => !n.pinned), [rootNotes]);
+
+    // Pinned notes are the sidebar's own shortlist, so they are what the
+    // collapsed rail offers.
+    useToolSidebarRail(
+        "pinned",
+        useMemo(
+            () =>
+                pinnedNotes.slice(0, 8).map(n => ({
+                    id: n.id,
+                    label: n.title || t("untitled"),
+                    icon: Pin,
+                    active: n.id === activeNoteId,
+                    onSelect: () => setActiveNoteId(n.id),
+                })),
+            [pinnedNotes, activeNoteId, setActiveNoteId, t],
+        ),
+    );
 
     const searchResults = useMemo(() => {
         const trimmed = debouncedQuery.trim();

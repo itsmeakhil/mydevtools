@@ -5223,6 +5223,12 @@
     "offline": "100 % offline"
   },
   "ToolSidebar": {
+    "expand": "Utvid sidepanel",
+    "collapse": "Skjul sidepanel",
+    "resize": "Endre bredde på sidepanel",
+    "resetWidth": "Tilbakestill bredde",
+    "moreSections": "Flere seksjoner",
+    "sections": "Sidepanelseksjoner",
     "show": "Vis sidepanel",
     "hide": "Skjul sidepanel"
   },

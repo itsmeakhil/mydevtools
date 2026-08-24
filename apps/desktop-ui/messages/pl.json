@@ -5223,6 +5223,12 @@
     "offline": "100% offline"
   },
   "ToolSidebar": {
+    "expand": "Rozwiń panel boczny",
+    "collapse": "Zwiń panel boczny",
+    "resize": "Zmień szerokość panelu",
+    "resetWidth": "Przywróć szerokość panelu",
+    "moreSections": "Więcej sekcji",
+    "sections": "Sekcje panelu bocznego",
     "show": "Pokaż pasek boczny",
     "hide": "Ukryj pasek boczny"
   },

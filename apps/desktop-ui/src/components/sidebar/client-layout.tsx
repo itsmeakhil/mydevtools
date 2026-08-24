@@ -100,16 +100,8 @@ function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
-  // Hydrate the workspace store on app launch. Nothing else does this on
-  // desktop (EnsureBackendSession is unmounted here), and without it the
-  // local personal workspace never resolves — encrypted tools (api-key-vault,
-  // password-manager, environment-manager) fail with "No active workspace".
-  useEffect(() => {
-    const { hydrated, loadFromBackend } = useWorkspaceStore.getState();
-    if (!hydrated) {
-      loadFromBackend().catch((e) => console.warn('Workspace hydration failed:', e));
-    }
-  }, []);
-
+  // Workspace hydration lives in <DesktopInit /> (mounted in app/layout.tsx).
+  // Doing it here too fired a second GET + POST /workspaces/active on every
+  // desktop launch, and 404'd in a plain browser dev server (no Next API routes).
   return <Layout>{children}</Layout>;
 }

@@ -5223,6 +5223,12 @@
     "offline": "100% ngoại tuyến"
   },
   "ToolSidebar": {
+    "expand": "Mở rộng thanh bên",
+    "collapse": "Thu gọn thanh bên",
+    "resize": "Thay đổi kích thước thanh bên",
+    "resetWidth": "Đặt lại chiều rộng thanh bên",
+    "moreSections": "Thêm mục",
+    "sections": "Các mục thanh bên",
     "show": "Hiện thanh bên",
     "hide": "Ẩn thanh bên"
   },

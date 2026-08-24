@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useToolSidebarPanel } from "@/components/tools/tool-sidebar"
+import { useToolSidebarPanel, useToolSidebarRail } from "@/components/tools/tool-sidebar"
 import { cn } from "@/lib/utils"
 import type { FolderNode } from "@/lib/secure-files"
 
@@ -55,9 +55,28 @@ export function FolderTree({ root, currentDir, ...actions }: { root: FolderNode;
   const select = React.useCallback(
     (path: string) => {
       actions.onSelect(path)
-      panel?.close()
+      // Only when the panel floats over the result. On desktop it is a pinned
+      // column, and closing it collapsed the sidebar on every folder pick.
+      if (panel?.isOverlay) panel.close()
     },
     [actions, panel],
+  )
+
+  // Top-level folders stay reachable from the collapsed rail.
+  useToolSidebarRail(
+    "folders",
+    React.useMemo(
+      () =>
+        root.children.slice(0, 8).map((child) => ({
+          id: child.path,
+          label: child.name,
+          icon: IconFolder,
+          count: child.files.length,
+          active: currentDir === child.path,
+          onSelect: () => select(child.path),
+        })),
+      [root.children, currentDir, select],
+    ),
   )
 
   return (

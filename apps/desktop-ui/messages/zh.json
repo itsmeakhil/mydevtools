@@ -5223,6 +5223,12 @@
     "offline": "100% 离线"
   },
   "ToolSidebar": {
+    "expand": "展开侧边栏",
+    "collapse": "折叠侧边栏",
+    "resize": "调整侧边栏宽度",
+    "resetWidth": "重置侧边栏宽度",
+    "moreSections": "更多分区",
+    "sections": "侧边栏分区",
     "show": "显示侧边栏",
     "hide": "隐藏侧边栏"
   },

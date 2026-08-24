@@ -5223,6 +5223,12 @@
     "offline": "%100 çevrimdışı"
   },
   "ToolSidebar": {
+    "expand": "Kenar çubuğunu genişlet",
+    "collapse": "Kenar çubuğunu daralt",
+    "resize": "Kenar çubuğunu yeniden boyutlandır",
+    "resetWidth": "Genişliği sıfırla",
+    "moreSections": "Daha fazla bölüm",
+    "sections": "Kenar çubuğu bölümleri",
     "show": "Kenar çubuğunu göster",
     "hide": "Kenar çubuğunu gizle"
   },

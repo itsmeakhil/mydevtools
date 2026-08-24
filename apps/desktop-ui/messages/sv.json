@@ -5223,6 +5223,12 @@
     "offline": "100 % offline"
   },
   "ToolSidebar": {
+    "expand": "Expandera sidopanelen",
+    "collapse": "Fäll ihop sidopanelen",
+    "resize": "Ändra sidopanelens bredd",
+    "resetWidth": "Återställ bredden",
+    "moreSections": "Fler sektioner",
+    "sections": "Sidopanelens sektioner",
     "show": "Visa sidopanel",
     "hide": "Dölj sidopanel"
   },

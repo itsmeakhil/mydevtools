@@ -5223,6 +5223,12 @@
     "offline": "100% luar talian"
   },
   "ToolSidebar": {
+    "expand": "Kembangkan bar sisi",
+    "collapse": "Runtuhkan bar sisi",
+    "resize": "Ubah saiz bar sisi",
+    "resetWidth": "Tetapkan semula lebar bar sisi",
+    "moreSections": "Lagi bahagian",
+    "sections": "Bahagian bar sisi",
     "show": "Tunjukkan bar sisi",
     "hide": "Sembunyikan bar sisi"
   },

@@ -44,6 +44,7 @@ import { useMasterKeyStore } from "@/store/master-key-store"
 import {
   baseName,
   blobMime,
+  NO_FOLDER,
   buildFolderTree,
   joinDir,
   looksLikeText,
@@ -533,7 +534,7 @@ export function SecureFilesTool() {
           <span className="truncate">{t("overview")}</span>
         </button>
       </div>
-      <FolderTree root={tree} currentDir={showOverview ? " " : currentDir} onSelect={openFolder} onRename={renameFolder} onDelete={deleteFolder} />
+      <FolderTree root={tree} currentDir={showOverview ? NO_FOLDER : currentDir} onSelect={openFolder} onRename={renameFolder} onDelete={deleteFolder} />
     </div>
   ) : (
     <p className="p-4 text-xs text-muted-foreground">{t("chooseFolderBody")}</p>

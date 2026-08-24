@@ -5223,6 +5223,12 @@
     "offline": "100% 오프라인"
   },
   "ToolSidebar": {
+    "expand": "사이드바 펼치기",
+    "collapse": "사이드바 접기",
+    "resize": "사이드바 너비 조절",
+    "resetWidth": "사이드바 너비 초기화",
+    "moreSections": "섹션 더 보기",
+    "sections": "사이드바 섹션",
     "show": "사이드바 표시",
     "hide": "사이드바 숨기기"
   },
