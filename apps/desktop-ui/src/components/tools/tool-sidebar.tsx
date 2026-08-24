@@ -25,6 +25,12 @@ interface ToolSidebarContextValue {
   /** True when the panel is inside the mobile sheet rather than the column. */
   isMobile: boolean
   /**
+   * True whenever the panel floats over the content — the mobile sheet, or the
+   * desktop flyout opened from the collapsed rail. Rows should `close()` on
+   * select in this state so the pick isn't hidden behind the panel.
+   */
+  isOverlay: boolean
+  /**
    * Dismiss the panel. No-op on desktop when the panel is pinned open — call it
    * from list rows so picking an item on mobile closes the sheet instead of
    * leaving it covering the result.
@@ -158,14 +164,19 @@ export function ToolSidebarLayout({
   // colour is continuous from the grid to the tool. Falls back to primary.
   const accent = categoryAccent(toolCategoryMap[toolId] ?? '')
 
+  const collapsedOnDesktop = !isMobile && collapsed
+  // The panel floats when it is the mobile sheet, or the desktop flyout peeked
+  // out of the collapsed rail.
+  const isOverlay = (isMobile || collapsedOnDesktop) && sheetOpen
+
   const close = React.useCallback(() => {
-    if (isMobile) setSheetOpen(false)
-    else setCollapsed(toolId, true)
-  }, [isMobile, setCollapsed, toolId])
+    if (sheetOpen) setSheetOpen(false)
+    else if (!isMobile) setCollapsed(toolId, true)
+  }, [isMobile, setCollapsed, toolId, sheetOpen])
 
   const ctx = React.useMemo<ToolSidebarContextValue>(
-    () => ({ isMobile, close }),
-    [isMobile, close],
+    () => ({ isMobile, isOverlay, close }),
+    [isMobile, isOverlay, close],
   )
 
   const panel = (
@@ -213,7 +224,9 @@ export function ToolSidebarLayout({
       <div className={cn('flex h-full min-h-0 w-full overflow-hidden', className)}>
         {!isMobile && !collapsed && <div className="w-64 shrink-0">{panel}</div>}
 
-        {isMobile && (
+        {/* Also used on desktop while collapsed, so the rail can peek the panel
+            without giving up the width. */}
+        {hidden && (
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetContent side="left" className="w-72 p-0">
               <SheetHeader className="sr-only">
@@ -226,19 +239,41 @@ export function ToolSidebarLayout({
 
         {/* Re-open lives in a 40px rail, not a floating overlay: every tool's
             main pane already puts a toolbar or header at the top-left, and an
-            absolutely-positioned button would sit on top of it. */}
+            absolutely-positioned button would sit on top of it. The rail keeps
+            the tool's identity and a way to reach the list — a lone toggle left
+            the collapsed state looking like an empty strip. */}
         {hidden && (
-          <div className="flex w-10 shrink-0 flex-col items-center border-r bg-muted/10 pt-2">
+          <div className="flex w-10 shrink-0 flex-col items-center gap-1 border-r bg-muted/10 pt-2">
             <Button
               variant="ghost"
               size="icon"
               className="h-8 w-8 cursor-pointer"
-              onClick={() => (isMobile ? setSheetOpen(true) : setCollapsed(toolId, false))}
-              aria-label={t('show')}
-              title={t('show')}
+              onClick={() => setSheetOpen(true)}
+              aria-label={title}
+              title={title}
             >
-              <PanelLeftOpen className="h-4 w-4" />
+              <span
+                className={cn(
+                  'flex h-6 w-6 shrink-0 items-center justify-center rounded-md',
+                  accent.bg,
+                  accent.text,
+                )}
+              >
+                <Icon className="h-3.5 w-3.5" />
+              </span>
             </Button>
+            {!isMobile && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 cursor-pointer"
+                onClick={() => setCollapsed(toolId, false)}
+                aria-label={t('show')}
+                title={t('show')}
+              >
+                <PanelLeftOpen className="h-4 w-4" />
+              </Button>
+            )}
           </div>
         )}
 

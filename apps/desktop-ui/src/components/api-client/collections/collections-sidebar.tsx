@@ -57,12 +57,13 @@ interface CollectionsSidebarProps {
 
 export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSidebarProps) {
     const panel = useToolSidebarPanel()
-    // On mobile the panel is a sheet over the request pane — loading a request
-    // has to dismiss it or the loaded request stays hidden behind the sheet.
+    // While the panel floats (mobile sheet, or the desktop flyout from the
+    // collapsed rail), loading a request has to dismiss it or the loaded
+    // request stays hidden behind the panel.
     const onLoadRequest = React.useCallback(
         (request: CollectionRequest) => {
             loadRequest(request)
-            if (panel?.isMobile) panel.close()
+            if (panel?.isOverlay) panel.close()
         },
         [loadRequest, panel],
     )

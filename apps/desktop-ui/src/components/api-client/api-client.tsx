@@ -110,6 +110,7 @@ function buildRequestUrl(raw: string): URL {
 
 function ApiClientInner() {
     const t = useTranslations("ApiClient")
+    const tNav = useTranslations("Navigation")
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
 
@@ -1149,7 +1150,10 @@ function ApiClientInner() {
             className="mobile-nav-offset"
         >
             <div className="flex-1 flex flex-col gap-4 min-w-0 h-full">
-                <div className="flex flex-wrap justify-between items-center gap-2">
+                <div className="flex flex-wrap justify-between items-center gap-2 px-4 pt-3">
+                    {/* The panel header carries "Collections"; without this the tool
+                        itself was unnamed, and unnamed entirely once collapsed. */}
+                    <h1 className="text-sm font-semibold tracking-tight">{tNav("apiClient")}</h1>
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
                         {isMobile ? (
                             /* Mobile: secondary actions collapsed into dropdown */

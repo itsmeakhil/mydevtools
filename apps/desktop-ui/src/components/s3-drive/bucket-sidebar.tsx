@@ -134,7 +134,7 @@ export function BucketSidebar({ encryptionKey }: Props) {
                                     setActiveConnection(conn.id)
                                     // On mobile the panel is a sheet covering the
                                     // browser — close it so the pick is visible.
-                                    if (panel?.isMobile) panel.close()
+                                    if (panel?.isOverlay) panel.close()
                                 }}
                             >
                                 {/* Active indicator line */}

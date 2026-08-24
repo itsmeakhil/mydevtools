@@ -101,7 +101,7 @@ const NoteItem = React.memo(({
         onExpandPath(note.id);
         // On mobile the panel is a sheet over the editor — close it so the
         // opened note is actually visible.
-        if (panel?.isMobile) panel.close();
+        if (panel?.isOverlay) panel.close();
     };
 
     const handleCreateChild = async (e: React.MouseEvent) => {
