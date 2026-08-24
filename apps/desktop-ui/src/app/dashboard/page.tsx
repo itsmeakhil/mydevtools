@@ -262,7 +262,6 @@ const DashboardPage: React.FC = () => {
       <div className="dash-ambient -z-10" aria-hidden />
       {/* ── Mobile Sticky Header (outside padded container for full-bleed) ── */}
       <DashboardHero
-        user={user}
         totalTools={totalTools}
         pinnedCount={pinnedItems.length}
         recentCount={recentlyUsedItems.length}
@@ -274,7 +273,6 @@ const DashboardPage: React.FC = () => {
           {/* ── Desktop Hero (inside padded container for alignment) ── */}
           <RevealItem index={0}>
             <DashboardHero
-              user={user}
               totalTools={totalTools}
               pinnedCount={pinnedItems.length}
               recentCount={recentlyUsedItems.length}

@@ -103,6 +103,16 @@ export function groupDisplayTitle(title: string, t: (key: string) => string): st
   return title
 }
 
+/**
+ * First name for the dashboard greeting, or null when the profile has no name
+ * set. The name comes from local preferences (`useAppUser`) — `useAuth` is
+ * identity only and its displayName is always null.
+ */
+export function greetingFirstName(name: string | null | undefined): string | null {
+  const first = name?.trim().split(/\s+/)[0]
+  return first || null
+}
+
 /** Time-of-day greeting key. */
 export function dashboardGreeting(t: (key: string) => string): string {
   const hour = new Date().getHours()
