@@ -1238,7 +1238,7 @@ function ApiClientInner() {
                                 >
                                     <IconSettings className="h-4 w-4" />
                                 </Button>
-                                <div className="h-6 w-px bg-border/50 mx-1" />
+                                <div className="h-5 w-px shrink-0 bg-border" />
                                 <Button
                                     variant="ghost"
                                     size="icon"
@@ -1288,7 +1288,9 @@ function ApiClientInner() {
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-                                <div className="h-6 w-px bg-border/50 mx-1" />
+                                {/* No divider here — OfflineIndicator renders null while
+                                    online, and a lone divider left a phantom gap. It brings
+                                    its own separator when it has something to show. */}
                                 <OfflineIndicator />
                             </>
                         )}
