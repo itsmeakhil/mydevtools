@@ -42,7 +42,7 @@
     "sonner": "^2.0.8",
     "tailwind-merge": "^2.6.1",
     "tailwindcss-animate": "^1.0.7",
-    "wrangler": "^4.124.0",
+    "wrangler": "^4.125.0",
     "zustand": "^5.0.15"
   },
   "devDependencies": {
