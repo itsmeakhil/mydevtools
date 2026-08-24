@@ -13,7 +13,21 @@ import { useIsMobile } from '@/components/hooks/use-mobile'
 import { useToolSidebarStore } from '@/store/tool-sidebar-store'
 import { toolCategoryMap } from '@/lib/tool-categories'
 import { categoryAccent } from '@/components/dashboard/types'
+import { ToolSidebarRail } from '@/components/tools/tool-sidebar-rail'
+import {
+  DEFAULT_SIDEBAR_WIDTH,
+  emptyRailRegistry,
+  flattenRail,
+  railEntriesKey,
+  railHandlerKey,
+  registerRailGroup,
+  unregisterRailGroup,
+  type RailRegistry,
+  type ToolSidebarRailEntry,
+} from '@/lib/tool-sidebar-rail'
 import { cn } from '@/lib/utils'
+
+export type { ToolSidebarRailEntry } from '@/lib/tool-sidebar-rail'
 
 /**
  * The one in-tool left panel. Every app-like tool (notes, bookmarks, api-client,
@@ -33,6 +47,12 @@ interface ToolSidebarContextValue {
    * left hidden behind the panel.
    */
   isOverlay: boolean
+  /**
+   * False while the panel is collapsed or the mobile sheet is shut. The body
+   * stays mounted in that state — gate anything expensive that assumes the user
+   * can see the panel on this rather than on mount.
+   */
+  isVisible: boolean
   /**
    * Dismiss the panel. No-op on desktop when the panel is pinned open — call it
    * from list rows so picking an item on mobile closes the sheet instead of
@@ -58,6 +78,50 @@ export function useToolSidebarPanel() {
 export function ToolSidebarActions({ children }: { children: React.ReactNode }) {
   const slot = React.useContext(ActionsSlotContext)
   return slot ? createPortal(children, slot) : null
+}
+
+interface RailRegistrationValue {
+  register: (groupId: string, entries: ToolSidebarRailEntry[]) => void
+  unregister: (groupId: string) => void
+  /**
+   * Live handlers keyed `${groupId}/${entryId}`. Handlers live in a ref rather
+   * than in registry state so a body that rebuilds its closures every render
+   * does not re-register in a loop, and the rail still calls the current one.
+   */
+  handlers: React.RefObject<Map<string, () => void>>
+}
+
+const RailRegistrationContext = React.createContext<RailRegistrationValue | null>(null)
+
+/**
+ * Publishes rail entries from inside the panel body, so the collapsed 48px rail
+ * can offer the tool's facets/roots instead of only an expand button. Safe to
+ * call unconditionally: outside a ToolSidebarLayout it is a no-op.
+ *
+ * `entries` may be rebuilt every render — registration is keyed on the entries'
+ * displayed data, not on array identity.
+ */
+export function useToolSidebarRail(groupId: string, entries: ToolSidebarRailEntry[]) {
+  const reg = React.useContext(RailRegistrationContext)
+  const key = railEntriesKey(entries)
+  const latest = React.useRef(entries)
+  latest.current = entries
+
+  // Refresh handlers on every commit so the rail always calls the current
+  // closure, without that identity churn triggering re-registration.
+  React.useEffect(() => {
+    if (!reg) return
+    const map = reg.handlers.current
+    for (const e of latest.current) {
+      if (e.onSelect) map.set(railHandlerKey(groupId, e.id), e.onSelect)
+    }
+  })
+
+  React.useEffect(() => {
+    if (!reg) return
+    reg.register(groupId, latest.current)
+    return () => reg.unregister(groupId)
+  }, [reg, groupId, key])
 }
 
 export interface ToolSidebarFilterItem {
@@ -139,6 +203,13 @@ interface ToolSidebarLayoutProps {
   /** Header buttons (add, sort, filter…) rendered left of the collapse toggle. */
   actions?: React.ReactNode
   /**
+   * Rail entries the page owns directly. Bodies that own their own state should
+   * call `useToolSidebarRail` instead; these render after the registered ones.
+   */
+  rail?: ToolSidebarRailEntry[]
+  /** The tool's one "create" affordance. Shown in the header and in the rail. */
+  primaryAction?: { icon: React.ElementType; label: string; onClick: () => void }
+  /**
    * Panel body: the tool's list, tree, or filter set. Laid out as a flex column
    * that does NOT scroll — the panel owns its own `overflow-y-auto` region so a
    * search field or footer can stay pinned while the list scrolls under it.
@@ -153,6 +224,8 @@ export function ToolSidebarLayout({
   icon: Icon,
   title,
   actions,
+  rail,
+  primaryAction,
   sidebar,
   children,
   className,
@@ -161,27 +234,72 @@ export function ToolSidebarLayout({
   const isMobile = useIsMobile()
   const collapsed = useToolSidebarStore((s) => !!s.collapsed[toolId])
   const setCollapsed = useToolSidebarStore((s) => s.setCollapsed)
+  const width = useToolSidebarStore((s) => s.width[toolId] ?? DEFAULT_SIDEBAR_WIDTH)
   const [sheetOpen, setSheetOpen] = React.useState(false)
   const [actionsSlot, setActionsSlot] = React.useState<HTMLDivElement | null>(null)
+  const [registry, setRegistry] = React.useState<RailRegistry>(emptyRailRegistry)
+  const handlers = React.useRef<Map<string, () => void>>(new Map())
+  const panelId = React.useId()
+  const railExpandRef = React.useRef<HTMLButtonElement | null>(null)
+  const panelRef = React.useRef<HTMLDivElement | null>(null)
   // Same category tint the dashboard card for this tool uses, so the identity
   // colour is continuous from the grid to the tool. Falls back to primary.
   const accent = categoryAccent(toolCategoryMap[toolId] ?? '')
 
   // The panel floats only as the mobile sheet; on desktop it is a pinned column.
   const isOverlay = isMobile && sheetOpen
+  const hidden = isMobile || collapsed
+
+  const railRegistration = React.useMemo<RailRegistrationValue>(
+    () => ({
+      register: (groupId, entries) => setRegistry((r) => registerRailGroup(r, groupId, entries)),
+      unregister: (groupId) => setRegistry((r) => unregisterRailGroup(r, groupId)),
+      handlers,
+    }),
+    [],
+  )
+
+  const railEntries = React.useMemo(() => {
+    const flat = flattenRail(registry)
+    if (!rail?.length) return flat
+    // Prop entries are their own group, so they get a separator too.
+    return [...flat, ...rail.map((e, i) => ({ ...e, groupStart: i === 0 && flat.length > 0 }))]
+  }, [registry, rail])
+
+  const expand = React.useCallback(() => {
+    if (isMobile) setSheetOpen(true)
+    else setCollapsed(toolId, false)
+  }, [isMobile, setCollapsed, toolId])
 
   const close = React.useCallback(() => {
     if (sheetOpen) setSheetOpen(false)
     else if (!isMobile) setCollapsed(toolId, true)
   }, [isMobile, setCollapsed, toolId, sheetOpen])
 
+  const activateRailEntry = React.useCallback(
+    (entry: ToolSidebarRailEntry) => {
+      expand()
+      // `flattenRail` namespaced the id to `groupId/entryId`, which is exactly
+      // the handler-map key. Entries that arrived via the `rail` prop are not in
+      // the map, so they fall back to their own closure.
+      ;(handlers.current.get(entry.id) ?? entry.onSelect)?.()
+    },
+    [expand],
+  )
+
   const ctx = React.useMemo<ToolSidebarContextValue>(
-    () => ({ isMobile, isOverlay, close }),
-    [isMobile, isOverlay, close],
+    () => ({ isMobile, isOverlay, isVisible: !hidden, close }),
+    [isMobile, isOverlay, hidden, close],
   )
 
   const panel = (
-    <div className="flex h-full min-h-0 flex-col border-r bg-muted/10">
+    <div
+      id={panelId}
+      ref={panelRef}
+      tabIndex={-1}
+      aria-label={title}
+      className="flex h-full min-h-0 flex-col border-r bg-muted/10 outline-none"
+    >
       <div className="flex shrink-0 items-center justify-between gap-2 border-b px-3 py-2">
         <div className="flex min-w-0 items-center gap-2 text-sm font-semibold">
           <span
@@ -196,6 +314,18 @@ export function ToolSidebarLayout({
           <span className="truncate">{title}</span>
         </div>
         <div className="flex shrink-0 items-center gap-0.5">
+          {primaryAction && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 cursor-pointer"
+              onClick={primaryAction.onClick}
+              aria-label={primaryAction.label}
+              title={primaryAction.label}
+            >
+              <primaryAction.icon className="h-4 w-4" />
+            </Button>
+          )}
           {actions}
           <div ref={setActionsSlot} className="flex items-center gap-0.5" />
           {!isMobile && (
@@ -203,9 +333,15 @@ export function ToolSidebarLayout({
               variant="ghost"
               size="icon"
               className="h-8 w-8 cursor-pointer"
-              onClick={() => setCollapsed(toolId, true)}
-              aria-label={t('hide')}
-              title={t('hide')}
+              onClick={() => {
+                setCollapsed(toolId, true)
+                // Focus would otherwise land on <body> when this button hides.
+                requestAnimationFrame(() => railExpandRef.current?.focus())
+              }}
+              aria-label={t('collapse')}
+              title={t('collapse')}
+              aria-expanded={true}
+              aria-controls={panelId}
             >
               <PanelLeft className="h-4 w-4" />
             </Button>
@@ -218,72 +354,65 @@ export function ToolSidebarLayout({
     </div>
   )
 
-  const hidden = isMobile || collapsed
-
   return (
     <ToolSidebarContext.Provider value={ctx}>
-      <div className={cn('flex h-full min-h-0 w-full overflow-hidden', className)}>
-        {!isMobile && !collapsed && <div className="w-64 shrink-0">{panel}</div>}
-
-        {isMobile && (
-          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-            <SheetContent side="left" className="w-72 p-0">
-              <SheetHeader className="sr-only">
-                <SheetTitle>{title}</SheetTitle>
-              </SheetHeader>
+      <RailRegistrationContext.Provider value={railRegistration}>
+        <div className={cn('flex h-full min-h-0 w-full overflow-hidden', className)}>
+          {/* Mounted even while collapsed. Two reasons: rail entries are published
+              by hooks inside the body and an unmounted body cannot publish, and
+              unmounting threw away the body's search text, expanded tree groups
+              and scroll position on every collapse. */}
+          {!isMobile && (
+            <div className="shrink-0" style={{ width, display: collapsed ? 'none' : undefined }}>
               {panel}
-            </SheetContent>
-          </Sheet>
-        )}
+            </div>
+          )}
 
-        {/* Re-open lives in a 40px rail, not a floating overlay: every tool's
-            main pane already puts a toolbar or header at the top-left, and an
-            absolutely-positioned button would sit on top of it.
+          {isMobile && (
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              <SheetContent side="left" className="w-72 p-0">
+                <SheetHeader className="sr-only">
+                  <SheetTitle>{title}</SheetTitle>
+                </SheetHeader>
+                {panel}
+              </SheetContent>
+            </Sheet>
+          )}
 
-            One control, one job. The rail carries the tool's accent icon so the
-            collapsed strip still says which tool you are in, and swaps it for
-            the expand arrow on hover/focus — showing both at once read as two
-            competing buttons for the same action. */}
-        {hidden && (
-          <div className="flex w-10 shrink-0 flex-col items-center border-r bg-muted/10 pt-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="group h-8 w-8 cursor-pointer"
-              onClick={() => (isMobile ? setSheetOpen(true) : setCollapsed(toolId, false))}
-              aria-label={t('show')}
-              title={`${title} — ${t('show')}`}
-            >
-              <span
-                className={cn(
-                  'flex h-6 w-6 shrink-0 items-center justify-center rounded-md',
-                  'group-hover:hidden group-focus-visible:hidden',
-                  accent.bg,
-                  accent.text,
-                )}
-              >
-                <Icon className="h-3.5 w-3.5" />
-              </span>
-              <PanelLeft className="hidden h-4 w-4 group-hover:block group-focus-visible:block" />
-            </Button>
+          {/* Collapsed state is a 48px rail, not a floating overlay: every tool's
+              main pane already puts a toolbar or header at the top-left, and an
+              absolutely-positioned button would sit on top of it. The rail keeps
+              the tool's identity, its primary action and its facets reachable. */}
+          {hidden && (
+            <ToolSidebarRail
+              icon={Icon}
+              title={title}
+              accent={accent}
+              entries={railEntries}
+              primaryAction={primaryAction}
+              onExpand={expand}
+              onActivate={activateRailEntry}
+              panelId={panelId}
+              expandRef={railExpandRef}
+            />
+          )}
+
+          {/* Same surface the 71 single-pane tools paint (dashboard-grid-bg +
+              dash-ambient), so moving between a converter and a workspace tool
+              doesn't change the background under you. */}
+          <div
+            className="dashboard-grid-bg relative flex min-w-0 flex-1 flex-col overflow-hidden"
+            // .dashboard-grid-bg rounds its corners for the padded single-pane
+            // column; this pane is flush against the panel border, and the radius
+            // would clip content corners under overflow-hidden. Inline beats the
+            // utilities-layer rule.
+            style={{ borderRadius: 0 }}
+          >
+            <div className="dash-ambient -z-10" aria-hidden />
+            {children}
           </div>
-        )}
-
-        {/* Same surface the 71 single-pane tools paint (dashboard-grid-bg +
-            dash-ambient), so moving between a converter and a workspace tool
-            doesn't change the background under you. */}
-        <div
-          className="dashboard-grid-bg relative flex min-w-0 flex-1 flex-col overflow-hidden"
-          // .dashboard-grid-bg rounds its corners for the padded single-pane
-          // column; this pane is flush against the panel border, and the radius
-          // would clip content corners under overflow-hidden. Inline beats the
-          // utilities-layer rule.
-          style={{ borderRadius: 0 }}
-        >
-          <div className="dash-ambient -z-10" aria-hidden />
-          {children}
         </div>
-      </div>
+      </RailRegistrationContext.Provider>
     </ToolSidebarContext.Provider>
   )
 }
