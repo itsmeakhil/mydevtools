@@ -76,7 +76,8 @@
     "tokenCounter": "Contador de tokens",
     "webhookTester": "Testador de webhooks",
     "websocketTester": "Testador de WebSocket",
-    "whoisLookup": "Pesquisa Whois"
+    "whoisLookup": "Pesquisa Whois",
+    "secureFiles": "Ficheiros"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Editar",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "A restaurar…",
       "restoreSuccess": "Cópia de segurança restaurada",
       "restoreError": "O restauro falhou — frase de acesso errada ou ficheiro inválido"
+    },
+    "backupCodes": {
+      "title": "Códigos de recuperação",
+      "description": "Códigos de utilização única que recuperam o cofre se esquecer a palavra-passe principal.",
+      "remaining": "Restam {remaining} de {total} códigos",
+      "none": "Nenhum código de recuperação guardado.",
+      "hint": "Gerar um novo conjunto invalida todos os códigos existentes.",
+      "passwordPlaceholder": "Palavra-passe principal",
+      "regenerateButton": "Gerar novos códigos",
+      "generating": "A gerar…",
+      "wrongPassword": "Palavra-passe principal incorreta",
+      "success": "Novos códigos de recuperação gerados",
+      "error": "Não foi possível gerar os códigos",
+      "newCodesWarning": "Não poderá vê-los novamente. Transfira-os ou copie-os agora.",
+      "downloadButton": "Transferir",
+      "doneButton": "Já guardei os meus códigos"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Pesquisa Whois",
         "description": "Consulte os dados de registo de um domínio ou IP através de RDAP."
+      },
+      "secureFiles": {
+        "title": "Ficheiros",
+        "description": "Cifre ficheiros e pastas em objetos .mydt mascarados; navegue e pré-visualize depois de desbloquear."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "Amostra de {docs} documentos · {fields} campos",
       "colField": "Campo",
       "colTypes": "Tipos",
-      "colCoverage": "Cobertura"
+      "colCoverage": "Cobertura",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Resposta copiada para a área de transferência",
       "codeCopied": "Código copiado para a área de transferência",
       "copyFailed": "Falha ao copiar para a área de transferência",
-      "curlCopied": "Comando cURL copiado"
+      "curlCopied": "Comando cURL copiado",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Coleções",
@@ -2440,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5203,5 +5246,92 @@
       "accept": "Partilhar anonimamente",
       "decline": "Não, obrigado"
     }
+  },
+  "SecureFiles": {
+    "title": "Ficheiros",
+    "subtitle": "Ficheiros que permanecem privados até os desbloquear — cifrados no seu dispositivo, mascarados no disco",
+    "desktopOnly": "O Secure Files está disponível na aplicação de ambiente de trabalho.",
+    "allFiles": "Todos os ficheiros",
+    "overview": "Visão geral",
+    "statFiles": "Ficheiros",
+    "statFolders": "Pastas",
+    "statContent": "Tamanho do conteúdo",
+    "statContentHint": "Tamanho total dos ficheiros originais",
+    "statOnDisk": "Em disco",
+    "statOverhead": "{size} de sobrecarga de cifragem",
+    "byType": "Por tipo",
+    "fileCount": "{count, plural, one {# ficheiro} other {# ficheiros}}",
+    "largestFiles": "Ficheiros maiores",
+    "recentlyAdded": "Adicionados recentemente",
+    "openContainingFolder": "Abrir a pasta que o contém",
+    "types": {
+      "image": "Imagens",
+      "video": "Vídeo",
+      "audio": "Áudio",
+      "pdf": "PDF",
+      "archive": "Arquivos",
+      "code": "Código",
+      "doc": "Documentos",
+      "sheet": "Folhas de cálculo",
+      "file": "Outros"
+    },
+    "breadcrumb": "Caminho da pasta",
+    "addFiles": "Adicionar ficheiros",
+    "addFolder": "Adicionar pasta",
+    "importFolder": "Importar pasta",
+    "newFolder": "Nova pasta",
+    "lock": "Bloquear",
+    "settings": "Definições de armazenamento",
+    "storageFolder": "Pasta de armazenamento",
+    "notSet": "Não definida",
+    "chooseFolder": "Escolher pasta",
+    "changeFolder": "Mudar de pasta…",
+    "chooseFolderTitle": "Escolha onde guardar os ficheiros cifrados",
+    "chooseFolderBody": "Escolha qualquer pasta neste dispositivo ou numa unidade externa. Fora do MyDevTools contém apenas ficheiros .mydt mascarados.",
+    "changeFolderTitle": "Mover os ficheiros cifrados?",
+    "changeFolderBody": "Todos os ficheiros .mydt serão movidos da pasta de armazenamento atual para a que escolher a seguir.",
+    "folderSet": "Pasta de armazenamento definida",
+    "folderMissingTitle": "Pasta de armazenamento não encontrada",
+    "folderMissingBody": "«{dir}» não está disponível — pode estar numa unidade desligada ou pertencer a uma cópia de segurança restaurada de outra máquina. Volte a ligá-la ou escolha uma nova pasta.",
+    "movedCount": "Movidos {count} ficheiros cifrados",
+    "importedCount": "Cifrados {count} ficheiros",
+    "emptyFolderAdded": "Pasta adicionada — não continha ficheiros para cifrar",
+    "emptyTitle": "Ainda não há ficheiros aqui",
+    "emptyBody": "Adicione ficheiros ou uma pasta inteira. Cada ficheiro é cifrado num objeto .mydt com nome aleatório; o nome, o tipo e o conteúdo originais só são visíveis aqui.",
+    "name": "Nome",
+    "size": "Tamanho",
+    "modified": "Modificado",
+    "actions": "Ações",
+    "expand": "Expandir",
+    "collapse": "Recolher",
+    "preview": "Pré-visualização",
+    "noPreview": "Sem pré-visualização para este tipo de ficheiro — exporte-o para o abrir noutra aplicação.",
+    "export": "Exportar",
+    "exportWarningTitle": "Exportar uma cópia decifrada?",
+    "exportWarningBody": "O ficheiro será escrito sem cifra no local que escolher. Tudo o que estiver nesse dispositivo o poderá ler.",
+    "exported": "Cópia decifrada exportada",
+    "replace": "Substituir conteúdo…",
+    "replaced": "Conteúdo do ficheiro substituído",
+    "rename": "Mudar o nome",
+    "fileName": "Nome do ficheiro",
+    "move": "Mover para uma pasta",
+    "targetFolder": "Pasta",
+    "targetFolderHint": "Use barras para pastas aninhadas, por exemplo projeto/config. Deixe vazio para o nível superior.",
+    "folderName": "Nome da pasta",
+    "delete": "Eliminar",
+    "deleted": "Ficheiro eliminado",
+    "deletedCount": "Eliminados {count} ficheiros",
+    "deleteFileTitle": "Eliminar este ficheiro?",
+    "deleteFileBody": "«{name}» será removido permanentemente da pasta de armazenamento cifrada.",
+    "deleteFolderTitle": "Eliminar esta pasta?",
+    "deleteFolderBody": "Todos os ficheiros em «{dir}» serão removidos permanentemente da pasta de armazenamento cifrada.",
+    "unreadableCount": "Ficheiros ilegíveis na pasta de armazenamento: {count}",
+    "unreadableHint": "Foram cifrados com outra palavra-passe mestra, pertencem a outro cofre ou estão danificados.",
+    "dismiss": "Dispensar",
+    "viewGrid": "Vista de grelha",
+    "viewList": "Vista de lista",
+    "footerNote": "Ficheiros até 20 MB. Cifrados com Argon2id + XChaCha20-Poly1305; a chave permanece em memória apenas enquanto o cofre está desbloqueado.",
+    "cancel": "Cancelar",
+    "save": "Guardar"
   }
 }

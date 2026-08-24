@@ -64,9 +64,10 @@ No. The vault key is derived from your password and never leaves your device, so
 there is no reset path. That is what makes the vault meaningful.
 
 **Which platforms are supported?**
-Published builds are macOS only today (universal — Apple Silicon and Intel,
-signed and notarized). Windows and Linux builds are not published yet; the Tauri
-shell can be built from source on those platforms, but is untested.
+macOS (universal — Apple Silicon and Intel, signed and notarized) and Linux
+(x86_64, as a `.deb` or AppImage) ship in every release. There is no Windows
+build for now; the Tauri shell can be built from source on Windows, but is
+untested.
 
 **Is it really free?**
 Yes — every tool and every feature, no paid tier and no limits. It is open source

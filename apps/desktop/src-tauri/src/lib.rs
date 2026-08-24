@@ -85,6 +85,13 @@ fn fs_allow_collection_dir(app: tauri::AppHandle, path: String) -> Result<(), St
         .map_err(|e| e.to_string())
 }
 
+/// Decrypted Secure Files payload as raw bytes (webview gets an ArrayBuffer —
+/// no base64 round-trip through the JSON router).
+#[tauri::command]
+fn secure_file_read(state: tauri::State<'_, AppState>, id: String) -> Result<tauri::ipc::Response, String> {
+    router::secure_files::read_plaintext(&state, &id).map(tauri::ipc::Response::new)
+}
+
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
@@ -142,7 +149,8 @@ pub fn run() {
             proxy_grpc,
             fs_allow_collection_dir,
             file_collections_registry_load,
-            file_collections_registry_save
+            file_collections_registry_save,
+            secure_file_read
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

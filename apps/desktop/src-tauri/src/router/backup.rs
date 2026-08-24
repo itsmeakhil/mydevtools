@@ -20,7 +20,9 @@ use crate::state::AppState;
 /// kv singletons that are portable across machines. Excludes session cookies
 /// (`cookie_jar`), per-workspace sync flags (`sync_enabled:*`), and the
 /// device-local active-workspace pointer.
-const PORTABLE_KV: &[&str] = &["master_vault", "backup_codes", "user_preferences"];
+// `secure_files` carries the Argon2 salt: without it, .mydt files are unreadable
+// even with the right password (the stored dir path is just re-picked).
+const PORTABLE_KV: &[&str] = &["master_vault", "backup_codes", "user_preferences", "secure_files"];
 
 const BACKUP_VERSION: i64 = 1;
 

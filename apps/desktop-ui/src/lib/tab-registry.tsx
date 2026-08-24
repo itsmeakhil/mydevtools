@@ -27,6 +27,7 @@ const TAB_REGISTRY: Record<string, React.ComponentType> = {
     { ssr: false, loading }
   ),
   '/app/password-manager': dynamic(() => import('@/app/app/password-manager/page'), { ssr: false, loading }),
+  '/app/secure-files': dynamic(() => import('@/app/app/secure-files/page'), { ssr: false, loading }),
   '/app/environment-manager': dynamic(() => import('@/app/app/environment-manager/page'), { ssr: false, loading }),
   '/app/api-keys': dynamic(() => import('@/app/app/api-keys/page'), { ssr: false, loading }),
   '/app/bookmarks': dynamic(() => import('@/app/app/bookmarks/page'), { ssr: false, loading }),

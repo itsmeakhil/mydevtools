@@ -138,7 +138,7 @@ importers:
         specifier: ^2.4.9
         version: 2.4.9
       '@tauri-apps/plugin-dialog':
-        specifier: ^2.4.0
+        specifier: ^2.7.2
         version: 2.7.2
       '@tauri-apps/plugin-fs':
         specifier: ^2.4.0

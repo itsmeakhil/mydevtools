@@ -214,7 +214,7 @@ export function buildPlatformPageJsonLd(slug: string): Record<string, unknown> |
         name: 'MyDevTools',
         applicationCategory: 'DeveloperApplication',
         applicationSubCategory: 'Developer Tools',
-        operatingSystem: 'macOS, Windows, Linux',
+        operatingSystem: 'macOS, Linux',
         url: baseUrl,
         description: siteMetadata.description,
         offers: {
@@ -300,7 +300,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         name: 'MyDevTools',
         applicationCategory: 'DeveloperApplication',
         applicationSubCategory: 'Developer Tools',
-        operatingSystem: 'macOS, Windows, Linux',
+        operatingSystem: 'macOS, Linux',
         url: baseUrl,
         description: siteMetadata.description,
         offers: {

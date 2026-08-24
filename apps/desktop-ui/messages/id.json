@@ -76,7 +76,8 @@
     "tokenCounter": "Penghitung Token",
     "webhookTester": "Penguji Webhook",
     "websocketTester": "Penguji WebSocket",
-    "whoisLookup": "Pencarian Whois"
+    "whoisLookup": "Pencarian Whois",
+    "secureFiles": "Berkas"
   },
   "Help": {
     "title": "Bantuan & Dokumentasi",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Ubah",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Memulihkan…",
       "restoreSuccess": "Cadangan dipulihkan",
       "restoreError": "Pemulihan gagal — frasa sandi salah atau file cadangan tidak valid"
+    },
+    "backupCodes": {
+      "title": "Kode cadangan",
+      "description": "Kode sekali pakai untuk memulihkan brankas jika Anda lupa kata sandi utama.",
+      "remaining": "Tersisa {remaining} dari {total} kode",
+      "none": "Belum ada kode cadangan tersimpan.",
+      "hint": "Membuat set baru membatalkan semua kode yang ada.",
+      "passwordPlaceholder": "Kata sandi utama",
+      "regenerateButton": "Buat kode baru",
+      "generating": "Membuat…",
+      "wrongPassword": "Kata sandi utama salah",
+      "success": "Kode cadangan baru dibuat",
+      "error": "Gagal membuat kode cadangan",
+      "newCodesWarning": "Anda tidak dapat melihatnya lagi. Unduh atau salin sekarang.",
+      "downloadButton": "Unduh",
+      "doneButton": "Saya sudah menyimpan kode"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Pencarian Whois",
         "description": "Cari detail pendaftaran domain dan IP melalui RDAP."
+      },
+      "secureFiles": {
+        "title": "Berkas",
+        "description": "Enkripsi berkas dan folder menjadi objek .mydt bernama samar; jelajahi dan pratinjau setelah dibuka."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "Mengambil sampel {docs} dokumen · {fields} bidang",
       "colField": "Bidang",
       "colTypes": "Tipe",
-      "colCoverage": "Cakupan"
+      "colCoverage": "Cakupan",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Tanggapan disalin ke clipboard",
       "codeCopied": "Disalin ke papan klip",
       "copyFailed": "Gagal menyalin ke papan klip",
-      "curlCopied": "Perintah cURL disalin"
+      "curlCopied": "Perintah cURL disalin",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Penagihan",
@@ -2440,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5203,5 +5246,92 @@
       "accept": "Bagikan secara anonim",
       "decline": "Tidak, terima kasih"
     }
+  },
+  "SecureFiles": {
+    "title": "Berkas",
+    "subtitle": "Berkas yang tetap pribadi sampai Anda membukanya — dienkripsi di perangkat Anda, disamarkan di disk",
+    "desktopOnly": "Secure Files tersedia di aplikasi desktop.",
+    "allFiles": "Semua berkas",
+    "overview": "Ringkasan",
+    "statFiles": "Berkas",
+    "statFolders": "Folder",
+    "statContent": "Ukuran konten",
+    "statContentHint": "Ukuran total berkas asli",
+    "statOnDisk": "Di disk",
+    "statOverhead": "{size} overhead enkripsi",
+    "byType": "Menurut jenis",
+    "fileCount": "{count, plural, other {# berkas}}",
+    "largestFiles": "Berkas terbesar",
+    "recentlyAdded": "Baru ditambahkan",
+    "openContainingFolder": "Buka folder induk",
+    "types": {
+      "image": "Gambar",
+      "video": "Video",
+      "audio": "Audio",
+      "pdf": "PDF",
+      "archive": "Arsip",
+      "code": "Kode",
+      "doc": "Dokumen",
+      "sheet": "Lembar kerja",
+      "file": "Lainnya"
+    },
+    "breadcrumb": "Jalur folder",
+    "addFiles": "Tambah berkas",
+    "addFolder": "Tambah folder",
+    "importFolder": "Impor folder",
+    "newFolder": "Folder baru",
+    "lock": "Kunci",
+    "settings": "Pengaturan penyimpanan",
+    "storageFolder": "Folder penyimpanan",
+    "notSet": "Belum diatur",
+    "chooseFolder": "Pilih folder",
+    "changeFolder": "Ganti folder…",
+    "chooseFolderTitle": "Pilih tempat penyimpanan berkas terenkripsi",
+    "chooseFolderBody": "Pilih folder mana pun di perangkat ini atau di drive eksternal. Di luar MyDevTools, folder itu hanya berisi berkas .mydt bernama samar.",
+    "changeFolderTitle": "Pindahkan berkas terenkripsi?",
+    "changeFolderBody": "Semua berkas .mydt akan dipindahkan dari folder penyimpanan saat ini ke folder yang Anda pilih berikutnya.",
+    "folderSet": "Folder penyimpanan diatur",
+    "folderMissingTitle": "Folder penyimpanan tidak ditemukan",
+    "folderMissingBody": "“{dir}” tidak tersedia — mungkin berada di drive yang dicabut atau berasal dari cadangan yang dipulihkan dari mesin lain. Sambungkan kembali, atau pilih folder baru.",
+    "movedCount": "{count} berkas terenkripsi dipindahkan",
+    "importedCount": "{count} berkas dienkripsi",
+    "emptyFolderAdded": "Folder ditambahkan — tidak ada berkas untuk dienkripsi",
+    "emptyTitle": "Belum ada berkas di sini",
+    "emptyBody": "Tambahkan berkas atau seluruh folder. Setiap berkas dienkripsi menjadi objek .mydt bernama acak; nama, jenis, dan isi aslinya hanya terlihat di sini.",
+    "name": "Nama",
+    "size": "Ukuran",
+    "modified": "Diubah",
+    "actions": "Tindakan",
+    "expand": "Bentangkan",
+    "collapse": "Ciutkan",
+    "preview": "Pratinjau",
+    "noPreview": "Tidak ada pratinjau untuk jenis berkas ini — ekspor untuk membukanya di aplikasi lain.",
+    "export": "Ekspor",
+    "exportWarningTitle": "Ekspor salinan yang sudah didekripsi?",
+    "exportWarningBody": "Berkas akan ditulis tanpa enkripsi ke lokasi yang Anda pilih. Apa pun di perangkat itu bisa membacanya.",
+    "exported": "Salinan terdekripsi diekspor",
+    "replace": "Ganti isi…",
+    "replaced": "Isi berkas diganti",
+    "rename": "Ganti nama",
+    "fileName": "Nama berkas",
+    "move": "Pindahkan ke folder",
+    "targetFolder": "Folder",
+    "targetFolderHint": "Gunakan garis miring untuk folder bersarang, misalnya proyek/config. Kosongkan untuk tingkat teratas.",
+    "folderName": "Nama folder",
+    "delete": "Hapus",
+    "deleted": "Berkas dihapus",
+    "deletedCount": "{count} berkas dihapus",
+    "deleteFileTitle": "Hapus berkas ini?",
+    "deleteFileBody": "“{name}” akan dihapus permanen dari folder penyimpanan terenkripsi.",
+    "deleteFolderTitle": "Hapus folder ini?",
+    "deleteFolderBody": "Setiap berkas di dalam “{dir}” akan dihapus permanen dari folder penyimpanan terenkripsi.",
+    "unreadableCount": "Berkas tak terbaca di folder penyimpanan: {count}",
+    "unreadableHint": "Berkas itu dienkripsi dengan kata sandi utama lain, milik brankas lain, atau rusak.",
+    "dismiss": "Tutup",
+    "viewGrid": "Tampilan kisi",
+    "viewList": "Tampilan daftar",
+    "footerNote": "Berkas hingga 20 MB. Dienkripsi dengan Argon2id + XChaCha20-Poly1305; kunci hanya ada di memori selama brankas terbuka.",
+    "cancel": "Batal",
+    "save": "Simpan"
   }
 }

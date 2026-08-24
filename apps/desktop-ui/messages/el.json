@@ -76,7 +76,8 @@
     "tokenCounter": "Μετρητής token",
     "webhookTester": "Δοκιμαστής webhook",
     "websocketTester": "Δοκιμαστής WebSocket",
-    "whoisLookup": "Αναζήτηση Whois"
+    "whoisLookup": "Αναζήτηση Whois",
+    "secureFiles": "Αρχεία"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Επεξεργασία",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Γίνεται επαναφορά…",
       "restoreSuccess": "Το αντίγραφο ασφαλείας επαναφέρθηκε",
       "restoreError": "Η επαναφορά απέτυχε — λάθος φράση πρόσβασης ή μη έγκυρο αρχείο"
+    },
+    "backupCodes": {
+      "title": "Εφεδρικοί κωδικοί",
+      "description": "Κωδικοί μίας χρήσης που επαναφέρουν το θησαυροφυλάκιό σας αν ξεχάσετε τον κύριο κωδικό.",
+      "remaining": "Απομένουν {remaining} από {total} κωδικοί",
+      "none": "Δεν έχουν αποθηκευτεί εφεδρικοί κωδικοί.",
+      "hint": "Η δημιουργία νέων κωδικών ακυρώνει όλους τους υπάρχοντες.",
+      "passwordPlaceholder": "Κύριος κωδικός",
+      "regenerateButton": "Δημιουργία νέων κωδικών",
+      "generating": "Δημιουργία…",
+      "wrongPassword": "Λανθασμένος κύριος κωδικός",
+      "success": "Δημιουργήθηκαν νέοι εφεδρικοί κωδικοί",
+      "error": "Δεν ήταν δυνατή η δημιουργία κωδικών",
+      "newCodesWarning": "Δεν θα μπορείτε να τους δείτε ξανά. Κατεβάστε ή αντιγράψτε τους τώρα.",
+      "downloadButton": "Λήψη",
+      "doneButton": "Αποθήκευσα τους κωδικούς μου"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Αναζήτηση Whois",
         "description": "Αναζητήστε στοιχεία καταχώρισης τομέα και IP μέσω RDAP."
+      },
+      "secureFiles": {
+        "title": "Αρχεία",
+        "description": "Κρυπτογραφήστε αρχεία και φακέλους σε μεταμφιεσμένα αντικείμενα .mydt· περιηγηθείτε και δείτε τα μετά το ξεκλείδωμα."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "Δείγμα {docs} εγγράφων · {fields} πεδία",
       "colField": "Πεδίο",
       "colTypes": "Τύποι",
-      "colCoverage": "Κάλυψη"
+      "colCoverage": "Κάλυψη",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Η απάντηση αντιγράφηκε στο πρόχειρο",
       "codeCopied": "Ο κώδικας αντιγράφηκε στο πρόχειρο",
       "copyFailed": "Αποτυχία αντιγραφής στο πρόχειρο",
-      "curlCopied": "Η εντολή cURL αντιγράφηκε"
+      "curlCopied": "Η εντολή cURL αντιγράφηκε",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Συλλογές",
@@ -2440,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5203,5 +5246,92 @@
       "accept": "Ανώνυμη κοινοποίηση",
       "decline": "Όχι, ευχαριστώ"
     }
+  },
+  "SecureFiles": {
+    "title": "Αρχεία",
+    "subtitle": "Αρχεία που παραμένουν ιδιωτικά μέχρι να τα ξεκλειδώσετε — κρυπτογραφημένα στη συσκευή σας, μεταμφιεσμένα στον δίσκο",
+    "desktopOnly": "Το Secure Files είναι διαθέσιμο στην εφαρμογή για υπολογιστή.",
+    "allFiles": "Όλα τα αρχεία",
+    "overview": "Επισκόπηση",
+    "statFiles": "Αρχεία",
+    "statFolders": "Φάκελοι",
+    "statContent": "Μέγεθος περιεχομένου",
+    "statContentHint": "Συνολικό μέγεθος των αρχικών αρχείων",
+    "statOnDisk": "Στον δίσκο",
+    "statOverhead": "{size} επιβάρυνση κρυπτογράφησης",
+    "byType": "Ανά τύπο",
+    "fileCount": "{count, plural, one {# αρχείο} other {# αρχεία}}",
+    "largestFiles": "Μεγαλύτερα αρχεία",
+    "recentlyAdded": "Προστέθηκαν πρόσφατα",
+    "openContainingFolder": "Άνοιγμα φακέλου που το περιέχει",
+    "types": {
+      "image": "Εικόνες",
+      "video": "Βίντεο",
+      "audio": "Ήχος",
+      "pdf": "PDF",
+      "archive": "Αρχειοθήκες",
+      "code": "Κώδικας",
+      "doc": "Έγγραφα",
+      "sheet": "Υπολογιστικά φύλλα",
+      "file": "Άλλα"
+    },
+    "breadcrumb": "Διαδρομή φακέλου",
+    "addFiles": "Προσθήκη αρχείων",
+    "addFolder": "Προσθήκη φακέλου",
+    "importFolder": "Εισαγωγή φακέλου",
+    "newFolder": "Νέος φάκελος",
+    "lock": "Κλείδωμα",
+    "settings": "Ρυθμίσεις αποθήκευσης",
+    "storageFolder": "Φάκελος αποθήκευσης",
+    "notSet": "Δεν έχει οριστεί",
+    "chooseFolder": "Επιλογή φακέλου",
+    "changeFolder": "Αλλαγή φακέλου…",
+    "chooseFolderTitle": "Επιλέξτε πού αποθηκεύονται τα κρυπτογραφημένα αρχεία",
+    "chooseFolderBody": "Επιλέξτε οποιονδήποτε φάκελο σε αυτή τη συσκευή ή σε εξωτερικό δίσκο. Εκτός του MyDevTools περιέχει μόνο μεταμφιεσμένα αρχεία .mydt.",
+    "changeFolderTitle": "Μετακίνηση κρυπτογραφημένων αρχείων;",
+    "changeFolderBody": "Όλα τα αρχεία .mydt θα μετακινηθούν από τον τρέχοντα φάκελο αποθήκευσης σε αυτόν που θα επιλέξετε στη συνέχεια.",
+    "folderSet": "Ο φάκελος αποθήκευσης ορίστηκε",
+    "folderMissingTitle": "Ο φάκελος αποθήκευσης δεν βρέθηκε",
+    "folderMissingBody": "Το «{dir}» δεν είναι διαθέσιμο — ίσως βρίσκεται σε αποσυνδεδεμένο δίσκο ή προέρχεται από αντίγραφο ασφαλείας άλλου υπολογιστή. Συνδέστε το ξανά ή επιλέξτε νέο φάκελο.",
+    "movedCount": "Μετακινήθηκαν {count} κρυπτογραφημένα αρχεία",
+    "importedCount": "Κρυπτογραφήθηκαν {count} αρχεία",
+    "emptyFolderAdded": "Ο φάκελος προστέθηκε — δεν περιείχε αρχεία προς κρυπτογράφηση",
+    "emptyTitle": "Δεν υπάρχουν ακόμη αρχεία εδώ",
+    "emptyBody": "Προσθέστε αρχεία ή έναν ολόκληρο φάκελο. Κάθε αρχείο κρυπτογραφείται σε αντικείμενο .mydt με τυχαίο όνομα· το αρχικό όνομα, ο τύπος και το περιεχόμενο φαίνονται μόνο εδώ.",
+    "name": "Όνομα",
+    "size": "Μέγεθος",
+    "modified": "Τροποποιήθηκε",
+    "actions": "Ενέργειες",
+    "expand": "Ανάπτυξη",
+    "collapse": "Σύμπτυξη",
+    "preview": "Προεπισκόπηση",
+    "noPreview": "Δεν υπάρχει προεπισκόπηση για αυτόν τον τύπο αρχείου — εξαγάγετέ το για να το ανοίξετε σε άλλη εφαρμογή.",
+    "export": "Εξαγωγή",
+    "exportWarningTitle": "Εξαγωγή αποκρυπτογραφημένου αντιγράφου;",
+    "exportWarningBody": "Το αρχείο θα γραφτεί χωρίς κρυπτογράφηση στη θέση που θα επιλέξετε. Οτιδήποτε σε εκείνη τη συσκευή θα μπορεί να το διαβάσει.",
+    "exported": "Το αποκρυπτογραφημένο αντίγραφο εξήχθη",
+    "replace": "Αντικατάσταση περιεχομένου…",
+    "replaced": "Το περιεχόμενο του αρχείου αντικαταστάθηκε",
+    "rename": "Μετονομασία",
+    "fileName": "Όνομα αρχείου",
+    "move": "Μετακίνηση σε φάκελο",
+    "targetFolder": "Φάκελος",
+    "targetFolderHint": "Χρησιμοποιήστε καθέτους για ένθετους φακέλους, π.χ. project/config. Αφήστε το κενό για το ανώτατο επίπεδο.",
+    "folderName": "Όνομα φακέλου",
+    "delete": "Διαγραφή",
+    "deleted": "Το αρχείο διαγράφηκε",
+    "deletedCount": "Διαγράφηκαν {count} αρχεία",
+    "deleteFileTitle": "Διαγραφή αυτού του αρχείου;",
+    "deleteFileBody": "Το «{name}» θα αφαιρεθεί οριστικά από τον κρυπτογραφημένο φάκελο αποθήκευσης.",
+    "deleteFolderTitle": "Διαγραφή αυτού του φακέλου;",
+    "deleteFolderBody": "Κάθε αρχείο μέσα στο «{dir}» θα αφαιρεθεί οριστικά από τον κρυπτογραφημένο φάκελο αποθήκευσης.",
+    "unreadableCount": "Μη αναγνώσιμα αρχεία στον φάκελο αποθήκευσης: {count}",
+    "unreadableHint": "Κρυπτογραφήθηκαν με άλλον κύριο κωδικό, ανήκουν σε άλλο θησαυροφυλάκιο ή είναι κατεστραμμένα.",
+    "dismiss": "Απόρριψη",
+    "viewGrid": "Προβολή πλέγματος",
+    "viewList": "Προβολή λίστας",
+    "footerNote": "Αρχεία έως 20 MB. Κρυπτογράφηση με Argon2id + XChaCha20-Poly1305· το κλειδί παραμένει στη μνήμη μόνο όσο το θησαυροφυλάκιο είναι ξεκλείδωτο.",
+    "cancel": "Ακύρωση",
+    "save": "Αποθήκευση"
   }
 }

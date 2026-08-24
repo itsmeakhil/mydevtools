@@ -364,8 +364,8 @@ New here? Issues labelled
 [`good first issue`](https://github.com/mydevtools-tech/mydevtools/labels/good%20first%20issue)
 are scoped to be completable without deep knowledge of the codebase. If none are
 open, improving a translation, a tool description or a README translation is
-always welcome — and testing the desktop build on Windows or Linux is the most
-useful thing a new contributor can do right now.
+always welcome — and testing the Linux build (new in 0.1.15) is the most useful
+thing a new contributor can do right now.
 
 ---
 

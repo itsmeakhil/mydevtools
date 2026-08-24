@@ -10,7 +10,7 @@
     "opener:default",
     "updater:default",
     "process:default",
-    "dialog:allow-open",
+    "dialog:default",
     "fs:allow-read-text-file",
     "fs:allow-write-text-file",
     "fs:allow-read-dir",

@@ -76,7 +76,8 @@
     "tokenCounter": "Token-Zähler",
     "webhookTester": "Webhook-Tester",
     "websocketTester": "WebSocket-Tester",
-    "whoisLookup": "Whois-Abfrage"
+    "whoisLookup": "Whois-Abfrage",
+    "secureFiles": "Dateien"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Bearbeiten",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Wird wiederhergestellt…",
       "restoreSuccess": "Backup wiederhergestellt",
       "restoreError": "Wiederherstellung fehlgeschlagen — falsche Passphrase oder ungültige Backup-Datei"
+    },
+    "backupCodes": {
+      "title": "Backup-Codes",
+      "description": "Einmalcodes, mit denen Sie Ihren Tresor wiederherstellen, wenn Sie Ihr Master-Passwort vergessen.",
+      "remaining": "Noch {remaining} von {total} Codes",
+      "none": "Keine Backup-Codes gespeichert.",
+      "hint": "Ein neuer Satz macht alle bestehenden Codes ungültig.",
+      "passwordPlaceholder": "Master-Passwort",
+      "regenerateButton": "Neue Codes erzeugen",
+      "generating": "Wird erzeugt…",
+      "wrongPassword": "Falsches Master-Passwort",
+      "success": "Neue Backup-Codes erzeugt",
+      "error": "Backup-Codes konnten nicht erzeugt werden",
+      "newCodesWarning": "Sie können sie nicht erneut ansehen. Laden Sie sie jetzt herunter oder kopieren Sie sie.",
+      "downloadButton": "Herunterladen",
+      "doneButton": "Ich habe meine Codes gespeichert"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois-Abfrage",
         "description": "Registrierungsdaten von Domains und IPs per RDAP abrufen."
+      },
+      "secureFiles": {
+        "title": "Dateien",
+        "description": "Verschlüsseln Sie Dateien und Ordner in maskierte .mydt-Objekte; nach dem Entsperren durchsuchen und ansehen."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "{docs} Dokumente untersucht · {fields} Felder",
       "colField": "Feld",
       "colTypes": "Typen",
-      "colCoverage": "Abdeckung"
+      "colCoverage": "Abdeckung",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Antwort in die Zwischenablage kopiert",
       "codeCopied": "Code in die Zwischenablage kopiert",
       "copyFailed": "In die Zwischenablage kopieren fehlgeschlagen",
-      "curlCopied": "cURL-Befehl kopiert"
+      "curlCopied": "cURL-Befehl kopiert",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Sammlungen",
@@ -2440,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5203,5 +5246,92 @@
       "accept": "Anonym teilen",
       "decline": "Nein, danke"
     }
+  },
+  "SecureFiles": {
+    "title": "Dateien",
+    "subtitle": "Dateien, die privat bleiben, bis Sie sie entsperren — auf Ihrem Gerät verschlüsselt, auf der Festplatte maskiert",
+    "desktopOnly": "Secure Files ist in der Desktop-App verfügbar.",
+    "allFiles": "Alle Dateien",
+    "overview": "Übersicht",
+    "statFiles": "Dateien",
+    "statFolders": "Ordner",
+    "statContent": "Inhaltsgröße",
+    "statContentHint": "Gesamtgröße der Originaldateien",
+    "statOnDisk": "Auf der Festplatte",
+    "statOverhead": "{size} Verschlüsselungs-Overhead",
+    "byType": "Nach Typ",
+    "fileCount": "{count, plural, one {# Datei} other {# Dateien}}",
+    "largestFiles": "Größte Dateien",
+    "recentlyAdded": "Zuletzt hinzugefügt",
+    "openContainingFolder": "Übergeordneten Ordner öffnen",
+    "types": {
+      "image": "Bilder",
+      "video": "Video",
+      "audio": "Audio",
+      "pdf": "PDF",
+      "archive": "Archive",
+      "code": "Code",
+      "doc": "Dokumente",
+      "sheet": "Tabellen",
+      "file": "Sonstige"
+    },
+    "breadcrumb": "Ordnerpfad",
+    "addFiles": "Dateien hinzufügen",
+    "addFolder": "Ordner hinzufügen",
+    "importFolder": "Ordner importieren",
+    "newFolder": "Neuer Ordner",
+    "lock": "Sperren",
+    "settings": "Speichereinstellungen",
+    "storageFolder": "Speicherordner",
+    "notSet": "Nicht festgelegt",
+    "chooseFolder": "Ordner wählen",
+    "changeFolder": "Ordner ändern…",
+    "chooseFolderTitle": "Wählen Sie, wo verschlüsselte Dateien gespeichert werden",
+    "chooseFolderBody": "Wählen Sie einen beliebigen Ordner auf diesem Gerät oder einem externen Laufwerk. Außerhalb von MyDevTools enthält er ausschließlich maskierte .mydt-Dateien.",
+    "changeFolderTitle": "Verschlüsselte Dateien verschieben?",
+    "changeFolderBody": "Alle .mydt-Dateien werden aus dem aktuellen Speicherordner in den als Nächstes gewählten verschoben.",
+    "folderSet": "Speicherordner festgelegt",
+    "folderMissingTitle": "Speicherordner nicht gefunden",
+    "folderMissingBody": "„{dir}“ ist nicht verfügbar — der Ordner liegt möglicherweise auf einem nicht angeschlossenen Laufwerk oder stammt aus einer wiederhergestellten Sicherung eines anderen Rechners. Schließen Sie ihn wieder an oder wählen Sie einen neuen Ordner.",
+    "movedCount": "{count} verschlüsselte Dateien verschoben",
+    "importedCount": "{count} Dateien verschlüsselt",
+    "emptyFolderAdded": "Ordner hinzugefügt — er enthielt keine Dateien zum Verschlüsseln",
+    "emptyTitle": "Hier sind noch keine Dateien",
+    "emptyBody": "Fügen Sie Dateien oder einen ganzen Ordner hinzu. Jede Datei wird in ein .mydt-Objekt mit zufälligem Namen verschlüsselt; Originalname, Typ und Inhalt sind nur hier sichtbar.",
+    "name": "Name",
+    "size": "Größe",
+    "modified": "Geändert",
+    "actions": "Aktionen",
+    "expand": "Ausklappen",
+    "collapse": "Einklappen",
+    "preview": "Vorschau",
+    "noPreview": "Keine Vorschau für diesen Dateityp — exportieren Sie die Datei, um sie in einer anderen App zu öffnen.",
+    "export": "Exportieren",
+    "exportWarningTitle": "Entschlüsselte Kopie exportieren?",
+    "exportWarningBody": "Die Datei wird unverschlüsselt an den gewählten Ort geschrieben. Alles auf diesem Gerät kann sie lesen.",
+    "exported": "Entschlüsselte Kopie exportiert",
+    "replace": "Inhalt ersetzen…",
+    "replaced": "Dateiinhalt ersetzt",
+    "rename": "Umbenennen",
+    "fileName": "Dateiname",
+    "move": "In Ordner verschieben",
+    "targetFolder": "Ordner",
+    "targetFolderHint": "Verwenden Sie Schrägstriche für verschachtelte Ordner, z. B. projekt/config. Für die oberste Ebene leer lassen.",
+    "folderName": "Ordnername",
+    "delete": "Löschen",
+    "deleted": "Datei gelöscht",
+    "deletedCount": "{count} Dateien gelöscht",
+    "deleteFileTitle": "Diese Datei löschen?",
+    "deleteFileBody": "„{name}“ wird endgültig aus dem verschlüsselten Speicherordner entfernt.",
+    "deleteFolderTitle": "Diesen Ordner löschen?",
+    "deleteFolderBody": "Jede Datei unter „{dir}“ wird endgültig aus dem verschlüsselten Speicherordner entfernt.",
+    "unreadableCount": "Nicht lesbare Dateien im Speicherordner: {count}",
+    "unreadableHint": "Sie wurden mit einem anderen Master-Passwort verschlüsselt, gehören zu einem anderen Tresor oder sind beschädigt.",
+    "dismiss": "Ausblenden",
+    "viewGrid": "Rasteransicht",
+    "viewList": "Listenansicht",
+    "footerNote": "Dateien bis 20 MB. Verschlüsselt mit Argon2id + XChaCha20-Poly1305; der Schlüssel bleibt nur im Arbeitsspeicher, solange der Tresor entsperrt ist.",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
   }
 }

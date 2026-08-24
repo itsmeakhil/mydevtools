@@ -233,7 +233,7 @@ export const changelog: ChangelogEntry[] = [
     date: '2026-07-15',
     title: 'First public release',
     summary:
-      'The first downloadable MyDevTools desktop build for macOS, Windows, and Linux — 80+ developer tools that run on your device and work offline.',
+      'The first downloadable MyDevTools desktop build for macOS — 80+ developer tools that run on your device and work offline.',
     changes: [
       { type: 'added', text: 'Formatters, converters, generators, validators, cryptography, and network tools in one app.' },
       { type: 'added', text: 'Notes, bookmarks, tasks, and an API client, stored in an encrypted local vault.' },

@@ -66,6 +66,14 @@ apps/
 - **Vault data** (password manager, API keys, database credentials) is
   additionally encrypted with a user master password; the master key never
   leaves the machine. Creating/unlocking the vault is entirely offline.
+- **Secure Files** (`router/secure_files/`) encrypts user-picked files into
+  opaque `<random hex>.mydt` objects inside a folder the user chooses. Each
+  `.mydt` is self-contained (Argon2id salt/params, per-file DEK wrapped by the
+  key derived from the master password, XChaCha20-Poly1305 metadata + payload),
+  so there is no index — listing scans the folder and decrypts headers. After
+  the webview verifies the master password it hands it to Rust once
+  (`/auth/master-vault/unlock`); the derived key lives only in `AppState` and
+  is dropped on lock. Format spec: `docs/MYDT_FORMAT.md`.
 - **Database clients** use native Rust drivers, so a connection goes straight
   from the user's machine to their database — nothing is proxied.
 - **API client** requests go through `reqwest` in Rust, which is why the app

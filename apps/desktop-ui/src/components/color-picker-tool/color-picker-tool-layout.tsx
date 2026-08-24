@@ -6,7 +6,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { DEFAULT_HEX, channelsFromHex, parseHex, safeHue } from './color-helpers';
 import { useCopyFeedback } from '@/hooks/use-copy-feedback';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -15,9 +14,7 @@ import { PALETTE_GROUPS } from '@/lib/color-palettes';
 import { Check, Copy, Pipette } from 'lucide-react';
 import { IconPalette } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
 
 
 type PaletteId = (typeof PALETTE_GROUPS)[number]['id'];
@@ -146,19 +143,14 @@ export function ColorPickerToolLayout() {
   );
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
-      <RevealItem index={0} className="shrink-0">
-        <ToolPageHeader
-          icon={IconPalette}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-          offline={false}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconPalette}
+      title={t('title')}
+      description={t('subtitle')}
+      contentClassName="overflow-auto"
+    >
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 shrink-0">
-        <Card className="p-4 space-y-4">
+        <div className="rounded-lg border border-border bg-card p-4 space-y-4">
           <div className="flex flex-wrap items-start gap-4">
             <div
               className="h-28 w-28 shrink-0 rounded-xl border border-border shadow-sm"
@@ -320,9 +312,9 @@ export function ColorPickerToolLayout() {
               <CopyRow id="css-hsl" label="hsl" value={hslCss} />
             </div>
           </div>
-        </Card>
+        </div>
 
-        <Card className="p-4 flex flex-col min-h-[280px]">
+        <div className="rounded-lg border border-border bg-card p-4 flex flex-col min-h-[280px]">
           <Label className="text-xs text-muted-foreground uppercase tracking-wider mb-3">
             {t('palettes')}
           </Label>
@@ -387,8 +379,8 @@ export function ColorPickerToolLayout() {
               );
             })}
           </Tabs>
-        </Card>
+        </div>
       </div>
-    </div>
+    </ToolShell>
   );
 }
