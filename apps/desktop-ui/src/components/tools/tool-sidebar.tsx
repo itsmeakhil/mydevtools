@@ -16,6 +16,8 @@ import { categoryAccent } from '@/components/dashboard/types'
 import { ToolSidebarRail } from '@/components/tools/tool-sidebar-rail'
 import {
   DEFAULT_SIDEBAR_WIDTH,
+  MAX_SIDEBAR_WIDTH,
+  MIN_SIDEBAR_WIDTH,
   emptyRailRegistry,
   flattenRail,
   railEntriesKey,
@@ -261,6 +263,9 @@ export function ToolSidebarLayout({
   const collapsed = useToolSidebarStore((s) => !!s.collapsed[toolId])
   const setCollapsed = useToolSidebarStore((s) => s.setCollapsed)
   const width = useToolSidebarStore((s) => s.width[toolId] ?? DEFAULT_SIDEBAR_WIDTH)
+  const setWidth = useToolSidebarStore((s) => s.setWidth)
+  const resetWidth = useToolSidebarStore((s) => s.resetWidth)
+  const dragOriginRef = React.useRef<{ x: number; width: number } | null>(null)
   const [sheetOpen, setSheetOpen] = React.useState(false)
   const [actionsSlot, setActionsSlot] = React.useState<HTMLDivElement | null>(null)
   const [registry, setRegistry] = React.useState<RailRegistry>(emptyRailRegistry)
@@ -316,6 +321,48 @@ export function ToolSidebarLayout({
   const ctx = React.useMemo<ToolSidebarContextValue>(
     () => ({ isMobile, isOverlay, isVisible: !hidden, close }),
     [isMobile, isOverlay, hidden, close],
+  )
+
+  const onHandlePointerDown = React.useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      e.preventDefault()
+      e.currentTarget.setPointerCapture(e.pointerId)
+      dragOriginRef.current = { x: e.clientX, width }
+      // Dragging across the content pane would otherwise select its text.
+      document.body.style.userSelect = 'none'
+    },
+    [width],
+  )
+
+  const onHandlePointerMove = React.useCallback(
+    (e: React.PointerEvent<HTMLDivElement>) => {
+      const origin = dragOriginRef.current
+      if (!origin) return
+      setWidth(toolId, origin.width + (e.clientX - origin.x))
+    },
+    [setWidth, toolId],
+  )
+
+  const onHandlePointerUp = React.useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    dragOriginRef.current = null
+    e.currentTarget.releasePointerCapture(e.pointerId)
+    document.body.style.userSelect = ''
+  }, [])
+
+  const onHandleKeyDown = React.useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        setWidth(toolId, width - 16)
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        setWidth(toolId, width + 16)
+      } else if (e.key === 'Home') {
+        e.preventDefault()
+        resetWidth(toolId)
+      }
+    },
+    [setWidth, resetWidth, toolId, width],
   )
 
   const panel = (
@@ -389,8 +436,27 @@ export function ToolSidebarLayout({
               unmounting threw away the body's search text, expanded tree groups
               and scroll position on every collapse. */}
           {!isMobile && (
-            <div className="shrink-0" style={{ width, display: collapsed ? 'none' : undefined }}>
+            <div
+              className="relative shrink-0"
+              style={{ width, display: collapsed ? 'none' : undefined }}
+            >
               {panel}
+              <div
+                role="separator"
+                aria-orientation="vertical"
+                aria-label={t('resize')}
+                aria-valuenow={width}
+                aria-valuemin={MIN_SIDEBAR_WIDTH}
+                aria-valuemax={MAX_SIDEBAR_WIDTH}
+                tabIndex={0}
+                title={`${t('resize')} — ${t('resetWidth')}`}
+                onPointerDown={onHandlePointerDown}
+                onPointerMove={onHandlePointerMove}
+                onPointerUp={onHandlePointerUp}
+                onDoubleClick={() => resetWidth(toolId)}
+                onKeyDown={onHandleKeyDown}
+                className="absolute inset-y-0 -right-0.5 z-10 w-1 cursor-col-resize touch-none bg-transparent transition-colors hover:bg-primary/40 focus-visible:bg-primary/60 focus-visible:outline-none"
+              />
             </div>
           )}
 
