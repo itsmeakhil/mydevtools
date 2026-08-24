@@ -1,13 +1,10 @@
 "use client";
 
 import { useState, useRef, useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ToolPageHeader } from "@/components/tools/tool-page-header";
-import { RevealItem } from "@/components/dashboard/dashboard-reveal";
-import { CATEGORY_ACCENT } from "@/components/dashboard/types";
+import { ToolShell } from "@/components/tools/tool-shell";
 import {
     IconCheck,
     IconX,
@@ -409,17 +406,13 @@ export function EmailValidator() {
     };
 
     return (
-        <div className="flex h-full min-h-0 w-full flex-col gap-4 overflow-y-auto">
-            <RevealItem index={0} className="shrink-0">
-                <ToolPageHeader
-                    icon={IconMailCheck}
-                    title={t("header.title")}
-                    description={t("header.description")}
-                    accent={CATEGORY_ACCENT["Security"]}
-                    offline={false}
-                />
-            </RevealItem>
-
+        <ToolShell
+            icon={IconMailCheck}
+            title={t("header.title")}
+            description={t("header.description")}
+            offline={false}
+            contentClassName="overflow-y-auto"
+        >
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full space-y-4">
                 <div className="flex justify-center">
                     <TabsList className="grid w-full max-w-md grid-cols-2 p-1">
@@ -505,11 +498,11 @@ export function EmailValidator() {
                             )}
 
                             <div className="grid gap-4 md:grid-cols-12">
-                                <Card className="col-span-12 md:col-span-4 h-full flex flex-col">
-                                    <CardHeader>
-                                        <CardTitle className="text-base font-medium text-center text-muted-foreground">{t("score.reliabilityTitle")}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="flex flex-col items-center justify-center flex-1 pb-8">
+                                <div className="col-span-12 md:col-span-4 h-full flex flex-col rounded-lg border border-border bg-card">
+                                    <div className="p-6 pb-0">
+                                        <h3 className="text-base font-medium text-center text-muted-foreground">{t("score.reliabilityTitle")}</h3>
+                                    </div>
+                                    <div className="flex flex-col items-center justify-center flex-1 p-6 pt-4 pb-8">
                                         <div className="relative flex items-center justify-center">
                                             {/* Simple SVG Circular Progress */}
                                             <svg className="h-40 w-40 transform -rotate-90">
@@ -550,14 +543,14 @@ export function EmailValidator() {
                                                 </TooltipProvider>
                                             </div>
                                         </div>
-                                    </CardContent>
-                                </Card>
+                                    </div>
+                                </div>
 
-                                <Card className="col-span-12 md:col-span-8 h-full">
-                                    <CardHeader>
-                                        <CardTitle className="text-base font-medium">{t("details.sectionTitle")}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
+                                <div className="col-span-12 md:col-span-8 h-full rounded-lg border border-border bg-card">
+                                    <div className="p-6 pb-0">
+                                        <h3 className="text-base font-medium">{t("details.sectionTitle")}</h3>
+                                    </div>
+                                    <div className="p-6 pt-4">
                                         <div className="grid gap-3 sm:grid-cols-2">
                                             <ValidationItem
                                                 label={t("validation.syntaxLabel")}
@@ -594,8 +587,8 @@ export function EmailValidator() {
                                                 tooltip={t("validation.roleBasedTooltip")}
                                             />
                                         </div>
-                                    </CardContent>
-                                </Card>
+                                    </div>
+                                </div>
                             </div>
                         </motion.div>
                     )}
@@ -603,8 +596,8 @@ export function EmailValidator() {
 
                 <TabsContent value="bulk" className="space-y-4 focus-visible:outline-none">
                     {!bulkLoading && bulkResults.length === 0 && (
-                        <Card className={`max-w-2xl mx-auto mt-6 md:mt-10 border-dashed border-2 transition-all cursor-pointer ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "bg-muted/20 hover:bg-muted/40"}`}>
-                            <CardContent className="flex flex-col items-center justify-center py-12 px-4 text-center cursor-pointer"
+                        <div className={`rounded-lg border-2 border-dashed max-w-2xl mx-auto mt-6 md:mt-10 transition-all cursor-pointer ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "border-border bg-muted/20 hover:bg-muted/40"}`}>
+                            <div className="flex flex-col items-center justify-center py-12 px-4 text-center cursor-pointer"
                                 onClick={() => fileInputRef.current?.click()}
                                 onDragOver={onDragOver}
                                 onDrop={onDrop}
@@ -634,12 +627,12 @@ export function EmailValidator() {
                                         <IconDownload className="mr-2 h-4 w-4" /> {t("bulk.downloadTemplate")}
                                     </Button>
                                 </div>
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
                     )}
 
                     {bulkLoading && (
-                        <Card className="max-w-2xl mx-auto p-8 text-center">
+                        <div className="rounded-lg border border-border bg-card max-w-2xl mx-auto p-8 text-center">
                             <div className="max-w-md mx-auto space-y-6">
                                 <div className="flex flex-col items-center gap-4">
                                     <div className="relative">
@@ -651,31 +644,31 @@ export function EmailValidator() {
                                 </div>
                                 <Progress value={progress} className="h-2 w-full" />
                             </div>
-                        </Card>
+                        </div>
                     )}
 
                     {bulkResults.length > 0 && !bulkLoading && (
                         <div className="space-y-4">
                             <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-                                <Card className="p-4 flex flex-col justify-between gap-1">
+                                <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between gap-1">
                                     <span className="text-sm font-medium text-muted-foreground">{t("stats.totalProcessed")}</span>
                                     <span className="text-2xl font-bold">{bulkStats.total}</span>
-                                </Card>
-                                <Card className="bg-green-500/10 border-green-500/20 p-4 flex flex-col justify-between">
+                                </div>
+                                <div className="rounded-lg border border-green-500/20 bg-green-500/10 p-4 flex flex-col justify-between">
                                     <span className="text-sm font-medium text-green-600 dark:text-green-400">{t("stats.valid")}</span>
                                     <span className="text-2xl font-bold text-green-700 dark:text-green-300">{bulkStats.valid}</span>
-                                </Card>
-                                <Card className="bg-yellow-500/10 border-yellow-500/20 p-4 flex flex-col justify-between">
+                                </div>
+                                <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4 flex flex-col justify-between">
                                     <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">{t("stats.risky")}</span>
                                     <span className="text-2xl font-bold text-yellow-700 dark:text-yellow-300">{bulkStats.risky}</span>
-                                </Card>
-                                <Card className="bg-red-500/10 border-red-500/20 p-4 flex flex-col justify-between">
+                                </div>
+                                <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-4 flex flex-col justify-between">
                                     <span className="text-sm font-medium text-red-600 dark:text-red-400">{t("stats.invalid")}</span>
                                     <span className="text-2xl font-bold text-red-700 dark:text-red-300">{bulkStats.invalid}</span>
-                                </Card>
+                                </div>
                             </div>
 
-                            <Card className="overflow-hidden">
+                            <div className="rounded-lg border border-border bg-card overflow-hidden">
                                 <div className="p-4 border-b border-border/40 bg-muted/20">
                                     <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
                                         <h3 className="font-medium">{t("results.detailedTitle")}</h3>
@@ -796,11 +789,11 @@ export function EmailValidator() {
                                         </TableBody>
                                     </Table>
                                 </div>
-                            </Card>
+                            </div>
                         </div>
                     )}
                 </TabsContent>
             </Tabs>
-        </div>
+        </ToolShell>
     );
 }

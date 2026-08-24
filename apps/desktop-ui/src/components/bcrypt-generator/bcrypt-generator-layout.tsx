@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
@@ -23,9 +22,7 @@ import {
   TriangleAlert,
 } from 'lucide-react'
 import { IconShieldLock } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
 import {
   hashPassword,
   parseBcryptHash,
@@ -323,20 +320,13 @@ export function BcryptGeneratorLayout() {
   const t = useTranslations('BcryptGenerator')
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconShieldLock}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT.Security}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconShieldLock}
+      title={t('title')}
+      description={t('subtitle')}
+    >
       <div className="min-h-0 flex-1 overflow-y-auto">
-        <Card className="mx-auto max-w-2xl p-5">
+        <div className="mx-auto max-w-2xl rounded-lg border border-border bg-card p-5">
           <Tabs defaultValue="hash">
             <TabsList className="mb-4 grid w-full grid-cols-2">
               <TabsTrigger value="hash">
@@ -355,8 +345,8 @@ export function BcryptGeneratorLayout() {
               <VerifyTab />
             </TabsContent>
           </Tabs>
-        </Card>
+        </div>
       </div>
-    </div>
+    </ToolShell>
   )
 }

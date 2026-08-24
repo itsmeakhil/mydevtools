@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { decodeJwt, type RelativeUnit } from '@/lib/jwt-decode';
@@ -14,9 +13,8 @@ import { useSearchParams } from 'next/navigation';
 import { JwtSignerLayout } from './jwt-signer-layout';
 import { SendToMenu } from '@/components/ui/send-to-menu';
 import { IconKey } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
   const { isCopied: done, copyToClipboard } = useCopyToClipboard();
@@ -45,7 +43,7 @@ function JsonPanel({
   copyLabel: string;
 }) {
   return (
-    <Card className="flex flex-col overflow-hidden min-h-0">
+    <div className="flex flex-col overflow-hidden min-h-0 rounded-lg border border-border bg-card">
       <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30 gap-2">
         <Label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
           {title}
@@ -60,7 +58,7 @@ function JsonPanel({
           {content}
         </pre>
       </div>
-    </Card>
+    </div>
   );
 }
 
@@ -83,11 +81,11 @@ function JwtDecodePanel() {
 
   return (
     <div className="flex flex-col h-full gap-4 min-h-0">
-      <Card className="flex flex-col overflow-hidden shrink-0">
-        <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30">
-          <Label htmlFor="jwt-input" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            {t('tokenLabel')}
-          </Label>
+      <IOPanel
+        className="shrink-0"
+        bodyClassName="min-h-[120px]"
+        label={t('tokenLabel')}
+        actions={
           <Button
             type="button"
             variant="ghost"
@@ -98,16 +96,16 @@ function JwtDecodePanel() {
             <Trash2 className="h-3 w-3" />
             {t('clear')}
           </Button>
-        </div>
-        <textarea
+        }
+      >
+        <ToolTextArea
           id="jwt-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={t('placeholder')}
-          spellCheck={false}
-          className="min-h-[100px] max-h-[160px] w-full resize-y bg-transparent p-3 text-xs font-mono focus:outline-none placeholder:text-muted-foreground/50"
+          className="text-xs"
         />
-      </Card>
+      </IOPanel>
 
       {!result.ok && input.trim() && (
         <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
@@ -118,9 +116,9 @@ function JwtDecodePanel() {
 
       {result.ok && (
         <div className="flex flex-col gap-4 flex-1 min-h-0">
-          <Card
+          <div
             className={cn(
-              'border p-4 space-y-3',
+              'rounded-lg border border-border bg-card p-4 space-y-3',
               result.expiry.kind === 'present' &&
                 (result.expiry.expired
                   ? 'border-destructive/40 bg-destructive/5'
@@ -192,7 +190,7 @@ function JwtDecodePanel() {
                 )}
               </div>
             )}
-          </Card>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 min-h-0">
             <JsonPanel title={t('panels.header')} content={result.headerFormatted} copyLabel={t('copy')} />
@@ -208,30 +206,27 @@ export function JwtDecoderLayout() {
   const t = useTranslations('JwtDecoder');
 
   return (
-    <Tabs defaultValue="decode" className="flex h-full min-h-0 w-full flex-col gap-4">
-      <RevealItem index={0} className="shrink-0">
-        <ToolPageHeader
-          icon={IconKey}
-          title={t('title')}
-          description={t.rich('subtitle', {
-            code: (chunks) => <code className="text-foreground">{chunks}</code>,
-          })}
-          accent={CATEGORY_ACCENT.Security}
-        />
-      </RevealItem>
+    <ToolShell
+      icon={IconKey}
+      title={t('title')}
+      description={t.rich('subtitle', {
+        code: (chunks) => <code className="text-foreground">{chunks}</code>,
+      })}
+    >
+      <Tabs defaultValue="decode" className="flex h-full min-h-0 w-full flex-col gap-4">
+        <TabsList className="shrink-0 w-fit">
+          <TabsTrigger value="decode">{t('tabs.decode')}</TabsTrigger>
+          <TabsTrigger value="sign">{t('tabs.sign')}</TabsTrigger>
+        </TabsList>
 
-      <TabsList className="shrink-0 w-fit">
-        <TabsTrigger value="decode">{t('tabs.decode')}</TabsTrigger>
-        <TabsTrigger value="sign">{t('tabs.sign')}</TabsTrigger>
-      </TabsList>
+        <TabsContent value="decode" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
+          <JwtDecodePanel />
+        </TabsContent>
 
-      <TabsContent value="decode" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
-        <JwtDecodePanel />
-      </TabsContent>
-
-      <TabsContent value="sign" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
-        <JwtSignerLayout />
-      </TabsContent>
-    </Tabs>
+        <TabsContent value="sign" className="flex-1 min-h-0 m-0 data-[state=inactive]:hidden">
+          <JwtSignerLayout />
+        </TabsContent>
+      </Tabs>
+    </ToolShell>
   );
 }
