@@ -143,6 +143,7 @@ export function ToolSidebarFilterList({
   onChange,
   heading,
   className,
+  railGroupId,
 }: {
   items: ToolSidebarFilterItem[]
   value: string
@@ -150,8 +151,33 @@ export function ToolSidebarFilterList({
   /** Optional uppercase section label above the rows. */
   heading?: string
   className?: string
+  /**
+   * Group id for the collapsed rail. Defaults to the heading, so a panel with
+   * two filter lists (password-manager: security + tags) produces two rail
+   * groups. Pass explicitly when there is no heading.
+   */
+  railGroupId?: string
 }) {
   const panel = useToolSidebarPanel()
+  const groupId = railGroupId ?? heading ?? 'filters'
+
+  // The facets this list already renders are exactly what the collapsed rail
+  // should offer, so publish them rather than making each tool restate them.
+  const railEntries = React.useMemo(
+    () =>
+      items.map((item) => ({
+        id: item.id,
+        label: item.label,
+        icon: item.icon,
+        count: item.count,
+        active: item.id === value,
+        onSelect: () => onChange(item.id),
+      })),
+    [items, value, onChange],
+  )
+
+  useToolSidebarRail(groupId, railEntries)
+
   return (
     <div className={cn('space-y-0.5 p-2', className)}>
       {heading && (
