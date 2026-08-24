@@ -5,13 +5,10 @@ import { useTranslations } from 'next-intl'
 import { saveAs } from 'file-saver'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Textarea } from '@/components/ui/textarea'
 import {
   ArrowDown,
   ArrowUp,
@@ -28,9 +25,8 @@ import {
 import { IconPlugConnected } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel'
 import {
   describeCloseEvent,
   formatLogEntry,
@@ -252,23 +248,9 @@ export function WebsocketTesterLayout() {
   const isConnected = status === 'connected'
   const isConnecting = status === 'connecting'
 
-  return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconPlugConnected}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Network & API']}
-          offline={false}
-        />
-      </RevealItem>
-
-      {/* Connection bar */}
-      <Card className="flex flex-wrap items-end gap-3 p-4">
-        <div className="min-w-[240px] flex-1 space-y-1.5">
+  const toolbar = (
+    <div className="flex flex-wrap items-end gap-3 rounded-lg border border-border bg-card px-4 py-3">
+      <div className="min-w-[240px] flex-1 space-y-1.5">
           <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             {t('urlLabel')}
           </Label>
@@ -323,20 +305,28 @@ export function WebsocketTesterLayout() {
           />
           {t(`status.${status}`)}
         </Badge>
-      </Card>
+      </div>
+  )
 
+  return (
+    <ToolShell
+      icon={IconPlugConnected}
+      title={t('title')}
+      description={t('subtitle')}
+      offline={false}
+      toolbar={toolbar}
+      contentClassName="gap-4"
+    >
       {/* Message log */}
-      <Card className="flex min-h-0 flex-1 flex-col overflow-hidden">
-        <div className="flex items-center justify-between border-b border-border/50 bg-muted/30 px-4 py-2.5">
-          <div className="flex items-center gap-2">
-            <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              {t('log.title')}
-            </Label>
+      <IOPanel
+        className="min-h-0 flex-1"
+        bodyClassName="overflow-y-auto"
+        label={t('log.title')}
+        actions={
+          <>
             <Badge variant="secondary" className="h-5 px-2 text-[11px]">
               {entries.length}
             </Badge>
-          </div>
-          <div className="flex items-center gap-1">
             <Button
               variant="ghost"
               size="icon"
@@ -367,10 +357,10 @@ export function WebsocketTesterLayout() {
             >
               <Trash2 className="h-3.5 w-3.5" />
             </Button>
-          </div>
-        </div>
-        <ScrollArea className="min-h-0 flex-1">
-          <div className="flex flex-col gap-1 p-3">
+          </>
+        }
+      >
+        <div className="flex flex-col gap-1 p-3">
             {entries.length === 0 && (
               <p className="px-1 py-6 text-center text-sm text-muted-foreground/60">{t('log.empty')}</p>
             )}
@@ -412,12 +402,11 @@ export function WebsocketTesterLayout() {
             })}
             <div ref={bottomRef} />
           </div>
-        </ScrollArea>
-      </Card>
+      </IOPanel>
 
       {/* Composer */}
-      <Card className="flex flex-col gap-3 p-4">
-        <Textarea
+      <div className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
+        <ToolTextArea
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => {
@@ -427,7 +416,7 @@ export function WebsocketTesterLayout() {
             }
           }}
           placeholder={t('composer.placeholder')}
-          className="min-h-[72px] resize-y font-mono text-sm"
+          className="relative h-auto min-h-[72px] resize-y"
           spellCheck={false}
         />
         <div className="flex flex-wrap items-center gap-3">
@@ -464,7 +453,7 @@ export function WebsocketTesterLayout() {
             <Switch id="ws-ping-switch" checked={pingEnabled} onCheckedChange={setPingEnabled} />
           </div>
         </div>
-      </Card>
-    </div>
+      </div>
+    </ToolShell>
   )
 }

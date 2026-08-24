@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import {
@@ -21,10 +20,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { CopyButton } from '@/components/tools/copy-button'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { ToolWrapper } from '@/components/tools/tool-wrapper'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
 import { IconListNumbers } from '@tabler/icons-react'
+import { ToolShell } from '@/components/tools/tool-shell'
 import { HTTP_STATUS_CODES, type HttpStatusClass } from '@/lib/http-status-codes'
 
 type ClassFilter = 'all' | HttpStatusClass
@@ -74,112 +71,106 @@ export function HttpStatusCodesLayout() {
     })
   }, [classFilter, query])
 
+  const toolbar = (
+    <div className="rounded-lg border border-border bg-card px-4 py-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="flex-1">
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={t('searchPlaceholder')}
+            className="h-10"
+            autoFocus
+          />
+        </div>
+        <div className="w-full sm:w-64">
+          <Select
+            value={classFilter}
+            onValueChange={(v) => setClassFilter(v as ClassFilter)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder={t('classFilterPlaceholder')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t('classFilterAll')}</SelectItem>
+              {(['1xx', '2xx', '3xx', '4xx', '5xx'] as const).map((c) => (
+                <SelectItem key={c} value={c}>
+                  {classLabel(c)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="shrink-0 text-xs text-muted-foreground tabular-nums">
+          {t('resultsCount', { count: filtered.length, total: HTTP_STATUS_CODES.length })}
+        </div>
+      </div>
+    </div>
+  )
+
   return (
-    <ToolWrapper toolId="http-status-codes" maxWidth="5xl">
-      <ToolPageHeader
-        icon={IconListNumbers}
-        title={t('title')}
-        description={t('subtitle')}
-        accent={CATEGORY_ACCENT['Network & API']}
-        offline={false}
-      />
-
-      <div className="mt-6 space-y-4">
-        <Card className="border-border/40 bg-background/50 backdrop-blur-sm shadow-sm">
-          <CardContent className="pt-6">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <div className="flex-1">
-                <Input
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder={t('searchPlaceholder')}
-                  className="h-10"
-                  autoFocus
-                />
-              </div>
-              <div className="w-full sm:w-64">
-                <Select
-                  value={classFilter}
-                  onValueChange={(v) => setClassFilter(v as ClassFilter)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('classFilterPlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t('classFilterAll')}</SelectItem>
-                    {(['1xx', '2xx', '3xx', '4xx', '5xx'] as const).map((c) => (
-                      <SelectItem key={c} value={c}>
-                        {classLabel(c)}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                {t('resultsCount', { count: filtered.length, total: HTTP_STATUS_CODES.length })}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-border/40 bg-background/50 backdrop-blur-sm shadow-sm overflow-hidden">
-          <div className="max-h-[70vh] overflow-auto">
-            <Table>
-              <TableHeader className="sticky top-0 bg-background z-10">
+    <ToolShell
+      icon={IconListNumbers}
+      title={t('title')}
+      description={t('subtitle')}
+      toolbar={toolbar}
+    >
+      <div className="overflow-hidden rounded-lg border border-border bg-card">
+        <div className="max-h-[70vh] overflow-auto">
+          <Table>
+            <TableHeader className="sticky top-0 bg-background z-10">
+              <TableRow>
+                <TableHead className="w-[120px]">{t('table.code')}</TableHead>
+                <TableHead className="w-[220px]">{t('table.phrase')}</TableHead>
+                <TableHead>{t('table.description')}</TableHead>
+                <TableHead className="w-[90px] text-right">{t('table.copy')}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filtered.length === 0 ? (
                 <TableRow>
-                  <TableHead className="w-[120px]">{t('table.code')}</TableHead>
-                  <TableHead className="w-[220px]">{t('table.phrase')}</TableHead>
-                  <TableHead>{t('table.description')}</TableHead>
-                  <TableHead className="w-[90px] text-right">{t('table.copy')}</TableHead>
+                  <TableCell colSpan={4} className="py-10 text-center text-muted-foreground">
+                    {t('noResults', { query })}
+                  </TableCell>
                 </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filtered.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={4} className="py-10 text-center text-muted-foreground">
-                      {t('noResults', { query })}
+              ) : (
+                filtered.map((s) => (
+                  <TableRow key={s.code}>
+                    <TableCell className="font-mono font-semibold">
+                      <div className="flex items-center gap-2">
+                        <span>{s.code}</span>
+                        <Badge
+                          variant="outline"
+                          className={`text-[11px] px-2 py-0.5 ${badgeClass(s.class)}`}
+                        >
+                          {s.class}
+                        </Badge>
+                      </div>
+                    </TableCell>
+                    <TableCell className="font-medium">{s.phrase}</TableCell>
+                    <TableCell className="text-muted-foreground">
+                      <span>{s.description}</span>
+                      {s.spec ? (
+                        <span className="ml-2 text-xs text-muted-foreground/80">
+                          {t('specPrefix')} {s.spec}
+                        </span>
+                      ) : null}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <CopyButton
+                        text={String(s.code)}
+                        successMessage={t('copied')}
+                        variant="ghost"
+                        size="icon"
+                      />
                     </TableCell>
                   </TableRow>
-                ) : (
-                  filtered.map((s) => (
-                    <TableRow key={s.code}>
-                      <TableCell className="font-mono font-semibold">
-                        <div className="flex items-center gap-2">
-                          <span>{s.code}</span>
-                          <Badge
-                            variant="outline"
-                            className={`text-[11px] px-2 py-0.5 ${badgeClass(s.class)}`}
-                          >
-                            {s.class}
-                          </Badge>
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-medium">{s.phrase}</TableCell>
-                      <TableCell className="text-muted-foreground">
-                        <span>{s.description}</span>
-                        {s.spec ? (
-                          <span className="ml-2 text-xs text-muted-foreground/80">
-                            {t('specPrefix')} {s.spec}
-                          </span>
-                        ) : null}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <CopyButton
-                          text={String(s.code)}
-                          successMessage={t('copied')}
-                          variant="ghost"
-                          size="icon"
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </Card>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
-    </ToolWrapper>
+    </ToolShell>
   )
 }
-

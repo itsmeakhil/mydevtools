@@ -3,7 +3,6 @@
 import React, { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -23,11 +22,8 @@ import {
   Users,
 } from 'lucide-react'
 import { IconWorldSearch } from '@tabler/icons-react'
-import { cn } from '@/lib/utils'
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
 import { formatIsoDate, normalizeTarget, relativeTime } from '@/lib/whois-lookup'
 import { rdapLookup, type WhoisResult } from '@/lib/rdap'
 
@@ -37,14 +33,14 @@ function DateCard({ icon: Icon, label, iso }: { icon: React.ElementType; label: 
   const date = iso ? formatIsoDate(iso) : null
   const rel = iso ? relativeTime(iso) : null
   return (
-    <Card className="flex flex-col gap-1 p-3">
+    <div className="flex flex-col gap-1 rounded-lg border border-border bg-card p-3">
       <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
         <Icon className="h-3.5 w-3.5" />
         {label}
       </div>
       <div className="font-mono text-sm">{date ?? '—'}</div>
       {rel && <div className="text-[11px] text-muted-foreground/70">{rel}</div>}
-    </Card>
+    </div>
   )
 }
 
@@ -80,22 +76,9 @@ export function WhoisLookupLayout() {
     [input, t],
   )
 
-  return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconWorldSearch}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Network & API']}
-          offline={false}
-        />
-      </RevealItem>
-
-      {/* Search card */}
-      <Card className="space-y-3 p-4">
+  const toolbar = (
+    <div className="flex flex-wrap items-end gap-4 rounded-lg border border-border bg-card px-4 py-3">
+      <div className="flex flex-1 flex-col gap-3">
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -131,8 +114,19 @@ export function WhoisLookupLayout() {
             </button>
           ))}
         </div>
-      </Card>
+      </div>
+    </div>
+  )
 
+  return (
+    <ToolShell
+      icon={IconWorldSearch}
+      title={t('title')}
+      description={t('subtitle')}
+      offline={false}
+      toolbar={toolbar}
+      contentClassName="gap-4"
+    >
       {/* Error */}
       <AnimatePresence>
         {error && (
@@ -153,10 +147,10 @@ export function WhoisLookupLayout() {
         <div className="space-y-3">
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             {[0, 1, 2, 3].map((i) => (
-              <Card key={i} className="h-[76px] animate-pulse bg-muted/20 p-3" />
+              <div key={i} className="h-[76px] animate-pulse rounded-lg border border-border bg-muted/20 p-3" />
             ))}
           </div>
-          <Card className="h-32 animate-pulse bg-muted/20" />
+          <div className="h-32 animate-pulse rounded-lg border border-border bg-muted/20" />
         </div>
       )}
 
@@ -172,12 +166,12 @@ export function WhoisLookupLayout() {
               </Badge>
             </div>
 
-            <Card className="flex flex-col gap-1 p-3">
+            <div className="flex flex-col gap-1 rounded-lg border border-border bg-card p-3">
               <div className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                 {result.type === 'ip' ? t('summary.network') : t('summary.registrar')}
               </div>
               <div className="text-sm">{result.registrar ?? t('notAvailable')}</div>
-            </Card>
+            </div>
 
             {/* Dates */}
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
@@ -204,7 +198,7 @@ export function WhoisLookupLayout() {
 
             {/* Nameservers */}
             {result.nameservers.length > 0 && (
-              <Card className="overflow-hidden">
+              <div className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="flex items-center gap-2 border-b border-border/40 bg-muted/20 px-4 py-2.5">
                   <Server className="h-3.5 w-3.5 text-muted-foreground" />
                   <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -221,12 +215,12 @@ export function WhoisLookupLayout() {
                     </div>
                   ))}
                 </div>
-              </Card>
+              </div>
             )}
 
             {/* Contacts */}
             {result.contacts.length > 0 && (
-              <Card className="overflow-hidden">
+              <div className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="flex items-center gap-2 border-b border-border/40 bg-muted/20 px-4 py-2.5">
                   <Users className="h-3.5 w-3.5 text-muted-foreground" />
                   <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -263,12 +257,12 @@ export function WhoisLookupLayout() {
                     </tbody>
                   </table>
                 </div>
-              </Card>
+              </div>
             )}
 
             {/* Raw RDAP */}
             <Collapsible>
-              <Card className="overflow-hidden">
+              <div className="overflow-hidden rounded-lg border border-border bg-card">
                 <CollapsibleTrigger className="flex w-full items-center gap-2 px-4 py-2.5 text-left transition-colors hover:bg-muted/20">
                   <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform data-[state=open]:rotate-180" />
                   <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -298,7 +292,7 @@ export function WhoisLookupLayout() {
                     {JSON.stringify(result.raw, null, 2)}
                   </pre>
                 </CollapsibleContent>
-              </Card>
+              </div>
             </Collapsible>
 
             <div className="flex justify-end">
@@ -315,6 +309,6 @@ export function WhoisLookupLayout() {
           </motion.div>
         </ScrollArea>
       )}
-    </div>
+    </ToolShell>
   )
 }

@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -13,9 +12,7 @@ import { Copy, Check } from 'lucide-react';
 import { computeIpv4Subnet, computeIpv6Subnet } from '@/lib/ip-subnet';
 import { cn } from '@/lib/utils';
 import { IconHierarchy2 } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
 
 function Row({
   label,
@@ -78,16 +75,11 @@ export function IpSubnetCalculatorLayout() {
   const ipv6Result = useMemo(() => computeIpv6Subnet(ipv6Debounced), [ipv6Debounced]);
 
   return (
-    <div className="flex h-full min-h-0 w-full flex-col gap-4">
-      <RevealItem index={0} className="shrink-0">
-        <ToolPageHeader
-          icon={IconHierarchy2}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Network & API']}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconHierarchy2}
+      title={t('title')}
+      description={t('subtitle')}
+    >
       <Tabs value={family} onValueChange={(v) => setFamily(v as 'ipv4' | 'ipv6')} className="flex min-h-0 flex-1 flex-col gap-4">
         <TabsList className="grid w-full max-w-md grid-cols-2">
           <TabsTrigger value="ipv4">{t('tabIpv4')}</TabsTrigger>
@@ -95,7 +87,7 @@ export function IpSubnetCalculatorLayout() {
         </TabsList>
 
         <TabsContent value="ipv4" className="mt-0 flex min-h-0 flex-1 flex-col gap-4 data-[state=inactive]:hidden">
-          <Card className="space-y-3 p-4">
+          <div className="space-y-3 rounded-lg border border-border bg-card px-4 py-3">
             <div className="space-y-2">
               <Label htmlFor="ipv4-input">{t('inputLabel')}</Label>
               <Input
@@ -109,9 +101,9 @@ export function IpSubnetCalculatorLayout() {
               />
               <p className="text-xs text-muted-foreground">{t('hintIpv4')}</p>
             </div>
-          </Card>
+          </div>
 
-          <Card className="flex flex-col gap-2 p-4">
+          <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-4">
             {!ipv4Result.ok ? (
               <p className="text-sm text-destructive">{t(`errors.${ipv4Result.errorKey}`)}</p>
             ) : (
@@ -147,11 +139,11 @@ export function IpSubnetCalculatorLayout() {
                 )}
               </>
             )}
-          </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="ipv6" className="mt-0 flex min-h-0 flex-1 flex-col gap-4 data-[state=inactive]:hidden">
-          <Card className="space-y-3 p-4">
+          <div className="space-y-3 rounded-lg border border-border bg-card px-4 py-3">
             <div className="space-y-2">
               <Label htmlFor="ipv6-input">{t('inputLabel')}</Label>
               <Input
@@ -165,9 +157,9 @@ export function IpSubnetCalculatorLayout() {
               />
               <p className="text-xs text-muted-foreground">{t('hintIpv6')}</p>
             </div>
-          </Card>
+          </div>
 
-          <Card className="flex flex-col gap-2 p-4">
+          <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-4">
             {!ipv6Result.ok ? (
               <p className="text-sm text-destructive">{t(`errors.${ipv6Result.errorKey}`)}</p>
             ) : (
@@ -182,9 +174,9 @@ export function IpSubnetCalculatorLayout() {
                 </p>
               </>
             )}
-          </Card>
+          </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </ToolShell>
   );
 }
