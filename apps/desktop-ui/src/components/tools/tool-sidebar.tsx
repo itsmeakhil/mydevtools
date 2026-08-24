@@ -32,6 +32,17 @@ import { cn } from '@/lib/utils'
 
 export type { ToolSidebarRailEntry } from '@/lib/tool-sidebar-rail'
 
+// Body primitives live in their own file (this one is the layout), but consumers
+// import everything sidebar-shaped from here. `ToolSidebarFilterList` stays
+// below: the primitives file imports `useToolSidebarPanel` from here, so moving
+// it would close an import cycle.
+export {
+  ToolSidebarSearch,
+  ToolSidebarSection,
+  ToolSidebarRow,
+  ToolSidebarEmpty,
+} from '@/components/tools/tool-sidebar-primitives'
+
 /**
  * The one in-tool left panel. Every app-like tool (notes, bookmarks, api-client,
  * data-explorer, s3-drive, snippet-manager, password-manager, api-keys,
