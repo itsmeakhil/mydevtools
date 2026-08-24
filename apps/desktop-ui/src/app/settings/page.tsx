@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Sun, Globe, Palette, Lock, Pipette } from 'lucide-react'
+import { Sun, Moon, Monitor, Globe, Palette, Lock, Pipette } from 'lucide-react'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
 import { Switch } from '@/components/ui/switch'
 import { getVaultIconsEnabled, setVaultIconsEnabled } from '@/lib/vault-icon-pref'
@@ -101,16 +102,25 @@ export default function SettingsPage() {
                 <div className="flex h-5 items-center">
                   <Label>{t('appearance.themePreference')}</Label>
                 </div>
-                <Select value={theme} onValueChange={setTheme}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select theme" />
-                  </SelectTrigger>
-                  <SelectContent className="rounded-lg">
-                    <SelectItem value="light">{t('appearance.themes.light')}</SelectItem>
-                    <SelectItem value="dark">{t('appearance.themes.dark')}</SelectItem>
-                    <SelectItem value="system">{t('appearance.themes.system')}</SelectItem>
-                  </SelectContent>
-                </Select>
+                {/* Single-select toggles deselect on re-click: ignore the empty value
+                    so there is always an active theme. */}
+                <ToggleGroup
+                  type="single"
+                  variant="outline"
+                  value={theme}
+                  onValueChange={(value) => value && setTheme(value)}
+                  className="justify-start"
+                >
+                  <ToggleGroupItem value="light" className="h-9 px-3" aria-label={t('appearance.themes.light')} title={t('appearance.themes.light')}>
+                    <Sun className="h-4 w-4" />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="dark" className="h-9 px-3" aria-label={t('appearance.themes.dark')} title={t('appearance.themes.dark')}>
+                    <Moon className="h-4 w-4" />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="system" className="h-9 px-3" aria-label={t('appearance.themes.system')} title={t('appearance.themes.system')}>
+                    <Monitor className="h-4 w-4" />
+                  </ToggleGroupItem>
+                </ToggleGroup>
               </div>
 
               <div className="space-y-2 sm:w-[220px]">
@@ -218,7 +228,6 @@ export default function SettingsPage() {
                     <SelectItem value="zh">{t('language.languages.zh')}</SelectItem>
                   </SelectContent>
                 </Select>
-                <p className="text-xs text-muted-foreground">{t('language.helpText')}</p>
               </div>
             </div>
           </CardContent>
