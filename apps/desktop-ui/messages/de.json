@@ -5223,6 +5223,12 @@
     "offline": "100 % offline"
   },
   "ToolSidebar": {
+    "expand": "Seitenleiste ausklappen",
+    "collapse": "Seitenleiste einklappen",
+    "resize": "Seitenleiste anpassen",
+    "resetWidth": "Breite zurücksetzen",
+    "moreSections": "Weitere Abschnitte",
+    "sections": "Abschnitte der Seitenleiste",
     "show": "Seitenleiste einblenden",
     "hide": "Seitenleiste ausblenden"
   },

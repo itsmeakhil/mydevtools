@@ -5223,6 +5223,12 @@
     "offline": "100% fora de línia"
   },
   "ToolSidebar": {
+    "expand": "Amplia la barra lateral",
+    "collapse": "Redueix la barra lateral",
+    "resize": "Redimensiona la barra lateral",
+    "resetWidth": "Restableix l'amplada de la barra lateral",
+    "moreSections": "Més seccions",
+    "sections": "Seccions de la barra lateral",
     "show": "Mostra la barra lateral",
     "hide": "Amaga la barra lateral"
   },

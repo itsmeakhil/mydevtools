@@ -5310,6 +5310,12 @@
     "offline": "100% offline"
   },
   "ToolSidebar": {
+    "expand": "Expand sidebar",
+    "collapse": "Collapse sidebar",
+    "resize": "Resize sidebar",
+    "resetWidth": "Reset sidebar width",
+    "moreSections": "More sections",
+    "sections": "Sidebar sections",
     "show": "Show sidebar",
     "hide": "Hide sidebar"
   },

@@ -5223,6 +5223,12 @@
     "offline": "100% offline"
   },
   "ToolSidebar": {
+    "expand": "Rozbalit postranní panel",
+    "collapse": "Sbalit postranní panel",
+    "resize": "Změnit šířku panelu",
+    "resetWidth": "Obnovit šířku panelu",
+    "moreSections": "Další sekce",
+    "sections": "Sekce postranního panelu",
     "show": "Zobrazit postranní panel",
     "hide": "Skrýt postranní panel"
   },

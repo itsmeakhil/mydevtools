@@ -5223,6 +5223,12 @@
     "offline": "100% aflyn"
   },
   "ToolSidebar": {
+    "expand": "Vou sybalk uit",
+    "collapse": "Vou sybalk in",
+    "resize": "Verstel sybalk se grootte",
+    "resetWidth": "Herstel sybalk se breedte",
+    "moreSections": "Meer afdelings",
+    "sections": "Sybalk-afdelings",
     "show": "Wys sybalk",
     "hide": "Versteek sybalk"
   },

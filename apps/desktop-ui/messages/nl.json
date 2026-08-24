@@ -5223,6 +5223,12 @@
     "offline": "100% offline"
   },
   "ToolSidebar": {
+    "expand": "Zijbalk uitklappen",
+    "collapse": "Zijbalk inklappen",
+    "resize": "Zijbalkbreedte aanpassen",
+    "resetWidth": "Breedte herstellen",
+    "moreSections": "Meer secties",
+    "sections": "Zijbalksecties",
     "show": "Zijbalk tonen",
     "hide": "Zijbalk verbergen"
   },
