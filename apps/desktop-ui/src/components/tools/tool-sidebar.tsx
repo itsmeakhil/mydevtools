@@ -2,7 +2,10 @@
 
 import * as React from 'react'
 import { createPortal } from 'react-dom'
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
+// One glyph for the sidebar toggle in both directions. `PanelLeftClose` /
+// `PanelLeftOpen` draw a panel *and* a chevron inside 16px, which reads as two
+// overlapping icons rather than one control.
+import { PanelLeft } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
@@ -25,9 +28,9 @@ interface ToolSidebarContextValue {
   /** True when the panel is inside the mobile sheet rather than the column. */
   isMobile: boolean
   /**
-   * True whenever the panel floats over the content — the mobile sheet, or the
-   * desktop flyout opened from the collapsed rail. Rows should `close()` on
-   * select in this state so the pick isn't hidden behind the panel.
+   * True whenever the panel floats over the content rather than sitting in its
+   * own column. Rows should `close()` on select in this state so the pick isn't
+   * left hidden behind the panel.
    */
   isOverlay: boolean
   /**
@@ -164,10 +167,8 @@ export function ToolSidebarLayout({
   // colour is continuous from the grid to the tool. Falls back to primary.
   const accent = categoryAccent(toolCategoryMap[toolId] ?? '')
 
-  const collapsedOnDesktop = !isMobile && collapsed
-  // The panel floats when it is the mobile sheet, or the desktop flyout peeked
-  // out of the collapsed rail.
-  const isOverlay = (isMobile || collapsedOnDesktop) && sheetOpen
+  // The panel floats only as the mobile sheet; on desktop it is a pinned column.
+  const isOverlay = isMobile && sheetOpen
 
   const close = React.useCallback(() => {
     if (sheetOpen) setSheetOpen(false)
@@ -206,7 +207,7 @@ export function ToolSidebarLayout({
               aria-label={t('hide')}
               title={t('hide')}
             >
-              <PanelLeftClose className="h-4 w-4" />
+              <PanelLeft className="h-4 w-4" />
             </Button>
           )}
         </div>
@@ -224,9 +225,7 @@ export function ToolSidebarLayout({
       <div className={cn('flex h-full min-h-0 w-full overflow-hidden', className)}>
         {!isMobile && !collapsed && <div className="w-64 shrink-0">{panel}</div>}
 
-        {/* Also used on desktop while collapsed, so the rail can peek the panel
-            without giving up the width. */}
-        {hidden && (
+        {isMobile && (
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetContent side="left" className="w-72 p-0">
               <SheetHeader className="sr-only">
@@ -239,41 +238,34 @@ export function ToolSidebarLayout({
 
         {/* Re-open lives in a 40px rail, not a floating overlay: every tool's
             main pane already puts a toolbar or header at the top-left, and an
-            absolutely-positioned button would sit on top of it. The rail keeps
-            the tool's identity and a way to reach the list — a lone toggle left
-            the collapsed state looking like an empty strip. */}
+            absolutely-positioned button would sit on top of it.
+
+            One control, one job. The rail carries the tool's accent icon so the
+            collapsed strip still says which tool you are in, and swaps it for
+            the expand arrow on hover/focus — showing both at once read as two
+            competing buttons for the same action. */}
         {hidden && (
-          <div className="flex w-10 shrink-0 flex-col items-center gap-1 border-r bg-muted/10 pt-2">
+          <div className="flex w-10 shrink-0 flex-col items-center border-r bg-muted/10 pt-2">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 cursor-pointer"
-              onClick={() => setSheetOpen(true)}
-              aria-label={title}
-              title={title}
+              className="group h-8 w-8 cursor-pointer"
+              onClick={() => (isMobile ? setSheetOpen(true) : setCollapsed(toolId, false))}
+              aria-label={t('show')}
+              title={`${title} — ${t('show')}`}
             >
               <span
                 className={cn(
                   'flex h-6 w-6 shrink-0 items-center justify-center rounded-md',
+                  'group-hover:hidden group-focus-visible:hidden',
                   accent.bg,
                   accent.text,
                 )}
               >
                 <Icon className="h-3.5 w-3.5" />
               </span>
+              <PanelLeft className="hidden h-4 w-4 group-hover:block group-focus-visible:block" />
             </Button>
-            {!isMobile && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 cursor-pointer"
-                onClick={() => setCollapsed(toolId, false)}
-                aria-label={t('show')}
-                title={t('show')}
-              >
-                <PanelLeftOpen className="h-4 w-4" />
-              </Button>
-            )}
           </div>
         )}
 
