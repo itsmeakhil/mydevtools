@@ -184,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Rediger",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
