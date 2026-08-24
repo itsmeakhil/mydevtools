@@ -3,6 +3,7 @@ import {
   IconNetwork,
   IconJson,
   IconLock,
+  IconLockSquareRounded,
   IconNotes,
   IconDatabase,
   IconBookmark,
@@ -162,6 +163,12 @@ export const sidebarData: SidebarData = {
           url: '/app/password-manager',
           icon: IconLock,
           description: 'Securely store and manage your passwords.',
+        },
+        {
+          title: 'Files',
+          url: '/app/secure-files',
+          icon: IconLockSquareRounded,
+          description: 'Encrypt files and folders into masked .mydt objects stored wherever you choose.',
         },
         {
           title: "Bcrypt Generator",

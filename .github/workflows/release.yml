@@ -18,9 +18,9 @@ jobs:
       matrix:
         include:
           # macOS universal (Intel + Apple Silicon).
-          # macOS-only for now — Windows/Linux runners were dropped to conserve
-          # the org's free Actions minutes (macOS bills at 10x). Re-add matrix
-          # entries here to build those platforms again.
+          # macOS-only in CI — the Linux runner was dropped to conserve the org's
+          # free Actions minutes; Linux artifacts are built and uploaded by
+          # scripts/release-local.sh instead. No Windows build for now.
           - platform: macos-latest
             args: '--target universal-apple-darwin'
             rust_target: 'aarch64-apple-darwin,x86_64-apple-darwin'

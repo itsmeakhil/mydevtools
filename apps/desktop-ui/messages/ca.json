@@ -76,7 +76,8 @@
     "tokenCounter": "Comptador de tokens",
     "webhookTester": "Provador de webhooks",
     "websocketTester": "Provador de WebSocket",
-    "whoisLookup": "Consulta Whois"
+    "whoisLookup": "Consulta Whois",
+    "secureFiles": "Fitxers"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Edita",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "S'està restaurant…",
       "restoreSuccess": "Còpia de seguretat restaurada",
       "restoreError": "La restauració ha fallat — contrasenya incorrecta o fitxer de còpia no vàlid"
+    },
+    "backupCodes": {
+      "title": "Codis de recuperació",
+      "description": "Codis d'un sol ús que recuperen la teva caixa forta si oblides la contrasenya mestra.",
+      "remaining": "Queden {remaining} de {total} codis",
+      "none": "No hi ha cap codi de recuperació desat.",
+      "hint": "Generar un conjunt nou invalida tots els codis existents.",
+      "passwordPlaceholder": "Contrasenya mestra",
+      "regenerateButton": "Genera codis nous",
+      "generating": "S'estan generant…",
+      "wrongPassword": "Contrasenya mestra incorrecta",
+      "success": "S'han generat codis nous",
+      "error": "No s'han pogut generar els codis",
+      "newCodesWarning": "No els podràs tornar a veure. Descarrega'ls o copia'ls ara.",
+      "downloadButton": "Baixa",
+      "doneButton": "Ja he desat els codis"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Consulta Whois",
         "description": "Consulta les dades de registre de dominis i IP mitjançant RDAP."
+      },
+      "secureFiles": {
+        "title": "Fitxers",
+        "description": "Xifra fitxers i carpetes en objectes .mydt emmascarats; navega-hi i previsualitza'ls després de desbloquejar."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "S'han mostrejat {docs} documents · {fields} camps",
       "colField": "Camp",
       "colTypes": "Tipus",
-      "colCoverage": "Cobertura"
+      "colCoverage": "Cobertura",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Resposta copiada al porta-retalls",
       "codeCopied": "Codi copiat al porta-retalls",
       "copyFailed": "No s'ha pogut copiar al porta-retalls",
-      "curlCopied": "Ordre cURL copiada"
+      "curlCopied": "Ordre cURL copiada",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Col·leccions",
@@ -2437,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5200,5 +5243,92 @@
       "accept": "Comparteix anònimament",
       "decline": "No, gràcies"
     }
+  },
+  "SecureFiles": {
+    "title": "Fitxers",
+    "subtitle": "Fitxers que continuen privats fins que els desbloqueges — xifrats al teu dispositiu, emmascarats al disc",
+    "desktopOnly": "Secure Files està disponible a l'aplicació d'escriptori.",
+    "allFiles": "Tots els fitxers",
+    "overview": "Resum",
+    "statFiles": "Fitxers",
+    "statFolders": "Carpetes",
+    "statContent": "Mida del contingut",
+    "statContentHint": "Mida total dels fitxers originals",
+    "statOnDisk": "Al disc",
+    "statOverhead": "{size} de sobrecàrrega de xifratge",
+    "byType": "Per tipus",
+    "fileCount": "{count, plural, one {# fitxer} other {# fitxers}}",
+    "largestFiles": "Fitxers més grans",
+    "recentlyAdded": "Afegits recentment",
+    "openContainingFolder": "Obre la carpeta que el conté",
+    "types": {
+      "image": "Imatges",
+      "video": "Vídeo",
+      "audio": "Àudio",
+      "pdf": "PDF",
+      "archive": "Arxius",
+      "code": "Codi",
+      "doc": "Documents",
+      "sheet": "Fulls de càlcul",
+      "file": "Altres"
+    },
+    "breadcrumb": "Camí de la carpeta",
+    "addFiles": "Afegeix fitxers",
+    "addFolder": "Afegeix una carpeta",
+    "importFolder": "Importa una carpeta",
+    "newFolder": "Carpeta nova",
+    "lock": "Bloqueja",
+    "settings": "Configuració d'emmagatzematge",
+    "storageFolder": "Carpeta d'emmagatzematge",
+    "notSet": "Sense definir",
+    "chooseFolder": "Tria una carpeta",
+    "changeFolder": "Canvia de carpeta…",
+    "chooseFolderTitle": "Tria on es desen els fitxers xifrats",
+    "chooseFolderBody": "Tria qualsevol carpeta d'aquest dispositiu o d'una unitat externa. Fora de MyDevTools només conté fitxers .mydt emmascarats.",
+    "changeFolderTitle": "Voleu moure els fitxers xifrats?",
+    "changeFolderBody": "Tots els fitxers .mydt es mouran de la carpeta d'emmagatzematge actual a la que triïs tot seguit.",
+    "folderSet": "Carpeta d'emmagatzematge definida",
+    "folderMissingTitle": "No s'ha trobat la carpeta d'emmagatzematge",
+    "folderMissingBody": "«{dir}» no està disponible: pot ser en una unitat desconnectada o provenir d'una còpia de seguretat restaurada d'un altre ordinador. Torna-la a connectar o tria una carpeta nova.",
+    "movedCount": "S'han mogut {count} fitxers xifrats",
+    "importedCount": "S'han xifrat {count} fitxers",
+    "emptyFolderAdded": "Carpeta afegida: no contenia cap fitxer per xifrar",
+    "emptyTitle": "Encara no hi ha cap fitxer",
+    "emptyBody": "Afegeix fitxers o una carpeta sencera. Cada fitxer es xifra en un objecte .mydt amb un nom aleatori; el nom, el tipus i el contingut originals només es veuen aquí.",
+    "name": "Nom",
+    "size": "Mida",
+    "modified": "Modificat",
+    "actions": "Accions",
+    "expand": "Desplega",
+    "collapse": "Replega",
+    "preview": "Previsualització",
+    "noPreview": "No hi ha previsualització per a aquest tipus de fitxer: exporta'l per obrir-lo en una altra aplicació.",
+    "export": "Exporta",
+    "exportWarningTitle": "Voleu exportar una còpia desxifrada?",
+    "exportWarningBody": "El fitxer s'escriurà sense xifrar a la ubicació que triïs. Qualsevol cosa d'aquest dispositiu el podrà llegir.",
+    "exported": "Còpia desxifrada exportada",
+    "replace": "Substitueix el contingut…",
+    "replaced": "S'ha substituït el contingut del fitxer",
+    "rename": "Canvia el nom",
+    "fileName": "Nom del fitxer",
+    "move": "Mou a una carpeta",
+    "targetFolder": "Carpeta",
+    "targetFolderHint": "Fes servir barres per a carpetes imbricades, per exemple projecte/config. Deixa-ho buit per al nivell superior.",
+    "folderName": "Nom de la carpeta",
+    "delete": "Elimina",
+    "deleted": "Fitxer eliminat",
+    "deletedCount": "S'han eliminat {count} fitxers",
+    "deleteFileTitle": "Voleu eliminar aquest fitxer?",
+    "deleteFileBody": "«{name}» s'eliminarà permanentment de la carpeta d'emmagatzematge xifrada.",
+    "deleteFolderTitle": "Voleu eliminar aquesta carpeta?",
+    "deleteFolderBody": "Tots els fitxers dins de «{dir}» s'eliminaran permanentment de la carpeta d'emmagatzematge xifrada.",
+    "unreadableCount": "Fitxers illegibles a la carpeta d'emmagatzematge: {count}",
+    "unreadableHint": "Es van xifrar amb una altra contrasenya mestra, pertanyen a una altra caixa forta o estan malmesos.",
+    "dismiss": "Descarta",
+    "viewGrid": "Vista de quadrícula",
+    "viewList": "Vista de llista",
+    "footerNote": "Fitxers de fins a 20 MB. Xifrats amb Argon2id + XChaCha20-Poly1305; la clau només és a la memòria mentre la caixa forta està desbloquejada.",
+    "cancel": "Cancel·la",
+    "save": "Desa"
   }
 }

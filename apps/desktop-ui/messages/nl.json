@@ -76,7 +76,8 @@
     "tokenCounter": "Token-teller",
     "webhookTester": "Webhook-tester",
     "websocketTester": "WebSocket-tester",
-    "whoisLookup": "Whois-opzoeking"
+    "whoisLookup": "Whois-opzoeking",
+    "secureFiles": "Bestanden"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Bewerken",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Herstellen…",
       "restoreSuccess": "Back-up hersteld",
       "restoreError": "Herstellen mislukt — verkeerde wachtwoordzin of ongeldig back-upbestand"
+    },
+    "backupCodes": {
+      "title": "Back-upcodes",
+      "description": "Eenmalige codes waarmee je je kluis herstelt als je je hoofdwachtwoord vergeet.",
+      "remaining": "Nog {remaining} van {total} codes",
+      "none": "Geen back-upcodes opgeslagen.",
+      "hint": "Een nieuwe set maakt alle bestaande codes ongeldig.",
+      "passwordPlaceholder": "Hoofdwachtwoord",
+      "regenerateButton": "Nieuwe codes genereren",
+      "generating": "Genereren…",
+      "wrongPassword": "Onjuist hoofdwachtwoord",
+      "success": "Nieuwe back-upcodes gegenereerd",
+      "error": "Back-upcodes genereren mislukt",
+      "newCodesWarning": "Je kunt ze niet opnieuw bekijken. Download of kopieer ze nu.",
+      "downloadButton": "Downloaden",
+      "doneButton": "Ik heb mijn codes opgeslagen"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois-opzoeking",
         "description": "Zoek registratiegegevens van een domein of IP op via RDAP."
+      },
+      "secureFiles": {
+        "title": "Bestanden",
+        "description": "Versleutel bestanden en mappen tot gemaskeerde .mydt-objecten; blader en bekijk ze na ontgrendeling."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "{docs} documenten bemonsterd · {fields} velden",
       "colField": "Veld",
       "colTypes": "Typen",
-      "colCoverage": "Dekking"
+      "colCoverage": "Dekking",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Antwoord gekopieerd naar klembord",
       "codeCopied": "Code gekopieerd naar klembord",
       "copyFailed": "Kopiëren naar klembord mislukt",
-      "curlCopied": "cURL-opdracht gekopieerd"
+      "curlCopied": "cURL-opdracht gekopieerd",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Collecties",
@@ -2437,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5200,5 +5243,92 @@
       "accept": "Anoniem delen",
       "decline": "Nee, bedankt"
     }
+  },
+  "SecureFiles": {
+    "title": "Bestanden",
+    "subtitle": "Bestanden die privé blijven tot je ze ontgrendelt — versleuteld op je apparaat, gemaskeerd op schijf",
+    "desktopOnly": "Secure Files is beschikbaar in de desktop-app.",
+    "allFiles": "Alle bestanden",
+    "overview": "Overzicht",
+    "statFiles": "Bestanden",
+    "statFolders": "Mappen",
+    "statContent": "Inhoudsgrootte",
+    "statContentHint": "Totale grootte van de originele bestanden",
+    "statOnDisk": "Op schijf",
+    "statOverhead": "{size} versleutelingsoverhead",
+    "byType": "Op type",
+    "fileCount": "{count, plural, one {# bestand} other {# bestanden}}",
+    "largestFiles": "Grootste bestanden",
+    "recentlyAdded": "Onlangs toegevoegd",
+    "openContainingFolder": "Bovenliggende map openen",
+    "types": {
+      "image": "Afbeeldingen",
+      "video": "Video",
+      "audio": "Audio",
+      "pdf": "PDF",
+      "archive": "Archieven",
+      "code": "Code",
+      "doc": "Documenten",
+      "sheet": "Spreadsheets",
+      "file": "Overig"
+    },
+    "breadcrumb": "Mappad",
+    "addFiles": "Bestanden toevoegen",
+    "addFolder": "Map toevoegen",
+    "importFolder": "Map importeren",
+    "newFolder": "Nieuwe map",
+    "lock": "Vergrendelen",
+    "settings": "Opslaginstellingen",
+    "storageFolder": "Opslagmap",
+    "notSet": "Niet ingesteld",
+    "chooseFolder": "Map kiezen",
+    "changeFolder": "Map wijzigen…",
+    "chooseFolderTitle": "Kies waar versleutelde bestanden worden opgeslagen",
+    "chooseFolderBody": "Kies een willekeurige map op dit apparaat of op een externe schijf. Buiten MyDevTools bevat die uitsluitend gemaskeerde .mydt-bestanden.",
+    "changeFolderTitle": "Versleutelde bestanden verplaatsen?",
+    "changeFolderBody": "Alle .mydt-bestanden worden van de huidige opslagmap naar de map verplaatst die je hierna kiest.",
+    "folderSet": "Opslagmap ingesteld",
+    "folderMissingTitle": "Opslagmap niet gevonden",
+    "folderMissingBody": "„{dir}” is niet beschikbaar — de map staat mogelijk op een losgekoppelde schijf of komt uit een teruggezette back-up van een andere machine. Sluit de schijf weer aan of kies een nieuwe map.",
+    "movedCount": "{count} versleutelde bestanden verplaatst",
+    "importedCount": "{count} bestanden versleuteld",
+    "emptyFolderAdded": "Map toegevoegd — er waren geen bestanden om te versleutelen",
+    "emptyTitle": "Hier staan nog geen bestanden",
+    "emptyBody": "Voeg bestanden of een hele map toe. Elk bestand wordt versleuteld tot een .mydt-object met een willekeurige naam; de originele naam, het type en de inhoud zijn alleen hier zichtbaar.",
+    "name": "Naam",
+    "size": "Grootte",
+    "modified": "Gewijzigd",
+    "actions": "Acties",
+    "expand": "Uitvouwen",
+    "collapse": "Samenvouwen",
+    "preview": "Voorbeeld",
+    "noPreview": "Geen voorbeeld voor dit bestandstype — exporteer het om het in een andere app te openen.",
+    "export": "Exporteren",
+    "exportWarningTitle": "Een ontsleutelde kopie exporteren?",
+    "exportWarningBody": "Het bestand wordt onversleuteld naar de gekozen locatie geschreven. Alles op dat apparaat kan het lezen.",
+    "exported": "Ontsleutelde kopie geëxporteerd",
+    "replace": "Inhoud vervangen…",
+    "replaced": "Bestandsinhoud vervangen",
+    "rename": "Naam wijzigen",
+    "fileName": "Bestandsnaam",
+    "move": "Naar map verplaatsen",
+    "targetFolder": "Map",
+    "targetFolderHint": "Gebruik schuine strepen voor geneste mappen, bijvoorbeeld project/config. Laat leeg voor het hoogste niveau.",
+    "folderName": "Mapnaam",
+    "delete": "Verwijderen",
+    "deleted": "Bestand verwijderd",
+    "deletedCount": "{count} bestanden verwijderd",
+    "deleteFileTitle": "Dit bestand verwijderen?",
+    "deleteFileBody": "„{name}” wordt definitief uit de versleutelde opslagmap verwijderd.",
+    "deleteFolderTitle": "Deze map verwijderen?",
+    "deleteFolderBody": "Elk bestand onder „{dir}” wordt definitief uit de versleutelde opslagmap verwijderd.",
+    "unreadableCount": "Onleesbare bestanden in de opslagmap: {count}",
+    "unreadableHint": "Ze zijn versleuteld met een ander hoofdwachtwoord, horen bij een andere kluis of zijn beschadigd.",
+    "dismiss": "Sluiten",
+    "viewGrid": "Rasterweergave",
+    "viewList": "Lijstweergave",
+    "footerNote": "Bestanden tot 20 MB. Versleuteld met Argon2id + XChaCha20-Poly1305; de sleutel blijft alleen in het geheugen zolang de kluis ontgrendeld is.",
+    "cancel": "Annuleren",
+    "save": "Opslaan"
   }
 }

@@ -64,6 +64,13 @@ pub fn handle(state: &AppState, method: &str, path: &str, body: Option<&str>) ->
             save(&db, &req.codes)?;
             Ok(ApiResponse::detail(200, "ok"))
         }
+        ("GET", "/api/v1/auth/backup-codes") => {
+            let codes = load(&db)?;
+            ApiResponse::ok(&serde_json::json!({
+                "total": codes.len(),
+                "remaining": codes.iter().filter(|c| !c.used).count(),
+            }))
+        }
         ("POST", "/api/v1/auth/backup-codes/lookup") => {
             let req: CodeIdRequest = serde_json::from_str(body.unwrap_or(""))?;
             let codes = load(&db)?;

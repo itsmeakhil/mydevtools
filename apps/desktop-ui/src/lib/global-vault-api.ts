@@ -11,6 +11,7 @@
  */
 
 import { apiFetch } from "./desktop/api-fetch"
+import { isDesktop } from "./desktop/is-desktop"
 
 export type KeyVerifier = {
     encrypted: string
@@ -61,6 +62,33 @@ export async function setupMasterVault(
     return (await res.json()) as MasterVaultOut
 }
 
+// ── Secure Files KEK (desktop only) ───────────────────────────────────────────
+
+/**
+ * After the webview has verified the master password, hand it to Rust once so
+ * Secure Files can derive its own Argon2id key (held in memory, never stored).
+ * Never blocks the webview unlock — a failure only leaves Secure Files locked.
+ */
+export async function unlockSecureVault(password: string): Promise<void> {
+    if (!isDesktop()) return
+    try {
+        const res = await apiFetch("/api/backend/auth/master-vault/unlock", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ password }),
+        })
+        if (!res.ok) console.warn("[secure-files] unlock failed:", res.status)
+    } catch (err) {
+        console.warn("[secure-files] unlock failed:", err)
+    }
+}
+
+/** Drop the Rust-side Secure Files key. Fire-and-forget. */
+export function lockSecureVault(): void {
+    if (!isDesktop()) return
+    void apiFetch("/api/backend/auth/master-vault/lock", { method: "POST" }).catch(() => {})
+}
+
 // ── Backup codes ──────────────────────────────────────────────────────────────
 
 export type BackupCodeEntry = {
@@ -100,9 +128,20 @@ export async function lookupBackupCode(codeId: string): Promise<BackupCodeDataOu
 }
 
 export async function markBackupCodeUsed(codeId: string): Promise<void> {
-    await apiFetch("/api/backend/auth/backup-codes/use", {
+    const res = await apiFetch("/api/backend/auth/backup-codes/use", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ codeId }),
     })
+    if (!res.ok) {
+        throw new Error(`Failed to consume backup code (${res.status})`)
+    }
+}
+
+export type BackupCodeStatus = { total: number; remaining: number }
+
+export async function getBackupCodeStatus(): Promise<BackupCodeStatus> {
+    const res = await apiFetch("/api/backend/auth/backup-codes")
+    if (!res.ok) throw new Error(`Backup code status failed (${res.status})`)
+    return (await res.json()) as BackupCodeStatus
 }

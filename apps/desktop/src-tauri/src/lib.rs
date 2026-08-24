@@ -51,6 +51,13 @@ async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, Strin
     Ok(http::grpc::proxy_grpc(input).await)
 }
 
+/// Decrypted Secure Files payload as raw bytes (webview gets an ArrayBuffer —
+/// no base64 round-trip through the JSON router).
+#[tauri::command]
+fn secure_file_read(state: tauri::State<'_, AppState>, id: String) -> Result<tauri::ipc::Response, String> {
+    router::secure_files::read_plaintext(&state, &id).map(tauri::ipc::Response::new)
+}
+
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
@@ -65,6 +72,7 @@ pub fn run() {
         )
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_dialog::init())
         .setup(|app| {
             let dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&dir)?;
@@ -100,7 +108,8 @@ pub fn run() {
             http_request_stream,
             http_request_stream_cancel,
             mock_server_start,
-            proxy_grpc
+            proxy_grpc,
+            secure_file_read
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

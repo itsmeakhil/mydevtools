@@ -76,7 +76,8 @@
     "tokenCounter": "Token-räknare",
     "webhookTester": "Webhook-testare",
     "websocketTester": "WebSocket-testare",
-    "whoisLookup": "Whois-uppslag"
+    "whoisLookup": "Whois-uppslag",
+    "secureFiles": "Filer"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Redigera",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Återställer…",
       "restoreSuccess": "Säkerhetskopia återställd",
       "restoreError": "Återställningen misslyckades — fel lösenfras eller ogiltig fil"
+    },
+    "backupCodes": {
+      "title": "Reservkoder",
+      "description": "Engångskoder som återställer ditt valv om du glömmer huvudlösenordet.",
+      "remaining": "{remaining} av {total} koder kvar",
+      "none": "Inga reservkoder sparade.",
+      "hint": "Nya koder gör alla befintliga koder ogiltiga.",
+      "passwordPlaceholder": "Huvudlösenord",
+      "regenerateButton": "Skapa nya koder",
+      "generating": "Skapar…",
+      "wrongPassword": "Fel huvudlösenord",
+      "success": "Nya reservkoder skapade",
+      "error": "Kunde inte skapa reservkoder",
+      "newCodesWarning": "Du kan inte se dem igen. Ladda ner eller kopiera dem nu.",
+      "downloadButton": "Ladda ner",
+      "doneButton": "Jag har sparat mina koder"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois-uppslag",
         "description": "Slå upp registreringsuppgifter för domäner och IP via RDAP."
+      },
+      "secureFiles": {
+        "title": "Filer",
+        "description": "Kryptera filer och mappar till maskerade .mydt-objekt; bläddra och förhandsgranska dem efter upplåsning."
       }
     },
     "tabs": {
@@ -2278,7 +2300,8 @@
       "responseCopied": "Svar kopierat till urklipp",
       "codeCopied": "Kod kopierad till urklipp",
       "copyFailed": "Kopiering till urklipp misslyckades",
-      "curlCopied": "cURL-kommando kopierat"
+      "curlCopied": "cURL-kommando kopierat",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Samlingar",
@@ -2448,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5211,5 +5243,92 @@
       "accept": "Dela anonymt",
       "decline": "Nej tack"
     }
+  },
+  "SecureFiles": {
+    "title": "Filer",
+    "subtitle": "Filer som förblir privata tills du låser upp dem — krypterade på din enhet, maskerade på disken",
+    "desktopOnly": "Secure Files finns i skrivbordsappen.",
+    "allFiles": "Alla filer",
+    "overview": "Översikt",
+    "statFiles": "Filer",
+    "statFolders": "Mappar",
+    "statContent": "Innehållsstorlek",
+    "statContentHint": "Total storlek på originalfilerna",
+    "statOnDisk": "På disk",
+    "statOverhead": "{size} krypteringsomkostnad",
+    "byType": "Efter typ",
+    "fileCount": "{count, plural, one {# fil} other {# filer}}",
+    "largestFiles": "Största filerna",
+    "recentlyAdded": "Nyligen tillagda",
+    "openContainingFolder": "Öppna överordnad mapp",
+    "types": {
+      "image": "Bilder",
+      "video": "Video",
+      "audio": "Ljud",
+      "pdf": "PDF",
+      "archive": "Arkiv",
+      "code": "Kod",
+      "doc": "Dokument",
+      "sheet": "Kalkylblad",
+      "file": "Övrigt"
+    },
+    "breadcrumb": "Mappsökväg",
+    "addFiles": "Lägg till filer",
+    "addFolder": "Lägg till mapp",
+    "importFolder": "Importera mapp",
+    "newFolder": "Ny mapp",
+    "lock": "Lås",
+    "settings": "Lagringsinställningar",
+    "storageFolder": "Lagringsmapp",
+    "notSet": "Inte angiven",
+    "chooseFolder": "Välj mapp",
+    "changeFolder": "Byt mapp…",
+    "chooseFolderTitle": "Välj var krypterade filer ska lagras",
+    "chooseFolderBody": "Välj vilken mapp som helst på den här enheten eller på en extern disk. Utanför MyDevTools innehåller den bara maskerade .mydt-filer.",
+    "changeFolderTitle": "Flytta krypterade filer?",
+    "changeFolderBody": "Alla .mydt-filer flyttas från den nuvarande lagringsmappen till den du väljer härnäst.",
+    "folderSet": "Lagringsmapp angiven",
+    "folderMissingTitle": "Lagringsmappen hittades inte",
+    "folderMissingBody": "”{dir}” är inte tillgänglig — den kan ligga på en frånkopplad disk eller komma från en återställd säkerhetskopia från en annan dator. Anslut den igen eller välj en ny mapp.",
+    "movedCount": "Flyttade {count} krypterade filer",
+    "importedCount": "Krypterade {count} filer",
+    "emptyFolderAdded": "Mappen lades till — den innehöll inga filer att kryptera",
+    "emptyTitle": "Inga filer här ännu",
+    "emptyBody": "Lägg till filer eller en hel mapp. Varje fil krypteras till ett .mydt-objekt med slumpmässigt namn; originalnamn, typ och innehåll syns bara här.",
+    "name": "Namn",
+    "size": "Storlek",
+    "modified": "Ändrad",
+    "actions": "Åtgärder",
+    "expand": "Expandera",
+    "collapse": "Fäll ihop",
+    "preview": "Förhandsgranska",
+    "noPreview": "Ingen förhandsgranskning för den här filtypen — exportera den för att öppna den i en annan app.",
+    "export": "Exportera",
+    "exportWarningTitle": "Exportera en dekrypterad kopia?",
+    "exportWarningBody": "Filen skrivs okrypterad till platsen du väljer. Allt på den enheten kan läsa den.",
+    "exported": "Dekrypterad kopia exporterad",
+    "replace": "Ersätt innehåll…",
+    "replaced": "Filinnehållet ersattes",
+    "rename": "Byt namn",
+    "fileName": "Filnamn",
+    "move": "Flytta till mapp",
+    "targetFolder": "Mapp",
+    "targetFolderHint": "Använd snedstreck för nästlade mappar, till exempel projekt/config. Lämna tomt för toppnivån.",
+    "folderName": "Mappnamn",
+    "delete": "Ta bort",
+    "deleted": "Filen togs bort",
+    "deletedCount": "Tog bort {count} filer",
+    "deleteFileTitle": "Ta bort den här filen?",
+    "deleteFileBody": "”{name}” tas bort permanent från den krypterade lagringsmappen.",
+    "deleteFolderTitle": "Ta bort den här mappen?",
+    "deleteFolderBody": "Alla filer under ”{dir}” tas bort permanent från den krypterade lagringsmappen.",
+    "unreadableCount": "Oläsbara filer i lagringsmappen: {count}",
+    "unreadableHint": "De krypterades med ett annat huvudlösenord, hör till ett annat valv eller är skadade.",
+    "dismiss": "Avfärda",
+    "viewGrid": "Rutnätsvy",
+    "viewList": "Listvy",
+    "footerNote": "Filer upp till 20 MB. Krypterade med Argon2id + XChaCha20-Poly1305; nyckeln finns bara i minnet medan valvet är upplåst.",
+    "cancel": "Avbryt",
+    "save": "Spara"
   }
 }

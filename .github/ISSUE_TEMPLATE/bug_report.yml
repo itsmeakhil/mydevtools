@@ -77,8 +77,10 @@ body:
       options:
         - macOS (Apple Silicon)
         - macOS (Intel)
-        - Windows (built from source)
+        - Linux (.deb)
+        - Linux (AppImage)
         - Linux (built from source)
+        - Windows (built from source, unsupported)
         - Other (say which below)
     validations:
       required: true

@@ -840,7 +840,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs DevUtils.app',
     intro:
-      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is a cross-platform desktop app that runs offline on macOS, Windows, and Linux, with 80+ tools plus SQL, MongoDB, and Redis database clients.',
+      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is a cross-platform desktop app that runs offline on macOS and Linux, with 80+ tools plus SQL, MongoDB, and Redis database clients.',
     competitor: 'DevUtils.app',
     primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
     sections: [
@@ -859,7 +859,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'An all-in-one desktop toolkit is better when you work across operating systems or want more than utilities in one app.',
         bullets: [
-          'Run the same offline app on macOS, Windows, and Linux — not just Mac.',
+          'Run the same offline app on macOS and Linux — not just Mac.',
           'Use 80+ tools plus SQL, MongoDB, and Redis database clients in one place.',
           'Process everything locally — your data never leaves your machine.',
         ],
@@ -881,8 +881,8 @@ export const comparisonPages: ComparisonPage[] = [
         a: 'Yes, for cross-platform desktop developer utility workflows. DevUtils.app remains stronger if you specifically want a Mac-only native app.',
       },
       {
-        q: 'Does MyDevTools work on Windows and Linux?',
-        a: 'Yes. MyDevTools is a cross-platform desktop app that runs on macOS, Windows, and Linux.',
+        q: 'Does MyDevTools work on Linux?',
+        a: 'Yes. MyDevTools ships macOS and Linux (.deb and AppImage) builds in every release. There is no Windows build for now.',
       },
     ],
   },
@@ -1116,9 +1116,9 @@ export const comparisonPages: ComparisonPage[] = [
     description:
       'Compare MyDevTools with DevToys: a similar offline all-in-one developer toolkit, with a macOS desktop app, database clients and an API client included.',
     eyebrow: 'Alternative',
-    heading: 'DevToys alternative for macOS, with database and API clients built in',
+    heading: 'DevToys alternative for macOS and Linux, with database and API clients built in',
     intro:
-      'DevToys is a well-liked offline developer toolbox that started on Windows. MyDevTools takes the same local-first idea — one app, many everyday utilities, nothing uploaded — and ships a macOS desktop app that also includes an API client and SQL, MongoDB, Redis and S3 clients.',
+      'DevToys is a well-liked offline developer toolbox that started on Windows. MyDevTools takes the same local-first idea — one app, many everyday utilities, nothing uploaded — and ships a macOS and Linux desktop app that also includes an API client and SQL, MongoDB, Redis and S3 clients.',
     competitor: 'DevToys',
     primaryCta: { href: '/tools', label: 'Browse all tools' },
     sections: [
@@ -1147,7 +1147,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'These are different projects with different histories, and neither is strictly better.',
         bullets: [
-          'MyDevTools publishes macOS builds today; Windows and Linux builds are not published yet.',
+          'MyDevTools publishes macOS and Linux builds today; there is no Windows build for now.',
           'DevToys has a longer track record on Windows and its own extension ecosystem.',
           'Both are open source — MyDevTools is licensed under the GNU AGPL v3.',
         ],
@@ -1156,7 +1156,7 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Is MyDevTools available on Windows or Linux?',
-        a: 'Not as a published build yet. macOS builds are released today as a signed, notarized universal app. The Tauri shell can be built from source on Windows and Linux, but those builds are untested — see the roadmap.',
+        a: 'Linux, yes: every release ships a .deb and an AppImage (x86_64) alongside the signed, notarized universal macOS app. Windows, not for now — the Tauri shell can be built from source on Windows, but that build is untested and unsupported. See the roadmap.',
       },
       {
         q: 'Is MyDevTools open source like DevToys?',

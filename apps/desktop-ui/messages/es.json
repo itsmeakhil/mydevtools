@@ -76,7 +76,8 @@
     "tokenCounter": "Contador de tokens",
     "webhookTester": "Probador de webhooks",
     "websocketTester": "Probador de WebSocket",
-    "whoisLookup": "Consulta Whois"
+    "whoisLookup": "Consulta Whois",
+    "secureFiles": "Archivos"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Editar",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Restaurando…",
       "restoreSuccess": "Copia de seguridad restaurada",
       "restoreError": "La restauración falló — frase incorrecta o archivo de copia no válido"
+    },
+    "backupCodes": {
+      "title": "Códigos de respaldo",
+      "description": "Códigos de un solo uso que recuperan tu bóveda si olvidas la contraseña maestra.",
+      "remaining": "Quedan {remaining} de {total} códigos",
+      "none": "No hay códigos de respaldo guardados.",
+      "hint": "Generar un conjunto nuevo invalida todos los códigos existentes.",
+      "passwordPlaceholder": "Contraseña maestra",
+      "regenerateButton": "Generar códigos nuevos",
+      "generating": "Generando…",
+      "wrongPassword": "Contraseña maestra incorrecta",
+      "success": "Nuevos códigos de respaldo generados",
+      "error": "No se pudieron generar los códigos de respaldo",
+      "newCodesWarning": "No podrás volver a verlos. Descárgalos o cópialos ahora.",
+      "downloadButton": "Descargar",
+      "doneButton": "Ya guardé mis códigos"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Consulta Whois",
         "description": "Consulta los datos de registro de un dominio o IP mediante RDAP."
+      },
+      "secureFiles": {
+        "title": "Archivos",
+        "description": "Cifra archivos y carpetas en objetos .mydt enmascarados; explóralos y previsualízalos tras desbloquear."
       }
     },
     "tabs": {
@@ -2278,7 +2300,8 @@
       "responseCopied": "Respuesta copiada al portapapeles",
       "codeCopied": "Código copiado al portapapeles",
       "copyFailed": "Error al copiar al portapapeles",
-      "curlCopied": "Comando cURL copiado"
+      "curlCopied": "Comando cURL copiado",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Colecciones",
@@ -2448,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5211,5 +5243,92 @@
       "accept": "Compartir de forma anónima",
       "decline": "No, gracias"
     }
+  },
+  "SecureFiles": {
+    "title": "Archivos",
+    "subtitle": "Archivos que siguen siendo privados hasta que los desbloqueas: cifrados en tu dispositivo, enmascarados en el disco",
+    "desktopOnly": "Secure Files está disponible en la aplicación de escritorio.",
+    "allFiles": "Todos los archivos",
+    "overview": "Resumen",
+    "statFiles": "Archivos",
+    "statFolders": "Carpetas",
+    "statContent": "Tamaño del contenido",
+    "statContentHint": "Tamaño total de los archivos originales",
+    "statOnDisk": "En disco",
+    "statOverhead": "{size} de sobrecarga de cifrado",
+    "byType": "Por tipo",
+    "fileCount": "{count, plural, one {# archivo} other {# archivos}}",
+    "largestFiles": "Archivos más grandes",
+    "recentlyAdded": "Añadidos recientemente",
+    "openContainingFolder": "Abrir la carpeta contenedora",
+    "types": {
+      "image": "Imágenes",
+      "video": "Vídeo",
+      "audio": "Audio",
+      "pdf": "PDF",
+      "archive": "Archivos comprimidos",
+      "code": "Código",
+      "doc": "Documentos",
+      "sheet": "Hojas de cálculo",
+      "file": "Otros"
+    },
+    "breadcrumb": "Ruta de la carpeta",
+    "addFiles": "Añadir archivos",
+    "addFolder": "Añadir carpeta",
+    "importFolder": "Importar carpeta",
+    "newFolder": "Nueva carpeta",
+    "lock": "Bloquear",
+    "settings": "Ajustes de almacenamiento",
+    "storageFolder": "Carpeta de almacenamiento",
+    "notSet": "Sin definir",
+    "chooseFolder": "Elegir carpeta",
+    "changeFolder": "Cambiar carpeta…",
+    "chooseFolderTitle": "Elige dónde se guardan los archivos cifrados",
+    "chooseFolderBody": "Elige cualquier carpeta de este dispositivo o de una unidad externa. Fuera de MyDevTools solo contiene archivos .mydt enmascarados.",
+    "changeFolderTitle": "¿Mover los archivos cifrados?",
+    "changeFolderBody": "Todos los archivos .mydt se moverán de la carpeta de almacenamiento actual a la que elijas a continuación.",
+    "folderSet": "Carpeta de almacenamiento definida",
+    "folderMissingTitle": "No se encuentra la carpeta de almacenamiento",
+    "folderMissingBody": "«{dir}» no está disponible: puede estar en una unidad desconectada o proceder de una copia de seguridad restaurada de otro equipo. Vuelve a conectarla o elige una carpeta nueva.",
+    "movedCount": "Se movieron {count} archivos cifrados",
+    "importedCount": "Se cifraron {count} archivos",
+    "emptyFolderAdded": "Carpeta añadida: no contenía archivos que cifrar",
+    "emptyTitle": "Aquí todavía no hay archivos",
+    "emptyBody": "Añade archivos o una carpeta entera. Cada archivo se cifra en un objeto .mydt con nombre aleatorio; el nombre, el tipo y el contenido originales solo se ven aquí.",
+    "name": "Nombre",
+    "size": "Tamaño",
+    "modified": "Modificado",
+    "actions": "Acciones",
+    "expand": "Expandir",
+    "collapse": "Contraer",
+    "preview": "Vista previa",
+    "noPreview": "No hay vista previa para este tipo de archivo: expórtalo para abrirlo en otra aplicación.",
+    "export": "Exportar",
+    "exportWarningTitle": "¿Exportar una copia descifrada?",
+    "exportWarningBody": "El archivo se escribirá sin cifrar en la ubicación que elijas. Cualquier cosa en ese dispositivo podrá leerlo.",
+    "exported": "Copia descifrada exportada",
+    "replace": "Reemplazar contenido…",
+    "replaced": "Contenido del archivo reemplazado",
+    "rename": "Renombrar",
+    "fileName": "Nombre del archivo",
+    "move": "Mover a una carpeta",
+    "targetFolder": "Carpeta",
+    "targetFolderHint": "Usa barras para carpetas anidadas, por ejemplo proyecto/config. Déjalo vacío para el nivel superior.",
+    "folderName": "Nombre de la carpeta",
+    "delete": "Eliminar",
+    "deleted": "Archivo eliminado",
+    "deletedCount": "Se eliminaron {count} archivos",
+    "deleteFileTitle": "¿Eliminar este archivo?",
+    "deleteFileBody": "«{name}» se eliminará permanentemente de la carpeta de almacenamiento cifrada.",
+    "deleteFolderTitle": "¿Eliminar esta carpeta?",
+    "deleteFolderBody": "Todos los archivos dentro de «{dir}» se eliminarán permanentemente de la carpeta de almacenamiento cifrada.",
+    "unreadableCount": "Archivos ilegibles en la carpeta de almacenamiento: {count}",
+    "unreadableHint": "Se cifraron con otra contraseña maestra, pertenecen a otra bóveda o están dañados.",
+    "dismiss": "Descartar",
+    "viewGrid": "Vista de cuadrícula",
+    "viewList": "Vista de lista",
+    "footerNote": "Archivos de hasta 20 MB. Cifrados con Argon2id + XChaCha20-Poly1305; la clave solo permanece en memoria mientras la bóveda está desbloqueada.",
+    "cancel": "Cancelar",
+    "save": "Guardar"
   }
 }

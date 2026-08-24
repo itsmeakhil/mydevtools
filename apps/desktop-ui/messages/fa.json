@@ -76,7 +76,8 @@
     "tokenCounter": "شمارنده توکن",
     "webhookTester": "آزمایشگر Webhook",
     "websocketTester": "آزمایشگر WebSocket",
-    "whoisLookup": "جست‌وجوی Whois"
+    "whoisLookup": "جست‌وجوی Whois",
+    "secureFiles": "پرونده‌ها"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "ویرایش",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "در حال بازیابی…",
       "restoreSuccess": "نسخه پشتیبان بازیابی شد",
       "restoreError": "بازیابی ناموفق بود — عبارت عبور اشتباه یا فایل پشتیبان نامعتبر"
+    },
+    "backupCodes": {
+      "title": "کدهای پشتیبان",
+      "description": "کدهای یک‌بارمصرف برای بازیابی گاوصندوق در صورت فراموشی رمز اصلی.",
+      "remaining": "{remaining} از {total} کد باقی مانده",
+      "none": "هیچ کد پشتیبانی ذخیره نشده است.",
+      "hint": "ساخت مجموعه جدید همه کدهای فعلی را باطل می‌کند.",
+      "passwordPlaceholder": "رمز اصلی",
+      "regenerateButton": "ساخت کدهای جدید",
+      "generating": "در حال ساخت…",
+      "wrongPassword": "رمز اصلی نادرست است",
+      "success": "کدهای پشتیبان جدید ساخته شد",
+      "error": "ساخت کدهای پشتیبان ناموفق بود",
+      "newCodesWarning": "دیگر نمی‌توانید آن‌ها را ببینید. اکنون دانلود یا کپی کنید.",
+      "downloadButton": "دانلود",
+      "doneButton": "کدهایم را ذخیره کردم"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "جست‌وجوی Whois",
         "description": "جزئیات ثبت دامنه و IP را از طریق RDAP جست‌وجو کنید."
+      },
+      "secureFiles": {
+        "title": "پرونده‌ها",
+        "description": "پرونده‌ها و پوشه‌ها را به شیء‌های ‎.mydt‎ با نام پوشیده رمزگذاری کنید؛ پس از باز کردن قفل مرور و پیش‌نمایش کنید."
       }
     },
     "tabs": {
@@ -2278,7 +2300,8 @@
       "responseCopied": "پاسخ در کلیپ بورد کپی شد",
       "codeCopied": "کد در کلیپ بورد کپی شد",
       "copyFailed": "کپی در کلیپ‌بورد ناموفق بود",
-      "curlCopied": "دستور cURL کپی شد"
+      "curlCopied": "دستور cURL کپی شد",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "مجموعه ها",
@@ -2448,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5211,5 +5243,92 @@
       "accept": "اشتراک‌گذاری ناشناس",
       "decline": "نه، ممنون"
     }
+  },
+  "SecureFiles": {
+    "title": "پرونده‌ها",
+    "subtitle": "پرونده‌هایی که تا زمانی که قفلشان را باز نکنید خصوصی می‌مانند — روی دستگاه شما رمزگذاری‌شده و روی دیسک پوشیده",
+    "desktopOnly": "‏Secure Files در برنامهٔ رومیزی در دسترس است.",
+    "allFiles": "همهٔ پرونده‌ها",
+    "overview": "نمای کلی",
+    "statFiles": "پرونده‌ها",
+    "statFolders": "پوشه‌ها",
+    "statContent": "حجم محتوا",
+    "statContentHint": "حجم کل پرونده‌های اصلی",
+    "statOnDisk": "روی دیسک",
+    "statOverhead": "‏{size} سربار رمزگذاری",
+    "byType": "بر پایهٔ نوع",
+    "fileCount": "{count, plural, one {# پرونده} other {# پرونده}}",
+    "largestFiles": "بزرگ‌ترین پرونده‌ها",
+    "recentlyAdded": "به‌تازگی افزوده‌شده",
+    "openContainingFolder": "باز کردن پوشهٔ دربرگیرنده",
+    "types": {
+      "image": "تصاویر",
+      "video": "ویدیو",
+      "audio": "صدا",
+      "pdf": "PDF",
+      "archive": "بایگانی‌ها",
+      "code": "کد",
+      "doc": "سندها",
+      "sheet": "صفحه‌گسترده‌ها",
+      "file": "سایر"
+    },
+    "breadcrumb": "مسیر پوشه",
+    "addFiles": "افزودن پرونده",
+    "addFolder": "افزودن پوشه",
+    "importFolder": "درون‌ریزی پوشه",
+    "newFolder": "پوشهٔ جدید",
+    "lock": "قفل کردن",
+    "settings": "تنظیمات ذخیره‌سازی",
+    "storageFolder": "پوشهٔ ذخیره‌سازی",
+    "notSet": "تعیین‌نشده",
+    "chooseFolder": "انتخاب پوشه",
+    "changeFolder": "تغییر پوشه…",
+    "chooseFolderTitle": "انتخاب کنید پرونده‌های رمزگذاری‌شده کجا ذخیره شوند",
+    "chooseFolderBody": "هر پوشه‌ای روی این دستگاه یا یک درایو خارجی را انتخاب کنید. بیرون از MyDevTools تنها شامل پرونده‌های ‎.mydt‎ با نام پوشیده است.",
+    "changeFolderTitle": "پرونده‌های رمزگذاری‌شده جابه‌جا شوند؟",
+    "changeFolderBody": "همهٔ پرونده‌های ‎.mydt‎ از پوشهٔ ذخیره‌سازی کنونی به پوشه‌ای که در ادامه انتخاب می‌کنید منتقل می‌شوند.",
+    "folderSet": "پوشهٔ ذخیره‌سازی تعیین شد",
+    "folderMissingTitle": "پوشهٔ ذخیره‌سازی پیدا نشد",
+    "folderMissingBody": "‏«{dir}» در دسترس نیست — ممکن است روی درایوی جدا‌شده باشد یا از پشتیبان بازیابی‌شدهٔ رایانه‌ای دیگر بیاید. دوباره وصلش کنید یا پوشه‌ای تازه برگزینید.",
+    "movedCount": "‏{count} پروندهٔ رمزگذاری‌شده منتقل شد",
+    "importedCount": "‏{count} پرونده رمزگذاری شد",
+    "emptyFolderAdded": "پوشه افزوده شد — پرونده‌ای برای رمزگذاری نداشت",
+    "emptyTitle": "هنوز پرونده‌ای اینجا نیست",
+    "emptyBody": "پرونده یا یک پوشهٔ کامل بیفزایید. هر پرونده به شیء ‎.mydt‎ با نامی تصادفی رمزگذاری می‌شود؛ نام، نوع و محتوای اصلی تنها همین‌جا دیده می‌شوند.",
+    "name": "نام",
+    "size": "اندازه",
+    "modified": "تغییریافته",
+    "actions": "کنش‌ها",
+    "expand": "گستردن",
+    "collapse": "جمع کردن",
+    "preview": "پیش‌نمایش",
+    "noPreview": "برای این نوع پرونده پیش‌نمایشی نیست — آن را برون‌ریزی کنید تا در برنامه‌ای دیگر باز شود.",
+    "export": "برون‌ریزی",
+    "exportWarningTitle": "یک نسخهٔ رمزگشایی‌شده برون‌ریزی شود؟",
+    "exportWarningBody": "پرونده بدون رمزگذاری در مکانی که برمی‌گزینید نوشته می‌شود. هر چیزی روی آن دستگاه می‌تواند آن را بخواند.",
+    "exported": "نسخهٔ رمزگشایی‌شده برون‌ریزی شد",
+    "replace": "جایگزینی محتوا…",
+    "replaced": "محتوای پرونده جایگزین شد",
+    "rename": "تغییر نام",
+    "fileName": "نام پرونده",
+    "move": "انتقال به پوشه",
+    "targetFolder": "پوشه",
+    "targetFolderHint": "برای پوشه‌های تودرتو از اسلش استفاده کنید، مانند project/config. برای بالاترین سطح خالی بگذارید.",
+    "folderName": "نام پوشه",
+    "delete": "حذف",
+    "deleted": "پرونده حذف شد",
+    "deletedCount": "‏{count} پرونده حذف شد",
+    "deleteFileTitle": "این پرونده حذف شود؟",
+    "deleteFileBody": "‏«{name}» برای همیشه از پوشهٔ ذخیره‌سازی رمزگذاری‌شده حذف می‌شود.",
+    "deleteFolderTitle": "این پوشه حذف شود؟",
+    "deleteFolderBody": "همهٔ پرونده‌های درون «{dir}» برای همیشه از پوشهٔ ذخیره‌سازی رمزگذاری‌شده حذف می‌شوند.",
+    "unreadableCount": "پرونده‌های ناخوانا در پوشهٔ ذخیره‌سازی: {count}",
+    "unreadableHint": "با گذرواژهٔ اصلی دیگری رمزگذاری شده‌اند، به گاوصندوق دیگری تعلق دارند، یا آسیب دیده‌اند.",
+    "dismiss": "بستن",
+    "viewGrid": "نمای شبکه‌ای",
+    "viewList": "نمای فهرستی",
+    "footerNote": "پرونده‌های تا ۲۰ مگابایت. رمزگذاری با Argon2id + XChaCha20-Poly1305؛ کلید تنها تا زمانی که گاوصندوق باز است در حافظه می‌ماند.",
+    "cancel": "انصراف",
+    "save": "ذخیره"
   }
 }

@@ -76,7 +76,8 @@
     "tokenCounter": "Token 计数器",
     "webhookTester": "Webhook 测试器",
     "websocketTester": "WebSocket 测试器",
-    "whoisLookup": "Whois 查询"
+    "whoisLookup": "Whois 查询",
+    "secureFiles": "文件"
   },
   "Help": {
     "title": "帮助与文档",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "编辑",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "正在恢复…",
       "restoreSuccess": "备份已恢复",
       "restoreError": "恢复失败 — 口令错误或备份文件无效"
+    },
+    "backupCodes": {
+      "title": "备用代码",
+      "description": "一次性代码，可在忘记主密码时恢复保险库。",
+      "remaining": "剩余 {remaining} / {total} 个代码",
+      "none": "尚未保存备用代码。",
+      "hint": "生成新代码会使现有代码全部失效。",
+      "passwordPlaceholder": "主密码",
+      "regenerateButton": "生成新代码",
+      "generating": "生成中…",
+      "wrongPassword": "主密码不正确",
+      "success": "已生成新的备用代码",
+      "error": "无法生成备用代码",
+      "newCodesWarning": "离开后将无法再次查看，请立即下载或复制。",
+      "downloadButton": "下载",
+      "doneButton": "我已保存代码"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois 查询",
         "description": "通过 RDAP 查询域名和 IP 的注册信息。"
+      },
+      "secureFiles": {
+        "title": "文件",
+        "description": "将文件和文件夹加密为名称已掩码的 .mydt 对象；解锁后即可浏览和预览。"
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "已抽样 {docs} 个文档 · {fields} 个字段",
       "colField": "字段",
       "colTypes": "类型",
-      "colCoverage": "覆盖率"
+      "colCoverage": "覆盖率",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "响应已复制到剪贴板",
       "codeCopied": "代码已复制到剪贴板",
       "copyFailed": "复制到剪贴板失败",
-      "curlCopied": "已复制 cURL 命令"
+      "curlCopied": "已复制 cURL 命令",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "集合",
@@ -2437,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5200,5 +5243,92 @@
       "accept": "匿名共享",
       "decline": "不用了"
     }
+  },
+  "SecureFiles": {
+    "title": "文件",
+    "subtitle": "在你解锁之前始终保持私密的文件 — 在设备上加密，在磁盘上掩码",
+    "desktopOnly": "Secure Files 可在桌面应用中使用。",
+    "allFiles": "全部文件",
+    "overview": "概览",
+    "statFiles": "文件",
+    "statFolders": "文件夹",
+    "statContent": "内容大小",
+    "statContentHint": "原始文件的总大小",
+    "statOnDisk": "磁盘占用",
+    "statOverhead": "加密开销 {size}",
+    "byType": "按类型",
+    "fileCount": "{count, plural, other {# 个文件}}",
+    "largestFiles": "最大的文件",
+    "recentlyAdded": "最近添加",
+    "openContainingFolder": "打开所在文件夹",
+    "types": {
+      "image": "图片",
+      "video": "视频",
+      "audio": "音频",
+      "pdf": "PDF",
+      "archive": "压缩包",
+      "code": "代码",
+      "doc": "文档",
+      "sheet": "电子表格",
+      "file": "其他"
+    },
+    "breadcrumb": "文件夹路径",
+    "addFiles": "添加文件",
+    "addFolder": "添加文件夹",
+    "importFolder": "导入文件夹",
+    "newFolder": "新建文件夹",
+    "lock": "锁定",
+    "settings": "存储设置",
+    "storageFolder": "存储文件夹",
+    "notSet": "未设置",
+    "chooseFolder": "选择文件夹",
+    "changeFolder": "更改文件夹…",
+    "chooseFolderTitle": "选择加密文件的存放位置",
+    "chooseFolderBody": "在本设备或外接驱动器上任选一个文件夹。在 MyDevTools 之外，它只包含名称已掩码的 .mydt 文件。",
+    "changeFolderTitle": "移动加密文件？",
+    "changeFolderBody": "所有 .mydt 文件都会从当前存储文件夹移动到你接下来选择的文件夹。",
+    "folderSet": "已设置存储文件夹",
+    "folderMissingTitle": "未找到存储文件夹",
+    "folderMissingBody": "「{dir}」不可用 — 它可能位于已拔出的驱动器上，或来自从其他电脑恢复的备份。请重新连接，或选择新的文件夹。",
+    "movedCount": "已移动 {count} 个加密文件",
+    "importedCount": "已加密 {count} 个文件",
+    "emptyFolderAdded": "已添加文件夹 — 其中没有可加密的文件",
+    "emptyTitle": "这里还没有文件",
+    "emptyBody": "添加文件或整个文件夹。每个文件都会被加密成名称随机的 .mydt 对象；原始名称、类型和内容只在这里可见。",
+    "name": "名称",
+    "size": "大小",
+    "modified": "修改时间",
+    "actions": "操作",
+    "expand": "展开",
+    "collapse": "折叠",
+    "preview": "预览",
+    "noPreview": "此类型的文件无法预览 — 导出后用其他应用打开。",
+    "export": "导出",
+    "exportWarningTitle": "导出解密副本？",
+    "exportWarningBody": "文件将以未加密的形式写入你选择的位置。该设备上的任何程序都能读取它。",
+    "exported": "已导出解密副本",
+    "replace": "替换内容…",
+    "replaced": "已替换文件内容",
+    "rename": "重命名",
+    "fileName": "文件名",
+    "move": "移动到文件夹",
+    "targetFolder": "文件夹",
+    "targetFolderHint": "嵌套文件夹用斜杠分隔，例如 project/config。留空表示顶层。",
+    "folderName": "文件夹名称",
+    "delete": "删除",
+    "deleted": "已删除文件",
+    "deletedCount": "已删除 {count} 个文件",
+    "deleteFileTitle": "删除此文件？",
+    "deleteFileBody": "「{name}」将从加密存储文件夹中永久删除。",
+    "deleteFolderTitle": "删除此文件夹？",
+    "deleteFolderBody": "「{dir}」下的所有文件都将从加密存储文件夹中永久删除。",
+    "unreadableCount": "存储文件夹中无法读取的文件：{count}",
+    "unreadableHint": "它们使用了其他主密码加密、属于其他保险库，或者已损坏。",
+    "dismiss": "关闭",
+    "viewGrid": "网格视图",
+    "viewList": "列表视图",
+    "footerNote": "文件上限 20 MB。使用 Argon2id + XChaCha20-Poly1305 加密；密钥仅在保险库解锁期间保存在内存中。",
+    "cancel": "取消",
+    "save": "保存"
   }
 }

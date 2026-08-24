@@ -76,7 +76,8 @@
     "tokenCounter": "Licznik tokenów",
     "webhookTester": "Tester webhooków",
     "websocketTester": "Tester WebSocket",
-    "whoisLookup": "Zapytanie Whois"
+    "whoisLookup": "Zapytanie Whois",
+    "secureFiles": "Pliki"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Edytuj",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Przywracanie…",
       "restoreSuccess": "Kopia zapasowa przywrócona",
       "restoreError": "Przywracanie nie powiodło się — błędne hasło lub nieprawidłowy plik kopii"
+    },
+    "backupCodes": {
+      "title": "Kody zapasowe",
+      "description": "Jednorazowe kody przywracające dostęp do sejfu, gdy zapomnisz hasła głównego.",
+      "remaining": "Pozostało {remaining} z {total} kodów",
+      "none": "Brak zapisanych kodów zapasowych.",
+      "hint": "Wygenerowanie nowego zestawu unieważnia wszystkie dotychczasowe kody.",
+      "passwordPlaceholder": "Hasło główne",
+      "regenerateButton": "Wygeneruj nowe kody",
+      "generating": "Generowanie…",
+      "wrongPassword": "Nieprawidłowe hasło główne",
+      "success": "Wygenerowano nowe kody zapasowe",
+      "error": "Nie udało się wygenerować kodów zapasowych",
+      "newCodesWarning": "Nie zobaczysz ich ponownie. Pobierz je lub skopiuj teraz.",
+      "downloadButton": "Pobierz",
+      "doneButton": "Zapisałem kody"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Zapytanie Whois",
         "description": "Sprawdzaj dane rejestracyjne domen i adresów IP przez RDAP."
+      },
+      "secureFiles": {
+        "title": "Pliki",
+        "description": "Szyfruj pliki i foldery do zamaskowanych obiektów .mydt; przeglądaj je po odblokowaniu."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "Próbkowano {docs} dokumentów · {fields} pól",
       "colField": "Pole",
       "colTypes": "Typy",
-      "colCoverage": "Pokrycie"
+      "colCoverage": "Pokrycie",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Response copied to clipboard",
       "codeCopied": "Code copied to clipboard",
       "copyFailed": "Kopiowanie do schowka nie powiodło się",
-      "curlCopied": "Skopiowano polecenie cURL"
+      "curlCopied": "Skopiowano polecenie cURL",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Collections",
@@ -2437,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5200,5 +5243,92 @@
       "accept": "Udostępnij anonimowo",
       "decline": "Nie, dziękuję"
     }
+  },
+  "SecureFiles": {
+    "title": "Pliki",
+    "subtitle": "Pliki pozostają prywatne, dopóki ich nie odblokujesz — zaszyfrowane na urządzeniu, zamaskowane na dysku",
+    "desktopOnly": "Secure Files jest dostępny w aplikacji desktopowej.",
+    "allFiles": "Wszystkie pliki",
+    "overview": "Przegląd",
+    "statFiles": "Pliki",
+    "statFolders": "Foldery",
+    "statContent": "Rozmiar zawartości",
+    "statContentHint": "Łączny rozmiar oryginalnych plików",
+    "statOnDisk": "Na dysku",
+    "statOverhead": "{size} narzutu szyfrowania",
+    "byType": "Według typu",
+    "fileCount": "{count, plural, one {# plik} few {# pliki} many {# plików} other {# pliku}}",
+    "largestFiles": "Największe pliki",
+    "recentlyAdded": "Ostatnio dodane",
+    "openContainingFolder": "Otwórz folder nadrzędny",
+    "types": {
+      "image": "Obrazy",
+      "video": "Wideo",
+      "audio": "Audio",
+      "pdf": "PDF",
+      "archive": "Archiwa",
+      "code": "Kod",
+      "doc": "Dokumenty",
+      "sheet": "Arkusze kalkulacyjne",
+      "file": "Inne"
+    },
+    "breadcrumb": "Ścieżka folderu",
+    "addFiles": "Dodaj pliki",
+    "addFolder": "Dodaj folder",
+    "importFolder": "Importuj folder",
+    "newFolder": "Nowy folder",
+    "lock": "Zablokuj",
+    "settings": "Ustawienia magazynu",
+    "storageFolder": "Folder magazynu",
+    "notSet": "Nie ustawiono",
+    "chooseFolder": "Wybierz folder",
+    "changeFolder": "Zmień folder…",
+    "chooseFolderTitle": "Wybierz, gdzie przechowywać zaszyfrowane pliki",
+    "chooseFolderBody": "Wybierz dowolny folder na tym urządzeniu lub na dysku zewnętrznym. Poza MyDevTools zawiera on wyłącznie zamaskowane pliki .mydt.",
+    "changeFolderTitle": "Przenieść zaszyfrowane pliki?",
+    "changeFolderBody": "Wszystkie pliki .mydt zostaną przeniesione z bieżącego folderu magazynu do tego, który wybierzesz teraz.",
+    "folderSet": "Folder magazynu ustawiony",
+    "folderMissingTitle": "Nie znaleziono folderu magazynu",
+    "folderMissingBody": "„{dir}” jest niedostępny — może znajdować się na odłączonym dysku albo pochodzić z kopii zapasowej przywróconej z innego komputera. Podłącz go ponownie lub wybierz nowy folder.",
+    "movedCount": "Przeniesiono zaszyfrowane pliki: {count}",
+    "importedCount": "Zaszyfrowano pliki: {count}",
+    "emptyFolderAdded": "Folder dodany — nie zawierał plików do zaszyfrowania",
+    "emptyTitle": "Nie ma tu jeszcze plików",
+    "emptyBody": "Dodaj pliki lub cały folder. Każdy plik jest szyfrowany do obiektu .mydt o losowej nazwie; oryginalna nazwa, typ i zawartość są widoczne tylko tutaj.",
+    "name": "Nazwa",
+    "size": "Rozmiar",
+    "modified": "Zmodyfikowano",
+    "actions": "Akcje",
+    "expand": "Rozwiń",
+    "collapse": "Zwiń",
+    "preview": "Podgląd",
+    "noPreview": "Brak podglądu dla tego typu pliku — wyeksportuj go, aby otworzyć w innej aplikacji.",
+    "export": "Eksportuj",
+    "exportWarningTitle": "Wyeksportować odszyfrowaną kopię?",
+    "exportWarningBody": "Plik zostanie zapisany bez szyfrowania w wybranej lokalizacji. Odczyta go wszystko na tym urządzeniu.",
+    "exported": "Odszyfrowana kopia wyeksportowana",
+    "replace": "Zastąp zawartość…",
+    "replaced": "Zawartość pliku zastąpiona",
+    "rename": "Zmień nazwę",
+    "fileName": "Nazwa pliku",
+    "move": "Przenieś do folderu",
+    "targetFolder": "Folder",
+    "targetFolderHint": "Użyj ukośników dla folderów zagnieżdżonych, na przykład projekt/config. Pozostaw puste dla najwyższego poziomu.",
+    "folderName": "Nazwa folderu",
+    "delete": "Usuń",
+    "deleted": "Plik usunięty",
+    "deletedCount": "Usunięto pliki: {count}",
+    "deleteFileTitle": "Usunąć ten plik?",
+    "deleteFileBody": "„{name}” zostanie trwale usunięty z zaszyfrowanego folderu magazynu.",
+    "deleteFolderTitle": "Usunąć ten folder?",
+    "deleteFolderBody": "Każdy plik w „{dir}” zostanie trwale usunięty z zaszyfrowanego folderu magazynu.",
+    "unreadableCount": "Nieczytelne pliki w folderze magazynu: {count}",
+    "unreadableHint": "Zaszyfrowano je innym hasłem głównym, należą do innego sejfu albo są uszkodzone.",
+    "dismiss": "Odrzuć",
+    "viewGrid": "Widok siatki",
+    "viewList": "Widok listy",
+    "footerNote": "Pliki do 20 MB. Szyfrowanie Argon2id + XChaCha20-Poly1305; klucz pozostaje w pamięci tylko wtedy, gdy sejf jest odblokowany.",
+    "cancel": "Anuluj",
+    "save": "Zapisz"
   }
 }

@@ -88,7 +88,8 @@ MyDevTools는 개발자가 매일 열어 두는 수많은 탭, 일회성 웹사�
 | 플랫폼 | 방법 |
 |---|---|
 | **macOS** (Apple Silicon + Intel) | [최신 `.dmg` 다운로드](https://github.com/mydevtools-tech/mydevtools/releases/latest) — 유니버설 빌드, 서명 및 공증 완료, 앱 내에서 자동 업데이트 |
-| **Windows / Linux** | 아직 배포하지 않았습니다. Tauri 셸은 두 플랫폼 모두에서 빌드됩니다 — [소스에서 빌드하기](../../README.md#%EF%B8%8F-building-from-source)와 [로드맵](../../ROADMAP.md)을 참고하세요. 이 플랫폼에서의 테스트는 첫 기여로 아주 좋습니다 |
+| **Linux** (x86_64) | [`.deb` 다운로드](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) 또는 [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (설치 없이 어디서나 실행) — macOS와 같은 릴리스, 같은 버전입니다. 앱 내 업데이트는 아직 없습니다. [Linux 설치 가이드](https://mydevtools.tech/linux-builds) 참고 |
+| **Windows** | 당분간 빌드를 제공하지 않습니다. Tauri 셸은 Windows에서도 컴파일됩니다 — [소스에서 빌드하기](../../README.md#%EF%B8%8F-building-from-source)와 [로드맵](../../ROADMAP.md)을 참고하세요 |
 
 실행하고 바로 작업을 시작하면 됩니다. 가입도, 설정도, API 키도 필요 없습니다.
 

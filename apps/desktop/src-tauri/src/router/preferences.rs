@@ -23,6 +23,7 @@ const DEFAULT_ENABLED_TOOLS: &[&str] = &[
     "/app/snippet-manager",
     "/app/password-manager",
     "/app/environment-manager",
+    "/app/secure-files",
     "/app/email-validator",
     "/app/jwt-decoder",
     "/app/encryption-playground",

@@ -1,6 +1,8 @@
 use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
+use zeroize::Zeroizing;
+
 use crate::db;
 use crate::error::Result;
 
@@ -9,6 +11,15 @@ pub struct AppState {
     /// App data directory holding the DB files. None for in-memory test state,
     /// which keeps destructive file operations (factory reset) inert in tests.
     pub data_dir: Option<PathBuf>,
+    /// Secure Files KEK (Argon2id of the master password). `None` = locked.
+    /// Dropping the `Zeroizing` wipes the bytes.
+    pub kek: Mutex<Option<Zeroizing<[u8; 32]>>>,
+    /// Secure Files decrypted-metadata cache (id → meta + on-disk size),
+    /// populated by the first listing after unlock and kept fresh by
+    /// write-through + an id-set diff against the storage dir. `None` = cold
+    /// (locked or never listed). Plaintext names live here only while the
+    /// vault is unlocked.
+    pub sf_meta: Mutex<Option<crate::router::secure_files::MetaCache>>,
 }
 
 impl AppState {
@@ -17,6 +28,8 @@ impl AppState {
         Ok(Self {
             db: Mutex::new(conn),
             data_dir: db_path.parent().map(Path::to_path_buf),
+            kek: Mutex::new(None),
+            sf_meta: Mutex::new(None),
         })
     }
 
@@ -25,6 +38,6 @@ impl AppState {
     pub fn in_memory() -> Self {
         let conn = rusqlite::Connection::open_in_memory().unwrap();
         db::migrations::run(&conn).unwrap();
-        Self { db: Mutex::new(conn), data_dir: None }
+        Self { db: Mutex::new(conn), data_dir: None, kek: Mutex::new(None), sf_meta: Mutex::new(None) }
     }
 }

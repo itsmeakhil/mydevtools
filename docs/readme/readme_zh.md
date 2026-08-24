@@ -88,7 +88,8 @@ SQL / MongoDB / Redis 客户端、笔记、代码片段和凭据保险库 ——
 | 平台 | 方式 |
 |---|---|
 | **macOS**（Apple Silicon + Intel） | [下载最新的 `.dmg`](https://github.com/mydevtools-tech/mydevtools/releases/latest) —— 通用版本，已签名并公证，支持应用内自动更新 |
-| **Windows / Linux** | 尚未发布。Tauri 外壳在这两个平台上都能构建 —— 参见[从源码构建](../../README.md#%EF%B8%8F-building-from-source)和[路线图](../../ROADMAP.md)。在这些平台上做测试是很好的第一次贡献 |
+| **Linux**(x86_64) | [下载 `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb)(Debian / Ubuntu 22.04+)或 [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage)(免安装、随处运行)—— 与 macOS 同一发布、同一版本。暂无应用内更新；参见 [Linux 安装指南](https://mydevtools.tech/linux-builds) |
+| **Windows** | 暂不提供构建。Tauri 外壳可在 Windows 上编译 —— 参见[从源码构建](../../README.md#%EF%B8%8F-building-from-source)和[路线图](../../ROADMAP.md) |
 
 打开即用：无需注册、无需配置、无需 API 密钥。
 

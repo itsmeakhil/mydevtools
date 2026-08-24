@@ -76,7 +76,8 @@
     "tokenCounter": "Pengira Token",
     "webhookTester": "Penguji Webhook",
     "websocketTester": "Penguji WebSocket",
-    "whoisLookup": "Carian Whois"
+    "whoisLookup": "Carian Whois",
+    "secureFiles": "Fail"
   },
   "Help": {
     "title": "Bantuan & Dokumentasi",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Edit",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Memulihkan…",
       "restoreSuccess": "Sandaran dipulihkan",
       "restoreError": "Pemulihan gagal — frasa laluan salah atau fail sandaran tidak sah"
+    },
+    "backupCodes": {
+      "title": "Kod sandaran",
+      "description": "Kod sekali guna untuk memulihkan peti besi anda jika terlupa kata laluan induk.",
+      "remaining": "{remaining} daripada {total} kod berbaki",
+      "none": "Tiada kod sandaran disimpan.",
+      "hint": "Menjana set baharu membatalkan semua kod sedia ada.",
+      "passwordPlaceholder": "Kata laluan induk",
+      "regenerateButton": "Jana kod baharu",
+      "generating": "Menjana…",
+      "wrongPassword": "Kata laluan induk salah",
+      "success": "Kod sandaran baharu dijana",
+      "error": "Gagal menjana kod sandaran",
+      "newCodesWarning": "Anda tidak boleh melihatnya lagi. Muat turun atau salin sekarang.",
+      "downloadButton": "Muat turun",
+      "doneButton": "Saya telah simpan kod saya"
     }
   },
   "Dashboard": {
@@ -638,6 +656,10 @@
       "whoisLookup": {
         "title": "Carian Whois",
         "description": "Cari butiran pendaftaran domain dan IP melalui RDAP."
+      },
+      "secureFiles": {
+        "title": "Fail",
+        "description": "Sulitkan fail dan folder menjadi objek .mydt bernama samar; layari dan pratonton selepas dibuka kunci."
       }
     },
     "tabs": {
@@ -2278,7 +2300,8 @@
       "responseCopied": "Respons disalin ke papan klip",
       "codeCopied": "Kod disalin ke papan klip",
       "copyFailed": "Gagal menyalin ke papan klip",
-      "curlCopied": "Perintah cURL disalin"
+      "curlCopied": "Perintah cURL disalin",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Koleksi",
@@ -2448,7 +2471,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5211,5 +5243,92 @@
       "accept": "Kongsi tanpa nama",
       "decline": "Tidak, terima kasih"
     }
+  },
+  "SecureFiles": {
+    "title": "Fail",
+    "subtitle": "Fail yang kekal peribadi sehingga anda membukanya — disulitkan pada peranti anda, disamarkan pada cakera",
+    "desktopOnly": "Secure Files tersedia dalam aplikasi desktop.",
+    "allFiles": "Semua fail",
+    "overview": "Gambaran keseluruhan",
+    "statFiles": "Fail",
+    "statFolders": "Folder",
+    "statContent": "Saiz kandungan",
+    "statContentHint": "Jumlah saiz fail asal",
+    "statOnDisk": "Pada cakera",
+    "statOverhead": "{size} overhed penyulitan",
+    "byType": "Mengikut jenis",
+    "fileCount": "{count, plural, other {# fail}}",
+    "largestFiles": "Fail terbesar",
+    "recentlyAdded": "Baru ditambah",
+    "openContainingFolder": "Buka folder yang mengandunginya",
+    "types": {
+      "image": "Imej",
+      "video": "Video",
+      "audio": "Audio",
+      "pdf": "PDF",
+      "archive": "Arkib",
+      "code": "Kod",
+      "doc": "Dokumen",
+      "sheet": "Hamparan",
+      "file": "Lain-lain"
+    },
+    "breadcrumb": "Laluan folder",
+    "addFiles": "Tambah fail",
+    "addFolder": "Tambah folder",
+    "importFolder": "Import folder",
+    "newFolder": "Folder baharu",
+    "lock": "Kunci",
+    "settings": "Tetapan storan",
+    "storageFolder": "Folder storan",
+    "notSet": "Belum ditetapkan",
+    "chooseFolder": "Pilih folder",
+    "changeFolder": "Tukar folder…",
+    "chooseFolderTitle": "Pilih tempat fail tersulit disimpan",
+    "chooseFolderBody": "Pilih mana-mana folder pada peranti ini atau pemacu luaran. Di luar MyDevTools, ia hanya mengandungi fail .mydt bernama samar.",
+    "changeFolderTitle": "Alihkan fail tersulit?",
+    "changeFolderBody": "Semua fail .mydt akan dialihkan dari folder storan semasa ke folder yang anda pilih seterusnya.",
+    "folderSet": "Folder storan ditetapkan",
+    "folderMissingTitle": "Folder storan tidak dijumpai",
+    "folderMissingBody": "“{dir}” tidak tersedia — ia mungkin berada pada pemacu yang dicabut atau berasal daripada sandaran yang dipulihkan dari mesin lain. Sambungkan semula, atau pilih folder baharu.",
+    "movedCount": "{count} fail tersulit dialihkan",
+    "importedCount": "{count} fail disulitkan",
+    "emptyFolderAdded": "Folder ditambah — tiada fail untuk disulitkan",
+    "emptyTitle": "Belum ada fail di sini",
+    "emptyBody": "Tambah fail atau satu folder penuh. Setiap fail disulitkan menjadi objek .mydt bernama rawak; nama, jenis dan kandungan asal hanya kelihatan di sini.",
+    "name": "Nama",
+    "size": "Saiz",
+    "modified": "Diubah suai",
+    "actions": "Tindakan",
+    "expand": "Kembangkan",
+    "collapse": "Kuncupkan",
+    "preview": "Pratonton",
+    "noPreview": "Tiada pratonton untuk jenis fail ini — eksport untuk membukanya dalam aplikasi lain.",
+    "export": "Eksport",
+    "exportWarningTitle": "Eksport salinan yang telah dinyahsulit?",
+    "exportWarningBody": "Fail akan ditulis tanpa sulitan ke lokasi yang anda pilih. Apa-apa pada peranti itu boleh membacanya.",
+    "exported": "Salinan dinyahsulit dieksport",
+    "replace": "Ganti kandungan…",
+    "replaced": "Kandungan fail diganti",
+    "rename": "Namakan semula",
+    "fileName": "Nama fail",
+    "move": "Alihkan ke folder",
+    "targetFolder": "Folder",
+    "targetFolderHint": "Gunakan garis miring untuk folder bersarang, contohnya projek/config. Biarkan kosong untuk aras teratas.",
+    "folderName": "Nama folder",
+    "delete": "Padam",
+    "deleted": "Fail dipadam",
+    "deletedCount": "{count} fail dipadam",
+    "deleteFileTitle": "Padam fail ini?",
+    "deleteFileBody": "“{name}” akan dibuang secara kekal daripada folder storan tersulit.",
+    "deleteFolderTitle": "Padam folder ini?",
+    "deleteFolderBody": "Setiap fail dalam “{dir}” akan dibuang secara kekal daripada folder storan tersulit.",
+    "unreadableCount": "Fail tidak boleh dibaca dalam folder storan: {count}",
+    "unreadableHint": "Ia disulitkan dengan kata laluan induk lain, milik peti besi lain, atau telah rosak.",
+    "dismiss": "Tutup",
+    "viewGrid": "Paparan grid",
+    "viewList": "Paparan senarai",
+    "footerNote": "Fail sehingga 20 MB. Disulitkan dengan Argon2id + XChaCha20-Poly1305; kunci hanya berada dalam ingatan selagi peti besi dibuka.",
+    "cancel": "Batal",
+    "save": "Simpan"
   }
 }

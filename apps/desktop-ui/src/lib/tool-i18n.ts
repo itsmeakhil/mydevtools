@@ -5,6 +5,7 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/to-do': 'toDo',
   '/app/notes': 'notes',
   '/app/password-manager': 'passwordManager',
+  '/app/secure-files': 'secureFiles',
   '/app/environment-manager': 'environmentManager',
   '/app/bookmarks': 'bookmarks',
   '/app/email-validator': 'emailValidator',
