@@ -51,6 +51,40 @@ async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, Strin
     Ok(http::grpc::proxy_grpc(input).await)
 }
 
+/// Registry of opened folder-collection dirs, stored as a JSON file in the app
+/// data dir. localStorage is origin-scoped (dev server vs installed app have
+/// different origins), so it silently "forgets" registered folders — this doesn't.
+fn file_collections_registry_path(app: &tauri::AppHandle) -> Result<std::path::PathBuf, String> {
+    let dir = app.path().app_data_dir().map_err(|e| e.to_string())?;
+    Ok(dir.join("file-collections.json"))
+}
+
+#[tauri::command]
+fn file_collections_registry_load(app: tauri::AppHandle) -> Result<String, String> {
+    let path = file_collections_registry_path(&app)?;
+    Ok(std::fs::read_to_string(&path).unwrap_or_else(|_| "[]".to_string()))
+}
+
+#[tauri::command]
+fn file_collections_registry_save(app: tauri::AppHandle, json: String) -> Result<(), String> {
+    let path = file_collections_registry_path(&app)?;
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    std::fs::write(&path, json).map_err(|e| e.to_string())
+}
+
+/// Recursively allow a folder-collection dir in the fs scope. The dialog plugin
+/// only scopes the picked path itself; files inside it (and registered dirs on
+/// relaunch) need an explicit recursive grant.
+#[tauri::command]
+fn fs_allow_collection_dir(app: tauri::AppHandle, path: String) -> Result<(), String> {
+    use tauri_plugin_fs::FsExt;
+    app.fs_scope()
+        .allow_directory(std::path::Path::new(&path), true)
+        .map_err(|e| e.to_string())
+}
+
 /// Decrypted Secure Files payload as raw bytes (webview gets an ArrayBuffer —
 /// no base64 round-trip through the JSON router).
 #[tauri::command]
@@ -60,6 +94,11 @@ fn secure_file_read(state: tauri::State<'_, AppState>, id: String) -> Result<tau
 
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_fs::init())
+        // Folder-collection dirs picked via the dialog are added to the fs scope
+        // at runtime; persisted-scope keeps them allowed across restarts.
+        .plugin(tauri_plugin_persisted_scope::init())
         .plugin(tauri_plugin_opener::init())
         // Restore everything except SIZE. Sizes are saved in physical pixels, so
         // a size saved on a HiDPI (scale-2) display restores 2x too large on a
@@ -72,7 +111,6 @@ pub fn run() {
         )
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
-        .plugin(tauri_plugin_dialog::init())
         .setup(|app| {
             let dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&dir)?;
@@ -109,6 +147,9 @@ pub fn run() {
             http_request_stream_cancel,
             mock_server_start,
             proxy_grpc,
+            fs_allow_collection_dir,
+            file_collections_registry_load,
+            file_collections_registry_save,
             secure_file_read
         ])
         .run(tauri::generate_context!())

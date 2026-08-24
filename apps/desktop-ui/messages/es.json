@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "Recursos API",
       "newCollection": "Nueva colección",
+      "openFolderCollection": "Abrir carpeta como colección",
+      "folderCollection": "Colección de carpeta",
       "tabCollections": "Colecciones",
       "tabHistory": "Historial",
       "noCollectionsTitle": "Sin colecciones",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Nuevo entorno",
       "variablesHeading": "Variables de {name}",
       "addVariable": "Añadir variable",
+      "exportPostman": "Exportar (entorno de Postman)",
       "columnVariable": "Variable",
       "columnValue": "Valor",
       "placeholderKey": "Clave",

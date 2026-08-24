@@ -319,6 +319,9 @@ export interface Collection {
     items: (CollectionFolder | CollectionRequest)[]
     /** Free-form workspace label (e.g. "Personal", "Acme Prod"). Empty / undefined = default workspace. */
     workspace?: string
+    /** Desktop-only: set when this collection is backed by a folder of YAML files
+     *  (git-friendly). In-memory marker — never sent to the backend. */
+    source?: { kind: "file"; path: string }
 }
 
 export interface HistoryRequest extends CollectionRequest {

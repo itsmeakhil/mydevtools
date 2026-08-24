@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API-resurser",
       "newCollection": "Ny samling",
+      "openFolderCollection": "Öppna mapp som samling",
+      "folderCollection": "Mappsamling",
       "tabCollections": "Samlingar",
       "tabHistory": "Historik",
       "noCollectionsTitle": "Inga samlingar",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Ny miljö",
       "variablesHeading": "{name}-variabler",
       "addVariable": "Lägg till variabel",
+      "exportPostman": "Exportera (Postman-miljö)",
       "columnVariable": "Variabel",
       "columnValue": "Värde",
       "placeholderKey": "Nyckel",

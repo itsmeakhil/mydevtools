@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API-bronnen",
       "newCollection": "Nieuwe collectie",
+      "openFolderCollection": "Map openen als collectie",
+      "folderCollection": "Mapcollectie",
       "tabCollections": "Collecties",
       "tabHistory": "Geschiedenis",
       "noCollectionsTitle": "Geen collecties",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Nieuwe omgeving",
       "variablesHeading": "{name} variabelen",
       "addVariable": "Variabele toevoegen",
+      "exportPostman": "Exporteren (Postman-omgeving)",
       "columnVariable": "Variabele",
       "columnValue": "Waarde",
       "placeholderKey": "Sleutel",

@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "Tài nguyên API",
       "newCollection": "Bộ sưu tập mới",
+      "openFolderCollection": "Mở thư mục dưới dạng bộ sưu tập",
+      "folderCollection": "Bộ sưu tập thư mục",
       "tabCollections": "Bộ sưu tập",
       "tabHistory": "Lịch sử",
       "noCollectionsTitle": "Chưa có bộ sưu tập",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Môi trường mới",
       "variablesHeading": "Biến {name}",
       "addVariable": "Thêm biến",
+      "exportPostman": "Xuất (môi trường Postman)",
       "columnVariable": "Biến",
       "columnValue": "Giá trị",
       "placeholderKey": "Khóa",

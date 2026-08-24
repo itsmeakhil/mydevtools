@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API-hulpbronne",
       "newCollection": "Nuwe versameling",
+      "openFolderCollection": "Maak vouer oop as versameling",
+      "folderCollection": "Vouerversameling",
       "tabCollections": "Versamelings",
       "tabHistory": "Geskiedenis",
       "noCollectionsTitle": "Geen versamelings",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Nuwe omgewing",
       "variablesHeading": "{name}-veranderlikes",
       "addVariable": "Voeg veranderlike by",
+      "exportPostman": "Voer uit (Postman-omgewing)",
       "columnVariable": "Veranderlike",
       "columnValue": "Waarde",
       "placeholderKey": "Sleutel",

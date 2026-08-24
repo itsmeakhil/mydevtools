@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "Sumber API",
       "newCollection": "Koleksi baharu",
+      "openFolderCollection": "Buka folder sebagai koleksi",
+      "folderCollection": "Koleksi folder",
       "tabCollections": "Koleksi",
       "tabHistory": "Sejarah",
       "noCollectionsTitle": "Tiada koleksi",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Persekitaran baharu",
       "variablesHeading": "Pembolehubah {name}",
       "addVariable": "Tambah pembolehubah",
+      "exportPostman": "Eksport (persekitaran Postman)",
       "columnVariable": "Pembolehubah",
       "columnValue": "Nilai",
       "placeholderKey": "Kunci",

@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API-ressurser",
       "newCollection": "Ny samling",
+      "openFolderCollection": "Åpne mappe som samling",
+      "folderCollection": "Mappesamling",
       "tabCollections": "Samlinger",
       "tabHistory": "Historikk",
       "noCollectionsTitle": "Ingen samlinger",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Nytt miljø",
       "variablesHeading": "{name}-variabler",
       "addVariable": "Legg til variabel",
+      "exportPostman": "Eksporter (Postman-miljø)",
       "columnVariable": "Variabel",
       "columnValue": "Verdi",
       "placeholderKey": "Nøkkel",

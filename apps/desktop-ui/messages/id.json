@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API resources",
       "newCollection": "New collection",
+      "openFolderCollection": "Buka folder sebagai koleksi",
+      "folderCollection": "Koleksi folder",
       "tabCollections": "Collections",
       "tabHistory": "History",
       "noCollectionsTitle": "No collections",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "New environment",
       "variablesHeading": "{name} variables",
       "addVariable": "Add variable",
+      "exportPostman": "Ekspor (lingkungan Postman)",
       "columnVariable": "Variable",
       "columnValue": "Value",
       "placeholderKey": "Key",

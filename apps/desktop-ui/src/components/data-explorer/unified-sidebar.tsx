@@ -203,7 +203,7 @@ export function UnifiedSidebar({
     const handleOpenTab = useCallback(
         (connection: UnifiedConnection, req: OpenTabRequest) => {
             onOpenTab(connection, req);
-            if (panel?.isMobile) panel.close();
+            if (panel?.isOverlay) panel.close();
         },
         [onOpenTab, panel]
     );

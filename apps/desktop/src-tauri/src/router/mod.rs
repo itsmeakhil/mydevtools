@@ -398,6 +398,8 @@ mod tests {
         assert_eq!(list[0]["url"], "https://x/2"); // newest first
         let r = route(&state, "DELETE", "/api/v1/api-client/history/clear", None).unwrap();
         assert_eq!(r.status, 204);
+        let r = route(&state, "GET", "/api/v1/api-client/history", None).unwrap();
+        assert_eq!(body_json(&r).as_array().unwrap().len(), 0);
     }
 
     #[test]

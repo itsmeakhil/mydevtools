@@ -121,7 +121,7 @@ interface ResponsePanelProps {
     onSaveExample?: () => void
 }
 
-export function ResponsePanel({ response, isLoading, scriptResults, onSaveExample }: ResponsePanelProps) {
+function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
     const tApi = useTranslations("ApiClient")
     const { copyToClipboard } = useCopyToClipboard()
@@ -140,6 +140,12 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
         () => truncateBody(response?.body ?? "", MAX_INLINE_BYTES),
         [response?.body]
     )
+    // One parse per body for the tree/table/geo views — these used to parse
+    // inline in JSX, three times per render, on every parent re-render.
+    const parsedJson = React.useMemo(() => tryParseJson(response?.body), [response?.body])
+    const handleEditorMount = React.useCallback((ed: editor.IStandaloneCodeEditor) => {
+        bodyEditorRef.current = ed
+    }, [])
 
     if (isLoading && !response) {
         return <ResponsePanelSkeleton />
@@ -382,7 +388,7 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                                 value={response.isBase64 ? t("binaryRawView") : inlineBody}
                                 language={getLanguage()}
                                 readOnly
-                                onMount={(ed) => { bodyEditorRef.current = ed }}
+                                onMount={handleEditorMount}
                             />
                         </div>
                     </TabsContent>
@@ -392,13 +398,13 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
                         </TabsContent>
                     )}
                     <TabsContent value="tree" className="mt-0 h-full absolute inset-0 overflow-auto">
-                        <JsonTreeView data={tryParseJson(response.body)} />
+                        <JsonTreeView data={parsedJson} />
                     </TabsContent>
                     <TabsContent value="table" className="mt-0 h-full absolute inset-0 overflow-auto">
-                        <JsonTableView rows={tryParseJson(response.body)} />
+                        <JsonTableView rows={parsedJson} />
                     </TabsContent>
                     <TabsContent value="geo" className="mt-0 h-full absolute inset-0 overflow-auto">
-                        <JsonGeoView data={tryParseJson(response.body)} />
+                        <JsonGeoView data={parsedJson} />
                     </TabsContent>
                     <TabsContent value="headers" className="mt-0 h-full absolute inset-0">
                         <ScrollArea className="h-full">
@@ -509,3 +515,5 @@ export function ResponsePanel({ response, isLoading, scriptResults, onSaveExampl
         </div>
     )
 }
+
+export const ResponsePanel = React.memo(ResponsePanelImpl)

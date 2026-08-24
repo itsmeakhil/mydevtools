@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "APIリソース",
       "newCollection": "新しいコレクション",
+      "openFolderCollection": "フォルダーをコレクションとして開く",
+      "folderCollection": "フォルダーコレクション",
       "tabCollections": "コレクション",
       "tabHistory": "履歴",
       "noCollectionsTitle": "コレクションなし",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "新しい環境",
       "variablesHeading": "{name}の変数",
       "addVariable": "変数を追加",
+      "exportPostman": "エクスポート（Postman 環境）",
       "columnVariable": "変数",
       "columnValue": "値",
       "placeholderKey": "キー",

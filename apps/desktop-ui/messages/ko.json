@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API 리소스",
       "newCollection": "새 컬렉션",
+      "openFolderCollection": "폴더를 컬렉션으로 열기",
+      "folderCollection": "폴더 컬렉션",
       "tabCollections": "컬렉션",
       "tabHistory": "기록",
       "noCollectionsTitle": "컬렉션 없음",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "새 환경",
       "variablesHeading": "{name} 변수",
       "addVariable": "변수 추가",
+      "exportPostman": "내보내기 (Postman 환경)",
       "columnVariable": "변수",
       "columnValue": "값",
       "placeholderKey": "키",

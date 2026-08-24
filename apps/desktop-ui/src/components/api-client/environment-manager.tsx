@@ -10,8 +10,9 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { IconPlus, IconTrash, IconEdit } from "@tabler/icons-react"
+import { IconPlus, IconTrash, IconEdit, IconDownload } from "@tabler/icons-react"
 import { EnvironmentVariable } from "./use-environments"
+import { downloadEnvironmentAsPostman } from "@/lib/export/postman-env"
 import { useTranslations } from "next-intl"
 import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
 
@@ -139,6 +140,18 @@ export function EnvironmentManager({ open, onOpenChange }: EnvironmentManagerPro
                                                         }}
                                                     >
                                                         <IconEdit className="h-3 w-3" />
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-6 w-6"
+                                                        title={t("exportPostman")}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation()
+                                                            downloadEnvironmentAsPostman(env)
+                                                        }}
+                                                    >
+                                                        <IconDownload className="h-3 w-3" />
                                                     </Button>
                                                     <Button
                                                         variant="ghost"

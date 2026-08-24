@@ -22,11 +22,13 @@ getrandom = "0.4"
 thiserror = "2"
 reqwest = { version = "0.13", features = ["json", "gzip", "multipart", "stream"] }
 base64 = "0.23"
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
 tauri-plugin-opener = "2"
+tauri-plugin-persisted-scope = "2"
 tauri-plugin-window-state = "2"
 tauri-plugin-updater = "2"
 tauri-plugin-process = "2"
-tauri-plugin-dialog = "2"
 # Secure Files: the .mydt format/crypto lives in the shared `mydt` crate (also the CLI).
 mydt = { path = "../../../crates/mydt" }
 zeroize = "1"

@@ -10,7 +10,6 @@
  * Output: apps/desktop-ui/out/
  */
 import { execSync, spawnSync } from "node:child_process";
-import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -22,27 +21,6 @@ if (major < 20 || (major === 20 && minor < 19)) {
   console.error(
     `build-tauri: Node ${process.versions.node} is too old — the static export fails on it ` +
       `(red-herring 'util.markAsUncloneable' error). Use Node >= 20.19, e.g. 'nvm use 20.19.5'.`
-  );
-  process.exit(1);
-}
-
-// Activation is mandatory: a desktop build without real Firebase credentials
-// produces an app nobody can activate. Hard-fail rather than ship it.
-// Next loads .env files itself; this check just guards CI/misconfigured shells.
-const hasFirebaseKey =
-  !!process.env.NEXT_PUBLIC_FIREBASE_API_KEY ||
-  [".env", ".env.local", ".env.production"].some((f) => {
-    try {
-      return fs.readFileSync(path.join(uiRoot, f), "utf8").includes("NEXT_PUBLIC_FIREBASE_API_KEY=");
-    } catch {
-      return false;
-    }
-  });
-if (!hasFirebaseKey) {
-  console.error(
-    "build-tauri: NEXT_PUBLIC_FIREBASE_API_KEY is not set (env or .env file). Desktop " +
-      "activation requires real Firebase credentials baked into the bundle — export the " +
-      "NEXT_PUBLIC_FIREBASE_* vars before building."
   );
   process.exit(1);
 }

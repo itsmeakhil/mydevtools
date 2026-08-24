@@ -22,6 +22,8 @@ type CollectionsActions = {
     patchFolder: (folderId: string, patch: Partial<import("../types").CollectionFolder>) => Promise<void>
     deleteMultipleCollections: (ids: string[]) => Promise<void>
     importCollection: (incoming: Collection) => Promise<Collection | null>
+    /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection. */
+    openFolderCollection: () => Promise<Collection | null>
 }
 
 // ── Contexts ───────────────────────────────────────────────────────────────
@@ -45,6 +47,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         patchFolder,
         deleteMultipleCollections,
         importCollection,
+        openFolderCollection,
     } = useCollections()
 
     const state = React.useMemo<CollectionsState>(
@@ -69,9 +72,10 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             patchFolder,
             deleteMultipleCollections,
             importCollection,
+            openFolderCollection,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, deleteMultipleCollections, importCollection]
+        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, deleteMultipleCollections, importCollection, openFolderCollection]
     )
 
     return (

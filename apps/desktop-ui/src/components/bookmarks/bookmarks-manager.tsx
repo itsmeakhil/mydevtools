@@ -48,7 +48,7 @@ function FolderPanel({ onSelectFolder }: { onSelectFolder: (id: string | null) =
         <FolderTree
             onSelectFolder={(id: string | null) => {
                 onSelectFolder(id)
-                if (panel?.isMobile) panel.close()
+                if (panel?.isOverlay) panel.close()
             }}
         />
     )

@@ -211,8 +211,10 @@ export function useHistory() {
             status?: number
         ) => {
             const timestamp = Date.now()
+            // Same rule as localStorage: history keeps the request shape, never uploaded bytes.
+            const [slimRequest] = stripHistoryFileBytes([request as HistoryRequest])
             const payload = {
-                ...request,
+                ...slimRequest,
                 name,
                 timestamp,
                 status,

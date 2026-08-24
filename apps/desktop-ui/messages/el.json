@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "Πόροι API",
       "newCollection": "Νέα συλλογή",
+      "openFolderCollection": "Άνοιγμα φακέλου ως συλλογή",
+      "folderCollection": "Συλλογή φακέλου",
       "tabCollections": "Συλλογές",
       "tabHistory": "Ιστορία",
       "noCollectionsTitle": "Χωρίς συλλογές",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Νέο περιβάλλον",
       "variablesHeading": "{name} μεταβλητές",
       "addVariable": "Προσθήκη μεταβλητής",
+      "exportPostman": "Εξαγωγή (περιβάλλον Postman)",
       "columnVariable": "Μεταβλητός",
       "columnValue": "Αξία",
       "placeholderKey": "Κλειδί",

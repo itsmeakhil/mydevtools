@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API resources",
       "newCollection": "New collection",
+      "openFolderCollection": "Otwórz folder jako kolekcję",
+      "folderCollection": "Kolekcja z folderu",
       "tabCollections": "Collections",
       "tabHistory": "History",
       "noCollectionsTitle": "No collections",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "New environment",
       "variablesHeading": "{name} variables",
       "addVariable": "Add variable",
+      "exportPostman": "Eksportuj (środowisko Postman)",
       "columnVariable": "Variable",
       "columnValue": "Value",
       "placeholderKey": "Key",

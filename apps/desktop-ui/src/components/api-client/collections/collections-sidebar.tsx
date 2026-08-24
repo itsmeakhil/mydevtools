@@ -6,15 +6,17 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe } from "lucide-react"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
-import { downloadCollectionAsPostman } from "@/lib/export/postman"
-import { downloadCollectionAsOpenApi } from "@/lib/export/openapi"
-import { downloadCollectionAsHar } from "@/lib/export/har"
-import { downloadCollectionAsInsomnia } from "@/lib/export/insomnia"
-import { CollectionRunnerDialog } from "../collection-runner-dialog"
+import dynamic from "next/dynamic"
+import type { HistoryRequest } from "../types"
+// Runner (+ csv/junit libs) only loads when a run is opened.
+const CollectionRunnerDialog = dynamic(
+    () => import("../collection-runner-dialog").then((m) => ({ default: m.CollectionRunnerDialog })),
+    { ssr: false, loading: () => null },
+)
 import { useWorkspacesContext } from "../context/workspaces-context"
 import { WorkspacesDialog } from "../workspaces-dialog"
 import { Briefcase } from "lucide-react"
@@ -55,17 +57,22 @@ interface CollectionsSidebarProps {
 
 export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSidebarProps) {
     const panel = useToolSidebarPanel()
-    // On mobile the panel is a sheet over the request pane — loading a request
-    // has to dismiss it or the loaded request stays hidden behind the sheet.
+    // While the panel floats (mobile sheet, or the desktop flyout from the
+    // collapsed rail), loading a request has to dismiss it or the loaded
+    // request stays hidden behind the panel.
     const onLoadRequest = React.useCallback(
         (request: CollectionRequest) => {
             loadRequest(request)
-            if (panel?.isMobile) panel.close()
+            if (panel?.isOverlay) panel.close()
         },
         [loadRequest, panel],
     )
     const { collections, isLoading } = useCollectionsState()
-    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple } = useCollectionsActions()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection } = useCollectionsActions()
+
+    // isDesktop() is false during SSR — gate behind a mounted flag to avoid hydration mismatch.
+    const [desktop, setDesktop] = React.useState(false)
+    React.useEffect(() => { setDesktop(isDesktop()) }, [])
     const { history, isLoading: isHistoryLoading } = useHistoryState()
     const { clearHistory: onClearHistory, deleteHistoryItem: onDeleteHistoryItem } = useHistoryActions()
     const t = useTranslations("ApiClient.collectionsSidebar")
@@ -195,6 +202,65 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
         setSelectedCollections(new Set())
     }
 
+    // Stable row renderer so VirtualHistoryList's memo holds while the request
+    // editor re-renders on every keystroke.
+    const renderHistoryRow = React.useCallback((item: HistoryRequest, style: React.CSSProperties) => (
+        <div key={item.id} style={style} className="px-2 py-0.5">
+            <div
+                className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm h-full"
+                onClick={() => onLoadRequest(item)}
+            >
+                <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <span
+                            className={cn(
+                                "text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-sm tracking-wide shrink-0",
+                                item.method === "GET" && "bg-blue-500/10 text-blue-500",
+                                item.method === "POST" && "bg-green-500/10 text-green-500",
+                                item.method === "PUT" && "bg-orange-500/10 text-orange-500",
+                                item.method === "DELETE" && "bg-red-500/10 text-red-500",
+                                item.method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
+                                (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(item.method)) && "bg-muted text-muted-foreground"
+                            )}
+                        >
+                            {item.method}
+                        </span>
+                        <span className="font-medium text-xs truncate max-w-[150px]">
+                            {item.name ? getApiClientRequestDisplayName(item.name, tRoot) : item.url}
+                        </span>
+                    </div>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            onDeleteHistoryItem(item.id)
+                        }}
+                    >
+                        <Trash2 className="h-3.5 w-3.5" />
+                    </Button>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 pl-1">
+                    <span className="truncate max-w-[160px]">{item.url}</span>
+                    <div className="flex items-center gap-2 shrink-0">
+                        <span>{new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                        {item.status && (
+                            <span className={cn(
+                                "font-medium",
+                                item.status >= 200 && item.status < 300 ? "text-green-500"
+                                    : item.status >= 300 && item.status < 400 ? "text-amber-500"
+                                    : "text-destructive"
+                            )}>
+                                {item.status}
+                            </span>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    ), [onLoadRequest, onDeleteHistoryItem, tRoot])
+
     return (
         // Header (icon, title, collapse) is owned by ToolSidebarLayout in
         // components/api-client/api-client.tsx — this renders the body only.
@@ -220,6 +286,17 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                 >
                     <FolderPlus className="h-4 w-4" />
                 </Button>
+                {desktop && (
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
+                        onClick={() => void openFolderCollection()}
+                        title={t("openFolderCollection")}
+                    >
+                        <FolderGit2 className="h-4 w-4" />
+                    </Button>
+                )}
             </ToolSidebarActions>
 
             <Tabs defaultValue="collections" className="flex-1 flex flex-col h-full min-h-0">
@@ -273,9 +350,17 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                     <p className="text-xs text-muted-foreground mt-1 mb-4">
                                         {t("noCollectionsHint")}
                                     </p>
-                                    <Button size="sm" onClick={() => setNewCollectionDialogOpen(true)}>
-                                        {t("createCollection")}
-                                    </Button>
+                                    <div className="flex flex-col gap-2">
+                                        <Button size="sm" onClick={() => setNewCollectionDialogOpen(true)}>
+                                            {t("createCollection")}
+                                        </Button>
+                                        {desktop && (
+                                            <Button size="sm" variant="outline" onClick={() => void openFolderCollection()}>
+                                                <FolderGit2 className="h-3.5 w-3.5 mr-2" />
+                                                {t("openFolderCollection")}
+                                            </Button>
+                                        )}
+                                    </div>
                                 </div>
                             ) : (
                                 collectionsForActiveWs.map((collection) => (
@@ -292,6 +377,11 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                 <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 px-1">
                                                     {collection.name}
                                                 </span>
+                                                {collection.source && (
+                                                    <span title={collection.source.path} aria-label={t("folderCollection")}>
+                                                        <FolderGit2 className="h-3 w-3 text-muted-foreground shrink-0" />
+                                                    </span>
+                                                )}
                                             </div>
                                             <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Button
@@ -421,19 +511,19 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                             <Globe className="h-4 w-4 mr-2" />
                                                             Publish as public mock
                                                         </DropdownMenuItem>}
-                                                        <DropdownMenuItem onClick={() => downloadCollectionAsPostman(collection)}>
+                                                        <DropdownMenuItem onClick={() => void import("@/lib/export/postman").then((m) => m.downloadCollectionAsPostman(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
                                                             Export (Postman v2.1)
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem onClick={() => downloadCollectionAsOpenApi(collection)}>
+                                                        <DropdownMenuItem onClick={() => void import("@/lib/export/openapi").then((m) => m.downloadCollectionAsOpenApi(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
                                                             Export (OpenAPI 3.0)
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem onClick={() => downloadCollectionAsHar(collection)}>
+                                                        <DropdownMenuItem onClick={() => void import("@/lib/export/har").then((m) => m.downloadCollectionAsHar(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
                                                             Export (HAR 1.2)
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem onClick={() => downloadCollectionAsInsomnia(collection)}>
+                                                        <DropdownMenuItem onClick={() => void import("@/lib/export/insomnia").then((m) => m.downloadCollectionAsInsomnia(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
                                                             Export (Insomnia v4)
                                                         </DropdownMenuItem>
@@ -523,62 +613,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                 height={historyListHeight}
                                 onSelect={onLoadRequest}
                                 onDelete={onDeleteHistoryItem}
-                                renderRow={(item, style) => (
-                                    <div key={item.id} style={style} className="px-2 py-0.5">
-                                        <div
-                                            className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm h-full"
-                                            onClick={() => onLoadRequest(item)}
-                                        >
-                                            <div className="flex items-center justify-between mb-1.5">
-                                                <div className="flex items-center gap-2 flex-1 min-w-0">
-                                                    <span
-                                                        className={cn(
-                                                            "text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-sm tracking-wide shrink-0",
-                                                            item.method === "GET" && "bg-blue-500/10 text-blue-500",
-                                                            item.method === "POST" && "bg-green-500/10 text-green-500",
-                                                            item.method === "PUT" && "bg-orange-500/10 text-orange-500",
-                                                            item.method === "DELETE" && "bg-red-500/10 text-red-500",
-                                                            item.method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
-                                                            (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(item.method)) && "bg-muted text-muted-foreground"
-                                                        )}
-                                                    >
-                                                        {item.method}
-                                                    </span>
-                                                    <span className="font-medium text-xs truncate max-w-[150px]">
-                                                        {item.name ? getApiClientRequestDisplayName(item.name, tRoot) : item.url}
-                                                    </span>
-                                                </div>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
-                                                    onClick={(e) => {
-                                                        e.stopPropagation()
-                                                        onDeleteHistoryItem(item.id)
-                                                    }}
-                                                >
-                                                    <Trash2 className="h-3.5 w-3.5" />
-                                                </Button>
-                                            </div>
-                                            <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 pl-1">
-                                                <span className="truncate max-w-[160px]">{item.url}</span>
-                                                <div className="flex items-center gap-2 shrink-0">
-                                                    <span>{new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                                                    {item.status && (
-                                                        <span className={cn(
-                                                            "font-medium",
-                                                            item.status >= 200 && item.status < 300 ? "text-green-500"
-                                                                : item.status >= 300 && item.status < 400 ? "text-amber-500"
-                                                                : "text-destructive"
-                                                        )}>
-                                                            {item.status}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
+                                renderRow={renderHistoryRow}
                             />
                         )}
                     </div>

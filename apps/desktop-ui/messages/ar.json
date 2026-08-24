@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "موارد API",
       "newCollection": "مجموعة جديدة",
+      "openFolderCollection": "فتح مجلد كمجموعة",
+      "folderCollection": "مجموعة مجلد",
       "tabCollections": "المجموعات",
       "tabHistory": "السجل",
       "noCollectionsTitle": "لا مجموعات",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "بيئة جديدة",
       "variablesHeading": "متغيرات {name}",
       "addVariable": "إضافة متغير",
+      "exportPostman": "تصدير (بيئة Postman)",
       "columnVariable": "متغير",
       "columnValue": "قيمة",
       "placeholderKey": "مفتاح",

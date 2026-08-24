@@ -30,13 +30,9 @@ export function GlobalCommandPalette() {
   const { user } = useAuth(false)
   const pinnedTools = usePinnedToolsForActiveWorkspace()
 
-  const isLoggedIn = !!user
   const entries = React.useMemo((): PaletteEntry[] => {
-    const site = STATIC_ENTRIES_WITH_SEARCH.filter(
-      (s) => s.url !== '/login' || !isLoggedIn
-    )
-    return [...site, ...getToolEntries()]
-  }, [isLoggedIn])
+    return [...STATIC_ENTRIES_WITH_SEARCH, ...getToolEntries()]
+  }, [])
 
   const pinnedEntries = React.useMemo(() => {
     const urlSet = new Set(pinnedTools)

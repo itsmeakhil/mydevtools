@@ -2374,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "Recursos API",
       "newCollection": "Col·lecció nova",
+      "openFolderCollection": "Obre una carpeta com a col·lecció",
+      "folderCollection": "Col·lecció de carpeta",
       "tabCollections": "Col·leccions",
       "tabHistory": "Historial",
       "noCollectionsTitle": "Sense col·leccions",
@@ -2415,6 +2417,7 @@
       "placeholderNewEnv": "Entorn nou",
       "variablesHeading": "Variables de {name}",
       "addVariable": "Afegeix variable",
+      "exportPostman": "Exporta (entorn de Postman)",
       "columnVariable": "Variable",
       "columnValue": "Valor",
       "placeholderKey": "Clau",
