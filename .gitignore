@@ -31,8 +31,6 @@ yarn.lock
 /out/
 apps/*/.next/
 apps/*/out/
-# Monaco AMD bundle copied from node_modules by apps/desktop-ui/scripts/copy-monaco.mjs
-apps/desktop-ui/public/monaco/
 apps/*/.agent
 # production
 /build

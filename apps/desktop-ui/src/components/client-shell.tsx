@@ -5,7 +5,6 @@ import { Suspense, useEffect, type ReactNode } from "react"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
 import { initTelemetry } from "@/lib/telemetry"
-import "@/lib/monaco-loader"
 
 const GlobalCommandPalette = dynamic(
   () => import('@/components/global-command-palette').then((m) => m.GlobalCommandPalette),

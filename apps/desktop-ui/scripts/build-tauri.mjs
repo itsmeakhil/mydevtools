@@ -25,12 +25,6 @@ if (major < 20 || (major === 20 && minor < 19)) {
   process.exit(1);
 }
 
-// Monaco must be served from the bundle, not jsdelivr (offline app).
-const copyMonaco = spawnSync(process.execPath, [path.join(uiRoot, "scripts", "copy-monaco.mjs")], {
-  stdio: "inherit",
-});
-if (copyMonaco.status !== 0) process.exit(copyMonaco.status ?? 1);
-
 const env = {
   ...process.env,
   TAURI_BUILD: "1",
