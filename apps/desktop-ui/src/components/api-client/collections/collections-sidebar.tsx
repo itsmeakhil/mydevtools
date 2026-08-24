@@ -49,7 +49,7 @@ import { useHistoryState, useHistoryActions } from "../context/history-context"
 import { CollectionsSidebarSkeleton, HistoryListSkeleton } from "../skeletons"
 import { useDebouncedValue } from "@/lib/use-debounced-value"
 import { isDesktop } from "@/lib/desktop/is-desktop"
-import { ToolSidebarActions, useToolSidebarPanel } from "@/components/tools/tool-sidebar"
+import { ToolSidebarActions, useToolSidebarPanel, useToolSidebarRail } from "@/components/tools/tool-sidebar"
 
 interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
@@ -143,6 +143,31 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
         if (!activeWorkspaceId) return filteredCollections
         return filteredCollections.filter((c) => c.workspace === activeWorkspaceId)
     }, [filteredCollections, activeWorkspaceId])
+
+    // Collections stay reachable from the collapsed rail. A collection has no
+    // open/closed state of its own — only the folders inside it toggle — so
+    // picking one expands the panel and scrolls that collection into view.
+    useToolSidebarRail(
+        "collections",
+        React.useMemo(
+            () =>
+                collectionsForActiveWs.slice(0, 8).map((c) => ({
+                    id: c.id,
+                    label: c.name,
+                    icon: FolderGit2,
+                    count: c.items.length,
+                    onSelect: () => {
+                        // The panel is expanding in the same tick; wait for layout.
+                        requestAnimationFrame(() =>
+                            document
+                                .querySelector(`[data-collection-id="${CSS.escape(c.id)}"]`)
+                                ?.scrollIntoView({ block: "nearest" }),
+                        )
+                    },
+                })),
+            [collectionsForActiveWs],
+        ),
+    )
 
     const activeWorkspaceName = workspaces.find((w) => w.id === activeWorkspaceId)?.name ?? "All"
     const [selectedCollections, setSelectedCollections] = React.useState<Set<string>>(new Set())
@@ -364,7 +389,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                 </div>
                             ) : (
                                 collectionsForActiveWs.map((collection) => (
-                                    <div key={collection.id} className="mb-4">
+                                    <div key={collection.id} data-collection-id={collection.id} className="mb-4">
                                         <div className="flex items-center justify-between px-2 py-1.5 mb-1 group rounded-md hover:bg-muted/50 transition-colors">
                                             <div className="flex items-center gap-2 flex-1 min-w-0">
                                                 <div className="flex items-center">

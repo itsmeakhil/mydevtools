@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
     IconFolder,
@@ -43,6 +43,7 @@ import {
 import EditFolderDialog from "./edit-folder-dialog"
 import AddFolderDialog from "./add-folder-dialog"
 import { useTranslations } from "next-intl"
+import { useToolSidebarRail } from "@/components/tools/tool-sidebar"
 
 interface FolderTreeProps {
     onSelectFolder: (id: string | null) => void
@@ -51,8 +52,36 @@ interface FolderTreeProps {
 export default function FolderTree({ onSelectFolder }: FolderTreeProps) {
     const t = useTranslations("Bookmarks.folderTree")
     const { selectedFolderId, bookmarks } = useBookmarkStore()
+    // Memoized selector (bookmark-store.ts:506), so calling it here as well as
+    // in RootFolders costs nothing.
+    const rootFolders = useChildFolders(null)
 
     const totalBookmarks = bookmarks.length
+
+    // "All bookmarks" plus the root folders, for the collapsed rail.
+    useToolSidebarRail(
+        "folders",
+        useMemo(
+            () => [
+                {
+                    id: "all",
+                    label: t("allBookmarks"),
+                    icon: IconBookmarks,
+                    count: totalBookmarks,
+                    active: selectedFolderId === null,
+                    onSelect: () => onSelectFolder(null),
+                },
+                ...rootFolders.slice(0, 7).map(f => ({
+                    id: f.id,
+                    label: f.name,
+                    icon: IconFolder,
+                    active: selectedFolderId === f.id,
+                    onSelect: () => onSelectFolder(f.id),
+                })),
+            ],
+            [rootFolders, totalBookmarks, selectedFolderId, onSelectFolder, t],
+        ),
+    )
 
     return (
         <div className="space-y-1">
