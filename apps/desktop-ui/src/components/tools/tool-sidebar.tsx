@@ -20,6 +20,7 @@ import {
   MIN_SIDEBAR_WIDTH,
   emptyRailRegistry,
   flattenRail,
+  isSidebarShortcut,
   railEntriesKey,
   railHandlerKey,
   registerRailGroup,
@@ -322,6 +323,27 @@ export function ToolSidebarLayout({
     () => ({ isMobile, isOverlay, isVisible: !hidden, close }),
     [isMobile, isOverlay, hidden, close],
   )
+
+  // Cmd/Ctrl+\ toggles the panel. Registered per mounted layout; inactive tool
+  // tabs stay mounted behind display:none, so the handler bails unless its own
+  // tab is the one on screen (offsetParent is null inside a hidden ancestor).
+  React.useEffect(() => {
+    if (isMobile) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (!isSidebarShortcut(e as unknown as Parameters<typeof isSidebarShortcut>[0])) return
+      if (!panelRef.current?.offsetParent && !railExpandRef.current?.offsetParent) return
+      e.preventDefault()
+      if (collapsed) {
+        setCollapsed(toolId, false)
+        requestAnimationFrame(() => panelRef.current?.focus())
+      } else {
+        setCollapsed(toolId, true)
+        requestAnimationFrame(() => railExpandRef.current?.focus())
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [collapsed, isMobile, setCollapsed, toolId])
 
   const onHandlePointerDown = React.useCallback(
     (e: React.PointerEvent<HTMLDivElement>) => {
