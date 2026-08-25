@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Sun, Moon, Monitor, Globe, Palette, Lock, Pipette } from 'lucide-react'
+import { Sun, Moon, Monitor, Globe, Palette, Lock, Pipette, User, Archive } from 'lucide-react'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
 import { Switch } from '@/components/ui/switch'
 import { getVaultIconsEnabled, setVaultIconsEnabled } from '@/lib/vault-icon-pref'
@@ -77,10 +78,31 @@ export default function SettingsPage() {
         <p className="text-muted-foreground">{t('subtitle')}</p>
       </div>
 
-      <div className="grid gap-6">
+      <Tabs defaultValue="profile" className="w-full">
+        <TabsList className="mb-6 flex h-auto flex-wrap justify-start gap-1">
+          <TabsTrigger value="profile" className="gap-1.5">
+            <User className="h-4 w-4" />
+            {t('userProfile.title')}
+          </TabsTrigger>
+          <TabsTrigger value="appearance" className="gap-1.5">
+            <Palette className="h-4 w-4" />
+            {t('appearance.title')}
+          </TabsTrigger>
+          <TabsTrigger value="security" className="gap-1.5">
+            <Lock className="h-4 w-4" />
+            {t('security.title')}
+          </TabsTrigger>
+          <TabsTrigger value="data" className="gap-1.5">
+            <Archive className="h-4 w-4" />
+            {t('backup.title')}
+          </TabsTrigger>
+        </TabsList>
 
-        <ProfileCard />
+        <TabsContent value="profile" className="mt-0 space-y-6">
+          <ProfileCard />
+        </TabsContent>
 
+        <TabsContent value="appearance" className="mt-0 space-y-6">
         <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2.5">
@@ -232,7 +254,9 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+        </TabsContent>
 
+        <TabsContent value="security" className="mt-0 space-y-6">
         <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2.5">
@@ -299,14 +323,15 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <AppVersionLabel />
+          <BackupCodesCard />
+        </TabsContent>
 
-        <BackupCodesCard />
-
-        <BackupRestoreCard />
-
-        <FactoryResetCard />
-      </div>
+        <TabsContent value="data" className="mt-0 space-y-6">
+          <BackupRestoreCard />
+          <FactoryResetCard />
+          <AppVersionLabel />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
