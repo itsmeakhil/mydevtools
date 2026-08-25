@@ -5,15 +5,11 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard';
 import type { DecodedPemBlock } from '@/lib/pem-cert-decode';
 import { decodePemCertificateInput } from '@/lib/pem-cert-decode';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
 import { AlertCircle, Check, Copy, Trash2 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { IconCertificate } from '@tabler/icons-react';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
+import { IOPanel, ToolTextArea } from '@/components/tools/io-panel';
 
 function CopyBtn({ text, title }: { text: string; title: string }) {
   const { isCopied, copyToClipboard } = useCopyToClipboard();
@@ -59,7 +55,7 @@ function BlockCard({
         : '';
 
   return (
-    <Card className="flex flex-col overflow-hidden min-h-0">
+    <div className="flex min-h-0 flex-col overflow-hidden rounded-lg border border-border bg-card">
       <div className="flex items-center justify-between gap-2 border-b border-border/50 bg-muted/30 px-3 py-2">
         <div className="min-w-0">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
@@ -142,7 +138,7 @@ function BlockCard({
           </dd>
         </div>
       </dl>
-    </Card>
+    </div>
   );
 }
 
@@ -184,56 +180,51 @@ export function PemCertDecoderLayout() {
   }, [input]);
 
   return (
-    <div className={cn('flex flex-col h-full gap-4 min-h-0')}>
-      <RevealItem index={0} className="shrink-0">
-        <ToolPageHeader
-          icon={IconCertificate}
-          title={t('title')}
-          description={t.rich('subtitle', {
-            code: (chunks) => <code className="text-foreground">{chunks}</code>,
-          })}
-          accent={CATEGORY_ACCENT.Security}
-        />
-      </RevealItem>
-
-      <Card className="flex flex-col overflow-hidden shrink-0">
-        <div className="flex items-center justify-between px-3 py-2 border-b border-border/50 bg-muted/30">
-          <Label htmlFor="pem-input" className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-            {t('pemLabel')}
-          </Label>
-          <Button type="button" variant="ghost" size="sm" className="h-7 text-xs gap-1" onClick={() => setInput('')}>
+    <ToolShell
+      icon={IconCertificate}
+      title={t('title')}
+      description={t.rich('subtitle', {
+        code: (chunks) => <code className="text-foreground">{chunks}</code>,
+      })}
+      contentClassName="gap-4"
+    >
+      <IOPanel
+        className="h-[200px] shrink-0"
+        label={t('pemLabel')}
+        actions={
+          <Button type="button" variant="ghost" size="sm" className="h-7 gap-1 text-xs" onClick={() => setInput('')}>
             <Trash2 className="h-3 w-3" />
             {t('clear')}
           </Button>
-        </div>
-        <textarea
+        }
+      >
+        <ToolTextArea
           id="pem-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={t('placeholder')}
-          spellCheck={false}
-          className="min-h-[120px] max-h-[200px] w-full resize-y bg-transparent p-3 text-xs font-mono focus:outline-none placeholder:text-muted-foreground/50"
+          className="text-xs"
         />
-      </Card>
+      </IOPanel>
 
       {busy && input.trim() && (
-        <p className="text-xs text-muted-foreground px-1">{t('parsing')}</p>
+        <p className="px-1 text-xs text-muted-foreground">{t('parsing')}</p>
       )}
 
       {errorKey && input.trim() && !busy && (
         <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
-          <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           <p>{t(`errors.${errorKey}` as 'errors.empty')}</p>
         </div>
       )}
 
       {blocks && blocks.length > 0 && (
-        <div className="flex flex-col gap-3 min-h-0 flex-1 overflow-auto">
+        <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-auto">
           {blocks.map((b, i) => (
             <BlockCard key={`${b.kind}-${i}`} block={b} index={i} t={t} locale={locale} />
           ))}
         </div>
       )}
-    </div>
+    </ToolShell>
   );
 }
