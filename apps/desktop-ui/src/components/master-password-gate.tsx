@@ -610,7 +610,6 @@ export function MasterPasswordGate() {
 
                                             <Button
                                                 type="submit"
-                                                variant="gradient"
                                                 className="w-full"
                                                 size="lg"
                                                 disabled={
