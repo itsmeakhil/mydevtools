@@ -26,6 +26,27 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.16',
+    date: '2026-08-25',
+    title: 'Secure Files, and a sidebar that gets out of the way',
+    summary:
+      'A new Secure Files tool keeps documents encrypted on your disk, where even the filename gives nothing away. Settings is now organised into tabs, and every tool sidebar can be collapsed to an icon rail, resized, and toggled from the keyboard.',
+    changes: [
+      { type: 'added', text: 'Secure Files: store documents encrypted on your device. Filenames, folders, sizes and timestamps are encrypted along with the contents, so nothing on disk reveals what you kept.' },
+      { type: 'added', text: 'A storage overview in Secure Files showing what you are holding, broken down by file type, plus thumbnails for images in grid view.' },
+      { type: 'added', text: 'The encrypted file format is documented and has a standalone command-line tool, so you can decrypt your own files without the app.' },
+      { type: 'added', text: 'Settings is split into four tabs — Profile, Appearance, Security, and Backup & data — instead of one long scroll.' },
+      { type: 'added', text: 'Collapse any tool sidebar to a compact icon rail that still shows your sections and filters, and toggle it with Cmd+\\.' },
+      { type: 'added', text: 'Drag a tool sidebar to whatever width suits it — each tool remembers its own.' },
+      { type: 'improved', text: 'Reworked the Security tools — bcrypt generator, JWT decoder, PEM certificate decoder, encryption playground and email validator now share one consistent layout.' },
+      { type: 'improved', text: 'Same treatment for the Network & API tools: cURL to code, HTTP status codes, IP subnet calculator and MIME type lookup.' },
+      { type: 'improved', text: 'Secure Files is translated into all 27 in-app languages, as are the new sidebar controls.' },
+      { type: 'fixed', text: 'The Notes sidebar stays hidden until your vault is unlocked, instead of briefly showing an empty list.' },
+      { type: 'fixed', text: 'The dashboard greets you by the profile name you set, not a placeholder.' },
+      { type: 'fixed', text: 'A collapsed tool sidebar keeps its items and spacing, and only one toggle icon shows at a time.' },
+    ],
+  },
+  {
     version: '0.1.15',
     date: '2026-08-22',
     title: 'MyDevTools on Linux',
