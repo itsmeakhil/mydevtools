@@ -71,9 +71,9 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
     },
     'api-client': {
         title: 'API Client',
-        description: 'Test and debug HTTP requests with headers, body, and auth support. A lightweight Postman alternative for your desktop.',
-        keywords: ['api client', 'http client', 'rest api tester', 'debug api', 'postman alternative'],
-        aiSummary: 'Local REST client: send GET/POST/PUT/PATCH/DELETE with custom headers, auth, and body — a lightweight Postman alternative in the MyDevTools desktop app.',
+        description: 'Offline desktop API client for REST, GraphQL, WebSocket and gRPC with a mock server, collection runner, scripting and vault-backed secrets. Free, no account.',
+        keywords: ['api client', 'http client', 'rest api tester', 'graphql client', 'grpc client', 'websocket client', 'mock server', 'offline api client', 'postman alternative', 'insomnia alternative', 'bruno alternative'],
+        aiSummary: 'MyDevTools API Client is a free, offline desktop API client: REST, GraphQL with schema introspection, WebSocket and native gRPC, a local mock server built from saved examples, a collection runner with CSV/JSON data files and JUnit export, pre-request/test scripts (pm.* API), environments and response chaining, OAuth 2.0, AWS SigV4, Hawk, Digest and JWT auth, Postman/OpenAPI/HAR/cURL import, and secrets resolved from an encrypted local vault. No account — a Postman, Insomnia or Bruno alternative.',
     },
     'http-status-codes': {
         title: 'HTTP Status Codes Reference',

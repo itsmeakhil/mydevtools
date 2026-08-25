@@ -76,7 +76,8 @@
     "tokenCounter": "Лічильник токенів",
     "webhookTester": "Тестер вебхуків",
     "websocketTester": "Тестер WebSocket",
-    "whoisLookup": "Whois-запит"
+    "whoisLookup": "Whois-запит",
+    "secureFiles": "Файли"
   },
   "Help": {
     "title": "Довідка та документація",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Змінити",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Відновлення…",
       "restoreSuccess": "Резервну копію відновлено",
       "restoreError": "Відновлення не вдалося — неправильна фраза або недійсний файл копії"
+    },
+    "backupCodes": {
+      "title": "Резервні коди",
+      "description": "Одноразові коди для відновлення сховища, якщо ви забули майстер-пароль.",
+      "remaining": "Залишилося {remaining} з {total} кодів",
+      "none": "Резервні коди не збережено.",
+      "hint": "Новий набір робить усі попередні коди недійсними.",
+      "passwordPlaceholder": "Майстер-пароль",
+      "regenerateButton": "Створити нові коди",
+      "generating": "Створення…",
+      "wrongPassword": "Невірний майстер-пароль",
+      "success": "Нові резервні коди створено",
+      "error": "Не вдалося створити резервні коди",
+      "newCodesWarning": "Ви більше їх не побачите. Завантажте або скопіюйте зараз.",
+      "downloadButton": "Завантажити",
+      "doneButton": "Я зберіг коди"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois-запит",
         "description": "Дізнавайтеся дані реєстрації доменів та IP через RDAP."
+      },
+      "secureFiles": {
+        "title": "Файли",
+        "description": "Шифруйте файли та теки в замасковані об'єкти .mydt; переглядайте їх після розблокування."
       }
     },
     "tabs": {
@@ -2278,7 +2300,8 @@
       "responseCopied": "Відповідь скопійовано до буфера обміну",
       "codeCopied": "Код скопійовано до буфера обміну",
       "copyFailed": "Не вдалося скопіювати до буфера обміну",
-      "curlCopied": "Команду cURL скопійовано"
+      "curlCopied": "Команду cURL скопійовано",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Колекції",
@@ -2351,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API ресурси",
       "newCollection": "Нова колекція",
+      "openFolderCollection": "Відкрити папку як колекцію",
+      "folderCollection": "Колекція з папки",
       "tabCollections": "Колекції",
       "tabHistory": "Історія",
       "noCollectionsTitle": "Немає колекцій",
@@ -2392,6 +2417,7 @@
       "placeholderNewEnv": "Нове середовище",
       "variablesHeading": "Змінні {name}",
       "addVariable": "Додати змінну",
+      "exportPostman": "Експорт (середовище Postman)",
       "columnVariable": "Змінна",
       "columnValue": "Значення",
       "placeholderKey": "Ключ",
@@ -2448,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5188,6 +5223,12 @@
     "offline": "100% офлайн"
   },
   "ToolSidebar": {
+    "expand": "Розгорнути бічну панель",
+    "collapse": "Згорнути бічну панель",
+    "resize": "Змінити ширину панелі",
+    "resetWidth": "Скинути ширину панелі",
+    "moreSections": "Більше розділів",
+    "sections": "Розділи бічної панелі",
     "show": "Показати бічну панель",
     "hide": "Сховати бічну панель"
   },
@@ -5211,5 +5252,92 @@
       "accept": "Ділитися анонімно",
       "decline": "Ні, дякую"
     }
+  },
+  "SecureFiles": {
+    "title": "Файли",
+    "subtitle": "Файли залишаються приватними, доки ви їх не розблокуєте — зашифровані на пристрої, замасковані на диску",
+    "desktopOnly": "Secure Files доступний у настільному застосунку.",
+    "allFiles": "Усі файли",
+    "overview": "Огляд",
+    "statFiles": "Файли",
+    "statFolders": "Теки",
+    "statContent": "Розмір вмісту",
+    "statContentHint": "Загальний розмір вихідних файлів",
+    "statOnDisk": "На диску",
+    "statOverhead": "{size} накладних витрат шифрування",
+    "byType": "За типом",
+    "fileCount": "{count, plural, one {# файл} few {# файли} many {# файлів} other {# файла}}",
+    "largestFiles": "Найбільші файли",
+    "recentlyAdded": "Нещодавно додані",
+    "openContainingFolder": "Відкрити теку, що містить файл",
+    "types": {
+      "image": "Зображення",
+      "video": "Відео",
+      "audio": "Аудіо",
+      "pdf": "PDF",
+      "archive": "Архіви",
+      "code": "Код",
+      "doc": "Документи",
+      "sheet": "Таблиці",
+      "file": "Інше"
+    },
+    "breadcrumb": "Шлях до теки",
+    "addFiles": "Додати файли",
+    "addFolder": "Додати теку",
+    "importFolder": "Імпортувати теку",
+    "newFolder": "Нова тека",
+    "lock": "Заблокувати",
+    "settings": "Налаштування сховища",
+    "storageFolder": "Тека сховища",
+    "notSet": "Не задано",
+    "chooseFolder": "Вибрати теку",
+    "changeFolder": "Змінити теку…",
+    "chooseFolderTitle": "Виберіть, де зберігати зашифровані файли",
+    "chooseFolderBody": "Виберіть будь-яку теку на цьому пристрої або на зовнішньому диску. Поза MyDevTools вона містить лише замасковані файли .mydt.",
+    "changeFolderTitle": "Перемістити зашифровані файли?",
+    "changeFolderBody": "Усі файли .mydt буде переміщено з поточної теки сховища до тієї, яку ви виберете далі.",
+    "folderSet": "Теку сховища задано",
+    "folderMissingTitle": "Теку сховища не знайдено",
+    "folderMissingBody": "«{dir}» недоступна — можливо, вона на від'єднаному диску або походить із відновленої резервної копії з іншого комп'ютера. Під'єднайте його знову або виберіть нову теку.",
+    "movedCount": "Переміщено зашифрованих файлів: {count}",
+    "importedCount": "Зашифровано файлів: {count}",
+    "emptyFolderAdded": "Теку додано — у ній не було файлів для шифрування",
+    "emptyTitle": "Тут ще немає файлів",
+    "emptyBody": "Додайте файли або цілу теку. Кожен файл шифрується в об'єкт .mydt з випадковим іменем; вихідне ім'я, тип і вміст видно лише тут.",
+    "name": "Ім'я",
+    "size": "Розмір",
+    "modified": "Змінено",
+    "actions": "Дії",
+    "expand": "Розгорнути",
+    "collapse": "Згорнути",
+    "preview": "Перегляд",
+    "noPreview": "Для цього типу файлу перегляд недоступний — експортуйте його, щоб відкрити в іншому застосунку.",
+    "export": "Експортувати",
+    "exportWarningTitle": "Експортувати розшифровану копію?",
+    "exportWarningBody": "Файл буде записано у вибране місце без шифрування. Прочитати його зможе будь-що на цьому пристрої.",
+    "exported": "Розшифровану копію експортовано",
+    "replace": "Замінити вміст…",
+    "replaced": "Вміст файлу замінено",
+    "rename": "Перейменувати",
+    "fileName": "Ім'я файлу",
+    "move": "Перемістити до теки",
+    "targetFolder": "Тека",
+    "targetFolderHint": "Використовуйте похилі риски для вкладених тек, наприклад проєкт/config. Залиште порожнім для верхнього рівня.",
+    "folderName": "Ім'я теки",
+    "delete": "Видалити",
+    "deleted": "Файл видалено",
+    "deletedCount": "Видалено файлів: {count}",
+    "deleteFileTitle": "Видалити цей файл?",
+    "deleteFileBody": "«{name}» буде остаточно видалено із зашифрованої теки сховища.",
+    "deleteFolderTitle": "Видалити цю теку?",
+    "deleteFolderBody": "Усі файли в «{dir}» буде остаточно видалено із зашифрованої теки сховища.",
+    "unreadableCount": "Нечитабельних файлів у теці сховища: {count}",
+    "unreadableHint": "Їх зашифровано іншим головним паролем, вони належать до іншого сховища або пошкоджені.",
+    "dismiss": "Сховати",
+    "viewGrid": "Сітка",
+    "viewList": "Список",
+    "footerNote": "Файли до 20 МБ. Шифрування Argon2id + XChaCha20-Poly1305; ключ зберігається лише в пам'яті, доки сховище розблоковане.",
+    "cancel": "Скасувати",
+    "save": "Зберегти"
   }
 }

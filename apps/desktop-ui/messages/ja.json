@@ -76,7 +76,8 @@
     "tokenCounter": "トークンカウンター",
     "webhookTester": "Webhook テスター",
     "websocketTester": "WebSocket テスター",
-    "whoisLookup": "Whois 検索"
+    "whoisLookup": "Whois 検索",
+    "secureFiles": "ファイル"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "編集",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "復元中…",
       "restoreSuccess": "バックアップを復元しました",
       "restoreError": "復元に失敗しました — パスフレーズが違うか、無効なバックアップファイルです"
+    },
+    "backupCodes": {
+      "title": "バックアップコード",
+      "description": "マスターパスワードを忘れたときにボルトを復旧できる、1 回だけ使えるコードです。",
+      "remaining": "残り {remaining} / {total} コード",
+      "none": "バックアップコードは保存されていません。",
+      "hint": "新しく生成すると、既存のコードはすべて無効になります。",
+      "passwordPlaceholder": "マスターパスワード",
+      "regenerateButton": "新しいコードを生成",
+      "generating": "生成中…",
+      "wrongPassword": "マスターパスワードが違います",
+      "success": "新しいバックアップコードを生成しました",
+      "error": "バックアップコードを生成できませんでした",
+      "newCodesWarning": "この画面を離れると再表示できません。今すぐダウンロードまたはコピーしてください。",
+      "downloadButton": "ダウンロード",
+      "doneButton": "コードを保存しました"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois 検索",
         "description": "RDAP を使ってドメインと IP の登録情報を調べます。"
+      },
+      "secureFiles": {
+        "title": "ファイル",
+        "description": "ファイルやフォルダーを名前が伏せられた .mydt オブジェクトに暗号化。ロック解除後に閲覧・プレビューできます。"
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "{docs} 件のドキュメントをサンプリング · {fields} 個のフィールド",
       "colField": "フィールド",
       "colTypes": "型",
-      "colCoverage": "カバレッジ"
+      "colCoverage": "カバレッジ",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "レスポンスをクリップボードにコピーしました",
       "codeCopied": "コードをクリップボードにコピーしました",
       "copyFailed": "クリップボードへのコピーに失敗しました",
-      "curlCopied": "cURLコマンドをコピーしました"
+      "curlCopied": "cURLコマンドをコピーしました",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "コレクション",
@@ -2340,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "APIリソース",
       "newCollection": "新しいコレクション",
+      "openFolderCollection": "フォルダーをコレクションとして開く",
+      "folderCollection": "フォルダーコレクション",
       "tabCollections": "コレクション",
       "tabHistory": "履歴",
       "noCollectionsTitle": "コレクションなし",
@@ -2381,6 +2417,7 @@
       "placeholderNewEnv": "新しい環境",
       "variablesHeading": "{name}の変数",
       "addVariable": "変数を追加",
+      "exportPostman": "エクスポート（Postman 環境）",
       "columnVariable": "変数",
       "columnValue": "値",
       "placeholderKey": "キー",
@@ -2437,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5177,6 +5223,12 @@
     "offline": "完全オフライン"
   },
   "ToolSidebar": {
+    "expand": "サイドバーを展開",
+    "collapse": "サイドバーを折りたたむ",
+    "resize": "サイドバーの幅を変更",
+    "resetWidth": "サイドバーの幅をリセット",
+    "moreSections": "その他のセクション",
+    "sections": "サイドバーのセクション",
     "show": "サイドバーを表示",
     "hide": "サイドバーを非表示"
   },
@@ -5200,5 +5252,92 @@
       "accept": "匿名で共有",
       "decline": "共有しない"
     }
+  },
+  "SecureFiles": {
+    "title": "ファイル",
+    "subtitle": "ロックを解除するまで非公開のままのファイル — 端末上で暗号化され、ディスク上では名前が伏せられます",
+    "desktopOnly": "Secure Files はデスクトップアプリでご利用いただけます。",
+    "allFiles": "すべてのファイル",
+    "overview": "概要",
+    "statFiles": "ファイル",
+    "statFolders": "フォルダー",
+    "statContent": "コンテンツのサイズ",
+    "statContentHint": "元のファイルの合計サイズ",
+    "statOnDisk": "ディスク上",
+    "statOverhead": "暗号化のオーバーヘッド {size}",
+    "byType": "種類別",
+    "fileCount": "{count, plural, other {# 個のファイル}}",
+    "largestFiles": "サイズの大きいファイル",
+    "recentlyAdded": "最近追加",
+    "openContainingFolder": "含まれるフォルダーを開く",
+    "types": {
+      "image": "画像",
+      "video": "動画",
+      "audio": "音声",
+      "pdf": "PDF",
+      "archive": "アーカイブ",
+      "code": "コード",
+      "doc": "ドキュメント",
+      "sheet": "スプレッドシート",
+      "file": "その他"
+    },
+    "breadcrumb": "フォルダーのパス",
+    "addFiles": "ファイルを追加",
+    "addFolder": "フォルダーを追加",
+    "importFolder": "フォルダーを取り込む",
+    "newFolder": "新しいフォルダー",
+    "lock": "ロック",
+    "settings": "保存設定",
+    "storageFolder": "保存フォルダー",
+    "notSet": "未設定",
+    "chooseFolder": "フォルダーを選択",
+    "changeFolder": "フォルダーを変更…",
+    "chooseFolderTitle": "暗号化ファイルの保存先を選択",
+    "chooseFolderBody": "この端末または外付けドライブの任意のフォルダーを選んでください。MyDevTools の外からは、名前が伏せられた .mydt ファイルしか見えません。",
+    "changeFolderTitle": "暗号化ファイルを移動しますか？",
+    "changeFolderBody": "すべての .mydt ファイルが現在の保存フォルダーから、次に選ぶフォルダーへ移動されます。",
+    "folderSet": "保存フォルダーを設定しました",
+    "folderMissingTitle": "保存フォルダーが見つかりません",
+    "folderMissingBody": "「{dir}」は利用できません。取り外されたドライブ上にあるか、別のマシンから復元したバックアップのものである可能性があります。再接続するか、新しいフォルダーを選んでください。",
+    "movedCount": "暗号化ファイル {count} 個を移動しました",
+    "importedCount": "{count} 個のファイルを暗号化しました",
+    "emptyFolderAdded": "フォルダーを追加しました — 暗号化するファイルはありませんでした",
+    "emptyTitle": "ここにはまだファイルがありません",
+    "emptyBody": "ファイルまたはフォルダー全体を追加してください。各ファイルはランダムな名前の .mydt オブジェクトに暗号化され、元の名前・種類・内容はここでのみ表示されます。",
+    "name": "名前",
+    "size": "サイズ",
+    "modified": "更新日",
+    "actions": "操作",
+    "expand": "展開",
+    "collapse": "折りたたむ",
+    "preview": "プレビュー",
+    "noPreview": "この種類のファイルはプレビューできません — 書き出して別のアプリで開いてください。",
+    "export": "書き出す",
+    "exportWarningTitle": "復号したコピーを書き出しますか？",
+    "exportWarningBody": "選択した場所にファイルが暗号化されないまま書き込まれます。その端末上の何からでも読み取れる状態になります。",
+    "exported": "復号したコピーを書き出しました",
+    "replace": "内容を置き換える…",
+    "replaced": "ファイルの内容を置き換えました",
+    "rename": "名前を変更",
+    "fileName": "ファイル名",
+    "move": "フォルダーへ移動",
+    "targetFolder": "フォルダー",
+    "targetFolderHint": "入れ子のフォルダーはスラッシュで指定します（例: project/config）。最上位に置く場合は空のままにします。",
+    "folderName": "フォルダー名",
+    "delete": "削除",
+    "deleted": "ファイルを削除しました",
+    "deletedCount": "{count} 個のファイルを削除しました",
+    "deleteFileTitle": "このファイルを削除しますか？",
+    "deleteFileBody": "「{name}」は暗号化保存フォルダーから完全に削除されます。",
+    "deleteFolderTitle": "このフォルダーを削除しますか？",
+    "deleteFolderBody": "「{dir}」内のすべてのファイルが暗号化保存フォルダーから完全に削除されます。",
+    "unreadableCount": "保存フォルダー内の読み取れないファイル: {count}",
+    "unreadableHint": "別のマスターパスワードで暗号化されている、別の保管庫のものである、または破損しています。",
+    "dismiss": "閉じる",
+    "viewGrid": "グリッド表示",
+    "viewList": "リスト表示",
+    "footerNote": "20 MB までのファイル。Argon2id + XChaCha20-Poly1305 で暗号化され、鍵は保管庫のロック解除中のみメモリー上に保持されます。",
+    "cancel": "キャンセル",
+    "save": "保存"
   }
 }

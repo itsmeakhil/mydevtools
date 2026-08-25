@@ -76,7 +76,8 @@
     "tokenCounter": "Token-teller",
     "webhookTester": "Webhook-toetser",
     "websocketTester": "WebSocket-toetser",
-    "whoisLookup": "Whois-opsoek"
+    "whoisLookup": "Whois-opsoek",
+    "secureFiles": "Lêers"
   },
   "Help": {
     "title": "Hulp en dokumentasie",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Wysig",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Herstel tans…",
       "restoreSuccess": "Rugsteun herstel",
       "restoreError": "Herstel het misluk — verkeerde wagfrase of ongeldige rugsteunlêer"
+    },
+    "backupCodes": {
+      "title": "Rugsteunkodes",
+      "description": "Eenmalige kodes wat jou kluis herstel as jy jou meesterwagwoord vergeet.",
+      "remaining": "{remaining} van {total} kodes oor",
+      "none": "Geen rugsteunkodes gestoor nie.",
+      "hint": "'n Nuwe stel maak alle bestaande kodes ongeldig.",
+      "passwordPlaceholder": "Meesterwagwoord",
+      "regenerateButton": "Genereer nuwe kodes",
+      "generating": "Genereer tans…",
+      "wrongPassword": "Verkeerde meesterwagwoord",
+      "success": "Nuwe rugsteunkodes gegenereer",
+      "error": "Kon nie rugsteunkodes genereer nie",
+      "newCodesWarning": "Jy kan dit nie weer sien nie. Laai dit af of kopieer dit nou.",
+      "downloadButton": "Laai af",
+      "doneButton": "Ek het my kodes gestoor"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois-opsoek",
         "description": "Soek domein- en IP-registrasiebesonderhede op via RDAP."
+      },
+      "secureFiles": {
+        "title": "Lêers",
+        "description": "Enkripteer lêers en vouers na gemaskerde .mydt-objekte; blaai en voorskou hulle nadat jy ontsluit het."
       }
     },
     "tabs": {
@@ -2278,7 +2300,8 @@
       "responseCopied": "Antwoord na knipbord gekopieer",
       "codeCopied": "Kode na knipbord gekopieer",
       "copyFailed": "Failed to copy to clipboard",
-      "curlCopied": "cURL-opdrag gekopieer"
+      "curlCopied": "cURL-opdrag gekopieer",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Versamelings",
@@ -2351,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API-hulpbronne",
       "newCollection": "Nuwe versameling",
+      "openFolderCollection": "Maak vouer oop as versameling",
+      "folderCollection": "Vouerversameling",
       "tabCollections": "Versamelings",
       "tabHistory": "Geskiedenis",
       "noCollectionsTitle": "Geen versamelings",
@@ -2392,6 +2417,7 @@
       "placeholderNewEnv": "Nuwe omgewing",
       "variablesHeading": "{name}-veranderlikes",
       "addVariable": "Voeg veranderlike by",
+      "exportPostman": "Voer uit (Postman-omgewing)",
       "columnVariable": "Veranderlike",
       "columnValue": "Waarde",
       "placeholderKey": "Sleutel",
@@ -2448,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5188,6 +5223,12 @@
     "offline": "100% aflyn"
   },
   "ToolSidebar": {
+    "expand": "Vou sybalk uit",
+    "collapse": "Vou sybalk in",
+    "resize": "Verstel sybalk se grootte",
+    "resetWidth": "Herstel sybalk se breedte",
+    "moreSections": "Meer afdelings",
+    "sections": "Sybalk-afdelings",
     "show": "Wys sybalk",
     "hide": "Versteek sybalk"
   },
@@ -5211,5 +5252,92 @@
       "accept": "Deel anoniem",
       "decline": "Nee dankie"
     }
+  },
+  "SecureFiles": {
+    "title": "Lêers",
+    "subtitle": "Lêers wat privaat bly totdat jy hulle ontsluit — geënkripteer op jou toestel, gemasker op skyf",
+    "desktopOnly": "Secure Files is in die rekenaartoepassing beskikbaar.",
+    "allFiles": "Alle lêers",
+    "overview": "Oorsig",
+    "statFiles": "Lêers",
+    "statFolders": "Vouers",
+    "statContent": "Inhoudgrootte",
+    "statContentHint": "Totale grootte van die oorspronklike lêers",
+    "statOnDisk": "Op skyf",
+    "statOverhead": "{size} enkripsie-oorhoofse koste",
+    "byType": "Volgens tipe",
+    "fileCount": "{count, plural, one {# lêer} other {# lêers}}",
+    "largestFiles": "Grootste lêers",
+    "recentlyAdded": "Onlangs bygevoeg",
+    "openContainingFolder": "Open die vouer wat dit bevat",
+    "types": {
+      "image": "Beelde",
+      "video": "Video",
+      "audio": "Klank",
+      "pdf": "PDF",
+      "archive": "Argiewe",
+      "code": "Kode",
+      "doc": "Dokumente",
+      "sheet": "Sigblaaie",
+      "file": "Ander"
+    },
+    "breadcrumb": "Vouerpad",
+    "addFiles": "Voeg lêers by",
+    "addFolder": "Voeg vouer by",
+    "importFolder": "Voer vouer in",
+    "newFolder": "Nuwe vouer",
+    "lock": "Sluit",
+    "settings": "Bergingsinstellings",
+    "storageFolder": "Bergingsvouer",
+    "notSet": "Nie gestel nie",
+    "chooseFolder": "Kies vouer",
+    "changeFolder": "Verander vouer…",
+    "chooseFolderTitle": "Kies waar geënkripteerde lêers gestoor word",
+    "chooseFolderBody": "Kies enige vouer op hierdie toestel of op 'n eksterne skyf. Buite MyDevTools bevat dit net gemaskerde .mydt-lêers.",
+    "changeFolderTitle": "Skuif geënkripteerde lêers?",
+    "changeFolderBody": "Alle .mydt-lêers word van die huidige bergingsvouer geskuif na die een wat jy volgende kies.",
+    "folderSet": "Bergingsvouer gestel",
+    "folderMissingTitle": "Bergingsvouer nie gevind nie",
+    "folderMissingBody": "“{dir}” is nie beskikbaar nie — dit is dalk op 'n ontkoppelde skyf of kom van 'n herstelde rugsteun van 'n ander masjien. Koppel dit weer, of kies 'n nuwe vouer.",
+    "movedCount": "{count} geënkripteerde lêers geskuif",
+    "importedCount": "{count} lêers geënkripteer",
+    "emptyFolderAdded": "Vouer bygevoeg — dit het geen lêers gehad om te enkripteer nie",
+    "emptyTitle": "Nog geen lêers hier nie",
+    "emptyBody": "Voeg lêers of 'n hele vouer by. Elke lêer word geënkripteer na 'n .mydt-objek met 'n lukrake naam; die oorspronklike naam, tipe en inhoud is net hier sigbaar.",
+    "name": "Naam",
+    "size": "Grootte",
+    "modified": "Gewysig",
+    "actions": "Aksies",
+    "expand": "Vou oop",
+    "collapse": "Vou toe",
+    "preview": "Voorskou",
+    "noPreview": "Geen voorskou vir hierdie lêertipe nie — voer dit uit om dit in 'n ander toepassing te open.",
+    "export": "Voer uit",
+    "exportWarningTitle": "Voer 'n gedekripteerde kopie uit?",
+    "exportWarningBody": "Die lêer word ongeënkripteer geskryf na die plek wat jy kies. Enigiets op daardie toestel kan dit lees.",
+    "exported": "Gedekripteerde kopie uitgevoer",
+    "replace": "Vervang inhoud…",
+    "replaced": "Lêerinhoud vervang",
+    "rename": "Hernoem",
+    "fileName": "Lêernaam",
+    "move": "Skuif na vouer",
+    "targetFolder": "Vouer",
+    "targetFolderHint": "Gebruik skuinsstrepe vir geneste vouers, byvoorbeeld projek/config. Laat leeg vir die boonste vlak.",
+    "folderName": "Vouernaam",
+    "delete": "Vee uit",
+    "deleted": "Lêer uitgevee",
+    "deletedCount": "{count} lêers uitgevee",
+    "deleteFileTitle": "Vee hierdie lêer uit?",
+    "deleteFileBody": "“{name}” word permanent uit die geënkripteerde bergingsvouer verwyder.",
+    "deleteFolderTitle": "Vee hierdie vouer uit?",
+    "deleteFolderBody": "Elke lêer onder “{dir}” word permanent uit die geënkripteerde bergingsvouer verwyder.",
+    "unreadableCount": "Onleesbare lêers in die bergingsvouer: {count}",
+    "unreadableHint": "Hulle is met 'n ander meesterwagwoord geënkripteer, behoort aan 'n ander kluis, of is beskadig.",
+    "dismiss": "Maak toe",
+    "viewGrid": "Roosteraansig",
+    "viewList": "Lysaansig",
+    "footerNote": "Lêers tot 20 MB. Geënkripteer met Argon2id + XChaCha20-Poly1305; die sleutel bly net in geheue terwyl die kluis ontsluit is.",
+    "cancel": "Kanselleer",
+    "save": "Stoor"
   }
 }

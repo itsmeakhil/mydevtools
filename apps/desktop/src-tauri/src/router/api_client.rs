@@ -215,12 +215,9 @@ pub fn handle(
     if let Some(tail) = rest.strip_prefix("/history") {
         return match (method, tail) {
             ("GET", "") => {
-                let mut docs = list_docs(&db, HISTORY, &ws)?;
-                docs.sort_by_key(|d| -d["timestamp"].as_i64().unwrap_or(0));
                 let limit: usize =
                     query_param(query, "limit").and_then(|v| v.parse().ok()).unwrap_or(100);
-                docs.truncate(limit);
-                ApiResponse::ok(&docs)
+                ApiResponse::ok(&list_docs_recent(&db, HISTORY, &ws, limit)?)
             }
             ("POST", "") => {
                 let req = parse_body(body)?;
@@ -238,15 +235,11 @@ pub fn handle(
                 ApiResponse::ok(&doc)
             }
             ("DELETE", "/clear") => {
-                for doc in list_docs(&db, HISTORY, &ws)? {
-                    if let Some(id) = doc["id"].as_str() {
-                        tombstone(&db, HISTORY, &ws, id)?;
-                    }
-                }
+                hard_delete(&db, HISTORY, &ws, None)?;
                 Ok(ApiResponse::empty(204))
             }
             ("DELETE", _) if tail.starts_with('/') => {
-                tombstone(&db, HISTORY, &ws, &tail[1..])?;
+                hard_delete(&db, HISTORY, &ws, Some(&tail[1..]))?;
                 Ok(ApiResponse::empty(204))
             }
             _ => Ok(ApiResponse::detail(404, "Not found")),

@@ -1,5 +1,5 @@
 import type React from 'react'
-import { HelpCircle, Home, LayoutDashboard, LogIn, Settings } from 'lucide-react'
+import { HelpCircle, Home, LayoutDashboard, Settings } from 'lucide-react'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { getAllToolsMetadata } from '@/lib/tools-registry'
 
@@ -43,13 +43,6 @@ const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
     description: 'Documentation and support',
     category: 'Site',
     Icon: HelpCircle,
-  },
-  {
-    title: 'Log in',
-    url: '/login',
-    description: 'Sign in to your account',
-    category: 'Site',
-    Icon: LogIn,
   },
 ]
 

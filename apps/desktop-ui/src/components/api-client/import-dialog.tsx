@@ -15,9 +15,13 @@ import { detectImportFormat, type ImportFormat } from "@/lib/import/detect"
 import { importPostmanCollectionWithMeta } from "@/lib/import/postman"
 import { importHar } from "@/lib/import/har"
 import { importOpenApiSpec } from "@/lib/import/openapi"
+import { importPostmanEnvironment } from "@/lib/import/postman-env"
+import { importInsomniaWithMeta } from "@/lib/import/insomnia"
+import { importBrunoFolder } from "@/lib/import/bruno"
 import { generateMockExamplesFromOpenApi } from "@/lib/mocks/openapi-mock-gen"
 import { useCollectionsActions } from "./context/collections-context"
 import { useEnvironmentsActions } from "./context/environments-context"
+import type { EnvironmentVariable } from "./use-environments"
 import { toast } from "sonner"
 
 interface ImportDialogProps {
@@ -27,8 +31,11 @@ interface ImportDialogProps {
 
 const FORMAT_LABEL: Record<ImportFormat, string> = {
     postman: "Postman Collection v2.1",
+    "postman-env": "Postman Environment",
     har: "HAR (HTTP Archive)",
     openapi: "OpenAPI 3.x / Swagger 2.0",
+    insomnia: "Insomnia export (v4 / v5)",
+    bruno: "Bruno request (.bru / OpenCollection YAML)",
     curl: "cURL command — use the cURL importer instead",
     unknown: "Unknown / unsupported format",
 }
@@ -40,7 +47,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
     const [busy, setBusy] = React.useState(false)
 
     const detected: ImportFormat = React.useMemo(() => detectImportFormat(text), [text])
-    const canImport = detected === "postman" || detected === "har" || detected === "openapi"
+    const canImport = detected !== "curl" && detected !== "unknown"
 
     const handleFile = async (file: File | null) => {
         if (!file) return
@@ -52,12 +59,33 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
         if (!canImport) return
         setBusy(true)
         try {
+            if (detected === "postman-env") {
+                const env = importPostmanEnvironment(text)
+                const envId = await addEnvironment(env.name)
+                if (envId) await updateEnvironment(envId, { variables: env.variables })
+                toast.success(`Imported environment "${env.name}" (${env.variables.length} variables)`)
+                onOpenChange(false)
+                setText("")
+                return
+            }
             let postmanVariables: Array<{ key: string; value: string }> = []
+            // Insomnia and Bruno carry their own environments alongside the tree.
+            let importedEnvironments: Array<{ name: string; variables: EnvironmentVariable[] }> = []
             let collection
             if (detected === "postman") {
                 const result = importPostmanCollectionWithMeta(text)
                 collection = result.collection
                 postmanVariables = result.variables
+            } else if (detected === "insomnia") {
+                const result = importInsomniaWithMeta(text)
+                collection = result.collection
+                importedEnvironments = result.environments
+            } else if (detected === "bruno") {
+                // Pasting one .bru/.yml file — the folder importer handles a
+                // single-entry list and names the collection after the request.
+                const result = importBrunoFolder([{ path: "request.bru", text }])
+                collection = result.collection
+                importedEnvironments = result.environments
             } else {
                 collection = detected === "har" ? importHar(text) : importOpenApiSpec(text)
             }
@@ -84,6 +112,10 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                         })
                     }
                 }
+                for (const env of importedEnvironments) {
+                    const envId = await addEnvironment(env.name)
+                    if (envId) await updateEnvironment(envId, { variables: env.variables })
+                }
                 onOpenChange(false)
                 setText("")
             }
@@ -100,8 +132,8 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                 <DialogHeader>
                     <DialogTitle>Import collection</DialogTitle>
                     <DialogDescription>
-                        Paste a Postman v2.1 collection or HAR file, or pick one from disk.
-                        Format is auto-detected.
+                        Paste a Postman, Insomnia or Bruno export, an OpenAPI spec or a HAR file,
+                        or pick one from disk. Format is auto-detected.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -110,7 +142,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                         <label className="inline-flex">
                             <input
                                 type="file"
-                                accept=".json,.har,.yaml,.yml,application/json,application/x-yaml,text/yaml"
+                                accept=".json,.har,.yaml,.yml,.bru,application/json,application/x-yaml,text/yaml"
                                 className="hidden"
                                 onChange={(e) => void handleFile(e.target.files?.[0] ?? null)}
                             />

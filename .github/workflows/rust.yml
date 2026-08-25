@@ -63,9 +63,18 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: apps/desktop/src-tauri -> target
+          workspaces: |
+            apps/desktop/src-tauri -> target
+            crates/mydt -> target
 
       # SQLCipher + OpenSSL are vendored (rusqlite bundled-sqlcipher-vendored-openssl),
       # so the first run compiles them; rust-cache makes later runs fast.
       - name: cargo test
         run: cargo test --locked
+
+      # Shared .mydt format crate + CLI (no Tauri deps, builds in seconds).
+      - name: mydt crate (format + CLI)
+        working-directory: crates/mydt
+        run: |
+          cargo test --locked
+          cargo build --locked --release --features cli

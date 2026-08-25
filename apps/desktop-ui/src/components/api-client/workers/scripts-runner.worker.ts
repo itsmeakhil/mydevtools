@@ -121,11 +121,16 @@ function runScriptSync(script: string, ctx: ScriptContext): ScriptResult {
     }
 
     /** Build a JSON view of the response body — Postman's `pm.response.json()`. */
+    // Parsed once per run; scripts commonly call pm.response.json() several times.
+    let parsedResponse: { value: unknown } | null = null
     const responseJson = () => {
         if (!ctx.response) throw new Error("pm.response.json() called in pre-request script")
-        try { return JSON.parse(ctx.response.body) } catch (e) {
-            throw new Error(`Response body is not valid JSON: ${(e as Error).message}`)
+        if (!parsedResponse) {
+            try { parsedResponse = { value: JSON.parse(ctx.response.body) } } catch (e) {
+                throw new Error(`Response body is not valid JSON: ${(e as Error).message}`)
+            }
         }
+        return parsedResponse.value
     }
 
     const pm = {

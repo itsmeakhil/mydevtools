@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
     IconAlertTriangle,
     IconChevronRight,
+    IconDatabase,
     IconDots,
     IconDownload,
     IconEdit,
@@ -35,7 +36,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { cn } from "@/lib/utils";
-import { useToolSidebarPanel } from "@/components/tools/tool-sidebar";
+import { useToolSidebarPanel, useToolSidebarRail } from "@/components/tools/tool-sidebar";
 import { SOURCES, SOURCE_ORDER, getAdapter } from "./sources";
 import { deleteConnection } from "./connection-service";
 import type { OpenTabRequest, SourceId, UnifiedConnection } from "./types";
@@ -203,9 +204,34 @@ export function UnifiedSidebar({
     const handleOpenTab = useCallback(
         (connection: UnifiedConnection, req: OpenTabRequest) => {
             onOpenTab(connection, req);
-            if (panel?.isMobile) panel.close();
+            if (panel?.isOverlay) panel.close();
         },
         [onOpenTab, panel]
+    );
+
+    // Connections stay reachable from the collapsed rail; picking one expands
+    // its tree, which is what the row click does too.
+    useToolSidebarRail(
+        "connections",
+        useMemo(
+            () =>
+                connections
+                    .filter((c): c is UnifiedConnection => !!c && typeof c.id === "string")
+                    .slice(0, 8)
+                    .map((c) => ({
+                        id: c.id,
+                        label: c.name,
+                        icon: IconDatabase,
+                        active: expandedIds.has(c.id),
+                        onSelect: () =>
+                            setExpandedIds((prev) => {
+                                const next = new Set(prev);
+                                next.add(c.id);
+                                return next;
+                            }),
+                    })),
+            [connections, expandedIds]
+        )
     );
 
     const filtered = useMemo(() => {

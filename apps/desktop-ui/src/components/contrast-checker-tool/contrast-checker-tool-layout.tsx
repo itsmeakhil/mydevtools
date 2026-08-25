@@ -4,7 +4,6 @@ import Color from 'color';
 import { useCallback, useMemo, useState } from 'react';
 import { useCopyFeedback } from '@/hooks/use-copy-feedback';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
@@ -12,9 +11,7 @@ import { contrastRatio, meetsLevel, WCAG_THRESHOLDS } from '@/lib/wcag-contrast'
 import { Check, Copy, ArrowDownUp, Pipette } from 'lucide-react';
 import { IconContrast } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
-import { ToolPageHeader } from '@/components/tools/tool-page-header';
-import { RevealItem } from '@/components/dashboard/dashboard-reveal';
-import { CATEGORY_ACCENT } from '@/components/dashboard/types';
+import { ToolShell } from '@/components/tools/tool-shell';
 
 const DEFAULT_FG = '#0f172a';
 const DEFAULT_BG = '#f8fafc';
@@ -138,18 +135,14 @@ export function ContrastCheckerToolLayout() {
   ];
 
   return (
-    <div className="flex flex-col h-full gap-4 min-h-0 overflow-auto">
-      <RevealItem index={0} className="shrink-0">
-        <ToolPageHeader
-          icon={IconContrast}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        />
-      </RevealItem>
-
+    <ToolShell
+      icon={IconContrast}
+      title={t('title')}
+      description={t('subtitle')}
+      contentClassName="overflow-auto"
+    >
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 shrink-0">
-        <Card className="p-4 space-y-5">
+        <div className="rounded-lg border border-border bg-card p-4 space-y-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-sm text-muted-foreground">{t('ratio')}</p>
             <div className="flex items-center gap-2">
@@ -251,9 +244,9 @@ export function ContrastCheckerToolLayout() {
               })}
             </ul>
           </div>
-        </Card>
+        </div>
 
-        <Card className="p-4 flex flex-col gap-3 min-h-[220px]">
+        <div className="rounded-lg border border-border bg-card p-4 flex flex-col gap-3 min-h-[220px]">
           <Label className="text-xs text-muted-foreground uppercase tracking-wider">
             {t('previewHeading')}
           </Label>
@@ -264,9 +257,9 @@ export function ContrastCheckerToolLayout() {
             <p className="text-base leading-relaxed font-medium">{t('previewBody')}</p>
             <p className="mt-4 text-sm opacity-90">{t('previewCaption')}</p>
           </div>
-        </Card>
+        </div>
       </div>
-    </div>
+    </ToolShell>
   );
 }
 

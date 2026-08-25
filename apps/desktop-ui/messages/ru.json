@@ -76,7 +76,8 @@
     "tokenCounter": "Счётчик токенов",
     "webhookTester": "Тестер вебхуков",
     "websocketTester": "Тестер WebSocket",
-    "whoisLookup": "Whois-запрос"
+    "whoisLookup": "Whois-запрос",
+    "secureFiles": "Файлы"
   },
   "Help": {
     "title": "Справка и документация",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Изменить",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Восстановление…",
       "restoreSuccess": "Резервная копия восстановлена",
       "restoreError": "Восстановление не удалось — неверная фраза или повреждённый файл копии"
+    },
+    "backupCodes": {
+      "title": "Резервные коды",
+      "description": "Одноразовые коды для восстановления хранилища, если вы забыли мастер-пароль.",
+      "remaining": "Осталось {remaining} из {total} кодов",
+      "none": "Резервные коды не сохранены.",
+      "hint": "Новый набор делает все прежние коды недействительными.",
+      "passwordPlaceholder": "Мастер-пароль",
+      "regenerateButton": "Создать новые коды",
+      "generating": "Создание…",
+      "wrongPassword": "Неверный мастер-пароль",
+      "success": "Новые резервные коды созданы",
+      "error": "Не удалось создать резервные коды",
+      "newCodesWarning": "Больше вы их не увидите. Скачайте или скопируйте сейчас.",
+      "downloadButton": "Скачать",
+      "doneButton": "Я сохранил коды"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois-запрос",
         "description": "Узнавайте данные регистрации доменов и IP через RDAP."
+      },
+      "secureFiles": {
+        "title": "Файлы",
+        "description": "Шифруйте файлы и папки в замаскированные объекты .mydt; просматривайте их после разблокировки."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "Выборка из {docs} документов · {fields} полей",
       "colField": "Поле",
       "colTypes": "Типы",
-      "colCoverage": "Покрытие"
+      "colCoverage": "Покрытие",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Ответ скопирован в буфер обмена",
       "codeCopied": "Код скопирован в буфер обмена",
       "copyFailed": "Не удалось скопировать в буфер обмена",
-      "curlCopied": "Команда cURL скопирована"
+      "curlCopied": "Команда cURL скопирована",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Коллекции",
@@ -2340,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API-ресурсы",
       "newCollection": "Новая коллекция",
+      "openFolderCollection": "Открыть папку как коллекцию",
+      "folderCollection": "Коллекция из папки",
       "tabCollections": "Коллекции",
       "tabHistory": "История",
       "noCollectionsTitle": "Нет коллекций",
@@ -2381,6 +2417,7 @@
       "placeholderNewEnv": "Новое окружение",
       "variablesHeading": "Переменные {name}",
       "addVariable": "Добавить переменную",
+      "exportPostman": "Экспорт (окружение Postman)",
       "columnVariable": "Переменная",
       "columnValue": "Значение",
       "placeholderKey": "Ключ",
@@ -2437,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5177,6 +5223,12 @@
     "offline": "100% офлайн"
   },
   "ToolSidebar": {
+    "expand": "Развернуть боковую панель",
+    "collapse": "Свернуть боковую панель",
+    "resize": "Изменить ширину панели",
+    "resetWidth": "Сбросить ширину панели",
+    "moreSections": "Ещё разделы",
+    "sections": "Разделы боковой панели",
     "show": "Показать боковую панель",
     "hide": "Скрыть боковую панель"
   },
@@ -5200,5 +5252,92 @@
       "accept": "Делиться анонимно",
       "decline": "Нет, спасибо"
     }
+  },
+  "SecureFiles": {
+    "title": "Файлы",
+    "subtitle": "Файлы остаются приватными, пока вы их не разблокируете — зашифрованы на устройстве, замаскированы на диске",
+    "desktopOnly": "Secure Files доступен в настольном приложении.",
+    "allFiles": "Все файлы",
+    "overview": "Обзор",
+    "statFiles": "Файлы",
+    "statFolders": "Папки",
+    "statContent": "Размер содержимого",
+    "statContentHint": "Общий размер исходных файлов",
+    "statOnDisk": "На диске",
+    "statOverhead": "{size} накладных расходов шифрования",
+    "byType": "По типу",
+    "fileCount": "{count, plural, one {# файл} few {# файла} many {# файлов} other {# файла}}",
+    "largestFiles": "Самые большие файлы",
+    "recentlyAdded": "Недавно добавленные",
+    "openContainingFolder": "Открыть содержащую папку",
+    "types": {
+      "image": "Изображения",
+      "video": "Видео",
+      "audio": "Аудио",
+      "pdf": "PDF",
+      "archive": "Архивы",
+      "code": "Код",
+      "doc": "Документы",
+      "sheet": "Таблицы",
+      "file": "Прочее"
+    },
+    "breadcrumb": "Путь к папке",
+    "addFiles": "Добавить файлы",
+    "addFolder": "Добавить папку",
+    "importFolder": "Импортировать папку",
+    "newFolder": "Новая папка",
+    "lock": "Заблокировать",
+    "settings": "Настройки хранилища",
+    "storageFolder": "Папка хранения",
+    "notSet": "Не задана",
+    "chooseFolder": "Выбрать папку",
+    "changeFolder": "Сменить папку…",
+    "chooseFolderTitle": "Выберите, где хранить зашифрованные файлы",
+    "chooseFolderBody": "Выберите любую папку на этом устройстве или на внешнем диске. За пределами MyDevTools в ней находятся только замаскированные файлы .mydt.",
+    "changeFolderTitle": "Переместить зашифрованные файлы?",
+    "changeFolderBody": "Все файлы .mydt будут перемещены из текущей папки хранения в ту, которую вы выберете далее.",
+    "folderSet": "Папка хранения задана",
+    "folderMissingTitle": "Папка хранения не найдена",
+    "folderMissingBody": "«{dir}» недоступна — возможно, она на отключённом диске или взята из резервной копии с другого компьютера. Подключите диск заново или выберите новую папку.",
+    "movedCount": "Перемещено зашифрованных файлов: {count}",
+    "importedCount": "Зашифровано файлов: {count}",
+    "emptyFolderAdded": "Папка добавлена — в ней не было файлов для шифрования",
+    "emptyTitle": "Здесь пока нет файлов",
+    "emptyBody": "Добавьте файлы или целую папку. Каждый файл шифруется в объект .mydt со случайным именем; исходное имя, тип и содержимое видны только здесь.",
+    "name": "Имя",
+    "size": "Размер",
+    "modified": "Изменён",
+    "actions": "Действия",
+    "expand": "Развернуть",
+    "collapse": "Свернуть",
+    "preview": "Просмотр",
+    "noPreview": "Для этого типа файла просмотр недоступен — экспортируйте его, чтобы открыть в другом приложении.",
+    "export": "Экспорт",
+    "exportWarningTitle": "Экспортировать расшифрованную копию?",
+    "exportWarningBody": "Файл будет записан в выбранное место без шифрования. Прочитать его сможет что угодно на этом устройстве.",
+    "exported": "Расшифрованная копия экспортирована",
+    "replace": "Заменить содержимое…",
+    "replaced": "Содержимое файла заменено",
+    "rename": "Переименовать",
+    "fileName": "Имя файла",
+    "move": "Переместить в папку",
+    "targetFolder": "Папка",
+    "targetFolderHint": "Используйте косые черты для вложенных папок, например проект/config. Оставьте пустым для верхнего уровня.",
+    "folderName": "Имя папки",
+    "delete": "Удалить",
+    "deleted": "Файл удалён",
+    "deletedCount": "Удалено файлов: {count}",
+    "deleteFileTitle": "Удалить этот файл?",
+    "deleteFileBody": "«{name}» будет безвозвратно удалён из зашифрованной папки хранения.",
+    "deleteFolderTitle": "Удалить эту папку?",
+    "deleteFolderBody": "Все файлы в «{dir}» будут безвозвратно удалены из зашифрованной папки хранения.",
+    "unreadableCount": "Нечитаемых файлов в папке хранения: {count}",
+    "unreadableHint": "Они зашифрованы другим мастер-паролем, принадлежат другому хранилищу или повреждены.",
+    "dismiss": "Скрыть",
+    "viewGrid": "Сетка",
+    "viewList": "Список",
+    "footerNote": "Файлы до 20 МБ. Шифрование Argon2id + XChaCha20-Poly1305; ключ хранится только в памяти, пока хранилище разблокировано.",
+    "cancel": "Отмена",
+    "save": "Сохранить"
   }
 }

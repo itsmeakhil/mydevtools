@@ -367,6 +367,7 @@ export function PasswordList() {
                         value={quickFilter}
                         onChange={(id) => setQuickFilter(id as typeof quickFilter)}
                         heading={t("filters.heading")}
+                        railGroupId="security"
                     />
                     {tagFilters.length > 0 && (
                         <ToolSidebarFilterList
@@ -374,6 +375,7 @@ export function PasswordList() {
                             value={tagFilter}
                             onChange={setTagFilter}
                             heading={t("filters.tagsHeading")}
+                            railGroupId="tags"
                         />
                     )}
                 </div>

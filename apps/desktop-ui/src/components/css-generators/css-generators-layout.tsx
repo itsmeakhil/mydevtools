@@ -4,9 +4,7 @@ import React from 'react'
 import { useTranslations } from 'next-intl'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { IconPalette } from '@tabler/icons-react'
-import { ToolPageHeader } from '@/components/tools/tool-page-header'
-import { RevealItem } from '@/components/dashboard/dashboard-reveal'
-import { CATEGORY_ACCENT } from '@/components/dashboard/types'
+import { ToolShell } from '@/components/tools/tool-shell'
 import { BoxShadowTab } from './box-shadow-tab'
 import { BorderRadiusTab } from './border-radius-tab'
 import { ClampTab } from './clamp-tab'
@@ -15,18 +13,7 @@ export function CssGeneratorsLayout() {
   const t = useTranslations('CssGenerators')
 
   return (
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
-
-      <RevealItem index={0}>
-        <ToolPageHeader
-          icon={IconPalette}
-          title={t('title')}
-          description={t('subtitle')}
-          accent={CATEGORY_ACCENT['Media & Design']}
-        />
-      </RevealItem>
-
+    <ToolShell icon={IconPalette} title={t('title')} description={t('subtitle')}>
       <Tabs defaultValue="boxShadow" className="flex min-h-0 flex-1 flex-col gap-4">
         <TabsList className="w-fit">
           <TabsTrigger value="boxShadow">{t('tabs.boxShadow')}</TabsTrigger>
@@ -43,6 +30,6 @@ export function CssGeneratorsLayout() {
           <ClampTab />
         </TabsContent>
       </Tabs>
-    </div>
+    </ToolShell>
   )
 }

@@ -69,7 +69,7 @@ interface RequestTabsProps {
     setComments?: (next: import("./types").RequestComment[]) => void
 }
 
-export function RequestTabs({
+function RequestTabsImpl({
     params,
     setParams,
     headers,
@@ -105,9 +105,9 @@ export function RequestTabs({
         ],
     }), [body])
 
-    const updateBody = (updates: Partial<RequestBody>) => {
+    const updateBody = React.useCallback((updates: Partial<RequestBody>) => {
         setBody({ ...normalizedBody, ...updates })
-    }
+    }, [normalizedBody, setBody])
 
     const addFormDataItem = () => {
         updateBody({
@@ -157,10 +157,10 @@ export function RequestTabs({
 
     const handleBodyContentChange = React.useCallback(
         (v: string) => updateBody({ content: v }),
-        // updateBody closes over normalizedBody via its own capture; listing
-        // updateBody as the dep is sufficient and avoids re-creating the
-        // callback on every normalizedBody identity change.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [updateBody]
+    )
+    const handleGraphqlVariablesChange = React.useCallback(
+        (v: string) => updateBody({ graphqlVariables: v }),
         [updateBody]
     )
 
@@ -413,7 +413,9 @@ export function RequestTabs({
                 <TabsContent value="headers" className="mt-0 h-full overflow-auto custom-scrollbar">
                     <KeyValueEditor items={headers} onChange={setHeaders} />
                 </TabsContent>
-                <TabsContent value="body" className="mt-0 h-full flex flex-col gap-4 min-h-0">
+                {/* Editor tabs stay mounted (forceMount) so switching sub-tabs doesn't
+                    re-create a Monaco instance each time; `hidden` via data-state. */}
+                <TabsContent value="body" forceMount className="mt-0 h-full flex flex-col gap-4 min-h-0 data-[state=inactive]:hidden">
                     <div className="flex items-center gap-4 bg-muted/30 p-3 rounded-lg border">
                         <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("bodyType")}</Label>
                         <Select
@@ -612,7 +614,7 @@ export function RequestTabs({
                                     <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
                                         <MemoCodeEditor
                                             value={normalizedBody.graphqlVariables ?? ""}
-                                            onChange={(v) => updateBody({ graphqlVariables: v })}
+                                            onChange={handleGraphqlVariablesChange}
                                             language="json"
                                         />
                                     </div>
@@ -1254,7 +1256,7 @@ export function RequestTabs({
                         )}
                     </div>
                 </TabsContent>
-                <TabsContent value="pre-request" className="mt-0 h-full flex flex-col gap-2 min-h-0">
+                <TabsContent value="pre-request" forceMount className="mt-0 h-full flex flex-col gap-2 min-h-0 data-[state=inactive]:hidden">
                     <p className="text-xs text-muted-foreground">
                         Runs in a sandbox before the request. Use{" "}
                         <code className="font-mono bg-muted/40 px-1 rounded">pm.environment.set</code>,{" "}
@@ -1263,12 +1265,12 @@ export function RequestTabs({
                     <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
                         <MemoCodeEditor
                             value={preRequestScript}
-                            onChange={(v) => setPreRequestScript?.(v)}
+                            onChange={setPreRequestScript}
                             language="javascript"
                         />
                     </div>
                 </TabsContent>
-                <TabsContent value="tests" className="mt-0 h-full flex flex-col gap-2 min-h-0">
+                <TabsContent value="tests" forceMount className="mt-0 h-full flex flex-col gap-2 min-h-0 data-[state=inactive]:hidden">
                     <p className="text-xs text-muted-foreground">
                         Runs after the response arrives. Use{" "}
                         <code className="font-mono bg-muted/40 px-1 rounded">pm.test(name, fn)</code> with{" "}
@@ -1277,7 +1279,7 @@ export function RequestTabs({
                     <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
                         <MemoCodeEditor
                             value={testScript}
-                            onChange={(v) => setTestScript?.(v)}
+                            onChange={setTestScript}
                             language="javascript"
                         />
                     </div>
@@ -1330,3 +1332,5 @@ export function RequestTabs({
         </Tabs>
     )
 }
+
+export const RequestTabs = React.memo(RequestTabsImpl)

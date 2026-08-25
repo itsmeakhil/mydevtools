@@ -76,7 +76,8 @@
     "tokenCounter": "Token-teller",
     "webhookTester": "Webhook-tester",
     "websocketTester": "WebSocket-tester",
-    "whoisLookup": "Whois-oppslag"
+    "whoisLookup": "Whois-oppslag",
+    "secureFiles": "Filer"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Rediger",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Gjenoppretter…",
       "restoreSuccess": "Sikkerhetskopi gjenopprettet",
       "restoreError": "Gjenoppretting mislyktes — feil passfrase eller ugyldig fil"
+    },
+    "backupCodes": {
+      "title": "Sikkerhetskoder",
+      "description": "Engangskoder som gjenoppretter hvelvet hvis du glemmer hovedpassordet.",
+      "remaining": "{remaining} av {total} koder igjen",
+      "none": "Ingen sikkerhetskoder lagret.",
+      "hint": "Nye koder gjør alle eksisterende koder ugyldige.",
+      "passwordPlaceholder": "Hovedpassord",
+      "regenerateButton": "Generer nye koder",
+      "generating": "Genererer…",
+      "wrongPassword": "Feil hovedpassord",
+      "success": "Nye sikkerhetskoder generert",
+      "error": "Kunne ikke generere sikkerhetskoder",
+      "newCodesWarning": "Du kan ikke se dem igjen. Last ned eller kopier dem nå.",
+      "downloadButton": "Last ned",
+      "doneButton": "Jeg har lagret kodene"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Whois-oppslag",
         "description": "Slå opp registreringsdetaljer for domene og IP via RDAP."
+      },
+      "secureFiles": {
+        "title": "Filer",
+        "description": "Krypter filer og mapper til maskerte .mydt-objekter; bla gjennom og forhåndsvis dem etter opplåsing."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "Utvalg av {docs} dokumenter · {fields} felter",
       "colField": "Felt",
       "colTypes": "Typer",
-      "colCoverage": "Dekning"
+      "colCoverage": "Dekning",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "Svar kopiert til utklippstavle",
       "codeCopied": "Kode kopiert til utklippstavle",
       "copyFailed": "Kopiering til utklippstavlen mislyktes",
-      "curlCopied": "cURL-kommando kopiert"
+      "curlCopied": "cURL-kommando kopiert",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Samlinger",
@@ -2340,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "API-ressurser",
       "newCollection": "Ny samling",
+      "openFolderCollection": "Åpne mappe som samling",
+      "folderCollection": "Mappesamling",
       "tabCollections": "Samlinger",
       "tabHistory": "Historikk",
       "noCollectionsTitle": "Ingen samlinger",
@@ -2381,6 +2417,7 @@
       "placeholderNewEnv": "Nytt miljø",
       "variablesHeading": "{name}-variabler",
       "addVariable": "Legg til variabel",
+      "exportPostman": "Eksporter (Postman-miljø)",
       "columnVariable": "Variabel",
       "columnValue": "Verdi",
       "placeholderKey": "Nøkkel",
@@ -2437,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5177,6 +5223,12 @@
     "offline": "100 % offline"
   },
   "ToolSidebar": {
+    "expand": "Utvid sidepanel",
+    "collapse": "Skjul sidepanel",
+    "resize": "Endre bredde på sidepanel",
+    "resetWidth": "Tilbakestill bredde",
+    "moreSections": "Flere seksjoner",
+    "sections": "Sidepanelseksjoner",
     "show": "Vis sidepanel",
     "hide": "Skjul sidepanel"
   },
@@ -5200,5 +5252,92 @@
       "accept": "Del anonymt",
       "decline": "Nei takk"
     }
+  },
+  "SecureFiles": {
+    "title": "Filer",
+    "subtitle": "Filer som forblir private til du låser dem opp — kryptert på enheten din, maskert på disken",
+    "desktopOnly": "Secure Files er tilgjengelig i skrivebordsappen.",
+    "allFiles": "Alle filer",
+    "overview": "Oversikt",
+    "statFiles": "Filer",
+    "statFolders": "Mapper",
+    "statContent": "Innholdsstørrelse",
+    "statContentHint": "Samlet størrelse på originalfilene",
+    "statOnDisk": "På disk",
+    "statOverhead": "{size} krypteringsoverhead",
+    "byType": "Etter type",
+    "fileCount": "{count, plural, one {# fil} other {# filer}}",
+    "largestFiles": "Største filer",
+    "recentlyAdded": "Nylig lagt til",
+    "openContainingFolder": "Åpne overordnet mappe",
+    "types": {
+      "image": "Bilder",
+      "video": "Video",
+      "audio": "Lyd",
+      "pdf": "PDF",
+      "archive": "Arkiver",
+      "code": "Kode",
+      "doc": "Dokumenter",
+      "sheet": "Regneark",
+      "file": "Annet"
+    },
+    "breadcrumb": "Mappebane",
+    "addFiles": "Legg til filer",
+    "addFolder": "Legg til mappe",
+    "importFolder": "Importer mappe",
+    "newFolder": "Ny mappe",
+    "lock": "Lås",
+    "settings": "Lagringsinnstillinger",
+    "storageFolder": "Lagringsmappe",
+    "notSet": "Ikke angitt",
+    "chooseFolder": "Velg mappe",
+    "changeFolder": "Bytt mappe…",
+    "chooseFolderTitle": "Velg hvor krypterte filer lagres",
+    "chooseFolderBody": "Velg hvilken som helst mappe på denne enheten eller en ekstern disk. Utenfor MyDevTools inneholder den bare maskerte .mydt-filer.",
+    "changeFolderTitle": "Flytte krypterte filer?",
+    "changeFolderBody": "Alle .mydt-filer flyttes fra den nåværende lagringsmappen til den du velger nå.",
+    "folderSet": "Lagringsmappe angitt",
+    "folderMissingTitle": "Fant ikke lagringsmappen",
+    "folderMissingBody": "«{dir}» er ikke tilgjengelig — den kan ligge på en frakoblet disk eller stamme fra en gjenopprettet sikkerhetskopi fra en annen maskin. Koble den til igjen, eller velg en ny mappe.",
+    "movedCount": "Flyttet {count} krypterte filer",
+    "importedCount": "Krypterte {count} filer",
+    "emptyFolderAdded": "Mappe lagt til — den inneholdt ingen filer å kryptere",
+    "emptyTitle": "Ingen filer her ennå",
+    "emptyBody": "Legg til filer eller en hel mappe. Hver fil krypteres til et .mydt-objekt med tilfeldig navn; opprinnelig navn, type og innhold vises bare her.",
+    "name": "Navn",
+    "size": "Størrelse",
+    "modified": "Endret",
+    "actions": "Handlinger",
+    "expand": "Utvid",
+    "collapse": "Skjul",
+    "preview": "Forhåndsvisning",
+    "noPreview": "Ingen forhåndsvisning for denne filtypen — eksporter den for å åpne den i en annen app.",
+    "export": "Eksporter",
+    "exportWarningTitle": "Eksportere en dekryptert kopi?",
+    "exportWarningBody": "Filen skrives ukryptert til stedet du velger. Alt på den enheten kan lese den.",
+    "exported": "Dekryptert kopi eksportert",
+    "replace": "Erstatt innhold…",
+    "replaced": "Filinnholdet ble erstattet",
+    "rename": "Gi nytt navn",
+    "fileName": "Filnavn",
+    "move": "Flytt til mappe",
+    "targetFolder": "Mappe",
+    "targetFolderHint": "Bruk skråstreker for nestede mapper, for eksempel prosjekt/config. La feltet stå tomt for øverste nivå.",
+    "folderName": "Mappenavn",
+    "delete": "Slett",
+    "deleted": "Filen ble slettet",
+    "deletedCount": "Slettet {count} filer",
+    "deleteFileTitle": "Slette denne filen?",
+    "deleteFileBody": "«{name}» fjernes permanent fra den krypterte lagringsmappen.",
+    "deleteFolderTitle": "Slette denne mappen?",
+    "deleteFolderBody": "Alle filer under «{dir}» fjernes permanent fra den krypterte lagringsmappen.",
+    "unreadableCount": "Uleselige filer i lagringsmappen: {count}",
+    "unreadableHint": "De ble kryptert med et annet hovedpassord, hører til et annet hvelv eller er skadet.",
+    "dismiss": "Lukk",
+    "viewGrid": "Rutenettvisning",
+    "viewList": "Listevisning",
+    "footerNote": "Filer opptil 20 MB. Kryptert med Argon2id + XChaCha20-Poly1305; nøkkelen finnes bare i minnet mens hvelvet er låst opp.",
+    "cancel": "Avbryt",
+    "save": "Lagre"
   }
 }

@@ -83,3 +83,34 @@ describe("guard functions are exported", () => {
         expect(typeof useTabsActions).toBe("function")
     })
 })
+
+describe("slimTabsForStorage", () => {
+    const { createNewTab, slimTabsForStorage } = require("../context/tabs-context")
+    const fat = () => {
+        const t = createNewTab()
+        t.response = { status: 200, statusText: "OK", headers: {}, body: "x".repeat(1000), time: 1, size: 1 }
+        t.isLoading = true
+        t.graphqlSchema = { types: [] }
+        t.examples = [{ id: "e", name: "ex", capturedAt: 1, request: { method: "GET", url: "u", headers: [], body: t.body }, response: { status: 200, statusText: "OK", headers: {}, body: "big" } }]
+        t.body.formData = [{ id: "f", key: "file", value: "", enabled: true, valueType: "file", fileName: "a.bin", fileContentBase64: "AAAA" }]
+        return t
+    }
+
+    it("always drops runtime + refetchable state, keeps examples and file bytes", () => {
+        const [s] = slimTabsForStorage([fat()])
+        expect(s.response).toBeUndefined()
+        expect(s.isLoading).toBeUndefined()
+        expect(s.websocket).toBeUndefined()
+        expect(s.graphqlSchema).toBeUndefined()
+        expect(s.examples[0].response.body).toBe("big")
+        expect(s.body.formData[0].fileContentBase64).toBe("AAAA")
+    })
+
+    it("aggressive mode also drops example bodies and file bytes but keeps metadata", () => {
+        const [s] = slimTabsForStorage([fat()], true)
+        expect(s.examples[0].name).toBe("ex")
+        expect(s.examples[0].response.body).toBe("")
+        expect(s.body.formData[0].fileName).toBe("a.bin")
+        expect(s.body.formData[0].fileContentBase64).toBe("")
+    })
+})

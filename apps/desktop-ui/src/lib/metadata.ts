@@ -22,6 +22,12 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['to do list', 'task manager', 'todo app', 'task list', 'productivity'],
         aiSummary: 'Simple in-browser task manager for developers: add tasks, set priorities, check them off. Data synced to your account. No install needed.',
     },
+    'secure-files': {
+        title: 'Files',
+        description: 'Encrypt files and folders into opaque .mydt objects on your device. Original names, types and contents stay private until you unlock them.',
+        keywords: ['file encryption', 'encrypted files', 'secure file storage', 'encrypt folder', 'private files', 'local-first encryption'],
+        aiSummary: 'Local-first encrypted file store: import files or folders, they are stored as masked-name .mydt files (Argon2id + XChaCha20-Poly1305) in a folder you choose, and browsed/previewed/exported only after unlocking with your master password. Fully offline, open source.',
+    },
     'notes': {
         title: 'Notes',
         description: 'Create and manage notes quickly. Markdown-supported note-taking for developers.',

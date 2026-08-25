@@ -12,6 +12,7 @@ export const toolCategoryMap: Record<string, string> = {
   'certificate-pem-decoder': 'Security',
   'encryption-playground': 'Security',
   'password-manager': 'Security',
+  'secure-files': 'Security',
   'json-formatter': 'Formatters',
   'json-visualizer': 'Formatters',
   'json-schema-generator': 'Formatters',

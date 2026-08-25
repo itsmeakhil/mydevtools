@@ -63,6 +63,10 @@ export function TabBar({
     const tabRefs = React.useRef<Record<string, HTMLDivElement | null>>({})
     const [indicatorStyle, setIndicatorStyle] = React.useState<{ left: number; width: number } | null>(null)
 
+    // Only what changes a tab's width — not the whole tabs array, which is a new
+    // reference on every keystroke in any request field.
+    const tabsLayoutKey = tabs.map((t) => `${t.id}:${t.kind}:${t.method}:${t.name}`).join("|")
+
     // Measure the active tab and update the indicator synchronously before paint
     React.useLayoutEffect(() => {
         const activeEl = tabRefs.current[activeTabId]
@@ -77,7 +81,7 @@ export function TabBar({
             left: tabRect.left - listRect.left,
             width: tabRect.width,
         })
-    }, [activeTabId, tabs])
+    }, [activeTabId, tabsLayoutKey])
 
     const handleDoubleClick = (tab: ApiRequestState) => {
         if (!onTabRename) return

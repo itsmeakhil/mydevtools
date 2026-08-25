@@ -2,7 +2,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { IconDownload, IconLoader2, IconX } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { FileIconComp } from "./file-icon"
@@ -87,6 +87,9 @@ export function FilePreviewDialog({
     })()
 
     return (
+        // Provider lives here so every consumer of this dialog gets working
+        // tooltips — Radix Tooltip throws without an ancestor provider.
+        <TooltipProvider delayDuration={300}>
         <Dialog open onOpenChange={(o) => !o && onClose()}>
             <DialogContent className="max-w-5xl w-full p-0 overflow-hidden gap-0 flex flex-col">
                 <DialogHeader className="flex flex-row items-center justify-between px-5 py-3 border-b shrink-0 bg-muted/20">
@@ -113,5 +116,6 @@ export function FilePreviewDialog({
                 {body}
             </DialogContent>
         </Dialog>
+        </TooltipProvider>
     )
 }

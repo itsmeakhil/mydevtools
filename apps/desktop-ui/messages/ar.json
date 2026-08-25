@@ -76,7 +76,8 @@
     "tokenCounter": "عدّاد الرموز",
     "webhookTester": "مختبِر Webhook",
     "websocketTester": "مختبِر WebSocket",
-    "whoisLookup": "بحث Whois"
+    "whoisLookup": "بحث Whois",
+    "secureFiles": "الملفات"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "تعديل",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "جارٍ الاستعادة…",
       "restoreSuccess": "تمت استعادة النسخة الاحتياطية",
       "restoreError": "فشلت الاستعادة — عبارة مرور خاطئة أو ملف نسخة احتياطية غير صالح"
+    },
+    "backupCodes": {
+      "title": "رموز النسخ الاحتياطي",
+      "description": "رموز تُستخدم لمرة واحدة لاستعادة خزنتك إذا نسيت كلمة المرور الرئيسية.",
+      "remaining": "بقي {remaining} من {total} رمزًا",
+      "none": "لا توجد رموز نسخ احتياطي مخزَّنة.",
+      "hint": "إنشاء مجموعة جديدة يُبطل جميع الرموز الحالية.",
+      "passwordPlaceholder": "كلمة المرور الرئيسية",
+      "regenerateButton": "إنشاء رموز جديدة",
+      "generating": "جارٍ الإنشاء…",
+      "wrongPassword": "كلمة المرور الرئيسية غير صحيحة",
+      "success": "تم إنشاء رموز نسخ احتياطي جديدة",
+      "error": "تعذر إنشاء رموز النسخ الاحتياطي",
+      "newCodesWarning": "لن تتمكن من رؤيتها مرة أخرى. نزّلها أو انسخها الآن.",
+      "downloadButton": "تنزيل",
+      "doneButton": "لقد حفظت رموزي"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "بحث Whois",
         "description": "ابحث عن تفاصيل تسجيل النطاق وعنوان IP عبر RDAP."
+      },
+      "secureFiles": {
+        "title": "الملفات",
+        "description": "شفّر الملفات والمجلدات إلى كائنات ‎.mydt‎ مُقنَّعة الأسماء؛ تصفّحها وعاينها بعد فتح القفل."
       }
     },
     "tabs": {
@@ -1926,7 +1948,18 @@
       "sampled": "تم أخذ عينة من {docs} مستند · {fields} حقل",
       "colField": "الحقل",
       "colTypes": "الأنواع",
-      "colCoverage": "التغطية"
+      "colCoverage": "التغطية",
+      "sampleRandom": "Random",
+      "sampleFirst": "First",
+      "sampleLast": "Last",
+      "sampleAll": "All",
+      "sampleSizeN": "{n} docs",
+      "allCapped": "capped at 10k",
+      "validatorTitle": "Validation rules",
+      "exportSchemaBtn": "Export",
+      "exportJsonSchema": "JSON Schema",
+      "exportMongoose": "Mongoose model",
+      "exportHtml": "HTML report"
     }
   },
   "DataExplorer": {
@@ -2267,7 +2300,8 @@
       "responseCopied": "تم نسخ الاستجابة",
       "codeCopied": "تم نسخ الكود",
       "copyFailed": "فشل نسخ المحتوى إلى الحافظة",
-      "curlCopied": "تم نسخ أمر cURL"
+      "curlCopied": "تم نسخ أمر cURL",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "المجموعات",
@@ -2340,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "موارد API",
       "newCollection": "مجموعة جديدة",
+      "openFolderCollection": "فتح مجلد كمجموعة",
+      "folderCollection": "مجموعة مجلد",
       "tabCollections": "المجموعات",
       "tabHistory": "السجل",
       "noCollectionsTitle": "لا مجموعات",
@@ -2381,6 +2417,7 @@
       "placeholderNewEnv": "بيئة جديدة",
       "variablesHeading": "متغيرات {name}",
       "addVariable": "إضافة متغير",
+      "exportPostman": "تصدير (بيئة Postman)",
       "columnVariable": "متغير",
       "columnValue": "قيمة",
       "placeholderKey": "مفتاح",
@@ -2437,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5177,6 +5223,12 @@
     "offline": "100% دون اتصال"
   },
   "ToolSidebar": {
+    "expand": "توسيع الشريط الجانبي",
+    "collapse": "طي الشريط الجانبي",
+    "resize": "تغيير حجم الشريط الجانبي",
+    "resetWidth": "إعادة تعيين عرض الشريط الجانبي",
+    "moreSections": "المزيد من الأقسام",
+    "sections": "أقسام الشريط الجانبي",
     "show": "إظهار الشريط الجانبي",
     "hide": "إخفاء الشريط الجانبي"
   },
@@ -5200,5 +5252,92 @@
       "accept": "المشاركة بشكل مجهول",
       "decline": "لا، شكرًا"
     }
+  },
+  "SecureFiles": {
+    "title": "الملفات",
+    "subtitle": "ملفات تبقى خاصة إلى أن تفتح قفلها — مشفّرة على جهازك، ومُقنَّعة على القرص",
+    "desktopOnly": "‏Secure Files متاح في تطبيق سطح المكتب.",
+    "allFiles": "كل الملفات",
+    "overview": "نظرة عامة",
+    "statFiles": "الملفات",
+    "statFolders": "المجلدات",
+    "statContent": "حجم المحتوى",
+    "statContentHint": "الحجم الإجمالي للملفات الأصلية",
+    "statOnDisk": "على القرص",
+    "statOverhead": "‏{size} زيادة بسبب التشفير",
+    "byType": "حسب النوع",
+    "fileCount": "{count, plural, zero {لا ملفات} one {ملف واحد} two {ملفان} few {# ملفات} many {# ملفًا} other {# ملف}}",
+    "largestFiles": "أكبر الملفات",
+    "recentlyAdded": "المضافة حديثًا",
+    "openContainingFolder": "فتح المجلد الذي يحتويه",
+    "types": {
+      "image": "الصور",
+      "video": "الفيديو",
+      "audio": "الصوت",
+      "pdf": "PDF",
+      "archive": "الأرشيفات",
+      "code": "الشيفرة",
+      "doc": "المستندات",
+      "sheet": "جداول البيانات",
+      "file": "أخرى"
+    },
+    "breadcrumb": "مسار المجلد",
+    "addFiles": "إضافة ملفات",
+    "addFolder": "إضافة مجلد",
+    "importFolder": "استيراد مجلد",
+    "newFolder": "مجلد جديد",
+    "lock": "قفل",
+    "settings": "إعدادات التخزين",
+    "storageFolder": "مجلد التخزين",
+    "notSet": "غير محدد",
+    "chooseFolder": "اختيار مجلد",
+    "changeFolder": "تغيير المجلد…",
+    "chooseFolderTitle": "اختر مكان تخزين الملفات المشفّرة",
+    "chooseFolderBody": "اختر أي مجلد على هذا الجهاز أو على قرص خارجي. خارج MyDevTools لا يحتوي إلا على ملفات ‎.mydt‎ مُقنَّعة.",
+    "changeFolderTitle": "نقل الملفات المشفّرة؟",
+    "changeFolderBody": "ستُنقل جميع ملفات ‎.mydt‎ من مجلد التخزين الحالي إلى المجلد الذي ستختاره الآن.",
+    "folderSet": "تم تحديد مجلد التخزين",
+    "folderMissingTitle": "تعذّر العثور على مجلد التخزين",
+    "folderMissingBody": "‏«{dir}» غير متاح — قد يكون على قرص غير موصول أو يعود إلى نسخة احتياطية مستعادة من جهاز آخر. أعد توصيله أو اختر مجلدًا جديدًا.",
+    "movedCount": "تم نقل {count} من الملفات المشفّرة",
+    "importedCount": "تم تشفير {count} من الملفات",
+    "emptyFolderAdded": "تمت إضافة المجلد — لم يحتوِ على ملفات لتشفيرها",
+    "emptyTitle": "لا توجد ملفات هنا بعد",
+    "emptyBody": "أضف ملفات أو مجلدًا كاملًا. يُشفَّر كل ملف إلى كائن ‎.mydt‎ باسم عشوائي؛ الاسم الأصلي والنوع والمحتوى لا تظهر إلا هنا.",
+    "name": "الاسم",
+    "size": "الحجم",
+    "modified": "آخر تعديل",
+    "actions": "الإجراءات",
+    "expand": "توسيع",
+    "collapse": "طي",
+    "preview": "معاينة",
+    "noPreview": "لا تتوفر معاينة لهذا النوع من الملفات — صدّره لفتحه في تطبيق آخر.",
+    "export": "تصدير",
+    "exportWarningTitle": "تصدير نسخة غير مشفّرة؟",
+    "exportWarningBody": "سيُكتب الملف بدون تشفير في المكان الذي تختاره. يمكن لأي شيء على ذلك الجهاز قراءته.",
+    "exported": "تم تصدير النسخة غير المشفّرة",
+    "replace": "استبدال المحتوى…",
+    "replaced": "تم استبدال محتوى الملف",
+    "rename": "إعادة تسمية",
+    "fileName": "اسم الملف",
+    "move": "نقل إلى مجلد",
+    "targetFolder": "المجلد",
+    "targetFolderHint": "استخدم الشرطة المائلة للمجلدات المتداخلة، مثل project/config. اتركه فارغًا للمستوى الأعلى.",
+    "folderName": "اسم المجلد",
+    "delete": "حذف",
+    "deleted": "تم حذف الملف",
+    "deletedCount": "تم حذف {count} من الملفات",
+    "deleteFileTitle": "حذف هذا الملف؟",
+    "deleteFileBody": "سيُحذف «{name}» نهائيًا من مجلد التخزين المشفّر.",
+    "deleteFolderTitle": "حذف هذا المجلد؟",
+    "deleteFolderBody": "ستُحذف كل الملفات داخل «{dir}» نهائيًا من مجلد التخزين المشفّر.",
+    "unreadableCount": "ملفات غير قابلة للقراءة في مجلد التخزين: {count}",
+    "unreadableHint": "شُفِّرت بكلمة مرور رئيسية أخرى، أو تنتمي إلى خزنة أخرى، أو أنها تالفة.",
+    "dismiss": "إخفاء",
+    "viewGrid": "عرض شبكي",
+    "viewList": "عرض قائمة",
+    "footerNote": "ملفات حتى 20 ميغابايت. مشفّرة بـ Argon2id + XChaCha20-Poly1305؛ يبقى المفتاح في الذاكرة فقط ما دامت الخزنة مفتوحة.",
+    "cancel": "إلغاء",
+    "save": "حفظ"
   }
 }

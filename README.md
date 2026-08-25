@@ -176,6 +176,7 @@ go straight from your machine to your database.
 | Tool | Description |
 |---|---|
 | **Password Manager** | Credential vault encrypted with a password only you know |
+| **Secure Files** | Encrypt files and folders into masked `.mydt` objects in any folder you choose; browse, preview and export them after unlocking ([format spec](docs/MYDT_FORMAT.md), [`mydt` CLI](crates/mydt/README.md)) |
 | **Encryption Playground** | AES-GCM with a raw key or passphrase; encrypt/decrypt JSON bundles |
 | **JWT Decoder** | Decode JWT header, payload and expiry |
 | **Hash Generator** | MD5, SHA-1, SHA-256/384/512 digests for text or files |

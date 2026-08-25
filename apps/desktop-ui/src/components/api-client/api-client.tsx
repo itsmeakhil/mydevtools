@@ -1,6 +1,6 @@
 "use client"
 
-import { apiFetch } from "@/lib/desktop/api-fetch";
+import { apiFetch, sendProxyRequest } from "@/lib/desktop/api-fetch";
 import * as React from "react"
 import { Card } from "@/components/ui/card"
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable"
@@ -9,13 +9,8 @@ import { RequestTabs } from "./request-tabs"
 import { ResponsePanel } from "./response-panel"
 import { TabBar } from "./tab-bar"
 import { ImportCurlDialog, type ImportCurlTarget } from "./import-curl-dialog"
-import { ImportDialog } from "./import-dialog"
-import { CookieJarDialog } from "./cookie-jar-dialog"
-import { WebSocketPanel } from "./websocket-panel"
-import { GrpcPanel } from "./grpc-panel"
 import { SaveExampleDialog } from "./save-example-dialog"
 import { loadPlugins, instantiatePlugin, applyBeforeSend, applyAfterResponse, type PluginInstance } from "@/lib/plugins/plugin-runtime"
-import { MetricsDialog } from "./metrics-dialog"
 import { recordMetric, recordLog } from "@/lib/observability/metrics"
 import { OfflineIndicator } from "./offline-indicator"
 import { putCachedResponse, getCachedResponse } from "@/lib/cache/response-cache"
@@ -40,6 +35,7 @@ import {
     API_CLIENT_ERROR_STATUS_TEXT,
     ScriptTestResult,
     ScriptLog,
+    type ApiResponse,
 } from "./types"
 import type { ScriptContext } from "./workers/scripts-runner.worker"
 import { useTranslations } from "next-intl"
@@ -78,6 +74,13 @@ const CodeGenerator = dynamic(
     () => import("./code-generator").then(m => ({ default: m.CodeGenerator })),
     { ssr: false, loading: () => null }
 )
+// Heavy or rarely-used surfaces stay out of the route's critical chunk:
+// gRPC pulls protobufjs, the importer pulls js-yaml + every importer.
+const GrpcPanel = dynamic(() => import("./grpc-panel").then(m => ({ default: m.GrpcPanel })), { ssr: false, loading: () => null })
+const WebSocketPanel = dynamic(() => import("./websocket-panel").then(m => ({ default: m.WebSocketPanel })), { ssr: false, loading: () => null })
+const ImportDialog = dynamic(() => import("./import-dialog").then(m => ({ default: m.ImportDialog })), { ssr: false, loading: () => null })
+const CookieJarDialog = dynamic(() => import("./cookie-jar-dialog").then(m => ({ default: m.CookieJarDialog })), { ssr: false, loading: () => null })
+const MetricsDialog = dynamic(() => import("./metrics-dialog").then(m => ({ default: m.MetricsDialog })), { ssr: false, loading: () => null })
 
 /**
  * Tag history entries with the HTTP method when falling back to URL, so the list
@@ -107,6 +110,7 @@ function buildRequestUrl(raw: string): URL {
 
 function ApiClientInner() {
     const t = useTranslations("ApiClient")
+    const tNav = useTranslations("Navigation")
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
 
@@ -201,11 +205,11 @@ function ApiClientInner() {
         toast.success(`Saved example "${name}"`)
     }
 
-    const handleDeleteExample = (id: string) => {
-        updateActiveTab({ examples: (activeTab.examples ?? []).filter((e) => e.id !== id) })
-    }
+    const handleDeleteExample = React.useCallback((id: string) => {
+        updateActiveTab((tab) => ({ examples: (tab.examples ?? []).filter((e) => e.id !== id) }))
+    }, [updateActiveTab])
 
-    const handleLoadExample = (example: SavedExample) => {
+    const handleLoadExample = React.useCallback((example: SavedExample) => {
         updateActiveTab({
             response: {
                 status: example.response.status,
@@ -219,7 +223,25 @@ function ApiClientInner() {
             isLoading: false,
         })
         toast.success(`Loaded example "${example.name}"`)
-    }
+    }, [updateActiveTab])
+
+    // One stable setter per RequestTabs field. Inline `(v) => updateActiveTab({...})`
+    // props defeated RequestTabs' memo and re-rendered the whole editor per keystroke.
+    const setField = React.useMemo(() => {
+        const make = <K extends keyof ApiRequestState>(key: K) =>
+            (value: ApiRequestState[K]) => updateActiveTab({ [key]: value } as Partial<ApiRequestState>)
+        return {
+            params: make("params"),
+            headers: make("headers"),
+            body: make("body"),
+            auth: make("auth"),
+            preRequestScript: make("preRequestScript"),
+            testScript: make("testScript"),
+            graphqlSchema: make("graphqlSchema"),
+            comments: make("comments"),
+        }
+    }, [updateActiveTab])
+    const openSaveExample = React.useCallback(() => setSaveExampleOpen(true), [])
 
     // Scroll position memory for mobile panel toggle
     const scrollMemory = React.useRef<{ request: number; response: number }>({ request: 0, response: 0 })
@@ -302,12 +324,16 @@ function ApiClientInner() {
     }
 
     const { copyToClipboard } = useCopyToClipboard()
+    // Latest-value ref so callbacks handed to memoized children (RequestPanel)
+    // stay referentially stable across keystrokes.
+    const activeTabRef = React.useRef(activeTab)
+    React.useEffect(() => { activeTabRef.current = activeTab }, [activeTab])
     const handleCopyCurl = React.useCallback(() => {
-        void copyToClipboard(generateCode(activeTab, "curl"), {
+        void copyToClipboard(generateCode(activeTabRef.current, "curl"), {
             successMessage: t("toasts.curlCopied"),
             errorMessage: t("toasts.copyFailed"),
         })
-    }, [activeTab, copyToClipboard, t])
+    }, [copyToClipboard, t])
 
     const handleSaveRequest = (parentId: string, name: string) => {
         const requestToSave: CollectionRequest = {
@@ -324,7 +350,7 @@ function ApiClientInner() {
         updateActiveTab({ name })
     }
 
-    const handleLoadRequest = (request: CollectionRequest) => {
+    const handleLoadRequest = React.useCallback((request: CollectionRequest) => {
         // Locate the request inside any collection so we can fold ancestor folders'
         // defaults (headers / auth / scripts) into the materialised tab. A request
         // edited in a tab is a snapshot — later folder-default edits don't propagate.
@@ -344,15 +370,15 @@ function ApiClientInner() {
             isLoading: false,
         }
         appendTab(newTab)
-    }
+    }, [collections, appendTab])
 
-    const handleCancel = () => {
+    const handleCancel = React.useCallback(() => {
         abortControllerRef.current?.abort()
         abortControllerRef.current = null
         updateActiveTab({ isLoading: false })
-    }
+    }, [updateActiveTab])
 
-    const handleSend = React.useCallback(async () => {
+    const sendImpl = React.useCallback(async () => {
         if (!activeTab.url?.trim()) return
 
         abortControllerRef.current?.abort()
@@ -441,8 +467,19 @@ function ApiClientInner() {
             // Resolve cross-tool secrets referenced anywhere in the request
             // (scan the raw tab JSON so params/headers/auth/body are all covered).
             // Throws a user-facing message when the vault is locked → outer catch.
+            // Only the editable request parts — stringifying the whole tab dragged
+            // the previous response body and every saved example through the scan.
             secretVars = await resolveSecretVariables(
-                [workUrl, JSON.stringify(workHeaders), JSON.stringify(activeTab)],
+                [
+                    workUrl,
+                    JSON.stringify(workHeaders),
+                    JSON.stringify({
+                        params: activeTab.params,
+                        headers: activeTab.headers,
+                        auth: activeTab.auth,
+                        body: { ...activeTab.body, formData: activeTab.body.formData?.map((f) => ({ ...f, fileContentBase64: undefined })) },
+                    }),
+                ],
                 cipherKey,
             )
 
@@ -774,24 +811,23 @@ function ApiClientInner() {
             Object.assign(headersObj, beforeApplied.req.headers)
             const finalUrlFromPlugins = beforeApplied.req.url
 
-            // Send via Proxy
-            const res = await apiFetch("/api/proxy", {
-                method: "POST",
-                credentials: "include",
-                signal: controller.signal,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    url: finalUrlFromPlugins,
-                    method: beforeApplied.req.method,
-                    headers: headersObj,
-                    body: beforeApplied.req.body ?? bodyPayload ?? bodyContent,
-                    timeoutMs: activeTab.timeoutMs,
-                }),
-            })
-
-            const proxyData = await res.json()
+            // Send via Proxy (envelope returned directly — no fake Response round-trip)
+            const rawEnvelope = await sendProxyRequest({
+                url: finalUrlFromPlugins,
+                method: beforeApplied.req.method,
+                headers: headersObj,
+                body: beforeApplied.req.body ?? bodyPayload ?? bodyContent,
+                timeoutMs: activeTab.timeoutMs,
+            }, controller.signal)
+            const proxyData = {
+                ...rawEnvelope,
+                statusText: rawEnvelope.statusText ?? "",
+                headers: rawEnvelope.headers ?? {},
+                body: rawEnvelope.body ?? "",
+                time: rawEnvelope.time ?? 0,
+                size: rawEnvelope.size ?? 0,
+                redirectChain: rawEnvelope.redirectChain as ApiResponse["redirectChain"],
+            }
 
             // Plugins: onAfterResponse hook gets the live response.
             applyAfterResponse(pluginInstancesRef.current, {
@@ -862,10 +898,10 @@ function ApiClientInner() {
                     },
                     response: {
                         status: proxyData.status,
-                        statusText: proxyData.statusText,
-                        headers: proxyData.headers,
-                        body: proxyData.body,
-                        time: proxyData.time,
+                        statusText: proxyData.statusText ?? "",
+                        headers: proxyData.headers ?? {},
+                        body: proxyData.body ?? "",
+                        time: proxyData.time ?? 0,
                     },
                     environment: { ...activeEnvironmentVariables, ...scriptEnvOverlay },
                     variables: { ...sessionVarsRef.current },
@@ -911,15 +947,15 @@ function ApiClientInner() {
             updateActiveTab({
                 response: {
                     status: proxyData.status,
-                    statusText: proxyData.statusText,
-                    headers: proxyData.headers,
-                    body: formattedBody,
+                    statusText: proxyData.statusText ?? "",
+                    headers: proxyData.headers ?? {},
+                    body: formattedBody ?? "",
                     isBase64: proxyData.isBase64,
-                    time: proxyData.time,
-                    size: proxyData.size,
+                    time: proxyData.time ?? 0,
+                    size: proxyData.size ?? 0,
                     error: proxyData.error,
                     setCookies: proxyData.setCookies,
-                    redirectChain: proxyData.redirectChain,
+                    redirectChain: proxyData.redirectChain as ApiResponse["redirectChain"],
                 },
                 scriptResults: (scriptTests.length || scriptLogs.length || scriptErrors.length)
                     ? { tests: scriptTests, logs: scriptLogs, errors: scriptErrors }
@@ -1008,8 +1044,13 @@ function ApiClientInner() {
         cipherKey,
         t,
     ])
+    // `sendImpl` changes identity on every keystroke (it closes over activeTab);
+    // the stable wrapper keeps RequestPanel memoized and the keydown listener put.
+    const sendRef = React.useRef(sendImpl)
+    React.useEffect(() => { sendRef.current = sendImpl }, [sendImpl])
+    const handleSend = React.useCallback(() => sendRef.current(), [])
 
-    const handleCurlPaste = (curl: string) => {
+    const handleCurlPaste = React.useCallback((curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
             // No URL extracted → don't claim success and don't wipe the current URL.
@@ -1029,7 +1070,7 @@ function ApiClientInner() {
             console.error(error)
             toast.error(t("toasts.curlParseFailed"))
         }
-    }
+    }, [updateActiveTab, replaceUrlWithEnvBaseUrl, t])
 
     // Keyboard shortcuts.
     // Cmd/Ctrl+T and Cmd/Ctrl+W are hard-reserved by the browser (`preventDefault`
@@ -1053,7 +1094,6 @@ function ApiClientInner() {
         }
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [addTab, closeTab, handleSend, activeTabId])
 
     // Desktop request column — reused whether it sits full-width (no response yet)
@@ -1077,25 +1117,25 @@ function ApiClientInner() {
             <div className="flex-1 min-h-0">
                 <RequestTabs
                     params={activeTab.params}
-                    setParams={(params) => updateActiveTab({ params })}
+                    setParams={setField.params}
                     headers={activeTab.headers}
-                    setHeaders={(headers) => updateActiveTab({ headers })}
+                    setHeaders={setField.headers}
                     body={activeTab.body}
-                    setBody={(body) => updateActiveTab({ body })}
+                    setBody={setField.body}
                     auth={activeTab.auth}
-                    setAuth={(auth) => updateActiveTab({ auth })}
+                    setAuth={setField.auth}
                     preRequestScript={activeTab.preRequestScript}
-                    setPreRequestScript={(s) => updateActiveTab({ preRequestScript: s })}
+                    setPreRequestScript={setField.preRequestScript}
                     testScript={activeTab.testScript}
-                    setTestScript={(s) => updateActiveTab({ testScript: s })}
+                    setTestScript={setField.testScript}
                     graphqlUrl={activeTab.url}
                     graphqlSchema={activeTab.graphqlSchema}
-                    setGraphqlSchema={(s) => updateActiveTab({ graphqlSchema: s })}
+                    setGraphqlSchema={setField.graphqlSchema}
                     examples={activeTab.examples}
                     onDeleteExample={handleDeleteExample}
                     onLoadExample={handleLoadExample}
                     comments={activeTab.comments}
-                    setComments={(next) => updateActiveTab({ comments: next })}
+                    setComments={setField.comments}
                 />
             </div>
         </div>
@@ -1110,7 +1150,10 @@ function ApiClientInner() {
             className="mobile-nav-offset"
         >
             <div className="flex-1 flex flex-col gap-4 min-w-0 h-full">
-                <div className="flex flex-wrap justify-between items-center gap-2">
+                <div className="flex flex-wrap justify-between items-center gap-2 px-4 pt-3">
+                    {/* The panel header carries "Collections"; without this the tool
+                        itself was unnamed, and unnamed entirely once collapsed. */}
+                    <h1 className="text-sm font-semibold tracking-tight">{tNav("apiClient")}</h1>
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
                         {isMobile ? (
                             /* Mobile: secondary actions collapsed into dropdown */
@@ -1199,7 +1242,7 @@ function ApiClientInner() {
                                 >
                                     <IconSettings className="h-4 w-4" />
                                 </Button>
-                                <div className="h-6 w-px bg-border/50 mx-1" />
+                                <div className="h-5 w-px shrink-0 bg-border" />
                                 <Button
                                     variant="ghost"
                                     size="icon"
@@ -1249,7 +1292,9 @@ function ApiClientInner() {
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-                                <div className="h-6 w-px bg-border/50 mx-1" />
+                                {/* No divider here — OfflineIndicator renders null while
+                                    online, and a lone divider left a phantom gap. It brings
+                                    its own separator when it has something to show. */}
                                 <OfflineIndicator />
                             </>
                         )}
@@ -1378,25 +1423,25 @@ function ApiClientInner() {
                                         />
                                         <RequestTabs
                                             params={activeTab.params}
-                                            setParams={(params) => updateActiveTab({ params })}
+                                            setParams={setField.params}
                                             headers={activeTab.headers}
-                                            setHeaders={(headers) => updateActiveTab({ headers })}
+                                            setHeaders={setField.headers}
                                             body={activeTab.body}
-                                            setBody={(body) => updateActiveTab({ body })}
+                                            setBody={setField.body}
                                             auth={activeTab.auth}
-                                            setAuth={(auth) => updateActiveTab({ auth })}
+                                            setAuth={setField.auth}
                                             preRequestScript={activeTab.preRequestScript}
-                                            setPreRequestScript={(s) => updateActiveTab({ preRequestScript: s })}
+                                            setPreRequestScript={setField.preRequestScript}
                                             testScript={activeTab.testScript}
-                                            setTestScript={(s) => updateActiveTab({ testScript: s })}
+                                            setTestScript={setField.testScript}
                                             graphqlUrl={activeTab.url}
                                             graphqlSchema={activeTab.graphqlSchema}
-                                            setGraphqlSchema={(s) => updateActiveTab({ graphqlSchema: s })}
+                                            setGraphqlSchema={setField.graphqlSchema}
                                             examples={activeTab.examples}
                                             onDeleteExample={handleDeleteExample}
                                             onLoadExample={handleLoadExample}
                                             comments={activeTab.comments}
-                                            setComments={(next) => updateActiveTab({ comments: next })}
+                                            setComments={setField.comments}
                                         />
                                     </div>
                                 </div>
@@ -1406,29 +1451,28 @@ function ApiClientInner() {
                                     onScroll={(e) => { scrollMemory.current.response = (e.target as HTMLDivElement).scrollTop }}
                                 >
                                     <div className="p-4">
-                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} onSaveExample={activeTab.response ? () => setSaveExampleOpen(true) : undefined} />
+                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} onSaveExample={activeTab.response ? openSaveExample : undefined} />
                                     </div>
                                 </div>
                             </>
-                        ) : !activeTab.response && !activeTab.isLoading ? (
-                            /* Desktop: no response yet — request panel gets the full width */
-                            <div className="h-full flex flex-col">
-                                {desktopRequestContent}
-                            </div>
                         ) : (
-                            /* Desktop: side-by-side resizable panels once a response exists / is loading */
+                            /* Desktop: the request panel is always mounted in the same group; the
+                               response panel joins the split once a response exists / is loading.
+                               Swapping the whole layout on Send remounted every Monaco editor. */
                             <ResizablePanelGroup direction="horizontal" className="h-full w-full">
-                                <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full">
+                                <ResizablePanel id="request" order={1} defaultSize={50} minSize={30} className="flex flex-col h-full">
                                     {desktopRequestContent}
                                 </ResizablePanel>
-
-                                <ResizableHandle withHandle className="w-1.5 bg-border/40 hover:bg-primary/20 transition-colors" />
-
-                                <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
-                                    <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
-                                        <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} onSaveExample={activeTab.response ? () => setSaveExampleOpen(true) : undefined} />
-                                    </div>
-                                </ResizablePanel>
+                                {(activeTab.response || activeTab.isLoading) && (
+                                    <>
+                                        <ResizableHandle withHandle className="w-1.5 bg-border/40 hover:bg-primary/20 transition-colors" />
+                                        <ResizablePanel id="response" order={2} defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
+                                            <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                                                <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} onSaveExample={activeTab.response ? openSaveExample : undefined} />
+                                            </div>
+                                        </ResizablePanel>
+                                    </>
+                                )}
                             </ResizablePanelGroup>
                         )}
                     </div>

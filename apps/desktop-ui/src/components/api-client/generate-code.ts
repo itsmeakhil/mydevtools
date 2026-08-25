@@ -256,7 +256,7 @@ function generateGo(method: string, url: string, headers: Record<string, string>
             .replace(/\t/g, "\\t")
             .replace(/\f/g, "\\f")
             .replace(/\v/g, "\\v")
-            .replace(/ /g, "\\x00")
+            .replace(/\0/g, "\\x00")
         code += `\n\tpayload := strings.NewReader("${escaped}")\n`
         code += `\n\treq, err := http.NewRequest("${method}", "${url}", payload)\n`
         code += `\tif err != nil {\n\t\tfmt.Println(err)\n\t\treturn\n\t}\n`

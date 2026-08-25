@@ -76,7 +76,8 @@
     "tokenCounter": "Compteur de tokens",
     "webhookTester": "Testeur de webhook",
     "websocketTester": "Testeur WebSocket",
-    "whoisLookup": "Recherche Whois"
+    "whoisLookup": "Recherche Whois",
+    "secureFiles": "Fichiers"
   },
   "Help": {
     "title": "Aide & documentation",
@@ -183,6 +184,7 @@
       "namePlaceholder": "e.g. Alex",
       "avatarLabel": "Avatar URL",
       "avatarPlaceholder": "https://…",
+      "edit": "Modifier",
       "save": "Save",
       "saved": "Profile saved",
       "saveError": "Could not save your profile"
@@ -307,6 +309,22 @@
       "restoring": "Restauration…",
       "restoreSuccess": "Sauvegarde restaurée",
       "restoreError": "Échec de la restauration — phrase secrète incorrecte ou fichier non valide"
+    },
+    "backupCodes": {
+      "title": "Codes de secours",
+      "description": "Codes à usage unique pour récupérer votre coffre si vous oubliez votre mot de passe maître.",
+      "remaining": "{remaining} sur {total} codes restants",
+      "none": "Aucun code de secours enregistré.",
+      "hint": "Générer une nouvelle série invalide tous les codes existants.",
+      "passwordPlaceholder": "Mot de passe maître",
+      "regenerateButton": "Générer de nouveaux codes",
+      "generating": "Génération…",
+      "wrongPassword": "Mot de passe maître incorrect",
+      "success": "Nouveaux codes de secours générés",
+      "error": "Impossible de générer les codes de secours",
+      "newCodesWarning": "Vous ne pourrez plus les afficher. Téléchargez-les ou copiez-les maintenant.",
+      "downloadButton": "Télécharger",
+      "doneButton": "J'ai enregistré mes codes"
     }
   },
   "Dashboard": {
@@ -635,6 +653,10 @@
       "whoisLookup": {
         "title": "Recherche Whois",
         "description": "Consultez les détails d'enregistrement d'un domaine ou d'une IP via RDAP."
+      },
+      "secureFiles": {
+        "title": "Fichiers",
+        "description": "Chiffrez fichiers et dossiers en objets .mydt masqués ; parcourez-les et prévisualisez-les après déverrouillage."
       }
     },
     "tabs": {
@@ -2278,7 +2300,8 @@
       "responseCopied": "Réponse copiée",
       "codeCopied": "Code copié",
       "copyFailed": "Impossible de copier dans le presse-papiers",
-      "curlCopied": "Commande cURL copiée"
+      "curlCopied": "Commande cURL copiée",
+      "curlNoUrl": "No URL found in that cURL command"
     },
     "layout": {
       "collections": "Collections",
@@ -2351,6 +2374,8 @@
     "collectionsSidebar": {
       "title": "Ressources API",
       "newCollection": "Nouvelle collection",
+      "openFolderCollection": "Ouvrir un dossier comme collection",
+      "folderCollection": "Collection de dossier",
       "tabCollections": "Collections",
       "tabHistory": "Historique",
       "noCollectionsTitle": "Aucune collection",
@@ -2392,6 +2417,7 @@
       "placeholderNewEnv": "Nouvel environnement",
       "variablesHeading": "Variables {name}",
       "addVariable": "Ajouter une variable",
+      "exportPostman": "Exporter (environnement Postman)",
       "columnVariable": "Variable",
       "columnValue": "Valeur",
       "placeholderKey": "Clé",
@@ -2448,7 +2474,16 @@
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",
-      "shortcuts": "Keyboard shortcuts"
+      "shortcuts": "Keyboard shortcuts",
+      "importCollection": "Import collection (Postman / HAR)",
+      "cookies": "Cookies",
+      "perfRun": "Performance run",
+      "fuzzRun": "Fuzz run",
+      "publicMocks": "Public mocks",
+      "plugins": "Plugins",
+      "metrics": "Metrics",
+      "recorder": "Capture & replay",
+      "extensionImported": "Imported {method} {url} from extension"
     }
   },
   "RichEditor": {
@@ -5188,6 +5223,12 @@
     "offline": "100 % hors ligne"
   },
   "ToolSidebar": {
+    "expand": "Développer la barre latérale",
+    "collapse": "Réduire la barre latérale",
+    "resize": "Redimensionner la barre latérale",
+    "resetWidth": "Réinitialiser la largeur",
+    "moreSections": "Plus de sections",
+    "sections": "Sections de la barre latérale",
     "show": "Afficher la barre latérale",
     "hide": "Masquer la barre latérale"
   },
@@ -5211,5 +5252,92 @@
       "accept": "Partager anonymement",
       "decline": "Non merci"
     }
+  },
+  "SecureFiles": {
+    "title": "Fichiers",
+    "subtitle": "Des fichiers qui restent privés jusqu'à leur déverrouillage — chiffrés sur votre appareil, masqués sur le disque",
+    "desktopOnly": "Secure Files est disponible dans l'application de bureau.",
+    "allFiles": "Tous les fichiers",
+    "overview": "Vue d'ensemble",
+    "statFiles": "Fichiers",
+    "statFolders": "Dossiers",
+    "statContent": "Taille du contenu",
+    "statContentHint": "Taille totale des fichiers d'origine",
+    "statOnDisk": "Sur le disque",
+    "statOverhead": "{size} de surcoût de chiffrement",
+    "byType": "Par type",
+    "fileCount": "{count, plural, one {# fichier} other {# fichiers}}",
+    "largestFiles": "Fichiers les plus volumineux",
+    "recentlyAdded": "Ajoutés récemment",
+    "openContainingFolder": "Ouvrir le dossier parent",
+    "types": {
+      "image": "Images",
+      "video": "Vidéo",
+      "audio": "Audio",
+      "pdf": "PDF",
+      "archive": "Archives",
+      "code": "Code",
+      "doc": "Documents",
+      "sheet": "Feuilles de calcul",
+      "file": "Autres"
+    },
+    "breadcrumb": "Chemin du dossier",
+    "addFiles": "Ajouter des fichiers",
+    "addFolder": "Ajouter un dossier",
+    "importFolder": "Importer un dossier",
+    "newFolder": "Nouveau dossier",
+    "lock": "Verrouiller",
+    "settings": "Paramètres de stockage",
+    "storageFolder": "Dossier de stockage",
+    "notSet": "Non défini",
+    "chooseFolder": "Choisir un dossier",
+    "changeFolder": "Changer de dossier…",
+    "chooseFolderTitle": "Choisissez où stocker les fichiers chiffrés",
+    "chooseFolderBody": "Choisissez n'importe quel dossier sur cet appareil ou sur un disque externe. En dehors de MyDevTools, il ne contient que des fichiers .mydt masqués.",
+    "changeFolderTitle": "Déplacer les fichiers chiffrés ?",
+    "changeFolderBody": "Tous les fichiers .mydt seront déplacés du dossier de stockage actuel vers celui que vous choisirez ensuite.",
+    "folderSet": "Dossier de stockage défini",
+    "folderMissingTitle": "Dossier de stockage introuvable",
+    "folderMissingBody": "« {dir} » n'est pas disponible — il se trouve peut-être sur un disque débranché ou provient d'une sauvegarde restaurée depuis une autre machine. Reconnectez-le ou choisissez un nouveau dossier.",
+    "movedCount": "{count} fichiers chiffrés déplacés",
+    "importedCount": "{count} fichiers chiffrés",
+    "emptyFolderAdded": "Dossier ajouté — il ne contenait aucun fichier à chiffrer",
+    "emptyTitle": "Aucun fichier ici pour l'instant",
+    "emptyBody": "Ajoutez des fichiers ou un dossier entier. Chaque fichier est chiffré dans un objet .mydt au nom aléatoire ; le nom, le type et le contenu d'origine ne sont visibles qu'ici.",
+    "name": "Nom",
+    "size": "Taille",
+    "modified": "Modifié",
+    "actions": "Actions",
+    "expand": "Développer",
+    "collapse": "Réduire",
+    "preview": "Aperçu",
+    "noPreview": "Aucun aperçu pour ce type de fichier — exportez-le pour l'ouvrir dans une autre application.",
+    "export": "Exporter",
+    "exportWarningTitle": "Exporter une copie déchiffrée ?",
+    "exportWarningBody": "Le fichier sera écrit en clair à l'emplacement choisi. Tout ce qui se trouve sur cet appareil pourra le lire.",
+    "exported": "Copie déchiffrée exportée",
+    "replace": "Remplacer le contenu…",
+    "replaced": "Contenu du fichier remplacé",
+    "rename": "Renommer",
+    "fileName": "Nom du fichier",
+    "move": "Déplacer vers un dossier",
+    "targetFolder": "Dossier",
+    "targetFolderHint": "Utilisez des barres obliques pour les dossiers imbriqués, par exemple projet/config. Laissez vide pour le niveau supérieur.",
+    "folderName": "Nom du dossier",
+    "delete": "Supprimer",
+    "deleted": "Fichier supprimé",
+    "deletedCount": "{count} fichiers supprimés",
+    "deleteFileTitle": "Supprimer ce fichier ?",
+    "deleteFileBody": "« {name} » sera définitivement retiré du dossier de stockage chiffré.",
+    "deleteFolderTitle": "Supprimer ce dossier ?",
+    "deleteFolderBody": "Tous les fichiers sous « {dir} » seront définitivement retirés du dossier de stockage chiffré.",
+    "unreadableCount": "Fichiers illisibles dans le dossier de stockage : {count}",
+    "unreadableHint": "Ils ont été chiffrés avec un autre mot de passe maître, appartiennent à un autre coffre-fort ou sont corrompus.",
+    "dismiss": "Ignorer",
+    "viewGrid": "Vue en grille",
+    "viewList": "Vue en liste",
+    "footerNote": "Fichiers jusqu'à 20 Mo. Chiffrés avec Argon2id + XChaCha20-Poly1305 ; la clé ne réside en mémoire que pendant le déverrouillage du coffre-fort.",
+    "cancel": "Annuler",
+    "save": "Enregistrer"
   }
 }

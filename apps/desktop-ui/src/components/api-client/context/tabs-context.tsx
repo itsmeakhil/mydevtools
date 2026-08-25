@@ -6,6 +6,40 @@ import { ApiRequestState, API_CLIENT_DEFAULT_TAB_NAME } from "../types"
 const TABS_STORAGE_KEY = "api-client-tabs"
 const ACTIVE_TAB_STORAGE_KEY = "api-client-active-tab"
 
+/**
+ * Shape a tab for localStorage. Always drops runtime state (response, loading,
+ * websocket transcript) and the re-fetchable GraphQL schema. With `aggressive`
+ * it also drops saved-example bodies and uploaded file bytes — used only as a
+ * fallback when the full copy overflows the ~5 MB quota, so one big example
+ * can't wipe every open tab.
+ */
+export function slimTabsForStorage(tabs: ApiRequestState[], aggressive = false): Partial<ApiRequestState>[] {
+    return tabs.map((t) => {
+        const { response: _r, isLoading: _l, websocket: _ws, graphqlSchema: _gs, ...rest } = t
+        if (!aggressive) return rest
+        return {
+            ...rest,
+            examples: rest.examples?.map((e) => ({ ...e, response: { ...e.response, body: "" } })),
+            body: {
+                ...rest.body,
+                formData: rest.body.formData?.map((f) =>
+                    f.fileContentBase64 ? { ...f, fileContentBase64: "" } : f),
+            },
+        }
+    })
+}
+
+function persistTabs(tabs: ApiRequestState[]) {
+    for (const aggressive of [false, true]) {
+        try {
+            localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slimTabsForStorage(tabs, aggressive)))
+            return
+        } catch (e) {
+            console.warn(`api-client tabs: localStorage write failed (aggressive=${aggressive})`, e)
+        }
+    }
+}
+
 export const createNewTab = (kind: "rest" | "websocket" | "grpc" = "rest"): ApiRequestState => ({
     id: crypto.randomUUID(),
     name: kind === "websocket" ? "New WebSocket" : kind === "grpc" ? "New gRPC" : API_CLIENT_DEFAULT_TAB_NAME,
@@ -101,42 +135,18 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
         activeTabIdRef.current = activeTabId
     })
 
-    // Save tabs to localStorage — strip `response`/`isLoading` (responses can be MBs and
-    // would blow the per-origin localStorage quota). Writes are debounced to 500ms so rapid
-    // edits (e.g. typing in the URL input) don't saturate the storage layer.
+    // Save tabs to localStorage. Writes are debounced to 500ms so rapid edits
+    // (e.g. typing in the URL input) don't saturate the storage layer.
     React.useEffect(() => {
         if (!isInitialized) return
-        const timeoutId = setTimeout(() => {
-            const slim = tabsRef.current.map((t) => {
-                // Drop response (big) + isLoading + websocket runtime (transcript can be huge)
-                // before persisting. WS config (status/draft/protocols) is rebuilt fresh on reload.
-                const { response: _r, isLoading: _l, websocket: _ws, ...rest } = t
-                return rest
-            })
-            try {
-                localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
-            } catch (e) {
-                console.warn("api-client tabs: localStorage write failed, dropping persisted state", e)
-                try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
-            }
-        }, 500)
+        const timeoutId = setTimeout(() => persistTabs(tabsRef.current), 500)
         return () => clearTimeout(timeoutId)
     }, [tabs, isInitialized])
 
     // Flush the latest tab state immediately on unmount so mid-debounce edits
     // are not lost when the user navigates away.
     React.useEffect(() => {
-        return () => {
-            const slim = tabsRef.current.map((t) => {
-                // Drop response (big) + isLoading + websocket runtime (transcript can be huge)
-                // before persisting. WS config (status/draft/protocols) is rebuilt fresh on reload.
-                const { response: _r, isLoading: _l, websocket: _ws, ...rest } = t
-                return rest
-            })
-            try {
-                localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(slim))
-            } catch { /* noop */ }
-        }
+        return () => { persistTabs(tabsRef.current) }
     }, [])
 
     // Save active tab id to localStorage

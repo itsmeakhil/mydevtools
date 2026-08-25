@@ -68,7 +68,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ToolSidebarActions, ToolSidebarLayout } from "@/components/tools/tool-sidebar";
+import { ToolSidebarActions, ToolSidebarLayout, useToolSidebarRail } from "@/components/tools/tool-sidebar";
 import { cn } from "@/lib/utils";
 import {
   SnippetMonaco,
@@ -318,6 +318,27 @@ export function SnippetManagerTool() {
   const visibleSnippets = filtered.slice(0, snDisplayCount);
   const pinnedVisible = visibleSnippets.filter((s) => s.pinned);
   const unpinnedVisible = visibleSnippets.filter((s) => !s.pinned);
+
+  // Pinned snippets are the sidebar's own shortlist, so they are what the
+  // collapsed rail offers. Flushing the pending save mirrors the row click —
+  // selecting from the rail must not drop an unsaved edit.
+  useToolSidebarRail(
+    "pinned",
+    useMemo(
+      () =>
+        pinnedVisible.slice(0, 8).map((s) => ({
+          id: s.id,
+          label: s.title,
+          icon: IconCode,
+          active: s.id === selectedId,
+          onSelect: () => {
+            debouncedSaveCode.flush();
+            setSelectedId(s.id);
+          },
+        })),
+      [pinnedVisible, selectedId, debouncedSaveCode]
+    )
+  );
 
   const effectiveLanguage = useMemo(
     () => resolveEditorLanguage(draftLanguage, debouncedCode),

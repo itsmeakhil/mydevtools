@@ -6,6 +6,10 @@ import { toast } from "sonner"
 import useAuth from "@/utils/useAuth"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
+import { isDesktop } from "@/lib/desktop/is-desktop"
+import { countLiteralAuthSecrets, diffFiles, newManifest, parseCollection, serializeCollection, MANIFEST_FILE } from "@/lib/api-client/file-store"
+import { moveCollectionSecretsToVault } from "@/lib/api-client/move-to-vault"
+import { useCipherKey } from "@/lib/use-cipher-key"
 
 const STORAGE_KEY = "api-client-collections"
 
@@ -13,11 +17,154 @@ function sortCollections(cols: Collection[]) {
     return [...cols].sort((a, b) => a.name.localeCompare(b.name))
 }
 
+/** Carry UI-only open/closed state (stripped from disk) across reloads, by folder id. */
+function applyOpenState(prev: Collection | undefined, next: Collection): Collection {
+    if (!prev) return next
+    const openIds = new Set<string>()
+    const collect = (items: Collection["items"]) => {
+        for (const item of items) {
+            if ("type" in item && item.type === "folder") {
+                if (item.isOpen) openIds.add(item.id)
+                collect(item.items)
+            }
+        }
+    }
+    collect(prev.items)
+    const apply = (items: Collection["items"]): Collection["items"] =>
+        items.map((item) =>
+            "type" in item && item.type === "folder"
+                ? { ...item, isOpen: openIds.has(item.id), items: apply(item.items) }
+                : item
+        )
+    return { ...next, items: apply(next.items) }
+}
+
 export function useCollections() {
     const { user, loading } = useAuth()
     const [collections, setCollections] = React.useState<Collection[]>([])
+    const [fileCollections, setFileCollections] = React.useState<Collection[]>([])
     const [isLoading, setIsLoading] = React.useState(true)
     const migrationRanRef = React.useRef(false)
+    /** Paths already toasted about, so a failing folder doesn't re-toast on every window focus. */
+    const failedFilePathsRef = React.useRef(new Set<string>())
+    /** Collections already warned about literal credentials — once per session is enough. */
+    const secretWarnedRef = React.useRef(new Set<string>())
+    const cipherKey = useCipherKey()
+    // Latest file collections for toast-action callbacks (they outlive the closing render).
+    const fileCollectionsRef = React.useRef(fileCollections)
+    fileCollectionsRef.current = fileCollections
+
+    // DB collections + folder-backed collections, one list for consumers.
+    const allCollections = React.useMemo(
+        () => sortCollections([...collections, ...fileCollections]),
+        [collections, fileCollections]
+    )
+
+    /** (Re-)read every registered folder collection from disk. Desktop only. */
+    const reloadFileCollections = React.useCallback(async () => {
+        if (!isDesktop()) return
+        const { readCollectionFiles, allowCollectionDir, loadCollectionRegistry } = await import(
+            "@/lib/desktop/collection-files"
+        )
+        const paths = await loadCollectionRegistry()
+        if (paths.length === 0) {
+            setFileCollections((cur) => (cur.length === 0 ? cur : []))
+            return
+        }
+        const loaded: Collection[] = []
+        for (const path of paths) {
+            try {
+                await allowCollectionDir(path)
+                const { collection, warnings } = parseCollection(await readCollectionFiles(path))
+                warnings.forEach((w) => console.warn(`[file-collection] ${path}: ${w}`))
+                loaded.push({ ...collection, source: { kind: "file", path } })
+                failedFilePathsRef.current.delete(path)
+            } catch (e) {
+                console.error(`Failed to read folder collection at ${path}`, e)
+                if (!failedFilePathsRef.current.has(path)) {
+                    failedFilePathsRef.current.add(path)
+                    toast.error(`Couldn't read folder collection: ${path}`)
+                }
+            }
+        }
+        setFileCollections((cur) => {
+            const next = loaded.map((col) => applyOpenState(cur.find((c) => c.id === col.id), col))
+            return JSON.stringify(next) === JSON.stringify(cur) ? cur : next
+        })
+    }, [])
+
+    // Load folder collections on mount and when the window regains focus
+    // (catches git pulls / external editor changes — no file watcher in v1).
+    React.useEffect(() => {
+        if (!isDesktop()) return
+        void reloadFileCollections()
+        const onFocus = () => void reloadFileCollections()
+        window.addEventListener("focus", onFocus)
+        return () => window.removeEventListener("focus", onFocus)
+    }, [reloadFileCollections])
+
+    /**
+     * Persist a mutated folder collection: swap state optimistically, then write
+     * only the changed files (deterministic serializer ⇒ no-op edits write nothing).
+     * On write failure the previous state is restored — never silently drop edits.
+     */
+    const mutateFileCollection = async (
+        target: Collection,
+        nextItems: Collection["items"],
+        patch?: Partial<Collection>
+    ): Promise<boolean> => {
+        const next = { ...target, ...patch, items: nextItems }
+        setFileCollections((cur) => cur.map((c) => (c.id === target.id ? next : c)))
+        // Literal credentials are redacted by the serializer (never written to git-able
+        // files) — tell the user once so a "missing" token isn't a mystery, and offer
+        // to move them into the encrypted vault (rewrites fields to {{vault.*}} tokens).
+        if (!secretWarnedRef.current.has(target.id) && countLiteralAuthSecrets(next) > 0) {
+            secretWarnedRef.current.add(target.id)
+            toast.warning(
+                "Credentials typed directly are not saved into collection files — keep them in the encrypted vault as {{vault.NAME}} tokens",
+                {
+                    duration: 10000,
+                    action: {
+                        label: "Move to vault",
+                        onClick: () => void moveFileCollectionSecrets(target.id),
+                    },
+                }
+            )
+        }
+        try {
+            const { writes, deletes } = diffFiles(serializeCollection(target), serializeCollection(next))
+            if (writes.length > 0 || deletes.length > 0) {
+                const { writeCollectionFiles } = await import("@/lib/desktop/collection-files")
+                await writeCollectionFiles(target.source!.path, writes, deletes)
+            }
+            return true
+        } catch (e) {
+            setFileCollections((cur) => cur.map((c) => (c.id === target.id ? target : c)))
+            console.error("Error writing folder collection", e)
+            toast.error(`Failed to write collection files: ${e instanceof Error ? e.message : String(e)}`)
+            return false
+        }
+    }
+
+    /** Toast action: move every literal credential in a folder collection into the vault. */
+    const moveFileCollectionSecrets = async (collectionId: string) => {
+        const target = fileCollectionsRef.current.find((c) => c.id === collectionId)
+        if (!target) return
+        try {
+            const { collection: moved, moved: count } = await moveCollectionSecretsToVault(target, cipherKey)
+            if (count === 0) return
+            if (await mutateFileCollection(target, moved.items)) {
+                toast.success(
+                    count === 1
+                        ? "1 credential moved to the vault"
+                        : `${count} credentials moved to the vault`
+                )
+            }
+        } catch (e) {
+            console.error("Error moving credentials to vault", e)
+            toast.error(e instanceof Error ? e.message : "Failed to move credentials to the vault")
+        }
+    }
 
     React.useEffect(() => {
         if (!user) migrationRanRef.current = false
@@ -145,8 +292,6 @@ export function useCollections() {
     )
 
     const addFolder = async (parentId: string, name: string) => {
-        if (!user) return
-
         const newFolder: CollectionFolder = {
             id: crypto.randomUUID(),
             name,
@@ -155,11 +300,21 @@ export function useCollections() {
             isOpen: true,
         }
 
-        const targetCollection = collections.find(c =>
+        const targetCollection = allCollections.find(c =>
             c.id === parentId || findItemInCollection(c.items, parentId)
         )
 
         if (!targetCollection) return
+
+        if (targetCollection.source) {
+            const nextItems = targetCollection.id === parentId
+                ? [...targetCollection.items, newFolder]
+                : addItemToParent(targetCollection.items, parentId, newFolder)
+            const ok = await mutateFileCollection(targetCollection, nextItems)
+            return ok ? newFolder.id : undefined
+        }
+
+        if (!user) return
 
         // Optimistic update
         const prev = collections
@@ -187,12 +342,27 @@ export function useCollections() {
     }
 
     const deleteItem = async (itemId: string) => {
-        if (!user) return
-
         // Find collection containing item
-        const targetCollection = collections.find(c =>
+        const targetCollection = allCollections.find(c =>
             c.items.some(i => i.id === itemId) || findItemInCollection(c.items, itemId)
         )
+
+        if (targetCollection?.source) {
+            await mutateFileCollection(targetCollection, deleteFromItems(targetCollection.items, itemId))
+            return
+        }
+
+        // Deleting a folder collection = forget it, never touch the user's files.
+        const fileCol = fileCollections.find((c) => c.id === itemId)
+        if (fileCol?.source) {
+            const { loadCollectionRegistry, saveCollectionRegistry } = await import("@/lib/desktop/collection-files")
+            await saveCollectionRegistry((await loadCollectionRegistry()).filter((p) => p !== fileCol.source!.path))
+            setFileCollections((cur) => cur.filter((c) => c.id !== itemId))
+            toast.success("Folder collection removed from list (files kept)")
+            return
+        }
+
+        if (!user) return
 
         // If not found in items, maybe it IS the collection?
         if (!targetCollection) {
@@ -236,13 +406,21 @@ export function useCollections() {
     }
 
     const saveRequest = async (parentId: string, request: CollectionRequest) => {
-        if (!user) return
-
-        const targetCollection = collections.find(c =>
+        const targetCollection = allCollections.find(c =>
             c.id === parentId || findItemInCollection(c.items, parentId)
         )
 
         if (!targetCollection) return
+
+        if (targetCollection.source) {
+            const nextItems = targetCollection.id === parentId
+                ? [...targetCollection.items, request]
+                : addItemToParent(targetCollection.items, parentId, request)
+            if (await mutateFileCollection(targetCollection, nextItems)) toast.success("Request saved")
+            return
+        }
+
+        if (!user) return
 
         // Optimistic update
         const prev = collections
@@ -270,10 +448,18 @@ export function useCollections() {
     }
 
     const toggleFolder = async (folderId: string) => {
-        if (!user) return
-
-        const targetCollection = collections.find(c => findItemInCollection(c.items, folderId))
+        const targetCollection = allCollections.find(c => findItemInCollection(c.items, folderId))
         if (!targetCollection) return
+
+        if (targetCollection.source) {
+            // isOpen is UI-only and stripped from disk — pure state change.
+            setFileCollections((cur) =>
+                cur.map((c) => (c.id === targetCollection.id ? { ...c, items: toggleInItems(c.items, folderId) } : c))
+            )
+            return
+        }
+
+        if (!user) return
 
         // Optimistic update (toggle is purely local UX — we still persist to avoid drift)
         const prev = collections
@@ -306,10 +492,8 @@ export function useCollections() {
      * Applies optimistically against state, reconciles from the delta result.
      */
     const patchFolder = async (folderId: string, patch: Partial<CollectionFolder>) => {
-        if (!user) return
-        const targetCollection = collections.find((c) => findItemInCollection(c.items, folderId))
+        const targetCollection = allCollections.find((c) => findItemInCollection(c.items, folderId))
         if (!targetCollection) return
-        const prev = collections
         const patchInItems = (items: (CollectionFolder | CollectionRequest)[]): (CollectionFolder | CollectionRequest)[] =>
             items.map((item) => {
                 if ("type" in item && item.type === "folder") {
@@ -318,6 +502,16 @@ export function useCollections() {
                 }
                 return item
             })
+
+        if (targetCollection.source) {
+            if (await mutateFileCollection(targetCollection, patchInItems(targetCollection.items))) {
+                toast.success("Folder defaults saved")
+            }
+            return
+        }
+
+        if (!user) return
+        const prev = collections
         setCollections((cur) =>
             sortCollections(cur.map((c) =>
                 c.id === targetCollection.id ? { ...c, items: patchInItems(c.items) } : c
@@ -338,10 +532,15 @@ export function useCollections() {
     }
 
     const renameFolder = async (folderId: string, name: string) => {
-        if (!user) return
-
-        const targetCollection = collections.find(c => findItemInCollection(c.items, folderId))
+        const targetCollection = allCollections.find(c => findItemInCollection(c.items, folderId))
         if (!targetCollection) return
+
+        if (targetCollection.source) {
+            await mutateFileCollection(targetCollection, renameFolderInItems(targetCollection.items, folderId, name))
+            return
+        }
+
+        if (!user) return
 
         // Optimistic update
         const prev = collections
@@ -498,6 +697,14 @@ export function useCollections() {
     }
 
     const renameCollection = async (collectionId: string, name: string) => {
+        const fileCol = fileCollections.find((c) => c.id === collectionId)
+        if (fileCol) {
+            if (await mutateFileCollection(fileCol, fileCol.items, { name })) {
+                toast.success("Collection renamed")
+            }
+            return
+        }
+
         if (!user) return
         const prev = collections
         // Optimistic update
@@ -521,8 +728,25 @@ export function useCollections() {
     }
 
     const deleteMultipleCollections = async (ids: string[]) => {
-        if (!user) return
         if (ids.length === 0) return
+
+        // Folder collections: forget only, never delete the user's files.
+        const fileIds = new Set(fileCollections.filter((c) => ids.includes(c.id)).map((c) => c.id))
+        if (fileIds.size > 0) {
+            const removedPaths = new Set(
+                fileCollections.filter((c) => fileIds.has(c.id)).map((c) => c.source!.path)
+            )
+            const { loadCollectionRegistry, saveCollectionRegistry } = await import("@/lib/desktop/collection-files")
+            await saveCollectionRegistry((await loadCollectionRegistry()).filter((p) => !removedPaths.has(p)))
+            setFileCollections((cur) => cur.filter((c) => !fileIds.has(c.id)))
+            ids = ids.filter((id) => !fileIds.has(id))
+            if (ids.length === 0) {
+                toast.success("Folder collections removed from list (files kept)")
+                return
+            }
+        }
+
+        if (!user) return
 
         try {
             // Use Promise.allSettled to handle partial failures gracefully
@@ -581,8 +805,52 @@ export function useCollections() {
         }
     }
 
+    /**
+     * Pick a folder and open it as a file-backed collection. A folder with a
+     * `collection.yaml` is opened as-is; a folder without one is initialized
+     * (name = folder basename). Desktop only.
+     */
+    const openFolderCollection = async (): Promise<Collection | null> => {
+        if (!isDesktop()) return null
+        try {
+            const { pickFolder, readCollectionFiles, writeCollectionFiles, loadCollectionRegistry, saveCollectionRegistry } =
+                await import("@/lib/desktop/collection-files")
+            const path = await pickFolder()
+            if (!path) return null
+
+            const registry = await loadCollectionRegistry()
+            if (registry.includes(path)) {
+                toast.info("This folder collection is already open")
+                return fileCollections.find((c) => c.source?.path === path) ?? null
+            }
+
+            let col: Collection
+            const entries = await readCollectionFiles(path)
+            if (entries.some((e) => e.relPath === MANIFEST_FILE)) {
+                const { collection, warnings } = parseCollection(entries)
+                warnings.forEach((w) => console.warn(`[file-collection] ${path}: ${w}`))
+                col = { ...collection, source: { kind: "file", path } }
+            } else {
+                const name = path.split(/[/\\]/).filter(Boolean).pop() || "Collection"
+                const manifest = newManifest(name)
+                await writeCollectionFiles(path, [{ relPath: MANIFEST_FILE, content: manifest.content }], [])
+                col = { id: manifest.id, name, items: [], source: { kind: "file", path } }
+            }
+
+            await saveCollectionRegistry([...registry, path])
+            setFileCollections((cur) => [...cur.filter((c) => c.id !== col.id), col])
+            toast.success(`Opened folder collection "${col.name}"`)
+            return col
+        } catch (e) {
+            console.error("Error opening folder collection", e)
+            toast.error(`Couldn't open folder as collection: ${e instanceof Error ? e.message : String(e)}`)
+            return null
+        }
+    }
+
     return {
-        collections,
+        collections: allCollections,
+        openFolderCollection,
         addFolder,
         deleteItem,
         saveRequest,
