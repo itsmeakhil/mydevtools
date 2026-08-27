@@ -39,8 +39,9 @@ import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
 import { useConfirm } from "@/components/confirm-dialog"
 import { FilePreviewDialog, type PreviewState } from "@/components/s3-drive/file-preview-dialog"
 import { FileIconComp } from "@/components/s3-drive/file-icon"
-import { getFileType, isPreviewable } from "@/components/s3-drive/file-types"
+import { getFileType } from "@/components/s3-drive/file-types"
 import { useMasterKeyStore } from "@/store/master-key-store"
+import { docxToText, xlsxToRows } from "@/lib/office-preview"
 import {
   baseName,
   blobMime,
@@ -283,13 +284,26 @@ export function SecureFilesTool() {
     setPreview({ key: f.name, url: null, loading: true, fileType: type })
     try {
       const bytes = new Uint8Array(await readSecureFile(f.id))
+      const ext = f.name.split(".").pop()?.toLowerCase() ?? ""
       let fileType = type
       let textContent: string | undefined
-      if (type === "code" || type === "doc" || type === "sheet" || (type === "file" && looksLikeText(bytes))) {
+      let rows: string[][] | undefined
+      if (ext === "docx") {
+        // OOXML is a zip: decoding it as UTF-8 (as text types do below) is mojibake.
+        fileType = "doc"
+        textContent = await docxToText(bytes)
+      } else if (ext === "xlsx") {
+        fileType = "sheet"
+        rows = (await xlsxToRows(bytes)).rows
+      } else if (["code", "doc", "sheet", "file"].includes(type) && looksLikeText(bytes)) {
         fileType = "code"
         textContent = new TextDecoder().decode(bytes)
       }
-      if (!isPreviewable(fileType)) {
+      // Binary formats we can't decode (.doc, .xls, .odt…) land here with nothing
+      // to show — say so instead of opening an empty dialog.
+      const renderable =
+        textContent !== undefined || rows !== undefined || ["image", "pdf", "video", "audio"].includes(fileType)
+      if (!renderable) {
         setPreview(null)
         toast.info(t("noPreview"))
         return
@@ -297,7 +311,7 @@ export function SecureFilesTool() {
       revokePreview()
       const url = URL.createObjectURL(new Blob([bytes], { type: blobMime(fileType, f.name) }))
       previewUrl.current = url
-      setPreview({ key: f.name, url, loading: false, fileType, textContent })
+      setPreview({ key: f.name, url, loading: false, fileType, textContent, rows })
     } catch (e) {
       setPreview(null)
       toast.error(errMsg(e))
@@ -534,7 +548,7 @@ export function SecureFilesTool() {
           <span className="truncate">{t("overview")}</span>
         </button>
       </div>
-      <FolderTree root={tree} currentDir={showOverview ? NO_FOLDER : currentDir} onSelect={openFolder} onRename={renameFolder} onDelete={deleteFolder} />
+      <FolderTree root={tree} currentDir={showOverview ? NO_FOLDER : currentDir} onSelect={openFolder} onRename={renameFolder} onDelete={deleteFolder} onOpenFile={openPreview} />
     </div>
   ) : (
     <p className="p-4 text-xs text-muted-foreground">{t("chooseFolderBody")}</p>

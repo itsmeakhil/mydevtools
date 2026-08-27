@@ -26,6 +26,32 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.16',
+    date: '2026-08-25',
+    title: 'Secure Files, and collections you can commit',
+    summary:
+      'A new encrypted file vault keeps documents on your disk as unreadable objects, API collections can now live in a folder of plain YAML files you commit alongside your code, and every tool sidebar collapses to an icon rail that keeps working while it is out of the way.',
+    changes: [
+      { type: 'added', text: 'Files: a new encrypted file vault. Import files or whole folders — names, folder paths and contents are encrypted on your disk as opaque objects inside a storage folder you pick, readable only while your vault is unlocked.' },
+      { type: 'added', text: 'Files: list and grid views with image thumbnails, previews for text, code, images and PDF, export with a plaintext warning, and a storage overview broken down by file type.' },
+      { type: 'added', text: 'API Client: open a folder as a collection. Requests are stored as plain YAML files, so a collection can be committed, diffed and reviewed in a pull request like the rest of your code.' },
+      { type: 'added', text: 'API Client: import collections from Postman, Insomnia and Bruno, plus Postman environment import and export.' },
+      { type: 'added', text: 'API Client: Move to vault — lift credentials typed into a collection into the encrypted API Key Vault and leave a reference behind, so the files stay safe to commit.' },
+      { type: 'added', text: 'Every tool sidebar now collapses to a narrow icon rail that still shows your sections and filters. Toggle it with Cmd+\\, and drag it to whatever width you like — remembered per tool.' },
+      { type: 'added', text: 'Regenerate your vault backup codes from Settings.' },
+      { type: 'improved', text: 'Settings is split into Profile, Appearance, Security and Data tabs instead of one long page.' },
+      { type: 'improved', text: '22 more tools across Media & Design, Network & API and Security moved onto the shared layout, so input, output and actions sit where you expect in every one of them.' },
+      { type: 'improved', text: 'API Client: typing in a request no longer re-renders the whole collection tree, and editors stay mounted as you move between tabs.' },
+      { type: 'improved', text: 'API Client: a script stuck in an endless loop is stopped after five seconds instead of hanging the tab, and request history loads only the rows it shows.' },
+      { type: 'improved', text: 'API Client: connections are reused between requests, and a response larger than 50 MB now reports an error instead of being buffered without limit.' },
+      { type: 'fixed', text: 'Notes: the sidebar no longer appears before the vault is unlocked.' },
+      { type: 'fixed', text: 'The dashboard greets you by the display name from your profile.' },
+      { type: 'fixed', text: 'A collapsed tool sidebar keeps its items, its identity and its top spacing, and only one toggle button is shown at a time.' },
+      { type: 'fixed', text: 'API Client: toolbar and key/value row spacing, and an open-folder button in the empty state.' },
+      { type: 'fixed', text: 'API Client: when tab storage runs out, request bodies and attached files are dropped instead of wiping every open tab.' },
+    ],
+  },
+  {
     version: '0.1.15',
     date: '2026-08-22',
     title: 'MyDevTools on Linux',

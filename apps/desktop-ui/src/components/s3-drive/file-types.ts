@@ -20,7 +20,7 @@ export function getFileType(name: string) {
 }
 
 export function isPreviewable(type: string): boolean {
-    return ["image", "pdf", "code", "doc", "video", "audio"].includes(type)
+    return ["image", "pdf", "code", "doc", "sheet", "video", "audio"].includes(type)
 }
 
 export const TYPE_ICON_COLOR: Record<string, string> = {

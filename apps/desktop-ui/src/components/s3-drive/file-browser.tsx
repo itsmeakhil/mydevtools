@@ -76,6 +76,7 @@ import { useS3DriveStore } from "@/store/s3-drive-store"
 import { CreateFolderDialog } from "./create-folder-dialog"
 import { formatBytes, moveFolderRecursive } from "./utils"
 import { getFileType, isPreviewable, TYPE_BG_CLASS, TYPE_LABEL } from "./file-types"
+import { docxToText, xlsxToRows } from "@/lib/office-preview"
 import { FileIconComp } from "./file-icon"
 import { Checkbox, isCheckboxClick } from "./checkbox"
 import { FilePreviewDialog, type PreviewState } from "./file-preview-dialog"
@@ -388,10 +389,21 @@ export function FileBrowser({ credentials, connectionName }: Props) {
         setPreview({ key, url: null, loading: true, fileType })
         try {
             const { url } = await getPresignedDownloadUrl(credentials, key)
-            if (fileType === "code" || fileType === "doc") {
+            const ext = name.split(".").pop()?.toLowerCase() ?? ""
+            if (ext === "docx" || ext === "xlsx") {
+                // OOXML is a zip — needs the whole object, and decoding it as text
+                // (the branch below) would render mojibake.
+                const blob = await getObjectBlob(credentials, key)
+                const bytes = new Uint8Array(await blob.arrayBuffer())
+                if (ext === "docx") {
+                    setPreview({ key, url, loading: false, fileType: "doc", textContent: await docxToText(bytes) })
+                } else {
+                    setPreview({ key, url, loading: false, fileType: "sheet", rows: (await xlsxToRows(bytes)).rows })
+                }
+            } else if (fileType === "code" || fileType === "doc" || ext === "csv") {
                 // webview fetch() of the presigned URL would hit CORS — go via Rust proxy
                 const blob = await getObjectBlob(credentials, key, { headers: { Range: "bytes=0-204799" } })
-                setPreview({ key, url, loading: false, fileType, textContent: await blob.text() })
+                setPreview({ key, url, loading: false, fileType: "code", textContent: await blob.text() })
             } else {
                 setPreview({ key, url, loading: false, fileType })
             }

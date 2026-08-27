@@ -14,6 +14,8 @@ export type PreviewState = {
     loading: boolean
     fileType: string
     textContent?: string
+    /** Extracted grid for spreadsheet previews (see lib/office-preview). */
+    rows?: string[][]
 }
 
 export function FilePreviewDialog({
@@ -34,6 +36,48 @@ export function FilePreviewDialog({
                 </div>
             )
         }
+        if (preview.fileType === "sheet") {
+            if (!preview.rows?.length) {
+                return <p className="text-sm text-muted-foreground p-8 text-center">This spreadsheet format can&apos;t be previewed — download it to open in an app.</p>
+            }
+            const [head, ...body] = preview.rows
+            return (
+                <div className="flex-1 overflow-auto" style={{ maxHeight: "72vh" }}>
+                    <table className="w-full text-xs">
+                        <thead className="sticky top-0 bg-muted/60 backdrop-blur">
+                            <tr>
+                                {head.map((cell, i) => (
+                                    <th key={i} className="border-b border-r px-2.5 py-1.5 text-left font-medium">{cell}</th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {body.map((row, r) => (
+                                <tr key={r} className="even:bg-muted/20">
+                                    {row.map((cell, c) => (
+                                        <td key={c} className="border-b border-r px-2.5 py-1.5 align-top tabular-nums">{cell}</td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )
+        }
+        if (preview.fileType === "code" || preview.fileType === "doc") {
+            if (preview.textContent !== undefined) {
+                return (
+                    <div className="flex-1 overflow-auto bg-muted/30 p-4" style={{ maxHeight: "72vh" }}>
+                        <pre className="text-xs font-mono leading-relaxed whitespace-pre-wrap break-words text-foreground">
+                            {preview.textContent}
+                        </pre>
+                    </div>
+                )
+            }
+            return <p className="text-sm text-muted-foreground p-8 text-center">Failed to load preview</p>
+        }
+        // Everything below renders the blob/presigned URL; extracted text and
+        // grids above don't need one.
         if (!preview.url) {
             return <p className="text-sm text-muted-foreground p-8 text-center">Failed to load preview</p>
         }
@@ -47,12 +91,9 @@ export function FilePreviewDialog({
         }
         if (preview.fileType === "pdf") {
             return (
-                <iframe
-                    src={preview.url}
-                    title={name}
-                    className="w-full flex-1 border-0"
-                    style={{ minHeight: "70vh" }}
-                />
+                // flex-1 only fills when the dialog itself has a height — see
+                // the h-[85vh] below; a min-height here just made it scroll.
+                <iframe src={preview.url} title={name} className="w-full flex-1 min-h-0 border-0" />
             )
         }
         if (preview.fileType === "video") {
@@ -71,18 +112,6 @@ export function FilePreviewDialog({
                 </div>
             )
         }
-        if (preview.fileType === "code" || preview.fileType === "doc") {
-            if (preview.textContent !== undefined) {
-                return (
-                    <div className="flex-1 overflow-auto bg-muted/30 p-4" style={{ maxHeight: "72vh" }}>
-                        <pre className="text-xs font-mono leading-relaxed whitespace-pre-wrap break-words text-foreground">
-                            {preview.textContent}
-                        </pre>
-                    </div>
-                )
-            }
-            return <p className="text-sm text-muted-foreground p-8 text-center">Failed to load preview</p>
-        }
         return null
     })()
 
@@ -91,7 +120,14 @@ export function FilePreviewDialog({
         // tooltips — Radix Tooltip throws without an ancestor provider.
         <TooltipProvider delayDuration={300}>
         <Dialog open onOpenChange={(o) => !o && onClose()}>
-            <DialogContent className="max-w-5xl w-full p-0 overflow-hidden gap-0 flex flex-col">
+            <DialogContent
+                showCloseButton={false}
+                className={cn(
+                    "max-w-5xl w-full p-0 overflow-hidden gap-0 flex flex-col",
+                    // PDFs render in an iframe that has to be told how tall to be.
+                    preview.fileType === "pdf" && "h-[85vh]",
+                )}
+            >
                 <DialogHeader className="flex flex-row items-center justify-between px-5 py-3 border-b shrink-0 bg-muted/20">
                     <div className="flex items-center gap-2.5 min-w-0">
                         <div className={cn("size-7 rounded-lg flex items-center justify-center shrink-0", TYPE_BG_CLASS[preview.fileType] ?? "bg-muted")}>

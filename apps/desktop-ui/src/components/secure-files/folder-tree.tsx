@@ -12,13 +12,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useToolSidebarPanel, useToolSidebarRail } from "@/components/tools/tool-sidebar"
+import { FileIconComp } from "@/components/s3-drive/file-icon"
+import { getFileType } from "@/components/s3-drive/file-types"
 import { cn } from "@/lib/utils"
-import type { FolderNode } from "@/lib/secure-files"
+import type { FolderNode, SecureFileEntry } from "@/lib/secure-files"
 
 type Actions = {
   onSelect: (path: string) => void
   onRename: (path: string) => void
   onDelete: (path: string) => void
+  onOpenFile: (file: SecureFileEntry) => void
 }
 
 function ancestors(path: string): string[] {
@@ -103,11 +106,39 @@ export function FolderTree({ root, currentDir, ...actions }: { root: FolderNode;
           onSelect={select}
           onRename={actions.onRename}
           onDelete={actions.onDelete}
+          onOpenFile={actions.onOpenFile}
         />
+      ))}
+      {root.files.map((file) => (
+        <FileRow key={file.id} file={file} depth={0} onOpen={actions.onOpenFile} />
       ))}
     </div>
   )
 }
+
+// ponytail: every file in an expanded folder mounts (the main pane virtualizes,
+// this doesn't) — window it if huge folders get expanded in practice.
+const FileRow = React.memo(function FileRow({
+  file,
+  depth,
+  onOpen,
+}: {
+  file: SecureFileEntry
+  depth: number
+  onOpen: (file: SecureFileEntry) => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(file)}
+      style={{ paddingLeft: depth * 12 + 29 }}
+      className="flex w-full min-w-0 items-center gap-2 rounded-md py-1.5 pr-2 text-left text-sm transition-colors hover:bg-muted"
+    >
+      <FileIconComp type={getFileType(file.name)} className="size-4 shrink-0" />
+      <span className="truncate">{file.name}</span>
+    </button>
+  )
+})
 
 type RowProps = {
   node: FolderNode
@@ -126,10 +157,11 @@ const FolderRow = React.memo(function FolderRow({
   onSelect,
   onRename,
   onDelete,
+  onOpenFile,
 }: RowProps) {
   const t = useTranslations("SecureFiles")
   const open = expanded.has(node.path)
-  const hasChildren = node.children.length > 0
+  const hasChildren = node.children.length > 0 || node.files.length > 0
   const active = currentDir === node.path
 
   return (
@@ -182,7 +214,7 @@ const FolderRow = React.memo(function FolderRow({
         </DropdownMenu>
       </div>
       <AnimatePresence initial={false}>
-        {open && hasChildren && (
+        {open && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
@@ -201,7 +233,11 @@ const FolderRow = React.memo(function FolderRow({
                 onSelect={onSelect}
                 onRename={onRename}
                 onDelete={onDelete}
+                onOpenFile={onOpenFile}
               />
+            ))}
+            {node.files.map((file) => (
+              <FileRow key={file.id} file={file} depth={depth + 1} onOpen={onOpenFile} />
             ))}
           </motion.div>
         )}
