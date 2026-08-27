@@ -122,6 +122,13 @@ export function FilePreviewDialog({
         <Dialog open onOpenChange={(o) => !o && onClose()}>
             <DialogContent
                 showCloseButton={false}
+                // Download is the first focusable child, so Radix's on-open focus
+                // landed there and popped its tooltip unasked — reads as if a
+                // download started. Focus the dialog itself instead.
+                onOpenAutoFocus={(e) => {
+                    e.preventDefault()
+                    ;(e.currentTarget as HTMLElement | null)?.focus()
+                }}
                 className={cn(
                     "max-w-5xl w-full p-0 overflow-hidden gap-0 flex flex-col",
                     // PDFs render in an iframe that has to be told how tall to be.
