@@ -28,7 +28,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Fail fast, before the ~200-minute macOS build, if the changelog wasn't
       # updated for this version. The release body links to /changelog, so a
@@ -43,11 +43,11 @@ jobs:
           echo "Changelog entry found for $VERSION"
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         # version intentionally omitted — taken from package.json "packageManager"
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: pnpm
@@ -66,6 +66,14 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build and release
+        # Held at v0 deliberately. v1 is a breaking release: it removes
+        # `updaterJsonKeepUniversal` and switches latest.json asset URLs from
+        # browser-download URLs to GitHub API URLs, which embed an asset ID
+        # owned by THIS repo. The mirror step below repoints those URLs by
+        # string-replacing the repo slug, so an API URL would survive the
+        # rewrite but reference an asset ID that does not exist in the mirror
+        # repo, silently breaking updates for installs still polling it.
+        # Migrate deliberately, against a throwaway tag. See PR #328.
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
