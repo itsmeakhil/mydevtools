@@ -26,6 +26,20 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.17',
+    date: '2026-08-31',
+    title: 'Maintenance and updated libraries',
+    summary:
+      'A maintenance release. No new tools this time — the database drivers, token counter and the libraries the app is built on are updated to their latest versions, and one dependency the app never used is gone.',
+    changes: [
+      { type: 'improved', text: 'Updated the MongoDB driver, so the MongoDB client keeps working against current server versions.' },
+      { type: 'improved', text: 'Updated the MySQL driver used by the SQL client.' },
+      { type: 'improved', text: 'Updated the tokenizer behind the LLM Token Counter to its latest release.' },
+      { type: 'improved', text: 'Refreshed the app framework and the libraries behind Markdown rendering, XML parsing, SVG optimisation and Protobuf decoding.' },
+      { type: 'removed', text: 'Removed an unused Redis client that was being bundled into the app but never called — the Redis tool has always talked to Redis natively.' },
+    ],
+  },
+  {
     version: '0.1.16',
     date: '2026-08-25',
     title: 'Secure Files, and a sidebar that gets out of the way',
