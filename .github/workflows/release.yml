@@ -66,7 +66,15 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build and release
-        uses: tauri-apps/tauri-action@v1
+        # Held at v0 deliberately. v1 is a breaking release: it removes
+        # `updaterJsonKeepUniversal` and switches latest.json asset URLs from
+        # browser-download URLs to GitHub API URLs, which embed an asset ID
+        # owned by THIS repo. The mirror step below repoints those URLs by
+        # string-replacing the repo slug, so an API URL would survive the
+        # rewrite but reference an asset ID that does not exist in the mirror
+        # repo, silently breaking updates for installs still polling it.
+        # Migrate deliberately, against a throwaway tag. See PR #328.
+        uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # macOS code signing
