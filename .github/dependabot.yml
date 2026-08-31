@@ -7,6 +7,16 @@ updates:
     groups:
       actions:
         patterns: ["*"]
+    ignore:
+      # tauri-action v1 is a breaking release and release.yml never runs on a
+      # PR, so a bump here lands untested and only fails during a real ~200-min
+      # signed macOS release. v1 removes `updaterJsonKeepUniversal` and moves
+      # latest.json asset URLs to GitHub API URLs, whose embedded asset IDs
+      # belong to this repo — the mirror step's slug rewrite would produce URLs
+      # pointing at assets that do not exist in the mirror repo. Migrate by
+      # hand against a throwaway tag, then drop this ignore.
+      - dependency-name: tauri-apps/tauri-action
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directory: /
@@ -16,6 +26,18 @@ updates:
     groups:
       minor-and-patch:
         update-types: ["minor", "patch"]
+    ignore:
+      # eslint 10 cannot be installed yet: eslint-config-next (16.3.3, latest)
+      # still depends on eslint-plugin-react ^7.37.0, whose newest release
+      # (7.37.5) declares peer eslint "^9.7" and crashes under v10 with
+      # "TypeError: Error while loading rule 'react/display-name':
+      # contextOrFilename.getFilename is not a function" on every file, in both
+      # apps. eslint-config-next's own peer range says >=9.0.0, so the install
+      # resolves cleanly and only fails at lint time — and lint is not in CI,
+      # so the PR goes green. Drop this ignore once eslint-plugin-react ships
+      # eslint 10 support. Verified 2026-08-31.
+      - dependency-name: eslint
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: cargo
     directory: /apps/desktop/src-tauri
