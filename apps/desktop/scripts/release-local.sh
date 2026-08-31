@@ -37,7 +37,17 @@ REPO_ROOT="$(cd "$ROOT/../.." && pwd)"
 : "${NOTARY_PROFILE:=mydevtools-notary}"
 # Linux packaging (Docker). SKIP_LINUX=1 publishes a macOS-only release.
 : "${SKIP_LINUX:=0}"
+# LINUX_ONLY=1 attaches Linux packages to a release that ALREADY exists —
+# for when a run published macOS but skipped Linux (e.g. Docker was not up).
+# Skips every macOS stage and latest.json, and uploads only Linux artifacts.
+: "${LINUX_ONLY:=0}"
 : "${LINUX_PLATFORMS:=linux/amd64 linux/arm64}"
+# Cargo parallelism inside the Linux container. Default is one rustc per CPU,
+# which OOM-kills the build (signal: 9) on a Docker VM: the amd64 image runs
+# under QEMU emulation on Apple Silicon, where each rustc costs far more
+# memory, and ~10 of them at once exceeds the VM long before the LTO link.
+# Raise only if the Docker VM has memory to spare.
+: "${CARGO_BUILD_JOBS:=2}"
 KEYFILE="$HOME/.tauri/mydevtools-updater.key"
 PWFILE="$HOME/.tauri/mydevtools-updater.password"
 export APPLE_SIGNING_IDENTITY
@@ -57,7 +67,17 @@ PW="$(cat "$PWFILE")"
 echo "▸ Releasing v$VERSION to $PUBLIC_REPO"
 
 # Guard: refuse to reuse an existing published version (would confuse the updater).
-if gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
+if [ "$LINUX_ONLY" = "1" ]; then
+  # Inverted: we are ADDING to an existing release, so it must already be there.
+  gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1 || {
+    echo "release-local: LINUX_ONLY=1 but $TAG does not exist in $PUBLIC_REPO." >&2; exit 1; }
+  [ -d "$REPO_ROOT/apps/desktop-ui/out" ] || {
+    echo "release-local: LINUX_ONLY=1 needs a built frontend at apps/desktop-ui/out" >&2
+    echo "               (the Linux container runs only the Rust half)." >&2; exit 1; }
+  docker info >/dev/null 2>&1 || {
+    echo "release-local: LINUX_ONLY=1 needs Docker running." >&2; exit 1; }
+  echo "▸ LINUX_ONLY: attaching Linux packages to the existing $TAG"
+elif gh release view "$TAG" --repo "$PUBLIC_REPO" >/dev/null 2>&1; then
   echo "release-local: $TAG already exists in $PUBLIC_REPO. Bump the version first." >&2
   exit 1
 fi
@@ -82,6 +102,7 @@ codesign_retry() {
   echo "release-local: codesign failed after 5 attempts" >&2; return 1
 }
 
+if [ "$LINUX_ONLY" != "1" ]; then
 # ── 1. build: Apple-sign the app AND sign the updater payload ─────────────────
 # createUpdaterArtifacts:true makes tauri build emit + sign the .app.tar.gz, so
 # TAURI_SIGNING_PRIVATE_KEY must be set here. Letting Tauri produce the tarball
@@ -120,6 +141,8 @@ codesign_retry "$DMG"
 xcrun notarytool submit "$DMG" --keychain-profile "$NOTARY_PROFILE" --wait
 xcrun stapler staple "$DMG"
 
+fi  # end macOS stages (skipped when LINUX_ONLY=1)
+
 # ── 3b. Linux packages, built in Docker ──────────────────────────────────────
 # Linux links against webkit2gtk/GTK so it can't be cross-compiled from macOS.
 # The frontend is already built above, so the container only does the Rust half
@@ -131,6 +154,12 @@ elif ! docker info >/dev/null 2>&1; then
   echo "▸ [3b/5] Docker is not running — skipping Linux packages." >&2
   echo "         Start Docker Desktop and re-run, or set SKIP_LINUX=1 to silence this." >&2
 else
+  # Start from an empty dist-linux. The cargo target volume persists between
+  # releases, so the bundle dir still holds the PREVIOUS version's packages —
+  # without this, the copy below picks them up and stage 5 attaches last
+  # release's .deb/.AppImage to this release.
+  rm -rf "$REPO_ROOT/dist-linux"
+  mkdir -p "$REPO_ROOT/dist-linux"
   for PLATFORM in $LINUX_PLATFORMS; do
     ARCH="${PLATFORM#linux/}"
     IMAGE="mydevtools-linux:$ARCH"
@@ -145,12 +174,17 @@ else
       -v "$REPO_ROOT":/work \
       -v "mydevtools-cargo-reg-$ARCH":/root/.cargo/registry \
       -v "mydevtools-cargo-target-$ARCH":/build \
+      -v "mydevtools-tauri-cache-$ARCH":/root/.cache \
       -e CARGO_TARGET_DIR=/build/target \
       -e APPIMAGE_EXTRACT_AND_RUN=1 \
       -e CARGO_PROFILE_RELEASE_LTO=false \
+      -e CARGO_BUILD_JOBS="$CARGO_BUILD_JOBS" \
       "$IMAGE" bash -c '
         set -e
         cd /work/apps/desktop
+        # Drop the previous version'"'"'s bundles from the cached target volume, so
+        # the copy below can only ever see what this build just produced.
+        rm -rf "$CARGO_TARGET_DIR/release/bundle"
         tauri build --bundles deb,appimage \
           --config "{\"build\":{\"beforeBuildCommand\":\"\"},\"bundle\":{\"createUpdaterArtifacts\":false}}"
         mkdir -p /work/dist-linux
@@ -180,6 +214,7 @@ fi
 # NOTE: darwin-* keys only. Linux packages ship without auto-update for now —
 # only AppImage can self-update, and adding linux-x86_64 here means every
 # publisher of this manifest must merge rather than overwrite it.
+if [ "$LINUX_ONLY" != "1" ]; then
 echo "▸ [4/5] Writing latest.json…"
 LATEST="$OUT/latest.json"
 SIG_CONTENT="$(cat "$SIG")" \
@@ -204,8 +239,11 @@ node -e '
   fs.writeFileSync(process.env.LATEST_OUT, JSON.stringify(manifest, null, 2));
 '
 
+fi  # end latest.json (LINUX_ONLY leaves the published manifest untouched)
+
 # ── 5. publish everything to the PUBLIC repo ─────────────────────────────────
 echo "▸ [5/5] Publishing to ${PUBLIC_REPO} ..."
+if [ "$LINUX_ONLY" != "1" ]; then
 gh release create "$TAG" --repo "$PUBLIC_REPO" \
   --title "MyDevTools $TAG" --notes "MyDevTools desktop $TAG"
 # MyDevTools.dmg (version-less copy) keeps the website's download button URL
@@ -213,6 +251,7 @@ gh release create "$TAG" --repo "$PUBLIC_REPO" \
 cp "$DMG" "$OUT/MyDevTools.dmg"
 gh release upload "$TAG" --repo "$PUBLIC_REPO" --clobber \
   "$DMG" "$OUT/MyDevTools.dmg" "$TARGZ" "$SIG" "$LATEST"
+fi  # end macOS publish
 if [ "${#LINUX_ARTIFACTS[@]}" -gt 0 ]; then
   echo "▸ [5/5] Uploading ${#LINUX_ARTIFACTS[@]} Linux artifacts…"
   gh release upload "$TAG" --repo "$PUBLIC_REPO" --clobber "${LINUX_ARTIFACTS[@]}"
