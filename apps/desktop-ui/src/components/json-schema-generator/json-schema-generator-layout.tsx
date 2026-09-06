@@ -31,7 +31,7 @@ import {
   type StringFormat,
 } from '@/lib/json-schema-generator';
 import { Badge } from '@/components/ui/badge';
-import './json-schema-highlighter.css';
+import '@/components/tools/hljs-theme.css';
 import { JsonSchemaInputEditor } from './json-schema-input-editor';
 
 const defaultSample = `{
@@ -211,7 +211,7 @@ export function JsonSchemaGeneratorLayout() {
               </div>
             ) : (
               <ScrollArea className="absolute inset-0 h-full">
-                <div className="json-schema-hl min-h-full" role="region" aria-label={t('outputLabel')}>
+                <div className="hljs-theme min-h-full" role="region" aria-label={t('outputLabel')}>
                   {output ? (
                     <pre className="m-0 font-mono">
                       <code

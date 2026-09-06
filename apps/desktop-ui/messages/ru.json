@@ -697,7 +697,14 @@
       "activityEmpty": "Activity builds as you use tools",
       "distributionTitle": "Data distribution",
       "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion"
+      "taskDonutTitle": "Task completion",
+      "groupFiles": "Files",
+      "filesCount": "Encrypted files",
+      "filesOnDisk": "Size on disk",
+      "filesLastChange": "Last change",
+      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
+      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
+      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Настройки интерфейса",
@@ -4976,17 +4983,17 @@
     },
     "hero": {
       "spaceKey": "(Пробел)",
-      "keyLabel": "event.key",
+      "keyLabel": "Клавиша",
       "repeat": "повтор"
     },
     "copyJson": "Копировать JSON",
     "copiedJson": "JSON события скопирован в буфер обмена",
     "deprecated": "устарело",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Код",
+      "keyCode": "Код клавиши",
+      "which": "Which",
+      "location": "Расположение"
     },
     "location": {
       "standard": "Стандартная",
