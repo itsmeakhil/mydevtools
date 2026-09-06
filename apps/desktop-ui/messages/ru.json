@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Пробел)",
-      "keyLabel": "event.key",
+      "keyLabel": "Клавиша",
       "repeat": "повтор"
     },
     "copyJson": "Копировать JSON",
     "copiedJson": "JSON события скопирован в буфер обмена",
     "deprecated": "устарело",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Код",
+      "keyCode": "Код клавиши",
+      "which": "Which",
+      "location": "Расположение"
     },
     "location": {
       "standard": "Стандартная",

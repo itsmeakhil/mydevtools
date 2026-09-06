@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Spatie)",
-      "keyLabel": "event.key",
+      "keyLabel": "Toets",
       "repeat": "herhaling"
     },
     "copyJson": "JSON kopiëren",
     "copiedJson": "Event-JSON naar het klembord gekopieerd",
     "deprecated": "verouderd",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Code",
+      "keyCode": "Toetscode",
+      "which": "Which",
+      "location": "Locatie"
     },
     "location": {
       "standard": "Standaard",

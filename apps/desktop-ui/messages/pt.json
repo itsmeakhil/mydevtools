@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Espaço)",
-      "keyLabel": "event.key",
+      "keyLabel": "Tecla",
       "repeat": "repetição"
     },
     "copyJson": "Copiar JSON",
     "copiedJson": "JSON do evento copiado para a área de transferência",
     "deprecated": "obsoleto",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Código",
+      "keyCode": "Código da tecla",
+      "which": "Which",
+      "location": "Localização"
     },
     "location": {
       "standard": "Padrão",

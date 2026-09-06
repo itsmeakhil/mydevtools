@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "（空格）",
-      "keyLabel": "event.key",
+      "keyLabel": "按键",
       "repeat": "重复"
     },
     "copyJson": "复制 JSON",
     "copiedJson": "事件 JSON 已复制到剪贴板",
     "deprecated": "已弃用",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "代码",
+      "keyCode": "键码",
+      "which": "Which",
+      "location": "位置"
     },
     "location": {
       "standard": "标准",

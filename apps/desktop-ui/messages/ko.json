@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(스페이스)",
-      "keyLabel": "event.key",
+      "keyLabel": "키",
       "repeat": "반복"
     },
     "copyJson": "JSON 복사",
     "copiedJson": "이벤트 JSON을 클립보드에 복사했습니다",
     "deprecated": "더 이상 사용되지 않음",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "코드",
+      "keyCode": "키 코드",
+      "which": "Which",
+      "location": "위치"
     },
     "location": {
       "standard": "표준",

@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Mellemrum)",
-      "keyLabel": "event.key",
+      "keyLabel": "Tast",
       "repeat": "gentagelse"
     },
     "copyJson": "Kopiér JSON",
     "copiedJson": "Hændelses-JSON kopieret til udklipsholder",
     "deprecated": "forældet",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kode",
+      "keyCode": "Tastkode",
+      "which": "Which",
+      "location": "Placering"
     },
     "location": {
       "standard": "Standard",

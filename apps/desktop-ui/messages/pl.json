@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Spacja)",
-      "keyLabel": "event.key",
+      "keyLabel": "Klawisz",
       "repeat": "powtórzenie"
     },
     "copyJson": "Kopiuj JSON",
     "copiedJson": "JSON zdarzenia skopiowano do schowka",
     "deprecated": "przestarzałe",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kod",
+      "keyCode": "Kod klawisza",
+      "which": "Which",
+      "location": "Lokalizacja"
     },
     "location": {
       "standard": "Standardowa",

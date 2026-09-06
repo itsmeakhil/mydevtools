@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Mellomrom)",
-      "keyLabel": "event.key",
+      "keyLabel": "Tast",
       "repeat": "gjentakelse"
     },
     "copyJson": "Kopier JSON",
     "copiedJson": "Hendelses-JSON kopiert til utklippstavlen",
     "deprecated": "utdatert",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kode",
+      "keyCode": "Tastkode",
+      "which": "Which",
+      "location": "Plassering"
     },
     "location": {
       "standard": "Standard",

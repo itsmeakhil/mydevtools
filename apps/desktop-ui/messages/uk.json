@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Пробіл)",
-      "keyLabel": "event.key",
+      "keyLabel": "Клавіша",
       "repeat": "повтор"
     },
     "copyJson": "Копіювати JSON",
     "copiedJson": "JSON події скопійовано до буфера обміну",
     "deprecated": "застаріле",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Код",
+      "keyCode": "Код клавіші",
+      "which": "Which",
+      "location": "Розташування"
     },
     "location": {
       "standard": "Стандартне",

@@ -5063,17 +5063,17 @@
     },
     "hero": {
       "spaceKey": "(Space)",
-      "keyLabel": "event.key",
+      "keyLabel": "Key",
       "repeat": "repeat"
     },
     "copyJson": "Copy JSON",
     "copiedJson": "Event JSON copied to clipboard",
     "deprecated": "deprecated",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Code",
+      "keyCode": "Key code",
+      "which": "Which",
+      "location": "Location"
     },
     "location": {
       "standard": "Standard",

@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Mellanslag)",
-      "keyLabel": "event.key",
+      "keyLabel": "Tangent",
       "repeat": "upprepning"
     },
     "copyJson": "Kopiera JSON",
     "copiedJson": "Händelse-JSON kopierad till urklipp",
     "deprecated": "föråldrad",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kod",
+      "keyCode": "Tangentkod",
+      "which": "Which",
+      "location": "Plats"
     },
     "location": {
       "standard": "Standard",

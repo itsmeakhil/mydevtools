@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Mezerník)",
-      "keyLabel": "event.key",
+      "keyLabel": "Klávesa",
       "repeat": "opakování"
     },
     "copyJson": "Kopírovat JSON",
     "copiedJson": "JSON události zkopírován do schránky",
     "deprecated": "zastaralé",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kód",
+      "keyCode": "Kód klávesy",
+      "which": "Which",
+      "location": "Umístění"
     },
     "location": {
       "standard": "Standardní",

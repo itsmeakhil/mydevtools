@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(مسافة)",
-      "keyLabel": "event.key",
+      "keyLabel": "المفتاح",
       "repeat": "تكرار"
     },
     "copyJson": "نسخ JSON",
     "copiedJson": "تم نسخ JSON الحدث إلى الحافظة",
     "deprecated": "مهمَل",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "الرمز",
+      "keyCode": "رمز المفتاح",
+      "which": "Which",
+      "location": "الموقع"
     },
     "location": {
       "standard": "قياسي",

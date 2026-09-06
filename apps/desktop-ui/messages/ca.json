@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Espai)",
-      "keyLabel": "event.key",
+      "keyLabel": "Tecla",
       "repeat": "repetició"
     },
     "copyJson": "Copia el JSON",
     "copiedJson": "JSON de l'esdeveniment copiat al porta-retalls",
     "deprecated": "obsolet",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Codi",
+      "keyCode": "Codi de tecla",
+      "which": "Which",
+      "location": "Ubicació"
     },
     "location": {
       "standard": "Estàndard",

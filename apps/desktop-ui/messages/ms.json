@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Space)",
-      "keyLabel": "event.key",
+      "keyLabel": "Kekunci",
       "repeat": "ulang"
     },
     "copyJson": "Salin JSON",
     "copiedJson": "JSON peristiwa disalin ke papan keratan",
     "deprecated": "usang",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kod",
+      "keyCode": "Kod kekunci",
+      "which": "Which",
+      "location": "Lokasi"
     },
     "location": {
       "standard": "Piawai",

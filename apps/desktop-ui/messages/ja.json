@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(スペース)",
-      "keyLabel": "event.key",
+      "keyLabel": "キー",
       "repeat": "リピート"
     },
     "copyJson": "JSON をコピー",
     "copiedJson": "イベント JSON をクリップボードにコピーしました",
     "deprecated": "非推奨",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "コード",
+      "keyCode": "キーコード",
+      "which": "Which",
+      "location": "位置"
     },
     "location": {
       "standard": "標準",

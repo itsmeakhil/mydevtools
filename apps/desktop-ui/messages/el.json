@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Διάστημα)",
-      "keyLabel": "event.key",
+      "keyLabel": "Πλήκτρο",
       "repeat": "επανάληψη"
     },
     "copyJson": "Αντιγραφή JSON",
     "copiedJson": "Το JSON του συμβάντος αντιγράφηκε στο πρόχειρο",
     "deprecated": "καταργημένο",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Κωδικός",
+      "keyCode": "Κωδικός πλήκτρου",
+      "which": "Which",
+      "location": "Θέση"
     },
     "location": {
       "standard": "Τυπική",

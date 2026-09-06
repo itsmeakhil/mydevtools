@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Boşluk)",
-      "keyLabel": "event.key",
+      "keyLabel": "Tuş",
       "repeat": "yineleme"
     },
     "copyJson": "JSON kopyala",
     "copiedJson": "Olay JSON'ı panoya kopyalandı",
     "deprecated": "kullanımdan kaldırıldı",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kod",
+      "keyCode": "Tuş kodu",
+      "which": "Which",
+      "location": "Konum"
     },
     "location": {
       "standard": "Standart",

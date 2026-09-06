@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Spasi)",
-      "keyLabel": "event.key",
+      "keyLabel": "Tombol",
       "repeat": "ulang"
     },
     "copyJson": "Salin JSON",
     "copiedJson": "JSON event disalin ke clipboard",
     "deprecated": "usang",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kode",
+      "keyCode": "Kode tombol",
+      "which": "Which",
+      "location": "Lokasi"
     },
     "location": {
       "standard": "Standar",

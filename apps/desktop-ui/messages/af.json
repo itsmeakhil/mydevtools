@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(Spasie)",
-      "keyLabel": "event.key",
+      "keyLabel": "Sleutel",
       "repeat": "herhaal"
     },
     "copyJson": "Kopieer JSON",
     "copiedJson": "Gebeurtenis-JSON na knipbord gekopieer",
     "deprecated": "verouderd",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "Kode",
+      "keyCode": "Sleutelkode",
+      "which": "Which",
+      "location": "Ligging"
     },
     "location": {
       "standard": "Standaard",

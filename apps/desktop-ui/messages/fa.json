@@ -4976,17 +4976,17 @@
     },
     "hero": {
       "spaceKey": "(فاصله)",
-      "keyLabel": "event.key",
+      "keyLabel": "کلید",
       "repeat": "تکرار"
     },
     "copyJson": "کپی JSON",
     "copiedJson": "JSON رویداد در کلیپ‌بورد کپی شد",
     "deprecated": "منسوخ",
     "fields": {
-      "code": "event.code",
-      "keyCode": "event.keyCode",
-      "which": "event.which",
-      "location": "event.location"
+      "code": "کد",
+      "keyCode": "کد کلید",
+      "which": "Which",
+      "location": "موقعیت"
     },
     "location": {
       "standard": "استاندارد",
