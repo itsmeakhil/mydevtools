@@ -47,7 +47,7 @@ jobs:
         # version intentionally omitted — taken from package.json "packageManager"
 
       - name: Set up Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v7.1.0
         with:
           node-version-file: .nvmrc
           cache: pnpm
