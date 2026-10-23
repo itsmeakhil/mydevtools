@@ -10,8 +10,12 @@ import { isDesktop } from "@/lib/desktop/is-desktop"
 import { countLiteralAuthSecrets, diffFiles, newManifest, parseCollection, serializeCollection, MANIFEST_FILE } from "@/lib/api-client/file-store"
 import { moveCollectionSecretsToVault } from "@/lib/api-client/move-to-vault"
 import { useCipherKey } from "@/lib/use-cipher-key"
+import { importBrunoFolder } from "@/lib/import/bruno"
+import type { Environment } from "../use-environments"
 
 const STORAGE_KEY = "api-client-collections"
+// Root-level manifest only: a nested bruno.json (e.g. a vendored sample) is not this folder's identity.
+const BRUNO_MANIFEST = /^(bruno\.json|opencollection\.yml)$/
 
 function sortCollections(cols: Collection[]) {
     return [...cols].sort((a, b) => a.name.localeCompare(b.name))
@@ -807,10 +811,12 @@ export function useCollections() {
 
     /**
      * Pick a folder and open it as a file-backed collection. A folder with a
-     * `collection.yaml` is opened as-is; a folder without one is initialized
-     * (name = folder basename). Desktop only.
+     * `collection.yaml` is opened as-is; a Bruno collection (`bruno.json` /
+     * `opencollection.yml`) is imported as a regular collection, leaving the
+     * Bruno folder untouched; any other folder is initialized (name = folder
+     * basename). Desktop only.
      */
-    const openFolderCollection = async (): Promise<Collection | null> => {
+    const openFolderCollection = async (): Promise<{ collection: Collection; environments: Environment[] } | null> => {
         if (!isDesktop()) return null
         try {
             const { pickFolder, readCollectionFiles, writeCollectionFiles, loadCollectionRegistry, saveCollectionRegistry } =
@@ -821,11 +827,22 @@ export function useCollections() {
             const registry = await loadCollectionRegistry()
             if (registry.includes(path)) {
                 toast.info("This folder collection is already open")
-                return fileCollections.find((c) => c.source?.path === path) ?? null
+                const open = fileCollections.find((c) => c.source?.path === path)
+                return open ? { collection: open, environments: [] } : null
+            }
+
+            const files = await readCollectionFiles(path, (n) => /\.(ya?ml|bru)$/.test(n) || n === "bruno.json")
+            if (!files.some((e) => e.relPath === MANIFEST_FILE) && files.some((e) => BRUNO_MANIFEST.test(e.relPath))) {
+                // Shallowest first: the importer roots at the first manifest it finds,
+                // and the walk can reach a nested bruno.json before the root one.
+                const byDepth = [...files].sort((a, b) => a.relPath.split("/").length - b.relPath.split("/").length)
+                const { collection, environments } = importBrunoFolder(byDepth.map((e) => ({ path: e.relPath, text: e.content })))
+                const created = await importCollection(collection)
+                return created ? { collection: created, environments } : null
             }
 
             let col: Collection
-            const entries = await readCollectionFiles(path)
+            const entries = files.filter((e) => e.relPath.endsWith(".yaml"))
             if (entries.some((e) => e.relPath === MANIFEST_FILE)) {
                 const { collection, warnings } = parseCollection(entries)
                 warnings.forEach((w) => console.warn(`[file-collection] ${path}: ${w}`))
@@ -840,7 +857,7 @@ export function useCollections() {
             await saveCollectionRegistry([...registry, path])
             setFileCollections((cur) => [...cur.filter((c) => c.id !== col.id), col])
             toast.success(`Opened folder collection "${col.name}"`)
-            return col
+            return { collection: col, environments: [] }
         } catch (e) {
             console.error("Error opening folder collection", e)
             toast.error(`Couldn't open folder as collection: ${e instanceof Error ? e.message : String(e)}`)
