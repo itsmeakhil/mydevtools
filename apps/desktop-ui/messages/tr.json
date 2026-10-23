@@ -50,9 +50,6 @@
     "svgOptimizer": "SVG Optimize",
     "unitConverter": "Birim Dönüştürücü",
     "dockerComposeGenerator": "Docker Compose Oluşturucu",
-    "breakRoom": "Mola Odası",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "YAML Biçimleyici",
     "sshKeyGenerator": "SSH / RSA Anahtar Oluşturucu",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose Oluşturucu",
         "description": "Veritabanları, önbellek, kuyruklar, proxy ve gözlemlenebilirlik görüntülerini seçin; yerel yığınlar için docker-compose.yml dışa aktarın."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "2048 'e ulaşmak için döşemeleri kaydır ve birleştir. Klasik sayı bulmaca oyunu."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Klasik sayı bulmacası. 3 zorluk seviyesi, her biri 150 aşama."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "2048 'e ulaşmak için döşemeleri kaydır ve birleştir",
-    "score": "Not",
-    "best": "En iyi",
-    "newGame": "Yeni oyun",
-    "howToPlay": "Taşları taşımak için ok tuşlarını kullanın (veya mobil cihazlarda kaydırın). Aynı sayıdaki döşemeler birleşir. Kazanmak için 2048 'e ulaş!",
-    "youWin": "2048 'e ulaştınız!",
-    "keepGoing": "Devam Et",
-    "gameOver": "Oyun bitti",
-    "tryAgain": "Tekrar Deneyin",
-    "gameOverMessage": "Başka hamle kalmadı.",
-    "undo": "Geri al"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "tamamlanan aşamalar",
-    "time": "Zaman",
-    "best": "En iyi",
-    "difficulty": {
-      "easy": "Basit ",
-      "medium": "Orta",
-      "hard": "Zor"
-    },
-    "stage": "Aşama",
-    "solved": "Çözüldü",
-    "score": "Not",
-    "nextStage": "Bir Sonraki Aşama",
-    "replay": "Tekrar Oynayın",
-    "erase": "Sil",
-    "howToPlay": "Bir hücreye tıklayın, ardından bir numaraya dokunun veya 1 -9 'a basın. Backspace veya Delete hücreyi temizler. Cesur sayılar ipucudur. Gridi doldurun, böylece her satır, sütun ve 3×3 kutu tekrarsız 1 -9 içerir.",
-    "pencil": "Kalem",
-    "undo": "Geri Al",
-    "hint": "İpucu",
-    "hintsUsed": "ipucu kullanıldı",
-    "mistakes": "Hatalar",
-    "failed": "Başarısız!",
-    "mistakeMode": "3-hata modu"
-  },
-  "Snake": {
-    "title": "Yılan",
-    "subtitle": "Yemek ye, büyü, duvarlardan ve kendinden kaçın",
-    "score": "Puan",
-    "best": "En İyi",
-    "startPrompt": "Herhangi bir ok tuşuna basın",
-    "startButton": "Oyunu Başlat",
-    "gameOver": "Oyun Bitti",
-    "playAgain": "Tekrar Oyna",
-    "howToPlay": "Ok tuşlarını veya WASD'ı kullan. Büyümek için ye. Hız her 50 puanda artar.",
-    "diffEasy": "Kolay",
-    "diffNormal": "Normal",
-    "diffHard": "Zor",
-    "diffInfinite": "Sonsuz",
-    "orTap": "veya aşağıya dokun",
-    "howToPlayInfinite": "Duvarlar sarılır — duvar ölümü yok. Büyümek için ye.",
-    "shieldActive": "Kalkan aktif",
-    "speedBoost": "Hız artışı",
-    "powerSpeed": "Hız x2",
-    "powerShield": "Bir ölümden kurtar",
-    "powerShrink": "Kuyruğu kısalt"
-  },
-  "Minesweeper": {
-    "title": "Mayın Tarlası",
-    "subtitle": "Bir mayına basmadan tüm güvenli hücreleri bulun",
-    "mines": "Mayınlar",
-    "newGame": "Yeni oyun",
-    "win": "Kazandınız!",
-    "loss": "Kaybettiniz!",
-    "playAgain": "Tekrar oyna",
-    "tryAgain": "Tekrar dene",
-    "startPrompt": "Başlamak için herhangi bir hücreye tıklayın",
-    "difficulty": {
-      "beginner": "Başlangıç",
-      "intermediate": "Orta",
-      "expert": "Uzman"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Düşen blokları sıralara yerleştirerek tamamlayın",
-    "next": "Sıradaki",
-    "score": "Puan",
-    "best": "En iyi",
-    "lines": "Satırlar",
-    "level": "Seviye",
-    "pause": "Duraklat",
-    "resume": "Devam et",
-    "start": "Başla",
-    "restart": "Yeniden başla",
-    "paused": "Duraklatıldı",
-    "gameOver": "Oyun bitti"
   },
   "SshKeyGenerator": {
     "title": "SSH Anahtarı Üretici",

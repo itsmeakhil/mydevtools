@@ -164,7 +164,6 @@ export const CATEGORY_ACCENT: Record<string, { bg: string; text: string }> = {
   'Network & API': { bg: 'bg-cyan-500/10', text: 'text-cyan-600 dark:text-cyan-400' },
   Database: { bg: 'bg-orange-500/10', text: 'text-orange-600 dark:text-orange-400' },
   'Media & Design': { bg: 'bg-pink-500/10', text: 'text-pink-600 dark:text-pink-400' },
-  'Break Room': { bg: 'bg-violet-500/10', text: 'text-violet-600 dark:text-violet-400' },
 }
 
 export const DEFAULT_ACCENT = { bg: 'bg-primary/10', text: 'text-primary' }

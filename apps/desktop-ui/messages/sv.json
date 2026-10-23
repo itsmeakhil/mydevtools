@@ -50,9 +50,6 @@
     "svgOptimizer": "SVG-optimering",
     "unitConverter": "Enhetsomvandlare",
     "dockerComposeGenerator": "Docker Compose-generator",
-    "breakRoom": "Pausrum",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "YAML-formaterare",
     "sshKeyGenerator": "SSH / RSA-nyckelgenerator",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-generator",
         "description": "Välj databaser, cache, köer, proxys och observabilitetsbilder; exportera docker-compose.yml för lokala stackar."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Skjut och slå samman plattor för att nå 2048. Klassiskt nummerpusselspel."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Klassiskt nummerpussel. 3 svårighetsgrader, 150 steg vardera."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Skjut brickor och slå ihop dem för att nå 2048",
-    "score": "Poäng",
-    "best": "Bäst",
-    "newGame": "Nytt spel",
-    "howToPlay": "Använd piltangenterna (eller svep på mobilen) för att flytta brickor. Plattor med samma nummer slås samman. Nå 2048 för att vinna!",
-    "youWin": "Du har nått 2048!",
-    "keepGoing": "Fortsätt så!",
-    "gameOver": "Spelet är slut",
-    "tryAgain": "Försök igen",
-    "gameOverMessage": "Inga fler rörelser kvar.",
-    "undo": "Ångra"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "etapper slutförda",
-    "time": "Tid",
-    "best": "Bäst",
-    "difficulty": {
-      "easy": "Lätt",
-      "medium": "Medium",
-      "hard": "Svår"
-    },
-    "stage": "Stage",
-    "solved": "Löst",
-    "score": "Poäng",
-    "nextStage": "Andra linje",
-    "replay": "Repris",
-    "erase": "Radera",
-    "howToPlay": "Klicka på en cell och tryck sedan på ett nummer eller tryck på 1–9. Backsteg eller Radera rensar cellen. Djärva siffror är ledtrådar. Fyll rutnätet så att varje rad, kolumn och 3× 3-ruta innehåller 1–9 utan upprepningar.",
-    "pencil": "Penna",
-    "undo": "Ångra",
-    "hint": "Tips",
-    "hintsUsed": "tips använda",
-    "mistakes": "Misstag",
-    "failed": "Misslyckades!",
-    "mistakeMode": "3-misstag läge"
-  },
-  "Snake": {
-    "title": "Snake",
-    "subtitle": "Ät mat, väx, undvik väggar och dig själv",
-    "score": "Poäng",
-    "best": "Bäst",
-    "startPrompt": "Tryck en piltangent",
-    "startButton": "Starta spel",
-    "gameOver": "Spelet slut",
-    "playAgain": "Spela igen",
-    "howToPlay": "Använd piltangenter eller WASD. Ät mat för att växa. Hastigheten ökar var 50:e poäng.",
-    "diffEasy": "Lätt",
-    "diffNormal": "Normal",
-    "diffHard": "Svår",
-    "diffInfinite": "Oändlig",
-    "orTap": "eller tryck nedan",
-    "howToPlayInfinite": "Väggar wrappas — ingen vägdöd. Ät mat för att växa.",
-    "shieldActive": "Sköld aktiv",
-    "speedBoost": "Hastighetsnöjning",
-    "powerSpeed": "Hastighet x2",
-    "powerShield": "Överlev ett dödsfall",
-    "powerShrink": "Förkortar svansen"
-  },
-  "Minesweeper": {
-    "title": "Minröjaren",
-    "subtitle": "Hitta alla säkra rutor utan att utlösa en mina",
-    "mines": "Minor",
-    "newGame": "Nytt spel",
-    "win": "Du vann!",
-    "loss": "Du förlorade!",
-    "playAgain": "Spela igen",
-    "tryAgain": "Försök igen",
-    "startPrompt": "Klicka på en ruta för att börja",
-    "difficulty": {
-      "beginner": "Nybörjare",
-      "intermediate": "Medel",
-      "expert": "Expert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Ordna de fallande blocken för att slutföra rader",
-    "next": "Nästa",
-    "score": "Poäng",
-    "best": "Bäst",
-    "lines": "Rader",
-    "level": "Nivå",
-    "pause": "Pausa",
-    "resume": "Återuppta",
-    "start": "Starta",
-    "restart": "Starta om",
-    "paused": "Pausad",
-    "gameOver": "Spelet slut"
   },
   "SshKeyGenerator": {
     "title": "SSH-nyckelgenerator",

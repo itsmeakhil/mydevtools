@@ -46,8 +46,8 @@ describe("sidebarUrlToToolSlug", () => {
   })
 
   it("ignores sub-paths beyond the first segment", () => {
-    // /app/break-room/2048 → slug is "break-room"
-    expect(sidebarUrlToToolSlug("/app/break-room/2048")).toBe("break-room")
+    // /app/api-client/foo → slug is "api-client"
+    expect(sidebarUrlToToolSlug("/app/api-client/foo")).toBe("api-client")
   })
 })
 
