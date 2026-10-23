@@ -6,14 +6,14 @@ Need help with MyDevTools? Here is where to go.
 
 | I want to… | Go to |
 |---|---|
-| Report something broken | [Open a bug report](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| Suggest a tool or improvement | [Open a feature request](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| Ask a question or get unstuck | [GitHub Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) |
+| Report something broken | [Open a bug report](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| Suggest a tool or improvement | [Open a feature request](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| Ask a question or get unstuck | [GitHub Discussions](https://github.com/itsmeakhil/mydevtools/discussions) |
 | Report a security vulnerability | [SECURITY.md](SECURITY.md) — **never** a public issue |
 | Read the docs | [mydevtools.tech/help](https://mydevtools.tech/help) · [Tool pages](https://mydevtools.tech/tools) · [Architecture](docs/ARCHITECTURE.md) |
 | Contribute code | [CONTRIBUTING.md](CONTRIBUTING.md) |
 | See what is planned | [ROADMAP.md](ROADMAP.md) |
-| See what changed | [Releases](https://github.com/mydevtools-tech/mydevtools/releases) · [Changelog](https://mydevtools.tech/changelog) |
+| See what changed | [Releases](https://github.com/itsmeakhil/mydevtools/releases) · [Changelog](https://mydevtools.tech/changelog) |
 
 MyDevTools is maintained by volunteers in their own time. Replies are usually
 quick, but there is no guaranteed response time. A clear, reproducible report
@@ -23,9 +23,9 @@ gets answered fastest.
 
 A few minutes here often solves it outright:
 
-1. **Update to the [latest release](https://github.com/mydevtools-tech/mydevtools/releases/latest)** — the bug may already be fixed.
-2. **Search [existing issues](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue)** — including closed ones.
-3. **Check [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions)** for the same question.
+1. **Update to the [latest release](https://github.com/itsmeakhil/mydevtools/releases/latest)** — the bug may already be fixed.
+2. **Search [existing issues](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue)** — including closed ones.
+3. **Check [Discussions](https://github.com/itsmeakhil/mydevtools/discussions)** for the same question.
 
 ## What to include in a report
 
@@ -76,6 +76,6 @@ under the [GNU AGPL v3](LICENSE).
 ## Helping others
 
 Answering someone else's question in
-[Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) is a
+[Discussions](https://github.com/itsmeakhil/mydevtools/discussions) is a
 real contribution. So is confirming a bug you can reproduce, or adding the
 detail that a report is missing.

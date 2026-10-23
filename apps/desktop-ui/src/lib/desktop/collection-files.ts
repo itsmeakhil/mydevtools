@@ -69,19 +69,21 @@ export async function pickFolder(): Promise<string | null> {
     return picked
 }
 
-/** All `*.yaml` files under `root` (skips dotfiles/dirs like `.git`). */
-export async function readCollectionFiles(root: string): Promise<FileEntry[]> {
+const isYaml = (name: string) => name.endsWith(".yaml")
+
+/** Files under `root` matching `match` (default `*.yaml`); skips dotfiles/dirs like `.git` and `node_modules`. */
+export async function readCollectionFiles(root: string, match: (name: string) => boolean = isYaml): Promise<FileEntry[]> {
     const fs = await import("@tauri-apps/plugin-fs")
     const entries: FileEntry[] = []
     const walk = async (dirRel: string, depth: number): Promise<void> => {
         if (depth > MAX_DEPTH) return
         const dirAbs = dirRel ? `${root}/${dirRel}` : root
         for (const entry of await fs.readDir(dirAbs)) {
-            if (entry.name.startsWith(".")) continue
+            if (entry.name.startsWith(".") || entry.name === "node_modules") continue
             const rel = dirRel ? `${dirRel}/${entry.name}` : entry.name
             if (entry.isDirectory) {
                 await walk(rel, depth + 1)
-            } else if (entry.isFile && entry.name.endsWith(".yaml")) {
+            } else if (entry.isFile && match(entry.name)) {
                 const content = await fs.readTextFile(`${root}/${rel}`)
                 if (content.length <= MAX_FILE_BYTES) entries.push({ relPath: rel, content })
             }

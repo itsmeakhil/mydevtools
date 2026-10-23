@@ -3,6 +3,8 @@
 import * as React from "react"
 import { Collection } from "../types"
 import { useCollections } from "../collections/use-collections"
+import { useEnvironmentsActions } from "./environments-context"
+import { toast } from "sonner"
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -22,7 +24,7 @@ type CollectionsActions = {
     patchFolder: (folderId: string, patch: Partial<import("../types").CollectionFolder>) => Promise<void>
     deleteMultipleCollections: (ids: string[]) => Promise<void>
     importCollection: (incoming: Collection) => Promise<Collection | null>
-    /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection. */
+    /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection, or import a Bruno folder. */
     openFolderCollection: () => Promise<Collection | null>
 }
 
@@ -49,6 +51,23 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         importCollection,
         openFolderCollection,
     } = useCollections()
+    const { addEnvironment, updateEnvironment } = useEnvironmentsActions()
+
+    // A Bruno folder brings its environments along; they live in the sibling
+    // environments context, so they are created here rather than in the hook.
+    const openFolderCollectionWithEnvs = async (): Promise<Collection | null> => {
+        const opened = await openFolderCollection()
+        if (!opened) return null
+        try {
+            for (const env of opened.environments) {
+                const envId = await addEnvironment(env.name)
+                if (envId) await updateEnvironment(envId, { variables: env.variables })
+            }
+        } catch (e) {
+            toast.error(`Imported the collection, but not its environments: ${e instanceof Error ? e.message : String(e)}`)
+        }
+        return opened.collection
+    }
 
     const state = React.useMemo<CollectionsState>(
         () => ({ collections, isLoading }),
@@ -72,10 +91,10 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             patchFolder,
             deleteMultipleCollections,
             importCollection,
-            openFolderCollection,
+            openFolderCollection: openFolderCollectionWithEnvs,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, deleteMultipleCollections, importCollection, openFolderCollection]
+        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, deleteMultipleCollections, importCollection, openFolderCollection, addEnvironment, updateEnvironment]
     )
 
     return (

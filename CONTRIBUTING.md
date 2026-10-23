@@ -65,7 +65,7 @@ Contributing to a tool's UI or logic does not require Rust.
 ## Local setup
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 ```
@@ -331,7 +331,7 @@ step did not work for you, fixing it helps the next person hitting the same wall
 
 ## Reporting bugs
 
-Open a [bug report](https://github.com/mydevtools-tech/mydevtools/issues/new/choose)
+Open a [bug report](https://github.com/itsmeakhil/mydevtools/issues/new/choose)
 and include:
 
 - What you did, what you expected, what happened instead
@@ -349,7 +349,7 @@ Found a security vulnerability? Do not open a public issue — follow
 
 ## Requesting features
 
-Open a [feature request](https://github.com/mydevtools-tech/mydevtools/issues/new/choose)
+Open a [feature request](https://github.com/itsmeakhil/mydevtools/issues/new/choose)
 describing the problem you are trying to solve, not only the solution you have
 in mind — the underlying problem often has a simpler answer.
 
@@ -361,7 +361,7 @@ this, and whether it fits an offline, local-first, account-free app.
 ## Good first issues
 
 New here? Issues labelled
-[`good first issue`](https://github.com/mydevtools-tech/mydevtools/labels/good%20first%20issue)
+[`good first issue`](https://github.com/itsmeakhil/mydevtools/labels/good%20first%20issue)
 are scoped to be completable without deep knowledge of the codebase. If none are
 open, improving a translation, a tool description or a README translation is
 always welcome — and testing the Linux build (new in 0.1.15) is the most useful

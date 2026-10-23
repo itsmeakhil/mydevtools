@@ -19,8 +19,8 @@
         "url": "https://mydevtools.tech"
       },
       "repositoryUrl": {
-        "url": "https://github.com/mydevtools-tech/mydevtools",
-        "wellKnown": "https://github.com/mydevtools-tech/mydevtools/blob/main/.well-known/funding-manifest-urls"
+        "url": "https://github.com/itsmeakhil/mydevtools",
+        "wellKnown": "https://github.com/itsmeakhil/mydevtools/blob/main/.well-known/funding-manifest-urls"
       },
       "licenses": ["spdx:AGPL-3.0-only"],
       "tags": [

@@ -63,7 +63,7 @@ requests, discussions and code review — and any official project channels.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement by opening a
-[private security advisory](https://github.com/mydevtools-tech/mydevtools/security/advisories/new)
+[private security advisory](https://github.com/itsmeakhil/mydevtools/security/advisories/new)
 (it is a private channel to the maintainers, and works for conduct reports too)
 or by contacting the maintainer directly through their
 [GitHub profile](https://github.com/itsmeakhil).
