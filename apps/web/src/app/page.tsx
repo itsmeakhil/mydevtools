@@ -270,7 +270,7 @@ const privacyPoints = [
 
 const openSourceFacts = [
   { icon: Scale, label: "License", value: "GNU AGPL v3", href: `${SOURCE_URL}/blob/main/LICENSE` },
-  { icon: Github, label: "Repository", value: "mydevtools-tech/mydevtools", href: SOURCE_URL },
+  { icon: Github, label: "Repository", value: "itsmeakhil/mydevtools", href: SOURCE_URL },
   { icon: GitPullRequest, label: "Contribution guide", value: "CONTRIBUTING.md", href: `${SOURCE_URL}/blob/main/CONTRIBUTING.md` },
   { icon: FileText, label: "Security policy", value: "SECURITY.md", href: `${SOURCE_URL}/blob/main/SECURITY.md` },
 ] as const;

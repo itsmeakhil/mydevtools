@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "MyDevTools .mydt encrypted file format — reference implementation and CLI"
 license = "AGPL-3.0"
-repository = "https://github.com/mydevtools-tech/mydevtools"
+repository = "https://github.com/itsmeakhil/mydevtools"
 readme = "README.md"
 
 [lib]

@@ -352,36 +352,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['svg optimizer', 'svg minify', 'svgo online', 'compress svg', 'optimize svg', 'remove svg metadata', 'svg file size'],
         aiSummary: 'Minify SVG with SVGO in the browser: removes comments, editor metadata, and whitespace. Shows size before/after. Answers "SVGO online", "optimize SVG file", or "compress SVG markup".',
     },
-    'break-room/2048': {
-        title: '2048',
-        description: 'Slide and merge tiles to reach the 2048 tile. A classic number puzzle to clear your head between coding sessions.',
-        keywords: ['2048 game', '2048 puzzle', 'number puzzle', 'tile game', 'brain game', 'relaxing game', 'developer break'],
-        aiSummary: 'Play 2048 in your browser: arrow keys to slide tiles, merge matching numbers, reach 2048. Score and best score tracked locally.',
-    },
-    'break-room/sudoku': {
-        title: 'Sudoku',
-        description: 'Play Sudoku in your browser with 3 difficulty levels and 150 stages each. Scores saved to your account. A perfect brain break between coding sessions.',
-        keywords: ['sudoku', 'sudoku online', 'sudoku game', 'sudoku puzzle', 'easy sudoku', 'hard sudoku', 'brain game', 'developer break'],
-        aiSummary: 'Play Sudoku with 450 unique puzzles (150 per difficulty: easy, medium, hard). Arrow-key navigation, conflict highlighting, timer, and score tracking — sign in to save progress.',
-    },
-    'break-room/snake': {
-        title: 'Snake',
-        description: 'Play the classic Snake game in your browser. Eat food, grow your snake, avoid walls and yourself. Speed increases as your score climbs.',
-        keywords: ['snake game', 'snake online', 'classic snake', 'browser game', 'developer break', 'brain break'],
-        aiSummary: 'Classic Snake game: arrow keys or WASD to move, eat food to grow, avoid walls and yourself. Speed ramps up every 50 points. Best score saved locally.',
-    },
-    'break-room/minesweeper': {
-        title: 'Minesweeper',
-        description: 'Play classic Minesweeper in your browser. Three difficulty levels: beginner, intermediate, and expert. Left click to reveal, right click to flag.',
-        keywords: ['minesweeper', 'minesweeper online', 'classic minesweeper', 'browser game', 'developer break', 'puzzle game'],
-        aiSummary: 'Classic Minesweeper: left click to reveal, right click to flag. Beginner (9×9, 10 mines), intermediate (16×16, 40 mines), expert (30×16, 99 mines). First click is always safe.',
-    },
-    'break-room/tetris': {
-        title: 'Tetris',
-        description: 'Play classic Tetris in your browser. Stack falling pieces, clear lines, and level up. Arrow keys to move, Space for hard drop.',
-        keywords: ['tetris', 'tetris online', 'classic tetris', 'browser game', 'developer break', 'block puzzle'],
-        aiSummary: 'Classic Tetris: arrow keys to move and rotate, Space for hard drop, P to pause. Ghost piece preview, speed increases per level. Best score saved locally.',
-    },
     'curl-to-code': {
         title: 'cURL to Code',
         description: 'Convert a curl command into ready-to-run request code for fetch, axios, Python, Go, PHP, Ruby, Java, and C#.',

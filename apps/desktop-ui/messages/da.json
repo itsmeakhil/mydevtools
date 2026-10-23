@@ -50,9 +50,6 @@
     "svgOptimizer": "SVG-optimering",
     "unitConverter": "Enhedskonverter",
     "dockerComposeGenerator": "Docker Compose-generator",
-    "breakRoom": "Pauserum",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "YAML-formatering",
     "sshKeyGenerator": "SSH / RSA nøglegenerator",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-generator",
         "description": "Vælg databaser, caches, køer, proxyer og observabilitets-images; eksporter docker-compose.yml til lokale stacks."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Skub og flet fliser for at nå 2048. Klassisk nummerpuslespil."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Klassisk nummerpuslespil. 3 sværhedsgrader, 150 faser hver."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Skub fliserne, og flet dem sammen for at nå 2048",
-    "score": "Score",
-    "best": "Bedst",
-    "newGame": "Nyt spil",
-    "howToPlay": "Brug piletasterne (eller stryg på mobilen) til at flytte fliser. Fliser med samme nummer flettes. Nå 2048 for at vinde!",
-    "youWin": "Du har nået 2048!",
-    "keepGoing": "\"Fortsæt.\"",
-    "gameOver": "Spil forbi",
-    "tryAgain": "Prøv igen",
-    "gameOverMessage": "Ikke flere bevægelser tilbage.",
-    "undo": "Fortryd"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "faser gennemført",
-    "time": "Tidspunkt",
-    "best": "Bedst",
-    "difficulty": {
-      "easy": "Nemt",
-      "medium": "Mellemstor",
-      "hard": "Svær"
-    },
-    "stage": "Näyttämö",
-    "solved": "Besvaret",
-    "score": "Score",
-    "nextStage": "De næste skridt",
-    "replay": "Besvar",
-    "erase": "Slet",
-    "howToPlay": "Klik på en celle, og tryk derefter på et tal, eller tryk på 1–9. Backspace eller Delete rydder cellen. Dristige tal er ledetråde. Udfyld gitteret, så hver række, kolonne og 3×3 boks indeholder 1–9 uden gentagelser.",
-    "pencil": "Blyant",
-    "undo": "Fortryd",
-    "hint": "Tip",
-    "hintsUsed": "tips brugt",
-    "mistakes": "Fejl",
-    "failed": "Mislykkedes!",
-    "mistakeMode": "3-fejl tilstand"
-  },
-  "Snake": {
-    "title": "Snake",
-    "subtitle": "Spis mad, voks, undgå vægge og dig selv",
-    "score": "Point",
-    "best": "Bedste",
-    "startPrompt": "Tryk en piletast",
-    "startButton": "Start spil",
-    "gameOver": "Spil slut",
-    "playAgain": "Spil igen",
-    "howToPlay": "Brug piletaster eller WASD. Spis mad for at vokse. Hastighed stiger hvert 50. point.",
-    "diffEasy": "Let",
-    "diffNormal": "Normal",
-    "diffHard": "Svær",
-    "diffInfinite": "Uendelig",
-    "orTap": "eller tryk nedenfor",
-    "howToPlayInfinite": "Vægge wrap rundt — ingen vægdød. Spis mad for at vokse.",
-    "shieldActive": "Skjold aktivt",
-    "speedBoost": "Hastighedsforøgelse",
-    "powerSpeed": "Hastighed x2",
-    "powerShield": "Overlev én død",
-    "powerShrink": "Forkorter halen"
-  },
-  "Minesweeper": {
-    "title": "Minestryger",
-    "subtitle": "Find alle sikre felter uden at ramme en mine",
-    "mines": "Miner",
-    "newGame": "Nyt spil",
-    "win": "Du vandt!",
-    "loss": "Spillet slut!",
-    "playAgain": "Spil igen",
-    "tryAgain": "Prøv igen",
-    "startPrompt": "Klik på et felt for at starte",
-    "difficulty": {
-      "beginner": "Begynder",
-      "intermediate": "Øvet",
-      "expert": "Ekspert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Arranger de faldende blokke for at fuldføre rækker",
-    "next": "Næste",
-    "score": "Score",
-    "best": "Bedst",
-    "lines": "Linjer",
-    "level": "Niveau",
-    "pause": "Pause",
-    "resume": "Genoptag",
-    "start": "Start",
-    "restart": "Genstart",
-    "paused": "Pauset",
-    "gameOver": "Spillet er slut"
   },
   "SshKeyGenerator": {
     "title": "SSH-nøglegenerator",

@@ -100,11 +100,6 @@ const TAB_REGISTRY: Record<string, React.ComponentType> = {
   '/app/token-counter': dynamic(() => import('@/app/app/token-counter/page'), { ssr: false, loading }),
   '/app/websocket-tester': dynamic(() => import('@/app/app/websocket-tester/page'), { ssr: false, loading }),
   '/app/whois-lookup': dynamic(() => import('@/app/app/whois-lookup/page'), { ssr: false, loading }),
-  '/app/break-room/2048': dynamic(() => import('@/app/app/break-room/2048/page'), { ssr: false, loading }),
-  '/app/break-room/sudoku': dynamic(() => import('@/app/app/break-room/sudoku/page'), { ssr: false, loading }),
-  '/app/break-room/snake': dynamic(() => import('@/app/app/break-room/snake/page'), { ssr: false, loading }),
-  '/app/break-room/minesweeper': dynamic(() => import('@/app/app/break-room/minesweeper/page'), { ssr: false, loading }),
-  '/app/break-room/tetris': dynamic(() => import('@/app/app/break-room/tetris/page'), { ssr: false, loading }),
 }
 
 export function getTabComponent(path: string): React.ComponentType | null {

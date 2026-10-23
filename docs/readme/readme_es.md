@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="Última versión" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="Descargas" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/itsmeakhil/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="Última versión" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases"><img src="https://img.shields.io/github/downloads/itsmeakhil/mydevtools/total?style=flat-square&color=22c55e" alt="Descargas" /></a>
   <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="Licencia AGPL-3.0" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="Estrellas en GitHub" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=flat-square&color=f59e0b" alt="Estrellas en GitHub" /></a>
 </p>
 
 <p align="center">
@@ -41,13 +41,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ Descargar</strong></a> •
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><strong>⬇️ Descargar</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 Sitio web</strong></a> •
   <a href="https://mydevtools.tech/help"><strong>📚 Documentación</strong></a> •
   <a href="../../CHANGELOG.md">📋 Registro de cambios</a> •
   <a href="../../ROADMAP.md">🗺️ Hoja de ruta</a> •
   <a href="../../CONTRIBUTING.md">🤝 Contribuir</a> •
-  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 Discusiones</a>
+  <a href="https://github.com/itsmeakhil/mydevtools/discussions">💬 Discusiones</a>
 </p>
 
 <!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
@@ -88,8 +88,8 @@ Se ejecuta en tu máquina. No hay servidor de MyDevTools, ni cuenta, ni sincroni
 
 | Plataforma | Cómo |
 |---|---|
-| **macOS** (Apple Silicon + Intel) | [Descarga el `.dmg` más reciente](https://github.com/mydevtools-tech/mydevtools/releases/latest): compilación universal, firmada y notarizada, se actualiza sola desde la app |
-| **Linux** (x86_64) | [Descarga el `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) o el [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (funciona en cualquier distro, sin instalar): misma versión y mismo lanzamiento que macOS. Aún sin actualización automática en la app; consulta la [guía de instalación en Linux](https://mydevtools.tech/linux-builds) |
+| **macOS** (Apple Silicon + Intel) | [Descarga el `.dmg` más reciente](https://github.com/itsmeakhil/mydevtools/releases/latest): compilación universal, firmada y notarizada, se actualiza sola desde la app |
+| **Linux** (x86_64) | [Descarga el `.deb`](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) o el [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (funciona en cualquier distro, sin instalar): misma versión y mismo lanzamiento que macOS. Aún sin actualización automática en la app; consulta la [guía de instalación en Linux](https://mydevtools.tech/linux-builds) |
 | **Windows** | Sin compilación por ahora. El contenedor Tauri compila en Windows: consulta [Compilar desde el código fuente](../../README.md#%EF%B8%8F-building-from-source) y la [hoja de ruta](../../ROADMAP.md) |
 
 Ábrela y ponte a trabajar: sin registro, sin configuración, sin claves de API.
@@ -153,7 +153,7 @@ Detalles: [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md).
 ## 🛠️ Compilar desde el código fuente
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 pnpm dev:desktop     # Tauri desktop app in dev mode
@@ -182,7 +182,7 @@ claves de API, sin cuentas, sin servicios.
 
 Las contribuciones son bienvenidas: correcciones de errores, herramientas nuevas,
 mejoras de UI, traducciones y documentación cuentan todas. Empieza por
-[CONTRIBUTING.md](../../CONTRIBUTING.md); los issues con la etiqueta [`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+[CONTRIBUTING.md](../../CONTRIBUTING.md); los issues con la etiqueta [`good first issue`](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 están acotados para quienes empiezan.
 
 Mejorar esta traducción, o un archivo de idioma en `apps/desktop-ui/messages/`,
@@ -190,8 +190,8 @@ no requiere Rust ni compilar nada.
 
 | | |
 |---|---|
-| 🐛 Reportar un error · ✨ Pedir una función | [Plantillas de issues](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 Hacer una pregunta | [Discusiones](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
+| 🐛 Reportar un error · ✨ Pedir una función | [Plantillas de issues](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| 💬 Hacer una pregunta | [Discusiones](https://github.com/itsmeakhil/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
 | 🔒 Reportar una vulnerabilidad | [SECURITY.md](../../SECURITY.md), en privado, nunca en un issue público |
 | 🗺️ Ver qué está planeado | [ROADMAP.md](../../ROADMAP.md) |
 | 🤝 Normas de la comunidad | [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) |
@@ -211,5 +211,5 @@ o cuéntaselo a alguien de tu equipo.
 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html), consulta [LICENSE](../../LICENSE).
 
 <p align="center">
-  Hecho con ❤️ por <a href="https://github.com/itsmeakhil">Akhil</a> y <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">colaboradores</a>
+  Hecho con ❤️ por <a href="https://github.com/itsmeakhil">Akhil</a> y <a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">colaboradores</a>
 </p>

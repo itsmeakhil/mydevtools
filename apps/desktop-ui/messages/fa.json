@@ -50,9 +50,6 @@
     "svgOptimizer": "بهینه‌ساز SVG",
     "unitConverter": "مبدل واحد",
     "dockerComposeGenerator": "تولیدکننده Docker Compose",
-    "breakRoom": "اتاق استراحت؛",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "قالب‌بندی YAML",
     "sshKeyGenerator": "تولیدکننده کلید SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "تولیدکننده Docker Compose",
         "description": "پایگاه‌داده، کش، صف، پروکسی و تصاویر قابلیت مشاهده را انتخاب کنید؛ docker-compose.yml را برای پشته‌های محلی صادر کنید."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "کاشی‌ها را بلغزانید و ادغام کنید تا به عدد ۲۰۴۸ برسید. بازی پازل اعداد کلاسیک."
-      },
-      "sudoku": {
-        "title": "سودوکو",
-        "description": "معمای اعداد کلاسیک. ۳ سطح دشواری، هر کدام ۱۵۰ مرحله."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "کاشی‌ها را بلغزانید و آنها را ادغام کنید تا به عدد 2048 برسید",
-    "score": "نمره",
-    "best": "بهترین",
-    "newGame": "بازی جدید",
-    "howToPlay": "برای جابجایی کاشی‌ها از کلیدهای جهت‌نما (یا کشیدن انگشت در موبایل) استفاده کنید. کاشی‌هایی که عدد یکسانی دارند با هم ادغام می‌شوند. برای برنده شدن به عدد 2048 برسید!",
-    "youWin": "شما به عدد ۲۰۴۸ رسیدید!",
-    "keepGoing": "ادامه بدید",
-    "gameOver": "بازی",
-    "tryAgain": "دوباره امتحان کنید",
-    "gameOverMessage": "جُم نخورید.",
-    "undo": "واگرد"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "مراحل تکمیل شده",
-    "time": "زمان",
-    "best": "بهترین",
-    "difficulty": {
-      "easy": "آسان",
-      "medium": "متوسط",
-      "hard": "سخت"
-    },
-    "stage": ".",
-    "solved": "پاسخ داده شده",
-    "score": "نمره",
-    "nextStage": "مرحله بعد",
-    "replay": "بازپخش",
-    "erase": "پاک کردن",
-    "howToPlay": "روی یک سلول کلیک کنید، سپس روی یک عدد ضربه بزنید یا ۱ تا ۹ را فشار دهید. کلید Backspace یا Delete سلول را پاک می‌کند. اعداد پررنگ سرنخ هستند. جدول را طوری پر کنید که هر سطر، ستون و کادر ۳×۳ شامل اعداد ۱ تا ۹ بدون تکرار باشد.",
-    "pencil": "Pencil",
-    "undo": "Undo",
-    "hint": "Hint",
-    "hintsUsed": "hints used",
-    "mistakes": "Mistakes",
-    "failed": "Failed!",
-    "mistakeMode": "3-mistake mode"
-  },
-  "Snake": {
-    "title": "مار",
-    "subtitle": "غذا بخور، رشد کن، از دیوارها و خودت دوری کن",
-    "score": "امتیاز",
-    "best": "بهترین",
-    "startPrompt": "یک کلید جهت را فشار دهید",
-    "startButton": "شروع بازی",
-    "gameOver": "بازی تمام شد",
-    "playAgain": "دوباره بازی کن",
-    "howToPlay": "از کلیدهای جهت یا WASD استفاده کن. غذا بخور تا رشد کنی. هر ۵۰ امتیاز سرعت افزایش می‌یابد.",
-    "diffEasy": "آسان",
-    "diffNormal": "معمولی",
-    "diffHard": "سخت",
-    "diffInfinite": "بی‌نهایت",
-    "orTap": "یا زیر را لمس کنید",
-    "howToPlayInfinite": "دیوارها تکرار می‌شوند — بدون مرگ دیواری. غذا بخور تا رشد کنی.",
-    "shieldActive": "Shield Active",
-    "speedBoost": "Speed Boost",
-    "powerSpeed": "Speed x2 (10 ticks)",
-    "powerShield": "Survive one death",
-    "powerShrink": "Shortens tail"
-  },
-  "Minesweeper": {
-    "title": "مین‌یاب",
-    "subtitle": "همه خانه‌های امن را بدون انفجار مین پیدا کنید",
-    "mines": "مین‌ها",
-    "newGame": "بازی جدید",
-    "win": "شما برنده شدید!",
-    "loss": "باختید!",
-    "playAgain": "دوباره بازی کنید",
-    "tryAgain": "دوباره تلاش کنید",
-    "startPrompt": "برای شروع روی هر خانه‌ای کلیک کنید",
-    "difficulty": {
-      "beginner": "مبتدی",
-      "intermediate": "متوسط",
-      "expert": "حرفه‌ای"
-    }
-  },
-  "Tetris": {
-    "title": "تتریس",
-    "subtitle": "بلوک‌های در حال سقوط را برای تکمیل ردیف‌ها مرتب کنید",
-    "next": "بعدی",
-    "score": "امتیاز",
-    "best": "بهترین",
-    "lines": "خطوط",
-    "level": "سطح",
-    "pause": "مکث",
-    "resume": "ادامه",
-    "start": "شروع",
-    "restart": "شروع مجدد",
-    "paused": "متوقف شده",
-    "gameOver": "پایان بازی"
   },
   "SshKeyGenerator": {
     "title": "مولد کلید SSH",

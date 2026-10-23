@@ -50,9 +50,6 @@
     "svgOptimizer": "Optimalizátor SVG",
     "unitConverter": "Převodník jednotek",
     "dockerComposeGenerator": "Generátor Docker Compose",
-    "breakRoom": "PŘESTÁVKOVÁ MÍSTNOST",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "Formátovač YAML",
     "sshKeyGenerator": "Generátor klíčů SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Generátor Docker Compose",
         "description": "Vyberte databáze, cache, fronty, proxy a observabilitu; exportujte docker-compose.yml pro lokální stacky."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Posunutím a sloučením dlaždic dosáhneš roku 2048. Klasická číselná logická hra."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Klasické číslo puzzle. 3 úrovně obtížnosti, 150 stupňů každý."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Posuň dlaždice a slouč je do roku 2048",
-    "score": "Skóre",
-    "best": "Nejlepší",
-    "newGame": "Nová hra",
-    "howToPlay": "Pomocí kláves se šipkami (nebo přejeďte na mobilu) přesuňte dlaždice. Dlaždice se stejným číslem se sloučí. Dosáhněte roku 2048 a vyhrajte!",
-    "youWin": "Dosáhli jste roku 2048!",
-    "keepGoing": "Neohlížej se",
-    "gameOver": "Konec Hry",
-    "tryAgain": "Zkusit to znovu",
-    "gameOverMessage": "Už žádné tahy.",
-    "undo": "Zpět"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "etapy dokončeny",
-    "time": "Hod",
-    "best": "Nejlepší",
-    "difficulty": {
-      "easy": "Lehká",
-      "medium": "Střední",
-      "hard": "Tvrdé"
-    },
-    "stage": "Míra",
-    "solved": "Vyřešeno",
-    "score": "Skóre",
-    "nextStage": "Další etapa",
-    "replay": "Znovu přehrát",
-    "erase": "Smazat",
-    "howToPlay": "Klikněte na buňku a potom klepněte na číslo nebo stiskněte 1–9. Backspace nebo Delete vymaže buňku. Tučná čísla jsou vodítka. Vyplňte mřížku tak, aby každý řádek, sloupec a 3×3 pole obsahovaly 1–9 bez opakování.",
-    "pencil": "Tužka",
-    "undo": "Zpět",
-    "hint": "Nápověda",
-    "hintsUsed": "nápovědy použity",
-    "mistakes": "Chyby",
-    "failed": "Neúspěch!",
-    "mistakeMode": "Režim 3 chyb"
-  },
-  "Snake": {
-    "title": "Had",
-    "subtitle": "Jez jídlo, roste, vyhýbej se zdím a sobě",
-    "score": "Skóre",
-    "best": "Nejlepší",
-    "startPrompt": "Stiskni jakoukoli šipku",
-    "startButton": "Spustit hru",
-    "gameOver": "Konec hry",
-    "playAgain": "Hrát znovu",
-    "howToPlay": "Pohybuj se šipkami nebo WASD. Jez a roste. Rychlost roste každých 50 bodů.",
-    "diffEasy": "Lehké",
-    "diffNormal": "Normální",
-    "diffHard": "Těžké",
-    "diffInfinite": "Nekonečno",
-    "orTap": "nebo klepni níže",
-    "howToPlayInfinite": "Zdi se opakují — žádná smrt od zdí. Jez a roste.",
-    "shieldActive": "Štít aktivní",
-    "speedBoost": "Zrychlení",
-    "powerSpeed": "Rychlost x2",
-    "powerShield": "Přežij jednu smrt",
-    "powerShrink": "Zkrátí ocas"
-  },
-  "Minesweeper": {
-    "title": "Hledání min",
-    "subtitle": "Najděte všechna bezpečná pole bez odpálení miny",
-    "mines": "Miny",
-    "newGame": "Nová hra",
-    "win": "Vyhráli jste!",
-    "loss": "Konec hry!",
-    "playAgain": "Hrát znovu",
-    "tryAgain": "Zkusit znovu",
-    "startPrompt": "Klikněte na libovolné pole pro začátek",
-    "difficulty": {
-      "beginner": "Začátečník",
-      "intermediate": "Středně pokročilý",
-      "expert": "Expert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Uspořádejte padající bloky a dokončete řady",
-    "next": "Další",
-    "score": "Skóre",
-    "best": "Nejlepší",
-    "lines": "Řádky",
-    "level": "Úroveň",
-    "pause": "Pauza",
-    "resume": "Pokračovat",
-    "start": "Start",
-    "restart": "Restart",
-    "paused": "Pozastaveno",
-    "gameOver": "Konec hry"
   },
   "SshKeyGenerator": {
     "title": "Generátor SSH klíčů",

@@ -50,9 +50,6 @@
     "svgOptimizer": "SVG 最適化",
     "unitConverter": "単位変換器",
     "dockerComposeGenerator": "Docker Compose ジェネレーター",
-    "breakRoom": "休憩室",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "YAMLフォーマッター",
     "sshKeyGenerator": "SSH / RSAキージェネレーター",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose ジェネレーター",
         "description": "データベース、キャッシュ、キュー、プロキシ、可観測性イメージを選び、ローカル用の docker-compose.yml を出力します。"
-      },
-      "game2048": {
-        "title": "2048年",
-        "description": "タイルをスライドさせてマージし、2048に到達します。クラシックなナンバーパズルゲーム。"
-      },
-      "sudoku": {
-        "title": "数独",
-        "description": "クラシックな数字パズル。3つの難易度、それぞれ150ステージ。"
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg（Chromium / PDF）"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "タイルをスライドさせてマージし、2048に到達します",
-    "score": "スコア",
-    "best": "おすすめ",
-    "newGame": "新しいゲーム",
-    "howToPlay": "タイルを移動するには、矢印キー（またはモバイルでスワイプ）を使用します。同じ番号のタイルがマージされます。2048年に到達して勝利しましょう！",
-    "youWin": "2048に到達しました！",
-    "keepGoing": "立ち止まるな",
-    "gameOver": "ゲームオーバー",
-    "tryAgain": "再試行してください。",
-    "gameOverMessage": "これ以上のムーブはありません。",
-    "undo": "元に戻す"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "個のステージが完了しました",
-    "time": "時刻",
-    "best": "おすすめ",
-    "difficulty": {
-      "easy": "イージー",
-      "medium": "中",
-      "hard": "ハード"
-    },
-    "stage": "段階",
-    "solved": "解決済",
-    "score": "スコア",
-    "nextStage": "ステージ",
-    "replay": "リプレイ",
-    "erase": "删除",
-    "howToPlay": "セルをクリックし、数字をタップするか、1 -9を押します。BackspaceまたはDeleteを選択すると、セルがクリアされます。太字の数字は手がかりです。すべての行、列、および3 × 3ボックスに1 -9が繰り返されないように、グリッドを塗りつぶします。",
-    "pencil": "メモ",
-    "undo": "元に戻す",
-    "hint": "ヒント",
-    "hintsUsed": "ヒント使用",
-    "mistakes": "ミス",
-    "failed": "失敗!",
-    "mistakeMode": "3ミスモード"
-  },
-  "Snake": {
-    "title": "スネーク",
-    "subtitle": "食べ物を食べ、成長し、壁と自分自身を避けよう",
-    "score": "スコア",
-    "best": "ベスト",
-    "startPrompt": "矢印キーを押してください",
-    "startButton": "ゲーム開始",
-    "gameOver": "ゲームオーバー",
-    "playAgain": "もう一度プレイ",
-    "howToPlay": "矢印キーまたはWASDで移動。食べ物を食べて成長しよう。50点ごとに速度が上がる。",
-    "diffEasy": "簡単",
-    "diffNormal": "普通",
-    "diffHard": "難しい",
-    "diffInfinite": "無限",
-    "orTap": "または下をタップ",
-    "howToPlayInfinite": "壁がループする — 壁での死なし。食べ物を食べて成長しよう。",
-    "shieldActive": "シールド有効",
-    "speedBoost": "スピードブースト",
-    "powerSpeed": "速度 x2",
-    "powerShield": "死を一回回避",
-    "powerShrink": "尾を短縮"
-  },
-  "Minesweeper": {
-    "title": "マインスイーパー",
-    "subtitle": "地雷を爆発させずにすべての安全なマスを見つけよう",
-    "mines": "地雷",
-    "newGame": "新しいゲーム",
-    "win": "勝利！",
-    "loss": "ゲームオーバー！",
-    "playAgain": "もう一度プレイ",
-    "tryAgain": "再挑戦",
-    "startPrompt": "任意のマスをクリックして開始",
-    "difficulty": {
-      "beginner": "初級",
-      "intermediate": "中級",
-      "expert": "上級"
-    }
-  },
-  "Tetris": {
-    "title": "テトリス",
-    "subtitle": "落ちてくるブロックを並べて行を完成させよう",
-    "next": "次",
-    "score": "スコア",
-    "best": "ベスト",
-    "lines": "ライン",
-    "level": "レベル",
-    "pause": "一時停止",
-    "resume": "再開",
-    "start": "スタート",
-    "restart": "リスタート",
-    "paused": "一時停止中",
-    "gameOver": "ゲームオーバー"
   },
   "SshKeyGenerator": {
     "title": "SSHキージェネレーター",

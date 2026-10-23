@@ -50,9 +50,6 @@
     "svgOptimizer": "Pengoptimum SVG",
     "unitConverter": "Penukar Unit",
     "dockerComposeGenerator": "Penjana Docker Compose",
-    "breakRoom": "Bilik Rehat",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "Pemformat YAML",
     "sshKeyGenerator": "Penjana Kekunci SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -560,14 +557,6 @@
       "dockerComposeGenerator": {
         "title": "Penjana Docker Compose",
         "description": "Pilih pangkalan data, cache, baris gilir, proksi dan imej kebolehcerapan; eksport docker-compose.yml untuk setempat."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Luncur dan gabungkan jubin untuk mencapai 2048. Permainan teka-teki nombor klasik."
-      },
-      "sudoku": {
-        "title": "Stone GNOME",
-        "description": "Teka-teki nombor klasik. 3 tahap kesukaran, 150 peringkat setiap satu."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Gelongsor jubin dan gabungkannya untuk mencapai 2048",
-    "score": "Markah",
-    "best": "Terbaik",
-    "newGame": "Permaina_n Baru",
-    "howToPlay": "Gunakan kekunci anak panah (atau leret pada telefon bimbit) untuk mengalihkan jubin. Jubin dengan nombor yang sama bergabung. Capai 2048 untuk menang!",
-    "youWin": "Anda telah mencapai 2048!",
-    "keepGoing": "Teruskan",
-    "gameOver": "Permainan Tamat",
-    "tryAgain": "Cuba Sekali Lagi",
-    "gameOverMessage": "Tiada lagi pergerakan yang tinggal.",
-    "undo": "Batal"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "peringkat selesai",
-    "time": "Masa",
-    "best": "Terbaik",
-    "difficulty": {
-      "easy": "Mudah",
-      "medium": "Sederhana",
-      "hard": "Susah"
-    },
-    "stage": "Tahap",
-    "solved": "TELAH DISELESAIKAN",
-    "score": "Markah",
-    "nextStage": "Peringkat seterusnya",
-    "replay": "Penapis",
-    "erase": "Padam",
-    "howToPlay": "Klik sel, kemudian ketik nombor atau tekan 1–9. Backspace atau Delete membersihkan sel. Nombor tebal adalah petunjuk. Isi grid supaya setiap baris, lajur, dan kotak 3×3 mengandungi 1–9 tanpa ulangan.",
-    "pencil": "Pencil",
-    "undo": "Undo",
-    "hint": "Hint",
-    "hintsUsed": "hints used",
-    "mistakes": "Mistakes",
-    "failed": "Failed!",
-    "mistakeMode": "3-mistake mode"
-  },
-  "Snake": {
-    "title": "Ular",
-    "subtitle": "Makan makanan, membesar, elak dinding dan diri sendiri",
-    "score": "Skor",
-    "best": "Terbaik",
-    "startPrompt": "Tekan mana-mana kekunci anak panah",
-    "startButton": "Mulakan Permainan",
-    "gameOver": "Permainan Tamat",
-    "playAgain": "Main Semula",
-    "howToPlay": "Gunakan kekunci anak panah atau WASD. Makan untuk membesar. Kelajuan meningkat setiap 50 mata.",
-    "diffEasy": "Mudah",
-    "diffNormal": "Biasa",
-    "diffHard": "Susah",
-    "diffInfinite": "Tanpa Had",
-    "orTap": "atau ketik di bawah",
-    "howToPlayInfinite": "Dinding bersambung — tiada kematian dinding. Makan untuk membesar.",
-    "shieldActive": "Shield Active",
-    "speedBoost": "Speed Boost",
-    "powerSpeed": "Speed x2 (10 ticks)",
-    "powerShield": "Survive one death",
-    "powerShrink": "Shortens tail"
-  },
-  "Minesweeper": {
-    "title": "Penyapu Min",
-    "subtitle": "Cari semua sel selamat tanpa meletupkan min",
-    "mines": "Min",
-    "newGame": "Permainan baharu",
-    "win": "Anda menang!",
-    "loss": "Kalah!",
-    "playAgain": "Main lagi",
-    "tryAgain": "Cuba lagi",
-    "startPrompt": "Klik mana-mana sel untuk mula",
-    "difficulty": {
-      "beginner": "Pemula",
-      "intermediate": "Pertengahan",
-      "expert": "Pakar"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Susun blok yang jatuh untuk melengkapkan baris",
-    "next": "Seterusnya",
-    "score": "Skor",
-    "best": "Terbaik",
-    "lines": "Baris",
-    "level": "Tahap",
-    "pause": "Jeda",
-    "resume": "Sambung",
-    "start": "Mula",
-    "restart": "Mulakan semula",
-    "paused": "Dijeda",
-    "gameOver": "Permainan tamat"
   },
   "SshKeyGenerator": {
     "title": "Penjana Kunci SSH",

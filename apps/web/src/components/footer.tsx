@@ -7,7 +7,7 @@ import { ArrowUp } from "lucide-react";
 import { Logo } from "./logo";
 
 /** Source repository — AGPL v3. Built releases ship on this repo's releases page. */
-export const SOURCE_URL = "https://github.com/mydevtools-tech/mydevtools";
+export const SOURCE_URL = "https://github.com/itsmeakhil/mydevtools";
 
 type FooterLink = { href: string; label: string; external?: boolean };
 

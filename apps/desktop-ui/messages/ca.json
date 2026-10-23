@@ -50,9 +50,6 @@
     "svgOptimizer": "Optimitzador SVG",
     "unitConverter": "Convertidor d'unitats",
     "dockerComposeGenerator": "Generador Docker Compose",
-    "breakRoom": "Sala de descans",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "Formatador YAML",
     "sshKeyGenerator": "Generador de claus SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Generador Docker Compose",
         "description": "Trieu bases de dades, memòries cau, cues, proxies i imatges d’observabilitat; exporteu un docker-compose.yml per a piles locals."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Llisca i fusiona les rajoles per arribar al 2048. Joc clàssic de trencaclosques de nombres."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Trencaclosques de números clàssics. 3 nivells de dificultat, 150 etapes cadascun."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Llisca les rajoles i fusiona-les per arribar al 2048",
-    "score": "Puntuació",
-    "best": "Òptim",
-    "newGame": "Nova partida",
-    "howToPlay": "Utilitza les tecles de fletxa (o llisca el mòbil) per moure les rajoles. Les rajoles amb el mateix nombre es fusionen. Fes el 2048 per guanyar!",
-    "youWin": "Has arribat al 2048!",
-    "keepGoing": "- Segueix.",
-    "gameOver": "La partida ha acabat",
-    "tryAgain": "Torna a intentar-ho",
-    "gameOverMessage": "No queden més moviments.",
-    "undo": "Desfer"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "etapes completades",
-    "time": "Hora",
-    "best": "Òptim",
-    "difficulty": {
-      "easy": "Fàcil",
-      "medium": "Suport",
-      "hard": "Dur"
-    },
-    "stage": "Fase",
-    "solved": "Solucionat",
-    "score": "Puntuació",
-    "nextStage": "Següent etapa",
-    "replay": "& Repetició",
-    "erase": "Esborrar",
-    "howToPlay": "Fes clic a una cel·la i, a continuació, toca un número o prem 1–9. Backspace o Suprimeix neteja la cel·la. Els números en negreta són pistes. Omple la graella perquè cada fila, columna i quadre de 3×3 contingui de l'1 al 9 sense repeticions.",
-    "pencil": "Llapis",
-    "undo": "Desfer",
-    "hint": "Pista",
-    "hintsUsed": "pistes usades",
-    "mistakes": "Errors",
-    "failed": "Fracassat!",
-    "mistakeMode": "Mode 3 errors"
-  },
-  "Snake": {
-    "title": "Snake",
-    "subtitle": "Menja, creix, evita les parets i tu mateix",
-    "score": "Punts",
-    "best": "Millor",
-    "startPrompt": "Prem qualsevol tecla de fletxa",
-    "startButton": "Iniciar Joc",
-    "gameOver": "Fi del Joc",
-    "playAgain": "Jugar de nou",
-    "howToPlay": "Usa les tecles de fletxa o WASD per moure't. Menja per créixer. La velocitat augmenta cada 50 punts.",
-    "diffEasy": "Fàcil",
-    "diffNormal": "Normal",
-    "diffHard": "Difícil",
-    "diffInfinite": "Infinit",
-    "orTap": "o toca a baix",
-    "howToPlayInfinite": "Les parets s'emboliquen — sense morts per parets. Menja per créixer.",
-    "shieldActive": "Escut actiu",
-    "speedBoost": "Augment velocitat",
-    "powerSpeed": "Velocitat x2",
-    "powerShield": "Sobreviu una mort",
-    "powerShrink": "Escurça la cua"
-  },
-  "Minesweeper": {
-    "title": "Buscamines",
-    "subtitle": "Troba totes les cel·les segures sense detonar una mina",
-    "mines": "Mines",
-    "newGame": "Nova partida",
-    "win": "Has guanyat!",
-    "loss": "Has perdut!",
-    "playAgain": "Torna a jugar",
-    "tryAgain": "Torna-ho a provar",
-    "startPrompt": "Fes clic a qualsevol cel·la per començar",
-    "difficulty": {
-      "beginner": "Principiant",
-      "intermediate": "Intermedi",
-      "expert": "Expert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Organitza els blocs que cauen per completar files",
-    "next": "Següent",
-    "score": "Puntuació",
-    "best": "Millor",
-    "lines": "Línies",
-    "level": "Nivell",
-    "pause": "Pausa",
-    "resume": "Reprèn",
-    "start": "Comença",
-    "restart": "Reinicia",
-    "paused": "En pausa",
-    "gameOver": "Fi de partida"
   },
   "SshKeyGenerator": {
     "title": "Generador de claus SSH",

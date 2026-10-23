@@ -50,9 +50,6 @@
     "svgOptimizer": "Optimizador SVG",
     "unitConverter": "Convertidor de unidades",
     "dockerComposeGenerator": "Generador Docker Compose",
-    "breakRoom": "Sala de descanso",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "Formateador YAML",
     "sshKeyGenerator": "Generador de claves SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Generador Docker Compose",
         "description": "Elige bases de datos, cachés, colas, proxies e imágenes de observabilidad; exporta un docker-compose.yml para entornos locales."
-      },
-      "game2048": {
-        "title": "2048 \t",
-        "description": "Desliza y fusiona los mosaicos para llegar a 2048. Juego clásico de rompecabezas de números."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Rompecabezas de números clásicos. 3 niveles de dificultad, 150 etapas cada uno."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Deslice los mosaicos y combínelos para llegar a 2048",
-    "score": "Puntuación",
-    "best": "El mejor",
-    "newGame": "Nueva partida",
-    "howToPlay": "Utilice las teclas de flecha (o deslice el dedo en el móvil) para mover los mosaicos. Los mosaicos con el mismo número se fusionan. ¡Llega a 2048 para ganar!",
-    "youWin": "¡Has llegado a 2048!",
-    "keepGoing": "Continuar",
-    "gameOver": "Juego terminado",
-    "tryAgain": "Intentar de nuevo",
-    "gameOverMessage": "No hay más movimientos posibles. ",
-    "undo": "Deshacer"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "etapas completadas",
-    "time": "Time (tiempo)",
-    "best": "El mejor",
-    "difficulty": {
-      "easy": "Fácil",
-      "medium": "Medio",
-      "hard": "Duro"
-    },
-    "stage": "Fase",
-    "solved": "Concluído",
-    "score": "Puntuación",
-    "nextStage": "Siguiente etapa",
-    "replay": "Volver a reproducir",
-    "erase": "Borrar",
-    "howToPlay": "Haz clic en una celda y, a continuación, pulsa un número o pulsa 1–9. Backspace o Delete borra la celda. Los números en negrita son pistas. Rellena la cuadrícula para que cada fila, columna y cuadro de 3×3 contenga del 1 al 9 sin repeticiones.",
-    "pencil": "Lápiz",
-    "undo": "Deshacer",
-    "hint": "Pista",
-    "hintsUsed": "pistas usadas",
-    "mistakes": "Errores",
-    "failed": "¡Fallido!",
-    "mistakeMode": "Modo 3 errores"
-  },
-  "Snake": {
-    "title": "Snake",
-    "subtitle": "Come comida, crece, evita paredes y a ti mismo",
-    "score": "Puntos",
-    "best": "Mejor",
-    "startPrompt": "Pulsa cualquier tecla de flecha",
-    "startButton": "Iniciar juego",
-    "gameOver": "Fin del juego",
-    "playAgain": "Jugar de nuevo",
-    "howToPlay": "Usa las teclas de flecha o WASD. Come para crecer. La velocidad aumenta cada 50 puntos.",
-    "diffEasy": "Fácil",
-    "diffNormal": "Normal",
-    "diffHard": "Difícil",
-    "diffInfinite": "Infinito",
-    "orTap": "o toca abajo",
-    "howToPlayInfinite": "Las paredes se envuelven — sin muertes por paredes. Come para crecer.",
-    "shieldActive": "Escudo activo",
-    "speedBoost": "Aumento de velocidad",
-    "powerSpeed": "Velocidad x2",
-    "powerShield": "Sobrevive una muerte",
-    "powerShrink": "Acorta la cola"
-  },
-  "Minesweeper": {
-    "title": "Buscaminas",
-    "subtitle": "Encuentra todas las casillas seguras sin detonar una mina",
-    "mines": "Minas",
-    "newGame": "Nuevo juego",
-    "win": "¡Ganaste!",
-    "loss": "¡Perdiste!",
-    "playAgain": "Jugar de nuevo",
-    "tryAgain": "Intentar de nuevo",
-    "startPrompt": "Haz clic en cualquier casilla para empezar",
-    "difficulty": {
-      "beginner": "Principiante",
-      "intermediate": "Intermedio",
-      "expert": "Experto"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Organiza los bloques que caen para completar filas",
-    "next": "Siguiente",
-    "score": "Puntuación",
-    "best": "Mejor",
-    "lines": "Líneas",
-    "level": "Nivel",
-    "pause": "Pausa",
-    "resume": "Reanudar",
-    "start": "Iniciar",
-    "restart": "Reiniciar",
-    "paused": "En pausa",
-    "gameOver": "Fin del juego"
   },
   "SshKeyGenerator": {
     "title": "Generador de claves SSH",

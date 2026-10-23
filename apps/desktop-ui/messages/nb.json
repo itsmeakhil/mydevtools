@@ -50,9 +50,6 @@
     "svgOptimizer": "SVG-optimalisering",
     "unitConverter": "Enhetsomregner",
     "dockerComposeGenerator": "Docker Compose-generator",
-    "breakRoom": "Pauserom",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "YAML-formaterer",
     "sshKeyGenerator": "SSH / RSA nøkkelgenerator",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-generator",
         "description": "Velg databaser, hurtigminne, køer, proxyer og observabilitetsbilder; eksporter docker-compose.yml for lokale stakk."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Skyv og slå sammen brikker for å nå 2048. Klassisk tallpuslespill."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Klassisk tallpuslespill. 3 vanskelighetsgrader, 150 nivåer hver."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Skyv fliser og slå dem sammen for å nå 2048",
-    "score": "Poengsum",
-    "best": "Best",
-    "newGame": "Nytt spill",
-    "howToPlay": "Bruk piltastene (eller sveip på mobilen) for å flytte brikker. Brikker med samme tall slås sammen. Nå 2048 for å vinne!",
-    "youWin": "Du har nådd 2048!",
-    "keepGoing": "Fortsett slik!",
-    "gameOver": "Spill slutt",
-    "tryAgain": "Prøv igjen",
-    "gameOverMessage": "Ingen flere trekk igjen.",
-    "undo": "Angre"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "Alle faser er fullført!",
-    "time": "Tid",
-    "best": "Best",
-    "difficulty": {
-      "easy": "Easy",
-      "medium": "Medium",
-      "hard": "Hardhet"
-    },
-    "stage": "Fase",
-    "solved": "Løst",
-    "score": "Poengsum",
-    "nextStage": "Neste fase",
-    "replay": "Spill av på nytt",
-    "erase": "Slett",
-    "howToPlay": "Klikk på en celle, og trykk deretter på et tall eller trykk på 1–9. Tilbaketasten eller Delete-tasten fjerner cellen. Uthevede tall er ledetråder. Fyll rutenettet slik at hver rad, kolonne og 3×3-boks inneholder 1–9 uten repetisjoner.",
-    "pencil": "Pencil",
-    "undo": "Undo",
-    "hint": "Hint",
-    "hintsUsed": "hints used",
-    "mistakes": "Mistakes",
-    "failed": "Failed!",
-    "mistakeMode": "3-mistake mode"
-  },
-  "Snake": {
-    "title": "Slange",
-    "subtitle": "Spis mat, voks, unngå vegger og deg selv",
-    "score": "Poeng",
-    "best": "Best",
-    "startPrompt": "Trykk en piletast",
-    "startButton": "Start spill",
-    "gameOver": "Spill over",
-    "playAgain": "Spill igjen",
-    "howToPlay": "Bruk piltaster eller WASD. Spis mat for å vokse. Hastighet øker hvert 50. poeng.",
-    "diffEasy": "Lett",
-    "diffNormal": "Normal",
-    "diffHard": "Vanskelig",
-    "diffInfinite": "Uendelig",
-    "orTap": "eller trykk nedenfor",
-    "howToPlayInfinite": "Vegger går rundt — ingen veggdød. Spis mat for å vokse.",
-    "shieldActive": "Shield Active",
-    "speedBoost": "Speed Boost",
-    "powerSpeed": "Speed x2 (10 ticks)",
-    "powerShield": "Survive one death",
-    "powerShrink": "Shortens tail"
-  },
-  "Minesweeper": {
-    "title": "Minesveiper",
-    "subtitle": "Finn alle trygge ruter uten å utløse en mine",
-    "mines": "Miner",
-    "newGame": "Nytt spill",
-    "win": "Du vant!",
-    "loss": "Du tapte!",
-    "playAgain": "Spill igjen",
-    "tryAgain": "Prøv igjen",
-    "startPrompt": "Klikk på en rute for å starte",
-    "difficulty": {
-      "beginner": "Nybegynner",
-      "intermediate": "Middels",
-      "expert": "Ekspert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Sorter de fallende blokkene for å fullføre rader",
-    "next": "Neste",
-    "score": "Poeng",
-    "best": "Beste",
-    "lines": "Linjer",
-    "level": "Nivå",
-    "pause": "Pause",
-    "resume": "Fortsett",
-    "start": "Start",
-    "restart": "Start på nytt",
-    "paused": "Pauset",
-    "gameOver": "Spillet er over"
   },
   "SshKeyGenerator": {
     "title": "SSH-nøkkelgenerator",

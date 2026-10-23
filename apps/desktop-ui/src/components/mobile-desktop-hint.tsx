@@ -14,7 +14,6 @@ const DESKTOP_RECOMMENDED_SLUGS = new Set([
   'notes',
   'to-do',
   'bookmarks',
-  'break-room',
   'api-keys',
   'image-compressor',
   'image-to-base64',
