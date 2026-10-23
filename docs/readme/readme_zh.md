@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="最新版本" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="下载量" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/itsmeakhil/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="最新版本" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases"><img src="https://img.shields.io/github/downloads/itsmeakhil/mydevtools/total?style=flat-square&color=22c55e" alt="下载量" /></a>
   <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="许可证 AGPL-3.0" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="GitHub star 数" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=flat-square&color=f59e0b" alt="GitHub star 数" /></a>
 </p>
 
 <p align="center">
@@ -41,13 +41,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ 下载</strong></a> •
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><strong>⬇️ 下载</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 官网</strong></a> •
   <a href="https://mydevtools.tech/help"><strong>📚 文档</strong></a> •
   <a href="../../CHANGELOG.md">📋 更新日志</a> •
   <a href="../../ROADMAP.md">🗺️ 路线图</a> •
   <a href="../../CONTRIBUTING.md">🤝 参与贡献</a> •
-  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 讨论区</a>
+  <a href="https://github.com/itsmeakhil/mydevtools/discussions">💬 讨论区</a>
 </p>
 
 <!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
@@ -87,8 +87,8 @@ SQL / MongoDB / Redis 客户端、笔记、代码片段和凭据保险库 ——
 
 | 平台 | 方式 |
 |---|---|
-| **macOS**（Apple Silicon + Intel） | [下载最新的 `.dmg`](https://github.com/mydevtools-tech/mydevtools/releases/latest) —— 通用版本，已签名并公证，支持应用内自动更新 |
-| **Linux**(x86_64) | [下载 `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb)(Debian / Ubuntu 22.04+)或 [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage)(免安装、随处运行)—— 与 macOS 同一发布、同一版本。暂无应用内更新；参见 [Linux 安装指南](https://mydevtools.tech/linux-builds) |
+| **macOS**（Apple Silicon + Intel） | [下载最新的 `.dmg`](https://github.com/itsmeakhil/mydevtools/releases/latest) —— 通用版本，已签名并公证，支持应用内自动更新 |
+| **Linux**(x86_64) | [下载 `.deb`](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb)(Debian / Ubuntu 22.04+)或 [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage)(免安装、随处运行)—— 与 macOS 同一发布、同一版本。暂无应用内更新；参见 [Linux 安装指南](https://mydevtools.tech/linux-builds) |
 | **Windows** | 暂不提供构建。Tauri 外壳可在 Windows 上编译 —— 参见[从源码构建](../../README.md#%EF%B8%8F-building-from-source)和[路线图](../../ROADMAP.md) |
 
 打开即用：无需注册、无需配置、无需 API 密钥。
@@ -145,7 +145,7 @@ HTTP / gRPC 和 mock 服务器均为原生 Rust 实现。官网（`apps/web`）�
 ## 🛠️ 从源码构建
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 pnpm dev:desktop     # Tauri desktop app in dev mode
@@ -171,7 +171,7 @@ API 密钥、账号或外部服务。
 
 欢迎各种形式的贡献 —— 修复 bug、新增工具、打磨界面、翻译和文档都算。
 先看 [CONTRIBUTING.md](../../CONTRIBUTING.md)；标记为
-[`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+[`good first issue`](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 的 issue 专为新人准备。
 
 改进这份翻译，或是 `apps/desktop-ui/messages/` 里的某个语言文件，
@@ -179,8 +179,8 @@ API 密钥、账号或外部服务。
 
 | | |
 |---|---|
-| 🐛 报告 bug · ✨ 提交功能建议 | [Issue 模板](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 提问 | [讨论区](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
+| 🐛 报告 bug · ✨ 提交功能建议 | [Issue 模板](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| 💬 提问 | [讨论区](https://github.com/itsmeakhil/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
 | 🔒 报告安全漏洞 | [SECURITY.md](../../SECURITY.md) —— 请私下报告，切勿发公开 issue |
 | 🗺️ 查看规划 | [ROADMAP.md](../../ROADMAP.md) |
 | 🤝 社区准则 | [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) |
@@ -200,5 +200,5 @@ MyDevTools 是免费的，没有付费档位，将来也不会有。如果它帮
 [GNU Affero 通用公共许可证 v3.0](https://www.gnu.org/licenses/agpl-3.0.html) —— 参见 [LICENSE](../../LICENSE)。
 
 <p align="center">
-  由 <a href="https://github.com/itsmeakhil">Akhil</a> 和<a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">贡献者们</a>用 ❤️ 打造
+  由 <a href="https://github.com/itsmeakhil">Akhil</a> 和<a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">贡献者们</a>用 ❤️ 打造
 </p>
