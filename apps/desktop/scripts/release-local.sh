@@ -32,7 +32,7 @@ set -euo pipefail
 # ── config ───────────────────────────────────────────────────────────────────
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 REPO_ROOT="$(cd "$ROOT/../.." && pwd)"
-: "${PUBLIC_REPO:=mydevtools-tech/mydevtools}"
+: "${PUBLIC_REPO:=itsmeakhil/mydevtools}"
 : "${APPLE_SIGNING_IDENTITY:=Developer ID Application: Nishanth P V (STTF2NVQK8)}"
 : "${NOTARY_PROFILE:=mydevtools-notary}"
 # Linux packaging (Docker). SKIP_LINUX=1 publishes a macOS-only release.

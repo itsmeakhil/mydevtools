@@ -79,7 +79,7 @@ apps/
 - **API client** requests go through `reqwest` in Rust, which is why the app
   is not subject to browser CORS rules. Streaming responses and gRPC use the
   same path (`http_request_stream`, `proxy_grpc`).
-- **Updater** checks `github.com/mydevtools-tech/mydevtools/releases/latest/download/latest.json`
+- **Updater** checks `github.com/itsmeakhil/mydevtools/releases/latest/download/latest.json`
   (Tauri updater, minisign-verified).
 
 ## Privacy boundaries

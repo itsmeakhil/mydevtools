@@ -9,11 +9,11 @@ have not been committed to.
 
 Shipped work lives in the
 [changelog](https://mydevtools.tech/changelog) and the
-[releases](https://github.com/mydevtools-tech/mydevtools/releases).
+[releases](https://github.com/itsmeakhil/mydevtools/releases).
 
 Want to influence this list? Open a
-[feature request](https://github.com/mydevtools-tech/mydevtools/issues/new/choose)
-or join a [discussion](https://github.com/mydevtools-tech/mydevtools/discussions).
+[feature request](https://github.com/itsmeakhil/mydevtools/issues/new/choose)
+or join a [discussion](https://github.com/itsmeakhil/mydevtools/discussions).
 Requests that come with a concrete workflow ("here is what I do today and why it
 is painful") tend to move up.
 
@@ -102,7 +102,7 @@ Being clear about these saves everyone time:
 The fastest way to move something up this list:
 
 - **Open an issue** describing the problem, not just the fix you have in mind.
-- **Pick up a [good first issue](https://github.com/mydevtools-tech/mydevtools/labels/good%20first%20issue)** — see [`docs/GOOD_FIRST_ISSUES.md`](docs/GOOD_FIRST_ISSUES.md) for scoped starter work.
+- **Pick up a [good first issue](https://github.com/itsmeakhil/mydevtools/labels/good%20first%20issue)** — see [`docs/GOOD_FIRST_ISSUES.md`](docs/GOOD_FIRST_ISSUES.md) for scoped starter work.
 - **Improve a translation** — 27 locales, and native speakers always beat a sync script.
 - **Test on Linux** and report what breaks. The Linux build is new as of 0.1.15
   and has seen far less use than macOS.

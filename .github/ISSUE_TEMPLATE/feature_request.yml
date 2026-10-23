@@ -6,8 +6,8 @@ body:
     attributes:
       value: |
         Worth a look first:
-        - [ROADMAP.md](https://github.com/mydevtools-tech/mydevtools/blob/main/ROADMAP.md) — it may already be planned, or explicitly not planned.
-        - [Existing issues](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue) — someone may have asked already; a 👍 counts as a vote.
+        - [ROADMAP.md](https://github.com/itsmeakhil/mydevtools/blob/main/ROADMAP.md) — it may already be planned, or explicitly not planned.
+        - [Existing issues](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue) — someone may have asked already; a 👍 counts as a vote.
 
   - type: checkboxes
     id: checks
