@@ -4,7 +4,7 @@ The app updates itself in place via the Tauri updater — users never re-downloa
 reinstall, and the local SQLCipher database is never touched by an update.
 
 Every release is: **build → sign + notarize → sign the update payload → publish**.
-Releases go to this repo (`mydevtools-tech/mydevtools`), which the updater endpoint
+Releases go to this repo (`itsmeakhil/mydevtools`), which the updater endpoint
 and the website download button point at. The old `mydevtools-releases` mirror is
 historical — it only still matters for installs from v0.1.11 and earlier.
 

@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="नवीनतम रिलीज़" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="डाउनलोड" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/itsmeakhil/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="नवीनतम रिलीज़" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases"><img src="https://img.shields.io/github/downloads/itsmeakhil/mydevtools/total?style=flat-square&color=22c55e" alt="डाउनलोड" /></a>
   <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="लाइसेंस AGPL-3.0" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="GitHub स्टार्स" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=flat-square&color=f59e0b" alt="GitHub स्टार्स" /></a>
 </p>
 
 <p align="center">
@@ -41,13 +41,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ डाउनलोड</strong></a> •
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><strong>⬇️ डाउनलोड</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 वेबसाइट</strong></a> •
   <a href="https://mydevtools.tech/help"><strong>📚 डॉक्यूमेंटेशन</strong></a> •
   <a href="../../CHANGELOG.md">📋 चेंजलॉग</a> •
   <a href="../../ROADMAP.md">🗺️ रोडमैप</a> •
   <a href="../../CONTRIBUTING.md">🤝 योगदान करें</a> •
-  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 चर्चाएँ</a>
+  <a href="https://github.com/itsmeakhil/mydevtools/discussions">💬 चर्चाएँ</a>
 </p>
 
 <!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
@@ -88,8 +88,8 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 
 | प्लेटफ़ॉर्म | कैसे |
 |---|---|
-| **macOS** (Apple Silicon + Intel) | [नवीनतम `.dmg` डाउनलोड करें](https://github.com/mydevtools-tech/mydevtools/releases/latest) — यूनिवर्सल बिल्ड, साइन्ड और नोटराइज़्ड, ऐप में ही अपडेट हो जाता है |
-| **Linux** (x86_64) | [`.deb` डाउनलोड करें](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) या [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (बिना इंस्टॉल किए कहीं भी चलता है) — macOS जैसी ही रिलीज़ और वर्शन। ऐप के अंदर अपडेट अभी नहीं है; देखें [Linux इंस्टॉल गाइड](https://mydevtools.tech/linux-builds) |
+| **macOS** (Apple Silicon + Intel) | [नवीनतम `.dmg` डाउनलोड करें](https://github.com/itsmeakhil/mydevtools/releases/latest) — यूनिवर्सल बिल्ड, साइन्ड और नोटराइज़्ड, ऐप में ही अपडेट हो जाता है |
+| **Linux** (x86_64) | [`.deb` डाउनलोड करें](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) या [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (बिना इंस्टॉल किए कहीं भी चलता है) — macOS जैसी ही रिलीज़ और वर्शन। ऐप के अंदर अपडेट अभी नहीं है; देखें [Linux इंस्टॉल गाइड](https://mydevtools.tech/linux-builds) |
 | **Windows** | फ़िलहाल कोई बिल्ड नहीं। Tauri शेल Windows पर कंपाइल होता है — देखें [सोर्स से बिल्ड करना](../../README.md#%EF%B8%8F-building-from-source) और [रोडमैप](../../ROADMAP.md) |
 
 खोलिए और काम शुरू कीजिए: न साइन-अप, न कॉन्फ़िगरेशन, न API keys।
@@ -152,7 +152,7 @@ Tauri v2 शेल (`apps/desktop`, Rust) के अंदर एक Next.js 16 
 ## 🛠️ सोर्स से बिल्ड करना
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 pnpm dev:desktop     # Tauri desktop app in dev mode
@@ -179,7 +179,7 @@ pnpm build:desktop   # build the desktop app
 
 योगदान का स्वागत है — बग फिक्स, नए टूल, UI पॉलिश, अनुवाद और डॉक्यूमेंटेशन, सब
 मायने रखते हैं। शुरुआत [CONTRIBUTING.md](../../CONTRIBUTING.md) से करें;
-[`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+[`good first issue`](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 लेबल वाले issues नए लोगों के लिए ही रखे गए हैं।
 
 इस अनुवाद को बेहतर बनाने के लिए, या `apps/desktop-ui/messages/` में किसी locale
@@ -187,8 +187,8 @@ pnpm build:desktop   # build the desktop app
 
 | | |
 |---|---|
-| 🐛 बग रिपोर्ट करें · ✨ फ़ीचर की माँग करें | [Issue templates](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 कोई सवाल पूछें | [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
+| 🐛 बग रिपोर्ट करें · ✨ फ़ीचर की माँग करें | [Issue templates](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| 💬 कोई सवाल पूछें | [Discussions](https://github.com/itsmeakhil/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
 | 🔒 कोई सुरक्षा खामी बताएँ | [SECURITY.md](../../SECURITY.md) — निजी तौर पर, कभी भी पब्लिक issue में नहीं |
 | 🗺️ आगे क्या प्लान है, देखें | [ROADMAP.md](../../ROADMAP.md) |
 | 🤝 कम्युनिटी के नियम | [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) |
@@ -209,5 +209,5 @@ MyDevTools फ्री है, इसका कोई पेड प्लान
 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) — देखें [LICENSE](../../LICENSE)।
 
 <p align="center">
-  ❤️ के साथ बनाया <a href="https://github.com/itsmeakhil">Akhil</a> और <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">योगदानकर्ताओं</a> ने
+  ❤️ के साथ बनाया <a href="https://github.com/itsmeakhil">Akhil</a> और <a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">योगदानकर्ताओं</a> ने
 </p>

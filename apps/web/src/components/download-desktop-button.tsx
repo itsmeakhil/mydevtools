@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 /** GitHub's permanent "latest release" page — releases live in the source repo. */
 export const RELEASES_URL =
-  "https://github.com/mydevtools-tech/mydevtools/releases/latest";
+  "https://github.com/itsmeakhil/mydevtools/releases/latest";
 
 /**
  * GitHub's permanent "latest release" redirect — always serves the newest DMG.

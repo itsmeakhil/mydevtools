@@ -256,7 +256,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     intro:
       'Every part of MyDevTools is public: the Tauri desktop shell, the 80+ tools, the database clients, and this website. It is licensed under the GNU AGPL v3, so the privacy claims on this site are not something you have to take on trust — you can read the code that backs them.',
     primaryCta: {
-      href: 'https://github.com/mydevtools-tech/mydevtools',
+      href: 'https://github.com/itsmeakhil/mydevtools',
       label: 'View the source on GitHub',
     },
     secondaryCta: { href: '/download', label: 'Download the app' },
