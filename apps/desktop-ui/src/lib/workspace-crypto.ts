@@ -36,13 +36,13 @@ function getSubtle(): SubtleCrypto {
   return webcrypto.subtle as unknown as SubtleCrypto
 }
 
-function getRandomValues(buf: Uint8Array): Uint8Array {
+function getRandomValues(buf: Uint8Array<ArrayBuffer>): Uint8Array<ArrayBuffer> {
   if (typeof globalThis.crypto !== "undefined") {
     return globalThis.crypto.getRandomValues(buf)
   }
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { webcrypto } = require("node:crypto") as typeof import("node:crypto")
-  return webcrypto.getRandomValues(buf) as Uint8Array
+  return webcrypto.getRandomValues(buf)
 }
 
 // ── Base64 helpers ─────────────────────────────────────────────────────────────
