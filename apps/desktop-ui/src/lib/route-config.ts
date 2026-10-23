@@ -47,7 +47,6 @@ import {
   FileSearch,
   UserCheck,
   SplitSquareHorizontal,
-  Gamepad2,
   Terminal,
   Code2,
   CaseSensitive,
@@ -148,11 +147,6 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/token-counter': { title: "LLM Token Counter", icon: Calculator, namespace: 'TokenCounter' },
   '/app/websocket-tester': { title: "WebSocket Tester", icon: Plug, namespace: 'WebsocketTester' },
   '/app/whois-lookup': { title: "Whois Lookup", icon: Globe, namespace: 'WhoisLookup' },
-  '/app/break-room/2048': { title: '2048', icon: Gamepad2 },
-  '/app/break-room/sudoku': { title: 'Sudoku', icon: Gamepad2 },
-  '/app/break-room/snake': { title: 'Snake', icon: Gamepad2 },
-  '/app/break-room/minesweeper': { title: 'Minesweeper', icon: Gamepad2 },
-  '/app/break-room/tetris': { title: 'Tetris', icon: Gamepad2 },
 }
 
 export const TAB_ENABLED_PREFIX = '/app/'

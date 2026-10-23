@@ -50,9 +50,6 @@
     "svgOptimizer": "Optimiseur SVG",
     "unitConverter": "Convertisseur d'unités",
     "dockerComposeGenerator": "Générateur Docker Compose",
-    "breakRoom": "Salle de pause",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "Formateur YAML",
     "sshKeyGenerator": "Générateur de clés SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Générateur Docker Compose",
         "description": "Choisissez bases de données, caches, files, proxys et observabilité ; exportez un docker-compose.yml pour le dev local."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Faites glisser et fusionnez les carreaux pour atteindre 2048. Jeu de puzzle à numéro classique."
-      },
-      "sudoku": {
-        "title": "Patience",
-        "description": "Puzzle à numéro classique. 3 niveaux de difficulté, 150 niveaux chacun."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Faites glisser les carreaux et fusionnez-les pour atteindre 2048",
-    "score": "Score",
-    "best": "Meilleur",
-    "newGame": "Nouveau",
-    "howToPlay": "Utilisez les touches fléchées (ou faites glisser sur le mobile) pour déplacer les tuiles. Les tuiles avec le même numéro fusionnent. Atteignez 2048 pour gagner !",
-    "youWin": "Vous avez atteint 2048 !",
-    "keepGoing": "Continue",
-    "gameOver": "Fin de partie ",
-    "tryAgain": "Réessayez",
-    "gameOverMessage": "Plus de mouvements à gauche.",
-    "undo": "Annuler"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "Toutes les étapes sont terminées.",
-    "time": "Heure",
-    "best": "Meilleur",
-    "difficulty": {
-      "easy": "Facile",
-      "medium": "Moyen",
-      "hard": "Dure"
-    },
-    "stage": "Étape",
-    "solved": "Résolu! ",
-    "score": "Score",
-    "nextStage": "Étape suivante",
-    "replay": "Relire",
-    "erase": "Effacer",
-    "howToPlay": "Cliquez sur une cellule, puis appuyez sur un numéro ou appuyez sur 1–9. Le retour arrière ou la suppression efface la cellule. Les chiffres en gras sont des indices. Remplissez la grille de sorte que chaque ligne, colonne et case 3×3 contienne 1 à 9 sans répétition.",
-    "pencil": "Crayon",
-    "undo": "Annuler",
-    "hint": "Indice",
-    "hintsUsed": "indices utilisés",
-    "mistakes": "Erreurs",
-    "failed": "Échec!",
-    "mistakeMode": "Mode 3 erreurs"
-  },
-  "Snake": {
-    "title": "Snake",
-    "subtitle": "Mange, grandis, évite les murs et toi-même",
-    "score": "Score",
-    "best": "Meilleur",
-    "startPrompt": "Appuie sur une touche fléchée",
-    "startButton": "Démarrer",
-    "gameOver": "Partie terminée",
-    "playAgain": "Rejouer",
-    "howToPlay": "Utilise les flèches ou WASD pour te déplacer. Mange pour grandir. La vitesse augmente tous les 50 points.",
-    "diffEasy": "Facile",
-    "diffNormal": "Normal",
-    "diffHard": "Difficile",
-    "diffInfinite": "Infini",
-    "orTap": "ou tapez ci-dessous",
-    "howToPlayInfinite": "Les murs se rejoignent — pas de mort par les murs. Mange pour grandir.",
-    "shieldActive": "Bouclier actif",
-    "speedBoost": "Boost de vitesse",
-    "powerSpeed": "Vitesse x2",
-    "powerShield": "Survive à une mort",
-    "powerShrink": "Raccourcit la queue"
-  },
-  "Minesweeper": {
-    "title": "Démineur",
-    "subtitle": "Trouvez toutes les cases sûres sans déclencher de mine",
-    "mines": "Mines",
-    "newGame": "Nouvelle partie",
-    "win": "Vous avez gagné !",
-    "loss": "Perdu !",
-    "playAgain": "Rejouer",
-    "tryAgain": "Réessayer",
-    "startPrompt": "Cliquez sur une case pour commencer",
-    "difficulty": {
-      "beginner": "Débutant",
-      "intermediate": "Intermédiaire",
-      "expert": "Expert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Arrangez les blocs qui tombent pour compléter des lignes",
-    "next": "Suivant",
-    "score": "Score",
-    "best": "Meilleur",
-    "lines": "Lignes",
-    "level": "Niveau",
-    "pause": "Pause",
-    "resume": "Reprendre",
-    "start": "Démarrer",
-    "restart": "Recommencer",
-    "paused": "En pause",
-    "gameOver": "Partie terminée"
   },
   "SshKeyGenerator": {
     "title": "Générateur de clés SSH",

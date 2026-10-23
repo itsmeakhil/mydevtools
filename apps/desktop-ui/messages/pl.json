@@ -50,9 +50,6 @@
     "svgOptimizer": "Optymalizator SVG",
     "unitConverter": "Konwerter jednostek",
     "dockerComposeGenerator": "Generator Docker Compose",
-    "breakRoom": "Pomieszczenie socjalne",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "Formater YAML",
     "sshKeyGenerator": "Generator kluczy SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Generator Docker Compose",
         "description": "Wybierz bazy danych, pamięć podręczną, kolejki, proxy i obserwowalność; eksportuj docker-compose.yml dla lokalnych stacków."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Przesuń i połącz płytki, aby osiągnąć 2048 rok. Klasyczna gra logiczna z liczbami."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Klasyczna łamigłówka z numerem. 3 poziomy trudności, po 150 etapów."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Przesuń płytki i połącz je, aby osiągnąć 2048",
-    "score": "Wynik",
-    "best": "Z poważaniem",
-    "newGame": "Nowa gra",
-    "howToPlay": "Użyj klawiszy strzałek (lub przesuń palcem po telefonie komórkowym), aby przesunąć kafelki. Kafelki o tej samej liczbie scalają się. Osiągnij 2048, aby wygrać!",
-    "youWin": "Osiągnąłeś 2048 rok!",
-    "keepGoing": "Nie przerywaj",
-    "gameOver": "Koniec gry",
-    "tryAgain": "Ponów",
-    "gameOverMessage": "Nie ma więcej ruchów.",
-    "undo": "Cofnij"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "etapy ukończone",
-    "time": "Okres",
-    "best": "Z poważaniem",
-    "difficulty": {
-      "easy": "Łatwo",
-      "medium": "Średni",
-      "hard": "Twarda"
-    },
-    "stage": "Etap",
-    "solved": "Rozwiązane",
-    "score": "Wynik",
-    "nextStage": "Następny etap",
-    "replay": "Powtórka",
-    "erase": "Wymaż",
-    "howToPlay": "Kliknij komórkę, a następnie naciśnij liczbę lub naciśnij 1–9. Backspace lub Delete czyści komórkę. Pogrubione liczby są wskazówkami. Wypełnij siatkę tak, aby każdy wiersz, kolumna i pole 3×3 zawierały 1–9 bez powtórzeń.",
-    "pencil": "Ołówek",
-    "undo": "Cofnij",
-    "hint": "Podpowiedź",
-    "hintsUsed": "podpowiedzi użyte",
-    "mistakes": "Błędy",
-    "failed": "Niepowodzenie!",
-    "mistakeMode": "Tryb 3 błędów"
-  },
-  "Snake": {
-    "title": "Wąż",
-    "subtitle": "Jedz jedzenie, rośnij, unikaj ścian i siebie",
-    "score": "Wynik",
-    "best": "Najlepszy",
-    "startPrompt": "Naciśnij dowolny klawisz strzałki",
-    "startButton": "Rozpocznij grę",
-    "gameOver": "Koniec gry",
-    "playAgain": "Zagraj ponownie",
-    "howToPlay": "Używaj klawiszy strzałek lub WASD. Jedz jedzenie, aby rosnąć. Prędkość rośnie co 50 punktów.",
-    "diffEasy": "Łatwy",
-    "diffNormal": "Normalny",
-    "diffHard": "Trudny",
-    "diffInfinite": "Nieskończony",
-    "orTap": "lub stuknij poniżej",
-    "howToPlayInfinite": "Ściany się owijają — brak śmierci od ścian. Jedz jedzenie, aby rosnąć.",
-    "shieldActive": "Tarcza aktywna",
-    "speedBoost": "Przyspieszenie",
-    "powerSpeed": "Prędkość x2",
-    "powerShield": "Przeżyj jedną śmierć",
-    "powerShrink": "Skraca ogon"
-  },
-  "Minesweeper": {
-    "title": "Saper",
-    "subtitle": "Znajdź wszystkie bezpieczne pola bez detonacji miny",
-    "mines": "Miny",
-    "newGame": "Nowa gra",
-    "win": "Wygrałeś!",
-    "loss": "Przegrałeś!",
-    "playAgain": "Zagraj ponownie",
-    "tryAgain": "Spróbuj ponownie",
-    "startPrompt": "Kliknij dowolne pole, aby rozpocząć",
-    "difficulty": {
-      "beginner": "Początkujący",
-      "intermediate": "Średniozaawansowany",
-      "expert": "Ekspert"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Ułóż spadające bloki, aby uzupełnić rzędy",
-    "next": "Następny",
-    "score": "Wynik",
-    "best": "Najlepszy",
-    "lines": "Linie",
-    "level": "Poziom",
-    "pause": "Pauza",
-    "resume": "Wznów",
-    "start": "Start",
-    "restart": "Restart",
-    "paused": "Wstrzymano",
-    "gameOver": "Koniec gry"
   },
   "SshKeyGenerator": {
     "title": "Generator kluczy SSH",

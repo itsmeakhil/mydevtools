@@ -50,9 +50,6 @@
     "svgOptimizer": "SVG-optimaliseerder",
     "unitConverter": "Eenheidsomskakelaar",
     "dockerComposeGenerator": "Docker Compose-Generator",
-    "breakRoom": "Breek Kamer",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "YAML-formatteerder",
     "sshKeyGenerator": "SSH / RSA-sleutelgenerator",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Docker Compose-Generator",
         "description": "Kies databasisse, kasse, toue, proxy's en waarneembaarheidbeelde; voer docker-compose.yml uit vir plaaslike stapel."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Skuif en saamsmelt teëls om 2048 te bereik. Klassieke nommer legkaart spel."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Klassieke getal legkaart. 3 moeilikheidsgraad, 150 stadiums elk."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Skuif teëls en smelt hulle saam om 2048 te bereik",
-    "score": "Telling",
-    "best": "Best",
-    "newGame": "Nuwe Spel",
-    "howToPlay": "Gebruik pyltjie sleutels (of krap op mobiele) teëls te beweeg. Teëls met dieselfde nommer smelt saam. Bereik 2048 om te winnen!",
-    "youWin": "Jy het 2048 bereik!",
-    "keepGoing": "Gaan voort",
-    "gameOver": "Speletjie Verby",
-    "tryAgain": " Probeer weer",
-    "gameOverMessage": "Geen beweeg meer nie.",
-    "undo": "Ontdoen"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "fases voltooi",
-    "time": "Tyd",
-    "best": "Best",
-    "difficulty": {
-      "easy": "Maklik",
-      "medium": "Gemiddeld",
-      "hard": ""
-    },
-    "stage": "Stadium",
-    "solved": "opgelos",
-    "score": "Telling",
-    "nextStage": "Volgende fase",
-    "replay": "Speel Weer",
-    "erase": "Uitvee",
-    "howToPlay": "Klik op 'n sel, tik dan op 'n nommer of druk 1–9. Agterruimte of Uitvee maak die sel skoon. Vet getalle is leidrade. Vul die rooster sodat elke ry, kolom, en 3x3 boks bevat 1–9 met geen herhalings.",
-    "pencil": "Potlood",
-    "undo": "Ontdoen",
-    "hint": "Wenk",
-    "hintsUsed": "leidrade gebruik",
-    "mistakes": "Foute",
-    "failed": "Misluk!",
-    "mistakeMode": "3-fout modus"
-  },
-  "Snake": {
-    "title": "Snake",
-    "subtitle": "Eet kos, groei, vermy mure en jouself",
-    "score": "Telling",
-    "best": "Beste",
-    "startPrompt": "Druk enige pyltjietoets",
-    "startButton": "Begin Spel",
-    "gameOver": "Spel Verby",
-    "playAgain": "Speel Weer",
-    "howToPlay": "Gebruik pyltjietoetse of WASD om te beweeg. Eet kos om te groei. Spoed neem toe elke 50 punte.",
-    "diffEasy": "Maklik",
-    "diffNormal": "Normaal",
-    "diffHard": "Moeilik",
-    "diffInfinite": "Oneindig",
-    "orTap": "of tik hieronder",
-    "howToPlayInfinite": "Mure draai om — geen muursterfte. Eet kos om te groei.",
-    "shieldActive": "Skild Aktief",
-    "speedBoost": "Spoedverhoging",
-    "powerSpeed": "Spoed x2 (10 beurte)",
-    "powerShield": "Een dood oorleef",
-    "powerShrink": "Stert verkort"
-  },
-  "Minesweeper": {
-    "title": "Mynveer",
-    "subtitle": "Vind al die veilige selle sonder om 'n myn te ontplof",
-    "mines": "Myne",
-    "newGame": "Nuwe spel",
-    "win": "Jy het gewen!",
-    "loss": "Spel verby!",
-    "playAgain": "Speel weer",
-    "tryAgain": "Probeer weer",
-    "startPrompt": "Klik op enige sel om te begin",
-    "difficulty": {
-      "beginner": "Beginner",
-      "intermediate": "Intermediêr",
-      "expert": "Kenner"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Rangskik die vallende blokke om rye te voltooi",
-    "next": "Volgende",
-    "score": "Telling",
-    "best": "Beste",
-    "lines": "Lyne",
-    "level": "Vlak",
-    "pause": "Pouse",
-    "resume": "Hervat",
-    "start": "Begin",
-    "restart": "Herbegin",
-    "paused": "Gepouseer",
-    "gameOver": "Spel verby"
   },
   "SshKeyGenerator": {
     "title": "SSH-sleutelgenereerder",

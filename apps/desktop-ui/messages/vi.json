@@ -50,9 +50,6 @@
     "svgOptimizer": "Tối ưu SVG",
     "unitConverter": "Chuyển đổi đơn vị",
     "dockerComposeGenerator": "Trình tạo Docker Compose",
-    "breakRoom": "Phòng Nghỉ",
-    "game2048": "2048",
-    "sudoku": "Sudoku",
     "yamlFormatter": "Định dạng YAML",
     "sshKeyGenerator": "Trình tạo khóa SSH / RSA",
     "curlToCode": "cURL to Code",
@@ -557,14 +554,6 @@
       "dockerComposeGenerator": {
         "title": "Trình tạo Docker Compose",
         "description": "Chọn cơ sở dữ liệu, bộ nhớ đệm, hàng đợi, proxy và image quan sát; xuất docker-compose.yml cho stack cục bộ."
-      },
-      "game2048": {
-        "title": "2048",
-        "description": "Trượt và hợp nhất các ô để đạt đến năm 2048. Trò chơi giải đố số cổ điển."
-      },
-      "sudoku": {
-        "title": "Sudoku",
-        "description": "Câu đố số cổ điển. 3 cấp độ khó, mỗi cấp độ 150 cấp độ."
       },
       "curlToCode": {
         "title": "cURL to Code",
@@ -4316,98 +4305,6 @@
       "metabase": "Metabase",
       "gotenberg": "Gotenberg (Chromium / PDF)"
     }
-  },
-  "Game2048": {
-    "title": "2048",
-    "subtitle": "Trượt các ô và hợp nhất chúng để đạt đến năm 2048",
-    "score": "Điểm",
-    "best": "Trân trọng",
-    "newGame": "Trò chơi Same",
-    "howToPlay": "Sử dụng các phím mũi tên (hoặc vuốt trên thiết bị di động) để di chuyển các ô. Các ô có cùng số hợp nhất. Đạt đến 2048 để giành chiến thắng!",
-    "youWin": "Bạn đã đạt đến năm 2048!",
-    "keepGoing": "Hãy phát huy",
-    "gameOver": "Kết thúc Trò chơi",
-    "tryAgain": "Thử lại",
-    "gameOverMessage": "Không còn động thái nào nữa.",
-    "undo": "Hoàn tác"
-  },
-  "Sudoku": {
-    "title": "Sudoku",
-    "stagesCompleted": "đã hoàn thành các giai đoạn",
-    "time": "Thời gian",
-    "best": "Trân trọng",
-    "difficulty": {
-      "easy": "Dễ",
-      "medium": "Trung bình",
-      "hard": "Khó"
-    },
-    "stage": "Giai đoạn",
-    "solved": "Đã được chấp nhận",
-    "score": "Điểm",
-    "nextStage": "GIAI ĐOẠN TIẾP THEO",
-    "replay": "Phát lại",
-    "erase": "Xóa",
-    "howToPlay": "Nhấp vào một ô, sau đó nhấn vào một số hoặc nhấn 1–9. Backspace hoặc Delete sẽ xóa ô. Những con số đậm là manh mối. Điền vào lưới để mỗi hàng, cột và hộp 3×3 chứa 1–9 mà không lặp lại.",
-    "pencil": "Pencil",
-    "undo": "Undo",
-    "hint": "Hint",
-    "hintsUsed": "hints used",
-    "mistakes": "Mistakes",
-    "failed": "Failed!",
-    "mistakeMode": "3-mistake mode"
-  },
-  "Snake": {
-    "title": "Rắn",
-    "subtitle": "Ăn thức ăn, lớn lên, tránh tường và chính mình",
-    "score": "Điểm",
-    "best": "Tốt nhất",
-    "startPrompt": "Nhấn phím mũi tên bất kỳ",
-    "startButton": "Bắt đầu chơi",
-    "gameOver": "Trò chơi kết thúc",
-    "playAgain": "Chơi lại",
-    "howToPlay": "Dùng phím mũi tên hoặc WASD. Ăn để lớn hơn. Tốc độ tăng mỗi 50 điểm.",
-    "diffEasy": "Dễ",
-    "diffNormal": "Bình thường",
-    "diffHard": "Khó",
-    "diffInfinite": "Vô hạn",
-    "orTap": "hoặc nhấn bên dưới",
-    "howToPlayInfinite": "Tường nối liền — không chết vì tường. Ăn để lớn hơn.",
-    "shieldActive": "Shield Active",
-    "speedBoost": "Speed Boost",
-    "powerSpeed": "Speed x2 (10 ticks)",
-    "powerShield": "Survive one death",
-    "powerShrink": "Shortens tail"
-  },
-  "Minesweeper": {
-    "title": "Dò mìn",
-    "subtitle": "Tìm tất cả ô an toàn mà không kích nổ mìn",
-    "mines": "Mìn",
-    "newGame": "Ván mới",
-    "win": "Bạn thắng rồi!",
-    "loss": "Bạn thua rồi!",
-    "playAgain": "Chơi lại",
-    "tryAgain": "Thử lại",
-    "startPrompt": "Nhấp vào ô bất kỳ để bắt đầu",
-    "difficulty": {
-      "beginner": "Dễ",
-      "intermediate": "Trung bình",
-      "expert": "Chuyên gia"
-    }
-  },
-  "Tetris": {
-    "title": "Tetris",
-    "subtitle": "Sắp xếp các khối rơi để hoàn thành hàng",
-    "next": "Tiếp theo",
-    "score": "Điểm",
-    "best": "Kỷ lục",
-    "lines": "Hàng",
-    "level": "Cấp độ",
-    "pause": "Tạm dừng",
-    "resume": "Tiếp tục",
-    "start": "Bắt đầu",
-    "restart": "Chơi lại",
-    "paused": "Đã tạm dừng",
-    "gameOver": "Kết thúc"
   },
   "SshKeyGenerator": {
     "title": "Trình tạo khóa SSH",

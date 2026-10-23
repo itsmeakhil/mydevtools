@@ -13,7 +13,6 @@ import {
   IconNetwork,
   IconServer,
   IconPalette,
-  IconDeviceGamepad2,
   IconCheck,
   IconChevronDown as IconChevron,
 } from "@tabler/icons-react"
@@ -29,7 +28,6 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
   "Network & API": IconNetwork,
   Database: IconServer,
   "Media & Design": IconPalette,
-  "Break Room": IconDeviceGamepad2,
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -41,7 +39,6 @@ const CATEGORY_COLORS: Record<string, string> = {
   "Network & API": "from-orange-500/20 to-orange-600/10 border-orange-500/30",
   Database: "from-red-500/20 to-red-600/10 border-red-500/30",
   "Media & Design": "from-pink-500/20 to-pink-600/10 border-pink-500/30",
-  "Break Room": "from-emerald-500/20 to-emerald-600/10 border-emerald-500/30",
 }
 
 const CATEGORY_ICON_COLORS: Record<string, string> = {
@@ -53,7 +50,6 @@ const CATEGORY_ICON_COLORS: Record<string, string> = {
   "Network & API": "text-orange-400",
   Database: "text-red-400",
   "Media & Design": "text-pink-400",
-  "Break Room": "text-emerald-400",
 }
 
 /** Flip this to switch between selection UIs without touching anything else. */
