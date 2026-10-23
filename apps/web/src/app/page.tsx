@@ -17,7 +17,6 @@ import {
   ArrowDown,
   ChevronDown,
   Search,
-  Github,
   Download as DownloadIcon,
   Braces,
   Globe,
@@ -37,6 +36,7 @@ import {
   FileText,
   Play,
 } from "lucide-react";
+import { IconBrandGithub as Github } from "@tabler/icons-react";
 import { AppleGlyph, DMG_URL } from "@/components/download-desktop-button";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
 import MdtAurora from "@/components/mdt-aurora";
