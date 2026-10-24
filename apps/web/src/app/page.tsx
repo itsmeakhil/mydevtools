@@ -139,7 +139,7 @@ const PROOF_STRIP = [
 /** §17 — consolidation, not feature parity with the specialised product. */
 const fragmentation = [
   { today: "JSON formatter website", app: "JSON Formatter", href: "/tools/json-formatter" },
-  { today: "JWT decoder website", app: "JWT Decoder", href: "/tools/jwt-decoder" },
+  { today: "S3 browser", app: "S3 Drive", href: "/tools/s3-drive" },
   { today: "Separate API client", app: "API Client", href: "/tools/api-client" },
   { today: "MongoDB GUI", app: "MongoDB Explorer", href: "/tools/database-explorer" },
   { today: "Redis GUI", app: "Redis Commander", href: "/tools/redis-commander" },
@@ -156,7 +156,6 @@ const capabilities = [
     tools: [
       ["JSON Formatter", "json-formatter"],
       ["YAML Formatter", "yaml-formatter"],
-      ["JWT Decoder", "jwt-decoder"],
       ["Regex Tester", "regex-tester"],
       ["Diff Checker", "diff-checker"],
     ],
@@ -183,12 +182,10 @@ const capabilities = [
   {
     title: "Security",
     icon: ShieldCheck,
-    blurb: "Credentials and crypto helpers, encrypted locally.",
+    blurb: "Credentials and secrets, encrypted locally.",
     tools: [
       ["Password Manager", "password-manager"],
-      ["Encryption Playground", "encryption-playground"],
       ["Environment Manager", "environment-manager"],
-      ["Certificate / PEM Decoder", "certificate-pem-decoder"],
     ],
   },
   {
@@ -198,7 +195,6 @@ const capabilities = [
     tools: [
       ["Notes", "notes"],
       ["Code Snippets", "snippet-manager"],
-      ["Bookmarks", "bookmarks"],
       ["Tasks", "to-do"],
       ["API Keys", "api-keys"],
     ],
@@ -213,7 +209,6 @@ const workspaceTree = [
   { name: "Vault", detail: "passwords · API keys · env files", href: "/tools/password-manager" },
   { name: "Notes", detail: "markdown, local", href: "/tools/notes" },
   { name: "Snippets", detail: "searchable, tagged", href: "/tools/snippet-manager" },
-  { name: "Bookmarks", detail: "links worth keeping", href: "/tools/bookmarks" },
   { name: "Tasks", detail: "what is next", href: "/tools/to-do" },
 ] as const;
 

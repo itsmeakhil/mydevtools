@@ -26,7 +26,6 @@ export const TOOL_PERMISSIONS: Record<string, Record<WsRole, Set<Permission>>> =
 
   // Plaintext tools
   "notes":           PLAINTEXT_ROW,
-  "bookmarks":       PLAINTEXT_ROW,
   "tasks":           PLAINTEXT_ROW,
   "code-snippets":   PLAINTEXT_ROW,
   "api-client":      PLAINTEXT_ROW,

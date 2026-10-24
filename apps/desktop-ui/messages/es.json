@@ -6,11 +6,7 @@
     "notes": "Notas",
     "passwordManager": "Gestor de contraseñas",
     "environmentManager": "Gestor de entornos",
-    "bookmarks": "Marcadores",
     "emailValidator": "Validador de correo",
-    "encryptionPlayground": "Cifrado (prácticas)",
-    "jwtDecoder": "Decodificador JWT",
-    "certificatePemDecoder": "Decodificador de certificados / PEM",
     "jsonFormatter": "Formateador JSON",
     "sqlFormatter": "Formateador SQL",
     "graphqlFormatter": "Formateador GraphQL",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Formateador YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Diff JSON",
     "jsonpathPlayground": "Playground JSONPath",
     "secureFiles": "Archivos"
@@ -326,10 +321,6 @@
         "title": "Gestor de entornos",
         "description": "Guarda variables tipo .env por proyecto y entorno con etiquetas."
       },
-      "bookmarks": {
-        "title": "Marcadores",
-        "description": "Gestiona y organiza tus marcadores."
-      },
       "apiClient": {
         "title": "Cliente API",
         "description": "Prueba y depura peticiones HTTP."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "Validador de correo",
         "description": "Verifica y valida direcciones de correo."
-      },
-      "encryptionPlayground": {
-        "title": "Cifrado (prácticas)",
-        "description": "AES-GCM con clave en bruto o frase secreta; paquetes JSON, Web Crypto solo en el navegador."
-      },
-      "jwtDecoder": {
-        "title": "Decodificador JWT",
-        "description": "Decodifica la cabecera, la carga útil y la caducidad del JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Decodificador de certificados / PEM",
-        "description": "Decodifica certificados X.509 y CSR: sujeto, emisor, validez y SAN."
       },
       "jsonFormatter": {
         "title": "Formateador JSON",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Generador y verificador Bcrypt",
-        "description": "Genera hashes de contraseñas con bcrypt y verifica hashes existentes."
-      },
       "jsonDiff": {
         "title": "Diff JSON",
         "description": "Comparación semántica y estructural de dos documentos JSON."
@@ -434,8 +409,6 @@
       "loadError": "No se pudieron cargar las estadísticas.",
       "retry": "Reintentar",
       "passwordEntries": "Entradas de contraseñas",
-      "bookmarks": "Marcadores",
-      "bookmarkFolders": "Carpetas de marcadores",
       "tasksTotal": "Tareas",
       "tasksCompleted": "Completadas",
       "tasksOngoing": "En curso",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Cargando..."
-    },
-    "manager": {
-      "foldersHeading": "Carpetas",
-      "tagsHeading": "Etiquetas",
-      "tagsMore": "+{count} más",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Buscar en tus marcadores...",
-      "import": "Importar",
-      "export": "Exportar",
-      "exportAsHtml": "Exportar como HTML",
-      "exportAsJson": "Exportar como JSON",
-      "addBookmark": "Añadir marcador",
-      "matchingQuery": "coinciden con \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# marcador} other {# marcadores}}",
-      "allBookmarks": "Todos los marcadores",
-      "uncategorized": "Sin categoría",
-      "unknownFolder": "Desconocido"
-    },
-    "card": {
-      "urlCopied": "URL copiada al portapapeles",
-      "bookmarkDeleted": "Marcador eliminado",
-      "edit": "Editar",
-      "delete": "Eliminar",
-      "copyUrl": "Copiar URL",
-      "deleteConfirmTitle": "¿Eliminar marcador?",
-      "deleteConfirmDescription": "Se eliminará permanentemente \"{title}\".",
-      "cancel": "Cancelar"
-    },
-    "grid": {
-      "emptyTitle": "Aún no hay marcadores",
-      "emptyDescription": "Añade tu primer marcador o importa desde el navegador para empezar."
-    },
-    "folderTree": {
-      "allBookmarks": "Todos los marcadores",
-      "addSubfolder": "Añadir subcarpeta",
-      "rename": "Renombrar",
-      "deleteFolderTitle": "¿Eliminar carpeta \"{name}\"?",
-      "deleteFolderDescription": "Se eliminará la carpeta y todas sus subcarpetas. Los marcadores pasarán a Sin categoría."
-    },
-    "foldersHeading": "Carpetas",
-    "import": {
-      "title": "Importar marcadores",
-      "description": "Importa marcadores desde el archivo exportado por tu navegador.",
-      "parseError": "No se pudo analizar el archivo. Asegúrate de que sea una exportación de marcadores válida.",
-      "successToast": "Se importaron {bookmarks} marcadores y {folders} carpetas",
-      "errorToast": "No se pudieron importar los marcadores",
-      "chromeInstruction": "Menú → Marcadores → Administrador de marcadores → ⋮ → Exportar marcadores",
-      "firefoxInstruction": "Menú → Marcadores → Gestionar marcadores → Importar y respaldar → Exportar",
-      "safariInstruction": "Archivo → Exportar marcadores...",
-      "edgeInstruction": "Menú → Favoritos → ⋯ → Exportar favoritos",
-      "dropZoneTitle": "Suelta aquí tu archivo de marcadores",
-      "dropZoneHint": "o haz clic para buscar (HTML o JSON)",
-      "selectedFileHint": "Haz clic para elegir otro archivo",
-      "errorTitle": "Error",
-      "previewTitle": "Vista previa de importación",
-      "previewBookmarks": "{count, plural, one {# marcador} other {# marcadores}}",
-      "previewFolders": "{count, plural, one {# carpeta} other {# carpetas}}",
-      "importModeLabel": "Modo de importación",
-      "modeMerge": "Combinar con los marcadores existentes",
-      "modeReplace": "Reemplazar todos los marcadores existentes",
-      "cancel": "Cancelar",
-      "importButton": "Importar",
-      "importButtonWithCount": "Importar {count, plural, one {# marcador} other {# marcadores}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Añadir marcador",
-      "titleEdit": "Editar marcador",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://ejemplo.com",
-      "urlInvalid": "Introduce una URL válida",
-      "titleLabel": "Título",
-      "titlePlaceholder": "Título del marcador",
-      "titleRequired": "Introduce un título",
-      "descriptionLabel": "Descripción (opcional)",
-      "descriptionPlaceholder": "Añade una nota sobre este marcador",
-      "folderLabel": "Carpeta",
-      "folderPlaceholder": "Seleccionar carpeta",
-      "noFolder": "Sin carpeta",
-      "tagsLabel": "Etiquetas",
-      "tagsPlaceholder": "Añadir etiquetas (pulsa Intro)",
-      "toastUpdated": "Marcador actualizado",
-      "toastAdded": "Marcador añadido",
-      "cancel": "Cancelar",
-      "submitAdd": "Añadir marcador",
-      "submitUpdate": "Actualizar marcador"
-    },
-    "addFolder": {
-      "title": "Crear carpeta",
-      "nameLabel": "Nombre de la carpeta",
-      "namePlaceholder": "Mi carpeta",
-      "nameRequired": "Introduce un nombre de carpeta",
-      "parentLabel": "Carpeta superior",
-      "parentPlaceholder": "Seleccionar carpeta superior",
-      "rootParent": "Raíz (sin superior)",
-      "toastCreated": "Carpeta creada",
-      "cancel": "Cancelar",
-      "submit": "Crear carpeta"
-    },
-    "editFolder": {
-      "title": "Renombrar carpeta",
-      "nameLabel": "Nombre de la carpeta",
-      "namePlaceholder": "Nombre de la carpeta",
-      "nameRequired": "Introduce un nombre de carpeta",
-      "toastRenamed": "Carpeta renombrada",
-      "cancel": "Cancelar",
-      "save": "Guardar"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON reparado",
     "toastRepairFailed": "No se pudo reparar el JSON"
   },
-  "JwtDecoder": {
-    "title": "Decodificador JWT",
-    "subtitle": "Inspecciona cabecera, payload y expiración — firma sin verificar",
-    "tokenLabel": "Token",
-    "clear": "Limpiar",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Copiar",
-    "expiryLabel": "Caducidad (exp)",
-    "signaturePresent": "Firma presente (no verificada)",
-    "noExp": "No hay reclamación <code>exp</code> en la carga útil.",
-    "status": {
-      "expired": "Caducado",
-      "valid": "Válido"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Local",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Emitido en (iat)",
-      "notBefore": "No antes de (nbf)"
-    },
-    "panels": {
-      "header": "Cabecera",
-      "payload": "Carga útil"
-    },
-    "errors": {
-      "empty": "Pega un JWT para decodificar.",
-      "segments": "Un JWT necesita al menos una cabecera y una carga útil (dos segmentos).",
-      "base64": "No se pudo decodificar en base64url la cabecera o la carga útil."
-    },
-    "relative": {
-      "future": "en {n} {unit}",
-      "past": "hace {n} {unit}"
-    },
-    "units": {
-      "second": "{count, plural, one {segundo} other {segundos}}",
-      "minute": "{count, plural, one {minuto} other {minutos}}",
-      "hour": "{count, plural, one {hora} other {horas}}",
-      "day": "{count, plural, one {día} other {días}}"
-    },
-    "tabs": {
-      "decode": "Decodificar",
-      "sign": "Generador / firmador"
-    },
-    "signer": {
-      "algLabel": "Algoritmo (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "JSON del payload",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "JSON del header",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Secreto (HS*)",
-      "secretPlaceholder": "Pega tu secreto HMAC…",
-      "privateKeyLabel": "Clave privada PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "El algoritmo \"none\" crea un token sin firmar. Es inseguro y solo debe usarse para pruebas.",
-      "sign": "Firmar",
-      "verify": "Verificar firma",
-      "outputLabel": "Token (JWS compacto)",
-      "outputPlaceholder": "Haz clic en \"Firmar\"…",
-      "copyToken": "Copiar token",
-      "copied": "Copiado",
-      "verifyKeyLabel": "Clave de verificación (opcional)",
-      "verifyKeyPlaceholder": "Para RS*: pega la clave pública (SPKI) PEM. Para HS*: déjalo vacío para reutilizar el secreto.",
-      "verifyKeyHint": "Si está vacío, la verificación usa la clave de firma (útil para HS*).",
-      "verifyStatus": {
-        "valid": "Firma válida",
-        "invalid": "Firma no válida"
-      },
-      "securityNote": "Todo se ejecuta localmente en tu navegador; no se suben claves ni tokens."
-    },
-    "signErrors": {
-      "invalidJson": "El header y el payload deben ser JSON válido.",
-      "unsupportedAlg": "Algoritmo no compatible.",
-      "missingKey": "Se requiere una clave de firma para este algoritmo.",
-      "cryptoFailed": "Falló la firma. Comprueba el formato de la clave e inténtalo de nuevo."
-    },
-    "verifyErrors": {
-      "empty": "Introduce un JWT para verificar.",
-      "segments": "Un JWT debe tener exactamente 3 segmentos para verificar una firma.",
-      "unsupportedAlg": "Algoritmo no compatible o falta alg en el header.",
-      "missingKey": "Se requiere una clave de verificación para este algoritmo.",
-      "base64": "No se pudo decodificar el header o la firma del JWT.",
-      "cryptoFailed": "Falló la verificación. Comprueba el formato de la clave e inténtalo de nuevo."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Decodificador de certificados",
-    "subtitle": "Decodifica certificados X.509 y CSR en formato PEM",
-    "pemLabel": "Entrada PEM",
-    "clear": "Borrar",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Analizando…",
-    "copyHex": "Copiar huella (hex sin dos puntos)",
-    "errors": {
-      "empty": "Pega un certificado PEM o una CSR para decodificar.",
-      "noBlock": "No se encontró ningún bloque PEM de certificado o CSR.",
-      "parseFailed": "No se pudieron analizar estos datos PEM."
-    },
-    "block": {
-      "title": "Bloque PEM {index}",
-      "certificate": "Certificado X.509",
-      "csr": "Solicitud de firma de certificado"
-    },
-    "fields": {
-      "subject": "Sujeto",
-      "issuer": "Emisor",
-      "notBefore": "No válido antes de",
-      "notAfter": "No válido después de",
-      "serial": "Número de serie (hex)",
-      "sha256": "Huella SHA-256",
-      "sans": "Nombres alternativos del sujeto",
-      "sansNone": "Sin extensión SAN.",
-      "signatureAlgorithm": "Algoritmo de firma",
-      "csrIssuerNote": "Las CSR no incluyen emisor (aparece en el certificado emitido).",
-      "csrValidityNote": "Las CSR no incluyen fechas de validez (aparecen en el certificado emitido)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Nombre de directorio",
-      "email": "Correo",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "ID registrado",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Formateador SQL",
     "subtitle": "Da formato a SQL para MySQL, PostgreSQL y SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "Coincidieron {count} filas — no se cambió nada, porque el filtro no es único."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Laboratorio de cifrado",
-    "subtitle": "Cifra y descifra con AES-GCM usando frase secreta o clave",
-    "tabEncrypt": "Cifrar",
-    "tabDecrypt": "Descifrar",
-    "keyModeLabel": "Material de clave",
-    "modePassphrase": "Frase secreta (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Clave AES en bruto (hex o Base64)",
-    "aesBitsLabel": "Longitud de clave AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Codificación de la clave en bruto",
-    "encodingAuto": "Auto (hex si parece hex, si no Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Clave en bruto",
-    "rawKeyPlaceholder": "Clave de 32 bytes como 64 caracteres hex, o Base64 para AES-256 (la longitud depende del tamaño AES elegido).",
-    "rawKeyPlaceholderDecrypt": "Solo si el paquete tiene keyDerivation \"none\".",
-    "passphraseLabel": "Frase secreta",
-    "passphrasePlaceholder": "Frase secreta usada solo en el navegador para derivar la clave.",
-    "passphrasePlaceholderDecrypt": "Solo si el paquete usa PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Iteraciones PBKDF2",
-    "pbkdf2Hint": "Entre 10.000 y 2.000.000. El valor por defecto sigue ajustes habituales de almacenes.",
-    "plaintextLabel": "Texto plano",
-    "plaintextPlaceholder": "Escriba o pegue el mensaje a cifrar…",
-    "bundleInputLabel": "Paquete cifrado (JSON)",
-    "bundlePlaceholder": "Pegue el JSON de Cifrar (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Paquete cifrado",
-    "plaintextOutputLabel": "Texto plano",
-    "encryptButton": "Cifrar",
-    "decryptButton": "Descifrar",
-    "copyBundle": "Copiar JSON",
-    "copyPlaintext": "Copiar texto plano",
-    "copied": "Copiado",
-    "emptyBundleHint": "El JSON cifrado aparecerá aquí tras cifrar.",
-    "emptyDecryptHint": "El texto descifrado aparecerá aquí.",
-    "decryptKeyHint": "Use la clave en bruto si keyDerivation es \"none\"; la frase secreta si es PBKDF2-SHA256. El paquete guarda sal, iteraciones, IV y tamaño AES.",
-    "securityNote": "Las claves y el texto plano no salen del navegador. Para secretos de producción use herramientas dedicadas.",
-    "errors": {
-      "emptyKey": "Introduzca una clave en bruto que coincida con el tamaño AES.",
-      "emptyPassphrase": "Introduzca una frase secreta.",
-      "badKeyMaterial": "No se pudo leer la clave como hex ni Base64.",
-      "wrongKeyLength": "La longitud de clave no coincide con el tamaño AES (16 / 24 / 32 bytes).",
-      "invalidJson": "No es un JSON válido.",
-      "invalidBundle": "Este JSON no es un paquete de cifrado compatible.",
-      "decryptFailed": "Descifrado fallido: secreto incorrecto, paquete dañado o parámetros distintos.",
-      "encryptFailed": "Cifrado fallido. Compruebe Web Crypto y los datos."
-    }
-  },
   "MarkdownPreview": {
     "title": "Vista previa de Markdown",
     "subtitle": "Renderiza Markdown en vivo y convierte a y desde HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Generador bcrypt",
-    "subtitle": "Hashea y verifica contraseñas con bcrypt",
-    "tabs": {
-      "hash": "Hashear",
-      "verify": "Verificar"
-    },
-    "showPassword": "Mostrar contraseña",
-    "hidePassword": "Ocultar contraseña",
-    "copy": "Copiar",
-    "copied": "Copiado",
-    "hash": {
-      "passwordLabel": "Contraseña",
-      "passwordPlaceholder": "Introduce una contraseña para hashear…",
-      "costLabel": "Factor de coste",
-      "costHint": "Un coste mayor duplica el trabajo por paso. 10-12 es una elección habitual en producción.",
-      "slowWarning": "Los factores de coste de 13 o más pueden tardar varios segundos en calcularse.",
-      "generate": "Generar hash",
-      "generating": "Hasheando…",
-      "resultLabel": "Hash bcrypt",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Anatomía del hash",
-        "algorithm": "algoritmo",
-        "cost": "coste",
-        "salt": "salt (22 caracteres)",
-        "hash": "hash (31 caracteres)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Contraseña",
-      "passwordPlaceholder": "Introduce la contraseña a comprobar…",
-      "hashLabel": "Hash bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Introduce una contraseña y un hash bcrypt para compararlos.",
-      "invalidHash": "Esto no parece un hash bcrypt válido.",
-      "checking": "Comparando…",
-      "match": "Coincide: la contraseña produce este hash.",
-      "noMatch": "No coincide: la contraseña no produce este hash."
-    }
   },
   "JsonDiff": {
     "title": "Diff de JSON",

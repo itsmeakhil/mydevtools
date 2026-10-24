@@ -5,16 +5,12 @@
     "apiClient": "عميل API",
     "passwordManager": "مدير كلمات المرور",
     "environmentManager": "مدير البيئة",
-    "bookmarks": "الإشارات المرجعية",
     "jsonFormatter": "منسّق JSON",
     "emailValidator": "التحقق من البريد",
     "nosqlExplorer": "مستكشف قاعدة البيانات",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "ملعب التشفير",
-    "jwtDecoder": "محلّل JWT",
-    "certificatePemDecoder": "فك ترميز الشهادة / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "منسّق GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "منسق YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "مقارنة JSON",
     "jsonpathPlayground": "ساحة JSONPath",
     "secureFiles": "الملفات"
@@ -326,10 +321,6 @@
         "title": "مدير البيئة",
         "description": "خزن متغيرات بصيغة .env حسب المشروع والبيئة مع وسوم."
       },
-      "bookmarks": {
-        "title": "الإشارات المرجعية",
-        "description": "أدر ونظّم إشاراتك المرجعية."
-      },
       "apiClient": {
         "title": "عميل API",
         "description": "اختبر طلبات HTTP وصححها."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "التحقق من البريد",
         "description": "تحقق من عناوين البريد الإلكتروني."
-      },
-      "encryptionPlayground": {
-        "title": "ملعب التشفير",
-        "description": "AES-GCM بمفتاح خام أو عبارة سر؛ حزم JSON، Web Crypto فقط في المتصفح."
-      },
-      "jwtDecoder": {
-        "title": "محلّل JWT",
-        "description": "فك ترميز ترويسة وبيانات ووقت انتهاء JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "فك ترميز الشهادة / PEM",
-        "description": "فك ترميز شهادات X.509 وطلبات CSR: الموضوع، المصدر، الصلاحية، وأسماء SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "مولّد ومدقّق Bcrypt",
-        "description": "شفّر كلمات المرور باستخدام bcrypt وتحقّق من التجزئات الموجودة."
-      },
       "jsonDiff": {
         "title": "مقارنة JSON",
         "description": "مقارنة دلالية واعية بالبنية بين مستندَي JSON."
@@ -434,8 +409,6 @@
       "loadError": "تعذّر تحميل التحليلات.",
       "retry": "إعادة المحاولة",
       "passwordEntries": "إدخالات كلمات المرور",
-      "bookmarks": "الإشارات المرجعية",
-      "bookmarkFolders": "مجلدات الإشارات",
       "tasksTotal": "المهام",
       "tasksCompleted": "مكتملة",
       "tasksOngoing": "قيد التنفيذ",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "جاري التحميل..."
-    },
-    "manager": {
-      "foldersHeading": "المجلدات",
-      "tagsHeading": "الوسوم",
-      "tagsMore": "+{count} أخرى",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "ابحث في الإشارات المرجعية...",
-      "import": "استيراد",
-      "export": "تصدير",
-      "exportAsHtml": "تصدير HTML",
-      "exportAsJson": "تصدير JSON",
-      "addBookmark": "إضافة إشارة",
-      "matchingQuery": "يطابق \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# إشارة} other {# إشارات}}",
-      "allBookmarks": "كل الإشارات",
-      "uncategorized": "غير مصنّف",
-      "unknownFolder": "غير معروف"
-    },
-    "card": {
-      "urlCopied": "تم نسخ الرابط",
-      "bookmarkDeleted": "تم حذف الإشارة",
-      "edit": "تعديل",
-      "delete": "حذف",
-      "copyUrl": "نسخ الرابط",
-      "deleteConfirmTitle": "حذف الإشارة؟",
-      "deleteConfirmDescription": "سيُحذف \"{title}\" نهائياً.",
-      "cancel": "إلغاء"
-    },
-    "grid": {
-      "emptyTitle": "لا إشارات بعد",
-      "emptyDescription": "أضف أول إشارة أو استورد من المتصفح للبدء."
-    },
-    "folderTree": {
-      "allBookmarks": "كل الإشارات",
-      "addSubfolder": "إضافة مجلد فرعي",
-      "rename": "إعادة تسمية",
-      "deleteFolderTitle": "حذف المجلد \"{name}\"؟",
-      "deleteFolderDescription": "سيُحذف المجلد وكل المجلدات الفرعية. تُنقل الإشارات إلى غير مصنّف."
-    },
-    "foldersHeading": "المجلدات",
-    "import": {
-      "title": "استيراد الإشارات",
-      "description": "استورد الإشارات من ملف مُصدَّر من المتصفح.",
-      "parseError": "فشل تحليل ملف الإشارات. تأكد أنه تصدير صالح.",
-      "successToast": "تم استيراد {bookmarks} إشارة و{folders} مجلد",
-      "errorToast": "فشل استيراد الإشارات",
-      "chromeInstruction": "القائمة → الإشارات → مدير الإشارات → ⋮ → تصدير الإشارات",
-      "firefoxInstruction": "القائمة → الإشارات → إدارة الإشارات → استيراد ونسخ احتياطي → تصدير",
-      "safariInstruction": "ملف → تصدير الإشارات...",
-      "edgeInstruction": "القائمة → المفضلة → ⋯ → تصدير المفضلة",
-      "dropZoneTitle": "أسقط ملف الإشارات هنا",
-      "dropZoneHint": "أو انقر للتصفح (HTML أو JSON)",
-      "selectedFileHint": "انقر لاختيار ملف آخر",
-      "errorTitle": "خطأ",
-      "previewTitle": "معاينة الاستيراد",
-      "previewBookmarks": "{count, plural, one {# إشارة} other {# إشارات}}",
-      "previewFolders": "{count, plural, one {# مجلد} other {# مجلدات}}",
-      "importModeLabel": "وضع الاستيراد",
-      "modeMerge": "دمج مع الإشارات الحالية",
-      "modeReplace": "استبدال كل الإشارات الحالية",
-      "cancel": "إلغاء",
-      "importButton": "استيراد",
-      "importButtonWithCount": "استيراد {count, plural, one {# إشارة} other {# إشارات}}"
-    },
-    "addBookmark": {
-      "titleAdd": "إضافة إشارة",
-      "titleEdit": "تعديل الإشارة",
-      "urlLabel": "الرابط",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "يرجى إدخال رابط صالح",
-      "titleLabel": "العنوان",
-      "titlePlaceholder": "عنوان الإشارة",
-      "titleRequired": "يرجى إدخال عنوان",
-      "descriptionLabel": "الوصف (اختياري)",
-      "descriptionPlaceholder": "ملاحظة عن هذه الإشارة",
-      "folderLabel": "المجلد",
-      "folderPlaceholder": "اختر مجلداً",
-      "noFolder": "بدون مجلد",
-      "tagsLabel": "الوسوم",
-      "tagsPlaceholder": "أضف وسوماً (Enter)",
-      "toastUpdated": "تم تحديث الإشارة",
-      "toastAdded": "تمت إضافة الإشارة",
-      "cancel": "إلغاء",
-      "submitAdd": "إضافة إشارة",
-      "submitUpdate": "تحديث الإشارة"
-    },
-    "addFolder": {
-      "title": "إنشاء مجلد",
-      "nameLabel": "اسم المجلد",
-      "namePlaceholder": "مجلدي",
-      "nameRequired": "يرجى إدخال اسم المجلد",
-      "parentLabel": "المجلد الأب",
-      "parentPlaceholder": "اختر المجلد الأب",
-      "rootParent": "الجذر (بدون أب)",
-      "toastCreated": "تم إنشاء المجلد",
-      "cancel": "إلغاء",
-      "submit": "إنشاء مجلد"
-    },
-    "editFolder": {
-      "title": "إعادة تسمية المجلد",
-      "nameLabel": "اسم المجلد",
-      "namePlaceholder": "اسم المجلد",
-      "nameRequired": "يرجى إدخال اسم المجلد",
-      "toastRenamed": "تمت إعادة تسمية المجلد",
-      "cancel": "إلغاء",
-      "save": "حفظ"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "تم إصلاح JSON",
     "toastRepairFailed": "تعذر إصلاح JSON"
   },
-  "JwtDecoder": {
-    "title": "مفكك JWT",
-    "subtitle": "افحص الترويسة والحمولة والانتهاء — دون التحقق من التوقيع",
-    "tokenLabel": "الرمز",
-    "clear": "مسح",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "نسخ",
-    "expiryLabel": "الانتهاء (exp)",
-    "signaturePresent": "التوقيع موجود (غير مُتحقَّق منه)",
-    "noExp": "لا توجد مطالبة <code>exp</code> في الحمولة.",
-    "status": {
-      "expired": "منتهي الصلاحية",
-      "valid": "صالح"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "محلي",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "وقت الإصدار (iat)",
-      "notBefore": "ليس قبل (nbf)"
-    },
-    "panels": {
-      "header": "الترويسة",
-      "payload": "الحمولة"
-    },
-    "errors": {
-      "empty": "الصق JWT لفك الترميز.",
-      "segments": "يحتاج JWT إلى ترويسة وحمولة على الأقل (جزآن).",
-      "base64": "تعذّر فك ترميز الترويسة أو الحمولة بصيغة base64url."
-    },
-    "relative": {
-      "future": "بعد {n} {unit}",
-      "past": "قبل {n} {unit}"
-    },
-    "units": {
-      "second": "{count, plural, one {ثانية} other {ثوانٍ}}",
-      "minute": "{count, plural, one {دقيقة} other {دقائق}}",
-      "hour": "{count, plural, one {ساعة} other {ساعات}}",
-      "day": "{count, plural, one {يوم} other {أيام}}"
-    },
-    "tabs": {
-      "decode": "فك الترميز",
-      "sign": "مولّد / موقّع"
-    },
-    "signer": {
-      "algLabel": "الخوارزمية (alg)",
-      "tabs": {
-        "payload": "الحمولة",
-        "header": "الترويسة"
-      },
-      "payloadLabel": "JSON الحمولة",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "JSON الترويسة",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "سر (HS*)",
-      "secretPlaceholder": "الصق سر HMAC…",
-      "privateKeyLabel": "مفتاح خاص PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "خوارزمية \"none\" تُنشئ رمزًا غير موقّع. هذا غير آمن ويجب استخدامه للاختبار فقط.",
-      "sign": "وقّع",
-      "verify": "تحقق من التوقيع",
-      "outputLabel": "الرمز (JWS مضغوط)",
-      "outputPlaceholder": "انقر \"وقّع\"…",
-      "copyToken": "نسخ الرمز",
-      "copied": "تم النسخ",
-      "verifyKeyLabel": "مفتاح التحقق (اختياري)",
-      "verifyKeyPlaceholder": "لـ RS*: الصق المفتاح العام (SPKI) بصيغة PEM. لـ HS*: اتركه فارغًا لإعادة استخدام السر.",
-      "verifyKeyHint": "إذا كان فارغًا، سيستخدم التحقق مفتاح التوقيع (مفيد لـ HS*).",
-      "verifyStatus": {
-        "valid": "التوقيع صالح",
-        "invalid": "التوقيع غير صالح"
-      },
-      "securityNote": "كل شيء يعمل محليًا في المتصفح؛ لا يتم رفع المفاتيح أو الرموز."
-    },
-    "signErrors": {
-      "invalidJson": "يجب أن تكون الترويسة والحمولة JSON صالحًا.",
-      "unsupportedAlg": "خوارزمية غير مدعومة.",
-      "missingKey": "مفتاح التوقيع مطلوب لهذه الخوارزمية.",
-      "cryptoFailed": "فشل التوقيع. تحقق من تنسيق المفتاح وحاول مرة أخرى."
-    },
-    "verifyErrors": {
-      "empty": "أدخل JWT للتحقق.",
-      "segments": "يجب أن يحتوي JWT على 3 أجزاء بالضبط للتحقق من التوقيع.",
-      "unsupportedAlg": "خوارزمية alg غير مدعومة أو مفقودة في الترويسة.",
-      "missingKey": "مفتاح التحقق مطلوب لهذه الخوارزمية.",
-      "base64": "تعذر فك ترميز ترويسة JWT أو التوقيع.",
-      "cryptoFailed": "فشل التحقق. تحقق من تنسيق المفتاح وحاول مرة أخرى."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "مفكك الشهادات",
-    "subtitle": "فك شهادات X.509 وطلبات CSR من صيغة PEM",
-    "pemLabel": "إدخال PEM",
-    "clear": "مسح",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "جارٍ التحليل…",
-    "copyHex": "نسخ البصمة (سداسي بدون نقطتين)",
-    "errors": {
-      "empty": "الصق شهادة PEM أو CSR لفك الترميز.",
-      "noBlock": "لم يُعثر على كتلة PEM لشهادة أو CSR.",
-      "parseFailed": "تعذّر تحليل بيانات PEM هذه."
-    },
-    "block": {
-      "title": "كتلة PEM {index}",
-      "certificate": "شهادة X.509",
-      "csr": "طلب توقيع شهادة"
-    },
-    "fields": {
-      "subject": "الموضوع",
-      "issuer": "المُصْدِر",
-      "notBefore": "غير صالح قبل",
-      "notAfter": "غير صالح بعد",
-      "serial": "الرقم التسلسلي (سداسي)",
-      "sha256": "بصمة SHA-256",
-      "sans": "أسماء بديلة للموضوع",
-      "sansNone": "لا يوجد امتداد SAN.",
-      "signatureAlgorithm": "خوارزمية التوقيع",
-      "csrIssuerNote": "لا يتضمّن طلب CSR مُصدِرًا (يظهر ذلك في الشهادة الصادرة).",
-      "csrValidityNote": "لا يتضمّن طلب CSR تواريخ صلاحية (تظهر في الشهادة الصادرة)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "اسم الدليل",
-      "email": "بريد",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "معرّف مسجّل",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "منسق SQL",
     "subtitle": "تنسيق SQL لقواعد MySQL وPostgreSQL وSQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "طابق {count} صفوف — لم يتغيّر شيء لأن عامل التصفية غير فريد."
     }
   },
-  "EncryptionPlayground": {
-    "title": "ساحة التشفير",
-    "subtitle": "شفّر وفك تشفير AES-GCM بعبارة مرور أو مفتاح",
-    "tabEncrypt": "تشفير",
-    "tabDecrypt": "فك التشفير",
-    "keyModeLabel": "مادة المفتاح",
-    "modePassphrase": "عبارة سر (PBKDF2 + AES-GCM)",
-    "modeRawKey": "مفتاح AES خام (hex أو Base64)",
-    "aesBitsLabel": "طول مفتاح AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "ترميز المفتاح الخام",
-    "encodingAuto": "تلقائي (hex إذا بدا كhex، وإلا Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "المفتاح الخام",
-    "rawKeyPlaceholder": "مفتاح 32 بايت كـ 64 محرف hex أو Base64 لـ AES-256 (الطول يعتمد على حجم AES أعلاه).",
-    "rawKeyPlaceholderDecrypt": "مطلوب فقط عندما تحتوي الحزمة على keyDerivation \"none\".",
-    "passphraseLabel": "عبارة السر",
-    "passphrasePlaceholder": "تُستخدم عبارة السر فقط في المتصفح لاشتقاق المفتاح.",
-    "passphrasePlaceholderDecrypt": "مطلوب فقط عندما تستخدم الحزمة PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "تكرارات PBKDF2",
-    "pbkdf2Hint": "بين 10,000 و 2,000,000. الافتراضي يطابق إعدادات الخزن الشائعة.",
-    "plaintextLabel": "نص صريح",
-    "plaintextPlaceholder": "اكتب أو الصق الرسالة المراد تشفيرها…",
-    "bundleInputLabel": "حزمة مشفرة (JSON)",
-    "bundlePlaceholder": "الصق JSON من تشفير (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "حزمة مشفرة",
-    "plaintextOutputLabel": "نص صريح",
-    "encryptButton": "تشفير",
-    "decryptButton": "فك التشفير",
-    "copyBundle": "نسخ JSON",
-    "copyPlaintext": "نسخ النص الصريح",
-    "copied": "تم النسخ",
-    "emptyBundleHint": "يظهر JSON المشفر هنا بعد التشفير.",
-    "emptyDecryptHint": "يظهر النص المفكوك هنا.",
-    "decryptKeyHint": "استخدم المفتاح الخام إذا كان keyDerivation \"none\"؛ وعبارة السر لـ PBKDF2-SHA256. تحتفظ الحزمة بالملح والتكرارات وIV وطول AES.",
-    "securityNote": "المفاتيح والنص الصريح لا يغادران متصفحك. لأسرار الإنتاج استخدم أدوات مخصصة.",
-    "errors": {
-      "emptyKey": "أدخل مفتاحًا خامًا يطابق حجم AES.",
-      "emptyPassphrase": "أدخل عبارة سر.",
-      "badKeyMaterial": "تعذر قراءة المفتاح كـ hex أو Base64.",
-      "wrongKeyLength": "طول المفتاح لا يطابق AES (16 / 24 / 32 بايت).",
-      "invalidJson": "JSON غير صالح.",
-      "invalidBundle": "هذا JSON ليس حزمة تشفير مدعومة.",
-      "decryptFailed": "فشل فك التشفير — سر خاطئ أو حزمة تالفة أو معاملات غير متطابقة.",
-      "encryptFailed": "فشل التشفير. تحقق من Web Crypto والمدخلات."
-    }
-  },
   "MarkdownPreview": {
     "title": "معاينة Markdown",
     "subtitle": "اعرض Markdown مباشرة وحوّله من HTML وإليه",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "مولد Bcrypt",
-    "subtitle": "جزّئ كلمات المرور وتحقق منها باستخدام bcrypt",
-    "tabs": {
-      "hash": "تجزئة",
-      "verify": "تحقّق"
-    },
-    "showPassword": "إظهار كلمة المرور",
-    "hidePassword": "إخفاء كلمة المرور",
-    "copy": "نسخ",
-    "copied": "تم النسخ",
-    "hash": {
-      "passwordLabel": "كلمة المرور",
-      "passwordPlaceholder": "أدخل كلمة مرور لتجزئتها…",
-      "costLabel": "عامل التكلفة",
-      "costHint": "التكلفة الأعلى تضاعف العمل في كل خطوة. عادةً يُستخدم 10-12 في الإنتاج.",
-      "slowWarning": "عوامل التكلفة 13 فأعلى قد تستغرق عدة ثوانٍ للحساب.",
-      "generate": "توليد التجزئة",
-      "generating": "جارٍ التجزئة…",
-      "resultLabel": "تجزئة Bcrypt",
-      "timeTaken": "{ms} مللي ثانية",
-      "anatomy": {
-        "title": "بنية التجزئة",
-        "algorithm": "الخوارزمية",
-        "cost": "التكلفة",
-        "salt": "الملح (22 حرفًا)",
-        "hash": "التجزئة (31 حرفًا)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "كلمة المرور",
-      "passwordPlaceholder": "أدخل كلمة المرور للتحقّق…",
-      "hashLabel": "تجزئة Bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "أدخل كلمة مرور وتجزئة bcrypt لمقارنتهما.",
-      "invalidHash": "لا يبدو هذا تجزئة bcrypt صالحة.",
-      "checking": "جارٍ المقارنة…",
-      "match": "تطابق — كلمة المرور تنتج هذه التجزئة.",
-      "noMatch": "لا تطابق — كلمة المرور لا تنتج هذه التجزئة."
-    }
   },
   "JsonDiff": {
     "title": "فرق JSON",

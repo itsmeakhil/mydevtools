@@ -106,8 +106,8 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 | 📝 **フォーマッター & バリデーター** | JSON フォーマッター、JSON Visualizer、JSON 差分、JSONスキーマジェネレーター、JSON to Code、YAMLフォーマッター、フォーマット変換（JSON / YAML / TOML / XML）、SQL Formatter、GraphQL フォーマッター、Markdownプレビュー、Diff checker、Regex Tester |
 | 🌐 **ネットワーク & API** | APIクライアント（コレクション、環境、認証、gRPC、モックサーバー — ブラウザの CORS 制限なし） |
 | 🗄️ **データベース & ストレージクライアント** | SQL Client（PostgreSQL、MySQL、MariaDB）、データベースエクスプローラー（MongoDB）、Redis Commander、S3 Drive（AWS S3、DigitalOcean Spaces） — ネイティブ Rust ドライバーで、あなたのマシンからデータベースへ直接つながります |
-| 🔐 **セキュリティ & 暗号** | パスワードマネージャー、暗号化プレイグラウンド（AES-GCM）、JWTデコーダー、Bcrypt、証明書 / PEM デコーダ、環境変数マネージャー |
-| 📱 **生産性** | Notes、コードスニペット、Tasks、ブックマーク、API Keys |
+| 🔐 **セキュリティ & 暗号** | パスワードマネージャー、環境変数マネージャー |
+| 📱 **生産性** | Notes、コードスニペット、Tasks、API Keys |
 
 すべて 1 つのコマンドパレットから検索でき、ダーク / ライトモード、27 言語に対応しています。
 
@@ -117,7 +117,7 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 
 - **MyDevTools のサーバーはありません。** サインインするバックエンドも、同期
   サービスも、アカウントの仕組みもありません。ツールの入力、ノート、スニペット、
-  タスク、ブックマークはローカルの SQLCipher データベースに書き込まれ、OS の
+  タスクはローカルの SQLCipher データベースに書き込まれ、OS の
   キーチェーンが保持する鍵で暗号化されます。
 - **認証情報は保管庫で暗号化されます。** データベースのパスワード、API キー、
   パスワードマネージャーの項目は、あなただけが知るマスターパスワードでローカルに

@@ -105,8 +105,8 @@ MyDevTools는 개발자가 매일 열어 두는 수많은 탭, 일회성 웹사�
 | 📝 **포매터 및 검증기** | JSON 포맷터, JSON Visualizer, JSON 비교, JSON 스키마 생성기, JSON to Code, YAML 포매터, 포맷 변환기 (JSON / YAML / TOML / XML), SQL Formatter, GraphQL 포매터, 마크다운 미리보기, Diff checker, Regex Tester |
 | 🌐 **네트워크 및 API** | API 클라이언트 (컬렉션, 환경, 인증, gRPC, 목 서버 — 브라우저 CORS 제한 없음) |
 | 🗄️ **데이터베이스 및 스토리지 클라이언트** | SQL Client (PostgreSQL, MySQL, MariaDB), 데이터베이스 탐색기 (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — 네이티브 Rust 드라이버로 내 컴퓨터에서 데이터베이스까지 바로 연결 |
-| 🔐 **보안 및 암호화** | 비밀번호 관리자, 암호화 연습장 (AES-GCM), JWT 디코더, Bcrypt, 인증서 / PEM 디코더, 환경 변수 관리자 |
-| 📱 **생산성** | Notes, 코드 스니펫, Tasks, 북마크, API Keys |
+| 🔐 **보안 및 암호화** | 비밀번호 관리자, 환경 변수 관리자 |
+| 📱 **생산성** | Notes, 코드 스니펫, Tasks, API Keys |
 
 모든 도구는 하나의 명령 팔레트에서 검색할 수 있으며, 다크/라이트 모드와 27개
 언어를 지원합니다.
@@ -116,7 +116,7 @@ MyDevTools는 개발자가 매일 열어 두는 수많은 탭, 일회성 웹사�
 ## 🔒 설계에서부터 프라이버시
 
 - **MyDevTools 서버가 없습니다.** 로그인할 백엔드도, 동기화 서비스도, 계정
-  시스템도 없습니다. 도구 입력값, 노트, 스니펫, 작업, 북마크는 OS 키체인에
+  시스템도 없습니다. 도구 입력값, 노트, 스니펫, 작업은 OS 키체인에
   보관된 키로 암호화된 로컬 SQLCipher 데이터베이스에 저장됩니다.
 - **자격 증명은 볼트로 암호화됩니다.** 데이터베이스 비밀번호, API 키, 비밀번호
   관리자 항목은 본인만 아는 마스터 비밀번호로 로컬에서 암호화됩니다.

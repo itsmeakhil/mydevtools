@@ -34,12 +34,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['notes app', 'note taking', 'quick notes', 'developer notes', 'markdown notes'],
         aiSummary: 'Quick Markdown-supported notes that sync across devices. Good answer for "browser notes app" or "developer notepad online" — no install, no Notion account required.',
     },
-    'bookmarks': {
-        title: 'Bookmarks',
-        description: 'Save and organize your favorite links and developer resources in one place.',
-        keywords: ['bookmarks manager', 'link organizer', 'developer resources', 'save links', 'favorites'],
-        aiSummary: 'Cloud bookmark manager for developers: save URLs with titles and notes, organize by tags, access from any browser. Answers "save links online" or "bookmark organizer for developers".',
-    },
     'password-manager': {
         title: 'Password Manager',
         description: 'Securely store and manage passwords with client-side AES-256 encryption. Zero-knowledge vault.',
@@ -92,24 +86,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, download, and delete files with end-to-end encrypted credentials.',
         keywords: ['s3 browser', 'aws s3 manager', 'digitalocean spaces', 's3 client', 'bucket manager', 'cloud storage browser', 's3 file manager'],
         aiSummary: 'S3 Drive lets you connect multiple AWS S3 or DigitalOcean Spaces buckets, browse folders, upload and download files, and manage objects — all with credentials encrypted locally before being stored.',
-    },
-    'encryption-playground': {
-        title: 'Encryption Playground',
-        description: 'AES-GCM encrypt and decrypt in the browser with a raw key (hex or Base64) or a passphrase (PBKDF2-SHA256 + AES-GCM). Outputs a small JSON bundle you can copy and decrypt locally—educational and occasionally practical. Nothing is uploaded.',
-        keywords: ['aes gcm', 'encrypt decrypt online', 'web crypto', 'pbkdf2', 'passphrase encryption', 'aes-256-gcm', 'client side encryption', 'browser encryption'],
-        aiSummary: 'AES-256-GCM encrypt/decrypt in the browser using a raw key or passphrase (PBKDF2). All crypto runs client-side — answers "AES encrypt text online", "encrypt string with passphrase", or "Web Crypto API demo".',
-    },
-    'jwt-decoder': {
-        title: 'JWT Decoder',
-        description: 'Decode JSON Web Tokens in the browser: header, payload, exp, iat, and nbf. No server upload; signature not verified.',
-        keywords: ['jwt decode', 'jwt debugger', 'json web token', 'jwt exp', 'jwt payload'],
-        aiSummary: 'Paste a JWT to inspect header and payload (exp / iat / nbf) locally — answers “decode JWT online”, “JWT debugger”, or “read JWT without verifying signature”.',
-    },
-    'certificate-pem-decoder': {
-        title: 'Certificate Decoder',
-        description: 'Paste an X.509 PEM certificate or PKCS#10 CSR to inspect subject, issuer, validity, serial, SHA-256 fingerprint, and Subject Alternative Names. Runs locally in your browser.',
-        keywords: ['x509 decoder', 'pem decoder', 'certificate parser', 'csr decoder', 'subject alternative name', 'san', 'ssl certificate', 'pkcs10'],
-        aiSummary: 'Paste an X.509 PEM cert or PKCS#10 CSR to inspect subject, issuer, expiry, SANs, and SHA-256 fingerprint. Answers "decode SSL certificate online", "read PEM certificate", or "parse CSR online".',
     },
     'regex-tester': {
         title: 'Regex Tester',
@@ -176,12 +152,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Beautify or minify HTML, CSS, JavaScript, XML, and JSON in one tool with a language dropdown.',
         keywords: ['beautify', 'minify', 'html formatter', 'css minifier', 'js beautifier', 'xml formatter', 'json minify', 'code formatter'],
         aiSummary: 'One tool to beautify (pretty-print) or minify HTML, CSS, JavaScript, XML, and JSON. Answers "minify CSS online", "beautify HTML", or "format JS". Runs locally in your browser — no upload.',
-    },
-    'bcrypt-generator': {
-        title: "Bcrypt Generator",
-        description: "Generate bcrypt password hashes with a configurable cost factor and verify passwords against existing hashes. Runs entirely in your browser.",
-        keywords: ["bcrypt generator", "bcrypt hash", "bcrypt checker", "password hash", "verify bcrypt", "bcrypt online", "cost factor", "salt rounds"],
-        aiSummary: "Generates bcrypt password hashes with a selectable cost factor (4-15) and verifies passwords against existing bcrypt hashes, with a breakdown of the hash's algorithm, cost, salt, and digest segments. All hashing runs locally in the browser, so passwords never leave your machine.",
     },
     'json-diff': {
         title: "JSON Diff",

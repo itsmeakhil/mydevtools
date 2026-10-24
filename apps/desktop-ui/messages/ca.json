@@ -5,16 +5,12 @@
     "apiClient": "Client API",
     "passwordManager": "Gestor de contrasenyes",
     "environmentManager": "Gestor d'entorns",
-    "bookmarks": "Marcadors",
     "jsonFormatter": "Formatador JSON",
     "emailValidator": "Validador de correu",
     "nosqlExplorer": "Explorador de base de dades",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Terreny de joc del xifratge",
-    "jwtDecoder": "Descodificador JWT",
-    "certificatePemDecoder": "Descodificador de certificats / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "Formatador GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Formatador YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Diff JSON",
     "jsonpathPlayground": "Playground JSONPath",
     "secureFiles": "Fitxers"
@@ -326,10 +321,6 @@
         "title": "Gestor d'entorns",
         "description": "Desa variables tipus .env per projecte i entorn amb etiquetes."
       },
-      "bookmarks": {
-        "title": "Marcadors",
-        "description": "Gestiona i organitza els teus marcadors."
-      },
       "apiClient": {
         "title": "Client API",
         "description": "Prova i depura sol·licituds HTTP."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "Validador de correu",
         "description": "Verifica i valida adreces de correu."
-      },
-      "encryptionPlayground": {
-        "title": "Terreny de joc del xifratge",
-        "description": "AES-GCM amb clau en brut o contrasenya; paquets JSON, Web Crypto només al navegador."
-      },
-      "jwtDecoder": {
-        "title": "Descodificador JWT",
-        "description": "Descodifica la capçalera, el payload i la caducitat del JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Descodificador de certificats / PEM",
-        "description": "Descodifica certificats X.509 i CSR: subjecte, emissor, validesa i SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Generador i verificador Bcrypt",
-        "description": "Genera hash de contrasenyes amb bcrypt i verifica hashes existents."
-      },
       "jsonDiff": {
         "title": "Diff JSON",
         "description": "Diff semàntic i conscient de l'estructura de dos documents JSON."
@@ -434,8 +409,6 @@
       "loadError": "No s’han pogut carregar les estadístiques.",
       "retry": "Torna-ho a provar",
       "passwordEntries": "Entrades de contrasenyes",
-      "bookmarks": "Marcadors",
-      "bookmarkFolders": "Carpetes de marcadors",
       "tasksTotal": "Tasques",
       "tasksCompleted": "Completades",
       "tasksOngoing": "En curs",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "S'està carregant..."
-    },
-    "manager": {
-      "foldersHeading": "Carpetes",
-      "tagsHeading": "Etiquetes",
-      "tagsMore": "+{count} més",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Cerca marcadors...",
-      "import": "Importa",
-      "export": "Exporta",
-      "exportAsHtml": "Exporta com a HTML",
-      "exportAsJson": "Exporta com a JSON",
-      "addBookmark": "Afegeix marcador",
-      "matchingQuery": "coincidències amb «{query}»",
-      "bookmarkCount": "{count, plural, one {# marcador} other {# marcadors}}",
-      "allBookmarks": "Tots els marcadors",
-      "uncategorized": "Sense categoria",
-      "unknownFolder": "Desconeguda"
-    },
-    "card": {
-      "urlCopied": "URL copiada al porta-retalls",
-      "bookmarkDeleted": "Marcador eliminat",
-      "edit": "Edita",
-      "delete": "Elimina",
-      "copyUrl": "Copia l'URL",
-      "deleteConfirmTitle": "Vols eliminar el marcador?",
-      "deleteConfirmDescription": "S'eliminarà permanentment «{title}».",
-      "cancel": "Cancel·la"
-    },
-    "grid": {
-      "emptyTitle": "Encara no hi ha marcadors",
-      "emptyDescription": "Afegeix el primer marcador o importa des del navegador per començar."
-    },
-    "folderTree": {
-      "allBookmarks": "Tots els marcadors",
-      "addSubfolder": "Afegeix subcarpeta",
-      "rename": "Canvia el nom",
-      "deleteFolderTitle": "Vols eliminar la carpeta «{name}»?",
-      "deleteFolderDescription": "S'eliminarà la carpeta i totes les subcarpetes. Els marcadors aniran a Sense categoria."
-    },
-    "foldersHeading": "Carpetes",
-    "import": {
-      "title": "Importa marcadors",
-      "description": "Importa marcadors des del fitxer exportat del navegador.",
-      "parseError": "No s'ha pogut analitzar el fitxer. Assegura't que sigui una exportació vàlida.",
-      "successToast": "S'han importat {bookmarks} marcadors i {folders} carpetes",
-      "errorToast": "No s'han pogut importar els marcadors",
-      "chromeInstruction": "Menú → Marcadors → Gestor de marcadors → ⋮ → Exporta marcadors",
-      "firefoxInstruction": "Menú → Marcadors → Gestiona marcadors → Importa i còpia de seguretat → Exporta",
-      "safariInstruction": "Fitxer → Exporta marcadors...",
-      "edgeInstruction": "Menú → Preferits → ⋯ → Exporta preferits",
-      "dropZoneTitle": "Deixa anar el fitxer de marcadors aquí",
-      "dropZoneHint": "o fes clic per triar (HTML o JSON)",
-      "selectedFileHint": "Fes clic per triar un altre fitxer",
-      "errorTitle": "Error",
-      "previewTitle": "Vista prèvia de la importació",
-      "previewBookmarks": "{count, plural, one {# marcador} other {# marcadors}}",
-      "previewFolders": "{count, plural, one {# carpeta} other {# carpetes}}",
-      "importModeLabel": "Mode d'importació",
-      "modeMerge": "Fusiona amb els marcadors existents",
-      "modeReplace": "Substitueix tots els marcadors existents",
-      "cancel": "Cancel·la",
-      "importButton": "Importa",
-      "importButtonWithCount": "Importa {count, plural, one {# marcador} other {# marcadors}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Afegeix marcador",
-      "titleEdit": "Edita el marcador",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://exemple.com",
-      "urlInvalid": "Introdueix una URL vàlida",
-      "titleLabel": "Títol",
-      "titlePlaceholder": "Títol del marcador",
-      "titleRequired": "Introdueix un títol",
-      "descriptionLabel": "Descripció (opcional)",
-      "descriptionPlaceholder": "Afegeix una nota sobre aquest marcador",
-      "folderLabel": "Carpeta",
-      "folderPlaceholder": "Selecciona carpeta",
-      "noFolder": "Sense carpeta",
-      "tagsLabel": "Etiquetes",
-      "tagsPlaceholder": "Afegeix etiquetes (Retorn)",
-      "toastUpdated": "Marcador actualitzat",
-      "toastAdded": "Marcador afegit",
-      "cancel": "Cancel·la",
-      "submitAdd": "Afegeix marcador",
-      "submitUpdate": "Actualitza el marcador"
-    },
-    "addFolder": {
-      "title": "Crea carpeta",
-      "nameLabel": "Nom de la carpeta",
-      "namePlaceholder": "La meva carpeta",
-      "nameRequired": "Introdueix un nom de carpeta",
-      "parentLabel": "Carpeta pare",
-      "parentPlaceholder": "Selecciona carpeta pare",
-      "rootParent": "Arrel (sense pare)",
-      "toastCreated": "Carpeta creada",
-      "cancel": "Cancel·la",
-      "submit": "Crea la carpeta"
-    },
-    "editFolder": {
-      "title": "Canvia el nom de la carpeta",
-      "nameLabel": "Nom de la carpeta",
-      "namePlaceholder": "Nom de la carpeta",
-      "nameRequired": "Introdueix un nom de carpeta",
-      "toastRenamed": "S'ha canviat el nom de la carpeta",
-      "cancel": "Cancel·la",
-      "save": "Desa"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON reparat",
     "toastRepairFailed": "No s'ha pogut reparar el JSON"
   },
-  "JwtDecoder": {
-    "title": "Descodificador JWT",
-    "subtitle": "Inspecciona capçalera, payload i caducitat — signatura no verificada",
-    "tokenLabel": "Token",
-    "clear": "Netejar",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Copia",
-    "expiryLabel": "Caducitat (exp)",
-    "signaturePresent": "Signatura present (no verificada)",
-    "noExp": "No hi ha la reclamació <code>exp</code> al payload.",
-    "status": {
-      "expired": "Caducat",
-      "valid": "Vàlid"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Local",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Emès a (iat)",
-      "notBefore": "No abans de (nbf)"
-    },
-    "panels": {
-      "header": "Capçalera",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Enganxa un JWT per descodificar.",
-      "segments": "Un JWT necessita com a mínim capçalera i payload (dos segments).",
-      "base64": "No s’ha pogut descodificar en base64url la capçalera o el payload."
-    },
-    "relative": {
-      "future": "d’aquí a {n} {unit}",
-      "past": "fa {n} {unit}"
-    },
-    "units": {
-      "second": "{count, plural, one {segon} other {segons}}",
-      "minute": "{count, plural, one {minut} other {minuts}}",
-      "hour": "{count, plural, one {hora} other {hores}}",
-      "day": "{count, plural, one {dia} other {dies}}"
-    },
-    "tabs": {
-      "decode": "Decodifica",
-      "sign": "Generador / signador"
-    },
-    "signer": {
-      "algLabel": "Algorisme (alg)",
-      "tabs": {
-        "payload": "Càrrega",
-        "header": "Capçalera"
-      },
-      "payloadLabel": "JSON de la càrrega",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "JSON de la capçalera",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Secret (HS*)",
-      "secretPlaceholder": "Enganxa el teu secret HMAC…",
-      "privateKeyLabel": "Clau privada PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "L’algorisme \"none\" crea un token sense signar. És insegur i només s’ha d’usar per a proves.",
-      "sign": "Signa",
-      "verify": "Verifica la signatura",
-      "outputLabel": "Token (JWS compacte)",
-      "outputPlaceholder": "Fes clic a \"Signa\"…",
-      "copyToken": "Copia el token",
-      "copied": "Copiat",
-      "verifyKeyLabel": "Clau de verificació (opcional)",
-      "verifyKeyPlaceholder": "Per a RS*: enganxa la clau pública (SPKI) PEM. Per a HS*: deixa-ho buit per reutilitzar el secret.",
-      "verifyKeyHint": "Si és buit, la verificació usa la clau de signatura (útil per a HS*).",
-      "verifyStatus": {
-        "valid": "Signatura vàlida",
-        "invalid": "Signatura invàlida"
-      },
-      "securityNote": "Tot s’executa localment al navegador; no es pugen claus ni tokens."
-    },
-    "signErrors": {
-      "invalidJson": "La capçalera i la càrrega han de ser JSON vàlid.",
-      "unsupportedAlg": "Algorisme no compatible.",
-      "missingKey": "Cal una clau de signatura per a aquest algorisme.",
-      "cryptoFailed": "Ha fallat la signatura. Comprova el format de la clau i torna-ho a provar."
-    },
-    "verifyErrors": {
-      "empty": "Introdueix un JWT per verificar.",
-      "segments": "Un JWT ha de tenir exactament 3 segments per verificar una signatura.",
-      "unsupportedAlg": "Algorisme no compatible o falta alg a la capçalera.",
-      "missingKey": "Cal una clau de verificació per a aquest algorisme.",
-      "base64": "No s’ha pogut decodificar la capçalera o la signatura del JWT.",
-      "cryptoFailed": "Ha fallat la verificació. Comprova el format de la clau i torna-ho a provar."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Descodificador de certificats",
-    "subtitle": "Descodifica certificats X.509 i CSR en format PEM",
-    "pemLabel": "Entrada PEM",
-    "clear": "Netejar",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "S'està analitzant…",
-    "copyHex": "Copia l'empremta (hex sense dos punts)",
-    "errors": {
-      "empty": "Enganxa un certificat PEM o una CSR per descodificar.",
-      "noBlock": "No s'ha trobat cap bloc PEM de certificat o CSR.",
-      "parseFailed": "No s'ha pogut analitzar aquestes dades PEM."
-    },
-    "block": {
-      "title": "Bloc PEM {index}",
-      "certificate": "Certificat X.509",
-      "csr": "Sol·licitud de signatura de certificat"
-    },
-    "fields": {
-      "subject": "Subjecte",
-      "issuer": "Emissor",
-      "notBefore": "No vàlid abans de",
-      "notAfter": "No vàlid després de",
-      "serial": "Número de sèrie (hex)",
-      "sha256": "Empremta SHA-256",
-      "sans": "Noms alternatius del subjecte",
-      "signatureAlgorithm": "Algorisme de signatura",
-      "csrIssuerNote": "Les CSR no inclouen emissor (apareix al certificat emès).",
-      "csrValidityNote": "Les CSR no inclouen dates de validesa (apareixen al certificat emès).",
-      "sansNone": "Sense extensió SAN."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Nom de directori",
-      "email": "Correu",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "ID registrat",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Formatador SQL",
     "subtitle": "Dona format a SQL per a MySQL, PostgreSQL i SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} files coincideixen — no s'ha canviat res, perquè el filtre no és únic."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Laboratori de xifratge",
-    "subtitle": "Xifra i desxifra amb AES-GCM amb frase secreta o clau",
-    "tabEncrypt": "Xifrar",
-    "tabDecrypt": "Desxifrar",
-    "keyModeLabel": "Material de clau",
-    "modePassphrase": "Contrasenya (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Clau AES en brut (hex o Base64)",
-    "aesBitsLabel": "Longitud de clau AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Codificació de la clau en brut",
-    "encodingAuto": "Auto (hex si sembla hex, si no Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Clau en brut",
-    "rawKeyPlaceholder": "Clau de 32 bytes com a 64 caràcters hex o Base64 per AES-256 (la longitud depèn de la mida AES de dalt).",
-    "rawKeyPlaceholderDecrypt": "Només cal si el paquet té keyDerivation \"none\".",
-    "passphraseLabel": "Contrasenya",
-    "passphrasePlaceholder": "La contrasenya només s’usa al navegador per derivar la clau.",
-    "passphrasePlaceholderDecrypt": "Només cal si el paquet usa PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Iteracions PBKDF2",
-    "pbkdf2Hint": "Entre 10.000 i 2.000.000. El valor per defecte segueix configuracions habituals de cofres.",
-    "plaintextLabel": "Text en clar",
-    "plaintextPlaceholder": "Escriviu o enganxeu el missatge a xifrar…",
-    "bundleInputLabel": "Paquet xifrat (JSON)",
-    "bundlePlaceholder": "Enganxeu el JSON de Xifrar (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Paquet xifrat",
-    "plaintextOutputLabel": "Text en clar",
-    "encryptButton": "Xifrar",
-    "decryptButton": "Desxifrar",
-    "copyBundle": "Copiar JSON",
-    "copyPlaintext": "Copiar text en clar",
-    "copied": "Copiat",
-    "emptyBundleHint": "El JSON xifrat apareix aquí després de xifrar.",
-    "emptyDecryptHint": "El text desxifrat apareix aquí.",
-    "decryptKeyHint": "Useu la clau en brut si keyDerivation és \"none\"; la contrasenya amb PBKDF2-SHA256. El paquet emmagatzema sal, iteracions, IV i longitud AES.",
-    "securityNote": "Les claus i el text en clar no surten del navegador. Per a secrets de producció preferiu eines dedicades.",
-    "errors": {
-      "emptyKey": "Introduïu una clau en brut que coincideixi amb la mida AES.",
-      "emptyPassphrase": "Introduïu una contrasenya.",
-      "badKeyMaterial": "No s’ha pogut llegir la clau com a hex o Base64.",
-      "wrongKeyLength": "La longitud de clau no coincideix amb l’AES (16 / 24 / 32 bytes).",
-      "invalidJson": "JSON no vàlid.",
-      "invalidBundle": "Aquest JSON no és un paquet de xifratge compatible.",
-      "decryptFailed": "Ha fallat el desxifratge — secret incorrecte, paquet malmès o paràmetres incorrectes.",
-      "encryptFailed": "Ha fallat el xifratge. Comproveu Web Crypto i les entrades."
-    }
-  },
   "MarkdownPreview": {
     "title": "Previsualització de Markdown",
     "subtitle": "Renderitza Markdown en viu i converteix a i des d’HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Generador bcrypt",
-    "subtitle": "Fes hash i verifica contrasenyes amb bcrypt",
-    "tabs": {
-      "hash": "Hash",
-      "verify": "Verifica"
-    },
-    "showPassword": "Mostra la contrasenya",
-    "hidePassword": "Amaga la contrasenya",
-    "copy": "Copia",
-    "copied": "Copiat",
-    "hash": {
-      "passwordLabel": "Contrasenya",
-      "passwordPlaceholder": "Introdueix una contrasenya per generar el hash…",
-      "costLabel": "Factor de cost",
-      "costHint": "Un cost més alt duplica la feina per pas. 10-12 és una opció habitual per a producció.",
-      "slowWarning": "Els factors de cost de 13 o més poden trigar diversos segons a calcular-se.",
-      "generate": "Genera el hash",
-      "generating": "Generant el hash…",
-      "resultLabel": "Hash bcrypt",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Anatomia del hash",
-        "algorithm": "algoritme",
-        "cost": "cost",
-        "salt": "salt (22 caràcters)",
-        "hash": "hash (31 caràcters)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Contrasenya",
-      "passwordPlaceholder": "Introdueix la contrasenya per comprovar-la…",
-      "hashLabel": "Hash bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Introdueix una contrasenya i un hash bcrypt per comparar-los.",
-      "invalidHash": "Això no sembla un hash bcrypt vàlid.",
-      "checking": "Comparant…",
-      "match": "Coincideix — la contrasenya produeix aquest hash.",
-      "noMatch": "No coincideix — la contrasenya no produeix aquest hash."
-    }
   },
   "JsonDiff": {
     "title": "Diff de JSON",

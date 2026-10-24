@@ -5,16 +5,12 @@
     "apiClient": "APIクライアント",
     "passwordManager": "パスワードマネージャー",
     "environmentManager": "環境変数マネージャー",
-    "bookmarks": "ブックマーク",
     "jsonFormatter": "JSON フォーマッター",
     "emailValidator": "メールバリデーター",
     "nosqlExplorer": "データベースエクスプローラー",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "暗号化プレイグラウンド",
-    "jwtDecoder": "JWTデコーダー",
-    "certificatePemDecoder": "証明書 / PEM デコーダ",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "GraphQL フォーマッター",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAMLフォーマッター",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON 差分",
     "jsonpathPlayground": "JSONPath プレイグラウンド",
     "secureFiles": "ファイル"
@@ -326,10 +321,6 @@
         "title": "環境変数マネージャー",
         "description": "プロジェクトと環境ごとに .env 形式の変数をタグ付きで保存します。"
       },
-      "bookmarks": {
-        "title": "ブックマーク",
-        "description": "ブックマークを管理・整理します。"
-      },
       "apiClient": {
         "title": "APIクライアント",
         "description": "HTTPリクエストのテストとデバッグを行います。"
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "メールバリデーター",
         "description": "メールアドレスの検証と確認を行います。"
-      },
-      "encryptionPlayground": {
-        "title": "暗号化プレイグラウンド",
-        "description": "生キーまたはパスフレーズで AES-GCM。JSON バンドル、Web Crypto はブラウザ内のみ。"
-      },
-      "jwtDecoder": {
-        "title": "JWTデコーダー",
-        "description": "JWT のヘッダー、ペイロード、有効期限をデコードします。"
-      },
-      "certificatePemDecoder": {
-        "title": "証明書 / PEM デコーダ",
-        "description": "X.509 証明書と CSR をデコード: サブジェクト、発行者、有効期間、SAN。"
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt 生成・検証",
-        "description": "bcrypt でパスワードをハッシュ化し、既存のハッシュを検証します。"
-      },
       "jsonDiff": {
         "title": "JSON 差分",
         "description": "2 つの JSON ドキュメントを意味的・構造的に比較します。"
@@ -434,8 +409,6 @@
       "loadError": "分析を読み込めませんでした。",
       "retry": "再試行",
       "passwordEntries": "パスワード項目",
-      "bookmarks": "ブックマーク",
-      "bookmarkFolders": "ブックマークフォルダ",
       "tasksTotal": "タスク",
       "tasksCompleted": "完了",
       "tasksOngoing": "進行中",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "読み込み中..."
-    },
-    "manager": {
-      "foldersHeading": "フォルダー",
-      "tagsHeading": "タグ",
-      "tagsMore": "+{count}件",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "ブックマークを検索...",
-      "import": "インポート",
-      "export": "エクスポート",
-      "exportAsHtml": "HTMLとしてエクスポート",
-      "exportAsJson": "JSONとしてエクスポート",
-      "addBookmark": "ブックマークを追加",
-      "matchingQuery": "「{query}」に一致",
-      "bookmarkCount": "{count, plural, one {#件のブックマーク} other {#件のブックマーク}}",
-      "allBookmarks": "すべてのブックマーク",
-      "uncategorized": "未分類",
-      "unknownFolder": "不明"
-    },
-    "card": {
-      "urlCopied": "URLをクリップボードにコピーしました",
-      "bookmarkDeleted": "ブックマークを削除しました",
-      "edit": "編集",
-      "delete": "削除",
-      "copyUrl": "URLをコピー",
-      "deleteConfirmTitle": "ブックマークを削除しますか？",
-      "deleteConfirmDescription": "「{title}」を完全に削除します。",
-      "cancel": "キャンセル"
-    },
-    "grid": {
-      "emptyTitle": "ブックマークはまだありません",
-      "emptyDescription": "最初のブックマークを追加するか、ブラウザからインポートして始めましょう。"
-    },
-    "folderTree": {
-      "allBookmarks": "すべてのブックマーク",
-      "addSubfolder": "サブフォルダーを追加",
-      "rename": "名前を変更",
-      "deleteFolderTitle": "フォルダー「{name}」を削除しますか？",
-      "deleteFolderDescription": "このフォルダーとすべてのサブフォルダーが削除されます。これらのフォルダー内のブックマークは未分類に移動されます。"
-    },
-    "foldersHeading": "フォルダー",
-    "import": {
-      "title": "ブックマークをインポート",
-      "description": "ブラウザからエクスポートしたファイルからブックマークをインポートします。",
-      "parseError": "ブックマークファイルの解析に失敗しました。有効なブックマークエクスポートであることを確認してください。",
-      "successToast": "{bookmarks}件のブックマークと{folders}件のフォルダーをインポートしました",
-      "errorToast": "ブックマークのインポートに失敗しました",
-      "chromeInstruction": "メニュー → ブックマーク → ブックマークマネージャー → ⋮ → ブックマークをエクスポート",
-      "firefoxInstruction": "メニュー → ブックマーク → ブックマークを管理 → インポートとバックアップ → エクスポート",
-      "safariInstruction": "ファイル → ブックマークをエクスポート...",
-      "edgeInstruction": "メニュー → お気に入り → ⋯ → お気に入りをエクスポート",
-      "dropZoneTitle": "ブックマークファイルをここにドロップ",
-      "dropZoneHint": "またはクリックして選択（HTMLまたはJSON）",
-      "selectedFileHint": "クリックして別のファイルを選択",
-      "errorTitle": "エラー",
-      "previewTitle": "インポートプレビュー",
-      "previewBookmarks": "{count, plural, one {#件のブックマーク} other {#件のブックマーク}}",
-      "previewFolders": "{count, plural, one {#件のフォルダー} other {#件のフォルダー}}",
-      "importModeLabel": "インポートモード",
-      "modeMerge": "既存のブックマークとマージ",
-      "modeReplace": "既存のブックマークをすべて置換",
-      "cancel": "キャンセル",
-      "importButton": "インポート",
-      "importButtonWithCount": "{count, plural, one {#件のブックマーク} other {#件のブックマーク}}をインポート"
-    },
-    "addBookmark": {
-      "titleAdd": "ブックマークを追加",
-      "titleEdit": "ブックマークを編集",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "有効なURLを入力してください",
-      "titleLabel": "タイトル",
-      "titlePlaceholder": "ブックマークのタイトル",
-      "titleRequired": "タイトルを入力してください",
-      "descriptionLabel": "説明（任意）",
-      "descriptionPlaceholder": "このブックマークについてメモを追加",
-      "folderLabel": "フォルダー",
-      "folderPlaceholder": "フォルダーを選択",
-      "noFolder": "フォルダーなし",
-      "tagsLabel": "タグ",
-      "tagsPlaceholder": "タグを追加（Enterで確定）",
-      "toastUpdated": "ブックマークを更新しました",
-      "toastAdded": "ブックマークを追加しました",
-      "cancel": "キャンセル",
-      "submitAdd": "ブックマークを追加",
-      "submitUpdate": "ブックマークを更新"
-    },
-    "addFolder": {
-      "title": "フォルダーを作成",
-      "nameLabel": "フォルダー名",
-      "namePlaceholder": "マイフォルダー",
-      "nameRequired": "フォルダー名を入力してください",
-      "parentLabel": "親フォルダー",
-      "parentPlaceholder": "親フォルダーを選択",
-      "rootParent": "ルート（親なし）",
-      "toastCreated": "フォルダーを作成しました",
-      "cancel": "キャンセル",
-      "submit": "フォルダーを作成"
-    },
-    "editFolder": {
-      "title": "フォルダー名を変更",
-      "nameLabel": "フォルダー名",
-      "namePlaceholder": "フォルダー名",
-      "nameRequired": "フォルダー名を入力してください",
-      "toastRenamed": "フォルダー名を変更しました",
-      "cancel": "キャンセル",
-      "save": "保存"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON を修復しました",
     "toastRepairFailed": "JSON を修復できませんでした"
   },
-  "JwtDecoder": {
-    "title": "JWTデコーダー",
-    "subtitle": "ヘッダー・ペイロード・有効期限を確認 — 署名は未検証",
-    "tokenLabel": "トークン",
-    "clear": "クリア",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "コピー",
-    "expiryLabel": "有効期限 (exp)",
-    "signaturePresent": "署名あり（未検証）",
-    "noExp": "ペイロードに <code>exp</code> クレームがありません。",
-    "status": {
-      "expired": "期限切れ",
-      "valid": "有効"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "ローカル",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "発行時刻 (iat)",
-      "notBefore": "有効開始 (nbf)"
-    },
-    "panels": {
-      "header": "ヘッダー",
-      "payload": "ペイロード"
-    },
-    "errors": {
-      "empty": "デコードする JWT を貼り付けてください。",
-      "segments": "JWT には少なくともヘッダーとペイロード（2 セグメント）が必要です。",
-      "base64": "ヘッダーまたはペイロードを base64url デコードできませんでした。"
-    },
-    "relative": {
-      "future": "{n}{unit}後",
-      "past": "{n}{unit}前"
-    },
-    "units": {
-      "second": "{count, plural, one {秒} other {秒}}",
-      "minute": "{count, plural, one {分} other {分}}",
-      "hour": "{count, plural, one {時間} other {時間}}",
-      "day": "{count, plural, one {日} other {日}}"
-    },
-    "tabs": {
-      "decode": "デコード",
-      "sign": "生成 / 署名"
-    },
-    "signer": {
-      "algLabel": "アルゴリズム (alg)",
-      "tabs": {
-        "payload": "ペイロード",
-        "header": "ヘッダー"
-      },
-      "payloadLabel": "ペイロード JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "ヘッダー JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "シークレット (HS*)",
-      "secretPlaceholder": "HMAC シークレットを貼り付け…",
-      "privateKeyLabel": "秘密鍵 PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "\"none\" は署名なしトークンを作成します。安全ではないためテスト用途のみにしてください。",
-      "sign": "署名",
-      "verify": "署名を検証",
-      "outputLabel": "トークン（コンパクト JWS）",
-      "outputPlaceholder": "「署名」をクリック…",
-      "copyToken": "トークンをコピー",
-      "copied": "コピーしました",
-      "verifyKeyLabel": "検証キー（任意）",
-      "verifyKeyPlaceholder": "RS*: 公開鍵（SPKI）PEM を貼り付け。HS*: 空欄でシークレットを再利用。",
-      "verifyKeyHint": "空欄の場合、検証は署名キーを使用します（HS* に便利）。",
-      "verifyStatus": {
-        "valid": "署名は有効です",
-        "invalid": "署名は無効です"
-      },
-      "securityNote": "すべてブラウザ内でローカル実行され、キーやトークンはアップロードされません。"
-    },
-    "signErrors": {
-      "invalidJson": "ヘッダーとペイロードは有効な JSON である必要があります。",
-      "unsupportedAlg": "未対応のアルゴリズムです。",
-      "missingKey": "このアルゴリズムには署名キーが必要です。",
-      "cryptoFailed": "署名に失敗しました。キー形式を確認して再試行してください。"
-    },
-    "verifyErrors": {
-      "empty": "検証する JWT を入力してください。",
-      "segments": "署名検証には JWT が 3 セグメントである必要があります。",
-      "unsupportedAlg": "ヘッダー内の alg が未対応、または欠落しています。",
-      "missingKey": "このアルゴリズムには検証キーが必要です。",
-      "base64": "JWT のヘッダーまたは署名をデコードできませんでした。",
-      "cryptoFailed": "検証に失敗しました。キー形式を確認して再試行してください。"
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "証明書デコーダー",
-    "subtitle": "PEMのX.509証明書とCSRをデコード",
-    "pemLabel": "PEM 入力",
-    "clear": "クリア",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "解析中…",
-    "copyHex": "フィンガープリントをコピー（コロンなしの16進）",
-    "errors": {
-      "empty": "デコードする PEM 証明書または CSR を貼り付けてください。",
-      "noBlock": "証明書または CSR の PEM ブロックが見つかりません。",
-      "parseFailed": "この PEM データを解析できませんでした。"
-    },
-    "block": {
-      "title": "PEM ブロック {index}",
-      "certificate": "X.509 証明書",
-      "csr": "証明書署名要求"
-    },
-    "fields": {
-      "subject": "サブジェクト",
-      "issuer": "発行者",
-      "notBefore": "有効開始前は無効",
-      "notAfter": "有効終了後は無効",
-      "serial": "シリアル番号（16進）",
-      "sha256": "SHA-256 フィンガープリント",
-      "sans": "サブジェクト代替名",
-      "sansNone": "SAN 拡張はありません。",
-      "signatureAlgorithm": "署名アルゴリズム",
-      "csrIssuerNote": "CSR に発行者は含まれません（発行された証明書に記載されます）。",
-      "csrValidityNote": "CSR に有効期間は含まれません（発行された証明書に記載されます）。"
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "ディレクトリ名",
-      "email": "メール",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "登録 ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQLフォーマッター",
     "subtitle": "MySQL・PostgreSQL・SQLiteのSQLを整形",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} 行が一致しました — フィルタが一意でないため、何も変更していません。"
     }
   },
-  "EncryptionPlayground": {
-    "title": "暗号化プレイグラウンド",
-    "subtitle": "パスフレーズやキーでAES-GCM暗号化・復号",
-    "tabEncrypt": "暗号化",
-    "tabDecrypt": "復号",
-    "keyModeLabel": "鍵素材",
-    "modePassphrase": "パスフレーズ（PBKDF2 + AES-GCM）",
-    "modeRawKey": "生の AES 鍵（hex または Base64）",
-    "aesBitsLabel": "AES 鍵長",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "生キーのエンコード",
-    "encodingAuto": "自動（hex に見えれば hex、それ以外は Base64）",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "生キー",
-    "rawKeyPlaceholder": "32 バイト鍵は 64 文字の hex、または AES-256 なら Base64（長さは上の AES サイズに依存）。",
-    "rawKeyPlaceholderDecrypt": "バンドルに keyDerivation \"none\" がある場合のみ必要です。",
-    "passphraseLabel": "パスフレーズ",
-    "passphrasePlaceholder": "パスフレーズは鍵導出のためブラウザ内でのみ使われます。",
-    "passphrasePlaceholderDecrypt": "バンドルが PBKDF2-SHA256 の場合のみ必要です。",
-    "pbkdf2IterLabel": "PBKDF2 反復回数",
-    "pbkdf2Hint": "10,000〜2,000,000 に制限。既定は一般的な保管庫設定に合わせています。",
-    "plaintextLabel": "平文",
-    "plaintextPlaceholder": "暗号化するメッセージを入力または貼り付け…",
-    "bundleInputLabel": "暗号化バンドル（JSON）",
-    "bundlePlaceholder": "「暗号化」で得た JSON を貼り付け（v, alg, ivB64, cipherB64, …）。",
-    "bundleOutputLabel": "暗号化バンドル",
-    "plaintextOutputLabel": "平文",
-    "encryptButton": "暗号化",
-    "decryptButton": "復号",
-    "copyBundle": "JSON をコピー",
-    "copyPlaintext": "平文をコピー",
-    "copied": "コピーしました",
-    "emptyBundleHint": "暗号化後、暗号化された JSON がここに表示されます。",
-    "emptyDecryptHint": "復号されたテキストがここに表示されます。",
-    "decryptKeyHint": "keyDerivation が \"none\" なら生キー、PBKDF2-SHA256 ならパスフレーズを使います。バンドルにソルト、反復、IV、AES 長が含まれます。",
-    "securityNote": "鍵と平文はブラウザの外に出ません。本番の秘密には専用ツールを使ってください。",
-    "errors": {
-      "emptyKey": "AES サイズに合う生キーを入力してください。",
-      "emptyPassphrase": "パスフレーズを入力してください。",
-      "badKeyMaterial": "鍵を hex または Base64 として読み取れませんでした。",
-      "wrongKeyLength": "鍵長が選択した AES（16 / 24 / 32 バイト）と一致しません。",
-      "invalidJson": "有効な JSON ではありません。",
-      "invalidBundle": "この JSON はサポートされている暗号バンドルではありません。",
-      "decryptFailed": "復号に失敗しました — 秘密が違う、破損、またはパラメータ不一致。",
-      "encryptFailed": "暗号化に失敗しました。Web Crypto と入力を確認してください。"
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdownプレビュー",
     "subtitle": "Markdownをライブ表示しHTMLと相互変換",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcryptジェネレーター",
-    "subtitle": "bcryptでパスワードをハッシュ化・検証",
-    "tabs": {
-      "hash": "ハッシュ",
-      "verify": "検証"
-    },
-    "showPassword": "パスワードを表示",
-    "hidePassword": "パスワードを非表示",
-    "copy": "コピー",
-    "copied": "コピーしました",
-    "hash": {
-      "passwordLabel": "パスワード",
-      "passwordPlaceholder": "ハッシュ化するパスワードを入力…",
-      "costLabel": "コストファクター",
-      "costHint": "コストが高いほど、各ステップの処理量が倍増します。本番環境では 10〜12 が一般的です。",
-      "slowWarning": "コストファクターが 13 以上になると、計算に数秒かかることがあります。",
-      "generate": "ハッシュを生成",
-      "generating": "ハッシュ化中…",
-      "resultLabel": "Bcrypt ハッシュ",
-      "timeTaken": "{ms} ミリ秒",
-      "anatomy": {
-        "title": "ハッシュの構造",
-        "algorithm": "アルゴリズム",
-        "cost": "コスト",
-        "salt": "ソルト（22 文字）",
-        "hash": "ハッシュ（31 文字）"
-      }
-    },
-    "verify": {
-      "passwordLabel": "パスワード",
-      "passwordPlaceholder": "確認するパスワードを入力…",
-      "hashLabel": "Bcrypt ハッシュ",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "パスワードと bcrypt ハッシュを入力して比較します。",
-      "invalidHash": "これは有効な bcrypt ハッシュではないようです。",
-      "checking": "比較中…",
-      "match": "一致 — このパスワードはこのハッシュを生成します。",
-      "noMatch": "不一致 — このパスワードはこのハッシュを生成しません。"
-    }
   },
   "JsonDiff": {
     "title": "JSON差分",

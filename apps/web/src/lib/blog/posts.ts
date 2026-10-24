@@ -19,69 +19,6 @@ export type BlogPost = {
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: 'how-to-decode-a-jwt',
-    title: 'How to Decode a JWT Token Offline',
-    description:
-      'Learn what a JSON Web Token (JWT) is, how to read its header and payload, and how to decode one instantly and offline in MyDevTools, the all-in-one desktop developer toolkit.',
-    publishedAt: '2025-10-15',
-    category: 'Security',
-    toolSlug: 'jwt-decoder',
-    keywords: ['decode jwt', 'offline jwt decoder', 'how to read jwt', 'jwt header payload', 'json web token'],
-    readingTimeMin: 5,
-    sections: [
-      {
-        heading: 'What is a JWT?',
-        body: `A JSON Web Token (JWT) is a compact, URL-safe way to represent claims between two parties. JWTs are widely used for authentication and authorization in APIs, single-page apps, and microservices. When a user logs in, the server typically returns a JWT that the client sends back on every subsequent request inside the Authorization header.\n\nA JWT has three parts separated by dots: the header, the payload, and the signature. Each part is Base64URL-encoded, which is why a raw token looks like a long string of random characters. Understanding how to decode and read that string is an essential debugging skill.`,
-      },
-      {
-        heading: 'The three parts of a JWT',
-        body: `**Header** — Describes the token type and signing algorithm. Typical values are \`{"alg": "HS256", "typ": "JWT"}\`. The algorithm field tells you how the signature was generated (e.g., HMAC-SHA256 or RS256).\n\n**Payload** — Contains the claims, which are statements about the user or context. Registered claims like \`sub\` (subject), \`iat\` (issued at), and \`exp\` (expiration) are standardized. Custom claims like \`userId\` or \`role\` are added by the application.\n\n**Signature** — A cryptographic signature that proves the token has not been tampered with. It is computed by signing the encoded header and payload with a secret or private key. You cannot verify the signature without the key, but you can still decode the header and payload to read their contents.`,
-        code: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkphbmUgRG9lIiwiaWF0IjoxNzE2MjM5MDIyLCJleHAiOjE3MTYyNDI2MjJ9
-.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`,
-        codeLanguage: 'text',
-      },
-      {
-        heading: 'How to decode a JWT manually',
-        body: `Because each part is Base64URL-encoded (not encrypted), you can decode the header and payload without any secret key. Base64URL is Base64 with \`+\` replaced by \`-\` and \`/\` replaced by \`_\`, with padding removed.\n\nTo decode manually in a terminal:`,
-        code: `# Split on dots and decode the first two parts
-echo "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9" | base64 -d
-# Output: {"alg":"HS256","typ":"JWT"}`,
-        codeLanguage: 'bash',
-      },
-      {
-        heading: 'How to decode a JWT offline in MyDevTools',
-        body: `The fastest way to read a JWT during debugging is to paste it into a decoder. The JWT Decoder in MyDevTools runs entirely on your machine — offline and local, so your token is never sent to a server. The tool splits the token into its three parts, decodes the header and payload to readable JSON, and highlights the expiration time (\`exp\`) as a human-readable date so you can instantly see whether a token is still valid.\n\nWhen to use an offline decoder: during API debugging to check which claims a token carries, after a login flow to verify the payload matches expected user data, and when reviewing third-party tokens to understand their structure.`,
-      },
-      {
-        heading: 'Common JWT claim fields',
-        body: `- \`sub\` — Subject: the user or entity the token represents.\n- \`iat\` — Issued At: Unix timestamp when the token was created.\n- \`exp\` — Expiration: Unix timestamp after which the token is invalid.\n- \`aud\` — Audience: intended recipient(s) of the token.\n- \`iss\` — Issuer: who created and signed the token.\n- \`jti\` — JWT ID: a unique identifier for the token, useful for revocation.\n\nCustom claims like \`role\`, \`email\`, or \`permissions\` are added by the application and are not standardized but follow the same structure.`,
-      },
-      {
-        heading: 'Decoding vs verifying a JWT',
-        body: `Decoding reads the contents. Verifying proves the token is authentic and unmodified. For decoding (reading claims), no key is needed — the header and payload are just Base64URL. For verification, you need the signing key or public key that matches the algorithm in the header.\n\nAlways verify JWTs in backend services before trusting their claims. Use decoding only for debugging and inspection on the client side.`,
-      },
-    ],
-    faqs: [
-      {
-        q: 'Is it safe to paste my JWT into a JWT decoder?',
-        a: 'Use a decoder that processes the token locally without sending it to a server. MyDevTools is a desktop app that decodes JWTs entirely offline on your machine — the token never leaves your device. Avoid decoders that require submitting the token to an external endpoint.',
-      },
-      {
-        q: 'Can I decode a JWT without the secret key?',
-        a: 'Yes. The header and payload are Base64URL-encoded, not encrypted. You can decode them to plain JSON without any key. You cannot verify the signature without the signing key, but decoding and reading the claims requires no secret.',
-      },
-      {
-        q: 'What does it mean when a JWT is expired?',
-        a: 'The exp claim holds a Unix timestamp. If the current time is past that timestamp, the token is expired and backend services should reject it. A decoder converts the exp value to a human-readable date so you can quickly see whether a token is still valid.',
-      },
-      {
-        q: 'Why does my JWT look different each time even for the same user?',
-        a: 'JWTs typically include an iat (issued at) timestamp and sometimes a jti (JWT ID). These fields change with every token issued, so even identical claims produce a different token string each time.',
-      },
-    ],
-  },
-  {
     slug: 'how-to-format-json-online',
     title: 'How to Format JSON Offline: Beautify, Validate & Minify',
     description:
@@ -1062,62 +999,6 @@ Password: your_redis_password`,
     ],
   },
   {
-    slug: 'decode-ssl-certificate-pem-online',
-    title: 'How to Decode SSL Certificates: Read PEM, X.509, CSR Offline',
-    description: 'Paste an SSL certificate (PEM format) or CSR and inspect subject, issuer, expiry, SANs, and SHA-256 fingerprint instantly.',
-    publishedAt: '2026-01-19',
-    category: 'Security',
-    toolSlug: 'certificate-pem-decoder',
-    keywords: ['certificate decoder', 'pem decoder', 'ssl certificate parser', 'x509 certificate', 'csr decoder'],
-    readingTimeMin: 6,
-    sections: [
-      {
-        heading: 'Why decode SSL certificates?',
-        body: `SSL/TLS certificates authenticate servers and encrypt traffic. A certificate contains metadata: the domain it covers (Common Name and Subject Alternative Names), who issued it, and when it expires.\n\nDecoding a certificate helps when:\n\n- Debugging HTTPS connection errors.\n- Verifying a certificate matches a domain before deployment.\n- Checking expiration dates to prevent outages.\n- Inspecting Certificate Signing Requests (CSRs) before signing.\n- Auditing a server's certificate chain.`,
-      },
-      {
-        heading: 'SSL certificate structure (X.509)',
-        body: `An X.509 certificate contains:\n\n**Subject** — The domain owner (Common Name and Organization).\n\n**Subject Alternative Names (SANs)** — Additional domains covered by the certificate (example.com, *.example.com, www.example.com).\n\n**Issuer** — The Certificate Authority (CA) that signed it.\n\n**Valid From / Valid To** — Expiration dates. HTTPS warnings occur when the current date is outside this range.\n\n**Public Key** — Used to establish the encrypted connection.\n\n**Signature** — Cryptographic proof that the CA issued the certificate.\n\n**Serial Number** — Unique identifier for the certificate.\n\n**SHA-256 Fingerprint** — Hash of the entire certificate, useful for pinning.`,
-        code: `# PEM format (begins and ends with header/footer)
------BEGIN CERTIFICATE-----
-MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA...
-...
------END CERTIFICATE-----`,
-        codeLanguage: 'text',
-      },
-      {
-        heading: 'Reading certificate output',
-        body: `MyDevTools Certificate Decoder parses the PEM format and displays:\n\n- **Subject CN** — The primary domain (example.com).\n- **SANs** — Wildcard and additional domains covered.\n- **Valid From/To** — Expiration dates and remaining validity.\n- **Issuer** — Which CA signed it (Let's Encrypt, DigiCert, etc.).\n- **Key Type** — RSA, ECDSA, etc.\n- **SHA-256 Fingerprint** — For certificate pinning.\n\nLook for warnings: expired certificates, mismatched domains, or untrusted issuers.`,
-      },
-      {
-        heading: 'Certificate Signing Requests (CSRs)',
-        body: `A CSR is a request to a CA to sign a certificate. It contains the public key and subject information but is not yet signed. Decode CSRs to verify the domain and key before sending to a CA.`,
-      },
-      {
-        heading: 'Common certificate issues',
-        body: `**Expired certificate** — Renew before the "Valid To" date. Many hosting providers auto-renew (Let\'s Encrypt, managed SSL).\n\n**Domain mismatch** — The certificate CN or SANs do not match the domain being accessed. Re-issue or add the domain as a SAN.\n\n**Untrusted issuer** — The CA is not in the browser\'s trust store. Ensure the full certificate chain is served.\n\n**Self-signed certificate** — Valid for encryption but causes browser warnings. Use for internal testing only.`,
-      },
-    ],
-    faqs: [
-      {
-        q: 'What is a SHA-256 fingerprint and why use it?',
-        a: 'A fingerprint is a hash of the certificate. Use it for certificate pinning in apps: instead of trusting all CAs, pin specific certificates and reject others.',
-      },
-      {
-        q: 'Can I decode a certificate without the private key?',
-        a: 'Yes. The public certificate (PEM) contains all the metadata. The private key is separate and never included in the certificate.',
-      },
-      {
-        q: 'How long is a typical SSL certificate valid?',
-        a: 'Usually 1 year (Let\'s Encrypt, modern CA standard). Some CAs issue multi-year certificates, but renewal before expiry is best practice.',
-      },
-      {
-        q: 'Can a certificate cover multiple domains?',
-        a: 'Yes, via Subject Alternative Names (SANs). A single certificate can cover example.com, *.example.com, www.example.com, and other specified domains.',
-      },
-    ],
-  },
-  {
     slug: 'task-manager-todo-list-for-developers',
     title: 'Task Manager: To-Do List for Developers',
     description: 'Organize your work with a simple, offline to-do list on your desktop. Track tasks, set priorities, and boost productivity without leaving your workflow.',
@@ -1198,48 +1079,6 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       {
         q: 'Can I collaborate on notes?',
         a: 'Current version is personal. For team notes, export to a shared Git repo or collaborative tool.',
-      },
-    ],
-  },
-  {
-    slug: 'bookmark-manager-for-developer-resources',
-    title: 'Bookmark Manager: Organize Developer Resources on Your Desktop',
-    description: 'Save and tag your favorite developer links, articles, and tools. Instant access from your desktop toolkit without browser clutter.',
-    publishedAt: '2026-01-22',
-    category: 'Utilities',
-    toolSlug: 'bookmarks',
-    keywords: ['bookmark manager', 'link organizer', 'save links offline', 'developer bookmarks', 'bookmark organizer'],
-    readingTimeMin: 5,
-    sections: [
-      {
-        heading: 'Why a centralized bookmark manager?',
-        body: `Browser bookmarks are siloed per device. A cloud-based bookmark manager lets you:\n\n- **Keep one master list** — accessible from any browser or device.\n- **Tag and categorize** — find links by topic in seconds.\n- **Share links** — copy public links to send colleagues.\n- **Search full-text** — search note content, not just titles.\n- **Never lose a link** — backup all your research and resources.`,
-      },
-      {
-        heading: 'Organizing bookmarks effectively',
-        body: `**By topic:** \`JavaScript patterns,\` \`DevOps,\` \`CSS tricks,\` \`API docs.\`\n\n**By purpose:** \`must-read,\` \`tools,\` \`learning,\` \`reference.\`\n\n**By status:** \`backlog,\` \`reading,\` \`done.\`\n\nAdd descriptions to bookmarks so you remember why you saved it.`,
-      },
-      {
-        heading: 'Bookmark manager workflow',
-        body: `1. **Find a resource** — article, tool, documentation.\n2. **Click "Save"** — add title, URL, tags, and notes.\n3. **Tag it** — assign categories for later discovery.\n4. **Search later** — full-text search across title, URL, and notes.\n5. **Share** — copy the link to send to teammates.`,
-      },
-      {
-        heading: 'MyDevTools Bookmarks features',
-        body: `- **Tags and folders** — organize hundreds of links.\n- **Full-text search** — find by keyword, not just title.\n- **Public/private** — share specific bookmarks or keep personal.\n- **Rich notes** — add context to why you saved a link.\n- **Fully offline** — bookmarks stay on your device, no cloud needed.`,
-      },
-    ],
-    faqs: [
-      {
-        q: 'Can I import from browser bookmarks?',
-        a: 'Export from your browser as HTML and import into MyDevTools to migrate your collection.',
-      },
-      {
-        q: 'Can I export my bookmarks?',
-        a: 'Yes, export as HTML or JSON for backup or migration to another tool.',
-      },
-      {
-        q: 'What if a link dies (404)?',
-        a: 'Bookmarks point to live URLs. Archive services like archive.org can retrieve old pages if links disappear.',
       },
     ],
   },
@@ -1373,53 +1212,6 @@ MIIDrzCCAlegAwIBAgIQCDvgVpBCRrGfEwnt50uqWzANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
       {
         q: 'Does S3 Drive work with other cloud storage?',
         a: 'DigitalOcean Spaces is S3-compatible. Any S3-compatible service should work.',
-      },
-    ],
-  },
-  {
-    slug: 'encrypt-decrypt-text-aes-gcm-online',
-    title: 'Encryption Playground: AES-256-GCM Encrypt/Decrypt Offline',
-    description: 'Encrypt text using AES-GCM with a passphrase or raw key. Decrypt messages. Educational and locally secure on your desktop.',
-    publishedAt: '2026-01-30',
-    category: 'Security',
-    toolSlug: 'encryption-playground',
-    keywords: ['aes gcm', 'aes 256 encryption', 'encrypt offline', 'decrypt text', 'web crypto api'],
-    readingTimeMin: 6,
-    sections: [
-      {
-        heading: 'AES-GCM encryption basics',
-        body: `AES-GCM (Galois/Counter Mode) is a symmetric encryption algorithm that:\n\n- **Encrypts** — scrambles plaintext so only someone with the key can read it.\n- **Authenticates** — verifies the data hasn't been tampered with.\n- **256-bit key** — extremely strong (2^256 possible keys).\n\nAES-GCM is used in:\n- TLS/HTTPS (your browser uses it).\n- File encryption tools (7-Zip, VeraCrypt).\n- Password managers (1Password, Bitwarden).`,
-      },
-      {
-        heading: 'Symmetric vs asymmetric encryption',
-        body: `**Symmetric** (AES-GCM) — same key encrypts and decrypts. Fast, but both parties need the key.\n\n**Asymmetric** (RSA) — public key encrypts, private key decrypts. Slower, enables key exchange.\n\nFor this playground, we use symmetric: you encrypt with a passphrase, decrypt with the same passphrase.`,
-      },
-      {
-        heading: 'How encryption works in MyDevTools',
-        body: `1. **Raw key mode** — Provide a 32-byte hex key (256 bits). Use for deterministic encryption.\n2. **Passphrase mode** — Enter a password. PBKDF2-SHA256 derives a 256-bit key, then encrypts.\n\nThe output is a JSON bundle:\n\n\`\`\`json\n{\n  "ciphertext": "...",\n  "iv": "...",\n  "tag": "..."\n}\n\`\`\`\n\nShare this bundle; decrypt by pasting it back with the same passphrase.`,
-        codeLanguage: 'json',
-      },
-      {
-        heading: 'Encryption workflow',
-        body: `1. **Type or paste plaintext.**\n2. **Choose mode:** raw key or passphrase.\n3. **Encrypt.** Output is a JSON bundle.\n4. **Share safely** — paste the JSON to someone.\n5. **Decrypt** — they paste the JSON and enter your passphrase.`,
-      },
-      {
-        heading: 'When to use',
-        body: `- **Learning** — understand how encryption works.\n- **Quick encryption** — share sensitive data via email (encrypted, not plaintext).\n- **Testing** — verify encryption/decryption in applications.\n- **Not for production** — use dedicated security libraries and key management.`,
-      },
-    ],
-    faqs: [
-      {
-        q: 'Is this secure for real use?',
-        a: 'Encryption is secure, but this playground key management is not enterprise-grade. Use a password manager or key vault for production secrets.',
-      },
-      {
-        q: 'What if I forget the passphrase?',
-        a: 'The encrypted data is unrecoverable. Always store passphrases securely.',
-      },
-      {
-        q: 'Can I encrypt files?',
-        a: 'Current version handles text. For files, use dedicated tools like 7-Zip, VeraCrypt, or gpg.',
       },
     ],
   },

@@ -5,16 +5,12 @@
     "apiClient": "سرویس گیرنده API",
     "passwordManager": "مدیر رمز عبور",
     "environmentManager": "مدیر محیط",
-    "bookmarks": "نشانک ها",
     "jsonFormatter": "قالب‌ده JSON",
     "emailValidator": "اعتبار سنجی ایمیل",
     "nosqlExplorer": "کاوشگر پایگاه داده",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "زمین بازی رمزنگاری",
-    "jwtDecoder": "رمزگشای JWT",
-    "certificatePemDecoder": "رمزگشای گواهی / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "قالب‌بند GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "قالب‌بندی YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "تفاوت JSON",
     "jsonpathPlayground": "زمین بازی JSONPath",
     "secureFiles": "پرونده‌ها"
@@ -326,10 +321,6 @@
         "title": "مدیر محیط",
         "description": "متغیرهای شبیه .env را به‌ازای هر پروژه و محیط با برچسب ذخیره کنید."
       },
-      "bookmarks": {
-        "title": "نشانک ها",
-        "description": "بوک مارک های خود را مدیریت و سازماندهی کنید."
-      },
       "apiClient": {
         "title": "سرویس گیرنده API",
         "description": "درخواست های HTTP را تست و اشکال زدایی کنید."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "اعتبار سنجی ایمیل",
         "description": "آدرس های ایمیل را تأیید و تأیید کنید."
-      },
-      "encryptionPlayground": {
-        "title": "زمین بازی رمزنگاری",
-        "description": "AES-GCM با کلید خام یا عبارت عبور؛ بسته‌های JSON، Web Crypto فقط در مرورگر."
-      },
-      "jwtDecoder": {
-        "title": "رمزگشای JWT",
-        "description": "هدر، بار داده و زمان انقضای JWT را رمزگشایی کنید."
-      },
-      "certificatePemDecoder": {
-        "title": "رمزگشای گواهی / PEM",
-        "description": "رمزگشایی گواهی‌های X.509 و CSR: موضوع، صادرکننده، اعتبار و SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "مولد و بررسی‌کننده Bcrypt",
-        "description": "گذرواژه‌ها را با bcrypt هش کنید و هش‌های موجود را تأیید کنید."
-      },
       "jsonDiff": {
         "title": "تفاوت JSON",
         "description": "مقایسه معنایی و ساختارآگاه دو سند JSON."
@@ -434,8 +409,6 @@
       "loadError": "بارگذاری تحلیل ممکن نشد.",
       "retry": "تلاش دوباره",
       "passwordEntries": "ورودی‌های گذرواژه",
-      "bookmarks": "نشانک‌ها",
-      "bookmarkFolders": "پوشه‌های نشانک",
       "tasksTotal": "وظایف",
       "tasksCompleted": "تکمیل‌شده",
       "tasksOngoing": "در حال انجام",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "در حال بارگیری..."
-    },
-    "manager": {
-      "foldersHeading": "پوشه ها",
-      "tagsHeading": "برچسب ها",
-      "tagsMore": "+{count} بیشتر",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "بوک مارک های خود را جستجو کنید...",
-      "import": "واردات",
-      "export": "صادرات",
-      "exportAsHtml": "صادرات به عنوان HTML",
-      "exportAsJson": "صادرات به عنوان JSON",
-      "addBookmark": "اضافه کردن نشانک",
-      "matchingQuery": "مطابق با \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# bookmark} other {# bookmarks}}",
-      "allBookmarks": "همه نشانک ها",
-      "uncategorized": "دسته بندی نشده",
-      "unknownFolder": "ناشناس"
-    },
-    "card": {
-      "urlCopied": "URL در کلیپ بورد کپی شد",
-      "bookmarkDeleted": "نشانک حذف شد",
-      "edit": "ویرایش کنید",
-      "delete": "حذف کنید",
-      "copyUrl": "URL را کپی کنید",
-      "deleteConfirmTitle": "نشانک حذف شود؟",
-      "deleteConfirmDescription": "با این کار \"{title}\" برای همیشه حذف می شود.",
-      "cancel": "لغو کنید"
-    },
-    "grid": {
-      "emptyTitle": "هنوز هیچ نشانکی وجود ندارد",
-      "emptyDescription": "برای شروع، اولین نشانک خود را اضافه کنید یا از مرورگر خود وارد کنید."
-    },
-    "folderTree": {
-      "allBookmarks": "همه نشانک ها",
-      "addSubfolder": "افزودن زیر پوشه",
-      "rename": "تغییر نام دهید",
-      "deleteFolderTitle": "پوشه \"{name}\" حذف شود؟",
-      "deleteFolderDescription": "با این کار پوشه و تمام زیر پوشه های آن حذف می شود. نشانک‌های موجود در این پوشه‌ها به دسته‌بندی نشده منتقل می‌شوند."
-    },
-    "foldersHeading": "پوشه‌ها",
-    "import": {
-      "title": "وارد کردن نشانک ها",
-      "description": "نشانک ها را از فایل صادر شده مرورگر خود وارد کنید.",
-      "parseError": "فایل نشانک تجزیه نشد. لطفاً مطمئن شوید که صادر کردن نشانک معتبر است.",
-      "successToast": "{bookmarks} نشانک و {folders} پوشه وارد شده است",
-      "errorToast": "وارد کردن نشانک ها انجام نشد",
-      "chromeInstruction": "منو → نشانک ها → مدیر نشانک → ⋮ → صادرات نشانک ها",
-      "firefoxInstruction": "منو → نشانک ها → مدیریت نشانک ها → وارد کردن و پشتیبان گیری → صادرات",
-      "safariInstruction": "فایل → صادرات نشانک‌ها...",
-      "edgeInstruction": "منو → موارد دلخواه → ⋯ → موارد دلخواه صادر کنید",
-      "dropZoneTitle": "فایل نشانک خود را اینجا رها کنید",
-      "dropZoneHint": "یا برای مرور کلیک کنید (HTML یا JSON)",
-      "selectedFileHint": "برای انتخاب فایل دیگری کلیک کنید",
-      "errorTitle": "خطا",
-      "previewTitle": "پیش نمایش واردات",
-      "previewBookmarks": "{count, plural, one {# bookmark} other {# bookmarks}}",
-      "previewFolders": "{count, plural, one {# folder} other {# folders}}",
-      "importModeLabel": "حالت واردات",
-      "modeMerge": "ادغام با نشانک های موجود",
-      "modeReplace": "همه نشانک های موجود را جایگزین کنید",
-      "cancel": "لغو کنید",
-      "importButton": "واردات",
-      "importButtonWithCount": "واردات {count, plural, one {# bookmark} other {# bookmarks}}"
-    },
-    "addBookmark": {
-      "titleAdd": "اضافه کردن نشانک",
-      "titleEdit": "ویرایش نشانک",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "لطفاً یک URL معتبر وارد کنید",
-      "titleLabel": "عنوان",
-      "titlePlaceholder": "عنوان نشانک",
-      "titleRequired": "لطفا یک عنوان وارد کنید",
-      "descriptionLabel": "توضیحات (اختیاری)",
-      "descriptionPlaceholder": "یک یادداشت در مورد این نشانک اضافه کنید",
-      "folderLabel": "پوشه",
-      "folderPlaceholder": "پوشه را انتخاب کنید",
-      "noFolder": "پوشه ای وجود ندارد",
-      "tagsLabel": "برچسب ها",
-      "tagsPlaceholder": "افزودن برچسب (Enter را فشار دهید)",
-      "toastUpdated": "نشانک به روز شد",
-      "toastAdded": "نشانک اضافه شد",
-      "cancel": "لغو کنید",
-      "submitAdd": "اضافه کردن نشانک",
-      "submitUpdate": "به روز رسانی نشانک"
-    },
-    "addFolder": {
-      "title": "پوشه ایجاد کنید",
-      "nameLabel": "نام پوشه",
-      "namePlaceholder": "پوشه من",
-      "nameRequired": "لطفا یک نام پوشه وارد کنید",
-      "parentLabel": "پوشه والد",
-      "parentPlaceholder": "پوشه والد را انتخاب کنید",
-      "rootParent": "ریشه (بدون والد)",
-      "toastCreated": "پوشه ایجاد شد",
-      "cancel": "لغو کنید",
-      "submit": "پوشه ایجاد کنید"
-    },
-    "editFolder": {
-      "title": "تغییر نام پوشه",
-      "nameLabel": "نام پوشه",
-      "namePlaceholder": "نام پوشه",
-      "nameRequired": "لطفا یک نام پوشه وارد کنید",
-      "toastRenamed": "پوشه تغییر نام داد",
-      "cancel": "لغو کنید",
-      "save": "ذخیره کنید"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON تعمیر شد",
     "toastRepairFailed": "JSON قابل تعمیر نیست"
   },
-  "JwtDecoder": {
-    "title": "رمزگشای JWT",
-    "subtitle": "بررسی هدر، payload و انقضا — امضا تأیید نمی‌شود",
-    "tokenLabel": "توکن",
-    "clear": "پاک کردن",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "کپی",
-    "expiryLabel": "انقضا (exp)",
-    "signaturePresent": "امضا موجود است (تأیید نمی‌شود)",
-    "noExp": "ادعای <code>exp</code> در بار داده وجود ندارد.",
-    "status": {
-      "expired": "منقضی شده",
-      "valid": "معتبر"
-    },
-    "fields": {
-      "unix": "یونیکس",
-      "local": "محلی",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "زمان صدور (iat)",
-      "notBefore": "نه قبل از (nbf)"
-    },
-    "panels": {
-      "header": "سربرگ",
-      "payload": "بار داده"
-    },
-    "errors": {
-      "empty": "یک JWT برای رمزگشایی جای‌گذاری کنید.",
-      "segments": "JWT باید حداقل سربرگ و بار داده داشته باشد (دو بخش).",
-      "base64": "رمزگشایی base64url سربرگ یا بار داده ممکن نبود."
-    },
-    "relative": {
-      "future": "در {n} {unit}",
-      "past": "{n} {unit} پیش"
-    },
-    "units": {
-      "second": "{count, plural, one {ثانیه} other {ثانیه}}",
-      "minute": "{count, plural, one {دقیقه} other {دقیقه}}",
-      "hour": "{count, plural, one {ساعت} other {ساعت}}",
-      "day": "{count, plural, one {روز} other {روز}}"
-    },
-    "tabs": {
-      "decode": "رمزگشایی",
-      "sign": "سازنده / امضاکننده"
-    },
-    "signer": {
-      "algLabel": "الگوریتم (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "راز (HS*)",
-      "secretPlaceholder": "راز HMAC خود را بچسبانید…",
-      "privateKeyLabel": "کلید خصوصی PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "الگوریتم \"none\" یک توکن بدون امضا ایجاد می‌کند. این ناامن است و فقط برای تست استفاده شود.",
-      "sign": "امضا",
-      "verify": "بررسی امضا",
-      "outputLabel": "توکن (JWS فشرده)",
-      "outputPlaceholder": "روی «امضا» کلیک کنید…",
-      "copyToken": "کپی توکن",
-      "copied": "کپی شد",
-      "verifyKeyLabel": "کلید تأیید (اختیاری)",
-      "verifyKeyPlaceholder": "برای RS*: کلید عمومی (SPKI) PEM را بچسبانید. برای HS*: خالی بگذارید تا از راز استفاده شود.",
-      "verifyKeyHint": "اگر خالی باشد، تأیید از کلید امضا استفاده می‌کند (مفید برای HS*).",
-      "verifyStatus": {
-        "valid": "امضا معتبر است",
-        "invalid": "امضا نامعتبر است"
-      },
-      "securityNote": "همه چیز به‌صورت محلی در مرورگر اجرا می‌شود؛ کلیدها و توکن‌ها آپلود نمی‌شوند."
-    },
-    "signErrors": {
-      "invalidJson": "Header و payload باید JSON معتبر باشند.",
-      "unsupportedAlg": "الگوریتم پشتیبانی نمی‌شود.",
-      "missingKey": "برای این الگوریتم کلید امضا لازم است.",
-      "cryptoFailed": "امضا ناموفق بود. فرمت کلید را بررسی کرده و دوباره تلاش کنید."
-    },
-    "verifyErrors": {
-      "empty": "برای تأیید یک JWT وارد کنید.",
-      "segments": "JWT برای تأیید امضا باید دقیقاً ۳ بخش داشته باشد.",
-      "unsupportedAlg": "الگوریتم پشتیبانی نمی‌شود یا alg در header وجود ندارد.",
-      "missingKey": "برای این الگوریتم کلید تأیید لازم است.",
-      "base64": "امکان رمزگشایی header یا امضای JWT نبود.",
-      "cryptoFailed": "تأیید ناموفق بود. فرمت کلید را بررسی کرده و دوباره تلاش کنید."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "رمزگشای گواهی",
-    "subtitle": "رمزگشایی گواهی‌های X.509 و CSR از PEM",
-    "pemLabel": "ورودی PEM",
-    "clear": "پاک کردن",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "در حال تجزیه…",
-    "copyHex": "کپی اثرانگشت (هگز بدون دونقطه)",
-    "errors": {
-      "empty": "برای رمزگشایی یک گواهی PEM یا CSR بچسبانید.",
-      "noBlock": "بلوک PEM گواهی یا CSR یافت نشد.",
-      "parseFailed": "تجزیه این داده‌های PEM ممکن نشد."
-    },
-    "block": {
-      "title": "بلوک PEM {index}",
-      "certificate": "گواهی X.509",
-      "csr": "درخواست امضای گواهی"
-    },
-    "fields": {
-      "subject": "موضوع",
-      "issuer": "صادرکننده",
-      "notBefore": "نامعتبر قبل از",
-      "notAfter": "نامعتبر پس از",
-      "serial": "شماره سریال (هگز)",
-      "sha256": "اثر انگشت SHA-256",
-      "sans": "نام‌های جایگزین موضوع",
-      "sansNone": "افزونه SAN وجود ندارد.",
-      "signatureAlgorithm": "الگوریتم امضا",
-      "csrIssuerNote": "CSR صادرکننده ندارد (روی گواهی صادرشده می‌آید).",
-      "csrValidityNote": "CSR تاریخ اعتبار ندارد (روی گواهی صادرشده می‌آید)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "نام دایرکتوری",
-      "email": "ایمیل",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "شناسه ثبت‌شده",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "قالب‌بند SQL",
     "subtitle": "قالب‌بندی SQL برای MySQL، PostgreSQL و SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} ردیف مطابقت داشت — چیزی تغییر نکرد، زیرا فیلتر یکتا نیست."
     }
   },
-  "EncryptionPlayground": {
-    "title": "محیط آزمایش رمزنگاری",
-    "subtitle": "رمزگذاری و رمزگشایی AES-GCM با عبارت عبور یا کلید",
-    "tabEncrypt": "رمزنگاری",
-    "tabDecrypt": "رمزگشایی",
-    "keyModeLabel": "ماده کلیدی",
-    "modePassphrase": "عبارت عبور (PBKDF2 + AES-GCM)",
-    "modeRawKey": "کلید خام AES (هگز یا Base64)",
-    "aesBitsLabel": "طول کلید AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "کدگذاری کلید خام",
-    "encodingAuto": "خودکار (هگز اگر شبیه هگز باشد، وگرنه Base64)",
-    "encodingHex": "هگز",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "کلید خام",
-    "rawKeyPlaceholder": "کلید ۳۲ بایتی به صورت ۶۴ نویسه هگز یا Base64 برای AES-۲۵۶ (طول به اندازه AES بالا بستگی دارد).",
-    "rawKeyPlaceholderDecrypt": "فقط وقتی لازم است که بسته keyDerivation برابر \"none\" داشته باشد.",
-    "passphraseLabel": "عبارت عبور",
-    "passphrasePlaceholder": "عبارت عبور فقط در مرورگر برای استخراج کلید استفاده می‌شود.",
-    "passphrasePlaceholderDecrypt": "فقط وقتی لازم است که بسته از PBKDF2-SHA256 استفاده کند.",
-    "pbkdf2IterLabel": "تکرارهای PBKDF2",
-    "pbkdf2Hint": "بین ۱۰٬۰۰۰ و ۲٬۰۰۰٬۰۰۰. پیش‌فرض با تنظیمات رایج گاوصندوق هم‌خوان است.",
-    "plaintextLabel": "متن آشکار",
-    "plaintextPlaceholder": "پیام را برای رمزنگاری تایپ یا جای‌گذاری کنید…",
-    "bundleInputLabel": "بسته رمزنگاری‌شده (JSON)",
-    "bundlePlaceholder": "JSON حاصل از رمزنگاری را بچسبانید (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "بسته رمزنگاری‌شده",
-    "plaintextOutputLabel": "متن آشکار",
-    "encryptButton": "رمزنگاری",
-    "decryptButton": "رمزگشایی",
-    "copyBundle": "کپی JSON",
-    "copyPlaintext": "کپی متن آشکار",
-    "copied": "کپی شد",
-    "emptyBundleHint": "JSON رمزنگاری‌شده پس از رمزنگاری اینجا نمایش داده می‌شود.",
-    "emptyDecryptHint": "متن رمزگشایی‌شده اینجا نمایش داده می‌شود.",
-    "decryptKeyHint": "اگر keyDerivation برابر \"none\" است از کلید خام؛ برای PBKDF2-SHA256 از عبارت عبور استفاده کنید. بسته نمک، تکرارها، IV و طول AES را نگه می‌دارد.",
-    "securityNote": "کلیدها و متن آشکار مرورگر شما را ترک نمی‌کنند. برای اسرار تولیدی از ابزارهای تخصصی استفاده کنید.",
-    "errors": {
-      "emptyKey": "کلید خام متناسب با اندازه AES وارد کنید.",
-      "emptyPassphrase": "عبارت عبور را وارد کنید.",
-      "badKeyMaterial": "کلید به صورت هگز یا Base64 خوانده نشد.",
-      "wrongKeyLength": "طول کلید با AES انتخاب‌شده مطابقت ندارد (۱۶ / ۲۴ / ۳۲ بایت).",
-      "invalidJson": "JSON معتبر نیست.",
-      "invalidBundle": "این JSON بسته رمزنگاری پشتیبانی‌شده نیست.",
-      "decryptFailed": "رمزگشایی ناموفق — راز اشتباه، بسته آسیب‌دیده یا پارامترهای نادرست.",
-      "encryptFailed": "رمزنگاری ناموفق. Web Crypto و ورودی‌ها را بررسی کنید."
-    }
-  },
   "MarkdownPreview": {
     "title": "پیش‌نمایش Markdown",
     "subtitle": "رندر زنده Markdown و تبدیل به HTML و برعکس",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "مولد Bcrypt",
-    "subtitle": "هش و تأیید گذرواژه‌ها با bcrypt",
-    "tabs": {
-      "hash": "هش",
-      "verify": "تأیید"
-    },
-    "showPassword": "نمایش گذرواژه",
-    "hidePassword": "پنهان‌کردن گذرواژه",
-    "copy": "کپی",
-    "copied": "کپی شد",
-    "hash": {
-      "passwordLabel": "گذرواژه",
-      "passwordPlaceholder": "گذرواژه‌ای برای هش‌کردن وارد کنید…",
-      "costLabel": "ضریب هزینه",
-      "costHint": "هزینه بالاتر کار هر مرحله را دو برابر می‌کند. ۱۰ تا ۱۲ انتخابی رایج برای محیط تولید است.",
-      "slowWarning": "ضریب هزینه ۱۳ به بالا ممکن است چند ثانیه برای محاسبه طول بکشد.",
-      "generate": "تولید هش",
-      "generating": "در حال هش‌کردن…",
-      "resultLabel": "هش Bcrypt",
-      "timeTaken": "{ms} میلی‌ثانیه",
-      "anatomy": {
-        "title": "ساختار هش",
-        "algorithm": "الگوریتم",
-        "cost": "هزینه",
-        "salt": "salt (۲۲ کاراکتر)",
-        "hash": "هش (۳۱ کاراکتر)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "گذرواژه",
-      "passwordPlaceholder": "گذرواژه‌ای برای بررسی وارد کنید…",
-      "hashLabel": "هش Bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "یک گذرواژه و یک هش bcrypt وارد کنید تا مقایسه شوند.",
-      "invalidHash": "این به‌نظر یک هش bcrypt معتبر نمی‌آید.",
-      "checking": "در حال مقایسه…",
-      "match": "منطبق است — گذرواژه این هش را تولید می‌کند.",
-      "noMatch": "منطبق نیست — گذرواژه این هش را تولید نمی‌کند."
-    }
   },
   "JsonDiff": {
     "title": "تفاوت JSON",

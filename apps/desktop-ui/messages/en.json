@@ -6,11 +6,7 @@
     "notes": "Notes",
     "passwordManager": "Password Manager",
     "environmentManager": "Environment Manager",
-    "bookmarks": "Bookmarks",
     "emailValidator": "Email Validator",
-    "jwtDecoder": "JWT Decoder",
-    "encryptionPlayground": "Encryption Playground",
-    "certificatePemDecoder": "Certificate / PEM Decoder",
     "jsonFormatter": "JSON Formatter",
     "jsonSchemaGenerator": "JSON Schema Generator",
     "sqlFormatter": "SQL Formatter",
@@ -27,7 +23,6 @@
     "yamlFormatter": "YAML Formatter",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON Diff",
     "jsonpathPlayground": "JSONPath Playground"
   },
@@ -322,7 +317,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -331,8 +326,6 @@
       "loadError": "Could not load analytics.",
       "retry": "Retry",
       "passwordEntries": "Password entries",
-      "bookmarks": "Bookmarks",
-      "bookmarkFolders": "Bookmark folders",
       "tasksTotal": "Tasks",
       "tasksCompleted": "Completed",
       "tasksOngoing": "In progress",
@@ -406,8 +399,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -443,10 +434,6 @@
         "title": "Environment Manager",
         "description": "Store .env-style variables by project and environment with tags."
       },
-      "bookmarks": {
-        "title": "Bookmarks",
-        "description": "Manage and organize your bookmarks."
-      },
       "apiClient": {
         "title": "API Client",
         "description": "Test and debug HTTP requests."
@@ -462,18 +449,6 @@
       "emailValidator": {
         "title": "Email Validator",
         "description": "Verify and validate email addresses."
-      },
-      "jwtDecoder": {
-        "title": "JWT Decoder",
-        "description": "Decode JWT header, payload, and expiry."
-      },
-      "certificatePemDecoder": {
-        "title": "Certificate / PEM Decoder",
-        "description": "Decode X.509 certificates and CSRs: subject, issuer, validity, SANs."
-      },
-      "encryptionPlayground": {
-        "title": "Encryption Playground",
-        "description": "AES-GCM with a raw key or passphrase; JSON bundles, Web Crypto only in your browser."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -526,10 +501,6 @@
       "beautifyMinify": {
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "bcryptGenerator": {
-        "title": "Bcrypt Generator & Checker",
-        "description": "Hash passwords with bcrypt and verify existing hashes."
       },
       "jsonDiff": {
         "title": "JSON Diff",
@@ -1101,117 +1072,6 @@
       "toastProjectEnvRequired": "Project and environment are required",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Loading..."
-    },
-    "manager": {
-      "foldersHeading": "Folders",
-      "tagsHeading": "Tags",
-      "tagsMore": "+{count} more",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Search your bookmarks...",
-      "import": "Import",
-      "export": "Export",
-      "exportAsHtml": "Export as HTML",
-      "exportAsJson": "Export as JSON",
-      "addBookmark": "Add Bookmark",
-      "matchingQuery": "matching \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# bookmark} other {# bookmarks}}",
-      "allBookmarks": "All Bookmarks",
-      "uncategorized": "Uncategorized",
-      "unknownFolder": "Unknown"
-    },
-    "card": {
-      "urlCopied": "URL copied to clipboard",
-      "bookmarkDeleted": "Bookmark deleted",
-      "edit": "Edit",
-      "delete": "Delete",
-      "copyUrl": "Copy URL",
-      "deleteConfirmTitle": "Delete bookmark?",
-      "deleteConfirmDescription": "This will permanently delete \"{title}\".",
-      "cancel": "Cancel"
-    },
-    "grid": {
-      "emptyTitle": "No bookmarks yet",
-      "emptyDescription": "Add your first bookmark or import from your browser to get started."
-    },
-    "folderTree": {
-      "allBookmarks": "All Bookmarks",
-      "addSubfolder": "Add Subfolder",
-      "rename": "Rename",
-      "deleteFolderTitle": "Delete folder \"{name}\"?",
-      "deleteFolderDescription": "This will delete the folder and all its subfolders. Bookmarks in these folders will be moved to Uncategorized."
-    },
-    "foldersHeading": "Folders",
-    "import": {
-      "title": "Import Bookmarks",
-      "description": "Import bookmarks from your browser's exported file.",
-      "parseError": "Failed to parse bookmark file. Please make sure it's a valid bookmark export.",
-      "successToast": "Imported {bookmarks} bookmarks and {folders} folders",
-      "errorToast": "Failed to import bookmarks",
-      "chromeInstruction": "Menu → Bookmarks → Bookmark Manager → ⋮ → Export Bookmarks",
-      "firefoxInstruction": "Menu → Bookmarks → Manage Bookmarks → Import and Backup → Export",
-      "safariInstruction": "File → Export Bookmarks...",
-      "edgeInstruction": "Menu → Favorites → ⋯ → Export Favorites",
-      "dropZoneTitle": "Drop your bookmark file here",
-      "dropZoneHint": "or click to browse (HTML or JSON)",
-      "selectedFileHint": "Click to select a different file",
-      "errorTitle": "Error",
-      "previewTitle": "Import Preview",
-      "previewBookmarks": "{count, plural, one {# bookmark} other {# bookmarks}}",
-      "previewFolders": "{count, plural, one {# folder} other {# folders}}",
-      "importModeLabel": "Import Mode",
-      "modeMerge": "Merge with existing bookmarks",
-      "modeReplace": "Replace all existing bookmarks",
-      "cancel": "Cancel",
-      "importButton": "Import",
-      "importButtonWithCount": "Import {count, plural, one {# bookmark} other {# bookmarks}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Add Bookmark",
-      "titleEdit": "Edit Bookmark",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Please enter a valid URL",
-      "titleLabel": "Title",
-      "titlePlaceholder": "Bookmark title",
-      "titleRequired": "Please enter a title",
-      "descriptionLabel": "Description (optional)",
-      "descriptionPlaceholder": "Add a note about this bookmark",
-      "folderLabel": "Folder",
-      "folderPlaceholder": "Select folder",
-      "noFolder": "No folder",
-      "tagsLabel": "Tags",
-      "tagsPlaceholder": "Add tags (press Enter)",
-      "toastUpdated": "Bookmark updated",
-      "toastAdded": "Bookmark added",
-      "cancel": "Cancel",
-      "submitAdd": "Add Bookmark",
-      "submitUpdate": "Update Bookmark"
-    },
-    "addFolder": {
-      "title": "Create Folder",
-      "nameLabel": "Folder Name",
-      "namePlaceholder": "My Folder",
-      "nameRequired": "Please enter a folder name",
-      "parentLabel": "Parent Folder",
-      "parentPlaceholder": "Select parent folder",
-      "rootParent": "Root (No parent)",
-      "toastCreated": "Folder created",
-      "cancel": "Cancel",
-      "submit": "Create Folder"
-    },
-    "editFolder": {
-      "title": "Rename Folder",
-      "nameLabel": "Folder Name",
-      "namePlaceholder": "Folder name",
-      "nameRequired": "Please enter a folder name",
-      "toastRenamed": "Folder renamed",
-      "cancel": "Cancel",
-      "save": "Save"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON repaired",
     "toastRepairFailed": "Could not repair JSON"
   },
-  "JwtDecoder": {
-    "title": "JWT Decoder",
-    "subtitle": "Inspect header, payload, and expiry — signature not verified",
-    "tabs": {
-      "decode": "Decode",
-      "sign": "Generator / signer"
-    },
-    "tokenLabel": "Token",
-    "clear": "Clear",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Copy",
-    "expiryLabel": "Expiry (exp)",
-    "signaturePresent": "Signature present (not verified)",
-    "noExp": "No <code>exp</code> claim in the payload.",
-    "status": {
-      "expired": "Expired",
-      "valid": "Valid"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Local",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Issued at (iat)",
-      "notBefore": "Not before (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Paste a JWT to decode.",
-      "segments": "A JWT needs at least a header and payload (two segments).",
-      "base64": "Could not base64url-decode header or payload."
-    },
-    "relative": {
-      "future": "in {n} {unit}",
-      "past": "{n} {unit} ago"
-    },
-    "units": {
-      "second": "{count, plural, one {second} other {seconds}}",
-      "minute": "{count, plural, one {minute} other {minutes}}",
-      "hour": "{count, plural, one {hour} other {hours}}",
-      "day": "{count, plural, one {day} other {days}}"
-    },
-    "signer": {
-      "algLabel": "Algorithm (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Secret (HS*)",
-      "secretPlaceholder": "Paste your HMAC secret…",
-      "privateKeyLabel": "Private key PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "The \"none\" algorithm creates an unsigned token. This is insecure and should only be used for testing.",
-      "sign": "Sign",
-      "verify": "Verify signature",
-      "outputLabel": "Token (compact JWS)",
-      "outputPlaceholder": "Click \"Sign\"…",
-      "copyToken": "Copy token",
-      "copied": "Copied",
-      "verifyKeyLabel": "Verification key (optional)",
-      "verifyKeyPlaceholder": "For RS*: paste the public key (SPKI) PEM. For HS*: leave empty to reuse the secret.",
-      "verifyKeyHint": "If empty, verification uses the signing key (useful for HS*).",
-      "verifyStatus": {
-        "valid": "Signature valid",
-        "invalid": "Signature invalid"
-      },
-      "securityNote": "Everything runs locally in your browser; keys and tokens are not uploaded."
-    },
-    "signErrors": {
-      "invalidJson": "Header and payload must be valid JSON.",
-      "unsupportedAlg": "Unsupported algorithm.",
-      "missingKey": "A signing key is required for this algorithm.",
-      "cryptoFailed": "Signing failed. Check your key format and try again."
-    },
-    "verifyErrors": {
-      "empty": "Enter a JWT to verify.",
-      "segments": "A JWT must have exactly 3 segments to verify a signature.",
-      "unsupportedAlg": "Unsupported or missing alg in header.",
-      "missingKey": "A verification key is required for this algorithm.",
-      "base64": "Could not decode the JWT header or signature.",
-      "cryptoFailed": "Verification failed. Check your key format and try again."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Certificate Decoder",
-    "subtitle": "Decode X.509 certificates and CSRs from PEM",
-    "pemLabel": "PEM input",
-    "clear": "Clear",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Parsing…",
-    "copyHex": "Copy fingerprint (hex, no colons)",
-    "errors": {
-      "empty": "Paste a PEM certificate or CSR to decode.",
-      "noBlock": "No certificate or CSR PEM block found.",
-      "parseFailed": "Could not parse this PEM data."
-    },
-    "block": {
-      "title": "PEM block {index}",
-      "certificate": "X.509 certificate",
-      "csr": "Certificate signing request"
-    },
-    "fields": {
-      "subject": "Subject",
-      "issuer": "Issuer",
-      "notBefore": "Not valid before",
-      "notAfter": "Not valid after",
-      "serial": "Serial (hex)",
-      "sha256": "SHA-256 fingerprint",
-      "sans": "Subject Alternative Names",
-      "sansNone": "No Subject Alternative Name extension.",
-      "signatureAlgorithm": "Signature algorithm",
-      "csrIssuerNote": "CSRs do not include an issuer (that appears on the issued certificate).",
-      "csrValidityNote": "CSRs do not include validity dates (those appear on the issued certificate)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Directory name",
-      "email": "Email",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Registered ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL Formatter",
     "subtitle": "Pretty-print SQL for MySQL, PostgreSQL, and SQLite",
@@ -2946,58 +2672,6 @@
       "php": "PHP"
     }
   },
-  "EncryptionPlayground": {
-    "title": "Encryption Playground",
-    "subtitle": "Encrypt and decrypt AES-GCM with a passphrase or key",
-    "tabEncrypt": "Encrypt",
-    "tabDecrypt": "Decrypt",
-    "keyModeLabel": "Key material",
-    "modePassphrase": "Passphrase (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Raw AES key (hex or Base64)",
-    "aesBitsLabel": "AES key length",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Raw key encoding",
-    "encodingAuto": "Auto (hex if it looks hex, else Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Raw key",
-    "rawKeyPlaceholder": "32-byte key as 64 hex chars, or Base64 for AES-256 (length depends on AES size above).",
-    "rawKeyPlaceholderDecrypt": "Only needed when the bundle has keyDerivation \"none\".",
-    "passphraseLabel": "Passphrase",
-    "passphrasePlaceholder": "Passphrase used only in your browser to derive the key.",
-    "passphrasePlaceholderDecrypt": "Only needed when the bundle uses PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "PBKDF2 iterations",
-    "pbkdf2Hint": "Clamped between 10,000 and 2,000,000. Default matches common vault-style settings.",
-    "plaintextLabel": "Plaintext",
-    "plaintextPlaceholder": "Type or paste the message to encrypt…",
-    "bundleInputLabel": "Encrypted bundle (JSON)",
-    "bundlePlaceholder": "Paste the JSON from Encrypt (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Encrypted bundle",
-    "plaintextOutputLabel": "Plaintext",
-    "encryptButton": "Encrypt",
-    "decryptButton": "Decrypt",
-    "copyBundle": "Copy JSON",
-    "copyPlaintext": "Copy plaintext",
-    "copied": "Copied",
-    "emptyBundleHint": "Encrypted JSON appears here after you encrypt.",
-    "emptyDecryptHint": "Decrypted text appears here.",
-    "decryptKeyHint": "Use the raw key field if the bundle says keyDerivation \"none\"; use the passphrase if it says PBKDF2-SHA256. The bundle stores salt, iterations, IV, and AES length.",
-    "securityNote": "Keys and plaintext never leave your browser. Prefer dedicated tools for production secrets.",
-    "errors": {
-      "emptyKey": "Enter a raw key that matches the AES size.",
-      "emptyPassphrase": "Enter a passphrase.",
-      "badKeyMaterial": "Could not read the key as hex or Base64.",
-      "wrongKeyLength": "Key length does not match the selected AES size (16 / 24 / 32 bytes).",
-      "invalidJson": "That is not valid JSON.",
-      "invalidBundle": "This JSON is not a supported encryption bundle.",
-      "decryptFailed": "Decryption failed—wrong secret, corrupted bundle, or mismatched parameters.",
-      "encryptFailed": "Encryption failed. Check Web Crypto support and inputs."
-    }
-  },
   "DiffChecker": {
     "title": "Diff Checker",
     "subtitle": "Compare two texts side by side, line by line",
@@ -3197,47 +2871,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt Generator",
-    "subtitle": "Hash and verify passwords with bcrypt",
-    "tabs": {
-      "hash": "Hash",
-      "verify": "Verify"
-    },
-    "showPassword": "Show password",
-    "hidePassword": "Hide password",
-    "copy": "Copy",
-    "copied": "Copied",
-    "hash": {
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter a password to hash…",
-      "costLabel": "Cost factor",
-      "costHint": "Higher cost doubles the work per step. 10-12 is a common choice for production.",
-      "slowWarning": "Cost factors of 13 and above can take several seconds to compute.",
-      "generate": "Generate hash",
-      "generating": "Hashing…",
-      "resultLabel": "Bcrypt hash",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Hash anatomy",
-        "algorithm": "algorithm",
-        "cost": "cost",
-        "salt": "salt (22 chars)",
-        "hash": "hash (31 chars)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter the password to check…",
-      "hashLabel": "Bcrypt hash",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Enter a password and a bcrypt hash to compare them.",
-      "invalidHash": "This does not look like a valid bcrypt hash.",
-      "checking": "Comparing…",
-      "match": "Match — the password produces this hash.",
-      "noMatch": "No match — the password does not produce this hash."
-    }
   },
   "JsonDiff": {
     "title": "JSON Diff",

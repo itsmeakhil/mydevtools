@@ -27,6 +27,7 @@ const REMOVED_TOOL_SLUGS = [
   'timezone-converter', 'token-counter',
   'curl-to-code', 'http-status-codes', 'dns-lookup', 'ip-subnet-calculator', 'user-agent-parser',
   'mime-type-lookup', 'websocket-tester', 'whois-lookup', 'webhook-tester',
+  'jwt-decoder', 'certificate-pem-decoder', 'encryption-playground', 'bcrypt-generator', 'bookmarks',
 ];
 const REMOVED_BLOG_SLUGS = [
   'base64-encoding-explained', 'uuid-guide-generate-and-understand', 'cron-expression-syntax-guide',
@@ -45,10 +46,13 @@ const REMOVED_BLOG_SLUGS = [
   'mime-type-lookup-file-extension-content-type', 'user-agent-parser-browser-os-detection',
   '2048-game-puzzle-break', 'sudoku-game-online-puzzles', 'snake-game-online-classic',
   'minesweeper-game-online-classic', 'tetris-game-online-classic',
+  'how-to-decode-a-jwt', 'decode-ssl-certificate-pem-online', 'bookmark-manager-for-developer-resources',
+  'encrypt-decrypt-text-aes-gcm-online',
 ];
 const REMOVED_COMPARE_SLUGS = [
   'uuid-generator-online', 'base64-encoder-decoder-online', 'hash-generator-online',
   'qr-code-generator-online', 'cyberchef-alternative',
+  'mydevtools-vs-jwt-io',
 ];
 
 const nextConfig: NextConfig = {

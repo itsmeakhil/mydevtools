@@ -1,6 +1,6 @@
 # MyDevTools — Claude Code instructions
 
-Offline developer workstation (API client, database clients, S3 drive, encrypted vault, formatters, notes/snippets/tasks/bookmarks), being trimmed to a focused core. Architecture doc: `docs/ARCHITECTURE.md`. Never state a tool count in public copy (the set keeps shrinking) — name the flagship capabilities instead. `docs/` is public (README translations in `docs/readme/`); only `docs/superpowers/` is gitignored. Maintainer-only punch lists live in `.claude/`.
+Offline developer workstation (API client, database clients, S3 drive, encrypted vault, formatters, notes/snippets/tasks), being trimmed to a focused core. Architecture doc: `docs/ARCHITECTURE.md`. Never state a tool count in public copy (the set keeps shrinking) — name the flagship capabilities instead. `docs/` is public (README translations in `docs/readme/`); only `docs/superpowers/` is gitignored. Maintainer-only punch lists live in `.claude/`.
 
 ## Product model (current direction — do not regress)
 
@@ -35,7 +35,7 @@ Per-tool files (`page.tsx`, `layout.tsx` with `generateToolMetadata`, `component
 ## Design patterns (follow these)
 
 - Every user-visible string through `useTranslations("<Namespace>")` — no hardcoded UI text.
-- Async mutations (notes/bookmarks/vault) can throw user-facing reasons (vault locked, no workspace). Wrap in try/catch and `toast.error(message)` (sonner) — never let them bubble as uncaught rejections.
+- Async mutations (notes/vault) can throw user-facing reasons (vault locked, no workspace). Wrap in try/catch and `toast.error(message)` (sonner) — never let them bubble as uncaught rejections.
 - Failed autosave: set dirty flag back to true and reset save state so the next edit retries — never silently drop edits.
 - Collapsible sidebar sections: header button with `IconChevronRight` (`rotate-90` when open) + framer-motion `AnimatePresence` height/opacity collapse, `overflow-hidden`, ~0.2s; render nothing when the section is empty.
 - `React.memo` on list-item components in long sidebars.

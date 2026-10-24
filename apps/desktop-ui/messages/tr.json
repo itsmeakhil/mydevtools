@@ -5,16 +5,12 @@
     "apiClient": "API İstemcisi",
     "passwordManager": "Şifre Yöneticisi",
     "environmentManager": "Ortam yöneticisi",
-    "bookmarks": "Yer İmleri",
     "jsonFormatter": "JSON biçimleyici",
     "emailValidator": "E-posta Doğrulayıcı",
     "nosqlExplorer": "Veritabanı Gezgini",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Şifreleme oyun alanı",
-    "jwtDecoder": "JWT Çözücü",
-    "certificatePemDecoder": "Sertifika / PEM çözücü",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "GraphQL Biçimlendirici",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAML Biçimleyici",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON Karşılaştırma",
     "jsonpathPlayground": "JSONPath Oyun Alanı",
     "secureFiles": "Dosyalar"
@@ -326,10 +321,6 @@
         "title": "Ortam yöneticisi",
         "description": ".env tarzı değişkenleri proje ve ortama göre etiketlerle saklayın."
       },
-      "bookmarks": {
-        "title": "Yer İmleri",
-        "description": "Yer imlerinizi yönetin ve düzenleyin."
-      },
       "apiClient": {
         "title": "API İstemcisi",
         "description": "HTTP isteklerini test edin ve hata ayıklayın."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "E-posta Doğrulayıcı",
         "description": "E-posta adreslerini doğrulayın ve kontrol edin."
-      },
-      "encryptionPlayground": {
-        "title": "Şifreleme oyun alanı",
-        "description": "Ham anahtar veya parola ile AES-GCM; JSON paketleri, Web Crypto yalnızca tarayıcıda."
-      },
-      "jwtDecoder": {
-        "title": "JWT Çözücü",
-        "description": "JWT başlığını, yükünü ve süresini çöz."
-      },
-      "certificatePemDecoder": {
-        "title": "Sertifika / PEM çözücü",
-        "description": "X.509 sertifikalarını ve CSR’ları çözümleyin: konu, veren, geçerlilik ve SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt Üretici ve Doğrulayıcı",
-        "description": "Parolaları bcrypt ile hash'leyin ve mevcut hash'leri doğrulayın."
-      },
       "jsonDiff": {
         "title": "JSON Karşılaştırma",
         "description": "İki JSON belgesinin anlamsal, yapı farkında karşılaştırması."
@@ -434,8 +409,6 @@
       "loadError": "Analitik yüklenemedi.",
       "retry": "Yeniden dene",
       "passwordEntries": "Parola kayıtları",
-      "bookmarks": "Yer imleri",
-      "bookmarkFolders": "Yer imi klasörleri",
       "tasksTotal": "Görevler",
       "tasksCompleted": "Tamamlanan",
       "tasksOngoing": "Devam eden",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Yükleniyor..."
-    },
-    "manager": {
-      "foldersHeading": "Klasörler",
-      "tagsHeading": "Etiketler",
-      "tagsMore": "+{count} daha",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Yer imlerinizde arayın...",
-      "import": "İçe Aktar",
-      "export": "Dışa Aktar",
-      "exportAsHtml": "HTML olarak dışa aktar",
-      "exportAsJson": "JSON olarak dışa aktar",
-      "addBookmark": "Yer İmi Ekle",
-      "matchingQuery": "\"{query}\" ile eşleşen",
-      "bookmarkCount": "{count, plural, one {# yer imi} other {# yer imi}}",
-      "allBookmarks": "Tüm Yer İmleri",
-      "uncategorized": "Kategorisiz",
-      "unknownFolder": "Bilinmeyen"
-    },
-    "card": {
-      "urlCopied": "URL panoya kopyalandı",
-      "bookmarkDeleted": "Yer imi silindi",
-      "edit": "Düzenle",
-      "delete": "Sil",
-      "copyUrl": "URL Kopyala",
-      "deleteConfirmTitle": "Yer imi silinsin mi?",
-      "deleteConfirmDescription": "\"{title}\" kalıcı olarak silinecektir.",
-      "cancel": "İptal"
-    },
-    "grid": {
-      "emptyTitle": "Henüz yer imi yok",
-      "emptyDescription": "Başlamak için ilk yer iminizi ekleyin veya tarayıcınızdan içe aktarın."
-    },
-    "folderTree": {
-      "allBookmarks": "Tüm Yer İmleri",
-      "addSubfolder": "Alt Klasör Ekle",
-      "rename": "Yeniden Adlandır",
-      "deleteFolderTitle": "\"{name}\" klasörü silinsin mi?",
-      "deleteFolderDescription": "Bu, klasörü ve tüm alt klasörlerini silecektir. Bu klasörlerdeki yer imleri Kategorisiz'e taşınacaktır."
-    },
-    "foldersHeading": "Klasörler",
-    "import": {
-      "title": "Yer İmlerini İçe Aktar",
-      "description": "Tarayıcınızın dışa aktarılmış dosyasından yer imlerini içe aktarın.",
-      "parseError": "Yer imi dosyası ayrıştırılamadı. Lütfen geçerli bir yer imi dışa aktarımı olduğundan emin olun.",
-      "successToast": "{bookmarks} yer imi ve {folders} klasör içe aktarıldı",
-      "errorToast": "Yer imleri içe aktarılamadı",
-      "chromeInstruction": "Menü → Yer İmleri → Yer İmi Yöneticisi → ⋮ → Yer İmlerini Dışa Aktar",
-      "firefoxInstruction": "Menü → Yer İmleri → Yer İmlerini Yönet → İçe ve Dışa Aktarma → Dışa Aktar",
-      "safariInstruction": "Dosya → Yer İmlerini Dışa Aktar...",
-      "edgeInstruction": "Menü → Sık Kullanılanlar → ⋯ → Sık Kullanılanları Dışa Aktar",
-      "dropZoneTitle": "Yer imi dosyanızı buraya bırakın",
-      "dropZoneHint": "veya göz atmak için tıklayın (HTML veya JSON)",
-      "selectedFileHint": "Farklı bir dosya seçmek için tıklayın",
-      "errorTitle": "Hata",
-      "previewTitle": "İçe Aktarma Önizlemesi",
-      "previewBookmarks": "{count, plural, one {# yer imi} other {# yer imi}}",
-      "previewFolders": "{count, plural, one {# klasör} other {# klasör}}",
-      "importModeLabel": "İçe Aktarma Modu",
-      "modeMerge": "Mevcut yer imleriyle birleştir",
-      "modeReplace": "Tüm mevcut yer imlerini değiştir",
-      "cancel": "İptal",
-      "importButton": "İçe Aktar",
-      "importButtonWithCount": "{count, plural, one {# yer imini} other {# yer imini}} içe aktar"
-    },
-    "addBookmark": {
-      "titleAdd": "Yer İmi Ekle",
-      "titleEdit": "Yer İmini Düzenle",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://ornek.com",
-      "urlInvalid": "Lütfen geçerli bir URL girin",
-      "titleLabel": "Başlık",
-      "titlePlaceholder": "Yer imi başlığı",
-      "titleRequired": "Lütfen bir başlık girin",
-      "descriptionLabel": "Açıklama (isteğe bağlı)",
-      "descriptionPlaceholder": "Bu yer imi hakkında bir not ekleyin",
-      "folderLabel": "Klasör",
-      "folderPlaceholder": "Klasör seç",
-      "noFolder": "Klasör yok",
-      "tagsLabel": "Etiketler",
-      "tagsPlaceholder": "Etiket ekle (Enter'a basın)",
-      "toastUpdated": "Yer imi güncellendi",
-      "toastAdded": "Yer imi eklendi",
-      "cancel": "İptal",
-      "submitAdd": "Yer İmi Ekle",
-      "submitUpdate": "Yer İmini Güncelle"
-    },
-    "addFolder": {
-      "title": "Klasör Oluştur",
-      "nameLabel": "Klasör Adı",
-      "namePlaceholder": "Klasörüm",
-      "nameRequired": "Lütfen bir klasör adı girin",
-      "parentLabel": "Üst Klasör",
-      "parentPlaceholder": "Üst klasör seç",
-      "rootParent": "Kök (Üst klasör yok)",
-      "toastCreated": "Klasör oluşturuldu",
-      "cancel": "İptal",
-      "submit": "Klasör Oluştur"
-    },
-    "editFolder": {
-      "title": "Klasörü Yeniden Adlandır",
-      "nameLabel": "Klasör Adı",
-      "namePlaceholder": "Klasör adı",
-      "nameRequired": "Lütfen bir klasör adı girin",
-      "toastRenamed": "Klasör yeniden adlandırıldı",
-      "cancel": "İptal",
-      "save": "Kaydet"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON onarıldı",
     "toastRepairFailed": "JSON onarılamadı"
   },
-  "JwtDecoder": {
-    "title": "JWT Çözücü",
-    "subtitle": "Header, payload ve süreyi incele — imza doğrulanmaz",
-    "tokenLabel": "Token",
-    "clear": "Temizle",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Kopyala",
-    "expiryLabel": "Süre (exp)",
-    "signaturePresent": "İmza var (doğrulanmadı)",
-    "noExp": "Payload içinde <code>exp</code> claim’i yok.",
-    "status": {
-      "expired": "Süresi doldu",
-      "valid": "Geçerli"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Yerel",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Düzenlenme (iat)",
-      "notBefore": "Şundan önce değil (nbf)"
-    },
-    "panels": {
-      "header": "Başlık",
-      "payload": "Yük"
-    },
-    "errors": {
-      "empty": "Çözmek için bir JWT yapıştırın.",
-      "segments": "JWT en az başlık ve yük (iki segment) içermelidir.",
-      "base64": "Başlık veya yük base64url çözülemedi."
-    },
-    "relative": {
-      "future": "{n} {unit} içinde",
-      "past": "{n} {unit} önce"
-    },
-    "units": {
-      "second": "{count, plural, one {saniye} other {saniye}}",
-      "minute": "{count, plural, one {dakika} other {dakika}}",
-      "hour": "{count, plural, one {saat} other {saat}}",
-      "day": "{count, plural, one {gün} other {gün}}"
-    },
-    "tabs": {
-      "decode": "Çöz",
-      "sign": "Oluşturucu / imzalayıcı"
-    },
-    "signer": {
-      "algLabel": "Algoritma (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Gizli anahtar (HS*)",
-      "secretPlaceholder": "HMAC gizlinizi yapıştırın…",
-      "privateKeyLabel": "Özel anahtar PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "\"none\" algoritması imzasız bir token üretir. Güvenli değildir; yalnızca test için kullanılmalıdır.",
-      "sign": "İmzala",
-      "verify": "İmzayı doğrula",
-      "outputLabel": "Token (kompakt JWS)",
-      "outputPlaceholder": "\"İmzala\"a tıklayın…",
-      "copyToken": "Tokenı kopyala",
-      "copied": "Kopyalandı",
-      "verifyKeyLabel": "Doğrulama anahtarı (isteğe bağlı)",
-      "verifyKeyPlaceholder": "RS* için: açık anahtarı (SPKI) PEM yapıştırın. HS* için: gizliyi yeniden kullanmak üzere boş bırakın.",
-      "verifyKeyHint": "Boşsa doğrulama imzalama anahtarını kullanır (HS* için faydalı).",
-      "verifyStatus": {
-        "valid": "İmza geçerli",
-        "invalid": "İmza geçersiz"
-      },
-      "securityNote": "Her şey tarayıcınızda yerel çalışır; anahtarlar ve tokenlar yüklenmez."
-    },
-    "signErrors": {
-      "invalidJson": "Header ve payload geçerli JSON olmalıdır.",
-      "unsupportedAlg": "Desteklenmeyen algoritma.",
-      "missingKey": "Bu algoritma için bir imzalama anahtarı gerekir.",
-      "cryptoFailed": "İmzalama başarısız. Anahtar biçimini kontrol edip tekrar deneyin."
-    },
-    "verifyErrors": {
-      "empty": "Doğrulamak için bir JWT girin.",
-      "segments": "İmza doğrulaması için JWT tam olarak 3 segmentten oluşmalıdır.",
-      "unsupportedAlg": "Header içinde desteklenmeyen veya eksik alg.",
-      "missingKey": "Bu algoritma için doğrulama anahtarı gerekir.",
-      "base64": "JWT header veya imza çözülemedi.",
-      "cryptoFailed": "Doğrulama başarısız. Anahtar biçimini kontrol edip tekrar deneyin."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Sertifika Çözücü",
-    "subtitle": "PEM içindeki X.509 sertifikalarını ve CSR'leri çöz",
-    "pemLabel": "PEM girişi",
-    "clear": "Temizle",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Ayrıştırılıyor…",
-    "copyHex": "Parmak izini kopyala (iki nokta olmadan hex)",
-    "errors": {
-      "empty": "Çözmek için bir PEM sertifikası veya CSR yapıştırın.",
-      "noBlock": "Sertifika veya CSR PEM bloğu bulunamadı.",
-      "parseFailed": "Bu PEM verileri ayrıştırılamadı."
-    },
-    "block": {
-      "title": "PEM bloğu {index}",
-      "certificate": "X.509 sertifikası",
-      "csr": "Sertifika imzalama isteği"
-    },
-    "fields": {
-      "subject": "Konu",
-      "issuer": "Veren",
-      "notBefore": "Öncesi geçersiz",
-      "notAfter": "Sonrası geçersiz",
-      "serial": "Seri numarası (hex)",
-      "sha256": "SHA-256 parmak izi",
-      "sans": "Konu alternatif adları",
-      "sansNone": "SAN uzantısı yok.",
-      "signatureAlgorithm": "İmza algoritması",
-      "csrIssuerNote": "CSR’ler vereni içermez (verilen sertifikada görünür).",
-      "csrValidityNote": "CSR’ler geçerlilik tarihlerini içermez (verilen sertifikada görünür)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Dizin adı",
-      "email": "E-posta",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Kayıtlı ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL Biçimlendirici",
     "subtitle": "MySQL, PostgreSQL ve SQLite için SQL biçimlendir",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} satır eşleşti — filtre benzersiz olmadığı için hiçbir şey değiştirilmedi."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Şifreleme Alanı",
-    "subtitle": "Parola veya anahtarla AES-GCM şifrele ve çöz",
-    "tabEncrypt": "Şifrele",
-    "tabDecrypt": "Şifreyi çöz",
-    "keyModeLabel": "Anahtar malzemesi",
-    "modePassphrase": "Parola (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Ham AES anahtarı (hex veya Base64)",
-    "aesBitsLabel": "AES anahtar uzunluğu",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Ham anahtar kodlaması",
-    "encodingAuto": "Otomatik (hex gibi görünüyorsa hex, değilse Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Ham anahtar",
-    "rawKeyPlaceholder": "AES-256 için 32 bayt anahtar: 64 hex karakter veya Base64 (uzunluk yukarıdaki AES boyutuna bağlı).",
-    "rawKeyPlaceholderDecrypt": "Yalnızca pakette keyDerivation \"none\" ise gerekli.",
-    "passphraseLabel": "Parola",
-    "passphrasePlaceholder": "Parola yalnızca tarayıcıda anahtar türetmek için kullanılır.",
-    "passphrasePlaceholderDecrypt": "Yalnızca paket PBKDF2-SHA256 kullanıyorsa gerekli.",
-    "pbkdf2IterLabel": "PBKDF2 yinelemeleri",
-    "pbkdf2Hint": "10.000 ile 2.000.000 arasında. Varsayılan, yaygın kasa ayarlarıyla uyumludur.",
-    "plaintextLabel": "Düz metin",
-    "plaintextPlaceholder": "Şifrelenecek iletiyi yazın veya yapıştırın…",
-    "bundleInputLabel": "Şifreli paket (JSON)",
-    "bundlePlaceholder": "Şifrele’den JSON yapıştırın (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Şifreli paket",
-    "plaintextOutputLabel": "Düz metin",
-    "encryptButton": "Şifrele",
-    "decryptButton": "Şifreyi çöz",
-    "copyBundle": "JSON kopyala",
-    "copyPlaintext": "Düz metni kopyala",
-    "copied": "Kopyalandı",
-    "emptyBundleHint": "Şifrelemeden sonra şifreli JSON burada görünür.",
-    "emptyDecryptHint": "Çözülmüş metin burada görünür.",
-    "decryptKeyHint": "keyDerivation \"none\" ise ham anahtarı; PBKDF2-SHA256 ise parolayı kullanın. Paket tuz, yineleme, IV ve AES uzunluğunu saklar.",
-    "securityNote": "Anahtarlar ve düz metin tarayıcınızdan çıkmaz. Üretim sırları için özel araçlar tercih edin.",
-    "errors": {
-      "emptyKey": "AES boyutuna uyan bir ham anahtar girin.",
-      "emptyPassphrase": "Bir parola girin.",
-      "badKeyMaterial": "Anahtar hex veya Base64 olarak okunamadı.",
-      "wrongKeyLength": "Anahtar uzunluğu AES ile eşleşmiyor (16 / 24 / 32 bayt).",
-      "invalidJson": "Geçerli bir JSON değil.",
-      "invalidBundle": "Bu JSON desteklenen bir şifre paketi değil.",
-      "decryptFailed": "Şifre çözme başarısız — yanlış gizli, bozuk paket veya uyumsuz parametreler.",
-      "encryptFailed": "Şifreleme başarısız. Web Crypto ve girdileri kontrol edin."
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdown Önizleme",
     "subtitle": "Markdown'ı canlı görüntüle, HTML'e ve HTML'den dönüştür",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt Üretici",
-    "subtitle": "Parolaları bcrypt ile hashle ve doğrula",
-    "tabs": {
-      "hash": "Hash'le",
-      "verify": "Doğrula"
-    },
-    "showPassword": "Parolayı göster",
-    "hidePassword": "Parolayı gizle",
-    "copy": "Kopyala",
-    "copied": "Kopyalandı",
-    "hash": {
-      "passwordLabel": "Parola",
-      "passwordPlaceholder": "Hash'lenecek bir parola girin…",
-      "costLabel": "Maliyet faktörü",
-      "costHint": "Daha yüksek maliyet, her adımdaki işi ikiye katlar. Üretim için genellikle 10-12 tercih edilir.",
-      "slowWarning": "13 ve üzeri maliyet faktörlerinin hesaplanması birkaç saniye sürebilir.",
-      "generate": "Hash oluştur",
-      "generating": "Hash'leniyor…",
-      "resultLabel": "Bcrypt hash'i",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Hash anatomisi",
-        "algorithm": "algoritma",
-        "cost": "maliyet",
-        "salt": "salt (22 karakter)",
-        "hash": "hash (31 karakter)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Parola",
-      "passwordPlaceholder": "Kontrol edilecek parolayı girin…",
-      "hashLabel": "Bcrypt hash'i",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Karşılaştırmak için bir parola ve bir bcrypt hash'i girin.",
-      "invalidHash": "Bu, geçerli bir bcrypt hash'i gibi görünmüyor.",
-      "checking": "Karşılaştırılıyor…",
-      "match": "Eşleşti — parola bu hash'i üretiyor.",
-      "noMatch": "Eşleşmedi — parola bu hash'i üretmiyor."
-    }
   },
   "JsonDiff": {
     "title": "JSON Fark",

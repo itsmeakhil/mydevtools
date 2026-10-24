@@ -106,8 +106,8 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 | 📝 **फ़ॉर्मेटर और वैलिडेटर** | JSON Formatter, JSON Visualizer, JSON Diff, JSON Schema Generator, JSON to Code, YAML Formatter, Format Converter (JSON / YAML / TOML / XML), SQL Formatter, GraphQL Formatter, Markdown Preview, Diff Checker, Regex Tester |
 | 🌐 **नेटवर्क और API** | API Client (कलेक्शन, एनवायरनमेंट, ऑथ, gRPC, mock server — ब्राउज़र वाली CORS पाबंदियों के बिना) |
 | 🗄️ **डेटाबेस और स्टोरेज क्लाइंट** | SQL Client (PostgreSQL, MySQL, MariaDB), Database Explorer (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — नेटिव Rust ड्राइवर, सीधे आपकी मशीन से आपके डेटाबेस तक |
-| 🔐 **सिक्योरिटी और क्रिप्टो** | Password Manager, Encryption Playground (AES-GCM), JWT Decoder, Bcrypt, Certificate / PEM Decoder, Environment Manager |
-| 📱 **प्रोडक्टिविटी** | Notes, Code Snippets, Tasks, Bookmarks, API Keys |
+| 🔐 **सिक्योरिटी और क्रिप्टो** | Password Manager, Environment Manager |
+| 📱 **प्रोडक्टिविटी** | Notes, Code Snippets, Tasks, API Keys |
 
 सब कुछ एक ही कमांड पैलेट से खोजा जा सकता है — डार्क या लाइट मोड में, 27
 भाषाओं में।
@@ -117,7 +117,7 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 ## 🔒 डिज़ाइन से ही प्राइवेट
 
 - **कोई MyDevTools सर्वर नहीं।** न कोई बैकएंड जिसमें साइन इन करना पड़े, न सिंक
-  सर्विस, न अकाउंट सिस्टम। टूल इनपुट, नोट्स, स्निपेट्स, टास्क और बुकमार्क एक लोकल
+  सर्विस, न अकाउंट सिस्टम। टूल इनपुट, नोट्स, स्निपेट्स और टास्क एक लोकल
   SQLCipher डेटाबेस में लिखे जाते हैं, जो OS keychain में रखी key से एन्क्रिप्टेड है।
 - **क्रेडेंशियल वॉल्ट में एन्क्रिप्टेड रहते हैं।** डेटाबेस पासवर्ड, API keys और
   password manager की एंट्रीज़ एक मास्टर पासवर्ड से लोकली एन्क्रिप्ट होती हैं, जो

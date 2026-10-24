@@ -5,16 +5,12 @@
     "apiClient": "API-client",
     "passwordManager": "Wachtwoordbeheer",
     "environmentManager": "Omgevingsbeheer",
-    "bookmarks": "Bladwijzers",
     "jsonFormatter": "JSON-formatter",
     "emailValidator": "E-mailvalidator",
     "nosqlExplorer": "Databaseverkenner",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Encryptie-speeltuin",
-    "jwtDecoder": "JWT-decoder",
-    "certificatePemDecoder": "Certificaat- / PEM-decoder",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "GraphQL-formatter",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAML-formatter",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-playground",
     "secureFiles": "Bestanden"
@@ -326,10 +321,6 @@
         "title": "Omgevingsbeheer",
         "description": "Sla .env-achtige variabelen per project en omgeving op met tags."
       },
-      "bookmarks": {
-        "title": "Bladwijzers",
-        "description": "Beheer en organiseer je bladwijzers."
-      },
       "apiClient": {
         "title": "API-client",
         "description": "Test en debug HTTP-verzoeken."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "E-mailvalidator",
         "description": "Verifieer en valideer e-mailadressen."
-      },
-      "encryptionPlayground": {
-        "title": "Encryptie-speeltuin",
-        "description": "AES-GCM met ruwe sleutel of wachtwoordzin; JSON-bundels, Web Crypto alleen in de browser."
-      },
-      "jwtDecoder": {
-        "title": "JWT-decoder",
-        "description": "Decodeer JWT-header, payload en verloopdatum."
-      },
-      "certificatePemDecoder": {
-        "title": "Certificaat- / PEM-decoder",
-        "description": "Decodeer X.509-certificaten en CSR’s: subject, uitgever, geldigheid en SAN’s."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt-generator en -controle",
-        "description": "Hash wachtwoorden met bcrypt en verifieer bestaande hashes."
-      },
       "jsonDiff": {
         "title": "JSON-diff",
         "description": "Semantische, structuurbewuste vergelijking van twee JSON-documenten."
@@ -434,8 +409,6 @@
       "loadError": "Kan statistieken niet laden.",
       "retry": "Opnieuw",
       "passwordEntries": "Wachtwoorditems",
-      "bookmarks": "Bladwijzers",
-      "bookmarkFolders": "Bladwijzermappen",
       "tasksTotal": "Taken",
       "tasksCompleted": "Voltooid",
       "tasksOngoing": "Bezig",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Laden..."
-    },
-    "manager": {
-      "foldersHeading": "Mappen",
-      "tagsHeading": "Tags",
-      "tagsMore": "+{count} meer",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Zoek je bladwijzers...",
-      "import": "Importeren",
-      "export": "Exporteren",
-      "exportAsHtml": "Exporteren als HTML",
-      "exportAsJson": "Exporteren als JSON",
-      "addBookmark": "Bladwijzer toevoegen",
-      "matchingQuery": "overeenkomend met \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# bladwijzer} other {# bladwijzers}}",
-      "allBookmarks": "Alle bladwijzers",
-      "uncategorized": "Niet gecategoriseerd",
-      "unknownFolder": "Onbekend"
-    },
-    "card": {
-      "urlCopied": "URL gekopieerd naar klembord",
-      "bookmarkDeleted": "Bladwijzer verwijderd",
-      "edit": "Bewerken",
-      "delete": "Verwijderen",
-      "copyUrl": "URL kopiëren",
-      "deleteConfirmTitle": "Bladwijzer verwijderen?",
-      "deleteConfirmDescription": "Dit verwijdert \"{title}\" permanent.",
-      "cancel": "Annuleren"
-    },
-    "grid": {
-      "emptyTitle": "Nog geen bladwijzers",
-      "emptyDescription": "Voeg je eerste bladwijzer toe of importeer ze vanuit je browser om te beginnen."
-    },
-    "folderTree": {
-      "allBookmarks": "Alle bladwijzers",
-      "addSubfolder": "Submap toevoegen",
-      "rename": "Hernoemen",
-      "deleteFolderTitle": "Map \"{name}\" verwijderen?",
-      "deleteFolderDescription": "Dit verwijdert de map en alle submappen. Bladwijzers in deze mappen worden verplaatst naar Niet gecategoriseerd."
-    },
-    "foldersHeading": "Mappen",
-    "import": {
-      "title": "Bladwijzers importeren",
-      "description": "Importeer bladwijzers vanuit het exportbestand van je browser.",
-      "parseError": "Bladwijzerbestand kan niet worden verwerkt. Controleer of het een geldig bladwijzer-exportbestand is.",
-      "successToast": "{bookmarks} bladwijzers en {folders} mappen geïmporteerd",
-      "errorToast": "Bladwijzers importeren mislukt",
-      "chromeInstruction": "Menu → Bladwijzers → Bladwijzerbeheer → ⋮ → Bladwijzers exporteren",
-      "firefoxInstruction": "Menu → Bladwijzers → Bladwijzers beheren → Importeren en back-up → Exporteren",
-      "safariInstruction": "Archief → Exporteer bladwijzers...",
-      "edgeInstruction": "Menu → Favorieten → ⋯ → Favorieten exporteren",
-      "dropZoneTitle": "Sleep je bladwijzerbestand hierheen",
-      "dropZoneHint": "of klik om te bladeren (HTML of JSON)",
-      "selectedFileHint": "Klik om een ander bestand te selecteren",
-      "errorTitle": "Fout",
-      "previewTitle": "Importvoorbeeld",
-      "previewBookmarks": "{count, plural, one {# bladwijzer} other {# bladwijzers}}",
-      "previewFolders": "{count, plural, one {# map} other {# mappen}}",
-      "importModeLabel": "Importmodus",
-      "modeMerge": "Samenvoegen met bestaande bladwijzers",
-      "modeReplace": "Alle bestaande bladwijzers vervangen",
-      "cancel": "Annuleren",
-      "importButton": "Importeren",
-      "importButtonWithCount": "{count, plural, one {# bladwijzer} other {# bladwijzers}} importeren"
-    },
-    "addBookmark": {
-      "titleAdd": "Bladwijzer toevoegen",
-      "titleEdit": "Bladwijzer bewerken",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://voorbeeld.nl",
-      "urlInvalid": "Voer een geldige URL in",
-      "titleLabel": "Titel",
-      "titlePlaceholder": "Bladwijzertitel",
-      "titleRequired": "Voer een titel in",
-      "descriptionLabel": "Beschrijving (optioneel)",
-      "descriptionPlaceholder": "Voeg een opmerking toe over deze bladwijzer",
-      "folderLabel": "Map",
-      "folderPlaceholder": "Selecteer map",
-      "noFolder": "Geen map",
-      "tagsLabel": "Tags",
-      "tagsPlaceholder": "Voeg tags toe (druk op Enter)",
-      "toastUpdated": "Bladwijzer bijgewerkt",
-      "toastAdded": "Bladwijzer toegevoegd",
-      "cancel": "Annuleren",
-      "submitAdd": "Bladwijzer toevoegen",
-      "submitUpdate": "Bladwijzer bijwerken"
-    },
-    "addFolder": {
-      "title": "Map aanmaken",
-      "nameLabel": "Mapnaam",
-      "namePlaceholder": "Mijn map",
-      "nameRequired": "Voer een mapnaam in",
-      "parentLabel": "Bovenliggende map",
-      "parentPlaceholder": "Selecteer bovenliggende map",
-      "rootParent": "Hoofdmap (geen bovenliggende)",
-      "toastCreated": "Map aangemaakt",
-      "cancel": "Annuleren",
-      "submit": "Map aanmaken"
-    },
-    "editFolder": {
-      "title": "Map hernoemen",
-      "nameLabel": "Mapnaam",
-      "namePlaceholder": "Mapnaam",
-      "nameRequired": "Voer een mapnaam in",
-      "toastRenamed": "Map hernoemd",
-      "cancel": "Annuleren",
-      "save": "Opslaan"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON gerepareerd",
     "toastRepairFailed": "Kan JSON niet repareren"
   },
-  "JwtDecoder": {
-    "title": "JWT-decoder",
-    "subtitle": "Bekijk header, payload en vervaltijd — handtekening niet geverifieerd",
-    "tokenLabel": "Token",
-    "clear": "Wissen",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Kopiëren",
-    "expiryLabel": "Vervaldatum (exp)",
-    "signaturePresent": "Handtekening aanwezig (niet geverifieerd)",
-    "noExp": "Geen <code>exp</code>-claim in de payload.",
-    "status": {
-      "expired": "Verlopen",
-      "valid": "Geldig"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Lokaal",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Uitgegeven op (iat)",
-      "notBefore": "Niet vóór (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Plak een JWT om te decoderen.",
-      "segments": "Een JWT heeft minimaal een header en payload nodig (twee segmenten).",
-      "base64": "Header of payload kon niet base64url-gedecodeerd worden."
-    },
-    "relative": {
-      "future": "over {n} {unit}",
-      "past": "{n} {unit} geleden"
-    },
-    "units": {
-      "second": "{count, plural, one {seconde} other {seconden}}",
-      "minute": "{count, plural, one {minuut} other {minuten}}",
-      "hour": "{count, plural, one {uur} other {uur}}",
-      "day": "{count, plural, one {dag} other {dagen}}"
-    },
-    "tabs": {
-      "decode": "Decoderen",
-      "sign": "Generator / ondertekenaar"
-    },
-    "signer": {
-      "algLabel": "Algoritme (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload-JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header-JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Secret (HS*)",
-      "secretPlaceholder": "Plak je HMAC-secret…",
-      "privateKeyLabel": "Privésleutel PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "Het \"none\"-algoritme maakt een niet-ondertekend token. Dit is onveilig en alleen bedoeld voor testen.",
-      "sign": "Ondertekenen",
-      "verify": "Handtekening verifiëren",
-      "outputLabel": "Token (compacte JWS)",
-      "outputPlaceholder": "Klik op \"Ondertekenen\"…",
-      "copyToken": "Token kopiëren",
-      "copied": "Gekopieerd",
-      "verifyKeyLabel": "Verificatiesleutel (optioneel)",
-      "verifyKeyPlaceholder": "Voor RS*: plak de publieke sleutel (SPKI) PEM. Voor HS*: leeg laten om het secret te hergebruiken.",
-      "verifyKeyHint": "Indien leeg gebruikt verificatie de onderteken-sleutel (handig voor HS*).",
-      "verifyStatus": {
-        "valid": "Handtekening geldig",
-        "invalid": "Handtekening ongeldig"
-      },
-      "securityNote": "Alles draait lokaal in je browser; sleutels en tokens worden niet geüpload."
-    },
-    "signErrors": {
-      "invalidJson": "Header en payload moeten geldige JSON zijn.",
-      "unsupportedAlg": "Niet-ondersteund algoritme.",
-      "missingKey": "Voor dit algoritme is een onderteken-sleutel vereist.",
-      "cryptoFailed": "Ondertekenen mislukt. Controleer het sleutel-formaat en probeer opnieuw."
-    },
-    "verifyErrors": {
-      "empty": "Voer een JWT in om te verifiëren.",
-      "segments": "Een JWT moet precies 3 segmenten hebben om een handtekening te verifiëren.",
-      "unsupportedAlg": "Niet-ondersteund of ontbrekend alg in de header.",
-      "missingKey": "Voor dit algoritme is een verificatiesleutel vereist.",
-      "base64": "Kon de JWT-header of handtekening niet decoderen.",
-      "cryptoFailed": "Verificatie mislukt. Controleer het sleutel-formaat en probeer opnieuw."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Certificaatdecoder",
-    "subtitle": "Decodeer X.509-certificaten en CSR's uit PEM",
-    "pemLabel": "PEM-invoer",
-    "clear": "Wissen",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Bezig met verwerken…",
-    "copyHex": "Vingerafdruk kopiëren (hex zonder dubbele punten)",
-    "errors": {
-      "empty": "Plak een PEM-certificaat of CSR om te decoderen.",
-      "noBlock": "Geen PEM-blok voor certificaat of CSR gevonden.",
-      "parseFailed": "Deze PEM-gegevens konden niet worden verwerkt."
-    },
-    "block": {
-      "title": "PEM-blok {index}",
-      "certificate": "X.509-certificaat",
-      "csr": "Certificaatondertekeningsaanvraag"
-    },
-    "fields": {
-      "subject": "Subject",
-      "issuer": "Uitgever",
-      "notBefore": "Niet geldig vóór",
-      "notAfter": "Niet geldig na",
-      "serial": "Serienummer (hex)",
-      "sha256": "SHA-256-vingerafdruk",
-      "sans": "Onderwerpalternatieve namen",
-      "sansNone": "Geen SAN-extensie.",
-      "signatureAlgorithm": "Handtekeningalgoritme",
-      "csrIssuerNote": "CSR’s bevatten geen uitgever (die staat op het uitgegeven certificaat).",
-      "csrValidityNote": "CSR’s bevatten geen geldigheidsdata (die staan op het uitgegeven certificaat)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Directorynaam",
-      "email": "E-mail",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Geregistreerde ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL-formatter",
     "subtitle": "Maak SQL netjes voor MySQL, PostgreSQL en SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} rijen kwamen overeen — er is niets gewijzigd, omdat het filter niet uniek is."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Encryptie-playground",
-    "subtitle": "Versleutel en ontsleutel AES-GCM met wachtwoordzin of sleutel",
-    "tabEncrypt": "Versleutelen",
-    "tabDecrypt": "Ontsleutelen",
-    "keyModeLabel": "Sleutelmateriaal",
-    "modePassphrase": "Wachtwoordzin (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Ruwe AES-sleutel (hex of Base64)",
-    "aesBitsLabel": "AES-sleutellengte",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Codering ruwe sleutel",
-    "encodingAuto": "Auto (hex als het op hex lijkt, anders Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Ruwe sleutel",
-    "rawKeyPlaceholder": "32-byte sleutel als 64 hextekens, of Base64 voor AES-256 (lengte hangt af van gekozen AES-grootte).",
-    "rawKeyPlaceholderDecrypt": "Alleen nodig als de bundel keyDerivation \"none\" heeft.",
-    "passphraseLabel": "Wachtwoordzin",
-    "passphrasePlaceholder": "Wachtwoordzin alleen in uw browser om de sleutel af te leiden.",
-    "passphrasePlaceholderDecrypt": "Alleen nodig als de bundel PBKDF2-SHA256 gebruikt.",
-    "pbkdf2IterLabel": "PBKDF2-iteraties",
-    "pbkdf2Hint": "Begrensd tussen 10.000 en 2.000.000. Standaard sluit aan bij gangbare kluis-instellingen.",
-    "plaintextLabel": "Klare tekst",
-    "plaintextPlaceholder": "Typ of plak het bericht om te versleutelen…",
-    "bundleInputLabel": "Versleutelde bundel (JSON)",
-    "bundlePlaceholder": "Plak de JSON van Versleutelen (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Versleutelde bundel",
-    "plaintextOutputLabel": "Klare tekst",
-    "encryptButton": "Versleutelen",
-    "decryptButton": "Ontsleutelen",
-    "copyBundle": "JSON kopiëren",
-    "copyPlaintext": "Klare tekst kopiëren",
-    "copied": "Gekopieerd",
-    "emptyBundleHint": "Versleutelde JSON verschijnt hier na versleutelen.",
-    "emptyDecryptHint": "Ontsleutelde tekst verschijnt hier.",
-    "decryptKeyHint": "Gebruik ruwe sleutel als keyDerivation \"none\" is; wachtwoordzin bij PBKDF2-SHA256. De bundel bevat salt, iteraties, IV en AES-lengte.",
-    "securityNote": "Sleutels en klare tekst verlaten uw browser niet. Gebruik voor productiegeheimen liever gespecialiseerde tools.",
-    "errors": {
-      "emptyKey": "Voer een ruwe sleutel in die bij de AES-grootte past.",
-      "emptyPassphrase": "Voer een wachtwoordzin in.",
-      "badKeyMaterial": "Sleutel kon niet als hex of Base64 worden gelezen.",
-      "wrongKeyLength": "Sleutellengte komt niet overeen met gekozen AES (16 / 24 / 32 bytes).",
-      "invalidJson": "Geen geldige JSON.",
-      "invalidBundle": "Deze JSON is geen ondersteunde versleutelingsbundel.",
-      "decryptFailed": "Ontsleuteling mislukt — verkeerd geheim, beschadigde bundel of verkeerde parameters.",
-      "encryptFailed": "Versleuteling mislukt. Controleer Web Crypto en invoer."
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdown-voorbeeld",
     "subtitle": "Render Markdown live en converteer van of naar HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt-generator",
-    "subtitle": "Hash en verifieer wachtwoorden met bcrypt",
-    "tabs": {
-      "hash": "Hashen",
-      "verify": "Verifiëren"
-    },
-    "showPassword": "Wachtwoord tonen",
-    "hidePassword": "Wachtwoord verbergen",
-    "copy": "Kopiëren",
-    "copied": "Gekopieerd",
-    "hash": {
-      "passwordLabel": "Wachtwoord",
-      "passwordPlaceholder": "Voer een wachtwoord in om te hashen…",
-      "costLabel": "Kostenfactor",
-      "costHint": "Een hogere kostenfactor verdubbelt het werk per stap. 10-12 is een gangbare keuze voor productie.",
-      "slowWarning": "Kostenfactoren van 13 en hoger kunnen enkele seconden duren om te berekenen.",
-      "generate": "Hash genereren",
-      "generating": "Bezig met hashen…",
-      "resultLabel": "Bcrypt-hash",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Opbouw van de hash",
-        "algorithm": "algoritme",
-        "cost": "kosten",
-        "salt": "salt (22 tekens)",
-        "hash": "hash (31 tekens)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Wachtwoord",
-      "passwordPlaceholder": "Voer het te controleren wachtwoord in…",
-      "hashLabel": "Bcrypt-hash",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Voer een wachtwoord en een bcrypt-hash in om ze te vergelijken.",
-      "invalidHash": "Dit lijkt geen geldige bcrypt-hash.",
-      "checking": "Bezig met vergelijken…",
-      "match": "Komt overeen — het wachtwoord levert deze hash op.",
-      "noMatch": "Komt niet overeen — het wachtwoord levert deze hash niet op."
-    }
   },
   "JsonDiff": {
     "title": "JSON-diff",

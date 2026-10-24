@@ -168,10 +168,6 @@ go straight from your machine to your database.
 |---|---|
 | **Password Manager** | Credential vault encrypted with a password only you know |
 | **Secure Files** | Encrypt files and folders into masked `.mydt` objects in any folder you choose; browse, preview and export them after unlocking ([format spec](docs/MYDT_FORMAT.md), [`mydt` CLI](crates/mydt/README.md)) |
-| **Encryption Playground** | AES-GCM with a raw key or passphrase; encrypt/decrypt JSON bundles |
-| **JWT Decoder** | Decode JWT header, payload and expiry |
-| **Bcrypt Generator & Checker** | Hash passwords with bcrypt and verify hashes |
-| **Certificate / PEM Decoder** | X.509 certificates and CSRs: subject, issuer, validity, SANs |
 | **Environment Manager** | Encrypted `.env` sets per project and environment |
 | **Email Validator** | Verify and validate email addresses |
 
@@ -182,7 +178,6 @@ go straight from your machine to your database.
 | **Notes** | Rich-text notes powered by Tiptap — headings, lists, code blocks, images |
 | **Code Snippets** | Save snippets with syntax highlighting and auto language detection |
 | **Tasks** | To-do lists with priorities, statuses and drag-and-drop |
-| **Bookmarks** | Organize links in one place |
 | **API Keys** | Encrypted API keys and secrets per environment (dev / staging / prod) |
 
 Everything is searchable from one command palette, in dark or light mode, in 27
@@ -200,7 +195,7 @@ MyDevTools Desktop is built to work locally. Your developer data stays on your
 machine instead of being posted to someone else's tool backend.
 
 - **No MyDevTools server.** There is no backend to sign in to, no sync service
-  and no account system. Tool input, notes, snippets, tasks and bookmarks are
+  and no account system. Tool input, notes, snippets and tasks are
   written to a local SQLCipher database, encrypted with a key held in the OS
   keychain.
 - **Credentials are vault-encrypted.** Database passwords, API keys and password

@@ -105,8 +105,8 @@ SQL / MongoDB / Redis 客户端、笔记、代码片段和凭据保险库 ——
 | 📝 **格式化与校验** | JSON 格式化器、JSON Visualizer、JSON 对比、JSON 模式生成器、JSON to Code、YAML 格式化工具、格式转换器（JSON / YAML / TOML / XML）、SQL Formatter、GraphQL 格式化、Markdown 预览、Diff checker、Regex Tester |
 | 🌐 **网络与 API** | API 客户端（集合、环境、鉴权、gRPC、mock 服务器 —— 不受浏览器 CORS 限制） |
 | 🗄️ **数据库与存储客户端** | SQL Client（PostgreSQL、MySQL、MariaDB）、数据库浏览器（MongoDB）、Redis Commander、S3 Drive（AWS S3、DigitalOcean Spaces）—— 原生 Rust 驱动，从你的机器直连数据库 |
-| 🔐 **安全与加密** | 密码管理器、加密演练场（AES-GCM）、JWT 解码器、Bcrypt、证书 / PEM 解码器、环境管理 |
-| 📱 **效率工具** | Notes、代码片段、Tasks、书签、API Keys |
+| 🔐 **安全与加密** | 密码管理器、环境管理 |
+| 📱 **效率工具** | Notes、代码片段、Tasks、API Keys |
 
 所有工具都能在同一个命令面板中搜索，支持深色 / 浅色主题，提供 27 种语言。
 
@@ -115,7 +115,7 @@ SQL / MongoDB / Redis 客户端、笔记、代码片段和凭据保险库 ——
 ## 🔒 隐私优先的设计
 
 - **没有 MyDevTools 服务器。** 没有需要登录的后端，没有同步服务，也没有账号
-  体系。工具输入、笔记、代码片段、任务和书签都写入本地 SQLCipher 数据库，
+  体系。工具输入、笔记、代码片段、任务都写入本地 SQLCipher 数据库，
   密钥保存在操作系统钥匙串中加密。
 - **凭据由保险库加密。** 数据库密码、API 密钥和密码管理器条目，都用只有你知道
   的主密码在本地加密。

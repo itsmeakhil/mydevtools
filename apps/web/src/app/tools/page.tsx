@@ -14,7 +14,7 @@ const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('All-in-One Develo
 export const metadata: Metadata = {
   title: 'All-in-One Developer Tools | MyDevTools',
   description:
-    'Every tool in the MyDevTools desktop app: API client, SQL/MongoDB/Redis clients, S3 drive, password vault, JSON formatter, JWT decoder, regex tester, and more. Offline and local-first.',
+    'Every tool in the MyDevTools desktop app: API client, SQL/MongoDB/Redis clients, S3 drive, password vault, JSON formatter, environment manager, notes, and more. Offline and local-first.',
   alternates: { canonical: `${baseUrl}/tools` },
   openGraph: {
     title: 'All-in-One Developer Tools | MyDevTools',

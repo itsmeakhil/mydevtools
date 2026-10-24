@@ -5,16 +5,12 @@
     "apiClient": "API-klient",
     "passwordManager": "Passordbehandler",
     "environmentManager": "Miljøbehandler",
-    "bookmarks": "Bokmerker",
     "jsonFormatter": "JSON-formaterer",
     "emailValidator": "E-postvalidering",
     "nosqlExplorer": "Databaseutforsker",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Krypteringslekeplass",
-    "jwtDecoder": "JWT-dekoder",
-    "certificatePemDecoder": "Sertifikat- / PEM-dekoder",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "GraphQL-formaterer",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAML-formaterer",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-lekeplass",
     "secureFiles": "Filer"
@@ -326,10 +321,6 @@
         "title": "Miljøbehandler",
         "description": "Lagre .env-lignende variabler per prosjekt og miljø med tagger."
       },
-      "bookmarks": {
-        "title": "Bokmerker",
-        "description": "Administrer og organiser bokmerkene dine."
-      },
       "apiClient": {
         "title": "API-klient",
         "description": "Test og feilsøk HTTP-forespørsler."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "E-postvalidering",
         "description": "Verifiser og valider e-postadresser."
-      },
-      "encryptionPlayground": {
-        "title": "Krypteringslekeplass",
-        "description": "AES-GCM med rå nøkkel eller passordfrase; JSON-pakker, Web Crypto kun i nettleseren."
-      },
-      "jwtDecoder": {
-        "title": "JWT-dekoder",
-        "description": "Dekod JWT-header, payload og utløp."
-      },
-      "certificatePemDecoder": {
-        "title": "Sertifikat- / PEM-dekoder",
-        "description": "Dekod X.509-sertifikater og CSR-er: emne, utsteder, gyldighet og SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt-generator og -kontroll",
-        "description": "Hash passord med bcrypt, og verifiser eksisterende hasher."
-      },
       "jsonDiff": {
         "title": "JSON-diff",
         "description": "Semantisk, strukturbevisst sammenligning av to JSON-dokumenter."
@@ -434,8 +409,6 @@
       "loadError": "Kunne ikke laste analyse.",
       "retry": "Prøv igjen",
       "passwordEntries": "Passordoppføringer",
-      "bookmarks": "Bokmerker",
-      "bookmarkFolders": "Bokmerkemapper",
       "tasksTotal": "Oppgaver",
       "tasksCompleted": "Fullført",
       "tasksOngoing": "Pågående",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Laster..."
-    },
-    "manager": {
-      "foldersHeading": "Mapper",
-      "tagsHeading": "Etiketter",
-      "tagsMore": "+{count} flere",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Søk i bokmerkene dine...",
-      "import": "Importer",
-      "export": "Eksporter",
-      "exportAsHtml": "Eksporter som HTML",
-      "exportAsJson": "Eksporter som JSON",
-      "addBookmark": "Legg til bokmerke",
-      "matchingQuery": "som matcher «{query}»",
-      "bookmarkCount": "{count, plural, one {# bokmerke} other {# bokmerker}}",
-      "allBookmarks": "Alle bokmerker",
-      "uncategorized": "Ukategorisert",
-      "unknownFolder": "Ukjent"
-    },
-    "card": {
-      "urlCopied": "URL kopiert til utklippstavle",
-      "bookmarkDeleted": "Bokmerke slettet",
-      "edit": "Rediger",
-      "delete": "Slett",
-      "copyUrl": "Kopier URL",
-      "deleteConfirmTitle": "Slette bokmerke?",
-      "deleteConfirmDescription": "Dette vil permanent slette «{title}».",
-      "cancel": "Avbryt"
-    },
-    "grid": {
-      "emptyTitle": "Ingen bokmerker ennå",
-      "emptyDescription": "Legg til ditt første bokmerke eller importer fra nettleseren din for å komme i gang."
-    },
-    "folderTree": {
-      "allBookmarks": "Alle bokmerker",
-      "addSubfolder": "Legg til undermappe",
-      "rename": "Gi nytt navn",
-      "deleteFolderTitle": "Slette mappen «{name}»?",
-      "deleteFolderDescription": "Dette vil slette mappen og alle undermapper. Bokmerker i disse mappene flyttes til Ukategorisert."
-    },
-    "foldersHeading": "Mapper",
-    "import": {
-      "title": "Importer bokmerker",
-      "description": "Importer bokmerker fra nettleserens eksporterte fil.",
-      "parseError": "Kunne ikke analysere bokmerkefilen. Kontroller at det er en gyldig bokmerkeeksport.",
-      "successToast": "Importerte {bookmarks} bokmerker og {folders} mapper",
-      "errorToast": "Kunne ikke importere bokmerker",
-      "chromeInstruction": "Meny → Bokmerker → Bokmerkebehandler → ⋮ → Eksporter bokmerker",
-      "firefoxInstruction": "Meny → Bokmerker → Administrer bokmerker → Importer og sikkerhetskopier → Eksporter",
-      "safariInstruction": "Fil → Eksporter bokmerker...",
-      "edgeInstruction": "Meny → Favoritter → ⋯ → Eksporter favoritter",
-      "dropZoneTitle": "Slipp bokmerkefilen din her",
-      "dropZoneHint": "eller klikk for å bla (HTML eller JSON)",
-      "selectedFileHint": "Klikk for å velge en annen fil",
-      "errorTitle": "Feil",
-      "previewTitle": "Forhåndsvisning av import",
-      "previewBookmarks": "{count, plural, one {# bokmerke} other {# bokmerker}}",
-      "previewFolders": "{count, plural, one {# mappe} other {# mapper}}",
-      "importModeLabel": "Importmodus",
-      "modeMerge": "Slå sammen med eksisterende bokmerker",
-      "modeReplace": "Erstatt alle eksisterende bokmerker",
-      "cancel": "Avbryt",
-      "importButton": "Importer",
-      "importButtonWithCount": "Importer {count, plural, one {# bokmerke} other {# bokmerker}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Legg til bokmerke",
-      "titleEdit": "Rediger bokmerke",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://eksempel.no",
-      "urlInvalid": "Vennligst skriv inn en gyldig URL",
-      "titleLabel": "Tittel",
-      "titlePlaceholder": "Bokmerketittel",
-      "titleRequired": "Vennligst skriv inn en tittel",
-      "descriptionLabel": "Beskrivelse (valgfritt)",
-      "descriptionPlaceholder": "Legg til et notat om dette bokmerket",
-      "folderLabel": "Mappe",
-      "folderPlaceholder": "Velg mappe",
-      "noFolder": "Ingen mappe",
-      "tagsLabel": "Etiketter",
-      "tagsPlaceholder": "Legg til etiketter (trykk Enter)",
-      "toastUpdated": "Bokmerke oppdatert",
-      "toastAdded": "Bokmerke lagt til",
-      "cancel": "Avbryt",
-      "submitAdd": "Legg til bokmerke",
-      "submitUpdate": "Oppdater bokmerke"
-    },
-    "addFolder": {
-      "title": "Opprett mappe",
-      "nameLabel": "Mappenavn",
-      "namePlaceholder": "Min mappe",
-      "nameRequired": "Vennligst skriv inn et mappenavn",
-      "parentLabel": "Overordnet mappe",
-      "parentPlaceholder": "Velg overordnet mappe",
-      "rootParent": "Rot (ingen overordnet)",
-      "toastCreated": "Mappe opprettet",
-      "cancel": "Avbryt",
-      "submit": "Opprett mappe"
-    },
-    "editFolder": {
-      "title": "Gi nytt navn til mappe",
-      "nameLabel": "Mappenavn",
-      "namePlaceholder": "Mappenavn",
-      "nameRequired": "Vennligst skriv inn et mappenavn",
-      "toastRenamed": "Mappe omdøpt",
-      "cancel": "Avbryt",
-      "save": "Lagre"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON reparert",
     "toastRepairFailed": "Kunne ikke reparere JSON"
   },
-  "JwtDecoder": {
-    "title": "JWT-dekoder",
-    "subtitle": "Inspiser header, payload og utløp — signaturen verifiseres ikke",
-    "tokenLabel": "Token",
-    "clear": "Tøm",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Kopier",
-    "expiryLabel": "Utløp (exp)",
-    "signaturePresent": "Signatur til stede (ikke verifisert)",
-    "noExp": "Ingen <code>exp</code>-claim i payload.",
-    "status": {
-      "expired": "Utløpt",
-      "valid": "Gyldig"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Lokal",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Utstedt (iat)",
-      "notBefore": "Ikke før (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Lim inn en JWT for å dekode.",
-      "segments": "En JWT trenger minst header og payload (to segmenter).",
-      "base64": "Kunne ikke base64url-dekode header eller payload."
-    },
-    "relative": {
-      "future": "om {n} {unit}",
-      "past": "for {n} {unit} siden"
-    },
-    "units": {
-      "second": "{count, plural, one {sekund} other {sekunder}}",
-      "minute": "{count, plural, one {minutt} other {minutter}}",
-      "hour": "{count, plural, one {time} other {timer}}",
-      "day": "{count, plural, one {dag} other {dager}}"
-    },
-    "tabs": {
-      "decode": "Dekod",
-      "sign": "Generator / signering"
-    },
-    "signer": {
-      "algLabel": "Algoritme (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Hemmelighet (HS*)",
-      "secretPlaceholder": "Lim inn HMAC-hemmeligheten…",
-      "privateKeyLabel": "Privat nøkkel PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "\"none\"-algoritmen lager et usignert token. Dette er usikkert og bør kun brukes til testing.",
-      "sign": "Signer",
-      "verify": "Verifiser signatur",
-      "outputLabel": "Token (kompakt JWS)",
-      "outputPlaceholder": "Klikk \"Signer\"…",
-      "copyToken": "Kopier token",
-      "copied": "Kopiert",
-      "verifyKeyLabel": "Verifikasjonsnøkkel (valgfritt)",
-      "verifyKeyPlaceholder": "For RS*: lim inn offentlig nøkkel (SPKI) PEM. For HS*: la stå tomt for å gjenbruke hemmeligheten.",
-      "verifyKeyHint": "Hvis tom, bruker verifisering signeringsnøkkelen (nyttig for HS*).",
-      "verifyStatus": {
-        "valid": "Signaturen er gyldig",
-        "invalid": "Signaturen er ugyldig"
-      },
-      "securityNote": "Alt kjører lokalt i nettleseren; nøkler og tokens lastes ikke opp."
-    },
-    "signErrors": {
-      "invalidJson": "Header og payload må være gyldig JSON.",
-      "unsupportedAlg": "Algoritmen støttes ikke.",
-      "missingKey": "Signeringsnøkkel kreves for denne algoritmen.",
-      "cryptoFailed": "Signering mislyktes. Sjekk nøkkelformatet og prøv igjen."
-    },
-    "verifyErrors": {
-      "empty": "Skriv inn en JWT for å verifisere.",
-      "segments": "En JWT må ha nøyaktig 3 segmenter for å verifisere en signatur.",
-      "unsupportedAlg": "Algoritmen støttes ikke eller mangler alg i header.",
-      "missingKey": "Verifikasjonsnøkkel kreves for denne algoritmen.",
-      "base64": "Kunne ikke dekode JWT-header eller signatur.",
-      "cryptoFailed": "Verifisering mislyktes. Sjekk nøkkelformatet og prøv igjen."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Sertifikatdekoder",
-    "subtitle": "Dekod X.509-sertifikater og CSR-er fra PEM",
-    "pemLabel": "PEM-inndata",
-    "clear": "Tøm",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Parser…",
-    "copyHex": "Kopier fingeravtrykk (hex uten kolon)",
-    "errors": {
-      "empty": "Lim inn et PEM-sertifikat eller en CSR for å dekode.",
-      "noBlock": "Fant ingen PEM-blokk for sertifikat eller CSR.",
-      "parseFailed": "Kunne ikke parse disse PEM-dataene."
-    },
-    "block": {
-      "title": "PEM-blokk {index}",
-      "certificate": "X.509-sertifikat",
-      "csr": "Sertifikatsigneringsforespørsel"
-    },
-    "fields": {
-      "subject": "Emne",
-      "issuer": "Utsteder",
-      "notBefore": "Ugyldig før",
-      "notAfter": "Ugyldig etter",
-      "serial": "Serienummer (hex)",
-      "sha256": "SHA-256-fingeravtrykk",
-      "sans": "Alternative emnenavn",
-      "sansNone": "Ingen SAN-utvidelse.",
-      "signatureAlgorithm": "Signaturalgoritme",
-      "csrIssuerNote": "CSR-er har ikke utsteder (det står på det utstedte sertifikatet).",
-      "csrValidityNote": "CSR-er har ikke gyldighetsdatoer (de står på det utstedte sertifikatet)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Katalognavn",
-      "email": "E-post",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Registrert ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL-formatering",
     "subtitle": "Formater SQL pent for MySQL, PostgreSQL og SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} rader traff — ingenting ble endret, fordi filteret ikke er entydig."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Krypteringslekeplass",
-    "subtitle": "Krypter og dekrypter AES-GCM med passfrase eller nøkkel",
-    "tabEncrypt": "Krypter",
-    "tabDecrypt": "Dekrypter",
-    "keyModeLabel": "Nøkkelmateriale",
-    "modePassphrase": "Passordfrase (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Rå AES-nøkkel (hex eller Base64)",
-    "aesBitsLabel": "AES-nøkkellengde",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Koding av rå nøkkel",
-    "encodingAuto": "Auto (hex hvis det ser ut som hex, ellers Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Rå nøkkel",
-    "rawKeyPlaceholder": "32-byte nøkkel som 64 hex-tegn eller Base64 for AES-256 (lengden avhenger av AES-størrelsen over).",
-    "rawKeyPlaceholderDecrypt": "Bare nødvendig hvis pakken har keyDerivation \"none\".",
-    "passphraseLabel": "Passordfrase",
-    "passphrasePlaceholder": "Passordfrase brukes bare i nettleseren for å utlede nøkkelen.",
-    "passphrasePlaceholderDecrypt": "Bare nødvendig hvis pakken bruker PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "PBKDF2-iterasjoner",
-    "pbkdf2Hint": "Mellom 10 000 og 2 000 000. Standard samsvarer med vanlig hvelv-oppsett.",
-    "plaintextLabel": "Klartekst",
-    "plaintextPlaceholder": "Skriv eller lim inn melding som skal krypteres…",
-    "bundleInputLabel": "Kryptert pakke (JSON)",
-    "bundlePlaceholder": "Lim inn JSON fra Krypter (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Kryptert pakke",
-    "plaintextOutputLabel": "Klartekst",
-    "encryptButton": "Krypter",
-    "decryptButton": "Dekrypter",
-    "copyBundle": "Kopier JSON",
-    "copyPlaintext": "Kopier klartekst",
-    "copied": "Kopiert",
-    "emptyBundleHint": "Kryptert JSON vises her etter kryptering.",
-    "emptyDecryptHint": "Dekryptert tekst vises her.",
-    "decryptKeyHint": "Bruk rå nøkkel hvis keyDerivation er \"none\"; passordfrase ved PBKDF2-SHA256. Pakken lagrer salt, iterasjoner, IV og AES-lengde.",
-    "securityNote": "Nøkler og klartekst forlater ikke nettleseren. Bruk dedikerte verktøy for produksjonshemmeligheter.",
-    "errors": {
-      "emptyKey": "Skriv inn en rå nøkkel som matcher AES-størrelsen.",
-      "emptyPassphrase": "Skriv inn en passordfrase.",
-      "badKeyMaterial": "Nøkkelen kunne ikke leses som hex eller Base64.",
-      "wrongKeyLength": "Nøkkellengden matcher ikke AES (16 / 24 / 32 byte).",
-      "invalidJson": "Ugyldig JSON.",
-      "invalidBundle": "Denne JSON-en er ikke en støttet krypteringspakke.",
-      "decryptFailed": "Dekryptering mislyktes — feil hemmelighet, ødelagt pakke eller feil parametre.",
-      "encryptFailed": "Kryptering mislyktes. Sjekk Web Crypto og inndata."
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdown-forhåndsvisning",
     "subtitle": "Render Markdown live og konverter til eller fra HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt-generator",
-    "subtitle": "Hash og verifiser passord med bcrypt",
-    "tabs": {
-      "hash": "Hash",
-      "verify": "Verifiser"
-    },
-    "showPassword": "Vis passord",
-    "hidePassword": "Skjul passord",
-    "copy": "Kopier",
-    "copied": "Kopiert",
-    "hash": {
-      "passwordLabel": "Passord",
-      "passwordPlaceholder": "Skriv inn et passord som skal hashes…",
-      "costLabel": "Kostnadsfaktor",
-      "costHint": "Høyere kostnad dobler arbeidet per trinn. 10–12 er et vanlig valg for produksjon.",
-      "slowWarning": "Kostnadsfaktorer på 13 og høyere kan ta flere sekunder å beregne.",
-      "generate": "Generer hash",
-      "generating": "Hasher…",
-      "resultLabel": "Bcrypt-hash",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Hash-anatomi",
-        "algorithm": "algoritme",
-        "cost": "kostnad",
-        "salt": "salt (22 tegn)",
-        "hash": "hash (31 tegn)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Passord",
-      "passwordPlaceholder": "Skriv inn passordet som skal kontrolleres…",
-      "hashLabel": "Bcrypt-hash",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Skriv inn et passord og en bcrypt-hash for å sammenligne dem.",
-      "invalidHash": "Dette ser ikke ut som en gyldig bcrypt-hash.",
-      "checking": "Sammenligner…",
-      "match": "Treff — passordet produserer denne hashen.",
-      "noMatch": "Ingen treff — passordet produserer ikke denne hashen."
-    }
   },
   "JsonDiff": {
     "title": "JSON-diff",

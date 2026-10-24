@@ -5,16 +5,12 @@
     "apiClient": "API Клієнт",
     "passwordManager": "Менеджер паролів",
     "environmentManager": "Менеджер середовищ",
-    "bookmarks": "Закладки",
     "jsonFormatter": "Форматувальник JSON",
     "emailValidator": "Перевірка email",
     "nosqlExplorer": "Провідник баз даних",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Пісочниця шифрування",
-    "jwtDecoder": "Декодер JWT",
-    "certificatePemDecoder": "Декодер сертифіката / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "Форматувач GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Форматувальник YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Порівняння JSON",
     "jsonpathPlayground": "Пісочниця JSONPath",
     "secureFiles": "Файли"
@@ -326,10 +321,6 @@
         "title": "Менеджер середовищ",
         "description": "Зберігайте змінні у стилі .env за проєктом і середовищем з тегами."
       },
-      "bookmarks": {
-        "title": "Закладки",
-        "description": "Керуйте та організовуйте закладки."
-      },
       "apiClient": {
         "title": "API Клієнт",
         "description": "Тестуйте та налагоджуйте HTTP-запити."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "Перевірка email",
         "description": "Перевіряйте та валідуйте email-адреси."
-      },
-      "encryptionPlayground": {
-        "title": "Пісочниця шифрування",
-        "description": "AES-GCM із сирим ключем або паролем; JSON-пакети, Web Crypto лише в браузері."
-      },
-      "jwtDecoder": {
-        "title": "Декодер JWT",
-        "description": "Декодуйте заголовок, корисне навантаження та строк дії JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Декодер сертифіката / PEM",
-        "description": "Декодуйте сертифікати X.509 і CSR: суб’єкт, видавник, строк дії, SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Генератор і перевірка Bcrypt",
-        "description": "Хешуйте паролі за допомогою bcrypt і перевіряйте наявні хеші."
-      },
       "jsonDiff": {
         "title": "Порівняння JSON",
         "description": "Семантичне порівняння двох документів JSON з урахуванням структури."
@@ -434,8 +409,6 @@
       "loadError": "Не вдалося завантажити аналітику.",
       "retry": "Повторити",
       "passwordEntries": "Записів паролів",
-      "bookmarks": "Закладки",
-      "bookmarkFolders": "Папки закладок",
       "tasksTotal": "Завдання",
       "tasksCompleted": "Виконано",
       "tasksOngoing": "У процесі",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Завантаження..."
-    },
-    "manager": {
-      "foldersHeading": "Теки",
-      "tagsHeading": "Теги",
-      "tagsMore": "+{count} ще",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Пошук закладок...",
-      "import": "Імпорт",
-      "export": "Експорт",
-      "exportAsHtml": "Експорт у HTML",
-      "exportAsJson": "Експорт у JSON",
-      "addBookmark": "Додати закладку",
-      "matchingQuery": "за запитом \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
-      "allBookmarks": "Усі закладки",
-      "uncategorized": "Без категорії",
-      "unknownFolder": "Невідомо"
-    },
-    "card": {
-      "urlCopied": "URL скопійовано до буфера обміну",
-      "bookmarkDeleted": "Закладку видалено",
-      "edit": "Редагувати",
-      "delete": "Видалити",
-      "copyUrl": "Копіювати URL",
-      "deleteConfirmTitle": "Видалити закладку?",
-      "deleteConfirmDescription": "Це назавжди видалить \"{title}\".",
-      "cancel": "Скасувати"
-    },
-    "grid": {
-      "emptyTitle": "Закладок поки немає",
-      "emptyDescription": "Додайте першу закладку або імпортуйте з браузера, щоб почати."
-    },
-    "folderTree": {
-      "allBookmarks": "Усі закладки",
-      "addSubfolder": "Додати підтеку",
-      "rename": "Перейменувати",
-      "deleteFolderTitle": "Видалити теку \"{name}\"?",
-      "deleteFolderDescription": "Це видалить теку та всі підтеки. Закладки в цих теках буде переміщено до \"Без категорії\"."
-    },
-    "foldersHeading": "Папки",
-    "import": {
-      "title": "Імпорт закладок",
-      "description": "Імпортуйте закладки з експортованого файлу браузера.",
-      "parseError": "Не вдалося розібрати файл закладок. Переконайтеся, що це дійсний експорт закладок.",
-      "successToast": "Імпортовано {bookmarks} закладок та {folders} тек",
-      "errorToast": "Не вдалося імпортувати закладки",
-      "chromeInstruction": "Меню → Закладки → Менеджер закладок → ⋮ → Експорт закладок",
-      "firefoxInstruction": "Меню → Закладки → Керування закладками → Імпорт і резервне копіювання → Експорт",
-      "safariInstruction": "Файл → Експорт закладок...",
-      "edgeInstruction": "Меню → Обране → ⋯ → Експорт обраного",
-      "dropZoneTitle": "Перетягніть файл закладок сюди",
-      "dropZoneHint": "або натисніть, щоб обрати (HTML або JSON)",
-      "selectedFileHint": "Натисніть, щоб обрати інший файл",
-      "errorTitle": "Помилка",
-      "previewTitle": "Попередній перегляд імпорту",
-      "previewBookmarks": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
-      "previewFolders": "{count, plural, one {# тека} few {# теки} other {# тек}}",
-      "importModeLabel": "Режим імпорту",
-      "modeMerge": "Обʼєднати з існуючими закладками",
-      "modeReplace": "Замінити всі існуючі закладки",
-      "cancel": "Скасувати",
-      "importButton": "Імпорт",
-      "importButtonWithCount": "Імпортувати {count, plural, one {# закладку} few {# закладки} other {# закладок}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Додати закладку",
-      "titleEdit": "Редагувати закладку",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Введіть дійсний URL",
-      "titleLabel": "Назва",
-      "titlePlaceholder": "Назва закладки",
-      "titleRequired": "Введіть назву",
-      "descriptionLabel": "Опис (необовʼязково)",
-      "descriptionPlaceholder": "Додайте примітку про цю закладку",
-      "folderLabel": "Тека",
-      "folderPlaceholder": "Обрати теку",
-      "noFolder": "Без теки",
-      "tagsLabel": "Теги",
-      "tagsPlaceholder": "Додайте теги (натисніть Enter)",
-      "toastUpdated": "Закладку оновлено",
-      "toastAdded": "Закладку додано",
-      "cancel": "Скасувати",
-      "submitAdd": "Додати закладку",
-      "submitUpdate": "Оновити закладку"
-    },
-    "addFolder": {
-      "title": "Створити теку",
-      "nameLabel": "Назва теки",
-      "namePlaceholder": "Моя тека",
-      "nameRequired": "Введіть назву теки",
-      "parentLabel": "Батьківська тека",
-      "parentPlaceholder": "Обрати батьківську теку",
-      "rootParent": "Корінь (без батьківської)",
-      "toastCreated": "Теку створено",
-      "cancel": "Скасувати",
-      "submit": "Створити теку"
-    },
-    "editFolder": {
-      "title": "Перейменувати теку",
-      "nameLabel": "Назва теки",
-      "namePlaceholder": "Назва теки",
-      "nameRequired": "Введіть назву теки",
-      "toastRenamed": "Теку перейменовано",
-      "cancel": "Скасувати",
-      "save": "Зберегти"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON виправлено",
     "toastRepairFailed": "Не вдалося виправити JSON"
   },
-  "JwtDecoder": {
-    "title": "Декодер JWT",
-    "subtitle": "Розберіть заголовок, payload і термін — підпис не перевіряється",
-    "tokenLabel": "Токен",
-    "clear": "Очистити",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Копіювати",
-    "expiryLabel": "Строк дії (exp)",
-    "signaturePresent": "Підпис присутній (не перевіряється)",
-    "noExp": "У payload немає claim <code>exp</code>.",
-    "status": {
-      "expired": "Прострочено",
-      "valid": "Дійсний"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Локальний",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Видано (iat)",
-      "notBefore": "Не раніше (nbf)"
-    },
-    "panels": {
-      "header": "Заголовок",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Вставте JWT для декодування.",
-      "segments": "JWT має містити щонайменше заголовок і payload (два сегменти).",
-      "base64": "Не вдалося декодувати заголовок або payload (base64url)."
-    },
-    "relative": {
-      "future": "через {n} {unit}",
-      "past": "{n} {unit} тому"
-    },
-    "units": {
-      "second": "{count, plural, one {секунду} few {секунди} many {секунд} other {секунд}}",
-      "minute": "{count, plural, one {хвилину} few {хвилини} many {хвилин} other {хвилин}}",
-      "hour": "{count, plural, one {годину} few {години} many {годин} other {годин}}",
-      "day": "{count, plural, one {день} few {дні} many {днів} other {днів}}"
-    },
-    "tabs": {
-      "decode": "Декодувати",
-      "sign": "Генератор / підпис"
-    },
-    "signer": {
-      "algLabel": "Алгоритм (alg)",
-      "tabs": {
-        "payload": "Навантаження",
-        "header": "Заголовок"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Секрет (HS*)",
-      "secretPlaceholder": "Вставте HMAC‑секрет…",
-      "privateKeyLabel": "Приватний ключ PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "Алгоритм \"none\" створює токен без підпису. Це небезпечно — лише для тестування.",
-      "sign": "Підписати",
-      "verify": "Перевірити підпис",
-      "outputLabel": "Токен (компактний JWS)",
-      "outputPlaceholder": "Натисніть «Підписати»…",
-      "copyToken": "Копіювати токен",
-      "copied": "Скопійовано",
-      "verifyKeyLabel": "Ключ перевірки (необов’язково)",
-      "verifyKeyPlaceholder": "Для RS*: вставте публічний ключ (SPKI) PEM. Для HS*: залиште порожнім, щоб використати секрет.",
-      "verifyKeyHint": "Якщо порожньо, перевірка використовує ключ підпису (зручно для HS*).",
-      "verifyStatus": {
-        "valid": "Підпис дійсний",
-        "invalid": "Підпис недійсний"
-      },
-      "securityNote": "Усе виконується локально в браузері; ключі й токени не завантажуються."
-    },
-    "signErrors": {
-      "invalidJson": "Заголовок і payload мають бути валідним JSON.",
-      "unsupportedAlg": "Непідтримуваний алгоритм.",
-      "missingKey": "Для цього алгоритму потрібен ключ підпису.",
-      "cryptoFailed": "Підписання не вдалося. Перевірте формат ключа та спробуйте знову."
-    },
-    "verifyErrors": {
-      "empty": "Введіть JWT для перевірки.",
-      "segments": "JWT має містити рівно 3 сегменти для перевірки підпису.",
-      "unsupportedAlg": "Непідтримуваний або відсутній alg у заголовку.",
-      "missingKey": "Для цього алгоритму потрібен ключ перевірки.",
-      "base64": "Не вдалося декодувати заголовок або підпис JWT.",
-      "cryptoFailed": "Перевірка не вдалася. Перевірте формат ключа та спробуйте знову."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Декодер сертифікатів",
-    "subtitle": "Декодуйте сертифікати X.509 і CSR із PEM",
-    "pemLabel": "Ввід PEM",
-    "clear": "Очистити",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Обробка…",
-    "copyHex": "Копіювати відбиток (hex без двокрапок)",
-    "errors": {
-      "empty": "Вставте PEM-сертифікат або CSR для декодування.",
-      "noBlock": "Не знайдено PEM-блоку сертифіката або CSR.",
-      "parseFailed": "Не вдалося обробити ці PEM-дані."
-    },
-    "block": {
-      "title": "PEM-блок {index}",
-      "certificate": "Сертифікат X.509",
-      "csr": "Запит на підпис сертифіката"
-    },
-    "fields": {
-      "subject": "Суб’єкт",
-      "issuer": "Видавник",
-      "notBefore": "Недійсний до",
-      "notAfter": "Недійсний після",
-      "serial": "Серійний номер (hex)",
-      "sha256": "Відбиток SHA-256",
-      "sans": "Альтернативні імена суб’єкта",
-      "sansNone": "Розширення SAN відсутнє.",
-      "signatureAlgorithm": "Алгоритм підпису",
-      "csrIssuerNote": "CSR не містить видавника (він у виданому сертифікаті).",
-      "csrValidityNote": "CSR не містить строк дії (вони у виданому сертифікаті)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Ім’я каталогу",
-      "email": "Електронна пошта",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Зареєстрований ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Форматер SQL",
     "subtitle": "Форматуйте SQL для MySQL, PostgreSQL і SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "Збіглося рядків: {count} — нічого не змінено, бо фільтр не унікальний."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Пісочниця шифрування",
-    "subtitle": "Шифруйте й розшифровуйте AES-GCM із паролем або ключем",
-    "tabEncrypt": "Зашифрувати",
-    "tabDecrypt": "Розшифрувати",
-    "keyModeLabel": "Ключовий матеріал",
-    "modePassphrase": "Парольна фраза (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Сирий ключ AES (hex або Base64)",
-    "aesBitsLabel": "Довжина ключа AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Кодування сирого ключа",
-    "encodingAuto": "Авто (hex, якщо схоже на hex, інакше Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Сирий ключ",
-    "rawKeyPlaceholder": "Ключ 32 байти як 64 hex-символи або Base64 для AES-256 (довжина залежить від обраного AES вище).",
-    "rawKeyPlaceholderDecrypt": "Потрібно лише якщо в пакеті keyDerivation \"none\".",
-    "passphraseLabel": "Парольна фраза",
-    "passphrasePlaceholder": "Пароль використовується лише в браузері для виведення ключа.",
-    "passphrasePlaceholderDecrypt": "Потрібно лише якщо пакет використовує PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Ітерації PBKDF2",
-    "pbkdf2Hint": "Від 10 000 до 2 000 000. Типові налаштування сховищ паролів.",
-    "plaintextLabel": "Відкритий текст",
-    "plaintextPlaceholder": "Введіть або вставте повідомлення для шифрування…",
-    "bundleInputLabel": "Зашифрований пакет (JSON)",
-    "bundlePlaceholder": "Вставте JSON з «Зашифрувати» (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Зашифрований пакет",
-    "plaintextOutputLabel": "Відкритий текст",
-    "encryptButton": "Зашифрувати",
-    "decryptButton": "Розшифрувати",
-    "copyBundle": "Копіювати JSON",
-    "copyPlaintext": "Копіювати відкритий текст",
-    "copied": "Скопійовано",
-    "emptyBundleHint": "Зашифрований JSON з’явиться тут після шифрування.",
-    "emptyDecryptHint": "Розшифрований текст з’явиться тут.",
-    "decryptKeyHint": "Використовуйте сирий ключ, якщо keyDerivation — \"none\"; парольну фразу для PBKDF2-SHA256. У пакеті: сіль, ітерації, IV і довжина AES.",
-    "securityNote": "Ключі й відкритий текст не залишають браузер. Для продакшн-секретів використовуйте спеціалізовані інструменти.",
-    "errors": {
-      "emptyKey": "Введіть сирий ключ відповідно до розміру AES.",
-      "emptyPassphrase": "Введіть парольну фразу.",
-      "badKeyMaterial": "Не вдалося прочитати ключ як hex або Base64.",
-      "wrongKeyLength": "Довжина ключа не відповідає AES (16 / 24 / 32 байти).",
-      "invalidJson": "Некоректний JSON.",
-      "invalidBundle": "Цей JSON не є підтримуваним пакетом шифрування.",
-      "decryptFailed": "Розшифрування не вдалося — невірний секрет, пошкоджений пакет або параметри.",
-      "encryptFailed": "Шифрування не вдалося. Перевірте Web Crypto та введення."
-    }
-  },
   "MarkdownPreview": {
     "title": "Попередній перегляд Markdown",
     "subtitle": "Рендерте Markdown наживо й конвертуйте в HTML і назад",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Генератор bcrypt",
-    "subtitle": "Хешуйте й перевіряйте паролі з bcrypt",
-    "tabs": {
-      "hash": "Хеш",
-      "verify": "Перевірка"
-    },
-    "showPassword": "Показати пароль",
-    "hidePassword": "Приховати пароль",
-    "copy": "Копіювати",
-    "copied": "Скопійовано",
-    "hash": {
-      "passwordLabel": "Пароль",
-      "passwordPlaceholder": "Введіть пароль для хешування…",
-      "costLabel": "Фактор вартості",
-      "costHint": "Вищий фактор подвоює роботу на кожному кроці. 10-12 — поширений вибір для продакшену.",
-      "slowWarning": "Фактори вартості 13 і вище можуть обчислюватися кілька секунд.",
-      "generate": "Створити хеш",
-      "generating": "Хешування…",
-      "resultLabel": "Хеш bcrypt",
-      "timeTaken": "{ms} мс",
-      "anatomy": {
-        "title": "Будова хешу",
-        "algorithm": "алгоритм",
-        "cost": "вартість",
-        "salt": "сіль (22 символи)",
-        "hash": "хеш (31 символ)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Пароль",
-      "passwordPlaceholder": "Введіть пароль для перевірки…",
-      "hashLabel": "Хеш bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Введіть пароль і хеш bcrypt, щоб порівняти їх.",
-      "invalidHash": "Це не схоже на коректний хеш bcrypt.",
-      "checking": "Порівняння…",
-      "match": "Збігається — пароль дає цей хеш.",
-      "noMatch": "Не збігається — пароль не дає цей хеш."
-    }
   },
   "JsonDiff": {
     "title": "Порівняння JSON",
