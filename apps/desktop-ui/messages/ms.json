@@ -3,7 +3,6 @@
     "dashboard": "Papan Pemuka",
     "settings": "Tetapan",
     "apiClient": "Klien API",
-    "httpStatusCodes": "Kod status HTTP",
     "passwordManager": "Pengurus Kata Laluan",
     "environmentManager": "Pengurus persekitaran",
     "bookmarks": "Penanda Halaman",
@@ -22,20 +21,15 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "Penjana Skema JSON",
     "snippetManager": "Petikan kod",
-    "dnsLookup": "Carian DNS",
-    "ipSubnetCalculator": "Kalkulator IP / subnet",
     "markdownPreview": "Pratonton Markdown",
     "formatConverter": "Penukar Format",
     "yamlFormatter": "Pemformat YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Beza JSON",
     "jsonpathPlayground": "Ruang Uji JSONPath",
     "webhookTester": "Penguji Webhook",
-    "websocketTester": "Penguji WebSocket",
-    "whoisLookup": "Carian Whois",
     "secureFiles": "Fail"
   },
   "Help": {
@@ -404,25 +398,9 @@
         "title": "Petikan kod",
         "description": "Simpan petikan dengan sorotan sintaks, pengesanan bahasa automatik dan pemformatan."
       },
-      "ipSubnetCalculator": {
-        "title": "Kalkulator IP / subnet",
-        "description": "IPv4 dan IPv6 CIDR: topeng rangkaian, julat, dan bilangan alamat."
-      },
-      "dnsLookup": {
-        "title": "Carian DNS",
-        "description": "Pertanyaan rekod DNS untuk mana-mana domain — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Pratonton Markdown",
         "description": "Pemapar Markdown langsung dengan eksport HTML dan penukaran HTML → Markdown."
-      },
-      "httpStatusCodes": {
-        "title": "Kod Status HTTP",
-        "description": "Cari kod status HTTP dengan penerangan (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -447,14 +425,6 @@
       "webhookTester": {
         "title": "Penguji Webhook",
         "description": "Tangkap dan periksa permintaan webhook masuk secara masa nyata."
-      },
-      "websocketTester": {
-        "title": "Penguji WebSocket",
-        "description": "Sambung ke titik akhir WebSocket dan bertukar mesej secara masa nyata."
-      },
-      "whoisLookup": {
-        "title": "Carian Whois",
-        "description": "Cari butiran pendaftaran domain dan IP melalui RDAP."
       },
       "secureFiles": {
         "title": "Fail",
@@ -2805,27 +2775,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "Kod Status HTTP",
-    "subtitle": "Cari kod status 1xx–5xx dengan rujukan RFC",
-    "header": {
-      "title": "Kod status HTTP",
-      "description": "Rujukan boleh cari untuk kod respons HTTP dengan penerangan dan rujukan RFC."
-    },
-    "searchPlaceholder": "Cari: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Tapis kelas…",
-    "classFilterAll": "Semua kelas",
-    "resultsCount": "{count} daripada {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Frasa",
-      "description": "Penerangan",
-      "copy": "Salin"
-    },
-    "noResults": "Tiada padanan untuk “{query}”.",
-    "specPrefix": "Spes.:",
-    "copied": "Kod disalin"
-  },
   "DiffChecker": {
     "title": "Penyemak Diff",
     "subtitle": "Bandingkan dua teks sebelah-menyebelah, baris demi baris",
@@ -3012,46 +2961,6 @@
       "toastRowsMatched": "{count} baris sepadan — tiada apa-apa diubah, kerana penapis tidak unik."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Kalkulator Subnet",
-    "subtitle": "Kira butiran CIDR IPv4 dan IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Rangkaian",
-    "placeholderIpv4": "10.0.0.0/24 atau 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 atau 2001:db8::1/64",
-    "hintIpv4": "Gunakan CIDR (cth. /24) atau IPv4 + topeng bertitik.",
-    "hintIpv6": "Sertakan panjang awalan (cth. /64). Jika tidak, /128.",
-    "copyValue": "Salin nilai",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Alamat rangkaian",
-      "netmask": "Topeng subnet",
-      "wildcard": "Topeng wildcard",
-      "broadcast": "Broadcast",
-      "firstHost": "Hos pertama",
-      "lastHost": "Hos terakhir",
-      "totalAddresses": "Jumlah alamat",
-      "usableHosts": "Hos boleh guna",
-      "prefixLength": "Panjang awalan (bit)",
-      "networkIpv6": "Alamat rangkaian",
-      "lastIpv6": "Alamat terakhir dalam julat",
-      "totalAddressesIpv6": "Alamat dalam subnet"
-    },
-    "usableNote": {
-      "pointToPoint": "Pautan /31 titik-ke-titik menggunakan kedua-dua alamat sebagai hos (RFC 3021).",
-      "singleHost": "/32 ialah satu hos."
-    },
-    "ipv6RangeHint": {
-      "normal": "Julat matematik penuh dipaparkan; peraturan penghala mungkin berbeza.",
-      "single": "/128 ialah satu alamat.",
-      "full": "/0 merangkumi IPv6 sepenuhnya."
-    },
-    "errors": {
-      "invalidIpv4": "Rangkaian IPv4 tidak sah. Cuba CIDR atau alamat + topeng.",
-      "invalidIpv6": "Rangkaian IPv6 tidak sah. Gunakan alamat/awalan, cth. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Playground Enkripsi",
     "subtitle": "Sulitkan dan nyahsulit AES-GCM dengan frasa laluan atau kunci",
@@ -3140,78 +3049,6 @@
     "charCount": "{count, plural, other {# aksara}}",
     "emptyHint": "Tampal atau taip input anda di sebelah kiri untuk melihat output yang ditukar.",
     "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
-  },
-  "MimeTypeLookup": {
-    "title": "Carian Jenis MIME",
-    "subtitle": "Cari jenis MIME untuk mana-mana sambungan fail",
-    "inputLabel": "Sambungan atau nama fail",
-    "placeholder": "cth .png, package.json, photo.jpeg",
-    "hint": "Tip: tampal sambungan (dengan atau tanpa titik) atau nama fail penuh.",
-    "clear": "Kosongkan",
-    "exampleFilename": "Guna contoh nama fail",
-    "exampleExtension": "Guna contoh sambungan",
-    "resultLabel": "Keputusan",
-    "normalizedLabel": "Input dinormalkan:",
-    "mimeTypeLabel": "Jenis MIME",
-    "contentTypeLabel": "Pengepala Content-Type",
-    "charsetLabel": "Set aksara",
-    "copyMimeType": "Salin jenis MIME",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "emptyHint": "Masukkan sambungan atau nama fail untuk mencari jenis MIME.",
-    "notFound": "Tiada jenis MIME ditemui untuk input tersebut.",
-    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
-  },
-  "UserAgentParser": {
-    "title": "Penghurai User-Agent",
-    "subtitle": "Pecahkan rentetan UA kepada pelayar, OS, dan peranti",
-    "inputLabel": "Rentetan User-Agent",
-    "placeholder": "Tampal User-Agent anda di sini…",
-    "hint": "Tip: anda boleh salin UA daripada pengepala permintaan, log, atau devtools pelayar.",
-    "clear": "Kosongkan",
-    "exampleDesktop": "Guna contoh desktop",
-    "exampleMobile": "Guna contoh mudah alih",
-    "resultLabel": "Pecahan",
-    "browserLabel": "Pelayar",
-    "osLabel": "Sistem operasi",
-    "engineLabel": "Enjin",
-    "deviceTypeLabel": "Jenis peranti",
-    "deviceVendorLabel": "Pengeluar peranti",
-    "deviceModelLabel": "Model peranti",
-    "cpuArchLabel": "Seni bina CPU",
-    "copyJson": "Salin JSON",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "emptyHint": "Tampal rentetan User-Agent untuk melihat pecahan.",
-    "localNote": "Semua berjalan secara tempatan di pelayar anda. Tiada apa yang dimuat naik."
-  },
-  "DnsLookup": {
-    "title": "Carian DNS",
-    "subtitle": "Kueri A, AAAA, MX, TXT, NS dan banyak lagi untuk mana-mana domain",
-    "placeholder": "Masukkan domain (cth. github.com)",
-    "lookupBtn": "Cari",
-    "looking": "Mencari…",
-    "refreshBtn": "Muat semula",
-    "recordTypesLabel": "Jenis rekod",
-    "allBtn": "Semua",
-    "tryLabel": "Cuba:",
-    "errors": {
-      "lookupFailed": "Carian DNS gagal"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL ke Kod",
-    "subtitle": "Tukar perintah curl kepada fetch, axios, Python, dan lain-lain",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON ke Kod",
@@ -3431,89 +3268,6 @@
     "errors": {
       "createFailed": "Gagal mencipta URL webhook. Sila cuba lagi.",
       "clearFailed": "Gagal mengosongkan permintaan. Sila cuba lagi."
-    }
-  },
-  "WebsocketTester": {
-    "title": "Penguji WebSocket",
-    "subtitle": "Sambung, hantar, dan periksa mesej WebSocket secara langsung",
-    "urlLabel": "URL titik akhir",
-    "protocolsLabel": "Subprotokol",
-    "protocolsPlaceholder": "pilihan, dipisahkan koma",
-    "connect": "Sambung",
-    "disconnect": "Putuskan sambungan",
-    "status": {
-      "disconnected": "Terputus",
-      "connecting": "Menyambung",
-      "connected": "Tersambung",
-      "error": "Ralat"
-    },
-    "messages": {
-      "connecting": "Menyambung ke {url}…",
-      "connected": "Sambungan diwujudkan",
-      "connectedWithProtocol": "Sambungan diwujudkan (protokol: {protocol})",
-      "invalidUrl": "URL tidak sah — mesti bermula dengan ws:// atau wss://",
-      "connectFailed": "Gagal membuka sambungan",
-      "socketError": "Ralat sambungan berlaku",
-      "notConnected": "Tidak tersambung — sambung dahulu",
-      "binaryMessage": "Mesej binari diterima"
-    },
-    "log": {
-      "title": "Log Mesej",
-      "empty": "Belum ada mesej. Sambung dan mula menghantar.",
-      "copyAll": "Salin semua",
-      "download": "Muat turun sebagai .txt",
-      "clear": "Kosongkan log",
-      "prettyPrint": "Format JSON",
-      "showRaw": "Tunjuk teks mentah"
-    },
-    "composer": {
-      "placeholder": "Taip mesej untuk dihantar…",
-      "send": "Hantar",
-      "formatJson": "Format sebagai JSON",
-      "invalidJson": "Mesej bukan JSON yang sah",
-      "hint": "Cmd/Ctrl+Enter untuk hantar"
-    },
-    "ping": {
-      "label": "Auto-ping",
-      "seconds": "saat",
-      "intervalTitle": "Selang ping dalam saat",
-      "payloadPlaceholder": "muatan ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Carian Whois",
-    "subtitle": "Semak pendaftaran domain dan IP melalui RDAP",
-    "placeholder": "example.com atau 8.8.8.8",
-    "lookupBtn": "Cari",
-    "looking": "Mencari…",
-    "refreshBtn": "Muat semula",
-    "tryLabel": "Cuba:",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "notAvailable": "Tidak tersedia",
-    "summary": {
-      "registrar": "Pendaftar",
-      "network": "Rangkaian"
-    },
-    "dates": {
-      "created": "Dicipta",
-      "updated": "Dikemas kini",
-      "expires": "Luput"
-    },
-    "sections": {
-      "status": "Status",
-      "nameservers": "Pelayan nama",
-      "contacts": "Kenalan",
-      "rawRdap": "RDAP mentah"
-    },
-    "contacts": {
-      "roles": "Peranan",
-      "name": "Nama",
-      "organization": "Organisasi"
-    },
-    "errors": {
-      "invalidTarget": "Masukkan nama domain atau alamat IP yang sah",
-      "lookupFailed": "Carian gagal (status {status})"
     }
   },
   "ToolPageHeader": {

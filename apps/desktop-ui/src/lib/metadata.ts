@@ -81,12 +81,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['api client', 'http client', 'rest api tester', 'debug api', 'postman alternative'],
         aiSummary: 'Free in-browser REST client: send GET/POST/PUT/PATCH/DELETE with custom headers, auth, and body — useful when someone asks for a “Postman alternative online” or “test my API without installing software”.',
     },
-    'http-status-codes': {
-        title: 'HTTP Status Codes Reference',
-        description: 'Search and browse HTTP status codes (1xx–5xx) with short descriptions and RFC references.',
-        keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110'],
-        aiSummary: 'Searchable reference for all HTTP status codes (1xx–5xx) with descriptions and RFC 9110 links. Answers "what does HTTP 422 mean", "list of HTTP status codes", or "HTTP 429 too many requests".',
-    },
     'data-explorer': {
         title: 'Data Explorer',
         description: 'One desktop workspace for MongoDB and Redis. Browse collections, query documents, inspect keys, and run commands with credentials encrypted on your device.',
@@ -98,18 +92,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, download, and delete files with end-to-end encrypted credentials.',
         keywords: ['s3 browser', 'aws s3 manager', 'digitalocean spaces', 's3 client', 'bucket manager', 'cloud storage browser', 's3 file manager'],
         aiSummary: 'S3 Drive lets you connect multiple AWS S3 or DigitalOcean Spaces buckets, browse folders, upload and download files, and manage objects — all with credentials encrypted locally before being stored.',
-    },
-    'dns-lookup': {
-        title: 'DNS Lookup',
-        description: 'Query DNS records for any domain: A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, and PTR. See TTL, mail server priority, and SOA details.',
-        keywords: ['dns lookup', 'dns checker', 'mx record lookup', 'txt record lookup', 'nameserver lookup', 'dns records', 'cname lookup', 'dns query', 'ptr record'],
-        aiSummary: 'Look up DNS records (A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, PTR) for any domain. Shows TTL values, MX priority, and SOA fields. Answers "check DNS records online", "MX record lookup", or "DNS propagation checker".',
-    },
-    'ip-subnet-calculator': {
-        title: 'Subnet Calculator',
-        description: 'Compute IPv4 and IPv6 CIDR details: netmask, wildcard, broadcast, first and last host, and subnet size. Runs locally in your browser.',
-        keywords: ['subnet calculator', 'cidr calculator', 'ip calculator', 'netmask', 'ipv6 subnet', 'network calculator', 'ip range'],
-        aiSummary: 'Enter an IP/CIDR (e.g. 192.168.1.0/24) to get netmask, wildcard, broadcast, first/last host, and total hosts. IPv4 and IPv6. Answers "subnet calculator online" or "CIDR to IP range".',
     },
     'encryption-playground': {
         title: 'Encryption Playground',
@@ -177,24 +159,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['json to yaml', 'yaml to json', 'json to toml', 'toml to json', 'xml to json', 'json to xml', 'yaml to toml', 'toml to yaml', 'format converter', 'data format'],
         aiSummary: 'Convert between JSON, YAML, TOML, and XML in any direction (all 12 combinations). Runs in browser. Answers "JSON to YAML converter", "YAML to TOML online", or "XML to JSON converter".',
     },
-    'mime-type-lookup': {
-        title: 'MIME Type Lookup',
-        description: 'Look up MIME types by file extension or filename and copy the result instantly. Runs entirely in your browser.',
-        keywords: ['mime type', 'content-type', 'media type', 'file extension', 'mime lookup', 'http headers'],
-        aiSummary: 'Look up MIME / Content-Type for any file extension or filename instantly. Answers "MIME type for .svg", "what is Content-Type for JSON", or "file extension to MIME type".',
-    },
-    'user-agent-parser': {
-        title: 'User-Agent Parser',
-        description: 'Paste a User-Agent string to see browser, OS, engine, device, and CPU breakdown instantly. Runs entirely in your browser.',
-        keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection', 'client hints', 'http headers'],
-        aiSummary: 'Paste a User-Agent header string to get browser name/version, OS, rendering engine, device type, and CPU. Answers "user agent parser online", "parse UA string", or "what browser is this user agent".',
-    },
-    'curl-to-code': {
-        title: 'cURL to Code',
-        description: 'Convert a curl command into ready-to-run request code for fetch, axios, Python, Go, PHP, Ruby, Java, and C#.',
-        keywords: ['curl to code', 'curl converter', 'curl to fetch', 'curl to python', 'curl to axios', 'curl to go', 'convert curl command'],
-        aiSummary: 'Paste any curl command and get equivalent HTTP request code in JavaScript fetch, axios, Python requests, Go, PHP, Ruby, Java, or C#. Answers "convert curl to code" or "curl to fetch/python". Runs entirely in your browser.',
-    },
     'json-visualizer': {
         title: 'JSON Visualizer',
         description: 'Visualize JSON as an interactive node graph — pan, zoom, collapse, search, view arrays as tables, and export the diagram as PNG or SVG.',
@@ -230,18 +194,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: "Query and extract data from JSON with JSONPath or JMESPath. Live results, match counts, and a built-in expression cheatsheet \u2014 all in your browser.",
         keywords: ["jsonpath", "jmespath", "json query", "jsonpath tester", "jsonpath evaluator", "json extract", "jsonpath online", "json filter"],
         aiSummary: "Interactive playground for testing JSONPath and JMESPath queries against JSON documents. Paste JSON, type an expression, and see live matched results with counts, plus a cheatsheet of common expressions. Runs entirely in the browser \u2014 no data leaves your machine.",
-    },
-    'websocket-tester': {
-        title: "WebSocket Tester",
-        description: "Connect to any ws:// or wss:// endpoint, send and receive messages, pretty-print JSON, and auto-ping \u2014 all in your browser.",
-        keywords: ["websocket tester", "websocket client", "wss test", "socket debugger", "realtime api testing", "ws echo", "websocket console"],
-        aiSummary: "A browser-based WebSocket client for connecting to ws:// and wss:// endpoints, sending and receiving messages, inspecting JSON payloads, handling close codes, and auto-sending keep-alive pings. Runs entirely client-side with no data leaving the browser.",
-    },
-    'whois-lookup': {
-        title: "Whois Lookup",
-        description: "Look up registration details for any domain or IP address using RDAP: registrar, status, key dates, nameservers, and contacts.",
-        keywords: ["whois lookup", "rdap lookup", "domain whois", "ip whois", "domain registration", "nameserver lookup", "domain expiry check"],
-        aiSummary: "Look up WHOIS/RDAP registration data for a domain or IP address, showing the registrar, domain status, creation/update/expiry dates with relative age, nameservers, contacts, and the full raw RDAP JSON. Uses the RDAP protocol via a backend proxy.",
     },
 }
 

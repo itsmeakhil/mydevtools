@@ -35,9 +35,7 @@ const DEFAULT_ENABLED_TOOLS: &[&str] = &[
     "/app/diff-checker",
     "/app/regex-tester",
     "/app/api-client",
-    "/app/http-status-codes",
     "/app/nosql-explorer",
-    "/app/ip-subnet-calculator",
     "/app/markdown-preview-html",
 ];
 

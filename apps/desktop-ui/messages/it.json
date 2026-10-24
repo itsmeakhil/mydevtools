@@ -3,7 +3,6 @@
     "dashboard": "Pannello di controllo",
     "settings": "Impostazioni",
     "apiClient": "Cliente API",
-    "httpStatusCodes": "Codici di stato HTTP",
     "passwordManager": "Gestore delle password",
     "environmentManager": "Gestore ambienti",
     "bookmarks": "Segnalibri",
@@ -22,20 +21,15 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "Generatore di schema JSON",
     "snippetManager": "Snippet di codice",
-    "dnsLookup": "Ricerca DNS",
-    "ipSubnetCalculator": "Calcolatrice IP / subnet",
     "markdownPreview": "Anteprima Markdown",
     "formatConverter": "Convertitore di formati",
     "yamlFormatter": "Formattatore YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Diff JSON",
     "jsonpathPlayground": "Playground JSONPath",
     "webhookTester": "Tester di webhook",
-    "websocketTester": "Tester WebSocket",
-    "whoisLookup": "Ricerca Whois",
     "secureFiles": "File"
   },
   "Help": {
@@ -397,14 +391,6 @@
         "title": "Snippet di codice",
         "description": "Salva snippet con evidenziazione sintattica, rilevamento automatico della lingua e formattazione."
       },
-      "ipSubnetCalculator": {
-        "title": "Calcolatrice IP / subnet",
-        "description": "IPv4 e IPv6 CIDR: maschera, intervalli e conteggio indirizzi."
-      },
-      "dnsLookup": {
-        "title": "Ricerca DNS",
-        "description": "Interroga i record DNS per qualsiasi dominio — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Anteprima Markdown",
         "description": "Renderer Markdown in tempo reale con esportazione HTML e conversione HTML → Markdown."
@@ -412,14 +398,6 @@
       "formatConverter": {
         "title": "Convertitore di formati",
         "description": "Converti tra JSON, YAML, TOML e XML in qualsiasi direzione. Tutte le 12 combinazioni sono supportate."
-      },
-      "httpStatusCodes": {
-        "title": "Codici di stato HTTP",
-        "description": "Cerca codici di stato HTTP con descrizioni (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -444,14 +422,6 @@
       "webhookTester": {
         "title": "Tester di webhook",
         "description": "Cattura e ispeziona le richieste webhook in arrivo in tempo reale."
-      },
-      "websocketTester": {
-        "title": "Tester WebSocket",
-        "description": "Connettiti a endpoint WebSocket e scambia messaggi in tempo reale."
-      },
-      "whoisLookup": {
-        "title": "Ricerca Whois",
-        "description": "Cerca i dettagli di registrazione di domini e IP tramite RDAP."
       },
       "secureFiles": {
         "title": "File",
@@ -2805,27 +2775,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "Codici di stato HTTP",
-    "subtitle": "Cerca i codici 1xx–5xx con riferimenti alle RFC",
-    "header": {
-      "title": "Codici di stato HTTP",
-      "description": "Riferimento ricercabile dei codici di risposta HTTP con descrizioni e riferimenti RFC."
-    },
-    "searchPlaceholder": "Cerca: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Filtra classe…",
-    "classFilterAll": "Tutte le classi",
-    "resultsCount": "{count} di {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Frase",
-      "description": "Description",
-      "copy": "Copia"
-    },
-    "noResults": "Nessun risultato per “{query}”.",
-    "specPrefix": "Spec:",
-    "copied": "Codice copiato"
-  },
   "DiffChecker": {
     "title": "Confronto testi",
     "subtitle": "Confronta due testi fianco a fianco, riga per riga",
@@ -3012,46 +2961,6 @@
       "toastRowsMatched": "{count} righe corrispondono — non è stato modificato nulla, perché il filtro non è univoco."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Calcolatore di sottoreti",
-    "subtitle": "Calcola i dettagli CIDR di IPv4 e IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Rete",
-    "placeholderIpv4": "10.0.0.0/24 o 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 o 2001:db8::1/64",
-    "hintIpv4": "Usa CIDR (es. /24) o IPv4 con maschera decimale.",
-    "hintIpv6": "Includi il prefisso (es. /64). Se omesso, /128.",
-    "copyValue": "Copia valore",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Indirizzo di rete",
-      "netmask": "Maschera di sottorete",
-      "wildcard": "Maschera wildcard",
-      "broadcast": "Broadcast",
-      "firstHost": "Primo host",
-      "lastHost": "Ultimo host",
-      "totalAddresses": "Indirizzi totali",
-      "usableHosts": "Host utilizzabili",
-      "prefixLength": "Lunghezza prefisso (bit)",
-      "networkIpv6": "Indirizzo di rete",
-      "lastIpv6": "Ultimo indirizzo nell’intervallo",
-      "totalAddressesIpv6": "Indirizzi nella sottorete"
-    },
-    "usableNote": {
-      "pointToPoint": "I collegamenti /31 punto-punto usano entrambi gli indirizzi come host (RFC 3021).",
-      "singleHost": "/32 è un singolo host."
-    },
-    "ipv6RangeHint": {
-      "normal": "Intervallo matematico completo; le regole del router possono variare.",
-      "single": "/128 è un singolo indirizzo.",
-      "full": "/0 copre tutto IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Rete IPv4 non valida. Prova CIDR o indirizzo + maschera.",
-      "invalidIpv6": "Rete IPv6 non valida. Usa indirizzo/prefisso, es. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Laboratorio di cifratura",
     "subtitle": "Cifra e decifra con AES-GCM usando passphrase o chiave",
@@ -3140,78 +3049,6 @@
     "charCount": "{count, plural, one {# carattere} other {# caratteri}}",
     "emptyHint": "Incolla o digita il tuo input a sinistra per vedere il risultato convertito.",
     "localNote": "Tutto funziona localmente nel tuo browser. Nulla viene caricato."
-  },
-  "MimeTypeLookup": {
-    "title": "Ricerca tipi MIME",
-    "subtitle": "Trova il tipo MIME di qualsiasi estensione di file",
-    "inputLabel": "Estensione o nome file",
-    "placeholder": "es. .png, package.json, photo.jpeg",
-    "hint": "Suggerimento: incolla un'estensione (con o senza punto) oppure un nome file completo.",
-    "clear": "Cancella",
-    "exampleFilename": "Usa un nome file di esempio",
-    "exampleExtension": "Usa un'estensione di esempio",
-    "resultLabel": "Risultato",
-    "normalizedLabel": "Input normalizzato:",
-    "mimeTypeLabel": "Tipo MIME",
-    "contentTypeLabel": "Header Content-Type",
-    "charsetLabel": "Set di caratteri",
-    "copyMimeType": "Copia tipo MIME",
-    "copy": "Copia",
-    "copied": "Copiato",
-    "emptyHint": "Inserisci un'estensione o un nome file per cercare il tipo MIME.",
-    "notFound": "Nessun tipo MIME trovato per questo input.",
-    "localNote": "Tutto funziona localmente nel tuo browser. Nulla viene caricato."
-  },
-  "UserAgentParser": {
-    "title": "Analizzatore di User-Agent",
-    "subtitle": "Scomponi una stringa UA in browser, OS e dispositivo",
-    "inputLabel": "Stringa User-Agent",
-    "placeholder": "Incolla qui il tuo User-Agent…",
-    "hint": "Suggerimento: puoi copiare un UA dagli header della richiesta, dai log o dai devtools del browser.",
-    "clear": "Cancella",
-    "exampleDesktop": "Usa esempio desktop",
-    "exampleMobile": "Usa esempio mobile",
-    "resultLabel": "Riepilogo",
-    "browserLabel": "Browser",
-    "osLabel": "Sistema operativo",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Tipo di dispositivo",
-    "deviceVendorLabel": "Produttore",
-    "deviceModelLabel": "Modello",
-    "cpuArchLabel": "Architettura CPU",
-    "copyJson": "Copia JSON",
-    "copy": "Copia",
-    "copied": "Copiato",
-    "emptyHint": "Incolla una stringa User-Agent per vedere il riepilogo.",
-    "localNote": "Tutto funziona localmente nel tuo browser. Nulla viene caricato."
-  },
-  "DnsLookup": {
-    "title": "Ricerca DNS",
-    "subtitle": "Interroga A, AAAA, MX, TXT, NS e altro per ogni dominio",
-    "placeholder": "Inserisci un dominio (es. github.com)",
-    "lookupBtn": "Cerca",
-    "looking": "Ricerca in corso…",
-    "refreshBtn": "Aggiorna",
-    "recordTypesLabel": "Tipi di record",
-    "allBtn": "Tutti",
-    "tryLabel": "Prova:",
-    "errors": {
-      "lookupFailed": "Ricerca DNS non riuscita"
-    }
-  },
-  "CurlToCode": {
-    "title": "Da cURL a codice",
-    "subtitle": "Trasforma comandi curl in fetch, axios, Python e altro",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "Da JSON a codice",
@@ -3431,89 +3268,6 @@
     "errors": {
       "createFailed": "Impossibile creare l'URL webhook. Riprova.",
       "clearFailed": "Impossibile cancellare le richieste. Riprova."
-    }
-  },
-  "WebsocketTester": {
-    "title": "Tester WebSocket",
-    "subtitle": "Connetti, invia e ispeziona messaggi WebSocket live",
-    "urlLabel": "URL dell'endpoint",
-    "protocolsLabel": "Sottoprotocolli",
-    "protocolsPlaceholder": "opzionale, separati da virgola",
-    "connect": "Connetti",
-    "disconnect": "Disconnetti",
-    "status": {
-      "disconnected": "Disconnesso",
-      "connecting": "Connessione",
-      "connected": "Connesso",
-      "error": "Errore"
-    },
-    "messages": {
-      "connecting": "Connessione a {url}…",
-      "connected": "Connessione stabilita",
-      "connectedWithProtocol": "Connessione stabilita (protocollo: {protocol})",
-      "invalidUrl": "URL non valido — deve iniziare con ws:// o wss://",
-      "connectFailed": "Impossibile aprire la connessione",
-      "socketError": "Si è verificato un errore di connessione",
-      "notConnected": "Non connesso — connettiti prima",
-      "binaryMessage": "Ricevuto un messaggio binario"
-    },
-    "log": {
-      "title": "Registro dei messaggi",
-      "empty": "Ancora nessun messaggio. Connettiti e inizia a inviare.",
-      "copyAll": "Copia tutto",
-      "download": "Scarica come .txt",
-      "clear": "Cancella registro",
-      "prettyPrint": "Formatta JSON",
-      "showRaw": "Mostra testo grezzo"
-    },
-    "composer": {
-      "placeholder": "Digita un messaggio da inviare…",
-      "send": "Invia",
-      "formatJson": "Formatta come JSON",
-      "invalidJson": "Il messaggio non è un JSON valido",
-      "hint": "Cmd/Ctrl+Invio per inviare"
-    },
-    "ping": {
-      "label": "Auto-ping",
-      "seconds": "sec",
-      "intervalTitle": "Intervallo di ping in secondi",
-      "payloadPlaceholder": "payload del ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Ricerca Whois",
-    "subtitle": "Consulta la registrazione di domini e IP via RDAP",
-    "placeholder": "example.com o 8.8.8.8",
-    "lookupBtn": "Cerca",
-    "looking": "Ricerca…",
-    "refreshBtn": "Aggiorna",
-    "tryLabel": "Prova:",
-    "copy": "Copia",
-    "copied": "Copiato",
-    "notAvailable": "Non disponibile",
-    "summary": {
-      "registrar": "Registrar",
-      "network": "Rete"
-    },
-    "dates": {
-      "created": "Creato",
-      "updated": "Aggiornato",
-      "expires": "Scade"
-    },
-    "sections": {
-      "status": "Stato",
-      "nameservers": "Nameserver",
-      "contacts": "Contatti",
-      "rawRdap": "RDAP grezzo"
-    },
-    "contacts": {
-      "roles": "Ruoli",
-      "name": "Nome",
-      "organization": "Organizzazione"
-    },
-    "errors": {
-      "invalidTarget": "Inserisci un nome di dominio o un indirizzo IP valido",
-      "lookupFailed": "Ricerca non riuscita (stato {status})"
     }
   },
   "ToolPageHeader": {

@@ -3,7 +3,6 @@
     "dashboard": "대시보드",
     "settings": "설정",
     "apiClient": "API 클라이언트",
-    "httpStatusCodes": "HTTP 상태 코드",
     "passwordManager": "비밀번호 관리자",
     "environmentManager": "환경 변수 관리자",
     "bookmarks": "북마크",
@@ -22,20 +21,15 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSON 스키마 생성기",
     "snippetManager": "코드 스니펫",
-    "dnsLookup": "DNS 조회",
-    "ipSubnetCalculator": "IP / 서브넷 계산기",
     "markdownPreview": "마크다운 미리보기",
     "formatConverter": "포맷 변환기",
     "yamlFormatter": "YAML 포매터",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON 비교",
     "jsonpathPlayground": "JSONPath 플레이그라운드",
     "webhookTester": "Webhook 테스터",
-    "websocketTester": "WebSocket 테스터",
-    "whoisLookup": "Whois 조회",
     "secureFiles": "파일"
   },
   "Help": {
@@ -397,14 +391,6 @@
         "title": "코드 스니펫",
         "description": "구문 강조, 자동 언어 감지 및 서식으로 스니펫을 저장하세요."
       },
-      "ipSubnetCalculator": {
-        "title": "IP / 서브넷 계산기",
-        "description": "IPv4·IPv6 CIDR: 넷마스크, 범위, 주소 수."
-      },
-      "dnsLookup": {
-        "title": "DNS 조회",
-        "description": "도메인의 DNS 레코드를 조회합니다 — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "마크다운 미리보기",
         "description": "HTML 내보내기 및 HTML → Markdown 변환이 포함된 실시간 Markdown 렌더러."
@@ -412,14 +398,6 @@
       "formatConverter": {
         "title": "포맷 변환기",
         "description": "JSON, YAML, TOML, XML 간 모든 방향 변환. 12가지 조합을 모두 지원합니다."
-      },
-      "httpStatusCodes": {
-        "title": "HTTP 상태 코드",
-        "description": "설명이 포함된 HTTP 상태 코드를 검색합니다 (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -444,14 +422,6 @@
       "webhookTester": {
         "title": "Webhook 테스터",
         "description": "수신되는 webhook 요청을 실시간으로 캡처하고 검사합니다."
-      },
-      "websocketTester": {
-        "title": "WebSocket 테스터",
-        "description": "WebSocket 엔드포인트에 연결하여 메시지를 실시간으로 주고받습니다."
-      },
-      "whoisLookup": {
-        "title": "Whois 조회",
-        "description": "RDAP를 통해 도메인과 IP 등록 정보를 조회합니다."
       },
       "secureFiles": {
         "title": "파일",
@@ -2805,27 +2775,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP 상태 코드",
-    "subtitle": "1xx–5xx 상태 코드를 RFC 참조와 함께 검색",
-    "header": {
-      "title": "HTTP 상태 코드",
-      "description": "설명과 RFC 참조가 포함된 HTTP 응답 코드 검색형 레퍼런스입니다."
-    },
-    "searchPlaceholder": "검색: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "클래스 필터…",
-    "classFilterAll": "전체 클래스",
-    "resultsCount": "{total}개 중 {count}개",
-    "table": {
-      "code": "Code",
-      "phrase": "문구",
-      "description": "설명",
-      "copy": "복사"
-    },
-    "noResults": "“{query}”에 대한 결과가 없습니다.",
-    "specPrefix": "규격:",
-    "copied": "상태 코드를 복사했어요"
-  },
   "DiffChecker": {
     "title": "차이 비교기",
     "subtitle": "두 텍스트를 나란히 줄 단위로 비교",
@@ -3012,46 +2961,6 @@
       "toastRowsMatched": "{count}개 행이 일치했습니다 — 필터가 고유하지 않아 아무것도 변경하지 않았습니다."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "서브넷 계산기",
-    "subtitle": "IPv4, IPv6 CIDR 상세 계산",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "네트워크",
-    "placeholderIpv4": "10.0.0.0/24 또는 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 또는 2001:db8::1/64",
-    "hintIpv4": "CIDR(예 /24) 또는 IPv4 + 점 표기 서브넷 마스크.",
-    "hintIpv6": "접두사 길이(예 /64)를 포함하세요. 생략 시 /128.",
-    "copyValue": "값 복사",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "네트워크 주소",
-      "netmask": "서브넷 마스크",
-      "wildcard": "와일드카드 마스크",
-      "broadcast": "브로드캐스트",
-      "firstHost": "첫 호스트",
-      "lastHost": "마지막 호스트",
-      "totalAddresses": "총 주소 수",
-      "usableHosts": "사용 가능 호스트",
-      "prefixLength": "접두사 길이(비트)",
-      "networkIpv6": "네트워크 주소",
-      "lastIpv6": "범위의 마지막 주소",
-      "totalAddressesIpv6": "서브넷 주소 수"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 포인트투포인트는 두 주소를 모두 호스트로 사용(RFC 3021).",
-      "singleHost": "/32는 단일 호스트."
-    },
-    "ipv6RangeHint": {
-      "normal": "수학적 전체 범위를 표시합니다. 라우터 규칙은 다를 수 있습니다.",
-      "single": "/128은 단일 주소.",
-      "full": "/0은 전체 IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "IPv4 네트워크가 잘못되었습니다. CIDR 또는 주소+마스크.",
-      "invalidIpv6": "IPv6 네트워크가 잘못되었습니다. 예: 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "암호화 플레이그라운드",
     "subtitle": "패스프레이즈나 키로 AES-GCM 암복호화",
@@ -3140,78 +3049,6 @@
     "charCount": "{count, plural, other {# 자}}",
     "emptyHint": "왼쪽에 입력을 붙여넣거나 입력하면 변환된 출력을 확인할 수 있습니다.",
     "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
-  },
-  "MimeTypeLookup": {
-    "title": "MIME 타입 조회",
-    "subtitle": "파일 확장자의 MIME 타입 찾기",
-    "inputLabel": "확장자 또는 파일명",
-    "placeholder": "예: .png, package.json, photo.jpeg",
-    "hint": "팁: 확장자(점 포함/미포함) 또는 전체 파일명을 붙여넣으세요.",
-    "clear": "지우기",
-    "exampleFilename": "예시 파일명 사용",
-    "exampleExtension": "예시 확장자 사용",
-    "resultLabel": "결과",
-    "normalizedLabel": "정규화된 입력:",
-    "mimeTypeLabel": "MIME 타입",
-    "contentTypeLabel": "Content-Type 헤더",
-    "charsetLabel": "문자셋",
-    "copyMimeType": "MIME 타입 복사",
-    "copy": "복사",
-    "copied": "복사됨",
-    "emptyHint": "확장자 또는 파일명을 입력하여 MIME 타입을 조회하세요.",
-    "notFound": "해당 입력에 대한 MIME 타입을 찾을 수 없습니다.",
-    "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
-  },
-  "UserAgentParser": {
-    "title": "User-Agent 파서",
-    "subtitle": "UA 문자열을 브라우저, OS, 기기로 분해",
-    "inputLabel": "User-Agent 문자열",
-    "placeholder": "여기에 User-Agent를 붙여넣으세요…",
-    "hint": "팁: 요청 헤더, 로그, 또는 브라우저 개발자 도구에서 UA를 복사할 수 있습니다.",
-    "clear": "지우기",
-    "exampleDesktop": "데스크톱 예시 사용",
-    "exampleMobile": "모바일 예시 사용",
-    "resultLabel": "분석 결과",
-    "browserLabel": "브라우저",
-    "osLabel": "운영체제",
-    "engineLabel": "엔진",
-    "deviceTypeLabel": "디바이스 유형",
-    "deviceVendorLabel": "제조사",
-    "deviceModelLabel": "모델",
-    "cpuArchLabel": "CPU 아키텍처",
-    "copyJson": "JSON 복사",
-    "copy": "복사",
-    "copied": "복사됨",
-    "emptyHint": "User-Agent 문자열을 붙여넣어 분석 결과를 확인하세요.",
-    "localNote": "모든 것이 브라우저에서 로컬로 실행됩니다. 아무것도 업로드되지 않습니다."
-  },
-  "DnsLookup": {
-    "title": "DNS 조회",
-    "subtitle": "도메인의 A, AAAA, MX, TXT, NS 등 조회",
-    "placeholder": "도메인 입력 (예: github.com)",
-    "lookupBtn": "조회",
-    "looking": "조회 중…",
-    "refreshBtn": "새로고침",
-    "recordTypesLabel": "레코드 유형",
-    "allBtn": "전체",
-    "tryLabel": "시도:",
-    "errors": {
-      "lookupFailed": "DNS 조회에 실패했습니다"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL → 코드",
-    "subtitle": "curl 명령을 fetch, axios, Python 등으로 변환",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON → 코드",
@@ -3431,89 +3268,6 @@
     "errors": {
       "createFailed": "webhook URL 생성에 실패했습니다. 다시 시도하세요.",
       "clearFailed": "요청을 지우지 못했습니다. 다시 시도하세요."
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket 테스터",
-    "subtitle": "연결·전송하며 WebSocket 메시지 실시간 확인",
-    "urlLabel": "엔드포인트 URL",
-    "protocolsLabel": "하위 프로토콜",
-    "protocolsPlaceholder": "선택 사항, 쉼표로 구분",
-    "connect": "연결",
-    "disconnect": "연결 해제",
-    "status": {
-      "disconnected": "연결 해제됨",
-      "connecting": "연결 중",
-      "connected": "연결됨",
-      "error": "오류"
-    },
-    "messages": {
-      "connecting": "{url}에 연결 중…",
-      "connected": "연결이 설정되었습니다",
-      "connectedWithProtocol": "연결이 설정되었습니다 (프로토콜: {protocol})",
-      "invalidUrl": "잘못된 URL — ws:// 또는 wss://로 시작해야 합니다",
-      "connectFailed": "연결을 열지 못했습니다",
-      "socketError": "연결 오류가 발생했습니다",
-      "notConnected": "연결되지 않음 — 먼저 연결하세요",
-      "binaryMessage": "바이너리 메시지를 수신했습니다"
-    },
-    "log": {
-      "title": "메시지 로그",
-      "empty": "아직 메시지가 없습니다. 연결하고 전송을 시작하세요.",
-      "copyAll": "모두 복사",
-      "download": ".txt로 다운로드",
-      "clear": "로그 지우기",
-      "prettyPrint": "JSON 정렬 표시",
-      "showRaw": "원본 텍스트 표시"
-    },
-    "composer": {
-      "placeholder": "전송할 메시지를 입력하세요…",
-      "send": "전송",
-      "formatJson": "JSON으로 포맷",
-      "invalidJson": "메시지가 유효한 JSON이 아닙니다",
-      "hint": "Cmd/Ctrl+Enter로 전송"
-    },
-    "ping": {
-      "label": "자동 ping",
-      "seconds": "초",
-      "intervalTitle": "Ping 간격 (초)",
-      "payloadPlaceholder": "ping 페이로드"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois 조회",
-    "subtitle": "RDAP로 도메인·IP 등록 정보 조회",
-    "placeholder": "example.com 또는 8.8.8.8",
-    "lookupBtn": "조회",
-    "looking": "조회 중…",
-    "refreshBtn": "새로고침",
-    "tryLabel": "예시:",
-    "copy": "복사",
-    "copied": "복사됨",
-    "notAvailable": "사용할 수 없음",
-    "summary": {
-      "registrar": "등록 대행자",
-      "network": "네트워크"
-    },
-    "dates": {
-      "created": "생성일",
-      "updated": "수정일",
-      "expires": "만료일"
-    },
-    "sections": {
-      "status": "상태",
-      "nameservers": "네임서버",
-      "contacts": "연락처",
-      "rawRdap": "원본 RDAP"
-    },
-    "contacts": {
-      "roles": "역할",
-      "name": "이름",
-      "organization": "조직"
-    },
-    "errors": {
-      "invalidTarget": "유효한 도메인 이름이나 IP 주소를 입력하세요",
-      "lookupFailed": "조회 실패 (상태 {status})"
     }
   },
   "ToolPageHeader": {

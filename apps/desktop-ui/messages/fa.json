@@ -3,7 +3,6 @@
     "dashboard": "داشبورد",
     "settings": "تنظیمات",
     "apiClient": "سرویس گیرنده API",
-    "httpStatusCodes": "کدهای وضعیت HTTP",
     "passwordManager": "مدیر رمز عبور",
     "environmentManager": "مدیر محیط",
     "bookmarks": "نشانک ها",
@@ -22,20 +21,15 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
     "snippetManager": "قطعه‌کدها",
-    "dnsLookup": "جستجوی DNS",
-    "ipSubnetCalculator": "ماشین‌حساب IP / زیرشبکه",
     "markdownPreview": "پیش‌نمایش Markdown",
     "formatConverter": "مبدّل فرمت",
     "yamlFormatter": "قالب‌بندی YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "تفاوت JSON",
     "jsonpathPlayground": "زمین بازی JSONPath",
     "webhookTester": "آزمایشگر Webhook",
-    "websocketTester": "آزمایشگر WebSocket",
-    "whoisLookup": "جست‌وجوی Whois",
     "secureFiles": "پرونده‌ها"
   },
   "Help": {
@@ -397,14 +391,6 @@
         "title": "قطعه‌کدها",
         "description": "قطعه‌کدها را با برجسته‌سازی نحو، تشخیص خودکار زبان و قالب‌بندی ذخیره کنید."
       },
-      "ipSubnetCalculator": {
-        "title": "ماشین‌حساب IP / زیرشبکه",
-        "description": "IPv4 و IPv6 CIDR: ماسک، ناحیه، و تعداد آدرس."
-      },
-      "dnsLookup": {
-        "title": "جستجوی DNS",
-        "description": "رکوردهای DNS هر دامنه را جستجو کنید — A، AAAA، MX، TXT، NS، CNAME."
-      },
       "markdownPreview": {
         "title": "پیش‌نمایش Markdown",
         "description": "رندر زنده Markdown با صادرکردن HTML و تبدیل HTML → Markdown."
@@ -412,14 +398,6 @@
       "formatConverter": {
         "title": "مبدّل فرمت",
         "description": "تبدیل بین JSON، YAML، TOML و XML در هر جهت. هر ۱۲ ترکیب پشتیبانی می‌شود."
-      },
-      "httpStatusCodes": {
-        "title": "کدهای وضعیت HTTP",
-        "description": "جستجوی کدهای وضعیت HTTP با توضیحات (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -444,14 +422,6 @@
       "webhookTester": {
         "title": "آزمایشگر Webhook",
         "description": "درخواست‌های ورودی webhook را در لحظه ثبت و بررسی کنید."
-      },
-      "websocketTester": {
-        "title": "آزمایشگر WebSocket",
-        "description": "به نقاط پایانی WebSocket متصل شوید و پیام‌ها را در لحظه رد و بدل کنید."
-      },
-      "whoisLookup": {
-        "title": "جست‌وجوی Whois",
-        "description": "جزئیات ثبت دامنه و IP را از طریق RDAP جست‌وجو کنید."
       },
       "secureFiles": {
         "title": "پرونده‌ها",
@@ -2805,27 +2775,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "کدهای وضعیت HTTP",
-    "subtitle": "جستجوی کدهای وضعیت 1xx–5xx با ارجاع به RFC",
-    "header": {
-      "title": "کدهای وضعیت HTTP",
-      "description": "فهرست قابل جستجو از کدهای پاسخ HTTP همراه با توضیحات و ارجاع‌های RFC."
-    },
-    "searchPlaceholder": "جستجو: 404، not found، rate limit، gateway…",
-    "classFilterPlaceholder": "فیلتر کلاس…",
-    "classFilterAll": "همهٔ کلاس‌ها",
-    "resultsCount": "{count} از {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "عبارت",
-      "description": "توضیحات",
-      "copy": "کپی"
-    },
-    "noResults": "نتیجه‌ای برای «{query}» پیدا نشد.",
-    "specPrefix": "مشخصات:",
-    "copied": "کد کپی شد"
-  },
   "DiffChecker": {
     "title": "بررسی‌کننده تفاوت",
     "subtitle": "مقایسه دو متن کنار هم، خط به خط",
@@ -3012,46 +2961,6 @@
       "toastRowsMatched": "{count} ردیف مطابقت داشت — چیزی تغییر نکرد، زیرا فیلتر یکتا نیست."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "ماشین‌حساب زیرشبکه",
-    "subtitle": "محاسبه جزئیات CIDR برای IPv4 و IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "شبکه",
-    "placeholderIpv4": "10.0.0.0/24 یا 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 یا 2001:db8::1/64",
-    "hintIpv4": "از CIDR (مثلاً /24) یا IPv4 به‌همراه ماسک نقطه‌دار استفاده کنید.",
-    "hintIpv6": "طول پیشوند را بیاورید (مثلاً /64). بدون آن /128 فرض می‌شود.",
-    "copyValue": "کپی مقدار",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "آدرس شبکه",
-      "netmask": "ماسک زیرشبکه",
-      "wildcard": "ماسک wildcard",
-      "broadcast": "Broadcast",
-      "firstHost": "اولین میزبان",
-      "lastHost": "آخرین میزبان",
-      "totalAddresses": "آدرس‌های کل",
-      "usableHosts": "میزبان‌های قابل استفاده",
-      "prefixLength": "طول پیشوند (بیت)",
-      "networkIpv6": "آدرس شبکه",
-      "lastIpv6": "آخرین آدرس در محدوده",
-      "totalAddressesIpv6": "آدرس در زیرشبکه"
-    },
-    "usableNote": {
-      "pointToPoint": "پیوندهای /31 نقطه‌به‌نقطه هر دو آدرس را به‌عنوان میزبان به‌کار می‌برند (RFC 3021).",
-      "singleHost": "/32 برای یک میزبان است."
-    },
-    "ipv6RangeHint": {
-      "normal": "محدودهٔ ریاضی کامل نشان داده می‌شود؛ قوانین مسیریاب ممکن است متفاوت باشد.",
-      "single": "/128 یک آدرس واحد است.",
-      "full": "/0 تمام IPv6 را پوشش می‌دهد."
-    },
-    "errors": {
-      "invalidIpv4": "شبکهٔ IPv4 نامعتبر. CIDR یا آدرس + ماسک امتحان کنید.",
-      "invalidIpv6": "شبکهٔ IPv6 نامعتبر. از آدرس/پیشوند مثل 2001:db8::/48 استفاده کنید."
-    }
-  },
   "EncryptionPlayground": {
     "title": "محیط آزمایش رمزنگاری",
     "subtitle": "رمزگذاری و رمزگشایی AES-GCM با عبارت عبور یا کلید",
@@ -3140,78 +3049,6 @@
     "charCount": "{count, plural, one {# کاراکتر} other {# کاراکتر}}",
     "emptyHint": "ورودی خود را در سمت چپ وارد کنید تا خروجی تبدیل‌شده را ببینید.",
     "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
-  },
-  "MimeTypeLookup": {
-    "title": "جستجوی نوع MIME",
-    "subtitle": "یافتن نوع MIME برای هر پسوند فایل",
-    "inputLabel": "پسوند یا نام فایل",
-    "placeholder": "مثلاً .png، package.json، photo.jpeg",
-    "hint": "نکته: می‌توانید پسوند (با یا بدون نقطه) یا نام کامل فایل را وارد کنید.",
-    "clear": "پاک کردن",
-    "exampleFilename": "استفاده از نام فایل نمونه",
-    "exampleExtension": "استفاده از پسوند نمونه",
-    "resultLabel": "نتیجه",
-    "normalizedLabel": "ورودی نرمال‌شده:",
-    "mimeTypeLabel": "نوع MIME",
-    "contentTypeLabel": "هدر Content-Type",
-    "charsetLabel": "کدگذاری",
-    "copyMimeType": "کپی نوع MIME",
-    "copy": "کپی",
-    "copied": "کپی شد",
-    "emptyHint": "برای جستجوی نوع MIME یک پسوند یا نام فایل وارد کنید.",
-    "notFound": "برای این ورودی نوع MIME یافت نشد.",
-    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
-  },
-  "UserAgentParser": {
-    "title": "تجزیه‌گر User-Agent",
-    "subtitle": "تفکیک رشته UA به مرورگر، سیستم‌عامل و دستگاه",
-    "inputLabel": "رشته User-Agent",
-    "placeholder": "User-Agent را اینجا بچسبانید…",
-    "hint": "نکته: می‌توانید UA را از هدرهای درخواست، لاگ‌ها یا devtools مرورگر کپی کنید.",
-    "clear": "پاک کردن",
-    "exampleDesktop": "استفاده از مثال دسکتاپ",
-    "exampleMobile": "استفاده از مثال موبایل",
-    "resultLabel": "جزئیات",
-    "browserLabel": "مرورگر",
-    "osLabel": "سیستم‌عامل",
-    "engineLabel": "موتور",
-    "deviceTypeLabel": "نوع دستگاه",
-    "deviceVendorLabel": "سازنده",
-    "deviceModelLabel": "مدل",
-    "cpuArchLabel": "معماری CPU",
-    "copyJson": "کپی JSON",
-    "copy": "کپی",
-    "copied": "کپی شد",
-    "emptyHint": "برای مشاهده جزئیات، یک رشته User-Agent را بچسبانید.",
-    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
-  },
-  "DnsLookup": {
-    "title": "جستجوی DNS",
-    "subtitle": "استعلام A، AAAA، MX، TXT، NS و موارد دیگر برای هر دامنه",
-    "placeholder": "دامنه را وارد کنید (مثلاً github.com)",
-    "lookupBtn": "جستجو",
-    "looking": "در حال جستجو…",
-    "refreshBtn": "تازه‌سازی",
-    "recordTypesLabel": "انواع رکورد",
-    "allBtn": "همه",
-    "tryLabel": "امتحان کنید:",
-    "errors": {
-      "lookupFailed": "جستجوی DNS ناموفق بود"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL به کد",
-    "subtitle": "تبدیل دستورات curl به fetch، axios، Python و موارد دیگر",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON به کد",
@@ -3431,89 +3268,6 @@
     "errors": {
       "createFailed": "ساخت URL webhook ناموفق بود. لطفاً دوباره تلاش کنید.",
       "clearFailed": "پاک‌کردن درخواست‌ها ناموفق بود. لطفاً دوباره تلاش کنید."
-    }
-  },
-  "WebsocketTester": {
-    "title": "آزمایشگر WebSocket",
-    "subtitle": "اتصال، ارسال و بررسی زنده پیام‌های WebSocket",
-    "urlLabel": "URL نقطه پایانی",
-    "protocolsLabel": "زیرپروتکل‌ها",
-    "protocolsPlaceholder": "اختیاری، جداشده با کاما",
-    "connect": "اتصال",
-    "disconnect": "قطع اتصال",
-    "status": {
-      "disconnected": "قطع‌شده",
-      "connecting": "در حال اتصال",
-      "connected": "متصل",
-      "error": "خطا"
-    },
-    "messages": {
-      "connecting": "در حال اتصال به {url}…",
-      "connected": "اتصال برقرار شد",
-      "connectedWithProtocol": "اتصال برقرار شد (پروتکل: {protocol})",
-      "invalidUrl": "URL نامعتبر — باید با ws:// یا wss:// شروع شود",
-      "connectFailed": "بازکردن اتصال ناموفق بود",
-      "socketError": "خطایی در اتصال رخ داد",
-      "notConnected": "متصل نیست — ابتدا متصل شوید",
-      "binaryMessage": "یک پیام باینری دریافت شد"
-    },
-    "log": {
-      "title": "گزارش پیام‌ها",
-      "empty": "هنوز پیامی نیست. متصل شوید و ارسال را آغاز کنید.",
-      "copyAll": "کپی همه",
-      "download": "دانلود به‌صورت .txt",
-      "clear": "پاک‌کردن گزارش",
-      "prettyPrint": "قالب‌بندی JSON",
-      "showRaw": "نمایش متن خام"
-    },
-    "composer": {
-      "placeholder": "پیامی برای ارسال بنویسید…",
-      "send": "ارسال",
-      "formatJson": "قالب‌بندی به‌صورت JSON",
-      "invalidJson": "پیام JSON معتبر نیست",
-      "hint": "Cmd/Ctrl+Enter برای ارسال"
-    },
-    "ping": {
-      "label": "ping خودکار",
-      "seconds": "ثانیه",
-      "intervalTitle": "فاصله ping به ثانیه",
-      "payloadPlaceholder": "محموله ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "جستجوی Whois",
-    "subtitle": "استعلام ثبت دامنه و IP از طریق RDAP",
-    "placeholder": "example.com یا 8.8.8.8",
-    "lookupBtn": "جست‌وجو",
-    "looking": "در حال جست‌وجو…",
-    "refreshBtn": "تازه‌سازی",
-    "tryLabel": "امتحان کنید:",
-    "copy": "کپی",
-    "copied": "کپی شد",
-    "notAvailable": "در دسترس نیست",
-    "summary": {
-      "registrar": "ثبت‌کننده",
-      "network": "شبکه"
-    },
-    "dates": {
-      "created": "ایجادشده",
-      "updated": "به‌روزشده",
-      "expires": "انقضا"
-    },
-    "sections": {
-      "status": "وضعیت",
-      "nameservers": "سرورهای نام",
-      "contacts": "تماس‌ها",
-      "rawRdap": "RDAP خام"
-    },
-    "contacts": {
-      "roles": "نقش‌ها",
-      "name": "نام",
-      "organization": "سازمان"
-    },
-    "errors": {
-      "invalidTarget": "یک نام دامنه یا آدرس IP معتبر وارد کنید",
-      "lookupFailed": "جست‌وجو ناموفق بود (وضعیت {status})"
     }
   },
   "ToolPageHeader": {

@@ -26,18 +26,11 @@ export const toolCategoryMap: Record<string, string> = {
   'diff-checker': 'Formatters',
   'regex-tester': 'Formatters',
   'api-client': 'Network & API',
-  'curl-to-code': 'Network & API',
-  'http-status-codes': 'Network & API',
-  'ip-subnet-calculator': 'Network & API',
-  'user-agent-parser': 'Network & API',
-  'mime-type-lookup': 'Network & API',
   'data-explorer': 'Database',
   's3-drive': 'Database',
   'bcrypt-generator': 'Security',
   'json-diff': 'Formatters',
   'jsonpath-playground': 'Formatters',
-  'websocket-tester': 'Network & API',
-  'whois-lookup': 'Network & API',
 }
 
 export const publicToolSlugs = Object.keys(toolsMetadata)

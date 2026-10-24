@@ -25,6 +25,8 @@ const REMOVED_TOOL_SLUGS = [
   'unit-converter', 'csv-excel-json', 'image-to-base64', 'string-case-converter',
   'line-sort-dedupe', 'string-inspector', 'escape-encode', 'chmod-calculator',
   'timezone-converter', 'token-counter',
+  'curl-to-code', 'http-status-codes', 'dns-lookup', 'ip-subnet-calculator', 'user-agent-parser',
+  'mime-type-lookup', 'websocket-tester', 'whois-lookup',
 ];
 const REMOVED_BLOG_SLUGS = [
   'base64-encoding-explained', 'uuid-guide-generate-and-understand', 'cron-expression-syntax-guide',
@@ -39,6 +41,8 @@ const REMOVED_BLOG_SLUGS = [
   'wcag-contrast-checker-accessibility-colors', 'image-compressor-online-reduce-file-size',
   'css-gradient-builder-linear-radial-online', 'unit-converter-scientific-engineering-units',
   'svg-optimizer-minify-compress-svgo-online',
+  'http-status-codes-guide', 'ip-subnet-calculator-guide', 'dns-lookup-records-checker-online',
+  'mime-type-lookup-file-extension-content-type', 'user-agent-parser-browser-os-detection',
 ];
 const REMOVED_COMPARE_SLUGS = [
   'uuid-generator-online', 'base64-encoder-decoder-online', 'hash-generator-online',

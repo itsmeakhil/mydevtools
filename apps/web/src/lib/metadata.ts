@@ -75,12 +75,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['api client', 'http client', 'rest api tester', 'graphql client', 'grpc client', 'websocket client', 'mock server', 'offline api client', 'postman alternative', 'insomnia alternative', 'bruno alternative'],
         aiSummary: 'MyDevTools API Client is a free, offline desktop API client: REST, GraphQL with schema introspection, WebSocket and native gRPC, a local mock server built from saved examples, a collection runner with CSV/JSON data files and JUnit export, pre-request/test scripts (pm.* API), environments and response chaining, OAuth 2.0, AWS SigV4, Hawk, Digest and JWT auth, Postman/OpenAPI/HAR/cURL import, and secrets resolved from an encrypted local vault. No account — a Postman, Insomnia or Bruno alternative.',
     },
-    'http-status-codes': {
-        title: 'HTTP Status Codes Reference',
-        description: 'Search and browse HTTP status codes (1xx–5xx) with short descriptions and RFC references.',
-        keywords: ['http status codes', 'status code list', 'http response codes', '200 ok', '404 not found', '500 internal server error', 'rfc 9110'],
-        aiSummary: 'Searchable reference for all HTTP status codes (1xx–5xx) with descriptions and RFC 9110 links. Answers "what does HTTP 422 mean", "list of HTTP status codes", or "HTTP 429 too many requests".',
-    },
     'database-explorer': {
         title: 'Database Explorer',
         description: 'Explore and manage your MongoDB and SQL databases directly from your desktop.',
@@ -98,18 +92,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Manage AWS S3 and DigitalOcean Spaces buckets. Browse, upload, download, and delete files with end-to-end encrypted credentials.',
         keywords: ['s3 browser', 'aws s3 manager', 'digitalocean spaces', 's3 client', 'bucket manager', 'cloud storage browser', 's3 file manager'],
         aiSummary: 'S3 Drive lets you connect multiple AWS S3 or DigitalOcean Spaces buckets, browse folders, upload and download files, and manage objects — all with credentials encrypted locally before being stored.',
-    },
-    'dns-lookup': {
-        title: 'DNS Lookup',
-        description: 'Query DNS records for any domain: A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, and PTR. See TTL, mail server priority, and SOA details.',
-        keywords: ['dns lookup', 'dns checker', 'mx record lookup', 'txt record lookup', 'nameserver lookup', 'dns records', 'cname lookup', 'dns query', 'ptr record'],
-        aiSummary: 'Look up DNS records (A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, PTR) for any domain. Shows TTL values, MX priority, and SOA fields. A DNS records checker with MX record lookup and DNS propagation details.',
-    },
-    'ip-subnet-calculator': {
-        title: 'IP / Subnet Calculator',
-        description: 'Compute IPv4 and IPv6 CIDR details: netmask, wildcard, broadcast, first and last host, and subnet size. Runs locally on your device.',
-        keywords: ['subnet calculator', 'cidr calculator', 'ip calculator', 'netmask', 'ipv6 subnet', 'network calculator', 'ip range'],
-        aiSummary: 'Enter an IP/CIDR (e.g. 192.168.1.0/24) to get netmask, wildcard, broadcast, first/last host, and total hosts. IPv4 and IPv6 — a subnet calculator with CIDR to IP range.',
     },
     'encryption-playground': {
         title: 'Encryption Playground',
@@ -177,18 +159,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         keywords: ['json to yaml', 'yaml to json', 'json to toml', 'toml to json', 'xml to json', 'json to xml', 'yaml to toml', 'toml to yaml', 'format converter', 'data format'],
         aiSummary: 'Convert between JSON, YAML, TOML, and XML in any direction (all 12 combinations). Runs locally — a JSON to YAML, YAML to TOML, and XML to JSON converter.',
     },
-    'mime-type-lookup': {
-        title: 'MIME Type Lookup',
-        description: 'Look up MIME types by file extension or filename and copy the result instantly. Runs entirely on your device.',
-        keywords: ['mime type', 'content-type', 'media type', 'file extension', 'mime lookup', 'http headers'],
-        aiSummary: 'Look up MIME / Content-Type for any file extension or filename instantly. Answers "MIME type for .svg", "what is Content-Type for JSON", or "file extension to MIME type".',
-    },
-    'user-agent-parser': {
-        title: 'User-Agent Parser',
-        description: 'Paste a User-Agent string to see browser, OS, engine, device, and CPU breakdown instantly. Runs entirely on your device.',
-        keywords: ['user agent', 'ua parser', 'browser detection', 'os detection', 'device detection', 'client hints', 'http headers'],
-        aiSummary: 'Paste a User-Agent header string to get browser name/version, OS, rendering engine, device type, and CPU — a User-Agent parser that detects the browser and device from a UA string.',
-    },
     'sql-client': {
         title: 'SQL Client',
         description: 'Connect to PostgreSQL, MySQL, and MariaDB databases from your desktop. Run queries, explore schemas, and export results. Credentials encrypted with AES-256 before storage.',
@@ -224,12 +194,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: 'Play classic Tetris on your desktop. Stack falling pieces, clear lines, and level up. Arrow keys to move, Space for hard drop.',
         keywords: ['tetris', 'classic tetris', 'desktop game', 'developer break', 'block puzzle'],
         aiSummary: 'Classic Tetris: arrow keys to move and rotate, Space for hard drop, P to pause. Ghost piece preview, speed increases per level. Best score saved locally.',
-    },
-    'curl-to-code': {
-        title: 'cURL to Code',
-        description: 'Convert a curl command into ready-to-run request code for fetch, axios, Python, Go, PHP, Ruby, Java, and C#.',
-        keywords: ['curl to code', 'curl converter', 'curl to fetch', 'curl to python', 'curl to axios', 'curl to go', 'convert curl command'],
-        aiSummary: 'Paste any curl command and get equivalent HTTP request code in JavaScript fetch, axios, Python requests, Go, PHP, Ruby, Java, or C# — a curl to code converter. Runs entirely on your device.',
     },
     'json-visualizer': {
         title: 'JSON Visualizer',
@@ -272,18 +236,6 @@ export const toolsMetadata: Record<string, ToolMetadataEntry> = {
         description: "Create a temporary webhook URL, then capture and inspect incoming HTTP requests live — method, headers, query params, and body.",
         keywords: ["webhook tester", "webhook debugger", "request bin", "http request inspector", "webhook url", "capture webhook", "test webhook", "webhook payload viewer"],
         aiSummary: "Webhook Tester gives you a temporary, unguessable webhook URL that captures every incoming HTTP request (any method) so you can inspect the method, headers, query params, and body. Point any external service at the URL and watch requests arrive in real time. Bins expire after 24 hours.",
-    },
-    'websocket-tester': {
-        title: "WebSocket Tester",
-        description: "Connect to any ws:// or wss:// endpoint, send and receive messages, pretty-print JSON, and auto-ping — all on your device.",
-        keywords: ["websocket tester", "websocket client", "wss test", "socket debugger", "realtime api testing", "ws echo", "websocket console"],
-        aiSummary: "A desktop WebSocket client for connecting to ws:// and wss:// endpoints, sending and receiving messages, inspecting JSON payloads, handling close codes, and auto-sending keep-alive pings. Runs entirely locally with no data leaving your device.",
-    },
-    'whois-lookup': {
-        title: "Whois Lookup",
-        description: "Look up registration details for any domain or IP address using RDAP: registrar, status, key dates, nameservers, and contacts.",
-        keywords: ["whois lookup", "rdap lookup", "domain whois", "ip whois", "domain registration", "nameserver lookup", "domain expiry check"],
-        aiSummary: "Look up WHOIS/RDAP registration data for a domain or IP address, showing the registrar, domain status, creation/update/expiry dates with relative age, nameservers, contacts, and the full raw RDAP JSON. Uses the RDAP protocol via a backend proxy.",
     },
 }
 

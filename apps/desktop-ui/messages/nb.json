@@ -3,7 +3,6 @@
     "dashboard": "Dashbord",
     "settings": "Innstillinger",
     "apiClient": "API-klient",
-    "httpStatusCodes": "HTTP-statuskoder",
     "passwordManager": "Passordbehandler",
     "environmentManager": "Miljøbehandler",
     "bookmarks": "Bokmerker",
@@ -22,20 +21,15 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSON-skjemagenerator",
     "snippetManager": "Kodeutdrag",
-    "dnsLookup": "DNS-oppslag",
-    "ipSubnetCalculator": "IP-/subnettkalkulator",
     "markdownPreview": "Markdown-forhåndsvisning",
     "formatConverter": "Formatkonverterer",
     "yamlFormatter": "YAML-formaterer",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-lekeplass",
     "webhookTester": "Webhook-tester",
-    "websocketTester": "WebSocket-tester",
-    "whoisLookup": "Whois-oppslag",
     "secureFiles": "Filer"
   },
   "Help": {
@@ -397,14 +391,6 @@
         "title": "Kodeutdrag",
         "description": "Lagre utdrag med syntaksutheving, automatisk språkgjenkjenning og formatering."
       },
-      "ipSubnetCalculator": {
-        "title": "IP-/subnettkalkulator",
-        "description": "IPv4 og IPv6 CIDR: nettmaske, intervaller og adresser."
-      },
-      "dnsLookup": {
-        "title": "DNS-oppslag",
-        "description": "Spør etter DNS-poster for et hvilket som helst domene — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Markdown-forhåndsvisning",
         "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
@@ -412,14 +398,6 @@
       "formatConverter": {
         "title": "Formatkonverterer",
         "description": "Konverter mellom JSON, YAML, TOML og XML i alle retninger. Alle 12 kombinasjoner støttes."
-      },
-      "httpStatusCodes": {
-        "title": "HTTP-statuskoder",
-        "description": "Søk etter HTTP-statuskoder med beskrivelser (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -444,14 +422,6 @@
       "webhookTester": {
         "title": "Webhook-tester",
         "description": "Fang opp og inspiser innkommende webhook-forespørsler i sanntid."
-      },
-      "websocketTester": {
-        "title": "WebSocket-tester",
-        "description": "Koble til WebSocket-endepunkter, og utveksle meldinger i sanntid."
-      },
-      "whoisLookup": {
-        "title": "Whois-oppslag",
-        "description": "Slå opp registreringsdetaljer for domene og IP via RDAP."
       },
       "secureFiles": {
         "title": "Filer",
@@ -2805,27 +2775,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP-statuskoder",
-    "subtitle": "Søk i statuskoder 1xx–5xx med RFC-referanser",
-    "header": {
-      "title": "HTTP-statuskoder",
-      "description": "Søkbar referanse for HTTP-svarskoder med beskrivelser og RFC-referanser."
-    },
-    "searchPlaceholder": "Søk: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Filtrer klasse…",
-    "classFilterAll": "Alle klasser",
-    "resultsCount": "{count} av {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Frase",
-      "description": "Beskrivelse",
-      "copy": "Kopier"
-    },
-    "noResults": "Ingen treff for “{query}”.",
-    "specPrefix": "Spes.:",
-    "copied": "Kode kopiert"
-  },
   "DiffChecker": {
     "title": "Diff-sjekker",
     "subtitle": "Sammenlign to tekster side om side, linje for linje",
@@ -3012,46 +2961,6 @@
       "toastRowsMatched": "{count} rader traff — ingenting ble endret, fordi filteret ikke er entydig."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Subnettkalkulator",
-    "subtitle": "Beregn CIDR-detaljer for IPv4 og IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Nettverk",
-    "placeholderIpv4": "10.0.0.0/24 eller 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 eller 2001:db8::1/64",
-    "hintIpv4": "Bruk CIDR (f.eks. /24) eller IPv4-adresse + punktum-nettmaske.",
-    "hintIpv6": "Angi prefikslengde (f.eks. /64). Uten angivelse antas /128.",
-    "copyValue": "Kopier verdi",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Nettverksadresse",
-      "netmask": "Subnetmaske",
-      "wildcard": "Wildcard-maske",
-      "broadcast": "Broadcast",
-      "firstHost": "Første vert",
-      "lastHost": "Siste vert",
-      "totalAddresses": "Adresser totalt",
-      "usableHosts": "Brukbare verter",
-      "prefixLength": "Prefikslengde (biter)",
-      "networkIpv6": "Nettverksadresse",
-      "lastIpv6": "Siste adresse i området",
-      "totalAddressesIpv6": "Adresser i subnett"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 punkt-til-punkt bruker begge adresser som verter (RFC 3021).",
-      "singleHost": "/32 er én vertsadresse."
-    },
-    "ipv6RangeHint": {
-      "normal": "Viser hele det matematiske området; ruteregler kan variere.",
-      "single": "/128 er én adresse.",
-      "full": "/0 dekker hele IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Ugyldig IPv4-nettverk. Prøv CIDR eller adresse + maske.",
-      "invalidIpv6": "Ugyldig IPv6-nettverk. Bruk adresse/prefiks, f.eks. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Krypteringslekeplass",
     "subtitle": "Krypter og dekrypter AES-GCM med passfrase eller nøkkel",
@@ -3140,78 +3049,6 @@
     "charCount": "{count, plural, one {# tegn} other {# tegn}}",
     "emptyHint": "Lim inn eller skriv inn inndataene dine til venstre for å se det konverterte utdataet.",
     "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
-  },
-  "MimeTypeLookup": {
-    "title": "MIME-type-oppslag",
-    "subtitle": "Finn MIME-typen for enhver filendelse",
-    "inputLabel": "Filendelse eller filnavn",
-    "placeholder": "f.eks. .png, package.json, photo.jpeg",
-    "hint": "Tips: lim inn enten en endelse (med eller uten punktum) eller et fullt filnavn.",
-    "clear": "Tøm",
-    "exampleFilename": "Bruk eksempel-filnavn",
-    "exampleExtension": "Bruk eksempel-endelse",
-    "resultLabel": "Resultat",
-    "normalizedLabel": "Normalisert input:",
-    "mimeTypeLabel": "MIME-type",
-    "contentTypeLabel": "Content-Type-header",
-    "charsetLabel": "Tegnsett",
-    "copyMimeType": "Kopier MIME-type",
-    "copy": "Kopier",
-    "copied": "Kopiert",
-    "emptyHint": "Skriv inn en endelse eller et filnavn for å slå opp MIME-typen.",
-    "notFound": "Ingen MIME-type funnet for denne inndataen.",
-    "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
-  },
-  "UserAgentParser": {
-    "title": "User-Agent-parser",
-    "subtitle": "Del opp en UA-streng i nettleser, OS og enhet",
-    "inputLabel": "User-Agent-streng",
-    "placeholder": "Lim inn User-Agent her…",
-    "hint": "Tips: du kan kopiere en UA fra request-headers, logger eller nettleserens devtools.",
-    "clear": "Tøm",
-    "exampleDesktop": "Bruk desktop-eksempel",
-    "exampleMobile": "Bruk mobil-eksempel",
-    "resultLabel": "Oversikt",
-    "browserLabel": "Nettleser",
-    "osLabel": "Operativsystem",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Enhetstype",
-    "deviceVendorLabel": "Produsent",
-    "deviceModelLabel": "Modell",
-    "cpuArchLabel": "CPU-arkitektur",
-    "copyJson": "Kopier JSON",
-    "copy": "Kopier",
-    "copied": "Kopiert",
-    "emptyHint": "Lim inn en User-Agent-streng for å se oversikten.",
-    "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
-  },
-  "DnsLookup": {
-    "title": "DNS-oppslag",
-    "subtitle": "Slå opp A, AAAA, MX, TXT, NS og mer for ethvert domene",
-    "placeholder": "Skriv inn domene (f.eks. github.com)",
-    "lookupBtn": "Oppslag",
-    "looking": "Oppslag pågår…",
-    "refreshBtn": "Oppdater",
-    "recordTypesLabel": "Posttyper",
-    "allBtn": "Alle",
-    "tryLabel": "Prøv:",
-    "errors": {
-      "lookupFailed": "DNS-oppslag mislyktes"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL til kode",
-    "subtitle": "Gjør curl-kommandoer om til fetch, axios, Python og mer",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON til kode",
@@ -3431,89 +3268,6 @@
     "errors": {
       "createFailed": "Kunne ikke opprette webhook-URL. Prøv igjen.",
       "clearFailed": "Kunne ikke tømme forespørsler. Prøv igjen."
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket-tester",
-    "subtitle": "Koble til, send og inspiser WebSocket-meldinger live",
-    "urlLabel": "Endepunkt-URL",
-    "protocolsLabel": "Underprotokoller",
-    "protocolsPlaceholder": "valgfritt, kommaseparert",
-    "connect": "Koble til",
-    "disconnect": "Koble fra",
-    "status": {
-      "disconnected": "Frakoblet",
-      "connecting": "Kobler til",
-      "connected": "Tilkoblet",
-      "error": "Feil"
-    },
-    "messages": {
-      "connecting": "Kobler til {url}…",
-      "connected": "Tilkobling opprettet",
-      "connectedWithProtocol": "Tilkobling opprettet (protokoll: {protocol})",
-      "invalidUrl": "Ugyldig URL — må begynne med ws:// eller wss://",
-      "connectFailed": "Kunne ikke åpne tilkoblingen",
-      "socketError": "Det oppstod en tilkoblingsfeil",
-      "notConnected": "Ikke tilkoblet — koble til først",
-      "binaryMessage": "Mottok en binær melding"
-    },
-    "log": {
-      "title": "Meldingslogg",
-      "empty": "Ingen meldinger ennå. Koble til, og begynn å sende.",
-      "copyAll": "Kopier alle",
-      "download": "Last ned som .txt",
-      "clear": "Tøm logg",
-      "prettyPrint": "Formater JSON pent",
-      "showRaw": "Vis rå tekst"
-    },
-    "composer": {
-      "placeholder": "Skriv en melding som skal sendes…",
-      "send": "Send",
-      "formatJson": "Formater som JSON",
-      "invalidJson": "Meldingen er ikke gyldig JSON",
-      "hint": "Cmd/Ctrl+Enter for å sende"
-    },
-    "ping": {
-      "label": "Auto-ping",
-      "seconds": "sek",
-      "intervalTitle": "Ping-intervall i sekunder",
-      "payloadPlaceholder": "ping-payload"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois-oppslag",
-    "subtitle": "Slå opp domene- og IP-registrering via RDAP",
-    "placeholder": "example.com eller 8.8.8.8",
-    "lookupBtn": "Slå opp",
-    "looking": "Slår opp…",
-    "refreshBtn": "Oppdater",
-    "tryLabel": "Prøv:",
-    "copy": "Kopier",
-    "copied": "Kopiert",
-    "notAvailable": "Ikke tilgjengelig",
-    "summary": {
-      "registrar": "Registrar",
-      "network": "Nettverk"
-    },
-    "dates": {
-      "created": "Opprettet",
-      "updated": "Oppdatert",
-      "expires": "Utløper"
-    },
-    "sections": {
-      "status": "Status",
-      "nameservers": "Navnetjenere",
-      "contacts": "Kontakter",
-      "rawRdap": "Rå RDAP"
-    },
-    "contacts": {
-      "roles": "Roller",
-      "name": "Navn",
-      "organization": "Organisasjon"
-    },
-    "errors": {
-      "invalidTarget": "Skriv inn et gyldig domenenavn eller IP-adresse",
-      "lookupFailed": "Oppslag mislyktes (status {status})"
     }
   },
   "ToolPageHeader": {

@@ -167,11 +167,7 @@ const capabilities = [
     blurb: "REST, GraphQL, WebSocket and gRPC, with a mock server, runner and vault-backed secrets.",
     tools: [
       ["API Client", "api-client"],
-      ["WebSocket Tester", "websocket-tester"],
       ["Webhook Tester", "webhook-tester"],
-      ["cURL to Code", "curl-to-code"],
-      ["DNS Lookup", "dns-lookup"],
-      ["HTTP Status Codes", "http-status-codes"],
     ],
   },
   {
