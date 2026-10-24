@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  Plus de 80 outils pour développeurs, un client API, des clients SQL / MongoDB / Redis, du chiffrement<br />
+  Un client API, des clients SQL / MongoDB / Redis, du chiffrement<br />
   et des utilitaires de productivité — le tout exécuté localement sur votre machine.
 </p>
 
@@ -100,19 +100,16 @@ Ouvrez-la et travaillez : aucune inscription, aucune configuration, aucune clé 
 
 ## 🧰 Outils
 
-Plus de 80 outils, regroupés comme dans la barre latérale. La liste complète avec
+Tous les outils, regroupés comme dans la barre latérale. La liste complète avec
 les descriptions se trouve dans le [README anglais](../../README.md#-tools).
 
 | Catégorie | Exemples |
 |---|---|
 | 📝 **Formateurs et validateurs** | Formateur JSON, JSON Visualizer, Diff JSON, Générateur de schéma JSON, JSON to Code, Formateur YAML, Convertisseur de formats (JSON / YAML / TOML / XML), Formateur SQL, Formateur GraphQL, Aperçu Markdown, Comparateur de différences, Testeur d’expressions régulières |
-| 🌐 **Réseau et API** | Client API (collections, environnements, authentification, gRPC, serveur de mock — sans les limites CORS d’un navigateur), cURL to Code, Testeur de webhook, Testeur WebSocket, Recherche DNS, Recherche Whois, Calculateur IP / sous-réseau, Codes d’état HTTP, User-Agent Parser |
+| 🌐 **Réseau et API** | Client API (collections, environnements, authentification, gRPC, serveur de mock — sans les limites CORS d’un navigateur) |
 | 🗄️ **Clients bases de données et stockage** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorateur de base de données (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — pilotes Rust natifs, directement de votre machine à votre base de données |
-| 🔐 **Sécurité et chiffrement** | Gestionnaire de mots de passe, Bac à sable chiffrement (AES-GCM), Décodeur JWT, Générateur de hash, Générateur HMAC, Bcrypt, Code TOTP / 2FA, Générateur de clés SSH / RSA, Décodeur de certificat / PEM, Gestionnaire d’environnement, Secret / clé API |
-| 🔄 **Convertisseurs** | Base64, Image vers Base64, Encodeur / analyseur d’URL, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, Convertisseur de base, Convertisseur d’horodatage / de fuseaux, Convertisseur d’unités, Calculateur Chmod, Compteur de tokens LLM |
-| ⚙️ **Générateurs** | UUID / ULID, Générateur de données fictives, Constructeur Cron, Générateur Docker Compose, Générateur .gitignore, Générateur de codes QR, Tableau Markdown, Lorem Ipsum |
-| 🎨 **Médias et design** | Sélecteur de couleurs, Vérificateur de contraste, Générateur de dégradé CSS, Générateurs CSS, Compresseur d’images, Optimiseur SVG, Visionneuse et suppression EXIF, Générateur de favicon, Capture de code, Inspecteur de keycode |
-| 📱 **Productivité** | Notes, Extraits de code, Tâches, Signets, Clés API, Salle de pause (2048, Sudoku, Snake, Minesweeper, Tetris) |
+| 🔐 **Sécurité et chiffrement** | Gestionnaire de mots de passe, Bac à sable chiffrement (AES-GCM), Décodeur JWT, Bcrypt, Décodeur de certificat / PEM, Gestionnaire d’environnement |
+| 📱 **Productivité** | Notes, Extraits de code, Tâches, Signets, Clés API |
 
 Tout est accessible depuis une seule palette de commandes, en thème sombre ou
 clair, dans 27 langues.
@@ -132,7 +129,7 @@ clair, dans 27 langues.
   besoin d’aucun réseau, mais certains outils existent pour parler à *vos*
   destinations : le client API envoie les requêtes que vous écrivez, les clients
   de bases de données se connectent aux hôtes que vous configurez, les recherches
-  DNS / WHOIS interrogent les registres publics et le système de mise à jour
+  DNS interrogent les registres publics et le système de mise à jour
   consulte les releases GitHub. Rien d’autre ne sort.
 - **Statistiques d’usage optionnelles et anonymes.** Désactivées tant que vous ne
   les activez pas. Une fois activées, deux événements (`app_started`,
@@ -177,7 +174,7 @@ aucune clé API, aucun compte, aucun service.
   d’outillage de migration.
 - **Aucune fonctionnalité d’équipe.** Pas d’espaces partagés, pas de
   synchronisation, pas de collaboration.
-- **Certains outils ont besoin du réseau par définition** — DNS, WHOIS, webhooks,
+- **Certains outils ont besoin du réseau par définition** — DNS,
   requêtes API, connexions aux bases de données.
 
 ---

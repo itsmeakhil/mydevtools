@@ -41,7 +41,7 @@ Current focus — stability and polish over new surface area.
 - **Performance**: faster cold start, snappier large-payload handling in the
   editors and result grids.
 - **UX consistency**: tool headers, empty states, error messages and loading
-  behaviour that match across all 80+ tools.
+  behaviour that match across all tools.
 - **Documentation**: per-tool docs on the website, an accurate README, and the
   contributor guide you are reading the sibling of.
 - **Accessibility**: keyboard navigation, focus states, labels and contrast

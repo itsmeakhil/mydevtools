@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Porównanie JSON",
     "jsonpathPlayground": "Piaskownica JSONPath",
-    "webhookTester": "Tester webhooków",
     "secureFiles": "Pliki"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Czym jest MyDevTools?",
-        "description": "Offline'owe środowisko dla programistów: panel oraz ponad 80 narzędzi działających w całości na Twoim urządzeniu.",
+        "description": "Offline'owe środowisko dla programistów: panel oraz narzędzia działające w całości na Twoim urządzeniu.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Ustawienia",
         "p1After": ".",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "Piaskownica JSONPath",
         "description": "Odpytuj JSON za pomocą JSONPath lub JMESPath i oglądaj wyniki na żywo."
-      },
-      "webhookTester": {
-        "title": "Tester webhooków",
-        "description": "Przechwytuj i sprawdzaj przychodzące żądania webhooków w czasie rzeczywistym."
       },
       "secureFiles": {
         "title": "Pliki",

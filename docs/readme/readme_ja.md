@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80 以上の開発者ツール、API クライアント、SQL / MongoDB / Redis クライアント、<br />
+  API クライアント、SQL / MongoDB / Redis クライアント、<br />
   暗号化ツール、生産性ユーティリティ — すべてあなたのマシン上でローカルに動作します。
 </p>
 
@@ -98,19 +98,16 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 
 ## 🧰 ツール
 
-80 以上のツールを、サイドバーと同じグループに分けて掲載しています。説明付きの
+すべてのツールを、サイドバーと同じグループに分けて掲載しています。説明付きの
 完全な一覧は [英語版 README](../../README.md#-tools) にあります。
 
 | カテゴリ | 例 |
 |---|---|
 | 📝 **フォーマッター & バリデーター** | JSON フォーマッター、JSON Visualizer、JSON 差分、JSONスキーマジェネレーター、JSON to Code、YAMLフォーマッター、フォーマット変換（JSON / YAML / TOML / XML）、SQL Formatter、GraphQL フォーマッター、Markdownプレビュー、Diff checker、Regex Tester |
-| 🌐 **ネットワーク & API** | APIクライアント（コレクション、環境、認証、gRPC、モックサーバー — ブラウザの CORS 制限なし）、cURL to Code、Webhook テスター、WebSocket テスター、DNS ルックアップ、Whois 検索、IP／サブネット計算、HTTPステータスコード、User-Agent Parser |
+| 🌐 **ネットワーク & API** | APIクライアント（コレクション、環境、認証、gRPC、モックサーバー — ブラウザの CORS 制限なし） |
 | 🗄️ **データベース & ストレージクライアント** | SQL Client（PostgreSQL、MySQL、MariaDB）、データベースエクスプローラー（MongoDB）、Redis Commander、S3 Drive（AWS S3、DigitalOcean Spaces） — ネイティブ Rust ドライバーで、あなたのマシンからデータベースへ直接つながります |
-| 🔐 **セキュリティ & 暗号** | パスワードマネージャー、暗号化プレイグラウンド（AES-GCM）、JWTデコーダー、ハッシュ生成、HMACジェネレーター、Bcrypt、TOTP / 2FA コード、SSH / RSAキージェネレーター、証明書 / PEM デコーダ、環境変数マネージャー、シークレット / APIキー |
-| 🔄 **コンバーター** | Base64、画像をBase64に変換、URL Encoder / URL パーサー、Escape / Encode、String Case Converter、String Inspector、Line Sort & Dedupe、CSV / Excel ↔ JSON、基数変換、Timestamp Converter / タイムゾーン変換、単位変換器、Chmod 計算機、LLM トークンカウンター |
-| ⚙️ **ジェネレーター** | UUID / ULID、モックデータジェネレーター、Cron Builder、Docker Compose ジェネレーター、.gitignore ジェネレーター、QRコード生成、Markdown テーブル、Lorem Ipsum |
-| 🎨 **メディア & デザイン** | Color Picker、コントラストチェッカー、CSS グラデーション ビルダー、CSS ジェネレーター、画像圧縮、SVG 最適化、EXIF ビューアー & リムーバー、Favicon ジェネレーター、コードスクリーンショット、キーコードインスペクター |
-| 📱 **生産性** | Notes、コードスニペット、Tasks、ブックマーク、API Keys、休憩室（2048、Sudoku、Snake、Minesweeper、Tetris） |
+| 🔐 **セキュリティ & 暗号** | パスワードマネージャー、暗号化プレイグラウンド（AES-GCM）、JWTデコーダー、Bcrypt、証明書 / PEM デコーダ、環境変数マネージャー |
+| 📱 **生産性** | Notes、コードスニペット、Tasks、ブックマーク、API Keys |
 
 すべて 1 つのコマンドパレットから検索でき、ダーク / ライトモード、27 言語に対応しています。
 
@@ -128,7 +125,7 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 - **外部への通信はすべてあなたが選びます。** アプリ自体はネットワークを必要と
   しませんが、一部のツールは *あなたの* 接続先と通信するために存在します。API
   クライアントはあなたが書いたリクエストを送信し、データベースクライアントは
-  あなたが設定したホストへ接続し、DNS / WHOIS ルックアップは公開レジストリへ
+  あなたが設定したホストへ接続し、DNS ルックアップは公開レジストリへ
   問い合わせ、アップデーターは GitHub のリリースを確認します。それ以外は何も
   外に出ません。
 - **利用統計は任意・匿名です。** 自分でオンにしない限り無効です。オンの場合は
@@ -173,7 +170,7 @@ Node.js ≥ 22、pnpm ≥ 9、安定版の Rust が必要です。設定作業�
   もありません。
 - **チーム向け機能はありません。** 共有ワークスペースも、同期も、共同編集も
   ありません。
-- **性質上ネットワークが必要なツールもあります** — DNS、WHOIS、Webhook、API
+- **性質上ネットワークが必要なツールもあります** — DNS、API
   リクエスト、データベース接続。
 
 ---

@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  Más de 80 herramientas para desarrolladores, un cliente de API, clientes SQL / MongoDB / Redis, cifrado<br />
+  Un cliente de API, clientes SQL / MongoDB / Redis, cifrado<br />
   y utilidades de productividad, todo ejecutándose localmente en tu máquina.
 </p>
 
@@ -98,19 +98,16 @@ Se ejecuta en tu máquina. No hay servidor de MyDevTools, ni cuenta, ni sincroni
 
 ## 🧰 Herramientas
 
-Más de 80 herramientas, agrupadas como las agrupa la barra lateral. La lista
+Todas las herramientas, agrupadas como las agrupa la barra lateral. La lista
 completa con descripciones está en el [README en inglés](../../README.md#-tools).
 
 | Categoría | Ejemplos |
 |---|---|
 | 📝 **Formateadores y validadores** | Formateador JSON, JSON Visualizer, Diff JSON, Generador de esquema JSON, JSON to Code, Formateador YAML, Conversor de formatos (JSON / YAML / TOML / XML), Formateador SQL, Formateador GraphQL, Vista previa Markdown, Comparador de diferencias, Probador de expresiones regulares |
-| 🌐 **Red y API** | Cliente API (colecciones, entornos, autenticación, gRPC, servidor mock, sin límites de CORS del navegador), cURL to Code, Probador de webhooks, Probador de WebSocket, Búsqueda DNS, Consulta Whois, Calculadora IP / subred, Códigos de estado HTTP, User-Agent Parser |
+| 🌐 **Red y API** | Cliente API (colecciones, entornos, autenticación, gRPC, servidor mock, sin límites de CORS del navegador) |
 | 🗄️ **Clientes de bases de datos y almacenamiento** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorador de bases de datos (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces): drivers nativos en Rust, directo de tu máquina a tu base de datos |
-| 🔐 **Seguridad y criptografía** | Gestor de contraseñas, Cifrado (prácticas, AES-GCM), Decodificador JWT, Generador de hash, Generador HMAC, Bcrypt, Código TOTP / 2FA, Generador de claves SSH / RSA, Decodificador de certificados / PEM, Gestor de entornos, Secreto / clave API |
-| 🔄 **Conversores** | Base64, Imagen a Base64, Codificador / analizador de URL, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, Conversor de base, Conversor de marcas de tiempo / zonas horarias, Convertidor de unidades, Calculadora Chmod, Contador de tokens LLM |
-| ⚙️ **Generadores** | UUID / ULID, Generador de datos de prueba, Constructor Cron, Generador Docker Compose, Generador .gitignore, Generador de códigos QR, Tabla Markdown, Lorem Ipsum |
-| 🎨 **Medios y diseño** | Selector de color, Comprobador de contraste, Generador de degradado CSS, Generadores CSS, Compresor de imágenes, Optimizador SVG, Visor EXIF y eliminador, Generador de favicon, Captura de código, Inspector de keycode |
-| 📱 **Productividad** | Notas, Fragmentos de código, Tareas, Marcadores, Claves API, Sala de descanso (2048, Sudoku, Snake, Buscaminas, Tetris) |
+| 🔐 **Seguridad y criptografía** | Gestor de contraseñas, Cifrado (prácticas, AES-GCM), Decodificador JWT, Bcrypt, Decodificador de certificados / PEM, Gestor de entornos |
+| 📱 **Productividad** | Notas, Fragmentos de código, Tareas, Marcadores, Claves API |
 
 Todo se busca desde una única paleta de comandos, en modo oscuro o claro, en 27
 idiomas.
@@ -129,7 +126,7 @@ idiomas.
 - **Tú decides cada conexión saliente.** La app en sí no necesita red, pero algunas
   herramientas existen para hablar con *tus* destinos: el cliente de API envía las
   peticiones que escribes, los clientes de bases de datos se conectan a los hosts
-  que configuras, las consultas DNS / WHOIS interrogan registros públicos y el
+  que configuras, las consultas DNS interrogan registros públicos y el
   actualizador consulta las releases de GitHub. Nada más sale.
 - **Estadísticas de uso opcionales y anónimas.** Desactivadas salvo que las
   actives. Cuando están activas se envían dos eventos (`app_started`,
@@ -173,7 +170,7 @@ claves de API, sin cuentas, sin servicios.
   herramientas de migración.
 - **Sin funciones de equipo.** Sin espacios de trabajo compartidos, sin
   sincronización, sin colaboración.
-- **Algunas herramientas necesitan la red por definición**: DNS, WHOIS, webhooks,
+- **Algunas herramientas necesitan la red por definición**: DNS,
   peticiones de API, conexiones a bases de datos.
 
 ---

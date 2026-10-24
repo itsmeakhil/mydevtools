@@ -1,6 +1,6 @@
 # MyDevTools — Claude Code instructions
 
-All-in-one developer toolkit (80+ tools: formatters, security, generators, notes, bookmarks, tasks, API client…). Architecture doc: `docs/ARCHITECTURE.md`. Public tool count everywhere is "80+" (never a precise number — registries drift). `docs/` is public (README translations in `docs/readme/`); only `docs/superpowers/` is gitignored. Maintainer-only punch lists live in `.claude/`.
+Offline developer workstation (API client, database clients, S3 drive, encrypted vault, formatters, notes/snippets/tasks/bookmarks), being trimmed to a focused core. Architecture doc: `docs/ARCHITECTURE.md`. Never state a tool count in public copy (the set keeps shrinking) — name the flagship capabilities instead. `docs/` is public (README translations in `docs/readme/`); only `docs/superpowers/` is gitignored. Maintainer-only punch lists live in `.claude/`.
 
 ## Product model (current direction — do not regress)
 
@@ -43,7 +43,7 @@ Per-tool files (`page.tsx`, `layout.tsx` with `generateToolMetadata`, `component
 
 ## Marketing/SEO copy rules
 
-- Never say "online", "browser-based", "in your browser", "no install" in marketing prose/meta/JSON-LD. Say: desktop app, offline, local-first, on your device, privacy-first. Tool count = "80+".
+- Never say "online", "browser-based", "in your browser", "no install" in marketing prose/meta/JSON-LD. Say: desktop app, offline, local-first, on your device, privacy-first. No tool counts — lead with the API client, database clients and encrypted vault.
 - **Never rename slugs/URLs**, even ones containing "online" — rewrite words, keep the URL.
 - Marketing surface is English-only; 27 locales cover in-app UI only.
 

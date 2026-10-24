@@ -163,7 +163,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             name: `Do I need to install anything to use ${tool.title}?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Install MyDevTools once, then ${tool.title} and 80+ other tools are available offline on your desktop.`,
+              text: `Install MyDevTools once, then ${tool.title} and every other MyDevTools tool are available offline on your desktop.`,
             },
           },
           {
@@ -313,11 +313,11 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         isAccessibleForFree: true,
         featureList: [
           'Unified SQL + NoSQL (MongoDB) + Redis database client in one workspace',
-          'API client for REST debugging (Postman alternative)',
+          'API client for REST, GraphQL, WebSocket and gRPC with mock server and runner (Postman alternative)',
           'JSON formatter, JWT decoder, regex tester',
-          'Base64 encoder/decoder, UUID generator, hash generator',
-          'Crypto tools: encryption playground, HMAC, TOTP 2FA, SSH key generator',
-          'Data converters: CSV to JSON, YAML formatter, format converter',
+          'JSON diff, JSONPath, JSON to Code, diff checker, SQL/GraphQL/YAML formatters',
+          'Crypto tools: encryption playground, bcrypt, certificate/PEM decoder',
+          'S3 drive, environment manager, encrypted secure files',
           'Privacy-first architecture: local processing, AES-256 encryption',
           'Persistent storage: snippets, notes, tasks, bookmarks, password vault',
         ],

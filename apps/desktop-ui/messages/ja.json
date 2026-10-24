@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON 差分",
     "jsonpathPlayground": "JSONPath プレイグラウンド",
-    "webhookTester": "Webhook テスター",
     "secureFiles": "ファイル"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools とは？",
-        "description": "オフラインの開発者ワークスペース。ダッシュボードと、すべてデバイス上で動作する 80 以上のツールを備えています。",
+        "description": "オフラインの開発者ワークスペース。ダッシュボードと、すべてデバイス上で動作するツールを備えています。",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "設定",
         "p1After": "から非表示にできます。",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath プレイグラウンド",
         "description": "JSONPath または JMESPath で JSON をクエリし、結果をリアルタイムで確認します。"
-      },
-      "webhookTester": {
-        "title": "Webhook テスター",
-        "description": "受信した webhook リクエストをリアルタイムでキャプチャして確認します。"
       },
       "secureFiles": {
         "title": "ファイル",

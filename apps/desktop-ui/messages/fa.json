@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "تفاوت JSON",
     "jsonpathPlayground": "زمین بازی JSONPath",
-    "webhookTester": "آزمایشگر Webhook",
     "secureFiles": "پرونده‌ها"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools چیست؟",
-        "description": "یک فضای کاری آفلاین برای توسعه‌دهندگان: یک داشبورد و بیش از ۸۰ ابزار که کاملاً روی دستگاه شما اجرا می‌شوند.",
+        "description": "یک فضای کاری آفلاین برای توسعه‌دهندگان: یک داشبورد و ابزارهایی که کاملاً روی دستگاه شما اجرا می‌شوند.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "تنظیمات",
         "p1After": " پنهان کنید.",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "زمین بازی JSONPath",
         "description": "JSON را با JSONPath یا JMESPath پرس‌وجو کنید و نتایج زنده را ببینید."
-      },
-      "webhookTester": {
-        "title": "آزمایشگر Webhook",
-        "description": "درخواست‌های ورودی webhook را در لحظه ثبت و بررسی کنید."
       },
       "secureFiles": {
         "title": "پرونده‌ها",

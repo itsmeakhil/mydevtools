@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Beza JSON",
     "jsonpathPlayground": "Ruang Uji JSONPath",
-    "webhookTester": "Penguji Webhook",
     "secureFiles": "Fail"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Apakah itu MyDevTools?",
-        "description": "Ruang kerja pembangun yang luar talian: sebuah papan pemuka dan 80+ alat yang berjalan sepenuhnya pada peranti anda.",
+        "description": "Ruang kerja pembangun yang luar talian: sebuah papan pemuka dan alatan yang berjalan sepenuhnya pada peranti anda.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Tetapan",
         "p1After": ".",
@@ -421,10 +420,6 @@
       "jsonpathPlayground": {
         "title": "Ruang Uji JSONPath",
         "description": "Kueri JSON dengan JSONPath atau JMESPath dan lihat keputusan secara langsung."
-      },
-      "webhookTester": {
-        "title": "Penguji Webhook",
-        "description": "Tangkap dan periksa permintaan webhook masuk secara masa nyata."
       },
       "secureFiles": {
         "title": "Fail",

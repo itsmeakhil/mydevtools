@@ -27,7 +27,7 @@ apps/
 │       ├── dbtools/         Native drivers: Postgres, MySQL, MongoDB, Redis, SQLite
 │       └── http/            reqwest proxy, gRPC over h2, mock server
 │
-├── desktop-ui/              Next.js 16 / React 19 UI — the 80+ tools
+├── desktop-ui/              Next.js 16 / React 19 UI — every tool
 │   ├── src/app/app/         One route per tool (page.tsx + layout.tsx)
 │   ├── src/components/      Tool layouts, sidebar, command palette, shared UI
 │   ├── src/lib/             Pure tool logic (unit-tested), crypto, local API client
