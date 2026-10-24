@@ -17,8 +17,8 @@ const popularToolSlugs = [
   'jwt-decoder',
   'api-client',
   'regex-tester',
-  'uuid-generator',
-  'base64',
+  'diff-checker',
+  'data-explorer',
 ]
 
 function isExternalHref(href: string) {

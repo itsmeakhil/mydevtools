@@ -22,7 +22,6 @@ import {
   Globe,
   Database,
   ShieldCheck,
-  Container,
   NotebookPen,
   HardDrive,
   Cpu,
@@ -153,15 +152,12 @@ const capabilities = [
   {
     title: "Developer Utilities",
     icon: Braces,
-    blurb: "The everyday formatters, decoders and generators — offline.",
+    blurb: "The everyday formatters, decoders and testers — offline.",
     tools: [
       ["JSON Formatter", "json-formatter"],
       ["YAML Formatter", "yaml-formatter"],
       ["JWT Decoder", "jwt-decoder"],
       ["Regex Tester", "regex-tester"],
-      ["UUID / ULID", "uuid-generator"],
-      ["Base64", "base64"],
-      ["Hash Generator", "hash-generator"],
       ["Diff Checker", "diff-checker"],
     ],
   },
@@ -196,22 +192,8 @@ const capabilities = [
     tools: [
       ["Password Manager", "password-manager"],
       ["Encryption Playground", "encryption-playground"],
-      ["HMAC Generator", "hmac-generator"],
-      ["TOTP / 2FA", "totp-generator"],
-      ["SSH / RSA Keys", "ssh-key-generator"],
-      ["Certificate / PEM Decoder", "certificate-pem-decoder"],
-    ],
-  },
-  {
-    title: "DevOps",
-    icon: Container,
-    blurb: "Config scaffolding and the small calculators you keep looking up.",
-    tools: [
-      ["Docker Compose Generator", "docker-compose-generator"],
-      ["Cron Builder", "cron-builder"],
-      [".gitignore Generator", "gitignore-generator"],
       ["Environment Manager", "environment-manager"],
-      ["Chmod Calculator", "chmod-calculator"],
+      ["Certificate / PEM Decoder", "certificate-pem-decoder"],
     ],
   },
   {
