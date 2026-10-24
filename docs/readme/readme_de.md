@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80+ Entwickler-Tools, ein API-Client, SQL- / MongoDB- / Redis-Clients, Verschlüsselung<br />
+  Ein API-Client, SQL- / MongoDB- / Redis-Clients, Verschlüsselung<br />
   und Produktivitäts-Helfer — alles läuft lokal auf deinem Rechner.
 </p>
 
@@ -98,19 +98,16 @@ Alles läuft auf deinem Rechner. Es gibt keinen MyDevTools-Server, keinen Accoun
 
 ## 🧰 Tools
 
-80+ Tools, gruppiert wie in der Seitenleiste. Die vollständige Liste mit
+Alle Tools, gruppiert wie in der Seitenleiste. Die vollständige Liste mit
 Beschreibungen steht im [englischen README](../../README.md#-tools).
 
 | Kategorie | Beispiele |
 |---|---|
 | 📝 **Formatierer & Validatoren** | JSON-Formatierer, JSON Visualizer, JSON-Diff, JSON-Schema-Generator, JSON to Code, YAML-Formatierer, Format-Konverter (JSON / YAML / TOML / XML), SQL-Formatierer, GraphQL-Formatierer, Markdown-Vorschau, Textvergleich, Regex-Tester |
-| 🌐 **Netzwerk & API** | API-Client (Collections, Umgebungen, Auth, gRPC, Mock-Server — ohne CORS-Grenzen des Browsers), cURL to Code, Webhook-Tester, WebSocket-Tester, DNS-Abfrage, Whois-Abfrage, IP-/Subnetz-Rechner, HTTP-Statuscodes, User-Agent Parser |
+| 🌐 **Netzwerk & API** | API-Client (Collections, Umgebungen, Auth, gRPC, Mock-Server — ohne CORS-Grenzen des Browsers) |
 | 🗄️ **Datenbank- & Storage-Clients** | SQL Client (PostgreSQL, MySQL, MariaDB), Datenbank-Explorer (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — native Rust-Treiber, direkt von deinem Rechner zu deiner Datenbank |
-| 🔐 **Sicherheit & Krypto** | Passwort-Manager, Verschlüsselungs-Spielplatz (AES-GCM), JWT-Decoder, Hash-Generator, HMAC-Generator, Bcrypt, TOTP / 2FA-Code, SSH / RSA-Schlüsselgenerator, Zertifikat- / PEM-Decoder, Umgebungs-Manager, Geheimnis / API-Schlüssel |
-| 🔄 **Konverter** | Base64-Kodierung, Bild zu Base64, URL-Kodierung / URL-Parser, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, Basiskonverter, Zeitstempel- / Zeitzonen-Konverter, Einheitenrechner, Chmod-Rechner, LLM-Token-Zähler |
-| ⚙️ **Generatoren** | UUID / ULID, Mock-Datengenerator, Cron-Editor, Docker-Compose-Generator, .gitignore-Generator, QR-Code-Generator, Markdown-Tabelle, Lorem Ipsum |
-| 🎨 **Medien & Design** | Farbauswahl, Kontrastprüfung, CSS-Verlaufsgenerator, CSS-Generatoren, Bildkomprimierung, SVG-Optimierer, EXIF-Viewer & -Entferner, Favicon-Generator, Code-Screenshot, Keycode-Inspektor |
-| 📱 **Produktivität** | Notizen, Code-Snippets, Aufgaben, Lesezeichen, API Keys, Pausenraum (2048, Sudoku, Snake, Minesweeper, Tetris) |
+| 🔐 **Sicherheit & Krypto** | Passwort-Manager, Verschlüsselungs-Spielplatz (AES-GCM), JWT-Decoder, Bcrypt, Zertifikat- / PEM-Decoder, Umgebungs-Manager |
+| 📱 **Produktivität** | Notizen, Code-Snippets, Aufgaben, Lesezeichen, API Keys |
 
 Alles ist über eine einzige Befehlspalette durchsuchbar, im hellen oder dunklen
 Modus, in 27 Sprachen.
@@ -129,7 +126,7 @@ Modus, in 27 Sprachen.
 - **Du entscheidest über jede ausgehende Verbindung.** Die App selbst braucht kein
   Netzwerk, aber manche Tools sind dafür da, mit *deinen* Zielen zu sprechen: Der
   API-Client schickt die Requests, die du schreibst, die Datenbank-Clients verbinden
-  sich mit den Hosts, die du konfigurierst, DNS- / WHOIS-Abfragen gehen an öffentliche
+  sich mit den Hosts, die du konfigurierst, DNS-Abfragen gehen an öffentliche
   Register, und der Updater prüft GitHub-Releases. Sonst verlässt nichts den Rechner.
 - **Optionale, anonyme Nutzungsstatistik.** Aus, solange du sie nicht einschaltest.
   Eingeschaltet werden zwei Events (`app_started`, `tool_opened`) mit einer rotierenden
@@ -171,7 +168,7 @@ API-Schlüssel, keine Accounts, keine Dienste.
 - **Die Datenbank-Clients sind für die tägliche Arbeit gedacht**, kein Ersatz für eine
   vollständige DBA-Suite — kein visueller Schema-Designer, keine Migrations-Werkzeuge.
 - **Keine Team-Funktionen.** Keine geteilten Workspaces, keine Synchronisierung, keine Zusammenarbeit.
-- **Manche Tools brauchen naturgemäß das Netzwerk** — DNS, WHOIS, Webhooks,
+- **Manche Tools brauchen naturgemäß das Netzwerk** — DNS,
   API-Requests, Datenbankverbindungen.
 
 ---

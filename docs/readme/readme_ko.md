@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80개가 넘는 개발자 도구, API 클라이언트, SQL / MongoDB / Redis 클라이언트, 암호화<br />
+  API 클라이언트, SQL / MongoDB / Redis 클라이언트, 암호화<br />
   및 생산성 유틸리티 — 모두 내 컴퓨터에서 로컬로 실행됩니다.
 </p>
 
@@ -97,19 +97,16 @@ MyDevTools는 개발자가 매일 열어 두는 수많은 탭, 일회성 웹사�
 
 ## 🧰 도구
 
-사이드바와 같은 방식으로 묶은 80개 이상의 도구입니다. 설명이 포함된 전체 목록은
+사이드바와 같은 방식으로 묶은 모든 도구입니다. 설명이 포함된 전체 목록은
 [영문 README](../../README.md#-tools)에 있습니다.
 
 | 분류 | 예시 |
 |---|---|
 | 📝 **포매터 및 검증기** | JSON 포맷터, JSON Visualizer, JSON 비교, JSON 스키마 생성기, JSON to Code, YAML 포매터, 포맷 변환기 (JSON / YAML / TOML / XML), SQL Formatter, GraphQL 포매터, 마크다운 미리보기, Diff checker, Regex Tester |
-| 🌐 **네트워크 및 API** | API 클라이언트 (컬렉션, 환경, 인증, gRPC, 목 서버 — 브라우저 CORS 제한 없음), cURL to Code, Webhook 테스터, WebSocket 테스터, DNS 조회, Whois 조회, IP / 서브넷 계산기, HTTP 상태 코드, User-Agent Parser |
+| 🌐 **네트워크 및 API** | API 클라이언트 (컬렉션, 환경, 인증, gRPC, 목 서버 — 브라우저 CORS 제한 없음) |
 | 🗄️ **데이터베이스 및 스토리지 클라이언트** | SQL Client (PostgreSQL, MySQL, MariaDB), 데이터베이스 탐색기 (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — 네이티브 Rust 드라이버로 내 컴퓨터에서 데이터베이스까지 바로 연결 |
-| 🔐 **보안 및 암호화** | 비밀번호 관리자, 암호화 연습장 (AES-GCM), JWT 디코더, 해시 생성기, HMAC 생성기, Bcrypt, TOTP / 2FA 코드, SSH / RSA 키 생성기, 인증서 / PEM 디코더, 환경 변수 관리자, 비밀 / API 키 생성기 |
-| 🔄 **변환기** | Base64, 이미지를 Base64로, URL Encoder / 파서, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, 진법 변환기, Timestamp / 시간대 변환기, 단위 변환기, Chmod 계산기, LLM 토큰 카운터 |
-| ⚙️ **생성기** | UUID / ULID, 모의 데이터 생성기, Cron Builder, Docker Compose 생성기, .gitignore 생성기, QR 코드 생성기, Markdown 표 생성기, Lorem Ipsum |
-| 🎨 **미디어 및 디자인** | Color Picker, 대비 검사기, CSS 그라디언트 빌더, CSS 생성기, 이미지 압축, SVG 최적화, EXIF 뷰어 및 제거, Favicon 생성기, 코드 스크린샷, 키코드 검사기 |
-| 📱 **생산성** | Notes, 코드 스니펫, Tasks, 북마크, API Keys, 휴게실 (2048, Sudoku, Snake, Minesweeper, Tetris) |
+| 🔐 **보안 및 암호화** | 비밀번호 관리자, 암호화 연습장 (AES-GCM), JWT 디코더, Bcrypt, 인증서 / PEM 디코더, 환경 변수 관리자 |
+| 📱 **생산성** | Notes, 코드 스니펫, Tasks, 북마크, API Keys |
 
 모든 도구는 하나의 명령 팔레트에서 검색할 수 있으며, 다크/라이트 모드와 27개
 언어를 지원합니다.
@@ -126,7 +123,7 @@ MyDevTools는 개발자가 매일 열어 두는 수많은 탭, 일회성 웹사�
 - **모든 외부 연결은 사용자가 결정합니다.** 앱 자체는 네트워크가 필요 없지만,
   일부 도구는 *사용자가 지정한* 대상과 통신하기 위해 존재합니다. API 클라이언트는
   사용자가 작성한 요청을 보내고, 데이터베이스 클라이언트는 사용자가 설정한 호스트에
-  연결하며, DNS / WHOIS 조회는 공개 레지스트리에 질의하고, 업데이터는 GitHub
+  연결하며, DNS 조회는 공개 레지스트리에 질의하고, 업데이터는 GitHub
   릴리스를 확인합니다. 그 외에 나가는 것은 없습니다.
 - **사용 통계는 선택 사항이며 익명입니다.** 켜지 않으면 꺼져 있습니다. 켜면 두
   가지 이벤트(`app_started`, `tool_opened`)가 순환 세션 id, 앱 버전, 로케일과 함께
@@ -166,7 +163,7 @@ API 키도, 계정도, 외부 서비스도 필요 없습니다.
 - **데이터베이스 클라이언트는 일상 작업용**이며, 완전한 DBA 도구 모음을 대체하지
   않습니다 — 시각적 스키마 디자이너나 마이그레이션 도구는 없습니다.
 - **팀 기능은 없습니다.** 공유 워크스페이스도, 동기화도, 협업 기능도 없습니다.
-- **일부 도구는 본질적으로 네트워크가 필요합니다** — DNS, WHOIS, 웹훅, API
+- **일부 도구는 본질적으로 네트워크가 필요합니다** — DNS, API
   요청, 데이터베이스 연결이 그렇습니다.
 
 ---

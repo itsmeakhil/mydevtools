@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80+ developer tools, an API client, SQL / MongoDB / Redis clients, encryption<br />
+  An API client, SQL / MongoDB / Redis clients, an encrypted vault, core dev tools<br />
   and productivity utilities — all running locally on your machine.
 </p>
 
@@ -115,7 +115,7 @@ Open it and start working: no sign-up, no configuration, no API keys.
 
 ## 🧰 Tools
 
-80+ tools ship in the app today, grouped the way the sidebar groups them.
+Everything that ships in the app today, grouped the way the sidebar groups them.
 
 ### 📝 Formatters & validators
 
@@ -136,20 +136,11 @@ Open it and start working: no sign-up, no configuration, no API keys.
 | **Diff Checker** | Side-by-side line diff of two texts |
 | **Regex Tester** | Test regex with live match highlighting and capture groups |
 
-### 🌐 Network & API
+### 🌐 API
 
 | Tool | Description |
 |---|---|
 | **API Client** | Build, send and debug HTTP requests — collections, environments, auth, gRPC and a mock server. Not bound by browser CORS |
-| **cURL to Code** | Turn a curl command into fetch, axios, Python, Go, PHP, Ruby, Java or C# |
-| **Webhook Tester** | Capture and inspect incoming webhook requests in real time |
-| **WebSocket Tester** | Connect to WebSocket endpoints and send, receive and inspect messages live |
-| **DNS Lookup** | Query A, AAAA, MX, TXT, NS, CNAME, SOA, CAA and PTR records |
-| **Whois Lookup** | Domain and IP registration details via RDAP/WHOIS |
-| **IP / Subnet Calculator** | IPv4 and IPv6 CIDR: netmask, host range, address counts |
-| **HTTP Status Codes** | Searchable reference for 1xx–5xx |
-| **User-Agent Parser** | Browser, OS and device details from a user-agent string |
-| **MIME Type Lookup** | MIME type for a file extension or filename |
 
 <!-- shot: assets/api-client.png (see assets/SHOT_LIST.md), then uncomment.
 <p align="center"><img src="assets/api-client.png" alt="API Client — request, response and collections" width="900" /></p>
@@ -179,59 +170,10 @@ go straight from your machine to your database.
 | **Secure Files** | Encrypt files and folders into masked `.mydt` objects in any folder you choose; browse, preview and export them after unlocking ([format spec](docs/MYDT_FORMAT.md), [`mydt` CLI](crates/mydt/README.md)) |
 | **Encryption Playground** | AES-GCM with a raw key or passphrase; encrypt/decrypt JSON bundles |
 | **JWT Decoder** | Decode JWT header, payload and expiry |
-| **Hash Generator** | MD5, SHA-1, SHA-256/384/512 digests for text or files |
-| **HMAC Generator** | HMAC-SHA1/256/384/512 for webhook and API signing tests |
 | **Bcrypt Generator & Checker** | Hash passwords with bcrypt and verify hashes |
-| **TOTP / 2FA Generator** | Six-digit codes from a Base32 authenticator secret |
-| **SSH / RSA Key Generator** | Ed25519 or RSA key pairs in OpenSSH and PEM formats |
 | **Certificate / PEM Decoder** | X.509 certificates and CSRs: subject, issuer, validity, SANs |
 | **Environment Manager** | Encrypted `.env` sets per project and environment |
-| **Secret / API Key Generator** | Cryptographically random strings with configurable alphabet |
 | **Email Validator** | Verify and validate email addresses |
-
-### 🔄 Converters
-
-| Tool | Description |
-|---|---|
-| **Base64 Encoder** | Encode and decode Base64 |
-| **Image to Base64** | Images to Data URI or raw Base64 |
-| **URL Encoder** · **URL Parser** | Percent-encode/decode, and split a URL into its parts |
-| **Escape / Encode** | HTML entities, backslash strings, hex ↔ ASCII, Unicode `\uXXXX` |
-| **String Case Converter** | camelCase, snake_case, kebab-case, CONSTANT_CASE and more |
-| **String Inspector** | Characters, words, bytes, invisible and non-ASCII code points |
-| **Line Sort & Dedupe** | Sort, deduplicate, trim and clean up lists |
-| **CSV / Excel ↔ JSON** | Convert spreadsheets to JSON and back |
-| **Number Base Converter** | Integers between bases 2–36 |
-| **Timestamp Converter** · **Timezone Converter** | Unix/ISO/relative time, and time across timezones |
-| **Unit Converter** | 323 units across 43 categories |
-| **Chmod Calculator** | Unix permissions between checkboxes, octal and symbolic |
-| **LLM Token Counter** | Count tokens and estimate API cost for any text |
-
-### ⚙️ Generators
-
-| Tool | Description |
-|---|---|
-| **UUID / ULID** | Generate UUIDs and ULIDs with bulk export |
-| **Mock Data Generator** | Define a schema, export random JSON, CSV, SQL or XML |
-| **Cron Builder** | Visual cron builder, presets and parser |
-| **Docker Compose Generator** | Compose local stacks — Postgres, Redis, NGINX, Kafka and more |
-| **.gitignore Generator** | Merged `.gitignore` files from 500+ stacks |
-| **QR Code Generator** | PNG QR codes from text or URLs |
-| **Markdown Table Generator** | Build Markdown and HTML tables in a spreadsheet-like editor |
-| **Lorem Ipsum** | Placeholder text for layouts and mockups |
-
-### 🎨 Media & design
-
-| Tool | Description |
-|---|---|
-| **Color Picker** · **Contrast Checker** | HEX/RGB/HSL conversion, and WCAG 2.1 AA/AAA ratios |
-| **CSS Gradient Builder** · **CSS Generators** | Gradients, box-shadow, border-radius and fluid `clamp()` |
-| **Image Compressor** | Compress JPEG, PNG and WebP with a quality slider |
-| **SVG Optimizer** | Strip junk with SVGO and see the size reduction |
-| **EXIF Viewer & Remover** | Inspect and strip photo metadata |
-| **Favicon Generator** | Favicons, app icons and manifest snippets |
-| **Code Screenshot** | Turn source code into shareable images |
-| **Keycode Inspector** | Inspect JavaScript keyboard events: key, code, modifiers |
 
 ### 📱 Productivity
 
@@ -242,7 +184,6 @@ go straight from your machine to your database.
 | **Tasks** | To-do lists with priorities, statuses and drag-and-drop |
 | **Bookmarks** | Organize links in one place |
 | **API Keys** | Encrypted API keys and secrets per environment (dev / staging / prod) |
-| **Break Room** | 2048, Sudoku, Snake, Minesweeper, Tetris |
 
 Everything is searchable from one command palette, in dark or light mode, in 27
 languages.
@@ -267,7 +208,7 @@ machine instead of being posted to someone else's tool backend.
 - **You choose every outbound connection.** The app itself needs no network, but
   some tools exist to talk to *your* destinations: the API client sends the
   requests you write, the database clients connect to the hosts you configure,
-  DNS/WHOIS lookups query public registries, and the updater checks GitHub
+  the email validator queries public DNS resolvers, and the updater checks GitHub
   releases. Those are the connections you asked for — nothing else leaves.
 - **Optional, anonymous usage stats.** Off unless you switch them on. When on,
   two events (`app_started`, `tool_opened`) are sent with a rotating session id,
@@ -279,7 +220,7 @@ machine instead of being posted to someone else's tool backend.
 
 | | What it is |
 |---|---|
-| **MyDevTools Desktop** (this repo, `apps/desktop-ui` + `apps/desktop`) | The product. Runs the 80+ tools locally, offline, with no account and no backend |
+| **MyDevTools Desktop** (this repo, `apps/desktop-ui` + `apps/desktop`) | The product. Runs every tool locally, offline, with no account and no backend |
 | **mydevtools.tech** (`apps/web`) | An informational site: what the app does, tool documentation and the download link. The tools do **not** run there |
 
 The website is a normal marketing site and uses standard web analytics. Its
@@ -298,7 +239,7 @@ apps/
 │       ├── http/     Request proxy, gRPC, mock server (no browser CORS limits)
 │       └── db/       Schema migrations, device key
 │
-├── desktop-ui/       Next.js UI the desktop app is built from — all 80+ tools
+├── desktop-ui/       Next.js UI the desktop app is built from — every tool
 │   ├── src/app/app/  Tool pages
 │   ├── src/lib/      Tool logic (pure, unit-tested), crypto, local API client
 │   └── messages/     next-intl locale files (27 languages)
@@ -362,7 +303,7 @@ Being honest about the edges is more useful than a feature list:
   suite — no visual schema designer, no migration tooling.
 - **No team features.** No shared workspaces, no sync, no collaboration. Local
   workspaces only.
-- **Some tools need the network by definition** — DNS, WHOIS, webhooks, API
+- **Some tools need the network by definition** — DNS (email validation), API
   requests, database connections.
 
 ---
