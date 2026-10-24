@@ -51,8 +51,8 @@ const outboundParts = [
     where: 'Your PostgreSQL, MySQL, MongoDB, Redis or S3 endpoint',
   },
   {
-    what: 'DNS and WHOIS lookups',
-    where: 'Public DNS resolvers and RDAP/WHOIS registries',
+    what: 'Email validator DNS checks',
+    where: 'Public DNS-over-HTTPS resolvers (MX lookups)',
   },
   {
     what: 'Update check',

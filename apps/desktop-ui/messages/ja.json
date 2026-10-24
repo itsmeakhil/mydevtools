@@ -3,7 +3,6 @@
     "dashboard": "ダッシュボード",
     "settings": "設定",
     "apiClient": "APIクライアント",
-    "httpStatusCodes": "HTTPステータスコード",
     "passwordManager": "パスワードマネージャー",
     "environmentManager": "環境変数マネージャー",
     "bookmarks": "ブックマーク",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "snippetManager": "コードスニペット",
-    "dnsLookup": "DNS ルックアップ",
-    "ipSubnetCalculator": "IP／サブネット計算",
     "markdownPreview": "Markdownプレビュー",
     "formatConverter": "フォーマット変換",
     "yamlFormatter": "YAMLフォーマッター",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON 差分",
     "jsonpathPlayground": "JSONPath プレイグラウンド",
-    "webhookTester": "Webhook テスター",
-    "websocketTester": "WebSocket テスター",
-    "whoisLookup": "Whois 検索",
     "secureFiles": "ファイル"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools とは？",
-        "description": "オフラインの開発者ワークスペース。ダッシュボードと、すべてデバイス上で動作する 80 以上のツールを備えています。",
+        "description": "オフラインの開発者ワークスペース。ダッシュボードと、すべてデバイス上で動作するツールを備えています。",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "設定",
         "p1After": "から非表示にできます。",
@@ -397,14 +390,6 @@
         "title": "コードスニペット",
         "description": "シンタックスハイライト、自動言語検出、整形でスニペットを保存します。"
       },
-      "ipSubnetCalculator": {
-        "title": "IP／サブネット計算",
-        "description": "IPv4／IPv6 CIDR：ネットマスク、範囲、件数。"
-      },
-      "dnsLookup": {
-        "title": "DNS ルックアップ",
-        "description": "任意のドメインの DNS レコードを照会 — A、AAAA、MX、TXT、NS、CNAME。"
-      },
       "markdownPreview": {
         "title": "Markdownプレビュー",
         "description": "HTMLエクスポートとHTML → Markdown変換を備えたライブMarkdownレンダラー。"
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "フォーマット変換",
         "description": "JSON、YAML、TOML、XML を双方向に変換します。12 通りの組み合わせに対応します。"
-      },
-      "httpStatusCodes": {
-        "title": "HTTPステータスコード",
-        "description": "説明付きのHTTPステータスコードを検索します (1xx–5xx)。"
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath プレイグラウンド",
         "description": "JSONPath または JMESPath で JSON をクエリし、結果をリアルタイムで確認します。"
-      },
-      "webhookTester": {
-        "title": "Webhook テスター",
-        "description": "受信した webhook リクエストをリアルタイムでキャプチャして確認します。"
-      },
-      "websocketTester": {
-        "title": "WebSocket テスター",
-        "description": "WebSocket エンドポイントに接続し、メッセージをリアルタイムでやり取りします。"
-      },
-      "whoisLookup": {
-        "title": "Whois 検索",
-        "description": "RDAP を使ってドメインと IP の登録情報を調べます。"
       },
       "secureFiles": {
         "title": "ファイル",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTPステータスコード",
-    "subtitle": "1xx〜5xxをRFC参照付きで検索",
-    "header": {
-      "title": "HTTPステータスコード",
-      "description": "HTTPレスポンスコードの検索可能なリファレンス。説明とRFC参照付き。"
-    },
-    "searchPlaceholder": "検索: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "クラスで絞り込み…",
-    "classFilterAll": "すべてのクラス",
-    "resultsCount": "{total}件中{count}件",
-    "table": {
-      "code": "Code",
-      "phrase": "フレーズ",
-      "description": "説明",
-      "copy": "コピー"
-    },
-    "noResults": "「{query}」に一致する項目がありません。",
-    "specPrefix": "仕様:",
-    "copied": "コピーしました"
-  },
   "DiffChecker": {
     "title": "差分チェッカー",
     "subtitle": "2つのテキストを行単位で並べて比較",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} 行が一致しました — フィルタが一意でないため、何も変更していません。"
     }
   },
-  "IpSubnetCalculator": {
-    "title": "サブネット計算機",
-    "subtitle": "IPv4・IPv6のCIDR詳細を計算",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "ネットワーク",
-    "placeholderIpv4": "10.0.0.0/24 または 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 または 2001:db8::1/64",
-    "hintIpv4": "CIDR（例 /24）または IPv4＋ドット付きサブネットマスク。",
-    "hintIpv6": "プレフィックス長（例 /64）。省略時は /128。",
-    "copyValue": "値をコピー",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "ネットワークアドレス",
-      "netmask": "サブネットマスク",
-      "wildcard": "ワイルドカードマスク",
-      "broadcast": "ブロードキャスト",
-      "firstHost": "先頭ホスト",
-      "lastHost": "末尾ホスト",
-      "totalAddresses": "総アドレス数",
-      "usableHosts": "usable ホスト数",
-      "prefixLength": "プレフィックス長（ビット）",
-      "networkIpv6": "ネットワークアドレス",
-      "lastIpv6": "範囲の最終アドレス",
-      "totalAddressesIpv6": "サブネット内アドレス数"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 のポイントツーポイントは両方をホストとして使用（RFC 3021）。",
-      "singleHost": "/32 は単一ホスト。"
-    },
-    "ipv6RangeHint": {
-      "normal": "数学上の全範囲を表示。ルーター運用ルールは異なる場合があります。",
-      "single": "/128 は単一アドレス。",
-      "full": "/0 は IPv6 全体。"
-    },
-    "errors": {
-      "invalidIpv4": "IPv4 が無効です。CIDR または アドレス＋マスクを試してください。",
-      "invalidIpv6": "IPv6 が無効です。例: 2001:db8::/48 の形式で入力。"
-    }
-  },
   "EncryptionPlayground": {
     "title": "暗号化プレイグラウンド",
     "subtitle": "パスフレーズやキーでAES-GCM暗号化・復号",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, other {# 文字}}",
     "emptyHint": "左側に入力を貼り付けるか入力すると、変換された出力が表示されます。",
     "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
-  },
-  "MimeTypeLookup": {
-    "title": "MIMEタイプ検索",
-    "subtitle": "拡張子からMIMEタイプを検索",
-    "inputLabel": "拡張子またはファイル名",
-    "placeholder": "例: .png、package.json、photo.jpeg",
-    "hint": "ヒント: 拡張子（ドットあり/なし）または完全なファイル名を貼り付けてください。",
-    "clear": "クリア",
-    "exampleFilename": "例のファイル名を使う",
-    "exampleExtension": "例の拡張子を使う",
-    "resultLabel": "結果",
-    "normalizedLabel": "正規化した入力:",
-    "mimeTypeLabel": "MIME タイプ",
-    "contentTypeLabel": "Content-Type ヘッダー",
-    "charsetLabel": "文字セット",
-    "copyMimeType": "MIME タイプをコピー",
-    "copy": "コピー",
-    "copied": "コピーしました",
-    "emptyHint": "拡張子またはファイル名を入力して MIME タイプを検索します。",
-    "notFound": "この入力に対応する MIME タイプが見つかりません。",
-    "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
-  },
-  "UserAgentParser": {
-    "title": "User-Agentパーサー",
-    "subtitle": "UA文字列をブラウザ・OS・デバイスに分解",
-    "inputLabel": "User-Agent 文字列",
-    "placeholder": "ここに User-Agent を貼り付けてください…",
-    "hint": "ヒント: UA はリクエストヘッダー、ログ、ブラウザの DevTools からコピーできます。",
-    "clear": "クリア",
-    "exampleDesktop": "デスクトップ例を使う",
-    "exampleMobile": "モバイル例を使う",
-    "resultLabel": "内訳",
-    "browserLabel": "ブラウザ",
-    "osLabel": "オペレーティングシステム",
-    "engineLabel": "エンジン",
-    "deviceTypeLabel": "デバイスタイプ",
-    "deviceVendorLabel": "メーカー",
-    "deviceModelLabel": "モデル",
-    "cpuArchLabel": "CPU アーキテクチャ",
-    "copyJson": "JSON をコピー",
-    "copy": "コピー",
-    "copied": "コピーしました",
-    "emptyHint": "User-Agent 文字列を貼り付けると内訳が表示されます。",
-    "localNote": "すべてブラウザ内でローカルに動作します。何もアップロードされません。"
-  },
-  "DnsLookup": {
-    "title": "DNSルックアップ",
-    "subtitle": "A・AAAA・MX・TXT・NSなどをドメインごとに照会",
-    "placeholder": "ドメインを入力（例: github.com）",
-    "lookupBtn": "検索",
-    "looking": "検索中…",
-    "refreshBtn": "更新",
-    "recordTypesLabel": "レコード種別",
-    "allBtn": "すべて",
-    "tryLabel": "試す:",
-    "errors": {
-      "lookupFailed": "DNS ルックアップに失敗しました"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL → コード",
-    "subtitle": "curlコマンドをfetch・axios・Pythonなどに変換",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON → コード",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "webhook URL の作成に失敗しました。もう一度お試しください。",
       "clearFailed": "リクエストのクリアに失敗しました。もう一度お試しください。"
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocketテスター",
-    "subtitle": "接続・送信してWebSocketメッセージをリアルタイム確認",
-    "urlLabel": "エンドポイント URL",
-    "protocolsLabel": "サブプロトコル",
-    "protocolsPlaceholder": "任意、カンマ区切り",
-    "connect": "接続",
-    "disconnect": "切断",
-    "status": {
-      "disconnected": "切断済み",
-      "connecting": "接続中",
-      "connected": "接続済み",
-      "error": "エラー"
-    },
-    "messages": {
-      "connecting": "{url} に接続中…",
-      "connected": "接続が確立されました",
-      "connectedWithProtocol": "接続が確立されました (プロトコル: {protocol})",
-      "invalidUrl": "無効な URL — ws:// または wss:// で始まる必要があります",
-      "connectFailed": "接続を開けませんでした",
-      "socketError": "接続エラーが発生しました",
-      "notConnected": "未接続 — まず接続してください",
-      "binaryMessage": "バイナリメッセージを受信しました"
-    },
-    "log": {
-      "title": "メッセージログ",
-      "empty": "メッセージはまだありません。接続して送信を開始してください。",
-      "copyAll": "すべてコピー",
-      "download": ".txt でダウンロード",
-      "clear": "ログをクリア",
-      "prettyPrint": "JSON を整形",
-      "showRaw": "生テキストを表示"
-    },
-    "composer": {
-      "placeholder": "送信するメッセージを入力…",
-      "send": "送信",
-      "formatJson": "JSON として整形",
-      "invalidJson": "メッセージが有効な JSON ではありません",
-      "hint": "Cmd/Ctrl+Enter で送信"
-    },
-    "ping": {
-      "label": "自動 ping",
-      "seconds": "秒",
-      "intervalTitle": "Ping の間隔 (秒)",
-      "payloadPlaceholder": "ping ペイロード"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whoisルックアップ",
-    "subtitle": "RDAPでドメインとIPの登録情報を照会",
-    "placeholder": "example.com または 8.8.8.8",
-    "lookupBtn": "検索",
-    "looking": "検索中…",
-    "refreshBtn": "更新",
-    "tryLabel": "お試し:",
-    "copy": "コピー",
-    "copied": "コピーしました",
-    "notAvailable": "利用できません",
-    "summary": {
-      "registrar": "レジストラ",
-      "network": "ネットワーク"
-    },
-    "dates": {
-      "created": "作成日",
-      "updated": "更新日",
-      "expires": "有効期限"
-    },
-    "sections": {
-      "status": "ステータス",
-      "nameservers": "ネームサーバー",
-      "contacts": "連絡先",
-      "rawRdap": "生の RDAP"
-    },
-    "contacts": {
-      "roles": "役割",
-      "name": "名前",
-      "organization": "組織"
-    },
-    "errors": {
-      "invalidTarget": "有効なドメイン名または IP アドレスを入力してください",
-      "lookupFailed": "検索に失敗しました (ステータス {status})"
     }
   },
   "ToolPageHeader": {

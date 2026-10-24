@@ -125,11 +125,11 @@ function SectionHeading({
 // ─── Data — every item below is a shipped capability; keep it honest ──────────
 
 const PROOF_STRIP = [
-  "80+ Tools",
   "API Client",
   "SQL",
   "MongoDB",
   "Redis",
+  "Encrypted Vault",
   "Security",
   "Open Source",
   "Offline",
@@ -162,16 +162,11 @@ const capabilities = [
     ],
   },
   {
-    title: "API & Networking",
+    title: "API",
     icon: Globe,
     blurb: "REST, GraphQL, WebSocket and gRPC, with a mock server, runner and vault-backed secrets.",
     tools: [
       ["API Client", "api-client"],
-      ["WebSocket Tester", "websocket-tester"],
-      ["Webhook Tester", "webhook-tester"],
-      ["cURL to Code", "curl-to-code"],
-      ["DNS Lookup", "dns-lookup"],
-      ["HTTP Status Codes", "http-status-codes"],
     ],
   },
   {
@@ -226,7 +221,7 @@ const privacyPoints = [
   {
     icon: Cpu,
     title: "Local processing",
-    body: "Formatters, decoders, generators and crypto helpers run on your machine.",
+    body: "Formatters, decoders, the API client and crypto helpers run on your machine.",
   },
   {
     icon: HardDrive,
@@ -402,7 +397,7 @@ export default function Page() {
               Stop juggling browser tabs and separate developer apps. MyDevTools
               brings{" "}
               <span className="text-foreground">
-                80+ developer tools, an API client, SQL, MongoDB and Redis
+                an API client, SQL, MongoDB and Redis clients, an encrypted vault and the dev tools you use daily
               </span>{" "}
               into one desktop workspace.
             </motion.p>
@@ -567,8 +562,7 @@ export default function Page() {
               </p>
               <p>
                 Friends were also looking for offline-first developer tools, so I kept
-                going. MyDevTools is now an open-source desktop developer workstation
-                with 80+ tools.
+                going. MyDevTools is now an open-source desktop developer workstation.
               </p>
               <footer className="pt-2 text-sm text-foreground/80">
                 —{" "}
@@ -587,12 +581,12 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Capabilities (80+ tools, grouped) ────────────────────────────────── */}
+      {/* ── Capabilities (grouped) ──────────────────────────────────────── */}
       <section id="tools" className="relative overflow-hidden py-16 md:py-24 scroll-mt-28">
         <div className="container mx-auto px-4 md:px-6">
           <Section>
             <SectionHeading
-              eyebrow="80+ tools"
+              eyebrow="What's inside"
               title={
                 <>
                   Everything you need for everyday development.{" "}
@@ -1003,7 +997,7 @@ export default function Page() {
                   transition={{ duration: 0.6, delay: 0.18 }}
                   className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
                 >
-                  80+ developer tools, API, SQL, MongoDB and Redis — open source,
+                  API client, SQL, MongoDB and Redis, an encrypted vault — open source,
                   local-first and offline.
                 </motion.p>
 

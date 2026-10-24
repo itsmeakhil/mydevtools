@@ -3,7 +3,6 @@
     "dashboard": "Instrumentpanel",
     "settings": "Inställningar",
     "apiClient": "API-klient",
-    "httpStatusCodes": "HTTP-statuskoder",
     "passwordManager": "Lösenordshanterare",
     "environmentManager": "Miljöhanterare",
     "bookmarks": "Bokmärken",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSON-schemagenerator",
     "snippetManager": "Kodutdrag",
-    "dnsLookup": "DNS-sökning",
-    "ipSubnetCalculator": "IP-/subnetkalkylator",
     "markdownPreview": "Markdown-förhandsgranskning",
     "formatConverter": "Formatkonverterare",
     "yamlFormatter": "YAML-formaterare",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-lekplats",
-    "webhookTester": "Webhook-testare",
-    "websocketTester": "WebSocket-testare",
-    "whoisLookup": "Whois-uppslag",
     "secureFiles": "Filer"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Vad är MyDevTools?",
-        "description": "En offline-arbetsyta för utvecklare: en instrumentpanel och över 80 verktyg som körs helt på din enhet.",
+        "description": "En offline-arbetsyta för utvecklare: en instrumentpanel och verktyg som körs helt på din enhet.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Inställningar",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Kodutdrag",
         "description": "Spara utdrag med syntaxmarkering, automatisk språkupptäckt och formatering."
       },
-      "ipSubnetCalculator": {
-        "title": "IP-/subnetkalkylator",
-        "description": "IPv4 och IPv6 CIDR: nätmask, intervall och adressantal."
-      },
-      "dnsLookup": {
-        "title": "DNS-sökning",
-        "description": "Fråga DNS-poster för valfri domän — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Markdown-förhandsgranskning",
         "description": "Live Markdown-renderer med HTML-export och HTML → Markdown-konvertering."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Formatkonverterare",
         "description": "Konvertera mellan JSON, YAML, TOML och XML i alla riktningar. Alla 12 kombinationer stöds."
-      },
-      "httpStatusCodes": {
-        "title": "HTTP-statuskoder",
-        "description": "Sök HTTP-statuskoder med beskrivningar (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath-lekplats",
         "description": "Fråga JSON med JSONPath eller JMESPath och se resultat i realtid."
-      },
-      "webhookTester": {
-        "title": "Webhook-testare",
-        "description": "Fånga och inspektera inkommande webhook-förfrågningar i realtid."
-      },
-      "websocketTester": {
-        "title": "WebSocket-testare",
-        "description": "Anslut till WebSocket-slutpunkter och utbyt meddelanden i realtid."
-      },
-      "whoisLookup": {
-        "title": "Whois-uppslag",
-        "description": "Slå upp registreringsuppgifter för domäner och IP via RDAP."
       },
       "secureFiles": {
         "title": "Filer",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP-statuskoder",
-    "subtitle": "Sök statuskoder 1xx–5xx med RFC-referenser",
-    "header": {
-      "title": "HTTP-statuskoder",
-      "description": "Sökbar referens för HTTP-svarskoder med beskrivningar och RFC-referenser."
-    },
-    "searchPlaceholder": "Sök: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Filtrera klass…",
-    "classFilterAll": "Alla klasser",
-    "resultsCount": "{count} av {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Fras",
-      "description": "Beskrivning",
-      "copy": "Kopiera"
-    },
-    "noResults": "Inga träffar för “{query}”.",
-    "specPrefix": "Spec:",
-    "copied": "Kod kopierad"
-  },
   "DiffChecker": {
     "title": "Diff-kontroll",
     "subtitle": "Jämför två texter sida vid sida, rad för rad",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} rader matchade — inget ändrades, eftersom filtret inte är unikt."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Subnätskalkylator",
-    "subtitle": "Beräkna CIDR-detaljer för IPv4 och IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Nätverk",
-    "placeholderIpv4": "10.0.0.0/24 eller 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 eller 2001:db8::1/64",
-    "hintIpv4": "Använd CIDR (t.ex. /24) eller IPv4-adress + punktnätmask.",
-    "hintIpv6": "Ange prefixlängd (t.ex. /64). Utan anges /128.",
-    "copyValue": "Kopiera värde",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Nätverksadress",
-      "netmask": "Subnetmask",
-      "wildcard": "Wildcard-mask",
-      "broadcast": "Broadcast",
-      "firstHost": "Första värd",
-      "lastHost": "Sista värd",
-      "totalAddresses": "Adresser totalt",
-      "usableHosts": "Användbara värdar",
-      "prefixLength": "Prefixlängd (bitar)",
-      "networkIpv6": "Nätverksadress",
-      "lastIpv6": "Sista adressen i intervallet",
-      "totalAddressesIpv6": "Adresser i subnet"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 punkt-till-punkt använder båda adresserna som värdar (RFC 3021).",
-      "singleHost": "/32 är en enda värdadress."
-    },
-    "ipv6RangeHint": {
-      "normal": "Visar hela det matematiska intervallet; routerregler kan variera.",
-      "single": "/128 är en enda adress.",
-      "full": "/0 täcker hela IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Ogiltigt IPv4-nätverk. Prova CIDR eller adress + mask.",
-      "invalidIpv6": "Ogiltigt IPv6-nätverk. Använd adress/prefix, t.ex. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Krypteringslekplats",
     "subtitle": "Kryptera och dekryptera AES-GCM med lösenfras eller nyckel",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# tecken} other {# tecken}}",
     "emptyHint": "Klistra in eller skriv din indata till vänster för att se den konverterade utdatan.",
     "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
-  },
-  "MimeTypeLookup": {
-    "title": "MIME-typsökning",
-    "subtitle": "Hitta MIME-typen för valfri filändelse",
-    "inputLabel": "Filändelse eller filnamn",
-    "placeholder": "t.ex. .png, package.json, photo.jpeg",
-    "hint": "Tips: klistra in antingen en ändelse (med eller utan punkt) eller ett fullständigt filnamn.",
-    "clear": "Rensa",
-    "exampleFilename": "Använd exempel-filnamn",
-    "exampleExtension": "Använd exempel-ändelse",
-    "resultLabel": "Resultat",
-    "normalizedLabel": "Normaliserad indata:",
-    "mimeTypeLabel": "MIME-typ",
-    "contentTypeLabel": "Content-Type-header",
-    "charsetLabel": "Teckenuppsättning",
-    "copyMimeType": "Kopiera MIME-typ",
-    "copy": "Kopiera",
-    "copied": "Kopierat",
-    "emptyHint": "Ange en filändelse eller ett filnamn för att slå upp MIME-typen.",
-    "notFound": "Ingen MIME-typ hittades för den indata.",
-    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
-  },
-  "UserAgentParser": {
-    "title": "User-Agent-parser",
-    "subtitle": "Dela upp en UA-sträng i webbläsare, OS och enhet",
-    "inputLabel": "User-Agent-sträng",
-    "placeholder": "Klistra in din User-Agent här…",
-    "hint": "Tips: du kan kopiera en UA från request-headers, loggar eller webbläsarens devtools.",
-    "clear": "Rensa",
-    "exampleDesktop": "Använd skrivbordsexempel",
-    "exampleMobile": "Använd mobilexempel",
-    "resultLabel": "Uppdelning",
-    "browserLabel": "Webbläsare",
-    "osLabel": "Operativsystem",
-    "engineLabel": "Motor",
-    "deviceTypeLabel": "Enhetstyp",
-    "deviceVendorLabel": "Tillverkare",
-    "deviceModelLabel": "Modell",
-    "cpuArchLabel": "CPU-arkitektur",
-    "copyJson": "Kopiera JSON",
-    "copy": "Kopiera",
-    "copied": "Kopierat",
-    "emptyHint": "Klistra in en User-Agent-sträng för att se uppdelningen.",
-    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
-  },
-  "DnsLookup": {
-    "title": "DNS-uppslag",
-    "subtitle": "Fråga A, AAAA, MX, TXT, NS med mera för valfri domän",
-    "placeholder": "Ange domän (t.ex. github.com)",
-    "lookupBtn": "Sök",
-    "looking": "Söker…",
-    "refreshBtn": "Uppdatera",
-    "recordTypesLabel": "Posttyper",
-    "allBtn": "Alla",
-    "tryLabel": "Prova:",
-    "errors": {
-      "lookupFailed": "DNS-sökningen misslyckades"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL till kod",
-    "subtitle": "Gör curl-kommandon till fetch, axios, Python med mera",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON till kod",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Kunde inte skapa webhook-URL. Försök igen.",
       "clearFailed": "Kunde inte rensa förfrågningar. Försök igen."
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket-testare",
-    "subtitle": "Anslut, skicka och granska WebSocket-meddelanden live",
-    "urlLabel": "Slutpunkts-URL",
-    "protocolsLabel": "Underprotokoll",
-    "protocolsPlaceholder": "valfritt, kommaseparerat",
-    "connect": "Anslut",
-    "disconnect": "Koppla från",
-    "status": {
-      "disconnected": "Frånkopplad",
-      "connecting": "Ansluter",
-      "connected": "Ansluten",
-      "error": "Fel"
-    },
-    "messages": {
-      "connecting": "Ansluter till {url}…",
-      "connected": "Anslutning upprättad",
-      "connectedWithProtocol": "Anslutning upprättad (protokoll: {protocol})",
-      "invalidUrl": "Ogiltig URL — måste börja med ws:// eller wss://",
-      "connectFailed": "Kunde inte öppna anslutningen",
-      "socketError": "Ett anslutningsfel uppstod",
-      "notConnected": "Inte ansluten — anslut först",
-      "binaryMessage": "Tog emot ett binärt meddelande"
-    },
-    "log": {
-      "title": "Meddelandelogg",
-      "empty": "Inga meddelanden ännu. Anslut och börja skicka.",
-      "copyAll": "Kopiera alla",
-      "download": "Ladda ner som .txt",
-      "clear": "Rensa logg",
-      "prettyPrint": "Formatera JSON snyggt",
-      "showRaw": "Visa rå text"
-    },
-    "composer": {
-      "placeholder": "Skriv ett meddelande att skicka…",
-      "send": "Skicka",
-      "formatJson": "Formatera som JSON",
-      "invalidJson": "Meddelandet är inte giltig JSON",
-      "hint": "Cmd/Ctrl+Enter för att skicka"
-    },
-    "ping": {
-      "label": "Auto-ping",
-      "seconds": "sek",
-      "intervalTitle": "Ping-intervall i sekunder",
-      "payloadPlaceholder": "ping-payload"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois-uppslag",
-    "subtitle": "Slå upp domän- och IP-registrering via RDAP",
-    "placeholder": "example.com eller 8.8.8.8",
-    "lookupBtn": "Slå upp",
-    "looking": "Slår upp…",
-    "refreshBtn": "Uppdatera",
-    "tryLabel": "Prova:",
-    "copy": "Kopiera",
-    "copied": "Kopierat",
-    "notAvailable": "Ej tillgänglig",
-    "summary": {
-      "registrar": "Registrator",
-      "network": "Nätverk"
-    },
-    "dates": {
-      "created": "Skapad",
-      "updated": "Uppdaterad",
-      "expires": "Upphör"
-    },
-    "sections": {
-      "status": "Status",
-      "nameservers": "Namnservrar",
-      "contacts": "Kontakter",
-      "rawRdap": "Rå RDAP"
-    },
-    "contacts": {
-      "roles": "Roller",
-      "name": "Namn",
-      "organization": "Organisation"
-    },
-    "errors": {
-      "invalidTarget": "Ange ett giltigt domännamn eller IP-adress",
-      "lookupFailed": "Uppslaget misslyckades (status {status})"
     }
   },
   "ToolPageHeader": {

@@ -3,7 +3,6 @@
     "dashboard": "Gösterge Paneli",
     "settings": "Ayarlar",
     "apiClient": "API İstemcisi",
-    "httpStatusCodes": "HTTP durum kodları",
     "passwordManager": "Şifre Yöneticisi",
     "environmentManager": "Ortam yöneticisi",
     "bookmarks": "Yer İmleri",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSON Şema Oluşturucu",
     "snippetManager": "Kod parçacıkları",
-    "dnsLookup": "DNS Sorgulama",
-    "ipSubnetCalculator": "IP / alt ağ hesaplayıcı",
     "markdownPreview": "Markdown Önizleme",
     "formatConverter": "Format Dönüştürücü",
     "yamlFormatter": "YAML Biçimleyici",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON Karşılaştırma",
     "jsonpathPlayground": "JSONPath Oyun Alanı",
-    "webhookTester": "Webhook Test Aracı",
-    "websocketTester": "WebSocket Test Aracı",
-    "whoisLookup": "Whois Sorgulama",
     "secureFiles": "Dosyalar"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools nedir?",
-        "description": "Çevrimdışı bir geliştirici çalışma alanı: tamamen cihazınızda çalışan bir pano ve 80+ araç.",
+        "description": "Çevrimdışı bir geliştirici çalışma alanı: tamamen cihazınızda çalışan bir pano ve araçlar.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Ayarlar",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Kod parçacıkları",
         "description": "Sözdizimi vurgulama, otomatik dil algılama ve biçimlendirme ile parçacıkları kaydedin."
       },
-      "ipSubnetCalculator": {
-        "title": "IP / alt ağ hesaplayıcı",
-        "description": "IPv4 ve IPv6 CIDR: maske, aralıklar ve adres sayısı."
-      },
-      "dnsLookup": {
-        "title": "DNS Sorgulama",
-        "description": "Herhangi bir alan adı için DNS kayıtlarını sorgulayın — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Markdown Önizleme",
         "description": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Format Dönüştürücü",
         "description": "JSON, YAML, TOML ve XML arasında her yönde dönüştürün. 12 kombinasyonun tamamı desteklenir."
-      },
-      "httpStatusCodes": {
-        "title": "HTTP Durum Kodları",
-        "description": "Açıklamalarla birlikte HTTP durum kodlarını arayın (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath Oyun Alanı",
         "description": "JSON'ı JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün."
-      },
-      "webhookTester": {
-        "title": "Webhook Test Aracı",
-        "description": "Gelen webhook isteklerini gerçek zamanlı yakalayın ve inceleyin."
-      },
-      "websocketTester": {
-        "title": "WebSocket Test Aracı",
-        "description": "WebSocket uç noktalarına bağlanın ve mesajları gerçek zamanlı alışverişini yapın."
-      },
-      "whoisLookup": {
-        "title": "Whois Sorgulama",
-        "description": "Alan adı ve IP kayıt bilgilerini RDAP üzerinden sorgulayın."
       },
       "secureFiles": {
         "title": "Dosyalar",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP Durum Kodları",
-    "subtitle": "1xx–5xx durum kodlarını RFC referanslarıyla ara",
-    "header": {
-      "title": "HTTP durum kodları",
-      "description": "Açıklamalar ve RFC referanslarıyla HTTP yanıt kodları için aranabilir başvuru."
-    },
-    "searchPlaceholder": "Ara: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Sınıfa göre filtrele…",
-    "classFilterAll": "Tüm sınıflar",
-    "resultsCount": "{total} içinde {count}",
-    "table": {
-      "code": "Code",
-      "phrase": "İfade",
-      "description": "Açıklama",
-      "copy": "Kopyala"
-    },
-    "noResults": "“{query}” için sonuç yok.",
-    "specPrefix": "Spes.:",
-    "copied": "Kod kopyalandı"
-  },
   "DiffChecker": {
     "title": "Fark Denetleyici",
     "subtitle": "İki metni yan yana, satır satır karşılaştır",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} satır eşleşti — filtre benzersiz olmadığı için hiçbir şey değiştirilmedi."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Alt Ağ Hesaplayıcı",
-    "subtitle": "IPv4 ve IPv6 CIDR ayrıntılarını hesapla",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Ağ",
-    "placeholderIpv4": "10.0.0.0/24 veya 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 veya 2001:db8::1/64",
-    "hintIpv4": "CIDR (ör. /24) veya noktalı alt ağ maskesi ile IPv4 kullanın.",
-    "hintIpv6": "Önek uzunluğunu ekleyin (ör. /64). Yoksa /128 varsayılır.",
-    "copyValue": "Değeri kopyala",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Ağ adresi",
-      "netmask": "Alt ağ maskesi",
-      "wildcard": "Wildcard maskesi",
-      "broadcast": "Yayın",
-      "firstHost": "İlk ana bilgisayar",
-      "lastHost": "Son ana bilgisayar",
-      "totalAddresses": "Toplam adres",
-      "usableHosts": "Kullanılabilir ana bilgisayar",
-      "prefixLength": "Önek uzunluğu (bit)",
-      "networkIpv6": "Ağ adresi",
-      "lastIpv6": "Aralıktaki son adres",
-      "totalAddressesIpv6": "Alt ağdaki adresler"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 noktadan noktaya bağlantılar her iki adresi de ana bilgisayar olarak kullanır (RFC 3021).",
-      "singleHost": "/32 tek ana bilgisayardır."
-    },
-    "ipv6RangeHint": {
-      "normal": "Tam matematiksel aralık gösterilir; yönlendirici kuralları farklı olabilir.",
-      "single": "/128 tek adrestir.",
-      "full": "/0 tüm IPv6 kapsar."
-    },
-    "errors": {
-      "invalidIpv4": "Geçersiz IPv4 ağı. CIDR veya adres + maske deneyin.",
-      "invalidIpv6": "Geçersiz IPv6 ağı. Örn. 2001:db8::/48 biçimini kullanın."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Şifreleme Alanı",
     "subtitle": "Parola veya anahtarla AES-GCM şifrele ve çöz",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# karakter} other {# karakter}}",
     "emptyHint": "Dönüştürülmüş çıktıyı görmek için solda girdinizi yapıştırın veya yazın.",
     "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
-  },
-  "MimeTypeLookup": {
-    "title": "MIME Türü Arama",
-    "subtitle": "Her dosya uzantısı için MIME türünü bul",
-    "inputLabel": "Uzantı veya dosya adı",
-    "placeholder": "örn. .png, package.json, photo.jpeg",
-    "hint": "İpucu: bir uzantı (noktalı/noktasıız) veya tam dosya adı yapıştırın.",
-    "clear": "Temizle",
-    "exampleFilename": "Örnek dosya adı kullan",
-    "exampleExtension": "Örnek uzantı kullan",
-    "resultLabel": "Sonuç",
-    "normalizedLabel": "Normalize edilmiş giriş:",
-    "mimeTypeLabel": "MIME türü",
-    "contentTypeLabel": "Content-Type başlığı",
-    "charsetLabel": "Karakter kümesi",
-    "copyMimeType": "MIME türünü kopyala",
-    "copy": "Kopyala",
-    "copied": "Kopyalandı",
-    "emptyHint": "MIME türünü bulmak için bir uzantı veya dosya adı girin.",
-    "notFound": "Bu giriş için MIME türü bulunamadı.",
-    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
-  },
-  "UserAgentParser": {
-    "title": "User-Agent Ayrıştırıcı",
-    "subtitle": "UA dizesini tarayıcı, işletim sistemi ve cihaza ayır",
-    "inputLabel": "User-Agent dizesi",
-    "placeholder": "User-Agent'i buraya yapıştırın…",
-    "hint": "İpucu: UA’yı istek başlıklarından, loglardan veya tarayıcı devtools’tan kopyalayabilirsiniz.",
-    "clear": "Temizle",
-    "exampleDesktop": "Masaüstü örneği kullan",
-    "exampleMobile": "Mobil örnek kullan",
-    "resultLabel": "Detaylar",
-    "browserLabel": "Tarayıcı",
-    "osLabel": "İşletim sistemi",
-    "engineLabel": "Motor",
-    "deviceTypeLabel": "Cihaz türü",
-    "deviceVendorLabel": "Üretici",
-    "deviceModelLabel": "Model",
-    "cpuArchLabel": "CPU mimarisi",
-    "copyJson": "JSON'u kopyala",
-    "copy": "Kopyala",
-    "copied": "Kopyalandı",
-    "emptyHint": "Detayları görmek için bir User-Agent dizesi yapıştırın.",
-    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
-  },
-  "DnsLookup": {
-    "title": "DNS Sorgu",
-    "subtitle": "Her alan adı için A, AAAA, MX, TXT, NS ve dahasını sorgula",
-    "placeholder": "Alan adını girin (ör. github.com)",
-    "lookupBtn": "Sorgula",
-    "looking": "Sorgulanıyor…",
-    "refreshBtn": "Yenile",
-    "recordTypesLabel": "Kayıt türleri",
-    "allBtn": "Tümü",
-    "tryLabel": "Dene:",
-    "errors": {
-      "lookupFailed": "DNS sorgusu başarısız"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL'den Koda",
-    "subtitle": "curl komutlarını fetch, axios, Python ve dahasına çevir",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON'dan Koda",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Webhook URL'si oluşturulamadı. Lütfen tekrar deneyin.",
       "clearFailed": "İstekler temizlenemedi. Lütfen tekrar deneyin."
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket Test Aracı",
-    "subtitle": "Bağlan, gönder ve WebSocket mesajlarını canlı incele",
-    "urlLabel": "Uç nokta URL'si",
-    "protocolsLabel": "Alt protokoller",
-    "protocolsPlaceholder": "isteğe bağlı, virgülle ayrılmış",
-    "connect": "Bağlan",
-    "disconnect": "Bağlantıyı kes",
-    "status": {
-      "disconnected": "Bağlı değil",
-      "connecting": "Bağlanıyor",
-      "connected": "Bağlandı",
-      "error": "Hata"
-    },
-    "messages": {
-      "connecting": "{url} adresine bağlanılıyor…",
-      "connected": "Bağlantı kuruldu",
-      "connectedWithProtocol": "Bağlantı kuruldu (protokol: {protocol})",
-      "invalidUrl": "Geçersiz URL — ws:// veya wss:// ile başlamalı",
-      "connectFailed": "Bağlantı açılamadı",
-      "socketError": "Bir bağlantı hatası oluştu",
-      "notConnected": "Bağlı değil — önce bağlanın",
-      "binaryMessage": "İkili bir mesaj alındı"
-    },
-    "log": {
-      "title": "Mesaj Günlüğü",
-      "empty": "Henüz mesaj yok. Bağlanın ve göndermeye başlayın.",
-      "copyAll": "Tümünü kopyala",
-      "download": ".txt olarak indir",
-      "clear": "Günlüğü temizle",
-      "prettyPrint": "JSON'ı biçimlendir",
-      "showRaw": "Ham metni göster"
-    },
-    "composer": {
-      "placeholder": "Gönderilecek bir mesaj yazın…",
-      "send": "Gönder",
-      "formatJson": "JSON olarak biçimlendir",
-      "invalidJson": "Mesaj geçerli JSON değil",
-      "hint": "Göndermek için Cmd/Ctrl+Enter"
-    },
-    "ping": {
-      "label": "Otomatik ping",
-      "seconds": "sn",
-      "intervalTitle": "Saniye cinsinden ping aralığı",
-      "payloadPlaceholder": "ping yükü"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois Sorgu",
-    "subtitle": "Alan adı ve IP kayıtlarını RDAP ile sorgula",
-    "placeholder": "example.com veya 8.8.8.8",
-    "lookupBtn": "Sorgula",
-    "looking": "Sorgulanıyor…",
-    "refreshBtn": "Yenile",
-    "tryLabel": "Deneyin:",
-    "copy": "Kopyala",
-    "copied": "Kopyalandı",
-    "notAvailable": "Mevcut değil",
-    "summary": {
-      "registrar": "Kayıt kuruluşu",
-      "network": "Ağ"
-    },
-    "dates": {
-      "created": "Oluşturuldu",
-      "updated": "Güncellendi",
-      "expires": "Süre bitişi"
-    },
-    "sections": {
-      "status": "Durum",
-      "nameservers": "Ad sunucuları",
-      "contacts": "Kişiler",
-      "rawRdap": "Ham RDAP"
-    },
-    "contacts": {
-      "roles": "Roller",
-      "name": "Ad",
-      "organization": "Kuruluş"
-    },
-    "errors": {
-      "invalidTarget": "Geçerli bir alan adı veya IP adresi girin",
-      "lookupFailed": "Sorgulama başarısız (durum {status})"
     }
   },
   "ToolPageHeader": {

@@ -3,7 +3,6 @@
     "dashboard": "Панель",
     "settings": "Налаштування",
     "apiClient": "API Клієнт",
-    "httpStatusCodes": "Коди стану HTTP",
     "passwordManager": "Менеджер паролів",
     "environmentManager": "Менеджер середовищ",
     "bookmarks": "Закладки",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "Генератор JSON-схеми",
     "snippetManager": "Фрагменти коду",
-    "dnsLookup": "DNS-запит",
-    "ipSubnetCalculator": "Калькулятор IP / підмережі",
     "markdownPreview": "Перегляд Markdown",
     "formatConverter": "Конвертер форматів",
     "yamlFormatter": "Форматувальник YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Порівняння JSON",
     "jsonpathPlayground": "Пісочниця JSONPath",
-    "webhookTester": "Тестер вебхуків",
-    "websocketTester": "Тестер WebSocket",
-    "whoisLookup": "Whois-запит",
     "secureFiles": "Файли"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Що таке MyDevTools?",
-        "description": "Офлайн-середовище для розробників: панель керування та понад 80 інструментів, що працюють повністю на вашому пристрої.",
+        "description": "Офлайн-середовище для розробників: панель керування та інструменти, що працюють повністю на вашому пристрої.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Налаштування",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Фрагменти коду",
         "description": "Зберігайте фрагменти з підсвічуванням синтаксису, авто-визначенням мови та форматуванням."
       },
-      "ipSubnetCalculator": {
-        "title": "Калькулятор IP / підмережі",
-        "description": "IPv4 та IPv6 CIDR: маска, діапазони й кількість адрес."
-      },
-      "dnsLookup": {
-        "title": "DNS-запит",
-        "description": "Запитуйте DNS-записи для будь-якого домену — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Перегляд Markdown",
         "description": "Живий рендерер Markdown з експортом HTML і конвертацією HTML → Markdown."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Конвертер форматів",
         "description": "Конвертуйте між JSON, YAML, TOML та XML у будь-якому напрямку. Підтримуються усі 12 комбінацій."
-      },
-      "httpStatusCodes": {
-        "title": "Коди стану HTTP",
-        "description": "Шукайте коди стану HTTP з описами (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "Пісочниця JSONPath",
         "description": "Запитуйте JSON за допомогою JSONPath або JMESPath і дивіться результати наживо."
-      },
-      "webhookTester": {
-        "title": "Тестер вебхуків",
-        "description": "Захоплюйте та досліджуйте вхідні запити вебхуків у реальному часі."
-      },
-      "websocketTester": {
-        "title": "Тестер WebSocket",
-        "description": "Підключайтеся до ендпоінтів WebSocket і обмінюйтеся повідомленнями в реальному часі."
-      },
-      "whoisLookup": {
-        "title": "Whois-запит",
-        "description": "Дізнавайтеся дані реєстрації доменів та IP через RDAP."
       },
       "secureFiles": {
         "title": "Файли",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "Коди стану HTTP",
-    "subtitle": "Шукайте коди 1xx–5xx із посиланнями на RFC",
-    "header": {
-      "title": "Коди стану HTTP",
-      "description": "Довідник з пошуком по HTTP-кодах відповіді з описами та посиланнями на RFC."
-    },
-    "searchPlaceholder": "Пошук: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Фільтр класу…",
-    "classFilterAll": "Усі класи",
-    "resultsCount": "{count} із {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Фраза",
-      "description": "Опис",
-      "copy": "Копіювати"
-    },
-    "noResults": "Немає збігів для «{query}».",
-    "specPrefix": "Спец.:",
-    "copied": "Код скопійовано"
-  },
   "DiffChecker": {
     "title": "Порівняння текстів",
     "subtitle": "Порівнюйте два тексти поруч, рядок за рядком",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "Збіглося рядків: {count} — нічого не змінено, бо фільтр не унікальний."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Калькулятор підмереж",
-    "subtitle": "Розраховуйте параметри CIDR для IPv4 та IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Мережа",
-    "placeholderIpv4": "10.0.0.0/24 або 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 або 2001:db8::1/64",
-    "hintIpv4": "Використовуйте CIDR (напр. /24) або IPv4 з крапковою маскою.",
-    "hintIpv6": "Вкажіть довжину префікса (напр. /64). Якщо немає — /128.",
-    "copyValue": "Копіювати значення",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Адреса мережі",
-      "netmask": "Маска підмережі",
-      "wildcard": "Wildcard-маска",
-      "broadcast": "Широкомовлення",
-      "firstHost": "Перший вузол",
-      "lastHost": "Останній вузол",
-      "totalAddresses": "Усього адрес",
-      "usableHosts": "Доступні вузли",
-      "prefixLength": "Довжина префікса (біти)",
-      "networkIpv6": "Адреса мережі",
-      "lastIpv6": "Остання адреса в діапазоні",
-      "totalAddressesIpv6": "Адрес у підмережі"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 point-to-point використовує обидві адреси як вузли (RFC 3021).",
-      "singleHost": "/32 — один вузол."
-    },
-    "ipv6RangeHint": {
-      "normal": "Показано повний математичний діапазон; правила маршрутизатора можуть відрізнятися.",
-      "single": "/128 — одна адреса.",
-      "full": "/0 охоплює весь IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Некоректна мережа IPv4. Спробуйте CIDR або адресу + маску.",
-      "invalidIpv6": "Некоректна мережа IPv6. Використайте адресу/префікс, напр. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Пісочниця шифрування",
     "subtitle": "Шифруйте й розшифровуйте AES-GCM із паролем або ключем",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# символ} few {# символи} other {# символів}}",
     "emptyHint": "Вставте або введіть дані ліворуч, щоб побачити конвертований вивід.",
     "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
-  },
-  "MimeTypeLookup": {
-    "title": "Довідник MIME-типів",
-    "subtitle": "Знаходьте MIME-тип для будь-якого розширення файлу",
-    "inputLabel": "Розширення або назва файлу",
-    "placeholder": "наприклад .png, package.json, photo.jpeg",
-    "hint": "Порада: вставте розширення (з крапкою або без) або повну назву файлу.",
-    "clear": "Очистити",
-    "exampleFilename": "Використати приклад назви файлу",
-    "exampleExtension": "Використати приклад розширення",
-    "resultLabel": "Результат",
-    "normalizedLabel": "Нормалізоване введення:",
-    "mimeTypeLabel": "MIME-тип",
-    "contentTypeLabel": "Заголовок Content-Type",
-    "charsetLabel": "Кодування",
-    "copyMimeType": "Копіювати MIME-тип",
-    "copy": "Копіювати",
-    "copied": "Скопійовано",
-    "emptyHint": "Введіть розширення або назву файлу, щоб знайти MIME-тип.",
-    "notFound": "Для цього введення MIME-тип не знайдено.",
-    "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
-  },
-  "UserAgentParser": {
-    "title": "Розбір User-Agent",
-    "subtitle": "Розбирайте рядок UA на браузер, ОС і пристрій",
-    "inputLabel": "Рядок User-Agent",
-    "placeholder": "Вставте ваш User-Agent сюди…",
-    "hint": "Порада: ви можете скопіювати UA з заголовків запиту, логів або devtools браузера.",
-    "clear": "Очистити",
-    "exampleDesktop": "Використати приклад для ПК",
-    "exampleMobile": "Використати приклад для мобільного",
-    "resultLabel": "Розбір",
-    "browserLabel": "Браузер",
-    "osLabel": "Операційна система",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Тип пристрою",
-    "deviceVendorLabel": "Виробник",
-    "deviceModelLabel": "Модель",
-    "cpuArchLabel": "Архітектура CPU",
-    "copyJson": "Копіювати JSON",
-    "copy": "Копіювати",
-    "copied": "Скопійовано",
-    "emptyHint": "Вставте рядок User-Agent, щоб побачити розбір.",
-    "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
-  },
-  "DnsLookup": {
-    "title": "DNS-запити",
-    "subtitle": "Запитуйте A, AAAA, MX, TXT, NS та інші записи домену",
-    "placeholder": "Введіть домен (наприклад github.com)",
-    "lookupBtn": "Запит",
-    "looking": "Виконується запит…",
-    "refreshBtn": "Оновити",
-    "recordTypesLabel": "Типи записів",
-    "allBtn": "Усі",
-    "tryLabel": "Спробувати:",
-    "errors": {
-      "lookupFailed": "Помилка DNS-запиту"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL у код",
-    "subtitle": "Перетворюйте команди curl на fetch, axios, Python тощо",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON у код",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Не вдалося створити URL вебхука. Спробуйте ще раз.",
       "clearFailed": "Не вдалося очистити запити. Спробуйте ще раз."
-    }
-  },
-  "WebsocketTester": {
-    "title": "Тестер WebSocket",
-    "subtitle": "Підключайтесь, надсилайте й досліджуйте повідомлення WebSocket",
-    "urlLabel": "URL ендпоінта",
-    "protocolsLabel": "Підпротоколи",
-    "protocolsPlaceholder": "необов'язково, через кому",
-    "connect": "Підключити",
-    "disconnect": "Відключити",
-    "status": {
-      "disconnected": "Відключено",
-      "connecting": "Підключення",
-      "connected": "Підключено",
-      "error": "Помилка"
-    },
-    "messages": {
-      "connecting": "Підключення до {url}…",
-      "connected": "З'єднання встановлено",
-      "connectedWithProtocol": "З'єднання встановлено (протокол: {protocol})",
-      "invalidUrl": "Некоректний URL — має починатися з ws:// або wss://",
-      "connectFailed": "Не вдалося відкрити з'єднання",
-      "socketError": "Сталася помилка з'єднання",
-      "notConnected": "Не підключено — спершу підключіться",
-      "binaryMessage": "Отримано двійкове повідомлення"
-    },
-    "log": {
-      "title": "Журнал повідомлень",
-      "empty": "Повідомлень поки немає. Підключіться та почніть надсилати.",
-      "copyAll": "Копіювати все",
-      "download": "Завантажити як .txt",
-      "clear": "Очистити журнал",
-      "prettyPrint": "Форматувати JSON",
-      "showRaw": "Показати необроблений текст"
-    },
-    "composer": {
-      "placeholder": "Введіть повідомлення для надсилання…",
-      "send": "Надіслати",
-      "formatJson": "Форматувати як JSON",
-      "invalidJson": "Повідомлення не є коректним JSON",
-      "hint": "Cmd/Ctrl+Enter для надсилання"
-    },
-    "ping": {
-      "label": "Авто-пінг",
-      "seconds": "с",
-      "intervalTitle": "Інтервал пінгу в секундах",
-      "payloadPlaceholder": "payload пінгу"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois-запит",
-    "subtitle": "Перевіряйте реєстрацію доменів та IP через RDAP",
-    "placeholder": "example.com або 8.8.8.8",
-    "lookupBtn": "Запитати",
-    "looking": "Запит…",
-    "refreshBtn": "Оновити",
-    "tryLabel": "Спробуйте:",
-    "copy": "Копіювати",
-    "copied": "Скопійовано",
-    "notAvailable": "Недоступно",
-    "summary": {
-      "registrar": "Реєстратор",
-      "network": "Мережа"
-    },
-    "dates": {
-      "created": "Створено",
-      "updated": "Оновлено",
-      "expires": "Спливає"
-    },
-    "sections": {
-      "status": "Статус",
-      "nameservers": "Сервери імен",
-      "contacts": "Контакти",
-      "rawRdap": "Необроблений RDAP"
-    },
-    "contacts": {
-      "roles": "Ролі",
-      "name": "Ім'я",
-      "organization": "Організація"
-    },
-    "errors": {
-      "invalidTarget": "Введіть коректне доменне ім'я або IP-адресу",
-      "lookupFailed": "Запит не вдався (статус {status})"
     }
   },
   "ToolPageHeader": {

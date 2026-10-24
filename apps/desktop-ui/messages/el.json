@@ -3,7 +3,6 @@
     "dashboard": "Ταμπλό",
     "settings": "Ρυθμίσεις",
     "apiClient": "Πελάτης API",
-    "httpStatusCodes": "Κωδικοί κατάστασης HTTP",
     "passwordManager": "Διαχειριστής κωδικών πρόσβασης",
     "environmentManager": "Διαχειριστής περιβάλλοντος",
     "bookmarks": "Σελιδοδείκτες",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
     "snippetManager": "Αποσπάσματα κώδικα",
-    "dnsLookup": "Αναζήτηση DNS",
-    "ipSubnetCalculator": "Υπολογιστής IP / υποδικτύου",
     "markdownPreview": "Προεπισκόπηση Markdown",
     "formatConverter": "Μετατροπέας Μορφών",
     "yamlFormatter": "Μορφοποιητής YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Σύγκριση JSON",
     "jsonpathPlayground": "Παιχνιδότοπος JSONPath",
-    "webhookTester": "Δοκιμαστής webhook",
-    "websocketTester": "Δοκιμαστής WebSocket",
-    "whoisLookup": "Αναζήτηση Whois",
     "secureFiles": "Αρχεία"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Τι είναι το MyDevTools;",
-        "description": "Ένας χώρος εργασίας για προγραμματιστές εκτός σύνδεσης: ένας πίνακας ελέγχου και πάνω από 80 εργαλεία που εκτελούνται εξ ολοκλήρου στη συσκευή σας.",
+        "description": "Ένας χώρος εργασίας για προγραμματιστές εκτός σύνδεσης: ένας πίνακας ελέγχου και εργαλεία που εκτελούνται εξ ολοκλήρου στη συσκευή σας.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Ρυθμίσεις",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Αποσπάσματα κώδικα",
         "description": "Αποθηκεύστε αποσπάσματα με τονισμό σύνταξης, αυτόματη ανίχνευση γλώσσας και μορφοποίηση."
       },
-      "ipSubnetCalculator": {
-        "title": "Υπολογιστής IP / υποδικτύου",
-        "description": "IPv4 και IPv6 CIDR: μάσκα, εύρη και πλήθος διευθύνσεων."
-      },
-      "dnsLookup": {
-        "title": "Αναζήτηση DNS",
-        "description": "Αναζητήστε εγγραφές DNS για οποιοδήποτε τομέα — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Προεπισκόπηση Markdown",
         "description": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Μετατροπέας Μορφών",
         "description": "Μετατροπή μεταξύ JSON, YAML, TOML και XML προς οποιαδήποτε κατεύθυνση. Υποστηρίζονται και οι 12 συνδυασμοί."
-      },
-      "httpStatusCodes": {
-        "title": "Κωδικοί κατάστασης HTTP",
-        "description": "Αναζήτηση κωδικών κατάστασης HTTP με περιγραφές (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "Παιχνιδότοπος JSONPath",
         "description": "Κάντε ερωτήματα σε JSON με JSONPath ή JMESPath και δείτε ζωντανά αποτελέσματα."
-      },
-      "webhookTester": {
-        "title": "Δοκιμαστής webhook",
-        "description": "Καταγράψτε και επιθεωρήστε εισερχόμενα αιτήματα webhook σε πραγματικό χρόνο."
-      },
-      "websocketTester": {
-        "title": "Δοκιμαστής WebSocket",
-        "description": "Συνδεθείτε σε άκρα WebSocket και ανταλλάξτε μηνύματα σε πραγματικό χρόνο."
-      },
-      "whoisLookup": {
-        "title": "Αναζήτηση Whois",
-        "description": "Αναζητήστε στοιχεία καταχώρισης τομέα και IP μέσω RDAP."
       },
       "secureFiles": {
         "title": "Αρχεία",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "Κωδικοί Κατάστασης HTTP",
-    "subtitle": "Αναζήτηση κωδικών 1xx–5xx με αναφορές RFC",
-    "header": {
-      "title": "Κωδικοί κατάστασης HTTP",
-      "description": "Αναζητήσιμη λίστα κωδικών απάντησης HTTP με περιγραφές και αναφορές RFC."
-    },
-    "searchPlaceholder": "Αναζήτηση: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Φιλτράρισμα κλάσης…",
-    "classFilterAll": "Όλες οι κλάσεις",
-    "resultsCount": "{count} από {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Φράση",
-      "description": "Περιγραφή",
-      "copy": "Αντιγραφή"
-    },
-    "noResults": "Δεν βρέθηκαν αποτελέσματα για “{query}”.",
-    "specPrefix": "Προδιαγ.:",
-    "copied": "Ο κωδικός αντιγράφηκε"
-  },
   "DiffChecker": {
     "title": "Έλεγχος Διαφορών",
     "subtitle": "Σύγκριση δύο κειμένων δίπλα-δίπλα, γραμμή προς γραμμή",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "Βρέθηκαν {count} γραμμές — δεν άλλαξε τίποτα, επειδή το φίλτρο δεν είναι μοναδικό."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Υπολογιστής Υποδικτύων",
-    "subtitle": "Υπολογισμός στοιχείων CIDR για IPv4 και IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Δίκτυο",
-    "placeholderIpv4": "10.0.0.0/24 ή 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 ή 2001:db8::1/64",
-    "hintIpv4": "Χρησιμοποιήστε CIDR (π.χ. /24) ή IPv4 + μάσκα με τελείες.",
-    "hintIpv6": "Συμπεριλάβετε μήκος προθέματος (π.χ. /64). Χωρίς αυτό /128.",
-    "copyValue": "Αντιγραφή τιμής",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Διεύθυνση δικτύου",
-      "netmask": "Μάσκα υποδικτύου",
-      "wildcard": "Μάσκα wildcard",
-      "broadcast": "Broadcast",
-      "firstHost": "Πρώτος κόμβος",
-      "lastHost": "Τελευταίος κόμβος",
-      "totalAddresses": "Συνολικές διευθύνσεις",
-      "usableHosts": "Χρήσιμοι κόμβοι",
-      "prefixLength": "Μήκος προθέματος (bits)",
-      "networkIpv6": "Διεύθυνση δικτύου",
-      "lastIpv6": "Τελευταία διεύθυνση στο εύρος",
-      "totalAddressesIpv6": "Διευθύνσεις στο υποδίκτυο"
-    },
-    "usableNote": {
-      "pointToPoint": "Συνδέσεις /31 point-to-point χρησιμοποιούν και τις δύο διευθύνσεις ως hosts (RFC 3021).",
-      "singleHost": "/32 είναι μία διεύθυνση host."
-    },
-    "ipv6RangeHint": {
-      "normal": "Εμφανίζεται πλήρες μαθηματικό εύρος· οι κανόνες δρομολογητή μπορεί να διαφέρουν.",
-      "single": "/128 είναι μία διεύθυνση.",
-      "full": "/0 καλύπτει όλο το IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Μη έγκυρο IPv4 δίκτυο. Δοκιμάστε CIDR ή διεύθυνση + μάσκα.",
-      "invalidIpv6": "Μη έγκυρο IPv6 δίκτυο. Χρησιμοποιήστε διεύθυνση/πρόθεμα, π.χ. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Πεδίο Κρυπτογράφησης",
     "subtitle": "Κρυπτογράφηση και αποκρυπτογράφηση AES-GCM με φράση ή κλειδί",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
     "emptyHint": "Επικολλήστε ή πληκτρολογήστε την είσοδό σας αριστερά για να δείτε την μετατραπείσα έξοδο.",
     "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
-  },
-  "MimeTypeLookup": {
-    "title": "Αναζήτηση Τύπων MIME",
-    "subtitle": "Εύρεση τύπου MIME για κάθε επέκταση αρχείου",
-    "inputLabel": "Επέκταση ή όνομα αρχείου",
-    "placeholder": "π.χ. .png, package.json, photo.jpeg",
-    "hint": "Συμβουλή: επικολλήστε είτε επέκταση (με ή χωρίς τελεία) είτε πλήρες όνομα αρχείου.",
-    "clear": "Εκκαθάριση",
-    "exampleFilename": "Χρήση παραδείγματος ονόματος αρχείου",
-    "exampleExtension": "Χρήση παραδείγματος επέκτασης",
-    "resultLabel": "Αποτέλεσμα",
-    "normalizedLabel": "Κανονικοποιημένη είσοδος:",
-    "mimeTypeLabel": "Τύπος MIME",
-    "contentTypeLabel": "Κεφαλίδα Content-Type",
-    "charsetLabel": "Σύνολο χαρακτήρων",
-    "copyMimeType": "Αντιγραφή τύπου MIME",
-    "copy": "Αντιγραφή",
-    "copied": "Αντιγράφηκε",
-    "emptyHint": "Εισάγετε επέκταση ή όνομα αρχείου για να αναζητήσετε τον τύπο MIME.",
-    "notFound": "Δεν βρέθηκε τύπος MIME για αυτή την είσοδο.",
-    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
-  },
-  "UserAgentParser": {
-    "title": "Αναλυτής User-Agent",
-    "subtitle": "Ανάλυση UA σε πρόγραμμα περιήγησης, λειτουργικό και συσκευή",
-    "inputLabel": "Συμβολοσειρά User-Agent",
-    "placeholder": "Επικολλήστε το User-Agent εδώ…",
-    "hint": "Συμβουλή: μπορείτε να αντιγράψετε UA από headers αιτήματος, logs ή τα devtools του προγράμματος περιήγησης.",
-    "clear": "Εκκαθάριση",
-    "exampleDesktop": "Χρήση παραδείγματος desktop",
-    "exampleMobile": "Χρήση παραδείγματος mobile",
-    "resultLabel": "Ανάλυση",
-    "browserLabel": "Πρόγραμμα περιήγησης",
-    "osLabel": "Λειτουργικό σύστημα",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Τύπος συσκευής",
-    "deviceVendorLabel": "Κατασκευαστής",
-    "deviceModelLabel": "Μοντέλο",
-    "cpuArchLabel": "Αρχιτεκτονική CPU",
-    "copyJson": "Αντιγραφή JSON",
-    "copy": "Αντιγραφή",
-    "copied": "Αντιγράφηκε",
-    "emptyHint": "Επικολλήστε μια συμβολοσειρά User-Agent για να δείτε την ανάλυση.",
-    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
-  },
-  "DnsLookup": {
-    "title": "Αναζήτηση DNS",
-    "subtitle": "Ερώτημα A, AAAA, MX, TXT, NS και άλλων για κάθε domain",
-    "placeholder": "Εισαγάγετε τομέα (π.χ. github.com)",
-    "lookupBtn": "Αναζήτηση",
-    "looking": "Γίνεται αναζήτηση…",
-    "refreshBtn": "Ανανέωση",
-    "recordTypesLabel": "Τύποι εγγραφών",
-    "allBtn": "Όλα",
-    "tryLabel": "Δοκιμάστε:",
-    "errors": {
-      "lookupFailed": "Η αναζήτηση DNS απέτυχε"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL σε Κώδικα",
-    "subtitle": "Μετατροπή εντολών curl σε fetch, axios, Python και άλλα",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON σε Κώδικα",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Η δημιουργία του URL webhook απέτυχε. Δοκιμάστε ξανά.",
       "clearFailed": "Ο καθαρισμός των αιτημάτων απέτυχε. Δοκιμάστε ξανά."
-    }
-  },
-  "WebsocketTester": {
-    "title": "Δοκιμαστής WebSocket",
-    "subtitle": "Σύνδεση, αποστολή και ζωντανός έλεγχος μηνυμάτων WebSocket",
-    "urlLabel": "URL άκρου",
-    "protocolsLabel": "Υποπρωτόκολλα",
-    "protocolsPlaceholder": "προαιρετικό, διαχωρισμένα με κόμμα",
-    "connect": "Σύνδεση",
-    "disconnect": "Αποσύνδεση",
-    "status": {
-      "disconnected": "Αποσυνδεδεμένο",
-      "connecting": "Σύνδεση",
-      "connected": "Συνδεδεμένο",
-      "error": "Σφάλμα"
-    },
-    "messages": {
-      "connecting": "Σύνδεση σε {url}…",
-      "connected": "Η σύνδεση δημιουργήθηκε",
-      "connectedWithProtocol": "Η σύνδεση δημιουργήθηκε (πρωτόκολλο: {protocol})",
-      "invalidUrl": "Μη έγκυρο URL — πρέπει να ξεκινά με ws:// ή wss://",
-      "connectFailed": "Το άνοιγμα της σύνδεσης απέτυχε",
-      "socketError": "Παρουσιάστηκε σφάλμα σύνδεσης",
-      "notConnected": "Μη συνδεδεμένο — συνδεθείτε πρώτα",
-      "binaryMessage": "Ελήφθη δυαδικό μήνυμα"
-    },
-    "log": {
-      "title": "Αρχείο μηνυμάτων",
-      "empty": "Δεν υπάρχουν ακόμη μηνύματα. Συνδεθείτε και ξεκινήστε την αποστολή.",
-      "copyAll": "Αντιγραφή όλων",
-      "download": "Λήψη ως .txt",
-      "clear": "Καθαρισμός αρχείου",
-      "prettyPrint": "Μορφοποίηση JSON",
-      "showRaw": "Εμφάνιση ακατέργαστου κειμένου"
-    },
-    "composer": {
-      "placeholder": "Πληκτρολογήστε ένα μήνυμα για αποστολή…",
-      "send": "Αποστολή",
-      "formatJson": "Μορφοποίηση ως JSON",
-      "invalidJson": "Το μήνυμα δεν είναι έγκυρο JSON",
-      "hint": "Cmd/Ctrl+Enter για αποστολή"
-    },
-    "ping": {
-      "label": "Αυτόματο ping",
-      "seconds": "δευτ",
-      "intervalTitle": "Διάστημα ping σε δευτερόλεπτα",
-      "payloadPlaceholder": "φορτίο ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Αναζήτηση Whois",
-    "subtitle": "Αναζήτηση καταχώρισης domain και IP μέσω RDAP",
-    "placeholder": "example.com ή 8.8.8.8",
-    "lookupBtn": "Αναζήτηση",
-    "looking": "Αναζήτηση…",
-    "refreshBtn": "Ανανέωση",
-    "tryLabel": "Δοκιμάστε:",
-    "copy": "Αντιγραφή",
-    "copied": "Αντιγράφηκε",
-    "notAvailable": "Μη διαθέσιμο",
-    "summary": {
-      "registrar": "Καταχωρητής",
-      "network": "Δίκτυο"
-    },
-    "dates": {
-      "created": "Δημιουργήθηκε",
-      "updated": "Ενημερώθηκε",
-      "expires": "Λήγει"
-    },
-    "sections": {
-      "status": "Κατάσταση",
-      "nameservers": "Διακομιστές ονομάτων",
-      "contacts": "Επαφές",
-      "rawRdap": "Ακατέργαστο RDAP"
-    },
-    "contacts": {
-      "roles": "Ρόλοι",
-      "name": "Όνομα",
-      "organization": "Οργανισμός"
-    },
-    "errors": {
-      "invalidTarget": "Εισαγάγετε ένα έγκυρο όνομα τομέα ή διεύθυνση IP",
-      "lookupFailed": "Η αναζήτηση απέτυχε (κατάσταση {status})"
     }
   },
   "ToolPageHeader": {

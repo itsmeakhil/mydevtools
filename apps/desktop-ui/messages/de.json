@@ -17,25 +17,18 @@
     "diffChecker": "Textvergleich",
     "regexTester": "Regex-Tester",
     "apiClient": "API-Client",
-    "httpStatusCodes": "HTTP-Statuscodes",
     "nosqlExplorer": "Datenbank-Explorer",
     "dataExplorer": "Data Explorer",
     "jsonSchemaGenerator": "JSON-Schema-Generator",
     "snippetManager": "Code-Snippets",
-    "dnsLookup": "DNS-Abfrage",
-    "ipSubnetCalculator": "IP-/Subnetz-Rechner",
     "markdownPreview": "Markdown-Vorschau",
     "formatConverter": "Format-Konverter",
     "yamlFormatter": "YAML-Formatierer",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-Diff",
     "jsonpathPlayground": "JSONPath-Playground",
-    "webhookTester": "Webhook-Tester",
-    "websocketTester": "WebSocket-Tester",
-    "whoisLookup": "Whois-Abfrage",
     "secureFiles": "Dateien"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Was ist MyDevTools?",
-        "description": "Ein Offline-Arbeitsbereich für Entwickler: ein Dashboard und über 80 Tools, die vollständig auf Ihrem Gerät laufen.",
+        "description": "Ein Offline-Arbeitsbereich für Entwickler: ein Dashboard und Tools, die vollständig auf Ihrem Gerät laufen.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Einstellungen",
         "p1After": "ausblenden.",
@@ -397,14 +390,6 @@
         "title": "Code-Snippets",
         "description": "Snippets mit Syntaxhervorhebung, automatischer Spracherkennung und Formatierung speichern."
       },
-      "ipSubnetCalculator": {
-        "title": "IP-/Subnetz-Rechner",
-        "description": "IPv4 und IPv6 CIDR: Netzmaske, Bereiche und Adressanzahl."
-      },
-      "dnsLookup": {
-        "title": "DNS-Abfrage",
-        "description": "DNS-Einträge für jede Domain abfragen — A, AAAA, MX, TXT, NS, CNAME, SOA, CAA."
-      },
       "markdownPreview": {
         "title": "Markdown-Vorschau",
         "description": "Live-Markdown-Renderer mit HTML-Export und HTML → Markdown-Konvertierung."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Format-Konverter",
         "description": "Konvertieren Sie zwischen JSON, YAML, TOML und XML in jede Richtung. Alle 12 Kombinationen werden unterstützt."
-      },
-      "httpStatusCodes": {
-        "title": "HTTP-Statuscodes",
-        "description": "HTTP-Statuscodes mit Beschreibungen durchsuchen (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath-Playground",
         "description": "JSON mit JSONPath oder JMESPath abfragen und Ergebnisse live sehen."
-      },
-      "webhookTester": {
-        "title": "Webhook-Tester",
-        "description": "Eingehende Webhook-Anfragen in Echtzeit erfassen und untersuchen."
-      },
-      "websocketTester": {
-        "title": "WebSocket-Tester",
-        "description": "Mit WebSocket-Endpunkten verbinden und Nachrichten in Echtzeit austauschen."
-      },
-      "whoisLookup": {
-        "title": "Whois-Abfrage",
-        "description": "Registrierungsdaten von Domains und IPs per RDAP abrufen."
       },
       "secureFiles": {
         "title": "Dateien",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP-Statuscodes",
-    "subtitle": "Statuscodes 1xx–5xx mit RFC-Referenzen durchsuchen",
-    "header": {
-      "title": "HTTP-Statuscodes",
-      "description": "Durchsuchbare Referenz für HTTP-Antwortcodes mit Beschreibungen und RFC-Referenzen."
-    },
-    "searchPlaceholder": "Suche: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Klasse filtern…",
-    "classFilterAll": "Alle Klassen",
-    "resultsCount": "{count} von {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Bezeichnung",
-      "description": "Description",
-      "copy": "Kopieren"
-    },
-    "noResults": "Keine Treffer für „{query}“.",
-    "specPrefix": "Spez.:",
-    "copied": "Code kopiert"
-  },
   "DiffChecker": {
     "title": "Diff-Checker",
     "subtitle": "Zwei Texte nebeneinander vergleichen, Zeile für Zeile",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} Zeilen stimmten überein — es wurde nichts geändert, weil der Filter nicht eindeutig ist."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Subnetz-Rechner",
-    "subtitle": "CIDR-Details für IPv4 und IPv6 berechnen",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Netzwerk",
-    "placeholderIpv4": "10.0.0.0/24 oder 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 oder 2001:db8::1/64",
-    "hintIpv4": "CIDR (z. B. /24) oder IPv4-Adresse plus dezimale Netzmaske.",
-    "hintIpv6": "Präfixlänge angeben (z. B. /64). Ohne Eintrag wird /128 angenommen.",
-    "copyValue": "Wert kopieren",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Netzadresse",
-      "netmask": "Subnetzmaske",
-      "wildcard": "Wildcard-Maske",
-      "broadcast": "Broadcast",
-      "firstHost": "Erster Host",
-      "lastHost": "Letzter Host",
-      "totalAddresses": "Adressen gesamt",
-      "usableHosts": "Nutzbare Hosts",
-      "prefixLength": "Präfixlänge (Bits)",
-      "networkIpv6": "Netzadresse",
-      "lastIpv6": "Letzte Adresse im Bereich",
-      "totalAddressesIpv6": "Adressen im Subnetz"
-    },
-    "usableNote": {
-      "pointToPoint": "/31-Punkt-zu-Punkt-Verbindungen nutzen beide Adressen als Hosts (RFC 3021).",
-      "singleHost": "/32 ist eine Einzelhost-Adresse."
-    },
-    "ipv6RangeHint": {
-      "normal": "Es wird der vollständige mathematische Bereich gezeigt; Routerregeln können abweichen.",
-      "single": "/128 ist eine einzelne Adresse.",
-      "full": "/0 umfasst den gesamten IPv6-Raum."
-    },
-    "errors": {
-      "invalidIpv4": "Ungültiges IPv4-Netz. CIDR (10.0.0.0/24) oder Adresse + Maske verwenden.",
-      "invalidIpv6": "Ungültiges IPv6-Netz. Adresse/Präfix angeben, z. B. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Verschlüsselungs-Playground",
     "subtitle": "AES-GCM mit Passphrase oder Key ver- und entschlüsseln",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# Zeichen} other {# Zeichen}}",
     "emptyHint": "Fügen Sie Ihre Eingabe links ein oder tippen Sie, um die konvertierte Ausgabe zu sehen.",
     "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
-  },
-  "MimeTypeLookup": {
-    "title": "MIME-Type-Suche",
-    "subtitle": "MIME-Type für jede Dateiendung finden",
-    "inputLabel": "Dateiendung oder Dateiname",
-    "placeholder": "z. B. .png, package.json, foto.jpeg",
-    "hint": "Tipp: Fügen Sie entweder eine Endung (mit oder ohne Punkt) oder einen vollständigen Dateinamen ein.",
-    "clear": "Leeren",
-    "exampleFilename": "Beispiel-Dateiname",
-    "exampleExtension": "Beispiel-Endung",
-    "resultLabel": "Ergebnis",
-    "normalizedLabel": "Normalisierte Eingabe:",
-    "mimeTypeLabel": "MIME-Typ",
-    "contentTypeLabel": "Content-Type-Header",
-    "charsetLabel": "Zeichensatz",
-    "copyMimeType": "MIME-Typ kopieren",
-    "copy": "Kopieren",
-    "copied": "Kopiert",
-    "emptyHint": "Geben Sie eine Endung oder einen Dateinamen ein, um den MIME-Typ nachzuschlagen.",
-    "notFound": "Kein MIME-Typ für diese Eingabe gefunden.",
-    "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
-  },
-  "UserAgentParser": {
-    "title": "User-Agent-Parser",
-    "subtitle": "UA-String in Browser, OS und Gerät zerlegen",
-    "inputLabel": "User-Agent-Zeichenkette",
-    "placeholder": "Fügen Sie Ihren User-Agent hier ein…",
-    "hint": "Tipp: Sie können einen UA aus Request-Headern, Logs oder den Browser-Devtools kopieren.",
-    "clear": "Leeren",
-    "exampleDesktop": "Desktop-Beispiel verwenden",
-    "exampleMobile": "Mobil-Beispiel verwenden",
-    "resultLabel": "Aufschlüsselung",
-    "browserLabel": "Browser",
-    "osLabel": "Betriebssystem",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Gerätetyp",
-    "deviceVendorLabel": "Hersteller",
-    "deviceModelLabel": "Modell",
-    "cpuArchLabel": "CPU-Architektur",
-    "copyJson": "JSON kopieren",
-    "copy": "Kopieren",
-    "copied": "Kopiert",
-    "emptyHint": "Fügen Sie eine User-Agent-Zeichenkette ein, um die Aufschlüsselung zu sehen.",
-    "localNote": "Alles läuft lokal in Ihrem Browser. Es wird nichts hochgeladen."
-  },
-  "DnsLookup": {
-    "title": "DNS-Lookup",
-    "subtitle": "A, AAAA, MX, TXT, NS und mehr für jede Domain abfragen",
-    "placeholder": "Domain eingeben (z. B. github.com)",
-    "lookupBtn": "Abfragen",
-    "looking": "Abfrage läuft…",
-    "refreshBtn": "Aktualisieren",
-    "recordTypesLabel": "Eintragstypen",
-    "allBtn": "Alle",
-    "tryLabel": "Beispiele:",
-    "errors": {
-      "lookupFailed": "DNS-Abfrage fehlgeschlagen"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL zu Code",
-    "subtitle": "curl-Befehle in fetch, axios, Python und mehr verwandeln",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON zu Code",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Webhook-URL konnte nicht erstellt werden. Bitte versuche es erneut.",
       "clearFailed": "Anfragen konnten nicht gelöscht werden. Bitte versuche es erneut."
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket-Tester",
-    "subtitle": "WebSocket verbinden, Nachrichten senden und live inspizieren",
-    "urlLabel": "Endpunkt-URL",
-    "protocolsLabel": "Subprotokolle",
-    "protocolsPlaceholder": "optional, durch Kommas getrennt",
-    "connect": "Verbinden",
-    "disconnect": "Trennen",
-    "status": {
-      "disconnected": "Getrennt",
-      "connecting": "Verbinde",
-      "connected": "Verbunden",
-      "error": "Fehler"
-    },
-    "messages": {
-      "connecting": "Verbinde mit {url}…",
-      "connected": "Verbindung hergestellt",
-      "connectedWithProtocol": "Verbindung hergestellt (Protokoll: {protocol})",
-      "invalidUrl": "Ungültige URL – muss mit ws:// oder wss:// beginnen",
-      "connectFailed": "Verbindung konnte nicht geöffnet werden",
-      "socketError": "Es ist ein Verbindungsfehler aufgetreten",
-      "notConnected": "Nicht verbunden – zuerst verbinden",
-      "binaryMessage": "Eine Binärnachricht empfangen"
-    },
-    "log": {
-      "title": "Nachrichtenprotokoll",
-      "empty": "Noch keine Nachrichten. Verbinde dich und beginne zu senden.",
-      "copyAll": "Alle kopieren",
-      "download": "Als .txt herunterladen",
-      "clear": "Protokoll leeren",
-      "prettyPrint": "JSON formatieren",
-      "showRaw": "Rohtext anzeigen"
-    },
-    "composer": {
-      "placeholder": "Eine Nachricht zum Senden eingeben…",
-      "send": "Senden",
-      "formatJson": "Als JSON formatieren",
-      "invalidJson": "Die Nachricht ist kein gültiges JSON",
-      "hint": "Cmd/Ctrl+Enter zum Senden"
-    },
-    "ping": {
-      "label": "Auto-Ping",
-      "seconds": "Sek.",
-      "intervalTitle": "Ping-Intervall in Sekunden",
-      "payloadPlaceholder": "Ping-Payload"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois-Lookup",
-    "subtitle": "Domain- und IP-Registrierung per RDAP nachschlagen",
-    "placeholder": "example.com oder 8.8.8.8",
-    "lookupBtn": "Abfragen",
-    "looking": "Abfrage läuft…",
-    "refreshBtn": "Aktualisieren",
-    "tryLabel": "Probiere:",
-    "copy": "Kopieren",
-    "copied": "Kopiert",
-    "notAvailable": "Nicht verfügbar",
-    "summary": {
-      "registrar": "Registrar",
-      "network": "Netzwerk"
-    },
-    "dates": {
-      "created": "Erstellt",
-      "updated": "Aktualisiert",
-      "expires": "Läuft ab"
-    },
-    "sections": {
-      "status": "Status",
-      "nameservers": "Nameserver",
-      "contacts": "Kontakte",
-      "rawRdap": "Rohes RDAP"
-    },
-    "contacts": {
-      "roles": "Rollen",
-      "name": "Name",
-      "organization": "Organisation"
-    },
-    "errors": {
-      "invalidTarget": "Gib einen gültigen Domainnamen oder eine gültige IP-Adresse ein",
-      "lookupFailed": "Abfrage fehlgeschlagen (Status {status})"
     }
   },
   "ToolPageHeader": {

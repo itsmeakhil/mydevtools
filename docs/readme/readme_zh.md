@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80+ 个开发者工具、API 客户端，SQL / MongoDB / Redis 客户端、加密<br />
+  API 客户端，SQL / MongoDB / Redis 客户端、加密<br />
   与效率工具 —— 全部在你自己的机器上本地运行。
 </p>
 
@@ -97,19 +97,16 @@ SQL / MongoDB / Redis 客户端、笔记、代码片段和凭据保险库 ——
 
 ## 🧰 工具
 
-80+ 个工具，按侧边栏的分组方式排列。带说明的完整列表见
+所有工具，按侧边栏的分组方式排列。带说明的完整列表见
 [英文 README](../../README.md#-tools)。
 
 | 分类 | 示例 |
 |---|---|
 | 📝 **格式化与校验** | JSON 格式化器、JSON Visualizer、JSON 对比、JSON 模式生成器、JSON to Code、YAML 格式化工具、格式转换器（JSON / YAML / TOML / XML）、SQL Formatter、GraphQL 格式化、Markdown 预览、Diff checker、Regex Tester |
-| 🌐 **网络与 API** | API 客户端（集合、环境、鉴权、gRPC、mock 服务器 —— 不受浏览器 CORS 限制）、cURL to Code、Webhook 测试器、WebSocket 测试器、DNS 查询、Whois 查询、IP / 子网计算器、HTTP 状态码、User-Agent Parser |
+| 🌐 **网络与 API** | API 客户端（集合、环境、鉴权、gRPC、mock 服务器 —— 不受浏览器 CORS 限制） |
 | 🗄️ **数据库与存储客户端** | SQL Client（PostgreSQL、MySQL、MariaDB）、数据库浏览器（MongoDB）、Redis Commander、S3 Drive（AWS S3、DigitalOcean Spaces）—— 原生 Rust 驱动，从你的机器直连数据库 |
-| 🔐 **安全与加密** | 密码管理器、加密演练场（AES-GCM）、JWT 解码器、哈希生成器、HMAC 生成器、Bcrypt、TOTP / 2FA 验证码、SSH / RSA 密钥生成器、证书 / PEM 解码器、环境管理、密钥 / API 密钥 |
-| 🔄 **转换器** | Base64、图像转 Base64、URL Encoder / 解析器、Escape / Encode、String Case Converter、String Inspector、Line Sort & Dedupe、CSV / Excel ↔ JSON、进制转换、Timestamp / 时区转换器、单位换算器、Chmod 计算器、LLM Token 计数器 |
-| ⚙️ **生成器** | UUID / ULID、模拟数据生成器、Cron Builder、Docker Compose 生成器、.gitignore 生成器、二维码生成器、Markdown 表格、Lorem Ipsum |
-| 🎨 **媒体与设计** | Color Picker、对比度检查、CSS 渐变生成器、CSS 生成器、图片压缩、SVG 优化、EXIF 查看器与清除、Favicon 生成器、代码截图、键码检查器 |
-| 📱 **效率工具** | Notes、代码片段、Tasks、书签、API Keys、休闲角（2048、数独、Snake、Minesweeper、Tetris） |
+| 🔐 **安全与加密** | 密码管理器、加密演练场（AES-GCM）、JWT 解码器、Bcrypt、证书 / PEM 解码器、环境管理 |
+| 📱 **效率工具** | Notes、代码片段、Tasks、书签、API Keys |
 
 所有工具都能在同一个命令面板中搜索，支持深色 / 浅色主题，提供 27 种语言。
 
@@ -124,7 +121,7 @@ SQL / MongoDB / Redis 客户端、笔记、代码片段和凭据保险库 ——
   的主密码在本地加密。
 - **每一次对外连接都由你决定。** 应用本身不需要网络，但有些工具的职责就是访问
   *你的*目标：API 客户端发送你写的请求，数据库客户端连接你配置的主机，
-  DNS / WHOIS 查询公共注册局，更新器检查 GitHub releases。除此之外没有任何数据外发。
+  DNS 查询公共注册局，更新器检查 GitHub releases。除此之外没有任何数据外发。
 - **可选的匿名使用统计。** 默认关闭，除非你主动开启。开启后只发送两个事件
   （`app_started`、`tool_opened`），附带轮换的会话 id、应用版本和语言环境。
   没有设备 id，没有路径，也没有你在工具里输入的任何内容。
@@ -163,7 +160,7 @@ API 密钥、账号或外部服务。
 - **数据库客户端面向日常工作**，不是完整 DBA 套件的替代品 —— 没有可视化表结构
   设计器，也没有迁移工具。
 - **没有团队功能。** 没有共享工作区，没有同步，没有协作。
-- **有些工具天然需要网络** —— DNS、WHOIS、webhook、API 请求、数据库连接。
+- **有些工具天然需要网络** —— DNS、API 请求、数据库连接。
 
 ---
 

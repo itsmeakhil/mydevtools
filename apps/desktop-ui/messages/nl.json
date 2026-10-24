@@ -3,7 +3,6 @@
     "dashboard": "Dashboard",
     "settings": "Instellingen",
     "apiClient": "API-client",
-    "httpStatusCodes": "HTTP-statuscodes",
     "passwordManager": "Wachtwoordbeheer",
     "environmentManager": "Omgevingsbeheer",
     "bookmarks": "Bladwijzers",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSON-schema-generator",
     "snippetManager": "Codefragmenten",
-    "dnsLookup": "DNS-opzoeking",
-    "ipSubnetCalculator": "IP-/subnetcalculator",
     "markdownPreview": "Markdown-voorbeeld",
     "formatConverter": "Formaatconverter",
     "yamlFormatter": "YAML-formatter",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-playground",
-    "webhookTester": "Webhook-tester",
-    "websocketTester": "WebSocket-tester",
-    "whoisLookup": "Whois-opzoeking",
     "secureFiles": "Bestanden"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Wat is MyDevTools?",
-        "description": "Een offline ontwikkelaarswerkplek: een dashboard en meer dan 80 tools die volledig op je apparaat draaien.",
+        "description": "Een offline ontwikkelaarswerkplek: een dashboard en tools die volledig op je apparaat draaien.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Instellingen",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Codefragmenten",
         "description": "Bewaar fragmenten met syntaxisaccentuering, automatische taaldetectie en opmaak."
       },
-      "ipSubnetCalculator": {
-        "title": "IP-/subnetcalculator",
-        "description": "IPv4 en IPv6 CIDR: netmasker, bereiken en adressen."
-      },
-      "dnsLookup": {
-        "title": "DNS-opzoeking",
-        "description": "Zoek DNS-records op voor elk domein — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Markdown-voorbeeld",
         "description": "Live Markdown-renderer met HTML-export en HTML → Markdown-conversie."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Formaatconverter",
         "description": "Converteer tussen JSON, YAML, TOML en XML in elke richting. Alle 12 combinaties worden ondersteund."
-      },
-      "httpStatusCodes": {
-        "title": "HTTP-statuscodes",
-        "description": "Zoek HTTP-statuscodes met beschrijvingen (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath-playground",
         "description": "Bevraag JSON met JSONPath of JMESPath en zie de resultaten live."
-      },
-      "webhookTester": {
-        "title": "Webhook-tester",
-        "description": "Vang inkomende webhook-verzoeken op en inspecteer ze in realtime."
-      },
-      "websocketTester": {
-        "title": "WebSocket-tester",
-        "description": "Verbind met WebSocket-endpoints en wissel berichten uit in realtime."
-      },
-      "whoisLookup": {
-        "title": "Whois-opzoeking",
-        "description": "Zoek registratiegegevens van een domein of IP op via RDAP."
       },
       "secureFiles": {
         "title": "Bestanden",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP-statuscodes",
-    "subtitle": "Zoek statuscodes 1xx–5xx met RFC-verwijzingen",
-    "header": {
-      "title": "HTTP-statuscodes",
-      "description": "Doorzoekbare referentie van HTTP-responscodes met beschrijvingen en RFC-verwijzingen."
-    },
-    "searchPlaceholder": "Zoeken: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Klasse filteren…",
-    "classFilterAll": "Alle klassen",
-    "resultsCount": "{count} van {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Zin",
-      "description": "Beschrijving",
-      "copy": "Kopiëren"
-    },
-    "noResults": "Geen resultaten voor “{query}”.",
-    "specPrefix": "Spec:",
-    "copied": "Code gekopieerd"
-  },
   "DiffChecker": {
     "title": "Diff-checker",
     "subtitle": "Vergelijk twee teksten naast elkaar, regel voor regel",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} rijen kwamen overeen — er is niets gewijzigd, omdat het filter niet uniek is."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Subnetcalculator",
-    "subtitle": "Bereken CIDR-details voor IPv4 en IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Netwerk",
-    "placeholderIpv4": "10.0.0.0/24 of 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 of 2001:db8::1/64",
-    "hintIpv4": "Gebruik CIDR (bijv. /24) of IPv4 met decimale netmasker.",
-    "hintIpv6": "Geef de prefixlengte (bijv. /64). Zonder invoer wordt /128 aangenomen.",
-    "copyValue": "Waarde kopiëren",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Netwerkadres",
-      "netmask": "Subnetmasker",
-      "wildcard": "Wildcard-masker",
-      "broadcast": "Broadcast",
-      "firstHost": "Eerste host",
-      "lastHost": "Laatste host",
-      "totalAddresses": "Totaal adressen",
-      "usableHosts": "Bruikbare hosts",
-      "prefixLength": "Prefixlengte (bits)",
-      "networkIpv6": "Netwerkadres",
-      "lastIpv6": "Laatste adres in bereik",
-      "totalAddressesIpv6": "Adressen in subnet"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 point-to-point gebruikt beide adressen als hosts (RFC 3021).",
-      "singleHost": "/32 is één hostadres."
-    },
-    "ipv6RangeHint": {
-      "normal": "Toont het volledige wiskundige bereik; routerregels kunnen afwijken.",
-      "single": "/128 is één adres.",
-      "full": "/0 dek heel IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Ongeldig IPv4-netwerk. Probeer CIDR of adres + masker.",
-      "invalidIpv6": "Ongeldig IPv6-netwerk. Gebruik adres/prefix, bijv. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Encryptie-playground",
     "subtitle": "Versleutel en ontsleutel AES-GCM met wachtwoordzin of sleutel",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# teken} other {# tekens}}",
     "emptyHint": "Plak of typ uw invoer aan de linkerkant om de geconverteerde uitvoer te zien.",
     "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
-  },
-  "MimeTypeLookup": {
-    "title": "MIME-type opzoeken",
-    "subtitle": "Vind het MIME-type voor elke bestandsextensie",
-    "inputLabel": "Extensie of bestandsnaam",
-    "placeholder": "bijv. .png, package.json, photo.jpeg",
-    "hint": "Tip: plak een extensie (met of zonder punt) of een volledige bestandsnaam.",
-    "clear": "Wissen",
-    "exampleFilename": "Voorbeeldbestandsnaam gebruiken",
-    "exampleExtension": "Voorbeeldextensie gebruiken",
-    "resultLabel": "Resultaat",
-    "normalizedLabel": "Genormaliseerde invoer:",
-    "mimeTypeLabel": "MIME-type",
-    "contentTypeLabel": "Content-Type-header",
-    "charsetLabel": "Tekenset",
-    "copyMimeType": "MIME-type kopiëren",
-    "copy": "Kopiëren",
-    "copied": "Gekopieerd",
-    "emptyHint": "Voer een extensie of bestandsnaam in om het MIME-type op te zoeken.",
-    "notFound": "Geen MIME-type gevonden voor deze invoer.",
-    "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
-  },
-  "UserAgentParser": {
-    "title": "User-Agent-parser",
-    "subtitle": "Splits een UA-string in browser, OS en apparaat",
-    "inputLabel": "User-Agent-string",
-    "placeholder": "Plak uw User-Agent hier…",
-    "hint": "Tip: u kunt een UA kopiëren uit request-headers, logs of de browser-devtools.",
-    "clear": "Wissen",
-    "exampleDesktop": "Desktopvoorbeeld gebruiken",
-    "exampleMobile": "Mobiel voorbeeld gebruiken",
-    "resultLabel": "Uitsplitsing",
-    "browserLabel": "Browser",
-    "osLabel": "Besturingssysteem",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Apparaattype",
-    "deviceVendorLabel": "Fabrikant",
-    "deviceModelLabel": "Model",
-    "cpuArchLabel": "CPU-architectuur",
-    "copyJson": "JSON kopiëren",
-    "copy": "Kopiëren",
-    "copied": "Gekopieerd",
-    "emptyHint": "Plak een User-Agent-string om de uitsplitsing te zien.",
-    "localNote": "Alles draait lokaal in uw browser. Er wordt niets geüpload."
-  },
-  "DnsLookup": {
-    "title": "DNS-lookup",
-    "subtitle": "Vraag A, AAAA, MX, TXT, NS en meer op voor elk domein",
-    "placeholder": "Voer een domein in (bijv. github.com)",
-    "lookupBtn": "Opzoeken",
-    "looking": "Bezig met opzoeken…",
-    "refreshBtn": "Vernieuwen",
-    "recordTypesLabel": "Recordtypen",
-    "allBtn": "Alles",
-    "tryLabel": "Probeer:",
-    "errors": {
-      "lookupFailed": "DNS-opzoeking mislukt"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL naar code",
-    "subtitle": "Zet curl-commando's om in fetch, axios, Python en meer",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON naar code",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Webhook-URL maken mislukt. Probeer het opnieuw.",
       "clearFailed": "Verzoeken wissen mislukt. Probeer het opnieuw."
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket-tester",
-    "subtitle": "Verbind, verstuur en bekijk WebSocket-berichten live",
-    "urlLabel": "Endpoint-URL",
-    "protocolsLabel": "Subprotocollen",
-    "protocolsPlaceholder": "optioneel, gescheiden door komma's",
-    "connect": "Verbinden",
-    "disconnect": "Verbinding verbreken",
-    "status": {
-      "disconnected": "Verbinding verbroken",
-      "connecting": "Verbinden",
-      "connected": "Verbonden",
-      "error": "Fout"
-    },
-    "messages": {
-      "connecting": "Verbinden met {url}…",
-      "connected": "Verbinding tot stand gebracht",
-      "connectedWithProtocol": "Verbinding tot stand gebracht (protocol: {protocol})",
-      "invalidUrl": "Ongeldige URL — moet beginnen met ws:// of wss://",
-      "connectFailed": "Verbinding openen mislukt",
-      "socketError": "Er is een verbindingsfout opgetreden",
-      "notConnected": "Niet verbonden — verbind eerst",
-      "binaryMessage": "Een binair bericht ontvangen"
-    },
-    "log": {
-      "title": "Berichtenlogboek",
-      "empty": "Nog geen berichten. Verbind en begin met verzenden.",
-      "copyAll": "Alles kopiëren",
-      "download": "Downloaden als .txt",
-      "clear": "Logboek wissen",
-      "prettyPrint": "JSON opmaken",
-      "showRaw": "Ruwe tekst tonen"
-    },
-    "composer": {
-      "placeholder": "Typ een bericht om te verzenden…",
-      "send": "Verzenden",
-      "formatJson": "Opmaken als JSON",
-      "invalidJson": "Het bericht is geen geldige JSON",
-      "hint": "Cmd/Ctrl+Enter om te verzenden"
-    },
-    "ping": {
-      "label": "Auto-ping",
-      "seconds": "sec",
-      "intervalTitle": "Ping-interval in seconden",
-      "payloadPlaceholder": "ping-payload"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois-lookup",
-    "subtitle": "Zoek domein- en IP-registratie op via RDAP",
-    "placeholder": "example.com of 8.8.8.8",
-    "lookupBtn": "Opzoeken",
-    "looking": "Bezig met opzoeken…",
-    "refreshBtn": "Vernieuwen",
-    "tryLabel": "Probeer:",
-    "copy": "Kopiëren",
-    "copied": "Gekopieerd",
-    "notAvailable": "Niet beschikbaar",
-    "summary": {
-      "registrar": "Registrar",
-      "network": "Netwerk"
-    },
-    "dates": {
-      "created": "Aangemaakt",
-      "updated": "Bijgewerkt",
-      "expires": "Verloopt"
-    },
-    "sections": {
-      "status": "Status",
-      "nameservers": "Nameservers",
-      "contacts": "Contacten",
-      "rawRdap": "Ruwe RDAP"
-    },
-    "contacts": {
-      "roles": "Rollen",
-      "name": "Naam",
-      "organization": "Organisatie"
-    },
-    "errors": {
-      "invalidTarget": "Voer een geldige domeinnaam of IP-adres in",
-      "lookupFailed": "Opzoeken mislukt (status {status})"
     }
   },
   "ToolPageHeader": {

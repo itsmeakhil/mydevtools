@@ -3,7 +3,6 @@
     "dashboard": "Dasbor ",
     "settings": "Pengaturan",
     "apiClient": "Klien api",
-    "httpStatusCodes": "Kode status HTTP",
     "passwordManager": "Pengelola Kata Sandi",
     "environmentManager": "Pengelola lingkungan",
     "bookmarks": "Penanda",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "Generator Skema JSON",
     "snippetManager": "Cuplikan kode",
-    "dnsLookup": "Pencarian DNS",
-    "ipSubnetCalculator": "Kalkulator IP / subnet",
     "markdownPreview": "Pratinjau Markdown",
     "formatConverter": "Konverter Format",
     "yamlFormatter": "Pemformat YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Diff JSON",
     "jsonpathPlayground": "Playground JSONPath",
-    "webhookTester": "Penguji Webhook",
-    "websocketTester": "Penguji WebSocket",
-    "whoisLookup": "Pencarian Whois",
     "secureFiles": "Berkas"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Apa itu MyDevTools?",
-        "description": "Ruang kerja pengembang yang offline: sebuah dasbor dan 80+ alat yang berjalan sepenuhnya di perangkat Anda.",
+        "description": "Ruang kerja pengembang yang offline: sebuah dasbor dan alat-alat yang berjalan sepenuhnya di perangkat Anda.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Pengaturan",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Cuplikan kode",
         "description": "Simpan cuplikan dengan penyorotan sintaks, deteksi bahasa otomatis, dan pemformatan."
       },
-      "ipSubnetCalculator": {
-        "title": "Kalkulator IP / subnet",
-        "description": "IPv4 dan IPv6 CIDR: netmask, rentang, dan jumlah alamat."
-      },
-      "dnsLookup": {
-        "title": "Pencarian DNS",
-        "description": "Kueri rekaman DNS untuk domain apa pun — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Pratinjau Markdown",
         "description": "Renderer Markdown langsung dengan ekspor HTML dan konversi HTML → Markdown."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Konverter Format",
         "description": "Konversi antara JSON, YAML, TOML, dan XML ke segala arah. Semua 12 kombinasi didukung."
-      },
-      "httpStatusCodes": {
-        "title": "Kode Status HTTP",
-        "description": "Cari kode status HTTP dengan deskripsi (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "Playground JSONPath",
         "description": "Kueri JSON dengan JSONPath atau JMESPath dan lihat hasilnya secara langsung."
-      },
-      "webhookTester": {
-        "title": "Penguji Webhook",
-        "description": "Tangkap dan periksa permintaan webhook masuk secara real time."
-      },
-      "websocketTester": {
-        "title": "Penguji WebSocket",
-        "description": "Sambungkan ke endpoint WebSocket dan bertukar pesan secara real time."
-      },
-      "whoisLookup": {
-        "title": "Pencarian Whois",
-        "description": "Cari detail pendaftaran domain dan IP melalui RDAP."
       },
       "secureFiles": {
         "title": "Berkas",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "Kode Status HTTP",
-    "subtitle": "Cari kode status 1xx–5xx dengan referensi RFC",
-    "header": {
-      "title": "Kode status HTTP",
-      "description": "Referensi yang dapat dicari untuk kode respons HTTP beserta deskripsi dan referensi RFC."
-    },
-    "searchPlaceholder": "Cari: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Filter kelas…",
-    "classFilterAll": "Semua kelas",
-    "resultsCount": "{count} dari {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Frasa",
-      "description": "Deskripsi",
-      "copy": "Salin"
-    },
-    "noResults": "Tidak ada hasil untuk “{query}”.",
-    "specPrefix": "Spes.:",
-    "copied": "Kode disalin"
-  },
   "DiffChecker": {
     "title": "Pemeriksa Diff",
     "subtitle": "Bandingkan dua teks berdampingan, baris demi baris",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} baris cocok — tidak ada yang diubah, karena filter tidak unik."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Kalkulator Subnet",
-    "subtitle": "Hitung detail CIDR IPv4 dan IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Jaringan",
-    "placeholderIpv4": "10.0.0.0/24 atau 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 atau 2001:db8::1/64",
-    "hintIpv4": "Gunakan CIDR (mis. /24) atau IPv4 + netmask bertitik.",
-    "hintIpv6": "Sertakan panjang prefiks (mis. /64). Jika tidak, /128.",
-    "copyValue": "Salin nilai",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Alamat jaringan",
-      "netmask": "Subnet mask",
-      "wildcard": "Wildcard mask",
-      "broadcast": "Broadcast",
-      "firstHost": "Host pertama",
-      "lastHost": "Host terakhir",
-      "totalAddresses": "Total alamat",
-      "usableHosts": "Host yang dapat dipakai",
-      "prefixLength": "Panjang prefiks (bit)",
-      "networkIpv6": "Alamat jaringan",
-      "lastIpv6": "Alamat terakhir dalam rentang",
-      "totalAddressesIpv6": "Alamat dalam subnet"
-    },
-    "usableNote": {
-      "pointToPoint": "Tautan /31 titik-ke-titik memakai kedua alamat sebagai host (RFC 3021).",
-      "singleHost": "/32 adalah satu host."
-    },
-    "ipv6RangeHint": {
-      "normal": "Menampilkan rentang matematis penuh; aturan router dapat berbeda.",
-      "single": "/128 adalah satu alamat.",
-      "full": "/0 mencakup seluruh IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Jaringan IPv4 tidak valid. Coba CIDR atau alamat + mask.",
-      "invalidIpv6": "Jaringan IPv6 tidak valid. Gunakan alamat/prefiks, mis. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Playground Enkripsi",
     "subtitle": "Enkripsi dan dekripsi AES-GCM dengan frasa sandi atau kunci",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, other {# karakter}}",
     "emptyHint": "Tempel atau ketik masukan Anda di sebelah kiri untuk melihat keluaran yang dikonversi.",
     "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
-  },
-  "MimeTypeLookup": {
-    "title": "Pencarian Tipe MIME",
-    "subtitle": "Temukan tipe MIME untuk ekstensi file apa pun",
-    "inputLabel": "Ekstensi atau nama file",
-    "placeholder": "mis. .png, package.json, photo.jpeg",
-    "hint": "Tip: tempel ekstensi (dengan atau tanpa titik) atau nama file lengkap.",
-    "clear": "Bersihkan",
-    "exampleFilename": "Gunakan contoh nama file",
-    "exampleExtension": "Gunakan contoh ekstensi",
-    "resultLabel": "Hasil",
-    "normalizedLabel": "Masukan ternormalisasi:",
-    "mimeTypeLabel": "Tipe MIME",
-    "contentTypeLabel": "Header Content-Type",
-    "charsetLabel": "Charset",
-    "copyMimeType": "Salin tipe MIME",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "emptyHint": "Masukkan ekstensi atau nama file untuk mencari tipe MIME.",
-    "notFound": "Tidak ditemukan tipe MIME untuk masukan tersebut.",
-    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
-  },
-  "UserAgentParser": {
-    "title": "Parser User-Agent",
-    "subtitle": "Urai string UA menjadi browser, OS, dan perangkat",
-    "inputLabel": "String User-Agent",
-    "placeholder": "Tempel User-Agent Anda di sini…",
-    "hint": "Tip: Anda dapat menyalin UA dari header permintaan, log, atau devtools browser.",
-    "clear": "Bersihkan",
-    "exampleDesktop": "Gunakan contoh desktop",
-    "exampleMobile": "Gunakan contoh mobile",
-    "resultLabel": "Rincian",
-    "browserLabel": "Browser",
-    "osLabel": "Sistem operasi",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Jenis perangkat",
-    "deviceVendorLabel": "Vendor perangkat",
-    "deviceModelLabel": "Model perangkat",
-    "cpuArchLabel": "Arsitektur CPU",
-    "copyJson": "Salin JSON",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "emptyHint": "Tempel string User-Agent untuk melihat rinciannya.",
-    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
-  },
-  "DnsLookup": {
-    "title": "Pencarian DNS",
-    "subtitle": "Kueri A, AAAA, MX, TXT, NS, dan lainnya untuk domain apa pun",
-    "placeholder": "Masukkan domain (mis. github.com)",
-    "lookupBtn": "Cari",
-    "looking": "Mencari…",
-    "refreshBtn": "Segarkan",
-    "recordTypesLabel": "Jenis rekaman",
-    "allBtn": "Semua",
-    "tryLabel": "Coba:",
-    "errors": {
-      "lookupFailed": "Pencarian DNS gagal"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL ke Kode",
-    "subtitle": "Ubah perintah curl menjadi fetch, axios, Python, dan lainnya",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON ke Kode",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Gagal membuat URL webhook. Silakan coba lagi.",
       "clearFailed": "Gagal membersihkan permintaan. Silakan coba lagi."
-    }
-  },
-  "WebsocketTester": {
-    "title": "Penguji WebSocket",
-    "subtitle": "Hubungkan, kirim, dan periksa pesan WebSocket langsung",
-    "urlLabel": "URL endpoint",
-    "protocolsLabel": "Subprotokol",
-    "protocolsPlaceholder": "opsional, dipisahkan koma",
-    "connect": "Hubungkan",
-    "disconnect": "Putuskan",
-    "status": {
-      "disconnected": "Terputus",
-      "connecting": "Menghubungkan",
-      "connected": "Terhubung",
-      "error": "Kesalahan"
-    },
-    "messages": {
-      "connecting": "Menghubungkan ke {url}…",
-      "connected": "Koneksi berhasil dibuat",
-      "connectedWithProtocol": "Koneksi berhasil dibuat (protokol: {protocol})",
-      "invalidUrl": "URL tidak valid — harus dimulai dengan ws:// atau wss://",
-      "connectFailed": "Gagal membuka koneksi",
-      "socketError": "Terjadi kesalahan koneksi",
-      "notConnected": "Tidak terhubung — hubungkan dulu",
-      "binaryMessage": "Menerima pesan biner"
-    },
-    "log": {
-      "title": "Log Pesan",
-      "empty": "Belum ada pesan. Hubungkan dan mulai mengirim.",
-      "copyAll": "Salin semua",
-      "download": "Unduh sebagai .txt",
-      "clear": "Bersihkan log",
-      "prettyPrint": "Cetak rapi JSON",
-      "showRaw": "Tampilkan teks mentah"
-    },
-    "composer": {
-      "placeholder": "Ketik pesan untuk dikirim…",
-      "send": "Kirim",
-      "formatJson": "Format sebagai JSON",
-      "invalidJson": "Pesan bukan JSON yang valid",
-      "hint": "Cmd/Ctrl+Enter untuk mengirim"
-    },
-    "ping": {
-      "label": "Ping otomatis",
-      "seconds": "dtk",
-      "intervalTitle": "Interval ping dalam detik",
-      "payloadPlaceholder": "payload ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Pencarian Whois",
-    "subtitle": "Cari registrasi domain dan IP melalui RDAP",
-    "placeholder": "example.com atau 8.8.8.8",
-    "lookupBtn": "Cari",
-    "looking": "Mencari…",
-    "refreshBtn": "Segarkan",
-    "tryLabel": "Coba:",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "notAvailable": "Tidak tersedia",
-    "summary": {
-      "registrar": "Registrar",
-      "network": "Jaringan"
-    },
-    "dates": {
-      "created": "Dibuat",
-      "updated": "Diperbarui",
-      "expires": "Kedaluwarsa"
-    },
-    "sections": {
-      "status": "Status",
-      "nameservers": "Nameserver",
-      "contacts": "Kontak",
-      "rawRdap": "RDAP mentah"
-    },
-    "contacts": {
-      "roles": "Peran",
-      "name": "Nama",
-      "organization": "Organisasi"
-    },
-    "errors": {
-      "invalidTarget": "Masukkan nama domain atau alamat IP yang valid",
-      "lookupFailed": "Pencarian gagal (status {status})"
     }
   },
   "ToolPageHeader": {

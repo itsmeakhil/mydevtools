@@ -63,7 +63,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/jwt-decoder",
       "/app/environment-manager",
     ],
-    ["/app/sql-formatter", "/app/http-status-codes", "/app/api-keys"],
+    ["/app/sql-formatter", "/app/api-keys"],
   ),
   role(
     "fullstack",
@@ -78,7 +78,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/environment-manager",
       "/app/regex-tester",
     ],
-    ["/app/diff-checker", "/app/http-status-codes"],
+    ["/app/diff-checker"],
   ),
   role(
     "devops",
@@ -86,8 +86,6 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     "Infra, networking, and deployments",
     IconCloudCog,
     [
-      "/app/dns-lookup",
-      "/app/ip-subnet-calculator",
       "/app/environment-manager",
       "/app/certificate-pem-decoder",
     ],
@@ -104,9 +102,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/diff-checker",
       "/app/email-validator",
       "/app/json-formatter",
-      "/app/http-status-codes",
     ],
-    ["/app/user-agent-parser"],
   ),
   role(
     "exploring",

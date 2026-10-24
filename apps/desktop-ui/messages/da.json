@@ -3,7 +3,6 @@
     "dashboard": "Oversigt",
     "settings": "Indstillinger",
     "apiClient": "API-klient",
-    "httpStatusCodes": "HTTP-statuskoder",
     "passwordManager": "Adgangskodeadministration",
     "environmentManager": "Miljøadministration",
     "bookmarks": "Bogmærker",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSON-skemagenerator",
     "snippetManager": "Kodestykker",
-    "dnsLookup": "DNS-opslag",
-    "ipSubnetCalculator": "IP-/subnetberegner",
     "markdownPreview": "Markdown-forhåndsvisning",
     "formatConverter": "Formatkonverter",
     "yamlFormatter": "YAML-formatering",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-legeplads",
-    "webhookTester": "Webhook-tester",
-    "websocketTester": "WebSocket-tester",
-    "whoisLookup": "Whois-opslag",
     "secureFiles": "Filer"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Hvad er MyDevTools?",
-        "description": "Et offline-arbejdsrum for udviklere: et dashboard og over 80 værktøjer, der kører helt på din enhed.",
+        "description": "Et offline-arbejdsrum for udviklere: et dashboard og værktøjer, der kører helt på din enhed.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Indstillinger",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Kodestykker",
         "description": "Gem kodestykker med syntaksfremhævelse, automatisk sprogdetektion og formatering."
       },
-      "ipSubnetCalculator": {
-        "title": "IP-/subnetberegner",
-        "description": "IPv4 og IPv6 CIDR: netmaske, intervaller og adresser."
-      },
-      "dnsLookup": {
-        "title": "DNS-opslag",
-        "description": "Forespørg DNS-poster for ethvert domæne — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Markdown-forhåndsvisning",
         "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Formatkonverter",
         "description": "Konvertér mellem JSON, YAML, TOML og XML i alle retninger. Alle 12 kombinationer understøttes."
-      },
-      "httpStatusCodes": {
-        "title": "HTTP-statuskoder",
-        "description": "Søg HTTP-statuskoder med beskrivelser (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath-legeplads",
         "description": "Forespørg JSON med JSONPath eller JMESPath, og se resultater live."
-      },
-      "webhookTester": {
-        "title": "Webhook-tester",
-        "description": "Opfang og inspicér indgående webhook-anmodninger i realtid."
-      },
-      "websocketTester": {
-        "title": "WebSocket-tester",
-        "description": "Forbind til WebSocket-endpoints, og udveksl beskeder i realtid."
-      },
-      "whoisLookup": {
-        "title": "Whois-opslag",
-        "description": "Slå registreringsoplysninger for domæner og IP-adresser op via RDAP."
       },
       "secureFiles": {
         "title": "Filer",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP-statuskoder",
-    "subtitle": "Søg i statuskoder 1xx–5xx med RFC-referencer",
-    "header": {
-      "title": "HTTP-statuskoder",
-      "description": "Søgbar reference over HTTP-svarskoder med beskrivelser og RFC-referencer."
-    },
-    "searchPlaceholder": "Søg: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Filtrér klasse…",
-    "classFilterAll": "Alle klasser",
-    "resultsCount": "{count} af {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Frase",
-      "description": "Beskrivelse",
-      "copy": "Kopiér"
-    },
-    "noResults": "Ingen resultater for “{query}”.",
-    "specPrefix": "Spec:",
-    "copied": "Kode kopieret"
-  },
   "DiffChecker": {
     "title": "Diff-tjekker",
     "subtitle": "Sammenlign to tekster side om side, linje for linje",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} rækker matchede — intet blev ændret, fordi filteret ikke er entydigt."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Subnet-beregner",
-    "subtitle": "Beregn CIDR-detaljer for IPv4 og IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Netværk",
-    "placeholderIpv4": "10.0.0.0/24 eller 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 eller 2001:db8::1/64",
-    "hintIpv4": "Brug CIDR (fx /24) eller IPv4-adresse + punktum-netmaske.",
-    "hintIpv6": "Angiv præfikslængde (fx /64). Uden angivelse antages /128.",
-    "copyValue": "Kopiér værdi",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Netværksadresse",
-      "netmask": "Subnetmaske",
-      "wildcard": "Wildcard-maske",
-      "broadcast": "Broadcast",
-      "firstHost": "Første vært",
-      "lastHost": "Sidste vært",
-      "totalAddresses": "Adresser i alt",
-      "usableHosts": "Brugbare værter",
-      "prefixLength": "Præfiks (bit)",
-      "networkIpv6": "Netværksadresse",
-      "lastIpv6": "Sidste adresse i interval",
-      "totalAddressesIpv6": "Adresser i subnet"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 punkt-til-punkt bruger begge adresser som værter (RFC 3021).",
-      "singleHost": "/32 er én værtsadresse."
-    },
-    "ipv6RangeHint": {
-      "normal": "Viser det fulde matematiske interval; routerregler kan variere.",
-      "single": "/128 er én adresse.",
-      "full": "/0 dækker hele IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Ugyldigt IPv4-netværk. Prøv CIDR eller adresse + maske.",
-      "invalidIpv6": "Ugyldigt IPv6-netværk. Brug adresse/præfiks, fx 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Krypteringslegeplads",
     "subtitle": "Kryptér og dekryptér AES-GCM med passphrase eller nøgle",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# tegn} other {# tegn}}",
     "emptyHint": "Indsæt eller skriv dit input til venstre for at se det konverterede output.",
     "localNote": "Alt kører lokalt i din browser. Intet uploades."
-  },
-  "MimeTypeLookup": {
-    "title": "MIME-type-opslag",
-    "subtitle": "Find MIME-typen for enhver filendelse",
-    "inputLabel": "Filendelse eller filnavn",
-    "placeholder": "fx .png, package.json, photo.jpeg",
-    "hint": "Tip: indsæt enten en endelse (med eller uden punktum) eller et fuldt filnavn.",
-    "clear": "Ryd",
-    "exampleFilename": "Brug eksempel-filnavn",
-    "exampleExtension": "Brug eksempel-endelse",
-    "resultLabel": "Resultat",
-    "normalizedLabel": "Normaliseret input:",
-    "mimeTypeLabel": "MIME-type",
-    "contentTypeLabel": "Content-Type-header",
-    "charsetLabel": "Tegnsæt",
-    "copyMimeType": "Kopiér MIME-type",
-    "copy": "Kopiér",
-    "copied": "Kopieret",
-    "emptyHint": "Indtast en endelse eller et filnavn for at slå MIME-typen op.",
-    "notFound": "Ingen MIME-type fundet for dette input.",
-    "localNote": "Alt kører lokalt i din browser. Intet uploades."
-  },
-  "UserAgentParser": {
-    "title": "User-Agent-parser",
-    "subtitle": "Opdel en UA-streng i browser, OS og enhed",
-    "inputLabel": "User-Agent-streng",
-    "placeholder": "Indsæt din User-Agent her…",
-    "hint": "Tip: du kan kopiere en UA fra request-headers, logs eller browserens devtools.",
-    "clear": "Ryd",
-    "exampleDesktop": "Brug desktop-eksempel",
-    "exampleMobile": "Brug mobil-eksempel",
-    "resultLabel": "Oversigt",
-    "browserLabel": "Browser",
-    "osLabel": "Operativsystem",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Enhedstype",
-    "deviceVendorLabel": "Producent",
-    "deviceModelLabel": "Model",
-    "cpuArchLabel": "CPU-arkitektur",
-    "copyJson": "Kopiér JSON",
-    "copy": "Kopiér",
-    "copied": "Kopieret",
-    "emptyHint": "Indsæt en User-Agent-streng for at se oversigten.",
-    "localNote": "Alt kører lokalt i din browser. Intet uploades."
-  },
-  "DnsLookup": {
-    "title": "DNS-opslag",
-    "subtitle": "Slå A, AAAA, MX, TXT, NS og mere op for ethvert domæne",
-    "placeholder": "Indtast domæne (f.eks. github.com)",
-    "lookupBtn": "Slå op",
-    "looking": "Slår op…",
-    "refreshBtn": "Opdater",
-    "recordTypesLabel": "Posttyper",
-    "allBtn": "Alle",
-    "tryLabel": "Prøv:",
-    "errors": {
-      "lookupFailed": "DNS-opslag mislykkedes"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL til kode",
-    "subtitle": "Lav curl-kommandoer om til fetch, axios, Python og mere",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON til kode",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Kunne ikke oprette webhook-URL. Prøv igen.",
       "clearFailed": "Kunne ikke rydde anmodninger. Prøv igen."
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket-tester",
-    "subtitle": "Forbind, send og undersøg WebSocket-beskeder live",
-    "urlLabel": "Endpoint-URL",
-    "protocolsLabel": "Subprotokoller",
-    "protocolsPlaceholder": "valgfrit, kommasepareret",
-    "connect": "Forbind",
-    "disconnect": "Afbryd",
-    "status": {
-      "disconnected": "Afbrudt",
-      "connecting": "Forbinder",
-      "connected": "Forbundet",
-      "error": "Fejl"
-    },
-    "messages": {
-      "connecting": "Forbinder til {url}…",
-      "connected": "Forbindelse etableret",
-      "connectedWithProtocol": "Forbindelse etableret (protokol: {protocol})",
-      "invalidUrl": "Ugyldig URL — skal begynde med ws:// eller wss://",
-      "connectFailed": "Kunne ikke åbne forbindelsen",
-      "socketError": "Der opstod en forbindelsesfejl",
-      "notConnected": "Ikke forbundet — forbind først",
-      "binaryMessage": "Modtog en binær besked"
-    },
-    "log": {
-      "title": "Beskedlog",
-      "empty": "Ingen beskeder endnu. Forbind, og begynd at sende.",
-      "copyAll": "Kopiér alle",
-      "download": "Download som .txt",
-      "clear": "Ryd log",
-      "prettyPrint": "Formatér JSON pænt",
-      "showRaw": "Vis rå tekst"
-    },
-    "composer": {
-      "placeholder": "Skriv en besked, der skal sendes…",
-      "send": "Send",
-      "formatJson": "Formatér som JSON",
-      "invalidJson": "Beskeden er ikke gyldig JSON",
-      "hint": "Cmd/Ctrl+Enter for at sende"
-    },
-    "ping": {
-      "label": "Auto-ping",
-      "seconds": "sek",
-      "intervalTitle": "Ping-interval i sekunder",
-      "payloadPlaceholder": "ping-payload"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois-opslag",
-    "subtitle": "Slå domæne- og IP-registrering op via RDAP",
-    "placeholder": "example.com eller 8.8.8.8",
-    "lookupBtn": "Slå op",
-    "looking": "Slår op…",
-    "refreshBtn": "Opdatér",
-    "tryLabel": "Prøv:",
-    "copy": "Kopiér",
-    "copied": "Kopieret",
-    "notAvailable": "Ikke tilgængelig",
-    "summary": {
-      "registrar": "Registrator",
-      "network": "Netværk"
-    },
-    "dates": {
-      "created": "Oprettet",
-      "updated": "Opdateret",
-      "expires": "Udløber"
-    },
-    "sections": {
-      "status": "Status",
-      "nameservers": "Navneservere",
-      "contacts": "Kontakter",
-      "rawRdap": "Rå RDAP"
-    },
-    "contacts": {
-      "roles": "Roller",
-      "name": "Navn",
-      "organization": "Organisation"
-    },
-    "errors": {
-      "invalidTarget": "Indtast et gyldigt domænenavn eller IP-adresse",
-      "lookupFailed": "Opslag mislykkedes (status {status})"
     }
   },
   "ToolPageHeader": {

@@ -42,7 +42,6 @@ function buildCategories(): CategoryEntry[] {
         if (!("url" in entry) || !entry.url) continue;
         const url = typeof entry.url === "string" ? entry.url : String(entry.url);
         const slug = url.replace(/^\/app\//, "");
-        if (slug.startsWith("break-room")) continue;
         if (!toolsMetadata[slug]) continue;
         tools.push({
           slug,

@@ -3,7 +3,6 @@
     "dashboard": "控制台",
     "settings": "设置",
     "apiClient": "API 客户端",
-    "httpStatusCodes": "HTTP 状态码",
     "passwordManager": "密码管理器",
     "environmentManager": "环境管理",
     "bookmarks": "书签",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "JSON 模式生成器",
     "snippetManager": "代码片段",
-    "dnsLookup": "DNS 查询",
-    "ipSubnetCalculator": "IP / 子网计算器",
     "markdownPreview": "Markdown 预览",
     "formatConverter": "格式转换器",
     "yamlFormatter": "YAML格式化工具",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON 对比",
     "jsonpathPlayground": "JSONPath 沙盒",
-    "webhookTester": "Webhook 测试器",
-    "websocketTester": "WebSocket 测试器",
-    "whoisLookup": "Whois 查询",
     "secureFiles": "文件"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "什么是 MyDevTools？",
-        "description": "一个离线的开发者工作空间：包含一个仪表盘和 80 多款完全在您设备上运行的工具。",
+        "description": "一个离线的开发者工作空间：包含一个仪表盘和完全在您设备上运行的工具。",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "设置",
         "p1After": "中隐藏您不使用的工具。",
@@ -397,14 +390,6 @@
         "title": "代码片段",
         "description": "保存代码片段，支持语法高亮、自动检测语言和格式化。"
       },
-      "ipSubnetCalculator": {
-        "title": "IP / 子网计算器",
-        "description": "IPv4 与 IPv6 CIDR：掩码、范围与地址数量。"
-      },
-      "dnsLookup": {
-        "title": "DNS 查询",
-        "description": "查询任意域名的 DNS 记录 — A、AAAA、MX、TXT、NS、CNAME、SOA。"
-      },
       "markdownPreview": {
         "title": "Markdown 预览",
         "description": "实时 Markdown 渲染，支持 HTML 导出和 HTML → Markdown 转换。"
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "格式转换器",
         "description": "在 JSON、YAML、TOML 与 XML 之间任意方向转换，支持全部 12 种组合。"
-      },
-      "httpStatusCodes": {
-        "title": "HTTP 状态码",
-        "description": "搜索带有描述的 HTTP 状态码（1xx–5xx）。"
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath 沙盒",
         "description": "使用 JSONPath 或 JMESPath 查询 JSON 并实时查看结果。"
-      },
-      "webhookTester": {
-        "title": "Webhook 测试器",
-        "description": "实时捕获并检查传入的 webhook 请求。"
-      },
-      "websocketTester": {
-        "title": "WebSocket 测试器",
-        "description": "连接 WebSocket 端点并实时收发消息。"
-      },
-      "whoisLookup": {
-        "title": "Whois 查询",
-        "description": "通过 RDAP 查询域名和 IP 的注册信息。"
       },
       "secureFiles": {
         "title": "文件",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "HTTP 状态码",
-    "subtitle": "检索 1xx–5xx 状态码，附 RFC 参考",
-    "header": {
-      "title": "HTTP 状态码",
-      "description": "可搜索的 HTTP 响应状态码参考，包含说明与 RFC 参考。"
-    },
-    "searchPlaceholder": "搜索：404、not found、rate limit、gateway…",
-    "classFilterPlaceholder": "筛选类别…",
-    "classFilterAll": "全部类别",
-    "resultsCount": "{count} / {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "短语",
-      "description": "说明",
-      "copy": "复制"
-    },
-    "noResults": "未找到“{query}”的匹配项。",
-    "specPrefix": "规范：",
-    "copied": "已复制状态码"
-  },
   "DiffChecker": {
     "title": "文本对比",
     "subtitle": "并排逐行比较两段文本",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "匹配到 {count} 行 — 由于筛选条件不唯一，未做任何修改。"
     }
   },
-  "IpSubnetCalculator": {
-    "title": "子网计算器",
-    "subtitle": "计算 IPv4 与 IPv6 的 CIDR 详情",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "网络",
-    "placeholderIpv4": "10.0.0.0/24 或 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 或 2001:db8::1/64",
-    "hintIpv4": "使用 CIDR（如 /24）或 IPv4 加点分十进制子网掩码。",
-    "hintIpv6": "包含前缀长度（如 /64）。省略时默认为 /128。",
-    "copyValue": "复制值",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "网络地址",
-      "netmask": "子网掩码",
-      "wildcard": "通配符掩码",
-      "broadcast": "广播地址",
-      "firstHost": "首主机",
-      "lastHost": "末主机",
-      "totalAddresses": "总地址数",
-      "usableHosts": "可用主机数",
-      "prefixLength": "前缀长度（位）",
-      "networkIpv6": "网络地址",
-      "lastIpv6": "范围内最后一个地址",
-      "totalAddressesIpv6": "子网内地址数"
-    },
-    "usableNote": {
-      "pointToPoint": "/31 点对点链路将两个地址都作为主机（RFC 3021）。",
-      "singleHost": "/32 表示单个主机。"
-    },
-    "ipv6RangeHint": {
-      "normal": "显示完整数学范围；路由器上的规则可能不同。",
-      "single": "/128 为单个地址。",
-      "full": "/0 覆盖全部 IPv6。"
-    },
-    "errors": {
-      "invalidIpv4": "无效的 IPv4 网络。请使用 CIDR 或地址+掩码。",
-      "invalidIpv6": "无效的 IPv6 网络。请使用 地址/前缀，例如 2001:db8::/48。"
-    }
-  },
   "EncryptionPlayground": {
     "title": "加密实验场",
     "subtitle": "用口令或密钥进行 AES-GCM 加解密",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, other {# 个字符}}",
     "emptyHint": "在左侧粘贴或输入内容，即可看到转换后的输出。",
     "localNote": "所有操作均在您的浏览器中本地运行。不会上传任何内容。"
-  },
-  "MimeTypeLookup": {
-    "title": "MIME 类型查询",
-    "subtitle": "查找任意文件扩展名的 MIME 类型",
-    "inputLabel": "扩展名或文件名",
-    "placeholder": "例如 .png、package.json、photo.jpeg",
-    "hint": "提示：可粘贴扩展名（带或不带点）或完整文件名。",
-    "clear": "清空",
-    "exampleFilename": "使用示例文件名",
-    "exampleExtension": "使用示例扩展名",
-    "resultLabel": "结果",
-    "normalizedLabel": "规范化输入：",
-    "mimeTypeLabel": "MIME 类型",
-    "contentTypeLabel": "Content-Type 头",
-    "charsetLabel": "字符集",
-    "copyMimeType": "复制 MIME 类型",
-    "copy": "复制",
-    "copied": "已复制",
-    "emptyHint": "输入扩展名或文件名以查询 MIME 类型。",
-    "notFound": "未找到该输入对应的 MIME 类型。",
-    "localNote": "所有操作都在浏览器本地完成。不会上传任何内容。"
-  },
-  "UserAgentParser": {
-    "title": "User-Agent 解析器",
-    "subtitle": "将 UA 字符串拆解为浏览器、系统与设备",
-    "inputLabel": "User-Agent 字符串",
-    "placeholder": "在此粘贴你的 User-Agent…",
-    "hint": "提示：你可以从请求头、日志或浏览器开发者工具中复制 UA。",
-    "clear": "清空",
-    "exampleDesktop": "使用桌面示例",
-    "exampleMobile": "使用移动端示例",
-    "resultLabel": "解析结果",
-    "browserLabel": "浏览器",
-    "osLabel": "操作系统",
-    "engineLabel": "引擎",
-    "deviceTypeLabel": "设备类型",
-    "deviceVendorLabel": "设备厂商",
-    "deviceModelLabel": "设备型号",
-    "cpuArchLabel": "CPU 架构",
-    "copyJson": "复制 JSON",
-    "copy": "复制",
-    "copied": "已复制",
-    "emptyHint": "粘贴 User-Agent 字符串以查看解析结果。",
-    "localNote": "所有操作均在浏览器本地完成。不会上传任何内容。"
-  },
-  "DnsLookup": {
-    "title": "DNS 查询",
-    "subtitle": "查询任意域名的 A、AAAA、MX、TXT、NS 等记录",
-    "placeholder": "输入域名（例如 github.com）",
-    "lookupBtn": "查询",
-    "looking": "正在查询…",
-    "refreshBtn": "刷新",
-    "recordTypesLabel": "记录类型",
-    "allBtn": "全部",
-    "tryLabel": "试试：",
-    "errors": {
-      "lookupFailed": "DNS 查询失败"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL 转代码",
-    "subtitle": "将 curl 命令转换为 fetch、axios、Python 等",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON 转代码",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "创建 webhook URL 失败。请重试。",
       "clearFailed": "清空请求失败。请重试。"
-    }
-  },
-  "WebsocketTester": {
-    "title": "WebSocket 测试器",
-    "subtitle": "连接、发送并实时查看 WebSocket 消息",
-    "urlLabel": "端点 URL",
-    "protocolsLabel": "子协议",
-    "protocolsPlaceholder": "可选，以逗号分隔",
-    "connect": "连接",
-    "disconnect": "断开连接",
-    "status": {
-      "disconnected": "已断开",
-      "connecting": "正在连接",
-      "connected": "已连接",
-      "error": "错误"
-    },
-    "messages": {
-      "connecting": "正在连接到 {url}…",
-      "connected": "连接已建立",
-      "connectedWithProtocol": "连接已建立（协议：{protocol}）",
-      "invalidUrl": "无效的 URL — 必须以 ws:// 或 wss:// 开头",
-      "connectFailed": "打开连接失败",
-      "socketError": "发生连接错误",
-      "notConnected": "未连接 — 请先连接",
-      "binaryMessage": "收到二进制消息"
-    },
-    "log": {
-      "title": "消息日志",
-      "empty": "暂无消息。连接后开始发送。",
-      "copyAll": "全部复制",
-      "download": "下载为 .txt",
-      "clear": "清空日志",
-      "prettyPrint": "美化 JSON",
-      "showRaw": "显示原始文本"
-    },
-    "composer": {
-      "placeholder": "输入要发送的消息…",
-      "send": "发送",
-      "formatJson": "格式化为 JSON",
-      "invalidJson": "消息不是有效的 JSON",
-      "hint": "Cmd/Ctrl+Enter 发送"
-    },
-    "ping": {
-      "label": "自动 ping",
-      "seconds": "秒",
-      "intervalTitle": "Ping 间隔（秒）",
-      "payloadPlaceholder": "ping 负载"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Whois 查询",
-    "subtitle": "通过 RDAP 查询域名与 IP 注册信息",
-    "placeholder": "example.com 或 8.8.8.8",
-    "lookupBtn": "查询",
-    "looking": "正在查询…",
-    "refreshBtn": "刷新",
-    "tryLabel": "试试：",
-    "copy": "复制",
-    "copied": "已复制",
-    "notAvailable": "不可用",
-    "summary": {
-      "registrar": "注册商",
-      "network": "网络"
-    },
-    "dates": {
-      "created": "创建时间",
-      "updated": "更新时间",
-      "expires": "过期时间"
-    },
-    "sections": {
-      "status": "状态",
-      "nameservers": "名称服务器",
-      "contacts": "联系人",
-      "rawRdap": "原始 RDAP"
-    },
-    "contacts": {
-      "roles": "角色",
-      "name": "名称",
-      "organization": "组织"
-    },
-    "errors": {
-      "invalidTarget": "请输入有效的域名或 IP 地址",
-      "lookupFailed": "查询失败（状态 {status}）"
     }
   },
   "ToolPageHeader": {

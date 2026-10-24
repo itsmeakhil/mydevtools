@@ -33,7 +33,6 @@ export const TOOL_PERMISSIONS: Record<string, Record<WsRole, Set<Permission>>> =
   "data-explorer":   PLAINTEXT_ROW,
   "s3-drive":        PLAINTEXT_ROW,
   "json-formatter":  PLAINTEXT_ROW,
-  "dns-lookup":      PLAINTEXT_ROW,
 }
 
 export function hasWorkspaceEncryption(ws: Workspace): boolean {
@@ -52,7 +51,7 @@ export function hasPermission(
   if (ENCRYPTED_TOOLS.has(tool) && hasWorkspaceEncryption(ws)) {
     return PLAINTEXT_ROW[ws.ws_role]?.has(permission) ?? false
   }
-  // Unknown tool = stateless utility (uuid, base64, hash, etc.) — no per-role
+  // Unknown tool = stateless utility (formatters, decoders, etc.) — no per-role
   // gating. The TOOL_PERMISSIONS map is OPT-IN for tools that need RBAC.
   const row = TOOL_PERMISSIONS[tool]
   if (!row) return true

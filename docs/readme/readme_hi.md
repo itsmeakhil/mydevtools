@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80+ डेवलपर टूल्स, एक API क्लाइंट, SQL / MongoDB / Redis क्लाइंट, एन्क्रिप्शन<br />
+  एक API क्लाइंट, SQL / MongoDB / Redis क्लाइंट, एन्क्रिप्शन<br />
   और प्रोडक्टिविटी यूटिलिटीज़ — सब कुछ आपकी अपनी मशीन पर लोकली चलता है।
 </p>
 
@@ -98,19 +98,16 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 
 ## 🧰 टूल्स
 
-80+ टूल्स, उसी तरह ग्रुप किए गए जैसे साइडबार में दिखते हैं। विवरण के साथ पूरी
+सभी टूल्स, उसी तरह ग्रुप किए गए जैसे साइडबार में दिखते हैं। विवरण के साथ पूरी
 लिस्ट [अंग्रेज़ी README](../../README.md#-tools) में है।
 
 | कैटेगरी | उदाहरण |
 |---|---|
 | 📝 **फ़ॉर्मेटर और वैलिडेटर** | JSON Formatter, JSON Visualizer, JSON Diff, JSON Schema Generator, JSON to Code, YAML Formatter, Format Converter (JSON / YAML / TOML / XML), SQL Formatter, GraphQL Formatter, Markdown Preview, Diff Checker, Regex Tester |
-| 🌐 **नेटवर्क और API** | API Client (कलेक्शन, एनवायरनमेंट, ऑथ, gRPC, mock server — ब्राउज़र वाली CORS पाबंदियों के बिना), cURL to Code, Webhook Tester, WebSocket Tester, DNS Lookup, Whois Lookup, IP / Subnet Calculator, HTTP Status Codes, User-Agent Parser |
+| 🌐 **नेटवर्क और API** | API Client (कलेक्शन, एनवायरनमेंट, ऑथ, gRPC, mock server — ब्राउज़र वाली CORS पाबंदियों के बिना) |
 | 🗄️ **डेटाबेस और स्टोरेज क्लाइंट** | SQL Client (PostgreSQL, MySQL, MariaDB), Database Explorer (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — नेटिव Rust ड्राइवर, सीधे आपकी मशीन से आपके डेटाबेस तक |
-| 🔐 **सिक्योरिटी और क्रिप्टो** | Password Manager, Encryption Playground (AES-GCM), JWT Decoder, Hash Generator, HMAC Generator, Bcrypt, TOTP / 2FA Generator, SSH / RSA Key Generator, Certificate / PEM Decoder, Environment Manager, Secret / API Key Generator |
-| 🔄 **कन्वर्टर** | Base64, Image to Base64, URL Encoder / Parser, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, Number Base Converter, Timestamp / Timezone Converter, Unit Converter, Chmod Calculator, LLM Token Counter |
-| ⚙️ **जनरेटर** | UUID / ULID, Mock Data Generator, Cron Builder, Docker Compose Generator, .gitignore Generator, QR Code Generator, Markdown Table Generator, Lorem Ipsum |
-| 🎨 **मीडिया और डिज़ाइन** | Color Picker, Contrast Checker, CSS Gradient Builder, CSS Generators, Image Compressor, SVG Optimizer, EXIF Viewer & Remover, Favicon Generator, Code Screenshot, Keycode Inspector |
-| 📱 **प्रोडक्टिविटी** | Notes, Code Snippets, Tasks, Bookmarks, API Keys, Break Room (2048, Sudoku, Snake, Minesweeper, Tetris) |
+| 🔐 **सिक्योरिटी और क्रिप्टो** | Password Manager, Encryption Playground (AES-GCM), JWT Decoder, Bcrypt, Certificate / PEM Decoder, Environment Manager |
+| 📱 **प्रोडक्टिविटी** | Notes, Code Snippets, Tasks, Bookmarks, API Keys |
 
 सब कुछ एक ही कमांड पैलेट से खोजा जा सकता है — डार्क या लाइट मोड में, 27
 भाषाओं में।
@@ -128,7 +125,7 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 - **हर आउटबाउंड कनेक्शन आपकी मर्ज़ी से।** ऐप को खुद नेटवर्क की ज़रूरत नहीं, लेकिन
   कुछ टूल बने ही *आपके* डेस्टिनेशन से बात करने के लिए हैं: API क्लाइंट वही
   रिक्वेस्ट भेजता है जो आप लिखते हैं, डेटाबेस क्लाइंट उन्हीं होस्ट से जुड़ते हैं जो
-  आप कॉन्फ़िगर करते हैं, DNS / WHOIS lookup पब्लिक रजिस्ट्री से पूछते हैं, और अपडेटर
+  आप कॉन्फ़िगर करते हैं, DNS lookup पब्लिक रजिस्ट्री से पूछते हैं, और अपडेटर
   GitHub releases चेक करता है। इसके अलावा कुछ भी बाहर नहीं जाता।
 - **ऑप्शनल, एनॉनिमस यूसेज स्टैट्स।** जब तक आप खुद चालू न करें, बंद रहते हैं। चालू
   होने पर दो इवेंट (`app_started`, `tool_opened`) एक बदलती हुई session id, ऐप वर्शन
@@ -170,7 +167,7 @@ pnpm build:desktop   # build the desktop app
 - **डेटाबेस क्लाइंट रोज़मर्रा के काम के लिए हैं**, किसी पूरे DBA सूट का विकल्प नहीं
   — न विज़ुअल स्कीमा डिज़ाइनर है, न माइग्रेशन टूलिंग।
 - **कोई टीम फ़ीचर नहीं।** न शेयर्ड वर्कस्पेस, न सिंक, न कोलैबोरेशन।
-- **कुछ टूल्स को नेटवर्क चाहिए ही होता है** — DNS, WHOIS, webhooks, API रिक्वेस्ट,
+- **कुछ टूल्स को नेटवर्क चाहिए ही होता है** — DNS, API रिक्वेस्ट,
   डेटाबेस कनेक्शन।
 
 ---

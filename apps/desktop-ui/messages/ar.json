@@ -3,7 +3,6 @@
     "dashboard": "لوحة التحكم",
     "settings": "الإعدادات",
     "apiClient": "عميل API",
-    "httpStatusCodes": "رموز حالة HTTP",
     "passwordManager": "مدير كلمات المرور",
     "environmentManager": "مدير البيئة",
     "bookmarks": "الإشارات المرجعية",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "مولّد مخطط JSON",
     "snippetManager": "مقاطع الشيفرة",
-    "dnsLookup": "بحث DNS",
-    "ipSubnetCalculator": "حاسبة IP / الشبكة الفرعية",
     "markdownPreview": "معاينة Markdown",
     "formatConverter": "محوّل الصيغ",
     "yamlFormatter": "منسق YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "مقارنة JSON",
     "jsonpathPlayground": "ساحة JSONPath",
-    "webhookTester": "مختبِر Webhook",
-    "websocketTester": "مختبِر WebSocket",
-    "whoisLookup": "بحث Whois",
     "secureFiles": "الملفات"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "ما هو MyDevTools؟",
-        "description": "مساحة عمل للمطورين تعمل دون اتصال: لوحة تحكم وأكثر من 80 أداة تعمل بالكامل على جهازك.",
+        "description": "مساحة عمل للمطورين تعمل دون اتصال: لوحة تحكم وأدوات تعمل بالكامل على جهازك.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "الإعدادات",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "مقاطع الشيفرة",
         "description": "احفظ المقاطع مع تمييز بناء الجملة وكشف اللغة التلقائي والتنسيق."
       },
-      "ipSubnetCalculator": {
-        "title": "حاسبة IP / الشبكة الفرعية",
-        "description": "IPv4 وIPv6 CIDR: قناع الشبكة، النطاقات، وعدد العناوين."
-      },
-      "dnsLookup": {
-        "title": "بحث DNS",
-        "description": "استعلام عن سجلات DNS لأي نطاق — A، AAAA، MX، TXT، NS، CNAME."
-      },
       "markdownPreview": {
         "title": "معاينة Markdown",
         "description": "معرض Markdown مباشر مع تصدير HTML وتحويل HTML → Markdown."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "محوّل الصيغ",
         "description": "حوّل بين JSON وYAML وTOML وXML في أي اتجاه. يدعم جميع التوليفات الاثنتي عشرة."
-      },
-      "httpStatusCodes": {
-        "title": "رموز حالة HTTP",
-        "description": "ابحث عن رموز حالة HTTP مع الأوصاف (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "ساحة JSONPath",
         "description": "استعلم عن JSON باستخدام JSONPath أو JMESPath وشاهد النتائج مباشرة."
-      },
-      "webhookTester": {
-        "title": "مختبِر Webhook",
-        "description": "التقط وافحص طلبات webhook الواردة في الوقت الفعلي."
-      },
-      "websocketTester": {
-        "title": "مختبِر WebSocket",
-        "description": "اتصل بنقاط نهاية WebSocket وتبادل الرسائل في الوقت الفعلي."
-      },
-      "whoisLookup": {
-        "title": "بحث Whois",
-        "description": "ابحث عن تفاصيل تسجيل النطاق وعنوان IP عبر RDAP."
       },
       "secureFiles": {
         "title": "الملفات",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "رموز حالة HTTP",
-    "subtitle": "ابحث في رموز الحالة 1xx–5xx مع مراجع RFC",
-    "header": {
-      "title": "رموز حالة HTTP",
-      "description": "مرجع قابل للبحث لرموز استجابة HTTP مع أوصاف ومراجع RFC."
-    },
-    "searchPlaceholder": "بحث: 404، not found، rate limit، gateway…",
-    "classFilterPlaceholder": "تصفية الفئة…",
-    "classFilterAll": "كل الفئات",
-    "resultsCount": "{count} من {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "العبارة",
-      "description": "الوصف",
-      "copy": "نسخ"
-    },
-    "noResults": "لا نتائج لعبارة «{query}».",
-    "specPrefix": "المعيار:",
-    "copied": "تم نسخ الرمز"
-  },
   "DiffChecker": {
     "title": "فاحص الفروق",
     "subtitle": "قارن نصين جنبًا إلى جنب، سطرًا بسطر",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "طابق {count} صفوف — لم يتغيّر شيء لأن عامل التصفية غير فريد."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "حاسبة الشبكات الفرعية",
-    "subtitle": "احسب تفاصيل CIDR لعناوين IPv4 وIPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "الشبكة",
-    "placeholderIpv4": "10.0.0.0/24 أو 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 أو 2001:db8::1/64",
-    "hintIpv4": "استخدم CIDR (مثل /24) أو عنوان IPv4 مع قناع شبكة منقّط.",
-    "hintIpv6": "ضمّن طول البادئة (مثل /64). إن حُذف، يُفترض /128.",
-    "copyValue": "نسخ القيمة",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "عنوان الشبكة",
-      "netmask": "قناع الشبكة الفرعية",
-      "wildcard": "قناع بدل",
-      "broadcast": "البث",
-      "firstHost": "أول مضيف",
-      "lastHost": "آخر مضيف",
-      "totalAddresses": "إجمالي العناوين",
-      "usableHosts": "المضيفون القابلون للاستخدام",
-      "prefixLength": "طول البادئة (بت)",
-      "networkIpv6": "عنوان الشبكة",
-      "lastIpv6": "آخر عنوان في النطاق",
-      "totalAddressesIpv6": "عناوين في الشبكة الفرعية"
-    },
-    "usableNote": {
-      "pointToPoint": "روابط /31 نقطية تستخدم كلا العنوانين كمضيفين (RFC 3021).",
-      "singleHost": "/32 لعنوان مضيف واحد."
-    },
-    "ipv6RangeHint": {
-      "normal": "يُظهر الأداة النطاق الرياضي الكامل؛ قواعد الموجّه قد تختلف.",
-      "single": "/128 يعني عنوانًا واحدًا.",
-      "full": "/0 يغطي كل عناوين IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "شبكة IPv4 غير صالحة. جرّب CIDR أو عنوانًا مع قناع.",
-      "invalidIpv6": "شبكة IPv6 غير صالحة. استخدم عنوان/بادئة مثل 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "ساحة التشفير",
     "subtitle": "شفّر وفك تشفير AES-GCM بعبارة مرور أو مفتاح",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
     "emptyHint": "الصق أو اكتب مدخلاتك على اليسار لرؤية المخرجات المحوّلة.",
     "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
-  },
-  "MimeTypeLookup": {
-    "title": "بحث أنواع MIME",
-    "subtitle": "اعثر على نوع MIME لأي امتداد ملف",
-    "inputLabel": "الامتداد أو اسم الملف",
-    "placeholder": "مثل .png أو package.json أو photo.jpeg",
-    "hint": "نصيحة: الصق امتدادًا (مع أو بدون نقطة) أو اسم ملف كامل.",
-    "clear": "مسح",
-    "exampleFilename": "استخدم اسم ملف مثال",
-    "exampleExtension": "استخدم امتدادًا مثال",
-    "resultLabel": "النتيجة",
-    "normalizedLabel": "الإدخال المُوحّد:",
-    "mimeTypeLabel": "نوع MIME",
-    "contentTypeLabel": "ترويسة Content-Type",
-    "charsetLabel": "مجموعة الأحرف",
-    "copyMimeType": "نسخ نوع MIME",
-    "copy": "نسخ",
-    "copied": "تم النسخ",
-    "emptyHint": "أدخل امتدادًا أو اسم ملف للبحث عن نوع MIME.",
-    "notFound": "لم يتم العثور على نوع MIME لهذه القيمة.",
-    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
-  },
-  "UserAgentParser": {
-    "title": "محلل User-Agent",
-    "subtitle": "فكّك سلسلة UA إلى المتصفح ونظام التشغيل والجهاز",
-    "inputLabel": "سلسلة User-Agent",
-    "placeholder": "الصق User-Agent هنا…",
-    "hint": "نصيحة: يمكنك نسخ UA من ترويسات الطلب أو السجلات أو أدوات المطور في المتصفح.",
-    "clear": "مسح",
-    "exampleDesktop": "استخدم مثال سطح المكتب",
-    "exampleMobile": "استخدم مثال الهاتف",
-    "resultLabel": "التفاصيل",
-    "browserLabel": "المتصفح",
-    "osLabel": "نظام التشغيل",
-    "engineLabel": "المحرك",
-    "deviceTypeLabel": "نوع الجهاز",
-    "deviceVendorLabel": "الشركة المصنعة",
-    "deviceModelLabel": "الطراز",
-    "cpuArchLabel": "معمارية CPU",
-    "copyJson": "نسخ JSON",
-    "copy": "نسخ",
-    "copied": "تم النسخ",
-    "emptyHint": "الصق سلسلة User-Agent لعرض التفاصيل.",
-    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
-  },
-  "DnsLookup": {
-    "title": "بحث DNS",
-    "subtitle": "استعلم عن A وAAAA وMX وTXT وNS والمزيد لأي نطاق",
-    "placeholder": "أدخل النطاق (مثل github.com)",
-    "lookupBtn": "بحث",
-    "looking": "جارٍ البحث…",
-    "refreshBtn": "تحديث",
-    "recordTypesLabel": "أنواع السجلات",
-    "allBtn": "الكل",
-    "tryLabel": "جرّب:",
-    "errors": {
-      "lookupFailed": "فشل بحث DNS"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL إلى شيفرة",
-    "subtitle": "حوّل أوامر curl إلى fetch وaxios وPython والمزيد",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON إلى شيفرة",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "فشل إنشاء عنوان webhook. يُرجى المحاولة مجددًا.",
       "clearFailed": "فشل مسح الطلبات. يُرجى المحاولة مجددًا."
-    }
-  },
-  "WebsocketTester": {
-    "title": "مختبر WebSocket",
-    "subtitle": "اتصل وأرسل وافحص رسائل WebSocket مباشرة",
-    "urlLabel": "عنوان نقطة النهاية",
-    "protocolsLabel": "البروتوكولات الفرعية",
-    "protocolsPlaceholder": "اختياري، مفصولة بفواصل",
-    "connect": "اتصال",
-    "disconnect": "قطع الاتصال",
-    "status": {
-      "disconnected": "غير متصل",
-      "connecting": "جارٍ الاتصال",
-      "connected": "متصل",
-      "error": "خطأ"
-    },
-    "messages": {
-      "connecting": "جارٍ الاتصال بـ {url}…",
-      "connected": "تم تأسيس الاتصال",
-      "connectedWithProtocol": "تم تأسيس الاتصال (البروتوكول: {protocol})",
-      "invalidUrl": "عنوان URL غير صالح — يجب أن يبدأ بـ ws:// أو wss://",
-      "connectFailed": "فشل فتح الاتصال",
-      "socketError": "حدث خطأ في الاتصال",
-      "notConnected": "غير متصل — اتصل أولًا",
-      "binaryMessage": "تم استلام رسالة ثنائية"
-    },
-    "log": {
-      "title": "سجل الرسائل",
-      "empty": "لا رسائل بعد. اتصل وابدأ الإرسال.",
-      "copyAll": "نسخ الكل",
-      "download": "تنزيل كـ .txt",
-      "clear": "مسح السجل",
-      "prettyPrint": "تنسيق JSON",
-      "showRaw": "إظهار النص الخام"
-    },
-    "composer": {
-      "placeholder": "اكتب رسالة للإرسال…",
-      "send": "إرسال",
-      "formatJson": "تنسيق كـ JSON",
-      "invalidJson": "الرسالة ليست JSON صالحًا",
-      "hint": "Cmd/Ctrl+Enter للإرسال"
-    },
-    "ping": {
-      "label": "ping تلقائي",
-      "seconds": "ثانية",
-      "intervalTitle": "فترة ping بالثواني",
-      "payloadPlaceholder": "حمولة ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "بحث Whois",
-    "subtitle": "استعلم عن تسجيل النطاقات وIP عبر RDAP",
-    "placeholder": "example.com أو 8.8.8.8",
-    "lookupBtn": "بحث",
-    "looking": "جارٍ البحث…",
-    "refreshBtn": "تحديث",
-    "tryLabel": "جرّب:",
-    "copy": "نسخ",
-    "copied": "تم النسخ",
-    "notAvailable": "غير متوفّر",
-    "summary": {
-      "registrar": "المسجِّل",
-      "network": "الشبكة"
-    },
-    "dates": {
-      "created": "أُنشئ",
-      "updated": "حُدّث",
-      "expires": "ينتهي"
-    },
-    "sections": {
-      "status": "الحالة",
-      "nameservers": "خوادم الأسماء",
-      "contacts": "جهات الاتصال",
-      "rawRdap": "RDAP الخام"
-    },
-    "contacts": {
-      "roles": "الأدوار",
-      "name": "الاسم",
-      "organization": "المؤسسة"
-    },
-    "errors": {
-      "invalidTarget": "أدخل اسم نطاق أو عنوان IP صالحًا",
-      "lookupFailed": "فشل البحث (الحالة {status})"
     }
   },
   "ToolPageHeader": {

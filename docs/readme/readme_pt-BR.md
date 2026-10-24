@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  Mais de 80 ferramentas de desenvolvimento, um cliente de API, clientes SQL / MongoDB / Redis,<br />
+  Um cliente de API, clientes SQL / MongoDB / Redis,<br />
   criptografia e utilitários de produtividade — tudo rodando localmente na sua máquina.
 </p>
 
@@ -98,19 +98,16 @@ Abra e comece a trabalhar: sem cadastro, sem configuração, sem chaves de API.
 
 ## 🧰 Ferramentas
 
-Mais de 80 ferramentas, agrupadas do mesmo jeito que a barra lateral agrupa. A
+Todas as ferramentas, agrupadas do mesmo jeito que a barra lateral agrupa. A
 lista completa com descrições está no [README em inglês](../../README.md#-tools).
 
 | Categoria | Exemplos |
 |---|---|
 | 📝 **Formatadores e validadores** | Formatador JSON, JSON Visualizer, Diff JSON, Gerador de esquema JSON, JSON to Code, Formatador YAML, Conversor de formatos (JSON / YAML / TOML / XML), SQL Formatter, Formatador GraphQL, Pré-visualização Markdown, Diff checker, Regex Tester |
-| 🌐 **Rede e API** | Cliente API (coleções, ambientes, autenticação, gRPC, mock server — sem limites de CORS do navegador), cURL to Code, Testador de Webhook, Testador de WebSocket, Pesquisa DNS, Consulta Whois, Calculadora IP / sub-rede, Códigos de status HTTP, User-Agent Parser |
+| 🌐 **Rede e API** | Cliente API (coleções, ambientes, autenticação, gRPC, mock server — sem limites de CORS do navegador) |
 | 🗄️ **Clientes de banco de dados e armazenamento** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorador de banco de dados (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — drivers Rust nativos, direto da sua máquina para o seu banco |
-| 🔐 **Segurança e criptografia** | Gerenciador de Senhas, Laboratório de criptografia (AES-GCM), Decodificador JWT, Gerador de hash, Gerador HMAC, Bcrypt, Código TOTP / 2FA, Gerador de chaves SSH / RSA, Decodificador de certificado / PEM, Gerenciador de ambientes, Segredo / chave de API |
-| 🔄 **Conversores** | Base64, Imagem para Base64, URL Encoder / Analisador de URL, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, Conversor de base, Conversor de Timestamp / Fuso Horário, Conversor de Unidades, Calculadora Chmod, Contador de Tokens de LLM |
-| ⚙️ **Geradores** | UUID / ULID, Gerador de dados mock, Cron Builder, Gerador Docker Compose, Gerador .gitignore, Gerador de QR Code, Tabela Markdown, Lorem Ipsum |
-| 🎨 **Mídia e design** | Color Picker, Verificador de contraste, Construtor de gradiente CSS, Geradores CSS, Compressor de imagens, Otimizador SVG, Visualizador EXIF e removedor, Gerador de Favicon, Captura de Código, Inspetor de Keycode |
-| 📱 **Produtividade** | Notes, Trechos de código, Tasks, Favoritos, API Keys, Sala de descanso (2048, Sudoku, Snake, Minesweeper, Tetris) |
+| 🔐 **Segurança e criptografia** | Gerenciador de Senhas, Laboratório de criptografia (AES-GCM), Decodificador JWT, Bcrypt, Decodificador de certificado / PEM, Gerenciador de ambientes |
+| 📱 **Produtividade** | Notes, Trechos de código, Tasks, Favoritos, API Keys |
 
 Tudo é pesquisável a partir de uma única paleta de comandos, em tema escuro ou
 claro, em 27 idiomas.
@@ -129,7 +126,7 @@ claro, em 27 idiomas.
 - **Você escolhe cada conexão de saída.** O app em si não precisa de rede, mas
   algumas ferramentas existem para falar com *os seus* destinos: o cliente de API
   envia as requisições que você escreve, os clientes de banco conectam nos hosts
-  que você configura, as consultas DNS / WHOIS batem em registros públicos e o
+  que você configura, as consultas DNS batem em registros públicos e o
   atualizador verifica as releases do GitHub. Nada além disso sai.
 - **Estatísticas de uso opcionais e anônimas.** Desligadas até você ativar. Quando
   ativadas, dois eventos (`app_started`, `tool_opened`) são enviados com um id de
@@ -170,7 +167,7 @@ chaves de API, sem contas, sem serviços.
 - **Os clientes de banco são para o trabalho do dia a dia**, não um substituto de
   uma suíte completa de DBA — sem designer visual de schema, sem ferramentas de migração.
 - **Sem recursos de equipe.** Sem workspaces compartilhados, sem sincronização, sem colaboração.
-- **Algumas ferramentas precisam de rede por definição** — DNS, WHOIS, webhooks,
+- **Algumas ferramentas precisam de rede por definição** — DNS,
   requisições de API, conexões de banco de dados.
 
 ---

@@ -3,7 +3,6 @@
     "dashboard": "Tauler",
     "settings": "Configuració",
     "apiClient": "Client API",
-    "httpStatusCodes": "Codis d’estat HTTP",
     "passwordManager": "Gestor de contrasenyes",
     "environmentManager": "Gestor d'entorns",
     "bookmarks": "Marcadors",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "Generador d'esquema JSON",
     "snippetManager": "Fragments de codi",
-    "dnsLookup": "Cerca DNS",
-    "ipSubnetCalculator": "Calculadora IP / subxarxa",
     "markdownPreview": "Previsualització Markdown",
     "formatConverter": "Conversor de formats",
     "yamlFormatter": "Formatador YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Diff JSON",
     "jsonpathPlayground": "Playground JSONPath",
-    "webhookTester": "Provador de webhooks",
-    "websocketTester": "Provador de WebSocket",
-    "whoisLookup": "Consulta Whois",
     "secureFiles": "Fitxers"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Què és MyDevTools?",
-        "description": "Un espai de treball per a desenvolupadors sense connexió: un tauler i més de 80 eines que s'executen completament al teu dispositiu.",
+        "description": "Un espai de treball per a desenvolupadors sense connexió: un tauler i eines que s'executen completament al teu dispositiu.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Configuració",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Fragments de codi",
         "description": "Desa fragments amb ressaltat de sintaxi, detecció automàtica d’idioma i format."
       },
-      "ipSubnetCalculator": {
-        "title": "Calculadora IP / subxarxa",
-        "description": "IPv4 i IPv6 CIDR: màscara, intervals i recompte d’adreces."
-      },
-      "dnsLookup": {
-        "title": "Cerca DNS",
-        "description": "Consulta els registres DNS de qualsevol domini — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Previsualització Markdown",
         "description": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Conversor de formats",
         "description": "Converteix entre JSON, YAML, TOML i XML en qualsevol direcció. Les 12 combinacions estan admeses."
-      },
-      "httpStatusCodes": {
-        "title": "Codis d'estat HTTP",
-        "description": "Cerca codis d'estat HTTP amb descripcions (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "Playground JSONPath",
         "description": "Consulta JSON amb JSONPath o JMESPath i mira els resultats en directe."
-      },
-      "webhookTester": {
-        "title": "Provador de webhooks",
-        "description": "Captura i inspecciona les peticions de webhook entrants en temps real."
-      },
-      "websocketTester": {
-        "title": "Provador de WebSocket",
-        "description": "Connecta't a endpoints WebSocket i intercanvia missatges en temps real."
-      },
-      "whoisLookup": {
-        "title": "Consulta Whois",
-        "description": "Consulta les dades de registre de dominis i IP mitjançant RDAP."
       },
       "secureFiles": {
         "title": "Fitxers",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "Codis d’estat HTTP",
-    "subtitle": "Cerca codis 1xx–5xx amb referències a les RFC",
-    "header": {
-      "title": "Codis d’estat HTTP",
-      "description": "Referència amb cerca de codis de resposta HTTP amb descripcions i referències RFC."
-    },
-    "searchPlaceholder": "Cerca: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Filtra classe…",
-    "classFilterAll": "Totes les classes",
-    "resultsCount": "{count} de {total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Frase",
-      "description": "Description",
-      "copy": "Copia"
-    },
-    "noResults": "Sense resultats per a “{query}”.",
-    "specPrefix": "Espec.:",
-    "copied": "Codi copiat"
-  },
   "DiffChecker": {
     "title": "Comparador de textos",
     "subtitle": "Compara dos textos costat a costat, línia per línia",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} files coincideixen — no s'ha canviat res, perquè el filtre no és únic."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Calculadora de subxarxes",
-    "subtitle": "Calcula detalls CIDR d’IPv4 i IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Xarxa",
-    "placeholderIpv4": "10.0.0.0/24 o 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 o 2001:db8::1/64",
-    "hintIpv4": "Useu CIDR (p. ex. /24) o adreça IPv4 + màscara en punt decimal.",
-    "hintIpv6": "Incloeu el prefix (p. ex. /64). Si falta, es suposa /128.",
-    "copyValue": "Copia el valor",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Adreça de xarxa",
-      "netmask": "Màscara de subxarxa",
-      "wildcard": "Màscara comodí",
-      "broadcast": "Difusió",
-      "firstHost": "Primer amfitrió",
-      "lastHost": "Últim amfitrió",
-      "totalAddresses": "Adreces totals",
-      "usableHosts": "Amfitrions usables",
-      "prefixLength": "Longitud del prefix (bits)",
-      "networkIpv6": "Adreça de xarxa",
-      "lastIpv6": "Última adreça del rang",
-      "totalAddressesIpv6": "Adreces a la subxarxa"
-    },
-    "usableNote": {
-      "pointToPoint": "Enllaços /31 punt a punt usen les dues adreces com amfitrions (RFC 3021).",
-      "singleHost": "/32 és per a un sol amfitrió."
-    },
-    "ipv6RangeHint": {
-      "normal": "Es mostra el rang matemàtic complet; les regles del encaminador poden variar.",
-      "single": "/128 és una sola adreça.",
-      "full": "/0 cobreix tot IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Xarxa IPv4 no vàlida. Proveu CIDR o adreça + màscara.",
-      "invalidIpv6": "Xarxa IPv6 no vàlida. Useu adreça/prefix, p. ex. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Laboratori de xifratge",
     "subtitle": "Xifra i desxifra amb AES-GCM amb frase secreta o clau",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
     "emptyHint": "Enganxa o escriu l'entrada a l'esquerra per veure la sortida convertida.",
     "localNote": "Tot funciona localment al teu navegador. No es puja res."
-  },
-  "MimeTypeLookup": {
-    "title": "Cerca de tipus MIME",
-    "subtitle": "Troba el tipus MIME de qualsevol extensió de fitxer",
-    "inputLabel": "Extensió o nom de fitxer",
-    "placeholder": "p. ex. .png, package.json, photo.jpeg",
-    "hint": "Consell: enganxa una extensió (amb o sense punt) o un nom de fitxer complet.",
-    "clear": "Netejar",
-    "exampleFilename": "Utilitza un nom de fitxer d'exemple",
-    "exampleExtension": "Utilitza una extensió d'exemple",
-    "resultLabel": "Resultat",
-    "normalizedLabel": "Entrada normalitzada:",
-    "mimeTypeLabel": "Tipus MIME",
-    "contentTypeLabel": "Capçalera Content-Type",
-    "charsetLabel": "Joc de caràcters",
-    "copyMimeType": "Copia el tipus MIME",
-    "copy": "Copiar",
-    "copied": "Copiat",
-    "emptyHint": "Introdueix una extensió o un nom de fitxer per cercar el tipus MIME.",
-    "notFound": "No s'ha trobat cap tipus MIME per a aquesta entrada.",
-    "localNote": "Tot funciona localment al teu navegador. No es puja res."
-  },
-  "UserAgentParser": {
-    "title": "Analitzador de User-Agent",
-    "subtitle": "Desglossa una cadena UA en navegador, SO i dispositiu",
-    "inputLabel": "Cadena User-Agent",
-    "placeholder": "Enganxa el teu User-Agent aquí…",
-    "hint": "Consell: pots copiar un UA des dels encapçalaments de la sol·licitud, els logs o les devtools del navegador.",
-    "clear": "Netejar",
-    "exampleDesktop": "Utilitza un exemple d'escriptori",
-    "exampleMobile": "Utilitza un exemple mòbil",
-    "resultLabel": "Desglossament",
-    "browserLabel": "Navegador",
-    "osLabel": "Sistema operatiu",
-    "engineLabel": "Motor",
-    "deviceTypeLabel": "Tipus de dispositiu",
-    "deviceVendorLabel": "Fabricant",
-    "deviceModelLabel": "Model",
-    "cpuArchLabel": "Arquitectura de la CPU",
-    "copyJson": "Copia JSON",
-    "copy": "Copiar",
-    "copied": "Copiat",
-    "emptyHint": "Enganxa una cadena User-Agent per veure el desglossament.",
-    "localNote": "Tot funciona localment al teu navegador. No es puja res."
-  },
-  "DnsLookup": {
-    "title": "Consulta DNS",
-    "subtitle": "Consulta A, AAAA, MX, TXT, NS i més de qualsevol domini",
-    "placeholder": "Introdueix un domini (p. ex. github.com)",
-    "lookupBtn": "Cerca",
-    "looking": "Cercant…",
-    "refreshBtn": "Actualitza",
-    "recordTypesLabel": "Tipus de registres",
-    "allBtn": "Tots",
-    "tryLabel": "Prova:",
-    "errors": {
-      "lookupFailed": "Ha fallat la consulta DNS"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL a codi",
-    "subtitle": "Converteix ordres curl en fetch, axios, Python i més",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON a codi",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "No s'ha pogut crear la URL de webhook. Torna-ho a provar.",
       "clearFailed": "No s'han pogut netejar les peticions. Torna-ho a provar."
-    }
-  },
-  "WebsocketTester": {
-    "title": "Provador de WebSocket",
-    "subtitle": "Connecta, envia i inspecciona missatges WebSocket en viu",
-    "urlLabel": "URL de l'endpoint",
-    "protocolsLabel": "Subprotocols",
-    "protocolsPlaceholder": "opcional, separats per comes",
-    "connect": "Connecta",
-    "disconnect": "Desconnecta",
-    "status": {
-      "disconnected": "Desconnectat",
-      "connecting": "Connectant",
-      "connected": "Connectat",
-      "error": "Error"
-    },
-    "messages": {
-      "connecting": "Connectant a {url}…",
-      "connected": "Connexió establerta",
-      "connectedWithProtocol": "Connexió establerta (protocol: {protocol})",
-      "invalidUrl": "URL no vàlida — ha de començar amb ws:// o wss://",
-      "connectFailed": "No s'ha pogut obrir la connexió",
-      "socketError": "S'ha produït un error de connexió",
-      "notConnected": "No connectat — connecta't primer",
-      "binaryMessage": "S'ha rebut un missatge binari"
-    },
-    "log": {
-      "title": "Registre de missatges",
-      "empty": "Encara no hi ha missatges. Connecta't i comença a enviar.",
-      "copyAll": "Copia-ho tot",
-      "download": "Descarrega com a .txt",
-      "clear": "Neteja el registre",
-      "prettyPrint": "Formata el JSON",
-      "showRaw": "Mostra el text en brut"
-    },
-    "composer": {
-      "placeholder": "Escriu un missatge per enviar…",
-      "send": "Envia",
-      "formatJson": "Formata com a JSON",
-      "invalidJson": "El missatge no és un JSON vàlid",
-      "hint": "Cmd/Ctrl+Enter per enviar"
-    },
-    "ping": {
-      "label": "Auto-ping",
-      "seconds": "s",
-      "intervalTitle": "Interval de ping en segons",
-      "payloadPlaceholder": "payload del ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Consulta Whois",
-    "subtitle": "Consulta el registre de dominis i IP via RDAP",
-    "placeholder": "example.com o 8.8.8.8",
-    "lookupBtn": "Consulta",
-    "looking": "Consultant…",
-    "refreshBtn": "Actualitza",
-    "tryLabel": "Prova:",
-    "copy": "Copia",
-    "copied": "Copiat",
-    "notAvailable": "No disponible",
-    "summary": {
-      "registrar": "Registrador",
-      "network": "Xarxa"
-    },
-    "dates": {
-      "created": "Creat",
-      "updated": "Actualitzat",
-      "expires": "Caduca"
-    },
-    "sections": {
-      "status": "Estat",
-      "nameservers": "Servidors de noms",
-      "contacts": "Contactes",
-      "rawRdap": "RDAP en brut"
-    },
-    "contacts": {
-      "roles": "Rols",
-      "name": "Nom",
-      "organization": "Organització"
-    },
-    "errors": {
-      "invalidTarget": "Introdueix un nom de domini o adreça IP vàlids",
-      "lookupFailed": "La consulta ha fallat (estat {status})"
     }
   },
   "ToolPageHeader": {

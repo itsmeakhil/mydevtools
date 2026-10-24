@@ -3,7 +3,6 @@
     "dashboard": "Bảng điều khiển",
     "settings": "Cài đặt",
     "apiClient": "API Client",
-    "httpStatusCodes": "Mã trạng thái HTTP",
     "passwordManager": "Quản lý mật khẩu",
     "environmentManager": "Trình quản lý môi trường",
     "bookmarks": "Dấu trang",
@@ -22,20 +21,14 @@
     "regexTester": "Regex Tester",
     "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
     "snippetManager": "Đoạn mã",
-    "dnsLookup": "Tra cứu DNS",
-    "ipSubnetCalculator": "Máy tính IP / mạng con",
     "markdownPreview": "Xem trước Markdown",
     "formatConverter": "Chuyển đổi định dạng",
     "yamlFormatter": "Định dạng YAML",
-    "curlToCode": "cURL to Code",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "So sánh JSON",
     "jsonpathPlayground": "Sân chơi JSONPath",
-    "webhookTester": "Trình kiểm tra Webhook",
-    "websocketTester": "Trình kiểm tra WebSocket",
-    "whoisLookup": "Tra cứu Whois",
     "secureFiles": "Tệp"
   },
   "Help": {
@@ -50,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools là gì?",
-        "description": "Một không gian làm việc ngoại tuyến dành cho lập trình viên: một bảng điều khiển và hơn 80 công cụ chạy hoàn toàn trên thiết bị của bạn.",
+        "description": "Một không gian làm việc ngoại tuyến dành cho lập trình viên: một bảng điều khiển và các công cụ chạy hoàn toàn trên thiết bị của bạn.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Cài đặt",
         "p1After": ".",
@@ -397,14 +390,6 @@
         "title": "Đoạn mã",
         "description": "Lưu đoạn mã với tô sáng cú pháp, tự động nhận diện ngôn ngữ và định dạng."
       },
-      "ipSubnetCalculator": {
-        "title": "Máy tính IP / mạng con",
-        "description": "IPv4 và IPv6 CIDR: mặt nạ, dải và số địa chỉ."
-      },
-      "dnsLookup": {
-        "title": "Tra cứu DNS",
-        "description": "Truy vấn bản ghi DNS cho bất kỳ tên miền nào — A, AAAA, MX, TXT, NS, CNAME."
-      },
       "markdownPreview": {
         "title": "Xem trước Markdown",
         "description": "Trình kết xuất Markdown trực tiếp với xuất HTML và chuyển đổi HTML → Markdown."
@@ -412,14 +397,6 @@
       "formatConverter": {
         "title": "Chuyển đổi định dạng",
         "description": "Chuyển đổi giữa JSON, YAML, TOML và XML theo mọi hướng. Hỗ trợ đủ 12 tổ hợp."
-      },
-      "httpStatusCodes": {
-        "title": "Mã trạng thái HTTP",
-        "description": "Tìm kiếm mã trạng thái HTTP với mô tả (1xx–5xx)."
-      },
-      "curlToCode": {
-        "title": "cURL to Code",
-        "description": "Convert a curl command into fetch, axios, Python, Go, and more."
       },
       "jsonToCode": {
         "title": "JSON to Code",
@@ -440,18 +417,6 @@
       "jsonpathPlayground": {
         "title": "Sân chơi JSONPath",
         "description": "Truy vấn JSON bằng JSONPath hoặc JMESPath và xem kết quả trực tiếp."
-      },
-      "webhookTester": {
-        "title": "Trình kiểm tra Webhook",
-        "description": "Ghi lại và kiểm tra các yêu cầu webhook đến theo thời gian thực."
-      },
-      "websocketTester": {
-        "title": "Trình kiểm tra WebSocket",
-        "description": "Kết nối tới các điểm cuối WebSocket và trao đổi tin nhắn theo thời gian thực."
-      },
-      "whoisLookup": {
-        "title": "Tra cứu Whois",
-        "description": "Tra cứu thông tin đăng ký tên miền và IP qua RDAP."
       },
       "secureFiles": {
         "title": "Tệp",
@@ -2805,27 +2770,6 @@
       "position": "{current} / {total}"
     }
   },
-  "HttpStatusCodes": {
-    "title": "Mã trạng thái HTTP",
-    "subtitle": "Tra cứu mã trạng thái 1xx–5xx kèm tham chiếu RFC",
-    "header": {
-      "title": "Mã trạng thái HTTP",
-      "description": "Danh sách mã phản hồi HTTP có thể tìm kiếm, kèm mô tả và tham chiếu RFC."
-    },
-    "searchPlaceholder": "Tìm: 404, not found, rate limit, gateway…",
-    "classFilterPlaceholder": "Lọc theo nhóm…",
-    "classFilterAll": "Tất cả nhóm",
-    "resultsCount": "{count}/{total}",
-    "table": {
-      "code": "Code",
-      "phrase": "Cụm từ",
-      "description": "Mô tả",
-      "copy": "Sao chép"
-    },
-    "noResults": "Không có kết quả cho “{query}”.",
-    "specPrefix": "Chuẩn:",
-    "copied": "Đã sao chép mã"
-  },
   "DiffChecker": {
     "title": "Kiểm tra Diff",
     "subtitle": "So sánh hai văn bản song song, từng dòng một",
@@ -3012,46 +2956,6 @@
       "toastRowsMatched": "{count} hàng khớp — không có gì được thay đổi, vì bộ lọc không duy nhất."
     }
   },
-  "IpSubnetCalculator": {
-    "title": "Máy tính Subnet",
-    "subtitle": "Tính chi tiết CIDR cho IPv4 và IPv6",
-    "tabIpv4": "IPv4",
-    "tabIpv6": "IPv6",
-    "inputLabel": "Mạng",
-    "placeholderIpv4": "10.0.0.0/24 hoặc 192.168.1.0 255.255.255.0",
-    "placeholderIpv6": "2001:db8::/32 hoặc 2001:db8::1/64",
-    "hintIpv4": "Dùng CIDR (vd. /24) hoặc IPv4 kèm mạng con dạng chấm.",
-    "hintIpv6": "Gồm độ dài tiền tố (vd. /64). Bỏ qua thì mặc định /128.",
-    "copyValue": "Sao chép giá trị",
-    "rows": {
-      "cidr": "CIDR",
-      "network": "Địa chỉ mạng",
-      "netmask": "Mặt nạ mạng con",
-      "wildcard": "Mặt nạ wildcard",
-      "broadcast": "Broadcast",
-      "firstHost": "Máy chủ đầu",
-      "lastHost": "Máy chủ cuối",
-      "totalAddresses": "Tổng địa chỉ",
-      "usableHosts": "Máy chủ khả dụng",
-      "prefixLength": "Độ dài tiền tố (bit)",
-      "networkIpv6": "Địa chỉ mạng",
-      "lastIpv6": "Địa chỉ cuối trong dải",
-      "totalAddressesIpv6": "Địa chỉ trong mạng con"
-    },
-    "usableNote": {
-      "pointToPoint": "Liên kết /31 điểm-điểm dùng cả hai địa chỉ làm máy chủ (RFC 3021).",
-      "singleHost": "/32 là một máy chủ."
-    },
-    "ipv6RangeHint": {
-      "normal": "Hiển thị toàn bộ dải phạm vi toán học; quy tắc bộ định tuyến có thể khác.",
-      "single": "/128 là một địa chỉ.",
-      "full": "/0 bao phủ toàn IPv6."
-    },
-    "errors": {
-      "invalidIpv4": "Mạng IPv4 không hợp lệ. Thử CIDR hoặc địa chỉ + mặt nạ.",
-      "invalidIpv6": "Mạng IPv6 không hợp lệ. Dùng địa chỉ/tiền tố, vd. 2001:db8::/48."
-    }
-  },
   "EncryptionPlayground": {
     "title": "Sân chơi mã hóa",
     "subtitle": "Mã hóa và giải mã AES-GCM bằng passphrase hoặc khóa",
@@ -3140,78 +3044,6 @@
     "charCount": "{count, plural, other {# ký tự}}",
     "emptyHint": "Dán hoặc nhập dữ liệu đầu vào ở bên trái để xem đầu ra đã chuyển đổi.",
     "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
-  },
-  "MimeTypeLookup": {
-    "title": "Tra cứu loại MIME",
-    "subtitle": "Tìm loại MIME cho mọi phần mở rộng tệp",
-    "inputLabel": "Phần mở rộng hoặc tên tệp",
-    "placeholder": "ví dụ .png, package.json, photo.jpeg",
-    "hint": "Mẹo: dán phần mở rộng (có hoặc không có dấu chấm) hoặc tên tệp đầy đủ.",
-    "clear": "Xóa",
-    "exampleFilename": "Dùng tên tệp ví dụ",
-    "exampleExtension": "Dùng phần mở rộng ví dụ",
-    "resultLabel": "Kết quả",
-    "normalizedLabel": "Đầu vào đã chuẩn hóa:",
-    "mimeTypeLabel": "Loại MIME",
-    "contentTypeLabel": "Header Content-Type",
-    "charsetLabel": "Bảng mã",
-    "copyMimeType": "Sao chép loại MIME",
-    "copy": "Sao chép",
-    "copied": "Đã sao chép",
-    "emptyHint": "Nhập phần mở rộng hoặc tên tệp để tra cứu loại MIME.",
-    "notFound": "Không tìm thấy loại MIME cho đầu vào này.",
-    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
-  },
-  "UserAgentParser": {
-    "title": "Trình phân tích User-Agent",
-    "subtitle": "Tách chuỗi UA thành trình duyệt, hệ điều hành và thiết bị",
-    "inputLabel": "Chuỗi User-Agent",
-    "placeholder": "Dán User-Agent của bạn vào đây…",
-    "hint": "Mẹo: bạn có thể sao chép UA từ header yêu cầu, log hoặc devtools của trình duyệt.",
-    "clear": "Xóa",
-    "exampleDesktop": "Dùng ví dụ máy tính",
-    "exampleMobile": "Dùng ví dụ di động",
-    "resultLabel": "Phân tích",
-    "browserLabel": "Trình duyệt",
-    "osLabel": "Hệ điều hành",
-    "engineLabel": "Engine",
-    "deviceTypeLabel": "Loại thiết bị",
-    "deviceVendorLabel": "Hãng thiết bị",
-    "deviceModelLabel": "Mẫu thiết bị",
-    "cpuArchLabel": "Kiến trúc CPU",
-    "copyJson": "Sao chép JSON",
-    "copy": "Sao chép",
-    "copied": "Đã sao chép",
-    "emptyHint": "Dán chuỗi User-Agent để xem phân tích.",
-    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
-  },
-  "DnsLookup": {
-    "title": "Tra cứu DNS",
-    "subtitle": "Truy vấn A, AAAA, MX, TXT, NS và hơn nữa cho mọi tên miền",
-    "placeholder": "Nhập tên miền (vd: github.com)",
-    "lookupBtn": "Tra cứu",
-    "looking": "Đang tra cứu…",
-    "refreshBtn": "Làm mới",
-    "recordTypesLabel": "Loại bản ghi",
-    "allBtn": "Tất cả",
-    "tryLabel": "Thử:",
-    "errors": {
-      "lookupFailed": "Tra cứu DNS thất bại"
-    }
-  },
-  "CurlToCode": {
-    "title": "cURL sang mã",
-    "subtitle": "Biến lệnh curl thành fetch, axios, Python và hơn nữa",
-    "panels": {
-      "input": "curl command",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a curl command here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated request code will appear here…"
   },
   "JsonToCode": {
     "title": "JSON sang mã",
@@ -3431,89 +3263,6 @@
     "errors": {
       "createFailed": "Không tạo được URL webhook. Vui lòng thử lại.",
       "clearFailed": "Không xóa được các yêu cầu. Vui lòng thử lại."
-    }
-  },
-  "WebsocketTester": {
-    "title": "Kiểm tra WebSocket",
-    "subtitle": "Kết nối, gửi và xem tin nhắn WebSocket trực tiếp",
-    "urlLabel": "URL điểm cuối",
-    "protocolsLabel": "Giao thức phụ",
-    "protocolsPlaceholder": "tùy chọn, phân tách bằng dấu phẩy",
-    "connect": "Kết nối",
-    "disconnect": "Ngắt kết nối",
-    "status": {
-      "disconnected": "Đã ngắt kết nối",
-      "connecting": "Đang kết nối",
-      "connected": "Đã kết nối",
-      "error": "Lỗi"
-    },
-    "messages": {
-      "connecting": "Đang kết nối tới {url}…",
-      "connected": "Đã thiết lập kết nối",
-      "connectedWithProtocol": "Đã thiết lập kết nối (giao thức: {protocol})",
-      "invalidUrl": "URL không hợp lệ — phải bắt đầu bằng ws:// hoặc wss://",
-      "connectFailed": "Không mở được kết nối",
-      "socketError": "Đã xảy ra lỗi kết nối",
-      "notConnected": "Chưa kết nối — hãy kết nối trước",
-      "binaryMessage": "Đã nhận một tin nhắn nhị phân"
-    },
-    "log": {
-      "title": "Nhật ký tin nhắn",
-      "empty": "Chưa có tin nhắn. Hãy kết nối và bắt đầu gửi.",
-      "copyAll": "Sao chép tất cả",
-      "download": "Tải xuống dạng .txt",
-      "clear": "Xóa nhật ký",
-      "prettyPrint": "Định dạng đẹp JSON",
-      "showRaw": "Hiện văn bản thô"
-    },
-    "composer": {
-      "placeholder": "Nhập tin nhắn để gửi…",
-      "send": "Gửi",
-      "formatJson": "Định dạng thành JSON",
-      "invalidJson": "Tin nhắn không phải JSON hợp lệ",
-      "hint": "Cmd/Ctrl+Enter để gửi"
-    },
-    "ping": {
-      "label": "Tự động ping",
-      "seconds": "giây",
-      "intervalTitle": "Khoảng ping tính bằng giây",
-      "payloadPlaceholder": "payload ping"
-    }
-  },
-  "WhoisLookup": {
-    "title": "Tra cứu Whois",
-    "subtitle": "Tra cứu đăng ký tên miền và IP qua RDAP",
-    "placeholder": "example.com hoặc 8.8.8.8",
-    "lookupBtn": "Tra cứu",
-    "looking": "Đang tra cứu…",
-    "refreshBtn": "Làm mới",
-    "tryLabel": "Thử:",
-    "copy": "Sao chép",
-    "copied": "Đã sao chép",
-    "notAvailable": "Không có sẵn",
-    "summary": {
-      "registrar": "Nhà đăng ký",
-      "network": "Mạng"
-    },
-    "dates": {
-      "created": "Ngày tạo",
-      "updated": "Ngày cập nhật",
-      "expires": "Ngày hết hạn"
-    },
-    "sections": {
-      "status": "Trạng thái",
-      "nameservers": "Máy chủ tên",
-      "contacts": "Liên hệ",
-      "rawRdap": "RDAP thô"
-    },
-    "contacts": {
-      "roles": "Vai trò",
-      "name": "Tên",
-      "organization": "Tổ chức"
-    },
-    "errors": {
-      "invalidTarget": "Nhập một tên miền hoặc địa chỉ IP hợp lệ",
-      "lookupFailed": "Tra cứu thất bại (trạng thái {status})"
     }
   },
   "ToolPageHeader": {
