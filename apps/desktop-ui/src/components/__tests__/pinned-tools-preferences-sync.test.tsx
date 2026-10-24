@@ -139,7 +139,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
       toolFavorites: [],
       pinnedToolsByWorkspace: {
         w1: ["/app/notes"],
-        w2: ["/app/uuid-generator"],
+        w2: ["/app/regex-tester"],
       },
       toolStats: {},
       createdAt: 0,
@@ -148,7 +148,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
 
     const state = usePinnedToolsStore.getState()
     expect(state.pinnedByWorkspace["w1"]).toEqual(["/app/notes"])
-    expect(state.pinnedByWorkspace["w2"]).toEqual(["/app/uuid-generator"])
+    expect(state.pinnedByWorkspace["w2"]).toEqual(["/app/regex-tester"])
     expect(state.pinnedByWorkspace["w3"]).toBeUndefined()
   })
 
@@ -209,7 +209,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
       theme: "system",
       accentColor: "blue",
       locale: "en",
-      enabledTools: ["/app/json-formatter", "/app/notes", "/app/uuid-generator"],
+      enabledTools: ["/app/json-formatter", "/app/notes", "/app/regex-tester"],
       toolFavorites: [],
       pinnedToolsByWorkspace: {},
       toolStats: {},
@@ -220,7 +220,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
     expect(result["w1"]).toEqual([
       "/app/json-formatter",
       "/app/notes",
-      "/app/uuid-generator",
+      "/app/regex-tester",
     ])
   })
 
@@ -260,7 +260,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
         toolFavorites: [],
         pinnedToolsByWorkspace: {
           "w-personal": ["/app/notes"],
-          "w-old": ["/app/json-formatter", "/app/uuid-generator"],
+          "w-old": ["/app/json-formatter", "/app/regex-tester"],
         },
         toolStats: {},
         createdAt: 0,
@@ -272,7 +272,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
     expect(result["w-personal"]).toEqual([
       "/app/notes",
       "/app/json-formatter",
-      "/app/uuid-generator",
+      "/app/regex-tester",
     ])
     expect(result["w-old"]).toBeUndefined()
   })
@@ -288,7 +288,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
         toolFavorites: [],
         pinnedToolsByWorkspace: {
           w1: ["/app/notes"],
-          w2: ["/app/uuid-generator"],
+          w2: ["/app/regex-tester"],
         },
         toolStats: {},
         createdAt: 0,
@@ -298,7 +298,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
     )
 
     expect(result["w1"]).toEqual(["/app/notes"])
-    expect(result["w2"]).toEqual(["/app/uuid-generator"])
+    expect(result["w2"]).toEqual(["/app/regex-tester"])
   })
 
   // ── Write path ────────────────────────────────────────────────────────────
@@ -306,7 +306,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
   it("write: sends pinnedToolsByWorkspace (not toolFavorites) to the API", async () => {
     ;(api.patchUserPreferences as jest.Mock).mockResolvedValue({})
     usePinnedToolsStore.getState().setPinnedTools("w1", ["/app/notes"])
-    usePinnedToolsStore.getState().setPinnedTools("w2", ["/app/uuid-generator"])
+    usePinnedToolsStore.getState().setPinnedTools("w2", ["/app/regex-tester"])
 
     const { pinnedByWorkspace } = usePinnedToolsStore.getState()
     await api.patchUserPreferences({ pinnedToolsByWorkspace: pinnedByWorkspace })
@@ -314,7 +314,7 @@ describe("pinned-tools-preferences-sync — store contracts", () => {
     expect(api.patchUserPreferences).toHaveBeenCalledWith({
       pinnedToolsByWorkspace: {
         w1: ["/app/notes"],
-        w2: ["/app/uuid-generator"],
+        w2: ["/app/regex-tester"],
       },
     })
     // Confirm that the legacy field was NOT included in the call

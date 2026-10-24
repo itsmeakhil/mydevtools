@@ -16,7 +16,7 @@ describe('findItemByUrl', () => {
         }
       }
     }
-    expect(urls.length).toBeGreaterThan(50)
+    expect(urls.length).toBeGreaterThan(0)
     const unresolved = urls.filter((url) => !findItemByUrl(url))
     expect(unresolved).toEqual([])
   })

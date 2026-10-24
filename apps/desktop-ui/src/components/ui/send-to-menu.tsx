@@ -18,11 +18,7 @@ export interface SendToMenuProps {
 
 const TARGET_TOOLS = [
   { id: 'json-formatter', path: '/app/json-formatter', label: 'JSON Formatter' },
-  { id: 'base64', path: '/app/base64', label: 'Base64 Encode/Decode' },
-  { id: 'url-encode', path: '/app/url-encode', label: 'URL Encode/Decode' },
   { id: 'jwt-decoder', path: '/app/jwt-decoder', label: 'JWT Decoder' },
-  { id: 'hash-generator', path: '/app/hash-generator', label: 'Hash Generator' },
-  { id: 'qr-code-generator', path: '/app/qr-code-generator', label: 'QR Code Generator' },
 ];
 
 export function SendToMenu({ content, disabled = false, className }: SendToMenuProps) {

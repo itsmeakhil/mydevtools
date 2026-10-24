@@ -12,7 +12,7 @@ export type PaletteEntry = {
   Icon: React.ElementType
 }
 
-export const CATEGORY_ORDER = ['Site', 'Productivity', 'Security', 'Formatters', 'Converters', 'Generators', 'Network & API', 'Database', 'PDF', 'Media & Design'] as const
+export const CATEGORY_ORDER = ['Site', 'Productivity', 'Security', 'Formatters', 'Network & API', 'Database', 'PDF'] as const
 export const RECENT_STORAGE_KEY = 'mdt:palette:recent'
 
 const STATIC_ENTRIES: Omit<PaletteEntry, 'searchValue'>[] = [
