@@ -17,7 +17,7 @@ import {
  */
 
 // Everyone gets the productivity basics — they're the platform's sticky core.
-export const BASICS = ["/app/bookmarks", "/app/notes", "/app/to-do", "/app/snippet-manager"]
+export const BASICS = ["/app/notes", "/app/to-do", "/app/snippet-manager"]
 
 export interface OnboardingRole {
   id: string
@@ -60,7 +60,6 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     [
       "/app/api-client",
       "/app/data-explorer",
-      "/app/jwt-decoder",
       "/app/environment-manager",
     ],
     ["/app/sql-formatter", "/app/api-keys"],
@@ -74,7 +73,6 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/api-client",
       "/app/json-formatter",
       "/app/data-explorer",
-      "/app/jwt-decoder",
       "/app/environment-manager",
       "/app/regex-tester",
     ],
@@ -87,7 +85,6 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     IconCloudCog,
     [
       "/app/environment-manager",
-      "/app/certificate-pem-decoder",
     ],
     ["/app/yaml-formatter", "/app/api-client"],
   ),

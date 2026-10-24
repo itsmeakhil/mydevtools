@@ -5,16 +5,12 @@
     "apiClient": "API Client",
     "passwordManager": "Quản lý mật khẩu",
     "environmentManager": "Trình quản lý môi trường",
-    "bookmarks": "Dấu trang",
     "jsonFormatter": "Trình định dạng JSON",
     "emailValidator": "Xác thực email",
     "nosqlExplorer": "Trình khám phá cơ sở dữ liệu",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Sân chơi mã hóa",
-    "jwtDecoder": "Trình giải mã JWT",
-    "certificatePemDecoder": "Bộ giải mã chứng chỉ / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "Trình định dạng GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Định dạng YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "So sánh JSON",
     "jsonpathPlayground": "Sân chơi JSONPath",
     "secureFiles": "Tệp"
@@ -326,10 +321,6 @@
         "title": "Trình quản lý môi trường",
         "description": "Lưu biến kiểu .env theo dự án và môi trường kèm thẻ."
       },
-      "bookmarks": {
-        "title": "Dấu trang",
-        "description": "Quản lý và sắp xếp dấu trang."
-      },
       "apiClient": {
         "title": "API Client",
         "description": "Kiểm tra và gỡ lỗi các yêu cầu HTTP."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "Xác thực Email",
         "description": "Xác minh và kiểm tra địa chỉ email."
-      },
-      "encryptionPlayground": {
-        "title": "Sân chơi mã hóa",
-        "description": "AES-GCM với khóa thô hoặc cụm mật khẩu; gói JSON, Web Crypto chỉ trong trình duyệt."
-      },
-      "jwtDecoder": {
-        "title": "Trình giải mã JWT",
-        "description": "Giải mã header, payload và thời gian hết hạn của JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Bộ giải mã chứng chỉ / PEM",
-        "description": "Giải mã chứng chỉ X.509 và CSR: chủ thể, nhà phát hành, hiệu lực và SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Trình tạo & kiểm tra Bcrypt",
-        "description": "Băm mật khẩu bằng bcrypt và xác minh các băm hiện có."
-      },
       "jsonDiff": {
         "title": "So sánh JSON",
         "description": "So sánh hai tài liệu JSON theo ngữ nghĩa và cấu trúc."
@@ -434,8 +409,6 @@
       "loadError": "Không tải được phân tích.",
       "retry": "Thử lại",
       "passwordEntries": "Mục mật khẩu",
-      "bookmarks": "Dấu trang",
-      "bookmarkFolders": "Thư mục dấu trang",
       "tasksTotal": "Nhiệm vụ",
       "tasksCompleted": "Hoàn thành",
       "tasksOngoing": "Đang làm",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Đang tải..."
-    },
-    "manager": {
-      "foldersHeading": "Thư mục",
-      "tagsHeading": "Nhãn",
-      "tagsMore": "+{count} thêm",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Tìm kiếm dấu trang...",
-      "import": "Nhập",
-      "export": "Xuất",
-      "exportAsHtml": "Xuất dạng HTML",
-      "exportAsJson": "Xuất dạng JSON",
-      "addBookmark": "Thêm dấu trang",
-      "matchingQuery": "phù hợp \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# dấu trang} other {# dấu trang}}",
-      "allBookmarks": "Tất cả dấu trang",
-      "uncategorized": "Chưa phân loại",
-      "unknownFolder": "Không xác định"
-    },
-    "card": {
-      "urlCopied": "Đã sao chép URL vào bộ nhớ tạm",
-      "bookmarkDeleted": "Đã xóa dấu trang",
-      "edit": "Sửa",
-      "delete": "Xóa",
-      "copyUrl": "Sao chép URL",
-      "deleteConfirmTitle": "Xóa dấu trang?",
-      "deleteConfirmDescription": "Hành động này sẽ xóa vĩnh viễn \"{title}\".",
-      "cancel": "Hủy"
-    },
-    "grid": {
-      "emptyTitle": "Chưa có dấu trang",
-      "emptyDescription": "Thêm dấu trang đầu tiên hoặc nhập từ trình duyệt để bắt đầu."
-    },
-    "folderTree": {
-      "allBookmarks": "Tất cả dấu trang",
-      "addSubfolder": "Thêm thư mục con",
-      "rename": "Đổi tên",
-      "deleteFolderTitle": "Xóa thư mục \"{name}\"?",
-      "deleteFolderDescription": "Hành động này sẽ xóa thư mục và tất cả thư mục con. Dấu trang trong các thư mục này sẽ được chuyển sang Chưa phân loại."
-    },
-    "foldersHeading": "Thư mục",
-    "import": {
-      "title": "Nhập dấu trang",
-      "description": "Nhập dấu trang từ tệp xuất của trình duyệt.",
-      "parseError": "Không thể phân tích tệp dấu trang. Vui lòng đảm bảo đó là tệp xuất dấu trang hợp lệ.",
-      "successToast": "Đã nhập {bookmarks} dấu trang và {folders} thư mục",
-      "errorToast": "Không thể nhập dấu trang",
-      "chromeInstruction": "Menu → Dấu trang → Trình quản lý dấu trang → ⋮ → Xuất dấu trang",
-      "firefoxInstruction": "Menu → Dấu trang → Quản lý dấu trang → Nhập và Sao lưu → Xuất",
-      "safariInstruction": "Tệp → Xuất dấu trang...",
-      "edgeInstruction": "Menu → Yêu thích → ⋯ → Xuất yêu thích",
-      "dropZoneTitle": "Thả tệp dấu trang vào đây",
-      "dropZoneHint": "hoặc nhấn để duyệt (HTML hoặc JSON)",
-      "selectedFileHint": "Nhấn để chọn tệp khác",
-      "errorTitle": "Lỗi",
-      "previewTitle": "Xem trước nhập",
-      "previewBookmarks": "{count, plural, one {# dấu trang} other {# dấu trang}}",
-      "previewFolders": "{count, plural, one {# thư mục} other {# thư mục}}",
-      "importModeLabel": "Chế độ nhập",
-      "modeMerge": "Gộp với dấu trang hiện có",
-      "modeReplace": "Thay thế tất cả dấu trang hiện có",
-      "cancel": "Hủy",
-      "importButton": "Nhập",
-      "importButtonWithCount": "Nhập {count, plural, one {# dấu trang} other {# dấu trang}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Thêm dấu trang",
-      "titleEdit": "Sửa dấu trang",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Vui lòng nhập URL hợp lệ",
-      "titleLabel": "Tiêu đề",
-      "titlePlaceholder": "Tiêu đề dấu trang",
-      "titleRequired": "Vui lòng nhập tiêu đề",
-      "descriptionLabel": "Mô tả (tùy chọn)",
-      "descriptionPlaceholder": "Thêm ghi chú về dấu trang này",
-      "folderLabel": "Thư mục",
-      "folderPlaceholder": "Chọn thư mục",
-      "noFolder": "Không có thư mục",
-      "tagsLabel": "Nhãn",
-      "tagsPlaceholder": "Thêm nhãn (nhấn Enter)",
-      "toastUpdated": "Đã cập nhật dấu trang",
-      "toastAdded": "Đã thêm dấu trang",
-      "cancel": "Hủy",
-      "submitAdd": "Thêm dấu trang",
-      "submitUpdate": "Cập nhật dấu trang"
-    },
-    "addFolder": {
-      "title": "Tạo thư mục",
-      "nameLabel": "Tên thư mục",
-      "namePlaceholder": "Thư mục của tôi",
-      "nameRequired": "Vui lòng nhập tên thư mục",
-      "parentLabel": "Thư mục cha",
-      "parentPlaceholder": "Chọn thư mục cha",
-      "rootParent": "Gốc (Không có thư mục cha)",
-      "toastCreated": "Đã tạo thư mục",
-      "cancel": "Hủy",
-      "submit": "Tạo thư mục"
-    },
-    "editFolder": {
-      "title": "Đổi tên thư mục",
-      "nameLabel": "Tên thư mục",
-      "namePlaceholder": "Tên thư mục",
-      "nameRequired": "Vui lòng nhập tên thư mục",
-      "toastRenamed": "Đã đổi tên thư mục",
-      "cancel": "Hủy",
-      "save": "Lưu"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "Đã sửa JSON",
     "toastRepairFailed": "Không thể sửa JSON"
   },
-  "JwtDecoder": {
-    "title": "Trình giải mã JWT",
-    "subtitle": "Xem header, payload và hạn dùng — chữ ký không được xác minh",
-    "tokenLabel": "Token",
-    "clear": "Xóa",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Sao chép",
-    "expiryLabel": "Hết hạn (exp)",
-    "signaturePresent": "Có chữ ký (không xác minh)",
-    "noExp": "Không có claim <code>exp</code> trong payload.",
-    "status": {
-      "expired": "Đã hết hạn",
-      "valid": "Hợp lệ"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Cục bộ",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Phát hành (iat)",
-      "notBefore": "Không trước (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Dán JWT để giải mã.",
-      "segments": "JWT cần ít nhất header và payload (hai đoạn).",
-      "base64": "Không thể giải mã base64url cho header hoặc payload."
-    },
-    "relative": {
-      "future": "trong {n} {unit}",
-      "past": "{n} {unit} trước"
-    },
-    "units": {
-      "second": "{count, plural, one {giây} other {giây}}",
-      "minute": "{count, plural, one {phút} other {phút}}",
-      "hour": "{count, plural, one {giờ} other {giờ}}",
-      "day": "{count, plural, one {ngày} other {ngày}}"
-    },
-    "tabs": {
-      "decode": "Giải mã",
-      "sign": "Tạo / ký"
-    },
-    "signer": {
-      "algLabel": "Thuật toán (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Bí mật (HS*)",
-      "secretPlaceholder": "Dán bí mật HMAC của bạn…",
-      "privateKeyLabel": "Khóa riêng PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "Thuật toán \"none\" tạo token không có chữ ký. Không an toàn và chỉ nên dùng để kiểm thử.",
-      "sign": "Ký",
-      "verify": "Xác minh chữ ký",
-      "outputLabel": "Token (JWS gọn)",
-      "outputPlaceholder": "Nhấn \"Ký\"…",
-      "copyToken": "Sao chép token",
-      "copied": "Đã sao chép",
-      "verifyKeyLabel": "Khóa xác minh (tùy chọn)",
-      "verifyKeyPlaceholder": "Với RS*: dán khóa công khai (SPKI) PEM. Với HS*: để trống để dùng lại bí mật.",
-      "verifyKeyHint": "Nếu để trống, xác minh sẽ dùng khóa ký (hữu ích với HS*).",
-      "verifyStatus": {
-        "valid": "Chữ ký hợp lệ",
-        "invalid": "Chữ ký không hợp lệ"
-      },
-      "securityNote": "Mọi thứ chạy cục bộ trong trình duyệt; không tải lên khóa hay token."
-    },
-    "signErrors": {
-      "invalidJson": "Header và payload phải là JSON hợp lệ.",
-      "unsupportedAlg": "Thuật toán không được hỗ trợ.",
-      "missingKey": "Cần khóa ký cho thuật toán này.",
-      "cryptoFailed": "Ký thất bại. Kiểm tra định dạng khóa và thử lại."
-    },
-    "verifyErrors": {
-      "empty": "Nhập JWT để xác minh.",
-      "segments": "JWT phải có đúng 3 phần để xác minh chữ ký.",
-      "unsupportedAlg": "Thuật toán không được hỗ trợ hoặc thiếu alg trong header.",
-      "missingKey": "Cần khóa xác minh cho thuật toán này.",
-      "base64": "Không thể giải mã header hoặc chữ ký JWT.",
-      "cryptoFailed": "Xác minh thất bại. Kiểm tra định dạng khóa và thử lại."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Trình giải mã chứng chỉ",
-    "subtitle": "Giải mã chứng chỉ X.509 và CSR từ PEM",
-    "pemLabel": "Đầu vào PEM",
-    "clear": "Xóa",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Đang phân tích…",
-    "copyHex": "Sao chép vân tay (hex không có dấu hai chấm)",
-    "errors": {
-      "empty": "Dán chứng chỉ PEM hoặc CSR để giải mã.",
-      "noBlock": "Không tìm thấy khối PEM chứng chỉ hoặc CSR.",
-      "parseFailed": "Không thể phân tích dữ liệu PEM này."
-    },
-    "block": {
-      "title": "Khối PEM {index}",
-      "certificate": "Chứng chỉ X.509",
-      "csr": "Yêu cầu ký chứng chỉ"
-    },
-    "fields": {
-      "subject": "Chủ thể",
-      "issuer": "Nhà phát hành",
-      "notBefore": "Không hợp lệ trước",
-      "notAfter": "Không hợp lệ sau",
-      "serial": "Số sê-ri (hex)",
-      "sha256": "Vân tay SHA-256",
-      "sans": "Tên thay thế cho chủ thể",
-      "sansNone": "Không có phần mở rộng SAN.",
-      "signatureAlgorithm": "Thuật toán ký",
-      "csrIssuerNote": "CSR không có nhà phát hành (có trên chứng chỉ đã cấp).",
-      "csrValidityNote": "CSR không có ngày hiệu lực (có trên chứng chỉ đã cấp)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Tên thư mục",
-      "email": "Email",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "ID đã đăng ký",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Trình định dạng SQL",
     "subtitle": "Định dạng đẹp SQL cho MySQL, PostgreSQL và SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} hàng khớp — không có gì được thay đổi, vì bộ lọc không duy nhất."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Sân chơi mã hóa",
-    "subtitle": "Mã hóa và giải mã AES-GCM bằng passphrase hoặc khóa",
-    "tabEncrypt": "Mã hóa",
-    "tabDecrypt": "Giải mã",
-    "keyModeLabel": "Nguyên liệu khóa",
-    "modePassphrase": "Cụm mật khẩu (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Khóa AES thô (hex hoặc Base64)",
-    "aesBitsLabel": "Độ dài khóa AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Mã hóa khóa thô",
-    "encodingAuto": "Tự động (hex nếu trông giống hex, không thì Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Khóa thô",
-    "rawKeyPlaceholder": "Khóa 32 byte dưới dạng 64 ký tự hex hoặc Base64 cho AES-256 (độ dài phụ thuộc kích thước AES ở trên).",
-    "rawKeyPlaceholderDecrypt": "Chỉ cần khi gói có keyDerivation \"none\".",
-    "passphraseLabel": "Cụm mật khẩu",
-    "passphrasePlaceholder": "Cụm mật khẩu chỉ dùng trong trình duyệt để dẫn xuất khóa.",
-    "passphrasePlaceholderDecrypt": "Chỉ cần khi gói dùng PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Số vòng PBKDF2",
-    "pbkdf2Hint": "Giới hạn từ 10.000 đến 2.000.000. Mặc định giống cài đặt kho mật thông dụng.",
-    "plaintextLabel": "Văn bản thuần",
-    "plaintextPlaceholder": "Nhập hoặc dán nội dung cần mã hóa…",
-    "bundleInputLabel": "Gói đã mã hóa (JSON)",
-    "bundlePlaceholder": "Dán JSON từ Mã hóa (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Gói đã mã hóa",
-    "plaintextOutputLabel": "Văn bản thuần",
-    "encryptButton": "Mã hóa",
-    "decryptButton": "Giải mã",
-    "copyBundle": "Sao chép JSON",
-    "copyPlaintext": "Sao chép văn bản thuần",
-    "copied": "Đã sao chép",
-    "emptyBundleHint": "JSON đã mã hóa hiển thị ở đây sau khi mã hóa.",
-    "emptyDecryptHint": "Văn bản đã giải mã hiển thị ở đây.",
-    "decryptKeyHint": "Dùng khóa thô nếu keyDerivation là \"none\"; dùng cụm mật khẩu nếu là PBKDF2-SHA256. Gói lưu muối, số vòng, IV và độ dài AES.",
-    "securityNote": "Khóa và văn bản thuần không rời khỏi trình duyệt. Bí mật production nên dùng công cụ chuyên dụng.",
-    "errors": {
-      "emptyKey": "Nhập khóa thô khớp kích thước AES.",
-      "emptyPassphrase": "Nhập cụm mật khẩu.",
-      "badKeyMaterial": "Không đọc được khóa dưới dạng hex hoặc Base64.",
-      "wrongKeyLength": "Độ dài khóa không khớp AES (16 / 24 / 32 byte).",
-      "invalidJson": "JSON không hợp lệ.",
-      "invalidBundle": "JSON này không phải gói mã hóa được hỗ trợ.",
-      "decryptFailed": "Giải mã thất bại — sai bí mật, gói hỏng hoặc tham số không khớp.",
-      "encryptFailed": "Mã hóa thất bại. Kiểm tra Web Crypto và đầu vào."
-    }
-  },
   "MarkdownPreview": {
     "title": "Xem trước Markdown",
     "subtitle": "Hiển thị Markdown trực tiếp và chuyển đổi qua lại với HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Trình tạo Bcrypt",
-    "subtitle": "Băm và xác minh mật khẩu bằng bcrypt",
-    "tabs": {
-      "hash": "Băm",
-      "verify": "Xác minh"
-    },
-    "showPassword": "Hiện mật khẩu",
-    "hidePassword": "Ẩn mật khẩu",
-    "copy": "Sao chép",
-    "copied": "Đã sao chép",
-    "hash": {
-      "passwordLabel": "Mật khẩu",
-      "passwordPlaceholder": "Nhập mật khẩu cần băm…",
-      "costLabel": "Hệ số chi phí",
-      "costHint": "Chi phí càng cao thì khối lượng tính toán mỗi bước càng tăng gấp đôi. 10-12 là lựa chọn phổ biến cho môi trường sản xuất.",
-      "slowWarning": "Hệ số chi phí từ 13 trở lên có thể mất vài giây để tính toán.",
-      "generate": "Tạo băm",
-      "generating": "Đang băm…",
-      "resultLabel": "Băm Bcrypt",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Cấu trúc băm",
-        "algorithm": "thuật toán",
-        "cost": "chi phí",
-        "salt": "salt (22 ký tự)",
-        "hash": "băm (31 ký tự)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Mật khẩu",
-      "passwordPlaceholder": "Nhập mật khẩu cần kiểm tra…",
-      "hashLabel": "Băm Bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Nhập mật khẩu và một băm bcrypt để so sánh chúng.",
-      "invalidHash": "Đây có vẻ không phải là một băm bcrypt hợp lệ.",
-      "checking": "Đang so sánh…",
-      "match": "Khớp — mật khẩu này tạo ra băm này.",
-      "noMatch": "Không khớp — mật khẩu này không tạo ra băm này."
-    }
   },
   "JsonDiff": {
     "title": "JSON Diff",

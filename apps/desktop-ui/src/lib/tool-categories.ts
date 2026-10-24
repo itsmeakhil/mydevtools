@@ -1,16 +1,12 @@
 import { toolsMetadata } from '@/lib/metadata'
 
 export const toolCategoryMap: Record<string, string> = {
-  bookmarks: 'Productivity',
   notes: 'Productivity',
   'snippet-manager': 'Productivity',
   'to-do': 'Productivity',
   'api-keys': 'Security',
   'email-validator': 'Security',
   'environment-manager': 'Security',
-  'jwt-decoder': 'Security',
-  'certificate-pem-decoder': 'Security',
-  'encryption-playground': 'Security',
   'password-manager': 'Security',
   'secure-files': 'Security',
   'json-formatter': 'Formatters',
@@ -28,7 +24,6 @@ export const toolCategoryMap: Record<string, string> = {
   'api-client': 'Network & API',
   'data-explorer': 'Database',
   's3-drive': 'Database',
-  'bcrypt-generator': 'Security',
   'json-diff': 'Formatters',
   'jsonpath-playground': 'Formatters',
 }

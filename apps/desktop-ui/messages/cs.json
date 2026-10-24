@@ -5,16 +5,12 @@
     "apiClient": "API klient",
     "passwordManager": "Správce hesel",
     "environmentManager": "Správce prostředí",
-    "bookmarks": "Záložky",
     "jsonFormatter": "Formátovač JSON",
     "emailValidator": "Validátor e-mailů",
     "nosqlExplorer": "Průzkumník databází",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Hraviště šifrování",
-    "jwtDecoder": "Dekodér JWT",
-    "certificatePemDecoder": "Dekodér certifikátů / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "Formátovač GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Formátovač YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON diff",
     "jsonpathPlayground": "JSONPath hřiště",
     "secureFiles": "Soubory"
@@ -326,10 +321,6 @@
         "title": "Správce prostředí",
         "description": "Ukládejte proměnné ve stylu .env podle projektu a prostředí se značkami."
       },
-      "bookmarks": {
-        "title": "Záložky",
-        "description": "Spravujte a organizujte záložky."
-      },
       "apiClient": {
         "title": "API klient",
         "description": "Testujte a laděte HTTP požadavky."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "Validátor e-mailu",
         "description": "Ověřujte a validujte e-mailové adresy."
-      },
-      "encryptionPlayground": {
-        "title": "Hraviště šifrování",
-        "description": "AES-GCM s holým klíčem nebo přístupovou frází; JSON balíčky, Web Crypto jen v prohlížeči."
-      },
-      "jwtDecoder": {
-        "title": "Dekodér JWT",
-        "description": "Dekódujte hlavičku, payload a vypršení JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Dekodér certifikátů / PEM",
-        "description": "Dekódujte certifikáty X.509 a CSR: subjekt, vydavatel, platnost a SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt generátor a ověřovač",
-        "description": "Hashujte hesla pomocí bcrypt a ověřujte stávající hashe."
-      },
       "jsonDiff": {
         "title": "JSON diff",
         "description": "Sémantické porovnání dvou JSON dokumentů zohledňující strukturu."
@@ -434,8 +409,6 @@
       "loadError": "Nelze načíst analytiku.",
       "retry": "Zkusit znovu",
       "passwordEntries": "Záznamů hesel",
-      "bookmarks": "Záložky",
-      "bookmarkFolders": "Složky záložek",
       "tasksTotal": "Úkoly",
       "tasksCompleted": "Dokončené",
       "tasksOngoing": "Probíhající",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Načítání..."
-    },
-    "manager": {
-      "foldersHeading": "Složky",
-      "tagsHeading": "Štítky",
-      "tagsMore": "+{count} dalších",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Hledat v záložkách...",
-      "import": "Import",
-      "export": "Export",
-      "exportAsHtml": "Export jako HTML",
-      "exportAsJson": "Export jako JSON",
-      "addBookmark": "Přidat záložku",
-      "matchingQuery": "odpovídá „{query}“",
-      "bookmarkCount": "{count, plural, one {# záložka} few {# záložky} many {# záložek} other {# záložek}}",
-      "allBookmarks": "Všechny záložky",
-      "uncategorized": "Bez kategorie",
-      "unknownFolder": "Neznámá složka"
-    },
-    "card": {
-      "urlCopied": "URL zkopírována do schránky",
-      "bookmarkDeleted": "Záložka smazána",
-      "edit": "Upravit",
-      "delete": "Smazat",
-      "copyUrl": "Kopírovat URL",
-      "deleteConfirmTitle": "Smazat záložku?",
-      "deleteConfirmDescription": "Trvale smaže „{title}“.",
-      "cancel": "Zrušit"
-    },
-    "grid": {
-      "emptyTitle": "Zatím žádné záložky",
-      "emptyDescription": "Přidejte první záložku nebo importujte z prohlížeče."
-    },
-    "folderTree": {
-      "allBookmarks": "Všechny záložky",
-      "addSubfolder": "Přidat podsložku",
-      "rename": "Přejmenovat",
-      "deleteFolderTitle": "Smazat složku „{name}“?",
-      "deleteFolderDescription": "Smaže složku a všechny podsložky. Záložky budou přesunuty do Bez kategorie."
-    },
-    "foldersHeading": "Složky",
-    "import": {
-      "title": "Import záložek",
-      "description": "Import záložek z exportovaného souboru prohlížeče.",
-      "parseError": "Soubor se nepodařilo načíst. Ověřte, že jde o platný export záložek.",
-      "successToast": "Importováno {bookmarks} záložek a {folders} složek",
-      "errorToast": "Import záložek se nezdařil",
-      "chromeInstruction": "Nabídka → Záložky → Správce záložek → ⋮ → Exportovat záložky",
-      "firefoxInstruction": "Nabídka → Záložky → Spravovat záložky → Import a záloha → Exportovat",
-      "safariInstruction": "Soubor → Exportovat záložky...",
-      "edgeInstruction": "Nabídka → Oblíbené → ⋯ → Exportovat oblíbené",
-      "dropZoneTitle": "Přetáhněte sem soubor se záložkami",
-      "dropZoneHint": "nebo klikněte pro výběr (HTML nebo JSON)",
-      "selectedFileHint": "Kliknutím vyberte jiný soubor",
-      "errorTitle": "Chyba",
-      "previewTitle": "Náhled importu",
-      "previewBookmarks": "{count, plural, one {# záložka} few {# záložky} many {# záložek} other {# záložek}}",
-      "previewFolders": "{count, plural, one {# složka} few {# složky} many {# složek} other {# složek}}",
-      "importModeLabel": "Režim importu",
-      "modeMerge": "Sloučit se stávajícími záložkami",
-      "modeReplace": "Nahradit všechny stávající záložky",
-      "cancel": "Zrušit",
-      "importButton": "Importovat",
-      "importButtonWithCount": "Importovat {count, plural, one {# záložku} few {# záložky} many {# záložek} other {# záložek}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Přidat záložku",
-      "titleEdit": "Upravit záložku",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Zadejte platnou URL",
-      "titleLabel": "Název",
-      "titlePlaceholder": "Název záložky",
-      "titleRequired": "Zadejte název",
-      "descriptionLabel": "Popis (volitelné)",
-      "descriptionPlaceholder": "Poznámka k této záložce",
-      "folderLabel": "Složka",
-      "folderPlaceholder": "Vyberte složku",
-      "noFolder": "Bez složky",
-      "tagsLabel": "Štítky",
-      "tagsPlaceholder": "Přidejte štítky (Enter)",
-      "toastUpdated": "Záložka aktualizována",
-      "toastAdded": "Záložka přidána",
-      "cancel": "Zrušit",
-      "submitAdd": "Přidat záložku",
-      "submitUpdate": "Aktualizovat záložku"
-    },
-    "addFolder": {
-      "title": "Nová složka",
-      "nameLabel": "Název složky",
-      "namePlaceholder": "Moje složka",
-      "nameRequired": "Zadejte název složky",
-      "parentLabel": "Nadřazená složka",
-      "parentPlaceholder": "Vyberte nadřazenou složku",
-      "rootParent": "Kořen (bez nadřazené)",
-      "toastCreated": "Složka vytvořena",
-      "cancel": "Zrušit",
-      "submit": "Vytvořit složku"
-    },
-    "editFolder": {
-      "title": "Přejmenovat složku",
-      "nameLabel": "Název složky",
-      "namePlaceholder": "Název složky",
-      "nameRequired": "Zadejte název složky",
-      "toastRenamed": "Složka přejmenována",
-      "cancel": "Zrušit",
-      "save": "Uložit"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON opraven",
     "toastRepairFailed": "JSON se nepodařilo opravit"
   },
-  "JwtDecoder": {
-    "title": "Dekodér JWT",
-    "subtitle": "Prohlédněte hlavičku, payload a expiraci — podpis se neověřuje",
-    "tokenLabel": "Token",
-    "clear": "Vymazat",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Kopírovat",
-    "expiryLabel": "Vypršení (exp)",
-    "signaturePresent": "Podpis přítomen (neověřen)",
-    "noExp": "V payload chybí claim <code>exp</code>.",
-    "status": {
-      "expired": "Vypršel",
-      "valid": "Platný"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Místní",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Vydáno (iat)",
-      "notBefore": "Ne dříve než (nbf)"
-    },
-    "panels": {
-      "header": "Hlavička",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Vložte JWT pro dekódování.",
-      "segments": "JWT potřebuje alespoň hlavičku a payload (dva segmenty).",
-      "base64": "Nepodařilo se dekódovat hlavičku nebo payload (base64url)."
-    },
-    "relative": {
-      "future": "za {n} {unit}",
-      "past": "před {n} {unit}"
-    },
-    "units": {
-      "second": "{count, plural, one {sekundu} few {sekundy} other {sekund}}",
-      "minute": "{count, plural, one {minutu} few {minuty} other {minut}}",
-      "hour": "{count, plural, one {hodinu} few {hodiny} other {hodin}}",
-      "day": "{count, plural, one {den} few {dny} other {dní}}"
-    },
-    "tabs": {
-      "decode": "Dekódovat",
-      "sign": "Generátor / podepisovač"
-    },
-    "signer": {
-      "algLabel": "Algoritmus (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "JSON payload",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "JSON header",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Tajemství (HS*)",
-      "secretPlaceholder": "Vložte svůj HMAC secret…",
-      "privateKeyLabel": "Soukromý klíč PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "Algoritmus \"none\" vytvoří nepodepsaný token. Je to nebezpečné a má sloužit jen pro testování.",
-      "sign": "Podepsat",
-      "verify": "Ověřit podpis",
-      "outputLabel": "Token (kompaktní JWS)",
-      "outputPlaceholder": "Klikněte na „Podepsat“…",
-      "copyToken": "Kopírovat token",
-      "copied": "Zkopírováno",
-      "verifyKeyLabel": "Ověřovací klíč (volitelné)",
-      "verifyKeyPlaceholder": "Pro RS*: vložte veřejný klíč (SPKI) PEM. Pro HS*: nechte prázdné a použije se secret.",
-      "verifyKeyHint": "Pokud je prázdné, ověření použije podepisovací klíč (užitečné pro HS*).",
-      "verifyStatus": {
-        "valid": "Podpis je platný",
-        "invalid": "Podpis je neplatný"
-      },
-      "securityNote": "Vše běží lokálně v prohlížeči; klíče ani tokeny se nikam neodesílají."
-    },
-    "signErrors": {
-      "invalidJson": "Header a payload musí být platný JSON.",
-      "unsupportedAlg": "Nepodporovaný algoritmus.",
-      "missingKey": "Pro tento algoritmus je vyžadován podepisovací klíč.",
-      "cryptoFailed": "Podepisování selhalo. Zkontrolujte formát klíče a zkuste to znovu."
-    },
-    "verifyErrors": {
-      "empty": "Zadejte JWT k ověření.",
-      "segments": "JWT musí mít pro ověření podpisu přesně 3 segmenty.",
-      "unsupportedAlg": "Nepodporovaný nebo chybějící alg v headeru.",
-      "missingKey": "Pro tento algoritmus je vyžadován ověřovací klíč.",
-      "base64": "Nepodařilo se dekódovat header nebo podpis JWT.",
-      "cryptoFailed": "Ověření selhalo. Zkontrolujte formát klíče a zkuste to znovu."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Dekodér certifikátů",
-    "subtitle": "Dekódujte certifikáty X.509 a CSR z PEM",
-    "pemLabel": "Vstup PEM",
-    "clear": "Vymazat",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Zpracovávání…",
-    "copyHex": "Kopírovat otisk (hex bez dvojteček)",
-    "errors": {
-      "empty": "Vložte PEM certifikát nebo CSR k dekódování.",
-      "noBlock": "Nebyl nalezen PEM blok certifikátu ani CSR.",
-      "parseFailed": "Tato PEM data se nepodařilo zpracovat."
-    },
-    "block": {
-      "title": "PEM blok {index}",
-      "certificate": "Certifikát X.509",
-      "csr": "Žádost o podpis certifikátu"
-    },
-    "fields": {
-      "subject": "Subjekt",
-      "issuer": "Vydavatel",
-      "notBefore": "Neplatné před",
-      "notAfter": "Neplatné po",
-      "serial": "Sériové číslo (hex)",
-      "sha256": "Otisk SHA-256",
-      "sans": "Alternativní jména subjektu",
-      "sansNone": "Rozšíření SAN není přítomno.",
-      "signatureAlgorithm": "Algoritmus podpisu",
-      "csrIssuerNote": "CSR neobsahuje vydavatele (ten je na vydaném certifikátu).",
-      "csrValidityNote": "CSR neobsahuje platnost (ta je na vydaném certifikátu)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Adresářové jméno",
-      "email": "E-mail",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Registrované ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Formátovač SQL",
     "subtitle": "Formátujte SQL pro MySQL, PostgreSQL a SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "Odpovídá {count} řádků — nic se nezměnilo, protože filtr není jedinečný."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Šifrovací hřiště",
-    "subtitle": "Šifrujte a dešifrujte AES-GCM heslem nebo klíčem",
-    "tabEncrypt": "Zašifrovat",
-    "tabDecrypt": "Dešifrovat",
-    "keyModeLabel": "Klíčový materiál",
-    "modePassphrase": "Přístupová fráze (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Holý klíč AES (hex nebo Base64)",
-    "aesBitsLabel": "Délka klíče AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Kódování holého klíče",
-    "encodingAuto": "Auto (hex pokud to vypadá jako hex, jinak Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Holý klíč",
-    "rawKeyPlaceholder": "Klíč 32 bajtů jako 64 hex znaků nebo Base64 pro AES-256 (délka závisí na zvolené velikosti AES).",
-    "rawKeyPlaceholderDecrypt": "Potřeba jen pokud balíček má keyDerivation \"none\".",
-    "passphraseLabel": "Přístupová fráze",
-    "passphrasePlaceholder": "Fráze použitá jen v prohlížeči k odvození klíče.",
-    "passphrasePlaceholderDecrypt": "Potřeba jen pokud balíček používá PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Iterace PBKDF2",
-    "pbkdf2Hint": "Mezi 10 000 a 2 000 000. Výchozí odpovídá běžným trezorům.",
-    "plaintextLabel": "Otevřený text",
-    "plaintextPlaceholder": "Zadejte nebo vložte zprávu k zašifrování…",
-    "bundleInputLabel": "Zašifrovaný balíček (JSON)",
-    "bundlePlaceholder": "Vložte JSON z Zašifrovat (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Zašifrovaný balíček",
-    "plaintextOutputLabel": "Otevřený text",
-    "encryptButton": "Zašifrovat",
-    "decryptButton": "Dešifrovat",
-    "copyBundle": "Kopírovat JSON",
-    "copyPlaintext": "Kopírovat otevřený text",
-    "copied": "Zkopírováno",
-    "emptyBundleHint": "Zašifrovaný JSON se zobrazí po zašifrování.",
-    "emptyDecryptHint": "Dešifrovaný text se zobrazí zde.",
-    "decryptKeyHint": "Použijte holý klíč při keyDerivation \"none\"; frázi u PBKDF2-SHA256. Balíček obsahuje sůl, iterace, IV a délku AES.",
-    "securityNote": "Klíče a otevřený text neopouštějí prohlížeč. Pro produkční tajemství použijte specializované nástroje.",
-    "errors": {
-      "emptyKey": "Zadejte holý klíč odpovídající velikosti AES.",
-      "emptyPassphrase": "Zadejte přístupovou frázi.",
-      "badKeyMaterial": "Klíč nelze přečíst jako hex ani Base64.",
-      "wrongKeyLength": "Délka klíče neodpovídá AES (16 / 24 / 32 bajtů).",
-      "invalidJson": "Neplatný JSON.",
-      "invalidBundle": "Tento JSON není podporovaný šifrovací balíček.",
-      "decryptFailed": "Dešifrování selhalo — špatné tajemství, poškozený balíček nebo parametry.",
-      "encryptFailed": "Šifrování selhalo. Zkontrolujte Web Crypto a vstupy."
-    }
-  },
   "MarkdownPreview": {
     "title": "Náhled Markdownu",
     "subtitle": "Vykreslujte Markdown naživo a převádějte z/do HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Generátor bcrypt",
-    "subtitle": "Hashujte a ověřujte hesla pomocí bcrypt",
-    "tabs": {
-      "hash": "Hash",
-      "verify": "Ověřit"
-    },
-    "showPassword": "Zobrazit heslo",
-    "hidePassword": "Skrýt heslo",
-    "copy": "Kopírovat",
-    "copied": "Zkopírováno",
-    "hash": {
-      "passwordLabel": "Heslo",
-      "passwordPlaceholder": "Zadejte heslo k zahashování…",
-      "costLabel": "Faktor náročnosti",
-      "costHint": "Vyšší náročnost zdvojnásobuje práci na každý krok. 10–12 je běžná volba pro produkci.",
-      "slowWarning": "Faktory náročnosti 13 a vyšší mohou výpočet trvat několik sekund.",
-      "generate": "Vygenerovat hash",
-      "generating": "Hashuji…",
-      "resultLabel": "Bcrypt hash",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Anatomie hashe",
-        "algorithm": "algoritmus",
-        "cost": "náročnost",
-        "salt": "sůl (22 znaků)",
-        "hash": "hash (31 znaků)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Heslo",
-      "passwordPlaceholder": "Zadejte heslo k ověření…",
-      "hashLabel": "Bcrypt hash",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Zadejte heslo a bcrypt hash k jejich porovnání.",
-      "invalidHash": "Toto nevypadá jako platný bcrypt hash.",
-      "checking": "Porovnávám…",
-      "match": "Shoda — heslo vytváří tento hash.",
-      "noMatch": "Neshoda — heslo nevytváří tento hash."
-    }
   },
   "JsonDiff": {
     "title": "Porovnání JSON",

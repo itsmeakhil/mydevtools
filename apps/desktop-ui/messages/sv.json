@@ -5,16 +5,12 @@
     "apiClient": "API-klient",
     "passwordManager": "Lösenordshanterare",
     "environmentManager": "Miljöhanterare",
-    "bookmarks": "Bokmärken",
     "jsonFormatter": "JSON-formaterare",
     "emailValidator": "E-postvalidering",
     "nosqlExplorer": "Databasutforskare",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Krypteringslekplats",
-    "jwtDecoder": "JWT-avkodare",
-    "certificatePemDecoder": "Certifikat- / PEM-avkodare",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "GraphQL-formaterare",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAML-formaterare",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-lekplats",
     "secureFiles": "Filer"
@@ -326,10 +321,6 @@
         "title": "Miljöhanterare",
         "description": "Spara .env-liknande variabler per projekt och miljö med taggar."
       },
-      "bookmarks": {
-        "title": "Bokmärken",
-        "description": "Hantera och organisera dina bokmärken."
-      },
       "apiClient": {
         "title": "API-klient",
         "description": "Testa och felsök HTTP-förfrågningar."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "E-postvalidering",
         "description": "Verifiera och validera e-postadresser."
-      },
-      "encryptionPlayground": {
-        "title": "Krypteringslekplats",
-        "description": "AES-GCM med rå nyckel eller lösenfras; JSON-paket, Web Crypto endast i webbläsaren."
-      },
-      "jwtDecoder": {
-        "title": "JWT-avkodare",
-        "description": "Avkoda JWT-header, payload och utgångstid."
-      },
-      "certificatePemDecoder": {
-        "title": "Certifikat- / PEM-avkodare",
-        "description": "Avkoda X.509-certifikat och CSR:er: ämne, utfärdare, giltighet och SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt-generator och -kontroll",
-        "description": "Hasha lösenord med bcrypt och verifiera befintliga hashar."
-      },
       "jsonDiff": {
         "title": "JSON-diff",
         "description": "Semantisk, strukturmedveten jämförelse av två JSON-dokument."
@@ -434,8 +409,6 @@
       "loadError": "Kunde inte ladda analys.",
       "retry": "Försök igen",
       "passwordEntries": "Lösenordsposter",
-      "bookmarks": "Bokmärken",
-      "bookmarkFolders": "Bokmärkesmappar",
       "tasksTotal": "Uppgifter",
       "tasksCompleted": "Klara",
       "tasksOngoing": "Pågående",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Laddar..."
-    },
-    "manager": {
-      "foldersHeading": "Mappar",
-      "tagsHeading": "Taggar",
-      "tagsMore": "+{count} fler",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Sök bland dina bokmärken...",
-      "import": "Importera",
-      "export": "Exportera",
-      "exportAsHtml": "Exportera som HTML",
-      "exportAsJson": "Exportera som JSON",
-      "addBookmark": "Lägg till bokmärke",
-      "matchingQuery": "matchar \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# bokmärke} other {# bokmärken}}",
-      "allBookmarks": "Alla bokmärken",
-      "uncategorized": "Okategoriserade",
-      "unknownFolder": "Okänd"
-    },
-    "card": {
-      "urlCopied": "URL kopierad till urklipp",
-      "bookmarkDeleted": "Bokmärke borttaget",
-      "edit": "Redigera",
-      "delete": "Ta bort",
-      "copyUrl": "Kopiera URL",
-      "deleteConfirmTitle": "Ta bort bokmärke?",
-      "deleteConfirmDescription": "Detta kommer permanent ta bort \"{title}\".",
-      "cancel": "Avbryt"
-    },
-    "grid": {
-      "emptyTitle": "Inga bokmärken ännu",
-      "emptyDescription": "Lägg till ditt första bokmärke eller importera från din webbläsare för att komma igång."
-    },
-    "folderTree": {
-      "allBookmarks": "Alla bokmärken",
-      "addSubfolder": "Lägg till undermapp",
-      "rename": "Byt namn",
-      "deleteFolderTitle": "Ta bort mapp \"{name}\"?",
-      "deleteFolderDescription": "Detta kommer ta bort mappen och alla undermappar. Bokmärken i dessa mappar flyttas till Okategoriserade."
-    },
-    "foldersHeading": "Mappar",
-    "import": {
-      "title": "Importera bokmärken",
-      "description": "Importera bokmärken från din webbläsares exporterade fil.",
-      "parseError": "Misslyckades att tolka bokmärkesfil. Kontrollera att det är en giltig bokmärkesexport.",
-      "successToast": "Importerade {bookmarks} bokmärken och {folders} mappar",
-      "errorToast": "Misslyckades att importera bokmärken",
-      "chromeInstruction": "Meny → Bokmärken → Bokmärkeshanteraren → ⋮ → Exportera bokmärken",
-      "firefoxInstruction": "Meny → Bokmärken → Hantera bokmärken → Import och säkerhetskopiering → Exportera",
-      "safariInstruction": "Arkiv → Exportera bokmärken...",
-      "edgeInstruction": "Meny → Favoriter → ⋯ → Exportera favoriter",
-      "dropZoneTitle": "Släpp din bokmärkesfil här",
-      "dropZoneHint": "eller klicka för att bläddra (HTML eller JSON)",
-      "selectedFileHint": "Klicka för att välja en annan fil",
-      "errorTitle": "Fel",
-      "previewTitle": "Förhandsgranskning",
-      "previewBookmarks": "{count, plural, one {# bokmärke} other {# bokmärken}}",
-      "previewFolders": "{count, plural, one {# mapp} other {# mappar}}",
-      "importModeLabel": "Importläge",
-      "modeMerge": "Sammanfoga med befintliga bokmärken",
-      "modeReplace": "Ersätt alla befintliga bokmärken",
-      "cancel": "Avbryt",
-      "importButton": "Importera",
-      "importButtonWithCount": "Importera {count, plural, one {# bokmärke} other {# bokmärken}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Lägg till bokmärke",
-      "titleEdit": "Redigera bokmärke",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Ange en giltig URL",
-      "titleLabel": "Titel",
-      "titlePlaceholder": "Bokmärkestitel",
-      "titleRequired": "Ange en titel",
-      "descriptionLabel": "Beskrivning (valfritt)",
-      "descriptionPlaceholder": "Lägg till en anteckning om detta bokmärke",
-      "folderLabel": "Mapp",
-      "folderPlaceholder": "Välj mapp",
-      "noFolder": "Ingen mapp",
-      "tagsLabel": "Taggar",
-      "tagsPlaceholder": "Lägg till taggar (tryck Enter)",
-      "toastUpdated": "Bokmärke uppdaterat",
-      "toastAdded": "Bokmärke tillagt",
-      "cancel": "Avbryt",
-      "submitAdd": "Lägg till bokmärke",
-      "submitUpdate": "Uppdatera bokmärke"
-    },
-    "addFolder": {
-      "title": "Skapa mapp",
-      "nameLabel": "Mappnamn",
-      "namePlaceholder": "Min mapp",
-      "nameRequired": "Ange ett mappnamn",
-      "parentLabel": "Överordnad mapp",
-      "parentPlaceholder": "Välj överordnad mapp",
-      "rootParent": "Rot (ingen överordnad)",
-      "toastCreated": "Mapp skapad",
-      "cancel": "Avbryt",
-      "submit": "Skapa mapp"
-    },
-    "editFolder": {
-      "title": "Byt namn på mapp",
-      "nameLabel": "Mappnamn",
-      "namePlaceholder": "Mappnamn",
-      "nameRequired": "Ange ett mappnamn",
-      "toastRenamed": "Mapp omdöpt",
-      "cancel": "Avbryt",
-      "save": "Spara"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON reparerad",
     "toastRepairFailed": "Kunde inte reparera JSON"
   },
-  "JwtDecoder": {
-    "title": "JWT-avkodare",
-    "subtitle": "Granska header, payload och utgång — signaturen verifieras inte",
-    "tokenLabel": "Token",
-    "clear": "Rensa",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Kopiera",
-    "expiryLabel": "Utgångstid (exp)",
-    "signaturePresent": "Signatur finns (ej verifierad)",
-    "noExp": "Ingen <code>exp</code>-claim i payload.",
-    "status": {
-      "expired": "Utgången",
-      "valid": "Giltig"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Lokal",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Utfärdad (iat)",
-      "notBefore": "Inte före (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Klistra in en JWT för att avkoda.",
-      "segments": "En JWT behöver minst header och payload (två segment).",
-      "base64": "Kunde inte base64url-avkoda header eller payload."
-    },
-    "relative": {
-      "future": "om {n} {unit}",
-      "past": "för {n} {unit} sedan"
-    },
-    "units": {
-      "second": "{count, plural, one {sekund} other {sekunder}}",
-      "minute": "{count, plural, one {minut} other {minuter}}",
-      "hour": "{count, plural, one {timme} other {timmar}}",
-      "day": "{count, plural, one {dag} other {dagar}}"
-    },
-    "tabs": {
-      "decode": "Avkoda",
-      "sign": "Generator / signerare"
-    },
-    "signer": {
-      "algLabel": "Algoritm (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Hemlighet (HS*)",
-      "secretPlaceholder": "Klistra in din HMAC-hemlighet…",
-      "privateKeyLabel": "Privat nyckel PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "\"none\"-algoritmen skapar en osignerad token. Det är osäkert och bör endast användas för test.",
-      "sign": "Signera",
-      "verify": "Verifiera signatur",
-      "outputLabel": "Token (kompakt JWS)",
-      "outputPlaceholder": "Klicka \"Signera\"…",
-      "copyToken": "Kopiera token",
-      "copied": "Kopierat",
-      "verifyKeyLabel": "Verifieringsnyckel (valfri)",
-      "verifyKeyPlaceholder": "För RS*: klistra in den publika nyckeln (SPKI) PEM. För HS*: lämna tomt för att återanvända hemligheten.",
-      "verifyKeyHint": "Om tomt använder verifiering signeringsnyckeln (bra för HS*).",
-      "verifyStatus": {
-        "valid": "Signaturen är giltig",
-        "invalid": "Signaturen är ogiltig"
-      },
-      "securityNote": "Allt körs lokalt i din webbläsare; nycklar och tokens laddas inte upp."
-    },
-    "signErrors": {
-      "invalidJson": "Header och payload måste vara giltig JSON.",
-      "unsupportedAlg": "Algoritmen stöds inte.",
-      "missingKey": "En signeringsnyckel krävs för denna algoritm.",
-      "cryptoFailed": "Signering misslyckades. Kontrollera nyckelformatet och försök igen."
-    },
-    "verifyErrors": {
-      "empty": "Ange en JWT för att verifiera.",
-      "segments": "En JWT måste ha exakt 3 segment för att verifiera en signatur.",
-      "unsupportedAlg": "Algoritmen stöds inte eller saknar alg i headern.",
-      "missingKey": "En verifieringsnyckel krävs för denna algoritm.",
-      "base64": "Kunde inte avkoda JWT-header eller signatur.",
-      "cryptoFailed": "Verifiering misslyckades. Kontrollera nyckelformatet och försök igen."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Certifikatavkodare",
-    "subtitle": "Avkoda X.509-certifikat och CSR:er från PEM",
-    "pemLabel": "PEM-indata",
-    "clear": "Rensa",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Tolkar…",
-    "copyHex": "Kopiera fingeravtryck (hex utan kolon)",
-    "errors": {
-      "empty": "Klistra in ett PEM-certifikat eller en CSR för att avkoda.",
-      "noBlock": "Ingen PEM-block för certifikat eller CSR hittades.",
-      "parseFailed": "Kunde inte tolka dessa PEM-data."
-    },
-    "block": {
-      "title": "PEM-block {index}",
-      "certificate": "X.509-certifikat",
-      "csr": "Begäran om certifikatsignering"
-    },
-    "fields": {
-      "subject": "Ämne",
-      "issuer": "Utfärdare",
-      "notBefore": "Ogiltigt före",
-      "notAfter": "Ogiltigt efter",
-      "serial": "Serienummer (hex)",
-      "sha256": "SHA-256-fingeravtryck",
-      "sans": "Alternativa ämnesnamn",
-      "sansNone": "Ingen SAN-tillägg.",
-      "signatureAlgorithm": "Signaturalgoritm",
-      "csrIssuerNote": "CSR:er innehåller inte utfärdare (finns på det utfärdade certifikatet).",
-      "csrValidityNote": "CSR:er innehåller inte giltighetsdatum (finns på det utfärdade certifikatet)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Katalognamn",
-      "email": "E-post",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Registrerat ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL-formaterare",
     "subtitle": "Snyggformatera SQL för MySQL, PostgreSQL och SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} rader matchade — inget ändrades, eftersom filtret inte är unikt."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Krypteringslekplats",
-    "subtitle": "Kryptera och dekryptera AES-GCM med lösenfras eller nyckel",
-    "tabEncrypt": "Kryptera",
-    "tabDecrypt": "Dekryptera",
-    "keyModeLabel": "Nyckelmaterial",
-    "modePassphrase": "Lösenfras (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Rå AES-nyckel (hex eller Base64)",
-    "aesBitsLabel": "AES-nyckellängd",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Kodning av rå nyckel",
-    "encodingAuto": "Auto (hex om det ser ut som hex, annars Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Rå nyckel",
-    "rawKeyPlaceholder": "32-byte nyckel som 64 hex-tecken eller Base64 för AES-256 (längden beror på AES-storleken ovan).",
-    "rawKeyPlaceholderDecrypt": "Behövs bara om paketet har keyDerivation \"none\".",
-    "passphraseLabel": "Lösenfras",
-    "passphrasePlaceholder": "Lösenfras används bara i webbläsaren för att härleda nyckeln.",
-    "passphrasePlaceholderDecrypt": "Behövs bara om paketet använder PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "PBKDF2-iterationer",
-    "pbkdf2Hint": "Mellan 10 000 och 2 000 000. Standard liknar vanliga valvinställningar.",
-    "plaintextLabel": "Klartext",
-    "plaintextPlaceholder": "Skriv eller klistra in meddelande att kryptera…",
-    "bundleInputLabel": "Krypterat paket (JSON)",
-    "bundlePlaceholder": "Klistra in JSON från Kryptera (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Krypterat paket",
-    "plaintextOutputLabel": "Klartext",
-    "encryptButton": "Kryptera",
-    "decryptButton": "Dekryptera",
-    "copyBundle": "Kopiera JSON",
-    "copyPlaintext": "Kopiera klartext",
-    "copied": "Kopierat",
-    "emptyBundleHint": "Krypterad JSON visas här efter kryptering.",
-    "emptyDecryptHint": "Dekrypterad text visas här.",
-    "decryptKeyHint": "Använd rå nyckel om keyDerivation är \"none\"; lösenfras vid PBKDF2-SHA256. Paketet lagrar salt, iterationer, IV och AES-längd.",
-    "securityNote": "Nycklar och klartext lämnar inte din webbläsare. Använd dedikerade verktyg för produktionshemligheter.",
-    "errors": {
-      "emptyKey": "Ange en rå nyckel som matchar AES-storleken.",
-      "emptyPassphrase": "Ange en lösenfras.",
-      "badKeyMaterial": "Nyckeln kunde inte läsas som hex eller Base64.",
-      "wrongKeyLength": "Nyckellängden matchar inte AES (16 / 24 / 32 byte).",
-      "invalidJson": "Ogiltig JSON.",
-      "invalidBundle": "Denna JSON är inte ett paket som stöds.",
-      "decryptFailed": "Dekryptering misslyckades — fel hemlighet, skadat paket eller fel parametrar.",
-      "encryptFailed": "Kryptering misslyckades. Kontrollera Web Crypto och indata."
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdown-förhandsvisning",
     "subtitle": "Rendera Markdown live och konvertera till eller från HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt-generator",
-    "subtitle": "Hasha och verifiera lösenord med bcrypt",
-    "tabs": {
-      "hash": "Hasha",
-      "verify": "Verifiera"
-    },
-    "showPassword": "Visa lösenord",
-    "hidePassword": "Dölj lösenord",
-    "copy": "Kopiera",
-    "copied": "Kopierat",
-    "hash": {
-      "passwordLabel": "Lösenord",
-      "passwordPlaceholder": "Ange ett lösenord att hasha…",
-      "costLabel": "Kostnadsfaktor",
-      "costHint": "Högre kostnad fördubblar arbetet per steg. 10–12 är ett vanligt val för produktion.",
-      "slowWarning": "Kostnadsfaktorer på 13 och högre kan ta flera sekunder att beräkna.",
-      "generate": "Generera hash",
-      "generating": "Hashar…",
-      "resultLabel": "Bcrypt-hash",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Hash-anatomi",
-        "algorithm": "algoritm",
-        "cost": "kostnad",
-        "salt": "salt (22 tecken)",
-        "hash": "hash (31 tecken)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Lösenord",
-      "passwordPlaceholder": "Ange lösenordet att kontrollera…",
-      "hashLabel": "Bcrypt-hash",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Ange ett lösenord och en bcrypt-hash för att jämföra dem.",
-      "invalidHash": "Detta ser inte ut som en giltig bcrypt-hash.",
-      "checking": "Jämför…",
-      "match": "Matchar — lösenordet ger denna hash.",
-      "noMatch": "Ingen matchning — lösenordet ger inte denna hash."
-    }
   },
   "JsonDiff": {
     "title": "JSON-diff",

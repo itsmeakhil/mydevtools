@@ -22,8 +22,6 @@ export type DashboardFileStats = {
 
 export type DashboardAnalyticsSummary = {
   passwordEntries: number
-  bookmarks: number
-  bookmarkFolders: number
   tasks: DashboardTaskStats
   projects: number
   nosqlConnections: number
@@ -67,8 +65,6 @@ function normalizeTasks(t: unknown): DashboardTaskStats {
 
 export const EMPTY_ANALYTICS_SUMMARY: DashboardAnalyticsSummary = {
   passwordEntries: 0,
-  bookmarks: 0,
-  bookmarkFolders: 0,
   tasks: normalizeTasks(null),
   projects: 0,
   nosqlConnections: 0,
@@ -86,8 +82,6 @@ export function normalizeAnalyticsSummary(raw: unknown): DashboardAnalyticsSumma
   const o = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>
   return {
     passwordEntries: num(o.passwordEntries),
-    bookmarks: num(o.bookmarks),
-    bookmarkFolders: num(o.bookmarkFolders),
     tasks: normalizeTasks(o.tasks),
     projects: num(o.projects),
     nosqlConnections: num(o.nosqlConnections),

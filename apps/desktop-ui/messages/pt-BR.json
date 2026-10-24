@@ -5,16 +5,12 @@
     "apiClient": "Cliente API",
     "passwordManager": "Gerenciador de Senhas",
     "environmentManager": "Gerenciador de ambientes",
-    "bookmarks": "Favoritos",
     "jsonFormatter": "Formatador JSON",
     "emailValidator": "Validador de E-mail",
     "nosqlExplorer": "Explorador de banco de dados",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Laboratório de criptografia",
-    "jwtDecoder": "Decodificador JWT",
-    "certificatePemDecoder": "Decodificador de certificado / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "Formatador GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Formatador YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Diff JSON",
     "jsonpathPlayground": "Playground JSONPath",
     "secureFiles": "Arquivos"
@@ -326,10 +321,6 @@
         "title": "Gerenciador de ambientes",
         "description": "Armazene variáveis estilo .env por projeto e ambiente com tags."
       },
-      "bookmarks": {
-        "title": "Favoritos",
-        "description": "Gerencie e organize seus favoritos."
-      },
       "apiClient": {
         "title": "Cliente API",
         "description": "Teste e depure requisições HTTP."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "Validador de E-mail",
         "description": "Verifique e valide endereços de e-mail."
-      },
-      "encryptionPlayground": {
-        "title": "Laboratório de criptografia",
-        "description": "AES-GCM com chave bruta ou senha; pacotes JSON, Web Crypto só no navegador."
-      },
-      "jwtDecoder": {
-        "title": "Decodificador JWT",
-        "description": "Decodifique cabeçalho, payload e expiração do JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Decodificador de certificado / PEM",
-        "description": "Decodifique certificados X.509 e CSRs: assunto, emissor, validade e SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Gerador e Verificador Bcrypt",
-        "description": "Gere hash de senhas com bcrypt e verifique hashes existentes."
-      },
       "jsonDiff": {
         "title": "Diff JSON",
         "description": "Diff semântico e ciente de estrutura de dois documentos JSON."
@@ -434,8 +409,6 @@
       "loadError": "Não foi possível carregar as análises.",
       "retry": "Tentar de novo",
       "passwordEntries": "Entradas de senhas",
-      "bookmarks": "Favoritos",
-      "bookmarkFolders": "Pastas de favoritos",
       "tasksTotal": "Tarefas",
       "tasksCompleted": "Concluídas",
       "tasksOngoing": "Em andamento",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Carregando..."
-    },
-    "manager": {
-      "foldersHeading": "Pastas",
-      "tagsHeading": "Tags",
-      "tagsMore": "+{count} mais",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Buscar favoritos...",
-      "import": "Importar",
-      "export": "Exportar",
-      "exportAsHtml": "Exportar como HTML",
-      "exportAsJson": "Exportar como JSON",
-      "addBookmark": "Adicionar Favorito",
-      "matchingQuery": "correspondendo a \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# favorito} other {# favoritos}}",
-      "allBookmarks": "Todos os Favoritos",
-      "uncategorized": "Sem Categoria",
-      "unknownFolder": "Desconhecido"
-    },
-    "card": {
-      "urlCopied": "URL copiada para a área de transferência",
-      "bookmarkDeleted": "Favorito excluído",
-      "edit": "Editar",
-      "delete": "Excluir",
-      "copyUrl": "Copiar URL",
-      "deleteConfirmTitle": "Excluir favorito?",
-      "deleteConfirmDescription": "Isso excluirá permanentemente \"{title}\".",
-      "cancel": "Cancelar"
-    },
-    "grid": {
-      "emptyTitle": "Nenhum favorito ainda",
-      "emptyDescription": "Adicione seu primeiro favorito ou importe do seu navegador para começar."
-    },
-    "folderTree": {
-      "allBookmarks": "Todos os Favoritos",
-      "addSubfolder": "Adicionar Subpasta",
-      "rename": "Renomear",
-      "deleteFolderTitle": "Excluir pasta \"{name}\"?",
-      "deleteFolderDescription": "Isso excluirá a pasta e todas as suas subpastas. Favoritos nessas pastas serão movidos para Sem Categoria."
-    },
-    "foldersHeading": "Pastas",
-    "import": {
-      "title": "Importar Favoritos",
-      "description": "Importe favoritos do arquivo exportado do seu navegador.",
-      "parseError": "Falha ao analisar arquivo de favoritos. Certifique-se de que é uma exportação válida.",
-      "successToast": "{bookmarks} favoritos e {folders} pastas importados",
-      "errorToast": "Falha ao importar favoritos",
-      "chromeInstruction": "Menu → Favoritos → Gerenciador de Favoritos → ⋮ → Exportar Favoritos",
-      "firefoxInstruction": "Menu → Favoritos → Gerenciar Favoritos → Importar e Backup → Exportar",
-      "safariInstruction": "Arquivo → Exportar Favoritos...",
-      "edgeInstruction": "Menu → Favoritos → ⋯ → Exportar Favoritos",
-      "dropZoneTitle": "Solte seu arquivo de favoritos aqui",
-      "dropZoneHint": "ou clique para procurar (HTML ou JSON)",
-      "selectedFileHint": "Clique para selecionar um arquivo diferente",
-      "errorTitle": "Erro",
-      "previewTitle": "Pré-visualização da Importação",
-      "previewBookmarks": "{count, plural, one {# favorito} other {# favoritos}}",
-      "previewFolders": "{count, plural, one {# pasta} other {# pastas}}",
-      "importModeLabel": "Modo de Importação",
-      "modeMerge": "Mesclar com favoritos existentes",
-      "modeReplace": "Substituir todos os favoritos existentes",
-      "cancel": "Cancelar",
-      "importButton": "Importar",
-      "importButtonWithCount": "Importar {count, plural, one {# favorito} other {# favoritos}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Adicionar Favorito",
-      "titleEdit": "Editar Favorito",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://exemplo.com",
-      "urlInvalid": "Por favor, insira uma URL válida",
-      "titleLabel": "Título",
-      "titlePlaceholder": "Título do favorito",
-      "titleRequired": "Por favor, insira um título",
-      "descriptionLabel": "Descrição (opcional)",
-      "descriptionPlaceholder": "Adicione uma nota sobre este favorito",
-      "folderLabel": "Pasta",
-      "folderPlaceholder": "Selecionar pasta",
-      "noFolder": "Sem pasta",
-      "tagsLabel": "Tags",
-      "tagsPlaceholder": "Adicionar tags (pressione Enter)",
-      "toastUpdated": "Favorito atualizado",
-      "toastAdded": "Favorito adicionado",
-      "cancel": "Cancelar",
-      "submitAdd": "Adicionar Favorito",
-      "submitUpdate": "Atualizar Favorito"
-    },
-    "addFolder": {
-      "title": "Criar Pasta",
-      "nameLabel": "Nome da Pasta",
-      "namePlaceholder": "Minha Pasta",
-      "nameRequired": "Por favor, insira um nome para a pasta",
-      "parentLabel": "Pasta Principal",
-      "parentPlaceholder": "Selecionar pasta principal",
-      "rootParent": "Raiz (Sem pasta principal)",
-      "toastCreated": "Pasta criada",
-      "cancel": "Cancelar",
-      "submit": "Criar Pasta"
-    },
-    "editFolder": {
-      "title": "Renomear Pasta",
-      "nameLabel": "Nome da Pasta",
-      "namePlaceholder": "Nome da pasta",
-      "nameRequired": "Por favor, insira um nome para a pasta",
-      "toastRenamed": "Pasta renomeada",
-      "cancel": "Cancelar",
-      "save": "Salvar"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON reparado",
     "toastRepairFailed": "Não foi possível reparar o JSON"
   },
-  "JwtDecoder": {
-    "title": "Decodificador JWT",
-    "subtitle": "Inspecione cabeçalho, payload e expiração — assinatura não verificada",
-    "tokenLabel": "Token",
-    "clear": "Limpar",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Copiar",
-    "expiryLabel": "Expiração (exp)",
-    "signaturePresent": "Assinatura presente (não verificada)",
-    "noExp": "Sem claim <code>exp</code> no payload.",
-    "status": {
-      "expired": "Expirado",
-      "valid": "Válido"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Local",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Emitido em (iat)",
-      "notBefore": "Não antes de (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Cole um JWT para decodificar.",
-      "segments": "Um JWT precisa de pelo menos header e payload (dois segmentos).",
-      "base64": "Não foi possível decodificar em base64url o header ou o payload."
-    },
-    "relative": {
-      "future": "em {n} {unit}",
-      "past": "há {n} {unit}"
-    },
-    "units": {
-      "second": "{count, plural, one {segundo} other {segundos}}",
-      "minute": "{count, plural, one {minuto} other {minutos}}",
-      "hour": "{count, plural, one {hora} other {horas}}",
-      "day": "{count, plural, one {dia} other {dias}}"
-    },
-    "tabs": {
-      "decode": "Decodificar",
-      "sign": "Gerador / assinador"
-    },
-    "signer": {
-      "algLabel": "Algoritmo (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "JSON do payload",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "JSON do header",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Segredo (HS*)",
-      "secretPlaceholder": "Cole seu segredo HMAC…",
-      "privateKeyLabel": "Chave privada PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "O algoritmo \"none\" cria um token sem assinatura. Isso é inseguro e deve ser usado apenas para testes.",
-      "sign": "Assinar",
-      "verify": "Verificar assinatura",
-      "outputLabel": "Token (JWS compacto)",
-      "outputPlaceholder": "Clique em \"Assinar\"…",
-      "copyToken": "Copiar token",
-      "copied": "Copiado",
-      "verifyKeyLabel": "Chave de verificação (opcional)",
-      "verifyKeyPlaceholder": "Para RS*: cole a chave pública (SPKI) PEM. Para HS*: deixe vazio para reutilizar o segredo.",
-      "verifyKeyHint": "Se estiver vazio, a verificação usa a chave de assinatura (útil para HS*).",
-      "verifyStatus": {
-        "valid": "Assinatura válida",
-        "invalid": "Assinatura inválida"
-      },
-      "securityNote": "Tudo roda localmente no navegador; chaves e tokens não são enviados."
-    },
-    "signErrors": {
-      "invalidJson": "Header e payload devem ser JSON válido.",
-      "unsupportedAlg": "Algoritmo não suportado.",
-      "missingKey": "Uma chave de assinatura é necessária para este algoritmo.",
-      "cryptoFailed": "Falha ao assinar. Verifique o formato da chave e tente novamente."
-    },
-    "verifyErrors": {
-      "empty": "Digite um JWT para verificar.",
-      "segments": "Um JWT deve ter exatamente 3 segmentos para verificar uma assinatura.",
-      "unsupportedAlg": "Algoritmo não suportado ou alg ausente no header.",
-      "missingKey": "Uma chave de verificação é necessária para este algoritmo.",
-      "base64": "Não foi possível decodificar o header ou a assinatura do JWT.",
-      "cryptoFailed": "Falha ao verificar. Verifique o formato da chave e tente novamente."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Decodificador de certificados",
-    "subtitle": "Decodifique certificados X.509 e CSR em formato PEM",
-    "pemLabel": "Entrada PEM",
-    "clear": "Limpar",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Analisando…",
-    "copyHex": "Copiar impressão digital (hex sem dois pontos)",
-    "errors": {
-      "empty": "Cole um certificado PEM ou CSR para decodificar.",
-      "noBlock": "Nenhum bloco PEM de certificado ou CSR encontrado.",
-      "parseFailed": "Não foi possível analisar estes dados PEM."
-    },
-    "block": {
-      "title": "Bloco PEM {index}",
-      "certificate": "Certificado X.509",
-      "csr": "Solicitação de assinatura de certificado"
-    },
-    "fields": {
-      "subject": "Assunto",
-      "issuer": "Emissor",
-      "notBefore": "Inválido antes de",
-      "notAfter": "Inválido depois de",
-      "serial": "Número de série (hex)",
-      "sha256": "Impressão digital SHA-256",
-      "sans": "Nomes alternativos do assunto",
-      "sansNone": "Sem extensão SAN.",
-      "signatureAlgorithm": "Algoritmo de assinatura",
-      "csrIssuerNote": "CSRs não incluem emissor (aparece no certificado emitido).",
-      "csrValidityNote": "CSRs não incluem datas de validade (aparecem no certificado emitido)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Nome distinto",
-      "email": "E-mail",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "ID registrado",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Formatador SQL",
     "subtitle": "Formate SQL para MySQL, PostgreSQL e SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} linhas corresponderam — nada foi alterado, porque o filtro não é único."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Playground de criptografia",
-    "subtitle": "Criptografe e descriptografe com AES-GCM usando senha ou chave",
-    "tabEncrypt": "Criptografar",
-    "tabDecrypt": "Descriptografar",
-    "keyModeLabel": "Material da chave",
-    "modePassphrase": "Senha (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Chave AES bruta (hex ou Base64)",
-    "aesBitsLabel": "Tamanho da chave AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Codificação da chave bruta",
-    "encodingAuto": "Automático (hex se parecer hex, senão Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Chave bruta",
-    "rawKeyPlaceholder": "Chave de 32 bytes como 64 caracteres hex, ou Base64 para AES-256 (o tamanho depende do AES escolhido acima).",
-    "rawKeyPlaceholderDecrypt": "Só necessário se o pacote tiver keyDerivation \"none\".",
-    "passphraseLabel": "Senha",
-    "passphrasePlaceholder": "Senha usada apenas no navegador para derivar a chave.",
-    "passphrasePlaceholderDecrypt": "Só necessário se o pacote usar PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Iterações PBKDF2",
-    "pbkdf2Hint": "Entre 10.000 e 2.000.000. O padrão segue configurações comuns de cofres.",
-    "plaintextLabel": "Texto plano",
-    "plaintextPlaceholder": "Digite ou cole a mensagem para criptografar…",
-    "bundleInputLabel": "Pacote criptografado (JSON)",
-    "bundlePlaceholder": "Cole o JSON de Criptografar (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Pacote criptografado",
-    "plaintextOutputLabel": "Texto plano",
-    "encryptButton": "Criptografar",
-    "decryptButton": "Descriptografar",
-    "copyBundle": "Copiar JSON",
-    "copyPlaintext": "Copiar texto plano",
-    "copied": "Copiado",
-    "emptyBundleHint": "O JSON criptografado aparece aqui após criptografar.",
-    "emptyDecryptHint": "O texto descriptografado aparece aqui.",
-    "decryptKeyHint": "Use a chave bruta se keyDerivation for \"none\"; a senha se for PBKDF2-SHA256. O pacote armazena salt, iterações, IV e tamanho AES.",
-    "securityNote": "Chaves e texto plano não saem do navegador. Para segredos de produção prefira ferramentas dedicadas.",
-    "errors": {
-      "emptyKey": "Insira uma chave bruta compatível com o tamanho AES.",
-      "emptyPassphrase": "Insira uma senha.",
-      "badKeyMaterial": "Não foi possível ler a chave como hex ou Base64.",
-      "wrongKeyLength": "O tamanho da chave não corresponde ao AES escolhido (16 / 24 / 32 bytes).",
-      "invalidJson": "JSON inválido.",
-      "invalidBundle": "Este JSON não é um pacote de criptografia suportado.",
-      "decryptFailed": "Falha na descriptografia — segredo errado, pacote corrompido ou parâmetros incorretos.",
-      "encryptFailed": "Falha na criptografia. Verifique Web Crypto e as entradas."
-    }
-  },
   "MarkdownPreview": {
     "title": "Pré-visualização de Markdown",
     "subtitle": "Renderize Markdown ao vivo e converta de e para HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Gerador bcrypt",
-    "subtitle": "Gere e verifique hashes de senhas com bcrypt",
-    "tabs": {
-      "hash": "Hash",
-      "verify": "Verificar"
-    },
-    "showPassword": "Mostrar senha",
-    "hidePassword": "Ocultar senha",
-    "copy": "Copiar",
-    "copied": "Copiado",
-    "hash": {
-      "passwordLabel": "Senha",
-      "passwordPlaceholder": "Digite uma senha para gerar o hash…",
-      "costLabel": "Fator de custo",
-      "costHint": "Um custo maior dobra o trabalho por etapa. 10-12 é uma escolha comum para produção.",
-      "slowWarning": "Fatores de custo de 13 ou mais podem levar vários segundos para calcular.",
-      "generate": "Gerar hash",
-      "generating": "Gerando hash…",
-      "resultLabel": "Hash bcrypt",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Anatomia do hash",
-        "algorithm": "algoritmo",
-        "cost": "custo",
-        "salt": "salt (22 caracteres)",
-        "hash": "hash (31 caracteres)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Senha",
-      "passwordPlaceholder": "Digite a senha para verificar…",
-      "hashLabel": "Hash bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Digite uma senha e um hash bcrypt para compará-los.",
-      "invalidHash": "Isto não parece um hash bcrypt válido.",
-      "checking": "Comparando…",
-      "match": "Corresponde — a senha produz este hash.",
-      "noMatch": "Não corresponde — a senha não produz este hash."
-    }
   },
   "JsonDiff": {
     "title": "Diff de JSON",

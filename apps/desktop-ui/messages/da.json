@@ -5,16 +5,12 @@
     "apiClient": "API-klient",
     "passwordManager": "Adgangskodeadministration",
     "environmentManager": "Miljøadministration",
-    "bookmarks": "Bogmærker",
     "jsonFormatter": "JSON-formatering",
     "emailValidator": "E-mailvalidering",
     "nosqlExplorer": "Databaseudforsker",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Krypteringslegeplads",
-    "jwtDecoder": "JWT-dekoder",
-    "certificatePemDecoder": "Certifikat / PEM-afkoder",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "GraphQL-formater",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAML-formatering",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-diff",
     "jsonpathPlayground": "JSONPath-legeplads",
     "secureFiles": "Filer"
@@ -326,10 +321,6 @@
         "title": "Miljøadministration",
         "description": "Gem .env-lignende variabler pr. projekt og miljø med tags."
       },
-      "bookmarks": {
-        "title": "Bogmærker",
-        "description": "Administrer og organiser bogmærker."
-      },
       "apiClient": {
         "title": "API-klient",
         "description": "Test og fejlfind HTTP-anmodninger."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "E-mail-validator",
         "description": "Bekræft og valider e-mailadresser."
-      },
-      "encryptionPlayground": {
-        "title": "Krypteringslegeplads",
-        "description": "AES-GCM med rå nøgle eller adgangssætning; JSON-pakker, Web Crypto kun i browseren."
-      },
-      "jwtDecoder": {
-        "title": "JWT-dekoder",
-        "description": "Afkod JWT-header, payload og udløb."
-      },
-      "certificatePemDecoder": {
-        "title": "Certifikat / PEM-afkoder",
-        "description": "Afkod X.509-certifikater og CSR’er: emne, udsteder, gyldighed og SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt-generator og -kontrol",
-        "description": "Hash adgangskoder med bcrypt, og verificér eksisterende hashes."
-      },
       "jsonDiff": {
         "title": "JSON-diff",
         "description": "Semantisk, strukturbevidst sammenligning af to JSON-dokumenter."
@@ -434,8 +409,6 @@
       "loadError": "Kunne ikke indlæse analyse.",
       "retry": "Prøv igen",
       "passwordEntries": "Adgangskodeposter",
-      "bookmarks": "Bogmærker",
-      "bookmarkFolders": "Bogmærkemapper",
       "tasksTotal": "Opgaver",
       "tasksCompleted": "Fuldført",
       "tasksOngoing": "I gang",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Indlæser..."
-    },
-    "manager": {
-      "foldersHeading": "Mapper",
-      "tagsHeading": "Tags",
-      "tagsMore": "+{count} mere",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Søg i dine bogmærker...",
-      "import": "Importere",
-      "export": "Eksportere",
-      "exportAsHtml": "Eksporter som HTML",
-      "exportAsJson": "Eksporter som JSON",
-      "addBookmark": "Tilføj bogmærke",
-      "matchingQuery": "matchende \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# bookmark} other {# bookmarks}}",
-      "allBookmarks": "Alle bogmærker",
-      "uncategorized": "Ikke kategoriseret",
-      "unknownFolder": "Ukendt"
-    },
-    "card": {
-      "urlCopied": "URL kopieret til udklipsholder",
-      "bookmarkDeleted": "Bogmærke slettet",
-      "edit": "Redigere",
-      "delete": "Slet",
-      "copyUrl": "Kopiér URL",
-      "deleteConfirmTitle": "Vil du slette bogmærke?",
-      "deleteConfirmDescription": "Dette vil permanent slette \"{title}\".",
-      "cancel": "Ophæve"
-    },
-    "grid": {
-      "emptyTitle": "Ingen bogmærker endnu",
-      "emptyDescription": "Tilføj dit første bogmærke eller importer fra din browser for at komme i gang."
-    },
-    "folderTree": {
-      "allBookmarks": "Alle bogmærker",
-      "addSubfolder": "Tilføj undermappe",
-      "rename": "Omdøb",
-      "deleteFolderTitle": "Vil du slette mappen \"{name}\"?",
-      "deleteFolderDescription": "Dette vil slette mappen og alle dens undermapper. Bogmærker i disse mapper vil blive flyttet til Ukategoriseret."
-    },
-    "foldersHeading": "Mapper",
-    "import": {
-      "title": "Importer bogmærker",
-      "description": "Importer bogmærker fra din browsers eksporterede fil.",
-      "parseError": "Bogmærkefil kunne ikke parses. Sørg for, at det er en gyldig bogmærkeeksport.",
-      "successToast": "Importerede {bookmarks} bogmærker og {folders} mapper",
-      "errorToast": "Kunne ikke importere bogmærker",
-      "chromeInstruction": "Menu → Bogmærker → Bogmærkehåndtering → ⋮ → Eksporter bogmærker",
-      "firefoxInstruction": "Menu → Bogmærker → Administrer bogmærker → Importer og sikkerhedskopier → Eksporter",
-      "safariInstruction": "Fil → Eksporter bogmærker...",
-      "edgeInstruction": "Menu → Favoritter → ⋯ → Eksporter favoritter",
-      "dropZoneTitle": "Slip din bogmærkefil her",
-      "dropZoneHint": "eller klik for at gennemse (HTML eller JSON)",
-      "selectedFileHint": "Klik for at vælge en anden fil",
-      "errorTitle": "Fejl",
-      "previewTitle": "Importer forhåndsvisning",
-      "previewBookmarks": "{count, plural, one {# bookmark} other {# bookmarks}}",
-      "previewFolders": "{count, plural, one {# folder} other {# folders}}",
-      "importModeLabel": "Importtilstand",
-      "modeMerge": "Flet sammen med eksisterende bogmærker",
-      "modeReplace": "Erstat alle eksisterende bogmærker",
-      "cancel": "Ophæve",
-      "importButton": "Importere",
-      "importButtonWithCount": "Importer {count, plural, one {# bookmark} other {# bookmarks}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Tilføj bogmærke",
-      "titleEdit": "Rediger bogmærke",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Indtast venligst en gyldig URL",
-      "titleLabel": "Titel",
-      "titlePlaceholder": "Bogmærke titel",
-      "titleRequired": "Indtast venligst en titel",
-      "descriptionLabel": "Beskrivelse (valgfrit)",
-      "descriptionPlaceholder": "Tilføj en note om dette bogmærke",
-      "folderLabel": "Folder",
-      "folderPlaceholder": "Vælg mappe",
-      "noFolder": "Ingen mappe",
-      "tagsLabel": "Tags",
-      "tagsPlaceholder": "Tilføj tags (tryk på Enter)",
-      "toastUpdated": "Bogmærke opdateret",
-      "toastAdded": "Bogmærke tilføjet",
-      "cancel": "Ophæve",
-      "submitAdd": "Tilføj bogmærke",
-      "submitUpdate": "Opdater bogmærke"
-    },
-    "addFolder": {
-      "title": "Opret mappe",
-      "nameLabel": "Mappenavn",
-      "namePlaceholder": "Min mappe",
-      "nameRequired": "Indtast venligst et mappenavn",
-      "parentLabel": "Forældremappe",
-      "parentPlaceholder": "Vælg overordnet mappe",
-      "rootParent": "Rod (ingen forælder)",
-      "toastCreated": "Mappe oprettet",
-      "cancel": "Ophæve",
-      "submit": "Opret mappe"
-    },
-    "editFolder": {
-      "title": "Omdøb mappe",
-      "nameLabel": "Mappenavn",
-      "namePlaceholder": "Mappenavn",
-      "nameRequired": "Indtast venligst et mappenavn",
-      "toastRenamed": "Mappe omdøbt",
-      "cancel": "Ophæve",
-      "save": "Spare"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON repareret",
     "toastRepairFailed": "Kunne ikke reparere JSON"
   },
-  "JwtDecoder": {
-    "title": "JWT-dekoder",
-    "subtitle": "Undersøg header, payload og udløb — signaturen verificeres ikke",
-    "tokenLabel": "Token",
-    "clear": "Ryd",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Kopiér",
-    "expiryLabel": "Udløb (exp)",
-    "signaturePresent": "Signatur til stede (ikke verificeret)",
-    "noExp": "Ingen <code>exp</code>-claim i payload.",
-    "status": {
-      "expired": "Udløbet",
-      "valid": "Gyldig"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Lokal",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Udstedt (iat)",
-      "notBefore": "Ikke før (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Indsæt en JWT for at dekode.",
-      "segments": "En JWT kræver mindst header og payload (to segmenter).",
-      "base64": "Kunne ikke base64url-dekode header eller payload."
-    },
-    "relative": {
-      "future": "om {n} {unit}",
-      "past": "for {n} {unit} siden"
-    },
-    "units": {
-      "second": "{count, plural, one {sekund} other {sekunder}}",
-      "minute": "{count, plural, one {minut} other {minutter}}",
-      "hour": "{count, plural, one {time} other {timer}}",
-      "day": "{count, plural, one {dag} other {dage}}"
-    },
-    "tabs": {
-      "decode": "Dekod",
-      "sign": "Generator / signering"
-    },
-    "signer": {
-      "algLabel": "Algoritme (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Hemmelighed (HS*)",
-      "secretPlaceholder": "Indsæt din HMAC-hemmelighed…",
-      "privateKeyLabel": "Privat nøgle PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "\"none\"-algoritmen laver et usigneret token. Det er usikkert og bør kun bruges til test.",
-      "sign": "Signér",
-      "verify": "Verificér signatur",
-      "outputLabel": "Token (kompakt JWS)",
-      "outputPlaceholder": "Klik \"Signér\"…",
-      "copyToken": "Kopiér token",
-      "copied": "Kopieret",
-      "verifyKeyLabel": "Verifikationsnøgle (valgfri)",
-      "verifyKeyPlaceholder": "For RS*: indsæt den offentlige nøgle (SPKI) PEM. For HS*: lad stå tom for at genbruge hemmeligheden.",
-      "verifyKeyHint": "Hvis tom, bruger verificering signeringsnøglen (nyttigt for HS*).",
-      "verifyStatus": {
-        "valid": "Signatur gyldig",
-        "invalid": "Signatur ugyldig"
-      },
-      "securityNote": "Alt kører lokalt i din browser; nøgler og tokens uploades ikke."
-    },
-    "signErrors": {
-      "invalidJson": "Header og payload skal være gyldig JSON.",
-      "unsupportedAlg": "Algoritme understøttes ikke.",
-      "missingKey": "En signeringsnøgle er påkrævet for denne algoritme.",
-      "cryptoFailed": "Signering mislykkedes. Tjek nøgleformatet og prøv igen."
-    },
-    "verifyErrors": {
-      "empty": "Indtast en JWT for at verificere.",
-      "segments": "En JWT skal have præcis 3 segmenter for at verificere en signatur.",
-      "unsupportedAlg": "Algoritme understøttes ikke eller mangler alg i headeren.",
-      "missingKey": "En verifikationsnøgle er påkrævet for denne algoritme.",
-      "base64": "Kunne ikke dekode JWT-header eller signatur.",
-      "cryptoFailed": "Verificering mislykkedes. Tjek nøgleformatet og prøv igen."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Certifikatdekoder",
-    "subtitle": "Afkod X.509-certifikater og CSR'er fra PEM",
-    "pemLabel": "PEM-input",
-    "clear": "Ryd",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Parser…",
-    "copyHex": "Kopiér fingeraftryk (hex uden kolon)",
-    "errors": {
-      "empty": "Indsæt et PEM-certifikat eller en CSR for at afkode.",
-      "noBlock": "Ingen PEM-blok for certifikat eller CSR fundet.",
-      "parseFailed": "Kunne ikke parse disse PEM-data."
-    },
-    "block": {
-      "title": "PEM-blok {index}",
-      "certificate": "X.509-certifikat",
-      "csr": "Certifikatunderskrivningsanmodning"
-    },
-    "fields": {
-      "subject": "Emne",
-      "issuer": "Udsteder",
-      "notBefore": "Ikke gyldig før",
-      "notAfter": "Ikke gyldig efter",
-      "serial": "Serienummer (hex)",
-      "sha256": "SHA-256-fingeraftryk",
-      "sans": "Emnealtenative navne",
-      "sansNone": "Ingen SAN-udvidelse.",
-      "signatureAlgorithm": "Signaturalgoritme",
-      "csrIssuerNote": "CSR’er har ingen udsteder (den fremgår af det udstedte certifikat).",
-      "csrValidityNote": "CSR’er har ingen gyldighedsdatoer (de fremgår af det udstedte certifikat)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Biblioteksnavn",
-      "email": "E-mail",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Registreret ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL-formatter",
     "subtitle": "Formatér SQL pænt til MySQL, PostgreSQL og SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} rækker matchede — intet blev ændret, fordi filteret ikke er entydigt."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Krypteringslegeplads",
-    "subtitle": "Kryptér og dekryptér AES-GCM med passphrase eller nøgle",
-    "tabEncrypt": "Kryptér",
-    "tabDecrypt": "Dekryptér",
-    "keyModeLabel": "Nøglemateriale",
-    "modePassphrase": "Adgangssætning (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Rå AES-nøgle (hex eller Base64)",
-    "aesBitsLabel": "AES-nøglelængde",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Kodning af rå nøgle",
-    "encodingAuto": "Auto (hex hvis det ligner hex, ellers Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Rå nøgle",
-    "rawKeyPlaceholder": "32-byte nøgle som 64 hex-tegn eller Base64 til AES-256 (længden afhænger af AES-størrelsen ovenfor).",
-    "rawKeyPlaceholderDecrypt": "Kun nødvendigt hvis pakken har keyDerivation \"none\".",
-    "passphraseLabel": "Adgangssætning",
-    "passphrasePlaceholder": "Adgangssætning bruges kun i browseren til at udlede nøglen.",
-    "passphrasePlaceholderDecrypt": "Kun nødvendigt hvis pakken bruger PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "PBKDF2-iterationer",
-    "pbkdf2Hint": "Mellem 10.000 og 2.000.000. Standard matcher typiske vault-indstillinger.",
-    "plaintextLabel": "Klartekst",
-    "plaintextPlaceholder": "Skriv eller indsæt besked, der skal krypteres…",
-    "bundleInputLabel": "Krypteret pakke (JSON)",
-    "bundlePlaceholder": "Indsæt JSON fra Kryptér (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Krypteret pakke",
-    "plaintextOutputLabel": "Klartekst",
-    "encryptButton": "Kryptér",
-    "decryptButton": "Dekryptér",
-    "copyBundle": "Kopiér JSON",
-    "copyPlaintext": "Kopiér klartekst",
-    "copied": "Kopieret",
-    "emptyBundleHint": "Krypteret JSON vises her efter kryptering.",
-    "emptyDecryptHint": "Dekrypteret tekst vises her.",
-    "decryptKeyHint": "Brug rå nøgle hvis keyDerivation er \"none\"; adgangssætning ved PBKDF2-SHA256. Pakken gemmer salt, iterationer, IV og AES-længde.",
-    "securityNote": "Nøgler og klartekst forlader ikke din browser. Brug dedikerede værktøjer til produktionshemmeligheder.",
-    "errors": {
-      "emptyKey": "Indtast en rå nøgle, der matcher AES-størrelsen.",
-      "emptyPassphrase": "Indtast en adgangssætning.",
-      "badKeyMaterial": "Nøglen kunne ikke læses som hex eller Base64.",
-      "wrongKeyLength": "Nøglelængden matcher ikke AES (16 / 24 / 32 bytes).",
-      "invalidJson": "Ugyldig JSON.",
-      "invalidBundle": "Denne JSON er ikke en understøttet krypteringspakke.",
-      "decryptFailed": "Dekryptering mislykkedes — forkert hemmelighed, beskadiget pakke eller forkerte parametre.",
-      "encryptFailed": "Kryptering mislykkedes. Tjek Web Crypto og input."
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdown-forhåndsvisning",
     "subtitle": "Render Markdown live og konvertér til eller fra HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt-generator",
-    "subtitle": "Hash og verificér adgangskoder med bcrypt",
-    "tabs": {
-      "hash": "Hash",
-      "verify": "Verificér"
-    },
-    "showPassword": "Vis adgangskode",
-    "hidePassword": "Skjul adgangskode",
-    "copy": "Kopiér",
-    "copied": "Kopieret",
-    "hash": {
-      "passwordLabel": "Adgangskode",
-      "passwordPlaceholder": "Indtast en adgangskode, der skal hashes…",
-      "costLabel": "Omkostningsfaktor",
-      "costHint": "Højere omkostning fordobler arbejdet pr. trin. 10-12 er et almindeligt valg til produktion.",
-      "slowWarning": "Omkostningsfaktorer på 13 og derover kan tage flere sekunder at beregne.",
-      "generate": "Generér hash",
-      "generating": "Hasher…",
-      "resultLabel": "Bcrypt-hash",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Hash-anatomi",
-        "algorithm": "algoritme",
-        "cost": "omkostning",
-        "salt": "salt (22 tegn)",
-        "hash": "hash (31 tegn)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Adgangskode",
-      "passwordPlaceholder": "Indtast adgangskoden, der skal kontrolleres…",
-      "hashLabel": "Bcrypt-hash",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Indtast en adgangskode og en bcrypt-hash for at sammenligne dem.",
-      "invalidHash": "Dette ligner ikke en gyldig bcrypt-hash.",
-      "checking": "Sammenligner…",
-      "match": "Match — adgangskoden producerer denne hash.",
-      "noMatch": "Intet match — adgangskoden producerer ikke denne hash."
-    }
   },
   "JsonDiff": {
     "title": "JSON-diff",

@@ -2,7 +2,7 @@
 //!
 //! The dashboard needs one number per tool, not the rows themselves. Counting
 //! them here is a single grouped query over `entries`; the alternative — the UI
-//! listing every note, bookmark and API-client history entry just to read
+//! listing every note and API-client history entry just to read
 //! `.length` — moves megabytes across the bridge to produce a dozen integers.
 
 use std::collections::HashMap;
@@ -57,8 +57,6 @@ pub fn handle(state: &AppState, method: &str, rest: &str) -> Result<ApiResponse>
 
     ApiResponse::ok(&json!({
         "passwordEntries": count("password_entries"),
-        "bookmarks": count("bookmarks"),
-        "bookmarkFolders": count("bookmark_folders"),
         "tasks": {
             "total": active.len(),
             "completed": by_status("completed"),

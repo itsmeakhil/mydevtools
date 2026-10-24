@@ -5,16 +5,12 @@
     "apiClient": "Klien API",
     "passwordManager": "Pengurus Kata Laluan",
     "environmentManager": "Pengurus persekitaran",
-    "bookmarks": "Penanda Halaman",
     "jsonFormatter": "Pemformat JSON",
     "emailValidator": "Pengesah E-mel",
     "nosqlExplorer": "Penjelajah Pangkalan Data",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Taman permainan penyulitanan",
-    "jwtDecoder": "Penyahkod JWT",
-    "certificatePemDecoder": "Pengecam sijil / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "Pemformat GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Pemformat YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Beza JSON",
     "jsonpathPlayground": "Ruang Uji JSONPath",
     "secureFiles": "Fail"
@@ -329,10 +324,6 @@
         "title": "Pengurus persekitaran",
         "description": "Simpan pemboleh ubah gaya .env mengikut projek dan persekitaran dengan teg."
       },
-      "bookmarks": {
-        "title": "Penanda Halaman",
-        "description": "Urus dan susun penanda halaman anda."
-      },
       "apiClient": {
         "title": "Klien API",
         "description": "Uji dan nyahpepijat permintaan HTTP."
@@ -348,18 +339,6 @@
       "emailValidator": {
         "title": "Pengesah E-mel",
         "description": "Sahkan dan pengesahan alamat e-mel."
-      },
-      "encryptionPlayground": {
-        "title": "Taman permainan penyulitanan",
-        "description": "AES-GCM dengan kunci mentah atau frasa laluan; bungkusan JSON, Web Crypto hanya dalam pelayar."
-      },
-      "jwtDecoder": {
-        "title": "Penyahkod JWT",
-        "description": "Nyahkod pengepala, payload dan tamat tempoh JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Pengecam sijil / PEM",
-        "description": "Nyahkod sijil X.509 dan CSR: subjek, penerbit, kesahan, dan SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -409,10 +388,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Penjana & Penyemak Bcrypt",
-        "description": "Cincang kata laluan dengan bcrypt dan sahkan cincangan sedia ada."
-      },
       "jsonDiff": {
         "title": "Beza JSON",
         "description": "Perbandingan bermakna dan peka struktur bagi dua dokumen JSON."
@@ -437,8 +412,6 @@
       "loadError": "Tidak dapat memuatkan analitik.",
       "retry": "Cuba lagi",
       "passwordEntries": "Entri kata laluan",
-      "bookmarks": "Penanda halaman",
-      "bookmarkFolders": "Folder penanda",
       "tasksTotal": "Tugas",
       "tasksCompleted": "Selesai",
       "tasksOngoing": "Sedang berjalan",
@@ -453,7 +426,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Memuatkan..."
-    },
-    "manager": {
-      "foldersHeading": "Folder",
-      "tagsHeading": "Tag",
-      "tagsMore": "+{count} lagi",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Cari penanda halaman anda...",
-      "import": "Import",
-      "export": "Eksport",
-      "exportAsHtml": "Eksport sebagai HTML",
-      "exportAsJson": "Eksport sebagai JSON",
-      "addBookmark": "Tambah Penanda Halaman",
-      "matchingQuery": "sepadan \"{query}\"",
-      "bookmarkCount": "{count, plural, one {# penanda halaman} other {# penanda halaman}}",
-      "allBookmarks": "Semua Penanda Halaman",
-      "uncategorized": "Tidak Dikategorikan",
-      "unknownFolder": "Tidak Diketahui"
-    },
-    "card": {
-      "urlCopied": "URL disalin ke papan klip",
-      "bookmarkDeleted": "Penanda halaman dipadam",
-      "edit": "Edit",
-      "delete": "Padam",
-      "copyUrl": "Salin URL",
-      "deleteConfirmTitle": "Padam penanda halaman?",
-      "deleteConfirmDescription": "Ini akan memadam \"{title}\" secara kekal.",
-      "cancel": "Batal"
-    },
-    "grid": {
-      "emptyTitle": "Belum ada penanda halaman",
-      "emptyDescription": "Tambah penanda halaman pertama anda atau import dari pelayar anda untuk bermula."
-    },
-    "folderTree": {
-      "allBookmarks": "Semua Penanda Halaman",
-      "addSubfolder": "Tambah Subfolder",
-      "rename": "Namakan Semula",
-      "deleteFolderTitle": "Padam folder \"{name}\"?",
-      "deleteFolderDescription": "Ini akan memadam folder dan semua subfoldernya. Penanda halaman dalam folder ini akan dipindahkan ke Tidak Dikategorikan."
-    },
-    "foldersHeading": "Folder",
-    "import": {
-      "title": "Import Penanda Halaman",
-      "description": "Import penanda halaman dari fail eksport pelayar anda.",
-      "parseError": "Gagal menghurai fail penanda halaman. Sila pastikan ia adalah eksport penanda halaman yang sah.",
-      "successToast": "Diimport {bookmarks} penanda halaman dan {folders} folder",
-      "errorToast": "Gagal mengimport penanda halaman",
-      "chromeInstruction": "Menu → Penanda Halaman → Pengurus Penanda Halaman → ⋮ → Eksport Penanda Halaman",
-      "firefoxInstruction": "Menu → Penanda Halaman → Urus Penanda Halaman → Import dan Sandaran → Eksport",
-      "safariInstruction": "Fail → Eksport Penanda Halaman...",
-      "edgeInstruction": "Menu → Kegemaran → ⋯ → Eksport Kegemaran",
-      "dropZoneTitle": "Lepaskan fail penanda halaman anda di sini",
-      "dropZoneHint": "atau klik untuk melayari (HTML atau JSON)",
-      "selectedFileHint": "Klik untuk memilih fail lain",
-      "errorTitle": "Ralat",
-      "previewTitle": "Pratonton Import",
-      "previewBookmarks": "{count, plural, one {# penanda halaman} other {# penanda halaman}}",
-      "previewFolders": "{count, plural, one {# folder} other {# folder}}",
-      "importModeLabel": "Mod Import",
-      "modeMerge": "Gabungkan dengan penanda halaman sedia ada",
-      "modeReplace": "Gantikan semua penanda halaman sedia ada",
-      "cancel": "Batal",
-      "importButton": "Import",
-      "importButtonWithCount": "Import {count, plural, one {# penanda halaman} other {# penanda halaman}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Tambah Penanda Halaman",
-      "titleEdit": "Edit Penanda Halaman",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://contoh.com",
-      "urlInvalid": "Sila masukkan URL yang sah",
-      "titleLabel": "Tajuk",
-      "titlePlaceholder": "Tajuk penanda halaman",
-      "titleRequired": "Sila masukkan tajuk",
-      "descriptionLabel": "Penerangan (pilihan)",
-      "descriptionPlaceholder": "Tambah nota tentang penanda halaman ini",
-      "folderLabel": "Folder",
-      "folderPlaceholder": "Pilih folder",
-      "noFolder": "Tiada folder",
-      "tagsLabel": "Tag",
-      "tagsPlaceholder": "Tambah tag (tekan Enter)",
-      "toastUpdated": "Penanda halaman dikemas kini",
-      "toastAdded": "Penanda halaman ditambah",
-      "cancel": "Batal",
-      "submitAdd": "Tambah Penanda Halaman",
-      "submitUpdate": "Kemas Kini Penanda Halaman"
-    },
-    "addFolder": {
-      "title": "Cipta Folder",
-      "nameLabel": "Nama Folder",
-      "namePlaceholder": "Folder Saya",
-      "nameRequired": "Sila masukkan nama folder",
-      "parentLabel": "Folder Induk",
-      "parentPlaceholder": "Pilih folder induk",
-      "rootParent": "Akar (Tiada induk)",
-      "toastCreated": "Folder dicipta",
-      "cancel": "Batal",
-      "submit": "Cipta Folder"
-    },
-    "editFolder": {
-      "title": "Namakan Semula Folder",
-      "nameLabel": "Nama Folder",
-      "namePlaceholder": "Nama folder",
-      "nameRequired": "Sila masukkan nama folder",
-      "toastRenamed": "Folder dinamakan semula",
-      "cancel": "Batal",
-      "save": "Simpan"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON dibaiki",
     "toastRepairFailed": "JSON tidak dapat dibaiki"
   },
-  "JwtDecoder": {
-    "title": "Penyahkod JWT",
-    "subtitle": "Periksa header, payload, dan tempoh luput — tandatangan tidak disahkan",
-    "tokenLabel": "Token",
-    "clear": "Kosongkan",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Salin",
-    "expiryLabel": "Tamat tempoh (exp)",
-    "signaturePresent": "Tandatangan ada (tidak disahkan)",
-    "noExp": "Tiada tuntutan <code>exp</code> dalam payload.",
-    "status": {
-      "expired": "Tamat tempoh",
-      "valid": "Sah"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Tempatan",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Dikeluarkan (iat)",
-      "notBefore": "Bukan sebelum (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Tampal JWT untuk dinyahkod.",
-      "segments": "JWT perlukan sekurang-kurangnya header dan payload (dua segmen).",
-      "base64": "Tidak dapat nyahkod base64url bagi header atau payload."
-    },
-    "relative": {
-      "future": "dalam {n} {unit}",
-      "past": "{n} {unit} lalu"
-    },
-    "units": {
-      "second": "{count, plural, one {saat} other {saat}}",
-      "minute": "{count, plural, one {minit} other {minit}}",
-      "hour": "{count, plural, one {jam} other {jam}}",
-      "day": "{count, plural, one {hari} other {hari}}"
-    },
-    "tabs": {
-      "decode": "Nyahkod",
-      "sign": "Penjana / penandatangan"
-    },
-    "signer": {
-      "algLabel": "Algoritma (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "JSON payload",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "JSON header",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Rahsia (HS*)",
-      "secretPlaceholder": "Tampal rahsia HMAC anda…",
-      "privateKeyLabel": "Kunci peribadi PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "Algoritma \"none\" menghasilkan token tanpa tandatangan. Ini tidak selamat dan hanya untuk ujian.",
-      "sign": "Tandatangan",
-      "verify": "Sahkan tandatangan",
-      "outputLabel": "Token (JWS padat)",
-      "outputPlaceholder": "Klik \"Tandatangan\"…",
-      "copyToken": "Salin token",
-      "copied": "Disalin",
-      "verifyKeyLabel": "Kunci pengesahan (pilihan)",
-      "verifyKeyPlaceholder": "Untuk RS*: tampal kunci awam (SPKI) PEM. Untuk HS*: biarkan kosong untuk guna rahsia yang sama.",
-      "verifyKeyHint": "Jika kosong, pengesahan menggunakan kunci tandatangan (berguna untuk HS*).",
-      "verifyStatus": {
-        "valid": "Tandatangan sah",
-        "invalid": "Tandatangan tidak sah"
-      },
-      "securityNote": "Semuanya berjalan secara tempatan dalam pelayar; kunci dan token tidak dimuat naik."
-    },
-    "signErrors": {
-      "invalidJson": "Header dan payload mesti JSON yang sah.",
-      "unsupportedAlg": "Algoritma tidak disokong.",
-      "missingKey": "Kunci tandatangan diperlukan untuk algoritma ini.",
-      "cryptoFailed": "Tandatangan gagal. Semak format kunci dan cuba lagi."
-    },
-    "verifyErrors": {
-      "empty": "Masukkan JWT untuk disahkan.",
-      "segments": "JWT mesti mempunyai tepat 3 segmen untuk mengesahkan tandatangan.",
-      "unsupportedAlg": "Algoritma tidak disokong atau alg tiada dalam header.",
-      "missingKey": "Kunci pengesahan diperlukan untuk algoritma ini.",
-      "base64": "Tidak dapat menyahkod header atau tandatangan JWT.",
-      "cryptoFailed": "Pengesahan gagal. Semak format kunci dan cuba lagi."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Penyahkod Sijil",
-    "subtitle": "Nyahkod sijil X.509 dan CSR daripada PEM",
-    "pemLabel": "Input PEM",
-    "clear": "Padam",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Menghuraikan…",
-    "copyHex": "Salin cap jari (hex tanpa titik bertindih)",
-    "errors": {
-      "empty": "Tampal sijil PEM atau CSR untuk dinyahkod.",
-      "noBlock": "Tiada blok PEM sijil atau CSR ditemui.",
-      "parseFailed": "Tidak dapat menghuraikan data PEM ini."
-    },
-    "block": {
-      "title": "Blok PEM {index}",
-      "certificate": "Sijil X.509",
-      "csr": "Permintaan tandatangan sijil"
-    },
-    "fields": {
-      "subject": "Subjek",
-      "issuer": "Penerbit",
-      "notBefore": "Tidak sah sebelum",
-      "notAfter": "Tidak sah selepas",
-      "serial": "Nombor siri (hex)",
-      "sha256": "Cap jari SHA-256",
-      "sans": "Nama alternatif subjek",
-      "sansNone": "Tiada sambungan SAN.",
-      "signatureAlgorithm": "Algoritma tandatangan",
-      "csrIssuerNote": "CSR tidak termasuk penerbit (kelihatan pada sijil yang dikeluarkan).",
-      "csrValidityNote": "CSR tidak termasuk tarikh kesahan (kelihatan pada sijil yang dikeluarkan)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Nama direktori",
-      "email": "E-mel",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "ID berdaftar",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Pemformat SQL",
     "subtitle": "Kemaskan SQL untuk MySQL, PostgreSQL, dan SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} baris sepadan — tiada apa-apa diubah, kerana penapis tidak unik."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Playground Enkripsi",
-    "subtitle": "Sulitkan dan nyahsulit AES-GCM dengan frasa laluan atau kunci",
-    "tabEncrypt": "Sulitkan",
-    "tabDecrypt": "Nyahsulitkan",
-    "keyModeLabel": "Bahan kunci",
-    "modePassphrase": "Frasa laluan (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Kunci AES mentah (hex atau Base64)",
-    "aesBitsLabel": "Panjang kunci AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Pengekodan kunci mentah",
-    "encodingAuto": "Auto (hex jika kelihatan seperti hex, jika tidak Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Kunci mentah",
-    "rawKeyPlaceholder": "Kunci 32 bait sebagai 64 aksara hex, atau Base64 untuk AES-256 (panjang bergantung pada saiz AES di atas).",
-    "rawKeyPlaceholderDecrypt": "Hanya diperlukan jika bungkusan mempunyai keyDerivation \"none\".",
-    "passphraseLabel": "Frasa laluan",
-    "passphrasePlaceholder": "Frasa laluan digunakan hanya dalam pelayar untuk menurunkan kunci.",
-    "passphrasePlaceholderDecrypt": "Hanya diperlukan jika bungkusan menggunakan PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Lelaran PBKDF2",
-    "pbkdf2Hint": "Antara 10,000 dan 2,000,000. Lalai sejajar dengan tetapan peti biasa.",
-    "plaintextLabel": "Teks jelas",
-    "plaintextPlaceholder": "Taip atau tampal mesej untuk disulitkan…",
-    "bundleInputLabel": "Bungkusan disulitkan (JSON)",
-    "bundlePlaceholder": "Tampal JSON daripada Sulitkan (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Bungkusan disulitkan",
-    "plaintextOutputLabel": "Teks jelas",
-    "encryptButton": "Sulitkan",
-    "decryptButton": "Nyahsulitkan",
-    "copyBundle": "Salin JSON",
-    "copyPlaintext": "Salin teks jelas",
-    "copied": "Disalin",
-    "emptyBundleHint": "JSON disulitkan dipaparkan di sini selepas penyulitanan.",
-    "emptyDecryptHint": "Teks dinyahsulitkan dipaparkan di sini.",
-    "decryptKeyHint": "Gunakan kunci mentah jika keyDerivation ialah \"none\"; frasa laluan untuk PBKDF2-SHA256. Bungkusan menyimpan garam, lelaran, IV dan panjang AES.",
-    "securityNote": "Kunci dan teks jelas tidak meninggalkan pelayar anda. Untuk rahsia pengeluaran, gunakan alat khusus.",
-    "errors": {
-      "emptyKey": "Masukkan kunci mentah yang sepadan dengan saiz AES.",
-      "emptyPassphrase": "Masukkan frasa laluan.",
-      "badKeyMaterial": "Kunci tidak boleh dibaca sebagai hex atau Base64.",
-      "wrongKeyLength": "Panjang kunci tidak sepadan dengan AES (16 / 24 / 32 bait).",
-      "invalidJson": "JSON tidak sah.",
-      "invalidBundle": "JSON ini bukan bungkusan penyulitanan yang disokong.",
-      "decryptFailed": "Nyahsulitanan gagal — rahsia salah, bungkusan rosak atau parameter tidak sepadan.",
-      "encryptFailed": "Penyulitanan gagal. Semak Web Crypto dan input."
-    }
-  },
   "MarkdownPreview": {
     "title": "Pratonton Markdown",
     "subtitle": "Papar Markdown secara langsung dan tukar ke atau dari HTML",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Penjana Bcrypt",
-    "subtitle": "Hash dan sahkan kata laluan dengan bcrypt",
-    "tabs": {
-      "hash": "Cincang",
-      "verify": "Sahkan"
-    },
-    "showPassword": "Tunjukkan kata laluan",
-    "hidePassword": "Sembunyikan kata laluan",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "hash": {
-      "passwordLabel": "Kata laluan",
-      "passwordPlaceholder": "Masukkan kata laluan untuk dicincang…",
-      "costLabel": "Faktor kos",
-      "costHint": "Kos lebih tinggi menggandakan kerja setiap langkah. 10-12 ialah pilihan biasa untuk pengeluaran.",
-      "slowWarning": "Faktor kos 13 dan ke atas boleh mengambil beberapa saat untuk dikira.",
-      "generate": "Jana cincangan",
-      "generating": "Mencincang…",
-      "resultLabel": "Cincangan Bcrypt",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Anatomi cincangan",
-        "algorithm": "algoritma",
-        "cost": "kos",
-        "salt": "salt (22 aksara)",
-        "hash": "cincangan (31 aksara)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Kata laluan",
-      "passwordPlaceholder": "Masukkan kata laluan untuk disemak…",
-      "hashLabel": "Cincangan Bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Masukkan kata laluan dan cincangan bcrypt untuk membandingkannya.",
-      "invalidHash": "Ini tidak kelihatan seperti cincangan bcrypt yang sah.",
-      "checking": "Membandingkan…",
-      "match": "Padan — kata laluan menghasilkan cincangan ini.",
-      "noMatch": "Tidak padan — kata laluan tidak menghasilkan cincangan ini."
-    }
   },
   "JsonDiff": {
     "title": "Diff JSON",

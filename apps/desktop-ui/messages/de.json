@@ -6,11 +6,7 @@
     "notes": "Notizen",
     "passwordManager": "Passwort-Manager",
     "environmentManager": "Umgebungs-Manager",
-    "bookmarks": "Lesezeichen",
     "emailValidator": "E-Mail-Validator",
-    "encryptionPlayground": "Verschlüsselungs-Spielplatz",
-    "jwtDecoder": "JWT-Decoder",
-    "certificatePemDecoder": "Zertifikat- / PEM-Decoder",
     "jsonFormatter": "JSON-Formatierer",
     "sqlFormatter": "SQL-Formatierer",
     "graphqlFormatter": "GraphQL-Formatierer",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAML-Formatierer",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-Diff",
     "jsonpathPlayground": "JSONPath-Playground",
     "secureFiles": "Dateien"
@@ -326,10 +321,6 @@
         "title": "Umgebungs-Manager",
         "description": ".env-ähnliche Variablen nach Projekt und Umgebung mit Tags speichern."
       },
-      "bookmarks": {
-        "title": "Lesezeichen",
-        "description": "Verwalten und organisieren Sie Ihre Lesezeichen."
-      },
       "apiClient": {
         "title": "API-Client",
         "description": "HTTP-Anfragen testen und debuggen."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "E-Mail-Validator",
         "description": "E-Mail-Adressen prüfen und validieren."
-      },
-      "encryptionPlayground": {
-        "title": "Verschlüsselungs-Spielplatz",
-        "description": "AES-GCM mit Rohschlüssel oder Passphrase; JSON-Bündel, Web Crypto nur im Browser."
-      },
-      "jwtDecoder": {
-        "title": "JWT-Decoder",
-        "description": "JWT-Header, Nutzdaten und Ablaufzeit dekodieren."
-      },
-      "certificatePemDecoder": {
-        "title": "Zertifikat- / PEM-Decoder",
-        "description": "X.509-Zertifikate und CSRs dekodieren: Antragsteller, Aussteller, Gültigkeit, SANs."
       },
       "jsonFormatter": {
         "title": "JSON-Formatierer",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt-Generator & -Prüfer",
-        "description": "Passwörter mit bcrypt hashen und bestehende Hashes verifizieren."
-      },
       "jsonDiff": {
         "title": "JSON-Diff",
         "description": "Semantischer, strukturbewusster Vergleich zweier JSON-Dokumente."
@@ -434,8 +409,6 @@
       "loadError": "Analysen konnten nicht geladen werden.",
       "retry": "Erneut versuchen",
       "passwordEntries": "Passwort-Einträge",
-      "bookmarks": "Lesezeichen",
-      "bookmarkFolders": "Lesezeichen-Ordner",
       "tasksTotal": "Aufgaben",
       "tasksCompleted": "Erledigt",
       "tasksOngoing": "In Bearbeitung",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Laden..."
-    },
-    "manager": {
-      "foldersHeading": "Ordner",
-      "tagsHeading": "Tags",
-      "tagsMore": "+{count} weitere",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Lesezeichen suchen...",
-      "import": "Importieren",
-      "export": "Exportieren",
-      "exportAsHtml": "Als HTML exportieren",
-      "exportAsJson": "Als JSON exportieren",
-      "addBookmark": "Lesezeichen hinzufügen",
-      "matchingQuery": "Treffer für „{query}“",
-      "bookmarkCount": "{count, plural, one {# Lesezeichen} other {# Lesezeichen}}",
-      "allBookmarks": "Alle Lesezeichen",
-      "uncategorized": "Ohne Kategorie",
-      "unknownFolder": "Unbekannt"
-    },
-    "card": {
-      "urlCopied": "URL in die Zwischenablage kopiert",
-      "bookmarkDeleted": "Lesezeichen gelöscht",
-      "edit": "Bearbeiten",
-      "delete": "Löschen",
-      "copyUrl": "URL kopieren",
-      "deleteConfirmTitle": "Lesezeichen löschen?",
-      "deleteConfirmDescription": "„{title}“ wird dauerhaft gelöscht.",
-      "cancel": "Abbrechen"
-    },
-    "grid": {
-      "emptyTitle": "Noch keine Lesezeichen",
-      "emptyDescription": "Fügen Sie ein Lesezeichen hinzu oder importieren Sie aus dem Browser."
-    },
-    "folderTree": {
-      "allBookmarks": "Alle Lesezeichen",
-      "addSubfolder": "Unterordner hinzufügen",
-      "rename": "Umbenennen",
-      "deleteFolderTitle": "Ordner „{name}“ löschen?",
-      "deleteFolderDescription": "Der Ordner und alle Unterordner werden gelöscht. Lesezeichen werden nach „Ohne Kategorie“ verschoben."
-    },
-    "foldersHeading": "Ordner",
-    "import": {
-      "title": "Lesezeichen importieren",
-      "description": "Lesezeichen aus einer vom Browser exportierten Datei importieren.",
-      "parseError": "Datei konnte nicht gelesen werden. Bitte gültigen Lesezeichen-Export verwenden.",
-      "successToast": "{bookmarks} Lesezeichen und {folders} Ordner importiert",
-      "errorToast": "Import fehlgeschlagen",
-      "chromeInstruction": "Menü → Lesezeichen → Lesezeichen-Manager → ⋮ → Lesezeichen exportieren",
-      "firefoxInstruction": "Menü → Lesezeichen → Lesezeichen verwalten → Importieren und sichern → Exportieren",
-      "safariInstruction": "Ablage → Lesezeichen exportieren …",
-      "edgeInstruction": "Menü → Favoriten → ⋯ → Favoriten exportieren",
-      "dropZoneTitle": "Lesezeichen-Datei hier ablegen",
-      "dropZoneHint": "oder klicken zum Durchsuchen (HTML oder JSON)",
-      "selectedFileHint": "Klicken, um eine andere Datei zu wählen",
-      "errorTitle": "Fehler",
-      "previewTitle": "Importvorschau",
-      "previewBookmarks": "{count, plural, one {# Lesezeichen} other {# Lesezeichen}}",
-      "previewFolders": "{count, plural, one {# Ordner} other {# Ordner}}",
-      "importModeLabel": "Importmodus",
-      "modeMerge": "Mit vorhandenen Lesezeichen zusammenführen",
-      "modeReplace": "Alle vorhandenen Lesezeichen ersetzen",
-      "cancel": "Abbrechen",
-      "importButton": "Importieren",
-      "importButtonWithCount": "{count, plural, one {# Lesezeichen} other {# Lesezeichen}} importieren"
-    },
-    "addBookmark": {
-      "titleAdd": "Lesezeichen hinzufügen",
-      "titleEdit": "Lesezeichen bearbeiten",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Bitte eine gültige URL eingeben",
-      "titleLabel": "Titel",
-      "titlePlaceholder": "Lesezeichentitel",
-      "titleRequired": "Bitte einen Titel eingeben",
-      "descriptionLabel": "Beschreibung (optional)",
-      "descriptionPlaceholder": "Notiz zu diesem Lesezeichen",
-      "folderLabel": "Ordner",
-      "folderPlaceholder": "Ordner wählen",
-      "noFolder": "Kein Ordner",
-      "tagsLabel": "Tags",
-      "tagsPlaceholder": "Tags hinzufügen (Enter)",
-      "toastUpdated": "Lesezeichen aktualisiert",
-      "toastAdded": "Lesezeichen hinzugefügt",
-      "cancel": "Abbrechen",
-      "submitAdd": "Lesezeichen hinzufügen",
-      "submitUpdate": "Lesezeichen aktualisieren"
-    },
-    "addFolder": {
-      "title": "Ordner erstellen",
-      "nameLabel": "Ordnername",
-      "namePlaceholder": "Mein Ordner",
-      "nameRequired": "Bitte einen Ordnernamen eingeben",
-      "parentLabel": "Übergeordneter Ordner",
-      "parentPlaceholder": "Übergeordneten Ordner wählen",
-      "rootParent": "Stamm (kein übergeordneter Ordner)",
-      "toastCreated": "Ordner erstellt",
-      "cancel": "Abbrechen",
-      "submit": "Ordner erstellen"
-    },
-    "editFolder": {
-      "title": "Ordner umbenennen",
-      "nameLabel": "Ordnername",
-      "namePlaceholder": "Ordnername",
-      "nameRequired": "Bitte einen Ordnernamen eingeben",
-      "toastRenamed": "Ordner umbenannt",
-      "cancel": "Abbrechen",
-      "save": "Speichern"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON repariert",
     "toastRepairFailed": "JSON konnte nicht repariert werden"
   },
-  "JwtDecoder": {
-    "title": "JWT-Decoder",
-    "subtitle": "Header, Payload und Ablauf prüfen — Signatur nicht verifiziert",
-    "tokenLabel": "Token",
-    "clear": "Leeren",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Kopieren",
-    "expiryLabel": "Ablauf (exp)",
-    "signaturePresent": "Signatur vorhanden (nicht verifiziert)",
-    "noExp": "Kein <code>exp</code>-Claim in der Payload.",
-    "status": {
-      "expired": "Abgelaufen",
-      "valid": "Gültig"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Lokal",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Ausgestellt am (iat)",
-      "notBefore": "Nicht vor (nbf)"
-    },
-    "panels": {
-      "header": "Header",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "JWT zum Dekodieren einfügen.",
-      "segments": "Ein JWT braucht mindestens Header und Payload (zwei Segmente).",
-      "base64": "Header oder Payload konnte nicht base64url-dekodiert werden."
-    },
-    "relative": {
-      "future": "in {n} {unit}",
-      "past": "vor {n} {unit}"
-    },
-    "units": {
-      "second": "{count, plural, one {Sekunde} other {Sekunden}}",
-      "minute": "{count, plural, one {Minute} other {Minuten}}",
-      "hour": "{count, plural, one {Stunde} other {Stunden}}",
-      "day": "{count, plural, one {Tag} other {Tagen}}"
-    },
-    "tabs": {
-      "decode": "Dekodieren",
-      "sign": "Generator / Signierer"
-    },
-    "signer": {
-      "algLabel": "Algorithmus (alg)",
-      "tabs": {
-        "payload": "Payload",
-        "header": "Header"
-      },
-      "payloadLabel": "Payload-JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header-JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Secret (HS*)",
-      "secretPlaceholder": "Füge dein HMAC-Secret ein…",
-      "privateKeyLabel": "Privater Schlüssel PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "Der Algorithmus \"none\" erstellt ein unsigniertes Token. Das ist unsicher und sollte nur zum Testen verwendet werden.",
-      "sign": "Signieren",
-      "verify": "Signatur prüfen",
-      "outputLabel": "Token (kompaktes JWS)",
-      "outputPlaceholder": "Klicke auf „Signieren“…",
-      "copyToken": "Token kopieren",
-      "copied": "Kopiert",
-      "verifyKeyLabel": "Prüfschlüssel (optional)",
-      "verifyKeyPlaceholder": "Für RS*: den öffentlichen Schlüssel (SPKI) PEM einfügen. Für HS*: leer lassen, um das Secret wiederzuverwenden.",
-      "verifyKeyHint": "Wenn leer, verwendet die Prüfung den Signierschlüssel (nützlich für HS*).",
-      "verifyStatus": {
-        "valid": "Signatur gültig",
-        "invalid": "Signatur ungültig"
-      },
-      "securityNote": "Alles läuft lokal im Browser; Schlüssel und Tokens werden nicht hochgeladen."
-    },
-    "signErrors": {
-      "invalidJson": "Header und Payload müssen gültiges JSON sein.",
-      "unsupportedAlg": "Nicht unterstützter Algorithmus.",
-      "missingKey": "Für diesen Algorithmus ist ein Signierschlüssel erforderlich.",
-      "cryptoFailed": "Signieren fehlgeschlagen. Prüfe das Schlüsselformat und versuche es erneut."
-    },
-    "verifyErrors": {
-      "empty": "Gib ein JWT zur Prüfung ein.",
-      "segments": "Ein JWT muss genau 3 Segmente haben, um eine Signatur zu prüfen.",
-      "unsupportedAlg": "Nicht unterstützter oder fehlender alg im Header.",
-      "missingKey": "Für diesen Algorithmus ist ein Prüfschlüssel erforderlich.",
-      "base64": "JWT-Header oder Signatur konnten nicht dekodiert werden.",
-      "cryptoFailed": "Prüfung fehlgeschlagen. Prüfe das Schlüsselformat und versuche es erneut."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Zertifikat-Decoder",
-    "subtitle": "X.509-Zertifikate und CSRs aus PEM dekodieren",
-    "pemLabel": "PEM-Eingabe",
-    "clear": "Leeren",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Wird analysiert…",
-    "copyHex": "Fingerabdruck kopieren (Hex ohne Doppelpunkte)",
-    "errors": {
-      "empty": "Fügen Sie ein PEM-Zertifikat oder eine CSR zum Dekodieren ein.",
-      "noBlock": "Kein PEM-Block für Zertifikat oder CSR gefunden.",
-      "parseFailed": "Diese PEM-Daten konnten nicht verarbeitet werden."
-    },
-    "block": {
-      "title": "PEM-Block {index}",
-      "certificate": "X.509-Zertifikat",
-      "csr": "Zertifikatsignaturanforderung"
-    },
-    "fields": {
-      "subject": "Antragsteller",
-      "issuer": "Aussteller",
-      "notBefore": "Nicht gültig vor",
-      "notAfter": "Nicht gültig nach",
-      "serial": "Seriennummer (Hex)",
-      "sha256": "SHA-256-Fingerabdruck",
-      "sans": "Alternative Antragstellernamen",
-      "sansNone": "Keine SAN-Erweiterung vorhanden.",
-      "signatureAlgorithm": "Signaturalgorithmus",
-      "csrIssuerNote": "CSRs enthalten keinen Aussteller (der steht auf dem ausgestellten Zertifikat).",
-      "csrValidityNote": "CSRs enthalten keine Gültigkeitsdaten (die stehen auf dem ausgestellten Zertifikat)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Verzeichnisname",
-      "email": "E-Mail",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Registrierte ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL-Formatter",
     "subtitle": "SQL für MySQL, PostgreSQL und SQLite formatieren",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "{count} Zeilen stimmten überein — es wurde nichts geändert, weil der Filter nicht eindeutig ist."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Verschlüsselungs-Playground",
-    "subtitle": "AES-GCM mit Passphrase oder Key ver- und entschlüsseln",
-    "tabEncrypt": "Verschlüsseln",
-    "tabDecrypt": "Entschlüsseln",
-    "keyModeLabel": "Schlüsselmaterial",
-    "modePassphrase": "Passphrase (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Roh-AES-Schlüssel (Hex oder Base64)",
-    "aesBitsLabel": "AES-Schlüssellänge",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Kodierung des Rohschlüssels",
-    "encodingAuto": "Automatisch (Hex, wenn es wie Hex aussieht, sonst Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Rohschlüssel",
-    "rawKeyPlaceholder": "32-Byte-Schlüssel als 64 Hex-Zeichen oder Base64 für AES-256 (Länge hängt von der gewählten AES-Größe ab).",
-    "rawKeyPlaceholderDecrypt": "Nur nötig, wenn im Bündel keyDerivation \"none\" steht.",
-    "passphraseLabel": "Passphrase",
-    "passphrasePlaceholder": "Passphrase — nur im Browser zur Schlüsselableitung.",
-    "passphrasePlaceholderDecrypt": "Nur nötig, wenn das Bündel PBKDF2-SHA256 verwendet.",
-    "pbkdf2IterLabel": "PBKDF2-Iterationen",
-    "pbkdf2Hint": "Begrenzt auf 10.000 bis 2.000.000. Standard entspricht gängigen Tresor-Einstellungen.",
-    "plaintextLabel": "Klartext",
-    "plaintextPlaceholder": "Nachricht zum Verschlüsseln eingeben oder einfügen …",
-    "bundleInputLabel": "Verschlüsseltes Bündel (JSON)",
-    "bundlePlaceholder": "JSON aus „Verschlüsseln“ einfügen (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Verschlüsseltes Bündel",
-    "plaintextOutputLabel": "Klartext",
-    "encryptButton": "Verschlüsseln",
-    "decryptButton": "Entschlüsseln",
-    "copyBundle": "JSON kopieren",
-    "copyPlaintext": "Klartext kopieren",
-    "copied": "Kopiert",
-    "emptyBundleHint": "Nach dem Verschlüsseln erscheint hier das JSON.",
-    "emptyDecryptHint": "Entschlüsselter Text erscheint hier.",
-    "decryptKeyHint": "Rohschlüssel nutzen, wenn keyDerivation \"none\" lautet; Passphrase, wenn PBKDF2-SHA256. Das Bündel enthält Salt, Iterationen, IV und AES-Länge.",
-    "securityNote": "Schlüssel und Klartext verlassen Ihren Browser nicht. Für produktive Geheimnisse lieber spezialisierte Werkzeuge.",
-    "errors": {
-      "emptyKey": "Geben Sie einen Rohschlüssel passend zur AES-Größe ein.",
-      "emptyPassphrase": "Geben Sie eine Passphrase ein.",
-      "badKeyMaterial": "Schlüssel konnte weder als Hex noch als Base64 gelesen werden.",
-      "wrongKeyLength": "Schlüssellänge passt nicht zur gewählten AES-Größe (16 / 24 / 32 Byte).",
-      "invalidJson": "Kein gültiges JSON.",
-      "invalidBundle": "Dieses JSON ist kein unterstütztes Verschlüsselungsbündel.",
-      "decryptFailed": "Entschlüsselung fehlgeschlagen — falsches Geheimnis, beschädigtes Bündel oder falsche Parameter.",
-      "encryptFailed": "Verschlüsselung fehlgeschlagen. Prüfen Sie Web Crypto und die Eingaben."
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdown-Vorschau",
     "subtitle": "Markdown live rendern und von/zu HTML konvertieren",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt-Generator",
-    "subtitle": "Passwörter mit bcrypt hashen und verifizieren",
-    "tabs": {
-      "hash": "Hashen",
-      "verify": "Verifizieren"
-    },
-    "showPassword": "Passwort anzeigen",
-    "hidePassword": "Passwort verbergen",
-    "copy": "Kopieren",
-    "copied": "Kopiert",
-    "hash": {
-      "passwordLabel": "Passwort",
-      "passwordPlaceholder": "Ein Passwort zum Hashen eingeben…",
-      "costLabel": "Kostenfaktor",
-      "costHint": "Ein höherer Kostenfaktor verdoppelt den Aufwand pro Schritt. 10-12 ist eine gängige Wahl für die Produktion.",
-      "slowWarning": "Kostenfaktoren ab 13 können mehrere Sekunden zur Berechnung benötigen.",
-      "generate": "Hash erzeugen",
-      "generating": "Hashen…",
-      "resultLabel": "Bcrypt-Hash",
-      "timeTaken": "{ms} ms",
-      "anatomy": {
-        "title": "Aufbau des Hashes",
-        "algorithm": "Algorithmus",
-        "cost": "Kosten",
-        "salt": "Salt (22 Zeichen)",
-        "hash": "Hash (31 Zeichen)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Passwort",
-      "passwordPlaceholder": "Zu prüfendes Passwort eingeben…",
-      "hashLabel": "Bcrypt-Hash",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Gib ein Passwort und einen Bcrypt-Hash ein, um sie zu vergleichen.",
-      "invalidHash": "Das sieht nicht nach einem gültigen Bcrypt-Hash aus.",
-      "checking": "Vergleiche…",
-      "match": "Übereinstimmung – das Passwort erzeugt diesen Hash.",
-      "noMatch": "Keine Übereinstimmung – das Passwort erzeugt diesen Hash nicht."
-    }
   },
   "JsonDiff": {
     "title": "JSON-Diff",

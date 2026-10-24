@@ -172,7 +172,6 @@ export function categoryAccent(title: string): { bg: string; text: string } {
 /** Popular tool slugs shown in the no-results state. */
 export const POPULAR_TOOL_URLS = [
   '/app/json-formatter',
-  '/app/jwt-decoder',
   '/app/api-client',
   '/app/regex-tester',
 ]

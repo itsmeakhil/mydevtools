@@ -6,8 +6,6 @@ import { type DashboardAnalyticsSummary } from '@/lib/dashboard-analytics-api'
 export function sumTrackedItems(d: DashboardAnalyticsSummary): number {
   return (
     d.passwordEntries +
-    d.bookmarks +
-    d.bookmarkFolders +
     d.tasks.total +
     d.projects +
     d.nosqlConnections +

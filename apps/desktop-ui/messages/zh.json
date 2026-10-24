@@ -5,16 +5,12 @@
     "apiClient": "API 客户端",
     "passwordManager": "密码管理器",
     "environmentManager": "环境管理",
-    "bookmarks": "书签",
     "jsonFormatter": "JSON 格式化器",
     "emailValidator": "邮箱验证",
     "nosqlExplorer": "数据库浏览器",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "加密演练场",
-    "jwtDecoder": "JWT 解码器",
-    "certificatePemDecoder": "证书 / PEM 解码器",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "GraphQL 格式化",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "YAML格式化工具",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON 对比",
     "jsonpathPlayground": "JSONPath 沙盒",
     "secureFiles": "文件"
@@ -326,10 +321,6 @@
         "title": "环境管理",
         "description": "按项目与环境保存 .env 风格变量，并支持标签。"
       },
-      "bookmarks": {
-        "title": "书签",
-        "description": "管理与整理书签。"
-      },
       "apiClient": {
         "title": "API 客户端",
         "description": "测试与调试 HTTP 请求。"
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "邮箱验证",
         "description": "验证电子邮件地址。"
-      },
-      "encryptionPlayground": {
-        "title": "加密演练场",
-        "description": "使用原始密钥或口令的 AES-GCM；JSON 数据包，Web Crypto 仅在浏览器中运行。"
-      },
-      "jwtDecoder": {
-        "title": "JWT 解码器",
-        "description": "解码 JWT 的头部、载荷和过期时间。"
-      },
-      "certificatePemDecoder": {
-        "title": "证书 / PEM 解码器",
-        "description": "解码 X.509 证书与 CSR：主题、颁发者、有效期与 SAN。"
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Bcrypt 生成与校验",
-        "description": "使用 bcrypt 哈希密码并校验现有哈希值。"
-      },
       "jsonDiff": {
         "title": "JSON 对比",
         "description": "对两个 JSON 文档进行语义化、结构感知的对比。"
@@ -434,8 +409,6 @@
       "loadError": "无法加载分析数据。",
       "retry": "重试",
       "passwordEntries": "密码条目",
-      "bookmarks": "书签",
-      "bookmarkFolders": "书签文件夹",
       "tasksTotal": "任务",
       "tasksCompleted": "已完成",
       "tasksOngoing": "进行中",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "加载中…"
-    },
-    "manager": {
-      "foldersHeading": "文件夹",
-      "tagsHeading": "标签",
-      "tagsMore": "另外 {count} 个",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "搜索书签…",
-      "import": "导入",
-      "export": "导出",
-      "exportAsHtml": "导出为 HTML",
-      "exportAsJson": "导出为 JSON",
-      "addBookmark": "添加书签",
-      "matchingQuery": "匹配「{query}」",
-      "bookmarkCount": "{count, plural, one {# 个书签} other {# 个书签}}",
-      "allBookmarks": "全部书签",
-      "uncategorized": "未分类",
-      "unknownFolder": "未知"
-    },
-    "card": {
-      "urlCopied": "链接已复制到剪贴板",
-      "bookmarkDeleted": "书签已删除",
-      "edit": "编辑",
-      "delete": "删除",
-      "copyUrl": "复制链接",
-      "deleteConfirmTitle": "删除书签？",
-      "deleteConfirmDescription": "将永久删除「{title}」。",
-      "cancel": "取消"
-    },
-    "grid": {
-      "emptyTitle": "暂无书签",
-      "emptyDescription": "添加第一个书签或从浏览器导入以开始。"
-    },
-    "folderTree": {
-      "allBookmarks": "全部书签",
-      "addSubfolder": "添加子文件夹",
-      "rename": "重命名",
-      "deleteFolderTitle": "删除文件夹「{name}」？",
-      "deleteFolderDescription": "将删除该文件夹及其所有子文件夹。其中的书签将移至未分类。"
-    },
-    "foldersHeading": "文件夹",
-    "import": {
-      "title": "导入书签",
-      "description": "从浏览器导出的文件导入书签。",
-      "parseError": "解析书签文件失败，请确认是有效的书签导出文件。",
-      "successToast": "已导入 {bookmarks} 个书签和 {folders} 个文件夹",
-      "errorToast": "导入书签失败",
-      "chromeInstruction": "菜单 → 书签 → 书签管理器 → ⋮ → 导出书签",
-      "firefoxInstruction": "菜单 → 书签 → 管理书签 → 导入和备份 → 导出",
-      "safariInstruction": "文件 → 导出书签…",
-      "edgeInstruction": "菜单 → 收藏夹 → ⋯ → 导出收藏夹",
-      "dropZoneTitle": "将书签文件拖放到此处",
-      "dropZoneHint": "或点击浏览（HTML 或 JSON）",
-      "selectedFileHint": "点击选择其他文件",
-      "errorTitle": "错误",
-      "previewTitle": "导入预览",
-      "previewBookmarks": "{count, plural, one {# 个书签} other {# 个书签}}",
-      "previewFolders": "{count, plural, one {# 个文件夹} other {# 个文件夹}}",
-      "importModeLabel": "导入模式",
-      "modeMerge": "与现有书签合并",
-      "modeReplace": "替换全部现有书签",
-      "cancel": "取消",
-      "importButton": "导入",
-      "importButtonWithCount": "导入 {count, plural, one {# 个书签} other {# 个书签}}"
-    },
-    "addBookmark": {
-      "titleAdd": "添加书签",
-      "titleEdit": "编辑书签",
-      "urlLabel": "网址",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "请输入有效的网址",
-      "titleLabel": "标题",
-      "titlePlaceholder": "书签标题",
-      "titleRequired": "请输入标题",
-      "descriptionLabel": "描述（可选）",
-      "descriptionPlaceholder": "为此书签添加备注",
-      "folderLabel": "文件夹",
-      "folderPlaceholder": "选择文件夹",
-      "noFolder": "无文件夹",
-      "tagsLabel": "标签",
-      "tagsPlaceholder": "添加标签（按 Enter）",
-      "toastUpdated": "书签已更新",
-      "toastAdded": "书签已添加",
-      "cancel": "取消",
-      "submitAdd": "添加书签",
-      "submitUpdate": "更新书签"
-    },
-    "addFolder": {
-      "title": "创建文件夹",
-      "nameLabel": "文件夹名称",
-      "namePlaceholder": "我的文件夹",
-      "nameRequired": "请输入文件夹名称",
-      "parentLabel": "父文件夹",
-      "parentPlaceholder": "选择父文件夹",
-      "rootParent": "根目录（无父级）",
-      "toastCreated": "文件夹已创建",
-      "cancel": "取消",
-      "submit": "创建文件夹"
-    },
-    "editFolder": {
-      "title": "重命名文件夹",
-      "nameLabel": "文件夹名称",
-      "namePlaceholder": "文件夹名称",
-      "nameRequired": "请输入文件夹名称",
-      "toastRenamed": "文件夹已重命名",
-      "cancel": "取消",
-      "save": "保存"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON 已修复",
     "toastRepairFailed": "无法修复 JSON"
   },
-  "JwtDecoder": {
-    "title": "JWT 解码器",
-    "subtitle": "查看头部、载荷与过期时间 — 不验证签名",
-    "tokenLabel": "令牌",
-    "clear": "清空",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "复制",
-    "expiryLabel": "过期 (exp)",
-    "signaturePresent": "包含签名（未验证）",
-    "noExp": "载荷中没有 <code>exp</code> 声明。",
-    "status": {
-      "expired": "已过期",
-      "valid": "有效"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "本地",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "签发时间 (iat)",
-      "notBefore": "生效时间 (nbf)"
-    },
-    "panels": {
-      "header": "头部",
-      "payload": "载荷"
-    },
-    "errors": {
-      "empty": "粘贴一个 JWT 进行解码。",
-      "segments": "JWT 至少需要头部和载荷（两个段）。",
-      "base64": "无法 base64url 解码头部或载荷。"
-    },
-    "relative": {
-      "future": "{n} {unit}后",
-      "past": "{n} {unit}前"
-    },
-    "units": {
-      "second": "{count, plural, one {秒} other {秒}}",
-      "minute": "{count, plural, one {分钟} other {分钟}}",
-      "hour": "{count, plural, one {小时} other {小时}}",
-      "day": "{count, plural, one {天} other {天}}"
-    },
-    "tabs": {
-      "decode": "解码",
-      "sign": "生成 / 签名"
-    },
-    "signer": {
-      "algLabel": "算法（alg）",
-      "tabs": {
-        "payload": "载荷",
-        "header": "头部"
-      },
-      "payloadLabel": "载荷 JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "头部 JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "密钥（HS*）",
-      "secretPlaceholder": "粘贴你的 HMAC 密钥…",
-      "privateKeyLabel": "私钥 PEM（RS*）",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "\"none\" 算法会生成未签名的令牌。不安全，仅用于测试。",
-      "sign": "签名",
-      "verify": "验证签名",
-      "outputLabel": "令牌（紧凑 JWS）",
-      "outputPlaceholder": "点击“签名”…",
-      "copyToken": "复制令牌",
-      "copied": "已复制",
-      "verifyKeyLabel": "验证密钥（可选）",
-      "verifyKeyPlaceholder": "RS*：粘贴公钥（SPKI）PEM。HS*：留空以复用密钥。",
-      "verifyKeyHint": "若留空，将使用签名密钥进行验证（HS* 很方便）。",
-      "verifyStatus": {
-        "valid": "签名有效",
-        "invalid": "签名无效"
-      },
-      "securityNote": "全部在浏览器本地运行；不会上传密钥或令牌。"
-    },
-    "signErrors": {
-      "invalidJson": "头部和载荷必须是有效的 JSON。",
-      "unsupportedAlg": "不支持的算法。",
-      "missingKey": "该算法需要签名密钥。",
-      "cryptoFailed": "签名失败。请检查密钥格式后重试。"
-    },
-    "verifyErrors": {
-      "empty": "请输入要验证的 JWT。",
-      "segments": "验证签名需要 JWT 恰好包含 3 段。",
-      "unsupportedAlg": "头部中缺少 alg 或算法不受支持。",
-      "missingKey": "该算法需要验证密钥。",
-      "base64": "无法解码 JWT 头部或签名。",
-      "cryptoFailed": "验证失败。请检查密钥格式后重试。"
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "证书解码器",
-    "subtitle": "解码 PEM 格式的 X.509 证书与 CSR",
-    "pemLabel": "PEM 输入",
-    "clear": "清除",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "正在解析…",
-    "copyHex": "复制指纹（无冒号的十六进制）",
-    "errors": {
-      "empty": "请粘贴 PEM 证书或 CSR 以解码。",
-      "noBlock": "未找到证书或 CSR 的 PEM 块。",
-      "parseFailed": "无法解析此 PEM 数据。"
-    },
-    "block": {
-      "title": "PEM 块 {index}",
-      "certificate": "X.509 证书",
-      "csr": "证书签名请求"
-    },
-    "fields": {
-      "subject": "主题",
-      "issuer": "颁发者",
-      "notBefore": "生效前无效",
-      "notAfter": "过期后无效",
-      "serial": "序列号（十六进制）",
-      "sha256": "SHA-256 指纹",
-      "sans": "主题备用名称",
-      "sansNone": "无 SAN 扩展。",
-      "signatureAlgorithm": "签名算法",
-      "csrIssuerNote": "CSR 不包含颁发者（颁发者出现在已签发的证书上）。",
-      "csrValidityNote": "CSR 不包含有效期（有效期出现在已签发的证书上）。"
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "可分辨名称",
-      "email": "电子邮件",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "注册 ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "SQL 格式化",
     "subtitle": "美化 MySQL、PostgreSQL 和 SQLite 的 SQL",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "匹配到 {count} 行 — 由于筛选条件不唯一，未做任何修改。"
     }
   },
-  "EncryptionPlayground": {
-    "title": "加密实验场",
-    "subtitle": "用口令或密钥进行 AES-GCM 加解密",
-    "tabEncrypt": "加密",
-    "tabDecrypt": "解密",
-    "keyModeLabel": "密钥材料",
-    "modePassphrase": "口令（PBKDF2 + AES-GCM）",
-    "modeRawKey": "原始 AES 密钥（十六进制或 Base64）",
-    "aesBitsLabel": "AES 密钥长度",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "原始密钥编码",
-    "encodingAuto": "自动（看似十六进制则用十六进制，否则 Base64）",
-    "encodingHex": "十六进制",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "原始密钥",
-    "rawKeyPlaceholder": "32 字节密钥可写为 64 个十六进制字符，或 AES-256 的 Base64（长度取决于上方 AES 位数）。",
-    "rawKeyPlaceholderDecrypt": "仅当数据包中 keyDerivation 为 \"none\" 时需要填写。",
-    "passphraseLabel": "口令",
-    "passphrasePlaceholder": "口令仅在浏览器中用于派生密钥。",
-    "passphrasePlaceholderDecrypt": "仅当数据包使用 PBKDF2-SHA256 时需要填写。",
-    "pbkdf2IterLabel": "PBKDF2 迭代次数",
-    "pbkdf2Hint": "限制在 10,000 至 2,000,000 之间。默认值与常见密码库设置一致。",
-    "plaintextLabel": "明文",
-    "plaintextPlaceholder": "输入或粘贴要加密的消息…",
-    "bundleInputLabel": "加密数据包（JSON）",
-    "bundlePlaceholder": "粘贴来自「加密」的 JSON（v、alg、ivB64、cipherB64 等）。",
-    "bundleOutputLabel": "加密数据包",
-    "plaintextOutputLabel": "明文",
-    "encryptButton": "加密",
-    "decryptButton": "解密",
-    "copyBundle": "复制 JSON",
-    "copyPlaintext": "复制明文",
-    "copied": "已复制",
-    "emptyBundleHint": "加密后，加密后的 JSON 将显示在此处。",
-    "emptyDecryptHint": "解密后的文本将显示在此处。",
-    "decryptKeyHint": "若 keyDerivation 为 \"none\" 请使用原始密钥；若为 PBKDF2-SHA256 请使用口令。数据包包含盐、迭代次数、IV 与 AES 长度。",
-    "securityNote": "密钥与明文不会离开您的浏览器。生产环境机密请使用专用工具。",
-    "errors": {
-      "emptyKey": "请输入与 AES 长度匹配的原始密钥。",
-      "emptyPassphrase": "请输入口令。",
-      "badKeyMaterial": "无法将密钥解析为十六进制或 Base64。",
-      "wrongKeyLength": "密钥长度与所选 AES（16 / 24 / 32 字节）不符。",
-      "invalidJson": "不是有效的 JSON。",
-      "invalidBundle": "此 JSON 不是受支持的加密数据包。",
-      "decryptFailed": "解密失败 — 密钥错误、数据包损坏或参数不匹配。",
-      "encryptFailed": "加密失败。请检查 Web Crypto 与输入。"
-    }
-  },
   "MarkdownPreview": {
     "title": "Markdown 预览",
     "subtitle": "实时渲染 Markdown，并与 HTML 互转",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Bcrypt 生成器",
-    "subtitle": "使用 bcrypt 哈希并验证密码",
-    "tabs": {
-      "hash": "哈希",
-      "verify": "校验"
-    },
-    "showPassword": "显示密码",
-    "hidePassword": "隐藏密码",
-    "copy": "复制",
-    "copied": "已复制",
-    "hash": {
-      "passwordLabel": "密码",
-      "passwordPlaceholder": "输入要哈希的密码…",
-      "costLabel": "成本因子",
-      "costHint": "更高的成本因子会使每一步的计算量翻倍。生产环境常用 10-12。",
-      "slowWarning": "成本因子达到 13 及以上可能需要数秒才能计算完成。",
-      "generate": "生成哈希",
-      "generating": "正在哈希…",
-      "resultLabel": "Bcrypt 哈希",
-      "timeTaken": "{ms} 毫秒",
-      "anatomy": {
-        "title": "哈希结构",
-        "algorithm": "算法",
-        "cost": "成本",
-        "salt": "盐值（22 个字符）",
-        "hash": "哈希（31 个字符）"
-      }
-    },
-    "verify": {
-      "passwordLabel": "密码",
-      "passwordPlaceholder": "输入要校验的密码…",
-      "hashLabel": "Bcrypt 哈希",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "输入密码和 bcrypt 哈希以进行比对。",
-      "invalidHash": "这看起来不是有效的 bcrypt 哈希。",
-      "checking": "正在比对…",
-      "match": "匹配 — 该密码可生成此哈希。",
-      "noMatch": "不匹配 — 该密码无法生成此哈希。"
-    }
   },
   "JsonDiff": {
     "title": "JSON 对比",

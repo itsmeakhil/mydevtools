@@ -6,7 +6,6 @@ import Link from 'next/link'
 import {
   Activity,
   BarChart3,
-  Bookmark,
   Boxes,
   Braces,
   Briefcase,
@@ -16,7 +15,6 @@ import {
   Eye,
   EyeOff,
   FolderLock,
-  FolderOpen,
   HardDrive,
   History,
   KeyRound,
@@ -166,18 +164,16 @@ export function DashboardAnalyticsPanel() {
 
   const { tasks } = data
 
-  const vaultAllEmpty   = data.passwordEntries === 0 && data.bookmarks === 0 && data.bookmarkFolders === 0
+  const vaultAllEmpty   = data.passwordEntries === 0
   const workspaceAllEmpty = data.tasks.total === 0 && data.notes === 0 && data.projects === 0 && (data.codeSnippets ?? 0) === 0
   const toolkitAllEmpty = data.nosqlConnections === 0 && data.apiClientCollections === 0 && data.apiClientEnvironments === 0 && data.apiClientHistoryEntries === 0 && data.jsonFormatterDocuments === 0
 
-  const vaultActiveCount     = [data.passwordEntries, data.bookmarks, data.bookmarkFolders].filter((v) => v > 0).length
+  const vaultActiveCount     = [data.passwordEntries].filter((v) => v > 0).length
   const workspaceActiveCount = [data.tasks.total, data.notes, data.projects, data.codeSnippets ?? 0].filter((v) => v > 0).length
   const toolkitActiveCount   = [data.nosqlConnections, data.apiClientCollections, data.apiClientEnvironments, data.apiClientHistoryEntries, data.jsonFormatterDocuments].filter((v) => v > 0).length
 
   const vaultChips = [
     { label: t('passwordEntries'), value: data.passwordEntries, icon: KeyRound,   accent: 'from-rose-500 to-orange-500',    href: '/app/password-manager' },
-    { label: t('bookmarks'),        value: data.bookmarks,       icon: Bookmark,   accent: 'from-sky-500 to-cyan-500',       href: '/app/bookmarks' },
-    { label: t('bookmarkFolders'), value: data.bookmarkFolders, icon: FolderOpen, accent: 'from-violet-500 to-purple-500',  href: '/app/bookmarks' },
   ]
 
   const workspaceChips = [
@@ -312,7 +308,7 @@ export function DashboardAnalyticsPanel() {
             centerLabel={t('totalLabel')}
             segments={
               [
-                { label: t('groupVault'), value: data.passwordEntries + data.bookmarks + data.bookmarkFolders, color: 'hsl(var(--primary))' },
+                { label: t('groupVault'), value: data.passwordEntries, color: 'hsl(var(--primary))' },
                 { label: t('groupWorkspace'), value: data.tasks.total + data.notes + data.projects + (data.codeSnippets ?? 0), color: '#f59e0b' },
                 { label: t('groupToolkit'), value: data.nosqlConnections + data.apiClientCollections + data.apiClientEnvironments + data.apiClientHistoryEntries + data.jsonFormatterDocuments, color: '#06b6d4' },
               ] satisfies DonutSegment[]
@@ -341,12 +337,12 @@ export function DashboardAnalyticsPanel() {
 
       <TopToolsBars tools={topUsedTools} title={t('topToolsTitle')} />
 
-      {/* ── Group 1: Vault & Bookmarks ────────────────────────────────────── */}
+      {/* ── Group 1: Vault ────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-2">
         <SectionHeader label={t('groupVault')} activeCount={vaultActiveCount} color="rose" />
         {vaultAllEmpty && !showEmpty ? (
           <EmptyGroupHint
-            message="No vault data yet — save passwords or bookmarks to see stats."
+            message="No vault data yet — save passwords to see stats."
             href="/app/password-manager"
             cta="Open vault"
           />

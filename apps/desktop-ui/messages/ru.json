@@ -5,16 +5,12 @@
     "apiClient": "API-клиент",
     "passwordManager": "Менеджер паролей",
     "environmentManager": "Менеджер окружений",
-    "bookmarks": "Закладки",
     "jsonFormatter": "Форматировщик JSON",
     "emailValidator": "Валидатор email",
     "nosqlExplorer": "Обозреватель баз данных",
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "encryptionPlayground": "Песочница шифрования",
-    "jwtDecoder": "Декодер JWT",
-    "certificatePemDecoder": "Декодер сертификата / PEM",
     "sqlFormatter": "SQL Formatter",
     "graphqlFormatter": "Форматтер GraphQL",
     "diffChecker": "Diff checker",
@@ -26,7 +22,6 @@
     "yamlFormatter": "Форматировщик YAML",
     "jsonToCode": "JSON to Code",
     "beautifyMinify": "Beautify & Minify",
-    "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Сравнение JSON",
     "jsonpathPlayground": "Песочница JSONPath",
     "secureFiles": "Файлы"
@@ -326,10 +321,6 @@
         "title": "Менеджер окружений",
         "description": "Храните переменные в стиле .env по проекту и окружению с тегами."
       },
-      "bookmarks": {
-        "title": "Закладки",
-        "description": "Управляйте и систематизируйте закладки."
-      },
       "apiClient": {
         "title": "API-клиент",
         "description": "Тестируйте и отлаживайте HTTP-запросы."
@@ -345,18 +336,6 @@
       "emailValidator": {
         "title": "Валидатор email",
         "description": "Проверяйте и валидируйте адреса электронной почты."
-      },
-      "encryptionPlayground": {
-        "title": "Песочница шифрования",
-        "description": "AES-GCM с сырым ключом или паролем; JSON-пакеты, Web Crypto только в браузере."
-      },
-      "jwtDecoder": {
-        "title": "Декодер JWT",
-        "description": "Декодируйте заголовок, полезную нагрузку и срок действия JWT."
-      },
-      "certificatePemDecoder": {
-        "title": "Декодер сертификата / PEM",
-        "description": "Декодируйте сертификаты X.509 и CSR: субъект, издатель, срок действия, SAN."
       },
       "jsonFormatter": {
         "title": "JSON Formatter",
@@ -406,10 +385,6 @@
         "title": "Beautify & Minify",
         "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
       },
-      "bcryptGenerator": {
-        "title": "Генератор и проверка Bcrypt",
-        "description": "Хешируйте пароли с помощью bcrypt и проверяйте существующие хеши."
-      },
       "jsonDiff": {
         "title": "Сравнение JSON",
         "description": "Семантическое, учитывающее структуру сравнение двух документов JSON."
@@ -434,8 +409,6 @@
       "loadError": "Не удалось загрузить аналитику.",
       "retry": "Повторить",
       "passwordEntries": "Записей паролей",
-      "bookmarks": "Закладки",
-      "bookmarkFolders": "Папки закладок",
       "tasksTotal": "Задачи",
       "tasksCompleted": "Выполнено",
       "tasksOngoing": "В работе",
@@ -450,7 +423,7 @@
       "heroBadge": "Live sync",
       "totalLabel": "Tracked items",
       "totalHint": "Sum of every category below",
-      "groupVault": "Vault & bookmarks",
+      "groupVault": "Vault",
       "groupWorkspace": "Workspace",
       "groupToolkit": "Developer toolkit",
       "taskMixTitle": "Task status",
@@ -524,8 +497,6 @@
       "after": "After",
       "viewAll": "View all activity",
       "moduleAuth": "Account",
-      "moduleBookmarks": "Bookmarks",
-      "moduleBookmarkFolders": "Bookmark folders",
       "moduleNotes": "Notes",
       "moduleTasks": "Tasks",
       "modulePasswords": "Passwords",
@@ -1101,117 +1072,6 @@
       "toastCommentedAdded": "{count, plural, one {Added # commented variable} other {Added # commented variables}}",
       "showValues": "Show values",
       "hideValues": "Hide values"
-    }
-  },
-  "Bookmarks": {
-    "page": {
-      "loading": "Загрузка..."
-    },
-    "manager": {
-      "foldersHeading": "Папки",
-      "tagsHeading": "Теги",
-      "tagsMore": "+{count} ещё",
-      "tagsShowLess": "Show less",
-      "searchPlaceholder": "Поиск закладок...",
-      "import": "Импорт",
-      "export": "Экспорт",
-      "exportAsHtml": "Экспорт в HTML",
-      "exportAsJson": "Экспорт в JSON",
-      "addBookmark": "Добавить закладку",
-      "matchingQuery": "по запросу «{query}»",
-      "bookmarkCount": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
-      "allBookmarks": "Все закладки",
-      "uncategorized": "Без категории",
-      "unknownFolder": "Неизвестно"
-    },
-    "card": {
-      "urlCopied": "URL скопирован в буфер обмена",
-      "bookmarkDeleted": "Закладка удалена",
-      "edit": "Редактировать",
-      "delete": "Удалить",
-      "copyUrl": "Копировать URL",
-      "deleteConfirmTitle": "Удалить закладку?",
-      "deleteConfirmDescription": "Закладка «{title}» будет удалена безвозвратно.",
-      "cancel": "Отмена"
-    },
-    "grid": {
-      "emptyTitle": "Закладок пока нет",
-      "emptyDescription": "Добавьте первую закладку или импортируйте из браузера, чтобы начать."
-    },
-    "folderTree": {
-      "allBookmarks": "Все закладки",
-      "addSubfolder": "Добавить подпапку",
-      "rename": "Переименовать",
-      "deleteFolderTitle": "Удалить папку «{name}»?",
-      "deleteFolderDescription": "Папка и все подпапки будут удалены. Закладки из этих папок будут перемещены в «Без категории»."
-    },
-    "foldersHeading": "Папки",
-    "import": {
-      "title": "Импорт закладок",
-      "description": "Импортируйте закладки из экспортированного файла браузера.",
-      "parseError": "Не удалось разобрать файл закладок. Убедитесь, что файл является корректным экспортом.",
-      "successToast": "Импортировано {bookmarks} закладок и {folders} папок",
-      "errorToast": "Не удалось импортировать закладки",
-      "chromeInstruction": "Меню → Закладки → Диспетчер закладок → ⋮ → Экспорт закладок",
-      "firefoxInstruction": "Меню → Закладки → Управление закладками → Импорт и резервные копии → Экспорт",
-      "safariInstruction": "Файл → Экспорт закладок...",
-      "edgeInstruction": "Меню → Избранное → ⋯ → Экспорт избранного",
-      "dropZoneTitle": "Перетащите файл закладок сюда",
-      "dropZoneHint": "или нажмите для выбора (HTML или JSON)",
-      "selectedFileHint": "Нажмите, чтобы выбрать другой файл",
-      "errorTitle": "Ошибка",
-      "previewTitle": "Предпросмотр импорта",
-      "previewBookmarks": "{count, plural, one {# закладка} few {# закладки} other {# закладок}}",
-      "previewFolders": "{count, plural, one {# папка} few {# папки} other {# папок}}",
-      "importModeLabel": "Режим импорта",
-      "modeMerge": "Объединить с существующими закладками",
-      "modeReplace": "Заменить все существующие закладки",
-      "cancel": "Отмена",
-      "importButton": "Импорт",
-      "importButtonWithCount": "Импортировать {count, plural, one {# закладку} few {# закладки} other {# закладок}}"
-    },
-    "addBookmark": {
-      "titleAdd": "Добавить закладку",
-      "titleEdit": "Редактировать закладку",
-      "urlLabel": "URL",
-      "urlPlaceholder": "https://example.com",
-      "urlInvalid": "Пожалуйста, введите корректный URL",
-      "titleLabel": "Название",
-      "titlePlaceholder": "Название закладки",
-      "titleRequired": "Пожалуйста, введите название",
-      "descriptionLabel": "Описание (необязательно)",
-      "descriptionPlaceholder": "Добавьте заметку об этой закладке",
-      "folderLabel": "Папка",
-      "folderPlaceholder": "Выберите папку",
-      "noFolder": "Без папки",
-      "tagsLabel": "Теги",
-      "tagsPlaceholder": "Добавьте теги (Enter)",
-      "toastUpdated": "Закладка обновлена",
-      "toastAdded": "Закладка добавлена",
-      "cancel": "Отмена",
-      "submitAdd": "Добавить закладку",
-      "submitUpdate": "Обновить закладку"
-    },
-    "addFolder": {
-      "title": "Создать папку",
-      "nameLabel": "Название папки",
-      "namePlaceholder": "Моя папка",
-      "nameRequired": "Пожалуйста, введите название папки",
-      "parentLabel": "Родительская папка",
-      "parentPlaceholder": "Выберите родительскую папку",
-      "rootParent": "Корень (без родителя)",
-      "toastCreated": "Папка создана",
-      "cancel": "Отмена",
-      "submit": "Создать папку"
-    },
-    "editFolder": {
-      "title": "Переименовать папку",
-      "nameLabel": "Название папки",
-      "namePlaceholder": "Название папки",
-      "nameRequired": "Пожалуйста, введите название папки",
-      "toastRenamed": "Папка переименована",
-      "cancel": "Отмена",
-      "save": "Сохранить"
     }
   },
   "EmailValidator": {
@@ -2511,140 +2371,6 @@
     "toastRepaired": "JSON исправлен",
     "toastRepairFailed": "Не удалось исправить JSON"
   },
-  "JwtDecoder": {
-    "title": "Декодер JWT",
-    "subtitle": "Разберите заголовок, payload и срок — подпись не проверяется",
-    "tokenLabel": "Токен",
-    "clear": "Очистить",
-    "placeholder": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-    "copy": "Копировать",
-    "expiryLabel": "Срок действия (exp)",
-    "signaturePresent": "Подпись присутствует (не проверяется)",
-    "noExp": "В payload нет claim <code>exp</code>.",
-    "status": {
-      "expired": "Истёк",
-      "valid": "Действителен"
-    },
-    "fields": {
-      "unix": "Unix",
-      "local": "Локальное",
-      "utc": "UTC"
-    },
-    "claims": {
-      "issuedAt": "Выдано (iat)",
-      "notBefore": "Не ранее (nbf)"
-    },
-    "panels": {
-      "header": "Заголовок",
-      "payload": "Payload"
-    },
-    "errors": {
-      "empty": "Вставьте JWT для декодирования.",
-      "segments": "JWT должен содержать как минимум заголовок и payload (два сегмента).",
-      "base64": "Не удалось декодировать заголовок или payload (base64url)."
-    },
-    "relative": {
-      "future": "через {n} {unit}",
-      "past": "{n} {unit} назад"
-    },
-    "units": {
-      "second": "{count, plural, one {секунду} few {секунды} many {секунд} other {секунд}}",
-      "minute": "{count, plural, one {минуту} few {минуты} many {минут} other {минут}}",
-      "hour": "{count, plural, one {час} few {часа} many {часов} other {часов}}",
-      "day": "{count, plural, one {день} few {дня} many {дней} other {дней}}"
-    },
-    "tabs": {
-      "decode": "Декодировать",
-      "sign": "Генератор / подпись"
-    },
-    "signer": {
-      "algLabel": "Алгоритм (alg)",
-      "tabs": {
-        "payload": "Полезная нагрузка",
-        "header": "Заголовок"
-      },
-      "payloadLabel": "Payload JSON",
-      "payloadPlaceholder": "e.g. \"sub\": \"123\", \"exp\": 1700000000",
-      "headerLabel": "Header JSON",
-      "headerPlaceholder": "e.g. \"typ\": \"JWT\", \"alg\": \"HS256\"",
-      "secretLabel": "Секрет (HS*)",
-      "secretPlaceholder": "Вставьте HMAC-секрет…",
-      "privateKeyLabel": "Закрытый ключ PEM (RS*)",
-      "privateKeyPlaceholder": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
-      "noneHint": "Алгоритм \"none\" создает неподписанный токен. Это небезопасно и подходит только для тестов.",
-      "sign": "Подписать",
-      "verify": "Проверить подпись",
-      "outputLabel": "Токен (компактный JWS)",
-      "outputPlaceholder": "Нажмите «Подписать»…",
-      "copyToken": "Скопировать токен",
-      "copied": "Скопировано",
-      "verifyKeyLabel": "Ключ проверки (необязательно)",
-      "verifyKeyPlaceholder": "Для RS*: вставьте публичный ключ (SPKI) PEM. Для HS*: оставьте пустым, чтобы использовать секрет.",
-      "verifyKeyHint": "Если пусто, проверка использует ключ подписи (удобно для HS*).",
-      "verifyStatus": {
-        "valid": "Подпись верна",
-        "invalid": "Подпись неверна"
-      },
-      "securityNote": "Все выполняется локально в браузере; ключи и токены не отправляются."
-    },
-    "signErrors": {
-      "invalidJson": "Заголовок и payload должны быть валидным JSON.",
-      "unsupportedAlg": "Неподдерживаемый алгоритм.",
-      "missingKey": "Для этого алгоритма требуется ключ подписи.",
-      "cryptoFailed": "Не удалось подписать. Проверьте формат ключа и попробуйте снова."
-    },
-    "verifyErrors": {
-      "empty": "Введите JWT для проверки.",
-      "segments": "JWT должен содержать ровно 3 сегмента для проверки подписи.",
-      "unsupportedAlg": "Неподдерживаемый или отсутствующий alg в заголовке.",
-      "missingKey": "Для этого алгоритма требуется ключ проверки.",
-      "base64": "Не удалось декодировать заголовок или подпись JWT.",
-      "cryptoFailed": "Проверка не удалась. Проверьте формат ключа и попробуйте снова."
-    }
-  },
-  "CertificatePemDecoder": {
-    "title": "Декодер сертификатов",
-    "subtitle": "Декодируйте сертификаты X.509 и CSR из PEM",
-    "pemLabel": "Ввод PEM",
-    "clear": "Очистить",
-    "placeholder": "-----BEGIN CERTIFICATE-----\nMIID...\n-----END CERTIFICATE-----",
-    "parsing": "Разбор…",
-    "copyHex": "Копировать отпечаток (hex без двоеточий)",
-    "errors": {
-      "empty": "Вставьте PEM-сертификат или CSR для декодирования.",
-      "noBlock": "Не найден PEM-блок сертификата или CSR.",
-      "parseFailed": "Не удалось разобрать эти PEM-данные."
-    },
-    "block": {
-      "title": "PEM-блок {index}",
-      "certificate": "Сертификат X.509",
-      "csr": "Запрос на подпись сертификата"
-    },
-    "fields": {
-      "subject": "Субъект",
-      "issuer": "Издатель",
-      "notBefore": "Не действителен до",
-      "notAfter": "Не действителен после",
-      "serial": "Серийный номер (hex)",
-      "sha256": "Отпечаток SHA-256",
-      "sans": "Альтернативные имена субъекта",
-      "sansNone": "Расширение SAN отсутствует.",
-      "signatureAlgorithm": "Алгоритм подписи",
-      "csrIssuerNote": "В CSR нет издателя (он указывается в выданном сертификате).",
-      "csrValidityNote": "В CSR нет сроков действия (они указываются в выданном сертификате)."
-    },
-    "sanType": {
-      "dns": "DNS",
-      "dn": "Отличительное имя",
-      "email": "Почта",
-      "ip": "IP",
-      "url": "URI",
-      "guid": "GUID",
-      "upn": "UPN",
-      "id": "Зарегистрированный ID",
-      "other": "{type}"
-    }
-  },
   "SqlFormatter": {
     "title": "Форматтер SQL",
     "subtitle": "Форматируйте SQL для MySQL, PostgreSQL и SQLite",
@@ -2956,58 +2682,6 @@
       "toastRowsMatched": "Совпало строк: {count} — ничего не изменено, потому что фильтр не уникален."
     }
   },
-  "EncryptionPlayground": {
-    "title": "Песочница шифрования",
-    "subtitle": "Шифруйте и расшифровывайте AES-GCM с паролем или ключом",
-    "tabEncrypt": "Зашифровать",
-    "tabDecrypt": "Расшифровать",
-    "keyModeLabel": "Ключевой материал",
-    "modePassphrase": "Парольная фраза (PBKDF2 + AES-GCM)",
-    "modeRawKey": "Сырой ключ AES (hex или Base64)",
-    "aesBitsLabel": "Длина ключа AES",
-    "aesBits": {
-      "128": "AES-128",
-      "192": "AES-192",
-      "256": "AES-256"
-    },
-    "rawEncodingLabel": "Кодировка сырого ключа",
-    "encodingAuto": "Авто (hex, если похоже на hex, иначе Base64)",
-    "encodingHex": "Hex",
-    "encodingBase64": "Base64",
-    "rawKeyLabel": "Сырой ключ",
-    "rawKeyPlaceholder": "Ключ 32 байта как 64 hex-символа или Base64 для AES-256 (длина зависит от выбранного AES выше).",
-    "rawKeyPlaceholderDecrypt": "Нужно только если в пакете keyDerivation \"none\".",
-    "passphraseLabel": "Парольная фраза",
-    "passphrasePlaceholder": "Пароль используется только в браузере для вывода ключа.",
-    "passphrasePlaceholderDecrypt": "Нужно только если пакет использует PBKDF2-SHA256.",
-    "pbkdf2IterLabel": "Итерации PBKDF2",
-    "pbkdf2Hint": "От 10 000 до 2 000 000. Значение по умолчанию как в типичных хранилищах паролей.",
-    "plaintextLabel": "Открытый текст",
-    "plaintextPlaceholder": "Введите или вставьте сообщение для шифрования…",
-    "bundleInputLabel": "Зашифрованный пакет (JSON)",
-    "bundlePlaceholder": "Вставьте JSON из «Зашифровать» (v, alg, ivB64, cipherB64, …).",
-    "bundleOutputLabel": "Зашифрованный пакет",
-    "plaintextOutputLabel": "Открытый текст",
-    "encryptButton": "Зашифровать",
-    "decryptButton": "Расшифровать",
-    "copyBundle": "Копировать JSON",
-    "copyPlaintext": "Копировать открытый текст",
-    "copied": "Скопировано",
-    "emptyBundleHint": "Зашифрованный JSON появится здесь после шифрования.",
-    "emptyDecryptHint": "Расшифрованный текст появится здесь.",
-    "decryptKeyHint": "Используйте сырой ключ, если keyDerivation — \"none\"; парольную фразу при PBKDF2-SHA256. В пакете хранятся соль, итерации, IV и длина AES.",
-    "securityNote": "Ключи и открытый текст не покидают браузер. Для продакшн-секретов используйте специализированные средства.",
-    "errors": {
-      "emptyKey": "Введите сырой ключ, соответствующий размеру AES.",
-      "emptyPassphrase": "Введите парольную фразу.",
-      "badKeyMaterial": "Не удалось прочитать ключ как hex или Base64.",
-      "wrongKeyLength": "Длина ключа не соответствует выбранному AES (16 / 24 / 32 байта).",
-      "invalidJson": "Некорректный JSON.",
-      "invalidBundle": "Этот JSON не является поддерживаемым пакетом шифрования.",
-      "decryptFailed": "Расшифровка не удалась — неверный секрет, повреждённый пакет или параметры.",
-      "encryptFailed": "Шифрование не удалось. Проверьте Web Crypto и ввод."
-    }
-  },
   "MarkdownPreview": {
     "title": "Предпросмотр Markdown",
     "subtitle": "Рендерьте Markdown вживую и конвертируйте в HTML и обратно",
@@ -3110,47 +2784,6 @@
     "copy": "Copy",
     "copied": "Copied",
     "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "BcryptGenerator": {
-    "title": "Генератор bcrypt",
-    "subtitle": "Хэшируйте и проверяйте пароли с bcrypt",
-    "tabs": {
-      "hash": "Хеш",
-      "verify": "Проверка"
-    },
-    "showPassword": "Показать пароль",
-    "hidePassword": "Скрыть пароль",
-    "copy": "Копировать",
-    "copied": "Скопировано",
-    "hash": {
-      "passwordLabel": "Пароль",
-      "passwordPlaceholder": "Введите пароль для хеширования…",
-      "costLabel": "Фактор стоимости",
-      "costHint": "Более высокий фактор удваивает работу на каждом шаге. 10-12 — распространённый выбор для продакшена.",
-      "slowWarning": "Факторы стоимости 13 и выше могут вычисляться несколько секунд.",
-      "generate": "Создать хеш",
-      "generating": "Хеширование…",
-      "resultLabel": "Хеш bcrypt",
-      "timeTaken": "{ms} мс",
-      "anatomy": {
-        "title": "Строение хеша",
-        "algorithm": "алгоритм",
-        "cost": "стоимость",
-        "salt": "соль (22 символа)",
-        "hash": "хеш (31 символ)"
-      }
-    },
-    "verify": {
-      "passwordLabel": "Пароль",
-      "passwordPlaceholder": "Введите пароль для проверки…",
-      "hashLabel": "Хеш bcrypt",
-      "hashPlaceholder": "$2b$10$…",
-      "idle": "Введите пароль и хеш bcrypt, чтобы сравнить их.",
-      "invalidHash": "Это не похоже на корректный хеш bcrypt.",
-      "checking": "Сравнение…",
-      "match": "Совпадает — пароль даёт этот хеш.",
-      "noMatch": "Не совпадает — пароль не даёт этот хеш."
-    }
   },
   "JsonDiff": {
     "title": "Сравнение JSON",

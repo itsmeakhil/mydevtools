@@ -19,7 +19,7 @@ describe("fetchDashboardAnalyticsSummary", () => {
         mockApiFetch.mockResolvedValue(
             jsonResponse({
                 notes: 4,
-                bookmarks: 2,
+                passwordEntries: 2,
                 tasks: { total: 3, completed: 1, ongoing: 2, notStarted: 0 },
                 codeSnippets: 7,
             }),
@@ -29,7 +29,7 @@ describe("fetchDashboardAnalyticsSummary", () => {
 
         expect(mockApiFetch).toHaveBeenCalledWith("/api/backend/dashboard/analytics")
         expect(s.notes).toBe(4)
-        expect(s.bookmarks).toBe(2)
+        expect(s.passwordEntries).toBe(2)
         expect(s.codeSnippets).toBe(7)
         expect(s.tasks).toEqual({ total: 3, completed: 1, ongoing: 2, notStarted: 0 })
         // Fields the router did not send fall back to 0 rather than undefined.
@@ -47,7 +47,7 @@ describe("normalizeAnalyticsSummary", () => {
         expect(normalizeAnalyticsSummary(null)).toEqual(EMPTY_ANALYTICS_SUMMARY)
         expect(normalizeAnalyticsSummary("nope")).toEqual(EMPTY_ANALYTICS_SUMMARY)
         expect(
-            normalizeAnalyticsSummary({ notes: "12", bookmarks: NaN, tasks: { total: "x" } }),
+            normalizeAnalyticsSummary({ notes: "12", passwordEntries: NaN, tasks: { total: "x" } }),
         ).toEqual(EMPTY_ANALYTICS_SUMMARY)
     })
 })
