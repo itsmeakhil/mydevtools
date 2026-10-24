@@ -9,15 +9,11 @@ const DESKTOP_RECOMMENDED_SLUGS = new Set([
   'data-explorer',
   'encryption-playground',
   's3-drive',
-  'csv-excel-json',
   'environment-manager',
   'notes',
   'to-do',
   'bookmarks',
   'api-keys',
-  'image-compressor',
-  'image-to-base64',
-  'svg-optimizer',
 ])
 
 function slugFromPathname(pathname: string): string | null {

@@ -15,11 +15,9 @@ import {
   IconRocket,
   IconShield,
   IconBraces,
-  IconArrowsExchange,
   IconWand,
   IconNetwork,
   IconServer,
-  IconPalette,
   IconCheck,
   IconArrowRight,
   IconLayout,
@@ -39,33 +37,24 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
   Productivity: IconRocket,
   Security: IconShield,
   Formatters: IconBraces,
-  Converters: IconArrowsExchange,
-  Generators: IconWand,
   "Network & API": IconNetwork,
   Database: IconServer,
-  "Media & Design": IconPalette,
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
   Productivity: "from-violet-500/20 to-violet-600/10 border-violet-500/30",
   Security: "from-green-500/20 to-green-600/10 border-green-500/30",
   Formatters: "from-blue-500/20 to-blue-600/10 border-blue-500/30",
-  Converters: "from-cyan-500/20 to-cyan-600/10 border-cyan-500/30",
-  Generators: "from-amber-500/20 to-amber-600/10 border-amber-500/30",
   "Network & API": "from-orange-500/20 to-orange-600/10 border-orange-500/30",
   Database: "from-red-500/20 to-red-600/10 border-red-500/30",
-  "Media & Design": "from-pink-500/20 to-pink-600/10 border-pink-500/30",
 }
 
 const CATEGORY_ICON_COLORS: Record<string, string> = {
   Productivity: "text-violet-400",
   Security: "text-green-400",
   Formatters: "text-blue-400",
-  Converters: "text-cyan-400",
-  Generators: "text-amber-400",
   "Network & API": "text-orange-400",
   Database: "text-red-400",
-  "Media & Design": "text-pink-400",
 }
 
 // ── Tour slides ───────────────────────────────────────────────────────────────

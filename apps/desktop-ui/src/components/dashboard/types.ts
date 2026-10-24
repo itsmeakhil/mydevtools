@@ -159,11 +159,8 @@ export const CATEGORY_ACCENT: Record<string, { bg: string; text: string }> = {
   Productivity: { bg: 'bg-blue-500/10', text: 'text-blue-600 dark:text-blue-400' },
   Security: { bg: 'bg-red-500/10', text: 'text-red-600 dark:text-red-400' },
   Formatters: { bg: 'bg-emerald-500/10', text: 'text-emerald-600 dark:text-emerald-400' },
-  Converters: { bg: 'bg-amber-500/10', text: 'text-amber-600 dark:text-amber-400' },
-  Generators: { bg: 'bg-purple-500/10', text: 'text-purple-600 dark:text-purple-400' },
   'Network & API': { bg: 'bg-cyan-500/10', text: 'text-cyan-600 dark:text-cyan-400' },
   Database: { bg: 'bg-orange-500/10', text: 'text-orange-600 dark:text-orange-400' },
-  'Media & Design': { bg: 'bg-pink-500/10', text: 'text-pink-600 dark:text-pink-400' },
 }
 
 export const DEFAULT_ACCENT = { bg: 'bg-primary/10', text: 'text-primary' }
@@ -178,6 +175,4 @@ export const POPULAR_TOOL_URLS = [
   '/app/jwt-decoder',
   '/app/api-client',
   '/app/regex-tester',
-  '/app/uuid-generator',
-  '/app/base64',
 ]
