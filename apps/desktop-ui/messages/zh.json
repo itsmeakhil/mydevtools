@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON 对比",
     "jsonpathPlayground": "JSONPath 沙盒",
-    "webhookTester": "Webhook 测试器",
     "secureFiles": "文件"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "什么是 MyDevTools？",
-        "description": "一个离线的开发者工作空间：包含一个仪表盘和 80 多款完全在您设备上运行的工具。",
+        "description": "一个离线的开发者工作空间：包含一个仪表盘和完全在您设备上运行的工具。",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "设置",
         "p1After": "中隐藏您不使用的工具。",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath 沙盒",
         "description": "使用 JSONPath 或 JMESPath 查询 JSON 并实时查看结果。"
-      },
-      "webhookTester": {
-        "title": "Webhook 测试器",
-        "description": "实时捕获并检查传入的 webhook 请求。"
       },
       "secureFiles": {
         "title": "文件",

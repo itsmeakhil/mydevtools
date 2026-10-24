@@ -31,12 +31,9 @@ export const toolCategoryMap: Record<string, string> = {
   'bcrypt-generator': 'Security',
   'json-diff': 'Formatters',
   'jsonpath-playground': 'Formatters',
-  'webhook-tester': 'Network & API',
 }
 
-export const publicToolSlugs = Object.keys(toolsMetadata).filter(
-  (slug) => !slug.startsWith('break-room'),
-)
+export const publicToolSlugs = Object.keys(toolsMetadata)
 
 /** Returns up to `limit` sibling tools in the same category, excluding `currentSlug`. */
 export function getRelatedTools(

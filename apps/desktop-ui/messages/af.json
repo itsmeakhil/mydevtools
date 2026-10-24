@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON-verskil",
     "jsonpathPlayground": "JSONPath-speelperk",
-    "webhookTester": "Webhook-toetser",
     "secureFiles": "Lêers"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Wat is MyDevTools?",
-        "description": "'n Vanlyn werkspasie vir ontwikkelaars: 'n paneelbord en meer as 80 gereedskap wat heeltemal op jou toestel loop.",
+        "description": "'n Vanlyn werkspasie vir ontwikkelaars: 'n paneelbord en gereedskap wat heeltemal op jou toestel loop.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Instellings",
         "p1After": ".",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath-speelperk",
         "description": "Bevraag JSON met JSONPath of JMESPath en sien lewendige resultate."
-      },
-      "webhookTester": {
-        "title": "Webhook-toetser",
-        "description": "Vang en inspekteer inkomende webhook-versoeke intyds."
       },
       "secureFiles": {
         "title": "Lêers",

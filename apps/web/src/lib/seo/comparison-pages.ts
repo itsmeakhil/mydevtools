@@ -25,7 +25,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Best Developer Tools',
     heading: 'Best all-in-one desktop developer toolkit for fast local workflows',
     intro:
-      'Most developers collect dozens of single-purpose formatter, decoder, generator, and API testing tools. MyDevTools brings 80+ daily utilities into one offline desktop app with a searchable dashboard — everything runs locally on your machine.',
+      'Most developers juggle a separate API client, database GUI, password vault and a handful of formatter tabs. MyDevTools brings them into one offline desktop app with a searchable dashboard — everything runs locally on your machine.',
     primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
     sections: [
       {
@@ -33,7 +33,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'Single-purpose tools are useful, but they create tab sprawl and inconsistent privacy expectations. An all-in-one desktop toolkit gives developers one place to start — and your data never leaves your device.',
         bullets: [
-          'Use JSON, JWT, regex, UUID, Base64, API, hashing, timestamp, and generator tools from one app.',
+          'Use the API client, database clients, and JSON, JWT, regex and diff tools from one app.',
           'Move between related utilities without hunting for another tool.',
           'Work offline with a fast native dashboard for daily development.',
         ],
@@ -54,7 +54,7 @@ export const comparisonPages: ComparisonPage[] = [
           'MyDevTools is strongest as an everyday desktop toolkit for quick operations, learning, and debugging — all processed locally.',
         bullets: [
           'Consistent, actively maintained toolkit with regular updates.',
-          '80+ built-in tools plus SQL, NoSQL (MongoDB), and Redis database clients in one place.',
+          'An API client plus SQL, NoSQL (MongoDB), and Redis database clients in one place.',
           'Local-first and privacy-first — nothing you paste leaves your device.',
         ],
       },
@@ -66,7 +66,7 @@ export const comparisonPages: ComparisonPage[] = [
       },
       {
         q: 'Why use MyDevTools instead of separate tool websites?',
-        a: 'It reduces context switching and gives you one offline toolkit for common developer tasks like formatting JSON, decoding JWTs, testing regexes, generating UUIDs, and more.',
+        a: 'It reduces context switching and gives you one offline toolkit for common developer tasks like formatting JSON, decoding JWTs, testing regexes, calling APIs, and querying databases.',
       },
     ],
   },
@@ -78,7 +78,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs JSONFormatter.org',
     intro:
-      'JSONFormatter.org is useful for focused JSON formatting. MyDevTools includes JSON formatting as part of a broader all-in-one desktop developer toolkit for API, encoding, security, generator, and productivity workflows.',
+      'JSONFormatter.org is useful for focused JSON formatting. MyDevTools includes JSON formatting as part of a broader all-in-one desktop developer toolkit for API, database, security, and productivity workflows.',
     competitor: 'JSONFormatter.org',
     toolSlug: 'json-formatter',
     primaryCta: { href: '/tools/json-formatter', label: 'Try JSON Formatter' },
@@ -98,7 +98,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'JSON work rarely happens alone. Developers often need to decode tokens, inspect URLs, test APIs, generate IDs, compare diffs, and transform formats in the same session.',
         bullets: [
-          'Use JSON formatting alongside JWT, API client, URL parser, Base64, hash, UUID, and mock data tools.',
+          'Use JSON formatting alongside the JWT decoder, API client, JSON diff, JSONPath, and schema tools.',
           'Stay in one desktop developer toolkit instead of opening multiple unrelated sites.',
           'Keep your snippets and history saved locally in one app.',
         ],
@@ -117,11 +117,11 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Does MyDevTools include a JSON formatter?',
-        a: 'Yes. MyDevTools includes a JSON formatter/editor plus related tools for JWT, APIs, URLs, Base64, diffs, and schema workflows.',
+        a: 'Yes. MyDevTools includes a JSON formatter/editor plus related tools for JWT, APIs, diffs, JSONPath, and schema workflows.',
       },
       {
         q: 'Is MyDevTools only for JSON?',
-        a: 'No. JSON is one tool in a larger desktop developer toolkit with 80+ utilities.',
+        a: 'No. JSON is one tool in a desktop developer workstation that also has an API client, database clients and an encrypted vault.',
       },
     ],
   },
@@ -133,7 +133,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs jwt.io',
     intro:
-      'jwt.io is a well-known JWT debugger. MyDevTools includes JWT decoding as part of a broader developer toolkit for tokens, certificates, hashing, HMAC, encryption, API requests, and data formatting.',
+      'jwt.io is a well-known JWT debugger. MyDevTools includes JWT decoding as part of a broader developer toolkit for tokens, certificates, encryption, API requests, and data formatting.',
     competitor: 'jwt.io',
     toolSlug: 'jwt-decoder',
     primaryCta: { href: '/tools/jwt-decoder', label: 'Try JWT Decoder' },
@@ -151,10 +151,10 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'JWT debugging often connects to API testing, timestamp inspection, hashing, HMAC signatures, and certificate review.',
+          'JWT debugging often connects to API testing, signature checks, and certificate review.',
         bullets: [
           'Decode JWTs and then test API calls in the same toolkit.',
-          'Use timestamp, HMAC, hash, certificate, and encryption tools nearby.',
+          'Use the certificate decoder, encryption playground, and API client nearby.',
           'Use a unified developer toolkit for broader security workflows.',
         ],
       },
@@ -176,7 +176,7 @@ export const comparisonPages: ComparisonPage[] = [
       },
       {
         q: 'Does MyDevTools verify JWT signatures?',
-        a: 'The JWT tool is focused on decoding and inspection. For signature-related workflows, pair it with HMAC, hashing, certificate, or API testing tools as needed.',
+        a: 'The JWT tool is focused on decoding and inspection. For signature-related workflows, pair it with the certificate decoder or API client as needed.',
       },
     ],
   },
@@ -208,7 +208,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'Regex testing is often part of larger cleanup or validation work with URLs, JSON payloads, logs, encoded strings, and generated test data.',
         bullets: [
-          'Test regex patterns alongside JSON, URL, Base64, timestamp, and mock data tools.',
+          'Test regex patterns alongside JSON, diff, and API tools.',
           'Use one desktop toolkit for common developer utilities.',
           'Save patterns and reuse them across your projects.',
         ],
@@ -236,60 +236,6 @@ export const comparisonPages: ComparisonPage[] = [
     ],
   },
   {
-    slug: 'cyberchef-alternative',
-    title: 'CyberChef Alternative',
-    description:
-      'Looking for a CyberChef alternative for everyday desktop developer utilities? Compare MyDevTools for formatting, decoding, encoding, hashing, and generator workflows.',
-    eyebrow: 'Alternative',
-    heading: 'CyberChef alternative for everyday developer workflows',
-    intro:
-      'CyberChef is powerful for chained transformations and forensic-style recipes. MyDevTools is built for everyday developer utility workflows: format JSON, decode JWTs, encode Base64, hash data, parse URLs, generate UUIDs, and test APIs from one toolkit.',
-    competitor: 'CyberChef',
-    primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
-    sections: [
-      {
-        title: 'Choose CyberChef when',
-        body:
-          'CyberChef is excellent for chaining operations, recipes, analysis, and advanced transformation workflows.',
-        bullets: [
-          'You need multi-step transformation recipes.',
-          'You work on forensic or security analysis tasks.',
-          'You need the specific CyberChef operation model.',
-        ],
-      },
-      {
-        title: 'Choose MyDevTools when',
-        body:
-          'MyDevTools is aimed at common engineering workflows where you want named tools and a fast app dashboard.',
-        bullets: [
-          'Use dedicated tools for JSON, JWT, regex, UUID, Base64, hashing, timestamps, and APIs.',
-          'Keep everyday developer utilities discoverable in one dashboard.',
-          'Use a unified toolkit designed for general developer productivity.',
-        ],
-      },
-      {
-        title: 'Verdict',
-        body:
-          'CyberChef is best for advanced chained operations. MyDevTools is best as a broad daily developer toolkit.',
-        bullets: [
-          'Best recipe-based transformations: CyberChef.',
-          'Best everyday developer toolkit: MyDevTools.',
-          'Best product-style tool directory: MyDevTools.',
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: 'Is MyDevTools a CyberChef clone?',
-        a: 'No. MyDevTools focuses on individual developer utilities and a unified dashboard rather than recipe-based chained operations.',
-      },
-      {
-        q: 'When should I use MyDevTools instead of CyberChef?',
-        a: 'Use MyDevTools for common developer tasks like formatting JSON, decoding JWTs, testing APIs, generating UUIDs, hashing values, and parsing URLs.',
-      },
-    ],
-  },
-  {
     slug: 'postman-alternative-online',
     title: 'Postman Alternative — Free Offline Desktop API Client',
     description:
@@ -297,7 +243,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Alternative',
     heading: 'Postman alternative for offline, account-free API testing',
     intro:
-      'Postman is a cloud API platform built around team workspaces. MyDevTools is a free, open-source desktop API client that covers REST, GraphQL, WebSocket and gRPC, with a local mock server, collection runner, scripting and encrypted secrets — no account, no sync, and 80+ other developer tools in the same app.',
+      'Postman is a cloud API platform built around team workspaces. MyDevTools is a free, open-source desktop API client that covers REST, GraphQL, WebSocket and gRPC, with a local mock server, collection runner, scripting and encrypted secrets — no account, no sync, and database clients and an encrypted vault in the same app.',
     competitor: 'Postman',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -329,7 +275,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best cloud team platform and CI runner: Postman.',
           'Best free, offline, account-free API client: MyDevTools.',
-          'Best API client plus 80+ developer tools in one app: MyDevTools.',
+          'Best offline API client with database clients in one app: MyDevTools.',
         ],
       },
     ],
@@ -352,7 +298,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs Postman: offline desktop API client vs cloud platform',
     intro:
-      'Postman is a cloud API platform for teams, with workspaces, monitors, governance and a CI runner. MyDevTools is a free, open-source desktop API client that runs fully offline: REST, GraphQL, WebSocket and gRPC, collections and environments, scripting, a collection runner, a local mock server and vault-backed secrets — alongside 80+ developer tools.',
+      'Postman is a cloud API platform for teams, with workspaces, monitors, governance and a CI runner. MyDevTools is a free, open-source desktop API client that runs fully offline: REST, GraphQL, WebSocket and gRPC, collections and environments, scripting, a collection runner, a local mock server and vault-backed secrets — alongside database clients and core dev tools.',
     competitor: 'Postman',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -384,7 +330,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best cloud team platform and CI runner: Postman.',
           'Best free, offline, account-free API client: MyDevTools.',
-          'Best API client plus 80+ utility toolkit: MyDevTools.',
+          'Best offline API client plus dev toolkit: MyDevTools.',
         ],
       },
     ],
@@ -395,7 +341,7 @@ export const comparisonPages: ComparisonPage[] = [
       },
       {
         q: 'What makes MyDevTools useful for API debugging?',
-        a: 'Everything runs offline on your device with no account. Secrets come from the local encrypted vault, scripts run in a sandboxed worker, and the JSON formatter, JWT decoder, URL parser, timestamp converter and mock data generator sit next to the API client.',
+        a: 'Everything runs offline on your device with no account. Secrets come from the local encrypted vault, scripts run in a sandboxed worker, and the JSON formatter, JWT decoder, diff checker and database clients sit next to the API client.',
       },
     ],
   },
@@ -461,7 +407,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs transform.tools',
     intro:
-      'transform.tools offers a focused set of data transformation utilities. MyDevTools covers data conversion as part of a broader developer toolkit that also includes API testing, security tools, generators, and productivity features.',
+      'transform.tools offers a focused set of data transformation utilities. MyDevTools covers data conversion as part of a broader developer toolkit that also includes API testing, database clients, security tools, and productivity features.',
     competitor: 'transform.tools',
     primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
     sections: [
@@ -480,7 +426,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'Transformations are rarely isolated. Most developers also need to format, validate, test an API, decode a token, or generate test data in the same session.',
         bullets: [
-          'Use format converter, JSON formatter, and CSV tools alongside API client and JWT decoder.',
+          'Use the format converter, JSON to Code, and JSON formatter alongside the API client and JWT decoder.',
           'Stay in one toolkit instead of bookmarking 10 different sites.',
           'Keep everything in one offline desktop app for daily development.',
         ],
@@ -499,11 +445,11 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Does MyDevTools support JSON to TypeScript conversion?',
-        a: 'MyDevTools includes a JSON Schema Generator that infers schema from JSON. For direct JSON-to-TypeScript type generation, pair it with the JSON formatter to clean the input first.',
+        a: 'MyDevTools includes a JSON Schema Generator that infers schema from JSON. JSON to Code generates TypeScript, Go, Rust, Python and other typed models directly.',
       },
       {
         q: 'Can MyDevTools do more than transform.tools?',
-        a: 'Yes. Beyond data transforms, MyDevTools adds API testing, security tools, generators, and productivity features in one workspace.',
+        a: 'Yes. Beyond data transforms, MyDevTools adds API testing, database clients, security tools, and productivity features in one workspace.',
       },
     ],
   },
@@ -515,7 +461,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs it-tools.tech',
     intro:
-      'it-tools.tech is a strong collection of developer utilities. MyDevTools targets similar daily developer needs while adding an offline desktop app, 80+ built-in tools, and SQL, MongoDB, and Redis database clients.',
+      'it-tools.tech is a strong collection of developer utilities. MyDevTools targets similar daily developer needs while adding an offline desktop app, an API client, and SQL, MongoDB, and Redis database clients.',
     competitor: 'it-tools.tech',
     primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
     sections: [
@@ -534,8 +480,8 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'MyDevTools is a better fit when you want a broader product experience around daily development tasks, plus database clients and offline workflows.',
         bullets: [
-          'Use API, database, productivity, formatter, converter, generator, and security tools together.',
-          'Use a searchable dashboard to launch 80+ tools for daily use.',
+          'Use API, database, productivity, formatter, and security tools together.',
+          'Use a searchable dashboard to launch every tool you use daily.',
           'Work fully offline with local-first data processing.',
         ],
       },
@@ -557,7 +503,7 @@ export const comparisonPages: ComparisonPage[] = [
       },
       {
         q: 'How do the two projects differ?',
-        a: 'it-tools.tech is a focused browser utility collection; MyDevTools is a broader desktop toolkit with 80+ tools, database clients, and local-first data processing.',
+        a: 'it-tools.tech is a focused browser utility collection; MyDevTools is a desktop workstation with an API client, database clients, and local-first data processing.',
       },
     ],
   },
@@ -569,7 +515,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs IT Tools: developer utility platforms',
     intro:
-      'IT Tools (it-tools.tech) is a popular collection of browser utilities. MyDevTools targets the same everyday developer utility need while adding an offline desktop app, 80+ built-in tools, SQL, MongoDB, and Redis database clients, and a broader product surface.',
+      'IT Tools (it-tools.tech) is a popular collection of browser utilities. MyDevTools targets the same everyday developer utility need while adding an offline desktop app, an API client, SQL, MongoDB, and Redis database clients, and an encrypted vault.',
     competitor: 'IT Tools',
     primaryCta: { href: '/developer-tools', label: 'Explore MyDevTools' },
     sections: [
@@ -586,10 +532,10 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'MyDevTools is built as a broader desktop developer toolkit with a searchable dashboard, 80+ tools, and local-first workflows.',
+          'MyDevTools is built as a broader desktop developer toolkit with a searchable dashboard, an API client, database clients, and local-first workflows.',
         bullets: [
           'Use utilities plus API, database, productivity, and security tools in one app.',
-          'Launch 80+ tools plus SQL, MongoDB, and Redis clients from one place.',
+          'Launch the API client, formatters, and SQL, MongoDB, and Redis clients from one place.',
           'Work fully offline with data processed locally on your machine.',
         ],
       },
@@ -623,7 +569,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs DevUtils.app',
     intro:
-      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is a cross-platform desktop app that runs offline on macOS and Linux, with 80+ tools plus SQL, MongoDB, and Redis database clients.',
+      'DevUtils.app is a native Mac app for offline developer utilities. MyDevTools is a cross-platform desktop app that runs offline on macOS and Linux, with an API client plus SQL, MongoDB, and Redis database clients.',
     competitor: 'DevUtils.app',
     primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
     sections: [
@@ -643,7 +589,7 @@ export const comparisonPages: ComparisonPage[] = [
           'An all-in-one desktop toolkit is better when you work across operating systems or want more than utilities in one app.',
         bullets: [
           'Run the same offline app on macOS and Linux — not just Mac.',
-          'Use 80+ tools plus SQL, MongoDB, and Redis database clients in one place.',
+          'Use the API client, formatters, and SQL, MongoDB, and Redis database clients in one place.',
           'Process everything locally — your data never leaves your machine.',
         ],
       },
@@ -673,11 +619,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'insomnia-alternative-online',
     title: 'Insomnia Alternative — Free Offline Desktop API Client',
     description:
-      'Compare MyDevTools with Insomnia: a free, offline desktop API client with REST, GraphQL, WebSocket, gRPC, mock server, runner and vault-backed secrets, plus 80+ developer tools.',
+      'Compare MyDevTools with Insomnia: a free, offline desktop API client with REST, GraphQL, WebSocket, gRPC, mock server, runner and vault-backed secrets, plus database clients.',
     eyebrow: 'Alternative',
     heading: 'Insomnia alternative for offline, account-free API debugging',
     intro:
-      'Insomnia is a dedicated desktop API client from Kong with cloud and Git sync, a plugin ecosystem and a CLI. MyDevTools is a free, open-source desktop API client that runs fully offline and needs no account: REST, GraphQL, WebSocket and gRPC, collections, environments, scripting, a collection runner and a local mock server — next to 80+ other developer tools.',
+      'Insomnia is a dedicated desktop API client from Kong with cloud and Git sync, a plugin ecosystem and a CLI. MyDevTools is a free, open-source desktop API client that runs fully offline and needs no account: REST, GraphQL, WebSocket and gRPC, collections, environments, scripting, a collection runner and a local mock server — next to database clients and an encrypted vault.',
     competitor: 'Insomnia',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -709,7 +655,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best team sync, plugins and CLI: Insomnia.',
           'Best free, offline, account-free API client: MyDevTools.',
-          'Best API client plus 80+ developer tools: MyDevTools.',
+          'Best offline API client with database clients built in: MyDevTools.',
         ],
       },
     ],
@@ -728,11 +674,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mydevtools-vs-bruno',
     title: 'MyDevTools vs Bruno',
     description:
-      'Compare MyDevTools with Bruno: two open-source desktop API clients. Every MyDevTools feature is free with no paid tier, no account, 27 UI languages and 80+ developer tools in one app.',
+      'Compare MyDevTools with Bruno: two open-source desktop API clients. Every MyDevTools feature is free with no paid tier, no account, 27 UI languages and database clients in the same app.',
     eyebrow: 'Comparison',
     heading: 'MyDevTools vs Bruno: open-source desktop API clients compared',
     intro:
-      'Bruno is an open-source, Git-native API client that stores collections as plain-text files and sells Pro and Ultimate tiers on top. MyDevTools is an open-source (AGPL-3.0) desktop API client where every feature is free for good: REST, GraphQL, WebSocket and gRPC, a local mock server, collection runner, scripting and vault-backed secrets — plus 80+ other developer tools in the same window.',
+      'Bruno is an open-source, Git-native API client that stores collections as plain-text files and sells Pro and Ultimate tiers on top. MyDevTools is an open-source (AGPL-3.0) desktop API client where every feature is free for good: REST, GraphQL, WebSocket and gRPC, a local mock server, collection runner, scripting and vault-backed secrets — plus database clients and an encrypted vault in the same window.',
     competitor: 'Bruno',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -764,7 +710,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best Git-native collections and CLI: Bruno.',
           'Best fully free, account-free API client: MyDevTools.',
-          'Best API client plus 80+ developer tools: MyDevTools.',
+          'Best offline API client with database clients built in: MyDevTools.',
         ],
       },
     ],
@@ -787,7 +733,7 @@ export const comparisonPages: ComparisonPage[] = [
     eyebrow: 'Alternative',
     heading: 'Bruno alternative: every API client feature free, no account, no plan',
     intro:
-      'Bruno is a well-liked open-source API client, but its Git UI, extra workspaces, unlimited OpenAPI sync, secret-manager integrations and AI assistant sit behind Pro and Ultimate plans. MyDevTools is a free, open-source desktop API client with nothing gated: REST, GraphQL, WebSocket and gRPC, a local mock server, a collection runner, sandboxed scripts and secrets from an encrypted local vault — with 80+ other developer tools in the same app.',
+      'Bruno is a well-liked open-source API client, but its Git UI, extra workspaces, unlimited OpenAPI sync, secret-manager integrations and AI assistant sit behind Pro and Ultimate plans. MyDevTools is a free, open-source desktop API client with nothing gated: REST, GraphQL, WebSocket and gRPC, a local mock server, a collection runner, sandboxed scripts and secrets from an encrypted local vault — with database clients and core dev tools in the same app.',
     competitor: 'Bruno',
     toolSlug: 'api-client',
     primaryCta: { href: '/tools/api-client', label: 'Try API Client' },
@@ -819,7 +765,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Best Git-native files and CLI: Bruno.',
           'Best free, offline, account-free client: MyDevTools.',
-          'Best API client plus 80+ developer tools: MyDevTools.',
+          'Best offline API client with database clients built in: MyDevTools.',
         ],
       },
     ],
@@ -838,11 +784,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'dbeaver-alternative',
     title: 'DBeaver Alternative for Everyday Database Work',
     description:
-      'Compare MyDevTools with DBeaver for daily SQL, MongoDB and Redis work — a lighter desktop client with 80+ developer tools alongside it, offline and free.',
+      'Compare MyDevTools with DBeaver for daily SQL, MongoDB and Redis work — a lighter desktop client with an API client and dev tools alongside it, offline and free.',
     eyebrow: 'Alternative',
     heading: 'DBeaver alternative for everyday database work',
     intro:
-      'DBeaver is a comprehensive database tool covering a very wide range of engines and administration features. MyDevTools offers a lighter database client for PostgreSQL, MySQL, MariaDB, MongoDB and Redis, next to the 80+ utilities developers reach for while debugging a query — all in one offline desktop app with encrypted local credentials.',
+      'DBeaver is a comprehensive database tool covering a very wide range of engines and administration features. MyDevTools offers a lighter database client for PostgreSQL, MySQL, MariaDB, MongoDB and Redis, next to the API client and formatters developers reach for while debugging a query — all in one offline desktop app with encrypted local credentials.',
     competitor: 'DBeaver',
     toolSlug: 'sql-client',
     primaryCta: { href: '/tools/sql-client', label: 'Try the SQL Client' },
@@ -897,11 +843,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'mongodb-compass-alternative',
     title: 'MongoDB Compass Alternative — Offline Database Explorer',
     description:
-      'Compare MyDevTools with MongoDB Compass for browsing MongoDB databases, with 80+ developer tools in the same offline desktop app.',
+      'Compare MyDevTools with MongoDB Compass for browsing MongoDB databases, with an API client and SQL and Redis clients in the same offline desktop app.',
     eyebrow: 'Alternative',
     heading: 'MongoDB Compass alternative with the rest of your toolkit attached',
     intro:
-      'MongoDB Compass is the official GUI for MongoDB, with deep support for aggregation pipelines, indexes and performance analysis. MyDevTools includes a MongoDB explorer for browsing databases, collections and documents — plus a SQL client, a Redis client, an API client and 80+ utilities in the same offline app.',
+      'MongoDB Compass is the official GUI for MongoDB, with deep support for aggregation pipelines, indexes and performance analysis. MyDevTools includes a MongoDB explorer for browsing databases, collections and documents — plus a SQL client, a Redis client, an API client and core dev tools in the same offline app.',
     competitor: 'MongoDB Compass',
     toolSlug: 'database-explorer',
     primaryCta: { href: '/tools/database-explorer', label: 'Try the Database Explorer' },
@@ -952,11 +898,11 @@ export const comparisonPages: ComparisonPage[] = [
     slug: 'redisinsight-alternative',
     title: 'RedisInsight Alternative — Offline Redis Client',
     description:
-      'Compare MyDevTools with RedisInsight for browsing Redis keys and running commands, alongside SQL, MongoDB and 80+ developer tools in one offline desktop app.',
+      'Compare MyDevTools with RedisInsight for browsing Redis keys and running commands, alongside SQL, MongoDB and an API client in one offline desktop app.',
     eyebrow: 'Alternative',
     heading: 'RedisInsight alternative inside a wider developer toolkit',
     intro:
-      'RedisInsight is the official Redis GUI, with deep support for Redis modules, profiling and memory analysis. MyDevTools includes Redis Commander for browsing keys, inspecting values, running raw commands and flushing patterns — next to the SQL client, MongoDB explorer and 80+ utilities in one offline app.',
+      'RedisInsight is the official Redis GUI, with deep support for Redis modules, profiling and memory analysis. MyDevTools includes Redis Commander for browsing keys, inspecting values, running raw commands and flushing patterns — next to the SQL client, MongoDB explorer and API client in one offline app.',
     competitor: 'RedisInsight',
     toolSlug: 'redis-commander',
     primaryCta: { href: '/tools/redis-commander', label: 'Try Redis Commander' },
@@ -1021,7 +967,7 @@ export const comparisonPages: ComparisonPage[] = [
           'Both are offline, local-first developer toolkits that keep your input on your machine instead of posting it to a web service.',
         bullets: [
           'A single searchable app instead of a folder of single-purpose websites.',
-          'Formatters, converters, encoders, hashing and generators covering the daily basics.',
+          'Formatters, JSON tools, a regex tester and diff checker covering the daily basics.',
           'No account required and no data uploaded for processing.',
         ],
       },

@@ -24,14 +24,11 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/snippet-manager': 'snippetManager',
   '/app/markdown-preview-html': 'markdownPreview',
   '/app/format-converter': 'formatConverter',
-  '/app/break-room/2048': 'game2048',
-  '/app/break-room/sudoku': 'sudoku',
   '/app/json-to-code': 'jsonToCode',
   '/app/beautify-minify': 'beautifyMinify',
   '/app/bcrypt-generator': 'bcryptGenerator',
   '/app/json-diff': 'jsonDiff',
   '/app/jsonpath-playground': 'jsonpathPlayground',
-  '/app/webhook-tester': 'webhookTester',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

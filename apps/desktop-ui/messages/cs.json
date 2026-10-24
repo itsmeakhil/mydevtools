@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON diff",
     "jsonpathPlayground": "JSONPath hřiště",
-    "webhookTester": "Tester webhooků",
     "secureFiles": "Soubory"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Co je MyDevTools?",
-        "description": "Offline vývojářské prostředí: řídicí panel a více než 80 nástrojů, které běží zcela na vašem zařízení.",
+        "description": "Offline vývojářské prostředí: řídicí panel a nástroje, které běží zcela na vašem zařízení.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Nastavení",
         "p1After": ".",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath hřiště",
         "description": "Dotazujte se na JSON pomocí JSONPath nebo JMESPath a sledujte živé výsledky."
-      },
-      "webhookTester": {
-        "title": "Tester webhooků",
-        "description": "Zachytávejte a prohlížejte příchozí webhook požadavky v reálném čase."
       },
       "secureFiles": {
         "title": "Soubory",

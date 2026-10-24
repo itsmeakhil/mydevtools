@@ -318,8 +318,8 @@ export function generatePageMetadata(opts: {
 // Base site metadata
 export const siteMetadata = {
     name: 'MyDevTools',
-    title: 'MyDevTools: 80+ Developer Tools + SQL/NoSQL/Redis Client',
-    description: 'All-in-one desktop developer toolkit: SQL, NoSQL (MongoDB), Redis clients + 80+ tools (JSON formatter, API client, JWT decoder, regex tester, base64 encoder). Offline, privacy-first, local processing.',
+    title: 'MyDevTools — Offline API Client, Database Client & Dev Tools',
+    description: 'Offline developer workstation: API client, SQL, MongoDB and Redis clients, encrypted vault and core dev tools (JSON formatter, JWT decoder, regex tester). Local-first.',
     url: baseUrl,
-    ogImage: ogImageUrl('MyDevTools — Developer Toolkit', 'SQL + NoSQL + Redis client + 80+ developer tools in one desktop workspace. Offline, privacy-first.'),
+    ogImage: ogImageUrl('MyDevTools — Developer Toolkit', 'API client, SQL, MongoDB and Redis clients and an encrypted vault in one desktop workspace. Offline, privacy-first.'),
 }

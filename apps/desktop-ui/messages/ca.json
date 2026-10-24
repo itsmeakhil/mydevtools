@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Diff JSON",
     "jsonpathPlayground": "Playground JSONPath",
-    "webhookTester": "Provador de webhooks",
     "secureFiles": "Fitxers"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Què és MyDevTools?",
-        "description": "Un espai de treball per a desenvolupadors sense connexió: un tauler i més de 80 eines que s'executen completament al teu dispositiu.",
+        "description": "Un espai de treball per a desenvolupadors sense connexió: un tauler i eines que s'executen completament al teu dispositiu.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Configuració",
         "p1After": ".",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "Playground JSONPath",
         "description": "Consulta JSON amb JSONPath o JMESPath i mira els resultats en directe."
-      },
-      "webhookTester": {
-        "title": "Provador de webhooks",
-        "description": "Captura i inspecciona les peticions de webhook entrants en temps real."
       },
       "secureFiles": {
         "title": "Fitxers",

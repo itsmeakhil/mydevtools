@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "Σύγκριση JSON",
     "jsonpathPlayground": "Παιχνιδότοπος JSONPath",
-    "webhookTester": "Δοκιμαστής webhook",
     "secureFiles": "Αρχεία"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "Τι είναι το MyDevTools;",
-        "description": "Ένας χώρος εργασίας για προγραμματιστές εκτός σύνδεσης: ένας πίνακας ελέγχου και πάνω από 80 εργαλεία που εκτελούνται εξ ολοκλήρου στη συσκευή σας.",
+        "description": "Ένας χώρος εργασίας για προγραμματιστές εκτός σύνδεσης: ένας πίνακας ελέγχου και εργαλεία που εκτελούνται εξ ολοκλήρου στη συσκευή σας.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Ρυθμίσεις",
         "p1After": ".",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "Παιχνιδότοπος JSONPath",
         "description": "Κάντε ερωτήματα σε JSON με JSONPath ή JMESPath και δείτε ζωντανά αποτελέσματα."
-      },
-      "webhookTester": {
-        "title": "Δοκιμαστής webhook",
-        "description": "Καταγράψτε και επιθεωρήστε εισερχόμενα αιτήματα webhook σε πραγματικό χρόνο."
       },
       "secureFiles": {
         "title": "Αρχεία",

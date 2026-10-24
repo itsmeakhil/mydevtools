@@ -21,7 +21,7 @@ const C = {
   cyan: "#38bdf8",
 };
 
-const NAV = ["Formatters", "Converters", "Security", "Network"];
+const NAV = ["Formatters", "API", "Database", "Security"];
 
 const ROWS: [string, string, string, string][] = [
   ["1042", "ada@lovelace.dev", "pro", "2m"],

@@ -80,8 +80,8 @@ export function Footer() {
                 <span className="font-semibold text-foreground">MyDevTools</span>
               </Link>
               <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-                The offline developer workstation. 80+ developer tools, API, SQL,
-                MongoDB and Redis — open source, local-first, on your machine.
+                The offline developer workstation. API client, SQL, MongoDB and
+                Redis, an encrypted vault — open source, local-first, on your machine.
               </p>
             </div>
 

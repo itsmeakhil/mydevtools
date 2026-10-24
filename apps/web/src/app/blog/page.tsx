@@ -8,16 +8,16 @@ import { blogPosts } from '@/lib/blog/posts'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
 const postCount = blogPosts.length
-const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent(`${postCount} guides for things developers keep re-Googling: JWT claims, cron syntax, regex, SQL, hashing, subnets, data formats.`)}`
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('Developer Blog — MyDevTools')}&description=${encodeURIComponent(`${postCount} guides for things developers keep re-Googling: JWT claims, regex, SQL, Redis, certificates, data formats.`)}`
 
 export const metadata: Metadata = {
   title: { absolute: `Developer Blog — ${postCount} Guides on Tools & Coding | MyDevTools` },
   description:
-    `${postCount} practical developer guides: JWT decoding, JSON formatting, regex patterns, SQL queries, hash generation, URL parsing, CSV conversion, SSH keys, QR codes, encryption, email validation, Redis, certificates, and more.`,
+    `${postCount} practical developer guides: JWT decoding, JSON formatting, regex patterns, SQL queries, API testing, encryption, email validation, Redis, S3, certificates, and more.`,
   alternates: { canonical: `${baseUrl}/blog` },
   openGraph: {
     title: 'Developer Blog — MyDevTools',
-    description: `${postCount} guides for things developers keep re-Googling: JWT claims, cron syntax, regex, SQL, hashing, subnets, data formats.`,
+    description: `${postCount} guides for things developers keep re-Googling: JWT claims, regex, SQL, Redis, certificates, data formats.`,
     url: `${baseUrl}/blog`,
     siteName: 'MyDevTools',
     type: 'website',
@@ -94,7 +94,7 @@ export default function BlogPage() {
               {postCount} guides for things you keep re-Googling
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-              What a JWT claim actually means, why that cron expression fires on the wrong day, which hash to pick, how a subnet mask splits an address. Databases, cryptography, data formats, and everyday utilities — explained once, properly, by people who got tired of looking them up.
+              What a JWT claim actually means, why that regex matches too much, how to read a certificate chain, which Redis command flushes a pattern safely. Databases, cryptography, data formats, and everyday utilities — explained once, properly, by people who got tired of looking them up.
             </p>
           </div>
         </section>

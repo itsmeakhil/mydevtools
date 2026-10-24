@@ -153,7 +153,7 @@ export default async function ToolLandingPage({
                   checks. Because MyDevTools keeps related utilities together in one
                   offline desktop app, you can
                   move from {tool.title} into nearby tools like formatters,
-                  converters, generators, encoders, decoders, and API helpers
+                  decoders, the API client, database clients, and the encrypted vault
                   without leaving the same toolkit.
                 </p>
               </div>
@@ -165,7 +165,7 @@ export default async function ToolLandingPage({
                   A typical workflow starts by pasting or typing your input into
                   {` ${tool.title}`}. Review the result, copy the cleaned or generated
                   output, then continue with a related task such as validating a
-                  payload, decoding a token, parsing a URL, generating an identifier,
+                  payload, decoding a token, diffing two responses, querying a database,
                   or testing an API request. This makes {tool.title} part of a
                   practical developer workflow instead of a one-off utility page.
                 </p>
@@ -206,7 +206,7 @@ export default async function ToolLandingPage({
                 },
                 {
                   q: `Do I need to install anything for ${tool.title}?`,
-                  a: `${tool.title} is one of 80+ tools in the MyDevTools desktop app. Install MyDevTools once and every tool works offline, with your data processed locally.`,
+                  a: `${tool.title} is part of the MyDevTools desktop app. Install MyDevTools once and every tool works offline, with your data processed locally.`,
                 },
                 {
                   q: `What is ${tool.title} best for?`,
@@ -214,7 +214,7 @@ export default async function ToolLandingPage({
                 },
                 {
                   q: `What should I use with ${tool.title}?`,
-                  a: `Most developers pair ${tool.title} with related MyDevTools utilities such as formatters, parsers, encoders, generators, API tools, and security helpers.`,
+                  a: `Most developers pair ${tool.title} with related MyDevTools utilities such as formatters, decoders, the API client, database clients, and security helpers.`,
                 },
               ].map((item) => (
                 <article

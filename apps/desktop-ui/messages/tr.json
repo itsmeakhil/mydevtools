@@ -29,7 +29,6 @@
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON Karşılaştırma",
     "jsonpathPlayground": "JSONPath Oyun Alanı",
-    "webhookTester": "Webhook Test Aracı",
     "secureFiles": "Dosyalar"
   },
   "Help": {
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "MyDevTools nedir?",
-        "description": "Çevrimdışı bir geliştirici çalışma alanı: tamamen cihazınızda çalışan bir pano ve 80+ araç.",
+        "description": "Çevrimdışı bir geliştirici çalışma alanı: tamamen cihazınızda çalışan bir pano ve araçlar.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Ayarlar",
         "p1After": ".",
@@ -418,10 +417,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath Oyun Alanı",
         "description": "JSON'ı JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün."
-      },
-      "webhookTester": {
-        "title": "Webhook Test Aracı",
-        "description": "Gelen webhook isteklerini gerçek zamanlı yakalayın ve inceleyin."
       },
       "secureFiles": {
         "title": "Dosyalar",

@@ -26,7 +26,7 @@ const REMOVED_TOOL_SLUGS = [
   'line-sort-dedupe', 'string-inspector', 'escape-encode', 'chmod-calculator',
   'timezone-converter', 'token-counter',
   'curl-to-code', 'http-status-codes', 'dns-lookup', 'ip-subnet-calculator', 'user-agent-parser',
-  'mime-type-lookup', 'websocket-tester', 'whois-lookup',
+  'mime-type-lookup', 'websocket-tester', 'whois-lookup', 'webhook-tester',
 ];
 const REMOVED_BLOG_SLUGS = [
   'base64-encoding-explained', 'uuid-guide-generate-and-understand', 'cron-expression-syntax-guide',
@@ -43,10 +43,12 @@ const REMOVED_BLOG_SLUGS = [
   'svg-optimizer-minify-compress-svgo-online',
   'http-status-codes-guide', 'ip-subnet-calculator-guide', 'dns-lookup-records-checker-online',
   'mime-type-lookup-file-extension-content-type', 'user-agent-parser-browser-os-detection',
+  '2048-game-puzzle-break', 'sudoku-game-online-puzzles', 'snake-game-online-classic',
+  'minesweeper-game-online-classic', 'tetris-game-online-classic',
 ];
 const REMOVED_COMPARE_SLUGS = [
   'uuid-generator-online', 'base64-encoder-decoder-online', 'hash-generator-online',
-  'qr-code-generator-online',
+  'qr-code-generator-online', 'cyberchef-alternative',
 ];
 
 const nextConfig: NextConfig = {

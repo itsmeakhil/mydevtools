@@ -29,8 +29,7 @@
     "beautifyMinify": "Beautify & Minify",
     "bcryptGenerator": "Bcrypt",
     "jsonDiff": "JSON Diff",
-    "jsonpathPlayground": "JSONPath Playground",
-    "webhookTester": "Webhook Tester"
+    "jsonpathPlayground": "JSONPath Playground"
   },
   "Help": {
     "title": "Help & Documentation",
@@ -44,7 +43,7 @@
     "overview": {
       "whatIs": {
         "title": "What is MyDevTools?",
-        "description": "An offline developer workspace: a dashboard and 80+ tools that run entirely on your device.",
+        "description": "An offline developer workspace: a dashboard and tools that run entirely on your device.",
         "p1": "MyDevTools runs fully offline. There is no account, no sign-in and no server — everything works on this device with no internet connection required. The sidebar lists every app; you can hide tools you do not use from",
         "settingsLink": "Settings",
         "p1After": ".",
@@ -539,10 +538,6 @@
       "jsonpathPlayground": {
         "title": "JSONPath Playground",
         "description": "Query JSON with JSONPath or JMESPath and see live results."
-      },
-      "webhookTester": {
-        "title": "Webhook Tester",
-        "description": "Capture and inspect incoming webhook requests in real time."
       }
     }
   },
