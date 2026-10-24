@@ -21,7 +21,7 @@ apps/
 ├── desktop/                 Tauri v2 shell (Rust)
 │   └── src-tauri/src/
 │       ├── lib.rs           Tauri commands: local_api, http_request(_stream), proxy_grpc, mock_server_start
-│       ├── router/          Local API router — one module per resource (notes, tasks, bookmarks,
+│       ├── router/          Local API router — one module per resource (notes, tasks,
 │       │                    snippets, api_client, master_vault, preferences, workspaces, backup, …)
 │       ├── db/              SQLCipher open/migrate, device key from the OS keychain
 │       ├── dbtools/         Native drivers: Postgres, MySQL, MongoDB, Redis, SQLite

@@ -35,7 +35,7 @@ const localParts = [
   'Developer tools (formatting, encoding, hashing, parsing)',
   'API client — collections, environments, history',
   'SQL · MongoDB · Redis · S3 clients',
-  'Notes, snippets, tasks, bookmarks',
+  'Notes, snippets, tasks',
   'Encrypted vault — passwords, API keys, .env sets',
   'SQLCipher database, keyed from your OS keychain',
 ]

@@ -101,7 +101,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Keep each project in its own workspace — separate tools, notes, snippets, and vaults — and switch between them in a click. Everything stays local on your device.',
         bullets: [
-          'Bookmarks, notes, snippets, and connections are scoped per workspace.',
+          'Notes, snippets, and connections are scoped per workspace.',
           'Switch between personal and project context instantly.',
           'Shared team workspaces and collaboration are on the roadmap.',
         ],
@@ -151,7 +151,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Formatter, decoder, and diff workflows run directly on your device whenever the tool does not need a network service.',
         bullets: [
-          'JSON formatting, JWT decoding, regex testing, and similar operations avoid server round-trips.',
+          'JSON formatting, validation, and similar operations avoid server round-trips.',
           'Tools that connect to external services, such as API or database clients, necessarily send requests to the targets you choose.',
           'The help docs explain tool-specific data behavior for sensitive workflows.',
         ],
@@ -212,7 +212,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Quickly format payloads, decode tokens, preview Markdown, and test the APIs your UI calls.',
         bullets: [
-          'Use JSON, JWT, regex, diff, and Markdown tools from one place.',
+          'Use the JSON formatter, visualizer, and API client from one place.',
           'Validate API payloads while building UI integrations.',
           'Keep small design and data tasks out of heavyweight desktop tools.',
         ],
@@ -222,7 +222,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Test HTTP, GraphQL, WebSocket and gRPC requests, query databases, and manage API-related secrets.',
         bullets: [
-          'Use the API client, database clients, JWT decoder, and JSON tools.',
+          'Use the API client, database clients, and JSON tools.',
           'Mock APIs from saved examples and compare payload changes.',
           'Keep API keys and environment variables in the encrypted vault, next to the requests that use them.',
         ],

@@ -108,8 +108,8 @@ les descriptions se trouve dans le [README anglais](../../README.md#-tools).
 | 📝 **Formateurs et validateurs** | Formateur JSON, JSON Visualizer, Diff JSON, Générateur de schéma JSON, JSON to Code, Formateur YAML, Convertisseur de formats (JSON / YAML / TOML / XML), Formateur SQL, Formateur GraphQL, Aperçu Markdown, Comparateur de différences, Testeur d’expressions régulières |
 | 🌐 **Réseau et API** | Client API (collections, environnements, authentification, gRPC, serveur de mock — sans les limites CORS d’un navigateur) |
 | 🗄️ **Clients bases de données et stockage** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorateur de base de données (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — pilotes Rust natifs, directement de votre machine à votre base de données |
-| 🔐 **Sécurité et chiffrement** | Gestionnaire de mots de passe, Bac à sable chiffrement (AES-GCM), Décodeur JWT, Bcrypt, Décodeur de certificat / PEM, Gestionnaire d’environnement |
-| 📱 **Productivité** | Notes, Extraits de code, Tâches, Signets, Clés API |
+| 🔐 **Sécurité et chiffrement** | Gestionnaire de mots de passe, Gestionnaire d’environnement |
+| 📱 **Productivité** | Notes, Extraits de code, Tâches, Clés API |
 
 Tout est accessible depuis une seule palette de commandes, en thème sombre ou
 clair, dans 27 langues.
@@ -120,7 +120,7 @@ clair, dans 27 langues.
 
 - **Aucun serveur MyDevTools.** Aucun backend auquel se connecter, aucun service
   de synchronisation, aucun système de comptes. Les données saisies dans les
-  outils, les notes, les extraits, les tâches et les signets sont écrits dans une
+  outils, les notes, les extraits et les tâches sont écrits dans une
   base SQLCipher locale, chiffrée avec une clé conservée dans le trousseau du système.
 - **Les identifiants sont chiffrés dans le coffre-fort.** Mots de passe de bases
   de données, clés API et entrées du gestionnaire de mots de passe sont chiffrés

@@ -33,7 +33,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'Single-purpose tools are useful, but they create tab sprawl and inconsistent privacy expectations. An all-in-one desktop toolkit gives developers one place to start — and your data never leaves your device.',
         bullets: [
-          'Use the API client, database clients, and JSON, JWT, regex and diff tools from one app.',
+          'Use the API client, database clients, and JSON tools from one app.',
           'Move between related utilities without hunting for another tool.',
           'Work offline with a fast native dashboard for daily development.',
         ],
@@ -66,7 +66,7 @@ export const comparisonPages: ComparisonPage[] = [
       },
       {
         q: 'Why use MyDevTools instead of separate tool websites?',
-        a: 'It reduces context switching and gives you one offline toolkit for common developer tasks like formatting JSON, decoding JWTs, testing regexes, calling APIs, and querying databases.',
+        a: 'It reduces context switching and gives you one offline toolkit for common developer tasks like formatting JSON, calling APIs, and querying databases.',
       },
     ],
   },
@@ -98,7 +98,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'JSON work rarely happens alone. Developers often need to decode tokens, inspect URLs, test APIs, generate IDs, compare diffs, and transform formats in the same session.',
         bullets: [
-          'Use JSON formatting alongside the JWT decoder, API client, JSON diff, JSONPath, and schema tools.',
+          'Use JSON formatting alongside the API client, JSON visualizer, and schema generator.',
           'Stay in one desktop developer toolkit instead of opening multiple unrelated sites.',
           'Keep your snippets and history saved locally in one app.',
         ],
@@ -117,66 +117,11 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Does MyDevTools include a JSON formatter?',
-        a: 'Yes. MyDevTools includes a JSON formatter/editor plus related tools for JWT, APIs, diffs, JSONPath, and schema workflows.',
+        a: 'Yes. MyDevTools includes a JSON formatter/editor plus a JSON visualizer, schema generator, and API client.',
       },
       {
         q: 'Is MyDevTools only for JSON?',
         a: 'No. JSON is one tool in a desktop developer workstation that also has an API client, database clients and an encrypted vault.',
-      },
-    ],
-  },
-  {
-    slug: 'mydevtools-vs-jwt-io',
-    title: 'MyDevTools vs jwt.io',
-    description:
-      'Compare MyDevTools with jwt.io for JWT decoding and broader offline security and developer workflows.',
-    eyebrow: 'Comparison',
-    heading: 'MyDevTools vs jwt.io',
-    intro:
-      'jwt.io is a well-known JWT debugger. MyDevTools includes JWT decoding as part of a broader developer toolkit for tokens, certificates, encryption, API requests, and data formatting.',
-    competitor: 'jwt.io',
-    toolSlug: 'jwt-decoder',
-    primaryCta: { href: '/tools/jwt-decoder', label: 'Try JWT Decoder' },
-    sections: [
-      {
-        title: 'Choose jwt.io when',
-        body:
-          'jwt.io is familiar and focused for quickly reading JWT header and payload fields.',
-        bullets: [
-          'You want a dedicated JWT debugger experience.',
-          'Your workflow is limited to token inspection.',
-          'Your team already references jwt.io in documentation.',
-        ],
-      },
-      {
-        title: 'Choose MyDevTools when',
-        body:
-          'JWT debugging often connects to API testing, signature checks, and certificate review.',
-        bullets: [
-          'Decode JWTs and then test API calls in the same toolkit.',
-          'Use the certificate decoder, encryption playground, and API client nearby.',
-          'Use a unified developer toolkit for broader security workflows.',
-        ],
-      },
-      {
-        title: 'Verdict',
-        body:
-          'jwt.io is strong for a familiar dedicated JWT page. MyDevTools is stronger when JWT decoding is one step in a broader developer or API workflow.',
-        bullets: [
-          'Best dedicated JWT page: jwt.io.',
-          'Best multi-step API/security workflow: MyDevTools.',
-          'Best all-in-one toolkit: MyDevTools.',
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: 'Can MyDevTools decode JWTs?',
-        a: 'Yes. The JWT Decoder lets you inspect JWT header and payload fields locally.',
-      },
-      {
-        q: 'Does MyDevTools verify JWT signatures?',
-        a: 'The JWT tool is focused on decoding and inspection. For signature-related workflows, pair it with the certificate decoder or API client as needed.',
       },
     ],
   },
@@ -320,7 +265,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Test REST, GraphQL, WebSocket and native gRPC (server reflection or .proto, unary and streaming) from one client.',
           'Use collections, saved examples, environments, response chaining, pre-request/test scripts (pm.* API), a runner with data files and JUnit export, and a local mock server.',
-          'Keep secrets in the encrypted local vault, store everything in an encrypted SQLCipher database, work in 27 UI languages — then format the JSON, decode the JWT or open the SQL client in the same app.',
+          'Keep secrets in the encrypted local vault, store everything in an encrypted SQLCipher database, work in 27 UI languages — then format the JSON or open the SQL client in the same app.',
         ],
       },
       {
@@ -341,7 +286,7 @@ export const comparisonPages: ComparisonPage[] = [
       },
       {
         q: 'What makes MyDevTools useful for API debugging?',
-        a: 'Everything runs offline on your device with no account. Secrets come from the local encrypted vault, scripts run in a sandboxed worker, and the JSON formatter, JWT decoder, diff checker and database clients sit next to the API client.',
+        a: 'Everything runs offline on your device with no account. Secrets come from the local encrypted vault, scripts run in a sandboxed worker, and the JSON formatter and database clients sit next to the API client.',
       },
     ],
   },
@@ -426,7 +371,7 @@ export const comparisonPages: ComparisonPage[] = [
         body:
           'Transformations are rarely isolated. Most developers also need to format, validate, test an API, decode a token, or generate test data in the same session.',
         bullets: [
-          'Use the format converter, JSON to Code, and JSON formatter alongside the API client and JWT decoder.',
+          'Use the format converter, JSON to Code, and JSON formatter alongside the API client.',
           'Stay in one toolkit instead of bookmarking 10 different sites.',
           'Keep everything in one offline desktop app for daily development.',
         ],
@@ -700,7 +645,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'Secrets from the encrypted local vault, unlimited OpenAPI and Postman imports, and every feature unlocked — nothing behind a $6 or $11 per-user plan.',
           'REST, GraphQL, WebSocket and native gRPC, plus a local mock server, a runner with data files and JUnit export, and sandboxed pm.* scripts.',
-          'A UI in 27 languages, and JSON, JWT, SQL, MongoDB, Redis and vault tools in the same window.',
+          'A UI in 27 languages, and JSON, SQL, MongoDB, Redis and vault tools in the same window.',
         ],
       },
       {
@@ -755,7 +700,7 @@ export const comparisonPages: ComparisonPage[] = [
         bullets: [
           'REST, GraphQL with introspection, WebSocket, and native gRPC with server reflection, unary and streaming calls.',
           'Local mock server from saved examples, a runner with CSV/JSON data and JUnit export, environments, response chaining and pm.* scripts.',
-          'Secrets resolved from the encrypted local vault and never written into collections, a UI in 27 languages, and JSON, JWT, SQL, MongoDB and Redis tools one click away.',
+          'Secrets resolved from the encrypted local vault and never written into collections, a UI in 27 languages, and JSON, SQL, MongoDB and Redis tools one click away.',
         ],
       },
       {
@@ -809,7 +754,7 @@ export const comparisonPages: ComparisonPage[] = [
           'MyDevTools fits the daily loop of writing a query, inspecting the result, and shaping the data around it.',
         bullets: [
           'Query PostgreSQL, MySQL and MariaDB, browse MongoDB, and inspect Redis keys from one app.',
-          'Format the SQL, decode the JWT and reformat the JSON payload without leaving the workspace.',
+          'Query the database and reformat the JSON payload without leaving the workspace.',
           'Keep connection credentials in an encrypted local store, with no account and no sync.',
         ],
       },

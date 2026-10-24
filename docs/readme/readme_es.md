@@ -106,8 +106,8 @@ completa con descripciones está en el [README en inglés](../../README.md#-tool
 | 📝 **Formateadores y validadores** | Formateador JSON, JSON Visualizer, Diff JSON, Generador de esquema JSON, JSON to Code, Formateador YAML, Conversor de formatos (JSON / YAML / TOML / XML), Formateador SQL, Formateador GraphQL, Vista previa Markdown, Comparador de diferencias, Probador de expresiones regulares |
 | 🌐 **Red y API** | Cliente API (colecciones, entornos, autenticación, gRPC, servidor mock, sin límites de CORS del navegador) |
 | 🗄️ **Clientes de bases de datos y almacenamiento** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorador de bases de datos (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces): drivers nativos en Rust, directo de tu máquina a tu base de datos |
-| 🔐 **Seguridad y criptografía** | Gestor de contraseñas, Cifrado (prácticas, AES-GCM), Decodificador JWT, Bcrypt, Decodificador de certificados / PEM, Gestor de entornos |
-| 📱 **Productividad** | Notas, Fragmentos de código, Tareas, Marcadores, Claves API |
+| 🔐 **Seguridad y criptografía** | Gestor de contraseñas, Gestor de entornos |
+| 📱 **Productividad** | Notas, Fragmentos de código, Tareas, Claves API |
 
 Todo se busca desde una única paleta de comandos, en modo oscuro o claro, en 27
 idiomas.
@@ -118,7 +118,7 @@ idiomas.
 
 - **Sin servidor de MyDevTools.** No hay backend al que iniciar sesión, ni servicio
   de sincronización, ni sistema de cuentas. Lo que escribes en las herramientas,
-  las notas, los fragmentos, las tareas y los marcadores se guardan en una base de
+  las notas, los fragmentos y las tareas se guardan en una base de
   datos SQLCipher local, cifrada con una clave almacenada en el llavero del sistema.
 - **Las credenciales se cifran en la bóveda.** Las contraseñas de bases de datos,
   las claves de API y las entradas del gestor de contraseñas se cifran localmente

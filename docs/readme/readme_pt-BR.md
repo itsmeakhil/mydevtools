@@ -106,8 +106,8 @@ lista completa com descrições está no [README em inglês](../../README.md#-to
 | 📝 **Formatadores e validadores** | Formatador JSON, JSON Visualizer, Diff JSON, Gerador de esquema JSON, JSON to Code, Formatador YAML, Conversor de formatos (JSON / YAML / TOML / XML), SQL Formatter, Formatador GraphQL, Pré-visualização Markdown, Diff checker, Regex Tester |
 | 🌐 **Rede e API** | Cliente API (coleções, ambientes, autenticação, gRPC, mock server — sem limites de CORS do navegador) |
 | 🗄️ **Clientes de banco de dados e armazenamento** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorador de banco de dados (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — drivers Rust nativos, direto da sua máquina para o seu banco |
-| 🔐 **Segurança e criptografia** | Gerenciador de Senhas, Laboratório de criptografia (AES-GCM), Decodificador JWT, Bcrypt, Decodificador de certificado / PEM, Gerenciador de ambientes |
-| 📱 **Produtividade** | Notes, Trechos de código, Tasks, Favoritos, API Keys |
+| 🔐 **Segurança e criptografia** | Gerenciador de Senhas, Gerenciador de ambientes |
+| 📱 **Produtividade** | Notes, Trechos de código, Tasks, API Keys |
 
 Tudo é pesquisável a partir de uma única paleta de comandos, em tema escuro ou
 claro, em 27 idiomas.
@@ -117,8 +117,8 @@ claro, em 27 idiomas.
 ## 🔒 Privacidade por design
 
 - **Nenhum servidor do MyDevTools.** Não há backend para fazer login, serviço de
-  sincronização nem sistema de contas. Entradas das ferramentas, notas, snippets,
-  tarefas e favoritos são gravados em um banco SQLCipher local, criptografado com
+  sincronização nem sistema de contas. Entradas das ferramentas, notas, snippets
+  e tarefas são gravados em um banco SQLCipher local, criptografado com
   uma chave guardada no keychain do sistema operacional.
 - **Credenciais ficam criptografadas no cofre.** Senhas de banco de dados, chaves
   de API e entradas do gerenciador de senhas são criptografadas localmente com uma

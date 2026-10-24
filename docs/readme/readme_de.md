@@ -106,8 +106,8 @@ Beschreibungen steht im [englischen README](../../README.md#-tools).
 | 📝 **Formatierer & Validatoren** | JSON-Formatierer, JSON Visualizer, JSON-Diff, JSON-Schema-Generator, JSON to Code, YAML-Formatierer, Format-Konverter (JSON / YAML / TOML / XML), SQL-Formatierer, GraphQL-Formatierer, Markdown-Vorschau, Textvergleich, Regex-Tester |
 | 🌐 **Netzwerk & API** | API-Client (Collections, Umgebungen, Auth, gRPC, Mock-Server — ohne CORS-Grenzen des Browsers) |
 | 🗄️ **Datenbank- & Storage-Clients** | SQL Client (PostgreSQL, MySQL, MariaDB), Datenbank-Explorer (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — native Rust-Treiber, direkt von deinem Rechner zu deiner Datenbank |
-| 🔐 **Sicherheit & Krypto** | Passwort-Manager, Verschlüsselungs-Spielplatz (AES-GCM), JWT-Decoder, Bcrypt, Zertifikat- / PEM-Decoder, Umgebungs-Manager |
-| 📱 **Produktivität** | Notizen, Code-Snippets, Aufgaben, Lesezeichen, API Keys |
+| 🔐 **Sicherheit & Krypto** | Passwort-Manager, Umgebungs-Manager |
+| 📱 **Produktivität** | Notizen, Code-Snippets, Aufgaben, API Keys |
 
 Alles ist über eine einzige Befehlspalette durchsuchbar, im hellen oder dunklen
 Modus, in 27 Sprachen.
@@ -117,8 +117,8 @@ Modus, in 27 Sprachen.
 ## 🔒 Datenschutz by Design
 
 - **Kein MyDevTools-Server.** Kein Backend, bei dem du dich anmeldest, kein
-  Sync-Dienst, kein Account-System. Tool-Eingaben, Notizen, Snippets, Aufgaben und
-  Lesezeichen landen in einer lokalen SQLCipher-Datenbank, verschlüsselt mit einem
+  Sync-Dienst, kein Account-System. Tool-Eingaben, Notizen, Snippets und
+  Aufgaben landen in einer lokalen SQLCipher-Datenbank, verschlüsselt mit einem
   Schlüssel aus dem Schlüsselbund des Betriebssystems.
 - **Zugangsdaten liegen im verschlüsselten Tresor.** Datenbank-Passwörter,
   API-Schlüssel und Einträge im Passwort-Manager werden lokal mit einem
