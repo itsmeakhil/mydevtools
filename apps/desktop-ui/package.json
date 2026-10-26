@@ -68,7 +68,7 @@
     "date-fns": "^4.4.0",
     "diff": "^9.0.0",
     "fast-xml-parser": "^5.11.2",
-    "framer-motion": "^12.43.0",
+    "framer-motion": "^14.6.0",
     "geist": "^1.8.1",
     "graphql": "^16.14.2",
     "highlight.js": "^11.12.0",
