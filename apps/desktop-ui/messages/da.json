@@ -2991,6 +2991,7 @@
     "collapse": "Skjul",
     "preview": "Forhåndsvisning",
     "noPreview": "Ingen forhåndsvisning af denne filtype — eksportér den for at åbne den i en anden app.",
+    "previewTooLarge": "Filen er større end {size} — eksportér den for at åbne den i en anden app.",
     "export": "Eksportér",
     "exportWarningTitle": "Eksportér en dekrypteret kopi?",
     "exportWarningBody": "Filen skrives ukrypteret til den placering, du vælger. Alt på den enhed kan læse den.",
@@ -3015,8 +3016,10 @@
     "dismiss": "Afvis",
     "viewGrid": "Gittervisning",
     "viewList": "Listevisning",
-    "footerNote": "Filer op til 20 MB. Krypteret med Argon2id + XChaCha20-Poly1305; nøglen findes kun i hukommelsen, mens boksen er låst op.",
+    "footerNote": "Filer op til 5 GB. Krypteret med Argon2id + XChaCha20-Poly1305; nøglen findes kun i hukommelsen, mens boksen er låst op.",
     "cancel": "Annuller",
+    "working": "{done} af {total}",
+    "cancelled": "Annulleret.",
     "save": "Gem"
   }
 }

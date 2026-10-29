@@ -2991,6 +2991,7 @@
     "collapse": "Zwiń",
     "preview": "Podgląd",
     "noPreview": "Brak podglądu dla tego typu pliku — wyeksportuj go, aby otworzyć w innej aplikacji.",
+    "previewTooLarge": "Plik jest większy niż {size} — wyeksportuj go, aby otworzyć w innej aplikacji.",
     "export": "Eksportuj",
     "exportWarningTitle": "Wyeksportować odszyfrowaną kopię?",
     "exportWarningBody": "Plik zostanie zapisany bez szyfrowania w wybranej lokalizacji. Odczyta go wszystko na tym urządzeniu.",
@@ -3015,8 +3016,10 @@
     "dismiss": "Odrzuć",
     "viewGrid": "Widok siatki",
     "viewList": "Widok listy",
-    "footerNote": "Pliki do 20 MB. Szyfrowanie Argon2id + XChaCha20-Poly1305; klucz pozostaje w pamięci tylko wtedy, gdy sejf jest odblokowany.",
+    "footerNote": "Pliki do 5 GB. Szyfrowanie Argon2id + XChaCha20-Poly1305; klucz pozostaje w pamięci tylko wtedy, gdy sejf jest odblokowany.",
     "cancel": "Anuluj",
+    "working": "{done} z {total}",
+    "cancelled": "Anulowano.",
     "save": "Zapisz"
   }
 }
