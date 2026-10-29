@@ -11,7 +11,7 @@ export type OnlineSessionState = {
 
 /**
  * Gate for tools that need a network connection on desktop (s3-drive,
- * dns-lookup, email-validator, whois-lookup, breach check). They all talk to
+ * email-validator, breach check). They all talk to
  * third-party endpoints directly — no MyDevTools account involved.
  * On web this is a constant `online: true` — no behavior change.
  */

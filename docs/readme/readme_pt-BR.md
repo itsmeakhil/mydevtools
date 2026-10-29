@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  Mais de 80 ferramentas de desenvolvimento, um cliente de API, clientes SQL / MongoDB / Redis,<br />
+  Um cliente de API, clientes SQL / MongoDB / Redis,<br />
   criptografia e utilitários de produtividade — tudo rodando localmente na sua máquina.
 </p>
 
@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="Versão mais recente" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="Downloads" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/itsmeakhil/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="Versão mais recente" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases"><img src="https://img.shields.io/github/downloads/itsmeakhil/mydevtools/total?style=flat-square&color=22c55e" alt="Downloads" /></a>
   <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="Licença AGPL-3.0" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="Estrelas no GitHub" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=flat-square&color=f59e0b" alt="Estrelas no GitHub" /></a>
 </p>
 
 <p align="center">
@@ -41,13 +41,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ Baixar</strong></a> •
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><strong>⬇️ Baixar</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 Site</strong></a> •
   <a href="https://mydevtools.tech/help"><strong>📚 Documentação</strong></a> •
   <a href="../../CHANGELOG.md">📋 Changelog</a> •
   <a href="../../ROADMAP.md">🗺️ Roadmap</a> •
   <a href="../../CONTRIBUTING.md">🤝 Contribuir</a> •
-  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 Discussões</a>
+  <a href="https://github.com/itsmeakhil/mydevtools/discussions">💬 Discussões</a>
 </p>
 
 <!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
@@ -88,8 +88,8 @@ Ele roda na sua máquina. Não existe servidor do MyDevTools, nem conta, nem sin
 
 | Plataforma | Como |
 |---|---|
-| **macOS** (Apple Silicon + Intel) | [Baixe o `.dmg` mais recente](https://github.com/mydevtools-tech/mydevtools/releases/latest) — build universal, assinado e notarizado, com atualização dentro do próprio app |
-| **Linux** (x86_64) | [Baixe o `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) ou o [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (roda em qualquer lugar, sem instalar) — mesma release e mesma versão do macOS. Ainda sem atualização automática no app; veja o [guia de instalação no Linux](https://mydevtools.tech/linux-builds) |
+| **macOS** (Apple Silicon + Intel) | [Baixe o `.dmg` mais recente](https://github.com/itsmeakhil/mydevtools/releases/latest) — build universal, assinado e notarizado, com atualização dentro do próprio app |
+| **Linux** (x86_64) | [Baixe o `.deb`](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) ou o [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (roda em qualquer lugar, sem instalar) — mesma release e mesma versão do macOS. Ainda sem atualização automática no app; veja o [guia de instalação no Linux](https://mydevtools.tech/linux-builds) |
 | **Windows** | Sem build por enquanto. O shell Tauri compila no Windows — veja [Compilar a partir do código-fonte](../../README.md#%EF%B8%8F-building-from-source) e o [roadmap](../../ROADMAP.md) |
 
 Abra e comece a trabalhar: sem cadastro, sem configuração, sem chaves de API.
@@ -98,19 +98,16 @@ Abra e comece a trabalhar: sem cadastro, sem configuração, sem chaves de API.
 
 ## 🧰 Ferramentas
 
-Mais de 80 ferramentas, agrupadas do mesmo jeito que a barra lateral agrupa. A
+Todas as ferramentas, agrupadas do mesmo jeito que a barra lateral agrupa. A
 lista completa com descrições está no [README em inglês](../../README.md#-tools).
 
 | Categoria | Exemplos |
 |---|---|
 | 📝 **Formatadores e validadores** | Formatador JSON, JSON Visualizer, Diff JSON, Gerador de esquema JSON, JSON to Code, Formatador YAML, Conversor de formatos (JSON / YAML / TOML / XML), SQL Formatter, Formatador GraphQL, Pré-visualização Markdown, Diff checker, Regex Tester |
-| 🌐 **Rede e API** | Cliente API (coleções, ambientes, autenticação, gRPC, mock server — sem limites de CORS do navegador), cURL to Code, Testador de Webhook, Testador de WebSocket, Pesquisa DNS, Consulta Whois, Calculadora IP / sub-rede, Códigos de status HTTP, User-Agent Parser |
+| 🌐 **Rede e API** | Cliente API (coleções, ambientes, autenticação, gRPC, mock server — sem limites de CORS do navegador) |
 | 🗄️ **Clientes de banco de dados e armazenamento** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorador de banco de dados (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — drivers Rust nativos, direto da sua máquina para o seu banco |
-| 🔐 **Segurança e criptografia** | Gerenciador de Senhas, Laboratório de criptografia (AES-GCM), Decodificador JWT, Gerador de hash, Gerador HMAC, Bcrypt, Código TOTP / 2FA, Gerador de chaves SSH / RSA, Decodificador de certificado / PEM, Gerenciador de ambientes, Segredo / chave de API |
-| 🔄 **Conversores** | Base64, Imagem para Base64, URL Encoder / Analisador de URL, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, Conversor de base, Conversor de Timestamp / Fuso Horário, Conversor de Unidades, Calculadora Chmod, Contador de Tokens de LLM |
-| ⚙️ **Geradores** | UUID / ULID, Gerador de dados mock, Cron Builder, Gerador Docker Compose, Gerador .gitignore, Gerador de QR Code, Tabela Markdown, Lorem Ipsum |
-| 🎨 **Mídia e design** | Color Picker, Verificador de contraste, Construtor de gradiente CSS, Geradores CSS, Compressor de imagens, Otimizador SVG, Visualizador EXIF e removedor, Gerador de Favicon, Captura de Código, Inspetor de Keycode |
-| 📱 **Produtividade** | Notes, Trechos de código, Tasks, Favoritos, API Keys, Sala de descanso (2048, Sudoku, Snake, Minesweeper, Tetris) |
+| 🔐 **Segurança e criptografia** | Gerenciador de Senhas, Gerenciador de ambientes |
+| 📱 **Produtividade** | Notes, Trechos de código, Tasks, API Keys |
 
 Tudo é pesquisável a partir de uma única paleta de comandos, em tema escuro ou
 claro, em 27 idiomas.
@@ -120,8 +117,8 @@ claro, em 27 idiomas.
 ## 🔒 Privacidade por design
 
 - **Nenhum servidor do MyDevTools.** Não há backend para fazer login, serviço de
-  sincronização nem sistema de contas. Entradas das ferramentas, notas, snippets,
-  tarefas e favoritos são gravados em um banco SQLCipher local, criptografado com
+  sincronização nem sistema de contas. Entradas das ferramentas, notas, snippets
+  e tarefas são gravados em um banco SQLCipher local, criptografado com
   uma chave guardada no keychain do sistema operacional.
 - **Credenciais ficam criptografadas no cofre.** Senhas de banco de dados, chaves
   de API e entradas do gerenciador de senhas são criptografadas localmente com uma
@@ -129,7 +126,7 @@ claro, em 27 idiomas.
 - **Você escolhe cada conexão de saída.** O app em si não precisa de rede, mas
   algumas ferramentas existem para falar com *os seus* destinos: o cliente de API
   envia as requisições que você escreve, os clientes de banco conectam nos hosts
-  que você configura, as consultas DNS / WHOIS batem em registros públicos e o
+  que você configura, as consultas DNS batem em registros públicos e o
   atualizador verifica as releases do GitHub. Nada além disso sai.
 - **Estatísticas de uso opcionais e anônimas.** Desligadas até você ativar. Quando
   ativadas, dois eventos (`app_started`, `tool_opened`) são enviados com um id de
@@ -152,7 +149,7 @@ Detalhes: [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md).
 ## 🛠️ Compilar a partir do código-fonte
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 pnpm dev:desktop     # Tauri desktop app in dev mode
@@ -170,7 +167,7 @@ chaves de API, sem contas, sem serviços.
 - **Os clientes de banco são para o trabalho do dia a dia**, não um substituto de
   uma suíte completa de DBA — sem designer visual de schema, sem ferramentas de migração.
 - **Sem recursos de equipe.** Sem workspaces compartilhados, sem sincronização, sem colaboração.
-- **Algumas ferramentas precisam de rede por definição** — DNS, WHOIS, webhooks,
+- **Algumas ferramentas precisam de rede por definição** — DNS,
   requisições de API, conexões de banco de dados.
 
 ---
@@ -179,7 +176,7 @@ chaves de API, sem contas, sem serviços.
 
 Contribuições são bem-vindas — correções de bugs, novas ferramentas, ajustes de
 UI, traduções e documentação, tudo conta. Comece pelo [CONTRIBUTING.md](../../CONTRIBUTING.md);
-as issues marcadas como [`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+as issues marcadas como [`good first issue`](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 têm escopo pensado para quem está chegando.
 
 Melhorar esta tradução, ou um arquivo de idioma em `apps/desktop-ui/messages/`,
@@ -187,8 +184,8 @@ não exige Rust nem build.
 
 | | |
 |---|---|
-| 🐛 Reportar um bug · ✨ Sugerir um recurso | [Modelos de issue](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 Fazer uma pergunta | [Discussões](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
+| 🐛 Reportar um bug · ✨ Sugerir um recurso | [Modelos de issue](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| 💬 Fazer uma pergunta | [Discussões](https://github.com/itsmeakhil/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
 | 🔒 Reportar uma vulnerabilidade | [SECURITY.md](../../SECURITY.md) — em privado, nunca em uma issue pública |
 | 🗺️ Ver o que está planejado | [ROADMAP.md](../../ROADMAP.md) |
 | 🤝 Padrões da comunidade | [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) |
@@ -208,5 +205,5 @@ ou conte para alguém do seu time.
 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) — veja [LICENSE](../../LICENSE).
 
 <p align="center">
-  Feito com ❤️ por <a href="https://github.com/itsmeakhil">Akhil</a> e <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">colaboradores</a>
+  Feito com ❤️ por <a href="https://github.com/itsmeakhil">Akhil</a> e <a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">colaboradores</a>
 </p>

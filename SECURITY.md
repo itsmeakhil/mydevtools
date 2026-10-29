@@ -10,7 +10,7 @@ responsible disclosure is appreciated.
 
 Report it privately through GitHub Security Advisories:
 
-**→ [Report a vulnerability](https://github.com/mydevtools-tech/mydevtools/security/advisories/new)**
+**→ [Report a vulnerability](https://github.com/itsmeakhil/mydevtools/security/advisories/new)**
 
 That channel is private between you and the maintainers, and lets us work on a
 fix and coordinate disclosure before details become public.
@@ -45,7 +45,7 @@ advisory and the release notes unless they prefer to stay anonymous.
 
 Fixes land in the latest release. Only the most recent version is supported —
 please reproduce on the
-[latest release](https://github.com/mydevtools-tech/mydevtools/releases/latest)
+[latest release](https://github.com/itsmeakhil/mydevtools/releases/latest)
 before reporting.
 
 ## Scope
@@ -102,7 +102,7 @@ before reporting.
   that is the point, and it means a forgotten password means lost vault data.
 - Keep the app updated; fixes ship in the latest release.
 - Download only from the
-  [official releases page](https://github.com/mydevtools-tech/mydevtools/releases/latest)
+  [official releases page](https://github.com/itsmeakhil/mydevtools/releases/latest)
   or [mydevtools.tech](https://mydevtools.tech). macOS builds are signed and
   notarized by Apple — a build that fails Gatekeeper did not come from us.
 - Use read-only or least-privilege database credentials where you can.

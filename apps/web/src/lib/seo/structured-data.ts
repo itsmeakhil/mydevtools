@@ -163,7 +163,7 @@ export function buildSoftwareApplicationJsonLd(slug: string): Record<string, unk
             name: `Do I need to install anything to use ${tool.title}?`,
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Install MyDevTools once, then ${tool.title} and 80+ other tools are available offline on your desktop.`,
+              text: `Install MyDevTools once, then ${tool.title} and every other MyDevTools tool are available offline on your desktop.`,
             },
           },
           {
@@ -313,13 +313,12 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         isAccessibleForFree: true,
         featureList: [
           'Unified SQL + NoSQL (MongoDB) + Redis database client in one workspace',
-          'API client for REST debugging (Postman alternative)',
-          'JSON formatter, JWT decoder, regex tester',
-          'Base64 encoder/decoder, UUID generator, hash generator',
-          'Crypto tools: encryption playground, HMAC, TOTP 2FA, SSH key generator',
-          'Data converters: CSV to JSON, YAML formatter, format converter',
+          'API client for REST, GraphQL, WebSocket and gRPC with mock server and runner (Postman alternative)',
+          'JSON formatter, JSON visualizer, JSON schema generator',
+          'JSON diff, JSONPath, JSON to Code, diff checker, SQL/GraphQL/YAML formatters',
+          'S3 drive, environment manager, encrypted secure files',
           'Privacy-first architecture: local processing, AES-256 encryption',
-          'Persistent storage: snippets, notes, tasks, bookmarks, password vault',
+          'Persistent storage: snippets, notes, tasks, password vault',
         ],
         publisher: { '@id': `${baseUrl}/#organization` },
       },
@@ -335,7 +334,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         '@id': `${baseUrl}/#tools-index`,
         name: 'MyDevTools — all-in-one developer utilities',
         description:
-          'Index of free developer tools in the MyDevTools desktop app (JSON, API, crypto, SQL, regex, JWT, and more). Use this list for discovery in search and AI assistants.',
+          'Index of free developer tools in the MyDevTools desktop app (API, SQL, MongoDB, Redis, S3, JSON, vault, and more). Use this list for discovery in search and AI assistants.',
         numberOfItems: itemListElement.length,
         itemListElement,
       },

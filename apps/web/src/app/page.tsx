@@ -17,13 +17,11 @@ import {
   ArrowDown,
   ChevronDown,
   Search,
-  Github,
   Download as DownloadIcon,
   Braces,
   Globe,
   Database,
   ShieldCheck,
-  Container,
   NotebookPen,
   HardDrive,
   Cpu,
@@ -37,6 +35,7 @@ import {
   FileText,
   Play,
 } from "lucide-react";
+import { IconBrandGithub as Github } from "@tabler/icons-react";
 import { AppleGlyph, DMG_URL } from "@/components/download-desktop-button";
 import { homepageFaqItems } from "@/lib/seo/structured-data";
 import MdtAurora from "@/components/mdt-aurora";
@@ -126,11 +125,11 @@ function SectionHeading({
 // ─── Data — every item below is a shipped capability; keep it honest ──────────
 
 const PROOF_STRIP = [
-  "80+ Tools",
   "API Client",
   "SQL",
   "MongoDB",
   "Redis",
+  "Encrypted Vault",
   "Security",
   "Open Source",
   "Offline",
@@ -140,7 +139,7 @@ const PROOF_STRIP = [
 /** §17 — consolidation, not feature parity with the specialised product. */
 const fragmentation = [
   { today: "JSON formatter website", app: "JSON Formatter", href: "/tools/json-formatter" },
-  { today: "JWT decoder website", app: "JWT Decoder", href: "/tools/jwt-decoder" },
+  { today: "S3 browser", app: "S3 Drive", href: "/tools/s3-drive" },
   { today: "Separate API client", app: "API Client", href: "/tools/api-client" },
   { today: "MongoDB GUI", app: "MongoDB Explorer", href: "/tools/database-explorer" },
   { today: "Redis GUI", app: "Redis Commander", href: "/tools/redis-commander" },
@@ -153,29 +152,20 @@ const capabilities = [
   {
     title: "Developer Utilities",
     icon: Braces,
-    blurb: "The everyday formatters, decoders and generators — offline.",
+    blurb: "The everyday formatters, decoders and testers — offline.",
     tools: [
       ["JSON Formatter", "json-formatter"],
       ["YAML Formatter", "yaml-formatter"],
-      ["JWT Decoder", "jwt-decoder"],
       ["Regex Tester", "regex-tester"],
-      ["UUID / ULID", "uuid-generator"],
-      ["Base64", "base64"],
-      ["Hash Generator", "hash-generator"],
       ["Diff Checker", "diff-checker"],
     ],
   },
   {
-    title: "API & Networking",
+    title: "API",
     icon: Globe,
     blurb: "REST, GraphQL, WebSocket and gRPC, with a mock server, runner and vault-backed secrets.",
     tools: [
       ["API Client", "api-client"],
-      ["WebSocket Tester", "websocket-tester"],
-      ["Webhook Tester", "webhook-tester"],
-      ["cURL to Code", "curl-to-code"],
-      ["DNS Lookup", "dns-lookup"],
-      ["HTTP Status Codes", "http-status-codes"],
     ],
   },
   {
@@ -192,26 +182,10 @@ const capabilities = [
   {
     title: "Security",
     icon: ShieldCheck,
-    blurb: "Credentials and crypto helpers, encrypted locally.",
+    blurb: "Credentials and secrets, encrypted locally.",
     tools: [
       ["Password Manager", "password-manager"],
-      ["Encryption Playground", "encryption-playground"],
-      ["HMAC Generator", "hmac-generator"],
-      ["TOTP / 2FA", "totp-generator"],
-      ["SSH / RSA Keys", "ssh-key-generator"],
-      ["Certificate / PEM Decoder", "certificate-pem-decoder"],
-    ],
-  },
-  {
-    title: "DevOps",
-    icon: Container,
-    blurb: "Config scaffolding and the small calculators you keep looking up.",
-    tools: [
-      ["Docker Compose Generator", "docker-compose-generator"],
-      ["Cron Builder", "cron-builder"],
-      [".gitignore Generator", "gitignore-generator"],
       ["Environment Manager", "environment-manager"],
-      ["Chmod Calculator", "chmod-calculator"],
     ],
   },
   {
@@ -221,7 +195,6 @@ const capabilities = [
     tools: [
       ["Notes", "notes"],
       ["Code Snippets", "snippet-manager"],
-      ["Bookmarks", "bookmarks"],
       ["Tasks", "to-do"],
       ["API Keys", "api-keys"],
     ],
@@ -236,7 +209,6 @@ const workspaceTree = [
   { name: "Vault", detail: "passwords · API keys · env files", href: "/tools/password-manager" },
   { name: "Notes", detail: "markdown, local", href: "/tools/notes" },
   { name: "Snippets", detail: "searchable, tagged", href: "/tools/snippet-manager" },
-  { name: "Bookmarks", detail: "links worth keeping", href: "/tools/bookmarks" },
   { name: "Tasks", detail: "what is next", href: "/tools/to-do" },
 ] as const;
 
@@ -244,7 +216,7 @@ const privacyPoints = [
   {
     icon: Cpu,
     title: "Local processing",
-    body: "Formatters, decoders, generators and crypto helpers run on your machine.",
+    body: "Formatters, decoders, the API client and crypto helpers run on your machine.",
   },
   {
     icon: HardDrive,
@@ -270,7 +242,7 @@ const privacyPoints = [
 
 const openSourceFacts = [
   { icon: Scale, label: "License", value: "GNU AGPL v3", href: `${SOURCE_URL}/blob/main/LICENSE` },
-  { icon: Github, label: "Repository", value: "mydevtools-tech/mydevtools", href: SOURCE_URL },
+  { icon: Github, label: "Repository", value: "itsmeakhil/mydevtools", href: SOURCE_URL },
   { icon: GitPullRequest, label: "Contribution guide", value: "CONTRIBUTING.md", href: `${SOURCE_URL}/blob/main/CONTRIBUTING.md` },
   { icon: FileText, label: "Security policy", value: "SECURITY.md", href: `${SOURCE_URL}/blob/main/SECURITY.md` },
 ] as const;
@@ -420,7 +392,7 @@ export default function Page() {
               Stop juggling browser tabs and separate developer apps. MyDevTools
               brings{" "}
               <span className="text-foreground">
-                80+ developer tools, an API client, SQL, MongoDB and Redis
+                an API client, SQL, MongoDB and Redis clients, an encrypted vault and the dev tools you use daily
               </span>{" "}
               into one desktop workspace.
             </motion.p>
@@ -585,8 +557,7 @@ export default function Page() {
               </p>
               <p>
                 Friends were also looking for offline-first developer tools, so I kept
-                going. MyDevTools is now an open-source desktop developer workstation
-                with 80+ tools.
+                going. MyDevTools is now an open-source desktop developer workstation.
               </p>
               <footer className="pt-2 text-sm text-foreground/80">
                 —{" "}
@@ -605,12 +576,12 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ── Capabilities (80+ tools, grouped) ────────────────────────────────── */}
+      {/* ── Capabilities (grouped) ──────────────────────────────────────── */}
       <section id="tools" className="relative overflow-hidden py-16 md:py-24 scroll-mt-28">
         <div className="container mx-auto px-4 md:px-6">
           <Section>
             <SectionHeading
-              eyebrow="80+ tools"
+              eyebrow="What's inside"
               title={
                 <>
                   Everything you need for everyday development.{" "}
@@ -1021,7 +992,7 @@ export default function Page() {
                   transition={{ duration: 0.6, delay: 0.18 }}
                   className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
                 >
-                  80+ developer tools, API, SQL, MongoDB and Redis — open source,
+                  API client, SQL, MongoDB and Redis, an encrypted vault — open source,
                   local-first and offline.
                 </motion.p>
 

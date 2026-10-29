@@ -7,7 +7,7 @@ import { ArrowUp } from "lucide-react";
 import { Logo } from "./logo";
 
 /** Source repository — AGPL v3. Built releases ship on this repo's releases page. */
-export const SOURCE_URL = "https://github.com/mydevtools-tech/mydevtools";
+export const SOURCE_URL = "https://github.com/itsmeakhil/mydevtools";
 
 type FooterLink = { href: string; label: string; external?: boolean };
 
@@ -80,8 +80,8 @@ export function Footer() {
                 <span className="font-semibold text-foreground">MyDevTools</span>
               </Link>
               <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-                The offline developer workstation. 80+ developer tools, API, SQL,
-                MongoDB and Redis — open source, local-first, on your machine.
+                The offline developer workstation. API client, SQL, MongoDB and
+                Redis, an encrypted vault — open source, local-first, on your machine.
               </p>
             </div>
 

@@ -52,12 +52,6 @@ const appDetails: Record<
     dataNote:
       'Each set is stored as ciphertext plus an IV in the local database; plaintext keys and values exist only on your device after unlock.',
   },
-  '/app/bookmarks': {
-    howItWorks: [
-      'Save URLs in folders, edit titles, and open links quickly from the grid.',
-      'Bookmarks are saved to the local database on your device.',
-    ],
-  },
   '/app/json-formatter': {
     howItWorks: [
       'Paste or write JSON, then format, minify, validate, and switch between text and tree views.',

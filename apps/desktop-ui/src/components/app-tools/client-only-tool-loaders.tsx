@@ -16,30 +16,6 @@ export const ApiClientLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
-export const ColorPickerToolLayoutLazy = dynamic(
-  () =>
-    import('@/components/color-picker-tool/color-picker-tool-layout').then(
-      m => m.ColorPickerToolLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
-export const ContrastCheckerToolLayoutLazy = dynamic(
-  () =>
-    import('@/components/contrast-checker-tool/contrast-checker-tool-layout').then(
-      m => m.ContrastCheckerToolLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
-export const CronBuilderLayoutLazy = dynamic(
-  () =>
-    import('@/components/cron-builder/cron-builder-layout').then(
-      m => m.CronBuilderLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
 export const DiffCheckerLayoutLazy = dynamic(
   () =>
     import('@/components/diff-checker/diff-checker-layout').then(
@@ -88,43 +64,8 @@ export const YamlFormatterLayoutLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
-export const Game2048LayoutLazy = dynamic(
-  () =>
-    import('@/components/break-room/2048/game-2048-layout').then(
-      m => m.Game2048Layout
-    ),
-  { ssr: false, loading: toolLoading }
-)
 
-export const SudokuLayoutLazy = dynamic(
-  () =>
-    import('@/components/break-room/sudoku/sudoku-layout').then(
-      m => m.SudokuLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
 
-export const SnakeLayoutLazy = dynamic(
-  () =>
-    import('@/components/break-room/snake/snake-layout').then(
-      m => m.SnakeLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
 
-export const MinesweeperLayoutLazy = dynamic(
-  () =>
-    import('@/components/break-room/minesweeper/minesweeper-layout').then(
-      m => m.MinesweeperLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
 
-export const TetrisLayoutLazy = dynamic(
-  () =>
-    import('@/components/break-room/tetris/tetris-layout').then(
-      m => m.TetrisLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
 

@@ -14,11 +14,11 @@ import { buildPlatformPageJsonLd } from '@/lib/seo/structured-data'
 
 const popularToolSlugs = [
   'json-formatter',
-  'jwt-decoder',
   'api-client',
   'regex-tester',
-  'uuid-generator',
-  'base64',
+  'diff-checker',
+  'data-explorer',
+  's3-drive',
 ]
 
 function isExternalHref(href: string) {

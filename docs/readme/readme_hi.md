@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80+ डेवलपर टूल्स, एक API क्लाइंट, SQL / MongoDB / Redis क्लाइंट, एन्क्रिप्शन<br />
+  एक API क्लाइंट, SQL / MongoDB / Redis क्लाइंट, एन्क्रिप्शन<br />
   और प्रोडक्टिविटी यूटिलिटीज़ — सब कुछ आपकी अपनी मशीन पर लोकली चलता है।
 </p>
 
@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="नवीनतम रिलीज़" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="डाउनलोड" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/itsmeakhil/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="नवीनतम रिलीज़" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases"><img src="https://img.shields.io/github/downloads/itsmeakhil/mydevtools/total?style=flat-square&color=22c55e" alt="डाउनलोड" /></a>
   <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="लाइसेंस AGPL-3.0" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="GitHub स्टार्स" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=flat-square&color=f59e0b" alt="GitHub स्टार्स" /></a>
 </p>
 
 <p align="center">
@@ -41,13 +41,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ डाउनलोड</strong></a> •
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><strong>⬇️ डाउनलोड</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 वेबसाइट</strong></a> •
   <a href="https://mydevtools.tech/help"><strong>📚 डॉक्यूमेंटेशन</strong></a> •
   <a href="../../CHANGELOG.md">📋 चेंजलॉग</a> •
   <a href="../../ROADMAP.md">🗺️ रोडमैप</a> •
   <a href="../../CONTRIBUTING.md">🤝 योगदान करें</a> •
-  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 चर्चाएँ</a>
+  <a href="https://github.com/itsmeakhil/mydevtools/discussions">💬 चर्चाएँ</a>
 </p>
 
 <!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
@@ -88,8 +88,8 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 
 | प्लेटफ़ॉर्म | कैसे |
 |---|---|
-| **macOS** (Apple Silicon + Intel) | [नवीनतम `.dmg` डाउनलोड करें](https://github.com/mydevtools-tech/mydevtools/releases/latest) — यूनिवर्सल बिल्ड, साइन्ड और नोटराइज़्ड, ऐप में ही अपडेट हो जाता है |
-| **Linux** (x86_64) | [`.deb` डाउनलोड करें](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) या [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (बिना इंस्टॉल किए कहीं भी चलता है) — macOS जैसी ही रिलीज़ और वर्शन। ऐप के अंदर अपडेट अभी नहीं है; देखें [Linux इंस्टॉल गाइड](https://mydevtools.tech/linux-builds) |
+| **macOS** (Apple Silicon + Intel) | [नवीनतम `.dmg` डाउनलोड करें](https://github.com/itsmeakhil/mydevtools/releases/latest) — यूनिवर्सल बिल्ड, साइन्ड और नोटराइज़्ड, ऐप में ही अपडेट हो जाता है |
+| **Linux** (x86_64) | [`.deb` डाउनलोड करें](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) या [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (बिना इंस्टॉल किए कहीं भी चलता है) — macOS जैसी ही रिलीज़ और वर्शन। ऐप के अंदर अपडेट अभी नहीं है; देखें [Linux इंस्टॉल गाइड](https://mydevtools.tech/linux-builds) |
 | **Windows** | फ़िलहाल कोई बिल्ड नहीं। Tauri शेल Windows पर कंपाइल होता है — देखें [सोर्स से बिल्ड करना](../../README.md#%EF%B8%8F-building-from-source) और [रोडमैप](../../ROADMAP.md) |
 
 खोलिए और काम शुरू कीजिए: न साइन-अप, न कॉन्फ़िगरेशन, न API keys।
@@ -98,19 +98,16 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 
 ## 🧰 टूल्स
 
-80+ टूल्स, उसी तरह ग्रुप किए गए जैसे साइडबार में दिखते हैं। विवरण के साथ पूरी
+सभी टूल्स, उसी तरह ग्रुप किए गए जैसे साइडबार में दिखते हैं। विवरण के साथ पूरी
 लिस्ट [अंग्रेज़ी README](../../README.md#-tools) में है।
 
 | कैटेगरी | उदाहरण |
 |---|---|
 | 📝 **फ़ॉर्मेटर और वैलिडेटर** | JSON Formatter, JSON Visualizer, JSON Diff, JSON Schema Generator, JSON to Code, YAML Formatter, Format Converter (JSON / YAML / TOML / XML), SQL Formatter, GraphQL Formatter, Markdown Preview, Diff Checker, Regex Tester |
-| 🌐 **नेटवर्क और API** | API Client (कलेक्शन, एनवायरनमेंट, ऑथ, gRPC, mock server — ब्राउज़र वाली CORS पाबंदियों के बिना), cURL to Code, Webhook Tester, WebSocket Tester, DNS Lookup, Whois Lookup, IP / Subnet Calculator, HTTP Status Codes, User-Agent Parser |
+| 🌐 **नेटवर्क और API** | API Client (कलेक्शन, एनवायरनमेंट, ऑथ, gRPC, mock server — ब्राउज़र वाली CORS पाबंदियों के बिना) |
 | 🗄️ **डेटाबेस और स्टोरेज क्लाइंट** | SQL Client (PostgreSQL, MySQL, MariaDB), Database Explorer (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — नेटिव Rust ड्राइवर, सीधे आपकी मशीन से आपके डेटाबेस तक |
-| 🔐 **सिक्योरिटी और क्रिप्टो** | Password Manager, Encryption Playground (AES-GCM), JWT Decoder, Hash Generator, HMAC Generator, Bcrypt, TOTP / 2FA Generator, SSH / RSA Key Generator, Certificate / PEM Decoder, Environment Manager, Secret / API Key Generator |
-| 🔄 **कन्वर्टर** | Base64, Image to Base64, URL Encoder / Parser, Escape / Encode, String Case Converter, String Inspector, Line Sort & Dedupe, CSV / Excel ↔ JSON, Number Base Converter, Timestamp / Timezone Converter, Unit Converter, Chmod Calculator, LLM Token Counter |
-| ⚙️ **जनरेटर** | UUID / ULID, Mock Data Generator, Cron Builder, Docker Compose Generator, .gitignore Generator, QR Code Generator, Markdown Table Generator, Lorem Ipsum |
-| 🎨 **मीडिया और डिज़ाइन** | Color Picker, Contrast Checker, CSS Gradient Builder, CSS Generators, Image Compressor, SVG Optimizer, EXIF Viewer & Remover, Favicon Generator, Code Screenshot, Keycode Inspector |
-| 📱 **प्रोडक्टिविटी** | Notes, Code Snippets, Tasks, Bookmarks, API Keys, Break Room (2048, Sudoku, Snake, Minesweeper, Tetris) |
+| 🔐 **सिक्योरिटी और क्रिप्टो** | Password Manager, Environment Manager |
+| 📱 **प्रोडक्टिविटी** | Notes, Code Snippets, Tasks, API Keys |
 
 सब कुछ एक ही कमांड पैलेट से खोजा जा सकता है — डार्क या लाइट मोड में, 27
 भाषाओं में।
@@ -120,7 +117,7 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 ## 🔒 डिज़ाइन से ही प्राइवेट
 
 - **कोई MyDevTools सर्वर नहीं।** न कोई बैकएंड जिसमें साइन इन करना पड़े, न सिंक
-  सर्विस, न अकाउंट सिस्टम। टूल इनपुट, नोट्स, स्निपेट्स, टास्क और बुकमार्क एक लोकल
+  सर्विस, न अकाउंट सिस्टम। टूल इनपुट, नोट्स, स्निपेट्स और टास्क एक लोकल
   SQLCipher डेटाबेस में लिखे जाते हैं, जो OS keychain में रखी key से एन्क्रिप्टेड है।
 - **क्रेडेंशियल वॉल्ट में एन्क्रिप्टेड रहते हैं।** डेटाबेस पासवर्ड, API keys और
   password manager की एंट्रीज़ एक मास्टर पासवर्ड से लोकली एन्क्रिप्ट होती हैं, जो
@@ -128,7 +125,7 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 - **हर आउटबाउंड कनेक्शन आपकी मर्ज़ी से।** ऐप को खुद नेटवर्क की ज़रूरत नहीं, लेकिन
   कुछ टूल बने ही *आपके* डेस्टिनेशन से बात करने के लिए हैं: API क्लाइंट वही
   रिक्वेस्ट भेजता है जो आप लिखते हैं, डेटाबेस क्लाइंट उन्हीं होस्ट से जुड़ते हैं जो
-  आप कॉन्फ़िगर करते हैं, DNS / WHOIS lookup पब्लिक रजिस्ट्री से पूछते हैं, और अपडेटर
+  आप कॉन्फ़िगर करते हैं, DNS lookup पब्लिक रजिस्ट्री से पूछते हैं, और अपडेटर
   GitHub releases चेक करता है। इसके अलावा कुछ भी बाहर नहीं जाता।
 - **ऑप्शनल, एनॉनिमस यूसेज स्टैट्स।** जब तक आप खुद चालू न करें, बंद रहते हैं। चालू
   होने पर दो इवेंट (`app_started`, `tool_opened`) एक बदलती हुई session id, ऐप वर्शन
@@ -152,7 +149,7 @@ Tauri v2 शेल (`apps/desktop`, Rust) के अंदर एक Next.js 16 
 ## 🛠️ सोर्स से बिल्ड करना
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 pnpm dev:desktop     # Tauri desktop app in dev mode
@@ -170,7 +167,7 @@ pnpm build:desktop   # build the desktop app
 - **डेटाबेस क्लाइंट रोज़मर्रा के काम के लिए हैं**, किसी पूरे DBA सूट का विकल्प नहीं
   — न विज़ुअल स्कीमा डिज़ाइनर है, न माइग्रेशन टूलिंग।
 - **कोई टीम फ़ीचर नहीं।** न शेयर्ड वर्कस्पेस, न सिंक, न कोलैबोरेशन।
-- **कुछ टूल्स को नेटवर्क चाहिए ही होता है** — DNS, WHOIS, webhooks, API रिक्वेस्ट,
+- **कुछ टूल्स को नेटवर्क चाहिए ही होता है** — DNS, API रिक्वेस्ट,
   डेटाबेस कनेक्शन।
 
 ---
@@ -179,7 +176,7 @@ pnpm build:desktop   # build the desktop app
 
 योगदान का स्वागत है — बग फिक्स, नए टूल, UI पॉलिश, अनुवाद और डॉक्यूमेंटेशन, सब
 मायने रखते हैं। शुरुआत [CONTRIBUTING.md](../../CONTRIBUTING.md) से करें;
-[`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+[`good first issue`](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 लेबल वाले issues नए लोगों के लिए ही रखे गए हैं।
 
 इस अनुवाद को बेहतर बनाने के लिए, या `apps/desktop-ui/messages/` में किसी locale
@@ -187,8 +184,8 @@ pnpm build:desktop   # build the desktop app
 
 | | |
 |---|---|
-| 🐛 बग रिपोर्ट करें · ✨ फ़ीचर की माँग करें | [Issue templates](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 कोई सवाल पूछें | [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
+| 🐛 बग रिपोर्ट करें · ✨ फ़ीचर की माँग करें | [Issue templates](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| 💬 कोई सवाल पूछें | [Discussions](https://github.com/itsmeakhil/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
 | 🔒 कोई सुरक्षा खामी बताएँ | [SECURITY.md](../../SECURITY.md) — निजी तौर पर, कभी भी पब्लिक issue में नहीं |
 | 🗺️ आगे क्या प्लान है, देखें | [ROADMAP.md](../../ROADMAP.md) |
 | 🤝 कम्युनिटी के नियम | [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) |
@@ -209,5 +206,5 @@ MyDevTools फ्री है, इसका कोई पेड प्लान
 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) — देखें [LICENSE](../../LICENSE)।
 
 <p align="center">
-  ❤️ के साथ बनाया <a href="https://github.com/itsmeakhil">Akhil</a> और <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">योगदानकर्ताओं</a> ने
+  ❤️ के साथ बनाया <a href="https://github.com/itsmeakhil">Akhil</a> और <a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">योगदानकर्ताओं</a> ने
 </p>

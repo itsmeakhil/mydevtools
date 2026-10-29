@@ -21,13 +21,13 @@ apps/
 ├── desktop/                 Tauri v2 shell (Rust)
 │   └── src-tauri/src/
 │       ├── lib.rs           Tauri commands: local_api, http_request(_stream), proxy_grpc, mock_server_start
-│       ├── router/          Local API router — one module per resource (notes, tasks, bookmarks,
+│       ├── router/          Local API router — one module per resource (notes, tasks,
 │       │                    snippets, api_client, master_vault, preferences, workspaces, backup, …)
 │       ├── db/              SQLCipher open/migrate, device key from the OS keychain
 │       ├── dbtools/         Native drivers: Postgres, MySQL, MongoDB, Redis, SQLite
 │       └── http/            reqwest proxy, gRPC over h2, mock server
 │
-├── desktop-ui/              Next.js 16 / React 19 UI — the 80+ tools
+├── desktop-ui/              Next.js 16 / React 19 UI — every tool
 │   ├── src/app/app/         One route per tool (page.tsx + layout.tsx)
 │   ├── src/components/      Tool layouts, sidebar, command palette, shared UI
 │   ├── src/lib/             Pure tool logic (unit-tested), crypto, local API client
@@ -79,7 +79,7 @@ apps/
 - **API client** requests go through `reqwest` in Rust, which is why the app
   is not subject to browser CORS rules. Streaming responses and gRPC use the
   same path (`http_request_stream`, `proxy_grpc`).
-- **Updater** checks `github.com/mydevtools-tech/mydevtools/releases/latest/download/latest.json`
+- **Updater** checks `github.com/itsmeakhil/mydevtools/releases/latest/download/latest.json`
   (Tauri updater, minisign-verified).
 
 ## Privacy boundaries

@@ -7,18 +7,11 @@ import { Monitor, X } from 'lucide-react'
 const DESKTOP_RECOMMENDED_SLUGS = new Set([
   'api-client',
   'data-explorer',
-  'encryption-playground',
   's3-drive',
-  'csv-excel-json',
   'environment-manager',
   'notes',
   'to-do',
-  'bookmarks',
-  'break-room',
   'api-keys',
-  'image-compressor',
-  'image-to-base64',
-  'svg-optimizer',
 ])
 
 function slugFromPathname(pathname: string): string | null {

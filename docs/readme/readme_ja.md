@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80 以上の開発者ツール、API クライアント、SQL / MongoDB / Redis クライアント、<br />
+  API クライアント、SQL / MongoDB / Redis クライアント、<br />
   暗号化ツール、生産性ユーティリティ — すべてあなたのマシン上でローカルに動作します。
 </p>
 
@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="最新リリース" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="ダウンロード数" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/itsmeakhil/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="最新リリース" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases"><img src="https://img.shields.io/github/downloads/itsmeakhil/mydevtools/total?style=flat-square&color=22c55e" alt="ダウンロード数" /></a>
   <a href="../../LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="ライセンス AGPL-3.0" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="GitHub スター" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=flat-square&color=f59e0b" alt="GitHub スター" /></a>
 </p>
 
 <p align="center">
@@ -41,13 +41,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ ダウンロード</strong></a> •
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><strong>⬇️ ダウンロード</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 ウェブサイト</strong></a> •
   <a href="https://mydevtools.tech/help"><strong>📚 ドキュメント</strong></a> •
   <a href="../../CHANGELOG.md">📋 変更履歴</a> •
   <a href="../../ROADMAP.md">🗺️ ロードマップ</a> •
   <a href="../../CONTRIBUTING.md">🤝 コントリビュート</a> •
-  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 ディスカッション</a>
+  <a href="https://github.com/itsmeakhil/mydevtools/discussions">💬 ディスカッション</a>
 </p>
 
 <!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
@@ -88,8 +88,8 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 
 | プラットフォーム | 方法 |
 |---|---|
-| **macOS**（Apple Silicon + Intel） | [最新の `.dmg` をダウンロード](https://github.com/mydevtools-tech/mydevtools/releases/latest) — ユニバーサルビルド、署名・公証済み、アプリ内で自動更新 |
-| **Linux** (x86_64) | [`.deb` をダウンロード](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb)(Debian / Ubuntu 22.04 以降)または [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage)(インストール不要でどこでも動作)— macOS と同じリリース・同じバージョンです。アプリ内アップデートは未対応。[Linux インストールガイド](https://mydevtools.tech/linux-builds) を参照 |
+| **macOS**（Apple Silicon + Intel） | [最新の `.dmg` をダウンロード](https://github.com/itsmeakhil/mydevtools/releases/latest) — ユニバーサルビルド、署名・公証済み、アプリ内で自動更新 |
+| **Linux** (x86_64) | [`.deb` をダウンロード](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb)(Debian / Ubuntu 22.04 以降)または [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage)(インストール不要でどこでも動作)— macOS と同じリリース・同じバージョンです。アプリ内アップデートは未対応。[Linux インストールガイド](https://mydevtools.tech/linux-builds) を参照 |
 | **Windows** | 当面ビルドは提供しません。Tauri シェルは Windows でもコンパイルできます — [ソースからのビルド](../../README.md#%EF%B8%8F-building-from-source) と [ロードマップ](../../ROADMAP.md) を参照してください |
 
 開いたらすぐに使えます。会員登録も設定も API キーも不要です。
@@ -98,19 +98,16 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 
 ## 🧰 ツール
 
-80 以上のツールを、サイドバーと同じグループに分けて掲載しています。説明付きの
+すべてのツールを、サイドバーと同じグループに分けて掲載しています。説明付きの
 完全な一覧は [英語版 README](../../README.md#-tools) にあります。
 
 | カテゴリ | 例 |
 |---|---|
 | 📝 **フォーマッター & バリデーター** | JSON フォーマッター、JSON Visualizer、JSON 差分、JSONスキーマジェネレーター、JSON to Code、YAMLフォーマッター、フォーマット変換（JSON / YAML / TOML / XML）、SQL Formatter、GraphQL フォーマッター、Markdownプレビュー、Diff checker、Regex Tester |
-| 🌐 **ネットワーク & API** | APIクライアント（コレクション、環境、認証、gRPC、モックサーバー — ブラウザの CORS 制限なし）、cURL to Code、Webhook テスター、WebSocket テスター、DNS ルックアップ、Whois 検索、IP／サブネット計算、HTTPステータスコード、User-Agent Parser |
+| 🌐 **ネットワーク & API** | APIクライアント（コレクション、環境、認証、gRPC、モックサーバー — ブラウザの CORS 制限なし） |
 | 🗄️ **データベース & ストレージクライアント** | SQL Client（PostgreSQL、MySQL、MariaDB）、データベースエクスプローラー（MongoDB）、Redis Commander、S3 Drive（AWS S3、DigitalOcean Spaces） — ネイティブ Rust ドライバーで、あなたのマシンからデータベースへ直接つながります |
-| 🔐 **セキュリティ & 暗号** | パスワードマネージャー、暗号化プレイグラウンド（AES-GCM）、JWTデコーダー、ハッシュ生成、HMACジェネレーター、Bcrypt、TOTP / 2FA コード、SSH / RSAキージェネレーター、証明書 / PEM デコーダ、環境変数マネージャー、シークレット / APIキー |
-| 🔄 **コンバーター** | Base64、画像をBase64に変換、URL Encoder / URL パーサー、Escape / Encode、String Case Converter、String Inspector、Line Sort & Dedupe、CSV / Excel ↔ JSON、基数変換、Timestamp Converter / タイムゾーン変換、単位変換器、Chmod 計算機、LLM トークンカウンター |
-| ⚙️ **ジェネレーター** | UUID / ULID、モックデータジェネレーター、Cron Builder、Docker Compose ジェネレーター、.gitignore ジェネレーター、QRコード生成、Markdown テーブル、Lorem Ipsum |
-| 🎨 **メディア & デザイン** | Color Picker、コントラストチェッカー、CSS グラデーション ビルダー、CSS ジェネレーター、画像圧縮、SVG 最適化、EXIF ビューアー & リムーバー、Favicon ジェネレーター、コードスクリーンショット、キーコードインスペクター |
-| 📱 **生産性** | Notes、コードスニペット、Tasks、ブックマーク、API Keys、休憩室（2048、Sudoku、Snake、Minesweeper、Tetris） |
+| 🔐 **セキュリティ & 暗号** | パスワードマネージャー、環境変数マネージャー |
+| 📱 **生産性** | Notes、コードスニペット、Tasks、API Keys |
 
 すべて 1 つのコマンドパレットから検索でき、ダーク / ライトモード、27 言語に対応しています。
 
@@ -120,7 +117,7 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 
 - **MyDevTools のサーバーはありません。** サインインするバックエンドも、同期
   サービスも、アカウントの仕組みもありません。ツールの入力、ノート、スニペット、
-  タスク、ブックマークはローカルの SQLCipher データベースに書き込まれ、OS の
+  タスクはローカルの SQLCipher データベースに書き込まれ、OS の
   キーチェーンが保持する鍵で暗号化されます。
 - **認証情報は保管庫で暗号化されます。** データベースのパスワード、API キー、
   パスワードマネージャーの項目は、あなただけが知るマスターパスワードでローカルに
@@ -128,7 +125,7 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 - **外部への通信はすべてあなたが選びます。** アプリ自体はネットワークを必要と
   しませんが、一部のツールは *あなたの* 接続先と通信するために存在します。API
   クライアントはあなたが書いたリクエストを送信し、データベースクライアントは
-  あなたが設定したホストへ接続し、DNS / WHOIS ルックアップは公開レジストリへ
+  あなたが設定したホストへ接続し、DNS ルックアップは公開レジストリへ
   問い合わせ、アップデーターは GitHub のリリースを確認します。それ以外は何も
   外に出ません。
 - **利用統計は任意・匿名です。** 自分でオンにしない限り無効です。オンの場合は
@@ -153,7 +150,7 @@ SQLCipher、データベースドライバー、HTTP / gRPC、モックサーバ
 ## 🛠️ ソースからのビルド
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 pnpm dev:desktop     # Tauri desktop app in dev mode
@@ -173,7 +170,7 @@ Node.js ≥ 22、pnpm ≥ 9、安定版の Rust が必要です。設定作業�
   もありません。
 - **チーム向け機能はありません。** 共有ワークスペースも、同期も、共同編集も
   ありません。
-- **性質上ネットワークが必要なツールもあります** — DNS、WHOIS、Webhook、API
+- **性質上ネットワークが必要なツールもあります** — DNS、API
   リクエスト、データベース接続。
 
 ---
@@ -182,7 +179,7 @@ Node.js ≥ 22、pnpm ≥ 9、安定版の Rust が必要です。設定作業�
 
 コントリビューションを歓迎します — バグ修正、新しいツール、UI の改善、翻訳、
 ドキュメント、どれも大歓迎です。まずは [CONTRIBUTING.md](../../CONTRIBUTING.md)
-から。[`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+から。[`good first issue`](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 ラベルの付いた issue は、初めての方向けに範囲を絞ってあります。
 
 この翻訳や `apps/desktop-ui/messages/` のロケールファイルの改善には、Rust も
@@ -190,8 +187,8 @@ Node.js ≥ 22、pnpm ≥ 9、安定版の Rust が必要です。設定作業�
 
 | | |
 |---|---|
-| 🐛 バグを報告 · ✨ 機能をリクエスト | [Issue テンプレート](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 質問する | [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
+| 🐛 バグを報告 · ✨ 機能をリクエスト | [Issue テンプレート](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| 💬 質問する | [Discussions](https://github.com/itsmeakhil/mydevtools/discussions) · [SUPPORT.md](../../SUPPORT.md) |
 | 🔒 脆弱性を報告 | [SECURITY.md](../../SECURITY.md) — 公開 issue ではなく、非公開で |
 | 🗺️ 今後の予定を見る | [ROADMAP.md](../../ROADMAP.md) |
 | 🤝 コミュニティの行動指針 | [CODE_OF_CONDUCT.md](../../CODE_OF_CONDUCT.md) |
@@ -211,5 +208,5 @@ MyDevTools は無料で、有料プランはなく、今後も作りません。
 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) — [LICENSE](../../LICENSE) を参照してください。
 
 <p align="center">
-  <a href="https://github.com/itsmeakhil">Akhil</a> と <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">コントリビューター</a> が ❤️ を込めて作りました
+  <a href="https://github.com/itsmeakhil">Akhil</a> と <a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">コントリビューター</a> が ❤️ を込めて作りました
 </p>

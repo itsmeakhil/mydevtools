@@ -4,9 +4,8 @@
 //
 // Works together with the `key={activeWorkspaceId}` remount in client-layout:
 // the remount re-runs every tool's load effect; these resets make sure
-// load-once guards (e.g. bookmarks' `hasSynced`) actually refetch.
+// in-memory decrypted data from the previous workspace is dropped.
 import { useWorkspaceStore } from "@/store/workspace-store"
-import { useBookmarkStore } from "@/store/bookmark-store"
 import { usePasswordStore } from "@/store/password-store"
 import { useEnvironmentManagerStore } from "@/store/environment-manager-store"
 import { useApiKeyVaultStore } from "@/store/api-key-vault-store"
@@ -27,13 +26,6 @@ export function initWorkspaceScopeReset() {
     prevWorkspaceId = next
     if (!isRealSwitch) return // initial hydration, not a switch
 
-    // Bookmarks: persisted + load-once guard — reset both so it refetches.
-    useBookmarkStore.setState({
-      bookmarks: [],
-      folders: [],
-      selectedFolderId: null,
-      hasSynced: false,
-    })
     // Secret tools: in-memory decrypted data — drop it at the scope boundary.
     usePasswordStore.getState().clearPasswords()
     useEnvironmentManagerStore.getState().clearSets()

@@ -1,7 +1,7 @@
+pub mod analytics;
 pub mod api_client;
 pub mod backup;
 pub mod backup_codes;
-pub mod bookmarks;
 pub mod entries;
 pub mod factory_reset;
 pub mod json_formatter;
@@ -102,17 +102,14 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
         }
     }
 
+    if let Some(rest) = rel.strip_prefix("/dashboard/analytics") {
+        return analytics::handle(state, method, rest);
+    }
     if let Some(rest) = rel.strip_prefix("/code-snippets") {
         return snippets::handle(state, method, rest, body);
     }
     if let Some(rest) = rel.strip_prefix("/json-formatter/documents") {
         return json_formatter::handle(state, method, rest, query, body);
-    }
-    if let Some(rest) = rel.strip_prefix("/bookmark-folders") {
-        return bookmarks::handle_folders(state, method, rest, body);
-    }
-    if let Some(rest) = rel.strip_prefix("/bookmarks") {
-        return bookmarks::handle_bookmarks(state, method, rest, body);
     }
     if let Some(rest) = rel.strip_prefix("/notes") {
         return notes::handle(state, method, rest, query, body);
@@ -308,25 +305,6 @@ mod tests {
     }
 
     #[test]
-    fn bookmarks_snapshot_move_clear() {
-        let state = AppState::in_memory();
-        let r = route(&state, "POST", "/api/v1/bookmark-folders", Some(r#"{"id":"f1","name":"Dev","parentId":null,"isExpanded":true}"#)).unwrap();
-        assert_eq!(r.status, 200);
-        let r = route(&state, "POST", "/api/v1/bookmarks", Some(r#"{"id":"b1","title":"x","url":"https://x.dev","tags":[],"folderId":null}"#)).unwrap();
-        assert_eq!(body_json(&r)["id"], "b1");
-        let r = route(&state, "PATCH", "/api/v1/bookmarks/b1/move", Some(r#"{"folderId":"f1"}"#)).unwrap();
-        assert_eq!(body_json(&r)["folderId"], "f1");
-        let r = route(&state, "GET", "/api/v1/bookmarks/snapshot", None).unwrap();
-        let snap = body_json(&r);
-        assert_eq!(snap["bookmarks"].as_array().unwrap().len(), 1);
-        assert_eq!(snap["folders"].as_array().unwrap().len(), 1);
-        let r = route(&state, "POST", "/api/v1/bookmarks/clear-all", None).unwrap();
-        assert_eq!(r.status, 200);
-        let r = route(&state, "GET", "/api/v1/bookmarks/snapshot", None).unwrap();
-        assert_eq!(body_json(&r)["bookmarks"].as_array().unwrap().len(), 0);
-    }
-
-    #[test]
     fn notes_recursive_delete_iso_timestamps() {
         let state = AppState::in_memory();
         let r = route(&state, "POST", "/api/v1/notes", Some(r#"{"title":"root","content":{"a":1},"parentId":null}"#)).unwrap();
@@ -409,7 +387,7 @@ mod tests {
         let prefs = body_json(&r);
         assert_eq!(prefs["theme"], "system");
         assert_eq!(prefs["accentColor"], "blue");
-        assert!(prefs["enabledTools"].as_array().unwrap().len() > 30);
+        assert!(!prefs["enabledTools"].as_array().unwrap().is_empty());
         let r = route(&state, "POST", "/api/v1/user-preferences/tool-usage", Some(r#"{"toolId":"/app/json-formatter"}"#)).unwrap();
         assert_eq!(body_json(&r)["ok"], true);
         let r = route(&state, "GET", "/api/v1/user-preferences", None).unwrap();
@@ -459,6 +437,47 @@ mod tests {
         // Bad version rejected.
         let r = route(&dst, "POST", "/desktop/backup/import", Some(r#"{"version":99,"entries":[]}"#)).unwrap();
         assert_eq!(r.status, 422);
+    }
+
+    #[test]
+    fn dashboard_analytics_counts_live_rows() {
+        let state = AppState::in_memory();
+        let empty = body_json(&route(&state, "GET", "/api/v1/dashboard/analytics", None).unwrap());
+        assert_eq!(empty["notes"], 0);
+        assert_eq!(empty["tasks"]["total"], 0);
+
+        route(&state, "POST", "/api/v1/notes", Some(r#"{"title":"n1"}"#)).unwrap();
+        route(&state, "POST", "/api/v1/notes", Some(r#"{"title":"n2"}"#)).unwrap();
+        route(&state, "POST", "/api/v1/json-formatter/documents", Some(r#"{"title":"d"}"#)).unwrap();
+        let done = body_json(
+            &route(&state, "POST", "/api/v1/tasks", Some(r#"{"title":"t1","status":"completed"}"#))
+                .unwrap(),
+        );
+        route(&state, "POST", "/api/v1/tasks", Some(r#"{"title":"t2","status":"ongoing"}"#)).unwrap();
+
+        let v = body_json(&route(&state, "GET", "/api/v1/dashboard/analytics", None).unwrap());
+        assert_eq!(v["notes"], 2);
+        assert_eq!(v["jsonFormatterDocuments"], 1);
+        assert_eq!(v["tasks"]["total"], 2);
+        assert_eq!(v["tasks"]["completed"], 1);
+        assert_eq!(v["tasks"]["ongoing"], 1);
+
+        // Deleted rows drop out of the counts.
+        let note = body_json(&route(&state, "GET", "/api/v1/notes", None).unwrap())[0]["id"]
+            .as_str()
+            .unwrap()
+            .to_string();
+        route(&state, "DELETE", &format!("/api/v1/notes/{note}"), None).unwrap();
+        let v = body_json(&route(&state, "GET", "/api/v1/dashboard/analytics", None).unwrap());
+        assert_eq!(v["notes"], 1);
+
+        // Archived tasks leave the active breakdown, matching /tasks/stats.
+        let id = done["id"].as_str().unwrap();
+        route(&state, "PATCH", &format!("/api/v1/tasks/{id}"), Some(r#"{"archived":true}"#)).unwrap();
+        let v = body_json(&route(&state, "GET", "/api/v1/dashboard/analytics", None).unwrap());
+        let stats = body_json(&route(&state, "GET", "/api/v1/tasks/stats", None).unwrap());
+        assert_eq!(v["tasks"], stats);
+        assert_eq!(v["tasks"]["total"], 1);
     }
 
     #[test]

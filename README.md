@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  80+ developer tools, an API client, SQL / MongoDB / Redis clients, encryption<br />
+  An API client, SQL / MongoDB / Redis clients, an encrypted vault, core dev tools<br />
   and productivity utilities — all running locally on your machine.
 </p>
 
@@ -21,12 +21,12 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/mydevtools-tech/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="Latest release" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/actions/workflows/rust.yml"><img src="https://github.com/mydevtools-tech/mydevtools/actions/workflows/rust.yml/badge.svg?branch=main" alt="Rust" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases"><img src="https://img.shields.io/github/downloads/mydevtools-tech/mydevtools/total?style=flat-square&color=22c55e" alt="Downloads" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><img src="https://img.shields.io/github/v/release/itsmeakhil/mydevtools?style=flat-square&label=release&color=6d7cf5" alt="Latest release" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/actions/workflows/rust.yml"><img src="https://github.com/itsmeakhil/mydevtools/actions/workflows/rust.yml/badge.svg?branch=main" alt="Rust" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/releases"><img src="https://img.shields.io/github/downloads/itsmeakhil/mydevtools/total?style=flat-square&color=22c55e" alt="Downloads" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square" alt="License AGPL-3.0" /></a>
-  <a href="https://github.com/mydevtools-tech/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=flat-square&color=f59e0b" alt="GitHub stars" /></a>
+  <a href="https://github.com/itsmeakhil/mydevtools/stargazers"><img src="https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=flat-square&color=f59e0b" alt="GitHub stars" /></a>
 </p>
 
 <p align="center">
@@ -51,14 +51,14 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mydevtools-tech/mydevtools/releases/latest"><strong>⬇️ Download</strong></a> •
+  <a href="https://github.com/itsmeakhil/mydevtools/releases/latest"><strong>⬇️ Download</strong></a> •
   <a href="https://mydevtools.tech"><strong>🌐 Website</strong></a> •
   <a href="https://mydevtools.tech/help"><strong>📚 Docs</strong></a> •
   <a href="#-tools">🧰 Tools</a> •
   <a href="CHANGELOG.md">📋 Changelog</a> •
   <a href="ROADMAP.md">🗺️ Roadmap</a> •
   <a href="CONTRIBUTING.md">🤝 Contribute</a> •
-  <a href="https://github.com/mydevtools-tech/mydevtools/discussions">💬 Discussions</a>
+  <a href="https://github.com/itsmeakhil/mydevtools/discussions">💬 Discussions</a>
 </p>
 
 <!-- hero: drop assets/hero-dark.png + assets/hero-light.png (see assets/SHOT_LIST.md), then uncomment.
@@ -105,8 +105,8 @@ It runs on your machine. There is no MyDevTools server, no account and no sync.
 
 | Platform | How |
 |---|---|
-| **macOS** (Apple Silicon + Intel) | [Download the latest `.dmg`](https://github.com/mydevtools-tech/mydevtools/releases/latest) — universal build, signed and notarized, updates itself in-app |
-| **Linux** (x86_64) | [Download the `.deb`](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) or the [AppImage](https://github.com/mydevtools-tech/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (runs anywhere, no install) — same release and version as macOS. No in-app updater yet; see the [Linux install guide](https://mydevtools.tech/linux-builds) |
+| **macOS** (Apple Silicon + Intel) | [Download the latest `.dmg`](https://github.com/itsmeakhil/mydevtools/releases/latest) — universal build, signed and notarized, updates itself in-app |
+| **Linux** (x86_64) | [Download the `.deb`](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) or the [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (runs anywhere, no install) — same release and version as macOS. No in-app updater yet; see the [Linux install guide](https://mydevtools.tech/linux-builds) |
 | **Windows** | No build for now. The Tauri shell compiles on Windows — see [Building from source](#%EF%B8%8F-building-from-source) and the [roadmap](ROADMAP.md) |
 
 Open it and start working: no sign-up, no configuration, no API keys.
@@ -115,7 +115,7 @@ Open it and start working: no sign-up, no configuration, no API keys.
 
 ## 🧰 Tools
 
-80+ tools ship in the app today, grouped the way the sidebar groups them.
+Everything that ships in the app today, grouped the way the sidebar groups them.
 
 ### 📝 Formatters & validators
 
@@ -136,20 +136,11 @@ Open it and start working: no sign-up, no configuration, no API keys.
 | **Diff Checker** | Side-by-side line diff of two texts |
 | **Regex Tester** | Test regex with live match highlighting and capture groups |
 
-### 🌐 Network & API
+### 🌐 API
 
 | Tool | Description |
 |---|---|
 | **API Client** | Build, send and debug HTTP requests — collections, environments, auth, gRPC and a mock server. Not bound by browser CORS |
-| **cURL to Code** | Turn a curl command into fetch, axios, Python, Go, PHP, Ruby, Java or C# |
-| **Webhook Tester** | Capture and inspect incoming webhook requests in real time |
-| **WebSocket Tester** | Connect to WebSocket endpoints and send, receive and inspect messages live |
-| **DNS Lookup** | Query A, AAAA, MX, TXT, NS, CNAME, SOA, CAA and PTR records |
-| **Whois Lookup** | Domain and IP registration details via RDAP/WHOIS |
-| **IP / Subnet Calculator** | IPv4 and IPv6 CIDR: netmask, host range, address counts |
-| **HTTP Status Codes** | Searchable reference for 1xx–5xx |
-| **User-Agent Parser** | Browser, OS and device details from a user-agent string |
-| **MIME Type Lookup** | MIME type for a file extension or filename |
 
 <!-- shot: assets/api-client.png (see assets/SHOT_LIST.md), then uncomment.
 <p align="center"><img src="assets/api-client.png" alt="API Client — request, response and collections" width="900" /></p>
@@ -177,61 +168,8 @@ go straight from your machine to your database.
 |---|---|
 | **Password Manager** | Credential vault encrypted with a password only you know |
 | **Secure Files** | Encrypt files and folders into masked `.mydt` objects in any folder you choose; browse, preview and export them after unlocking ([format spec](docs/MYDT_FORMAT.md), [`mydt` CLI](crates/mydt/README.md)) |
-| **Encryption Playground** | AES-GCM with a raw key or passphrase; encrypt/decrypt JSON bundles |
-| **JWT Decoder** | Decode JWT header, payload and expiry |
-| **Hash Generator** | MD5, SHA-1, SHA-256/384/512 digests for text or files |
-| **HMAC Generator** | HMAC-SHA1/256/384/512 for webhook and API signing tests |
-| **Bcrypt Generator & Checker** | Hash passwords with bcrypt and verify hashes |
-| **TOTP / 2FA Generator** | Six-digit codes from a Base32 authenticator secret |
-| **SSH / RSA Key Generator** | Ed25519 or RSA key pairs in OpenSSH and PEM formats |
-| **Certificate / PEM Decoder** | X.509 certificates and CSRs: subject, issuer, validity, SANs |
 | **Environment Manager** | Encrypted `.env` sets per project and environment |
-| **Secret / API Key Generator** | Cryptographically random strings with configurable alphabet |
 | **Email Validator** | Verify and validate email addresses |
-
-### 🔄 Converters
-
-| Tool | Description |
-|---|---|
-| **Base64 Encoder** | Encode and decode Base64 |
-| **Image to Base64** | Images to Data URI or raw Base64 |
-| **URL Encoder** · **URL Parser** | Percent-encode/decode, and split a URL into its parts |
-| **Escape / Encode** | HTML entities, backslash strings, hex ↔ ASCII, Unicode `\uXXXX` |
-| **String Case Converter** | camelCase, snake_case, kebab-case, CONSTANT_CASE and more |
-| **String Inspector** | Characters, words, bytes, invisible and non-ASCII code points |
-| **Line Sort & Dedupe** | Sort, deduplicate, trim and clean up lists |
-| **CSV / Excel ↔ JSON** | Convert spreadsheets to JSON and back |
-| **Number Base Converter** | Integers between bases 2–36 |
-| **Timestamp Converter** · **Timezone Converter** | Unix/ISO/relative time, and time across timezones |
-| **Unit Converter** | 323 units across 43 categories |
-| **Chmod Calculator** | Unix permissions between checkboxes, octal and symbolic |
-| **LLM Token Counter** | Count tokens and estimate API cost for any text |
-
-### ⚙️ Generators
-
-| Tool | Description |
-|---|---|
-| **UUID / ULID** | Generate UUIDs and ULIDs with bulk export |
-| **Mock Data Generator** | Define a schema, export random JSON, CSV, SQL or XML |
-| **Cron Builder** | Visual cron builder, presets and parser |
-| **Docker Compose Generator** | Compose local stacks — Postgres, Redis, NGINX, Kafka and more |
-| **.gitignore Generator** | Merged `.gitignore` files from 500+ stacks |
-| **QR Code Generator** | PNG QR codes from text or URLs |
-| **Markdown Table Generator** | Build Markdown and HTML tables in a spreadsheet-like editor |
-| **Lorem Ipsum** | Placeholder text for layouts and mockups |
-
-### 🎨 Media & design
-
-| Tool | Description |
-|---|---|
-| **Color Picker** · **Contrast Checker** | HEX/RGB/HSL conversion, and WCAG 2.1 AA/AAA ratios |
-| **CSS Gradient Builder** · **CSS Generators** | Gradients, box-shadow, border-radius and fluid `clamp()` |
-| **Image Compressor** | Compress JPEG, PNG and WebP with a quality slider |
-| **SVG Optimizer** | Strip junk with SVGO and see the size reduction |
-| **EXIF Viewer & Remover** | Inspect and strip photo metadata |
-| **Favicon Generator** | Favicons, app icons and manifest snippets |
-| **Code Screenshot** | Turn source code into shareable images |
-| **Keycode Inspector** | Inspect JavaScript keyboard events: key, code, modifiers |
 
 ### 📱 Productivity
 
@@ -240,9 +178,7 @@ go straight from your machine to your database.
 | **Notes** | Rich-text notes powered by Tiptap — headings, lists, code blocks, images |
 | **Code Snippets** | Save snippets with syntax highlighting and auto language detection |
 | **Tasks** | To-do lists with priorities, statuses and drag-and-drop |
-| **Bookmarks** | Organize links in one place |
 | **API Keys** | Encrypted API keys and secrets per environment (dev / staging / prod) |
-| **Break Room** | 2048, Sudoku, Snake, Minesweeper, Tetris |
 
 Everything is searchable from one command palette, in dark or light mode, in 27
 languages.
@@ -259,7 +195,7 @@ MyDevTools Desktop is built to work locally. Your developer data stays on your
 machine instead of being posted to someone else's tool backend.
 
 - **No MyDevTools server.** There is no backend to sign in to, no sync service
-  and no account system. Tool input, notes, snippets, tasks and bookmarks are
+  and no account system. Tool input, notes, snippets and tasks are
   written to a local SQLCipher database, encrypted with a key held in the OS
   keychain.
 - **Credentials are vault-encrypted.** Database passwords, API keys and password
@@ -267,7 +203,7 @@ machine instead of being posted to someone else's tool backend.
 - **You choose every outbound connection.** The app itself needs no network, but
   some tools exist to talk to *your* destinations: the API client sends the
   requests you write, the database clients connect to the hosts you configure,
-  DNS/WHOIS lookups query public registries, and the updater checks GitHub
+  the email validator queries public DNS resolvers, and the updater checks GitHub
   releases. Those are the connections you asked for — nothing else leaves.
 - **Optional, anonymous usage stats.** Off unless you switch them on. When on,
   two events (`app_started`, `tool_opened`) are sent with a rotating session id,
@@ -279,7 +215,7 @@ machine instead of being posted to someone else's tool backend.
 
 | | What it is |
 |---|---|
-| **MyDevTools Desktop** (this repo, `apps/desktop-ui` + `apps/desktop`) | The product. Runs the 80+ tools locally, offline, with no account and no backend |
+| **MyDevTools Desktop** (this repo, `apps/desktop-ui` + `apps/desktop`) | The product. Runs every tool locally, offline, with no account and no backend |
 | **mydevtools.tech** (`apps/web`) | An informational site: what the app does, tool documentation and the download link. The tools do **not** run there |
 
 The website is a normal marketing site and uses standard web analytics. Its
@@ -298,7 +234,7 @@ apps/
 │       ├── http/     Request proxy, gRPC, mock server (no browser CORS limits)
 │       └── db/       Schema migrations, device key
 │
-├── desktop-ui/       Next.js UI the desktop app is built from — all 80+ tools
+├── desktop-ui/       Next.js UI the desktop app is built from — every tool
 │   ├── src/app/app/  Tool pages
 │   ├── src/lib/      Tool logic (pure, unit-tested), crypto, local API client
 │   └── messages/     next-intl locale files (27 languages)
@@ -333,7 +269,7 @@ Longer write-up: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 ### Setup
 
 ```bash
-git clone https://github.com/mydevtools-tech/mydevtools.git
+git clone https://github.com/itsmeakhil/mydevtools.git
 cd mydevtools
 pnpm install
 ```
@@ -362,7 +298,7 @@ Being honest about the edges is more useful than a feature list:
   suite — no visual schema designer, no migration tooling.
 - **No team features.** No shared workspaces, no sync, no collaboration. Local
   workspaces only.
-- **Some tools need the network by definition** — DNS, WHOIS, webhooks, API
+- **Some tools need the network by definition** — DNS (email validation), API
   requests, database connections.
 
 ---
@@ -384,7 +320,7 @@ development commands, testing, translations and the six registries a new tool
 has to be added to.
 
 New here? Look for issues labelled
-[`good first issue`](https://github.com/mydevtools-tech/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+[`good first issue`](https://github.com/itsmeakhil/mydevtools/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 — they are scoped to be completable without deep knowledge of the codebase.
 
 **Translations** — the app ships in 27 languages and this README in 9. Improving
@@ -393,19 +329,19 @@ a locale file or a translated README needs no Rust and no build; see
 
 | | |
 |---|---|
-| 🐛 Report a bug · ✨ Request a feature | [Issue templates](https://github.com/mydevtools-tech/mydevtools/issues/new/choose) |
-| 💬 Ask a question · share a workflow | [Discussions](https://github.com/mydevtools-tech/mydevtools/discussions) · [SUPPORT.md](SUPPORT.md) |
+| 🐛 Report a bug · ✨ Request a feature | [Issue templates](https://github.com/itsmeakhil/mydevtools/issues/new/choose) |
+| 💬 Ask a question · share a workflow | [Discussions](https://github.com/itsmeakhil/mydevtools/discussions) · [SUPPORT.md](SUPPORT.md) |
 | 🔒 Report a vulnerability | [SECURITY.md](SECURITY.md) — privately, never a public issue |
 | 🗺️ See what is planned | [ROADMAP.md](ROADMAP.md) |
-| 📋 See what changed | [CHANGELOG.md](CHANGELOG.md) · [Releases](https://github.com/mydevtools-tech/mydevtools/releases) |
+| 📋 See what changed | [CHANGELOG.md](CHANGELOG.md) · [Releases](https://github.com/itsmeakhil/mydevtools/releases) |
 | 🤝 Community standards | [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) |
 
 ---
 
 ## 🧑‍💻 Contributors
 
-<a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=mydevtools-tech/mydevtools" />
+<a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=itsmeakhil/mydevtools" />
 </a>
 
 ---
@@ -419,7 +355,7 @@ MyDevTools is free, has no paid tier and never will. If it saves you time:
   certificates, hosting for the website and the tooling that keeps releases coming.
 - **Tell someone** — a post, a message to a teammate, a review.
 
-[![Star on GitHub](https://img.shields.io/github/stars/mydevtools-tech/mydevtools?style=social)](https://github.com/mydevtools-tech/mydevtools)
+[![Star on GitHub](https://img.shields.io/github/stars/itsmeakhil/mydevtools?style=social)](https://github.com/itsmeakhil/mydevtools)
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?style=social&logo=githubsponsors)](https://github.com/sponsors/itsmeakhil)
 
 ---
@@ -434,5 +370,5 @@ code is AGPL-3.0 and forks are welcome under their own name.
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/itsmeakhil">Akhil</a> and <a href="https://github.com/mydevtools-tech/mydevtools/graphs/contributors">contributors</a>
+  Made with ❤️ by <a href="https://github.com/itsmeakhil">Akhil</a> and <a href="https://github.com/itsmeakhil/mydevtools/graphs/contributors">contributors</a>
 </p>

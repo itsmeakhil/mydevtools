@@ -9,16 +9,16 @@ import MdtAurora from '@/components/mdt-aurora'
 import { MdtBoot } from '@/components/mdt-boot'
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mydevtools.tech'
-const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('All-in-One Developer Tools')}&description=${encodeURIComponent('80+ developer tools in one desktop app. Offline, local-first, privacy-first.')}`
+const ogImage = `${baseUrl}/api/og?title=${encodeURIComponent('All-in-One Developer Tools')}&description=${encodeURIComponent('API client, database clients, encrypted vault and core dev tools in one desktop app. Offline and local-first.')}`
 
 export const metadata: Metadata = {
   title: 'All-in-One Developer Tools | MyDevTools',
   description:
-    '80+ developer tools in one desktop app: JSON formatter, JWT decoder, API client, UUID generator, regex tester, SQL/MongoDB/Redis clients, and more. Offline and local-first.',
+    'Every tool in the MyDevTools desktop app: API client, SQL/MongoDB/Redis clients, S3 drive, password vault, JSON formatter, environment manager, notes, and more. Offline and local-first.',
   alternates: { canonical: `${baseUrl}/tools` },
   openGraph: {
     title: 'All-in-One Developer Tools | MyDevTools',
-    description: '80+ developer tools in one desktop app. Offline, local-first, privacy-first.',
+    description: 'API client, database clients, encrypted vault and core dev tools in one desktop app. Offline and local-first.',
     url: `${baseUrl}/tools`,
     siteName: 'MyDevTools',
     type: 'website',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'All-in-One Developer Tools | MyDevTools',
-    description: '80+ developer tools in one desktop app. Offline, local-first, privacy-first.',
+    description: 'API client, database clients, encrypted vault and core dev tools in one desktop app. Offline and local-first.',
     images: [ogImage],
   },
 }
@@ -80,7 +80,7 @@ export default function ToolsIndexPage() {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8">
-              80+ developer utilities in one desktop app. Runs fully offline and
+              Every tool in the desktop app, in one place. Runs fully offline and
               processes your data locally — nothing leaves your device.
             </p>
 

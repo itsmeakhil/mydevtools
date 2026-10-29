@@ -5,7 +5,6 @@ import {
   IconStack2,
   IconCloudCog,
   IconBug,
-  IconBrush,
   IconCompass,
 } from "@tabler/icons-react"
 
@@ -18,7 +17,7 @@ import {
  */
 
 // Everyone gets the productivity basics — they're the platform's sticky core.
-export const BASICS = ["/app/bookmarks", "/app/notes", "/app/to-do", "/app/snippet-manager"]
+export const BASICS = ["/app/notes", "/app/to-do", "/app/snippet-manager"]
 
 export interface OnboardingRole {
   id: string
@@ -49,14 +48,9 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     [
       "/app/json-formatter",
       "/app/api-client",
-      "/app/color-picker",
-      "/app/contrast-checker",
-      "/app/css-gradient-builder",
-      "/app/svg-optimizer",
       "/app/regex-tester",
-      "/app/image-compressor",
     ],
-    ["/app/lorem-ipsum", "/app/markdown-preview-html", "/app/base64", "/app/diff-checker", "/app/image-to-base64"],
+    ["/app/markdown-preview-html", "/app/diff-checker"],
   ),
   role(
     "backend",
@@ -66,12 +60,9 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     [
       "/app/api-client",
       "/app/data-explorer",
-      "/app/jwt-decoder",
-      "/app/cron-builder",
       "/app/environment-manager",
-      "/app/uuid-generator",
     ],
-    ["/app/sql-formatter", "/app/mock-data-generator", "/app/hash-generator", "/app/http-status-codes", "/app/api-keys"],
+    ["/app/sql-formatter", "/app/api-keys"],
   ),
   role(
     "fullstack",
@@ -82,13 +73,10 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/api-client",
       "/app/json-formatter",
       "/app/data-explorer",
-      "/app/jwt-decoder",
       "/app/environment-manager",
       "/app/regex-tester",
-      "/app/docker-compose-generator",
-      "/app/uuid-generator",
     ],
-    ["/app/diff-checker", "/app/http-status-codes", "/app/color-picker"],
+    ["/app/diff-checker"],
   ),
   role(
     "devops",
@@ -96,16 +84,9 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     "Infra, networking, and deployments",
     IconCloudCog,
     [
-      "/app/docker-compose-generator",
-      "/app/cron-builder",
-      "/app/dns-lookup",
-      "/app/ip-subnet-calculator",
-      "/app/ssh-key-generator",
-      "/app/gitignore-generator",
       "/app/environment-manager",
-      "/app/certificate-pem-decoder",
     ],
-    ["/app/hash-generator", "/app/yaml-formatter", "/app/api-client", "/app/timestamp-converter"],
+    ["/app/yaml-formatter", "/app/api-client"],
   ),
   role(
     "qa",
@@ -114,32 +95,11 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     IconBug,
     [
       "/app/api-client",
-      "/app/mock-data-generator",
       "/app/regex-tester",
       "/app/diff-checker",
       "/app/email-validator",
       "/app/json-formatter",
-      "/app/csv-excel-json",
-      "/app/http-status-codes",
     ],
-    ["/app/uuid-generator", "/app/user-agent-parser", "/app/url-parser", "/app/timestamp-converter"],
-  ),
-  role(
-    "designer",
-    "Designer",
-    "Color, imagery, and visual assets",
-    IconBrush,
-    [
-      "/app/color-picker",
-      "/app/contrast-checker",
-      "/app/css-gradient-builder",
-      "/app/image-compressor",
-      "/app/svg-optimizer",
-      "/app/lorem-ipsum",
-      "/app/qr-code-generator",
-      "/app/image-to-base64",
-    ],
-    ["/app/markdown-preview-html", "/app/unit-converter"],
   ),
   role(
     "exploring",
@@ -151,11 +111,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/json-formatter",
       "/app/api-client",
       "/app/regex-tester",
-      "/app/uuid-generator",
-      "/app/color-picker",
-      "/app/base64",
       "/app/diff-checker",
-      "/app/qr-code-generator",
     ],
   ),
 ]

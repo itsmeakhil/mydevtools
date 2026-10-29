@@ -5,7 +5,7 @@
  * our `{{VAR}}`; `insomnia.*` scripts are copied verbatim (no translation).
  */
 
-import yaml from "js-yaml"
+import * as yaml from "js-yaml"
 
 import type {
     Collection,

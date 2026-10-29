@@ -20,7 +20,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     slug: 'developer-tools',
     title: 'All-in-One Developer Tools Platform',
     description:
-      'MyDevTools is an all-in-one desktop developer platform with 80+ tools for formatting, testing APIs, generating data, managing secrets, and shipping faster — offline and local-first.',
+      'MyDevTools is an all-in-one desktop developer platform with an API client, database clients, an encrypted vault and core formatters for testing APIs, querying data, managing secrets, and shipping faster — offline and local-first.',
     keywords: [
       'all-in-one developer tools',
       'desktop developer tools',
@@ -31,7 +31,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Developer Tools Platform',
     heading: 'One all-in-one developer toolkit for everyday engineering work',
     intro:
-      'MyDevTools brings the utilities developers reach for every day into one desktop workspace that runs offline: format data, test APIs, generate tokens, inspect encodings, manage secure notes, and stay in flow — with everything processed locally.',
+      'MyDevTools brings the utilities developers reach for every day into one desktop workspace that runs offline: format data, test APIs, query databases, manage secrets and secure notes, and stay in flow — with everything processed locally.',
     primaryCta: { href: '/tools', label: 'Browse all tools' },
     sections: [
       {
@@ -39,9 +39,9 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'The platform is organized around real engineering jobs instead of disconnected one-off utilities.',
         bullets: [
-          'Formatters and validators for JSON, SQL, GraphQL, Markdown, CSV, and more.',
-          'Network and API utilities including an API client, HTTP status reference, MIME lookup, and IP subnet calculator.',
-          'Generators for UUIDs, API keys, QR codes, mock data, cron expressions, and Docker Compose files.',
+          'Formatters and validators for JSON, SQL, GraphQL, YAML, Markdown, and more.',
+          'An API client for REST, GraphQL, WebSocket and gRPC, with a mock server and collection runner.',
+          'Database clients for PostgreSQL, MySQL, MongoDB, Redis, Firestore and Elasticsearch, plus an S3 drive.',
         ],
       },
       {
@@ -82,14 +82,14 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Features',
     heading: 'Features built for fast, private developer workflows',
     intro:
-      'MyDevTools combines small daily utilities with a dashboard, search, and privacy controls in one offline desktop app — so developers stop juggling a dozen scattered websites and single-purpose apps.',
+      'MyDevTools combines an API client, database clients, an encrypted vault and core dev tools with a dashboard, search, and privacy controls in one offline desktop app — so developers stop juggling a dozen scattered websites and single-purpose apps.',
     primaryCta: { href: '/tools', label: 'See tools' },
     secondaryCta: { href: '/security', label: 'Review security' },
     sections: [
       {
         title: 'Unified dashboard',
         body:
-          'Launch formatters, API tools, database helpers, generators, and productivity utilities from one place.',
+          'Launch formatters, the API client, database clients, and productivity tools from one place.',
         bullets: [
           'Search tools quickly with a command palette.',
           'Group everyday utilities into one dashboard instead of scattered bookmarks.',
@@ -101,7 +101,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Keep each project in its own workspace — separate tools, notes, snippets, and vaults — and switch between them in a click. Everything stays local on your device.',
         bullets: [
-          'Bookmarks, notes, snippets, and connections are scoped per workspace.',
+          'Notes, snippets, and connections are scoped per workspace.',
           'Switch between personal and project context instantly.',
           'Shared team workspaces and collaboration are on the roadmap.',
         ],
@@ -113,7 +113,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         bullets: [
           'Every utility ships in one desktop app — no chasing a dozen websites.',
           'Works offline on a plane, behind a locked-down network, or air-gapped.',
-          'Local-first processing for formatter, parser, and generator workflows.',
+          'Local-first processing for formatter, decoder, and API workflows.',
         ],
       },
       {
@@ -121,7 +121,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Local-first tools process your data on your machine, and sensitive records live in a local encrypted vault.',
         bullets: [
-          'Formatters, parsers, and generators run on-device with no server round-trip.',
+          'Formatters, decoders, and diff tools run on-device with no server round-trip.',
           'Secrets and credentials are AES-256 encrypted in a local vault.',
           'Tools that reach a network only contact the destinations you choose.',
         ],
@@ -149,9 +149,9 @@ export const platformSeoPages: PlatformSeoPage[] = [
       {
         title: 'What runs locally',
         body:
-          'Formatter, parser, converter, and generator workflows are designed to run directly on your device whenever the tool does not need a network service.',
+          'Formatter, decoder, and diff workflows run directly on your device whenever the tool does not need a network service.',
         bullets: [
-          'JSON formatting, Base64 encoding, UUID generation, and similar operations avoid server round-trips.',
+          'JSON formatting, validation, and similar operations avoid server round-trips.',
           'Tools that connect to external services, such as API or database clients, necessarily send requests to the targets you choose.',
           'The help docs explain tool-specific data behavior for sensitive workflows.',
         ],
@@ -210,9 +210,9 @@ export const platformSeoPages: PlatformSeoPage[] = [
       {
         title: 'Frontend developers',
         body:
-          'Quickly format payloads, inspect URLs, test colors, check contrast, preview Markdown, and generate assets.',
+          'Quickly format payloads, decode tokens, preview Markdown, and test the APIs your UI calls.',
         bullets: [
-          'Use JSON, URL, Base64, color, SVG, and image utilities from one place.',
+          'Use the JSON formatter, visualizer, and API client from one place.',
           'Validate API payloads while building UI integrations.',
           'Keep small design and data tasks out of heavyweight desktop tools.',
         ],
@@ -220,11 +220,11 @@ export const platformSeoPages: PlatformSeoPage[] = [
       {
         title: 'Backend and API developers',
         body:
-          'Test HTTP requests, generate IDs and tokens, inspect encodings, parse timestamps, and manage API-related data.',
+          'Test HTTP, GraphQL, WebSocket and gRPC requests, query databases, and manage API-related secrets.',
         bullets: [
-          'Use the API client, UUID generator, cron builder, JWT decoder, and hash tools.',
-          'Create mock data and compare payload changes.',
-          'Keep references like HTTP status codes and MIME types close to the workflow.',
+          'Use the API client, database clients, and JSON tools.',
+          'Mock APIs from saved examples and compare payload changes.',
+          'Keep API keys and environment variables in the encrypted vault, next to the requests that use them.',
         ],
       },
       {
@@ -232,7 +232,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Use MyDevTools for repeatable operational checks, secure workflow notes, and learning-friendly utilities.',
         bullets: [
-          'Generate Docker Compose starters, secrets, and environment helpers.',
+          'Manage environment variables, secrets, and S3 buckets from one app.',
           'Keep each project in its own local workspace with separate tools, notes, and secrets.',
           'Use one searchable toolkit instead of a long list of single-purpose websites.',
         ],
@@ -254,9 +254,9 @@ export const platformSeoPages: PlatformSeoPage[] = [
     eyebrow: 'Open Source',
     heading: 'Built in the open. Designed for developers.',
     intro:
-      'Every part of MyDevTools is public: the Tauri desktop shell, the 80+ tools, the database clients, and this website. It is licensed under the GNU AGPL v3, so the privacy claims on this site are not something you have to take on trust — you can read the code that backs them.',
+      'Every part of MyDevTools is public: the Tauri desktop shell, every tool, the database clients, and this website. It is licensed under the GNU AGPL v3, so the privacy claims on this site are not something you have to take on trust — you can read the code that backs them.',
     primaryCta: {
-      href: 'https://github.com/mydevtools-tech/mydevtools',
+      href: 'https://github.com/itsmeakhil/mydevtools',
       label: 'View the source on GitHub',
     },
     secondaryCta: { href: '/download', label: 'Download the app' },
@@ -339,7 +339,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         bullets: [
           'The API client sends the requests you write, to the hosts you choose.',
           'The SQL, MongoDB, Redis and S3 clients connect straight from your machine to your database or bucket.',
-          'DNS and WHOIS lookups query public registries, and the updater checks GitHub for new releases.',
+          'The email validator queries public DNS resolvers for MX records, and the updater checks GitHub for new releases.',
         ],
       },
       {
