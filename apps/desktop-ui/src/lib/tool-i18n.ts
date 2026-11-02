@@ -9,21 +9,9 @@ export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
   '/app/environment-manager': 'environmentManager',
   '/app/email-validator': 'emailValidator',
   '/app/json-formatter': 'jsonFormatter',
-  '/app/json-schema-generator': 'jsonSchemaGenerator',
-  '/app/sql-formatter': 'sqlFormatter',
-  '/app/graphql-formatter': 'graphqlFormatter',
-  '/app/yaml-formatter': 'yamlFormatter',
-  '/app/diff-checker': 'diffChecker',
-  '/app/regex-tester': 'regexTester',
   '/app/api-client': 'apiClient',
   '/app/data-explorer': 'dataExplorer',
   '/app/snippet-manager': 'snippetManager',
-  '/app/markdown-preview-html': 'markdownPreview',
-  '/app/format-converter': 'formatConverter',
-  '/app/json-to-code': 'jsonToCode',
-  '/app/beautify-minify': 'beautifyMinify',
-  '/app/json-diff': 'jsonDiff',
-  '/app/jsonpath-playground': 'jsonpathPlayground',
 };
 
 export function getToolMessageKey(pathname: string): string | undefined {

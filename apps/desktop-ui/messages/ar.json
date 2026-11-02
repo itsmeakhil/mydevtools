@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "منسّق GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "مولّد مخطط JSON",
     "snippetManager": "مقاطع الشيفرة",
-    "markdownPreview": "معاينة Markdown",
-    "formatConverter": "محوّل الصيغ",
-    "yamlFormatter": "منسق YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "مقارنة JSON",
-    "jsonpathPlayground": "ساحة JSONPath",
     "secureFiles": "الملفات"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "منسّق GraphQL",
-        "description": "نسّق GraphQL مع تمييز الصيغة ومُنشئ استعلامات بسيط."
-      },
-      "yamlFormatter": {
-        "title": "منسّق YAML",
-        "description": "نسّق YAML وتحقق منه وحوّله إلى JSON في المتصفح."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "مولّد مخطط JSON",
-        "description": "استنتج مخطط JSON ونماذج مُنمّطة من عيّنة JSON."
-      },
       "snippetManager": {
         "title": "مقاطع الشيفرة",
         "description": "احفظ المقاطع مع تمييز بناء الجملة وكشف اللغة التلقائي والتنسيق."
-      },
-      "markdownPreview": {
-        "title": "معاينة Markdown",
-        "description": "معرض Markdown مباشر مع تصدير HTML وتحويل HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "محوّل الصيغ",
-        "description": "حوّل بين JSON وYAML وTOML وXML في أي اتجاه. يدعم جميع التوليفات الاثنتي عشرة."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "مقارنة JSON",
-        "description": "مقارنة دلالية واعية بالبنية بين مستندَي JSON."
-      },
-      "jsonpathPlayground": {
-        "title": "ساحة JSONPath",
-        "description": "استعلم عن JSON باستخدام JSONPath أو JMESPath وشاهد النتائج مباشرة."
       },
       "secureFiles": {
         "title": "الملفات",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "التطبيقات",
-      "analytics": "التحليلات",
       "ui": "الواجهة"
-    },
-    "analytics": {
-      "title": "بياناتك في لمحة",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "تعذّر تحميل التحليلات.",
-      "retry": "إعادة المحاولة",
-      "passwordEntries": "إدخالات كلمات المرور",
-      "tasksTotal": "المهام",
-      "tasksCompleted": "مكتملة",
-      "tasksOngoing": "قيد التنفيذ",
-      "tasksNotStarted": "لم تبدأ",
-      "projects": "المشاريع",
-      "nosqlConnections": "اتصالات قاعدة البيانات",
-      "notes": "الملاحظات",
-      "apiClientCollections": "مجموعات API",
-      "apiClientEnvironments": "بيئات API",
-      "apiClientHistory": "سجلات سجل API",
-      "jsonFormatterDocuments": "مستندات منسّق JSON",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "مقاطع برمجية",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "تفضيلات الواجهة",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "تم إصلاح JSON",
     "toastRepairFailed": "تعذر إصلاح JSON"
   },
-  "SqlFormatter": {
-    "title": "منسق SQL",
-    "subtitle": "تنسيق SQL لقواعد MySQL وPostgreSQL وSQLite",
-    "dialectLabel": "اللهجة",
-    "keywordsLabel": "الكلمات المفتاحية",
-    "indentLabel": "الإزاحة",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "أحرف كبيرة",
-      "lower": "أحرف صغيرة",
-      "preserve": "الإبقاء"
-    },
-    "spaces": "{n} مسافات",
-    "format": "تنسيق",
-    "clear": "مسح",
-    "counter": "{current} / {max} حرفًا",
-    "inputPanel": "المدخل",
-    "formattedPanel": "المخرجات",
-    "copy": "نسخ",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "انقر على \"تنسيق\"…",
-    "errors": {
-      "tooLong": "المدخلات محدودة إلى {max} حرفًا.",
-      "couldNotFormat": "تعذر تنسيق SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "منسق YAML",
-    "subtitle": "نسّق YAML وتحقق منه وحوّله",
-    "outputLabel": "الإخراج",
-    "outputModes": {
-      "yaml": "YAML (منسّق)",
-      "json": "JSON"
-    },
-    "indentLabel": "الإزاحة",
-    "spaces": "{n} مسافات",
-    "format": "تنسيق",
-    "clear": "مسح",
-    "copy": "نسخ",
-    "counter": "{current} / {max} حرف",
-    "inputPanel": "الإدخال",
-    "outputPanel": "الإخراج",
-    "errors": {
-      "tooLong": "الإدخال محدود بـ {max} حرف.",
-      "couldNotFormat": "تعذّر تحليل هذا YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "منسق GraphQL",
-    "subtitle": "نسّق الاستعلامات والتعديلات والاشتراكات",
-    "tabs": {
-      "format": "تنسيق",
-      "build": "مُنشئ الاستعلام"
-    },
-    "outputModeLabel": "المخرجات",
-    "outputModes": {
-      "pretty": "طباعة مقروءة",
-      "minify": "تصغير"
-    },
-    "format": "تنسيق",
-    "clear": "مسح",
-    "counter": "{current} / {max} حرفًا",
-    "inputPanel": "الإدخال",
-    "outputPanel": "المخرجات",
-    "copy": "نسخ",
-    "builderHint": "ألِف هيكلًا ثم طبِّقه على المحرر. تعريفات المتغيرات بصياغة GraphQL (مثل $id: ID!) — الأقواس اختيارية.",
-    "builder": {
-      "operation": "العملية",
-      "operationName": "اسم العملية",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "تعريفات المتغيرات",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "مجموعة الاختيار",
-      "apply": "تطبيق على الإدخال",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "الإدخال محدود بـ {max} حرفًا.",
-      "couldNotFormat": "تعذّر تحليل أو طباعة هذا GraphQL.",
-      "emptySelection": "أضِف مجموعة اختيار قبل التطبيق."
-    }
-  },
-  "RegexTester": {
-    "title": "مختبر Regex",
-    "subtitle": "اختبر تعابير JavaScript النمطية مع إبراز فوري للمطابقات",
-    "patternLabel": "النمط",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g عام",
-      "i": "i تجاهل حالة الأحرف",
-      "m": "m متعدد الأسطر",
-      "s": "s dotAll",
-      "u": "u يونيكود",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(فارغ)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {تطابق} other {تطابقات}}",
-    "testTextLabel": "نص الاختبار",
-    "counter": "{current} / {max}",
-    "clear": "مسح",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "النص محدود إلى {max} حرفًا.",
-      "invalid": "تعبير نمطي غير صالح.",
-      "runaway": "تم الإيقاف بعد {max} تطابقًا (قد يكون النمط جامحًا)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "فاحص الفروق",
-    "subtitle": "قارن نصين جنبًا إلى جنب، سطرًا بسطر",
-    "rowsCount": "{count} صفوف",
-    "truncatedWarning": "عرض أول {max} صف.",
-    "limitExceeded": "كل جانب محدود بـ {max} حرف.",
-    "clearBoth": "مسح الكل",
-    "original": "الأصلي",
-    "modified": "المعدّل",
-    "originalPlaceholder": "الصق النص الأصلي…",
-    "modifiedPlaceholder": "الصق النص المعدّل…",
-    "comparisonLabel": "مقارنة جنباً إلى جنب",
-    "emptyState": "أدخل نصاً في كلا اللوحتين للمقارنة."
-  },
-  "JsonSchemaGenerator": {
-    "title": "مولد JSON Schema",
-    "subtitle": "ولّد JSON Schema أو نماذج مصنفة من JSON نموذجي",
-    "languageLabel": "لغة المخرجات",
-    "inputLabel": "إدخال JSON",
-    "inputPlaceholder": "الصق JSON هنا…",
-    "outputLabel": "المخرجات المُولَّدة",
-    "outputPlaceholder": "يظهر المخطط أو الأنواع المُولَّدة هنا…",
-    "parseError": "JSON غير صالح",
-    "clear": "مسح",
-    "copy": "نسخ",
-    "copied": "تم النسخ إلى الحافظة",
-    "copyFailed": "تعذّر النسخ",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "مخطط JSON (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "جاري تحميل المحرر…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "مدير المقتطفات",
     "subtitle": "احفظ مقتطفات الشيفرة وابحث فيها ونسّقها — المزامنة اختيارية",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "طابق {count} صفوف — لم يتغيّر شيء لأن عامل التصفية غير فريد."
     }
   },
-  "MarkdownPreview": {
-    "title": "معاينة Markdown",
-    "subtitle": "اعرض Markdown مباشرة وحوّله من HTML وإليه",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "إدخال Markdown",
-    "htmlInputLabel": "إدخال HTML",
-    "previewLabel": "معاينة",
-    "htmlOutputLabel": "مصدر HTML",
-    "mdOutputLabel": "إخراج Markdown",
-    "inputPlaceholder": "# مرحبا\\n\\naكتب **markdown** هنا…",
-    "htmlInputPlaceholder": "الصق HTML هنا…",
-    "copyHtml": "نسخ HTML",
-    "copyMarkdown": "نسخ Markdown",
-    "exportHtml": "تصدير HTML",
-    "fileNameLabel": "اسم الملف",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "تم حفظ {name}",
-    "copied": "تم النسخ",
-    "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
-    "emptyHint": "ابدأ بكتابة Markdown لرؤية المعاينة المباشرة وإخراج HTML.",
-    "emptyHintHtmlToMd": "الصق HTML لتحويله إلى Markdown.",
-    "securityNote": "كل شيء يعمل محليًا في متصفحك. لا يتم تحميل أي بيانات."
-  },
-  "FormatConverter": {
-    "title": "محول الصيغ",
-    "subtitle": "حوّل بين JSON وYAML وTOML وXML في أي اتجاه",
-    "fromLabel": "من",
-    "toLabel": "إلى",
-    "swap": "تبديل",
-    "swapTitle": "تبديل الصيغ واستخدام المخرجات كمدخلات",
-    "copy": "نسخ",
-    "copied": "تم النسخ",
-    "charCount": "{count, plural, one {# حرف} other {# أحرف}}",
-    "emptyHint": "الصق أو اكتب مدخلاتك على اليسار لرؤية المخرجات المحوّلة.",
-    "localNote": "كل شيء يعمل محليًا في متصفحك. لا يتم رفع أي شيء."
-  },
-  "JsonToCode": {
-    "title": "JSON إلى شيفرة",
-    "subtitle": "ولّد نماذج مصنفة من حمولة JSON نموذجية",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "مصوّر JSON",
     "subtitle": "استكشف JSON كمخطط عقد تفاعلي",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "تجميل وتصغير",
-    "subtitle": "جمّل أو صغّر HTML وCSS وJavaScript وXML وJSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "فرق JSON",
-    "subtitle": "قارن JSON بنيويًا — مع تجاهل ترتيب المفاتيح",
-    "options": {
-      "ignoreArrayOrder": "تجاهل ترتيب المصفوفة"
-    },
-    "loadBothSamples": "تحميل الأمثلة",
-    "sample": "مثال",
-    "format": "تنسيق",
-    "clear": "مسح",
-    "formatError": "تعذّر التنسيق: الإدخال ليس JSON صالحًا",
-    "placeholder": "الصق أو اكتب JSON هنا…",
-    "panels": {
-      "left": "الأصلي (يسار)",
-      "right": "المعدّل (يمين)",
-      "results": "الاختلافات"
-    },
-    "summary": {
-      "added": "{count} مُضاف",
-      "removed": "{count} محذوف",
-      "changed": "{count} متغيّر"
-    },
-    "types": {
-      "added": "مُضاف",
-      "removed": "محذوف",
-      "changed": "متغيّر"
-    },
-    "copyChanges": "نسخ كـ JSON",
-    "copied": "تم النسخ",
-    "empty": "الصق JSON في كلا اللوحين لرؤية اختلافاتهما.",
-    "identical": "المستندان متطابقان دلاليًا."
-  },
-  "JsonpathPlayground": {
-    "title": "ساحة JSONPath",
-    "subtitle": "استعلم عن JSON بـ JSONPath أو JMESPath مباشرة",
-    "engineLabel": "المحرّك",
-    "queryLabel": "الاستعلام",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "ورقة مرجعية",
-    "cheats": {
-      "jpAllTitles": "كل عناوين الكتب",
-      "jpAllAuthors": "كل مؤلّف في أي مكان بالمستند",
-      "jpFirstBook": "أول كتاب",
-      "jpLastBook": "آخر كتاب",
-      "jpSlice": "أول كتابين (شريحة)",
-      "jpFilterPrice": "الكتب الأرخص من 40",
-      "jpFilterInStock": "عناوين الكتب المتوفّرة",
-      "jpRecursive": "كل القيم، تعاوديًا",
-      "jmAllTitles": "كل عناوين الكتب",
-      "jmFirstAuthor": "مؤلّف أول كتاب",
-      "jmLastBook": "آخر كتاب",
-      "jmSlice": "أول كتابين (شريحة)",
-      "jmFilterPrice": "عناوين الكتب الأرخص من 40",
-      "jmCount": "عدّ الكتب المتوفّرة",
-      "jmProjection": "أعِد تشكيل كل كتاب إلى كائن جديد",
-      "jmSort": "العناوين مرتّبة حسب السعر"
-    },
-    "panels": {
-      "input": "إدخال JSON",
-      "results": "النتائج"
-    },
-    "sample": "مثال",
-    "format": "تنسيق",
-    "clear": "مسح",
-    "formatError": "تعذّر التنسيق: الإدخال ليس JSON صالحًا",
-    "placeholder": "الصق أو اكتب JSON هنا…",
-    "outputPlaceholder": "ستظهر التطابقات هنا…",
-    "matchCount": "{count, plural, zero {# تطابق} one {# تطابق} two {# تطابقان} few {# تطابقات} many {# تطابقًا} other {# تطابق}}",
-    "copy": "نسخ",
-    "copied": "تم النسخ"
   },
   "WebhookTester": {
     "title": "مختبر Webhook",

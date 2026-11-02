@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL-formaterare",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON-schemagenerator",
     "snippetManager": "Kodutdrag",
-    "markdownPreview": "Markdown-förhandsgranskning",
-    "formatConverter": "Formatkonverterare",
-    "yamlFormatter": "YAML-formaterare",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON-diff",
-    "jsonpathPlayground": "JSONPath-lekplats",
     "secureFiles": "Filer"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "GraphQL-formaterare",
-        "description": "Formatera GraphQL med syntaxmarkering och en enkel frågebyggare."
-      },
-      "yamlFormatter": {
-        "title": "YAML-formaterare",
-        "description": "Formatera, validera och konvertera YAML till JSON i webbläsaren."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "JSON-schemagenerator",
-        "description": "Härled ett JSON-schema och typade modeller från exempel-JSON."
-      },
       "snippetManager": {
         "title": "Kodutdrag",
         "description": "Spara utdrag med syntaxmarkering, automatisk språkupptäckt och formatering."
-      },
-      "markdownPreview": {
-        "title": "Markdown-förhandsgranskning",
-        "description": "Live Markdown-renderer med HTML-export och HTML → Markdown-konvertering."
-      },
-      "formatConverter": {
-        "title": "Formatkonverterare",
-        "description": "Konvertera mellan JSON, YAML, TOML och XML i alla riktningar. Alla 12 kombinationer stöds."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON-diff",
-        "description": "Semantisk, strukturmedveten jämförelse av två JSON-dokument."
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath-lekplats",
-        "description": "Fråga JSON med JSONPath eller JMESPath och se resultat i realtid."
       },
       "secureFiles": {
         "title": "Filer",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "Appar",
-      "analytics": "Analys",
       "ui": "Gränssnitt"
-    },
-    "analytics": {
-      "title": "Dina data i korthet",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Kunde inte ladda analys.",
-      "retry": "Försök igen",
-      "passwordEntries": "Lösenordsposter",
-      "tasksTotal": "Uppgifter",
-      "tasksCompleted": "Klara",
-      "tasksOngoing": "Pågående",
-      "tasksNotStarted": "Ej påbörjade",
-      "projects": "Projekt",
-      "nosqlConnections": "DB-anslutningar",
-      "notes": "Anteckningar",
-      "apiClientCollections": "API-samlingar",
-      "apiClientEnvironments": "API-miljöer",
-      "apiClientHistory": "API-historikposter",
-      "jsonFormatterDocuments": "JSON-formateringsdokument",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Kodutdrag",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Gränssnittsinställningar",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "JSON reparerad",
     "toastRepairFailed": "Kunde inte reparera JSON"
   },
-  "SqlFormatter": {
-    "title": "SQL-formaterare",
-    "subtitle": "Snyggformatera SQL för MySQL, PostgreSQL och SQLite",
-    "dialectLabel": "Dialekt",
-    "keywordsLabel": "Nyckelord",
-    "indentLabel": "Indrag",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "VERSALER",
-      "lower": "gemener",
-      "preserve": "Behåll"
-    },
-    "spaces": "{n} mellanslag",
-    "format": "Formatera",
-    "clear": "Rensa",
-    "counter": "{current} / {max} tecken",
-    "inputPanel": "Inmatning",
-    "formattedPanel": "Formaterat",
-    "copy": "Kopiera",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Klicka \"Formatera\"…",
-    "errors": {
-      "tooLong": "Inmatning är begränsad till {max} tecken.",
-      "couldNotFormat": "Kunde inte formatera denna SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "YAML-formaterare",
-    "subtitle": "Formatera, validera och konvertera YAML",
-    "outputLabel": "Utdata",
-    "outputModes": {
-      "yaml": "YAML (formaterat)",
-      "json": "JSON"
-    },
-    "indentLabel": "Indragning",
-    "spaces": "{n} mellanslag",
-    "format": "Formatera",
-    "clear": "Rensa",
-    "copy": "Kopiera",
-    "counter": "{current} / {max} tecken",
-    "inputPanel": "Indata",
-    "outputPanel": "Utdata",
-    "errors": {
-      "tooLong": "Indata är begränsad till {max} tecken.",
-      "couldNotFormat": "Kunde inte tolka denna YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "GraphQL-formaterare",
-    "subtitle": "Formatera queries, mutations och subscriptions",
-    "tabs": {
-      "format": "Formatera",
-      "build": "Frågebyggare"
-    },
-    "outputModeLabel": "Utdata",
-    "outputModes": {
-      "pretty": "Läsbart format",
-      "minify": "Minifiera"
-    },
-    "format": "Formatera",
-    "clear": "Rensa",
-    "counter": "{current} / {max} tecken",
-    "inputPanel": "Indata",
-    "outputPanel": "Utdata",
-    "copy": "Kopiera",
-    "builderHint": "Bygg ett skelett och lägg in det i redigeraren. Variabeldefinitioner i GraphQL-syntax (t.ex. $id: ID!) — parenteser är valfria.",
-    "builder": {
-      "operation": "Åtgärd",
-      "operationName": "Åtgärdsnamn",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Variabeldefinitioner",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Urval",
-      "apply": "Använd på indata",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Indata är begränsat till {max} tecken.",
-      "couldNotFormat": "Kunde inte parsa eller skriva ut denna GraphQL.",
-      "emptySelection": "Lägg till ett urval innan du använder."
-    }
-  },
-  "RegexTester": {
-    "title": "Regex-testare",
-    "subtitle": "Testa JavaScript-regex med live-markerade träffar",
-    "patternLabel": "Mönster",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g global",
-      "i": "i ignorera versaler/gemener",
-      "m": "m flerradig",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(tom)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {träff} other {träffar}}",
-    "testTextLabel": "Testtext",
-    "counter": "{current} / {max}",
-    "clear": "Rensa",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Texten är begränsad till {max} tecken.",
-      "invalid": "Ogiltigt reguljärt uttryck.",
-      "runaway": "Stoppade efter {max} träffar (möjligt skenande mönster)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Diff-kontroll",
-    "subtitle": "Jämför två texter sida vid sida, rad för rad",
-    "rowsCount": "{count} rader",
-    "truncatedWarning": "Visar de första {max} raderna.",
-    "limitExceeded": "Varje sida är begränsad till {max} tecken.",
-    "clearBoth": "Rensa båda",
-    "original": "Original",
-    "modified": "Ändrad",
-    "originalPlaceholder": "Klistra in originaltext…",
-    "modifiedPlaceholder": "Klistra in ändrad text…",
-    "comparisonLabel": "Sida vid sida-jämförelse",
-    "emptyState": "Ange text i båda panelerna för att jämföra."
-  },
-  "JsonSchemaGenerator": {
-    "title": "JSON Schema-generator",
-    "subtitle": "Generera JSON Schema eller typade modeller från exempel-JSON",
-    "languageLabel": "Utdataspråk",
-    "inputLabel": "JSON-indata",
-    "inputPlaceholder": "Klistra in JSON här…",
-    "outputLabel": "Genererad utdata",
-    "outputPlaceholder": "Schemat eller de genererade typerna visas här…",
-    "parseError": "Ogiltig JSON",
-    "clear": "Rensa",
-    "copy": "Kopiera",
-    "copied": "Kopierat till urklipp",
-    "copyFailed": "Kunde inte kopiera",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON-schema (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Läser in redigeraren…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Snippethanterare",
     "subtitle": "Spara, sök och formatera kodsnuttar — synk valfritt",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "{count} rader matchade — inget ändrades, eftersom filtret inte är unikt."
     }
   },
-  "MarkdownPreview": {
-    "title": "Markdown-förhandsvisning",
-    "subtitle": "Rendera Markdown live och konvertera till eller från HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Markdown-inmatning",
-    "htmlInputLabel": "HTML-inmatning",
-    "previewLabel": "Förhandsgranskning",
-    "htmlOutputLabel": "HTML-källa",
-    "mdOutputLabel": "Markdown-utmatning",
-    "inputPlaceholder": "# Hej\\n\\nSkriv din **markdown** här…",
-    "htmlInputPlaceholder": "Klistra in din HTML här…",
-    "copyHtml": "Kopiera HTML",
-    "copyMarkdown": "Kopiera Markdown",
-    "exportHtml": "Exportera HTML",
-    "fileNameLabel": "Filnamn",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Sparade {name}",
-    "copied": "Kopierat",
-    "charCount": "{count, plural, one {# tecken} other {# tecken}}",
-    "emptyHint": "Börja skriva Markdown för att se live-förhandsgranskning och HTML-utdata.",
-    "emptyHintHtmlToMd": "Klistra in HTML för att konvertera det till Markdown.",
-    "securityNote": "Allt körs lokalt i din webbläsare. Inget laddas upp."
-  },
-  "FormatConverter": {
-    "title": "Formatkonverterare",
-    "subtitle": "Konvertera JSON, YAML, TOML och XML i alla riktningar",
-    "fromLabel": "Från",
-    "toLabel": "Till",
-    "swap": "Byt",
-    "swapTitle": "Byt format och använd utdata som indata",
-    "copy": "Kopiera",
-    "copied": "Kopierat",
-    "charCount": "{count, plural, one {# tecken} other {# tecken}}",
-    "emptyHint": "Klistra in eller skriv din indata till vänster för att se den konverterade utdatan.",
-    "localNote": "Allt körs lokalt i din webbläsare. Ingenting laddas upp."
-  },
-  "JsonToCode": {
-    "title": "JSON till kod",
-    "subtitle": "Generera typade modeller från en exempel-JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "JSON-visualiserare",
     "subtitle": "Utforska JSON som en interaktiv nodgraf",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Försköna & minifiera",
-    "subtitle": "Försköna eller minifiera HTML, CSS, JavaScript, XML och JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON-diff",
-    "subtitle": "Jämför JSON strukturellt — nyckelordning ignoreras",
-    "options": {
-      "ignoreArrayOrder": "Ignorera array-ordning"
-    },
-    "loadBothSamples": "Ladda exempel",
-    "sample": "Exempel",
-    "format": "Formatera",
-    "clear": "Rensa",
-    "formatError": "Kan inte formatera: indata är inte giltig JSON",
-    "placeholder": "Klistra in eller skriv JSON här…",
-    "panels": {
-      "left": "Original (vänster)",
-      "right": "Ändrad (höger)",
-      "results": "Skillnader"
-    },
-    "summary": {
-      "added": "{count} tillagda",
-      "removed": "{count} borttagna",
-      "changed": "{count} ändrade"
-    },
-    "types": {
-      "added": "Tillagd",
-      "removed": "Borttagen",
-      "changed": "Ändrad"
-    },
-    "copyChanges": "Kopiera som JSON",
-    "copied": "Kopierat",
-    "empty": "Klistra in JSON i båda panelerna för att se skillnaderna.",
-    "identical": "De två dokumenten är semantiskt identiska."
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPath-lekplats",
-    "subtitle": "Fråga JSON live med JSONPath eller JMESPath",
-    "engineLabel": "Motor",
-    "queryLabel": "Fråga",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Fusklapp",
-    "cheats": {
-      "jpAllTitles": "Alla boktitlar",
-      "jpAllAuthors": "Varje författare, var som helst i dokumentet",
-      "jpFirstBook": "Första boken",
-      "jpLastBook": "Sista boken",
-      "jpSlice": "De två första böckerna (utsnitt)",
-      "jpFilterPrice": "Böcker billigare än 40",
-      "jpFilterInStock": "Titlar på böcker i lager",
-      "jpRecursive": "Alla värden, rekursivt",
-      "jmAllTitles": "Alla boktitlar",
-      "jmFirstAuthor": "Författare till den första boken",
-      "jmLastBook": "Sista boken",
-      "jmSlice": "De två första böckerna (utsnitt)",
-      "jmFilterPrice": "Titlar på böcker billigare än 40",
-      "jmCount": "Antal böcker i lager",
-      "jmProjection": "Omforma varje bok till ett nytt objekt",
-      "jmSort": "Titlar sorterade efter pris"
-    },
-    "panels": {
-      "input": "JSON-indata",
-      "results": "Resultat"
-    },
-    "sample": "Exempel",
-    "format": "Formatera",
-    "clear": "Rensa",
-    "formatError": "Kan inte formatera: indata är inte giltig JSON",
-    "placeholder": "Klistra in eller skriv JSON här…",
-    "outputPlaceholder": "Matchningar visas här…",
-    "matchCount": "{count, plural, one {# matchning} other {# matchningar}}",
-    "copy": "Kopiera",
-    "copied": "Kopierat"
   },
   "WebhookTester": {
     "title": "Webhook-testare",
