@@ -10,20 +10,8 @@
     "nosqlExplorer": "Εξερευνητής βάσεων δεδομένων",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Μορφοποιητής GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
     "snippetManager": "Αποσπάσματα κώδικα",
-    "markdownPreview": "Προεπισκόπηση Markdown",
-    "formatConverter": "Μετατροπέας Μορφών",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Μορφοποιητής YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Σύγκριση JSON",
-    "jsonpathPlayground": "Παιχνιδότοπος JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Βοήθεια και τεκμηρίωση",

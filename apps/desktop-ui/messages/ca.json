@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Formatador GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Generador d'esquema JSON",
     "snippetManager": "Fragments de codi",
-    "markdownPreview": "Previsualització Markdown",
-    "formatConverter": "Conversor de formats",
-    "yamlFormatter": "Formatador YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Diff JSON",
-    "jsonpathPlayground": "Playground JSONPath",
     "secureFiles": "Fitxers"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Formatador GraphQL",
-        "description": "Formata GraphQL amb ressaltat de sintaxi i un editor de consultes senzill."
-      },
-      "yamlFormatter": {
-        "title": "Formatador YAML",
-        "description": "Formata, valida i converteix YAML a JSON al navegador."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Generador d'esquema JSON",
-        "description": "Extreu un esquema JSON i models tipats a partir d'una mostra JSON."
-      },
       "snippetManager": {
         "title": "Fragments de codi",
         "description": "Desa fragments amb ressaltat de sintaxi, detecció automàtica d’idioma i format."
-      },
-      "markdownPreview": {
-        "title": "Previsualització Markdown",
-        "description": "Renderitzador Markdown en viu amb exportació HTML i conversió HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Conversor de formats",
-        "description": "Converteix entre JSON, YAML, TOML i XML en qualsevol direcció. Les 12 combinacions estan admeses."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "Diff JSON",
-        "description": "Diff semàntic i conscient de l'estructura de dos documents JSON."
-      },
-      "jsonpathPlayground": {
-        "title": "Playground JSONPath",
-        "description": "Consulta JSON amb JSONPath o JMESPath i mira els resultats en directe."
       },
       "secureFiles": {
         "title": "Fitxers",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "Aplicacions",
-      "analytics": "Anàlisi",
       "ui": "Interfície"
-    },
-    "analytics": {
-      "title": "Les teves dades d’un cop d’ull",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "No s’han pogut carregar les estadístiques.",
-      "retry": "Torna-ho a provar",
-      "passwordEntries": "Entrades de contrasenyes",
-      "tasksTotal": "Tasques",
-      "tasksCompleted": "Completades",
-      "tasksOngoing": "En curs",
-      "tasksNotStarted": "No iniciades",
-      "projects": "Projectes",
-      "nosqlConnections": "Connexions a BD",
-      "notes": "Notes",
-      "apiClientCollections": "Col·leccions API",
-      "apiClientEnvironments": "Entorns API",
-      "apiClientHistory": "Entrades de l’historial API",
-      "jsonFormatterDocuments": "Documents del formatador JSON",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Fragments de codi",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Preferències d’interfície",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "JSON reparat",
     "toastRepairFailed": "No s'ha pogut reparar el JSON"
   },
-  "SqlFormatter": {
-    "title": "Formatador SQL",
-    "subtitle": "Dona format a SQL per a MySQL, PostgreSQL i SQLite",
-    "dialectLabel": "Dialecte",
-    "keywordsLabel": "Paraules clau",
-    "indentLabel": "Sagnat",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "MAJÚSCULES",
-      "lower": "minúscules",
-      "preserve": "Conserva"
-    },
-    "spaces": "{n} espais",
-    "format": "Formata",
-    "clear": "Neteja",
-    "counter": "{current} / {max} caràcters",
-    "inputPanel": "Entrada",
-    "formattedPanel": "Formatat",
-    "copy": "Copia",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Fes clic a \"Formata\"…",
-    "errors": {
-      "tooLong": "L’entrada està limitada a {max} caràcters.",
-      "couldNotFormat": "No s’ha pogut formatar aquest SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Formatador YAML",
-    "subtitle": "Formata, valida i converteix YAML",
-    "outputLabel": "Sortida",
-    "outputModes": {
-      "yaml": "YAML (formatat)",
-      "json": "JSON"
-    },
-    "indentLabel": "Sagnat",
-    "spaces": "{n} espais",
-    "format": "Formata",
-    "clear": "Esborra",
-    "copy": "Copia",
-    "counter": "{current} / {max} caràcters",
-    "inputPanel": "Entrada",
-    "outputPanel": "Sortida",
-    "errors": {
-      "tooLong": "L'entrada està limitada a {max} caràcters.",
-      "couldNotFormat": "No s'ha pogut analitzar aquest YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Formatador GraphQL",
-    "subtitle": "Formata consultes, mutacions i subscripcions",
-    "tabs": {
-      "format": "Formata",
-      "build": "Editor de consulta"
-    },
-    "outputModeLabel": "Sortida",
-    "outputModes": {
-      "pretty": "Impressió llegible",
-      "minify": "Minifica"
-    },
-    "format": "Formata",
-    "clear": "Esborra",
-    "counter": "{current} / {max} caràcters",
-    "inputPanel": "Entrada",
-    "outputPanel": "Sortida",
-    "copy": "Copia",
-    "builderHint": "Compon un esquelet i aplica’l a l’editor. Les definicions de variables usen sintaxi GraphQL (p. ex. $id: ID!) — els parèntesis són opcionals.",
-    "builder": {
-      "operation": "Operació",
-      "operationName": "Nom de l’operació",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Definicions de variables",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Conjunt de selecció",
-      "apply": "Aplica a l’entrada",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "L’entrada està limitada a {max} caràcters.",
-      "couldNotFormat": "No s’ha pogut analitzar ni imprimir aquest GraphQL.",
-      "emptySelection": "Afegeix un conjunt de selecció abans d’aplicar."
-    }
-  },
-  "RegexTester": {
-    "title": "Provador de regex",
-    "subtitle": "Prova regex de JavaScript amb ressaltat de coincidències en viu",
-    "patternLabel": "Patró",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g global",
-      "i": "i ignora maj./min.",
-      "m": "m multilínia",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(buit)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {coincidència} other {coincidències}}",
-    "testTextLabel": "Text de prova",
-    "counter": "{current} / {max}",
-    "clear": "Neteja",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "El text està limitat a {max} caràcters.",
-      "invalid": "Expressió regular no vàlida.",
-      "runaway": "Aturat després de {max} coincidències (possible patró descontrolat)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Comparador de textos",
-    "subtitle": "Compara dos textos costat a costat, línia per línia",
-    "rowsCount": "{count} files",
-    "truncatedWarning": "Mostrant les primeres {max} files.",
-    "limitExceeded": "Cada costat està limitat a {max} caràcters.",
-    "clearBoth": "Esborrar tots dos",
-    "original": "Original",
-    "modified": "Modificat",
-    "originalPlaceholder": "Enganxeu el text original…",
-    "modifiedPlaceholder": "Enganxeu el text modificat…",
-    "comparisonLabel": "Comparació costat a costat",
-    "emptyState": "Introduïu text als dos panells per comparar."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Generador de JSON Schema",
-    "subtitle": "Genera JSON Schema o models tipats a partir d’un JSON d’exemple",
-    "languageLabel": "Idioma de sortida",
-    "inputLabel": "Entrada JSON",
-    "inputPlaceholder": "Enganxa el JSON aquí…",
-    "outputLabel": "Sortida generada",
-    "outputPlaceholder": "L'esquema o els tipus generats apareixeran aquí…",
-    "parseError": "JSON no vàlid",
-    "clear": "Neteja",
-    "copy": "Copia",
-    "copied": "Copiat al porta-retalls",
-    "copyFailed": "No s'ha pogut copiar",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "Esquema JSON (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "S'està carregant l'editor…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Gestor de snippets",
     "subtitle": "Desa, cerca i formata snippets — sincronització opcional",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "{count} files coincideixen — no s'ha canviat res, perquè el filtre no és únic."
     }
   },
-  "MarkdownPreview": {
-    "title": "Previsualització de Markdown",
-    "subtitle": "Renderitza Markdown en viu i converteix a i des d’HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Entrada Markdown",
-    "htmlInputLabel": "Entrada HTML",
-    "previewLabel": "Previsualització",
-    "htmlOutputLabel": "Font HTML",
-    "mdOutputLabel": "Sortida Markdown",
-    "inputPlaceholder": "# Hola\\n\\nEscriviu el vostre **markdown** aquí…",
-    "htmlInputPlaceholder": "Enganxeu el vostre HTML aquí…",
-    "copyHtml": "Copia HTML",
-    "copyMarkdown": "Copia Markdown",
-    "exportHtml": "Exporta HTML",
-    "fileNameLabel": "Nom del fitxer",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "S'ha desat {name}",
-    "copied": "Copiat",
-    "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
-    "emptyHint": "Comenceu a escriure Markdown per veure la previsualització i la sortida HTML.",
-    "emptyHintHtmlToMd": "Enganxeu HTML per convertir-lo en Markdown.",
-    "securityNote": "Tot s'executa localment al vostre navegador. No es carrega res."
-  },
-  "FormatConverter": {
-    "title": "Convertidor de formats",
-    "subtitle": "Converteix JSON, YAML, TOML i XML en qualsevol direcció",
-    "fromLabel": "De",
-    "toLabel": "A",
-    "swap": "Intercanviar",
-    "swapTitle": "Intercanvia els formats i utilitza la sortida com a entrada",
-    "copy": "Copiar",
-    "copied": "Copiat",
-    "charCount": "{count, plural, one {# caràcter} other {# caràcters}}",
-    "emptyHint": "Enganxa o escriu l'entrada a l'esquerra per veure la sortida convertida.",
-    "localNote": "Tot funciona localment al teu navegador. No es puja res."
-  },
-  "JsonToCode": {
-    "title": "JSON a codi",
-    "subtitle": "Genera models tipats a partir d’un JSON d’exemple",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Visualitzador JSON",
     "subtitle": "Explora JSON com un graf de nodes interactiu",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Embellir i minificar",
-    "subtitle": "Embelleix o minifica HTML, CSS, JavaScript, XML i JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "Diff de JSON",
-    "subtitle": "Compara JSON estructuralment — s’ignora l’ordre de claus",
-    "options": {
-      "ignoreArrayOrder": "Ignora l'ordre dels arrays"
-    },
-    "loadBothSamples": "Carrega exemples",
-    "sample": "Exemple",
-    "format": "Formata",
-    "clear": "Netejar",
-    "formatError": "No es pot formatar: l'entrada no és un JSON vàlid",
-    "placeholder": "Enganxa o escriu JSON aquí…",
-    "panels": {
-      "left": "Original (esquerra)",
-      "right": "Modificat (dreta)",
-      "results": "Diferències"
-    },
-    "summary": {
-      "added": "{count} afegit(s)",
-      "removed": "{count} eliminat(s)",
-      "changed": "{count} canviat(s)"
-    },
-    "types": {
-      "added": "Afegit",
-      "removed": "Eliminat",
-      "changed": "Canviat"
-    },
-    "copyChanges": "Copia com a JSON",
-    "copied": "Copiat",
-    "empty": "Enganxa JSON als dos plafons per veure'n les diferències.",
-    "identical": "Els dos documents són semànticament idèntics."
-  },
-  "JsonpathPlayground": {
-    "title": "Laboratori JSONPath",
-    "subtitle": "Consulta JSON amb JSONPath o JMESPath, en viu",
-    "engineLabel": "Motor",
-    "queryLabel": "Consulta",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Referència ràpida",
-    "cheats": {
-      "jpAllTitles": "Tots els títols de llibres",
-      "jpAllAuthors": "Tots els autors, a qualsevol lloc del document",
-      "jpFirstBook": "Primer llibre",
-      "jpLastBook": "Últim llibre",
-      "jpSlice": "Els dos primers llibres (slice)",
-      "jpFilterPrice": "Llibres més barats que 40",
-      "jpFilterInStock": "Títols dels llibres en estoc",
-      "jpRecursive": "Tots els valors, recursivament",
-      "jmAllTitles": "Tots els títols de llibres",
-      "jmFirstAuthor": "Autor del primer llibre",
-      "jmLastBook": "Últim llibre",
-      "jmSlice": "Els dos primers llibres (slice)",
-      "jmFilterPrice": "Títols dels llibres més barats que 40",
-      "jmCount": "Compta els llibres en estoc",
-      "jmProjection": "Remodela cada llibre en un objecte nou",
-      "jmSort": "Títols ordenats per preu"
-    },
-    "panels": {
-      "input": "Entrada JSON",
-      "results": "Resultats"
-    },
-    "sample": "Exemple",
-    "format": "Formata",
-    "clear": "Netejar",
-    "formatError": "No es pot formatar: l'entrada no és un JSON vàlid",
-    "placeholder": "Enganxa o escriu JSON aquí…",
-    "outputPlaceholder": "Les coincidències apareixeran aquí…",
-    "matchCount": "{count, plural, one {# coincidència} other {# coincidències}}",
-    "copy": "Copia",
-    "copied": "Copiat"
   },
   "WebhookTester": {
     "title": "Provador de webhooks",

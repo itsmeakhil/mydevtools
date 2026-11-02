@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Formátovač GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Generátor JSON schématu",
     "snippetManager": "Úryvky kódu",
-    "markdownPreview": "Náhled Markdown",
-    "formatConverter": "Převodník formátů",
-    "yamlFormatter": "Formátovač YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON diff",
-    "jsonpathPlayground": "JSONPath hřiště",
     "secureFiles": "Soubory"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Formátovač GraphQL",
-        "description": "Formátujte GraphQL se zvýrazněním syntaxe a jednoduchým editorem dotazů."
-      },
-      "yamlFormatter": {
-        "title": "Formátovač YAML",
-        "description": "Formátujte, ověřujte a převádějte YAML do JSON v prohlížeči."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Generátor JSON schématu",
-        "description": "Odvození JSON schématu a typovaných modelů z ukázkového JSONu."
-      },
       "snippetManager": {
         "title": "Úryvky kódu",
         "description": "Ukládejte úryvky se zvýrazněním syntaxe, automatickou detekcí jazyka a formátováním."
-      },
-      "markdownPreview": {
-        "title": "Náhled Markdown",
-        "description": "Živý renderer Markdown s exportem HTML a převodem HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Převodník formátů",
-        "description": "Převod mezi JSON, YAML, TOML a XML libovolným směrem. Podporováno všech 12 kombinací."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON diff",
-        "description": "Sémantické porovnání dvou JSON dokumentů zohledňující strukturu."
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath hřiště",
-        "description": "Dotazujte se na JSON pomocí JSONPath nebo JMESPath a sledujte živé výsledky."
       },
       "secureFiles": {
         "title": "Soubory",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "Aplikace",
-      "analytics": "Analytika",
       "ui": "Rozhraní"
-    },
-    "analytics": {
-      "title": "Vaše data na první pohled",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Nelze načíst analytiku.",
-      "retry": "Zkusit znovu",
-      "passwordEntries": "Záznamů hesel",
-      "tasksTotal": "Úkoly",
-      "tasksCompleted": "Dokončené",
-      "tasksOngoing": "Probíhající",
-      "tasksNotStarted": "Nespuštěné",
-      "projects": "Projekty",
-      "nosqlConnections": "Připojení k DB",
-      "notes": "Poznámky",
-      "apiClientCollections": "Kolekce API",
-      "apiClientEnvironments": "Prostředí API",
-      "apiClientHistory": "Záznamy historie API",
-      "jsonFormatterDocuments": "Dokumenty JSON formátovače",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Úryvky kódu",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Předvolby rozhraní",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "JSON opraven",
     "toastRepairFailed": "JSON se nepodařilo opravit"
   },
-  "SqlFormatter": {
-    "title": "Formátovač SQL",
-    "subtitle": "Formátujte SQL pro MySQL, PostgreSQL a SQLite",
-    "dialectLabel": "Dialekt",
-    "keywordsLabel": "Klíčová slova",
-    "indentLabel": "Odsazení",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "VELKÁ",
-      "lower": "malá",
-      "preserve": "Zachovat"
-    },
-    "spaces": "{n} mezer",
-    "format": "Formátovat",
-    "clear": "Vymazat",
-    "counter": "{current} / {max} znaků",
-    "inputPanel": "Vstup",
-    "formattedPanel": "Naformátováno",
-    "copy": "Kopírovat",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Klikněte na „Formátovat“…",
-    "errors": {
-      "tooLong": "Vstup je omezen na {max} znaků.",
-      "couldNotFormat": "Tento SQL se nepodařilo naformátovat."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Formátovač YAML",
-    "subtitle": "Formátujte, validujte a převádějte YAML",
-    "outputLabel": "Výstup",
-    "outputModes": {
-      "yaml": "YAML (formátovaný)",
-      "json": "JSON"
-    },
-    "indentLabel": "Odsazení",
-    "spaces": "{n} mezery",
-    "format": "Formátovat",
-    "clear": "Vymazat",
-    "copy": "Kopírovat",
-    "counter": "{current} / {max} znaků",
-    "inputPanel": "Vstup",
-    "outputPanel": "Výstup",
-    "errors": {
-      "tooLong": "Vstup je omezen na {max} znaků.",
-      "couldNotFormat": "Nepodařilo se analyzovat tento YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Formátovač GraphQL",
-    "subtitle": "Formátujte dotazy, mutace a subskripce",
-    "tabs": {
-      "format": "Formátovat",
-      "build": "Editor dotazu"
-    },
-    "outputModeLabel": "Výstup",
-    "outputModes": {
-      "pretty": "Čitelný výpis",
-      "minify": "Minifikovat"
-    },
-    "format": "Formátovat",
-    "clear": "Vymazat",
-    "counter": "{current} / {max} znaků",
-    "inputPanel": "Vstup",
-    "outputPanel": "Výstup",
-    "copy": "Kopírovat",
-    "builderHint": "Sestavte kostru dokumentu a vložte ji do editoru. Definice proměnných v syntaxi GraphQL (např. $id: ID!) — závorky jsou volitelné.",
-    "builder": {
-      "operation": "Operace",
-      "operationName": "Název operace",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Definice proměnných",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Výběrová sada",
-      "apply": "Použít na vstup",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Vstup je omezen na {max} znaků.",
-      "couldNotFormat": "Tento GraphQL se nepodařilo parsovat ani vypsat.",
-      "emptySelection": "Před použitím doplňte výběrovou sadu."
-    }
-  },
-  "RegexTester": {
-    "title": "Tester regexů",
-    "subtitle": "Testujte regex JavaScriptu se zvýrazněním shod naživo",
-    "patternLabel": "Vzor",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g globální",
-      "i": "i ignorovat velikost písmen",
-      "m": "m víceřádkové",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(prázdné)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {shoda} few {shody} other {shod}}",
-    "testTextLabel": "Testovací text",
-    "counter": "{current} / {max}",
-    "clear": "Vymazat",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Text je omezen na {max} znaků.",
-      "invalid": "Neplatný regulární výraz.",
-      "runaway": "Zastaveno po {max} shodách (možný „runaway“ vzor)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Porovnání textů",
-    "subtitle": "Porovnávejte dva texty vedle sebe, řádek po řádku",
-    "rowsCount": "{count} řádků",
-    "truncatedWarning": "Zobrazuje se prvních {max} řádků.",
-    "limitExceeded": "Každá strana je omezena na {max} znaků.",
-    "clearBoth": "Vymazat oboje",
-    "original": "Originál",
-    "modified": "Upraveno",
-    "originalPlaceholder": "Vložte původní text…",
-    "modifiedPlaceholder": "Vložte upravený text…",
-    "comparisonLabel": "Porovnání vedle sebe",
-    "emptyState": "Zadejte text do obou panelů pro porovnání."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Generátor JSON Schema",
-    "subtitle": "Generujte JSON Schema nebo typované modely z ukázky JSON",
-    "languageLabel": "Jazyk výstupu",
-    "inputLabel": "Vstup JSON",
-    "inputPlaceholder": "Vložte JSON sem…",
-    "outputLabel": "Vygenerovaný výstup",
-    "outputPlaceholder": "Schéma nebo vygenerované typy se zobrazí zde…",
-    "parseError": "Neplatný JSON",
-    "clear": "Vymazat",
-    "copy": "Kopírovat",
-    "copied": "Zkopírováno do schránky",
-    "copyFailed": "Kopírování se nezdařilo",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON schéma (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Načítání editoru…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Správce snippetů",
     "subtitle": "Ukládejte, hledejte a formátujte snippety — synchronizace volitelná",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "Odpovídá {count} řádků — nic se nezměnilo, protože filtr není jedinečný."
     }
   },
-  "MarkdownPreview": {
-    "title": "Náhled Markdownu",
-    "subtitle": "Vykreslujte Markdown naživo a převádějte z/do HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Vstup Markdown",
-    "htmlInputLabel": "Vstup HTML",
-    "previewLabel": "Náhled",
-    "htmlOutputLabel": "Zdroj HTML",
-    "mdOutputLabel": "Výstup Markdown",
-    "inputPlaceholder": "# Ahoj\\n\\nZadejte svůj **markdown** zde…",
-    "htmlInputPlaceholder": "Vložte svůj HTML zde…",
-    "copyHtml": "Kopírovat HTML",
-    "copyMarkdown": "Kopírovat Markdown",
-    "exportHtml": "Exportovat HTML",
-    "fileNameLabel": "Název souboru",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Uloženo {name}",
-    "copied": "Zkopírováno",
-    "charCount": "{count, plural, one {# znak} few {# znaky} other {# znaků}}",
-    "emptyHint": "Začněte psát Markdown pro zobrazení živého náhledu a HTML výstupu.",
-    "emptyHintHtmlToMd": "Vložte HTML pro převod na Markdown.",
-    "securityNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
-  },
-  "FormatConverter": {
-    "title": "Převodník formátů",
-    "subtitle": "Převádějte JSON, YAML, TOML a XML libovolným směrem",
-    "fromLabel": "Z",
-    "toLabel": "Do",
-    "swap": "Přepnout",
-    "swapTitle": "Přepněte formáty a použijte výstup jako vstup",
-    "copy": "Kopírovat",
-    "copied": "Zkopírováno",
-    "charCount": "{count, plural, one {# znak} few {# znaky} other {# znaků}}",
-    "emptyHint": "Vložte nebo napište vstup vlevo a uvidíte převedený výstup.",
-    "localNote": "Vše běží lokálně ve vašem prohlížeči. Nic se nenahrává."
-  },
-  "JsonToCode": {
-    "title": "JSON do kódu",
-    "subtitle": "Generujte typované modely z ukázkového JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Vizualizace JSON",
     "subtitle": "Prozkoumejte JSON jako interaktivní graf uzlů",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Formátování a minifikace",
-    "subtitle": "Formátujte či minifikujte HTML, CSS, JavaScript, XML a JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "Porovnání JSON",
-    "subtitle": "Porovnávejte JSON strukturně — pořadí klíčů se ignoruje",
-    "options": {
-      "ignoreArrayOrder": "Ignorovat pořadí polí"
-    },
-    "loadBothSamples": "Načíst ukázky",
-    "sample": "Ukázka",
-    "format": "Formátovat",
-    "clear": "Vymazat",
-    "formatError": "Nelze formátovat: vstup není platný JSON",
-    "placeholder": "Vložte nebo napište JSON sem…",
-    "panels": {
-      "left": "Originál (vlevo)",
-      "right": "Upravený (vpravo)",
-      "results": "Rozdíly"
-    },
-    "summary": {
-      "added": "{count} přidáno",
-      "removed": "{count} odebráno",
-      "changed": "{count} změněno"
-    },
-    "types": {
-      "added": "Přidáno",
-      "removed": "Odebráno",
-      "changed": "Změněno"
-    },
-    "copyChanges": "Kopírovat jako JSON",
-    "copied": "Zkopírováno",
-    "empty": "Vložte JSON do obou panelů, abyste viděli jejich rozdíly.",
-    "identical": "Oba dokumenty jsou sémanticky totožné."
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPath hřiště",
-    "subtitle": "Dotazujte JSON přes JSONPath nebo JMESPath naživo",
-    "engineLabel": "Engine",
-    "queryLabel": "Dotaz",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Tahák",
-    "cheats": {
-      "jpAllTitles": "Všechny názvy knih",
-      "jpAllAuthors": "Každý autor, kdekoli v dokumentu",
-      "jpFirstBook": "První kniha",
-      "jpLastBook": "Poslední kniha",
-      "jpSlice": "První dvě knihy (výřez)",
-      "jpFilterPrice": "Knihy levnější než 40",
-      "jpFilterInStock": "Názvy skladem dostupných knih",
-      "jpRecursive": "Všechny hodnoty, rekurzivně",
-      "jmAllTitles": "Všechny názvy knih",
-      "jmFirstAuthor": "Autor první knihy",
-      "jmLastBook": "Poslední kniha",
-      "jmSlice": "První dvě knihy (výřez)",
-      "jmFilterPrice": "Názvy knih levnějších než 40",
-      "jmCount": "Počet skladem dostupných knih",
-      "jmProjection": "Přeformujte každou knihu do nového objektu",
-      "jmSort": "Názvy seřazené podle ceny"
-    },
-    "panels": {
-      "input": "JSON vstup",
-      "results": "Výsledky"
-    },
-    "sample": "Ukázka",
-    "format": "Formátovat",
-    "clear": "Vymazat",
-    "formatError": "Nelze formátovat: vstup není platný JSON",
-    "placeholder": "Vložte nebo napište JSON sem…",
-    "outputPlaceholder": "Shody se zobrazí zde…",
-    "matchCount": "{count, plural, one {# shoda} few {# shody} many {# shody} other {# shod}}",
-    "copy": "Kopírovat",
-    "copied": "Zkopírováno"
   },
   "WebhookTester": {
     "title": "Tester webhooků",

@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Форматтер GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Генератор JSON-схемы",
     "snippetManager": "Фрагменты кода",
-    "markdownPreview": "Просмотр Markdown",
-    "formatConverter": "Конвертер форматов",
-    "yamlFormatter": "Форматировщик YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Сравнение JSON",
-    "jsonpathPlayground": "Песочница JSONPath",
     "secureFiles": "Файлы"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Форматтер GraphQL",
-        "description": "Форматируйте GraphQL с подсветкой синтаксиса и простым конструктором запросов."
-      },
-      "yamlFormatter": {
-        "title": "Форматировщик YAML",
-        "description": "Форматируйте, проверяйте и конвертируйте YAML в JSON в браузере."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Генератор JSON-схемы",
-        "description": "Получите JSON-схему и типизированные модели из примера JSON."
-      },
       "snippetManager": {
         "title": "Фрагменты кода",
         "description": "Сохраняйте сниппеты с подсветкой синтаксиса, автоопределением языка и форматированием."
-      },
-      "markdownPreview": {
-        "title": "Просмотр Markdown",
-        "description": "Живой рендерер Markdown с экспортом HTML и конвертацией HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Конвертер форматов",
-        "description": "Конвертация между JSON, YAML, TOML и XML в любом направлении. Поддерживаются все 12 комбинаций."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "Сравнение JSON",
-        "description": "Семантическое, учитывающее структуру сравнение двух документов JSON."
-      },
-      "jsonpathPlayground": {
-        "title": "Песочница JSONPath",
-        "description": "Запрашивайте JSON с помощью JSONPath или JMESPath и смотрите результаты вживую."
       },
       "secureFiles": {
         "title": "Файлы",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "Приложения",
-      "analytics": "Аналитика",
       "ui": "Интерфейс"
-    },
-    "analytics": {
-      "title": "Ваши данные кратко",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Не удалось загрузить аналитику.",
-      "retry": "Повторить",
-      "passwordEntries": "Записей паролей",
-      "tasksTotal": "Задачи",
-      "tasksCompleted": "Выполнено",
-      "tasksOngoing": "В работе",
-      "tasksNotStarted": "Не начато",
-      "projects": "Проекты",
-      "nosqlConnections": "Подключения к БД",
-      "notes": "Заметки",
-      "apiClientCollections": "Коллекции API",
-      "apiClientEnvironments": "Окружения API",
-      "apiClientHistory": "Записи истории API",
-      "jsonFormatterDocuments": "Документы JSON-форматера",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Фрагменты кода",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Настройки интерфейса",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "JSON исправлен",
     "toastRepairFailed": "Не удалось исправить JSON"
   },
-  "SqlFormatter": {
-    "title": "Форматтер SQL",
-    "subtitle": "Форматируйте SQL для MySQL, PostgreSQL и SQLite",
-    "dialectLabel": "Диалект",
-    "keywordsLabel": "Ключевые слова",
-    "indentLabel": "Отступ",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "ВЕРХНИЙ РЕГИСТР",
-      "lower": "нижний регистр",
-      "preserve": "Сохранить"
-    },
-    "spaces": "{n} пробела(ов)",
-    "format": "Форматировать",
-    "clear": "Очистить",
-    "counter": "{current} / {max} символов",
-    "inputPanel": "Ввод",
-    "formattedPanel": "Форматировано",
-    "copy": "Копировать",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Нажмите «Форматировать»…",
-    "errors": {
-      "tooLong": "Ввод ограничен {max} символами.",
-      "couldNotFormat": "Не удалось отформатировать этот SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Форматтер YAML",
-    "subtitle": "Форматируйте, проверяйте и конвертируйте YAML",
-    "outputLabel": "Вывод",
-    "outputModes": {
-      "yaml": "YAML (форматированный)",
-      "json": "JSON"
-    },
-    "indentLabel": "Отступ",
-    "spaces": "{n} пробела",
-    "format": "Форматировать",
-    "clear": "Очистить",
-    "copy": "Копировать",
-    "counter": "{current} / {max} символов",
-    "inputPanel": "Ввод",
-    "outputPanel": "Вывод",
-    "errors": {
-      "tooLong": "Ввод ограничен {max} символами.",
-      "couldNotFormat": "Не удалось разобрать этот YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Форматтер GraphQL",
-    "subtitle": "Форматируйте запросы, мутации и подписки",
-    "tabs": {
-      "format": "Форматировать",
-      "build": "Конструктор запроса"
-    },
-    "outputModeLabel": "Вывод",
-    "outputModes": {
-      "pretty": "Читаемая печать",
-      "minify": "Минификация"
-    },
-    "format": "Форматировать",
-    "clear": "Очистить",
-    "counter": "{current} / {max} символов",
-    "inputPanel": "Ввод",
-    "outputPanel": "Вывод",
-    "copy": "Копировать",
-    "builderHint": "Соберите каркас документа и примените к редактору. Определения переменных в синтаксисе GraphQL (напр. $id: ID!) — скобки необязательны.",
-    "builder": {
-      "operation": "Операция",
-      "operationName": "Имя операции",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Определения переменных",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Набор полей",
-      "apply": "Вставить во ввод",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Ввод ограничен {max} символами.",
-      "couldNotFormat": "Не удалось разобрать или вывести этот GraphQL.",
-      "emptySelection": "Добавьте набор полей перед применением."
-    }
-  },
-  "RegexTester": {
-    "title": "Тестер регулярных выражений",
-    "subtitle": "Проверяйте regex JavaScript с подсветкой совпадений",
-    "patternLabel": "Шаблон",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g глобально",
-      "i": "i без учёта регистра",
-      "m": "m многострочный",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(пусто)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {совпадение} few {совпадения} many {совпадений} other {совпадений}}",
-    "testTextLabel": "Тестовый текст",
-    "counter": "{current} / {max}",
-    "clear": "Очистить",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Текст ограничен {max} символами.",
-      "invalid": "Некорректное регулярное выражение.",
-      "runaway": "Остановлено после {max} совпадений (возможный “разбежавшийся” шаблон)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Сравнение текстов",
-    "subtitle": "Сравнивайте два текста бок о бок, строка за строкой",
-    "rowsCount": "{count} строк",
-    "truncatedWarning": "Показаны первые {max} строк.",
-    "limitExceeded": "Каждая сторона ограничена {max} символами.",
-    "clearBoth": "Очистить оба",
-    "original": "Оригинал",
-    "modified": "Изменённый",
-    "originalPlaceholder": "Вставьте исходный текст…",
-    "modifiedPlaceholder": "Вставьте изменённый текст…",
-    "comparisonLabel": "Сравнение бок о бок",
-    "emptyState": "Введите текст в оба поля для сравнения."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Генератор JSON Schema",
-    "subtitle": "Создавайте JSON Schema или модели из примера JSON",
-    "languageLabel": "Язык вывода",
-    "inputLabel": "Ввод JSON",
-    "inputPlaceholder": "Вставьте JSON сюда…",
-    "outputLabel": "Сгенерированный вывод",
-    "outputPlaceholder": "Схема или сгенерированные типы появятся здесь…",
-    "parseError": "Некорректный JSON",
-    "clear": "Очистить",
-    "copy": "Копировать",
-    "copied": "Скопировано в буфер обмена",
-    "copyFailed": "Не удалось скопировать",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON-схема (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Загрузка редактора…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Менеджер сниппетов",
     "subtitle": "Сохраняйте, ищите и форматируйте сниппеты — синхронизация по желанию",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "Совпало строк: {count} — ничего не изменено, потому что фильтр не уникален."
     }
   },
-  "MarkdownPreview": {
-    "title": "Предпросмотр Markdown",
-    "subtitle": "Рендерьте Markdown вживую и конвертируйте в HTML и обратно",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Ввод Markdown",
-    "htmlInputLabel": "Ввод HTML",
-    "previewLabel": "Предпросмотр",
-    "htmlOutputLabel": "Источник HTML",
-    "mdOutputLabel": "Вывод Markdown",
-    "inputPlaceholder": "# Привет\\n\\nВведите ваш **markdown** здесь…",
-    "htmlInputPlaceholder": "Вставьте ваш HTML сюда…",
-    "copyHtml": "Копировать HTML",
-    "copyMarkdown": "Копировать Markdown",
-    "exportHtml": "Экспорт HTML",
-    "fileNameLabel": "Имя файла",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Сохранено: {name}",
-    "copied": "Скопировано",
-    "charCount": "{count, plural, one {# символ} few {# символа} other {# символов}}",
-    "emptyHint": "Начните вводить Markdown, чтобы увидеть предпросмотр и HTML вывод.",
-    "emptyHintHtmlToMd": "Вставьте HTML для конвертации в Markdown.",
-    "securityNote": "Всё выполняется локально в вашем браузере. Ничего не загружается."
-  },
-  "FormatConverter": {
-    "title": "Конвертер форматов",
-    "subtitle": "Конвертируйте JSON, YAML, TOML и XML в любом направлении",
-    "fromLabel": "Из",
-    "toLabel": "В",
-    "swap": "Поменять",
-    "swapTitle": "Поменять форматы и использовать вывод как ввод",
-    "copy": "Копировать",
-    "copied": "Скопировано",
-    "charCount": "{count, plural, one {# символ} few {# символа} other {# символов}}",
-    "emptyHint": "Вставьте или введите данные слева, чтобы увидеть преобразованный вывод.",
-    "localNote": "Всё работает локально в вашем браузере. Ничего не загружается."
-  },
-  "JsonToCode": {
-    "title": "JSON в код",
-    "subtitle": "Генерируйте типизированные модели из примера JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Визуализатор JSON",
     "subtitle": "Изучайте JSON как интерактивный граф узлов",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Форматирование и минификация",
-    "subtitle": "Форматируйте или минифицируйте HTML, CSS, JavaScript, XML и JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "Сравнение JSON",
-    "subtitle": "Сравнивайте JSON структурно — порядок ключей не важен",
-    "options": {
-      "ignoreArrayOrder": "Игнорировать порядок массивов"
-    },
-    "loadBothSamples": "Загрузить примеры",
-    "sample": "Пример",
-    "format": "Формат",
-    "clear": "Очистить",
-    "formatError": "Не удаётся отформатировать: ввод не является корректным JSON",
-    "placeholder": "Вставьте или введите JSON здесь…",
-    "panels": {
-      "left": "Оригинал (слева)",
-      "right": "Изменённый (справа)",
-      "results": "Различия"
-    },
-    "summary": {
-      "added": "{count} добавлено",
-      "removed": "{count} удалено",
-      "changed": "{count} изменено"
-    },
-    "types": {
-      "added": "Добавлено",
-      "removed": "Удалено",
-      "changed": "Изменено"
-    },
-    "copyChanges": "Копировать как JSON",
-    "copied": "Скопировано",
-    "empty": "Вставьте JSON в обе панели, чтобы увидеть их различия.",
-    "identical": "Оба документа семантически идентичны."
-  },
-  "JsonpathPlayground": {
-    "title": "Песочница JSONPath",
-    "subtitle": "Запрашивайте JSON через JSONPath или JMESPath вживую",
-    "engineLabel": "Движок",
-    "queryLabel": "Запрос",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Шпаргалка",
-    "cheats": {
-      "jpAllTitles": "Все названия книг",
-      "jpAllAuthors": "Все авторы в любом месте документа",
-      "jpFirstBook": "Первая книга",
-      "jpLastBook": "Последняя книга",
-      "jpSlice": "Первые две книги (срез)",
-      "jpFilterPrice": "Книги дешевле 40",
-      "jpFilterInStock": "Названия книг в наличии",
-      "jpRecursive": "Все значения рекурсивно",
-      "jmAllTitles": "Все названия книг",
-      "jmFirstAuthor": "Автор первой книги",
-      "jmLastBook": "Последняя книга",
-      "jmSlice": "Первые две книги (срез)",
-      "jmFilterPrice": "Названия книг дешевле 40",
-      "jmCount": "Подсчёт книг в наличии",
-      "jmProjection": "Преобразовать каждую книгу в новый объект",
-      "jmSort": "Названия, отсортированные по цене"
-    },
-    "panels": {
-      "input": "Ввод JSON",
-      "results": "Результаты"
-    },
-    "sample": "Пример",
-    "format": "Формат",
-    "clear": "Очистить",
-    "formatError": "Не удаётся отформатировать: ввод не является корректным JSON",
-    "placeholder": "Вставьте или введите JSON здесь…",
-    "outputPlaceholder": "Совпадения появятся здесь…",
-    "matchCount": "{count, plural, one {# совпадение} few {# совпадения} many {# совпадений} other {# совпадения}}",
-    "copy": "Копировать",
-    "copied": "Скопировано"
   },
   "WebhookTester": {
     "title": "Тестер вебхуков",

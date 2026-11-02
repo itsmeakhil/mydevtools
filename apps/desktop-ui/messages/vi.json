@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Trình định dạng GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
     "snippetManager": "Đoạn mã",
-    "markdownPreview": "Xem trước Markdown",
-    "formatConverter": "Chuyển đổi định dạng",
-    "yamlFormatter": "Định dạng YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "So sánh JSON",
-    "jsonpathPlayground": "Sân chơi JSONPath",
     "secureFiles": "Tệp"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Trình định dạng GraphQL",
-        "description": "Định dạng GraphQL với tô sáng cú pháp và trình xây dựng truy vấn đơn giản."
-      },
-      "yamlFormatter": {
-        "title": "Trình định dạng YAML",
-        "description": "Định dạng, xác thực và chuyển đổi YAML sang JSON trong trình duyệt."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Trình tạo lược đồ JSON",
-        "description": "Suy ra lược đồ JSON và mô hình có kiểu từ mẫu JSON."
-      },
       "snippetManager": {
         "title": "Đoạn mã",
         "description": "Lưu đoạn mã với tô sáng cú pháp, tự động nhận diện ngôn ngữ và định dạng."
-      },
-      "markdownPreview": {
-        "title": "Xem trước Markdown",
-        "description": "Trình kết xuất Markdown trực tiếp với xuất HTML và chuyển đổi HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Chuyển đổi định dạng",
-        "description": "Chuyển đổi giữa JSON, YAML, TOML và XML theo mọi hướng. Hỗ trợ đủ 12 tổ hợp."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "So sánh JSON",
-        "description": "So sánh hai tài liệu JSON theo ngữ nghĩa và cấu trúc."
-      },
-      "jsonpathPlayground": {
-        "title": "Sân chơi JSONPath",
-        "description": "Truy vấn JSON bằng JSONPath hoặc JMESPath và xem kết quả trực tiếp."
       },
       "secureFiles": {
         "title": "Tệp",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "Ứng dụng",
-      "analytics": "Phân tích",
       "ui": "Giao diện"
-    },
-    "analytics": {
-      "title": "Dữ liệu của bạn trong nháy mắt",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Không tải được phân tích.",
-      "retry": "Thử lại",
-      "passwordEntries": "Mục mật khẩu",
-      "tasksTotal": "Nhiệm vụ",
-      "tasksCompleted": "Hoàn thành",
-      "tasksOngoing": "Đang làm",
-      "tasksNotStarted": "Chưa bắt đầu",
-      "projects": "Dự án",
-      "nosqlConnections": "Kết nối CSDL",
-      "notes": "Ghi chú",
-      "apiClientCollections": "Bộ sưu tập API",
-      "apiClientEnvironments": "Môi trường API",
-      "apiClientHistory": "Mục lịch sử API",
-      "jsonFormatterDocuments": "Tài liệu định dạng JSON",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Đoạn mã",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Tùy chọn giao diện",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "Đã sửa JSON",
     "toastRepairFailed": "Không thể sửa JSON"
   },
-  "SqlFormatter": {
-    "title": "Trình định dạng SQL",
-    "subtitle": "Định dạng đẹp SQL cho MySQL, PostgreSQL và SQLite",
-    "dialectLabel": "Phương ngữ",
-    "keywordsLabel": "Từ khóa",
-    "indentLabel": "Thụt lề",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "CHỮ HOA",
-      "lower": "chữ thường",
-      "preserve": "Giữ nguyên"
-    },
-    "spaces": "{n} khoảng trắng",
-    "format": "Định dạng",
-    "clear": "Xóa",
-    "counter": "{current} / {max} ký tự",
-    "inputPanel": "Đầu vào",
-    "formattedPanel": "Đã định dạng",
-    "copy": "Sao chép",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Nhấn \"Định dạng\"…",
-    "errors": {
-      "tooLong": "Đầu vào bị giới hạn {max} ký tự.",
-      "couldNotFormat": "Không thể định dạng SQL này."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Trình định dạng YAML",
-    "subtitle": "Định dạng, kiểm tra và chuyển đổi YAML",
-    "outputLabel": "Đầu ra",
-    "outputModes": {
-      "yaml": "YAML (đã định dạng)",
-      "json": "JSON"
-    },
-    "indentLabel": "Thụt lề",
-    "spaces": "{n} khoảng trắng",
-    "format": "Định dạng",
-    "clear": "Xóa",
-    "copy": "Sao chép",
-    "counter": "{current} / {max} ký tự",
-    "inputPanel": "Đầu vào",
-    "outputPanel": "Đầu ra",
-    "errors": {
-      "tooLong": "Đầu vào giới hạn {max} ký tự.",
-      "couldNotFormat": "Không thể phân tích cú pháp YAML này."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Trình định dạng GraphQL",
-    "subtitle": "Định dạng query, mutation và subscription",
-    "tabs": {
-      "format": "Định dạng",
-      "build": "Trình tạo truy vấn"
-    },
-    "outputModeLabel": "Đầu ra",
-    "outputModes": {
-      "pretty": "In đẹp",
-      "minify": "Thu nhỏ"
-    },
-    "format": "Định dạng",
-    "clear": "Xóa",
-    "counter": "{current} / {max} ký tự",
-    "inputPanel": "Đầu vào",
-    "outputPanel": "Đầu ra",
-    "copy": "Sao chép",
-    "builderHint": "Soạn khung tài liệu rồi áp vào trình soạn. Định nghĩa biến theo cú pháp GraphQL (ví dụ $id: ID!) — dấu ngoặc là tùy chọn.",
-    "builder": {
-      "operation": "Thao tác",
-      "operationName": "Tên thao tác",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Định nghĩa biến",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Tập chọn",
-      "apply": "Áp vào đầu vào",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Đầu vào giới hạn {max} ký tự.",
-      "couldNotFormat": "Không thể phân tích hoặc in GraphQL này.",
-      "emptySelection": "Thêm tập chọn trước khi áp dụng."
-    }
-  },
-  "RegexTester": {
-    "title": "Trình kiểm tra Regex",
-    "subtitle": "Kiểm tra regex JavaScript với tô sáng kết quả trực tiếp",
-    "patternLabel": "Mẫu",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g toàn cục",
-      "i": "i không phân biệt hoa/thường",
-      "m": "m nhiều dòng",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(trống)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {kết quả} other {kết quả}}",
-    "testTextLabel": "Văn bản thử",
-    "counter": "{current} / {max}",
-    "clear": "Xóa",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Văn bản bị giới hạn {max} ký tự.",
-      "invalid": "Biểu thức chính quy không hợp lệ.",
-      "runaway": "Dừng sau {max} lần khớp (có thể mẫu bị runaway)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Kiểm tra Diff",
-    "subtitle": "So sánh hai văn bản song song, từng dòng một",
-    "rowsCount": "{count} hàng",
-    "truncatedWarning": "Hiển thị {max} hàng đầu tiên.",
-    "limitExceeded": "Mỗi bên bị giới hạn {max} ký tự.",
-    "clearBoth": "Xóa cả hai",
-    "original": "Gốc",
-    "modified": "Đã sửa đổi",
-    "originalPlaceholder": "Dán văn bản gốc…",
-    "modifiedPlaceholder": "Dán văn bản đã sửa đổi…",
-    "comparisonLabel": "So sánh cạnh nhau",
-    "emptyState": "Nhập văn bản vào cả hai bảng để so sánh."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Trình tạo JSON Schema",
-    "subtitle": "Tạo JSON Schema hoặc model có kiểu từ JSON mẫu",
-    "languageLabel": "Ngôn ngữ đầu ra",
-    "inputLabel": "Đầu vào JSON",
-    "inputPlaceholder": "Dán JSON vào đây…",
-    "outputLabel": "Đầu ra đã tạo",
-    "outputPlaceholder": "Lược đồ hoặc kiểu đã tạo sẽ hiển thị ở đây…",
-    "parseError": "JSON không hợp lệ",
-    "clear": "Xóa",
-    "copy": "Sao chép",
-    "copied": "Đã sao chép vào bảng tạm",
-    "copyFailed": "Không thể sao chép",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "Lược đồ JSON (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Đang tải trình soạn thảo…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Quản lý Snippet",
     "subtitle": "Lưu, tìm và định dạng snippet mã — đồng bộ tùy chọn",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "{count} hàng khớp — không có gì được thay đổi, vì bộ lọc không duy nhất."
     }
   },
-  "MarkdownPreview": {
-    "title": "Xem trước Markdown",
-    "subtitle": "Hiển thị Markdown trực tiếp và chuyển đổi qua lại với HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Đầu vào Markdown",
-    "htmlInputLabel": "Đầu vào HTML",
-    "previewLabel": "Xem trước",
-    "htmlOutputLabel": "Nguồn HTML",
-    "mdOutputLabel": "Đầu ra Markdown",
-    "inputPlaceholder": "# Xin chào\\n\\nNhập **markdown** của bạn tại đây…",
-    "htmlInputPlaceholder": "Dán HTML của bạn tại đây…",
-    "copyHtml": "Sao chép HTML",
-    "copyMarkdown": "Sao chép Markdown",
-    "exportHtml": "Xuất HTML",
-    "fileNameLabel": "Tên tệp",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Đã lưu {name}",
-    "copied": "Đã sao chép",
-    "charCount": "{count, plural, other {# ký tự}}",
-    "emptyHint": "Bắt đầu nhập Markdown để xem bản xem trước trực tiếp và đầu ra HTML.",
-    "emptyHintHtmlToMd": "Dán HTML để chuyển đổi sang Markdown.",
-    "securityNote": "Tất cả chạy cục bộ trong trình duyệt của bạn. Không có gì được tải lên."
-  },
-  "FormatConverter": {
-    "title": "Chuyển đổi định dạng",
-    "subtitle": "Chuyển đổi JSON, YAML, TOML và XML theo mọi chiều",
-    "fromLabel": "Từ",
-    "toLabel": "Đến",
-    "swap": "Hoán đổi",
-    "swapTitle": "Hoán đổi định dạng và sử dụng đầu ra làm đầu vào",
-    "copy": "Sao chép",
-    "copied": "Đã sao chép",
-    "charCount": "{count, plural, other {# ký tự}}",
-    "emptyHint": "Dán hoặc nhập dữ liệu đầu vào ở bên trái để xem đầu ra đã chuyển đổi.",
-    "localNote": "Mọi thứ chạy cục bộ trên trình duyệt của bạn. Không có gì được tải lên."
-  },
-  "JsonToCode": {
-    "title": "JSON sang mã",
-    "subtitle": "Tạo model có kiểu từ payload JSON mẫu",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Trực quan hóa JSON",
     "subtitle": "Khám phá JSON dưới dạng đồ thị nút tương tác",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Làm đẹp & Nén",
-    "subtitle": "Làm đẹp hoặc nén HTML, CSS, JavaScript, XML và JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON Diff",
-    "subtitle": "So sánh JSON theo cấu trúc — bỏ qua thứ tự khóa",
-    "options": {
-      "ignoreArrayOrder": "Bỏ qua thứ tự mảng"
-    },
-    "loadBothSamples": "Tải ví dụ",
-    "sample": "Ví dụ",
-    "format": "Định dạng",
-    "clear": "Xóa",
-    "formatError": "Không thể định dạng: đầu vào không phải JSON hợp lệ",
-    "placeholder": "Dán hoặc nhập JSON vào đây…",
-    "panels": {
-      "left": "Bản gốc (trái)",
-      "right": "Bản sửa (phải)",
-      "results": "Khác biệt"
-    },
-    "summary": {
-      "added": "{count} đã thêm",
-      "removed": "{count} đã xóa",
-      "changed": "{count} đã thay đổi"
-    },
-    "types": {
-      "added": "Đã thêm",
-      "removed": "Đã xóa",
-      "changed": "Đã thay đổi"
-    },
-    "copyChanges": "Sao chép dưới dạng JSON",
-    "copied": "Đã sao chép",
-    "empty": "Dán JSON vào cả hai ô để xem khác biệt của chúng.",
-    "identical": "Hai tài liệu giống nhau về mặt ngữ nghĩa."
-  },
-  "JsonpathPlayground": {
-    "title": "Sân chơi JSONPath",
-    "subtitle": "Truy vấn JSON bằng JSONPath hoặc JMESPath, trực tiếp",
-    "engineLabel": "Bộ máy",
-    "queryLabel": "Truy vấn",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Bảng tra cứu nhanh",
-    "cheats": {
-      "jpAllTitles": "Tất cả tựa sách",
-      "jpAllAuthors": "Mọi tác giả, ở bất kỳ đâu trong tài liệu",
-      "jpFirstBook": "Cuốn sách đầu tiên",
-      "jpLastBook": "Cuốn sách cuối cùng",
-      "jpSlice": "Hai cuốn đầu (slice)",
-      "jpFilterPrice": "Sách rẻ hơn 40",
-      "jpFilterInStock": "Tựa của các cuốn sách còn hàng",
-      "jpRecursive": "Tất cả giá trị, theo đệ quy",
-      "jmAllTitles": "Tất cả tựa sách",
-      "jmFirstAuthor": "Tác giả của cuốn sách đầu tiên",
-      "jmLastBook": "Cuốn sách cuối cùng",
-      "jmSlice": "Hai cuốn đầu (slice)",
-      "jmFilterPrice": "Tựa của các cuốn sách rẻ hơn 40",
-      "jmCount": "Đếm số sách còn hàng",
-      "jmProjection": "Định hình lại mỗi cuốn sách thành đối tượng mới",
-      "jmSort": "Tựa sách sắp xếp theo giá"
-    },
-    "panels": {
-      "input": "Đầu vào JSON",
-      "results": "Kết quả"
-    },
-    "sample": "Ví dụ",
-    "format": "Định dạng",
-    "clear": "Xóa",
-    "formatError": "Không thể định dạng: đầu vào không phải JSON hợp lệ",
-    "placeholder": "Dán hoặc nhập JSON vào đây…",
-    "outputPlaceholder": "Các kết quả khớp sẽ hiển thị ở đây…",
-    "matchCount": "{count, plural, one {# kết quả khớp} other {# kết quả khớp}}",
-    "copy": "Sao chép",
-    "copied": "Đã sao chép"
   },
   "WebhookTester": {
     "title": "Kiểm tra Webhook",

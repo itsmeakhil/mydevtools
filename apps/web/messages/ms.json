@@ -10,20 +10,8 @@
     "nosqlExplorer": "Penjelajah Pangkalan Data",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Pemformat GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Penjana Skema JSON",
     "snippetManager": "Petikan kod",
-    "markdownPreview": "Pratonton Markdown",
-    "formatConverter": "Penukar Format",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Pemformat YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Beza JSON",
-    "jsonpathPlayground": "Ruang Uji JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Bantuan & dokumentasi",

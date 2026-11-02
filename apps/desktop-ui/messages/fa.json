@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "قالب‌بند GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
     "snippetManager": "قطعه‌کدها",
-    "markdownPreview": "پیش‌نمایش Markdown",
-    "formatConverter": "مبدّل فرمت",
-    "yamlFormatter": "قالب‌بندی YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "تفاوت JSON",
-    "jsonpathPlayground": "زمین بازی JSONPath",
     "secureFiles": "پرونده‌ها"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "قالب‌بند GraphQL",
-        "description": "GraphQL را با برجسته‌سازی نحو و ویرایشگر سادهٔ پرس‌وجو قالب‌بندی کنید."
-      },
-      "yamlFormatter": {
-        "title": "قالب‌بند YAML",
-        "description": "قالب‌بندی، اعتبارسنجی و تبدیل YAML به JSON در مرورگر."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "تولیدکنندهٔ طرح JSON",
-        "description": "از نمونهٔ JSON، طرح JSON و مدل‌های نوع‌دار استنتاج کنید."
-      },
       "snippetManager": {
         "title": "قطعه‌کدها",
         "description": "قطعه‌کدها را با برجسته‌سازی نحو، تشخیص خودکار زبان و قالب‌بندی ذخیره کنید."
-      },
-      "markdownPreview": {
-        "title": "پیش‌نمایش Markdown",
-        "description": "رندر زنده Markdown با صادرکردن HTML و تبدیل HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "مبدّل فرمت",
-        "description": "تبدیل بین JSON، YAML، TOML و XML در هر جهت. هر ۱۲ ترکیب پشتیبانی می‌شود."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "تفاوت JSON",
-        "description": "مقایسه معنایی و ساختارآگاه دو سند JSON."
-      },
-      "jsonpathPlayground": {
-        "title": "زمین بازی JSONPath",
-        "description": "JSON را با JSONPath یا JMESPath پرس‌وجو کنید و نتایج زنده را ببینید."
       },
       "secureFiles": {
         "title": "پرونده‌ها",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "برنامه‌ها",
-      "analytics": "تحلیل",
       "ui": "رابط کاربری"
-    },
-    "analytics": {
-      "title": "داده‌های شما در یک نگاه",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "بارگذاری تحلیل ممکن نشد.",
-      "retry": "تلاش دوباره",
-      "passwordEntries": "ورودی‌های گذرواژه",
-      "tasksTotal": "وظایف",
-      "tasksCompleted": "تکمیل‌شده",
-      "tasksOngoing": "در حال انجام",
-      "tasksNotStarted": "شروع‌نشده",
-      "projects": "پروژه‌ها",
-      "nosqlConnections": "اتصالات پایگاه داده",
-      "notes": "یادداشت‌ها",
-      "apiClientCollections": "مجموعه‌های API",
-      "apiClientEnvironments": "محیط‌های API",
-      "apiClientHistory": "ورودی‌های تاریخچه API",
-      "jsonFormatterDocuments": "اسناد قالب‌ده JSON",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "قطعه‌کدهای برنامه",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "ترجیحات رابط",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "JSON تعمیر شد",
     "toastRepairFailed": "JSON قابل تعمیر نیست"
   },
-  "SqlFormatter": {
-    "title": "قالب‌بند SQL",
-    "subtitle": "قالب‌بندی SQL برای MySQL، PostgreSQL و SQLite",
-    "dialectLabel": "گویش",
-    "keywordsLabel": "کلیدواژه‌ها",
-    "indentLabel": "تورفتگی",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "حروف بزرگ",
-      "lower": "حروف کوچک",
-      "preserve": "حفظ"
-    },
-    "spaces": "{n} فاصله",
-    "format": "فرمت",
-    "clear": "پاک کردن",
-    "counter": "{current} / {max} نویسه",
-    "inputPanel": "ورودی",
-    "formattedPanel": "فرمت‌شده",
-    "copy": "کپی",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "روی \"فرمت\" کلیک کنید…",
-    "errors": {
-      "tooLong": "ورودی به {max} نویسه محدود است.",
-      "couldNotFormat": "فرمت‌کردن این SQL ممکن نبود."
-    }
-  },
-  "YamlFormatter": {
-    "title": "قالب‌بند YAML",
-    "subtitle": "قالب‌بندی، اعتبارسنجی و تبدیل YAML",
-    "outputLabel": "خروجی",
-    "outputModes": {
-      "yaml": "YAML (قالب‌بندی‌شده)",
-      "json": "JSON"
-    },
-    "indentLabel": "تورفتگی",
-    "spaces": "{n} فاصله",
-    "format": "قالب‌بندی",
-    "clear": "پاک کردن",
-    "copy": "کپی",
-    "counter": "{current} / {max} کاراکتر",
-    "inputPanel": "ورودی",
-    "outputPanel": "خروجی",
-    "errors": {
-      "tooLong": "ورودی محدود به {max} کاراکتر است.",
-      "couldNotFormat": "این YAML قابل تجزیه نیست."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "قالب‌بند GraphQL",
-    "subtitle": "قالب‌بندی کوئری‌ها، mutationها و subscriptionها",
-    "tabs": {
-      "format": "قالب‌بندی",
-      "build": "سازندهٔ پرس‌وجو"
-    },
-    "outputModeLabel": "خروجی",
-    "outputModes": {
-      "pretty": "چاپ خوانا",
-      "minify": "فشرده‌سازی"
-    },
-    "format": "قالب‌بندی",
-    "clear": "پاک‌سازی",
-    "counter": "{current} / {max} نویسه",
-    "inputPanel": "ورودی",
-    "outputPanel": "خروجی",
-    "copy": "رونوشت",
-    "builderHint": "اسکلت سند را بسازید و روی ویراستار اعمال کنید. تعریف متغیرها با نحو GraphQL (مثلاً $id: ID!) — پرانتز اختیاری است.",
-    "builder": {
-      "operation": "عملیات",
-      "operationName": "نام عملیات",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "تعریف متغیرها",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "مجموعهٔ گزینش",
-      "apply": "اعمال روی ورودی",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "ورودی حداکثر {max} نویسه است.",
-      "couldNotFormat": "تجزیه یا چاپ این GraphQL ممکن نشد.",
-      "emptySelection": "قبل از اعمال، مجموعهٔ گزینش را اضافه کنید."
-    }
-  },
-  "RegexTester": {
-    "title": "آزمایشگر Regex",
-    "subtitle": "آزمایش regex در JavaScript با برجسته‌سازی زنده تطابق‌ها",
-    "patternLabel": "الگو",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g سراسری",
-      "i": "i بدون حساسیت به حروف",
-      "m": "m چندخطی",
-      "s": "s dotAll",
-      "u": "u یونیکد",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(خالی)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {تطبیق} other {تطبیق‌ها}}",
-    "testTextLabel": "متن آزمایش",
-    "counter": "{current} / {max}",
-    "clear": "پاک کردن",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "متن به {max} نویسه محدود است.",
-      "invalid": "عبارت باقاعده نامعتبر است.",
-      "runaway": "پس از {max} تطبیق متوقف شد (احتمال الگوی runaway)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "بررسی‌کننده تفاوت",
-    "subtitle": "مقایسه دو متن کنار هم، خط به خط",
-    "rowsCount": "{count} ردیف",
-    "truncatedWarning": "نمایش {max} ردیف اول.",
-    "limitExceeded": "هر طرف محدود به {max} کاراکتر است.",
-    "clearBoth": "پاک کردن هر دو",
-    "original": "اصلی",
-    "modified": "تغییریافته",
-    "originalPlaceholder": "متن اصلی را جایگذاری کنید…",
-    "modifiedPlaceholder": "متن تغییریافته را جایگذاری کنید…",
-    "comparisonLabel": "مقایسه جنب‌به‌جنب",
-    "emptyState": "متن را در هر دو پنل وارد کنید تا مقایسه شود."
-  },
-  "JsonSchemaGenerator": {
-    "title": "مولد JSON Schema",
-    "subtitle": "تولید JSON Schema یا مدل‌های تایپ‌دار از JSON نمونه",
-    "languageLabel": "زبان خروجی",
-    "inputLabel": "ورودی JSON",
-    "inputPlaceholder": "JSON را اینجا بچسبانید…",
-    "outputLabel": "خروجی تولیدشده",
-    "outputPlaceholder": "طرح یا انواع تولیدشده اینجا نمایش داده می‌شود…",
-    "parseError": "JSON نامعتبر",
-    "clear": "پاک کردن",
-    "copy": "رونوشت",
-    "copied": "در بریده‌دان رونوشت شد",
-    "copyFailed": "رونوشت ممکن نشد",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "طرح JSON (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "در حال بارگذاری ویرایشگر…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "مدیر قطعه‌کد",
     "subtitle": "ذخیره، جستجو و قالب‌بندی قطعه‌کدها — همگام‌سازی اختیاری",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "{count} ردیف مطابقت داشت — چیزی تغییر نکرد، زیرا فیلتر یکتا نیست."
     }
   },
-  "MarkdownPreview": {
-    "title": "پیش‌نمایش Markdown",
-    "subtitle": "رندر زنده Markdown و تبدیل به HTML و برعکس",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "ورودی Markdown",
-    "htmlInputLabel": "ورودی HTML",
-    "previewLabel": "پیش‌نمایش",
-    "htmlOutputLabel": "منبع HTML",
-    "mdOutputLabel": "خروجی Markdown",
-    "inputPlaceholder": "# سلام\\n\\n**markdown** خود را اینجا بنویسید…",
-    "htmlInputPlaceholder": "HTML خود را اینجا بچسبانید…",
-    "copyHtml": "کپی HTML",
-    "copyMarkdown": "کپی Markdown",
-    "exportHtml": "خروجی HTML",
-    "fileNameLabel": "نام فایل",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "{name} ذخیره شد",
-    "copied": "کپی شد",
-    "charCount": "{count, plural, other {# کاراکتر}}",
-    "emptyHint": "برای دیدن پیش‌نمایش زنده و خروجی HTML، Markdown تایپ کنید.",
-    "emptyHintHtmlToMd": "HTML را برای تبدیل به Markdown بچسبانید.",
-    "securityNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. هیچ چیزی آپلود نمی‌شود."
-  },
-  "FormatConverter": {
-    "title": "مبدل قالب",
-    "subtitle": "تبدیل JSON، YAML، TOML و XML در هر جهت",
-    "fromLabel": "از",
-    "toLabel": "به",
-    "swap": "تعویض",
-    "swapTitle": "فرمت‌ها را تعویض کنید و خروجی را به عنوان ورودی استفاده کنید",
-    "copy": "کپی",
-    "copied": "کپی شد",
-    "charCount": "{count, plural, one {# کاراکتر} other {# کاراکتر}}",
-    "emptyHint": "ورودی خود را در سمت چپ وارد کنید تا خروجی تبدیل‌شده را ببینید.",
-    "localNote": "همه چیز به صورت محلی در مرورگر شما اجرا می‌شود. چیزی آپلود نمی‌شود."
-  },
-  "JsonToCode": {
-    "title": "JSON به کد",
-    "subtitle": "تولید مدل‌های تایپ‌دار از یک payload نمونه JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "نمایشگر JSON",
     "subtitle": "کاوش JSON به‌صورت گراف گره‌ای تعاملی",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "زیباسازی و فشرده‌سازی",
-    "subtitle": "زیباسازی یا فشرده‌سازی HTML، CSS، JavaScript، XML و JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "تفاوت JSON",
-    "subtitle": "مقایسه ساختاری JSON — بدون توجه به ترتیب کلیدها",
-    "options": {
-      "ignoreArrayOrder": "نادیده‌گرفتن ترتیب آرایه"
-    },
-    "loadBothSamples": "بارگذاری نمونه‌ها",
-    "sample": "نمونه",
-    "format": "قالب",
-    "clear": "پاک کردن",
-    "formatError": "قالب‌بندی ممکن نیست: ورودی JSON معتبر نیست",
-    "placeholder": "JSON را اینجا بچسبانید یا تایپ کنید…",
-    "panels": {
-      "left": "اصلی (چپ)",
-      "right": "تغییریافته (راست)",
-      "results": "تفاوت‌ها"
-    },
-    "summary": {
-      "added": "{count} افزوده",
-      "removed": "{count} حذف‌شده",
-      "changed": "{count} تغییریافته"
-    },
-    "types": {
-      "added": "افزوده",
-      "removed": "حذف‌شده",
-      "changed": "تغییریافته"
-    },
-    "copyChanges": "کپی به‌صورت JSON",
-    "copied": "کپی شد",
-    "empty": "JSON را در هر دو پنل بچسبانید تا تفاوت‌هایشان را ببینید.",
-    "identical": "دو سند از نظر معنایی یکسان هستند."
-  },
-  "JsonpathPlayground": {
-    "title": "محیط آزمایش JSONPath",
-    "subtitle": "کوئری زنده JSON با JSONPath یا JMESPath",
-    "engineLabel": "موتور",
-    "queryLabel": "پرس‌وجو",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "برگه تقلب",
-    "cheats": {
-      "jpAllTitles": "همه عنوان‌های کتاب",
-      "jpAllAuthors": "هر نویسنده، در هر جای سند",
-      "jpFirstBook": "اولین کتاب",
-      "jpLastBook": "آخرین کتاب",
-      "jpSlice": "دو کتاب اول (برش)",
-      "jpFilterPrice": "کتاب‌های ارزان‌تر از ۴۰",
-      "jpFilterInStock": "عنوان کتاب‌های موجود",
-      "jpRecursive": "همه مقادیر، به‌صورت بازگشتی",
-      "jmAllTitles": "همه عنوان‌های کتاب",
-      "jmFirstAuthor": "نویسنده اولین کتاب",
-      "jmLastBook": "آخرین کتاب",
-      "jmSlice": "دو کتاب اول (برش)",
-      "jmFilterPrice": "عنوان کتاب‌های ارزان‌تر از ۴۰",
-      "jmCount": "شمارش کتاب‌های موجود",
-      "jmProjection": "بازآرایی هر کتاب به یک شیء جدید",
-      "jmSort": "عنوان‌ها مرتب‌شده بر اساس قیمت"
-    },
-    "panels": {
-      "input": "ورودی JSON",
-      "results": "نتایج"
-    },
-    "sample": "نمونه",
-    "format": "قالب",
-    "clear": "پاک کردن",
-    "formatError": "قالب‌بندی ممکن نیست: ورودی JSON معتبر نیست",
-    "placeholder": "JSON را اینجا بچسبانید یا تایپ کنید…",
-    "outputPlaceholder": "تطبیق‌ها اینجا ظاهر می‌شوند…",
-    "matchCount": "{count, plural, one {# تطبیق} other {# تطبیق}}",
-    "copy": "کپی",
-    "copied": "کپی شد"
   },
   "WebhookTester": {
     "title": "آزمایشگر Webhook",

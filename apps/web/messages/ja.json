@@ -10,20 +10,8 @@
     "nosqlExplorer": "データベースエクスプローラー",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL フォーマッター",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "snippetManager": "コードスニペット",
-    "markdownPreview": "Markdownプレビュー",
-    "formatConverter": "フォーマット変換",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "YAMLフォーマッター",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON 差分",
-    "jsonpathPlayground": "JSONPath プレイグラウンド"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "ヘルプとドキュメント",

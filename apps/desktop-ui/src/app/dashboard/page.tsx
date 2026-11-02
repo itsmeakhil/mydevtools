@@ -1,16 +1,12 @@
 'use client'
 
 import React, { useState, useEffect, useMemo } from 'react'
-import dynamic from 'next/dynamic'
-import { ArrowLeft, ArrowRight, BarChart3, LayoutGrid } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
 import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
 import { useWorkspaceStore } from '@/store/workspace-store'
 import { useToolUsage } from '@/hooks/use-tool-usage'
 import useAuth from '@/utils/useAuth'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import {
   type FavoriteItem,
@@ -33,30 +29,9 @@ import { RevealItem } from '@/components/dashboard/dashboard-reveal'
 import { AppLoadingScreen } from '@/components/app-loading-screen'
 
 
-// Lazy-load the analytics panel — it's behind a tab click, not in the critical path
-const DashboardAnalyticsPanel = dynamic(
-  () =>
-    import('@/components/dashboard/dashboard-analytics-panel').then(
-      (m) => m.DashboardAnalyticsPanel,
-    ),
-  {
-    loading: () => (
-      <div className="flex flex-col gap-2">
-        <Skeleton className="h-24 w-full rounded-xl" />
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {[...Array(10)].map((_, i) => (
-            <Skeleton key={i} className="h-14 rounded-lg" />
-          ))}
-        </div>
-      </div>
-    ),
-  },
-)
-
 // ─── Dashboard Page ─────────────────────────────────────────────────────────
 
 const DashboardPage: React.FC = () => {
-  const tTabs = useTranslations('Dashboard.tabs')
   const { user, loading } = useAuth(false)
   const pinnedToolUrls = usePinnedToolsForActiveWorkspace()
   const togglePinKeyed = usePinnedToolsStore((s) => s.togglePin)
@@ -280,25 +255,12 @@ const DashboardPage: React.FC = () => {
               desktopOnly
             />
           </RevealItem>
-          <Tabs defaultValue="apps" className="w-full">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <TabsList className="grid h-auto w-full grid-cols-2 gap-1 rounded-xl border border-border/50 bg-muted/50 p-1 shadow-sm backdrop-blur-sm sm:inline-flex sm:w-auto sm:justify-start">
-                <TabsTrigger value="apps" className="gap-1.5 text-xs sm:text-sm">
-                  <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                  {tTabs('apps')}
-                </TabsTrigger>
-                <TabsTrigger value="analytics" className="gap-1.5 text-xs sm:text-sm">
-                  <BarChart3 className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                  {tTabs('analytics')}
-                </TabsTrigger>
-              </TabsList>
+          <div className="w-full">
+            <div className="mb-3 flex items-center justify-end gap-3">
               <ActivityLogDrawer />
             </div>
 
-            <TabsContent
-              value="apps"
-              className="mt-0 space-y-4 md:space-y-6 focus-visible:outline-none"
-            >
+            <div className="space-y-4 md:space-y-6">
               {/* ── Search ── */}
               <DashboardSearchBar
                 searchQuery={searchQuery}
@@ -401,12 +363,8 @@ const DashboardPage: React.FC = () => {
                   />
                 </RevealItem>
               )}
-            </TabsContent>
-
-            <TabsContent value="analytics" className="mt-0 rounded-2xl focus-visible:outline-none">
-              <DashboardAnalyticsPanel />
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
       </div>
     </div>

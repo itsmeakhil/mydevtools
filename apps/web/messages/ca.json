@@ -10,20 +10,8 @@
     "nosqlExplorer": "Explorador de base de dades",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Formatador GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Generador d'esquema JSON",
     "snippetManager": "Fragments de codi",
-    "markdownPreview": "Previsualització Markdown",
-    "formatConverter": "Conversor de formats",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Formatador YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Diff JSON",
-    "jsonpathPlayground": "Playground JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Ajuda i documentació",

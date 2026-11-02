@@ -10,20 +10,8 @@
     "nosqlExplorer": "Обозреватель баз данных",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Форматтер GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Генератор JSON-схемы",
     "snippetManager": "Фрагменты кода",
-    "markdownPreview": "Просмотр Markdown",
-    "formatConverter": "Конвертер форматов",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Форматировщик YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Сравнение JSON",
-    "jsonpathPlayground": "Песочница JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Справка и документация",

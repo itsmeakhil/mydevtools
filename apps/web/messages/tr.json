@@ -10,20 +10,8 @@
     "nosqlExplorer": "Veritabanı Gezgini",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL Biçimlendirici",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON Şema Oluşturucu",
     "snippetManager": "Kod parçacıkları",
-    "markdownPreview": "Markdown Önizleme",
-    "formatConverter": "Format Dönüştürücü",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "YAML Biçimleyici",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON Karşılaştırma",
-    "jsonpathPlayground": "JSONPath Oyun Alanı"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Yardım ve dokümantasyon",

@@ -123,18 +123,6 @@ Everything that ships in the app today, grouped the way the sidebar groups them.
 |---|---|
 | **JSON Formatter** | Format, validate and edit JSON in a Monaco editor |
 | **JSON Visualizer** | Explore JSON as an interactive node graph with search and image export |
-| **JSON Diff** | Compare two JSON documents semantically, ignoring key order and formatting |
-| **JSON Schema Generator** | Infer JSON Schema from a sample payload |
-| **JSON to Code** | Generate TypeScript, Go, Rust, Python, Java, Kotlin and Swift models from JSON |
-| **JSONPath Playground** | Query JSON with JSONPath or JMESPath expressions |
-| **YAML Formatter** | Format, validate and convert YAML to JSON |
-| **Format Converter** | Convert between JSON, YAML, TOML and XML in any direction |
-| **Beautify & Minify** | Beautify or minify HTML, CSS, JavaScript, XML and JSON |
-| **SQL Formatter** | Format SQL for MySQL, PostgreSQL and SQLite |
-| **GraphQL Formatter** | Format GraphQL with syntax highlighting and a query builder |
-| **Markdown Preview** | Live Markdown renderer with HTML export and HTML → Markdown |
-| **Diff Checker** | Side-by-side line diff of two texts |
-| **Regex Tester** | Test regex with live match highlighting and capture groups |
 
 ### 🌐 API
 

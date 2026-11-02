@@ -48,9 +48,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     [
       "/app/json-formatter",
       "/app/api-client",
-      "/app/regex-tester",
     ],
-    ["/app/markdown-preview-html", "/app/diff-checker"],
   ),
   role(
     "backend",
@@ -62,7 +60,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/data-explorer",
       "/app/environment-manager",
     ],
-    ["/app/sql-formatter", "/app/api-keys"],
+    ["/app/api-keys"],
   ),
   role(
     "fullstack",
@@ -74,9 +72,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
       "/app/json-formatter",
       "/app/data-explorer",
       "/app/environment-manager",
-      "/app/regex-tester",
     ],
-    ["/app/diff-checker"],
   ),
   role(
     "devops",
@@ -86,7 +82,7 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     [
       "/app/environment-manager",
     ],
-    ["/app/yaml-formatter", "/app/api-client"],
+    ["/app/api-client"],
   ),
   role(
     "qa",
@@ -95,8 +91,6 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     IconBug,
     [
       "/app/api-client",
-      "/app/regex-tester",
-      "/app/diff-checker",
       "/app/email-validator",
       "/app/json-formatter",
     ],
@@ -110,8 +104,6 @@ export const ONBOARDING_ROLES: OnboardingRole[] = [
     [
       "/app/json-formatter",
       "/app/api-client",
-      "/app/regex-tester",
-      "/app/diff-checker",
     ],
   ),
 ]

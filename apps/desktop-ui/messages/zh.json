@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL 格式化",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON 模式生成器",
     "snippetManager": "代码片段",
-    "markdownPreview": "Markdown 预览",
-    "formatConverter": "格式转换器",
-    "yamlFormatter": "YAML格式化工具",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON 对比",
-    "jsonpathPlayground": "JSONPath 沙盒",
     "secureFiles": "文件"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "GraphQL 格式化",
-        "description": "格式化 GraphQL，提供语法高亮与简易查询构建器。"
-      },
-      "yamlFormatter": {
-        "title": "YAML 格式化",
-        "description": "在浏览器中格式化、验证并将 YAML 转换为 JSON。"
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "JSON 模式生成器",
-        "description": "从示例 JSON 推断 JSON 模式与类型化模型。"
-      },
       "snippetManager": {
         "title": "代码片段",
         "description": "保存代码片段，支持语法高亮、自动检测语言和格式化。"
-      },
-      "markdownPreview": {
-        "title": "Markdown 预览",
-        "description": "实时 Markdown 渲染，支持 HTML 导出和 HTML → Markdown 转换。"
-      },
-      "formatConverter": {
-        "title": "格式转换器",
-        "description": "在 JSON、YAML、TOML 与 XML 之间任意方向转换，支持全部 12 种组合。"
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON 对比",
-        "description": "对两个 JSON 文档进行语义化、结构感知的对比。"
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath 沙盒",
-        "description": "使用 JSONPath 或 JMESPath 查询 JSON 并实时查看结果。"
       },
       "secureFiles": {
         "title": "文件",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "应用",
-      "analytics": "分析",
       "ui": "界面"
-    },
-    "analytics": {
-      "title": "数据一览",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "无法加载分析数据。",
-      "retry": "重试",
-      "passwordEntries": "密码条目",
-      "tasksTotal": "任务",
-      "tasksCompleted": "已完成",
-      "tasksOngoing": "进行中",
-      "tasksNotStarted": "未开始",
-      "projects": "项目",
-      "nosqlConnections": "数据库连接",
-      "notes": "笔记",
-      "apiClientCollections": "API 集合",
-      "apiClientEnvironments": "API 环境",
-      "apiClientHistory": "API 历史记录",
-      "jsonFormatterDocuments": "JSON 格式化器文档",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "代码片段",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "界面偏好",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "JSON 已修复",
     "toastRepairFailed": "无法修复 JSON"
   },
-  "SqlFormatter": {
-    "title": "SQL 格式化",
-    "subtitle": "美化 MySQL、PostgreSQL 和 SQLite 的 SQL",
-    "dialectLabel": "方言",
-    "keywordsLabel": "关键字",
-    "indentLabel": "缩进",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "大写",
-      "lower": "小写",
-      "preserve": "保留"
-    },
-    "spaces": "{n} 个空格",
-    "format": "格式化",
-    "clear": "清空",
-    "counter": "{current} / {max} 个字符",
-    "inputPanel": "输入",
-    "formattedPanel": "已格式化",
-    "copy": "复制",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "点击“格式化”…",
-    "errors": {
-      "tooLong": "输入限制为 {max} 个字符。",
-      "couldNotFormat": "无法格式化该 SQL。"
-    }
-  },
-  "YamlFormatter": {
-    "title": "YAML 格式化",
-    "subtitle": "格式化、校验并转换 YAML",
-    "outputLabel": "输出",
-    "outputModes": {
-      "yaml": "YAML（已格式化）",
-      "json": "JSON"
-    },
-    "indentLabel": "缩进",
-    "spaces": "{n} 空格",
-    "format": "格式化",
-    "clear": "清除",
-    "copy": "复制",
-    "counter": "{current} / {max} 字符",
-    "inputPanel": "输入",
-    "outputPanel": "输出",
-    "errors": {
-      "tooLong": "输入限制为 {max} 个字符。",
-      "couldNotFormat": "无法解析此 YAML。"
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "GraphQL 格式化",
-    "subtitle": "格式化查询、变更与订阅",
-    "tabs": {
-      "format": "格式化",
-      "build": "查询构建器"
-    },
-    "outputModeLabel": "输出",
-    "outputModes": {
-      "pretty": "美化输出",
-      "minify": "压缩"
-    },
-    "format": "格式化",
-    "clear": "清空",
-    "counter": "{current} / {max} 个字符",
-    "inputPanel": "输入",
-    "outputPanel": "输出",
-    "copy": "复制",
-    "builderHint": "组合文档骨架后应用到编辑器。变量定义使用 GraphQL 语法（例如 $id: ID!），括号可选。",
-    "builder": {
-      "operation": "操作类型",
-      "operationName": "操作名称",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "变量定义",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "字段选择",
-      "apply": "应用到输入",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "输入最多 {max} 个字符。",
-      "couldNotFormat": "无法解析或输出此 GraphQL。",
-      "emptySelection": "请先填写选择集再应用。"
-    }
-  },
-  "RegexTester": {
-    "title": "正则测试器",
-    "subtitle": "实时高亮匹配，测试 JavaScript 正则",
-    "patternLabel": "模式",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g 全局",
-      "i": "i 忽略大小写",
-      "m": "m 多行",
-      "s": "s dotAll",
-      "u": "u Unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(空)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {处匹配} other {处匹配}}",
-    "testTextLabel": "测试文本",
-    "counter": "{current} / {max}",
-    "clear": "清空",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "文本限制为 {max} 个字符。",
-      "invalid": "正则表达式无效。",
-      "runaway": "在 {max} 次匹配后停止（可能存在失控的模式）。"
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "文本对比",
-    "subtitle": "并排逐行比较两段文本",
-    "rowsCount": "{count} 行",
-    "truncatedWarning": "显示前 {max} 行。",
-    "limitExceeded": "每侧限制为 {max} 个字符。",
-    "clearBoth": "清除两者",
-    "original": "原始",
-    "modified": "已修改",
-    "originalPlaceholder": "粘贴原始文本…",
-    "modifiedPlaceholder": "粘贴已修改的文本…",
-    "comparisonLabel": "并排比较",
-    "emptyState": "在两个面板中输入文本以进行比较。"
-  },
-  "JsonSchemaGenerator": {
-    "title": "JSON Schema 生成器",
-    "subtitle": "从示例 JSON 生成 JSON Schema 或类型模型",
-    "languageLabel": "输出语言",
-    "inputLabel": "JSON 输入",
-    "inputPlaceholder": "在此粘贴 JSON…",
-    "outputLabel": "生成结果",
-    "outputPlaceholder": "生成的模式或类型将显示在此…",
-    "parseError": "无效的 JSON",
-    "clear": "清空",
-    "copy": "复制",
-    "copied": "已复制到剪贴板",
-    "copyFailed": "无法复制",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON 模式（Draft 2020-12）",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "正在加载编辑器…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "代码片段管理器",
     "subtitle": "保存、搜索并格式化代码片段 — 同步可选",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "匹配到 {count} 行 — 由于筛选条件不唯一，未做任何修改。"
     }
   },
-  "MarkdownPreview": {
-    "title": "Markdown 预览",
-    "subtitle": "实时渲染 Markdown，并与 HTML 互转",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Markdown 输入",
-    "htmlInputLabel": "HTML 输入",
-    "previewLabel": "预览",
-    "htmlOutputLabel": "HTML 源码",
-    "mdOutputLabel": "Markdown 输出",
-    "inputPlaceholder": "# 你好\\n\\n在此输入你的 **markdown**…",
-    "htmlInputPlaceholder": "在此粘贴你的 HTML…",
-    "copyHtml": "复制 HTML",
-    "copyMarkdown": "复制 Markdown",
-    "exportHtml": "导出 HTML",
-    "fileNameLabel": "文件名",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "已保存 {name}",
-    "copied": "已复制",
-    "charCount": "{count, plural, other {# 个字符}}",
-    "emptyHint": "开始输入 Markdown 以查看实时预览和 HTML 输出。",
-    "emptyHintHtmlToMd": "粘贴 HTML 以将其转换为 Markdown。",
-    "securityNote": "一切在您的浏览器本地运行，不会上传任何内容。"
-  },
-  "FormatConverter": {
-    "title": "格式转换器",
-    "subtitle": "JSON、YAML、TOML、XML 任意互转",
-    "fromLabel": "从",
-    "toLabel": "到",
-    "swap": "交换",
-    "swapTitle": "交换格式并将输出用作输入",
-    "copy": "复制",
-    "copied": "已复制",
-    "charCount": "{count, plural, other {# 个字符}}",
-    "emptyHint": "在左侧粘贴或输入内容，即可看到转换后的输出。",
-    "localNote": "所有操作均在您的浏览器中本地运行。不会上传任何内容。"
-  },
-  "JsonToCode": {
-    "title": "JSON 转代码",
-    "subtitle": "从示例 JSON 生成类型化模型",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "JSON 可视化",
     "subtitle": "以交互式节点图浏览 JSON",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "美化与压缩",
-    "subtitle": "美化或压缩 HTML、CSS、JavaScript、XML、JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON 对比",
-    "subtitle": "按结构比较 JSON — 忽略键顺序",
-    "options": {
-      "ignoreArrayOrder": "忽略数组顺序"
-    },
-    "loadBothSamples": "加载示例",
-    "sample": "示例",
-    "format": "格式化",
-    "clear": "清空",
-    "formatError": "无法格式化：输入不是有效的 JSON",
-    "placeholder": "在此粘贴或输入 JSON…",
-    "panels": {
-      "left": "原始（左）",
-      "right": "修改后（右）",
-      "results": "差异"
-    },
-    "summary": {
-      "added": "{count} 项新增",
-      "removed": "{count} 项移除",
-      "changed": "{count} 项变更"
-    },
-    "types": {
-      "added": "新增",
-      "removed": "移除",
-      "changed": "变更"
-    },
-    "copyChanges": "复制为 JSON",
-    "copied": "已复制",
-    "empty": "在两个面板中粘贴 JSON 以查看它们的差异。",
-    "identical": "这两个文档在语义上完全相同。"
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPath 演练场",
-    "subtitle": "用 JSONPath 或 JMESPath 实时查询 JSON",
-    "engineLabel": "引擎",
-    "queryLabel": "查询",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "速查表",
-    "cheats": {
-      "jpAllTitles": "所有书名",
-      "jpAllAuthors": "文档中任意位置的所有作者",
-      "jpFirstBook": "第一本书",
-      "jpLastBook": "最后一本书",
-      "jpSlice": "前两本书（切片）",
-      "jpFilterPrice": "价格低于 40 的书",
-      "jpFilterInStock": "有库存书籍的书名",
-      "jpRecursive": "递归获取所有值",
-      "jmAllTitles": "所有书名",
-      "jmFirstAuthor": "第一本书的作者",
-      "jmLastBook": "最后一本书",
-      "jmSlice": "前两本书（切片）",
-      "jmFilterPrice": "价格低于 40 的书名",
-      "jmCount": "统计有库存的书籍",
-      "jmProjection": "将每本书重塑为新对象",
-      "jmSort": "按价格排序的书名"
-    },
-    "panels": {
-      "input": "JSON 输入",
-      "results": "结果"
-    },
-    "sample": "示例",
-    "format": "格式化",
-    "clear": "清空",
-    "formatError": "无法格式化：输入不是有效的 JSON",
-    "placeholder": "在此粘贴或输入 JSON…",
-    "outputPlaceholder": "匹配结果将显示在这里…",
-    "matchCount": "{count, plural, one {# 个匹配} other {# 个匹配}}",
-    "copy": "复制",
-    "copied": "已复制"
   },
   "WebhookTester": {
     "title": "Webhook 测试器",

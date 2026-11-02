@@ -16,50 +16,10 @@ export const ApiClientLazy = dynamic(
   { ssr: false, loading: toolLoading }
 )
 
-export const DiffCheckerLayoutLazy = dynamic(
-  () =>
-    import('@/components/diff-checker/diff-checker-layout').then(
-      m => m.DiffCheckerLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
 export const JsonFormatterLayoutLazy = dynamic(
   () =>
     import('@/components/json-formatter/json-formatter-layout').then(
       m => m.JsonFormatterLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
-export const JsonSchemaGeneratorLayoutLazy = dynamic(
-  () =>
-    import('@/components/json-schema-generator/json-schema-generator-layout').then(
-      m => m.JsonSchemaGeneratorLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
-export const SqlFormatterLayoutLazy = dynamic(
-  () =>
-    import('@/components/sql-formatter/sql-formatter-layout').then(
-      m => m.SqlFormatterLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
-export const GraphqlFormatterLayoutLazy = dynamic(
-  () =>
-    import('@/components/graphql-formatter/graphql-formatter-layout').then(
-      m => m.GraphqlFormatterLayout
-    ),
-  { ssr: false, loading: toolLoading }
-)
-
-export const YamlFormatterLayoutLazy = dynamic(
-  () =>
-    import('@/components/yaml-formatter/yaml-formatter-layout').then(
-      m => m.YamlFormatterLayout
     ),
   { ssr: false, loading: toolLoading }
 )
