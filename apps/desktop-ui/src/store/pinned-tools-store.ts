@@ -72,10 +72,11 @@ export const usePinnedToolsStore = create<PinnedToolsStore>()(
 
 /** Returns true once the persisted state has finished rehydrating from storage. */
 export function usePinnedToolsHydrated(): boolean {
-  // `.persist` is absent during the static-export prerender (no storage on the
-  // server), so guard every access — "hydrated" is simply false there, and the
-  // real value resolves on the client where the persist API exists.
-  const [hydrated, setHydrated] = useState(() => usePinnedToolsStore.persist?.hasHydrated?.() ?? false)
+  // Always start false, even when localStorage already rehydrated synchronously:
+  // the server prerender has no storage, so the first client render must match
+  // it or React throws a hydration mismatch. The effect flips it right after.
+  // `.persist` is absent during the prerender, hence the optional chaining.
+  const [hydrated, setHydrated] = useState(false)
   useEffect(() => {
     if (usePinnedToolsStore.persist?.hasHydrated?.()) {
       setHydrated(true)
