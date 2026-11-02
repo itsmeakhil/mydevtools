@@ -30,7 +30,7 @@ Offline developer workstation (API client, database clients, S3 drive, encrypted
 
 ## Adding a tool
 
-Per-tool files (`page.tsx`, `layout.tsx` with `generateToolMetadata`, `components/<slug>/<slug>-layout.tsx`, pure logic in `lib/<slug>.ts` + jest test) **plus six registries**: `lib/metadata.ts`, `lib/route-config.ts`, `lib/tab-registry.tsx`, `lib/tool-categories.ts`, `lib/tool-i18n.ts`, `components/sidebar/data/sidebar-data.ts`. Then i18n: `Navigation.<key>`, `Dashboard.tools.<key>`, top-level `<Namespace>` block in `messages/en.json` **and all 26 other locales** (preserve ICU plurals; ru/uk/pl/cs need few/many, ar full set). This list now applies to `apps/desktop-ui`.
+Per-tool files (`page.tsx`, `layout.tsx` with `generateToolMetadata`, `components/<slug>/<slug>-layout.tsx`, pure logic in `lib/<slug>.ts` + jest test) **plus five registries**: `lib/metadata.ts`, `lib/route-config.ts`, `lib/tool-categories.ts`, `lib/tool-i18n.ts`, `components/sidebar/data/sidebar-data.ts`. Then i18n: `Navigation.<key>`, `Dashboard.tools.<key>`, top-level `<Namespace>` block in `messages/en.json` **and all 26 other locales** (preserve ICU plurals; ru/uk/pl/cs need few/many, ar full set). This list now applies to `apps/desktop-ui`.
 
 ## Design patterns (follow these)
 

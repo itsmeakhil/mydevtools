@@ -52,38 +52,6 @@ export function buildPinnedNavItems(
   })
 }
 
-// Lazy url→{icon, category} map over the whole catalog, so tab chips reuse the
-// exact sidebar (@tabler) icons shown in Pinned/palette plus the tool's
-// category (nav group title) for CATEGORY_ACCENT coloring.
-export interface SidebarToolMeta {
-  icon: NavLink["icon"]
-  category: string
-}
-let metaByUrl: Map<string, SidebarToolMeta> | null = null
-export function getSidebarToolMeta(url: string): SidebarToolMeta | undefined {
-  if (!metaByUrl) {
-    metaByUrl = new Map()
-    for (const group of sidebarData.navGroups) {
-      for (const item of group.items) {
-        if (!("items" in item)) {
-          metaByUrl.set(String((item as NavLink).url), {
-            icon: (item as NavLink).icon,
-            category: group.title,
-          })
-        } else {
-          for (const sub of (item as NavCollapsible).items) {
-            metaByUrl.set(String(sub.url), {
-              icon: sub.icon ?? item.icon,
-              category: group.title,
-            })
-          }
-        }
-      }
-    }
-  }
-  return metaByUrl.get(url)
-}
-
 export interface CategoryGroup {
   title: string
   tools: NavLink[]

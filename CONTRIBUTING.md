@@ -245,13 +245,12 @@ src/lib/<slug>.ts                                 pure logic
 src/lib/__tests__/<slug>.test.ts                  its test
 ```
 
-**2. Register it in all six registries**
+**2. Register it in all five registries**
 
 | File | What to add |
 |---|---|
 | `src/lib/metadata.ts` | Title, description, keywords |
 | `src/lib/route-config.ts` | Route entry (lucide icon) |
-| `src/lib/tab-registry.tsx` | Tab/window behaviour |
 | `src/lib/tool-categories.ts` | Which category it belongs to |
 | `src/lib/tool-i18n.ts` | Translation key mapping |
 | `src/components/sidebar/data/sidebar-data.ts` | Sidebar entry (@tabler icon) |

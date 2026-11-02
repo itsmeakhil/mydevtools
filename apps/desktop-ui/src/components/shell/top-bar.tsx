@@ -5,8 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Settings, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
 import { ModeToggle } from '@/components/modeToggle'
-import { TooltipProvider } from '@/components/ui/tooltip'
-import { TopNavStrip, NavIcon } from '@/components/shell/top-nav-strip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -20,9 +19,8 @@ import { isDesktop } from '@/lib/desktop/is-desktop'
 import { cn } from '@/lib/utils'
 
 /**
- * Unified top bar — the pro-app chrome that replaces the sidebar logo lockup
- * and footer profile card. Left: brand → dashboard. Right: theme, settings,
- * profile. The wide middle is a drag region (empty by design — tool search
+ * Unified top bar above the app sidebar. Left: brand → dashboard. Right: ⌘K,
+ * account menu (theme, settings, help). The wide middle is a drag region (empty by design — tool search
  * lives on the dashboard + the ⌘K palette). `data-tauri-drag-region` makes it
  * draggable once the OS title bar is turned off (traffic lights inset).
  */
@@ -93,21 +91,27 @@ export function TopBar() {
         </span>
       </button>
 
-      {/* Favorites strip — replaces the left panel */}
-      <div className="mx-1 hidden h-5 w-px shrink-0 bg-border sm:block" aria-hidden />
-      <TopNavStrip />
-
       {/* Draggable spacer — the breathing room in the middle */}
       <div data-tauri-drag-region className="h-full flex-1" />
 
       {/* Right cluster — open tool + account menu (theme + settings live inside it) */}
       <div className="flex shrink-0 items-center gap-2">
         <TooltipProvider delayDuration={300}>
-          <NavIcon
-            label="Open tool (⌘K)"
-            icon={Grid2x2Plus}
-            onClick={() => document.dispatchEvent(new CustomEvent('open-command-palette'))}
-          />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                onClick={() => document.dispatchEvent(new CustomEvent('open-command-palette'))}
+                aria-label="Open tool (⌘K)"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 hover:bg-foreground/[0.06] hover:text-foreground"
+              >
+                <Grid2x2Plus className="h-[17px] w-[17px]" strokeWidth={1.75} aria-hidden />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" sideOffset={8}>
+              Open tool (⌘K)
+            </TooltipContent>
+          </Tooltip>
         </TooltipProvider>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>

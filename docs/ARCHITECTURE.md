@@ -119,6 +119,6 @@ builds still hard-open them.
 ## Adding a tool
 
 See [CONTRIBUTING.md → Adding a new tool](../CONTRIBUTING.md#adding-a-new-tool):
-per-tool files plus six registries (`metadata.ts`, `route-config.ts`,
-`tab-registry.tsx`, `tool-categories.ts`, `tool-i18n.ts`, sidebar data) and
+per-tool files plus five registries (`metadata.ts`, `route-config.ts`,
+`tool-categories.ts`, `tool-i18n.ts`, sidebar data) and
 i18n keys in all 27 locales.

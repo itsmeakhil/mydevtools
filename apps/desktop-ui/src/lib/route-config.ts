@@ -59,12 +59,6 @@ export const routeConfig: Record<string, RouteConfig> = {
   '/app/jsonpath-playground': { title: "JSONPath Playground", icon: SearchCode, namespace: 'JsonpathPlayground' },
 }
 
-export const TAB_ENABLED_PREFIX = '/app/'
-
-export function isTabRoute(path: string): boolean {
-  return path.startsWith(TAB_ENABLED_PREFIX)
-}
-
 export function getRouteConfig(path: string): RouteConfig | undefined {
   // exact match first
   if (routeConfig[path]) return routeConfig[path]
