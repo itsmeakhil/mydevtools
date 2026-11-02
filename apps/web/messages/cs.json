@@ -10,20 +10,8 @@
     "nosqlExplorer": "Průzkumník databází",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Formátovač GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Generátor JSON schématu",
     "snippetManager": "Úryvky kódu",
-    "markdownPreview": "Náhled Markdown",
-    "formatConverter": "Převodník formátů",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Formátovač YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON diff",
-    "jsonpathPlayground": "JSONPath hřiště"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Nápověda a dokumentace",

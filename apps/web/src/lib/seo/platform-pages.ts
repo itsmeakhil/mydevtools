@@ -39,7 +39,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'The platform is organized around real engineering jobs instead of disconnected one-off utilities.',
         bullets: [
-          'Formatters and validators for JSON, SQL, GraphQL, YAML, Markdown, and more.',
+          'A JSON formatter and visualizer for everyday payloads.',
           'An API client for REST, GraphQL, WebSocket and gRPC, with a mock server and collection runner.',
           'Database clients for PostgreSQL, MySQL, MongoDB, Redis, Firestore and Elasticsearch, plus an S3 drive.',
         ],
@@ -121,7 +121,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
         body:
           'Local-first tools process your data on your machine, and sensitive records live in a local encrypted vault.',
         bullets: [
-          'Formatters, decoders, and diff tools run on-device with no server round-trip.',
+          'JSON tools run on-device with no server round-trip.',
           'Secrets and credentials are AES-256 encrypted in a local vault.',
           'Tools that reach a network only contact the destinations you choose.',
         ],
@@ -149,7 +149,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
       {
         title: 'What runs locally',
         body:
-          'Formatter, decoder, and diff workflows run directly on your device whenever the tool does not need a network service.',
+          'JSON formatting and visualization run directly on your device whenever the tool does not need a network service.',
         bullets: [
           'JSON formatting, validation, and similar operations avoid server round-trips.',
           'Tools that connect to external services, such as API or database clients, necessarily send requests to the targets you choose.',
@@ -210,7 +210,7 @@ export const platformSeoPages: PlatformSeoPage[] = [
       {
         title: 'Frontend developers',
         body:
-          'Quickly format payloads, decode tokens, preview Markdown, and test the APIs your UI calls.',
+          'Quickly format JSON payloads and test the APIs your UI calls.',
         bullets: [
           'Use the JSON formatter, visualizer, and API client from one place.',
           'Validate API payloads while building UI integrations.',

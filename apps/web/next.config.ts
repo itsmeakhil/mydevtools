@@ -28,6 +28,8 @@ const REMOVED_TOOL_SLUGS = [
   'curl-to-code', 'http-status-codes', 'dns-lookup', 'ip-subnet-calculator', 'user-agent-parser',
   'mime-type-lookup', 'websocket-tester', 'whois-lookup', 'webhook-tester',
   'jwt-decoder', 'certificate-pem-decoder', 'encryption-playground', 'bcrypt-generator', 'bookmarks',
+  'sql-formatter', 'graphql-formatter', 'yaml-formatter', 'format-converter', 'diff-checker', 'regex-tester',
+  'json-diff', 'jsonpath-playground', 'beautify-minify', 'json-schema-generator', 'json-to-code', 'markdown-preview-html',
 ];
 const REMOVED_BLOG_SLUGS = [
   'base64-encoding-explained', 'uuid-guide-generate-and-understand', 'cron-expression-syntax-guide',
@@ -48,11 +50,16 @@ const REMOVED_BLOG_SLUGS = [
   'minesweeper-game-online-classic', 'tetris-game-online-classic',
   'how-to-decode-a-jwt', 'decode-ssl-certificate-pem-online', 'bookmark-manager-for-developer-resources',
   'encrypt-decrypt-text-aes-gcm-online',
+  'how-to-format-sql-online',
+  'yaml-formatter-validator-online', 'format-converter-json-yaml-toml-xml', 'regex-lookahead-lookbehind-examples',
+  'graphql-formatter-minify-online', 'markdown-to-html-live-preview', 'json-schema-generator-type-models-online',
+  'text-diff-checker-side-by-side-compare',
 ];
 const REMOVED_COMPARE_SLUGS = [
   'uuid-generator-online', 'base64-encoder-decoder-online', 'hash-generator-online',
   'qr-code-generator-online', 'cyberchef-alternative',
   'mydevtools-vs-jwt-io',
+  'mydevtools-vs-regex101', 'online-diff-checker', 'mydevtools-vs-transform-tools',
 ];
 
 const nextConfig: NextConfig = {

@@ -10,20 +10,8 @@
     "nosqlExplorer": "Провідник баз даних",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Форматувач GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Генератор JSON-схеми",
     "snippetManager": "Фрагменти коду",
-    "markdownPreview": "Перегляд Markdown",
-    "formatConverter": "Конвертер форматів",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Форматувальник YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Порівняння JSON",
-    "jsonpathPlayground": "Пісочниця JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Довідка та документація",

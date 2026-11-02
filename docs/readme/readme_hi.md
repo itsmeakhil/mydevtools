@@ -103,7 +103,7 @@ Redis क्लाइंट, नोट्स, स्निपेट्स और
 
 | कैटेगरी | उदाहरण |
 |---|---|
-| 📝 **फ़ॉर्मेटर और वैलिडेटर** | JSON Formatter, JSON Visualizer, JSON Diff, JSON Schema Generator, JSON to Code, YAML Formatter, Format Converter (JSON / YAML / TOML / XML), SQL Formatter, GraphQL Formatter, Markdown Preview, Diff Checker, Regex Tester |
+| 📝 **फ़ॉर्मेटर और वैलिडेटर** | JSON Formatter, JSON Visualizer |
 | 🌐 **नेटवर्क और API** | API Client (कलेक्शन, एनवायरनमेंट, ऑथ, gRPC, mock server — ब्राउज़र वाली CORS पाबंदियों के बिना) |
 | 🗄️ **डेटाबेस और स्टोरेज क्लाइंट** | SQL Client (PostgreSQL, MySQL, MariaDB), Database Explorer (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — नेटिव Rust ड्राइवर, सीधे आपकी मशीन से आपके डेटाबेस तक |
 | 🔐 **सिक्योरिटी और क्रिप्टो** | Password Manager, Environment Manager |

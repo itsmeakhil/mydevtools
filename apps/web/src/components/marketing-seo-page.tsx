@@ -15,8 +15,7 @@ import { buildPlatformPageJsonLd } from '@/lib/seo/structured-data'
 const popularToolSlugs = [
   'json-formatter',
   'api-client',
-  'regex-tester',
-  'diff-checker',
+  'json-visualizer',
   'data-explorer',
   's3-drive',
 ]

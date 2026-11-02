@@ -103,7 +103,7 @@ SQL / MongoDB / Redis クライアント、ノート、スニペット、認証�
 
 | カテゴリ | 例 |
 |---|---|
-| 📝 **フォーマッター & バリデーター** | JSON フォーマッター、JSON Visualizer、JSON 差分、JSONスキーマジェネレーター、JSON to Code、YAMLフォーマッター、フォーマット変換（JSON / YAML / TOML / XML）、SQL Formatter、GraphQL フォーマッター、Markdownプレビュー、Diff checker、Regex Tester |
+| 📝 **フォーマッター & バリデーター** | JSON フォーマッター、JSON Visualizer |
 | 🌐 **ネットワーク & API** | APIクライアント（コレクション、環境、認証、gRPC、モックサーバー — ブラウザの CORS 制限なし） |
 | 🗄️ **データベース & ストレージクライアント** | SQL Client（PostgreSQL、MySQL、MariaDB）、データベースエクスプローラー（MongoDB）、Redis Commander、S3 Drive（AWS S3、DigitalOcean Spaces） — ネイティブ Rust ドライバーで、あなたのマシンからデータベースへ直接つながります |
 | 🔐 **セキュリティ & 暗号** | パスワードマネージャー、環境変数マネージャー |

@@ -9,23 +9,11 @@ export const toolCategoryMap: Record<string, string> = {
   'password-manager': 'Security',
   'json-formatter': 'Formatters',
   'json-visualizer': 'Formatters',
-  'json-schema-generator': 'Formatters',
-  'json-to-code': 'Formatters',
-  'beautify-minify': 'Formatters',
-  'sql-formatter': 'Formatters',
-  'graphql-formatter': 'Formatters',
-  'yaml-formatter': 'Formatters',
-  'markdown-preview-html': 'Formatters',
-  'format-converter': 'Formatters',
-  'diff-checker': 'Formatters',
-  'regex-tester': 'Formatters',
   'api-client': 'Network & API',
   'sql-client': 'Database',
   'database-explorer': 'Database',
   's3-drive': 'Database',
   'redis-commander': 'Database',
-  'json-diff': 'Formatters',
-  'jsonpath-playground': 'Formatters',
 }
 
 export const publicToolSlugs = Object.keys(toolsMetadata)

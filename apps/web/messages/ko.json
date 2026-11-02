@@ -10,20 +10,8 @@
     "nosqlExplorer": "데이터베이스 탐색기",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL 포매터",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON 스키마 생성기",
     "snippetManager": "코드 스니펫",
-    "markdownPreview": "마크다운 미리보기",
-    "formatConverter": "포맷 변환기",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "YAML 포매터",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON 비교",
-    "jsonpathPlayground": "JSONPath 플레이그라운드"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "도움말 및 문서",

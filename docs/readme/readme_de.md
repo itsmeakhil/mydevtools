@@ -103,7 +103,7 @@ Beschreibungen steht im [englischen README](../../README.md#-tools).
 
 | Kategorie | Beispiele |
 |---|---|
-| 📝 **Formatierer & Validatoren** | JSON-Formatierer, JSON Visualizer, JSON-Diff, JSON-Schema-Generator, JSON to Code, YAML-Formatierer, Format-Konverter (JSON / YAML / TOML / XML), SQL-Formatierer, GraphQL-Formatierer, Markdown-Vorschau, Textvergleich, Regex-Tester |
+| 📝 **Formatierer & Validatoren** | JSON-Formatierer, JSON Visualizer |
 | 🌐 **Netzwerk & API** | API-Client (Collections, Umgebungen, Auth, gRPC, Mock-Server — ohne CORS-Grenzen des Browsers) |
 | 🗄️ **Datenbank- & Storage-Clients** | SQL Client (PostgreSQL, MySQL, MariaDB), Datenbank-Explorer (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — native Rust-Treiber, direkt von deinem Rechner zu deiner Datenbank |
 | 🔐 **Sicherheit & Krypto** | Passwort-Manager, Umgebungs-Manager |
