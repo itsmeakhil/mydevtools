@@ -10,20 +10,8 @@
     "nosqlExplorer": "کاوشگر پایگاه داده",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "قالب‌بند GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "تولیدکنندهٔ طرح JSON",
     "snippetManager": "قطعه‌کدها",
-    "markdownPreview": "پیش‌نمایش Markdown",
-    "formatConverter": "مبدّل فرمت",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "قالب‌بندی YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "تفاوت JSON",
-    "jsonpathPlayground": "زمین بازی JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "راهنما و مستندات",

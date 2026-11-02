@@ -8,22 +8,10 @@
     "environmentManager": "Gestor de entornos",
     "emailValidator": "Validador de correo",
     "jsonFormatter": "Formateador JSON",
-    "sqlFormatter": "Formateador SQL",
-    "graphqlFormatter": "Formateador GraphQL",
-    "diffChecker": "Comparador de diferencias",
-    "regexTester": "Probador de expresiones regulares",
     "apiClient": "Cliente API",
     "nosqlExplorer": "Explorador de bases de datos",
-    "jsonSchemaGenerator": "Generador de esquema JSON",
     "snippetManager": "Fragmentos de código",
-    "markdownPreview": "Vista previa Markdown",
-    "formatConverter": "Conversor de formatos",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Formateador YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Diff JSON",
-    "jsonpathPlayground": "Playground JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Ayuda y documentación",

@@ -152,12 +152,10 @@ const capabilities = [
   {
     title: "Developer Utilities",
     icon: Braces,
-    blurb: "The everyday formatters, decoders and testers — offline.",
+    blurb: "JSON formatting and visualization — offline.",
     tools: [
       ["JSON Formatter", "json-formatter"],
-      ["YAML Formatter", "yaml-formatter"],
-      ["Regex Tester", "regex-tester"],
-      ["Diff Checker", "diff-checker"],
+      ["JSON Visualizer", "json-visualizer"],
     ],
   },
   {

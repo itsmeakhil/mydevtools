@@ -10,20 +10,8 @@
     "nosqlExplorer": "数据库浏览器",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL 格式化",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON 模式生成器",
     "snippetManager": "代码片段",
-    "markdownPreview": "Markdown 预览",
-    "formatConverter": "格式转换器",
-    "redisCommander": "Redis 指挥官",
-    "yamlFormatter": "YAML格式化工具",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON 对比",
-    "jsonpathPlayground": "JSONPath 沙盒"
+    "redisCommander": "Redis 指挥官"
   },
   "Help": {
     "title": "帮助与文档",

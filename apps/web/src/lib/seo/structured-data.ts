@@ -314,8 +314,7 @@ export function buildWebSiteGraphJsonLd(): Record<string, unknown> {
         featureList: [
           'Unified SQL + NoSQL (MongoDB) + Redis database client in one workspace',
           'API client for REST, GraphQL, WebSocket and gRPC with mock server and runner (Postman alternative)',
-          'JSON formatter, JSON visualizer, JSON schema generator',
-          'JSON diff, JSONPath, JSON to Code, diff checker, SQL/GraphQL/YAML formatters',
+          'JSON formatter and JSON visualizer',
           'S3 drive, environment manager, encrypted secure files',
           'Privacy-first architecture: local processing, AES-256 encryption',
           'Persistent storage: snippets, notes, tasks, password vault',

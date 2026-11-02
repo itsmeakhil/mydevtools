@@ -10,20 +10,8 @@
     "nosqlExplorer": "مستكشف قاعدة البيانات",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "منسّق GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "مولّد مخطط JSON",
     "snippetManager": "مقاطع الشيفرة",
-    "markdownPreview": "معاينة Markdown",
-    "formatConverter": "محوّل الصيغ",
-    "redisCommander": "منفّذ Redis",
-    "yamlFormatter": "منسق YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "مقارنة JSON",
-    "jsonpathPlayground": "ساحة JSONPath"
+    "redisCommander": "منفّذ Redis"
   },
   "Help": {
     "title": "المساعدة والتوثيق",

@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL-formaterer",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON-skjemagenerator",
     "snippetManager": "Kodeutdrag",
-    "markdownPreview": "Markdown-forhåndsvisning",
-    "formatConverter": "Formatkonverterer",
-    "yamlFormatter": "YAML-formaterer",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON-diff",
-    "jsonpathPlayground": "JSONPath-lekeplass",
     "secureFiles": "Filer"
   },
   "Help": {
@@ -341,57 +329,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "GraphQL-formaterer",
-        "description": "Formater GraphQL med syntaksutheving og en enkel spørringsbygger."
-      },
-      "yamlFormatter": {
-        "title": "YAML-formaterer",
-        "description": "Formater, valider og konverter YAML til JSON i nettleseren."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "JSON-skjemagenerator",
-        "description": "Utled et JSON-skjema og typede modeller fra eksempel-JSON."
-      },
       "snippetManager": {
         "title": "Kodeutdrag",
         "description": "Lagre utdrag med syntaksutheving, automatisk språkgjenkjenning og formatering."
-      },
-      "markdownPreview": {
-        "title": "Markdown-forhåndsvisning",
-        "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
-      },
-      "formatConverter": {
-        "title": "Formatkonverterer",
-        "description": "Konverter mellom JSON, YAML, TOML og XML i alle retninger. Alle 12 kombinasjoner støttes."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON-diff",
-        "description": "Semantisk, strukturbevisst sammenligning av to JSON-dokumenter."
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath-lekeplass",
-        "description": "Spør JSON med JSONPath eller JMESPath, og se resultater live."
       },
       "secureFiles": {
         "title": "Filer",
@@ -399,49 +339,7 @@
       }
     },
     "tabs": {
-      "apps": "Apper",
-      "analytics": "Analyse",
       "ui": "Grensesnitt"
-    },
-    "analytics": {
-      "title": "Dataene dine i et øyeblikk",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Kunne ikke laste analyse.",
-      "retry": "Prøv igjen",
-      "passwordEntries": "Passordoppføringer",
-      "tasksTotal": "Oppgaver",
-      "tasksCompleted": "Fullført",
-      "tasksOngoing": "Pågående",
-      "tasksNotStarted": "Ikke startet",
-      "projects": "Prosjekter",
-      "nosqlConnections": "DB-tilkoblinger",
-      "notes": "Notater",
-      "apiClientCollections": "API-samlinger",
-      "apiClientEnvironments": "API-miljøer",
-      "apiClientHistory": "API-historikkoppføringer",
-      "jsonFormatterDocuments": "JSON-formateringsdokumenter",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Kodeutdrag",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Grensesnittpreferanser",
@@ -2371,172 +2269,6 @@
     "toastRepaired": "JSON reparert",
     "toastRepairFailed": "Kunne ikke reparere JSON"
   },
-  "SqlFormatter": {
-    "title": "SQL-formatering",
-    "subtitle": "Formater SQL pent for MySQL, PostgreSQL og SQLite",
-    "dialectLabel": "Dialekt",
-    "keywordsLabel": "Nøkkelord",
-    "indentLabel": "Innrykk",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "STORE",
-      "lower": "små",
-      "preserve": "Behold"
-    },
-    "spaces": "{n} mellomrom",
-    "format": "Formater",
-    "clear": "Tøm",
-    "counter": "{current} / {max} tegn",
-    "inputPanel": "Inndata",
-    "formattedPanel": "Formatert",
-    "copy": "Kopier",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Klikk \"Formater\"…",
-    "errors": {
-      "tooLong": "Inndata er begrenset til {max} tegn.",
-      "couldNotFormat": "Kunne ikke formatere denne SQL-en."
-    }
-  },
-  "YamlFormatter": {
-    "title": "YAML-formatering",
-    "subtitle": "Formater, valider og konverter YAML",
-    "outputLabel": "Utdata",
-    "outputModes": {
-      "yaml": "YAML (formatert)",
-      "json": "JSON"
-    },
-    "indentLabel": "Innrykk",
-    "spaces": "{n} mellomrom",
-    "format": "Formater",
-    "clear": "Tøm",
-    "copy": "Kopier",
-    "counter": "{current} / {max} tegn",
-    "inputPanel": "Inndata",
-    "outputPanel": "Utdata",
-    "errors": {
-      "tooLong": "Inndata er begrenset til {max} tegn.",
-      "couldNotFormat": "Kunne ikke tolke denne YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "GraphQL-formatering",
-    "subtitle": "Formater queries, mutations og subscriptions",
-    "tabs": {
-      "format": "Formater",
-      "build": "Spørringsbygger"
-    },
-    "outputModeLabel": "Utdata",
-    "outputModes": {
-      "pretty": "Lesbar utskrift",
-      "minify": "Minifiser"
-    },
-    "format": "Formater",
-    "clear": "Tøm",
-    "counter": "{current} / {max} tegn",
-    "inputPanel": "Inndata",
-    "outputPanel": "Utdata",
-    "copy": "Kopier",
-    "builderHint": "Bygg et skjelett og bruk det i editoren. Variabeldefinisjoner i GraphQL-syntaks (f.eks. $id: ID!) — parenteser er valgfrie.",
-    "builder": {
-      "operation": "Operasjon",
-      "operationName": "Operasjonsnavn",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Variabeldefinisjoner",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Utvalg",
-      "apply": "Bruk på inndata",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Inndata er begrenset til {max} tegn.",
-      "couldNotFormat": "Kunne ikke parse eller skrive ut denne GraphQL.",
-      "emptySelection": "Legg til et utvalg før du bruker."
-    }
-  },
-  "RegexTester": {
-    "title": "Regex-tester",
-    "subtitle": "Test JavaScript-regex med treff uthevet live",
-    "patternLabel": "Mønster",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g global",
-      "i": "i ignorer store/små bokstaver",
-      "m": "m multiline",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(tom)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {treff} other {treff}}",
-    "testTextLabel": "Testtekst",
-    "counter": "{current} / {max}",
-    "clear": "Tøm",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Teksten er begrenset til {max} tegn.",
-      "invalid": "Ugyldig regulært uttrykk.",
-      "runaway": "Stoppet etter {max} treff (mulig løpsk mønster)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Diff-sjekker",
-    "subtitle": "Sammenlign to tekster side om side, linje for linje",
-    "rowsCount": "{count} rader",
-    "truncatedWarning": "Viser de første {max} radene.",
-    "limitExceeded": "Hver side er begrenset til {max} tegn.",
-    "clearBoth": "Tøm begge",
-    "original": "Original",
-    "modified": "Endret",
-    "originalPlaceholder": "Lim inn original tekst…",
-    "modifiedPlaceholder": "Lim inn endret tekst…",
-    "comparisonLabel": "Side-ved-side-sammenligning",
-    "emptyState": "Skriv inn tekst i begge paneler for å sammenligne."
-  },
-  "JsonSchemaGenerator": {
-    "title": "JSON Schema-generator",
-    "subtitle": "Generer JSON Schema eller typede modeller fra eksempel-JSON",
-    "languageLabel": "Utgangsspråk",
-    "inputLabel": "JSON-inndata",
-    "inputPlaceholder": "Lim inn JSON her…",
-    "outputLabel": "Generert utdata",
-    "outputPlaceholder": "Skjemaet eller de genererte typene vises her…",
-    "parseError": "Ugyldig JSON",
-    "clear": "Tøm",
-    "copy": "Kopier",
-    "copied": "Kopiert til utklippstavlen",
-    "copyFailed": "Kunne ikke kopiere",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON-skjema (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Laster inn redigeringsprogrammet…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Snippet-behandler",
     "subtitle": "Lagre, søk og formater kodesnutter — synk valgfritt",
@@ -2682,58 +2414,6 @@
       "toastRowsMatched": "{count} rader traff — ingenting ble endret, fordi filteret ikke er entydig."
     }
   },
-  "MarkdownPreview": {
-    "title": "Markdown-forhåndsvisning",
-    "subtitle": "Render Markdown live og konverter til eller fra HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Markdown-inndata",
-    "htmlInputLabel": "HTML-inndata",
-    "previewLabel": "Forhåndsvisning",
-    "htmlOutputLabel": "HTML-kilde",
-    "mdOutputLabel": "Markdown-utdata",
-    "inputPlaceholder": "# Hei\\n\\nSkriv inn **markdown** her…",
-    "htmlInputPlaceholder": "Lim inn HTML her…",
-    "copyHtml": "Kopier HTML",
-    "copyMarkdown": "Kopier Markdown",
-    "exportHtml": "Eksporter HTML",
-    "fileNameLabel": "Filnavn",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Lagret {name}",
-    "copied": "Kopiert",
-    "charCount": "{count, plural, one {# tegn} other {# tegn}}",
-    "emptyHint": "Begynn å skrive Markdown for å se live-forhåndsvisning og HTML-utdata.",
-    "emptyHintHtmlToMd": "Lim inn HTML for å konvertere det til Markdown.",
-    "securityNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
-  },
-  "FormatConverter": {
-    "title": "Formatkonverterer",
-    "subtitle": "Konverter JSON, YAML, TOML og XML i alle retninger",
-    "fromLabel": "Fra",
-    "toLabel": "Til",
-    "swap": "Bytt",
-    "swapTitle": "Bytt formater og bruk utdata som inndata",
-    "copy": "Kopier",
-    "copied": "Kopiert",
-    "charCount": "{count, plural, one {# tegn} other {# tegn}}",
-    "emptyHint": "Lim inn eller skriv inn inndataene dine til venstre for å se det konverterte utdataet.",
-    "localNote": "Alt kjører lokalt i nettleseren din. Ingenting lastes opp."
-  },
-  "JsonToCode": {
-    "title": "JSON til kode",
-    "subtitle": "Generer typede modeller fra en eksempel-JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "JSON-visualisering",
     "subtitle": "Utforsk JSON som en interaktiv nodegraf",
@@ -2766,98 +2446,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Beautify & minify",
-    "subtitle": "Forskjønn eller minifiser HTML, CSS, JavaScript, XML og JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON-diff",
-    "subtitle": "Sammenlign JSON strukturelt — nøkkelrekkefølge ignoreres",
-    "options": {
-      "ignoreArrayOrder": "Ignorer array-rekkefølge"
-    },
-    "loadBothSamples": "Last eksempler",
-    "sample": "Eksempel",
-    "format": "Formater",
-    "clear": "Tøm",
-    "formatError": "Kan ikke formatere: inndata er ikke gyldig JSON",
-    "placeholder": "Lim inn eller skriv JSON her…",
-    "panels": {
-      "left": "Original (venstre)",
-      "right": "Endret (høyre)",
-      "results": "Forskjeller"
-    },
-    "summary": {
-      "added": "{count} lagt til",
-      "removed": "{count} fjernet",
-      "changed": "{count} endret"
-    },
-    "types": {
-      "added": "Lagt til",
-      "removed": "Fjernet",
-      "changed": "Endret"
-    },
-    "copyChanges": "Kopier som JSON",
-    "copied": "Kopiert",
-    "empty": "Lim inn JSON i begge panelene for å se forskjellene deres.",
-    "identical": "De to dokumentene er semantisk identiske."
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPath-lekeplass",
-    "subtitle": "Spør JSON live med JSONPath eller JMESPath",
-    "engineLabel": "Motor",
-    "queryLabel": "Spørring",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Jukselapp",
-    "cheats": {
-      "jpAllTitles": "Alle boktitler",
-      "jpAllAuthors": "Hver forfatter, hvor som helst i dokumentet",
-      "jpFirstBook": "Første bok",
-      "jpLastBook": "Siste bok",
-      "jpSlice": "De to første bøkene (utsnitt)",
-      "jpFilterPrice": "Bøker billigere enn 40",
-      "jpFilterInStock": "Titler på bøker på lager",
-      "jpRecursive": "Alle verdier, rekursivt",
-      "jmAllTitles": "Alle boktitler",
-      "jmFirstAuthor": "Forfatter av den første boken",
-      "jmLastBook": "Siste bok",
-      "jmSlice": "De to første bøkene (utsnitt)",
-      "jmFilterPrice": "Titler på bøker billigere enn 40",
-      "jmCount": "Antall bøker på lager",
-      "jmProjection": "Omform hver bok til et nytt objekt",
-      "jmSort": "Titler sortert etter pris"
-    },
-    "panels": {
-      "input": "JSON-inndata",
-      "results": "Resultater"
-    },
-    "sample": "Eksempel",
-    "format": "Formater",
-    "clear": "Tøm",
-    "formatError": "Kan ikke formatere: inndata er ikke gyldig JSON",
-    "placeholder": "Lim inn eller skriv JSON her…",
-    "outputPlaceholder": "Treff vises her…",
-    "matchCount": "{count, plural, one {# treff} other {# treff}}",
-    "copy": "Kopier",
-    "copied": "Kopiert"
   },
   "WebhookTester": {
     "title": "Webhook-tester",

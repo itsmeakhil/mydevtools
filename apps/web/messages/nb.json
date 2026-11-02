@@ -10,20 +10,8 @@
     "nosqlExplorer": "Databaseutforsker",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL-formaterer",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON-skjemagenerator",
     "snippetManager": "Kodeutdrag",
-    "markdownPreview": "Markdown-forhåndsvisning",
-    "formatConverter": "Formatkonverterer",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "YAML-formaterer",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON-diff",
-    "jsonpathPlayground": "JSONPath-lekeplass"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",

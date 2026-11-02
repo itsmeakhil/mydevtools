@@ -173,5 +173,5 @@ export function categoryAccent(title: string): { bg: string; text: string } {
 export const POPULAR_TOOL_URLS = [
   '/app/json-formatter',
   '/app/api-client',
-  '/app/regex-tester',
+  '/app/data-explorer',
 ]
