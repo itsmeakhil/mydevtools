@@ -1,19 +1,19 @@
 import { toolsMetadata } from '@/lib/metadata'
 
 export const toolCategoryMap: Record<string, string> = {
+  'api-client': 'Network & API',
+  'data-explorer': 'Data & Storage',
+  's3-drive': 'Data & Storage',
+  'password-manager': 'Security',
+  'api-keys': 'Security',
+  'environment-manager': 'Security',
+  'secure-files': 'Security',
   notes: 'Productivity',
   'snippet-manager': 'Productivity',
   'to-do': 'Productivity',
-  'api-keys': 'Security',
-  'email-validator': 'Security',
-  'environment-manager': 'Security',
-  'password-manager': 'Security',
-  'secure-files': 'Security',
-  'json-formatter': 'Formatters',
-  'json-visualizer': 'Formatters',
-  'api-client': 'Network & API',
-  'data-explorer': 'Database',
-  's3-drive': 'Database',
+  'json-formatter': 'JSON',
+  'json-visualizer': 'JSON',
+  'email-validator': 'Utilities',
 }
 
 export const publicToolSlugs = Object.keys(toolsMetadata)

@@ -18,6 +18,8 @@ import {
   IconWand,
   IconNetwork,
   IconServer,
+  IconJson,
+  IconTool,
   IconCheck,
   IconArrowRight,
   IconLayout,
@@ -38,7 +40,9 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
   Security: IconShield,
   Formatters: IconBraces,
   "Network & API": IconNetwork,
-  Database: IconServer,
+  "Data & Storage": IconServer,
+  JSON: IconJson,
+  Utilities: IconTool,
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -46,7 +50,9 @@ const CATEGORY_COLORS: Record<string, string> = {
   Security: "from-green-500/20 to-green-600/10 border-green-500/30",
   Formatters: "from-blue-500/20 to-blue-600/10 border-blue-500/30",
   "Network & API": "from-orange-500/20 to-orange-600/10 border-orange-500/30",
-  Database: "from-red-500/20 to-red-600/10 border-red-500/30",
+  "Data & Storage": "from-red-500/20 to-red-600/10 border-red-500/30",
+  JSON: "from-amber-500/20 to-amber-600/10 border-amber-500/30",
+  Utilities: "from-cyan-500/20 to-cyan-600/10 border-cyan-500/30",
 }
 
 const CATEGORY_ICON_COLORS: Record<string, string> = {
@@ -54,7 +60,9 @@ const CATEGORY_ICON_COLORS: Record<string, string> = {
   Security: "text-green-400",
   Formatters: "text-blue-400",
   "Network & API": "text-orange-400",
-  Database: "text-red-400",
+  "Data & Storage": "text-red-400",
+  JSON: "text-amber-400",
+  Utilities: "text-cyan-400",
 }
 
 // ── Tour slides ───────────────────────────────────────────────────────────────

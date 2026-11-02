@@ -160,7 +160,9 @@ export const CATEGORY_ACCENT: Record<string, { bg: string; text: string }> = {
   Security: { bg: 'bg-red-500/10', text: 'text-red-600 dark:text-red-400' },
   Formatters: { bg: 'bg-emerald-500/10', text: 'text-emerald-600 dark:text-emerald-400' },
   'Network & API': { bg: 'bg-cyan-500/10', text: 'text-cyan-600 dark:text-cyan-400' },
-  Database: { bg: 'bg-orange-500/10', text: 'text-orange-600 dark:text-orange-400' },
+  'Data & Storage': { bg: 'bg-orange-500/10', text: 'text-orange-600 dark:text-orange-400' },
+  JSON: { bg: 'bg-amber-500/10', text: 'text-amber-600 dark:text-amber-400' },
+  Utilities: { bg: 'bg-violet-500/10', text: 'text-violet-600 dark:text-violet-400' },
 }
 
 export const DEFAULT_ACCENT = { bg: 'bg-primary/10', text: 'text-primary' }
