@@ -138,6 +138,27 @@
         "light": "Claro",
         "dark": "Escuro",
         "system": "Sistema"
+      },
+      "picker": {
+        "wheel": "Roda",
+        "sliders": "Controles deslizantes",
+        "hue": "Matiz",
+        "saturation": "Saturação",
+        "brightness": "Brilho",
+        "lightness": "Luminosidade",
+        "chroma": "Croma",
+        "hexValue": "Valor hex",
+        "copy": "Copiar valor hex",
+        "copied": "Copiado",
+        "revert": "Voltar à cor original",
+        "newColor": "Nova cor",
+        "onWhite": "Sobre branco",
+        "onBlack": "Sobre preto",
+        "aa": "AA aprovado",
+        "aaLarge": "AA grande",
+        "fail": "Reprovado",
+        "presets": "Predefinições",
+        "eyedropper": "Escolher uma cor da tela"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Mais seções",
     "sections": "Seções da barra lateral",
     "show": "Mostrar barra lateral",
-    "hide": "Ocultar barra lateral"
+    "hide": "Ocultar barra lateral",
+    "pin": "Fixar {tool}",
+    "unpin": "Desafixar {tool}"
   },
   "DesktopUpdate": {
     "title": "Atualizando o MyDevTools",

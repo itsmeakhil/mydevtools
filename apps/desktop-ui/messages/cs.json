@@ -138,6 +138,27 @@
         "light": "Světlý",
         "dark": "Tmavý",
         "system": "Podle systému"
+      },
+      "picker": {
+        "wheel": "Kolo",
+        "sliders": "Posuvníky",
+        "hue": "Odstín",
+        "saturation": "Sytost",
+        "brightness": "Jas",
+        "lightness": "Světlost",
+        "chroma": "Chroma",
+        "hexValue": "Hex hodnota",
+        "copy": "Kopírovat hex hodnotu",
+        "copied": "Zkopírováno",
+        "revert": "Vrátit původní barvu",
+        "newColor": "Nová barva",
+        "onWhite": "Na bílé",
+        "onBlack": "Na černé",
+        "aa": "AA vyhovuje",
+        "aaLarge": "AA velký",
+        "fail": "Nevyhovuje",
+        "presets": "Předvolby",
+        "eyedropper": "Vybrat barvu z obrazovky"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Další sekce",
     "sections": "Sekce postranního panelu",
     "show": "Zobrazit postranní panel",
-    "hide": "Skrýt postranní panel"
+    "hide": "Skrýt postranní panel",
+    "pin": "Připnout {tool}",
+    "unpin": "Odepnout {tool}"
   },
   "DesktopUpdate": {
     "title": "Aktualizace MyDevTools",

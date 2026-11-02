@@ -138,6 +138,27 @@
         "light": "فاتح",
         "dark": "داكن",
         "system": "النظام"
+      },
+      "picker": {
+        "wheel": "العجلة",
+        "sliders": "المنزلقات",
+        "hue": "تدرج اللون",
+        "saturation": "التشبع",
+        "brightness": "السطوع",
+        "lightness": "الإضاءة",
+        "chroma": "الصفاء",
+        "hexValue": "قيمة Hex",
+        "copy": "نسخ قيمة Hex",
+        "copied": "تم النسخ",
+        "revert": "العودة إلى اللون الأصلي",
+        "newColor": "اللون الجديد",
+        "onWhite": "على الأبيض",
+        "onBlack": "على الأسود",
+        "aa": "ناجح AA",
+        "aaLarge": "AA كبير",
+        "fail": "فشل",
+        "presets": "الإعدادات المسبقة",
+        "eyedropper": "اختيار لون من الشاشة"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "المزيد من الأقسام",
     "sections": "أقسام الشريط الجانبي",
     "show": "إظهار الشريط الجانبي",
-    "hide": "إخفاء الشريط الجانبي"
+    "hide": "إخفاء الشريط الجانبي",
+    "pin": "تثبيت {tool}",
+    "unpin": "إلغاء تثبيت {tool}"
   },
   "DesktopUpdate": {
     "title": "جارٍ تحديث MyDevTools",

@@ -138,6 +138,27 @@
         "light": "Licht",
         "dark": "Donker",
         "system": "Systeem"
+      },
+      "picker": {
+        "wheel": "Wiel",
+        "sliders": "Schuifregelaars",
+        "hue": "Tint",
+        "saturation": "Verzadiging",
+        "brightness": "Helderheid",
+        "lightness": "Lichtheid",
+        "chroma": "Chroma",
+        "hexValue": "Hex-waarde",
+        "copy": "Hex-waarde kopiëren",
+        "copied": "Gekopieerd",
+        "revert": "Terug naar oorspronkelijke kleur",
+        "newColor": "Nieuwe kleur",
+        "onWhite": "Op wit",
+        "onBlack": "Op zwart",
+        "aa": "AA geslaagd",
+        "aaLarge": "AA groot",
+        "fail": "Niet geslaagd",
+        "presets": "Voorinstellingen",
+        "eyedropper": "Kies een kleur van het scherm"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Meer secties",
     "sections": "Zijbalksecties",
     "show": "Zijbalk tonen",
-    "hide": "Zijbalk verbergen"
+    "hide": "Zijbalk verbergen",
+    "pin": "{tool} vastmaken",
+    "unpin": "{tool} losmaken"
   },
   "DesktopUpdate": {
     "title": "MyDevTools wordt bijgewerkt",

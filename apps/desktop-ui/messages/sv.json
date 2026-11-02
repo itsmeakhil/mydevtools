@@ -138,6 +138,27 @@
         "light": "Ljust",
         "dark": "Mörkt",
         "system": "System"
+      },
+      "picker": {
+        "wheel": "Hjul",
+        "sliders": "Reglage",
+        "hue": "Nyans",
+        "saturation": "Mättnad",
+        "brightness": "Ljusstyrka",
+        "lightness": "Ljushet",
+        "chroma": "Kroma",
+        "hexValue": "Hexvärde",
+        "copy": "Kopiera hexvärde",
+        "copied": "Kopierat",
+        "revert": "Återställ ursprunglig färg",
+        "newColor": "Ny färg",
+        "onWhite": "På vitt",
+        "onBlack": "På svart",
+        "aa": "AA godkänd",
+        "aaLarge": "AA stor",
+        "fail": "Underkänd",
+        "presets": "Förinställningar",
+        "eyedropper": "Välj en färg från skärmen"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Fler sektioner",
     "sections": "Sidopanelens sektioner",
     "show": "Visa sidopanel",
-    "hide": "Dölj sidopanel"
+    "hide": "Dölj sidopanel",
+    "pin": "Fäst {tool}",
+    "unpin": "Lossa {tool}"
   },
   "DesktopUpdate": {
     "title": "Uppdaterar MyDevTools",

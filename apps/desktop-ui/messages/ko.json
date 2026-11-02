@@ -138,6 +138,27 @@
         "light": "라이트",
         "dark": "다크",
         "system": "시스템"
+      },
+      "picker": {
+        "wheel": "휠",
+        "sliders": "슬라이더",
+        "hue": "색조",
+        "saturation": "채도",
+        "brightness": "밝기",
+        "lightness": "명도",
+        "chroma": "채도(C)",
+        "hexValue": "Hex 값",
+        "copy": "Hex 값 복사",
+        "copied": "복사됨",
+        "revert": "원래 색상으로 되돌리기",
+        "newColor": "새 색상",
+        "onWhite": "흰색 위",
+        "onBlack": "검은색 위",
+        "aa": "AA 통과",
+        "aaLarge": "AA 큰 글자",
+        "fail": "실패",
+        "presets": "프리셋",
+        "eyedropper": "화면에서 색상 선택"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "섹션 더 보기",
     "sections": "사이드바 섹션",
     "show": "사이드바 표시",
-    "hide": "사이드바 숨기기"
+    "hide": "사이드바 숨기기",
+    "pin": "{tool} 고정",
+    "unpin": "{tool} 고정 해제"
   },
   "DesktopUpdate": {
     "title": "MyDevTools 업데이트 중",

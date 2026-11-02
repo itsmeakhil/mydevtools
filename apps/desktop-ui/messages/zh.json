@@ -138,6 +138,27 @@
         "light": "浅色",
         "dark": "深色",
         "system": "跟随系统"
+      },
+      "picker": {
+        "wheel": "色轮",
+        "sliders": "滑块",
+        "hue": "色相",
+        "saturation": "饱和度",
+        "brightness": "亮度",
+        "lightness": "明度",
+        "chroma": "色度",
+        "hexValue": "十六进制值",
+        "copy": "复制十六进制值",
+        "copied": "已复制",
+        "revert": "恢复原始颜色",
+        "newColor": "新颜色",
+        "onWhite": "白底",
+        "onBlack": "黑底",
+        "aa": "AA 通过",
+        "aaLarge": "AA 大字",
+        "fail": "未通过",
+        "presets": "预设",
+        "eyedropper": "从屏幕取色"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "更多分区",
     "sections": "侧边栏分区",
     "show": "显示侧边栏",
-    "hide": "隐藏侧边栏"
+    "hide": "隐藏侧边栏",
+    "pin": "固定 {tool}",
+    "unpin": "取消固定 {tool}"
   },
   "DesktopUpdate": {
     "title": "正在更新 MyDevTools",

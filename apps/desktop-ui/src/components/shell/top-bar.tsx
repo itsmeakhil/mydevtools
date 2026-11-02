@@ -1,32 +1,20 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Settings, HelpCircle, Moon, Grid2x2Plus } from 'lucide-react'
-import { ModeToggle } from '@/components/modeToggle'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { useAppUser } from '@/hooks/use-app-user'
+import { AccountMenu } from '@/components/shell/account-menu'
 import { isDesktop } from '@/lib/desktop/is-desktop'
 import { cn } from '@/lib/utils'
 
 /**
- * Unified top bar above the app sidebar. Left: brand → dashboard. Right: ⌘K,
- * account menu (theme, settings, help). The wide middle is a drag region (empty by design — tool search
- * lives on the dashboard + the ⌘K palette). `data-tauri-drag-region` makes it
- * draggable once the OS title bar is turned off (traffic lights inset).
+ * Unified top bar above the app sidebar: brand → dashboard on the left; the
+ * account menu lives in the sidebar footer (here only on narrow windows).
+ * ⌘K stays a shortcut. The wide middle is a drag region —
+ * `data-tauri-drag-region` makes it draggable once the OS title bar is turned
+ * off (traffic lights inset).
  */
 export function TopBar() {
   const router = useRouter()
-  const user = useAppUser()
 
   // macOS traffic lights are inset into this bar (titleBarStyle: Overlay), so
   // reserve room for them on the left — but ONLY on macOS. titleBarStyle and
@@ -65,8 +53,8 @@ export function TopBar() {
     }
   }, [])
 
-  const displayName = user.name?.trim() || 'You'
-  const initial = displayName[0]!.toUpperCase()
+  // px-4 everywhere, except the macOS traffic-light inset when windowed.
+  const headerPadLeft = isMacDesktop && !isFullscreen ? 92 : 16
 
   return (
     <header
@@ -75,7 +63,7 @@ export function TopBar() {
         'flex h-14 w-full shrink-0 items-center gap-3 border-b border-border bg-[hsl(var(--surface-2))]',
         !isMacDesktop ? 'px-4' : 'pr-6',
       )}
-      style={isMacDesktop ? { paddingLeft: isFullscreen ? 16 : 92 } : undefined}
+      style={isMacDesktop ? { paddingLeft: headerPadLeft } : undefined}
     >
       {/* Brand → dashboard. Text wordmark in Courier Prime, no logo mark. */}
       <button
@@ -94,63 +82,10 @@ export function TopBar() {
       {/* Draggable spacer — the breathing room in the middle */}
       <div data-tauri-drag-region className="h-full flex-1" />
 
-      {/* Right cluster — open tool + account menu (theme + settings live inside it) */}
-      <div className="flex shrink-0 items-center gap-2">
-        <TooltipProvider delayDuration={300}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                type="button"
-                onClick={() => document.dispatchEvent(new CustomEvent('open-command-palette'))}
-                aria-label="Open tool (⌘K)"
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors duration-150 hover:bg-foreground/[0.06] hover:text-foreground"
-              >
-                <Grid2x2Plus className="h-[17px] w-[17px]" strokeWidth={1.75} aria-hidden />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" sideOffset={8}>
-              Open tool (⌘K)
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger asChild>
-            <button
-              className="ml-0.5 flex h-9 w-9 items-center justify-center rounded-full outline-none ring-offset-2 ring-offset-[hsl(var(--surface-2))] transition focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label="Account"
-            >
-              <Avatar className="h-8 w-8 border border-border">
-                {user.avatar ? <AvatarImage src={user.avatar} alt={displayName} /> : null}
-                <AvatarFallback className="bg-[hsl(var(--surface-3))] text-xs font-semibold text-foreground">
-                  {initial}
-                </AvatarFallback>
-              </Avatar>
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" sideOffset={8} className="w-56">
-            <div className="px-2 py-1.5">
-              <p className="truncate text-sm font-medium">{displayName}</p>
-            </div>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href="/settings" className="cursor-pointer gap-2.5">
-                <Settings className="h-4 w-4 text-muted-foreground" /> Settings
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/help" className="cursor-pointer gap-2.5">
-                <HelpCircle className="h-4 w-4 text-muted-foreground" /> Help
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <div className="flex items-center justify-between gap-2 px-2 py-1.5">
-              <span className="flex items-center gap-2.5 text-sm">
-                <Moon className="h-4 w-4 text-muted-foreground" /> Theme
-              </span>
-              <ModeToggle />
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
+      {/* Account menu lives in the sidebar footer; the sidebar is hidden below
+          md, so the avatar shows here only on narrow windows. */}
+      <div className="flex shrink-0 items-center md:hidden">
+        <AccountMenu variant="header" />
       </div>
     </header>
   )

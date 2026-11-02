@@ -138,6 +138,27 @@
         "light": "Cahaya",
         "dark": "Gelap",
         "system": "Sistem"
+      },
+      "picker": {
+        "wheel": "Roda",
+        "sliders": "Penggeser",
+        "hue": "Rona",
+        "saturation": "Saturasi",
+        "brightness": "Kecerahan",
+        "lightness": "Terang",
+        "chroma": "Kroma",
+        "hexValue": "Nilai hex",
+        "copy": "Salin nilai hex",
+        "copied": "Disalin",
+        "revert": "Kembali ke warna asli",
+        "newColor": "Warna baru",
+        "onWhite": "Di atas putih",
+        "onBlack": "Di atas hitam",
+        "aa": "Lulus AA",
+        "aaLarge": "AA Besar",
+        "fail": "Gagal",
+        "presets": "Preset",
+        "eyedropper": "Ambil warna dari layar"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Bagian lainnya",
     "sections": "Bagian bilah sisi",
     "show": "Tampilkan bilah sisi",
-    "hide": "Sembunyikan bilah sisi"
+    "hide": "Sembunyikan bilah sisi",
+    "pin": "Sematkan {tool}",
+    "unpin": "Lepas sematan {tool}"
   },
   "DesktopUpdate": {
     "title": "Memperbarui MyDevTools",

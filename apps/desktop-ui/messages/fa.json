@@ -138,6 +138,27 @@
         "light": "نور",
         "dark": "تاریک",
         "system": "سیستم"
+      },
+      "picker": {
+        "wheel": "چرخه",
+        "sliders": "لغزنده‌ها",
+        "hue": "فام",
+        "saturation": "اشباع",
+        "brightness": "روشنایی",
+        "lightness": "روشنی",
+        "chroma": "رنگ‌مایه",
+        "hexValue": "مقدار Hex",
+        "copy": "کپی مقدار Hex",
+        "copied": "کپی شد",
+        "revert": "بازگشت به رنگ اصلی",
+        "newColor": "رنگ جدید",
+        "onWhite": "روی سفید",
+        "onBlack": "روی سیاه",
+        "aa": "قبول AA",
+        "aaLarge": "AA بزرگ",
+        "fail": "رد",
+        "presets": "پیش‌تنظیم‌ها",
+        "eyedropper": "انتخاب رنگ از صفحه"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "بخش‌های بیشتر",
     "sections": "بخش‌های نوار کناری",
     "show": "نمایش نوار کناری",
-    "hide": "پنهان کردن نوار کناری"
+    "hide": "پنهان کردن نوار کناری",
+    "pin": "سنجاق کردن {tool}",
+    "unpin": "برداشتن سنجاق {tool}"
   },
   "DesktopUpdate": {
     "title": "در حال به‌روزرسانی MyDevTools",
