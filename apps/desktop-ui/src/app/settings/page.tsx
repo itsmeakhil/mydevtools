@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Sun, Moon, Monitor, Globe, Palette, Lock, Pipette, User, Archive } from 'lucide-react'
+import { Sun, Moon, Monitor, Globe, Palette, Lock, User, Archive } from 'lucide-react'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
@@ -12,12 +12,11 @@ import { Switch } from '@/components/ui/switch'
 import { getVaultIconsEnabled, setVaultIconsEnabled } from '@/lib/vault-icon-pref'
 import { getConsent, setConsent } from '@/lib/telemetry'
 import { useTheme } from 'next-themes'
-import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useColorTheme } from '@/hooks/use-color-theme'
-import { ACCENT_PRESETS, accentHex, isCustomAccent } from '@/lib/accent-color'
 import { ProfileCard } from '@/components/settings/profile-card'
+import { AccentColorPicker } from '@/components/settings/accent-color-picker'
 import { AppVersionLabel } from '@/components/desktop/app-version-label'
 import { FactoryResetCard } from '@/components/desktop/factory-reset-card'
 import { BackupRestoreCard } from '@/components/desktop/backup-restore-card'
@@ -53,7 +52,6 @@ export default function SettingsPage() {
     return null // Avoid hydration mismatch
   }
 
-  const customAccent = isCustomAccent(colorTheme)
 
   const handleLanguageChange = (value: string) => {
     document.cookie = `NEXT_LOCALE=${value}; path=/; max-age=31536000; SameSite=Lax`
@@ -151,63 +149,12 @@ export default function SettingsPage() {
                   <Label>{t('appearance.accentColor')}</Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  {/* Trigger is w-full by default: flex-1 keeps it from squeezing the
-                      picker swatch out of the row. */}
-                  <Select value={colorTheme} onValueChange={setColorTheme}>
-                    <SelectTrigger className="flex-1 min-w-0">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="rounded-lg">
-                      {/* Custom picks are not in the preset list; keep one item so the
-                          trigger can render the active hex. */}
-                      {customAccent ? (
-                        <SelectItem value={colorTheme}>
-                          <span
-                            className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-inset ring-black/10"
-                            style={{ backgroundColor: accentHex(colorTheme) }}
-                          />
-                          <span className="font-mono">{accentHex(colorTheme)}</span>
-                        </SelectItem>
-                      ) : null}
-                      {ACCENT_PRESETS.map(({ id, name, hex }) => (
-                        <SelectItem key={id} value={id}>
-                          <span
-                            className="h-3.5 w-3.5 shrink-0 rounded-full ring-1 ring-inset ring-black/10"
-                            style={{ backgroundColor: hex }}
-                          />
-                          {name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
 
-                  {/* Native picker: no dependency, and the OS eyedropper comes free. */}
-                  <label
-                    className="relative flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-input shadow-sm transition-colors hover:border-border"
-                    title={t('appearance.customColor')}
-                  >
-                    <span
-                      className="absolute inset-0"
-                      style={{
-                        background: customAccent
-                          ? accentHex(colorTheme)
-                          : 'conic-gradient(#ef4444,#eab308,#22c55e,#06b6d4,#6366f1,#d946ef,#ef4444)',
-                      }}
-                    />
-                    <Pipette
-                      className={cn(
-                        'relative h-4 w-4 drop-shadow-sm',
-                        customAccent ? 'text-primary-foreground' : 'text-white'
-                      )}
-                    />
-                    <input
-                      type="color"
-                      value={accentHex(colorTheme)}
-                      onChange={(event) => setColorTheme(event.target.value)}
-                      className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                      aria-label={t('appearance.customColor')}
-                    />
-                  </label>
+                  <AccentColorPicker
+                    colorTheme={colorTheme}
+                    onChange={setColorTheme}
+                    label={t('appearance.customColor')}
+                  />
                 </div>
               </div>
 
