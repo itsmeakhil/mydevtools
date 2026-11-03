@@ -181,6 +181,10 @@ function TabBar({ project }: { project: TerminalProject }) {
   )
 }
 
+/** Leave typing in other fields (tab rename, dialogs, ⌘K palette) and open dialogs alone. */
+const shortcutsBlocked = (el: HTMLElement | null) =>
+  isForeignEditable(el) || !!document.querySelector('[role="dialog"], [role="alertdialog"]')
+
 function Empty({ message, action, onAction, icon: Icon }: { message: string; action: string; onAction: () => void; icon: React.ElementType }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
@@ -235,6 +239,7 @@ export function TerminalLayout() {
     let unlisten: (() => void) | undefined
     let gone = false
     onClosePane(({ id }) => {
+      if (shortcutsBlocked(document.activeElement as HTMLElement | null)) return
       if (visibleLeaves().includes(id)) S().closeTerminal(id)
     })
       .then((u) => (gone ? u() : (unlisten = u)))
@@ -251,9 +256,7 @@ export function TerminalLayout() {
     const onKey = (e: KeyboardEvent) => {
       const action = matchShortcut(e)
       if (!action) return
-      // Leave typing in other fields (tab rename, dialogs, ⌘K palette) alone.
-      if (isForeignEditable(e.target as HTMLElement | null)) return
-      if (document.querySelector('[role="dialog"], [role="alertdialog"]')) return
+      if (shortcutsBlocked(e.target as HTMLElement | null)) return
       e.preventDefault()
       e.stopPropagation()
       if (e.repeat) return // holding ⌘D must not split repeatedly
