@@ -63,7 +63,10 @@ impl StatusMap {
     }
 
     pub fn waiting_count(&self) -> usize {
-        self.0.values().filter(|s| **s == TermStatus::Waiting).count()
+        self.0
+            .values()
+            .filter(|s| **s == TermStatus::Waiting)
+            .count()
     }
 
     pub fn snapshot(&self) -> HashMap<String, TermStatus> {
@@ -80,47 +83,82 @@ pub fn socket_path(data_dir: &Path, uid: u32) -> PathBuf {
     PathBuf::from(format!("/tmp/mdt-{uid}")).join("hooks.sock")
 }
 
+/// Create `dir` if needed and require it to be ours and 0700 (it may be a shared /tmp path).
 #[cfg(unix)]
-pub async fn serve(path: PathBuf, token: String, on_msg: impl Fn(HookMsg) + Send + Sync + 'static) {
+fn ensure_private_dir(dir: &Path, uid: u32) -> Result<(), String> {
+    use std::os::unix::fs::{MetadataExt, PermissionsExt};
+    std::fs::create_dir_all(dir).map_err(|e| format!("create {}: {e}", dir.display()))?;
+    let meta = std::fs::metadata(dir).map_err(|e| e.to_string())?;
+    if meta.uid() != uid {
+        return Err(format!("{} is not owned by uid {uid}", dir.display()));
+    }
+    if meta.mode() & 0o777 != 0o700 {
+        std::fs::set_permissions(dir, std::fs::Permissions::from_mode(0o700))
+            .map_err(|e| format!("chmod {}: {e}", dir.display()))?;
+    }
+    Ok(())
+}
+
+#[cfg(unix)]
+pub async fn serve(
+    path: PathBuf,
+    token: String,
+    on_msg: impl Fn(HookMsg) + Send + Sync + 'static,
+) -> Result<(), String> {
     use std::os::unix::fs::PermissionsExt;
-    use tokio::io::{AsyncBufReadExt, BufReader};
+    use std::time::Duration;
+    use tokio::io::{AsyncBufReadExt, AsyncReadExt, BufReader};
     use tokio::net::UnixListener;
 
     if let Some(dir) = path.parent() {
-        let _ = std::fs::create_dir_all(dir);
-        let _ = std::fs::set_permissions(dir, std::fs::Permissions::from_mode(0o700));
+        ensure_private_dir(dir, unsafe { libc::getuid() })?;
     }
     let _ = std::fs::remove_file(&path);
-    let listener = match UnixListener::bind(&path) {
-        Ok(l) => l,
-        Err(e) => {
-            eprintln!("terminal hook socket bind failed: {e}");
-            return;
-        }
-    };
-    let _ = std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o600));
+    let listener =
+        UnixListener::bind(&path).map_err(|e| format!("bind {}: {e}", path.display()))?;
+    std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o600))
+        .map_err(|e| format!("chmod socket: {e}"))?;
     let on_msg = Arc::new(on_msg);
     let token = Arc::new(token);
     loop {
-        let Ok((stream, _)) = listener.accept().await else { continue };
+        let stream = match listener.accept().await {
+            Ok((s, _)) => s,
+            Err(e) => {
+                eprintln!("terminal hook accept failed: {e}");
+                tokio::time::sleep(Duration::from_millis(50)).await;
+                continue;
+            }
+        };
         let (on_msg, token) = (on_msg.clone(), token.clone());
         tokio::spawn(async move {
-            // lines() yields a final unterminated line too
-            let mut lines = BufReader::new(stream).lines();
-            while let Ok(Some(line)) = lines.next_line().await {
-                if let Some(m) = parse_line(&line, &token) {
-                    on_msg(m);
+            // Bounded: 64 KiB and 5 s per connection; lines() yields a final unterminated line too.
+            let read = async {
+                let mut lines = BufReader::new(stream.take(64 * 1024)).lines();
+                while let Ok(Some(line)) = lines.next_line().await {
+                    if let Some(m) = parse_line(&line, &token) {
+                        on_msg(m);
+                    }
                 }
-            }
+            };
+            let _ = tokio::time::timeout(Duration::from_secs(5), read).await;
         });
     }
 }
 
 #[cfg(not(unix))]
-pub async fn serve(_: PathBuf, _: String, _: impl Fn(HookMsg) + Send + Sync + 'static) {}
+pub async fn serve(
+    _: PathBuf,
+    _: String,
+    _: impl Fn(HookMsg) + Send + Sync + 'static,
+) -> Result<(), String> {
+    Ok(())
+}
 
 fn emit_status(app: &AppHandle, id: &str, status: TermStatus, message: Option<&str>) {
-    let _ = app.emit("terminal://status", json!({"id": id, "status": status, "message": message}));
+    let _ = app.emit(
+        "terminal://status",
+        json!({"id": id, "status": status, "message": message}),
+    );
 }
 
 /// Spawn the hook server for this launch (call from `setup`).
@@ -130,17 +168,25 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) {
     #[cfg(not(unix))]
     let uid = 0;
     let (path, token, app) = (socket_path(data_dir, uid), state.token.clone(), app.clone());
-    tauri::async_runtime::spawn(serve(path, token, move |m| {
-        let Some(s) = status_for(&m.event) else { return };
-        let t = state.statuses.lock().unwrap().apply(&m.terminal_id, s);
-        if let Some(t) = t {
-            let msg = (m.event == "claude-Notification")
-                .then(|| m.payload.get("message").and_then(Value::as_str))
-                .flatten();
-            emit_status(&app, &t.id, t.status, msg);
-            notify::on_transition(&t, &app);
+    tauri::async_runtime::spawn(async move {
+        let r = serve(path, token, move |m| {
+            let Some(s) = status_for(&m.event) else {
+                return;
+            };
+            let t = state.statuses.lock().unwrap().apply(&m.terminal_id, s);
+            if let Some(t) = t {
+                let msg = (m.event == "claude-Notification")
+                    .then(|| m.payload.get("message").and_then(Value::as_str))
+                    .flatten();
+                emit_status(&app, &t.id, t.status, msg);
+                notify::on_transition(&t, &app);
+            }
+        })
+        .await;
+        if let Err(e) = r {
+            eprintln!("terminal hook server disabled: {e}");
         }
-    }));
+    });
 }
 
 #[tauri::command]
@@ -161,7 +207,8 @@ mod tests {
     use super::*;
 
     fn line(token: &str) -> String {
-        json!({"token": token, "terminal_id": "t1", "event": "shell-prompt", "payload": {}}).to_string()
+        json!({"token": token, "terminal_id": "t1", "event": "shell-prompt", "payload": {}})
+            .to_string()
     }
 
     #[test]
@@ -173,7 +220,10 @@ mod tests {
     #[test]
     fn parse_line_accepts_valid() {
         let m = parse_line(&line("good"), "good").unwrap();
-        assert_eq!((m.terminal_id.as_str(), m.event.as_str()), ("t1", "shell-prompt"));
+        assert_eq!(
+            (m.terminal_id.as_str(), m.event.as_str()),
+            ("t1", "shell-prompt")
+        );
     }
 
     #[test]
@@ -210,9 +260,15 @@ mod tests {
     #[test]
     fn socket_path_falls_back_when_too_long() {
         let long = PathBuf::from("a".repeat(120));
-        assert_eq!(socket_path(&long, 501), PathBuf::from("/tmp/mdt-501/hooks.sock"));
+        assert_eq!(
+            socket_path(&long, 501),
+            PathBuf::from("/tmp/mdt-501/hooks.sock")
+        );
         let short = PathBuf::from("/d");
-        assert_eq!(socket_path(&short, 501), PathBuf::from("/d/terminal/hooks.sock"));
+        assert_eq!(
+            socket_path(&short, 501),
+            PathBuf::from("/d/terminal/hooks.sock")
+        );
     }
 
     #[cfg(unix)]
@@ -236,8 +292,62 @@ mod tests {
         // no trailing newline: must still be parsed at EOF
         stream.write_all(line("tok").as_bytes()).await.unwrap();
         drop(stream);
-        let ev = tokio::time::timeout(std::time::Duration::from_secs(1), rx.recv()).await.unwrap();
+        let ev = tokio::time::timeout(std::time::Duration::from_secs(1), rx.recv())
+            .await
+            .unwrap();
         assert_eq!(ev.as_deref(), Some("shell-prompt"));
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[cfg(unix)]
+    #[tokio::test]
+    async fn oversized_and_idle_clients_do_not_stall_server() {
+        use tokio::io::AsyncWriteExt;
+        let dir = std::env::temp_dir().join(format!("mdt-test-big-{}", std::process::id()));
+        let path = dir.join("h.sock");
+        let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(serve(path.clone(), "tok".into(), move |m| {
+            let _ = tx.send(m.event);
+        }));
+        let connect = || async {
+            loop {
+                if let Ok(s) = tokio::net::UnixStream::connect(&path).await {
+                    break s;
+                }
+                tokio::time::sleep(std::time::Duration::from_millis(20)).await;
+            }
+        };
+        let mut big = connect().await;
+        let _ = big.write_all(&vec![b'x'; 256 * 1024]).await; // no newline
+        let _idle = connect().await; // held open, silent
+        let mut ok = connect().await;
+        ok.write_all(line("tok").as_bytes()).await.unwrap();
+        drop(ok);
+        let ev = tokio::time::timeout(std::time::Duration::from_secs(1), rx.recv())
+            .await
+            .unwrap();
+        assert_eq!(ev.as_deref(), Some("shell-prompt"));
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn ensure_private_dir_checks_owner_and_mode() {
+        use std::os::unix::fs::PermissionsExt;
+        let dir = std::env::temp_dir().join(format!("mdt-test-dir-{}", std::process::id()));
+        let uid = unsafe { libc::getuid() };
+        ensure_private_dir(&dir, uid).unwrap();
+        assert_eq!(
+            std::fs::metadata(&dir).unwrap().permissions().mode() & 0o777,
+            0o700
+        );
+        std::fs::set_permissions(&dir, std::fs::Permissions::from_mode(0o755)).unwrap();
+        ensure_private_dir(&dir, uid).unwrap(); // chmods back
+        assert_eq!(
+            std::fs::metadata(&dir).unwrap().permissions().mode() & 0o777,
+            0o700
+        );
+        assert!(ensure_private_dir(&dir, uid + 1).is_err());
         let _ = std::fs::remove_dir_all(&dir);
     }
 }
