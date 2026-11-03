@@ -244,6 +244,10 @@ impl TerminalState {
         Ok(SpawnResult { id: req.id, cwd, cwd_fallback })
     }
 
+    pub fn is_live(&self, id: &str) -> bool {
+        self.sessions.get(id).is_some_and(|s| !s.exited())
+    }
+
     pub fn live_count(&self) -> usize {
         self.sessions.iter().filter(|s| !s.exited()).count()
     }

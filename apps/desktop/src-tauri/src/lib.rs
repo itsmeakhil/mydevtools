@@ -189,16 +189,13 @@ pub fn run() {
             terminal::git::terminal_git_info,
             terminal::notify::terminal_set_viewing,
             terminal::notify::terminal_set_strings,
-            terminal::notify::app_quit_confirmed
+            terminal::notify::app_quit_confirmed,
+            terminal::notify::app_quit_cancelled
         ]);
     #[cfg(target_os = "macos")]
     let builder = builder
         .menu(terminal::notify::app_menu)
-        .on_menu_event(|app, e| {
-            if e.id() == terminal::notify::QUIT_MENU_ID {
-                app.exit(0); // → RunEvent::ExitRequested → confirm-quit check
-            }
-        });
+        .on_menu_event(terminal::notify::on_menu_event);
     builder
         .build(tauri::generate_context!())
         .expect("error while building tauri application")

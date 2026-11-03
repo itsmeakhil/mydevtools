@@ -108,6 +108,14 @@ impl StatusMap {
     }
 }
 
+/// Apply a hook event only while its terminal has a live session: backgrounded hooks
+/// of a killed/exited pane can arrive after `remove` and would resurrect its status.
+/// Checked under the statuses lock; `forget` runs after exit is marked, so no race.
+pub fn apply_if_live(state: &TerminalState, m: &HookMsg) -> Option<Transition> {
+    let mut statuses = state.statuses.lock().unwrap();
+    state.is_live(&m.terminal_id).then(|| statuses.apply_event(m))?
+}
+
 /// AF_UNIX paths are capped (~104 bytes on macOS); fall back to a short /tmp dir.
 pub fn socket_path(data_dir: &Path, uid: u32) -> PathBuf {
     let p = data_dir.join("terminal").join("hooks.sock");
@@ -207,7 +215,7 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) -> Pat
     let ret = path.clone();
     tauri::async_runtime::spawn(async move {
         let r = serve(path, token, move |m| {
-            let t = state.statuses.lock().unwrap().apply_event(&m);
+            let t = apply_if_live(&state, &m);
             if let Some(t) = t {
                 let msg = (m.event == "claude-Notification")
                     .then(|| m.payload.get("message").and_then(Value::as_str))
@@ -328,6 +336,34 @@ mod tests {
         m.apply_event(&ev(5));
         m.remove("a");
         assert!(m.apply_event(&ev(1)).is_some()); // seq memory forgotten
+    }
+
+    #[test]
+    fn events_for_dead_terminals_are_dropped() {
+        let st = TerminalState::default();
+        let msg = |id: &str| HookMsg {
+            token: "tok".into(),
+            terminal_id: id.into(),
+            event: "claude-Notification".into(),
+            payload: json!({}),
+        };
+        st.statuses.lock().unwrap().apply("a", TermStatus::Waiting);
+        st.statuses.lock().unwrap().remove("a");
+        assert!(apply_if_live(&st, &msg("a")).is_none());
+        assert_eq!(st.statuses.lock().unwrap().waiting_count(), 0);
+        let req = crate::terminal::pty::SpawnRequest {
+            id: "b".into(),
+            cwd: "/tmp".into(),
+            cols: 80,
+            rows: 24,
+            project_name: "p".into(),
+        };
+        st.spawn(req, vec![], vec!["/bin/sh".into(), "-c".into(), "sleep 5".into()]).unwrap();
+        assert!(apply_if_live(&st, &msg("b")).unwrap().entered_waiting);
+        st.kill_all();
+        st.statuses.lock().unwrap().remove("b");
+        assert!(apply_if_live(&st, &msg("b")).is_none());
+        assert_eq!(st.statuses.lock().unwrap().waiting_count(), 0);
     }
 
     #[test]
