@@ -13,6 +13,7 @@
     "opener:default",
     "updater:default",
     "process:default",
+    "notification:default",
     "dialog:default",
     "fs:allow-read-text-file",
     "fs:allow-write-text-file",

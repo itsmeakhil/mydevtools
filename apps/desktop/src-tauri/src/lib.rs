@@ -94,7 +94,7 @@ fn secure_file_read(state: tauri::State<'_, AppState>, id: String) -> Result<tau
 }
 
 pub fn run() {
-    tauri::Builder::default()
+    let builder = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         // Folder-collection dirs picked via the dialog are added to the fs scope
@@ -112,6 +112,7 @@ pub fn run() {
         )
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_notification::init())
         .setup(|app| {
             let dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&dir)?;
@@ -120,6 +121,12 @@ pub fn run() {
             app.manage(state);
             let term = std::sync::Arc::new(terminal::pty::TerminalState::default());
             app.manage(term.clone());
+            app.manage(terminal::notify::Ui::default());
+            terminal::notify::init(app.handle());
+            let handle = app.handle().clone();
+            let _ = term.on_exit.set(std::sync::Arc::new(move |id: &str| {
+                terminal::notify::forget(&handle, id)
+            }));
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
             // the binary (target/<profile>/resources), which resource_dir() resolves to.
@@ -179,8 +186,21 @@ pub fn run() {
             terminal::pty::terminal_kill,
             terminal::hooks::terminal_statuses,
             terminal::hooks::terminal_clear_waiting,
-            terminal::git::terminal_git_info
-        ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+            terminal::git::terminal_git_info,
+            terminal::notify::terminal_set_viewing,
+            terminal::notify::terminal_set_strings,
+            terminal::notify::app_quit_confirmed
+        ]);
+    #[cfg(target_os = "macos")]
+    let builder = builder
+        .menu(terminal::notify::app_menu)
+        .on_menu_event(|app, e| {
+            if e.id() == terminal::notify::QUIT_MENU_ID {
+                app.exit(0); // → RunEvent::ExitRequested → confirm-quit check
+            }
+        });
+    builder
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|app, event| terminal::notify::on_run_event(app, &event));
 }

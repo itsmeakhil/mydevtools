@@ -65,7 +65,6 @@ struct Inner {
 }
 
 pub struct Session {
-    #[allow(dead_code)] // read by Task 6 notification titles
     pub project_name: String,
     cwd: String,
     cwd_fallback: bool,
@@ -86,7 +85,6 @@ impl Session {
         self.inner.lock().unwrap().scrollback.snapshot()
     }
 
-    #[allow(dead_code)] // Task 6
     fn exited(&self) -> bool {
         self.inner.lock().unwrap().exit.is_some()
     }
@@ -153,6 +151,8 @@ pub struct TerminalState {
     pub statuses: Mutex<super::hooks::StatusMap>,
     /// Set once in `setup`; unset (e.g. in tests) → plain login shell.
     pub launch: std::sync::OnceLock<super::env::Launch>,
+    /// Set once in `setup`; called with the terminal id when a session's process exits.
+    pub on_exit: std::sync::OnceLock<Arc<dyn Fn(&str) + Send + Sync>>,
 }
 
 impl Default for TerminalState {
@@ -164,6 +164,7 @@ impl Default for TerminalState {
             token: b.iter().map(|x| format!("{x:02x}")).collect(),
             statuses: Mutex::default(),
             launch: std::sync::OnceLock::new(),
+            on_exit: std::sync::OnceLock::new(),
         }
     }
 }
@@ -217,6 +218,7 @@ impl TerminalState {
         });
 
         let s = session.clone();
+        let (id, on_exit) = (req.id.clone(), self.on_exit.get().cloned());
         std::thread::spawn(move || {
             let mut buf = [0u8; 8192];
             loop {
@@ -233,20 +235,22 @@ impl TerminalState {
             }
             let code = child.wait().ok().map(|st| st.exit_code() as i32);
             s.mark_exit(code);
+            if let Some(f) = on_exit {
+                f(&id);
+            }
         });
 
         self.sessions.insert(req.id.clone(), session);
         Ok(SpawnResult { id: req.id, cwd, cwd_fallback })
     }
 
-    #[allow(dead_code)] // Task 6
     pub fn live_count(&self) -> usize {
         self.sessions.iter().filter(|s| !s.exited()).count()
     }
 
-    #[allow(dead_code)] // Task 6
     pub fn kill_all(&self) {
-        for s in self.sessions.iter() {
+        // Skip exited sessions: their pid (= pgid) may already be recycled.
+        for s in self.sessions.iter().filter(|s| !s.exited()) {
             s.kill();
         }
     }
@@ -288,10 +292,15 @@ pub async fn terminal_resize(state: tauri::State<'_, Arc<TerminalState>>, id: St
 }
 
 #[tauri::command]
-pub async fn terminal_kill(state: tauri::State<'_, Arc<TerminalState>>, id: String) -> Result<(), String> {
+pub async fn terminal_kill(
+    app: tauri::AppHandle,
+    state: tauri::State<'_, Arc<TerminalState>>,
+    id: String,
+) -> Result<(), String> {
     if let Some((_, s)) = state.sessions.remove(&id) {
         s.kill();
     }
+    super::notify::forget(&app, &id);
     Ok(())
 }
 
@@ -352,6 +361,18 @@ mod tests {
         assert_eq!(st.live_count(), 1);
         st.kill_all();
         assert!(wait_for(|| st.live_count() == 0, 1));
+    }
+
+    #[test]
+    fn on_exit_hook_fires_with_id() {
+        let st = TerminalState::default();
+        let (tx, rx) = std::sync::mpsc::channel();
+        let tx = Mutex::new(tx);
+        let _ = st.on_exit.set(Arc::new(move |id: &str| {
+            let _ = tx.lock().unwrap().send(id.to_string());
+        }));
+        st.spawn(req("e", "/tmp"), vec![], sh("true")).unwrap();
+        assert_eq!(rx.recv_timeout(Duration::from_secs(2)).unwrap(), "e");
     }
 
     #[cfg(unix)]

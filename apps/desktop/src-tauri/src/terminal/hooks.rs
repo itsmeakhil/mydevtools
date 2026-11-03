@@ -50,7 +50,7 @@ pub struct StatusMap {
     status: HashMap<String, TermStatus>,
     /// Last `seq` per (terminal, shell pid): shell-* hooks are backgrounded, so
     /// separate connections can arrive out of order.
-    // ponytail: never pruned; one entry per shell started, cleared with the app.
+    /// Pruned per terminal by `remove`.
     shell_seq: HashMap<(String, u64), u64>,
 }
 
@@ -84,6 +84,16 @@ impl StatusMap {
 
     pub fn clear_waiting(&mut self, id: &str) -> Option<Transition> {
         (self.status.get(id) == Some(&TermStatus::Waiting)).then(|| self.apply(id, TermStatus::Idle))?
+    }
+
+    /// Forget a terminal that was killed or exited; `Some` (as Idle) if it had a status.
+    pub fn remove(&mut self, id: &str) -> Option<Transition> {
+        self.shell_seq.retain(|(t, _), _| t != id);
+        self.status.remove(id).map(|_| Transition {
+            id: id.to_string(),
+            status: TermStatus::Idle,
+            entered_waiting: false,
+        })
     }
 
     pub fn waiting_count(&self) -> usize {
@@ -178,11 +188,13 @@ pub async fn serve(
     Ok(())
 }
 
-fn emit_status(app: &AppHandle, id: &str, status: TermStatus, message: Option<&str>) {
+/// Emit `terminal://status` and update badge/notification for a transition.
+pub fn publish(app: &AppHandle, t: &Transition, message: Option<&str>) {
     let _ = app.emit(
         "terminal://status",
-        json!({"id": id, "status": status, "message": message}),
+        json!({"id": t.id, "status": t.status, "message": message}),
     );
+    notify::on_transition(t, message, app);
 }
 
 /// Spawn the hook server for this launch (call from `setup`); returns the socket path.
@@ -200,8 +212,7 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) -> Pat
                 let msg = (m.event == "claude-Notification")
                     .then(|| m.payload.get("message").and_then(Value::as_str))
                     .flatten();
-                emit_status(&app, &t.id, t.status, msg);
-                notify::on_transition(&t, &app);
+                publish(&app, &t, msg);
             }
         })
         .await;
@@ -221,7 +232,7 @@ pub fn terminal_statuses(state: State<'_, Arc<TerminalState>>) -> HashMap<String
 pub fn terminal_clear_waiting(app: AppHandle, state: State<'_, Arc<TerminalState>>, id: String) {
     let t = state.statuses.lock().unwrap().clear_waiting(&id);
     if let Some(t) = t {
-        emit_status(&app, &t.id, t.status, None);
+        publish(&app, &t, None);
     }
 }
 
@@ -298,6 +309,25 @@ mod tests {
         assert_eq!(t.status, TermStatus::Idle);
         assert_eq!(m.waiting_count(), 0);
         assert!(m.clear_waiting("a").is_none());
+    }
+
+    #[test]
+    fn remove_drops_status_and_shell_seq() {
+        let mut m = StatusMap::default();
+        m.apply("a", TermStatus::Waiting);
+        assert_eq!(m.remove("a").unwrap().status, TermStatus::Idle);
+        assert_eq!(m.waiting_count(), 0);
+        assert!(m.snapshot().is_empty());
+        assert!(m.remove("a").is_none());
+        let ev = |seq: u64| HookMsg {
+            token: "tok".into(),
+            terminal_id: "a".into(),
+            event: "shell-exec".into(),
+            payload: json!({"pid": 10, "seq": seq}),
+        };
+        m.apply_event(&ev(5));
+        m.remove("a");
+        assert!(m.apply_event(&ev(1)).is_some()); // seq memory forgotten
     }
 
     #[test]
