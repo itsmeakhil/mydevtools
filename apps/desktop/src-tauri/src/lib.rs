@@ -178,7 +178,8 @@ pub fn run() {
             terminal::pty::terminal_resize,
             terminal::pty::terminal_kill,
             terminal::hooks::terminal_statuses,
-            terminal::hooks::terminal_clear_waiting
+            terminal::hooks::terminal_clear_waiting,
+            terminal::git::terminal_git_info
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
