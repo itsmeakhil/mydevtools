@@ -46,9 +46,9 @@ export default function KanbanColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        "flex flex-col h-full rounded-xl border p-3 md:p-4 transition-colors duration-150",
-        // Neutral column surface — the status color lives in the header (dot, title, count).
-        "bg-muted/40 border-border",
+        "flex flex-col h-full rounded-xl p-3 md:p-4 transition-colors duration-150",
+        // Neutral glass column — the status color lives in the header (dot, title, count).
+        "glass-card",
         isOver ? "ring-1 ring-primary/60 bg-primary/[0.04]" : ""
       )}
       role="region"

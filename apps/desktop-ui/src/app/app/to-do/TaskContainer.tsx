@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect, useCallback, lazy, Suspense } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import TaskList from "@/app/app/to-do/TaskList";
 import type { Task } from "@/app/app/to-do/types/Task";
@@ -243,6 +243,7 @@ export const TaskContainer = () => {
       toolId="to-do"
       icon={Folder}
       title={tPage("myTasksTitle")}
+      glass
       sidebar={
         <div className="flex min-h-0 flex-1 flex-col">
           <ToolSidebarFilterList
@@ -261,7 +262,9 @@ export const TaskContainer = () => {
         </div>
       }
     >
-    <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
+    {/* `todo-app` scopes the Tasks CSS (status dots, tokens). The tab registry
+        mounts page.tsx without layout.tsx, so the wrapper there never applies. */}
+    <div className="todo-app h-full min-h-0 w-full flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
       <div role="status" aria-live="polite" className="sr-only">
         {liveStatsMessage}
       </div>
@@ -374,7 +377,7 @@ export const TaskContainer = () => {
       )}>
         {/* Desktop Header */}
         {!isMobile && (
-          <Card className="rounded-xl border border-border bg-card shadow-elev-1">
+          <div className="glass-card rounded-xl text-card-foreground">
             <CardHeader className="p-3 md:pb-3">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
                 {/* Tool name + icon live in the ToolSidebarLayout panel header. */}
@@ -637,33 +640,32 @@ export const TaskContainer = () => {
                 </div>
               )}
             </CardHeader>
-          </Card>
+          </div>
         )}
 
         {/* Task View */}
         <div className="flex-1 overflow-hidden flex flex-col">
           {viewMode === "kanban" ? (
-            <Card className="rounded-xl border border-border bg-card shadow-elev-1 flex-1 overflow-hidden flex flex-col">
-              <CardContent className="p-2 md:p-4 flex-1 overflow-y-auto">
-                <LazyBoundary>
-                  <Suspense
-                    fallback={
-                      <div className="flex items-center justify-center py-12">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-                      </div>
-                    }
-                  >
-                    <KanbanBoard
-                      tasks={sortedTasks}
-                      isLoading={isLoading}
-                      onUpdateStatus={updateTaskStatus}
-                      onUpdateTask={updateTask}
-                      onDeleteTask={deleteTask}
-                    />
-                  </Suspense>
-                </LazyBoundary>
-              </CardContent>
-            </Card>
+            /* No board card: the columns are the glass cards, straight on the pane */
+            <div className={cn("flex flex-1 min-h-0 flex-col overflow-y-auto", isMobile && "px-2")}>
+              <LazyBoundary>
+                <Suspense
+                  fallback={
+                    <div className="flex items-center justify-center py-12">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+                    </div>
+                  }
+                >
+                  <KanbanBoard
+                    tasks={sortedTasks}
+                    isLoading={isLoading}
+                    onUpdateStatus={updateTaskStatus}
+                    onUpdateTask={updateTask}
+                    onDeleteTask={deleteTask}
+                  />
+                </Suspense>
+              </LazyBoundary>
+            </div>
           ) : (
             <>
               {isMobile ? (
@@ -680,7 +682,7 @@ export const TaskContainer = () => {
                 </div>
               ) : (
                 /* Desktop List View - With Card Wrapper */
-                <Card className="rounded-xl border border-border bg-card shadow-elev-1 flex-1 overflow-hidden flex flex-col">
+                <div className="glass-card rounded-xl text-card-foreground flex-1 overflow-hidden flex flex-col">
                   <CardContent className="p-2 md:p-4 flex-1 overflow-y-auto">
                     <TaskList
                       tasks={sortedTasks}
@@ -691,7 +693,7 @@ export const TaskContainer = () => {
                       onAddInStatus={openAddTask}
                     />
                   </CardContent>
-                </Card>
+                </div>
               )}
 
               {/* Pagination */}

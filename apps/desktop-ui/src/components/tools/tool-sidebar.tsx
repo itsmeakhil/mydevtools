@@ -262,6 +262,12 @@ interface ToolSidebarLayoutProps {
   sidebar: React.ReactNode
   children: React.ReactNode
   className?: string
+  /**
+   * Let the frosted content pane show through the main column. For tools whose
+   * content already sits on its own `.glass-card` panels; editors and grids keep
+   * the default solid background.
+   */
+  glass?: boolean
 }
 
 export function ToolSidebarLayout({
@@ -274,6 +280,7 @@ export function ToolSidebarLayout({
   sidebar,
   children,
   className,
+  glass = false,
 }: ToolSidebarLayoutProps) {
   const t = useTranslations('ToolSidebar')
   const isMobile = useIsMobile()
@@ -519,7 +526,7 @@ export function ToolSidebarLayout({
             />
           )}
 
-          <div className="relative flex min-w-0 flex-1 flex-col overflow-hidden bg-background">
+          <div className={cn('relative flex min-w-0 flex-1 flex-col overflow-hidden', !glass && 'bg-background')}>
             {children}
           </div>
         </div>
