@@ -1,6 +1,7 @@
 import { toolsMetadata } from '@/lib/metadata'
 
 export const toolCategoryMap: Record<string, string> = {
+  terminal: 'Developer',
   notes: 'Productivity',
   'snippet-manager': 'Productivity',
   'to-do': 'Productivity',

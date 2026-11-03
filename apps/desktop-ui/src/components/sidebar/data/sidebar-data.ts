@@ -16,6 +16,7 @@ import {
   IconChartDots3,
   IconServer,
   IconBucket,
+  IconTerminal2,
 } from '@tabler/icons-react'
 import { type SidebarData } from '../types'
 
@@ -26,6 +27,18 @@ export const sidebarData: SidebarData = {
     avatar: '/avatars/shadcn.jpg',
   },
   navGroups: [
+    {
+      title: 'Developer',
+      icon: IconTerminal2,
+      items: [
+        {
+          title: 'Terminal',
+          url: '/app/terminal',
+          icon: IconTerminal2,
+          description: 'Terminals by project with tabs, split panes and a Needs you inbox for Claude Code.',
+        },
+      ],
+    },
     {
       title: 'Productivity',
       icon: IconRocket,

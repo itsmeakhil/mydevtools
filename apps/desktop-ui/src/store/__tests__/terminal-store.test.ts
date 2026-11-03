@@ -21,7 +21,7 @@ beforeEach(() => {
   resetTerminalSaveState()
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -159,5 +159,40 @@ describe("terminal store", () => {
     expect(S().statuses).toEqual({ [id]: "waiting" })
     S().closeTerminal(id)
     expect(S().statuses).toEqual({})
+  })
+
+  it("focusTerminal expands a collapsed project", () => {
+    S().addProject("/x/a")
+    const p = S().projects[0]
+    S().toggleCollapsed(p.id)
+    expect(S().projects[0].collapsed).toBe(true)
+    S().focusTerminal(leafIds(p.tabs[0].layout)[0])
+    expect(S().projects[0].collapsed).toBe(false)
+  })
+
+  it("focusTerminal inside the visible tab does not schedule a save", async () => {
+    S().addProject("/x/a")
+    await jest.advanceTimersByTimeAsync(500)
+    mockSave.mockClear()
+    S().focusTerminal(leafIds(S().projects[0].tabs[0].layout)[0])
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave).not.toHaveBeenCalled()
+  })
+
+  it("load is idempotent: concurrent calls share one request, loaded calls are no-ops", async () => {
+    useTerminalStore.setState({ loaded: false })
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null })
+    await Promise.all([S().load(), S().load()])
+    expect(mockLoad).toHaveBeenCalledTimes(1)
+    S().addProject("/x/a")
+    await S().load()
+    expect(mockLoad).toHaveBeenCalledTimes(1)
+    expect(S().projects).toHaveLength(1)
+  })
+
+  it("newTab and addProject use a provided name", () => {
+    S().addProject("/x/a", "Terminal 1")
+    S().newTab(S().projects[0].id, "Onglet 2")
+    expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["Terminal 1", "Onglet 2"])
   })
 })

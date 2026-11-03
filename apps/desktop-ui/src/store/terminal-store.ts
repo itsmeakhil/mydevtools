@@ -12,14 +12,17 @@ export interface TerminalPersisted { projects: TerminalProject[]; activeProjectI
 
 interface TerminalState extends TerminalPersisted {
   statuses: Record<string, TermStatus>
+  /** Live window titles set by the shell/program (OSC 0/2); not persisted. */
+  titles: Record<string, string>
   focusedTerminalId: string | null
   dirty: boolean
   loaded: boolean
   load: () => Promise<void>
-  addProject: (path: string) => void
+  addProject: (path: string, firstTabName?: string) => void
   removeProject: (id: string) => void
   toggleCollapsed: (id: string) => void
-  newTab: (projectId: string) => void
+  selectProject: (id: string) => void
+  newTab: (projectId: string, name?: string) => void
   closeTab: (projectId: string, tabId: string) => void
   renameTab: (projectId: string, tabId: string, name: string) => void
   split: (terminalId: string, dir: "row" | "col") => void
@@ -27,10 +30,11 @@ interface TerminalState extends TerminalPersisted {
   resize: (tabId: string, path: number[], sizes: number[]) => void
   focusTerminal: (terminalId: string) => void
   setStatus: (id: string, s: TermStatus) => void
+  setTitle: (id: string, title: string) => void
 }
 
 const uid = () => crypto.randomUUID()
-const makeTab = (n: number): TerminalTab => ({ id: uid(), name: `Terminal ${n}`, layout: leaf(uid()), terminalNames: {} })
+const makeTab = (n: number, name?: string): TerminalTab => ({ id: uid(), name: name || `Terminal ${n}`, layout: leaf(uid()), terminalNames: {} })
 const kill = (ids: string[]) => ids.forEach((id) => terminalKill(id).catch(() => {}))
 const find = (projects: TerminalProject[], terminalId: string) => {
   for (const p of projects)
@@ -44,6 +48,7 @@ let inflight: Promise<void> | null = null
 let rerun = false
 let failedOnce = false
 let loadFailedOnce = false
+let loading: Promise<void> | null = null
 
 /** Test hook: clear module-level save/load bookkeeping. */
 export function resetTerminalSaveState() {
@@ -52,6 +57,7 @@ export function resetTerminalSaveState() {
   rerun = false
   failedOnce = false
   loadFailedOnce = false
+  loading = null
 }
 
 const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e))
@@ -106,33 +112,40 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
   })
 
-  return {
-    projects: [], activeProjectId: null, statuses: {}, focusedTerminalId: null, dirty: false, loaded: false,
+  const doLoad = async () => {
+    try {
+      const d = await loadTerminalState()
+      const loaded = d.projects ?? []
+      set((s) => {
+        const ids = new Set(loaded.map((p) => p.id))
+        // Keep loaded projects, append any created while loading.
+        return {
+          projects: [...loaded, ...s.projects.filter((p) => !ids.has(p.id))],
+          activeProjectId: s.activeProjectId ?? d.activeProjectId ?? null,
+          loaded: true,
+        }
+      })
+      loadFailedOnce = false
+      if (get().dirty) schedule()
+    } catch (e) {
+      // Fail closed: stay unloaded so nothing is ever saved over real data.
+      if (!loadFailedOnce) toast.error(errMsg(e))
+      loadFailedOnce = true
+    }
+  }
 
-    load: async () => {
-      try {
-        const d = await loadTerminalState()
-        const loaded = d.projects ?? []
-        set((s) => {
-          const ids = new Set(loaded.map((p) => p.id))
-          // Keep loaded projects, append any created while loading.
-          return {
-            projects: [...loaded, ...s.projects.filter((p) => !ids.has(p.id))],
-            activeProjectId: s.activeProjectId ?? d.activeProjectId ?? null,
-            loaded: true,
-          }
-        })
-        loadFailedOnce = false
-        if (get().dirty) schedule()
-      } catch (e) {
-        // Fail closed: stay unloaded so nothing is ever saved over real data.
-        if (!loadFailedOnce) toast.error(errMsg(e))
-        loadFailedOnce = true
-      }
+  return {
+    projects: [], activeProjectId: null, statuses: {}, titles: {}, focusedTerminalId: null, dirty: false, loaded: false,
+
+    // Idempotent: a no-op once loaded; concurrent callers share one request.
+    load: () => {
+      if (get().loaded) return Promise.resolve()
+      loading ??= doLoad().finally(() => (loading = null))
+      return loading
     },
 
-    addProject: (path) => {
-      const tab = makeTab(1)
+    addProject: (path, firstTabName) => {
+      const tab = makeTab(1, firstTabName)
       const project: TerminalProject = {
         id: uid(), path, name: path.replace(/[\\/]+$/, "").split(/[\\/]/).pop() || path,
         collapsed: false, tabs: [tab], activeTabId: tab.id,
@@ -155,9 +168,13 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     toggleCollapsed: (id) => mutate(mapProject(id, (p) => ({ ...p, collapsed: !p.collapsed }))),
 
-    newTab: (projectId) =>
+    selectProject: (id) => {
+      if (get().activeProjectId !== id) mutate(() => ({ activeProjectId: id }))
+    },
+
+    newTab: (projectId, name) =>
       mutate(mapProject(projectId, (p) => {
-        const tab = makeTab(p.tabs.length + 1)
+        const tab = makeTab(p.tabs.length + 1, name)
         return { ...p, tabs: [...p.tabs, tab], activeTabId: tab.id }
       })),
 
@@ -214,8 +231,14 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     focusTerminal: (terminalId) => {
       const hit = find(get().projects, terminalId)
       if (!hit) return
+      // Pure focus moves inside the visible tab don't touch persisted state.
+      if (get().activeProjectId === hit.p.id && hit.p.activeTabId === hit.t.id && !hit.p.collapsed) {
+        set({ focusedTerminalId: terminalId })
+        return
+      }
+      // Expands a collapsed project so a Needs-you jump lands on a visible row.
       mutate(({ projects }) => ({
-        projects: projects.map((p) => (p.id === hit.p.id ? { ...p, activeTabId: hit.t.id } : p)),
+        projects: projects.map((p) => (p.id === hit.p.id ? { ...p, activeTabId: hit.t.id, collapsed: false } : p)),
         activeProjectId: hit.p.id,
         focusedTerminalId: terminalId,
       }))
@@ -230,5 +253,8 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         }
         return { statuses: { ...st.statuses, [id]: s } }
       }),
+
+    // ponytail: titles of closed panes are never pruned (a few bytes per uuid per session).
+    setTitle: (id, title) => set((st) => (st.titles[id] === title ? st : { titles: { ...st.titles, [id]: title } })),
   }
 })
