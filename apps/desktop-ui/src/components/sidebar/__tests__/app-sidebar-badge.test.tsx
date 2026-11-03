@@ -55,6 +55,10 @@ describe("AppSidebar terminal badge", () => {
     mockStatuses = { a: "waiting", b: "running" }
     const html = render()
     expect(badges(html)).toEqual(["1"])
+    // DESIGN.md: badges are tinted pills, never solid saturated blocks.
+    const cls = html.match(/data-sidebar-badge="count"[^>]*class="([^"]*)"/)?.[1].split(" ")
+    expect(cls).toEqual(expect.arrayContaining(["bg-destructive/[0.12]", "text-destructive"]))
+    expect(html).not.toContain("text-destructive-foreground")
     expect(html).toContain("Terminal.needsYou(1)")
   })
 

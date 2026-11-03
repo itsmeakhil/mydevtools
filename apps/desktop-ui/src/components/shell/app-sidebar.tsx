@@ -135,7 +135,7 @@ const SidebarRow = React.memo(function SidebarRow({
             <span
               data-sidebar-badge="count"
               aria-hidden
-              className="flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-full bg-destructive px-1.5 text-[11px] font-semibold tabular-nums text-destructive-foreground"
+              className="flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-full bg-destructive/[0.12] px-1.5 text-[11px] font-semibold tabular-nums text-destructive"
             >{badge}</span>
             {badgeLabel ? <span className="sr-only">{badgeLabel}</span> : null}
           </>

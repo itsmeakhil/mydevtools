@@ -60,12 +60,21 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
   }
 }
 
-/** Confirm: give the pending save up to 1.5 s, then quit. Cancel: clear Rust's pending flag. */
+/**
+ * Confirm: give the pending save up to 1.5 s, then quit. If the save finished
+ * but failed (still dirty), stay open so the edit isn't lost — the store's
+ * save-failure toast is showing; a second ⌘Q force-quits in Rust. A hung save
+ * doesn't block quitting past the bound. Cancel: clear Rust's pending flag.
+ */
 export async function finishQuit(ok: boolean) {
   try {
     if (ok) {
-      await Promise.race([S().flushNow(), new Promise((r) => setTimeout(r, QUIT_FLUSH_MAX_MS))])
-      await appQuitConfirmed()
+      const settled = await Promise.race([
+        S().flushNow().then(() => true),
+        new Promise<false>((r) => setTimeout(r, QUIT_FLUSH_MAX_MS, false)),
+      ])
+      if (settled && S().dirty) await appQuitCancelled()
+      else await appQuitConfirmed()
     } else {
       await appQuitCancelled()
     }

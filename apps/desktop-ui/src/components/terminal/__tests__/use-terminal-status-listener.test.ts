@@ -91,13 +91,27 @@ describe("subscribeTerminalAttention", () => {
 describe("finishQuit", () => {
   it("confirm waits for the save at most 1.5 s, then quits", async () => {
     jest.useFakeTimers()
-    useTerminalStore.setState({ flushNow: () => new Promise<void>(() => {}) })
+    useTerminalStore.setState({ dirty: true, flushNow: () => new Promise<void>(() => {}) })
     const p = finishQuit(true)
     await jest.advanceTimersByTimeAsync(1499)
     expect(mockConfirmed).not.toHaveBeenCalled()
     await jest.advanceTimersByTimeAsync(1)
     await p
     expect(mockConfirmed).toHaveBeenCalledTimes(1)
+  })
+
+  it("confirm quits after a clean save", async () => {
+    useTerminalStore.setState({ dirty: false, flushNow: () => Promise.resolve() })
+    await finishQuit(true)
+    expect(mockConfirmed).toHaveBeenCalledTimes(1)
+    expect(mockCancelled).not.toHaveBeenCalled()
+  })
+
+  it("confirm keeps the app open when the save settled but failed (still dirty)", async () => {
+    useTerminalStore.setState({ dirty: true, flushNow: () => Promise.resolve() })
+    await finishQuit(true)
+    expect(mockConfirmed).not.toHaveBeenCalled()
+    expect(mockCancelled).toHaveBeenCalledTimes(1)
   })
 
   it("cancel tells Rust; failures become a toast", async () => {
