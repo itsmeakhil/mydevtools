@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
+import { SettingsGroup, SettingsRow } from "@/components/settings/settings-group";
 import { isDesktop } from "@/lib/desktop/is-desktop";
 import { DesktopUpdateDialog } from "@/components/desktop/desktop-update-dialog";
 
@@ -31,21 +30,16 @@ export function AppVersionLabel() {
   if (!isDesktop()) return null;
 
   return (
-    <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-            <Info className="h-4 w-4" />
+    <SettingsGroup title={t("title")}>
+      <SettingsRow
+        label={
+          <span className="font-normal text-muted-foreground">
+            {version ? t("runningVersion", { version }) : t("running")}
           </span>
-          {t("title")}
-        </CardTitle>
-        <CardDescription>
-          {version ? t("runningVersion", { version }) : t("running")}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+        }
+      >
         <DesktopUpdateDialog />
-      </CardContent>
-    </Card>
+      </SettingsRow>
+    </SettingsGroup>
   );
 }

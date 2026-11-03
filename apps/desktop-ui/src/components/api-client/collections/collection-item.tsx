@@ -76,8 +76,7 @@ function CollectionItemImpl({
         <div>
             <div
                 className={cn(
-                    "group flex items-center gap-2 py-1.5 pr-2 my-0.5 text-sm hover:bg-muted/60 rounded-md cursor-pointer select-none transition-colors",
-                    !isFolder && "hover:text-primary"
+                    "group flex items-center gap-2 h-8 pr-1.5 text-[13px] hover:bg-foreground/[0.05] rounded-lg select-none transition-colors"
                 )}
                 style={{ paddingLeft }}
                 onClick={() => {
@@ -92,15 +91,15 @@ function CollectionItemImpl({
                 {isFolder ? (
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                         {item.isOpen ? (
-                            <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground/70" />
+                            <ChevronDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground/70" />
                         ) : (
-                            <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground/70" />
+                            <ChevronRight className="h-3.5 w-3.5 shrink-0 text-muted-foreground/70" />
                         )}
-                        <Folder className="h-4 w-4 shrink-0 text-blue-500 fill-blue-500/20" />
+                        <Folder className="h-4 w-4 shrink-0 text-primary/80 fill-primary/15" />
                         {isRenaming ? (
                             <input
                                 ref={renameInputRef}
-                                className="flex-1 text-xs bg-transparent border-b border-primary outline-none min-w-0 text-foreground"
+                                className="flex-1 text-[13px] bg-transparent border-b border-primary outline-none min-w-0 text-foreground"
                                 value={renameValue}
                                 onChange={(e) => setRenameValue(e.target.value)}
                                 onBlur={commitRename}
@@ -112,23 +111,23 @@ function CollectionItemImpl({
                                 onClick={(e) => e.stopPropagation()}
                             />
                         ) : (
-                            <span className="truncate font-medium text-xs text-foreground/90">{item.name}</span>
+                            <span className="truncate font-medium text-foreground">{item.name}</span>
                         )}
                     </div>
                 ) : (
-                    <div className="flex items-center gap-2.5 flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
                         <span className={cn(
-                            "text-[10px] font-bold uppercase text-center shrink-0 px-1.5 py-0.5 rounded-sm tracking-wide w-[46px]",
-                            (item as CollectionRequest).method === "GET" && "bg-blue-500/10 text-blue-500",
-                            (item as CollectionRequest).method === "POST" && "bg-green-500/10 text-green-500",
-                            (item as CollectionRequest).method === "PUT" && "bg-orange-500/10 text-orange-500",
-                            (item as CollectionRequest).method === "DELETE" && "bg-red-500/10 text-red-500",
-                            (item as CollectionRequest).method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
-                            (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes((item as CollectionRequest).method)) && "bg-muted text-muted-foreground"
+                            "text-[10px] font-semibold shrink-0 w-[42px] tabular-nums",
+                            (item as CollectionRequest).method === "GET" && "text-sky-500",
+                            (item as CollectionRequest).method === "POST" && "text-emerald-500",
+                            (item as CollectionRequest).method === "PUT" && "text-amber-500",
+                            (item as CollectionRequest).method === "DELETE" && "text-rose-500",
+                            (item as CollectionRequest).method === "PATCH" && "text-yellow-600",
+                            (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes((item as CollectionRequest).method)) && "text-muted-foreground"
                         )}>
                             {(item as CollectionRequest).method}
                         </span>
-                        <span className="truncate text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+                        <span className="truncate text-foreground/90">
                             {getApiClientRequestDisplayName((item as CollectionRequest).name, tRoot)}
                         </span>
                     </div>
@@ -139,13 +138,13 @@ function CollectionItemImpl({
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="h-6 w-6 rounded-md opacity-0 group-hover:opacity-100 hover:bg-background shrink-0"
+                            className="h-6 w-6 rounded-md opacity-0 group-hover:opacity-100 hover:bg-foreground/[0.06] shrink-0"
                             onClick={(e) => e.stopPropagation()}
                         >
                             <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-40 rounded-xl">
+                    <DropdownMenuContent align="end" className="w-40">
                         {isFolder && (
                             <>
                                 <DropdownMenuItem onClick={(e) => {
@@ -192,7 +191,7 @@ function CollectionItemImpl({
             {isFolder && (item as CollectionFolder).isOpen && (
                 <div className="relative">
                     <div
-                        className="absolute left-0 top-0 bottom-0 w-px bg-border/50"
+                        className="absolute left-0 top-0 bottom-0 w-px bg-border"
                         style={{ marginLeft: `${Number(paddingLeft.replace('px','')) + 6}px` }}
                     />
                     <div className="py-0.5">
@@ -210,7 +209,7 @@ function CollectionItemImpl({
                             />
                         ))}
                         {(item as CollectionFolder).items.length === 0 && (
-                            <div className="text-[11px] text-muted-foreground/60 py-1.5 italic" style={{ paddingLeft: `${(level + 1) * 12 + 32}px` }}>
+                            <div className="text-xs text-muted-foreground/70 py-1.5" style={{ paddingLeft: `${(level + 1) * 12 + 32}px` }}>
                                 {t("emptyFolder")}
                             </div>
                         )}

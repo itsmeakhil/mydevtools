@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL Biçimlendirici",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON Şema Oluşturucu",
     "snippetManager": "Kod parçacıkları",
-    "markdownPreview": "Markdown Önizleme",
-    "formatConverter": "Format Dönüştürücü",
-    "yamlFormatter": "YAML Biçimleyici",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON Karşılaştırma",
-    "jsonpathPlayground": "JSONPath Oyun Alanı",
     "secureFiles": "Dosyalar"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "Açık",
         "dark": "Koyu",
         "system": "Sistem"
+      },
+      "picker": {
+        "wheel": "Çark",
+        "sliders": "Kaydırıcılar",
+        "hue": "Ton",
+        "saturation": "Doygunluk",
+        "brightness": "Parlaklık",
+        "lightness": "Açıklık",
+        "chroma": "Kroma",
+        "hexValue": "Hex değeri",
+        "copy": "Hex değerini kopyala",
+        "copied": "Kopyalandı",
+        "revert": "Orijinal renge dön",
+        "newColor": "Yeni renk",
+        "onWhite": "Beyaz üzerinde",
+        "onBlack": "Siyah üzerinde",
+        "aa": "AA geçti",
+        "aaLarge": "AA büyük",
+        "fail": "Başarısız",
+        "presets": "Hazır ayarlar",
+        "eyedropper": "Ekrandan renk seç"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "GraphQL Biçimlendirici",
-        "description": "Sözdizimi vurgulama ve basit bir sorgu oluşturucuyla GraphQL biçimlendirin."
-      },
-      "yamlFormatter": {
-        "title": "YAML Biçimleyici",
-        "description": "YAML'ı tarayıcıda biçimlendirin, doğrulayın ve JSON'a dönüştürün."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "JSON Şema Oluşturucu",
-        "description": "Örnek JSON’dan JSON Şeması ve tipli modeller türetin."
-      },
       "snippetManager": {
         "title": "Kod parçacıkları",
         "description": "Sözdizimi vurgulama, otomatik dil algılama ve biçimlendirme ile parçacıkları kaydedin."
-      },
-      "markdownPreview": {
-        "title": "Markdown Önizleme",
-        "description": "HTML dışa aktarma ve HTML → Markdown dönüşümlü canlı Markdown renderer."
-      },
-      "formatConverter": {
-        "title": "Format Dönüştürücü",
-        "description": "JSON, YAML, TOML ve XML arasında her yönde dönüştürün. 12 kombinasyonun tamamı desteklenir."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON Karşılaştırma",
-        "description": "İki JSON belgesinin anlamsal, yapı farkında karşılaştırması."
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath Oyun Alanı",
-        "description": "JSON'ı JSONPath veya JMESPath ile sorgulayın ve sonuçları canlı görün."
       },
       "secureFiles": {
         "title": "Dosyalar",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "Uygulamalar",
-      "analytics": "Analitik",
       "ui": "Arayüz"
-    },
-    "analytics": {
-      "title": "Verilerinize genel bakış",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Analitik yüklenemedi.",
-      "retry": "Yeniden dene",
-      "passwordEntries": "Parola kayıtları",
-      "tasksTotal": "Görevler",
-      "tasksCompleted": "Tamamlanan",
-      "tasksOngoing": "Devam eden",
-      "tasksNotStarted": "Başlanmadı",
-      "projects": "Projeler",
-      "nosqlConnections": "Veritabanı bağlantıları",
-      "notes": "Notlar",
-      "apiClientCollections": "API koleksiyonları",
-      "apiClientEnvironments": "API ortamları",
-      "apiClientHistory": "API geçmişi kayıtları",
-      "jsonFormatterDocuments": "JSON biçimleyici belgeleri",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Kod parçacıkları",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Arayüz tercihleri",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "JSON onarıldı",
     "toastRepairFailed": "JSON onarılamadı"
   },
-  "SqlFormatter": {
-    "title": "SQL Biçimlendirici",
-    "subtitle": "MySQL, PostgreSQL ve SQLite için SQL biçimlendir",
-    "dialectLabel": "Lehçe",
-    "keywordsLabel": "Anahtar kelimeler",
-    "indentLabel": "Girinti",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "BÜYÜK",
-      "lower": "küçük",
-      "preserve": "Koru"
-    },
-    "spaces": "{n} boşluk",
-    "format": "Biçimlendir",
-    "clear": "Temizle",
-    "counter": "{current} / {max} karakter",
-    "inputPanel": "Girdi",
-    "formattedPanel": "Biçimlendirilmiş",
-    "copy": "Kopyala",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "\"Biçimlendir\"e tıkla…",
-    "errors": {
-      "tooLong": "Girdi {max} karakter ile sınırlıdır.",
-      "couldNotFormat": "Bu SQL biçimlendirilemedi."
-    }
-  },
-  "YamlFormatter": {
-    "title": "YAML Biçimlendirici",
-    "subtitle": "YAML biçimlendir, doğrula ve dönüştür",
-    "outputLabel": "Çıktı",
-    "outputModes": {
-      "yaml": "YAML (biçimlendirilmiş)",
-      "json": "JSON"
-    },
-    "indentLabel": "Girinti",
-    "spaces": "{n} boşluk",
-    "format": "Biçimlendir",
-    "clear": "Temizle",
-    "copy": "Kopyala",
-    "counter": "{current} / {max} karakter",
-    "inputPanel": "Girdi",
-    "outputPanel": "Çıktı",
-    "errors": {
-      "tooLong": "Girdi {max} karakterle sınırlıdır.",
-      "couldNotFormat": "Bu YAML ayrıştırılamadı."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "GraphQL Biçimlendirici",
-    "subtitle": "Sorguları, mutation ve subscription'ları biçimlendir",
-    "tabs": {
-      "format": "Biçimlendir",
-      "build": "Sorgu oluşturucu"
-    },
-    "outputModeLabel": "Çıktı",
-    "outputModes": {
-      "pretty": "Okunabilir yazdır",
-      "minify": "Küçült"
-    },
-    "format": "Biçimlendir",
-    "clear": "Temizle",
-    "counter": "{current} / {max} karakter",
-    "inputPanel": "Girdi",
-    "outputPanel": "Çıktı",
-    "copy": "Kopyala",
-    "builderHint": "Bir iskelet oluşturup düzenleyiciye uygulayın. Değişken tanımları GraphQL sözdizimindedir (ör. $id: ID!) — parantezler isteğe bağlıdır.",
-    "builder": {
-      "operation": "İşlem",
-      "operationName": "İşlem adı",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Değişken tanımları",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Seçim kümesi",
-      "apply": "Girdiye uygula",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Girdi {max} karakterle sınırlıdır.",
-      "couldNotFormat": "Bu GraphQL ayrıştırılamadı veya yazdırılamadı.",
-      "emptySelection": "Uygulamadan önce bir seçim kümesi ekleyin."
-    }
-  },
-  "RegexTester": {
-    "title": "Regex Test Aracı",
-    "subtitle": "JavaScript regex'i canlı eşleşme vurgusuyla test et",
-    "patternLabel": "Desen",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g global",
-      "i": "i büyük/küçük harf duyarsız",
-      "m": "m çok satırlı",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(boş)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {eşleşme} other {eşleşme}}",
-    "testTextLabel": "Test metni",
-    "counter": "{current} / {max}",
-    "clear": "Temizle",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Metin {max} karakter ile sınırlıdır.",
-      "invalid": "Geçersiz düzenli ifade.",
-      "runaway": "{max} eşleşmeden sonra durduruldu (olası kontrolden çıkan desen)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Fark Denetleyici",
-    "subtitle": "İki metni yan yana, satır satır karşılaştır",
-    "rowsCount": "{count} satır",
-    "truncatedWarning": "İlk {max} satır gösteriliyor.",
-    "limitExceeded": "Her taraf {max} karakterle sınırlıdır.",
-    "clearBoth": "İkisini de temizle",
-    "original": "Orijinal",
-    "modified": "Değiştirilmiş",
-    "originalPlaceholder": "Orijinal metni yapıştırın…",
-    "modifiedPlaceholder": "Değiştirilmiş metni yapıştırın…",
-    "comparisonLabel": "Yan yana karşılaştırma",
-    "emptyState": "Karşılaştırmak için her iki panele de metin girin."
-  },
-  "JsonSchemaGenerator": {
-    "title": "JSON Schema Üretici",
-    "subtitle": "Örnek JSON'dan JSON Schema veya tipli modeller üret",
-    "languageLabel": "Çıktı dili",
-    "inputLabel": "JSON girdisi",
-    "inputPlaceholder": "JSON’u buraya yapıştırın…",
-    "outputLabel": "Üretilen çıktı",
-    "outputPlaceholder": "Üretilen şema veya türler burada görünecek…",
-    "parseError": "Geçersiz JSON",
-    "clear": "Temizle",
-    "copy": "Kopyala",
-    "copied": "Panoya kopyalandı",
-    "copyFailed": "Kopyalanamadı",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON Şeması (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Editör yükleniyor…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Snippet Yöneticisi",
     "subtitle": "Kod parçalarını kaydet, ara, biçimlendir — senkron isteğe bağlı",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "{count} satır eşleşti — filtre benzersiz olmadığı için hiçbir şey değiştirilmedi."
     }
   },
-  "MarkdownPreview": {
-    "title": "Markdown Önizleme",
-    "subtitle": "Markdown'ı canlı görüntüle, HTML'e ve HTML'den dönüştür",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Markdown girişi",
-    "htmlInputLabel": "HTML girişi",
-    "previewLabel": "Önizleme",
-    "htmlOutputLabel": "HTML kaynağı",
-    "mdOutputLabel": "Markdown çıktısı",
-    "inputPlaceholder": "# Merhaba\\n\\n**markdown**'ınızı buraya yazın…",
-    "htmlInputPlaceholder": "HTML'inizi buraya yapıştırın…",
-    "copyHtml": "HTML'yi Kopyala",
-    "copyMarkdown": "Markdown'ı Kopyala",
-    "exportHtml": "HTML'yi Dışa Aktar",
-    "fileNameLabel": "Dosya adı",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "{name} kaydedildi",
-    "copied": "Kopyalandı",
-    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
-    "emptyHint": "Canlı önizleme ve HTML çıktısını görmek için Markdown yazmaya başlayın.",
-    "emptyHintHtmlToMd": "HTML'yi Markdown'a dönüştürmek için yapıştırın.",
-    "securityNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
-  },
-  "FormatConverter": {
-    "title": "Biçim Dönüştürücü",
-    "subtitle": "JSON, YAML, TOML ve XML'i her yönde dönüştür",
-    "fromLabel": "Kaynak",
-    "toLabel": "Hedef",
-    "swap": "Değiştir",
-    "swapTitle": "Formatları değiştirin ve çıktıyı girdi olarak kullanın",
-    "copy": "Kopyala",
-    "copied": "Kopyalandı",
-    "charCount": "{count, plural, one {# karakter} other {# karakter}}",
-    "emptyHint": "Dönüştürülmüş çıktıyı görmek için solda girdinizi yapıştırın veya yazın.",
-    "localNote": "Her şey tarayıcınızda yerel olarak çalışır. Hiçbir şey yüklenmez."
-  },
-  "JsonToCode": {
-    "title": "JSON'dan Koda",
-    "subtitle": "Örnek JSON verisinden tipli modeller üret",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "JSON Görselleştirici",
     "subtitle": "JSON'ı etkileşimli düğüm grafiği olarak keşfet",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Güzelleştir ve Küçült",
-    "subtitle": "HTML, CSS, JavaScript, XML ve JSON güzelleştir veya küçült",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON Fark",
-    "subtitle": "JSON'ı yapısal karşılaştır — anahtar sırası yok sayılır",
-    "options": {
-      "ignoreArrayOrder": "Dizi sırasını yok say"
-    },
-    "loadBothSamples": "Örnekleri yükle",
-    "sample": "Örnek",
-    "format": "Biçimlendir",
-    "clear": "Temizle",
-    "formatError": "Biçimlendirilemiyor: giriş geçerli JSON değil",
-    "placeholder": "JSON'ı buraya yapıştırın veya yazın…",
-    "panels": {
-      "left": "Orijinal (sol)",
-      "right": "Değiştirilmiş (sağ)",
-      "results": "Farklar"
-    },
-    "summary": {
-      "added": "{count} eklendi",
-      "removed": "{count} kaldırıldı",
-      "changed": "{count} değişti"
-    },
-    "types": {
-      "added": "Eklendi",
-      "removed": "Kaldırıldı",
-      "changed": "Değişti"
-    },
-    "copyChanges": "JSON olarak kopyala",
-    "copied": "Kopyalandı",
-    "empty": "Farklarını görmek için her iki panele de JSON yapıştırın.",
-    "identical": "İki belge anlamsal olarak aynı."
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPath Alanı",
-    "subtitle": "JSON'ı JSONPath veya JMESPath ile canlı sorgula",
-    "engineLabel": "Motor",
-    "queryLabel": "Sorgu",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Kopya kâğıdı",
-    "cheats": {
-      "jpAllTitles": "Tüm kitap başlıkları",
-      "jpAllAuthors": "Belgenin herhangi bir yerindeki her yazar",
-      "jpFirstBook": "İlk kitap",
-      "jpLastBook": "Son kitap",
-      "jpSlice": "İlk iki kitap (dilim)",
-      "jpFilterPrice": "40'tan ucuz kitaplar",
-      "jpFilterInStock": "Stoktaki kitapların başlıkları",
-      "jpRecursive": "Tüm değerler, özyinelemeli",
-      "jmAllTitles": "Tüm kitap başlıkları",
-      "jmFirstAuthor": "İlk kitabın yazarı",
-      "jmLastBook": "Son kitap",
-      "jmSlice": "İlk iki kitap (dilim)",
-      "jmFilterPrice": "40'tan ucuz kitapların başlıkları",
-      "jmCount": "Stoktaki kitapları say",
-      "jmProjection": "Her kitabı yeni bir nesneye dönüştür",
-      "jmSort": "Fiyata göre sıralanmış başlıklar"
-    },
-    "panels": {
-      "input": "JSON girişi",
-      "results": "Sonuçlar"
-    },
-    "sample": "Örnek",
-    "format": "Biçimlendir",
-    "clear": "Temizle",
-    "formatError": "Biçimlendirilemiyor: giriş geçerli JSON değil",
-    "placeholder": "JSON'ı buraya yapıştırın veya yazın…",
-    "outputPlaceholder": "Eşleşmeler burada görünecek…",
-    "matchCount": "{count, plural, one {# eşleşme} other {# eşleşme}}",
-    "copy": "Kopyala",
-    "copied": "Kopyalandı"
   },
   "WebhookTester": {
     "title": "Webhook Test Aracı",
@@ -2909,7 +2518,9 @@
     "moreSections": "Daha fazla bölüm",
     "sections": "Kenar çubuğu bölümleri",
     "show": "Kenar çubuğunu göster",
-    "hide": "Kenar çubuğunu gizle"
+    "hide": "Kenar çubuğunu gizle",
+    "pin": "{tool} sabitle",
+    "unpin": "{tool} sabitlemesini kaldır"
   },
   "DesktopUpdate": {
     "title": "MyDevTools güncelleniyor",
@@ -3021,5 +2632,25 @@
     "working": "{done} / {total}",
     "cancelled": "İptal edildi.",
     "save": "Kaydet"
+  },
+  "Shell": {
+    "sidebar": "Kenar çubuğu",
+    "toggleSidebar": "Kenar çubuğunu aç/kapat",
+    "searchTools": "Araçlarda ara",
+    "help": "Yardım",
+    "theme": "Tema",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "themeSystem": "Sistem",
+    "account": "Hesap",
+    "you": "Sen",
+    "openTool": "Araç aç",
+    "closeTab": "{title} kapat",
+    "status": "Durum",
+    "vaultLocked": "Kasa kilitli",
+    "vaultUnlocked": "Kasa açık",
+    "reduceTransparency": "Saydamlığı azalt",
+    "reduceTransparencyHint": "Camı opak yüzeylerle değiştirir.",
+    "goToDashboard": "Panoya git"
   }
 }

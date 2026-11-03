@@ -25,19 +25,13 @@ const DEFAULT_ENABLED_TOOLS: &[&str] = &[
     "/app/secure-files",
     "/app/email-validator",
     "/app/json-formatter",
-    "/app/json-schema-generator",
-    "/app/sql-formatter",
-    "/app/graphql-formatter",
-    "/app/diff-checker",
-    "/app/regex-tester",
     "/app/api-client",
     "/app/nosql-explorer",
-    "/app/markdown-preview-html",
 ];
 
 fn defaults() -> Value {
     json!({
-        "theme": "system",
+        "theme": "dark",
         "accentColor": "blue",
         "locale": "en",
         // Local profile: what the app calls you. There is no account behind it.

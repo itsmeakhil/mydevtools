@@ -67,13 +67,13 @@ export function ServerMonitor({
                         <span className="text-muted-foreground font-mono text-xs truncate">{name}</span>
                     </DialogTitle>
                 </DialogHeader>
-                <div className="flex border-b bg-muted/30 text-xs shrink-0">
+                <div className="flex border-b border-border text-[13px] shrink-0">
                     {(["metrics", "ops"] as const).map((tb) => (
                         <button
                             key={tb}
                             className={cn(
-                                "px-4 py-2 font-medium transition-colors",
-                                tab === tb ? "text-foreground border-b-2 border-primary bg-background" : "text-muted-foreground hover:text-foreground",
+                                "h-9 px-4 font-medium transition-colors",
+                                tab === tb ? "text-foreground border-b-2 border-primary" : "text-muted-foreground hover:text-foreground",
                             )}
                             onClick={() => setTab(tb)}
                         >
@@ -150,7 +150,7 @@ function MetricsTab({ connectionString, active }: { connectionString: string; ac
                     {latest?.version && <span className="ml-2 font-mono">v{latest.version}</span>}
                     {latest?.uptime !== undefined && <span className="ml-2">up {uptime}</span>}
                 </span>
-                <button onClick={() => setPaused((p) => !p)} className="rounded border px-2 py-0.5 hover:bg-accent transition-colors">
+                <button onClick={() => setPaused((p) => !p)} className="h-6 rounded-md border border-border px-2 hover:bg-foreground/[0.05] transition-colors">
                     {paused ? "Resume" : "Pause"}
                 </button>
             </div>
@@ -166,10 +166,10 @@ function MetricsTab({ connectionString, active }: { connectionString: string; ac
 
 function MetricCard({ label, value, points, color }: { label: string; value: string; points: number[]; color: string }) {
     return (
-        <div className="rounded border bg-muted/20 px-3 py-2">
+        <div className="rounded-xl border border-border bg-card px-3 py-2">
             <div className="flex items-center justify-between">
-                <div className="text-[10px] text-muted-foreground">{label}</div>
-                <div className="text-sm font-mono font-semibold">{value}</div>
+                <div className="text-[11px] text-muted-foreground">{label}</div>
+                <div className="text-sm font-semibold tabular-nums">{value}</div>
             </div>
             <div className="mt-1" style={{ color }}>
                 <Sparkline points={points} />
@@ -236,10 +236,10 @@ function OpsTab({ connectionString, readOnly }: { connectionString: string; read
             {ops && ops.length === 0 ? (
                 <div className="text-center text-sm text-muted-foreground py-10">No active operations</div>
             ) : (
-                <div className="border rounded-md overflow-auto">
+                <div className="border border-border rounded-xl bg-card overflow-auto">
                     <table className="w-full text-xs">
-                        <thead className="text-muted-foreground uppercase bg-muted sticky top-0">
-                            <tr>
+                        <thead className="text-[12px] text-muted-foreground bg-muted sticky top-0">
+                            <tr className="border-b border-border">
                                 <th className="px-2 py-2 text-left font-medium">opid</th>
                                 <th className="px-2 py-2 text-left font-medium">op</th>
                                 <th className="px-2 py-2 text-left font-medium">ns</th>
@@ -249,11 +249,11 @@ function OpsTab({ connectionString, readOnly }: { connectionString: string; read
                         </thead>
                         <tbody>
                             {(ops ?? []).map((o, i) => (
-                                <tr key={i} className="border-b hover:bg-muted/40">
+                                <tr key={i} className="border-b border-border hover:bg-foreground/[0.03]">
                                     <td className="px-2 py-1.5 font-mono">{String(o.opid ?? "—")}</td>
                                     <td className="px-2 py-1.5 font-mono">{o.op ?? "—"}</td>
                                     <td className="px-2 py-1.5 font-mono truncate max-w-[220px]" title={o.ns}>{o.ns ?? "—"}</td>
-                                    <td className="px-2 py-1.5 text-right font-mono">{o.secs_running ?? 0}</td>
+                                    <td className="px-2 py-1.5 text-right font-mono tabular-nums">{o.secs_running ?? 0}</td>
                                     {!readOnly && (
                                         <td className="px-2 py-1.5 text-right">
                                             <Button

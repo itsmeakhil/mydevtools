@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Formatador GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Gerador de esquema JSON",
     "snippetManager": "Excertos de código",
-    "markdownPreview": "Pré-visualização Markdown",
-    "formatConverter": "Conversor de formatos",
-    "yamlFormatter": "Formatador YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Diff JSON",
-    "jsonpathPlayground": "Playground JSONPath",
     "secureFiles": "Ficheiros"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "Claro",
         "dark": "Escuro",
         "system": "Sistema"
+      },
+      "picker": {
+        "wheel": "Roda",
+        "sliders": "Controlos deslizantes",
+        "hue": "Matiz",
+        "saturation": "Saturação",
+        "brightness": "Brilho",
+        "lightness": "Luminosidade",
+        "chroma": "Croma",
+        "hexValue": "Valor hex",
+        "copy": "Copiar valor hex",
+        "copied": "Copiado",
+        "revert": "Repor a cor original",
+        "newColor": "Nova cor",
+        "onWhite": "Sobre branco",
+        "onBlack": "Sobre preto",
+        "aa": "AA aprovado",
+        "aaLarge": "AA grande",
+        "fail": "Reprovado",
+        "presets": "Predefinições",
+        "eyedropper": "Escolher uma cor do ecrã"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Formatador GraphQL",
-        "description": "Formate GraphQL com realce de sintaxe e um editor de consultas simples."
-      },
-      "yamlFormatter": {
-        "title": "Formatador YAML",
-        "description": "Formate, valide e converta YAML para JSON no navegador."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Gerador de esquema JSON",
-        "description": "Infira um esquema JSON e modelos tipados a partir de uma amostra JSON."
-      },
       "snippetManager": {
         "title": "Excertos de código",
         "description": "Guarde excertos com realce de sintaxe, deteção automática de linguagem e formatação."
-      },
-      "markdownPreview": {
-        "title": "Pré-visualização Markdown",
-        "description": "Renderizador Markdown em tempo real com exportação HTML e conversão HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Conversor de formatos",
-        "description": "Converta entre JSON, YAML, TOML e XML em qualquer direção. As 12 combinações são suportadas."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "Diff JSON",
-        "description": "Comparação semântica e sensível à estrutura de dois documentos JSON."
-      },
-      "jsonpathPlayground": {
-        "title": "Playground JSONPath",
-        "description": "Consulte JSON com JSONPath ou JMESPath e veja os resultados em tempo real."
       },
       "secureFiles": {
         "title": "Ficheiros",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "Aplicações",
-      "analytics": "Análise",
       "ui": "Interface"
-    },
-    "analytics": {
-      "title": "Os seus dados num relance",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Não foi possível carregar as estatísticas.",
-      "retry": "Tentar novamente",
-      "passwordEntries": "Entradas de palavras-passe",
-      "tasksTotal": "Tarefas",
-      "tasksCompleted": "Concluídas",
-      "tasksOngoing": "Em curso",
-      "tasksNotStarted": "Não iniciadas",
-      "projects": "Projetos",
-      "nosqlConnections": "Ligações à BD",
-      "notes": "Notas",
-      "apiClientCollections": "Coleções API",
-      "apiClientEnvironments": "Ambientes API",
-      "apiClientHistory": "Entradas do histórico API",
-      "jsonFormatterDocuments": "Documentos do formatador JSON",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Excertos de código",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Preferências de interface",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "JSON reparado",
     "toastRepairFailed": "Não foi possível reparar o JSON"
   },
-  "SqlFormatter": {
-    "title": "Formatador SQL",
-    "subtitle": "Formate SQL para MySQL, PostgreSQL e SQLite",
-    "dialectLabel": "Dialeto",
-    "keywordsLabel": "Palavras-chave",
-    "indentLabel": "Indentação",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "MAIÚSCULAS",
-      "lower": "minúsculas",
-      "preserve": "Manter"
-    },
-    "spaces": "{n} espaços",
-    "format": "Formatar",
-    "clear": "Limpar",
-    "counter": "{current} / {max} caracteres",
-    "inputPanel": "Entrada",
-    "formattedPanel": "Formatado",
-    "copy": "Copiar",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Clique em \"Formatar\"…",
-    "errors": {
-      "tooLong": "A entrada é limitada a {max} caracteres.",
-      "couldNotFormat": "Não foi possível formatar este SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Formatador YAML",
-    "subtitle": "Formate, valide e converta YAML",
-    "outputLabel": "Saída",
-    "outputModes": {
-      "yaml": "YAML (formatado)",
-      "json": "JSON"
-    },
-    "indentLabel": "Recuo",
-    "spaces": "{n} espaços",
-    "format": "Formatar",
-    "clear": "Limpar",
-    "copy": "Copiar",
-    "counter": "{current} / {max} caracteres",
-    "inputPanel": "Entrada",
-    "outputPanel": "Saída",
-    "errors": {
-      "tooLong": "A entrada está limitada a {max} caracteres.",
-      "couldNotFormat": "Não foi possível analisar este YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Formatador GraphQL",
-    "subtitle": "Formate queries, mutations e subscriptions",
-    "tabs": {
-      "format": "Formatar",
-      "build": "Editor de consulta"
-    },
-    "outputModeLabel": "Saída",
-    "outputModes": {
-      "pretty": "Impressão legível",
-      "minify": "Minificar"
-    },
-    "format": "Formatar",
-    "clear": "Limpar",
-    "counter": "{current} / {max} caracteres",
-    "inputPanel": "Entrada",
-    "outputPanel": "Saída",
-    "copy": "Copiar",
-    "builderHint": "Monte um esqueleto e aplique-o ao editor. Definições de variáveis em sintaxe GraphQL (ex.: $id: ID!) — parênteses opcionais.",
-    "builder": {
-      "operation": "Operação",
-      "operationName": "Nome da operação",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Definições de variáveis",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Conjunto de seleção",
-      "apply": "Aplicar à entrada",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "A entrada está limitada a {max} caracteres.",
-      "couldNotFormat": "Não foi possível analisar ou imprimir este GraphQL.",
-      "emptySelection": "Adicione uma seleção antes de aplicar."
-    }
-  },
-  "RegexTester": {
-    "title": "Testador de regex",
-    "subtitle": "Teste regex de JavaScript com realce de correspondências em direto",
-    "patternLabel": "Padrão",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g global",
-      "i": "i ignorar maiúsc./minúsc.",
-      "m": "m multiline",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(vazio)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {correspondência} other {correspondências}}",
-    "testTextLabel": "Texto de teste",
-    "counter": "{current} / {max}",
-    "clear": "Limpar",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "O texto é limitado a {max} caracteres.",
-      "invalid": "Expressão regular inválida.",
-      "runaway": "Interrompido após {max} correspondências (possível padrão descontrolado)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Comparador de textos",
-    "subtitle": "Compare dois textos lado a lado, linha a linha",
-    "rowsCount": "{count} linhas",
-    "truncatedWarning": "A mostrar as primeiras {max} linhas.",
-    "limitExceeded": "Cada lado é limitado a {max} caracteres.",
-    "clearBoth": "Limpar ambos",
-    "original": "Original",
-    "modified": "Modificado",
-    "originalPlaceholder": "Cole o texto original…",
-    "modifiedPlaceholder": "Cole o texto modificado…",
-    "comparisonLabel": "Comparação lado a lado",
-    "emptyState": "Introduza texto em ambos os painéis para comparar."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Gerador de JSON Schema",
-    "subtitle": "Gere JSON Schema ou modelos tipados a partir de JSON de exemplo",
-    "languageLabel": "Idioma de saída",
-    "inputLabel": "Entrada JSON",
-    "inputPlaceholder": "Cole o JSON aqui…",
-    "outputLabel": "Saída gerada",
-    "outputPlaceholder": "O esquema ou os tipos gerados aparecerão aqui…",
-    "parseError": "JSON inválido",
-    "clear": "Limpar",
-    "copy": "Copiar",
-    "copied": "Copiado para a área de transferência",
-    "copyFailed": "Não foi possível copiar",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "Esquema JSON (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "A carregar o editor…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Gestor de snippets",
     "subtitle": "Guarde, pesquise e formate snippets — sincronização opcional",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "{count} linhas corresponderam — nada foi alterado, porque o filtro não é único."
     }
   },
-  "MarkdownPreview": {
-    "title": "Pré-visualização de Markdown",
-    "subtitle": "Renderize Markdown em direto e converta de e para HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Entrada Markdown",
-    "htmlInputLabel": "Entrada HTML",
-    "previewLabel": "Pré-visualização",
-    "htmlOutputLabel": "Fonte HTML",
-    "mdOutputLabel": "Saída Markdown",
-    "inputPlaceholder": "# Olá\\n\\nEscreva o seu **markdown** aqui…",
-    "htmlInputPlaceholder": "Cole o seu HTML aqui…",
-    "copyHtml": "Copiar HTML",
-    "copyMarkdown": "Copiar Markdown",
-    "exportHtml": "Exportar HTML",
-    "fileNameLabel": "Nome do ficheiro",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "{name} guardado",
-    "copied": "Copiado",
-    "charCount": "{count, plural, one {# carácter} other {# caracteres}}",
-    "emptyHint": "Comece a escrever Markdown para ver a pré-visualização em tempo real e a saída HTML.",
-    "emptyHintHtmlToMd": "Cole HTML para o converter em Markdown.",
-    "securityNote": "Tudo é executado localmente no seu navegador. Nada é carregado."
-  },
-  "FormatConverter": {
-    "title": "Conversor de formatos",
-    "subtitle": "Converta JSON, YAML, TOML e XML em qualquer direção",
-    "fromLabel": "De",
-    "toLabel": "Para",
-    "swap": "Inverter",
-    "swapTitle": "Inverter formatos e usar saída como entrada",
-    "copy": "Copiar",
-    "copied": "Copiado",
-    "charCount": "{count, plural, one {# caractere} other {# caracteres}}",
-    "emptyHint": "Cole ou escreva a sua entrada à esquerda para ver a saída convertida.",
-    "localNote": "Tudo funciona localmente no seu navegador. Nada é enviado."
-  },
-  "JsonToCode": {
-    "title": "JSON para código",
-    "subtitle": "Gere modelos tipados a partir de um JSON de exemplo",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Visualizador JSON",
     "subtitle": "Explore JSON como um grafo de nós interativo",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Embelezar e minificar",
-    "subtitle": "Embeleze ou minifique HTML, CSS, JavaScript, XML e JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "Diff de JSON",
-    "subtitle": "Compare JSON estruturalmente — ordem das chaves ignorada",
-    "options": {
-      "ignoreArrayOrder": "Ignorar a ordem dos arrays"
-    },
-    "loadBothSamples": "Carregar exemplos",
-    "sample": "Carregar exemplo",
-    "format": "Formatar",
-    "clear": "Limpar",
-    "formatError": "Não é possível formatar: a entrada não é um JSON válido",
-    "placeholder": "Cole ou escreva JSON aqui…",
-    "panels": {
-      "left": "Original (esquerda)",
-      "right": "Modificado (direita)",
-      "results": "Diferenças"
-    },
-    "summary": {
-      "added": "{count} adicionados",
-      "removed": "{count} removidos",
-      "changed": "{count} alterados"
-    },
-    "types": {
-      "added": "Adicionado",
-      "removed": "Removido",
-      "changed": "Alterado"
-    },
-    "copyChanges": "Copiar como JSON",
-    "copied": "Copiado",
-    "empty": "Cole JSON em ambos os painéis para ver as suas diferenças.",
-    "identical": "Os dois documentos são semanticamente idênticos."
-  },
-  "JsonpathPlayground": {
-    "title": "Laboratório JSONPath",
-    "subtitle": "Consulte JSON com JSONPath ou JMESPath, em direto",
-    "engineLabel": "Motor",
-    "queryLabel": "Consulta",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Referência rápida",
-    "cheats": {
-      "jpAllTitles": "Todos os títulos de livros",
-      "jpAllAuthors": "Todos os autores, em qualquer parte do documento",
-      "jpFirstBook": "Primeiro livro",
-      "jpLastBook": "Último livro",
-      "jpSlice": "Os dois primeiros livros (slice)",
-      "jpFilterPrice": "Livros abaixo de 40",
-      "jpFilterInStock": "Títulos dos livros em stock",
-      "jpRecursive": "Todos os valores, recursivamente",
-      "jmAllTitles": "Todos os títulos de livros",
-      "jmFirstAuthor": "Autor do primeiro livro",
-      "jmLastBook": "Último livro",
-      "jmSlice": "Os dois primeiros livros (slice)",
-      "jmFilterPrice": "Títulos dos livros abaixo de 40",
-      "jmCount": "Contar livros em stock",
-      "jmProjection": "Reformular cada livro num novo objeto",
-      "jmSort": "Títulos ordenados por preço"
-    },
-    "panels": {
-      "input": "Entrada JSON",
-      "results": "Resultados"
-    },
-    "sample": "Carregar exemplo",
-    "format": "Formatar",
-    "clear": "Limpar",
-    "formatError": "Não é possível formatar: a entrada não é um JSON válido",
-    "placeholder": "Cole ou escreva JSON aqui…",
-    "outputPlaceholder": "As correspondências aparecerão aqui…",
-    "matchCount": "{count, plural, one {# correspondência} other {# correspondências}}",
-    "copy": "Copiar",
-    "copied": "Copiado"
   },
   "WebhookTester": {
     "title": "Testador de webhooks",
@@ -2909,7 +2518,9 @@
     "moreSections": "Mais secções",
     "sections": "Secções da barra lateral",
     "show": "Mostrar barra lateral",
-    "hide": "Ocultar barra lateral"
+    "hide": "Ocultar barra lateral",
+    "pin": "Afixar {tool}",
+    "unpin": "Desafixar {tool}"
   },
   "DesktopUpdate": {
     "title": "A atualizar o MyDevTools",
@@ -3021,5 +2632,25 @@
     "working": "{done} de {total}",
     "cancelled": "Cancelado.",
     "save": "Guardar"
+  },
+  "Shell": {
+    "sidebar": "Barra lateral",
+    "toggleSidebar": "Mostrar/ocultar barra lateral",
+    "searchTools": "Pesquisar ferramentas",
+    "help": "Ajuda",
+    "theme": "Tema",
+    "themeLight": "Claro",
+    "themeDark": "Escuro",
+    "themeSystem": "Sistema",
+    "account": "Conta",
+    "you": "Você",
+    "openTool": "Abrir ferramenta",
+    "closeTab": "Fechar {title}",
+    "status": "Estado",
+    "vaultLocked": "Cofre bloqueado",
+    "vaultUnlocked": "Cofre desbloqueado",
+    "reduceTransparency": "Reduzir transparência",
+    "reduceTransparencyHint": "Substitui o vidro por superfícies sólidas.",
+    "goToDashboard": "Ir para o painel"
   }
 }

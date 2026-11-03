@@ -377,10 +377,10 @@ export function FirestoreCollectionPane({
     const banner = error ? errorText(error) : null;
 
     return (
-        <div className="flex h-full flex-col">
+        <div className="flex h-full flex-col bg-card">
             {/* Breadcrumb + toolbar */}
-            <div className="flex items-center gap-2 border-b px-3 py-2">
-                <nav className="flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto text-xs">
+            <div className="flex h-11 shrink-0 items-center gap-2 border-b border-border px-3">
+                <nav className="flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto text-[13px]">
                     {pathSegments.map((seg, i) => {
                         const isCollection = i % 2 === 0;
                         const isLast = i === pathSegments.length - 1;
@@ -392,7 +392,7 @@ export function FirestoreCollectionPane({
                                 {isCollection && !isLast ? (
                                     <button
                                         type="button"
-                                        className="shrink-0 rounded px-1 py-0.5 hover:bg-muted/60"
+                                        className="shrink-0 rounded-sm px-1 py-0.5 hover:bg-foreground/[0.05]"
                                         onClick={() =>
                                             navigateTo(pathSegments.slice(0, i + 1).join("/"))
                                         }
@@ -417,7 +417,7 @@ export function FirestoreCollectionPane({
                     value={String(state.pageSize)}
                     onValueChange={(v) => setState((prev) => ({ ...prev, pageSize: Number(v) }))}
                 >
-                    <SelectTrigger className="h-7 w-[70px] text-xs">
+                    <SelectTrigger className="h-7 w-[70px] text-[13px] tabular-nums">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -444,7 +444,7 @@ export function FirestoreCollectionPane({
                     <Button
                         type="button"
                         size="sm"
-                        className="h-7 text-xs"
+                        className="h-7 text-[13px]"
                         onClick={() => setNewDocOpen(true)}
                     >
                         <IconPlus className="size-3.5" />
@@ -454,7 +454,7 @@ export function FirestoreCollectionPane({
             </div>
 
             {/* Filter bar */}
-            <div className="flex flex-wrap items-end gap-2 border-b px-3 py-2">
+            <div className="flex shrink-0 flex-wrap items-end gap-2 border-b border-border px-3 py-2">
                 <div className="w-36">
                     <Input
                         value={draftField}
@@ -505,14 +505,14 @@ export function FirestoreCollectionPane({
                         </SelectItem>
                     </SelectContent>
                 </Select>
-                <Button type="button" size="sm" className="h-7 text-xs" onClick={applyFilters}>
+                <Button type="button" size="sm" className="h-7 text-[13px]" onClick={applyFilters}>
                     {t("apply")}
                 </Button>
                 <Button
                     type="button"
                     size="sm"
                     variant="ghost"
-                    className="h-7 text-xs"
+                    className="h-7 text-[13px]"
                     onClick={clearFilters}
                 >
                     {t("clear")}
@@ -520,7 +520,7 @@ export function FirestoreCollectionPane({
             </div>
 
             {banner && (
-                <div className="flex items-center gap-2 border-b bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                <div className="flex items-center gap-2 border-b border-border bg-destructive/10 px-3 py-2 text-xs text-destructive">
                     <span className="min-w-0 flex-1">{banner.text}</span>
                     {banner.linkUrl && (
                         <a
@@ -538,10 +538,10 @@ export function FirestoreCollectionPane({
 
             <ResizablePanelGroup direction="horizontal" className="min-h-0 flex-1">
                 <ResizablePanel defaultSize={40} minSize={20}>
-                    <div className="flex h-full flex-col">
-                        <div className="min-h-0 flex-1 overflow-y-auto">
+                    <div className="flex h-full flex-col bg-muted/40">
+                        <div className="min-h-0 flex-1 overflow-y-auto p-1.5">
                             {docs.length === 0 && !loading && !error ? (
-                                <p className="px-3 py-4 text-center text-xs text-muted-foreground">
+                                <p className="px-3 py-4 text-center text-[13px] text-muted-foreground">
                                     {t("emptyCollection")}
                                 </p>
                             ) : (
@@ -556,14 +556,16 @@ export function FirestoreCollectionPane({
                                                 setEditing(false);
                                             }}
                                             className={cn(
-                                                "block w-full border-b px-3 py-1.5 text-left transition-colors hover:bg-muted/60",
-                                                isSelected && "bg-muted",
+                                                "block w-full rounded-lg px-2.5 py-1.5 text-left transition-colors",
+                                                isSelected
+                                                    ? "bg-primary/[0.12] text-foreground"
+                                                    : "hover:bg-foreground/[0.05]",
                                             )}
                                         >
                                             <span className="block truncate font-mono text-xs font-medium">
                                                 {docId(doc)}
                                             </span>
-                                            <span className="block truncate text-[10px] text-muted-foreground">
+                                            <span className="block truncate font-mono text-[11px] text-muted-foreground">
                                                 {JSON.stringify(decodeFields(doc.fields ?? {}))}
                                             </span>
                                         </button>
@@ -571,8 +573,8 @@ export function FirestoreCollectionPane({
                                 })
                             )}
                         </div>
-                        <div className="flex items-center justify-between border-t px-3 py-1.5 text-xs">
-                            <span className="text-muted-foreground">
+                        <div className="flex h-9 shrink-0 items-center justify-between border-t border-border px-3 text-xs">
+                            <span className="tabular-nums text-muted-foreground">
                                 {hasQuery
                                     ? t("queryLimitNote", { count: state.pageSize })
                                     : t("docCount", { count: docs.length })}
@@ -608,12 +610,12 @@ export function FirestoreCollectionPane({
                 <ResizablePanel defaultSize={60} minSize={25}>
                     {selected ? (
                         <div className="flex h-full flex-col">
-                            <div className="flex items-center gap-2 border-b px-3 py-2">
+                            <div className="flex h-11 shrink-0 items-center gap-2 border-b border-border px-3">
                                 <span className="min-w-0 flex-1 truncate font-mono text-xs font-medium">
                                     {docId(selected)}
                                 </span>
                                 {selected.updateTime && (
-                                    <span className="shrink-0 text-[10px] text-muted-foreground">
+                                    <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">
                                         {selected.updateTime}
                                     </span>
                                 )}
@@ -691,8 +693,8 @@ export function FirestoreCollectionPane({
                                     </pre>
                                 )}
                             </div>
-                            <div className="border-t px-3 py-2">
-                                <p className="mb-1 text-[10px] font-medium text-muted-foreground uppercase">
+                            <div className="border-t border-border px-3 py-2">
+                                <p className="mb-1 text-[11px] font-medium text-muted-foreground">
                                     {t("subcollections")}
                                 </p>
                                 {subcollections === null ? (
@@ -712,9 +714,9 @@ export function FirestoreCollectionPane({
                                                         `${relativeDocPath(selected)}/${id}`,
                                                     )
                                                 }
-                                                className="flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs transition-colors hover:bg-muted/60"
+                                                className="flex items-center gap-1 rounded-full border border-border px-2 py-0.5 text-xs transition-colors hover:bg-foreground/[0.05]"
                                             >
-                                                <IconFolder className="size-3 text-amber-500" />
+                                                <IconFolder className="size-3 text-muted-foreground" />
                                                 {id}
                                             </button>
                                         ))}
@@ -723,7 +725,7 @@ export function FirestoreCollectionPane({
                             </div>
                         </div>
                     ) : (
-                        <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+                        <div className="flex h-full items-center justify-center text-[13px] text-muted-foreground">
                             {t("selectDoc")}
                         </div>
                     )}
@@ -747,7 +749,7 @@ export function FirestoreCollectionPane({
                                 disabled={mutating}
                                 className="h-8 font-mono text-xs"
                             />
-                            <p className="text-[10px] text-muted-foreground">{t("docIdAutoHint")}</p>
+                            <p className="text-[11px] text-muted-foreground">{t("docIdAutoHint")}</p>
                         </div>
                         <Textarea
                             value={newDocText}
@@ -756,7 +758,7 @@ export function FirestoreCollectionPane({
                             rows={10}
                             className="font-mono text-xs"
                         />
-                        <p className="text-[10px] text-muted-foreground">{t("newFieldTypesHint")}</p>
+                        <p className="text-[11px] text-muted-foreground">{t("newFieldTypesHint")}</p>
                     </div>
                     <DialogFooter>
                         <Button

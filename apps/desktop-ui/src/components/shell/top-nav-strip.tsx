@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { LayoutDashboard, Star, ChevronDown, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {
   Tooltip,
@@ -11,24 +11,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { usePinnedToolsForActiveWorkspace, usePinnedToolsStore } from '@/store/pinned-tools-store'
-import { useActiveWorkspace } from '@/store/workspace-store'
 import { useTabStore } from '@/store/tab-store'
 import { getRouteConfig } from '@/lib/route-config'
-import { buildPinnedNavItems, getSidebarToolMeta } from '@/components/sidebar/app-sidebar.helpers'
-import type { NavLink } from '@/components/sidebar/types'
+import { getSidebarToolMeta } from '@/components/sidebar/app-sidebar.helpers'
 import { getToolMessageKey } from '@/lib/tool-i18n'
 
 /**
- * Grouped top-nav — replaces the left panel AND the old tab strip. Dashboard,
- * a "Pinned" group of favorites, then one chip per open tool tab (opened tools
- * dock here; ⌥1–9 jumps, ⌥W closes). ⌘K at the end opens the full palette.
+ * Toolbar tab strip — one chip per open tool (opened tools dock here; ⌥1–9
+ * jumps, ⌥W closes, drag to reorder). Navigation lives in the sidebar.
  */
 
 /** Icon-only entry (Dashboard, ⌘K) with a hover tooltip. */
@@ -52,10 +42,8 @@ export function NavIcon({
           aria-label={label}
           aria-current={active ? 'page' : undefined}
           className={cn(
-            'flex h-8 w-8 shrink-0 items-center justify-center rounded-md transition-colors duration-150',
-            active
-              ? 'bg-primary/[0.12] text-primary'
-              : 'text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground',
+            'liquid flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-[color,transform] duration-150 active:scale-95',
+            active ? 'text-primary' : 'text-foreground/70 hover:text-foreground',
           )}
         >
           <Icon className="h-[17px] w-[17px]" strokeWidth={1.75} aria-hidden />
@@ -68,130 +56,16 @@ export function NavIcon({
   )
 }
 
-/** The "Pinned" label revealing favorite tools on hover. */
-function PinnedMenu({
-  tools,
-  onNavigate,
-  onUnpin,
-}: {
-  tools: NavLink[]
-  onNavigate: (url: string) => void
-  onUnpin: (url: string) => void
-}) {
-  const pathname = usePathname()
-  const tNav = useTranslations('Navigation')
-  const [open, setOpen] = useState(false)
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const openNow = useCallback(() => {
-    if (timer.current) clearTimeout(timer.current)
-    setOpen(true)
-  }, [])
-  const closeSoon = useCallback(() => {
-    if (timer.current) clearTimeout(timer.current)
-    timer.current = setTimeout(() => setOpen(false), 120)
-  }, [])
-
-  const groupActive = tools.some((t) => {
-    const url = String(t.url)
-    return pathname === url || pathname.startsWith(url + '/')
-  })
-
-  return (
-    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
-      <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          onMouseEnter={openNow}
-          onMouseLeave={closeSoon}
-          className={cn(
-            'flex h-8 shrink-0 items-center gap-1 rounded-md px-2 text-[13px] font-medium transition-colors duration-150',
-            open || groupActive
-              ? 'bg-foreground/[0.06] text-foreground'
-              : 'text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground',
-          )}
-        >
-          <Star
-            className={cn('h-3.5 w-3.5', groupActive && 'text-primary')}
-            strokeWidth={1.75}
-            aria-hidden
-          />
-          <span className="whitespace-nowrap">Pinned</span>
-          <ChevronDown className="h-3 w-3 opacity-50" aria-hidden />
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align="start"
-        sideOffset={6}
-        onMouseEnter={openNow}
-        onMouseLeave={closeSoon}
-        className="max-h-[70vh] w-56 overflow-y-auto"
-      >
-        {tools.map((t) => {
-          const url = String(t.url)
-          const active = pathname === url || pathname.startsWith(url + '/')
-          const key = getToolMessageKey(url)
-          const label = key ? tNav(key as never) : t.title
-          const Icon = t.icon
-          return (
-            <DropdownMenuItem
-              key={url}
-              onSelect={() => onNavigate(url)}
-              className={cn('cursor-pointer gap-2.5', active && 'text-primary')}
-            >
-              {Icon ? (
-                <Icon
-                  className={cn('h-4 w-4 shrink-0', active ? 'text-primary' : 'text-muted-foreground')}
-                  aria-hidden
-                />
-              ) : null}
-              <span className="truncate">{label}</span>
-              <button
-                type="button"
-                aria-label={`Unpin ${label}`}
-                onPointerDown={(e) => e.stopPropagation()}
-                // Radix synthesizes a click on the menu item from pointerup when it
-                // never saw pointerdown — stop pointerup too or the row navigates.
-                onPointerUp={(e) => e.stopPropagation()}
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  onUnpin(url)
-                }}
-                className="ml-auto shrink-0 rounded p-0.5 text-primary opacity-80 transition-opacity hover:opacity-100"
-              >
-                <Star className="h-3.5 w-3.5 fill-primary" aria-hidden />
-              </button>
-            </DropdownMenuItem>
-          )
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-}
-
 export function TopNavStrip() {
   const router = useRouter()
   const pathname = usePathname()
   const tNav = useTranslations('Navigation')
-  const pinnedTools = usePinnedToolsForActiveWorkspace()
-  const activeWs = useActiveWorkspace()
-  const pinned = buildPinnedNavItems(pinnedTools, activeWs)
-  const togglePin = usePinnedToolsStore((s) => s.togglePin)
+  const tShell = useTranslations('Shell')
   const { tabs, closeTab, moveTab } = useTabStore()
 
   // Drag-to-reorder (native HTML5 DnD, same as the API-client tab bar).
   const [draggedPath, setDraggedPath] = useState<string | null>(null)
   const [dragOverPath, setDragOverPath] = useState<string | null>(null)
-  const unpin = useCallback(
-    (url: string) => {
-      if (activeWs) togglePin(activeWs.id, url)
-    },
-    [activeWs, togglePin],
-  )
-
-  const navigate = useCallback((url: string) => router.push(url), [router])
-
   const closeTabAndNavigate = useCallback(
     (path: string) => {
       const { tabs, activeTabPath } = useTabStore.getState()
@@ -234,8 +108,6 @@ export function TopNavStrip() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [router, closeTabAndNavigate])
 
-  const isDashboard = pathname === '/dashboard'
-
   // Edge-fade affordance: show a fade only on the side that has more to scroll.
   const scrollRef = useRef<HTMLDivElement>(null)
   const activeTabRef = useRef<HTMLDivElement>(null)
@@ -258,7 +130,7 @@ export function TopNavStrip() {
       el.removeEventListener('scroll', updateScroll)
       ro.disconnect()
     }
-  }, [updateScroll, tabs.length, pinned.length])
+  }, [updateScroll, tabs.length])
 
   // Keep the active tab chip in view when it changes.
   useEffect(() => {
@@ -276,45 +148,23 @@ export function TopNavStrip() {
 
   return (
     <TooltipProvider delayDuration={300}>
-      <nav aria-label="Tools" className="flex min-w-0 items-center gap-1">
-        <NavIcon
-          label="Dashboard"
-          icon={LayoutDashboard}
-          active={isDashboard}
-          onClick={() => router.push('/dashboard')}
-        />
-
-        <div className="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden />
-
-        {/* Pinned stays fixed — only the tab strip scrolls. */}
-        {pinned.length > 0 ? (
-          <>
-            <PinnedMenu tools={pinned} onNavigate={navigate} onUnpin={unpin} />
-            <div className="mx-0.5 h-5 w-px shrink-0 bg-border" aria-hidden />
-          </>
-        ) : null}
-
+      {tabs.length === 0 ? null : (
+      <nav aria-label="Tools" className="liquid flex h-10 min-w-0 items-center rounded-full px-1">
         {/* overflow-hidden wrapper physically clips the horizontal scrollbar
             (which the scroll child pushes below its own box via pb+/-mb). */}
         <div className="relative flex min-w-0 items-center overflow-hidden">
           <div
-            aria-hidden
-            className={cn(
-              'pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-[hsl(var(--surface-2))] to-transparent transition-opacity duration-200',
-              canScrollLeft ? 'opacity-100' : 'opacity-0',
-            )}
-          />
-          <div
             ref={scrollRef}
             className="no-scrollbar flex min-w-0 items-center gap-1 overflow-x-auto overflow-y-hidden"
-            style={{ paddingBottom: 24, marginBottom: -24 }}
+            style={{
+              paddingBottom: 24,
+              marginBottom: -24,
+              maskImage: `linear-gradient(90deg, ${canScrollLeft ? 'transparent' : '#000'}, #000 28px, #000 calc(100% - 28px), ${canScrollRight ? 'transparent' : '#000'})`,
+              WebkitMaskImage: `linear-gradient(90deg, ${canScrollLeft ? 'transparent' : '#000'}, #000 28px, #000 calc(100% - 28px), ${canScrollRight ? 'transparent' : '#000'})`,
+            }}
           >
-            {/* Open tool tabs — one per open tool, docked next to Pinned.
-                Same design as the old tab strip: 1px bifurcation between two
-                inactive neighbours, suppressed next to the active tab, always
-                occupying 1px so tabs never shift when the divider toggles.
-                gap-0 wrapper so dividers sit flush like the old strip. */}
-            <div className="flex shrink-0 items-center">
+            {/* Open tool tabs — pill chips inside the glass capsule. */}
+            <div className="flex shrink-0 items-center gap-0.5">
             {tabs.map((tab, i) => {
               const config = getRouteConfig(tab.path)
               const key = getToolMessageKey(tab.path)
@@ -326,23 +176,9 @@ export function TopNavStrip() {
               // generic route-config lucide icon only when the catalog has none.
               const meta = getSidebarToolMeta(tab.path)
               const Icon = meta?.icon ?? config?.icon
-              // Tab chip icon follows the user-selected accent (--primary), not the
-              // fixed per-category color — the ring/glow derive from it via currentColor.
-              const accent = { bg: 'bg-primary/10', text: 'text-primary' }
               const isActive = pathname === tab.path
-              const prevActive = i > 0 && tabs[i - 1].path === pathname
-              const showDivider = i > 0 && !isActive && !prevActive
               return (
                 <React.Fragment key={tab.path}>
-                  {i > 0 ? (
-                    <div
-                      aria-hidden
-                      className={cn(
-                        'h-5 w-px shrink-0 self-center bg-border transition-opacity duration-150',
-                        showDivider ? 'opacity-100' : 'opacity-0',
-                      )}
-                    />
-                  ) : null}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       {/* div, not <button>: WebKit/Firefox refuse to start a
@@ -384,50 +220,36 @@ export function TopNavStrip() {
                           if (tab.path !== pathname) router.push(tab.path)
                         }}
                         className={cn(
-                          'group relative flex h-8 min-w-[144px] max-w-[230px] shrink-0 cursor-pointer select-none items-center gap-2.5 rounded-md border px-3 text-[13px] font-medium leading-none outline-none transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-ring',
+                          'group relative flex h-8 min-w-[128px] max-w-[210px] shrink-0 select-none items-center gap-2 rounded-full px-3 text-[13px] leading-none outline-none transition-[background-color,color,box-shadow] duration-150 focus-visible:ring-2 focus-visible:ring-ring',
                           isActive
-                            ? 'border-border bg-[hsl(var(--surface-1))] text-foreground'
-                            : 'border-transparent text-foreground/60 hover:bg-foreground/[0.05] hover:text-foreground/90',
+                            ? 'bg-[hsl(var(--segment-active))] font-medium text-foreground shadow-[0_1px_3px_rgb(0_0_0/0.12),inset_0_1px_0_rgb(255_255_255/0.5)]'
+                            : 'text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground',
                           draggedPath === tab.path && 'opacity-40',
                           dragOverPath === tab.path &&
                             draggedPath !== tab.path &&
                             'ring-2 ring-inset ring-primary/50',
                         )}
                       >
-                        {isActive && (
-                          <span className="pointer-events-none absolute inset-x-0 top-0 h-0.5 rounded-t-md bg-primary" />
-                        )}
                         {Icon ? (
-                          <span
+                          <Icon
                             className={cn(
-                              'relative flex h-[22px] w-[22px] shrink-0 items-center justify-center overflow-hidden rounded-md transition-all duration-200',
-                              accent.bg,
-                              accent.text,
-                              // colored ring + depth, all derived from the accent via currentColor
-                              'ring-1 ring-inset ring-[color-mix(in_srgb,currentColor_30%,transparent)]',
-                              isActive
-                                ? 'shadow-[0_0_10px_-2px_currentColor]'
-                                : 'opacity-75 saturate-[.85] group-hover:opacity-100 group-hover:saturate-100',
+                              'h-4 w-4 shrink-0 transition-colors',
+                              isActive ? 'text-primary' : 'text-muted-foreground/80 group-hover:text-foreground/80',
                             )}
-                          >
-                            {/* diagonal sheen over the tint — the "premium" glass touch */}
-                            <span
-                              aria-hidden
-                              className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.12] via-transparent to-black/[0.08]"
-                            />
-                            <Icon className="relative h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
-                          </span>
+                            strokeWidth={1.75}
+                            aria-hidden
+                          />
                         ) : null}
                         <span className="min-w-0 flex-1 truncate text-left">{title}</span>
                         <span
                           role="button"
-                          aria-label={`Close ${title}`}
+                          aria-label={tShell('closeTab', { title })}
                           onClick={(e) => {
                             e.stopPropagation()
                             closeTabAndNavigate(tab.path)
                           }}
                           className={cn(
-                            'flex h-4 w-4 shrink-0 items-center justify-center rounded transition-all duration-100 hover:bg-[hsl(var(--surface-3))] hover:text-foreground',
+                            'flex h-4 w-4 shrink-0 items-center justify-center rounded transition-all duration-100 hover:bg-foreground/[0.1] hover:text-foreground',
                             isActive
                               ? 'text-muted-foreground opacity-100'
                               : 'text-muted-foreground/40 opacity-0 group-hover:opacity-100',
@@ -440,7 +262,7 @@ export function TopNavStrip() {
                     <TooltipContent side="bottom" sideOffset={8} className="flex items-center gap-1.5 text-xs">
                       {title}
                       {i < 9 ? (
-                        <kbd className="rounded border border-border/60 bg-muted/60 px-1 font-mono text-[10px] text-muted-foreground">
+                        <kbd className="font-sans text-[11px] text-muted-foreground">
                           ⌥{i + 1}
                         </kbd>
                       ) : null}
@@ -451,16 +273,10 @@ export function TopNavStrip() {
             })}
             </div>
           </div>
-          <div
-            aria-hidden
-            className={cn(
-              'pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-[hsl(var(--surface-2))] to-transparent transition-opacity duration-200',
-              canScrollRight ? 'opacity-100' : 'opacity-0',
-            )}
-          />
         </div>
 
       </nav>
+      )}
     </TooltipProvider>
   )
 }

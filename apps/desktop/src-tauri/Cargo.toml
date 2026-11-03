@@ -1,6 +1,6 @@
 [package]
 name = "mydevtools-desktop"
-version = "0.1.18"
+version = "0.1.19"
 description = "MyDevTools desktop app"
 edition = "2021"
 
@@ -12,7 +12,7 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-tauri = { version = "2", features = [] }
+tauri = { version = "2", features = ["macos-private-api"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 rusqlite = { version = "0.40", features = ["bundled-sqlcipher-vendored-openssl"] }

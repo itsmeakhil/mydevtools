@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL-formater",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON-skemagenerator",
     "snippetManager": "Kodestykker",
-    "markdownPreview": "Markdown-forhåndsvisning",
-    "formatConverter": "Formatkonverter",
-    "yamlFormatter": "YAML-formatering",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON-diff",
-    "jsonpathPlayground": "JSONPath-legeplads",
     "secureFiles": "Filer"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "Lys",
         "dark": "Mørk",
         "system": "System"
+      },
+      "picker": {
+        "wheel": "Hjul",
+        "sliders": "Skydere",
+        "hue": "Farvetone",
+        "saturation": "Mætning",
+        "brightness": "Lysstyrke",
+        "lightness": "Lyshed",
+        "chroma": "Kroma",
+        "hexValue": "Hex-værdi",
+        "copy": "Kopiér hex-værdi",
+        "copied": "Kopieret",
+        "revert": "Gendan oprindelig farve",
+        "newColor": "Ny farve",
+        "onWhite": "På hvid",
+        "onBlack": "På sort",
+        "aa": "AA bestået",
+        "aaLarge": "AA stor",
+        "fail": "Ikke bestået",
+        "presets": "Forudindstillinger",
+        "eyedropper": "Vælg en farve fra skærmen"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "GraphQL-formater",
-        "description": "Formatér GraphQL med syntaksfremhævning og en enkel forespørgselsbygger."
-      },
-      "yamlFormatter": {
-        "title": "YAML-formatering",
-        "description": "Formater, valider og konverter YAML til JSON i browseren."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "JSON-skemagenerator",
-        "description": "Udled et JSON-skema og typede modeller fra eksempel-JSON."
-      },
       "snippetManager": {
         "title": "Kodestykker",
         "description": "Gem kodestykker med syntaksfremhævelse, automatisk sprogdetektion og formatering."
-      },
-      "markdownPreview": {
-        "title": "Markdown-forhåndsvisning",
-        "description": "Live Markdown-renderer med HTML-eksport og HTML → Markdown-konvertering."
-      },
-      "formatConverter": {
-        "title": "Formatkonverter",
-        "description": "Konvertér mellem JSON, YAML, TOML og XML i alle retninger. Alle 12 kombinationer understøttes."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON-diff",
-        "description": "Semantisk, strukturbevidst sammenligning af to JSON-dokumenter."
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath-legeplads",
-        "description": "Forespørg JSON med JSONPath eller JMESPath, og se resultater live."
       },
       "secureFiles": {
         "title": "Filer",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "Apps",
-      "analytics": "Analyse",
       "ui": "Brugerflade"
-    },
-    "analytics": {
-      "title": "Dine data på et øjeblik",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Kunne ikke indlæse analyse.",
-      "retry": "Prøv igen",
-      "passwordEntries": "Adgangskodeposter",
-      "tasksTotal": "Opgaver",
-      "tasksCompleted": "Fuldført",
-      "tasksOngoing": "I gang",
-      "tasksNotStarted": "Ikke startet",
-      "projects": "Projekter",
-      "nosqlConnections": "DB-forbindelser",
-      "notes": "Noter",
-      "apiClientCollections": "API-samlinger",
-      "apiClientEnvironments": "API-miljøer",
-      "apiClientHistory": "API-historikposter",
-      "jsonFormatterDocuments": "JSON-formatdokumenter",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Kode-snippets",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Brugerfladeindstillinger",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "JSON repareret",
     "toastRepairFailed": "Kunne ikke reparere JSON"
   },
-  "SqlFormatter": {
-    "title": "SQL-formatter",
-    "subtitle": "Formatér SQL pænt til MySQL, PostgreSQL og SQLite",
-    "dialectLabel": "Dialekt",
-    "keywordsLabel": "Nøgleord",
-    "indentLabel": "Indrykning",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "STORE",
-      "lower": "små",
-      "preserve": "Bevar"
-    },
-    "spaces": "{n} mellemrum",
-    "format": "Formatér",
-    "clear": "Ryd",
-    "counter": "{current} / {max} tegn",
-    "inputPanel": "Input",
-    "formattedPanel": "Formateret",
-    "copy": "Kopiér",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Klik \"Formatér\"…",
-    "errors": {
-      "tooLong": "Input er begrænset til {max} tegn.",
-      "couldNotFormat": "Kunne ikke formatere denne SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "YAML-formatter",
-    "subtitle": "Formatér, validér og konvertér YAML",
-    "outputLabel": "Output",
-    "outputModes": {
-      "yaml": "YAML (formateret)",
-      "json": "JSON"
-    },
-    "indentLabel": "Indrykning",
-    "spaces": "{n} mellemrum",
-    "format": "Formater",
-    "clear": "Ryd",
-    "copy": "Kopiér",
-    "counter": "{current} / {max} tegn",
-    "inputPanel": "Input",
-    "outputPanel": "Output",
-    "errors": {
-      "tooLong": "Input er begrænset til {max} tegn.",
-      "couldNotFormat": "Kunne ikke fortolke dette YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "GraphQL-formatter",
-    "subtitle": "Formatér queries, mutations og subscriptions",
-    "tabs": {
-      "format": "Formatér",
-      "build": "Forespørgselsbygger"
-    },
-    "outputModeLabel": "Output",
-    "outputModes": {
-      "pretty": "Læsevenlig udskrift",
-      "minify": "Minificér"
-    },
-    "format": "Formatér",
-    "clear": "Ryd",
-    "counter": "{current} / {max} tegn",
-    "inputPanel": "Input",
-    "outputPanel": "Output",
-    "copy": "Kopiér",
-    "builderHint": "Byg et skelet og brug det i editoren. Variabeldefinitioner i GraphQL-syntaks (f.eks. $id: ID!) — parenteser er valgfri.",
-    "builder": {
-      "operation": "Operation",
-      "operationName": "Operationsnavn",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Variabeldefinitioner",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Udvalg",
-      "apply": "Anvend på input",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Input er begrænset til {max} tegn.",
-      "couldNotFormat": "Kunne ikke parse eller udskrive denne GraphQL.",
-      "emptySelection": "Tilføj et udvalg før du anvender."
-    }
-  },
-  "RegexTester": {
-    "title": "Regex-tester",
-    "subtitle": "Test JavaScript-regex med live fremhævede match",
-    "patternLabel": "Mønster",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g global",
-      "i": "i ignorer store/små bogstaver",
-      "m": "m multiline",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(tom)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {match} other {matches}}",
-    "testTextLabel": "Testtekst",
-    "counter": "{current} / {max}",
-    "clear": "Ryd",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Teksten er begrænset til {max} tegn.",
-      "invalid": "Ugyldigt regulært udtryk.",
-      "runaway": "Stoppede efter {max} matches (muligt løbsk mønster)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Diff-tjekker",
-    "subtitle": "Sammenlign to tekster side om side, linje for linje",
-    "rowsCount": "{count} rækker",
-    "truncatedWarning": "Viser de første {max} rækker.",
-    "limitExceeded": "Hver side er begrænset til {max} tegn.",
-    "clearBoth": "Ryd begge",
-    "original": "Original",
-    "modified": "Ændret",
-    "originalPlaceholder": "Indsæt original tekst…",
-    "modifiedPlaceholder": "Indsæt ændret tekst…",
-    "comparisonLabel": "Side-om-side sammenligning",
-    "emptyState": "Indtast tekst i begge paneler for at sammenligne."
-  },
-  "JsonSchemaGenerator": {
-    "title": "JSON Schema-generator",
-    "subtitle": "Generér JSON Schema eller typede modeller fra eksempel-JSON",
-    "languageLabel": "Outputsprog",
-    "inputLabel": "JSON-input",
-    "inputPlaceholder": "Indsæt JSON her…",
-    "outputLabel": "Genereret output",
-    "outputPlaceholder": "Skemaet eller de genererede typer vises her…",
-    "parseError": "Ugyldig JSON",
-    "clear": "Ryd",
-    "copy": "Kopiér",
-    "copied": "Kopieret til udklipsholder",
-    "copyFailed": "Kunne ikke kopiere",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON-skema (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Indlæser editor…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Snippet-manager",
     "subtitle": "Gem, søg og formatér kodesnippets — synk valgfrit",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "{count} rækker matchede — intet blev ændret, fordi filteret ikke er entydigt."
     }
   },
-  "MarkdownPreview": {
-    "title": "Markdown-forhåndsvisning",
-    "subtitle": "Render Markdown live og konvertér til eller fra HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Markdown-input",
-    "htmlInputLabel": "HTML-input",
-    "previewLabel": "Forhåndsvisning",
-    "htmlOutputLabel": "HTML-kilde",
-    "mdOutputLabel": "Markdown-output",
-    "inputPlaceholder": "# Hej\\n\\nSkriv din **markdown** her…",
-    "htmlInputPlaceholder": "Indsæt din HTML her…",
-    "copyHtml": "Kopiér HTML",
-    "copyMarkdown": "Kopiér Markdown",
-    "exportHtml": "Eksportér HTML",
-    "fileNameLabel": "Filnavn",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Gemte {name}",
-    "copied": "Kopieret",
-    "charCount": "{count, plural, one {# tegn} other {# tegn}}",
-    "emptyHint": "Begynd at skrive Markdown for at se live-forhåndsvisning og HTML-output.",
-    "emptyHintHtmlToMd": "Indsæt HTML for at konvertere det til Markdown.",
-    "securityNote": "Alt kører lokalt i din browser. Intet uploades."
-  },
-  "FormatConverter": {
-    "title": "Formatkonverter",
-    "subtitle": "Konvertér JSON, YAML, TOML og XML i alle retninger",
-    "fromLabel": "Fra",
-    "toLabel": "Til",
-    "swap": "Skift",
-    "swapTitle": "Skift formater og brug output som input",
-    "copy": "Kopiér",
-    "copied": "Kopieret",
-    "charCount": "{count, plural, one {# tegn} other {# tegn}}",
-    "emptyHint": "Indsæt eller skriv dit input til venstre for at se det konverterede output.",
-    "localNote": "Alt kører lokalt i din browser. Intet uploades."
-  },
-  "JsonToCode": {
-    "title": "JSON til kode",
-    "subtitle": "Generér typede modeller fra en eksempel-JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "JSON-visualisering",
     "subtitle": "Udforsk JSON som en interaktiv nodegraf",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Beautify & minify",
-    "subtitle": "Forskøn eller minificér HTML, CSS, JavaScript, XML og JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON-diff",
-    "subtitle": "Sammenlign JSON strukturelt — nøglerækkefølge ignoreres",
-    "options": {
-      "ignoreArrayOrder": "Ignorér array-rækkefølge"
-    },
-    "loadBothSamples": "Indlæs eksempler",
-    "sample": "Eksempel",
-    "format": "Format",
-    "clear": "Ryd",
-    "formatError": "Kan ikke formatere: input er ikke gyldig JSON",
-    "placeholder": "Indsæt eller skriv JSON her…",
-    "panels": {
-      "left": "Original (venstre)",
-      "right": "Ændret (højre)",
-      "results": "Forskelle"
-    },
-    "summary": {
-      "added": "{count} tilføjet",
-      "removed": "{count} fjernet",
-      "changed": "{count} ændret"
-    },
-    "types": {
-      "added": "Tilføjet",
-      "removed": "Fjernet",
-      "changed": "Ændret"
-    },
-    "copyChanges": "Kopiér som JSON",
-    "copied": "Kopieret",
-    "empty": "Indsæt JSON i begge paneler for at se deres forskelle.",
-    "identical": "De to dokumenter er semantisk identiske."
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPath-legeplads",
-    "subtitle": "Forespørg JSON live med JSONPath eller JMESPath",
-    "engineLabel": "Motor",
-    "queryLabel": "Forespørgsel",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Snydeark",
-    "cheats": {
-      "jpAllTitles": "Alle bogtitler",
-      "jpAllAuthors": "Hver forfatter, hvor som helst i dokumentet",
-      "jpFirstBook": "Første bog",
-      "jpLastBook": "Sidste bog",
-      "jpSlice": "De første to bøger (udsnit)",
-      "jpFilterPrice": "Bøger billigere end 40",
-      "jpFilterInStock": "Titler på bøger på lager",
-      "jpRecursive": "Alle værdier, rekursivt",
-      "jmAllTitles": "Alle bogtitler",
-      "jmFirstAuthor": "Forfatter af den første bog",
-      "jmLastBook": "Sidste bog",
-      "jmSlice": "De første to bøger (udsnit)",
-      "jmFilterPrice": "Titler på bøger billigere end 40",
-      "jmCount": "Antal bøger på lager",
-      "jmProjection": "Omform hver bog til et nyt objekt",
-      "jmSort": "Titler sorteret efter pris"
-    },
-    "panels": {
-      "input": "JSON-input",
-      "results": "Resultater"
-    },
-    "sample": "Eksempel",
-    "format": "Format",
-    "clear": "Ryd",
-    "formatError": "Kan ikke formatere: input er ikke gyldig JSON",
-    "placeholder": "Indsæt eller skriv JSON her…",
-    "outputPlaceholder": "Match vises her…",
-    "matchCount": "{count, plural, one {# match} other {# match}}",
-    "copy": "Kopiér",
-    "copied": "Kopieret"
   },
   "WebhookTester": {
     "title": "Webhook-tester",
@@ -2909,7 +2518,9 @@
     "moreSections": "Flere sektioner",
     "sections": "Sidepanelsektioner",
     "show": "Vis sidepanel",
-    "hide": "Skjul sidepanel"
+    "hide": "Skjul sidepanel",
+    "pin": "Fastgør {tool}",
+    "unpin": "Frigør {tool}"
   },
   "DesktopUpdate": {
     "title": "Opdaterer MyDevTools",
@@ -3021,5 +2632,25 @@
     "working": "{done} af {total}",
     "cancelled": "Annulleret.",
     "save": "Gem"
+  },
+  "Shell": {
+    "sidebar": "Sidepanel",
+    "toggleSidebar": "Vis/skjul sidepanel",
+    "searchTools": "Søg i værktøjer",
+    "help": "Hjælp",
+    "theme": "Tema",
+    "themeLight": "Lyst",
+    "themeDark": "Mørkt",
+    "themeSystem": "System",
+    "account": "Konto",
+    "you": "Dig",
+    "openTool": "Åbn værktøj",
+    "closeTab": "Luk {title}",
+    "status": "Status",
+    "vaultLocked": "Boks låst",
+    "vaultUnlocked": "Boks låst op",
+    "reduceTransparency": "Reducer gennemsigtighed",
+    "reduceTransparencyHint": "Erstat glas med faste flader.",
+    "goToDashboard": "Gå til oversigten"
   }
 }

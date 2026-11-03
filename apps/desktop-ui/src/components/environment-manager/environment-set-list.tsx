@@ -68,10 +68,10 @@ type SortOrder = "updatedDesc" | "updatedAsc" | "nameAsc"
 // ponytail: heuristic on free-text environment field, not an enum — false negatives just fall back to neutral styling
 function envAccentClass(environment: string) {
     const e = environment.toLowerCase()
-    if (/prod/.test(e)) return "border-l-destructive"
-    if (/stag|preprod|uat/.test(e)) return "border-l-amber-500"
-    if (/dev|local|test|qa/.test(e)) return "border-l-emerald-500"
-    return "border-l-border"
+    if (/prod/.test(e)) return "bg-destructive"
+    if (/stag|preprod|uat/.test(e)) return "bg-warning"
+    if (/dev|local|test|qa/.test(e)) return "bg-success"
+    return "bg-muted-foreground/40"
 }
 
 export function EnvironmentSetList() {
@@ -218,15 +218,15 @@ export function EnvironmentSetList() {
                     <p className="text-muted-foreground text-sm">{t("loading")}</p>
                 ) : sets.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
-                        <FileCode2 className="h-12 w-12 mb-3 opacity-40" />
-                        <p className="font-medium text-foreground">{t("emptyTitle")}</p>
-                        <p className="text-sm mt-1 max-w-sm">{t("emptyHint")}</p>
+                        <FileCode2 className="h-8 w-8 mb-3 text-muted-foreground/60" />
+                        <p className="text-sm font-medium text-foreground">{t("emptyTitle")}</p>
+                        <p className="text-[13px] mt-1 max-w-sm">{t("emptyHint")}</p>
                     </div>
                 ) : filtered.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
-                        <Search className="h-12 w-12 mb-3 opacity-40" />
-                        <p className="font-medium text-foreground">{t("noResultsTitle")}</p>
-                        <p className="text-sm mt-1 max-w-sm">{t("noResultsHint")}</p>
+                        <Search className="h-8 w-8 mb-3 text-muted-foreground/60" />
+                        <p className="text-sm font-medium text-foreground">{t("noResultsTitle")}</p>
+                        <p className="text-[13px] mt-1 max-w-sm">{t("noResultsHint")}</p>
                     </div>
                 ) : (
                     <TooltipProvider>
@@ -234,13 +234,11 @@ export function EnvironmentSetList() {
                             {filtered.map((entry) => (
                                 <Card
                                     key={entry.id}
-                                    className={cn(
-                                        "flex flex-col border-l-4 transition-shadow duration-200 hover:shadow-md",
-                                        envAccentClass(entry.environment)
-                                    )}
+                                    className="flex flex-col rounded-xl shadow-elev-1"
                                 >
                                     <CardHeader className="pb-2 space-y-1">
-                                        <CardTitle className="text-base leading-tight">
+                                        <CardTitle className="text-[15px] font-semibold leading-tight">
+                                            <span className={cn("mr-2 inline-block h-2 w-2 rounded-full align-middle", envAccentClass(entry.environment))} aria-hidden />
                                             {entry.project}
                                             <span className="text-muted-foreground font-normal"> / </span>
                                             <span className="font-semibold">{entry.environment}</span>
@@ -260,7 +258,7 @@ export function EnvironmentSetList() {
                                                         <Badge
                                                             key={tag}
                                                             variant={active ? "default" : "secondary"}
-                                                            className="text-xs cursor-pointer hover:bg-primary/10"
+                                                            className="text-xs"
                                                             onClick={() => setTagFilter(active ? "" : tag)}
                                                         >
                                                             {tag}
@@ -370,7 +368,7 @@ export function EnvironmentSetList() {
                         {viewingEntry && (
                             <>
                                 <DrawerHeader className="shrink-0 space-y-1 px-4 pb-2 pt-4 text-left">
-                                    <DrawerTitle className="text-xl leading-tight">
+                                    <DrawerTitle className="text-[17px] leading-tight">
                                         {viewingEntry.project}
                                         <span className="text-muted-foreground font-normal"> / </span>
                                         <span className="font-semibold">{viewingEntry.environment}</span>
@@ -395,7 +393,7 @@ export function EnvironmentSetList() {
                                             <p className="text-sm text-foreground whitespace-pre-wrap">{viewingEntry.notes}</p>
                                         </div>
                                     )}
-                                    <ScrollArea className="dotenv-modal-hl min-h-[min(55vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30">
+                                    <ScrollArea className="dotenv-modal-hl min-h-[min(55vh,520px)] flex-1 basis-0 rounded-xl border border-border bg-muted/40">
                                         {viewDotEnvRaw ? (
                                             <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
                                                 <code
@@ -410,10 +408,10 @@ export function EnvironmentSetList() {
                                         )}
                                     </ScrollArea>
                                 </div>
-                                <DrawerFooter className="px-4 py-4 border-t bg-muted/20 shrink-0 gap-3 flex-col justify-end">
+                                <DrawerFooter className="px-4 py-4 border-t border-border shrink-0 gap-3 flex-col justify-end">
                                     <Button
                                         type="button"
-                                        className="gap-1.5 w-full h-12 rounded-xl text-base font-semibold"
+                                        className="gap-1.5 w-full h-12 text-base"
                                         onClick={() =>
                                             copyToClipboard(
                                                 formatDotEnv(viewingEntry.variables),
@@ -424,7 +422,7 @@ export function EnvironmentSetList() {
                                         <Copy className="h-5 w-5" />
                                         {t("copyDotEnv")}
                                     </Button>
-                                    <Button type="button" variant="outline" className="w-full h-12 rounded-xl text-base" onClick={() => setViewingEntry(null)}>
+                                    <Button type="button" variant="outline" className="w-full h-12 text-base" onClick={() => setViewingEntry(null)}>
                                         {t("closeView")}
                                     </Button>
                                 </DrawerFooter>
@@ -438,7 +436,7 @@ export function EnvironmentSetList() {
                         {viewingEntry && (
                             <>
                                 <DialogHeader className="shrink-0 space-y-1 px-6 pb-2 pt-6 text-left">
-                                    <DialogTitle className="text-xl leading-tight">
+                                    <DialogTitle className="text-[17px] leading-tight">
                                         {viewingEntry.project}
                                         <span className="text-muted-foreground font-normal"> / </span>
                                         <span className="font-semibold">{viewingEntry.environment}</span>
@@ -463,7 +461,7 @@ export function EnvironmentSetList() {
                                             <p className="text-sm text-foreground whitespace-pre-wrap">{viewingEntry.notes}</p>
                                         </div>
                                     )}
-                                    <ScrollArea className="dotenv-modal-hl min-h-[min(48vh,520px)] flex-1 basis-0 rounded-md border bg-muted/30 sm:min-h-[min(58vh,680px)]">
+                                    <ScrollArea className="dotenv-modal-hl min-h-[min(48vh,520px)] flex-1 basis-0 rounded-xl border border-border bg-muted/40 sm:min-h-[min(58vh,680px)]">
                                         {viewDotEnvRaw ? (
                                             <pre className="m-0 break-all whitespace-pre-wrap p-4 text-left font-mono text-sm leading-relaxed">
                                                 <code
@@ -478,7 +476,7 @@ export function EnvironmentSetList() {
                                         )}
                                     </ScrollArea>
                                 </div>
-                                <DialogFooter className="px-6 py-4 border-t bg-muted/20 shrink-0 gap-2 sm:gap-2 flex-row flex-wrap justify-end">
+                                <DialogFooter className="px-6 py-4 border-t border-border shrink-0 gap-2 sm:gap-2 flex-row flex-wrap justify-end">
                                     <Button type="button" variant="outline" onClick={() => setViewingEntry(null)}>
                                         {t("closeView")}
                                     </Button>

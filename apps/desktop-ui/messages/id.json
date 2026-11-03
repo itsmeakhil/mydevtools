@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Pemformat GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Generator Skema JSON",
     "snippetManager": "Cuplikan kode",
-    "markdownPreview": "Pratinjau Markdown",
-    "formatConverter": "Konverter Format",
-    "yamlFormatter": "Pemformat YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Diff JSON",
-    "jsonpathPlayground": "Playground JSONPath",
     "secureFiles": "Berkas"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "Cahaya",
         "dark": "Gelap",
         "system": "Sistem"
+      },
+      "picker": {
+        "wheel": "Roda",
+        "sliders": "Penggeser",
+        "hue": "Rona",
+        "saturation": "Saturasi",
+        "brightness": "Kecerahan",
+        "lightness": "Terang",
+        "chroma": "Kroma",
+        "hexValue": "Nilai hex",
+        "copy": "Salin nilai hex",
+        "copied": "Disalin",
+        "revert": "Kembali ke warna asli",
+        "newColor": "Warna baru",
+        "onWhite": "Di atas putih",
+        "onBlack": "Di atas hitam",
+        "aa": "Lulus AA",
+        "aaLarge": "AA Besar",
+        "fail": "Gagal",
+        "presets": "Preset",
+        "eyedropper": "Ambil warna dari layar"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Pemformat GraphQL",
-        "description": "Format GraphQL dengan penyorotan sintaks dan pembangun kueri sederhana."
-      },
-      "yamlFormatter": {
-        "title": "Pemformat YAML",
-        "description": "Format, validasi, dan konversi YAML ke JSON di browser."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Generator Skema JSON",
-        "description": "Turunkan skema JSON dan model bertipe dari contoh JSON."
-      },
       "snippetManager": {
         "title": "Cuplikan kode",
         "description": "Simpan cuplikan dengan penyorotan sintaks, deteksi bahasa otomatis, dan pemformatan."
-      },
-      "markdownPreview": {
-        "title": "Pratinjau Markdown",
-        "description": "Renderer Markdown langsung dengan ekspor HTML dan konversi HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Konverter Format",
-        "description": "Konversi antara JSON, YAML, TOML, dan XML ke segala arah. Semua 12 kombinasi didukung."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "Diff JSON",
-        "description": "Perbandingan dua dokumen JSON secara semantik dan sadar struktur."
-      },
-      "jsonpathPlayground": {
-        "title": "Playground JSONPath",
-        "description": "Kueri JSON dengan JSONPath atau JMESPath dan lihat hasilnya secara langsung."
       },
       "secureFiles": {
         "title": "Berkas",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "Aplikasi",
-      "analytics": "Analitik",
       "ui": "Antarmuka"
-    },
-    "analytics": {
-      "title": "Data Anda sekilas",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Tidak dapat memuat analitik.",
-      "retry": "Coba lagi",
-      "passwordEntries": "Entri kata sandi",
-      "tasksTotal": "Tugas",
-      "tasksCompleted": "Selesai",
-      "tasksOngoing": "Berjalan",
-      "tasksNotStarted": "Belum dimulai",
-      "projects": "Proyek",
-      "nosqlConnections": "Koneksi basis data",
-      "notes": "Catatan",
-      "apiClientCollections": "Koleksi API",
-      "apiClientEnvironments": "Lingkungan API",
-      "apiClientHistory": "Entri riwayat API",
-      "jsonFormatterDocuments": "Dokumen pemformat JSON",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Cuplikan kode",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Preferensi antarmuka",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "JSON diperbaiki",
     "toastRepairFailed": "Tidak dapat memperbaiki JSON"
   },
-  "SqlFormatter": {
-    "title": "Pemformat SQL",
-    "subtitle": "Rapikan SQL untuk MySQL, PostgreSQL, dan SQLite",
-    "dialectLabel": "Dialek",
-    "keywordsLabel": "Kata kunci",
-    "indentLabel": "Indentasi",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "HURUF BESAR",
-      "lower": "huruf kecil",
-      "preserve": "Pertahankan"
-    },
-    "spaces": "{n} spasi",
-    "format": "Format",
-    "clear": "Bersihkan",
-    "counter": "{current} / {max} karakter",
-    "inputPanel": "Input",
-    "formattedPanel": "Terformat",
-    "copy": "Salin",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Klik \"Format\"…",
-    "errors": {
-      "tooLong": "Input dibatasi hingga {max} karakter.",
-      "couldNotFormat": "Tidak dapat memformat SQL ini."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Pemformat YAML",
-    "subtitle": "Format, validasi, dan konversi YAML",
-    "outputLabel": "Keluaran",
-    "outputModes": {
-      "yaml": "YAML (diformat)",
-      "json": "JSON"
-    },
-    "indentLabel": "Indentasi",
-    "spaces": "{n} spasi",
-    "format": "Format",
-    "clear": "Hapus",
-    "copy": "Salin",
-    "counter": "{current} / {max} karakter",
-    "inputPanel": "Masukan",
-    "outputPanel": "Keluaran",
-    "errors": {
-      "tooLong": "Masukan dibatasi hingga {max} karakter.",
-      "couldNotFormat": "Tidak dapat mengurai YAML ini."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Pemformat GraphQL",
-    "subtitle": "Format query, mutation, dan subscription",
-    "tabs": {
-      "format": "Format",
-      "build": "Pembangun kueri"
-    },
-    "outputModeLabel": "Keluaran",
-    "outputModes": {
-      "pretty": "Cetak rapi",
-      "minify": "Perkecil"
-    },
-    "format": "Format",
-    "clear": "Hapus",
-    "counter": "{current} / {max} karakter",
-    "inputPanel": "Masukan",
-    "outputPanel": "Keluaran",
-    "copy": "Salin",
-    "builderHint": "Buat kerangka dokumen lalu terapkan ke editor. Definisi variabel memakai sintaks GraphQL (mis. $id: ID!) — tanda kurung bersifat opsional.",
-    "builder": {
-      "operation": "Operasi",
-      "operationName": "Nama operasi",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Definisi variabel",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Himpunan seleksi",
-      "apply": "Terapkan ke masukan",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Masukan dibatasi {max} karakter.",
-      "couldNotFormat": "Tidak dapat menguraikan atau mencetak GraphQL ini.",
-      "emptySelection": "Tambahkan himpunan seleksi sebelum menerapkan."
-    }
-  },
-  "RegexTester": {
-    "title": "Penguji Regex",
-    "subtitle": "Uji regex JavaScript dengan sorotan kecocokan langsung",
-    "patternLabel": "Pola",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g global",
-      "i": "i abaikan huruf besar/kecil",
-      "m": "m multiline",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(kosong)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {kecocokan} other {kecocokan}}",
-    "testTextLabel": "Teks uji",
-    "counter": "{current} / {max}",
-    "clear": "Bersihkan",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Teks dibatasi hingga {max} karakter.",
-      "invalid": "Ekspresi reguler tidak valid.",
-      "runaway": "Dihentikan setelah {max} kecocokan (kemungkinan pola runaway)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Pemeriksa Diff",
-    "subtitle": "Bandingkan dua teks berdampingan, baris demi baris",
-    "rowsCount": "{count} baris",
-    "truncatedWarning": "Menampilkan {max} baris pertama.",
-    "limitExceeded": "Setiap sisi dibatasi hingga {max} karakter.",
-    "clearBoth": "Hapus keduanya",
-    "original": "Asli",
-    "modified": "Dimodifikasi",
-    "originalPlaceholder": "Tempel teks asli…",
-    "modifiedPlaceholder": "Tempel teks yang dimodifikasi…",
-    "comparisonLabel": "Perbandingan berdampingan",
-    "emptyState": "Masukkan teks di kedua panel untuk membandingkan."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Generator JSON Schema",
-    "subtitle": "Hasilkan JSON Schema atau model bertipe dari contoh JSON",
-    "languageLabel": "Bahasa keluaran",
-    "inputLabel": "Masukan JSON",
-    "inputPlaceholder": "Tempel JSON di sini…",
-    "outputLabel": "Keluaran yang dihasilkan",
-    "outputPlaceholder": "Skema atau tipe yang dihasilkan akan muncul di sini…",
-    "parseError": "JSON tidak valid",
-    "clear": "Bersihkan",
-    "copy": "Salin",
-    "copied": "Disalin ke papan klip",
-    "copyFailed": "Tidak dapat menyalin",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "Skema JSON (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Memuat editor…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Pengelola Snippet",
     "subtitle": "Simpan, cari, dan format snippet kode — sinkronisasi opsional",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "{count} baris cocok — tidak ada yang diubah, karena filter tidak unik."
     }
   },
-  "MarkdownPreview": {
-    "title": "Pratinjau Markdown",
-    "subtitle": "Render Markdown langsung dan konversi ke atau dari HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Input Markdown",
-    "htmlInputLabel": "Input HTML",
-    "previewLabel": "Pratinjau",
-    "htmlOutputLabel": "Sumber HTML",
-    "mdOutputLabel": "Output Markdown",
-    "inputPlaceholder": "# Halo\\n\\nKetik **markdown** Anda di sini…",
-    "htmlInputPlaceholder": "Tempel HTML Anda di sini…",
-    "copyHtml": "Salin HTML",
-    "copyMarkdown": "Salin Markdown",
-    "exportHtml": "Ekspor HTML",
-    "fileNameLabel": "Nama file",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "{name} disimpan",
-    "copied": "Disalin",
-    "charCount": "{count, plural, other {# karakter}}",
-    "emptyHint": "Mulai mengetik Markdown untuk melihat pratinjau langsung dan output HTML.",
-    "emptyHintHtmlToMd": "Tempel HTML untuk mengonversinya ke Markdown.",
-    "securityNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
-  },
-  "FormatConverter": {
-    "title": "Konverter Format",
-    "subtitle": "Konversi JSON, YAML, TOML, dan XML ke segala arah",
-    "fromLabel": "Dari",
-    "toLabel": "Ke",
-    "swap": "Tukar",
-    "swapTitle": "Tukar format dan gunakan keluaran sebagai masukan",
-    "copy": "Salin",
-    "copied": "Disalin",
-    "charCount": "{count, plural, other {# karakter}}",
-    "emptyHint": "Tempel atau ketik masukan Anda di sebelah kiri untuk melihat keluaran yang dikonversi.",
-    "localNote": "Semua berjalan secara lokal di browser Anda. Tidak ada yang diunggah."
-  },
-  "JsonToCode": {
-    "title": "JSON ke Kode",
-    "subtitle": "Hasilkan model bertipe dari contoh payload JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Visualisasi JSON",
     "subtitle": "Jelajahi JSON sebagai graf node interaktif",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Perindah & Minifikasi",
-    "subtitle": "Perindah atau minifikasi HTML, CSS, JavaScript, XML, dan JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "Diff JSON",
-    "subtitle": "Bandingkan JSON secara struktural — urutan kunci diabaikan",
-    "options": {
-      "ignoreArrayOrder": "Abaikan urutan array"
-    },
-    "loadBothSamples": "Muat contoh",
-    "sample": "Contoh",
-    "format": "Format",
-    "clear": "Bersihkan",
-    "formatError": "Tidak dapat memformat: input bukan JSON yang valid",
-    "placeholder": "Tempel atau ketik JSON di sini…",
-    "panels": {
-      "left": "Asli (kiri)",
-      "right": "Dimodifikasi (kanan)",
-      "results": "Perbedaan"
-    },
-    "summary": {
-      "added": "{count} ditambahkan",
-      "removed": "{count} dihapus",
-      "changed": "{count} diubah"
-    },
-    "types": {
-      "added": "Ditambahkan",
-      "removed": "Dihapus",
-      "changed": "Diubah"
-    },
-    "copyChanges": "Salin sebagai JSON",
-    "copied": "Disalin",
-    "empty": "Tempel JSON ke kedua panel untuk melihat perbedaannya.",
-    "identical": "Kedua dokumen identik secara semantik."
-  },
-  "JsonpathPlayground": {
-    "title": "Playground JSONPath",
-    "subtitle": "Kueri JSON dengan JSONPath atau JMESPath secara langsung",
-    "engineLabel": "Engine",
-    "queryLabel": "Kueri",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Contekan",
-    "cheats": {
-      "jpAllTitles": "Semua judul buku",
-      "jpAllAuthors": "Setiap penulis, di mana pun dalam dokumen",
-      "jpFirstBook": "Buku pertama",
-      "jpLastBook": "Buku terakhir",
-      "jpSlice": "Dua buku pertama (slice)",
-      "jpFilterPrice": "Buku lebih murah dari 40",
-      "jpFilterInStock": "Judul buku yang tersedia",
-      "jpRecursive": "Semua nilai, secara rekursif",
-      "jmAllTitles": "Semua judul buku",
-      "jmFirstAuthor": "Penulis buku pertama",
-      "jmLastBook": "Buku terakhir",
-      "jmSlice": "Dua buku pertama (slice)",
-      "jmFilterPrice": "Judul buku yang lebih murah dari 40",
-      "jmCount": "Hitung buku yang tersedia",
-      "jmProjection": "Bentuk ulang setiap buku menjadi objek baru",
-      "jmSort": "Judul diurutkan berdasarkan harga"
-    },
-    "panels": {
-      "input": "Input JSON",
-      "results": "Hasil"
-    },
-    "sample": "Contoh",
-    "format": "Format",
-    "clear": "Bersihkan",
-    "formatError": "Tidak dapat memformat: input bukan JSON yang valid",
-    "placeholder": "Tempel atau ketik JSON di sini…",
-    "outputPlaceholder": "Kecocokan akan muncul di sini…",
-    "matchCount": "{count, plural, one {# kecocokan} other {# kecocokan}}",
-    "copy": "Salin",
-    "copied": "Disalin"
   },
   "WebhookTester": {
     "title": "Penguji Webhook",
@@ -2909,7 +2518,9 @@
     "moreSections": "Bagian lainnya",
     "sections": "Bagian bilah sisi",
     "show": "Tampilkan bilah sisi",
-    "hide": "Sembunyikan bilah sisi"
+    "hide": "Sembunyikan bilah sisi",
+    "pin": "Sematkan {tool}",
+    "unpin": "Lepas sematan {tool}"
   },
   "DesktopUpdate": {
     "title": "Memperbarui MyDevTools",
@@ -3021,5 +2632,25 @@
     "working": "{done} dari {total}",
     "cancelled": "Dibatalkan.",
     "save": "Simpan"
+  },
+  "Shell": {
+    "sidebar": "Bilah sisi",
+    "toggleSidebar": "Tampilkan/sembunyikan bilah sisi",
+    "searchTools": "Cari alat",
+    "help": "Bantuan",
+    "theme": "Tema",
+    "themeLight": "Terang",
+    "themeDark": "Gelap",
+    "themeSystem": "Sistem",
+    "account": "Akun",
+    "you": "Anda",
+    "openTool": "Buka alat",
+    "closeTab": "Tutup {title}",
+    "status": "Status",
+    "vaultLocked": "Brankas terkunci",
+    "vaultUnlocked": "Brankas terbuka",
+    "reduceTransparency": "Kurangi transparansi",
+    "reduceTransparencyHint": "Ganti kaca dengan permukaan solid.",
+    "goToDashboard": "Buka dasbor"
   }
 }

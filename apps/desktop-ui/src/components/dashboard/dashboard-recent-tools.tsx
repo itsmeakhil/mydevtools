@@ -9,8 +9,6 @@ import { ToolCard, HScrollFade } from './dashboard-tool-card'
 import { DashboardSectionHeader } from './dashboard-section-header'
 import { Button } from '@/components/ui/button'
 
-const RECENT_ACCENT = { bg: 'bg-blue-500/10', text: 'text-blue-600 dark:text-blue-400' }
-
 interface DashboardRecentToolsProps {
   recentItems: FavoriteItem[]
   toolCardProps: Omit<ToolCardProps, 'item' | 'id' | 'index'>
@@ -39,20 +37,18 @@ export function DashboardRecentTools({
   const visible = expanded ? recentItems : recentItems.slice(0, VISIBLE_CAP)
 
   return (
-    <section className="space-y-3 md:space-y-5">
+    <section className="space-y-3">
       <DashboardSectionHeader
         icon={Clock}
         title={t('sections.recentlyUsed')}
         count={recentItems.length}
-        accent={RECENT_ACCENT}
         action={
-          <Link
-            href="/dashboard/activity"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-card text-sm font-medium text-foreground hover:bg-muted/50 hover:border-primary/40 transition-colors"
-          >
-            <History size={15} className="text-primary" />
-            {t('viewActivity')}
-          </Link>
+          <Button variant="ghost" size="sm" asChild className="h-7 gap-1.5 px-2 text-[13px] text-muted-foreground hover:text-foreground">
+            <Link href="/dashboard/activity">
+              <History />
+              {t('viewActivity')}
+            </Link>
+          </Button>
         }
       />
       {/* Mobile: horizontal scroll */}
@@ -77,7 +73,7 @@ export function DashboardRecentTools({
         </HScrollFade>
       </div>
       {/* Desktop: grid */}
-      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
+      <div className="hidden md:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
         {visible.map((item, index) => (
           <ToolCard
             key={`recent-${item.id}`}

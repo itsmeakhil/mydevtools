@@ -46,27 +46,22 @@ export default function KanbanColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        "flex flex-col h-full rounded-xl border-2 p-4 md:p-5 transition-all duration-300",
-        // Neutral column surface — the status color lives in the header (dot, title, count).
-        "bg-muted/30 border-border/60",
-        isOver
-          ? "ring-1 ring-primary/60 shadow-md scale-[1.005] bg-primary/[0.02]"
-          : "hover:shadow-sm"
+        "flex flex-col h-full rounded-xl p-3 md:p-4 transition-colors duration-150",
+        // Neutral glass column — the status color lives in the header (dot, title, count).
+        "glass-card",
+        isOver ? "ring-1 ring-primary/60 bg-primary/[0.04]" : ""
       )}
       role="region"
       aria-label={tKanban("columnAria", { title, count: tasks.length })}
     >
       {/* Column Header */}
-      <div className="flex items-center gap-3 mb-4 pb-3 border-b border-border/50">
+      <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-border">
         <span className={cn("status-dot", config.dot)} aria-hidden />
-        <h3 className={cn("font-display text-xl font-semibold tracking-tight flex-1", config.color)}>
+        <h3 className="text-[13px] font-semibold text-foreground flex-1">
           {title}
         </h3>
         <span
-          className={cn(
-            "font-meta px-2 py-0.5 rounded-md text-[11px] tabular-nums bg-background/80 border border-border/60",
-            config.color
-          )}
+          className="px-1.5 py-0.5 rounded-md text-[11px] tabular-nums text-muted-foreground bg-foreground/[0.05]"
           aria-label={tKanban("countInColumnAria", { title, count: tasks.length })}
         >
           {tasks.length}

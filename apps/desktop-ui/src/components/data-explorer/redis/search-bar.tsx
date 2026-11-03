@@ -49,16 +49,16 @@ export function SearchBar({
     <div className="space-y-2">
       {/* Error message */}
       {regexError && (
-        <div className="px-3 py-1.5 bg-destructive/10 border border-destructive/30 rounded text-xs text-destructive">
+        <div className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-1.5 text-xs text-destructive">
           {regexError}
         </div>
       )}
 
       {/* Search input bar */}
-      <div className="flex items-center gap-2 bg-background border rounded-lg px-2 py-1.5 focus-within:ring-1 focus-within:ring-ring">
+      <div className="flex h-8 items-center gap-2 rounded-md border border-border bg-background px-1.5 focus-within:ring-1 focus-within:ring-ring">
         {/* Mode indicator */}
         <div
-          className="flex items-center justify-center min-w-7 h-6 bg-muted rounded text-sm font-mono font-semibold text-muted-foreground"
+          className="flex h-5 min-w-6 items-center justify-center rounded-sm bg-muted font-mono text-xs font-medium text-muted-foreground"
           title={modeInfo.label}
         >
           {modeInfo.icon}
@@ -71,12 +71,12 @@ export function SearchBar({
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Search keys… (glob, regex, or fuzzy)"
-          className="flex-1 border-0 shadow-none p-0 h-auto focus-visible:ring-0 bg-transparent"
+          className="h-auto flex-1 border-0 bg-transparent p-0 text-[13px] shadow-none focus-visible:ring-0"
         />
 
         {/* Match count badge */}
         {value && (
-          <div className="flex items-center justify-center min-w-8 h-6 bg-muted rounded px-1.5 text-xs font-semibold text-muted-foreground">
+          <div className="flex h-5 min-w-6 items-center justify-center rounded-full bg-muted px-1.5 text-[11px] font-medium tabular-nums text-muted-foreground">
             {matchCount}
           </div>
         )}
@@ -86,7 +86,7 @@ export function SearchBar({
           <Button
             size="icon"
             variant="ghost"
-            className="size-6 shrink-0"
+            className="size-5 shrink-0"
             onClick={onClear}
             title="Clear search (Esc)"
           >

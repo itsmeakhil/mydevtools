@@ -44,8 +44,8 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
         <div className="h-full flex flex-col min-h-0 gap-2">
             <ScrollArea className="flex-1 min-h-0">
                 {list.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-xs text-muted-foreground py-12 gap-2">
-                        <MessageSquare className="h-6 w-6 opacity-40" />
+                    <div className="h-full flex flex-col items-center justify-center text-[13px] text-muted-foreground py-12 gap-2 text-center">
+                        <MessageSquare className="h-8 w-8 text-muted-foreground/60" />
                         No comments yet. Leave context for teammates loading this request later.
                     </div>
                 ) : (
@@ -54,9 +54,9 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
                             .slice()
                             .sort((a, b) => a.createdAt - b.createdAt)
                             .map((c) => (
-                                <div key={c.id} className="border rounded-lg p-3 bg-card space-y-1">
+                                <div key={c.id} className="border border-border rounded-lg p-3 bg-card space-y-1">
                                     <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
-                                        <span className="font-bold text-foreground">{c.author}</span>
+                                        <span className="font-semibold text-foreground">{c.author}</span>
                                         <span>·</span>
                                         <span>{new Date(c.createdAt).toLocaleString()}</span>
                                         <Button
@@ -69,13 +69,13 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
                                             <Trash2 className="h-3.5 w-3.5" />
                                         </Button>
                                     </div>
-                                    <div className="text-sm whitespace-pre-wrap break-words">{c.text}</div>
+                                    <div className="text-[13px] whitespace-pre-wrap break-words">{c.text}</div>
                                 </div>
                             ))}
                     </div>
                 )}
             </ScrollArea>
-            <div className="border rounded-lg p-2 space-y-2 bg-card">
+            <div className="border border-border rounded-lg p-2 space-y-2 bg-muted/40">
                 <Textarea
                     placeholder={`Write as ${myName}…`}
                     value={draft}
@@ -86,9 +86,9 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
                             handlePost()
                         }
                     }}
-                    className="text-sm min-h-[60px]"
+                    className="text-[13px] min-h-[60px]"
                 />
-                <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+                <div className="flex items-center justify-between text-[11px] text-muted-foreground">
                     <span>⌘/Ctrl + Enter to post</span>
                     <Button size="sm" onClick={handlePost} disabled={!draft.trim()}>
                         Post

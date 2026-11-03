@@ -33,16 +33,16 @@ export const JsonTree = React.memo(function JsonTree({ data, label, isLast = tru
         let content;
         switch (type) {
             case 'string':
-                content = <span className="text-green-600 dark:text-green-400">"{value}"</span>;
+                content = <span className="text-success">"{value}"</span>;
                 break;
             case 'number':
-                content = <span className="text-blue-600 dark:text-blue-400">{value}</span>;
+                content = <span className="text-primary tabular-nums">{value}</span>;
                 break;
             case 'boolean':
-                content = <span className="text-purple-600 dark:text-purple-400">{value.toString()}</span>;
+                content = <span className="text-purple-500">{value.toString()}</span>;
                 break;
             case 'null':
-                content = <span className="text-gray-500 italic">null</span>;
+                content = <span className="text-muted-foreground italic">null</span>;
                 break;
             default:
                 content = <span className="text-foreground">{String(value)}</span>;
@@ -64,9 +64,9 @@ export const JsonTree = React.memo(function JsonTree({ data, label, isLast = tru
 
     if (!isObject) {
         return (
-            <div className="font-mono text-sm leading-6 hover:bg-muted/30 px-1 rounded flex items-start">
+            <div className="font-mono text-[13px] leading-6 hover:bg-foreground/[0.03] px-1 rounded-sm flex items-start">
                 <div style={{ paddingLeft: `${level * 16}px` }} className="flex items-center whitespace-pre">
-                    {label && <span className="text-purple-700 dark:text-purple-300 mr-1">{label}:</span>}
+                    {label && <span className="text-purple-500 mr-1">{label}:</span>}
                     {renderValue(data, type)}
                     {!isLast && <span className="text-muted-foreground">,</span>}
                 </div>
@@ -78,10 +78,10 @@ export const JsonTree = React.memo(function JsonTree({ data, label, isLast = tru
     const itemCount = Array.isArray(data) ? data.length : keys.length;
 
     return (
-        <div className="font-mono text-sm">
+        <div className="font-mono text-[13px]">
             <div
                 className={cn(
-                    "flex items-center hover:bg-muted/30 px-1 rounded cursor-pointer select-none",
+                    "flex items-center hover:bg-foreground/[0.03] px-1 rounded-sm cursor-default select-none",
                     isEmpty && "cursor-default"
                 )}
                 onClick={() => !isEmpty && setIsExpanded(!isExpanded)}
@@ -94,7 +94,7 @@ export const JsonTree = React.memo(function JsonTree({ data, label, isLast = tru
                     )}
                     {isEmpty && <div className="w-4 mr-1" />}
 
-                    {label && <span className="text-purple-700 dark:text-purple-300 mr-1">{label}:</span>}
+                    {label && <span className="text-purple-500 mr-1">{label}:</span>}
 
                     <span className="text-muted-foreground">
                         {Array.isArray(data) ? '[' : '{'}
@@ -127,7 +127,7 @@ export const JsonTree = React.memo(function JsonTree({ data, label, isLast = tru
                         />
                     ))}
                     <div
-                        className="hover:bg-muted/30 px-1 rounded"
+                        className="hover:bg-foreground/[0.03] px-1 rounded-sm"
                         style={{ paddingLeft: `${level * 16 + 20}px` }}
                     >
                         <span className="text-muted-foreground">

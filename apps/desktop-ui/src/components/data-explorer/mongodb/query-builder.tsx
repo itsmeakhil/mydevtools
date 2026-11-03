@@ -17,6 +17,7 @@ import Editor from "@/components/lazy/LazyMonaco";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { IconSearch, IconHistory, IconX, IconPlus, IconTrash, IconCheck, IconFilter, IconMaximize, IconBraces, IconPlayerPlay, IconBookmark, IconBookmarkFilled, IconReportSearch, IconStack2, IconCode } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
+import { defineMdtThemes, mdtThemeName } from "@/lib/monaco-theme";
 import { useTranslations } from "next-intl";
 import { PipelineBuilder, PipelineStage, newStage, parsePipeline, stagesToPipeline } from "./pipeline-builder";
 import { MONGO_OPERATORS, MONGO_SNIPPETS } from "@/lib/nosql-snippets";
@@ -65,7 +66,7 @@ export function QueryBuilder({
     const [saveName, setSaveName] = useState("");
     const [builderOpen, setBuilderOpen] = useState(false);
     const { user } = useAuth();
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [advancedOpen, setAdvancedOpen] = useState(false);
     const [advancedMode, setAdvancedMode] = useState<"json" | "stages">("json");
     const [stages, setStages] = useState<PipelineStage[]>([]);
@@ -446,7 +447,7 @@ export function QueryBuilder({
                     value={textQuery}
                     onChange={(e) => setTextQuery(e.target.value)}
                     placeholder={queryPlaceholder}
-                    className={cn("pl-8 pr-[175px] font-mono text-xs h-9 bg-background", queryError && "border-destructive focus-visible:ring-destructive/50")}
+                    className={cn("pl-8 pr-[175px] font-mono text-xs h-8 bg-card", queryError && "border-destructive focus-visible:ring-destructive/50")}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleTextSearch();
                     }}
@@ -456,7 +457,7 @@ export function QueryBuilder({
                     {textQuery && textQuery !== "{}" && (
                         <>
                             <button
-                                className="h-5 w-5 flex items-center justify-center rounded-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                                className="h-5 w-5 flex items-center justify-center rounded-sm text-muted-foreground hover:text-foreground hover:bg-foreground/[0.05] transition-colors"
                                 onClick={() => {
                                     setTextQuery("{}");
                                     onSearch("{}");
@@ -465,7 +466,7 @@ export function QueryBuilder({
                             >
                                 <IconX className="h-3 w-3" />
                             </button>
-                            <div className="w-[1px] h-4 bg-border" />
+                            <div className="w-px h-4 bg-border" />
                         </>
                     )}
                     <Button
@@ -477,7 +478,7 @@ export function QueryBuilder({
                     >
                         <IconMaximize className="h-4 w-4" />
                     </Button>
-                    <div className="w-[1px] h-4 bg-border mx-1" />
+                    <div className="w-px h-4 bg-border mx-1" />
                     <Popover open={builderOpen} onOpenChange={setBuilderOpen}>
                         <PopoverTrigger asChild>
                             <Button
@@ -489,7 +490,7 @@ export function QueryBuilder({
                             >
                                 <IconFilter className="h-4 w-4" />
                                 {rules.length > 0 && (
-                                    <span className="absolute -top-1 -right-1 min-w-[14px] h-[14px] rounded-full bg-primary text-primary-foreground text-[9px] font-bold flex items-center justify-center px-0.5">
+                                    <span className="absolute -top-1 -right-1 min-w-[14px] h-[14px] rounded-full bg-primary text-primary-foreground text-[10px] font-semibold tabular-nums flex items-center justify-center px-0.5">
                                         {rules.length}
                                     </span>
                                 )}
@@ -497,7 +498,7 @@ export function QueryBuilder({
                         </PopoverTrigger>
                         <PopoverContent align="end" className="w-[600px] p-4">
                             <div className="space-y-4">
-                                <div className="flex items-center justify-between border-b pb-2">
+                                <div className="flex items-center justify-between border-b border-border pb-2">
                                     <h4 className="font-medium text-sm">{t("filterRules")}</h4>
                                     <Button variant="ghost" size="sm" onClick={addRule} className="h-7 text-xs">
                                         <IconPlus className="h-3 w-3 mr-1" />
@@ -512,8 +513,8 @@ export function QueryBuilder({
                                             </div>
                                         )}
                                         {rules.map((rule, index) => (
-                                            <div key={rule.id} className="flex items-center gap-2 p-2 border rounded-md bg-card/50">
-                                                <div className="w-12 text-[10px] font-mono text-muted-foreground uppercase text-center">
+                                            <div key={rule.id} className="flex items-center gap-2 p-2 border border-border rounded-lg bg-muted/40">
+                                                <div className="w-12 text-[11px] font-medium text-muted-foreground text-center">
                                                     {index === 0 ? t("where") : t("and")}
                                                 </div>
 
@@ -589,7 +590,7 @@ export function QueryBuilder({
                                         ))}
                                     </div>
                                 </ScrollArea>
-                                <div className="flex justify-end gap-2 pt-2 border-t">
+                                <div className="flex justify-end gap-2 pt-2 border-t border-border">
                                     <Button variant="outline" size="sm" onClick={() => {
                                         setRules([]);
                                         setTextQuery("{}");
@@ -615,14 +616,14 @@ export function QueryBuilder({
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent align="end" className="w-[400px] p-0">
-                            <div className="flex border-b bg-muted/50">
+                            <div className="flex border-b border-border">
                                 {([["history", t("queryHistory")], ["saved", t("savedQueries")]] as const).map(([tab, label]) => (
                                     <button
                                         key={tab}
                                         className={cn(
-                                            "flex-1 p-2 text-xs font-medium transition-colors",
+                                            "flex-1 h-9 text-[13px] font-medium transition-colors",
                                             historyTab === tab
-                                                ? "text-foreground border-b-2 border-primary bg-background"
+                                                ? "text-foreground border-b-2 border-primary"
                                                 : "text-muted-foreground hover:text-foreground"
                                         )}
                                         onClick={() => setHistoryTab(tab)}
@@ -642,7 +643,7 @@ export function QueryBuilder({
                                             {queryHistory.map((q, i) => (
                                                 <div
                                                     key={i}
-                                                    className="flex items-center justify-between p-2 hover:bg-muted rounded-sm cursor-pointer group text-xs font-mono"
+                                                    className="flex items-center justify-between px-2 h-8 hover:bg-foreground/[0.05] rounded-md group text-xs font-mono"
                                                     onClick={() => {
                                                         setTextQuery(q);
                                                         setHistoryOpen(false);
@@ -667,7 +668,7 @@ export function QueryBuilder({
                                 </ScrollArea>
                             ) : (
                                 <>
-                                    <div className="flex items-center gap-1.5 p-2 border-b">
+                                    <div className="flex items-center gap-1.5 p-2 border-b border-border">
                                         <Input
                                             value={saveName}
                                             onChange={(e) => setSaveName(e.target.value)}
@@ -696,7 +697,7 @@ export function QueryBuilder({
                                                 {savedQueries.map((sq) => (
                                                     <div
                                                         key={sq.name}
-                                                        className="flex items-center justify-between p-2 hover:bg-muted rounded-sm cursor-pointer group text-xs gap-2"
+                                                        className="flex items-center justify-between p-2 hover:bg-foreground/[0.05] rounded-md group text-xs gap-2"
                                                         onClick={() => {
                                                             setTextQuery(sq.query);
                                                             setHistoryOpen(false);
@@ -750,17 +751,17 @@ export function QueryBuilder({
             </div>
         </div>
         {queryError && (
-            <p className="text-[10px] text-destructive font-mono px-1 truncate" title={queryError}>
+            <p className="text-[11px] text-destructive font-mono px-1 truncate" title={queryError}>
                 {queryError}
             </p>
         )}
 
             <Dialog open={advancedOpen} onOpenChange={setAdvancedOpen}>
                 <DialogContent className="max-w-4xl w-[90vw] h-[80vh] flex flex-col p-0 gap-0 [&>button]:hidden">
-                    <div className="flex items-center justify-between px-4 py-2 border-b">
+                    <div className="flex h-11 items-center justify-between px-4 border-b border-border">
                         <div className="flex items-center gap-3">
-                            <DialogTitle className="text-sm font-medium">{t("advancedEditorTitle")}</DialogTitle>
-                            <div className="flex items-center rounded-md border p-0.5">
+                            <DialogTitle className="text-[13px] font-semibold">{t("advancedEditorTitle")}</DialogTitle>
+                            <div className="flex items-center rounded-lg bg-muted p-0.5">
                                 <Button
                                     variant={advancedMode === "json" ? "secondary" : "ghost"}
                                     size="sm"
@@ -936,7 +937,7 @@ export function QueryBuilder({
                             </Button>
                         </div>
                     </div>
-                    <div className={cn("flex-1 min-h-0", advancedMode === "json" && (theme === 'dark' ? 'bg-[#1e1e1e]' : 'bg-white'))}>
+                    <div className={cn("flex-1 min-h-0", advancedMode === "json" && "bg-card")}>
                         {advancedMode === "stages" ? (
                             <PipelineBuilder
                                 stages={stages}
@@ -947,7 +948,8 @@ export function QueryBuilder({
                         <Editor
                             height="100%"
                             defaultLanguage="json"
-                            theme={theme === 'dark' ? 'vs-dark' : 'light'}
+                            theme={mdtThemeName(resolvedTheme)}
+                            beforeMount={defineMdtThemes}
                             value={textQuery}
                             onChange={(value) => setTextQuery(value || "")}
                             onMount={(editor, monaco) => {

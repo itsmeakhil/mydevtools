@@ -20,6 +20,19 @@ describe('accent-color', () => {
     expect(accentCssVars('red')['--primary']).toBe('0 84.2% 60.2%')
   })
 
+  it('generates a monotonic OKLCH scale with 500 = the chosen color', () => {
+    for (const accent of ['indigo', 'yellow', '#000000', '#ffffff', '#ff00ff']) {
+      const vars = accentCssVars(accent)
+      expect(vars['--primary-500']).toBe(vars['--primary'])
+      const lightness = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((s) =>
+        parseFloat(vars[`--primary-${s}`].split(' ')[2]),
+      )
+      for (let i = 1; i < lightness.length; i++) {
+        expect(lightness[i]).toBeLessThanOrEqual(lightness[i - 1] + 0.5)
+      }
+    }
+  })
+
   it('flips --primary-foreground to dark text on bright accents', () => {
     expect(accentCssVars('yellow')['--primary-foreground']).toBe('222 47% 11%')
     expect(accentCssVars('#ffff00')['--primary-foreground']).toBe('222 47% 11%')

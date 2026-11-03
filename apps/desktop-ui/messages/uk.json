@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Форматувач GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Генератор JSON-схеми",
     "snippetManager": "Фрагменти коду",
-    "markdownPreview": "Перегляд Markdown",
-    "formatConverter": "Конвертер форматів",
-    "yamlFormatter": "Форматувальник YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Порівняння JSON",
-    "jsonpathPlayground": "Пісочниця JSONPath",
     "secureFiles": "Файли"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "Світла",
         "dark": "Темна",
         "system": "Системна"
+      },
+      "picker": {
+        "wheel": "Коло",
+        "sliders": "Повзунки",
+        "hue": "Тон",
+        "saturation": "Насиченість",
+        "brightness": "Яскравість",
+        "lightness": "Світлота",
+        "chroma": "Хрома",
+        "hexValue": "Значення hex",
+        "copy": "Копіювати значення hex",
+        "copied": "Скопійовано",
+        "revert": "Повернути початковий колір",
+        "newColor": "Новий колір",
+        "onWhite": "На білому",
+        "onBlack": "На чорному",
+        "aa": "AA пройдено",
+        "aaLarge": "AA великий",
+        "fail": "Не пройдено",
+        "presets": "Пресети",
+        "eyedropper": "Вибрати колір з екрана"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Форматувач GraphQL",
-        "description": "Форматуйте GraphQL із підсвітленням синтаксису й простим конструктором запитів."
-      },
-      "yamlFormatter": {
-        "title": "Форматувальник YAML",
-        "description": "Форматуйте, перевіряйте та конвертуйте YAML у JSON у браузері."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Генератор JSON-схеми",
-        "description": "Виведіть JSON-схему та типізовані моделі з прикладу JSON."
-      },
       "snippetManager": {
         "title": "Фрагменти коду",
         "description": "Зберігайте фрагменти з підсвічуванням синтаксису, авто-визначенням мови та форматуванням."
-      },
-      "markdownPreview": {
-        "title": "Перегляд Markdown",
-        "description": "Живий рендерер Markdown з експортом HTML і конвертацією HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Конвертер форматів",
-        "description": "Конвертуйте між JSON, YAML, TOML та XML у будь-якому напрямку. Підтримуються усі 12 комбінацій."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "Порівняння JSON",
-        "description": "Семантичне порівняння двох документів JSON з урахуванням структури."
-      },
-      "jsonpathPlayground": {
-        "title": "Пісочниця JSONPath",
-        "description": "Запитуйте JSON за допомогою JSONPath або JMESPath і дивіться результати наживо."
       },
       "secureFiles": {
         "title": "Файли",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "Застосунки",
-      "analytics": "Аналітика",
       "ui": "Інтерфейс"
-    },
-    "analytics": {
-      "title": "Ваші дані коротко",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Не вдалося завантажити аналітику.",
-      "retry": "Повторити",
-      "passwordEntries": "Записів паролів",
-      "tasksTotal": "Завдання",
-      "tasksCompleted": "Виконано",
-      "tasksOngoing": "У процесі",
-      "tasksNotStarted": "Не розпочато",
-      "projects": "Проєкти",
-      "nosqlConnections": "Підключення до БД",
-      "notes": "Нотатки",
-      "apiClientCollections": "Колекції API",
-      "apiClientEnvironments": "Оточення API",
-      "apiClientHistory": "Записи історії API",
-      "jsonFormatterDocuments": "Документи JSON-форматера",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Фрагменти коду",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Налаштування інтерфейсу",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "JSON виправлено",
     "toastRepairFailed": "Не вдалося виправити JSON"
   },
-  "SqlFormatter": {
-    "title": "Форматер SQL",
-    "subtitle": "Форматуйте SQL для MySQL, PostgreSQL і SQLite",
-    "dialectLabel": "Діалект",
-    "keywordsLabel": "Ключові слова",
-    "indentLabel": "Відступ",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "ВЕРХНІЙ РЕГІСТР",
-      "lower": "нижній регістр",
-      "preserve": "Зберегти"
-    },
-    "spaces": "{n} пробілів",
-    "format": "Форматувати",
-    "clear": "Очистити",
-    "counter": "{current} / {max} символів",
-    "inputPanel": "Ввід",
-    "formattedPanel": "Відформатовано",
-    "copy": "Копіювати",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Натисніть \"Форматувати\"…",
-    "errors": {
-      "tooLong": "Ввід обмежено {max} символами.",
-      "couldNotFormat": "Не вдалося відформатувати цей SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Форматер YAML",
-    "subtitle": "Форматуйте, перевіряйте та конвертуйте YAML",
-    "outputLabel": "Вивід",
-    "outputModes": {
-      "yaml": "YAML (відформатований)",
-      "json": "JSON"
-    },
-    "indentLabel": "Відступ",
-    "spaces": "{n} пробіли",
-    "format": "Форматувати",
-    "clear": "Очистити",
-    "copy": "Копіювати",
-    "counter": "{current} / {max} символів",
-    "inputPanel": "Введення",
-    "outputPanel": "Вивід",
-    "errors": {
-      "tooLong": "Введення обмежено {max} символами.",
-      "couldNotFormat": "Не вдалося розібрати цей YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Форматер GraphQL",
-    "subtitle": "Форматуйте запити, мутації та підписки",
-    "tabs": {
-      "format": "Форматувати",
-      "build": "Конструктор запиту"
-    },
-    "outputModeLabel": "Вивід",
-    "outputModes": {
-      "pretty": "Читабельний вивід",
-      "minify": "Мініфікувати"
-    },
-    "format": "Форматувати",
-    "clear": "Очистити",
-    "counter": "{current} / {max} символів",
-    "inputPanel": "Вхід",
-    "outputPanel": "Вихід",
-    "copy": "Копіювати",
-    "builderHint": "Зберіть каркас документа й застосуйте до редактора. Визначення змінних у синтаксисі GraphQL (напр. $id: ID!) — дужки не обов’язкові.",
-    "builder": {
-      "operation": "Операція",
-      "operationName": "Назва операції",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Визначення змінних",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Набір вибору",
-      "apply": "Застосувати до вводу",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Ввід обмежено {max} символами.",
-      "couldNotFormat": "Не вдалося розібрати чи надрукувати цей GraphQL.",
-      "emptySelection": "Додайте набір вибору перед застосуванням."
-    }
-  },
-  "RegexTester": {
-    "title": "Тестер регулярних виразів",
-    "subtitle": "Перевіряйте regex JavaScript із підсвіткою збігів",
-    "patternLabel": "Шаблон",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g глобально",
-      "i": "i без урахування регістру",
-      "m": "m багаторядковий",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(порожньо)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {збіг} few {збіги} many {збігів} other {збігів}}",
-    "testTextLabel": "Тестовий текст",
-    "counter": "{current} / {max}",
-    "clear": "Очистити",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Текст обмежено {max} символами.",
-      "invalid": "Некоректний регулярний вираз.",
-      "runaway": "Зупинено після {max} збігів (можливо, шаблон “розбігся”)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Порівняння текстів",
-    "subtitle": "Порівнюйте два тексти поруч, рядок за рядком",
-    "rowsCount": "{count} рядків",
-    "truncatedWarning": "Показано перші {max} рядків.",
-    "limitExceeded": "Кожна сторона обмежена {max} символами.",
-    "clearBoth": "Очистити обидва",
-    "original": "Оригінал",
-    "modified": "Змінено",
-    "originalPlaceholder": "Вставте оригінальний текст…",
-    "modifiedPlaceholder": "Вставте змінений текст…",
-    "comparisonLabel": "Порівняння поруч",
-    "emptyState": "Введіть текст в обидві панелі для порівняння."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Генератор JSON Schema",
-    "subtitle": "Створюйте JSON Schema чи моделі з прикладу JSON",
-    "languageLabel": "Мова виводу",
-    "inputLabel": "Вхід JSON",
-    "inputPlaceholder": "Вставте JSON сюди…",
-    "outputLabel": "Згенерований вивід",
-    "outputPlaceholder": "Схема або згенеровані типи з’являться тут…",
-    "parseError": "Некоректний JSON",
-    "clear": "Очистити",
-    "copy": "Копіювати",
-    "copied": "Скопійовано в буфер обміну",
-    "copyFailed": "Не вдалося скопіювати",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON-схема (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Завантаження редактора…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Менеджер сніпетів",
     "subtitle": "Зберігайте, шукайте й форматуйте сніпети — синхронізація за бажанням",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "Збіглося рядків: {count} — нічого не змінено, бо фільтр не унікальний."
     }
   },
-  "MarkdownPreview": {
-    "title": "Попередній перегляд Markdown",
-    "subtitle": "Рендерте Markdown наживо й конвертуйте в HTML і назад",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Введення Markdown",
-    "htmlInputLabel": "Введення HTML",
-    "previewLabel": "Перегляд",
-    "htmlOutputLabel": "Джерело HTML",
-    "mdOutputLabel": "Виведення Markdown",
-    "inputPlaceholder": "# Привіт\\n\\nВведіть ваш **markdown** тут…",
-    "htmlInputPlaceholder": "Вставте ваш HTML тут…",
-    "copyHtml": "Копіювати HTML",
-    "copyMarkdown": "Копіювати Markdown",
-    "exportHtml": "Експортувати HTML",
-    "fileNameLabel": "Назва файлу",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Збережено: {name}",
-    "copied": "Скопійовано",
-    "charCount": "{count, plural, one {# символ} few {# символи} other {# символів}}",
-    "emptyHint": "Почніть вводити Markdown, щоб побачити попередній перегляд і HTML вивід.",
-    "emptyHintHtmlToMd": "Вставте HTML для конвертації в Markdown.",
-    "securityNote": "Все виконується локально у вашому браузері. Нічого не завантажується."
-  },
-  "FormatConverter": {
-    "title": "Конвертер форматів",
-    "subtitle": "Конвертуйте JSON, YAML, TOML і XML у будь-якому напрямку",
-    "fromLabel": "З",
-    "toLabel": "В",
-    "swap": "Поміняти",
-    "swapTitle": "Поміняти формати та використати вивід як введення",
-    "copy": "Копіювати",
-    "copied": "Скопійовано",
-    "charCount": "{count, plural, one {# символ} few {# символи} other {# символів}}",
-    "emptyHint": "Вставте або введіть дані ліворуч, щоб побачити конвертований вивід.",
-    "localNote": "Усе працює локально у вашому браузері. Нічого не завантажується."
-  },
-  "JsonToCode": {
-    "title": "JSON у код",
-    "subtitle": "Генеруйте типізовані моделі з прикладу JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Візуалізатор JSON",
     "subtitle": "Досліджуйте JSON як інтерактивний граф вузлів",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Форматування та мініфікація",
-    "subtitle": "Форматуйте чи мініфікуйте HTML, CSS, JavaScript, XML і JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "Порівняння JSON",
-    "subtitle": "Порівнюйте JSON структурно — порядок ключів не важливий",
-    "options": {
-      "ignoreArrayOrder": "Ігнорувати порядок масивів"
-    },
-    "loadBothSamples": "Завантажити приклади",
-    "sample": "Приклад",
-    "format": "Формат",
-    "clear": "Очистити",
-    "formatError": "Не вдається відформатувати: введення не є коректним JSON",
-    "placeholder": "Вставте або введіть JSON тут…",
-    "panels": {
-      "left": "Оригінал (ліворуч)",
-      "right": "Змінений (праворуч)",
-      "results": "Відмінності"
-    },
-    "summary": {
-      "added": "{count} додано",
-      "removed": "{count} вилучено",
-      "changed": "{count} змінено"
-    },
-    "types": {
-      "added": "Додано",
-      "removed": "Вилучено",
-      "changed": "Змінено"
-    },
-    "copyChanges": "Копіювати як JSON",
-    "copied": "Скопійовано",
-    "empty": "Вставте JSON в обидві панелі, щоб побачити їхні відмінності.",
-    "identical": "Обидва документи семантично ідентичні."
-  },
-  "JsonpathPlayground": {
-    "title": "Пісочниця JSONPath",
-    "subtitle": "Запитуйте JSON через JSONPath або JMESPath наживо",
-    "engineLabel": "Рушій",
-    "queryLabel": "Запит",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Шпаргалка",
-    "cheats": {
-      "jpAllTitles": "Усі назви книг",
-      "jpAllAuthors": "Усі автори будь-де в документі",
-      "jpFirstBook": "Перша книга",
-      "jpLastBook": "Остання книга",
-      "jpSlice": "Перші дві книги (зріз)",
-      "jpFilterPrice": "Книги дешевші за 40",
-      "jpFilterInStock": "Назви книг у наявності",
-      "jpRecursive": "Усі значення рекурсивно",
-      "jmAllTitles": "Усі назви книг",
-      "jmFirstAuthor": "Автор першої книги",
-      "jmLastBook": "Остання книга",
-      "jmSlice": "Перші дві книги (зріз)",
-      "jmFilterPrice": "Назви книг дешевших за 40",
-      "jmCount": "Підрахунок книг у наявності",
-      "jmProjection": "Перетворити кожну книгу на новий об'єкт",
-      "jmSort": "Назви, відсортовані за ціною"
-    },
-    "panels": {
-      "input": "Введення JSON",
-      "results": "Результати"
-    },
-    "sample": "Приклад",
-    "format": "Формат",
-    "clear": "Очистити",
-    "formatError": "Не вдається відформатувати: введення не є коректним JSON",
-    "placeholder": "Вставте або введіть JSON тут…",
-    "outputPlaceholder": "Збіги з'являться тут…",
-    "matchCount": "{count, plural, one {# збіг} few {# збіги} many {# збігів} other {# збігу}}",
-    "copy": "Копіювати",
-    "copied": "Скопійовано"
   },
   "WebhookTester": {
     "title": "Тестер вебхуків",
@@ -2909,7 +2518,9 @@
     "moreSections": "Більше розділів",
     "sections": "Розділи бічної панелі",
     "show": "Показати бічну панель",
-    "hide": "Сховати бічну панель"
+    "hide": "Сховати бічну панель",
+    "pin": "Закріпити {tool}",
+    "unpin": "Відкріпити {tool}"
   },
   "DesktopUpdate": {
     "title": "Оновлення MyDevTools",
@@ -3021,5 +2632,25 @@
     "working": "{done} з {total}",
     "cancelled": "Скасовано.",
     "save": "Зберегти"
+  },
+  "Shell": {
+    "sidebar": "Бічна панель",
+    "toggleSidebar": "Показати/сховати бічну панель",
+    "searchTools": "Пошук інструментів",
+    "help": "Довідка",
+    "theme": "Тема",
+    "themeLight": "Світла",
+    "themeDark": "Темна",
+    "themeSystem": "Системна",
+    "account": "Обліковий запис",
+    "you": "Ви",
+    "openTool": "Відкрити інструмент",
+    "closeTab": "Закрити {title}",
+    "status": "Стан",
+    "vaultLocked": "Сховище заблоковано",
+    "vaultUnlocked": "Сховище розблоковано",
+    "reduceTransparency": "Зменшити прозорість",
+    "reduceTransparencyHint": "Замінює скло непрозорими поверхнями.",
+    "goToDashboard": "Перейти до панелі"
   }
 }

@@ -1,16 +1,11 @@
 'use client'
 
 import React, { useState, useEffect, useMemo } from 'react'
-import dynamic from 'next/dynamic'
-import { ArrowLeft, ArrowRight, BarChart3, LayoutGrid } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
-import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
-import { useWorkspaceStore } from '@/store/workspace-store'
+import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace, usePinWorkspaceId } from '@/store/pinned-tools-store'
 import { useToolUsage } from '@/hooks/use-tool-usage'
 import useAuth from '@/utils/useAuth'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import {
   type FavoriteItem,
@@ -33,37 +28,14 @@ import { RevealItem } from '@/components/dashboard/dashboard-reveal'
 import { AppLoadingScreen } from '@/components/app-loading-screen'
 
 
-// Lazy-load the analytics panel — it's behind a tab click, not in the critical path
-const DashboardAnalyticsPanel = dynamic(
-  () =>
-    import('@/components/dashboard/dashboard-analytics-panel').then(
-      (m) => m.DashboardAnalyticsPanel,
-    ),
-  {
-    loading: () => (
-      <div className="flex flex-col gap-2">
-        <Skeleton className="h-24 w-full rounded-xl" />
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {[...Array(10)].map((_, i) => (
-            <Skeleton key={i} className="h-14 rounded-lg" />
-          ))}
-        </div>
-      </div>
-    ),
-  },
-)
-
 // ─── Dashboard Page ─────────────────────────────────────────────────────────
 
 const DashboardPage: React.FC = () => {
-  const tTabs = useTranslations('Dashboard.tabs')
   const { user, loading } = useAuth(false)
   const pinnedToolUrls = usePinnedToolsForActiveWorkspace()
   const togglePinKeyed = usePinnedToolsStore((s) => s.togglePin)
-  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
-  const togglePin = (url: string) => {
-    if (activeWorkspaceId) togglePinKeyed(activeWorkspaceId, url)
-  }
+  const pinWorkspaceId = usePinWorkspaceId()
+  const togglePin = (url: string) => togglePinKeyed(pinWorkspaceId, url)
   const isPinned = (url: string) => pinnedToolUrls.includes(url)
   const { getRecentlyUsedTools } = useToolUsage()
   const [recentlyUsedItems, setRecentlyUsedItems] = useState<FavoriteItem[]>([])
@@ -259,8 +231,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <TooltipProvider delayDuration={300} disableHoverableContent>
-    <div className="relative min-h-screen bg-background/50 dashboard-grid-bg mobile-nav-offset">
-      <div className="dash-ambient -z-10" aria-hidden />
+    <div className="relative min-h-screen mobile-nav-offset">
       {/* ── Mobile Sticky Header (outside padded container for full-bleed) ── */}
       <DashboardHero
         totalTools={totalTools}
@@ -270,7 +241,7 @@ const DashboardPage: React.FC = () => {
       />
 
       <div className="px-3 pt-4 md:px-8 md:pt-8 pb-24 md:pb-12">
-        <div className="max-w-7xl mx-auto space-y-5 md:space-y-8">
+        <div className="max-w-6xl mx-auto space-y-5 md:space-y-6">
           {/* ── Desktop Hero (inside padded container for alignment) ── */}
           <RevealItem index={0}>
             <DashboardHero
@@ -280,25 +251,12 @@ const DashboardPage: React.FC = () => {
               desktopOnly
             />
           </RevealItem>
-          <Tabs defaultValue="apps" className="w-full">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <TabsList className="grid h-auto w-full grid-cols-2 gap-1 rounded-xl border border-border/50 bg-muted/50 p-1 shadow-sm backdrop-blur-sm sm:inline-flex sm:w-auto sm:justify-start">
-                <TabsTrigger value="apps" className="gap-1.5 text-xs sm:text-sm">
-                  <LayoutGrid className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                  {tTabs('apps')}
-                </TabsTrigger>
-                <TabsTrigger value="analytics" className="gap-1.5 text-xs sm:text-sm">
-                  <BarChart3 className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                  {tTabs('analytics')}
-                </TabsTrigger>
-              </TabsList>
+          <div className="w-full">
+            <div className="mb-3 flex items-center justify-end gap-3">
               <ActivityLogDrawer />
             </div>
 
-            <TabsContent
-              value="apps"
-              className="mt-0 space-y-4 md:space-y-6 focus-visible:outline-none"
-            >
+            <div className="space-y-6 md:space-y-8">
               {/* ── Search ── */}
               <DashboardSearchBar
                 searchQuery={searchQuery}
@@ -360,20 +318,20 @@ const DashboardPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setView('all')}
-                      className="group flex w-full items-center gap-4 rounded-2xl border border-border/60 bg-gradient-to-br from-primary/[0.05] to-transparent p-5 text-left transition-all duration-200 hover:border-primary/40 hover:shadow-md motion-safe:hover:-translate-y-0.5"
+                      className="group flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left shadow-elev-1 transition-colors duration-150 hover:border-foreground/[0.12] hover:bg-foreground/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
                     >
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-                        <LayoutGrid className="h-5 w-5" />
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-foreground/[0.05] text-primary">
+                        <LayoutGrid className="h-[18px] w-[18px]" strokeWidth={1.75} />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-foreground">
+                        <p className="text-[13px] font-medium text-foreground">
                           Browse all {totalTools} tools
                         </p>
-                        <p className="mt-0.5 text-sm text-muted-foreground">
+                        <p className="mt-0.5 text-xs text-muted-foreground">
                           Explore the full toolkit by category
                         </p>
                       </div>
-                      <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+                      <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
                     </button>
                   </RevealItem>
                 </>
@@ -386,7 +344,7 @@ const DashboardPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setView('home')}
-                      className="mb-3 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                      className="mb-3 inline-flex h-7 items-center gap-1.5 rounded-lg px-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.05] hover:text-foreground"
                     >
                       <ArrowLeft className="h-4 w-4" />
                       Back to home
@@ -401,12 +359,8 @@ const DashboardPage: React.FC = () => {
                   />
                 </RevealItem>
               )}
-            </TabsContent>
-
-            <TabsContent value="analytics" className="mt-0 rounded-2xl focus-visible:outline-none">
-              <DashboardAnalyticsPanel />
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
       </div>
     </div>

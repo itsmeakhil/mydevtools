@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { GeistSans } from 'geist/font/sans'
@@ -97,6 +98,8 @@ export const viewport = {
   viewportFit: 'cover',
 }
 
+const PREPAINT = `try{var d=document.documentElement,v=JSON.parse(localStorage.getItem('app-color-theme-vars')||'{}');for(var k in v)d.style.setProperty(k,v[k]);if('__TAURI_INTERNALS__' in window&&/Mac/.test(navigator.userAgent))d.setAttribute('data-vibrancy','');if(localStorage.getItem('app-reduce-transparency')==='1')d.setAttribute('data-reduce-transparency','')}catch(e){}`
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -114,10 +117,13 @@ export default async function RootLayout({
       courierPrime.variable
     )}>
       <head>
-        {/* Vercel Speed Insights */}
-        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
+        {/* The app ships its own dark theme; stop Dark Reader re-painting it. */}
+        <meta name="darkreader-lock" />
+        {/* Pre-paint: apply the cached accent scale and flag native macOS
+            vibrancy (tauri.macos.conf.json) before first render — no flash. */}
+        <Script id="prepaint" strategy="beforeInteractive">{PREPAINT}</Script>
       </head>
-      <body suppressHydrationWarning className="min-h-screen bg-background font-sans antialiased">
+      <body suppressHydrationWarning className="min-h-screen bg-background font-sans text-foreground antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

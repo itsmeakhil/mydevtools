@@ -349,64 +349,64 @@ function RequestTabsImpl({
 
     return (
         <Tabs defaultValue="params" className="w-full h-full flex flex-col min-h-0">
-            <TabsList className="w-full justify-start h-10 p-1 bg-muted/50 border rounded-lg overflow-x-auto custom-scrollbar shrink-0 [&>*]:shrink-0">
-                <TabsTrigger value="params" className="flex items-center gap-2 px-4">
+            <TabsList className="self-start max-w-full justify-start overflow-x-auto no-scrollbar shrink-0 [&>*]:shrink-0">
+                <TabsTrigger value="params" className="flex items-center gap-1.5">
                     {t("params")}
                     {activeParamsCount > 0 && (
-                        <Badge variant="secondary" className="h-4 min-w-[16px] px-1 text-[10px] bg-primary/10 text-primary border-none">
+                        <Badge variant="secondary" className="h-4 min-w-[16px] justify-center rounded-full px-1 text-[10px] tabular-nums bg-primary/[0.12] text-primary border-transparent">
                             {activeParamsCount}
                         </Badge>
                     )}
                 </TabsTrigger>
-                <TabsTrigger value="headers" className="flex items-center gap-2 px-4">
+                <TabsTrigger value="headers" className="flex items-center gap-1.5">
                     {t("headers")}
                     {activeHeadersCount > 0 && (
-                        <Badge variant="secondary" className="h-4 min-w-[16px] px-1 text-[10px] bg-primary/10 text-primary border-none">
+                        <Badge variant="secondary" className="h-4 min-w-[16px] justify-center rounded-full px-1 text-[10px] tabular-nums bg-primary/[0.12] text-primary border-transparent">
                             {activeHeadersCount}
                         </Badge>
                     )}
                 </TabsTrigger>
-                <TabsTrigger value="body" className="flex items-center gap-2 px-4">
+                <TabsTrigger value="body" className="flex items-center gap-1.5">
                     {t("body")}
                     {body.type === "json" && (
                         jsonValidation.valid
                             ? <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                            : <div className="h-1.5 w-1.5 rounded-full bg-rose-500" title="Invalid JSON" />
+                            : <div className="h-1.5 w-1.5 rounded-full bg-destructive" title="Invalid JSON" />
                     )}
                     {body.type !== "none" && body.type !== "json" && (
                         <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                 </TabsTrigger>
-                <TabsTrigger value="auth" className="flex items-center gap-2 px-4">
+                <TabsTrigger value="auth" className="flex items-center gap-1.5">
                     {t("auth")}
                     {auth.type !== "none" && (
                         <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                 </TabsTrigger>
-                <TabsTrigger value="pre-request" className="flex items-center gap-2 px-4">
+                <TabsTrigger value="pre-request" className="flex items-center gap-1.5">
                     Pre-request
                     {preRequestScript.trim() && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                 </TabsTrigger>
-                <TabsTrigger value="tests" className="flex items-center gap-2 px-4">
+                <TabsTrigger value="tests" className="flex items-center gap-1.5">
                     Tests
                     {testScript.trim() && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                 </TabsTrigger>
                 {examples && examples.length > 0 && (
-                    <TabsTrigger value="examples" className="flex items-center gap-2 px-4">
+                    <TabsTrigger value="examples" className="flex items-center gap-1.5">
                         Examples
-                        <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{examples.length}</span>
+                        <span className="inline-flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[10px] font-medium tabular-nums bg-primary/[0.12] text-primary">{examples.length}</span>
                     </TabsTrigger>
                 )}
                 {setComments && (
-                    <TabsTrigger value="comments" className="flex items-center gap-2 px-4">
+                    <TabsTrigger value="comments" className="flex items-center gap-1.5">
                         Comments
                         {comments && comments.length > 0 && (
-                            <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{comments.length}</span>
+                            <span className="inline-flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[10px] font-medium tabular-nums bg-primary/[0.12] text-primary">{comments.length}</span>
                         )}
                     </TabsTrigger>
                 )}
             </TabsList>
-            <div className="mt-4 border rounded-xl p-6 bg-card shadow-inner flex-1 min-h-0 overflow-hidden">
+            <div className="mt-3 rounded-xl border border-border bg-card p-4 flex-1 min-h-0 overflow-hidden">
                 <TabsContent value="params" className="mt-0 h-full overflow-auto custom-scrollbar">
                     <KeyValueEditor items={params} onChange={setParams} />
                 </TabsContent>
@@ -415,14 +415,14 @@ function RequestTabsImpl({
                 </TabsContent>
                 {/* Editor tabs stay mounted (forceMount) so switching sub-tabs doesn't
                     re-create a Monaco instance each time; `hidden` via data-state. */}
-                <TabsContent value="body" forceMount className="mt-0 h-full flex flex-col gap-4 min-h-0 data-[state=inactive]:hidden">
-                    <div className="flex items-center gap-4 bg-muted/30 p-3 rounded-lg border">
-                        <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("bodyType")}</Label>
+                <TabsContent value="body" forceMount className="mt-0 h-full flex flex-col gap-3 min-h-0 data-[state=inactive]:hidden">
+                    <div className="flex items-center gap-3">
+                        <Label className="text-[13px] font-normal text-muted-foreground shrink-0">{t("bodyType")}</Label>
                         <Select
                             value={normalizedBody.type}
                             onValueChange={(v) => updateBody({ type: v as RequestBody["type"] })}
                         >
-                            <SelectTrigger className="w-full sm:w-[220px] h-8 text-xs">
+                            <SelectTrigger className="w-full sm:w-[220px] h-8 text-[13px]">
                                 <SelectValue placeholder={t("selectType")} />
                             </SelectTrigger>
                             <SelectContent>
@@ -438,11 +438,11 @@ function RequestTabsImpl({
                     {normalizedBody.type === "json" || normalizedBody.type === "text" ? (
                         <div className="flex-1 flex flex-col gap-2 min-h-0">
                             {normalizedBody.type === "json" && jsonValidation.error && (
-                                <div className="text-xs text-rose-500 bg-rose-500/10 border border-rose-500/20 rounded-md px-3 py-1.5 font-mono shrink-0">
+                                <div className="text-xs text-destructive bg-destructive/10 rounded-md px-3 py-1.5 font-mono shrink-0">
                                     {jsonValidation.error}
                                 </div>
                             )}
-                            <div className="flex-1 border rounded-lg overflow-hidden shadow-sm min-h-0">
+                            <div className="flex-1 border border-border rounded-lg overflow-hidden min-h-0">
                                 <MemoCodeEditor
                                     value={normalizedBody.content}
                                     onChange={handleBodyContentChange}
@@ -451,9 +451,9 @@ function RequestTabsImpl({
                             </div>
                         </div>
                     ) : normalizedBody.type === "form-data" ? (
-                        <div className="rounded-lg border bg-background flex-1 min-h-0">
+                        <div className="rounded-lg border border-border bg-card overflow-hidden flex-1 min-h-0">
                             <div className="overflow-x-auto">
-                            <div className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground min-w-[480px]">
+                            <div className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 px-3 py-2 border-b border-border bg-muted/50 text-[12px] font-medium text-muted-foreground min-w-[480px]">
                                 <div />
                                 <div>Key</div>
                                 <div>Type</div>
@@ -528,7 +528,7 @@ function RequestTabsImpl({
                                 ))}
                             </div>
                             </div>
-                            <div className="px-3 py-2 border-t">
+                            <div className="px-3 py-2 border-t border-border">
                                 <Button variant="outline" size="sm" onClick={addFormDataItem}>
                                     <Plus className="h-4 w-4 mr-2" />
                                     Add Field
@@ -536,9 +536,9 @@ function RequestTabsImpl({
                             </div>
                         </div>
                     ) : normalizedBody.type === "x-www-form-urlencoded" ? (
-                        <div className="rounded-lg border bg-background flex-1 min-h-0">
+                        <div className="rounded-lg border border-border bg-card overflow-hidden flex-1 min-h-0">
                             <div className="overflow-x-auto">
-                            <div className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 px-3 py-2 border-b text-xs font-semibold text-muted-foreground min-w-[360px]">
+                            <div className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 px-3 py-2 border-b border-border bg-muted/50 text-[12px] font-medium text-muted-foreground min-w-[360px]">
                                 <div />
                                 <div>Key</div>
                                 <div>Value</div>
@@ -575,7 +575,7 @@ function RequestTabsImpl({
                                 ))}
                             </div>
                             </div>
-                            <div className="px-3 py-2 border-t">
+                            <div className="px-3 py-2 border-t border-border">
                                 <Button variant="outline" size="sm" onClick={addUrlEncodedItem}>
                                     <Plus className="h-4 w-4 mr-2" />
                                     Add Field
@@ -586,8 +586,8 @@ function RequestTabsImpl({
                         <div className="flex-1 flex flex-col gap-2 min-h-0">
                             <div className="flex items-center gap-2 flex-wrap">
                                 <p className="text-xs text-muted-foreground flex-1 min-w-[260px]">
-                                    Sent as <code className="font-mono bg-muted/40 px-1 rounded">application/json</code> with{" "}
-                                    <code className="font-mono bg-muted/40 px-1 rounded">{"{ query, variables }"}</code>.
+                                    Sent as <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">application/json</code> with{" "}
+                                    <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">{"{ query, variables }"}</code>.
                                 </p>
                                 <Button
                                     size="sm"
@@ -600,7 +600,7 @@ function RequestTabsImpl({
                                 </Button>
                             </div>
                             <div className="flex-1 min-h-0 grid grid-rows-[2fr_1fr] gap-2">
-                                <div className="border rounded-lg overflow-hidden min-h-0">
+                                <div className="border border-border rounded-lg overflow-hidden min-h-0">
                                     <MemoCodeEditor
                                         value={normalizedBody.content}
                                         onChange={handleBodyContentChange}
@@ -608,10 +608,10 @@ function RequestTabsImpl({
                                     />
                                 </div>
                                 <div className="flex flex-col gap-1 min-h-0">
-                                    <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                                    <Label className="text-[11px] font-medium text-muted-foreground">
                                         Variables (JSON)
                                     </Label>
-                                    <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
+                                    <div className="flex-1 border border-border rounded-lg overflow-hidden min-h-0">
                                         <MemoCodeEditor
                                             value={normalizedBody.graphqlVariables ?? ""}
                                             onChange={handleGraphqlVariablesChange}
@@ -621,8 +621,8 @@ function RequestTabsImpl({
                                 </div>
                             </div>
                             {graphqlSchema && graphqlSchema.types.length > 0 && (
-                                <details className="border rounded-lg p-2 bg-muted/10">
-                                    <summary className="cursor-pointer text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                <details className="border border-border rounded-lg p-2 bg-muted/40">
+                                    <summary className="text-xs font-medium text-muted-foreground">
                                         Schema · {graphqlSchema.types.length} types
                                         {graphqlSchema.queryType && (
                                             <span className="ml-2 font-mono text-[10px]">query: {graphqlSchema.queryType}</span>
@@ -633,10 +633,10 @@ function RequestTabsImpl({
                                     </summary>
                                     <div className="mt-2 max-h-[200px] overflow-y-auto space-y-2 text-xs font-mono">
                                         {graphqlSchema.types.map((tp) => (
-                                            <div key={tp.name} className="border rounded p-2 bg-background">
+                                            <div key={tp.name} className="border border-border rounded-md p-2 bg-card">
                                                 <div className="flex items-center gap-2">
                                                     <span className="text-[10px] uppercase text-muted-foreground">{tp.kind}</span>
-                                                    <span className="font-bold">{tp.name}</span>
+                                                    <span className="font-semibold">{tp.name}</span>
                                                 </div>
                                                 {tp.fields && tp.fields.length > 0 && (
                                                     <ul className="pl-3 mt-1 space-y-0.5">
@@ -655,22 +655,22 @@ function RequestTabsImpl({
                             )}
                         </div>
                     ) : (
-                        <div className="flex-1 flex flex-col items-center justify-center text-muted-foreground border-2 border-dashed rounded-lg bg-muted/5">
-                            <p className="text-sm">{t("noBodyHint")}</p>
+                        <div className="flex-1 flex flex-col items-center justify-center gap-1 text-muted-foreground">
+                            <p className="text-[13px]">{t("noBodyHint")}</p>
                             <Button variant="link" size="sm" onClick={() => updateBody({ type: "json" })}>
                                 {t("switchToJson")}
                             </Button>
                         </div>
                     )}
                 </TabsContent>
-                <TabsContent value="auth" className="mt-0 space-y-6 h-full overflow-auto custom-scrollbar">
-                    <div className="flex items-center gap-4 bg-muted/30 p-3 rounded-lg border">
-                        <Label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">{t("authType")}</Label>
+                <TabsContent value="auth" className="mt-0 space-y-5 h-full overflow-auto custom-scrollbar">
+                    <div className="flex items-center gap-3">
+                        <Label className="text-[13px] font-normal text-muted-foreground shrink-0">{t("authType")}</Label>
                         <Select
                             value={auth.type}
                             onValueChange={(v) => handleAuthTypeChange(v as RequestAuth["type"])}
                         >
-                            <SelectTrigger className="w-[160px] h-8 text-xs">
+                            <SelectTrigger className="w-[200px] h-8 text-[13px]">
                                 <SelectValue placeholder={t("selectType")} />
                             </SelectTrigger>
                             <SelectContent>
@@ -689,29 +689,29 @@ function RequestTabsImpl({
                         </Select>
                     </div>
 
-                    <div className="bg-card rounded-lg p-1">
+                    <div>
                         {auth.type === "bearer" && (
-                            <div className="space-y-2 max-w-md animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-2 max-w-md animate-in fade-in duration-200">
                                 <Label>{t("labelToken")}</Label>
                                 <Input
                                     type="password"
                                     value={auth.token || ""}
                                     onChange={(e) => setAuth({ ...auth, token: e.target.value })}
                                     placeholder={t("placeholderBearerToken")}
-                                    className="h-10"
+                                    className="h-9"
                                 />
                             </div>
                         )}
 
                         {auth.type === "basic" && (
-                            <div className="space-y-4 max-w-md animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-4 max-w-md animate-in fade-in duration-200">
                                 <div className="space-y-2">
                                     <Label>{t("labelUsername")}</Label>
                                     <Input
                                         value={auth.username || ""}
                                         onChange={(e) => setAuth({ ...auth, username: e.target.value })}
                                         placeholder={t("placeholderUsername")}
-                                        className="h-10"
+                                        className="h-9"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -721,20 +721,20 @@ function RequestTabsImpl({
                                         value={auth.password || ""}
                                         onChange={(e) => setAuth({ ...auth, password: e.target.value })}
                                         placeholder={t("placeholderPassword")}
-                                        className="h-10"
+                                        className="h-9"
                                     />
                                 </div>
                             </div>
                         )}
                         {auth.type === "api-key" && (
-                            <div className="space-y-4 max-w-md animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-4 max-w-md animate-in fade-in duration-200">
                                 <div className="space-y-2">
                                     <Label>{t("labelKey")}</Label>
                                     <Input
                                         value={auth.apiKeyKey || ""}
                                         onChange={(e) => setAuth({ ...auth, apiKeyKey: e.target.value })}
                                         placeholder={t("placeholderApiKeyName")}
-                                        className="h-10"
+                                        className="h-9"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -744,7 +744,7 @@ function RequestTabsImpl({
                                         value={auth.apiKeyValue || ""}
                                         onChange={(e) => setAuth({ ...auth, apiKeyValue: e.target.value })}
                                         placeholder={t("placeholderValue")}
-                                        className="h-10"
+                                        className="h-9"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -753,7 +753,7 @@ function RequestTabsImpl({
                                         value={auth.apiKeyLocation || "header"}
                                         onValueChange={(v) => setAuth({ ...auth, apiKeyLocation: v as RequestAuth["apiKeyLocation"] })}
                                     >
-                                        <SelectTrigger className="w-full h-10">
+                                        <SelectTrigger className="w-full">
                                             <SelectValue placeholder={t("addTo")} />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -765,14 +765,14 @@ function RequestTabsImpl({
                             </div>
                         )}
                         {auth.type === "oauth2" && (
-                            <div className="space-y-4 max-w-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-4 max-w-xl animate-in fade-in duration-200">
                                 <div className="space-y-2">
                                     <Label>Grant type</Label>
                                     <Select
                                         value={auth.oauth2?.grantType ?? "client_credentials"}
                                         onValueChange={(v) => updateOAuthConfig({ grantType: v as OAuth2GrantType })}
                                     >
-                                        <SelectTrigger className="h-10">
+                                        <SelectTrigger className="h-9">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -791,7 +791,7 @@ function RequestTabsImpl({
                                                 value={auth.oauth2?.authUrl ?? ""}
                                                 onChange={(e) => updateOAuthConfig({ authUrl: e.target.value })}
                                                 placeholder="https://auth.example.com/oauth/authorize"
-                                                className="h-10 font-mono text-xs"
+                                                className="font-mono text-[13px]"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -812,7 +812,7 @@ function RequestTabsImpl({
                                                 value={auth.oauth2?.redirectUri ?? ""}
                                                 onChange={(e) => updateOAuthConfig({ redirectUri: e.target.value })}
                                                 placeholder="https://yourapp.example.com/oauth/callback"
-                                                className="h-10 font-mono text-xs"
+                                                className="font-mono text-[13px]"
                                             />
                                         </div>
                                     </>
@@ -823,7 +823,7 @@ function RequestTabsImpl({
                                         value={auth.oauth2?.tokenUrl ?? ""}
                                         onChange={(e) => updateOAuthConfig({ tokenUrl: e.target.value })}
                                         placeholder="https://auth.example.com/oauth/token"
-                                        className="h-10 font-mono text-xs"
+                                        className="font-mono text-[13px]"
                                     />
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -832,7 +832,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.oauth2?.clientId ?? ""}
                                             onChange={(e) => updateOAuthConfig({ clientId: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -841,7 +841,7 @@ function RequestTabsImpl({
                                             type="password"
                                             value={auth.oauth2?.clientSecret ?? ""}
                                             onChange={(e) => updateOAuthConfig({ clientSecret: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 </div>
@@ -852,7 +852,7 @@ function RequestTabsImpl({
                                             value={auth.oauth2?.scope ?? ""}
                                             onChange={(e) => updateOAuthConfig({ scope: e.target.value })}
                                             placeholder="read:items write:items"
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -861,7 +861,7 @@ function RequestTabsImpl({
                                             value={auth.oauth2?.audience ?? ""}
                                             onChange={(e) => updateOAuthConfig({ audience: e.target.value })}
                                             placeholder="https://api.example.com"
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 </div>
@@ -894,9 +894,9 @@ function RequestTabsImpl({
                                     )}
                                 </div>
                                 {auth.oauth2?.accessToken && (
-                                    <div className="rounded-lg border bg-muted/30 p-3 space-y-1 text-xs">
+                                    <div className="rounded-lg border border-border bg-muted/40 p-3 space-y-1 text-xs">
                                         <div className="flex items-center gap-2">
-                                            <span className="font-bold uppercase tracking-wider text-muted-foreground">Access token</span>
+                                            <span className="font-medium text-muted-foreground">Access token</span>
                                             <span className="font-mono break-all">
                                                 {auth.oauth2.accessToken.slice(0, 12)}…{auth.oauth2.accessToken.slice(-6)}
                                             </span>
@@ -905,7 +905,7 @@ function RequestTabsImpl({
                                             <div className="text-muted-foreground">
                                                 Expires {new Date(auth.oauth2.expiresAt).toLocaleString()}
                                                 {auth.oauth2.expiresAt < Date.now() && (
-                                                    <span className="ml-2 text-rose-500 font-medium">(expired — will auto-refresh on send)</span>
+                                                    <span className="ml-2 text-destructive font-medium">(expired — will auto-refresh on send)</span>
                                                 )}
                                             </div>
                                         )}
@@ -914,14 +914,14 @@ function RequestTabsImpl({
                             </div>
                         )}
                         {auth.type === "aws-sigv4" && (
-                            <div className="space-y-3 max-w-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div className="space-y-1">
                                         <Label>Access Key ID</Label>
                                         <Input
                                             value={auth.awsSigV4?.accessKeyId ?? ""}
                                             onChange={(e) => updateAwsCfg({ accessKeyId: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                             placeholder="AKIA…"
                                         />
                                     </div>
@@ -931,7 +931,7 @@ function RequestTabsImpl({
                                             type="password"
                                             value={auth.awsSigV4?.secretAccessKey ?? ""}
                                             onChange={(e) => updateAwsCfg({ secretAccessKey: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 </div>
@@ -941,7 +941,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.awsSigV4?.region ?? ""}
                                             onChange={(e) => updateAwsCfg({ region: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                             placeholder="us-east-1"
                                         />
                                     </div>
@@ -950,7 +950,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.awsSigV4?.service ?? ""}
                                             onChange={(e) => updateAwsCfg({ service: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                             placeholder="s3, lambda, execute-api…"
                                         />
                                     </div>
@@ -961,21 +961,21 @@ function RequestTabsImpl({
                                         type="password"
                                         value={auth.awsSigV4?.sessionToken ?? ""}
                                         onChange={(e) => updateAwsCfg({ sessionToken: e.target.value })}
-                                        className="h-10 font-mono text-xs"
+                                        className="font-mono text-[13px]"
                                         placeholder="STS / IAM Role temporary credentials"
                                     />
                                 </div>
                             </div>
                         )}
                         {auth.type === "hawk" && (
-                            <div className="space-y-3 max-w-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div className="space-y-1">
                                         <Label>Hawk ID</Label>
                                         <Input
                                             value={auth.hawk?.id ?? ""}
                                             onChange={(e) => updateHawkCfg({ id: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                     <div className="space-y-1">
@@ -984,7 +984,7 @@ function RequestTabsImpl({
                                             type="password"
                                             value={auth.hawk?.key ?? ""}
                                             onChange={(e) => updateHawkCfg({ key: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 </div>
@@ -995,7 +995,7 @@ function RequestTabsImpl({
                                             value={auth.hawk?.algorithm ?? "sha256"}
                                             onValueChange={(v) => updateHawkCfg({ algorithm: v as "sha256" | "sha1" })}
                                         >
-                                            <SelectTrigger className="h-10">
+                                            <SelectTrigger className="h-9">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -1009,7 +1009,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.hawk?.ext ?? ""}
                                             onChange={(e) => updateHawkCfg({ ext: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 </div>
@@ -1024,11 +1024,11 @@ function RequestTabsImpl({
                             </div>
                         )}
                         {auth.type === "digest" && (
-                            <div className="space-y-3 max-w-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                                 <p className="text-[11px] text-muted-foreground">
-                                    Pre-emptive only — paste <code className="font-mono bg-muted/40 px-1 rounded">realm</code>,{" "}
-                                    <code className="font-mono bg-muted/40 px-1 rounded">nonce</code>,{" "}
-                                    <code className="font-mono bg-muted/40 px-1 rounded">qop</code> from a prior 401
+                                    Pre-emptive only — paste <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">realm</code>,{" "}
+                                    <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">nonce</code>,{" "}
+                                    <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">qop</code> from a prior 401
                                     challenge instead of doing the handshake.
                                 </p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1037,7 +1037,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.digest?.username ?? ""}
                                             onChange={(e) => updateDigestCfg({ username: e.target.value })}
-                                            className="h-10"
+                                            className="h-9"
                                         />
                                     </div>
                                     <div className="space-y-1">
@@ -1046,7 +1046,7 @@ function RequestTabsImpl({
                                             type="password"
                                             value={auth.digest?.password ?? ""}
                                             onChange={(e) => updateDigestCfg({ password: e.target.value })}
-                                            className="h-10"
+                                            className="h-9"
                                         />
                                     </div>
                                 </div>
@@ -1056,7 +1056,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.digest?.realm ?? ""}
                                             onChange={(e) => updateDigestCfg({ realm: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                     <div className="space-y-1">
@@ -1064,7 +1064,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.digest?.nonce ?? ""}
                                             onChange={(e) => updateDigestCfg({ nonce: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 </div>
@@ -1075,7 +1075,7 @@ function RequestTabsImpl({
                                             value={auth.digest?.qop ?? "auth"}
                                             onValueChange={(v) => updateDigestCfg({ qop: v as "auth" | "auth-int" })}
                                         >
-                                            <SelectTrigger className="h-10"><SelectValue /></SelectTrigger>
+                                            <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="auth">auth</SelectItem>
                                                 <SelectItem value="auth-int">auth-int</SelectItem>
@@ -1088,7 +1088,7 @@ function RequestTabsImpl({
                                             value={auth.digest?.algorithm ?? "MD5"}
                                             onValueChange={(v) => updateDigestCfg({ algorithm: v as "MD5" | "SHA-256" })}
                                         >
-                                            <SelectTrigger className="h-10"><SelectValue /></SelectTrigger>
+                                            <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="MD5">MD5</SelectItem>
                                                 <SelectItem value="SHA-256">SHA-256</SelectItem>
@@ -1100,14 +1100,14 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.digest?.opaque ?? ""}
                                             onChange={(e) => updateDigestCfg({ opaque: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 </div>
                             </div>
                         )}
                         {auth.type === "ntlm" && (
-                            <div className="space-y-3 max-w-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                                 <p className="text-[11px] text-muted-foreground">
                                     Three-step NTLMv2 handshake runs server-side on a pinned
                                     keepalive socket. Targets: IIS, SharePoint, Exchange-style endpoints.
@@ -1118,7 +1118,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.ntlm?.username ?? ""}
                                             onChange={(e) => updateNtlmCfg({ username: e.target.value })}
-                                            className="h-10"
+                                            className="h-9"
                                         />
                                     </div>
                                     <div className="space-y-1">
@@ -1127,7 +1127,7 @@ function RequestTabsImpl({
                                             type="password"
                                             value={auth.ntlm?.password ?? ""}
                                             onChange={(e) => updateNtlmCfg({ password: e.target.value })}
-                                            className="h-10"
+                                            className="h-9"
                                         />
                                     </div>
                                 </div>
@@ -1137,7 +1137,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.ntlm?.domain ?? ""}
                                             onChange={(e) => updateNtlmCfg({ domain: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                             placeholder="CORP"
                                         />
                                     </div>
@@ -1146,7 +1146,7 @@ function RequestTabsImpl({
                                         <Input
                                             value={auth.ntlm?.workstation ?? ""}
                                             onChange={(e) => updateNtlmCfg({ workstation: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                             placeholder="WORKSTATION"
                                         />
                                     </div>
@@ -1154,10 +1154,10 @@ function RequestTabsImpl({
                             </div>
                         )}
                         {auth.type === "jwt-bearer" && (
-                            <div className="space-y-3 max-w-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                                 <p className="text-[11px] text-muted-foreground">
                                     JWT is signed client-side at send time and attached as{" "}
-                                    <code className="font-mono bg-muted/40 px-1 rounded">Authorization: Bearer</code>.
+                                    <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">Authorization: Bearer</code>.
                                 </p>
                                 <div className="space-y-1">
                                     <Label>Algorithm</Label>
@@ -1165,7 +1165,7 @@ function RequestTabsImpl({
                                         value={auth.jwtBearer?.algorithm ?? "HS256"}
                                         onValueChange={(v) => updateJwtCfg({ algorithm: v as "HS256" | "HS384" | "HS512" | "RS256" | "ES256" })}
                                     >
-                                        <SelectTrigger className="h-10"><SelectValue /></SelectTrigger>
+                                        <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
                                         <SelectContent>
                                             <SelectItem value="HS256">HS256</SelectItem>
                                             <SelectItem value="HS384">HS384</SelectItem>
@@ -1182,7 +1182,7 @@ function RequestTabsImpl({
                                             type="password"
                                             value={auth.jwtBearer?.secret ?? ""}
                                             onChange={(e) => updateJwtCfg({ secret: e.target.value })}
-                                            className="h-10 font-mono text-xs"
+                                            className="font-mono text-[13px]"
                                         />
                                     </div>
                                 ) : (
@@ -1193,22 +1193,22 @@ function RequestTabsImpl({
                                             onChange={(e) => updateJwtCfg({ privateKeyPem: e.target.value })}
                                             // threatcrush-disable-next-line secret-private-key
                                             placeholder="-----BEGIN PRIVATE KEY-----"
-                                            className="w-full min-h-[100px] border rounded p-2 font-mono text-xs"
+                                            className="w-full min-h-[100px] rounded-md border border-input bg-card px-3 py-2 font-mono text-xs outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/25"
                                         />
                                     </div>
                                 )}
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                     <div className="space-y-1">
                                         <Label>Issuer (iss)</Label>
-                                        <Input value={auth.jwtBearer?.issuer ?? ""} onChange={(e) => updateJwtCfg({ issuer: e.target.value })} className="h-10" />
+                                        <Input value={auth.jwtBearer?.issuer ?? ""} onChange={(e) => updateJwtCfg({ issuer: e.target.value })} className="h-9" />
                                     </div>
                                     <div className="space-y-1">
                                         <Label>Subject (sub)</Label>
-                                        <Input value={auth.jwtBearer?.subject ?? ""} onChange={(e) => updateJwtCfg({ subject: e.target.value })} className="h-10" />
+                                        <Input value={auth.jwtBearer?.subject ?? ""} onChange={(e) => updateJwtCfg({ subject: e.target.value })} className="h-9" />
                                     </div>
                                     <div className="space-y-1">
                                         <Label>Audience (aud)</Label>
-                                        <Input value={auth.jwtBearer?.audience ?? ""} onChange={(e) => updateJwtCfg({ audience: e.target.value })} className="h-10" />
+                                        <Input value={auth.jwtBearer?.audience ?? ""} onChange={(e) => updateJwtCfg({ audience: e.target.value })} className="h-9" />
                                     </div>
                                 </div>
                                 <div className="space-y-1">
@@ -1217,7 +1217,7 @@ function RequestTabsImpl({
                                         type="number"
                                         value={auth.jwtBearer?.ttlSeconds ?? 3600}
                                         onChange={(e) => updateJwtCfg({ ttlSeconds: Math.max(1, Number(e.target.value) || 3600) })}
-                                        className="h-10"
+                                        className="h-9"
                                     />
                                 </div>
                                 <div className="space-y-1">
@@ -1226,17 +1226,17 @@ function RequestTabsImpl({
                                         value={auth.jwtBearer?.extraClaimsJson ?? ""}
                                         onChange={(e) => updateJwtCfg({ extraClaimsJson: e.target.value })}
                                         placeholder={`{ "scope": "read:items" }`}
-                                        className="w-full min-h-[60px] border rounded p-2 font-mono text-xs"
+                                        className="w-full min-h-[60px] rounded-md border border-input bg-card px-3 py-2 font-mono text-xs outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/25"
                                     />
                                 </div>
                             </div>
                         )}
                         {auth.type === "spnego" && (
-                            <div className="space-y-3 max-w-xl animate-in fade-in slide-in-from-top-2 duration-300">
+                            <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                                 <p className="text-[11px] text-muted-foreground">
                                     Pre-acquired SPNEGO token (base64). Get one via{" "}
-                                    <code className="font-mono bg-muted/40 px-1 rounded">kinit</code> + a CLI helper.
-                                    Routed through <code className="font-mono bg-muted/40 px-1 rounded">/api/proxy-spnego</code>.
+                                    <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">kinit</code> + a CLI helper.
+                                    Routed through <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">/api/proxy-spnego</code>.
                                 </p>
                                 <div className="space-y-1">
                                     <Label>Negotiate token (base64)</Label>
@@ -1244,14 +1244,14 @@ function RequestTabsImpl({
                                         value={auth.spnego?.token ?? ""}
                                         onChange={(e) => updateSpnegoCfg({ token: e.target.value })}
                                         placeholder="YIIH7gYGKwYBBQUC…"
-                                        className="w-full min-h-[100px] border rounded p-2 font-mono text-[10px]"
+                                        className="w-full min-h-[100px] rounded-md border border-input bg-card px-3 py-2 font-mono text-[11px] outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/25"
                                     />
                                 </div>
                             </div>
                         )}
                         {auth.type === "none" && (
                             <div className="text-center py-10 text-muted-foreground">
-                                <p className="text-sm">{t("noAuthHint")}</p>
+                                <p className="text-[13px]">{t("noAuthHint")}</p>
                             </div>
                         )}
                     </div>
@@ -1259,10 +1259,10 @@ function RequestTabsImpl({
                 <TabsContent value="pre-request" forceMount className="mt-0 h-full flex flex-col gap-2 min-h-0 data-[state=inactive]:hidden">
                     <p className="text-xs text-muted-foreground">
                         Runs in a sandbox before the request. Use{" "}
-                        <code className="font-mono bg-muted/40 px-1 rounded">pm.environment.set</code>,{" "}
-                        <code className="font-mono bg-muted/40 px-1 rounded">pm.request.headers.add</code>, etc.
+                        <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">pm.environment.set</code>,{" "}
+                        <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">pm.request.headers.add</code>, etc.
                     </p>
-                    <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
+                    <div className="flex-1 border border-border rounded-lg overflow-hidden min-h-0">
                         <MemoCodeEditor
                             value={preRequestScript}
                             onChange={setPreRequestScript}
@@ -1273,10 +1273,10 @@ function RequestTabsImpl({
                 <TabsContent value="tests" forceMount className="mt-0 h-full flex flex-col gap-2 min-h-0 data-[state=inactive]:hidden">
                     <p className="text-xs text-muted-foreground">
                         Runs after the response arrives. Use{" "}
-                        <code className="font-mono bg-muted/40 px-1 rounded">pm.test(name, fn)</code> with{" "}
-                        <code className="font-mono bg-muted/40 px-1 rounded">pm.expect(...).toBe(...)</code>.
+                        <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">pm.test(name, fn)</code> with{" "}
+                        <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">pm.expect(...).toBe(...)</code>.
                     </p>
-                    <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
+                    <div className="flex-1 border border-border rounded-lg overflow-hidden min-h-0">
                         <MemoCodeEditor
                             value={testScript}
                             onChange={setTestScript}
@@ -1287,16 +1287,16 @@ function RequestTabsImpl({
                 {examples && examples.length > 0 && (
                     <TabsContent value="examples" className="mt-0 h-full overflow-auto custom-scrollbar space-y-2">
                         {examples.map((ex) => (
-                            <div key={ex.id} className="border rounded-lg p-3 space-y-1 bg-card">
+                            <div key={ex.id} className="border border-border rounded-lg p-3 space-y-1 bg-card">
                                 <div className="flex items-center gap-2 flex-wrap">
-                                    <span className="font-bold text-sm">{ex.name}</span>
-                                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted/60">
+                                    <span className="font-medium text-[13px]">{ex.name}</span>
+                                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-foreground/[0.06] text-muted-foreground">
                                         {ex.request.method}
                                     </span>
                                     <span className={
                                         ex.response.status >= 200 && ex.response.status < 300
-                                            ? "text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600"
-                                            : "text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-500"
+                                            ? "text-[10px] font-semibold tabular-nums px-1.5 py-0.5 rounded-full bg-success/[0.12] text-success"
+                                            : "text-[10px] font-semibold tabular-nums px-1.5 py-0.5 rounded-full bg-destructive/[0.12] text-destructive"
                                     }>
                                         {ex.response.status}
                                     </span>

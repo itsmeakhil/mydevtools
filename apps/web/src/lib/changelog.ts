@@ -26,6 +26,30 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.19',
+    date: '2026-11-03',
+    title: 'A native look, and a focused toolkit',
+    summary:
+      'MyDevTools now looks and feels like a Mac app: a Liquid Glass design with a translucent sidebar that picks up your desktop, your own accent color everywhere, and dark mode by default. The toolkit is trimmed to its core — the API client, databases, the encrypted vault and project notes — and Secure Files now handles files up to 5 GB.',
+    changes: [
+      { type: 'added', text: 'Liquid Glass design: a frosted sidebar and toolbar with native macOS vibrancy and floating panes, while editors, tables and inputs stay solid and sharp.' },
+      { type: 'added', text: 'A new sidebar with search, pinned tools and every category in one place. Pin a tool from its row, and collapse the sidebar to an icon rail with ⌃⌘S.' },
+      { type: 'added', text: 'A wheel-and-sliders color picker in Settings → Appearance, next to the preset list: pick any accent, type a hex value, and see its contrast on light and dark text. Buttons, selection and focus follow it across the app.' },
+      { type: 'added', text: 'Reduce transparency in Settings → Appearance swaps glass for solid surfaces. The macOS accessibility setting is honored too.' },
+      { type: 'added', text: 'A status bar showing whether your vault is locked, the active workspace and the app version.' },
+      { type: 'added', text: 'API Client: import a Bruno collection by opening its folder. Requests and environments come across; the Bruno folder itself is left untouched.' },
+      { type: 'improved', text: 'Secure Files encrypts and decrypts as a stream, so files up to 5 GB work without being loaded into memory. Imports show progress and can be cancelled.' },
+      { type: 'improved', text: 'New installs start in dark mode. Light and system themes are one click away, and your saved choice is kept.' },
+      { type: 'improved', text: 'The command palette (⌘K), menus and dialogs share the new glass look, and every tool header shows its icon in your accent color.' },
+      { type: 'improved', text: 'Updated the app framework and libraries, including the resizable panels used by split views.' },
+      { type: 'fixed', text: 'Tabs for tools that no longer exist stop reappearing after a restart.' },
+      { type: 'fixed', text: 'The SQL and MongoDB query editors use the app’s editor theme instead of a stock grey one.' },
+      { type: 'fixed', text: 'The first-run walkthrough no longer mentions sync — everything stays on your device.' },
+      { type: 'removed', text: 'Trimmed the app to a focused core. Removed the Break Room games; the Media & Design, Generators and Converters tools; the Network & API utilities other than the API Client; JWT, PEM, Encryption Playground, Bcrypt and Bookmarks; and the formatters other than JSON Formatter and JSON Visualizer. Data you saved in them stays in your local database.' },
+      { type: 'removed', text: 'The dashboard Analytics tab.' },
+    ],
+  },
+  {
     version: '0.1.18',
     date: '2026-09-22',
     title: 'Downloads that actually save',

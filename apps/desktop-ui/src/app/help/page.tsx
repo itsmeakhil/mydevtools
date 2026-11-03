@@ -58,13 +58,6 @@ const appDetails: Record<
       'Processing runs entirely on your device; nothing is sent anywhere.',
     ],
   },
-  '/app/json-schema-generator': {
-    howItWorks: [
-      'Paste valid JSON (including nested objects and arrays). The tool infers a structural schema from your sample.',
-      'Choose an output language to generate JSON Schema (Draft 2020-12) or starter types for Python, TypeScript, Go, Rust, Java, C#, Dart, or Swift.',
-      'All inference and code generation run locally on your device.',
-    ],
-  },
   '/app/api-client': {
     howItWorks: [
       'Build HTTP requests with method, URL, query params, headers, and body.',
@@ -93,7 +86,7 @@ const appDetails: Record<
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-sm font-semibold tracking-tight text-foreground">{children}</h3>
+  return <h3 className="text-[13px] font-semibold text-foreground">{children}</h3>
 }
 
 export default function HelpPage() {
@@ -102,19 +95,19 @@ export default function HelpPage() {
   const tTools = useTranslations('Dashboard.tools')
 
   return (
-    <div className="flex-1 space-y-6 p-6 pb-24 md:pb-8 max-w-5xl mx-auto w-full pt-[calc(theme(spacing.16)+env(safe-area-inset-top))] md:pt-[calc(theme(spacing.8)+env(safe-area-inset-top))] bg-background/50">
+    <div className="flex-1 space-y-6 p-6 pb-24 md:pb-8 max-w-[820px] mx-auto w-full pt-[calc(theme(spacing.16)+env(safe-area-inset-top))] md:pt-[calc(theme(spacing.8)+env(safe-area-inset-top))]">
       <div className="space-y-1">
-        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-          <BookOpen className="h-8 w-8 opacity-80 shrink-0" aria-hidden />
+        <h1 className="text-2xl font-semibold tracking-[-0.01em] flex items-center gap-2">
+          <BookOpen className="h-5 w-5 text-muted-foreground shrink-0" aria-hidden />
           {t('title')}
         </h1>
-        <p className="text-muted-foreground text-sm md:text-base max-w-3xl">
+        <p className="text-muted-foreground text-sm max-w-3xl">
           {t('subtitle')}
         </p>
       </div>
 
       <Tabs defaultValue="overview" className="w-full gap-4">
-        <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 bg-muted/60 p-1">
+        <TabsList className="h-auto flex-wrap justify-start">
           <TabsTrigger value="overview" className="gap-1.5">
             <BookOpen className="h-3.5 w-3.5" />
             {t('tabs.overview')}
@@ -134,7 +127,7 @@ export default function HelpPage() {
         </TabsList>
 
         <TabsContent value="overview" className="mt-0 space-y-4 outline-none">
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <Card>
             <CardHeader>
               <CardTitle>{t('overview.whatIs.title')}</CardTitle>
               <CardDescription>
@@ -158,20 +151,20 @@ export default function HelpPage() {
               </p>
             </CardContent>
           </Card>
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <Card>
             <CardHeader>
               <CardTitle>{t('overview.quickLinks.title')}</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-2">
               <Link
                 href="/dashboard"
-                className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
+                className="inline-flex h-8 items-center gap-1 rounded-[10px] border border-input bg-card px-3 text-[13px] font-medium shadow-elev-1 transition-colors hover:bg-accent"
               >
                 {t('overview.quickLinks.dashboard')}
               </Link>
               <Link
                 href="/settings"
-                className="inline-flex items-center gap-1 rounded-md border bg-background/80 px-3 py-1.5 text-sm hover:bg-accent/60"
+                className="inline-flex h-8 items-center gap-1 rounded-[10px] border border-input bg-card px-3 text-[13px] font-medium shadow-elev-1 transition-colors hover:bg-accent"
               >
                 {t('overview.quickLinks.settings')}
               </Link>
@@ -194,18 +187,18 @@ export default function HelpPage() {
               return (
                 <Card
                   key={url}
-                  className="border shadow-sm bg-card/50 backdrop-blur-sm overflow-hidden"
+                  className="overflow-hidden"
                 >
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2 min-w-0">
                         {Icon && (
                           <Icon
-                            className="h-5 w-5 shrink-0 text-muted-foreground"
+                            className="h-4 w-4 shrink-0 text-muted-foreground"
                             aria-hidden
                           />
                         )}
-                        <CardTitle className="text-base">{cardTitle}</CardTitle>
+                        <CardTitle>{cardTitle}</CardTitle>
                       </div>
                       <Link
                         href={url}
@@ -230,7 +223,7 @@ export default function HelpPage() {
                           ))}
                         </ul>
                         {extra.dataNote ? (
-                          <p className="rounded-lg border border-border/60 bg-muted/20 px-3 py-2 text-xs leading-relaxed">
+                          <p className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs leading-relaxed">
                             {extra.dataNote}
                           </p>
                         ) : null}
@@ -246,7 +239,7 @@ export default function HelpPage() {
         </TabsContent>
 
         <TabsContent value="security" className="mt-0 space-y-4 outline-none">
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <Card>
             <CardHeader>
               <CardTitle>{t('security.access.title')}</CardTitle>
               <CardDescription>{t('security.access.description')}</CardDescription>
@@ -278,7 +271,7 @@ export default function HelpPage() {
             </CardContent>
           </Card>
 
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <Card>
             <CardHeader>
               <CardTitle>{t('security.encryption.title')}</CardTitle>
               <CardDescription>{t('security.encryption.description')}</CardDescription>
@@ -314,13 +307,13 @@ export default function HelpPage() {
                   })}
                 </li>
               </ul>
-              <p className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-xs leading-relaxed text-foreground/90">
+              <p className="rounded-lg border border-warning/30 bg-warning/[0.06] px-3 py-2 text-xs leading-relaxed text-foreground/90">
                 {t('security.encryption.warning')}
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <Card>
             <CardHeader>
               <CardTitle>{t('security.local.title')}</CardTitle>
             </CardHeader>
@@ -333,7 +326,7 @@ export default function HelpPage() {
         </TabsContent>
 
         <TabsContent value="tips" className="mt-0 space-y-4 outline-none">
-          <Card className="border shadow-sm bg-card/50 backdrop-blur-sm">
+          <Card>
             <CardHeader>
               <CardTitle>{t('tips.title')}</CardTitle>
             </CardHeader>

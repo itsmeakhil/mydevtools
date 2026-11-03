@@ -92,12 +92,12 @@ export function InfoPane({ redisUrl, db }: Props) {
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-2 border-b px-3 py-2 shrink-0">
+            <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-border px-3">
                 <div className="text-xs text-muted-foreground">
                     {data ? `${data.dbsize.toLocaleString()} keys in DB ${db}` : "—"}
                 </div>
                 <div className="flex items-center gap-2">
-                    <label className="flex items-center gap-1 text-[10px] text-muted-foreground cursor-pointer">
+                    <label className="flex items-center gap-1 text-[11px] text-muted-foreground">
                         <input
                             type="checkbox"
                             checked={autoRefresh}
@@ -120,21 +120,21 @@ export function InfoPane({ redisUrl, db }: Props) {
                                     const val = data.sections[section]?.[key];
                                     if (val === undefined) return null;
                                     return (
-                                        <div key={`${section}-${key}`} className="rounded border bg-muted/20 px-2 py-1.5">
-                                            <div className="text-[10px] text-muted-foreground">{label}</div>
-                                            <div className="text-xs font-mono truncate">{val}</div>
+                                        <div key={`${section}-${key}`} className="rounded-lg border border-border bg-muted/40 px-2.5 py-1.5">
+                                            <div className="text-[11px] text-muted-foreground">{label}</div>
+                                            <div className="truncate text-[13px] font-medium tabular-nums">{val}</div>
                                         </div>
                                     );
                                 })}
                             </div>
                             <details className="text-xs">
-                                <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+                                <summary className="text-muted-foreground hover:text-foreground">
                                     All sections
                                 </summary>
                                 <div className="mt-2 space-y-3">
                                     {Object.entries(data.sections).map(([sec, fields]) => (
                                         <div key={sec}>
-                                            <div className="text-[11px] font-semibold uppercase text-muted-foreground border-b pb-0.5 mb-1">
+                                            <div className="mb-1 border-b border-border pb-0.5 text-[11px] font-semibold capitalize text-muted-foreground">
                                                 {sec}
                                             </div>
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 font-mono text-[11px]">
@@ -203,7 +203,7 @@ export function SlowLogPane({ redisUrl, db }: Props) {
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-2 border-b px-3 py-2 shrink-0">
+            <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-border px-3">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <span>{entries.length} entries</span>
                     <label className="flex items-center gap-1">
@@ -211,7 +211,7 @@ export function SlowLogPane({ redisUrl, db }: Props) {
                         <select
                             value={count}
                             onChange={(e) => setCount(parseInt(e.target.value, 10))}
-                            className="h-6 rounded border bg-background px-1 text-[10px] font-mono"
+                            className="h-6 rounded-md border border-border bg-background px-1 text-[11px] tabular-nums"
                         >
                             {[10, 50, 100, 250].map((n) => <option key={n} value={n}>{n}</option>)}
                         </select>
@@ -230,11 +230,11 @@ export function SlowLogPane({ redisUrl, db }: Props) {
             <ScrollArea className="flex-1">
                 <div className="p-2">
                     {entries.length === 0 && !loading && (
-                        <div className="text-center text-xs text-muted-foreground p-6">No slow entries</div>
+                        <div className="p-6 text-center text-[13px] text-muted-foreground">No slow entries</div>
                     )}
-                    <table className="w-full text-xs">
-                        <thead className="text-[10px] uppercase text-muted-foreground">
-                            <tr className="border-b">
+                    <table className="w-full text-xs tabular-nums">
+                        <thead className="bg-muted/50 text-[12px] font-medium text-muted-foreground">
+                            <tr className="border-b border-border">
                                 <th className="text-left py-1 px-2">ID</th>
                                 <th className="text-left py-1 px-2">Time</th>
                                 <th className="text-right py-1 px-2">Duration (µs)</th>
@@ -244,12 +244,12 @@ export function SlowLogPane({ redisUrl, db }: Props) {
                         </thead>
                         <tbody>
                             {entries.map((e) => (
-                                <tr key={e.id} className="border-b last:border-b-0 hover:bg-accent/50">
+                                <tr key={e.id} className="border-b border-border last:border-b-0 hover:bg-foreground/[0.03]">
                                     <td className="py-1 px-2 font-mono">{e.id}</td>
-                                    <td className="py-1 px-2 font-mono text-muted-foreground">
+                                    <td className="py-1 px-2 text-muted-foreground">
                                         {new Date(e.ts * 1000).toLocaleString()}
                                     </td>
-                                    <td className="py-1 px-2 font-mono text-right">{e.durationMicros.toLocaleString()}</td>
+                                    <td className="py-1 px-2 text-right">{e.durationMicros.toLocaleString()}</td>
                                     <td className="py-1 px-2 font-mono text-muted-foreground truncate max-w-[120px]">
                                         {e.clientAddr ?? ""}
                                     </td>
@@ -310,7 +310,7 @@ export function ClientsPane({ redisUrl, db }: Props) {
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-2 border-b px-3 py-2 shrink-0">
+            <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-border px-3">
                 <div className="text-xs text-muted-foreground">{clients.length} connections</div>
                 <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={load} disabled={loading}>
                     <IconRefresh className={loading ? "size-3.5 animate-spin" : "size-3.5"} />
@@ -320,11 +320,11 @@ export function ClientsPane({ redisUrl, db }: Props) {
             <ScrollArea className="flex-1">
                 <div className="p-2">
                     {clients.length === 0 && !loading && (
-                        <div className="text-center text-xs text-muted-foreground p-6">No clients</div>
+                        <div className="p-6 text-center text-[13px] text-muted-foreground">No clients</div>
                     )}
-                    <table className="w-full text-xs">
-                        <thead className="text-[10px] uppercase text-muted-foreground">
-                            <tr className="border-b">
+                    <table className="w-full text-xs tabular-nums">
+                        <thead className="bg-muted/50 text-[12px] font-medium text-muted-foreground">
+                            <tr className="border-b border-border">
                                 <th className="text-left py-1 px-2">ID</th>
                                 <th className="text-left py-1 px-2">Addr</th>
                                 <th className="text-left py-1 px-2">Name</th>
@@ -338,16 +338,16 @@ export function ClientsPane({ redisUrl, db }: Props) {
                         </thead>
                         <tbody>
                             {clients.map((c) => (
-                                <tr key={c.id} className="border-b last:border-b-0 hover:bg-accent/50">
+                                <tr key={c.id} className="border-b border-border last:border-b-0 hover:bg-foreground/[0.03]">
                                     <td className="py-1 px-2 font-mono">{c.id}</td>
                                     <td className="py-1 px-2 font-mono truncate max-w-[140px]">{c.addr}</td>
                                     <td className="py-1 px-2 font-mono truncate max-w-[100px]">
                                         {c.name || <span className="text-muted-foreground">—</span>}
                                     </td>
                                     <td className="py-1 px-2 font-mono">{c.user}</td>
-                                    <td className="py-1 px-2 font-mono text-right">{c.age}</td>
-                                    <td className="py-1 px-2 font-mono text-right">{c.idle}</td>
-                                    <td className="py-1 px-2"><Badge variant="outline" className="text-[10px]">{c.db}</Badge></td>
+                                    <td className="py-1 px-2 text-right">{c.age}</td>
+                                    <td className="py-1 px-2 text-right">{c.idle}</td>
+                                    <td className="py-1 px-2"><Badge variant="outline">{c.db}</Badge></td>
                                     <td className="py-1 px-2 font-mono truncate max-w-[120px]">{c.cmd}</td>
                                     <td className="py-1 px-2 text-right">
                                         <Button

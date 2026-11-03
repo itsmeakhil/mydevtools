@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
+import { defineMdtThemes, mdtThemeName } from "@/lib/monaco-theme";
 import { toast } from "sonner";
 import {
     IconAlertCircle,
@@ -242,11 +243,11 @@ export function SqlQueryPane({
     const warnsAboutSession = SESSION_SCOPED.test(state.query);
 
     return (
-        <div className="flex h-full flex-col">
-            <div className="flex flex-shrink-0 items-center gap-2 border-b bg-background px-3 py-2">
-                <span className="truncate text-xs font-medium">{tab.title}</span>
+        <div className="flex h-full flex-col bg-card">
+            <div className="flex h-11 flex-shrink-0 items-center gap-2 border-b border-border px-3">
+                <span className="truncate text-[13px] font-semibold">{tab.title}</span>
                 {readOnly && (
-                    <span className="flex items-center gap-1 rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                    <span className="flex items-center gap-1 rounded-full bg-warning/10 px-2 py-0.5 text-[11px] font-medium text-warning">
                         <IconLock className="size-3" />
                         {t("readOnly")}
                     </span>
@@ -259,7 +260,7 @@ export function SqlQueryPane({
                             setState((prev) => ({ ...prev, limit: Number(value) }))
                         }
                     >
-                        <SelectTrigger className="h-7 w-24 text-xs">
+                        <SelectTrigger className="h-7 w-24 text-[13px]">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -271,9 +272,11 @@ export function SqlQueryPane({
                         </SelectContent>
                     </Select>
 
+                    <div className="h-5 w-px bg-border" />
+
                     <Popover>
                         <PopoverTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-7 gap-1.5 text-xs">
+                            <Button variant="ghost" size="sm" className="h-7 gap-1.5 text-[13px]">
                                 <IconHistory className="size-3.5" />
                                 {t("history")}
                             </Button>
@@ -281,23 +284,23 @@ export function SqlQueryPane({
                         <PopoverContent align="end" className="w-96 p-0">
                             <div className="max-h-80 overflow-y-auto text-xs">
                                 {saved.length === 0 && history.length === 0 && (
-                                    <p className="p-4 text-muted-foreground">{t("historyEmpty")}</p>
+                                    <p className="p-4 text-[13px] text-muted-foreground">{t("historyEmpty")}</p>
                                 )}
                                 {saved.length > 0 && (
-                                    <div className="p-2">
-                                        <p className="px-1 pb-1 font-medium text-muted-foreground">
+                                    <div className="p-1.5">
+                                        <p className="px-2 pb-1 text-[11px] font-medium text-muted-foreground">
                                             {t("savedSection")}
                                         </p>
                                         {saved.map((s) => (
                                             <div
                                                 key={s.name}
-                                                className="group flex items-center rounded hover:bg-muted/60"
+                                                className="group flex items-center rounded-lg hover:bg-foreground/[0.05]"
                                             >
                                                 <button
                                                     className="min-w-0 flex-1 px-2 py-1.5 text-left"
                                                     onClick={() => applyQuery(s.query)}
                                                 >
-                                                    <span className="font-medium">{s.name}</span>
+                                                    <span className="text-[13px] font-medium">{s.name}</span>
                                                     <span className="block truncate font-mono text-muted-foreground">
                                                         {s.query}
                                                     </span>
@@ -314,14 +317,14 @@ export function SqlQueryPane({
                                     </div>
                                 )}
                                 {history.length > 0 && (
-                                    <div className="border-t p-2">
-                                        <p className="px-1 pb-1 font-medium text-muted-foreground">
+                                    <div className="border-t border-border p-1.5">
+                                        <p className="px-2 pb-1 text-[11px] font-medium text-muted-foreground">
                                             {t("recentSection")}
                                         </p>
                                         {history.map((q, i) => (
                                             <button
                                                 key={i}
-                                                className="block w-full truncate rounded px-2 py-1.5 text-left font-mono hover:bg-muted/60"
+                                                className="block w-full truncate rounded-lg px-2 py-1.5 text-left font-mono hover:bg-foreground/[0.05]"
                                                 onClick={() => applyQuery(q)}
                                             >
                                                 {q}
@@ -335,14 +338,14 @@ export function SqlQueryPane({
 
                     <Popover open={saveOpen} onOpenChange={setSaveOpen}>
                         <PopoverTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-7 gap-1.5 text-xs">
+                            <Button variant="ghost" size="sm" className="h-7 gap-1.5 text-[13px]">
                                 <IconDeviceFloppy className="size-3.5" />
                                 {t("saveQuery")}
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent align="end" className="flex w-64 gap-2 p-2">
                             <Input
-                                className="h-7 text-xs"
+                                className="h-7 text-[13px]"
                                 placeholder={t("savePlaceholder")}
                                 value={saveName}
                                 onChange={(e) => setSaveName(e.target.value)}
@@ -352,7 +355,7 @@ export function SqlQueryPane({
                             />
                             <Button
                                 size="sm"
-                                className="h-7 text-xs"
+                                className="h-7 text-[13px]"
                                 onClick={saveCurrentQuery}
                                 disabled={!saveName.trim()}
                             >
@@ -361,38 +364,41 @@ export function SqlQueryPane({
                         </PopoverContent>
                     </Popover>
 
+                    <div className="h-5 w-px bg-border" />
+
                     {running ? (
                         <Button
                             size="sm"
                             variant="outline"
-                            className="h-7 gap-1.5 text-xs"
+                            className="h-7 gap-1.5 text-[13px] tabular-nums"
                             onClick={abandon}
                         >
                             <IconPlayerStop className="size-3.5" />
                             {t("abandon", { seconds: (elapsed / 1000).toFixed(1) })}
                         </Button>
                     ) : (
-                        <Button size="sm" className="h-7 gap-1.5 text-xs" onClick={() => void runQuery()}>
+                        <Button size="sm" className="h-7 gap-1.5 text-[13px]" onClick={() => void runQuery()}>
                             <IconPlayerPlay className="size-3.5" />
                             {t("run")}
                         </Button>
                     )}
-                    <span className="hidden text-[10px] text-muted-foreground sm:block">⌘↩</span>
+                    <span className="hidden text-[11px] text-muted-foreground/70 sm:block">⌘↩</span>
                 </div>
             </div>
 
             {warnsAboutSession && (
-                <div className="flex items-center gap-2 border-b bg-sky-500/10 px-3 py-1.5 text-xs text-sky-700 dark:text-sky-300">
+                <div className="flex items-center gap-2 border-b border-border bg-primary/[0.08] px-3 py-1.5 text-xs text-primary">
                     <IconInfoCircle className="size-3.5 flex-shrink-0" />
                     {t("sessionNotice")}
                 </div>
             )}
 
             <div className="flex min-h-0 flex-1 flex-col">
-                <div className="h-[200px] flex-shrink-0 border-b">
+                <div className="h-[200px] flex-shrink-0 border-b border-border">
                     <MonacoEditor
                         language="sql"
-                        theme={resolvedTheme === "dark" ? "vs-dark" : "vs"}
+                        theme={mdtThemeName(resolvedTheme)}
+                        beforeMount={defineMdtThemes}
                         value={state.query}
                         onChange={(v) => setQuery(v ?? "")}
                         onMount={handleEditorMount}
@@ -419,7 +425,7 @@ export function SqlQueryPane({
                     )}
 
                     {!running && error && (
-                        <div className="m-4 flex items-start gap-3 rounded-lg border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+                        <div className="m-4 flex items-start gap-3 rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
                             <IconAlertCircle className="mt-0.5 size-4 flex-shrink-0" />
                             <pre className="whitespace-pre-wrap font-mono text-xs">{error}</pre>
                         </div>
@@ -439,10 +445,10 @@ export function SqlQueryPane({
                     )}
 
                     {!running && !result && !error && (
-                        <div className="flex h-full flex-col items-center justify-center gap-2 text-muted-foreground">
-                            <IconPlayerPlay className="size-8 opacity-20" />
-                            <p className="text-sm">{t("emptyTitle")}</p>
-                            <p className="text-xs opacity-60">{t("emptyHint")}</p>
+                        <div className="flex h-full flex-col items-center justify-center gap-2 text-center">
+                            <IconPlayerPlay className="h-8 w-8 text-muted-foreground/60" />
+                            <p className="text-sm font-medium">{t("emptyTitle")}</p>
+                            <p className="text-[13px] text-muted-foreground">{t("emptyHint")}</p>
                         </div>
                     )}
                 </div>

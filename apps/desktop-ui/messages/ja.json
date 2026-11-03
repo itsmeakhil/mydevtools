@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL フォーマッター",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSONスキーマジェネレーター",
     "snippetManager": "コードスニペット",
-    "markdownPreview": "Markdownプレビュー",
-    "formatConverter": "フォーマット変換",
-    "yamlFormatter": "YAMLフォーマッター",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON 差分",
-    "jsonpathPlayground": "JSONPath プレイグラウンド",
     "secureFiles": "ファイル"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "ライト",
         "dark": "ダーク",
         "system": "システム"
+      },
+      "picker": {
+        "wheel": "ホイール",
+        "sliders": "スライダー",
+        "hue": "色相",
+        "saturation": "彩度",
+        "brightness": "明度",
+        "lightness": "明るさ",
+        "chroma": "クロマ",
+        "hexValue": "16進値",
+        "copy": "16進値をコピー",
+        "copied": "コピーしました",
+        "revert": "元の色に戻す",
+        "newColor": "新しい色",
+        "onWhite": "白の上",
+        "onBlack": "黒の上",
+        "aa": "AA 合格",
+        "aaLarge": "AA 大",
+        "fail": "不合格",
+        "presets": "プリセット",
+        "eyedropper": "画面から色を取得"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "GraphQL フォーマッター",
-        "description": "GraphQL を整形し、シンタックスハイライトとシンプルなクエリビルダーを提供します。"
-      },
-      "yamlFormatter": {
-        "title": "YAMLフォーマッター",
-        "description": "ブラウザでYAMLを整形・検証・JSON変換します。"
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "JSONスキーマジェネレーター",
-        "description": "サンプルJSONからJSONスキーマと型付きモデルを推論します。"
-      },
       "snippetManager": {
         "title": "コードスニペット",
         "description": "シンタックスハイライト、自動言語検出、整形でスニペットを保存します。"
-      },
-      "markdownPreview": {
-        "title": "Markdownプレビュー",
-        "description": "HTMLエクスポートとHTML → Markdown変換を備えたライブMarkdownレンダラー。"
-      },
-      "formatConverter": {
-        "title": "フォーマット変換",
-        "description": "JSON、YAML、TOML、XML を双方向に変換します。12 通りの組み合わせに対応します。"
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON 差分",
-        "description": "2 つの JSON ドキュメントを意味的・構造的に比較します。"
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath プレイグラウンド",
-        "description": "JSONPath または JMESPath で JSON をクエリし、結果をリアルタイムで確認します。"
       },
       "secureFiles": {
         "title": "ファイル",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "アプリ",
-      "analytics": "分析",
       "ui": "インターフェース"
-    },
-    "analytics": {
-      "title": "データの概要",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "分析を読み込めませんでした。",
-      "retry": "再試行",
-      "passwordEntries": "パスワード項目",
-      "tasksTotal": "タスク",
-      "tasksCompleted": "完了",
-      "tasksOngoing": "進行中",
-      "tasksNotStarted": "未着手",
-      "projects": "プロジェクト",
-      "nosqlConnections": "DB接続",
-      "notes": "ノート",
-      "apiClientCollections": "APIコレクション",
-      "apiClientEnvironments": "API環境",
-      "apiClientHistory": "API履歴エントリ",
-      "jsonFormatterDocuments": "JSONフォーマッターのドキュメント",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "コードスニペット",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "インターフェース設定",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "JSON を修復しました",
     "toastRepairFailed": "JSON を修復できませんでした"
   },
-  "SqlFormatter": {
-    "title": "SQLフォーマッター",
-    "subtitle": "MySQL・PostgreSQL・SQLiteのSQLを整形",
-    "dialectLabel": "方言",
-    "keywordsLabel": "キーワード",
-    "indentLabel": "インデント",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "大文字",
-      "lower": "小文字",
-      "preserve": "保持"
-    },
-    "spaces": "{n} スペース",
-    "format": "整形",
-    "clear": "クリア",
-    "counter": "{current} / {max} 文字",
-    "inputPanel": "入力",
-    "formattedPanel": "整形結果",
-    "copy": "コピー",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "「整形」をクリック…",
-    "errors": {
-      "tooLong": "入力は {max} 文字までです。",
-      "couldNotFormat": "このSQLを整形できませんでした。"
-    }
-  },
-  "YamlFormatter": {
-    "title": "YAMLフォーマッター",
-    "subtitle": "YAMLの整形・検証・変換",
-    "outputLabel": "出力",
-    "outputModes": {
-      "yaml": "YAML（整形済み）",
-      "json": "JSON"
-    },
-    "indentLabel": "インデント",
-    "spaces": "{n} スペース",
-    "format": "整形",
-    "clear": "クリア",
-    "copy": "コピー",
-    "counter": "{current} / {max} 文字",
-    "inputPanel": "入力",
-    "outputPanel": "出力",
-    "errors": {
-      "tooLong": "入力は {max} 文字以内にしてください。",
-      "couldNotFormat": "このYAMLを解析できませんでした。"
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "GraphQLフォーマッター",
-    "subtitle": "クエリ・ミューテーション・サブスクリプションを整形",
-    "tabs": {
-      "format": "整形",
-      "build": "クエリビルダー"
-    },
-    "outputModeLabel": "出力",
-    "outputModes": {
-      "pretty": "整形表示",
-      "minify": "圧縮"
-    },
-    "format": "整形",
-    "clear": "クリア",
-    "counter": "{current} / {max} 文字",
-    "inputPanel": "入力",
-    "outputPanel": "出力",
-    "copy": "コピー",
-    "builderHint": "ひな形を組み立てて入力エディターに反映します。変数定義は GraphQL の構文（例: $id: ID!）で、括弧は任意です。",
-    "builder": {
-      "operation": "オペレーション",
-      "operationName": "オペレーション名",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "変数定義",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "セレクションセット",
-      "apply": "入力に反映",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "入力は {max} 文字までです。",
-      "couldNotFormat": "この GraphQL を解析または出力できませんでした。",
-      "emptySelection": "適用する前にセレクションセットを入力してください。"
-    }
-  },
-  "RegexTester": {
-    "title": "正規表現テスター",
-    "subtitle": "JavaScriptの正規表現をライブハイライトで検証",
-    "patternLabel": "パターン",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g グローバル",
-      "i": "i 大文字小文字を無視",
-      "m": "m 複数行",
-      "s": "s dotAll",
-      "u": "u Unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(空)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {一致} other {一致}}",
-    "testTextLabel": "テストテキスト",
-    "counter": "{current} / {max}",
-    "clear": "クリア",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "テキストは {max} 文字までです。",
-      "invalid": "正規表現が無効です。",
-      "runaway": "{max} 件で停止しました（暴走している可能性があります）。"
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "差分チェッカー",
-    "subtitle": "2つのテキストを行単位で並べて比較",
-    "rowsCount": "{count} 行",
-    "truncatedWarning": "最初の {max} 行を表示中。",
-    "limitExceeded": "各側は {max} 文字に制限されています。",
-    "clearBoth": "両方をクリア",
-    "original": "オリジナル",
-    "modified": "変更後",
-    "originalPlaceholder": "元のテキストを貼り付け…",
-    "modifiedPlaceholder": "変更後のテキストを貼り付け…",
-    "comparisonLabel": "並べて比較",
-    "emptyState": "両方のパネルにテキストを入力して比較してください。"
-  },
-  "JsonSchemaGenerator": {
-    "title": "JSON Schemaジェネレーター",
-    "subtitle": "サンプルJSONからJSON Schemaや型付きモデルを生成",
-    "languageLabel": "出力言語",
-    "inputLabel": "JSON入力",
-    "inputPlaceholder": "JSONをここに貼り付け…",
-    "outputLabel": "生成された出力",
-    "outputPlaceholder": "生成されたスキーマや型がここに表示されます…",
-    "parseError": "無効なJSON",
-    "clear": "クリア",
-    "copy": "コピー",
-    "copied": "クリップボードにコピーしました",
-    "copyFailed": "コピーできませんでした",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSONスキーマ（Draft 2020-12）",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "エディタを読み込み中…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "スニペットマネージャー",
     "subtitle": "コードスニペットを保存・検索・整形 — 同期は任意",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "{count} 行が一致しました — フィルタが一意でないため、何も変更していません。"
     }
   },
-  "MarkdownPreview": {
-    "title": "Markdownプレビュー",
-    "subtitle": "Markdownをライブ表示しHTMLと相互変換",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Markdown入力",
-    "htmlInputLabel": "HTML入力",
-    "previewLabel": "プレビュー",
-    "htmlOutputLabel": "HTMLソース",
-    "mdOutputLabel": "Markdown出力",
-    "inputPlaceholder": "# こんにちは\\n\\nここに **markdown** を入力してください…",
-    "htmlInputPlaceholder": "HTMLをここに貼り付けてください…",
-    "copyHtml": "HTMLをコピー",
-    "copyMarkdown": "Markdownをコピー",
-    "exportHtml": "HTMLをエクスポート",
-    "fileNameLabel": "ファイル名",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "{name} を保存しました",
-    "copied": "コピーしました",
-    "charCount": "{count, plural, other {# 文字}}",
-    "emptyHint": "Markdownの入力を開始すると、ライブプレビューとHTML出力が表示されます。",
-    "emptyHintHtmlToMd": "HTMLを貼り付けてMarkdownに変換します。",
-    "securityNote": "すべてブラウザでローカルに実行されます。何もアップロードされません。"
-  },
-  "FormatConverter": {
-    "title": "フォーマット変換",
-    "subtitle": "JSON・YAML・TOML・XMLを相互変換",
-    "fromLabel": "変換元",
-    "toLabel": "変換先",
-    "swap": "入れ替え",
-    "swapTitle": "フォーマットを入れ替えて出力を入力として使用",
-    "copy": "コピー",
-    "copied": "コピーしました",
-    "charCount": "{count, plural, other {# 文字}}",
-    "emptyHint": "左側に入力を貼り付けるか入力すると、変換された出力が表示されます。",
-    "localNote": "すべてブラウザ上でローカルに動作します。何もアップロードされません。"
-  },
-  "JsonToCode": {
-    "title": "JSON → コード",
-    "subtitle": "サンプルJSONから型付きモデルを生成",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "JSONビジュアライザー",
     "subtitle": "JSONをインタラクティブなノードグラフで探索",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "整形＆ミニファイ",
-    "subtitle": "HTML・CSS・JavaScript・XML・JSONを整形・最小化",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON差分",
-    "subtitle": "JSONを構造で比較 — キー順は無視",
-    "options": {
-      "ignoreArrayOrder": "配列の順序を無視"
-    },
-    "loadBothSamples": "サンプルを読み込む",
-    "sample": "サンプル",
-    "format": "整形",
-    "clear": "クリア",
-    "formatError": "整形できません: 入力が有効な JSON ではありません",
-    "placeholder": "ここに JSON を貼り付けまたは入力…",
-    "panels": {
-      "left": "元 (左)",
-      "right": "変更後 (右)",
-      "results": "差分"
-    },
-    "summary": {
-      "added": "{count} 件追加",
-      "removed": "{count} 件削除",
-      "changed": "{count} 件変更"
-    },
-    "types": {
-      "added": "追加",
-      "removed": "削除",
-      "changed": "変更"
-    },
-    "copyChanges": "JSON としてコピー",
-    "copied": "コピーしました",
-    "empty": "両方のパネルに JSON を貼り付けて差分を確認します。",
-    "identical": "2 つのドキュメントは意味的に同一です。"
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPathプレイグラウンド",
-    "subtitle": "JSONPathやJMESPathでJSONをリアルタイム照会",
-    "engineLabel": "エンジン",
-    "queryLabel": "クエリ",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "チートシート",
-    "cheats": {
-      "jpAllTitles": "すべての書籍タイトル",
-      "jpAllAuthors": "ドキュメント内のすべての著者",
-      "jpFirstBook": "最初の書籍",
-      "jpLastBook": "最後の書籍",
-      "jpSlice": "最初の 2 冊 (スライス)",
-      "jpFilterPrice": "40 未満の書籍",
-      "jpFilterInStock": "在庫のある書籍のタイトル",
-      "jpRecursive": "すべての値を再帰的に取得",
-      "jmAllTitles": "すべての書籍タイトル",
-      "jmFirstAuthor": "最初の書籍の著者",
-      "jmLastBook": "最後の書籍",
-      "jmSlice": "最初の 2 冊 (スライス)",
-      "jmFilterPrice": "40 未満の書籍のタイトル",
-      "jmCount": "在庫のある書籍を集計",
-      "jmProjection": "各書籍を新しいオブジェクトに再構成",
-      "jmSort": "価格順に並べたタイトル"
-    },
-    "panels": {
-      "input": "JSON 入力",
-      "results": "結果"
-    },
-    "sample": "サンプル",
-    "format": "整形",
-    "clear": "クリア",
-    "formatError": "整形できません: 入力が有効な JSON ではありません",
-    "placeholder": "ここに JSON を貼り付けまたは入力…",
-    "outputPlaceholder": "一致した結果がここに表示されます…",
-    "matchCount": "{count, plural, one {# 件の一致} other {# 件の一致}}",
-    "copy": "コピー",
-    "copied": "コピーしました"
   },
   "WebhookTester": {
     "title": "Webhookテスター",
@@ -2909,7 +2518,9 @@
     "moreSections": "その他のセクション",
     "sections": "サイドバーのセクション",
     "show": "サイドバーを表示",
-    "hide": "サイドバーを非表示"
+    "hide": "サイドバーを非表示",
+    "pin": "{tool} をピン留め",
+    "unpin": "{tool} のピン留めを解除"
   },
   "DesktopUpdate": {
     "title": "MyDevTools を更新しています",
@@ -3021,5 +2632,25 @@
     "working": "{total} 中 {done}",
     "cancelled": "キャンセルしました。",
     "save": "保存"
+  },
+  "Shell": {
+    "sidebar": "サイドバー",
+    "toggleSidebar": "サイドバーを切り替え",
+    "searchTools": "ツールを検索",
+    "help": "ヘルプ",
+    "theme": "テーマ",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "themeSystem": "システム",
+    "account": "アカウント",
+    "you": "あなた",
+    "openTool": "ツールを開く",
+    "closeTab": "{title} を閉じる",
+    "status": "ステータス",
+    "vaultLocked": "保管庫はロック中",
+    "vaultUnlocked": "保管庫はロック解除済み",
+    "reduceTransparency": "透明度を下げる",
+    "reduceTransparencyHint": "ガラスを不透明な面に置き換えます。",
+    "goToDashboard": "ダッシュボードへ"
   }
 }

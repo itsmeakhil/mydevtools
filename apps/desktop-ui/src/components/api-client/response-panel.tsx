@@ -30,10 +30,10 @@ import { downloadFile } from "@/lib/desktop/save-file"
 const MAX_INLINE_BYTES = 2 * 1024 * 1024 // 2MB
 
 const STATUS_COLOR: Record<string, string> = {
-    success: "bg-emerald-100 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200",
-    redirect: "bg-sky-100 text-sky-900 dark:bg-sky-950/60 dark:text-sky-200",
-    clientError: "bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-200",
-    serverError: "bg-rose-100 text-rose-900 dark:bg-rose-950/60 dark:text-rose-200",
+    success: "bg-success/[0.12] text-success",
+    redirect: "bg-sky-500/[0.12] text-sky-500",
+    clientError: "bg-warning/[0.12] text-warning",
+    serverError: "bg-destructive/[0.12] text-destructive",
 }
 
 function getStatusColorKey(status: number): string {
@@ -153,13 +153,11 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
     }
     if (!response) {
         return (
-            <div className="h-full flex flex-col items-center justify-center text-muted-foreground border-2 border-dashed rounded-xl min-h-0 bg-muted/5 p-8 text-center space-y-4">
-                <div className="h-12 w-12 rounded-full bg-muted/20 flex items-center justify-center">
-                    <Search className="h-6 w-6 text-muted-foreground/50" />
-                </div>
+            <div className="h-full flex flex-col items-center justify-center text-muted-foreground min-h-0 p-8 text-center space-y-3">
+                <Search className="h-8 w-8 text-muted-foreground/60" />
                 <div className="space-y-1">
                     <p className="text-sm font-medium text-foreground">{t("emptyTitle")}</p>
-                    <p className="text-xs max-w-[200px]">{t("emptyHint")}</p>
+                    <p className="text-[13px] max-w-[240px]">{t("emptyHint")}</p>
                 </div>
             </div>
         )
@@ -211,8 +209,8 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
         if (response.isBase64) {
             if (contentType.includes("image/")) {
                 return (
-                    <div className="flex items-center justify-center p-8 bg-muted/20 absolute inset-0 overflow-auto">
-                        <img src={`data:${contentType};base64,${response.body}`} alt={t("responsePreviewAlt")} loading="lazy" decoding="async" className="max-w-full shadow-sm border" />
+                    <div className="flex items-center justify-center p-8 bg-muted/40 absolute inset-0 overflow-auto">
+                        <img src={`data:${contentType};base64,${response.body}`} alt={t("responsePreviewAlt")} loading="lazy" decoding="async" className="max-w-full rounded-md border border-border" />
                     </div>
                 )
             }
@@ -226,7 +224,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                 <iframe
                     title="HTML response preview"
                     srcDoc={response.body}
-                    className="w-full h-full min-h-[320px] border-0 absolute inset-0 bg-white dark:bg-background"
+                    className="w-full h-full min-h-[320px] border-0 absolute inset-0 bg-card"
                     // `allow-same-origin` is omitted on purpose — combined with `srcDoc` it
                     // gives the framed page our origin and access to first-party storage/cookies.
                     sandbox="allow-popups allow-popups-to-escape-sandbox"
@@ -251,7 +249,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
             : "body"
 
     return (
-        <div className="flex flex-col h-full space-y-4 min-h-0">
+        <div className="flex flex-col h-full min-h-0">
             <Tabs
                 // Keying on status+time+size resets the active tab when a new response arrives.
                 // body.length was previously included — that re-mounted Monaco on EVERY change
@@ -261,38 +259,33 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                 defaultValue={defaultTab}
                 className="flex-1 flex flex-col min-h-0"
             >
-                <div
-                    className={cn(
-                        "flex flex-wrap items-center justify-between gap-3 p-2 border rounded-xl bg-card shrink-0",
-                        isSuccess ? "border-emerald-500/20 bg-emerald-500/[0.02]" : isError ? "border-rose-500/20 bg-rose-500/[0.02]" : ""
-                    )}
-                >
-                    <TabsList className="h-9 p-1 bg-muted/50 border rounded-lg max-w-full overflow-x-auto custom-scrollbar [&>*]:shrink-0">
-                        <TabsTrigger value="body" className="px-4">{t("bodyTab")}</TabsTrigger>
-                        {hasPreview && <TabsTrigger value="preview" className="px-4">{t("previewTab")}</TabsTrigger>}
-                        <TabsTrigger value="tree" className="px-4">Tree</TabsTrigger>
-                        <TabsTrigger value="table" className="px-4">Table</TabsTrigger>
-                        <TabsTrigger value="geo" className="px-4">Geo</TabsTrigger>
-                        <TabsTrigger value="headers" className="px-4">{t("headersTab")}</TabsTrigger>
+                <div className="flex flex-wrap items-center justify-between gap-2 shrink-0">
+                    <TabsList className="max-w-full overflow-x-auto no-scrollbar [&>*]:shrink-0">
+                        <TabsTrigger value="body">{t("bodyTab")}</TabsTrigger>
+                        {hasPreview && <TabsTrigger value="preview">{t("previewTab")}</TabsTrigger>}
+                        <TabsTrigger value="tree">Tree</TabsTrigger>
+                        <TabsTrigger value="table">Table</TabsTrigger>
+                        <TabsTrigger value="geo">Geo</TabsTrigger>
+                        <TabsTrigger value="headers">{t("headersTab")}</TabsTrigger>
                         {cookies.length > 0 && (
-                            <TabsTrigger value="cookies" className="px-4 flex items-center gap-1.5">
+                            <TabsTrigger value="cookies" className="flex items-center gap-1.5">
                                 <Cookie className="h-3.5 w-3.5" />
                                 Cookies
-                                <span className="text-[10px] bg-primary/10 text-primary px-1 rounded">{cookies.length}</span>
+                                <span className="inline-flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[10px] font-medium tabular-nums bg-primary/[0.12] text-primary">{cookies.length}</span>
                             </TabsTrigger>
                         )}
                         {scriptResults && (scriptResults.tests.length > 0 || scriptResults.logs.length > 0 || scriptResults.errors.length > 0) && (() => {
                             const failed = scriptResults.tests.filter(t => !t.pass).length
                             const passed = scriptResults.tests.length - failed
                             return (
-                                <TabsTrigger value="tests" className="px-4 flex items-center gap-1.5">
+                                <TabsTrigger value="tests" className="flex items-center gap-1.5">
                                     Tests
                                     {scriptResults.tests.length > 0 && (
                                         <span className={cn(
-                                            "text-[10px] px-1 rounded",
+                                            "inline-flex h-4 items-center rounded-full px-1.5 text-[10px] font-medium tabular-nums",
                                             failed > 0
-                                                ? "bg-rose-500/10 text-rose-500"
-                                                : "bg-emerald-500/10 text-emerald-600",
+                                                ? "bg-destructive/[0.12] text-destructive"
+                                                : "bg-success/[0.12] text-success",
                                         )}>
                                             {failed > 0 ? `${passed}/${scriptResults.tests.length}` : `${passed}`}
                                         </span>
@@ -302,49 +295,50 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                         })()}
                     </TabsList>
                     <div className="ml-auto flex items-center flex-wrap justify-end gap-2 min-w-0">
-                        <div className="flex items-center gap-2 min-w-0">
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80 min-w-0">
+                        <div className="flex items-center gap-1.5 min-w-0 text-xs font-medium tabular-nums">
+                        <div className={cn(
+                            "inline-flex h-6 items-center gap-1.5 px-2.5 rounded-full min-w-0",
+                            STATUS_COLOR[getStatusColorKey(response.status)]
+                        )}>
                             {isSuccess ? (
-                                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                                <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
                             ) : isError ? (
-                                <AlertCircle className="h-3.5 w-3.5 text-rose-500" />
+                                <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                             ) : (
-                                <Info className="h-3.5 w-3.5 text-blue-500" />
+                                <Info className="h-3.5 w-3.5 shrink-0" />
                             )}
-                            <span className={cn(
-                                "text-xs font-bold px-1 rounded shrink-0",
-                                STATUS_COLOR[getStatusColorKey(response.status)]
-                            )}>
+                            <span className="font-semibold shrink-0">
                                 {response.status}
                             </span>
-                            <span className="text-xs text-muted-foreground hidden sm:inline truncate">
+                            <span className="hidden sm:inline truncate">
                                 {response.statusText === API_CLIENT_ERROR_STATUS_TEXT
                                     ? t("errorStatusLabel")
                                     : response.statusText}
                             </span>
                         </div>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
-                            <Clock className="h-3.5 w-3.5 text-muted-foreground/70" />
-                            <span className="text-xs font-mono font-semibold">{response.time}ms</span>
+                        <div className="inline-flex h-6 items-center gap-1.5 px-2.5 rounded-full bg-foreground/[0.06] text-muted-foreground">
+                            <Clock className="h-3.5 w-3.5" />
+                            <span className="text-foreground">{response.time}ms</span>
                         </div>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border bg-background/80">
-                            <Database className="h-3.5 w-3.5 text-muted-foreground/70" />
-                            <span className="text-xs font-mono font-semibold">{(response.size / 1024).toFixed(2)} KB</span>
+                        <div className="inline-flex h-6 items-center gap-1.5 px-2.5 rounded-full bg-foreground/[0.06] text-muted-foreground">
+                            <Database className="h-3.5 w-3.5" />
+                            <span className="text-foreground">{(response.size / 1024).toFixed(2)} KB</span>
                         </div>
                         </div>
-                        <div className="flex items-center gap-2 shrink-0">
-                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleOpenSearch} title="Search in body (Ctrl+F)">
+                        <div className="h-5 w-px shrink-0 bg-border" />
+                        <div className="flex items-center gap-0.5 shrink-0">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleOpenSearch} title="Search in body (Ctrl+F)">
                             <Search className="h-4 w-4" />
                         </Button>
                         {onSaveExample && (
-                            <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={onSaveExample} title="Save response as example">
+                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onSaveExample} title="Save response as example">
                                 <Bookmark className="h-4 w-4" />
                             </Button>
                         )}
-                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleCopy} title={t("copyBody")}>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleCopy} title={t("copyBody")}>
                             <Copy className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg" onClick={handleDownload} title={t("downloadResponse")}>
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleDownload} title={t("downloadResponse")}>
                             <Download className="h-4 w-4" />
                         </Button>
                         </div>
@@ -355,24 +349,24 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                         className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted-foreground"
                         title={redirectChain.map(h => `${h.status} → ${h.url}`).join("\n")}
                     >
-                        <span className="font-semibold uppercase tracking-wider">Redirects:</span>
+                        <span className="font-medium">Redirects:</span>
                         {redirectChain.map((hop, i) => (
                             <span key={`${hop.url}-${i}`} className="inline-flex items-center gap-1">
-                                <span className="font-mono px-1 rounded bg-muted/50">{hop.status}</span>
+                                <span className="tabular-nums font-medium px-1.5 rounded-full bg-foreground/[0.06]">{hop.status}</span>
                                 <span className="font-mono break-all max-w-[40ch] truncate">{hop.url}</span>
                                 <span className="opacity-60">→</span>
                             </span>
                         ))}
                     </div>
                 )}
-                <div className="mt-4 border rounded-xl overflow-hidden flex-1 min-h-0 relative shadow-inner bg-card">
+                <div className="mt-3 rounded-xl border border-border overflow-hidden flex-1 min-h-0 relative bg-card">
                     <TabsContent value="body" className="mt-0 h-full absolute inset-0 flex flex-col">
                         {truncated && !response.isBase64 && (
-                            <div className="flex items-center gap-2 px-3 py-2 text-xs bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200 dark:border-amber-800 shrink-0">
-                                <span className="text-amber-800 dark:text-amber-200 flex-1">
+                            <div className="flex items-center gap-2 px-3 py-2 text-xs bg-warning/10 border-b border-warning/25 shrink-0">
+                                <span className="text-foreground flex-1">
                                     {t("truncatedBanner", { shownKb: Math.round(MAX_INLINE_BYTES / 1024) })}
                                 </span>
-                                <Button size="sm" variant="link" className="h-auto p-0 text-xs text-amber-700 dark:text-amber-300" onClick={handleDownload}>
+                                <Button size="sm" variant="link" className="h-auto p-0 text-xs text-warning" onClick={handleDownload}>
                                     {t("downloadFullBody")}
                                 </Button>
                             </div>
@@ -402,15 +396,13 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                     </TabsContent>
                     <TabsContent value="headers" className="mt-0 h-full absolute inset-0">
                         <ScrollArea className="h-full">
-                            <div className="p-4 space-y-2">
-                                <div className="grid grid-cols-[auto,1fr] gap-x-6 gap-y-3">
-                                    {Object.entries(response.headers).map(([key, value]) => (
-                                        <React.Fragment key={key}>
-                                            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground/70 py-1">{key}</div>
-                                            <div className="text-xs font-mono break-all bg-muted/30 px-2 py-1 rounded border border-border/40 select-all">{value}</div>
-                                        </React.Fragment>
-                                    ))}
-                                </div>
+                            <div className="divide-y divide-border">
+                                {Object.entries(response.headers).map(([key, value]) => (
+                                    <div key={key} className="grid grid-cols-[minmax(120px,30%)_1fr] gap-x-4 px-4 py-2 text-[13px] font-mono hover:bg-foreground/[0.03]">
+                                        <div className="text-muted-foreground break-all">{key}</div>
+                                        <div className="break-all select-all">{value}</div>
+                                    </div>
+                                ))}
                             </div>
                         </ScrollArea>
                     </TabsContent>
@@ -419,9 +411,9 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                             <ScrollArea className="h-full">
                                 <div className="p-4 space-y-3">
                                     {cookies.map((cookie, i) => (
-                                        <div key={i} className="border rounded-lg p-3 bg-muted/20 space-y-2">
+                                        <div key={i} className="border border-border rounded-lg p-3 bg-card space-y-2">
                                             <div className="flex items-center gap-2 flex-wrap">
-                                                <span className="text-xs font-bold text-foreground">{cookie.name}</span>
+                                                <span className="text-xs font-mono font-semibold text-foreground">{cookie.name}</span>
                                                 <span className="text-xs font-mono text-muted-foreground break-all">{cookie.value}</span>
                                             </div>
                                             <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
@@ -430,8 +422,8 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                                 {cookie.expires && <span>Expires: {cookie.expires}</span>}
                                                 {cookie.maxAge && <span>Max-Age: {cookie.maxAge}s</span>}
                                                 {cookie.sameSite && <span>SameSite: {cookie.sameSite}</span>}
-                                                {cookie.httpOnly && <span className="text-amber-600 font-medium">HttpOnly</span>}
-                                                {cookie.secure && <span className="text-emerald-600 font-medium">Secure</span>}
+                                                {cookie.httpOnly && <span className="text-warning font-medium">HttpOnly</span>}
+                                                {cookie.secure && <span className="text-success font-medium">Secure</span>}
                                             </div>
                                         </div>
                                     ))}
@@ -444,8 +436,8 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                             <ScrollArea className="h-full">
                                 <div className="p-4 space-y-4">
                                     {scriptResults.errors.length > 0 && (
-                                        <div className="border border-rose-500/30 bg-rose-500/5 rounded-lg p-3 space-y-1">
-                                            <div className="text-xs font-bold uppercase tracking-wider text-rose-500">Script errors</div>
+                                        <div className="border border-destructive/30 bg-destructive/5 rounded-lg p-3 space-y-1">
+                                            <div className="text-xs font-semibold text-destructive">Script errors</div>
                                             {scriptResults.errors.map((err, i) => (
                                                 <pre key={i} className="text-xs font-mono whitespace-pre-wrap break-all">{err}</pre>
                                             ))}
@@ -453,27 +445,27 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                     )}
                                     {scriptResults.tests.length > 0 && (
                                         <div className="space-y-2">
-                                            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground/70">Assertions</div>
+                                            <div className="text-xs font-medium text-muted-foreground">Assertions</div>
                                             {scriptResults.tests.map((tt, i) => (
                                                 <div
                                                     key={i}
                                                     className={cn(
                                                         "flex flex-col gap-1 border rounded-lg p-3 text-xs",
                                                         tt.pass
-                                                            ? "border-emerald-500/20 bg-emerald-500/[0.03]"
-                                                            : "border-rose-500/20 bg-rose-500/[0.03]",
+                                                            ? "border-success/25 bg-success/[0.04]"
+                                                            : "border-destructive/25 bg-destructive/[0.04]",
                                                     )}
                                                 >
                                                     <div className="flex items-center gap-2">
                                                         {tt.pass ? (
-                                                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                                                            <CheckCircle2 className="h-3.5 w-3.5 text-success" />
                                                         ) : (
-                                                            <AlertCircle className="h-3.5 w-3.5 text-rose-500" />
+                                                            <AlertCircle className="h-3.5 w-3.5 text-destructive" />
                                                         )}
                                                         <span className="font-medium break-all">{tt.name}</span>
                                                     </div>
                                                     {!tt.pass && tt.error && (
-                                                        <pre className="font-mono text-rose-500 whitespace-pre-wrap break-all pl-5">
+                                                        <pre className="font-mono text-destructive whitespace-pre-wrap break-all pl-5">
                                                             {tt.error}
                                                         </pre>
                                                     )}
@@ -483,15 +475,15 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                     )}
                                     {scriptResults.logs.length > 0 && (
                                         <div className="space-y-2">
-                                            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground/70">Console</div>
-                                            <div className="border rounded-lg p-3 bg-muted/20 space-y-1">
+                                            <div className="text-xs font-medium text-muted-foreground">Console</div>
+                                            <div className="border border-border rounded-lg p-3 bg-muted/40 space-y-1">
                                                 {scriptResults.logs.map((l, i) => (
                                                     <div
                                                         key={i}
                                                         className={cn(
                                                             "text-xs font-mono whitespace-pre-wrap break-all",
-                                                            l.level === "error" && "text-rose-500",
-                                                            l.level === "warn" && "text-amber-600",
+                                                            l.level === "error" && "text-destructive",
+                                                            l.level === "warn" && "text-warning",
                                                         )}
                                                     >
                                                         {l.args.join(" ")}

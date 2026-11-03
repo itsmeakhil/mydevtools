@@ -77,31 +77,31 @@ export function CookieJarDialog({ open, onOpenChange }: CookieJarDialogProps) {
                 <ScrollArea className="flex-1 min-h-0 -mx-1">
                     <div className="px-1 space-y-4">
                         {groups.length === 0 && (
-                            <div className="text-center py-10 text-muted-foreground text-sm">
+                            <div className="text-center py-10 text-muted-foreground text-[13px]">
                                 Jar is empty. Run a request that sets a cookie to populate.
                             </div>
                         )}
                         {groups.map(([domain, items]) => (
-                            <div key={domain} className="border rounded-lg p-3 space-y-2">
+                            <div key={domain} className="border border-border rounded-xl bg-card p-3 space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <span className="font-mono text-xs font-bold">{domain}</span>
+                                    <span className="font-mono text-xs font-semibold">{domain}</span>
                                     <Button size="sm" variant="ghost" onClick={() => handleClearDomain(domain)}>
                                         <Trash2 className="h-3.5 w-3.5" />
                                     </Button>
                                 </div>
                                 {items.map((c) => (
-                                    <div key={`${c.name}-${c.path}`} className="flex items-start justify-between gap-2 text-xs border-t pt-2 first:border-t-0 first:pt-0">
+                                    <div key={`${c.name}-${c.path}`} className="flex items-start justify-between gap-2 text-xs border-t border-border pt-2 first:border-t-0 first:pt-0">
                                         <div className="flex-1 min-w-0 space-y-0.5">
                                             <div className="flex items-center gap-2 flex-wrap">
-                                                <span className="font-bold">{c.name}</span>
+                                                <span className="font-mono font-semibold">{c.name}</span>
                                                 <span className="font-mono text-muted-foreground break-all">{c.value}</span>
                                             </div>
                                             <div className="flex flex-wrap gap-x-3 gap-y-0.5 text-[10px] text-muted-foreground">
                                                 <span>Path: <code className="font-mono">{c.path}</code></span>
                                                 {c.expires && <span>Expires: {new Date(c.expires).toLocaleString()}</span>}
                                                 {c.sameSite && <span>SameSite: {c.sameSite}</span>}
-                                                {c.httpOnly && <span className="text-amber-600 font-medium">HttpOnly</span>}
-                                                {c.secure && <span className="text-emerald-600 font-medium">Secure</span>}
+                                                {c.httpOnly && <span className="text-warning font-medium">HttpOnly</span>}
+                                                {c.secure && <span className="text-success font-medium">Secure</span>}
                                             </div>
                                         </div>
                                         <Button size="icon" variant="ghost" className="h-7 w-7" onClick={() => handleDelete(c)}>

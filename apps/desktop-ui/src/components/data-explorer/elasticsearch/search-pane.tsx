@@ -253,11 +253,11 @@ export function ElasticsearchSearchPane({
     const page = Math.floor(state.from / state.size) + 1;
 
     return (
-        <div className="flex h-full flex-col">
+        <div className="flex h-full flex-col bg-card">
             {/* Query toolbar */}
-            <div className="flex items-center gap-2 border-b px-3 py-2">
+            <div className="flex h-11 shrink-0 items-center gap-2 border-b border-border px-3">
                 <Select value={state.mode} onValueChange={(v) => setMode(v as "lucene" | "dsl")}>
-                    <SelectTrigger className="h-7 w-[110px] shrink-0 text-xs">
+                    <SelectTrigger className="h-7 w-[110px] shrink-0 text-[13px]">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -280,11 +280,11 @@ export function ElasticsearchSearchPane({
                         className="h-7 min-w-0 flex-1 font-mono text-xs"
                     />
                 ) : (
-                    <span className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
+                    <span className="min-w-0 flex-1 truncate text-[13px] text-muted-foreground">
                         {t("dslBelow")}
                     </span>
                 )}
-                <Button type="button" size="sm" className="h-7 shrink-0 text-xs" onClick={runQuery}>
+                <Button type="button" size="sm" className="h-7 shrink-0 text-[13px]" onClick={runQuery}>
                     {t("run")}
                 </Button>
                 <Select
@@ -293,7 +293,7 @@ export function ElasticsearchSearchPane({
                         setState((prev) => ({ ...prev, size: Number(v), from: 0 }))
                     }
                 >
-                    <SelectTrigger className="h-7 w-[70px] shrink-0 text-xs">
+                    <SelectTrigger className="h-7 w-[70px] shrink-0 text-[13px] tabular-nums">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -320,7 +320,7 @@ export function ElasticsearchSearchPane({
                     <Button
                         type="button"
                         size="sm"
-                        className="h-7 shrink-0 text-xs"
+                        className="h-7 shrink-0 text-[13px]"
                         onClick={() => setNewDocOpen(true)}
                     >
                         <IconPlus className="size-3.5" />
@@ -330,7 +330,7 @@ export function ElasticsearchSearchPane({
             </div>
 
             {state.mode === "dsl" && (
-                <div className="border-b px-3 py-2">
+                <div className="shrink-0 border-b border-border px-3 py-2">
                     <Textarea
                         value={draftDsl}
                         onChange={(e) => setDraftDsl(e.target.value)}
@@ -342,17 +342,17 @@ export function ElasticsearchSearchPane({
             )}
 
             {banner && (
-                <div className="border-b bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                <div className="border-b border-border bg-destructive/10 px-3 py-2 text-xs text-destructive">
                     {banner}
                 </div>
             )}
 
             <ResizablePanelGroup direction="horizontal" className="min-h-0 flex-1">
                 <ResizablePanel defaultSize={40} minSize={20}>
-                    <div className="flex h-full flex-col">
-                        <div className="min-h-0 flex-1 overflow-y-auto">
+                    <div className="flex h-full flex-col bg-muted/40">
+                        <div className="min-h-0 flex-1 overflow-y-auto p-1.5">
                             {hits.length === 0 && !loading && !error ? (
-                                <p className="px-3 py-4 text-center text-xs text-muted-foreground">
+                                <p className="px-3 py-4 text-center text-[13px] text-muted-foreground">
                                     {t("noHits")}
                                 </p>
                             ) : (
@@ -367,14 +367,16 @@ export function ElasticsearchSearchPane({
                                                 setEditing(false);
                                             }}
                                             className={cn(
-                                                "block w-full border-b px-3 py-1.5 text-left transition-colors hover:bg-muted/60",
-                                                isSelected && "bg-muted",
+                                                "block w-full rounded-lg px-2.5 py-1.5 text-left transition-colors",
+                                                isSelected
+                                                    ? "bg-primary/[0.12] text-foreground"
+                                                    : "hover:bg-foreground/[0.05]",
                                             )}
                                         >
                                             <span className="block truncate font-mono text-xs font-medium">
                                                 {hit._id}
                                             </span>
-                                            <span className="block truncate text-[10px] text-muted-foreground">
+                                            <span className="block truncate font-mono text-[11px] text-muted-foreground">
                                                 {JSON.stringify(hit._source)}
                                             </span>
                                         </button>
@@ -382,8 +384,8 @@ export function ElasticsearchSearchPane({
                                 })
                             )}
                         </div>
-                        <div className="flex items-center justify-between border-t px-3 py-1.5 text-xs">
-                            <span className="text-muted-foreground">
+                        <div className="flex h-9 shrink-0 items-center justify-between border-t border-border px-3 text-xs">
+                            <span className="tabular-nums text-muted-foreground">
                                 {total === null
                                     ? t("hitCount", { count: hits.length })
                                     : t("hitCountTotal", { count: hits.length, total })}
@@ -399,7 +401,7 @@ export function ElasticsearchSearchPane({
                                 >
                                     {t("prevPage")}
                                 </Button>
-                                <span className="text-muted-foreground">{page}</span>
+                                <span className="tabular-nums text-muted-foreground">{page}</span>
                                 <Button
                                     type="button"
                                     size="sm"
@@ -418,7 +420,7 @@ export function ElasticsearchSearchPane({
                 <ResizablePanel defaultSize={60} minSize={25}>
                     {selected ? (
                         <div className="flex h-full flex-col">
-                            <div className="flex items-center gap-2 border-b px-3 py-2">
+                            <div className="flex h-11 shrink-0 items-center gap-2 border-b border-border px-3">
                                 <span className="min-w-0 flex-1 truncate font-mono text-xs font-medium">
                                     {selected._id}
                                 </span>
@@ -488,7 +490,7 @@ export function ElasticsearchSearchPane({
                             </div>
                         </div>
                     ) : (
-                        <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+                        <div className="flex h-full items-center justify-center text-[13px] text-muted-foreground">
                             {t("selectDoc")}
                         </div>
                     )}
@@ -512,7 +514,7 @@ export function ElasticsearchSearchPane({
                                 disabled={mutating}
                                 className="h-8 font-mono text-xs"
                             />
-                            <p className="text-[10px] text-muted-foreground">{t("docIdAutoHint")}</p>
+                            <p className="text-[11px] text-muted-foreground">{t("docIdAutoHint")}</p>
                         </div>
                         <Textarea
                             value={newDocText}

@@ -55,14 +55,14 @@ export function CodegenDialog({
                 <DialogHeader className="px-4 py-3 border-b">
                     <DialogTitle className="text-sm font-medium">Generate query code</DialogTitle>
                 </DialogHeader>
-                <div className="flex items-center gap-1 px-3 py-2 border-b bg-muted/20 overflow-x-auto no-scrollbar">
+                <div className="flex h-11 items-center gap-1 px-3 border-b border-border overflow-x-auto no-scrollbar">
                     {CODEGEN_LANGS.map((l) => (
                         <button
                             key={l.id}
                             onClick={() => setLang(l.id)}
                             className={cn(
-                                "px-2.5 py-1 rounded-sm text-xs font-medium whitespace-nowrap transition-colors",
-                                lang === l.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted",
+                                "h-7 px-2.5 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors",
+                                lang === l.id ? "bg-primary/[0.12] text-primary" : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.05]",
                             )}
                         >
                             {l.label}

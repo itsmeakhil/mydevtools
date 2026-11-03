@@ -37,11 +37,11 @@ interface Props {
 export function StreamEditor({ redisUrl, db, streamKey, onRefresh }: Props) {
     return (
         <Tabs defaultValue="entries" className="h-full flex flex-col">
-            <TabsList className="h-7 rounded-none border-b w-full justify-start gap-0 p-0 bg-transparent shrink-0">
-                <TabsTrigger value="entries" className="h-7 rounded-none border-r px-3 text-[11px] data-[state=active]:bg-accent data-[state=active]:shadow-none">
+            <TabsList className="h-9 w-full shrink-0 justify-start gap-0.5 rounded-none border-b border-border bg-transparent px-2">
+                <TabsTrigger value="entries" className="h-6 rounded-md px-2.5 text-xs data-[state=active]:bg-foreground/[0.08] data-[state=active]:shadow-none">
                     Entries
                 </TabsTrigger>
-                <TabsTrigger value="groups" className="h-7 rounded-none border-r px-3 text-[11px] data-[state=active]:bg-accent data-[state=active]:shadow-none">
+                <TabsTrigger value="groups" className="h-6 rounded-md px-2.5 text-xs data-[state=active]:bg-foreground/[0.08] data-[state=active]:shadow-none">
                     Consumer groups
                 </TabsTrigger>
             </TabsList>
@@ -132,19 +132,19 @@ function EntriesPane({ redisUrl, db, streamKey, onRefresh }: Props) {
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center gap-2 border-b px-3 py-2 shrink-0 flex-wrap">
-                <Label className="text-[10px] text-muted-foreground">Start</Label>
+            <div className="flex min-h-11 shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2">
+                <Label className="text-[11px] text-muted-foreground">Start</Label>
                 <Input value={start} onChange={(e) => setStart(e.target.value)} className="h-7 w-20 text-xs font-mono" />
-                <Label className="text-[10px] text-muted-foreground">End</Label>
+                <Label className="text-[11px] text-muted-foreground">End</Label>
                 <Input value={end} onChange={(e) => setEnd(e.target.value)} className="h-7 w-20 text-xs font-mono" />
-                <Label className="text-[10px] text-muted-foreground">Count</Label>
+                <Label className="text-[11px] text-muted-foreground">Count</Label>
                 <Input
                     type="number"
                     value={count}
                     onChange={(e) => setCount(parseInt(e.target.value, 10) || 50)}
-                    className="h-7 w-16 text-xs font-mono"
+                    className="h-7 w-16 text-xs tabular-nums"
                 />
-                <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={load} disabled={loading}>
+                <Button size="icon" variant="ghost" className="size-7" onClick={load} disabled={loading}>
                     <IconRefresh className={loading ? "size-3.5 animate-spin" : "size-3.5"} />
                 </Button>
                 <div className="ml-auto">
@@ -156,12 +156,12 @@ function EntriesPane({ redisUrl, db, streamKey, onRefresh }: Props) {
             <ScrollArea className="flex-1">
                 <div className="p-2 space-y-1">
                     {entries.length === 0 && !loading && (
-                        <div className="text-center text-xs text-muted-foreground p-6">No entries</div>
+                        <div className="p-6 text-center text-[13px] text-muted-foreground">No entries</div>
                     )}
                     {entries.map((e) => (
-                        <div key={e.id} className="rounded border bg-muted/20 p-2 text-xs">
+                        <div key={e.id} className="rounded-md border border-border bg-muted/40 p-2 text-xs">
                             <div className="flex items-center justify-between gap-2 mb-1">
-                                <Badge variant="outline" className="font-mono text-[10px]">{e.id}</Badge>
+                                <Badge variant="outline" className="font-mono">{e.id}</Badge>
                                 <Button
                                     size="icon"
                                     variant="ghost"
@@ -227,7 +227,7 @@ function EntriesPane({ redisUrl, db, streamKey, onRefresh }: Props) {
                         <Button
                             size="sm"
                             variant="outline"
-                            className="h-6 text-[10px]"
+                            className="h-6 text-[11px]"
                             onClick={() => setAddFields((p) => [...p, { field: "", value: "" }])}
                         >
                             + Field
@@ -281,7 +281,7 @@ function GroupsPane({ redisUrl, db, streamKey }: Pick<Props, "redisUrl" | "db" |
             <ScrollArea className="flex-1">
                 <div className="p-3">
                     {groups.length === 0 && !loading ? (
-                        <div className="text-center text-xs text-muted-foreground p-6">No consumer groups</div>
+                        <div className="p-6 text-center text-[13px] text-muted-foreground">No consumer groups</div>
                     ) : (
                         <pre className="text-[11px] font-mono whitespace-pre-wrap">
                             {JSON.stringify(groups, null, 2)}

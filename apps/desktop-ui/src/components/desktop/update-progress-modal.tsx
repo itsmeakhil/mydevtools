@@ -48,7 +48,7 @@ export function UpdateProgressModal() {
       <button
         type="button"
         onClick={reopen}
-        className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-medium shadow-lg"
+        className="glass fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium"
       >
         <Loader2 className="h-3.5 w-3.5 animate-spin text-primary" />
         {pct !== null && phase === "downloading" ? t("pillPct", { pct }) : t("pill")}

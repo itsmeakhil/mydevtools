@@ -130,28 +130,17 @@ export function TabBar({
     }
 
     return (
-        <div className="flex items-center border-b bg-muted/30 backdrop-blur-sm h-11">
+        <div className="chrome flex items-center border-b border-border bg-muted/40 h-11">
             <TooltipProvider delayDuration={500}>
             <ScrollArea className="flex-initial min-w-0 h-full">
                 {/* relative container so the sliding indicator is positioned within it */}
                 <div ref={tabListRef} className="relative flex w-max items-center h-full px-1">
-                    {/* Sliding active-tab background + underline indicator */}
+                    {/* Sliding active-tab background */}
                     {indicatorStyle && (
                         <span
                             aria-hidden="true"
-                            className="pointer-events-none absolute top-0.5 bottom-0.5 bg-background rounded-md shadow-sm -z-0 transition-all duration-200"
+                            className="pointer-events-none absolute top-1/2 h-8 -translate-y-1/2 bg-card rounded-lg shadow-elev-1 -z-0 transition-[left,width] duration-200 ease-out-expo"
                             style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
-                        />
-                    )}
-                    {/* Sliding underline indicator */}
-                    {indicatorStyle && (
-                        <span
-                            aria-hidden="true"
-                            className="pointer-events-none absolute bottom-0 h-0.5 bg-primary rounded-full -z-0 transition-all duration-200"
-                            style={{
-                                left: indicatorStyle.left + 8,
-                                width: Math.max(0, indicatorStyle.width - 16),
-                            }}
                         />
                     )}
 
@@ -165,10 +154,10 @@ export function TabBar({
                             onDrop={(e) => handleDrop(e, tab.id)}
                             onDragEnd={handleDragEnd}
                             className={cn(
-                                "group relative flex items-center gap-2 px-3 py-1.5 text-sm font-medium cursor-pointer select-none min-w-[140px] max-w-[220px] h-[34px] rounded-md transition-colors m-0.5",
+                                "group relative flex items-center gap-2 px-2.5 text-[13px] font-medium select-none min-w-[140px] max-w-[220px] h-8 rounded-lg transition-colors m-0.5",
                                 activeTabId === tab.id
                                     ? "text-foreground"
-                                    : "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
+                                    : "text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground",
                                 dragOverId === tab.id && draggedId !== tab.id && "ring-2 ring-primary/50 ring-inset",
                                 draggedId === tab.id && "opacity-50"
                             )}
@@ -178,7 +167,7 @@ export function TabBar({
                             onDoubleClick={() => handleDoubleClick(tab)}
                         >
                             <span className={cn(
-                                "text-[10px] font-black uppercase w-8 flex-shrink-0 tracking-tighter",
+                                "text-[10px] font-semibold w-8 flex-shrink-0",
                                 tab.kind === "websocket" ? "text-purple-500" : tab.kind === "grpc" ? "text-cyan-500" : getMethodColor(tab.method),
                             )}>
                                 {tab.kind === "websocket" ? "WS" : tab.kind === "grpc" ? "RPC" : tab.method}
@@ -187,7 +176,7 @@ export function TabBar({
                             {editingTabId === tab.id ? (
                                 <input
                                     ref={editInputRef}
-                                    className="flex-1 text-xs bg-transparent border-b border-primary outline-none min-w-0 text-foreground"
+                                    className="flex-1 text-[13px] bg-transparent border-b border-primary outline-none min-w-0 text-foreground"
                                     value={editValue}
                                     onChange={(e) => setEditValue(e.target.value)}
                                     onBlur={commitRename}
@@ -201,7 +190,7 @@ export function TabBar({
                             ) : (
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <span className="truncate flex-1 text-xs">
+                                        <span className="truncate flex-1">
                                             {getApiClientRequestDisplayName(tab.name, t)}
                                         </span>
                                     </TooltipTrigger>
@@ -213,7 +202,7 @@ export function TabBar({
 
                             {onTabDuplicate && (
                                 <button
-                                    className="flex items-center justify-center h-4 w-4 rounded-full transition-all opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground"
+                                    className="flex items-center justify-center h-4 w-4 rounded-sm transition-opacity opacity-0 group-hover:opacity-100 hover:bg-foreground/[0.08] text-muted-foreground hover:text-foreground"
                                     onClick={(e) => {
                                         e.stopPropagation()
                                         onTabDuplicate(tab.id)
@@ -225,9 +214,9 @@ export function TabBar({
                             )}
                             <button
                                 className={cn(
-                                    "flex items-center justify-center h-4 w-4 rounded-full transition-all",
+                                    "flex items-center justify-center h-4 w-4 rounded-sm transition-opacity",
                                     activeTabId === tab.id ? "opacity-100" : "opacity-0 group-hover:opacity-100",
-                                    "hover:bg-muted text-muted-foreground hover:text-foreground"
+                                    "hover:bg-foreground/[0.08] text-muted-foreground hover:text-foreground"
                                 )}
                                 onClick={(e) => {
                                     e.stopPropagation()
@@ -247,7 +236,7 @@ export function TabBar({
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 mx-1 rounded-md hover:bg-muted/60 shrink-0"
+                        className="h-8 w-8 mx-1 shrink-0"
                         aria-label={tTab("addTabAria")}
                         title={tTab("addTabAria")}
                     >

@@ -6,7 +6,7 @@ export function CollectionsSidebarSkeleton() {
     return (
         <div className="space-y-2 p-3" role="status" aria-busy="true" aria-label="Loading collections">
             {Array.from({ length: 6 }).map((_, i) => (
-                <Skeleton key={i} className="h-9 w-full rounded-md" />
+                <Skeleton key={i} className="h-8 w-full rounded-lg" />
             ))}
         </div>
     )
@@ -16,7 +16,7 @@ export function HistoryListSkeleton() {
     return (
         <div className="space-y-2 p-3" role="status" aria-busy="true" aria-label="Loading history">
             {Array.from({ length: 8 }).map((_, i) => (
-                <Skeleton key={i} className="h-12 w-full rounded-md" />
+                <Skeleton key={i} className="h-12 w-full rounded-lg" />
             ))}
         </div>
     )

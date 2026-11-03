@@ -625,7 +625,7 @@ export function SnippetManagerTool() {
   const editorPanel = (
     <div className="flex h-full min-h-0 flex-col">
       {/* Compact single-row toolbar */}
-      <div className="flex h-12 shrink-0 items-center gap-1.5 border-b border-border/60 bg-background/70 px-3 backdrop-blur-md">
+      <div className="flex h-11 shrink-0 items-center gap-1.5 border-b border-border bg-card px-3">
         {/* Inline title */}
         <Input
           id="snippet-title-d"
@@ -641,7 +641,7 @@ export function SnippetManagerTool() {
         />
 
         {/* Separator */}
-        <div className="h-4 w-px shrink-0 bg-border/60" />
+        <div className="h-5 w-px shrink-0 bg-border" />
 
         {/* Language select */}
         <Select
@@ -697,7 +697,7 @@ export function SnippetManagerTool() {
             </TabsList>
           </Tabs>
 
-          <div className="mx-1 h-4 w-px shrink-0 bg-border/60" />
+          <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 
           {/* Duplicate */}
           <Button
@@ -735,7 +735,7 @@ export function SnippetManagerTool() {
             title={copied ? t("copied") : t("copy")}
           >
             {copied ? (
-              <IconCheck className="h-3.5 w-3.5 text-emerald-500" />
+              <IconCheck className="h-3.5 w-3.5 text-success" />
             ) : (
               <IconCopy className="h-3.5 w-3.5" />
             )}
@@ -760,12 +760,12 @@ export function SnippetManagerTool() {
 
       {/* Tags row */}
       {selectedId && (
-        <div className="flex shrink-0 flex-wrap items-center gap-1 border-b border-border/60 px-3 py-1.5 min-h-[32px]">
+        <div className="flex shrink-0 flex-wrap items-center gap-1 border-b border-border bg-card px-3 py-1.5 min-h-[32px]">
           <IconTag className="h-3 w-3 shrink-0 text-muted-foreground/50" />
           {draftTags.map((tag) => (
             <span
               key={tag}
-              className="flex items-center gap-0.5 rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground"
+              className="flex items-center gap-0.5 rounded-full bg-foreground/[0.06] px-2 py-0.5 text-[11px] text-muted-foreground"
             >
               {tag}
               <button
@@ -816,10 +816,10 @@ export function SnippetManagerTool() {
           <button
             type="button"
             onClick={handleCopy}
-            className="absolute right-3 top-3 z-10 flex cursor-pointer items-center gap-1.5 rounded-md border border-border/60 bg-background/80 px-2.5 py-1.5 text-xs font-medium shadow-sm backdrop-blur-sm transition-opacity duration-150 hover:bg-muted opacity-0 group-hover/monaco:opacity-100"
+            className="glass absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium transition-opacity duration-150 opacity-0 group-hover/monaco:opacity-100"
           >
             {copied ? (
-              <IconCheck className="h-3.5 w-3.5 text-emerald-500" />
+              <IconCheck className="h-3.5 w-3.5 text-success" />
             ) : (
               <IconCopy className="h-3.5 w-3.5" />
             )}
@@ -857,7 +857,7 @@ export function SnippetManagerTool() {
               <SheetTrigger asChild>
                 <button
                   type="button"
-                  className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-lg border border-border/60 bg-muted/40 px-3 py-2 text-left transition-colors hover:bg-muted"
+                  className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-left transition-colors hover:bg-foreground/[0.03]"
                 >
                   <IconMenu2 className="h-4 w-4 shrink-0 text-muted-foreground" />
                   <span className="flex-1 truncate text-sm font-medium">
@@ -899,7 +899,7 @@ export function SnippetManagerTool() {
           </div>
 
           {/* Editor card */}
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-border/50">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-border bg-card">
             {editorPanel}
           </div>
         </div>
@@ -940,7 +940,7 @@ export function SnippetManagerTool() {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder={t("searchPlaceholder")}
-                    className="h-7 pl-8 text-xs"
+                    className="h-8 pl-8 text-[13px]"
                     aria-label={t("searchAria")}
                   />
                 </div>
@@ -967,8 +967,8 @@ export function SnippetManagerTool() {
 
       {/* Count */}
       {filtered.length > 0 && (
-        <div className="shrink-0 border-t border-border/50 px-3 py-2">
-          <p className="text-center text-[11px] text-muted-foreground/60">
+        <div className="shrink-0 border-t border-border px-3 py-2">
+          <p className="text-center text-[11px] tabular-nums text-muted-foreground/70">
             {snHasMore ? `${snDisplayCount} / ${filtered.length}` : filtered.length}{" "}
             {filtered.length === 1 ? "snippet" : "snippets"}
           </p>
@@ -984,8 +984,8 @@ export function SnippetManagerTool() {
       title={t("snippets")}
       sidebar={snippetPanel}
     >
-      <div className="flex min-h-0 flex-1 flex-col p-1 md:p-2">
-        <div className="min-h-0 flex-1 overflow-hidden rounded-lg border border-border/50 md:rounded-xl">
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="min-h-0 flex-1 overflow-hidden bg-card">
           {editorPanel}
         </div>
       </div>

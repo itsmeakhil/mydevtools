@@ -1,20 +1,39 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { useGlassSheen } from "@/hooks/use-glass-sheen"
 
+/**
+ * `solid` (default) — content cards: readable, opaque, glass-style top edge.
+ * `glass` — launcher-style cards (icon + name + one line): frosted fill over
+ * the content pane with a pointer-following specular sheen.
+ */
 const Card = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-xl border border-border/70 bg-card text-card-foreground shadow-[0_1px_2px_-1px_rgb(0_0_0/0.08),0_2px_8px_-3px_rgb(0_0_0/0.08)] dark:shadow-[0_1px_2px_-1px_rgb(0_0_0/0.4)]",
-      className
-    )}
-    {...props}
-  />
-))
+  React.HTMLAttributes<HTMLDivElement> & { variant?: "solid" | "glass" }
+>(({ className, variant = "solid", onPointerMove, ...props }, ref) => {
+  const sheen = useGlassSheen<HTMLDivElement>()
+  const glass = variant === "glass"
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        glass ? "glass-card glass-sheen" : "surface",
+        "relative rounded-xl text-card-foreground",
+        className
+      )}
+      onPointerMove={
+        glass
+          ? (e) => {
+              sheen.onPointerMove(e)
+              onPointerMove?.(e)
+            }
+          : onPointerMove
+      }
+      {...props}
+    />
+  )
+})
 Card.displayName = "Card"
 
 const CardHeader = React.forwardRef<
@@ -35,7 +54,7 @@ const CardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("font-semibold leading-none tracking-tight", className)}
+    className={cn("text-[15px] font-semibold leading-tight tracking-[-0.01em]", className)}
     {...props}
   />
 ))

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { TriangleAlert } from "lucide-react";
 import { toast } from "sonner";
 
 import {
@@ -15,9 +14,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { SettingsGroup, SettingsRow } from "@/components/settings/settings-group";
 import { downloadBackup } from "@/lib/desktop/backup";
 import { localApi } from "@/lib/desktop/bridge";
 import { isDesktop } from "@/lib/desktop/is-desktop";
@@ -116,20 +115,12 @@ export function FactoryResetCard() {
   };
 
   return (
-    <Card className="rounded-2xl border border-destructive/50 bg-destructive/5 shadow-sm backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-destructive/10 text-destructive ring-1 ring-inset ring-destructive/30">
-            <TriangleAlert className="h-4 w-4" />
-          </span>
-          {t("title")}
-        </CardTitle>
-        <CardDescription>{t("description")}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Button variant="destructive" onClick={() => setOpen(true)}>
+    <SettingsGroup title={t("title")}>
+      <SettingsRow label={<span className="font-normal text-muted-foreground">{t("description")}</span>}>
+        <Button variant="destructive" size="sm" onClick={() => setOpen(true)}>
           {t("resetButton")}
         </Button>
+      </SettingsRow>
 
         <AlertDialog open={open} onOpenChange={handleOpenChange}>
           <AlertDialogContent>
@@ -139,7 +130,7 @@ export function FactoryResetCard() {
             </AlertDialogHeader>
 
             <div className="space-y-4">
-              <div className="space-y-2 rounded-lg border border-border/60 bg-card/60 p-3">
+              <div className="space-y-2 rounded-lg border border-border bg-muted/40 p-3">
                 <p className="text-xs text-muted-foreground">{t("exportHint")}</p>
                 <div className="flex gap-2">
                   <Input
@@ -183,7 +174,6 @@ export function FactoryResetCard() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      </CardContent>
-    </Card>
+    </SettingsGroup>
   );
 }

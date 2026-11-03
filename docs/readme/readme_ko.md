@@ -102,7 +102,7 @@ MyDevTools는 개발자가 매일 열어 두는 수많은 탭, 일회성 웹사�
 
 | 분류 | 예시 |
 |---|---|
-| 📝 **포매터 및 검증기** | JSON 포맷터, JSON Visualizer, JSON 비교, JSON 스키마 생성기, JSON to Code, YAML 포매터, 포맷 변환기 (JSON / YAML / TOML / XML), SQL Formatter, GraphQL 포매터, 마크다운 미리보기, Diff checker, Regex Tester |
+| 📝 **포매터 및 검증기** | JSON 포맷터, JSON Visualizer |
 | 🌐 **네트워크 및 API** | API 클라이언트 (컬렉션, 환경, 인증, gRPC, 목 서버 — 브라우저 CORS 제한 없음) |
 | 🗄️ **데이터베이스 및 스토리지 클라이언트** | SQL Client (PostgreSQL, MySQL, MariaDB), 데이터베이스 탐색기 (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — 네이티브 Rust 드라이버로 내 컴퓨터에서 데이터베이스까지 바로 연결 |
 | 🔐 **보안 및 암호화** | 비밀번호 관리자, 환경 변수 관리자 |

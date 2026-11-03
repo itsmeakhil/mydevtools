@@ -1,29 +1,34 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Sun, Moon, Monitor, Globe, Palette, Lock, Pipette, User, Archive } from 'lucide-react'
+import { Sun, Moon, Monitor, Globe, Palette, Lock, User, Archive } from 'lucide-react'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { IDLE_TIMEOUT_KEY, getIdleTimeoutMinutes } from '@/lib/use-idle-lock'
 import { Switch } from '@/components/ui/switch'
 import { getVaultIconsEnabled, setVaultIconsEnabled } from '@/lib/vault-icon-pref'
+import { getReduceTransparency, setReduceTransparency } from '@/lib/reduce-transparency'
 import { getConsent, setConsent } from '@/lib/telemetry'
 import { useTheme } from 'next-themes'
-import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useColorTheme } from '@/hooks/use-color-theme'
 import { ACCENT_PRESETS, accentHex, isCustomAccent } from '@/lib/accent-color'
 import { ProfileCard } from '@/components/settings/profile-card'
+import { AccentColorPicker } from '@/components/settings/accent-color-picker'
 import { AppVersionLabel } from '@/components/desktop/app-version-label'
 import { FactoryResetCard } from '@/components/desktop/factory-reset-card'
 import { BackupRestoreCard } from '@/components/desktop/backup-restore-card'
 import { BackupCodesCard } from '@/components/settings/backup-codes-card'
+import { SettingsGroup, SettingsRow } from '@/components/settings/settings-group'
 import { useActiveWorkspace } from '@/store/workspace-store'
 import { Briefcase } from 'lucide-react'
+
+// Segmented-control item for the theme picker (matches the TabsList look).
+const THEME_ITEM =
+  'h-7 min-w-0 rounded-[7px] px-2.5 text-muted-foreground hover:bg-transparent data-[state=on]:bg-card data-[state=on]:text-foreground data-[state=on]:shadow-elev-1'
 
 export default function SettingsPage() {
   const t = useTranslations('SettingsPage')
@@ -31,6 +36,9 @@ export default function SettingsPage() {
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const { colorTheme, setColorTheme } = useColorTheme()
+  const tShell = useTranslations('Shell')
+  const [reduceTransparency, setReduceTransparencyState] = useState(false)
+  useEffect(() => setReduceTransparencyState(getReduceTransparency()), [])
   const activeWorkspace = useActiveWorkspace()
   const [mounted, setMounted] = useState(false)
   const [idleTimeout, setIdleTimeout] = useState('15')
@@ -61,39 +69,36 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex-1 space-y-8 p-6 md:p-8 max-w-5xl mx-auto w-full pt-20 lg:pt-8 bg-background/50">
-      <div className="space-y-1.5">
+    <div className="flex-1 w-full max-w-[720px] mx-auto space-y-6 p-6 md:p-8 pt-20 lg:pt-8">
+      <div className="space-y-1">
         {activeWorkspace ? (
-          <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            <Briefcase className="h-3 w-3 text-primary" />
-            <span className="truncate max-w-[160px] sm:max-w-none text-foreground/80">{activeWorkspace.name}</span>
+          <p className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
+            <Briefcase className="h-3.5 w-3.5" />
+            <span className="truncate max-w-[160px] sm:max-w-none">{activeWorkspace.name}</span>
           </p>
         ) : (
-          <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
-            Workspace
-          </p>
+          <p className="text-[13px] text-muted-foreground">Workspace</p>
         )}
-        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{t('title')}</h2>
-        <p className="text-muted-foreground">{t('subtitle')}</p>
+        <h2 className="text-2xl font-semibold tracking-[-0.01em]">{t('title')}</h2>
+        <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <Tabs defaultValue="profile" className="w-full">
-        <TabsList className="mb-6 flex h-auto flex-wrap justify-start gap-1">
+        <TabsList className="mb-6 h-auto flex-wrap justify-start">
           <TabsTrigger value="profile" className="gap-1.5">
-            <User className="h-4 w-4" />
+            <User className="h-3.5 w-3.5" />
             {t('userProfile.title')}
           </TabsTrigger>
           <TabsTrigger value="appearance" className="gap-1.5">
-            <Palette className="h-4 w-4" />
+            <Palette className="h-3.5 w-3.5" />
             {t('appearance.title')}
           </TabsTrigger>
           <TabsTrigger value="security" className="gap-1.5">
-            <Lock className="h-4 w-4" />
+            <Lock className="h-3.5 w-3.5" />
             {t('security.title')}
           </TabsTrigger>
           <TabsTrigger value="data" className="gap-1.5">
-            <Archive className="h-4 w-4" />
+            <Archive className="h-3.5 w-3.5" />
             {t('backup.title')}
           </TabsTrigger>
         </TabsList>
@@ -103,53 +108,51 @@ export default function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="appearance" className="mt-0 space-y-6">
-        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-                <Sun className="h-4 w-4" />
-              </span>
-              {t('appearance.title')}
-            </CardTitle>
-            <CardDescription>
-              {t('appearance.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
+          <SettingsGroup title={t('appearance.title')} footer={t('appearance.description')}>
+            <SettingsRow label={<Label>{t('appearance.themePreference')}</Label>}>
+              {/* Single-select toggles deselect on re-click: ignore the empty value
+                  so there is always an active theme. */}
+              <ToggleGroup
+                type="single"
+                value={theme}
+                onValueChange={(value) => value && setTheme(value)}
+                className="justify-start gap-0 rounded-[10px] bg-foreground/[0.06] p-[3px]"
+              >
+                <ToggleGroupItem value="light" className={THEME_ITEM} aria-label={t('appearance.themes.light')} title={t('appearance.themes.light')}>
+                  <Sun className="h-4 w-4" />
+                </ToggleGroupItem>
+                <ToggleGroupItem value="dark" className={THEME_ITEM} aria-label={t('appearance.themes.dark')} title={t('appearance.themes.dark')}>
+                  <Moon className="h-4 w-4" />
+                </ToggleGroupItem>
+                <ToggleGroupItem value="system" className={THEME_ITEM} aria-label={t('appearance.themes.system')} title={t('appearance.themes.system')}>
+                  <Monitor className="h-4 w-4" />
+                </ToggleGroupItem>
+              </ToggleGroup>
+            </SettingsRow>
 
-            <div className="flex flex-col sm:flex-row sm:items-start gap-6">
-              <div className="space-y-2 sm:min-w-[180px]">
-                {/* Fixed-height label rows keep both dropdowns on the same baseline,
-                    even though only the accent label carries an icon. */}
-                <div className="flex h-5 items-center">
-                  <Label>{t('appearance.themePreference')}</Label>
-                </div>
-                {/* Single-select toggles deselect on re-click: ignore the empty value
-                    so there is always an active theme. */}
-                <ToggleGroup
-                  type="single"
-                  variant="outline"
-                  value={theme}
-                  onValueChange={(value) => value && setTheme(value)}
-                  className="justify-start"
-                >
-                  <ToggleGroupItem value="light" className="h-9 px-3" aria-label={t('appearance.themes.light')} title={t('appearance.themes.light')}>
-                    <Sun className="h-4 w-4" />
-                  </ToggleGroupItem>
-                  <ToggleGroupItem value="dark" className="h-9 px-3" aria-label={t('appearance.themes.dark')} title={t('appearance.themes.dark')}>
-                    <Moon className="h-4 w-4" />
-                  </ToggleGroupItem>
-                  <ToggleGroupItem value="system" className="h-9 px-3" aria-label={t('appearance.themes.system')} title={t('appearance.themes.system')}>
-                    <Monitor className="h-4 w-4" />
-                  </ToggleGroupItem>
-                </ToggleGroup>
-              </div>
+            <SettingsRow
+              label={<Label htmlFor="reduce-transparency">{tShell('reduceTransparency')}</Label>}
+              description={tShell('reduceTransparencyHint')}
+            >
+              <Switch
+                id="reduce-transparency"
+                checked={reduceTransparency}
+                onCheckedChange={(on) => {
+                  setReduceTransparencyState(on)
+                  setReduceTransparency(on)
+                }}
+              />
+            </SettingsRow>
 
-              <div className="space-y-2 sm:w-[220px]">
+            <SettingsRow
+              label={
                 <div className="flex h-5 items-center gap-2">
                   <Palette className="h-4 w-4 shrink-0 text-muted-foreground" />
                   <Label>{t('appearance.accentColor')}</Label>
                 </div>
+              }
+            >
+              <div className="sm:w-[220px]">
                 <div className="flex items-center gap-2">
                   {/* Trigger is w-full by default: flex-1 keeps it from squeezing the
                       picker swatch out of the row. */}
@@ -181,41 +184,24 @@ export default function SettingsPage() {
                     </SelectContent>
                   </Select>
 
-                  {/* Native picker: no dependency, and the OS eyedropper comes free. */}
-                  <label
-                    className="relative flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-input shadow-sm transition-colors hover:border-border"
-                    title={t('appearance.customColor')}
-                  >
-                    <span
-                      className="absolute inset-0"
-                      style={{
-                        background: customAccent
-                          ? accentHex(colorTheme)
-                          : 'conic-gradient(#ef4444,#eab308,#22c55e,#06b6d4,#6366f1,#d946ef,#ef4444)',
-                      }}
-                    />
-                    <Pipette
-                      className={cn(
-                        'relative h-4 w-4 drop-shadow-sm',
-                        customAccent ? 'text-primary-foreground' : 'text-white'
-                      )}
-                    />
-                    <input
-                      type="color"
-                      value={accentHex(colorTheme)}
-                      onChange={(event) => setColorTheme(event.target.value)}
-                      className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-                      aria-label={t('appearance.customColor')}
-                    />
-                  </label>
+                  <AccentColorPicker
+                    colorTheme={colorTheme}
+                    onChange={setColorTheme}
+                    label={t('appearance.customColor')}
+                  />
                 </div>
               </div>
+            </SettingsRow>
 
-              <div className="space-y-2 sm:w-[220px]">
+            <SettingsRow
+              label={
                 <div className="flex h-5 items-center gap-2">
                   <Globe className="h-4 w-4 shrink-0 text-muted-foreground" />
                   <Label>{t('language.selectLanguage')}</Label>
                 </div>
+              }
+            >
+              <div className="sm:w-[220px]">
                 <Select value={locale} onValueChange={handleLanguageChange}>
                   <SelectTrigger>
                     <SelectValue placeholder={t('language.selectPlaceholder')} />
@@ -251,29 +237,18 @@ export default function SettingsPage() {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </SettingsRow>
+          </SettingsGroup>
         </TabsContent>
 
         <TabsContent value="security" className="mt-0 space-y-6">
-        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-                <Lock className="h-4 w-4" />
-              </span>
-              {t('security.title')}
-            </CardTitle>
-            <CardDescription>
-              {t('security.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2 max-w-xs">
-              <Label>{t('security.autoLock.label')}</Label>
+          <SettingsGroup title={t('security.title')} footer={t('security.description')}>
+            <SettingsRow
+              label={<Label>{t('security.autoLock.label')}</Label>}
+              description={t('security.autoLock.helpText')}
+            >
               <Select value={idleTimeout} onValueChange={handleIdleTimeoutChange}>
-                <SelectTrigger>
+                <SelectTrigger className="sm:w-[180px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="rounded-lg">
@@ -284,16 +259,14 @@ export default function SettingsPage() {
                   <SelectItem value="60">{t('security.autoLock.min60')}</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-xs text-muted-foreground">{t('security.autoLock.helpText')}</p>
-            </div>
+            </SettingsRow>
 
             {/* Off by default: the icon service learns a domain per saved
                 entry, which for a vault is the user's list of accounts. */}
-            <div className="flex items-start justify-between gap-4">
-              <div className="space-y-1">
-                <Label htmlFor="vault-icons">{t('security.vaultIcons.label')}</Label>
-                <p className="text-xs text-muted-foreground">{t('security.vaultIcons.helpText')}</p>
-              </div>
+            <SettingsRow
+              label={<Label htmlFor="vault-icons">{t('security.vaultIcons.label')}</Label>}
+              description={t('security.vaultIcons.helpText')}
+            >
               <Switch
                 id="vault-icons"
                 checked={vaultIcons}
@@ -302,15 +275,14 @@ export default function SettingsPage() {
                   setVaultIcons(next)
                 }}
               />
-            </div>
+            </SettingsRow>
 
             {/* Off until explicitly granted — see lib/telemetry.ts for what
                 a granted event actually contains. */}
-            <div className="flex items-start justify-between gap-4">
-              <div className="space-y-1">
-                <Label htmlFor="telemetry">{t('security.telemetry.label')}</Label>
-                <p className="text-xs text-muted-foreground">{t('security.telemetry.helpText')}</p>
-              </div>
+            <SettingsRow
+              label={<Label htmlFor="telemetry">{t('security.telemetry.label')}</Label>}
+              description={t('security.telemetry.helpText')}
+            >
               <Switch
                 id="telemetry"
                 checked={telemetry}
@@ -319,9 +291,8 @@ export default function SettingsPage() {
                   setTelemetry(next)
                 }}
               />
-            </div>
-          </CardContent>
-        </Card>
+            </SettingsRow>
+          </SettingsGroup>
 
           <BackupCodesCard />
         </TabsContent>

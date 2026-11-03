@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "GraphQL-formateerder",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "JSON-skemagenerator",
     "snippetManager": "Kodesnippette",
-    "markdownPreview": "Markdown-voorskou",
-    "formatConverter": "Formaat Omskakelaer",
-    "yamlFormatter": "YAML-formatteerder",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "JSON-verskil",
-    "jsonpathPlayground": "JSONPath-speelperk",
     "secureFiles": "Lêers"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "Lig",
         "dark": "Donker",
         "system": "Stelsel"
+      },
+      "picker": {
+        "wheel": "Wiel",
+        "sliders": "Skuifbalke",
+        "hue": "Kleurtoon",
+        "saturation": "Versadiging",
+        "brightness": "Helderheid",
+        "lightness": "Ligtheid",
+        "chroma": "Chroma",
+        "hexValue": "Hex-waarde",
+        "copy": "Kopieer hex-waarde",
+        "copied": "Gekopieer",
+        "revert": "Herstel na oorspronklike kleur",
+        "newColor": "Nuwe kleur",
+        "onWhite": "Op wit",
+        "onBlack": "Op swart",
+        "aa": "AA geslaag",
+        "aaLarge": "AA Groot",
+        "fail": "Druip",
+        "presets": "Voorinstellings",
+        "eyedropper": "Kies 'n kleur van die skerm"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "GraphQL-formateerder",
-        "description": "Formateer GraphQL met sintaksuitligting en ’n eenvoudige navrae-bouer."
-      },
-      "yamlFormatter": {
-        "title": "YAML Formatteerder",
-        "description": "Formateer, valideer en omskep YAML na JSON in die blaaier."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "JSON-skemagenerator",
-        "description": "Lei 'n JSON-skema en getiketteerde modelle uit voorbeeld-JSON af."
-      },
       "snippetManager": {
         "title": "Kodesnippette",
         "description": "Bewaar snippette met sintaks-beklemtoning, outomatiese taalopsporing en formatering."
-      },
-      "markdownPreview": {
-        "title": "Markdown-voorskou",
-        "description": "Lewendige Markdown-weergawer met HTML-uitvoer en HTML → Markdown-omskakeling."
-      },
-      "formatConverter": {
-        "title": "Formaat Omskakelaar",
-        "description": "Skakel tussen JSON, YAML, TOML en XML in enige rigting. Alle 12 kombinasies word ondersteun."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "JSON-verskil",
-        "description": "Semantiese, struktuurbewuste verskil van twee JSON-dokumente."
-      },
-      "jsonpathPlayground": {
-        "title": "JSONPath-speelperk",
-        "description": "Bevraag JSON met JSONPath of JMESPath en sien lewendige resultate."
       },
       "secureFiles": {
         "title": "Lêers",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "Apps",
-      "analytics": "Ontleding",
       "ui": "Koppelvlak"
-    },
-    "analytics": {
-      "title": "Jou data in ’n oogopslag",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Kon nie ontleding laai nie.",
-      "retry": "Probeer weer",
-      "passwordEntries": "Wagwoord-inskrywings",
-      "tasksTotal": "Take",
-      "tasksCompleted": "Voltooi",
-      "tasksOngoing": "Aan die gang",
-      "tasksNotStarted": "Nie begin nie",
-      "projects": "Projekte",
-      "nosqlConnections": "DB-verbindings",
-      "notes": "Notas",
-      "apiClientCollections": "API-versamelings",
-      "apiClientEnvironments": "API-omgewings",
-      "apiClientHistory": "API-geskiedenisinskrywings",
-      "jsonFormatterDocuments": "JSON-formateerderdokumente",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Kodesnippette",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Koppelvlakvoorkeure",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "JSON herstel",
     "toastRepairFailed": "Kon nie JSON herstel nie"
   },
-  "SqlFormatter": {
-    "title": "SQL-formateerder",
-    "subtitle": "Formateer SQL netjies vir MySQL, PostgreSQL en SQLite",
-    "dialectLabel": "Dialek",
-    "keywordsLabel": "Sleutelwoorde",
-    "indentLabel": "Inkeep",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "HOOFLETTERS",
-      "lower": "kleinletters",
-      "preserve": "Behou"
-    },
-    "spaces": "{n} spasies",
-    "format": "Formateer",
-    "clear": "Vee uit",
-    "counter": "{current} / {max} karakters",
-    "inputPanel": "Invoer",
-    "formattedPanel": "Geformateer",
-    "copy": "Kopieer",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Klik \"Formateer\"…",
-    "errors": {
-      "tooLong": "Invoer is beperk tot {max} karakters.",
-      "couldNotFormat": "Kon nie hierdie SQL formateer nie."
-    }
-  },
-  "YamlFormatter": {
-    "title": "YAML-formateerder",
-    "subtitle": "Formateer, valideer en skakel YAML om",
-    "outputLabel": "Uitvoer",
-    "outputModes": {
-      "yaml": "YAML (geformateer)",
-      "json": "JSON"
-    },
-    "indentLabel": "Inkeping",
-    "spaces": "{n} spasies",
-    "format": "Formateer",
-    "clear": "Vee uit",
-    "copy": "Kopieer",
-    "counter": "{current} / {max} karakters",
-    "inputPanel": "Invoer",
-    "outputPanel": "Uitvoer",
-    "errors": {
-      "tooLong": "Invoer is beperk tot {max} karakters.",
-      "couldNotFormat": "Kon hierdie YAML nie ontleed nie."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "GraphQL-formateerder",
-    "subtitle": "Formateer queries, mutations en subscriptions",
-    "tabs": {
-      "format": "Formateer",
-      "build": "Navrae-bouer"
-    },
-    "outputModeLabel": "Afvoer",
-    "outputModes": {
-      "pretty": "Leesbare druk",
-      "minify": "Minifiseer"
-    },
-    "format": "Formateer",
-    "clear": "Maak skoon",
-    "counter": "{current} / {max} karakters",
-    "inputPanel": "Invoer",
-    "outputPanel": "Afvoer",
-    "copy": "Kopieer",
-    "builderHint": "Stel 'n raamwerk saam en pas dit op die redigeerder toe. Veranderlike-definisies gebruik GraphQL-sintaks (bv. $id: ID!) — hakies is opsioneel.",
-    "builder": {
-      "operation": "Operasie",
-      "operationName": "Operasienaam",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Veranderlike-definisies",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Keuseset",
-      "apply": "Pas toe op invoer",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Invoer is beperk tot {max} karakters.",
-      "couldNotFormat": "Kon nie hierdie GraphQL ontleed of druk nie.",
-      "emptySelection": "Voeg eers 'n keuseset by voordat jy toepas."
-    }
-  },
-  "RegexTester": {
-    "title": "Regex-toetser",
-    "subtitle": "Toets JavaScript-regex met lewendige uitlig van treffers",
-    "patternLabel": "Patroon",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g globaal",
-      "i": "i ignoreer hoof-/kleinletters",
-      "m": "m multireël",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(leeg)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {treffer} other {treffers}}",
-    "testTextLabel": "Toetstekst",
-    "counter": "{current} / {max}",
-    "clear": "Vee uit",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Teks is beperk tot {max} karakters.",
-      "invalid": "Ongeldige regex.",
-      "runaway": "Gestop ná {max} treffers (moontlike wegholpatroon)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Diff-vergelyker",
-    "subtitle": "Vergelyk twee tekste langs mekaar, reël vir reël",
-    "rowsCount": "{count} rye",
-    "truncatedWarning": "Wys eerste {max} rye.",
-    "limitExceeded": "Elke kant is beperk tot {max} karakters.",
-    "clearBoth": "Verwyder albei",
-    "original": "Oorspronklik",
-    "modified": "Gewysig",
-    "originalPlaceholder": "Plak oorspronklike teks…",
-    "modifiedPlaceholder": "Plak gewysigde teks…",
-    "comparisonLabel": "Sy-aan-sy vergelyking",
-    "emptyState": "Voer teks in beide panele in om te vergelyk."
-  },
-  "JsonSchemaGenerator": {
-    "title": "JSON Schema-genereerder",
-    "subtitle": "Genereer JSON Schema of getipeerde modelle uit voorbeeld-JSON",
-    "languageLabel": "Uittaal",
-    "inputLabel": "JSON-invoer",
-    "inputPlaceholder": "Plak JSON hier…",
-    "outputLabel": "Gegenereerde uitset",
-    "outputPlaceholder": "Die skema of gegenereerde tipes verskyn hier…",
-    "parseError": "Ongeldige JSON",
-    "clear": "Maak skoon",
-    "copy": "Kopieer",
-    "copied": "Na knipbord gekopieer",
-    "copyFailed": "Kon nie kopieer nie",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON-skema (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Laai redigeerder…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Snippet-bestuurder",
     "subtitle": "Stoor, soek en formateer kodesnippets — sinkronisering opsioneel",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "{count} rye het gepas — niks is verander nie, want die filter is nie uniek nie."
     }
   },
-  "MarkdownPreview": {
-    "title": "Markdown-voorskou",
-    "subtitle": "Vertoon Markdown lewendig en skakel om na of van HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Markdown-invoer",
-    "htmlInputLabel": "HTML-invoer",
-    "previewLabel": "Voorskou",
-    "htmlOutputLabel": "HTML-bron",
-    "mdOutputLabel": "Markdown-uitvoer",
-    "inputPlaceholder": "# Hallo\\n\\nTik jou **markdown** hier…",
-    "htmlInputPlaceholder": "Plak jou HTML hier…",
-    "copyHtml": "Kopieer HTML",
-    "copyMarkdown": "Kopieer Markdown",
-    "exportHtml": "Voer HTML uit",
-    "fileNameLabel": "Lêernaam",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "{name} gestoor",
-    "copied": "Gekopieer",
-    "charCount": "{count, plural, one {# karakter} other {# karakters}}",
-    "emptyHint": "Begin Markdown tik om die lewendige voorskou en HTML-uitvoer te sien.",
-    "emptyHintHtmlToMd": "Plak HTML om dit na Markdown om te skakel.",
-    "securityNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
-  },
-  "FormatConverter": {
-    "title": "Formaat-omskakelaar",
-    "subtitle": "Skakel JSON, YAML, TOML en XML in enige rigting om",
-    "fromLabel": "Van",
-    "toLabel": "Na",
-    "swap": "Wissel",
-    "swapTitle": "Wissel formate en gebruik uitset as invoer",
-    "copy": "Kopieer",
-    "copied": "Gekopieer",
-    "charCount": "{count, plural, one {# karakter} other {# karakters}}",
-    "emptyHint": "Plak of tik jou invoer aan die linkerkant om die omgeskakelede uitset te sien.",
-    "localNote": "Alles loop plaaslik in jou blaaier. Niks word opgelaai nie."
-  },
-  "JsonToCode": {
-    "title": "JSON na kode",
-    "subtitle": "Genereer getipeerde modelle uit ’n voorbeeld-JSON-payload",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "JSON-visualiseerder",
     "subtitle": "Verken JSON as ’n interaktiewe nodusgrafiek",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Verfraai & Minifiseer",
-    "subtitle": "Verfraai of minifiseer HTML, CSS, JavaScript, XML en JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "JSON Diff",
-    "subtitle": "Vergelyk JSON struktureel — sleutelvolgorde geïgnoreer",
-    "options": {
-      "ignoreArrayOrder": "Ignoreer skikkingsvolgorde"
-    },
-    "loadBothSamples": "Laai voorbeelde",
-    "sample": "Voorbeeld",
-    "format": "Formaat",
-    "clear": "Vee uit",
-    "formatError": "Kan nie formateer nie: invoer is nie geldige JSON nie",
-    "placeholder": "Plak of tik JSON hier…",
-    "panels": {
-      "left": "Oorspronklik (links)",
-      "right": "Gewysig (regs)",
-      "results": "Verskille"
-    },
-    "summary": {
-      "added": "{count} bygevoeg",
-      "removed": "{count} verwyder",
-      "changed": "{count} verander"
-    },
-    "types": {
-      "added": "Bygevoeg",
-      "removed": "Verwyder",
-      "changed": "Verander"
-    },
-    "copyChanges": "Kopieer as JSON",
-    "copied": "Gekopieer",
-    "empty": "Plak JSON in albei panele om hul verskille te sien.",
-    "identical": "Die twee dokumente is semanties identies."
-  },
-  "JsonpathPlayground": {
-    "title": "JSONPath-speelgrond",
-    "subtitle": "Vra JSON lewendig af met JSONPath of JMESPath",
-    "engineLabel": "Enjin",
-    "queryLabel": "Navraag",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Kits-verwysing",
-    "cheats": {
-      "jpAllTitles": "Alle boektitels",
-      "jpAllAuthors": "Elke outeur, enige plek in die dokument",
-      "jpFirstBook": "Eerste boek",
-      "jpLastBook": "Laaste boek",
-      "jpSlice": "Eerste twee boeke (snit)",
-      "jpFilterPrice": "Boeke goedkoper as 40",
-      "jpFilterInStock": "Titels van boeke in voorraad",
-      "jpRecursive": "Alle waardes, rekursief",
-      "jmAllTitles": "Alle boektitels",
-      "jmFirstAuthor": "Outeur van die eerste boek",
-      "jmLastBook": "Laaste boek",
-      "jmSlice": "Eerste twee boeke (snit)",
-      "jmFilterPrice": "Titels van boeke goedkoper as 40",
-      "jmCount": "Tel boeke in voorraad",
-      "jmProjection": "Hervorm elke boek na 'n nuwe voorwerp",
-      "jmSort": "Titels gesorteer volgens prys"
-    },
-    "panels": {
-      "input": "JSON-invoer",
-      "results": "Resultate"
-    },
-    "sample": "Voorbeeld",
-    "format": "Formaat",
-    "clear": "Vee uit",
-    "formatError": "Kan nie formateer nie: invoer is nie geldige JSON nie",
-    "placeholder": "Plak of tik JSON hier…",
-    "outputPlaceholder": "Passings sal hier verskyn…",
-    "matchCount": "{count, plural, one {# passing} other {# passings}}",
-    "copy": "Kopieer",
-    "copied": "Gekopieer"
   },
   "WebhookTester": {
     "title": "Webhook-toetser",
@@ -2909,7 +2518,9 @@
     "moreSections": "Meer afdelings",
     "sections": "Sybalk-afdelings",
     "show": "Wys sybalk",
-    "hide": "Versteek sybalk"
+    "hide": "Versteek sybalk",
+    "pin": "Speld {tool} vas",
+    "unpin": "Maak {tool} los"
   },
   "DesktopUpdate": {
     "title": "MyDevTools word bygewerk",
@@ -3021,5 +2632,25 @@
     "working": "{done} van {total}",
     "cancelled": "Gekanselleer.",
     "save": "Stoor"
+  },
+  "Shell": {
+    "sidebar": "Kantbalk",
+    "toggleSidebar": "Wissel kantbalk",
+    "searchTools": "Soek gereedskap",
+    "help": "Hulp",
+    "theme": "Tema",
+    "themeLight": "Lig",
+    "themeDark": "Donker",
+    "themeSystem": "Stelsel",
+    "account": "Rekening",
+    "you": "Jy",
+    "openTool": "Maak gereedskap oop",
+    "closeTab": "Sluit {title}",
+    "status": "Status",
+    "vaultLocked": "Kluis gesluit",
+    "vaultUnlocked": "Kluis oopgesluit",
+    "reduceTransparency": "Verminder deursigtigheid",
+    "reduceTransparencyHint": "Vervang glas met soliede oppervlakke.",
+    "goToDashboard": "Gaan na kontroleskerm"
   }
 }

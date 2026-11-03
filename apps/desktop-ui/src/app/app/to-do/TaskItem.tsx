@@ -144,7 +144,7 @@ function TaskItem({
             className="flex-1 flex items-center justify-start pl-6"
           >
             <motion.div style={{ scale: opacityRight }}>
-              <CheckCircle2 className="h-5 w-5 text-green-600" />
+              <CheckCircle2 className="h-5 w-5 text-success" />
             </motion.div>
           </motion.div>
           <motion.div
@@ -152,7 +152,7 @@ function TaskItem({
             className="flex-1 flex items-center justify-end pr-6"
           >
             <motion.div style={{ scale: opacityLeft }}>
-              <Trash2 className="h-5 w-5 text-red-600" />
+              <Trash2 className="h-5 w-5 text-destructive" />
             </motion.div>
           </motion.div>
         </div>
@@ -164,10 +164,10 @@ function TaskItem({
           onDragEnd={handleDragEnd}
           style={{ x }}
           className={cn(
-            "relative flex items-center gap-1.5 h-11 px-2 sm:px-3 rounded-md transition-colors",
-            "hover:bg-muted/50",
+            "relative flex items-center gap-1.5 h-11 px-2 sm:px-3 rounded-lg transition-colors",
+            "hover:bg-foreground/[0.03]",
             isCompleted && "opacity-60",
-            justCompleted && "bg-green-500/5 ring-1 ring-green-500/30"
+            justCompleted && "bg-success/5 ring-1 ring-success/30"
           )}
         >
           {/* Priority */}
@@ -267,7 +267,7 @@ function TaskItem({
                 className={cn(
                   "hidden sm:flex items-center gap-1 h-5 px-1.5 rounded-full text-[10px] font-medium select-none",
                   task.isTimerRunning
-                    ? "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400"
+                    ? "bg-warning/10 text-warning"
                     : "text-muted-foreground"
                 )}
                 onClick={(e) => e.stopPropagation()}
@@ -290,7 +290,7 @@ function TaskItem({
               <span
                 className={cn(
                   "flex items-center gap-1 text-[11px] shrink-0",
-                  isOverdue ? "text-red-500 font-medium" : "text-orange-500/90 dark:text-orange-400"
+                  isOverdue ? "text-destructive font-medium" : "text-warning"
                 )}
               >
                 <Calendar className="h-3 w-3" />
@@ -358,7 +358,7 @@ function TaskItem({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => onDeleteTask(task.id)}
-                  className="text-red-500 focus:text-red-500 focus:bg-red-50 dark:focus:bg-red-950/20"
+                  className="text-destructive focus:text-destructive focus:bg-destructive/10"
                 >
                   <Trash2 className="h-4 w-4 mr-2" />
                   {tItem("deleteTask")}

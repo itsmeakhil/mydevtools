@@ -240,7 +240,7 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
                             </Alert>
                         )}
 
-                        <div className="space-y-3 rounded-lg border p-4">
+                        <div className="space-y-3 rounded-xl border border-border bg-card p-4">
                             {exportMode === "encrypted" && (
                                 <div className="space-y-2">
                                     <Label htmlFor="export-passphrase">{t("passphraseLabel")}</Label>
@@ -324,7 +324,7 @@ export function ImportExportDialog({ children }: ImportExportDialogProps) {
                         )}
 
                         {preview && (
-                            <div className="rounded-lg border bg-muted/30 p-3 text-sm space-y-1">
+                            <div className="rounded-xl border border-border bg-muted/40 p-3 text-sm space-y-1">
                                 <p className="font-medium">{t("previewReady", { count: preview.entries.length })}</p>
                                 {preview.duplicates > 0 && (
                                     <p className="text-xs text-muted-foreground">

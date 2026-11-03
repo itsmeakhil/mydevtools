@@ -31,20 +31,15 @@ type Props = {
 }
 
 function ProviderIcon({ provider, className }: { provider: string; className?: string }) {
-    if (provider === "aws") return <IconBrandAws className={cn("size-4 shrink-0 text-orange-400", className)} />
-    if (provider === "digitalocean") return <IconCloud className={cn("size-4 shrink-0 text-blue-400", className)} />
-    return <IconServer className={cn("size-4 shrink-0 text-violet-400", className)} />
+    if (provider === "aws") return <IconBrandAws className={cn("size-4 shrink-0 text-muted-foreground", className)} />
+    if (provider === "digitalocean") return <IconCloud className={cn("size-4 shrink-0 text-muted-foreground", className)} />
+    return <IconServer className={cn("size-4 shrink-0 text-muted-foreground", className)} />
 }
 
 function ProviderBadge({ provider }: { provider: string }) {
     const labels: Record<string, string> = { aws: "AWS", digitalocean: "DO", custom: "S3" }
-    const colors: Record<string, string> = {
-        aws: "bg-orange-500/10 text-orange-500",
-        digitalocean: "bg-blue-500/10 text-blue-400",
-        custom: "bg-violet-500/10 text-violet-400",
-    }
     return (
-        <span className={cn("text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-md shrink-0", colors[provider] ?? colors.custom)}>
+        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full shrink-0 bg-foreground/[0.06] text-muted-foreground">
             {labels[provider] ?? "S3"}
         </span>
     )
@@ -103,7 +98,7 @@ export function BucketSidebar({ encryptionKey }: Props) {
     return (
         <>
             {connections.length > 0 && (
-                <p className="shrink-0 px-3 pt-2 text-[10px] text-muted-foreground/60">
+                <p className="shrink-0 px-3 pt-2 text-[11px] text-muted-foreground/70 tabular-nums">
                     {connections.length} connection{connections.length !== 1 ? "s" : ""}
                 </p>
             )}
@@ -111,17 +106,10 @@ export function BucketSidebar({ encryptionKey }: Props) {
             <div className="min-h-0 flex-1 overflow-y-auto p-2 space-y-0.5">
                     {connections.length === 0 && (
                         <div className="flex flex-col items-center gap-3 px-3 py-8 text-center">
-                            <div className="relative">
-                                <div className="size-16 rounded-2xl bg-gradient-to-br from-muted to-muted/60 flex items-center justify-center">
-                                    <IconBucket className="size-8 text-muted-foreground/30" />
-                                </div>
-                                <div className="absolute -bottom-1 -right-1 size-6 rounded-full bg-primary/10 flex items-center justify-center ring-2 ring-background">
-                                    <IconPlus className="size-3 text-primary" />
-                                </div>
-                            </div>
+                            <IconBucket className="size-8 text-muted-foreground/60" />
                             <div className="space-y-1">
-                                <p className="text-xs font-medium text-foreground/70">No buckets yet</p>
-                                <p className="text-[10px] text-muted-foreground/60 max-w-[140px] leading-relaxed">
+                                <p className="text-sm font-medium">No buckets yet</p>
+                                <p className="text-xs text-muted-foreground max-w-[160px] leading-relaxed">
                                     Connect your AWS S3 or DigitalOcean Spaces bucket to start browsing.
                                 </p>
                             </div>
@@ -142,10 +130,10 @@ export function BucketSidebar({ encryptionKey }: Props) {
                             <div
                                 key={conn.id}
                                 className={cn(
-                                    "group flex items-center gap-2.5 rounded-lg px-2.5 py-2 cursor-pointer text-sm transition-all duration-150",
+                                    "group flex items-center gap-2.5 min-h-8 rounded-lg px-2.5 py-1.5 cursor-default text-[13px] transition-colors duration-150",
                                     isActive
-                                        ? "bg-primary/8 text-foreground shadow-sm ring-1 ring-primary/10"
-                                        : "hover:bg-accent/50 text-muted-foreground hover:text-foreground",
+                                        ? "bg-primary/[0.12] text-foreground"
+                                        : "hover:bg-foreground/[0.05] text-foreground",
                                 )}
                                 onClick={() => {
                                     setActiveConnection(conn.id)
@@ -154,24 +142,18 @@ export function BucketSidebar({ encryptionKey }: Props) {
                                     if (panel?.isOverlay) panel.close()
                                 }}
                             >
-                                {/* Active indicator line */}
-                                <div className={cn(
-                                    "w-[3px] self-stretch rounded-full shrink-0 transition-colors duration-200",
-                                    isActive ? "bg-primary" : "bg-transparent group-hover:bg-border",
-                                )} />
-
                                 <ProviderIcon provider={conn.provider} className={cn(isActive && "text-primary")} />
 
                                 <span className="flex-1 min-w-0">
                                     <span className={cn(
                                         "block truncate text-[13px] leading-snug",
-                                        isActive ? "font-semibold" : "font-medium",
+                                        isActive ? "font-medium" : "font-normal",
                                     )}>
                                         {conn.name}
                                     </span>
                                     {connSubtitle(conn) && (
                                         <span className="flex items-center gap-1.5 mt-0.5">
-                                            <span className="block truncate text-[10px] text-muted-foreground/50 leading-tight">
+                                            <span className="block truncate text-[11px] text-muted-foreground leading-tight">
                                                 {connSubtitle(conn)}
                                             </span>
                                         </span>
@@ -213,7 +195,7 @@ export function BucketSidebar({ encryptionKey }: Props) {
 
             {/* Footer */}
             {connections.length > 0 && (
-                <div className="mt-auto shrink-0 border-t border-border/50 px-3 py-2">
+                <div className="mt-auto shrink-0 border-t border-border px-2 py-2">
                     <Button
                         variant="ghost"
                         size="sm"

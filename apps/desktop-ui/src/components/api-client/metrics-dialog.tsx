@@ -44,13 +44,13 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
                 </div>
 
                 {counters.length > 0 && (
-                    <div className="border rounded-lg p-2 text-xs">
-                        <div className="font-bold uppercase tracking-wider text-[10px] text-muted-foreground mb-1">Counters</div>
+                    <div className="border border-border rounded-xl p-3 text-xs bg-card">
+                        <div className="font-medium text-xs text-muted-foreground mb-2">Counters</div>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
                             {counters.map(([k, v]) => (
-                                <div key={k} className="flex justify-between bg-card border rounded px-2 py-1">
+                                <div key={k} className="flex justify-between bg-muted/40 rounded-md px-2 py-1">
                                     <span className="font-mono truncate">{k}</span>
-                                    <span className="font-mono font-bold">{v}</span>
+                                    <span className="font-semibold tabular-nums">{v}</span>
                                 </div>
                             ))}
                         </div>
@@ -64,38 +64,38 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 min-h-0">
-                    <div className="border rounded-lg p-2 flex flex-col min-h-0">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground pb-1">
+                    <div className="border border-border rounded-xl p-3 flex flex-col min-h-0 bg-card">
+                        <div className="text-xs font-medium text-muted-foreground pb-2">
                             Recent requests
                         </div>
                         <ScrollArea className="flex-1 min-h-0">
-                            <div className="space-y-1 text-xs font-mono">
+                            <div className="divide-y divide-border text-xs">
                                 {metrics.map((m) => (
-                                    <div key={m.id} className="border rounded p-1.5 flex gap-2 items-center bg-card">
-                                        <span className="w-12 text-[10px] font-bold">{m.method}</span>
-                                        <span className={m.status >= 400 ? "text-rose-500" : "text-emerald-600"}>{m.status}</span>
+                                    <div key={m.id} className="py-1.5 flex gap-2 items-center tabular-nums">
+                                        <span className="w-12 text-[10px] font-semibold">{m.method}</span>
+                                        <span className={m.status >= 400 ? "text-destructive" : "text-success"}>{m.status}</span>
                                         <span className="text-muted-foreground">{m.timeMs}ms</span>
-                                        <span className="truncate flex-1">{m.url}</span>
+                                        <span className="truncate flex-1 font-mono">{m.url}</span>
                                     </div>
                                 ))}
                                 {metrics.length === 0 && (
-                                    <div className="text-center text-muted-foreground py-6">No requests yet.</div>
+                                    <div className="text-center text-[13px] text-muted-foreground py-6">No requests yet.</div>
                                 )}
                             </div>
                         </ScrollArea>
                     </div>
-                    <div className="border rounded-lg p-2 flex flex-col min-h-0">
-                        <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground pb-1">
+                    <div className="border border-border rounded-xl p-3 flex flex-col min-h-0 bg-card">
+                        <div className="text-xs font-medium text-muted-foreground pb-2">
                             Recent logs
                         </div>
                         <ScrollArea className="flex-1 min-h-0">
-                            <div className="space-y-1 text-xs">
+                            <div className="divide-y divide-border text-xs">
                                 {logs.map((l) => (
-                                    <div key={l.id} className="border rounded p-1.5 bg-card">
+                                    <div key={l.id} className="py-1.5">
                                         <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
                                             <span className={
-                                                l.level === "error" ? "text-rose-500" :
-                                                l.level === "warn" ? "text-amber-500" : ""
+                                                l.level === "error" ? "text-destructive" :
+                                                l.level === "warn" ? "text-warning" : ""
                                             }>{l.level}</span>
                                             <span>{new Date(l.timestamp).toLocaleTimeString()}</span>
                                         </div>
@@ -103,7 +103,7 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
                                     </div>
                                 ))}
                                 {logs.length === 0 && (
-                                    <div className="text-center text-muted-foreground py-6">No logs yet.</div>
+                                    <div className="text-center text-[13px] text-muted-foreground py-6">No logs yet.</div>
                                 )}
                             </div>
                         </ScrollArea>
@@ -116,9 +116,9 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
 
 function Chip({ label, value }: { label: string; value: string | number }) {
     return (
-        <div className="border rounded-lg p-2 bg-card flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{label}</span>
-            <span className="font-mono text-sm">{value}</span>
+        <div className="border border-border rounded-xl px-3 py-2 bg-card flex flex-col">
+            <span className="text-[11px] font-medium text-muted-foreground capitalize">{label}</span>
+            <span className="text-[15px] font-semibold tabular-nums">{value}</span>
         </div>
     )
 }

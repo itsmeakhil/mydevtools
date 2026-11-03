@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect, useCallback, lazy, Suspense } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import TaskList from "@/app/app/to-do/TaskList";
 import type { Task } from "@/app/app/to-do/types/Task";
@@ -243,6 +243,7 @@ export const TaskContainer = () => {
       toolId="to-do"
       icon={Folder}
       title={tPage("myTasksTitle")}
+      glass
       sidebar={
         <div className="flex min-h-0 flex-1 flex-col">
           <ToolSidebarFilterList
@@ -261,14 +262,16 @@ export const TaskContainer = () => {
         </div>
       }
     >
-    <div className="h-full min-h-0 w-full bg-background flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
+    {/* `todo-app` scopes the Tasks CSS (status dots, tokens). The tab registry
+        mounts page.tsx without layout.tsx, so the wrapper there never applies. */}
+    <div className="todo-app h-full min-h-0 w-full flex flex-col overflow-hidden relative mobile-nav-offset paper-grain">
       <div role="status" aria-live="polite" className="sr-only">
         {liveStatsMessage}
       </div>
       {/* Mobile-specific Header */}
       {isMobile && (
         <div
-          className="sticky top-0 z-50 bg-background/70 backdrop-blur-md border-b border-border/60 pb-2"
+          className="glass-bar sticky top-0 z-50 border-b border-border pb-2"
           style={{ paddingTop: "calc(env(safe-area-inset-top, 0px) + 0.5rem)" }}
         >
           <div className="flex items-center gap-2 px-4 py-2">
@@ -296,8 +299,8 @@ export const TaskContainer = () => {
 
           {/* Title & Stats */}
           <div className="px-4 mt-1 mb-2">
-            <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground">{tPage("myTasksTitle")}</h1>
-            <p className="font-meta text-[11px] uppercase tracking-wider text-muted-foreground mt-1">
+            <h1 className="text-2xl font-semibold tracking-[-0.01em] text-foreground">{tPage("myTasksTitle")}</h1>
+            <p className="text-[13px] tabular-nums text-muted-foreground mt-0.5">
               {tPage("statsLine", { total: allTaskStats.total, percent: completionRate })}
             </p>
           </div>
@@ -374,22 +377,22 @@ export const TaskContainer = () => {
       )}>
         {/* Desktop Header */}
         {!isMobile && (
-          <Card className="border shadow-lg bg-card/50 backdrop-blur-sm">
+          <div className="glass-card rounded-xl text-card-foreground">
             <CardHeader className="p-3 md:pb-3">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
                 {/* Tool name + icon live in the ToolSidebarLayout panel header. */}
-                <p className="font-meta text-[10px] uppercase tracking-wider text-muted-foreground hidden sm:block">
+                <p className="text-[13px] tabular-nums text-muted-foreground hidden sm:block">
                   {tPage("statsLineDesktop", { total: allTaskStats.total, percent: completionRate })}
                 </p>
 
                 {/* Enhanced Stats with Progress Bars - Hidden on mobile to save space */}
                 <div className="hidden lg:flex items-center gap-2">
-                  <div className="flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg bg-muted/50 border">
+                  <div className="flex flex-col items-center gap-0.5 px-2.5 py-1.5 rounded-lg bg-muted/50 border border-border">
                     <div className="flex items-center gap-1 text-xs font-medium">
                       <Circle className="h-3.5 w-3.5 text-muted-foreground" />
-                      <span className="text-foreground font-meta tabular-nums">{allTaskStats.total}</span>
+                      <span className="text-foreground tabular-nums">{allTaskStats.total}</span>
                     </div>
-                    <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{tFilters("total")}</span>
+                    <span className="text-[11px] text-muted-foreground">{tFilters("total")}</span>
                   </div>
 
                   {statuses.filter((config) => config.builtIn).map((config) => (
@@ -403,9 +406,9 @@ export const TaskContainer = () => {
                     >
                       <div className="flex items-center gap-1 text-xs font-medium">
                         <config.icon className={cn("h-3.5 w-3.5", config.color)} />
-                        <span className={cn(config.color, "font-meta tabular-nums")}>{statusCounts[config.id]}</span>
+                        <span className={cn(config.color, "tabular-nums")}>{statusCounts[config.id]}</span>
                       </div>
-                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">{config.label}</span>
+                      <span className="text-[11px] text-muted-foreground">{config.label}</span>
                     </div>
                   ))}
                 </div>
@@ -517,13 +520,13 @@ export const TaskContainer = () => {
                     onValueChange={(value) => {
                       if (value) setViewMode(value as "list" | "kanban");
                     }}
-                    className="border rounded-lg bg-muted/30 p-0.5 self-end sm:self-auto"
+                    className="rounded-lg bg-foreground/[0.05] p-0.5 self-end sm:self-auto"
                   >
                     <ToggleGroupItem
                       value="kanban"
                       aria-label={tFilters("kanban")}
                       size="sm"
-                      className="h-8 px-3 data-[state=on]:bg-background data-[state=on]:shadow-sm transition-all"
+                      className="h-8 px-3 data-[state=on]:bg-card data-[state=on]:shadow-elev-1 transition-colors"
                     >
                       <LayoutGrid className="h-3.5 w-3.5" />
                       <span className="hidden sm:inline ml-1.5 text-xs font-medium">{tFilters("kanban")}</span>
@@ -532,7 +535,7 @@ export const TaskContainer = () => {
                       value="list"
                       aria-label={tFilters("list")}
                       size="sm"
-                      className="h-8 px-3 data-[state=on]:bg-background data-[state=on]:shadow-sm transition-all"
+                      className="h-8 px-3 data-[state=on]:bg-card data-[state=on]:shadow-elev-1 transition-colors"
                     >
                       <List className="h-3.5 w-3.5" />
                       <span className="hidden sm:inline ml-1.5 text-xs font-medium">{tFilters("list")}</span>
@@ -568,7 +571,7 @@ export const TaskContainer = () => {
                     <X className="h-3.5 w-3.5 mr-1" />
                     {tFilters("all")}
                   </Button>
-                  <span className="ml-auto hidden lg:inline-flex items-center rounded-md border border-border/70 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                  <span className="ml-auto hidden lg:inline-flex items-center rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 text-[11px] text-muted-foreground">
                     / search, N add, Esc clear
                   </span>
                 </div>
@@ -637,33 +640,32 @@ export const TaskContainer = () => {
                 </div>
               )}
             </CardHeader>
-          </Card>
+          </div>
         )}
 
         {/* Task View */}
         <div className="flex-1 overflow-hidden flex flex-col">
           {viewMode === "kanban" ? (
-            <Card className="border shadow-lg flex-1 overflow-hidden flex flex-col bg-muted/10">
-              <CardContent className="p-2 md:p-4 flex-1 overflow-y-auto">
-                <LazyBoundary>
-                  <Suspense
-                    fallback={
-                      <div className="flex items-center justify-center py-12">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-                      </div>
-                    }
-                  >
-                    <KanbanBoard
-                      tasks={sortedTasks}
-                      isLoading={isLoading}
-                      onUpdateStatus={updateTaskStatus}
-                      onUpdateTask={updateTask}
-                      onDeleteTask={deleteTask}
-                    />
-                  </Suspense>
-                </LazyBoundary>
-              </CardContent>
-            </Card>
+            /* No board card: the columns are the glass cards, straight on the pane */
+            <div className={cn("flex flex-1 min-h-0 flex-col overflow-y-auto", isMobile && "px-2")}>
+              <LazyBoundary>
+                <Suspense
+                  fallback={
+                    <div className="flex items-center justify-center py-12">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+                    </div>
+                  }
+                >
+                  <KanbanBoard
+                    tasks={sortedTasks}
+                    isLoading={isLoading}
+                    onUpdateStatus={updateTaskStatus}
+                    onUpdateTask={updateTask}
+                    onDeleteTask={deleteTask}
+                  />
+                </Suspense>
+              </LazyBoundary>
+            </div>
           ) : (
             <>
               {isMobile ? (
@@ -680,7 +682,7 @@ export const TaskContainer = () => {
                 </div>
               ) : (
                 /* Desktop List View - With Card Wrapper */
-                <Card className="border shadow-lg flex-1 overflow-hidden flex flex-col">
+                <div className="glass-card rounded-xl text-card-foreground flex-1 overflow-hidden flex flex-col">
                   <CardContent className="p-2 md:p-4 flex-1 overflow-y-auto">
                     <TaskList
                       tasks={sortedTasks}
@@ -691,7 +693,7 @@ export const TaskContainer = () => {
                       onAddInStatus={openAddTask}
                     />
                   </CardContent>
-                </Card>
+                </div>
               )}
 
               {/* Pagination */}

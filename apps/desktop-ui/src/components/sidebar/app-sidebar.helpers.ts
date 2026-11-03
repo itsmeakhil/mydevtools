@@ -54,7 +54,7 @@ export function buildPinnedNavItems(
 
 // Lazy url→{icon, category} map over the whole catalog, so tab chips reuse the
 // exact sidebar (@tabler) icons shown in Pinned/palette plus the tool's
-// category (nav group title) for CATEGORY_ACCENT coloring.
+// category (nav group title).
 export interface SidebarToolMeta {
   icon: NavLink["icon"]
   category: string

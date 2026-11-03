@@ -353,10 +353,10 @@ export function EmailValidator() {
 
     const getStatusColor = (status: string) => {
         switch (status.toUpperCase()) {
-            case "VALID": return "bg-green-500/15 text-green-600 dark:text-green-400 border-green-500/20";
-            case "DISPOSABLE": return "bg-yellow-500/15 text-yellow-600 dark:text-yellow-400 border-yellow-500/20";
-            case "INVALID": return "bg-red-500/15 text-red-600 dark:text-red-400 border-red-500/20";
-            default: return "bg-gray-500/15 text-gray-600 dark:text-gray-400 border-gray-500/20";
+            case "VALID": return "bg-success/[0.12] text-success border-transparent";
+            case "DISPOSABLE": return "bg-warning/[0.12] text-warning border-transparent";
+            case "INVALID": return "bg-destructive/[0.12] text-destructive border-transparent";
+            default: return "bg-foreground/[0.06] text-muted-foreground border-transparent";
         }
     };
 
@@ -369,15 +369,15 @@ export function EmailValidator() {
     }) => {
         const isActuallyWarning = isWarning && warningCondition;
         const content = (
-            <div className={`flex items-center justify-between p-3.5 rounded-lg border transition-colors cursor-help ${isActuallyWarning
-                ? "bg-yellow-500/5 border-yellow-500/30 text-yellow-700 dark:text-yellow-400"
-                : "bg-card border-border/50 hover:border-border"
+            <div className={`flex items-center justify-between p-3 rounded-lg border transition-colors cursor-help ${isActuallyWarning
+                ? "bg-warning/[0.08] border-warning/25 text-warning"
+                : "bg-muted/40 border-border"
                 }`}>
-                <span className="text-sm font-medium opacity-90">{label}</span>
+                <span className="text-[13px] font-medium">{label}</span>
                 {value ? (
-                    <IconCircleCheck className={`h-5 w-5 ${isActuallyWarning ? "text-yellow-500" : "text-green-500"}`} stroke={2} />
+                    <IconCircleCheck className={`h-4 w-4 ${isActuallyWarning ? "text-warning" : "text-success"}`} stroke={2} />
                 ) : (
-                    <IconCircleX className="h-5 w-5 text-red-500" stroke={2} />
+                    <IconCircleX className="h-4 w-4 text-destructive" stroke={2} />
                 )}
             </div>
         );
@@ -419,12 +419,10 @@ export function EmailValidator() {
                 <TabsContent value="single" className="space-y-6 focus-visible:outline-none">
                     <div className={`mx-auto w-full max-w-2xl flex flex-col items-center text-center transition-all ${result ? "pt-2" : "pt-6 md:pt-10"}`}>
                         {!result && (
-                            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-border/60 bg-muted/40">
-                                <IconMailCheck className="h-7 w-7 text-primary" stroke={1.75} />
-                            </div>
+                            <IconMailCheck className="mb-4 h-8 w-8 text-muted-foreground/60" stroke={1.75} />
                         )}
-                        <h2 className={`font-semibold tracking-tight ${result ? "text-lg" : "text-2xl"}`}>{t("single.cardTitle")}</h2>
-                        <p className="mt-1.5 max-w-md text-sm text-muted-foreground">{t("single.cardDescription")}</p>
+                        <h2 className={`font-semibold tracking-[-0.01em] ${result ? "text-[15px]" : "text-xl"}`}>{t("single.cardTitle")}</h2>
+                        <p className="mt-1.5 max-w-md text-[13px] text-muted-foreground">{t("single.cardDescription")}</p>
                         <div className="mt-6 flex w-full gap-3">
                             <div className="relative flex-1">
                                 <Input
@@ -433,26 +431,26 @@ export function EmailValidator() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     onKeyDown={(e) => e.key === "Enter" && handleValidate()}
-                                    className={`h-12 pr-10 text-base ${isValidFormat === false ? "border-red-500 focus-visible:ring-red-500" : isValidFormat === true ? "border-green-500 focus-visible:ring-green-500" : ""}`}
+                                    className={`h-10 pr-10 ${isValidFormat === false ? "border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20" : isValidFormat === true ? "border-success focus-visible:border-success focus-visible:ring-success/20" : ""}`}
                                     autoFocus
                                 />
                                 {email && (
                                     <button
                                         onClick={handleClear}
-                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md hover:bg-muted transition-colors cursor-pointer"
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md hover:bg-foreground/[0.05] transition-colors"
                                         aria-label={t("single.clearAria")}
                                     >
                                         <IconX className="h-4 w-4 text-muted-foreground" />
                                     </button>
                                 )}
                             </div>
-                            <Button onClick={handleValidate} disabled={loading || !email || isValidFormat === false} className="h-12 px-6 cursor-pointer">
+                            <Button onClick={handleValidate} disabled={loading || !email || isValidFormat === false} className="h-10 px-5">
                                 {loading ? <IconLoader2 className="h-4 w-4 animate-spin mr-2" /> : <IconCheck className="h-4 w-4 mr-2" />}
                                 {loading ? t("single.validating") : t("single.validate")}
                             </Button>
                         </div>
                         {isValidFormat === false && (
-                            <p className="mt-2 text-sm text-red-500">{t("single.formatError")}</p>
+                            <p className="mt-2 text-[13px] text-destructive">{t("single.formatError")}</p>
                         )}
                         {!result && (
                             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-2">
@@ -464,8 +462,8 @@ export function EmailValidator() {
                                     t("validation.disposableLabel"),
                                     t("validation.roleBasedLabel"),
                                 ].map((label) => (
-                                    <span key={label} className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/30 px-3 py-1 text-xs text-muted-foreground">
-                                        <IconCircleCheck className="h-3.5 w-3.5 text-primary/70" stroke={2} />
+                                    <span key={label} className="inline-flex items-center gap-1.5 rounded-full bg-foreground/[0.05] px-3 py-1 text-xs text-muted-foreground">
+                                        <IconCircleCheck className="h-3.5 w-3.5 text-muted-foreground/70" stroke={2} />
                                         {label}
                                     </span>
                                 ))}
@@ -481,9 +479,9 @@ export function EmailValidator() {
                             className="space-y-4"
                         >
                             {result.validations.is_disposable && (
-                                <Alert variant="destructive" className="bg-yellow-500/10 border-yellow-500/20 text-yellow-700 dark:text-yellow-400">
-                                    <IconAlertCircle className="h-5 w-5 !text-yellow-600 dark:!text-yellow-400" />
-                                    <AlertTitle className="font-semibold flex items-center gap-2 text-base">
+                                <Alert variant="destructive" className="bg-warning/10 border-warning/25 text-warning">
+                                    <IconAlertCircle className="h-4 w-4 !text-warning" />
+                                    <AlertTitle className="font-semibold flex items-center gap-2 text-sm">
                                         {t("disposableAlert.title")}
                                     </AlertTitle>
                                     <AlertDescription className="opacity-90">
@@ -493,34 +491,34 @@ export function EmailValidator() {
                             )}
 
                             <div className="grid gap-4 md:grid-cols-12">
-                                <div className="col-span-12 md:col-span-4 h-full flex flex-col rounded-lg border border-border bg-card">
+                                <div className="col-span-12 md:col-span-4 h-full flex flex-col rounded-xl border border-border bg-card shadow-elev-1">
                                     <div className="p-6 pb-0">
-                                        <h3 className="text-base font-medium text-center text-muted-foreground">{t("score.reliabilityTitle")}</h3>
+                                        <h3 className="text-[13px] font-semibold text-center text-muted-foreground">{t("score.reliabilityTitle")}</h3>
                                     </div>
                                     <div className="flex flex-col items-center justify-center flex-1 p-6 pt-4 pb-8">
                                         <div className="relative flex items-center justify-center">
                                             {/* Simple SVG Circular Progress */}
                                             <svg className="h-40 w-40 transform -rotate-90">
-                                                <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="10" fill="transparent" className="text-muted/20" />
+                                                <circle cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="10" fill="transparent" className="text-muted" />
                                                 <circle
                                                     cx="80" cy="80" r="70" stroke="currentColor" strokeWidth="10" fill="transparent"
                                                     strokeDasharray={440}
                                                     strokeDashoffset={440 - (440 * result.score) / 100}
-                                                    className={`transition-all duration-1000 ease-out ${result.score > 80 ? 'text-green-500' : result.score > 50 ? 'text-yellow-500' : 'text-red-500'}`}
+                                                    className={`transition-all duration-500 ease-out ${result.score > 80 ? 'text-success' : result.score > 50 ? 'text-warning' : 'text-destructive'}`}
                                                     strokeLinecap="round"
                                                 />
                                             </svg>
                                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                                <span className="text-4xl font-bold tracking-tighter">{result.score}</span>
-                                                <span className="text-xs font-semibold text-muted-foreground uppercase">{t("score.scoreLabel")}</span>
+                                                <span className="text-4xl font-semibold tracking-[-0.02em] tabular-nums">{result.score}</span>
+                                                <span className="text-xs font-medium text-muted-foreground">{t("score.scoreLabel")}</span>
                                             </div>
                                         </div>
                                         <div className="mt-6 flex flex-col items-center gap-2">
-                                            <Badge variant="outline" className={`px-4 py-1 text-sm font-medium ${getStatusColor(result.status)}`}>
+                                            <Badge variant="outline" className={`px-3 py-0.5 text-xs font-medium ${getStatusColor(result.status)}`}>
                                                 {result.status}
                                             </Badge>
                                             <div className="flex items-center gap-2 group">
-                                                <span className="text-sm font-medium text-muted-foreground truncate max-w-[200px]">{result.email}</span>
+                                                <span className="font-mono text-xs text-muted-foreground truncate max-w-[200px]">{result.email}</span>
                                                 <TooltipProvider>
                                                     <Tooltip>
                                                         <TooltipTrigger asChild>
@@ -530,7 +528,7 @@ export function EmailValidator() {
                                                                 className="h-6 w-6 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
                                                                 onClick={() => copyToClipboard(result.email, t("copy.emailCopied"))}
                                                             >
-                                                                <IconCopy className={`h-3.5 w-3.5 ${isCopied ? "text-green-500" : ""}`} />
+                                                                <IconCopy className={`h-3.5 w-3.5 ${isCopied ? "text-success" : ""}`} />
                                                             </Button>
                                                         </TooltipTrigger>
                                                         <TooltipContent>{t("copy.copyTooltip")}</TooltipContent>
@@ -541,9 +539,9 @@ export function EmailValidator() {
                                     </div>
                                 </div>
 
-                                <div className="col-span-12 md:col-span-8 h-full rounded-lg border border-border bg-card">
+                                <div className="col-span-12 md:col-span-8 h-full rounded-xl border border-border bg-card shadow-elev-1">
                                     <div className="p-6 pb-0">
-                                        <h3 className="text-base font-medium">{t("details.sectionTitle")}</h3>
+                                        <h3 className="text-[13px] font-semibold">{t("details.sectionTitle")}</h3>
                                     </div>
                                     <div className="p-6 pt-4">
                                         <div className="grid gap-3 sm:grid-cols-2">
@@ -591,24 +589,22 @@ export function EmailValidator() {
 
                 <TabsContent value="bulk" className="space-y-4 focus-visible:outline-none">
                     {!bulkLoading && bulkResults.length === 0 && (
-                        <div className={`rounded-lg border-2 border-dashed max-w-2xl mx-auto mt-6 md:mt-10 transition-all cursor-pointer ${dragActive ? "border-primary bg-primary/5 scale-[1.02]" : "border-border bg-muted/20 hover:bg-muted/40"}`}>
-                            <div className="flex flex-col items-center justify-center py-12 px-4 text-center cursor-pointer"
+                        <div className={`rounded-xl border-2 border-dashed max-w-2xl mx-auto mt-6 md:mt-10 transition-colors ${dragActive ? "border-primary/50 bg-primary/[0.06]" : "border-border bg-muted/40"}`}>
+                            <div className="flex flex-col items-center justify-center py-12 px-4 text-center"
                                 onClick={() => fileInputRef.current?.click()}
                                 onDragOver={onDragOver}
                                 onDrop={onDrop}
                                 onDragLeave={onDragLeave}
                             >
-                                <div className={`bg-background p-4 rounded-full shadow-sm mb-4 transition-transform ${dragActive ? "scale-110" : ""}`}>
-                                    <IconUpload className={`h-8 w-8 text-primary transition-transform ${dragActive ? "animate-bounce" : ""}`} />
-                                </div>
-                                <h3 className="text-lg font-semibold mb-2">
+                                <IconUpload className={`mb-4 h-8 w-8 ${dragActive ? "text-primary" : "text-muted-foreground/60"}`} />
+                                <h3 className="text-sm font-medium mb-1">
                                     {dragActive ? t("bulk.dropHere") : t("bulk.dragHere")}
                                 </h3>
-                                <p className="text-muted-foreground text-sm max-w-sm mb-6">
+                                <p className="text-muted-foreground text-[13px] max-w-sm mb-6">
                                     {t("bulk.uploadHint")}
                                 </p>
                                 {uploadedFileName && (
-                                    <div className="mb-4 px-4 py-2 bg-muted rounded-md text-sm">
+                                    <div className="mb-4 px-3 py-1.5 bg-card border border-border rounded-md text-[13px]">
                                         <span className="text-muted-foreground">{t("bulk.filePrefix")} </span>
                                         <span className="font-medium">{uploadedFileName}</span>
                                     </div>
@@ -627,14 +623,11 @@ export function EmailValidator() {
                     )}
 
                     {bulkLoading && (
-                        <div className="rounded-lg border border-border bg-card max-w-2xl mx-auto p-8 text-center">
+                        <div className="rounded-xl border border-border bg-card shadow-elev-1 max-w-2xl mx-auto p-8 text-center">
                             <div className="max-w-md mx-auto space-y-6">
-                                <div className="flex flex-col items-center gap-4">
-                                    <div className="relative">
-                                        <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full"></div>
-                                        <IconLoader2 className="h-12 w-12 animate-spin text-primary relative z-10" />
-                                    </div>
-                                    <h3 className="text-xl font-semibold">{t("bulkLoading.title")}</h3>
+                                <div className="flex flex-col items-center gap-3">
+                                    <IconLoader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                                    <h3 className="text-[15px] font-semibold">{t("bulkLoading.title")}</h3>
                                     <p className="text-muted-foreground text-sm">{t("bulkLoading.batchProgress", { current: Math.ceil((progress / 100) * totalBatches) || 1, total: totalBatches || 1 })}</p>
                                 </div>
                                 <Progress value={progress} className="h-2 w-full" />
@@ -644,37 +637,37 @@ export function EmailValidator() {
 
                     {bulkResults.length > 0 && !bulkLoading && (
                         <div className="space-y-4">
-                            <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-                                <div className="rounded-lg border border-border bg-card p-4 flex flex-col justify-between gap-1">
-                                    <span className="text-sm font-medium text-muted-foreground">{t("stats.totalProcessed")}</span>
-                                    <span className="text-2xl font-bold">{bulkStats.total}</span>
+                            <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
+                                <div className="rounded-xl border border-border bg-card shadow-elev-1 p-4 flex flex-col justify-between gap-1">
+                                    <span className="text-[13px] font-medium text-muted-foreground">{t("stats.totalProcessed")}</span>
+                                    <span className="text-2xl font-semibold tabular-nums">{bulkStats.total}</span>
                                 </div>
-                                <div className="rounded-lg border border-green-500/20 bg-green-500/10 p-4 flex flex-col justify-between">
-                                    <span className="text-sm font-medium text-green-600 dark:text-green-400">{t("stats.valid")}</span>
-                                    <span className="text-2xl font-bold text-green-700 dark:text-green-300">{bulkStats.valid}</span>
+                                <div className="rounded-xl border border-border bg-card shadow-elev-1 p-4 flex flex-col justify-between gap-1">
+                                    <span className="text-[13px] font-medium text-muted-foreground">{t("stats.valid")}</span>
+                                    <span className="text-2xl font-semibold tabular-nums text-success">{bulkStats.valid}</span>
                                 </div>
-                                <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4 flex flex-col justify-between">
-                                    <span className="text-sm font-medium text-yellow-600 dark:text-yellow-400">{t("stats.risky")}</span>
-                                    <span className="text-2xl font-bold text-yellow-700 dark:text-yellow-300">{bulkStats.risky}</span>
+                                <div className="rounded-xl border border-border bg-card shadow-elev-1 p-4 flex flex-col justify-between gap-1">
+                                    <span className="text-[13px] font-medium text-muted-foreground">{t("stats.risky")}</span>
+                                    <span className="text-2xl font-semibold tabular-nums text-warning">{bulkStats.risky}</span>
                                 </div>
-                                <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-4 flex flex-col justify-between">
-                                    <span className="text-sm font-medium text-red-600 dark:text-red-400">{t("stats.invalid")}</span>
-                                    <span className="text-2xl font-bold text-red-700 dark:text-red-300">{bulkStats.invalid}</span>
+                                <div className="rounded-xl border border-border bg-card shadow-elev-1 p-4 flex flex-col justify-between gap-1">
+                                    <span className="text-[13px] font-medium text-muted-foreground">{t("stats.invalid")}</span>
+                                    <span className="text-2xl font-semibold tabular-nums text-destructive">{bulkStats.invalid}</span>
                                 </div>
                             </div>
 
-                            <div className="rounded-lg border border-border bg-card overflow-hidden">
-                                <div className="p-4 border-b border-border/40 bg-muted/20">
+                            <div className="rounded-xl border border-border bg-card shadow-elev-1 overflow-hidden">
+                                <div className="px-4 py-3 border-b border-border">
                                     <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-                                        <h3 className="font-medium">{t("results.detailedTitle")}</h3>
+                                        <h3 className="text-[13px] font-semibold">{t("results.detailedTitle")}</h3>
                                         <div className="flex gap-2 w-full sm:w-auto">
                                             <div className="relative flex-1 sm:flex-initial sm:w-64">
-                                                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                                <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                                                 <Input
                                                     placeholder={t("results.searchPlaceholder")}
                                                     value={searchQuery}
                                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                                    className="pl-9 h-9"
+                                                    className="pl-8 h-8 text-[13px]"
                                                 />
                                             </div>
                                             <Button variant="outline" size="sm" onClick={() => {
@@ -704,7 +697,7 @@ export function EmailValidator() {
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
                                                     <Button size="sm" variant="outline" disabled={bulkStats.valid === 0}>
-                                                        <IconCircleCheck className="mr-2 h-4 w-4 text-green-500" /> {t("results.exportValid", { count: bulkStats.valid })}
+                                                        <IconCircleCheck className="mr-2 h-4 w-4 text-success" /> {t("results.exportValid", { count: bulkStats.valid })}
                                                         <IconChevronDown className="ml-2 h-3 w-3" />
                                                     </Button>
                                                 </DropdownMenuTrigger>
@@ -720,14 +713,14 @@ export function EmailValidator() {
                                         </div>
                                     </div>
                                     {searchQuery && (
-                                        <p className="text-sm text-muted-foreground mt-2">
+                                        <p className="text-xs text-muted-foreground tabular-nums mt-2">
                                             {t("showingResults", { shown: filteredBulkResults.length, total: bulkResults.length })}
                                         </p>
                                     )}
                                 </div>
                                 <div className="max-h-[500px] overflow-auto">
                                     <Table>
-                                        <TableHeader className="sticky top-0 bg-background z-10">
+                                        <TableHeader className="sticky top-0 bg-muted z-10">
                                             <TableRow>
                                                 <TableHead>{t("table.email")}</TableHead>
                                                 <TableHead>{t("table.status")}</TableHead>
@@ -745,14 +738,14 @@ export function EmailValidator() {
                                             ) : (
                                                 filteredBulkResults.map((r, i) => (
                                                     <TableRow key={i}>
-                                                        <TableCell className="font-medium">{r.email}</TableCell>
+                                                        <TableCell className="font-mono text-xs">{r.email}</TableCell>
                                                         <TableCell>
                                                             <Badge variant="outline" className={`capitalize ${getStatusColor(r.status)}`}>
                                                                 {r.status.toLowerCase().replace('_', ' ')}
                                                             </Badge>
                                                         </TableCell>
                                                         <TableCell className="text-center">
-                                                            <span className={`font-mono font-bold ${r.score > 80 ? "text-green-500" : r.score > 50 ? "text-yellow-500" : "text-red-500"}`}>
+                                                            <span className={`font-medium tabular-nums ${r.score > 80 ? "text-success" : r.score > 50 ? "text-warning" : "text-destructive"}`}>
                                                                 {r.score}
                                                             </span>
                                                         </TableCell>
@@ -761,10 +754,10 @@ export function EmailValidator() {
                                                                 <Tooltip>
                                                                     <TooltipTrigger asChild>
                                                                         <div className="flex justify-center gap-1.5 cursor-help">
-                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.syntax ? "bg-green-500" : "bg-red-500"}`} />
-                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.domain_exists ? "bg-green-500" : "bg-red-500"}`} />
-                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.mx_records ? "bg-green-500" : "bg-red-500"}`} />
-                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.mailbox_exists ? "bg-green-500" : "bg-red-500"}`} />
+                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.syntax ? "bg-success" : "bg-destructive"}`} />
+                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.domain_exists ? "bg-success" : "bg-destructive"}`} />
+                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.mx_records ? "bg-success" : "bg-destructive"}`} />
+                                                                            <div className={`h-2 w-2 rounded-full ${r.validations.mailbox_exists ? "bg-success" : "bg-destructive"}`} />
                                                                         </div>
                                                                     </TooltipTrigger>
                                                                     <TooltipContent>

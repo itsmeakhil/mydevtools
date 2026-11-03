@@ -222,14 +222,14 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                     placeholder="https://grpc.example.com (no trailing path)"
                     value={tab.url}
                     onChange={(e) => onUpdate({ url: e.target.value })}
-                    className="font-mono text-xs h-10 flex-1 min-w-[260px]"
+                    className="font-mono text-[13px] flex-1 min-w-[260px]"
                 />
                 <Select
                     value={state.selectedPath ?? ""}
                     onValueChange={(v) => setState({ selectedPath: v })}
                     disabled={methods.length === 0}
                 >
-                    <SelectTrigger className="h-10 w-[280px]">
+                    <SelectTrigger className="w-[280px]">
                         <SelectValue placeholder={methods.length === 0 ? "Paste .proto to pick a method" : "service / method"} />
                     </SelectTrigger>
                     <SelectContent>
@@ -239,11 +239,11 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                     </SelectContent>
                 </Select>
                 {!isLoading ? (
-                    <Button onClick={handleSend} disabled={isLoading || !tab.url || !selectedMethod} className="h-10">
+                    <Button onClick={handleSend} disabled={isLoading || !tab.url || !selectedMethod}>
                         <Send className="h-4 w-4 mr-2" /> Invoke
                     </Button>
                 ) : (
-                    <Button onClick={handleCancel} variant="outline" className="h-10 border-rose-500/40 text-rose-500 hover:bg-rose-500/10">
+                    <Button onClick={handleCancel} variant="outline" className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive">
                         <X className="h-4 w-4 mr-2" /> Cancel
                     </Button>
                 )}
@@ -269,7 +269,6 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                         }
                     }}
                     disabled={reflecting || !tab.url}
-                    className="h-10"
                     title="Discover services + descriptors via the server's reflection API"
                 >
                     {reflecting ? "Reflecting…" : "Reflect"}
@@ -278,7 +277,7 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                     value={state.transport ?? "web"}
                     onValueChange={(v) => setState({ transport: v as "web" | "native" })}
                 >
-                    <SelectTrigger className="h-10 w-[180px]">
+                    <SelectTrigger className="w-[200px]">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -287,7 +286,7 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                     </SelectContent>
                 </Select>
                 {state.transport !== "native" && (
-                    <label className="flex items-center gap-1 text-[11px] text-muted-foreground">
+                    <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <input
                             type="checkbox"
                             checked={!!state.useTextFormat}
@@ -300,10 +299,10 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 flex-1 min-h-0">
                 <div className="flex flex-col gap-2 min-h-0">
-                    <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    <Label className="text-xs font-medium text-muted-foreground">
                         .proto schema
                     </Label>
-                    <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
+                    <div className="flex-1 border border-border rounded-lg overflow-hidden min-h-0">
                         <MemoCodeEditor
                             value={state.protoSource}
                             onChange={(v) => setState({ protoSource: v })}
@@ -311,20 +310,20 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                         />
                     </div>
                     {parseError && (
-                        <div className="text-[11px] text-rose-500 font-mono">{parseError}</div>
+                        <div className="text-[11px] text-destructive font-mono">{parseError}</div>
                     )}
                 </div>
 
                 <div className="flex flex-col gap-2 min-h-0">
-                    <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    <Label className="text-xs font-medium text-muted-foreground">
                         Request message (JSON)
                         {selectedMethod && (
-                            <span className="ml-2 text-muted-foreground font-mono normal-case">
+                            <span className="ml-2 text-muted-foreground font-mono">
                                 {selectedMethod.requestTypeName}
                             </span>
                         )}
                     </Label>
-                    <div className="flex-1 border rounded-lg overflow-hidden min-h-0">
+                    <div className="flex-1 border border-border rounded-lg overflow-hidden min-h-0">
                         <MemoCodeEditor
                             value={state.requestJson}
                             onChange={(v) => setState({ requestJson: v })}
@@ -333,29 +332,30 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                     </div>
 
                     {r && (
-                        <div className="border rounded-lg bg-card p-3 space-y-2 max-h-[40%] overflow-auto">
+                        <div className="border border-border rounded-lg bg-card p-3 space-y-2 max-h-[40%] overflow-auto">
                             <div className="flex items-center gap-2 flex-wrap text-xs">
-                                {grpcOk && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />}
-                                {grpcErr && <AlertCircle className="h-3.5 w-3.5 text-rose-500" />}
                                 <span className={cn(
-                                    "font-mono font-bold",
-                                    grpcOk && "text-emerald-600",
-                                    grpcErr && "text-rose-500",
+                                    "inline-flex h-6 items-center gap-1.5 px-2.5 rounded-full font-semibold tabular-nums",
+                                    grpcOk ? "bg-success/[0.12] text-success"
+                                        : grpcErr ? "bg-destructive/[0.12] text-destructive"
+                                        : "bg-foreground/[0.06] text-foreground",
                                 )}>
+                                    {grpcOk && <CheckCircle2 className="h-3.5 w-3.5" />}
+                                    {grpcErr && <AlertCircle className="h-3.5 w-3.5" />}
                                     HTTP {r.status} / gRPC {r.grpcStatus ?? "—"}
                                 </span>
-                                <span className="text-muted-foreground">{r.time}ms · {r.size}B</span>
+                                <span className="text-muted-foreground tabular-nums">{r.time}ms · {r.size}B</span>
                                 {r.grpcMessage && (
                                     <span className="text-muted-foreground font-mono break-all">{r.grpcMessage}</span>
                                 )}
                             </div>
-                            <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                            <Label className="text-xs font-medium text-muted-foreground">
                                 Response message
                                 {selectedMethod && (
-                                    <span className="ml-2 font-mono normal-case">{selectedMethod.responseTypeName}</span>
+                                    <span className="ml-2 font-mono">{selectedMethod.responseTypeName}</span>
                                 )}
                             </Label>
-                            <pre className="font-mono text-xs whitespace-pre-wrap break-all bg-muted/20 border rounded p-2 max-h-[200px] overflow-auto">
+                            <pre className="font-mono text-xs whitespace-pre-wrap break-all bg-muted/40 border border-border rounded-md p-2 max-h-[200px] overflow-auto">
                                 {r.messageJson || "(empty)"}
                             </pre>
                             {(isLoading) && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
@@ -364,9 +364,9 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
 
                     {/* Bidi staging area + live transcript */}
                     {selectedMethod && (selectedMethod.clientStreaming || selectedMethod.serverStreaming) && (
-                        <div className="border rounded-lg bg-card p-3 space-y-2">
+                        <div className="border border-border rounded-lg bg-card p-3 space-y-2">
                             <div className="flex items-center justify-between">
-                                <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                                <Label className="text-xs font-medium text-muted-foreground">
                                     Bidi staging ({(state.extraRequestMessages ?? []).length + 1} request message{(state.extraRequestMessages ?? []).length === 0 ? "" : "s"})
                                 </Label>
                                 <div className="flex gap-1">
@@ -392,7 +392,7 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                                 <div key={idx} className="flex gap-2 items-start">
                                     <span className="text-[10px] text-muted-foreground font-mono pt-2">#{idx + 2}</span>
                                     <textarea
-                                        className="flex-1 min-h-[60px] border rounded p-2 text-xs font-mono bg-background"
+                                        className="flex-1 min-h-[60px] rounded-md border border-input bg-card px-3 py-2 text-xs font-mono outline-none focus-visible:border-primary focus-visible:ring-[3px] focus-visible:ring-primary/25"
                                         value={msg}
                                         onChange={(e) => {
                                             const next = [...(state.extraRequestMessages ?? [])]
@@ -406,18 +406,18 @@ export function GrpcPanel({ tab, onUpdate }: GrpcPanelProps) {
                     )}
 
                     {state.transcript && state.transcript.length > 0 && (
-                        <div className="border rounded-lg bg-card p-3 space-y-2 max-h-[260px] overflow-auto">
+                        <div className="border border-border rounded-lg bg-card p-3 space-y-2 max-h-[260px] overflow-auto">
                             <div className="flex items-center justify-between">
-                                <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                                <Label className="text-xs font-medium text-muted-foreground">
                                     Transcript ({state.transcript.length})
                                 </Label>
                                 <Button size="sm" variant="ghost" onClick={() => setState({ transcript: [] })}>Clear</Button>
                             </div>
                             <div className="space-y-1">
                                 {state.transcript.slice().reverse().map((row) => (
-                                    <div key={row.id} className={cn("border rounded p-2 text-[11px] font-mono", row.direction === "sent" ? "bg-sky-500/[0.04]" : "bg-emerald-500/[0.04]")}>
+                                    <div key={row.id} className="border border-border rounded-md p-2 text-[11px] font-mono bg-muted/40">
                                         <div className="flex items-center gap-2 text-[10px] text-muted-foreground mb-1">
-                                            <span className={row.direction === "sent" ? "text-sky-500" : "text-emerald-500"}>
+                                            <span className={row.direction === "sent" ? "text-sky-500" : "text-success"}>
                                                 {row.direction === "sent" ? "⬆ sent" : "⬇ recv"}
                                             </span>
                                             <span>{new Date(row.timestamp).toLocaleTimeString()}</span>

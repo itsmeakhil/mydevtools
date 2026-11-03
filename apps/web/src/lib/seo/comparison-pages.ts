@@ -96,9 +96,9 @@ export const comparisonPages: ComparisonPage[] = [
       {
         title: 'Choose MyDevTools when',
         body:
-          'JSON work rarely happens alone. Developers often need to decode tokens, inspect URLs, test APIs, generate IDs, compare diffs, and transform formats in the same session.',
+          'JSON work rarely happens alone. Developers often need to test APIs, query databases, and manage secrets in the same session.',
         bullets: [
-          'Use JSON formatting alongside the API client, JSON visualizer, and schema generator.',
+          'Use JSON formatting alongside the API client and JSON visualizer.',
           'Stay in one desktop developer toolkit instead of opening multiple unrelated sites.',
           'Keep your snippets and history saved locally in one app.',
         ],
@@ -117,66 +117,11 @@ export const comparisonPages: ComparisonPage[] = [
     faqs: [
       {
         q: 'Does MyDevTools include a JSON formatter?',
-        a: 'Yes. MyDevTools includes a JSON formatter/editor plus a JSON visualizer, schema generator, and API client.',
+        a: 'Yes. MyDevTools includes a JSON formatter/editor plus a JSON visualizer and API client.',
       },
       {
         q: 'Is MyDevTools only for JSON?',
         a: 'No. JSON is one tool in a desktop developer workstation that also has an API client, database clients and an encrypted vault.',
-      },
-    ],
-  },
-  {
-    slug: 'mydevtools-vs-regex101',
-    title: 'MyDevTools vs regex101',
-    description:
-      'Compare MyDevTools with regex101 for regex testing and broader all-in-one desktop developer toolkit workflows.',
-    eyebrow: 'Comparison',
-    heading: 'MyDevTools vs regex101',
-    intro:
-      'regex101 is excellent for deep regex explanation and pattern sharing. MyDevTools includes regex testing as part of a larger all-in-one desktop toolkit for formatting, parsing, generating, and debugging developer data.',
-    competitor: 'regex101',
-    toolSlug: 'regex-tester',
-    primaryCta: { href: '/tools/regex-tester', label: 'Try Regex Tester' },
-    sections: [
-      {
-        title: 'Choose regex101 when',
-        body:
-          'A specialized regex site is best when you need detailed explanations, flavor-specific behavior, and pattern sharing.',
-        bullets: [
-          'You need advanced regex explanations.',
-          'You want a dedicated regex-focused workspace.',
-          'You are debugging a complex expression in depth.',
-        ],
-      },
-      {
-        title: 'Choose MyDevTools when',
-        body:
-          'Regex testing is often part of larger cleanup or validation work with URLs, JSON payloads, logs, encoded strings, and generated test data.',
-        bullets: [
-          'Test regex patterns alongside JSON, diff, and API tools.',
-          'Use one desktop toolkit for common developer utilities.',
-          'Save patterns and reuse them across your projects.',
-        ],
-      },
-      {
-        title: 'Verdict',
-        body:
-          'Use regex101 for deep regex education and explanation. Use MyDevTools when regex testing is part of a broader development task.',
-        bullets: [
-          'Best advanced regex explanation: regex101.',
-          'Best multi-tool developer workflow: MyDevTools.',
-          'Best unified toolkit context: MyDevTools.',
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: 'Does MyDevTools have a regex tester?',
-        a: 'Yes. MyDevTools includes a regex tester for checking JavaScript regular expressions locally.',
-      },
-      {
-        q: 'Is MyDevTools better than regex101?',
-        a: 'It depends. regex101 is stronger for advanced regex explanation. MyDevTools is better when regex testing is one part of a broader developer toolkit workflow.',
       },
     ],
   },
@@ -287,114 +232,6 @@ export const comparisonPages: ComparisonPage[] = [
       {
         q: 'What makes MyDevTools useful for API debugging?',
         a: 'Everything runs offline on your device with no account. Secrets come from the local encrypted vault, scripts run in a sandboxed worker, and the JSON formatter and database clients sit next to the API client.',
-      },
-    ],
-  },
-  {
-    slug: 'online-diff-checker',
-    title: 'Diff Checker — Compare Text, Code, and JSON',
-    description:
-      'Compare two blocks of text, code, or JSON side by side and highlight differences instantly on your machine. Find the best diff tool for your workflow.',
-    eyebrow: 'Diff Checker',
-    heading: 'Diff checker: compare text, code, and JSON side by side',
-    intro:
-      'A diff tool lets you paste two versions of a file and instantly see additions, deletions, and changes highlighted. MyDevTools Diff Checker works locally alongside JSON formatting, URL parsing, and other utilities developers use in the same session.',
-    toolSlug: 'diff-checker',
-    primaryCta: { href: '/tools/diff-checker', label: 'Try Diff Checker' },
-    sections: [
-      {
-        title: 'When to use a quick diff checker',
-        body:
-          'A quick diff is fastest for one-off comparisons: reviewing a config change, checking a response before and after a fix, or comparing two API payloads.',
-        bullets: [
-          'Compare JSON responses before and after an API change.',
-          'Check .env files or config differences without opening a full IDE.',
-          'Review copied text for hidden differences (whitespace, encoding).',
-        ],
-      },
-      {
-        title: 'When to use a repository diff tool',
-        body:
-          'For large files, version history, and repository diffs, tools like git diff or VS Code built-in diff are better suited.',
-        bullets: [
-          'Use git diff for code review of committed changes.',
-          'Use VS Code diff for large files where editor performance matters.',
-          'Use MyDevTools diff for quick one-off comparisons without opening a project.',
-        ],
-      },
-      {
-        title: 'Verdict',
-        body:
-          'A quick diff checker is best for one-off comparisons. MyDevTools adds JSON formatting and related tools in the same workspace.',
-        bullets: [
-          'Best for quick text/JSON diff: MyDevTools or diffchecker.com.',
-          'Best for repository diffs: git diff / VS Code.',
-          'Best all-in-one desktop toolkit: MyDevTools.',
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: 'Can I diff JSON with a diff checker?',
-        a: 'Yes. Paste two JSON objects and the diff checker highlights the changed fields line by line. For better readability, format the JSON first using the JSON formatter.',
-      },
-      {
-        q: 'Is my text safe in a diff tool?',
-        a: 'MyDevTools Diff Checker runs the comparison locally with no server upload. Avoid pasting credentials or private keys into any untrusted tool.',
-      },
-    ],
-  },
-  {
-    slug: 'mydevtools-vs-transform-tools',
-    title: 'MyDevTools vs transform.tools',
-    description:
-      'Compare MyDevTools with transform.tools for data conversion and transformation workflows. See which tool fits everyday developer needs.',
-    eyebrow: 'Comparison',
-    heading: 'MyDevTools vs transform.tools',
-    intro:
-      'transform.tools offers a focused set of data transformation utilities. MyDevTools covers data conversion as part of a broader developer toolkit that also includes API testing, database clients, security tools, and productivity features.',
-    competitor: 'transform.tools',
-    primaryCta: { href: '/tools', label: 'Browse MyDevTools' },
-    sections: [
-      {
-        title: 'Choose transform.tools when',
-        body:
-          'transform.tools is a clean, purpose-built site for specific format transformations.',
-        bullets: [
-          'You need specific transforms like JSON to TypeScript or GraphQL to Flow.',
-          'You want a focused single-purpose interface.',
-          'Your workflow is entirely about converting between data formats.',
-        ],
-      },
-      {
-        title: 'Choose MyDevTools when',
-        body:
-          'Transformations are rarely isolated. Most developers also need to format, validate, test an API, decode a token, or generate test data in the same session.',
-        bullets: [
-          'Use the format converter, JSON to Code, and JSON formatter alongside the API client.',
-          'Stay in one toolkit instead of bookmarking 10 different sites.',
-          'Keep everything in one offline desktop app for daily development.',
-        ],
-      },
-      {
-        title: 'Verdict',
-        body:
-          'transform.tools wins for narrow format conversion tasks. MyDevTools wins when conversions are part of a broader development workflow.',
-        bullets: [
-          'Best narrow data transformation: transform.tools.',
-          'Best broad developer toolkit: MyDevTools.',
-          'Best all-in-one toolkit: MyDevTools.',
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: 'Does MyDevTools support JSON to TypeScript conversion?',
-        a: 'MyDevTools includes a JSON Schema Generator that infers schema from JSON. JSON to Code generates TypeScript, Go, Rust, Python and other typed models directly.',
-      },
-      {
-        q: 'Can MyDevTools do more than transform.tools?',
-        a: 'Yes. Beyond data transforms, MyDevTools adds API testing, database clients, security tools, and productivity features in one workspace.',
       },
     ],
   },
@@ -912,7 +749,7 @@ export const comparisonPages: ComparisonPage[] = [
           'Both are offline, local-first developer toolkits that keep your input on your machine instead of posting it to a web service.',
         bullets: [
           'A single searchable app instead of a folder of single-purpose websites.',
-          'Formatters, JSON tools, a regex tester and diff checker covering the daily basics.',
+          'A JSON formatter and visualizer covering the daily basics.',
           'No account required and no data uploaded for processing.',
         ],
       },

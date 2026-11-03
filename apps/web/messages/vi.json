@@ -10,20 +10,8 @@
     "nosqlExplorer": "Trình khám phá cơ sở dữ liệu",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Trình định dạng GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Trình tạo lược đồ JSON",
     "snippetManager": "Đoạn mã",
-    "markdownPreview": "Xem trước Markdown",
-    "formatConverter": "Chuyển đổi định dạng",
-    "redisCommander": "Redis Commander",
-    "yamlFormatter": "Định dạng YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "So sánh JSON",
-    "jsonpathPlayground": "Sân chơi JSONPath"
+    "redisCommander": "Redis Commander"
   },
   "Help": {
     "title": "Trợ giúp & tài liệu",

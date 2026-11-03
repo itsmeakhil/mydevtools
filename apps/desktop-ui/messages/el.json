@@ -11,19 +11,7 @@
     "dataExplorer": "Data Explorer",
     "toDo": "Tasks",
     "notes": "Notes",
-    "sqlFormatter": "SQL Formatter",
-    "graphqlFormatter": "Μορφοποιητής GraphQL",
-    "diffChecker": "Diff checker",
-    "regexTester": "Regex Tester",
-    "jsonSchemaGenerator": "Γεννήτρια JSON Schema",
     "snippetManager": "Αποσπάσματα κώδικα",
-    "markdownPreview": "Προεπισκόπηση Markdown",
-    "formatConverter": "Μετατροπέας Μορφών",
-    "yamlFormatter": "Μορφοποιητής YAML",
-    "jsonToCode": "JSON to Code",
-    "beautifyMinify": "Beautify & Minify",
-    "jsonDiff": "Σύγκριση JSON",
-    "jsonpathPlayground": "Παιχνιδότοπος JSONPath",
     "secureFiles": "Αρχεία"
   },
   "Help": {
@@ -150,6 +138,27 @@
         "light": "Φως",
         "dark": "Σκοτάδι",
         "system": "Σύστημα"
+      },
+      "picker": {
+        "wheel": "Τροχός",
+        "sliders": "Ρυθμιστικά",
+        "hue": "Απόχρωση",
+        "saturation": "Κορεσμός",
+        "brightness": "Φωτεινότητα",
+        "lightness": "Ανοιχτότητα",
+        "chroma": "Χρωματικότητα",
+        "hexValue": "Τιμή hex",
+        "copy": "Αντιγραφή τιμής hex",
+        "copied": "Αντιγράφηκε",
+        "revert": "Επαναφορά αρχικού χρώματος",
+        "newColor": "Νέο χρώμα",
+        "onWhite": "Σε λευκό",
+        "onBlack": "Σε μαύρο",
+        "aa": "AA επιτυχία",
+        "aaLarge": "AA μεγάλο",
+        "fail": "Αποτυχία",
+        "presets": "Προεπιλογές",
+        "eyedropper": "Επιλογή χρώματος από την οθόνη"
       }
     },
     "security": {
@@ -341,57 +350,9 @@
         "title": "JSON Formatter",
         "description": "Format, validate, and edit JSON data."
       },
-      "sqlFormatter": {
-        "title": "SQL Formatter",
-        "description": "Format SQL for MySQL, PostgreSQL, and SQLite."
-      },
-      "graphqlFormatter": {
-        "title": "Μορφοποιητής GraphQL",
-        "description": "Μορφοποιήστε GraphQL με επισήμανση σύνταξης και απλό επεξεργαστή ερωτημάτων."
-      },
-      "yamlFormatter": {
-        "title": "Μορφοποιητής YAML",
-        "description": "Μορφοποίηση, επαλήθευση και μετατροπή YAML σε JSON στον περιηγητή."
-      },
-      "diffChecker": {
-        "title": "Diff checker",
-        "description": "Side-by-side line diff of two texts."
-      },
-      "regexTester": {
-        "title": "Regex Tester",
-        "description": "Test regex with live match highlighting."
-      },
-      "jsonSchemaGenerator": {
-        "title": "Γεννήτρια JSON Schema",
-        "description": "Συμπεράνετε ένα JSON Schema και τυποποιημένα μοντέλα από δείγμα JSON."
-      },
       "snippetManager": {
         "title": "Αποσπάσματα κώδικα",
         "description": "Αποθηκεύστε αποσπάσματα με τονισμό σύνταξης, αυτόματη ανίχνευση γλώσσας και μορφοποίηση."
-      },
-      "markdownPreview": {
-        "title": "Προεπισκόπηση Markdown",
-        "description": "Ζωντανός renderer Markdown με εξαγωγή HTML και μετατροπή HTML → Markdown."
-      },
-      "formatConverter": {
-        "title": "Μετατροπέας Μορφών",
-        "description": "Μετατροπή μεταξύ JSON, YAML, TOML και XML προς οποιαδήποτε κατεύθυνση. Υποστηρίζονται και οι 12 συνδυασμοί."
-      },
-      "jsonToCode": {
-        "title": "JSON to Code",
-        "description": "Generate TypeScript, Go, Rust, Python, and more type models from sample JSON."
-      },
-      "beautifyMinify": {
-        "title": "Beautify & Minify",
-        "description": "Beautify or minify HTML, CSS, JavaScript, XML, and JSON with a language dropdown."
-      },
-      "jsonDiff": {
-        "title": "Σύγκριση JSON",
-        "description": "Σημασιολογική σύγκριση δύο εγγράφων JSON με επίγνωση της δομής."
-      },
-      "jsonpathPlayground": {
-        "title": "Παιχνιδότοπος JSONPath",
-        "description": "Κάντε ερωτήματα σε JSON με JSONPath ή JMESPath και δείτε ζωντανά αποτελέσματα."
       },
       "secureFiles": {
         "title": "Αρχεία",
@@ -399,49 +360,7 @@
       }
     },
     "tabs": {
-      "apps": "Εφαρμογές",
-      "analytics": "Αναλυτικά",
       "ui": "Διεπαφή"
-    },
-    "analytics": {
-      "title": "Τα δεδομένα σας με μια ματιά",
-      "subtitle": "Counts recorded on this device.",
-      "loadError": "Δεν ήταν δυνατή η φόρτωση αναλυτικών.",
-      "retry": "Επανάληψη",
-      "passwordEntries": "Καταχωρήσεις κωδικών",
-      "tasksTotal": "Εργασίες",
-      "tasksCompleted": "Ολοκληρωμένες",
-      "tasksOngoing": "Σε εξέλιξη",
-      "tasksNotStarted": "Δεν ξεκίνησαν",
-      "projects": "Έργα",
-      "nosqlConnections": "Συνδέσεις ΒΔ",
-      "notes": "Σημειώσεις",
-      "apiClientCollections": "Συλλογές API",
-      "apiClientEnvironments": "Περιβάλλοντα API",
-      "apiClientHistory": "Καταχωρήσεις ιστορικού API",
-      "jsonFormatterDocuments": "Έγγραφα μορφοποιητή JSON",
-      "heroBadge": "Live sync",
-      "totalLabel": "Tracked items",
-      "totalHint": "Sum of every category below",
-      "groupVault": "Vault",
-      "groupWorkspace": "Workspace",
-      "groupToolkit": "Developer toolkit",
-      "taskMixTitle": "Task status",
-      "taskMixEmpty": "No tasks yet — add some in Tasks.",
-      "loadingLabel": "Syncing your stats…",
-      "codeSnippets": "Αποσπάσματα κώδικα",
-      "activityTitle": "Activity",
-      "activityEmpty": "Activity builds as you use tools",
-      "distributionTitle": "Data distribution",
-      "topToolsTitle": "Top tools",
-      "taskDonutTitle": "Task completion",
-      "groupFiles": "Files",
-      "filesCount": "Encrypted files",
-      "filesOnDisk": "Size on disk",
-      "filesLastChange": "Last change",
-      "filesEmpty": "No encrypted files yet — import files to see storage stats.",
-      "filesNoFolder": "No storage folder yet — pick one to start encrypting files.",
-      "filesCta": "Open Files"
     },
     "ui": {
       "title": "Προτιμήσεις διεπαφής",
@@ -2371,172 +2290,6 @@
     "toastRepaired": "Το JSON επιδιορθώθηκε",
     "toastRepairFailed": "Δεν ήταν δυνατή η επιδιόρθωση του JSON"
   },
-  "SqlFormatter": {
-    "title": "Μορφοποιητής SQL",
-    "subtitle": "Μορφοποίηση SQL για MySQL, PostgreSQL και SQLite",
-    "dialectLabel": "Διάλεκτος",
-    "keywordsLabel": "Λέξεις-κλειδιά",
-    "indentLabel": "Εσοχή",
-    "dialects": {
-      "mysql": "MySQL",
-      "postgresql": "PostgreSQL",
-      "sqlite": "SQLite"
-    },
-    "keywordCase": {
-      "upper": "ΚΕΦΑΛΑΙΑ",
-      "lower": "πεζά",
-      "preserve": "Διατήρηση"
-    },
-    "spaces": "{n} κενά",
-    "format": "Μορφοποίηση",
-    "clear": "Καθαρισμός",
-    "counter": "{current} / {max} χαρακτήρες",
-    "inputPanel": "Είσοδος",
-    "formattedPanel": "Μορφοποιημένο",
-    "copy": "Αντιγραφή",
-    "inputPlaceholder": "SELECT * FROM ...",
-    "outputPlaceholder": "Πατήστε «Μορφοποίηση»…",
-    "errors": {
-      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
-      "couldNotFormat": "Δεν ήταν δυνατή η μορφοποίηση αυτού του SQL."
-    }
-  },
-  "YamlFormatter": {
-    "title": "Μορφοποιητής YAML",
-    "subtitle": "Μορφοποίηση, επικύρωση και μετατροπή YAML",
-    "outputLabel": "Έξοδος",
-    "outputModes": {
-      "yaml": "YAML (μορφοποιημένο)",
-      "json": "JSON"
-    },
-    "indentLabel": "Εσοχή",
-    "spaces": "{n} κενά",
-    "format": "Μορφοποίηση",
-    "clear": "Καθαρισμός",
-    "copy": "Αντιγραφή",
-    "counter": "{current} / {max} χαρακτήρες",
-    "inputPanel": "Είσοδος",
-    "outputPanel": "Έξοδος",
-    "errors": {
-      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
-      "couldNotFormat": "Δεν ήταν δυνατή η ανάλυση αυτού του YAML."
-    }
-  },
-  "GraphqlFormatter": {
-    "title": "Μορφοποιητής GraphQL",
-    "subtitle": "Μορφοποίηση queries, mutations και subscriptions",
-    "tabs": {
-      "format": "Μορφοποίηση",
-      "build": "Δημιουργός ερωτήματος"
-    },
-    "outputModeLabel": "Έξοδος",
-    "outputModes": {
-      "pretty": "Αναγνώσιμη εκτύπωση",
-      "minify": "Σμίκρυνση"
-    },
-    "format": "Μορφοποίηση",
-    "clear": "Εκκαθάριση",
-    "counter": "{current} / {max} χαρακτήρες",
-    "inputPanel": "Είσοδος",
-    "outputPanel": "Έξοδος",
-    "copy": "Αντιγραφή",
-    "builderHint": "Συνθέστε ένα σκελετό και τον εφαρμόζετε στον επεξεργαστή. Ορισμοί μεταβλητών με σύνταξη GraphQL (π.χ. $id: ID!) — οι παρενθέσεις είναι προαιρετικές.",
-    "builder": {
-      "operation": "Λειτουργία",
-      "operationName": "Όνομα λειτουργίας",
-      "operationNamePlaceholder": "MyOperation",
-      "variableDefs": "Ορισμοί μεταβλητών",
-      "variableDefsPlaceholder": "$id: ID!, $first: Int = 10",
-      "selection": "Σύνολο επιλογής",
-      "apply": "Εφαρμογή στην είσοδο",
-      "operations": {
-        "query": "Query",
-        "mutation": "Mutation",
-        "subscription": "Subscription"
-      }
-    },
-    "errors": {
-      "tooLong": "Η είσοδος περιορίζεται σε {max} χαρακτήρες.",
-      "couldNotFormat": "Δεν ήταν δυνατή η ανάλυση ή εκτύπωση αυτού του GraphQL.",
-      "emptySelection": "Προσθέστε σύνολο επιλογής πριν από την εφαρμογή."
-    }
-  },
-  "RegexTester": {
-    "title": "Δοκιμαστής Regex",
-    "subtitle": "Δοκιμή regex JavaScript με ζωντανή επισήμανση αντιστοιχιών",
-    "patternLabel": "Μοτίβο",
-    "patternPlaceholder": "[\\w.-]+@[\\w.-]+\\.\\w+",
-    "flags": {
-      "g": "g καθολικό",
-      "i": "i χωρίς διάκριση πεζών/κεφαλαίων",
-      "m": "m πολυγραμμικό",
-      "s": "s dotAll",
-      "u": "u unicode",
-      "gTitle": "Find all matches, not just the first",
-      "iTitle": "Match regardless of letter case",
-      "mTitle": "^ and $ match the start/end of each line, not just the whole string",
-      "sTitle": "Dot (.) also matches newline characters",
-      "uTitle": "Treat the pattern as a sequence of Unicode code points"
-    },
-    "emptyPattern": "(κενό)",
-    "noFlags": "—",
-    "matches": "{count, plural, one {αντιστοίχιση} other {αντιστοιχίσεις}}",
-    "testTextLabel": "Κείμενο δοκιμής",
-    "counter": "{current} / {max}",
-    "clear": "Καθαρισμός",
-    "sampleText": "The quick brown fox jumps over the lazy dog.\\nEmail: test@example.com\\nIDs: abc-123, xyz_456",
-    "errors": {
-      "tooLong": "Το κείμενο περιορίζεται σε {max} χαρακτήρες.",
-      "invalid": "Μη έγκυρη κανονική έκφραση.",
-      "runaway": "Σταμάτησε μετά από {max} αντιστοιχίσεις (πιθανό runaway μοτίβο)."
-    },
-    "matchNav": {
-      "prev": "Previous match",
-      "next": "Next match",
-      "position": "{current} / {total}"
-    }
-  },
-  "DiffChecker": {
-    "title": "Έλεγχος Διαφορών",
-    "subtitle": "Σύγκριση δύο κειμένων δίπλα-δίπλα, γραμμή προς γραμμή",
-    "rowsCount": "{count} γραμμές",
-    "truncatedWarning": "Εμφάνιση πρώτων {max} γραμμών.",
-    "limitExceeded": "Κάθε πλευρά περιορίζεται σε {max} χαρακτήρες.",
-    "clearBoth": "Εκκαθάριση και των δύο",
-    "original": "Πρωτότυπο",
-    "modified": "Τροποποιημένο",
-    "originalPlaceholder": "Επικολλήστε το αρχικό κείμενο…",
-    "modifiedPlaceholder": "Επικολλήστε το τροποποιημένο κείμενο…",
-    "comparisonLabel": "Παράλληλη σύγκριση",
-    "emptyState": "Εισαγάγετε κείμενο και στα δύο παράθυρα για σύγκριση."
-  },
-  "JsonSchemaGenerator": {
-    "title": "Γεννήτρια JSON Schema",
-    "subtitle": "Δημιουργία JSON Schema ή τυποποιημένων μοντέλων από δείγμα JSON",
-    "languageLabel": "Γλώσσα εξόδου",
-    "inputLabel": "Είσοδος JSON",
-    "inputPlaceholder": "Επικολλήστε JSON εδώ…",
-    "outputLabel": "Δημιουργημένη έξοδος",
-    "outputPlaceholder": "Το σχήμα ή οι τύποι θα εμφανιστούν εδώ…",
-    "parseError": "Μη έγκυρο JSON",
-    "clear": "Εκκαθάριση",
-    "copy": "Αντιγραφή",
-    "copied": "Αντιγράφηκε στο πρόχειρο",
-    "copyFailed": "Αποτυχία αντιγραφής",
-    "languages": {
-      "python": "Python (Pydantic v2)",
-      "typescript": "TypeScript",
-      "jsonSchema": "JSON Schema (Draft 2020-12)",
-      "go": "Go (encoding/json)",
-      "rust": "Rust (serde_json)",
-      "java": "Java (Jackson)",
-      "csharp": "C# (System.Text.Json)",
-      "dart": "Dart",
-      "swift": "Swift (Codable)"
-    },
-    "editorLoading": "Φόρτωση επεξεργαστή…",
-    "detectedFormats": "Detected formats"
-  },
   "SnippetManager": {
     "title": "Διαχειριστής Snippet",
     "subtitle": "Αποθήκευση, αναζήτηση και μορφοποίηση snippets — προαιρετικός συγχρονισμός",
@@ -2682,58 +2435,6 @@
       "toastRowsMatched": "Βρέθηκαν {count} γραμμές — δεν άλλαξε τίποτα, επειδή το φίλτρο δεν είναι μοναδικό."
     }
   },
-  "MarkdownPreview": {
-    "title": "Προεπισκόπηση Markdown",
-    "subtitle": "Ζωντανή απόδοση Markdown και μετατροπή από/σε HTML",
-    "tabMarkdownToHtml": "Markdown → HTML",
-    "tabHtmlToMd": "HTML → Markdown",
-    "inputLabel": "Είσοδος Markdown",
-    "htmlInputLabel": "Είσοδος HTML",
-    "previewLabel": "Προεπισκόπηση",
-    "htmlOutputLabel": "Πηγαίος HTML",
-    "mdOutputLabel": "Έξοδος Markdown",
-    "inputPlaceholder": "# Γεια\\n\\nΠληκτρολογήστε το **markdown** εδώ…",
-    "htmlInputPlaceholder": "Επικολλήστε το HTML εδώ…",
-    "copyHtml": "Αντιγραφή HTML",
-    "copyMarkdown": "Αντιγραφή Markdown",
-    "exportHtml": "Εξαγωγή HTML",
-    "fileNameLabel": "Όνομα αρχείου",
-    "fileNamePlaceholder": "export",
-    "exportSuccess": "Αποθηκεύτηκε το {name}",
-    "copied": "Αντιγράφηκε",
-    "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
-    "emptyHint": "Ξεκινήστε να πληκτρολογείτε Markdown για να δείτε την προεπισκόπηση και την έξοδο HTML.",
-    "emptyHintHtmlToMd": "Επικολλήστε HTML για μετατροπή σε Markdown.",
-    "securityNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Δεν γίνεται καμία μεταφόρτωση."
-  },
-  "FormatConverter": {
-    "title": "Μετατροπέας Μορφών",
-    "subtitle": "Μετατροπή JSON, YAML, TOML και XML προς κάθε κατεύθυνση",
-    "fromLabel": "Από",
-    "toLabel": "Σε",
-    "swap": "Εναλλαγή",
-    "swapTitle": "Εναλλαγή μορφών και χρήση εξόδου ως είσοδος",
-    "copy": "Αντιγραφή",
-    "copied": "Αντιγράφηκε",
-    "charCount": "{count, plural, one {# χαρακτήρας} other {# χαρακτήρες}}",
-    "emptyHint": "Επικολλήστε ή πληκτρολογήστε την είσοδό σας αριστερά για να δείτε την μετατραπείσα έξοδο.",
-    "localNote": "Όλα εκτελούνται τοπικά στο πρόγραμμα περιήγησής σας. Τίποτα δεν ανεβαίνει."
-  },
-  "JsonToCode": {
-    "title": "JSON σε Κώδικα",
-    "subtitle": "Δημιουργία τυποποιημένων μοντέλων από δείγμα JSON",
-    "panels": {
-      "input": "JSON input",
-      "output": "Generated code"
-    },
-    "sample": "Sample",
-    "clear": "Clear",
-    "placeholder": "Paste a sample JSON object here…",
-    "rootName": "Root name",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Generated type models will appear here…"
-  },
   "JsonVisualizer": {
     "title": "Οπτικοποιητής JSON",
     "subtitle": "Εξερεύνηση JSON ως διαδραστικό γράφημα κόμβων",
@@ -2766,98 +2467,6 @@
     "largeDocNotice": "Large document ({count} nodes) — subtrees start collapsed.",
     "tooLarge": "Too many nodes to visualize (limit: {cap}). Try a smaller document.",
     "emptyState": "Paste JSON in the input to see it as an interactive graph."
-  },
-  "BeautifyMinify": {
-    "title": "Μορφοποίηση & Σμίκρυνση",
-    "subtitle": "Μορφοποίηση ή σμίκρυνση HTML, CSS, JavaScript, XML και JSON",
-    "langLabel": "Language",
-    "actionLabel": "Action",
-    "beautify": "Beautify",
-    "minify": "Minify",
-    "panels": {
-      "input": "Input",
-      "output": "Output"
-    },
-    "bytes": "{count} bytes",
-    "clear": "Clear",
-    "placeholder": "Paste code here…",
-    "copy": "Copy",
-    "copied": "Copied",
-    "outputPlaceholder": "Formatted output will appear here…"
-  },
-  "JsonDiff": {
-    "title": "Διαφορές JSON",
-    "subtitle": "Δομική σύγκριση JSON — η σειρά κλειδιών αγνοείται",
-    "options": {
-      "ignoreArrayOrder": "Αγνόηση σειράς πινάκων"
-    },
-    "loadBothSamples": "Φόρτωση δειγμάτων",
-    "sample": "Δείγμα",
-    "format": "Μορφοποίηση",
-    "clear": "Καθαρισμός",
-    "formatError": "Αδυναμία μορφοποίησης: η είσοδος δεν είναι έγκυρο JSON",
-    "placeholder": "Επικολλήστε ή πληκτρολογήστε JSON εδώ…",
-    "panels": {
-      "left": "Πρωτότυπο (αριστερά)",
-      "right": "Τροποποιημένο (δεξιά)",
-      "results": "Διαφορές"
-    },
-    "summary": {
-      "added": "{count} προστέθηκαν",
-      "removed": "{count} αφαιρέθηκαν",
-      "changed": "{count} άλλαξαν"
-    },
-    "types": {
-      "added": "Προστέθηκε",
-      "removed": "Αφαιρέθηκε",
-      "changed": "Άλλαξε"
-    },
-    "copyChanges": "Αντιγραφή ως JSON",
-    "copied": "Αντιγράφηκε",
-    "empty": "Επικολλήστε JSON και στα δύο πλαίσια για να δείτε τις διαφορές τους.",
-    "identical": "Τα δύο έγγραφα είναι σημασιολογικά πανομοιότυπα."
-  },
-  "JsonpathPlayground": {
-    "title": "Πεδίο JSONPath",
-    "subtitle": "Ζωντανά ερωτήματα JSON με JSONPath ή JMESPath",
-    "engineLabel": "Μηχανή",
-    "queryLabel": "Ερώτημα",
-    "engines": {
-      "jsonpath": "JSONPath",
-      "jmespath": "JMESPath"
-    },
-    "cheatsheet": "Σύντομος οδηγός",
-    "cheats": {
-      "jpAllTitles": "Όλοι οι τίτλοι βιβλίων",
-      "jpAllAuthors": "Κάθε συγγραφέας, οπουδήποτε στο έγγραφο",
-      "jpFirstBook": "Πρώτο βιβλίο",
-      "jpLastBook": "Τελευταίο βιβλίο",
-      "jpSlice": "Τα δύο πρώτα βιβλία (τμήμα)",
-      "jpFilterPrice": "Βιβλία φθηνότερα από 40",
-      "jpFilterInStock": "Τίτλοι διαθέσιμων βιβλίων",
-      "jpRecursive": "Όλες οι τιμές, αναδρομικά",
-      "jmAllTitles": "Όλοι οι τίτλοι βιβλίων",
-      "jmFirstAuthor": "Συγγραφέας του πρώτου βιβλίου",
-      "jmLastBook": "Τελευταίο βιβλίο",
-      "jmSlice": "Τα δύο πρώτα βιβλία (τμήμα)",
-      "jmFilterPrice": "Τίτλοι βιβλίων φθηνότερων από 40",
-      "jmCount": "Πλήθος διαθέσιμων βιβλίων",
-      "jmProjection": "Αναδιαμορφώστε κάθε βιβλίο σε νέο αντικείμενο",
-      "jmSort": "Τίτλοι ταξινομημένοι κατά τιμή"
-    },
-    "panels": {
-      "input": "Είσοδος JSON",
-      "results": "Αποτελέσματα"
-    },
-    "sample": "Δείγμα",
-    "format": "Μορφοποίηση",
-    "clear": "Καθαρισμός",
-    "formatError": "Αδυναμία μορφοποίησης: η είσοδος δεν είναι έγκυρο JSON",
-    "placeholder": "Επικολλήστε ή πληκτρολογήστε JSON εδώ…",
-    "outputPlaceholder": "Οι αντιστοιχίσεις θα εμφανιστούν εδώ…",
-    "matchCount": "{count, plural, one {# αντιστοίχιση} other {# αντιστοιχίσεις}}",
-    "copy": "Αντιγραφή",
-    "copied": "Αντιγράφηκε"
   },
   "WebhookTester": {
     "title": "Δοκιμαστής Webhook",
@@ -2909,7 +2518,9 @@
     "moreSections": "Περισσότερες ενότητες",
     "sections": "Ενότητες πλαϊνής στήλης",
     "show": "Εμφάνιση πλαϊνής μπάρας",
-    "hide": "Απόκρυψη πλαϊνής μπάρας"
+    "hide": "Απόκρυψη πλαϊνής μπάρας",
+    "pin": "Καρφίτσωμα {tool}",
+    "unpin": "Ξεκαρφίτσωμα {tool}"
   },
   "DesktopUpdate": {
     "title": "Ενημέρωση MyDevTools",
@@ -3021,5 +2632,25 @@
     "working": "{done} από {total}",
     "cancelled": "Ακυρώθηκε.",
     "save": "Αποθήκευση"
+  },
+  "Shell": {
+    "sidebar": "Πλαϊνή στήλη",
+    "toggleSidebar": "Εναλλαγή πλαϊνής στήλης",
+    "searchTools": "Αναζήτηση εργαλείων",
+    "help": "Βοήθεια",
+    "theme": "Θέμα",
+    "themeLight": "Φωτεινό",
+    "themeDark": "Σκοτεινό",
+    "themeSystem": "Σύστημα",
+    "account": "Λογαριασμός",
+    "you": "Εσύ",
+    "openTool": "Άνοιγμα εργαλείου",
+    "closeTab": "Κλείσιμο {title}",
+    "status": "Κατάσταση",
+    "vaultLocked": "Το θησαυροφυλάκιο κλειδώθηκε",
+    "vaultUnlocked": "Το θησαυροφυλάκιο ξεκλειδώθηκε",
+    "reduceTransparency": "Μείωση διαφάνειας",
+    "reduceTransparencyHint": "Αντικατάσταση γυαλιού με συμπαγείς επιφάνειες.",
+    "goToDashboard": "Μετάβαση στον πίνακα ελέγχου"
   }
 }

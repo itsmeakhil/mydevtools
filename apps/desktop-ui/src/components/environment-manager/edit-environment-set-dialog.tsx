@@ -290,7 +290,7 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
                         {t("cancel")}
                     </Button>
                 )}
-                <Button type="submit" disabled={loading} className={cn(isMobile && "w-full h-12 rounded-xl text-base")}>
+                <Button type="submit" disabled={loading} className={cn(isMobile && "w-full h-12 text-base")}>
                     {loading ? t("updating") : t("update")}
                 </Button>
             </div>
@@ -304,8 +304,8 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
             <Drawer open={open} onOpenChange={onOpenChange}>
                 <DrawerContent className="max-h-[95vh]">
                     <div className="flex flex-col h-full max-h-[95vh]">
-                        <DrawerHeader className="shrink-0 border-b pb-4">
-                            <DrawerTitle className="text-xl">{t("editTitle")}</DrawerTitle>
+                        <DrawerHeader className="shrink-0 border-b border-border pb-4">
+                            <DrawerTitle className="text-[17px]">{t("editTitle")}</DrawerTitle>
                         </DrawerHeader>
                         <div className="flex-1 overflow-y-auto px-4 pb-8">{FormContent}</div>
                     </div>
@@ -318,7 +318,7 @@ export function EditEnvironmentSetDialog({ entry, open, onOpenChange }: EditEnvi
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[560px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle className="text-xl">{t("editTitle")}</DialogTitle>
+                    <DialogTitle>{t("editTitle")}</DialogTitle>
                 </DialogHeader>
                 {FormContent}
             </DialogContent>

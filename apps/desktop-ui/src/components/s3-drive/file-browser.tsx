@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import {
@@ -67,7 +66,6 @@ import {
     IconPackage,
     IconArrowsMove,
     IconShare,
-    IconPlus,
 } from "@tabler/icons-react"
 import { listObjects, deleteObjects, getPresignedDownloadUrl, moveObject } from "@/lib/s3-drive-api"
 import type { S3Credentials, S3ObjectItem } from "@/lib/s3-drive-api"
@@ -75,7 +73,7 @@ import { getObjectBlob, uploadFile } from "@/lib/s3-direct"
 import { useS3DriveStore } from "@/store/s3-drive-store"
 import { CreateFolderDialog } from "./create-folder-dialog"
 import { formatBytes, moveFolderRecursive } from "./utils"
-import { getFileType, isPreviewable, TYPE_BG_CLASS, TYPE_LABEL } from "./file-types"
+import { getFileType, isPreviewable, TYPE_LABEL } from "./file-types"
 import { FileIconComp } from "./file-icon"
 import { Checkbox, isCheckboxClick } from "./checkbox"
 import { FilePreviewDialog, type PreviewState } from "./file-preview-dialog"
@@ -104,7 +102,7 @@ function SortHeader({
     return (
         <th
             className={cn(
-                "px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wider border-b cursor-pointer select-none transition-colors group/th",
+                "px-3 py-2 text-left text-[12px] font-medium border-b border-border cursor-default select-none transition-colors group/th",
                 active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                 className,
             )}
@@ -580,7 +578,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 <button
                     onClick={() => { clearSelection(); setCurrentPrefix(prefix) }}
                     className={cn(
-                        "px-2 py-1 rounded-md hover:bg-muted transition-colors truncate text-xs",
+                        "px-2 py-1 rounded-md hover:bg-foreground/[0.05] transition-colors truncate text-[13px]",
                         isLast ? "text-foreground font-semibold" : "text-muted-foreground hover:text-foreground",
                     )}
                 >
@@ -618,28 +616,23 @@ export function FileBrowser({ credentials, connectionName }: Props) {
     return (
         <div
             ref={dropZoneRef}
-            className="flex flex-col h-full bg-background relative"
+            className="flex flex-col h-full relative"
             onDragOver={onDragOver}
             onDragLeave={onDragLeave}
             onDrop={onDrop}
         >
             {isDragOver && (
-                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-blue-50/80 dark:bg-blue-950/70 backdrop-blur-md border-2 border-dashed border-blue-400/60 dark:border-blue-500/50 pointer-events-none">
-                    <div className="relative">
-                        <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-xl animate-pulse" />
-                        <div className="relative size-20 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-300/30 dark:border-blue-600/30">
-                            <IconCloudUpload className="size-10 text-blue-500 animate-bounce" />
-                        </div>
-                    </div>
+                <div className="absolute inset-2 z-50 flex flex-col items-center justify-center gap-3 rounded-xl bg-primary/[0.06] border-2 border-dashed border-primary/40 pointer-events-none">
+                    <IconCloudUpload className="size-8 text-primary" />
                     <div className="text-center space-y-1">
-                        <p className="text-base font-semibold text-blue-700 dark:text-blue-300">Drop files to upload</p>
-                        <p className="text-sm text-blue-500/70">Files will be uploaded to the current folder</p>
+                        <p className="text-sm font-medium text-foreground">Drop files to upload</p>
+                        <p className="text-[13px] text-muted-foreground">Files will be uploaded to the current folder</p>
                     </div>
                 </div>
             )}
 
             {/* Toolbar */}
-            <div className="flex items-center gap-1.5 px-3 py-2.5 border-b shrink-0 relative bg-background/80 backdrop-blur-sm">
+            <div className="flex items-center gap-1.5 h-11 px-3 border-b border-border shrink-0 relative bg-background">
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button size="icon" variant="ghost" className="size-8 text-muted-foreground shrink-0" onClick={navigateUp} disabled={!currentPrefix || isLoading}>
@@ -653,10 +646,10 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 <nav className="flex items-center min-w-0 flex-1 overflow-hidden">
                     <button
                         onClick={() => { clearSelection(); setCurrentPrefix("") }}
-                        className="flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors shrink-0 text-sm"
+                        className="flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-foreground/[0.05] text-muted-foreground hover:text-foreground transition-colors shrink-0 text-[13px]"
                     >
                         <IconHome className="size-3.5" />
-                        <span className="font-medium text-xs">{connectionName}</span>
+                        <span className="font-medium">{connectionName}</span>
                     </button>
 
                     {breadcrumbs.length > 0 && (
@@ -669,7 +662,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                                         <IconChevronRight className="size-3.5 text-muted-foreground/40 mx-0.5 shrink-0" />
                                         <Popover>
                                             <PopoverTrigger asChild>
-                                                <button className="px-1.5 py-1 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors">
+                                                <button className="px-1.5 py-1 rounded-md hover:bg-foreground/[0.05] text-muted-foreground hover:text-foreground transition-colors">
                                                     <IconDots className="size-3.5" />
                                                 </button>
                                             </PopoverTrigger>
@@ -680,7 +673,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                                                         <button
                                                             key={prefix}
                                                             onClick={() => { clearSelection(); setCurrentPrefix(prefix) }}
-                                                            className="flex w-full items-center gap-2 px-3 py-1.5 rounded-sm hover:bg-muted text-xs text-left"
+                                                            className="flex w-full items-center gap-2 h-8 px-2.5 rounded-lg hover:bg-foreground/[0.05] text-[13px] text-left"
                                                         >
                                                             <IconFolder className="size-3.5 text-muted-foreground shrink-0" />
                                                             {part}
@@ -703,7 +696,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 <div className="relative shrink-0">
                     <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
                     <Input
-                        className="h-8 pl-8 pr-7 w-44 text-xs bg-muted/60 border-0 focus-visible:ring-1 rounded-lg"
+                        className="h-7 pl-8 pr-7 w-44 text-[13px] bg-foreground/[0.04] border-0 rounded-md"
                         placeholder="Search in folder…"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -715,18 +708,18 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                     )}
                 </div>
 
-                <Separator orientation="vertical" className="h-5 mx-1" />
+                <div className="h-5 w-px bg-border mx-1 shrink-0" />
 
-                <div className="flex items-center bg-muted rounded-lg p-0.5 shrink-0">
-                    <Button size="icon" variant="ghost" className={cn("size-7 rounded-md transition-all", viewMode === "list" && "bg-background shadow-sm text-foreground")} onClick={() => setViewMode("list")}>
+                <div className="flex items-center bg-foreground/[0.05] rounded-lg p-0.5 shrink-0">
+                    <Button size="icon" variant="ghost" className={cn("size-7 rounded-md text-muted-foreground", viewMode === "list" && "bg-card shadow-elev-1 text-foreground hover:bg-card")} onClick={() => setViewMode("list")}>
                         <IconLayoutList className="size-4" />
                     </Button>
-                    <Button size="icon" variant="ghost" className={cn("size-7 rounded-md transition-all", viewMode === "grid" && "bg-background shadow-sm text-foreground")} onClick={() => setViewMode("grid")}>
+                    <Button size="icon" variant="ghost" className={cn("size-7 rounded-md text-muted-foreground", viewMode === "grid" && "bg-card shadow-elev-1 text-foreground hover:bg-card")} onClick={() => setViewMode("grid")}>
                         <IconLayoutGrid className="size-4" />
                     </Button>
                 </div>
 
-                <Separator orientation="vertical" className="h-5 mx-1" />
+                <div className="h-5 w-px bg-border mx-1 shrink-0" />
 
                 <Tooltip>
                     <TooltipTrigger asChild>
@@ -759,7 +752,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                 {zipProgress && (
                     <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-muted">
                         <div
-                            className="h-full bg-blue-500 transition-[width] duration-300 ease-out"
+                            className="h-full bg-primary transition-[width] duration-300 ease-out"
                             style={{ width: `${(zipProgress.done / zipProgress.total) * 100}%` }}
                         />
                     </div>
@@ -770,28 +763,18 @@ export function FileBrowser({ credentials, connectionName }: Props) {
             <ScrollArea className="flex-1">
                 {isLoading && allCount === 0 ? (
                     <div className="flex flex-col items-center justify-center h-56 gap-3 text-muted-foreground">
-                        <div className="relative">
-                            <div className="absolute inset-0 rounded-full bg-primary/10 blur-lg animate-pulse" />
-                            <IconLoader2 className="relative size-7 animate-spin" />
-                        </div>
-                        <p className="text-sm">Loading…</p>
+                        <IconLoader2 className="size-6 animate-spin text-muted-foreground/60" />
+                        <p className="text-[13px]">Loading…</p>
                     </div>
                 ) : allCount === 0 ? (
                     <div
-                        className="flex flex-col items-center justify-center h-full min-h-64 gap-4 text-muted-foreground cursor-pointer select-none group/empty"
+                        className="flex flex-col items-center justify-center h-full min-h-64 gap-3 text-muted-foreground cursor-default select-none"
                         onClick={() => fileInputRef.current?.click()}
                     >
-                        <div className="relative">
-                            <div className="size-24 rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center border border-border/30 transition-transform duration-300 group-hover/empty:scale-105">
-                                <IconCloudUpload className="size-11 opacity-30 transition-opacity group-hover/empty:opacity-50" />
-                            </div>
-                            <div className="absolute -bottom-1 -right-1 size-8 rounded-xl bg-primary/10 flex items-center justify-center ring-3 ring-background">
-                                <IconPlus className="size-3.5 text-primary/60" />
-                            </div>
-                        </div>
+                        <IconCloudUpload className="size-8 text-muted-foreground/60" />
                         <div className="text-center space-y-1">
-                            <p className="text-sm font-medium text-foreground/60">This folder is empty</p>
-                            <p className="text-xs opacity-50">Drop files or click to upload</p>
+                            <p className="text-sm font-medium text-foreground">This folder is empty</p>
+                            <p className="text-[13px] text-muted-foreground">Drop files or click to upload</p>
                         </div>
                     </div>
                 ) : viewMode === "list" ? (
@@ -820,22 +803,22 @@ export function FileBrowser({ credentials, connectionName }: Props) {
 
             {/* Selection bar */}
             {hasSelection && (
-                <div className="flex items-center gap-3 px-4 py-2.5 border-t border-blue-200/50 dark:border-blue-800/50 bg-blue-50/90 dark:bg-blue-950/40 backdrop-blur-sm shrink-0 animate-in slide-in-from-bottom-2 duration-200">
+                <div className="flex items-center gap-3 h-11 px-4 border-t border-border bg-card shrink-0 animate-in fade-in duration-150">
                     <Checkbox
                         checked={allSelected}
                         indeterminate={someSelected}
                         onToggle={() => allSelected ? clearSelection() : selectAll()}
                     />
-                    <span className="text-sm font-medium text-blue-700 dark:text-blue-300 flex-1">
+                    <span className="text-[13px] font-medium text-foreground flex-1 tabular-nums">
                         {selectedKeys.size} selected
-                        <span className="ml-2 text-blue-500/60 font-normal text-[11px] hidden sm:inline">Esc to deselect · Del to delete</span>
+                        <span className="ml-2 text-muted-foreground/70 font-normal text-[11px] hidden sm:inline">Esc to deselect · Del to delete</span>
                     </span>
                     <div className="flex items-center gap-1.5">
                         {selectedFileCount > 1 ? (
                             <Button
                                 size="sm"
                                 variant="outline"
-                                className="h-7 text-xs gap-1.5 border-blue-200/60 dark:border-blue-800/60 bg-white/50 dark:bg-white/5 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg"
+                                className="h-7 text-xs gap-1.5 rounded-lg"
                                 onClick={onDownloadZip}
                                 disabled={!!zipProgress}
                             >
@@ -846,7 +829,7 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                             <Button
                                 size="sm"
                                 variant="outline"
-                                className="h-7 text-xs gap-1.5 border-blue-200/60 dark:border-blue-800/60 bg-white/50 dark:bg-white/5 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg"
+                                className="h-7 text-xs gap-1.5 rounded-lg"
                                 onClick={() => Array.from(selectedKeys).filter((k) => !k.endsWith("/")).forEach((k) => onDownload(k))}
                             >
                                 <IconDownload className="size-3.5" /> Download
@@ -855,15 +838,15 @@ export function FileBrowser({ credentials, connectionName }: Props) {
                         <Button
                             size="sm"
                             variant="outline"
-                            className="h-7 text-xs gap-1.5 border-blue-200/60 dark:border-blue-800/60 bg-white/50 dark:bg-white/5 hover:bg-blue-100 dark:hover:bg-blue-900 rounded-lg"
+                            className="h-7 text-xs gap-1.5 rounded-lg"
                             onClick={() => setMoveItems(Array.from(selectedKeys).map((k) => ({ key: k, isFolder: k.endsWith("/") })))}
                         >
                             <IconArrowsMove className="size-3.5" /> Move
                         </Button>
-                        <Button size="sm" variant="destructive" className="h-7 text-xs gap-1.5 rounded-lg shadow-sm" onClick={() => setDeleteConfirmOpen(true)} disabled={deleting}>
+                        <Button size="sm" variant="destructive" className="h-7 text-xs gap-1.5 rounded-lg" onClick={() => setDeleteConfirmOpen(true)} disabled={deleting}>
                             <IconTrash className="size-3.5" /> Delete
                         </Button>
-                        <Button size="icon" variant="ghost" className="size-7 text-blue-500/60 hover:text-blue-600 rounded-lg" onClick={clearSelection}>
+                        <Button size="icon" variant="ghost" className="size-7 text-muted-foreground rounded-lg" onClick={clearSelection}>
                             <IconX className="size-4" />
                         </Button>
                     </div>
@@ -872,11 +855,11 @@ export function FileBrowser({ credentials, connectionName }: Props) {
 
             {/* Status bar */}
             {!hasSelection && allCount > 0 && (
-                <div className="flex items-center gap-3 px-4 py-1.5 border-t text-[11px] text-muted-foreground/60 shrink-0 bg-muted/20">
+                <div className="flex items-center gap-3 h-7 px-4 border-t border-border text-[11px] text-muted-foreground tabular-nums shrink-0 bg-muted/40">
                     <span>{sortedPrefixes.length + sortedObjects.length} items</span>
                     {sortedPrefixes.length > 0 && <span>· {sortedPrefixes.length} folder{sortedPrefixes.length !== 1 ? "s" : ""}</span>}
                     {sortedObjects.length > 0 && <span>· {sortedObjects.length} file{sortedObjects.length !== 1 ? "s" : ""}</span>}
-                    {currentPrefix && <span className="ml-auto font-mono text-[10px] truncate max-w-xs">/{currentPrefix.replace(/\/$/, "")}</span>}
+                    {currentPrefix && <span className="ml-auto font-mono text-[11px] truncate max-w-xs">/{currentPrefix.replace(/\/$/, "")}</span>}
                 </div>
             )}
 
@@ -972,17 +955,17 @@ function ListView({
     focusedIndex: number | null; onFocusRow: (i: number) => void
 }) {
     return (
-        <table className="w-full text-sm border-separate border-spacing-0">
+        <table className="w-full text-[13px] border-separate border-spacing-0 bg-card">
             <thead>
-                <tr className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm">
-                    <th className="w-12 pl-4 pr-2 py-2.5 border-b text-left">
+                <tr className="sticky top-0 z-10 bg-muted text-muted-foreground">
+                    <th className="w-12 pl-4 pr-2 py-2 border-b border-border text-left">
                         <Checkbox checked={allSelected} indeterminate={someSelected} onToggle={onSelectAll} />
                     </th>
                     <SortHeader col="name" label="Name" current={sortCol} dir={sortDir} onSort={onSort} />
-                    <th className="px-3 py-2.5 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider border-b w-24 hidden md:table-cell">Type</th>
+                    <th className="px-3 py-2 text-left text-[12px] font-medium text-muted-foreground border-b border-border w-24 hidden md:table-cell">Type</th>
                     <SortHeader col="size" label="Size" current={sortCol} dir={sortDir} onSort={onSort} className="w-24 hidden sm:table-cell" />
                     <SortHeader col="modified" label="Modified" current={sortCol} dir={sortDir} onSort={onSort} className="w-36 hidden lg:table-cell" />
-                    <th className="w-12 border-b" />
+                    <th className="w-12 border-b border-border" />
                 </tr>
             </thead>
             <tbody>
@@ -1007,26 +990,24 @@ function ListView({
                                 {...(focused ? { "data-focused-row": "" } : {})}
                                 className={cn(
                                     "group cursor-pointer transition-colors duration-75",
-                                    selected ? "bg-blue-50 dark:bg-blue-950/30" : "hover:bg-muted/40",
-                                    focused && "outline outline-2 outline-blue-400/60 dark:outline-blue-600/60 outline-offset-[-2px]",
+                                    selected ? "bg-primary/[0.12]" : "hover:bg-foreground/[0.03]",
+                                    focused && "outline outline-2 outline-primary/50 outline-offset-[-2px]",
                                 )}
                                 onClick={(e) => { if (isCheckboxClick(e)) return; onFocusRow(rowIdx); onNavigateInto(prefix) }}
                             >
-                                <td className="pl-4 pr-2 py-2.5 border-b border-border/40">
+                                <td className="pl-4 pr-2 py-1.5 border-b border-border">
                                     <Checkbox checked={selected} onToggle={() => onToggleKey(prefix)} />
                                 </td>
-                                <td className="px-3 py-2.5 border-b border-border/40">
-                                    <div className="flex items-center gap-3">
-                                        <div className="size-8 rounded-lg bg-amber-400/15 flex items-center justify-center shrink-0">
-                                            <IconFolder className="size-[18px] text-amber-500" />
-                                        </div>
-                                        <span className="font-medium truncate">{name}</span>
+                                <td className="px-3 py-1.5 border-b border-border">
+                                    <div className="flex items-center gap-2.5">
+                                        <IconFolder className={cn("size-[18px] shrink-0", selected ? "text-primary" : "text-primary/80")} />
+                                        <span className="truncate">{name}</span>
                                     </div>
                                 </td>
-                                <td className="px-3 py-2.5 border-b border-border/40 text-xs text-muted-foreground hidden md:table-cell">Folder</td>
-                                <td className="px-3 py-2.5 border-b border-border/40 text-xs text-muted-foreground hidden sm:table-cell">—</td>
-                                <td className="px-3 py-2.5 border-b border-border/40 text-xs text-muted-foreground hidden lg:table-cell">—</td>
-                                <td className="px-3 py-2.5 border-b border-border/40">
+                                <td className="px-3 py-1.5 border-b border-border text-xs text-muted-foreground hidden md:table-cell">Folder</td>
+                                <td className="px-3 py-1.5 border-b border-border text-xs text-muted-foreground hidden sm:table-cell">—</td>
+                                <td className="px-3 py-1.5 border-b border-border text-xs text-muted-foreground hidden lg:table-cell">—</td>
+                                <td className="px-3 py-1.5 border-b border-border">
                                     <div className="flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
                                         <RowActions {...actions} />
                                     </div>
@@ -1061,33 +1042,31 @@ function ListView({
                                 {...(focused ? { "data-focused-row": "" } : {})}
                                 className={cn(
                                     "group cursor-pointer transition-colors duration-75",
-                                    selected ? "bg-blue-50 dark:bg-blue-950/30" : "hover:bg-muted/40",
-                                    focused && "outline outline-2 outline-blue-400/60 dark:outline-blue-600/60 outline-offset-[-2px]",
+                                    selected ? "bg-primary/[0.12]" : "hover:bg-foreground/[0.03]",
+                                    focused && "outline outline-2 outline-primary/50 outline-offset-[-2px]",
                                 )}
                                 onClick={(e) => { if (!isCheckboxClick(e)) { onFocusRow(rowIdx); onToggleKey(obj.key) } }}
                                 onDoubleClick={() => prevable ? onOpenPreview(obj.key) : onDownload(obj.key)}
                             >
-                                <td className="pl-4 pr-2 py-2.5 border-b border-border/40">
+                                <td className="pl-4 pr-2 py-1.5 border-b border-border">
                                     <div className={cn("transition-opacity duration-100", !hasSelection && !selected ? "opacity-0 group-hover:opacity-100" : "opacity-100")}>
                                         <Checkbox checked={selected} onToggle={() => onToggleKey(obj.key)} />
                                     </div>
                                 </td>
-                                <td className="px-3 py-2.5 border-b border-border/40">
-                                    <div className="flex items-center gap-3">
-                                        <div className={cn("size-8 rounded-lg flex items-center justify-center shrink-0", TYPE_BG_CLASS[type])}>
-                                            <FileIconComp type={type} className="size-[18px]" />
-                                        </div>
-                                        <span className="font-medium truncate">{name}</span>
+                                <td className="px-3 py-1.5 border-b border-border">
+                                    <div className="flex items-center gap-2.5">
+                                        <FileIconComp type={type} className="size-[18px] shrink-0" />
+                                        <span className="truncate">{name}</span>
                                     </div>
                                 </td>
-                                <td className="px-3 py-2.5 border-b border-border/40 text-xs text-muted-foreground hidden md:table-cell">{TYPE_LABEL[type]}</td>
-                                <td className="px-3 py-2.5 border-b border-border/40 text-xs text-muted-foreground hidden sm:table-cell">
+                                <td className="px-3 py-1.5 border-b border-border text-xs text-muted-foreground hidden md:table-cell">{TYPE_LABEL[type]}</td>
+                                <td className="px-3 py-1.5 border-b border-border text-xs text-muted-foreground tabular-nums hidden sm:table-cell">
                                     {obj.size != null ? formatBytes(obj.size) : "—"}
                                 </td>
-                                <td className="px-3 py-2.5 border-b border-border/40 text-xs text-muted-foreground hidden lg:table-cell">
+                                <td className="px-3 py-1.5 border-b border-border text-xs text-muted-foreground tabular-nums hidden lg:table-cell">
                                     {obj.lastModified ? new Date(obj.lastModified).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "—"}
                                 </td>
-                                <td className="px-3 py-2.5 border-b border-border/40">
+                                <td className="px-3 py-1.5 border-b border-border">
                                     <div className="flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
                                         <RowActions {...actions} />
                                     </div>
@@ -1109,7 +1088,7 @@ function GridView({
     onCopyS3Path, onCopyLink, onRenameOpen, onMoveOpen, onShareLinkOpen,
 }: SharedProps) {
     return (
-        <div className="p-5 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3">
+        <div className="p-4 grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-3">
             {filteredPrefixes.map((prefix) => {
                 const name = prefix.replace(currentPrefix, "").replace(/\/$/, "")
                 const selected = selectedKeys.has(prefix)
@@ -1128,33 +1107,33 @@ function GridView({
                     <WithContextMenu key={prefix} {...actions}>
                         <div
                             className={cn(
-                                "group relative flex flex-col rounded-xl border overflow-hidden cursor-pointer select-none transition-all duration-200",
+                                "group relative flex flex-col rounded-xl border bg-card overflow-hidden cursor-default select-none transition-colors duration-150",
                                 selected
-                                    ? "border-blue-400 dark:border-blue-600 ring-2 ring-blue-200 dark:ring-blue-900 shadow-sm"
-                                    : "border-border/60 hover:border-border hover:shadow-lg hover:-translate-y-0.5",
+                                    ? "border-primary/50 ring-2 ring-primary/20"
+                                    : "border-border hover:bg-foreground/[0.03]",
                             )}
                             onClick={(e) => { if (!isCheckboxClick(e)) onNavigateInto(prefix) }}
                         >
                             <div className={cn(
                                 "relative flex items-center justify-center h-28",
-                                selected ? "bg-blue-50 dark:bg-blue-950/30" : "bg-amber-400/10 group-hover:bg-amber-400/15 transition-colors",
+                                selected ? "bg-primary/[0.08]" : "bg-muted/40",
                             )}>
-                                <IconFolder className="size-14 text-amber-500 drop-shadow-sm" />
+                                <IconFolder className="size-14 text-primary/80" />
                                 <div className={cn("absolute top-2 left-2 transition-opacity duration-100", hasSelection || selected ? "opacity-100" : "opacity-0 group-hover:opacity-100")}>
                                     <Checkbox checked={selected} onToggle={() => onToggleKey(prefix)} />
                                 </div>
                                 <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button className="p-1 rounded-md bg-white/70 dark:bg-black/50 backdrop-blur-sm hover:bg-white dark:hover:bg-black/70" onClick={(e) => { e.stopPropagation(); onRenameOpen(prefix, true, name) }}>
+                                    <button className="p-1 rounded-md glass-subtle border border-border hover:bg-card" onClick={(e) => { e.stopPropagation(); onRenameOpen(prefix, true, name) }}>
                                         <IconPencil className="size-3.5 text-muted-foreground" />
                                     </button>
-                                    <button className="p-1 rounded-md bg-white/70 dark:bg-black/50 backdrop-blur-sm hover:bg-white dark:hover:bg-black/70" onClick={(e) => { e.stopPropagation(); onNavigateInto(prefix) }}>
+                                    <button className="p-1 rounded-md glass-subtle border border-border hover:bg-card" onClick={(e) => { e.stopPropagation(); onNavigateInto(prefix) }}>
                                         <IconChevronRight className="size-3.5 text-muted-foreground" />
                                     </button>
                                 </div>
                             </div>
-                            <div className={cn("px-3 py-2.5 border-t", selected ? "bg-blue-50/70 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800" : "bg-background border-border/40")}>
-                                <p className="text-xs font-semibold truncate leading-snug" title={name}>{name}</p>
-                                <p className="text-[10px] text-muted-foreground mt-0.5">Folder</p>
+                            <div className="px-3 py-2 border-t border-border">
+                                <p className="text-[13px] font-medium truncate leading-snug" title={name}>{name}</p>
+                                <p className="text-[11px] text-muted-foreground mt-0.5">Folder</p>
                             </div>
                         </div>
                     </WithContextMenu>
@@ -1183,42 +1162,42 @@ function GridView({
                     <WithContextMenu key={obj.key} {...actions}>
                         <div
                             className={cn(
-                                "group relative flex flex-col rounded-xl border overflow-hidden cursor-pointer select-none transition-all duration-200",
+                                "group relative flex flex-col rounded-xl border bg-card overflow-hidden cursor-default select-none transition-colors duration-150",
                                 selected
-                                    ? "border-blue-400 dark:border-blue-600 ring-2 ring-blue-200 dark:ring-blue-900 shadow-sm"
-                                    : "border-border/60 hover:border-border hover:shadow-lg hover:-translate-y-0.5",
+                                    ? "border-primary/50 ring-2 ring-primary/20"
+                                    : "border-border hover:bg-foreground/[0.03]",
                             )}
                             onClick={(e) => { if (!isCheckboxClick(e)) onToggleKey(obj.key) }}
                             onDoubleClick={() => prevable ? onOpenPreview(obj.key) : onDownload(obj.key)}
                         >
                             <div className={cn(
                                 "relative flex items-center justify-center h-28",
-                                selected ? "bg-blue-50 dark:bg-blue-950/30" : TYPE_BG_CLASS[type],
+                                selected ? "bg-primary/[0.08]" : "bg-muted/40",
                             )}>
-                                <FileIconComp type={type} className="size-14 drop-shadow-sm" />
+                                <FileIconComp type={type} className="size-14" />
                                 <div className={cn("absolute top-2 left-2 transition-opacity duration-100", hasSelection || selected ? "opacity-100" : "opacity-0 group-hover:opacity-100")}>
                                     <Checkbox checked={selected} onToggle={() => onToggleKey(obj.key)} />
                                 </div>
                                 <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button className="p-1 rounded-md bg-white/70 dark:bg-black/50 backdrop-blur-sm hover:bg-white dark:hover:bg-black/70" onClick={(e) => { e.stopPropagation(); onRenameOpen(obj.key, false, name) }}>
+                                    <button className="p-1 rounded-md glass-subtle border border-border hover:bg-card" onClick={(e) => { e.stopPropagation(); onRenameOpen(obj.key, false, name) }}>
                                         <IconPencil className="size-3.5 text-muted-foreground" />
                                     </button>
                                     {prevable && (
-                                        <button className="p-1 rounded-md bg-white/70 dark:bg-black/50 backdrop-blur-sm hover:bg-white dark:hover:bg-black/70" onClick={(e) => { e.stopPropagation(); onOpenPreview(obj.key) }}>
+                                        <button className="p-1 rounded-md glass-subtle border border-border hover:bg-card" onClick={(e) => { e.stopPropagation(); onOpenPreview(obj.key) }}>
                                             <IconEye className="size-3.5 text-muted-foreground" />
                                         </button>
                                     )}
-                                    <button className="p-1 rounded-md bg-white/70 dark:bg-black/50 backdrop-blur-sm hover:bg-white dark:hover:bg-black/70" onClick={(e) => { e.stopPropagation(); onDownload(obj.key) }}>
+                                    <button className="p-1 rounded-md glass-subtle border border-border hover:bg-card" onClick={(e) => { e.stopPropagation(); onDownload(obj.key) }}>
                                         <IconDownload className="size-3.5 text-muted-foreground" />
                                     </button>
-                                    <button className="p-1 rounded-md bg-white/70 dark:bg-black/50 backdrop-blur-sm hover:bg-white dark:hover:bg-black/70" onClick={(e) => { e.stopPropagation(); onDeleteSingle(obj.key) }}>
+                                    <button className="p-1 rounded-md glass-subtle border border-border hover:bg-card" onClick={(e) => { e.stopPropagation(); onDeleteSingle(obj.key) }}>
                                         <IconTrash className="size-3.5 text-destructive/80" />
                                     </button>
                                 </div>
                             </div>
-                            <div className={cn("px-3 py-2.5 border-t", selected ? "bg-blue-50/70 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800" : "bg-background border-border/40")}>
-                                <p className="text-xs font-semibold truncate leading-snug" title={name}>{name}</p>
-                                <p className="text-[10px] text-muted-foreground mt-0.5">
+                            <div className="px-3 py-2 border-t border-border">
+                                <p className="text-[13px] font-medium truncate leading-snug" title={name}>{name}</p>
+                                <p className="text-[11px] text-muted-foreground tabular-nums mt-0.5">
                                     {obj.size != null ? formatBytes(obj.size) : TYPE_LABEL[type]}
                                 </p>
                             </div>

@@ -156,10 +156,10 @@ export function ProjectManagerDialog() {
                                             onChange={(e) => setEditName(e.target.value)}
                                             className="h-7 text-sm flex-1"
                                         />
-                                        <Button onClick={() => saveEditing(project.id)} size="sm" variant="ghost" className="h-7 w-7 p-0 text-green-500 hover:text-green-600">
+                                        <Button onClick={() => saveEditing(project.id)} size="sm" variant="ghost" className="h-7 w-7 p-0 text-success">
                                             <Check className="h-4 w-4" />
                                         </Button>
-                                        <Button onClick={cancelEditing} size="sm" variant="ghost" className="h-7 w-7 p-0 text-red-500 hover:text-red-600">
+                                        <Button onClick={cancelEditing} size="sm" variant="ghost" className="h-7 w-7 p-0 text-destructive">
                                             <X className="h-4 w-4" />
                                         </Button>
                                     </>

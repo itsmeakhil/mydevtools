@@ -98,12 +98,16 @@ export function usePinnedToolsHydrated(): boolean {
 // useSyncExternalStore's snapshot-cache invariant → infinite render loop.
 const EMPTY_PINS: string[] = []
 
+// Bucket used while no workspace is active (backend not loaded yet, or a plain
+// `next dev` browser session with no Tauri backend) so pinning never no-ops.
+const NO_WORKSPACE = 'local'
+
+/** Pin bucket key: the active workspace, else the local fallback. */
+export function usePinWorkspaceId(): string {
+  return useWorkspaceStore((s) => s.activeWorkspaceId) ?? NO_WORKSPACE
+}
+
 export function usePinnedToolsForActiveWorkspace(): string[] {
-  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
-  return usePinnedToolsStore(
-    (s) =>
-      (activeWorkspaceId
-        ? s.pinnedByWorkspace[activeWorkspaceId] ?? EMPTY_PINS
-        : EMPTY_PINS)
-  )
+  const workspaceId = usePinWorkspaceId()
+  return usePinnedToolsStore((s) => s.pinnedByWorkspace[workspaceId] ?? EMPTY_PINS)
 }

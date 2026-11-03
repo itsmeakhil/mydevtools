@@ -105,7 +105,7 @@ les descriptions se trouve dans le [README anglais](../../README.md#-tools).
 
 | Catégorie | Exemples |
 |---|---|
-| 📝 **Formateurs et validateurs** | Formateur JSON, JSON Visualizer, Diff JSON, Générateur de schéma JSON, JSON to Code, Formateur YAML, Convertisseur de formats (JSON / YAML / TOML / XML), Formateur SQL, Formateur GraphQL, Aperçu Markdown, Comparateur de différences, Testeur d’expressions régulières |
+| 📝 **Formateurs et validateurs** | Formateur JSON, JSON Visualizer |
 | 🌐 **Réseau et API** | Client API (collections, environnements, authentification, gRPC, serveur de mock — sans les limites CORS d’un navigateur) |
 | 🗄️ **Clients bases de données et stockage** | SQL Client (PostgreSQL, MySQL, MariaDB), Explorateur de base de données (MongoDB), Redis Commander, S3 Drive (AWS S3, DigitalOcean Spaces) — pilotes Rust natifs, directement de votre machine à votre base de données |
 | 🔐 **Sécurité et chiffrement** | Gestionnaire de mots de passe, Gestionnaire d’environnement |

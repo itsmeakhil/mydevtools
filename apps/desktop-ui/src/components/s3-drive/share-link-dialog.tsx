@@ -66,7 +66,7 @@ export function ShareLinkDialog({
                     </div>
                     {url ? (
                         <div className="space-y-2">
-                            <div className="flex items-center gap-2 p-2.5 bg-muted rounded-lg border">
+                            <div className="flex items-center gap-2 p-2.5 bg-muted/40 rounded-md border border-border">
                                 <span className="text-xs font-mono truncate flex-1 select-all">{url}</span>
                             </div>
                             <div className="flex gap-2">

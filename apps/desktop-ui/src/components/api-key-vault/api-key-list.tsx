@@ -33,20 +33,20 @@ type SortKey = "updated" | "name" | "env"
 const ENV_META: Record<ApiKeyEnv, { label: string; badge: string; dot: string; weight: number }> = {
     development: {
         label: "Dev",
-        badge: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
-        dot: "bg-emerald-500",
+        badge: "bg-success/[0.12] text-success",
+        dot: "bg-success",
         weight: 0,
     },
     staging: {
         label: "Staging",
-        badge: "bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30",
-        dot: "bg-amber-500",
+        badge: "bg-warning/[0.12] text-warning",
+        dot: "bg-warning",
         weight: 1,
     },
     production: {
         label: "Prod",
-        badge: "bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-500/30",
-        dot: "bg-rose-500",
+        badge: "bg-destructive/[0.12] text-destructive",
+        dot: "bg-destructive",
         weight: 2,
     },
 }
@@ -85,7 +85,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
             }}
             aria-label={`Copy ${label.toLowerCase()}`}
         >
-            {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4" />}
+            {copied ? <Check className="h-4 w-4 text-success" /> : <Copy className="h-4 w-4" />}
         </Button>
     )
 }
@@ -208,19 +208,19 @@ export function ApiKeyList() {
             }
         >
         <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-4 pt-4 pb-8">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sticky top-0 z-10 bg-background/95 backdrop-blur py-2">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sticky top-0 z-10 bg-background py-2">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 min-w-0">
                 <div className="relative flex-1 max-w-md">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                     <Input
                         placeholder="Search name, env, or notes…"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="pl-9"
+                        className="pl-8 h-8 text-[13px]"
                     />
                 </div>
                 <Select value={sortBy} onValueChange={(v) => setSortBy(v as SortKey)}>
-                    <SelectTrigger className="w-full sm:w-44" aria-label="Sort by">
+                    <SelectTrigger className="w-full sm:w-44 h-8 text-[13px]" aria-label="Sort by">
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -237,21 +237,19 @@ export function ApiKeyList() {
                 </Select>
               </div>
                 <AddApiKeyDialog>
-                    <Button className="hidden sm:inline-flex shrink-0 shadow-sm hover:shadow-md transition-shadow">
+                    <Button size="sm" className="hidden sm:inline-flex shrink-0 h-8">
                         <Plus className="mr-2 h-4 w-4" /> Add API Key
                     </Button>
                 </AddApiKeyDialog>
             </div>
 
             {!isLoading && filteredSorted.length === 0 && (
-                <div className="flex flex-col items-center justify-center text-center py-20 px-4 text-muted-foreground border border-dashed rounded-xl">
-                    <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-3">
-                        <KeyRound className="h-6 w-6 opacity-70" />
-                    </div>
-                    <p className="font-medium text-foreground">
+                <div className="flex flex-col items-center justify-center text-center py-20 px-4 text-muted-foreground">
+                    <KeyRound className="h-8 w-8 text-muted-foreground/60 mb-3" />
+                    <p className="text-sm font-medium text-foreground">
                         {entries.length === 0 ? "No API keys yet" : "No matches"}
                     </p>
-                    <p className="text-sm mt-1 max-w-sm">
+                    <p className="text-[13px] mt-1 max-w-sm">
                         {entries.length === 0
                             ? "Add your first key — name, value, environment. Encrypted on your device in a local vault."
                             : "Try a different search or environment filter."}
@@ -266,7 +264,7 @@ export function ApiKeyList() {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                 {filteredSorted.map((entry) => {
                     const keyShown = revealed.has(entry.id)
                     const secretShown = revealedSecrets.has(entry.id)
@@ -274,7 +272,7 @@ export function ApiKeyList() {
                     return (
                         <Card
                             key={entry.id}
-                            className="group overflow-hidden border-muted/60 hover:border-primary/40 hover:shadow-md transition-all"
+                            className="group overflow-hidden rounded-xl shadow-elev-1"
                         >
                             <CardContent className="p-4 space-y-3">
                                 <div className="flex items-start justify-between gap-2">
@@ -286,7 +284,7 @@ export function ApiKeyList() {
                                             </h3>
                                         </div>
                                         <div className="flex items-center gap-2 mt-1 text-[11px] text-muted-foreground">
-                                            <span className={cn("inline-flex items-center px-1.5 py-0.5 rounded border uppercase tracking-wide text-[10px] font-medium", env.badge)}>
+                                            <span className={cn("inline-flex items-center px-1.5 py-0.5 rounded-full text-[11px] font-medium", env.badge)}>
                                                 {env.label}
                                             </span>
                                             <span aria-hidden>·</span>
@@ -297,7 +295,7 @@ export function ApiKeyList() {
                                     </div>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button size="icon" variant="ghost" className="h-8 w-8 opacity-60 group-hover:opacity-100">
+                                            <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground">
                                                 <MoreVertical className="h-4 w-4" />
                                                 <span className="sr-only">Actions</span>
                                             </Button>
@@ -326,11 +324,11 @@ export function ApiKeyList() {
                                 </div>
 
                                 <div className="space-y-1.5">
-                                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Key</p>
+                                    <p className="text-[11px] text-muted-foreground font-medium">Key</p>
                                     <div className="flex items-center gap-1">
                                         <code
                                             className={cn(
-                                                "flex-1 text-xs font-mono bg-muted/60 px-2 py-1.5 rounded min-w-0",
+                                                "flex-1 text-xs font-mono bg-muted/40 border border-border px-2 py-1.5 rounded-md min-w-0",
                                                 keyShown ? "break-all select-all" : "truncate"
                                             )}
                                         >
@@ -352,11 +350,11 @@ export function ApiKeyList() {
 
                                 {entry.secret && (
                                     <div className="space-y-1.5">
-                                        <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">Secret</p>
+                                        <p className="text-[11px] text-muted-foreground font-medium">Secret</p>
                                         <div className="flex items-center gap-1">
                                             <code
                                                 className={cn(
-                                                    "flex-1 text-xs font-mono bg-muted/60 px-2 py-1.5 rounded min-w-0",
+                                                    "flex-1 text-xs font-mono bg-muted/40 border border-border px-2 py-1.5 rounded-md min-w-0",
                                                     secretShown ? "break-all select-all" : "truncate"
                                                 )}
                                             >
@@ -378,7 +376,7 @@ export function ApiKeyList() {
                                 )}
 
                                 {entry.notes && (
-                                    <p className="text-xs text-muted-foreground whitespace-pre-wrap break-words border-l-2 border-muted pl-2">
+                                    <p className="text-xs text-muted-foreground whitespace-pre-wrap break-words border-l-2 border-border pl-2">
                                         {entry.notes}
                                     </p>
                                 )}

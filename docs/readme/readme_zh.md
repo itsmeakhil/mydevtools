@@ -102,7 +102,7 @@ SQL / MongoDB / Redis 客户端、笔记、代码片段和凭据保险库 ——
 
 | 分类 | 示例 |
 |---|---|
-| 📝 **格式化与校验** | JSON 格式化器、JSON Visualizer、JSON 对比、JSON 模式生成器、JSON to Code、YAML 格式化工具、格式转换器（JSON / YAML / TOML / XML）、SQL Formatter、GraphQL 格式化、Markdown 预览、Diff checker、Regex Tester |
+| 📝 **格式化与校验** | JSON 格式化器、JSON Visualizer |
 | 🌐 **网络与 API** | API 客户端（集合、环境、鉴权、gRPC、mock 服务器 —— 不受浏览器 CORS 限制） |
 | 🗄️ **数据库与存储客户端** | SQL Client（PostgreSQL、MySQL、MariaDB）、数据库浏览器（MongoDB）、Redis Commander、S3 Drive（AWS S3、DigitalOcean Spaces）—— 原生 Rust 驱动，从你的机器直连数据库 |
 | 🔐 **安全与加密** | 密码管理器、环境管理 |

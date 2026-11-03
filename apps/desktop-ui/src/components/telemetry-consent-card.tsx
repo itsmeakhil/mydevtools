@@ -53,16 +53,14 @@ export function TelemetryConsentCard() {
     >
       <div
         className={cn(
-          'pointer-events-auto flex flex-col gap-3 rounded-xl border border-border/80 bg-popover/95 p-4 shadow-xl backdrop-blur-md',
-          'animate-in slide-in-from-bottom-3 fade-in duration-300'
+          'glass pointer-events-auto flex flex-col gap-3 rounded-2xl p-4',
+          'animate-in slide-in-from-bottom-2 fade-in duration-200'
         )}
       >
         <div className="flex items-start gap-3">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-            <BarChart3 className="h-4 w-4" aria-hidden />
-          </span>
+          <BarChart3 className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />
           <div className="min-w-0 space-y-1">
-            <p className="text-sm font-semibold text-foreground">{t('consent.title')}</p>
+            <p className="text-[13px] font-semibold text-foreground">{t('consent.title')}</p>
             <p className="text-xs leading-relaxed text-muted-foreground">{t('consent.body')}</p>
           </div>
         </div>

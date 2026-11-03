@@ -5,7 +5,7 @@ import { ToolPageHeader } from '@/components/tools/tool-page-header'
 import { cn } from '@/lib/utils'
 
 interface ToolShellProps {
-  /** Accepted for call-site parity with ToolPageHeader; not rendered today. */
+  /** Shown in the header's icon well. */
   icon?: React.ElementType
   title: string
   description: React.ReactNode
@@ -19,8 +19,7 @@ interface ToolShellProps {
 }
 
 /**
- * The standard outer frame for a single-page tool. Paints the shared grid
- * surface, the identity header, an optional toolbar row, then a flex-1 content
+ * The standard outer frame for a single-page tool: the identity header, an optional toolbar row, then a flex-1 content
  * region — the same skeleton json-formatter/regex-tester use, so every tool
  * opens into the same rhythm instead of its own hand-rolled layout.
  *
@@ -40,11 +39,10 @@ export function ToolShell({
   return (
     <div
       className={cn(
-        'relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg',
+        'relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden',
         className,
       )}
     >
-      <div className="dash-ambient -z-10" aria-hidden />
       <ToolPageHeader
         icon={icon}
         title={title}

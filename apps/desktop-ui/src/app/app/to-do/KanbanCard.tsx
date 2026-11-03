@@ -103,10 +103,9 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
         {...attributes}
         {...listeners}
         className={cn(
-          "group relative p-3 rounded-md border border-border/50 bg-card shadow-xs transition-all duration-200",
-          "hover:shadow-sm hover:border-border",
+          "group relative p-3 rounded-lg border border-border bg-card shadow-elev-1 transition-shadow duration-150",
           "cursor-grab active:cursor-grabbing",
-          isDragging && "shadow-2xl scale-105 z-50 rotate-1 opacity-90",
+          isDragging && "shadow-elev-3 z-50 opacity-90",
           task.status === "completed" && "opacity-75 bg-muted/30"
         )}
         role="button"
@@ -243,7 +242,7 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
                 className={cn(
                   "flex items-center gap-1 w-fit rounded-md px-1.5 py-0.5 text-[10px] select-none",
                   task.isTimerRunning
-                    ? "bg-orange-50 dark:bg-orange-950/30 text-orange-600 dark:text-orange-400"
+                    ? "bg-warning/10 text-warning"
                     : "bg-muted/50 text-muted-foreground"
                 )}
                 onClick={(e) => e.stopPropagation()}
@@ -268,7 +267,7 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
                   <TooltipTrigger asChild>
                     <div className={cn(
                       "flex items-center gap-1.5 text-[10px]",
-                      isOverdue && "text-red-500 font-semibold"
+                      isOverdue && "text-destructive font-semibold"
                     )}>
                       <Calendar className="h-3 w-3 flex-shrink-0" />
                       <span>
@@ -333,7 +332,7 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-7 w-7 p-0 hover:bg-red-50 hover:text-red-500"
+                className="h-7 w-7 p-0 hover:bg-destructive/10 hover:text-destructive"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDeleteTask(task.id);
@@ -391,7 +390,7 @@ export default function KanbanCard({ task, onUpdateTask, onDeleteTask }: KanbanC
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={() => onDeleteTask(task.id)}
-                    className="text-red-500 focus:text-red-500 focus:bg-red-50 dark:focus:bg-red-950/20"
+                    className="text-destructive focus:text-destructive focus:bg-destructive/10"
                   >
                     <Trash2 className="h-4 w-4 mr-2" />
                     Delete Task

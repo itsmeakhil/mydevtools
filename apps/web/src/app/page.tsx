@@ -34,6 +34,10 @@ import {
   GitPullRequest,
   FileText,
   Play,
+  Layers,
+  Palette,
+  Moon,
+  Eye,
 } from "lucide-react";
 import { IconBrandGithub as Github } from "@tabler/icons-react";
 import { AppleGlyph, DMG_URL } from "@/components/download-desktop-button";
@@ -152,18 +156,16 @@ const capabilities = [
   {
     title: "Developer Utilities",
     icon: Braces,
-    blurb: "The everyday formatters, decoders and testers — offline.",
+    blurb: "JSON formatting and visualization — offline.",
     tools: [
       ["JSON Formatter", "json-formatter"],
-      ["YAML Formatter", "yaml-formatter"],
-      ["Regex Tester", "regex-tester"],
-      ["Diff Checker", "diff-checker"],
+      ["JSON Visualizer", "json-visualizer"],
     ],
   },
   {
     title: "API",
     icon: Globe,
-    blurb: "REST, GraphQL, WebSocket and gRPC, with a mock server, runner and vault-backed secrets.",
+    blurb: "REST, GraphQL, WebSocket and gRPC, with a mock server, runner, vault-backed secrets and Bruno import.",
     tools: [
       ["API Client", "api-client"],
     ],
@@ -182,10 +184,11 @@ const capabilities = [
   {
     title: "Security",
     icon: ShieldCheck,
-    blurb: "Credentials and secrets, encrypted locally.",
+    blurb: "Credentials, secrets and files up to 5 GB — encrypted on your device.",
     tools: [
       ["Password Manager", "password-manager"],
       ["Environment Manager", "environment-manager"],
+      ["Email Validator", "email-validator"],
     ],
   },
   {
@@ -206,7 +209,7 @@ const capabilities = [
 const workspaceTree = [
   { name: "API Client", detail: "collections · environments · history", href: "/tools/api-client" },
   { name: "Databases", detail: "PostgreSQL · MongoDB · Redis · S3", href: "/tools/sql-client" },
-  { name: "Vault", detail: "passwords · API keys · env files", href: "/tools/password-manager" },
+  { name: "Vault", detail: "passwords · API keys · env files · encrypted files", href: "/tools/password-manager" },
   { name: "Notes", detail: "markdown, local", href: "/tools/notes" },
   { name: "Snippets", detail: "searchable, tagged", href: "/tools/snippet-manager" },
   { name: "Tasks", detail: "what is next", href: "/tools/to-do" },
@@ -271,6 +274,30 @@ const howItWorks = [
     title: "Build",
     description: "Connect APIs and databases when your workflow requires them.",
     icon: Database,
+  },
+] as const;
+
+/** Shipped in 0.1.19 — the Liquid Glass desktop redesign. */
+const nativePoints = [
+  {
+    title: "Liquid Glass",
+    body: "A frosted sidebar and toolbar with native macOS vibrancy. Editors, tables and inputs stay solid and sharp.",
+    icon: Layers,
+  },
+  {
+    title: "Your accent color",
+    body: "Pick a preset or any color from the wheel. Buttons, selection and focus follow it everywhere.",
+    icon: Palette,
+  },
+  {
+    title: "Dark by default",
+    body: "Dark out of the box, with light and system themes one click away.",
+    icon: Moon,
+  },
+  {
+    title: "Reduce transparency",
+    body: "Prefer solid surfaces? One switch in Settings, or follow the macOS accessibility setting.",
+    icon: Eye,
   },
 ] as const;
 
@@ -725,6 +752,41 @@ export default function Page() {
                 </ul>
               </div>
             </motion.div>
+          </Section>
+        </div>
+      </section>
+
+      {/* ── Native design ─────────────────────────────────────────────────────── */}
+      <section id="design" className="relative overflow-hidden py-16 md:py-24 scroll-mt-28">
+        <div className="container mx-auto px-4 md:px-6">
+          <Section>
+            <SectionHeading
+              eyebrow="Feels at home on your Mac"
+              title={
+                <>
+                  Native, <span className="mdt-grad-text">not a web page in a window.</span>
+                </>
+              }
+            >
+              A Liquid Glass design built for macOS: a translucent sidebar that
+              picks up your desktop, floating panes, and solid, readable surfaces
+              wherever you work with code and data.
+            </SectionHeading>
+
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {nativePoints.map((p, i) => (
+                <motion.div
+                  key={p.title}
+                  variants={fadeUp}
+                  transition={{ duration: 0.5, delay: i * 0.06 }}
+                  className="rounded-2xl glass-overlay p-5"
+                >
+                  <p.icon className="mb-3 h-5 w-5 text-indigo-400" aria-hidden />
+                  <h3 className="mb-1.5 text-sm font-semibold">{p.title}</h3>
+                  <p className="text-xs leading-relaxed text-muted-foreground">{p.body}</p>
+                </motion.div>
+              ))}
+            </div>
           </Section>
         </div>
       </section>

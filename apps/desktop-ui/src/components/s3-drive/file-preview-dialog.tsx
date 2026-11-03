@@ -4,9 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { IconDownload, IconLoader2, IconX } from "@tabler/icons-react"
-import { cn } from "@/lib/utils"
 import { FileIconComp } from "./file-icon"
-import { TYPE_BG_CLASS } from "./file-types"
 
 export type PreviewState = {
     key: string
@@ -41,7 +39,7 @@ export function FilePreviewDialog({
             return (
                 <div className="flex items-center justify-center bg-muted/50 min-h-72 max-h-[80vh] overflow-auto p-6">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={preview.url} alt={name} loading="lazy" decoding="async" className="max-w-full max-h-full object-contain rounded-md shadow" />
+                    <img src={preview.url} alt={name} loading="lazy" decoding="async" className="max-w-full max-h-full object-contain rounded-md shadow-elev-2" />
                 </div>
             )
         }
@@ -74,7 +72,7 @@ export function FilePreviewDialog({
         if (preview.fileType === "code" || preview.fileType === "doc") {
             if (preview.textContent !== undefined) {
                 return (
-                    <div className="flex-1 overflow-auto bg-muted/30 p-4" style={{ maxHeight: "72vh" }}>
+                    <div className="flex-1 overflow-auto bg-muted/40 p-4" style={{ maxHeight: "72vh" }}>
                         <pre className="text-xs font-mono leading-relaxed whitespace-pre-wrap break-words text-foreground">
                             {preview.textContent}
                         </pre>
@@ -92,12 +90,10 @@ export function FilePreviewDialog({
         <TooltipProvider delayDuration={300}>
         <Dialog open onOpenChange={(o) => !o && onClose()}>
             <DialogContent className="max-w-5xl w-full p-0 overflow-hidden gap-0 flex flex-col">
-                <DialogHeader className="flex flex-row items-center justify-between px-5 py-3 border-b shrink-0 bg-muted/20">
+                <DialogHeader className="flex flex-row items-center justify-between space-y-0 h-12 px-4 border-b border-border shrink-0">
                     <div className="flex items-center gap-2.5 min-w-0">
-                        <div className={cn("size-7 rounded-lg flex items-center justify-center shrink-0", TYPE_BG_CLASS[preview.fileType] ?? "bg-muted")}>
-                            <FileIconComp type={preview.fileType} className="size-4" />
-                        </div>
-                        <DialogTitle className="text-sm font-medium truncate max-w-lg">{name}</DialogTitle>
+                        <FileIconComp type={preview.fileType} className="size-4 shrink-0" />
+                        <DialogTitle className="text-[13px] font-semibold truncate max-w-lg">{name}</DialogTitle>
                     </div>
                     <div className="flex items-center gap-1 shrink-0 ml-4">
                         <Tooltip>
