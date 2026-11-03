@@ -69,6 +69,7 @@ pub struct Session {
     pub project_name: String,
     cwd: String,
     cwd_fallback: bool,
+    pid: Option<u32>,
     inner: Mutex<Inner>,
     writer: Mutex<Box<dyn Write + Send>>,
     master: Mutex<Option<Box<dyn MasterPty + Send>>>,
@@ -85,7 +86,7 @@ impl Session {
         self.inner.lock().unwrap().scrollback.snapshot()
     }
 
-    #[allow(dead_code)] // used by live_count (Task 6)
+    #[allow(dead_code)] // Task 6
     fn exited(&self) -> bool {
         self.inner.lock().unwrap().exit.is_some()
     }
@@ -116,9 +117,32 @@ impl Session {
         }
     }
 
+    /// Kill the whole process group (portable-pty setsid's the child, so pgid == pid),
+    /// drop the master, and report exit now rather than waiting for reader EOF
+    /// (background children may hold the slave open).
     fn kill(&self) {
+        #[cfg(unix)]
+        if let Some(pid) = self.pid {
+            unsafe {
+                libc::killpg(pid as i32, libc::SIGHUP);
+                libc::killpg(pid as i32, libc::SIGKILL);
+            }
+        }
         let _ = self.killer.lock().unwrap().kill();
         self.master.lock().unwrap().take();
+        self.mark_exit(None);
+    }
+
+    /// First exit wins; notifies the attached channel once.
+    fn mark_exit(&self, code: Option<i32>) {
+        let mut g = self.inner.lock().unwrap();
+        if g.exit.is_some() {
+            return;
+        }
+        g.exit = Some(code);
+        if let Some(ch) = &g.channel {
+            let _ = ch.send(json!({"type": "exit", "code": code}));
+        }
     }
 }
 
@@ -168,6 +192,7 @@ impl TerminalState {
             project_name: req.project_name,
             cwd: cwd.clone(),
             cwd_fallback,
+            pid: child.process_id(),
             inner: Mutex::new(Inner { scrollback: Scrollback::new(SCROLLBACK_CAP), channel: None, exit: None }),
             writer: Mutex::new(writer),
             master: Mutex::new(Some(pair.master)),
@@ -190,11 +215,7 @@ impl TerminalState {
                 }
             }
             let code = child.wait().ok().map(|st| st.exit_code() as i32);
-            let mut g = s.inner.lock().unwrap();
-            g.exit = Some(code);
-            if let Some(ch) = &g.channel {
-                let _ = ch.send(json!({"type": "exit", "code": code}));
-            }
+            s.mark_exit(code);
         });
 
         self.sessions.insert(req.id.clone(), session);
@@ -222,7 +243,7 @@ fn default_launch() -> Vec<String> {
 }
 
 #[tauri::command]
-pub fn terminal_spawn(
+pub async fn terminal_spawn(
     state: tauri::State<'_, Arc<TerminalState>>,
     req: SpawnRequest,
 ) -> Result<SpawnResult, String> {
@@ -230,7 +251,7 @@ pub fn terminal_spawn(
 }
 
 #[tauri::command]
-pub fn terminal_attach(
+pub async fn terminal_attach(
     state: tauri::State<'_, Arc<TerminalState>>,
     id: String,
     channel: Channel<Value>,
@@ -239,18 +260,18 @@ pub fn terminal_attach(
 }
 
 #[tauri::command]
-pub fn terminal_write(state: tauri::State<'_, Arc<TerminalState>>, id: String, b64: String) -> Result<(), String> {
+pub async fn terminal_write(state: tauri::State<'_, Arc<TerminalState>>, id: String, b64: String) -> Result<(), String> {
     let bytes = base64::engine::general_purpose::STANDARD.decode(b64).map_err(|e| e.to_string())?;
     state.get(&id)?.write(&bytes)
 }
 
 #[tauri::command]
-pub fn terminal_resize(state: tauri::State<'_, Arc<TerminalState>>, id: String, cols: u16, rows: u16) -> Result<(), String> {
+pub async fn terminal_resize(state: tauri::State<'_, Arc<TerminalState>>, id: String, cols: u16, rows: u16) -> Result<(), String> {
     state.get(&id)?.resize(cols, rows)
 }
 
 #[tauri::command]
-pub fn terminal_kill(state: tauri::State<'_, Arc<TerminalState>>, id: String) -> Result<(), String> {
+pub async fn terminal_kill(state: tauri::State<'_, Arc<TerminalState>>, id: String) -> Result<(), String> {
     if let Some((_, s)) = state.sessions.remove(&id) {
         s.kill();
     }
@@ -314,5 +335,21 @@ mod tests {
         assert_eq!(st.live_count(), 1);
         st.kill_all();
         assert!(wait_for(|| st.live_count() == 0, 1));
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn kill_takes_down_background_children() {
+        let st = TerminalState::default();
+        st.spawn(req("d", "/tmp"), vec![], sh("sleep 30 & echo pid=$!; wait")).unwrap();
+        let s = st.get("d").unwrap();
+        let text = || String::from_utf8_lossy(&s.snapshot()).to_string();
+        assert!(wait_for(|| text().contains("pid=") && text().contains('\n'), 2));
+        let t = text();
+        let pid: i32 = t.split("pid=").nth(1).unwrap().trim().lines().next().unwrap().trim().parse().unwrap();
+        assert_eq!(unsafe { libc::kill(pid, 0) }, 0);
+        st.kill_all();
+        assert!(s.exited());
+        assert!(wait_for(|| unsafe { libc::kill(pid, 0) } != 0, 1));
     }
 }

@@ -3116,6 +3116,7 @@ dependencies = [
  "h2",
  "http",
  "keyring",
+ "libc",
  "mongodb",
  "mydt",
  "mysql_async",
