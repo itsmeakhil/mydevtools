@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminal is actief} other {# terminals zijn actief}}",
     "quitBody": "Bij afsluiten worden alle actieve terminals beëindigd.",
     "quitConfirm": "Afsluiten",
+    "quitSaveFailed": "Je terminalindeling kon niet worden opgeslagen, dus MyDevTools blijft open. Druk twee keer op ⌘Q om toch af te sluiten.",
     "cancel": "Annuleren",
     "removeProject": "Project verwijderen",
     "removeProjectBody": "{name} wordt uit de lijst verwijderd en de bijbehorende terminals worden gesloten. Bestanden op schijf blijven ongemoeid.",

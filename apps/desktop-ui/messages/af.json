@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminaal loop} other {# terminale loop}}",
     "quitBody": "As jy uitgaan, eindig elke terminaal wat loop.",
     "quitConfirm": "Gaan uit",
+    "quitSaveFailed": "Kon nie jou terminaaluitleg stoor nie, dus het MyDevTools oop gebly. Druk ⌘Q twee keer om tog af te sluit.",
     "cancel": "Kanselleer",
     "removeProject": "Verwyder projek",
     "removeProjectBody": "{name} sal van die lys verwyder word en sy terminale sal toegemaak word. Lêers op die skyf word nie aangeraak nie.",

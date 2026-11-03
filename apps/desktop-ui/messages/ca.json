@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminal s'està executant} other {# terminals s'estan executant}}",
     "quitBody": "Sortir finalitza tots els terminals en execució.",
     "quitConfirm": "Surt",
+    "quitSaveFailed": "No s'ha pogut desar la disposició dels terminals, així que MyDevTools continua obert. Prem ⌘Q dues vegades per sortir igualment.",
     "cancel": "Cancel·la",
     "removeProject": "Elimina el projecte",
     "removeProjectBody": "{name} s'eliminarà de la llista i se'n tancaran els terminals. Els fitxers al disc no es toquen.",

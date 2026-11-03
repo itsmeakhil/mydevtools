@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, other {# terminal sedang berjalan}}",
     "quitBody": "Keluar akan menamatkan setiap terminal yang sedang berjalan.",
     "quitConfirm": "Keluar",
+    "quitSaveFailed": "Susun atur terminal anda tidak dapat disimpan, jadi MyDevTools kekal dibuka. Tekan ⌘Q dua kali untuk keluar juga.",
     "cancel": "Batal",
     "removeProject": "Alih keluar projek",
     "removeProjectBody": "{name} akan dialih keluar daripada senarai dan terminalnya ditutup. Fail pada cakera tidak disentuh.",

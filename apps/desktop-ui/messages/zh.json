@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, other {有 # 个终端正在运行}}",
     "quitBody": "退出将结束所有正在运行的终端。",
     "quitConfirm": "退出",
+    "quitSaveFailed": "无法保存终端布局，因此 MyDevTools 保持打开。按两次 ⌘Q 仍可退出。",
     "cancel": "取消",
     "removeProject": "移除项目",
     "removeProjectBody": "{name} 将从列表中移除，其终端将被关闭。磁盘上的文件不受影响。",

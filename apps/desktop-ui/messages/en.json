@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminal is running} other {# terminals are running}}",
     "quitBody": "Quitting ends every running terminal.",
     "quitConfirm": "Quit",
+    "quitSaveFailed": "Couldn't save your terminal layout, so MyDevTools stayed open. Press ⌘Q twice to quit anyway.",
     "cancel": "Cancel",
     "removeProject": "Remove project",
     "removeProjectBody": "{name} will be removed from the list and its terminals closed. Files on disk are not touched.",

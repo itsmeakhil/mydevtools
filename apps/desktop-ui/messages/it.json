@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminale è in esecuzione} many {# di terminali sono in esecuzione} other {# terminali sono in esecuzione}}",
     "quitBody": "Uscendo, tutti i terminali in esecuzione verranno terminati.",
     "quitConfirm": "Esci",
+    "quitSaveFailed": "Impossibile salvare il layout dei terminali, quindi MyDevTools è rimasto aperto. Premi ⌘Q due volte per uscire comunque.",
     "cancel": "Annulla",
     "removeProject": "Rimuovi progetto",
     "removeProjectBody": "{name} verrà rimosso dall'elenco e i suoi terminali verranno chiusi. I file sul disco non vengono toccati.",

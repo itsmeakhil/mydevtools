@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, other {実行中のターミナルが # 件あります}}",
     "quitBody": "終了すると、実行中のすべてのターミナルが終了します。",
     "quitConfirm": "終了",
+    "quitSaveFailed": "ターミナルのレイアウトを保存できなかったため、MyDevTools は開いたままです。それでも終了するには ⌘Q を 2 回押してください。",
     "cancel": "キャンセル",
     "removeProject": "プロジェクトを削除",
     "removeProjectBody": "{name} を一覧から削除し、そのターミナルを閉じます。ディスク上のファイルには影響しません。",

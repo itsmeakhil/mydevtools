@@ -107,11 +107,22 @@ describe("finishQuit", () => {
     expect(mockCancelled).not.toHaveBeenCalled()
   })
 
-  it("confirm keeps the app open when the save settled but failed (still dirty)", async () => {
-    useTerminalStore.setState({ dirty: true, flushNow: () => Promise.resolve() })
-    await finishQuit(true)
+  it("confirm keeps the app open and always says why when the save settled but failed", async () => {
+    useTerminalStore.setState({ loaded: true, dirty: true, flushNow: () => Promise.resolve() })
+    // Repeat failure: the store already toasted once and stays silent now.
+    await finishQuit(true, "save failed")
+    await finishQuit(true, "save failed")
     expect(mockConfirmed).not.toHaveBeenCalled()
-    expect(mockCancelled).toHaveBeenCalledTimes(1)
+    expect(mockCancelled).toHaveBeenCalledTimes(2)
+    expect(toast.error).toHaveBeenCalledTimes(2)
+    expect(toast.error).toHaveBeenCalledWith("save failed")
+  })
+
+  it("confirm quits when the store never loaded (nothing can be saved)", async () => {
+    useTerminalStore.setState({ loaded: false, dirty: true, flushNow: () => Promise.resolve() })
+    await finishQuit(true, "save failed")
+    expect(mockConfirmed).toHaveBeenCalledTimes(1)
+    expect(mockCancelled).not.toHaveBeenCalled()
   })
 
   it("cancel tells Rust; failures become a toast", async () => {

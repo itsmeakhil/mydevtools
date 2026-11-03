@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {Běží # terminál} few {Běží # terminály} many {Běží # terminálu} other {Běží # terminálů}}",
     "quitBody": "Ukončením se ukončí všechny běžící terminály.",
     "quitConfirm": "Ukončit",
+    "quitSaveFailed": "Rozložení terminálů se nepodařilo uložit, proto MyDevTools zůstal otevřený. Pro ukončení i tak stiskněte dvakrát ⌘Q.",
     "cancel": "Zrušit",
     "removeProject": "Odebrat projekt",
     "removeProjectBody": "Projekt {name} bude odebrán ze seznamu a jeho terminály budou zavřeny. Soubory na disku zůstanou nedotčeny.",

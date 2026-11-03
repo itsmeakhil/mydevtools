@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminal kjører} other {# terminaler kjører}}",
     "quitBody": "Hvis du avslutter, avsluttes alle terminaler som kjører.",
     "quitConfirm": "Avslutt",
+    "quitSaveFailed": "Kunne ikke lagre terminaloppsettet, så MyDevTools forble åpen. Trykk ⌘Q to ganger for å avslutte likevel.",
     "cancel": "Avbryt",
     "removeProject": "Fjern prosjekt",
     "removeProjectBody": "{name} fjernes fra listen, og terminalene lukkes. Filer på disken berøres ikke.",

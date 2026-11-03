@@ -62,19 +62,25 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
 
 /**
  * Confirm: give the pending save up to 1.5 s, then quit. If the save finished
- * but failed (still dirty), stay open so the edit isn't lost — the store's
- * save-failure toast is showing; a second ⌘Q force-quits in Rust. A hung save
- * doesn't block quitting past the bound. Cancel: clear Rust's pending flag.
+ * but failed (still dirty), stay open so the edit isn't lost and toast
+ * `saveFailedMsg` every time (the store only toasts the first failure); a
+ * second ⌘Q force-quits in Rust. A hung save doesn't block quitting past the
+ * bound, and a never-loaded store has nothing to save. Cancel: clear Rust's
+ * pending flag.
  */
-export async function finishQuit(ok: boolean) {
+export async function finishQuit(ok: boolean, saveFailedMsg = "") {
   try {
     if (ok) {
       const settled = await Promise.race([
         S().flushNow().then(() => true),
         new Promise<false>((r) => setTimeout(r, QUIT_FLUSH_MAX_MS, false)),
       ])
-      if (settled && S().dirty) await appQuitCancelled()
-      else await appQuitConfirmed()
+      if (settled && S().loaded && S().dirty) {
+        toast.error(saveFailedMsg)
+        await appQuitCancelled()
+      } else {
+        await appQuitConfirmed()
+      }
     } else {
       await appQuitCancelled()
     }
@@ -109,7 +115,7 @@ export function useTerminalStatusListener() {
           confirmLabel: t("quitConfirm"),
           cancelLabel: t("cancel"),
           destructive: true,
-        }).then(finishQuit),
+        }).then((ok) => finishQuit(ok, t("quitSaveFailed"))),
     )
   }, [router, confirm, t])
 

@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, other {# terminal đang chạy}}",
     "quitBody": "Thoát sẽ kết thúc mọi terminal đang chạy.",
     "quitConfirm": "Thoát",
+    "quitSaveFailed": "Không thể lưu bố cục terminal nên MyDevTools vẫn mở. Nhấn ⌘Q hai lần để thoát dù sao.",
     "cancel": "Hủy",
     "removeProject": "Xóa dự án",
     "removeProjectBody": "{name} sẽ bị xóa khỏi danh sách và các terminal của nó sẽ đóng. Tệp trên đĩa không bị ảnh hưởng.",

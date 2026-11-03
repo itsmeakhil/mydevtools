@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminal çalışıyor} other {# terminal çalışıyor}}",
     "quitBody": "Çıkmak, çalışan tüm terminalleri sonlandırır.",
     "quitConfirm": "Çık",
+    "quitSaveFailed": "Terminal düzeniniz kaydedilemedi, bu yüzden MyDevTools açık kaldı. Yine de çıkmak için ⌘Q tuşuna iki kez basın.",
     "cancel": "İptal",
     "removeProject": "Projeyi kaldır",
     "removeProjectBody": "{name} listeden kaldırılacak ve terminalleri kapatılacak. Diskteki dosyalara dokunulmaz.",

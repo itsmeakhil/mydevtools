@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {Działa # terminal} few {Działają # terminale} many {Działa # terminali} other {Działa # terminala}}",
     "quitBody": "Zamknięcie zakończy wszystkie działające terminale.",
     "quitConfirm": "Zakończ",
+    "quitSaveFailed": "Nie udało się zapisać układu terminali, więc MyDevTools pozostał otwarty. Naciśnij dwukrotnie ⌘Q, aby mimo to zakończyć.",
     "cancel": "Anuluj",
     "removeProject": "Usuń projekt",
     "removeProjectBody": "Projekt {name} zostanie usunięty z listy, a jego terminale zostaną zamknięte. Pliki na dysku pozostaną nietknięte.",

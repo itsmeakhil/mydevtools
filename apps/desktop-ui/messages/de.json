@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# Terminal läuft} other {# Terminals laufen}}",
     "quitBody": "Beim Beenden werden alle laufenden Terminals beendet.",
     "quitConfirm": "Beenden",
+    "quitSaveFailed": "Dein Terminal-Layout konnte nicht gespeichert werden, daher bleibt MyDevTools geöffnet. Drücke zweimal ⌘Q, um trotzdem zu beenden.",
     "cancel": "Abbrechen",
     "removeProject": "Projekt entfernen",
     "removeProjectBody": "{name} wird aus der Liste entfernt und seine Terminals werden geschlossen. Dateien auf dem Datenträger bleiben unberührt.",

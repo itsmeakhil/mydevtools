@@ -2680,6 +2680,7 @@
     "quitTitle": "{count, plural, one {# terminal kører} other {# terminaler kører}}",
     "quitBody": "Hvis du afslutter, lukkes alle kørende terminaler.",
     "quitConfirm": "Afslut",
+    "quitSaveFailed": "Dit terminallayout kunne ikke gemmes, så MyDevTools forblev åben. Tryk ⌘Q to gange for at afslutte alligevel.",
     "cancel": "Annuller",
     "removeProject": "Fjern projekt",
     "removeProjectBody": "{name} fjernes fra listen, og dets terminaler lukkes. Filer på disken berøres ikke.",
