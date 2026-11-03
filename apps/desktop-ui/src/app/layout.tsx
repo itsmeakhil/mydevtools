@@ -126,7 +126,7 @@ export default async function RootLayout({
       <body suppressHydrationWarning className="min-h-screen bg-background font-sans text-foreground antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
