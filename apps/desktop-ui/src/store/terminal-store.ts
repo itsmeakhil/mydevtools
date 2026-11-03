@@ -18,6 +18,8 @@ interface TerminalState extends TerminalPersisted {
   dirty: boolean
   loaded: boolean
   load: () => Promise<void>
+  /** Save a pending debounced change now; resolves once no save is in flight. */
+  flushNow: () => Promise<void>
   addProject: (path: string, firstTabName?: string) => void
   removeProject: (id: string) => void
   toggleCollapsed: (id: string) => void
@@ -142,6 +144,12 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       if (get().loaded) return Promise.resolve()
       loading ??= doLoad().finally(() => (loading = null))
       return loading
+    },
+
+    flushNow: async () => {
+      clearTimeout(timer)
+      if (get().dirty) flush()
+      while (inflight) await inflight
     },
 
     addProject: (path, firstTabName) => {

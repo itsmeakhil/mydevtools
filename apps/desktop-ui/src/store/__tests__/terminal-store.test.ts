@@ -190,6 +190,28 @@ describe("terminal store", () => {
     expect(S().projects).toHaveLength(1)
   })
 
+  it("flushNow saves a pending debounced change at once and resolves when it lands", async () => {
+    S().addProject("/x/a")
+    let land!: () => void
+    mockSave.mockImplementationOnce(() => new Promise<void>((r) => (land = r)))
+    const done = jest.fn()
+    void S().flushNow().then(done)
+    expect(mockSave).toHaveBeenCalledTimes(1)
+    await jest.advanceTimersByTimeAsync(0)
+    expect(done).not.toHaveBeenCalled()
+    land()
+    await jest.advanceTimersByTimeAsync(0)
+    expect(done).toHaveBeenCalled()
+    expect(S().dirty).toBe(false)
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave).toHaveBeenCalledTimes(1)
+  })
+
+  it("flushNow is a no-op when nothing is dirty", async () => {
+    await S().flushNow()
+    expect(mockSave).not.toHaveBeenCalled()
+  })
+
   it("newTab and addProject use a provided name", () => {
     S().addProject("/x/a", "Terminal 1")
     S().newTab(S().projects[0].id, "Onglet 2")

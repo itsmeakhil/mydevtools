@@ -32,6 +32,8 @@ import { useAppUser } from '@/hooks/use-app-user'
 import { usePinnedToolsForActiveWorkspace, usePinnedToolsStore, usePinWorkspaceId } from '@/store/pinned-tools-store'
 import { normalizePinnedToolPath } from '@/lib/pinned-tools-path'
 import { useActiveWorkspace } from '@/store/workspace-store'
+import { useTerminalStore } from '@/store/terminal-store'
+import { totalWaiting } from '@/lib/terminal/status'
 import { buildCategoryGroups, buildPinnedNavItems } from '@/components/sidebar/app-sidebar.helpers'
 import type { NavLink } from '@/components/sidebar/types'
 import { getToolMessageKey } from '@/lib/tool-i18n'
@@ -73,6 +75,8 @@ const SidebarRow = React.memo(function SidebarRow({
   pinned,
   pinLabel,
   onTogglePin,
+  badge = 0,
+  badgeLabel,
 }: {
   label: string
   icon?: React.ElementType
@@ -81,16 +85,21 @@ const SidebarRow = React.memo(function SidebarRow({
   pinned?: boolean
   pinLabel?: string
   onTogglePin?: () => void
+  /** Attention count (e.g. terminals waiting); hidden at 0. */
+  badge?: number
+  /** Spoken form of the badge, e.g. "Needs you · 2". */
+  badgeLabel?: string
 }) {
   const rail = React.useContext(RailContext)
   if (rail) onTogglePin = undefined
+  const showBadge = badge > 0
   return (
     <div className="group/row relative">
       <button
         type="button"
         onClick={onClick}
         aria-current={active ? 'page' : undefined}
-        aria-label={rail ? label : undefined}
+        aria-label={rail ? (showBadge && badgeLabel ? `${label}, ${badgeLabel}` : label) : undefined}
         title={rail ? label : undefined}
         className={cn(
           'group flex h-8 w-full items-center gap-2.5 rounded-lg text-left text-[13px] font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
@@ -102,16 +111,35 @@ const SidebarRow = React.memo(function SidebarRow({
         )}
       >
         {Icon ? (
-          <Icon
-            className={cn(
-              'h-[17px] w-[17px] shrink-0 transition-colors',
-              active ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground/80',
-            )}
-            stroke={1.7}
-            aria-hidden
-          />
+          <span className="relative flex shrink-0">
+            <Icon
+              className={cn(
+                'h-[17px] w-[17px] shrink-0 transition-colors',
+                active ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground/80',
+              )}
+              stroke={1.7}
+              aria-hidden
+            />
+            {rail && showBadge ? (
+              <span
+                data-sidebar-badge="dot"
+                aria-hidden
+                className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-destructive"
+              />
+            ) : null}
+          </span>
         ) : null}
         {rail ? null : <span className="min-w-0 flex-1 truncate">{label}</span>}
+        {!rail && showBadge ? (
+          <>
+            <span
+              data-sidebar-badge="count"
+              aria-hidden
+              className="flex h-[18px] min-w-[18px] shrink-0 items-center justify-center rounded-full bg-destructive px-1.5 text-[11px] font-semibold tabular-nums text-destructive-foreground"
+            >{badge}</span>
+            {badgeLabel ? <span className="sr-only">{badgeLabel}</span> : null}
+          </>
+        ) : null}
       </button>
       {onTogglePin ? (
         <button
@@ -249,6 +277,9 @@ export function AppSidebar() {
   const collapsed = useSidebarState((s) => s.collapsed)
   const { trafficLightInset } = useMacChrome()
   const tSide = useTranslations('ToolSidebar')
+  const tTerm = useTranslations('Terminal')
+  // Select only the number so status churn re-renders the sidebar just when the count changes.
+  const terminalWaiting = useTerminalStore((s) => totalWaiting(s.projects, s.statuses))
   const pinnedUrls = usePinnedToolsForActiveWorkspace()
   const activeWorkspace = useActiveWorkspace()
   const togglePin = usePinnedToolsStore((s) => s.togglePin)
@@ -270,6 +301,7 @@ export function AppSidebar() {
     const url = String(tool.url)
     const name = label(tool)
     const on = isPinned(url)
+    const badge = url === '/app/terminal' ? terminalWaiting : 0
     return (
       <SidebarRow
         key={url}
@@ -280,6 +312,8 @@ export function AppSidebar() {
         pinned={on}
         pinLabel={tSide(on ? 'unpin' : 'pin', { tool: name })}
         onTogglePin={() => togglePin(pinWorkspaceId, url)}
+        badge={badge}
+        badgeLabel={badge > 0 ? tTerm('needsYou', { count: badge }) : undefined}
       />
     )
   }

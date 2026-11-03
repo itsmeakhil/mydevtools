@@ -15,6 +15,7 @@ import { useWorkspaceStore } from '@/store/workspace-store';
 import { initWorkspaceScopeReset } from '@/lib/workspace-scope-reset';
 import { useToolUsage } from '@/hooks/use-tool-usage';
 import { findItemByUrl } from '@/components/dashboard/types';
+import { useTerminalStatusListener } from '@/components/terminal/use-terminal-status-listener';
 
 // Reset workspace-scoped stores whenever the active workspace changes
 // (module-level, mirrors workspace-store's own subscribeOnce pattern).
@@ -77,6 +78,13 @@ function ToolUsageTracker() {
   return null;
 }
 
+// App-wide terminal attention (status → sidebar badge, notification focus,
+// ⌘Q confirm). Lives in the shell so it works while the Terminal tab is closed;
+// the hook no-ops outside the desktop app.
+function TerminalAttention() {
+  return useTerminalStatusListener();
+}
+
 function Layout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { tabs } = useTabStore();
@@ -95,6 +103,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div className="app-backdrop" aria-hidden />
       <TabSyncer />
       <ToolUsageTracker />
+      <TerminalAttention />
       <AppSidebar />
       {/* Content column — toolbar capsules float over the backdrop; the tool
           lives in a frosted content pane. */}
