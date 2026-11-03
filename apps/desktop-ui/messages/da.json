@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Kodestykker",
-    "secureFiles": "Filer"
+    "secureFiles": "Filer",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Hjælp og dokumentation",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Filer",
         "description": "Krypter filer og mapper til maskerede .mydt-objekter; gennemse og forhåndsvis dem efter oplåsning."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminaler pr. projekt med faner, delte ruder og en «Har brug for dig»-liste til Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Reducer gennemsigtighed",
     "reduceTransparencyHint": "Erstat glas med faste flader.",
     "goToDashboard": "Gå til oversigten"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminalen er tilgængelig i desktop-appen.",
+    "needsYou": "Har brug for dig · {count}",
+    "projects": "Projekter",
+    "addProject": "Tilføj projekt",
+    "noProjects": "Tilføj en projektmappe for at åbne terminaler i den.",
+    "newTab": "Ny fane",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Omdøb fane",
+    "closeTab": "Luk fane",
+    "noTabs": "Ingen terminaler er åbne i dette projekt.",
+    "statusWaiting": "Venter på input",
+    "statusRunning": "Kører",
+    "statusIdle": "Inaktiv",
+    "changedFiles": "{count, plural, one {# ændret} other {# ændrede}}",
+    "folderMissing": "Mappen blev ikke fundet: {path}. Din hjemmemappe blev åbnet i stedet.",
+    "processExited": "Processen er afsluttet",
+    "waitingBody": "Claude venter på dig",
+    "quitTitle": "{count, plural, one {# terminal kører} other {# terminaler kører}}",
+    "quitBody": "Hvis du afslutter, lukkes alle kørende terminaler.",
+    "quitConfirm": "Afslut",
+    "cancel": "Annuller",
+    "removeProject": "Fjern projekt",
+    "removeProjectBody": "{name} fjernes fra listen, og dets terminaler lukkes. Filer på disken berøres ikke.",
+    "splitRight": "Del til højre",
+    "splitDown": "Del nedad",
+    "closePane": "Luk rude"
   }
 }

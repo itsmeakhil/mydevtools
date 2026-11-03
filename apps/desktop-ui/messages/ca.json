@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Fragments de codi",
-    "secureFiles": "Fitxers"
+    "secureFiles": "Fitxers",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Fitxers",
         "description": "Xifra fitxers i carpetes en objectes .mydt emmascarats; navega-hi i previsualitza'ls després de desbloquejar."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminals per projecte amb pestanyes, panells dividits i una llista «Et necessiten» per a Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Redueix la transparència",
     "reduceTransparencyHint": "Substitueix el vidre per superfícies sòlides.",
     "goToDashboard": "Ves al tauler"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "El terminal està disponible a l'aplicació d'escriptori.",
+    "needsYou": "Et necessiten · {count}",
+    "projects": "Projectes",
+    "addProject": "Afegeix un projecte",
+    "noProjects": "Afegeix una carpeta de projecte per obrir-hi terminals.",
+    "newTab": "Pestanya nova",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Canvia el nom de la pestanya",
+    "closeTab": "Tanca la pestanya",
+    "noTabs": "No hi ha cap terminal obert en aquest projecte.",
+    "statusWaiting": "Espera una resposta",
+    "statusRunning": "En execució",
+    "statusIdle": "Inactiu",
+    "changedFiles": "{count, plural, one {# canviat} other {# canviats}}",
+    "folderMissing": "No s'ha trobat la carpeta: {path}. S'ha obert la teva carpeta d'inici.",
+    "processExited": "El procés ha finalitzat",
+    "waitingBody": "Claude t'està esperant",
+    "quitTitle": "{count, plural, one {# terminal s'està executant} other {# terminals s'estan executant}}",
+    "quitBody": "Sortir finalitza tots els terminals en execució.",
+    "quitConfirm": "Surt",
+    "cancel": "Cancel·la",
+    "removeProject": "Elimina el projecte",
+    "removeProjectBody": "{name} s'eliminarà de la llista i se'n tancaran els terminals. Els fitxers al disc no es toquen.",
+    "splitRight": "Divideix a la dreta",
+    "splitDown": "Divideix cap avall",
+    "closePane": "Tanca el panell"
   }
 }

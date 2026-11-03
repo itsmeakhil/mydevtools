@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "مقاطع الشيفرة",
-    "secureFiles": "الملفات"
+    "secureFiles": "الملفات",
+    "terminal": "الطرفية"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "الملفات",
         "description": "شفّر الملفات والمجلدات إلى كائنات ‎.mydt‎ مُقنَّعة الأسماء؛ تصفّحها وعاينها بعد فتح القفل."
+      },
+      "terminal": {
+        "title": "الطرفية",
+        "description": "طرفيات لكل مشروع مع علامات تبويب وألواح مقسّمة وقائمة «بحاجة إليك» لـ Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "تقليل الشفافية",
     "reduceTransparencyHint": "استبدال الزجاج بأسطح صلبة.",
     "goToDashboard": "الانتقال إلى لوحة التحكم"
+  },
+  "Terminal": {
+    "title": "الطرفية",
+    "desktopOnly": "الطرفية متاحة في تطبيق سطح المكتب.",
+    "needsYou": "بحاجة إليك · {count}",
+    "projects": "المشاريع",
+    "addProject": "إضافة مشروع",
+    "noProjects": "أضف مجلد مشروع لفتح الطرفيات داخله.",
+    "newTab": "علامة تبويب جديدة",
+    "untitledTab": "الطرفية {n}",
+    "renameTab": "إعادة تسمية علامة التبويب",
+    "closeTab": "إغلاق علامة التبويب",
+    "noTabs": "لا توجد طرفيات مفتوحة في هذا المشروع.",
+    "statusWaiting": "بانتظار الإدخال",
+    "statusRunning": "قيد التشغيل",
+    "statusIdle": "خامل",
+    "changedFiles": "{count, plural, zero {لا تغييرات} one {تغيير واحد} two {تغييران} few {# تغييرات} many {# تغييرًا} other {# تغيير}}",
+    "folderMissing": "المجلد غير موجود: {path}. تم فتح مجلدك الرئيسي بدلًا منه.",
+    "processExited": "انتهت العملية",
+    "waitingBody": "Claude بانتظارك",
+    "quitTitle": "{count, plural, zero {لا طرفيات قيد التشغيل} one {طرفية واحدة قيد التشغيل} two {طرفيتان قيد التشغيل} few {# طرفيات قيد التشغيل} many {# طرفية قيد التشغيل} other {# طرفية قيد التشغيل}}",
+    "quitBody": "الإنهاء يغلق كل طرفية قيد التشغيل.",
+    "quitConfirm": "إنهاء",
+    "cancel": "إلغاء",
+    "removeProject": "إزالة المشروع",
+    "removeProjectBody": "ستتم إزالة {name} من القائمة وإغلاق طرفياته. لن يتم المساس بالملفات على القرص.",
+    "splitRight": "تقسيم لليمين",
+    "splitDown": "تقسيم للأسفل",
+    "closePane": "إغلاق اللوحة"
   }
 }

@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "قطعه‌کدها",
-    "secureFiles": "پرونده‌ها"
+    "secureFiles": "پرونده‌ها",
+    "terminal": "ترمینال"
   },
   "Help": {
     "title": "راهنما و مستندات",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "پرونده‌ها",
         "description": "پرونده‌ها و پوشه‌ها را به شیء‌های ‎.mydt‎ با نام پوشیده رمزگذاری کنید؛ پس از باز کردن قفل مرور و پیش‌نمایش کنید."
+      },
+      "terminal": {
+        "title": "ترمینال",
+        "description": "ترمینال‌ها بر اساس پروژه با زبانه‌ها، پنل‌های تقسیم‌شده و فهرست «به شما نیاز دارند» برای Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "کاهش شفافیت",
     "reduceTransparencyHint": "جایگزینی شیشه با سطوح مات.",
     "goToDashboard": "رفتن به داشبورد"
+  },
+  "Terminal": {
+    "title": "ترمینال",
+    "desktopOnly": "ترمینال در برنامه دسکتاپ در دسترس است.",
+    "needsYou": "به شما نیاز دارند · {count}",
+    "projects": "پروژه‌ها",
+    "addProject": "افزودن پروژه",
+    "noProjects": "برای باز کردن ترمینال‌ها، یک پوشه پروژه اضافه کنید.",
+    "newTab": "زبانه جدید",
+    "untitledTab": "ترمینال {n}",
+    "renameTab": "تغییر نام زبانه",
+    "closeTab": "بستن زبانه",
+    "noTabs": "هیچ ترمینالی در این پروژه باز نیست.",
+    "statusWaiting": "منتظر ورودی",
+    "statusRunning": "در حال اجرا",
+    "statusIdle": "بیکار",
+    "changedFiles": "{count, plural, one {# تغییر کرده} other {# تغییر کرده}}",
+    "folderMissing": "پوشه پیدا نشد: {path}. به‌جای آن پوشه خانگی شما باز شد.",
+    "processExited": "فرایند پایان یافت",
+    "waitingBody": "Claude منتظر شماست",
+    "quitTitle": "{count, plural, one {# ترمینال در حال اجراست} other {# ترمینال در حال اجراست}}",
+    "quitBody": "خروج، همه ترمینال‌های در حال اجرا را می‌بندد.",
+    "quitConfirm": "خروج",
+    "cancel": "لغو",
+    "removeProject": "حذف پروژه",
+    "removeProjectBody": "{name} از فهرست حذف و ترمینال‌هایش بسته می‌شود. فایل‌های روی دیسک دست‌نخورده می‌مانند.",
+    "splitRight": "تقسیم به راست",
+    "splitDown": "تقسیم به پایین",
+    "closePane": "بستن پنل"
   }
 }

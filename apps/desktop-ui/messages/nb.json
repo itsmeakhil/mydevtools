@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Kodeutdrag",
-    "secureFiles": "Filer"
+    "secureFiles": "Filer",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Hjelp og dokumentasjon",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Filer",
         "description": "Krypter filer og mapper til maskerte .mydt-objekter; bla gjennom og forhåndsvis dem etter opplåsing."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminaler per prosjekt med faner, delte ruter og en «Trenger deg»-liste for Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Reduser gjennomsiktighet",
     "reduceTransparencyHint": "Erstatt glass med heldekkende flater.",
     "goToDashboard": "Gå til oversikten"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminalen er tilgjengelig i skrivebordsappen.",
+    "needsYou": "Trenger deg · {count}",
+    "projects": "Prosjekter",
+    "addProject": "Legg til prosjekt",
+    "noProjects": "Legg til en prosjektmappe for å åpne terminaler i den.",
+    "newTab": "Ny fane",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Gi fanen nytt navn",
+    "closeTab": "Lukk fanen",
+    "noTabs": "Ingen terminaler er åpne i dette prosjektet.",
+    "statusWaiting": "Venter på input",
+    "statusRunning": "Kjører",
+    "statusIdle": "Inaktiv",
+    "changedFiles": "{count, plural, one {# endret} other {# endret}}",
+    "folderMissing": "Fant ikke mappen: {path}. Hjemmemappen din ble åpnet i stedet.",
+    "processExited": "Prosessen avsluttet",
+    "waitingBody": "Claude venter på deg",
+    "quitTitle": "{count, plural, one {# terminal kjører} other {# terminaler kjører}}",
+    "quitBody": "Hvis du avslutter, avsluttes alle terminaler som kjører.",
+    "quitConfirm": "Avslutt",
+    "cancel": "Avbryt",
+    "removeProject": "Fjern prosjekt",
+    "removeProjectBody": "{name} fjernes fra listen, og terminalene lukkes. Filer på disken berøres ikke.",
+    "splitRight": "Del til høyre",
+    "splitDown": "Del nedover",
+    "closePane": "Lukk rute"
   }
 }

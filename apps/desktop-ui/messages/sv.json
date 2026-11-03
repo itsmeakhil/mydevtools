@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Kodutdrag",
-    "secureFiles": "Filer"
+    "secureFiles": "Filer",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Hjälp och dokumentation",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Filer",
         "description": "Kryptera filer och mappar till maskerade .mydt-objekt; bläddra och förhandsgranska dem efter upplåsning."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminaler per projekt med flikar, delade rutor och en «Behöver dig»-lista för Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Minska genomskinlighet",
     "reduceTransparencyHint": "Ersätter glas med heltäckande ytor.",
     "goToDashboard": "Gå till översikten"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminalen finns i skrivbordsappen.",
+    "needsYou": "Behöver dig · {count}",
+    "projects": "Projekt",
+    "addProject": "Lägg till projekt",
+    "noProjects": "Lägg till en projektmapp för att öppna terminaler i den.",
+    "newTab": "Ny flik",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Byt namn på fliken",
+    "closeTab": "Stäng fliken",
+    "noTabs": "Inga terminaler är öppna i det här projektet.",
+    "statusWaiting": "Väntar på inmatning",
+    "statusRunning": "Körs",
+    "statusIdle": "Inaktiv",
+    "changedFiles": "{count, plural, one {# ändrad} other {# ändrade}}",
+    "folderMissing": "Mappen hittades inte: {path}. Din hemmapp öppnades i stället.",
+    "processExited": "Processen avslutades",
+    "waitingBody": "Claude väntar på dig",
+    "quitTitle": "{count, plural, one {# terminal körs} other {# terminaler körs}}",
+    "quitBody": "Om du avslutar stängs alla terminaler som körs.",
+    "quitConfirm": "Avsluta",
+    "cancel": "Avbryt",
+    "removeProject": "Ta bort projekt",
+    "removeProjectBody": "{name} tas bort från listan och dess terminaler stängs. Filer på disken påverkas inte.",
+    "splitRight": "Dela åt höger",
+    "splitDown": "Dela nedåt",
+    "closePane": "Stäng ruta"
   }
 }

@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Úryvky kódu",
-    "secureFiles": "Soubory"
+    "secureFiles": "Soubory",
+    "terminal": "Terminál"
   },
   "Help": {
     "title": "Nápověda a dokumentace",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Soubory",
         "description": "Šifrujte soubory a složky do maskovaných objektů .mydt; po odemčení je můžete procházet a zobrazovat."
+      },
+      "terminal": {
+        "title": "Terminál",
+        "description": "Terminály podle projektů s kartami, rozdělenými panely a seznamem „Čeká na vás“ pro Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Omezit průhlednost",
     "reduceTransparencyHint": "Nahradit sklo plnými plochami.",
     "goToDashboard": "Přejít na nástěnku"
+  },
+  "Terminal": {
+    "title": "Terminál",
+    "desktopOnly": "Terminál je dostupný v desktopové aplikaci.",
+    "needsYou": "Čeká na vás · {count}",
+    "projects": "Projekty",
+    "addProject": "Přidat projekt",
+    "noProjects": "Přidejte složku projektu, abyste v ní mohli otevírat terminály.",
+    "newTab": "Nová karta",
+    "untitledTab": "Terminál {n}",
+    "renameTab": "Přejmenovat kartu",
+    "closeTab": "Zavřít kartu",
+    "noTabs": "V tomto projektu nejsou otevřeny žádné terminály.",
+    "statusWaiting": "Čeká na vstup",
+    "statusRunning": "Běží",
+    "statusIdle": "Nečinný",
+    "changedFiles": "{count, plural, one {# změněný} few {# změněné} many {# změněného} other {# změněných}}",
+    "folderMissing": "Složka nenalezena: {path}. Místo ní byla otevřena vaše domovská složka.",
+    "processExited": "Proces skončil",
+    "waitingBody": "Claude na vás čeká",
+    "quitTitle": "{count, plural, one {Běží # terminál} few {Běží # terminály} many {Běží # terminálu} other {Běží # terminálů}}",
+    "quitBody": "Ukončením se ukončí všechny běžící terminály.",
+    "quitConfirm": "Ukončit",
+    "cancel": "Zrušit",
+    "removeProject": "Odebrat projekt",
+    "removeProjectBody": "Projekt {name} bude odebrán ze seznamu a jeho terminály budou zavřeny. Soubory na disku zůstanou nedotčeny.",
+    "splitRight": "Rozdělit doprava",
+    "splitDown": "Rozdělit dolů",
+    "closePane": "Zavřít panel"
   }
 }

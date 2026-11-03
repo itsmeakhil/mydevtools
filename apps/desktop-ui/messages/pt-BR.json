@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Trechos de código",
-    "secureFiles": "Arquivos"
+    "secureFiles": "Arquivos",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Ajuda e documentação",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Arquivos",
         "description": "Criptografe arquivos e pastas em objetos .mydt mascarados; navegue e visualize depois de desbloquear."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminais por projeto com abas, painéis divididos e uma lista «Precisam de você» para o Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Reduzir transparência",
     "reduceTransparencyHint": "Substitui o vidro por superfícies sólidas.",
     "goToDashboard": "Ir para o painel"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "O terminal está disponível no app para desktop.",
+    "needsYou": "Precisam de você · {count}",
+    "projects": "Projetos",
+    "addProject": "Adicionar projeto",
+    "noProjects": "Adicione uma pasta de projeto para abrir terminais nela.",
+    "newTab": "Nova aba",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Renomear aba",
+    "closeTab": "Fechar aba",
+    "noTabs": "Nenhum terminal aberto neste projeto.",
+    "statusWaiting": "Aguardando entrada",
+    "statusRunning": "Em execução",
+    "statusIdle": "Ocioso",
+    "changedFiles": "{count, plural, one {# alterado} many {# de alterados} other {# alterados}}",
+    "folderMissing": "Pasta não encontrada: {path}. Sua pasta pessoal foi aberta no lugar.",
+    "processExited": "O processo foi encerrado",
+    "waitingBody": "O Claude está esperando por você",
+    "quitTitle": "{count, plural, one {# terminal está em execução} many {# de terminais estão em execução} other {# terminais estão em execução}}",
+    "quitBody": "Sair encerra todos os terminais em execução.",
+    "quitConfirm": "Sair",
+    "cancel": "Cancelar",
+    "removeProject": "Remover projeto",
+    "removeProjectBody": "{name} será removido da lista e seus terminais serão fechados. Os arquivos no disco não são alterados.",
+    "splitRight": "Dividir à direita",
+    "splitDown": "Dividir para baixo",
+    "closePane": "Fechar painel"
   }
 }

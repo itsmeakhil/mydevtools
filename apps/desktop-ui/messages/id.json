@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Cuplikan kode",
-    "secureFiles": "Berkas"
+    "secureFiles": "Berkas",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Bantuan & Dokumentasi",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Berkas",
         "description": "Enkripsi berkas dan folder menjadi objek .mydt bernama samar; jelajahi dan pratinjau setelah dibuka."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminal per proyek dengan tab, panel terbagi, dan daftar «Butuh Anda» untuk Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Kurangi transparansi",
     "reduceTransparencyHint": "Ganti kaca dengan permukaan solid.",
     "goToDashboard": "Buka dasbor"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminal tersedia di aplikasi desktop.",
+    "needsYou": "Butuh Anda · {count}",
+    "projects": "Proyek",
+    "addProject": "Tambah proyek",
+    "noProjects": "Tambahkan folder proyek untuk membuka terminal di dalamnya.",
+    "newTab": "Tab baru",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Ganti nama tab",
+    "closeTab": "Tutup tab",
+    "noTabs": "Tidak ada terminal yang terbuka di proyek ini.",
+    "statusWaiting": "Menunggu input",
+    "statusRunning": "Berjalan",
+    "statusIdle": "Menganggur",
+    "changedFiles": "{count, plural, other {# berubah}}",
+    "folderMissing": "Folder tidak ditemukan: {path}. Folder beranda Anda dibuka sebagai gantinya.",
+    "processExited": "Proses berhenti",
+    "waitingBody": "Claude sedang menunggu Anda",
+    "quitTitle": "{count, plural, other {# terminal sedang berjalan}}",
+    "quitBody": "Keluar akan mengakhiri semua terminal yang sedang berjalan.",
+    "quitConfirm": "Keluar",
+    "cancel": "Batal",
+    "removeProject": "Hapus proyek",
+    "removeProjectBody": "{name} akan dihapus dari daftar dan terminalnya ditutup. File di disk tidak disentuh.",
+    "splitRight": "Bagi ke kanan",
+    "splitDown": "Bagi ke bawah",
+    "closePane": "Tutup panel"
   }
 }

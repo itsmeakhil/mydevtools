@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Petikan kod",
-    "secureFiles": "Fail"
+    "secureFiles": "Fail",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Bantuan & Dokumentasi",
@@ -360,6 +361,10 @@
       "secureFiles": {
         "title": "Fail",
         "description": "Sulitkan fail dan folder menjadi objek .mydt bernama samar; layari dan pratonton selepas dibuka kunci."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminal mengikut projek dengan tab, anak tetingkap terbahagi dan senarai «Perlukan anda» untuk Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "Kurangkan ketelusan",
     "reduceTransparencyHint": "Gantikan kaca dengan permukaan pepejal.",
     "goToDashboard": "Pergi ke papan pemuka"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminal tersedia dalam aplikasi desktop.",
+    "needsYou": "Perlukan anda · {count}",
+    "projects": "Projek",
+    "addProject": "Tambah projek",
+    "noProjects": "Tambah folder projek untuk membuka terminal di dalamnya.",
+    "newTab": "Tab baharu",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Namakan semula tab",
+    "closeTab": "Tutup tab",
+    "noTabs": "Tiada terminal dibuka dalam projek ini.",
+    "statusWaiting": "Menunggu input",
+    "statusRunning": "Sedang berjalan",
+    "statusIdle": "Melahu",
+    "changedFiles": "{count, plural, other {# berubah}}",
+    "folderMissing": "Folder tidak ditemui: {path}. Folder utama anda dibuka sebagai ganti.",
+    "processExited": "Proses tamat",
+    "waitingBody": "Claude sedang menunggu anda",
+    "quitTitle": "{count, plural, other {# terminal sedang berjalan}}",
+    "quitBody": "Keluar akan menamatkan setiap terminal yang sedang berjalan.",
+    "quitConfirm": "Keluar",
+    "cancel": "Batal",
+    "removeProject": "Alih keluar projek",
+    "removeProjectBody": "{name} akan dialih keluar daripada senarai dan terminalnya ditutup. Fail pada cakera tidak disentuh.",
+    "splitRight": "Bahagi ke kanan",
+    "splitDown": "Bahagi ke bawah",
+    "closePane": "Tutup anak tetingkap"
   }
 }

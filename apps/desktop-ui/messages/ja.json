@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "コードスニペット",
-    "secureFiles": "ファイル"
+    "secureFiles": "ファイル",
+    "terminal": "ターミナル"
   },
   "Help": {
     "title": "ヘルプとドキュメント",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "ファイル",
         "description": "ファイルやフォルダーを名前が伏せられた .mydt オブジェクトに暗号化。ロック解除後に閲覧・プレビューできます。"
+      },
+      "terminal": {
+        "title": "ターミナル",
+        "description": "プロジェクトごとのターミナル。タブ、分割ペイン、Claude Code 用の「対応が必要」リストを備えています。"
       }
     },
     "tabs": {
@@ -2652,5 +2657,34 @@
     "reduceTransparency": "透明度を下げる",
     "reduceTransparencyHint": "ガラスを不透明な面に置き換えます。",
     "goToDashboard": "ダッシュボードへ"
+  },
+  "Terminal": {
+    "title": "ターミナル",
+    "desktopOnly": "ターミナルはデスクトップアプリで利用できます。",
+    "needsYou": "対応が必要 · {count}",
+    "projects": "プロジェクト",
+    "addProject": "プロジェクトを追加",
+    "noProjects": "プロジェクトフォルダを追加すると、その中でターミナルを開けます。",
+    "newTab": "新しいタブ",
+    "untitledTab": "ターミナル {n}",
+    "renameTab": "タブの名前を変更",
+    "closeTab": "タブを閉じる",
+    "noTabs": "このプロジェクトで開いているターミナルはありません。",
+    "statusWaiting": "入力待ち",
+    "statusRunning": "実行中",
+    "statusIdle": "アイドル",
+    "changedFiles": "{count, plural, other {# 件変更}}",
+    "folderMissing": "フォルダが見つかりません: {path}。代わりにホームフォルダを開きました。",
+    "processExited": "プロセスが終了しました",
+    "waitingBody": "Claude があなたを待っています",
+    "quitTitle": "{count, plural, other {実行中のターミナルが # 件あります}}",
+    "quitBody": "終了すると、実行中のすべてのターミナルが終了します。",
+    "quitConfirm": "終了",
+    "cancel": "キャンセル",
+    "removeProject": "プロジェクトを削除",
+    "removeProjectBody": "{name} を一覧から削除し、そのターミナルを閉じます。ディスク上のファイルには影響しません。",
+    "splitRight": "右に分割",
+    "splitDown": "下に分割",
+    "closePane": "ペインを閉じる"
   }
 }
