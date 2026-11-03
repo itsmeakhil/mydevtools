@@ -8,7 +8,8 @@ import {
   IconChevronRight,
   IconHelpCircle,
   IconLayoutDashboard,
-  IconLayoutSidebar,
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarLeftExpand,
   IconMoon,
   IconPin,
   IconPinnedOff,
@@ -45,10 +46,12 @@ const RailContext = React.createContext(false)
 const isActivePath = (pathname: string, url: string) =>
   pathname === url || pathname.startsWith(url + '/')
 
-/** Sidebar toggle — lives in the sidebar header, or the toolbar when collapsed. */
+/** Sidebar toggle — always at the toolbar's leading edge, expanded or collapsed. */
 export function SidebarToggle() {
   const t = useTranslations('Shell')
   const toggle = useSidebarState((s) => s.toggle)
+  const collapsed = useSidebarState((s) => s.collapsed)
+  const Icon = collapsed ? IconLayoutSidebarLeftExpand : IconLayoutSidebarLeftCollapse
   return (
     <button
       type="button"
@@ -57,7 +60,7 @@ export function SidebarToggle() {
       title={`${t('toggleSidebar')} (⌃⌘S)`}
       className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-foreground/[0.07] hover:text-foreground md:flex"
     >
-      <IconLayoutSidebar className="h-[18px] w-[18px]" stroke={1.6} aria-hidden />
+      <Icon className="h-[18px] w-[18px]" stroke={1.6} aria-hidden />
     </button>
   )
 }
@@ -293,31 +296,31 @@ export function AppSidebar() {
       )}
     >
       <div className="flex min-h-0 w-full flex-1 flex-col">
-        {/* Traffic-light row (macOS Overlay title bar) — drag region. */}
-        <div
-          data-tauri-drag-region
-          className="flex h-10 shrink-0 items-center justify-end gap-1 px-3"
-          style={{ paddingLeft: trafficLightInset ? trafficLightInset - 12 : undefined }}
-        >
-          {rail ? null : <SidebarToggle />}
-        </div>
+        {/* Traffic-light row (macOS Overlay title bar) — drag region. Elsewhere
+            (fullscreen, Linux/Windows, browser) just top padding. */}
+        {trafficLightInset ? (
+          <div data-tauri-drag-region className="h-10 shrink-0" />
+        ) : (
+          <div data-tauri-drag-region className="h-3 shrink-0" />
+        )}
 
-        {/* Brand → dashboard: mark + wordmark, mark only on the rail. */}
-        <div className={cn('pb-2', rail ? 'flex justify-center px-3' : 'px-3')}>
+        {/* Brand → dashboard. Mark sits on the same column as the row icons;
+            the rail shows the mark alone, centred. */}
+        <div className={cn('px-3 pb-3', rail && 'flex justify-center')}>
           <button
             type="button"
             onClick={() => go('/dashboard')}
             aria-label={t('goToDashboard')}
             title={rail ? 'MyDevTools' : undefined}
             className={cn(
-              'flex items-center gap-2 rounded-lg transition-colors duration-150 hover:bg-foreground/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
-              rail ? 'h-10 w-10 justify-center' : 'h-9 px-1.5',
+              'flex items-center rounded-xl transition-colors duration-150 hover:bg-foreground/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
+              rail ? 'h-10 w-10 justify-center' : 'h-10 w-full gap-2.5 px-2',
             )}
           >
-            <Logo size={rail ? 26 : 22} showText={false} className="shrink-0" />
+            <Logo size={rail ? 24 : 22} showText={false} className="shrink-0" />
             {rail ? null : (
               <span
-                className="text-[15px] font-bold leading-none tracking-wide"
+                className="truncate text-[15px] font-bold leading-none tracking-wide"
                 style={{ fontFamily: 'var(--font-courier-prime), ui-monospace, monospace' }}
               >
                 mydevtools<span className="text-primary">.tech</span>

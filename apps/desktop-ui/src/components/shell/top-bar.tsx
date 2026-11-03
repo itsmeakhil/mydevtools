@@ -12,12 +12,11 @@ import { cn } from '@/lib/utils'
 /**
  * Window toolbar above the content pane: open-tool tabs in a Liquid Glass
  * capsule + a round ⌘K button, floating over the backdrop. The bar itself is a
- * Tauri drag region; when the sidebar is collapsed to its icon rail it hosts
- * the sidebar toggle (the traffic lights stay in the rail).
+ * Tauri drag region and always leads with the sidebar toggle, so it sits in
+ * the same place expanded or collapsed (the traffic lights stay in the sidebar).
  */
 export function TopBar() {
   const t = useTranslations('Shell')
-  const collapsed = useSidebarState((s) => s.collapsed)
   const toggle = useSidebarState((s) => s.toggle)
   const hydrate = useSidebarState((s) => s.hydrate)
 
@@ -43,11 +42,10 @@ export function TopBar() {
         'chrome relative z-30 flex h-10 w-full shrink-0 items-center gap-2 px-2 md:mb-3 md:px-0',
       )}
     >
-      {collapsed ? (
-        <div className="liquid hidden h-10 w-10 shrink-0 items-center justify-center rounded-full md:flex">
-          <SidebarToggle />
-        </div>
-      ) : null}
+      {/* Same spot whether the sidebar is expanded or collapsed. */}
+      <div className="liquid hidden h-10 w-10 shrink-0 items-center justify-center rounded-full md:flex">
+        <SidebarToggle />
+      </div>
       <TopNavStrip />
       <div data-tauri-drag-region className="h-full min-w-6 flex-1" />
       <TooltipProvider delayDuration={300}>
