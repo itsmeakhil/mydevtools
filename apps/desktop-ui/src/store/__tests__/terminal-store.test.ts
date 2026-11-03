@@ -9,7 +9,7 @@ jest.mock("@/lib/desktop/terminal-bridge", () => ({
 jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 
 import { toast } from "sonner"
-import { useTerminalStore, resetTerminalSaveState } from "../terminal-store"
+import { useTerminalStore, resetTerminalSaveState, terminalExists } from "../terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 
 const S = () => useTerminalStore.getState()
@@ -41,6 +41,13 @@ describe("terminal store", () => {
     S().closeTerminal(id)
     expect(S().projects[0].tabs).toHaveLength(0)
     expect(mockKill).toHaveBeenCalledWith(id)
+  })
+  it("terminalExists tracks whether a pane is still in a layout", () => {
+    S().addProject("/x/app")
+    const id = leafIds(S().projects[0].tabs[0].layout)[0]
+    expect(terminalExists(id)).toBe(true)
+    S().closeTerminal(id)
+    expect(terminalExists(id)).toBe(false)
   })
   it("split adds a leaf; closeTerminal removes it", () => {
     S().addProject("/x/app")

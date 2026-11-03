@@ -6,10 +6,10 @@ import { toast } from "sonner"
 import { IconX } from "@tabler/icons-react"
 import "@xterm/xterm/css/xterm.css"
 import type { Terminal as XTerm } from "@xterm/xterm"
-import { useTerminalStore } from "@/store/terminal-store"
+import { terminalExists, useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
 import { decodeOutput, encodeInput, keyedChain, writeQueue } from "@/lib/terminal/util"
-import { terminalAttach, terminalResize, terminalSpawn, terminalWrite } from "@/lib/desktop/terminal-bridge"
+import { terminalAttach, terminalKill, terminalResize, terminalSpawn, terminalWrite } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
 import { StatusDot } from "./terminal-sidebar"
 
@@ -130,7 +130,12 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
 
       try {
         const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName })
-        if (disposed) return
+        if (disposed) {
+          // Closed mid-spawn: its kill may have reached Rust first, leaving this spawn an orphan PTY.
+          // (A remount keeps the id in the store, so its session is left alone.)
+          if (!terminalExists(id)) terminalKill(id).catch(() => {})
+          return
+        }
         if (res.cwdFallback && !warnedFallback.has(id)) {
           warnedFallback.add(id)
           toast.warning(strings.current.folderMissing(cwd))

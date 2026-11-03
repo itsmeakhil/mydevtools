@@ -44,6 +44,9 @@ const find = (projects: TerminalProject[], terminalId: string) => {
   return null
 }
 
+/** Whether any project's layout still holds this terminal (false once its pane was closed). */
+export const terminalExists = (terminalId: string) => find(useTerminalStore.getState().projects, terminalId) !== null
+
 const SAVE_DELAY_MS = 500
 let timer: ReturnType<typeof setTimeout> | undefined
 let inflight: Promise<void> | null = null
