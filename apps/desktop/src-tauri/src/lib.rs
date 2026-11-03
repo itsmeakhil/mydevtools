@@ -4,6 +4,7 @@ mod error;
 mod http;
 mod router;
 mod state;
+mod terminal;
 
 use router::ApiResponse;
 use state::AppState;
@@ -93,7 +94,7 @@ fn secure_file_read(state: tauri::State<'_, AppState>, id: String) -> Result<tau
 }
 
 pub fn run() {
-    tauri::Builder::default()
+    let builder = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
         // Folder-collection dirs picked via the dialog are added to the fs scope
@@ -111,12 +112,39 @@ pub fn run() {
         )
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_notification::init())
         .setup(|app| {
             let dir = app.path().app_data_dir()?;
             std::fs::create_dir_all(&dir)?;
             let state = AppState::init(dir.join("mydevtools.db"))
                 .map_err(|e| format!("failed to open local database: {e}"))?;
             app.manage(state);
+            let term = std::sync::Arc::new(terminal::pty::TerminalState::default());
+            app.manage(term.clone());
+            app.manage(terminal::notify::Ui::default());
+            terminal::notify::init(app.handle());
+            let handle = app.handle().clone();
+            let _ = term.on_exit.set(std::sync::Arc::new(move |id: &str| {
+                terminal::notify::forget(&handle, id)
+            }));
+            let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
+            // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
+            // the binary (target/<profile>/resources), which resource_dir() resolves to.
+            // Unresolvable / not absolute / scripts missing → no integration at all:
+            // `launch` stays unset and panes get a plain `$SHELL -l`.
+            match app.path().resource_dir().map(|d| d.join("resources")) {
+                Ok(res_dir) if terminal::env::resources_ok(&res_dir) => {
+                    let hook_bin = res_dir.join("terminal/bin/mdt-hook");
+                    // A missing settings file only makes the claude shim pass through.
+                    let settings = terminal::env::write_claude_settings(&dir, &hook_bin)
+                        .unwrap_or_else(|e| {
+                            eprintln!("terminal: claude hooks settings not written: {e}");
+                            dir.join("terminal/claude-hooks.json")
+                        });
+                    let _ = term.launch.set(terminal::env::Launch { res_dir, socket, settings });
+                }
+                r => eprintln!("terminal: shell integration disabled, resources unusable: {r:?}"),
+            }
 
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged
@@ -150,8 +178,26 @@ pub fn run() {
             fs_allow_collection_dir,
             file_collections_registry_load,
             file_collections_registry_save,
-            secure_file_read
-        ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+            secure_file_read,
+            terminal::pty::terminal_spawn,
+            terminal::pty::terminal_attach,
+            terminal::pty::terminal_write,
+            terminal::pty::terminal_resize,
+            terminal::pty::terminal_kill,
+            terminal::hooks::terminal_statuses,
+            terminal::hooks::terminal_clear_waiting,
+            terminal::git::terminal_git_info,
+            terminal::notify::terminal_set_viewing,
+            terminal::notify::terminal_set_strings,
+            terminal::notify::app_quit_confirmed,
+            terminal::notify::app_quit_cancelled
+        ]);
+    #[cfg(target_os = "macos")]
+    let builder = builder
+        .menu(terminal::notify::app_menu)
+        .on_menu_event(terminal::notify::on_menu_event);
+    builder
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|app, event| terminal::notify::on_run_event(app, &event));
 }

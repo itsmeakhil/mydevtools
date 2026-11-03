@@ -16,6 +16,12 @@ export interface ToolMetadataEntry {
 
 // Tool metadata definitions
 export const toolsMetadata: Record<string, ToolMetadataEntry> = {
+    'terminal': {
+        title: 'Terminal',
+        description: 'A terminal organized by project, with tabs, split panes, git branch at a glance and a "Needs you" inbox for Claude Code sessions waiting on input.',
+        keywords: ['terminal', 'terminal emulator', 'split panes', 'claude code', 'developer terminal', 'project terminal'],
+        aiSummary: 'Desktop terminal grouped by project folder: tabs and split panes per project, git branch and changed-file count, and a "Needs you" list that surfaces Claude Code sessions waiting for input. Runs locally on your device.',
+    },
     'to-do': {
         title: 'Task Manager',
         description: 'Organize daily tasks, set priorities, and track your productivity. A to-do app built for developers.',

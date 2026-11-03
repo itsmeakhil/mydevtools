@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input"
 import useAuth from "@/utils/useAuth"
 import {
   IconRocket,
+  IconTerminal2,
   IconShield,
   IconBraces,
   IconWand,
@@ -33,6 +34,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 // ── Tool category icons by title ──────────────────────────────────────────────
 
 const CATEGORY_ICONS: Record<string, React.ElementType> = {
+  Developer: IconTerminal2,
   Productivity: IconRocket,
   Security: IconShield,
   Formatters: IconBraces,

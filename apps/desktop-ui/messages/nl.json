@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Codefragmenten",
-    "secureFiles": "Bestanden"
+    "secureFiles": "Bestanden",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Help en documentatie",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Bestanden",
         "description": "Versleutel bestanden en mappen tot gemaskeerde .mydt-objecten; blader en bekijk ze na ontgrendeling."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminals per project met tabbladen, gesplitste vensters en een «Heeft jou nodig»-lijst voor Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,36 @@
     "reduceTransparency": "Transparantie verminderen",
     "reduceTransparencyHint": "Vervangt glas door ondoorzichtige vlakken.",
     "goToDashboard": "Naar dashboard"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "De terminal is beschikbaar in de desktop-app.",
+    "needsYou": "Heeft jou nodig · {count}",
+    "projects": "Projecten",
+    "addProject": "Project toevoegen",
+    "noProjects": "Voeg een projectmap toe om er terminals in te openen.",
+    "newTab": "Nieuw tabblad",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Tabblad hernoemen",
+    "renameTerminal": "Terminal hernoemen",
+    "closeTab": "Tabblad sluiten",
+    "noTabs": "Er zijn geen terminals geopend in dit project.",
+    "statusWaiting": "Wacht op invoer",
+    "statusRunning": "Actief",
+    "statusIdle": "Inactief",
+    "changedFiles": "{count, plural, one {# gewijzigd} other {# gewijzigd}}",
+    "folderMissing": "Map niet gevonden: {path}. In plaats daarvan is je thuismap geopend.",
+    "processExited": "Proces beëindigd",
+    "waitingBody": "Claude wacht op je",
+    "quitTitle": "{count, plural, one {# terminal is actief} other {# terminals zijn actief}}",
+    "quitBody": "Bij afsluiten worden alle actieve terminals beëindigd.",
+    "quitConfirm": "Afsluiten",
+    "quitSaveFailed": "Je terminalindeling kon niet worden opgeslagen, dus MyDevTools blijft open. Druk twee keer op ⌘Q om toch af te sluiten.",
+    "cancel": "Annuleren",
+    "removeProject": "Project verwijderen",
+    "removeProjectBody": "{name} wordt uit de lijst verwijderd en de bijbehorende terminals worden gesloten. Bestanden op schijf blijven ongemoeid.",
+    "splitRight": "Rechts splitsen",
+    "splitDown": "Omlaag splitsen",
+    "closePane": "Paneel sluiten"
   }
 }

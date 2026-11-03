@@ -12,7 +12,8 @@
     "nosqlExplorer": "Explorateur de base de données",
     "dataExplorer": "Data Explorer",
     "snippetManager": "Extraits de code",
-    "secureFiles": "Fichiers"
+    "secureFiles": "Fichiers",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Aide & documentation",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Fichiers",
         "description": "Chiffrez fichiers et dossiers en objets .mydt masqués ; parcourez-les et prévisualisez-les après déverrouillage."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Des terminaux par projet avec onglets, volets scindés et une liste « On a besoin de vous » pour Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,36 @@
     "reduceTransparency": "Réduire la transparence",
     "reduceTransparencyHint": "Remplace le verre par des surfaces opaques.",
     "goToDashboard": "Aller au tableau de bord"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Le terminal est disponible dans l'application de bureau.",
+    "needsYou": "On a besoin de vous · {count}",
+    "projects": "Projets",
+    "addProject": "Ajouter un projet",
+    "noProjects": "Ajoutez un dossier de projet pour y ouvrir des terminaux.",
+    "newTab": "Nouvel onglet",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Renommer l'onglet",
+    "renameTerminal": "Renommer le terminal",
+    "closeTab": "Fermer l'onglet",
+    "noTabs": "Aucun terminal ouvert dans ce projet.",
+    "statusWaiting": "En attente de saisie",
+    "statusRunning": "En cours",
+    "statusIdle": "Inactif",
+    "changedFiles": "{count, plural, one {# modifié} many {# de modifiés} other {# modifiés}}",
+    "folderMissing": "Dossier introuvable : {path}. Votre dossier personnel a été ouvert à la place.",
+    "processExited": "Le processus s'est terminé",
+    "waitingBody": "Claude vous attend",
+    "quitTitle": "{count, plural, one {# terminal est en cours d'exécution} many {# de terminaux sont en cours d'exécution} other {# terminaux sont en cours d'exécution}}",
+    "quitBody": "Quitter met fin à tous les terminaux en cours d'exécution.",
+    "quitConfirm": "Quitter",
+    "quitSaveFailed": "Impossible d'enregistrer la disposition des terminaux, MyDevTools est donc resté ouvert. Appuyez deux fois sur ⌘Q pour quitter quand même.",
+    "cancel": "Annuler",
+    "removeProject": "Retirer le projet",
+    "removeProjectBody": "{name} sera retiré de la liste et ses terminaux seront fermés. Les fichiers sur le disque ne sont pas touchés.",
+    "splitRight": "Scinder à droite",
+    "splitDown": "Scinder vers le bas",
+    "closePane": "Fermer le volet"
   }
 }
