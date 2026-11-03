@@ -46,11 +46,17 @@ pub struct Transition {
 }
 
 #[derive(Default)]
-pub struct StatusMap(HashMap<String, TermStatus>);
+pub struct StatusMap {
+    status: HashMap<String, TermStatus>,
+    /// Last `seq` per (terminal, shell pid): shell-* hooks are backgrounded, so
+    /// separate connections can arrive out of order.
+    // ponytail: never pruned; one entry per shell started, cleared with the app.
+    shell_seq: HashMap<(String, u64), u64>,
+}
 
 impl StatusMap {
     pub fn apply(&mut self, id: &str, s: TermStatus) -> Option<Transition> {
-        let prev = self.0.insert(id.to_string(), s);
+        let prev = self.status.insert(id.to_string(), s);
         (prev != Some(s)).then(|| Transition {
             id: id.to_string(),
             status: s,
@@ -58,19 +64,37 @@ impl StatusMap {
         })
     }
 
+    /// Map a hook event to a status and apply it. A `shell-*` event carrying
+    /// `{pid, seq}` is dropped unless its seq is newer than the last one seen
+    /// for that (terminal, pid).
+    pub fn apply_event(&mut self, m: &HookMsg) -> Option<Transition> {
+        let s = status_for(&m.event)?;
+        if m.event.starts_with("shell-") {
+            let num = |k: &str| m.payload.get(k).and_then(Value::as_u64);
+            if let (Some(pid), Some(seq)) = (num("pid"), num("seq")) {
+                let last = self.shell_seq.entry((m.terminal_id.clone(), pid)).or_insert(0);
+                if seq <= *last {
+                    return None;
+                }
+                *last = seq;
+            }
+        }
+        self.apply(&m.terminal_id, s)
+    }
+
     pub fn clear_waiting(&mut self, id: &str) -> Option<Transition> {
-        (self.0.get(id) == Some(&TermStatus::Waiting)).then(|| self.apply(id, TermStatus::Idle))?
+        (self.status.get(id) == Some(&TermStatus::Waiting)).then(|| self.apply(id, TermStatus::Idle))?
     }
 
     pub fn waiting_count(&self) -> usize {
-        self.0
+        self.status
             .values()
             .filter(|s| **s == TermStatus::Waiting)
             .count()
     }
 
     pub fn snapshot(&self) -> HashMap<String, TermStatus> {
-        self.0.clone()
+        self.status.clone()
     }
 }
 
@@ -171,10 +195,7 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) -> Pat
     let ret = path.clone();
     tauri::async_runtime::spawn(async move {
         let r = serve(path, token, move |m| {
-            let Some(s) = status_for(&m.event) else {
-                return;
-            };
-            let t = state.statuses.lock().unwrap().apply(&m.terminal_id, s);
+            let t = state.statuses.lock().unwrap().apply_event(&m);
             if let Some(t) = t {
                 let msg = (m.event == "claude-Notification")
                     .then(|| m.payload.get("message").and_then(Value::as_str))
@@ -243,6 +264,26 @@ mod tests {
             assert_eq!(status_for(e), Some(s), "{e}");
         }
         assert_eq!(status_for("claude-Unknown"), None);
+    }
+
+    #[test]
+    fn stale_shell_seq_is_dropped_per_pid() {
+        let ev = |event: &str, pid: u64, seq: u64| HookMsg {
+            token: "tok".into(),
+            terminal_id: "t1".into(),
+            event: event.into(),
+            payload: json!({"pid": pid, "seq": seq}),
+        };
+        let mut m = StatusMap::default();
+        assert_eq!(m.apply_event(&ev("shell-prompt", 10, 2)).unwrap().status, TermStatus::Idle);
+        assert!(m.apply_event(&ev("shell-exec", 10, 1)).is_none()); // late, older
+        assert_eq!(m.snapshot()["t1"], TermStatus::Idle);
+        // another shell's counter is independent
+        assert_eq!(m.apply_event(&ev("shell-exec", 11, 1)).unwrap().status, TermStatus::Running);
+        // claude-* events are never seq-gated
+        let mut c = ev("claude-Stop", 10, 0);
+        c.payload = json!({});
+        assert_eq!(m.apply_event(&c).unwrap().status, TermStatus::Waiting);
     }
 
     #[test]

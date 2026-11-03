@@ -23,21 +23,47 @@ if [ -n "$MDT_SHIM_DIR" ]; then
   unset _mdt_a _mdt_d
 fi
 
-# Status hooks, backgrounded so the prompt never waits on the socket.
+# Status hooks, backgrounded so the prompt never waits on the socket; pid +
+# per-shell seq let the app drop events that arrive out of order. PROMPT_COMMAND
+# is wrapped as `_mdt_prompt_start; <user's>; _mdt_prompt` so the DEBUG trap only
+# reports the first user command after a prompt. `$_` is passed through every
+# hook (the bash-preexec technique) so `mkdir d && cd $_` keeps working.
 if [ -n "$MDT_HOOK_BIN" ]; then
+  _mdt_seq=0
+  _mdt_send() {
+    _mdt_seq=$((_mdt_seq + 1))
+    ("$MDT_HOOK_BIN" "$1" $$ $_mdt_seq </dev/null >/dev/null 2>&1 &)
+  }
+  _mdt_prompt_start() {
+    local s=$?
+    _mdt_ready=
+    return $s
+  }
   _mdt_prompt() {
     local s=$?
-    ("$MDT_HOOK_BIN" shell-prompt </dev/null >/dev/null 2>&1 &)
+    _mdt_send shell-prompt
     _mdt_ready=1
+    : "$_mdt_last"
     return $s
   }
   _mdt_preexec() {
-    [ -n "${_mdt_ready-}" ] && [ -z "${COMP_LINE-}" ] || return 0
-    _mdt_ready=
-    ("$MDT_HOOK_BIN" shell-exec </dev/null >/dev/null 2>&1 &)
+    local a=$1
+    case $BASH_COMMAND in
+      _mdt_prompt_start*) _mdt_last=$a ;;
+      _mdt_prompt*) ;;
+      *)
+        if [ -n "${_mdt_ready-}" ] && [ -z "${COMP_LINE-}" ]; then
+          _mdt_ready=
+          _mdt_send shell-exec
+        fi
+        ;;
+    esac
+    : "$a"
   }
-  PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND
-}_mdt_prompt"
+  _mdt_last=
+  PROMPT_COMMAND="_mdt_prompt_start${PROMPT_COMMAND:+
+$PROMPT_COMMAND}
+_mdt_prompt"
   # Leave an existing DEBUG trap (bash-preexec etc.) alone; only shell-exec is lost then.
-  [ -z "$(trap -p DEBUG)" ] && trap '_mdt_preexec' DEBUG
+  [ -z "$(trap -p DEBUG)" ] && trap '_mdt_preexec "$_"' DEBUG
 fi

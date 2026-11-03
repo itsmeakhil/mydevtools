@@ -14,13 +14,26 @@ pub fn shell_launch(
     shell_launch_with(shell, res_dir, base_env, &|k| std::env::var(k).ok())
 }
 
-/// `shell_launch` with the app's environment injected (testable).
+/// The integration needs an absolute resource dir holding both scripts. A
+/// relative path would resolve against the shell's cwd (e.g. a cloned repo's
+/// `resources/terminal/bin`) and run whatever is there.
+pub fn resources_ok(res_dir: &Path) -> bool {
+    let bin = res_dir.join("terminal/bin");
+    res_dir.is_absolute() && bin.join("claude").is_file() && bin.join("mdt-hook").is_file()
+}
+
+/// `shell_launch` with the app's environment injected (testable). Without
+/// usable resources: a plain login shell with no `MDT_*`/PATH changes.
 pub fn shell_launch_with(
     shell: &str,
     res_dir: &Path,
     mut env: Vec<(String, String)>,
     app_env: &dyn Fn(&str) -> Option<String>,
 ) -> (Vec<String>, Vec<(String, String)>) {
+    let login = vec![shell.to_string(), "-l".to_string()];
+    if !resources_ok(res_dir) {
+        return (login, vec![]);
+    }
     let term = res_dir.join("terminal");
     let shim = term.join("bin");
     let s = |p: &Path| p.display().to_string();
@@ -33,7 +46,6 @@ pub fn shell_launch_with(
         ("MDT_SHIM_DIR".into(), s(&shim)),
         ("MDT_HOOK_BIN".into(), s(&shim.join("mdt-hook"))),
     ]);
-    let login = vec![shell.to_string(), "-l".to_string()];
     if app_env("MDT_SHELL_INTEGRATION").as_deref() == Some("0") {
         return (login, env);
     }
@@ -121,7 +133,7 @@ mod tests {
     use super::*;
     use std::io::{BufRead, BufReader};
     use std::process::{Command, Output, Stdio};
-    use std::time::Duration;
+    use std::time::{Duration, Instant};
 
     fn res() -> PathBuf {
         PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("resources")
@@ -353,6 +365,93 @@ mod tests {
         let _ = std::fs::remove_dir_all(&user);
     }
 
+    #[test]
+    fn bash_integration_keeps_underscore_and_prompt_command() {
+        use std::io::{Read, Write};
+        if !Path::new("/bin/bash").exists() {
+            return;
+        }
+        let home = tmp("bhome");
+        std::fs::write(home.join(".bashrc"), "PROMPT_COMMAND='echo user-pc'\n").unwrap();
+        let sock = home.join("h.sock");
+        let listener = std::os::unix::net::UnixListener::bind(&sock).unwrap();
+        listener.set_nonblocking(true).unwrap();
+
+        let app = |k: &str| (k == "PATH").then(|| "/usr/bin:/bin".to_string());
+        let pane = vec![
+            ("MDT_TERMINAL_ID".to_string(), "t1".to_string()),
+            ("MDT_HOOK_SOCKET".to_string(), sock.display().to_string()),
+            ("MDT_HOOK_TOKEN".to_string(), "tok".to_string()),
+        ];
+        let (argv, env) = shell_launch_with("/bin/bash", &res(), pane, &app);
+        let mut c = Command::new(&argv[0]);
+        c.args(&argv[1..])
+            .env_clear()
+            .env("HOME", &home)
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::null());
+        for (k, v) in &env {
+            c.env(k, v);
+        }
+        let mut child = c.spawn().unwrap();
+        // one command line, two empty Enters, exit
+        child
+            .stdin
+            .take()
+            .unwrap()
+            .write_all(b"echo hi there; echo $_\n\n\nexit\n")
+            .unwrap();
+        let o = child.wait_with_output().unwrap();
+        let out = lines(&o);
+        assert!(
+            out.windows(2).any(|w| w == ["hi there", "there"]),
+            "{out:?}"
+        );
+        assert!(out.iter().any(|l| l == "user-pc"), "{out:?}");
+
+        // prompts: initial + after the command + 2 empty Enters; execs: the command + exit
+        let mut got = Vec::new();
+        let deadline = Instant::now() + Duration::from_secs(3);
+        while got.len() < 6 && Instant::now() < deadline {
+            match listener.accept() {
+                Ok((mut s, _)) => {
+                    s.set_nonblocking(false).unwrap();
+                    let mut l = String::new();
+                    s.read_to_string(&mut l).unwrap();
+                    got.push(crate::terminal::hooks::parse_line(&l, "tok").expect("valid line"));
+                }
+                Err(_) => std::thread::sleep(Duration::from_millis(20)),
+            }
+        }
+        std::thread::sleep(Duration::from_millis(300));
+        while let Ok((mut s, _)) = listener.accept() {
+            let mut l = String::new();
+            s.set_nonblocking(false).unwrap();
+            s.read_to_string(&mut l).unwrap();
+            got.extend(crate::terminal::hooks::parse_line(&l, "tok"));
+        }
+        let count = |e: &str| got.iter().filter(|m| m.event == e).count();
+        assert_eq!(
+            (count("shell-prompt"), count("shell-exec")),
+            (4, 2),
+            "{:?}",
+            got.iter()
+                .map(|m| (&m.event, &m.payload))
+                .collect::<Vec<_>>()
+        );
+        let mut seqs: Vec<u64> = got
+            .iter()
+            .map(|m| m.payload["seq"].as_u64().unwrap())
+            .collect();
+        seqs.sort();
+        assert_eq!(seqs, (1..=6).collect::<Vec<_>>());
+        assert!(got
+            .iter()
+            .all(|m| m.payload["pid"] == got[0].payload["pid"]));
+        let _ = std::fs::remove_dir_all(&home);
+    }
+
     /// shell_launch with the given app env values for ZDOTDIR/HOME/PATH.
     fn launch_with_app_env(
         shell: &str,
@@ -411,10 +510,22 @@ mod tests {
         assert_eq!(get(&env, "ZDOTDIR"), None);
         assert_eq!(get(&env, "PATH"), Some(format!("{shim}:/usr/bin")));
 
-        // resources missing → plain login shell, never a ZDOTDIR pointing nowhere
-        let (argv, env) = shell_launch_with("/bin/zsh", Path::new("/nonexistent"), vec![], &app);
-        assert_eq!(argv, vec!["/bin/zsh", "-l"]);
-        assert_eq!(get(&env, "ZDOTDIR"), None);
+        // resources missing or relative → plain login shell: no shim on PATH, no
+        // ZDOTDIR/rcfile, no MDT_* (incl. MDT_CLAUDE_SETTINGS) at all
+        let pane = vec![("MDT_CLAUDE_SETTINGS".to_string(), "/s.json".to_string())];
+        for dir in [
+            Path::new("/nonexistent"),
+            Path::new("resources"),
+            Path::new(""),
+        ] {
+            for sh in ["/bin/zsh", "/bin/bash"] {
+                let (argv, env) = shell_launch_with(sh, dir, pane.clone(), &app);
+                assert_eq!(argv, vec![sh, "-l"], "{dir:?}");
+                assert!(env.is_empty(), "{dir:?} {env:?}");
+            }
+        }
+        assert!(resources_ok(&res()));
+        assert!(!resources_ok(Path::new("resources")));
     }
 
     #[test]

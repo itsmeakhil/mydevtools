@@ -123,15 +123,21 @@ pub fn run() {
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
             // the binary (target/<profile>/resources), which resource_dir() resolves to.
-            // Unresolvable → shell_launch finds no rc files and falls back to a plain login shell.
-            let res_dir = app.path().resource_dir().unwrap_or_default().join("resources");
-            let hook_bin = res_dir.join("terminal/bin/mdt-hook");
-            // A missing settings file only makes the claude shim pass through.
-            let settings = terminal::env::write_claude_settings(&dir, &hook_bin).unwrap_or_else(|e| {
-                eprintln!("terminal: claude hooks settings not written: {e}");
-                dir.join("terminal/claude-hooks.json")
-            });
-            let _ = term.launch.set(terminal::env::Launch { res_dir, socket, settings });
+            // Unresolvable / not absolute / scripts missing → no integration at all:
+            // `launch` stays unset and panes get a plain `$SHELL -l`.
+            match app.path().resource_dir().map(|d| d.join("resources")) {
+                Ok(res_dir) if terminal::env::resources_ok(&res_dir) => {
+                    let hook_bin = res_dir.join("terminal/bin/mdt-hook");
+                    // A missing settings file only makes the claude shim pass through.
+                    let settings = terminal::env::write_claude_settings(&dir, &hook_bin)
+                        .unwrap_or_else(|e| {
+                            eprintln!("terminal: claude hooks settings not written: {e}");
+                            dir.join("terminal/claude-hooks.json")
+                        });
+                    let _ = term.launch.set(terminal::env::Launch { res_dir, socket, settings });
+                }
+                r => eprintln!("terminal: shell integration disabled, resources unusable: {r:?}"),
+            }
 
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged

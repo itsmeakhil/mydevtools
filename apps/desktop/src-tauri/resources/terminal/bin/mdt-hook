@@ -12,6 +12,14 @@ case $event in
   # Claude passes the hook input as one JSON object on stdin (JSON strings
   # never hold raw newlines, so stripping them keeps it valid).
   claude-*) payload=$(tr -d '\r\n' 2>/dev/null) ;;
+  # `mdt-hook shell-<x> <pid> <seq>`: backgrounded events can arrive out of
+  # order, so the app drops any seq not newer than the last one for that shell.
+  shell-*)
+    case $2$3 in
+      '' | *[!0-9]*) ;;
+      *) [ -n "$2" ] && [ -n "$3" ] && payload="{\"pid\":$2,\"seq\":$3}" ;;
+    esac
+    ;;
 esac
 # The app drops lines over 64 KiB (e.g. PreToolUse for a big Write); keep the event.
 [ -n "$payload" ] && [ ${#payload} -le 60000 ] || payload='{}'
