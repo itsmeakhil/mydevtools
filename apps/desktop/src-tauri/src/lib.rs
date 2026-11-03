@@ -4,6 +4,7 @@ mod error;
 mod http;
 mod router;
 mod state;
+mod terminal;
 
 use router::ApiResponse;
 use state::AppState;
@@ -117,6 +118,7 @@ pub fn run() {
             let state = AppState::init(dir.join("mydevtools.db"))
                 .map_err(|e| format!("failed to open local database: {e}"))?;
             app.manage(state);
+            app.manage(std::sync::Arc::new(terminal::pty::TerminalState::default()));
 
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged
@@ -150,7 +152,12 @@ pub fn run() {
             fs_allow_collection_dir,
             file_collections_registry_load,
             file_collections_registry_save,
-            secure_file_read
+            secure_file_read,
+            terminal::pty::terminal_spawn,
+            terminal::pty::terminal_attach,
+            terminal::pty::terminal_write,
+            terminal::pty::terminal_resize,
+            terminal::pty::terminal_kill
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

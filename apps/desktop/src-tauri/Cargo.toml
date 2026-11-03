@@ -45,6 +45,7 @@ mongodb = "3"
 redis = { version = "1", features = ["tokio-comp", "tokio-native-tls-comp"] }
 futures-util = "0.3"
 dashmap = "6"
+portable-pty = "0.9.0"
 
 # The keyring backend is the one genuinely platform-specific dependency: the
 # macOS Keychain vs. the Linux Secret Service (GNOME Keyring / KWallet).
