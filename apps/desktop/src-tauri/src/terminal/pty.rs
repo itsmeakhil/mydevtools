@@ -151,6 +151,8 @@ pub struct TerminalState {
     /// Per-launch secret the hook script must echo back over the socket.
     pub token: String,
     pub statuses: Mutex<super::hooks::StatusMap>,
+    /// Set once in `setup`; unset (e.g. in tests) → plain login shell.
+    pub launch: std::sync::OnceLock<super::env::Launch>,
 }
 
 impl Default for TerminalState {
@@ -161,6 +163,7 @@ impl Default for TerminalState {
             sessions: DashMap::new(),
             token: b.iter().map(|x| format!("{x:02x}")).collect(),
             statuses: Mutex::default(),
+            launch: std::sync::OnceLock::new(),
         }
     }
 }
@@ -251,17 +254,17 @@ impl TerminalState {
 
 // ---- Tauri commands ----
 
-fn default_launch() -> Vec<String> {
-    // Interim: Task 3 replaces this with env::shell_launch.
-    vec![std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".into()), "-l".into()]
-}
-
 #[tauri::command]
 pub async fn terminal_spawn(
     state: tauri::State<'_, Arc<TerminalState>>,
     req: SpawnRequest,
 ) -> Result<SpawnResult, String> {
-    state.spawn(req, vec![], default_launch())
+    let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".into());
+    let (argv, env) = match state.launch.get() {
+        Some(l) => super::env::shell_launch(&shell, &l.res_dir, l.pane_env(&req.id, &state.token)),
+        None => (vec![shell, "-l".into()], vec![]),
+    };
+    state.spawn(req, env, argv)
 }
 
 #[tauri::command]

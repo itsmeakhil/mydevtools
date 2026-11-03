@@ -161,13 +161,14 @@ fn emit_status(app: &AppHandle, id: &str, status: TermStatus, message: Option<&s
     );
 }
 
-/// Spawn the hook server for this launch (call from `setup`).
-pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) {
+/// Spawn the hook server for this launch (call from `setup`); returns the socket path.
+pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) -> PathBuf {
     #[cfg(unix)]
     let uid = unsafe { libc::getuid() };
     #[cfg(not(unix))]
     let uid = 0;
     let (path, token, app) = (socket_path(data_dir, uid), state.token.clone(), app.clone());
+    let ret = path.clone();
     tauri::async_runtime::spawn(async move {
         let r = serve(path, token, move |m| {
             let Some(s) = status_for(&m.event) else {
@@ -187,6 +188,7 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) {
             eprintln!("terminal hook server disabled: {e}");
         }
     });
+    ret
 }
 
 #[tauri::command]

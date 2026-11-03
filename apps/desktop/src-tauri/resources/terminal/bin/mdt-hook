@@ -1,0 +1,26 @@
+#!/bin/sh
+# MyDevTools Terminal status emitter: `mdt-hook <event>`. Runs inside Claude
+# Code's hook path and the shell prompt, so it never prints to stdout and
+# always exits 0 quickly.
+
+[ -n "$MDT_HOOK_SOCKET" ] && [ -n "$MDT_HOOK_TOKEN" ] && [ -n "$MDT_TERMINAL_ID" ] || exit 0
+event=$1
+export LC_ALL=C # byte-wise tr/sed and ${#payload}
+
+payload=
+case $event in
+  # Claude passes the hook input as one JSON object on stdin (JSON strings
+  # never hold raw newlines, so stripping them keeps it valid).
+  claude-*) payload=$(tr -d '\r\n' 2>/dev/null) ;;
+esac
+# The app drops lines over 64 KiB (e.g. PreToolUse for a big Write); keep the event.
+[ -n "$payload" ] && [ ${#payload} -le 60000 ] || payload='{}'
+
+json_str() {
+  printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+}
+
+line=$(printf '{"token":"%s","terminal_id":"%s","event":"%s","payload":%s}' \
+  "$(json_str "$MDT_HOOK_TOKEN")" "$(json_str "$MDT_TERMINAL_ID")" "$(json_str "$event")" "$payload")
+printf '%s\n' "$line" | nc -U -w 1 "$MDT_HOOK_SOCKET" >/dev/null 2>&1
+exit 0

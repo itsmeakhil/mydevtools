@@ -120,7 +120,18 @@ pub fn run() {
             app.manage(state);
             let term = std::sync::Arc::new(terminal::pty::TerminalState::default());
             app.manage(term.clone());
-            terminal::hooks::start(app.handle(), &dir, term);
+            let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
+            // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
+            // the binary (target/<profile>/resources), which resource_dir() resolves to.
+            // Unresolvable → shell_launch finds no rc files and falls back to a plain login shell.
+            let res_dir = app.path().resource_dir().unwrap_or_default().join("resources");
+            let hook_bin = res_dir.join("terminal/bin/mdt-hook");
+            // A missing settings file only makes the claude shim pass through.
+            let settings = terminal::env::write_claude_settings(&dir, &hook_bin).unwrap_or_else(|e| {
+                eprintln!("terminal: claude hooks settings not written: {e}");
+                dir.join("terminal/claude-hooks.json")
+            });
+            let _ = term.launch.set(terminal::env::Launch { res_dir, socket, settings });
 
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged
