@@ -31,6 +31,58 @@ export function singleFlight<K>() {
   }
 }
 
+/**
+ * Serializes PTY writes: one in flight at a time, data typed meanwhile is coalesced into a single
+ * follow-up write. The Rust command runs on a multi-threaded runtime, so concurrent invokes could
+ * reach the PTY out of order. The first write goes out immediately. A failed write is reported
+ * once via `onError` and the queue keeps going.
+ */
+export function writeQueue(send: (data: string) => Promise<unknown>, onError: (e: unknown) => void) {
+  let pending = ""
+  let busy = false
+  let reported = false
+  const pump = async () => {
+    busy = true
+    while (pending) {
+      const chunk = pending
+      pending = ""
+      try {
+        await send(chunk)
+      } catch (e) {
+        if (!reported) onError(e)
+        reported = true
+      }
+    }
+    busy = false
+  }
+  return (data: string) => {
+    pending += data
+    if (!busy) void pump()
+  }
+}
+
+/**
+ * Runs `fn` for `key` only after every earlier call for that key has settled, so calls reach the
+ * backend in issue order (used for terminal_attach: the last-mounted pane must attach last).
+ */
+export function keyedChain<K>() {
+  const tails = new Map<K, Promise<void>>()
+  return <T>(key: K, fn: () => Promise<T>): Promise<T> => {
+    const run = (tails.get(key) ?? Promise.resolve()).then(fn)
+    const tail = run.then(() => {}, () => {})
+    tails.set(key, tail)
+    void tail.then(() => tails.get(key) === tail && tails.delete(key))
+    return run
+  }
+}
+
+/** True for a text field other than xterm's own helper textarea (shortcuts must not fire there). */
+export function isForeignEditable(target: { tagName?: string; isContentEditable?: boolean; classList?: { contains(c: string): boolean } } | null): boolean {
+  if (!target) return false
+  if (target.classList?.contains("xterm-helper-textarea")) return false
+  return target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || !!target.isContentEditable
+}
+
 /** The waiting terminal after `current` in list order, wrapping; first one when `current` isn't waiting. */
 export function nextWaiting(ids: string[], current: string | null): string | null {
   if (ids.length === 0) return null

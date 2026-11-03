@@ -8,7 +8,7 @@ import "@xterm/xterm/css/xterm.css"
 import type { Terminal as XTerm } from "@xterm/xterm"
 import { useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
-import { decodeOutput, encodeInput } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, keyedChain, writeQueue } from "@/lib/terminal/util"
 import { terminalAttach, terminalResize, terminalSpawn, terminalWrite } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
 import { StatusDot } from "./terminal-sidebar"
@@ -16,6 +16,9 @@ import { StatusDot } from "./terminal-sidebar"
 const FONT = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace'
 // Spawn is idempotent and reports the fallback on every call — warn once per session.
 const warnedFallback = new Set<string>()
+// Attaches for one id reach Rust in mount order, so a fast remount's attach can't be
+// overtaken by the disposed mount's (Rust keeps whichever channel attached last).
+const attachChain = keyedChain<string>()
 
 /** Resolve a design token to an rgb() string in the scope of `host` (glass materials re-scope some tokens). */
 function token(host: HTMLElement, name: string, alpha = 1) {
@@ -94,9 +97,13 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       }
       layout()
 
-      // Write/resize failures mean the session is gone (closed/killed); nothing useful to tell the user per keystroke.
+      // Writes are serialized per pane (see writeQueue); a failure is toasted once.
+      const write = writeQueue((d) => terminalWrite(id, encodeInput(d)), (e) => {
+        if (!disposed) toast.error(errMsg(e))
+      })
+      // Resize failures mean the session is gone (closed/killed); nothing useful to tell the user.
       const subs = [
-        term.onData((d) => void terminalWrite(id, encodeInput(d)).catch(() => {})),
+        term.onData(write),
         term.onResize(({ cols, rows }) => void terminalResize(id, cols, rows).catch(() => {})),
         term.onTitleChange((title) => useTerminalStore.getState().setTitle(id, title)),
       ]
@@ -129,10 +136,13 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           toast.warning(strings.current.folderMissing(cwd))
         }
         // The first message is the scrollback replay, so a remount shows prior output.
-        await terminalAttach(id, (m) => {
-          if (disposed) return
-          if (m.type === "data") term.write(decodeOutput(m.b64))
-          else term.write(`\r\n\x1b[2m[${strings.current.exited}]\x1b[0m\r\n`)
+        await attachChain(id, async () => {
+          if (disposed) return // superseded before its turn: don't attach a dead pane
+          await terminalAttach(id, (m) => {
+            if (disposed) return
+            if (m.type === "data") term.write(decodeOutput(m.b64))
+            else term.write(`\r\n\x1b[2m[${strings.current.exited}]\x1b[0m\r\n`)
+          })
         })
         // An existing session may have been sized by a previous mount.
         if (!disposed) await terminalResize(id, term.cols, term.rows)
@@ -179,7 +189,10 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           <IconX className="h-3 w-3" aria-hidden />
         </button>
       </div>
-      <div ref={hostRef} className="min-h-0 flex-1 pl-2.5 pt-0.5" />
+      {/* Padding lives on the wrapper: FitAddon sizes cols/rows from the host's own box. */}
+      <div className="flex min-h-0 flex-1 flex-col pl-2.5 pt-0.5">
+        <div ref={hostRef} className="min-h-0 flex-1" />
+      </div>
     </div>
   )
 }

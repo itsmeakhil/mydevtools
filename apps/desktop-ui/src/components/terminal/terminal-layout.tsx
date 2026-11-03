@@ -14,7 +14,7 @@ import { useTabStore } from "@/store/tab-store"
 import { useTerminalStore, type TerminalProject } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou } from "@/lib/terminal/status"
-import { matchShortcut, nextWaiting, singleFlight } from "@/lib/terminal/util"
+import { isForeignEditable, matchShortcut, nextWaiting, singleFlight } from "@/lib/terminal/util"
 import { onClosePane, terminalGitInfo, terminalSetViewing } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
 import { SplitView } from "./split-view"
@@ -24,6 +24,13 @@ const TOOL_PATH = "/app/terminal"
 const GIT_POLL_MS = 5000
 const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e))
 const S = () => useTerminalStore.getState()
+/** Panes of the tab on screen (active project's active tab), read fresh from the store. */
+const visibleLeaves = () => {
+  const st = S()
+  const p = st.projects.find((x) => x.id === st.activeProjectId) ?? st.projects[0]
+  const tab = p?.tabs.find((x) => x.id === p.activeTabId)
+  return tab ? leafIds(tab.layout) : []
+}
 
 function useWindowFocused() {
   const [focused, setFocused] = React.useState(() => typeof document === "undefined" || document.hasFocus())
@@ -76,7 +83,8 @@ function TabBar({ project }: { project: TerminalProject }) {
     if (name) S().renameTab(project.id, tabId, name)
     setEditing(null)
   }
-  const focusedInProject = focusedId && project.tabs.some((tab) => leafIds(tab.layout).includes(focusedId))
+  const activeTab = project.tabs.find((tab) => tab.id === project.activeTabId)
+  const focusedInProject = !!focusedId && !!activeTab && leafIds(activeTab.layout).includes(focusedId)
 
   return (
     <div className="flex h-10 shrink-0 items-center gap-1 border-b border-border px-2">
@@ -226,7 +234,9 @@ export function TerminalLayout() {
   React.useEffect(() => {
     let unlisten: (() => void) | undefined
     let gone = false
-    onClosePane(({ id }) => S().closeTerminal(id))
+    onClosePane(({ id }) => {
+      if (visibleLeaves().includes(id)) S().closeTerminal(id)
+    })
       .then((u) => (gone ? u() : (unlisten = u)))
       .catch(() => {})
     return () => {
@@ -241,6 +251,12 @@ export function TerminalLayout() {
     const onKey = (e: KeyboardEvent) => {
       const action = matchShortcut(e)
       if (!action) return
+      // Leave typing in other fields (tab rename, dialogs, ⌘K palette) alone.
+      if (isForeignEditable(e.target as HTMLElement | null)) return
+      if (document.querySelector('[role="dialog"], [role="alertdialog"]')) return
+      e.preventDefault()
+      e.stopPropagation()
+      if (e.repeat) return // holding ⌘D must not split repeatedly
       const st = S()
       const p = st.projects.find((x) => x.id === st.activeProjectId) ?? st.projects[0]
       const focused = st.focusedTerminalId
@@ -248,7 +264,8 @@ export function TerminalLayout() {
       switch (action) {
         case "splitRow":
         case "splitCol":
-          if (!focused) return
+          // Only a pane on screen: focus can linger on a hidden project's pane (e.g. zero-tab project).
+          if (!focused || !visibleLeaves().includes(focused)) return
           st.split(focused, action === "splitRow" ? "row" : "col")
           break
         case "newTab":
@@ -270,8 +287,6 @@ export function TerminalLayout() {
           break
         }
       }
-      e.preventDefault()
-      e.stopPropagation()
     }
     window.addEventListener("keydown", onKey, true)
     return () => window.removeEventListener("keydown", onKey, true)

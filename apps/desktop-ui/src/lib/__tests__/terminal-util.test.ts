@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, matchShortcut, nextWaiting, singleFlight } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -55,5 +55,77 @@ describe("terminal util", () => {
     expect(k("KeyJ")).toBe("nextWaiting")
     expect(k("KeyW")).toBeNull()
     expect(k("KeyD", false, false)).toBeNull()
+  })
+
+  describe("writeQueue", () => {
+    const deferredWriter = () => {
+      const calls: { data: string; resolve: () => void; reject: (e: Error) => void }[] = []
+      const send = (data: string) => new Promise<void>((resolve, reject) => calls.push({ data, resolve, reject }))
+      return { calls, send }
+    }
+    const flush = () => new Promise((r) => setTimeout(r, 0))
+
+    it("sends the first write immediately and coalesces the rest, preserving order", async () => {
+      const w = deferredWriter()
+      const push = writeQueue(w.send, jest.fn())
+      push("l")
+      expect(w.calls.map((c) => c.data)).toEqual(["l"])
+      push("s")
+      push(" -la")
+      push("\r")
+      expect(w.calls).toHaveLength(1) // still one in flight
+      w.calls[0].resolve()
+      await flush()
+      expect(w.calls.map((c) => c.data)).toEqual(["l", "s -la\r"])
+      w.calls[1].resolve()
+      await flush()
+      push("x")
+      expect(w.calls.map((c) => c.data)).toEqual(["l", "s -la\r", "x"])
+    })
+
+    it("a rejected write doesn't wedge the queue and reports once", async () => {
+      const w = deferredWriter()
+      const onError = jest.fn()
+      const push = writeQueue(w.send, onError)
+      push("a")
+      push("b")
+      w.calls[0].reject(new Error("gone"))
+      await flush()
+      expect(w.calls.map((c) => c.data)).toEqual(["a", "b"])
+      w.calls[1].reject(new Error("gone again"))
+      await flush()
+      push("c")
+      expect(w.calls.map((c) => c.data)).toEqual(["a", "b", "c"])
+      expect(onError).toHaveBeenCalledTimes(1)
+    })
+  })
+
+  it("keyedChain runs calls for one key in issue order even when the first is slower", async () => {
+    const chain = keyedChain<string>()
+    const order: string[] = []
+    let releaseFirst!: () => void
+    const first = chain("t", () => new Promise<void>((r) => (releaseFirst = () => { order.push("first"); r() })))
+    const second = chain("t", async () => { order.push("second") })
+    const other = chain("u", async () => { order.push("other") })
+    await other
+    expect(order).toEqual(["other"])
+    releaseFirst()
+    await Promise.all([first, second])
+    expect(order).toEqual(["other", "first", "second"])
+  })
+
+  it("keyedChain continues after a rejection", async () => {
+    const chain = keyedChain<string>()
+    await expect(chain("t", async () => { throw new Error("x") })).rejects.toThrow("x")
+    expect(await chain("t", async () => 5)).toBe(5)
+  })
+
+  it("isForeignEditable ignores xterm's helper textarea", () => {
+    const cls = (...c: string[]) => ({ contains: (x: string) => c.includes(x) })
+    expect(isForeignEditable({ tagName: "TEXTAREA", classList: cls("xterm-helper-textarea") })).toBe(false)
+    expect(isForeignEditable({ tagName: "INPUT", classList: cls() })).toBe(true)
+    expect(isForeignEditable({ tagName: "DIV", isContentEditable: true, classList: cls() })).toBe(true)
+    expect(isForeignEditable({ tagName: "DIV", classList: cls() })).toBe(false)
+    expect(isForeignEditable(null)).toBe(false)
   })
 })
