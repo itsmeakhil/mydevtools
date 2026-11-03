@@ -29,8 +29,10 @@ impl Scrollback {
         if self.buf.len() > self.cap {
             let excess = self.buf.len() - self.cap;
             self.buf.drain(..excess);
-            let cut = self.buf.iter().position(|&b| b == b'\n').map_or(self.buf.len(), |i| i + 1);
-            self.buf.drain(..cut);
+            // Replay from a line start when there is one; else keep the tail (a TUI or progress bar).
+            if let Some(i) = self.buf.iter().position(|&b| b == b'\n') {
+                self.buf.drain(..=i);
+            }
         }
     }
 
@@ -343,6 +345,13 @@ mod tests {
         s.push(&e[..1]);
         s.push(&e[1..]);
         assert_eq!(s.snapshot(), e);
+        // No newline left (one huge line / full-screen TUI): keep the tail, don't wipe.
+        let mut s = Scrollback::new(16);
+        let long: Vec<u8> = (0..40u8).map(|i| b'a' + i % 26).collect();
+        s.push(&long);
+        let snap = s.snapshot();
+        assert!(!snap.is_empty() && snap.len() <= 16);
+        assert!(long.ends_with(&snap));
     }
 
     #[test]
