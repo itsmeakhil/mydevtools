@@ -81,7 +81,8 @@ apps/desktop/src-tauri/target/release/
 # Internal design notes stay local; docs/ itself (README translations, ARCHITECTURE.md) is public.
 docs/superpowers/
 
-.superpowers/apps/desktop/node_modules
+.superpowers/
+apps/desktop/node_modules
 /apps/desktop/src-tauri/target
 /apps/desktop/node_modules
 
