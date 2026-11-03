@@ -2668,6 +2668,7 @@
     "newTab": "Ny fane",
     "untitledTab": "Terminal {n}",
     "renameTab": "Gi fanen nytt navn",
+    "renameTerminal": "Gi nytt navn til terminal",
     "closeTab": "Lukk fanen",
     "noTabs": "Ingen terminaler er åpne i dette prosjektet.",
     "statusWaiting": "Venter på input",

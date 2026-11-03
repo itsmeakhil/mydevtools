@@ -2668,6 +2668,7 @@
     "newTab": "Nieuw tabblad",
     "untitledTab": "Terminal {n}",
     "renameTab": "Tabblad hernoemen",
+    "renameTerminal": "Terminal hernoemen",
     "closeTab": "Tabblad sluiten",
     "noTabs": "Er zijn geen terminals geopend in dit project.",
     "statusWaiting": "Wacht op invoer",

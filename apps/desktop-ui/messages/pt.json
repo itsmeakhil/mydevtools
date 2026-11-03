@@ -2668,6 +2668,7 @@
     "newTab": "Novo separador",
     "untitledTab": "Terminal {n}",
     "renameTab": "Mudar o nome do separador",
+    "renameTerminal": "Mudar o nome do terminal",
     "closeTab": "Fechar separador",
     "noTabs": "Nenhum terminal aberto neste projeto.",
     "statusWaiting": "A aguardar entrada",

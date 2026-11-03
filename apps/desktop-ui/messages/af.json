@@ -2668,6 +2668,7 @@
     "newTab": "Nuwe oortjie",
     "untitledTab": "Terminaal {n}",
     "renameTab": "Hernoem oortjie",
+    "renameTerminal": "Hernoem terminaal",
     "closeTab": "Maak oortjie toe",
     "noTabs": "Geen terminale is in hierdie projek oop nie.",
     "statusWaiting": "Wag vir invoer",

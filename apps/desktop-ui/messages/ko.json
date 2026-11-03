@@ -2668,6 +2668,7 @@
     "newTab": "새 탭",
     "untitledTab": "터미널 {n}",
     "renameTab": "탭 이름 바꾸기",
+    "renameTerminal": "터미널 이름 바꾸기",
     "closeTab": "탭 닫기",
     "noTabs": "이 프로젝트에 열린 터미널이 없습니다.",
     "statusWaiting": "입력 대기 중",

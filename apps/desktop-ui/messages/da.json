@@ -2668,6 +2668,7 @@
     "newTab": "Ny fane",
     "untitledTab": "Terminal {n}",
     "renameTab": "Omdøb fane",
+    "renameTerminal": "Omdøb terminal",
     "closeTab": "Luk fane",
     "noTabs": "Ingen terminaler er åbne i dette projekt.",
     "statusWaiting": "Venter på input",

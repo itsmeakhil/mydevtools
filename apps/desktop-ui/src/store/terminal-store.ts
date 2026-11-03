@@ -27,6 +27,8 @@ interface TerminalState extends TerminalPersisted {
   newTab: (projectId: string, name?: string) => void
   closeTab: (projectId: string, tabId: string) => void
   renameTab: (projectId: string, tabId: string, name: string) => void
+  /** Custom pane name; blank clears it so the label falls back to the shell's window title. */
+  renameTerminal: (terminalId: string, name: string) => void
   split: (terminalId: string, dir: "row" | "col") => void
   closeTerminal: (terminalId: string) => void
   resize: (tabId: string, path: number[], sizes: number[]) => void
@@ -203,6 +205,18 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     renameTab: (projectId, tabId, name) =>
       mutate(mapProject(projectId, (p) => ({ ...p, tabs: p.tabs.map((t) => (t.id === tabId ? { ...t, name } : t)) }))),
+
+    renameTerminal: (terminalId, name) => {
+      const hit = find(get().projects, terminalId)
+      if (!hit) return
+      const terminalNames = { ...hit.t.terminalNames }
+      if (name.trim()) terminalNames[terminalId] = name.trim()
+      else delete terminalNames[terminalId]
+      mutate(mapProject(hit.p.id, (p) => ({
+        ...p,
+        tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, terminalNames } : t)),
+      })))
+    },
 
     split: (terminalId, dir) => {
       const hit = find(get().projects, terminalId)

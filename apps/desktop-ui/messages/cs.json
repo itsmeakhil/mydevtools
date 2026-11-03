@@ -2668,6 +2668,7 @@
     "newTab": "Nová karta",
     "untitledTab": "Terminál {n}",
     "renameTab": "Přejmenovat kartu",
+    "renameTerminal": "Přejmenovat terminál",
     "closeTab": "Zavřít kartu",
     "noTabs": "V tomto projektu nejsou otevřeny žádné terminály.",
     "statusWaiting": "Čeká na vstup",

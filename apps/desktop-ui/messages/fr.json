@@ -2668,6 +2668,7 @@
     "newTab": "Nouvel onglet",
     "untitledTab": "Terminal {n}",
     "renameTab": "Renommer l'onglet",
+    "renameTerminal": "Renommer le terminal",
     "closeTab": "Fermer l'onglet",
     "noTabs": "Aucun terminal ouvert dans ce projet.",
     "statusWaiting": "En attente de saisie",

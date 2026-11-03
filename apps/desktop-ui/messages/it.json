@@ -2668,6 +2668,7 @@
     "newTab": "Nuova scheda",
     "untitledTab": "Terminale {n}",
     "renameTab": "Rinomina scheda",
+    "renameTerminal": "Rinomina terminale",
     "closeTab": "Chiudi scheda",
     "noTabs": "Nessun terminale aperto in questo progetto.",
     "statusWaiting": "In attesa di input",

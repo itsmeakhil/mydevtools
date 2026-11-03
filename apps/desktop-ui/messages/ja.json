@@ -2668,6 +2668,7 @@
     "newTab": "新しいタブ",
     "untitledTab": "ターミナル {n}",
     "renameTab": "タブの名前を変更",
+    "renameTerminal": "ターミナル名を変更",
     "closeTab": "タブを閉じる",
     "noTabs": "このプロジェクトで開いているターミナルはありません。",
     "statusWaiting": "入力待ち",

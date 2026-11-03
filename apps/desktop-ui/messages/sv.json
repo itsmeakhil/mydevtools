@@ -2668,6 +2668,7 @@
     "newTab": "Ny flik",
     "untitledTab": "Terminal {n}",
     "renameTab": "Byt namn på fliken",
+    "renameTerminal": "Byt namn på terminal",
     "closeTab": "Stäng fliken",
     "noTabs": "Inga terminaler är öppna i det här projektet.",
     "statusWaiting": "Väntar på inmatning",

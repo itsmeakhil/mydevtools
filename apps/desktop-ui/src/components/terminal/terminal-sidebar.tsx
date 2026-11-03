@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl"
 import { AnimatePresence, motion } from "framer-motion"
 import { IconChevronRight, IconFolder, IconFolderPlus, IconTrash } from "@tabler/icons-react"
 import { useToolSidebarRail } from "@/components/tools/tool-sidebar"
+import { Input } from "@/components/ui/input"
 import { useTerminalStore, type TerminalProject, type TerminalTab } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou, projectWaitingCount, type TermStatus } from "@/lib/terminal/status"
@@ -42,6 +43,11 @@ function NeedsYouBox() {
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
   const items = React.useMemo(() => needsYou(projects, statuses), [projects, statuses])
   if (items.length === 0) return null
+  // Same precedence as the sidebar rows: custom name, then the live shell title, then the tab name.
+  const labelOf = (projectId: string, id: string, fallback: string) => {
+    const tab = projects.find((p) => p.id === projectId)?.tabs.find((tb) => leafIds(tb.layout).includes(id))
+    return tab ? terminalLabel(tab, id, titles) : fallback
+  }
   return (
     <div className="mx-2 mt-2 rounded-xl border border-destructive/30 bg-destructive/[0.06] p-1.5">
       <p className="px-1.5 pb-1 pt-0.5 text-[11px] font-semibold text-destructive">{t("needsYou", { count: items.length })}</p>
@@ -54,7 +60,7 @@ function NeedsYouBox() {
         >
           <StatusDot status="waiting" />
           <span className="min-w-0 truncate">
-            {it.projectName} / {titles[it.terminalId] ?? it.terminalName}
+            {it.projectName} / {labelOf(it.projectId, it.terminalId, it.terminalName)}
           </span>
         </button>
       ))}
@@ -65,11 +71,40 @@ function NeedsYouBox() {
 const TerminalRow = React.memo(function TerminalRow({
   id, label, status, active, onSelect,
 }: { id: string; label: string; status: TermStatus | undefined; active: boolean; onSelect: (id: string) => void }) {
+  const t = useTranslations("Terminal")
+  const [draft, setDraft] = React.useState<string | null>(null)
+  const commit = () => {
+    if (draft !== null) useTerminalStore.getState().renameTerminal(id, draft)
+    setDraft(null)
+  }
+
+  if (draft !== null)
+    return (
+      <div className="flex h-7 items-center gap-2 pl-7 pr-1">
+        <StatusDot status={status} />
+        <Input
+          autoFocus
+          value={draft}
+          aria-label={t("renameTerminal")}
+          onChange={(e) => setDraft(e.target.value)}
+          onFocus={(e) => e.target.select()}
+          onBlur={commit}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") commit()
+            if (e.key === "Escape") setDraft(null)
+          }}
+          className="h-6 min-w-0 flex-1 px-1.5 text-[13px]"
+        />
+      </div>
+    )
+
   return (
     <button
       type="button"
       aria-current={active ? "true" : undefined}
+      title={label}
       onClick={() => onSelect(id)}
+      onDoubleClick={() => setDraft(label)}
       className={cn(
         "flex h-7 w-full items-center gap-2 rounded-lg pl-7 pr-2.5 text-left text-[13px] transition-colors",
         active ? "bg-primary/[0.12] font-medium text-foreground" : "text-foreground/80 hover:bg-foreground/[0.05] hover:text-foreground",

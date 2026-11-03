@@ -49,6 +49,17 @@ describe("terminal store", () => {
     S().closeTerminal(id)
     expect(terminalExists(id)).toBe(false)
   })
+  it("renameTerminal sets a trimmed name; empty clears it back to the live title", () => {
+    S().addProject("/x/app")
+    const id = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().renameTerminal(id, "  api server  ")
+    expect(S().projects[0].tabs[0].terminalNames[id]).toBe("api server")
+    expect(S().dirty).toBe(true)
+    S().renameTerminal(id, "   ")
+    expect(id in S().projects[0].tabs[0].terminalNames).toBe(false)
+    S().renameTerminal("ghost", "x") // unknown id: no-op, no throw
+    expect(S().projects[0].tabs[0].terminalNames).toEqual({})
+  })
   it("split adds a leaf; closeTerminal removes it", () => {
     S().addProject("/x/app")
     const id = leafIds(S().projects[0].tabs[0].layout)[0]

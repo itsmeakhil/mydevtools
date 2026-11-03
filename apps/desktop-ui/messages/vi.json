@@ -2668,6 +2668,7 @@
     "newTab": "Tab mới",
     "untitledTab": "Terminal {n}",
     "renameTab": "Đổi tên tab",
+    "renameTerminal": "Đổi tên terminal",
     "closeTab": "Đóng tab",
     "noTabs": "Không có terminal nào đang mở trong dự án này.",
     "statusWaiting": "Đang chờ nhập",

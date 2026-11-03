@@ -2668,6 +2668,7 @@
     "newTab": "新建标签页",
     "untitledTab": "终端 {n}",
     "renameTab": "重命名标签页",
+    "renameTerminal": "重命名终端",
     "closeTab": "关闭标签页",
     "noTabs": "此项目中没有打开的终端。",
     "statusWaiting": "等待输入",

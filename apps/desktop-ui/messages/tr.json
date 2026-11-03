@@ -2668,6 +2668,7 @@
     "newTab": "Yeni sekme",
     "untitledTab": "Terminal {n}",
     "renameTab": "Sekmeyi yeniden adlandır",
+    "renameTerminal": "Terminali yeniden adlandır",
     "closeTab": "Sekmeyi kapat",
     "noTabs": "Bu projede açık terminal yok.",
     "statusWaiting": "Girdi bekliyor",

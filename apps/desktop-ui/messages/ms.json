@@ -2668,6 +2668,7 @@
     "newTab": "Tab baharu",
     "untitledTab": "Terminal {n}",
     "renameTab": "Namakan semula tab",
+    "renameTerminal": "Namakan semula terminal",
     "closeTab": "Tutup tab",
     "noTabs": "Tiada terminal dibuka dalam projek ini.",
     "statusWaiting": "Menunggu input",

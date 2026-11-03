@@ -2668,6 +2668,7 @@
     "newTab": "Pestanya nova",
     "untitledTab": "Terminal {n}",
     "renameTab": "Canvia el nom de la pestanya",
+    "renameTerminal": "Canvia el nom del terminal",
     "closeTab": "Tanca la pestanya",
     "noTabs": "No hi ha cap terminal obert en aquest projecte.",
     "statusWaiting": "Espera una resposta",

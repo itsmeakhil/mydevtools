@@ -2668,6 +2668,7 @@
     "newTab": "Nova aba",
     "untitledTab": "Terminal {n}",
     "renameTab": "Renomear aba",
+    "renameTerminal": "Renomear terminal",
     "closeTab": "Fechar aba",
     "noTabs": "Nenhum terminal aberto neste projeto.",
     "statusWaiting": "Aguardando entrada",

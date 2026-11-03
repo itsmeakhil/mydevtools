@@ -2668,6 +2668,7 @@
     "newTab": "زبانه جدید",
     "untitledTab": "ترمینال {n}",
     "renameTab": "تغییر نام زبانه",
+    "renameTerminal": "تغییر نام ترمینال",
     "closeTab": "بستن زبانه",
     "noTabs": "هیچ ترمینالی در این پروژه باز نیست.",
     "statusWaiting": "منتظر ورودی",

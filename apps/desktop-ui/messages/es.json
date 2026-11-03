@@ -2668,6 +2668,7 @@
     "newTab": "Nueva pestaña",
     "untitledTab": "Terminal {n}",
     "renameTab": "Renombrar pestaña",
+    "renameTerminal": "Cambiar nombre del terminal",
     "closeTab": "Cerrar pestaña",
     "noTabs": "No hay terminales abiertos en este proyecto.",
     "statusWaiting": "Esperando entrada",

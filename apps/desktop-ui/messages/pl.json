@@ -2668,6 +2668,7 @@
     "newTab": "Nowa karta",
     "untitledTab": "Terminal {n}",
     "renameTab": "Zmień nazwę karty",
+    "renameTerminal": "Zmień nazwę terminala",
     "closeTab": "Zamknij kartę",
     "noTabs": "W tym projekcie nie ma otwartych terminali.",
     "statusWaiting": "Czeka na dane",
