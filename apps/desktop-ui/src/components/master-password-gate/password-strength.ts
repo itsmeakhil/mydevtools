@@ -48,10 +48,10 @@ export function calcStrength(pw: string): StrengthResult {
     const colors = [
         "bg-muted",
         "bg-destructive",
-        "bg-orange-500",
-        "bg-yellow-500",
-        "bg-green-500",
-        "bg-emerald-500",
+        "bg-warning",
+        "bg-warning",
+        "bg-success",
+        "bg-success",
     ]
 
     return {

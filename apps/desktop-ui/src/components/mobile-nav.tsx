@@ -103,15 +103,12 @@ export function MobileNav() {
                 "fixed bottom-[max(1.5rem,calc(env(safe-area-inset-bottom)+0.5rem))] left-1/2 -translate-x-1/2 z-50",
                 "flex items-center justify-around gap-1",
                 "h-[64px] px-2 w-[calc(100%-2rem)] max-w-sm",
-                "border border-border/50 rounded-full",
-                "bg-background/80 backdrop-blur-2xl shadow-2xl",
+                "glass-prominent chrome rounded-full",
                 "md:hidden"
             )}
             role="navigation"
             aria-label="Mobile navigation"
         >
-            {/* Soft inner highlight for premium feel */}
-            <div className="absolute inset-0 rounded-full border border-white/10 pointer-events-none" />
 
             {/* Home Link */}
             <Link
@@ -122,7 +119,7 @@ export function MobileNav() {
                 {activeTab === 'home' && (
                     <motion.div
                         layoutId="active-mobile-nav"
-                        className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-violet-500/10 ring-1 ring-inset ring-primary/15 -z-10"
+                        className="absolute inset-0 rounded-full bg-primary/[0.12] -z-10"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                 )}
@@ -155,7 +152,7 @@ export function MobileNav() {
                             {activeTab === 'profile' && (
                                 <motion.div
                                     layoutId="active-mobile-nav"
-                                    className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-violet-500/10 ring-1 ring-inset ring-primary/15 -z-10"
+                                    className="absolute inset-0 rounded-full bg-primary/[0.12] -z-10"
                                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                                 />
                             )}
@@ -174,7 +171,7 @@ export function MobileNav() {
                         align="end"
                         side="top"
                         sideOffset={12}
-                        className="w-60 rounded-xl shadow-xl border-border/50 backdrop-blur-xl bg-popover/95"
+                        className="w-60"
                     >
                         <DropdownMenuLabel className="font-normal p-3">
                             <div className="flex items-center gap-3">

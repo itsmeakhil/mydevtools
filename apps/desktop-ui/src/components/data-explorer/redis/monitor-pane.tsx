@@ -58,8 +58,8 @@ export function MonitorPane({ redisUrl, db }: { redisUrl: string; db: number }) 
 
     return (
         <div className="flex h-full flex-col">
-            <div className="border-b p-3 space-y-2 shrink-0">
-                <div className="flex items-start gap-2 text-[10px] text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded p-2">
+            <div className="shrink-0 space-y-2 border-b border-border p-3">
+                <div className="flex items-start gap-2 rounded-md border border-warning/30 bg-warning/10 p-2 text-[11px] text-warning">
                     <IconAlertTriangle className="size-3.5 shrink-0 mt-0.5" />
                     <div>
                         MONITOR streams every command executed on the server — it can degrade throughput
@@ -67,8 +67,8 @@ export function MonitorPane({ redisUrl, db }: { redisUrl: string; db: number }) 
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
-                    <div className="text-xs text-muted-foreground">
-                        {running ? `Live · ${events.length} cmd` : "Idle"}
+                    <div className="text-xs tabular-nums text-muted-foreground">
+                        {running ?`Live · ${events.length} cmd` : "Idle"}
                     </div>
                     {running ? (
                         <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={stop}>
@@ -85,7 +85,7 @@ export function MonitorPane({ redisUrl, db }: { redisUrl: string; db: number }) 
             <ScrollArea className="flex-1">
                 <div className="p-2 font-mono text-[11px] space-y-0.5">
                     {events.length === 0 ? (
-                        <div className="text-center text-xs text-muted-foreground p-6">
+                        <div className="p-6 text-center font-sans text-[13px] text-muted-foreground">
                             {running ? "Waiting for commands…" : "Press Start to begin MONITOR"}
                         </div>
                     ) : (
@@ -95,7 +95,7 @@ export function MonitorPane({ redisUrl, db }: { redisUrl: string; db: number }) 
                                     {new Date(e.ts).toLocaleTimeString()}
                                 </span>
                                 <span className="text-muted-foreground shrink-0">{e.source}</span>
-                                <span className="text-blue-600 dark:text-blue-400 shrink-0">[{e.database}]</span>
+                                <span className="shrink-0 text-primary">[{e.database}]</span>
                                 <span className="truncate">{e.args.join(" ")}</span>
                             </div>
                         ))
@@ -104,8 +104,8 @@ export function MonitorPane({ redisUrl, db }: { redisUrl: string; db: number }) 
             </ScrollArea>
 
             {events.length > 0 && (
-                <div className="border-t px-3 py-1.5 flex justify-end shrink-0">
-                    <Button size="sm" variant="ghost" className="h-6 text-[10px] gap-1" onClick={() => setEvents([])}>
+                <div className="flex h-9 shrink-0 items-center justify-end border-t border-border px-2">
+                    <Button size="sm" variant="ghost" className="h-7 gap-1 text-xs" onClick={() => setEvents([])}>
                         <IconTrash className="size-3" /> Clear
                     </Button>
                 </div>

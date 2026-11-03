@@ -496,9 +496,9 @@ export function SecureFilesTool() {
     const cell = "flex h-full min-w-0 items-center"
     if (it.kind === "folder") {
       return (
-        <div key={it.folder.path} style={{ height: LIST_ROW_H }} className={cn("group grid items-center border-b border-border/50 hover:bg-muted/50", listCols)}>
+        <div key={it.folder.path} style={{ height: LIST_ROW_H }} className={cn("group grid items-center border-b border-border hover:bg-foreground/[0.03]", listCols)}>
           <button type="button" className={cn(cell, "gap-2 px-4 text-left")} onClick={() => setCurrentDir(it.folder.path)}>
-            <IconFolder className="size-4 shrink-0 text-amber-500" />
+            <IconFolder className="size-4 shrink-0 text-primary/80" />
             <span className="truncate">{it.folder.name}</span>
           </button>
           <span className="px-2 text-right text-muted-foreground">—</span>
@@ -509,7 +509,7 @@ export function SecureFilesTool() {
     }
     const f = it.file
     return (
-      <div key={f.id} style={{ height: LIST_ROW_H }} className={cn("group grid items-center border-b border-border/50 hover:bg-muted/50", listCols)}>
+      <div key={f.id} style={{ height: LIST_ROW_H }} className={cn("group grid items-center border-b border-border hover:bg-foreground/[0.03]", listCols)}>
         <button type="button" className={cn(cell, "gap-2 px-4 text-left")} onClick={() => openPreview(f)}>
           <FileIconComp type={getFileType(f.name)} className="size-4 shrink-0" />
           <span className="truncate">{f.name}</span>
@@ -530,12 +530,12 @@ export function SecureFilesTool() {
       <div key={key} className="group relative min-w-0">
         <button
           type="button"
-          className="flex h-full w-full flex-col items-center gap-1.5 rounded-lg p-2 pt-3 transition-colors hover:bg-muted/60"
+          className="flex h-full w-full flex-col items-center gap-1.5 rounded-lg p-2 pt-3 transition-colors hover:bg-foreground/[0.05]"
           onClick={() => (isFolder ? setCurrentDir(it.folder.path) : openPreview(it.file))}
         >
           <span className="flex h-[4.5rem] w-full items-center justify-center overflow-hidden rounded-md bg-muted/40">
             {isFolder ? (
-              <IconFolder className="size-10 text-amber-500" strokeWidth={1.5} />
+              <IconFolder className="size-10 text-primary/80" strokeWidth={1.5} />
             ) : thumb ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={thumb} alt="" loading="lazy" decoding="async" className="size-full object-cover" />
@@ -547,7 +547,7 @@ export function SecureFilesTool() {
             )}
           </span>
           <span className="w-full truncate text-center text-xs" title={name}>{name}</span>
-          {!isFolder && <span className="text-[10px] tabular-nums text-muted-foreground">{formatBytes(it.file.size)}</span>}
+          {!isFolder && <span className="text-[11px] tabular-nums text-muted-foreground">{formatBytes(it.file.size)}</span>}
         </button>
         <div className="absolute right-1 top-1">
           <RowMenu label={t("actions")}>{isFolder ? folderMenu(it.folder.path) : fileMenu(it.file)}</RowMenu>
@@ -577,16 +577,16 @@ export function SecureFilesTool() {
 
   const sidebar = hasDir ? (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="border-b p-2">
+      <div className="border-b border-border p-2">
         <button
           type="button"
           onClick={() => setShowOverview(true)}
           className={cn(
-            "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted",
-            showOverview && "bg-muted font-medium",
+            "flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-[13px] transition-colors",
+            showOverview ? "bg-primary/[0.12] text-foreground" : "hover:bg-foreground/[0.05]",
           )}
         >
-          <IconChartPie className="size-4 shrink-0 text-muted-foreground" />
+          <IconChartPie className={cn("size-4 shrink-0", showOverview ? "text-primary" : "text-muted-foreground")} />
           <span className="truncate">{t("overview")}</span>
         </button>
       </div>
@@ -600,8 +600,8 @@ export function SecureFilesTool() {
     <ToolSidebarLayout toolId="secure-files" icon={FolderLock} title={t("title")} actions={actions} sidebar={sidebar} className="bg-background mobile-nav-offset">
       <div className="flex h-full min-h-0 flex-col">
         {/* Toolbar */}
-        <div className="flex shrink-0 flex-wrap items-center gap-2 border-b px-4 py-2">
-          <nav className="flex min-w-0 flex-1 items-center gap-1 text-sm" aria-label={t("breadcrumb")}>
+        <div className="flex min-h-11 shrink-0 flex-wrap items-center gap-2 border-b border-border px-4 py-1.5">
+          <nav className="flex min-w-0 flex-1 items-center gap-1 text-[13px]" aria-label={t("breadcrumb")}>
             {showOverview ? (
               <span className="truncate font-medium">{t("overview")}</span>
             ) : (
@@ -665,7 +665,7 @@ export function SecureFilesTool() {
         </div>
 
         {progress && (
-          <div className="flex shrink-0 items-center gap-3 border-b px-4 py-2 text-xs">
+          <div className="flex shrink-0 items-center gap-3 border-b border-border px-4 py-2 text-xs">
             <span className="shrink-0 tabular-nums text-muted-foreground">
               {t("working", { done: formatBytes(progress.done), total: formatBytes(progress.total) })}
             </span>
@@ -682,8 +682,8 @@ export function SecureFilesTool() {
         )}
 
         {errors.length > 0 && errorsKey(errors) !== dismissedErrors && (
-          <div className="mx-4 mt-3 flex items-start gap-2 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs">
-            <IconAlertTriangle className="mt-0.5 size-4 shrink-0 text-amber-600" />
+          <div className="mx-4 mt-3 flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs">
+            <IconAlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" />
             <div className="min-w-0 flex-1">
               <div className="font-medium">{t("unreadableCount", { count: errors.length })}</div>
               <div className="text-muted-foreground">{t("unreadableHint")}</div>
@@ -735,14 +735,14 @@ export function SecureFilesTool() {
           ) : (
             <>
               {view === "list" && (
-                <div className={cn("sticky top-0 z-10 grid border-b bg-background py-2 text-xs font-medium text-muted-foreground", listCols)}>
+                <div className={cn("sticky top-0 z-10 grid border-b border-border bg-muted py-2 text-[12px] font-medium text-muted-foreground", listCols)}>
                   <span className="px-4">{t("name")}</span>
                   <span className="px-2 text-right">{t("size")}</span>
                   <span className="hidden px-2 text-right md:block">{t("modified")}</span>
                   <span />
                 </div>
               )}
-              <div className="relative text-sm" style={{ height: rowCount * rowH }}>
+              <div className="relative text-[13px]" style={{ height: rowCount * rowH }}>
                 <div className="absolute inset-x-0" style={{ top: startRow * rowH }}>
                   {view === "grid"
                     ? Array.from({ length: endRow - startRow }, (_, i) => {
@@ -764,7 +764,7 @@ export function SecureFilesTool() {
           )}
         </div>
 
-        <p className="shrink-0 border-t px-4 py-1.5 text-[11px] text-muted-foreground">{t("footerNote")}</p>
+        <p className="shrink-0 border-t border-border bg-muted/40 px-4 py-1.5 text-[11px] text-muted-foreground">{t("footerNote")}</p>
       </div>
 
       <FilePreviewDialog preview={preview} onClose={closePreview} onDownload={() => { const f = files.find((x) => x.name === preview?.key); if (f) void exportFile(f) }} />
@@ -778,11 +778,9 @@ function EmptyState({ title, body, children }: { title: string; body: string; ch
   return (
     <div className="flex h-full items-center justify-center p-8">
       <div className="flex max-w-sm flex-col items-center gap-3 text-center">
-        <div className="flex size-14 items-center justify-center rounded-full border bg-muted/60">
-          <FolderLock className="size-6 text-muted-foreground/70" />
-        </div>
+        <FolderLock className="size-8 text-muted-foreground/60" />
         <p className="text-sm font-medium">{title}</p>
-        <p className="text-xs text-muted-foreground">{body}</p>
+        <p className="text-[13px] text-muted-foreground">{body}</p>
         <div className="mt-1 flex flex-wrap justify-center gap-2">{children}</div>
       </div>
     </div>

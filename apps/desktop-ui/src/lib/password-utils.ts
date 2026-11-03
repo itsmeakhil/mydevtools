@@ -82,9 +82,9 @@ function scoreSync(password: string): number {
 
 export function getStrengthColor(score: number): string {
     if (score === 0) return "bg-muted"
-    if (score <= 2) return "bg-red-500"
-    if (score <= 3) return "bg-yellow-500"
-    return "bg-green-500"
+    if (score <= 2) return "bg-destructive"
+    if (score <= 3) return "bg-warning"
+    return "bg-success"
 }
 
 // Base32 alphabet per RFC 4648 (A-Z, 2-7), 8+ chars minimum for a real TOTP secret
@@ -117,11 +117,11 @@ export function getPasswordAgeBadge(status: PasswordAgeStatus): {
 } | null {
     switch (status) {
         case "aging":
-            return { labelKey: "ageAging", className: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-300" }
+            return { labelKey: "ageAging", className: "bg-warning/[0.12] text-warning" }
         case "old":
-            return { labelKey: "ageOld", className: "bg-orange-500/10 text-orange-700 dark:text-orange-300" }
+            return { labelKey: "ageOld", className: "bg-warning/[0.18] text-warning" }
         case "critical":
-            return { labelKey: "ageCritical", className: "bg-red-500/10 text-red-600 dark:text-red-400" }
+            return { labelKey: "ageCritical", className: "bg-destructive/[0.12] text-destructive" }
         default:
             return null
     }
@@ -129,9 +129,9 @@ export function getPasswordAgeBadge(status: PasswordAgeStatus): {
 
 export function getPasswordAgeDateColor(status: PasswordAgeStatus): string {
     switch (status) {
-        case "aging": return "text-yellow-600 dark:text-yellow-400"
-        case "old": return "text-orange-600 dark:text-orange-400"
-        case "critical": return "text-red-600 dark:text-red-400"
+        case "aging": return "text-warning"
+        case "old": return "text-warning"
+        case "critical": return "text-destructive"
         default: return "text-muted-foreground"
     }
 }

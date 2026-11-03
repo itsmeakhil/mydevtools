@@ -138,6 +138,27 @@
         "light": "Clar",
         "dark": "Fosc",
         "system": "Sistema"
+      },
+      "picker": {
+        "wheel": "Roda",
+        "sliders": "Controls lliscants",
+        "hue": "To",
+        "saturation": "Saturació",
+        "brightness": "Brillantor",
+        "lightness": "Lluminositat",
+        "chroma": "Croma",
+        "hexValue": "Valor hex",
+        "copy": "Copia el valor hex",
+        "copied": "Copiat",
+        "revert": "Torna al color original",
+        "newColor": "Color nou",
+        "onWhite": "Sobre blanc",
+        "onBlack": "Sobre negre",
+        "aa": "AA superat",
+        "aaLarge": "AA gran",
+        "fail": "Suspès",
+        "presets": "Predefinits",
+        "eyedropper": "Tria un color de la pantalla"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Més seccions",
     "sections": "Seccions de la barra lateral",
     "show": "Mostra la barra lateral",
-    "hide": "Amaga la barra lateral"
+    "hide": "Amaga la barra lateral",
+    "pin": "Fixa {tool}",
+    "unpin": "Deixa de fixar {tool}"
   },
   "DesktopUpdate": {
     "title": "S'està actualitzant MyDevTools",
@@ -2609,5 +2632,24 @@
     "working": "{done} de {total}",
     "cancelled": "Cancel·lat.",
     "save": "Desa"
+  },
+  "Shell": {
+    "sidebar": "Barra lateral",
+    "toggleSidebar": "Mostra/amaga la barra lateral",
+    "searchTools": "Cerca eines",
+    "help": "Ajuda",
+    "theme": "Tema",
+    "themeLight": "Clar",
+    "themeDark": "Fosc",
+    "themeSystem": "Sistema",
+    "account": "Compte",
+    "you": "Tu",
+    "openTool": "Obre una eina",
+    "closeTab": "Tanca {title}",
+    "status": "Estat",
+    "vaultLocked": "Caixa forta bloquejada",
+    "vaultUnlocked": "Caixa forta desbloquejada",
+    "reduceTransparency": "Redueix la transparència",
+    "reduceTransparencyHint": "Substitueix el vidre per superfícies sòlides."
   }
 }

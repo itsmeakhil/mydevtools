@@ -86,7 +86,7 @@ export function MoveToDialog({
                         )
                     })}
                 </div>
-                <div className="border rounded-lg overflow-hidden" style={{ minHeight: "8rem" }}>
+                <div className="border border-border rounded-xl bg-card overflow-hidden" style={{ minHeight: "8rem" }}>
                     <ScrollArea className="max-h-56">
                         {loading ? (
                             <div className="flex items-center justify-center h-32">
@@ -106,12 +106,12 @@ export function MoveToDialog({
                                             key={f}
                                             disabled={disabled}
                                             className={cn(
-                                                "flex items-center gap-2 w-full px-3 py-2 rounded-md text-sm text-left transition-colors",
-                                                disabled ? "opacity-40 cursor-not-allowed" : "hover:bg-muted",
+                                                "flex items-center gap-2 w-full h-8 px-2.5 rounded-lg text-[13px] text-left transition-colors",
+                                                disabled ? "opacity-40 cursor-not-allowed" : "hover:bg-foreground/[0.05]",
                                             )}
                                             onClick={() => setTargetPrefix(f)}
                                         >
-                                            <IconFolder className="size-4 text-amber-500 shrink-0" />
+                                            <IconFolder className="size-4 text-primary/80 shrink-0" />
                                             <span className="truncate flex-1">{name}</span>
                                             <IconChevronRight className="size-3.5 text-muted-foreground shrink-0" />
                                         </button>

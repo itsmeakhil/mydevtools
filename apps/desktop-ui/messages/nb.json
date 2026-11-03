@@ -138,6 +138,27 @@
         "light": "Lys",
         "dark": "Mørk",
         "system": "System"
+      },
+      "picker": {
+        "wheel": "Hjul",
+        "sliders": "Glidebrytere",
+        "hue": "Fargetone",
+        "saturation": "Metning",
+        "brightness": "Lysstyrke",
+        "lightness": "Lyshet",
+        "chroma": "Kroma",
+        "hexValue": "Hex-verdi",
+        "copy": "Kopier hex-verdi",
+        "copied": "Kopiert",
+        "revert": "Tilbakestill til opprinnelig farge",
+        "newColor": "Ny farge",
+        "onWhite": "På hvit",
+        "onBlack": "På svart",
+        "aa": "AA bestått",
+        "aaLarge": "AA stor",
+        "fail": "Ikke bestått",
+        "presets": "Forhåndsvalg",
+        "eyedropper": "Velg en farge fra skjermen"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Flere seksjoner",
     "sections": "Sidepanelseksjoner",
     "show": "Vis sidepanel",
-    "hide": "Skjul sidepanel"
+    "hide": "Skjul sidepanel",
+    "pin": "Fest {tool}",
+    "unpin": "Løsne {tool}"
   },
   "DesktopUpdate": {
     "title": "Oppdaterer MyDevTools",
@@ -2609,5 +2632,24 @@
     "working": "{done} av {total}",
     "cancelled": "Avbrutt.",
     "save": "Lagre"
+  },
+  "Shell": {
+    "sidebar": "Sidefelt",
+    "toggleSidebar": "Vis/skjul sidefelt",
+    "searchTools": "Søk i verktøy",
+    "help": "Hjelp",
+    "theme": "Tema",
+    "themeLight": "Lyst",
+    "themeDark": "Mørkt",
+    "themeSystem": "System",
+    "account": "Konto",
+    "you": "Deg",
+    "openTool": "Åpne verktøy",
+    "closeTab": "Lukk {title}",
+    "status": "Status",
+    "vaultLocked": "Hvelv låst",
+    "vaultUnlocked": "Hvelv låst opp",
+    "reduceTransparency": "Reduser gjennomsiktighet",
+    "reduceTransparencyHint": "Erstatt glass med heldekkende flater."
   }
 }

@@ -129,7 +129,7 @@ export default function ManageStatusesDialog({
           <div className="space-y-5">
             {/* Built-in statuses: color only */}
             <div className="space-y-3">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              <p className="text-[13px] font-semibold text-foreground">
                 {t("defaults")}
               </p>
               {builtIns.map((status) => (
@@ -148,7 +148,7 @@ export default function ManageStatusesDialog({
 
             {/* Custom statuses: label + color + delete */}
             <div className="space-y-3">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              <p className="text-[13px] font-semibold text-foreground">
                 {t("custom")}
               </p>
               {settings.custom.map((custom) => (

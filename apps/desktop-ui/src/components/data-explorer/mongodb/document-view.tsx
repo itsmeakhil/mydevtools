@@ -90,14 +90,11 @@ interface DocumentViewProps {
 // let thead and tbody size independently and drift out of alignment.
 const DEFAULT_COL_WIDTH = 200;
 
-// Pinned cells sit over the horizontally scrolled ones, so their hover/selected
-// tints ride on background-image (gradient) and leave the opaque background-color
-// underneath. A plain `bg-muted/50` here replaces the base colour and the scrolled
-// cells bleed through the 50% alpha.
+// Pinned cells sit over the horizontally scrolled ones, so every state colour
+// here must be opaque — an alpha tint lets the scrolled cells bleed through.
 const STICKY_CELL =
-    "sticky z-10 bg-background transition-colors bg-gradient-to-r from-transparent to-transparent group-hover:from-muted/50 group-hover:to-muted/50";
-const STICKY_CELL_SELECTED =
-    "from-primary/5 to-primary/5 group-hover:from-primary/10 group-hover:to-primary/10";
+    "sticky z-10 bg-card transition-colors group-hover:bg-muted";
+const STICKY_CELL_SELECTED = "bg-primary-subtle group-hover:bg-primary-subtle";
 
 // Local input state so keystrokes don't re-render the whole document grid.
 function EditableCell({
@@ -522,25 +519,25 @@ export function DocumentView({
     return (
         <div className="flex flex-col h-full">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-1.5 px-4 py-1.5 border-b bg-muted/20 text-xs text-muted-foreground overflow-x-auto no-scrollbar shrink-0">
-                <IconServer className="h-3 w-3 text-purple-500 shrink-0" />
+            <div className="flex h-8 items-center gap-1.5 px-4 border-b border-border bg-muted/40 text-xs text-muted-foreground overflow-x-auto no-scrollbar shrink-0">
+                <IconServer className="h-3 w-3 shrink-0" />
                 <span className="truncate max-w-[120px]">{connectionName}</span>
-                <span className="text-border">/</span>
-                <IconDatabase className="h-3 w-3 text-blue-500 shrink-0" />
+                <span className="text-muted-foreground/50">/</span>
+                <IconDatabase className="h-3 w-3 shrink-0" />
                 <span className="truncate max-w-[120px]">{dbName}</span>
-                <span className="text-border">/</span>
-                <IconFolder className="h-3 w-3 text-yellow-500 shrink-0" />
+                <span className="text-muted-foreground/50">/</span>
+                <IconFolder className="h-3 w-3 text-primary shrink-0" />
                 <span className="font-medium text-foreground truncate max-w-[140px]">{collectionName}</span>
                 {readOnly && (
-                    <Badge variant="outline" className="h-4 px-1.5 text-[9px] gap-0.5 border-amber-500/50 text-amber-600 dark:text-amber-400 shrink-0">
+                    <Badge variant="outline" className="h-4 px-1.5 gap-0.5 border-transparent bg-warning/10 text-warning shrink-0">
                         <IconLock className="h-2.5 w-2.5" />
                         {t("readOnlyBadge")}
                     </Badge>
                 )}
                 {!loading && total > 0 && (
                     <>
-                        <span className="text-border ml-auto shrink-0">·</span>
-                        <span className="shrink-0 ml-1">
+                        <span className="text-muted-foreground/50 ml-auto shrink-0">·</span>
+                        <span className="shrink-0 ml-1 tabular-nums">
                             {t("docsBreadcrumb", {
                                 n: total >= 1_000_000 ? `${(total / 1_000_000).toFixed(1)}M`
                                     : total >= 1_000 ? `${(total / 1_000).toFixed(1)}K`
@@ -552,7 +549,7 @@ export function DocumentView({
             </div>
 
             {/* Toolbar */}
-            <div className="min-h-14 border-b flex flex-col md:flex-row items-center justify-between px-4 py-2 md:py-0 gap-2 md:gap-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shrink-0">
+            <div className="min-h-11 border-b border-border flex flex-col md:flex-row items-center justify-between px-3 py-1.5 gap-2 md:gap-3 bg-card shrink-0">
                 <div className="w-full md:flex-1 md:max-w-2xl">
                     <QueryBuilder
                         query={searchQuery}
@@ -573,7 +570,7 @@ export function DocumentView({
                     {/* View mode dropdown */}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="sm" className="h-8 gap-1.5 text-xs px-2.5 flex-shrink-0">
+                            <Button variant="ghost" size="sm" className="h-8 gap-1.5 text-[13px] px-2.5 flex-shrink-0">
                                 {(() => {
                                     const ActiveIcon = viewModeOptions.find(o => o.mode === viewMode)?.icon ?? IconTable;
                                     return <ActiveIcon className="h-3.5 w-3.5" />;
@@ -587,7 +584,7 @@ export function DocumentView({
                                 <DropdownMenuItem
                                     key={mode}
                                     onClick={() => setViewMode(mode as any)}
-                                    className={cn("gap-2 text-xs", viewMode === mode && "bg-accent font-medium")}
+                                    className={cn("gap-2 text-[13px]", viewMode === mode && "bg-primary/[0.12] font-medium")}
                                 >
                                     <Icon className="h-3.5 w-3.5" />
                                     {label}
@@ -618,12 +615,12 @@ export function DocumentView({
                         </TooltipProvider>
                     )}
 
-                    <div className="h-4 w-[1px] bg-border hidden md:block flex-shrink-0" />
+                    <div className="h-5 w-px bg-border hidden md:block flex-shrink-0" />
 
                     {/* Pagination */}
-                    <div className="flex items-center gap-0.5 border rounded-md bg-background shadow-sm h-8 px-1 flex-shrink-0">
+                    <div className="flex items-center gap-0.5 border border-border rounded-md bg-card h-8 px-1 flex-shrink-0">
                         <select
-                            className="h-full bg-transparent text-[10px] font-mono text-muted-foreground border-none outline-none cursor-pointer"
+                            className="h-full bg-transparent text-xs tabular-nums text-muted-foreground border-none outline-none"
                             value={limit}
                             onChange={(e) => onLimitChange(Number(e.target.value))}
                         >
@@ -631,11 +628,11 @@ export function DocumentView({
                                 <option key={val} value={val}>{t("perPage", { n: val })}</option>
                             ))}
                         </select>
-                        <div className="w-[1px] h-3 bg-border mx-0.5" />
+                        <div className="w-px h-4 bg-border mx-0.5" />
                         <Button variant="ghost" size="icon" className="h-6 w-6 rounded-sm" onClick={() => onPageChange(page - 1)} disabled={page <= 1}>
                             <IconChevronLeft className="h-3.5 w-3.5" />
                         </Button>
-                        <span className="text-[10px] font-mono text-muted-foreground px-1 min-w-[30px] md:min-w-[50px] text-center">
+                        <span className="text-xs tabular-nums text-muted-foreground px-1 min-w-[30px] md:min-w-[50px] text-center">
                             {page}/{totalPages}
                         </span>
                         <Button variant="ghost" size="icon" className="h-6 w-6 rounded-sm" onClick={() => onPageChange(page + 1)} disabled={page >= totalPages}>
@@ -643,7 +640,7 @@ export function DocumentView({
                         </Button>
                     </div>
 
-                    <div className="h-4 w-[1px] bg-border hidden md:block flex-shrink-0" />
+                    <div className="h-5 w-px bg-border hidden md:block flex-shrink-0" />
 
                     {/* Actions */}
                     <div className="flex items-center gap-1 flex-shrink-0 ml-auto md:ml-0">
@@ -659,7 +656,7 @@ export function DocumentView({
                         </TooltipProvider>
 
                         {!readOnly && (
-                            <Button size="sm" onClick={openInsertDialog} className="h-8 px-2 md:px-3 text-xs">
+                            <Button size="sm" onClick={openInsertDialog} className="h-8 px-2 md:px-3 text-[13px]">
                                 <IconPlus className="h-3.5 w-3.5 md:mr-1" />
                                 <span className="hidden md:inline">{t("insert")}</span>
                             </Button>
@@ -668,7 +665,7 @@ export function DocumentView({
                             size="sm"
                             variant="outline"
                             onClick={() => setIsImportExportChooserOpen(true)}
-                            className="h-8 px-2 md:px-3 text-xs"
+                            className="h-8 px-2 md:px-3 text-[13px]"
                         >
                             <IconArrowsExchange className="h-3.5 w-3.5 md:mr-1" />
                             <span className="hidden md:inline">{t("importExport")}</span>
@@ -679,8 +676,8 @@ export function DocumentView({
 
             {/* Bulk action bar */}
             {selectedIds.size > 0 && (
-                <div className="flex items-center gap-3 px-4 py-2 border-b bg-primary/5 shrink-0 animate-in slide-in-from-top-1 duration-150">
-                    <span className="text-sm font-medium text-primary">
+                <div className="flex h-10 items-center gap-3 px-4 border-b border-border bg-primary/[0.06] shrink-0 animate-in fade-in duration-150">
+                    <span className="text-[13px] font-medium text-primary tabular-nums">
                         {t("selectedCount", { count: selectedIds.size })}
                     </span>
                     <Button
@@ -733,16 +730,16 @@ export function DocumentView({
                 ) : loading ? (
                     <div className="h-full w-full overflow-auto">
                         <table aria-busy="true" aria-label="Loading documents" className="min-w-full text-sm text-left">
-                            <thead className="text-xs text-muted-foreground uppercase bg-muted">
-                                <tr>
-                                    <th className="px-3 py-3 w-[40px]" />
-                                    <th className="px-4 py-3 w-[50px]">#</th>
+                            <thead className="text-[12px] text-muted-foreground bg-muted">
+                                <tr className="border-b border-border">
+                                    <th className="px-3 py-2 w-[40px]" />
+                                    <th className="px-4 py-2 w-[50px] font-medium">#</th>
                                     {(documents.length > 0 ? allFields : ["f1", "f2", "f3", "f4"]).map(k => (
-                                        <th key={k} className="px-4 py-3 whitespace-nowrap">
-                                            <div className="h-3 w-16 bg-muted-foreground/20 rounded animate-pulse" />
+                                        <th key={k} className="px-4 py-2 whitespace-nowrap">
+                                            <div className="h-3 w-16 bg-muted-foreground/20 rounded-sm animate-pulse" />
                                         </th>
                                     ))}
-                                    <th className="px-4 py-3 w-[120px]">{t("actions")}</th>
+                                    <th className="px-4 py-2 w-[120px] font-medium">{t("actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -753,13 +750,11 @@ export function DocumentView({
                         </table>
                     </div>
                 ) : error ? (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-6 py-10 gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-destructive/10 flex items-center justify-center">
-                            <IconAlertTriangle className="w-7 h-7 text-destructive" />
-                        </div>
+                    <div className="flex flex-col items-center justify-center h-full text-center px-6 py-10 gap-3">
+                        <IconAlertTriangle className="h-8 w-8 text-destructive" />
                         <div>
-                            <p className="font-medium text-foreground">{t("queryErrorTitle")}</p>
-                            <p className="text-sm text-destructive mt-1 max-w-md break-words font-mono">{error}</p>
+                            <p className="text-sm font-medium text-foreground">{t("queryErrorTitle")}</p>
+                            <p className="text-[13px] text-destructive mt-1 max-w-md break-words">{error}</p>
                         </div>
                         <div className="flex flex-wrap gap-2 justify-center">
                             <Button variant="outline" size="sm" onClick={onRefresh}>
@@ -775,15 +770,13 @@ export function DocumentView({
                         </div>
                     </div>
                 ) : documents.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center h-full text-center px-6 py-10 gap-4">
-                        <div className="w-14 h-14 rounded-2xl bg-muted flex items-center justify-center">
-                            <IconFolderOpen className="w-7 h-7 text-muted-foreground" />
-                        </div>
+                    <div className="flex flex-col items-center justify-center h-full text-center px-6 py-10 gap-3">
+                        <IconFolderOpen className="h-8 w-8 text-muted-foreground/60" />
                         {isFilterActive ? (
                             <>
                                 <div>
-                                    <p className="font-medium text-foreground">{t("emptyFilterTitle")}</p>
-                                    <p className="text-sm text-muted-foreground mt-1">{t("emptyFilterHint")}</p>
+                                    <p className="text-sm font-medium text-foreground">{t("emptyFilterTitle")}</p>
+                                    <p className="text-[13px] text-muted-foreground mt-1">{t("emptyFilterHint")}</p>
                                 </div>
                                 <Button variant="outline" size="sm" onClick={() => { setSearchQuery("{}"); onSearch("{}"); }}>
                                     <IconX className="h-3.5 w-3.5 mr-1.5" />
@@ -793,8 +786,8 @@ export function DocumentView({
                         ) : (
                             <>
                                 <div>
-                                    <p className="font-medium text-foreground">{t("emptyCollectionTitle")}</p>
-                                    <p className="text-sm text-muted-foreground mt-1">{t("emptyCollectionHint")}</p>
+                                    <p className="text-sm font-medium text-foreground">{t("emptyCollectionTitle")}</p>
+                                    <p className="text-[13px] text-muted-foreground mt-1">{t("emptyCollectionHint")}</p>
                                 </div>
                                 <div className="flex flex-wrap gap-2 justify-center">
                                     {!readOnly && (
@@ -813,7 +806,7 @@ export function DocumentView({
                     </div>
                 ) : viewMode === "json" ? (
                     <div className="flex flex-col h-full">
-                        <div className="flex items-center justify-end gap-2 p-2 border-b bg-muted/10">
+                        <div className="flex h-11 items-center justify-end gap-1 px-2 border-b border-border">
                             <TooltipProvider>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
@@ -871,7 +864,7 @@ export function DocumentView({
                                         }}
                                         className="pb-4"
                                     >
-                                        <div className="border rounded-lg p-2 bg-card relative group">
+                                        <div className="border border-border rounded-xl p-2 bg-card relative group">
                                             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2 z-10">
                                                 <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)}>
                                                     <IconCopy className="h-3 w-3" />
@@ -879,7 +872,7 @@ export function DocumentView({
                                                 {!readOnly && (
                                                     <>
                                                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)}>
-                                                            <IconPlus className="h-3 w-3 text-blue-500" />
+                                                            <IconPlus className="h-3 w-3 text-primary" />
                                                         </Button>
                                                         <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)}>
                                                             <IconPencil className="h-3 w-3" />
@@ -909,10 +902,10 @@ export function DocumentView({
                             className="min-w-full w-max text-sm text-left relative table-fixed"
                             aria-label={`${collectionName} documents`}
                         >
-                            <thead className="text-xs text-muted-foreground uppercase bg-muted">
-                                <tr>
+                            <thead className="text-[12px] text-muted-foreground bg-muted">
+                                <tr className="border-b border-border">
                                     {showSelectMode && (
-                                        <th className="px-3 py-3 w-[44px] sticky left-0 top-0 z-30 bg-muted">
+                                        <th className="px-3 py-2 w-[44px] sticky left-0 top-0 z-30 bg-muted">
                                             <Checkbox
                                                 checked={isIndeterminate ? "indeterminate" : isAllSelected}
                                                 onCheckedChange={handleSelectAll}
@@ -920,17 +913,17 @@ export function DocumentView({
                                             />
                                         </th>
                                     )}
-                                    <th className={cn("px-4 py-3 w-[50px] whitespace-nowrap font-medium text-center sticky top-0 z-30 bg-muted", showSelectMode ? "left-[44px]" : "left-0")}>#</th>
+                                    <th className={cn("px-4 py-2 w-[50px] whitespace-nowrap font-medium text-center sticky top-0 z-30 bg-muted", showSelectMode ? "left-[44px]" : "left-0")}>#</th>
                                     {allFields.map((key) => (
                                         <th
                                             key={key}
-                                            className="px-4 py-3 whitespace-nowrap font-medium sticky top-0 z-20 bg-muted pr-6 group/th hover:bg-muted/80 transition-colors border-r"
+                                            className="px-4 py-2 whitespace-nowrap font-medium sticky top-0 z-20 bg-muted pr-6 group/th hover:text-foreground transition-colors border-r border-border"
                                             style={{
                                                 width: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
                                                 maxWidth: `${columnWidths[key] ?? DEFAULT_COL_WIDTH}px`,
                                             }}
                                         >
-                                            <div className="flex items-center gap-1 cursor-pointer truncate" onClick={() => handleSort(key)}>
+                                            <div className="flex items-center gap-1 truncate" onClick={() => handleSort(key)}>
                                                 {key}
                                                 <span className={cn("text-muted-foreground w-3 h-3 flex items-center justify-center text-[10px]", sortField !== key && "opacity-0 group-hover/th:opacity-50")}>
                                                     {sortField === key ? (sortDirection === 'asc' ? '▲' : '▼') : '↕'}
@@ -942,7 +935,7 @@ export function DocumentView({
                                             />
                                         </th>
                                     ))}
-                                    <th className="px-4 py-3 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 right-0 z-30 border-l">{t("actions")}</th>
+                                    <th className="px-4 py-2 w-[120px] bg-muted whitespace-nowrap font-medium sticky top-0 right-0 z-30 border-l border-border">{t("actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -968,12 +961,12 @@ export function DocumentView({
                                             data-index={virtualRow.index}
                                             ref={rowVirtualizer.measureElement}
                                             className={cn(
-                                                "border-b hover:bg-muted/50 group transition-colors",
-                                                isSelected && "bg-primary/5 hover:bg-primary/10"
+                                                "border-b border-border hover:bg-foreground/[0.03] group transition-colors",
+                                                isSelected && "bg-primary/[0.12] hover:bg-primary/[0.12]"
                                             )}
                                         >
                                             {showSelectMode && (
-                                                <td className={cn("px-3 py-3 left-0", STICKY_CELL, isSelected && STICKY_CELL_SELECTED)}>
+                                                <td className={cn("px-3 py-2 left-0", STICKY_CELL, isSelected && STICKY_CELL_SELECTED)}>
                                                     <Checkbox
                                                         checked={isSelected}
                                                         onCheckedChange={() => handleSelectRow(doc._id)}
@@ -981,7 +974,7 @@ export function DocumentView({
                                                     />
                                                 </td>
                                             )}
-                                            <td className={cn("px-4 py-3 w-[50px] font-mono text-xs text-center text-muted-foreground", STICKY_CELL, showSelectMode ? "left-[44px]" : "left-0", isSelected && STICKY_CELL_SELECTED)}>
+                                            <td className={cn("px-4 py-2 w-[50px] text-xs tabular-nums text-center text-muted-foreground", STICKY_CELL, showSelectMode ? "left-[44px]" : "left-0", isSelected && STICKY_CELL_SELECTED)}>
                                                 {index + 1 + (page - 1) * limit}
                                             </td>
                                             {allFields.map((key) => {
@@ -993,7 +986,7 @@ export function DocumentView({
                                                 };
                                                 if (isEditingThis) {
                                                     return (
-                                                        <td key={key} className="px-2 py-2 align-top border-r relative" style={cellStyle}>
+                                                        <td key={key} className="px-2 py-1.5 align-top border-r border-border relative" style={cellStyle}>
                                                             <EditableCell
                                                                 initialValue={value === null || value === undefined ? "" : String(value)}
                                                                 saving={editCellSaving}
@@ -1007,7 +1000,7 @@ export function DocumentView({
                                                     <ContextMenu key={key}>
                                                         <ContextMenuTrigger asChild>
                                                             <td
-                                                                className="px-4 py-3 align-top truncate border-r relative overflow-hidden"
+                                                                className="px-4 py-2 align-top truncate border-r border-border relative overflow-hidden"
                                                                 style={cellStyle}
                                                                 onDoubleClick={() => startCellEdit(doc, key)}
                                                             >
@@ -1069,7 +1062,7 @@ export function DocumentView({
                                                     </ContextMenu>
                                                 );
                                             })}
-                                            <td className={cn("px-4 py-3 align-top w-[120px] right-0 border-l", STICKY_CELL, isSelected && STICKY_CELL_SELECTED)}>
+                                            <td className={cn("px-4 py-2 align-top w-[120px] right-0 border-l border-border", STICKY_CELL, isSelected && STICKY_CELL_SELECTED)}>
                                                 <div className="flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
                                                     <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleCopyDocument(doc)} title={t("copyJson")}>
                                                         <IconCopy className="h-3 w-3" />
@@ -1077,7 +1070,7 @@ export function DocumentView({
                                                     {!readOnly && (
                                                         <>
                                                             <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleDuplicate(doc)} title={t("duplicate")}>
-                                                                <IconPlus className="h-3 w-3 text-blue-500" />
+                                                                <IconPlus className="h-3 w-3 text-primary" />
                                                             </Button>
                                                             <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => handleEdit(doc)} title={t("editDoc")}>
                                                                 <IconPencil className="h-3 w-3" />
@@ -1108,7 +1101,7 @@ export function DocumentView({
             </div>
 
             {/* Status bar */}
-            <div className="border-t bg-muted/10 px-4 py-1.5 flex items-center justify-between text-[10px] text-muted-foreground font-mono shrink-0">
+            <div className="h-7 border-t border-border bg-muted/40 px-4 flex items-center justify-between text-[11px] text-muted-foreground tabular-nums shrink-0">
                 <span>
                     {loading ? t("statusLoading") : documents.length > 0
                         ? t("statusShowing", {
@@ -1130,7 +1123,7 @@ export function DocumentView({
                     <DialogHeader>
                         <DialogTitle>{t("editDialogTitle")}</DialogTitle>
                     </DialogHeader>
-                    <div className="flex-1 border rounded-md overflow-hidden">
+                    <div className="flex-1 border border-border rounded-xl overflow-hidden">
                         <Editor
                             height="100%"
                             defaultLanguage="json"
@@ -1152,7 +1145,7 @@ export function DocumentView({
                     <DialogHeader>
                         <DialogTitle>{t("insertDialogTitle")}</DialogTitle>
                     </DialogHeader>
-                    <div className="flex-1 border rounded-md overflow-hidden">
+                    <div className="flex-1 border border-border rounded-xl overflow-hidden">
                         <Editor
                             height="100%"
                             defaultLanguage="json"
@@ -1174,7 +1167,7 @@ export function DocumentView({
                     <DialogHeader>
                         <DialogTitle>{t("viewValueTitle")}</DialogTitle>
                     </DialogHeader>
-                    <div className="flex-1 border rounded-md overflow-hidden">
+                    <div className="flex-1 border border-border rounded-xl overflow-hidden">
                         <Editor
                             height="100%"
                             defaultLanguage="json"
@@ -1201,12 +1194,10 @@ export function DocumentView({
                         {onImport && !readOnly && (
                             <button
                                 type="button"
-                                className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
+                                className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors hover:bg-foreground/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
                                 onClick={openImportFromChooser}
                             >
-                                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 group-hover:bg-blue-500/20 transition-colors">
-                                    <IconUpload className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                                </div>
+                                <IconUpload className="h-5 w-5 shrink-0 text-muted-foreground" />
                                 <div className="min-w-0 flex-1">
                                     <p className="text-sm font-medium">{t("import")}</p>
                                     <p className="text-xs text-muted-foreground truncate">{t("importExportImportHint")}</p>
@@ -1216,12 +1207,10 @@ export function DocumentView({
                         )}
                         <button
                             type="button"
-                            className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
+                            className="w-full flex items-center gap-3 rounded-lg px-3 py-3 text-left transition-colors hover:bg-foreground/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group"
                             onClick={openExportFromChooser}
                         >
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-                                <IconDownload className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-                            </div>
+                            <IconDownload className="h-5 w-5 shrink-0 text-muted-foreground" />
                             <div className="min-w-0 flex-1">
                                 <p className="text-sm font-medium">{t("export")}</p>
                                 <p className="text-xs text-muted-foreground truncate">{t("importExportExportHint")}</p>
@@ -1265,23 +1254,23 @@ export function DocumentView({
                             <div className="flex-1 flex flex-col min-h-0 gap-3">
                                 <div className="flex flex-wrap items-center gap-2">
                                     {summary.collscan ? (
-                                        <Badge variant="outline" className="gap-1 border-destructive/50 text-destructive">
+                                        <Badge variant="destructive" className="gap-1">
                                             <IconAlertTriangle className="h-3 w-3" />
                                             {t("explainCollscan")}
                                         </Badge>
                                     ) : summary.indexNames.length > 0 && (
-                                        <Badge variant="outline" className="gap-1 border-green-500/50 text-green-600 dark:text-green-400">
+                                        <Badge variant="outline" className="gap-1 border-transparent bg-success/10 text-success">
                                             <IconDatabase className="h-3 w-3" />
                                             {t("explainIndexUsed", { name: summary.indexNames.join(", ") })}
                                         </Badge>
                                     )}
                                     {summary.executionTimeMillis !== undefined && (
-                                        <Badge variant="secondary" className="font-mono text-[10px]">
+                                        <Badge variant="secondary" className="tabular-nums">
                                             {summary.executionTimeMillis} ms
                                         </Badge>
                                     )}
                                     {summary.nReturned !== undefined && (
-                                        <Badge variant="secondary" className="font-mono text-[10px]">
+                                        <Badge variant="secondary" className="tabular-nums">
                                             {t("explainReturned", { n: summary.nReturned })}
                                         </Badge>
                                     )}
@@ -1289,27 +1278,27 @@ export function DocumentView({
                                         <Badge
                                             variant="secondary"
                                             className={cn(
-                                                "font-mono text-[10px]",
+                                                "tabular-nums",
                                                 summary.nReturned !== undefined &&
                                                 summary.totalDocsExamined > Math.max(10, summary.nReturned * 10) &&
-                                                "text-amber-600 dark:text-amber-400"
+                                                "text-warning"
                                             )}
                                         >
                                             {t("explainDocsExamined", { n: summary.totalDocsExamined })}
                                         </Badge>
                                     )}
                                     {summary.stages.length > 0 && (
-                                        <span className="text-[10px] font-mono text-muted-foreground truncate">
+                                        <span className="text-[11px] font-mono text-muted-foreground truncate">
                                             {summary.stages.join(" → ")}
                                         </span>
                                     )}
                                 </div>
                                 {summary.collscan && (
-                                    <p className="text-xs text-muted-foreground bg-amber-500/10 border border-amber-500/30 rounded-md px-3 py-2">
+                                    <p className="text-xs text-muted-foreground bg-warning/10 border border-warning/40 rounded-lg px-3 py-2">
                                         {t("explainCollscanHint")}
                                     </p>
                                 )}
-                                <div className="flex-1 min-h-0 border rounded-md overflow-auto bg-card p-2">
+                                <div className="flex-1 min-h-0 border border-border rounded-xl overflow-auto bg-card p-2">
                                     <JsonTree data={explainData} label={t("explainRawLabel")} defaultExpanded={false} />
                                 </div>
                             </div>
@@ -1325,7 +1314,7 @@ export function DocumentView({
             <Dialog open={groupOpen} onOpenChange={setGroupOpen}>
                 <DialogContent className="max-w-lg h-[70vh] flex flex-col">
                     <DialogHeader>
-                        <DialogTitle className="font-mono text-sm">{t("groupByTitle", { field: groupField })}</DialogTitle>
+                        <DialogTitle>{t("groupByTitle", { field: groupField })}</DialogTitle>
                     </DialogHeader>
                     {groupLoading ? (
                         <div className="flex-1 flex items-center justify-center text-muted-foreground gap-2 text-sm">
@@ -1333,14 +1322,14 @@ export function DocumentView({
                             {t("groupByLoading")}
                         </div>
                     ) : groupError ? (
-                        <div className="flex-1 flex items-center justify-center text-destructive text-sm font-mono px-4 text-center break-words">
+                        <div className="flex-1 flex items-center justify-center text-destructive text-[13px] px-4 text-center break-words">
                             {groupError}
                         </div>
                     ) : groupRows && groupRows.length > 0 ? (
-                        <div className="flex-1 min-h-0 overflow-auto border rounded-md">
+                        <div className="flex-1 min-h-0 overflow-auto border border-border rounded-xl bg-card">
                             <table className="w-full text-sm">
-                                <thead className="text-xs text-muted-foreground uppercase bg-muted sticky top-0">
-                                    <tr>
+                                <thead className="text-[12px] text-muted-foreground bg-muted sticky top-0">
+                                    <tr className="border-b border-border">
                                         <th className="px-3 py-2 text-left font-medium">{t("groupByValue")}</th>
                                         <th className="px-3 py-2 text-right font-medium w-24">{t("groupByCount")}</th>
                                     </tr>
@@ -1354,11 +1343,11 @@ export function DocumentView({
                                         return (
                                             <tr
                                                 key={i}
-                                                className={cn("border-b hover:bg-muted/50", scalar && "cursor-pointer")}
+                                                className="border-b border-border hover:bg-foreground/[0.03]"
                                                 onClick={scalar ? () => { applyCellFilter(groupField, row._id); setGroupOpen(false); } : undefined}
                                             >
                                                 <td className="px-3 py-2 font-mono truncate max-w-[300px]" title={label}>{label}</td>
-                                                <td className="px-3 py-2 text-right font-mono text-muted-foreground">{row.count}</td>
+                                                <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{row.count}</td>
                                             </tr>
                                         );
                                     })}

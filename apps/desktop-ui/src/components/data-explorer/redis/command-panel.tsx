@@ -134,9 +134,9 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center gap-2 border-b px-3 py-2">
+            <div className="flex h-11 shrink-0 items-center gap-2 border-b border-border px-3">
                 <IconTerminal2 className="size-4 text-muted-foreground" />
-                <span className="text-sm font-medium">Command Console</span>
+                <span className="text-[13px] font-semibold">Command Console</span>
                 <Button
                     size="icon"
                     variant="ghost"
@@ -159,8 +159,8 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
             </div>
 
             {snippets.length > 0 && (
-                <div className="border-b px-3 py-2 space-y-1">
-                    <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                <div className="space-y-1 border-b border-border px-3 py-2">
+                    <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
                         <IconBookmarkFilled className="size-3" />
                         Saved snippets
                     </div>
@@ -168,7 +168,7 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
                         {snippets.map((s) => (
                             <span
                                 key={s.id}
-                                className="inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-[11px] hover:bg-accent transition-colors group"
+                                className="group inline-flex items-center gap-1 rounded-sm border border-border px-1.5 py-0.5 text-[11px] transition-colors hover:bg-foreground/[0.05]"
                             >
                                 <button
                                     className="font-mono"
@@ -198,7 +198,7 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
                             <button
                                 key={s}
                                 onClick={() => runCommand(s)}
-                                className="rounded border px-1.5 py-0.5 text-[11px] font-mono hover:bg-accent transition-colors"
+                                className="rounded-sm border border-border px-1.5 py-0.5 font-mono text-[11px] transition-colors hover:bg-foreground/[0.05]"
                             >
                                 {s}
                             </button>
@@ -212,9 +212,9 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
                     {history.map((entry, i) => (
                         <div key={i} className="space-y-0.5">
                             <div className="flex items-center gap-1 text-muted-foreground">
-                                <span className="text-green-500 dark:text-green-400">›</span>
+                                <span className="text-success">›</span>
                                 <span>{entry.command}</span>
-                                <span className="ml-auto text-[10px]">{entry.time}ms</span>
+                                <span className="ml-auto text-[11px] tabular-nums">{entry.time}ms</span>
                             </div>
                             <pre
                                 className={cn(
@@ -232,8 +232,8 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
                 </div>
             </ScrollArea>
 
-            <div className="border-t p-2 flex gap-1.5">
-                <div className="flex items-center text-green-500 dark:text-green-400 font-mono text-xs px-1 shrink-0">
+            <div className="flex gap-1.5 border-t border-border p-2">
+                <div className="flex shrink-0 items-center px-1 font-mono text-xs text-success">
                     ›
                 </div>
                 <Input

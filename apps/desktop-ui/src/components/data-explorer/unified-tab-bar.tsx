@@ -38,10 +38,10 @@ export function UnifiedTabBar({
     // Defensive: a malformed entry would crash the whole strip on `tab.id`.
     const safeTabs = tabs.filter((tab): tab is UnifiedTab => !!tab && typeof tab.id === "string");
 
-    if (safeTabs.length === 0) return <div className="border-b h-[37px] bg-muted/10" />;
+    if (safeTabs.length === 0) return <div className="h-9 border-b border-border bg-muted/40" />;
 
     return (
-        <div className="flex items-center border-b bg-muted/10">
+        <div className="flex h-9 items-center border-b border-border bg-muted/40">
             <ScrollArea className="flex-1 w-full whitespace-nowrap">
                 <div className="flex items-center px-1">
                     {safeTabs.map((tab) => {
@@ -54,10 +54,10 @@ export function UnifiedTabBar({
                                     <TooltipTrigger asChild>
                                         <div
                                             className={cn(
-                                                "group flex items-center gap-1.5 px-3 py-2 text-sm border-r cursor-pointer hover:bg-background/50 transition-colors min-w-[100px] max-w-[180px] relative",
+                                                "group relative flex h-9 min-w-[100px] max-w-[180px] cursor-default items-center gap-1.5 border-r border-border px-3 transition-colors",
                                                 isActive
-                                                    ? "bg-background font-medium border-b-2 border-b-primary"
-                                                    : "text-muted-foreground"
+                                                    ? "bg-card font-medium text-foreground"
+                                                    : "text-muted-foreground hover:bg-foreground/[0.05]"
                                             )}
                                             onClick={() => onTabChange(tab.id)}
                                             style={
@@ -68,16 +68,16 @@ export function UnifiedTabBar({
                                         >
                                             <Icon className={cn("h-3.5 w-3.5 shrink-0", adapter?.accent)} />
                                             {readOnlyIds.has(tab.connectionId) && (
-                                                <IconLock className="h-3 w-3 text-amber-500 shrink-0" />
+                                                <IconLock className="h-3 w-3 text-warning shrink-0" />
                                             )}
-                                            <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-xs">
+                                            <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left text-[13px]">
                                                 {tab.title}
                                             </span>
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
                                                 className={cn(
-                                                    "h-4 w-4 hover:bg-muted rounded-full shrink-0 transition-opacity",
+                                                    "h-4 w-4 shrink-0 rounded-full transition-opacity hover:bg-foreground/[0.08]",
                                                     isActive
                                                         ? "opacity-60 hover:opacity-100"
                                                         : "opacity-0 group-hover:opacity-60 hover:!opacity-100"
@@ -104,11 +104,11 @@ export function UnifiedTabBar({
                 </div>
                 <ScrollBar orientation="horizontal" />
             </ScrollArea>
-            <div className="border-l px-2 shrink-0">
+            <div className="shrink-0 border-l border-border px-1.5">
                 <Button
                     variant="ghost"
                     size="sm"
-                    className="h-7 text-xs text-muted-foreground hover:text-destructive"
+                    className="h-7 text-[13px] text-muted-foreground hover:text-destructive"
                     onClick={onCloseAll}
                 >
                     {t("closeAll")}

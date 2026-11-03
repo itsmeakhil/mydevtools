@@ -182,8 +182,8 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
                         <div className="flex justify-between text-xs">
                             <span className="text-muted-foreground">{t("strength")}</span>
                             <span className={cn("font-medium",
-                                strength <= 2 ? "text-red-500" :
-                                    strength <= 3 ? "text-yellow-500" : "text-green-500"
+                                strength <= 2 ? "text-destructive" :
+                                    strength <= 3 ? "text-warning" : "text-success"
                             )}>
                                 {strengthLabel}
                             </span>
@@ -197,9 +197,9 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
                     </div>
                 )}
 
-                <Collapsible open={showGenerator} onOpenChange={setShowGenerator} className="border rounded-lg p-2 bg-muted/30">
+                <Collapsible open={showGenerator} onOpenChange={setShowGenerator} className="border border-border rounded-xl p-2 bg-muted/40">
                     <CollapsibleTrigger asChild>
-                        <Button variant="ghost" size="sm" className="w-full flex justify-between items-center text-xs text-muted-foreground hover:text-primary">
+                        <Button variant="ghost" size="sm" className="w-full flex justify-between items-center text-xs text-muted-foreground">
                             <span className="flex items-center gap-2"><Wand2 className="h-3 w-3" /> {t("advancedGenerator")}</span>
                             {showGenerator ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
                         </Button>
@@ -208,7 +208,7 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
                         <AdvancedGenerator
                             showInput={false}
                             onPasswordChange={handlePasswordChange}
-                            className="p-2 bg-background rounded-md border shadow-sm"
+                            className="p-2 bg-card rounded-lg border border-border"
                         />
                     </CollapsibleContent>
                 </Collapsible>
@@ -303,7 +303,7 @@ export function EditPasswordDialog({ entry, open, onOpenChange }: EditPasswordDi
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-xl">{t("editTitle")}</DialogTitle>
+                    <DialogTitle>{t("editTitle")}</DialogTitle>
                 </DialogHeader>
                 {FormContent}
             </DialogContent>

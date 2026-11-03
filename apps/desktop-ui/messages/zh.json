@@ -138,6 +138,27 @@
         "light": "浅色",
         "dark": "深色",
         "system": "跟随系统"
+      },
+      "picker": {
+        "wheel": "色轮",
+        "sliders": "滑块",
+        "hue": "色相",
+        "saturation": "饱和度",
+        "brightness": "亮度",
+        "lightness": "明度",
+        "chroma": "色度",
+        "hexValue": "十六进制值",
+        "copy": "复制十六进制值",
+        "copied": "已复制",
+        "revert": "恢复原始颜色",
+        "newColor": "新颜色",
+        "onWhite": "白底",
+        "onBlack": "黑底",
+        "aa": "AA 通过",
+        "aaLarge": "AA 大字",
+        "fail": "未通过",
+        "presets": "预设",
+        "eyedropper": "从屏幕取色"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "更多分区",
     "sections": "侧边栏分区",
     "show": "显示侧边栏",
-    "hide": "隐藏侧边栏"
+    "hide": "隐藏侧边栏",
+    "pin": "固定 {tool}",
+    "unpin": "取消固定 {tool}"
   },
   "DesktopUpdate": {
     "title": "正在更新 MyDevTools",
@@ -2609,5 +2632,24 @@
     "working": "{total} 中的 {done}",
     "cancelled": "已取消。",
     "save": "保存"
+  },
+  "Shell": {
+    "sidebar": "侧边栏",
+    "toggleSidebar": "显示/隐藏侧边栏",
+    "searchTools": "搜索工具",
+    "help": "帮助",
+    "theme": "主题",
+    "themeLight": "浅色",
+    "themeDark": "深色",
+    "themeSystem": "跟随系统",
+    "account": "账户",
+    "you": "你",
+    "openTool": "打开工具",
+    "closeTab": "关闭 {title}",
+    "status": "状态",
+    "vaultLocked": "保管库已锁定",
+    "vaultUnlocked": "保管库已解锁",
+    "reduceTransparency": "降低透明度",
+    "reduceTransparencyHint": "用不透明表面替代玻璃效果。"
   }
 }

@@ -8,7 +8,7 @@ export function EmojiPicker({ onSelect, onClose }: { onSelect: (e: string) => vo
             {EMOJI_OPTIONS.map((e) => (
                 <button
                     key={e}
-                    className="text-lg hover:bg-muted rounded p-1 cursor-pointer"
+                    className="text-lg hover:bg-foreground/[0.05] rounded-md p-1"
                     onClick={() => { onSelect(e); onClose(); }}
                     type="button"
                 >

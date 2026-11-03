@@ -2,14 +2,23 @@
 
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { getRouteConfig } from '@/lib/route-config'
 
 export interface AppTab {
   path: string
 }
 
-// Routes that no longer exist. Persisted tabs pointing at them would render a
-// dead chip with null content, so they are dropped on rehydrate.
-const REMOVED_TAB_PATHS = new Set(['/app/sql-client', '/app/database-explorer'])
+// Persisted tabs for tools that have since been removed would render a dead
+// chip with null content, so any path without a route config is dropped on
+// rehydrate (covers every future removal, not a hand-kept list).
+const isLiveTab = (path: string) => !!getRouteConfig(path)
+
+export function dropDeadTabs<T extends Pick<TabStore, 'tabs' | 'activeTabPath'>>(state: T): T {
+  const tabs = (state.tabs ?? []).filter(t => isLiveTab(t.path))
+  const activeTabPath =
+    state.activeTabPath && !isLiveTab(state.activeTabPath) ? tabs[0]?.path ?? null : state.activeTabPath
+  return { ...state, tabs, activeTabPath }
+}
 
 interface TabStore {
   tabs: AppTab[]
@@ -68,14 +77,7 @@ export const useTabStore = create<TabStore>()(
     }),
     {
       name: 'mdt-app-tabs',
-      merge: (persisted, current) => {
-        const state = { ...current, ...(persisted as Partial<TabStore>) }
-        state.tabs = (state.tabs ?? []).filter(t => !REMOVED_TAB_PATHS.has(t.path))
-        if (state.activeTabPath && REMOVED_TAB_PATHS.has(state.activeTabPath)) {
-          state.activeTabPath = state.tabs[0]?.path ?? null
-        }
-        return state
-      },
+      merge: (persisted, current) => dropDeadTabs({ ...current, ...(persisted as Partial<TabStore>) }),
     }
   )
 )

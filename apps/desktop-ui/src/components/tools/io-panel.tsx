@@ -54,14 +54,14 @@ export function IOPanel({
   return (
     <div
       className={cn(
-        'flex min-h-0 flex-col overflow-hidden rounded-lg border border-border bg-card',
+        'flex min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-elev-1',
         className,
       )}
       {...rest}
     >
       {(label != null || actions != null) && (
-        <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border bg-[hsl(var(--surface-2))] px-3 py-2">
-          <div className="flex min-w-0 items-center gap-2 text-xs font-medium text-muted-foreground">
+        <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-border px-4">
+          <div className="flex min-w-0 items-center gap-2 text-[13px] font-semibold text-foreground">
             {label}
           </div>
           {actions ? (

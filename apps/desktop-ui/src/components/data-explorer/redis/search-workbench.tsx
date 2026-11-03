@@ -124,14 +124,14 @@ export function SearchWorkbench({ redisUrl, db, onSelectKey }: { redisUrl: strin
 
     return (
         <div className="flex h-full flex-col">
-            <div className="border-b p-3 space-y-2 shrink-0">
+            <div className="shrink-0 space-y-2 border-b border-border p-3">
                 <div className="flex items-end gap-2">
                     <div className="flex-1 space-y-1">
                         <Label className="text-xs">Index</Label>
                         <select
                             value={selectedIndex}
                             onChange={(e) => setSelectedIndex(e.target.value)}
-                            className="h-8 w-full rounded border bg-background px-2 text-xs font-mono"
+                            className="h-8 w-full rounded-md border border-border bg-background px-2 font-mono text-xs"
                         >
                             <option value="">— select —</option>
                             {indexes.map((i) => (
@@ -163,19 +163,19 @@ export function SearchWorkbench({ redisUrl, db, onSelectKey }: { redisUrl: strin
                     <Button size="sm" variant="outline" className="h-7 gap-1 text-xs" onClick={runExplain} disabled={!selectedIndex || !query.trim()}>
                         Explain
                     </Button>
-                    <div className="ml-auto text-xs text-muted-foreground">
+                    <div className="ml-auto text-xs tabular-nums text-muted-foreground">
                         {total > 0 && `${total.toLocaleString()} total · showing ${results.length}`}
                     </div>
                 </div>
                 {explain && (
-                    <pre className="rounded border bg-muted/30 p-2 text-[10px] font-mono whitespace-pre-wrap max-h-40 overflow-auto">
+                    <pre className="max-h-40 overflow-auto whitespace-pre-wrap rounded-md border border-border bg-muted/40 p-2 font-mono text-[11px]">
                         {explain}
                     </pre>
                 )}
                 {indexInfo ? (
-                    <details className="text-[10px]">
-                        <summary className="cursor-pointer text-muted-foreground">FT.INFO output</summary>
-                        <pre className="mt-1 rounded border bg-muted/30 p-2 font-mono whitespace-pre-wrap max-h-60 overflow-auto">
+                    <details className="text-[11px]">
+                        <summary className="text-muted-foreground hover:text-foreground">FT.INFO output</summary>
+                        <pre className="mt-1 max-h-60 overflow-auto whitespace-pre-wrap rounded-md border border-border bg-muted/40 p-2 font-mono">
                             {JSON.stringify(indexInfo, null, 2)}
                         </pre>
                     </details>
@@ -184,17 +184,17 @@ export function SearchWorkbench({ redisUrl, db, onSelectKey }: { redisUrl: strin
             <ScrollArea className="flex-1">
                 <div className="p-2 space-y-1">
                     {results.length === 0 && (
-                        <div className="text-center text-xs text-muted-foreground p-6">
+                        <div className="p-6 text-center text-[13px] text-muted-foreground">
                             {busy ? "Searching…" : "Run a query to see results"}
                         </div>
                     )}
                     {results.map((r) => (
                         <div
                             key={r.key}
-                            className="rounded border bg-muted/20 p-2 text-xs cursor-pointer hover:bg-accent/40"
+                            className="rounded-md border border-border bg-muted/40 p-2 text-xs transition-colors hover:bg-foreground/[0.05]"
                             onClick={() => onSelectKey?.(r.key)}
                         >
-                            <Badge variant="outline" className="font-mono text-[10px] mb-1">{r.key}</Badge>
+                            <Badge variant="outline" className="mb-1 font-mono">{r.key}</Badge>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 font-mono text-[11px]">
                                 {Object.entries(r.fields).map(([k, v]) => (
                                     <div key={k} className="flex gap-2">

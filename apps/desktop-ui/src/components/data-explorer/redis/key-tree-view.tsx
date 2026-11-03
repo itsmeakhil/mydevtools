@@ -8,11 +8,11 @@ import type { RedisKeyInfo, RedisValueType } from "./types";
 import { buildTree, ancestorPaths, type TreeNode } from "./tree-utils";
 
 const TYPE_COLORS: Record<RedisValueType | string, string> = {
-    string: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-    list: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-    set: "bg-green-500/10 text-green-600 dark:text-green-400",
-    zset: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
-    hash: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+    string: "bg-blue-500/10 text-blue-500",
+    list: "bg-amber-500/10 text-amber-500",
+    set: "bg-green-500/10 text-green-500",
+    zset: "bg-purple-500/10 text-purple-500",
+    hash: "bg-rose-500/10 text-rose-500",
     none: "bg-muted text-muted-foreground",
 };
 
@@ -105,7 +105,7 @@ function TreeRow({
             <>
                 <button
                     onClick={() => onToggle(path)}
-                    className="flex w-full items-center gap-1.5 rounded px-2 py-1 text-left transition-colors hover:bg-accent"
+                    className="flex h-7 w-full items-center gap-1.5 rounded-md px-2 text-left text-[13px] transition-colors hover:bg-foreground/[0.05]"
                     style={indent}
                 >
                     <IconChevronRight
@@ -115,12 +115,12 @@ function TreeRow({
                         )}
                     />
                     {isOpen ? (
-                        <IconFolderOpen className="size-3.5 shrink-0 text-amber-500" />
+                        <IconFolderOpen className="size-3.5 shrink-0 text-muted-foreground" />
                     ) : (
-                        <IconFolder className="size-3.5 shrink-0 text-amber-500" />
+                        <IconFolder className="size-3.5 shrink-0 text-muted-foreground" />
                     )}
                     <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
-                    <span className="shrink-0 text-[10px] text-muted-foreground">
+                    <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">
                         {node.leafCount}
                     </span>
                 </button>
@@ -152,15 +152,17 @@ function TreeRow({
         <button
             onClick={() => onSelectKey(fullKey)}
             className={cn(
-                "flex w-full items-center gap-2 rounded px-2 py-1 text-left transition-colors hover:bg-accent",
-                selectedKey === fullKey && "bg-accent",
+                "flex h-7 w-full items-center gap-2 rounded-md px-2 text-left text-[13px] transition-colors",
+                selectedKey === fullKey
+                    ? "bg-primary/[0.12] text-foreground"
+                    : "hover:bg-foreground/[0.05]",
             )}
             style={indent}
         >
             <span className="size-3 shrink-0" />
             <span
                 className={cn(
-                    "shrink-0 rounded px-1 py-0.5 text-[10px] font-mono font-semibold uppercase",
+                    "shrink-0 rounded-sm px-1.5 text-[11px] font-medium leading-4",
                     TYPE_COLORS[info.type] ?? TYPE_COLORS.none,
                 )}
             >
@@ -168,7 +170,7 @@ function TreeRow({
             </span>
             <span className="flex-1 truncate font-mono text-xs">{node.name}</span>
             {info.ttl > 0 && (
-                <Badge variant="outline" className="shrink-0 text-[10px] h-4 px-1">
+                <Badge variant="outline" className="h-4 shrink-0 px-1.5 text-[11px] tabular-nums">
                     {info.ttl}s
                 </Badge>
             )}

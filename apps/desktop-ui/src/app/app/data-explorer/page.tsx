@@ -213,8 +213,9 @@ export default function DataExplorerPage() {
         if (!activeTab) {
             return (
                 <div className="flex h-full flex-col items-center justify-center gap-2 p-8 text-center">
-                    <h2 className="font-semibold text-lg">{t("noTabsTitle")}</h2>
-                    <p className="text-sm text-muted-foreground max-w-sm">{t("noTabsBody")}</p>
+                    <IconDatabase className="h-8 w-8 text-muted-foreground/60" />
+                    <h2 className="text-sm font-medium">{t("noTabsTitle")}</h2>
+                    <p className="max-w-sm text-[13px] text-muted-foreground">{t("noTabsBody")}</p>
                 </div>
             );
         }
@@ -222,9 +223,9 @@ export default function DataExplorerPage() {
         if (!adapter || !activeConnection?.config) {
             return (
                 <div className="flex h-full flex-col items-center justify-center gap-2 p-8 text-center">
-                    <IconAlertTriangle className="size-8 text-amber-500" />
-                    <h2 className="font-semibold">{t("unsupportedSource")}</h2>
-                    <p className="text-sm text-muted-foreground max-w-sm">
+                    <IconAlertTriangle className="h-8 w-8 text-warning" />
+                    <h2 className="text-sm font-medium">{t("unsupportedSource")}</h2>
+                    <p className="max-w-sm text-[13px] text-muted-foreground">
                         {t("unsupportedSourceHint")}
                     </p>
                 </div>
@@ -274,7 +275,7 @@ export default function DataExplorerPage() {
                     onTabClose={closeTab}
                     onCloseAll={closeAllTabs}
                 />
-                <div className="min-h-0 flex-1">{body}</div>
+                <div className="min-h-0 flex-1 bg-card">{body}</div>
             </div>
             <ConnectionDialog
                 open={connectionDialogOpen}

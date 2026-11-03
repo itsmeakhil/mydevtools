@@ -172,8 +172,8 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                         <div className="flex justify-between text-xs">
                             <span className="text-muted-foreground">{t("strength")}</span>
                             <span className={cn("font-medium",
-                                strength <= 2 ? "text-red-500" :
-                                    strength <= 3 ? "text-yellow-500" : "text-green-500"
+                                strength <= 2 ? "text-destructive" :
+                                    strength <= 3 ? "text-warning" : "text-success"
                             )}>
                                 {strengthLabel}
                             </span>
@@ -187,9 +187,9 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                     </div>
                 )}
 
-                <Collapsible open={showGenerator} onOpenChange={setShowGenerator} className="border rounded-lg p-2 bg-muted/30">
+                <Collapsible open={showGenerator} onOpenChange={setShowGenerator} className="border border-border rounded-xl p-2 bg-muted/40">
                     <CollapsibleTrigger asChild>
-                        <Button variant="ghost" size="sm" className="w-full flex justify-between items-center text-xs text-muted-foreground hover:text-primary">
+                        <Button variant="ghost" size="sm" className="w-full flex justify-between items-center text-xs text-muted-foreground">
                             <span className="flex items-center gap-2"><Wand2 className="h-3 w-3" /> {t("advancedGenerator")}</span>
                             {showGenerator ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
                         </Button>
@@ -198,7 +198,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                         <AdvancedGenerator
                             showInput={false}
                             onPasswordChange={handlePasswordChange}
-                            className="p-2 bg-background rounded-md border shadow-sm"
+                            className="p-2 bg-card rounded-lg border border-border"
                         />
                     </CollapsibleContent>
                 </Collapsible>
@@ -265,7 +265,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                         {t("cancel")}
                     </Button>
                 )}
-                <Button type="submit" disabled={loading} className={cn(isMobile && "w-full h-12 rounded-xl text-base")}>
+                <Button type="submit" disabled={loading} className={cn(isMobile && "w-full h-12 text-base")}>
                     {loading ? t("saving") : t("savePassword")}
                 </Button>
             </div>
@@ -278,7 +278,7 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                 <DrawerTrigger asChild>
                     {children ? children : (
                         <Button
-                            className="fixed bottom-20 right-4 h-14 w-14 rounded-full shadow-2xl z-50 p-0 bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                            className="fixed bottom-20 right-4 h-14 w-14 rounded-full shadow-elev-3 z-50 p-0"
                             size="icon"
                         >
                             <Plus className="h-7 w-7" />
@@ -288,8 +288,8 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
                 </DrawerTrigger>
                 <DrawerContent className="max-h-[95vh]">
                     <div className="flex flex-col h-full max-h-[95vh]">
-                        <DrawerHeader className="shrink-0 border-b pb-4">
-                            <DrawerTitle className="text-xl">{t("addTitle")}</DrawerTitle>
+                        <DrawerHeader className="shrink-0 border-b border-border pb-4">
+                            <DrawerTitle className="text-[17px]">{t("addTitle")}</DrawerTitle>
                         </DrawerHeader>
                         <div className="flex-1 overflow-y-auto px-4 pb-8">
                             {FormContent}
@@ -304,14 +304,14 @@ export function AddPasswordDialog({ children }: { children?: React.ReactNode }) 
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 {children ? children : (
-                    <Button className="shadow-lg hover:shadow-xl transition-all">
+                    <Button>
                         <Plus className="mr-2 h-4 w-4" /> {t("triggerAdd")}
                     </Button>
                 )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-xl">{t("addTitle")}</DialogTitle>
+                    <DialogTitle>{t("addTitle")}</DialogTitle>
                 </DialogHeader>
                 {FormContent}
             </DialogContent>

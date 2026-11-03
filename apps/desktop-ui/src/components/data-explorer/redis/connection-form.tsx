@@ -252,7 +252,7 @@ export function ConnectionForm({
                                 Use TLS (rediss://)
                             </label>
                         </div>
-                        <p className="text-[10px] text-muted-foreground font-mono break-all">
+                        <p className="break-all font-mono text-[11px] text-muted-foreground">
                             {buildUrl({ host, port, username, password: password ? "***" : "", db: dbIdx, tls: useTls })}
                         </p>
                     </TabsContent>
@@ -270,13 +270,13 @@ export function ConnectionForm({
 
             {connections.length > 0 && (
                 <div className="space-y-3">
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                    <p className="text-[11px] font-medium text-muted-foreground">
                         Saved Connections
                     </p>
                     {grouped.map(([folderName, list]) => (
                         <div key={folderName || "__ungrouped"} className="space-y-1.5">
                             {folderName && (
-                                <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                                <div className="flex items-center gap-1 text-[11px] text-muted-foreground">
                                     <IconFolder className="size-3" />
                                     {folderName}
                                     <IconChevronRight className="size-3" />
@@ -288,7 +288,7 @@ export function ConnectionForm({
                                     <div
                                         key={conn.id}
                                         className={cn(
-                                            "flex items-center gap-2 rounded-md border px-3 py-2 text-sm"
+                                            "flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-[13px]"
                                         )}
                                     >
                                         <IconBrandRedux className="size-4 shrink-0 text-red-500" />

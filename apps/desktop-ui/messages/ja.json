@@ -138,6 +138,27 @@
         "light": "ライト",
         "dark": "ダーク",
         "system": "システム"
+      },
+      "picker": {
+        "wheel": "ホイール",
+        "sliders": "スライダー",
+        "hue": "色相",
+        "saturation": "彩度",
+        "brightness": "明度",
+        "lightness": "明るさ",
+        "chroma": "クロマ",
+        "hexValue": "16進値",
+        "copy": "16進値をコピー",
+        "copied": "コピーしました",
+        "revert": "元の色に戻す",
+        "newColor": "新しい色",
+        "onWhite": "白の上",
+        "onBlack": "黒の上",
+        "aa": "AA 合格",
+        "aaLarge": "AA 大",
+        "fail": "不合格",
+        "presets": "プリセット",
+        "eyedropper": "画面から色を取得"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "その他のセクション",
     "sections": "サイドバーのセクション",
     "show": "サイドバーを表示",
-    "hide": "サイドバーを非表示"
+    "hide": "サイドバーを非表示",
+    "pin": "{tool} をピン留め",
+    "unpin": "{tool} のピン留めを解除"
   },
   "DesktopUpdate": {
     "title": "MyDevTools を更新しています",
@@ -2609,5 +2632,24 @@
     "working": "{total} 中 {done}",
     "cancelled": "キャンセルしました。",
     "save": "保存"
+  },
+  "Shell": {
+    "sidebar": "サイドバー",
+    "toggleSidebar": "サイドバーを切り替え",
+    "searchTools": "ツールを検索",
+    "help": "ヘルプ",
+    "theme": "テーマ",
+    "themeLight": "ライト",
+    "themeDark": "ダーク",
+    "themeSystem": "システム",
+    "account": "アカウント",
+    "you": "あなた",
+    "openTool": "ツールを開く",
+    "closeTab": "{title} を閉じる",
+    "status": "ステータス",
+    "vaultLocked": "保管庫はロック中",
+    "vaultUnlocked": "保管庫はロック解除済み",
+    "reduceTransparency": "透明度を下げる",
+    "reduceTransparencyHint": "ガラスを不透明な面に置き換えます。"
   }
 }

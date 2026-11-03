@@ -11,8 +11,8 @@ export default {
   theme: {
   	extend: {
   		fontFamily: {
-  			sans: ['var(--font-geist-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-  			mono: ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+  			sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', 'var(--font-geist-sans)', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+  			mono: ['ui-monospace', '"SF Mono"', 'SFMono-Regular', 'var(--font-geist-mono)', 'Menlo', 'monospace'],
   		},
   		colors: {
   			background: 'hsl(var(--background))',
@@ -26,9 +26,26 @@ export default {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+  				foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+  				hover: 'hsl(var(--primary-hover) / <alpha-value>)',
+  				active: 'hsl(var(--primary-active) / <alpha-value>)',
+  				subtle: 'hsl(var(--primary-subtle) / <alpha-value>)',
+  				border: 'hsl(var(--primary-border) / <alpha-value>)',
+  				'50': 'hsl(var(--primary-50) / <alpha-value>)',
+  				'100': 'hsl(var(--primary-100) / <alpha-value>)',
+  				'200': 'hsl(var(--primary-200) / <alpha-value>)',
+  				'300': 'hsl(var(--primary-300) / <alpha-value>)',
+  				'400': 'hsl(var(--primary-400) / <alpha-value>)',
+  				'500': 'hsl(var(--primary-500) / <alpha-value>)',
+  				'600': 'hsl(var(--primary-600) / <alpha-value>)',
+  				'700': 'hsl(var(--primary-700) / <alpha-value>)',
+  				'800': 'hsl(var(--primary-800) / <alpha-value>)',
+  				'900': 'hsl(var(--primary-900) / <alpha-value>)',
+  				'950': 'hsl(var(--primary-950) / <alpha-value>)'
   			},
+  			success: 'hsl(var(--success) / <alpha-value>)',
+  			warning: 'hsl(var(--warning) / <alpha-value>)',
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
@@ -67,9 +84,22 @@ export default {
   			}
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			sm: '8px',
+  			md: '10px',
+  			lg: '12px',
+  			xl: '16px',
+  			'2xl': '20px',
+  			'3xl': '24px',
+  			float: '28px'
+  		},
+  		boxShadow: {
+  			'elev-1': 'var(--shadow-1)',
+  			'elev-2': 'var(--shadow-2)',
+  			'elev-3': 'var(--shadow-3)',
+  			'elev-4': 'var(--shadow-4)'
+  		},
+  		transitionTimingFunction: {
+  			'out-expo': 'var(--ease-out)'
   		},
   		minHeight: {
   			custom: '600px'

@@ -20,7 +20,7 @@ export function HighlightedKeyText({ text, indices, mode }: HighlightedKeyTextPr
         chars.forEach((char, i) => {
             if (indexSet.has(i)) {
                 elements.push(
-                    <span key={i} className="bg-yellow-200/50 dark:bg-yellow-900/50">
+                    <span key={i} className="rounded-[2px] bg-warning/25">
                         {char}
                     </span>
                 );
@@ -37,7 +37,7 @@ export function HighlightedKeyText({ text, indices, mode }: HighlightedKeyTextPr
         return (
             <span>
                 {text.slice(0, start)}
-                <span className="bg-blue-200/50 dark:bg-blue-900/50">
+                <span className="rounded-[2px] bg-primary/20">
                     {text.slice(start, end)}
                 </span>
                 {text.slice(end)}

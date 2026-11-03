@@ -146,7 +146,7 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
                               */}
                             {breached.length === 0 && unknown.length === 0 ? (
                                 <div className="flex flex-col items-center gap-2 py-6 text-center">
-                                    <CheckCircle2 className="h-10 w-10 text-green-500" />
+                                    <CheckCircle2 className="h-8 w-8 text-success" />
                                     <p className="font-medium">{t("noneFound")}</p>
                                     <p className="text-sm text-muted-foreground">
                                         {t("allChecked", { count: cleanCount })}
@@ -157,11 +157,11 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
                                     {breached.length > 0 && (
                                         <>
                                             <div className="flex items-center gap-3">
-                                                <span className="text-3xl font-bold text-red-500">
+                                                <span className="text-3xl font-semibold tabular-nums text-destructive">
                                                     {breached.length}
                                                 </span>
                                                 <div>
-                                                    <p className="font-medium text-red-500">
+                                                    <p className="font-medium text-destructive">
                                                         {t("foundInBreaches", { count: breached.length })}
                                                     </p>
                                                     <p className="text-xs text-muted-foreground">
@@ -174,10 +174,10 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
                                                 {breached.map((entry) => (
                                                     <div
                                                         key={entry.id}
-                                                        className="flex items-center justify-between rounded-lg bg-red-500/10 border border-red-500/10 px-3 py-2.5"
+                                                        className="flex items-center justify-between rounded-lg bg-destructive/[0.08] border border-destructive/15 px-3 py-2.5"
                                                     >
                                                         <div className="flex items-center gap-2 min-w-0">
-                                                            <AlertTriangle className="h-3.5 w-3.5 text-red-500 shrink-0" />
+                                                            <AlertTriangle className="h-3.5 w-3.5 text-destructive shrink-0" />
                                                             <div className="min-w-0">
                                                                 <p className="text-sm font-medium truncate">
                                                                     {entry.service}
@@ -191,10 +191,10 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
                                                         </div>
                                                         <span
                                                             className={cn(
-                                                                "text-xs font-medium shrink-0 ml-3",
+                                                                "text-xs font-medium tabular-nums shrink-0 ml-3",
                                                                 entry.count > 1000
-                                                                    ? "text-red-500"
-                                                                    : "text-orange-500"
+                                                                    ? "text-destructive"
+                                                                    : "text-warning"
                                                             )}
                                                         >
                                                             {t("exposedTimes", { count: entry.count })}
@@ -207,7 +207,7 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
 
                                     {unknown.length > 0 && (
                                         <div className="space-y-1.5">
-                                            <p className="flex items-center gap-1.5 text-sm font-medium text-amber-600 dark:text-amber-400">
+                                            <p className="flex items-center gap-1.5 text-sm font-medium text-warning">
                                                 <HelpCircle className="h-4 w-4 shrink-0" />
                                                 {t("unknownHeading", { count: unknown.length })}
                                             </p>
@@ -218,7 +218,7 @@ export function BreachCheckDialog({ open, onOpenChange }: BreachCheckDialogProps
                                                 {unknown.map((entry) => (
                                                     <div
                                                         key={entry.id}
-                                                        className="rounded-md bg-amber-500/10 px-3 py-1.5 text-xs truncate"
+                                                        className="rounded-md bg-warning/10 px-3 py-1.5 text-xs truncate"
                                                     >
                                                         {entry.service}
                                                     </div>

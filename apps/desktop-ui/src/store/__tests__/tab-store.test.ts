@@ -1,4 +1,4 @@
-import { useTabStore } from '../tab-store'
+import { dropDeadTabs, useTabStore } from '../tab-store'
 
 const paths = ['/app/a', '/app/b', '/app/c']
 
@@ -23,5 +23,16 @@ describe('moveTab', () => {
     useTabStore.getState().moveTab('/app/a', '/app/a')
     useTabStore.getState().moveTab('/app/a', '/app/nope')
     expect(order()).toEqual(paths)
+  })
+})
+
+describe('dropDeadTabs', () => {
+  it('drops persisted tabs for tools that no longer exist', () => {
+    const state = dropDeadTabs({
+      tabs: [{ path: '/app/lorem-ipsum' }, { path: '/app/api-client' }],
+      activeTabPath: '/app/lorem-ipsum',
+    })
+    expect(state.tabs).toEqual([{ path: '/app/api-client' }])
+    expect(state.activeTabPath).toBe('/app/api-client')
   })
 })

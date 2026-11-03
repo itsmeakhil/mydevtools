@@ -178,7 +178,7 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                             <Play className="h-4 w-4 mr-2" /> Run
                         </Button>
                     ) : (
-                        <Button variant="outline" onClick={handleAbort} className="border-rose-500/40 text-rose-500 hover:bg-rose-500/10">
+                        <Button variant="outline" onClick={handleAbort} className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive">
                             <X className="h-4 w-4 mr-2" /> Abort
                         </Button>
                     )}
@@ -202,18 +202,18 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                                 {results.length} / {total}
                             </span>
                         )}
-                        <span className="inline-flex items-center gap-1 text-emerald-600">
+                        <span className="inline-flex items-center gap-1 text-success">
                             <CheckCircle2 className="h-3.5 w-3.5" />
                             {stats.passed} pass
                         </span>
                         {stats.failedTests > 0 && (
-                            <span className="inline-flex items-center gap-1 text-rose-500">
+                            <span className="inline-flex items-center gap-1 text-destructive">
                                 <AlertCircle className="h-3.5 w-3.5" />
                                 {stats.failedTests} fail
                             </span>
                         )}
                         {stats.networkErrors > 0 && (
-                            <span className="inline-flex items-center gap-1 text-amber-600">
+                            <span className="inline-flex items-center gap-1 text-warning">
                                 <AlertCircle className="h-3.5 w-3.5" />
                                 {stats.networkErrors} network
                             </span>
@@ -221,10 +221,10 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                     </div>
                 )}
 
-                <ScrollArea className="flex-1 min-h-[200px] border rounded-lg bg-card">
+                <ScrollArea className="flex-1 min-h-[200px] border border-border rounded-xl bg-card">
                     <div className="p-3 space-y-1.5">
                         {results.length === 0 && !running && (
-                            <div className="text-center py-10 text-xs text-muted-foreground">
+                            <div className="text-center py-10 text-[13px] text-muted-foreground">
                                 Configure and click Run.
                             </div>
                         )}
@@ -232,34 +232,34 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                             const ok = !r.networkError && (r.status ?? 0) >= 200 && (r.status ?? 0) < 400
                                 && r.tests.every((t) => t.pass)
                             const tone = r.networkError
-                                ? "border-rose-500/30 bg-rose-500/[0.03]"
+                                ? "border-destructive/25 bg-destructive/[0.04]"
                                 : ok
-                                    ? "border-emerald-500/20 bg-emerald-500/[0.02]"
-                                    : "border-amber-500/30 bg-amber-500/[0.03]"
+                                    ? "border-border"
+                                    : "border-warning/30 bg-warning/[0.04]"
                             return (
                                 <div key={`${r.requestId}-${i}`} className={cn("border rounded-lg p-2 text-xs space-y-1", tone)}>
                                     <div className="flex items-center gap-2 flex-wrap">
-                                        <span className="font-mono font-bold text-[10px] w-12 text-right">{r.method}</span>
-                                        <span className="font-mono break-all flex-1 min-w-0">{r.requestName}</span>
+                                        <span className="font-semibold text-[10px] w-12 text-right">{r.method}</span>
+                                        <span className="break-all flex-1 min-w-0">{r.requestName}</span>
                                         {r.status !== undefined && (
                                             <span className={cn(
-                                                "font-mono text-[10px] px-1.5 py-0.5 rounded",
-                                                ok ? "bg-emerald-500/10 text-emerald-600" : "bg-rose-500/10 text-rose-500",
+                                                "text-[10px] font-semibold tabular-nums px-1.5 py-0.5 rounded-full",
+                                                ok ? "bg-success/[0.12] text-success" : "bg-destructive/[0.12] text-destructive",
                                             )}>
                                                 {r.status}
                                             </span>
                                         )}
                                         {r.time !== undefined && (
-                                            <span className="text-[10px] text-muted-foreground">{r.time}ms</span>
+                                            <span className="text-[10px] text-muted-foreground tabular-nums">{r.time}ms</span>
                                         )}
                                     </div>
                                     {r.networkError && (
-                                        <div className="text-rose-500 font-mono text-[11px]">{r.networkError}</div>
+                                        <div className="text-destructive font-mono text-[11px]">{r.networkError}</div>
                                     )}
                                     {r.tests.length > 0 && (
                                         <ul className="pl-3 space-y-0.5">
                                             {r.tests.map((t, j) => (
-                                                <li key={j} className={cn("font-mono text-[11px]", t.pass ? "text-emerald-600" : "text-rose-500")}>
+                                                <li key={j} className={cn("font-mono text-[11px]", t.pass ? "text-success" : "text-destructive")}>
                                                     {t.pass ? "✓" : "✗"} {t.name}
                                                     {!t.pass && t.error && <span className="text-muted-foreground"> — {t.error}</span>}
                                                 </li>

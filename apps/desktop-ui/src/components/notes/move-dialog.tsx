@@ -50,7 +50,7 @@ export function MoveDialog({ note, notes, open, onOpenChange, onMove }: MoveDial
                 </div>
                 <div className="flex flex-col gap-1 max-h-72 overflow-y-auto">
                     <button
-                        className="text-left px-3 py-2 rounded hover:bg-muted text-sm cursor-pointer"
+                        className="text-left h-8 px-2.5 rounded-lg hover:bg-foreground/[0.05] text-[13px]"
                         onClick={() => { onMove(null); handleOpenChange(false); }}
                         type="button"
                     >
@@ -62,7 +62,7 @@ export function MoveDialog({ note, notes, open, onOpenChange, onMove }: MoveDial
                     {targets.map((n) => (
                         <button
                             key={n.id}
-                            className="text-left px-3 py-2 rounded hover:bg-muted text-sm truncate flex items-center gap-2 cursor-pointer"
+                            className="text-left h-8 px-2.5 rounded-lg hover:bg-foreground/[0.05] text-[13px] truncate flex items-center gap-2"
                             onClick={() => { onMove(n.id); handleOpenChange(false); }}
                             type="button"
                         >

@@ -138,6 +138,27 @@
         "light": "Sáng",
         "dark": "Tối",
         "system": "Hệ thống"
+      },
+      "picker": {
+        "wheel": "Bánh xe",
+        "sliders": "Thanh trượt",
+        "hue": "Sắc độ",
+        "saturation": "Độ bão hòa",
+        "brightness": "Độ sáng",
+        "lightness": "Độ sáng (L)",
+        "chroma": "Sắc độ (C)",
+        "hexValue": "Giá trị hex",
+        "copy": "Sao chép giá trị hex",
+        "copied": "Đã sao chép",
+        "revert": "Khôi phục màu ban đầu",
+        "newColor": "Màu mới",
+        "onWhite": "Trên nền trắng",
+        "onBlack": "Trên nền đen",
+        "aa": "Đạt AA",
+        "aaLarge": "AA chữ lớn",
+        "fail": "Không đạt",
+        "presets": "Mẫu có sẵn",
+        "eyedropper": "Chọn màu từ màn hình"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Thêm mục",
     "sections": "Các mục thanh bên",
     "show": "Hiện thanh bên",
-    "hide": "Ẩn thanh bên"
+    "hide": "Ẩn thanh bên",
+    "pin": "Ghim {tool}",
+    "unpin": "Bỏ ghim {tool}"
   },
   "DesktopUpdate": {
     "title": "Đang cập nhật MyDevTools",
@@ -2609,5 +2632,24 @@
     "working": "{done} trên {total}",
     "cancelled": "Đã hủy.",
     "save": "Lưu"
+  },
+  "Shell": {
+    "sidebar": "Thanh bên",
+    "toggleSidebar": "Bật/tắt thanh bên",
+    "searchTools": "Tìm công cụ",
+    "help": "Trợ giúp",
+    "theme": "Giao diện",
+    "themeLight": "Sáng",
+    "themeDark": "Tối",
+    "themeSystem": "Hệ thống",
+    "account": "Tài khoản",
+    "you": "Bạn",
+    "openTool": "Mở công cụ",
+    "closeTab": "Đóng {title}",
+    "status": "Trạng thái",
+    "vaultLocked": "Kho đã khóa",
+    "vaultUnlocked": "Kho đã mở khóa",
+    "reduceTransparency": "Giảm độ trong suốt",
+    "reduceTransparencyHint": "Thay kính bằng bề mặt đặc."
   }
 }

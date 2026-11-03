@@ -12,14 +12,14 @@ interface ServerDashboardProps {
 export function ServerDashboard({ redisUrl, db }: ServerDashboardProps) {
     return (
         <Tabs defaultValue="info" className="h-full flex flex-col">
-            <TabsList className="h-8 rounded-none border-b w-full justify-start gap-0 p-0 bg-transparent shrink-0">
-                <TabsTrigger value="info" className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none">
+            <TabsList className="h-11 w-full shrink-0 justify-start gap-0.5 rounded-none border-b border-border bg-transparent px-2">
+                <TabsTrigger value="info" className="h-7 rounded-md px-2.5 text-[13px] data-[state=active]:bg-foreground/[0.08] data-[state=active]:shadow-none">
                     <IconActivity className="mr-1.5 size-3.5" /> Server
                 </TabsTrigger>
-                <TabsTrigger value="slowlog" className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none">
+                <TabsTrigger value="slowlog" className="h-7 rounded-md px-2.5 text-[13px] data-[state=active]:bg-foreground/[0.08] data-[state=active]:shadow-none">
                     <IconClock className="mr-1.5 size-3.5" /> Slow log
                 </TabsTrigger>
-                <TabsTrigger value="clients" className="h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none">
+                <TabsTrigger value="clients" className="h-7 rounded-md px-2.5 text-[13px] data-[state=active]:bg-foreground/[0.08] data-[state=active]:shadow-none">
                     <IconUsers className="mr-1.5 size-3.5" /> Clients
                 </TabsTrigger>
             </TabsList>

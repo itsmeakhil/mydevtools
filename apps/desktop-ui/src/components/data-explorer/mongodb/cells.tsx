@@ -37,7 +37,7 @@ export function DateCell({ date }: { date: Date }) {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <span className="inline-flex items-center font-mono text-[10px] bg-orange-500/10 text-orange-600 dark:text-orange-400 px-1.5 py-0.5 rounded cursor-default">
+                    <span className="inline-flex items-center font-mono text-[11px] tabular-nums bg-orange-500/10 text-orange-500 px-1.5 py-0.5 rounded-sm cursor-default">
                         {getRelativeTime(date)}
                     </span>
                 </TooltipTrigger>
@@ -54,8 +54,8 @@ export function ObjectIdCell({ value }: { value: string }) {
         <TooltipProvider>
             <Tooltip>
                 <TooltipTrigger asChild>
-                    <span className="inline-flex items-center gap-1 font-mono text-[10px] bg-purple-500/10 text-purple-600 dark:text-purple-400 px-1.5 py-0.5 rounded cursor-default">
-                        <span className="opacity-60 text-[9px]">ObjId</span>
+                    <span className="inline-flex items-center gap-1 font-mono text-[11px] bg-purple-500/10 text-purple-500 px-1.5 py-0.5 rounded-sm cursor-default">
+                        <span className="opacity-60 text-[10px]">ObjId</span>
                         <span className="truncate max-w-[110px]">{value}</span>
                     </span>
                 </TooltipTrigger>
@@ -79,10 +79,10 @@ export const CellValue = memo(function CellValue({ value, onViewClick }: { value
     if (typeof value === 'boolean') {
         return (
             <span className={cn(
-                "inline-flex items-center rounded-full px-1.5 py-0.5 text-[10px] font-medium font-mono",
+                "inline-flex items-center rounded-full px-1.5 py-0.5 text-[11px] font-medium font-mono",
                 value
-                    ? "bg-green-500/10 text-green-600 dark:text-green-400"
-                    : "bg-red-500/10 text-red-600 dark:text-red-400"
+                    ? "bg-success/10 text-success"
+                    : "bg-destructive/10 text-destructive"
             )}>
                 {value.toString()}
             </span>
@@ -90,7 +90,7 @@ export const CellValue = memo(function CellValue({ value, onViewClick }: { value
     }
 
     if (typeof value === 'number') {
-        return <span className="text-blue-600 dark:text-blue-400 font-mono text-xs">{value.toLocaleString()}</span>;
+        return <span className="text-primary font-mono text-xs tabular-nums">{value.toLocaleString()}</span>;
     }
 
     if (typeof value === 'object') {
@@ -102,16 +102,16 @@ export const CellValue = memo(function CellValue({ value, onViewClick }: { value
 
         return (
             <Popover>
-                <PopoverTrigger className="text-blue-500 hover:underline focus:outline-none outline-none text-xs font-mono cursor-pointer">
+                <PopoverTrigger className="text-primary hover:underline focus:outline-none outline-none text-xs font-mono">
                     {Array.isArray(value) ? t("cellArray", { length: value.length }) : "{...}"}
                 </PopoverTrigger>
-                <PopoverContent className="w-[350px] p-0 shadow-lg" align="start" side="bottom">
-                    <div className="max-h-[300px] overflow-auto bg-card rounded-md">
-                        <div className="p-2 border-b bg-muted/50 text-xs font-semibold flex justify-between items-center sticky top-0 z-10">
-                            <span className="truncate pr-2 font-mono text-muted-foreground">
+                <PopoverContent className="w-[350px] p-0" align="start" side="bottom">
+                    <div className="max-h-[300px] overflow-auto rounded-xl bg-card">
+                        <div className="sticky top-0 z-10 flex h-9 items-center justify-between border-b border-border bg-muted px-2 text-xs font-medium">
+                            <span className="truncate pr-2 text-muted-foreground">
                                 {Array.isArray(value) ? t("cellArrayBracket", { length: value.length }) : t("cellObject")}
                             </span>
-                            <Button variant="ghost" size="icon" className="h-5 w-5 bg-background shadow-sm" onClick={(e) => { e.stopPropagation(); onViewClick(value); }} title={t("openFullEditor")}>
+                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={(e) => { e.stopPropagation(); onViewClick(value); }} title={t("openFullEditor")}>
                                 <IconMaximize className="h-3 w-3" />
                             </Button>
                         </div>
@@ -138,7 +138,7 @@ export const CellValue = memo(function CellValue({ value, onViewClick }: { value
             <span className="font-mono text-xs">
                 {str.slice(0, 80)}
                 <button
-                    className="ml-1 text-blue-500 hover:underline text-[10px]"
+                    className="ml-1 font-sans text-[11px] text-primary hover:underline"
                     onClick={() => onViewClick(str)}
                 >
                     +{str.length - 80} chars
@@ -152,17 +152,17 @@ export const CellValue = memo(function CellValue({ value, onViewClick }: { value
 
 export function SkeletonRow({ colCount }: { colCount: number }) {
     return (
-        <tr className="border-b animate-pulse">
-            <td className="px-3 py-3"><div className="h-3.5 w-3.5 bg-muted rounded" /></td>
-            <td className="px-4 py-3"><div className="h-3 w-6 bg-muted rounded" /></td>
+        <tr className="border-b border-border animate-pulse">
+            <td className="px-3 py-3"><div className="h-3.5 w-3.5 bg-muted rounded-sm" /></td>
+            <td className="px-4 py-3"><div className="h-3 w-6 bg-muted rounded-sm" /></td>
             {Array.from({ length: colCount }).map((_, i) => (
                 <td key={i} className="px-4 py-3">
-                    <div className="h-3 rounded bg-muted" style={{ width: `${40 + (i * 17) % 50}%` }} />
+                    <div className="h-3 rounded-sm bg-muted" style={{ width: `${40 + (i * 17) % 50}%` }} />
                 </td>
             ))}
             <td className="px-4 py-3">
                 <div className="flex gap-1">
-                    {[1, 2, 3, 4].map(j => <div key={j} className="h-6 w-6 rounded bg-muted" />)}
+                    {[1, 2, 3, 4].map(j => <div key={j} className="h-6 w-6 rounded-md bg-muted" />)}
                 </div>
             </td>
         </tr>

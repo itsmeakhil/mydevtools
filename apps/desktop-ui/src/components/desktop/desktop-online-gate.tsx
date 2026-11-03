@@ -22,9 +22,9 @@ export function DesktopOnlineGate({
 
   return (
     <div className="flex h-[60vh] flex-col items-center justify-center gap-4 p-8 text-center">
-      <WifiOff className="h-12 w-12 text-muted-foreground" />
-      <h2 className="text-lg font-semibold">{toolName} needs a network connection</h2>
-      <p className="max-w-md text-sm text-muted-foreground">
+      <WifiOff className="h-8 w-8 text-muted-foreground/60" />
+      <h2 className="text-sm font-medium">{toolName} needs a network connection</h2>
+      <p className="max-w-md text-[13px] text-muted-foreground">
         You&apos;re offline. {toolName} needs a network connection; everything
         else keeps working locally.
       </p>

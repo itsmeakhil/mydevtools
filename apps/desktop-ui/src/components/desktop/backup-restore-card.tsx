@@ -2,12 +2,11 @@
 
 import { useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { DatabaseBackup } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { SettingsGroup } from "@/components/settings/settings-group";
 import { downloadBackup, importBackup } from "@/lib/desktop/backup";
 import { isDesktop } from "@/lib/desktop/is-desktop";
 
@@ -72,19 +71,9 @@ export function BackupRestoreCard() {
   };
 
   return (
-    <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-            <DatabaseBackup className="h-4 w-4" />
-          </span>
-          {t("title")}
-        </CardTitle>
-        <CardDescription>{t("description")}</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <div className="space-y-2">
-          <p className="text-xs text-muted-foreground">{t("exportHint")}</p>
+    <SettingsGroup title={t("title")} footer={t("description")}>
+        <div className="space-y-2 px-4 py-3">
+          <p className="text-[13px] text-muted-foreground">{t("exportHint")}</p>
           <div className="flex gap-2">
             <Input
               type="password"
@@ -104,8 +93,8 @@ export function BackupRestoreCard() {
           </div>
         </div>
 
-        <div className="space-y-2 border-t border-border/60 pt-4">
-          <p className="text-xs text-muted-foreground">{t("restoreHint")}</p>
+        <div className="space-y-2 px-4 py-3">
+          <p className="text-[13px] text-muted-foreground">{t("restoreHint")}</p>
           <input
             ref={fileInputRef}
             type="file"
@@ -139,7 +128,6 @@ export function BackupRestoreCard() {
             </Button>
           </div>
         </div>
-      </CardContent>
-    </Card>
+    </SettingsGroup>
   );
 }

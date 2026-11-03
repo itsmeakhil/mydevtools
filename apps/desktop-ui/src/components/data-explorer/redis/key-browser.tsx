@@ -26,11 +26,11 @@ const SEPARATORS = [":", "/", "."] as const;
 type ViewMode = "list" | "tree";
 
 const TYPE_COLORS: Record<RedisValueType | string, string> = {
-    string: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
-    list: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
-    set: "bg-green-500/10 text-green-600 dark:text-green-400",
-    zset: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
-    hash: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+    string: "bg-blue-500/10 text-blue-500",
+    list: "bg-amber-500/10 text-amber-500",
+    set: "bg-green-500/10 text-green-500",
+    zset: "bg-purple-500/10 text-purple-500",
+    hash: "bg-rose-500/10 text-rose-500",
     none: "bg-muted text-muted-foreground",
 };
 
@@ -327,7 +327,7 @@ export function KeyBrowser({
 
     return (
         <div className="flex h-full flex-col">
-            <div className="space-y-2 p-3 border-b">
+            <div className="space-y-2 border-b border-border p-2">
                 <div className="flex items-center gap-1.5">
                     <div className="relative flex-1">
                         <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
@@ -336,12 +336,12 @@ export function KeyBrowser({
                             value={pattern}
                             onChange={(e) => setPattern(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                            className="pl-8 h-8 text-sm font-mono"
+                            className="h-8 pl-8 font-mono text-xs"
                         />
                     </div>
                     <Button
                         size="icon"
-                        variant="outline"
+                        variant="ghost"
                         className="size-8 shrink-0"
                         onClick={handleSearch}
                         disabled={loading}
@@ -362,7 +362,7 @@ export function KeyBrowser({
                     regexError={searchState.regexError}
                 />
 
-                <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                <div className="flex items-center gap-1 text-[11px] tabular-nums text-muted-foreground">
                     <IconDatabase className="size-3" />
                     <span>{dbSize.toLocaleString()} total</span>
                     <span className="mx-1">·</span>
@@ -373,7 +373,7 @@ export function KeyBrowser({
                     <div className="ml-auto flex items-center gap-1">
                         <button
                             onClick={() => setViewMode(viewMode === "tree" ? "list" : "tree")}
-                            className="flex items-center gap-1 rounded px-1.5 py-0.5 hover:bg-accent transition-colors"
+                            className="flex size-6 items-center justify-center rounded-md transition-colors hover:bg-foreground/[0.05] hover:text-foreground"
                             title={viewMode === "tree" ? "Switch to list" : "Switch to tree"}
                         >
                             {viewMode === "tree" ? (
@@ -386,7 +386,7 @@ export function KeyBrowser({
                             <select
                                 value={separator}
                                 onChange={(e) => setSeparator(e.target.value)}
-                                className="h-5 rounded border bg-background px-1 text-[10px] font-mono"
+                                className="h-6 rounded-md border border-border bg-background px-1 font-mono text-[11px]"
                                 title="Tree separator"
                             >
                                 {SEPARATORS.map((s) => (
@@ -411,7 +411,7 @@ export function KeyBrowser({
 
             <ScrollArea className="flex-1">
                 {displayedKeys.length === 0 && !loading && (
-                    <div className="p-4 text-center text-sm text-muted-foreground">
+                    <div className="p-4 text-center text-[13px] text-muted-foreground">
                         {searchState.input ? (
                             <>No keys match &quot;{searchState.input}&quot;</>
                         ) : (
@@ -438,13 +438,15 @@ export function KeyBrowser({
                                 key={item.key}
                                 onClick={() => onSelectKey(item.key)}
                                 className={cn(
-                                    "flex w-full items-center gap-2 rounded px-2 py-1.5 text-left transition-colors hover:bg-accent",
-                                    selectedKey === item.key && "bg-accent"
+                                    "flex h-7 w-full items-center gap-2 rounded-md px-2 text-left text-[13px] transition-colors",
+                                    selectedKey === item.key
+                                        ? "bg-primary/[0.12] text-foreground"
+                                        : "hover:bg-foreground/[0.05]"
                                 )}
                             >
                                 <span
                                     className={cn(
-                                        "shrink-0 rounded px-1 py-0.5 text-[10px] font-mono font-semibold uppercase",
+                                        "shrink-0 rounded-sm px-1.5 text-[11px] font-medium leading-4",
                                         TYPE_COLORS[item.type] ?? TYPE_COLORS.none
                                     )}
                                 >
@@ -458,11 +460,11 @@ export function KeyBrowser({
                                     />
                                 </span>
                                 {item.ttl > 0 && (
-                                    <Badge variant="outline" className="shrink-0 text-[10px] h-4 px-1">
+                                    <Badge variant="outline" className="h-4 shrink-0 px-1.5 text-[11px] tabular-nums">
                                         {item.ttl}s
                                     </Badge>
                                 )}
-                                <IconChevronRight className="size-3 shrink-0 text-muted-foreground" />
+                                <IconChevronRight className="size-3 shrink-0 text-muted-foreground/70" />
                             </button>
                         );
                     })}
@@ -472,12 +474,12 @@ export function KeyBrowser({
                 <div ref={sentinelRef} className="h-4" />
 
                 {loading && (
-                    <div className="px-3 pb-3 text-center text-xs text-muted-foreground animate-pulse">
+                    <div className="px-3 pb-3 text-center text-[11px] text-muted-foreground">
                         Loading…
                     </div>
                 )}
                 {!hasMore && allKeys.length > 0 && !searchState.input && (
-                    <div className="pb-2 text-center text-[10px] text-muted-foreground/50">
+                    <div className="pb-2 text-center text-[11px] tabular-nums text-muted-foreground/70">
                         All {allKeys.length} keys loaded
                     </div>
                 )}
@@ -486,7 +488,7 @@ export function KeyBrowser({
                         <Button
                             size="sm"
                             variant="outline"
-                            className="h-6 text-[10px]"
+                            className="h-7 text-xs"
                             disabled={loadAllBusy}
                             onClick={async () => {
                                 setLoadAllBusy(true);
@@ -506,12 +508,12 @@ export function KeyBrowser({
                 )}
             </ScrollArea>
 
-            <div className="flex items-center gap-2 border-t px-3 py-1 text-[10px] text-muted-foreground">
+            <div className="flex h-8 items-center gap-2 border-t border-border px-3 text-[11px] text-muted-foreground">
                 <span>Page</span>
                 <select
                     value={pageSize}
                     onChange={(e) => setPageSize(parseInt(e.target.value, 10))}
-                    className="h-5 rounded border bg-background px-1 font-mono"
+                    className="h-6 rounded-md border border-border bg-background px-1 tabular-nums"
                     title="SCAN COUNT hint"
                 >
                     {[100, 200, 500, 1000].map((n) => (
