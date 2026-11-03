@@ -117,16 +117,19 @@ impl Session {
 
     /// Kill the whole process group (portable-pty setsid's the child, so pgid == pid),
     /// drop the master, and report exit now rather than waiting for reader EOF
-    /// (background children may hold the slave open).
+    /// (background children may hold the slave open). No signals once exited: the
+    /// reader reaped the child, so its pid (= pgid) may belong to someone else now.
     fn kill(&self) {
-        #[cfg(unix)]
-        if let Some(pid) = self.pid {
-            unsafe {
-                libc::killpg(pid as i32, libc::SIGHUP);
-                libc::killpg(pid as i32, libc::SIGKILL);
+        if !self.exited() {
+            #[cfg(unix)]
+            if let Some(pid) = self.pid {
+                unsafe {
+                    libc::killpg(pid as i32, libc::SIGHUP);
+                    libc::killpg(pid as i32, libc::SIGKILL);
+                }
             }
+            let _ = self.killer.lock().unwrap().kill();
         }
-        let _ = self.killer.lock().unwrap().kill();
         self.master.lock().unwrap().take();
         self.mark_exit(None);
     }
@@ -393,5 +396,25 @@ mod tests {
         st.kill_all();
         assert!(s.exited());
         assert!(wait_for(|| unsafe { libc::kill(pid, 0) } != 0, 1));
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn kill_after_exit_spares_recycled_pgid() {
+        use std::os::unix::process::CommandExt;
+        let st = TerminalState::default();
+        st.spawn(req("r", "/tmp"), vec![], sh("true")).unwrap();
+        let (_, mut s) = st.sessions.remove("r").unwrap();
+        // Reader thread done (child reaped, exit marked) once we hold the only Arc.
+        assert!(wait_for(|| Arc::strong_count(&s) == 1, 2));
+        // Simulate pid reuse: the exited session's pid is now another group's leader.
+        let mut other = std::process::Command::new("sleep").arg("30").process_group(0).spawn().unwrap();
+        Arc::get_mut(&mut s).unwrap().pid = Some(other.id());
+        s.kill();
+        std::thread::sleep(Duration::from_millis(100)); // let a stray SIGKILL land
+        let alive = other.try_wait().unwrap().is_none();
+        let _ = other.kill();
+        let _ = other.wait();
+        assert!(alive, "kill() on an exited session signalled a recycled process group");
     }
 }
