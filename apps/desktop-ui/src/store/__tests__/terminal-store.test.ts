@@ -8,7 +8,8 @@ jest.mock("@/lib/desktop/terminal-bridge", () => ({
 }))
 jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 
-import { useTerminalStore } from "../terminal-store"
+import { toast } from "sonner"
+import { useTerminalStore, resetTerminalSaveState } from "../terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 
 const S = () => useTerminalStore.getState()
@@ -17,7 +18,10 @@ beforeEach(() => {
   jest.useFakeTimers()
   mockSave.mockReset().mockResolvedValue(undefined)
   mockKill.mockReset().mockResolvedValue(undefined)
-  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, focusedTerminalId: null, dirty: false })
+  resetTerminalSaveState()
+  mockLoad.mockReset()
+  ;(toast.error as jest.Mock).mockClear()
+  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -71,5 +75,89 @@ describe("terminal store", () => {
     S().focusTerminal(id)
     expect(S().activeProjectId).toBe(pa.id)
     expect(S().focusedTerminalId).toBe(id)
+  })
+
+  it("load success populates state and enables saves", async () => {
+    useTerminalStore.setState({ loaded: false })
+    mockLoad.mockResolvedValue({ projects: [{ id: "p", path: "/p", name: "p", collapsed: false, tabs: [], activeTabId: null }], activeProjectId: "p" })
+    await S().load()
+    expect(S().loaded).toBe(true)
+    expect(S().projects.map((p) => p.id)).toEqual(["p"])
+    expect(S().activeProjectId).toBe("p")
+  })
+
+  it("load failure never PUTs, toasts once, and can be retried", async () => {
+    useTerminalStore.setState({ loaded: false })
+    mockLoad.mockRejectedValue(new Error("down"))
+    await S().load()
+    await S().load()
+    expect(S().loaded).toBe(false)
+    expect(toast.error).toHaveBeenCalledTimes(1)
+    S().addProject("/x/new")
+    await jest.advanceTimersByTimeAsync(2000)
+    expect(mockSave).not.toHaveBeenCalled()
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null })
+    await S().load()
+    await jest.advanceTimersByTimeAsync(500)
+    expect(S().loaded).toBe(true)
+    expect(mockSave).toHaveBeenCalledTimes(1)
+    expect(mockSave.mock.calls[0][0].projects).toHaveLength(1)
+  })
+
+  it("mutation during load is merged with loaded projects, then saved", async () => {
+    useTerminalStore.setState({ loaded: false })
+    let resolve!: (v: unknown) => void
+    mockLoad.mockReturnValue(new Promise((r) => (resolve = r)))
+    const pending = S().load()
+    S().addProject("/x/mine")
+    await jest.advanceTimersByTimeAsync(1000)
+    expect(mockSave).not.toHaveBeenCalled()
+    resolve({ projects: [{ id: "old", path: "/old", name: "old", collapsed: false, tabs: [], activeTabId: null }], activeProjectId: "old" })
+    await pending
+    await jest.advanceTimersByTimeAsync(500)
+    expect(S().projects.map((p) => p.name)).toEqual(["old", "mine"])
+    expect(mockSave).toHaveBeenCalledTimes(1)
+    expect(mockSave.mock.calls[0][0].projects).toHaveLength(2)
+  })
+
+  it("overlapping saves are serialized; final body is the latest state", async () => {
+    const resolvers: (() => void)[] = []
+    mockSave.mockImplementation(() => new Promise<void>((r) => resolvers.push(r)))
+    S().addProject("/x/a")
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave).toHaveBeenCalledTimes(1)
+    S().addProject("/x/b")
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave).toHaveBeenCalledTimes(1) // waits for the first
+    resolvers[0]()
+    await jest.advanceTimersByTimeAsync(0)
+    expect(mockSave).toHaveBeenCalledTimes(2)
+    expect(mockSave.mock.calls[1][0].projects).toHaveLength(2)
+    resolvers[1]()
+    await jest.advanceTimersByTimeAsync(0)
+    expect(S().dirty).toBe(false)
+  })
+
+  it("toast.error fires once across repeated failures", async () => {
+    mockSave.mockRejectedValue(new Error("nope"))
+    S().addProject("/x/a")
+    await jest.advanceTimersByTimeAsync(500)
+    S().addProject("/x/b")
+    await jest.advanceTimersByTimeAsync(500)
+    S().addProject("/x/c")
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave).toHaveBeenCalledTimes(3)
+    expect(toast.error).toHaveBeenCalledTimes(1)
+    expect(S().dirty).toBe(true)
+  })
+
+  it("closing prunes statuses and setStatus ignores unknown ids", () => {
+    S().addProject("/x/a")
+    const id = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().setStatus(id, "waiting")
+    S().setStatus("ghost", "waiting")
+    expect(S().statuses).toEqual({ [id]: "waiting" })
+    S().closeTerminal(id)
+    expect(S().statuses).toEqual({})
   })
 })

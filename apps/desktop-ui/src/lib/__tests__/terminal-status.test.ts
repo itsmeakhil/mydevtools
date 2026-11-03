@@ -21,7 +21,7 @@ describe("terminal status", () => {
   it("projectWaitingCount counts waiting only", () => {
     expect(projectWaitingCount(projects[0], { a: "waiting", b: "idle" })).toBe(1)
   })
-  it("totalWaiting ignores idle/running", () => {
-    expect(totalWaiting({ a: "waiting", b: "running", c: "idle", d: "waiting" })).toBe(2)
+  it("totalWaiting ignores idle/running and unknown ids", () => {
+    expect(totalWaiting(projects, { a: "waiting", b: "running", c: "idle", gone: "waiting" })).toBe(1)
   })
 })

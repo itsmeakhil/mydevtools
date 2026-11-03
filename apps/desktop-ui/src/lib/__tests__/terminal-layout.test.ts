@@ -32,4 +32,17 @@ describe("terminal layout", () => {
     expect(r.children[1].sizes).toEqual([30, 70])
     expect(setSizes(t, [], [20, 80])).toMatchObject({ sizes: [20, 80] })
   })
+  it("removeLeaf on a 3-child split renormalizes sizes to 100", () => {
+    const t = splitAt(splitAt(leaf("a"), "a", "row", "b"), "b", "row", "c") as any
+    const r = removeLeaf(t, "b") as any
+    expect(leafIds(r)).toEqual(["a", "c"])
+    expect(r.sizes.reduce((x: number, y: number) => x + y, 0)).toBeCloseTo(100)
+  })
+  it("nested removal collapses into a valid tree", () => {
+    const t = splitAt(splitAt(leaf("a"), "a", "row", "b"), "b", "col", "c")
+    const r = removeLeaf(t, "c") as any
+    expect(r.kind).toBe("split")
+    expect(r.children).toEqual([leaf("a"), leaf("b")])
+    expect(r.sizes).toHaveLength(2)
+  })
 })

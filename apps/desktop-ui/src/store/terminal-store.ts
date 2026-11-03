@@ -14,6 +14,7 @@ interface TerminalState extends TerminalPersisted {
   statuses: Record<string, TermStatus>
   focusedTerminalId: string | null
   dirty: boolean
+  loaded: boolean
   load: () => Promise<void>
   addProject: (path: string) => void
   removeProject: (id: string) => void
@@ -39,41 +40,94 @@ const find = (projects: TerminalProject[], terminalId: string) => {
 
 const SAVE_DELAY_MS = 500
 let timer: ReturnType<typeof setTimeout> | undefined
+let inflight: Promise<void> | null = null
+let rerun = false
 let failedOnce = false
+let loadFailedOnce = false
+
+/** Test hook: clear module-level save/load bookkeeping. */
+export function resetTerminalSaveState() {
+  clearTimeout(timer)
+  inflight = null
+  rerun = false
+  failedOnce = false
+  loadFailedOnce = false
+}
+
+const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e))
 
 export const useTerminalStore = create<TerminalState>((set, get) => {
+  // Saves are serialized: at most one PUT in flight; changes arriving meanwhile
+  // trigger exactly one follow-up with the latest state. Only the last result
+  // decides dirty/toast. Nothing is sent until load() has succeeded (fail closed).
+  const flush = () => {
+    if (!get().loaded) return
+    if (inflight) {
+      rerun = true
+      return
+    }
+    inflight = (async () => {
+      let ok = false
+      do {
+        rerun = false
+        const { projects, activeProjectId } = get()
+        try {
+          await saveTerminalState({ projects, activeProjectId })
+          ok = true
+        } catch (e) {
+          ok = false
+          if (!rerun && !failedOnce) toast.error(errMsg(e))
+          if (!rerun) failedOnce = true
+        }
+      } while (rerun)
+      if (ok) {
+        failedOnce = false
+        set({ dirty: false })
+      }
+      inflight = null
+    })()
+  }
+  const schedule = () => {
+    clearTimeout(timer)
+    timer = setTimeout(flush, SAVE_DELAY_MS)
+  }
   // Apply a structural change, mark dirty, schedule the debounced save.
   const mutate = (fn: (s: TerminalState) => Partial<TerminalState>) => {
     set((s) => ({ ...fn(s), dirty: true }))
-    clearTimeout(timer)
-    timer = setTimeout(async () => {
-      const { projects, activeProjectId } = get()
-      try {
-        await saveTerminalState({ projects, activeProjectId })
-        failedOnce = false
-        // Only clear if nothing changed while the PUT was in flight.
-        if (get().projects === projects && get().activeProjectId === activeProjectId) set({ dirty: false })
-        else mutate(() => ({}))
-      } catch (e) {
-        // dirty stays true; the next change reschedules and retries.
-        if (!failedOnce) toast.error(e instanceof Error ? e.message : String(e))
-        failedOnce = true
-      }
-    }, SAVE_DELAY_MS)
+    schedule()
   }
+  const dropStatuses = (ids: string[]) =>
+    set((s) => {
+      const statuses = { ...s.statuses }
+      ids.forEach((id) => delete statuses[id])
+      return { statuses }
+    })
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
   })
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, focusedTerminalId: null, dirty: false,
+    projects: [], activeProjectId: null, statuses: {}, focusedTerminalId: null, dirty: false, loaded: false,
 
     load: async () => {
       try {
         const d = await loadTerminalState()
-        set({ projects: d.projects ?? [], activeProjectId: d.activeProjectId ?? null })
+        const loaded = d.projects ?? []
+        set((s) => {
+          const ids = new Set(loaded.map((p) => p.id))
+          // Keep loaded projects, append any created while loading.
+          return {
+            projects: [...loaded, ...s.projects.filter((p) => !ids.has(p.id))],
+            activeProjectId: s.activeProjectId ?? d.activeProjectId ?? null,
+            loaded: true,
+          }
+        })
+        loadFailedOnce = false
+        if (get().dirty) schedule()
       } catch (e) {
-        toast.error(e instanceof Error ? e.message : String(e))
+        // Fail closed: stay unloaded so nothing is ever saved over real data.
+        if (!loadFailedOnce) toast.error(errMsg(e))
+        loadFailedOnce = true
       }
     },
 
@@ -88,7 +142,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     removeProject: (id) => {
       const p = get().projects.find((x) => x.id === id)
-      if (p) kill(p.tabs.flatMap((t) => leafIds(t.layout)))
+      if (p) {
+        const ids = p.tabs.flatMap((t) => leafIds(t.layout))
+        kill(ids)
+        dropStatuses(ids)
+      }
       mutate((s) => ({
         projects: s.projects.filter((x) => x.id !== id),
         activeProjectId: s.activeProjectId === id ? (s.projects.find((x) => x.id !== id)?.id ?? null) : s.activeProjectId,
@@ -105,7 +163,10 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     closeTab: (projectId, tabId) => {
       const t = get().projects.find((p) => p.id === projectId)?.tabs.find((x) => x.id === tabId)
-      if (t) kill(leafIds(t.layout))
+      if (t) {
+        kill(leafIds(t.layout))
+        dropStatuses(leafIds(t.layout))
+      }
       mutate(mapProject(projectId, (p) => {
         const tabs = p.tabs.filter((x) => x.id !== tabId)
         return { ...p, tabs, activeTabId: p.activeTabId === tabId ? (tabs[tabs.length - 1]?.id ?? null) : p.activeTabId }
@@ -130,6 +191,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const hit = find(get().projects, terminalId)
       if (!hit) return
       kill([terminalId])
+      dropStatuses([terminalId])
       const layout = removeLeaf(hit.t.layout, terminalId)
       mutate(mapProject(hit.p.id, (p) => {
         if (!layout) {
@@ -161,6 +223,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     setStatus: (id, s) =>
       set((st) => {
+        if (!find(st.projects, id)) return st
         if (s === "idle") {
           const { [id]: _gone, ...rest } = st.statuses
           return { statuses: rest }

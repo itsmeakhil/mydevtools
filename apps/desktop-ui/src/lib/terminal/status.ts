@@ -23,5 +23,6 @@ export function needsYou(projects: TerminalProject[], statuses: Record<string, T
 export const projectWaitingCount = (p: TerminalProject, statuses: Record<string, TermStatus>) =>
   p.tabs.reduce((n, t) => n + leafIds(t.layout).filter((id) => statuses[id] === "waiting").length, 0)
 
-export const totalWaiting = (statuses: Record<string, TermStatus>) =>
-  Object.values(statuses).filter((s) => s === "waiting").length
+/** Counts only terminals that still exist in `projects` (closed panes can't inflate it). */
+export const totalWaiting = (projects: TerminalProject[], statuses: Record<string, TermStatus>) =>
+  projects.reduce((n, p) => n + projectWaitingCount(p, statuses), 0)
