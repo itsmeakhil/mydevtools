@@ -10,6 +10,7 @@ pub mod preferences;
 pub mod secure_files;
 pub mod snippets;
 pub mod stubs;
+pub mod terminal;
 pub mod tasks;
 pub mod workspaces;
 
@@ -124,6 +125,9 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
     }
     if let Some(rest) = rel.strip_prefix("/secure-files") {
         return secure_files::handle(state, method, rest, body);
+    }
+    if let Some(rest) = rel.strip_prefix("/terminal") {
+        return terminal::handle(state, method, rest, body);
     }
 
     stubs::handle(method, path)
