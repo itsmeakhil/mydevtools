@@ -18,6 +18,7 @@ import {
   IconStarFilled,
 } from '@tabler/icons-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Logo } from '@/components/logo'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -301,7 +302,31 @@ export function AppSidebar() {
           {rail ? null : <SidebarToggle />}
         </div>
 
-        <div className={cn('pb-1', rail ? 'px-3' : 'px-3')}>
+        {/* Brand → dashboard: mark + wordmark, mark only on the rail. */}
+        <div className={cn('pb-2', rail ? 'flex justify-center px-3' : 'px-3')}>
+          <button
+            type="button"
+            onClick={() => go('/dashboard')}
+            aria-label={t('goToDashboard')}
+            title={rail ? 'MyDevTools' : undefined}
+            className={cn(
+              'flex items-center gap-2 rounded-lg transition-colors duration-150 hover:bg-foreground/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60',
+              rail ? 'h-10 w-10 justify-center' : 'h-9 px-1.5',
+            )}
+          >
+            <Logo size={rail ? 26 : 22} showText={false} className="shrink-0" />
+            {rail ? null : (
+              <span
+                className="text-[15px] font-bold leading-none tracking-wide"
+                style={{ fontFamily: 'var(--font-courier-prime), ui-monospace, monospace' }}
+              >
+                mydevtools<span className="text-primary">.tech</span>
+              </span>
+            )}
+          </button>
+        </div>
+
+        <div className="px-3 pb-1">
           <button
             type="button"
             onClick={() => document.dispatchEvent(new CustomEvent('open-command-palette'))}

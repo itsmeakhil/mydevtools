@@ -2650,6 +2650,7 @@
     "vaultLocked": "Sejf zablokowany",
     "vaultUnlocked": "Sejf odblokowany",
     "reduceTransparency": "Zmniejsz przezroczystość",
-    "reduceTransparencyHint": "Zastępuje szkło jednolitymi powierzchniami."
+    "reduceTransparencyHint": "Zastępuje szkło jednolitymi powierzchniami.",
+    "goToDashboard": "Przejdź do pulpitu"
   }
 }

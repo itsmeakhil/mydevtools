@@ -2650,6 +2650,7 @@
     "vaultLocked": "Coffre verrouillé",
     "vaultUnlocked": "Coffre déverrouillé",
     "reduceTransparency": "Réduire la transparence",
-    "reduceTransparencyHint": "Remplace le verre par des surfaces opaques."
+    "reduceTransparencyHint": "Remplace le verre par des surfaces opaques.",
+    "goToDashboard": "Aller au tableau de bord"
   }
 }

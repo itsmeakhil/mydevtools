@@ -2650,6 +2650,7 @@
     "vaultLocked": "گاوصندوق قفل است",
     "vaultUnlocked": "گاوصندوق باز است",
     "reduceTransparency": "کاهش شفافیت",
-    "reduceTransparencyHint": "جایگزینی شیشه با سطوح مات."
+    "reduceTransparencyHint": "جایگزینی شیشه با سطوح مات.",
+    "goToDashboard": "رفتن به داشبورد"
   }
 }

@@ -2650,6 +2650,7 @@
     "vaultLocked": "Brankas terkunci",
     "vaultUnlocked": "Brankas terbuka",
     "reduceTransparency": "Kurangi transparansi",
-    "reduceTransparencyHint": "Ganti kaca dengan permukaan solid."
+    "reduceTransparencyHint": "Ganti kaca dengan permukaan solid.",
+    "goToDashboard": "Buka dasbor"
   }
 }

@@ -2650,6 +2650,7 @@
     "vaultLocked": "保管庫はロック中",
     "vaultUnlocked": "保管庫はロック解除済み",
     "reduceTransparency": "透明度を下げる",
-    "reduceTransparencyHint": "ガラスを不透明な面に置き換えます。"
+    "reduceTransparencyHint": "ガラスを不透明な面に置き換えます。",
+    "goToDashboard": "ダッシュボードへ"
   }
 }

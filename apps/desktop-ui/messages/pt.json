@@ -2650,6 +2650,7 @@
     "vaultLocked": "Cofre bloqueado",
     "vaultUnlocked": "Cofre desbloqueado",
     "reduceTransparency": "Reduzir transparência",
-    "reduceTransparencyHint": "Substitui o vidro por superfícies sólidas."
+    "reduceTransparencyHint": "Substitui o vidro por superfícies sólidas.",
+    "goToDashboard": "Ir para o painel"
   }
 }

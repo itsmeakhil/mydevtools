@@ -2650,6 +2650,7 @@
     "vaultLocked": "Cassaforte bloccata",
     "vaultUnlocked": "Cassaforte sbloccata",
     "reduceTransparency": "Riduci trasparenza",
-    "reduceTransparencyHint": "Sostituisce il vetro con superfici opache."
+    "reduceTransparencyHint": "Sostituisce il vetro con superfici opache.",
+    "goToDashboard": "Vai alla dashboard"
   }
 }

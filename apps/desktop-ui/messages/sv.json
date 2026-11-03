@@ -2650,6 +2650,7 @@
     "vaultLocked": "Valvet låst",
     "vaultUnlocked": "Valvet upplåst",
     "reduceTransparency": "Minska genomskinlighet",
-    "reduceTransparencyHint": "Ersätter glas med heltäckande ytor."
+    "reduceTransparencyHint": "Ersätter glas med heltäckande ytor.",
+    "goToDashboard": "Gå till översikten"
   }
 }

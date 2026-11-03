@@ -2650,6 +2650,7 @@
     "vaultLocked": "Хранилище заблокировано",
     "vaultUnlocked": "Хранилище разблокировано",
     "reduceTransparency": "Уменьшить прозрачность",
-    "reduceTransparencyHint": "Заменяет стекло непрозрачными поверхностями."
+    "reduceTransparencyHint": "Заменяет стекло непрозрачными поверхностями.",
+    "goToDashboard": "Перейти на панель"
   }
 }

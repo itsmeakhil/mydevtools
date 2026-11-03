@@ -2650,6 +2650,7 @@
     "vaultLocked": "الخزنة مقفلة",
     "vaultUnlocked": "الخزنة مفتوحة",
     "reduceTransparency": "تقليل الشفافية",
-    "reduceTransparencyHint": "استبدال الزجاج بأسطح صلبة."
+    "reduceTransparencyHint": "استبدال الزجاج بأسطح صلبة.",
+    "goToDashboard": "الانتقال إلى لوحة التحكم"
   }
 }

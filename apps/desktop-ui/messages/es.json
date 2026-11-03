@@ -2650,6 +2650,7 @@
     "vaultLocked": "Bóveda bloqueada",
     "vaultUnlocked": "Bóveda desbloqueada",
     "reduceTransparency": "Reducir transparencia",
-    "reduceTransparencyHint": "Sustituye el cristal por superficies sólidas."
+    "reduceTransparencyHint": "Sustituye el cristal por superficies sólidas.",
+    "goToDashboard": "Ir al panel"
   }
 }

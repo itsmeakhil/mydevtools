@@ -2650,6 +2650,7 @@
     "vaultLocked": "Tresor gesperrt",
     "vaultUnlocked": "Tresor entsperrt",
     "reduceTransparency": "Transparenz reduzieren",
-    "reduceTransparencyHint": "Glas durch deckende Flächen ersetzen."
+    "reduceTransparencyHint": "Glas durch deckende Flächen ersetzen.",
+    "goToDashboard": "Zum Dashboard"
   }
 }

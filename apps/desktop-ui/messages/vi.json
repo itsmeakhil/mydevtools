@@ -2650,6 +2650,7 @@
     "vaultLocked": "Kho đã khóa",
     "vaultUnlocked": "Kho đã mở khóa",
     "reduceTransparency": "Giảm độ trong suốt",
-    "reduceTransparencyHint": "Thay kính bằng bề mặt đặc."
+    "reduceTransparencyHint": "Thay kính bằng bề mặt đặc.",
+    "goToDashboard": "Về bảng điều khiển"
   }
 }

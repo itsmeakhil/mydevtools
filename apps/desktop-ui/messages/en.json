@@ -2650,6 +2650,7 @@
     "vaultLocked": "Vault locked",
     "vaultUnlocked": "Vault unlocked",
     "reduceTransparency": "Reduce transparency",
-    "reduceTransparencyHint": "Replace glass with solid surfaces."
+    "reduceTransparencyHint": "Replace glass with solid surfaces.",
+    "goToDashboard": "Go to dashboard"
   }
 }

@@ -2650,6 +2650,7 @@
     "vaultLocked": "Caixa forta bloquejada",
     "vaultUnlocked": "Caixa forta desbloquejada",
     "reduceTransparency": "Redueix la transparència",
-    "reduceTransparencyHint": "Substitueix el vidre per superfícies sòlides."
+    "reduceTransparencyHint": "Substitueix el vidre per superfícies sòlides.",
+    "goToDashboard": "Ves al tauler"
   }
 }

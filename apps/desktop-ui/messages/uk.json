@@ -2650,6 +2650,7 @@
     "vaultLocked": "Сховище заблоковано",
     "vaultUnlocked": "Сховище розблоковано",
     "reduceTransparency": "Зменшити прозорість",
-    "reduceTransparencyHint": "Замінює скло непрозорими поверхнями."
+    "reduceTransparencyHint": "Замінює скло непрозорими поверхнями.",
+    "goToDashboard": "Перейти до панелі"
   }
 }

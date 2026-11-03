@@ -2650,6 +2650,7 @@
     "vaultLocked": "Trezor zamčen",
     "vaultUnlocked": "Trezor odemčen",
     "reduceTransparency": "Omezit průhlednost",
-    "reduceTransparencyHint": "Nahradit sklo plnými plochami."
+    "reduceTransparencyHint": "Nahradit sklo plnými plochami.",
+    "goToDashboard": "Přejít na nástěnku"
   }
 }

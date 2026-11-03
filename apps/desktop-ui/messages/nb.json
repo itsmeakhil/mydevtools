@@ -2650,6 +2650,7 @@
     "vaultLocked": "Hvelv låst",
     "vaultUnlocked": "Hvelv låst opp",
     "reduceTransparency": "Reduser gjennomsiktighet",
-    "reduceTransparencyHint": "Erstatt glass med heldekkende flater."
+    "reduceTransparencyHint": "Erstatt glass med heldekkende flater.",
+    "goToDashboard": "Gå til oversikten"
   }
 }

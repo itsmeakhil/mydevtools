@@ -2650,6 +2650,7 @@
     "vaultLocked": "금고 잠김",
     "vaultUnlocked": "금고 잠금 해제됨",
     "reduceTransparency": "투명도 줄이기",
-    "reduceTransparencyHint": "유리 효과를 불투명한 표면으로 바꿉니다."
+    "reduceTransparencyHint": "유리 효과를 불투명한 표면으로 바꿉니다.",
+    "goToDashboard": "대시보드로 이동"
   }
 }

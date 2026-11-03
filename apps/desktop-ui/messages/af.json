@@ -2650,6 +2650,7 @@
     "vaultLocked": "Kluis gesluit",
     "vaultUnlocked": "Kluis oopgesluit",
     "reduceTransparency": "Verminder deursigtigheid",
-    "reduceTransparencyHint": "Vervang glas met soliede oppervlakke."
+    "reduceTransparencyHint": "Vervang glas met soliede oppervlakke.",
+    "goToDashboard": "Gaan na kontroleskerm"
   }
 }

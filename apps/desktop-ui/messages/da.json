@@ -2650,6 +2650,7 @@
     "vaultLocked": "Boks låst",
     "vaultUnlocked": "Boks låst op",
     "reduceTransparency": "Reducer gennemsigtighed",
-    "reduceTransparencyHint": "Erstat glas med faste flader."
+    "reduceTransparencyHint": "Erstat glas med faste flader.",
+    "goToDashboard": "Gå til oversigten"
   }
 }

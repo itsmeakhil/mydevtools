@@ -2650,6 +2650,7 @@
     "vaultLocked": "保管库已锁定",
     "vaultUnlocked": "保管库已解锁",
     "reduceTransparency": "降低透明度",
-    "reduceTransparencyHint": "用不透明表面替代玻璃效果。"
+    "reduceTransparencyHint": "用不透明表面替代玻璃效果。",
+    "goToDashboard": "前往仪表板"
   }
 }

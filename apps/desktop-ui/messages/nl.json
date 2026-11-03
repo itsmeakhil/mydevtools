@@ -2650,6 +2650,7 @@
     "vaultLocked": "Kluis vergrendeld",
     "vaultUnlocked": "Kluis ontgrendeld",
     "reduceTransparency": "Transparantie verminderen",
-    "reduceTransparencyHint": "Vervangt glas door ondoorzichtige vlakken."
+    "reduceTransparencyHint": "Vervangt glas door ondoorzichtige vlakken.",
+    "goToDashboard": "Naar dashboard"
   }
 }

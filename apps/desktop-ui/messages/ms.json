@@ -2650,6 +2650,7 @@
     "vaultLocked": "Peti besi dikunci",
     "vaultUnlocked": "Peti besi dibuka",
     "reduceTransparency": "Kurangkan ketelusan",
-    "reduceTransparencyHint": "Gantikan kaca dengan permukaan pepejal."
+    "reduceTransparencyHint": "Gantikan kaca dengan permukaan pepejal.",
+    "goToDashboard": "Pergi ke papan pemuka"
   }
 }

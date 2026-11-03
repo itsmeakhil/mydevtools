@@ -2650,6 +2650,7 @@
     "vaultLocked": "Kasa kilitli",
     "vaultUnlocked": "Kasa açık",
     "reduceTransparency": "Saydamlığı azalt",
-    "reduceTransparencyHint": "Camı opak yüzeylerle değiştirir."
+    "reduceTransparencyHint": "Camı opak yüzeylerle değiştirir.",
+    "goToDashboard": "Panoya git"
   }
 }
