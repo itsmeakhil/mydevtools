@@ -30,5 +30,21 @@ json_str() {
 
 line=$(printf '{"token":"%s","terminal_id":"%s","event":"%s","payload":%s}' \
   "$(json_str "$MDT_HOOK_TOKEN")" "$(json_str "$MDT_TERMINAL_ID")" "$(json_str "$event")" "$payload")
-printf '%s\n' "$line" | nc -U -w 1 "$MDT_HOOK_SOCKET" >/dev/null 2>&1
+# Synchronous so Claude's hooks arrive in order, but it must never linger: Claude
+# waits on every hook. stdin is a here-doc, never a live pipe, so nc never sees
+# it idle mid-line (bash's here-doc is a temp file; dash pre-fills small ones).
+send() {
+  nc "$@" -U "$MDT_HOOK_SOCKET" >/dev/null 2>&1 <<EOF
+$line
+EOF
+}
+if [ "$(uname)" = Darwin ]; then
+  # macOS nc has no -N (its -N is something else) and only quits after -w
+  # seconds idle; -w 0 quits at the first idle poll, once the line is written.
+  send -w 0
+else
+  # OpenBSD nc: half-close on EOF, exit when the app closes (-w 1 caps it).
+  # ncat rejects -N before connecting, so the fallback never sends twice.
+  send -N -w 1 || send --send-only
+fi
 exit 0

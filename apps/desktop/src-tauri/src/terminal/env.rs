@@ -272,15 +272,21 @@ mod tests {
         let dir = tmp("hook");
         let sock = dir.join("h.sock");
         let listener = std::os::unix::net::UnixListener::bind(&sock).unwrap();
-        // Mirror the app server: read lines until the client closes. A read
-        // timeout instead of EOF means the hook holds the socket (and so
-        // Claude's hook path) open.
+        // Mirror the app server: read lines until the client half-closes. A read
+        // timeout instead of EOF means the hook never sent EOF.
         let reader = std::thread::spawn(move || {
             let (s, _) = listener.accept().unwrap();
-            s.set_read_timeout(Some(Duration::from_secs(3))).unwrap();
-            BufReader::new(s).lines().collect::<Result<Vec<_>, _>>()
+            // EINVAL on macOS if the hook already closed (then reads just hit EOF).
+            let _ = s.set_read_timeout(Some(Duration::from_secs(3)));
+            let lines = BufReader::new(&s).lines().collect::<Result<Vec<_>, _>>();
+            // macOS: also keep the connection open after EOF (a stalled app), so a
+            // hook that waits for the server to close (`nc -w 1` lingered ~1 s on
+            // every Claude hook) fails the bound below. Elsewhere OpenBSD nc -N
+            // waits for that close by design (capped by -w 1), so close like the app.
+            (lines, cfg!(target_os = "macos").then_some(s))
         });
         let hook = res().join("terminal/bin/mdt-hook");
+        let t0 = Instant::now();
         let o = run_bash(
             &format!(
                 "echo '{{\"message\":\"hi\"}}' | '{}' claude-Notification",
@@ -288,9 +294,13 @@ mod tests {
             ),
             &hook_env(&sock),
         );
+        let took = t0.elapsed();
         assert!(o.status.success());
         assert!(o.stdout.is_empty());
-        let got = reader.join().unwrap().expect("hook closed the socket");
+        let (got, _open) = reader.join().unwrap();
+        let got = got.expect("hook sent EOF");
+        // Claude blocks on every hook, so the send must not linger.
+        assert!(took < Duration::from_millis(300), "mdt-hook took {took:?}");
         let m = crate::terminal::hooks::parse_line(&got[0], "tok").expect("valid line");
         assert_eq!(m.event, "claude-Notification");
         assert_eq!(m.terminal_id, "t1");
