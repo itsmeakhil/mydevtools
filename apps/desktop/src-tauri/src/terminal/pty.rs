@@ -146,9 +146,23 @@ impl Session {
     }
 }
 
-#[derive(Default)]
 pub struct TerminalState {
     sessions: DashMap<String, Arc<Session>>,
+    /// Per-launch secret the hook script must echo back over the socket.
+    pub token: String,
+    pub statuses: Mutex<super::hooks::StatusMap>,
+}
+
+impl Default for TerminalState {
+    fn default() -> Self {
+        let mut b = [0u8; 32];
+        getrandom::fill(&mut b).expect("os rng");
+        Self {
+            sessions: DashMap::new(),
+            token: b.iter().map(|x| format!("{x:02x}")).collect(),
+            statuses: Mutex::default(),
+        }
+    }
 }
 
 impl TerminalState {

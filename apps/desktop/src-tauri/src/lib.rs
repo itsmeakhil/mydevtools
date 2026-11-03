@@ -118,7 +118,9 @@ pub fn run() {
             let state = AppState::init(dir.join("mydevtools.db"))
                 .map_err(|e| format!("failed to open local database: {e}"))?;
             app.manage(state);
-            app.manage(std::sync::Arc::new(terminal::pty::TerminalState::default()));
+            let term = std::sync::Arc::new(terminal::pty::TerminalState::default());
+            app.manage(term.clone());
+            terminal::hooks::start(app.handle(), &dir, term);
 
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged
@@ -157,7 +159,9 @@ pub fn run() {
             terminal::pty::terminal_attach,
             terminal::pty::terminal_write,
             terminal::pty::terminal_resize,
-            terminal::pty::terminal_kill
+            terminal::pty::terminal_kill,
+            terminal::hooks::terminal_statuses,
+            terminal::hooks::terminal_clear_waiting
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
