@@ -42,11 +42,12 @@ fn parse_head(git_dir: &Path) -> Option<String> {
 /// Number of lines of `git status --porcelain`; `None` if git is missing or fails.
 pub fn changed_count(dir: &Path) -> Option<u32> {
     // No prompts and no index lock: this runs in the background and must never hang or
-    // collide with the user's own git commands.
+    // collide with the user's own git commands. core.fsmonitor off: the folder's repo
+    // config is untrusted and would otherwise run its command on every poll.
     let out = std::process::Command::new("git")
         .arg("-C")
         .arg(dir)
-        .args(["status", "--porcelain"])
+        .args(["-c", "core.fsmonitor=false", "status", "--porcelain"])
         .env("GIT_TERMINAL_PROMPT", "0")
         .env("GIT_OPTIONAL_LOCKS", "0")
         .stdin(std::process::Stdio::null())
@@ -137,5 +138,28 @@ mod tests {
         fs::write(d.join("a"), "1").unwrap();
         fs::write(d.join("b"), "2").unwrap();
         assert_eq!(changed_count(&d), Some(2));
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn changed_count_ignores_repo_fsmonitor() {
+        use std::os::unix::fs::PermissionsExt;
+        let d = tmp("fsmon");
+        let ok = std::process::Command::new("git").arg("-C").arg(&d).arg("init").output();
+        if !matches!(ok, Ok(o) if o.status.success()) {
+            return; // git not available
+        }
+        // An untrusted repo's config names a command; polling status must not run it.
+        let marker = d.join("pwned");
+        let hook = d.join("fsmon.sh");
+        fs::write(&hook, format!("#!/bin/sh\ntouch '{}'\n", marker.display())).unwrap();
+        fs::set_permissions(&hook, fs::Permissions::from_mode(0o755)).unwrap();
+        let set = std::process::Command::new("git")
+            .arg("-C").arg(&d)
+            .args(["config", "core.fsmonitor"]).arg(&hook)
+            .status().unwrap();
+        assert!(set.success());
+        assert!(changed_count(&d).is_some());
+        assert!(!marker.exists(), "git status ran the repo's core.fsmonitor");
     }
 }
