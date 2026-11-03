@@ -132,8 +132,8 @@ export default function KanbanBoard({
                 key={status.id}
                 value={status.id}
                 className={cn(
-                  "text-xs sm:text-sm font-medium rounded-lg transition-all duration-200",
-                  "data-[state=active]:bg-background data-[state=active]:shadow-sm data-[state=active]:scale-[1.02]",
+                  "text-xs sm:text-[13px] font-medium rounded-lg transition-colors duration-150",
+                  "data-[state=active]:bg-card data-[state=active]:shadow-elev-1",
                   activeTab === status.id && status.color
                 )}
               >
@@ -185,7 +185,7 @@ export default function KanbanBoard({
 
       <DragOverlay>
         {activeTask ? (
-          <div className="opacity-95 rotate-2 scale-105 shadow-2xl">
+          <div className="opacity-95 rounded-lg shadow-elev-3">
             <KanbanCard task={activeTask} onUpdateTask={onUpdateTask} onDeleteTask={onDeleteTask} />
           </div>
         ) : null}

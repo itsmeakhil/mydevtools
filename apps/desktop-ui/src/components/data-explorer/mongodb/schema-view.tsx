@@ -49,13 +49,13 @@ export function SchemaView({
     useEffect(() => { load(); }, [load]);
 
     const typeColor: Record<string, string> = {
-        string: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
-        number: 'bg-green-500/10 text-green-600 dark:text-green-400',
-        boolean: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400',
-        ObjectId: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
-        Date: 'bg-orange-500/10 text-orange-600 dark:text-orange-400',
-        Array: 'bg-pink-500/10 text-pink-600 dark:text-pink-400',
-        Object: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400',
+        string: 'bg-blue-500/10 text-blue-500',
+        number: 'bg-green-500/10 text-green-500',
+        boolean: 'bg-yellow-500/10 text-yellow-500',
+        ObjectId: 'bg-purple-500/10 text-purple-500',
+        Date: 'bg-orange-500/10 text-orange-500',
+        Array: 'bg-pink-500/10 text-pink-500',
+        Object: 'bg-indigo-500/10 text-indigo-500',
         null: 'bg-muted text-muted-foreground',
     };
 
@@ -96,10 +96,10 @@ export function SchemaView({
 
     return (
         <div className="h-full flex flex-col">
-            <div className="px-4 py-2 border-b bg-muted/10 text-xs text-muted-foreground shrink-0 flex items-center gap-2 flex-wrap">
-                <span>
+            <div className="min-h-11 px-4 py-2 border-b border-border text-[13px] text-muted-foreground shrink-0 flex items-center gap-2 flex-wrap">
+                <span className="tabular-nums">
                     {t("sampled", { docs: data.sampleSize, fields: data.fields.length })}
-                    {sampleMode === "all" && data.sampleSize >= 10000 && <span className="ml-1 text-amber-600 dark:text-amber-400">· {t("allCapped")}</span>}
+                    {sampleMode === "all" && data.sampleSize >= 10000 && <span className="ml-1 text-warning">· {t("allCapped")}</span>}
                 </span>
                 <div className="flex items-center gap-1.5 ml-auto">
                     <Select value={sampleMode} onValueChange={(v) => setSampleMode(v as SampleMode)}>
@@ -145,13 +145,13 @@ export function SchemaView({
             </div>
 
             {validator && (
-                <div className="border-b bg-muted/5 shrink-0">
+                <div className="border-b border-border shrink-0">
                     <button
-                        className="w-full flex items-center gap-1.5 px-4 py-2 text-xs font-medium hover:bg-muted/40 transition-colors"
+                        className="w-full flex items-center gap-1.5 px-4 h-8 text-[13px] font-medium hover:bg-foreground/[0.03] transition-colors"
                         onClick={() => setValidatorOpen((o) => !o)}
                     >
                         <IconChevronRight className={cn("h-3.5 w-3.5 transition-transform", validatorOpen && "rotate-90")} />
-                        <IconShieldCheck className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
+                        <IconShieldCheck className="h-3.5 w-3.5 text-success" />
                         {t("validatorTitle")}
                     </button>
                     {validatorOpen && (
@@ -163,16 +163,16 @@ export function SchemaView({
             )}
             <ScrollArea className="flex-1">
                 <table className="min-w-full text-sm">
-                    <thead className="text-xs text-muted-foreground uppercase bg-muted sticky top-0">
-                        <tr>
-                            <th className="px-4 py-2.5 text-left font-medium">{t("colField")}</th>
-                            <th className="px-4 py-2.5 text-left font-medium">{t("colTypes")}</th>
-                            <th className="px-4 py-2.5 text-right font-medium w-24">{t("colCoverage")}</th>
+                    <thead className="text-[12px] text-muted-foreground bg-muted sticky top-0">
+                        <tr className="border-b border-border">
+                            <th className="px-4 py-2 text-left font-medium">{t("colField")}</th>
+                            <th className="px-4 py-2 text-left font-medium">{t("colTypes")}</th>
+                            <th className="px-4 py-2 text-right font-medium w-24">{t("colCoverage")}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.fields.map((field, i) => (
-                            <tr key={field.name} className={cn("border-b", i % 2 === 0 ? "" : "bg-muted/20")}>
+                        {data.fields.map((field) => (
+                            <tr key={field.name} className="border-b border-border hover:bg-foreground/[0.03]">
                                 <td className="px-4 py-2.5 font-mono text-xs font-medium">{field.name}</td>
                                 <td className="px-4 py-2.5">
                                     <div className="flex flex-wrap gap-1">
@@ -180,7 +180,7 @@ export function SchemaView({
                                             <span
                                                 key={type}
                                                 className={cn(
-                                                    "inline-flex items-center gap-1 text-[10px] font-mono px-1.5 py-0.5 rounded",
+                                                    "inline-flex items-center gap-1 text-[11px] font-mono px-1.5 py-0.5 rounded-sm",
                                                     typeColor[type] || 'bg-muted text-muted-foreground'
                                                 )}
                                             >
@@ -198,7 +198,7 @@ export function SchemaView({
                                                 style={{ width: `${field.coverage}%` }}
                                             />
                                         </div>
-                                        <span className="text-xs font-mono text-muted-foreground w-9 text-right">{field.coverage}%</span>
+                                        <span className="text-xs tabular-nums text-muted-foreground w-9 text-right">{field.coverage}%</span>
                                     </div>
                                 </td>
                             </tr>

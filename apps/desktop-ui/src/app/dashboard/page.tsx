@@ -3,8 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react'
 import { sidebarData } from '@/components/sidebar/data/sidebar-data'
-import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace } from '@/store/pinned-tools-store'
-import { useWorkspaceStore } from '@/store/workspace-store'
+import { usePinnedToolsStore, usePinnedToolsForActiveWorkspace, usePinWorkspaceId } from '@/store/pinned-tools-store'
 import { useToolUsage } from '@/hooks/use-tool-usage'
 import useAuth from '@/utils/useAuth'
 import { TooltipProvider } from '@/components/ui/tooltip'
@@ -35,10 +34,8 @@ const DashboardPage: React.FC = () => {
   const { user, loading } = useAuth(false)
   const pinnedToolUrls = usePinnedToolsForActiveWorkspace()
   const togglePinKeyed = usePinnedToolsStore((s) => s.togglePin)
-  const activeWorkspaceId = useWorkspaceStore((s) => s.activeWorkspaceId)
-  const togglePin = (url: string) => {
-    if (activeWorkspaceId) togglePinKeyed(activeWorkspaceId, url)
-  }
+  const pinWorkspaceId = usePinWorkspaceId()
+  const togglePin = (url: string) => togglePinKeyed(pinWorkspaceId, url)
   const isPinned = (url: string) => pinnedToolUrls.includes(url)
   const { getRecentlyUsedTools } = useToolUsage()
   const [recentlyUsedItems, setRecentlyUsedItems] = useState<FavoriteItem[]>([])
@@ -234,8 +231,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <TooltipProvider delayDuration={300} disableHoverableContent>
-    <div className="relative min-h-screen bg-background/50 dashboard-grid-bg mobile-nav-offset">
-      <div className="dash-ambient -z-10" aria-hidden />
+    <div className="relative min-h-screen mobile-nav-offset">
       {/* ── Mobile Sticky Header (outside padded container for full-bleed) ── */}
       <DashboardHero
         totalTools={totalTools}
@@ -245,7 +241,7 @@ const DashboardPage: React.FC = () => {
       />
 
       <div className="px-3 pt-4 md:px-8 md:pt-8 pb-24 md:pb-12">
-        <div className="max-w-7xl mx-auto space-y-5 md:space-y-8">
+        <div className="max-w-6xl mx-auto space-y-5 md:space-y-6">
           {/* ── Desktop Hero (inside padded container for alignment) ── */}
           <RevealItem index={0}>
             <DashboardHero
@@ -260,7 +256,7 @@ const DashboardPage: React.FC = () => {
               <ActivityLogDrawer />
             </div>
 
-            <div className="space-y-4 md:space-y-6">
+            <div className="space-y-6 md:space-y-8">
               {/* ── Search ── */}
               <DashboardSearchBar
                 searchQuery={searchQuery}
@@ -322,20 +318,20 @@ const DashboardPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setView('all')}
-                      className="group flex w-full items-center gap-4 rounded-2xl border border-border/60 bg-gradient-to-br from-primary/[0.05] to-transparent p-5 text-left transition-all duration-200 hover:border-primary/40 hover:shadow-md motion-safe:hover:-translate-y-0.5"
+                      className="group flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left shadow-elev-1 transition-colors duration-150 hover:border-foreground/[0.12] hover:bg-foreground/[0.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
                     >
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-                        <LayoutGrid className="h-5 w-5" />
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-foreground/[0.05] text-primary">
+                        <LayoutGrid className="h-[18px] w-[18px]" strokeWidth={1.75} />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-foreground">
+                        <p className="text-[13px] font-medium text-foreground">
                           Browse all {totalTools} tools
                         </p>
-                        <p className="mt-0.5 text-sm text-muted-foreground">
+                        <p className="mt-0.5 text-xs text-muted-foreground">
                           Explore the full toolkit by category
                         </p>
                       </div>
-                      <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" />
+                      <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
                     </button>
                   </RevealItem>
                 </>
@@ -348,7 +344,7 @@ const DashboardPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => setView('home')}
-                      className="mb-3 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                      className="mb-3 inline-flex h-7 items-center gap-1.5 rounded-lg px-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.05] hover:text-foreground"
                     >
                       <ArrowLeft className="h-4 w-4" />
                       Back to home

@@ -401,7 +401,7 @@ export function JsonFormatterLayout() {
     const state = pane === 'left' ? leftPane : rightPane
     const isTextMode = state.mode === ('text' as Mode)
     return (
-      <div className="flex flex-wrap items-center gap-1 border-b border-border bg-[hsl(var(--surface-2))] px-2 py-1.5">
+      <div className="flex min-h-11 flex-wrap items-center gap-1 border-b border-border px-2 py-1.5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm" className="h-8 max-w-[180px] gap-1 px-2">
@@ -435,9 +435,9 @@ export function JsonFormatterLayout() {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <div className="mx-1 h-4 w-px shrink-0 bg-border" aria-hidden />
+        <div className="mx-1 h-5 w-px shrink-0 bg-border" aria-hidden />
 
-        <div className="flex items-center rounded-md border border-border/60 p-0.5">
+        <div className="flex items-center rounded-lg bg-foreground/[0.05] p-0.5">
           {MODES.map(({ mode, label, Icon }) => (
             <Tooltip key={mode}>
               <TooltipTrigger asChild>
@@ -457,7 +457,7 @@ export function JsonFormatterLayout() {
           ))}
         </div>
 
-        <div className="mx-1 h-4 w-px shrink-0 bg-border" aria-hidden />
+        <div className="mx-1 h-5 w-px shrink-0 bg-border" aria-hidden />
 
         {isTextMode && (
           <>
@@ -512,8 +512,7 @@ export function JsonFormatterLayout() {
 
   return (
     <TooltipProvider delayDuration={300}>
-    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden dashboard-grid-bg">
-      <div className="dash-ambient -z-10" aria-hidden />
+    <div className="relative flex h-full min-h-0 w-full flex-col gap-4 overflow-hidden">
 
       <RevealItem index={0}>
         <ToolPageHeader icon={IconJson} title={t('title')} description={t('description')} />
@@ -532,7 +531,7 @@ export function JsonFormatterLayout() {
 
       {isMobile ? (
         /* Mobile: single full-height pane, toggled by tabs */
-        <div className="min-h-0 flex-1 rounded-lg border border-border bg-card overflow-hidden flex flex-col">
+        <div className="min-h-0 flex-1 rounded-xl border border-border bg-card shadow-elev-1 overflow-hidden flex flex-col">
           {renderPaneToolbar(activePane)}
           <div className="min-h-0 flex-1">{renderEditor(activePane)}</div>
         </div>
@@ -540,7 +539,7 @@ export function JsonFormatterLayout() {
         /* Desktop: side-by-side resizable panes */
         <ResizablePanelGroup
           direction="horizontal"
-          className="min-h-0 flex-1 rounded-lg border border-border bg-card overflow-hidden"
+          className="min-h-0 flex-1 rounded-xl border border-border bg-card shadow-elev-1 overflow-hidden"
         >
           <ResizablePanel defaultSize={50} minSize={20} className="min-h-0">
             <div className="flex h-full min-h-0 flex-col">

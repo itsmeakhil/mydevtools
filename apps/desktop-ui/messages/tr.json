@@ -138,6 +138,27 @@
         "light": "Açık",
         "dark": "Koyu",
         "system": "Sistem"
+      },
+      "picker": {
+        "wheel": "Çark",
+        "sliders": "Kaydırıcılar",
+        "hue": "Ton",
+        "saturation": "Doygunluk",
+        "brightness": "Parlaklık",
+        "lightness": "Açıklık",
+        "chroma": "Kroma",
+        "hexValue": "Hex değeri",
+        "copy": "Hex değerini kopyala",
+        "copied": "Kopyalandı",
+        "revert": "Orijinal renge dön",
+        "newColor": "Yeni renk",
+        "onWhite": "Beyaz üzerinde",
+        "onBlack": "Siyah üzerinde",
+        "aa": "AA geçti",
+        "aaLarge": "AA büyük",
+        "fail": "Başarısız",
+        "presets": "Hazır ayarlar",
+        "eyedropper": "Ekrandan renk seç"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Daha fazla bölüm",
     "sections": "Kenar çubuğu bölümleri",
     "show": "Kenar çubuğunu göster",
-    "hide": "Kenar çubuğunu gizle"
+    "hide": "Kenar çubuğunu gizle",
+    "pin": "{tool} sabitle",
+    "unpin": "{tool} sabitlemesini kaldır"
   },
   "DesktopUpdate": {
     "title": "MyDevTools güncelleniyor",
@@ -2609,5 +2632,25 @@
     "working": "{done} / {total}",
     "cancelled": "İptal edildi.",
     "save": "Kaydet"
+  },
+  "Shell": {
+    "sidebar": "Kenar çubuğu",
+    "toggleSidebar": "Kenar çubuğunu aç/kapat",
+    "searchTools": "Araçlarda ara",
+    "help": "Yardım",
+    "theme": "Tema",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "themeSystem": "Sistem",
+    "account": "Hesap",
+    "you": "Sen",
+    "openTool": "Araç aç",
+    "closeTab": "{title} kapat",
+    "status": "Durum",
+    "vaultLocked": "Kasa kilitli",
+    "vaultUnlocked": "Kasa açık",
+    "reduceTransparency": "Saydamlığı azalt",
+    "reduceTransparencyHint": "Camı opak yüzeylerle değiştirir.",
+    "goToDashboard": "Panoya git"
   }
 }

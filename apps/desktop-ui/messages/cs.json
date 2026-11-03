@@ -138,6 +138,27 @@
         "light": "Světlý",
         "dark": "Tmavý",
         "system": "Podle systému"
+      },
+      "picker": {
+        "wheel": "Kolo",
+        "sliders": "Posuvníky",
+        "hue": "Odstín",
+        "saturation": "Sytost",
+        "brightness": "Jas",
+        "lightness": "Světlost",
+        "chroma": "Chroma",
+        "hexValue": "Hex hodnota",
+        "copy": "Kopírovat hex hodnotu",
+        "copied": "Zkopírováno",
+        "revert": "Vrátit původní barvu",
+        "newColor": "Nová barva",
+        "onWhite": "Na bílé",
+        "onBlack": "Na černé",
+        "aa": "AA vyhovuje",
+        "aaLarge": "AA velký",
+        "fail": "Nevyhovuje",
+        "presets": "Předvolby",
+        "eyedropper": "Vybrat barvu z obrazovky"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Další sekce",
     "sections": "Sekce postranního panelu",
     "show": "Zobrazit postranní panel",
-    "hide": "Skrýt postranní panel"
+    "hide": "Skrýt postranní panel",
+    "pin": "Připnout {tool}",
+    "unpin": "Odepnout {tool}"
   },
   "DesktopUpdate": {
     "title": "Aktualizace MyDevTools",
@@ -2609,5 +2632,25 @@
     "working": "{done} z {total}",
     "cancelled": "Zrušeno.",
     "save": "Uložit"
+  },
+  "Shell": {
+    "sidebar": "Postranní panel",
+    "toggleSidebar": "Přepnout postranní panel",
+    "searchTools": "Hledat nástroje",
+    "help": "Nápověda",
+    "theme": "Motiv",
+    "themeLight": "Světlý",
+    "themeDark": "Tmavý",
+    "themeSystem": "Systém",
+    "account": "Účet",
+    "you": "Vy",
+    "openTool": "Otevřít nástroj",
+    "closeTab": "Zavřít {title}",
+    "status": "Stav",
+    "vaultLocked": "Trezor zamčen",
+    "vaultUnlocked": "Trezor odemčen",
+    "reduceTransparency": "Omezit průhlednost",
+    "reduceTransparencyHint": "Nahradit sklo plnými plochami.",
+    "goToDashboard": "Přejít na nástěnku"
   }
 }

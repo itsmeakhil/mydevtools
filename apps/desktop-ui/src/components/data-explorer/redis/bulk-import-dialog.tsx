@@ -105,15 +105,15 @@ export function BulkImportDialog({
                             className="text-xs"
                         />
                         {filename && (
-                            <div className="text-[10px] text-muted-foreground font-mono truncate">
+                            <div className="truncate font-mono text-[11px] text-muted-foreground">
                                 {filename}
                             </div>
                         )}
                         {parseError && (
-                            <div className="text-[10px] text-destructive">{parseError}</div>
+                            <div className="text-[11px] text-destructive">{parseError}</div>
                         )}
                         {keysToImport && (
-                            <div className="text-[10px] text-muted-foreground">
+                            <div className="text-[11px] tabular-nums text-muted-foreground">
                                 {keysToImport.length} key(s) ready to import
                             </div>
                         )}

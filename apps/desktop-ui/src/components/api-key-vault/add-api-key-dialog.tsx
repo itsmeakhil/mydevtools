@@ -119,7 +119,7 @@ function FormBody({
                 </Select>
                 <p className={cn(
                     "text-[11px]",
-                    formData.env === "production" ? "text-rose-600 dark:text-rose-400" : "text-muted-foreground"
+                    formData.env === "production" ? "text-destructive" : "text-muted-foreground"
                 )}>
                     {ENV_HINT[formData.env]}
                 </p>
@@ -295,14 +295,14 @@ export function AddApiKeyDialog({ children }: { children?: React.ReactNode }) {
     const trigger = children ?? (
         isMobile ? (
             <Button
-                className="fixed bottom-20 right-4 h-14 w-14 rounded-full shadow-2xl z-50 p-0 bg-gradient-to-br from-primary to-primary/80"
+                className="fixed bottom-20 right-4 h-14 w-14 rounded-full shadow-elev-3 z-50 p-0"
                 size="icon"
                 aria-label="Add API key"
             >
                 <Plus className="h-7 w-7" />
             </Button>
         ) : (
-            <Button className="shadow-sm hover:shadow-md transition-shadow">
+            <Button>
                 <Plus className="mr-2 h-4 w-4" /> Add API Key
             </Button>
         )

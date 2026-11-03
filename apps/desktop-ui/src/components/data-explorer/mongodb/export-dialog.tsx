@@ -143,7 +143,7 @@ export function ExportDialog({ open, onOpenChange, documents, fields }: ExportDi
                                 <Label htmlFor="select-all" className="text-xs text-muted-foreground font-normal">{t("selectAll")}</Label>
                             </div>
                         </div>
-                        <div className="border rounded-md p-2">
+                        <div className="border border-border rounded-lg p-2">
                             <ScrollArea className="h-[200px]">
                                 <div className="space-y-2">
                                     {fields.map(field => (

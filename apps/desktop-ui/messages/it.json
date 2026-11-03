@@ -138,6 +138,27 @@
         "light": "Leggero",
         "dark": "Buio",
         "system": "Sistema"
+      },
+      "picker": {
+        "wheel": "Ruota",
+        "sliders": "Cursori",
+        "hue": "Tonalità",
+        "saturation": "Saturazione",
+        "brightness": "Luminosità",
+        "lightness": "Chiarezza",
+        "chroma": "Croma",
+        "hexValue": "Valore hex",
+        "copy": "Copia valore hex",
+        "copied": "Copiato",
+        "revert": "Ripristina colore originale",
+        "newColor": "Nuovo colore",
+        "onWhite": "Su bianco",
+        "onBlack": "Su nero",
+        "aa": "AA superato",
+        "aaLarge": "AA grande",
+        "fail": "Non superato",
+        "presets": "Predefiniti",
+        "eyedropper": "Preleva un colore dallo schermo"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Altre sezioni",
     "sections": "Sezioni della barra laterale",
     "show": "Mostra barra laterale",
-    "hide": "Nascondi barra laterale"
+    "hide": "Nascondi barra laterale",
+    "pin": "Fissa {tool}",
+    "unpin": "Rimuovi {tool} dai fissati"
   },
   "DesktopUpdate": {
     "title": "Aggiornamento di MyDevTools",
@@ -2609,5 +2632,25 @@
     "working": "{done} di {total}",
     "cancelled": "Annullato.",
     "save": "Salva"
+  },
+  "Shell": {
+    "sidebar": "Barra laterale",
+    "toggleSidebar": "Mostra/nascondi barra laterale",
+    "searchTools": "Cerca strumenti",
+    "help": "Aiuto",
+    "theme": "Tema",
+    "themeLight": "Chiaro",
+    "themeDark": "Scuro",
+    "themeSystem": "Sistema",
+    "account": "Account",
+    "you": "Tu",
+    "openTool": "Apri strumento",
+    "closeTab": "Chiudi {title}",
+    "status": "Stato",
+    "vaultLocked": "Cassaforte bloccata",
+    "vaultUnlocked": "Cassaforte sbloccata",
+    "reduceTransparency": "Riduci trasparenza",
+    "reduceTransparencyHint": "Sostituisce il vetro con superfici opache.",
+    "goToDashboard": "Vai alla dashboard"
   }
 }

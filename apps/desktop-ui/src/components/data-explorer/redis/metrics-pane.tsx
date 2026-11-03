@@ -89,7 +89,7 @@ export function MetricsPane({ redisUrl, db }: { redisUrl: string; db: number }) 
                 <span>Live metrics — polling every {POLL_MS / 1000}s</span>
                 <button
                     onClick={() => setPaused((p) => !p)}
-                    className="rounded border px-2 py-0.5 hover:bg-accent transition-colors"
+                    className="h-6 rounded-md border border-border px-2 transition-colors hover:bg-foreground/[0.05]"
                 >
                     {paused ? "Resume" : "Pause"}
                 </button>
@@ -99,19 +99,19 @@ export function MetricsPane({ redisUrl, db }: { redisUrl: string; db: number }) 
                     label="Ops/sec"
                     value={series.ops.length ? series.ops[series.ops.length - 1]!.toFixed(0) : "—"}
                     points={series.ops}
-                    color="rgb(59 130 246)"
+                    color="hsl(var(--primary))"
                 />
                 <MetricCard
                     label="Memory (MB)"
                     value={latest?.sections.memory?.used_memory_human ?? "—"}
                     points={series.memory}
-                    color="rgb(245 158 11)"
+                    color="hsl(var(--warning))"
                 />
                 <MetricCard
                     label="Clients"
                     value={series.clients.length ? series.clients[series.clients.length - 1]!.toFixed(0) : "—"}
                     points={series.clients}
-                    color="rgb(34 197 94)"
+                    color="hsl(var(--success))"
                 />
                 <MetricCard
                     label="Hit ratio %"
@@ -126,10 +126,10 @@ export function MetricsPane({ redisUrl, db }: { redisUrl: string; db: number }) 
 
 function MetricCard({ label, value, points, color }: { label: string; value: string; points: number[]; color: string }) {
     return (
-        <div className="rounded border bg-muted/20 px-3 py-2">
+        <div className="rounded-lg border border-border bg-muted/40 px-3 py-2">
             <div className="flex items-center justify-between">
-                <div className="text-[10px] text-muted-foreground">{label}</div>
-                <div className="text-sm font-mono font-semibold">{value}</div>
+                <div className="text-[11px] text-muted-foreground">{label}</div>
+                <div className="text-sm font-semibold tabular-nums">{value}</div>
             </div>
             <div className="mt-1" style={{ color }}>
                 <Sparkline points={points} />

@@ -98,8 +98,8 @@ export function ToolLauncher({ className }: { className?: string }) {
           type="button"
           aria-label="Tools"
           className={cn(
-            'inline-flex h-8 shrink-0 items-center gap-1.5 rounded-md border border-border/60 bg-[hsl(var(--surface-2))] px-2.5 text-xs font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground',
-            open && 'border-primary/50 text-foreground',
+            'inline-flex h-7 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.05] hover:text-foreground',
+            open && 'bg-foreground/[0.08] text-foreground',
             className,
           )}
         >
@@ -127,11 +127,10 @@ export function ToolLauncher({ className }: { className?: string }) {
                 // Essentials reads as a pinned tray: its own tinted surface +
                 // a full-strength divider, so it never blends into the role
                 // group above it.
-                group.essential &&
-                  'border-t border-border bg-[hsl(var(--surface-2))]/70',
+                group.essential && 'border-t border-border bg-foreground/[0.03]',
               )}
             >
-              <div className="flex items-center gap-1.5 px-3 pb-1.5 pt-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              <div className="flex items-center gap-1.5 px-3 pb-1.5 pt-2.5 text-[11px] font-semibold text-muted-foreground">
                 {group.essential && <Pin className="h-3 w-3" aria-hidden />}
                 {group.label}
               </div>
@@ -147,22 +146,18 @@ export function ToolLauncher({ className }: { className?: string }) {
                       title={entry.title}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'group flex flex-col items-center gap-1.5 rounded-lg border p-2.5 text-center transition-colors',
+                        'flex flex-col items-center gap-1.5 rounded-lg p-2.5 text-center transition-colors',
                         active
-                          ? 'border-primary/40 bg-primary/5'
-                          : 'border-transparent hover:border-border/60 hover:bg-muted/50',
+                          ? 'bg-primary/[0.12]'
+                          : 'hover:bg-foreground/[0.05]',
                       )}
                     >
-                      <span
+                      <Icon
                         className={cn(
-                          'flex h-9 w-9 items-center justify-center rounded-lg ring-1 ring-inset transition-colors',
-                          active
-                            ? 'bg-primary/15 text-primary ring-primary/30'
-                            : 'bg-[hsl(var(--surface-3))] text-muted-foreground ring-border/50 group-hover:text-primary group-hover:ring-primary/30',
+                          'h-5 w-5',
+                          active ? 'text-primary' : 'text-muted-foreground',
                         )}
-                      >
-                        <Icon className="h-4 w-4" />
-                      </span>
+                      />
                       <span className="w-full truncate text-[11px] font-medium text-foreground/90">
                         {entry.title}
                       </span>
@@ -176,7 +171,7 @@ export function ToolLauncher({ className }: { className?: string }) {
         <button
           type="button"
           onClick={browseAll}
-          className="flex w-full items-center justify-between gap-2 border-t border-border/60 px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+          className="flex w-full items-center justify-between gap-2 border-t border-border px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.05] hover:text-foreground"
         >
           Browse all tools
           <ArrowRight className="h-3.5 w-3.5" />

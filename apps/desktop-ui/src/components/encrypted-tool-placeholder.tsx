@@ -19,13 +19,11 @@ export function EncryptedToolPlaceholder({ toolName }: { toolName: string }) {
 
   return (
     <div className="flex items-center justify-center min-h-[60vh] p-6">
-      <Card className="max-w-md">
-        <CardContent className="pt-6 flex flex-col items-center text-center gap-4">
-          <div className="rounded-full bg-primary/10 p-3">
-            <Lock className="h-6 w-6 text-primary" />
-          </div>
-          <h2 className="text-xl font-semibold">{toolName} needs encryption</h2>
-          <p className="text-sm text-muted-foreground">
+      <Card className="max-w-md rounded-2xl shadow-elev-2">
+        <CardContent className="pt-8 pb-8 flex flex-col items-center text-center gap-4">
+          <Lock className="h-8 w-8 text-muted-foreground/60" />
+          <h2 className="text-[17px] font-semibold">{toolName} needs encryption</h2>
+          <p className="text-[13px] text-muted-foreground">
             This workspace hasn&apos;t enabled end-to-end encryption yet.
             {isAdmin
               ? " Turn it on in Workspace settings to use this tool here."

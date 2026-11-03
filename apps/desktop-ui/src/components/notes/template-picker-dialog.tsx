@@ -25,8 +25,8 @@ export function TemplatePickerDialog({
                             key={tpl.id}
                             onClick={() => { onSelect(tpl); onOpenChange(false); }}
                             className={cn(
-                                "flex flex-col items-start gap-1.5 p-4 rounded-xl border text-left",
-                                "hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-pointer"
+                                "flex flex-col items-start gap-1.5 p-4 rounded-xl border border-border bg-card text-left",
+                                "hover:bg-foreground/[0.03] transition-colors"
                             )}
                         >
                             <span className="text-2xl">{tpl.icon}</span>

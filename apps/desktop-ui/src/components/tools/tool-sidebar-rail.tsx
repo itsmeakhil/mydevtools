@@ -43,7 +43,9 @@ interface RailButtonProps {
   onActivate: (entry: ToolSidebarRailEntry) => void
 }
 
-function RailButtonImpl({ entry, accent, onActivate }: RailButtonProps) {
+// `accent` stays in the props for call-site compatibility; the rail no longer
+// paints category colour (selection uses the app accent tint).
+function RailButtonImpl({ entry, onActivate }: RailButtonProps) {
   const Icon = entry.icon
   return (
     <Tooltip>
@@ -56,19 +58,16 @@ function RailButtonImpl({ entry, accent, onActivate }: RailButtonProps) {
           aria-current={entry.active ? 'true' : undefined}
           onClick={() => onActivate(entry)}
           className={cn(
-            'relative flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-md transition-colors',
+            'relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors',
             entry.active
-              ? cn(accent.bg, accent.text)
-              : 'text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground',
+              ? 'bg-primary/[0.12] text-primary'
+              : 'text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground',
           )}
         >
-          {entry.active && (
-            <span aria-hidden className="absolute -left-1 h-5 w-0.5 rounded-full bg-current" />
-          )}
           {Icon ? (
             <Icon className="h-[17px] w-[17px]" aria-hidden />
           ) : (
-            <span aria-hidden className="text-xs font-semibold uppercase">
+            <span aria-hidden className="text-xs font-semibold">
               {entry.label.slice(0, 2)}
             </span>
           )}
@@ -176,24 +175,16 @@ export function ToolSidebarRail({
 
   return (
     <TooltipProvider delayDuration={300}>
-      <div className="flex w-12 shrink-0 flex-col items-center gap-1 border-r bg-muted/10 py-2">
+      <div className="flex w-12 shrink-0 flex-col items-center gap-1 border-r border-border bg-muted/40 py-2">
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               type="button"
               onClick={onExpand}
               aria-label={`${title} — ${t('expand')}`}
-              className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-md hover:bg-foreground/[0.06]"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground"
             >
-              <span
-                className={cn(
-                  'flex h-6 w-6 items-center justify-center rounded-md',
-                  accent.bg,
-                  accent.text,
-                )}
-              >
-                <Icon className="h-3.5 w-3.5" aria-hidden />
-              </span>
+              <Icon className="h-4 w-4" aria-hidden />
             </button>
           </TooltipTrigger>
           <TooltipContent side="right" sideOffset={8}>

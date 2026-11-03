@@ -99,15 +99,83 @@ function contrast(a: string, b: string): number {
   return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05)
 }
 
+// ── OKLCH (perceptual) tonal scale ─────────────────────────────────────────
+const toLinear = (c: number) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4))
+const fromLinear = (c: number) => (c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1 / 2.4) - 0.055)
+
+function hexToOklch(hex: string): [number, number, number] {
+  const [r, g, b] = toRgb(hex).map((c) => toLinear(c / 255))
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b)
+  const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b)
+  const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b)
+  const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s
+  const A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s
+  const B = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s
+  return [L, Math.hypot(A, B), (Math.atan2(B, A) * 180) / Math.PI]
+}
+
+/** OKLCH → sRGB in 0–1, or null when out of gamut. */
+function oklchToRgb(L: number, C: number, H: number): [number, number, number] | null {
+  const a = C * Math.cos((H * Math.PI) / 180)
+  const b = C * Math.sin((H * Math.PI) / 180)
+  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3
+  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3
+  const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3
+  const rgb = [
+    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s,
+  ].map(fromLinear)
+  return rgb.every((c) => c >= -0.0005 && c <= 1.0005)
+    ? (rgb.map((c) => Math.min(1, Math.max(0, c))) as [number, number, number])
+    : null
+}
+
+/** Gamut-map by shrinking chroma (keeps hue + lightness), return `#rrggbb`. */
+function oklchToHex(L: number, C: number, H: number): string {
+  let c = C
+  let rgb = oklchToRgb(L, c, H)
+  while (!rgb && c > 0) {
+    c = Math.max(0, c - 0.005)
+    rgb = oklchToRgb(L, c, H)
+  }
+  return '#' + (rgb ?? [L, L, L]).map((v) => Math.round(v * 255).toString(16).padStart(2, '0')).join('')
+}
+
+const hslTriple = (hex: string) => {
+  const [h, s, l] = toHsl(hex)
+  return `${round(h)} ${round(s)}% ${round(l)}%`
+}
+
+/** [step, mix toward the light (+) or dark (−) end, chroma factor]. 500 = the chosen color. */
+const SCALE: [number, number, number][] = [
+  [50, 0.93, 0.22], [100, 0.84, 0.38], [200, 0.68, 0.6], [300, 0.48, 0.8], [400, 0.25, 0.95],
+  [600, -0.14, 1], [700, -0.28, 0.95], [800, -0.45, 0.85], [900, -0.6, 0.7], [950, -0.74, 0.55],
+]
+const LIGHT_END = 0.985
+const DARK_END = 0.17
+
+/** `--primary-50 … --primary-950` as HSL triples, generated perceptually in OKLCH. */
+export function accentScale(value: string): Record<string, string> {
+  const hex = accentHex(value)
+  const [L, C, H] = hexToOklch(hex)
+  const out: Record<string, string> = { '--primary-500': hslTriple(hex) }
+  for (const [step, t, cf] of SCALE) {
+    const target = t > 0 ? L + (Math.max(L, LIGHT_END) - L) * t : L + (Math.min(L, DARK_END) - L) * -t
+    out[`--primary-${step}`] = hslTriple(oklchToHex(target, C * cf, H))
+  }
+  return out
+}
+
 /**
  * CSS custom properties for an accent. `--primary-foreground` follows whichever
  * of dark/white text contrasts better, so bright accents (yellow, lime) stay
- * readable instead of shipping white-on-yellow.
+ * readable instead of shipping white-on-yellow. Semantic tokens
+ * (--primary-hover/-subtle/…) map onto the scale per theme in globals.css.
  */
 export function accentCssVars(value: string): Record<string, string> {
   const hex = accentHex(value)
-  const [h, s, l] = toHsl(hex)
-  const triple = `${round(h)} ${round(s)}% ${round(l)}%`
+  const triple = hslTriple(hex)
   const fg = contrast(hex, LIGHT_FG.hex) >= contrast(hex, DARK_FG.hex) ? LIGHT_FG : DARK_FG
 
   return {
@@ -117,5 +185,6 @@ export function accentCssVars(value: string): Record<string, string> {
     '--sidebar-primary': triple,
     '--sidebar-primary-foreground': fg.hsl,
     '--sidebar-ring': triple,
+    ...accentScale(hex),
   }
 }

@@ -205,7 +205,7 @@ function MongoConnectionForm({
                         disabled={saving}
                         className={cn(
                             "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-transform",
-                            color === null ? "border-primary scale-110" : "border-border hover:scale-105"
+                            color === null ? "border-primary scale-110" : "border-border"
                         )}
                         aria-label={t("colorNone")}
                     >
@@ -219,7 +219,7 @@ function MongoConnectionForm({
                             disabled={saving}
                             className={cn(
                                 "size-6 rounded-full border-2 transition-transform",
-                                color === c ? "border-primary scale-110" : "border-transparent hover:scale-105"
+                                color === c ? "border-primary scale-110" : "border-transparent"
                             )}
                             style={{ backgroundColor: c }}
                             aria-label={c}
@@ -228,21 +228,21 @@ function MongoConnectionForm({
                 </div>
             </div>
 
-            <div className="flex items-center justify-between rounded-lg border p-3">
+            <div className="flex items-center justify-between rounded-xl border border-border p-3">
                 <div className="space-y-0.5 pr-3">
-                    <Label className="text-xs font-medium">{t("readOnly")}</Label>
-                    <p className="text-[10px] text-muted-foreground">{t("readOnlyHint")}</p>
+                    <Label className="text-[13px] font-medium">{t("readOnly")}</Label>
+                    <p className="text-[11px] text-muted-foreground">{t("readOnlyHint")}</p>
                 </div>
                 <Switch checked={readOnly} onCheckedChange={setReadOnly} disabled={saving} />
             </div>
 
             {error && (
-                <div className="rounded-md bg-destructive/10 p-3 text-sm font-medium text-destructive">
+                <div className="rounded-lg bg-destructive/10 p-3 text-[13px] font-medium text-destructive">
                     {error}
                 </div>
             )}
             {testState === "ok" && !error && (
-                <div className="rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                <div className="rounded-lg bg-success/10 p-3 text-[13px] font-medium text-success">
                     {t("testOk")}
                 </div>
             )}
@@ -371,12 +371,15 @@ const CollectionRow = React.memo(function CollectionRow({
             <button
                 type="button"
                 onClick={() => onOpen(dbName, collection.name)}
-                className="flex min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 py-1 text-left text-xs transition-colors hover:bg-muted/60"
+                className={cn(
+                    "flex h-7 min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 text-left text-[13px] transition-colors",
+                    selected ? "bg-primary/[0.12] text-foreground" : "hover:bg-foreground/[0.05]"
+                )}
             >
-                <IconFolder className="size-3.5 shrink-0 text-yellow-500" />
+                <IconFolder className={cn("size-3.5 shrink-0", selected ? "text-primary" : "text-muted-foreground")} />
                 <span className="min-w-0 flex-1 truncate">{collection.name}</span>
                 {count !== undefined && count !== null && (
-                    <span className="shrink-0 rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                    <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">
                         {formatCount(count)}
                     </span>
                 )}
@@ -802,7 +805,7 @@ function MongoSidebarTree({
                                     type="button"
                                     aria-expanded={isOpen}
                                     onClick={() => toggleDatabase(db.name)}
-                                    className="flex min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 py-1 text-left text-xs transition-colors hover:bg-muted/60"
+                                    className="flex h-7 min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 text-left text-[13px] transition-colors hover:bg-foreground/[0.05]"
                                 >
                                     <IconChevronRight
                                         className={cn(
@@ -810,7 +813,7 @@ function MongoSidebarTree({
                                             isOpen && "rotate-90 text-foreground"
                                         )}
                                     />
-                                    <IconDatabase className="size-3.5 shrink-0 text-blue-500" />
+                                    <IconDatabase className="size-3.5 shrink-0 text-muted-foreground" />
                                     <span className="min-w-0 flex-1 truncate">{db.name}</span>
                                 </button>
                                 <DropdownMenu>
@@ -873,7 +876,7 @@ function MongoSidebarTree({
                             </div>
 
                             {isOpen && (
-                                <div className="ml-3 space-y-0.5 border-l pl-2">
+                                <div className="ml-3 space-y-0.5 border-l border-border pl-2">
                                     {state?.loading || !state ? (
                                         <p className="px-2 py-1 text-xs text-muted-foreground">
                                             {t("mongo.loadingCollections")}

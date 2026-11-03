@@ -152,7 +152,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                         </label>
                         <div className="text-xs text-muted-foreground">
                             Detected: <span className={
-                                canImport ? "text-emerald-600 font-semibold" : "text-muted-foreground"
+                                canImport ? "text-success font-semibold" : "text-muted-foreground"
                             }>
                                 {FORMAT_LABEL[detected]}
                             </span>

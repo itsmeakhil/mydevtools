@@ -239,8 +239,8 @@ export function JsonVisualizerLayout() {
   )
 
   const graphPane = (
-    <div className="relative flex h-full min-h-0 flex-col overflow-hidden rounded-lg border border-border bg-card">
-      <div className="flex flex-wrap items-center gap-1.5 border-b border-border bg-[hsl(var(--surface-2))] px-3 py-2">
+    <div className="relative flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-border bg-card shadow-elev-1">
+      <div className="flex min-h-11 flex-wrap items-center gap-1.5 border-b border-border px-3 py-1.5">
         <div className="relative">
           <Search className="pointer-events-none absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -256,7 +256,7 @@ export function JsonVisualizerLayout() {
         </div>
         {query && (
           <>
-            <span className="font-mono text-[11px] text-muted-foreground">
+            <span className="text-[11px] tabular-nums text-muted-foreground">
               {hits.length === 0 ? '0/0' : `${(activeHit % hits.length) + 1}/${hits.length}`}
             </span>
             <Button variant="ghost" size="icon" className="h-7 w-7" disabled={!hits.length} onClick={() => goToHit(activeHit - 1)} title={t('prevMatch')}>
@@ -269,7 +269,7 @@ export function JsonVisualizerLayout() {
         )}
         <div className="ml-auto flex items-center gap-1">
           {graph && (
-            <span className="mr-1 hidden font-mono text-[11px] text-muted-foreground sm:inline">
+            <span className="mr-1 hidden text-[11px] tabular-nums text-muted-foreground sm:inline">
               {t('nodeCount', { count: graph.nodeCount })}
             </span>
           )}
@@ -309,12 +309,12 @@ export function JsonVisualizerLayout() {
       </div>
 
       {largeNotice && graph && (
-        <div className="border-b border-border/50 bg-muted/50 px-4 py-1.5 text-xs text-muted-foreground">
+        <div className="border-b border-border bg-muted/50 px-4 py-1.5 text-xs text-muted-foreground">
           {t('largeDocNotice', { count: graph.nodeCount })}
         </div>
       )}
 
-      <div className="dashboard-grid-bg relative min-h-0 flex-1">
+      <div className="relative min-h-0 flex-1 bg-muted/40">
         {graph ? (
           <GraphCanvas
             ref={canvasRef}
@@ -336,7 +336,7 @@ export function JsonVisualizerLayout() {
 
         {selectedNode && (
           <div className="absolute bottom-3 left-3 right-3 z-10 sm:right-auto sm:max-w-[420px]">
-            <Card className="flex flex-col gap-2 border-border/70 bg-card/95 p-3 shadow-lg backdrop-blur">
+            <Card className="glass flex flex-col gap-2 rounded-xl p-3">
               <div className="flex items-center gap-2">
                 <Route className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                 <code className="truncate font-mono text-xs" title={selectedNode.path}>

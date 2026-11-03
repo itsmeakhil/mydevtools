@@ -164,9 +164,9 @@ export function IndexManager({
 
     return (
         <div className="h-full flex flex-col">
-            <div className="flex items-center justify-between px-4 py-2.5 border-b bg-muted/10 shrink-0">
-                <div className="flex items-center gap-2 flex-wrap text-xs text-muted-foreground">
-                    <span className="text-sm font-medium text-foreground">{t("countLabel", { count: indexes.length })}</span>
+            <div className="flex min-h-11 items-center justify-between px-4 py-2 border-b border-border shrink-0">
+                <div className="flex items-center gap-2 flex-wrap text-xs text-muted-foreground tabular-nums">
+                    <span className="text-[13px] font-semibold text-foreground">{t("countLabel", { count: indexes.length })}</span>
                     {typeof totalIndexSize === 'number' && (
                         <span>· {t("totalSize", { size: formatBytes(totalIndexSize) })}</span>
                     )}
@@ -194,7 +194,7 @@ export function IndexManager({
             </div>
 
             {showCreate && (
-                <div className="px-4 py-3 border-b bg-muted/20 space-y-2.5 shrink-0">
+                <div className="px-4 py-3 border-b border-border bg-muted/40 space-y-2.5 shrink-0">
                     <p className="text-xs font-medium text-muted-foreground">{t("createTitle")}</p>
                     {fieldRows.map((row, i) => (
                         <div key={i} className="flex items-center gap-2">
@@ -208,7 +208,7 @@ export function IndexManager({
                             <select
                                 value={row.dir}
                                 onChange={(e) => updateRow(i, { dir: e.target.value as '1' | '-1' })}
-                                className="h-8 rounded-md border bg-background text-xs px-2 outline-none"
+                                className="h-8 rounded-md border border-border bg-card text-xs px-2 outline-none focus-visible:ring-2 focus-visible:ring-ring"
                             >
                                 <option value="1">{t("ascending")}</option>
                                 <option value="-1">{t("descending")}</option>
@@ -235,12 +235,12 @@ export function IndexManager({
                             <IconPlus className="h-3 w-3 mr-1" />
                             {t("addField")}
                         </Button>
-                        <label className="flex items-center gap-1.5 text-xs cursor-pointer shrink-0">
-                            <input type="checkbox" checked={newUnique} onChange={(e) => setNewUnique(e.target.checked)} className="rounded" />
+                        <label className="flex items-center gap-1.5 text-xs shrink-0">
+                            <input type="checkbox" checked={newUnique} onChange={(e) => setNewUnique(e.target.checked)} className="rounded-sm accent-primary" />
                             {t("unique")}
                         </label>
-                        <label className="flex items-center gap-1.5 text-xs cursor-pointer shrink-0">
-                            <input type="checkbox" checked={newSparse} onChange={(e) => setNewSparse(e.target.checked)} className="rounded" />
+                        <label className="flex items-center gap-1.5 text-xs shrink-0">
+                            <input type="checkbox" checked={newSparse} onChange={(e) => setNewSparse(e.target.checked)} className="rounded-sm accent-primary" />
                             {t("sparse")}
                         </label>
                         <label className="flex items-center gap-1.5 text-xs shrink-0">
@@ -269,25 +269,25 @@ export function IndexManager({
                     {indexes.map((idx) => (
                         <div
                             key={idx.name}
-                            className="group flex items-start justify-between p-3 rounded-lg border bg-card hover:bg-muted/30 transition-colors"
+                            className="group flex items-start justify-between p-3 rounded-xl border border-border bg-card hover:bg-foreground/[0.03] transition-colors"
                         >
                             <div className="space-y-1.5 min-w-0 flex-1 pr-3">
                                 <div className="flex items-center gap-2 flex-wrap">
                                     <span className="font-mono text-xs font-medium truncate">{idx.name}</span>
                                     {idx.name === '_id_' && (
-                                        <Badge variant="secondary" className="text-[10px] px-1.5 py-0">{t("badgeSystem")}</Badge>
+                                        <Badge variant="secondary" className="px-1.5 py-0">{t("badgeSystem")}</Badge>
                                     )}
                                     {idx.unique && (
-                                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-blue-500/50 text-blue-600 dark:text-blue-400">{t("badgeUnique")}</Badge>
+                                        <Badge className="px-1.5 py-0">{t("badgeUnique")}</Badge>
                                     )}
                                     {idx.sparse && (
-                                        <Badge variant="outline" className="text-[10px] px-1.5 py-0">{t("badgeSparse")}</Badge>
+                                        <Badge variant="outline" className="px-1.5 py-0">{t("badgeSparse")}</Badge>
                                     )}
                                     {idx.expireAfterSeconds !== undefined && (
-                                        <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-orange-500/50 text-orange-600">{t("badgeTtl")}</Badge>
+                                        <Badge variant="outline" className="px-1.5 py-0 border-transparent bg-warning/10 text-warning">{t("badgeTtl")}</Badge>
                                     )}
                                     {typeof idx.size === 'number' && (
-                                        <span className="text-[10px] font-mono text-muted-foreground">{formatBytes(idx.size)}</span>
+                                        <span className="text-[11px] tabular-nums text-muted-foreground">{formatBytes(idx.size)}</span>
                                     )}
                                 </div>
                                 <p className="text-[11px] font-mono text-muted-foreground">{formatKeySpec(idx.key)}</p>
@@ -307,9 +307,7 @@ export function IndexManager({
 
                     {indexes.length === 0 && (
                         <div className="flex flex-col items-center gap-3 py-12 text-center">
-                            <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center">
-                                <IconDatabase className="h-6 w-6 text-muted-foreground" />
-                            </div>
+                            <IconDatabase className="h-8 w-8 text-muted-foreground/60" />
                             <p className="text-sm text-muted-foreground">{t("empty")}</p>
                         </div>
                     )}

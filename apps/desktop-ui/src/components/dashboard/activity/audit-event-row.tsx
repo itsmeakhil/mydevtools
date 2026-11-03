@@ -91,35 +91,36 @@ const MODULE_NOUNS: Record<string, string> = {
   feedback: 'feedback',
 }
 
-type IconCfg = { Icon: React.ComponentType<{ className?: string }>; tone: string }
+type IconCmp = React.ComponentType<{ className?: string }>
 
-const MODULE_ICON: Record<string, IconCfg> = {
-  auth: { Icon: UserCircle2, tone: 'bg-violet-500/10 text-violet-600 dark:text-violet-400' },
-  bookmarks: { Icon: Bookmark, tone: 'bg-amber-500/10 text-amber-600 dark:text-amber-400' },
-  'bookmark-folders': { Icon: Folder, tone: 'bg-amber-500/10 text-amber-600 dark:text-amber-400' },
-  bookmark_folders: { Icon: Folder, tone: 'bg-amber-500/10 text-amber-600 dark:text-amber-400' },
-  notes: { Icon: FileText, tone: 'bg-blue-500/10 text-blue-600 dark:text-blue-400' },
-  tasks: { Icon: ListTodo, tone: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' },
-  passwords: { Icon: Lock, tone: 'bg-rose-500/10 text-rose-600 dark:text-rose-400' },
-  'code-snippets': { Icon: Code2, tone: 'bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400' },
-  code_snippets: { Icon: Code2, tone: 'bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400' },
-  'api-client': { Icon: Server, tone: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400' },
-  api_client: { Icon: Server, tone: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400' },
-  'sql-client': { Icon: Database, tone: 'bg-sky-500/10 text-sky-600 dark:text-sky-400' },
-  sql_client: { Icon: Database, tone: 'bg-sky-500/10 text-sky-600 dark:text-sky-400' },
-  nosql: { Icon: Database, tone: 'bg-teal-500/10 text-teal-600 dark:text-teal-400' },
-  'environment-manager': { Icon: Layers, tone: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' },
-  environment_manager: { Icon: Layers, tone: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' },
-  'user-preferences': { Icon: Settings, tone: 'bg-slate-500/10 text-slate-600 dark:text-slate-300' },
-  user_preferences: { Icon: Settings, tone: 'bg-slate-500/10 text-slate-600 dark:text-slate-300' },
-  projects: { Icon: Folder, tone: 'bg-orange-500/10 text-orange-600 dark:text-orange-400' },
-  feedback: { Icon: MessageSquare, tone: 'bg-green-500/10 text-green-600 dark:text-green-400' },
-  passwords_session: { Icon: KeyRound, tone: 'bg-rose-500/10 text-rose-600 dark:text-rose-400' },
+// Neutral icons per module — color is reserved for meaning (outcome/status).
+const MODULE_ICON: Record<string, IconCmp> = {
+  auth: UserCircle2,
+  bookmarks: Bookmark,
+  'bookmark-folders': Folder,
+  bookmark_folders: Folder,
+  notes: FileText,
+  tasks: ListTodo,
+  passwords: Lock,
+  'code-snippets': Code2,
+  code_snippets: Code2,
+  'api-client': Server,
+  api_client: Server,
+  'sql-client': Database,
+  sql_client: Database,
+  nosql: Database,
+  'environment-manager': Layers,
+  environment_manager: Layers,
+  'user-preferences': Settings,
+  user_preferences: Settings,
+  projects: Folder,
+  feedback: MessageSquare,
+  passwords_session: KeyRound,
 }
 
-function iconFor(mod: string | null): IconCfg {
-  if (!mod) return { Icon: Activity, tone: 'bg-muted text-muted-foreground' }
-  return MODULE_ICON[mod] ?? { Icon: Activity, tone: 'bg-muted text-muted-foreground' }
+function iconFor(mod: string | null): IconCmp {
+  if (!mod) return Activity
+  return MODULE_ICON[mod] ?? Activity
 }
 
 function renderDeviceIcon(type: string | undefined, className: string) {
@@ -157,10 +158,10 @@ function categoryLabel(event: AuditEvent): string {
 }
 
 function statusTone(status: number): string {
-  if (status >= 500) return 'text-red-600 dark:text-red-400'
-  if (status >= 400) return 'text-amber-600 dark:text-amber-400'
-  if (status >= 300) return 'text-blue-600 dark:text-blue-400'
-  return 'text-emerald-600 dark:text-emerald-400'
+  if (status >= 500) return 'text-destructive'
+  if (status >= 400) return 'text-warning'
+  if (status >= 300) return 'text-primary'
+  return 'text-success'
 }
 
 export function AuditEventRow({ event }: { event: AuditEvent }) {
@@ -170,7 +171,7 @@ export function AuditEventRow({ event }: { event: AuditEvent }) {
   const hasChanges = !!event.changes && event.changes.length > 0
   const title = event.summary?.trim() || describeAction(event)
   const category = categoryLabel(event)
-  const { Icon, tone } = iconFor(event.module)
+  const Icon = iconFor(event.module)
   const deviceType = event.device?.device_type
   const success = event.outcome === 'success'
 
@@ -179,42 +180,37 @@ export function AuditEventRow({ event }: { event: AuditEvent }) {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full cursor-pointer items-start gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-muted/50 focus:bg-muted/50 focus:outline-none"
+        className="flex w-full items-start gap-3 rounded-lg px-2 py-2.5 text-left transition-colors hover:bg-foreground/[0.04] focus-visible:bg-foreground/[0.04] focus:outline-none"
         aria-expanded={open}
       >
-        <div
-          className={cn(
-            'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg',
-            tone,
-          )}
-        >
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foreground/[0.05] text-muted-foreground">
           <Icon className="h-4 w-4" />
         </div>
 
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-            <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+            <span className="text-[11px] font-medium text-muted-foreground">
               {category}
             </span>
             <span
               className={cn(
                 'inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px] font-medium',
                 success
-                  ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
-                  : 'bg-red-500/10 text-red-700 dark:text-red-400',
+                  ? 'bg-success/[0.12] text-success'
+                  : 'bg-destructive/[0.12] text-destructive',
               )}
             >
               <span
                 className={cn(
                   'h-1.5 w-1.5 rounded-full',
-                  success ? 'bg-emerald-500' : 'bg-red-500',
+                  success ? 'bg-success' : 'bg-destructive',
                 )}
                 aria-hidden
               />
               {success ? t('success') : t('failure')}
             </span>
           </div>
-          <div className="mt-0.5 truncate text-sm font-medium text-foreground">
+          <div className="mt-0.5 truncate text-[13px] font-medium text-foreground">
             {title}
           </div>
         </div>
@@ -240,7 +236,7 @@ export function AuditEventRow({ event }: { event: AuditEvent }) {
       </button>
 
       {open && (
-        <div className="mb-2 ml-12 mr-2 rounded-lg border border-border bg-muted/30 p-3 text-xs">
+        <div className="mb-2 ml-11 mr-2 rounded-lg border border-border bg-muted/40 p-3 text-xs">
           <dl className="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
             <Field label={t('when')}>
               <span className="tabular-nums">{absoluteTime(event.ts)}</span>
@@ -278,7 +274,7 @@ export function AuditEventRow({ event }: { event: AuditEvent }) {
 
           {hasChanges && (
             <div className="mt-3 border-t border-border pt-3">
-              <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <div className="mb-2 text-[11px] font-semibold text-muted-foreground">
                 {t('changedFields')}
               </div>
               <ul className="space-y-1.5">
@@ -291,11 +287,11 @@ export function AuditEventRow({ event }: { event: AuditEvent }) {
                       {c.field}
                     </span>
                     <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                      <code className="rounded bg-red-500/10 px-1 py-0.5 text-red-700 line-through dark:text-red-400">
+                      <code className="rounded bg-destructive/10 px-1 py-0.5 text-destructive line-through">
                         {String(c.before ?? '∅')}
                       </code>
                       <span className="text-muted-foreground">→</span>
-                      <code className="rounded bg-emerald-500/10 px-1 py-0.5 text-emerald-700 dark:text-emerald-400">
+                      <code className="rounded bg-success/10 px-1 py-0.5 text-success">
                         {String(c.after ?? '∅')}
                       </code>
                     </div>
@@ -321,7 +317,7 @@ function Field({
 }) {
   return (
     <div className={className}>
-      <dt className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+      <dt className="text-[11px] font-medium text-muted-foreground">
         {label}
       </dt>
       <dd className="mt-0.5 text-foreground">{children}</dd>

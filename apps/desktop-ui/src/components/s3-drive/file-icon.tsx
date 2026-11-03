@@ -13,7 +13,7 @@ import {
 import { TYPE_ICON_COLOR } from "./file-types"
 
 export function FileIconComp({ type, className }: { type: string; className?: string }) {
-    const c = cn(TYPE_ICON_COLOR[type] ?? "text-slate-400", className)
+    const c = cn(TYPE_ICON_COLOR[type] ?? "text-muted-foreground", className)
     switch (type) {
         case "image":   return <IconPhoto className={c} />
         case "video":   return <IconVideo className={c} />

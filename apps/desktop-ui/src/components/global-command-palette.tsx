@@ -142,13 +142,13 @@ export function GlobalCommandPalette() {
   )
 
   const commandSurfaceClass =
-    '[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-[0.14em] [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-14 [&_[cmdk-input]]:text-base'
+    '[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-[11px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]]:border-border [&_[cmdk-input-wrapper]]:px-4 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-14 [&_[cmdk-input]]:border-0 [&_[cmdk-input]]:bg-transparent [&_[cmdk-input]]:text-[17px]'
 
-  // Shared row treatment — solid accent selection + icon chip.
+  // Shared row treatment — neutral Spotlight-style selection, plain icon.
   const itemClass =
-    'group mx-1 flex items-center gap-3 rounded-lg px-2 py-2 transition-colors aria-selected:bg-primary/10 aria-selected:ring-1 aria-selected:ring-inset aria-selected:ring-primary/20'
+    'group mx-1 flex items-center gap-3 rounded-lg px-2.5 py-2 text-[13px] transition-colors aria-selected:bg-foreground/[0.08]'
   const chipClass =
-    'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[hsl(var(--surface-3))] text-muted-foreground ring-1 ring-inset ring-border/50 transition-colors group-aria-selected:bg-primary/15 group-aria-selected:text-primary group-aria-selected:ring-primary/30'
+    'flex h-5 w-5 shrink-0 items-center justify-center text-muted-foreground group-aria-selected:text-foreground'
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -157,12 +157,10 @@ export function GlobalCommandPalette() {
         className={cn(
           'overflow-hidden p-0 gap-0 max-w-2xl',
           'max-h-[min(85vh,640px)] flex flex-col',
-          'rounded-xl border-border bg-popover/95 backdrop-blur-xl',
-          'shadow-2xl shadow-black/40'
+          'rounded-2xl sm:rounded-2xl'
         )}
       >
         <DialogTitle className="sr-only">Search tools and pages</DialogTitle>
-        <div aria-hidden className="h-px w-full shrink-0 bg-border" />
         <Command
           className={cn(
             'rounded-none border-none bg-transparent shadow-none',
@@ -283,27 +281,27 @@ export function GlobalCommandPalette() {
               </React.Fragment>
             ))}
           </CommandList>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border/50 bg-muted/20 px-4 py-2.5 text-[11px] text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border px-4 py-2.5 text-[11px] text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
-              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
+              <kbd className="pointer-events-none rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 font-sans text-[11px] font-medium text-muted-foreground">
                 ↑↓
               </kbd>
               navigate
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
+              <kbd className="pointer-events-none rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 font-sans text-[11px] font-medium text-muted-foreground">
                 ↵
               </kbd>
               open
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
+              <kbd className="pointer-events-none rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 font-sans text-[11px] font-medium text-muted-foreground">
                 esc
               </kbd>
               close
             </span>
             <span className="ml-auto inline-flex items-center gap-1.5">
-              <kbd className="pointer-events-none rounded-md border border-border/60 bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium text-foreground/70 shadow-sm">
+              <kbd className="pointer-events-none rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 font-sans text-[11px] font-medium text-muted-foreground">
                 {modLabel}K
               </kbd>
               toggle

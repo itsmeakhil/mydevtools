@@ -31,7 +31,7 @@ const DEFAULT_ENABLED_TOOLS: &[&str] = &[
 
 fn defaults() -> Value {
     json!({
-        "theme": "system",
+        "theme": "dark",
         "accentColor": "blue",
         "locale": "en",
         // Local profile: what the app calls you. There is no account behind it.

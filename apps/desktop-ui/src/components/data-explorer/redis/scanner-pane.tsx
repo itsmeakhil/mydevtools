@@ -62,7 +62,7 @@ export function ScannerPane({ redisUrl, db, onSelectKey }: { redisUrl: string; d
 
     return (
         <div className="flex h-full flex-col">
-            <div className="border-b p-3 space-y-2 shrink-0">
+            <div className="shrink-0 space-y-2 border-b border-border p-3">
                 <div className="flex items-end gap-2">
                     <div className="flex-1 space-y-1">
                         <Label className="text-xs">Pattern</Label>
@@ -78,7 +78,7 @@ export function ScannerPane({ redisUrl, db, onSelectKey }: { redisUrl: string; d
                         <select
                             value={sampleSize}
                             onChange={(e) => setSampleSize(parseInt(e.target.value, 10))}
-                            className="h-8 rounded border bg-background px-2 text-xs font-mono"
+                            className="h-8 rounded-md border border-border bg-background px-2 text-xs tabular-nums"
                         >
                             {[200, 500, 1000, 2000, 5000].map((n) => (
                                 <option key={n} value={n}>{n}</option>
@@ -90,7 +90,7 @@ export function ScannerPane({ redisUrl, db, onSelectKey }: { redisUrl: string; d
                         {busy ? "Scanning…" : "Scan"}
                     </Button>
                 </div>
-                <div className="text-[10px] text-muted-foreground">
+                <div className="text-[11px] text-muted-foreground">
                     Uses SCAN + MEMORY USAGE. Capped at 5,000 keys. Bigger samples take longer.
                 </div>
             </div>
@@ -98,7 +98,7 @@ export function ScannerPane({ redisUrl, db, onSelectKey }: { redisUrl: string; d
             <ScrollArea className="flex-1">
                 <div className="p-3 space-y-4">
                     {!result && !busy && (
-                        <div className="text-center text-xs text-muted-foreground p-6">
+                        <div className="p-6 text-center text-[13px] text-muted-foreground">
                             Run a scan to see results
                         </div>
                     )}
@@ -112,30 +112,30 @@ export function ScannerPane({ redisUrl, db, onSelectKey }: { redisUrl: string; d
                             </div>
 
                             <div>
-                                <div className="text-[11px] uppercase text-muted-foreground mb-1">By type</div>
-                                <div className="rounded border bg-muted/20 p-2 space-y-1">
+                                <div className="mb-1 text-[11px] font-medium text-muted-foreground">By type</div>
+                                <div className="space-y-1 rounded-lg border border-border bg-muted/40 p-2">
                                     {Object.entries(result.byType)
                                         .sort((a, b) => b[1].bytes - a[1].bytes)
                                         .map(([type, agg]) => (
                                             <div key={type} className="flex items-center gap-2 text-xs">
-                                                <Badge variant="outline" className="text-[10px] font-mono uppercase">{type}</Badge>
-                                                <div className="flex-1 text-muted-foreground">
+                                                <Badge variant="outline">{type}</Badge>
+                                                <div className="flex-1 tabular-nums text-muted-foreground">
                                                     {agg.count.toLocaleString()} keys
                                                 </div>
-                                                <div className="font-mono">{humanBytes(agg.bytes)}</div>
+                                                <div className="tabular-nums">{humanBytes(agg.bytes)}</div>
                                             </div>
                                         ))}
                                 </div>
                             </div>
 
                             <div>
-                                <div className="text-[11px] uppercase text-muted-foreground mb-1">
+                                <div className="mb-1 text-[11px] font-medium text-muted-foreground">
                                     Top 50 by memory
                                 </div>
-                                <div className="rounded border bg-muted/20">
-                                    <table className="w-full text-xs">
-                                        <thead className="text-[10px] uppercase text-muted-foreground">
-                                            <tr className="border-b">
+                                <div className="overflow-hidden rounded-lg border border-border bg-card">
+                                    <table className="w-full text-xs tabular-nums">
+                                        <thead className="bg-muted/50 text-[12px] font-medium text-muted-foreground">
+                                            <tr className="border-b border-border">
                                                 <th className="text-left py-1 px-2">Key</th>
                                                 <th className="text-left py-1 px-2 w-16">Type</th>
                                                 <th className="text-right py-1 px-2 w-20">TTL</th>
@@ -146,15 +146,15 @@ export function ScannerPane({ redisUrl, db, onSelectKey }: { redisUrl: string; d
                                             {result.topByBytes.map((row) => (
                                                 <tr
                                                     key={row.key}
-                                                    className="border-b last:border-b-0 hover:bg-accent/50 cursor-pointer"
+                                                    className="border-b border-border last:border-b-0 hover:bg-foreground/[0.03]"
                                                     onClick={() => onSelectKey?.(row.key)}
                                                 >
                                                     <td className="py-1 px-2 font-mono truncate max-w-[280px]">{row.key}</td>
-                                                    <td className="py-1 px-2 font-mono text-[10px]">{row.type}</td>
-                                                    <td className="py-1 px-2 font-mono text-right text-muted-foreground">
+                                                    <td className="py-1 px-2 text-[11px] text-muted-foreground">{row.type}</td>
+                                                    <td className="py-1 px-2 text-right text-muted-foreground">
                                                         {row.ttl === -1 ? "∞" : row.ttl === -2 ? "—" : `${row.ttl}s`}
                                                     </td>
-                                                    <td className="py-1 px-2 font-mono text-right">{humanBytes(row.bytes)}</td>
+                                                    <td className="py-1 px-2 text-right">{humanBytes(row.bytes)}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -177,9 +177,9 @@ export function ScannerPane({ redisUrl, db, onSelectKey }: { redisUrl: string; d
 
 function Stat({ label, value }: { label: string; value: string }) {
     return (
-        <div className="rounded border bg-muted/20 px-2 py-1.5">
-            <div className="text-[10px] text-muted-foreground">{label}</div>
-            <div className="text-xs font-mono">{value}</div>
+        <div className="rounded-lg border border-border bg-muted/40 px-2.5 py-1.5">
+            <div className="text-[11px] text-muted-foreground">{label}</div>
+            <div className="text-[13px] font-medium tabular-nums">{value}</div>
         </div>
     );
 }

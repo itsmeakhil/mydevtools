@@ -62,10 +62,10 @@ export function PasswordItemSwipeable({
                 className="absolute inset-y-0 left-0 w-full flex items-center justify-start pl-5 z-10 rounded-xl"
             >
                 <motion.div style={{ scale: scaleRight }} className="flex items-center gap-2">
-                    <div className="h-10 w-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                        <Copy className="h-5 w-5 text-green-600" />
+                    <div className="h-10 w-10 rounded-full bg-success/15 flex items-center justify-center">
+                        <Copy className="h-5 w-5 text-success" />
                     </div>
-                    <span className="text-xs font-medium text-green-600">{t("copy")}</span>
+                    <span className="text-xs font-medium text-success">{t("copy")}</span>
                 </motion.div>
             </motion.div>
             <motion.div
@@ -73,9 +73,9 @@ export function PasswordItemSwipeable({
                 className="absolute inset-y-0 right-0 w-full flex items-center justify-end pr-5 z-10 rounded-xl"
             >
                 <motion.div style={{ scale: scaleLeft }} className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-red-600">{t("delete")}</span>
-                    <div className="h-10 w-10 rounded-full bg-red-500/20 flex items-center justify-center">
-                        <Trash2 className="h-5 w-5 text-red-600" />
+                    <span className="text-xs font-medium text-destructive">{t("delete")}</span>
+                    <div className="h-10 w-10 rounded-full bg-destructive/15 flex items-center justify-center">
+                        <Trash2 className="h-5 w-5 text-destructive" />
                     </div>
                 </motion.div>
             </motion.div>
@@ -89,7 +89,7 @@ export function PasswordItemSwipeable({
                 style={{ x }}
                 className={cn(
                     "relative z-20 bg-card transition-all duration-200 border border-transparent",
-                    expanded ? "shadow-md ring-1 ring-border rounded-xl my-2" : "border-b border-border/40 rounded-none bg-background"
+                    expanded ? "shadow-elev-2 ring-1 ring-border rounded-xl my-2" : "border-b border-border rounded-none bg-background"
                 )}
             >
                 <div
@@ -100,7 +100,7 @@ export function PasswordItemSwipeable({
                     onClick={handleTap}
                 >
                     {/* Icon */}
-                    <div className="h-10 w-10 shrink-0 rounded-lg bg-muted/50 flex items-center justify-center text-primary font-semibold text-base overflow-hidden border border-border/50">
+                    <div className="h-10 w-10 shrink-0 rounded-xl bg-muted flex items-center justify-center text-muted-foreground font-medium text-base overflow-hidden">
                         <FaviconImg
                             serviceUrl={showIcons && entry.url ? getFaviconUrl(entry.url) : null}
                             className="h-6 w-6 object-contain"
@@ -110,7 +110,7 @@ export function PasswordItemSwipeable({
 
                     {/* Content */}
                     <div className="flex-1 min-w-0 flex flex-col gap-0.5">
-                        <h3 className="font-semibold text-[15px] truncate leading-tight text-foreground/90">{entry.service}</h3>
+                        <h3 className="font-semibold text-[15px] truncate leading-tight text-foreground">{entry.service}</h3>
                         <p className="text-[13px] text-muted-foreground truncate">{entry.username}</p>
                     </div>
 
@@ -149,12 +149,12 @@ export function PasswordItemSwipeable({
                         opacity: expanded ? 1 : 0
                     }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="overflow-hidden bg-muted/30"
+                    className="overflow-hidden bg-muted/40"
                 >
                     <div className="px-4 pb-4 pt-2 space-y-3">
                         {/* Password Row */}
-                        <div className="flex items-center justify-between bg-background p-2.5 rounded-lg border border-border/50 shadow-sm">
-                            <span className="font-mono text-sm truncate flex-1 mr-2 text-foreground/80">
+                        <div className="flex items-center justify-between bg-card p-2.5 rounded-lg border border-border">
+                            <span className="font-mono text-sm truncate flex-1 mr-2 text-foreground">
                                 {/* threatcrush-disable-next-line secret-generic-credential */}
                                 {isVisible ? entry.password : "••••••••••••"}
                             </span>
@@ -183,7 +183,7 @@ export function PasswordItemSwipeable({
                             )}
 
                             {entry.notes && (
-                                <p className="text-xs text-muted-foreground px-1 italic border-l-2 border-primary/20 pl-2">
+                                <p className="text-xs text-muted-foreground px-1 border-l-2 border-border pl-2">
                                     {entry.notes}
                                 </p>
                             )}

@@ -232,25 +232,25 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
     const renderHistoryRow = React.useCallback((item: HistoryRequest, style: React.CSSProperties) => (
         <div key={item.id} style={style} className="px-2 py-0.5">
             <div
-                className="group flex flex-col p-2.5 hover:bg-muted/60 rounded-lg cursor-pointer transition-all duration-200 text-sm h-full"
+                className="group flex flex-col justify-center gap-0.5 px-2.5 hover:bg-foreground/[0.05] rounded-lg transition-colors text-[13px] h-full"
                 onClick={() => onLoadRequest(item)}
             >
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                         <span
                             className={cn(
-                                "text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-sm tracking-wide shrink-0",
-                                item.method === "GET" && "bg-blue-500/10 text-blue-500",
-                                item.method === "POST" && "bg-green-500/10 text-green-500",
-                                item.method === "PUT" && "bg-orange-500/10 text-orange-500",
-                                item.method === "DELETE" && "bg-red-500/10 text-red-500",
-                                item.method === "PATCH" && "bg-yellow-500/10 text-yellow-600",
-                                (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(item.method)) && "bg-muted text-muted-foreground"
+                                "text-[10px] font-semibold shrink-0 w-[42px]",
+                                item.method === "GET" && "text-sky-500",
+                                item.method === "POST" && "text-emerald-500",
+                                item.method === "PUT" && "text-amber-500",
+                                item.method === "DELETE" && "text-rose-500",
+                                item.method === "PATCH" && "text-yellow-600",
+                                (!["GET", "POST", "PUT", "DELETE", "PATCH"].includes(item.method)) && "text-muted-foreground"
                             )}
                         >
                             {item.method}
                         </span>
-                        <span className="font-medium text-xs truncate max-w-[150px]">
+                        <span className="font-medium truncate max-w-[150px]">
                             {item.name ? getApiClientRequestDisplayName(item.name, tRoot) : item.url}
                         </span>
                     </div>
@@ -266,15 +266,15 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                         <Trash2 className="h-3.5 w-3.5" />
                     </Button>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-muted-foreground/80 pl-1">
-                    <span className="truncate max-w-[160px]">{item.url}</span>
-                    <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
+                    <span className="truncate font-mono">{item.url}</span>
+                    <div className="flex items-center gap-2 shrink-0 tabular-nums">
                         <span>{new Date(item.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
                         {item.status && (
                             <span className={cn(
                                 "font-medium",
-                                item.status >= 200 && item.status < 300 ? "text-green-500"
-                                    : item.status >= 300 && item.status < 400 ? "text-amber-500"
+                                item.status >= 200 && item.status < 300 ? "text-success"
+                                    : item.status >= 300 && item.status < 400 ? "text-warning"
                                     : "text-destructive"
                             )}>
                                 {item.status}
@@ -295,7 +295,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                     <Button
                         variant="destructive"
                         size="sm"
-                        className="h-7 px-3 rounded-lg text-xs font-medium gap-2"
+                        className="h-7 px-2.5 text-xs gap-1.5"
                         onClick={() => setDeleteBulkDialogOpen(true)}
                     >
                         <Trash2 className="h-3.5 w-3.5" />
@@ -305,7 +305,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
+                    className="h-8 w-8"
                     onClick={() => setNewCollectionDialogOpen(true)}
                     title={t("newCollection")}
                 >
@@ -315,7 +315,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="h-8 w-8 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors"
+                        className="h-8 w-8"
                         onClick={() => void openFolderCollection()}
                         title={t("openFolderCollection")}
                     >
@@ -325,21 +325,19 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
             </ToolSidebarActions>
 
             <Tabs defaultValue="collections" className="flex-1 flex flex-col h-full min-h-0">
-                <div className="px-4 py-3 border-b flex flex-col gap-3 shrink-0 bg-card/40 backdrop-blur-sm">
-                    <div className="px-3 pb-1">
-                        <button
-                            className="w-full flex items-center gap-2 text-xs px-2 py-1.5 rounded-md border bg-card hover:bg-muted/50"
-                            onClick={() => setWorkspaceDialogOpen(true)}
-                        >
-                            <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
-                            <span className="font-bold uppercase tracking-wider text-[10px] text-muted-foreground">Workspace</span>
-                            <span className="flex-1 truncate text-left">{activeWorkspaceName}</span>
-                        </button>
-                    </div>
+                <div className="chrome px-3 py-2.5 border-b border-border flex flex-col gap-2 shrink-0">
+                    <button
+                        className="w-full flex items-center gap-2 h-8 px-2.5 text-[13px] rounded-lg border border-border bg-card shadow-elev-1 hover:bg-foreground/[0.03] transition-colors"
+                        onClick={() => setWorkspaceDialogOpen(true)}
+                    >
+                        <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Workspace</span>
+                        <span className="flex-1 truncate text-left font-medium">{activeWorkspaceName}</span>
+                    </button>
                     {workspaceOptions.length > 0 && (
-                        <div className="px-3 pb-2 flex items-center gap-1.5 overflow-x-auto">
+                        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
                             <button
-                                className={`text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded ${workspaceFilter === "" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted/50"}`}
+                                className={`text-xs font-medium px-2 h-6 rounded-full transition-colors ${workspaceFilter === "" ? "bg-primary/[0.12] text-primary" : "text-muted-foreground hover:bg-foreground/[0.05]"}`}
                                 onClick={() => setWorkspaceFilter("")}
                             >
                                 All
@@ -347,7 +345,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                             {workspaceOptions.map((ws) => (
                                 <button
                                     key={ws}
-                                    className={`text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded ${workspaceFilter === ws ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted/50"}`}
+                                    className={`text-xs font-medium px-2 h-6 rounded-full transition-colors ${workspaceFilter === ws ? "bg-primary/[0.12] text-primary" : "text-muted-foreground hover:bg-foreground/[0.05]"}`}
                                     onClick={() => setWorkspaceFilter(ws)}
                                 >
                                     {ws}
@@ -355,24 +353,22 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                             ))}
                         </div>
                     )}
-                    <TabsList className="w-full grid grid-cols-2 p-1 bg-muted/50 rounded-lg">
-                        <TabsTrigger value="collections" className="rounded-md text-xs font-medium">{t("tabCollections")}</TabsTrigger>
-                        <TabsTrigger value="history" className="rounded-md text-xs font-medium">{t("tabHistory")}</TabsTrigger>
+                    <TabsList className="w-full grid grid-cols-2 h-8">
+                        <TabsTrigger value="collections" className="py-0.5">{t("tabCollections")}</TabsTrigger>
+                        <TabsTrigger value="history" className="py-0.5">{t("tabHistory")}</TabsTrigger>
                     </TabsList>
                 </div>
 
                 <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
                     <ScrollArea className="flex-1">
-                        <div className="p-3">
+                        <div className="p-2">
                             {isLoading && collections.length === 0 ? (
                                 <CollectionsSidebarSkeleton />
                             ) : collections.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center p-8 text-center border border-dashed rounded-xl bg-muted/30 mx-2 mt-4">
-                                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
-                                        <FolderPlus className="h-5 w-5 text-primary" />
-                                    </div>
+                                <div className="flex flex-col items-center justify-center px-4 py-10 text-center">
+                                    <FolderPlus className="h-8 w-8 text-muted-foreground/60 mb-3" />
                                     <h4 className="font-medium text-sm">{t("noCollectionsTitle")}</h4>
-                                    <p className="text-xs text-muted-foreground mt-1 mb-4">
+                                    <p className="text-[13px] text-muted-foreground mt-1 mb-4">
                                         {t("noCollectionsHint")}
                                     </p>
                                     <div className="flex flex-col gap-2">
@@ -389,8 +385,8 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                 </div>
                             ) : (
                                 collectionsForActiveWs.map((collection) => (
-                                    <div key={collection.id} data-collection-id={collection.id} className="mb-4">
-                                        <div className="flex items-center justify-between px-2 py-1.5 mb-1 group rounded-md hover:bg-muted/50 transition-colors">
+                                    <div key={collection.id} data-collection-id={collection.id} className="mb-3">
+                                        <div className="flex items-center justify-between h-8 px-2 group rounded-lg hover:bg-foreground/[0.05] transition-colors">
                                             <div className="flex items-center gap-2 flex-1 min-w-0">
                                                 <div className="flex items-center">
                                                     <Checkbox
@@ -399,7 +395,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                         className="h-4 w-4"
                                                     />
                                                 </div>
-                                                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider truncate flex-1 px-1">
+                                                <span className="text-xs font-semibold text-muted-foreground truncate flex-1 px-1">
                                                     {collection.name}
                                                 </span>
                                                 {collection.source && (
@@ -412,7 +408,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                 <Button
                                                     variant="ghost"
                                                     size="icon"
-                                                    className="h-6 w-6 rounded-md hover:bg-background"
+                                                    className="h-6 w-6 rounded-md hover:bg-foreground/[0.06]"
                                                     onClick={() => openAddFolderDialog(collection.id)}
                                                     title={t("newFolder")}
                                                 >
@@ -423,12 +419,12 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                         <Button
                                                             variant="ghost"
                                                             size="icon"
-                                                            className="h-6 w-6 rounded-md hover:bg-background"
+                                                            className="h-6 w-6 rounded-md hover:bg-foreground/[0.06]"
                                                         >
                                                             <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
                                                         </Button>
                                                     </DropdownMenuTrigger>
-                                                    <DropdownMenuContent align="end" className="w-40 rounded-xl">
+                                                    <DropdownMenuContent align="end" className="w-40">
                                                         <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
                                                             <Pencil className="h-4 w-4 mr-2" />
                                                             {t("rename")}
@@ -563,7 +559,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                 </DropdownMenu>
                                             </div>
                                         </div>
-                                        <div className="pl-1">
+                                        <div>
                                             {collection.items.map((item) => (
                                                 <CollectionItem
                                                     key={item.id}
@@ -578,8 +574,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                                 />
                                             ))}
                                             {collection.items.length === 0 && (
-                                                <div className="text-xs text-muted-foreground/60 px-3 py-2 italic flex items-center gap-2">
-                                                    <div className="w-px h-3 bg-border/50" />
+                                                <div className="text-xs text-muted-foreground/70 px-3 py-1.5">
                                                     {t("emptyCollection")}
                                                 </div>
                                             )}
@@ -591,15 +586,15 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                     </ScrollArea>
                 </TabsContent>
 
-                <TabsContent value="history" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none bg-muted/5">
-                    <div className="flex items-center justify-between px-4 py-2 border-b shrink-0 bg-background/50 backdrop-blur-sm">
+                <TabsContent value="history" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
+                    <div className="chrome flex items-center justify-between h-9 px-3 border-b border-border shrink-0">
                         <span className="text-xs font-medium text-muted-foreground">{t("recentRequests")}</span>
-                        <Button variant="ghost" size="sm" onClick={onClearHistory} className="text-destructive hover:bg-destructive/10 hover:text-destructive h-7 text-[11px] rounded-md px-2">
+                        <Button variant="ghost" size="sm" onClick={onClearHistory} className="text-destructive hover:bg-destructive/10 hover:text-destructive h-7 text-xs px-2">
                             <Trash2 className="h-3 w-3 mr-1.5" />
                             {t("clearAll")}
                         </Button>
                     </div>
-                    <div className="px-3 py-2 border-b shrink-0">
+                    <div className="px-3 py-2 border-b border-border shrink-0">
                         <div className="relative">
                             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                             <input
@@ -607,7 +602,7 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                                 placeholder="Search history..."
                                 value={historySearch}
                                 onChange={(e) => setHistorySearch(e.target.value)}
-                                className="w-full pl-8 pr-7 py-1.5 text-xs bg-muted/40 border border-border/50 rounded-md outline-none focus:border-primary/50 transition-colors"
+                                className="w-full h-8 pl-8 pr-7 text-[13px] bg-card border border-input rounded-md outline-none placeholder:text-muted-foreground/80 focus:border-primary focus:ring-[3px] focus:ring-primary/25 transition-[border-color,box-shadow]"
                             />
                             {historySearch && (
                                 <button
@@ -623,15 +618,13 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                         {isHistoryLoading && history.length === 0 ? (
                             <HistoryListSkeleton />
                         ) : !history.length ? (
-                            <div className="flex flex-col items-center justify-center p-8 text-center">
-                                <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3">
-                                    <FolderPlus className="h-5 w-5 text-muted-foreground/50" />
-                                </div>
+                            <div className="flex flex-col items-center justify-center px-4 py-10 text-center">
+                                <FolderPlus className="h-8 w-8 text-muted-foreground/60 mb-3" />
                                 <p className="text-sm font-medium">{t("noHistoryTitle")}</p>
-                                <p className="text-xs text-muted-foreground mt-1">{t("noHistoryHint")}</p>
+                                <p className="text-[13px] text-muted-foreground mt-1">{t("noHistoryHint")}</p>
                             </div>
                         ) : !!history.length && historySearch && !filteredHistory.length ? (
-                            <div className="text-xs text-muted-foreground text-center py-6">No results for &quot;{historySearch}&quot;</div>
+                            <div className="text-[13px] text-muted-foreground text-center py-6">No results for &quot;{historySearch}&quot;</div>
                         ) : (
                             <VirtualHistoryList
                                 items={visibleHistory}
@@ -741,13 +734,13 @@ export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSi
                         </DialogDescription>
                     </DialogHeader>
                     <div className="py-4">
-                        <div className="space-y-2 max-h-[200px] overflow-y-auto">
+                        <div className="max-h-[200px] overflow-y-auto rounded-xl border border-border bg-card divide-y divide-border">
                             {Array.from(selectedCollections).map(collectionId => {
                                 const collection = collections.find(c => c.id === collectionId)
                                 return (
-                                    <div key={collectionId} className="flex items-center gap-2 px-3 py-2 bg-muted/50 rounded-md border border-border/50">
+                                    <div key={collectionId} className="flex items-center gap-2 h-9 px-3">
                                         <Trash2 className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
-                                        <span className="text-sm font-medium truncate">{collection?.name || "Unknown"}</span>
+                                        <span className="text-[13px] font-medium truncate">{collection?.name || "Unknown"}</span>
                                     </div>
                                 )
                             })}

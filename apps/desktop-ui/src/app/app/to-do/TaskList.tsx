@@ -45,12 +45,10 @@ export default function TaskList({ tasks, isLoading, onUpdateStatus, onUpdateTas
         {!isLoading && tasks.length === 0 && (
           <div className="flex items-center justify-center py-16 animate-in fade-in">
             <div className="text-center space-y-4 max-w-md px-4">
-              <div className="mx-auto p-6 bg-gradient-to-br from-muted/50 to-muted rounded-2xl w-fit shadow-sm">
-                <Inbox className="h-16 w-16 text-muted-foreground" />
-              </div>
-              <div className="space-y-2">
-                <h3 className="font-display text-2xl font-semibold text-foreground">{t("emptyTitle")}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+              <Inbox className="mx-auto h-8 w-8 text-muted-foreground/60" />
+              <div className="space-y-1">
+                <h3 className="text-sm font-medium text-foreground">{t("emptyTitle")}</h3>
+                <p className="text-[13px] text-muted-foreground">
                   {t("emptyPrimary")}
                 </p>
               </div>
@@ -64,17 +62,12 @@ export default function TaskList({ tasks, isLoading, onUpdateStatus, onUpdateTas
               .filter((group) => group.items.length > 0)
               .map((group) => (
                 <section key={group.status.id} aria-label={group.status.label}>
-                  {/* Group header — sticky, tinted with the status color */}
-                  <div
-                    className={cn(
-                      "sticky top-0 z-10 h-10 flex items-center justify-between px-3 rounded-md backdrop-blur-sm",
-                      group.status.bgColor
-                    )}
-                  >
+                  {/* Group header — sticky; the status colour lives in the icon */}
+                  <div className="sticky top-0 z-10 h-9 flex items-center justify-between px-3 rounded-lg bg-card/95">
                     <div className="flex items-center gap-2">
                       <group.status.icon className={cn("h-4 w-4", group.status.color)} />
-                      <span className="text-sm font-medium">{group.status.label}</span>
-                      <span className="text-sm text-muted-foreground tabular-nums">{group.items.length}</span>
+                      <span className="text-[13px] font-semibold">{group.status.label}</span>
+                      <span className="text-[13px] text-muted-foreground tabular-nums">{group.items.length}</span>
                     </div>
                     {onAddInStatus && (
                       <Button

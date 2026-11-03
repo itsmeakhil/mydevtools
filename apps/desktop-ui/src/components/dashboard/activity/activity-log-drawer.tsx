@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import { Button } from '@/components/ui/button'
 import { ActivityLogPanel } from './activity-log-panel'
 
 /**
@@ -29,13 +30,10 @@ export function ActivityLogDrawer() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <button
-          type="button"
-          className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted/50 sm:text-sm"
-        >
-          <History className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
+        <Button type="button" variant="outline" size="sm" className="shrink-0 gap-1.5 px-2.5">
+          <History className="text-muted-foreground" aria-hidden />
           <span className="hidden sm:inline">{tDash('viewActivity')}</span>
-        </button>
+        </Button>
       </SheetTrigger>
 
       <SheetContent
@@ -53,13 +51,12 @@ export function ActivityLogDrawer() {
 
         <SheetFooter>
           <SheetClose asChild>
-            <Link
-              href="/dashboard/activity"
-              className="inline-flex w-full items-center justify-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted/50"
-            >
-              {t('viewAll')}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <Button variant="outline" asChild className="w-full gap-1.5">
+              <Link href="/dashboard/activity">
+                {t('viewAll')}
+                <ArrowRight aria-hidden />
+              </Link>
+            </Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

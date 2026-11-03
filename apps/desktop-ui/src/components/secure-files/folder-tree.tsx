@@ -85,11 +85,11 @@ export function FolderTree({ root, currentDir, ...actions }: { root: FolderNode;
         type="button"
         onClick={() => select("")}
         className={cn(
-          "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted",
-          currentDir === "" && "bg-muted font-medium",
+          "flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-[13px] transition-colors",
+          currentDir === "" ? "bg-primary/[0.12] text-foreground" : "hover:bg-foreground/[0.05]",
         )}
       >
-        <IconFolderOpen className="size-4 shrink-0 text-muted-foreground" />
+        <IconFolderOpen className={cn("size-4 shrink-0", currentDir === "" ? "text-primary" : "text-muted-foreground")} />
         <span className="truncate">{t("allFiles")}</span>
       </button>
       {root.children.map((child) => (
@@ -136,8 +136,8 @@ const FolderRow = React.memo(function FolderRow({
     <div>
       <div
         className={cn(
-          "group flex items-center gap-1 rounded-md pr-1 text-sm transition-colors hover:bg-muted",
-          active && "bg-muted font-medium",
+          "group flex h-8 items-center gap-1 rounded-lg pr-1 text-[13px] transition-colors",
+          active ? "bg-primary/[0.12] text-foreground" : "hover:bg-foreground/[0.05]",
         )}
         style={{ paddingLeft: depth * 12 + 4 }}
       >
@@ -152,9 +152,9 @@ const FolderRow = React.memo(function FolderRow({
         <button
           type="button"
           onClick={() => onSelect(node.path)}
-          className="flex min-w-0 flex-1 items-center gap-2 py-1.5 text-left"
+          className="flex h-full min-w-0 flex-1 items-center gap-2 text-left"
         >
-          <IconFolder className="size-4 shrink-0 text-amber-500" />
+          <IconFolder className={cn("size-4 shrink-0", active ? "text-primary" : "text-muted-foreground")} />
           <span className="truncate">{node.name}</span>
           {node.files.length > 0 && (
             <span className="ml-auto text-[11px] tabular-nums text-muted-foreground">{node.files.length}</span>

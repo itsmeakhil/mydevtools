@@ -74,7 +74,7 @@ export function CodeGenerator({ request, open, onOpenChange }: CodeGeneratorProp
                             {t("copy")}
                         </Button>
                     </div>
-                    <div className="relative border rounded-md bg-muted/50 font-mono text-xs">
+                    <div className="relative border border-border rounded-xl bg-muted/40 font-mono text-xs">
                         <ScrollArea className="h-[300px] w-full p-4">
                             <pre className="whitespace-pre-wrap break-all">
                                 {code}

@@ -38,7 +38,7 @@ export function ToolSidebarSearch({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="h-8 pl-8 pr-8 text-sm"
+        className="h-8 pl-8 pr-8 text-[13px]"
       />
       {value && (
         <Button
@@ -82,7 +82,7 @@ export function ToolSidebarSection({
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="flex min-w-0 flex-1 items-center gap-1 rounded-md px-1 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70 transition-colors hover:text-foreground"
+          className="flex min-w-0 flex-1 items-center gap-1 rounded-md px-1 py-1 text-[11px] font-semibold text-muted-foreground/70 transition-colors hover:text-foreground"
         >
           <IconChevronRight
             className={cn('h-3 w-3 shrink-0 transition-transform', open && 'rotate-90')}
@@ -143,13 +143,13 @@ function ToolSidebarRowImpl({
         }}
         style={{ paddingLeft: 8 + level * 12 }}
         className={cn(
-          'flex min-w-0 flex-1 items-center gap-2 rounded-md py-1.5 pr-2 text-left text-sm transition-colors',
+          'flex h-8 min-w-0 flex-1 items-center gap-2 rounded-lg pr-2.5 text-left text-[13px] transition-colors',
           active
-            ? 'bg-primary/10 font-medium text-foreground'
-            : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground',
+            ? 'bg-primary/[0.12] font-medium text-foreground'
+            : 'text-foreground/80 hover:bg-foreground/[0.05] hover:text-foreground',
         )}
       >
-        {Icon && <Icon className="size-4 shrink-0" aria-hidden />}
+        {Icon && <Icon className={cn('size-4 shrink-0', active ? 'text-primary' : 'text-muted-foreground')} aria-hidden />}
         <span className="min-w-0 flex-1 truncate">{label}</span>
         {count !== undefined && (
           <span className="shrink-0 text-xs tabular-nums text-muted-foreground/70">{count}</span>
@@ -188,8 +188,8 @@ export function ToolSidebarEmpty({
 }) {
   return (
     <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
-      <Icon className="h-6 w-6 text-muted-foreground/40" aria-hidden />
-      <p className="text-xs text-muted-foreground">{message}</p>
+      <Icon className="h-8 w-8 text-muted-foreground/60" aria-hidden />
+      <p className="text-[13px] text-muted-foreground">{message}</p>
       {action}
     </div>
   )

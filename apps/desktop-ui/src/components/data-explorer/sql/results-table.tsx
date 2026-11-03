@@ -190,13 +190,13 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
     };
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full bg-card">
             {/* Toolbar */}
-            <div className="flex items-center gap-2 px-3 py-2 border-b flex-shrink-0 bg-muted/30">
+            <div className="flex h-11 items-center gap-2 px-3 border-b border-border flex-shrink-0">
                 <div className="relative flex-1 max-w-xs">
                     <IconSearch className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
                     <Input
-                        className="h-7 pl-8 pr-7 text-xs"
+                        className="h-7 pl-8 pr-7 text-[13px]"
                         placeholder={t("filterPlaceholder")}
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
@@ -211,7 +211,7 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
                     )}
                 </div>
 
-                <span className="text-xs text-muted-foreground ml-auto">
+                <span className="text-xs text-muted-foreground ml-auto tabular-nums">
                     {canEdit && <span className="mr-2 opacity-70">{t("editHint")}</span>}
                     {filteredIdx.length !== result.rows.length
                         ? t("rowCountFiltered", { filtered: filteredIdx.length, total: result.rows.length })
@@ -219,7 +219,7 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
                     · {result.executionTime}ms
                 </span>
 
-                <Button variant="outline" size="sm" className="h-7 text-xs gap-1.5" onClick={handleExportCSV}>
+                <Button variant="ghost" size="sm" className="h-7 text-[13px] gap-1.5" onClick={handleExportCSV}>
                     <IconDownload className="w-3.5 h-3.5" />
                     {t("exportCsv")}
                 </Button>
@@ -230,7 +230,7 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
               * which reads as "that is the whole table".
               */}
             {result.truncated && (
-                <div className="flex items-center gap-2 border-b bg-amber-500/10 px-3 py-1.5 text-xs text-amber-700 dark:text-amber-400">
+                <div className="flex items-center gap-2 border-b border-border bg-warning/10 px-3 py-1.5 text-xs text-warning">
                     <IconAlertTriangle className="w-3.5 h-3.5 flex-shrink-0" />
                     {t("truncated", { shown: result.rows.length, total: result.rowCount })}
                 </div>
@@ -239,21 +239,21 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
             {/* Table */}
             <ScrollArea className="flex-1 min-h-0">
                 <div className="min-w-max">
-                    <table className="w-full text-xs border-collapse">
-                        <thead className="sticky top-0 z-10 bg-muted/80 backdrop-blur-sm">
+                    <table className="w-full text-xs border-collapse tabular-nums">
+                        <thead className="sticky top-0 z-10 bg-muted text-[12px] text-muted-foreground">
                             <tr>
-                                <th className="w-10 px-2 py-1.5 text-left font-medium text-muted-foreground border-b border-r select-none">
+                                <th className="w-10 h-7 px-2 text-left font-medium border-b border-r border-border select-none">
                                     #
                                 </th>
                                 {result.columns.map((col, colIdx) => (
                                     <th
                                         // Two result columns can share a name; the position is the identity.
                                         key={colIdx}
-                                        className="px-3 py-1.5 text-left font-medium border-b border-r whitespace-nowrap font-mono"
+                                        className="h-7 px-3 text-left font-medium border-b border-r border-border whitespace-nowrap"
                                     >
                                         {col}
                                         {canEdit && pkIdx.includes(colIdx) && (
-                                            <span className="ml-1 text-[9px] text-muted-foreground align-top">PK</span>
+                                            <span className="ml-1 text-[11px] text-primary">PK</span>
                                         )}
                                     </th>
                                 ))}
@@ -271,8 +271,8 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
                                 </tr>
                             ) : (
                                 filteredIdx.map((origIdx, displayIdx) => (
-                                    <tr key={origIdx} className="hover:bg-muted/40 group">
-                                        <td className="px-2 py-1 text-muted-foreground border-b border-r text-right select-none tabular-nums">
+                                    <tr key={origIdx} className="hover:bg-foreground/[0.03] group">
+                                        <td className="h-7 px-2 text-muted-foreground/70 border-b border-r border-border text-right select-none">
                                             {displayIdx + 1}
                                         </td>
                                         {result.columns.map((_, colIdx) => {
@@ -281,7 +281,7 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
                                             const isEditing = editing?.row === origIdx && editing?.col === colIdx;
                                             if (isEditing) {
                                                 return (
-                                                    <td key={colIdx} className="p-0 border-b border-r max-w-[300px]">
+                                                    <td key={colIdx} className="p-0 border-b border-r border-border max-w-[300px]">
                                                         <div className="flex items-center">
                                                             <Input
                                                                 ref={editInputRef}
@@ -307,7 +307,7 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
                                                                     e.preventDefault();
                                                                     void commitEdit(origIdx, colIdx, null);
                                                                 }}
-                                                                className="h-6 shrink-0 border-y border-r border-primary px-1.5 text-[10px] text-muted-foreground hover:text-foreground"
+                                                                className="h-6 shrink-0 border-y border-r border-primary px-1.5 text-[11px] text-muted-foreground hover:text-foreground"
                                                             >
                                                                 NULL
                                                             </button>
@@ -318,7 +318,7 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
                                             return (
                                                 <td
                                                     key={colIdx}
-                                                    className="px-3 py-1 border-b border-r max-w-[300px] truncate font-mono"
+                                                    className="h-7 px-3 border-b border-r border-border max-w-[300px] truncate font-mono"
                                                     title={isNull ? "NULL" : String(val)}
                                                     onDoubleClick={() => {
                                                         // PK cells are the row identity — not editable in place.
@@ -337,9 +337,9 @@ export function ResultsTable({ result, editable }: ResultsTableProps) {
                                                         <span
                                                             className={
                                                                 typeof val === "boolean"
-                                                                    ? "text-blue-500"
+                                                                    ? "text-primary"
                                                                     : typeof val === "number"
-                                                                    ? "text-orange-500"
+                                                                    ? "text-warning"
                                                                     : ""
                                                             }
                                                         >

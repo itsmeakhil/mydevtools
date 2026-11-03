@@ -4,6 +4,8 @@ import { usePathname } from 'next/navigation';
 import { NavBar } from '@/components/nav-bar';
 import { MobileNav } from '@/components/mobile-nav';
 import { TopBar } from '@/components/shell/top-bar';
+import { AppSidebar } from '@/components/shell/app-sidebar';
+import { StatusBar } from '@/components/shell/status-bar';
 import { useTabStore } from '@/store/tab-store';
 import { isTabRoute } from '@/lib/route-config';
 import { getTabComponent, isRegisteredTab } from '@/lib/tab-registry';
@@ -86,13 +88,20 @@ function Layout({ children }: { children: React.ReactNode }) {
   const inTabMode = isTabRoute(pathname) && tabs.length > 0;
 
   return (
-    <div className="flex h-screen w-full flex-col relative overflow-hidden">
+    <div
+      data-tauri-drag-region
+      className="relative isolate flex h-screen w-full overflow-hidden md:gap-3 md:p-3"
+    >
+      <div className="app-backdrop" aria-hidden />
       <TabSyncer />
       <ToolUsageTracker />
-      <TopBar />
-      <div className="flex min-h-0 w-full flex-1">
-        <main className="flex-1 font-mono flex flex-col pb-16 md:pb-0 min-w-0 overflow-hidden">
-          <div className="shrink-0 z-20 bg-background">
+      <AppSidebar />
+      {/* Content column — toolbar capsules float over the backdrop; the tool
+          lives in a frosted content pane. */}
+      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col">
+        <TopBar />
+        <main className="content-surface flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden pb-16 md:rounded-[20px] md:pb-0">
+          <div className="z-20 shrink-0">
             {!inTabMode && <NavBar />}
             <MobileDesktopHint />
           </div>
@@ -112,6 +121,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 
           <MobileNav />
         </main>
+        <StatusBar />
       </div>
       {/* Command palette is mounted once globally in ClientShell (root layout) —
           a second mount here caused stacked overlays needing two clicks to dismiss. */}

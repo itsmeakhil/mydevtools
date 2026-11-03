@@ -70,7 +70,7 @@ export function DesktopUpdateDialog() {
               <RefreshCw className="h-4 w-4 animate-spin" /> {t("checking")}
             </div>
           ) : update ? (
-            <div className="rounded-xl border border-primary/40 bg-primary/[0.04] px-3.5 py-3">
+            <div className="rounded-xl border border-border bg-muted/40 px-3.5 py-3">
               <p className="text-sm font-medium">
                 {t("available", { version: update.version })}
               </p>
@@ -86,7 +86,7 @@ export function DesktopUpdateDialog() {
             </div>
           ) : (
             <div className="flex items-center gap-2 py-2 text-sm text-muted-foreground">
-              <CheckCircle2 className="h-4 w-4 text-green-500" /> {t("upToDate")}
+              <CheckCircle2 className="h-4 w-4 text-success" /> {t("upToDate")}
             </div>
           )}
         </DialogContent>

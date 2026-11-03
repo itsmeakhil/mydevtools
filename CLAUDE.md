@@ -39,7 +39,8 @@ Per-tool files (`page.tsx`, `layout.tsx` with `generateToolMetadata`, `component
 - Failed autosave: set dirty flag back to true and reset save state so the next edit retries — never silently drop edits.
 - Collapsible sidebar sections: header button with `IconChevronRight` (`rotate-90` when open) + framer-motion `AnimatePresence` height/opacity collapse, `overflow-hidden`, ~0.2s; render nothing when the section is empty.
 - `React.memo` on list-item components in long sidebars.
-- Tool headers: `ToolPageHeader` + `RevealItem` + `CATEGORY_ACCENT[category]`. Sidebar icons @tabler, route-config icons lucide (`Image` imported `as ImageIcon`).
+- **Visual design = `apps/desktop-ui/DESIGN.md` (Adaptive Liquid Glass).** Glass only via the `.liquid` / `.glass*` / `.glass-card` material classes (no raw `backdrop-*` — lint-enforced), editors/tables/inputs solid, tokens only (no raw zinc/gray/hex, no `dark:` color pairs), user accent via `primary` (never per-category hues), `font-mono` only for code/data, no gradients/glows/hover lifts.
+- Tool headers: `ToolPageHeader` + `RevealItem`. Sidebar icons @tabler, route-config icons lucide (`Image` imported `as ImageIcon`).
 
 ## Marketing/SEO copy rules
 

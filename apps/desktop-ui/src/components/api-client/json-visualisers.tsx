@@ -18,21 +18,21 @@ function TreeNode({ name, value, depth }: TreeNodeProps) {
         return <Leaf name={name} text="null" tone="text-muted-foreground" depth={depth} />
     }
     if (typeof value === "boolean") {
-        return <Leaf name={name} text={String(value)} tone="text-amber-600" depth={depth} />
+        return <Leaf name={name} text={String(value)} tone="text-warning" depth={depth} />
     }
     if (typeof value === "number") {
         return <Leaf name={name} text={String(value)} tone="text-sky-500" depth={depth} />
     }
     if (typeof value === "string") {
-        return <Leaf name={name} text={JSON.stringify(value)} tone="text-emerald-600" depth={depth} />
+        return <Leaf name={name} text={JSON.stringify(value)} tone="text-success" depth={depth} />
     }
     const isArr = Array.isArray(value)
     const entries = isArr ? value.map((v, i) => [i, v] as const) : Object.entries(value as Record<string, unknown>)
     return (
         <div className="text-xs font-mono" style={{ paddingLeft: depth * 12 }}>
-            <button onClick={() => setOpen((o) => !o)} className="inline-flex items-center gap-1 hover:bg-muted/40 rounded px-1">
+            <button onClick={() => setOpen((o) => !o)} className="inline-flex items-center gap-1 hover:bg-foreground/[0.05] rounded-[4px] px-1">
                 {open ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
-                <span className="font-bold">{name}</span>
+                <span className="font-semibold">{name}</span>
                 <span className="text-muted-foreground">: {isArr ? "[" : "{"}{entries.length}{isArr ? "]" : "}"}</span>
             </button>
             {open && entries.slice(0, MAX_TREE_CHILDREN).map(([k, v]) => (
@@ -53,7 +53,7 @@ const MAX_TABLE_ROWS = 500
 function Leaf({ name, text, tone, depth }: { name: string | number; text: string; tone: string; depth: number }) {
     return (
         <div className="text-xs font-mono" style={{ paddingLeft: depth * 12 + 16 }}>
-            <span className="font-bold">{name}</span>
+            <span className="font-semibold">{name}</span>
             <span className="text-muted-foreground">: </span>
             <span className={tone}>{text}</span>
         </div>
@@ -96,7 +96,7 @@ export function JsonTableView({ rows }: { rows: unknown }) {
                 <thead>
                     <tr>
                         {cols.map((c) => (
-                            <th key={c} className="text-left border-b sticky top-0 bg-card px-2 py-1 font-bold uppercase tracking-wider text-[10px]">
+                            <th key={c} className="text-left border-b border-border sticky top-0 bg-muted px-2 py-1.5 font-medium text-[11px] text-muted-foreground">
                                 {c}
                             </th>
                         ))}

@@ -31,7 +31,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
                 onLock()
                 setIsOpen(false)
             },
-            color: "text-red-500",
+            color: "text-muted-foreground",
             delay: 0.1
         },
         {
@@ -41,7 +41,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
                 onImportExport()
                 setIsOpen(false)
             },
-            color: "text-indigo-500",
+            color: "text-muted-foreground",
             delay: 0.05
         }
     ]
@@ -54,7 +54,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
                 onAdd()
                 setIsOpen(false)
             },
-            color: "text-emerald-500",
+            color: "text-primary",
             delay: 0
         })
     }
@@ -68,7 +68,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setIsOpen(false)}
-                        className="fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
+                        className="fixed inset-0 scrim z-40"
                     />
                 )}
             </AnimatePresence>
@@ -86,12 +86,12 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
                                     transition={{ delay: item.delay }}
                                     className="flex items-center gap-3"
                                 >
-                                    <span className="text-sm font-medium bg-card border px-3 py-1.5 rounded-lg shadow-sm">
+                                    <span className="text-sm font-medium glass px-3 py-1.5 rounded-lg shadow-elev-3">
                                         {item.label}
                                     </span>
                                     <Button
                                         size="icon"
-                                        className="h-12 w-12 rounded-full shadow-lg"
+                                        className="h-12 w-12 rounded-full shadow-elev-3"
                                         variant="outline"
                                         onClick={item.onClick}
                                     >
@@ -106,7 +106,7 @@ export function FloatingActionMenu({ onLock, onImportExport, onAdd }: FloatingAc
                 <Button
                     size="icon"
                     className={cn(
-                        "h-14 w-14 rounded-full shadow-xl transition-transform duration-300",
+                        "h-14 w-14 rounded-full shadow-elev-3 transition-transform duration-200",
                         isOpen ? "rotate-90 bg-muted text-foreground hover:bg-muted" : "bg-primary text-primary-foreground"
                     )}
                     onClick={toggleMenu}

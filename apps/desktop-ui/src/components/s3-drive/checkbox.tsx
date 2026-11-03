@@ -17,17 +17,17 @@ export function Checkbox({
             onKeyDown={(e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); onToggle() } }}
             onClick={(e) => { e.stopPropagation(); onToggle() }}
             className={cn(
-                "size-[18px] rounded-[4px] border-2 flex items-center justify-center cursor-pointer shrink-0 transition-all duration-100",
+                "size-4 rounded-[5px] border flex items-center justify-center cursor-default shrink-0 transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
                 checked || indeterminate
-                    ? "bg-blue-600 border-blue-600"
-                    : "border-slate-400/60 bg-white/70 dark:bg-black/30 hover:border-blue-500",
+                    ? "bg-primary border-primary"
+                    : "border-input bg-card hover:border-primary/60",
                 className,
             )}
         >
             {indeterminate && !checked
-                ? <div className="w-2.5 h-[2px] bg-white rounded-full" />
+                ? <div className="w-2 h-[2px] bg-primary-foreground rounded-full" />
                 : checked
-                    ? <IconCheck className="size-[11px] text-white stroke-[3]" />
+                    ? <IconCheck className="size-[11px] text-primary-foreground stroke-[3]" />
                     : null
             }
         </div>

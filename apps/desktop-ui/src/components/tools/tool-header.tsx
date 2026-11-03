@@ -31,16 +31,16 @@ export function ToolHeader({ title, description, className }: ToolHeaderProps) {
   return (
     <CardHeader
       className={cn(
-        'flex flex-row items-center gap-3 space-y-0 border-b border-border/40 px-4 py-3 sm:px-5',
+        'flex flex-row items-center gap-3 space-y-0 border-b border-border px-4 py-3 sm:px-5',
         className
       )}
     >
       <div className="flex min-w-0 flex-1 flex-col">
         {title?.trim() ? (
-          <CardTitle className="truncate text-sm font-semibold tracking-tight">{title}</CardTitle>
+          <CardTitle className="truncate text-[15px] font-semibold tracking-[-0.01em]">{title}</CardTitle>
         ) : null}
         {description ? (
-          <CardDescription className="truncate text-xs leading-tight">{description}</CardDescription>
+          <CardDescription className="truncate text-[13px] leading-tight">{description}</CardDescription>
         ) : null}
       </div>
     </CardHeader>

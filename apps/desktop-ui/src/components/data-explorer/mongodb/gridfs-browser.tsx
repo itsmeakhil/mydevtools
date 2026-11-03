@@ -140,8 +140,8 @@ export function GridFsBrowser({
                     </DialogTitle>
                 </DialogHeader>
 
-                <div className="flex items-center justify-between px-4 py-2 border-b bg-muted/20">
-                    <span className="text-xs text-muted-foreground">{files ? `${files.length} file(s)` : ""}</span>
+                <div className="flex h-11 items-center justify-between px-4 border-b border-border">
+                    <span className="text-[13px] text-muted-foreground tabular-nums">{files ? `${files.length} file(s)` : ""}</span>
                     <div className="flex items-center gap-1.5">
                         {!readOnly && (
                             <Button variant="outline" size="sm" className="h-7 text-xs" disabled={busy === "upload"} onClick={() => fileRef.current?.click()}>
@@ -164,14 +164,14 @@ export function GridFsBrowser({
                 >
                     {files && files.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center gap-2 text-muted-foreground text-sm">
-                            <IconFile className="h-8 w-8 opacity-40" />
+                            <IconFile className="h-8 w-8 text-muted-foreground/60" />
                             {"No files"}
                             {!readOnly && <span className="text-xs">{"Drop files here to upload"}</span>}
                         </div>
                     ) : (
                         <table className="w-full text-xs">
-                            <thead className="text-muted-foreground uppercase bg-muted sticky top-0">
-                                <tr>
+                            <thead className="text-[12px] text-muted-foreground bg-muted sticky top-0">
+                                <tr className="border-b border-border">
                                     <th className="px-3 py-2 text-left font-medium">{"Name"}</th>
                                     <th className="px-3 py-2 text-right font-medium w-24">{"Size"}</th>
                                     <th className="px-3 py-2 text-right font-medium w-24" />
@@ -181,9 +181,9 @@ export function GridFsBrowser({
                                 {(files ?? []).map((f, i) => {
                                     const rowBusy = busy === String(f.id);
                                     return (
-                                        <tr key={i} className="border-b hover:bg-muted/40">
+                                        <tr key={i} className="border-b border-border hover:bg-foreground/[0.03]">
                                             <td className="px-3 py-2 font-mono truncate max-w-[300px]" title={f.filename}>{f.filename || "—"}</td>
-                                            <td className="px-3 py-2 text-right font-mono text-muted-foreground">{humanSize(f.length)}</td>
+                                            <td className="px-3 py-2 text-right tabular-nums text-muted-foreground">{humanSize(f.length)}</td>
                                             <td className="px-3 py-2 text-right">
                                                 <div className="flex items-center justify-end gap-1">
                                                     <Button variant="ghost" size="icon" className="h-6 w-6" disabled={rowBusy} onClick={() => download(f)} title={"Download"}>

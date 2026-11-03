@@ -11,7 +11,6 @@ import {
   type ToolCardProps,
   createItemId,
   groupDisplayTitle,
-  categoryAccent,
 } from './types'
 import { ToolCard } from './dashboard-tool-card'
 import { DashboardSectionHeader } from './dashboard-section-header'
@@ -38,21 +37,19 @@ export function DashboardToolGrid({
   const t = useTranslations('Dashboard')
 
   return (
-    <div className="space-y-5 md:space-y-8">
+    <div className="space-y-6">
       {filteredGroups.map((group, groupIndex) => {
-        const accent = categoryAccent(group.title)
         return (
-        <section key={`${group.title}-${group.originalGroupIndex}`} className="space-y-5">
+        <section key={`${group.title}-${group.originalGroupIndex}`} className="space-y-3">
           <DashboardSectionHeader
             icon={group.icon ?? Sparkles}
             title={groupDisplayTitle(group.title, t)}
-            accent={accent}
             count={group.items.reduce(
               (acc, item) => acc + (item.items ? item.items.length : 1),
               0,
             )}
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
             {group.items.map((item: any, itemIndex: number) => (
               <React.Fragment key={`${groupIndex}-${itemIndex}`}>
                 {/* Render search result items (flattened) */}
@@ -62,8 +59,7 @@ export function DashboardToolGrid({
                       item={item}
                       id={item.originalId}
                       index={itemIndex}
-                      accent={accent}
-                      {...toolCardProps}
+                                {...toolCardProps}
                     />
                   </motion.div>
                 )}
@@ -80,8 +76,7 @@ export function DashboardToolGrid({
                         item={{ ...subItem, icon: subItem.icon ?? item.icon }}
                         id={createItemId(group.originalGroupIndex, itemIndex, subIndex)}
                         index={subIndex}
-                        accent={accent}
-                        {...toolCardProps}
+                                    {...toolCardProps}
                       />
                     </motion.div>
                   ))}
@@ -94,21 +89,19 @@ export function DashboardToolGrid({
       {/* No results state */}
       {(searchQuery || filterGroup) && filteredGroups.length === 0 && (
         <div className="space-y-5">
-          <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border/60 bg-gradient-to-b from-muted/20 to-transparent p-10 text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-muted/60 text-muted-foreground ring-1 ring-inset ring-border/50">
-              <SearchX size={22} strokeWidth={1.5} />
-            </div>
+          <div className="flex flex-col items-center gap-3 glass-card rounded-xl p-10 text-center">
+            <SearchX className="h-8 w-8 text-muted-foreground/60" strokeWidth={1.5} />
             <div>
-              <p className="text-sm font-semibold text-foreground">{t('noResults')}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{t('noResultsHint')}</p>
+              <p className="text-sm font-medium text-foreground">{t('noResults')}</p>
+              <p className="mt-1 text-[13px] text-muted-foreground">{t('noResultsHint')}</p>
             </div>
           </div>
           {popularItems.length > 0 && (
             <div className="space-y-3">
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider px-1">
+              <p className="text-[13px] font-semibold text-foreground">
                 {t('popularTools')}
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 xl:gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 {popularItems.map((item, index) => (
                   <ToolCard
                     key={`popular-${item.originalId}`}

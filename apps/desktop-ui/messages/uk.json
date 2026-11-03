@@ -138,6 +138,27 @@
         "light": "Світла",
         "dark": "Темна",
         "system": "Системна"
+      },
+      "picker": {
+        "wheel": "Коло",
+        "sliders": "Повзунки",
+        "hue": "Тон",
+        "saturation": "Насиченість",
+        "brightness": "Яскравість",
+        "lightness": "Світлота",
+        "chroma": "Хрома",
+        "hexValue": "Значення hex",
+        "copy": "Копіювати значення hex",
+        "copied": "Скопійовано",
+        "revert": "Повернути початковий колір",
+        "newColor": "Новий колір",
+        "onWhite": "На білому",
+        "onBlack": "На чорному",
+        "aa": "AA пройдено",
+        "aaLarge": "AA великий",
+        "fail": "Не пройдено",
+        "presets": "Пресети",
+        "eyedropper": "Вибрати колір з екрана"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Більше розділів",
     "sections": "Розділи бічної панелі",
     "show": "Показати бічну панель",
-    "hide": "Сховати бічну панель"
+    "hide": "Сховати бічну панель",
+    "pin": "Закріпити {tool}",
+    "unpin": "Відкріпити {tool}"
   },
   "DesktopUpdate": {
     "title": "Оновлення MyDevTools",
@@ -2609,5 +2632,25 @@
     "working": "{done} з {total}",
     "cancelled": "Скасовано.",
     "save": "Зберегти"
+  },
+  "Shell": {
+    "sidebar": "Бічна панель",
+    "toggleSidebar": "Показати/сховати бічну панель",
+    "searchTools": "Пошук інструментів",
+    "help": "Довідка",
+    "theme": "Тема",
+    "themeLight": "Світла",
+    "themeDark": "Темна",
+    "themeSystem": "Системна",
+    "account": "Обліковий запис",
+    "you": "Ви",
+    "openTool": "Відкрити інструмент",
+    "closeTab": "Закрити {title}",
+    "status": "Стан",
+    "vaultLocked": "Сховище заблоковано",
+    "vaultUnlocked": "Сховище розблоковано",
+    "reduceTransparency": "Зменшити прозорість",
+    "reduceTransparencyHint": "Замінює скло непрозорими поверхнями.",
+    "goToDashboard": "Перейти до панелі"
   }
 }

@@ -381,8 +381,8 @@ function RedisConnectionForm({
                         onClick={() => setColor(null)}
                         disabled={saving}
                         className={cn(
-                            "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-transform",
-                            color === null ? "border-primary scale-110" : "border-border hover:scale-105"
+                            "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-colors",
+                            color === null ? "border-primary" : "border-border"
                         )}
                         aria-label={t("colorNone")}
                     >
@@ -395,8 +395,8 @@ function RedisConnectionForm({
                             onClick={() => setColor(c)}
                             disabled={saving}
                             className={cn(
-                                "size-6 rounded-full border-2 transition-transform",
-                                color === c ? "border-primary scale-110" : "border-transparent hover:scale-105"
+                                "size-6 rounded-full border-2 transition-colors",
+                                color === c ? "border-primary" : "border-transparent"
                             )}
                             style={{ backgroundColor: c }}
                             aria-label={c}
@@ -422,7 +422,7 @@ function RedisConnectionForm({
                 </div>
             )}
             {testState === "ok" && !error && (
-                <div className="rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                <div className="rounded-md bg-success/10 p-3 text-sm font-medium text-success">
                     {t("testOk")}
                 </div>
             )}
@@ -465,7 +465,7 @@ const DbRow = React.memo(function DbRow({ index, label, onOpen }: DbRowProps) {
         <button
             type="button"
             onClick={() => onOpen(index)}
-            className="flex w-full min-w-0 items-center gap-1.5 rounded-md px-2 py-1 text-left text-xs transition-colors hover:bg-muted/60"
+            className="flex h-7 w-full min-w-0 items-center gap-1.5 rounded-md px-2 text-left text-[13px] transition-colors hover:bg-foreground/[0.05]"
         >
             <IconDatabase className="size-3.5 shrink-0 text-red-500" />
             <span className="min-w-0 flex-1 truncate">{label}</span>
@@ -517,7 +517,7 @@ function RedisSidebarTree({
 /* ------------------------------------------------------------------ pane */
 
 const INNER_TAB =
-    "h-8 rounded-none border-r px-3 text-xs data-[state=active]:bg-accent data-[state=active]:shadow-none";
+    "h-7 rounded-md px-2.5 text-[13px] data-[state=active]:bg-foreground/[0.08] data-[state=active]:shadow-none";
 
 /**
  * Key-browsing workbench.
@@ -595,7 +595,7 @@ function RedisPane({ connection, config, tab, state, setState }: PaneProps<Redis
                 the same one). The sidebar tree is the only way to switch — it
                 opens or focuses the correctly-identified tab. */}
             {!readOnly && (
-                <div className="flex shrink-0 items-center justify-end gap-2 border-b px-2 py-1">
+                <div className="flex h-11 shrink-0 items-center justify-end gap-2 border-b border-border px-2">
                     <BulkActions redisUrl={config.redisUrl} db={state.db} onChanged={bumpRefresh} />
                     <Button
                         size="sm"
@@ -611,7 +611,7 @@ function RedisPane({ connection, config, tab, state, setState }: PaneProps<Redis
 
             <div className="min-h-0 flex-1">
                 <ResizablePanelGroup direction="horizontal" className="h-full">
-                    <ResizablePanel defaultSize={22} minSize={16} maxSize={40}>
+                    <ResizablePanel defaultSize={22} minSize={16} maxSize={40} className="bg-muted/40">
                         <KeyBrowser
                             // Remount on db switch or refresh tick — the browser
                             // holds its own paged key list and pattern state.
@@ -627,7 +627,7 @@ function RedisPane({ connection, config, tab, state, setState }: PaneProps<Redis
                     <ResizableHandle />
                     <ResizablePanel defaultSize={78} minSize={40}>
                         <Tabs defaultValue="editor" className="flex h-full flex-col">
-                            <TabsList className="h-8 w-full shrink-0 justify-start gap-0 rounded-none border-b bg-transparent p-0">
+                            <TabsList className="h-11 w-full shrink-0 justify-start gap-0.5 rounded-none border-b border-border bg-transparent px-2">
                                 <TabsTrigger value="editor" className={INNER_TAB}>
                                     <IconDatabase className="mr-1.5 size-3.5" />
                                     {t("redis.tabKeyEditor")}
@@ -687,7 +687,7 @@ function RedisPane({ connection, config, tab, state, setState }: PaneProps<Redis
                                 />
                             </TabsContent>
                             <TabsContent value="dashboard" className="mt-0 min-h-0 flex-1 overflow-auto">
-                                <div className="border-b p-3">
+                                <div className="border-b border-border p-3">
                                     <MetricsPane redisUrl={config.redisUrl} db={state.db} />
                                 </div>
                                 <ServerDashboard redisUrl={config.redisUrl} db={state.db} />

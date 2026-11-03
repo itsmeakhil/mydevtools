@@ -138,6 +138,27 @@
         "light": "Lig",
         "dark": "Donker",
         "system": "Stelsel"
+      },
+      "picker": {
+        "wheel": "Wiel",
+        "sliders": "Skuifbalke",
+        "hue": "Kleurtoon",
+        "saturation": "Versadiging",
+        "brightness": "Helderheid",
+        "lightness": "Ligtheid",
+        "chroma": "Chroma",
+        "hexValue": "Hex-waarde",
+        "copy": "Kopieer hex-waarde",
+        "copied": "Gekopieer",
+        "revert": "Herstel na oorspronklike kleur",
+        "newColor": "Nuwe kleur",
+        "onWhite": "Op wit",
+        "onBlack": "Op swart",
+        "aa": "AA geslaag",
+        "aaLarge": "AA Groot",
+        "fail": "Druip",
+        "presets": "Voorinstellings",
+        "eyedropper": "Kies 'n kleur van die skerm"
       }
     },
     "security": {
@@ -2497,7 +2518,9 @@
     "moreSections": "Meer afdelings",
     "sections": "Sybalk-afdelings",
     "show": "Wys sybalk",
-    "hide": "Versteek sybalk"
+    "hide": "Versteek sybalk",
+    "pin": "Speld {tool} vas",
+    "unpin": "Maak {tool} los"
   },
   "DesktopUpdate": {
     "title": "MyDevTools word bygewerk",
@@ -2609,5 +2632,25 @@
     "working": "{done} van {total}",
     "cancelled": "Gekanselleer.",
     "save": "Stoor"
+  },
+  "Shell": {
+    "sidebar": "Kantbalk",
+    "toggleSidebar": "Wissel kantbalk",
+    "searchTools": "Soek gereedskap",
+    "help": "Hulp",
+    "theme": "Tema",
+    "themeLight": "Lig",
+    "themeDark": "Donker",
+    "themeSystem": "Stelsel",
+    "account": "Rekening",
+    "you": "Jy",
+    "openTool": "Maak gereedskap oop",
+    "closeTab": "Sluit {title}",
+    "status": "Status",
+    "vaultLocked": "Kluis gesluit",
+    "vaultUnlocked": "Kluis oopgesluit",
+    "reduceTransparency": "Verminder deursigtigheid",
+    "reduceTransparencyHint": "Vervang glas met soliede oppervlakke.",
+    "goToDashboard": "Gaan na kontroleskerm"
   }
 }
