@@ -26,6 +26,24 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.20',
+    date: '2026-11-04',
+    title: 'A built-in terminal that knows when Claude needs you',
+    summary:
+      'MyDevTools now has its own terminal: group terminals by project, open them in tabs and split panes, and see each project’s git branch and changes at a glance. Terminals launched from the app tell you when Claude Code is waiting on you.',
+    changes: [
+      { type: 'added', text: 'Terminal: a built-in terminal. Group terminals by project, open them in tabs and split panes, and see each project’s git branch and changed-file count in the sidebar and status bar. Scrollback survives switching tools, and your layout is kept between launches.' },
+      { type: 'added', text: 'Terminal: Claude Code awareness. Terminals launched from the app report when Claude is working or waiting on you, collected in a “Needs you” inbox. On macOS you get a “Claude needs you” notification and a Dock badge with the waiting count, and clicking the notification jumps to that terminal.' },
+      { type: 'added', text: 'Terminal: double-click a terminal in the sidebar to rename it. Enter saves, Esc cancels, and an empty name falls back to the shell’s window title.' },
+      { type: 'added', text: 'The sidebar’s Terminal entry shows how many terminals are waiting on you.' },
+      { type: 'added', text: 'On macOS, closing the window hides the app instead of quitting, and quitting while terminals are still running asks first.' },
+      { type: 'fixed', text: 'Data Explorer: MongoDB collection tables scroll again. Large collections no longer clip the table, status bar and pagination.' },
+      { type: 'fixed', text: 'Copy from a code editor’s context menu works in the desktop app, and clicking or typing in an editor no longer logs clipboard errors.' },
+      { type: 'fixed', text: '⌘W no longer closes a pane while a dialog or the rename field is open.' },
+      { type: 'fixed', text: 'If a quit is blocked because terminal state failed to save, the app always explains why.' },
+    ],
+  },
+  {
     version: '0.1.19',
     date: '2026-11-03',
     title: 'A native look, and a focused toolkit',
