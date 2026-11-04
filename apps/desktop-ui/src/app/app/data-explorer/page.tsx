@@ -266,7 +266,10 @@ export default function DataExplorerPage() {
             }
             sidebar={sidebar}
         >
-            <div className="flex min-w-0 flex-1 flex-col">
+            {/* min-h-0: without it this column's min-height:auto grows to the
+                pane's full content (e.g. a 50-row Mongo table), so the pane's
+                own overflow-auto scroller never overflows and nothing scrolls. */}
+            <div className="flex min-h-0 min-w-0 flex-1 flex-col">
                 <UnifiedTabBar
                     tabs={tabs}
                     connections={connections}
