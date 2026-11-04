@@ -5,6 +5,7 @@ import { Suspense, useEffect, type ReactNode } from "react"
 import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
 import { initTelemetry } from "@/lib/telemetry"
+import { installClipboardWriteShim } from "@/lib/desktop/clipboard-write-shim"
 
 const GlobalCommandPalette = dynamic(
   () => import('@/components/global-command-palette').then((m) => m.GlobalCommandPalette),
@@ -30,6 +31,7 @@ type Props = {
 
 export function ClientShell({ children }: Props) {
   useEffect(() => {
+    installClipboardWriteShim() // before any Monaco editor mounts
     void initTelemetry()
   }, [])
 

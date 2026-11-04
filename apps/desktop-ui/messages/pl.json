@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Fragmenty kodu",
-    "secureFiles": "Pliki"
+    "secureFiles": "Pliki",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Pomoc i dokumentacja",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Pliki",
         "description": "Szyfruj pliki i foldery do zamaskowanych obiektów .mydt; przeglądaj je po odblokowaniu."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminale według projektów z kartami, dzielonymi panelami i listą „Czeka na Ciebie” dla Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,36 @@
     "reduceTransparency": "Zmniejsz przezroczystość",
     "reduceTransparencyHint": "Zastępuje szkło jednolitymi powierzchniami.",
     "goToDashboard": "Przejdź do pulpitu"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminal jest dostępny w aplikacji komputerowej.",
+    "needsYou": "Czeka na Ciebie · {count}",
+    "projects": "Projekty",
+    "addProject": "Dodaj projekt",
+    "noProjects": "Dodaj folder projektu, aby otwierać w nim terminale.",
+    "newTab": "Nowa karta",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Zmień nazwę karty",
+    "renameTerminal": "Zmień nazwę terminala",
+    "closeTab": "Zamknij kartę",
+    "noTabs": "W tym projekcie nie ma otwartych terminali.",
+    "statusWaiting": "Czeka na dane",
+    "statusRunning": "Działa",
+    "statusIdle": "Bezczynny",
+    "changedFiles": "{count, plural, one {# zmieniony} few {# zmienione} many {# zmienionych} other {# zmienionego}}",
+    "folderMissing": "Nie znaleziono folderu: {path}. Zamiast niego otwarto Twój folder domowy.",
+    "processExited": "Proces zakończył działanie",
+    "waitingBody": "Claude czeka na Ciebie",
+    "quitTitle": "{count, plural, one {Działa # terminal} few {Działają # terminale} many {Działa # terminali} other {Działa # terminala}}",
+    "quitBody": "Zamknięcie zakończy wszystkie działające terminale.",
+    "quitConfirm": "Zakończ",
+    "quitSaveFailed": "Nie udało się zapisać układu terminali, więc MyDevTools pozostał otwarty. Naciśnij dwukrotnie ⌘Q, aby mimo to zakończyć.",
+    "cancel": "Anuluj",
+    "removeProject": "Usuń projekt",
+    "removeProjectBody": "Projekt {name} zostanie usunięty z listy, a jego terminale zostaną zamknięte. Pliki na dysku pozostaną nietknięte.",
+    "splitRight": "Podziel w prawo",
+    "splitDown": "Podziel w dół",
+    "closePane": "Zamknij panel"
   }
 }

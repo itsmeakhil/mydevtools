@@ -12,7 +12,8 @@
     "nosqlExplorer": "Datenbank-Explorer",
     "dataExplorer": "Data Explorer",
     "snippetManager": "Code-Snippets",
-    "secureFiles": "Dateien"
+    "secureFiles": "Dateien",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Hilfe & Dokumentation",
@@ -357,6 +358,10 @@
       "secureFiles": {
         "title": "Dateien",
         "description": "Verschlüsseln Sie Dateien und Ordner in maskierte .mydt-Objekte; nach dem Entsperren durchsuchen und ansehen."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminals pro Projekt mit Tabs, geteilten Bereichen und einer Liste „Braucht dich“ für Claude Code."
       }
     },
     "tabs": {
@@ -2652,5 +2657,36 @@
     "reduceTransparency": "Transparenz reduzieren",
     "reduceTransparencyHint": "Glas durch deckende Flächen ersetzen.",
     "goToDashboard": "Zum Dashboard"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Das Terminal ist in der Desktop-App verfügbar.",
+    "needsYou": "Braucht dich · {count}",
+    "projects": "Projekte",
+    "addProject": "Projekt hinzufügen",
+    "noProjects": "Füge einen Projektordner hinzu, um darin Terminals zu öffnen.",
+    "newTab": "Neuer Tab",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Tab umbenennen",
+    "renameTerminal": "Terminal umbenennen",
+    "closeTab": "Tab schließen",
+    "noTabs": "In diesem Projekt sind keine Terminals geöffnet.",
+    "statusWaiting": "Wartet auf Eingabe",
+    "statusRunning": "Läuft",
+    "statusIdle": "Inaktiv",
+    "changedFiles": "{count, plural, one {# geändert} other {# geändert}}",
+    "folderMissing": "Ordner nicht gefunden: {path}. Stattdessen wurde dein Home-Ordner geöffnet.",
+    "processExited": "Prozess beendet",
+    "waitingBody": "Claude wartet auf dich",
+    "quitTitle": "{count, plural, one {# Terminal läuft} other {# Terminals laufen}}",
+    "quitBody": "Beim Beenden werden alle laufenden Terminals beendet.",
+    "quitConfirm": "Beenden",
+    "quitSaveFailed": "Dein Terminal-Layout konnte nicht gespeichert werden, daher bleibt MyDevTools geöffnet. Drücke zweimal ⌘Q, um trotzdem zu beenden.",
+    "cancel": "Abbrechen",
+    "removeProject": "Projekt entfernen",
+    "removeProjectBody": "{name} wird aus der Liste entfernt und seine Terminals werden geschlossen. Dateien auf dem Datenträger bleiben unberührt.",
+    "splitRight": "Rechts teilen",
+    "splitDown": "Unten teilen",
+    "closePane": "Bereich schließen"
   }
 }

@@ -13,6 +13,7 @@ const loading = () => (
 // Each entry is created once at module level so React never sees a new component
 // type on re-render (which would cause unwanted remounts).
 const TAB_REGISTRY: Record<string, React.ComponentType> = {
+  '/app/terminal': dynamic(() => import('@/app/app/terminal/page'), { ssr: false, loading }),
   '/app/to-do': dynamic(() => import('@/app/app/to-do/page'), { ssr: false, loading }),
   '/app/notes': dynamic(
     () =>

@@ -2,6 +2,7 @@
  * Maps /app/* paths to Navigation + Dashboard.tools message keys (same key in both).
  */
 export const TOOL_PATH_TO_MESSAGE_KEY: Record<string, string> = {
+  '/app/terminal': 'terminal',
   '/app/to-do': 'toDo',
   '/app/notes': 'notes',
   '/app/password-manager': 'passwordManager',

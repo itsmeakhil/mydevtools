@@ -29,6 +29,7 @@ tauri-plugin-persisted-scope = "2"
 tauri-plugin-window-state = "2"
 tauri-plugin-updater = "2"
 tauri-plugin-process = "2"
+tauri-plugin-notification = "2"
 # Secure Files: the .mydt format/crypto lives in the shared `mydt` crate (also the CLI).
 mydt = { path = "../../../crates/mydt" }
 zeroize = "1"
@@ -45,6 +46,8 @@ mongodb = "3"
 redis = { version = "1", features = ["tokio-comp", "tokio-native-tls-comp"] }
 futures-util = "0.3"
 dashmap = "6"
+portable-pty = "0.9.0"
+libc = "0.2.191"
 
 # The keyring backend is the one genuinely platform-specific dependency: the
 # macOS Keychain vs. the Linux Secret Service (GNOME Keyring / KWallet).
