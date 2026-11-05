@@ -170,7 +170,7 @@ fn run_statement(conn: &Connection, sql: &str, row_limit: usize) -> Result<StmtO
         });
     }
 
-    let columns: Vec<String> = stmt.column_names().iter().map(|c| c.to_string()).collect();
+    let columns: Vec<String> = stmt.column_names().map(|c| c.to_string()).collect();
     let mut rows: Vec<Value> = Vec::new();
     let mut row_count: u64 = 0;
     let mut cursor = stmt.query([]).map_err(|e| e.to_string())?;
