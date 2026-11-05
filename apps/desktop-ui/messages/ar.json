@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "مقاطع الشيفرة",
-    "secureFiles": "الملفات"
+    "secureFiles": "الملفات",
+    "terminal": "الطرفية"
   },
   "Help": {
     "title": "المساعدة والتوثيق",
@@ -138,6 +139,27 @@
         "light": "فاتح",
         "dark": "داكن",
         "system": "النظام"
+      },
+      "picker": {
+        "wheel": "العجلة",
+        "sliders": "المنزلقات",
+        "hue": "تدرج اللون",
+        "saturation": "التشبع",
+        "brightness": "السطوع",
+        "lightness": "الإضاءة",
+        "chroma": "الصفاء",
+        "hexValue": "قيمة Hex",
+        "copy": "نسخ قيمة Hex",
+        "copied": "تم النسخ",
+        "revert": "العودة إلى اللون الأصلي",
+        "newColor": "اللون الجديد",
+        "onWhite": "على الأبيض",
+        "onBlack": "على الأسود",
+        "aa": "ناجح AA",
+        "aaLarge": "AA كبير",
+        "fail": "فشل",
+        "presets": "الإعدادات المسبقة",
+        "eyedropper": "اختيار لون من الشاشة"
       }
     },
     "security": {
@@ -336,6 +358,10 @@
       "secureFiles": {
         "title": "الملفات",
         "description": "شفّر الملفات والمجلدات إلى كائنات ‎.mydt‎ مُقنَّعة الأسماء؛ تصفّحها وعاينها بعد فتح القفل."
+      },
+      "terminal": {
+        "title": "الطرفية",
+        "description": "طرفيات لكل مشروع مع علامات تبويب وألواح مقسّمة وقائمة «بحاجة إليك» لـ Claude Code."
       }
     },
     "tabs": {
@@ -2497,7 +2523,9 @@
     "moreSections": "المزيد من الأقسام",
     "sections": "أقسام الشريط الجانبي",
     "show": "إظهار الشريط الجانبي",
-    "hide": "إخفاء الشريط الجانبي"
+    "hide": "إخفاء الشريط الجانبي",
+    "pin": "تثبيت {tool}",
+    "unpin": "إلغاء تثبيت {tool}"
   },
   "DesktopUpdate": {
     "title": "جارٍ تحديث MyDevTools",
@@ -2609,5 +2637,56 @@
     "working": "{done} من {total}",
     "cancelled": "تم الإلغاء.",
     "save": "حفظ"
+  },
+  "Shell": {
+    "sidebar": "الشريط الجانبي",
+    "toggleSidebar": "إظهار/إخفاء الشريط الجانبي",
+    "searchTools": "ابحث في الأدوات",
+    "help": "المساعدة",
+    "theme": "السمة",
+    "themeLight": "فاتح",
+    "themeDark": "داكن",
+    "themeSystem": "النظام",
+    "account": "الحساب",
+    "you": "أنت",
+    "openTool": "فتح أداة",
+    "closeTab": "إغلاق {title}",
+    "status": "الحالة",
+    "vaultLocked": "الخزنة مقفلة",
+    "vaultUnlocked": "الخزنة مفتوحة",
+    "reduceTransparency": "تقليل الشفافية",
+    "reduceTransparencyHint": "استبدال الزجاج بأسطح صلبة.",
+    "goToDashboard": "الانتقال إلى لوحة التحكم"
+  },
+  "Terminal": {
+    "title": "الطرفية",
+    "desktopOnly": "الطرفية متاحة في تطبيق سطح المكتب.",
+    "needsYou": "بحاجة إليك · {count}",
+    "projects": "المشاريع",
+    "addProject": "إضافة مشروع",
+    "noProjects": "أضف مجلد مشروع لفتح الطرفيات داخله.",
+    "newTab": "علامة تبويب جديدة",
+    "untitledTab": "الطرفية {n}",
+    "renameTab": "إعادة تسمية علامة التبويب",
+    "renameTerminal": "إعادة تسمية الطرفية",
+    "closeTab": "إغلاق علامة التبويب",
+    "noTabs": "لا توجد طرفيات مفتوحة في هذا المشروع.",
+    "statusWaiting": "بانتظار الإدخال",
+    "statusRunning": "قيد التشغيل",
+    "statusIdle": "خامل",
+    "changedFiles": "{count, plural, zero {لا تغييرات} one {تغيير واحد} two {تغييران} few {# تغييرات} many {# تغييرًا} other {# تغيير}}",
+    "folderMissing": "المجلد غير موجود: {path}. تم فتح مجلدك الرئيسي بدلًا منه.",
+    "processExited": "انتهت العملية",
+    "waitingBody": "Claude بانتظارك",
+    "quitTitle": "{count, plural, zero {لا طرفيات قيد التشغيل} one {طرفية واحدة قيد التشغيل} two {طرفيتان قيد التشغيل} few {# طرفيات قيد التشغيل} many {# طرفية قيد التشغيل} other {# طرفية قيد التشغيل}}",
+    "quitBody": "الإنهاء يغلق كل طرفية قيد التشغيل.",
+    "quitConfirm": "إنهاء",
+    "quitSaveFailed": "تعذّر حفظ تخطيط الطرفية، لذا بقي MyDevTools مفتوحًا. اضغط ⌘Q مرتين للإنهاء على أي حال.",
+    "cancel": "إلغاء",
+    "removeProject": "إزالة المشروع",
+    "removeProjectBody": "ستتم إزالة {name} من القائمة وإغلاق طرفياته. لن يتم المساس بالملفات على القرص.",
+    "splitRight": "تقسيم لليمين",
+    "splitDown": "تقسيم للأسفل",
+    "closePane": "إغلاق اللوحة"
   }
 }

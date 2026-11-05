@@ -67,41 +67,40 @@ function S3DriveInner() {
         return (
             <div className="flex h-full">
                 {/* Sidebar skeleton */}
-                <div className="w-64 border-r p-3 space-y-3 shrink-0 bg-muted/10">
+                <div className="w-64 border-r border-border p-3 space-y-3 shrink-0 bg-muted/40">
                     <div className="flex items-center gap-2 mb-4">
                         <Skeleton className="size-7 rounded-lg" />
                         <Skeleton className="h-4 w-16" />
                     </div>
-                    <div className="border-b border-border/50 -mx-3" />
+                    <div className="border-b border-border -mx-3" />
                     <div className="space-y-1.5 pt-1">
                         {[1, 2, 3].map((i) => (
                             <div key={i} className="flex items-center gap-2.5 px-2 py-2">
-                                <Skeleton className="w-[3px] h-8 rounded-full" />
                                 <Skeleton className="size-4 rounded" />
                                 <div className="flex-1 space-y-1.5">
                                     <Skeleton className="h-3.5 w-24" />
                                     <Skeleton className="h-2.5 w-16" />
                                 </div>
-                                <Skeleton className="h-4 w-8 rounded-md" />
+                                <Skeleton className="h-4 w-8 rounded-full" />
                             </div>
                         ))}
                     </div>
                 </div>
                 {/* Content skeleton */}
                 <div className="flex-1 flex flex-col">
-                    <div className="flex items-center gap-2 px-3 py-2 border-b">
+                    <div className="flex items-center gap-2 h-11 px-3 border-b border-border">
                         <Skeleton className="size-8 rounded-lg" />
                         <Skeleton className="h-4 w-32" />
                         <div className="flex-1" />
-                        <Skeleton className="h-8 w-44 rounded-lg" />
+                        <Skeleton className="h-7 w-44 rounded-md" />
                         <Skeleton className="size-8 rounded-lg" />
                         <Skeleton className="size-8 rounded-lg" />
                     </div>
                     <div className="p-4 space-y-1">
                         {[1, 2, 3, 4, 5, 6].map((i) => (
-                            <div key={i} className="flex items-center gap-3 px-3 py-2.5">
+                            <div key={i} className="flex items-center gap-3 px-3 py-2">
+                                <Skeleton className="size-4 rounded" />
                                 <Skeleton className="size-[18px] rounded" />
-                                <Skeleton className="size-8 rounded-lg" />
                                 <Skeleton className="h-4 flex-1 max-w-xs" />
                                 <Skeleton className="h-3 w-12 hidden md:block" />
                                 <Skeleton className="h-3 w-16 hidden sm:block" />
@@ -134,28 +133,20 @@ function S3DriveInner() {
                         connectionName={activeConn.name}
                     />
                 ) : (
-                    <div className="flex flex-col items-center justify-center h-full text-center gap-4 px-6">
-                        {/* Decorative illustration */}
-                        <div className="relative">
-                            <div className="size-24 rounded-3xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 flex items-center justify-center">
-                                <IconCloud className="size-12 text-blue-500/40" />
-                            </div>
-                            <div className="absolute -bottom-1.5 -right-1.5 size-10 rounded-xl bg-gradient-to-br from-amber-500/15 to-orange-500/15 flex items-center justify-center ring-4 ring-background">
-                                <IconBucket className="size-5 text-amber-500/60" />
-                            </div>
-                        </div>
-                        <div className="space-y-1.5 max-w-xs">
-                            <p className="text-sm font-semibold text-foreground">
+                    <div className="flex flex-col items-center justify-center h-full text-center gap-3 px-6">
+                        <IconCloud className="size-8 text-muted-foreground/60" />
+                        <div className="space-y-1 max-w-xs">
+                            <p className="text-sm font-medium text-foreground">
                                 {connections.length === 0 ? "No buckets connected" : "Select a bucket"}
                             </p>
-                            <p className="text-xs text-muted-foreground/70 leading-relaxed">
+                            <p className="text-[13px] text-muted-foreground leading-relaxed">
                                 {connections.length === 0
                                     ? "Add an S3-compatible bucket from the sidebar to start browsing, uploading, and managing your files."
                                     : "Choose a bucket from the sidebar to browse its contents."}
                             </p>
                         </div>
                         {connections.length === 0 && (
-                            <div className="flex items-center gap-1.5 text-xs text-primary/60 mt-1 animate-pulse">
+                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                                 <IconArrowRight className="size-3.5 rotate-180" />
                                 <span>Start by adding a bucket</span>
                             </div>

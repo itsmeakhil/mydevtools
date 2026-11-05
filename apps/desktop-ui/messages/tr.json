@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Kod parçacıkları",
-    "secureFiles": "Dosyalar"
+    "secureFiles": "Dosyalar",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Yardım ve Dokümantasyon",
@@ -138,6 +139,27 @@
         "light": "Açık",
         "dark": "Koyu",
         "system": "Sistem"
+      },
+      "picker": {
+        "wheel": "Çark",
+        "sliders": "Kaydırıcılar",
+        "hue": "Ton",
+        "saturation": "Doygunluk",
+        "brightness": "Parlaklık",
+        "lightness": "Açıklık",
+        "chroma": "Kroma",
+        "hexValue": "Hex değeri",
+        "copy": "Hex değerini kopyala",
+        "copied": "Kopyalandı",
+        "revert": "Orijinal renge dön",
+        "newColor": "Yeni renk",
+        "onWhite": "Beyaz üzerinde",
+        "onBlack": "Siyah üzerinde",
+        "aa": "AA geçti",
+        "aaLarge": "AA büyük",
+        "fail": "Başarısız",
+        "presets": "Hazır ayarlar",
+        "eyedropper": "Ekrandan renk seç"
       }
     },
     "security": {
@@ -336,6 +358,10 @@
       "secureFiles": {
         "title": "Dosyalar",
         "description": "Dosyaları ve klasörleri maskelenmiş .mydt nesnelerine şifreleyin; kilidi açtıktan sonra göz atın ve önizleyin."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Projeye göre terminaller; sekmeler, bölünmüş bölmeler ve Claude Code için «Sizi bekliyor» listesi."
       }
     },
     "tabs": {
@@ -2497,7 +2523,9 @@
     "moreSections": "Daha fazla bölüm",
     "sections": "Kenar çubuğu bölümleri",
     "show": "Kenar çubuğunu göster",
-    "hide": "Kenar çubuğunu gizle"
+    "hide": "Kenar çubuğunu gizle",
+    "pin": "{tool} sabitle",
+    "unpin": "{tool} sabitlemesini kaldır"
   },
   "DesktopUpdate": {
     "title": "MyDevTools güncelleniyor",
@@ -2609,5 +2637,56 @@
     "working": "{done} / {total}",
     "cancelled": "İptal edildi.",
     "save": "Kaydet"
+  },
+  "Shell": {
+    "sidebar": "Kenar çubuğu",
+    "toggleSidebar": "Kenar çubuğunu aç/kapat",
+    "searchTools": "Araçlarda ara",
+    "help": "Yardım",
+    "theme": "Tema",
+    "themeLight": "Açık",
+    "themeDark": "Koyu",
+    "themeSystem": "Sistem",
+    "account": "Hesap",
+    "you": "Sen",
+    "openTool": "Araç aç",
+    "closeTab": "{title} kapat",
+    "status": "Durum",
+    "vaultLocked": "Kasa kilitli",
+    "vaultUnlocked": "Kasa açık",
+    "reduceTransparency": "Saydamlığı azalt",
+    "reduceTransparencyHint": "Camı opak yüzeylerle değiştirir.",
+    "goToDashboard": "Panoya git"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminal masaüstü uygulamasında kullanılabilir.",
+    "needsYou": "Sizi bekliyor · {count}",
+    "projects": "Projeler",
+    "addProject": "Proje ekle",
+    "noProjects": "Terminalleri içinde açmak için bir proje klasörü ekleyin.",
+    "newTab": "Yeni sekme",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Sekmeyi yeniden adlandır",
+    "renameTerminal": "Terminali yeniden adlandır",
+    "closeTab": "Sekmeyi kapat",
+    "noTabs": "Bu projede açık terminal yok.",
+    "statusWaiting": "Girdi bekliyor",
+    "statusRunning": "Çalışıyor",
+    "statusIdle": "Boşta",
+    "changedFiles": "{count, plural, one {# değişti} other {# değişti}}",
+    "folderMissing": "Klasör bulunamadı: {path}. Bunun yerine ana klasörünüz açıldı.",
+    "processExited": "İşlem sonlandı",
+    "waitingBody": "Claude sizi bekliyor",
+    "quitTitle": "{count, plural, one {# terminal çalışıyor} other {# terminal çalışıyor}}",
+    "quitBody": "Çıkmak, çalışan tüm terminalleri sonlandırır.",
+    "quitConfirm": "Çık",
+    "quitSaveFailed": "Terminal düzeniniz kaydedilemedi, bu yüzden MyDevTools açık kaldı. Yine de çıkmak için ⌘Q tuşuna iki kez basın.",
+    "cancel": "İptal",
+    "removeProject": "Projeyi kaldır",
+    "removeProjectBody": "{name} listeden kaldırılacak ve terminalleri kapatılacak. Diskteki dosyalara dokunulmaz.",
+    "splitRight": "Sağa böl",
+    "splitDown": "Aşağı böl",
+    "closePane": "Bölmeyi kapat"
   }
 }

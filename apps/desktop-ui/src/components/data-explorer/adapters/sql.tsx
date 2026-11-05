@@ -157,7 +157,7 @@ function SqlConnectionForm(engine: SqlEngine) {
                             disabled={saving}
                             className="font-mono text-sm"
                         />
-                        <p className="text-[10px] text-muted-foreground">{ts("hostHint")}</p>
+                        <p className="text-[11px] text-muted-foreground">{ts("hostHint")}</p>
                     </div>
                     <div className="space-y-2">
                         <Label htmlFor="sql-port">{ts("port")}</Label>
@@ -185,7 +185,7 @@ function SqlConnectionForm(engine: SqlEngine) {
                     />
                     {/* One connection = one database; say so rather than let it
                         be discovered by an empty tree. */}
-                    <p className="text-[10px] text-muted-foreground">{ts("databaseHint")}</p>
+                    <p className="text-[11px] text-muted-foreground">{ts("databaseHint")}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
@@ -227,7 +227,7 @@ function SqlConnectionForm(engine: SqlEngine) {
                         <div className="flex items-start justify-between gap-3 border-t pt-2">
                             <div className="space-y-0.5">
                                 <Label className="text-xs font-medium">{ts("sslVerify")}</Label>
-                                <p className="text-[10px] text-muted-foreground">
+                                <p className="text-[11px] text-muted-foreground">
                                     {config.sslVerify === false ? ts("sslVerifyOffWarning") : ts("sslVerifyHint")}
                                 </p>
                             </div>
@@ -248,8 +248,8 @@ function SqlConnectionForm(engine: SqlEngine) {
                             onClick={() => setColor(null)}
                             disabled={saving}
                             className={cn(
-                                "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-transform",
-                                color === null ? "border-primary scale-110" : "border-border hover:scale-105"
+                                "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-colors",
+                                color === null ? "border-primary" : "border-border"
                             )}
                             aria-label={t("colorNone")}
                         >
@@ -262,8 +262,8 @@ function SqlConnectionForm(engine: SqlEngine) {
                                 onClick={() => setColor(c)}
                                 disabled={saving}
                                 className={cn(
-                                    "size-6 rounded-full border-2 transition-transform",
-                                    color === c ? "border-primary scale-110" : "border-transparent hover:scale-105"
+                                    "size-6 rounded-full border-2 transition-colors",
+                                    color === c ? "border-primary" : "border-transparent"
                                 )}
                                 style={{ backgroundColor: c }}
                                 aria-label={c}
@@ -275,7 +275,7 @@ function SqlConnectionForm(engine: SqlEngine) {
                 <div className="flex items-center justify-between rounded-lg border p-3">
                     <div className="space-y-0.5 pr-3">
                         <Label className="text-xs font-medium">{t("readOnly")}</Label>
-                        <p className="text-[10px] text-muted-foreground">{ts("readOnlyHint")}</p>
+                        <p className="text-[11px] text-muted-foreground">{ts("readOnlyHint")}</p>
                     </div>
                     <Switch checked={readOnly} onCheckedChange={setReadOnly} disabled={saving} />
                 </div>
@@ -286,7 +286,7 @@ function SqlConnectionForm(engine: SqlEngine) {
                     </div>
                 )}
                 {testState === "ok" && !error && (
-                    <div className="rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                    <div className="rounded-md bg-success/10 p-3 text-sm font-medium text-success">
                         {t("testOk")}
                     </div>
                 )}
@@ -379,7 +379,7 @@ function SqliteConnectionForm({
                 />
                 {/* Quoted paths and file:// URLs are what Finder and a terminal
                     drag actually produce; both are cleaned up on save. */}
-                <p className="text-[10px] text-muted-foreground">{ts("filePathHint")}</p>
+                <p className="text-[11px] text-muted-foreground">{ts("filePathHint")}</p>
             </div>
 
             <div className="space-y-2">
@@ -390,8 +390,8 @@ function SqliteConnectionForm({
                         onClick={() => setColor(null)}
                         disabled={saving}
                         className={cn(
-                            "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-transform",
-                            color === null ? "border-primary scale-110" : "border-border hover:scale-105"
+                            "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-colors",
+                            color === null ? "border-primary" : "border-border"
                         )}
                         aria-label={t("colorNone")}
                     >
@@ -404,8 +404,8 @@ function SqliteConnectionForm({
                             onClick={() => setColor(c)}
                             disabled={saving}
                             className={cn(
-                                "size-6 rounded-full border-2 transition-transform",
-                                color === c ? "border-primary scale-110" : "border-transparent hover:scale-105"
+                                "size-6 rounded-full border-2 transition-colors",
+                                color === c ? "border-primary" : "border-transparent"
                             )}
                             style={{ backgroundColor: c }}
                             aria-label={c}
@@ -419,7 +419,7 @@ function SqliteConnectionForm({
                     <Label className="text-xs font-medium">{t("readOnly")}</Label>
                     {/* Opens the file with SQLITE_OPEN_READ_ONLY, so it is the
                         operating system refusing the write, not the UI. */}
-                    <p className="text-[10px] text-muted-foreground">{ts("readOnlyHintSqlite")}</p>
+                    <p className="text-[11px] text-muted-foreground">{ts("readOnlyHintSqlite")}</p>
                 </div>
                 <Switch checked={readOnly} onCheckedChange={setReadOnly} disabled={saving} />
             </div>
@@ -430,7 +430,7 @@ function SqliteConnectionForm({
                 </div>
             )}
             {testState === "ok" && !error && (
-                <div className="rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                <div className="rounded-md bg-success/10 p-3 text-sm font-medium text-success">
                     {t("testOk")}
                 </div>
             )}
@@ -500,7 +500,7 @@ const TableRow = React.memo(function TableRow({
                     aria-expanded={expanded}
                     aria-label={t("toggleColumns", { name: table.name })}
                     onClick={() => onToggle(table)}
-                    className="rounded p-0.5 text-muted-foreground hover:text-foreground"
+                    className="rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
                 >
                     <IconChevronRight
                         className={cn(
@@ -512,18 +512,18 @@ const TableRow = React.memo(function TableRow({
                 <button
                     type="button"
                     onClick={() => onOpen(table)}
-                    className="flex min-w-0 flex-1 items-center gap-1.5 rounded-md px-1.5 py-1 text-left text-xs transition-colors hover:bg-muted/60"
+                    className="flex h-7 min-w-0 flex-1 items-center gap-1.5 rounded-md px-1.5 text-left text-[13px] transition-colors hover:bg-foreground/[0.05]"
                 >
                     {isView ? (
-                        <IconEye className="size-3.5 shrink-0 text-blue-500" />
+                        <IconEye className="size-3.5 shrink-0 text-muted-foreground" />
                     ) : (
-                        <IconTable className="size-3.5 shrink-0 text-green-600" />
+                        <IconTable className="size-3.5 shrink-0 text-muted-foreground" />
                     )}
-                    <span className="min-w-0 flex-1 truncate font-mono">{table.name}</span>
+                    <span className="min-w-0 flex-1 truncate">{table.name}</span>
                     {/* An InnoDB estimate, and null for views — never presented
                         as an exact count. */}
                     {typeof table.row_estimate === "number" && (
-                        <span className="shrink-0 rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                        <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground/70">
                             ~{table.row_estimate}
                         </span>
                     )}
@@ -544,10 +544,10 @@ const TableRow = React.memo(function TableRow({
                         columns.map((col) => (
                             <div
                                 key={col.column_name}
-                                className="flex items-center gap-1.5 px-2 py-0.5 text-[11px] text-muted-foreground"
+                                className="flex h-6 items-center gap-1.5 px-2 text-xs text-muted-foreground"
                             >
-                                <span className="truncate font-mono">{col.column_name}</span>
-                                <span className="shrink-0 rounded bg-muted px-1 text-[10px] text-muted-foreground/70">
+                                <span className="truncate">{col.column_name}</span>
+                                <span className="ml-auto shrink-0 font-mono text-[11px] text-muted-foreground/70">
                                     {col.data_type}
                                 </span>
                             </div>
@@ -742,24 +742,24 @@ function SqlSidebarTree(engine: SqlSourceId) {
                 </div>
 
                 {state.loading && state.tables === null ? (
-                    <p className="px-2 py-1 text-xs text-muted-foreground">{t("connecting")}</p>
+                    <p className="px-2 py-1 text-[13px] text-muted-foreground">{t("connecting")}</p>
                 ) : state.error ? (
                     <p
                         title={state.error}
-                        className="flex items-center gap-1.5 px-2 py-1 text-xs text-destructive"
+                        className="flex items-center gap-1.5 px-2 py-1 text-[13px] text-destructive"
                     >
                         <IconAlertCircle className="size-3.5 shrink-0" />
                         <span className="truncate">{t("connectionFailed")}</span>
                     </p>
                 ) : (state.tables?.length ?? 0) === 0 ? (
-                    <p className="px-2 py-1 text-xs text-muted-foreground">{t("noTables")}</p>
+                    <p className="px-2 py-1 text-[13px] text-muted-foreground">{t("noTables")}</p>
                 ) : bySchema.length === 0 ? (
-                    <p className="px-2 py-1 text-xs text-muted-foreground">{t("noMatches")}</p>
+                    <p className="px-2 py-1 text-[13px] text-muted-foreground">{t("noMatches")}</p>
                 ) : (
                     bySchema.map(([schema, tables]) => (
                         <div key={schema}>
                             {bySchema.length > 1 && schema && (
-                                <div className="px-2 py-1 text-[10px] uppercase tracking-wider text-muted-foreground">
+                                <div className="px-2 pb-0.5 pt-1.5 text-[11px] font-medium text-muted-foreground">
                                     {schema}
                                 </div>
                             )}

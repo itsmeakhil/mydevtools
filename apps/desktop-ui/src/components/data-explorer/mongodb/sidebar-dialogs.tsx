@@ -157,7 +157,7 @@ export function SidebarDialogs({
                                         const [connId, dbName, collName] = key.split("|");
                                         const connNode = connections.find(c => c.connection.id === connId);
                                         return (
-                                            <li key={key} className="text-xs font-mono bg-muted rounded px-2 py-1">
+                                            <li key={key} className="text-xs font-mono bg-muted rounded-md px-2 py-1">
                                                 <span className="text-muted-foreground">{connNode?.connection.name ?? connId} / {dbName} / </span>
                                                 <span className="font-semibold text-foreground">{collName}</span>
                                             </li>

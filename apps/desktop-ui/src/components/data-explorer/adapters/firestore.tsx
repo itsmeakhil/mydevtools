@@ -221,8 +221,8 @@ function FirestoreConnectionForm({
                         onClick={() => setColor(null)}
                         disabled={saving}
                         className={cn(
-                            "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-transform",
-                            color === null ? "border-primary scale-110" : "border-border hover:scale-105"
+                            "flex size-6 items-center justify-center rounded-full border-2 text-muted-foreground transition-colors",
+                            color === null ? "border-primary" : "border-border"
                         )}
                         aria-label={t("colorNone")}
                     >
@@ -236,7 +236,7 @@ function FirestoreConnectionForm({
                             disabled={saving}
                             className={cn(
                                 "size-6 rounded-full border-2 transition-transform",
-                                color === c ? "border-primary scale-110" : "border-transparent hover:scale-105"
+                                color === c ? "border-primary" : "border-transparent"
                             )}
                             style={{ backgroundColor: c }}
                             aria-label={c}
@@ -248,7 +248,7 @@ function FirestoreConnectionForm({
             <div className="flex items-center justify-between rounded-md border p-3">
                 <div className="space-y-0.5">
                     <Label className="text-xs font-medium">{t("readOnly")}</Label>
-                    <p className="text-[10px] text-muted-foreground">{t("readOnlyHint")}</p>
+                    <p className="text-[11px] text-muted-foreground">{t("readOnlyHint")}</p>
                 </div>
                 <Switch checked={readOnly} onCheckedChange={setReadOnly} disabled={saving} />
             </div>
@@ -259,7 +259,7 @@ function FirestoreConnectionForm({
                 </div>
             )}
             {testState === "ok" && !error && (
-                <div className="rounded-md bg-emerald-500/10 p-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                <div className="rounded-md bg-success/10 p-3 text-sm font-medium text-success">
                     {t("testOk")}
                 </div>
             )}
@@ -296,9 +296,9 @@ const CollectionRow = React.memo(function CollectionRow({ id, onOpen }: Collecti
         <button
             type="button"
             onClick={() => onOpen(id)}
-            className="flex w-full min-w-0 items-center gap-1.5 rounded-md px-2 py-1 text-left text-xs transition-colors hover:bg-muted/60"
+            className="flex h-7 w-full min-w-0 items-center gap-1.5 rounded-md px-2 text-left text-[13px] transition-colors hover:bg-foreground/[0.05]"
         >
-            <IconFolder className="size-3.5 shrink-0 text-amber-500" />
+            <IconFolder className="size-3.5 shrink-0 text-muted-foreground" />
             <span className="min-w-0 flex-1 truncate">{id}</span>
         </button>
     );
@@ -344,13 +344,13 @@ function FirestoreSidebarTree({
     );
 
     if (error) {
-        return <p className="px-2 py-1 text-xs text-destructive">{error}</p>;
+        return <p className="px-2 py-1 text-[13px]text-destructive">{error}</p>;
     }
     if (collections === null) {
-        return <p className="px-2 py-1 text-xs text-muted-foreground">…</p>;
+        return <p className="px-2 py-1 text-[13px]text-muted-foreground">…</p>;
     }
     if (collections.length === 0) {
-        return <p className="px-2 py-1 text-xs text-muted-foreground">{t("noCollections")}</p>;
+        return <p className="px-2 py-1 text-[13px]text-muted-foreground">{t("noCollections")}</p>;
     }
 
     // Search comes from the shell's one box. A connection whose own name
@@ -361,7 +361,7 @@ function FirestoreSidebarTree({
     const rows = collections.filter((id) => showAll || id.toLowerCase().includes(q));
 
     if (rows.length === 0) {
-        return <p className="px-2 py-1 text-xs text-muted-foreground">{t("noMatches")}</p>;
+        return <p className="px-2 py-1 text-[13px]text-muted-foreground">{t("noMatches")}</p>;
     }
 
     return (

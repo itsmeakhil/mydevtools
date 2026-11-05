@@ -49,17 +49,6 @@ const getMethodColor = (method: string) => {
     }
 }
 
-const getMethodBg = (method: string) => {
-    switch (method) {
-        case "GET": return "bg-sky-500/10 border-sky-500/20"
-        case "POST": return "bg-emerald-500/10 border-emerald-500/20"
-        case "PUT": return "bg-amber-500/10 border-amber-500/20"
-        case "DELETE": return "bg-rose-500/10 border-rose-500/20"
-        case "PATCH": return "bg-yellow-500/10 border-yellow-500/20"
-        default: return "bg-muted/50 border-border"
-    }
-}
-
 function RequestPanelImpl({
     method,
     setMethod,
@@ -203,29 +192,30 @@ function RequestPanelImpl({
     return (
         <div className="flex flex-col gap-4">
             <div className="flex flex-wrap gap-2">
+                {/* One field: method selector attached to the URL input. */}
+                <div className="flex flex-1 min-w-[240px] h-9 items-center rounded-lg border border-input bg-card shadow-[inset_0_1px_1px_rgb(0_0_0/0.03)] transition-[border-color,box-shadow] duration-150 hover:border-foreground/20 focus-within:border-primary focus-within:ring-[3px] focus-within:ring-primary/25">
                 <Select value={method} onValueChange={(v) => setMethod(v as RequestMethod)}>
                     <SelectTrigger className={cn(
-                        "w-[110px] h-10 font-black tracking-tight transition-all border shrink-0",
-                        getMethodBg(method),
+                        "w-[104px] h-full shrink-0 rounded-none rounded-l-lg border-0 border-r border-border bg-transparent shadow-none text-[13px] font-semibold hover:border-border focus-visible:ring-0",
                         getMethodColor(method)
                     )}>
                         <SelectValue placeholder={t("methodPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
                         {METHODS.map((m) => (
-                            <SelectItem key={m} value={m} className={cn("font-bold", getMethodColor(m))}>
+                            <SelectItem key={m} value={m} className={cn("font-medium", getMethodColor(m))}>
                                 {m}
                             </SelectItem>
                         ))}
                     </SelectContent>
                 </Select>
 
-                <div className="relative flex-1 min-w-0 group">
+                <div className="relative flex-1 min-w-0 h-full">
                     {/* Off-screen text mirror for variable-hover width measurement (B7). */}
                     <span
                         ref={measureRef}
                         aria-hidden
-                        className="font-mono text-xs"
+                        className="font-mono text-[13px]"
                         style={{
                             position: "absolute",
                             top: 0,
@@ -258,7 +248,7 @@ function RequestPanelImpl({
                         placeholder={t("urlPlaceholder")}
                         value={localUrl}
                         onChange={(e) => setLocalUrl(e.target.value)}
-                        className="h-10 pl-9 pr-10 font-mono text-xs bg-muted/30 border-muted group-hover:border-border transition-colors"
+                        className="h-full pl-9 pr-10 font-mono text-[13px] rounded-none rounded-r-lg border-0 bg-transparent shadow-none focus-visible:ring-0"
                         onFocus={() => setShowSuggestions(true)}
                         onBlur={() => {
                             if (suppressBlurRef.current) {
@@ -309,7 +299,7 @@ function RequestPanelImpl({
                     {localUrl && (
                         <button
                             onClick={() => setLocalUrl("")}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-full hover:bg-muted text-muted-foreground transition-colors z-10"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center rounded-md hover:bg-foreground/[0.06] text-muted-foreground hover:text-foreground transition-colors z-10"
                         >
                             <X className="h-3.5 w-3.5" />
                         </button>
@@ -321,7 +311,7 @@ function RequestPanelImpl({
                             // is suppressed even on touchstart → focus shift on mobile.
                             onMouseDown={() => { suppressBlurRef.current = true }}
                             onTouchStart={() => { suppressBlurRef.current = true }}
-                            className="absolute top-full left-0 right-0 mt-1 z-50 bg-popover border rounded-lg shadow-lg overflow-hidden"
+                            className="glass absolute top-full left-0 right-0 mt-1.5 z-50 rounded-xl p-1 overflow-hidden"
                         >
                             {urlSuggestions.map((suggestion, idx) => (
                                 <button
@@ -329,8 +319,8 @@ function RequestPanelImpl({
                                     aria-selected={idx === highlightedSuggestion}
                                     key={suggestion}
                                     className={cn(
-                                        "w-full text-left px-3 py-2 text-xs font-mono transition-colors truncate text-foreground",
-                                        idx === highlightedSuggestion ? "bg-muted/80" : "hover:bg-muted/60",
+                                        "w-full text-left px-2.5 h-8 rounded-md text-[13px] font-mono transition-colors truncate text-foreground",
+                                        idx === highlightedSuggestion ? "bg-foreground/[0.07]" : "hover:bg-foreground/[0.05]",
                                     )}
                                     onMouseEnter={() => setHighlightedSuggestion(idx)}
                                     onMouseDown={(e) => {
@@ -345,12 +335,13 @@ function RequestPanelImpl({
                         </div>
                     )}
                 </div>
+                </div>
 
                 {onCopyCurl && (
                     <Button
                         variant="outline"
                         size="icon"
-                        className="h-10 w-10 shrink-0"
+                        className="h-9 w-9 shrink-0"
                         onClick={onCopyCurl}
                         disabled={!localUrl}
                         title={t("copyCurl")}
@@ -364,7 +355,7 @@ function RequestPanelImpl({
                     <Button
                         onClick={onCancel}
                         variant="outline"
-                        className="h-10 px-4 font-bold border-rose-500/50 text-rose-500 hover:bg-rose-500/10 hover:text-rose-500"
+                        className="h-9 px-4 border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive"
                     >
                         <X className="h-4 w-4 mr-2" />
                         Cancel
@@ -375,7 +366,7 @@ function RequestPanelImpl({
                     onClick={onSend}
                     disabled={isLoading || !localUrl || isBodyInvalid}
                     aria-describedby={isBodyInvalid ? "send-invalid-help" : undefined}
-                    className="h-10 px-6 font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    className="h-9 px-5"
                 >
                     {isLoading ? (
                         <Loader2 className="h-4 w-4 animate-spin mr-2" />

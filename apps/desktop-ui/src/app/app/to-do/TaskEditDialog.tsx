@@ -491,7 +491,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave, mode 
             const ratio = contrastVsWhite(customTagColor);
             if (ratio !== null && ratio < 4.5) {
               return (
-                <p className="text-xs text-amber-600 dark:text-amber-400" role="status">
+                <p className="text-xs text-warning" role="status">
                   Low contrast ({ratio.toFixed(2)}:1) — white tag label may be hard to read. WCAG AA needs ≥ 4.5:1.
                 </p>
               );
@@ -514,7 +514,7 @@ export default function TaskEditDialog({ task, open, onOpenChange, onSave, mode 
                 onClick={() => toggleSubTask(subTask.id)}
               >
                 {subTask.completed ? (
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  <CheckCircle2 className="h-4 w-4 text-success" />
                 ) : (
                   <Circle className="h-4 w-4" />
                 )}

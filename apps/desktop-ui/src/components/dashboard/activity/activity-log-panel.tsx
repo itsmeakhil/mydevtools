@@ -20,6 +20,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { AuditEventRow } from './audit-event-row'
 
 const PAGE = 50
@@ -161,18 +163,18 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
           className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground"
           aria-hidden
         />
-        <input
+        <Input
           aria-label={t('search')}
           placeholder={t('search')}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="h-9 w-full rounded-lg border border-border bg-background pl-8 pr-8 text-sm shadow-sm focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring"
+          className="h-8 pl-8 pr-8 text-[13px]"
         />
         {searchInput && (
           <button
             type="button"
             onClick={() => setSearchInput('')}
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground"
             aria-label="Clear search"
           >
             <X className="h-3.5 w-3.5" />
@@ -180,8 +182,8 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
         )}
       </div>
 
-      {/* Range chips */}
-      <div className="flex flex-wrap gap-1">
+      {/* Range — segmented control */}
+      <div className="inline-flex w-fit flex-wrap rounded-[10px] bg-foreground/[0.06] p-[3px]">
         {(['all', 'today', '7d', '30d'] as Range[]).map((r) => {
           const label =
             r === 'all'
@@ -198,10 +200,10 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
               type="button"
               onClick={() => setRange(r)}
               className={cn(
-                'h-7 cursor-pointer rounded-full border px-2.5 text-xs font-medium transition-colors',
+                'h-7 rounded-[7px] px-2.5 text-xs font-medium transition-colors duration-150',
                 active
-                  ? 'border-transparent bg-gradient-to-r from-primary to-violet-500 text-primary-foreground shadow-sm'
-                  : 'border-border bg-card text-muted-foreground hover:bg-muted/50',
+                  ? 'bg-card text-foreground shadow-elev-1'
+                  : 'text-muted-foreground hover:text-foreground',
               )}
               aria-pressed={active}
             >
@@ -213,7 +215,7 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
 
       {/* Outcome + module */}
       <div className="flex flex-wrap gap-2">
-        <div className="inline-flex overflow-hidden rounded-lg border border-border bg-card shadow-sm">
+        <div className="inline-flex rounded-[10px] bg-foreground/[0.06] p-[3px]">
           {(
             [
               { v: '', label: t('all'), icon: null },
@@ -228,7 +230,7 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
                 icon: <XCircle className="h-3 w-3" aria-hidden />,
               },
             ] as { v: Outcome; label: string; icon: React.ReactNode }[]
-          ).map((o, i) => {
+          ).map((o) => {
             const active = outcome === o.v
             return (
               <button
@@ -236,15 +238,14 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
                 type="button"
                 onClick={() => setOutcome(o.v)}
                 className={cn(
-                  'inline-flex h-8 cursor-pointer items-center gap-1 px-2.5 text-xs font-medium transition-colors',
-                  i > 0 && 'border-l border-border',
+                  'inline-flex h-7 items-center gap-1 rounded-[7px] px-2.5 text-xs font-medium transition-colors duration-150',
                   active
-                    ? o.v === 'success'
-                      ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
-                      : o.v === 'failure'
-                        ? 'bg-red-500/10 text-red-700 dark:text-red-400'
-                        : 'bg-muted text-foreground'
-                    : 'text-muted-foreground hover:bg-muted/50',
+                    ? cn(
+                        'bg-card text-foreground shadow-elev-1',
+                        o.v === 'success' && 'text-success',
+                        o.v === 'failure' && 'text-destructive',
+                      )
+                    : 'text-muted-foreground hover:text-foreground',
                 )}
                 aria-pressed={active}
               >
@@ -257,7 +258,7 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
 
         <Select value={module || 'ALL'} onValueChange={(v) => setModule(v === 'ALL' ? '' : v)}>
           <SelectTrigger
-            className="h-8 w-auto min-w-[140px] gap-1 rounded-lg text-xs"
+            className="h-[34px] w-auto min-w-[140px] gap-1 text-xs"
             aria-label={t('filterModule')}
           >
             <Filter className="h-3 w-3 text-muted-foreground" aria-hidden />
@@ -274,14 +275,16 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
         </Select>
 
         {activeFilterCount > 0 && (
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="sm"
             onClick={resetAll}
-            className="ml-auto inline-flex h-8 cursor-pointer items-center gap-1 rounded-lg px-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="ml-auto gap-1 px-2 text-xs text-muted-foreground"
           >
-            <X className="h-3 w-3" aria-hidden />
+            <X aria-hidden />
             {t('resetFilters')}
-          </button>
+          </Button>
         )}
       </div>
     </div>
@@ -305,7 +308,7 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
   const list = (
     <>
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400">
+        <div className="rounded-lg border border-destructive/30 bg-destructive/[0.06] px-3 py-2 text-[13px] text-destructive">
           {error}
         </div>
       )}
@@ -313,16 +316,16 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
       {initialLoad && loading && skeleton}
 
       {!error && !initialLoad && events.length === 0 && (
-        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-border bg-muted/20 px-4 py-12 text-center">
+        <div className="flex flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-12 text-center shadow-elev-1">
           <Activity className="h-8 w-8 text-muted-foreground/60" aria-hidden />
-          <p className="text-sm text-muted-foreground">
+          <p className="text-[13px] text-muted-foreground">
             {activeFilterCount > 0 ? t('emptyFiltered') : t('empty')}
           </p>
           {activeFilterCount > 0 && (
             <button
               type="button"
               onClick={resetAll}
-              className="cursor-pointer text-xs font-medium text-primary hover:underline"
+              className="text-xs font-medium text-primary hover:underline"
             >
               {t('resetFilters')}
             </button>
@@ -334,12 +337,12 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
         <div className="space-y-4">
           {grouped.map(([key, items]) => (
             <section key={key}>
-              <div className="sticky top-0 z-10 -mx-0.5 mb-1 bg-background/95 px-0.5 py-1 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-                <h3 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              <div className="sticky top-0 z-10 -mx-0.5 mb-1 glass-bar px-0.5 py-1">
+                <h3 className="text-[13px] font-semibold text-muted-foreground">
                   {dayLabel(key, t)}
                 </h3>
               </div>
-              <ul className="divide-y divide-border/60">
+              <ul className="divide-y divide-border">
                 {items.map((e) => (
                   <li key={e.id}>
                     <AuditEventRow event={e} />
@@ -353,14 +356,15 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
 
       {!initialLoad && events.length > 0 && events.length < total && (
         <div className="mt-4 flex flex-col items-center gap-1.5">
-          <button
+          <Button
             type="button"
+            variant="outline"
+            size="sm"
             onClick={() => void load(false, skip)}
             disabled={loading}
-            className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-lg border border-border bg-card px-4 text-sm font-medium shadow-sm transition-colors hover:bg-muted/50 disabled:opacity-60"
           >
             {loading ? t('loadingMore') : t('loadMore')}
-          </button>
+          </Button>
           <span className="text-[11px] text-muted-foreground tabular-nums">
             {t('showingOf', { shown: events.length, total })}
           </span>
@@ -380,15 +384,11 @@ export function ActivityLogPanel({ embedded = false }: { embedded?: boolean }) {
 
   return (
     <div className="mx-auto max-w-3xl p-4 sm:p-6">
-      <header className="mb-5 space-y-1.5">
-        <p className="inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-primary to-violet-500" />
-          Audit trail
-        </p>
-        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
+      <header className="mb-5 space-y-1">
+        <h1 className="text-2xl font-semibold tracking-[-0.01em]">{t('title')}</h1>
         <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
-      <div className="mb-5 rounded-xl border border-border bg-card p-3 shadow-sm">
+      <div className="mb-5 rounded-xl border border-border bg-card p-3 shadow-elev-1">
         {filters}
       </div>
       {list}

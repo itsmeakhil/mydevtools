@@ -8,14 +8,14 @@ export function DecodedView({ raw, kind }: { raw: string; kind: DecoderKind }) {
     return (
         <div className="space-y-1">
             {result.error && (
-                <div className="text-[10px] text-destructive">{result.error}</div>
+                <div className="text-[11px] text-destructive">{result.error}</div>
             )}
             <Textarea
                 value={result.text}
                 readOnly
-                className="font-mono text-xs min-h-[200px] resize-y bg-muted/30"
+                className="min-h-[200px] resize-y bg-muted/40 font-mono text-xs"
             />
-            <div className="text-[10px] text-muted-foreground">
+            <div className="text-[11px] text-muted-foreground">
                 Read-only preview — switch to Plain to edit
             </div>
         </div>

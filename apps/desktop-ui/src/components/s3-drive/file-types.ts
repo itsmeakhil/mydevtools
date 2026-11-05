@@ -26,7 +26,7 @@ export function isPreviewable(type: string): boolean {
 export const TYPE_ICON_COLOR: Record<string, string> = {
     image: "text-emerald-500", video: "text-purple-500", audio: "text-blue-500",
     pdf: "text-red-500", archive: "text-orange-500", code: "text-sky-500",
-    doc: "text-indigo-400", sheet: "text-green-600", file: "text-slate-400",
+    doc: "text-indigo-400", sheet: "text-green-600", file: "text-muted-foreground",
 }
 export const TYPE_BG_CLASS: Record<string, string> = {
     image:   "bg-emerald-500/10",
@@ -37,7 +37,7 @@ export const TYPE_BG_CLASS: Record<string, string> = {
     code:    "bg-sky-500/10",
     doc:     "bg-indigo-400/10",
     sheet:   "bg-green-600/10",
-    file:    "bg-slate-100 dark:bg-slate-800",
+    file:    "bg-muted",
 }
 export const TYPE_LABEL: Record<string, string> = {
     image: "Image", video: "Video", audio: "Audio", pdf: "PDF",

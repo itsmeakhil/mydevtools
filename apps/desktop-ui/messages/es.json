@@ -12,7 +12,8 @@
     "nosqlExplorer": "Explorador de bases de datos",
     "dataExplorer": "Data Explorer",
     "snippetManager": "Fragmentos de código",
-    "secureFiles": "Archivos"
+    "secureFiles": "Archivos",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Ayuda y documentación",
@@ -138,6 +139,27 @@
         "light": "Claro",
         "dark": "Oscuro",
         "system": "Sistema"
+      },
+      "picker": {
+        "wheel": "Rueda",
+        "sliders": "Controles deslizantes",
+        "hue": "Tono",
+        "saturation": "Saturación",
+        "brightness": "Brillo",
+        "lightness": "Luminosidad",
+        "chroma": "Croma",
+        "hexValue": "Valor hex",
+        "copy": "Copiar valor hex",
+        "copied": "Copiado",
+        "revert": "Volver al color original",
+        "newColor": "Color nuevo",
+        "onWhite": "Sobre blanco",
+        "onBlack": "Sobre negro",
+        "aa": "AA aprobado",
+        "aaLarge": "AA grande",
+        "fail": "Falla",
+        "presets": "Predefinidos",
+        "eyedropper": "Elegir un color de la pantalla"
       }
     },
     "security": {
@@ -336,6 +358,10 @@
       "secureFiles": {
         "title": "Archivos",
         "description": "Cifra archivos y carpetas en objetos .mydt enmascarados; explóralos y previsualízalos tras desbloquear."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminales por proyecto con pestañas, paneles divididos y una lista «Te necesitan» para Claude Code."
       }
     },
     "tabs": {
@@ -2497,7 +2523,9 @@
     "moreSections": "Más secciones",
     "sections": "Secciones de la barra lateral",
     "show": "Mostrar barra lateral",
-    "hide": "Ocultar barra lateral"
+    "hide": "Ocultar barra lateral",
+    "pin": "Fijar {tool}",
+    "unpin": "Dejar de fijar {tool}"
   },
   "DesktopUpdate": {
     "title": "Actualizando MyDevTools",
@@ -2609,5 +2637,56 @@
     "working": "{done} de {total}",
     "cancelled": "Cancelado.",
     "save": "Guardar"
+  },
+  "Shell": {
+    "sidebar": "Barra lateral",
+    "toggleSidebar": "Mostrar/ocultar barra lateral",
+    "searchTools": "Buscar herramientas",
+    "help": "Ayuda",
+    "theme": "Tema",
+    "themeLight": "Claro",
+    "themeDark": "Oscuro",
+    "themeSystem": "Sistema",
+    "account": "Cuenta",
+    "you": "Tú",
+    "openTool": "Abrir herramienta",
+    "closeTab": "Cerrar {title}",
+    "status": "Estado",
+    "vaultLocked": "Bóveda bloqueada",
+    "vaultUnlocked": "Bóveda desbloqueada",
+    "reduceTransparency": "Reducir transparencia",
+    "reduceTransparencyHint": "Sustituye el cristal por superficies sólidas.",
+    "goToDashboard": "Ir al panel"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "El terminal está disponible en la aplicación de escritorio.",
+    "needsYou": "Te necesitan · {count}",
+    "projects": "Proyectos",
+    "addProject": "Añadir proyecto",
+    "noProjects": "Añade una carpeta de proyecto para abrir terminales en ella.",
+    "newTab": "Nueva pestaña",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Renombrar pestaña",
+    "renameTerminal": "Cambiar nombre del terminal",
+    "closeTab": "Cerrar pestaña",
+    "noTabs": "No hay terminales abiertos en este proyecto.",
+    "statusWaiting": "Esperando entrada",
+    "statusRunning": "En ejecución",
+    "statusIdle": "Inactivo",
+    "changedFiles": "{count, plural, one {# modificado} other {# modificados}}",
+    "folderMissing": "Carpeta no encontrada: {path}. Se abrió tu carpeta personal en su lugar.",
+    "processExited": "El proceso finalizó",
+    "waitingBody": "Claude te está esperando",
+    "quitTitle": "{count, plural, one {# terminal en ejecución} other {# terminales en ejecución}}",
+    "quitBody": "Al salir se cierran todos los terminales en ejecución.",
+    "quitConfirm": "Salir",
+    "quitSaveFailed": "No se pudo guardar la disposición de los terminales, así que MyDevTools sigue abierto. Pulsa ⌘Q dos veces para salir de todos modos.",
+    "cancel": "Cancelar",
+    "removeProject": "Quitar proyecto",
+    "removeProjectBody": "{name} se quitará de la lista y se cerrarán sus terminales. Los archivos del disco no se tocan.",
+    "splitRight": "Dividir a la derecha",
+    "splitDown": "Dividir hacia abajo",
+    "closePane": "Cerrar panel"
   }
 }

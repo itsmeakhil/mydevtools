@@ -18,7 +18,7 @@ function formatBytes(bytes: number): string {
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-lg border bg-card/40 px-4 py-3">
+    <div className="rounded-xl border border-border bg-card px-4 py-3 shadow-elev-1">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div className="mt-0.5 text-xl font-semibold tabular-nums">{value}</div>
       {hint && <div className="mt-0.5 truncate text-[11px] text-muted-foreground">{hint}</div>}
@@ -56,8 +56,8 @@ export function Overview({
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">
       <div>
-        <h2 className="text-base font-semibold">{t("overview")}</h2>
-        <p className="truncate text-xs text-muted-foreground" title={dir ?? ""}>{dir}</p>
+        <h2 className="text-[15px] font-semibold">{t("overview")}</h2>
+        <p className="truncate font-mono text-xs text-muted-foreground" title={dir ?? ""}>{dir}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -72,8 +72,8 @@ export function Overview({
       </div>
 
       {errorCount > 0 && (
-        <div className="flex items-start gap-2 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs">
-          <IconAlertTriangle className="mt-0.5 size-4 shrink-0 text-amber-600" />
+        <div className="flex items-start gap-2 rounded-lg border border-warning/30 bg-warning/10 px-3 py-2 text-xs">
+          <IconAlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" />
           <div>
             <div className="font-medium">{t("unreadableCount", { count: errorCount })}</div>
             <div className="text-muted-foreground">{t("unreadableHint")}</div>
@@ -86,11 +86,11 @@ export function Overview({
         {byType.length === 0 ? (
           <p className="text-xs text-muted-foreground">{t("emptyTitle")}</p>
         ) : (
-          <div className="rounded-lg border">
+          <div className="overflow-hidden rounded-xl border border-border bg-card shadow-elev-1">
             {byType.map((s, i) => (
               <div
                 key={s.type}
-                className={cn("grid grid-cols-[1.5rem_7rem_1fr_5rem_5rem] items-center gap-2 px-3 py-2 text-sm", i > 0 && "border-t")}
+                className={cn("grid grid-cols-[1.5rem_7rem_1fr_5rem_5rem] items-center gap-2 px-3 py-2 text-[13px]", i > 0 && "border-t border-border")}
               >
                 <FileIconComp type={s.type} className="size-4" />
                 <span className="truncate text-xs">{t(`types.${s.type}` as never)}</span>
@@ -137,14 +137,14 @@ function FileList({
   return (
     <section className="space-y-2">
       <h3 className="text-sm font-medium">{title}</h3>
-      <div className="rounded-lg border">
+      <div className="overflow-hidden rounded-xl border border-border bg-card shadow-elev-1">
         {files.map((f, i) => (
           <button
             key={f.id}
             type="button"
             title={t("openContainingFolder")}
             onClick={() => onOpenFolder(f.dir)}
-            className={cn("flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-muted/50", i > 0 && "border-t")}
+            className={cn("flex w-full items-center gap-2 px-3 py-2 text-left text-[13px] hover:bg-foreground/[0.03]", i > 0 && "border-t border-border")}
           >
             <FileIconComp type={getFileType(f.name)} className="size-4 shrink-0" />
             <span className="min-w-0 flex-1 truncate">{f.name}</span>

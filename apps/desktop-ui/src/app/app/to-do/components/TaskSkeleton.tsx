@@ -1,7 +1,7 @@
 export default function TaskSkeleton() {
   return (
     <li
-      className="relative mb-3 p-3 md:p-4 rounded-2xl border border-muted-foreground/10 bg-card animate-pulse"
+      className="relative mb-3 p-3 md:p-4 rounded-xl border border-border bg-card animate-pulse"
       aria-hidden
     >
       <div className="flex items-start gap-3 md:gap-4">

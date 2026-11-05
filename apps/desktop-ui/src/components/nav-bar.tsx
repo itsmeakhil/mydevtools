@@ -31,7 +31,6 @@ export function NavBar() {
     return null;
   }
 
-  const Icon = config.icon;
   const toolKey = matchedRoute ? getToolMessageKey(matchedRoute) : undefined;
   const title = toolKey ? tNav(toolKey as never) : config.title;
 
@@ -42,18 +41,15 @@ export function NavBar() {
   const subtitle = rawSubtitle ? cleanSubtitle(rawSubtitle) : undefined;
 
   return (
-    <header className="sticky top-0 z-20 hidden w-full border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:block">
-      <div className="flex h-14 w-full items-center gap-4 px-4">
+    <header className="glass-bar chrome sticky top-0 z-20 hidden w-full border-b border-border md:block">
+      <div className="flex h-12 w-full items-center gap-4 px-6">
         <div className="flex min-w-0 flex-1 items-center gap-2.5">
-          <div className="shrink-0 rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 p-1.5 ring-1 ring-inset ring-border/50">
-            <Icon className="h-4 w-4 text-primary" strokeWidth={2} />
-          </div>
-          <div className="flex min-w-0 flex-col">
-            <h1 className="truncate text-sm font-semibold tracking-tight">
+          <div className="flex min-w-0 items-baseline gap-2">
+            <h1 className="truncate text-[15px] font-semibold tracking-[-0.01em]">
               {title}
             </h1>
             {subtitle && (
-              <p className="truncate text-xs text-muted-foreground leading-tight">
+              <p className="truncate text-[13px] text-muted-foreground">
                 {subtitle}
               </p>
             )}

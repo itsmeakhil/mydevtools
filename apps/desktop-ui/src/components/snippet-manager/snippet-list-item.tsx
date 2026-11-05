@@ -63,15 +63,15 @@ export const SnippetListItem = memo(function SnippetListItem({
       type="button"
       onClick={onClick}
       className={cn(
-        "group/item flex w-full flex-col gap-1 rounded-lg border px-3 py-2.5 text-left transition-all duration-150",
+        "group/item flex w-full flex-col gap-1 rounded-lg px-2.5 py-2 text-left transition-colors duration-150",
         selected
-          ? "border-primary/30 bg-primary/8 dark:bg-primary/10"
-          : "border-transparent hover:border-border/60 hover:bg-muted/60"
+          ? "bg-primary/[0.12]"
+          : "hover:bg-foreground/[0.05]"
       )}
     >
       <div className="flex min-w-0 items-center gap-2">
         <LangDot lang={lang} />
-        <span className="flex-1 truncate text-sm font-medium leading-tight">
+        <span className="flex-1 truncate text-[13px] font-medium leading-tight">
           {sn.title}
         </span>
         {onPin && (
@@ -82,28 +82,28 @@ export const SnippetListItem = memo(function SnippetListItem({
             onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); onPin(); } }}
             className={cn(
               "shrink-0 rounded p-0.5 text-muted-foreground transition-all hover:text-foreground",
-              sn.pinned ? "opacity-100 text-primary/70" : "opacity-0 group-hover/item:opacity-100"
+              sn.pinned ? "opacity-100" : "opacity-0 group-hover/item:opacity-100"
             )}
             title={sn.pinned ? "Unpin" : "Pin to top"}
           >
             {sn.pinned ? <IconPinFilled className="h-3 w-3" /> : <IconPin className="h-3 w-3" />}
           </span>
         )}
-        <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">
+        <span className="shrink-0 rounded-full bg-foreground/[0.06] px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
           {sn.language === SNIPPET_LANGUAGE_AUTO
             ? t("badgeAuto", { lang: t(`languages.${lang}` as never) })
             : t(`languages.${sn.language}` as never)}
         </span>
       </div>
       {firstLine && (
-        <p className="truncate pl-4 font-mono text-[11px] leading-tight text-muted-foreground/55">
+        <p className="truncate pl-4 font-mono text-[11px] leading-tight text-muted-foreground/70">
           {firstLine}
         </p>
       )}
       {sn.tags?.length > 0 && (
         <div className="flex flex-wrap gap-1 pl-4">
           {sn.tags.map((tag) => (
-            <span key={tag} className="rounded bg-muted px-1.5 py-0 text-[10px] text-muted-foreground">
+            <span key={tag} className="rounded-full bg-foreground/[0.06] px-1.5 py-0 text-[10px] text-muted-foreground">
               {tag}
             </span>
           ))}

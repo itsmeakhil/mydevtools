@@ -137,11 +137,11 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
     const clearTranscript = () => setState({ messages: [] })
 
     const statusColor: Record<WebSocketState["status"], string> = {
-        idle: "bg-muted text-muted-foreground",
-        connecting: "bg-amber-500/10 text-amber-600",
-        open: "bg-emerald-500/10 text-emerald-600",
-        closing: "bg-amber-500/10 text-amber-600",
-        closed: "bg-rose-500/10 text-rose-500",
+        idle: "bg-foreground/[0.06] text-muted-foreground",
+        connecting: "bg-warning/[0.12] text-warning",
+        open: "bg-success/[0.12] text-success",
+        closing: "bg-warning/[0.12] text-warning",
+        closed: "bg-destructive/[0.12] text-destructive",
     }
 
     const isOpen = state.status === "open"
@@ -154,29 +154,29 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                     placeholder="wss://example.com/socket"
                     value={tab.url}
                     onChange={(e) => onUpdate({ url: e.target.value })}
-                    className="font-mono text-xs h-10 flex-1 min-w-[260px]"
+                    className="font-mono text-[13px] flex-1 min-w-[260px]"
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && !isOpen) connect()
                     }}
                 />
                 {!isOpen ? (
-                    <Button onClick={connect} disabled={isConnecting} className="h-10">
+                    <Button onClick={connect} disabled={isConnecting}>
                         <Plug className="h-4 w-4 mr-2" /> {isConnecting ? "Connecting…" : "Connect"}
                     </Button>
                 ) : (
-                    <Button variant="outline" onClick={disconnect} className="h-10 border-rose-500/40 text-rose-500 hover:bg-rose-500/10">
+                    <Button variant="outline" onClick={disconnect} className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive">
                         <X className="h-4 w-4 mr-2" /> Disconnect
                     </Button>
                 )}
-                <span className={cn("text-xs font-semibold px-2 py-1 rounded uppercase tracking-wider", statusColor[state.status])}>
+                <span className={cn("inline-flex h-6 items-center text-xs font-medium px-2.5 rounded-full capitalize", statusColor[state.status])}>
                     {state.status}
                     {state.status === "closed" && state.closeCode !== undefined && ` (${state.closeCode})`}
                 </span>
             </div>
 
             <div className="grid grid-rows-[1fr_auto] gap-3 flex-1 min-h-0">
-                <div className="border rounded-xl flex flex-col bg-card overflow-hidden min-h-0">
-                    <div className="flex items-center justify-between px-3 py-2 border-b text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <div className="border border-border rounded-xl flex flex-col bg-card shadow-elev-1 overflow-hidden min-h-0">
+                    <div className="flex items-center justify-between h-11 px-4 border-b border-border text-[13px] font-semibold">
                         <span>Transcript ({state.messages.length})</span>
                         <Button size="sm" variant="ghost" onClick={clearTranscript} disabled={state.messages.length === 0}>
                             <Trash2 className="h-3.5 w-3.5 mr-1" /> Clear
@@ -185,7 +185,7 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                     <ScrollArea className="flex-1 min-h-0">
                         <div ref={transcriptRef} className="p-3 space-y-2">
                             {state.messages.length === 0 ? (
-                                <div className="text-center text-xs text-muted-foreground py-8">
+                                <div className="text-center text-[13px] text-muted-foreground py-8">
                                     No messages yet. Connect and send to populate.
                                 </div>
                             ) : (
@@ -200,13 +200,13 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                                         {m.direction === "sent" ? (
                                             <ArrowUpRight className="h-3.5 w-3.5 mt-0.5 text-sky-500" />
                                         ) : (
-                                            <ArrowDownLeft className="h-3.5 w-3.5 mt-0.5 text-emerald-500" />
+                                            <ArrowDownLeft className="h-3.5 w-3.5 mt-0.5 text-success" />
                                         )}
                                         <div className="flex-1 min-w-0 space-y-0.5">
                                             <div className="text-[10px] text-muted-foreground">
                                                 {new Date(m.timestamp).toLocaleTimeString()}
                                             </div>
-                                            <pre className="font-mono text-xs whitespace-pre-wrap break-all bg-muted/30 border rounded px-2 py-1">
+                                            <pre className="font-mono text-xs whitespace-pre-wrap break-all bg-muted/40 border border-border rounded-md px-2 py-1">
                                                 {m.data}
                                             </pre>
                                         </div>
@@ -217,8 +217,8 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                     </ScrollArea>
                 </div>
 
-                <div className="border rounded-xl bg-card p-3 space-y-2">
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                <div className="border border-border rounded-xl bg-card shadow-elev-1 p-3 space-y-2">
+                    <div className="text-[13px] font-semibold">
                         Compose message
                     </div>
                     <Textarea
@@ -234,7 +234,7 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                         }}
                     />
                     <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-muted-foreground">⌘/Ctrl + Enter to send</span>
+                        <span className="text-[11px] text-muted-foreground">⌘/Ctrl + Enter to send</span>
                         <Button onClick={send} disabled={!isOpen || !state.draft}>
                             <ArrowUpRight className="h-4 w-4 mr-2" /> Send
                         </Button>

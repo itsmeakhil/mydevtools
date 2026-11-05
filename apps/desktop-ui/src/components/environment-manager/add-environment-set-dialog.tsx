@@ -294,7 +294,7 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
                         {t("cancel")}
                     </Button>
                 )}
-                <Button type="submit" disabled={loading} className={cn(isMobile && "w-full h-12 rounded-xl text-base")}>
+                <Button type="submit" disabled={loading} className={cn(isMobile && "w-full h-12 text-base")}>
                     {loading ? t("saving") : t("save")}
                 </Button>
             </div>
@@ -315,7 +315,7 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
                         children
                     ) : (
                         <Button
-                            className="fixed bottom-20 right-4 h-14 w-14 rounded-full shadow-2xl z-50 p-0 bg-gradient-to-br from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
+                            className="fixed bottom-20 right-4 h-14 w-14 rounded-full shadow-elev-3 z-50 p-0"
                             size="icon"
                         >
                             <Plus className="h-7 w-7" />
@@ -325,8 +325,8 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
                 </DrawerTrigger>
                 <DrawerContent className="max-h-[95vh]">
                     <div className="flex flex-col h-full max-h-[95vh]">
-                        <DrawerHeader className="shrink-0 border-b pb-4">
-                            <DrawerTitle className="text-xl">{t("addTitle")}</DrawerTitle>
+                        <DrawerHeader className="shrink-0 border-b border-border pb-4">
+                            <DrawerTitle className="text-[17px]">{t("addTitle")}</DrawerTitle>
                         </DrawerHeader>
                         <div className="flex-1 overflow-y-auto px-4 pb-8">{FormContent}</div>
                     </div>
@@ -347,14 +347,14 @@ export function AddEnvironmentSetDialog({ children }: { children?: React.ReactNo
                 {children ? (
                     children
                 ) : (
-                    <Button className="shadow-lg hover:shadow-xl transition-all">
+                    <Button>
                         <Plus className="mr-2 h-4 w-4" /> {t("triggerAdd")}
                     </Button>
                 )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[560px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle className="text-xl">{t("addTitle")}</DialogTitle>
+                    <DialogTitle>{t("addTitle")}</DialogTitle>
                 </DialogHeader>
                 {FormContent}
             </DialogContent>

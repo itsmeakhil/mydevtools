@@ -12,6 +12,7 @@ import {
   FileCode,
   HardDrive,
   Waypoints,
+  SquareTerminal,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -23,6 +24,7 @@ export interface RouteConfig {
 
 export const routeConfig: Record<string, RouteConfig> = {
   '/dashboard': { title: 'Dashboard', icon: LayoutDashboard },
+  '/app/terminal': { title: 'Terminal', icon: SquareTerminal, namespace: 'Terminal' },
   '/app/to-do': { title: 'Tasks', icon: CheckSquare },
   '/app/notes': { title: 'Notes', icon: FileText },
   '/app/password-manager': { title: 'Password Manager', icon: Lock },

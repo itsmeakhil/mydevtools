@@ -1099,7 +1099,7 @@ function ApiClientInner() {
     // Desktop request column — reused whether it sits full-width (no response yet)
     // or inside the resizable split (once a response exists / is loading).
     const desktopRequestContent = (
-        <div className="p-4 md:p-6 lg:p-8 flex flex-col gap-6 flex-1 min-h-0">
+        <div className="p-4 flex flex-col gap-4 flex-1 min-h-0">
             <RequestPanel
                 method={activeTab.method}
                 setMethod={handleMethodChange}
@@ -1149,11 +1149,11 @@ function ApiClientInner() {
             sidebar={<CollectionsSidebar onLoadRequest={handleLoadRequest} />}
             className="mobile-nav-offset"
         >
-            <div className="flex-1 flex flex-col gap-4 min-w-0 h-full">
+            <div className="flex-1 flex flex-col gap-3 min-w-0 h-full">
                 <div className="flex flex-wrap justify-between items-center gap-2 px-4 pt-3">
                     {/* The panel header carries "Collections"; without this the tool
                         itself was unnamed, and unnamed entirely once collapsed. */}
-                    <h1 className="text-sm font-semibold tracking-tight">{tNav("apiClient")}</h1>
+                    <h1 className="text-[15px] font-semibold tracking-[-0.01em]">{tNav("apiClient")}</h1>
                     <div className="flex flex-wrap items-center gap-2 ml-auto">
                         {isMobile ? (
                             /* Mobile: secondary actions collapsed into dropdown */
@@ -1336,7 +1336,7 @@ function ApiClientInner() {
                     </div>
                 </div>
 
-                <Card className="flex-1 flex flex-col overflow-hidden border rounded-2xl shadow-xl shadow-primary/[0.02] bg-background/50 backdrop-blur-sm">
+                <Card className="flex-1 flex flex-col overflow-hidden">
                     <TabBar
                         tabs={tabs}
                         activeTabId={activeTabId}
@@ -1350,12 +1350,12 @@ function ApiClientInner() {
 
                     {/* Mobile Request/Response tab switcher */}
                     {isMobile && (
-                        <div className="flex shrink-0 border-b bg-muted/40 p-1 gap-1 mx-2 mt-2 mb-1 rounded-lg">
+                        <div className="flex shrink-0 bg-foreground/[0.06] p-[3px] gap-1 mx-2 mt-2 mb-1 rounded-[10px]">
                             <button
                                 onClick={() => setMobilePanel('request')}
-                                className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+                                className={`flex-1 rounded-[7px] px-3 py-1.5 text-[13px] font-medium transition-colors ${
                                     mobilePanel === 'request'
-                                        ? 'bg-background text-foreground shadow-sm'
+                                        ? 'bg-card text-foreground shadow-elev-1'
                                         : 'text-muted-foreground hover:text-foreground'
                                 }`}
                             >
@@ -1363,9 +1363,9 @@ function ApiClientInner() {
                             </button>
                             <button
                                 onClick={() => setMobilePanel('response')}
-                                className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition-all ${
+                                className={`flex-1 rounded-[7px] px-3 py-1.5 text-[13px] font-medium transition-colors ${
                                     mobilePanel === 'response'
-                                        ? 'bg-background text-foreground shadow-sm'
+                                        ? 'bg-card text-foreground shadow-elev-1'
                                         : 'text-muted-foreground hover:text-foreground'
                                 }`}
                             >
@@ -1373,26 +1373,26 @@ function ApiClientInner() {
                                 {activeTab.response && (
                                     <span className={`ml-1.5 inline-block h-2 w-2 rounded-full ${
                                         activeTab.response.status >= 200 && activeTab.response.status < 300
-                                            ? 'bg-emerald-500'
+                                            ? 'bg-success'
                                             : activeTab.response.status >= 400
-                                            ? 'bg-rose-500'
-                                            : 'bg-amber-500'
+                                            ? 'bg-destructive'
+                                            : 'bg-warning'
                                     }`} />
                                 )}
                             </button>
                         </div>
                     )}
 
-                    <div className="flex-1 overflow-hidden min-h-0 bg-card/30">
+                    <div className="flex-1 overflow-hidden min-h-0">
                         {activeTab.kind === "websocket" ? (
-                            <div className="h-full p-4 md:p-6 lg:p-8">
+                            <div className="h-full p-4">
                                 <WebSocketPanel
                                     tab={activeTab}
                                     onUpdate={(patch) => updateActiveTab(patch)}
                                 />
                             </div>
                         ) : activeTab.kind === "grpc" ? (
-                            <div className="h-full p-4 md:p-6 lg:p-8">
+                            <div className="h-full p-4">
                                 <GrpcPanel
                                     tab={activeTab}
                                     onUpdate={(patch) => updateActiveTab(patch)}
@@ -1465,9 +1465,9 @@ function ApiClientInner() {
                                 </ResizablePanel>
                                 {(activeTab.response || activeTab.isLoading) && (
                                     <>
-                                        <ResizableHandle withHandle className="w-1.5 bg-border/40 hover:bg-primary/20 transition-colors" />
-                                        <ResizablePanel id="response" order={2} defaultSize={50} minSize={30} className="flex flex-col h-full bg-muted/[0.02]">
-                                            <div className="p-4 md:p-6 lg:p-8 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
+                                        <ResizableHandle className="hover:bg-primary/40 transition-colors" />
+                                        <ResizablePanel id="response" order={2} defaultSize={50} minSize={30} className="flex flex-col h-full">
+                                            <div className="p-4 flex-1 overflow-y-auto min-h-0 custom-scrollbar">
                                                 <ResponsePanel response={activeTab.response} isLoading={activeTab.isLoading} scriptResults={activeTab.scriptResults} onSaveExample={activeTab.response ? openSaveExample : undefined} />
                                             </div>
                                         </ResizablePanel>

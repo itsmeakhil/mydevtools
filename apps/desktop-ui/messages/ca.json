@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Fragments de codi",
-    "secureFiles": "Fitxers"
+    "secureFiles": "Fitxers",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Ajuda i documentació",
@@ -138,6 +139,27 @@
         "light": "Clar",
         "dark": "Fosc",
         "system": "Sistema"
+      },
+      "picker": {
+        "wheel": "Roda",
+        "sliders": "Controls lliscants",
+        "hue": "To",
+        "saturation": "Saturació",
+        "brightness": "Brillantor",
+        "lightness": "Lluminositat",
+        "chroma": "Croma",
+        "hexValue": "Valor hex",
+        "copy": "Copia el valor hex",
+        "copied": "Copiat",
+        "revert": "Torna al color original",
+        "newColor": "Color nou",
+        "onWhite": "Sobre blanc",
+        "onBlack": "Sobre negre",
+        "aa": "AA superat",
+        "aaLarge": "AA gran",
+        "fail": "Suspès",
+        "presets": "Predefinits",
+        "eyedropper": "Tria un color de la pantalla"
       }
     },
     "security": {
@@ -336,6 +358,10 @@
       "secureFiles": {
         "title": "Fitxers",
         "description": "Xifra fitxers i carpetes en objectes .mydt emmascarats; navega-hi i previsualitza'ls després de desbloquejar."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminals per projecte amb pestanyes, panells dividits i una llista «Et necessiten» per a Claude Code."
       }
     },
     "tabs": {
@@ -2497,7 +2523,9 @@
     "moreSections": "Més seccions",
     "sections": "Seccions de la barra lateral",
     "show": "Mostra la barra lateral",
-    "hide": "Amaga la barra lateral"
+    "hide": "Amaga la barra lateral",
+    "pin": "Fixa {tool}",
+    "unpin": "Deixa de fixar {tool}"
   },
   "DesktopUpdate": {
     "title": "S'està actualitzant MyDevTools",
@@ -2609,5 +2637,56 @@
     "working": "{done} de {total}",
     "cancelled": "Cancel·lat.",
     "save": "Desa"
+  },
+  "Shell": {
+    "sidebar": "Barra lateral",
+    "toggleSidebar": "Mostra/amaga la barra lateral",
+    "searchTools": "Cerca eines",
+    "help": "Ajuda",
+    "theme": "Tema",
+    "themeLight": "Clar",
+    "themeDark": "Fosc",
+    "themeSystem": "Sistema",
+    "account": "Compte",
+    "you": "Tu",
+    "openTool": "Obre una eina",
+    "closeTab": "Tanca {title}",
+    "status": "Estat",
+    "vaultLocked": "Caixa forta bloquejada",
+    "vaultUnlocked": "Caixa forta desbloquejada",
+    "reduceTransparency": "Redueix la transparència",
+    "reduceTransparencyHint": "Substitueix el vidre per superfícies sòlides.",
+    "goToDashboard": "Ves al tauler"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "El terminal està disponible a l'aplicació d'escriptori.",
+    "needsYou": "Et necessiten · {count}",
+    "projects": "Projectes",
+    "addProject": "Afegeix un projecte",
+    "noProjects": "Afegeix una carpeta de projecte per obrir-hi terminals.",
+    "newTab": "Pestanya nova",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Canvia el nom de la pestanya",
+    "renameTerminal": "Canvia el nom del terminal",
+    "closeTab": "Tanca la pestanya",
+    "noTabs": "No hi ha cap terminal obert en aquest projecte.",
+    "statusWaiting": "Espera una resposta",
+    "statusRunning": "En execució",
+    "statusIdle": "Inactiu",
+    "changedFiles": "{count, plural, one {# canviat} other {# canviats}}",
+    "folderMissing": "No s'ha trobat la carpeta: {path}. S'ha obert la teva carpeta d'inici.",
+    "processExited": "El procés ha finalitzat",
+    "waitingBody": "Claude t'està esperant",
+    "quitTitle": "{count, plural, one {# terminal s'està executant} other {# terminals s'estan executant}}",
+    "quitBody": "Sortir finalitza tots els terminals en execució.",
+    "quitConfirm": "Surt",
+    "quitSaveFailed": "No s'ha pogut desar la disposició dels terminals, així que MyDevTools continua obert. Prem ⌘Q dues vegades per sortir igualment.",
+    "cancel": "Cancel·la",
+    "removeProject": "Elimina el projecte",
+    "removeProjectBody": "{name} s'eliminarà de la llista i se'n tancaran els terminals. Els fitxers al disc no es toquen.",
+    "splitRight": "Divideix a la dreta",
+    "splitDown": "Divideix cap avall",
+    "closePane": "Tanca el panell"
   }
 }

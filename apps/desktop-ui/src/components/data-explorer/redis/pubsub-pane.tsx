@@ -115,7 +115,7 @@ export function PubSubPane({ redisUrl, db }: PubSubPaneProps) {
 
     return (
         <div className="flex h-full flex-col">
-            <div className="border-b p-3 space-y-3 shrink-0">
+            <div className="shrink-0 space-y-3 border-b border-border p-3">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div className="space-y-1">
                         <Label className="text-xs">Channels (comma-separated)</Label>
@@ -141,8 +141,8 @@ export function PubSubPane({ redisUrl, db }: PubSubPaneProps) {
                 <div className="flex items-center justify-between gap-2">
                     {active ? (
                         <>
-                            <div className="flex items-center gap-2 text-xs text-green-600">
-                                <span className="size-1.5 rounded-full bg-green-500 animate-pulse" />
+                            <div className="flex items-center gap-2 text-xs tabular-nums text-success">
+                                <span className="size-1.5 rounded-full bg-success" />
                                 Live · {messages.length} msg
                             </div>
                             <Button size="sm" variant="outline" className="h-7 text-xs gap-1" onClick={stop}>
@@ -158,7 +158,7 @@ export function PubSubPane({ redisUrl, db }: PubSubPaneProps) {
                         </>
                     )}
                 </div>
-                <div className="flex items-end gap-1 border-t pt-3">
+                <div className="flex items-end gap-1 border-t border-border pt-3">
                     <div className="flex-1 space-y-1">
                         <Label className="text-xs">Publish</Label>
                         <Input
@@ -194,18 +194,18 @@ export function PubSubPane({ redisUrl, db }: PubSubPaneProps) {
             <ScrollArea className="flex-1">
                 <div className="p-2 space-y-1">
                     {messages.length === 0 ? (
-                        <div className="text-center text-xs text-muted-foreground p-6">
+                        <div className="p-6 text-center text-[13px] text-muted-foreground">
                             {active ? "Waiting for messages…" : "Subscribe to a channel to start"}
                         </div>
                     ) : (
                         messages.map((m, i) => (
-                            <div key={`${m.ts}-${i}`} className="rounded border bg-muted/20 px-2 py-1 text-xs font-mono">
-                                <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                                    <span>{new Date(m.ts).toLocaleTimeString()}</span>
+                            <div key={`${m.ts}-${i}`} className="rounded-md border border-border bg-muted/40 px-2 py-1 font-mono text-xs">
+                                <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                                    <span className="tabular-nums">{new Date(m.ts).toLocaleTimeString()}</span>
                                     {m.kind === "pattern" && m.pattern && (
-                                        <Badge variant="outline" className="text-[9px] h-3.5">{m.pattern}</Badge>
+                                        <Badge variant="outline" className="h-4 px-1.5 font-mono">{m.pattern}</Badge>
                                     )}
-                                    <span className="font-semibold text-foreground">{m.channel}</span>
+                                    <span className="font-medium text-foreground">{m.channel}</span>
                                 </div>
                                 <div className="break-all">{m.message}</div>
                             </div>
@@ -215,8 +215,8 @@ export function PubSubPane({ redisUrl, db }: PubSubPaneProps) {
             </ScrollArea>
 
             {messages.length > 0 && (
-                <div className="border-t px-3 py-1.5 flex justify-end shrink-0">
-                    <Button size="sm" variant="ghost" className="h-6 text-[10px] gap-1" onClick={() => setMessages([])}>
+                <div className="flex h-9 shrink-0 items-center justify-end border-t border-border px-2">
+                    <Button size="sm" variant="ghost" className="h-7 gap-1 text-xs" onClick={() => setMessages([])}>
                         <IconTrash className="size-3" /> Clear
                     </Button>
                 </div>

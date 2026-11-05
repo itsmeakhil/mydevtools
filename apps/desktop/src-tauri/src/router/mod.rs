@@ -10,6 +10,7 @@ pub mod preferences;
 pub mod secure_files;
 pub mod snippets;
 pub mod stubs;
+pub mod terminal;
 pub mod tasks;
 pub mod workspaces;
 
@@ -124,6 +125,9 @@ pub fn route(state: &AppState, method: &str, full_path: &str, body: Option<&str>
     }
     if let Some(rest) = rel.strip_prefix("/secure-files") {
         return secure_files::handle(state, method, rest, body);
+    }
+    if let Some(rest) = rel.strip_prefix("/terminal") {
+        return terminal::handle(state, method, rest, body);
     }
 
     stubs::handle(method, path)
@@ -381,7 +385,7 @@ mod tests {
         let state = AppState::in_memory();
         let r = route(&state, "GET", "/api/v1/user-preferences", None).unwrap();
         let prefs = body_json(&r);
-        assert_eq!(prefs["theme"], "system");
+        assert_eq!(prefs["theme"], "dark");
         assert_eq!(prefs["accentColor"], "blue");
         assert!(!prefs["enabledTools"].as_array().unwrap().is_empty());
         let r = route(&state, "POST", "/api/v1/user-preferences/tool-usage", Some(r#"{"toolId":"/app/json-formatter"}"#)).unwrap();

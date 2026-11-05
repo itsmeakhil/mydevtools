@@ -246,7 +246,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
 
     if (!selectedKey) {
         return (
-            <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+            <div className="flex h-full items-center justify-center text-[13px] text-muted-foreground">
                 Select a key to inspect or edit
             </div>
         );
@@ -254,7 +254,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
 
     if (loading) {
         return (
-            <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
+            <div className="flex h-full items-center justify-center text-[13px] text-muted-foreground">
                 Loading…
             </div>
         );
@@ -264,14 +264,14 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-2 border-b px-4 py-2.5">
+            <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-border px-4">
                 <div className="flex items-center gap-2 min-w-0">
-                    <span className="font-mono text-sm font-semibold truncate">{detail.key}</span>
-                    <Badge variant="outline" className="shrink-0 text-xs uppercase">
+                    <span className="truncate font-mono text-[13px] font-medium">{detail.key}</span>
+                    <Badge variant="outline" className="shrink-0">
                         {detail.type}
                     </Badge>
                     {detail.ttl > 0 && (
-                        <Badge variant="secondary" className="shrink-0 text-xs gap-1">
+                        <Badge variant="secondary" className="shrink-0 gap-1 tabular-nums">
                             <IconClock className="size-3" />
                             {detail.ttl}s
                         </Badge>
@@ -338,7 +338,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
                                 key={p.label}
                                 size="sm"
                                 variant="outline"
-                                className="h-6 px-2 text-[10px]"
+                                className="h-6 px-2 text-[11px]"
                                 onClick={() => setTtlInput(String(p.seconds))}
                                 type="button"
                             >
@@ -348,7 +348,7 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
                         <Button
                             size="sm"
                             variant="outline"
-                            className="h-6 px-2 text-[10px]"
+                            className="h-6 px-2 text-[11px]"
                             onClick={() => setTtlInput("-1")}
                             type="button"
                             title="PERSIST (remove TTL)"
@@ -362,12 +362,12 @@ export function ValueEditor({ redisUrl, db, selectedKey, onKeyDeleted, onKeyRena
                     <div className="space-y-1.5">
                         <div className="flex items-center justify-between">
                             <Label className="text-xs">Value</Label>
-                            <div className="flex items-center gap-1 text-[10px]">
+                            <div className="flex items-center gap-1 text-[11px]">
                                 <span className="text-muted-foreground">View</span>
                                 <select
                                     value={decoder}
                                     onChange={(e) => setDecoder(e.target.value as DecoderKind)}
-                                    className="h-5 rounded border bg-background px-1 font-mono"
+                                    className="h-6 rounded-md border border-border bg-background px-1"
                                 >
                                     {DECODERS.map((d) => (
                                         <option key={d} value={d}>{DECODER_LABELS[d]}</option>

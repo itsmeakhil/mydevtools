@@ -68,7 +68,7 @@ export function UserPreferencesSync() {
   const suppressPatchUntilRef = useRef<number>(0);
 
   const normalizedTheme = useMemo<ThemePreference>(
-    () => (isThemePreference(theme) ? theme : "system"),
+    () => (isThemePreference(theme) ? theme : "dark"),
     [theme]
   );
 

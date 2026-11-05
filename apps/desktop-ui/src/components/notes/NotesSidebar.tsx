@@ -136,8 +136,8 @@ const NoteItem = React.memo(({
         <div>
             <div
                 className={cn(
-                    "group flex items-start gap-1 py-1.5 px-2 rounded-md cursor-pointer transition-colors min-h-[40px]",
-                    isActive ? "bg-primary/10 text-primary" : "hover:bg-muted/50 text-muted-foreground hover:text-foreground"
+                    "group flex items-start gap-1 py-1.5 px-2 rounded-lg transition-colors min-h-[40px]",
+                    isActive ? "bg-primary/[0.12] text-foreground" : "hover:bg-foreground/[0.05] text-foreground/80 hover:text-foreground"
                 )}
                 style={{ paddingLeft: `${level * 12 + 8}px` }}
                 onClick={handleSelect}
@@ -173,20 +173,20 @@ const NoteItem = React.memo(({
 
                 <div className="flex-1 min-w-0 overflow-hidden">
                     {parentTitle && (
-                        <div className="text-[10px] text-muted-foreground truncate leading-tight">
+                        <div className="text-[11px] text-muted-foreground truncate leading-tight">
                             {t("inParent", { parentTitle })}
                         </div>
                     )}
-                    <div className="truncate text-sm font-medium leading-tight">{note.title || t("untitled")}</div>
+                    <div className="truncate text-[13px] font-medium leading-tight">{note.title || t("untitled")}</div>
                     {snippet && (
-                        <div className="text-[10px] text-muted-foreground truncate leading-tight mt-0.5 italic">
+                        <div className="text-[11px] text-muted-foreground truncate leading-tight mt-0.5">
                             {snippet}
                         </div>
                     )}
                     {note.tags && note.tags.length > 0 && (
                         <div className="flex gap-1 mt-0.5 flex-wrap">
                             {note.tags.slice(0, 3).map((tag) => (
-                                <span key={tag} className="text-[9px] bg-primary/10 text-primary px-1 rounded">
+                                <span key={tag} className="text-[10px] bg-foreground/[0.06] text-muted-foreground px-1.5 rounded-full">
                                     {tag}
                                 </span>
                             ))}
@@ -195,7 +195,7 @@ const NoteItem = React.memo(({
                 </div>
 
                 {note.pinned && (
-                    <Pin className="h-3 w-3 text-primary/60 flex-shrink-0 mt-1" />
+                    <Pin className="h-3 w-3 text-muted-foreground flex-shrink-0 mt-1" />
                 )}
 
                 <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
@@ -238,7 +238,7 @@ const NoteItem = React.memo(({
                                 <FolderInput className="h-4 w-4 mr-2" />Move to…
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={handleDeleteClick} className="text-red-500 focus:text-red-500 cursor-pointer">
+                            <DropdownMenuItem onClick={handleDeleteClick} className="text-destructive focus:text-destructive focus:bg-destructive/10">
                                 <Trash2 className="h-4 w-4 mr-2" />
                                 {t("delete")}
                             </DropdownMenuItem>
@@ -465,13 +465,13 @@ export default function NotesSidebar() {
                 </Button>
             </ToolSidebarActions>
 
-            <div className="shrink-0 border-b p-4">
+            <div className="shrink-0 px-2 py-2">
                     <div className="relative">
-                        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                         <Input
                             ref={searchInputRef}
                             placeholder={t("searchPlaceholder")}
-                            className="pl-8 pr-14 h-9 text-sm"
+                            className="pl-8 pr-14 h-8 text-[13px]"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
@@ -480,14 +480,14 @@ export default function NotesSidebar() {
                                 type="button"
                                 variant="ghost"
                                 size="icon"
-                                className="absolute right-1 top-1 h-7 w-7 cursor-pointer"
+                                className="absolute right-0.5 top-1/2 -translate-y-1/2 h-7 w-7"
                                 onClick={() => setSearchQuery("")}
                                 aria-label="Clear search"
                             >
                                 <X className="h-3.5 w-3.5" />
                             </Button>
                         ) : (
-                            <kbd className="hidden sm:flex pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 items-center gap-0.5 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground">
+                            <kbd className="hidden sm:flex pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 items-center gap-0.5 rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 text-[11px] text-muted-foreground">
                                 <span className="text-xs">⌘</span>K
                             </kbd>
                         )}
@@ -525,7 +525,7 @@ export default function NotesSidebar() {
                             <>
                                 {pinnedNotes.length > 0 && (
                                     <>
-                                        <div className="px-2 pt-1 pb-0.5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                                        <div className="px-2.5 pt-1 pb-0.5 text-[11px] font-semibold text-muted-foreground/70">
                                             Pinned
                                         </div>
                                         {pinnedNotes.map(note => (
@@ -543,7 +543,7 @@ export default function NotesSidebar() {
                                             />
                                         ))}
                                         {unpinnedNotes.length > 0 && (
-                                            <div className="px-2 pt-2 pb-0.5 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+                                            <div className="px-2.5 pt-2 pb-0.5 text-[11px] font-semibold text-muted-foreground/70">
                                                 Notes
                                             </div>
                                         )}
@@ -551,10 +551,8 @@ export default function NotesSidebar() {
                                 )}
                                 {unpinnedNotes.length === 0 && pinnedNotes.length === 0 ? (
                                     <div className="flex flex-col items-center gap-3 px-4 py-8 text-center">
-                                        <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                                            <NotebookPen className="h-5 w-5" />
-                                        </div>
-                                        <div className="text-xs text-muted-foreground">{t("noNotesYet")}</div>
+                                        <NotebookPen className="h-8 w-8 text-muted-foreground/60" />
+                                        <div className="text-[13px] text-muted-foreground">{t("noNotesYet")}</div>
                                         <Button
                                             size="sm"
                                             variant="outline"

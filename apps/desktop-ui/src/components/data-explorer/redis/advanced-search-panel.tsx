@@ -21,7 +21,7 @@ export function AdvancedSearchPanel({
   onResetToAuto,
 }: AdvancedPanelProps) {
   return (
-    <div className="space-y-3 border-b bg-muted/30 p-2">
+    <div className="space-y-3 border-b border-border bg-muted/40 p-2">
       {/* Current mode explanation */}
       <div className="text-xs text-muted-foreground leading-relaxed">
         {modeExplanations[currentMode]}

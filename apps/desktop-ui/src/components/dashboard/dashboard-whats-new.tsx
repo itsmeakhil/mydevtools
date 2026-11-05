@@ -7,8 +7,6 @@ import { type RenderToolItem, type ToolCardProps } from './types'
 import { ToolCard, HScrollFade } from './dashboard-tool-card'
 import { DashboardSectionHeader } from './dashboard-section-header'
 
-const WHATS_NEW_ACCENT = { bg: 'bg-amber-500/15', text: 'text-amber-600 dark:text-amber-400' }
-
 interface DashboardWhatsNewProps {
   whatsNewItems: RenderToolItem[]
   toolCardProps: Omit<ToolCardProps, 'item' | 'id' | 'index'>
@@ -31,12 +29,11 @@ export function DashboardWhatsNew({
   if (whatsNewItems.length === 0 || searchQuery || filterGroup) return null
 
   return (
-    <section className="space-y-3 md:space-y-5 rounded-2xl border border-amber-500/20 bg-amber-500/[0.03] p-4 md:p-5">
+    <section className="space-y-3">
       <DashboardSectionHeader
         icon={Wand2}
         title={t('sections.whatsNew')}
         count={whatsNewItems.length}
-        accent={WHATS_NEW_ACCENT}
       />
       {/* Mobile: horizontal scroll */}
       <div className="md:hidden -mx-4 px-4">
@@ -54,7 +51,7 @@ export function DashboardWhatsNew({
         </HScrollFade>
       </div>
       {/* Desktop: grid */}
-      <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3">
         {whatsNewItems.map((item, index) => (
           <ToolCard
             key={`new-${item.originalId}`}

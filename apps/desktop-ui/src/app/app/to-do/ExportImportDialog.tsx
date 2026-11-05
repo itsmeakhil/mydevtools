@@ -232,8 +232,8 @@ export default function ExportImportDialog({
 
           <div className="p-4 rounded-lg border bg-muted/50">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded-md bg-green-500/10">
-                <FileSpreadsheet className="h-5 w-5 text-green-500" />
+              <div className="p-2 rounded-md bg-muted">
+                <FileSpreadsheet className="h-5 w-5 text-muted-foreground" />
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold mb-1">{t("exportAsCsvExcelTitle")}</h3>

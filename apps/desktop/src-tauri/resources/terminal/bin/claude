@@ -1,0 +1,38 @@
+#!/bin/sh
+# MyDevTools Terminal `claude` shim. Inside a Terminal pane it adds the status
+# hooks with `--settings` (layered over the user's settings, never replacing
+# them). In every other case it runs the real claude unchanged.
+
+# The real claude: first executable `claude` on PATH that is not this shim's dir.
+me=$(cd "${0%/*}" 2>/dev/null && pwd -P)
+shim=$(cd "${MDT_SHIM_DIR:-$me}" 2>/dev/null && pwd -P)
+real=
+oldifs=$IFS
+IFS=:
+set -f
+for d in $PATH; do
+  [ -n "$d" ] || d=.
+  [ -f "$d/claude" ] && [ -x "$d/claude" ] || continue
+  p=$(cd "$d" 2>/dev/null && pwd -P) || continue
+  [ "$p" = "$me" ] || [ "$p" = "$shim" ] && continue
+  real=$d/claude
+  break
+done
+set +f
+IFS=$oldifs
+
+if [ -z "$real" ]; then
+  echo "claude: command not found" >&2
+  exit 127
+fi
+
+inject=1
+[ -n "$MDT_TERMINAL_ID" ] || inject=
+[ "$MDT_CLAUDE_HOOKS_DISABLED" = 1 ] && inject=
+[ -f "$MDT_CLAUDE_SETTINGS" ] || inject=
+for a in "$@"; do
+  case $a in --settings | --settings=*) inject= ;; esac
+done
+
+[ -n "$inject" ] && exec "$real" --settings "$MDT_CLAUDE_SETTINGS" "$@"
+exec "$real" "$@"

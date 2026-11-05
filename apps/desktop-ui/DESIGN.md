@@ -1,62 +1,156 @@
-# DESIGN — MyDevTools Desktop ("Pro Instrument")
+# MyDevTools — Adaptive Liquid Glass
 
-The desktop app is a **pro instrument**, not a web dashboard. Reference the things
-that make Figma, Linear, Raycast, and Adobe apps feel native and expensive:
-custom window chrome, dense information, one confident accent, keyboard-first
-navigation, and motion that only ever conveys state.
+The desktop app's design system: Apple-style material, depth and translucency on
+window chrome; solid, quiet, readable surfaces for content. It should feel like a
+native macOS app, not a website in a window.
 
-Register: **product** (design serves the task). The tool disappears into the work.
+Source of truth: `src/app/globals.css` (tokens + materials) and
+`tailwind.config.ts`. Shared primitives in `src/components/ui/*` already follow
+it — prefer them over hand-rolled markup.
 
-## Anti-references (what it must NOT look like)
-- shadcn/Vercel starter dark mode (neutral zinc). The current dark theme IS this — replace it.
-- A 247px white sidebar + uniform card grid + `0.5rem` radius everywhere (SaaS template silhouette).
-- User-selectable accent colors (blue/purple/green picker). One brand accent only.
-- A browser-style OS title bar sitting above web content.
+## Principles
 
-## Theme
-- **Dark is the signature and default.** One genuinely-refined **Light** exists (manual toggle). No `system`, no color picker.
-- Graphite blue-black surfaces (hue ~225, low chroma), stepped by lightness — never pure black, never zinc-neutral.
+1. **Content first.** Chrome recedes; tool content is the hero.
+2. **Layered glass.** A soft, accent-derived backdrop (`.app-backdrop`) sits
+   behind the window. The sidebar (`.liquid`), toolbar capsules (`.liquid`)
+   and the content pane (`.content-surface`) float over it as frosted glass
+   with a specular rim. Big cards use `.glass-card` (frosted, mostly opaque).
+   Dense data — table cells, grids, editors, inputs — stays **solid** for
+   readability; never put `backdrop-filter` on per-row elements.
+3. **One accent, used sparingly** — primary action, selection, focus, links,
+   active state. Never on headings, borders of every card, or decoration.
+4. **Tokens, never raw colors.** No `zinc-*`, `slate-*`, `gray-*`, `neutral-*`,
+   `bg-white`, `bg-black`, `#hex`, or `dark:` color pairs in feature code.
+   Semantic status colors are fine when meaning-bearing (`text-destructive`,
+   `text-success`, `text-warning`; HTTP method / log-level colors in tools).
+5. **Native conventions** — system font, default cursor on controls, no hover
+   lift/glow, restrained motion, selection that feels like a source list.
 
-## Color (HSL tokens, dark)
-| Role | Token | Value | Use |
-|---|---|---|---|
-| App base | `--background` | `225 14% 8%` | behind panels, titlebar |
-| Panel | `--surface-1` / `--card` | `225 13% 11%` | content surface |
-| Raised | `--surface-2` | `225 12% 13%` | toolbars, tab strip |
-| Hover/input | `--surface-3` | `225 11% 16%` | inputs, hovered rows |
-| Ink | `--foreground` | `220 16% 96%` | primary text |
-| Muted ink | `--muted-foreground` | `222 10% 64%` | labels (≥4.5:1) |
-| Hairline | `--border` | `225 9% 20%` | 1px separators |
-| **Accent** | `--primary` / `--ring` | `235 84% 67%` | **electric indigo — selection + primary action + state only, never decoration** |
+## Tokens (Tailwind classes)
 
-- Per-**category** accent colors stay (they help navigate 80 tools). The single brand accent is separate.
-- Semantic: destructive red kept; success/warning/info to be added as tokens when needed.
-- Mono (`--font-geist-mono`) for all values: hashes, JSON, timestamps, byte counts. Values feel like data.
+| Role | Class |
+|---|---|
+| App canvas | `bg-background` |
+| Solid content surface | `bg-card` (+ `border border-border`, `shadow-elev-1`) |
+| Recessed / secondary fill | `bg-muted`, `bg-secondary`, or `bg-foreground/[0.04]` |
+| Hover tint on rows/ghost controls | `hover:bg-foreground/[0.05]` |
+| Selected row | `bg-primary/[0.12] text-foreground` (+ icon `text-primary`) |
+| Primary text / secondary / faint | `text-foreground` / `text-muted-foreground` / `text-muted-foreground/70` |
+| Hairline | `border-border` (dividers `bg-border` or `divide-border`) |
+| Accent + scale | `primary`, `primary-hover`, `primary-subtle`, `primary-50…950` |
+| Status | `destructive`, `success`, `warning` |
+| Elevation | `shadow-elev-1` (surface) · `-2` (raised card) · `-3` (popover) · `-4` (modal) |
+
+**Radius:** `rounded-sm` 8 · `rounded-md` 10 (inputs, small controls) ·
+`rounded-lg` 12 (buttons, rows) · `rounded-xl` 16 (cards, panels) ·
+`rounded-2xl` 20 (large cards) · `rounded-3xl` 24 (dialogs) · `rounded-full` pills.
+
+**Materials (CSS classes):** `liquid` (floating shell panes + capsules, rim
++ inner light), `content-surface` (the tool pane), `glass-card` (frosted
+cards/panels — the `Card` primitive uses it), `glass-subtle` (tooltips),
+`glass` (menus, popovers), `glass-prominent` (floating nav), `glass-overlay`
+(dialogs/sheets), `glass-bar` (sticky translucent toolbars), `surface` (solid
+card), `scrim` (modal backdrop), `chrome` (non-selectable UI chrome).
+Page roots inside the pane must not paint `bg-background` — let the pane show.
 
 ## Typography
-- One family: **Geist Sans** (UI) + **Geist Mono** (data). No display pairing.
-- Fixed rem scale, tight ratio (~1.2). UI is dense: ~13px controls, 12px secondary labels, 11px micro. Reading prose 14px, capped 65–75ch.
-- Headings tighten letter-spacing slightly; never fluid/clamp in-app.
 
-## Shape, density, elevation
-- `--radius: 0.375rem` (6px) base; controls tighter. No 8px-everywhere.
-- Dense spacing on a 4px grid. Rely on **surface steps + hairline borders**, not shadows. One soft shadow reserved for popovers / the ⌘K palette.
+System stack (SF Pro on macOS). Body 14px / 1.5. Sizes in use:
+`text-[11px]` caption/section label · `text-xs` 12 small · `text-[13px]` dense UI
+(rows, toolbar, tabs) · `text-sm` 14 body · `text-[15px]` card title ·
+`text-[17px]` dialog title · `text-xl`/`text-2xl` page titles (semibold,
+`tracking-[-0.01em]`). Weights: 400, 500, 600 only (no 700+ in UI).
+Sentence case. No ALL-CAPS labels with wide tracking.
 
-## Chrome architecture
-- **Custom unified titlebar+toolbar** (Tauri, decorations off): inset macOS traffic lights, app mark, current-tool breadcrumb, ⌘K trigger, actions. No OS strip.
-- **Left nav**: dense sidebar (~220px) collapsible to a ~52px icon rail. Not a white 247px web sidebar.
-- **⌘K command palette**: the primary way to move across 80 tools.
+**`font-mono` only for code and data** — editors, JSON/HTTP bodies, keys,
+hashes, IDs, URLs inside inputs, SQL. Never for labels, buttons, headings, nav,
+empty states, or descriptions.
 
-## Tabs (Figma-style)
-- **Not pills.** Square tabs, softly rounded **top** corners only (`rounded-t`, square bottom).
-- Tabs sit on a raised strip (`--surface-2`) and align to its bottom edge.
-- **Dividers** (1px) between inactive tabs; suppressed next to the active tab.
-- **Active tab is welded to the content**: its background matches the content surface and it breaks the strip's bottom border (the seam), with a 2px accent bar on top. Clear top-strip / content separation.
-- Monochrome tool icon (accent-tinted when active) — no random rainbow chips.
+## Patterns
 
-## Motion
-- 120–200ms, ease-out (quart/expo). State only: selection, panel open, palette, feedback. No page-load choreography, no decorative motion.
-- Every animation has a `prefers-reduced-motion` fallback.
+- **Tool page header:** quiet — title `text-[15px] font-semibold`, optional
+  `text-[13px] text-muted-foreground` subtitle, actions right. No gradient icon
+  tiles, no glow. A plain `h-4 w-4 text-muted-foreground` icon is fine.
+- **Panels / cards:** `rounded-xl border border-border bg-card shadow-elev-1`.
+  Padding 16–24. Panel headers: `h-11 px-4 border-b border-border`, title
+  `text-[13px] font-semibold`.
+- **Split views (list | detail):** list pane `bg-muted/40` or
+  `bg-[hsl(var(--surface-2))]` with `border-r border-border`; rows `h-8–9
+  rounded-lg px-2.5 text-[13px]`, selected = accent tint (above). Detail pane
+  `bg-card` or `bg-background`.
+- **Toolbars inside tools:** `h-11` row, ghost icon buttons `size="icon"`
+  variant `ghost`, groups separated by `h-5 w-px bg-border`.
+- **Tables / data grids:** solid `bg-card`, header `bg-muted/50 text-[12px]
+  font-medium text-muted-foreground` (sentence case), rows hairline-divided,
+  hover `bg-foreground/[0.03]`, selected accent tint, `tabular-nums`.
+- **Empty states:** centered, icon `h-8 w-8 text-muted-foreground/60` (no
+  colored tile), title `text-sm font-medium`, hint `text-[13px]
+  text-muted-foreground`, one action.
+- **Badges / chips:** `<Badge>` — pills, tinted (`bg-primary/[0.12]
+  text-primary`), never solid saturated blocks.
+- **Code / editor panes:** solid, `bg-card` or `bg-muted/40`, `rounded-xl`,
+  mono 12–13px.
 
-## Component contract
-Every interactive element ships default/hover/focus/active/disabled/loading. Skeletons over spinners. Empty states teach. Same button/control vocabulary everywhere.
+## Motion — the liquid part
+
+Shared springs in `lib/motion.ts` (`glassSpring`, `glassSpringSoft`,
+`glassLift`). Springs on enter, short eases on exit; animate transform,
+opacity and shadow only — **never `backdrop-filter`** (not composited on
+WebKit).
+
+- **Lift:** glass launcher cards `y: -2` on hover (`glassLift`) + the
+  pointer-tracked sheen (`Card variant="glass"` / `useGlassSheen`).
+- **Press:** `scale: 0.985`, released on an overshoot curve (built into
+  `<Button>`).
+- **Surface:** menus/popovers/dialogs enter at `scale .96 → 1` on an overshoot
+  curve (260ms), exit 120ms ease-out (globals.css, keyed on `data-state`).
+- **Collapse:** sidebar sections ~0.2s height/opacity; sidebar → 72px rail
+  with a soft overshoot.
+- One motion per interaction; lists stagger ≤ 8 items at 40ms.
+  `prefers-reduced-motion` kills the sheen and transitions.
+
+## Shell
+
+- 12px canvas gap (`md:p-3 md:gap-3`) around every pane.
+- Sidebar: floating `.liquid` pane, 236px → 72px icon rail (⌃⌘S); traffic
+  lights live in its top row (`tauri.macos.conf.json` `trafficLightPosition`).
+- Toolbar: tab capsule + round `.liquid` buttons (`Button variant="glass"`).
+- Content: `.content-surface` pane; tool headers (`ToolPageHeader`) are a
+  sticky `.liquid` bar with an accent icon well.
+- Status bar: 28px `.liquid` pill (vault state · workspace · version).
+
+## Performance & accessibility
+
+- ≤ 6 live `backdrop-filter` elements; blur capped at 36px; nothing inside a
+  scroll container carries `backdrop-filter` (cards are alpha-only over the
+  already-frosted pane). Max two stacked glass layers — a third falls back to
+  solid (globals.css).
+- Raw `backdrop-*` classes outside `components/ui`, `components/shell`,
+  `components/sidebar` fail lint (`eslint.config.mjs`).
+- Reduce transparency: OS setting **and** Settings → Appearance toggle
+  (`data-reduce-transparency`, applied pre-paint). `prefers-contrast: more`
+  strengthens edges and muted text. Muted text on glass uses
+  `--on-glass-muted` automatically inside glass materials.
+
+## Deviations from "MyDevTools — Liquid Glass Design Guidelines" (2026-11-03)
+
+That guideline is the reference; these are deliberate differences:
+
+- **Accent:** the user-chosen accent (Settings → Appearance) drives every tint.
+  No per-category hues (`CATEGORY_ACCENT` collapsed to the accent).
+- **Layout:** floating panes (sidebar + frosted content pane) rather than an
+  edge-attached sidebar over a bare canvas.
+- **Fonts:** system stack (SF Pro / SF Mono) instead of Inter / JetBrains Mono.
+- **Colors** are computed in JS (OKLCH scale in `lib/accent-color.ts`), not
+  `color-mix(in oklch)` — macOS 12 WebKit (Safari 15) lacks `color-mix`.
+- **Scrollbars** stay native macOS overlay scrollbars (custom
+  `::-webkit-scrollbar` styling would make them permanently visible).
+- Break Room / sync status references in the guideline no longer apply.
+
+## Remove on sight
+
+Gradient fills/text (`bg-gradient-*`, `from-*/to-*` decoration), glow shadows
+(`shadow-primary/*`, `shadow-[0_0_*]`), grid/dot backgrounds,
+`animate-pulse` used as decoration, ring-inset decorative rings on icon tiles,
+mixed radii, `font-mono` on UI chrome, `uppercase tracking-widest` labels, raw
+`backdrop-*` utilities in feature code.

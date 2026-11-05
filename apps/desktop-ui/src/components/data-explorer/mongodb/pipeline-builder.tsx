@@ -79,17 +79,17 @@ export function PipelineBuilder({ stages, onChange, onPreview }: PipelineBuilder
                         <div
                             key={stage.id}
                             className={cn(
-                                "border rounded-md bg-card/50",
+                                "border border-border rounded-xl bg-card overflow-hidden",
                                 !stage.enabled && "opacity-50"
                             )}
                         >
-                            <div className="flex items-center gap-2 px-2 py-1.5 border-b bg-muted/30">
+                            <div className="flex items-center gap-2 px-2 h-9 border-b border-border bg-muted/50">
                                 <Checkbox
                                     checked={stage.enabled}
                                     onCheckedChange={(c) => update(stage.id, { enabled: c === true })}
                                     aria-label={t("stageEnabled")}
                                 />
-                                <span className="text-[10px] font-mono text-muted-foreground w-5 text-center">
+                                <span className="text-[11px] tabular-nums text-muted-foreground w-5 text-center">
                                     {index + 1}
                                 </span>
                                 <Select value={stage.type} onValueChange={(v) => update(stage.id, {
@@ -113,7 +113,7 @@ export function PipelineBuilder({ stages, onChange, onPreview }: PipelineBuilder
                                         <Button
                                             variant="ghost"
                                             size="sm"
-                                            className="h-6 text-[10px] px-1.5 text-muted-foreground hover:text-foreground"
+                                            className="h-6 text-[11px] px-1.5 text-muted-foreground hover:text-foreground"
                                             disabled={previewLoading !== null || !stage.enabled}
                                             onClick={() => runPreview(index)}
                                             title={t("previewToHere")}
@@ -142,8 +142,8 @@ export function PipelineBuilder({ stages, onChange, onPreview }: PipelineBuilder
                                 spellCheck={false}
                             />
                             {preview?.stageId === stage.id && (
-                                <div className="border-t bg-muted/20 max-h-[220px] overflow-auto">
-                                    <div className="px-2 py-1 text-[10px] font-medium text-muted-foreground sticky top-0 bg-muted/60 backdrop-blur-sm">
+                                <div className="border-t border-border bg-muted/40 max-h-[220px] overflow-auto">
+                                    <div className="px-2 py-1 text-[11px] font-medium text-muted-foreground sticky top-0 bg-muted">
                                         {t("previewResult", { count: preview.docs.length })}
                                     </div>
                                     <div className="p-2 space-y-1">
@@ -151,7 +151,7 @@ export function PipelineBuilder({ stages, onChange, onPreview }: PipelineBuilder
                                             <p className="text-xs text-muted-foreground">{t("previewEmpty")}</p>
                                         ) : (
                                             preview.docs.map((doc, i) => (
-                                                <div key={i} className="border rounded bg-card p-1">
+                                                <div key={i} className="border border-border rounded-md bg-card p-1">
                                                     <JsonTree data={doc} label={`#${i + 1}`} defaultExpanded={false} />
                                                 </div>
                                             ))

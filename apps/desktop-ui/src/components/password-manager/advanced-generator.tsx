@@ -154,7 +154,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                             <Input
                                 value={password}
                                 readOnly
-                                className="text-center text-sm font-mono font-semibold h-9"
+                                className="text-center text-sm font-mono font-medium h-9"
                                 onClick={(e) => (e.target as HTMLInputElement).select()}
                             />
                             <Button size="icon" onClick={handleCopy} variant="outline" className="h-9 w-9 shrink-0">
@@ -196,7 +196,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                     </div>
 
                     <div className="space-y-3">
-                        <Label className="text-sm font-semibold">{t("characterSets")}</Label>
+                        <Label className="text-[13px] font-medium">{t("characterSets")}</Label>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             {[
                                 { id: "uppercase", labelKey: "uppercase" as const, sample: "ABC" },
@@ -204,11 +204,9 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                                 { id: "numbers", labelKey: "numbers" as const, sample: "123" },
                                 { id: "symbols", labelKey: "symbols" as const, sample: "!@#" },
                             ].map((item) => (
-                                <div key={item.id} className="flex items-center justify-between p-2 bg-muted/50 rounded-lg border border-border">
+                                <div key={item.id} className="flex items-center justify-between p-2 bg-muted/40 rounded-lg border border-border">
                                     <div className="flex items-center gap-2">
-                                        <div className="p-1 bg-primary/10 rounded-md">
-                                            <span className="text-xs font-bold">{item.sample}</span>
-                                        </div>
+                                        <span className="w-8 rounded-md bg-foreground/[0.06] py-0.5 text-center font-mono text-xs font-medium text-muted-foreground">{item.sample}</span>
                                         <Label htmlFor={item.id} className="cursor-pointer text-xs">
                                             {t(item.labelKey)}
                                         </Label>
@@ -294,7 +292,7 @@ export function AdvancedGenerator({ onPasswordChange, initialLength = 16, classN
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between p-2 bg-muted/50 rounded-lg border border-border">
+                    <div className="flex items-center justify-between p-2 bg-muted/40 rounded-lg border border-border">
                         <Label htmlFor="includeNumber" className="cursor-pointer text-xs">
                             {t("includeNumber")}
                         </Label>

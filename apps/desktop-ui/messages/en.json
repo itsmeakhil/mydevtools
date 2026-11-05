@@ -12,7 +12,8 @@
     "nosqlExplorer": "Database Explorer",
     "dataExplorer": "Data Explorer",
     "snippetManager": "Code Snippets",
-    "secureFiles": "Files"
+    "secureFiles": "Files",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Help & Documentation",
@@ -138,6 +139,27 @@
         "light": "Light",
         "dark": "Dark",
         "system": "System"
+      },
+      "picker": {
+        "wheel": "Wheel",
+        "sliders": "Sliders",
+        "hue": "Hue",
+        "saturation": "Saturation",
+        "brightness": "Brightness",
+        "lightness": "Lightness",
+        "chroma": "Chroma",
+        "hexValue": "Hex value",
+        "copy": "Copy hex value",
+        "copied": "Copied",
+        "revert": "Revert to original color",
+        "newColor": "New color",
+        "onWhite": "On white",
+        "onBlack": "On black",
+        "aa": "AA pass",
+        "aaLarge": "AA Large",
+        "fail": "Fail",
+        "presets": "Presets",
+        "eyedropper": "Pick a color from the screen"
       }
     },
     "security": {
@@ -407,6 +429,10 @@
       "secureFiles": {
         "title": "Files",
         "description": "Encrypt files and folders into masked .mydt objects; browse and preview them after unlocking."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminals by project with tabs, split panes and a Needs you list for Claude Code."
       }
     }
   },
@@ -2587,7 +2613,9 @@
     "moreSections": "More sections",
     "sections": "Sidebar sections",
     "show": "Show sidebar",
-    "hide": "Hide sidebar"
+    "hide": "Hide sidebar",
+    "pin": "Pin {tool}",
+    "unpin": "Unpin {tool}"
   },
   "DesktopUpdate": {
     "title": "Updating MyDevTools",
@@ -2609,5 +2637,56 @@
       "accept": "Share anonymously",
       "decline": "No thanks"
     }
+  },
+  "Shell": {
+    "sidebar": "Sidebar",
+    "toggleSidebar": "Toggle sidebar",
+    "searchTools": "Search tools",
+    "help": "Help",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "account": "Account",
+    "you": "You",
+    "openTool": "Open tool",
+    "closeTab": "Close {title}",
+    "status": "Status",
+    "vaultLocked": "Vault locked",
+    "vaultUnlocked": "Vault unlocked",
+    "reduceTransparency": "Reduce transparency",
+    "reduceTransparencyHint": "Replace glass with solid surfaces.",
+    "goToDashboard": "Go to dashboard"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "The terminal is available in the desktop app.",
+    "needsYou": "Needs you · {count}",
+    "projects": "Projects",
+    "addProject": "Add project",
+    "noProjects": "Add a project folder to open terminals in it.",
+    "newTab": "New tab",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Rename tab",
+    "renameTerminal": "Rename terminal",
+    "closeTab": "Close tab",
+    "noTabs": "No terminals open in this project.",
+    "statusWaiting": "Needs input",
+    "statusRunning": "Running",
+    "statusIdle": "Idle",
+    "changedFiles": "{count, plural, one {# changed} other {# changed}}",
+    "folderMissing": "Folder not found: {path}. Opened your home folder instead.",
+    "processExited": "Process exited",
+    "waitingBody": "Claude is waiting for you",
+    "quitTitle": "{count, plural, one {# terminal is running} other {# terminals are running}}",
+    "quitBody": "Quitting ends every running terminal.",
+    "quitConfirm": "Quit",
+    "quitSaveFailed": "Couldn't save your terminal layout, so MyDevTools stayed open. Press ⌘Q twice to quit anyway.",
+    "cancel": "Cancel",
+    "removeProject": "Remove project",
+    "removeProjectBody": "{name} will be removed from the list and its terminals closed. Files on disk are not touched.",
+    "splitRight": "Split right",
+    "splitDown": "Split down",
+    "closePane": "Close pane"
   }
 }

@@ -26,6 +26,48 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.1.20',
+    date: '2026-11-04',
+    title: 'A built-in terminal that knows when Claude needs you',
+    summary:
+      'MyDevTools now has its own terminal: group terminals by project, open them in tabs and split panes, and see each project’s git branch and changes at a glance. Terminals launched from the app tell you when Claude Code is waiting on you.',
+    changes: [
+      { type: 'added', text: 'Terminal: a built-in terminal. Group terminals by project, open them in tabs and split panes, and see each project’s git branch and changed-file count in the sidebar and status bar. Scrollback survives switching tools, and your layout is kept between launches.' },
+      { type: 'added', text: 'Terminal: Claude Code awareness. Terminals launched from the app report when Claude is working or waiting on you, collected in a “Needs you” inbox. On macOS you get a “Claude needs you” notification and a Dock badge with the waiting count, and clicking the notification jumps to that terminal.' },
+      { type: 'added', text: 'Terminal: double-click a terminal in the sidebar to rename it. Enter saves, Esc cancels, and an empty name falls back to the shell’s window title.' },
+      { type: 'added', text: 'The sidebar’s Terminal entry shows how many terminals are waiting on you.' },
+      { type: 'added', text: 'On macOS, closing the window hides the app instead of quitting, and quitting while terminals are still running asks first.' },
+      { type: 'fixed', text: 'Data Explorer: MongoDB collection tables scroll again. Large collections no longer clip the table, status bar and pagination.' },
+      { type: 'fixed', text: 'Copy from a code editor’s context menu works in the desktop app, and clicking or typing in an editor no longer logs clipboard errors.' },
+      { type: 'fixed', text: '⌘W no longer closes a pane while a dialog or the rename field is open.' },
+      { type: 'fixed', text: 'If a quit is blocked because terminal state failed to save, the app always explains why.' },
+    ],
+  },
+  {
+    version: '0.1.19',
+    date: '2026-11-03',
+    title: 'A native look, and a focused toolkit',
+    summary:
+      'MyDevTools now looks and feels like a Mac app: a Liquid Glass design with a translucent sidebar that picks up your desktop, your own accent color everywhere, and dark mode by default. The toolkit is trimmed to its core — the API client, databases, the encrypted vault and project notes — and Secure Files now handles files up to 5 GB.',
+    changes: [
+      { type: 'added', text: 'Liquid Glass design: a frosted sidebar and toolbar with native macOS vibrancy and floating panes, while editors, tables and inputs stay solid and sharp.' },
+      { type: 'added', text: 'A new sidebar with search, pinned tools and every category in one place. Pin a tool from its row, and collapse the sidebar to an icon rail with ⌃⌘S.' },
+      { type: 'added', text: 'A wheel-and-sliders color picker in Settings → Appearance, next to the preset list: pick any accent, type a hex value, and see its contrast on light and dark text. Buttons, selection and focus follow it across the app.' },
+      { type: 'added', text: 'Reduce transparency in Settings → Appearance swaps glass for solid surfaces. The macOS accessibility setting is honored too.' },
+      { type: 'added', text: 'A status bar showing whether your vault is locked, the active workspace and the app version.' },
+      { type: 'added', text: 'API Client: import a Bruno collection by opening its folder. Requests and environments come across; the Bruno folder itself is left untouched.' },
+      { type: 'improved', text: 'Secure Files encrypts and decrypts as a stream, so files up to 5 GB work without being loaded into memory. Imports show progress and can be cancelled.' },
+      { type: 'improved', text: 'New installs start in dark mode. Light and system themes are one click away, and your saved choice is kept.' },
+      { type: 'improved', text: 'The command palette (⌘K), menus and dialogs share the new glass look, and every tool header shows its icon in your accent color.' },
+      { type: 'improved', text: 'Updated the app framework and libraries, including the resizable panels used by split views.' },
+      { type: 'fixed', text: 'Tabs for tools that no longer exist stop reappearing after a restart.' },
+      { type: 'fixed', text: 'The SQL and MongoDB query editors use the app’s editor theme instead of a stock grey one.' },
+      { type: 'fixed', text: 'The first-run walkthrough no longer mentions sync — everything stays on your device.' },
+      { type: 'removed', text: 'Trimmed the app to a focused core. Removed the Break Room games; the Media & Design, Generators and Converters tools; the Network & API utilities other than the API Client; JWT, PEM, Encryption Playground, Bcrypt and Bookmarks; and the formatters other than JSON Formatter and JSON Visualizer. Data you saved in them stays in your local database.' },
+      { type: 'removed', text: 'The dashboard Analytics tab.' },
+    ],
+  },
+  {
     version: '0.1.18',
     date: '2026-09-22',
     title: 'Downloads that actually save',

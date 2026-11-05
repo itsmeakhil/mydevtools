@@ -12,7 +12,8 @@
     "toDo": "Tasks",
     "notes": "Notes",
     "snippetManager": "Đoạn mã",
-    "secureFiles": "Tệp"
+    "secureFiles": "Tệp",
+    "terminal": "Terminal"
   },
   "Help": {
     "title": "Trợ giúp & Tài liệu",
@@ -138,6 +139,27 @@
         "light": "Sáng",
         "dark": "Tối",
         "system": "Hệ thống"
+      },
+      "picker": {
+        "wheel": "Bánh xe",
+        "sliders": "Thanh trượt",
+        "hue": "Sắc độ",
+        "saturation": "Độ bão hòa",
+        "brightness": "Độ sáng",
+        "lightness": "Độ sáng (L)",
+        "chroma": "Sắc độ (C)",
+        "hexValue": "Giá trị hex",
+        "copy": "Sao chép giá trị hex",
+        "copied": "Đã sao chép",
+        "revert": "Khôi phục màu ban đầu",
+        "newColor": "Màu mới",
+        "onWhite": "Trên nền trắng",
+        "onBlack": "Trên nền đen",
+        "aa": "Đạt AA",
+        "aaLarge": "AA chữ lớn",
+        "fail": "Không đạt",
+        "presets": "Mẫu có sẵn",
+        "eyedropper": "Chọn màu từ màn hình"
       }
     },
     "security": {
@@ -336,6 +358,10 @@
       "secureFiles": {
         "title": "Tệp",
         "description": "Mã hóa tệp và thư mục thành các đối tượng .mydt được che tên; duyệt và xem trước sau khi mở khóa."
+      },
+      "terminal": {
+        "title": "Terminal",
+        "description": "Terminal theo dự án với tab, ngăn chia đôi và danh sách «Cần bạn» cho Claude Code."
       }
     },
     "tabs": {
@@ -2497,7 +2523,9 @@
     "moreSections": "Thêm mục",
     "sections": "Các mục thanh bên",
     "show": "Hiện thanh bên",
-    "hide": "Ẩn thanh bên"
+    "hide": "Ẩn thanh bên",
+    "pin": "Ghim {tool}",
+    "unpin": "Bỏ ghim {tool}"
   },
   "DesktopUpdate": {
     "title": "Đang cập nhật MyDevTools",
@@ -2609,5 +2637,56 @@
     "working": "{done} trên {total}",
     "cancelled": "Đã hủy.",
     "save": "Lưu"
+  },
+  "Shell": {
+    "sidebar": "Thanh bên",
+    "toggleSidebar": "Bật/tắt thanh bên",
+    "searchTools": "Tìm công cụ",
+    "help": "Trợ giúp",
+    "theme": "Giao diện",
+    "themeLight": "Sáng",
+    "themeDark": "Tối",
+    "themeSystem": "Hệ thống",
+    "account": "Tài khoản",
+    "you": "Bạn",
+    "openTool": "Mở công cụ",
+    "closeTab": "Đóng {title}",
+    "status": "Trạng thái",
+    "vaultLocked": "Kho đã khóa",
+    "vaultUnlocked": "Kho đã mở khóa",
+    "reduceTransparency": "Giảm độ trong suốt",
+    "reduceTransparencyHint": "Thay kính bằng bề mặt đặc.",
+    "goToDashboard": "Về bảng điều khiển"
+  },
+  "Terminal": {
+    "title": "Terminal",
+    "desktopOnly": "Terminal có trong ứng dụng máy tính.",
+    "needsYou": "Cần bạn · {count}",
+    "projects": "Dự án",
+    "addProject": "Thêm dự án",
+    "noProjects": "Thêm một thư mục dự án để mở terminal trong đó.",
+    "newTab": "Tab mới",
+    "untitledTab": "Terminal {n}",
+    "renameTab": "Đổi tên tab",
+    "renameTerminal": "Đổi tên terminal",
+    "closeTab": "Đóng tab",
+    "noTabs": "Không có terminal nào đang mở trong dự án này.",
+    "statusWaiting": "Đang chờ nhập",
+    "statusRunning": "Đang chạy",
+    "statusIdle": "Nhàn rỗi",
+    "changedFiles": "{count, plural, other {# đã thay đổi}}",
+    "folderMissing": "Không tìm thấy thư mục: {path}. Đã mở thư mục chính của bạn thay thế.",
+    "processExited": "Tiến trình đã thoát",
+    "waitingBody": "Claude đang chờ bạn",
+    "quitTitle": "{count, plural, other {# terminal đang chạy}}",
+    "quitBody": "Thoát sẽ kết thúc mọi terminal đang chạy.",
+    "quitConfirm": "Thoát",
+    "quitSaveFailed": "Không thể lưu bố cục terminal nên MyDevTools vẫn mở. Nhấn ⌘Q hai lần để thoát dù sao.",
+    "cancel": "Hủy",
+    "removeProject": "Xóa dự án",
+    "removeProjectBody": "{name} sẽ bị xóa khỏi danh sách và các terminal của nó sẽ đóng. Tệp trên đĩa không bị ảnh hưởng.",
+    "splitRight": "Chia sang phải",
+    "splitDown": "Chia xuống dưới",
+    "closePane": "Đóng ngăn"
   }
 }

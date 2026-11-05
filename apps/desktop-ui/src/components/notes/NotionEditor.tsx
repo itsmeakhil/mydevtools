@@ -286,17 +286,15 @@ export default function NotionEditor() {
         return (
             <div className="flex-1 flex items-center justify-center p-6">
                 <div className="flex max-w-sm flex-col items-center gap-4 text-center">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
-                        <LayoutTemplate className="h-6 w-6" />
-                    </div>
-                    <div className="text-sm text-muted-foreground">
+                    <LayoutTemplate className="h-8 w-8 text-muted-foreground/60" />
+                    <div className="text-[13px] text-muted-foreground">
                         {tEditor("emptyState")}
                     </div>
                     <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-muted-foreground">
-                        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono">⌘K</kbd>
+                        <kbd className="rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 font-sans font-medium">⌘K</kbd>
                         <span>{tEditor("searchHint")}</span>
                         <span className="text-muted-foreground/40">·</span>
-                        <kbd className="rounded border bg-muted px-1.5 py-0.5 font-mono">⌘⇧F</kbd>
+                        <kbd className="rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 font-sans font-medium">⌘⇧F</kbd>
                         <span>{tEditor("focusHint")}</span>
                     </div>
                 </div>
@@ -307,7 +305,7 @@ export default function NotionEditor() {
     if (!activeNote || !isMounted) return null;
 
     return (
-        <div className="flex-1 flex flex-col h-full overflow-hidden bg-background">
+        <div className="flex-1 flex flex-col h-full overflow-hidden">
             <div className={cn(
                 "p-4 md:p-6 pb-2 md:pb-4 mx-auto w-full",
                 focusMode ? "max-w-3xl" : "max-w-6xl"
@@ -345,8 +343,8 @@ export default function NotionEditor() {
                         <span
                             className={cn(
                                 "h-1.5 w-1.5 rounded-full transition-colors",
-                                saveState === "saving" ? "bg-amber-500 animate-pulse"
-                                    : saveState === "saved" ? "bg-emerald-500"
+                                saveState === "saving" ? "bg-warning"
+                                    : saveState === "saved" ? "bg-success"
                                     : "bg-muted-foreground/40"
                             )}
                             aria-hidden
@@ -438,7 +436,7 @@ export default function NotionEditor() {
                 <Input
                     value={title}
                     onChange={handleTitleChange}
-                    className="text-3xl md:text-4xl font-bold border-none shadow-none focus-visible:ring-0 focus-visible:border-b-2 focus-visible:border-primary/50 rounded-none px-0 placeholder:text-muted-foreground/50 h-auto bg-transparent"
+                    className="text-2xl md:text-3xl font-semibold tracking-[-0.01em] border-none shadow-none focus-visible:ring-0 rounded-none px-0 placeholder:text-muted-foreground/50 h-auto bg-transparent"
                     placeholder={tEditor("titlePlaceholder")}
                     aria-label={tEditor("titlePlaceholder")}
                 />
@@ -450,7 +448,7 @@ export default function NotionEditor() {
                         {tags.map((tag) => (
                             <span
                                 key={tag}
-                                className="inline-flex items-center gap-0.5 text-[11px] bg-primary/10 text-primary px-2 py-0.5 rounded-full"
+                                className="inline-flex items-center gap-0.5 text-[11px] bg-primary/[0.12] text-primary px-2 py-0.5 rounded-full"
                             >
                                 {tag}
                                 <button

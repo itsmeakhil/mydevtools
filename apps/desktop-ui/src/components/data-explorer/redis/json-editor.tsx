@@ -98,8 +98,8 @@ export function JsonEditor({ redisUrl, db, keyName, onChanged }: Props) {
 
     return (
         <div className="flex h-full flex-col">
-            <div className="flex items-center gap-2 border-b px-3 py-2 shrink-0">
-                <Label className="text-[10px] text-muted-foreground">Path</Label>
+            <div className="flex h-11 shrink-0 items-center gap-2 border-b border-border px-3">
+                <Label className="text-[11px] text-muted-foreground">Path</Label>
                 <Input
                     value={path}
                     onChange={(e) => setPath(e.target.value)}

@@ -265,22 +265,12 @@ export function MasterPasswordGate() {
             }}
         >
             <DialogContent
-                className="max-w-[460px] p-0 gap-0 overflow-hidden border-border/50 bg-card/95 backdrop-blur-xl shadow-2xl"
+                className="max-w-[440px] p-0 gap-0 overflow-hidden"
                 onInteractOutside={(e) => {
                     // Prevent closing during backup codes step
                     if (showBackupCodes) e.preventDefault()
                 }}
             >
-                {/* Premium branded top accent (deck signature) */}
-                <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/[0.07] via-violet-500/[0.04] to-transparent"
-                />
-                <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
-                />
-
                 {/* Hidden accessible title/description for screen readers */}
                 <DialogHeader className="sr-only">
                     <DialogTitle>
@@ -306,24 +296,19 @@ export function MasterPasswordGate() {
                     {mode === "backup-codes" ? (
                         <div className="space-y-5">
                             <div className="flex flex-col items-center text-center">
-                                <div className="relative mb-4">
-                                    <div className="absolute inset-0 rounded-full bg-emerald-500/15 blur-lg" />
-                                    <div className="relative flex h-14 w-14 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/10">
-                                        <CheckCircle2 className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
-                                    </div>
-                                </div>
-                                <h2 className="text-xl font-semibold tracking-tight text-foreground">
+                                <CheckCircle2 className="mb-3 h-8 w-8 text-success" />
+                                <h2 className="text-[17px] font-semibold tracking-[-0.01em] text-foreground">
                                     Save Your Backup Codes
                                 </h2>
-                                <p className="mt-1.5 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                                <p className="mt-1.5 max-w-sm text-[13px] leading-relaxed text-muted-foreground">
                                     Store these safely — each works once to recover access if you forget your master password.
                                 </p>
                             </div>
 
-                            <Alert className="border-orange-500/30 bg-orange-500/5">
-                                <AlertTriangle className="h-4 w-4 text-orange-500" />
+                            <Alert className="border-warning/30 bg-warning/10">
+                                <AlertTriangle className="h-4 w-4 text-warning" />
                                 <AlertDescription className="text-xs leading-relaxed">
-                                    <strong>You cannot view these again</strong> after leaving this screen. Download or copy now.
+                                    <strong className="font-semibold">You cannot view these again</strong> after leaving this screen. Download or copy now.
                                 </AlertDescription>
                             </Alert>
 
@@ -346,7 +331,7 @@ export function MasterPasswordGate() {
                                 </Button>
                             </div>
 
-                            <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground/60">
+                            <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground/70">
                                 <Shield className="h-3 w-3" />
                                 Zero-knowledge · Encrypted locally
                             </p>
@@ -356,37 +341,20 @@ export function MasterPasswordGate() {
                         <div className="space-y-6">
                             {/* Icon + heading */}
                             <div className="flex flex-col items-center text-center">
-                                <div className="relative mb-4">
-                                    <div
-                                        className={cn(
-                                            "absolute inset-0 rounded-full",
-                                            isSetup ? "bg-emerald-500/15" : "bg-primary/10",
-                                        )}
-                                    />
-                                    <div
-                                        className={cn(
-                                            "relative flex h-[60px] w-[60px] items-center justify-center rounded-full border shadow-sm",
-                                            isSetup
-                                                ? "border-emerald-500/30 bg-gradient-to-b from-emerald-500/20 to-emerald-500/[0.04] ring-1 ring-inset ring-emerald-500/10"
-                                                : "border-border bg-gradient-to-b from-muted to-muted/40 ring-1 ring-inset ring-border/50",
-                                        )}
-                                    >
-                                        {isSetup ? (
-                                            <ShieldCheck className="h-7 w-7 text-emerald-500 dark:text-emerald-400" />
-                                        ) : (
-                                            <Lock className="h-7 w-7 text-foreground/70" />
-                                        )}
-                                    </div>
-                                </div>
+                                {isSetup ? (
+                                    <ShieldCheck className="mb-3 h-8 w-8 text-muted-foreground/70" />
+                                ) : (
+                                    <Lock className="mb-3 h-8 w-8 text-muted-foreground/70" />
+                                )}
 
-                                <h2 className="text-[1.2rem] font-semibold tracking-tight text-foreground">
+                                <h2 className="text-[17px] font-semibold tracking-[-0.01em] text-foreground">
                                     {isSetup
                                         ? "Create Master Password"
                                         : isBackupCodeMode
                                           ? "Use Backup Code"
                                           : "Unlock Your Data"}
                                 </h2>
-                                <p className="mt-1.5 max-w-[260px] text-sm leading-relaxed text-muted-foreground">
+                                <p className="mt-1.5 max-w-[280px] text-[13px] leading-relaxed text-muted-foreground">
                                     {isSetup
                                         ? "Encrypts your sensitive data client-side. Never leaves your device."
                                         : isBackupCodeMode
@@ -405,10 +373,10 @@ export function MasterPasswordGate() {
                                         exit={{ opacity: 0, height: 0 }}
                                         className="overflow-hidden"
                                     >
-                                        <Alert className="border-orange-500/30 bg-orange-500/5">
-                                            <AlertTriangle className="h-4 w-4 text-orange-500" />
+                                        <Alert className="border-warning/30 bg-warning/10">
+                                            <AlertTriangle className="h-4 w-4 text-warning" />
                                             <AlertDescription className="text-xs leading-relaxed">
-                                                <strong>No password reset.</strong> If you lose it, all
+                                                <strong className="font-semibold">No password reset.</strong> If you lose it, all
                                                 encrypted data is permanently inaccessible.
                                             </AlertDescription>
                                         </Alert>
@@ -438,7 +406,7 @@ export function MasterPasswordGate() {
                                                         setBackupCodeInput(e.target.value)
                                                         setError("")
                                                     }}
-                                                    className="text-center font-mono tracking-[0.2em]"
+                                                    className="text-center font-mono tracking-[0.12em]"
                                                     autoFocus
                                                     autoComplete="off"
                                                     disabled={submitting}
@@ -641,7 +609,7 @@ export function MasterPasswordGate() {
                                     )}
                                 </AnimatePresence>
 
-                            <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground/60">
+                            <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground/70">
                                 <Shield className="h-3 w-3" />
                                 Zero-knowledge · Encrypted locally · Never sent to our servers
                             </p>

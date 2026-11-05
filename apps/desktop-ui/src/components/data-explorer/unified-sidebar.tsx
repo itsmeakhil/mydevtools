@@ -93,8 +93,8 @@ const ConnectionRow = React.memo(function ConnectionRow({
                     aria-expanded={supported ? expanded : undefined}
                     onClick={() => onToggle(connection.id)}
                     className={cn(
-                        "flex min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 py-1.5 text-left text-sm transition-colors",
-                        supported ? "hover:bg-muted/60" : "cursor-default opacity-60"
+                        "flex h-7 min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 text-left text-[13px] transition-colors",
+                        supported ? "hover:bg-foreground/[0.05]" : "cursor-default opacity-60"
                     )}
                 >
                     <IconChevronRight
@@ -106,7 +106,7 @@ const ConnectionRow = React.memo(function ConnectionRow({
                     />
                     <span className="min-w-0 flex-1 truncate">{connection.name}</span>
                     {connection.readOnly && (
-                        <IconLock className="size-3 shrink-0 text-amber-500" />
+                        <IconLock className="size-3 shrink-0 text-warning" />
                     )}
                     {connection.color && (
                         <span
@@ -160,7 +160,7 @@ const ConnectionRow = React.memo(function ConnectionRow({
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="ml-4 overflow-hidden border-l pl-2"
+                        className="ml-4 overflow-hidden border-l border-border pl-2"
                     >
                         <adapter.SidebarTree
                             connection={connection}
@@ -314,14 +314,14 @@ export function UnifiedSidebar({
         // Header (title, add, collapse) is owned by ToolSidebarLayout in
         // app/app/data-explorer/page.tsx — this renders the panel body only.
         <>
-            <div className="shrink-0 border-b p-3">
+            <div className="shrink-0 border-b border-border p-2">
                 <div className="relative">
-                    <IconSearch className="absolute left-2 top-1/2 size-3 -translate-y-1/2 text-muted-foreground" />
+                    <IconSearch className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
                     <Input
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder={t("searchConnections")}
-                        className="h-9 pl-7 text-xs"
+                        className="h-8 pl-8 text-[13px]"
                     />
                 </div>
             </div>
@@ -329,15 +329,16 @@ export function UnifiedSidebar({
             <div className="min-h-0 flex-1 overflow-y-auto p-2">
                 {connections.length === 0 ? (
                     <div className="flex flex-col items-center gap-2 p-6 text-center">
+                        <IconDatabase className="h-8 w-8 text-muted-foreground/60" />
                         <p className="text-sm font-medium">{t("emptyTitle")}</p>
-                        <p className="text-xs text-muted-foreground">{t("emptyBody")}</p>
+                        <p className="text-[13px] text-muted-foreground">{t("emptyBody")}</p>
                         <Button size="sm" className="mt-1 gap-1.5" onClick={onAddConnection}>
                             <IconPlus className="size-3.5" />
                             {t("addConnection")}
                         </Button>
                     </div>
                 ) : groups.length === 0 ? (
-                    <p className="p-4 text-center text-xs text-muted-foreground">
+                    <p className="p-4 text-center text-[13px] text-muted-foreground">
                         {t("noResults")}
                     </p>
                 ) : (
@@ -351,7 +352,7 @@ export function UnifiedSidebar({
                                     type="button"
                                     aria-expanded={open}
                                     onClick={() => toggleGroup(group.id)}
-                                    className="flex w-full items-center gap-1.5 px-2 py-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground/70 transition-colors hover:text-foreground"
+                                    className="flex h-7 w-full items-center gap-1.5 rounded-md px-2 text-[11px] font-medium text-muted-foreground transition-colors hover:text-foreground"
                                 >
                                     <IconChevronRight
                                         className={cn(
@@ -362,7 +363,7 @@ export function UnifiedSidebar({
                                     <GroupIcon
                                         className={cn(
                                             "size-3.5",
-                                            source?.accent ?? "text-amber-500"
+                                            source?.accent ?? "text-warning"
                                         )}
                                     />
                                     <span className="truncate">
@@ -404,11 +405,11 @@ export function UnifiedSidebar({
                 )}
             </div>
 
-            <div className="shrink-0 border-t p-2">
+            <div className="shrink-0 border-t border-border p-2">
                 <Button
                     variant="ghost"
                     size="sm"
-                    className="w-full justify-start gap-1.5 text-xs text-muted-foreground"
+                    className="h-7 w-full justify-start gap-1.5 text-[13px] text-muted-foreground"
                     onClick={onImportLegacy}
                 >
                     <IconDownload className="size-3.5" />

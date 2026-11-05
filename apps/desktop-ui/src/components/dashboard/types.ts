@@ -153,20 +153,11 @@ export function getTotalToolCount(): number {
   )
 }
 
-/** Per-category accent classes for section headers — aids scannability.
- * Uses 600 in light mode, 400 in dark for WCAG AA contrast on /10 tint backgrounds. */
-export const CATEGORY_ACCENT: Record<string, { bg: string; text: string }> = {
-  Productivity: { bg: 'bg-blue-500/10', text: 'text-blue-600 dark:text-blue-400' },
-  Security: { bg: 'bg-red-500/10', text: 'text-red-600 dark:text-red-400' },
-  Formatters: { bg: 'bg-emerald-500/10', text: 'text-emerald-600 dark:text-emerald-400' },
-  'Network & API': { bg: 'bg-cyan-500/10', text: 'text-cyan-600 dark:text-cyan-400' },
-  Database: { bg: 'bg-orange-500/10', text: 'text-orange-600 dark:text-orange-400' },
-}
-
+/** Tool identity follows the user's accent (no fixed per-category hues). */
 export const DEFAULT_ACCENT = { bg: 'bg-primary/10', text: 'text-primary' }
 
-export function categoryAccent(title: string): { bg: string; text: string } {
-  return CATEGORY_ACCENT[title] ?? DEFAULT_ACCENT
+export function categoryAccent(_title: string): { bg: string; text: string } {
+  return DEFAULT_ACCENT
 }
 
 /** Popular tool slugs shown in the no-results state. */

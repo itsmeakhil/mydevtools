@@ -132,8 +132,8 @@ export function ImportDialog({ open, onOpenChange, onImport, collectionName }: I
                     {!parsed ? (
                         <div
                             className={cn(
-                                "border-2 border-dashed rounded-lg p-10 text-center cursor-pointer transition-colors",
-                                isDragging ? "border-primary bg-primary/5" : "border-border hover:border-primary/50 hover:bg-muted/30"
+                                "border-2 border-dashed rounded-xl p-10 text-center transition-colors",
+                                isDragging ? "border-primary bg-primary/[0.06]" : "border-border hover:border-primary/50 hover:bg-foreground/[0.03]"
                             )}
                             onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                             onDragLeave={() => setIsDragging(false)}
@@ -147,13 +147,13 @@ export function ImportDialog({ open, onOpenChange, onImport, collectionName }: I
                                 className="hidden"
                                 onChange={handleFileChange}
                             />
-                            <IconUpload className="h-8 w-8 mx-auto mb-3 text-muted-foreground" />
+                            <IconUpload className="h-8 w-8 mx-auto mb-3 text-muted-foreground/60" />
                             <p className="font-medium text-sm">{t("dropHint")}</p>
                             <p className="text-xs text-muted-foreground mt-1">{t("dropSubHint")}</p>
                         </div>
                     ) : (
                         <div className="space-y-3">
-                            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded-lg">
+                            <div className="flex items-center gap-2 p-3 bg-muted/50 rounded-xl">
                                 <IconFile className="h-4 w-4 text-primary shrink-0" />
                                 <span className="text-sm font-medium truncate flex-1">{fileName}</span>
                                 <span className="text-xs text-muted-foreground shrink-0">{t("docsCount", { count: parsed.length })}</span>
@@ -163,7 +163,7 @@ export function ImportDialog({ open, onOpenChange, onImport, collectionName }: I
                             </div>
                             <div>
                                 <p className="text-xs font-medium text-muted-foreground mb-2">{t("previewLabel")}</p>
-                                <ScrollArea className="h-[200px] border rounded-md">
+                                <ScrollArea className="h-[200px] border border-border rounded-xl bg-muted/40">
                                     <pre className="p-3 text-[11px] font-mono leading-relaxed">
                                         {JSON.stringify(parsed.slice(0, 3), null, 2)}
                                         {parsed.length > 3 && `\n\n// ${t("moreDocs", { count: parsed.length - 3 })}`}

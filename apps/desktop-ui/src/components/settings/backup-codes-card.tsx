@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
-import { AlertTriangle, Download, KeyRound } from "lucide-react"
+import { AlertTriangle, Download } from "lucide-react"
 import { toast } from "sonner"
 
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { SettingsGroup } from "@/components/settings/settings-group"
 import { generateBackupCodes, encryptWithBackupCode } from "@/lib/encryption"
 import {
     getBackupCodeStatus,
@@ -72,21 +72,12 @@ export function BackupCodesCard() {
     }
 
     return (
-        <Card className="rounded-2xl border border-border/60 bg-card/60 shadow-sm backdrop-blur-sm">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2.5">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-violet-500/10 text-primary ring-1 ring-inset ring-border/50">
-                        <KeyRound className="h-4 w-4" />
-                    </span>
-                    {t("title")}
-                </CardTitle>
-                <CardDescription>{t("description")}</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+        <SettingsGroup title={t("title")} footer={t("description")}>
+            <div className="space-y-3 px-4 py-3">
                 {codes.length > 0 ? (
                     <>
-                        <Alert className="border-orange-500/30 bg-orange-500/5">
-                            <AlertTriangle className="h-4 w-4 text-orange-500" />
+                        <Alert className="border-warning/30 bg-warning/[0.06]">
+                            <AlertTriangle className="h-4 w-4 text-warning" />
                             <AlertDescription className="text-xs leading-relaxed">
                                 {t("newCodesWarning")}
                             </AlertDescription>
@@ -108,7 +99,7 @@ export function BackupCodesCard() {
                     </>
                 ) : (
                     <>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-[13px] text-foreground">
                             {status && status.total > 0
                                 ? t("remaining", {
                                       remaining: status.remaining,
@@ -136,7 +127,7 @@ export function BackupCodesCard() {
                         <p className="text-xs text-muted-foreground">{t("hint")}</p>
                     </>
                 )}
-            </CardContent>
-        </Card>
+            </div>
+        </SettingsGroup>
     )
 }

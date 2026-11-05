@@ -299,7 +299,7 @@ export function PasswordList() {
                 "flex flex-col items-center justify-center text-center space-y-4",
                 isMobile ? "min-h-[60vh]" : "py-16"
             )}>
-                <div className="animate-spin rounded-full h-10 w-10 border-2 border-primary border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-6 w-6 border-2 border-muted-foreground/30 border-t-muted-foreground"></div>
                 <p className="text-sm text-muted-foreground">{t("loading")}</p>
             </div>
         )
@@ -308,23 +308,13 @@ export function PasswordList() {
     if (passwords.length === 0 && !searchTerm) {
         return (
             <div className={cn(
-                "flex flex-col items-center justify-center text-center space-y-4",
-                isMobile
-                    ? "min-h-[50vh] px-8"
-                    : "py-16 border-2 border-dashed rounded-lg border-muted/50 bg-muted/10"
+                "flex flex-col items-center justify-center text-center gap-3",
+                isMobile ? "min-h-[50vh] px-8" : "h-full py-16"
             )}>
-                <div className={cn(
-                    "rounded-full flex items-center justify-center",
-                    isMobile ? "h-20 w-20 bg-primary/10" : "h-16 w-16 bg-muted"
-                )}>
-                    <Lock className={cn(
-                        "text-muted-foreground",
-                        isMobile ? "h-10 w-10 text-primary" : "h-8 w-8"
-                    )} />
-                </div>
-                <div className="space-y-2">
-                    <h3 className={cn("font-semibold", isMobile ? "text-xl" : "text-lg")}>{t("emptyTitle")}</h3>
-                    <p className="text-muted-foreground text-sm max-w-[280px]">
+                <Lock className="h-8 w-8 text-muted-foreground/60" />
+                <div className="space-y-1">
+                    <h3 className="text-sm font-medium">{t("emptyTitle")}</h3>
+                    <p className="text-muted-foreground text-[13px] max-w-[280px]">
                         {isMobile
                             ? t("emptyHintMobile")
                             : t("emptyHintDesktop")}
@@ -333,13 +323,13 @@ export function PasswordList() {
                 <div className={cn("flex flex-col items-center gap-2", isMobile && "mt-4")}>
                     {isMobile && (
                         <AddPasswordDialog>
-                            <Button size="lg" className="rounded-xl">
-                                <Plus className="mr-2 h-5 w-5" /> {t("addPassword")}
+                            <Button size="lg">
+                                <Plus className="mr-2 h-4 w-4" /> {t("addPassword")}
                             </Button>
                         </AddPasswordDialog>
                     )}
                     <ImportExportDialog>
-                        <Button variant="outline" size={isMobile ? "lg" : "default"} className={cn(isMobile && "rounded-xl")}>
+                        <Button variant="outline" size={isMobile ? "lg" : "default"}>
                             <FileJson className="mr-2 h-4 w-4" /> {t("importExport")}
                         </Button>
                     </ImportExportDialog>
@@ -386,7 +376,7 @@ export function PasswordList() {
         )}>
             {/* Mobile Header */}
             {isMobile && (
-                <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-xl border-b pb-4 pt-2 shrink-0">
+                <div className="sticky top-0 z-50 glass-bar border-b border-border pb-4 pt-2 shrink-0">
                     <div className="flex items-center gap-2 px-4 py-2">
                         <div className="relative flex-1 h-10">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
@@ -395,7 +385,7 @@ export function PasswordList() {
                                 placeholder={t("searchPlaceholderMobile")}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-10 h-10 bg-muted/50 border-transparent rounded-lg focus-visible:ring-1 text-sm placeholder:text-muted-foreground/70"
+                                className="pl-10 h-10 bg-foreground/[0.04] border-transparent text-sm"
                             />
                             {searchTerm && (
                                 <Button
@@ -409,14 +399,14 @@ export function PasswordList() {
                             )}
                         </div>
 
-                        <div className="flex items-center gap-1 border rounded-lg p-1 bg-muted/20">
+                        <div className="flex items-center gap-0.5 rounded-lg p-0.5 bg-foreground/[0.05]">
                             <Button
                                 variant="ghost"
                                 size="icon"
                                 className={cn(
-                                    "h-8 w-8",
+                                    "h-8 w-8 rounded-md",
                                     viewMode === "grid"
-                                        ? "bg-background text-primary shadow-sm"
+                                        ? "bg-card text-foreground shadow-elev-1 hover:bg-card"
                                         : "text-muted-foreground hover:text-foreground"
                                 )}
                                 onClick={() => setViewMode("grid")}
@@ -428,9 +418,9 @@ export function PasswordList() {
                                 variant="ghost"
                                 size="icon"
                                 className={cn(
-                                    "h-8 w-8",
+                                    "h-8 w-8 rounded-md",
                                     viewMode === "list"
-                                        ? "bg-background text-primary shadow-sm"
+                                        ? "bg-card text-foreground shadow-elev-1 hover:bg-card"
                                         : "text-muted-foreground hover:text-foreground"
                                 )}
                                 onClick={() => setViewMode("list")}
@@ -456,7 +446,7 @@ export function PasswordList() {
                                     <ShieldX className="h-4 w-4" />
                                     <span>Breach Check</span>
                                     {breachedCount > 0 && (
-                                        <span className="ml-auto h-5 min-w-5 rounded-full bg-red-500 text-[10px] text-white flex items-center justify-center font-bold px-1">
+                                        <span className="ml-auto h-5 min-w-5 rounded-full bg-destructive/[0.12] text-destructive text-[10px] tabular-nums flex items-center justify-center font-semibold px-1">
                                             {breachedCount}
                                         </span>
                                     )}
@@ -470,18 +460,18 @@ export function PasswordList() {
 
                     <div className="px-4 mt-2 mb-1 flex items-center gap-2">
                         <div className="flex-1">
-                            <h1 className="text-2xl font-bold tracking-tight text-foreground">{t("allPasswordsTitle")}</h1>
+                            <h1 className="text-2xl font-semibold tracking-[-0.01em] text-foreground">{t("allPasswordsTitle")}</h1>
                             <p className="text-sm text-muted-foreground mt-0.5">{t("passwordCount", { count: passwords.length })}</p>
                         </div>
                         <Drawer>
                             <DrawerTrigger asChild>
-                                <Button variant="outline" size="icon" className="h-9 w-9 rounded-full shrink-0 border-muted-foreground/20 text-muted-foreground hover:text-green-600 hover:border-green-600/30 hover:bg-green-500/10 transition-all">
+                                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full shrink-0 text-muted-foreground">
                                     <ShieldCheck className="h-5 w-5" />
                                 </Button>
                             </DrawerTrigger>
                             <DrawerContent className="max-h-[85vh]">
-                                <DrawerHeader className="border-b pb-4 mb-4">
-                                    <DrawerTitle className="text-center font-bold text-lg">{t("vaultHealthDrawerTitle")}</DrawerTitle>
+                                <DrawerHeader className="border-b border-border pb-4 mb-4">
+                                    <DrawerTitle className="text-center font-semibold text-[17px]">{t("vaultHealthDrawerTitle")}</DrawerTitle>
                                 </DrawerHeader>
                                 <div className="px-4 pb-8 overflow-y-auto">
                                     <SecurityDashboard minimal={false} />
@@ -494,13 +484,13 @@ export function PasswordList() {
                             All
                         </Button>
                         <Button size="sm" variant={quickFilter === "weak" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5 shrink-0" onClick={() => setQuickFilter("weak")}>
-                            <AlertTriangle className="h-3 w-3" /> Weak {weakCount > 0 && <span className="font-bold">({weakCount})</span>}
+                            <AlertTriangle className="h-3 w-3" /> Weak {weakCount > 0 && <span className="font-semibold tabular-nums">({weakCount})</span>}
                         </Button>
                         <Button size="sm" variant={quickFilter === "reused" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5 shrink-0" onClick={() => setQuickFilter("reused")}>
-                            <Repeat className="h-3 w-3" /> Reused {reusedCount > 0 && <span className="font-bold">({reusedCount})</span>}
+                            <Repeat className="h-3 w-3" /> Reused {reusedCount > 0 && <span className="font-semibold tabular-nums">({reusedCount})</span>}
                         </Button>
                         <Button size="sm" variant={quickFilter === "no-url" ? "default" : "outline"} className="h-7 rounded-full text-xs gap-1.5 shrink-0" onClick={() => setQuickFilter("no-url")}>
-                            <Link2Off className="h-3 w-3" /> No URL {noUrlCount > 0 && <span className="font-bold">({noUrlCount})</span>}
+                            <Link2Off className="h-3 w-3" /> No URL {noUrlCount > 0 && <span className="font-semibold tabular-nums">({noUrlCount})</span>}
                         </Button>
                     </div>
                 </div>
@@ -508,34 +498,34 @@ export function PasswordList() {
 
             {/* Desktop Search Bar */}
             {!isMobile && (
-                <div className="flex gap-2 items-center z-40 transition-all duration-200 shrink-0 pb-4">
+                <div className="flex gap-2 items-center z-40 shrink-0 pb-4">
                     <div className="relative flex-1">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                         <Input
                             ref={searchInputRef}
                             placeholder={t("searchPlaceholderDesktop")}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-9 h-10 bg-background/50 backdrop-blur-sm"
+                            className="pl-8 h-8 text-[13px]"
                         />
                         {searchTerm && (
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                className="absolute right-1 top-1 h-8 w-8"
+                                className="absolute right-0.5 top-0.5 h-7 w-7"
                                 onClick={() => setSearchTerm("")}
                             >
                                 <X className="h-4 w-4" />
                             </Button>
                         )}
                     </div>
-                    <div className="flex items-center gap-2 border rounded-lg p-1 bg-muted/20">
-                        <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value as "grid" | "list")}>
+                    <div className="flex items-center rounded-lg p-0.5 bg-foreground/[0.05]">
+                        <ToggleGroup type="single" value={viewMode} onValueChange={(value) => value && setViewMode(value as "grid" | "list")} className="gap-0.5">
                             <ToggleGroupItem
                                 value="grid"
                                 size="sm"
                                 aria-label={t("gridViewAria")}
-                                className="data-[state=on]:bg-background data-[state=on]:text-primary data-[state=on]:shadow-sm text-muted-foreground"
+                                className="h-7 w-7 min-w-7 px-0 rounded-md data-[state=on]:bg-card data-[state=on]:text-foreground data-[state=on]:shadow-elev-1 text-muted-foreground"
                             >
                                 <LayoutGrid className="h-4 w-4" />
                             </ToggleGroupItem>
@@ -543,14 +533,14 @@ export function PasswordList() {
                                 value="list"
                                 size="sm"
                                 aria-label={t("listViewAria")}
-                                className="data-[state=on]:bg-background data-[state=on]:text-primary data-[state=on]:shadow-sm text-muted-foreground"
+                                className="h-7 w-7 min-w-7 px-0 rounded-md data-[state=on]:bg-card data-[state=on]:text-foreground data-[state=on]:shadow-elev-1 text-muted-foreground"
                             >
                                 <List className="h-4 w-4" />
                             </ToggleGroupItem>
                         </ToggleGroup>
                     </div>
                     <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
-                        <SelectTrigger className="h-10 w-[130px] text-xs gap-1.5">
+                        <SelectTrigger className="h-8 w-[130px] text-xs gap-1.5">
                             <ArrowUpDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                             <SelectValue />
                         </SelectTrigger>
@@ -561,46 +551,28 @@ export function PasswordList() {
                         </SelectContent>
                     </Select>
                     <ImportExportDialog />
-                    <Button variant="outline" size="sm" onClick={visiblePasswords.size > 0 ? hideAllVisible : showAllVisible} className="h-10 text-xs">
+                    <Button variant="ghost" size="sm" onClick={visiblePasswords.size > 0 ? hideAllVisible : showAllVisible} className="h-8 text-xs">
                         {visiblePasswords.size > 0 ? <><EyeOff className="h-3.5 w-3.5 mr-1.5" /> Hide all</> : <><Eye className="h-3.5 w-3.5 mr-1.5" /> Show all</>}
                     </Button>
-                    <div
-                        className="relative inline-flex rounded-md"
-                        style={{
-                            filter: breachedCount > 0
-                                ? "drop-shadow(0 0 4px rgb(239 68 68 / 0.7))"
-                                : "drop-shadow(0 0 4px hsl(var(--primary) / 0.6))"
-                        }}
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => { setBreachDialogOpen(true); void runBreachCheck() }}
+                        title="Check passwords against data breaches"
+                        className={cn(
+                            "h-8 text-xs gap-1.5",
+                            breachedCount > 0 && "text-destructive"
+                        )}
                     >
-                        <span className="absolute inset-0 rounded-md overflow-hidden pointer-events-none">
-                            <span
-                                className="absolute -inset-full animate-spin [animation-duration:2s]"
-                                style={{
-                                    background: breachedCount > 0
-                                        ? "conic-gradient(from 0deg, rgb(239 68 68/.2) 0deg, rgb(239 68 68) 45deg, rgb(239 68 68/.15) 90deg, rgb(239 68 68/.1) 180deg, rgb(239 68 68/.2) 270deg, rgb(239 68 68) 315deg, rgb(239 68 68/.2) 360deg)"
-                                        : "conic-gradient(from 0deg, hsl(var(--primary)/.2) 0deg, hsl(var(--primary)) 45deg, hsl(var(--primary)/.15) 90deg, hsl(var(--primary)/.1) 180deg, hsl(var(--primary)/.2) 270deg, hsl(var(--primary)) 315deg, hsl(var(--primary)/.2) 360deg)"
-                                }}
-                            />
-                        </span>
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => { setBreachDialogOpen(true); void runBreachCheck() }}
-                            title="Check passwords against data breaches"
-                            className={cn(
-                                "relative z-10 m-[1.5px] h-[calc(2.5rem-3px)] text-xs border-0 bg-background dark:bg-background hover:bg-background dark:hover:bg-background shadow-none rounded-[5px]",
-                                breachedCount > 0 && "text-red-500"
-                            )}
-                        >
-                            <ShieldX className="h-3.5 w-3.5 mr-1.5" /> Breach Check
-                            {breachedCount > 0 && (
-                                <span className="absolute -top-1.5 -right-1.5 h-4 w-4 rounded-full bg-red-500 text-[10px] text-white flex items-center justify-center font-bold">
-                                    {breachedCount}
-                                </span>
-                            )}
-                        </Button>
-                    </div>
-                    <Button variant="outline" size="icon" onClick={handleLock} title={t("lockVault")} className="h-10 w-10">
+                        <ShieldX className="h-3.5 w-3.5" /> Breach Check
+                        {breachedCount > 0 && (
+                            <span className="h-4 min-w-4 px-1 rounded-full bg-destructive/[0.12] text-destructive text-[10px] font-semibold tabular-nums flex items-center justify-center">
+                                {breachedCount}
+                            </span>
+                        )}
+                    </Button>
+                    <div className="h-5 w-px bg-border shrink-0" />
+                    <Button variant="ghost" size="icon" onClick={handleLock} title={t("lockVault")} className="h-8 w-8 text-muted-foreground">
                         <Lock className="h-4 w-4" />
                     </Button>
                 </div>
@@ -613,7 +585,7 @@ export function PasswordList() {
                     <Button size="sm" variant="ghost" className="h-7 text-xs" onClick={clearFilters}>
                         <X className="h-3.5 w-3.5 mr-1" /> Reset
                     </Button>
-                    <div className="ml-auto text-[10px] text-muted-foreground border rounded px-1.5 py-0.5 hidden lg:block">
+                    <div className="ml-auto text-[11px] text-muted-foreground/70 hidden lg:block">
                         Cmd/Ctrl+K search • Cmd/Ctrl+Shift+L lock
                     </div>
                 </div>
@@ -680,7 +652,7 @@ export function PasswordList() {
                 /* ── Desktop: own scrollable container as IntersectionObserver root ── */
                 <div ref={desktopScrollerRef} className="flex-1 overflow-y-auto min-h-0">
                     {viewMode === "grid" ? (
-                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                             {desktopPasswords.map((entry) => (
                                 <PasswordCard
                                     key={entry.id}
@@ -701,7 +673,7 @@ export function PasswordList() {
                             )}
                         </div>
                     ) : (
-                        <div className="rounded-md border bg-card/50 backdrop-blur-sm overflow-hidden">
+                        <div className="rounded-xl border border-border bg-card shadow-elev-1 overflow-hidden">
                             <Table>
                                 <TableHeader>
                                     <TableRow className="hover:bg-transparent">
@@ -714,10 +686,10 @@ export function PasswordList() {
                                 </TableHeader>
                                 <TableBody>
                                     {desktopPasswords.map((entry) => (
-                                        <TableRow key={entry.id} className="group hover:bg-muted/30 transition-colors">
+                                        <TableRow key={entry.id} className="group hover:bg-foreground/[0.03] transition-colors">
                                             <TableCell className="font-medium">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm select-none overflow-hidden">
+                                                    <div className="h-7 w-7 rounded-lg bg-muted flex items-center justify-center text-muted-foreground font-medium text-xs select-none overflow-hidden">
                                                         <FaviconImg
                                                             serviceUrl={showIcons && entry.url ? getFaviconUrl(entry.url) : null}
                                                             className="h-5 w-5 object-contain"
@@ -728,7 +700,7 @@ export function PasswordList() {
                                                         <span className="truncate font-medium">{entry.service}</span>
                                                         <div className="flex gap-1 mt-0.5 flex-wrap">
                                                             {entry.tags && entry.tags.slice(0, 2).map(tag => (
-                                                                <span key={tag} className="text-[10px] text-muted-foreground bg-muted px-1 rounded">
+                                                                <span key={tag} className="text-[11px] text-muted-foreground bg-foreground/[0.06] px-1.5 rounded-full">
                                                                     {tag}
                                                                 </span>
                                                             ))}
@@ -736,7 +708,7 @@ export function PasswordList() {
                                                                 const badge = getPasswordAgeBadge(getPasswordAgeStatus(entry.updatedAt))
                                                                 if (!badge) return null
                                                                 return (
-                                                                    <span className={cn("text-[10px] px-1 rounded flex items-center gap-0.5", badge.className)} title={`Last updated: ${new Date(entry.updatedAt).toLocaleDateString()}`}>
+                                                                    <span className={cn("text-[11px] px-1.5 rounded-full flex items-center gap-0.5", badge.className)} title={`Last updated: ${new Date(entry.updatedAt).toLocaleDateString()}`}>
                                                                         <Clock className="h-2.5 w-2.5" />{t(badge.labelKey)}
                                                                     </span>
                                                                 )
@@ -755,14 +727,14 @@ export function PasswordList() {
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2 max-w-[200px]">
-                                                    <div className="font-mono text-sm truncate flex-1 bg-muted/30 px-2 py-1 rounded border border-border/50">
+                                                    <div className="font-mono text-xs truncate flex-1 bg-muted/40 px-2 py-1 rounded-md border border-border">
                                                         {/* threatcrush-disable-next-line secret-generic-credential */}
                                                         {visiblePasswords.has(entry.id) ? entry.password : "••••••••••••"}
                                                     </div>
-                                                    <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => toggleVisibility(entry.id)}>
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0" onClick={() => toggleVisibility(entry.id)}>
                                                         {visiblePasswords.has(entry.id) ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
                                                     </Button>
-                                                    <Button variant="ghost" size="icon" className="h-6 w-6 hover:bg-background shrink-0" onClick={() => copyToClipboard(entry.password)}>
+                                                    <Button variant="ghost" size="icon" className="h-6 w-6 shrink-0" onClick={() => copyToClipboard(entry.password)}>
                                                         <Copy className="h-3 w-3" />
                                                     </Button>
                                                     <div className={cn("w-1.5 h-1.5 rounded-full", getStrengthColor(calculatePasswordStrength(entry.password)))} title={t("passwordStrengthTitle")} />
@@ -780,7 +752,7 @@ export function PasswordList() {
                                             <TableCell className="text-right">
                                                 <DropdownMenu>
                                                     <DropdownMenuTrigger asChild>
-                                                        <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-muted">
+                                                        <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
                                                             <MoreVertical className="h-4 w-4" />
                                                         </Button>
                                                     </DropdownMenuTrigger>
@@ -804,7 +776,7 @@ export function PasswordList() {
                             {/* Infinite scroll sentinel for table view */}
                             <div ref={desktopSentinelRef} />
                             {desktopHasMore && (
-                                <div className="flex justify-center py-4 border-t">
+                                <div className="flex justify-center py-4 border-t border-border">
                                     <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
                                 </div>
                             )}

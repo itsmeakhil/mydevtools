@@ -106,7 +106,7 @@ export function SyncDialog({
                                 {targets.map((t) => (
                                     <SelectItem key={t.id} value={t.id ?? t.name}>
                                         <span className="flex items-center gap-1.5">
-                                            {t.readOnly && <IconLock className="h-3 w-3 text-amber-500" />}
+                                            {t.readOnly && <IconLock className="h-3 w-3 text-warning" />}
                                             {t.name}
                                         </span>
                                     </SelectItem>
@@ -114,7 +114,7 @@ export function SyncDialog({
                             </SelectContent>
                         </Select>
                         {targetReadOnly && (
-                            <p className="text-[11px] text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                            <p className="text-[11px] text-warning flex items-center gap-1">
                                 <IconAlertTriangle className="h-3 w-3" /> This connection is read-only — pick another target.
                             </p>
                         )}
@@ -146,12 +146,12 @@ export function SyncDialog({
                     </div>
 
                     {result && (
-                        <div className="rounded-md border bg-muted/30 px-3 py-2 text-xs font-mono space-y-0.5">
+                        <div className="rounded-md border border-border bg-muted/40 px-3 py-2 text-xs tabular-nums space-y-0.5">
                             <div>scanned: {result.scanned}</div>
-                            <div className="text-green-600 dark:text-green-400">inserted: {result.inserted}</div>
-                            {mode === "overwrite" && <div className="text-blue-600 dark:text-blue-400">modified: {result.modified}</div>}
+                            <div className="text-success">inserted: {result.inserted}</div>
+                            {mode === "overwrite" && <div className="text-primary">modified: {result.modified}</div>}
                             {mode === "insert" && <div className="text-muted-foreground">skipped (existing): {result.skipped}</div>}
-                            {result.capped && <div className="text-amber-600 dark:text-amber-400">capped at 100k scanned</div>}
+                            {result.capped && <div className="text-warning">capped at 100k scanned</div>}
                         </div>
                     )}
                 </div>

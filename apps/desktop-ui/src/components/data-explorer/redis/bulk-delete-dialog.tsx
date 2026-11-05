@@ -104,20 +104,20 @@ export function BulkDeleteDialog({
                         className="h-8 text-xs font-mono"
                     />
                     {dryRun && (
-                        <div className="rounded border bg-muted/30 p-2 space-y-1 text-xs">
+                        <div className="space-y-1 rounded-md border border-border bg-muted/40 p-2 text-xs tabular-nums">
                             <div>
-                                Will delete <strong>{dryRun.affected.toLocaleString()}</strong> key(s),
+                                Will delete <strong className="font-semibold">{dryRun.affected.toLocaleString()}</strong> key(s),
                                 scanned {dryRun.scanned.toLocaleString()}.
                                 {dryRun.truncated && (
-                                    <span className="text-amber-600"> (scan capped)</span>
+                                    <span className="text-warning"> (scan capped)</span>
                                 )}
                             </div>
                             {dryRun.sample.length > 0 && (
                                 <details>
-                                    <summary className="cursor-pointer text-muted-foreground">
+                                    <summary className="text-muted-foreground hover:text-foreground">
                                         Sample keys
                                     </summary>
-                                    <div className="font-mono text-[10px] mt-1 max-h-32 overflow-auto">
+                                    <div className="mt-1 max-h-32 overflow-auto font-mono text-[11px]">
                                         {dryRun.sample.map((k) => <div key={k}>{k}</div>)}
                                     </div>
                                 </details>
