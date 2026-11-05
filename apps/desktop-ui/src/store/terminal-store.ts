@@ -7,7 +7,13 @@ import { loadTerminalState, saveTerminalState, terminalKill } from "@/lib/deskto
 export interface TerminalTab { id: string; name: string; layout: SplitNode; terminalNames: Record<string, string> }
 export interface TerminalProject {
   id: string; path: string; name: string; collapsed: boolean; tabs: TerminalTab[]; activeTabId: string | null
+  /** Highest tab number handed out, so closing tab 1 of [1, 2] still makes the next one 3. */
+  tabSeq?: number
 }
+
+/** Number for the project's next untitled tab. Older saves lack `tabSeq`: use the highest trailing number in tab names. */
+export const nextTabNumber = (p: Pick<TerminalProject, "tabs" | "tabSeq">) =>
+  (p.tabSeq ?? Math.max(p.tabs.length, ...p.tabs.map((t) => Number(/\s(\d+)$/.exec(t.name)?.[1] ?? 0)))) + 1
 export interface TerminalPersisted { projects: TerminalProject[]; activeProjectId: string | null }
 
 interface TerminalState extends TerminalPersisted {
@@ -163,7 +169,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const tab = makeTab(1, firstTabName)
       const project: TerminalProject = {
         id: uid(), path, name: path.replace(/[\\/]+$/, "").split(/[\\/]/).pop() || path,
-        collapsed: false, tabs: [tab], activeTabId: tab.id,
+        collapsed: false, tabs: [tab], activeTabId: tab.id, tabSeq: 1,
       }
       mutate((s) => ({ projects: [...s.projects, project], activeProjectId: project.id }))
     },
@@ -189,8 +195,9 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     newTab: (projectId, name) =>
       mutate(mapProject(projectId, (p) => {
-        const tab = makeTab(p.tabs.length + 1, name)
-        return { ...p, tabs: [...p.tabs, tab], activeTabId: tab.id }
+        const n = nextTabNumber(p)
+        const tab = makeTab(n, name)
+        return { ...p, tabs: [...p.tabs, tab], activeTabId: tab.id, tabSeq: n }
       })),
 
     closeTab: (projectId, tabId) => {

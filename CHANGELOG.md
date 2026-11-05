@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.0
+
+### Added
+
+- **Terminal**: reorder tabs by dragging. Drag a tab in the tab bar, or a terminal row in the sidebar, onto another tab of the same project to move it there. Running shells keep going while they move.
+- **Terminal**: links in terminal output are clickable. Plain URLs and OSC 8 hyperlinks open in your default browser.
+
+### Fixed
+
+- **Desktop**: external links open in your default browser. Previously links that opened a new window did nothing, and other external links replaced the app's own window with the web page.
+- **Terminal**: closing a tab no longer makes the next new tab reuse an existing number. New tabs always get the next unused number, so you never see two "Terminal 2" tabs.
+
 ## 0.1.20
 
 ### Added

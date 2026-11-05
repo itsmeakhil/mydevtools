@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
 import { useConfirm } from "@/components/confirm-dialog"
 import { useTabStore } from "@/store/tab-store"
-import { useTerminalStore, type TerminalProject } from "@/store/terminal-store"
+import { nextTabNumber, useTerminalStore, type TerminalProject } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou } from "@/lib/terminal/status"
 import { isForeignEditable, matchShortcut, nextWaiting, singleFlight } from "@/lib/terminal/util"
@@ -151,7 +151,7 @@ function TabBar({ project }: { project: TerminalProject }) {
           variant="ghost"
           size="icon"
           className="h-7 w-7 shrink-0"
-          onClick={() => S().newTab(project.id, t("untitledTab", { n: project.tabs.length + 1 }))}
+          onClick={() => S().newTab(project.id, t("untitledTab", { n: nextTabNumber(project) }))}
           aria-label={t("newTab")}
           title={`${t("newTab")} (⌘T)`}
         >
@@ -277,7 +277,7 @@ export function TerminalLayout() {
           break
         case "newTab":
           if (!p) return
-          st.newTab(p.id, t("untitledTab", { n: p.tabs.length + 1 }))
+          st.newTab(p.id, t("untitledTab", { n: nextTabNumber(p) }))
           break
         case "nextTab":
         case "prevTab": {
@@ -346,7 +346,7 @@ export function TerminalLayout() {
                     icon={IconTerminal2}
                     message={t("noTabs")}
                     action={t("newTab")}
-                    onAction={() => S().newTab(project.id, t("untitledTab", { n: 1 }))}
+                    onAction={() => S().newTab(project.id, t("untitledTab", { n: nextTabNumber(project) }))}
                   />
                 </div>
               )}
