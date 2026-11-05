@@ -35,6 +35,44 @@ export function terminalLabel(tab: TerminalTab, id: string, titles: Record<strin
 
 export interface GitInfo { branch: string | null; changed: number | null }
 
+// Tab being dragged (tab bar chip or sidebar row); module-level so both surfaces share it.
+let dragging: { projectId: string; tabId: string } | null = null
+const DRAG_MIME = "application/x-mydt-terminal-tab"
+
+/** Native drag-and-drop to reorder a project's tabs. `over` = tab id currently hovered as a drop target. */
+export function useTabReorder() {
+  const [over, setOver] = React.useState<string | null>(null)
+  const [draggingId, setDraggingId] = React.useState<string | null>(null)
+  const end = () => {
+    dragging = null
+    setOver(null)
+    setDraggingId(null)
+  }
+  const props = (projectId: string, tabId: string) => ({
+    draggable: true,
+    onDragStart: (e: React.DragEvent) => {
+      dragging = { projectId, tabId }
+      setDraggingId(tabId)
+      e.dataTransfer.effectAllowed = "move"
+      e.dataTransfer.setData(DRAG_MIME, tabId) // custom type: never drops as text into a terminal
+    },
+    onDragOver: (e: React.DragEvent) => {
+      if (dragging?.projectId !== projectId || dragging.tabId === tabId) return
+      e.preventDefault()
+      e.dataTransfer.dropEffect = "move"
+      setOver(tabId)
+    },
+    onDragLeave: () => setOver(null),
+    onDrop: (e: React.DragEvent) => {
+      e.preventDefault()
+      if (dragging?.projectId === projectId) useTerminalStore.getState().moveTab(projectId, dragging.tabId, tabId)
+      end()
+    },
+    onDragEnd: end,
+  })
+  return { over, draggingId, props }
+}
+
 function NeedsYouBox() {
   const t = useTranslations("Terminal")
   const projects = useTerminalStore((s) => s.projects)
@@ -69,10 +107,14 @@ function NeedsYouBox() {
 }
 
 const TerminalRow = React.memo(function TerminalRow({
-  id, label, status, active, onSelect,
-}: { id: string; label: string; status: TermStatus | undefined; active: boolean; onSelect: (id: string) => void }) {
+  id, projectId, tabId, label, status, active, onSelect,
+}: {
+  id: string; projectId: string; tabId: string; label: string; status: TermStatus | undefined; active: boolean
+  onSelect: (id: string) => void
+}) {
   const t = useTranslations("Terminal")
   const [draft, setDraft] = React.useState<string | null>(null)
+  const dnd = useTabReorder()
   const commit = () => {
     if (draft !== null) useTerminalStore.getState().renameTerminal(id, draft)
     setDraft(null)
@@ -105,9 +147,12 @@ const TerminalRow = React.memo(function TerminalRow({
       title={label}
       onClick={() => onSelect(id)}
       onDoubleClick={() => setDraft(label)}
+      {...dnd.props(projectId, tabId)}
       className={cn(
         "flex h-7 w-full items-center gap-2 rounded-lg pl-7 pr-2.5 text-left text-[13px] transition-colors",
         active ? "bg-primary/[0.12] font-medium text-foreground" : "text-foreground/80 hover:bg-foreground/[0.05] hover:text-foreground",
+        dnd.over && "ring-2 ring-inset ring-primary/50",
+        dnd.draggingId && "opacity-50",
       )}
     >
       <StatusDot status={status} />
@@ -133,7 +178,9 @@ const ProjectRow = React.memo(function ProjectRow({
   const selectProject = useTerminalStore((s) => s.selectProject)
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
   const open = !project.collapsed
-  const rows = project.tabs.flatMap((tab) => leafIds(tab.layout).map((id) => ({ id, label: terminalLabel(tab, id, titles) })))
+  const rows = project.tabs.flatMap((tab) =>
+    leafIds(tab.layout).map((id) => ({ id, tabId: tab.id, label: terminalLabel(tab, id, titles) })),
+  )
 
   return (
     <div>
@@ -186,7 +233,7 @@ const ProjectRow = React.memo(function ProjectRow({
             className="space-y-0.5 overflow-hidden px-2"
           >
             {rows.map((r) => (
-              <TerminalRow key={r.id} id={r.id} label={r.label} status={statuses[r.id]} active={r.id === focusedId} onSelect={focusTerminal} />
+              <TerminalRow key={r.id} id={r.id} projectId={project.id} tabId={r.tabId} label={r.label} status={statuses[r.id]} active={r.id === focusedId} onSelect={focusTerminal} />
             ))}
           </motion.div>
         )}

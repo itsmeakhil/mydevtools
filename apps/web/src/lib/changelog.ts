@@ -26,6 +26,20 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.2.0',
+    date: '2026-11-05',
+    title: 'Drag to reorder terminal tabs, and links that open where they should',
+    summary:
+      'Rearrange terminal tabs by dragging them, and click links straight from terminal output. Links anywhere in the app now open in your default browser.',
+    changes: [
+      { type: 'added', text: 'Terminal: drag a tab in the tab bar, or a terminal row in the sidebar, onto another tab of the same project to move it there. Running shells keep going while they move.' },
+      { type: 'added', text: 'Terminal: links in terminal output are clickable. Plain URLs and OSC 8 hyperlinks open in your default browser.' },
+      { type: 'improved', text: 'JSON Formatter, JSON Visualizer and Email Validator have a compact title bar matching Notes and Password Manager, leaving more room for your content. The tool launcher is gone from the header; hover the title for the tool’s description.' },
+      { type: 'fixed', text: 'External links open in your default browser. Previously links that opened a new window did nothing, and other external links replaced the app’s own window with the web page.' },
+      { type: 'fixed', text: 'Terminal: closing a tab no longer makes the next new tab reuse an existing number, so you never see two “Terminal 2” tabs.' },
+    ],
+  },
+  {
     version: '0.1.20',
     date: '2026-11-04',
     title: 'A built-in terminal that knows when Claude needs you',

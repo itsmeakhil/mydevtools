@@ -9,7 +9,7 @@ jest.mock("@/lib/desktop/terminal-bridge", () => ({
 jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 
 import { toast } from "sonner"
-import { useTerminalStore, resetTerminalSaveState, terminalExists } from "../terminal-store"
+import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber } from "../terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 
 const S = () => useTerminalStore.getState()
@@ -234,5 +234,32 @@ describe("terminal store", () => {
     S().addProject("/x/a", "Terminal 1")
     S().newTab(S().projects[0].id, "Onglet 2")
     expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["Terminal 1", "Onglet 2"])
+  })
+
+  it("tab numbers never repeat after closing a tab", () => {
+    S().addProject("/x/a", "Terminal 1")
+    const pid = S().projects[0].id
+    const p = () => S().projects[0]
+    S().newTab(pid, `Terminal ${nextTabNumber(p())}`)
+    S().closeTab(pid, p().tabs[0].id)
+    expect(nextTabNumber(p())).toBe(3)
+    S().newTab(pid, `Terminal ${nextTabNumber(p())}`)
+    expect(p().tabs.map((t) => t.name)).toEqual(["Terminal 2", "Terminal 3"])
+    // Saves from before tabSeq existed: highest trailing number in the names.
+    expect(nextTabNumber({ tabs: [{ ...p().tabs[0], name: "Terminal 2" }] })).toBe(3)
+    expect(nextTabNumber({ tabs: [] })).toBe(1)
+  })
+
+  it("moveTab moves a tab into the target's slot and saves", () => {
+    S().addProject("/x/a", "A")
+    const pid = S().projects[0].id
+    S().newTab(pid, "B")
+    S().newTab(pid, "C")
+    const [a, , c] = S().projects[0].tabs
+    S().moveTab(pid, c.id, a.id)
+    expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["C", "A", "B"])
+    S().moveTab(pid, c.id, S().projects[0].tabs[2].id)
+    expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["A", "B", "C"])
+    expect(S().dirty).toBe(true)
   })
 })

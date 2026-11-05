@@ -11,14 +11,14 @@ import { Input } from "@/components/ui/input"
 import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
 import { useConfirm } from "@/components/confirm-dialog"
 import { useTabStore } from "@/store/tab-store"
-import { useTerminalStore, type TerminalProject } from "@/store/terminal-store"
+import { nextTabNumber, useTerminalStore, type TerminalProject } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou } from "@/lib/terminal/status"
 import { isForeignEditable, matchShortcut, nextWaiting, singleFlight } from "@/lib/terminal/util"
 import { onClosePane, terminalGitInfo, terminalSetViewing } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
 import { SplitView } from "./split-view"
-import { StatusDot, TerminalSidebar, type GitInfo } from "./terminal-sidebar"
+import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
 
 const TOOL_PATH = "/app/terminal"
 const GIT_POLL_MS = 5000
@@ -77,6 +77,7 @@ function TabBar({ project }: { project: TerminalProject }) {
   const focusedId = useTerminalStore((s) => s.focusedTerminalId)
   const [editing, setEditing] = React.useState<string | null>(null)
   const [draft, setDraft] = React.useState("")
+  const dnd = useTabReorder()
 
   const commit = (tabId: string) => {
     const name = draft.trim()
@@ -95,9 +96,12 @@ function TabBar({ project }: { project: TerminalProject }) {
           return (
             <div
               key={tab.id}
+              {...(editing === tab.id ? {} : dnd.props(project.id, tab.id))}
               className={cn(
                 "group/tab flex h-7 shrink-0 items-center gap-1.5 rounded-md pl-2.5 pr-1 text-[13px] transition-colors",
                 active ? "bg-primary/[0.12] text-foreground" : "text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground",
+                dnd.over === tab.id && "ring-2 ring-inset ring-primary/50",
+                dnd.draggingId === tab.id && "opacity-50",
               )}
             >
               {waiting && <StatusDot status="waiting" />}
@@ -147,7 +151,7 @@ function TabBar({ project }: { project: TerminalProject }) {
           variant="ghost"
           size="icon"
           className="h-7 w-7 shrink-0"
-          onClick={() => S().newTab(project.id, t("untitledTab", { n: project.tabs.length + 1 }))}
+          onClick={() => S().newTab(project.id, t("untitledTab", { n: nextTabNumber(project) }))}
           aria-label={t("newTab")}
           title={`${t("newTab")} (⌘T)`}
         >
@@ -273,7 +277,7 @@ export function TerminalLayout() {
           break
         case "newTab":
           if (!p) return
-          st.newTab(p.id, t("untitledTab", { n: p.tabs.length + 1 }))
+          st.newTab(p.id, t("untitledTab", { n: nextTabNumber(p) }))
           break
         case "nextTab":
         case "prevTab": {
@@ -342,7 +346,7 @@ export function TerminalLayout() {
                     icon={IconTerminal2}
                     message={t("noTabs")}
                     action={t("newTab")}
-                    onAction={() => S().newTab(project.id, t("untitledTab", { n: 1 }))}
+                    onAction={() => S().newTab(project.id, t("untitledTab", { n: nextTabNumber(project) }))}
                   />
                 </div>
               )}

@@ -7,7 +7,13 @@ import { loadTerminalState, saveTerminalState, terminalKill } from "@/lib/deskto
 export interface TerminalTab { id: string; name: string; layout: SplitNode; terminalNames: Record<string, string> }
 export interface TerminalProject {
   id: string; path: string; name: string; collapsed: boolean; tabs: TerminalTab[]; activeTabId: string | null
+  /** Highest tab number handed out, so closing tab 1 of [1, 2] still makes the next one 3. */
+  tabSeq?: number
 }
+
+/** Number for the project's next untitled tab. Older saves lack `tabSeq`: use the highest trailing number in tab names. */
+export const nextTabNumber = (p: Pick<TerminalProject, "tabs" | "tabSeq">) =>
+  (p.tabSeq ?? Math.max(p.tabs.length, ...p.tabs.map((t) => Number(/\s(\d+)$/.exec(t.name)?.[1] ?? 0)))) + 1
 export interface TerminalPersisted { projects: TerminalProject[]; activeProjectId: string | null }
 
 interface TerminalState extends TerminalPersisted {
@@ -27,6 +33,8 @@ interface TerminalState extends TerminalPersisted {
   newTab: (projectId: string, name?: string) => void
   closeTab: (projectId: string, tabId: string) => void
   renameTab: (projectId: string, tabId: string, name: string) => void
+  /** Move tab `fromId` into `toId`'s position within the project (drag-and-drop reorder). */
+  moveTab: (projectId: string, fromId: string, toId: string) => void
   /** Custom pane name; blank clears it so the label falls back to the shell's window title. */
   renameTerminal: (terminalId: string, name: string) => void
   split: (terminalId: string, dir: "row" | "col") => void
@@ -161,7 +169,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const tab = makeTab(1, firstTabName)
       const project: TerminalProject = {
         id: uid(), path, name: path.replace(/[\\/]+$/, "").split(/[\\/]/).pop() || path,
-        collapsed: false, tabs: [tab], activeTabId: tab.id,
+        collapsed: false, tabs: [tab], activeTabId: tab.id, tabSeq: 1,
       }
       mutate((s) => ({ projects: [...s.projects, project], activeProjectId: project.id }))
     },
@@ -187,8 +195,9 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     newTab: (projectId, name) =>
       mutate(mapProject(projectId, (p) => {
-        const tab = makeTab(p.tabs.length + 1, name)
-        return { ...p, tabs: [...p.tabs, tab], activeTabId: tab.id }
+        const n = nextTabNumber(p)
+        const tab = makeTab(n, name)
+        return { ...p, tabs: [...p.tabs, tab], activeTabId: tab.id, tabSeq: n }
       })),
 
     closeTab: (projectId, tabId) => {
@@ -205,6 +214,16 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     renameTab: (projectId, tabId, name) =>
       mutate(mapProject(projectId, (p) => ({ ...p, tabs: p.tabs.map((t) => (t.id === tabId ? { ...t, name } : t)) }))),
+
+    moveTab: (projectId, fromId, toId) => {
+      const tabs = get().projects.find((p) => p.id === projectId)?.tabs ?? []
+      const from = tabs.findIndex((t) => t.id === fromId)
+      const to = tabs.findIndex((t) => t.id === toId)
+      if (from < 0 || to < 0 || from === to) return
+      const next = [...tabs]
+      next.splice(to, 0, ...next.splice(from, 1))
+      mutate(mapProject(projectId, (p) => ({ ...p, tabs: next })))
+    },
 
     renameTerminal: (terminalId, name) => {
       const hit = find(get().projects, terminalId)
