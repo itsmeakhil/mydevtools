@@ -27,6 +27,8 @@ interface TerminalState extends TerminalPersisted {
   newTab: (projectId: string, name?: string) => void
   closeTab: (projectId: string, tabId: string) => void
   renameTab: (projectId: string, tabId: string, name: string) => void
+  /** Move tab `fromId` into `toId`'s position within the project (drag-and-drop reorder). */
+  moveTab: (projectId: string, fromId: string, toId: string) => void
   /** Custom pane name; blank clears it so the label falls back to the shell's window title. */
   renameTerminal: (terminalId: string, name: string) => void
   split: (terminalId: string, dir: "row" | "col") => void
@@ -205,6 +207,16 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
     renameTab: (projectId, tabId, name) =>
       mutate(mapProject(projectId, (p) => ({ ...p, tabs: p.tabs.map((t) => (t.id === tabId ? { ...t, name } : t)) }))),
+
+    moveTab: (projectId, fromId, toId) => {
+      const tabs = get().projects.find((p) => p.id === projectId)?.tabs ?? []
+      const from = tabs.findIndex((t) => t.id === fromId)
+      const to = tabs.findIndex((t) => t.id === toId)
+      if (from < 0 || to < 0 || from === to) return
+      const next = [...tabs]
+      next.splice(to, 0, ...next.splice(from, 1))
+      mutate(mapProject(projectId, (p) => ({ ...p, tabs: next })))
+    },
 
     renameTerminal: (terminalId, name) => {
       const hit = find(get().projects, terminalId)

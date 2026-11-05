@@ -6,6 +6,7 @@ import { UserPreferencesSync } from "@/components/user-preferences-sync"
 import { PinnedToolsPreferencesSync } from "@/components/pinned-tools-preferences-sync"
 import { initTelemetry } from "@/lib/telemetry"
 import { installClipboardWriteShim } from "@/lib/desktop/clipboard-write-shim"
+import { installExternalLinkShim } from "@/lib/desktop/external-links"
 
 const GlobalCommandPalette = dynamic(
   () => import('@/components/global-command-palette').then((m) => m.GlobalCommandPalette),
@@ -32,6 +33,7 @@ type Props = {
 export function ClientShell({ children }: Props) {
   useEffect(() => {
     installClipboardWriteShim() // before any Monaco editor mounts
+    installExternalLinkShim() // external links → default browser
     void initTelemetry()
   }, [])
 

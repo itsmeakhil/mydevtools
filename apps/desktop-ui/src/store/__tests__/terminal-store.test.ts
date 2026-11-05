@@ -235,4 +235,17 @@ describe("terminal store", () => {
     S().newTab(S().projects[0].id, "Onglet 2")
     expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["Terminal 1", "Onglet 2"])
   })
+
+  it("moveTab moves a tab into the target's slot and saves", () => {
+    S().addProject("/x/a", "A")
+    const pid = S().projects[0].id
+    S().newTab(pid, "B")
+    S().newTab(pid, "C")
+    const [a, , c] = S().projects[0].tabs
+    S().moveTab(pid, c.id, a.id)
+    expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["C", "A", "B"])
+    S().moveTab(pid, c.id, S().projects[0].tabs[2].id)
+    expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["A", "B", "C"])
+    expect(S().dirty).toBe(true)
+  })
 })

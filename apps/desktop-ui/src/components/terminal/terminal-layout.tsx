@@ -18,7 +18,7 @@ import { isForeignEditable, matchShortcut, nextWaiting, singleFlight } from "@/l
 import { onClosePane, terminalGitInfo, terminalSetViewing } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
 import { SplitView } from "./split-view"
-import { StatusDot, TerminalSidebar, type GitInfo } from "./terminal-sidebar"
+import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
 
 const TOOL_PATH = "/app/terminal"
 const GIT_POLL_MS = 5000
@@ -77,6 +77,7 @@ function TabBar({ project }: { project: TerminalProject }) {
   const focusedId = useTerminalStore((s) => s.focusedTerminalId)
   const [editing, setEditing] = React.useState<string | null>(null)
   const [draft, setDraft] = React.useState("")
+  const dnd = useTabReorder()
 
   const commit = (tabId: string) => {
     const name = draft.trim()
@@ -95,9 +96,12 @@ function TabBar({ project }: { project: TerminalProject }) {
           return (
             <div
               key={tab.id}
+              {...(editing === tab.id ? {} : dnd.props(project.id, tab.id))}
               className={cn(
                 "group/tab flex h-7 shrink-0 items-center gap-1.5 rounded-md pl-2.5 pr-1 text-[13px] transition-colors",
                 active ? "bg-primary/[0.12] text-foreground" : "text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground",
+                dnd.over === tab.id && "ring-2 ring-inset ring-primary/50",
+                dnd.draggingId === tab.id && "opacity-50",
               )}
             >
               {waiting && <StatusDot status="waiting" />}

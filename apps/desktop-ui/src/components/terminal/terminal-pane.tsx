@@ -10,6 +10,7 @@ import { terminalExists, useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
 import { decodeOutput, encodeInput, keyedChain, writeQueue } from "@/lib/terminal/util"
 import { terminalAttach, terminalKill, terminalResize, terminalSpawn, terminalWrite } from "@/lib/desktop/terminal-bridge"
+import { openExternal } from "@/lib/desktop/external-links"
 import { cn } from "@/lib/utils"
 import { StatusDot } from "./terminal-sidebar"
 
@@ -68,9 +69,17 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     let cleanup = () => {}
 
     ;(async () => {
-      const [{ Terminal }, { FitAddon }] = await Promise.all([import("@xterm/xterm"), import("@xterm/addon-fit")])
+      const [{ Terminal }, { FitAddon }, { WebLinksAddon }] = await Promise.all([
+        import("@xterm/xterm"),
+        import("@xterm/addon-fit"),
+        import("@xterm/addon-web-links"),
+      ])
       if (disposed) return
+      const openLink = (_e: MouseEvent, uri: string) =>
+        void openExternal(uri).catch((err) => toast.error(errMsg(err)))
       const term = new Terminal({
+        // OSC 8 hyperlinks (ls --hyperlink, gh, etc.); xterm's default shows a confirm() + window.open.
+        linkHandler: { activate: openLink, allowNonHttpProtocols: false },
         fontFamily: FONT,
         fontSize: 13,
         cursorBlink: true,
@@ -81,6 +90,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       })
       const fit = new FitAddon()
       term.loadAddon(fit)
+      term.loadAddon(new WebLinksAddon(openLink)) // plain URLs in output
       termRef.current = term
       // xterm measures the font on open(); opening inside a display:none tab measures 0
       // and breaks fit, so open on first show. Writes before that are buffered.
