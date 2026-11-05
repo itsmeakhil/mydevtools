@@ -7,6 +7,10 @@
 - **Terminal**: reorder tabs by dragging. Drag a tab in the tab bar, or a terminal row in the sidebar, onto another tab of the same project to move it there. Running shells keep going while they move.
 - **Terminal**: links in terminal output are clickable. Plain URLs and OSC 8 hyperlinks open in your default browser.
 
+### Improved
+
+- **JSON Formatter, JSON Visualizer & Email Validator**: a compact title bar matching Notes and Password Manager, leaving more room for your content. The tool launcher is gone from the header; hover the title for the tool's description.
+
 ### Fixed
 
 - **Desktop**: external links open in your default browser. Previously links that opened a new window did nothing, and other external links replaced the app's own window with the web page.
