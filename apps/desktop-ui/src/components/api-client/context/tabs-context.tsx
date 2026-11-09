@@ -40,6 +40,17 @@ function persistTabs(tabs: ApiRequestState[]) {
     }
 }
 
+/** Move the tab `fromId` into `toId`'s slot; returns `tabs` unchanged when either id is missing. */
+export function moveTab<T extends { id: string }>(tabs: T[], fromId: string, toId: string): T[] {
+    const from = tabs.findIndex((t) => t.id === fromId)
+    const to = tabs.findIndex((t) => t.id === toId)
+    if (from === -1 || to === -1 || from === to) return tabs
+    const next = [...tabs]
+    const [moved] = next.splice(from, 1)
+    next.splice(to, 0, moved)
+    return next
+}
+
 export const createNewTab = (kind: "rest" | "websocket" | "grpc" = "rest"): ApiRequestState => ({
     id: crypto.randomUUID(),
     name: kind === "websocket" ? "New WebSocket" : kind === "grpc" ? "New gRPC" : API_CLIENT_DEFAULT_TAB_NAME,
@@ -77,7 +88,8 @@ type TabsActions = {
     closeTab(id: string): void
     duplicateTab(id: string): void
     renameTab(id: string, name: string): void
-    reorderTabs(next: ApiRequestState[]): void
+    /** Move `fromId` to `toId`'s slot. Id-based so a memoized caller holding a stale tabs array can't overwrite edits. */
+    reorderTabs(fromId: string, toId: string): void
     setActiveTabId(id: string): void
     updateActiveTab(updates: Partial<ApiRequestState> | ((tab: ApiRequestState) => Partial<ApiRequestState>)): void
 }
@@ -225,8 +237,8 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
             setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, name } : tab))
         },
 
-        reorderTabs(next: ApiRequestState[]) {
-            setTabs(next)
+        reorderTabs(fromId: string, toId: string) {
+            setTabs((prev) => moveTab(prev, fromId, toId))
         },
 
         setActiveTabId(id: string) {

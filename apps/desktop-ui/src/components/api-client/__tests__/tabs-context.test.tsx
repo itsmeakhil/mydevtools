@@ -114,3 +114,23 @@ describe("slimTabsForStorage", () => {
         expect(s.body.formData[0].fileContentBase64).toBe("")
     })
 })
+
+describe("moveTab", () => {
+    const { moveTab } = require("../context/tabs-context")
+    const ids = (tabs: { id: string }[]) => tabs.map((t) => t.id).join("")
+    const abc = [{ id: "a", v: 1 }, { id: "b", v: 2 }, { id: "c", v: 3 }]
+
+    it("moves forward and backward into the target's slot", () => {
+        expect(ids(moveTab(abc, "a", "c"))).toBe("bca")
+        expect(ids(moveTab(abc, "c", "a"))).toBe("cab")
+    })
+
+    it("keeps the live tab objects (no stale snapshot)", () => {
+        expect(moveTab(abc, "a", "b")[1]).toBe(abc[0])
+    })
+
+    it("returns the same array for unknown or identical ids", () => {
+        expect(moveTab(abc, "x", "a")).toBe(abc)
+        expect(moveTab(abc, "a", "a")).toBe(abc)
+    })
+})
