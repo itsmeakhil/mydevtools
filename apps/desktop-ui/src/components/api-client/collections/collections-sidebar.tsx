@@ -55,7 +55,11 @@ interface CollectionsSidebarProps {
     onLoadRequest: (request: CollectionRequest) => void
 }
 
-export function CollectionsSidebar({ onLoadRequest: loadRequest }: CollectionsSidebarProps) {
+// Memoized: the API client root re-renders on every keystroke, and this
+// sidebar's only prop (`onLoadRequest`) is stable across them.
+export const CollectionsSidebar = React.memo(CollectionsSidebarImpl)
+
+function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSidebarProps) {
     const panel = useToolSidebarPanel()
     // While the panel floats (mobile sheet, or the desktop flyout from the
     // collapsed rail), loading a request has to dismiss it or the loaded

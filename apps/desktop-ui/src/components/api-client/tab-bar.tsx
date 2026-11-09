@@ -23,7 +23,7 @@ interface TabBarProps {
     onTabClose: (id: string) => void
     onTabAdd: (kind?: "rest" | "websocket" | "grpc") => void
     onTabRename?: (id: string, name: string) => void
-    onTabReorder?: (reordered: ApiRequestState[]) => void
+    onTabReorder?: (fromId: string, toId: string) => void
     onTabDuplicate?: (id: string) => void
 }
 
@@ -38,7 +38,25 @@ const getMethodColor = (method: string) => {
     }
 }
 
-export function TabBar({
+/** True when two tab lists render the same chips (the only tab fields the bar reads). */
+function sameChips(a: ApiRequestState[], b: ApiRequestState[]): boolean {
+    return a.length === b.length && a.every((t, i) =>
+        t.id === b[i].id && t.kind === b[i].kind && t.method === b[i].method && t.name === b[i].name)
+}
+
+/**
+ * `tabs` is a new array on every keystroke in any request field; skip the
+ * re-render unless a chip actually changed. Safe because the bar never hands
+ * tab objects back up (reorder is id-based).
+ */
+export const TabBar = React.memo(TabBarImpl, (prev, next) => {
+    for (const key of Object.keys(next) as (keyof TabBarProps)[]) {
+        if (key !== "tabs" && prev[key] !== next[key]) return false
+    }
+    return sameChips(prev.tabs, next.tabs)
+})
+
+function TabBarImpl({
     tabs,
     activeTabId,
     onTabChange,
@@ -112,14 +130,7 @@ export function TabBar({
         e.preventDefault()
         if (!draggedId || draggedId === targetId || !onTabReorder) return
 
-        const from = tabs.findIndex((t) => t.id === draggedId)
-        const to = tabs.findIndex((t) => t.id === targetId)
-        if (from === -1 || to === -1) return
-
-        const reordered = [...tabs]
-        const [moved] = reordered.splice(from, 1)
-        reordered.splice(to, 0, moved)
-        onTabReorder(reordered)
+        onTabReorder(draggedId, targetId)
         setDraggedId(null)
         setDragOverId(null)
     }
