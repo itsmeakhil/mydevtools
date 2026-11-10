@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "새 탭"
+      "addTabAria": "새 탭",
+      "unsavedChanges": "저장되지 않은 변경 사항"
     },
     "collectionsSidebar": {
       "title": "API 리소스",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "요청 저장"
     },
     "toolbar": {
       "moreActions": "More actions",

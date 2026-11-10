@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "Νέα καρτέλα"
+      "addTabAria": "Νέα καρτέλα",
+      "unsavedChanges": "Μη αποθηκευμένες αλλαγές"
     },
     "collectionsSidebar": {
       "title": "Πόροι API",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "Αποθήκευση αιτήματος"
     },
     "toolbar": {
       "moreActions": "More actions",

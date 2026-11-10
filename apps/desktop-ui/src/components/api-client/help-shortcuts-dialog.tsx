@@ -12,6 +12,7 @@ const SHORTCUTS: Array<[string, string]> = [
     ["Alt+T", "newTab"],
     ["Alt+W", "closeTab"],
     ["mod+Enter", "sendRequest"],
+    ["mod+S", "saveRequest"],
 ]
 
 interface HelpShortcutsDialogProps {
@@ -51,7 +52,7 @@ export function HelpShortcutsDialog({ open, onOpenChange }: HelpShortcutsDialogP
                                         .replace("mod", isMac ? "⌘" : "Ctrl")
                                         .replace("Alt", isMac ? "⌥" : "Alt")}
                                 </kbd>
-                                <span className="self-center">{t(labelKey as "newTab" | "closeTab" | "sendRequest")}</span>
+                                <span className="self-center">{t(labelKey as "newTab" | "closeTab" | "sendRequest" | "saveRequest")}</span>
                             </li>
                         </React.Fragment>
                     ))}

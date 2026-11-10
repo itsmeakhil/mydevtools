@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "Nueva pestaña"
+      "addTabAria": "Nueva pestaña",
+      "unsavedChanges": "Cambios sin guardar"
     },
     "collectionsSidebar": {
       "title": "Recursos API",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "Guardar solicitud"
     },
     "toolbar": {
       "moreActions": "More actions",

@@ -88,6 +88,8 @@ type TabsActions = {
     closeTab(id: string): void
     duplicateTab(id: string): void
     renameTab(id: string, name: string): void
+    /** Patch any tab by id (an async save may finish after the user switched tabs). */
+    updateTab(id: string, patch: Partial<ApiRequestState>): void
     /** Move `fromId` to `toId`'s slot. Id-based so a memoized caller holding a stale tabs array can't overwrite edits. */
     reorderTabs(fromId: string, toId: string): void
     setActiveTabId(id: string): void
@@ -225,6 +227,9 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
                 id: crypto.randomUUID(),
                 response: null,
                 isLoading: false,
+                // A copy is a new draft — ⌘S on it must not overwrite the original.
+                source: undefined,
+                savedFingerprint: undefined,
             }
             const sourceIdx = current.findIndex((t) => t.id === id)
             const next = [...current]
@@ -235,6 +240,10 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
 
         renameTab(id: string, name: string) {
             setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, name } : tab))
+        },
+
+        updateTab(id: string, patch: Partial<ApiRequestState>) {
+            setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, ...patch } : tab))
         },
 
         reorderTabs(fromId: string, toId: string) {

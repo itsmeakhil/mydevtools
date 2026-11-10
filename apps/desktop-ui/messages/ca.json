@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "Pestanya nova"
+      "addTabAria": "Pestanya nova",
+      "unsavedChanges": "Canvis sense desar"
     },
     "collectionsSidebar": {
       "title": "Recursos API",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "Desa la sol·licitud"
     },
     "toolbar": {
       "moreActions": "More actions",

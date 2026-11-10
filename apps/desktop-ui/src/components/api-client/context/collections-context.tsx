@@ -16,7 +16,9 @@ type CollectionsState = {
 type CollectionsActions = {
     addFolder: (parentId: string, name: string) => Promise<string | void>
     deleteItem: (itemId: string) => Promise<void>
-    saveRequest: (parentId: string, request: import("../types").CollectionRequest) => Promise<void>
+    saveRequest: (parentId: string, request: import("../types").CollectionRequest) => Promise<boolean>
+    /** Overwrite a saved request in place (⌘S). Resolves true once persisted. */
+    updateRequest: (requestId: string, patch: Partial<import("../types").CollectionRequest>) => Promise<boolean>
     toggleFolder: (folderId: string) => Promise<void>
     createCollection: (name: string) => Promise<Collection | void>
     renameCollection: (collectionId: string, name: string) => Promise<void>
@@ -47,6 +49,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         renameCollection,
         renameFolder,
         patchFolder,
+        updateRequest,
         deleteMultipleCollections,
         importCollection,
         openFolderCollection,
@@ -89,12 +92,13 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             renameCollection,
             renameFolder,
             patchFolder,
+            updateRequest,
             deleteMultipleCollections,
             importCollection,
             openFolderCollection: openFolderCollectionWithEnvs,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, deleteMultipleCollections, importCollection, openFolderCollection, addEnvironment, updateEnvironment]
+        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, updateRequest, deleteMultipleCollections, importCollection, openFolderCollection, addEnvironment, updateEnvironment]
     )
 
     return (

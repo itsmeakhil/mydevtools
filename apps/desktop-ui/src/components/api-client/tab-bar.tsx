@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ApiRequestState } from "./types"
 import { getApiClientRequestDisplayName } from "./display-name"
+import { isTabDirty } from "@/lib/api-client/saved-request"
 import { useTranslations } from "next-intl"
 
 interface TabBarProps {
@@ -38,10 +39,11 @@ const getMethodColor = (method: string) => {
     }
 }
 
-/** True when two tab lists render the same chips (the only tab fields the bar reads). */
+/** True when two tab lists render the same chips (the only tab state the bar shows). */
 function sameChips(a: ApiRequestState[], b: ApiRequestState[]): boolean {
     return a.length === b.length && a.every((t, i) =>
-        t.id === b[i].id && t.kind === b[i].kind && t.method === b[i].method && t.name === b[i].name)
+        t.id === b[i].id && t.kind === b[i].kind && t.method === b[i].method && t.name === b[i].name &&
+        isTabDirty(t) === isTabDirty(b[i]))
 }
 
 /**
@@ -226,7 +228,7 @@ function TabBarImpl({
                             <button
                                 className={cn(
                                     "flex items-center justify-center h-4 w-4 rounded-sm transition-opacity",
-                                    activeTabId === tab.id ? "opacity-100" : "opacity-0 group-hover:opacity-100",
+                                    activeTabId === tab.id || isTabDirty(tab) ? "opacity-100" : "opacity-0 group-hover:opacity-100",
                                     "hover:bg-foreground/[0.08] text-muted-foreground hover:text-foreground"
                                 )}
                                 onClick={(e) => {
@@ -234,7 +236,16 @@ function TabBarImpl({
                                     onTabClose(tab.id)
                                 }}
                             >
-                                <X className="h-2.5 w-2.5" />
+                                {isTabDirty(tab) ? (
+                                    <>
+                                        {/* Unsaved: a dot holds the close slot; the X returns on hover. */}
+                                        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-primary group-hover:hidden" />
+                                        <X className="h-2.5 w-2.5 hidden group-hover:block" />
+                                        <span className="sr-only">{tTab("unsavedChanges")}</span>
+                                    </>
+                                ) : (
+                                    <X className="h-2.5 w-2.5" />
+                                )}
                             </button>
                         </div>
                     ))}

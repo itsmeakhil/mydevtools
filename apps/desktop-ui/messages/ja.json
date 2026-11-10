@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "新しいタブ"
+      "addTabAria": "新しいタブ",
+      "unsavedChanges": "未保存の変更"
     },
     "collectionsSidebar": {
       "title": "APIリソース",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "リクエストを保存"
     },
     "toolbar": {
       "moreActions": "More actions",

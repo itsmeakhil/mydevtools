@@ -10,6 +10,7 @@
  */
 
 import type {
+    Collection,
     CollectionFolder,
     CollectionRequest,
     KeyValueItem,
@@ -56,10 +57,10 @@ function concatScripts(parts: Array<string | undefined>): string {
     return cleaned.join("\n\n")
 }
 
-export function applyFolderInheritance(
-    request: CollectionRequest,
+export function applyFolderInheritance<R extends Pick<CollectionRequest, "headers" | "auth" | "preRequestScript" | "testScript">>(
+    request: R,
     ancestors: CollectionFolder[],
-): CollectionRequest {
+): R {
     if (ancestors.length === 0) return request
 
     // Nearest-ancestor-first auth: request wins; if request is `none`, look outward.
@@ -87,4 +88,21 @@ export function applyFolderInheritance(
         preRequestScript: concatScripts(preChain),
         testScript: concatScripts(testChain),
     }
+}
+
+/**
+ * A tab opened from a collection holds the request exactly as saved; its
+ * folders' defaults are merged in here, at send/codegen time, so ⌘S never
+ * writes inherited headers or scripts back into the request.
+ */
+export function withFolderDefaults<T extends Pick<CollectionRequest, "headers" | "auth" | "preRequestScript" | "testScript"> & { source?: { requestId: string } }>(
+    tab: T,
+    collections: Collection[],
+): T {
+    if (!tab.source) return tab
+    for (const col of collections) {
+        const ancestors = findRequestAncestors(col.items, tab.source.requestId)
+        if (ancestors !== null) return applyFolderInheritance(tab, ancestors)
+    }
+    return tab
 }
