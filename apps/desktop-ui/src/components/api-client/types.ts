@@ -256,6 +256,10 @@ export interface ApiRequestState {
     examples?: SavedExample[]
     /** Threaded discussion on this request. Persisted with the collection. */
     comments?: RequestComment[]
+    /** The collection request this tab was opened from or saved as — ⌘S overwrites it. */
+    source?: { requestId: string }
+    /** `requestFingerprint` as last saved/loaded; a different live value = unsaved changes. */
+    savedFingerprint?: string
 }
 
 export interface SavedExampleRequest {
@@ -292,7 +296,7 @@ export interface RequestComment {
     text: string
 }
 
-export interface CollectionRequest extends Omit<ApiRequestState, "response" | "isLoading" | "scriptResults"> {
+export interface CollectionRequest extends Omit<ApiRequestState, "response" | "isLoading" | "scriptResults" | "source" | "savedFingerprint"> {
     id: string
     name: string
     examples?: SavedExample[]

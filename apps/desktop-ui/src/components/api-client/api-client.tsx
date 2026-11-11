@@ -57,7 +57,8 @@ import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { resolveResponsePath } from "@/lib/response-path"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
-import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
+import { withFolderDefaults, findRequestAncestors } from "@/lib/folder-inheritance"
+import { requestFromTab, requestFingerprint, savePatch } from "@/lib/api-client/saved-request"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
 import { useJsonBodyValidation } from "./use-json-validation"
@@ -112,7 +113,7 @@ function ApiClientInner() {
     const t = useTranslations("ApiClient")
     const tNav = useTranslations("Navigation")
     const { tabs, activeTabId, activeTab } = useTabs()
-    const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab } = useTabsActions()
+    const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab, updateTab } = useTabsActions()
 
     const abortControllerRef = React.useRef<AbortController | null>(null)
 
@@ -122,7 +123,7 @@ function ApiClientInner() {
     const { format: formatJson } = useJsonFormatter()
     const { run: runScript } = useScriptsRunner()
     const { collections } = useCollectionsState()
-    const { saveRequest, addFolder, createCollection } = useCollectionsActions()
+    const { saveRequest, updateRequest, addFolder, createCollection } = useCollectionsActions()
     const { history } = useHistoryState()
     const { addHistoryItem } = useHistoryActions()
     const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
@@ -292,7 +293,8 @@ function ApiClientInner() {
     }, [updateActiveTab])
 
     const handleUrlChange = React.useCallback((url: string) => {
-        updateActiveTab({ url, name: url || API_CLIENT_DEFAULT_TAB_NAME })
+        // Drafts are named after their URL; a tab linked to a saved request keeps its name.
+        updateActiveTab((tab) => tab.source ? { url } : { url, name: url || API_CLIENT_DEFAULT_TAB_NAME })
     }, [updateActiveTab])
 
     const handleImportCurl = (curl: string, target: ImportCurlTarget = "new-tab") => {
@@ -328,49 +330,72 @@ function ApiClientInner() {
     // stay referentially stable across keystrokes.
     const activeTabRef = React.useRef(activeTab)
     React.useEffect(() => { activeTabRef.current = activeTab }, [activeTab])
+    const tabsRef = React.useRef(tabs)
+    React.useEffect(() => { tabsRef.current = tabs }, [tabs])
+    const collectionsRef = React.useRef(collections)
+    React.useEffect(() => { collectionsRef.current = collections }, [collections])
     const handleCopyCurl = React.useCallback(() => {
-        void copyToClipboard(generateCode(activeTabRef.current, "curl"), {
+        void copyToClipboard(generateCode(withFolderDefaults(activeTabRef.current, collectionsRef.current), "curl"), {
             successMessage: t("toasts.curlCopied"),
             errorMessage: t("toasts.copyFailed"),
         })
     }, [copyToClipboard, t])
 
-    const handleSaveRequest = (parentId: string, name: string) => {
-        const requestToSave: CollectionRequest = {
-            id: crypto.randomUUID(),
-            name,
-            method: activeTab.method,
-            url: activeTab.url,
-            params: activeTab.params,
-            headers: activeTab.headers,
-            body: activeTab.body,
-            auth: activeTab.auth,
+    const handleSaveRequest = async (parentId: string, name: string) => {
+        const tab = { ...activeTabRef.current, name }
+        const requestToSave: CollectionRequest = { ...requestFromTab(tab), id: crypto.randomUUID() }
+        updateTab(tab.id, { name })
+        // Link the tab only once persisted, so a failed save stays a draft.
+        if (await saveRequest(parentId, requestToSave)) {
+            updateTab(tab.id, { source: { requestId: requestToSave.id }, savedFingerprint: requestFingerprint(tab) })
         }
-        saveRequest(parentId, requestToSave)
-        updateActiveTab({ name })
     }
 
-    const handleLoadRequest = React.useCallback((request: CollectionRequest) => {
-        // Locate the request inside any collection so we can fold ancestor folders'
-        // defaults (headers / auth / scripts) into the materialised tab. A request
-        // edited in a tab is a snapshot — later folder-default edits don't propagate.
-        let effective = request
-        for (const col of collections) {
-            const ancestors = findRequestAncestors(col.items, request.id)
-            if (ancestors !== null) {
-                effective = applyFolderInheritance(request, ancestors)
+    /** ⌘S: overwrite the linked request in place, or ask where to save a draft. */
+    const handleSaveShortcut = React.useCallback(async () => {
+        const tab = activeTabRef.current
+        if (tab.kind && tab.kind !== "rest") return
+        const requestId = tab.source?.requestId
+        let stored: CollectionRequest | undefined
+        if (requestId) {
+            for (const col of collectionsRef.current) {
+                const ancestors = findRequestAncestors(col.items, requestId)
+                if (ancestors === null) continue
+                const siblings = ancestors.length ? ancestors[ancestors.length - 1].items : col.items
+                stored = siblings.find((i): i is CollectionRequest => i.id === requestId)
                 break
             }
         }
+        if (!requestId || !stored) {
+            // Never linked, or the request was deleted since: save as new.
+            if (requestId) updateTab(tab.id, { source: undefined, savedFingerprint: undefined })
+            setSaveOpen(true)
+            return
+        }
+        // Keep dirty on failure (the hook toasts the reason) so the next ⌘S retries.
+        if (await updateRequest(requestId, savePatch(tab, stored))) {
+            updateTab(tab.id, { savedFingerprint: requestFingerprint(tab) })
+        }
+    }, [updateRequest, updateTab])
+
+    const handleLoadRequest = React.useCallback((request: CollectionRequest) => {
+        const open = tabsRef.current.find((t) => t.source?.requestId === request.id)
+        if (open) {
+            setActiveTabId(open.id)
+            return
+        }
+        // The tab holds the request exactly as saved; folder defaults are applied
+        // at send time (withFolderDefaults) so ⌘S never writes them back.
         const newTab: ApiRequestState = {
             ...createNewTab(),
-            ...effective,
+            ...request,
             id: crypto.randomUUID(), // New ID for the tab instance
             response: null,
             isLoading: false,
+            source: { requestId: request.id },
         }
-        appendTab(newTab)
-    }, [collections, appendTab])
+        appendTab({ ...newTab, savedFingerprint: requestFingerprint(newTab) })
+    }, [appendTab, setActiveTabId])
 
     const handleCancel = React.useCallback(() => {
         abortControllerRef.current?.abort()
@@ -379,7 +404,8 @@ function ApiClientInner() {
     }, [updateActiveTab])
 
     const sendImpl = React.useCallback(async () => {
-        if (!activeTab.url?.trim()) return
+        const sendTab = withFolderDefaults(activeTab, collections)
+        if (!sendTab.url?.trim()) return
 
         abortControllerRef.current?.abort()
         const controller = new AbortController()
@@ -400,7 +426,7 @@ function ApiClientInner() {
         const scriptEnvUnsets = new Set<string>()
 
         // Previous response on the same tab — what `{{response.body.token}}` chains against.
-        const previousResponse = activeTab.response
+        const previousResponse = sendTab.response
 
         // Cross-tool secrets ({{vault.*}} / {{env.*}}) — resolved per send below,
         // never cached in component state.
@@ -423,28 +449,28 @@ function ApiClientInner() {
 
         try {
             // Working request state. Pre-request script may rewrite url/method/headers/body.
-            let workMethod: string = activeTab.method
-            let workUrl: string = activeTab.url
+            let workMethod: string = sendTab.method
+            let workUrl: string = sendTab.url
             let workHeaders: Record<string, string> = {}
-            activeTab.headers.forEach((h) => {
+            sendTab.headers.forEach((h) => {
                 if (h.active && h.key) workHeaders[h.key] = h.value
             })
 
             // ── Pre-request script ────────────────────────────────────────
-            if (activeTab.preRequestScript && activeTab.preRequestScript.trim()) {
+            if (sendTab.preRequestScript && sendTab.preRequestScript.trim()) {
                 const preCtx: ScriptContext = {
                     request: {
                         url: workUrl,
                         method: workMethod,
                         headers: workHeaders,
-                        body: activeTab.body.type === "json" || activeTab.body.type === "text"
-                            ? activeTab.body.content
+                        body: sendTab.body.type === "json" || sendTab.body.type === "text"
+                            ? sendTab.body.content
                             : undefined,
                     },
                     environment: { ...activeEnvironmentVariables },
                     variables: { ...sessionVarsRef.current },
                 }
-                const r = await runScript(activeTab.preRequestScript, preCtx)
+                const r = await runScript(sendTab.preRequestScript, preCtx)
                 scriptTests.push(...r.tests)
                 scriptLogs.push(...r.logs)
                 if (!r.ok && r.error) scriptErrors.push(`pre-request: ${r.error}`)
@@ -474,10 +500,10 @@ function ApiClientInner() {
                     workUrl,
                     JSON.stringify(workHeaders),
                     JSON.stringify({
-                        params: activeTab.params,
-                        headers: activeTab.headers,
-                        auth: activeTab.auth,
-                        body: { ...activeTab.body, formData: activeTab.body.formData?.map((f) => ({ ...f, fileContentBase64: undefined })) },
+                        params: sendTab.params,
+                        headers: sendTab.headers,
+                        auth: sendTab.auth,
+                        body: { ...sendTab.body, formData: sendTab.body.formData?.map((f) => ({ ...f, fileContentBase64: undefined })) },
                     }),
                 ],
                 cipherKey,
@@ -488,7 +514,7 @@ function ApiClientInner() {
 
             // Construct URL with params
             const urlObj = buildRequestUrl(finalUrl)
-            activeTab.params.forEach((p) => {
+            sendTab.params.forEach((p) => {
                 if (p.active && p.key) {
                     urlObj.searchParams.append(substituteAll(p.key), substituteAll(p.value))
                 }
@@ -502,25 +528,25 @@ function ApiClientInner() {
 
             // Add Auth — credentials are trimmed: copy-pasted tokens routinely carry leading/trailing
             // whitespace which most servers reject as malformed.
-            if (activeTab.auth.type === "bearer" && activeTab.auth.token) {
-                headersObj["Authorization"] = `Bearer ${substituteAll(activeTab.auth.token).trim()}`
-            } else if (activeTab.auth.type === "basic" && activeTab.auth.username && activeTab.auth.password) {
+            if (sendTab.auth.type === "bearer" && sendTab.auth.token) {
+                headersObj["Authorization"] = `Bearer ${substituteAll(sendTab.auth.token).trim()}`
+            } else if (sendTab.auth.type === "basic" && sendTab.auth.username && sendTab.auth.password) {
                 const credentials = encodeBasicCredentials(
-                    substituteAll(activeTab.auth.username).trim(),
-                    substituteAll(activeTab.auth.password),
+                    substituteAll(sendTab.auth.username).trim(),
+                    substituteAll(sendTab.auth.password),
                 )
                 headersObj["Authorization"] = `Basic ${credentials}`
-            } else if (activeTab.auth.type === "api-key" && activeTab.auth.apiKeyKey && activeTab.auth.apiKeyValue) {
-                const key = substituteAll(activeTab.auth.apiKeyKey).trim()
-                const val = substituteAll(activeTab.auth.apiKeyValue).trim()
-                if (activeTab.auth.apiKeyLocation === "query") {
+            } else if (sendTab.auth.type === "api-key" && sendTab.auth.apiKeyKey && sendTab.auth.apiKeyValue) {
+                const key = substituteAll(sendTab.auth.apiKeyKey).trim()
+                const val = substituteAll(sendTab.auth.apiKeyValue).trim()
+                if (sendTab.auth.apiKeyLocation === "query") {
                     urlObj.searchParams.append(key, val)
                 } else {
                     headersObj[key] = val
                 }
-            } else if (activeTab.auth.type === "jwt-bearer" && activeTab.auth.jwtBearer) {
+            } else if (sendTab.auth.type === "jwt-bearer" && sendTab.auth.jwtBearer) {
                 try {
-                    const cfg = activeTab.auth.jwtBearer
+                    const cfg = sendTab.auth.jwtBearer
                     let extra: Record<string, unknown> | undefined
                     if (cfg.extraClaimsJson && cfg.extraClaimsJson.trim()) {
                         extra = JSON.parse(cfg.extraClaimsJson) as Record<string, unknown>
@@ -543,24 +569,27 @@ function ApiClientInner() {
                     updateActiveTab({ isLoading: false })
                     return
                 }
-            } else if (activeTab.auth.type === "aws-sigv4" && activeTab.auth.awsSigV4) {
+            } else if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
                 // Defer signing until after the body is built — it has to hash the payload.
                 // We mark the intent here and apply at the end of body assembly.
-            } else if (activeTab.auth.type === "hawk" && activeTab.auth.hawk) {
+            } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
                 // Same — deferred to post-body assembly.
-            } else if (activeTab.auth.type === "digest" && activeTab.auth.digest) {
+            } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
                 // Digest with qop=auth-int also needs body. Deferred.
-            } else if (activeTab.auth.type === "oauth2" && activeTab.auth.oauth2) {
+            } else if (sendTab.auth.type === "oauth2" && sendTab.auth.oauth2) {
                 // Refresh / re-fetch as needed. The fresh config is persisted back
                 // into tab state so subsequent sends reuse the same access token.
                 try {
-                    const fresh = await ensureFreshToken(activeTab.auth.oauth2)
+                    const fresh = await ensureFreshToken(sendTab.auth.oauth2)
+                    // Write refreshed tokens back only when the auth is the tab's own,
+                    // not inherited from a folder (that would copy it into the request).
                     if (
-                        fresh.accessToken !== activeTab.auth.oauth2.accessToken ||
-                        fresh.refreshToken !== activeTab.auth.oauth2.refreshToken ||
-                        fresh.expiresAt !== activeTab.auth.oauth2.expiresAt
+                        sendTab.auth === activeTab.auth &&
+                        fresh.accessToken !== sendTab.auth.oauth2.accessToken ||
+                        fresh.refreshToken !== sendTab.auth.oauth2.refreshToken ||
+                        fresh.expiresAt !== sendTab.auth.oauth2.expiresAt
                     ) {
-                        updateActiveTab({ auth: { ...activeTab.auth, oauth2: fresh } })
+                        updateActiveTab({ auth: { ...sendTab.auth, oauth2: fresh } })
                     }
                     if (fresh.accessToken) {
                         const tokenType = fresh.tokenType || "Bearer"
@@ -576,7 +605,7 @@ function ApiClientInner() {
             // Cookie jar: prepend stored cookies to the Cookie header for this URL.
             // User-provided Cookie header takes precedence by appearing later in the merge
             // (browsers/curl typically take the merged value as-sent — undici will combine).
-            if (activeTab.useCookieJar !== false) {
+            if (sendTab.useCookieJar !== false) {
                 const jarHeader = cookieHeaderForUrl(urlObj.toString())
                 if (jarHeader) {
                     const existingKey = Object.keys(headersObj).find((k) => k.toLowerCase() === "cookie")
@@ -597,10 +626,10 @@ function ApiClientInner() {
                     delete headersMap[existingKey]
                 }
             }
-            if (workMethod !== "GET" && workMethod !== "HEAD" && activeTab.body.type !== "none") {
-                if (activeTab.body.type === "json") {
+            if (workMethod !== "GET" && workMethod !== "HEAD" && sendTab.body.type !== "none") {
+                if (sendTab.body.type === "json") {
                     try {
-                        const substitutedBody = substituteAll(activeTab.body.content)
+                        const substitutedBody = substituteAll(sendTab.body.content)
                         // Validate JSON
                         JSON.parse(substitutedBody)
                         bodyContent = substitutedBody
@@ -608,7 +637,7 @@ function ApiClientInner() {
                         headersObj["Content-Type"] = "application/json"
                     } catch (e) {
                         const parseErr = (e as Error).message
-                        const hasUnresolvedVar = activeTab.body.content.includes("{{")
+                        const hasUnresolvedVar = sendTab.body.content.includes("{{")
                         toast.error(
                             hasUnresolvedVar
                                 ? `Invalid JSON after env substitution: ${parseErr}`
@@ -617,9 +646,9 @@ function ApiClientInner() {
                         updateActiveTab({ isLoading: false })
                         return
                     }
-                } else if (activeTab.body.type === "x-www-form-urlencoded") {
+                } else if (sendTab.body.type === "x-www-form-urlencoded") {
                     const params = new URLSearchParams()
-                    ;(activeTab.body.urlEncoded ?? []).forEach((item) => {
+                    ;(sendTab.body.urlEncoded ?? []).forEach((item) => {
                         if (item.active && item.key) {
                             params.append(substituteAll(item.key), substituteAll(item.value))
                         }
@@ -629,8 +658,8 @@ function ApiClientInner() {
                     if (!Object.keys(headersObj).some((key) => key.toLowerCase() === "content-type")) {
                         headersObj["Content-Type"] = "application/x-www-form-urlencoded"
                     }
-                } else if (activeTab.body.type === "form-data") {
-                    const entries = (activeTab.body.formData ?? [])
+                } else if (sendTab.body.type === "form-data") {
+                    const entries = (sendTab.body.formData ?? [])
                         .filter((item) => item.active && item.key)
                         .map((item) => {
                             if (item.valueType === "file") {
@@ -655,11 +684,11 @@ function ApiClientInner() {
                         entries,
                     }
                     deleteContentTypeHeader(headersObj)
-                } else if (activeTab.body.type === "graphql") {
+                } else if (sendTab.body.type === "graphql") {
                     // GraphQL is serialised as { query, variables } JSON and sent as application/json.
-                    const query = substituteAll(activeTab.body.content)
+                    const query = substituteAll(sendTab.body.content)
                     let variables: unknown = undefined
-                    const rawVars = (activeTab.body.graphqlVariables ?? "").trim()
+                    const rawVars = (sendTab.body.graphqlVariables ?? "").trim()
                     if (rawVars) {
                         try {
                             variables = JSON.parse(substituteAll(rawVars))
@@ -673,7 +702,7 @@ function ApiClientInner() {
                     bodyPayload = bodyContent
                     headersObj["Content-Type"] = "application/json"
                 } else {
-                    bodyContent = substituteAll(activeTab.body.content)
+                    bodyContent = substituteAll(sendTab.body.content)
                     bodyPayload = bodyContent
                     if (!headersObj["Content-Type"]) {
                         headersObj["Content-Type"] = "text/plain"
@@ -688,29 +717,29 @@ function ApiClientInner() {
                 ? bodyPayload
                 : (bodyContent ?? "")
             try {
-                if (activeTab.auth.type === "aws-sigv4" && activeTab.auth.awsSigV4) {
+                if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
                     await signAwsSigV4({
                         method: workMethod,
                         url: urlObj,
                         headers: headersObj,
                         body: bodyForSigning,
-                        cfg: activeTab.auth.awsSigV4,
+                        cfg: sendTab.auth.awsSigV4,
                     })
-                } else if (activeTab.auth.type === "hawk" && activeTab.auth.hawk) {
+                } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
                     await signHawk({
                         method: workMethod,
                         url: urlObj,
                         headers: headersObj,
                         body: bodyForSigning,
-                        cfg: activeTab.auth.hawk,
+                        cfg: sendTab.auth.hawk,
                     })
-                } else if (activeTab.auth.type === "digest" && activeTab.auth.digest) {
+                } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
                     await signDigest({
                         method: workMethod,
                         url: urlObj,
                         headers: headersObj,
                         body: bodyForSigning,
-                        cfg: activeTab.auth.digest,
+                        cfg: sendTab.auth.digest,
                     })
                 }
             } catch (signErr) {
@@ -720,7 +749,7 @@ function ApiClientInner() {
             }
 
             // ── SPNEGO / Kerberos branch ─────────────────────────────────
-            if (activeTab.auth.type === "spnego" && activeTab.auth.spnego) {
+            if (sendTab.auth.type === "spnego" && sendTab.auth.spnego) {
                 const spnegoRes = await apiFetch("/api/proxy-spnego", {
                     method: "POST",
                     credentials: "include",
@@ -731,7 +760,7 @@ function ApiClientInner() {
                         method: workMethod,
                         headers: headersObj,
                         body: bodyContent ?? undefined,
-                        token: activeTab.auth.spnego.token,
+                        token: sendTab.auth.spnego.token,
                     }),
                 })
                 const data = await spnegoRes.json()
@@ -754,7 +783,7 @@ function ApiClientInner() {
             // NTLM does its own 3-step handshake on a single keepalive socket;
             // route the request through the NTLM proxy and skip the streaming
             // branch (NTLM responses are bounded).
-            if (activeTab.auth.type === "ntlm" && activeTab.auth.ntlm) {
+            if (sendTab.auth.type === "ntlm" && sendTab.auth.ntlm) {
                 const ntlmRes = await apiFetch("/api/proxy-ntlm", {
                     method: "POST",
                     credentials: "include",
@@ -766,10 +795,10 @@ function ApiClientInner() {
                         headers: headersObj,
                         body: bodyContent ?? undefined,
                         ntlm: {
-                            username: substituteAll(activeTab.auth.ntlm.username),
-                            password: substituteAll(activeTab.auth.ntlm.password),
-                            domain: activeTab.auth.ntlm.domain ? substituteAll(activeTab.auth.ntlm.domain) : undefined,
-                            workstation: activeTab.auth.ntlm.workstation ? substituteAll(activeTab.auth.ntlm.workstation) : undefined,
+                            username: substituteAll(sendTab.auth.ntlm.username),
+                            password: substituteAll(sendTab.auth.ntlm.password),
+                            domain: sendTab.auth.ntlm.domain ? substituteAll(sendTab.auth.ntlm.domain) : undefined,
+                            workstation: sendTab.auth.ntlm.workstation ? substituteAll(sendTab.auth.ntlm.workstation) : undefined,
                         },
                     }),
                 })
@@ -788,14 +817,14 @@ function ApiClientInner() {
                 })
                 addHistoryItem({
                     method: workMethod as RequestMethod,
-                    url: activeTab.url,
-                    params: activeTab.params,
-                    headers: activeTab.headers,
-                    body: activeTab.body,
-                    auth: activeTab.auth,
-                    preRequestScript: activeTab.preRequestScript,
-                    testScript: activeTab.testScript,
-                }, historyName(activeTab.name, workMethod, activeTab.url), ntlmData.status)
+                    url: sendTab.url,
+                    params: sendTab.params,
+                    headers: sendTab.headers,
+                    body: sendTab.body,
+                    auth: sendTab.auth,
+                    preRequestScript: sendTab.preRequestScript,
+                    testScript: sendTab.testScript,
+                }, historyName(sendTab.name, workMethod, sendTab.url), ntlmData.status)
                 return
             }
 
@@ -817,7 +846,7 @@ function ApiClientInner() {
                 method: beforeApplied.req.method,
                 headers: headersObj,
                 body: beforeApplied.req.body ?? bodyPayload ?? bodyContent,
-                timeoutMs: activeTab.timeoutMs,
+                timeoutMs: sendTab.timeoutMs,
             }, controller.signal)
             const proxyData = {
                 ...rawEnvelope,
@@ -864,7 +893,7 @@ function ApiClientInner() {
 
             // Cookie jar: persist Set-Cookie headers from the response.
             if (
-                activeTab.useCookieJar !== false &&
+                sendTab.useCookieJar !== false &&
                 Array.isArray(proxyData.setCookies) &&
                 proxyData.setCookies.length > 0
             ) {
@@ -888,7 +917,7 @@ function ApiClientInner() {
             }
 
             // ── Test script (runs against the live response) ──────────────
-            if (activeTab.testScript && activeTab.testScript.trim()) {
+            if (sendTab.testScript && sendTab.testScript.trim()) {
                 const postCtx: ScriptContext = {
                     request: {
                         url: urlObj.toString(),
@@ -906,7 +935,7 @@ function ApiClientInner() {
                     environment: { ...activeEnvironmentVariables, ...scriptEnvOverlay },
                     variables: { ...sessionVarsRef.current },
                 }
-                const r = await runScript(activeTab.testScript, postCtx)
+                const r = await runScript(sendTab.testScript, postCtx)
                 scriptTests.push(...r.tests)
                 scriptLogs.push(...r.logs)
                 if (!r.ok && r.error) scriptErrors.push(`test: ${r.error}`)
@@ -967,9 +996,9 @@ function ApiClientInner() {
             recordExchange({
                 request: {
                     method: workMethod,
-                    url: activeTab.url,
-                    headers: Object.fromEntries(activeTab.headers.filter((h) => h.active && h.key).map((h) => [h.key, h.value])),
-                    body: typeof activeTab.body?.content === "string" ? activeTab.body.content : undefined,
+                    url: sendTab.url,
+                    headers: Object.fromEntries(sendTab.headers.filter((h) => h.active && h.key).map((h) => [h.key, h.value])),
+                    body: typeof sendTab.body?.content === "string" ? sendTab.body.content : undefined,
                 },
                 response: {
                     status: proxyData.status,
@@ -980,7 +1009,7 @@ function ApiClientInner() {
             })
 
             // IndexedDB cache: keep full response body across reloads (localStorage strips it).
-            void putCachedResponse(activeTab.id, {
+            void putCachedResponse(sendTab.id, {
                 status: proxyData.status,
                 statusText: proxyData.statusText,
                 headers: proxyData.headers,
@@ -995,14 +1024,14 @@ function ApiClientInner() {
 
             addHistoryItem({
                 method: workMethod as RequestMethod,
-                url: activeTab.url,
-                params: activeTab.params,
-                headers: activeTab.headers,
-                body: activeTab.body,
-                auth: activeTab.auth,
-                preRequestScript: activeTab.preRequestScript,
-                testScript: activeTab.testScript,
-            }, historyName(activeTab.name, workMethod, activeTab.url), proxyData.status)
+                url: sendTab.url,
+                params: sendTab.params,
+                headers: sendTab.headers,
+                body: sendTab.body,
+                auth: sendTab.auth,
+                preRequestScript: sendTab.preRequestScript,
+                testScript: sendTab.testScript,
+            }, historyName(sendTab.name, workMethod, sendTab.url), proxyData.status)
 
         } catch (error) {
             if ((error as Error).name === "AbortError") return
@@ -1022,16 +1051,17 @@ function ApiClientInner() {
             })
 
             addHistoryItem({
-                method: activeTab.method,
-                url: activeTab.url,
-                params: activeTab.params,
-                headers: activeTab.headers,
-                body: activeTab.body,
-                auth: activeTab.auth,
-            }, historyName(activeTab.name, activeTab.method, activeTab.url), 0)
+                method: sendTab.method,
+                url: sendTab.url,
+                params: sendTab.params,
+                headers: sendTab.headers,
+                body: sendTab.body,
+                auth: sendTab.auth,
+            }, historyName(sendTab.name, sendTab.method, sendTab.url), 0)
         }
     }, [
         activeTab,
+        collections,
         updateActiveTab,
         isMobile,
         formatJson,
@@ -1090,11 +1120,14 @@ function ApiClientInner() {
             } else if (mod && e.key === "Enter") {
                 e.preventDefault()
                 handleSend()
+            } else if (mod && !e.shiftKey && !e.altKey && (e.key === "s" || e.key === "S")) {
+                e.preventDefault()
+                void handleSaveShortcut()
             }
         }
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [addTab, closeTab, handleSend, activeTabId])
+    }, [addTab, closeTab, handleSend, handleSaveShortcut, activeTabId])
 
     // Desktop request column — reused whether it sits full-width (no response yet)
     // or inside the resizable split (once a response exists / is loading).
@@ -1258,6 +1291,9 @@ function ApiClientInner() {
                                     onCreateFolder={addFolder}
                                     onCreateCollection={createCollection}
                                     defaultName={activeTab.name !== API_CLIENT_DEFAULT_TAB_NAME ? activeTab.name : ""}
+                                    open={saveOpen}
+                                    onOpenChange={setSaveOpen}
+                                    showTrigger
                                 />
                                 <ImportCurlDialog onImport={handleImportCurl} />
                                 <Button
@@ -1304,7 +1340,7 @@ function ApiClientInner() {
                         )}
                         {codeGenOpen && (
                             <CodeGenerator
-                                request={activeTab}
+                                request={withFolderDefaults(activeTab, collections)}
                                 open={codeGenOpen}
                                 onOpenChange={setCodeGenOpen}
                             />

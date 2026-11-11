@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "新标签"
+      "addTabAria": "新标签",
+      "unsavedChanges": "未保存的更改"
     },
     "collectionsSidebar": {
       "title": "API 资源",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "保存请求"
     },
     "toolbar": {
       "moreActions": "More actions",

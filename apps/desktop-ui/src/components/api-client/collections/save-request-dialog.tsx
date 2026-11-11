@@ -34,9 +34,11 @@ interface SaveRequestDialogProps {
     defaultName?: string
     open?: boolean
     onOpenChange?: (open: boolean) => void
+    /** Render the toolbar trigger even when `open` is controlled. */
+    showTrigger?: boolean
 }
 
-export function SaveRequestDialog({ collections, onSave, onCreateFolder, onCreateCollection, defaultName, open: openProp, onOpenChange }: SaveRequestDialogProps) {
+export function SaveRequestDialog({ collections, onSave, onCreateFolder, onCreateCollection, defaultName, open: openProp, onOpenChange, showTrigger }: SaveRequestDialogProps) {
     const t = useTranslations("ApiClient.saveRequest")
     const [openInternal, setOpenInternal] = React.useState(false)
     const open = openProp !== undefined ? openProp : openInternal
@@ -109,7 +111,7 @@ export function SaveRequestDialog({ collections, onSave, onCreateFolder, onCreat
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            {!isControlled && (
+            {(!isControlled || showTrigger) && (
                 <DialogTrigger asChild>
                     <Button variant="outline" size="sm" className="gap-2">
                         <Save className="h-4 w-4" />

@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "Ny flik"
+      "addTabAria": "Ny flik",
+      "unsavedChanges": "Osparade ändringar"
     },
     "collectionsSidebar": {
       "title": "API-resurser",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "Spara begäran"
     },
     "toolbar": {
       "moreActions": "More actions",

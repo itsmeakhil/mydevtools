@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "Tab baharu"
+      "addTabAria": "Tab baharu",
+      "unsavedChanges": "Perubahan belum disimpan"
     },
     "collectionsSidebar": {
       "title": "Sumber API",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "Simpan permintaan"
     },
     "toolbar": {
       "moreActions": "More actions",

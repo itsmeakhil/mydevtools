@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "Nuwe oortjie"
+      "addTabAria": "Nuwe oortjie",
+      "unsavedChanges": "Ongestoorde veranderinge"
     },
     "collectionsSidebar": {
       "title": "API-hulpbronne",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "Stoor versoek"
     },
     "toolbar": {
       "moreActions": "More actions",

@@ -1924,7 +1924,8 @@
       "downloadFullBody": "Download full body"
     },
     "tabBar": {
-      "addTabAria": "Ny fane"
+      "addTabAria": "Ny fane",
+      "unsavedChanges": "Ikke-gemte ændringer"
     },
     "collectionsSidebar": {
       "title": "API-ressourcer",
@@ -2021,7 +2022,8 @@
       "title": "Keyboard shortcuts",
       "newTab": "New tab",
       "closeTab": "Close tab",
-      "sendRequest": "Send request"
+      "sendRequest": "Send request",
+      "saveRequest": "Gem anmodning"
     },
     "toolbar": {
       "moreActions": "More actions",

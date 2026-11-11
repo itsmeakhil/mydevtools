@@ -409,22 +409,23 @@ export function useCollections() {
         }
     }
 
-    const saveRequest = async (parentId: string, request: CollectionRequest) => {
+    const saveRequest = async (parentId: string, request: CollectionRequest): Promise<boolean> => {
         const targetCollection = allCollections.find(c =>
             c.id === parentId || findItemInCollection(c.items, parentId)
         )
 
-        if (!targetCollection) return
+        if (!targetCollection) return false
 
         if (targetCollection.source) {
             const nextItems = targetCollection.id === parentId
                 ? [...targetCollection.items, request]
                 : addItemToParent(targetCollection.items, parentId, request)
-            if (await mutateFileCollection(targetCollection, nextItems)) toast.success("Request saved")
-            return
+            const ok = await mutateFileCollection(targetCollection, nextItems)
+            if (ok) toast.success("Request saved")
+            return ok
         }
 
-        if (!user) return
+        if (!user) return false
 
         // Optimistic update
         const prev = collections
@@ -444,10 +445,12 @@ export function useCollections() {
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             broadcastApiClientUpdate("collections")
             toast.success("Request saved")
+            return true
         } catch (e) {
             setCollections(prev)
             console.error("Error saving request", e)
             toast.error("Failed to save request")
+            return false
         }
     }
 
@@ -491,30 +494,31 @@ export function useCollections() {
     }
 
     /**
-     * Generic folder patch — used by the folder-defaults dialog to set
-     * defaultHeaders / preRequestScript / testScript / defaultAuth.
+     * Shallow-patch one folder or request in place, wherever it sits.
      * Applies optimistically against state, reconciles from the delta result.
+     * Resolves true only once the change is persisted.
      */
-    const patchFolder = async (folderId: string, patch: Partial<CollectionFolder>) => {
-        const targetCollection = allCollections.find((c) => findItemInCollection(c.items, folderId))
-        if (!targetCollection) return
+    const patchItem = async (
+        itemId: string,
+        patch: Partial<CollectionFolder> | Partial<CollectionRequest>,
+        messages: { ok: string; fail: string },
+    ): Promise<boolean> => {
+        const targetCollection = allCollections.find((c) => findItemInCollection(c.items, itemId))
+        if (!targetCollection) return false
         const patchInItems = (items: (CollectionFolder | CollectionRequest)[]): (CollectionFolder | CollectionRequest)[] =>
             items.map((item) => {
-                if ("type" in item && item.type === "folder") {
-                    if (item.id === folderId) return { ...item, ...patch }
-                    return { ...item, items: patchInItems(item.items) }
-                }
+                if (item.id === itemId) return { ...item, ...patch } as CollectionFolder | CollectionRequest
+                if ("type" in item && item.type === "folder") return { ...item, items: patchInItems(item.items) }
                 return item
             })
 
         if (targetCollection.source) {
-            if (await mutateFileCollection(targetCollection, patchInItems(targetCollection.items))) {
-                toast.success("Folder defaults saved")
-            }
-            return
+            const ok = await mutateFileCollection(targetCollection, patchInItems(targetCollection.items))
+            if (ok) toast.success(messages.ok)
+            return ok
         }
 
-        if (!user) return
+        if (!user) return false
         const prev = collections
         setCollections((cur) =>
             sortCollections(cur.map((c) =>
@@ -523,17 +527,28 @@ export function useCollections() {
         )
         try {
             const updated = await applyDelta(targetCollection.id, [
-                { type: "update", item_id: folderId, patch },
+                { type: "update", item_id: itemId, patch },
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             broadcastApiClientUpdate("collections")
-            toast.success("Folder defaults saved")
+            toast.success(messages.ok)
+            return true
         } catch (e) {
             setCollections(prev)
-            console.error("Error patching folder", e)
-            toast.error("Failed to save folder defaults")
+            console.error("Error patching collection item", e)
+            toast.error(messages.fail)
+            return false
         }
     }
+
+    /** Folder-defaults dialog: defaultHeaders / preRequestScript / testScript / defaultAuth. */
+    const patchFolder = async (folderId: string, patch: Partial<CollectionFolder>) => {
+        await patchItem(folderId, patch, { ok: "Folder defaults saved", fail: "Failed to save folder defaults" })
+    }
+
+    /** ⌘S on a tab opened from a collection: overwrite that request in place. */
+    const updateRequest = (requestId: string, patch: Partial<CollectionRequest>) =>
+        patchItem(requestId, patch, { ok: "Request saved", fail: "Failed to save request" })
 
     const renameFolder = async (folderId: string, name: string) => {
         const targetCollection = allCollections.find(c => findItemInCollection(c.items, folderId))
@@ -876,6 +891,7 @@ export function useCollections() {
         renameCollection,
         renameFolder,
         patchFolder,
+        updateRequest,
         deleteMultipleCollections,
         importCollection,
         isLoading
