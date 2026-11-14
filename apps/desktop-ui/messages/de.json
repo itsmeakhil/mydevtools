@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} wird aus der Liste entfernt und seine Terminals werden geschlossen. Dateien auf dem Datenträger bleiben unberührt.",
     "splitRight": "Rechts teilen",
     "splitDown": "Unten teilen",
-    "closePane": "Bereich schließen"
+    "closePane": "Bereich schließen",
+    "find": "Suchen",
+    "findPrevious": "Vorheriger Treffer",
+    "findNext": "Nächster Treffer",
+    "closeFind": "Suche schließen",
+    "noMatches": "Keine Treffer"
   }
 }

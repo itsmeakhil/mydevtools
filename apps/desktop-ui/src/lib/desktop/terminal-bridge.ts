@@ -13,7 +13,11 @@ async function invoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T
 
 export type TerminalChunk = { type: "data"; b64: string } | { type: "exit"; code: number | null }
 
-export const terminalSpawn = (req: { id: string; cwd: string; cols: number; rows: number; projectName: string }) =>
+export const terminalSpawn = (req: {
+  id: string; cwd: string; cols: number; rows: number; projectName: string
+  /** Open in this live pane's current directory instead of `cwd`, when it has one. */
+  inheritCwdFrom?: string
+}) =>
   invoke<{ id: string; cwd: string; cwdFallback: boolean }>("terminal_spawn", { req })
 
 export async function terminalAttach(id: string, onMessage: (m: TerminalChunk) => void) {
@@ -27,6 +31,8 @@ export const terminalWrite = (id: string, b64: string) => invoke<void>("terminal
 export const terminalResize = (id: string, cols: number, rows: number) =>
   invoke<void>("terminal_resize", { id, cols, rows })
 export const terminalKill = (id: string) => invoke<void>("terminal_kill", { id })
+/** Drop the saved scrollback (⌘K), so a remount doesn't replay what was cleared. */
+export const terminalClearScrollback = (id: string) => invoke<void>("terminal_clear_scrollback", { id })
 export const terminalGitInfo = (path: string, withChanged: boolean) =>
   invoke<{ branch: string | null; changed: number | null }>("terminal_git_info", { path, withChanged })
 export const terminalStatuses = () => invoke<Record<string, TermStatus>>("terminal_statuses")

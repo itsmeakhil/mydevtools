@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} será removido da lista e seus terminais serão fechados. Os arquivos no disco não são alterados.",
     "splitRight": "Dividir à direita",
     "splitDown": "Dividir para baixo",
-    "closePane": "Fechar painel"
+    "closePane": "Fechar painel",
+    "find": "Localizar",
+    "findPrevious": "Resultado anterior",
+    "findNext": "Próximo resultado",
+    "closeFind": "Fechar busca",
+    "noMatches": "Nenhum resultado"
   }
 }

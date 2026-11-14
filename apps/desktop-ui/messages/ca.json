@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} s'eliminarà de la llista i se'n tancaran els terminals. Els fitxers al disc no es toquen.",
     "splitRight": "Divideix a la dreta",
     "splitDown": "Divideix cap avall",
-    "closePane": "Tanca el panell"
+    "closePane": "Tanca el panell",
+    "find": "Cerca",
+    "findPrevious": "Coincidència anterior",
+    "findNext": "Coincidència següent",
+    "closeFind": "Tanca la cerca",
+    "noMatches": "Cap coincidència"
   }
 }

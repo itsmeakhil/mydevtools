@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} fjernes fra listen, og terminalene lukkes. Filer på disken berøres ikke.",
     "splitRight": "Del til høyre",
     "splitDown": "Del nedover",
-    "closePane": "Lukk rute"
+    "closePane": "Lukk rute",
+    "find": "Søk",
+    "findPrevious": "Forrige treff",
+    "findNext": "Neste treff",
+    "closeFind": "Lukk søk",
+    "noMatches": "Ingen treff"
   }
 }

@@ -375,29 +375,32 @@ mod tests {
         let _ = std::fs::remove_dir_all(&user);
     }
 
+    /// Output with OSC sequences (BEL-terminated, as our rc files write them) removed.
+    fn strip_osc(s: &str) -> String {
+        let mut out = String::new();
+        let mut rest = s;
+        while let Some(i) = rest.find("\x1b]") {
+            out.push_str(&rest[..i]);
+            rest = rest[i..].split_once('\x07').map_or("", |(_, r)| r);
+        }
+        out + rest
+    }
+
     #[test]
     fn bash_integration_keeps_underscore_and_prompt_command() {
-        use std::io::{Read, Write};
+        use std::io::Write;
         if !Path::new("/bin/bash").exists() {
             return;
         }
         let home = tmp("bhome");
         std::fs::write(home.join(".bashrc"), "PROMPT_COMMAND='echo user-pc'\n").unwrap();
-        let sock = home.join("h.sock");
-        let listener = std::os::unix::net::UnixListener::bind(&sock).unwrap();
-        listener.set_nonblocking(true).unwrap();
-
         let app = |k: &str| (k == "PATH").then(|| "/usr/bin:/bin".to_string());
-        let pane = vec![
-            ("MDT_TERMINAL_ID".to_string(), "t1".to_string()),
-            ("MDT_HOOK_SOCKET".to_string(), sock.display().to_string()),
-            ("MDT_HOOK_TOKEN".to_string(), "tok".to_string()),
-        ];
-        let (argv, env) = shell_launch_with("/bin/bash", &res(), pane, &app);
+        let (argv, env) = shell_launch_with("/bin/bash", &res(), vec![], &app);
         let mut c = Command::new(&argv[0]);
         c.args(&argv[1..])
             .env_clear()
             .env("HOME", &home)
+            .current_dir(&home)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null());
@@ -413,52 +416,51 @@ mod tests {
             .write_all(b"echo hi there; echo $_\n\n\nexit\n")
             .unwrap();
         let o = child.wait_with_output().unwrap();
-        let out = lines(&o);
-        assert!(
-            out.windows(2).any(|w| w == ["hi there", "there"]),
-            "{out:?}"
-        );
+        let raw = String::from_utf8_lossy(&o.stdout).to_string();
+        let out: Vec<String> = strip_osc(&raw).lines().map(String::from).collect();
+        assert!(out.windows(2).any(|w| w == ["hi there", "there"]), "{out:?}");
         assert!(out.iter().any(|l| l == "user-pc"), "{out:?}");
+        // prompts: initial + after the command + 2 empty Enters; commands: the line + exit
+        let count = |m: &str| raw.matches(m).count();
+        assert_eq!((count("\x1b]133;A\x07"), count("\x1b]133;C\x07")), (4, 2), "{raw:?}");
+        let cwd = format!("\x1b]7;file://");
+        assert!(raw.contains(&cwd) && raw.contains(&format!("{}\x07", home.display())), "{raw:?}");
+        let _ = std::fs::remove_dir_all(&home);
+    }
 
-        // prompts: initial + after the command + 2 empty Enters; execs: the command + exit
-        let mut got = Vec::new();
-        let deadline = Instant::now() + Duration::from_secs(3);
-        while got.len() < 6 && Instant::now() < deadline {
-            match listener.accept() {
-                Ok((mut s, _)) => {
-                    s.set_nonblocking(false).unwrap();
-                    let mut l = String::new();
-                    s.read_to_string(&mut l).unwrap();
-                    got.push(crate::terminal::hooks::parse_line(&l, "tok").expect("valid line"));
-                }
-                Err(_) => std::thread::sleep(Duration::from_millis(20)),
-            }
+    #[test]
+    fn zsh_integration_writes_prompt_marks() {
+        if !Path::new("/bin/zsh").exists() {
+            return;
         }
-        std::thread::sleep(Duration::from_millis(300));
-        while let Ok((mut s, _)) = listener.accept() {
-            let mut l = String::new();
-            s.set_nonblocking(false).unwrap();
-            s.read_to_string(&mut l).unwrap();
-            got.extend(crate::terminal::hooks::parse_line(&l, "tok"));
-        }
-        let count = |e: &str| got.iter().filter(|m| m.event == e).count();
-        assert_eq!(
-            (count("shell-prompt"), count("shell-exec")),
-            (4, 2),
-            "{:?}",
-            got.iter()
-                .map(|m| (&m.event, &m.payload))
-                .collect::<Vec<_>>()
-        );
-        let mut seqs: Vec<u64> = got
-            .iter()
-            .map(|m| m.payload["seq"].as_u64().unwrap())
-            .collect();
-        seqs.sort();
-        assert_eq!(seqs, (1..=6).collect::<Vec<_>>());
-        assert!(got
-            .iter()
-            .all(|m| m.payload["pid"] == got[0].payload["pid"]));
+        let home = tmp("zmarks");
+        let app = |k: &str| match k {
+            "PATH" => Some("/usr/bin:/bin".to_string()),
+            "HOME" => Some(home.display().to_string()),
+            _ => None,
+        };
+        let (argv, env) = shell_launch_with("/bin/zsh", &res(), vec![], &app);
+        // `-i` + script on stdin: precmd runs before each prompt, preexec before each command.
+        let o = Command::new(&argv[0])
+            .args(&argv[1..])
+            .arg("-i")
+            .env_clear()
+            .env("HOME", &home)
+            .envs(env.iter().map(|(k, v)| (k, v)))
+            .current_dir(&home)
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::null())
+            .spawn()
+            .and_then(|mut c| {
+                use std::io::Write;
+                c.stdin.take().unwrap().write_all(b"echo one\nexit\n")?;
+                c.wait_with_output()
+            })
+            .unwrap();
+        let raw = String::from_utf8_lossy(&o.stdout).to_string();
+        assert!(raw.contains("\x1b]133;A\x07") && raw.contains("\x1b]133;C\x07"), "{raw:?}");
+        assert!(strip_osc(&raw).contains("one"), "{raw:?}");
         let _ = std::fs::remove_dir_all(&home);
     }
 

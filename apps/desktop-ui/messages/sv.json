@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} tas bort från listan och dess terminaler stängs. Filer på disken påverkas inte.",
     "splitRight": "Dela åt höger",
     "splitDown": "Dela nedåt",
-    "closePane": "Stäng ruta"
+    "closePane": "Stäng ruta",
+    "find": "Sök",
+    "findPrevious": "Föregående träff",
+    "findNext": "Nästa träff",
+    "closeFind": "Stäng sök",
+    "noMatches": "Inga träffar"
   }
 }

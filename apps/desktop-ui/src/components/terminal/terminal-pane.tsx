@@ -3,13 +3,18 @@
 import * as React from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
-import { IconX } from "@tabler/icons-react"
+import { IconChevronDown, IconChevronUp, IconX } from "@tabler/icons-react"
 import "@xterm/xterm/css/xterm.css"
-import type { Terminal as XTerm } from "@xterm/xterm"
+import type { IMarker, Terminal as XTerm } from "@xterm/xterm"
+import type { SearchAddon } from "@xterm/addon-search"
 import { terminalExists, useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
-import { decodeOutput, encodeInput, keyedChain, writeQueue } from "@/lib/terminal/util"
-import { terminalAttach, terminalKill, terminalResize, terminalSpawn, terminalWrite } from "@/lib/desktop/terminal-bridge"
+import {
+  decodeOutput, encodeInput, FONT_SIZE, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
+} from "@/lib/terminal/util"
+import {
+  terminalAttach, terminalClearScrollback, terminalKill, terminalResize, terminalSpawn, terminalWrite,
+} from "@/lib/desktop/terminal-bridge"
 import { openExternal } from "@/lib/desktop/external-links"
 import { cn } from "@/lib/utils"
 import { StatusDot } from "./terminal-sidebar"
@@ -56,7 +61,15 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   const t = useTranslations("Terminal")
   const hostRef = React.useRef<HTMLDivElement>(null)
   const termRef = React.useRef<XTerm | null>(null)
+  const searchRef = React.useRef<SearchAddon | null>(null)
+  const relayout = React.useRef(() => {})
+  const onShortcut = React.useRef<(a: PaneShortcut) => void>(() => {})
   const wantFocus = React.useRef(false)
+  const fontSize = useTerminalStore((s) => s.fontSize)
+  const [findOpen, setFindOpen] = React.useState(false)
+  const [query, setQuery] = React.useState("")
+  const [noMatch, setNoMatch] = React.useState(false)
+  const findInput = React.useRef<HTMLInputElement>(null)
   const strings = React.useRef<{ exited: string; folderMissing: (path: string) => string }>({ exited: "", folderMissing: () => "" })
   React.useEffect(() => {
     strings.current = { exited: t("processExited"), folderMissing: (path) => t("folderMissing", { path }) }
@@ -69,11 +82,15 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     let cleanup = () => {}
 
     ;(async () => {
-      const [{ Terminal }, { FitAddon }, { WebLinksAddon }] = await Promise.all([
-        import("@xterm/xterm"),
-        import("@xterm/addon-fit"),
-        import("@xterm/addon-web-links"),
-      ])
+      const [{ Terminal }, { FitAddon }, { WebLinksAddon }, { SearchAddon }, { Unicode11Addon }, { WebglAddon }] =
+        await Promise.all([
+          import("@xterm/xterm"),
+          import("@xterm/addon-fit"),
+          import("@xterm/addon-web-links"),
+          import("@xterm/addon-search"),
+          import("@xterm/addon-unicode11"),
+          import("@xterm/addon-webgl"),
+        ])
       if (disposed) return
       const openLink = (_e: MouseEvent, uri: string) =>
         void openExternal(uri).catch((err) => toast.error(errMsg(err)))
@@ -81,7 +98,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         // OSC 8 hyperlinks (ls --hyperlink, gh, etc.); xterm's default shows a confirm() + window.open.
         linkHandler: { activate: openLink, allowNonHttpProtocols: false },
         fontFamily: FONT,
-        fontSize: 13,
+        fontSize: useTerminalStore.getState().fontSize,
+        allowProposedApi: true, // unicode11 version switch
         cursorBlink: true,
         scrollback: 10000,
         // Keeps the default ANSI palette legible on the light theme's white pane.
@@ -91,7 +109,59 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       const fit = new FitAddon()
       term.loadAddon(fit)
       term.loadAddon(new WebLinksAddon(openLink)) // plain URLs in output
+      const search = new SearchAddon()
+      term.loadAddon(search)
+      searchRef.current = search
+      // Emoji and CJK take two cells, as in agent TUIs' own width tables.
+      term.loadAddon(new Unicode11Addon())
+      term.unicode.activeVersion = "11"
       termRef.current = term
+
+      // OSC 133 A = a prompt starts here (written by our zsh/bash integration, fish, nushell…).
+      let marks: IMarker[] = []
+      const prompts = term.parser.registerOscHandler(133, (data) => {
+        if (data.startsWith("A")) {
+          const m = term.registerMarker(0)
+          if (m) marks.push(m)
+          if (marks.length > 500) marks = marks.filter((x) => !x.isDisposed)
+        }
+        return false
+      })
+      onShortcut.current = (action) => {
+        switch (action) {
+          case "find":
+            setFindOpen(true)
+            requestAnimationFrame(() => findInput.current?.select())
+            return
+          case "clear":
+            term.clear()
+            void terminalClearScrollback(id).catch(() => {})
+            return
+          case "zoomIn":
+          case "zoomOut":
+          case "zoomReset": {
+            const st = useTerminalStore.getState()
+            st.setFontSize(action === "zoomReset" ? FONT_SIZE.default : st.fontSize + (action === "zoomIn" ? 1 : -1))
+            return
+          }
+          case "prevPrompt":
+          case "nextPrompt": {
+            const top = term.buffer.active.viewportY
+            const line = promptTarget(marks.filter((m) => !m.isDisposed).map((m) => m.line), top, action === "prevPrompt" ? "prev" : "next")
+            if (line !== null) term.scrollToLine(line)
+            else if (action === "nextPrompt") term.scrollToBottom()
+          }
+        }
+      }
+      // Returning false keeps xterm from also sending the key to the shell.
+      term.attachCustomKeyEventHandler((e) => {
+        const action = matchPaneShortcut(e)
+        if (!action) return true
+        // Held ⌘+ / ⌘− keep zooming; other shortcuts fire once per press.
+        if (e.type === "keydown" && (!e.repeat || action.startsWith("zoom"))) onShortcut.current(action)
+        e.preventDefault()
+        return false
+      })
       // xterm measures the font on open(); opening inside a display:none tab measures 0
       // and breaks fit, so open on first show. Writes before that are buffered.
       let opened = false
@@ -101,10 +171,19 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         if (!opened) {
           term.open(host)
           opened = true
+          // GPU renderer; on failure or a lost context the DOM renderer takes over.
+          try {
+            const gl = new WebglAddon()
+            gl.onContextLoss(() => gl.dispose())
+            term.loadAddon(gl)
+          } catch {
+            // no WebGL2 here: keep the DOM renderer
+          }
           if (wantFocus.current) term.focus()
         }
         fit.fit()
       }
+      relayout.current = layout
       layout()
 
       // Writes are serialized per pane (see writeQueue); a failure is toasted once.
@@ -134,12 +213,17 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         ro.disconnect()
         mo.disconnect()
         subs.forEach((s) => s.dispose())
+        prompts.dispose()
+        relayout.current = () => {}
+        onShortcut.current = () => {}
+        searchRef.current = null
         termRef.current = null
         term.dispose()
       }
 
       try {
-        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName })
+        const inheritCwdFrom = useTerminalStore.getState().cwdFrom[id]
+        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName, inheritCwdFrom })
         if (disposed) {
           // Closed mid-spawn: its kill may have reached Rust first, leaving this spawn an orphan PTY.
           // (A remount keeps the id in the store, so its session is left alone.)
@@ -171,6 +255,27 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       cleanup()
     }
   }, [id, cwd, projectName])
+
+  React.useEffect(() => {
+    const term = termRef.current
+    if (!term || term.options.fontSize === fontSize) return
+    term.options.fontSize = fontSize
+    relayout.current()
+  }, [fontSize])
+
+  const find = (dir: "next" | "prev", incremental = false) => {
+    const s = searchRef.current
+    if (!s || !query) return setNoMatch(false)
+    const found = dir === "next" ? s.findNext(query, { incremental }) : s.findPrevious(query)
+    setNoMatch(!found)
+  }
+  const closeFind = () => {
+    setFindOpen(false)
+    setNoMatch(false)
+    searchRef.current?.clearDecorations()
+    termRef.current?.clearSelection()
+    termRef.current?.focus()
+  }
 
   React.useEffect(() => {
     wantFocus.current = focused && visible
@@ -205,8 +310,70 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         </button>
       </div>
       {/* Padding lives on the wrapper: FitAddon sizes cols/rows from the host's own box. */}
-      <div className="flex min-h-0 flex-1 flex-col pl-2.5 pt-0.5">
+      <div className="relative flex min-h-0 flex-1 flex-col pl-2.5 pt-0.5">
         <div ref={hostRef} className="min-h-0 flex-1" />
+        {findOpen && (
+          <div
+            role="search"
+            className="absolute right-2 top-1 z-10 flex items-center gap-0.5 rounded-md border border-border bg-popover p-0.5"
+          >
+            <input
+              ref={findInput}
+              value={query}
+              autoFocus
+              onChange={(e) => {
+                setQuery(e.target.value)
+                const s = searchRef.current
+                if (s && e.target.value) setNoMatch(!s.findNext(e.target.value, { incremental: true }))
+                else setNoMatch(false)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") {
+                  e.preventDefault()
+                  closeFind()
+                } else if (e.key === "Enter") {
+                  e.preventDefault()
+                  find(e.shiftKey ? "prev" : "next")
+                } else if (e.metaKey && e.code === "KeyF") {
+                  e.preventDefault()
+                  e.currentTarget.select()
+                }
+              }}
+              placeholder={t("find")}
+              aria-label={t("find")}
+              aria-invalid={noMatch}
+              className={cn(
+                "h-6 w-44 rounded bg-background px-2 text-[12px] text-foreground outline-none placeholder:text-muted-foreground",
+                noMatch && "text-destructive",
+              )}
+            />
+            {noMatch && <span className="px-1 text-[11px] text-destructive">{t("noMatches")}</span>}
+            {([
+              ["prev", IconChevronUp, t("findPrevious")],
+              ["next", IconChevronDown, t("findNext")],
+            ] as const).map(([dir, Icon, label]) => (
+              <button
+                key={dir}
+                type="button"
+                onClick={() => find(dir)}
+                aria-label={label}
+                title={label}
+                className="rounded p-1 text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground"
+              >
+                <Icon className="h-3.5 w-3.5" aria-hidden />
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={closeFind}
+              aria-label={t("closeFind")}
+              title={t("closeFind")}
+              className="rounded p-1 text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground"
+            >
+              <IconX className="h-3.5 w-3.5" aria-hidden />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

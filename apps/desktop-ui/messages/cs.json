@@ -2689,6 +2689,11 @@
     "removeProjectBody": "Projekt {name} bude odebrán ze seznamu a jeho terminály budou zavřeny. Soubory na disku zůstanou nedotčeny.",
     "splitRight": "Rozdělit doprava",
     "splitDown": "Rozdělit dolů",
-    "closePane": "Zavřít panel"
+    "closePane": "Zavřít panel",
+    "find": "Najít",
+    "findPrevious": "Předchozí shoda",
+    "findNext": "Další shoda",
+    "closeFind": "Zavřít hledání",
+    "noMatches": "Žádné shody"
   }
 }

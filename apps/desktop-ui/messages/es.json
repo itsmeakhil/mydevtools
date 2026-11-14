@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} se quitará de la lista y se cerrarán sus terminales. Los archivos del disco no se tocan.",
     "splitRight": "Dividir a la derecha",
     "splitDown": "Dividir hacia abajo",
-    "closePane": "Cerrar panel"
+    "closePane": "Cerrar panel",
+    "find": "Buscar",
+    "findPrevious": "Coincidencia anterior",
+    "findNext": "Coincidencia siguiente",
+    "closeFind": "Cerrar búsqueda",
+    "noMatches": "Sin coincidencias"
   }
 }

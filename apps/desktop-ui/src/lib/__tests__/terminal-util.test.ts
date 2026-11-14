@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -127,5 +127,39 @@ describe("terminal util", () => {
     expect(isForeignEditable({ tagName: "DIV", isContentEditable: true, classList: cls() })).toBe(true)
     expect(isForeignEditable({ tagName: "DIV", classList: cls() })).toBe(false)
     expect(isForeignEditable(null)).toBe(false)
+  })
+
+  it("matchPaneShortcut maps ⌘F/⌘K/zoom/prompt jumps and ignores other modifiers", () => {
+    const k = (code: string, mods: Partial<{ metaKey: boolean; ctrlKey: boolean; altKey: boolean; shiftKey: boolean }> = {}) =>
+      matchPaneShortcut({ metaKey: true, ctrlKey: false, altKey: false, shiftKey: false, code, ...mods })
+    expect(k("KeyF")).toBe("find")
+    expect(k("KeyK")).toBe("clear")
+    expect(k("Equal")).toBe("zoomIn")
+    expect(k("Equal", { shiftKey: true })).toBe("zoomIn") // ⌘+
+    expect(k("Minus")).toBe("zoomOut")
+    expect(k("Digit0")).toBe("zoomReset")
+    expect(k("ArrowUp")).toBe("prevPrompt")
+    expect(k("ArrowDown")).toBe("nextPrompt")
+    expect(k("KeyF", { shiftKey: true })).toBeNull()
+    expect(k("KeyK", { ctrlKey: true })).toBeNull()
+    expect(k("KeyF", { metaKey: false })).toBeNull()
+    expect(k("KeyD")).toBeNull() // layout-level shortcut, not the pane's
+  })
+
+  it("promptTarget finds the prompt above/below the top visible line", () => {
+    const marks = [40, 5, 20]
+    expect(promptTarget(marks, 25, "prev")).toBe(20)
+    expect(promptTarget(marks, 20, "prev")).toBe(5)
+    expect(promptTarget(marks, 5, "prev")).toBeNull()
+    expect(promptTarget(marks, 25, "next")).toBe(40)
+    expect(promptTarget(marks, 40, "next")).toBeNull()
+    expect(promptTarget([], 0, "next")).toBeNull()
+  })
+
+  it("clampFontSize keeps sizes in range and repairs junk", () => {
+    expect(clampFontSize(100)).toBe(FONT_SIZE.max)
+    expect(clampFontSize(1)).toBe(FONT_SIZE.min)
+    expect(clampFontSize(14.4)).toBe(14)
+    expect(clampFontSize(NaN)).toBe(FONT_SIZE.default)
   })
 })

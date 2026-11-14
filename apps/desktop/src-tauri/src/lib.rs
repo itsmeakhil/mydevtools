@@ -127,6 +127,13 @@ pub fn run() {
             let _ = term.on_exit.set(std::sync::Arc::new(move |id: &str| {
                 terminal::notify::forget(&handle, id)
             }));
+            let handle = app.handle().clone();
+            let _ = term.on_status.set(std::sync::Arc::new(move |id, status, msg| {
+                let term = handle.state::<std::sync::Arc<terminal::pty::TerminalState>>();
+                if let Some(t) = terminal::hooks::apply_status_if_live(&term, id, status) {
+                    terminal::hooks::publish(&handle, &t, msg.as_deref());
+                }
+            }));
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
             // the binary (target/<profile>/resources), which resource_dir() resolves to.
@@ -184,6 +191,7 @@ pub fn run() {
             terminal::pty::terminal_write,
             terminal::pty::terminal_resize,
             terminal::pty::terminal_kill,
+            terminal::pty::terminal_clear_scrollback,
             terminal::hooks::terminal_statuses,
             terminal::hooks::terminal_clear_waiting,
             terminal::git::terminal_git_info,

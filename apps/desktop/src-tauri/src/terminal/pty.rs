@@ -41,7 +41,7 @@ impl Scrollback {
     }
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct SpawnRequest {
     pub id: String,
@@ -49,6 +49,12 @@ pub struct SpawnRequest {
     pub cols: u16,
     pub rows: u16,
     pub project_name: String,
+    /// Open in this live terminal's current directory (OSC 7) when it has one.
+    #[serde(default)]
+    pub inherit_cwd_from: Option<String>,
+    /// Scrollback replayed before the new shell's output (restored after a restart).
+    #[serde(skip)]
+    pub seed: Vec<u8>,
 }
 
 #[derive(Serialize)]
@@ -69,6 +75,8 @@ struct Inner {
 pub struct Session {
     pub project_name: String,
     cwd: String,
+    /// Last directory the shell reported (OSC 7).
+    live_cwd: Mutex<Option<String>>,
     cwd_fallback: bool,
     pid: Option<u32>,
     inner: Mutex<Inner>,
@@ -82,13 +90,21 @@ fn b64(bytes: &[u8]) -> Value {
 }
 
 impl Session {
-    #[cfg(test)]
-    fn snapshot(&self) -> Vec<u8> {
+    fn exited(&self) -> bool {
+        self.inner.lock().unwrap().exit.is_some()
+    }
+
+    /// The shell's current directory, else the one it started in.
+    pub fn cwd(&self) -> String {
+        self.live_cwd.lock().unwrap().clone().unwrap_or_else(|| self.cwd.clone())
+    }
+
+    pub fn scrollback(&self) -> Vec<u8> {
         self.inner.lock().unwrap().scrollback.snapshot()
     }
 
-    fn exited(&self) -> bool {
-        self.inner.lock().unwrap().exit.is_some()
+    fn clear_scrollback(&self) {
+        self.inner.lock().unwrap().scrollback = Scrollback::new(SCROLLBACK_CAP);
     }
 
     /// Replay scrollback to `channel`, then make it the live sink. Under one
@@ -158,7 +174,11 @@ pub struct TerminalState {
     pub launch: std::sync::OnceLock<super::env::Launch>,
     /// Set once in `setup`; called with the terminal id when a session's process exits.
     pub on_exit: std::sync::OnceLock<Arc<dyn Fn(&str) + Send + Sync>>,
+    /// Set once in `setup`; called for status the program reported in-band (OSC 133 / 7501).
+    pub on_status: std::sync::OnceLock<StatusFn>,
 }
+
+pub type StatusFn = Arc<dyn Fn(&str, super::hooks::TermStatus, Option<String>) + Send + Sync>;
 
 impl Default for TerminalState {
     fn default() -> Self {
@@ -170,6 +190,7 @@ impl Default for TerminalState {
             statuses: Mutex::default(),
             launch: std::sync::OnceLock::new(),
             on_exit: std::sync::OnceLock::new(),
+            on_status: std::sync::OnceLock::new(),
         }
     }
 }
@@ -207,6 +228,8 @@ impl TerminalState {
             .openpty(PtySize { rows: req.rows, cols: req.cols, pixel_width: 0, pixel_height: 0 })
             .map_err(|e| e.to_string())?;
         let mut child = pair.slave.spawn_command(cmd).map_err(|e| e.to_string())?;
+        let mut scrollback = Scrollback::new(SCROLLBACK_CAP);
+        scrollback.push(&req.seed);
         drop(pair.slave);
         let mut reader = pair.master.try_clone_reader().map_err(|e| e.to_string())?;
         let writer = pair.master.take_writer().map_err(|e| e.to_string())?;
@@ -215,25 +238,41 @@ impl TerminalState {
             project_name: req.project_name,
             cwd: cwd.clone(),
             cwd_fallback,
+            live_cwd: Mutex::new(None),
             pid: child.process_id(),
-            inner: Mutex::new(Inner { scrollback: Scrollback::new(SCROLLBACK_CAP), channel: None, exit: None }),
+            inner: Mutex::new(Inner { scrollback, channel: None, exit: None }),
             writer: Mutex::new(writer),
             master: Mutex::new(Some(pair.master)),
             killer: Mutex::new(child.clone_killer()),
         });
 
         let s = session.clone();
-        let (id, on_exit) = (req.id.clone(), self.on_exit.get().cloned());
+        let (id, on_exit, on_status) = (req.id.clone(), self.on_exit.get().cloned(), self.on_status.get().cloned());
         std::thread::spawn(move || {
             let mut buf = [0u8; 8192];
+            let mut scanner = super::osc::Scanner::default();
+            let mut found = Vec::new();
             loop {
                 match reader.read(&mut buf) {
                     Ok(0) | Err(_) => break,
                     Ok(n) => {
-                        let mut g = s.inner.lock().unwrap();
-                        g.scrollback.push(&buf[..n]);
-                        if let Some(ch) = &g.channel {
-                            let _ = ch.send(b64(&buf[..n]));
+                        {
+                            let mut g = s.inner.lock().unwrap();
+                            g.scrollback.push(&buf[..n]);
+                            if let Some(ch) = &g.channel {
+                                let _ = ch.send(b64(&buf[..n]));
+                            }
+                        }
+                        scanner.feed(&buf[..n], &mut found);
+                        for o in found.drain(..) {
+                            match o {
+                                super::osc::Osc::Cwd(c) => *s.live_cwd.lock().unwrap() = Some(c),
+                                super::osc::Osc::Status(st, msg) => {
+                                    if let Some(f) = &on_status {
+                                        f(&id, st, msg)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -247,6 +286,11 @@ impl TerminalState {
 
         self.sessions.insert(req.id.clone(), session);
         Ok(SpawnResult { id: req.id, cwd, cwd_fallback })
+    }
+
+    /// Every session still in the layout (exited ones included), for saving at quit.
+    pub fn all(&self) -> Vec<(String, Arc<Session>)> {
+        self.sessions.iter().map(|e| (e.key().clone(), e.value().clone())).collect()
     }
 
     pub fn is_live(&self, id: &str) -> bool {
@@ -270,8 +314,23 @@ impl TerminalState {
 #[tauri::command]
 pub async fn terminal_spawn(
     state: tauri::State<'_, Arc<TerminalState>>,
-    req: SpawnRequest,
+    app_state: tauri::State<'_, crate::state::AppState>,
+    mut req: SpawnRequest,
 ) -> Result<SpawnResult, String> {
+    if state.sessions.contains_key(&req.id) {
+        return state.spawn(req, vec![], vec![]);
+    }
+    // Directory preference: where this pane was at the last quit, then the pane it was
+    // split from, then the project folder (spawn falls back to $HOME from there).
+    let restored = super::restore::take(&app_state.db.lock().unwrap(), &req.id);
+    let inherited = req.inherit_cwd_from.as_deref().and_then(|from| state.get(from).ok()).map(|s| s.cwd());
+    let is_dir = |p: &String| std::path::Path::new(p).is_dir();
+    if let Some(c) = restored.as_ref().and_then(|r| r.cwd.clone()).filter(is_dir).or(inherited.filter(is_dir)) {
+        req.cwd = c;
+    }
+    if let Some(r) = restored {
+        req.seed = super::restore::seed(&r.bytes);
+    }
     let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".into());
     let (argv, env) = match state.launch.get() {
         Some(l) => super::env::shell_launch(&shell, &l.res_dir, l.pane_env(&req.id, &state.token)),
@@ -293,6 +352,12 @@ pub async fn terminal_attach(
 pub async fn terminal_write(state: tauri::State<'_, Arc<TerminalState>>, id: String, b64: String) -> Result<(), String> {
     let bytes = base64::engine::general_purpose::STANDARD.decode(b64).map_err(|e| e.to_string())?;
     state.get(&id)?.write(&bytes)
+}
+
+#[tauri::command]
+pub async fn terminal_clear_scrollback(state: tauri::State<'_, Arc<TerminalState>>, id: String) -> Result<(), String> {
+    state.get(&id)?.clear_scrollback();
+    Ok(())
 }
 
 #[tauri::command]
@@ -319,7 +384,7 @@ mod tests {
     use std::time::{Duration, Instant};
 
     fn req(id: &str, cwd: &str) -> SpawnRequest {
-        SpawnRequest { id: id.into(), cwd: cwd.into(), cols: 80, rows: 24, project_name: "p".into() }
+        SpawnRequest { id: id.into(), cwd: cwd.into(), cols: 80, rows: 24, project_name: "p".into(), ..Default::default() }
     }
     fn sh(cmd: &str) -> Vec<String> {
         vec!["/bin/sh".into(), "-c".into(), cmd.into()]
@@ -359,7 +424,7 @@ mod tests {
         let st = TerminalState::default();
         st.spawn(req("a", "/tmp"), vec![], sh("printf hello")).unwrap();
         let s = st.get("a").unwrap();
-        assert!(wait_for(|| String::from_utf8_lossy(&s.snapshot()).contains("hello") && s.exited(), 2));
+        assert!(wait_for(|| String::from_utf8_lossy(&s.scrollback()).contains("hello") && s.exited(), 2));
     }
 
     #[test]
@@ -397,7 +462,7 @@ mod tests {
         let st = TerminalState::default();
         st.spawn(req("d", "/tmp"), vec![], sh("sleep 30 & echo pid=$!; wait")).unwrap();
         let s = st.get("d").unwrap();
-        let text = || String::from_utf8_lossy(&s.snapshot()).to_string();
+        let text = || String::from_utf8_lossy(&s.scrollback()).to_string();
         assert!(wait_for(|| text().contains("pid=") && text().contains('\n'), 2));
         let t = text();
         let pid: i32 = t.split("pid=").nth(1).unwrap().trim().lines().next().unwrap().trim().parse().unwrap();

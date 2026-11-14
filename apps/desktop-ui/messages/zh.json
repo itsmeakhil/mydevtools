@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} 将从列表中移除，其终端将被关闭。磁盘上的文件不受影响。",
     "splitRight": "向右拆分",
     "splitDown": "向下拆分",
-    "closePane": "关闭窗格"
+    "closePane": "关闭窗格",
+    "find": "查找",
+    "findPrevious": "上一个匹配",
+    "findNext": "下一个匹配",
+    "closeFind": "关闭查找",
+    "noMatches": "无匹配项"
   }
 }

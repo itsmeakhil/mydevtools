@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} wordt uit de lijst verwijderd en de bijbehorende terminals worden gesloten. Bestanden op schijf blijven ongemoeid.",
     "splitRight": "Rechts splitsen",
     "splitDown": "Omlaag splitsen",
-    "closePane": "Paneel sluiten"
+    "closePane": "Paneel sluiten",
+    "find": "Zoeken",
+    "findPrevious": "Vorige overeenkomst",
+    "findNext": "Volgende overeenkomst",
+    "closeFind": "Zoeken sluiten",
+    "noMatches": "Geen overeenkomsten"
   }
 }

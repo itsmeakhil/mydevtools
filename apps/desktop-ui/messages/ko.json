@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name}이(가) 목록에서 제거되고 해당 터미널이 닫힙니다. 디스크의 파일은 그대로 유지됩니다.",
     "splitRight": "오른쪽으로 분할",
     "splitDown": "아래로 분할",
-    "closePane": "창 닫기"
+    "closePane": "창 닫기",
+    "find": "찾기",
+    "findPrevious": "이전 일치",
+    "findNext": "다음 일치",
+    "closeFind": "찾기 닫기",
+    "noMatches": "일치 항목 없음"
   }
 }
