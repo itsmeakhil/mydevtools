@@ -491,4 +491,38 @@ mod tests {
         let _ = other.wait();
         assert!(alive, "kill() on an exited session signalled a recycled process group");
     }
+
+    /// Real PTY + our zsh integration: prompt marks drive status, OSC 7 drives `cwd()`.
+    #[test]
+    fn zsh_in_pty_reports_status_and_cwd() {
+        if !std::path::Path::new("/bin/zsh").exists() {
+            return;
+        }
+        let res = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("resources");
+        let home = std::env::temp_dir().join(format!("mdt-pty-zsh-{}", std::process::id()));
+        std::fs::create_dir_all(&home).unwrap();
+        let app = |k: &str| match k {
+            "PATH" => Some("/usr/bin:/bin".to_string()),
+            "HOME" => Some(home.display().to_string()),
+            _ => None,
+        };
+        let (argv, mut env) = super::super::env::shell_launch_with("/bin/zsh", &res, vec![], &app);
+        env.push(("HOME".into(), home.display().to_string()));
+        let st = TerminalState::default();
+        let (tx, rx) = std::sync::mpsc::channel();
+        let tx = Mutex::new(tx);
+        let _ = st.on_status.set(Arc::new(move |_: &str, s, _| {
+            let _ = tx.lock().unwrap().send(s);
+        }));
+        st.spawn(req("z", "/tmp"), env, argv).unwrap();
+        let next = || rx.recv_timeout(Duration::from_secs(5)).unwrap();
+        assert_eq!(next(), super::super::hooks::TermStatus::Idle, "first prompt");
+        st.get("z").unwrap().write(b"cd /usr\n").unwrap();
+        assert_eq!(next(), super::super::hooks::TermStatus::Running);
+        assert_eq!(next(), super::super::hooks::TermStatus::Idle);
+        let s = st.get("z").unwrap();
+        assert!(wait_for(|| s.cwd() == "/usr", 2), "cwd {}", s.cwd());
+        st.kill_all();
+        let _ = std::fs::remove_dir_all(&home);
+    }
 }
