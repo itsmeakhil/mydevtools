@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} sal van die lys verwyder word en sy terminale sal toegemaak word. Lêers op die skyf word nie aangeraak nie.",
     "splitRight": "Verdeel regs",
     "splitDown": "Verdeel af",
-    "closePane": "Maak paneel toe"
+    "closePane": "Maak paneel toe",
+    "find": "Soek",
+    "findPrevious": "Vorige treffer",
+    "findNext": "Volgende treffer",
+    "closeFind": "Sluit soek",
+    "noMatches": "Geen treffers"
   }
 }

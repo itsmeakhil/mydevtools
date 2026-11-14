@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} listeden kaldırılacak ve terminalleri kapatılacak. Diskteki dosyalara dokunulmaz.",
     "splitRight": "Sağa böl",
     "splitDown": "Aşağı böl",
-    "closePane": "Bölmeyi kapat"
+    "closePane": "Bölmeyi kapat",
+    "find": "Bul",
+    "findPrevious": "Önceki eşleşme",
+    "findNext": "Sonraki eşleşme",
+    "closeFind": "Aramayı kapat",
+    "noMatches": "Eşleşme yok"
   }
 }

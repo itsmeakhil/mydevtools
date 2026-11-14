@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} will be removed from the list and its terminals closed. Files on disk are not touched.",
     "splitRight": "Split right",
     "splitDown": "Split down",
-    "closePane": "Close pane"
+    "closePane": "Close pane",
+    "find": "Find",
+    "findPrevious": "Previous match",
+    "findNext": "Next match",
+    "closeFind": "Close find",
+    "noMatches": "No matches"
   }
 }

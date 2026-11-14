@@ -2689,6 +2689,11 @@
     "removeProjectBody": "Projekt {name} zostanie usunięty z listy, a jego terminale zostaną zamknięte. Pliki na dysku pozostaną nietknięte.",
     "splitRight": "Podziel w prawo",
     "splitDown": "Podziel w dół",
-    "closePane": "Zamknij panel"
+    "closePane": "Zamknij panel",
+    "find": "Znajdź",
+    "findPrevious": "Poprzednie dopasowanie",
+    "findNext": "Następne dopasowanie",
+    "closeFind": "Zamknij wyszukiwanie",
+    "noMatches": "Brak dopasowań"
   }
 }

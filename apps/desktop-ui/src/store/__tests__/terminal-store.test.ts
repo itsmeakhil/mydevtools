@@ -21,7 +21,7 @@ beforeEach(() => {
   resetTerminalSaveState()
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -261,5 +261,33 @@ describe("terminal store", () => {
     S().moveTab(pid, c.id, S().projects[0].tabs[2].id)
     expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["A", "B", "C"])
     expect(S().dirty).toBe(true)
+  })
+
+  it("split and new tab open in the focused pane's directory", () => {
+    S().addProject("/x/app")
+    const pid = S().projects[0].id
+    const first = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().split(first, "row")
+    const second = S().focusedTerminalId!
+    expect(S().cwdFrom[second]).toBe(first)
+    S().newTab(pid)
+    const tabLeaf = leafIds(S().projects[0].tabs[1].layout)[0]
+    expect(S().cwdFrom[tabLeaf]).toBe(second)
+    // Focus in another project: the new tab opens in its own project folder.
+    S().addProject("/y/other")
+    useTerminalStore.setState({ focusedTerminalId: leafIds(S().projects[1].tabs[0].layout)[0] })
+    S().newTab(pid)
+    expect(S().cwdFrom[leafIds(S().projects[0].tabs[2].layout)[0]]).toBeUndefined()
+  })
+
+  it("font size is clamped, saved with the layout and restored on load", async () => {
+    S().setFontSize(99)
+    expect(S().fontSize).toBe(24)
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave.mock.calls[0][0].fontSize).toBe(24)
+    useTerminalStore.setState({ loaded: false, dirty: false, fontSize: 13 })
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null, fontSize: 16 })
+    await S().load()
+    expect(S().fontSize).toBe(16)
   })
 })

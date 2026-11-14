@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} akan dihapus dari daftar dan terminalnya ditutup. File di disk tidak disentuh.",
     "splitRight": "Bagi ke kanan",
     "splitDown": "Bagi ke bawah",
-    "closePane": "Tutup panel"
+    "closePane": "Tutup panel",
+    "find": "Cari",
+    "findPrevious": "Kecocokan sebelumnya",
+    "findNext": "Kecocokan berikutnya",
+    "closeFind": "Tutup pencarian",
+    "noMatches": "Tidak ada kecocokan"
   }
 }

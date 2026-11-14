@@ -104,3 +104,35 @@ export function matchShortcut(e: { metaKey: boolean; ctrlKey: boolean; altKey: b
     default: return null
   }
 }
+
+export const FONT_SIZE = { min: 9, max: 24, default: 13 } as const
+export const clampFontSize = (n: number) =>
+  Number.isFinite(n) ? Math.min(FONT_SIZE.max, Math.max(FONT_SIZE.min, Math.round(n))) : FONT_SIZE.default
+
+export type PaneShortcut = "find" | "clear" | "zoomIn" | "zoomOut" | "zoomReset" | "prevPrompt" | "nextPrompt"
+
+/** Shortcuts the focused pane handles itself: ⌘F, ⌘K, ⌘= (⌘+), ⌘−, ⌘0, ⌘↑, ⌘↓. */
+export function matchPaneShortcut(e: { metaKey: boolean; ctrlKey: boolean; altKey: boolean; shiftKey: boolean; code: string }): PaneShortcut | null {
+  if (!e.metaKey || e.ctrlKey || e.altKey) return null
+  if (e.code === "Equal") return "zoomIn" // ⌘= and ⌘+ (⇧=)
+  if (e.shiftKey) return null
+  switch (e.code) {
+    case "KeyF": return "find"
+    case "KeyK": return "clear"
+    case "Minus": return "zoomOut"
+    case "Digit0": return "zoomReset"
+    case "ArrowUp": return "prevPrompt"
+    case "ArrowDown": return "nextPrompt"
+    default: return null
+  }
+}
+
+/**
+ * Line to scroll to for ⌘↑ / ⌘↓ between prompts (OSC 133 marks), relative to the
+ * top visible line. `null` = no prompt that way (⌘↓ then scrolls to the bottom).
+ */
+export function promptTarget(lines: number[], top: number, dir: "prev" | "next"): number | null {
+  const sorted = [...lines].sort((a, b) => a - b)
+  if (dir === "prev") return sorted.filter((l) => l < top).pop() ?? null
+  return sorted.find((l) => l > top) ?? null
+}

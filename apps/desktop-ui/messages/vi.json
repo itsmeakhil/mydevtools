@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} sẽ bị xóa khỏi danh sách và các terminal của nó sẽ đóng. Tệp trên đĩa không bị ảnh hưởng.",
     "splitRight": "Chia sang phải",
     "splitDown": "Chia xuống dưới",
-    "closePane": "Đóng ngăn"
+    "closePane": "Đóng ngăn",
+    "find": "Tìm",
+    "findPrevious": "Kết quả trước",
+    "findNext": "Kết quả tiếp theo",
+    "closeFind": "Đóng tìm kiếm",
+    "noMatches": "Không có kết quả"
   }
 }

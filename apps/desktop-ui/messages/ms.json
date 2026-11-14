@@ -2689,6 +2689,11 @@
     "removeProjectBody": "{name} akan dialih keluar daripada senarai dan terminalnya ditutup. Fail pada cakera tidak disentuh.",
     "splitRight": "Bahagi ke kanan",
     "splitDown": "Bahagi ke bawah",
-    "closePane": "Tutup anak tetingkap"
+    "closePane": "Tutup anak tetingkap",
+    "find": "Cari",
+    "findPrevious": "Padanan sebelumnya",
+    "findNext": "Padanan seterusnya",
+    "closeFind": "Tutup carian",
+    "noMatches": "Tiada padanan"
   }
 }
