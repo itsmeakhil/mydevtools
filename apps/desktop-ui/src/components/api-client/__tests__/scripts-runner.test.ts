@@ -131,4 +131,18 @@ describe("scripts-runner: basic Postman API", () => {
         const r = api.run(`console.log("hello", { a: 1 })`, baseCtx())
         expect(r.logs[0].args).toEqual(["hello", '{"a":1}'])
     })
+
+    it("chai-style expect works via pm.expect, bare expect and pm.response.to", () => {
+        const r = api.run(
+            `pm.test("chai", () => pm.expect(pm.response.json().items).to.have.lengthOf(2))
+             pm.test("bare", () => expect(pm.response.json()).to.have.property("items").that.is.an("array"))
+             pm.test("status", () => pm.response.to.have.status(201))
+             pm.test("fails readably", () => pm.expect(pm.response.code).to.equal(200))`,
+            baseCtx({
+                response: { status: 201, statusText: "Created", headers: {}, body: '{"items":[1,2]}', time: 5 },
+            }),
+        )
+        expect(r.tests.map((t) => t.pass)).toEqual([true, true, true, false])
+        expect(r.tests[3].error).toBe("expected 201 to equal 200")
+    })
 })

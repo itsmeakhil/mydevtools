@@ -1,4 +1,5 @@
 import * as Comlink from "comlink"
+import { expect } from "@/lib/api-client/script-expect"
 
 /**
  * Sandboxed script runner for Postman-style pre-request and test scripts.
@@ -60,45 +61,6 @@ const SCRIPT_TIMEOUT_MS = 3_000
 function safeStringify(v: unknown): string {
     if (typeof v === "string") return v
     try { return JSON.stringify(v) } catch { return String(v) }
-}
-
-function makeExpect(actual: unknown) {
-    const fail = (msg: string) => { throw new Error(msg) }
-    return {
-        toBe(expected: unknown) {
-            if (actual !== expected) fail(`expected ${safeStringify(actual)} to be ${safeStringify(expected)}`)
-        },
-        toEqual(expected: unknown) {
-            if (JSON.stringify(actual) !== JSON.stringify(expected)) {
-                fail(`expected ${safeStringify(actual)} to equal ${safeStringify(expected)}`)
-            }
-        },
-        toMatch(re: unknown) {
-            const ok = re instanceof RegExp
-                ? re.test(String(actual))
-                : String(actual).includes(String(re))
-            if (!ok) fail(`expected ${safeStringify(actual)} to match ${safeStringify(re)}`)
-        },
-        toContain(sub: unknown) {
-            const ok = Array.isArray(actual)
-                ? (actual as unknown[]).includes(sub)
-                : String(actual).includes(String(sub))
-            if (!ok) fail(`expected ${safeStringify(actual)} to contain ${safeStringify(sub)}`)
-        },
-        toBeGreaterThan(n: number) {
-            if (!(Number(actual) > n)) fail(`expected ${safeStringify(actual)} > ${n}`)
-        },
-        toBeLessThan(n: number) {
-            if (!(Number(actual) < n)) fail(`expected ${safeStringify(actual)} < ${n}`)
-        },
-        toHaveProperty(k: string) {
-            if (!actual || typeof actual !== "object" || !(k in (actual as object))) {
-                fail(`expected object to have property "${k}"`)
-            }
-        },
-        toBeTruthy() { if (!actual) fail(`expected ${safeStringify(actual)} to be truthy`) },
-        toBeFalsy() { if (actual) fail(`expected ${safeStringify(actual)} to be falsy`) },
-    }
 }
 
 function runScriptSync(script: string, ctx: ScriptContext): ScriptResult {
@@ -183,6 +145,8 @@ function runScriptSync(script: string, ctx: ScriptContext): ScriptResult {
                 },
                 text: () => ctx.response!.body,
                 json: responseJson,
+                /** `pm.response.to.have.status(200)` and friends. */
+                get to() { return expect(this).to },
             }
             : undefined,
         test(name: string, fn: () => void) {
@@ -194,7 +158,7 @@ function runScriptSync(script: string, ctx: ScriptContext): ScriptResult {
                 tests.push({ name: String(name), pass: false, error: (err as Error).message })
             }
         },
-        expect: makeExpect,
+        expect,
         sendRequest() {
             throw new Error("pm.sendRequest is not supported in this sandbox yet")
         },
@@ -210,8 +174,8 @@ function runScriptSync(script: string, ctx: ScriptContext): ScriptResult {
         // Running the user's own pre/post-request script is the feature; it is
         // confined to this worker with a pm/console surface and no DOM.
         // threatcrush-disable-next-line js-dynamic-code-execution
-        const runner = new Function("pm", "console", `"use strict";\n${script}`)
-        runner(pm, sandboxConsole)
+        const runner = new Function("pm", "console", "expect", `"use strict";\n${script}`)
+        runner(pm, sandboxConsole, expect)
     } catch (err) {
         return {
             ok: false,
