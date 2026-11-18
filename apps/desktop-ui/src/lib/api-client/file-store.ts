@@ -41,7 +41,8 @@ export interface FileEntry {
 }
 
 // Fixed top-level key order; nested/unknown keys sort alphabetically after.
-const KEY_ORDER = [
+// Every key here is documented in packages/cli/COLLECTION-FORMAT.md (tested).
+export const KEY_ORDER = [
     "formatVersion", "id", "name", "kind", "method", "url",
     "params", "headers", "omitHeaders", "body", "auth",
     "defaultHeaders", "defaultAuth", "variables",

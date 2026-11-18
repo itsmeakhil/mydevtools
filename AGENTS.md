@@ -19,6 +19,7 @@ All-in-one developer toolkit (80+ tools: formatters, security, generators, notes
 | `apps/desktop-ui` | Next.js UI the Tauri app builds from — **all tool work happens here** (clone-then-prune of apps/web) |
 | `apps/desktop` | Tauri v2 shell — SQLCipher keyed by macOS Keychain, native Rust DB drivers |
 | `apps/web` | Marketing/SEO site (Next.js 16, React 19, Tailwind, shadcn/ui, next-intl) |
+| `packages/cli` | `mdt run` collection runner for terminals/CI — runs desktop-ui's runner sources directly (`register.mjs`); collection YAML spec in `packages/cli/COLLECTION-FORMAT.md` |
 
 ## Build / verify
 
