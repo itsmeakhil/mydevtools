@@ -1921,7 +1921,12 @@
       "binaryRawView": "Binärdata kan inte visas i råvy.",
       "errorStatusLabel": "Fel",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtrera svaret med JSONPath",
+        "invalid": "Ogiltig JSONPath",
+        "matches": "{count, plural, =0 {Inga träffar} one {# träff} other {# träffar}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Ny flik",

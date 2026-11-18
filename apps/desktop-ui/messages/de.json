@@ -1921,7 +1921,12 @@
       "binaryRawView": "Binärdaten können in der Rohansicht nicht angezeigt werden.",
       "errorStatusLabel": "Fehler",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Antwort mit JSONPath filtern",
+        "invalid": "Ungültiger JSONPath",
+        "matches": "{count, plural, =0 {Keine Treffer} one {# Treffer} other {# Treffer}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Neue Registerkarte",

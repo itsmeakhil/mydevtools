@@ -1921,7 +1921,12 @@
       "binaryRawView": "Data binari tidak boleh dipaparkan dalam paparan mentah.",
       "errorStatusLabel": "Ralat",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Tapis respons dengan JSONPath",
+        "invalid": "JSONPath tidak sah",
+        "matches": "{count, plural, =0 {Tiada padanan} other {# padanan}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Tab baharu",

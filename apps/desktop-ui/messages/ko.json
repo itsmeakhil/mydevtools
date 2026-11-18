@@ -1921,7 +1921,12 @@
       "binaryRawView": "이진 데이터는 원시 보기에서 표시할 수 없습니다.",
       "errorStatusLabel": "오류",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "JSONPath로 응답 필터링",
+        "invalid": "잘못된 JSONPath",
+        "matches": "{count, plural, =0 {일치 항목 없음} other {#개 일치}}"
+      }
     },
     "tabBar": {
       "addTabAria": "새 탭",

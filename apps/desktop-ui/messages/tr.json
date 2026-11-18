@@ -1921,7 +1921,12 @@
       "binaryRawView": "İkili veriler ham görünümde gösterilemiyor.",
       "errorStatusLabel": "Hata",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Yanıtı JSONPath ile filtrele",
+        "invalid": "Geçersiz JSONPath",
+        "matches": "{count, plural, =0 {Eşleşme yok} one {# eşleşme} other {# eşleşme}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Yeni sekme",

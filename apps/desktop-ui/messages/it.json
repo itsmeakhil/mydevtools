@@ -1921,7 +1921,12 @@
       "binaryRawView": "I dati binari non possono essere visualizzati nella vista grezza.",
       "errorStatusLabel": "Errore",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtra la risposta con JSONPath",
+        "invalid": "JSONPath non valido",
+        "matches": "{count, plural, =0 {Nessuna corrispondenza} one {# corrispondenza} other {# corrispondenze}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nuova scheda",

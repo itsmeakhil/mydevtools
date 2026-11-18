@@ -1921,7 +1921,12 @@
       "binaryRawView": "Binaire gegevens kunnen niet worden weergegeven in ruwe weergave.",
       "errorStatusLabel": "Fout",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Antwoord filteren met JSONPath",
+        "invalid": "Ongeldig JSONPath",
+        "matches": "{count, plural, =0 {Geen resultaten} one {# resultaat} other {# resultaten}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nieuw tabblad",

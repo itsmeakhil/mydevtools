@@ -1921,7 +1921,12 @@
       "binaryRawView": "Los datos binarios no se pueden mostrar en vista en bruto.",
       "errorStatusLabel": "Error",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtrar respuesta con JSONPath",
+        "invalid": "JSONPath no válido",
+        "matches": "{count, plural, =0 {Sin coincidencias} one {# coincidencia} other {# coincidencias}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nueva pestaña",

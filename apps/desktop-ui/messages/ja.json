@@ -1921,7 +1921,12 @@
       "binaryRawView": "バイナリデータはraw表示できません。",
       "errorStatusLabel": "エラー",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "JSONPath でレスポンスを絞り込む",
+        "invalid": "無効な JSONPath",
+        "matches": "{count, plural, =0 {一致なし} other {# 件一致}}"
+      }
     },
     "tabBar": {
       "addTabAria": "新しいタブ",
