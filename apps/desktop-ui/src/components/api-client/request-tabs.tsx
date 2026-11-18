@@ -3,9 +3,10 @@
 import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { KeyValueEditor } from "./key-value-editor"
-import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem, GraphQLIntrospectionType } from "./types"
+import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem, GraphQLIntrospectionType, RequestSettings } from "./types"
 import { useJsonBodyValidation } from "./use-json-validation"
 import { CommentsPanel } from "./comments-panel"
+import { RequestSettingsPanel, hasCustomSettings } from "./request-settings-panel"
 import { fetchGraphQLSchema } from "@/lib/graphql-introspect"
 import {
     fetchClientCredentialsToken,
@@ -67,6 +68,9 @@ interface RequestTabsProps {
     /** Per-request comments. */
     comments?: import("./types").RequestComment[]
     setComments?: (next: import("./types").RequestComment[]) => void
+    /** Timeout / redirects / TLS / cookie jar — the Settings tab. */
+    settings?: RequestSettings
+    setSettings?: (patch: RequestSettings) => void
 }
 
 function RequestTabsImpl({
@@ -90,6 +94,8 @@ function RequestTabsImpl({
     onLoadExample,
     comments,
     setComments,
+    settings,
+    setSettings,
 }: RequestTabsProps) {
     const t = useTranslations("ApiClient.requestTabs")
     const activeParamsCount = params.filter(p => p.active && (p.key || p.value)).length
@@ -391,6 +397,12 @@ function RequestTabsImpl({
                     Tests
                     {testScript.trim() && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                 </TabsTrigger>
+                {settings && setSettings && (
+                    <TabsTrigger value="settings" className="flex items-center gap-1.5">
+                        {t("settings")}
+                        {hasCustomSettings(settings) && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
+                    </TabsTrigger>
+                )}
                 {examples && examples.length > 0 && (
                     <TabsTrigger value="examples" className="flex items-center gap-1.5">
                         Examples
@@ -1284,6 +1296,11 @@ function RequestTabsImpl({
                         />
                     </div>
                 </TabsContent>
+                {settings && setSettings && (
+                    <TabsContent value="settings" className="mt-0 h-full overflow-auto custom-scrollbar">
+                        <RequestSettingsPanel settings={settings} onChange={setSettings} />
+                    </TabsContent>
+                )}
                 {examples && examples.length > 0 && (
                     <TabsContent value="examples" className="mt-0 h-full overflow-auto custom-scrollbar space-y-2">
                         {examples.map((ex) => (

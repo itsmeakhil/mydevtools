@@ -67,6 +67,16 @@ describe("file-store", () => {
         expect(canonicalTree(parsed)).toEqual(canonicalTree(col))
     })
 
+    test("request settings round-trip; defaults stay out of the YAML", () => {
+        const custom = request({ timeoutMs: 5000, followRedirects: false, maxRedirects: 2, verifySsl: false, useCookieJar: false })
+        const col: Collection = { id: "c", name: "c", items: [custom, request({ id: "r2", name: "Plain" })] }
+        const files = serializeCollection(col)
+        const { collection: parsed } = parseCollection(files)
+        expect(parsed.items[0]).toMatchObject({ timeoutMs: 5000, followRedirects: false, maxRedirects: 2, verifySsl: false, useCookieJar: false })
+        const plain = files.find((f) => f.content.includes("name: Plain"))!.content
+        expect(plain).not.toMatch(/followRedirects|maxRedirects|verifySsl|useCookieJar|timeoutMs/)
+    })
+
     test("serialization is deterministic (byte-identical on repeat)", () => {
         const a = serializeCollection(collection())
         const b = serializeCollection(collection())

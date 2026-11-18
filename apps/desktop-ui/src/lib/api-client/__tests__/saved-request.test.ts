@@ -21,6 +21,12 @@ describe("isTabDirty", () => {
         expect(isTabDirty({ ...edited, url: tab.url })).toBe(false)
     })
 
+    it("counts Settings-tab changes as edits", () => {
+        expect(isTabDirty({ ...linked(), verifySsl: false })).toBe(true)
+        expect(isTabDirty({ ...linked(), followRedirects: false })).toBe(true)
+        expect(isTabDirty({ ...linked(), maxRedirects: 2 })).toBe(true)
+    })
+
     it("ignores runtime state, refreshed OAuth tokens and stripped file bytes", () => {
         const tab = linked({
             auth: { type: "oauth2", oauth2: { accessToken: "a" } as never },

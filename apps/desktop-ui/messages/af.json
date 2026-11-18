@@ -1903,7 +1903,21 @@
       "addTo": "Voeg by aan",
       "header": "Koptekst",
       "queryParams": "Navraagparameters",
-      "noAuthHint": "Hierdie versoek gebruik geen magtiging nie."
+      "noAuthHint": "Hierdie versoek gebruik geen magtiging nie.",
+      "settings": "Instellings"
+    },
+    "requestSettings": {
+      "timeout": "Uittel (ms)",
+      "timeoutHint": "Leeg gebruik die verstek van 30 sekondes. Maks 600000.",
+      "followRedirects": "Volg herleidings",
+      "followRedirectsHint": "Af gee die 3xx-antwoord self terug.",
+      "maxRedirects": "Maks herleidings",
+      "maxRedirectsHint": "Leeg gebruik 5. Maks 50.",
+      "verifySsl": "Verifieer SSL-sertifikate",
+      "verifySslHint": "Verwerp selfondertekende, verstreke of onpassende sertifikate.",
+      "verifySslOffHint": "Af: enige sertifikaat word aanvaar. Gebruik slegs met gashere wat jy vertrou.",
+      "cookieJar": "Gebruik koekiefles",
+      "cookieJarHint": "Stuur gestoorde koekies en stoor koekies uit antwoorde."
     },
     "responsePanel": {
       "emptyTitle": "Gereed om te verken?",

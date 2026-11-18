@@ -1903,7 +1903,21 @@
       "addTo": "Lägg till i",
       "header": "Rubrik",
       "queryParams": "Frågeparametrar",
-      "noAuthHint": "Denna förfrågan använder inte autentisering."
+      "noAuthHint": "Denna förfrågan använder inte autentisering.",
+      "settings": "Inställningar"
+    },
+    "requestSettings": {
+      "timeout": "Tidsgräns (ms)",
+      "timeoutHint": "Tomt använder standardvärdet 30 sekunder. Max 600000.",
+      "followRedirects": "Följ omdirigeringar",
+      "followRedirectsHint": "Av returnerar själva 3xx-svaret.",
+      "maxRedirects": "Max omdirigeringar",
+      "maxRedirectsHint": "Tomt använder 5. Max 50.",
+      "verifySsl": "Verifiera SSL-certifikat",
+      "verifySslHint": "Avvisa självsignerade, utgångna eller felaktiga certifikat.",
+      "verifySslOffHint": "Av: alla certifikat godtas. Använd bara med värdar du litar på.",
+      "cookieJar": "Använd kakburk",
+      "cookieJarHint": "Skicka sparade kakor och spara kakor från svar."
     },
     "responsePanel": {
       "emptyTitle": "Redo att utforska?",

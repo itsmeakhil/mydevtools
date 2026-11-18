@@ -1903,7 +1903,21 @@
       "addTo": "Přidat do",
       "header": "Hlavička",
       "queryParams": "Dotazové parametry",
-      "noAuthHint": "Tento požadavek nepoužívá autentizaci."
+      "noAuthHint": "Tento požadavek nepoužívá autentizaci.",
+      "settings": "Nastavení"
+    },
+    "requestSettings": {
+      "timeout": "Časový limit (ms)",
+      "timeoutHint": "Prázdné použije výchozích 30 sekund. Max. 600000.",
+      "followRedirects": "Následovat přesměrování",
+      "followRedirectsHint": "Vypnuto vrátí samotnou odpověď 3xx.",
+      "maxRedirects": "Max. přesměrování",
+      "maxRedirectsHint": "Prázdné použije 5. Max. 50.",
+      "verifySsl": "Ověřovat certifikáty SSL",
+      "verifySslHint": "Odmítnout certifikáty podepsané sebou samými, prošlé nebo neodpovídající.",
+      "verifySslOffHint": "Vypnuto: přijme se jakýkoli certifikát. Používejte jen u serverů, kterým důvěřujete.",
+      "cookieJar": "Používat úložiště cookies",
+      "cookieJarHint": "Odesílat uložené cookies a ukládat cookies z odpovědí."
     },
     "responsePanel": {
       "emptyTitle": "Připraveno k prozkoumání?",

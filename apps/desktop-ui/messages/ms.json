@@ -1903,7 +1903,21 @@
       "addTo": "Tambah ke",
       "header": "Pengepala",
       "queryParams": "Parameter pertanyaan",
-      "noAuthHint": "Permintaan ini tidak menggunakan pengesahan."
+      "noAuthHint": "Permintaan ini tidak menggunakan pengesahan.",
+      "settings": "Tetapan"
+    },
+    "requestSettings": {
+      "timeout": "Had masa (ms)",
+      "timeoutHint": "Kosong menggunakan lalai 30 saat. Maks 600000.",
+      "followRedirects": "Ikut ubah hala",
+      "followRedirectsHint": "Mati memulangkan respons 3xx itu sendiri.",
+      "maxRedirects": "Maks ubah hala",
+      "maxRedirectsHint": "Kosong menggunakan 5. Maks 50.",
+      "verifySsl": "Sahkan sijil SSL",
+      "verifySslHint": "Tolak sijil yang ditandatangani sendiri, tamat tempoh atau tidak sepadan.",
+      "verifySslOffHint": "Mati: sebarang sijil diterima. Gunakan hanya dengan hos yang anda percayai.",
+      "cookieJar": "Guna balang kuki",
+      "cookieJarHint": "Hantar kuki yang disimpan dan simpan kuki daripada respons."
     },
     "responsePanel": {
       "emptyTitle": "Sedia untuk meneroka?",

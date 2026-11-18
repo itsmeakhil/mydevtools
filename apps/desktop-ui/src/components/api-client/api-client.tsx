@@ -17,7 +17,7 @@ import { putCachedResponse, getCachedResponse } from "@/lib/cache/response-cache
 import { registerApiClientServiceWorker } from "@/lib/sw/register-api-client-sw"
 import { listenForExtensionImports, capturedToTab } from "@/lib/extension/listen"
 import { recordExchange } from "@/lib/recorder/traffic-recorder"
-import type { SavedExample } from "./types"
+import type { RequestSettings, SavedExample } from "./types"
 import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
@@ -240,8 +240,15 @@ function ApiClientInner() {
             testScript: make("testScript"),
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
+            settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
     }, [updateActiveTab])
+    // Own object so the memoized RequestTabs doesn't re-render on every URL/body keystroke.
+    const { timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl } = activeTab
+    const requestSettings = React.useMemo<RequestSettings>(
+        () => ({ timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl }),
+        [timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl],
+    )
     const openSaveExample = React.useCallback(() => setSaveExampleOpen(true), [])
 
     // Scroll position memory for mobile panel toggle
@@ -847,6 +854,9 @@ function ApiClientInner() {
                 headers: headersObj,
                 body: beforeApplied.req.body ?? bodyPayload ?? bodyContent,
                 timeoutMs: sendTab.timeoutMs,
+                followRedirects: sendTab.followRedirects,
+                maxRedirects: sendTab.maxRedirects,
+                verifySsl: sendTab.verifySsl,
             }, controller.signal)
             const proxyData = {
                 ...rawEnvelope,
@@ -1169,6 +1179,8 @@ function ApiClientInner() {
                     onLoadExample={handleLoadExample}
                     comments={activeTab.comments}
                     setComments={setField.comments}
+                    settings={requestSettings}
+                    setSettings={setField.settings}
                 />
             </div>
         </div>
@@ -1478,6 +1490,8 @@ function ApiClientInner() {
                                             onLoadExample={handleLoadExample}
                                             comments={activeTab.comments}
                                             setComments={setField.comments}
+                                            settings={requestSettings}
+                                            setSettings={setField.settings}
                                         />
                                     </div>
                                 </div>
