@@ -21,9 +21,11 @@ interface ImportCurlDialogProps {
     onImport: (curl: string, target: ImportCurlTarget) => void
     open?: boolean
     onOpenChange?: (open: boolean) => void
+    /** Render the toolbar trigger even when `open` is controlled. */
+    showTrigger?: boolean
 }
 
-export function ImportCurlDialog({ onImport, open: openProp, onOpenChange }: ImportCurlDialogProps) {
+export function ImportCurlDialog({ onImport, open: openProp, onOpenChange, showTrigger }: ImportCurlDialogProps) {
     const t = useTranslations("ApiClient.importCurl")
     const [openInternal, setOpenInternal] = React.useState(false)
     const open = openProp !== undefined ? openProp : openInternal
@@ -42,7 +44,7 @@ export function ImportCurlDialog({ onImport, open: openProp, onOpenChange }: Imp
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            {!isControlled && (
+            {(!isControlled || showTrigger) && (
                 <DialogTrigger asChild>
                     <Button variant="outline" size="sm" className="gap-2">
                         <Import className="h-4 w-4" />

@@ -1925,7 +1925,11 @@
     },
     "tabBar": {
       "addTabAria": "Nová karta",
-      "unsavedChanges": "Neuložené změny"
+      "unsavedChanges": "Neuložené změny",
+      "newRest": "Nový požadavek REST",
+      "newWebSocket": "Nový WebSocket",
+      "newGrpc": "Nový gRPC-Web",
+      "duplicateTab": "Duplikovat kartu"
     },
     "collectionsSidebar": {
       "title": "API zdroje",
@@ -2023,7 +2027,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Uložit požadavek"
+      "saveRequest": "Uložit požadavek",
+      "nextTab": "Další karta",
+      "prevTab": "Předchozí karta",
+      "focusUrl": "Přejít na řádek URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2041,6 +2048,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Přepnout prostředí: {name}"
     }
   },
   "RichEditor": {
