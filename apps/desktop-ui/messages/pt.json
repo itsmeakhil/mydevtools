@@ -1871,7 +1871,13 @@
       "sending": "A enviar...",
       "send": "Enviar",
       "invalidJsonBodyHelp": "Não é possível enviar: o corpo JSON é inválido",
-      "copyCurl": "Copiar como cURL"
+      "copyCurl": "Copiar como cURL",
+      "variable": {
+        "dynamic": "gerado em cada envio",
+        "response": "lido da resposta anterior ao enviar",
+        "secret": "secreto, resolvido ao enviar",
+        "missing": "não definida no ambiente ativo"
+      }
     },
     "requestTabs": {
       "params": "Parâmetros",

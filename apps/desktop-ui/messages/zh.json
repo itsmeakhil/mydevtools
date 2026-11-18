@@ -1871,7 +1871,13 @@
       "sending": "发送中…",
       "send": "发送",
       "invalidJsonBodyHelp": "无法发送：JSON 正文无效",
-      "copyCurl": "复制为 cURL"
+      "copyCurl": "复制为 cURL",
+      "variable": {
+        "dynamic": "每次发送时生成",
+        "response": "发送时从上一个响应读取",
+        "secret": "密钥，发送时解析",
+        "missing": "未在当前环境中定义"
+      }
     },
     "requestTabs": {
       "params": "参数",

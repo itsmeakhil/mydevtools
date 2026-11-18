@@ -1871,7 +1871,13 @@
       "sending": "Gönderiliyor...",
       "send": "Gönder",
       "invalidJsonBodyHelp": "Gönderilemedi: JSON gövdesi geçersiz",
-      "copyCurl": "cURL olarak kopyala"
+      "copyCurl": "cURL olarak kopyala",
+      "variable": {
+        "dynamic": "her gönderimde üretilir",
+        "response": "gönderimde önceki yanıttan okunur",
+        "secret": "gizli, gönderimde çözümlenir",
+        "missing": "etkin ortamda tanımlı değil"
+      }
     },
     "requestTabs": {
       "params": "Parametreler",

@@ -1871,7 +1871,13 @@
       "sending": "Sender...",
       "send": "Send",
       "invalidJsonBodyHelp": "Kan ikke sende: JSON-kroppen er ugyldig",
-      "copyCurl": "Kopier som cURL"
+      "copyCurl": "Kopier som cURL",
+      "variable": {
+        "dynamic": "genereres ved hver sending",
+        "response": "leses fra forrige svar ved sending",
+        "secret": "hemmelig, løses ved sending",
+        "missing": "ikke definert i det aktive miljøet"
+      }
     },
     "requestTabs": {
       "params": "Parametere",

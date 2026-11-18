@@ -1871,7 +1871,13 @@
       "sending": "Besig om te stuur...",
       "send": "Stuur",
       "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid",
-      "copyCurl": "Kopieer as cURL"
+      "copyCurl": "Kopieer as cURL",
+      "variable": {
+        "dynamic": "word met elke versending gegenereer",
+        "response": "word by versending uit die vorige antwoord gelees",
+        "secret": "geheim, word by versending opgelos",
+        "missing": "nie in die aktiewe omgewing gedefinieer nie"
+      }
     },
     "requestTabs": {
       "params": "Params",

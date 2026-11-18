@@ -1871,7 +1871,13 @@
       "sending": "Đang gửi...",
       "send": "Gửi",
       "invalidJsonBodyHelp": "Không thể gửi: nội dung JSON không hợp lệ",
-      "copyCurl": "Sao chép dưới dạng cURL"
+      "copyCurl": "Sao chép dưới dạng cURL",
+      "variable": {
+        "dynamic": "được tạo mỗi lần gửi",
+        "response": "được đọc từ phản hồi trước khi gửi",
+        "secret": "bí mật, được thay khi gửi",
+        "missing": "chưa được định nghĩa trong môi trường đang dùng"
+      }
     },
     "requestTabs": {
       "params": "Tham số",

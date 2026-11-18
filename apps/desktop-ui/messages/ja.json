@@ -1871,7 +1871,13 @@
       "sending": "送信中...",
       "send": "送信",
       "invalidJsonBodyHelp": "送信できません: JSONボディが無効です",
-      "copyCurl": "cURLとしてコピー"
+      "copyCurl": "cURLとしてコピー",
+      "variable": {
+        "dynamic": "送信のたびに生成",
+        "response": "送信時に前回のレスポンスから取得",
+        "secret": "シークレット、送信時に解決",
+        "missing": "アクティブな環境で未定義"
+      }
     },
     "requestTabs": {
       "params": "パラメータ",
