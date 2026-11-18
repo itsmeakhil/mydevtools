@@ -2226,6 +2226,10 @@
       "exportHtml": "Eksporter dokumentasjon (HTML)",
       "exported": "Dokumentasjon eksportert",
       "exportFailed": "Kunne ikke eksportere dokumentasjon"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "La realm og nonce stå tomme, så svarer appen selv på serverens 401-utfordring (MD5, SHA-256, -sess). Fyll dem inn for å signere på forhånd og slippe den ekstra runden."
     }
   },
   "RichEditor": {

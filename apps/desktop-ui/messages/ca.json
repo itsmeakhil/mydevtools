@@ -2226,6 +2226,10 @@
       "exportHtml": "Exporta la documentació (HTML)",
       "exported": "Documentació exportada",
       "exportFailed": "No s'ha pogut exportar la documentació"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "Deixa buits realm i nonce i l'app respondrà ella mateixa al repte 401 del servidor (MD5, SHA-256, -sess). Omple'ls per signar per avançat i estalviar-te la volta extra."
     }
   },
   "RichEditor": {

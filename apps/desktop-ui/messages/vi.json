@@ -2226,6 +2226,10 @@
       "exportHtml": "Xuất tài liệu (HTML)",
       "exported": "Đã xuất tài liệu",
       "exportFailed": "Không thể xuất tài liệu"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "Để trống realm và nonce, ứng dụng sẽ tự trả lời thử thách 401 của máy chủ (MD5, SHA-256, -sess). Điền vào để ký trước và bỏ qua lượt gửi thêm."
     }
   },
   "RichEditor": {

@@ -2226,6 +2226,10 @@
       "exportHtml": "Voer dokumentasie uit (HTML)",
       "exported": "Dokumentasie uitgevoer",
       "exportFailed": "Kon nie dokumentasie uitvoer nie"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "Laat realm en nonce leeg en die app beantwoord self die bediener se 401-uitdaging (MD5, SHA-256, -sess). Vul hulle in om vooraf te teken en die ekstra rondte oor te slaan."
     }
   },
   "RichEditor": {

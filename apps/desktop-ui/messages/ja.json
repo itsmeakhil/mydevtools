@@ -2226,6 +2226,10 @@
       "exportHtml": "ドキュメントをエクスポート (HTML)",
       "exported": "ドキュメントをエクスポートしました",
       "exportFailed": "ドキュメントをエクスポートできませんでした"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "realm と nonce を空にすると、サーバーの 401 チャレンジにアプリが自動で応答します (MD5、SHA-256、-sess)。入力すると事前に署名し、余分な往復を省きます。"
     }
   },
   "RichEditor": {

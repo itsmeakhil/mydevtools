@@ -51,7 +51,7 @@ import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { ensureFreshToken } from "@/lib/oauth2"
 import { signAwsSigV4 } from "@/lib/auth/aws-sigv4"
 import { signHawk } from "@/lib/auth/hawk"
-import { signDigest } from "@/lib/auth/digest"
+import { digestCredentials, signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { evaluateAssertions } from "@/lib/api-client/assertions"
@@ -807,7 +807,8 @@ function ApiClientInner() {
                         body: bodyForSigning,
                         cfg: sendTab.auth.hawk,
                     })
-                } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
+                } else if (sendTab.auth.type === "digest" && sendTab.auth.digest?.nonce?.trim()) {
+                    // A pasted nonce = pre-emptive; otherwise the proxy answers the challenge (digestAuth below).
                     await signDigest({
                         method: workMethod,
                         url: urlObj,
@@ -924,6 +925,9 @@ function ApiClientInner() {
                 followRedirects: sendTab.followRedirects,
                 maxRedirects: sendTab.maxRedirects,
                 verifySsl: sendTab.verifySsl,
+                digestAuth: sendTab.auth.type === "digest" && !sendTab.auth.digest?.nonce?.trim()
+                    ? digestCredentials(sendTab.auth.digest, substituteAll)
+                    : undefined,
             }, controller.signal)
             const proxyData = {
                 ...rawEnvelope,

@@ -2226,6 +2226,10 @@
       "exportHtml": "Exportar documentación (HTML)",
       "exported": "Documentación exportada",
       "exportFailed": "No se pudo exportar la documentación"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "Deja vacíos realm y nonce y la app responderá por sí misma al desafío 401 del servidor (MD5, SHA-256, -sess). Rellénalos para firmar por adelantado y ahorrarte la ida y vuelta extra."
     }
   },
   "RichEditor": {

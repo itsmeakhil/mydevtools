@@ -2226,6 +2226,10 @@
       "exportHtml": "문서 내보내기 (HTML)",
       "exported": "문서를 내보냈습니다",
       "exportFailed": "문서를 내보내지 못했습니다"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "realm과 nonce를 비워 두면 앱이 서버의 401 챌린지에 직접 응답합니다(MD5, SHA-256, -sess). 입력하면 미리 서명해 추가 왕복을 생략합니다."
     }
   },
   "RichEditor": {

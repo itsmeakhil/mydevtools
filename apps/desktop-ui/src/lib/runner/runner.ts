@@ -16,6 +16,7 @@ import type {
 } from "@/components/api-client/types"
 import type { ScriptContext, ScriptResult } from "@/lib/api-client/script-run"
 import { encodeBasicCredentials } from "@/lib/basic-auth"
+import { digestCredentials } from "@/lib/auth/digest"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
 import { ensureFreshToken } from "@/lib/oauth2"
@@ -317,6 +318,8 @@ async function executeRequest(args: {
                 followRedirects: req.followRedirects,
                 maxRedirects: req.maxRedirects,
                 verifySsl: req.verifySsl,
+                // The proxy answers the server's Digest challenge (realm/nonce come from the 401).
+                digestAuth: req.auth.type === "digest" ? digestCredentials(req.auth.digest, substitute) : undefined,
             }),
         })
         proxyData = await res.json()

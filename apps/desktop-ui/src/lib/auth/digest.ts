@@ -101,6 +101,18 @@ function randomHex(len = 8): string {
     return Array.from(bytes).map((b) => b.toString(16).padStart(2, "0")).join("")
 }
 
+/**
+ * Credentials the desktop proxy uses to answer the server's `401 Digest`
+ * challenge itself (realm, nonce, algorithm and qop come from the server).
+ */
+export function digestCredentials(
+    cfg: DigestConfig | undefined,
+    substitute: (s: string) => string,
+): { username: string; password: string } | undefined {
+    if (!cfg?.username) return undefined
+    return { username: substitute(cfg.username), password: substitute(cfg.password ?? "") }
+}
+
 export async function signDigest(args: {
     method: string
     url: URL

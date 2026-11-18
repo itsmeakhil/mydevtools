@@ -148,6 +148,15 @@ enum BodyKind {
 }
 
 impl BodyKind {
+    /// Raw bytes for hashing (digest auth-int); multipart is assembled by reqwest, so unknown.
+    fn bytes(&self) -> Option<&[u8]> {
+        match self {
+            BodyKind::Text(s) => Some(s.as_bytes()),
+            BodyKind::Bytes(b) => Some(b),
+            BodyKind::Multipart(_) => None,
+        }
+    }
+
     fn apply(&self, mut req: reqwest::RequestBuilder) -> Result<reqwest::RequestBuilder, String> {
         match self {
             BodyKind::Text(s) => Ok(req.body(s.clone())),
@@ -203,6 +212,13 @@ impl SendOptions {
 struct Walked {
     response: reqwest::Response,
     chain: Vec<Value>,
+    /// Every request actually sent (redirect hops and digest retries) for the Timeline.
+    hops: Vec<Value>,
+}
+
+/// Milliseconds with one decimal — sub-millisecond phases on loopback still read.
+fn ms(d: std::time::Duration) -> f64 {
+    (d.as_secs_f64() * 10_000.0).round() / 10.0
 }
 
 async fn fetch_following_redirects(
@@ -214,11 +230,17 @@ async fn fetch_following_redirects(
     timeout: std::time::Duration,
     is_multipart: bool,
     max_redirects: Option<usize>,
+    digest_creds: Option<&crate::http::digest::Credentials>,
+    t0: std::time::Instant,
 ) -> Result<Walked, String> {
     let mut current_url = initial_url.to_string();
     let mut current_method = method.to_uppercase();
     let mut drop_body = false;
     let mut chain: Vec<Value> = Vec::new();
+    let mut hops: Vec<Value> = Vec::new();
+    // Digest is answered only for the origin the user addressed, never for a
+    // host a redirect points at.
+    let origin = reqwest::Url::parse(initial_url).map_err(|_| "Invalid URL format".to_string())?.origin();
 
     let follow = max_redirects.is_some();
     let max_redirects = max_redirects.unwrap_or(0);
@@ -226,29 +248,76 @@ async fn fetch_following_redirects(
         let url = reqwest::Url::parse(&current_url).map_err(|_| "Invalid URL format".to_string())?;
         assert_hop_allowed(&url)?;
 
-        let m = reqwest::Method::from_bytes(current_method.as_bytes()).map_err(|e| e.to_string())?;
-        let mut req = client.request(m, url).timeout(timeout);
-        for (k, v) in headers {
-            // Let reqwest set the multipart boundary itself.
-            if is_multipart && k.to_lowercase() == "content-type" {
-                continue;
-            }
-            if let Some(s) = v.as_str() {
-                req = req.header(k, s);
-            }
-        }
         let use_body = !drop_body && current_method != "GET" && current_method != "HEAD";
-        if use_body {
-            if let Some(b) = body {
-                req = b.apply(req)?;
+        // Set after a Digest 401 on this hop; the hop is resent once with it.
+        let mut authorization: Option<String> = None;
+        let response = loop {
+            let m = reqwest::Method::from_bytes(current_method.as_bytes()).map_err(|e| e.to_string())?;
+            let mut req = client.request(m, url.clone()).timeout(timeout);
+            for (k, v) in headers {
+                // Let reqwest set the multipart boundary itself.
+                if is_multipart && k.to_lowercase() == "content-type" {
+                    continue;
+                }
+                if authorization.is_some() && k.eq_ignore_ascii_case("authorization") {
+                    continue;
+                }
+                if let Some(s) = v.as_str() {
+                    req = req.header(k, s);
+                }
             }
-        }
+            if let Some(a) = &authorization {
+                req = req.header("Authorization", a);
+            }
+            if use_body {
+                if let Some(b) = body {
+                    req = b.apply(req)?;
+                }
+            }
 
-        let response = req.send().await.map_err(|e| full_error_chain(&e))?;
+            let request = req.build().map_err(|e| full_error_chain(&e))?;
+            let sent: Vec<Value> = request
+                .headers()
+                .iter()
+                .map(|(k, v)| json!([k.as_str(), String::from_utf8_lossy(v.as_bytes())]))
+                .collect();
+            let hop_start = t0.elapsed();
+            let response = client.execute(request).await.map_err(|e| full_error_chain(&e))?;
+            let status = response.status().as_u16();
+            hops.push(json!({
+                "method": current_method,
+                "url": current_url,
+                "status": status,
+                "startMs": ms(hop_start),
+                "ttfbMs": ms(t0.elapsed() - hop_start),
+                "headers": sent,
+            }));
+
+            if status == 401 && authorization.is_none() && url.origin() == origin {
+                if let Some(creds) = digest_creds {
+                    let challenge = crate::http::digest::pick_challenge(
+                        response.headers().get_all("www-authenticate").iter().filter_map(|v| v.to_str().ok()),
+                    );
+                    let uri = match url.query() {
+                        Some(q) => format!("{}?{q}", url.path()),
+                        None => url.path().to_string(),
+                    };
+                    let body_bytes = if use_body { body.as_ref().map_or(Some(&[][..]), BodyKind::bytes) } else { Some(&[][..]) };
+                    let cnonce = uuid::Uuid::new_v4().simple().to_string();
+                    if let Some(a) = challenge.and_then(|c| {
+                        crate::http::digest::authorization(&c, creds, &current_method, &uri, body_bytes, &cnonce, 1)
+                    }) {
+                        authorization = Some(a);
+                        continue;
+                    }
+                }
+            }
+            break response;
+        };
         let status = response.status().as_u16();
         let is_redirect = (300..400).contains(&status) && status != 304;
         if !is_redirect || !follow {
-            return Ok(Walked { response, chain });
+            return Ok(Walked { response, chain, hops });
         }
         let Some(location) = response
             .headers()
@@ -256,7 +325,7 @@ async fn fetch_following_redirects(
             .and_then(|l| l.to_str().ok())
             .map(str::to_string)
         else {
-            return Ok(Walked { response, chain });
+            return Ok(Walked { response, chain, hops });
         };
         chain.push(json!({ "url": current_url, "status": status }));
         let next = reqwest::Url::parse(&current_url)
@@ -319,6 +388,8 @@ pub async fn http_request(input: Value) -> Value {
     };
     let is_multipart = matches!(body, Some(BodyKind::Multipart(_)));
     let opts = SendOptions::from_input(&input);
+    // Digest credentials ride separately so Rust can answer the 401 challenge.
+    let digest_creds = crate::http::digest::Credentials::from_input(&input["digestAuth"]);
 
     let client = match plain_client(is_local_target(&parsed), opts.insecure) {
         Ok(c) => c,
@@ -334,6 +405,8 @@ pub async fn http_request(input: Value) -> Value {
         std::time::Duration::from_millis(timeout_ms),
         is_multipart,
         opts.max_redirects,
+        digest_creds.as_ref(),
+        started,
     )
     .await
     {
@@ -364,6 +437,7 @@ pub async fn http_request(input: Value) -> Value {
         .unwrap_or("")
         .to_string();
 
+    let download_start = started.elapsed();
     let bytes = match read_body_capped(response, declared_len).await {
         Ok(b) => b,
         Err(e) => return envelope_error(0, "Error", &e),
@@ -385,6 +459,11 @@ pub async fn http_request(input: Value) -> Value {
         "isBase64": is_base64,
         "time": time,
         "size": size,
+        "timeline": {
+            "hops": walked.hops,
+            "downloadMs": ms(started.elapsed() - download_start),
+            "totalMs": ms(started.elapsed()),
+        },
     })
 }
 
@@ -513,6 +592,36 @@ mod tests {
         assert!(is_textual_content_type("text/html"));
         assert!(!is_textual_content_type("application/octet-stream"));
         assert!(!is_textual_content_type(""));
+    }
+
+    #[tokio::test]
+    #[ignore] // network
+    async fn digest_challenge_and_timeline() {
+        for alg in ["MD5", "SHA-256"] {
+            let url = format!("https://httpbin.org/digest-auth/auth/user/passwd/{alg}");
+            let r = http_request(json!({ "url": url, "method": "GET", "digestAuth": { "username": "user", "password": "passwd" } })).await;
+            assert_eq!(r["status"], 200, "{alg}: {r}");
+            let hops = r["timeline"]["hops"].as_array().unwrap();
+            assert_eq!(hops.len(), 2, "{alg}: 401 then the answered retry");
+            assert_eq!(hops[0]["status"], 401);
+            let auth = hops[1]["headers"].as_array().unwrap().iter()
+                .find(|h| h[0] == "authorization").and_then(|h| h[1].as_str()).unwrap_or("");
+            assert!(auth.starts_with("Digest ") && auth.contains(&format!("algorithm={alg}")), "{alg}: {auth}");
+            assert!(r["timeline"]["totalMs"].as_f64().unwrap() >= hops[1]["ttfbMs"].as_f64().unwrap());
+        }
+        // No credentials → the 401 comes back untouched, one hop.
+        let r = http_request(json!({ "url": "https://httpbin.org/digest-auth/auth/user/passwd/MD5", "method": "GET" })).await;
+        assert_eq!(r["status"], 401);
+        assert_eq!(r["timeline"]["hops"].as_array().unwrap().len(), 1);
+        // Wrong password → exactly one retry, then the 401.
+        let r = http_request(json!({ "url": "https://httpbin.org/digest-auth/auth/user/passwd/MD5", "method": "GET", "digestAuth": { "username": "user", "password": "nope" } })).await;
+        assert_eq!(r["status"], 401);
+        assert_eq!(r["timeline"]["hops"].as_array().unwrap().len(), 2);
+        // Redirect hops are timed in order.
+        let r = http_request(json!({ "url": "https://httpbin.org/redirect/2", "method": "GET" })).await;
+        let hops = r["timeline"]["hops"].as_array().unwrap();
+        assert_eq!(hops.iter().map(|h| h["status"].as_u64().unwrap()).collect::<Vec<_>>(), vec![302, 302, 200]);
+        assert!(hops[1]["startMs"].as_f64().unwrap() >= hops[0]["startMs"].as_f64().unwrap());
     }
 
     #[tokio::test]

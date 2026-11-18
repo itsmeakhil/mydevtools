@@ -2226,6 +2226,10 @@
       "exportHtml": "Eksport dokumentasi (HTML)",
       "exported": "Dokumentasi dieksport",
       "exportFailed": "Tidak dapat mengeksport dokumentasi"
+    },
+    "digestAuth": {
+      "option": "Digest",
+      "hint": "Biarkan realm dan nonce kosong dan apl akan menjawab sendiri cabaran 401 pelayan (MD5, SHA-256, -sess). Isikan untuk menandatangan lebih awal dan langkau perjalanan tambahan."
     }
   },
   "RichEditor": {
