@@ -209,6 +209,10 @@ impl SendOptions {
     }
 }
 
+fn is_credential_header(name: &str) -> bool {
+    ["authorization", "cookie", "proxy-authorization"].iter().any(|h| name.eq_ignore_ascii_case(h))
+}
+
 struct Walked {
     response: reqwest::Response,
     chain: Vec<Value>,
@@ -260,6 +264,11 @@ async fn fetch_following_redirects(
                     continue;
                 }
                 if authorization.is_some() && k.eq_ignore_ascii_case("authorization") {
+                    continue;
+                }
+                // Like curl and browsers: credentials go only to the origin the
+                // user addressed, never to a host a redirect points at.
+                if url.origin() != origin && is_credential_header(k) {
                     continue;
                 }
                 if let Some(s) = v.as_str() {
@@ -562,6 +571,50 @@ pub fn cancel_stream(id: u64) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+    /// One-shot HTTP server: answers every connection with `reply(request_head)`.
+    async fn serve(reply: impl Fn(&str) -> String + Send + 'static) -> u16 {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        tokio::spawn(async move {
+            while let Ok((mut sock, _)) = listener.accept().await {
+                let mut buf = vec![0u8; 8192];
+                let n = sock.read(&mut buf).await.unwrap_or(0);
+                let head = String::from_utf8_lossy(&buf[..n]).to_lowercase();
+                let _ = sock.write_all(reply(&head).as_bytes()).await;
+            }
+        });
+        port
+    }
+
+    #[tokio::test]
+    async fn credentials_are_not_forwarded_to_another_origin_on_redirect() {
+        let other = serve(|head| {
+            let seen = ["authorization:", "cookie:", "x-custom:"]
+                .iter()
+                .filter(|h| head.contains(*h))
+                .map(|h| h.trim_end_matches(':'))
+                .collect::<Vec<_>>()
+                .join(",");
+            format!("HTTP/1.1 200 OK\r\ncontent-type: text/plain\r\ncontent-length: {}\r\nconnection: close\r\n\r\n{seen}", seen.len())
+        })
+        .await;
+        let first = serve(move |_| {
+            format!("HTTP/1.1 302 Found\r\nlocation: http://127.0.0.1:{other}/landing\r\ncontent-length: 0\r\nconnection: close\r\n\r\n")
+        })
+        .await;
+
+        let r = http_request(json!({
+            "url": format!("http://127.0.0.1:{first}/start"),
+            "method": "GET",
+            "headers": { "Authorization": "Bearer secret", "Cookie": "sid=1", "X-Custom": "keep" },
+        }))
+        .await;
+        assert_eq!(r["status"], 200, "{r}");
+        // Different port = different origin: only the non-credential header survives.
+        assert_eq!(r["body"], "x-custom", "{r}");
+    }
 
     #[test]
     fn local_target_detection() {
