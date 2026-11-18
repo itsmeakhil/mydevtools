@@ -21,6 +21,9 @@ import type { ApiResponse } from "@/components/api-client/types"
 export function parseResponsePath(s: string): Array<string | number> {
     const out: Array<string | number> = []
     for (const part of s.split(".")) {
+        // Each repetition is delimited by literal brackets, so there is one way to
+        // split any input: linear time, not ReDoS.
+        // threatcrush-disable-next-line redos-nested-quantifier
         const m = part.match(/^([^[]*)((?:\[\d+\])*)$/)
         if (!m) { out.push(part); continue }
         if (m[1]) out.push(m[1])
