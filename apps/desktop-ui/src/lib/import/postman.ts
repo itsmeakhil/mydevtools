@@ -5,6 +5,7 @@
  * Pre-request + test scripts (`event[]`) are also pulled across.
  */
 
+import { normalizeMethod } from "@/lib/api-client/http-method"
 import type {
     Collection,
     CollectionFolder,
@@ -84,9 +85,6 @@ interface PostmanAuth {
     oauth2?: PostmanKV[]
 }
 
-const VALID_METHODS = new Set<RequestMethod>([
-    "GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS",
-])
 
 function id(): string { return crypto.randomUUID() }
 
@@ -206,8 +204,7 @@ function convertAuth(a: PostmanAuth | undefined): RequestAuth {
 function convertRequest(item: PostmanItem, inheritedAuth?: RequestAuth): CollectionRequest {
     const r = item.request ?? {}
     const { url, query } = readUrl(r.url)
-    const method = (r.method ?? "GET").toUpperCase() as RequestMethod
-    const safeMethod: RequestMethod = VALID_METHODS.has(method) ? method : "GET"
+    const safeMethod: RequestMethod = normalizeMethod(r.method) ?? "GET"
     const preRequestScript = pickScript(item.event, "prerequest")
     const testScript = pickScript(item.event, "test")
 

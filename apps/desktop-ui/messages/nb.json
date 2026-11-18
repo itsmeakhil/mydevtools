@@ -2041,6 +2041,11 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "customMethod": {
+      "option": "Egendefinert…",
+      "label": "Egendefinert metode",
+      "placeholder": "f.eks. PURGE"
     }
   },
   "RichEditor": {

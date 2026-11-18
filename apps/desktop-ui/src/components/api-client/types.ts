@@ -1,4 +1,5 @@
-export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS"
+/** Standard methods, or any custom HTTP token (e.g. PROPFIND) set via the method picker. */
+export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS" | (string & {})
 
 /** Persisted in localStorage; translate in UI with ApiClient.defaults */
 export const API_CLIENT_DEFAULT_TAB_NAME = "New Request"

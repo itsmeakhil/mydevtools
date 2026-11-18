@@ -2041,6 +2041,11 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "customMethod": {
+      "option": "Tersuai…",
+      "label": "Kaedah tersuai",
+      "placeholder": "cth. PURGE"
     }
   },
   "RichEditor": {

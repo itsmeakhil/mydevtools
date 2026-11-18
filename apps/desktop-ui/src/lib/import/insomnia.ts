@@ -7,6 +7,7 @@
 
 import * as yaml from "js-yaml"
 
+import { normalizeMethod } from "@/lib/api-client/http-method"
 import type {
     Collection,
     CollectionFolder,
@@ -66,9 +67,6 @@ export interface InsomniaImportResult {
     environments: Environment[]
 }
 
-const VALID_METHODS = new Set<RequestMethod>([
-    "GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS",
-])
 
 function id(): string { return crypto.randomUUID() }
 
@@ -168,8 +166,7 @@ function scripts(n: InsNode): { preRequestScript?: string; testScript?: string }
 }
 
 function convertRequest(r: InsNode): CollectionRequest {
-    const m = (r.method ?? "GET").toUpperCase() as RequestMethod
-    const method = VALID_METHODS.has(m) ? m : "GET"
+    const method: RequestMethod = normalizeMethod(r.method) ?? "GET"
     return {
         id: id(),
         name: r.name || method,

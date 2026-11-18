@@ -5,6 +5,7 @@
  * RequestAuth, because HAR sees the wire form (no scheme distinction).
  */
 
+import { normalizeMethod } from "@/lib/api-client/http-method"
 import type {
     Collection,
     CollectionRequest,
@@ -42,9 +43,6 @@ interface HarRequest {
 
 interface HarResponse { status?: number; statusText?: string }
 
-const VALID_METHODS = new Set<RequestMethod>([
-    "GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS",
-])
 
 function id(): string { return crypto.randomUUID() }
 
@@ -96,8 +94,7 @@ function harBody(pd: HarRequest["postData"]): RequestBody {
 function convertEntry(entry: HarEntry): CollectionRequest | null {
     const r = entry.request
     if (!r || !r.url) return null
-    const method = (r.method ?? "GET").toUpperCase() as RequestMethod
-    const safeMethod: RequestMethod = VALID_METHODS.has(method) ? method : "GET"
+    const safeMethod: RequestMethod = normalizeMethod(r.method) ?? "GET"
     return {
         id: id(),
         name: `${safeMethod} ${r.url}`,

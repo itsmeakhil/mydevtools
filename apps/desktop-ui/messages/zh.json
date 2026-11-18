@@ -2041,6 +2041,11 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "customMethod": {
+      "option": "自定义…",
+      "label": "自定义方法",
+      "placeholder": "例如 PURGE"
     }
   },
   "RichEditor": {

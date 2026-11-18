@@ -2041,6 +2041,11 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "customMethod": {
+      "option": "사용자 지정…",
+      "label": "사용자 지정 메서드",
+      "placeholder": "예: PURGE"
     }
   },
   "RichEditor": {

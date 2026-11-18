@@ -2041,6 +2041,11 @@
       "recorder": "Capture & replay",
       "shortcuts": "Keyboard shortcuts",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "customMethod": {
+      "option": "Custom…",
+      "label": "Custom method",
+      "placeholder": "e.g. PURGE"
     }
   },
   "RichEditor": {
