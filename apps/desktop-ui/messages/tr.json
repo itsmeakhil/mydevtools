@@ -2054,6 +2054,14 @@
       "noFile": "Dosya seçilmedi",
       "binaryHint": "Ham istek gövdesi olarak gönderilir. Content-Type varsayılan olarak dosyanın türüdür.",
       "binaryMissing": "Dosya içeriği saklanmadı. Göndermeden önce dosyayı yeniden seçin."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Parola (eski)",
+      "grantRefreshToken": "Yalnızca yenileme belirteci",
+      "username": "Kullanıcı adı",
+      "password": "Parola",
+      "refreshToken": "Yenileme belirteci",
+      "refreshTokenHint": "Her alımda yeni bir erişim belirteciyle değiştirilir."
     }
   },
   "RichEditor": {

@@ -2054,6 +2054,14 @@
       "noFile": "Nenhum ficheiro escolhido",
       "binaryHint": "Enviado como corpo bruto do pedido. Content-Type usa por predefinição o tipo do ficheiro.",
       "binaryMissing": "O conteúdo do ficheiro não foi guardado. Escolha o ficheiro novamente antes de enviar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Palavra-passe (legado)",
+      "grantRefreshToken": "Apenas refresh token",
+      "username": "Utilizador",
+      "password": "Palavra-passe",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Trocado por um novo access token em cada obtenção."
     }
   },
   "RichEditor": {

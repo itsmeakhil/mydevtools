@@ -2054,6 +2054,14 @@
       "noFile": "Nevybrán žádný soubor",
       "binaryHint": "Odešle se jako nezpracované tělo požadavku. Content-Type je výchozí podle typu souboru.",
       "binaryMissing": "Obsah souboru nebyl uchován. Před odesláním soubor vyberte znovu."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Heslo (zastaralé)",
+      "grantRefreshToken": "Pouze obnovovací token",
+      "username": "Uživatelské jméno",
+      "password": "Heslo",
+      "refreshToken": "Obnovovací token",
+      "refreshTokenHint": "Při každém získání se vymění za nový přístupový token."
     }
   },
   "RichEditor": {

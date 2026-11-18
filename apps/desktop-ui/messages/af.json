@@ -2054,6 +2054,14 @@
       "noFile": "Geen lêer gekies nie",
       "binaryHint": "Word as die rou versoekliggaam gestuur. Content-Type is by verstek die lêer se tipe.",
       "binaryMissing": "Die lêer se inhoud is nie behou nie. Kies die lêer weer voor jy stuur."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Wagwoord (oud)",
+      "grantRefreshToken": "Slegs herlaaitoken",
+      "username": "Gebruikersnaam",
+      "password": "Wagwoord",
+      "refreshToken": "Herlaaitoken",
+      "refreshTokenHint": "Word by elke haal vir 'n nuwe toegangstoken omgeruil."
     }
   },
   "RichEditor": {

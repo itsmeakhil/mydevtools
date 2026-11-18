@@ -2054,6 +2054,14 @@
       "noFile": "Geen bestand gekozen",
       "binaryHint": "Wordt als ruwe request-body verzonden. Content-Type is standaard het bestandstype.",
       "binaryMissing": "De bestandsinhoud is niet bewaard. Kies het bestand opnieuw voor het verzenden."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Wachtwoord (verouderd)",
+      "grantRefreshToken": "Alleen refresh-token",
+      "username": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "refreshToken": "Refresh-token",
+      "refreshTokenHint": "Wordt bij elke ophaalactie ingewisseld voor een nieuw access-token."
     }
   },
   "RichEditor": {

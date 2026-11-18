@@ -9,6 +9,7 @@ import { CommentsPanel } from "./comments-panel"
 import { fetchGraphQLSchema } from "@/lib/graphql-introspect"
 import {
     fetchClientCredentialsToken,
+    fetchPasswordToken,
     refreshAccessToken,
     startAuthorizationCodeFlow,
     type OAuth2Config,
@@ -110,6 +111,7 @@ function RequestTabsImpl({
     setComments,
 }: RequestTabsProps) {
     const t = useTranslations("ApiClient.requestTabs")
+    const tGrant = useTranslations("ApiClient.oauth2Grants")
     const tBody = useTranslations("ApiClient.requestBody")
     const activeParamsCount = params.filter(p => p.active && (p.key || p.value)).length
     const activeHeadersCount = headers.filter(h => h.active && (h.key || h.value)).length
@@ -318,8 +320,10 @@ function RequestTabsImpl({
         if (auth.type !== "oauth2" || !auth.oauth2) return
         setTokenLoading(true)
         try {
-            const fresh = auth.oauth2.grantType === "authorization_code"
-                ? await startAuthorizationCodeFlow(auth.oauth2)
+            const grant = auth.oauth2.grantType
+            const fresh = grant === "authorization_code" ? await startAuthorizationCodeFlow(auth.oauth2)
+                : grant === "password" ? await fetchPasswordToken(auth.oauth2)
+                : grant === "refresh_token" ? await refreshAccessToken(auth.oauth2)
                 : await fetchClientCredentialsToken(auth.oauth2)
             setAuth({ ...auth, oauth2: fresh })
             toast.success("Access token retrieved")
@@ -823,8 +827,8 @@ function RequestTabsImpl({
                                         <SelectContent>
                                             <SelectItem value="client_credentials">Client Credentials</SelectItem>
                                             <SelectItem value="authorization_code">Authorization Code (PKCE)</SelectItem>
-                                            <SelectItem value="password" disabled>Password (deprecated)</SelectItem>
-                                            <SelectItem value="refresh_token" disabled>Refresh only</SelectItem>
+                                            <SelectItem value="password">{tGrant("grantPassword")}</SelectItem>
+                                            <SelectItem value="refresh_token">{tGrant("grantRefreshToken")}</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -861,6 +865,46 @@ function RequestTabsImpl({
                                             />
                                         </div>
                                     </>
+                                )}
+                                {auth.oauth2?.grantType === "password" && (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="oauth2-username">{tGrant("username")}</Label>
+                                            <Input
+                                                id="oauth2-username"
+                                                autoComplete="off"
+                                                value={auth.oauth2?.username ?? ""}
+                                                onChange={(e) => updateOAuthConfig({ username: e.target.value })}
+                                                className="font-mono text-[13px]"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="oauth2-password">{tGrant("password")}</Label>
+                                            <Input
+                                                id="oauth2-password"
+                                                type="password"
+                                                autoComplete="off"
+                                                value={auth.oauth2?.password ?? ""}
+                                                onChange={(e) => updateOAuthConfig({ password: e.target.value })}
+                                                className="font-mono text-[13px]"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                                {auth.oauth2?.grantType === "refresh_token" && (
+                                    <div className="space-y-2">
+                                        <Label htmlFor="oauth2-refresh-token">{tGrant("refreshToken")}</Label>
+                                        <Input
+                                            id="oauth2-refresh-token"
+                                            type="password"
+                                            autoComplete="off"
+                                            aria-describedby="oauth2-refresh-token-hint"
+                                            value={auth.oauth2?.refreshToken ?? ""}
+                                            onChange={(e) => updateOAuthConfig({ refreshToken: e.target.value })}
+                                            className="font-mono text-[13px]"
+                                        />
+                                        <p id="oauth2-refresh-token-hint" className="text-xs text-muted-foreground">{tGrant("refreshTokenHint")}</p>
+                                    </div>
                                 )}
                                 <div className="space-y-2">
                                     <Label>Access Token URL</Label>
@@ -916,7 +960,9 @@ function RequestTabsImpl({
                                         disabled={
                                             tokenLoading ||
                                             !auth.oauth2?.tokenUrl ||
-                                            !auth.oauth2?.clientId ||
+                                            (auth.oauth2?.grantType !== "refresh_token" && !auth.oauth2?.clientId) ||
+                                            (auth.oauth2?.grantType === "password" && !auth.oauth2.username) ||
+                                            (auth.oauth2?.grantType === "refresh_token" && !auth.oauth2.refreshToken) ||
                                             (auth.oauth2?.grantType === "authorization_code" &&
                                                 (!auth.oauth2.authUrl || !auth.oauth2.redirectUri))
                                         }

@@ -2054,6 +2054,14 @@
       "noFile": "Aucun fichier choisi",
       "binaryHint": "Envoyé tel quel comme corps de la requête. Content-Type reprend par défaut le type du fichier.",
       "binaryMissing": "Le contenu du fichier n'a pas été conservé. Choisissez à nouveau le fichier avant l'envoi."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Mot de passe (ancien)",
+      "grantRefreshToken": "Jeton d'actualisation seul",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "refreshToken": "Jeton d'actualisation",
+      "refreshTokenHint": "Échangé contre un nouveau jeton d'accès à chaque récupération."
     }
   },
   "RichEditor": {

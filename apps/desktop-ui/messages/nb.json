@@ -2054,6 +2054,14 @@
       "noFile": "Ingen fil valgt",
       "binaryHint": "Sendes som rå forespørselstekst. Content-Type er som standard filens type.",
       "binaryMissing": "Filinnholdet ble ikke beholdt. Velg filen på nytt før sending."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Passord (eldre)",
+      "grantRefreshToken": "Bare oppdateringstoken",
+      "username": "Brukernavn",
+      "password": "Passord",
+      "refreshToken": "Oppdateringstoken",
+      "refreshTokenHint": "Byttes mot et nytt tilgangstoken ved hver henting."
     }
   },
   "RichEditor": {

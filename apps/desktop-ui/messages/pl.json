@@ -2054,6 +2054,14 @@
       "noFile": "Nie wybrano pliku",
       "binaryHint": "Wysyłany jako surowa treść żądania. Content-Type domyślnie odpowiada typowi pliku.",
       "binaryMissing": "Zawartość pliku nie została zachowana. Wybierz plik ponownie przed wysłaniem."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Hasło (przestarzałe)",
+      "grantRefreshToken": "Tylko token odświeżania",
+      "username": "Nazwa użytkownika",
+      "password": "Hasło",
+      "refreshToken": "Token odświeżania",
+      "refreshTokenHint": "Przy każdym pobraniu wymieniany na nowy token dostępu."
     }
   },
   "RichEditor": {

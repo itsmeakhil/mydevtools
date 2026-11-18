@@ -2054,6 +2054,14 @@
       "noFile": "ファイル未選択",
       "binaryHint": "リクエストボディとしてそのまま送信します。Content-Type の既定値はファイルの種類です。",
       "binaryMissing": "ファイルの内容が保持されていません。送信前にもう一度ファイルを選択してください。"
+    },
+    "oauth2Grants": {
+      "grantPassword": "パスワード (レガシー)",
+      "grantRefreshToken": "リフレッシュトークンのみ",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "refreshToken": "リフレッシュトークン",
+      "refreshTokenHint": "取得のたびに新しいアクセストークンと交換します。"
     }
   },
   "RichEditor": {

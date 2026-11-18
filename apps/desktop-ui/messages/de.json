@@ -2054,6 +2054,14 @@
       "noFile": "Keine Datei gewählt",
       "binaryHint": "Wird als roher Request-Body gesendet. Content-Type entspricht standardmäßig dem Dateityp.",
       "binaryMissing": "Der Dateiinhalt wurde nicht behalten. Datei vor dem Senden erneut wählen."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Passwort (veraltet)",
+      "grantRefreshToken": "Nur Refresh-Token",
+      "username": "Benutzername",
+      "password": "Passwort",
+      "refreshToken": "Refresh-Token",
+      "refreshTokenHint": "Wird bei jedem Abruf gegen ein neues Access-Token getauscht."
     }
   },
   "RichEditor": {

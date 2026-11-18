@@ -2054,6 +2054,14 @@
       "noFile": "未选择文件",
       "binaryHint": "作为原始请求体发送。Content-Type 默认为文件类型。",
       "binaryMissing": "文件内容未保留。发送前请重新选择文件。"
+    },
+    "oauth2Grants": {
+      "grantPassword": "密码（旧版）",
+      "grantRefreshToken": "仅刷新令牌",
+      "username": "用户名",
+      "password": "密码",
+      "refreshToken": "刷新令牌",
+      "refreshTokenHint": "每次获取时换取新的访问令牌。"
     }
   },
   "RichEditor": {

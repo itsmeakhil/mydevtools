@@ -2054,6 +2054,14 @@
       "noFile": "No file chosen",
       "binaryHint": "Sent as the raw request body. Content-Type defaults to the file's type.",
       "binaryMissing": "The file's contents weren't kept. Choose the file again before sending."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Password (legacy)",
+      "grantRefreshToken": "Refresh token only",
+      "username": "Username",
+      "password": "Password",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Exchanged for a new access token on each fetch."
     }
   },
   "RichEditor": {

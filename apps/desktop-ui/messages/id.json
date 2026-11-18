@@ -2054,6 +2054,14 @@
       "noFile": "Belum ada file",
       "binaryHint": "Dikirim sebagai body permintaan mentah. Content-Type bawaan mengikuti tipe file.",
       "binaryMissing": "Isi file tidak disimpan. Pilih file lagi sebelum mengirim."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Kata sandi (lama)",
+      "grantRefreshToken": "Hanya refresh token",
+      "username": "Nama pengguna",
+      "password": "Kata sandi",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Ditukar dengan access token baru setiap kali diambil."
     }
   },
   "RichEditor": {

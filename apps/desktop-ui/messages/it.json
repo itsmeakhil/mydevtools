@@ -2054,6 +2054,14 @@
       "noFile": "Nessun file scelto",
       "binaryHint": "Inviato come corpo della richiesta grezzo. Content-Type usa di default il tipo del file.",
       "binaryMissing": "Il contenuto del file non è stato conservato. Scegli di nuovo il file prima dell'invio."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Password (legacy)",
+      "grantRefreshToken": "Solo refresh token",
+      "username": "Nome utente",
+      "password": "Password",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Scambiato con un nuovo access token a ogni richiesta."
     }
   },
   "RichEditor": {

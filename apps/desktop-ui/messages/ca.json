@@ -2054,6 +2054,14 @@
       "noFile": "Cap fitxer triat",
       "binaryHint": "S'envia com a cos de la petició en brut. Content-Type pren per defecte el tipus del fitxer.",
       "binaryMissing": "No s'ha conservat el contingut del fitxer. Torna a triar-lo abans d'enviar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Contrasenya (antic)",
+      "grantRefreshToken": "Només token de refresc",
+      "username": "Nom d'usuari",
+      "password": "Contrasenya",
+      "refreshToken": "Token de refresc",
+      "refreshTokenHint": "Es bescanvia per un token d'accés nou a cada obtenció."
     }
   },
   "RichEditor": {

@@ -2054,6 +2054,14 @@
       "noFile": "Файл не выбран",
       "binaryHint": "Отправляется как сырое тело запроса. Content-Type по умолчанию — тип файла.",
       "binaryMissing": "Содержимое файла не сохранилось. Выберите файл заново перед отправкой."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Пароль (устаревший)",
+      "grantRefreshToken": "Только refresh-токен",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "refreshToken": "Refresh-токен",
+      "refreshTokenHint": "При каждом получении обменивается на новый токен доступа."
     }
   },
   "RichEditor": {

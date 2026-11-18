@@ -2054,6 +2054,14 @@
       "noFile": "Chưa chọn tệp",
       "binaryHint": "Gửi nguyên dạng làm thân yêu cầu. Content-Type mặc định theo loại tệp.",
       "binaryMissing": "Nội dung tệp không được giữ lại. Hãy chọn lại tệp trước khi gửi."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Mật khẩu (cũ)",
+      "grantRefreshToken": "Chỉ refresh token",
+      "username": "Tên người dùng",
+      "password": "Mật khẩu",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Được đổi lấy access token mới mỗi lần lấy."
     }
   },
   "RichEditor": {

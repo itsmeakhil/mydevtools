@@ -2054,6 +2054,14 @@
       "noFile": "Файл не вибрано",
       "binaryHint": "Надсилається як сире тіло запиту. Content-Type типово — тип файлу.",
       "binaryMissing": "Вміст файлу не збережено. Виберіть файл знову перед надсиланням."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Пароль (застарілий)",
+      "grantRefreshToken": "Лише refresh-токен",
+      "username": "Ім'я користувача",
+      "password": "Пароль",
+      "refreshToken": "Refresh-токен",
+      "refreshTokenHint": "Під час кожного отримання обмінюється на новий токен доступу."
     }
   },
   "RichEditor": {

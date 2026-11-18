@@ -2054,6 +2054,14 @@
       "noFile": "Ingen fil vald",
       "binaryHint": "Skickas som rå begärandetext. Content-Type är som standard filens typ.",
       "binaryMissing": "Filens innehåll sparades inte. Välj filen igen innan du skickar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Lösenord (äldre)",
+      "grantRefreshToken": "Endast uppdateringstoken",
+      "username": "Användarnamn",
+      "password": "Lösenord",
+      "refreshToken": "Uppdateringstoken",
+      "refreshTokenHint": "Byts mot en ny åtkomsttoken vid varje hämtning."
     }
   },
   "RichEditor": {

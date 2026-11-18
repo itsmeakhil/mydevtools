@@ -2054,6 +2054,14 @@
       "noFile": "Ningún archivo elegido",
       "binaryHint": "Se envía como cuerpo de la petición sin procesar. Content-Type usa por defecto el tipo del archivo.",
       "binaryMissing": "No se conservó el contenido del archivo. Vuelve a elegirlo antes de enviar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Contraseña (antiguo)",
+      "grantRefreshToken": "Solo token de actualización",
+      "username": "Usuario",
+      "password": "Contraseña",
+      "refreshToken": "Token de actualización",
+      "refreshTokenHint": "Se canjea por un token de acceso nuevo en cada obtención."
     }
   },
   "RichEditor": {
