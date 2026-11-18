@@ -2174,6 +2174,45 @@
         "option": "Herdar do pai",
         "hint": "Usa a autenticação da pasta mais próxima ou da coleção."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” mudou no disco. As edições não guardadas mantêm-se — guardar vai substituir o ficheiro.",
+      "linked": "“{name}” aberto no local — as edições são guardadas nos ficheiros do Bruno.",
+      "readOnlyOpenCollection": "As pastas OpenCollection (YAML) abrem só de leitura por agora. Para editar, use Importar → Importar pasta do Bruno como cópia.",
+      "notBruno": "Essa pasta não é uma coleção do Bruno (sem bruno.json nem opencollection.yml).",
+      "importBrunoCopy": "Importar pasta do Bruno como cópia…",
+      "errors": {
+        "readOnly": "Não guardado: esta pasta do Bruno é só de leitura aqui (OpenCollection YAML).",
+        "unsupported": "Não guardado: {part} de “{name}” não pode ser guardado num ficheiro do Bruno.",
+        "lossy": "Não guardado: {part} de “{name}” usa sintaxe do Bruno que a app não consegue editar sem perder dados. Edite no Bruno.",
+        "ambiguousScripts": "Não guardado: “{name}” tem no Bruno um script post-response e testes ao mesmo tempo, e esta edição não pode ser dividida entre eles. Edite no Bruno.",
+        "modeStash": "Não guardado: o Bruno já guarda conteúdo para esse modo em “{name}”. Mude o modo no Bruno.",
+        "folderMove": "Mover a pasta “{name}” para dentro de outra pasta ainda não é suportado em pastas do Bruno — mova-a no Finder ou no Bruno.",
+        "writeFailed": "Não foi possível escrever os ficheiros do Bruno: {reason}"
+      },
+      "parts": {
+        "name": "o nome",
+        "method": "o método HTTP",
+        "url": "o URL",
+        "params": "os parâmetros de consulta",
+        "headers": "os cabeçalhos",
+        "body": "o corpo",
+        "auth": "a autenticação",
+        "preRequestScript": "o script pré-pedido",
+        "testScript": "o script de teste",
+        "assertions": "as asserções",
+        "variables": "as variáveis",
+        "content": "o conteúdo",
+        "kind": "este tipo de pedido",
+        "timeoutMs": "o tempo limite",
+        "useCookieJar": "a definição do frasco de cookies",
+        "followRedirects": "a definição de redirecionamento",
+        "maxRedirects": "o máximo de redirecionamentos",
+        "verifySsl": "a verificação SSL",
+        "omitHeaders": "os cabeçalhos herdados omitidos",
+        "examples": "os exemplos guardados",
+        "comments": "os comentários"
+      }
     }
   },
   "RichEditor": {

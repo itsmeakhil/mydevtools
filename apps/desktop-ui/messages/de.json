@@ -2174,6 +2174,45 @@
         "option": "Vom übergeordneten Element erben",
         "hint": "Verwendet die Authentifizierung des nächsten Ordners oder der Sammlung."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "„{name}“ wurde auf der Festplatte geändert. Deine ungespeicherten Änderungen bleiben erhalten — Speichern überschreibt die Datei.",
+      "linked": "„{name}“ direkt geöffnet — Änderungen werden in seinen Bruno-Dateien gespeichert.",
+      "readOnlyOpenCollection": "OpenCollection-Ordner (YAML) werden vorerst schreibgeschützt geöffnet. Zum Bearbeiten: Importieren → Bruno-Ordner als Kopie importieren.",
+      "notBruno": "Dieser Ordner ist keine Bruno-Sammlung (kein bruno.json oder opencollection.yml).",
+      "importBrunoCopy": "Bruno-Ordner als Kopie importieren…",
+      "errors": {
+        "readOnly": "Nicht gespeichert: Dieser Bruno-Ordner ist hier schreibgeschützt (OpenCollection YAML).",
+        "unsupported": "Nicht gespeichert: {part} von „{name}“ kann nicht in einer Bruno-Datei gespeichert werden.",
+        "lossy": "Nicht gespeichert: {part} von „{name}“ nutzt Bruno-Syntax, die diese App nicht ohne Datenverlust bearbeiten kann. Bearbeite es in Bruno.",
+        "ambiguousScripts": "Nicht gespeichert: „{name}“ hat in Bruno sowohl ein Post-Response-Skript als auch Tests, und diese Änderung lässt sich nicht aufteilen. Bearbeite es in Bruno.",
+        "modeStash": "Nicht gespeichert: Bruno speichert für diesen Modus bei „{name}“ bereits Inhalt. Wechsle den Modus in Bruno.",
+        "folderMove": "Den Ordner „{name}“ in einen anderen Ordner zu verschieben, wird für Bruno-Ordner noch nicht unterstützt — verschiebe ihn im Finder oder in Bruno.",
+        "writeFailed": "Bruno-Dateien konnten nicht geschrieben werden: {reason}"
+      },
+      "parts": {
+        "name": "der Name",
+        "method": "die HTTP-Methode",
+        "url": "die URL",
+        "params": "Abfrageparameter",
+        "headers": "Header",
+        "body": "der Body",
+        "auth": "die Authentifizierung",
+        "preRequestScript": "das Pre-Request-Skript",
+        "testScript": "das Testskript",
+        "assertions": "Assertions",
+        "variables": "Variablen",
+        "content": "der Inhalt",
+        "kind": "dieser Anfragetyp",
+        "timeoutMs": "das Zeitlimit",
+        "useCookieJar": "die Cookie-Speicher-Einstellung",
+        "followRedirects": "die Weiterleitungseinstellung",
+        "maxRedirects": "max. Weiterleitungen",
+        "verifySsl": "die SSL-Prüfung",
+        "omitHeaders": "ausgelassene geerbte Header",
+        "examples": "gespeicherte Beispiele",
+        "comments": "Kommentare"
+      }
     }
   },
   "RichEditor": {

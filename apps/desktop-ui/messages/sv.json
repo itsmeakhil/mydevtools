@@ -2174,6 +2174,45 @@
         "option": "Ärv från överordnad",
         "hint": "Använder autentiseringen från närmaste mapp eller samlingen."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” har ändrats på disken. Dina osparade ändringar behålls — att spara skriver över filen.",
+      "linked": "Öppnade “{name}” på plats — ändringar sparas i dess Bruno-filer.",
+      "readOnlyOpenCollection": "OpenCollection-mappar (YAML) öppnas skrivskyddade tills vidare. För att redigera: Importera → Importera Bruno-mapp som kopia.",
+      "notBruno": "Den mappen är ingen Bruno-samling (ingen bruno.json eller opencollection.yml).",
+      "importBrunoCopy": "Importera Bruno-mapp som kopia…",
+      "errors": {
+        "readOnly": "Inte sparat: den här Bruno-mappen är skrivskyddad här (OpenCollection YAML).",
+        "unsupported": "Inte sparat: {part} på “{name}” kan inte lagras i en Bruno-fil.",
+        "lossy": "Inte sparat: {part} på “{name}” använder Bruno-syntax som appen inte kan redigera utan dataförlust. Redigera det i Bruno.",
+        "ambiguousScripts": "Inte sparat: “{name}” har både ett post-response-skript och tester i Bruno, och ändringen går inte att dela upp mellan dem. Redigera det i Bruno.",
+        "modeStash": "Inte sparat: Bruno har redan innehåll för det läget på “{name}”. Byt läge i Bruno.",
+        "folderMove": "Att flytta mappen “{name}” in i en annan mapp stöds ännu inte för Bruno-mappar — flytta den i Finder eller Bruno.",
+        "writeFailed": "Kunde inte skriva Bruno-filerna: {reason}"
+      },
+      "parts": {
+        "name": "namnet",
+        "method": "HTTP-metoden",
+        "url": "URL:en",
+        "params": "frågeparametrar",
+        "headers": "rubriker",
+        "body": "brödtexten",
+        "auth": "autentisering",
+        "preRequestScript": "pre-request-skriptet",
+        "testScript": "testskriptet",
+        "assertions": "påståenden",
+        "variables": "variabler",
+        "content": "innehållet",
+        "kind": "den här begärandetypen",
+        "timeoutMs": "tidsgränsen",
+        "useCookieJar": "kakburksinställningen",
+        "followRedirects": "omdirigeringsinställningen",
+        "maxRedirects": "max omdirigeringar",
+        "verifySsl": "SSL-verifiering",
+        "omitHeaders": "utelämnade ärvda rubriker",
+        "examples": "sparade exempel",
+        "comments": "kommentarer"
+      }
     }
   },
   "RichEditor": {

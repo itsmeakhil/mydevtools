@@ -2174,6 +2174,45 @@
         "option": "Успадковувати від батьківського",
         "hint": "Використовує автентифікацію найближчої папки або колекції."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "«{name}» змінено на диску. Незбережені правки збережено — збереження перезапише файл.",
+      "linked": "«{name}» відкрито на місці — правки зберігаються в його файли Bruno.",
+      "readOnlyOpenCollection": "Папки OpenCollection (YAML) поки відкриваються лише для читання. Щоб редагувати: Імпорт → Імпортувати папку Bruno як копію.",
+      "notBruno": "Ця папка не є колекцією Bruno (немає bruno.json або opencollection.yml).",
+      "importBrunoCopy": "Імпортувати папку Bruno як копію…",
+      "errors": {
+        "readOnly": "Не збережено: ця папка Bruno тут лише для читання (OpenCollection YAML).",
+        "unsupported": "Не збережено: {part} у «{name}» не можна зберегти у файлі Bruno.",
+        "lossy": "Не збережено: {part} у «{name}» використовує синтаксис Bruno, який застосунок не може змінити без втрати даних. Змініть це в Bruno.",
+        "ambiguousScripts": "Не збережено: у «{name}» в Bruno є і скрипт post-response, і тести, і цю правку не можна розділити між ними. Змініть це в Bruno.",
+        "modeStash": "Не збережено: Bruno вже зберігає вміст для цього режиму в «{name}». Перемкніть режим у Bruno.",
+        "folderMove": "Переміщення папки «{name}» в іншу папку поки не підтримується для папок Bruno — перемістіть її у Finder або в Bruno.",
+        "writeFailed": "Не вдалося записати файли Bruno: {reason}"
+      },
+      "parts": {
+        "name": "назва",
+        "method": "HTTP-метод",
+        "url": "URL",
+        "params": "параметри запиту",
+        "headers": "заголовки",
+        "body": "тіло",
+        "auth": "автентифікація",
+        "preRequestScript": "скрипт перед запитом",
+        "testScript": "тестовий скрипт",
+        "assertions": "перевірки",
+        "variables": "змінні",
+        "content": "вміст",
+        "kind": "цей тип запиту",
+        "timeoutMs": "тайм-аут",
+        "useCookieJar": "налаштування сховища cookie",
+        "followRedirects": "налаштування перенаправлень",
+        "maxRedirects": "макс. перенаправлень",
+        "verifySsl": "перевірка SSL",
+        "omitHeaders": "виключені успадковані заголовки",
+        "examples": "збережені приклади",
+        "comments": "коментарі"
+      }
     }
   },
   "RichEditor": {

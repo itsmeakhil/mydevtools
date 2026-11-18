@@ -2174,6 +2174,45 @@
         "option": "继承父级",
         "hint": "使用最近的文件夹或集合的认证。"
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}”已在磁盘上更改。未保存的编辑会保留——保存将覆盖该文件。",
+      "linked": "已就地打开“{name}”——编辑会保存到其 Bruno 文件中。",
+      "readOnlyOpenCollection": "OpenCollection（YAML）文件夹目前以只读方式打开。如需编辑，请使用 导入 → 将 Bruno 文件夹导入为副本。",
+      "notBruno": "该文件夹不是 Bruno 集合（没有 bruno.json 或 opencollection.yml）。",
+      "importBrunoCopy": "将 Bruno 文件夹导入为副本…",
+      "errors": {
+        "readOnly": "未保存：此 Bruno 文件夹在这里是只读的（OpenCollection YAML）。",
+        "unsupported": "未保存：“{name}”的{part}无法存储到 Bruno 文件中。",
+        "lossy": "未保存：“{name}”的{part}使用了本应用无法在不丢失数据的情况下编辑的 Bruno 语法。请在 Bruno 中编辑。",
+        "ambiguousScripts": "未保存：“{name}”在 Bruno 中同时有 post-response 脚本和测试，无法拆分此次编辑。请在 Bruno 中编辑。",
+        "modeStash": "未保存：Bruno 已在“{name}”中保存了该模式的内容。请在 Bruno 中切换模式。",
+        "folderMove": "Bruno 文件夹暂不支持将文件夹“{name}”移动到其他文件夹中——请在访达或 Bruno 中移动。",
+        "writeFailed": "无法写入 Bruno 文件：{reason}"
+      },
+      "parts": {
+        "name": "名称",
+        "method": "HTTP 方法",
+        "url": "URL",
+        "params": "查询参数",
+        "headers": "请求头",
+        "body": "请求体",
+        "auth": "认证",
+        "preRequestScript": "请求前脚本",
+        "testScript": "测试脚本",
+        "assertions": "断言",
+        "variables": "变量",
+        "content": "内容",
+        "kind": "此请求类型",
+        "timeoutMs": "超时",
+        "useCookieJar": "Cookie 罐设置",
+        "followRedirects": "重定向设置",
+        "maxRedirects": "最大重定向次数",
+        "verifySsl": "SSL 验证",
+        "omitHeaders": "已省略的继承请求头",
+        "examples": "已保存的示例",
+        "comments": "评论"
+      }
     }
   },
   "RichEditor": {

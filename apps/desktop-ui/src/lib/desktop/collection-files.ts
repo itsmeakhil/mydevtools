@@ -102,9 +102,21 @@ export async function writeCollectionFiles(
     const fs = await import("@tauri-apps/plugin-fs")
     for (const w of writes) {
         assertSafeRelPath(w.relPath)
-        const dir = w.relPath.split("/").slice(0, -1).join("/")
-        if (dir) await fs.mkdir(`${root}/${dir}`, { recursive: true })
-        await fs.writeTextFile(`${root}/${w.relPath}`, w.content)
+        const segs = w.relPath.split("/")
+        const name = segs.pop()!
+        const dir = segs.join("/")
+        const dirAbs = dir ? `${root}/${dir}` : root
+        if (dir) await fs.mkdir(dirAbs, { recursive: true })
+        // Temp file + rename (atomic on one volume): a crash mid-write never leaves
+        // a truncated request file. Dot-prefixed so reads and the watcher skip it.
+        const tmp = `${dirAbs}/.${name}.mdt-tmp`
+        await fs.writeTextFile(tmp, w.content)
+        try {
+            await fs.rename(tmp, `${dirAbs}/${name}`)
+        } catch (e) {
+            await fs.remove(tmp).catch(() => {})
+            throw e
+        }
     }
     const dirsToPrune = new Set<string>()
     for (const relPath of deletes) {
@@ -126,4 +138,29 @@ export async function writeCollectionFiles(
             // Not empty (or already gone) — leave it.
         }
     }
+}
+
+/** Dotfiles/dirs (`.git`, our temp files) and node_modules never trigger a reload. */
+export function isIgnoredRelPath(rel: string): boolean {
+    return rel.split("/").some((seg) => seg.startsWith(".") || seg === "node_modules")
+}
+
+/**
+ * Watch collection roots recursively, debounced ~300 ms; `onChange(root)` fires
+ * for a root whose files changed. Each root is watched on its own so one missing
+ * folder doesn't disable the rest. Rejects only when no root could be watched.
+ */
+export async function watchCollectionDirs(roots: string[], onChange: (root: string) => void): Promise<() => void> {
+    const { watch } = await import("@tauri-apps/plugin-fs")
+    const results = await Promise.allSettled(roots.map((root) =>
+        watch(root, (event) => {
+            if (typeof event.type === "object" && "access" in event.type) return
+            if (event.paths.some((p) => p.startsWith(root + "/") && !isIgnoredRelPath(p.slice(root.length + 1)))) {
+                onChange(root)
+            }
+        }, { recursive: true, delayMs: 300 }),
+    ))
+    const stops = results.flatMap((r) => (r.status === "fulfilled" ? [r.value] : []))
+    if (roots.length > 0 && stops.length === 0) throw (results[0] as PromiseRejectedResult).reason
+    return () => stops.forEach((stop) => stop())
 }

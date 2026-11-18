@@ -2174,6 +2174,45 @@
         "option": "Dziedzicz z nadrzędnego",
         "hint": "Używa uwierzytelniania najbliższego folderu lub kolekcji."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "„{name}” zmienił się na dysku. Niezapisane zmiany zostają — zapisanie nadpisze plik.",
+      "linked": "Otwarto „{name}” w miejscu — zmiany zapisują się w jego plikach Bruno.",
+      "readOnlyOpenCollection": "Foldery OpenCollection (YAML) na razie otwierają się tylko do odczytu. Aby edytować: Importuj → Importuj folder Bruno jako kopię.",
+      "notBruno": "Ten folder nie jest kolekcją Bruno (brak bruno.json lub opencollection.yml).",
+      "importBrunoCopy": "Importuj folder Bruno jako kopię…",
+      "errors": {
+        "readOnly": "Nie zapisano: ten folder Bruno jest tutaj tylko do odczytu (OpenCollection YAML).",
+        "unsupported": "Nie zapisano: {part} w „{name}” nie da się zapisać w pliku Bruno.",
+        "lossy": "Nie zapisano: {part} w „{name}” używa składni Bruno, której ta aplikacja nie zmieni bez utraty danych. Edytuj to w Bruno.",
+        "ambiguousScripts": "Nie zapisano: „{name}” ma w Bruno zarówno skrypt post-response, jak i testy, a tej zmiany nie da się między nie podzielić. Edytuj to w Bruno.",
+        "modeStash": "Nie zapisano: Bruno już przechowuje treść dla tego trybu w „{name}”. Przełącz tryb w Bruno.",
+        "folderMove": "Przenoszenie folderu „{name}” do innego folderu nie jest jeszcze obsługiwane dla folderów Bruno — przenieś go w Finderze lub w Bruno.",
+        "writeFailed": "Nie udało się zapisać plików Bruno: {reason}"
+      },
+      "parts": {
+        "name": "nazwa",
+        "method": "metoda HTTP",
+        "url": "URL",
+        "params": "parametry zapytania",
+        "headers": "nagłówki",
+        "body": "treść",
+        "auth": "uwierzytelnianie",
+        "preRequestScript": "skrypt przed żądaniem",
+        "testScript": "skrypt testowy",
+        "assertions": "asercje",
+        "variables": "zmienne",
+        "content": "zawartość",
+        "kind": "ten typ żądania",
+        "timeoutMs": "limit czasu",
+        "useCookieJar": "ustawienie magazynu ciasteczek",
+        "followRedirects": "ustawienie przekierowań",
+        "maxRedirects": "maks. przekierowań",
+        "verifySsl": "weryfikacja SSL",
+        "omitHeaders": "pominięte dziedziczone nagłówki",
+        "examples": "zapisane przykłady",
+        "comments": "komentarze"
+      }
     }
   },
   "RichEditor": {

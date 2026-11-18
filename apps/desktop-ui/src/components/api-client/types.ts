@@ -343,9 +343,10 @@ export interface Collection {
     items: (CollectionFolder | CollectionRequest)[]
     /** Free-form workspace label (e.g. "Personal", "Acme Prod"). Empty / undefined = default workspace. */
     workspace?: string
-    /** Desktop-only: set when this collection is backed by a folder of YAML files
-     *  (git-friendly). In-memory marker — never sent to the backend. */
-    source?: { kind: "file"; path: string }
+    /** Desktop-only: set when this collection is backed by a folder — our YAML
+     *  files, or a live-linked Bruno folder (edits write back to its .bru files).
+     *  In-memory marker — never sent to the backend. */
+    source?: { kind: "file"; path: string } | ({ kind: "bruno"; path: string } & import("@/lib/import/bruno-write").BrunoLink)
     /** Collection-level defaults — the root of the folder chain, resolved live at
      *  send/run time (never copied into requests). */
     defaultHeaders?: KeyValueItem[]

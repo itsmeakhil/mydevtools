@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem, TREE_DRAG_MIME } from "./collection-item"
-import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2 } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2, Lock } from "lucide-react"
 import { filterTree, moveDestinations, resolveDrop, type DropPosition } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
@@ -468,6 +468,11 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                 {collection.source && (
                                                     <span title={collection.source.path} aria-label={t("folderCollection")}>
                                                         <FolderGit2 className="h-3 w-3 text-muted-foreground shrink-0" />
+                                                    </span>
+                                                )}
+                                                {collection.source?.kind === "bruno" && collection.source.readOnly && (
+                                                    <span title={tRoot("fileSync.readOnlyOpenCollection")} aria-label={tRoot("fileSync.readOnlyOpenCollection")}>
+                                                        <Lock className="h-3 w-3 text-muted-foreground shrink-0" />
                                                     </span>
                                                 )}
                                             </div>

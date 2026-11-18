@@ -28,8 +28,9 @@ type CollectionsActions = {
     patchFolder: (folderId: string, patch: Partial<import("../types").CollectionFolder>) => Promise<void>
     deleteMultipleCollections: (ids: string[]) => Promise<void>
     importCollection: (incoming: Collection) => Promise<Collection | null>
-    /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection, or import a Bruno folder. */
-    openFolderCollection: () => Promise<Collection | null>
+    /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection, or
+     *  live-link a Bruno folder (`"copy"`: import the Bruno folder as a regular collection instead). */
+    openFolderCollection: (mode?: "link" | "copy") => Promise<Collection | null>
     duplicateItem: (itemId: string, name: string, failMsg: string) => Promise<boolean>
     duplicateCollection: (collectionId: string, name: string) => Promise<Collection | null>
     moveItem: (itemId: string, to: Location, failMsg: string) => Promise<boolean>
@@ -69,8 +70,8 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
 
     // A Bruno folder brings its environments along; they live in the sibling
     // environments context, so they are created here rather than in the hook.
-    const openFolderCollectionWithEnvs = async (): Promise<Collection | null> => {
-        const opened = await openFolderCollection()
+    const openFolderCollectionWithEnvs = async (mode?: "link" | "copy"): Promise<Collection | null> => {
+        const opened = await openFolderCollection(mode)
         if (!opened) return null
         try {
             for (const env of opened.environments) {

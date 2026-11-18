@@ -2174,6 +2174,45 @@
         "option": "Warisi dari induk",
         "hint": "Memakai autentikasi folder terdekat atau koleksi."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” berubah di disk. Perubahan yang belum disimpan tetap ada — menyimpan akan menimpa file.",
+      "linked": "“{name}” dibuka di tempatnya — perubahan disimpan ke file Bruno-nya.",
+      "readOnlyOpenCollection": "Folder OpenCollection (YAML) untuk sementara dibuka hanya-baca. Untuk mengedit, gunakan Impor → Impor folder Bruno sebagai salinan.",
+      "notBruno": "Folder itu bukan koleksi Bruno (tidak ada bruno.json atau opencollection.yml).",
+      "importBrunoCopy": "Impor folder Bruno sebagai salinan…",
+      "errors": {
+        "readOnly": "Tidak disimpan: folder Bruno ini hanya-baca di sini (OpenCollection YAML).",
+        "unsupported": "Tidak disimpan: {part} pada “{name}” tidak bisa disimpan di file Bruno.",
+        "lossy": "Tidak disimpan: {part} pada “{name}” memakai sintaks Bruno yang tidak bisa diedit aplikasi ini tanpa kehilangan data. Edit di Bruno.",
+        "ambiguousScripts": "Tidak disimpan: “{name}” punya skrip post-response sekaligus tes di Bruno, dan perubahan ini tidak bisa dibagi di antara keduanya. Edit di Bruno.",
+        "modeStash": "Tidak disimpan: Bruno sudah menyimpan konten untuk mode itu pada “{name}”. Ganti mode di Bruno.",
+        "folderMove": "Memindahkan folder “{name}” ke folder lain belum didukung untuk folder Bruno — pindahkan di Finder atau Bruno.",
+        "writeFailed": "Tidak dapat menulis file Bruno: {reason}"
+      },
+      "parts": {
+        "name": "nama",
+        "method": "metode HTTP",
+        "url": "URL",
+        "params": "parameter kueri",
+        "headers": "header",
+        "body": "body",
+        "auth": "autentikasi",
+        "preRequestScript": "skrip pra-permintaan",
+        "testScript": "skrip tes",
+        "assertions": "asersi",
+        "variables": "variabel",
+        "content": "konten",
+        "kind": "jenis permintaan ini",
+        "timeoutMs": "batas waktu",
+        "useCookieJar": "pengaturan wadah cookie",
+        "followRedirects": "pengaturan pengalihan",
+        "maxRedirects": "maks pengalihan",
+        "verifySsl": "verifikasi SSL",
+        "omitHeaders": "header warisan yang dihilangkan",
+        "examples": "contoh tersimpan",
+        "comments": "komentar"
+      }
     }
   },
   "RichEditor": {

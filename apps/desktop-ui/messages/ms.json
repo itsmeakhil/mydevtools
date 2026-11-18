@@ -2174,6 +2174,45 @@
         "option": "Warisi daripada induk",
         "hint": "Menggunakan pengesahan folder terdekat atau koleksi."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” berubah pada cakera. Suntingan yang belum disimpan dikekalkan — menyimpan akan menulis ganti fail.",
+      "linked": "“{name}” dibuka di tempatnya — suntingan disimpan ke fail Bruno miliknya.",
+      "readOnlyOpenCollection": "Folder OpenCollection (YAML) dibuka baca sahaja buat masa ini. Untuk menyunting, gunakan Import → Import folder Bruno sebagai salinan.",
+      "notBruno": "Folder itu bukan koleksi Bruno (tiada bruno.json atau opencollection.yml).",
+      "importBrunoCopy": "Import folder Bruno sebagai salinan…",
+      "errors": {
+        "readOnly": "Tidak disimpan: folder Bruno ini baca sahaja di sini (OpenCollection YAML).",
+        "unsupported": "Tidak disimpan: {part} pada “{name}” tidak boleh disimpan dalam fail Bruno.",
+        "lossy": "Tidak disimpan: {part} pada “{name}” menggunakan sintaks Bruno yang tidak boleh disunting aplikasi ini tanpa kehilangan data. Suntingnya dalam Bruno.",
+        "ambiguousScripts": "Tidak disimpan: “{name}” mempunyai skrip post-response dan ujian dalam Bruno, dan suntingan ini tidak boleh dibahagikan antara keduanya. Suntingnya dalam Bruno.",
+        "modeStash": "Tidak disimpan: Bruno sudah menyimpan kandungan untuk mod itu pada “{name}”. Tukar mod dalam Bruno.",
+        "folderMove": "Memindahkan folder “{name}” ke dalam folder lain belum disokong untuk folder Bruno — pindahkannya dalam Finder atau Bruno.",
+        "writeFailed": "Tidak dapat menulis fail Bruno: {reason}"
+      },
+      "parts": {
+        "name": "nama",
+        "method": "kaedah HTTP",
+        "url": "URL",
+        "params": "parameter pertanyaan",
+        "headers": "pengepala",
+        "body": "badan",
+        "auth": "pengesahan",
+        "preRequestScript": "skrip pra-permintaan",
+        "testScript": "skrip ujian",
+        "assertions": "penegasan",
+        "variables": "pemboleh ubah",
+        "content": "kandungan",
+        "kind": "jenis permintaan ini",
+        "timeoutMs": "had masa",
+        "useCookieJar": "tetapan balang kuki",
+        "followRedirects": "tetapan ubah hala",
+        "maxRedirects": "maks ubah hala",
+        "verifySsl": "pengesahan SSL",
+        "omitHeaders": "pengepala warisan yang ditinggalkan",
+        "examples": "contoh tersimpan",
+        "comments": "ulasan"
+      }
     }
   },
   "RichEditor": {
