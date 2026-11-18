@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "realm과 nonce를 비워 두면 앱이 서버의 401 챌린지에 직접 응답합니다(MD5, SHA-256, -sess). 입력하면 미리 서명해 추가 왕복을 생략합니다."
+    },
+    "timeline": {
+      "tab": "타임라인",
+      "total": "전체",
+      "ttfb": "첫 바이트까지 시간",
+      "download": "다운로드",
+      "hop": "요청 {n}",
+      "redirect": "리디렉션",
+      "authChallenge": "인증 챌린지",
+      "headersSent": "{count, plural, other {헤더 #개 전송}}",
+      "reveal": "비밀 값 표시",
+      "hide": "비밀 값 숨기기",
+      "phasesNote": "첫 바이트까지 시간에는 새 연결의 DNS, TCP, TLS가 포함됩니다. HTTP 클라이언트는 이를 따로 보고하지 않으며, 재사용된 연결에서는 생략됩니다.",
+      "clientHeadersNote": "HTTP 클라이언트는 Host, User-Agent, Accept, Accept-Encoding, Content-Length도 추가합니다."
     }
   },
   "RichEditor": {

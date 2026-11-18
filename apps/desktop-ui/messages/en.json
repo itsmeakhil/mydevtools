@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Leave realm and nonce empty and the app answers the server's 401 challenge itself (MD5, SHA-256, -sess). Fill them in to sign up front and skip the extra round trip."
+    },
+    "timeline": {
+      "tab": "Timeline",
+      "total": "Total",
+      "ttfb": "Time to first byte",
+      "download": "Download",
+      "hop": "Request {n}",
+      "redirect": "Redirect",
+      "authChallenge": "Auth challenge",
+      "headersSent": "{count, plural, one {# header sent} other {# headers sent}}",
+      "reveal": "Show secrets",
+      "hide": "Hide secrets",
+      "phasesNote": "Time to first byte includes DNS, TCP and TLS on a new connection. The HTTP client doesn't report them separately, and reused connections skip them.",
+      "clientHeadersNote": "The HTTP client also adds Host, User-Agent, Accept, Accept-Encoding and Content-Length."
     }
   },
   "RichEditor": {

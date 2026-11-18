@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Để trống realm và nonce, ứng dụng sẽ tự trả lời thử thách 401 của máy chủ (MD5, SHA-256, -sess). Điền vào để ký trước và bỏ qua lượt gửi thêm."
+    },
+    "timeline": {
+      "tab": "Dòng thời gian",
+      "total": "Tổng",
+      "ttfb": "Thời gian đến byte đầu tiên",
+      "download": "Tải xuống",
+      "hop": "Yêu cầu {n}",
+      "redirect": "Chuyển hướng",
+      "authChallenge": "Thử thách xác thực",
+      "headersSent": "{count, plural, other {Đã gửi # header}}",
+      "reveal": "Hiện bí mật",
+      "hide": "Ẩn bí mật",
+      "phasesNote": "Thời gian đến byte đầu tiên gồm DNS, TCP và TLS khi mở kết nối mới. Trình khách HTTP không báo riêng các bước này, và kết nối được dùng lại sẽ bỏ qua chúng.",
+      "clientHeadersNote": "Trình khách HTTP cũng thêm Host, User-Agent, Accept, Accept-Encoding và Content-Length."
     }
   },
   "RichEditor": {

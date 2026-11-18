@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Zostaw realm i nonce puste, a aplikacja sama odpowie na wyzwanie 401 serwera (MD5, SHA-256, -sess). Wypełnij je, aby podpisać z góry i pominąć dodatkowe żądanie."
+    },
+    "timeline": {
+      "tab": "Oś czasu",
+      "total": "Łącznie",
+      "ttfb": "Czas do pierwszego bajtu",
+      "download": "Pobieranie",
+      "hop": "Żądanie {n}",
+      "redirect": "Przekierowanie",
+      "authChallenge": "Wyzwanie uwierzytelniania",
+      "headersSent": "{count, plural, one {# nagłówek wysłany} few {# nagłówki wysłane} many {# nagłówków wysłanych} other {# nagłówka wysłanego}}",
+      "reveal": "Pokaż sekrety",
+      "hide": "Ukryj sekrety",
+      "phasesNote": "Czas do pierwszego bajtu obejmuje DNS, TCP i TLS przy nowym połączeniu. Klient HTTP nie raportuje ich osobno, a ponownie używane połączenia je pomijają.",
+      "clientHeadersNote": "Klient HTTP dodaje też Host, User-Agent, Accept, Accept-Encoding i Content-Length."
     }
   },
   "RichEditor": {

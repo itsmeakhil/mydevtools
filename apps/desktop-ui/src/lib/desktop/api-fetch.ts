@@ -35,6 +35,8 @@ export interface ProxyEnvelope {
   headers?: Record<string, string>;
   setCookies?: string[];
   redirectChain?: unknown[];
+  /** Desktop proxy only: hops sent + timings (see ResponseTimeline). */
+  timeline?: unknown;
   body?: string;
   isBase64?: boolean;
   time?: number;

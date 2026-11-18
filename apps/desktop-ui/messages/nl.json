@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Laat realm en nonce leeg en de app beantwoordt zelf de 401-challenge van de server (MD5, SHA-256, -sess). Vul ze in om vooraf te ondertekenen en de extra rondgang over te slaan."
+    },
+    "timeline": {
+      "tab": "Tijdlijn",
+      "total": "Totaal",
+      "ttfb": "Tijd tot eerste byte",
+      "download": "Download",
+      "hop": "Verzoek {n}",
+      "redirect": "Omleiding",
+      "authChallenge": "Auth-challenge",
+      "headersSent": "{count, plural, one {# header verzonden} other {# headers verzonden}}",
+      "reveal": "Geheimen tonen",
+      "hide": "Geheimen verbergen",
+      "phasesNote": "De tijd tot de eerste byte omvat DNS, TCP en TLS bij een nieuwe verbinding. De HTTP-client rapporteert die niet apart en hergebruikte verbindingen slaan ze over.",
+      "clientHeadersNote": "De HTTP-client voegt ook Host, User-Agent, Accept, Accept-Encoding en Content-Length toe."
     }
   },
   "RichEditor": {

@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Biarkan realm dan nonce kosong dan aplikasi akan menjawab sendiri tantangan 401 dari server (MD5, SHA-256, -sess). Isi keduanya untuk menandatangani di awal dan melewati satu perjalanan tambahan."
+    },
+    "timeline": {
+      "tab": "Lini waktu",
+      "total": "Total",
+      "ttfb": "Waktu ke byte pertama",
+      "download": "Unduhan",
+      "hop": "Permintaan {n}",
+      "redirect": "Pengalihan",
+      "authChallenge": "Tantangan autentikasi",
+      "headersSent": "{count, plural, other {# header terkirim}}",
+      "reveal": "Tampilkan rahasia",
+      "hide": "Sembunyikan rahasia",
+      "phasesNote": "Waktu ke byte pertama mencakup DNS, TCP, dan TLS pada koneksi baru. Klien HTTP tidak melaporkannya secara terpisah, dan koneksi yang dipakai ulang melewatinya.",
+      "clientHeadersNote": "Klien HTTP juga menambahkan Host, User-Agent, Accept, Accept-Encoding, dan Content-Length."
     }
   },
   "RichEditor": {

@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Laissez realm et nonce vides et l'app répond elle-même au défi 401 du serveur (MD5, SHA-256, -sess). Renseignez-les pour signer d'avance et éviter l'aller-retour supplémentaire."
+    },
+    "timeline": {
+      "tab": "Chronologie",
+      "total": "Total",
+      "ttfb": "Temps jusqu'au premier octet",
+      "download": "Téléchargement",
+      "hop": "Requête {n}",
+      "redirect": "Redirection",
+      "authChallenge": "Défi d'authentification",
+      "headersSent": "{count, plural, one {# en-tête envoyé} other {# en-têtes envoyés}}",
+      "reveal": "Afficher les secrets",
+      "hide": "Masquer les secrets",
+      "phasesNote": "Le temps jusqu'au premier octet inclut DNS, TCP et TLS sur une nouvelle connexion. Le client HTTP ne les mesure pas séparément et les connexions réutilisées les sautent.",
+      "clientHeadersNote": "Le client HTTP ajoute aussi Host, User-Agent, Accept, Accept-Encoding et Content-Length."
     }
   },
   "RichEditor": {

@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Nechte realm a nonce prázdné a aplikace sama odpoví na výzvu 401 serveru (MD5, SHA-256, -sess). Vyplňte je, chcete-li podepsat předem a ušetřit jeden požadavek navíc."
+    },
+    "timeline": {
+      "tab": "Časová osa",
+      "total": "Celkem",
+      "ttfb": "Čas do prvního bajtu",
+      "download": "Stahování",
+      "hop": "Požadavek {n}",
+      "redirect": "Přesměrování",
+      "authChallenge": "Výzva k ověření",
+      "headersSent": "{count, plural, one {# hlavička odeslána} few {# hlavičky odeslány} many {# hlavičky odesláno} other {# hlaviček odesláno}}",
+      "reveal": "Zobrazit tajné údaje",
+      "hide": "Skrýt tajné údaje",
+      "phasesNote": "Čas do prvního bajtu zahrnuje DNS, TCP a TLS u nového spojení. HTTP klient je zvlášť nehlásí a znovu použitá spojení je přeskakují.",
+      "clientHeadersNote": "HTTP klient také přidává Host, User-Agent, Accept, Accept-Encoding a Content-Length."
     }
   },
   "RichEditor": {

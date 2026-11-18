@@ -1076,6 +1076,7 @@ function ApiClientInner() {
                     error: proxyData.error,
                     setCookies: proxyData.setCookies,
                     redirectChain: proxyData.redirectChain as ApiResponse["redirectChain"],
+                    timeline: proxyData.timeline as ApiResponse["timeline"],
                 },
                 scriptResults: (scriptTests.length || scriptLogs.length || scriptErrors.length)
                     ? { tests: scriptTests, logs: scriptLogs, errors: scriptErrors }

@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "realm と nonce を空にすると、サーバーの 401 チャレンジにアプリが自動で応答します (MD5、SHA-256、-sess)。入力すると事前に署名し、余分な往復を省きます。"
+    },
+    "timeline": {
+      "tab": "タイムライン",
+      "total": "合計",
+      "ttfb": "最初のバイトまでの時間",
+      "download": "ダウンロード",
+      "hop": "リクエスト {n}",
+      "redirect": "リダイレクト",
+      "authChallenge": "認証チャレンジ",
+      "headersSent": "{count, plural, other {# 件のヘッダーを送信}}",
+      "reveal": "シークレットを表示",
+      "hide": "シークレットを隠す",
+      "phasesNote": "最初のバイトまでの時間には、新しい接続での DNS、TCP、TLS が含まれます。HTTP クライアントはこれらを個別に報告せず、再利用される接続ではスキップされます。",
+      "clientHeadersNote": "HTTP クライアントは Host、User-Agent、Accept、Accept-Encoding、Content-Length も追加します。"
     }
   },
   "RichEditor": {

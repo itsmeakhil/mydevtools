@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "realm ve nonce'u boş bırakın, uygulama sunucunun 401 sınamasını kendisi yanıtlasın (MD5, SHA-256, -sess). Önceden imzalayıp fazladan gidiş-dönüşü atlamak için doldurun."
+    },
+    "timeline": {
+      "tab": "Zaman çizelgesi",
+      "total": "Toplam",
+      "ttfb": "İlk bayta kadar süre",
+      "download": "İndirme",
+      "hop": "İstek {n}",
+      "redirect": "Yönlendirme",
+      "authChallenge": "Kimlik doğrulama sınaması",
+      "headersSent": "{count, plural, one {# başlık gönderildi} other {# başlık gönderildi}}",
+      "reveal": "Gizli bilgileri göster",
+      "hide": "Gizli bilgileri gizle",
+      "phasesNote": "İlk bayta kadar süre, yeni bir bağlantıda DNS, TCP ve TLS'yi içerir. HTTP istemcisi bunları ayrı bildirmez; yeniden kullanılan bağlantılar bunları atlar.",
+      "clientHeadersNote": "HTTP istemcisi ayrıca Host, User-Agent, Accept, Accept-Encoding ve Content-Length ekler."
     }
   },
   "RichEditor": {

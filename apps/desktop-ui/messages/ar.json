@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "اترك realm وnonce فارغين وسيجيب التطبيق بنفسه على تحدي 401 من الخادم (MD5 وSHA-256 و-sess). املأهما للتوقيع مسبقًا وتجنّب جولة الطلب الإضافية."
+    },
+    "timeline": {
+      "tab": "المخطط الزمني",
+      "total": "الإجمالي",
+      "ttfb": "الوقت حتى أول بايت",
+      "download": "التنزيل",
+      "hop": "الطلب {n}",
+      "redirect": "إعادة توجيه",
+      "authChallenge": "تحدي المصادقة",
+      "headersSent": "{count, plural, zero {لم تُرسل أي ترويسة} one {أُرسلت ترويسة واحدة} two {أُرسلت ترويستان} few {أُرسلت # ترويسات} many {أُرسلت # ترويسة} other {أُرسلت # ترويسة}}",
+      "reveal": "إظهار الأسرار",
+      "hide": "إخفاء الأسرار",
+      "phasesNote": "يشمل الوقت حتى أول بايت DNS وTCP وTLS عند فتح اتصال جديد. لا يبلّغ عميل HTTP عنها بشكل منفصل، وتتخطاها الاتصالات المعاد استخدامها.",
+      "clientHeadersNote": "يضيف عميل HTTP أيضًا Host وUser-Agent وAccept وAccept-Encoding وContent-Length."
     }
   },
   "RichEditor": {

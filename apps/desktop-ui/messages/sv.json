@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Lämna realm och nonce tomma så svarar appen själv på serverns 401-utmaning (MD5, SHA-256, -sess). Fyll i dem för att signera i förväg och slippa den extra rundan."
+    },
+    "timeline": {
+      "tab": "Tidslinje",
+      "total": "Totalt",
+      "ttfb": "Tid till första byte",
+      "download": "Nedladdning",
+      "hop": "Begäran {n}",
+      "redirect": "Omdirigering",
+      "authChallenge": "Autentiseringsutmaning",
+      "headersSent": "{count, plural, one {# huvud skickat} other {# huvuden skickade}}",
+      "reveal": "Visa hemligheter",
+      "hide": "Dölj hemligheter",
+      "phasesNote": "Tid till första byte omfattar DNS, TCP och TLS på en ny anslutning. HTTP-klienten rapporterar dem inte separat och återanvända anslutningar hoppar över dem.",
+      "clientHeadersNote": "HTTP-klienten lägger också till Host, User-Agent, Accept, Accept-Encoding och Content-Length."
     }
   },
   "RichEditor": {

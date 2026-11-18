@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "realm و nonce را خالی بگذارید تا برنامه خودش به چالش 401 سرور پاسخ دهد (MD5، SHA-256، -sess). برای امضای پیشاپیش و حذف رفت‌وبرگشت اضافه، آن‌ها را پر کنید."
+    },
+    "timeline": {
+      "tab": "خط زمانی",
+      "total": "کل",
+      "ttfb": "زمان تا اولین بایت",
+      "download": "دانلود",
+      "hop": "درخواست {n}",
+      "redirect": "تغییر مسیر",
+      "authChallenge": "چالش احراز هویت",
+      "headersSent": "{count, plural, one {# هدر ارسال شد} other {# هدر ارسال شد}}",
+      "reveal": "نمایش رازها",
+      "hide": "پنهان کردن رازها",
+      "phasesNote": "زمان تا اولین بایت شامل DNS، TCP و TLS در اتصال جدید است. کلاینت HTTP آن‌ها را جداگانه گزارش نمی‌کند و اتصال‌های دوباره‌استفاده‌شده از آن‌ها رد می‌شوند.",
+      "clientHeadersNote": "کلاینت HTTP همچنین Host، User-Agent، Accept، Accept-Encoding و Content-Length را اضافه می‌کند."
     }
   },
   "RichEditor": {

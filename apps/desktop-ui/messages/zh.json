@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "将 realm 和 nonce 留空，应用会自动应答服务器的 401 质询（MD5、SHA-256、-sess）。填写后将预先签名，省去额外的往返。"
+    },
+    "timeline": {
+      "tab": "时间线",
+      "total": "总计",
+      "ttfb": "首字节时间",
+      "download": "下载",
+      "hop": "请求 {n}",
+      "redirect": "重定向",
+      "authChallenge": "认证质询",
+      "headersSent": "{count, plural, other {已发送 # 个请求头}}",
+      "reveal": "显示机密",
+      "hide": "隐藏机密",
+      "phasesNote": "首字节时间包含新连接上的 DNS、TCP 和 TLS。HTTP 客户端不会单独报告这些阶段，复用的连接会跳过它们。",
+      "clientHeadersNote": "HTTP 客户端还会添加 Host、User-Agent、Accept、Accept-Encoding 和 Content-Length。"
     }
   },
   "RichEditor": {

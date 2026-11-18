@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Laat realm en nonce leeg en die app beantwoord self die bediener se 401-uitdaging (MD5, SHA-256, -sess). Vul hulle in om vooraf te teken en die ekstra rondte oor te slaan."
+    },
+    "timeline": {
+      "tab": "Tydlyn",
+      "total": "Totaal",
+      "ttfb": "Tyd tot eerste greep",
+      "download": "Aflaai",
+      "hop": "Versoek {n}",
+      "redirect": "Herleiding",
+      "authChallenge": "Magtigingsuitdaging",
+      "headersSent": "{count, plural, one {# kopskrif gestuur} other {# kopskrifte gestuur}}",
+      "reveal": "Wys geheime",
+      "hide": "Versteek geheime",
+      "phasesNote": "Tyd tot eerste greep sluit DNS, TCP en TLS op 'n nuwe verbinding in. Die HTTP-kliënt rapporteer dit nie apart nie, en hergebruikte verbindings slaan dit oor.",
+      "clientHeadersNote": "Die HTTP-kliënt voeg ook Host, User-Agent, Accept, Accept-Encoding en Content-Length by."
     }
   },
   "RichEditor": {

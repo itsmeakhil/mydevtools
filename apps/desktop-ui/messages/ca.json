@@ -2230,6 +2230,20 @@
     "digestAuth": {
       "option": "Digest",
       "hint": "Deixa buits realm i nonce i l'app respondrà ella mateixa al repte 401 del servidor (MD5, SHA-256, -sess). Omple'ls per signar per avançat i estalviar-te la volta extra."
+    },
+    "timeline": {
+      "tab": "Cronologia",
+      "total": "Total",
+      "ttfb": "Temps fins al primer byte",
+      "download": "Descàrrega",
+      "hop": "Petició {n}",
+      "redirect": "Redirecció",
+      "authChallenge": "Repte d'autenticació",
+      "headersSent": "{count, plural, one {# capçalera enviada} other {# capçaleres enviades}}",
+      "reveal": "Mostra els secrets",
+      "hide": "Amaga els secrets",
+      "phasesNote": "El temps fins al primer byte inclou DNS, TCP i TLS en una connexió nova. El client HTTP no els informa per separat i les connexions reutilitzades se'ls salten.",
+      "clientHeadersNote": "El client HTTP també afegeix Host, User-Agent, Accept, Accept-Encoding i Content-Length."
     }
   },
   "RichEditor": {
