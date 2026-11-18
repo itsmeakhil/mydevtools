@@ -1903,7 +1903,21 @@
       "addTo": "Tambahkan ke",
       "header": "Header",
       "queryParams": "Parameter kueri",
-      "noAuthHint": "Permintaan ini tidak menggunakan autentikasi."
+      "noAuthHint": "Permintaan ini tidak menggunakan autentikasi.",
+      "settings": "Pengaturan"
+    },
+    "requestSettings": {
+      "timeout": "Batas waktu (ms)",
+      "timeoutHint": "Kosong memakai bawaan 30 detik. Maks 600000.",
+      "followRedirects": "Ikuti pengalihan",
+      "followRedirectsHint": "Nonaktif mengembalikan respons 3xx itu sendiri.",
+      "maxRedirects": "Maks pengalihan",
+      "maxRedirectsHint": "Kosong memakai 5. Maks 50.",
+      "verifySsl": "Verifikasi sertifikat SSL",
+      "verifySslHint": "Tolak sertifikat yang ditandatangani sendiri, kedaluwarsa, atau tidak cocok.",
+      "verifySslOffHint": "Nonaktif: sertifikat apa pun diterima. Gunakan hanya dengan host tepercaya.",
+      "cookieJar": "Gunakan wadah cookie",
+      "cookieJarHint": "Kirim cookie tersimpan dan simpan cookie dari respons."
     },
     "responsePanel": {
       "emptyTitle": "Siap Untuk Mengeksplorasi Web3?",

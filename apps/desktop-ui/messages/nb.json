@@ -1903,7 +1903,21 @@
       "addTo": "Legg til i",
       "header": "Overskrift",
       "queryParams": "Spørringsparametere",
-      "noAuthHint": "Denne forespørselen bruker ikke autentisering."
+      "noAuthHint": "Denne forespørselen bruker ikke autentisering.",
+      "settings": "Innstillinger"
+    },
+    "requestSettings": {
+      "timeout": "Tidsavbrudd (ms)",
+      "timeoutHint": "Tom bruker standarden på 30 sekunder. Maks 600000.",
+      "followRedirects": "Følg omdirigeringer",
+      "followRedirectsHint": "Av returnerer selve 3xx-svaret.",
+      "maxRedirects": "Maks omdirigeringer",
+      "maxRedirectsHint": "Tom bruker 5. Maks 50.",
+      "verifySsl": "Bekreft SSL-sertifikater",
+      "verifySslHint": "Avvis selvsignerte, utløpte eller feil sertifikater.",
+      "verifySslOffHint": "Av: alle sertifikater godtas. Bruk bare med verter du stoler på.",
+      "cookieJar": "Bruk informasjonskapselkrukke",
+      "cookieJarHint": "Send lagrede informasjonskapsler og lagre informasjonskapsler fra svar."
     },
     "responsePanel": {
       "emptyTitle": "Klar til å utforske?",

@@ -1903,7 +1903,21 @@
       "addTo": "Ajouter à",
       "header": "En-tête",
       "queryParams": "Paramètres de requête",
-      "noAuthHint": "Cette requête n’utilise pas d’authentification."
+      "noAuthHint": "Cette requête n’utilise pas d’authentification.",
+      "settings": "Paramètres"
+    },
+    "requestSettings": {
+      "timeout": "Délai d'expiration (ms)",
+      "timeoutHint": "Vide utilise la valeur par défaut de 30 secondes. Max 600000.",
+      "followRedirects": "Suivre les redirections",
+      "followRedirectsHint": "Désactivé renvoie la réponse 3xx elle-même.",
+      "maxRedirects": "Redirections max",
+      "maxRedirectsHint": "Vide utilise 5. Max 50.",
+      "verifySsl": "Vérifier les certificats SSL",
+      "verifySslHint": "Refuser les certificats auto-signés, expirés ou non correspondants.",
+      "verifySslOffHint": "Désactivé : tout certificat est accepté. À utiliser uniquement avec des hôtes de confiance.",
+      "cookieJar": "Utiliser le pot à cookies",
+      "cookieJarHint": "Envoyer les cookies enregistrés et enregistrer les cookies des réponses."
     },
     "responsePanel": {
       "emptyTitle": "Prêt à explorer ?",

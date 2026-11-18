@@ -1903,7 +1903,21 @@
       "addTo": "추가 위치",
       "header": "헤더",
       "queryParams": "쿼리 매개변수",
-      "noAuthHint": "이 요청은 인증을 사용하지 않습니다."
+      "noAuthHint": "이 요청은 인증을 사용하지 않습니다.",
+      "settings": "설정"
+    },
+    "requestSettings": {
+      "timeout": "시간 제한 (ms)",
+      "timeoutHint": "비워 두면 기본값 30초를 사용합니다. 최대 600000.",
+      "followRedirects": "리디렉션 따르기",
+      "followRedirectsHint": "끄면 3xx 응답을 그대로 반환합니다.",
+      "maxRedirects": "최대 리디렉션",
+      "maxRedirectsHint": "비워 두면 5를 사용합니다. 최대 50.",
+      "verifySsl": "SSL 인증서 확인",
+      "verifySslHint": "자체 서명, 만료 또는 불일치 인증서를 거부합니다.",
+      "verifySslOffHint": "끔: 모든 인증서를 허용합니다. 신뢰하는 호스트에서만 사용하세요.",
+      "cookieJar": "쿠키 저장소 사용",
+      "cookieJarHint": "저장된 쿠키를 보내고 응답의 쿠키를 저장합니다."
     },
     "responsePanel": {
       "emptyTitle": "탐색할 준비가 되셨나요?",

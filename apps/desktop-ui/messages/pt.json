@@ -1903,7 +1903,21 @@
       "addTo": "Adicionar em",
       "header": "Cabeçalho",
       "queryParams": "Parâmetros de consulta",
-      "noAuthHint": "Este pedido não utiliza autenticação."
+      "noAuthHint": "Este pedido não utiliza autenticação.",
+      "settings": "Definições"
+    },
+    "requestSettings": {
+      "timeout": "Tempo limite (ms)",
+      "timeoutHint": "Vazio usa a predefinição de 30 segundos. Máx. 600000.",
+      "followRedirects": "Seguir redirecionamentos",
+      "followRedirectsHint": "Desligado devolve a própria resposta 3xx.",
+      "maxRedirects": "Máx. redirecionamentos",
+      "maxRedirectsHint": "Vazio usa 5. Máx. 50.",
+      "verifySsl": "Verificar certificados SSL",
+      "verifySslHint": "Rejeitar certificados autoassinados, expirados ou não correspondentes.",
+      "verifySslOffHint": "Desligado: qualquer certificado é aceite. Use apenas com anfitriões de confiança.",
+      "cookieJar": "Usar frasco de cookies",
+      "cookieJarHint": "Enviar cookies guardados e guardar cookies das respostas."
     },
     "responsePanel": {
       "emptyTitle": "Pronto para explorar?",

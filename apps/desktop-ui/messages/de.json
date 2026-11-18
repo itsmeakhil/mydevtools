@@ -1903,7 +1903,21 @@
       "addTo": "Hinzufügen zu",
       "header": "Header",
       "queryParams": "Abfrageparameter",
-      "noAuthHint": "Diese Anfrage nutzt keine Authentifizierung."
+      "noAuthHint": "Diese Anfrage nutzt keine Authentifizierung.",
+      "settings": "Einstellungen"
+    },
+    "requestSettings": {
+      "timeout": "Zeitlimit (ms)",
+      "timeoutHint": "Leer nutzt den Standard von 30 Sekunden. Max. 600000.",
+      "followRedirects": "Weiterleitungen folgen",
+      "followRedirectsHint": "Aus gibt die 3xx-Antwort selbst zurück.",
+      "maxRedirects": "Max. Weiterleitungen",
+      "maxRedirectsHint": "Leer nutzt 5. Max. 50.",
+      "verifySsl": "SSL-Zertifikate prüfen",
+      "verifySslHint": "Selbstsignierte, abgelaufene oder nicht passende Zertifikate ablehnen.",
+      "verifySslOffHint": "Aus: Jedes Zertifikat wird akzeptiert. Nur bei vertrauenswürdigen Hosts verwenden.",
+      "cookieJar": "Cookie-Speicher verwenden",
+      "cookieJarHint": "Gespeicherte Cookies senden und Cookies aus Antworten speichern."
     },
     "responsePanel": {
       "emptyTitle": "Bereit zum Ausprobieren?",

@@ -1903,7 +1903,21 @@
       "addTo": "Tilføj til",
       "header": "Overskrift",
       "queryParams": "Forespørgselsparametre",
-      "noAuthHint": "Denne anmodning bruger ikke godkendelse."
+      "noAuthHint": "Denne anmodning bruger ikke godkendelse.",
+      "settings": "Indstillinger"
+    },
+    "requestSettings": {
+      "timeout": "Timeout (ms)",
+      "timeoutHint": "Tom bruger standarden på 30 sekunder. Maks. 600000.",
+      "followRedirects": "Følg omdirigeringer",
+      "followRedirectsHint": "Fra returnerer selve 3xx-svaret.",
+      "maxRedirects": "Maks. omdirigeringer",
+      "maxRedirectsHint": "Tom bruger 5. Maks. 50.",
+      "verifySsl": "Bekræft SSL-certifikater",
+      "verifySslHint": "Afvis selvsignerede, udløbne eller forkerte certifikater.",
+      "verifySslOffHint": "Fra: ethvert certifikat accepteres. Brug kun med værter, du stoler på.",
+      "cookieJar": "Brug cookie-krukke",
+      "cookieJarHint": "Send gemte cookies og gem cookies fra svar."
     },
     "responsePanel": {
       "emptyTitle": "Klar til at udforske?",

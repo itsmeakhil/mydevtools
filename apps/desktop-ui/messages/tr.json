@@ -1903,7 +1903,21 @@
       "addTo": "Ekle",
       "header": "Başlık",
       "queryParams": "Sorgu parametreleri",
-      "noAuthHint": "Bu istek kimlik doğrulama kullanmıyor."
+      "noAuthHint": "Bu istek kimlik doğrulama kullanmıyor.",
+      "settings": "Ayarlar"
+    },
+    "requestSettings": {
+      "timeout": "Zaman aşımı (ms)",
+      "timeoutHint": "Boş bırakılırsa varsayılan 30 saniye kullanılır. En fazla 600000.",
+      "followRedirects": "Yönlendirmeleri izle",
+      "followRedirectsHint": "Kapalıyken 3xx yanıtının kendisi döner.",
+      "maxRedirects": "En fazla yönlendirme",
+      "maxRedirectsHint": "Boş bırakılırsa 5 kullanılır. En fazla 50.",
+      "verifySsl": "SSL sertifikalarını doğrula",
+      "verifySslHint": "Kendinden imzalı, süresi dolmuş veya eşleşmeyen sertifikaları reddet.",
+      "verifySslOffHint": "Kapalı: her sertifika kabul edilir. Yalnızca güvendiğiniz sunucularla kullanın.",
+      "cookieJar": "Çerez kavanozunu kullan",
+      "cookieJarHint": "Kayıtlı çerezleri gönder ve yanıtlardaki çerezleri kaydet."
     },
     "responsePanel": {
       "emptyTitle": "Keşfetmeye hazır mısınız?",
