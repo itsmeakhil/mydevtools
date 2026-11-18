@@ -207,6 +207,17 @@ export function countLiteralAuthSecrets(col: Collection): number {
     return count
 }
 
+/** Copy of `col` with literal credentials stripped from every auth (collection, folders, requests). */
+export function redactCollectionAuth(col: Collection): Collection {
+    const visit = (items: (CollectionFolder | CollectionRequest)[]): (CollectionFolder | CollectionRequest)[] =>
+        items.map((item) =>
+            isFolder(item)
+                ? { ...item, defaultAuth: redactAuth(item.defaultAuth).auth, items: visit(item.items) }
+                : { ...item, auth: redactAuth(item.auth).auth as RequestAuth },
+        )
+    return { ...col, defaultAuth: redactAuth(col.defaultAuth).auth, items: visit(col.items) }
+}
+
 // ── Serialize ──────────────────────────────────────────────────────────────
 
 function serializeRequestObj(req: CollectionRequest): object {
