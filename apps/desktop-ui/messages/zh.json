@@ -1876,7 +1876,7 @@
         "dynamic": "每次发送时生成",
         "response": "发送时从上一个响应读取",
         "secret": "密钥，发送时解析",
-        "missing": "未在当前环境中定义"
+        "missing": "未在环境、集合或全局变量中定义"
       }
     },
     "requestTabs": {
@@ -2128,6 +2128,52 @@
       "cancel": "取消",
       "save": "保存",
       "barLabel": "工作区"
+    },
+    "assertions": {
+      "tab": "断言",
+      "empty": "无需编写脚本即可检查响应，例如 res.status eq 200。结果会与测试一起显示。",
+      "columnTarget": "目标",
+      "columnOperator": "运算符",
+      "columnValue": "值",
+      "placeholderValue": "预期值",
+      "add": "添加断言",
+      "enableAria": "启用断言",
+      "removeAria": "删除断言"
+    },
+    "defaultHeaders": {
+      "title": "继承的请求头",
+      "hint": "来自集合及其文件夹的默认请求头。取消勾选即可在此请求中不发送。",
+      "from": "来自 {name}",
+      "send": "发送 {key}"
+    },
+    "globals": {
+      "name": "全局",
+      "hint": "在所有集合中可用。集合变量和当前环境会覆盖它们。",
+      "saveFailed": "保存全局变量失败",
+      "markSecret": "标记为密钥",
+      "unmarkSecret": "密钥：已遮盖，且不会导出。点击取消标记。"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "集合设置",
+      "folderMenu": "文件夹设置",
+      "collectionTitle": "集合设置：{name}",
+      "folderTitle": "文件夹设置：{name}",
+      "collectionDescription": "发送或运行时实时应用到此集合中的每个请求。文件夹和请求的值优先。",
+      "folderDescription": "发送或运行时实时应用到此文件夹中的每个请求。请求的值优先。",
+      "tabVariables": "变量",
+      "tabHeaders": "请求头",
+      "tabAuth": "认证",
+      "tabPreRequest": "请求前",
+      "tabTests": "测试",
+      "variablesHint": "集合变量覆盖全局变量；当前环境覆盖集合变量。",
+      "cancel": "取消",
+      "save": "保存",
+      "saved": "已保存集合设置",
+      "saveFailed": "保存集合设置失败",
+      "inherit": {
+        "option": "继承父级",
+        "hint": "使用最近的文件夹或集合的认证。"
+      }
     }
   },
   "RichEditor": {

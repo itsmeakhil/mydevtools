@@ -1876,7 +1876,7 @@
         "dynamic": "es genera a cada enviament",
         "response": "es llegeix de la resposta anterior en enviar",
         "secret": "secret, es resol en enviar",
-        "missing": "no definida a l'entorn actiu"
+        "missing": "no definida a l'entorn, a la col·lecció ni a les globals"
       }
     },
     "requestTabs": {
@@ -2128,6 +2128,52 @@
       "cancel": "Cancel·la",
       "save": "Desa",
       "barLabel": "Espai de treball"
+    },
+    "assertions": {
+      "tab": "Asserts",
+      "empty": "Comprova la resposta sense escriure cap script, p. ex. res.status eq 200. Els resultats apareixen amb les proves.",
+      "columnTarget": "Objectiu",
+      "columnOperator": "Operador",
+      "columnValue": "Valor",
+      "placeholderValue": "Valor esperat",
+      "add": "Afegeix un assert",
+      "enableAria": "Activa l'assert",
+      "removeAria": "Elimina l'assert"
+    },
+    "defaultHeaders": {
+      "title": "Capçaleres heretades",
+      "hint": "Capçaleres per defecte de la col·lecció i les seves carpetes. Desmarca'n una per excloure-la d'aquesta sol·licitud.",
+      "from": "de {name}",
+      "send": "Envia {key}"
+    },
+    "globals": {
+      "name": "Globals",
+      "hint": "Disponibles a totes les col·leccions. Les variables de la col·lecció i l'entorn actiu les substitueixen.",
+      "saveFailed": "No s'han pogut desar les variables globals",
+      "markSecret": "Marca com a secret",
+      "unmarkSecret": "Secret: emmascarat i exclòs de les exportacions. Fes clic per desmarcar-lo."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Configuració de la col·lecció",
+      "folderMenu": "Configuració de la carpeta",
+      "collectionTitle": "Configuració de la col·lecció: {name}",
+      "folderTitle": "Configuració de la carpeta: {name}",
+      "collectionDescription": "S'aplica en directe a cada sol·licitud d'aquesta col·lecció quan s'envia o s'executa. Els valors de la carpeta i de la sol·licitud tenen prioritat.",
+      "folderDescription": "S'aplica en directe a cada sol·licitud d'aquesta carpeta quan s'envia o s'executa. Els valors de la sol·licitud tenen prioritat.",
+      "tabVariables": "Variables",
+      "tabHeaders": "Capçaleres",
+      "tabAuth": "Autenticació",
+      "tabPreRequest": "Abans de la sol·licitud",
+      "tabTests": "Proves",
+      "variablesHint": "Les variables de la col·lecció substitueixen les globals; l'entorn actiu les substitueix.",
+      "cancel": "Cancel·la",
+      "save": "Desa",
+      "saved": "S'ha desat la configuració de la col·lecció",
+      "saveFailed": "No s'ha pogut desar la configuració de la col·lecció",
+      "inherit": {
+        "option": "Hereta del pare",
+        "hint": "Fa servir l'autenticació de la carpeta més propera o de la col·lecció."
+      }
     }
   },
   "RichEditor": {

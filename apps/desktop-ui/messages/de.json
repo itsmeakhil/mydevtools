@@ -1876,7 +1876,7 @@
         "dynamic": "wird bei jedem Senden erzeugt",
         "response": "wird beim Senden aus der vorherigen Antwort gelesen",
         "secret": "geheim, wird beim Senden aufgelöst",
-        "missing": "in der aktiven Umgebung nicht definiert"
+        "missing": "weder in der Umgebung, der Sammlung noch global definiert"
       }
     },
     "requestTabs": {
@@ -2128,6 +2128,52 @@
       "cancel": "Abbrechen",
       "save": "Speichern",
       "barLabel": "Arbeitsbereich"
+    },
+    "assertions": {
+      "tab": "Assertions",
+      "empty": "Antwort prüfen, ohne ein Skript zu schreiben, z. B. res.status eq 200. Ergebnisse erscheinen bei deinen Tests.",
+      "columnTarget": "Ziel",
+      "columnOperator": "Operator",
+      "columnValue": "Wert",
+      "placeholderValue": "Erwarteter Wert",
+      "add": "Assertion hinzufügen",
+      "enableAria": "Assertion aktivieren",
+      "removeAria": "Assertion entfernen"
+    },
+    "defaultHeaders": {
+      "title": "Geerbte Header",
+      "hint": "Standard-Header aus der Sammlung und ihren Ordnern. Haken entfernen, um einen für diese Anfrage wegzulassen.",
+      "from": "aus {name}",
+      "send": "{key} senden"
+    },
+    "globals": {
+      "name": "Global",
+      "hint": "In jeder Sammlung verfügbar. Sammlungsvariablen und die aktive Umgebung überschreiben sie.",
+      "saveFailed": "Globale Variablen konnten nicht gespeichert werden",
+      "markSecret": "Als geheim markieren",
+      "unmarkSecret": "Geheim: maskiert und von Exporten ausgeschlossen. Klicken zum Aufheben."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Sammlungseinstellungen",
+      "folderMenu": "Ordnereinstellungen",
+      "collectionTitle": "Sammlungseinstellungen: {name}",
+      "folderTitle": "Ordnereinstellungen: {name}",
+      "collectionDescription": "Gilt live für jede Anfrage dieser Sammlung beim Senden oder Ausführen. Ordner- und Anfragewerte haben Vorrang.",
+      "folderDescription": "Gilt live für jede Anfrage dieses Ordners beim Senden oder Ausführen. Anfragewerte haben Vorrang.",
+      "tabVariables": "Variablen",
+      "tabHeaders": "Header",
+      "tabAuth": "Authentifizierung",
+      "tabPreRequest": "Vor der Anfrage",
+      "tabTests": "Tests",
+      "variablesHint": "Sammlungsvariablen überschreiben globale; die aktive Umgebung überschreibt sie.",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saved": "Sammlungseinstellungen gespeichert",
+      "saveFailed": "Sammlungseinstellungen konnten nicht gespeichert werden",
+      "inherit": {
+        "option": "Vom übergeordneten Element erben",
+        "hint": "Verwendet die Authentifizierung des nächsten Ordners oder der Sammlung."
+      }
     }
   },
   "RichEditor": {

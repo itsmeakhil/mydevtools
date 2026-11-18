@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem, TREE_DRAG_MIME } from "./collection-item"
-import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2 } from "lucide-react"
 import { filterTree, moveDestinations, resolveDrop, type DropPosition } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
@@ -21,7 +21,7 @@ const CollectionRunnerDialog = dynamic(
 import { useWorkspacesContext } from "../context/workspaces-context"
 import { WorkspacesDialog } from "../workspaces-dialog"
 import { Briefcase } from "lucide-react"
-import { FolderDefaultsDialog } from "../folder-defaults-dialog"
+import { FolderDefaultsDialog, type DefaultsTarget } from "../folder-defaults-dialog"
 import type { CollectionFolder } from "../types"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { VirtualHistoryList } from "./virtual-history-list"
@@ -78,7 +78,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         [loadRequest, panel],
     )
     const { collections, isLoading } = useCollectionsState()
-    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection, setCollectionWorkspace, moveItem } = useCollectionsActions()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, patchCollection, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection, setCollectionWorkspace, moveItem } = useCollectionsActions()
     const tActions = useTranslations("ApiClient.collectionActions")
 
     // Drag/drop + "Move to…". Collections are read through a ref so these
@@ -153,7 +153,9 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
     const [targetParentId, setTargetParentId] = React.useState<string | null>(null)
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
     const [runnerCollection, setRunnerCollection] = React.useState<Collection | null>(null)
-    const [folderDefaultsTarget, setFolderDefaultsTarget] = React.useState<CollectionFolder | null>(null)
+    const [defaultsTarget, setDefaultsTarget] = React.useState<DefaultsTarget | null>(null)
+    const editFolderDefaults = React.useCallback((item: CollectionFolder) => setDefaultsTarget({ kind: "folder", item }), [])
+    const tDefaults = useTranslations("ApiClient.collectionDefaults")
 
     // One workspace mechanism: the active workspace (WorkspacesProvider) narrows
     // to collections assigned to it; no workspace selected shows everything.
@@ -489,10 +491,14 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                             <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
                                                         </Button>
                                                     </DropdownMenuTrigger>
-                                                    <DropdownMenuContent align="end" className="w-40">
+                                                    <DropdownMenuContent align="end" className="w-52">
                                                         <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
                                                             <Pencil className="h-4 w-4 mr-2" />
                                                             {t("rename")}
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => setDefaultsTarget({ kind: "collection", item: collection })}>
+                                                            <Settings2 className="h-4 w-4 mr-2" />
+                                                            {tDefaults("collectionMenu")}
                                                         </DropdownMenuItem>
                                                         {/* Workspace ids are app-local, so folder (git) collections don't carry one. */}
                                                         {!collection.source && workspaces.length > 0 && (
@@ -626,7 +632,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                     onAddFolder={openAddFolderDialog}
                                                     onLoadRequest={onLoadRequest}
                                                     onRenameFolder={onRenameFolder}
-                                                    onEditFolderDefaults={setFolderDefaultsTarget}
+                                                    onEditFolderDefaults={editFolderDefaults}
                                                     onDuplicate={onDuplicateItem}
                                                     onMoveTo={setMoveSource}
                                                     // Filtered trees hide siblings, so drop indices would be wrong.
@@ -872,12 +878,13 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 </DialogContent>
             </Dialog>
             <FolderDefaultsDialog
-                open={folderDefaultsTarget !== null}
-                onOpenChange={(o) => { if (!o) setFolderDefaultsTarget(null) }}
-                folder={folderDefaultsTarget}
+                open={defaultsTarget !== null}
+                onOpenChange={(o) => { if (!o) setDefaultsTarget(null) }}
+                target={defaultsTarget}
                 onSave={(patch) => {
-                    if (folderDefaultsTarget) {
-                        void patchFolder(folderDefaultsTarget.id, patch)
+                    if (defaultsTarget?.kind === "folder") void patchFolder(defaultsTarget.item.id, patch)
+                    if (defaultsTarget?.kind === "collection") {
+                        void patchCollection(defaultsTarget.item.id, patch, { ok: tDefaults("saved"), fail: tDefaults("saveFailed") })
                     }
                 }}
             />

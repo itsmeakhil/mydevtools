@@ -25,6 +25,8 @@ describe("isTabDirty", () => {
         expect(isTabDirty({ ...linked(), verifySsl: false })).toBe(true)
         expect(isTabDirty({ ...linked(), followRedirects: false })).toBe(true)
         expect(isTabDirty({ ...linked(), maxRedirects: 2 })).toBe(true)
+        expect(isTabDirty({ ...linked(), omitHeaders: ["x-app"] })).toBe(true)
+        expect(isTabDirty({ ...linked(), omitHeaders: [] })).toBe(false)
     })
 
     it("ignores runtime state, refreshed OAuth tokens and stripped file bytes", () => {

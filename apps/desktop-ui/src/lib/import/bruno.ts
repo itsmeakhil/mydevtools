@@ -27,6 +27,7 @@ import type {
 } from "@/components/api-client/types"
 import type { Environment, EnvironmentVariable } from "@/components/api-client/use-environments"
 import type { OAuth2GrantType } from "@/lib/oauth2"
+import { parseBruAssertion, type Assertion } from "@/lib/api-client/assertions"
 
 const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
 
@@ -103,6 +104,15 @@ function get(entries: Entry[], key: string): string | undefined {
 
 function toKv(entries: Entry[]): KeyValueItem[] {
     return entries.map((e) => ({ id: id(), key: e.key, value: e.value, active: e.enabled }))
+}
+
+/** `assert { res.status: eq 200 }` rows; operators we don't support are dropped. */
+function bruAssertions(block: BruBlock | undefined): Assertion[] | undefined {
+    const rows = dict(block).flatMap((e) => {
+        const parsed = parseBruAssertion(e.value)
+        return parsed ? [{ id: id(), enabled: e.enabled, target: e.key, ...parsed }] : []
+    })
+    return rows.length ? rows : undefined
 }
 
 function joinScripts(...parts: Array<string | undefined>): string | undefined {
@@ -223,16 +233,18 @@ export function parseBruRequest(text: string): CollectionRequest {
         auth: d.auth,
         preRequestScript: d.preRequestScript,
         testScript: d.testScript,
+        assertions: bruAssertions(blocks.get("assert")),
     }
 }
 
 export function parseBrunoEnvironment(text: string, name: string): Environment {
     const blocks = parseBruBlocks(text)
-    const toVar = (e: Entry): EnvironmentVariable => ({ id: id(), key: e.key, value: e.value, enabled: e.enabled })
+    const toVar = (secret: boolean) => (e: Entry): EnvironmentVariable =>
+        ({ id: id(), key: e.key, value: e.value, enabled: e.enabled, ...(secret && { secret }) })
     return {
         id: id(),
         name,
-        variables: [...dict(blocks.get("vars")), ...array(blocks.get("vars:secret"))].map(toVar),
+        variables: [...dict(blocks.get("vars")).map(toVar(false)), ...array(blocks.get("vars:secret")).map(toVar(true))],
     }
 }
 
@@ -352,6 +364,7 @@ function parseOpenCollectionEnvironment(text: string, fallbackName: string): Env
             key: str(v.name),
             value: v.secret === true ? "" : str(v.value),
             enabled: v.disabled !== true,
+            ...(v.secret === true && { secret: true }),
         })),
     }
 }

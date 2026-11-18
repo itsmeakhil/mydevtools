@@ -800,11 +800,16 @@ export function useCollections() {
         }
     }
 
-    const renameCollection = async (collectionId: string, name: string) => {
+    /** Patch collection-level fields (name, defaults, variables) on a DB or folder collection. */
+    const patchCollection = async (
+        collectionId: string,
+        patch: Partial<Collection>,
+        messages: { ok: string; fail: string } = { ok: "Collection saved", fail: "Failed to save collection" },
+    ) => {
         const fileCol = fileCollections.find((c) => c.id === collectionId)
         if (fileCol) {
-            if (await mutateFileCollection(fileCol, fileCol.items, { name })) {
-                toast.success("Collection renamed")
+            if (await mutateFileCollection(fileCol, fileCol.items, patch)) {
+                toast.success(messages.ok)
             }
             return
         }
@@ -813,23 +818,26 @@ export function useCollections() {
         const prev = collections
         // Optimistic update
         setCollections((cur) =>
-            sortCollections(cur.map((c) => (c.id === collectionId ? { ...c, name } : c)))
+            sortCollections(cur.map((c) => (c.id === collectionId ? { ...c, ...patch } : c)))
         )
         try {
             const res = await authedFetch(`/api/backend/api-client/collections/${collectionId}`, {
                 method: "PATCH",
-                body: JSON.stringify({ name }),
+                body: JSON.stringify(patch),
             })
             const updated = (await res.json()) as Collection
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             broadcastApiClientUpdate("collections")
-            toast.success("Collection renamed")
+            toast.success(messages.ok)
         } catch (e) {
             setCollections(prev)
-            console.error("Error renaming collection", e)
-            toast.error("Failed to rename collection")
+            console.error(messages.fail, e)
+            toast.error(messages.fail)
         }
     }
+
+    const renameCollection = (collectionId: string, name: string) =>
+        patchCollection(collectionId, { name }, { ok: "Collection renamed", fail: "Failed to rename collection" })
 
     const deleteMultipleCollections = async (ids: string[]) => {
         if (ids.length === 0) return
@@ -974,6 +982,7 @@ export function useCollections() {
         toggleFolder,
         createCollection,
         renameCollection,
+        patchCollection,
         renameFolder,
         patchFolder,
         updateRequest,

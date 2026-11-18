@@ -1876,7 +1876,7 @@
         "dynamic": "word met elke versending gegenereer",
         "response": "word by versending uit die vorige antwoord gelees",
         "secret": "geheim, word by versending opgelos",
-        "missing": "nie in die aktiewe omgewing gedefinieer nie"
+        "missing": "nie in die omgewing, versameling of globale waardes gedefinieer nie"
       }
     },
     "requestTabs": {
@@ -2128,6 +2128,52 @@
       "cancel": "Kanselleer",
       "save": "Stoor",
       "barLabel": "Werkruimte"
+    },
+    "assertions": {
+      "tab": "Bewerings",
+      "empty": "Kontroleer die antwoord sonder om 'n skrip te skryf, bv. res.status eq 200. Resultate verskyn saam met jou toetse.",
+      "columnTarget": "Teiken",
+      "columnOperator": "Operator",
+      "columnValue": "Waarde",
+      "placeholderValue": "Verwagte waarde",
+      "add": "Voeg bewering by",
+      "enableAria": "Aktiveer bewering",
+      "removeAria": "Verwyder bewering"
+    },
+    "defaultHeaders": {
+      "title": "Geërfde opskrifte",
+      "hint": "Verstekopskrifte van die versameling en sy vouers. Ontmerk een om dit uit hierdie versoek te laat.",
+      "from": "van {name}",
+      "send": "Stuur {key}"
+    },
+    "globals": {
+      "name": "Globale",
+      "hint": "Beskikbaar in elke versameling. Versamelingveranderlikes en die aktiewe omgewing oorheers hulle.",
+      "saveFailed": "Kon nie globale waardes stoor nie",
+      "markSecret": "Merk as geheim",
+      "unmarkSecret": "Geheim: gemasker en uit uitvoere gelaat. Klik om te ontmerk."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Versamelinginstellings",
+      "folderMenu": "Vouerinstellings",
+      "collectionTitle": "Versamelinginstellings: {name}",
+      "folderTitle": "Vouerinstellings: {name}",
+      "collectionDescription": "Word regstreeks op elke versoek in hierdie versameling toegepas wanneer dit gestuur of uitgevoer word. Vouer- en versoekwaardes wen.",
+      "folderDescription": "Word regstreeks op elke versoek in hierdie vouer toegepas wanneer dit gestuur of uitgevoer word. Versoekwaardes wen.",
+      "tabVariables": "Veranderlikes",
+      "tabHeaders": "Opskrifte",
+      "tabAuth": "Magtiging",
+      "tabPreRequest": "Voor-versoek",
+      "tabTests": "Toetse",
+      "variablesHint": "Versamelingveranderlikes oorheers globale waardes; die aktiewe omgewing oorheers hulle.",
+      "cancel": "Kanselleer",
+      "save": "Stoor",
+      "saved": "Versamelinginstellings gestoor",
+      "saveFailed": "Kon nie versamelinginstellings stoor nie",
+      "inherit": {
+        "option": "Erf van ouer",
+        "hint": "Gebruik die magtiging van die naaste vouer of die versameling."
+      }
     }
   },
   "RichEditor": {

@@ -1876,7 +1876,7 @@
         "dynamic": "보낼 때마다 생성됨",
         "response": "보낼 때 이전 응답에서 읽음",
         "secret": "비밀 값, 보낼 때 확인됨",
-        "missing": "활성 환경에 정의되지 않음"
+        "missing": "환경, 컬렉션, 전역 어디에도 정의되지 않음"
       }
     },
     "requestTabs": {
@@ -2128,6 +2128,52 @@
       "cancel": "취소",
       "save": "저장",
       "barLabel": "워크스페이스"
+    },
+    "assertions": {
+      "tab": "어설션",
+      "empty": "스크립트 없이 응답을 확인합니다(예: res.status eq 200). 결과는 테스트와 함께 표시됩니다.",
+      "columnTarget": "대상",
+      "columnOperator": "연산자",
+      "columnValue": "값",
+      "placeholderValue": "예상 값",
+      "add": "어설션 추가",
+      "enableAria": "어설션 사용",
+      "removeAria": "어설션 삭제"
+    },
+    "defaultHeaders": {
+      "title": "상속된 헤더",
+      "hint": "컬렉션과 폴더의 기본 헤더입니다. 체크를 해제하면 이 요청에서 제외됩니다.",
+      "from": "{name}에서",
+      "send": "{key} 보내기"
+    },
+    "globals": {
+      "name": "전역",
+      "hint": "모든 컬렉션에서 사용할 수 있습니다. 컬렉션 변수와 활성 환경이 우선합니다.",
+      "saveFailed": "전역 변수를 저장하지 못했습니다",
+      "markSecret": "비밀로 표시",
+      "unmarkSecret": "비밀: 가려지고 내보내기에서 제외됩니다. 클릭하면 해제됩니다."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "컬렉션 설정",
+      "folderMenu": "폴더 설정",
+      "collectionTitle": "컬렉션 설정: {name}",
+      "folderTitle": "폴더 설정: {name}",
+      "collectionDescription": "보내거나 실행할 때 이 컬렉션의 모든 요청에 실시간으로 적용됩니다. 폴더와 요청 값이 우선합니다.",
+      "folderDescription": "보내거나 실행할 때 이 폴더의 모든 요청에 실시간으로 적용됩니다. 요청 값이 우선합니다.",
+      "tabVariables": "변수",
+      "tabHeaders": "헤더",
+      "tabAuth": "인증",
+      "tabPreRequest": "요청 전",
+      "tabTests": "테스트",
+      "variablesHint": "컬렉션 변수는 전역 변수보다 우선하고, 활성 환경은 컬렉션 변수보다 우선합니다.",
+      "cancel": "취소",
+      "save": "저장",
+      "saved": "컬렉션 설정을 저장했습니다",
+      "saveFailed": "컬렉션 설정을 저장하지 못했습니다",
+      "inherit": {
+        "option": "상위 항목에서 상속",
+        "hint": "가장 가까운 폴더나 컬렉션의 인증을 사용합니다."
+      }
     }
   },
   "RichEditor": {

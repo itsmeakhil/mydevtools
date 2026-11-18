@@ -10,11 +10,14 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { IconPlus, IconTrash, IconEdit, IconDownload } from "@tabler/icons-react"
+import { IconPlus, IconTrash, IconEdit, IconDownload, IconLock, IconLockOpen, IconWorld } from "@tabler/icons-react"
 import { EnvironmentVariable } from "./use-environments"
 import { downloadEnvironmentAsPostman } from "@/lib/export/postman-env"
 import { useTranslations } from "next-intl"
 import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
+
+/** Sidebar id of the pinned Globals entry (not a real environment). */
+const GLOBALS_ID = "__globals__"
 
 interface EnvironmentManagerProps {
     open: boolean
@@ -22,9 +25,10 @@ interface EnvironmentManagerProps {
 }
 
 export function EnvironmentManager({ open, onOpenChange }: EnvironmentManagerProps) {
-    const { environments } = useEnvironmentsState()
-    const { addEnvironment, updateEnvironment, deleteEnvironment } = useEnvironmentsActions()
+    const { environments, globals } = useEnvironmentsState()
+    const { addEnvironment, updateEnvironment, deleteEnvironment, updateGlobals } = useEnvironmentsActions()
     const t = useTranslations("ApiClient.environmentManager")
+    const tG = useTranslations("ApiClient.globals")
     const [selectedEnvId, setSelectedEnvId] = React.useState<string | null>(null)
     const [newEnvName, setNewEnvName] = React.useState("")
     const [editingEnvId, setEditingEnvId] = React.useState<string | null>(null)
@@ -32,38 +36,33 @@ export function EnvironmentManager({ open, onOpenChange }: EnvironmentManagerPro
 
     // Select the first environment by default when dialog opens
     React.useEffect(() => {
-        if (open && !selectedEnvId && environments.length > 0) {
-            setSelectedEnvId(environments[0].id)
+        if (open && !selectedEnvId) {
+            setSelectedEnvId(environments[0]?.id ?? GLOBALS_ID)
         }
     }, [open, environments, selectedEnvId])
 
+    const editingGlobals = selectedEnvId === GLOBALS_ID
     const selectedEnv = environments.find(e => e.id === selectedEnvId)
+    // Globals and environments share one variables table.
+    const selectedVars = editingGlobals ? globals : selectedEnv?.variables
+    const saveVars = (variables: EnvironmentVariable[]) => {
+        if (editingGlobals) void updateGlobals(variables)
+        else if (selectedEnv) updateEnvironment(selectedEnv.id, { variables })
+    }
 
     const handleAddVariable = () => {
-        if (!selectedEnv) return
-        const newVar: EnvironmentVariable = {
-            id: crypto.randomUUID(),
-            key: "",
-            value: "",
-            enabled: true
-        }
-        updateEnvironment(selectedEnv.id, {
-            variables: [...selectedEnv.variables, newVar]
-        })
+        if (!selectedVars) return
+        saveVars([...selectedVars, { id: crypto.randomUUID(), key: "", value: "", enabled: true }])
     }
 
     const updateVariable = (varId: string, updates: Partial<EnvironmentVariable>) => {
-        if (!selectedEnv) return
-        const newVariables = selectedEnv.variables.map(v =>
-            v.id === varId ? { ...v, ...updates } : v
-        )
-        updateEnvironment(selectedEnv.id, { variables: newVariables })
+        if (!selectedVars) return
+        saveVars(selectedVars.map(v => v.id === varId ? { ...v, ...updates } : v))
     }
 
     const deleteVariable = (varId: string) => {
-        if (!selectedEnv) return
-        const newVariables = selectedEnv.variables.filter(v => v.id !== varId)
-        updateEnvironment(selectedEnv.id, { variables: newVariables })
+        if (!selectedVars) return
+        saveVars(selectedVars.filter(v => v.id !== varId))
     }
 
     return (
@@ -97,6 +96,14 @@ export function EnvironmentManager({ open, onOpenChange }: EnvironmentManagerPro
                             </div>
                             <ScrollArea className="flex-1">
                                 <div className="space-y-1">
+                                    <button
+                                        type="button"
+                                        className={`w-full flex items-center gap-2 p-2 rounded-md text-sm text-left ${editingGlobals ? "bg-secondary" : "hover:bg-muted"}`}
+                                        onClick={() => setSelectedEnvId(GLOBALS_ID)}
+                                    >
+                                        <IconWorld className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                                        <span className="truncate">{tG("name")}</span>
+                                    </button>
                                     {environments.map(env => (
                                         <div
                                             key={env.id}
@@ -174,25 +181,31 @@ export function EnvironmentManager({ open, onOpenChange }: EnvironmentManagerPro
 
                         {/* Content */}
                         <div className="flex-1 flex flex-col gap-4">
-                            {selectedEnv ? (
+                            {selectedVars ? (
                                 <>
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="font-medium">{t("variablesHeading", { name: selectedEnv.name })}</h3>
+                                    <div className="flex items-center justify-between gap-4">
+                                        <div className="min-w-0">
+                                            <h3 className="font-medium">
+                                                {editingGlobals ? tG("name") : t("variablesHeading", { name: selectedEnv?.name ?? "" })}
+                                            </h3>
+                                            {editingGlobals && <p className="text-xs text-muted-foreground">{tG("hint")}</p>}
+                                        </div>
                                         <Button size="sm" onClick={handleAddVariable}>
                                             <IconPlus className="h-4 w-4 mr-2" />
                                             {t("addVariable")}
                                         </Button>
                                     </div>
                                     <div className="flex-1 border rounded-md">
-                                        <div className="grid grid-cols-[1fr_1fr_40px] gap-2 p-2 border-b bg-muted/50 text-xs font-medium text-muted-foreground">
+                                        <div className="grid grid-cols-[1fr_1fr_32px_40px] gap-2 p-2 border-b bg-muted/50 text-xs font-medium text-muted-foreground">
                                             <div>{t("columnVariable")}</div>
                                             <div>{t("columnValue")}</div>
+                                            <div></div>
                                             <div></div>
                                         </div>
                                         <ScrollArea className="h-[400px]">
                                             <div className="p-2 space-y-2">
-                                                {selectedEnv.variables.map(variable => (
-                                                    <div key={variable.id} className="grid grid-cols-[1fr_1fr_40px] gap-2 items-center group">
+                                                {selectedVars.map(variable => (
+                                                    <div key={variable.id} className="grid grid-cols-[1fr_1fr_32px_40px] gap-2 items-center group">
                                                         <Input
                                                             value={variable.key}
                                                             onChange={(e) => updateVariable(variable.id, { key: e.target.value })}
@@ -200,11 +213,24 @@ export function EnvironmentManager({ open, onOpenChange }: EnvironmentManagerPro
                                                             className="h-8 font-mono text-xs"
                                                         />
                                                         <Input
+                                                            type={variable.secret ? "password" : "text"}
+                                                            autoComplete="off"
                                                             value={variable.value}
                                                             onChange={(e) => updateVariable(variable.id, { value: e.target.value })}
                                                             placeholder={t("placeholderValue")}
                                                             className="h-8 font-mono text-xs"
                                                         />
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            className={`h-8 w-8 ${variable.secret ? "text-primary" : "text-muted-foreground"}`}
+                                                            aria-pressed={!!variable.secret}
+                                                            aria-label={variable.secret ? tG("unmarkSecret") : tG("markSecret")}
+                                                            title={variable.secret ? tG("unmarkSecret") : tG("markSecret")}
+                                                            onClick={() => updateVariable(variable.id, { secret: !variable.secret || undefined })}
+                                                        >
+                                                            {variable.secret ? <IconLock className="h-4 w-4" /> : <IconLockOpen className="h-4 w-4" />}
+                                                        </Button>
                                                         <Button
                                                             variant="ghost"
                                                             size="icon"

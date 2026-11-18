@@ -1876,7 +1876,7 @@
         "dynamic": "dijana pada setiap penghantaran",
         "response": "dibaca daripada respons sebelumnya semasa hantar",
         "secret": "rahsia, diselesaikan semasa hantar",
-        "missing": "tidak ditakrifkan dalam persekitaran aktif"
+        "missing": "tidak ditakrifkan dalam persekitaran, koleksi atau global"
       }
     },
     "requestTabs": {
@@ -2128,6 +2128,52 @@
       "cancel": "Batal",
       "save": "Simpan",
       "barLabel": "Ruang kerja"
+    },
+    "assertions": {
+      "tab": "Penegasan",
+      "empty": "Semak respons tanpa menulis skrip, cth. res.status eq 200. Keputusan dipaparkan bersama ujian anda.",
+      "columnTarget": "Sasaran",
+      "columnOperator": "Operator",
+      "columnValue": "Nilai",
+      "placeholderValue": "Nilai dijangka",
+      "add": "Tambah penegasan",
+      "enableAria": "Dayakan penegasan",
+      "removeAria": "Buang penegasan"
+    },
+    "defaultHeaders": {
+      "title": "Pengepala warisan",
+      "hint": "Pengepala lalai daripada koleksi dan foldernya. Nyahtanda untuk mengecualikannya daripada permintaan ini.",
+      "from": "daripada {name}",
+      "send": "Hantar {key}"
+    },
+    "globals": {
+      "name": "Global",
+      "hint": "Tersedia dalam setiap koleksi. Pemboleh ubah koleksi dan persekitaran aktif mengatasinya.",
+      "saveFailed": "Gagal menyimpan pemboleh ubah global",
+      "markSecret": "Tandakan sebagai rahsia",
+      "unmarkSecret": "Rahsia: disembunyikan dan dikecualikan daripada eksport. Klik untuk nyahtanda."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Tetapan koleksi",
+      "folderMenu": "Tetapan folder",
+      "collectionTitle": "Tetapan koleksi: {name}",
+      "folderTitle": "Tetapan folder: {name}",
+      "collectionDescription": "Digunakan secara langsung pada setiap permintaan dalam koleksi ini apabila dihantar atau dijalankan. Nilai folder dan permintaan diutamakan.",
+      "folderDescription": "Digunakan secara langsung pada setiap permintaan dalam folder ini apabila dihantar atau dijalankan. Nilai permintaan diutamakan.",
+      "tabVariables": "Pemboleh ubah",
+      "tabHeaders": "Pengepala",
+      "tabAuth": "Pengesahan",
+      "tabPreRequest": "Pra-permintaan",
+      "tabTests": "Ujian",
+      "variablesHint": "Pemboleh ubah koleksi mengatasi global; persekitaran aktif mengatasinya.",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saved": "Tetapan koleksi disimpan",
+      "saveFailed": "Gagal menyimpan tetapan koleksi",
+      "inherit": {
+        "option": "Warisi daripada induk",
+        "hint": "Menggunakan pengesahan folder terdekat atau koleksi."
+      }
     }
   },
   "RichEditor": {

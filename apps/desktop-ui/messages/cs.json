@@ -1876,7 +1876,7 @@
         "dynamic": "generuje se při každém odeslání",
         "response": "čte se z předchozí odpovědi při odeslání",
         "secret": "tajné, vyřeší se při odeslání",
-        "missing": "není definováno v aktivním prostředí"
+        "missing": "není definováno v prostředí, kolekci ani globálních proměnných"
       }
     },
     "requestTabs": {
@@ -2128,6 +2128,52 @@
       "cancel": "Zrušit",
       "save": "Uložit",
       "barLabel": "Pracovní prostor"
+    },
+    "assertions": {
+      "tab": "Aserce",
+      "empty": "Ověřte odpověď bez psaní skriptu, např. res.status eq 200. Výsledky se zobrazí u testů.",
+      "columnTarget": "Cíl",
+      "columnOperator": "Operátor",
+      "columnValue": "Hodnota",
+      "placeholderValue": "Očekávaná hodnota",
+      "add": "Přidat aserci",
+      "enableAria": "Povolit aserci",
+      "removeAria": "Odebrat aserci"
+    },
+    "defaultHeaders": {
+      "title": "Zděděné hlavičky",
+      "hint": "Výchozí hlavičky z kolekce a jejích složek. Zrušením zaškrtnutí hlavičku z tohoto požadavku vynecháte.",
+      "from": "z {name}",
+      "send": "Odeslat {key}"
+    },
+    "globals": {
+      "name": "Globální",
+      "hint": "Dostupné v každé kolekci. Proměnné kolekce a aktivní prostředí je přepisují.",
+      "saveFailed": "Globální proměnné se nepodařilo uložit",
+      "markSecret": "Označit jako tajné",
+      "unmarkSecret": "Tajné: maskováno a vynecháno z exportů. Kliknutím zrušíte."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Nastavení kolekce",
+      "folderMenu": "Nastavení složky",
+      "collectionTitle": "Nastavení kolekce: {name}",
+      "folderTitle": "Nastavení složky: {name}",
+      "collectionDescription": "Uplatní se živě na každý požadavek v této kolekci při odeslání nebo spuštění. Hodnoty složky a požadavku mají přednost.",
+      "folderDescription": "Uplatní se živě na každý požadavek v této složce při odeslání nebo spuštění. Hodnoty požadavku mají přednost.",
+      "tabVariables": "Proměnné",
+      "tabHeaders": "Hlavičky",
+      "tabAuth": "Ověření",
+      "tabPreRequest": "Před požadavkem",
+      "tabTests": "Testy",
+      "variablesHint": "Proměnné kolekce přepisují globální; aktivní prostředí přepisuje je.",
+      "cancel": "Zrušit",
+      "save": "Uložit",
+      "saved": "Nastavení kolekce uloženo",
+      "saveFailed": "Nastavení kolekce se nepodařilo uložit",
+      "inherit": {
+        "option": "Zdědit od nadřazeného",
+        "hint": "Použije ověření nejbližší složky nebo kolekce."
+      }
     }
   },
   "RichEditor": {
