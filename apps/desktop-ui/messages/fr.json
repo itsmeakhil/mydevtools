@@ -1876,7 +1876,7 @@
         "dynamic": "généré à chaque envoi",
         "response": "lu depuis la réponse précédente à l'envoi",
         "secret": "secret, résolu à l'envoi",
-        "missing": "non défini dans l'environnement actif"
+        "missing": "non définie dans l'environnement, la collection ni les globales"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Ajouter une assertion",
       "enableAria": "Activer l'assertion",
       "removeAria": "Supprimer l'assertion"
+    },
+    "defaultHeaders": {
+      "title": "En-têtes hérités",
+      "hint": "En-têtes par défaut de la collection et de ses dossiers. Décochez-en un pour l'exclure de cette requête.",
+      "from": "de {name}",
+      "send": "Envoyer {key}"
+    },
+    "globals": {
+      "name": "Globales",
+      "hint": "Disponibles dans toutes les collections. Les variables de collection et l'environnement actif les remplacent.",
+      "saveFailed": "Échec de l'enregistrement des variables globales",
+      "markSecret": "Marquer comme secret",
+      "unmarkSecret": "Secret : masqué et exclu des exports. Cliquez pour retirer."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Paramètres de la collection",
+      "folderMenu": "Paramètres du dossier",
+      "collectionTitle": "Paramètres de la collection : {name}",
+      "folderTitle": "Paramètres du dossier : {name}",
+      "collectionDescription": "Appliqués en direct à chaque requête de cette collection lors de l'envoi ou de l'exécution. Les valeurs du dossier et de la requête l'emportent.",
+      "folderDescription": "Appliqués en direct à chaque requête de ce dossier lors de l'envoi ou de l'exécution. Les valeurs de la requête l'emportent.",
+      "tabVariables": "Variables",
+      "tabHeaders": "En-têtes",
+      "tabAuth": "Authentification",
+      "tabPreRequest": "Avant la requête",
+      "tabTests": "Tests",
+      "variablesHint": "Les variables de collection remplacent les globales ; l'environnement actif les remplace.",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saved": "Paramètres de la collection enregistrés",
+      "saveFailed": "Échec de l'enregistrement des paramètres de la collection",
+      "inherit": {
+        "option": "Hériter du parent",
+        "hint": "Utilise l'authentification du dossier le plus proche ou de la collection."
+      }
     }
   },
   "RichEditor": {

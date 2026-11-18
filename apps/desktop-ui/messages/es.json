@@ -1876,7 +1876,7 @@
         "dynamic": "se genera en cada envío",
         "response": "se lee de la respuesta anterior al enviar",
         "secret": "secreto, se resuelve al enviar",
-        "missing": "no definida en el entorno activo"
+        "missing": "no definida en el entorno, la colección ni las globales"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Añadir aserción",
       "enableAria": "Activar aserción",
       "removeAria": "Eliminar aserción"
+    },
+    "defaultHeaders": {
+      "title": "Encabezados heredados",
+      "hint": "Encabezados predeterminados de la colección y sus carpetas. Desmarca uno para excluirlo de esta solicitud.",
+      "from": "de {name}",
+      "send": "Enviar {key}"
+    },
+    "globals": {
+      "name": "Globales",
+      "hint": "Disponibles en todas las colecciones. Las variables de la colección y el entorno activo las reemplazan.",
+      "saveFailed": "No se pudieron guardar las variables globales",
+      "markSecret": "Marcar como secreto",
+      "unmarkSecret": "Secreto: oculto y excluido de las exportaciones. Haz clic para desmarcar."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Configuración de la colección",
+      "folderMenu": "Configuración de la carpeta",
+      "collectionTitle": "Configuración de la colección: {name}",
+      "folderTitle": "Configuración de la carpeta: {name}",
+      "collectionDescription": "Se aplica en vivo a cada solicitud de esta colección al enviarla o ejecutarla. Los valores de la carpeta y de la solicitud tienen prioridad.",
+      "folderDescription": "Se aplica en vivo a cada solicitud de esta carpeta al enviarla o ejecutarla. Los valores de la solicitud tienen prioridad.",
+      "tabVariables": "Variables",
+      "tabHeaders": "Encabezados",
+      "tabAuth": "Autenticación",
+      "tabPreRequest": "Antes de la solicitud",
+      "tabTests": "Pruebas",
+      "variablesHint": "Las variables de la colección reemplazan a las globales; el entorno activo las reemplaza a ellas.",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saved": "Configuración de la colección guardada",
+      "saveFailed": "No se pudo guardar la configuración de la colección",
+      "inherit": {
+        "option": "Heredar del padre",
+        "hint": "Usa la autenticación de la carpeta más cercana o de la colección."
+      }
     }
   },
   "RichEditor": {

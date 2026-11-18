@@ -1876,7 +1876,7 @@
         "dynamic": "her gönderimde üretilir",
         "response": "gönderimde önceki yanıttan okunur",
         "secret": "gizli, gönderimde çözümlenir",
-        "missing": "etkin ortamda tanımlı değil"
+        "missing": "ortamda, koleksiyonda veya genel değişkenlerde tanımlı değil"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Doğrulama ekle",
       "enableAria": "Doğrulamayı etkinleştir",
       "removeAria": "Doğrulamayı kaldır"
+    },
+    "defaultHeaders": {
+      "title": "Devralınan başlıklar",
+      "hint": "Koleksiyondan ve klasörlerinden gelen varsayılan başlıklar. Bu istekte göndermemek için işareti kaldırın.",
+      "from": "{name} öğesinden",
+      "send": "{key} gönder"
+    },
+    "globals": {
+      "name": "Genel",
+      "hint": "Her koleksiyonda kullanılabilir. Koleksiyon değişkenleri ve etkin ortam bunları geçersiz kılar.",
+      "saveFailed": "Genel değişkenler kaydedilemedi",
+      "markSecret": "Gizli olarak işaretle",
+      "unmarkSecret": "Gizli: maskelenir ve dışa aktarımlara dahil edilmez. İşareti kaldırmak için tıklayın."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Koleksiyon ayarları",
+      "folderMenu": "Klasör ayarları",
+      "collectionTitle": "Koleksiyon ayarları: {name}",
+      "folderTitle": "Klasör ayarları: {name}",
+      "collectionDescription": "Gönderilirken veya çalıştırılırken bu koleksiyondaki her isteğe canlı uygulanır. Klasör ve istek değerleri önceliklidir.",
+      "folderDescription": "Gönderilirken veya çalıştırılırken bu klasördeki her isteğe canlı uygulanır. İstek değerleri önceliklidir.",
+      "tabVariables": "Değişkenler",
+      "tabHeaders": "Başlıklar",
+      "tabAuth": "Kimlik doğrulama",
+      "tabPreRequest": "İstek öncesi",
+      "tabTests": "Testler",
+      "variablesHint": "Koleksiyon değişkenleri genel değişkenleri geçersiz kılar; etkin ortam da onları geçersiz kılar.",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "saved": "Koleksiyon ayarları kaydedildi",
+      "saveFailed": "Koleksiyon ayarları kaydedilemedi",
+      "inherit": {
+        "option": "Üst öğeden devral",
+        "hint": "En yakın klasörün veya koleksiyonun kimlik doğrulamasını kullanır."
+      }
     }
   },
   "RichEditor": {

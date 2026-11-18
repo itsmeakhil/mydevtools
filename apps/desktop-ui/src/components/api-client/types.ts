@@ -94,7 +94,8 @@ export interface DigestConfig {
 }
 
 export interface RequestAuth {
-    type: "none" | "bearer" | "basic" | "api-key" | "oauth2" | "aws-sigv4" | "hawk" | "digest" | "ntlm" | "jwt-bearer" | "spnego"
+    /** `inherit` (and legacy `none`) use the nearest folder/collection auth at send time. */
+    type: "none" | "inherit" | "bearer" | "basic" | "api-key" | "oauth2" | "aws-sigv4" | "hawk" | "digest" | "ntlm" | "jwt-bearer" | "spnego"
     token?: string
     username?: string
     password?: string
@@ -247,6 +248,8 @@ export interface ApiRequestState {
     /** When false, the cookie jar does not attach cookies or store Set-Cookie for this request.
      *  Defaults to true. */
     useCookieJar?: boolean
+    /** Lowercased keys of collection/folder default headers this request opts out of. */
+    omitHeaders?: string[]
     /** Follow 3xx responses (default true). Off returns the redirect response itself. */
     followRedirects?: boolean
     /** Redirect hops before giving up (default 5, capped at 50 by the Rust engine). */
@@ -343,6 +346,14 @@ export interface Collection {
     /** Desktop-only: set when this collection is backed by a folder of YAML files
      *  (git-friendly). In-memory marker — never sent to the backend. */
     source?: { kind: "file"; path: string }
+    /** Collection-level defaults — the root of the folder chain, resolved live at
+     *  send/run time (never copied into requests). */
+    defaultHeaders?: KeyValueItem[]
+    defaultAuth?: RequestAuth
+    preRequestScript?: string
+    testScript?: string
+    /** Collection variables: below the environment, above globals. */
+    variables?: KeyValueItem[]
 }
 
 export interface HistoryRequest extends CollectionRequest {

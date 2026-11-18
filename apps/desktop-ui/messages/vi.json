@@ -1876,7 +1876,7 @@
         "dynamic": "được tạo mỗi lần gửi",
         "response": "được đọc từ phản hồi trước khi gửi",
         "secret": "bí mật, được thay khi gửi",
-        "missing": "chưa được định nghĩa trong môi trường đang dùng"
+        "missing": "chưa được định nghĩa trong môi trường, bộ sưu tập hay biến toàn cục"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Thêm kiểm định",
       "enableAria": "Bật kiểm định",
       "removeAria": "Xóa kiểm định"
+    },
+    "defaultHeaders": {
+      "title": "Header kế thừa",
+      "hint": "Header mặc định từ bộ sưu tập và các thư mục. Bỏ chọn để không gửi header đó trong yêu cầu này.",
+      "from": "từ {name}",
+      "send": "Gửi {key}"
+    },
+    "globals": {
+      "name": "Toàn cục",
+      "hint": "Dùng được trong mọi bộ sưu tập. Biến bộ sưu tập và môi trường đang dùng ghi đè chúng.",
+      "saveFailed": "Không lưu được biến toàn cục",
+      "markSecret": "Đánh dấu là bí mật",
+      "unmarkSecret": "Bí mật: được che và không xuất ra. Nhấn để bỏ đánh dấu."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Cài đặt bộ sưu tập",
+      "folderMenu": "Cài đặt thư mục",
+      "collectionTitle": "Cài đặt bộ sưu tập: {name}",
+      "folderTitle": "Cài đặt thư mục: {name}",
+      "collectionDescription": "Áp dụng trực tiếp cho mọi yêu cầu trong bộ sưu tập này khi gửi hoặc chạy. Giá trị của thư mục và yêu cầu được ưu tiên.",
+      "folderDescription": "Áp dụng trực tiếp cho mọi yêu cầu trong thư mục này khi gửi hoặc chạy. Giá trị của yêu cầu được ưu tiên.",
+      "tabVariables": "Biến",
+      "tabHeaders": "Header",
+      "tabAuth": "Xác thực",
+      "tabPreRequest": "Trước yêu cầu",
+      "tabTests": "Kiểm thử",
+      "variablesHint": "Biến bộ sưu tập ghi đè biến toàn cục; môi trường đang dùng ghi đè biến bộ sưu tập.",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "saved": "Đã lưu cài đặt bộ sưu tập",
+      "saveFailed": "Không lưu được cài đặt bộ sưu tập",
+      "inherit": {
+        "option": "Kế thừa từ cấp cha",
+        "hint": "Dùng xác thực của thư mục gần nhất hoặc bộ sưu tập."
+      }
     }
   },
   "RichEditor": {

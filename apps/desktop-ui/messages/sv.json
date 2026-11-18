@@ -1876,7 +1876,7 @@
         "dynamic": "genereras vid varje sändning",
         "response": "läses från föregående svar vid sändning",
         "secret": "hemlig, löses vid sändning",
-        "missing": "inte definierad i den aktiva miljön"
+        "missing": "inte definierad i miljön, samlingen eller de globala"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Lägg till påstående",
       "enableAria": "Aktivera påstående",
       "removeAria": "Ta bort påstående"
+    },
+    "defaultHeaders": {
+      "title": "Ärvda rubriker",
+      "hint": "Standardrubriker från samlingen och dess mappar. Avmarkera en för att utelämna den från den här förfrågan.",
+      "from": "från {name}",
+      "send": "Skicka {key}"
+    },
+    "globals": {
+      "name": "Globala",
+      "hint": "Tillgängliga i alla samlingar. Samlingsvariabler och den aktiva miljön åsidosätter dem.",
+      "saveFailed": "Det gick inte att spara globala variabler",
+      "markSecret": "Markera som hemlig",
+      "unmarkSecret": "Hemlig: maskerad och utelämnad från export. Klicka för att avmarkera."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Samlingsinställningar",
+      "folderMenu": "Mappinställningar",
+      "collectionTitle": "Samlingsinställningar: {name}",
+      "folderTitle": "Mappinställningar: {name}",
+      "collectionDescription": "Tillämpas direkt på varje förfrågan i samlingen när den skickas eller körs. Mapp- och förfrågningsvärden vinner.",
+      "folderDescription": "Tillämpas direkt på varje förfrågan i mappen när den skickas eller körs. Förfrågningsvärden vinner.",
+      "tabVariables": "Variabler",
+      "tabHeaders": "Rubriker",
+      "tabAuth": "Autentisering",
+      "tabPreRequest": "Före förfrågan",
+      "tabTests": "Tester",
+      "variablesHint": "Samlingsvariabler åsidosätter globala; den aktiva miljön åsidosätter dem.",
+      "cancel": "Avbryt",
+      "save": "Spara",
+      "saved": "Samlingsinställningar sparade",
+      "saveFailed": "Det gick inte att spara samlingsinställningar",
+      "inherit": {
+        "option": "Ärv från överordnad",
+        "hint": "Använder autentiseringen från närmaste mapp eller samlingen."
+      }
     }
   },
   "RichEditor": {

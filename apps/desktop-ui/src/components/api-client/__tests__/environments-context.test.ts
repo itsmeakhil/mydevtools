@@ -1,4 +1,5 @@
 jest.mock("@/lib/desktop/api-fetch", () => ({ apiFetch: jest.fn() }))
+jest.mock("next-intl", () => ({ useTranslations: () => (k: string) => k }))
 jest.mock("sonner", () => ({ toast: { success: jest.fn(), error: jest.fn() } }))
 
 /**

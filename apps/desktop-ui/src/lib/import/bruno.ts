@@ -239,11 +239,12 @@ export function parseBruRequest(text: string): CollectionRequest {
 
 export function parseBrunoEnvironment(text: string, name: string): Environment {
     const blocks = parseBruBlocks(text)
-    const toVar = (e: Entry): EnvironmentVariable => ({ id: id(), key: e.key, value: e.value, enabled: e.enabled })
+    const toVar = (secret: boolean) => (e: Entry): EnvironmentVariable =>
+        ({ id: id(), key: e.key, value: e.value, enabled: e.enabled, ...(secret && { secret }) })
     return {
         id: id(),
         name,
-        variables: [...dict(blocks.get("vars")), ...array(blocks.get("vars:secret"))].map(toVar),
+        variables: [...dict(blocks.get("vars")).map(toVar(false)), ...array(blocks.get("vars:secret")).map(toVar(true))],
     }
 }
 
@@ -363,6 +364,7 @@ function parseOpenCollectionEnvironment(text: string, fallbackName: string): Env
             key: str(v.name),
             value: v.secret === true ? "" : str(v.value),
             enabled: v.disabled !== true,
+            ...(v.secret === true && { secret: true }),
         })),
     }
 }

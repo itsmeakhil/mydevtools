@@ -17,11 +17,10 @@ import type {
 import type { ScriptContext, ScriptResult } from "@/components/api-client/workers/scripts-runner.worker"
 import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
-import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
+import { substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
 import { ensureFreshToken } from "@/lib/oauth2"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
-import { resolveResponsePath } from "@/lib/response-path"
 import { evaluateAssertions } from "@/lib/api-client/assertions"
 import type { ApiResponse } from "@/components/api-client/types"
 import type { RequestRunResult, RunnerProgressEvent } from "./types"
@@ -34,6 +33,8 @@ interface RunnerInput {
     /** When present, runs `dataRows.length` iterations; each row's keys become the highest-priority vars. */
     dataRows?: Record<string, string>[]
     environmentVariables: Record<string, string>
+    /** Lowest-precedence variables (below collection variables). */
+    globalVariables?: Record<string, string>
     runScript: (script: string, ctx: ScriptContext) => Promise<ScriptResult>
     onProgress?: (event: RunnerProgressEvent) => void
     abortSignal?: AbortSignal
@@ -68,30 +69,27 @@ function buildRequestUrlSafe(raw: string): URL {
     try { return new URL(raw) } catch { return new URL(ensureHttpScheme(raw)) }
 }
 
-/** Substitution layer that mirrors `handleSend` plus iteration-row + response-chain support. */
+/** Same precedence as `handleSend` (lib/api-client/variables.ts), plus the data row. */
 function makeSubstitute(args: {
     env: Record<string, string>
+    globals: Record<string, string>
+    collectionVars: Record<string, string>
     sessionVars: Record<string, string>
     envOverlay: Record<string, string>
     envUnsets: Set<string>
     row: Record<string, string>
     previousResponse: ApiResponse | null
 }) {
-    return (text: string): string => {
-        if (!text) return text
-        return text.replace(/\{\{(.+?)\}\}/g, (m, k) => {
-            const key = (k as string).trim()
-            if (key.startsWith("response.")) {
-                const resolved = resolveResponsePath(key.slice("response.".length), args.previousResponse)
-                return resolved ?? m
-            }
-            if (key in args.row) return args.row[key]
-            if (args.envUnsets.has(key)) return m
-            if (key in args.envOverlay) return args.envOverlay[key]
-            if (key in args.sessionVars) return args.sessionVars[key]
-            return args.env[key] ?? resolveDynamicVar(key) ?? m
-        })
-    }
+    return (text: string): string => substituteVariables(text, {
+        globals: args.globals,
+        collection: args.collectionVars,
+        environment: args.env,
+        session: args.sessionVars,
+        overlay: args.envOverlay,
+        unsets: args.envUnsets,
+        row: args.row,
+        previousResponse: args.previousResponse,
+    })
 }
 
 async function executeRequest(args: {
@@ -99,6 +97,8 @@ async function executeRequest(args: {
     iteration: number
     row: Record<string, string>
     env: Record<string, string>
+    globals: Record<string, string>
+    collectionVars: Record<string, string>
     sessionVars: Record<string, string>
     envOverlay: Record<string, string>
     envUnsets: Set<string>
@@ -122,6 +122,8 @@ async function executeRequest(args: {
 
     const substitute = makeSubstitute({
         env: args.env,
+        globals: args.globals,
+        collectionVars: args.collectionVars,
         sessionVars: args.sessionVars,
         envOverlay: args.envOverlay,
         envUnsets: args.envUnsets,
@@ -379,6 +381,7 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
     const total = requests.length * iterations
     opts.onProgress?.({ kind: "started", total })
 
+    const collectionVars = variablesToRecord(opts.collection.variables)
     const sessionVars: Record<string, string> = {}
     const envOverlay: Record<string, string> = {}
     const envUnsets = new Set<string>()
@@ -393,9 +396,11 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
                 opts.onProgress?.({ kind: "aborted" })
                 return out
             }
-            // Materialise folder defaults (headers / auth / scripts) for this request.
-            const ancestors = findRequestAncestors(rootItems, req.id) ?? []
-            const inherited = ancestors.length > 0 ? applyFolderInheritance(req, ancestors) : req
+            // Collection + folder defaults (headers / auth / scripts) for this request.
+            // Ancestors come from the whole collection, so a folder-scoped run still
+            // gets the defaults of the folders above it.
+            const ancestors = findRequestAncestors(opts.collection.items, req.id) ?? []
+            const inherited = applyFolderInheritance(req, [opts.collection, ...ancestors])
 
             const sink: { response: ApiResponse | null } = { response: null }
             const result = await executeRequest({
@@ -403,6 +408,8 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
                 iteration: it,
                 row,
                 env: opts.environmentVariables,
+                globals: opts.globalVariables ?? {},
+                collectionVars,
                 sessionVars,
                 envOverlay,
                 envUnsets,

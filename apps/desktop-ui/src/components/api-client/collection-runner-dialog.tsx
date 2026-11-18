@@ -30,7 +30,7 @@ interface CollectionRunnerDialogProps {
 }
 
 export function CollectionRunnerDialog({ open, onOpenChange, collection }: CollectionRunnerDialogProps) {
-    const { activeEnvironmentVariables } = useEnvironmentsState()
+    const { activeEnvironmentVariables, globalVariables } = useEnvironmentsState()
     const { run: runScript } = useScriptsRunner()
 
     const [iterations, setIterations] = React.useState(1)
@@ -77,6 +77,7 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                 iterations,
                 dataRows: dataRows.length > 0 ? dataRows : undefined,
                 environmentVariables: activeEnvironmentVariables,
+                globalVariables,
                 runScript,
                 abortSignal: abortRef.current.signal,
                 onProgress: (e) => {

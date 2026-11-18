@@ -1876,7 +1876,7 @@
         "dynamic": "generated on each send",
         "response": "read from the previous response on send",
         "secret": "secret, resolved on send",
-        "missing": "not defined in the active environment"
+        "missing": "not defined in the environment, collection or globals"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Add assertion",
       "enableAria": "Enable assertion",
       "removeAria": "Remove assertion"
+    },
+    "defaultHeaders": {
+      "title": "Inherited headers",
+      "hint": "Default headers from the collection and its folders. Untick one to leave it out of this request.",
+      "from": "from {name}",
+      "send": "Send {key}"
+    },
+    "globals": {
+      "name": "Globals",
+      "hint": "Available in every collection. Collection variables and the active environment override them.",
+      "saveFailed": "Failed to save globals",
+      "markSecret": "Mark as secret",
+      "unmarkSecret": "Secret: masked and left out of exports. Click to unmark."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Collection settings",
+      "folderMenu": "Folder settings",
+      "collectionTitle": "Collection settings: {name}",
+      "folderTitle": "Folder settings: {name}",
+      "collectionDescription": "Applied live to every request in this collection when it is sent or run. Folder and request values win.",
+      "folderDescription": "Applied live to every request in this folder when it is sent or run. Request values win.",
+      "tabVariables": "Variables",
+      "tabHeaders": "Headers",
+      "tabAuth": "Auth",
+      "tabPreRequest": "Pre-request",
+      "tabTests": "Tests",
+      "variablesHint": "Collection variables override globals; the active environment overrides them.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saved": "Collection settings saved",
+      "saveFailed": "Failed to save collection settings",
+      "inherit": {
+        "option": "Inherit from parent",
+        "hint": "Uses the auth of the nearest folder or the collection."
+      }
     }
   },
   "RichEditor": {

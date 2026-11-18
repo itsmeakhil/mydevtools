@@ -1876,7 +1876,7 @@
         "dynamic": "genereres ved hver afsendelse",
         "response": "læses fra det forrige svar ved afsendelse",
         "secret": "hemmelig, opløses ved afsendelse",
-        "missing": "ikke defineret i det aktive miljø"
+        "missing": "ikke defineret i miljøet, samlingen eller de globale"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Tilføj assertion",
       "enableAria": "Aktivér assertion",
       "removeAria": "Fjern assertion"
+    },
+    "defaultHeaders": {
+      "title": "Nedarvede headere",
+      "hint": "Standardheadere fra samlingen og dens mapper. Fjern markeringen for at udelade en fra denne anmodning.",
+      "from": "fra {name}",
+      "send": "Send {key}"
+    },
+    "globals": {
+      "name": "Globale",
+      "hint": "Tilgængelige i alle samlinger. Samlingsvariabler og det aktive miljø tilsidesætter dem.",
+      "saveFailed": "Kunne ikke gemme globale variabler",
+      "markSecret": "Markér som hemmelig",
+      "unmarkSecret": "Hemmelig: maskeret og udeladt fra eksport. Klik for at fjerne markeringen."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Samlingsindstillinger",
+      "folderMenu": "Mappeindstillinger",
+      "collectionTitle": "Samlingsindstillinger: {name}",
+      "folderTitle": "Mappeindstillinger: {name}",
+      "collectionDescription": "Anvendes direkte på hver anmodning i denne samling, når den sendes eller køres. Mappe- og anmodningsværdier vinder.",
+      "folderDescription": "Anvendes direkte på hver anmodning i denne mappe, når den sendes eller køres. Anmodningsværdier vinder.",
+      "tabVariables": "Variabler",
+      "tabHeaders": "Headere",
+      "tabAuth": "Godkendelse",
+      "tabPreRequest": "Før anmodning",
+      "tabTests": "Tests",
+      "variablesHint": "Samlingsvariabler tilsidesætter globale; det aktive miljø tilsidesætter dem.",
+      "cancel": "Annuller",
+      "save": "Gem",
+      "saved": "Samlingsindstillinger gemt",
+      "saveFailed": "Kunne ikke gemme samlingsindstillinger",
+      "inherit": {
+        "option": "Arv fra overordnet",
+        "hint": "Bruger godkendelsen fra den nærmeste mappe eller samlingen."
+      }
     }
   },
   "RichEditor": {

@@ -1876,7 +1876,7 @@
         "dynamic": "gerado a cada envio",
         "response": "lido da resposta anterior ao enviar",
         "secret": "secreto, resolvido ao enviar",
-        "missing": "não definida no ambiente ativo"
+        "missing": "não definida no ambiente, na coleção nem nas globais"
       }
     },
     "requestTabs": {
@@ -2139,6 +2139,41 @@
       "add": "Adicionar asserção",
       "enableAria": "Ativar asserção",
       "removeAria": "Remover asserção"
+    },
+    "defaultHeaders": {
+      "title": "Cabeçalhos herdados",
+      "hint": "Cabeçalhos padrão da coleção e de suas pastas. Desmarque um para excluí-lo desta requisição.",
+      "from": "de {name}",
+      "send": "Enviar {key}"
+    },
+    "globals": {
+      "name": "Globais",
+      "hint": "Disponíveis em todas as coleções. Variáveis da coleção e o ambiente ativo as substituem.",
+      "saveFailed": "Falha ao salvar as variáveis globais",
+      "markSecret": "Marcar como secreto",
+      "unmarkSecret": "Secreto: mascarado e excluído das exportações. Clique para desmarcar."
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Configurações da coleção",
+      "folderMenu": "Configurações da pasta",
+      "collectionTitle": "Configurações da coleção: {name}",
+      "folderTitle": "Configurações da pasta: {name}",
+      "collectionDescription": "Aplicadas ao vivo a cada requisição desta coleção ao enviar ou executar. Valores da pasta e da requisição têm prioridade.",
+      "folderDescription": "Aplicadas ao vivo a cada requisição desta pasta ao enviar ou executar. Valores da requisição têm prioridade.",
+      "tabVariables": "Variáveis",
+      "tabHeaders": "Cabeçalhos",
+      "tabAuth": "Autenticação",
+      "tabPreRequest": "Pré-requisição",
+      "tabTests": "Testes",
+      "variablesHint": "Variáveis da coleção substituem as globais; o ambiente ativo as substitui.",
+      "cancel": "Cancelar",
+      "save": "Salvar",
+      "saved": "Configurações da coleção salvas",
+      "saveFailed": "Falha ao salvar as configurações da coleção",
+      "inherit": {
+        "option": "Herdar do pai",
+        "hint": "Usa a autenticação da pasta mais próxima ou da coleção."
+      }
     }
   },
   "RichEditor": {
