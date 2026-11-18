@@ -1,3 +1,5 @@
+import type { Assertion } from "@/lib/api-client/assertions"
+
 /** Standard methods, or any custom HTTP token (e.g. PROPFIND) set via the method picker. */
 export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS" | (string & {})
 
@@ -251,6 +253,8 @@ export interface ApiRequestState {
     maxRedirects?: number
     /** Verify TLS certificates (default true). Off accepts self-signed/invalid certs. */
     verifySsl?: boolean
+    /** Declarative checks (`res.status eq 200`) reported alongside `pm.test` results. */
+    assertions?: Assertion[]
     /** Optional JS sandbox script run before each send (Postman-style `pm.*`). */
     preRequestScript?: string
     /** Optional JS sandbox script run after each response — assertions land in the Tests tab. */

@@ -2128,6 +2128,17 @@
       "cancel": "Annuller",
       "save": "Gem",
       "barLabel": "Arbejdsområde"
+    },
+    "assertions": {
+      "tab": "Assertions",
+      "empty": "Tjek svaret uden at skrive et script, f.eks. res.status eq 200. Resultaterne vises sammen med dine tests.",
+      "columnTarget": "Mål",
+      "columnOperator": "Operator",
+      "columnValue": "Værdi",
+      "placeholderValue": "Forventet værdi",
+      "add": "Tilføj assertion",
+      "enableAria": "Aktivér assertion",
+      "removeAria": "Fjern assertion"
     }
   },
   "RichEditor": {

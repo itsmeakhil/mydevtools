@@ -2128,6 +2128,17 @@
       "cancel": "Annuleren",
       "save": "Opslaan",
       "barLabel": "Werkruimte"
+    },
+    "assertions": {
+      "tab": "Asserties",
+      "empty": "Controleer het antwoord zonder script, bijv. res.status eq 200. Resultaten verschijnen bij je tests.",
+      "columnTarget": "Doel",
+      "columnOperator": "Operator",
+      "columnValue": "Waarde",
+      "placeholderValue": "Verwachte waarde",
+      "add": "Assertie toevoegen",
+      "enableAria": "Assertie inschakelen",
+      "removeAria": "Assertie verwijderen"
     }
   },
   "RichEditor": {

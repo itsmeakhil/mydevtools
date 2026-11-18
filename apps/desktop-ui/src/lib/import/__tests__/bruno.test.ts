@@ -178,6 +178,27 @@ describe("parseBruRequest", () => {
         expect(r.testScript).toContain('test("created"')
     })
 
+    it("maps the assert block, keeping disabled rows and dropping unsupported operators", () => {
+        const r = parseBruRequest(`meta {
+  name: Check
+}
+
+get {
+  url: https://api.test/x
+}
+
+assert {
+  res.status: eq 200
+  ~res.body.id: isDefined
+  res.body.n: between 1, 2
+}
+`)
+        expect(r.assertions?.map(({ id: _id, ...a }) => a)).toEqual([
+            { enabled: true, target: "res.status", operator: "eq", value: "200" },
+            { enabled: false, target: "res.body.id", operator: "isDefined", value: "" },
+        ])
+    })
+
     it("maps a graphql body with variables", () => {
         const r = parseBruRequest(graphqlReq)
         expect(r.body.type).toBe("graphql")

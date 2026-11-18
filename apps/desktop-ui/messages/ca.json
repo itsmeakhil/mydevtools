@@ -2128,6 +2128,17 @@
       "cancel": "Cancel·la",
       "save": "Desa",
       "barLabel": "Espai de treball"
+    },
+    "assertions": {
+      "tab": "Asserts",
+      "empty": "Comprova la resposta sense escriure cap script, p. ex. res.status eq 200. Els resultats apareixen amb les proves.",
+      "columnTarget": "Objectiu",
+      "columnOperator": "Operador",
+      "columnValue": "Valor",
+      "placeholderValue": "Valor esperat",
+      "add": "Afegeix un assert",
+      "enableAria": "Activa l'assert",
+      "removeAria": "Elimina l'assert"
     }
   },
   "RichEditor": {

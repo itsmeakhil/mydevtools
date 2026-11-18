@@ -2128,6 +2128,17 @@
       "cancel": "Zrušit",
       "save": "Uložit",
       "barLabel": "Pracovní prostor"
+    },
+    "assertions": {
+      "tab": "Aserce",
+      "empty": "Ověřte odpověď bez psaní skriptu, např. res.status eq 200. Výsledky se zobrazí u testů.",
+      "columnTarget": "Cíl",
+      "columnOperator": "Operátor",
+      "columnValue": "Hodnota",
+      "placeholderValue": "Očekávaná hodnota",
+      "add": "Přidat aserci",
+      "enableAria": "Povolit aserci",
+      "removeAria": "Odebrat aserci"
     }
   },
   "RichEditor": {

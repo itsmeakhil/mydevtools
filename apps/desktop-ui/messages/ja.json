@@ -2128,6 +2128,17 @@
       "cancel": "キャンセル",
       "save": "保存",
       "barLabel": "ワークスペース"
+    },
+    "assertions": {
+      "tab": "アサーション",
+      "empty": "スクリプトを書かずにレスポンスを確認します (例: res.status eq 200)。結果はテストと一緒に表示されます。",
+      "columnTarget": "対象",
+      "columnOperator": "演算子",
+      "columnValue": "値",
+      "placeholderValue": "期待値",
+      "add": "アサーションを追加",
+      "enableAria": "アサーションを有効化",
+      "removeAria": "アサーションを削除"
     }
   },
   "RichEditor": {

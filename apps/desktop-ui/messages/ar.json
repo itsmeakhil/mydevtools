@@ -2128,6 +2128,17 @@
       "cancel": "إلغاء",
       "save": "حفظ",
       "barLabel": "مساحة العمل"
+    },
+    "assertions": {
+      "tab": "التأكيدات",
+      "empty": "تحقّق من الاستجابة دون كتابة سكربت، مثل res.status eq 200. تظهر النتائج مع اختباراتك.",
+      "columnTarget": "الهدف",
+      "columnOperator": "المعامل",
+      "columnValue": "القيمة",
+      "placeholderValue": "القيمة المتوقعة",
+      "add": "إضافة تأكيد",
+      "enableAria": "تفعيل التأكيد",
+      "removeAria": "إزالة التأكيد"
     }
   },
   "RichEditor": {

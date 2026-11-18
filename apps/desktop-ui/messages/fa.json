@@ -2128,6 +2128,17 @@
       "cancel": "لغو",
       "save": "ذخیره",
       "barLabel": "فضای کاری"
+    },
+    "assertions": {
+      "tab": "ادعاها",
+      "empty": "پاسخ را بدون نوشتن اسکریپت بررسی کنید، مثلاً res.status eq 200. نتایج کنار تست‌های شما نمایش داده می‌شوند.",
+      "columnTarget": "هدف",
+      "columnOperator": "عملگر",
+      "columnValue": "مقدار",
+      "placeholderValue": "مقدار مورد انتظار",
+      "add": "افزودن ادعا",
+      "enableAria": "فعال کردن ادعا",
+      "removeAria": "حذف ادعا"
     }
   },
   "RichEditor": {

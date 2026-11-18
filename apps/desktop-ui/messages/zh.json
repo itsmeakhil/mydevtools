@@ -2128,6 +2128,17 @@
       "cancel": "取消",
       "save": "保存",
       "barLabel": "工作区"
+    },
+    "assertions": {
+      "tab": "断言",
+      "empty": "无需编写脚本即可检查响应，例如 res.status eq 200。结果会与测试一起显示。",
+      "columnTarget": "目标",
+      "columnOperator": "运算符",
+      "columnValue": "值",
+      "placeholderValue": "预期值",
+      "add": "添加断言",
+      "enableAria": "启用断言",
+      "removeAria": "删除断言"
     }
   },
   "RichEditor": {

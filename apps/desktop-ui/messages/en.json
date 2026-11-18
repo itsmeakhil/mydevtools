@@ -2128,6 +2128,17 @@
       "cancel": "Cancel",
       "save": "Save",
       "barLabel": "Workspace"
+    },
+    "assertions": {
+      "tab": "Assertions",
+      "empty": "Check the response without writing a script, e.g. res.status eq 200. Results appear with your tests.",
+      "columnTarget": "Target",
+      "columnOperator": "Operator",
+      "columnValue": "Value",
+      "placeholderValue": "Expected value",
+      "add": "Add assertion",
+      "enableAria": "Enable assertion",
+      "removeAria": "Remove assertion"
     }
   },
   "RichEditor": {
