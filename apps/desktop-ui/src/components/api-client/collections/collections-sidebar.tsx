@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
-import { CollectionItem } from "./collection-item"
+import { CollectionItem, TREE_DRAG_MIME } from "./collection-item"
 import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy } from "lucide-react"
-import { filterTree } from "@/lib/api-client/collection-tree"
+import { filterTree, moveDestinations, resolveDrop, type DropPosition } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
@@ -78,8 +78,26 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         [loadRequest, panel],
     )
     const { collections, isLoading } = useCollectionsState()
-    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection, setCollectionWorkspace } = useCollectionsActions()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection, setCollectionWorkspace, moveItem } = useCollectionsActions()
     const tActions = useTranslations("ApiClient.collectionActions")
+
+    // Drag/drop + "Move to…". Collections are read through a ref so these
+    // callbacks stay stable and the memoized rows don't all re-render.
+    const collectionsRef = React.useRef(collections)
+    collectionsRef.current = collections
+    const moveTo = React.useCallback(
+        (draggedId: string, target: Parameters<typeof resolveDrop>[2]) => {
+            const to = resolveDrop(collectionsRef.current, draggedId, target)
+            if (to) void moveItem(draggedId, to, tActions("moveFailed"))
+        },
+        [moveItem, tActions],
+    )
+    const onDropItem = React.useCallback(
+        (draggedId: string, target: { itemId: string; position: DropPosition }) => moveTo(draggedId, target),
+        [moveTo],
+    )
+    const [moveSource, setMoveSource] = React.useState<Collection["items"][number] | null>(null)
+    const [collectionDropTarget, setCollectionDropTarget] = React.useState<string | null>(null)
 
     const onDuplicateItem = React.useCallback(
         (item: Collection["items"][number]) =>
@@ -411,7 +429,29 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                             ) : (
                                 visibleCollections.map((collection) => (
                                     <div key={collection.id} data-collection-id={collection.id} className="mb-3">
-                                        <div className="flex items-center justify-between h-8 px-2 group rounded-lg hover:bg-foreground/[0.05] transition-colors">
+                                        <div
+                                            className={cn(
+                                                "flex items-center justify-between h-8 px-2 group rounded-lg hover:bg-foreground/[0.05] transition-colors",
+                                                collectionDropTarget === collection.id && "bg-primary/10 ring-1 ring-inset ring-primary/40",
+                                            )}
+                                            // Dropping on the header puts the item at the end of the collection root.
+                                            onDragOver={(e) => {
+                                                if (treeQuery || !e.dataTransfer.types.includes(TREE_DRAG_MIME)) return
+                                                e.preventDefault()
+                                                e.dataTransfer.dropEffect = "move"
+                                                if (collectionDropTarget !== collection.id) setCollectionDropTarget(collection.id)
+                                            }}
+                                            onDragLeave={(e) => {
+                                                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setCollectionDropTarget(null)
+                                            }}
+                                            onDrop={(e) => {
+                                                setCollectionDropTarget(null)
+                                                const draggedId = e.dataTransfer.getData(TREE_DRAG_MIME)
+                                                if (!draggedId) return
+                                                e.preventDefault()
+                                                moveTo(draggedId, { collectionId: collection.id })
+                                            }}
+                                        >
                                             <div className="flex items-center gap-2 flex-1 min-w-0">
                                                 <div className="flex items-center">
                                                     <Checkbox
@@ -588,6 +628,9 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                     onRenameFolder={onRenameFolder}
                                                     onEditFolderDefaults={setFolderDefaultsTarget}
                                                     onDuplicate={onDuplicateItem}
+                                                    onMoveTo={setMoveSource}
+                                                    // Filtered trees hide siblings, so drop indices would be wrong.
+                                                    onDropItem={treeQuery ? undefined : onDropItem}
                                                 />
                                             ))}
                                             {collection.items.length === 0 && (
@@ -796,6 +839,38 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 collection={runnerCollection}
             />
             <WorkspacesDialog open={workspaceDialogOpen} onOpenChange={setWorkspaceDialogOpen} />
+            <Dialog open={moveSource !== null} onOpenChange={(o) => { if (!o) setMoveSource(null) }}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>{tActions("moveTitle", { name: moveSource?.name ?? "" })}</DialogTitle>
+                        <DialogDescription>{tActions("moveDescription")}</DialogDescription>
+                    </DialogHeader>
+                    <ScrollArea className="max-h-[50vh]">
+                        <div className="flex flex-col gap-0.5 p-1">
+                            {moveSource && moveDestinations(collections, moveSource.id).map((d) => (
+                                <button
+                                    key={d.parentId ?? d.collectionId}
+                                    className={cn(
+                                        "flex items-center gap-2 h-8 pr-2 rounded-md text-left text-[13px] hover:bg-foreground/[0.05] focus-visible:bg-foreground/[0.05] outline-none",
+                                        d.depth === 0 && "font-semibold",
+                                    )}
+                                    style={{ paddingLeft: `${d.depth * 14 + 8}px` }}
+                                    onClick={() => {
+                                        const id = moveSource.id
+                                        setMoveSource(null)
+                                        moveTo(id, d.parentId ? { itemId: d.parentId, position: "inside" } : { collectionId: d.collectionId })
+                                    }}
+                                >
+                                    {d.depth === 0
+                                        ? <FolderGit2 className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                                        : <FolderPlus className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
+                                    <span className="truncate">{d.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </ScrollArea>
+                </DialogContent>
+            </Dialog>
             <FolderDefaultsDialog
                 open={folderDefaultsTarget !== null}
                 onOpenChange={(o) => { if (!o) setFolderDefaultsTarget(null) }}

@@ -1,8 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, ChevronDown, Folder, MoreHorizontal, Trash2, FolderPlus, Pencil, Copy } from "lucide-react"
+import { ChevronRight, ChevronDown, Folder, MoreHorizontal, Trash2, FolderPlus, Pencil, Copy, FolderInput } from "lucide-react"
 import { cn } from "@/lib/utils"
+import type { DropPosition } from "@/lib/api-client/collection-tree"
 import { CollectionFolder, CollectionRequest } from "../types"
 import {
     DropdownMenu,
@@ -24,7 +25,14 @@ interface CollectionItemProps {
     onRenameFolder?: (folderId: string, newName: string) => void
     onEditFolderDefaults?: (folder: CollectionFolder) => void
     onDuplicate?: (item: CollectionFolder | CollectionRequest) => void
+    /** Keyboard path for moving (opens the "Move to…" dialog). */
+    onMoveTo?: (item: CollectionFolder | CollectionRequest) => void
+    /** Drag/drop: undefined disables dragging (e.g. while the tree is filtered). */
+    onDropItem?: (draggedId: string, target: { itemId: string; position: DropPosition }) => void
 }
+
+/** Drag payload type — only our rows are accepted as drops. */
+export const TREE_DRAG_MIME = "application/x-mydevtools-tree-item"
 
 function arePropsEqual(prev: CollectionItemProps, next: CollectionItemProps) {
     return (
@@ -37,7 +45,9 @@ function arePropsEqual(prev: CollectionItemProps, next: CollectionItemProps) {
         prev.onRenameFolder === next.onRenameFolder &&
         prev.onAddFolder === next.onAddFolder &&
         prev.onLoadRequest === next.onLoadRequest &&
-        prev.onDuplicate === next.onDuplicate
+        prev.onDuplicate === next.onDuplicate &&
+        prev.onMoveTo === next.onMoveTo &&
+        prev.onDropItem === next.onDropItem
     )
 }
 
@@ -51,6 +61,8 @@ function CollectionItemImpl({
     onRenameFolder,
     onEditFolderDefaults,
     onDuplicate,
+    onMoveTo,
+    onDropItem,
 }: CollectionItemProps) {
     const t = useTranslations("ApiClient.collectionItem")
     const tActions = useTranslations("ApiClient.collectionActions")
@@ -76,11 +88,46 @@ function CollectionItemImpl({
         setIsRenaming(false)
     }
 
+    const [dropHint, setDropHint] = React.useState<DropPosition | null>(null)
+    /** Folders: top/bottom quarter = before/after, middle = inside. Requests: top/bottom half. */
+    const positionAt = (e: React.DragEvent<HTMLDivElement>): DropPosition => {
+        const r = e.currentTarget.getBoundingClientRect()
+        const f = (e.clientY - r.top) / r.height
+        if (!isFolder) return f < 0.5 ? "before" : "after"
+        return f < 0.25 ? "before" : f > 0.75 ? "after" : "inside"
+    }
+    const dnd = onDropItem && !isRenaming ? {
+        draggable: true,
+        onDragStart: (e: React.DragEvent<HTMLDivElement>) => {
+            e.dataTransfer.setData(TREE_DRAG_MIME, item.id)
+            e.dataTransfer.effectAllowed = "move"
+        },
+        onDragOver: (e: React.DragEvent<HTMLDivElement>) => {
+            if (!e.dataTransfer.types.includes(TREE_DRAG_MIME)) return
+            e.preventDefault()
+            e.dataTransfer.dropEffect = "move"
+            const pos = positionAt(e)
+            if (pos !== dropHint) setDropHint(pos)
+        },
+        onDragLeave: (e: React.DragEvent<HTMLDivElement>) => {
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setDropHint(null)
+        },
+        onDrop: (e: React.DragEvent<HTMLDivElement>) => {
+            const draggedId = e.dataTransfer.getData(TREE_DRAG_MIME)
+            setDropHint(null)
+            if (!draggedId) return
+            e.preventDefault()
+            onDropItem(draggedId, { itemId: item.id, position: positionAt(e) })
+        },
+    } : {}
+
     return (
         <div>
             <div
+                {...dnd}
                 className={cn(
-                    "group flex items-center gap-2 h-8 pr-1.5 text-[13px] hover:bg-foreground/[0.05] rounded-lg select-none transition-colors"
+                    "group relative flex items-center gap-2 h-8 pr-1.5 text-[13px] hover:bg-foreground/[0.05] rounded-lg select-none transition-colors",
+                    dropHint === "inside" && "bg-primary/10 ring-1 ring-inset ring-primary/40",
                 )}
                 style={{ paddingLeft }}
                 onClick={() => {
@@ -92,6 +139,12 @@ function CollectionItemImpl({
                     }
                 }}
             >
+                {(dropHint === "before" || dropHint === "after") && (
+                    <span
+                        aria-hidden
+                        className={cn("pointer-events-none absolute inset-x-1 h-0.5 rounded-full bg-primary", dropHint === "before" ? "top-0" : "bottom-0")}
+                    />
+                )}
                 {isFolder ? (
                     <div className="flex items-center gap-2 flex-1 min-w-0">
                         {item.isOpen ? (
@@ -187,6 +240,15 @@ function CollectionItemImpl({
                                 {tActions("duplicate")}
                             </DropdownMenuItem>
                         )}
+                        {onMoveTo && (
+                            <DropdownMenuItem onClick={(e) => {
+                                e.stopPropagation()
+                                onMoveTo(item)
+                            }}>
+                                <FolderInput className="h-4 w-4 mr-2" />
+                                {tActions("moveTo")}
+                            </DropdownMenuItem>
+                        )}
                         <DropdownMenuItem
                             className="text-destructive focus:text-destructive"
                             onClick={(e) => {
@@ -220,6 +282,8 @@ function CollectionItemImpl({
                                 onRenameFolder={onRenameFolder}
                                 onEditFolderDefaults={onEditFolderDefaults}
                                 onDuplicate={onDuplicate}
+                                onMoveTo={onMoveTo}
+                                onDropItem={onDropItem}
                             />
                         ))}
                         {(item as CollectionFolder).items.length === 0 && (
