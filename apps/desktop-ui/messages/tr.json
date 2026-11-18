@@ -1941,7 +1941,12 @@
       "binaryRawView": "İkili veriler ham görünümde gösterilemiyor.",
       "errorStatusLabel": "Hata",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Yanıtı JSONPath ile filtrele",
+        "invalid": "Geçersiz JSONPath",
+        "matches": "{count, plural, =0 {Eşleşme yok} one {# eşleşme} other {# eşleşme}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Yeni sekme",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Ortamı değiştir: {name}"
+    },
+    "customMethod": {
+      "option": "Özel…",
+      "label": "Özel yöntem",
+      "placeholder": "ör. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "İkili dosya",
+      "chooseFile": "Dosya seç",
+      "noFile": "Dosya seçilmedi",
+      "binaryHint": "Ham istek gövdesi olarak gönderilir. Content-Type varsayılan olarak dosyanın türüdür.",
+      "binaryMissing": "Dosya içeriği saklanmadı. Göndermeden önce dosyayı yeniden seçin."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Parola (eski)",
+      "grantRefreshToken": "Yalnızca yenileme belirteci",
+      "username": "Kullanıcı adı",
+      "password": "Parola",
+      "refreshToken": "Yenileme belirteci",
+      "refreshTokenHint": "Her alımda yeni bir erişim belirteciyle değiştirilir."
+    },
+    "collectionActions": {
+      "duplicate": "Çoğalt",
+      "copyName": "{name} kopyası",
+      "duplicateFailed": "Çoğaltılamadı",
+      "searchPlaceholder": "Koleksiyonlarda ara",
+      "clearSearch": "Aramayı temizle",
+      "noSearchResults": "“{query}” ile eşleşen istek yok",
+      "moveTo": "Taşı…",
+      "moveTitle": "“{name}” öğesini taşı",
+      "moveDescription": "Bir koleksiyon veya klasör seçin. Öğe sona eklenir.",
+      "moveFailed": "Taşınamadı",
+      "workspace": "Çalışma alanı",
+      "noWorkspace": "Çalışma alanı yok",
+      "workspaceFailed": "Çalışma alanı değiştirilemedi"
+    },
+    "workspaces": {
+      "title": "Çalışma alanları",
+      "description": "Koleksiyonları ekip, proje veya ortama göre gruplayın. Etkin çalışma alanı kenar çubuğunu filtreler.",
+      "createLabel": "Çalışma alanı oluştur",
+      "createPlaceholder": "örn. Acme Prod",
+      "add": "Ekle",
+      "all": "Tüm koleksiyonlar",
+      "allHint": "çalışma alanı filtresi yok",
+      "rename": "Yeniden adlandır",
+      "delete": "Sil",
+      "confirmDelete": "“{name}” silinsin mi?",
+      "confirmDeleteHint": "Koleksiyonları çalışma alanı olmadan kalır.",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "barLabel": "Çalışma alanı"
     }
   },
   "RichEditor": {

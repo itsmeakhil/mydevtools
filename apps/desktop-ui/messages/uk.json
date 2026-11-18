@@ -1941,7 +1941,12 @@
       "binaryRawView": "Двійкові дані не можна відобразити у вигляді тексту.",
       "errorStatusLabel": "Помилка",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Фільтрувати відповідь за JSONPath",
+        "invalid": "Недійсний JSONPath",
+        "matches": "{count, plural, =0 {Немає збігів} one {# збіг} few {# збіги} many {# збігів} other {# збігу}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Нова вкладка",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Змінити середовище: {name}"
+    },
+    "customMethod": {
+      "option": "Власний…",
+      "label": "Власний метод",
+      "placeholder": "напр. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Двійковий файл",
+      "chooseFile": "Вибрати файл",
+      "noFile": "Файл не вибрано",
+      "binaryHint": "Надсилається як сире тіло запиту. Content-Type типово — тип файлу.",
+      "binaryMissing": "Вміст файлу не збережено. Виберіть файл знову перед надсиланням."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Пароль (застарілий)",
+      "grantRefreshToken": "Лише refresh-токен",
+      "username": "Ім'я користувача",
+      "password": "Пароль",
+      "refreshToken": "Refresh-токен",
+      "refreshTokenHint": "Під час кожного отримання обмінюється на новий токен доступу."
+    },
+    "collectionActions": {
+      "duplicate": "Дублювати",
+      "copyName": "{name} (копія)",
+      "duplicateFailed": "Не вдалося дублювати",
+      "searchPlaceholder": "Пошук у колекціях",
+      "clearSearch": "Очистити пошук",
+      "noSearchResults": "Немає запитів, що відповідають «{query}»",
+      "moveTo": "Перемістити до…",
+      "moveTitle": "Перемістити «{name}»",
+      "moveDescription": "Виберіть колекцію або папку. Елемент опиниться в кінці.",
+      "moveFailed": "Не вдалося перемістити",
+      "workspace": "Робочий простір",
+      "noWorkspace": "Без робочого простору",
+      "workspaceFailed": "Не вдалося змінити робочий простір"
+    },
+    "workspaces": {
+      "title": "Робочі простори",
+      "description": "Групуйте колекції за командою, проєктом або середовищем. Активний простір фільтрує бічну панель.",
+      "createLabel": "Створити робочий простір",
+      "createPlaceholder": "наприклад, Acme Prod",
+      "add": "Додати",
+      "all": "Усі колекції",
+      "allHint": "без фільтра простору",
+      "rename": "Перейменувати",
+      "delete": "Видалити",
+      "confirmDelete": "Видалити «{name}»?",
+      "confirmDeleteHint": "Його колекції залишаться без робочого простору.",
+      "cancel": "Скасувати",
+      "save": "Зберегти",
+      "barLabel": "Робочий простір"
     }
   },
   "RichEditor": {

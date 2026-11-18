@@ -1941,7 +1941,12 @@
       "binaryRawView": "Los datos binarios no se pueden mostrar en vista en bruto.",
       "errorStatusLabel": "Error",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtrar respuesta con JSONPath",
+        "invalid": "JSONPath no válido",
+        "matches": "{count, plural, =0 {Sin coincidencias} one {# coincidencia} other {# coincidencias}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nueva pestaña",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Cambiar entorno: {name}"
+    },
+    "customMethod": {
+      "option": "Personalizado…",
+      "label": "Método personalizado",
+      "placeholder": "p. ej. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Archivo binario",
+      "chooseFile": "Elegir archivo",
+      "noFile": "Ningún archivo elegido",
+      "binaryHint": "Se envía como cuerpo de la petición sin procesar. Content-Type usa por defecto el tipo del archivo.",
+      "binaryMissing": "No se conservó el contenido del archivo. Vuelve a elegirlo antes de enviar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Contraseña (antiguo)",
+      "grantRefreshToken": "Solo token de actualización",
+      "username": "Usuario",
+      "password": "Contraseña",
+      "refreshToken": "Token de actualización",
+      "refreshTokenHint": "Se canjea por un token de acceso nuevo en cada obtención."
+    },
+    "collectionActions": {
+      "duplicate": "Duplicar",
+      "copyName": "Copia de {name}",
+      "duplicateFailed": "No se pudo duplicar",
+      "searchPlaceholder": "Buscar colecciones",
+      "clearSearch": "Borrar búsqueda",
+      "noSearchResults": "Ninguna solicitud coincide con “{query}”",
+      "moveTo": "Mover a…",
+      "moveTitle": "Mover “{name}”",
+      "moveDescription": "Elige una colección o carpeta. El elemento va al final.",
+      "moveFailed": "No se pudo mover",
+      "workspace": "Espacio de trabajo",
+      "noWorkspace": "Sin espacio de trabajo",
+      "workspaceFailed": "No se pudo cambiar el espacio de trabajo"
+    },
+    "workspaces": {
+      "title": "Espacios de trabajo",
+      "description": "Agrupa colecciones por equipo, proyecto o entorno. El espacio activo filtra la barra lateral.",
+      "createLabel": "Crear espacio de trabajo",
+      "createPlaceholder": "p. ej. Acme Prod",
+      "add": "Añadir",
+      "all": "Todas las colecciones",
+      "allHint": "sin filtro de espacio",
+      "rename": "Renombrar",
+      "delete": "Eliminar",
+      "confirmDelete": "¿Eliminar “{name}”?",
+      "confirmDeleteHint": "Sus colecciones quedan sin espacio de trabajo.",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "barLabel": "Espacio de trabajo"
     }
   },
   "RichEditor": {

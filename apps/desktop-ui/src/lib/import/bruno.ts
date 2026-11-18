@@ -14,6 +14,7 @@
  */
 
 import { load } from "js-yaml"
+import { normalizeMethod } from "@/lib/api-client/http-method"
 import type {
     Collection,
     CollectionFolder,
@@ -327,11 +328,10 @@ export function parseOpenCollectionRequestYaml(text: string): CollectionRequest 
     const doc = obj(load(text))
     const info = obj(doc.info)
     const d = ocDefaults(doc)
-    const method = str(d.block.method ?? doc.method).toUpperCase() as RequestMethod
     return {
         id: id(),
         name: str(info.name ?? doc.name) || "Request",
-        method: METHODS.includes(method) ? method : "GET",
+        method: normalizeMethod(d.block.method ?? doc.method) ?? "GET",
         url: str(d.block.url ?? doc.url),
         params: ocKv(d.block.params ?? doc.params).filter((_, i) => str(list(d.block.params ?? doc.params)[i].type) !== "path"),
         headers: d.headers,

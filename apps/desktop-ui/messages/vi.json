@@ -1941,7 +1941,12 @@
       "binaryRawView": "Dữ liệu nhị phân không thể hiển thị ở chế độ raw.",
       "errorStatusLabel": "Lỗi",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Lọc phản hồi bằng JSONPath",
+        "invalid": "JSONPath không hợp lệ",
+        "matches": "{count, plural, =0 {Không có kết quả} other {# kết quả}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Tab mới",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Chuyển môi trường: {name}"
+    },
+    "customMethod": {
+      "option": "Tùy chỉnh…",
+      "label": "Phương thức tùy chỉnh",
+      "placeholder": "vd. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Tệp nhị phân",
+      "chooseFile": "Chọn tệp",
+      "noFile": "Chưa chọn tệp",
+      "binaryHint": "Gửi nguyên dạng làm thân yêu cầu. Content-Type mặc định theo loại tệp.",
+      "binaryMissing": "Nội dung tệp không được giữ lại. Hãy chọn lại tệp trước khi gửi."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Mật khẩu (cũ)",
+      "grantRefreshToken": "Chỉ refresh token",
+      "username": "Tên người dùng",
+      "password": "Mật khẩu",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Được đổi lấy access token mới mỗi lần lấy."
+    },
+    "collectionActions": {
+      "duplicate": "Nhân bản",
+      "copyName": "Bản sao của {name}",
+      "duplicateFailed": "Không thể nhân bản",
+      "searchPlaceholder": "Tìm trong bộ sưu tập",
+      "clearSearch": "Xoá tìm kiếm",
+      "noSearchResults": "Không có yêu cầu nào khớp “{query}”",
+      "moveTo": "Chuyển đến…",
+      "moveTitle": "Chuyển “{name}”",
+      "moveDescription": "Chọn một bộ sưu tập hoặc thư mục. Mục sẽ được đặt ở cuối.",
+      "moveFailed": "Không thể chuyển",
+      "workspace": "Không gian làm việc",
+      "noWorkspace": "Không có không gian làm việc",
+      "workspaceFailed": "Không thể đổi không gian làm việc"
+    },
+    "workspaces": {
+      "title": "Không gian làm việc",
+      "description": "Nhóm các bộ sưu tập theo nhóm, dự án hoặc môi trường. Không gian đang dùng sẽ lọc thanh bên.",
+      "createLabel": "Tạo không gian làm việc",
+      "createPlaceholder": "vd. Acme Prod",
+      "add": "Thêm",
+      "all": "Tất cả bộ sưu tập",
+      "allHint": "không lọc theo không gian",
+      "rename": "Đổi tên",
+      "delete": "Xoá",
+      "confirmDelete": "Xoá “{name}”?",
+      "confirmDeleteHint": "Các bộ sưu tập của nó sẽ không thuộc không gian nào.",
+      "cancel": "Huỷ",
+      "save": "Lưu",
+      "barLabel": "Không gian làm việc"
     }
   },
   "RichEditor": {

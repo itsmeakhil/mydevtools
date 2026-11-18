@@ -8,10 +8,12 @@ import {
     Select,
     SelectContent,
     SelectItem,
+    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
 import { RequestMethod } from "./types"
+import { STANDARD_METHODS, normalizeMethod } from "@/lib/api-client/http-method"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
@@ -47,7 +49,9 @@ interface RequestPanelProps {
     tabId?: string
 }
 
-const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
+const METHODS: readonly string[] = STANDARD_METHODS
+/** Select value for the "Custom…" entry — not a valid HTTP token, so it can't collide. */
+const CUSTOM_METHOD = "(custom)"
 
 const getMethodColor = (method: string) => {
     switch (method) {
@@ -76,6 +80,21 @@ function RequestPanelImpl({
 }: RequestPanelProps) {
     const { activeEnvironmentVariables } = useEnvironmentsState()
     const t = useTranslations("ApiClient.requestPanel")
+    const tMethod = useTranslations("ApiClient.customMethod")
+    /** Non-null while the custom-method input replaces the method select. */
+    const [methodDraft, setMethodDraft] = React.useState<string | null>(null)
+    const isCustomMethod = !METHODS.includes(method)
+    // Escape unmounts the input; some engines then fire blur — don't commit on that.
+    const methodDraftCancelled = React.useRef(false)
+    const commitMethodDraft = () => {
+        const next = methodDraftCancelled.current ? null : normalizeMethod(methodDraft)
+        if (next) setMethod(next)
+        setMethodDraft(null)
+    }
+    const editCustomMethod = () => {
+        methodDraftCancelled.current = false
+        setMethodDraft(isCustomMethod ? method : "")
+    }
     const [isMac, setIsMac] = React.useState(false)
     React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
@@ -214,7 +233,28 @@ function RequestPanelImpl({
             <div className="flex flex-wrap gap-2">
                 {/* One field: method selector attached to the URL input. */}
                 <div className="flex flex-1 min-w-[240px] h-9 items-center rounded-lg border border-input bg-card shadow-[inset_0_1px_1px_rgb(0_0_0/0.03)] transition-[border-color,box-shadow] duration-150 hover:border-foreground/20 focus-within:border-primary focus-within:ring-[3px] focus-within:ring-primary/25">
-                <Select value={method} onValueChange={(v) => setMethod(v as RequestMethod)}>
+                {methodDraft !== null ? (
+                    <Input
+                        autoFocus
+                        aria-label={tMethod("label")}
+                        placeholder={tMethod("placeholder")}
+                        value={methodDraft}
+                        onChange={(e) => setMethodDraft(e.target.value)}
+                        onBlur={commitMethodDraft}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") commitMethodDraft()
+                            if (e.key === "Escape") {
+                                methodDraftCancelled.current = true
+                                setMethodDraft(null)
+                            }
+                        }}
+                        className="w-[104px] h-full shrink-0 rounded-none rounded-l-lg border-0 border-r border-border bg-transparent shadow-none font-mono text-[13px] font-semibold uppercase focus-visible:ring-0"
+                    />
+                ) : (
+                <Select
+                    value={method}
+                    onValueChange={(v) => (v === CUSTOM_METHOD ? editCustomMethod() : setMethod(v))}
+                >
                     <SelectTrigger className={cn(
                         "w-[104px] h-full shrink-0 rounded-none rounded-l-lg border-0 border-r border-border bg-transparent shadow-none text-[13px] font-semibold hover:border-border focus-visible:ring-0",
                         getMethodColor(method)
@@ -227,8 +267,16 @@ function RequestPanelImpl({
                                 {m}
                             </SelectItem>
                         ))}
+                        {isCustomMethod && (
+                            <SelectItem value={method} className="font-medium text-muted-foreground">
+                                {method}
+                            </SelectItem>
+                        )}
+                        <SelectSeparator />
+                        <SelectItem value={CUSTOM_METHOD}>{tMethod("option")}</SelectItem>
                     </SelectContent>
                 </Select>
+                )}
 
                 <div className="relative flex-1 min-w-0 h-full">
                     {/* Off-screen text mirror for variable-hover width measurement (B7). */}

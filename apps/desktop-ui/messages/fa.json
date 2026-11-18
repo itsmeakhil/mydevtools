@@ -1941,7 +1941,12 @@
       "binaryRawView": "داده های باینری را نمی توان در نمای خام نمایش داد.",
       "errorStatusLabel": "خطا",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "فیلتر پاسخ با JSONPath",
+        "invalid": "JSONPath نامعتبر",
+        "matches": "{count, plural, =0 {موردی یافت نشد} one {# مورد} other {# مورد}}"
+      }
     },
     "tabBar": {
       "addTabAria": "برگه جدید",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "تغییر محیط: {name}"
+    },
+    "customMethod": {
+      "option": "سفارشی…",
+      "label": "متد سفارشی",
+      "placeholder": "مثلاً PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "فایل دودویی",
+      "chooseFile": "انتخاب فایل",
+      "noFile": "فایلی انتخاب نشده",
+      "binaryHint": "به‌صورت بدنهٔ خام درخواست ارسال می‌شود. Content-Type به‌طور پیش‌فرض نوع فایل است.",
+      "binaryMissing": "محتوای فایل نگه داشته نشد. پیش از ارسال دوباره فایل را انتخاب کنید."
+    },
+    "oauth2Grants": {
+      "grantPassword": "گذرواژه (قدیمی)",
+      "grantRefreshToken": "فقط توکن تازه‌سازی",
+      "username": "نام کاربری",
+      "password": "گذرواژه",
+      "refreshToken": "توکن تازه‌سازی",
+      "refreshTokenHint": "در هر دریافت با توکن دسترسی جدید معاوضه می‌شود."
+    },
+    "collectionActions": {
+      "duplicate": "تکثیر",
+      "copyName": "رونوشت {name}",
+      "duplicateFailed": "تکثیر انجام نشد",
+      "searchPlaceholder": "جستجوی مجموعه‌ها",
+      "clearSearch": "پاک کردن جستجو",
+      "noSearchResults": "هیچ درخواستی با «{query}» مطابقت ندارد",
+      "moveTo": "انتقال به…",
+      "moveTitle": "انتقال «{name}»",
+      "moveDescription": "یک مجموعه یا پوشه انتخاب کنید. مورد به انتها می‌رود.",
+      "moveFailed": "انتقال انجام نشد",
+      "workspace": "فضای کاری",
+      "noWorkspace": "بدون فضای کاری",
+      "workspaceFailed": "تغییر فضای کاری انجام نشد"
+    },
+    "workspaces": {
+      "title": "فضاهای کاری",
+      "description": "مجموعه‌ها را بر اساس تیم، پروژه یا محیط گروه‌بندی کنید. فضای کاری فعال نوار کناری را فیلتر می‌کند.",
+      "createLabel": "ایجاد فضای کاری",
+      "createPlaceholder": "مثلاً Acme Prod",
+      "add": "افزودن",
+      "all": "همهٔ مجموعه‌ها",
+      "allHint": "بدون فیلتر فضای کاری",
+      "rename": "تغییر نام",
+      "delete": "حذف",
+      "confirmDelete": "«{name}» حذف شود؟",
+      "confirmDeleteHint": "مجموعه‌های آن بدون فضای کاری می‌شوند.",
+      "cancel": "لغو",
+      "save": "ذخیره",
+      "barLabel": "فضای کاری"
     }
   },
   "RichEditor": {

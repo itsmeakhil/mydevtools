@@ -1941,7 +1941,12 @@
       "binaryRawView": "Binêre data kan nie in rouaansig vertoon word nie.",
       "errorStatusLabel": "Fout",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtreer antwoord met JSONPath",
+        "invalid": "Ongeldige JSONPath",
+        "matches": "{count, plural, =0 {Geen treffers} one {# treffer} other {# treffers}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nuwe oortjie",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Wissel omgewing: {name}"
+    },
+    "customMethod": {
+      "option": "Pasgemaak…",
+      "label": "Pasgemaakte metode",
+      "placeholder": "bv. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binêre lêer",
+      "chooseFile": "Kies lêer",
+      "noFile": "Geen lêer gekies nie",
+      "binaryHint": "Word as die rou versoekliggaam gestuur. Content-Type is by verstek die lêer se tipe.",
+      "binaryMissing": "Die lêer se inhoud is nie behou nie. Kies die lêer weer voor jy stuur."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Wagwoord (oud)",
+      "grantRefreshToken": "Slegs herlaaitoken",
+      "username": "Gebruikersnaam",
+      "password": "Wagwoord",
+      "refreshToken": "Herlaaitoken",
+      "refreshTokenHint": "Word by elke haal vir 'n nuwe toegangstoken omgeruil."
+    },
+    "collectionActions": {
+      "duplicate": "Dupliseer",
+      "copyName": "{name}-kopie",
+      "duplicateFailed": "Kon nie dupliseer nie",
+      "searchPlaceholder": "Soek versamelings",
+      "clearSearch": "Vee soektog uit",
+      "noSearchResults": "Geen versoeke pas by “{query}” nie",
+      "moveTo": "Skuif na…",
+      "moveTitle": "Skuif “{name}”",
+      "moveDescription": "Kies ’n versameling of vouer. Die item gaan na die einde.",
+      "moveFailed": "Kon nie skuif nie",
+      "workspace": "Werkruimte",
+      "noWorkspace": "Geen werkruimte",
+      "workspaceFailed": "Kon nie die werkruimte verander nie"
+    },
+    "workspaces": {
+      "title": "Werkruimtes",
+      "description": "Groepeer versamelings per span, projek of omgewing. Die aktiewe werkruimte filtreer die kantbalk.",
+      "createLabel": "Skep werkruimte",
+      "createPlaceholder": "bv. Acme Prod",
+      "add": "Voeg by",
+      "all": "Alle versamelings",
+      "allHint": "geen werkruimtefilter",
+      "rename": "Hernoem",
+      "delete": "Skrap",
+      "confirmDelete": "Skrap “{name}”?",
+      "confirmDeleteHint": "Sy versamelings kry weer geen werkruimte nie.",
+      "cancel": "Kanselleer",
+      "save": "Stoor",
+      "barLabel": "Werkruimte"
     }
   },
   "RichEditor": {

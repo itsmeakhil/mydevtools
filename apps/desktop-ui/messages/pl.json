@@ -1941,7 +1941,12 @@
       "binaryRawView": "Binary data cannot be displayed in raw view.",
       "errorStatusLabel": "Error",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtruj odpowiedź za pomocą JSONPath",
+        "invalid": "Nieprawidłowa ścieżka JSONPath",
+        "matches": "{count, plural, =0 {Brak wyników} one {# wynik} few {# wyniki} many {# wyników} other {# wyniku}}"
+      }
     },
     "tabBar": {
       "addTabAria": "New tab",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Przełącz środowisko: {name}"
+    },
+    "customMethod": {
+      "option": "Niestandardowa…",
+      "label": "Metoda niestandardowa",
+      "placeholder": "np. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Plik binarny",
+      "chooseFile": "Wybierz plik",
+      "noFile": "Nie wybrano pliku",
+      "binaryHint": "Wysyłany jako surowa treść żądania. Content-Type domyślnie odpowiada typowi pliku.",
+      "binaryMissing": "Zawartość pliku nie została zachowana. Wybierz plik ponownie przed wysłaniem."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Hasło (przestarzałe)",
+      "grantRefreshToken": "Tylko token odświeżania",
+      "username": "Nazwa użytkownika",
+      "password": "Hasło",
+      "refreshToken": "Token odświeżania",
+      "refreshTokenHint": "Przy każdym pobraniu wymieniany na nowy token dostępu."
+    },
+    "collectionActions": {
+      "duplicate": "Duplikuj",
+      "copyName": "{name} – kopia",
+      "duplicateFailed": "Nie udało się zduplikować",
+      "searchPlaceholder": "Szukaj w kolekcjach",
+      "clearSearch": "Wyczyść wyszukiwanie",
+      "noSearchResults": "Brak żądań pasujących do „{query}”",
+      "moveTo": "Przenieś do…",
+      "moveTitle": "Przenieś „{name}”",
+      "moveDescription": "Wybierz kolekcję lub folder. Element trafi na koniec.",
+      "moveFailed": "Nie udało się przenieść",
+      "workspace": "Obszar roboczy",
+      "noWorkspace": "Bez obszaru roboczego",
+      "workspaceFailed": "Nie udało się zmienić obszaru roboczego"
+    },
+    "workspaces": {
+      "title": "Obszary robocze",
+      "description": "Grupuj kolekcje według zespołu, projektu lub środowiska. Aktywny obszar filtruje pasek boczny.",
+      "createLabel": "Utwórz obszar roboczy",
+      "createPlaceholder": "np. Acme Prod",
+      "add": "Dodaj",
+      "all": "Wszystkie kolekcje",
+      "allHint": "bez filtra obszaru",
+      "rename": "Zmień nazwę",
+      "delete": "Usuń",
+      "confirmDelete": "Usunąć „{name}”?",
+      "confirmDeleteHint": "Jego kolekcje wracają bez obszaru roboczego.",
+      "cancel": "Anuluj",
+      "save": "Zapisz",
+      "barLabel": "Obszar roboczy"
     }
   },
   "RichEditor": {

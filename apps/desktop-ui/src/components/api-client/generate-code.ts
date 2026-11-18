@@ -85,10 +85,13 @@ export function generateCode(request: ApiRequestState, language: CodeLanguage): 
             bodyCtx.type = "json"
             bodyCtx.content = JSON.stringify(variables !== undefined ? { query: body.content, variables } : { query: body.content })
             if (!hasContentType) headerObj["Content-Type"] = "application/json"
+        } else if (body.type === "binary") {
+            // ponytail: no file-upload snippet yet; emits the Content-Type only.
+            if (!hasContentType) headerObj["Content-Type"] = body.binaryFile?.fileType || "application/octet-stream"
         } else {
             bodyCtx.type = "text"
             bodyCtx.content = body.content
-            if (!hasContentType) headerObj["Content-Type"] = "text/plain"
+            if (!hasContentType) headerObj["Content-Type"] = body.type === "xml" ? "application/xml" : "text/plain"
         }
     }
 

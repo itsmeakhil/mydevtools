@@ -10,6 +10,7 @@ import { RequestSettingsPanel, hasCustomSettings } from "./request-settings-pane
 import { fetchGraphQLSchema } from "@/lib/graphql-introspect"
 import {
     fetchClientCredentialsToken,
+    fetchPasswordToken,
     refreshAccessToken,
     startAuthorizationCodeFlow,
     type OAuth2Config,
@@ -73,6 +74,24 @@ interface RequestTabsProps {
     setSettings?: (patch: RequestSettings) => void
 }
 
+/**
+ * File → base64 without the data-URL prefix. readAsDataURL streams chunked
+ * base64 instead of building a multi-MB Latin-1 string; the old synchronous
+ * `btoa(String.fromCharCode(...bytes))` blew the call stack on files > ~1MB.
+ */
+function readFileBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => {
+            const result = String(reader.result ?? "")
+            const comma = result.indexOf(",")
+            resolve(comma >= 0 ? result.slice(comma + 1) : "")
+        }
+        reader.onerror = () => reject(reader.error ?? new Error("FileReader failed"))
+        reader.readAsDataURL(file)
+    })
+}
+
 function RequestTabsImpl({
     params,
     setParams,
@@ -98,6 +117,8 @@ function RequestTabsImpl({
     setSettings,
 }: RequestTabsProps) {
     const t = useTranslations("ApiClient.requestTabs")
+    const tGrant = useTranslations("ApiClient.oauth2Grants")
+    const tBody = useTranslations("ApiClient.requestBody")
     const activeParamsCount = params.filter(p => p.active && (p.key || p.value)).length
     const activeHeadersCount = headers.filter(h => h.active && (h.key || h.value)).length
     const jsonValidation = useJsonBodyValidation(body)
@@ -305,8 +326,10 @@ function RequestTabsImpl({
         if (auth.type !== "oauth2" || !auth.oauth2) return
         setTokenLoading(true)
         try {
-            const fresh = auth.oauth2.grantType === "authorization_code"
-                ? await startAuthorizationCodeFlow(auth.oauth2)
+            const grant = auth.oauth2.grantType
+            const fresh = grant === "authorization_code" ? await startAuthorizationCodeFlow(auth.oauth2)
+                : grant === "password" ? await fetchPasswordToken(auth.oauth2)
+                : grant === "refresh_token" ? await refreshAccessToken(auth.oauth2)
                 : await fetchClientCredentialsToken(auth.oauth2)
             setAuth({ ...auth, oauth2: fresh })
             toast.success("Access token retrieved")
@@ -332,25 +355,20 @@ function RequestTabsImpl({
 
     const handleFileSelect = async (id: string, file: File | null) => {
         if (!file) return
-        // FileReader.readAsDataURL streams chunked base64 in the browser without
-        // building a multi-MB intermediate Latin-1 string. The previous synchronous
-        // `btoa(String.fromCharCode(...bytes))` blew the call stack on files > ~1MB.
-        const base64 = await new Promise<string>((resolve, reject) => {
-            const reader = new FileReader()
-            reader.onload = () => {
-                const result = String(reader.result ?? "")
-                const comma = result.indexOf(",")
-                resolve(comma >= 0 ? result.slice(comma + 1) : "")
-            }
-            reader.onerror = () => reject(reader.error ?? new Error("FileReader failed"))
-            reader.readAsDataURL(file)
-        })
+        const base64 = await readFileBase64(file)
         updateFormDataItem(id, {
             fileName: file.name,
             fileType: file.type || "application/octet-stream",
             fileContentBase64: base64,
             value: file.name,
         })
+    }
+
+    const binaryInputRef = React.useRef<HTMLInputElement | null>(null)
+    const handleBinarySelect = async (file: File | null) => {
+        if (!file) return
+        const base64 = await readFileBase64(file)
+        updateBody({ binaryFile: { fileName: file.name, fileType: file.type || "application/octet-stream", fileContentBase64: base64 } })
     }
 
     return (
@@ -441,13 +459,44 @@ function RequestTabsImpl({
                                 <SelectItem value="none">{t("bodyNone")}</SelectItem>
                                 <SelectItem value="json">{t("bodyJson")}</SelectItem>
                                 <SelectItem value="text">{t("bodyText")}</SelectItem>
+                                <SelectItem value="xml">{tBody("xml")}</SelectItem>
                                 <SelectItem value="form-data">Form Data (multipart/form-data)</SelectItem>
                                 <SelectItem value="x-www-form-urlencoded">x-www-form-urlencoded</SelectItem>
                                 <SelectItem value="graphql">GraphQL</SelectItem>
+                                <SelectItem value="binary">{tBody("binary")}</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
-                    {normalizedBody.type === "json" || normalizedBody.type === "text" ? (
+                    {normalizedBody.type === "binary" ? (
+                        <div className="space-y-2 max-w-xl">
+                            <div className="flex items-center gap-2">
+                                <Input
+                                    readOnly
+                                    aria-label={tBody("binary")}
+                                    value={normalizedBody.binaryFile?.fileName ?? ""}
+                                    placeholder={tBody("noFile")}
+                                    className="truncate"
+                                />
+                                <input
+                                    ref={binaryInputRef}
+                                    type="file"
+                                    className="hidden"
+                                    onChange={(e) => {
+                                        void handleBinarySelect(e.target.files?.[0] ?? null)
+                                        e.target.value = ""
+                                    }}
+                                />
+                                <Button type="button" variant="outline" size="sm" onClick={() => binaryInputRef.current?.click()}>
+                                    {tBody("chooseFile")}
+                                </Button>
+                            </div>
+                            {normalizedBody.binaryFile && !normalizedBody.binaryFile.fileContentBase64 ? (
+                                <p className="text-xs text-warning">{tBody("binaryMissing")}</p>
+                            ) : (
+                                <p className="text-xs text-muted-foreground">{tBody("binaryHint")}</p>
+                            )}
+                        </div>
+                    ) : normalizedBody.type === "json" || normalizedBody.type === "text" || normalizedBody.type === "xml" ? (
                         <div className="flex-1 flex flex-col gap-2 min-h-0">
                             {normalizedBody.type === "json" && jsonValidation.error && (
                                 <div className="text-xs text-destructive bg-destructive/10 rounded-md px-3 py-1.5 font-mono shrink-0">
@@ -458,7 +507,7 @@ function RequestTabsImpl({
                                 <MemoCodeEditor
                                     value={normalizedBody.content}
                                     onChange={handleBodyContentChange}
-                                    language={normalizedBody.type === "json" ? "json" : "plaintext"}
+                                    language={normalizedBody.type === "text" ? "plaintext" : normalizedBody.type}
                                 />
                             </div>
                         </div>
@@ -790,8 +839,8 @@ function RequestTabsImpl({
                                         <SelectContent>
                                             <SelectItem value="client_credentials">Client Credentials</SelectItem>
                                             <SelectItem value="authorization_code">Authorization Code (PKCE)</SelectItem>
-                                            <SelectItem value="password" disabled>Password (deprecated)</SelectItem>
-                                            <SelectItem value="refresh_token" disabled>Refresh only</SelectItem>
+                                            <SelectItem value="password">{tGrant("grantPassword")}</SelectItem>
+                                            <SelectItem value="refresh_token">{tGrant("grantRefreshToken")}</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -828,6 +877,46 @@ function RequestTabsImpl({
                                             />
                                         </div>
                                     </>
+                                )}
+                                {auth.oauth2?.grantType === "password" && (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="oauth2-username">{tGrant("username")}</Label>
+                                            <Input
+                                                id="oauth2-username"
+                                                autoComplete="off"
+                                                value={auth.oauth2?.username ?? ""}
+                                                onChange={(e) => updateOAuthConfig({ username: e.target.value })}
+                                                className="font-mono text-[13px]"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="oauth2-password">{tGrant("password")}</Label>
+                                            <Input
+                                                id="oauth2-password"
+                                                type="password"
+                                                autoComplete="off"
+                                                value={auth.oauth2?.password ?? ""}
+                                                onChange={(e) => updateOAuthConfig({ password: e.target.value })}
+                                                className="font-mono text-[13px]"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                                {auth.oauth2?.grantType === "refresh_token" && (
+                                    <div className="space-y-2">
+                                        <Label htmlFor="oauth2-refresh-token">{tGrant("refreshToken")}</Label>
+                                        <Input
+                                            id="oauth2-refresh-token"
+                                            type="password"
+                                            autoComplete="off"
+                                            aria-describedby="oauth2-refresh-token-hint"
+                                            value={auth.oauth2?.refreshToken ?? ""}
+                                            onChange={(e) => updateOAuthConfig({ refreshToken: e.target.value })}
+                                            className="font-mono text-[13px]"
+                                        />
+                                        <p id="oauth2-refresh-token-hint" className="text-xs text-muted-foreground">{tGrant("refreshTokenHint")}</p>
+                                    </div>
                                 )}
                                 <div className="space-y-2">
                                     <Label>Access Token URL</Label>
@@ -883,7 +972,9 @@ function RequestTabsImpl({
                                         disabled={
                                             tokenLoading ||
                                             !auth.oauth2?.tokenUrl ||
-                                            !auth.oauth2?.clientId ||
+                                            (auth.oauth2?.grantType !== "refresh_token" && !auth.oauth2?.clientId) ||
+                                            (auth.oauth2?.grantType === "password" && !auth.oauth2.username) ||
+                                            (auth.oauth2?.grantType === "refresh_token" && !auth.oauth2.refreshToken) ||
                                             (auth.oauth2?.grantType === "authorization_code" &&
                                                 (!auth.oauth2.authUrl || !auth.oauth2.redirectUri))
                                         }

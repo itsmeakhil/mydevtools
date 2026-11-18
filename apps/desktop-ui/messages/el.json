@@ -1941,7 +1941,12 @@
       "binaryRawView": "Τα δυαδικά δεδομένα δεν μπορούν να εμφανιστούν σε μη επεξεργασμένη προβολή.",
       "errorStatusLabel": "Σφάλμα",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Φιλτράρισμα απόκρισης με JSONPath",
+        "invalid": "Μη έγκυρο JSONPath",
+        "matches": "{count, plural, =0 {Κανένα αποτέλεσμα} one {# αποτέλεσμα} other {# αποτελέσματα}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Νέα καρτέλα",
@@ -2071,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Αλλαγή περιβάλλοντος: {name}"
+    },
+    "customMethod": {
+      "option": "Προσαρμοσμένη…",
+      "label": "Προσαρμοσμένη μέθοδος",
+      "placeholder": "π.χ. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Δυαδικό αρχείο",
+      "chooseFile": "Επιλογή αρχείου",
+      "noFile": "Δεν επιλέχθηκε αρχείο",
+      "binaryHint": "Αποστέλλεται ως ακατέργαστο σώμα αιτήματος. Το Content-Type είναι εξ ορισμού ο τύπος του αρχείου.",
+      "binaryMissing": "Το περιεχόμενο του αρχείου δεν διατηρήθηκε. Επιλέξτε ξανά το αρχείο πριν την αποστολή."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Κωδικός (παλαιό)",
+      "grantRefreshToken": "Μόνο διακριτικό ανανέωσης",
+      "username": "Όνομα χρήστη",
+      "password": "Κωδικός",
+      "refreshToken": "Διακριτικό ανανέωσης",
+      "refreshTokenHint": "Ανταλλάσσεται με νέο διακριτικό πρόσβασης σε κάθε λήψη."
+    },
+    "collectionActions": {
+      "duplicate": "Διπλότυπο",
+      "copyName": "Αντίγραφο του {name}",
+      "duplicateFailed": "Η δημιουργία διπλότυπου απέτυχε",
+      "searchPlaceholder": "Αναζήτηση συλλογών",
+      "clearSearch": "Εκκαθάριση αναζήτησης",
+      "noSearchResults": "Κανένα αίτημα δεν ταιριάζει με «{query}»",
+      "moveTo": "Μετακίνηση σε…",
+      "moveTitle": "Μετακίνηση «{name}»",
+      "moveDescription": "Επιλέξτε συλλογή ή φάκελο. Το στοιχείο μπαίνει στο τέλος.",
+      "moveFailed": "Η μετακίνηση απέτυχε",
+      "workspace": "Χώρος εργασίας",
+      "noWorkspace": "Χωρίς χώρο εργασίας",
+      "workspaceFailed": "Η αλλαγή χώρου εργασίας απέτυχε"
+    },
+    "workspaces": {
+      "title": "Χώροι εργασίας",
+      "description": "Ομαδοποιήστε συλλογές ανά ομάδα, έργο ή περιβάλλον. Ο ενεργός χώρος φιλτράρει την πλαϊνή στήλη.",
+      "createLabel": "Δημιουργία χώρου εργασίας",
+      "createPlaceholder": "π.χ. Acme Prod",
+      "add": "Προσθήκη",
+      "all": "Όλες οι συλλογές",
+      "allHint": "χωρίς φίλτρο χώρου",
+      "rename": "Μετονομασία",
+      "delete": "Διαγραφή",
+      "confirmDelete": "Διαγραφή «{name}»;",
+      "confirmDeleteHint": "Οι συλλογές του μένουν χωρίς χώρο εργασίας.",
+      "cancel": "Ακύρωση",
+      "save": "Αποθήκευση",
+      "barLabel": "Χώρος εργασίας"
     }
   },
   "RichEditor": {

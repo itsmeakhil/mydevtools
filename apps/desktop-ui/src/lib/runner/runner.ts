@@ -250,6 +250,11 @@ async function executeRequest(args: {
                     : { key: substitute(it.key), type: "text" as const, value: substitute(it.value) })
             bodyPayload = { mode: "form-data", entries }
             delete headersObj["Content-Type"]
+        } else if (req.body.type === "binary") {
+            bodyPayload = { mode: "base64", data: req.body.binaryFile?.fileContentBase64 ?? "" }
+            if (!Object.keys(headersObj).some((k) => k.toLowerCase() === "content-type")) {
+                headersObj["Content-Type"] = req.body.binaryFile?.fileType || "application/octet-stream"
+            }
         } else if (req.body.type === "graphql") {
             const query = substitute(req.body.content)
             let variables: unknown = undefined
@@ -266,7 +271,9 @@ async function executeRequest(args: {
         } else {
             bodyContent = substitute(req.body.content)
             bodyPayload = bodyContent
-            if (!headersObj["Content-Type"]) headersObj["Content-Type"] = "text/plain"
+            if (!Object.keys(headersObj).some((k) => k.toLowerCase() === "content-type")) {
+                headersObj["Content-Type"] = req.body.type === "xml" ? "application/xml" : "text/plain"
+            }
         }
     }
 

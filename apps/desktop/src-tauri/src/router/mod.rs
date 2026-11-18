@@ -363,6 +363,24 @@ mod tests {
     }
 
     #[test]
+    fn api_client_apply_delta_collection_id_means_root() {
+        // The UI addresses the collection root by the collection's own id.
+        let state = AppState::in_memory();
+        let r = route(&state, "POST", "/api/v1/api-client/collections", Some(r#"{"name":"C"}"#)).unwrap();
+        let id = body_json(&r)["id"].as_str().unwrap().to_string();
+        let ops = format!(r#"{{"ops":[
+            {{"type":"add","parent_id":"{id}","item":{{"id":"fold1","name":"F","items":[]}}}},
+            {{"type":"add","parent_id":"{id}","item":{{"id":"req1","name":"R","method":"GET"}},"position":0}},
+            {{"type":"move","item_id":"req1","new_parent_id":"fold1","new_index":0}},
+            {{"type":"move","item_id":"req1","new_parent_id":"{id}","new_index":1}}
+        ]}}"#);
+        let r = route(&state, "POST", &format!("/api/v1/api-client/collections/{id}/items:apply-delta"), Some(&ops)).unwrap();
+        let items = &body_json(&r)["collection"]["items"];
+        assert_eq!(items[0]["id"], "fold1", "{items}");
+        assert_eq!(items[1]["id"], "req1", "{items}");
+    }
+
+    #[test]
     fn history_limit_and_clear() {
         let state = AppState::in_memory();
         for i in 0..3 {
