@@ -2128,6 +2128,28 @@
       "cancel": "Cancel",
       "save": "Save",
       "barLabel": "Workspace"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Collection settings",
+      "folderMenu": "Folder settings",
+      "collectionTitle": "Collection settings: {name}",
+      "folderTitle": "Folder settings: {name}",
+      "collectionDescription": "Applied live to every request in this collection when it is sent or run. Folder and request values win.",
+      "folderDescription": "Applied live to every request in this folder when it is sent or run. Request values win.",
+      "tabVariables": "Variables",
+      "tabHeaders": "Headers",
+      "tabAuth": "Auth",
+      "tabPreRequest": "Pre-request",
+      "tabTests": "Tests",
+      "variablesHint": "Collection variables override globals; the active environment overrides them.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saved": "Collection settings saved",
+      "saveFailed": "Failed to save collection settings",
+      "inherit": {
+        "option": "Inherit from parent",
+        "hint": "Uses the auth of the nearest folder or the collection."
+      }
     }
   },
   "RichEditor": {

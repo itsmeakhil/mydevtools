@@ -2128,6 +2128,28 @@
       "cancel": "Cancelar",
       "save": "Guardar",
       "barLabel": "Espacio de trabajo"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Configuración de la colección",
+      "folderMenu": "Configuración de la carpeta",
+      "collectionTitle": "Configuración de la colección: {name}",
+      "folderTitle": "Configuración de la carpeta: {name}",
+      "collectionDescription": "Se aplica en vivo a cada solicitud de esta colección al enviarla o ejecutarla. Los valores de la carpeta y de la solicitud tienen prioridad.",
+      "folderDescription": "Se aplica en vivo a cada solicitud de esta carpeta al enviarla o ejecutarla. Los valores de la solicitud tienen prioridad.",
+      "tabVariables": "Variables",
+      "tabHeaders": "Encabezados",
+      "tabAuth": "Autenticación",
+      "tabPreRequest": "Antes de la solicitud",
+      "tabTests": "Pruebas",
+      "variablesHint": "Las variables de la colección reemplazan a las globales; el entorno activo las reemplaza a ellas.",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saved": "Configuración de la colección guardada",
+      "saveFailed": "No se pudo guardar la configuración de la colección",
+      "inherit": {
+        "option": "Heredar del padre",
+        "hint": "Usa la autenticación de la carpeta más cercana o de la colección."
+      }
     }
   },
   "RichEditor": {

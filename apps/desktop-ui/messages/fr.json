@@ -2128,6 +2128,28 @@
       "cancel": "Annuler",
       "save": "Enregistrer",
       "barLabel": "Espace de travail"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Paramètres de la collection",
+      "folderMenu": "Paramètres du dossier",
+      "collectionTitle": "Paramètres de la collection : {name}",
+      "folderTitle": "Paramètres du dossier : {name}",
+      "collectionDescription": "Appliqués en direct à chaque requête de cette collection lors de l'envoi ou de l'exécution. Les valeurs du dossier et de la requête l'emportent.",
+      "folderDescription": "Appliqués en direct à chaque requête de ce dossier lors de l'envoi ou de l'exécution. Les valeurs de la requête l'emportent.",
+      "tabVariables": "Variables",
+      "tabHeaders": "En-têtes",
+      "tabAuth": "Authentification",
+      "tabPreRequest": "Avant la requête",
+      "tabTests": "Tests",
+      "variablesHint": "Les variables de collection remplacent les globales ; l'environnement actif les remplace.",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saved": "Paramètres de la collection enregistrés",
+      "saveFailed": "Échec de l'enregistrement des paramètres de la collection",
+      "inherit": {
+        "option": "Hériter du parent",
+        "hint": "Utilise l'authentification du dossier le plus proche ou de la collection."
+      }
     }
   },
   "RichEditor": {

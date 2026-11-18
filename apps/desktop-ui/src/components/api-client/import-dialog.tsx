@@ -68,14 +68,11 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                 setText("")
                 return
             }
-            let postmanVariables: Array<{ key: string; value: string }> = []
             // Insomnia and Bruno carry their own environments alongside the tree.
             let importedEnvironments: Array<{ name: string; variables: EnvironmentVariable[] }> = []
             let collection
             if (detected === "postman") {
-                const result = importPostmanCollectionWithMeta(text)
-                collection = result.collection
-                postmanVariables = result.variables
+                collection = importPostmanCollectionWithMeta(text).collection
             } else if (detected === "insomnia") {
                 const result = importInsomniaWithMeta(text)
                 collection = result.collection
@@ -97,21 +94,6 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
             }
             const created = await importCollection(collection)
             if (created) {
-                // Postman collection-level variables → an api-client environment,
-                // so {{baseUrl}}-style references resolve right after import.
-                if (postmanVariables.length) {
-                    const envId = await addEnvironment(collection.name)
-                    if (envId) {
-                        await updateEnvironment(envId, {
-                            variables: postmanVariables.map((v) => ({
-                                id: crypto.randomUUID(),
-                                key: v.key,
-                                value: v.value,
-                                enabled: true,
-                            })),
-                        })
-                    }
-                }
                 for (const env of importedEnvironments) {
                     const envId = await addEnvironment(env.name)
                     if (envId) await updateEnvironment(envId, { variables: env.variables })

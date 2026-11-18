@@ -2128,6 +2128,28 @@
       "cancel": "Anuluj",
       "save": "Zapisz",
       "barLabel": "Obszar roboczy"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Ustawienia kolekcji",
+      "folderMenu": "Ustawienia folderu",
+      "collectionTitle": "Ustawienia kolekcji: {name}",
+      "folderTitle": "Ustawienia folderu: {name}",
+      "collectionDescription": "Stosowane na bieżąco do każdego żądania w tej kolekcji przy wysyłaniu lub uruchamianiu. Wartości folderu i żądania mają pierwszeństwo.",
+      "folderDescription": "Stosowane na bieżąco do każdego żądania w tym folderze przy wysyłaniu lub uruchamianiu. Wartości żądania mają pierwszeństwo.",
+      "tabVariables": "Zmienne",
+      "tabHeaders": "Nagłówki",
+      "tabAuth": "Uwierzytelnianie",
+      "tabPreRequest": "Przed żądaniem",
+      "tabTests": "Testy",
+      "variablesHint": "Zmienne kolekcji zastępują globalne; aktywne środowisko zastępuje je.",
+      "cancel": "Anuluj",
+      "save": "Zapisz",
+      "saved": "Zapisano ustawienia kolekcji",
+      "saveFailed": "Nie udało się zapisać ustawień kolekcji",
+      "inherit": {
+        "option": "Dziedzicz z nadrzędnego",
+        "hint": "Używa uwierzytelniania najbliższego folderu lub kolekcji."
+      }
     }
   },
   "RichEditor": {

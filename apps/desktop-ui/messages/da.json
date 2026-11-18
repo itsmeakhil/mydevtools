@@ -2128,6 +2128,28 @@
       "cancel": "Annuller",
       "save": "Gem",
       "barLabel": "Arbejdsområde"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Samlingsindstillinger",
+      "folderMenu": "Mappeindstillinger",
+      "collectionTitle": "Samlingsindstillinger: {name}",
+      "folderTitle": "Mappeindstillinger: {name}",
+      "collectionDescription": "Anvendes direkte på hver anmodning i denne samling, når den sendes eller køres. Mappe- og anmodningsværdier vinder.",
+      "folderDescription": "Anvendes direkte på hver anmodning i denne mappe, når den sendes eller køres. Anmodningsværdier vinder.",
+      "tabVariables": "Variabler",
+      "tabHeaders": "Headere",
+      "tabAuth": "Godkendelse",
+      "tabPreRequest": "Før anmodning",
+      "tabTests": "Tests",
+      "variablesHint": "Samlingsvariabler tilsidesætter globale; det aktive miljø tilsidesætter dem.",
+      "cancel": "Annuller",
+      "save": "Gem",
+      "saved": "Samlingsindstillinger gemt",
+      "saveFailed": "Kunne ikke gemme samlingsindstillinger",
+      "inherit": {
+        "option": "Arv fra overordnet",
+        "hint": "Bruger godkendelsen fra den nærmeste mappe eller samlingen."
+      }
     }
   },
   "RichEditor": {

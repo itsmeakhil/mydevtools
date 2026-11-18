@@ -2128,6 +2128,28 @@
       "cancel": "Avbryt",
       "save": "Spara",
       "barLabel": "Arbetsyta"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Samlingsinställningar",
+      "folderMenu": "Mappinställningar",
+      "collectionTitle": "Samlingsinställningar: {name}",
+      "folderTitle": "Mappinställningar: {name}",
+      "collectionDescription": "Tillämpas direkt på varje förfrågan i samlingen när den skickas eller körs. Mapp- och förfrågningsvärden vinner.",
+      "folderDescription": "Tillämpas direkt på varje förfrågan i mappen när den skickas eller körs. Förfrågningsvärden vinner.",
+      "tabVariables": "Variabler",
+      "tabHeaders": "Rubriker",
+      "tabAuth": "Autentisering",
+      "tabPreRequest": "Före förfrågan",
+      "tabTests": "Tester",
+      "variablesHint": "Samlingsvariabler åsidosätter globala; den aktiva miljön åsidosätter dem.",
+      "cancel": "Avbryt",
+      "save": "Spara",
+      "saved": "Samlingsinställningar sparade",
+      "saveFailed": "Det gick inte att spara samlingsinställningar",
+      "inherit": {
+        "option": "Ärv från överordnad",
+        "hint": "Använder autentiseringen från närmaste mapp eller samlingen."
+      }
     }
   },
   "RichEditor": {

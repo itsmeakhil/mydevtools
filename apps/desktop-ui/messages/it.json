@@ -2128,6 +2128,28 @@
       "cancel": "Annulla",
       "save": "Salva",
       "barLabel": "Area di lavoro"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Impostazioni della raccolta",
+      "folderMenu": "Impostazioni della cartella",
+      "collectionTitle": "Impostazioni della raccolta: {name}",
+      "folderTitle": "Impostazioni della cartella: {name}",
+      "collectionDescription": "Applicate in tempo reale a ogni richiesta di questa raccolta quando viene inviata o eseguita. Prevalgono i valori di cartella e richiesta.",
+      "folderDescription": "Applicate in tempo reale a ogni richiesta di questa cartella quando viene inviata o eseguita. Prevalgono i valori della richiesta.",
+      "tabVariables": "Variabili",
+      "tabHeaders": "Intestazioni",
+      "tabAuth": "Autenticazione",
+      "tabPreRequest": "Pre-richiesta",
+      "tabTests": "Test",
+      "variablesHint": "Le variabili della raccolta sostituiscono quelle globali; l'ambiente attivo sostituisce le variabili della raccolta.",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "saved": "Impostazioni della raccolta salvate",
+      "saveFailed": "Impossibile salvare le impostazioni della raccolta",
+      "inherit": {
+        "option": "Eredita dal genitore",
+        "hint": "Usa l'autenticazione della cartella più vicina o della raccolta."
+      }
     }
   },
   "RichEditor": {

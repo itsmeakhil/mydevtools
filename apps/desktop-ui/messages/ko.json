@@ -2128,6 +2128,28 @@
       "cancel": "취소",
       "save": "저장",
       "barLabel": "워크스페이스"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "컬렉션 설정",
+      "folderMenu": "폴더 설정",
+      "collectionTitle": "컬렉션 설정: {name}",
+      "folderTitle": "폴더 설정: {name}",
+      "collectionDescription": "보내거나 실행할 때 이 컬렉션의 모든 요청에 실시간으로 적용됩니다. 폴더와 요청 값이 우선합니다.",
+      "folderDescription": "보내거나 실행할 때 이 폴더의 모든 요청에 실시간으로 적용됩니다. 요청 값이 우선합니다.",
+      "tabVariables": "변수",
+      "tabHeaders": "헤더",
+      "tabAuth": "인증",
+      "tabPreRequest": "요청 전",
+      "tabTests": "테스트",
+      "variablesHint": "컬렉션 변수는 전역 변수보다 우선하고, 활성 환경은 컬렉션 변수보다 우선합니다.",
+      "cancel": "취소",
+      "save": "저장",
+      "saved": "컬렉션 설정을 저장했습니다",
+      "saveFailed": "컬렉션 설정을 저장하지 못했습니다",
+      "inherit": {
+        "option": "상위 항목에서 상속",
+        "hint": "가장 가까운 폴더나 컬렉션의 인증을 사용합니다."
+      }
     }
   },
   "RichEditor": {

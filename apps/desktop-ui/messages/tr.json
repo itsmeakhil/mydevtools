@@ -2128,6 +2128,28 @@
       "cancel": "İptal",
       "save": "Kaydet",
       "barLabel": "Çalışma alanı"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Koleksiyon ayarları",
+      "folderMenu": "Klasör ayarları",
+      "collectionTitle": "Koleksiyon ayarları: {name}",
+      "folderTitle": "Klasör ayarları: {name}",
+      "collectionDescription": "Gönderilirken veya çalıştırılırken bu koleksiyondaki her isteğe canlı uygulanır. Klasör ve istek değerleri önceliklidir.",
+      "folderDescription": "Gönderilirken veya çalıştırılırken bu klasördeki her isteğe canlı uygulanır. İstek değerleri önceliklidir.",
+      "tabVariables": "Değişkenler",
+      "tabHeaders": "Başlıklar",
+      "tabAuth": "Kimlik doğrulama",
+      "tabPreRequest": "İstek öncesi",
+      "tabTests": "Testler",
+      "variablesHint": "Koleksiyon değişkenleri genel değişkenleri geçersiz kılar; etkin ortam da onları geçersiz kılar.",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "saved": "Koleksiyon ayarları kaydedildi",
+      "saveFailed": "Koleksiyon ayarları kaydedilemedi",
+      "inherit": {
+        "option": "Üst öğeden devral",
+        "hint": "En yakın klasörün veya koleksiyonun kimlik doğrulamasını kullanır."
+      }
     }
   },
   "RichEditor": {

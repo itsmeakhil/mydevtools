@@ -2128,6 +2128,28 @@
       "cancel": "Kanselleer",
       "save": "Stoor",
       "barLabel": "Werkruimte"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Versamelinginstellings",
+      "folderMenu": "Vouerinstellings",
+      "collectionTitle": "Versamelinginstellings: {name}",
+      "folderTitle": "Vouerinstellings: {name}",
+      "collectionDescription": "Word regstreeks op elke versoek in hierdie versameling toegepas wanneer dit gestuur of uitgevoer word. Vouer- en versoekwaardes wen.",
+      "folderDescription": "Word regstreeks op elke versoek in hierdie vouer toegepas wanneer dit gestuur of uitgevoer word. Versoekwaardes wen.",
+      "tabVariables": "Veranderlikes",
+      "tabHeaders": "Opskrifte",
+      "tabAuth": "Magtiging",
+      "tabPreRequest": "Voor-versoek",
+      "tabTests": "Toetse",
+      "variablesHint": "Versamelingveranderlikes oorheers globale waardes; die aktiewe omgewing oorheers hulle.",
+      "cancel": "Kanselleer",
+      "save": "Stoor",
+      "saved": "Versamelinginstellings gestoor",
+      "saveFailed": "Kon nie versamelinginstellings stoor nie",
+      "inherit": {
+        "option": "Erf van ouer",
+        "hint": "Gebruik die magtiging van die naaste vouer of die versameling."
+      }
     }
   },
   "RichEditor": {

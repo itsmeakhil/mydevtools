@@ -2128,6 +2128,28 @@
       "cancel": "Cancel·la",
       "save": "Desa",
       "barLabel": "Espai de treball"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Configuració de la col·lecció",
+      "folderMenu": "Configuració de la carpeta",
+      "collectionTitle": "Configuració de la col·lecció: {name}",
+      "folderTitle": "Configuració de la carpeta: {name}",
+      "collectionDescription": "S'aplica en directe a cada sol·licitud d'aquesta col·lecció quan s'envia o s'executa. Els valors de la carpeta i de la sol·licitud tenen prioritat.",
+      "folderDescription": "S'aplica en directe a cada sol·licitud d'aquesta carpeta quan s'envia o s'executa. Els valors de la sol·licitud tenen prioritat.",
+      "tabVariables": "Variables",
+      "tabHeaders": "Capçaleres",
+      "tabAuth": "Autenticació",
+      "tabPreRequest": "Abans de la sol·licitud",
+      "tabTests": "Proves",
+      "variablesHint": "Les variables de la col·lecció substitueixen les globals; l'entorn actiu les substitueix.",
+      "cancel": "Cancel·la",
+      "save": "Desa",
+      "saved": "S'ha desat la configuració de la col·lecció",
+      "saveFailed": "No s'ha pogut desar la configuració de la col·lecció",
+      "inherit": {
+        "option": "Hereta del pare",
+        "hint": "Fa servir l'autenticació de la carpeta més propera o de la col·lecció."
+      }
     }
   },
   "RichEditor": {

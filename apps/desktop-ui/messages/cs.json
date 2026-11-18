@@ -2128,6 +2128,28 @@
       "cancel": "Zrušit",
       "save": "Uložit",
       "barLabel": "Pracovní prostor"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Nastavení kolekce",
+      "folderMenu": "Nastavení složky",
+      "collectionTitle": "Nastavení kolekce: {name}",
+      "folderTitle": "Nastavení složky: {name}",
+      "collectionDescription": "Uplatní se živě na každý požadavek v této kolekci při odeslání nebo spuštění. Hodnoty složky a požadavku mají přednost.",
+      "folderDescription": "Uplatní se živě na každý požadavek v této složce při odeslání nebo spuštění. Hodnoty požadavku mají přednost.",
+      "tabVariables": "Proměnné",
+      "tabHeaders": "Hlavičky",
+      "tabAuth": "Ověření",
+      "tabPreRequest": "Před požadavkem",
+      "tabTests": "Testy",
+      "variablesHint": "Proměnné kolekce přepisují globální; aktivní prostředí přepisuje je.",
+      "cancel": "Zrušit",
+      "save": "Uložit",
+      "saved": "Nastavení kolekce uloženo",
+      "saveFailed": "Nastavení kolekce se nepodařilo uložit",
+      "inherit": {
+        "option": "Zdědit od nadřazeného",
+        "hint": "Použije ověření nejbližší složky nebo kolekce."
+      }
     }
   },
   "RichEditor": {

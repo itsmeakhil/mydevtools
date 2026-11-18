@@ -2128,6 +2128,28 @@
       "cancel": "Annuleren",
       "save": "Opslaan",
       "barLabel": "Werkruimte"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Collectie-instellingen",
+      "folderMenu": "Mapinstellingen",
+      "collectionTitle": "Collectie-instellingen: {name}",
+      "folderTitle": "Mapinstellingen: {name}",
+      "collectionDescription": "Wordt live toegepast op elke aanvraag in deze collectie bij verzenden of uitvoeren. Map- en aanvraagwaarden gaan voor.",
+      "folderDescription": "Wordt live toegepast op elke aanvraag in deze map bij verzenden of uitvoeren. Aanvraagwaarden gaan voor.",
+      "tabVariables": "Variabelen",
+      "tabHeaders": "Headers",
+      "tabAuth": "Authenticatie",
+      "tabPreRequest": "Vóór aanvraag",
+      "tabTests": "Tests",
+      "variablesHint": "Collectievariabelen overschrijven globale; de actieve omgeving overschrijft ze.",
+      "cancel": "Annuleren",
+      "save": "Opslaan",
+      "saved": "Collectie-instellingen opgeslagen",
+      "saveFailed": "Collectie-instellingen opslaan mislukt",
+      "inherit": {
+        "option": "Overnemen van bovenliggende",
+        "hint": "Gebruikt de authenticatie van de dichtstbijzijnde map of de collectie."
+      }
     }
   },
   "RichEditor": {

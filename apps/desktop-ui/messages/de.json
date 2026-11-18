@@ -2128,6 +2128,28 @@
       "cancel": "Abbrechen",
       "save": "Speichern",
       "barLabel": "Arbeitsbereich"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Sammlungseinstellungen",
+      "folderMenu": "Ordnereinstellungen",
+      "collectionTitle": "Sammlungseinstellungen: {name}",
+      "folderTitle": "Ordnereinstellungen: {name}",
+      "collectionDescription": "Gilt live für jede Anfrage dieser Sammlung beim Senden oder Ausführen. Ordner- und Anfragewerte haben Vorrang.",
+      "folderDescription": "Gilt live für jede Anfrage dieses Ordners beim Senden oder Ausführen. Anfragewerte haben Vorrang.",
+      "tabVariables": "Variablen",
+      "tabHeaders": "Header",
+      "tabAuth": "Authentifizierung",
+      "tabPreRequest": "Vor der Anfrage",
+      "tabTests": "Tests",
+      "variablesHint": "Sammlungsvariablen überschreiben globale; die aktive Umgebung überschreibt sie.",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saved": "Sammlungseinstellungen gespeichert",
+      "saveFailed": "Sammlungseinstellungen konnten nicht gespeichert werden",
+      "inherit": {
+        "option": "Vom übergeordneten Element erben",
+        "hint": "Verwendet die Authentifizierung des nächsten Ordners oder der Sammlung."
+      }
     }
   },
   "RichEditor": {

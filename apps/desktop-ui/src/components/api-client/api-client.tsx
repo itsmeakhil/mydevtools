@@ -54,11 +54,10 @@ import { signHawk } from "@/lib/auth/hawk"
 import { signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
-import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
-import { resolveResponsePath } from "@/lib/response-path"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
-import { withFolderDefaults, findRequestAncestors } from "@/lib/folder-inheritance"
+import { withFolderDefaults, findRequestAncestors, findRequestContext } from "@/lib/folder-inheritance"
+import { staticVariables, substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
 import { requestFromTab, requestFingerprint, savePatch } from "@/lib/api-client/saved-request"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
@@ -252,6 +251,16 @@ function ApiClientInner() {
         () => ({ timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl }),
         [timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl],
     )
+    // Values the editor can show for {{vars}} — globals < collection < environment.
+    const activeSourceId = activeTab.source?.requestId
+    const activeCollection = React.useMemo(
+        () => (activeSourceId ? findRequestContext(collections, activeSourceId)?.collection : undefined),
+        [collections, activeSourceId],
+    )
+    const editorVariables = React.useMemo(
+        () => staticVariables({ collection: variablesToRecord(activeCollection?.variables), environment: activeEnvironmentVariables }),
+        [activeCollection, activeEnvironmentVariables],
+    )
     const openSaveExample = React.useCallback(() => setSaveExampleOpen(true), [])
 
     // Scroll position memory for mobile panel toggle
@@ -442,20 +451,18 @@ function ApiClientInner() {
         // never cached in component state.
         let secretVars: Record<string, string> = {}
 
-        const substituteAll = (text: string): string => {
-            if (!text) return text
-            return text.replace(/\{\{(.+?)\}\}/g, (m, k) => {
-                const key = (k as string).trim()
-                if (key.startsWith("response.")) {
-                    const resolved = resolveResponsePath(key.slice("response.".length), previousResponse)
-                    return resolved ?? m
-                }
-                if (scriptEnvUnsets.has(key)) return m
-                if (key in scriptEnvOverlay) return scriptEnvOverlay[key]
-                if (key in sessionVarsRef.current) return sessionVarsRef.current[key]
-                return activeEnvironmentVariables[key] ?? secretVars[key] ?? resolveDynamicVar(key) ?? m
-            })
-        }
+        // Collection variables of the collection this tab was opened from (live).
+        const sendCollection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+        const collectionVars = variablesToRecord(sendCollection?.variables)
+        const substituteAll = (text: string): string => substituteVariables(text, {
+            collection: collectionVars,
+            environment: activeEnvironmentVariables,
+            session: sessionVarsRef.current,
+            overlay: scriptEnvOverlay,
+            unsets: scriptEnvUnsets,
+            secrets: secretVars,
+            previousResponse,
+        })
 
         try {
             // Working request state. Pre-request script may rewrite url/method/headers/body.
@@ -1224,6 +1231,7 @@ function ApiClientInner() {
                 onCopyCurl={handleCopyCurl}
                 urlHistory={urlHistory}
                 tabId={activeTab.id}
+                variables={editorVariables}
             />
             <div className="flex-1 min-h-0">
                 <RequestTabs
@@ -1536,6 +1544,7 @@ function ApiClientInner() {
                                             onCopyCurl={handleCopyCurl}
                                             urlHistory={urlHistory}
                                             tabId={activeTab.id}
+                                            variables={editorVariables}
                                         />
                                         <RequestTabs
                                             params={activeTab.params}

@@ -2128,6 +2128,28 @@
       "cancel": "キャンセル",
       "save": "保存",
       "barLabel": "ワークスペース"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "コレクション設定",
+      "folderMenu": "フォルダー設定",
+      "collectionTitle": "コレクション設定: {name}",
+      "folderTitle": "フォルダー設定: {name}",
+      "collectionDescription": "送信・実行時に、このコレクション内のすべてのリクエストへ即時に適用されます。フォルダーとリクエストの値が優先されます。",
+      "folderDescription": "送信・実行時に、このフォルダー内のすべてのリクエストへ即時に適用されます。リクエストの値が優先されます。",
+      "tabVariables": "変数",
+      "tabHeaders": "ヘッダー",
+      "tabAuth": "認証",
+      "tabPreRequest": "プレリクエスト",
+      "tabTests": "テスト",
+      "variablesHint": "コレクション変数はグローバルより優先され、アクティブな環境はコレクション変数より優先されます。",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "saved": "コレクション設定を保存しました",
+      "saveFailed": "コレクション設定を保存できませんでした",
+      "inherit": {
+        "option": "親から継承",
+        "hint": "最も近いフォルダーまたはコレクションの認証を使用します。"
+      }
     }
   },
   "RichEditor": {

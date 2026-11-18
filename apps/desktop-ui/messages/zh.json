@@ -2128,6 +2128,28 @@
       "cancel": "取消",
       "save": "保存",
       "barLabel": "工作区"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "集合设置",
+      "folderMenu": "文件夹设置",
+      "collectionTitle": "集合设置：{name}",
+      "folderTitle": "文件夹设置：{name}",
+      "collectionDescription": "发送或运行时实时应用到此集合中的每个请求。文件夹和请求的值优先。",
+      "folderDescription": "发送或运行时实时应用到此文件夹中的每个请求。请求的值优先。",
+      "tabVariables": "变量",
+      "tabHeaders": "请求头",
+      "tabAuth": "认证",
+      "tabPreRequest": "请求前",
+      "tabTests": "测试",
+      "variablesHint": "集合变量覆盖全局变量；当前环境覆盖集合变量。",
+      "cancel": "取消",
+      "save": "保存",
+      "saved": "已保存集合设置",
+      "saveFailed": "保存集合设置失败",
+      "inherit": {
+        "option": "继承父级",
+        "hint": "使用最近的文件夹或集合的认证。"
+      }
     }
   },
   "RichEditor": {

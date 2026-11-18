@@ -2128,6 +2128,28 @@
       "cancel": "Cancelar",
       "save": "Guardar",
       "barLabel": "Espaço de trabalho"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Definições da coleção",
+      "folderMenu": "Definições da pasta",
+      "collectionTitle": "Definições da coleção: {name}",
+      "folderTitle": "Definições da pasta: {name}",
+      "collectionDescription": "Aplicadas em direto a cada pedido desta coleção ao enviar ou executar. Os valores da pasta e do pedido têm prioridade.",
+      "folderDescription": "Aplicadas em direto a cada pedido desta pasta ao enviar ou executar. Os valores do pedido têm prioridade.",
+      "tabVariables": "Variáveis",
+      "tabHeaders": "Cabeçalhos",
+      "tabAuth": "Autenticação",
+      "tabPreRequest": "Pré-pedido",
+      "tabTests": "Testes",
+      "variablesHint": "As variáveis da coleção substituem as globais; o ambiente ativo substitui-as.",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saved": "Definições da coleção guardadas",
+      "saveFailed": "Falha ao guardar as definições da coleção",
+      "inherit": {
+        "option": "Herdar do pai",
+        "hint": "Usa a autenticação da pasta mais próxima ou da coleção."
+      }
     }
   },
   "RichEditor": {

@@ -2128,6 +2128,28 @@
       "cancel": "Huỷ",
       "save": "Lưu",
       "barLabel": "Không gian làm việc"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Cài đặt bộ sưu tập",
+      "folderMenu": "Cài đặt thư mục",
+      "collectionTitle": "Cài đặt bộ sưu tập: {name}",
+      "folderTitle": "Cài đặt thư mục: {name}",
+      "collectionDescription": "Áp dụng trực tiếp cho mọi yêu cầu trong bộ sưu tập này khi gửi hoặc chạy. Giá trị của thư mục và yêu cầu được ưu tiên.",
+      "folderDescription": "Áp dụng trực tiếp cho mọi yêu cầu trong thư mục này khi gửi hoặc chạy. Giá trị của yêu cầu được ưu tiên.",
+      "tabVariables": "Biến",
+      "tabHeaders": "Header",
+      "tabAuth": "Xác thực",
+      "tabPreRequest": "Trước yêu cầu",
+      "tabTests": "Kiểm thử",
+      "variablesHint": "Biến bộ sưu tập ghi đè biến toàn cục; môi trường đang dùng ghi đè biến bộ sưu tập.",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "saved": "Đã lưu cài đặt bộ sưu tập",
+      "saveFailed": "Không lưu được cài đặt bộ sưu tập",
+      "inherit": {
+        "option": "Kế thừa từ cấp cha",
+        "hint": "Dùng xác thực của thư mục gần nhất hoặc bộ sưu tập."
+      }
     }
   },
   "RichEditor": {

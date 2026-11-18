@@ -23,6 +23,7 @@ type CollectionsActions = {
     toggleFolder: (folderId: string) => Promise<void>
     createCollection: (name: string) => Promise<Collection | void>
     renameCollection: (collectionId: string, name: string) => Promise<void>
+    patchCollection: (collectionId: string, patch: Partial<Collection>, messages?: { ok: string; fail: string }) => Promise<void>
     renameFolder: (folderId: string, name: string) => Promise<void>
     patchFolder: (folderId: string, patch: Partial<import("../types").CollectionFolder>) => Promise<void>
     deleteMultipleCollections: (ids: string[]) => Promise<void>
@@ -52,6 +53,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         toggleFolder,
         createCollection,
         renameCollection,
+        patchCollection,
         renameFolder,
         patchFolder,
         updateRequest,
@@ -99,6 +101,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             toggleFolder,
             createCollection,
             renameCollection,
+            patchCollection,
             renameFolder,
             patchFolder,
             updateRequest,
@@ -111,7 +114,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             setCollectionWorkspace,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, updateRequest, deleteMultipleCollections, importCollection, openFolderCollection, duplicateItem, duplicateCollection, moveItem, setCollectionWorkspace, addEnvironment, updateEnvironment]
+        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, patchCollection, renameFolder, patchFolder, updateRequest, deleteMultipleCollections, importCollection, openFolderCollection, duplicateItem, duplicateCollection, moveItem, setCollectionWorkspace, addEnvironment, updateEnvironment]
     )
 
     return (

@@ -2128,6 +2128,28 @@
       "cancel": "Batal",
       "save": "Simpan",
       "barLabel": "Ruang kerja"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Tetapan koleksi",
+      "folderMenu": "Tetapan folder",
+      "collectionTitle": "Tetapan koleksi: {name}",
+      "folderTitle": "Tetapan folder: {name}",
+      "collectionDescription": "Digunakan secara langsung pada setiap permintaan dalam koleksi ini apabila dihantar atau dijalankan. Nilai folder dan permintaan diutamakan.",
+      "folderDescription": "Digunakan secara langsung pada setiap permintaan dalam folder ini apabila dihantar atau dijalankan. Nilai permintaan diutamakan.",
+      "tabVariables": "Pemboleh ubah",
+      "tabHeaders": "Pengepala",
+      "tabAuth": "Pengesahan",
+      "tabPreRequest": "Pra-permintaan",
+      "tabTests": "Ujian",
+      "variablesHint": "Pemboleh ubah koleksi mengatasi global; persekitaran aktif mengatasinya.",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saved": "Tetapan koleksi disimpan",
+      "saveFailed": "Gagal menyimpan tetapan koleksi",
+      "inherit": {
+        "option": "Warisi daripada induk",
+        "hint": "Menggunakan pengesahan folder terdekat atau koleksi."
+      }
     }
   },
   "RichEditor": {

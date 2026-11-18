@@ -2128,6 +2128,28 @@
       "cancel": "Avbryt",
       "save": "Lagre",
       "barLabel": "Arbeidsområde"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Samlingsinnstillinger",
+      "folderMenu": "Mappeinnstillinger",
+      "collectionTitle": "Samlingsinnstillinger: {name}",
+      "folderTitle": "Mappeinnstillinger: {name}",
+      "collectionDescription": "Brukes direkte på hver forespørsel i denne samlingen når den sendes eller kjøres. Mappe- og forespørselsverdier vinner.",
+      "folderDescription": "Brukes direkte på hver forespørsel i denne mappen når den sendes eller kjøres. Forespørselsverdier vinner.",
+      "tabVariables": "Variabler",
+      "tabHeaders": "Overskrifter",
+      "tabAuth": "Autentisering",
+      "tabPreRequest": "Før forespørsel",
+      "tabTests": "Tester",
+      "variablesHint": "Samlingsvariabler overstyrer globale; det aktive miljøet overstyrer dem.",
+      "cancel": "Avbryt",
+      "save": "Lagre",
+      "saved": "Samlingsinnstillinger lagret",
+      "saveFailed": "Kunne ikke lagre samlingsinnstillinger",
+      "inherit": {
+        "option": "Arv fra overordnet",
+        "hint": "Bruker autentiseringen fra nærmeste mappe eller samlingen."
+      }
     }
   },
   "RichEditor": {

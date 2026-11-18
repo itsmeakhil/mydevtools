@@ -2128,6 +2128,28 @@
       "cancel": "Batal",
       "save": "Simpan",
       "barLabel": "Ruang kerja"
+    },
+    "collectionDefaults": {
+      "collectionMenu": "Pengaturan koleksi",
+      "folderMenu": "Pengaturan folder",
+      "collectionTitle": "Pengaturan koleksi: {name}",
+      "folderTitle": "Pengaturan folder: {name}",
+      "collectionDescription": "Diterapkan langsung ke setiap permintaan di koleksi ini saat dikirim atau dijalankan. Nilai folder dan permintaan diutamakan.",
+      "folderDescription": "Diterapkan langsung ke setiap permintaan di folder ini saat dikirim atau dijalankan. Nilai permintaan diutamakan.",
+      "tabVariables": "Variabel",
+      "tabHeaders": "Header",
+      "tabAuth": "Autentikasi",
+      "tabPreRequest": "Pra-permintaan",
+      "tabTests": "Pengujian",
+      "variablesHint": "Variabel koleksi menimpa variabel global; lingkungan aktif menimpa variabel koleksi.",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "saved": "Pengaturan koleksi disimpan",
+      "saveFailed": "Gagal menyimpan pengaturan koleksi",
+      "inherit": {
+        "option": "Warisi dari induk",
+        "hint": "Memakai autentikasi folder terdekat atau koleksi."
+      }
     }
   },
   "RichEditor": {

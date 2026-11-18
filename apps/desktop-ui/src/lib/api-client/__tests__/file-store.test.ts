@@ -67,6 +67,37 @@ describe("file-store", () => {
         expect(canonicalTree(parsed)).toEqual(canonicalTree(col))
     })
 
+    test("collection-level defaults and variables round-trip through the manifest", () => {
+        const col: Collection = {
+            ...collection(),
+            defaultHeaders: [kv("X-App", "1")],
+            defaultAuth: { type: "bearer", token: "{{vault.apiToken}}" },
+            preRequestScript: "// col pre",
+            testScript: "// col test",
+            variables: [kv("baseUrl", "https://api.example.com")],
+        }
+        const files = serializeCollection(col)
+        const manifest = files.find((f) => f.relPath === MANIFEST_FILE)!.content
+        expect(manifest).toContain("baseUrl")
+        const { collection: parsed } = parseCollection(files)
+        expect(canonicalTree(parsed)).toEqual(canonicalTree(col))
+    })
+
+    test("a manifest without collection fields loads as before", () => {
+        const { collection: parsed } = parseCollection(serializeCollection(collection()))
+        expect(parsed).not.toHaveProperty("variables")
+        expect(parsed).not.toHaveProperty("defaultAuth")
+        const manifest = serializeCollection(collection()).find((f) => f.relPath === MANIFEST_FILE)!.content
+        expect(manifest).not.toMatch(/variables|defaultAuth|defaultHeaders/)
+    })
+
+    test("literal collection auth is redacted from the manifest and counted", () => {
+        const col: Collection = { ...collection(), defaultAuth: { type: "bearer", token: "LITERAL-TOKEN" } }
+        const all = serializeCollection(col).map((f) => f.content).join("\n")
+        expect(all).not.toContain("LITERAL-TOKEN")
+        expect(countLiteralAuthSecrets(col)).toBe(1)
+    })
+
     test("request settings round-trip; defaults stay out of the YAML", () => {
         const custom = request({ timeoutMs: 5000, followRedirects: false, maxRedirects: 2, verifySsl: false, useCookieJar: false })
         const col: Collection = { id: "c", name: "c", items: [custom, request({ id: "r2", name: "Plain" })] }
