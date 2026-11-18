@@ -1921,7 +1921,12 @@
       "binaryRawView": "Binární data nelze zobrazit v surovém zobrazení.",
       "errorStatusLabel": "Chyba",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtrovat odpověď pomocí JSONPath",
+        "invalid": "Neplatná cesta JSONPath",
+        "matches": "{count, plural, =0 {Žádné shody} one {# shoda} few {# shody} many {# shody} other {# shod}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nová karta",

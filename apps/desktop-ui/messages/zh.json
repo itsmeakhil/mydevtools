@@ -1921,7 +1921,12 @@
       "binaryRawView": "二进制数据无法在原始视图中显示。",
       "errorStatusLabel": "错误",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "用 JSONPath 筛选响应",
+        "invalid": "无效的 JSONPath",
+        "matches": "{count, plural, =0 {无匹配} other {# 个匹配}}"
+      }
     },
     "tabBar": {
       "addTabAria": "新标签",

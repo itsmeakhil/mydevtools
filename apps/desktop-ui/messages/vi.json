@@ -1921,7 +1921,12 @@
       "binaryRawView": "Dữ liệu nhị phân không thể hiển thị ở chế độ raw.",
       "errorStatusLabel": "Lỗi",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Lọc phản hồi bằng JSONPath",
+        "invalid": "JSONPath không hợp lệ",
+        "matches": "{count, plural, =0 {Không có kết quả} other {# kết quả}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Tab mới",

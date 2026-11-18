@@ -1921,7 +1921,12 @@
       "binaryRawView": "لا يمكن عرض البيانات الثنائية في العرض الخام.",
       "errorStatusLabel": "خطأ",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "تصفية الاستجابة باستخدام JSONPath",
+        "invalid": "JSONPath غير صالح",
+        "matches": "{count, plural, =0 {لا توجد نتائج} zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجة} other {# نتيجة}}"
+      }
     },
     "tabBar": {
       "addTabAria": "تبويب جديد",

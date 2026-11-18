@@ -1921,7 +1921,12 @@
       "binaryRawView": "داده های باینری را نمی توان در نمای خام نمایش داد.",
       "errorStatusLabel": "خطا",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "فیلتر پاسخ با JSONPath",
+        "invalid": "JSONPath نامعتبر",
+        "matches": "{count, plural, =0 {موردی یافت نشد} one {# مورد} other {# مورد}}"
+      }
     },
     "tabBar": {
       "addTabAria": "برگه جدید",

@@ -1921,7 +1921,12 @@
       "binaryRawView": "Двійкові дані не можна відобразити у вигляді тексту.",
       "errorStatusLabel": "Помилка",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Фільтрувати відповідь за JSONPath",
+        "invalid": "Недійсний JSONPath",
+        "matches": "{count, plural, =0 {Немає збігів} one {# збіг} few {# збіги} many {# збігів} other {# збігу}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Нова вкладка",
