@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Rede e certificados",
-      "description": "Certificados de cliente e ficheiros CA para os pedidos do cliente de API. As coleções podem adicionar os seus nas definições da coleção.",
+      "description": "Proxy, certificados de cliente e ficheiros CA para os pedidos do cliente de API. As coleções podem adicionar os seus próprios certificados nas definições da coleção.",
       "cancel": "Cancelar",
       "save": "Guardar",
       "saved": "Definições de rede guardadas",
@@ -2254,7 +2254,20 @@
       "caHint": "Ficheiros PEM adicionais de confiança juntamente com os certificados do sistema.",
       "caFile": "Ficheiro CA {n}",
       "addCa": "Adicionar ficheiro CA",
-      "filePlaceholder": "/caminho/para/ficheiro"
+      "filePlaceholder": "/caminho/para/ficheiro",
+      "tabProxy": "Proxy",
+      "tabCertificates": "Certificados",
+      "proxyMode": "Proxy",
+      "modeSystem": "Definições do sistema",
+      "modeManual": "Manual",
+      "modeOff": "Sem proxy",
+      "proxyLocalHint": "Os pedidos para localhost e endereços de rede privados nunca usam proxy.",
+      "proxyUrl": "URL do proxy",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 ou socks5://127.0.0.1:1080",
+      "proxyUsername": "Nome de utilizador",
+      "proxyPassword": "Palavra-passe",
+      "proxyBypass": "Não usar o proxy para",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

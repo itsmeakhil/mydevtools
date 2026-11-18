@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Xarxa i certificats",
-      "description": "Certificats de client i fitxers CA per a les peticions del client d'API. Les col·leccions poden afegir-ne els seus a la configuració de la col·lecció.",
+      "description": "Servidor intermediari, certificats de client i fitxers CA per a les peticions del client d'API. Les col·leccions poden afegir els seus certificats a la configuració de la col·lecció.",
       "cancel": "Cancel·la",
       "save": "Desa",
       "saved": "S'ha desat la configuració de xarxa",
@@ -2254,7 +2254,20 @@
       "caHint": "Fitxers PEM addicionals de confiança a més dels certificats del sistema.",
       "caFile": "Fitxer CA {n}",
       "addCa": "Afegeix un fitxer CA",
-      "filePlaceholder": "/camí/al/fitxer"
+      "filePlaceholder": "/camí/al/fitxer",
+      "tabProxy": "Servidor intermediari",
+      "tabCertificates": "Certificats",
+      "proxyMode": "Servidor intermediari",
+      "modeSystem": "Configuració del sistema",
+      "modeManual": "Manual",
+      "modeOff": "Sense servidor intermediari",
+      "proxyLocalHint": "Les peticions a localhost i a adreces de xarxa privades mai no fan servir un servidor intermediari.",
+      "proxyUrl": "URL del servidor intermediari",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 o socks5://127.0.0.1:1080",
+      "proxyUsername": "Nom d'usuari",
+      "proxyPassword": "Contrasenya",
+      "proxyBypass": "No fer servir el servidor intermediari per a",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

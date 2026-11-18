@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "网络与证书",
-      "description": "API 客户端请求使用的客户端证书和 CA 文件。集合可以在集合设置中添加自己的证书。",
+      "description": "API 客户端请求使用的代理、客户端证书和 CA 文件。集合可以在集合设置中添加自己的证书。",
       "cancel": "取消",
       "save": "保存",
       "saved": "网络设置已保存",
@@ -2254,7 +2254,20 @@
       "caHint": "除系统证书外额外信任的 PEM 文件。",
       "caFile": "CA 文件 {n}",
       "addCa": "添加 CA 文件",
-      "filePlaceholder": "/path/to/file"
+      "filePlaceholder": "/path/to/file",
+      "tabProxy": "代理",
+      "tabCertificates": "证书",
+      "proxyMode": "代理",
+      "modeSystem": "系统设置",
+      "modeManual": "手动",
+      "modeOff": "不使用代理",
+      "proxyLocalHint": "发往 localhost 和私有网络地址的请求从不使用代理。",
+      "proxyUrl": "代理 URL",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 或 socks5://127.0.0.1:1080",
+      "proxyUsername": "用户名",
+      "proxyPassword": "密码",
+      "proxyBypass": "以下主机不使用代理",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

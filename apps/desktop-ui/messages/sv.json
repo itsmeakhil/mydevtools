@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Nätverk och certifikat",
-      "description": "Klientcertifikat och CA-filer för API-klientens förfrågningar. Samlingar kan lägga till egna i samlingsinställningarna.",
+      "description": "Proxy, klientcertifikat och CA-filer för API-klientens förfrågningar. Samlingar kan lägga till egna certifikat i samlingsinställningarna.",
       "cancel": "Avbryt",
       "save": "Spara",
       "saved": "Nätverksinställningar sparade",
@@ -2254,7 +2254,20 @@
       "caHint": "Extra PEM-filer som är betrodda utöver systemets certifikat.",
       "caFile": "CA-fil {n}",
       "addCa": "Lägg till CA-fil",
-      "filePlaceholder": "/sökväg/till/fil"
+      "filePlaceholder": "/sökväg/till/fil",
+      "tabProxy": "Proxy",
+      "tabCertificates": "Certifikat",
+      "proxyMode": "Proxy",
+      "modeSystem": "Systeminställningar",
+      "modeManual": "Manuell",
+      "modeOff": "Ingen proxy",
+      "proxyLocalHint": "Förfrågningar till localhost och privata nätverksadresser använder aldrig en proxy.",
+      "proxyUrl": "Proxy-URL",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 eller socks5://127.0.0.1:1080",
+      "proxyUsername": "Användarnamn",
+      "proxyPassword": "Lösenord",
+      "proxyBypass": "Hoppa över proxyn för",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

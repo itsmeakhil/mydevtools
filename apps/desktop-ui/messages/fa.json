@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "شبکه و گواهی‌ها",
-      "description": "گواهی‌های کلاینت و فایل‌های CA برای درخواست‌های API client. مجموعه‌ها می‌توانند گواهی‌های خود را در تنظیمات مجموعه اضافه کنند.",
+      "description": "پراکسی، گواهی‌های کلاینت و فایل‌های CA برای درخواست‌های API client. مجموعه‌ها می‌توانند گواهی‌های خود را در تنظیمات مجموعه اضافه کنند.",
       "cancel": "لغو",
       "save": "ذخیره",
       "saved": "تنظیمات شبکه ذخیره شد",
@@ -2254,7 +2254,20 @@
       "caHint": "فایل‌های PEM اضافی که در کنار گواهی‌های سیستم معتبر شمرده می‌شوند.",
       "caFile": "فایل CA شمارهٔ {n}",
       "addCa": "افزودن فایل CA",
-      "filePlaceholder": "/path/to/file"
+      "filePlaceholder": "/path/to/file",
+      "tabProxy": "پراکسی",
+      "tabCertificates": "گواهی‌ها",
+      "proxyMode": "پراکسی",
+      "modeSystem": "تنظیمات سیستم",
+      "modeManual": "دستی",
+      "modeOff": "بدون پراکسی",
+      "proxyLocalHint": "درخواست‌ها به localhost و نشانی‌های شبکهٔ خصوصی هرگز از پراکسی استفاده نمی‌کنند.",
+      "proxyUrl": "نشانی پراکسی",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 یا socks5://127.0.0.1:1080",
+      "proxyUsername": "نام کاربری",
+      "proxyPassword": "گذرواژه",
+      "proxyBypass": "عبور از پراکسی برای",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

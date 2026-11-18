@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Mạng và chứng chỉ",
-      "description": "Chứng chỉ máy khách và tệp CA cho các yêu cầu của API client. Bộ sưu tập có thể thêm chứng chỉ riêng trong cài đặt bộ sưu tập.",
+      "description": "Proxy, chứng chỉ máy khách và tệp CA cho các yêu cầu của API client. Bộ sưu tập có thể thêm chứng chỉ riêng trong cài đặt bộ sưu tập.",
       "cancel": "Hủy",
       "save": "Lưu",
       "saved": "Đã lưu cài đặt mạng",
@@ -2254,7 +2254,20 @@
       "caHint": "Các tệp PEM bổ sung được tin cậy cùng với chứng chỉ hệ thống.",
       "caFile": "Tệp CA {n}",
       "addCa": "Thêm tệp CA",
-      "filePlaceholder": "/đường/dẫn/tới/tệp"
+      "filePlaceholder": "/đường/dẫn/tới/tệp",
+      "tabProxy": "Proxy",
+      "tabCertificates": "Chứng chỉ",
+      "proxyMode": "Proxy",
+      "modeSystem": "Cài đặt hệ thống",
+      "modeManual": "Thủ công",
+      "modeOff": "Không dùng proxy",
+      "proxyLocalHint": "Yêu cầu tới localhost và địa chỉ mạng riêng không bao giờ dùng proxy.",
+      "proxyUrl": "URL proxy",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 hoặc socks5://127.0.0.1:1080",
+      "proxyUsername": "Tên người dùng",
+      "proxyPassword": "Mật khẩu",
+      "proxyBypass": "Bỏ qua proxy cho",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

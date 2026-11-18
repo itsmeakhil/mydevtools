@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Netværk og certifikater",
-      "description": "Klientcertifikater og CA-filer til API-klientens forespørgsler. Samlinger kan tilføje deres egne under samlingsindstillinger.",
+      "description": "Proxy, klientcertifikater og CA-filer til API-klientens forespørgsler. Samlinger kan tilføje deres egne certifikater under samlingsindstillinger.",
       "cancel": "Annuller",
       "save": "Gem",
       "saved": "Netværksindstillinger gemt",
@@ -2254,7 +2254,20 @@
       "caHint": "Ekstra PEM-filer, der stoles på ud over systemets certifikater.",
       "caFile": "CA-fil {n}",
       "addCa": "Tilføj CA-fil",
-      "filePlaceholder": "/sti/til/fil"
+      "filePlaceholder": "/sti/til/fil",
+      "tabProxy": "Proxy",
+      "tabCertificates": "Certifikater",
+      "proxyMode": "Proxy",
+      "modeSystem": "Systemindstillinger",
+      "modeManual": "Manuel",
+      "modeOff": "Ingen proxy",
+      "proxyLocalHint": "Forespørgsler til localhost og private netværksadresser bruger aldrig en proxy.",
+      "proxyUrl": "Proxy-URL",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 eller socks5://127.0.0.1:1080",
+      "proxyUsername": "Brugernavn",
+      "proxyPassword": "Adgangskode",
+      "proxyBypass": "Spring proxyen over for",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

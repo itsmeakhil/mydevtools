@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Rangkaian & sijil",
-      "description": "Sijil klien dan fail CA untuk permintaan klien API. Koleksi boleh menambah sijil sendiri dalam tetapan koleksi.",
+      "description": "Proksi, sijil klien dan fail CA untuk permintaan klien API. Koleksi boleh menambah sijil sendiri dalam tetapan koleksi.",
       "cancel": "Batal",
       "save": "Simpan",
       "saved": "Tetapan rangkaian disimpan",
@@ -2254,7 +2254,20 @@
       "caHint": "Fail PEM tambahan yang dipercayai bersama sijil sistem.",
       "caFile": "Fail CA {n}",
       "addCa": "Tambah fail CA",
-      "filePlaceholder": "/laluan/ke/fail"
+      "filePlaceholder": "/laluan/ke/fail",
+      "tabProxy": "Proksi",
+      "tabCertificates": "Sijil",
+      "proxyMode": "Proksi",
+      "modeSystem": "Tetapan sistem",
+      "modeManual": "Manual",
+      "modeOff": "Tiada proksi",
+      "proxyLocalHint": "Permintaan ke localhost dan alamat rangkaian peribadi tidak pernah menggunakan proksi.",
+      "proxyUrl": "URL proksi",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 atau socks5://127.0.0.1:1080",
+      "proxyUsername": "Nama pengguna",
+      "proxyPassword": "Kata laluan",
+      "proxyBypass": "Langkau proksi untuk",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

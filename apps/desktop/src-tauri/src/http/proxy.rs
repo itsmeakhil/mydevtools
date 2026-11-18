@@ -502,6 +502,84 @@ mod tests {
         assert!(!is_textual_content_type(""));
     }
 
+    /// Local stand-in for an HTTP proxy: records the request head, answers 200.
+    async fn fake_http_proxy() -> (String, tokio::sync::mpsc::Receiver<String>) {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let (tx, rx) = tokio::sync::mpsc::channel(4);
+        tokio::spawn(async move {
+            while let Ok((mut sock, _)) = listener.accept().await {
+                let mut buf = vec![0u8; 4096];
+                let n = sock.read(&mut buf).await.unwrap_or(0);
+                let _ = tx.send(String::from_utf8_lossy(&buf[..n]).to_string()).await;
+                let _ = sock.write_all(b"HTTP/1.1 200 OK\r\ncontent-length: 7\r\ncontent-type: text/plain\r\n\r\nproxied").await;
+            }
+        });
+        (format!("http://{addr}"), rx)
+    }
+
+    #[tokio::test]
+    async fn manual_http_proxy_with_credentials_and_bypass() {
+        let (proxy_url, mut seen) = fake_http_proxy().await;
+        let net = |bypass: &str| json!({ "mode": "manual", "url": proxy_url, "username": "u", "password": "p", "bypass": bypass });
+
+        // `upstream.test` doesn't resolve: a 200 can only have come from the proxy.
+        let r = http_request(json!({ "url": "http://upstream.test/x", "method": "GET", "net": { "proxy": net("") } })).await;
+        assert_eq!(r["status"], 200, "{r}");
+        assert_eq!(r["body"], "proxied");
+        let head = seen.recv().await.unwrap().to_lowercase();
+        assert!(head.starts_with("get http://upstream.test/x http/1.1"), "{head}");
+        assert!(head.contains("proxy-authorization: basic dtpw"), "{head}"); // base64("u:p")
+
+        // Bypassed host: goes direct (and fails to resolve) instead of via the proxy.
+        let r = http_request(json!({ "url": "http://upstream.test/x", "method": "GET", "net": { "proxy": net("*.other, upstream.test") } })).await;
+        assert!(r["error"].is_string(), "{r}");
+        // Mode off: direct as well.
+        let r = http_request(json!({ "url": "http://upstream.test/x", "method": "GET", "net": { "proxy": { "mode": "off" } } })).await;
+        assert!(r["error"].is_string(), "{r}");
+        assert!(seen.try_recv().is_err(), "the proxy must not see bypassed or direct requests");
+    }
+
+    #[tokio::test]
+    async fn manual_socks5_proxy_with_credentials() {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let (tx, mut rx) = tokio::sync::mpsc::channel::<(String, String)>(1);
+        tokio::spawn(async move {
+            let (mut s, _) = listener.accept().await.unwrap();
+            let mut b = [0u8; 512];
+            s.read_exact(&mut b[..2]).await.unwrap(); // VER, NMETHODS
+            let n = b[1] as usize;
+            s.read_exact(&mut b[..n]).await.unwrap();
+            s.write_all(&[5, 2]).await.unwrap(); // username/password
+            s.read_exact(&mut b[..2]).await.unwrap(); // VER, ULEN
+            let ulen = b[1] as usize;
+            let mut user = vec![0u8; ulen];
+            s.read_exact(&mut user).await.unwrap();
+            s.read_exact(&mut b[..1]).await.unwrap();
+            let mut pass = vec![0u8; b[0] as usize];
+            s.read_exact(&mut pass).await.unwrap();
+            s.write_all(&[1, 0]).await.unwrap();
+            s.read_exact(&mut b[..5]).await.unwrap(); // VER CMD RSV ATYP=3 LEN
+            assert_eq!(b[3], 3, "socks5h sends the hostname");
+            let mut host = vec![0u8; b[4] as usize + 2];
+            s.read_exact(&mut host).await.unwrap();
+            s.write_all(&[5, 0, 0, 1, 0, 0, 0, 0, 0, 0]).await.unwrap();
+            let target = String::from_utf8_lossy(&host[..host.len() - 2]).to_string();
+            let _ = s.read(&mut b).await;
+            s.write_all(b"HTTP/1.1 200 OK\r\ncontent-length: 5\r\ncontent-type: text/plain\r\n\r\nsocks").await.unwrap();
+            tx.send((target, format!("{}:{}", String::from_utf8_lossy(&user), String::from_utf8_lossy(&pass)))).await.unwrap();
+        });
+        let r = http_request(json!({ "url": "http://upstream.test/", "method": "GET", "net": { "proxy": {
+            "mode": "manual", "url": format!("socks5h://{addr}"), "username": "u", "password": "p"
+        } } })).await;
+        assert_eq!(r["status"], 200, "{r}");
+        assert_eq!(r["body"], "socks");
+        assert_eq!(rx.recv().await.unwrap(), ("upstream.test".to_string(), "u:p".to_string()));
+    }
+
     #[tokio::test]
     #[ignore] // network
     async fn client_certificate_mtls() {

@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Netwerk en certificaten",
-      "description": "Clientcertificaten en CA-bestanden voor verzoeken van de API-client. Collecties kunnen hun eigen toevoegen in de collectie-instellingen.",
+      "description": "Proxy, clientcertificaten en CA-bestanden voor verzoeken van de API-client. Collecties kunnen hun eigen certificaten toevoegen in de collectie-instellingen.",
       "cancel": "Annuleren",
       "save": "Opslaan",
       "saved": "Netwerkinstellingen opgeslagen",
@@ -2254,7 +2254,20 @@
       "caHint": "Extra PEM-bestanden die naast de systeemcertificaten worden vertrouwd.",
       "caFile": "CA-bestand {n}",
       "addCa": "CA-bestand toevoegen",
-      "filePlaceholder": "/pad/naar/bestand"
+      "filePlaceholder": "/pad/naar/bestand",
+      "tabProxy": "Proxy",
+      "tabCertificates": "Certificaten",
+      "proxyMode": "Proxy",
+      "modeSystem": "Systeeminstellingen",
+      "modeManual": "Handmatig",
+      "modeOff": "Geen proxy",
+      "proxyLocalHint": "Verzoeken naar localhost en privénetwerkadressen gebruiken nooit een proxy.",
+      "proxyUrl": "Proxy-URL",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 of socks5://127.0.0.1:1080",
+      "proxyUsername": "Gebruikersnaam",
+      "proxyPassword": "Wachtwoord",
+      "proxyBypass": "Proxy overslaan voor",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

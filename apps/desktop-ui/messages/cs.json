@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Síť a certifikáty",
-      "description": "Klientské certifikáty a soubory CA pro požadavky API klienta. Kolekce mohou přidat vlastní v nastavení kolekce.",
+      "description": "Proxy, klientské certifikáty a soubory CA pro požadavky API klienta. Kolekce mohou přidat vlastní certifikáty v nastavení kolekce.",
       "cancel": "Zrušit",
       "save": "Uložit",
       "saved": "Nastavení sítě uloženo",
@@ -2254,7 +2254,20 @@
       "caHint": "Další soubory PEM, kterým se důvěřuje vedle systémových certifikátů.",
       "caFile": "Soubor CA {n}",
       "addCa": "Přidat soubor CA",
-      "filePlaceholder": "/cesta/k/souboru"
+      "filePlaceholder": "/cesta/k/souboru",
+      "tabProxy": "Proxy",
+      "tabCertificates": "Certifikáty",
+      "proxyMode": "Proxy",
+      "modeSystem": "Nastavení systému",
+      "modeManual": "Ruční",
+      "modeOff": "Bez proxy",
+      "proxyLocalHint": "Požadavky na localhost a privátní síťové adresy nikdy nepoužívají proxy.",
+      "proxyUrl": "URL proxy",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 nebo socks5://127.0.0.1:1080",
+      "proxyUsername": "Uživatelské jméno",
+      "proxyPassword": "Heslo",
+      "proxyBypass": "Bez proxy pro",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

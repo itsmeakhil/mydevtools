@@ -20,7 +20,7 @@ uuid = { version = "1", features = ["v4"] }
 chrono = "0.4"
 getrandom = "0.4"
 thiserror = "2"
-reqwest = { version = "0.13", features = ["json", "gzip", "multipart", "stream"] }
+reqwest = { version = "0.13", features = ["json", "gzip", "multipart", "stream", "socks"] }
 base64 = "0.23"
 tauri-plugin-dialog = "2"
 tauri-plugin-fs = { version = "2", features = ["watch"] }

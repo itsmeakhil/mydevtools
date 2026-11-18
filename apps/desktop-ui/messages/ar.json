@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "الشبكة والشهادات",
-      "description": "شهادات العميل وملفات CA لطلبات عميل API. يمكن للمجموعات إضافة شهاداتها الخاصة في إعدادات المجموعة.",
+      "description": "الوكيل وشهادات العميل وملفات CA لطلبات عميل API. يمكن للمجموعات إضافة شهاداتها الخاصة في إعدادات المجموعة.",
       "cancel": "إلغاء",
       "save": "حفظ",
       "saved": "تم حفظ إعدادات الشبكة",
@@ -2254,7 +2254,20 @@
       "caHint": "ملفات PEM إضافية موثوقة إلى جانب شهادات النظام.",
       "caFile": "ملف CA رقم {n}",
       "addCa": "إضافة ملف CA",
-      "filePlaceholder": "/path/to/file"
+      "filePlaceholder": "/path/to/file",
+      "tabProxy": "الوكيل",
+      "tabCertificates": "الشهادات",
+      "proxyMode": "الوكيل",
+      "modeSystem": "إعدادات النظام",
+      "modeManual": "يدوي",
+      "modeOff": "بدون وكيل",
+      "proxyLocalHint": "الطلبات إلى localhost وعناوين الشبكة الخاصة لا تستخدم وكيلاً أبدًا.",
+      "proxyUrl": "عنوان URL للوكيل",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 أو socks5://127.0.0.1:1080",
+      "proxyUsername": "اسم المستخدم",
+      "proxyPassword": "كلمة المرور",
+      "proxyBypass": "تجاوز الوكيل لـ",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

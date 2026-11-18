@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "Rete e certificati",
-      "description": "Certificati client e file CA per le richieste del client API. Le raccolte possono aggiungere i propri nelle impostazioni della raccolta.",
+      "description": "Proxy, certificati client e file CA per le richieste del client API. Le raccolte possono aggiungere i propri certificati nelle impostazioni della raccolta.",
       "cancel": "Annulla",
       "save": "Salva",
       "saved": "Impostazioni di rete salvate",
@@ -2254,7 +2254,20 @@
       "caHint": "File PEM aggiuntivi considerati attendibili insieme ai certificati di sistema.",
       "caFile": "File CA {n}",
       "addCa": "Aggiungi file CA",
-      "filePlaceholder": "/percorso/del/file"
+      "filePlaceholder": "/percorso/del/file",
+      "tabProxy": "Proxy",
+      "tabCertificates": "Certificati",
+      "proxyMode": "Proxy",
+      "modeSystem": "Impostazioni di sistema",
+      "modeManual": "Manuale",
+      "modeOff": "Nessun proxy",
+      "proxyLocalHint": "Le richieste a localhost e agli indirizzi di rete privati non usano mai un proxy.",
+      "proxyUrl": "URL del proxy",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 o socks5://127.0.0.1:1080",
+      "proxyUsername": "Nome utente",
+      "proxyPassword": "Password",
+      "proxyBypass": "Non usare il proxy per",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {

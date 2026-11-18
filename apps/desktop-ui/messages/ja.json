@@ -2229,7 +2229,7 @@
     },
     "network": {
       "title": "ネットワークと証明書",
-      "description": "API クライアントのリクエストに使うクライアント証明書と CA ファイル。コレクションはコレクション設定で独自のものを追加できます。",
+      "description": "API クライアントのリクエストに使うプロキシ、クライアント証明書、CA ファイル。コレクションはコレクション設定で独自の証明書を追加できます。",
       "cancel": "キャンセル",
       "save": "保存",
       "saved": "ネットワーク設定を保存しました",
@@ -2254,7 +2254,20 @@
       "caHint": "システム証明書に加えて信頼する PEM ファイル。",
       "caFile": "CA ファイル {n}",
       "addCa": "CA ファイルを追加",
-      "filePlaceholder": "/path/to/file"
+      "filePlaceholder": "/path/to/file",
+      "tabProxy": "プロキシ",
+      "tabCertificates": "証明書",
+      "proxyMode": "プロキシ",
+      "modeSystem": "システム設定",
+      "modeManual": "手動",
+      "modeOff": "プロキシなし",
+      "proxyLocalHint": "localhost とプライベートネットワークのアドレスへのリクエストはプロキシを使いません。",
+      "proxyUrl": "プロキシ URL",
+      "proxyUrlPlaceholder": "http://proxy.example.com:3128 または socks5://127.0.0.1:1080",
+      "proxyUsername": "ユーザー名",
+      "proxyPassword": "パスワード",
+      "proxyBypass": "プロキシを使わないホスト",
+      "proxyBypassPlaceholder": "localhost, *.internal.example"
     }
   },
   "RichEditor": {
