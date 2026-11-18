@@ -43,7 +43,7 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, Layers } from "lucide-react"
+import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, Layers, Network } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { ensureHttpScheme } from "@/lib/url-normalize"
@@ -55,6 +55,7 @@ import { digestCredentials, signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { evaluateAssertions } from "@/lib/api-client/assertions"
+import { collectionNet } from "@/lib/api-client/network-settings"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { withFolderDefaults, findRequestAncestors, findRequestContext, listInheritedHeaders } from "@/lib/folder-inheritance"
@@ -83,6 +84,7 @@ const CodeGenerator = dynamic(
 const GrpcPanel = dynamic(() => import("./grpc-panel").then(m => ({ default: m.GrpcPanel })), { ssr: false, loading: () => null })
 const WebSocketPanel = dynamic(() => import("./websocket-panel").then(m => ({ default: m.WebSocketPanel })), { ssr: false, loading: () => null })
 const ImportDialog = dynamic(() => import("./import-dialog").then(m => ({ default: m.ImportDialog })), { ssr: false, loading: () => null })
+const NetworkSettingsDialog = dynamic(() => import("./network/network-settings-dialog").then(m => ({ default: m.NetworkSettingsDialog })), { ssr: false, loading: () => null })
 const CookieJarDialog = dynamic(() => import("./cookie-jar-dialog").then(m => ({ default: m.CookieJarDialog })), { ssr: false, loading: () => null })
 const MetricsDialog = dynamic(() => import("./metrics-dialog").then(m => ({ default: m.MetricsDialog })), { ssr: false, loading: () => null })
 
@@ -115,6 +117,7 @@ function buildRequestUrl(raw: string): URL {
 function ApiClientInner() {
     const t = useTranslations("ApiClient")
     const tNav = useTranslations("Navigation")
+    const tNet = useTranslations("ApiClient.network")
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab, updateTab } = useTabsActions()
 
@@ -145,6 +148,7 @@ function ApiClientInner() {
     const [helpOpen, setHelpOpen] = React.useState(false)
     const [saveOpen, setSaveOpen] = React.useState(false)
     const [cookieJarOpen, setCookieJarOpen] = React.useState(false)
+    const [networkOpen, setNetworkOpen] = React.useState(false)
     const [importOpen, setImportOpen] = React.useState(false)
     const [saveExampleOpen, setSaveExampleOpen] = React.useState(false)
     const [metricsOpen, setMetricsOpen] = React.useState(false)
@@ -928,6 +932,8 @@ function ApiClientInner() {
                 digestAuth: sendTab.auth.type === "digest" && !sendTab.auth.digest?.nonce?.trim()
                     ? digestCredentials(sendTab.auth.digest, substituteAll)
                     : undefined,
+                // Collection certificates/CAs; global ones are merged in api-fetch.
+                net: collectionNet({ certs: sendCollection?.clientCerts, caPaths: sendCollection?.caPaths }, substituteAll),
             }, controller.signal)
             const proxyData = {
                 ...rawEnvelope,
@@ -1269,12 +1275,13 @@ function ApiClientInner() {
                 { id: "generate-code", title: t("toolbar.code"), Icon: IconCode, run: () => setCodeGenOpen(true) },
                 { id: "environments", title: t("environmentManager.manageDialogTitle"), Icon: IconSettings, run: () => setEnvMgrOpen(true) },
                 { id: "cookies", title: t("toolbar.cookies"), Icon: Cookie, run: () => setCookieJarOpen(true) },
+                { id: "network", title: tNet("title"), Icon: Network, run: () => setNetworkOpen(true) },
                 { id: "shortcuts", title: t("toolbar.shortcuts"), Icon: Keyboard, run: () => setHelpOpen(true) },
                 switchEnv(null, t("environmentManager.noEnvironment")),
                 ...environments.map((env) => switchEnv(env.id, env.name)),
             ],
         }
-    }, [t, tNav, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId])
+    }, [t, tNav, tNet, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId])
     usePaletteActions(paletteGroup)
 
     // Desktop request column — reused whether it sits full-width (no response yet)
@@ -1379,6 +1386,10 @@ function ApiClientInner() {
                                             <Cookie className="h-4 w-4 mr-2" />
                                             {t("toolbar.cookies")}
                                         </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setNetworkOpen(true)}>
+                                            <Network className="h-4 w-4 mr-2" />
+                                            {tNet("title")}
+                                        </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
                                             <Activity className="h-4 w-4 mr-2" />
@@ -1474,6 +1485,10 @@ function ApiClientInner() {
                                             <Cookie className="h-4 w-4 mr-2" />
                                             {t("toolbar.cookies")}
                                         </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setNetworkOpen(true)}>
+                                            <Network className="h-4 w-4 mr-2" />
+                                            {tNet("title")}
+                                        </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
                                             <Activity className="h-4 w-4 mr-2" />
@@ -1519,6 +1534,7 @@ function ApiClientInner() {
                         )}
                         <HelpShortcutsDialog open={helpOpen} onOpenChange={setHelpOpen} />
                         <CookieJarDialog open={cookieJarOpen} onOpenChange={setCookieJarOpen} />
+                        {networkOpen && <NetworkSettingsDialog open={networkOpen} onOpenChange={setNetworkOpen} />}
                         <ImportDialog open={importOpen} onOpenChange={setImportOpen} />
                         <SaveExampleDialog
                             open={saveExampleOpen}

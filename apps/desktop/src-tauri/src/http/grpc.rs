@@ -74,10 +74,12 @@ async fn run(input: &Value) -> Result<Value, String> {
         .await
         .map_err(|e| format!("connect to {host}:{port} failed: {e}"))?;
     let io: Box<dyn AsyncRw> = if https {
-        let connector = native_tls::TlsConnector::builder()
-            .request_alpns(&["h2"])
-            .build()
-            .map_err(|e| format!("TLS setup failed: {e}"))?;
+        let mut builder = native_tls::TlsConnector::builder();
+        builder.request_alpns(&["h2"]);
+        // Client certificate + extra CAs from Preferences / the collection.
+        // ponytail: proxies don't apply here — this is a raw TCP connect.
+        crate::http::net::apply_native_tls(&mut builder, &crate::http::net::NetConfig::from_input(input), &parsed)?;
+        let connector = builder.build().map_err(|e| format!("TLS setup failed: {e}"))?;
         let connector = tokio_native_tls::TlsConnector::from(connector);
         Box::new(
             connector

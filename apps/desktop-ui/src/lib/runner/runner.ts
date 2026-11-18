@@ -23,6 +23,7 @@ import { ensureFreshToken } from "@/lib/oauth2"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
 import { evaluateAssertions } from "@/lib/api-client/assertions"
+import { collectionNet, type NetworkSettings } from "@/lib/api-client/network-settings"
 import type { ApiResponse } from "@/components/api-client/types"
 import type { RequestRunResult, RunnerProgressEvent } from "./types"
 
@@ -109,6 +110,8 @@ async function executeRequest(args: {
     env: Record<string, string>
     globals: Record<string, string>
     collectionVars: Record<string, string>
+    /** Collection client certificates / CA files (global ones are merged in api-fetch). */
+    net?: Pick<NetworkSettings, "certs" | "caPaths">
     sessionVars: Record<string, string>
     envOverlay: Record<string, string>
     envUnsets: Set<string>
@@ -320,6 +323,7 @@ async function executeRequest(args: {
                 verifySsl: req.verifySsl,
                 // The proxy answers the server's Digest challenge (realm/nonce come from the 401).
                 digestAuth: req.auth.type === "digest" ? digestCredentials(req.auth.digest, substitute) : undefined,
+                net: collectionNet(args.net, substitute),
             }),
         })
         proxyData = await res.json()
@@ -433,6 +437,7 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
                 env: opts.environmentVariables,
                 globals: opts.globalVariables ?? {},
                 collectionVars,
+                net: { certs: opts.collection.clientCerts, caPaths: opts.collection.caPaths },
                 sessionVars,
                 envOverlay,
                 envUnsets,

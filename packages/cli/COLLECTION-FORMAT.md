@@ -54,9 +54,29 @@ testScript: |              # runs before every request's own test script
   pm.test("not a server error", () => pm.expect(pm.response.code).to.be.below(500))
 ```
 
+Optional TLS keys (desktop app; the CLI ignores them for now):
+
+```yaml
+clientCerts:               # sent to hosts matching `host`; first match wins
+  - id: c1
+    host: "*.corp.example"   # host[:port], *.domain, or *
+    type: pem                # pem | pfx
+    certPath: /abs/path/client.crt
+    keyPath: /abs/path/client.key   # omit if the key is inside certPath
+  - id: c2
+    host: api.example.com:8443
+    type: pfx
+    pfxPath: /abs/path/client.p12
+    passphrase: "{{vault.clientPfx}}"   # only {{…}} references are written, never a literal
+caPaths:                   # extra PEM CA files, trusted alongside the system roots
+  - /abs/path/corp-ca.pem
+```
+
+Paths are machine-local; collection share links never include these keys.
+
 ## `folder.yaml`
 
-Same keys as the manifest minus `formatVersion` and `variables`:
+Same keys as the manifest minus `formatVersion`, `variables`, `clientCerts` and `caPaths`:
 `id`, `name`, `description`, `defaultHeaders`, `defaultAuth`, `preRequestScript`, `testScript`.
 
 ## Request files
