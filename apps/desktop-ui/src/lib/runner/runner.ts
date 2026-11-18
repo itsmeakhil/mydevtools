@@ -324,6 +324,13 @@ async function executeRequest(args: {
         result.networkError = (e as Error).message
         return result
     }
+    // The proxy reports connection/DNS/TLS/timeout/blocked-host failures in the
+    // envelope (status 0 or 403) — not a response, so no test script or
+    // assertions run against the error text.
+    if (proxyData.error) {
+        result.networkError = proxyData.error
+        return result
+    }
 
     result.status = proxyData.status
     result.statusText = proxyData.statusText
