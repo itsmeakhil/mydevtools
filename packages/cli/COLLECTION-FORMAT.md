@@ -57,7 +57,7 @@ testScript: |              # runs before every request's own test script
 ## `folder.yaml`
 
 Same keys as the manifest minus `formatVersion` and `variables`:
-`id`, `name`, `defaultHeaders`, `defaultAuth`, `preRequestScript`, `testScript`.
+`id`, `name`, `description`, `defaultHeaders`, `defaultAuth`, `preRequestScript`, `testScript`.
 
 ## Request files
 
@@ -72,6 +72,7 @@ Keys are written in this order; unknown keys are ignored.
 | `kind` | `websocket` \| `grpc` | Omit for HTTP requests. |
 | `method` | string | `GET`, `POST`, … or any custom token (`PURGE`, `PROPFIND`). |
 | `url` | string | May contain `{{variables}}`. Query string allowed. |
+| `description` | string | Markdown docs for the request (also allowed in `folder.yaml` and the manifest). Shown in the Docs tab and the HTML docs export. |
 | `params` | key-value list | Query parameters appended to the URL. |
 | `headers` | key-value list | Request headers. |
 | `omitHeaders` | string[] | Inherited header names this request does **not** send. |

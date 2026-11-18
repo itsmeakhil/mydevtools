@@ -20,6 +20,7 @@ interface PostmanEventOut {
 
 interface PostmanItemOut {
     name: string
+    description?: string
     item?: PostmanItemOut[]
     request?: unknown
     event?: PostmanEventOut[]
@@ -135,12 +136,13 @@ function exportRequest(r: CollectionRequest): unknown {
         },
         body: exportBody(r.body),
         auth: exportAuth(r.auth),
+        description: r.description?.trim() ? r.description : undefined,
     }
 }
 
 function exportItem(item: CollectionFolder | CollectionRequest): PostmanItemOut {
     if ("type" in item && item.type === "folder") {
-        return { name: item.name, item: item.items.map(exportItem) }
+        return { name: item.name, description: item.description?.trim() ? item.description : undefined, item: item.items.map(exportItem) }
     }
     const req = item as CollectionRequest
     const out: PostmanItemOut = { name: req.name, request: exportRequest(req) }
@@ -157,6 +159,7 @@ export function exportPostmanCollection(collection: Collection): string {
             info: {
                 _postman_id: collection.id,
                 name: collection.name,
+                description: collection.description?.trim() ? collection.description : undefined,
                 schema: POSTMAN_SCHEMA,
             },
             item: collection.items.map(exportItem),

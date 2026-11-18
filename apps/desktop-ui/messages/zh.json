@@ -2213,6 +2213,19 @@
         "examples": "已保存的示例",
         "comments": "评论"
       }
+    },
+    "docs": {
+      "tab": "文档",
+      "edit": "编辑",
+      "done": "完成",
+      "add": "添加文档",
+      "empty": "还没有文档。用 Markdown 描述它的作用、输入和响应示例。",
+      "placeholder": "编写 Markdown…",
+      "editLabel": "文档 (Markdown)",
+      "markdownHint": "支持 Markdown。原始 HTML 会以文本显示。",
+      "exportHtml": "导出文档 (HTML)",
+      "exported": "文档已导出",
+      "exportFailed": "无法导出文档"
     }
   },
   "RichEditor": {

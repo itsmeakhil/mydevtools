@@ -2213,6 +2213,19 @@
         "examples": "الأمثلة المحفوظة",
         "comments": "التعليقات"
       }
+    },
+    "docs": {
+      "tab": "التوثيق",
+      "edit": "تعديل",
+      "done": "تم",
+      "add": "إضافة توثيق",
+      "empty": "لا يوجد توثيق بعد. صِف بلغة Markdown ما يفعله هذا ومدخلاته وأمثلة الاستجابات.",
+      "placeholder": "اكتب Markdown…",
+      "editLabel": "التوثيق (Markdown)",
+      "markdownHint": "يدعم Markdown. يُعرض HTML الخام كنص.",
+      "exportHtml": "تصدير التوثيق (HTML)",
+      "exported": "تم تصدير التوثيق",
+      "exportFailed": "تعذّر تصدير التوثيق"
     }
   },
   "RichEditor": {

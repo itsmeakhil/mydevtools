@@ -2213,6 +2213,19 @@
         "examples": "os exemplos guardados",
         "comments": "os comentários"
       }
+    },
+    "docs": {
+      "tab": "Documentação",
+      "edit": "Editar",
+      "done": "Concluído",
+      "add": "Adicionar documentação",
+      "empty": "Ainda não há documentação. Descreva em Markdown o que isto faz, as entradas e respostas de exemplo.",
+      "placeholder": "Escreva em Markdown…",
+      "editLabel": "Documentação (Markdown)",
+      "markdownHint": "Markdown suportado. O HTML em bruto é mostrado como texto.",
+      "exportHtml": "Exportar documentação (HTML)",
+      "exported": "Documentação exportada",
+      "exportFailed": "Não foi possível exportar a documentação"
     }
   },
   "RichEditor": {

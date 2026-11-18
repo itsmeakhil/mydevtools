@@ -2213,6 +2213,19 @@
         "examples": "gestoorde voorbeelde",
         "comments": "opmerkings"
       }
+    },
+    "docs": {
+      "tab": "Dokumentasie",
+      "edit": "Wysig",
+      "done": "Klaar",
+      "add": "Voeg dokumentasie by",
+      "empty": "Nog geen dokumentasie nie. Beskryf in Markdown wat dit doen, die insette en voorbeeldantwoorde.",
+      "placeholder": "Skryf Markdown…",
+      "editLabel": "Dokumentasie (Markdown)",
+      "markdownHint": "Markdown word ondersteun. Rou HTML word as teks gewys.",
+      "exportHtml": "Voer dokumentasie uit (HTML)",
+      "exported": "Dokumentasie uitgevoer",
+      "exportFailed": "Kon nie dokumentasie uitvoer nie"
     }
   },
   "RichEditor": {

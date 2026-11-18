@@ -244,6 +244,7 @@ function ApiClientInner() {
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
             assertions: make("assertions"),
+            description: make("description"),
             omitHeaders: make("omitHeaders"),
             settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
@@ -1319,6 +1320,8 @@ function ApiClientInner() {
                     setSettings={setField.settings}
                     assertions={activeTab.assertions}
                     setAssertions={setField.assertions}
+                    description={activeTab.description}
+                    setDescription={setField.description}
                 />
             </div>
         </div>
@@ -1636,6 +1639,8 @@ function ApiClientInner() {
                                             setSettings={setField.settings}
                                             assertions={activeTab.assertions}
                                             setAssertions={setField.assertions}
+                                            description={activeTab.description}
+                                            setDescription={setField.description}
                                         />
                                     </div>
                                 </div>

@@ -2213,6 +2213,19 @@
         "examples": "gespeicherte Beispiele",
         "comments": "Kommentare"
       }
+    },
+    "docs": {
+      "tab": "Doku",
+      "edit": "Bearbeiten",
+      "done": "Fertig",
+      "add": "Doku hinzufügen",
+      "empty": "Noch keine Doku. Beschreibe in Markdown, was das tut, die Eingaben und Beispielantworten.",
+      "placeholder": "Markdown schreiben…",
+      "editLabel": "Dokumentation (Markdown)",
+      "markdownHint": "Markdown wird unterstützt. Rohes HTML wird als Text angezeigt.",
+      "exportHtml": "Doku exportieren (HTML)",
+      "exported": "Doku exportiert",
+      "exportFailed": "Doku konnte nicht exportiert werden"
     }
   },
   "RichEditor": {

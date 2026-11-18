@@ -18,15 +18,24 @@ import type {
 } from "@/components/api-client/types"
 
 interface PostmanCollection {
-    info?: { name?: string; schema?: string; description?: string; _postman_id?: string }
+    info?: { name?: string; schema?: string; description?: PostmanDescription; _postman_id?: string }
     item?: PostmanItem[]
     auth?: PostmanAuth
     event?: PostmanEvent[]
     variable?: Array<{ key: string; value?: string }>
 }
 
+/** Postman stores descriptions as a string or `{ content, type }`. */
+type PostmanDescription = string | { content?: string; type?: string }
+
+function readDescription(d: PostmanDescription | undefined): string | undefined {
+    const text = typeof d === "string" ? d : d?.content
+    return text?.trim() ? text : undefined
+}
+
 interface PostmanItem {
     name?: string
+    description?: PostmanDescription
     item?: PostmanItem[]
     request?: PostmanRequest
     event?: PostmanEvent[]
@@ -39,6 +48,7 @@ interface PostmanEvent {
 }
 
 interface PostmanRequest {
+    description?: PostmanDescription
     method?: string
     url?: string | PostmanUrl
     header?: PostmanHeader[]
@@ -221,6 +231,7 @@ function convertRequest(item: PostmanItem): CollectionRequest {
         auth: r.auth ? convertAuth(r.auth) : { type: "inherit" },
         preRequestScript: preRequestScript || undefined,
         testScript: testScript || undefined,
+        description: readDescription(r.description ?? item.description),
     }
 }
 
@@ -241,6 +252,7 @@ function convertItems(items: PostmanItem[] | undefined): Array<CollectionFolder 
                 defaultAuth: folderAuth,
                 preRequestScript: pickScript(item.event, "prerequest") || undefined,
                 testScript: pickScript(item.event, "test") || undefined,
+                description: readDescription(item.description),
             })
         }
         // Items with neither `request` nor `item` are skipped silently — they're either
@@ -275,6 +287,7 @@ export function importPostmanCollectionWithMeta(raw: string | unknown): PostmanI
             preRequestScript: pickScript(data.event, "prerequest") || undefined,
             testScript: pickScript(data.event, "test") || undefined,
             variables: variables.length ? variables : undefined,
+            description: readDescription(data.info?.description),
         },
     }
 }

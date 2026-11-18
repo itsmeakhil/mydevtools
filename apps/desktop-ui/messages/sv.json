@@ -2213,6 +2213,19 @@
         "examples": "sparade exempel",
         "comments": "kommentarer"
       }
+    },
+    "docs": {
+      "tab": "Dokumentation",
+      "edit": "Redigera",
+      "done": "Klar",
+      "add": "Lägg till dokumentation",
+      "empty": "Ingen dokumentation än. Beskriv i Markdown vad den gör, indata och exempelsvar.",
+      "placeholder": "Skriv Markdown…",
+      "editLabel": "Dokumentation (Markdown)",
+      "markdownHint": "Markdown stöds. Rå HTML visas som text.",
+      "exportHtml": "Exportera dokumentation (HTML)",
+      "exported": "Dokumentation exporterad",
+      "exportFailed": "Det gick inte att exportera dokumentationen"
     }
   },
   "RichEditor": {

@@ -2213,6 +2213,19 @@
         "examples": "uložené příklady",
         "comments": "komentáře"
       }
+    },
+    "docs": {
+      "tab": "Dokumentace",
+      "edit": "Upravit",
+      "done": "Hotovo",
+      "add": "Přidat dokumentaci",
+      "empty": "Zatím bez dokumentace. Popište v Markdownu, co to dělá, vstupy a ukázkové odpovědi.",
+      "placeholder": "Pište Markdown…",
+      "editLabel": "Dokumentace (Markdown)",
+      "markdownHint": "Podporuje Markdown. Surové HTML se zobrazí jako text.",
+      "exportHtml": "Exportovat dokumentaci (HTML)",
+      "exported": "Dokumentace exportována",
+      "exportFailed": "Dokumentaci se nepodařilo exportovat"
     }
   },
   "RichEditor": {
