@@ -149,6 +149,8 @@ async function executeRequest(args: {
             },
             environment: { ...args.env, ...args.envOverlay },
             variables: { ...args.sessionVars, ...args.row },
+            collectionVariables: args.collectionVars,
+            globals: args.globals,
         }
         const r = await args.runScript(req.preRequestScript, ctx)
         result.tests.push(...r.tests)
@@ -345,6 +347,8 @@ async function executeRequest(args: {
             },
             environment: { ...args.env, ...args.envOverlay },
             variables: { ...args.sessionVars, ...args.row },
+            collectionVariables: args.collectionVars,
+            globals: args.globals,
         }
         const r = await args.runScript(req.testScript, ctx)
         result.tests.push(...r.tests)

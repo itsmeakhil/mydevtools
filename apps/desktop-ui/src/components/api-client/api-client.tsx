@@ -505,6 +505,8 @@ function ApiClientInner() {
                     },
                     environment: { ...activeEnvironmentVariables },
                     variables: { ...sessionVarsRef.current },
+                    collectionVariables: collectionVars,
+                    globals: globalVariables,
                 }
                 const r = await runScript(sendTab.preRequestScript, preCtx)
                 scriptTests.push(...r.tests)
@@ -985,6 +987,8 @@ function ApiClientInner() {
                     },
                     environment: { ...activeEnvironmentVariables, ...scriptEnvOverlay },
                     variables: { ...sessionVarsRef.current },
+                    collectionVariables: collectionVars,
+                    globals: globalVariables,
                 }
                 const r = await runScript(sendTab.testScript, postCtx)
                 scriptTests.push(...r.tests)

@@ -1,5 +1,6 @@
 import * as Comlink from "comlink"
 import { expect } from "@/lib/api-client/script-expect"
+import { bruGlobals } from "@/lib/api-client/bru-compat"
 import { scriptRequire } from "@/lib/api-client/script-libs"
 import {
     lockDownNetwork,
@@ -51,6 +52,10 @@ export interface ScriptContext {
     response?: ScriptResponse
     environment: Record<string, string>
     variables: Record<string, string>
+    /** Read scopes for pm.collectionVariables / pm.globals. Their `set` writes
+     *  session variables, which outrank both at substitution time. */
+    collectionVariables?: Record<string, string>
+    globals?: Record<string, string>
 }
 
 export interface ScriptTestResult {
@@ -138,6 +143,21 @@ async function runScript(script: string, ctx: ScriptContext, host?: ScriptHost):
         return p
     }
 
+    const coll = { ...(ctx.collectionVariables ?? {}) }
+    const globals = { ...(ctx.globals ?? {}) }
+    // Writes land in the read copy (so a later get sees them) and in session
+    // variables (so {{key}} resolves to them for the rest of the session).
+    const scope = (store: Record<string, string>) => ({
+        get(key: string) { return store[key] },
+        set(key: string, value: unknown) {
+            const v = safeStringify(value)
+            store[String(key)] = v
+            vars[String(key)] = v
+        },
+        has(key: string) { return key in store },
+        toObject() { return { ...store } },
+    })
+
     const pm = {
         environment: {
             get(key: string) { return env[key] },
@@ -147,10 +167,13 @@ async function runScript(script: string, ctx: ScriptContext, host?: ScriptHost):
             toObject() { return { ...env } },
         },
         variables: {
-            get(key: string) { return vars[key] ?? env[key] },
+            // Postman order: local → environment → collection → globals.
+            get(key: string) { return vars[key] ?? env[key] ?? coll[key] ?? globals[key] },
             set(key: string, value: unknown) { vars[String(key)] = safeStringify(value) },
-            has(key: string) { return key in vars || key in env },
+            has(key: string) { return key in vars || key in env || key in coll || key in globals },
         },
+        collectionVariables: scope(coll),
+        globals: scope(globals),
         request: {
             get url() { return request.url },
             set url(v: string) { request.url = String(v) },
@@ -161,11 +184,15 @@ async function runScript(script: string, ctx: ScriptContext, host?: ScriptHost):
                     const k = Object.keys(request.headers).find(h => h.toLowerCase() === String(name).toLowerCase())
                     return k ? request.headers[k] : undefined
                 },
-                add(name: string, value: unknown) {
-                    request.headers[String(name)] = safeStringify(value)
+                // Postman's own form is add({ key, value }); add(name, value) is ours.
+                add(name: string | { key: string; value?: unknown }, value?: unknown) {
+                    const [k, v] = typeof name === "object" && name !== null ? [name.key, name.value] : [name, value]
+                    request.headers[String(k)] = safeStringify(v)
                 },
-                remove(name: string) {
-                    const k = Object.keys(request.headers).find(h => h.toLowerCase() === String(name).toLowerCase())
+                upsert(header: { key: string; value?: unknown }) { this.add(header) },
+                remove(name: string | { key: string }) {
+                    const target = String(typeof name === "object" && name !== null ? name.key : name).toLowerCase()
+                    const k = Object.keys(request.headers).find(h => h.toLowerCase() === target)
                     if (k) delete request.headers[k]
                 },
                 toObject() { return { ...request.headers } },
@@ -207,8 +234,11 @@ async function runScript(script: string, ctx: ScriptContext, host?: ScriptHost):
         // Running the user's own pre/post-request script is the feature; it is
         // confined to this worker with a pm/console surface, no DOM and no network.
         // threatcrush-disable-next-line js-dynamic-code-execution
-        const runner = new AsyncFunction("pm", "console", "expect", "require", `"use strict";\n${script}`)
-        await runner(pm, sandboxConsole, expect, scriptRequire)
+        const bruno = bruGlobals(pm, (msg) => logs.push({ level: "warn", args: [msg] }))
+        // The script runs in a block so its own `const res = …` / `const test = …`
+        // shadow the Bruno globals instead of clashing with the parameters.
+        const runner = new AsyncFunction("pm", "console", "expect", "require", "bru", "req", "res", "test", `"use strict";\n{\n${script}\n}`)
+        await runner(pm, sandboxConsole, expect, scriptRequire, bruno.bru, bruno.req, bruno.res, bruno.test)
         // Callbacks may start further requests — drain until nothing is left.
         while (pending.size > 0) await Promise.all([...pending])
     } catch (err) {
