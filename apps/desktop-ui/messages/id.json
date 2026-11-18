@@ -1871,7 +1871,13 @@
       "sending": "Mengirim...",
       "send": "Kirim",
       "invalidJsonBodyHelp": "Tidak dapat mengirim: isi JSON tidak valid",
-      "copyCurl": "Salin sebagai cURL"
+      "copyCurl": "Salin sebagai cURL",
+      "variable": {
+        "dynamic": "dibuat setiap kali dikirim",
+        "response": "dibaca dari respons sebelumnya saat dikirim",
+        "secret": "rahasia, diisi saat dikirim",
+        "missing": "tidak didefinisikan di lingkungan aktif"
+      }
     },
     "requestTabs": {
       "params": "parameter",

@@ -1871,7 +1871,13 @@
       "sending": "Odesílání...",
       "send": "Odeslat",
       "invalidJsonBodyHelp": "Nelze odeslat: tělo JSON není platné",
-      "copyCurl": "Kopírovat jako cURL"
+      "copyCurl": "Kopírovat jako cURL",
+      "variable": {
+        "dynamic": "generuje se při každém odeslání",
+        "response": "čte se z předchozí odpovědi při odeslání",
+        "secret": "tajné, vyřeší se při odeslání",
+        "missing": "není definováno v aktivním prostředí"
+      }
     },
     "requestTabs": {
       "params": "Parametry",

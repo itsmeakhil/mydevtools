@@ -17,6 +17,7 @@ import type {
 import type { ScriptContext, ScriptResult } from "@/components/api-client/workers/scripts-runner.worker"
 import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
+import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
 import { ensureFreshToken } from "@/lib/oauth2"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
@@ -87,7 +88,7 @@ function makeSubstitute(args: {
             if (args.envUnsets.has(key)) return m
             if (key in args.envOverlay) return args.envOverlay[key]
             if (key in args.sessionVars) return args.sessionVars[key]
-            return args.env[key] ?? m
+            return args.env[key] ?? resolveDynamicVar(key) ?? m
         })
     }
 }

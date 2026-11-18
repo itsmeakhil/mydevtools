@@ -1871,7 +1871,13 @@
       "sending": "Menghantar...",
       "send": "Hantar",
       "invalidJsonBodyHelp": "Tidak boleh hantar: kandungan JSON tidak sah",
-      "copyCurl": "Salin sebagai cURL"
+      "copyCurl": "Salin sebagai cURL",
+      "variable": {
+        "dynamic": "dijana pada setiap penghantaran",
+        "response": "dibaca daripada respons sebelumnya semasa hantar",
+        "secret": "rahsia, diselesaikan semasa hantar",
+        "missing": "tidak ditakrifkan dalam persekitaran aktif"
+      }
     },
     "requestTabs": {
       "params": "Parameter",

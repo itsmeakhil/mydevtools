@@ -1871,7 +1871,13 @@
       "sending": "Verzenden...",
       "send": "Verzenden",
       "invalidJsonBodyHelp": "Kan niet verzenden: de JSON-body is ongeldig",
-      "copyCurl": "Kopiëren als cURL"
+      "copyCurl": "Kopiëren als cURL",
+      "variable": {
+        "dynamic": "wordt bij elke verzending gegenereerd",
+        "response": "wordt bij verzenden uit het vorige antwoord gelezen",
+        "secret": "geheim, wordt bij verzenden ingevuld",
+        "missing": "niet gedefinieerd in de actieve omgeving"
+      }
     },
     "requestTabs": {
       "params": "Parameters",

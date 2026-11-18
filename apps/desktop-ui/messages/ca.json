@@ -1871,7 +1871,13 @@
       "sending": "S'està enviant...",
       "send": "Envia",
       "invalidJsonBodyHelp": "No es pot enviar: el cos JSON no és vàlid",
-      "copyCurl": "Copia com a cURL"
+      "copyCurl": "Copia com a cURL",
+      "variable": {
+        "dynamic": "es genera a cada enviament",
+        "response": "es llegeix de la resposta anterior en enviar",
+        "secret": "secret, es resol en enviar",
+        "missing": "no definida a l'entorn actiu"
+      }
     },
     "requestTabs": {
       "params": "Params",

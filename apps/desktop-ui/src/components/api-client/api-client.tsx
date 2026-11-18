@@ -54,6 +54,7 @@ import { signHawk } from "@/lib/auth/hawk"
 import { signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
+import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
 import { resolveResponsePath } from "@/lib/response-path"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
@@ -443,7 +444,7 @@ function ApiClientInner() {
                 if (scriptEnvUnsets.has(key)) return m
                 if (key in scriptEnvOverlay) return scriptEnvOverlay[key]
                 if (key in sessionVarsRef.current) return sessionVarsRef.current[key]
-                return activeEnvironmentVariables[key] ?? secretVars[key] ?? m
+                return activeEnvironmentVariables[key] ?? secretVars[key] ?? resolveDynamicVar(key) ?? m
             })
         }
 

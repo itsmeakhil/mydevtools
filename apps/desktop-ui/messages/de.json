@@ -1871,7 +1871,13 @@
       "sending": "Senden...",
       "send": "Senden",
       "invalidJsonBodyHelp": "Senden nicht möglich: Der JSON-Body ist ungültig",
-      "copyCurl": "Als cURL kopieren"
+      "copyCurl": "Als cURL kopieren",
+      "variable": {
+        "dynamic": "wird bei jedem Senden erzeugt",
+        "response": "wird beim Senden aus der vorherigen Antwort gelesen",
+        "secret": "geheim, wird beim Senden aufgelöst",
+        "missing": "in der aktiven Umgebung nicht definiert"
+      }
     },
     "requestTabs": {
       "params": "Parameter",

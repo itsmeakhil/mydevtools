@@ -1871,7 +1871,13 @@
       "sending": "جاري الإرسال...",
       "send": "إرسال",
       "invalidJsonBodyHelp": "لا يمكن الإرسال: نص JSON غير صالح",
-      "copyCurl": "نسخ كأمر cURL"
+      "copyCurl": "نسخ كأمر cURL",
+      "variable": {
+        "dynamic": "يُولَّد عند كل إرسال",
+        "response": "يُقرأ من الاستجابة السابقة عند الإرسال",
+        "secret": "سرّي، يُحَل عند الإرسال",
+        "missing": "غير معرّف في البيئة النشطة"
+      }
     },
     "requestTabs": {
       "params": "معاملات",

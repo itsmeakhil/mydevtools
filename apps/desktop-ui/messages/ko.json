@@ -1871,7 +1871,13 @@
       "sending": "전송 중...",
       "send": "전송",
       "invalidJsonBodyHelp": "전송 불가: JSON 본문이 유효하지 않습니다",
-      "copyCurl": "cURL로 복사"
+      "copyCurl": "cURL로 복사",
+      "variable": {
+        "dynamic": "보낼 때마다 생성됨",
+        "response": "보낼 때 이전 응답에서 읽음",
+        "secret": "비밀 값, 보낼 때 확인됨",
+        "missing": "활성 환경에 정의되지 않음"
+      }
     },
     "requestTabs": {
       "params": "매개변수",

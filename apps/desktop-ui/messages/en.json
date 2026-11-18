@@ -1871,7 +1871,13 @@
       "sending": "Sending...",
       "send": "Send",
       "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid",
-      "copyCurl": "Copy as cURL"
+      "copyCurl": "Copy as cURL",
+      "variable": {
+        "dynamic": "generated on each send",
+        "response": "read from the previous response on send",
+        "secret": "secret, resolved on send",
+        "missing": "not defined in the active environment"
+      }
     },
     "requestTabs": {
       "params": "Params",

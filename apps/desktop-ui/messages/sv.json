@@ -1871,7 +1871,13 @@
       "sending": "Skickar...",
       "send": "Skicka",
       "invalidJsonBodyHelp": "Kan inte skicka: JSON-kroppen är ogiltig",
-      "copyCurl": "Kopiera som cURL"
+      "copyCurl": "Kopiera som cURL",
+      "variable": {
+        "dynamic": "genereras vid varje sändning",
+        "response": "läses från föregående svar vid sändning",
+        "secret": "hemlig, löses vid sändning",
+        "missing": "inte definierad i den aktiva miljön"
+      }
     },
     "requestTabs": {
       "params": "Parametrar",

@@ -1871,7 +1871,13 @@
       "sending": "Sender...",
       "send": "Sende",
       "invalidJsonBodyHelp": "Kan ikke sende: JSON-brødteksten er ugyldig",
-      "copyCurl": "Kopiér som cURL"
+      "copyCurl": "Kopiér som cURL",
+      "variable": {
+        "dynamic": "genereres ved hver afsendelse",
+        "response": "læses fra det forrige svar ved afsendelse",
+        "secret": "hemmelig, opløses ved afsendelse",
+        "missing": "ikke defineret i det aktive miljø"
+      }
     },
     "requestTabs": {
       "params": "Params",

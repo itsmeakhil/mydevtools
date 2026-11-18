@@ -1871,7 +1871,13 @@
       "sending": "Sending...",
       "send": "Send",
       "invalidJsonBodyHelp": "Nie można wysłać: treść JSON jest nieprawidłowa",
-      "copyCurl": "Kopiuj jako cURL"
+      "copyCurl": "Kopiuj jako cURL",
+      "variable": {
+        "dynamic": "generowane przy każdym wysłaniu",
+        "response": "odczytywane z poprzedniej odpowiedzi przy wysyłaniu",
+        "secret": "sekret, rozwiązywany przy wysyłaniu",
+        "missing": "nie zdefiniowano w aktywnym środowisku"
+      }
     },
     "requestTabs": {
       "params": "Params",
