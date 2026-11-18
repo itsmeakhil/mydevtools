@@ -361,6 +361,10 @@ export interface Collection {
     variables?: KeyValueItem[]
     /** Markdown docs for this collection. */
     description?: string
+    /** Client certificates for this collection's hosts (checked before the global ones). */
+    clientCerts?: import("@/lib/api-client/network-settings").ClientCertEntry[]
+    /** Extra CA certificate files (PEM) trusted for this collection's requests. */
+    caPaths?: string[]
 }
 
 export interface HistoryRequest extends CollectionRequest {

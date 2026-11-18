@@ -16,6 +16,8 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::OnceLock;
 use tauri::ipc::Channel;
 
+use crate::http::net::NetConfig;
+
 const DEFAULT_MAX_REDIRECTS: usize = 5;
 const MAX_REDIRECTS_CAP: usize = 50;
 const DEFAULT_TIMEOUT_MS: u64 = 30_000;
@@ -97,28 +99,11 @@ fn is_textual_content_type(ct: &str) -> bool {
             .any(|t| l.contains(t))
 }
 
-// One pooled client per (proxy mode, cert checking) so TLS sessions + keep-alive
-// connections are reused across sends; building a client per request cost a full
-// handshake each time. Insecure clients get their own pool so a connection opened
-// with verification off is never reused by a request that wants it on.
-static CLIENTS: [OnceLock<reqwest::Client>; 4] = [OnceLock::new(), OnceLock::new(), OnceLock::new(), OnceLock::new()];
-
-fn plain_client(bypass_proxy: bool, insecure: bool) -> Result<reqwest::Client, String> {
-    let slot = &CLIENTS[bypass_proxy as usize | (insecure as usize) << 1];
-    if let Some(c) = slot.get() {
-        return Ok(c.clone());
-    }
-    let mut builder = reqwest::Client::builder()
-        .redirect(reqwest::redirect::Policy::none())
-        .user_agent("mydevtools-desktop");
-    if bypass_proxy {
-        builder = builder.no_proxy();
-    }
-    if insecure {
-        builder = builder.danger_accept_invalid_certs(true);
-    }
-    let client = builder.build().map_err(|e| e.to_string())?;
-    Ok(slot.get_or_init(|| client).clone())
+/// Pooled client for one hop (see `net::client_for`): proxy mode, cert checking,
+/// client certificate and extra CAs all key the pool, so TLS sessions are reused
+/// only between requests that would build an identical client.
+fn client_for(url: &reqwest::Url, net: &NetConfig, insecure: bool) -> Result<reqwest::Client, String> {
+    crate::http::net::client_for(url, net, insecure, is_local_target(url))
 }
 
 fn build_body(body: &Value) -> Result<Option<BodyKind>, String> {
@@ -206,7 +191,8 @@ struct Walked {
 }
 
 async fn fetch_following_redirects(
-    client: &reqwest::Client,
+    net: &NetConfig,
+    insecure: bool,
     initial_url: &str,
     method: &str,
     headers: &Map<String, Value>,
@@ -227,6 +213,9 @@ async fn fetch_following_redirects(
         assert_hop_allowed(&url)?;
 
         let m = reqwest::Method::from_bytes(current_method.as_bytes()).map_err(|e| e.to_string())?;
+        // Per hop: a redirect to another host gets that host's certificate and
+        // proxy rule, never the previous host's identity.
+        let client = client_for(&url, net, insecure)?;
         let mut req = client.request(m, url).timeout(timeout);
         for (k, v) in headers {
             // Let reqwest set the multipart boundary itself.
@@ -319,14 +308,12 @@ pub async fn http_request(input: Value) -> Value {
     };
     let is_multipart = matches!(body, Some(BodyKind::Multipart(_)));
     let opts = SendOptions::from_input(&input);
+    let net = NetConfig::from_input(&input);
 
-    let client = match plain_client(is_local_target(&parsed), opts.insecure) {
-        Ok(c) => c,
-        Err(e) => return envelope_error(0, "Error", &e),
-    };
     let started = std::time::Instant::now();
     let walked = match fetch_following_redirects(
-        &client,
+        &net,
+        opts.insecure,
         url,
         method,
         &headers,
@@ -399,7 +386,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
     }
     let parsed = reqwest::Url::parse(&url).map_err(|_| "Invalid URL format".to_string())?;
     assert_hop_allowed(&parsed)?;
-    let bypass_proxy = is_local_target(&parsed);
+    let net = NetConfig::from_input(&input);
     let method = input["method"].as_str().unwrap_or("GET").to_string();
     let headers = input["headers"].as_object().cloned().unwrap_or_default();
     let body = input["body"].as_str().map(str::to_string);
@@ -412,7 +399,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
         let emit = |v: Value| {
             let _ = channel.send(v);
         };
-        let client = match plain_client(bypass_proxy, false) {
+        let client = match client_for(&parsed, &net, false) {
             Ok(c) => c,
             Err(e) => {
                 emit(json!({ "kind": "error", "message": e }));
@@ -513,6 +500,31 @@ mod tests {
         assert!(is_textual_content_type("text/html"));
         assert!(!is_textual_content_type("application/octet-stream"));
         assert!(!is_textual_content_type(""));
+    }
+
+    #[tokio::test]
+    #[ignore] // network
+    async fn client_certificate_mtls() {
+        // badssl.com publishes this test identity (password "badssl.com").
+        let pfx = reqwest::get("https://badssl.com/certs/badssl.com-client.p12").await.unwrap().bytes().await.unwrap();
+        let path = std::env::temp_dir().join(format!("mdt-badssl-{}.p12", std::process::id()));
+        std::fs::write(&path, &pfx).unwrap();
+        let url = "https://client.badssl.com/";
+
+        let r = http_request(json!({ "url": url, "method": "GET" })).await;
+        assert_eq!(r["status"], 400, "no certificate presented: {r}");
+
+        let with_cert = |host: &str, pass: &str| json!({ "url": url, "method": "GET", "net": { "certs": [
+            { "host": host, "pfxPath": path.to_string_lossy(), "passphrase": pass }
+        ] } });
+        let r = http_request(with_cert("*.badssl.com", "badssl.com")).await;
+        assert_eq!(r["status"], 200, "{r}");
+        // Pattern for another host: no identity offered.
+        let r = http_request(with_cert("example.com", "badssl.com")).await;
+        assert_eq!(r["status"], 400, "{r}");
+        let r = http_request(with_cert("*.badssl.com", "wrong")).await;
+        assert!(r["error"].as_str().unwrap_or("").contains("wrong passphrase"), "{r}");
+        let _ = std::fs::remove_file(path);
     }
 
     #[tokio::test]

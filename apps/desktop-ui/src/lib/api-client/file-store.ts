@@ -15,6 +15,7 @@
  * and no-op mutations produce zero writes.
  */
 
+import { redactCertsForFile } from "@/lib/api-client/network-settings"
 import { dump, load } from "js-yaml"
 import { isAssertionOperator, type Assertion } from "./assertions"
 import type {
@@ -216,7 +217,8 @@ export function redactCollectionAuth(col: Collection): Collection {
                 ? { ...item, defaultAuth: redactAuth(item.defaultAuth).auth, items: visit(item.items) }
                 : { ...item, auth: redactAuth(item.auth).auth as RequestAuth },
         )
-    return { ...col, defaultAuth: redactAuth(col.defaultAuth).auth, items: visit(col.items) }
+    // Certificate entries are machine-local paths (+ maybe a passphrase): never shared.
+    return { ...col, defaultAuth: redactAuth(col.defaultAuth).auth, items: visit(col.items), clientCerts: undefined, caPaths: undefined }
 }
 
 // ── Serialize ──────────────────────────────────────────────────────────────
@@ -313,6 +315,8 @@ export function serializeCollection(col: Collection): FileEntry[] {
                     name: col.name,
                     ...serializeDefaults(col),
                     variables: stripKvIds(col.variables),
+                    clientCerts: redactCertsForFile(col.clientCerts),
+                    caPaths: col.caPaths?.length ? col.caPaths : undefined,
                 }) ?? { formatVersion: FORMAT_VERSION, id: col.id, name: col.name }),
         },
     ]
@@ -503,6 +507,8 @@ export function parseCollection(entries: FileEntry[]): ParsedCollection {
     }
     parseDefaults(manifest, collection)
     if (Array.isArray(manifest.variables)) collection.variables = restoreKvIds(manifest.variables)
+    if (Array.isArray(manifest.clientCerts)) collection.clientCerts = manifest.clientCerts as Collection["clientCerts"]
+    if (Array.isArray(manifest.caPaths)) collection.caPaths = (manifest.caPaths as unknown[]).filter((p): p is string => typeof p === "string")
     return { collection, warnings }
 }
 
