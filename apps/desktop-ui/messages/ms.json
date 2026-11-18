@@ -1871,7 +1871,13 @@
       "sending": "Menghantar...",
       "send": "Hantar",
       "invalidJsonBodyHelp": "Tidak boleh hantar: kandungan JSON tidak sah",
-      "copyCurl": "Salin sebagai cURL"
+      "copyCurl": "Salin sebagai cURL",
+      "variable": {
+        "dynamic": "dijana pada setiap penghantaran",
+        "response": "dibaca daripada respons sebelumnya semasa hantar",
+        "secret": "rahsia, diselesaikan semasa hantar",
+        "missing": "tidak ditakrifkan dalam persekitaran aktif"
+      }
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Data binari tidak boleh dipaparkan dalam paparan mentah.",
       "errorStatusLabel": "Ralat",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Tapis respons dengan JSONPath",
+        "invalid": "JSONPath tidak sah",
+        "matches": "{count, plural, =0 {Tiada padanan} other {# padanan}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Tab baharu",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Tukar persekitaran: {name}"
+    },
+    "customMethod": {
+      "option": "Tersuai…",
+      "label": "Kaedah tersuai",
+      "placeholder": "cth. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Fail binari",
+      "chooseFile": "Pilih fail",
+      "noFile": "Tiada fail dipilih",
+      "binaryHint": "Dihantar sebagai badan permintaan mentah. Content-Type lalai ialah jenis fail.",
+      "binaryMissing": "Kandungan fail tidak disimpan. Pilih fail semula sebelum menghantar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Kata laluan (lama)",
+      "grantRefreshToken": "Token muat semula sahaja",
+      "username": "Nama pengguna",
+      "password": "Kata laluan",
+      "refreshToken": "Token muat semula",
+      "refreshTokenHint": "Ditukar dengan token akses baharu setiap kali diambil."
+    },
+    "collectionActions": {
+      "duplicate": "Pendua",
+      "copyName": "Salinan {name}",
+      "duplicateFailed": "Tidak dapat menduakan",
+      "searchPlaceholder": "Cari koleksi",
+      "clearSearch": "Kosongkan carian",
+      "noSearchResults": "Tiada permintaan sepadan dengan “{query}”",
+      "moveTo": "Alih ke…",
+      "moveTitle": "Alih “{name}”",
+      "moveDescription": "Pilih koleksi atau folder. Item diletakkan di hujung.",
+      "moveFailed": "Tidak dapat mengalih",
+      "workspace": "Ruang kerja",
+      "noWorkspace": "Tiada ruang kerja",
+      "workspaceFailed": "Tidak dapat menukar ruang kerja"
+    },
+    "workspaces": {
+      "title": "Ruang kerja",
+      "description": "Kumpulkan koleksi mengikut pasukan, projek atau persekitaran. Ruang kerja aktif menapis bar sisi.",
+      "createLabel": "Cipta ruang kerja",
+      "createPlaceholder": "cth. Acme Prod",
+      "add": "Tambah",
+      "all": "Semua koleksi",
+      "allHint": "tiada penapis ruang kerja",
+      "rename": "Namakan semula",
+      "delete": "Padam",
+      "confirmDelete": "Padam “{name}”?",
+      "confirmDeleteHint": "Koleksinya kembali tanpa ruang kerja.",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "barLabel": "Ruang kerja"
     }
   },
   "RichEditor": {

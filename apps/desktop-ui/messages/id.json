@@ -1871,7 +1871,13 @@
       "sending": "Mengirim...",
       "send": "Kirim",
       "invalidJsonBodyHelp": "Tidak dapat mengirim: isi JSON tidak valid",
-      "copyCurl": "Salin sebagai cURL"
+      "copyCurl": "Salin sebagai cURL",
+      "variable": {
+        "dynamic": "dibuat setiap kali dikirim",
+        "response": "dibaca dari respons sebelumnya saat dikirim",
+        "secret": "rahasia, diisi saat dikirim",
+        "missing": "tidak didefinisikan di lingkungan aktif"
+      }
     },
     "requestTabs": {
       "params": "parameter",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Binary data cannot be displayed in raw view.",
       "errorStatusLabel": "Error",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Saring respons dengan JSONPath",
+        "invalid": "JSONPath tidak valid",
+        "matches": "{count, plural, =0 {Tidak ada hasil} other {# hasil}}"
+      }
     },
     "tabBar": {
       "addTabAria": "New tab",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Ganti lingkungan: {name}"
+    },
+    "customMethod": {
+      "option": "Kustom…",
+      "label": "Metode kustom",
+      "placeholder": "mis. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "File biner",
+      "chooseFile": "Pilih file",
+      "noFile": "Belum ada file",
+      "binaryHint": "Dikirim sebagai body permintaan mentah. Content-Type bawaan mengikuti tipe file.",
+      "binaryMissing": "Isi file tidak disimpan. Pilih file lagi sebelum mengirim."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Kata sandi (lama)",
+      "grantRefreshToken": "Hanya refresh token",
+      "username": "Nama pengguna",
+      "password": "Kata sandi",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Ditukar dengan access token baru setiap kali diambil."
+    },
+    "collectionActions": {
+      "duplicate": "Duplikat",
+      "copyName": "Salinan {name}",
+      "duplicateFailed": "Tidak dapat menduplikat",
+      "searchPlaceholder": "Cari koleksi",
+      "clearSearch": "Hapus pencarian",
+      "noSearchResults": "Tidak ada permintaan yang cocok dengan “{query}”",
+      "moveTo": "Pindahkan ke…",
+      "moveTitle": "Pindahkan “{name}”",
+      "moveDescription": "Pilih koleksi atau folder. Item ditaruh di akhir.",
+      "moveFailed": "Tidak dapat memindahkan",
+      "workspace": "Ruang kerja",
+      "noWorkspace": "Tanpa ruang kerja",
+      "workspaceFailed": "Tidak dapat mengubah ruang kerja"
+    },
+    "workspaces": {
+      "title": "Ruang kerja",
+      "description": "Kelompokkan koleksi per tim, proyek, atau lingkungan. Ruang kerja aktif menyaring bilah samping.",
+      "createLabel": "Buat ruang kerja",
+      "createPlaceholder": "mis. Acme Prod",
+      "add": "Tambah",
+      "all": "Semua koleksi",
+      "allHint": "tanpa filter ruang kerja",
+      "rename": "Ganti nama",
+      "delete": "Hapus",
+      "confirmDelete": "Hapus “{name}”?",
+      "confirmDeleteHint": "Koleksinya kembali tanpa ruang kerja.",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "barLabel": "Ruang kerja"
     }
   },
   "RichEditor": {

@@ -20,7 +20,10 @@ function tryParseJson(text: string | undefined): unknown {
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database, Cookie, Bookmark } from "lucide-react"
+import { CheckCircle2, AlertCircle, Copy, Download, Search, Info, Clock, Database, Cookie, Bookmark, ListFilter } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { useDebouncedValue } from "@/lib/use-debounced-value"
+import { queryJsonPath } from "@/lib/api-client/jsonpath"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
 import { truncateBody } from "./truncate-body"
@@ -144,6 +147,21 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
     // One parse per body for the tree/table/geo views — these used to parse
     // inline in JSX, three times per render, on every parent re-render.
     const parsedJson = React.useMemo(() => tryParseJson(response?.body), [response?.body])
+    // JSONPath filter over the full parsed body (not the 2MB-truncated view).
+    // Kept across sends so re-running a request keeps the same slice.
+    const [filter, setFilter] = React.useState("")
+    const debouncedFilter = useDebouncedValue(filter, 250)
+    const filtered = React.useMemo((): { text: string; matches: number } | "invalid" | null => {
+        if (!debouncedFilter.trim() || parsedJson === null) return null
+        try {
+            const { value, definite } = queryJsonPath(parsedJson, debouncedFilter)
+            const matches = definite ? (value === undefined ? 0 : 1) : (value as unknown[]).length
+            const text = matches === 0 ? "" : JSON.stringify(value, null, 2)
+            return { text: truncateBody(text, MAX_INLINE_BYTES).inline, matches }
+        } catch {
+            return "invalid"
+        }
+    }, [debouncedFilter, parsedJson])
     const handleEditorMount = React.useCallback((ed: editor.IStandaloneCodeEditor) => {
         bodyEditorRef.current = ed
     }, [])
@@ -371,10 +389,32 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                 </Button>
                             </div>
                         )}
+                        {!response.isBase64 && parsedJson !== null && (
+                            <div className="flex items-center gap-2 px-3 py-1.5 border-b border-border shrink-0">
+                                <ListFilter className="h-3.5 w-3.5 shrink-0 text-muted-foreground" aria-hidden />
+                                <Input
+                                    type="search"
+                                    value={filter}
+                                    onChange={(e) => setFilter(e.target.value)}
+                                    placeholder="$.data[*].id"
+                                    aria-label={t("filter.label")}
+                                    aria-invalid={filtered === "invalid"}
+                                    spellCheck={false}
+                                    className="h-7 flex-1 min-w-0 font-mono text-xs"
+                                />
+                                {filtered === "invalid" ? (
+                                    <span role="status" className="shrink-0 text-xs text-destructive">{t("filter.invalid")}</span>
+                                ) : filtered && (
+                                    <span role="status" className="shrink-0 text-xs text-muted-foreground tabular-nums">
+                                        {t("filter.matches", { count: filtered.matches })}
+                                    </span>
+                                )}
+                            </div>
+                        )}
                         <div className="flex-1 min-h-0 relative">
                             <MemoCodeEditor
-                                value={response.isBase64 ? t("binaryRawView") : inlineBody}
-                                language={getLanguage()}
+                                value={response.isBase64 ? t("binaryRawView") : filtered && filtered !== "invalid" ? filtered.text : inlineBody}
+                                language={filtered && filtered !== "invalid" ? "json" : getLanguage()}
                                 readOnly
                                 onMount={handleEditorMount}
                             />

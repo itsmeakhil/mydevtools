@@ -1871,7 +1871,13 @@
       "sending": "发送中…",
       "send": "发送",
       "invalidJsonBodyHelp": "无法发送：JSON 正文无效",
-      "copyCurl": "复制为 cURL"
+      "copyCurl": "复制为 cURL",
+      "variable": {
+        "dynamic": "每次发送时生成",
+        "response": "发送时从上一个响应读取",
+        "secret": "密钥，发送时解析",
+        "missing": "未在当前环境中定义"
+      }
     },
     "requestTabs": {
       "params": "参数",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "二进制数据无法在原始视图中显示。",
       "errorStatusLabel": "错误",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "用 JSONPath 筛选响应",
+        "invalid": "无效的 JSONPath",
+        "matches": "{count, plural, =0 {无匹配} other {# 个匹配}}"
+      }
     },
     "tabBar": {
       "addTabAria": "新标签",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "切换环境：{name}"
+    },
+    "customMethod": {
+      "option": "自定义…",
+      "label": "自定义方法",
+      "placeholder": "例如 PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "二进制文件",
+      "chooseFile": "选择文件",
+      "noFile": "未选择文件",
+      "binaryHint": "作为原始请求体发送。Content-Type 默认为文件类型。",
+      "binaryMissing": "文件内容未保留。发送前请重新选择文件。"
+    },
+    "oauth2Grants": {
+      "grantPassword": "密码（旧版）",
+      "grantRefreshToken": "仅刷新令牌",
+      "username": "用户名",
+      "password": "密码",
+      "refreshToken": "刷新令牌",
+      "refreshTokenHint": "每次获取时换取新的访问令牌。"
+    },
+    "collectionActions": {
+      "duplicate": "复制",
+      "copyName": "{name} 副本",
+      "duplicateFailed": "无法复制",
+      "searchPlaceholder": "搜索集合",
+      "clearSearch": "清除搜索",
+      "noSearchResults": "没有与“{query}”匹配的请求",
+      "moveTo": "移动到…",
+      "moveTitle": "移动“{name}”",
+      "moveDescription": "选择一个集合或文件夹，项目会放在末尾。",
+      "moveFailed": "无法移动",
+      "workspace": "工作区",
+      "noWorkspace": "无工作区",
+      "workspaceFailed": "无法更改工作区"
+    },
+    "workspaces": {
+      "title": "工作区",
+      "description": "按团队、项目或环境对集合分组。当前工作区会筛选侧边栏。",
+      "createLabel": "创建工作区",
+      "createPlaceholder": "例如 Acme Prod",
+      "add": "添加",
+      "all": "全部集合",
+      "allHint": "不按工作区筛选",
+      "rename": "重命名",
+      "delete": "删除",
+      "confirmDelete": "删除“{name}”？",
+      "confirmDeleteHint": "其集合将不再属于任何工作区。",
+      "cancel": "取消",
+      "save": "保存",
+      "barLabel": "工作区"
     }
   },
   "RichEditor": {

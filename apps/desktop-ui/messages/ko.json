@@ -1871,7 +1871,13 @@
       "sending": "전송 중...",
       "send": "전송",
       "invalidJsonBodyHelp": "전송 불가: JSON 본문이 유효하지 않습니다",
-      "copyCurl": "cURL로 복사"
+      "copyCurl": "cURL로 복사",
+      "variable": {
+        "dynamic": "보낼 때마다 생성됨",
+        "response": "보낼 때 이전 응답에서 읽음",
+        "secret": "비밀 값, 보낼 때 확인됨",
+        "missing": "활성 환경에 정의되지 않음"
+      }
     },
     "requestTabs": {
       "params": "매개변수",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "이진 데이터는 원시 보기에서 표시할 수 없습니다.",
       "errorStatusLabel": "오류",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "JSONPath로 응답 필터링",
+        "invalid": "잘못된 JSONPath",
+        "matches": "{count, plural, =0 {일치 항목 없음} other {#개 일치}}"
+      }
     },
     "tabBar": {
       "addTabAria": "새 탭",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "환경 전환: {name}"
+    },
+    "customMethod": {
+      "option": "사용자 지정…",
+      "label": "사용자 지정 메서드",
+      "placeholder": "예: PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "바이너리 파일",
+      "chooseFile": "파일 선택",
+      "noFile": "선택된 파일 없음",
+      "binaryHint": "원시 요청 본문으로 전송됩니다. Content-Type 기본값은 파일 형식입니다.",
+      "binaryMissing": "파일 내용이 보관되지 않았습니다. 보내기 전에 파일을 다시 선택하세요."
+    },
+    "oauth2Grants": {
+      "grantPassword": "비밀번호 (레거시)",
+      "grantRefreshToken": "리프레시 토큰만",
+      "username": "사용자 이름",
+      "password": "비밀번호",
+      "refreshToken": "리프레시 토큰",
+      "refreshTokenHint": "가져올 때마다 새 액세스 토큰으로 교환됩니다."
+    },
+    "collectionActions": {
+      "duplicate": "복제",
+      "copyName": "{name} 사본",
+      "duplicateFailed": "복제할 수 없습니다",
+      "searchPlaceholder": "컬렉션 검색",
+      "clearSearch": "검색 지우기",
+      "noSearchResults": "“{query}”와 일치하는 요청이 없습니다",
+      "moveTo": "이동…",
+      "moveTitle": "“{name}” 이동",
+      "moveDescription": "컬렉션이나 폴더를 선택하세요. 항목은 맨 끝에 추가됩니다.",
+      "moveFailed": "이동할 수 없습니다",
+      "workspace": "워크스페이스",
+      "noWorkspace": "워크스페이스 없음",
+      "workspaceFailed": "워크스페이스를 변경할 수 없습니다"
+    },
+    "workspaces": {
+      "title": "워크스페이스",
+      "description": "팀, 프로젝트, 환경별로 컬렉션을 묶습니다. 활성 워크스페이스가 사이드바를 필터링합니다.",
+      "createLabel": "워크스페이스 만들기",
+      "createPlaceholder": "예: Acme Prod",
+      "add": "추가",
+      "all": "모든 컬렉션",
+      "allHint": "워크스페이스 필터 없음",
+      "rename": "이름 변경",
+      "delete": "삭제",
+      "confirmDelete": "“{name}”을(를) 삭제할까요?",
+      "confirmDeleteHint": "해당 컬렉션은 워크스페이스 없음으로 돌아갑니다.",
+      "cancel": "취소",
+      "save": "저장",
+      "barLabel": "워크스페이스"
     }
   },
   "RichEditor": {

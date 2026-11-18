@@ -1871,7 +1871,13 @@
       "sending": "Odesílání...",
       "send": "Odeslat",
       "invalidJsonBodyHelp": "Nelze odeslat: tělo JSON není platné",
-      "copyCurl": "Kopírovat jako cURL"
+      "copyCurl": "Kopírovat jako cURL",
+      "variable": {
+        "dynamic": "generuje se při každém odeslání",
+        "response": "čte se z předchozí odpovědi při odeslání",
+        "secret": "tajné, vyřeší se při odeslání",
+        "missing": "není definováno v aktivním prostředí"
+      }
     },
     "requestTabs": {
       "params": "Parametry",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Binární data nelze zobrazit v surovém zobrazení.",
       "errorStatusLabel": "Chyba",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtrovat odpověď pomocí JSONPath",
+        "invalid": "Neplatná cesta JSONPath",
+        "matches": "{count, plural, =0 {Žádné shody} one {# shoda} few {# shody} many {# shody} other {# shod}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nová karta",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Přepnout prostředí: {name}"
+    },
+    "customMethod": {
+      "option": "Vlastní…",
+      "label": "Vlastní metoda",
+      "placeholder": "např. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binární soubor",
+      "chooseFile": "Vybrat soubor",
+      "noFile": "Nevybrán žádný soubor",
+      "binaryHint": "Odešle se jako nezpracované tělo požadavku. Content-Type je výchozí podle typu souboru.",
+      "binaryMissing": "Obsah souboru nebyl uchován. Před odesláním soubor vyberte znovu."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Heslo (zastaralé)",
+      "grantRefreshToken": "Pouze obnovovací token",
+      "username": "Uživatelské jméno",
+      "password": "Heslo",
+      "refreshToken": "Obnovovací token",
+      "refreshTokenHint": "Při každém získání se vymění za nový přístupový token."
+    },
+    "collectionActions": {
+      "duplicate": "Duplikovat",
+      "copyName": "{name} – kopie",
+      "duplicateFailed": "Duplikování se nezdařilo",
+      "searchPlaceholder": "Hledat v kolekcích",
+      "clearSearch": "Vymazat hledání",
+      "noSearchResults": "Žádné požadavky neodpovídají „{query}“",
+      "moveTo": "Přesunout do…",
+      "moveTitle": "Přesunout „{name}“",
+      "moveDescription": "Vyberte kolekci nebo složku. Položka se přidá na konec.",
+      "moveFailed": "Přesun se nezdařil",
+      "workspace": "Pracovní prostor",
+      "noWorkspace": "Bez pracovního prostoru",
+      "workspaceFailed": "Pracovní prostor se nepodařilo změnit"
+    },
+    "workspaces": {
+      "title": "Pracovní prostory",
+      "description": "Seskupte kolekce podle týmu, projektu nebo prostředí. Aktivní prostor filtruje postranní panel.",
+      "createLabel": "Vytvořit pracovní prostor",
+      "createPlaceholder": "např. Acme Prod",
+      "add": "Přidat",
+      "all": "Všechny kolekce",
+      "allHint": "bez filtru prostoru",
+      "rename": "Přejmenovat",
+      "delete": "Smazat",
+      "confirmDelete": "Smazat „{name}“?",
+      "confirmDeleteHint": "Jeho kolekce budou bez pracovního prostoru.",
+      "cancel": "Zrušit",
+      "save": "Uložit",
+      "barLabel": "Pracovní prostor"
     }
   },
   "RichEditor": {

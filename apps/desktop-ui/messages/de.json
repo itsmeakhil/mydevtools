@@ -1871,7 +1871,13 @@
       "sending": "Senden...",
       "send": "Senden",
       "invalidJsonBodyHelp": "Senden nicht möglich: Der JSON-Body ist ungültig",
-      "copyCurl": "Als cURL kopieren"
+      "copyCurl": "Als cURL kopieren",
+      "variable": {
+        "dynamic": "wird bei jedem Senden erzeugt",
+        "response": "wird beim Senden aus der vorherigen Antwort gelesen",
+        "secret": "geheim, wird beim Senden aufgelöst",
+        "missing": "in der aktiven Umgebung nicht definiert"
+      }
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Binärdaten können in der Rohansicht nicht angezeigt werden.",
       "errorStatusLabel": "Fehler",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Antwort mit JSONPath filtern",
+        "invalid": "Ungültiger JSONPath",
+        "matches": "{count, plural, =0 {Keine Treffer} one {# Treffer} other {# Treffer}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Neue Registerkarte",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Umgebung wechseln: {name}"
+    },
+    "customMethod": {
+      "option": "Benutzerdefiniert…",
+      "label": "Benutzerdefinierte Methode",
+      "placeholder": "z. B. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binärdatei",
+      "chooseFile": "Datei wählen",
+      "noFile": "Keine Datei gewählt",
+      "binaryHint": "Wird als roher Request-Body gesendet. Content-Type entspricht standardmäßig dem Dateityp.",
+      "binaryMissing": "Der Dateiinhalt wurde nicht behalten. Datei vor dem Senden erneut wählen."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Passwort (veraltet)",
+      "grantRefreshToken": "Nur Refresh-Token",
+      "username": "Benutzername",
+      "password": "Passwort",
+      "refreshToken": "Refresh-Token",
+      "refreshTokenHint": "Wird bei jedem Abruf gegen ein neues Access-Token getauscht."
+    },
+    "collectionActions": {
+      "duplicate": "Duplizieren",
+      "copyName": "{name} (Kopie)",
+      "duplicateFailed": "Duplizieren fehlgeschlagen",
+      "searchPlaceholder": "Sammlungen durchsuchen",
+      "clearSearch": "Suche löschen",
+      "noSearchResults": "Keine Anfragen passen zu „{query}“",
+      "moveTo": "Verschieben nach…",
+      "moveTitle": "„{name}“ verschieben",
+      "moveDescription": "Sammlung oder Ordner wählen. Das Element landet am Ende.",
+      "moveFailed": "Verschieben fehlgeschlagen",
+      "workspace": "Arbeitsbereich",
+      "noWorkspace": "Kein Arbeitsbereich",
+      "workspaceFailed": "Arbeitsbereich konnte nicht geändert werden"
+    },
+    "workspaces": {
+      "title": "Arbeitsbereiche",
+      "description": "Sammlungen nach Team, Projekt oder Umgebung gruppieren. Der aktive Arbeitsbereich filtert die Seitenleiste.",
+      "createLabel": "Arbeitsbereich erstellen",
+      "createPlaceholder": "z. B. Acme Prod",
+      "add": "Hinzufügen",
+      "all": "Alle Sammlungen",
+      "allHint": "kein Arbeitsbereichsfilter",
+      "rename": "Umbenennen",
+      "delete": "Löschen",
+      "confirmDelete": "„{name}“ löschen?",
+      "confirmDeleteHint": "Seine Sammlungen haben danach keinen Arbeitsbereich.",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "barLabel": "Arbeitsbereich"
     }
   },
   "RichEditor": {

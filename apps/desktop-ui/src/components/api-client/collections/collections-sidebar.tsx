@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
-import { CollectionItem } from "./collection-item"
-import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe } from "lucide-react"
+import { CollectionItem, TREE_DRAG_MIME } from "./collection-item"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy } from "lucide-react"
+import { filterTree, moveDestinations, resolveDrop, type DropPosition } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
@@ -40,6 +41,11 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useTranslations } from "next-intl"
@@ -72,7 +78,32 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         [loadRequest, panel],
     )
     const { collections, isLoading } = useCollectionsState()
-    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection } = useCollectionsActions()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection, setCollectionWorkspace, moveItem } = useCollectionsActions()
+    const tActions = useTranslations("ApiClient.collectionActions")
+
+    // Drag/drop + "Move to…". Collections are read through a ref so these
+    // callbacks stay stable and the memoized rows don't all re-render.
+    const collectionsRef = React.useRef(collections)
+    collectionsRef.current = collections
+    const moveTo = React.useCallback(
+        (draggedId: string, target: Parameters<typeof resolveDrop>[2]) => {
+            const to = resolveDrop(collectionsRef.current, draggedId, target)
+            if (to) void moveItem(draggedId, to, tActions("moveFailed"))
+        },
+        [moveItem, tActions],
+    )
+    const onDropItem = React.useCallback(
+        (draggedId: string, target: { itemId: string; position: DropPosition }) => moveTo(draggedId, target),
+        [moveTo],
+    )
+    const [moveSource, setMoveSource] = React.useState<Collection["items"][number] | null>(null)
+    const [collectionDropTarget, setCollectionDropTarget] = React.useState<string | null>(null)
+
+    const onDuplicateItem = React.useCallback(
+        (item: Collection["items"][number]) =>
+            void duplicateItem(item.id, tActions("copyName", { name: item.name }), tActions("duplicateFailed")),
+        [duplicateItem, tActions],
+    )
 
     // isDesktop() is false during SSR — gate behind a mounted flag to avoid hydration mismatch.
     const [desktop, setDesktop] = React.useState(false)
@@ -123,30 +154,16 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
     const [runnerCollection, setRunnerCollection] = React.useState<Collection | null>(null)
     const [folderDefaultsTarget, setFolderDefaultsTarget] = React.useState<CollectionFolder | null>(null)
-    /** "" = show all workspaces; otherwise filter collections whose `workspace` matches. */
-    const [workspaceFilter, setWorkspaceFilter] = React.useState<string>("")
 
-    const workspaceOptions = React.useMemo(() => {
-        const set = new Set<string>()
-        for (const c of collections) {
-            if (c.workspace) set.add(c.workspace)
-        }
-        return Array.from(set).sort()
-    }, [collections])
-
-    const filteredCollections = React.useMemo(() => {
-        if (!workspaceFilter) return collections
-        return collections.filter((c) => (c.workspace ?? "") === workspaceFilter)
-    }, [collections, workspaceFilter])
-
-    // Multi-tenant filter: when an active workspace is set via the WorkspacesProvider,
-    // narrow to collections referencing that workspace id. Local chip filter still composes.
+    // One workspace mechanism: the active workspace (WorkspacesProvider) narrows
+    // to collections assigned to it; no workspace selected shows everything.
     const { workspaces, activeId: activeWorkspaceId } = useWorkspacesContext()
+    const tWs = useTranslations("ApiClient.workspaces")
     const [workspaceDialogOpen, setWorkspaceDialogOpen] = React.useState(false)
     const collectionsForActiveWs = React.useMemo(() => {
-        if (!activeWorkspaceId) return filteredCollections
-        return filteredCollections.filter((c) => c.workspace === activeWorkspaceId)
-    }, [filteredCollections, activeWorkspaceId])
+        if (!activeWorkspaceId) return collections
+        return collections.filter((c) => c.workspace === activeWorkspaceId)
+    }, [collections, activeWorkspaceId])
 
     // Collections stay reachable from the collapsed rail. A collection has no
     // open/closed state of its own — only the folders inside it toggle — so
@@ -173,7 +190,19 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         ),
     )
 
-    const activeWorkspaceName = workspaces.find((w) => w.id === activeWorkspaceId)?.name ?? "All"
+    // Collections search: request name / URL / method and folder names; folders on the way to a hit open.
+    const [treeSearch, setTreeSearch] = React.useState("")
+    const treeQuery = useDebouncedValue(treeSearch, 150).trim().toLowerCase()
+    const visibleCollections = React.useMemo(() => {
+        if (!treeQuery) return collectionsForActiveWs
+        return collectionsForActiveWs.flatMap((c) => {
+            if (c.name.toLowerCase().includes(treeQuery)) return [c]
+            const items = filterTree(c.items, treeQuery)
+            return items.length > 0 ? [{ ...c, items }] : []
+        })
+    }, [collectionsForActiveWs, treeQuery])
+
+    const activeWorkspaceName = workspaces.find((w) => w.id === activeWorkspaceId)?.name ?? tWs("all")
     const [selectedCollections, setSelectedCollections] = React.useState<Set<string>>(new Set())
     const [deleteBulkDialogOpen, setDeleteBulkDialogOpen] = React.useState(false)
     const [isDeleting, setIsDeleting] = React.useState(false)
@@ -335,28 +364,9 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                         onClick={() => setWorkspaceDialogOpen(true)}
                     >
                         <Briefcase className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">Workspace</span>
+                        <span className="text-xs text-muted-foreground">{tWs("barLabel")}</span>
                         <span className="flex-1 truncate text-left font-medium">{activeWorkspaceName}</span>
                     </button>
-                    {workspaceOptions.length > 0 && (
-                        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
-                            <button
-                                className={`text-xs font-medium px-2 h-6 rounded-full transition-colors ${workspaceFilter === "" ? "bg-primary/[0.12] text-primary" : "text-muted-foreground hover:bg-foreground/[0.05]"}`}
-                                onClick={() => setWorkspaceFilter("")}
-                            >
-                                All
-                            </button>
-                            {workspaceOptions.map((ws) => (
-                                <button
-                                    key={ws}
-                                    className={`text-xs font-medium px-2 h-6 rounded-full transition-colors ${workspaceFilter === ws ? "bg-primary/[0.12] text-primary" : "text-muted-foreground hover:bg-foreground/[0.05]"}`}
-                                    onClick={() => setWorkspaceFilter(ws)}
-                                >
-                                    {ws}
-                                </button>
-                            ))}
-                        </div>
-                    )}
                     <TabsList className="w-full grid grid-cols-2 h-8">
                         <TabsTrigger value="collections" className="py-0.5">{t("tabCollections")}</TabsTrigger>
                         <TabsTrigger value="history" className="py-0.5">{t("tabHistory")}</TabsTrigger>
@@ -364,6 +374,31 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 </div>
 
                 <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
+                    {collections.length > 0 && (
+                        <div className="px-3 py-2 border-b border-border shrink-0">
+                            <div className="relative">
+                                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+                                <input
+                                    type="text"
+                                    aria-label={tActions("searchPlaceholder")}
+                                    placeholder={tActions("searchPlaceholder")}
+                                    value={treeSearch}
+                                    onChange={(e) => setTreeSearch(e.target.value)}
+                                    onKeyDown={(e) => { if (e.key === "Escape") setTreeSearch("") }}
+                                    className="w-full h-8 pl-8 pr-7 text-[13px] bg-card border border-input rounded-md outline-none placeholder:text-muted-foreground/80 focus:border-primary focus:ring-[3px] focus:ring-primary/25 transition-[border-color,box-shadow]"
+                                />
+                                {treeSearch && (
+                                    <button
+                                        onClick={() => setTreeSearch("")}
+                                        aria-label={tActions("clearSearch")}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 flex items-center justify-center text-muted-foreground hover:text-foreground"
+                                    >
+                                        <X className="h-3 w-3" />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    )}
                     <ScrollArea className="flex-1">
                         <div className="p-2">
                             {isLoading && collections.length === 0 ? (
@@ -387,10 +422,36 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                         )}
                                     </div>
                                 </div>
+                            ) : treeQuery && visibleCollections.length === 0 ? (
+                                <div className="text-[13px] text-muted-foreground text-center py-6">
+                                    {tActions("noSearchResults", { query: treeSearch.trim() })}
+                                </div>
                             ) : (
-                                collectionsForActiveWs.map((collection) => (
+                                visibleCollections.map((collection) => (
                                     <div key={collection.id} data-collection-id={collection.id} className="mb-3">
-                                        <div className="flex items-center justify-between h-8 px-2 group rounded-lg hover:bg-foreground/[0.05] transition-colors">
+                                        <div
+                                            className={cn(
+                                                "flex items-center justify-between h-8 px-2 group rounded-lg hover:bg-foreground/[0.05] transition-colors",
+                                                collectionDropTarget === collection.id && "bg-primary/10 ring-1 ring-inset ring-primary/40",
+                                            )}
+                                            // Dropping on the header puts the item at the end of the collection root.
+                                            onDragOver={(e) => {
+                                                if (treeQuery || !e.dataTransfer.types.includes(TREE_DRAG_MIME)) return
+                                                e.preventDefault()
+                                                e.dataTransfer.dropEffect = "move"
+                                                if (collectionDropTarget !== collection.id) setCollectionDropTarget(collection.id)
+                                            }}
+                                            onDragLeave={(e) => {
+                                                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setCollectionDropTarget(null)
+                                            }}
+                                            onDrop={(e) => {
+                                                setCollectionDropTarget(null)
+                                                const draggedId = e.dataTransfer.getData(TREE_DRAG_MIME)
+                                                if (!draggedId) return
+                                                e.preventDefault()
+                                                moveTo(draggedId, { collectionId: collection.id })
+                                            }}
+                                        >
                                             <div className="flex items-center gap-2 flex-1 min-w-0">
                                                 <div className="flex items-center">
                                                     <Checkbox
@@ -433,38 +494,29 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                             <Pencil className="h-4 w-4 mr-2" />
                                                             {t("rename")}
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem
-                                                            onClick={async () => {
-                                                                if (typeof window === "undefined") return
-                                                                if (workspaces.length === 0) {
-                                                                    toast.error("Create a workspace first (sidebar → Workspace bar)")
-                                                                    return
-                                                                }
-                                                                const options = workspaces
-                                                                    .map((w, i) => `${i + 1}: ${w.name}`)
-                                                                    .join("\n")
-                                                                const choice = window.prompt(
-                                                                    `Move "${collection.name}" to which workspace?\n0: default (no workspace)\n${options}`,
-                                                                    "0",
-                                                                )
-                                                                if (choice === null) return
-                                                                const idx = Number(choice)
-                                                                const target = idx === 0 ? null : workspaces[idx - 1]?.id ?? null
-                                                                try {
-                                                                    const res = await apiFetch(`/api/backend/api-client/collections/${collection.id}`, {
-                                                                        method: "PATCH",
-                                                                        headers: { "Content-Type": "application/json" },
-                                                                        body: JSON.stringify({ workspace: target }),
-                                                                    })
-                                                                    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-                                                                    toast.success("Workspace updated. Reload to see filter.")
-                                                                } catch (e) {
-                                                                    toast.error((e as Error).message)
-                                                                }
-                                                            }}
-                                                        >
-                                                            <FolderPlus className="h-4 w-4 mr-2" />
-                                                            Set workspace…
+                                                        {/* Workspace ids are app-local, so folder (git) collections don't carry one. */}
+                                                        {!collection.source && workspaces.length > 0 && (
+                                                            <DropdownMenuSub>
+                                                                <DropdownMenuSubTrigger>
+                                                                    <Briefcase className="h-4 w-4 mr-2" />
+                                                                    {tActions("workspace")}
+                                                                </DropdownMenuSubTrigger>
+                                                                <DropdownMenuSubContent>
+                                                                    <DropdownMenuRadioGroup
+                                                                        value={collection.workspace ?? ""}
+                                                                        onValueChange={(v) => void setCollectionWorkspace(collection.id, v || null, tActions("workspaceFailed"))}
+                                                                    >
+                                                                        <DropdownMenuRadioItem value="">{tActions("noWorkspace")}</DropdownMenuRadioItem>
+                                                                        {workspaces.map((w) => (
+                                                                            <DropdownMenuRadioItem key={w.id} value={w.id}>{w.name}</DropdownMenuRadioItem>
+                                                                        ))}
+                                                                    </DropdownMenuRadioGroup>
+                                                                </DropdownMenuSubContent>
+                                                            </DropdownMenuSub>
+                                                        )}
+                                                        <DropdownMenuItem onClick={() => void duplicateCollection(collection.id, tActions("copyName", { name: collection.name }))}>
+                                                            <Copy className="h-4 w-4 mr-2" />
+                                                            {tActions("duplicate")}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => setRunnerCollection(collection)}>
                                                             <Play className="h-4 w-4 mr-2" />
@@ -575,6 +627,10 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                     onLoadRequest={onLoadRequest}
                                                     onRenameFolder={onRenameFolder}
                                                     onEditFolderDefaults={setFolderDefaultsTarget}
+                                                    onDuplicate={onDuplicateItem}
+                                                    onMoveTo={setMoveSource}
+                                                    // Filtered trees hide siblings, so drop indices would be wrong.
+                                                    onDropItem={treeQuery ? undefined : onDropItem}
                                                 />
                                             ))}
                                             {collection.items.length === 0 && (
@@ -783,6 +839,38 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 collection={runnerCollection}
             />
             <WorkspacesDialog open={workspaceDialogOpen} onOpenChange={setWorkspaceDialogOpen} />
+            <Dialog open={moveSource !== null} onOpenChange={(o) => { if (!o) setMoveSource(null) }}>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle>{tActions("moveTitle", { name: moveSource?.name ?? "" })}</DialogTitle>
+                        <DialogDescription>{tActions("moveDescription")}</DialogDescription>
+                    </DialogHeader>
+                    <ScrollArea className="max-h-[50vh]">
+                        <div className="flex flex-col gap-0.5 p-1">
+                            {moveSource && moveDestinations(collections, moveSource.id).map((d) => (
+                                <button
+                                    key={d.parentId ?? d.collectionId}
+                                    className={cn(
+                                        "flex items-center gap-2 h-8 pr-2 rounded-md text-left text-[13px] hover:bg-foreground/[0.05] focus-visible:bg-foreground/[0.05] outline-none",
+                                        d.depth === 0 && "font-semibold",
+                                    )}
+                                    style={{ paddingLeft: `${d.depth * 14 + 8}px` }}
+                                    onClick={() => {
+                                        const id = moveSource.id
+                                        setMoveSource(null)
+                                        moveTo(id, d.parentId ? { itemId: d.parentId, position: "inside" } : { collectionId: d.collectionId })
+                                    }}
+                                >
+                                    {d.depth === 0
+                                        ? <FolderGit2 className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                                        : <FolderPlus className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />}
+                                    <span className="truncate">{d.label}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </ScrollArea>
+                </DialogContent>
+            </Dialog>
             <FolderDefaultsDialog
                 open={folderDefaultsTarget !== null}
                 onOpenChange={(o) => { if (!o) setFolderDefaultsTarget(null) }}

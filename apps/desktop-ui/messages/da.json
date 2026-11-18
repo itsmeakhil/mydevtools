@@ -1871,7 +1871,13 @@
       "sending": "Sender...",
       "send": "Sende",
       "invalidJsonBodyHelp": "Kan ikke sende: JSON-brødteksten er ugyldig",
-      "copyCurl": "Kopiér som cURL"
+      "copyCurl": "Kopiér som cURL",
+      "variable": {
+        "dynamic": "genereres ved hver afsendelse",
+        "response": "læses fra det forrige svar ved afsendelse",
+        "secret": "hemmelig, opløses ved afsendelse",
+        "missing": "ikke defineret i det aktive miljø"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Binære data kan ikke vises i rå visning.",
       "errorStatusLabel": "Fejl",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtrer svar med JSONPath",
+        "invalid": "Ugyldig JSONPath",
+        "matches": "{count, plural, =0 {Ingen match} one {# match} other {# match}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Ny fane",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Skift miljø: {name}"
+    },
+    "customMethod": {
+      "option": "Brugerdefineret…",
+      "label": "Brugerdefineret metode",
+      "placeholder": "f.eks. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binær fil",
+      "chooseFile": "Vælg fil",
+      "noFile": "Ingen fil valgt",
+      "binaryHint": "Sendes som rå anmodningstekst. Content-Type er som standard filens type.",
+      "binaryMissing": "Filens indhold blev ikke gemt. Vælg filen igen før afsendelse."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Adgangskode (forældet)",
+      "grantRefreshToken": "Kun opdateringstoken",
+      "username": "Brugernavn",
+      "password": "Adgangskode",
+      "refreshToken": "Opdateringstoken",
+      "refreshTokenHint": "Byttes til et nyt adgangstoken ved hver hentning."
+    },
+    "collectionActions": {
+      "duplicate": "Duplikér",
+      "copyName": "{name} kopi",
+      "duplicateFailed": "Kunne ikke duplikere",
+      "searchPlaceholder": "Søg i samlinger",
+      "clearSearch": "Ryd søgning",
+      "noSearchResults": "Ingen anmodninger matcher “{query}”",
+      "moveTo": "Flyt til…",
+      "moveTitle": "Flyt “{name}”",
+      "moveDescription": "Vælg en samling eller mappe. Elementet placeres til sidst.",
+      "moveFailed": "Kunne ikke flytte",
+      "workspace": "Arbejdsområde",
+      "noWorkspace": "Intet arbejdsområde",
+      "workspaceFailed": "Kunne ikke ændre arbejdsområdet"
+    },
+    "workspaces": {
+      "title": "Arbejdsområder",
+      "description": "Gruppér samlinger efter team, projekt eller miljø. Det aktive arbejdsområde filtrerer sidepanelet.",
+      "createLabel": "Opret arbejdsområde",
+      "createPlaceholder": "f.eks. Acme Prod",
+      "add": "Tilføj",
+      "all": "Alle samlinger",
+      "allHint": "intet arbejdsområdefilter",
+      "rename": "Omdøb",
+      "delete": "Slet",
+      "confirmDelete": "Slet “{name}”?",
+      "confirmDeleteHint": "Dets samlinger får intet arbejdsområde igen.",
+      "cancel": "Annuller",
+      "save": "Gem",
+      "barLabel": "Arbejdsområde"
     }
   },
   "RichEditor": {

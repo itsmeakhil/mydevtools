@@ -1871,7 +1871,13 @@
       "sending": "Invio...",
       "send": "Inviare",
       "invalidJsonBodyHelp": "Impossibile inviare: il corpo JSON non è valido",
-      "copyCurl": "Copia come cURL"
+      "copyCurl": "Copia come cURL",
+      "variable": {
+        "dynamic": "generato a ogni invio",
+        "response": "letto dalla risposta precedente all'invio",
+        "secret": "segreto, risolto all'invio",
+        "missing": "non definita nell'ambiente attivo"
+      }
     },
     "requestTabs": {
       "params": "Param",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "I dati binari non possono essere visualizzati nella vista grezza.",
       "errorStatusLabel": "Errore",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtra la risposta con JSONPath",
+        "invalid": "JSONPath non valido",
+        "matches": "{count, plural, =0 {Nessuna corrispondenza} one {# corrispondenza} other {# corrispondenze}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Nuova scheda",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Cambia ambiente: {name}"
+    },
+    "customMethod": {
+      "option": "Personalizzato…",
+      "label": "Metodo personalizzato",
+      "placeholder": "es. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "File binario",
+      "chooseFile": "Scegli file",
+      "noFile": "Nessun file scelto",
+      "binaryHint": "Inviato come corpo della richiesta grezzo. Content-Type usa di default il tipo del file.",
+      "binaryMissing": "Il contenuto del file non è stato conservato. Scegli di nuovo il file prima dell'invio."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Password (legacy)",
+      "grantRefreshToken": "Solo refresh token",
+      "username": "Nome utente",
+      "password": "Password",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Scambiato con un nuovo access token a ogni richiesta."
+    },
+    "collectionActions": {
+      "duplicate": "Duplica",
+      "copyName": "Copia di {name}",
+      "duplicateFailed": "Impossibile duplicare",
+      "searchPlaceholder": "Cerca nelle raccolte",
+      "clearSearch": "Cancella ricerca",
+      "noSearchResults": "Nessuna richiesta corrisponde a “{query}”",
+      "moveTo": "Sposta in…",
+      "moveTitle": "Sposta “{name}”",
+      "moveDescription": "Scegli una raccolta o una cartella. L'elemento va in fondo.",
+      "moveFailed": "Impossibile spostare",
+      "workspace": "Area di lavoro",
+      "noWorkspace": "Nessuna area di lavoro",
+      "workspaceFailed": "Impossibile cambiare l'area di lavoro"
+    },
+    "workspaces": {
+      "title": "Aree di lavoro",
+      "description": "Raggruppa le raccolte per team, progetto o ambiente. L'area attiva filtra la barra laterale.",
+      "createLabel": "Crea area di lavoro",
+      "createPlaceholder": "es. Acme Prod",
+      "add": "Aggiungi",
+      "all": "Tutte le raccolte",
+      "allHint": "nessun filtro area",
+      "rename": "Rinomina",
+      "delete": "Elimina",
+      "confirmDelete": "Eliminare “{name}”?",
+      "confirmDeleteHint": "Le sue raccolte tornano senza area di lavoro.",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "barLabel": "Area di lavoro"
     }
   },
   "RichEditor": {

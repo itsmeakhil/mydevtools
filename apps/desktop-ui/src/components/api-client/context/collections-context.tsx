@@ -5,6 +5,7 @@ import { Collection } from "../types"
 import { useCollections } from "../collections/use-collections"
 import { useEnvironmentsActions } from "./environments-context"
 import { toast } from "sonner"
+import type { Location } from "@/lib/api-client/collection-tree"
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -28,6 +29,10 @@ type CollectionsActions = {
     importCollection: (incoming: Collection) => Promise<Collection | null>
     /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection, or import a Bruno folder. */
     openFolderCollection: () => Promise<Collection | null>
+    duplicateItem: (itemId: string, name: string, failMsg: string) => Promise<boolean>
+    duplicateCollection: (collectionId: string, name: string) => Promise<Collection | null>
+    moveItem: (itemId: string, to: Location, failMsg: string) => Promise<boolean>
+    setCollectionWorkspace: (collectionId: string, workspace: string | null, failMsg: string) => Promise<void>
 }
 
 // ── Contexts ───────────────────────────────────────────────────────────────
@@ -53,6 +58,10 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         deleteMultipleCollections,
         importCollection,
         openFolderCollection,
+        duplicateItem,
+        duplicateCollection,
+        moveItem,
+        setCollectionWorkspace,
     } = useCollections()
     const { addEnvironment, updateEnvironment } = useEnvironmentsActions()
 
@@ -96,9 +105,13 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             deleteMultipleCollections,
             importCollection,
             openFolderCollection: openFolderCollectionWithEnvs,
+            duplicateItem,
+            duplicateCollection,
+            moveItem,
+            setCollectionWorkspace,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, updateRequest, deleteMultipleCollections, importCollection, openFolderCollection, addEnvironment, updateEnvironment]
+        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, updateRequest, deleteMultipleCollections, importCollection, openFolderCollection, duplicateItem, duplicateCollection, moveItem, setCollectionWorkspace, addEnvironment, updateEnvironment]
     )
 
     return (

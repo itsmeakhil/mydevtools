@@ -1871,7 +1871,13 @@
       "sending": "جاري الإرسال...",
       "send": "إرسال",
       "invalidJsonBodyHelp": "لا يمكن الإرسال: نص JSON غير صالح",
-      "copyCurl": "نسخ كأمر cURL"
+      "copyCurl": "نسخ كأمر cURL",
+      "variable": {
+        "dynamic": "يُولَّد عند كل إرسال",
+        "response": "يُقرأ من الاستجابة السابقة عند الإرسال",
+        "secret": "سرّي، يُحَل عند الإرسال",
+        "missing": "غير معرّف في البيئة النشطة"
+      }
     },
     "requestTabs": {
       "params": "معاملات",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "لا يمكن عرض البيانات الثنائية في العرض الخام.",
       "errorStatusLabel": "خطأ",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "تصفية الاستجابة باستخدام JSONPath",
+        "invalid": "JSONPath غير صالح",
+        "matches": "{count, plural, =0 {لا توجد نتائج} zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجة} other {# نتيجة}}"
+      }
     },
     "tabBar": {
       "addTabAria": "تبويب جديد",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "تبديل البيئة: {name}"
+    },
+    "customMethod": {
+      "option": "مخصص…",
+      "label": "طريقة مخصصة",
+      "placeholder": "مثال: PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "ملف ثنائي",
+      "chooseFile": "اختيار ملف",
+      "noFile": "لم يتم اختيار ملف",
+      "binaryHint": "يُرسل كجسم طلب خام. نوع المحتوى الافتراضي هو نوع الملف.",
+      "binaryMissing": "لم يتم الاحتفاظ بمحتوى الملف. اختر الملف مجددًا قبل الإرسال."
+    },
+    "oauth2Grants": {
+      "grantPassword": "كلمة المرور (قديم)",
+      "grantRefreshToken": "رمز التحديث فقط",
+      "username": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "refreshToken": "رمز التحديث",
+      "refreshTokenHint": "يُستبدل برمز وصول جديد عند كل جلب."
+    },
+    "collectionActions": {
+      "duplicate": "تكرار",
+      "copyName": "نسخة من {name}",
+      "duplicateFailed": "تعذّر التكرار",
+      "searchPlaceholder": "ابحث في المجموعات",
+      "clearSearch": "مسح البحث",
+      "noSearchResults": "لا توجد طلبات تطابق “{query}”",
+      "moveTo": "نقل إلى…",
+      "moveTitle": "نقل “{name}”",
+      "moveDescription": "اختر مجموعة أو مجلدًا. يُضاف العنصر في النهاية.",
+      "moveFailed": "تعذّر النقل",
+      "workspace": "مساحة العمل",
+      "noWorkspace": "بلا مساحة عمل",
+      "workspaceFailed": "تعذّر تغيير مساحة العمل"
+    },
+    "workspaces": {
+      "title": "مساحات العمل",
+      "description": "جمّع المجموعات حسب الفريق أو المشروع أو البيئة. مساحة العمل النشطة تُرشِّح الشريط الجانبي.",
+      "createLabel": "إنشاء مساحة عمل",
+      "createPlaceholder": "مثال: Acme Prod",
+      "add": "إضافة",
+      "all": "كل المجموعات",
+      "allHint": "بلا ترشيح لمساحة العمل",
+      "rename": "إعادة تسمية",
+      "delete": "حذف",
+      "confirmDelete": "حذف “{name}”؟",
+      "confirmDeleteHint": "تعود مجموعاتها بلا مساحة عمل.",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "barLabel": "مساحة العمل"
     }
   },
   "RichEditor": {

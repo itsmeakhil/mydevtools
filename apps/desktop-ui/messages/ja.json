@@ -1871,7 +1871,13 @@
       "sending": "送信中...",
       "send": "送信",
       "invalidJsonBodyHelp": "送信できません: JSONボディが無効です",
-      "copyCurl": "cURLとしてコピー"
+      "copyCurl": "cURLとしてコピー",
+      "variable": {
+        "dynamic": "送信のたびに生成",
+        "response": "送信時に前回のレスポンスから取得",
+        "secret": "シークレット、送信時に解決",
+        "missing": "アクティブな環境で未定義"
+      }
     },
     "requestTabs": {
       "params": "パラメータ",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "バイナリデータはraw表示できません。",
       "errorStatusLabel": "エラー",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "JSONPath でレスポンスを絞り込む",
+        "invalid": "無効な JSONPath",
+        "matches": "{count, plural, =0 {一致なし} other {# 件一致}}"
+      }
     },
     "tabBar": {
       "addTabAria": "新しいタブ",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "環境を切り替え: {name}"
+    },
+    "customMethod": {
+      "option": "カスタム…",
+      "label": "カスタムメソッド",
+      "placeholder": "例: PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "バイナリファイル",
+      "chooseFile": "ファイルを選択",
+      "noFile": "ファイル未選択",
+      "binaryHint": "リクエストボディとしてそのまま送信します。Content-Type の既定値はファイルの種類です。",
+      "binaryMissing": "ファイルの内容が保持されていません。送信前にもう一度ファイルを選択してください。"
+    },
+    "oauth2Grants": {
+      "grantPassword": "パスワード (レガシー)",
+      "grantRefreshToken": "リフレッシュトークンのみ",
+      "username": "ユーザー名",
+      "password": "パスワード",
+      "refreshToken": "リフレッシュトークン",
+      "refreshTokenHint": "取得のたびに新しいアクセストークンと交換します。"
+    },
+    "collectionActions": {
+      "duplicate": "複製",
+      "copyName": "{name} のコピー",
+      "duplicateFailed": "複製できませんでした",
+      "searchPlaceholder": "コレクションを検索",
+      "clearSearch": "検索をクリア",
+      "noSearchResults": "「{query}」に一致するリクエストはありません",
+      "moveTo": "移動先…",
+      "moveTitle": "「{name}」を移動",
+      "moveDescription": "コレクションまたはフォルダーを選択してください。末尾に追加されます。",
+      "moveFailed": "移動できませんでした",
+      "workspace": "ワークスペース",
+      "noWorkspace": "ワークスペースなし",
+      "workspaceFailed": "ワークスペースを変更できませんでした"
+    },
+    "workspaces": {
+      "title": "ワークスペース",
+      "description": "チーム・プロジェクト・環境ごとにコレクションをまとめます。アクティブなワークスペースでサイドバーを絞り込みます。",
+      "createLabel": "ワークスペースを作成",
+      "createPlaceholder": "例: Acme Prod",
+      "add": "追加",
+      "all": "すべてのコレクション",
+      "allHint": "ワークスペースで絞り込まない",
+      "rename": "名前を変更",
+      "delete": "削除",
+      "confirmDelete": "「{name}」を削除しますか?",
+      "confirmDeleteHint": "そのコレクションはワークスペースなしに戻ります。",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "barLabel": "ワークスペース"
     }
   },
   "RichEditor": {

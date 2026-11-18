@@ -8,16 +8,28 @@ import {
     Select,
     SelectContent,
     SelectItem,
+    SelectSeparator,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
 import { RequestMethod } from "./types"
+import { STANDARD_METHODS, normalizeMethod } from "@/lib/api-client/http-method"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useEnvironmentsState } from "./context/environments-context"
 import { useDebouncedValue } from "@/lib/use-debounced-value"
+import { classifyVariable, type VariableStatus } from "@/lib/api-client/dynamic-vars"
 import { isMacPlatform, shortcutHint } from "@/lib/api-client/shortcuts"
+
+/** Missing = red; resolved from the environment = accent; filled in at send time = neutral. */
+const VARIABLE_HIGHLIGHT: Record<VariableStatus, string> = {
+    resolved: "bg-primary/15",
+    dynamic: "bg-foreground/10",
+    response: "bg-foreground/10",
+    secret: "bg-foreground/10",
+    missing: "bg-destructive/20",
+}
 
 interface RequestPanelProps {
     method: RequestMethod
@@ -37,7 +49,9 @@ interface RequestPanelProps {
     tabId?: string
 }
 
-const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"]
+const METHODS: readonly string[] = STANDARD_METHODS
+/** Select value for the "Custom…" entry — not a valid HTTP token, so it can't collide. */
+const CUSTOM_METHOD = "(custom)"
 
 const getMethodColor = (method: string) => {
     switch (method) {
@@ -66,6 +80,21 @@ function RequestPanelImpl({
 }: RequestPanelProps) {
     const { activeEnvironmentVariables } = useEnvironmentsState()
     const t = useTranslations("ApiClient.requestPanel")
+    const tMethod = useTranslations("ApiClient.customMethod")
+    /** Non-null while the custom-method input replaces the method select. */
+    const [methodDraft, setMethodDraft] = React.useState<string | null>(null)
+    const isCustomMethod = !METHODS.includes(method)
+    // Escape unmounts the input; some engines then fire blur — don't commit on that.
+    const methodDraftCancelled = React.useRef(false)
+    const commitMethodDraft = () => {
+        const next = methodDraftCancelled.current ? null : normalizeMethod(methodDraft)
+        if (next) setMethod(next)
+        setMethodDraft(null)
+    }
+    const editCustomMethod = () => {
+        methodDraftCancelled.current = false
+        setMethodDraft(isCustomMethod ? method : "")
+    }
     const [isMac, setIsMac] = React.useState(false)
     React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
@@ -101,7 +130,7 @@ function RequestPanelImpl({
     const [hoveredVariable, setHoveredVariable] = React.useState<{
         key: string
         value?: string
-        status: "resolved" | "missing"
+        status: VariableStatus
         left: number
     } | null>(null)
 
@@ -117,25 +146,32 @@ function RequestPanelImpl({
     }, [urlSuggestions, showSuggestions])
 
     const variableTokens = React.useMemo(() => {
-        const tokens: Array<{ key: string; start: number; end: number; value?: string; status: "resolved" | "missing" }> = []
+        const tokens: Array<{ key: string; start: number; end: number; value?: string; status: VariableStatus }> = []
         const regex = /\{\{(.+?)\}\}/g
         let match: RegExpExecArray | null
 
         while ((match = regex.exec(localUrl)) !== null) {
             const fullToken = match[0]
             const key = match[1].trim()
-            const value = activeEnvironmentVariables[key]
             tokens.push({
                 key,
                 start: match.index,
                 end: match.index + fullToken.length,
-                value,
-                status: value !== undefined ? "resolved" : "missing",
+                ...classifyVariable(key, activeEnvironmentVariables),
             })
         }
 
         return tokens
     }, [localUrl, activeEnvironmentVariables])
+
+    // Highlight backdrop behind the (transparent) URL input, kept in step with
+    // the input's horizontal scroll.
+    const backdropRef = React.useRef<HTMLSpanElement | null>(null)
+    const syncBackdropScroll = React.useCallback(() => {
+        const input = urlInputRef.current
+        if (backdropRef.current && input) backdropRef.current.style.transform = `translateX(${-input.scrollLeft}px)`
+    }, [])
+    React.useLayoutEffect(syncBackdropScroll, [localUrl, syncBackdropScroll])
 
     /** Mirror span used to measure on-screen width of arbitrary URL prefixes — far more reliable
      *  than the previous canvas char-width × index math, which drifted on non-monospace fallbacks
@@ -197,7 +233,28 @@ function RequestPanelImpl({
             <div className="flex flex-wrap gap-2">
                 {/* One field: method selector attached to the URL input. */}
                 <div className="flex flex-1 min-w-[240px] h-9 items-center rounded-lg border border-input bg-card shadow-[inset_0_1px_1px_rgb(0_0_0/0.03)] transition-[border-color,box-shadow] duration-150 hover:border-foreground/20 focus-within:border-primary focus-within:ring-[3px] focus-within:ring-primary/25">
-                <Select value={method} onValueChange={(v) => setMethod(v as RequestMethod)}>
+                {methodDraft !== null ? (
+                    <Input
+                        autoFocus
+                        aria-label={tMethod("label")}
+                        placeholder={tMethod("placeholder")}
+                        value={methodDraft}
+                        onChange={(e) => setMethodDraft(e.target.value)}
+                        onBlur={commitMethodDraft}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") commitMethodDraft()
+                            if (e.key === "Escape") {
+                                methodDraftCancelled.current = true
+                                setMethodDraft(null)
+                            }
+                        }}
+                        className="w-[104px] h-full shrink-0 rounded-none rounded-l-lg border-0 border-r border-border bg-transparent shadow-none font-mono text-[13px] font-semibold uppercase focus-visible:ring-0"
+                    />
+                ) : (
+                <Select
+                    value={method}
+                    onValueChange={(v) => (v === CUSTOM_METHOD ? editCustomMethod() : setMethod(v))}
+                >
                     <SelectTrigger className={cn(
                         "w-[104px] h-full shrink-0 rounded-none rounded-l-lg border-0 border-r border-border bg-transparent shadow-none text-[13px] font-semibold hover:border-border focus-visible:ring-0",
                         getMethodColor(method)
@@ -210,8 +267,16 @@ function RequestPanelImpl({
                                 {m}
                             </SelectItem>
                         ))}
+                        {isCustomMethod && (
+                            <SelectItem value={method} className="font-medium text-muted-foreground">
+                                {method}
+                            </SelectItem>
+                        )}
+                        <SelectSeparator />
+                        <SelectItem value={CUSTOM_METHOD}>{tMethod("option")}</SelectItem>
                     </SelectContent>
                 </Select>
+                )}
 
                 <div className="relative flex-1 min-w-0 h-full">
                     {/* Off-screen text mirror for variable-hover width measurement (B7). */}
@@ -241,10 +306,24 @@ function RequestPanelImpl({
                                 <TooltipContent side="top" className="max-w-xs break-all">
                                     {hoveredVariable.status === "resolved"
                                         ? `${hoveredVariable.key}: ${hoveredVariable.value}`
-                                        : `${hoveredVariable.key}: (not found in active environment)`}
+                                        : `${hoveredVariable.key}: ${t(`variable.${hoveredVariable.status}`)}`}
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
+                    )}
+                    {variableTokens.length > 0 && (
+                        <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center overflow-hidden pl-9 pr-10 font-mono text-[13px] whitespace-pre text-transparent">
+                            <span ref={backdropRef}>
+                                {variableTokens.map((tok, i) => (
+                                    <React.Fragment key={tok.start}>
+                                        {localUrl.slice(i === 0 ? 0 : variableTokens[i - 1].end, tok.start)}
+                                        <span className={cn("rounded-[3px]", VARIABLE_HIGHLIGHT[tok.status])}>
+                                            {localUrl.slice(tok.start, tok.end)}
+                                        </span>
+                                    </React.Fragment>
+                                ))}
+                            </span>
+                        </div>
                     )}
                     <Input
                         ref={urlInputRef}
@@ -252,7 +331,9 @@ function RequestPanelImpl({
                         placeholder={t("urlPlaceholder")}
                         value={localUrl}
                         onChange={(e) => setLocalUrl(e.target.value)}
-                        className="h-full pl-9 pr-10 font-mono text-[13px] rounded-none rounded-r-lg border-0 bg-transparent shadow-none focus-visible:ring-0"
+                        onScroll={syncBackdropScroll}
+                        onSelect={syncBackdropScroll}
+                        className="relative h-full pl-9 pr-10 font-mono text-[13px] rounded-none rounded-r-lg border-0 bg-transparent shadow-none focus-visible:ring-0"
                         onFocus={() => setShowSuggestions(true)}
                         onBlur={() => {
                             if (suppressBlurRef.current) {

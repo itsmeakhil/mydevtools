@@ -54,6 +54,7 @@ import { signHawk } from "@/lib/auth/hawk"
 import { signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
+import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
 import { resolveResponsePath } from "@/lib/response-path"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
@@ -452,7 +453,7 @@ function ApiClientInner() {
                 if (scriptEnvUnsets.has(key)) return m
                 if (key in scriptEnvOverlay) return scriptEnvOverlay[key]
                 if (key in sessionVarsRef.current) return sessionVarsRef.current[key]
-                return activeEnvironmentVariables[key] ?? secretVars[key] ?? m
+                return activeEnvironmentVariables[key] ?? secretVars[key] ?? resolveDynamicVar(key) ?? m
             })
         }
 
@@ -693,6 +694,17 @@ function ApiClientInner() {
                         entries,
                     }
                     deleteContentTypeHeader(headersObj)
+                } else if (sendTab.body.type === "binary") {
+                    const file = sendTab.body.binaryFile
+                    if (!file?.fileContentBase64) {
+                        toast.error(t("requestBody.binaryMissing"))
+                        updateActiveTab({ isLoading: false })
+                        return
+                    }
+                    bodyPayload = { mode: "base64", data: file.fileContentBase64 }
+                    if (!Object.keys(headersObj).some((key) => key.toLowerCase() === "content-type")) {
+                        headersObj["Content-Type"] = file.fileType || "application/octet-stream"
+                    }
                 } else if (sendTab.body.type === "graphql") {
                     // GraphQL is serialised as { query, variables } JSON and sent as application/json.
                     const query = substituteAll(sendTab.body.content)
@@ -713,8 +725,8 @@ function ApiClientInner() {
                 } else {
                     bodyContent = substituteAll(sendTab.body.content)
                     bodyPayload = bodyContent
-                    if (!headersObj["Content-Type"]) {
-                        headersObj["Content-Type"] = "text/plain"
+                    if (!Object.keys(headersObj).some((key) => key.toLowerCase() === "content-type")) {
+                        headersObj["Content-Type"] = sendTab.body.type === "xml" ? "application/xml" : "text/plain"
                     }
                 }
             }

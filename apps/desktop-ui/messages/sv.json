@@ -1871,7 +1871,13 @@
       "sending": "Skickar...",
       "send": "Skicka",
       "invalidJsonBodyHelp": "Kan inte skicka: JSON-kroppen är ogiltig",
-      "copyCurl": "Kopiera som cURL"
+      "copyCurl": "Kopiera som cURL",
+      "variable": {
+        "dynamic": "genereras vid varje sändning",
+        "response": "läses från föregående svar vid sändning",
+        "secret": "hemlig, löses vid sändning",
+        "missing": "inte definierad i den aktiva miljön"
+      }
     },
     "requestTabs": {
       "params": "Parametrar",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Binärdata kan inte visas i råvy.",
       "errorStatusLabel": "Fel",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtrera svaret med JSONPath",
+        "invalid": "Ogiltig JSONPath",
+        "matches": "{count, plural, =0 {Inga träffar} one {# träff} other {# träffar}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Ny flik",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Byt miljö: {name}"
+    },
+    "customMethod": {
+      "option": "Anpassad…",
+      "label": "Anpassad metod",
+      "placeholder": "t.ex. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binärfil",
+      "chooseFile": "Välj fil",
+      "noFile": "Ingen fil vald",
+      "binaryHint": "Skickas som rå begärandetext. Content-Type är som standard filens typ.",
+      "binaryMissing": "Filens innehåll sparades inte. Välj filen igen innan du skickar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Lösenord (äldre)",
+      "grantRefreshToken": "Endast uppdateringstoken",
+      "username": "Användarnamn",
+      "password": "Lösenord",
+      "refreshToken": "Uppdateringstoken",
+      "refreshTokenHint": "Byts mot en ny åtkomsttoken vid varje hämtning."
+    },
+    "collectionActions": {
+      "duplicate": "Duplicera",
+      "copyName": "{name} kopia",
+      "duplicateFailed": "Kunde inte duplicera",
+      "searchPlaceholder": "Sök i samlingar",
+      "clearSearch": "Rensa sökning",
+      "noSearchResults": "Inga förfrågningar matchar ”{query}”",
+      "moveTo": "Flytta till…",
+      "moveTitle": "Flytta ”{name}”",
+      "moveDescription": "Välj en samling eller mapp. Objektet hamnar sist.",
+      "moveFailed": "Kunde inte flytta",
+      "workspace": "Arbetsyta",
+      "noWorkspace": "Ingen arbetsyta",
+      "workspaceFailed": "Kunde inte ändra arbetsytan"
+    },
+    "workspaces": {
+      "title": "Arbetsytor",
+      "description": "Gruppera samlingar efter team, projekt eller miljö. Den aktiva arbetsytan filtrerar sidofältet.",
+      "createLabel": "Skapa arbetsyta",
+      "createPlaceholder": "t.ex. Acme Prod",
+      "add": "Lägg till",
+      "all": "Alla samlingar",
+      "allHint": "inget arbetsytefilter",
+      "rename": "Byt namn",
+      "delete": "Ta bort",
+      "confirmDelete": "Ta bort ”{name}”?",
+      "confirmDeleteHint": "Dess samlingar får ingen arbetsyta.",
+      "cancel": "Avbryt",
+      "save": "Spara",
+      "barLabel": "Arbetsyta"
     }
   },
   "RichEditor": {

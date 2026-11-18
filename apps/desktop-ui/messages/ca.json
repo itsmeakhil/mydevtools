@@ -1871,7 +1871,13 @@
       "sending": "S'està enviant...",
       "send": "Envia",
       "invalidJsonBodyHelp": "No es pot enviar: el cos JSON no és vàlid",
-      "copyCurl": "Copia com a cURL"
+      "copyCurl": "Copia com a cURL",
+      "variable": {
+        "dynamic": "es genera a cada enviament",
+        "response": "es llegeix de la resposta anterior en enviar",
+        "secret": "secret, es resol en enviar",
+        "missing": "no definida a l'entorn actiu"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Les dades binàries no es poden mostrar en vista en brut.",
       "errorStatusLabel": "Error",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filtra la resposta amb JSONPath",
+        "invalid": "JSONPath no vàlid",
+        "matches": "{count, plural, =0 {Cap coincidència} one {# coincidència} other {# coincidències}}"
+      }
     },
     "tabBar": {
       "addTabAria": "Pestanya nova",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Canvia d'entorn: {name}"
+    },
+    "customMethod": {
+      "option": "Personalitzat…",
+      "label": "Mètode personalitzat",
+      "placeholder": "p. ex. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Fitxer binari",
+      "chooseFile": "Tria un fitxer",
+      "noFile": "Cap fitxer triat",
+      "binaryHint": "S'envia com a cos de la petició en brut. Content-Type pren per defecte el tipus del fitxer.",
+      "binaryMissing": "No s'ha conservat el contingut del fitxer. Torna a triar-lo abans d'enviar."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Contrasenya (antic)",
+      "grantRefreshToken": "Només token de refresc",
+      "username": "Nom d'usuari",
+      "password": "Contrasenya",
+      "refreshToken": "Token de refresc",
+      "refreshTokenHint": "Es bescanvia per un token d'accés nou a cada obtenció."
+    },
+    "collectionActions": {
+      "duplicate": "Duplica",
+      "copyName": "Còpia de {name}",
+      "duplicateFailed": "No s'ha pogut duplicar",
+      "searchPlaceholder": "Cerca col·leccions",
+      "clearSearch": "Esborra la cerca",
+      "noSearchResults": "Cap sol·licitud coincideix amb “{query}”",
+      "moveTo": "Mou a…",
+      "moveTitle": "Mou “{name}”",
+      "moveDescription": "Tria una col·lecció o carpeta. L'element va al final.",
+      "moveFailed": "No s'ha pogut moure",
+      "workspace": "Espai de treball",
+      "noWorkspace": "Sense espai de treball",
+      "workspaceFailed": "No s'ha pogut canviar l'espai de treball"
+    },
+    "workspaces": {
+      "title": "Espais de treball",
+      "description": "Agrupa col·leccions per equip, projecte o entorn. L'espai actiu filtra la barra lateral.",
+      "createLabel": "Crea un espai de treball",
+      "createPlaceholder": "p. ex. Acme Prod",
+      "add": "Afegeix",
+      "all": "Totes les col·leccions",
+      "allHint": "sense filtre d'espai",
+      "rename": "Canvia el nom",
+      "delete": "Suprimeix",
+      "confirmDelete": "Vols suprimir “{name}”?",
+      "confirmDeleteHint": "Les seves col·leccions tornen a no tenir espai.",
+      "cancel": "Cancel·la",
+      "save": "Desa",
+      "barLabel": "Espai de treball"
     }
   },
   "RichEditor": {

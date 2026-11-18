@@ -1871,7 +1871,13 @@
       "sending": "Sending...",
       "send": "Send",
       "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid",
-      "copyCurl": "Copy as cURL"
+      "copyCurl": "Copy as cURL",
+      "variable": {
+        "dynamic": "generated on each send",
+        "response": "read from the previous response on send",
+        "secret": "secret, resolved on send",
+        "missing": "not defined in the active environment"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1935,7 +1941,12 @@
       "binaryRawView": "Binary data cannot be displayed in raw view.",
       "errorStatusLabel": "Error",
       "truncatedBanner": "Showing first {shownKb} KB of a large response.",
-      "downloadFullBody": "Download full body"
+      "downloadFullBody": "Download full body",
+      "filter": {
+        "label": "Filter response with JSONPath",
+        "invalid": "Invalid JSONPath",
+        "matches": "{count, plural, =0 {No matches} one {# match} other {# matches}}"
+      }
     },
     "tabBar": {
       "addTabAria": "New tab",
@@ -2065,6 +2076,58 @@
     },
     "palette": {
       "switchEnvironment": "Switch environment: {name}"
+    },
+    "customMethod": {
+      "option": "Custom…",
+      "label": "Custom method",
+      "placeholder": "e.g. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binary file",
+      "chooseFile": "Choose file",
+      "noFile": "No file chosen",
+      "binaryHint": "Sent as the raw request body. Content-Type defaults to the file's type.",
+      "binaryMissing": "The file's contents weren't kept. Choose the file again before sending."
+    },
+    "oauth2Grants": {
+      "grantPassword": "Password (legacy)",
+      "grantRefreshToken": "Refresh token only",
+      "username": "Username",
+      "password": "Password",
+      "refreshToken": "Refresh token",
+      "refreshTokenHint": "Exchanged for a new access token on each fetch."
+    },
+    "collectionActions": {
+      "duplicate": "Duplicate",
+      "copyName": "{name} copy",
+      "duplicateFailed": "Could not duplicate",
+      "searchPlaceholder": "Search collections",
+      "clearSearch": "Clear search",
+      "noSearchResults": "No requests match “{query}”",
+      "moveTo": "Move to…",
+      "moveTitle": "Move “{name}”",
+      "moveDescription": "Pick a collection or folder. The item goes to the end.",
+      "moveFailed": "Could not move",
+      "workspace": "Workspace",
+      "noWorkspace": "No workspace",
+      "workspaceFailed": "Could not change the workspace"
+    },
+    "workspaces": {
+      "title": "Workspaces",
+      "description": "Group collections by team, project or environment. The active workspace filters the sidebar.",
+      "createLabel": "Create workspace",
+      "createPlaceholder": "e.g. Acme Prod",
+      "add": "Add",
+      "all": "All collections",
+      "allHint": "no workspace filter",
+      "rename": "Rename",
+      "delete": "Delete",
+      "confirmDelete": "Delete “{name}”?",
+      "confirmDeleteHint": "Its collections go back to no workspace.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "barLabel": "Workspace"
     }
   },
   "RichEditor": {
