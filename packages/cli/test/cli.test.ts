@@ -135,6 +135,32 @@ describe("proxy", () => {
             assert.match((await proxy({ url: `${baseUrl}/v1/hop`, maxRedirects: 0 })).error ?? "", /Too many redirects/)
         } finally { await close() }
     })
+
+    test("credentials are not forwarded to another origin on redirect", async () => {
+        const other = http.createServer((req, res) => {
+            res.writeHead(200, { "content-type": "text/plain" })
+            res.end(["authorization", "cookie", "x-custom"].filter((h) => req.headers[h] !== undefined).join(","))
+        })
+        await new Promise<void>((r) => other.listen(0, "127.0.0.1", r))
+        const otherPort = (other.address() as { port: number }).port
+        const first = http.createServer((_req, res) => {
+            res.writeHead(302, { location: `http://127.0.0.1:${otherPort}/landing` }).end()
+        })
+        await new Promise<void>((r) => first.listen(0, "127.0.0.1", r))
+        const { proxy, close } = createProxy()
+        try {
+            const r = await proxy({
+                url: `http://127.0.0.1:${(first.address() as { port: number }).port}/start`,
+                headers: { Authorization: "Bearer secret", Cookie: "sid=1", "X-Custom": "keep" },
+            })
+            assert.equal(r.status, 200)
+            assert.equal(r.body, "x-custom")
+        } finally {
+            await close()
+            await new Promise<void>((r) => first.close(() => r()))
+            await new Promise<void>((r) => other.close(() => r()))
+        }
+    })
 })
 
 describe("mdt run (end to end)", () => {
