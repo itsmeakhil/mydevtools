@@ -2183,7 +2183,10 @@
       "empty": "Zatím bez dokumentace. Popište v Markdownu, co to dělá, vstupy a ukázkové odpovědi.",
       "placeholder": "Pište Markdown…",
       "editLabel": "Dokumentace (Markdown)",
-      "markdownHint": "Podporuje Markdown. Surové HTML se zobrazí jako text."
+      "markdownHint": "Podporuje Markdown. Surové HTML se zobrazí jako text.",
+      "exportHtml": "Exportovat dokumentaci (HTML)",
+      "exported": "Dokumentace exportována",
+      "exportFailed": "Dokumentaci se nepodařilo exportovat"
     }
   },
   "RichEditor": {

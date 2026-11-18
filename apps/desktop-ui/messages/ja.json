@@ -2183,7 +2183,10 @@
       "empty": "ドキュメントはまだありません。内容・入力・レスポンス例を Markdown で記述してください。",
       "placeholder": "Markdown で記述…",
       "editLabel": "ドキュメント (Markdown)",
-      "markdownHint": "Markdown に対応。生の HTML はテキストとして表示されます。"
+      "markdownHint": "Markdown に対応。生の HTML はテキストとして表示されます。",
+      "exportHtml": "ドキュメントをエクスポート (HTML)",
+      "exported": "ドキュメントをエクスポートしました",
+      "exportFailed": "ドキュメントをエクスポートできませんでした"
     }
   },
   "RichEditor": {

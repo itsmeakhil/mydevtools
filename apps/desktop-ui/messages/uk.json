@@ -2183,7 +2183,10 @@
       "empty": "Документації ще немає. Опишіть у Markdown, що це робить, вхідні дані та приклади відповідей.",
       "placeholder": "Пишіть у Markdown…",
       "editLabel": "Документація (Markdown)",
-      "markdownHint": "Підтримується Markdown. Сирий HTML показується як текст."
+      "markdownHint": "Підтримується Markdown. Сирий HTML показується як текст.",
+      "exportHtml": "Експорт документації (HTML)",
+      "exported": "Документацію експортовано",
+      "exportFailed": "Не вдалося експортувати документацію"
     }
   },
   "RichEditor": {

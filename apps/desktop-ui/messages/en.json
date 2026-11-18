@@ -2183,7 +2183,10 @@
       "empty": "No docs yet. Describe what this does, its inputs and example responses in Markdown.",
       "placeholder": "Write Markdown…",
       "editLabel": "Documentation (Markdown)",
-      "markdownHint": "Markdown supported. Raw HTML is shown as text."
+      "markdownHint": "Markdown supported. Raw HTML is shown as text.",
+      "exportHtml": "Export docs (HTML)",
+      "exported": "Docs exported",
+      "exportFailed": "Couldn't export docs"
     }
   },
   "RichEditor": {

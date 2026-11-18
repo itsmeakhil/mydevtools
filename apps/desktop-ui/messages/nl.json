@@ -2183,7 +2183,10 @@
       "empty": "Nog geen docs. Beschrijf in Markdown wat dit doet, de invoer en voorbeeldantwoorden.",
       "placeholder": "Schrijf Markdown…",
       "editLabel": "Documentatie (Markdown)",
-      "markdownHint": "Markdown wordt ondersteund. Ruwe HTML wordt als tekst getoond."
+      "markdownHint": "Markdown wordt ondersteund. Ruwe HTML wordt als tekst getoond.",
+      "exportHtml": "Docs exporteren (HTML)",
+      "exported": "Docs geëxporteerd",
+      "exportFailed": "Docs konden niet worden geëxporteerd"
     }
   },
   "RichEditor": {

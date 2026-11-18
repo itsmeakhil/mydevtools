@@ -2183,7 +2183,10 @@
       "empty": "Henüz belge yok. Ne yaptığını, girdilerini ve örnek yanıtları Markdown ile açıklayın.",
       "placeholder": "Markdown yazın…",
       "editLabel": "Belgeler (Markdown)",
-      "markdownHint": "Markdown desteklenir. Ham HTML metin olarak gösterilir."
+      "markdownHint": "Markdown desteklenir. Ham HTML metin olarak gösterilir.",
+      "exportHtml": "Belgeleri dışa aktar (HTML)",
+      "exported": "Belgeler dışa aktarıldı",
+      "exportFailed": "Belgeler dışa aktarılamadı"
     }
   },
   "RichEditor": {

@@ -2183,7 +2183,10 @@
       "empty": "Belum ada dokumentasi. Terangkan dalam Markdown apa fungsinya, inputnya dan contoh respons.",
       "placeholder": "Tulis Markdown…",
       "editLabel": "Dokumentasi (Markdown)",
-      "markdownHint": "Markdown disokong. HTML mentah dipaparkan sebagai teks."
+      "markdownHint": "Markdown disokong. HTML mentah dipaparkan sebagai teks.",
+      "exportHtml": "Eksport dokumentasi (HTML)",
+      "exported": "Dokumentasi dieksport",
+      "exportFailed": "Tidak dapat mengeksport dokumentasi"
     }
   },
   "RichEditor": {

@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem, TREE_DRAG_MIME } from "./collection-item"
-import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2 } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2, BookOpen } from "lucide-react"
 import { filterTree, moveDestinations, resolveDrop, type DropPosition } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
@@ -156,6 +156,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
     const [defaultsTarget, setDefaultsTarget] = React.useState<DefaultsTarget | null>(null)
     const editFolderDefaults = React.useCallback((item: CollectionFolder) => setDefaultsTarget({ kind: "folder", item }), [])
     const tDefaults = useTranslations("ApiClient.collectionDefaults")
+    const tDocs = useTranslations("ApiClient.docs")
 
     // One workspace mechanism: the active workspace (WorkspacesProvider) narrows
     // to collections assigned to it; no workspace selected shows everything.
@@ -609,6 +610,19 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/insomnia").then((m) => m.downloadCollectionAsInsomnia(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
                                                             Export (Insomnia v4)
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem
+                                                            onClick={async () => {
+                                                                try {
+                                                                    const m = await import("@/lib/export/docs-html")
+                                                                    if (await m.saveCollectionDocsHtml(collection)) toast.success(tDocs("exported"))
+                                                                } catch {
+                                                                    toast.error(tDocs("exportFailed"))
+                                                                }
+                                                            }}
+                                                        >
+                                                            <BookOpen className="h-4 w-4 mr-2" />
+                                                            {tDocs("exportHtml")}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem
                                                             className="text-destructive focus:text-destructive"

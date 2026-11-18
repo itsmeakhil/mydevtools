@@ -2183,7 +2183,10 @@
       "empty": "Ingen dokumentation endnu. Beskriv i Markdown, hvad det gør, input og eksempelsvar.",
       "placeholder": "Skriv Markdown…",
       "editLabel": "Dokumentation (Markdown)",
-      "markdownHint": "Markdown understøttes. Rå HTML vises som tekst."
+      "markdownHint": "Markdown understøttes. Rå HTML vises som tekst.",
+      "exportHtml": "Eksportér dokumentation (HTML)",
+      "exported": "Dokumentation eksporteret",
+      "exportFailed": "Kunne ikke eksportere dokumentation"
     }
   },
   "RichEditor": {

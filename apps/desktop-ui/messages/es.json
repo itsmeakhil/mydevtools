@@ -2183,7 +2183,10 @@
       "empty": "Aún no hay documentación. Describe en Markdown qué hace, sus entradas y respuestas de ejemplo.",
       "placeholder": "Escribe Markdown…",
       "editLabel": "Documentación (Markdown)",
-      "markdownHint": "Se admite Markdown. El HTML sin procesar se muestra como texto."
+      "markdownHint": "Se admite Markdown. El HTML sin procesar se muestra como texto.",
+      "exportHtml": "Exportar documentación (HTML)",
+      "exported": "Documentación exportada",
+      "exportFailed": "No se pudo exportar la documentación"
     }
   },
   "RichEditor": {

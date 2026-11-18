@@ -2183,7 +2183,10 @@
       "empty": "아직 문서가 없습니다. 하는 일, 입력값, 응답 예시를 Markdown으로 설명하세요.",
       "placeholder": "Markdown 작성…",
       "editLabel": "문서 (Markdown)",
-      "markdownHint": "Markdown을 지원합니다. 원시 HTML은 텍스트로 표시됩니다."
+      "markdownHint": "Markdown을 지원합니다. 원시 HTML은 텍스트로 표시됩니다.",
+      "exportHtml": "문서 내보내기 (HTML)",
+      "exported": "문서를 내보냈습니다",
+      "exportFailed": "문서를 내보내지 못했습니다"
     }
   },
   "RichEditor": {
