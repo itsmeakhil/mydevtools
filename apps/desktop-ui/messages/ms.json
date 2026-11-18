@@ -1925,7 +1925,11 @@
     },
     "tabBar": {
       "addTabAria": "Tab baharu",
-      "unsavedChanges": "Perubahan belum disimpan"
+      "unsavedChanges": "Perubahan belum disimpan",
+      "newRest": "Permintaan REST baharu",
+      "newWebSocket": "WebSocket baharu",
+      "newGrpc": "gRPC-Web baharu",
+      "duplicateTab": "Gandakan tab"
     },
     "collectionsSidebar": {
       "title": "Sumber API",
@@ -2023,7 +2027,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Simpan permintaan"
+      "saveRequest": "Simpan permintaan",
+      "nextTab": "Tab seterusnya",
+      "prevTab": "Tab sebelumnya",
+      "focusUrl": "Fokus pada bar URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2041,6 +2048,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Tukar persekitaran: {name}"
     }
   },
   "RichEditor": {

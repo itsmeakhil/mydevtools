@@ -1925,7 +1925,11 @@
     },
     "tabBar": {
       "addTabAria": "Tab mới",
-      "unsavedChanges": "Thay đổi chưa lưu"
+      "unsavedChanges": "Thay đổi chưa lưu",
+      "newRest": "Yêu cầu REST mới",
+      "newWebSocket": "WebSocket mới",
+      "newGrpc": "gRPC-Web mới",
+      "duplicateTab": "Nhân bản tab"
     },
     "collectionsSidebar": {
       "title": "Tài nguyên API",
@@ -2023,7 +2027,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Lưu yêu cầu"
+      "saveRequest": "Lưu yêu cầu",
+      "nextTab": "Tab tiếp theo",
+      "prevTab": "Tab trước",
+      "focusUrl": "Chuyển đến thanh URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2041,6 +2048,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Chuyển môi trường: {name}"
     }
   },
   "RichEditor": {

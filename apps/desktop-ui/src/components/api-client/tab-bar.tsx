@@ -10,11 +10,13 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ApiRequestState } from "./types"
 import { getApiClientRequestDisplayName } from "./display-name"
 import { isTabDirty } from "@/lib/api-client/saved-request"
+import { isMacPlatform, shortcutHint } from "@/lib/api-client/shortcuts"
 import { useTranslations } from "next-intl"
 
 interface TabBarProps {
@@ -70,6 +72,8 @@ function TabBarImpl({
 }: TabBarProps) {
     const t = useTranslations("ApiClient")
     const tTab = useTranslations("ApiClient.tabBar")
+    const [isMac, setIsMac] = React.useState(false)
+    React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
 
     const [editingTabId, setEditingTabId] = React.useState<string | null>(null)
     const [editValue, setEditValue] = React.useState("")
@@ -220,7 +224,8 @@ function TabBarImpl({
                                         e.stopPropagation()
                                         onTabDuplicate(tab.id)
                                     }}
-                                    title="Duplicate tab"
+                                    title={tTab("duplicateTab")}
+                                    aria-label={tTab("duplicateTab")}
                                 >
                                     <Copy className="h-2.5 w-2.5" />
                                 </button>
@@ -265,18 +270,19 @@ function TabBarImpl({
                         <Plus className="h-4 w-4" />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-44">
+                <DropdownMenuContent align="start" className="w-52">
                     <DropdownMenuItem onSelect={() => onTabAdd("rest")}>
                         <Plus className="h-4 w-4 mr-2" />
-                        New REST request
+                        {tTab("newRest")}
+                        <DropdownMenuShortcut>{shortcutHint("newTab", isMac)}</DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuItem onSelect={() => onTabAdd("websocket")}>
                         <Plug className="h-4 w-4 mr-2" />
-                        New WebSocket
+                        {tTab("newWebSocket")}
                     </DropdownMenuItem>
                     <DropdownMenuItem onSelect={() => onTabAdd("grpc")}>
                         <Boxes className="h-4 w-4 mr-2" />
-                        New gRPC-Web
+                        {tTab("newGrpc")}
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

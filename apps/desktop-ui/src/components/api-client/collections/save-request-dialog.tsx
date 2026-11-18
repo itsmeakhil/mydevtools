@@ -23,6 +23,7 @@ import {
 import { Collection, CollectionFolder, CollectionRequest } from "../types"
 import { FolderPlus, Save } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { isMacPlatform, shortcutHint } from "@/lib/api-client/shortcuts"
 
 interface SaveRequestDialogProps {
     collections: Collection[]
@@ -40,6 +41,8 @@ interface SaveRequestDialogProps {
 
 export function SaveRequestDialog({ collections, onSave, onCreateFolder, onCreateCollection, defaultName, open: openProp, onOpenChange, showTrigger }: SaveRequestDialogProps) {
     const t = useTranslations("ApiClient.saveRequest")
+    const [isMac, setIsMac] = React.useState(false)
+    React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
     const [openInternal, setOpenInternal] = React.useState(false)
     const open = openProp !== undefined ? openProp : openInternal
     const setOpen = onOpenChange ?? setOpenInternal
@@ -113,7 +116,7 @@ export function SaveRequestDialog({ collections, onSave, onCreateFolder, onCreat
         <Dialog open={open} onOpenChange={setOpen}>
             {(!isControlled || showTrigger) && (
                 <DialogTrigger asChild>
-                    <Button variant="outline" size="sm" className="gap-2">
+                    <Button variant="outline" size="sm" className="gap-2" title={`${t("trigger")} (${shortcutHint("saveRequest", isMac)})`}>
                         <Save className="h-4 w-4" />
                         {t("trigger")}
                     </Button>

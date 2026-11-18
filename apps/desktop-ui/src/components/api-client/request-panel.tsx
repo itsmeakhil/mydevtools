@@ -17,6 +17,7 @@ import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useEnvironmentsState } from "./context/environments-context"
 import { useDebouncedValue } from "@/lib/use-debounced-value"
+import { isMacPlatform, shortcutHint } from "@/lib/api-client/shortcuts"
 
 interface RequestPanelProps {
     method: RequestMethod
@@ -65,6 +66,8 @@ function RequestPanelImpl({
 }: RequestPanelProps) {
     const { activeEnvironmentVariables } = useEnvironmentsState()
     const t = useTranslations("ApiClient.requestPanel")
+    const [isMac, setIsMac] = React.useState(false)
+    React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
     const [showSuggestions, setShowSuggestions] = React.useState(false)
     /** -1 = no suggestion focused (Enter sends); 0..n-1 = highlighted row (Enter selects). */
@@ -245,6 +248,7 @@ function RequestPanelImpl({
                     )}
                     <Input
                         ref={urlInputRef}
+                        data-api-url-input
                         placeholder={t("urlPlaceholder")}
                         value={localUrl}
                         onChange={(e) => setLocalUrl(e.target.value)}
@@ -364,6 +368,7 @@ function RequestPanelImpl({
                 <>
                 <Button
                     onClick={onSend}
+                    title={`${t("send")} (${shortcutHint("sendRequest", isMac)})`}
                     disabled={isLoading || !localUrl || isBodyInvalid}
                     aria-describedby={isBodyInvalid ? "send-invalid-help" : undefined}
                     className="h-9 px-5"
