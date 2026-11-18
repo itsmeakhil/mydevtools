@@ -219,6 +219,22 @@ describe("scripts-runner: async scripts and pm.sendRequest", () => {
         expect(throwing.error).toBe("boom")
     })
 
+    it("require shims and btoa/atob are usable from scripts", async () => {
+        const r = await api.run(
+            `const CryptoJS = require("crypto-js")
+             const { v4 } = require("uuid")
+             pm.environment.set("sig", CryptoJS.HmacSHA256("payload", "secret").toString(CryptoJS.enc.Base64))
+             pm.environment.set("basic", btoa("user:pass"))
+             pm.environment.set("plain", atob("aGk="))
+             pm.test("uuid", () => pm.expect(v4()).to.match(/^[0-9a-f-]{36}$/))
+             pm.test("unknown module", () => pm.expect(() => require("lodash")).to.throw(/scripts can require/))`,
+            baseCtx(),
+        )
+        expect(r.ok).toBe(true)
+        expect(r.environment).toEqual({ sig: "uC/LeRrOxXhZuYm0MKgmSIzi5Hn9+SMmvQoug3WkK6Q=", basic: "dXNlcjpwYXNz", plain: "hi" })
+        expect(r.tests.every((t) => t.pass)).toBe(true)
+    })
+
     it("pm.sendRequest without a host fails clearly", async () => {
         const r = await api.run(`await pm.sendRequest("https://x.test")`, baseCtx())
         expect(r.ok).toBe(false)

@@ -1,5 +1,6 @@
 import * as Comlink from "comlink"
 import { expect } from "@/lib/api-client/script-expect"
+import { scriptRequire } from "@/lib/api-client/script-libs"
 import {
     lockDownNetwork,
     normalizeSendRequest,
@@ -17,6 +18,9 @@ import {
  * Scripts run as async functions: top-level `await` works, and pending
  * `pm.sendRequest` callbacks / async `pm.test` bodies settle before results are
  * returned. The main thread enforces the hard timeout (use-scripts-runner.ts).
+ *
+ * `require()` serves a few common modules (uuid, crypto-js subset); btoa/atob
+ * are worker globals.
  *
  * The `pm` API is intentionally small. Compatibility with Postman's full SDK
  * is NOT a goal here — we cover the calls used in 95% of public collections
@@ -203,8 +207,8 @@ async function runScript(script: string, ctx: ScriptContext, host?: ScriptHost):
         // Running the user's own pre/post-request script is the feature; it is
         // confined to this worker with a pm/console surface, no DOM and no network.
         // threatcrush-disable-next-line js-dynamic-code-execution
-        const runner = new AsyncFunction("pm", "console", "expect", `"use strict";\n${script}`)
-        await runner(pm, sandboxConsole, expect)
+        const runner = new AsyncFunction("pm", "console", "expect", "require", `"use strict";\n${script}`)
+        await runner(pm, sandboxConsole, expect, scriptRequire)
         // Callbacks may start further requests — drain until nothing is left.
         while (pending.size > 0) await Promise.all([...pending])
     } catch (err) {
