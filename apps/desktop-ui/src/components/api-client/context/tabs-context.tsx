@@ -96,13 +96,24 @@ type TabsActions = {
 const TabsStateCtx = React.createContext<TabsState | null>(null)
 const TabsActionsCtx = React.createContext<TabsActions | null>(null)
 
+/**
+ * `id` when it names an open tab, otherwise the first tab's. The tab list is
+ * persisted on a 500 ms debounce but the active id immediately, so quitting
+ * right after opening a tab can store an id with no tab. Unresolved, the UI
+ * shows tabs[0] while every edit targets the missing id and is dropped.
+ */
+export function resolveActiveTabId(tabs: Pick<ApiRequestState, "id">[], id: string): string {
+    return tabs.some((t) => t.id === id) ? id : (tabs[0]?.id ?? id)
+}
+
 export function TabsProvider({ children }: { children: React.ReactNode }) {
     const initialTab = React.useMemo(() => createNewTab(), [])
     const [tabs, setTabs] = React.useState<ApiRequestState[]>([initialTab])
-    const [activeTabId, setActiveTabId] = React.useState<string>(initialTab.id)
+    const [storedActiveTabId, setActiveTabId] = React.useState<string>(initialTab.id)
+    const activeTabId = resolveActiveTabId(tabs, storedActiveTabId)
     const [isInitialized, setIsInitialized] = React.useState(false)
 
-    const activeTab = tabs.find((t) => t.id === activeTabId) ?? tabs[0]
+    const activeTab = tabs.find((t) => t.id === activeTabId)!
 
     // Load state from localStorage (once on mount)
     React.useEffect(() => {

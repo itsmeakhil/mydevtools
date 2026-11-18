@@ -134,3 +134,16 @@ describe("moveTab", () => {
         expect(moveTab(abc, "a", "a")).toBe(abc)
     })
 })
+
+describe("resolveActiveTabId", () => {
+    const { resolveActiveTabId } = require("../context/tabs-context")
+    const tabs = [{ id: "a" }, { id: "b" }]
+
+    it("keeps an id that names an open tab", () => {
+        expect(resolveActiveTabId(tabs, "b")).toBe("b")
+    })
+
+    it("falls back to the first tab when the stored id has no tab", () => {
+        expect(resolveActiveTabId(tabs, "gone")).toBe("a")
+    })
+})
