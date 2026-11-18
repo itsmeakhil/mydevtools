@@ -284,6 +284,8 @@ export function looksLikeInsomniaExport(text: string): boolean {
 export function importInsomniaWithMeta(text: string): InsomniaImportResult {
     const t = text.trim()
     // yaml.load also parses JSON, so v4 YAML exports come for free.
+    // js-yaml v4+: load() is the safe schema, !!js/function was removed.
+    // threatcrush-disable-next-line js-unsafe-yaml-load
     const doc = (t.startsWith("{") ? JSON.parse(t) : yaml.load(t)) as
         { _type?: string; resources?: InsV4Resource[] } & InsV5Doc
     if (!doc || typeof doc !== "object") throw new Error("Not an Insomnia export")

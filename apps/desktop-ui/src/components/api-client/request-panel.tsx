@@ -27,6 +27,8 @@ const VARIABLE_HIGHLIGHT: Record<VariableStatus, string> = {
     resolved: "bg-primary/15",
     dynamic: "bg-foreground/10",
     response: "bg-foreground/10",
+    // A Tailwind class keyed by the "secret" variable status, not a credential.
+    // threatcrush-disable-next-line secret-generic-credential
     secret: "bg-foreground/10",
     missing: "bg-destructive/20",
 }
