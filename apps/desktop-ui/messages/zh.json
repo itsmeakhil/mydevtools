@@ -2046,6 +2046,14 @@
       "option": "自定义…",
       "label": "自定义方法",
       "placeholder": "例如 PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "二进制文件",
+      "chooseFile": "选择文件",
+      "noFile": "未选择文件",
+      "binaryHint": "作为原始请求体发送。Content-Type 默认为文件类型。",
+      "binaryMissing": "文件内容未保留。发送前请重新选择文件。"
     }
   },
   "RichEditor": {

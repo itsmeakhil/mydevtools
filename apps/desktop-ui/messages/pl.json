@@ -2046,6 +2046,14 @@
       "option": "Niestandardowa…",
       "label": "Metoda niestandardowa",
       "placeholder": "np. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Plik binarny",
+      "chooseFile": "Wybierz plik",
+      "noFile": "Nie wybrano pliku",
+      "binaryHint": "Wysyłany jako surowa treść żądania. Content-Type domyślnie odpowiada typowi pliku.",
+      "binaryMissing": "Zawartość pliku nie została zachowana. Wybierz plik ponownie przed wysłaniem."
     }
   },
   "RichEditor": {

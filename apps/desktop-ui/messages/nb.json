@@ -2046,6 +2046,14 @@
       "option": "Egendefinert…",
       "label": "Egendefinert metode",
       "placeholder": "f.eks. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binærfil",
+      "chooseFile": "Velg fil",
+      "noFile": "Ingen fil valgt",
+      "binaryHint": "Sendes som rå forespørselstekst. Content-Type er som standard filens type.",
+      "binaryMissing": "Filinnholdet ble ikke beholdt. Velg filen på nytt før sending."
     }
   },
   "RichEditor": {

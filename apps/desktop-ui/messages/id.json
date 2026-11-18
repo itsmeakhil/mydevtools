@@ -2046,6 +2046,14 @@
       "option": "Kustom…",
       "label": "Metode kustom",
       "placeholder": "mis. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "File biner",
+      "chooseFile": "Pilih file",
+      "noFile": "Belum ada file",
+      "binaryHint": "Dikirim sebagai body permintaan mentah. Content-Type bawaan mengikuti tipe file.",
+      "binaryMissing": "Isi file tidak disimpan. Pilih file lagi sebelum mengirim."
     }
   },
   "RichEditor": {

@@ -2046,6 +2046,14 @@
       "option": "Benutzerdefiniert…",
       "label": "Benutzerdefinierte Methode",
       "placeholder": "z. B. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binärdatei",
+      "chooseFile": "Datei wählen",
+      "noFile": "Keine Datei gewählt",
+      "binaryHint": "Wird als roher Request-Body gesendet. Content-Type entspricht standardmäßig dem Dateityp.",
+      "binaryMissing": "Der Dateiinhalt wurde nicht behalten. Datei vor dem Senden erneut wählen."
     }
   },
   "RichEditor": {

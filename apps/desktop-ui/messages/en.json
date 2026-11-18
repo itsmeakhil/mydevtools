@@ -2046,6 +2046,14 @@
       "option": "Custom…",
       "label": "Custom method",
       "placeholder": "e.g. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binary file",
+      "chooseFile": "Choose file",
+      "noFile": "No file chosen",
+      "binaryHint": "Sent as the raw request body. Content-Type defaults to the file's type.",
+      "binaryMissing": "The file's contents weren't kept. Choose the file again before sending."
     }
   },
   "RichEditor": {

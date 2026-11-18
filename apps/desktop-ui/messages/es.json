@@ -2046,6 +2046,14 @@
       "option": "Personalizado…",
       "label": "Método personalizado",
       "placeholder": "p. ej. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Archivo binario",
+      "chooseFile": "Elegir archivo",
+      "noFile": "Ningún archivo elegido",
+      "binaryHint": "Se envía como cuerpo de la petición sin procesar. Content-Type usa por defecto el tipo del archivo.",
+      "binaryMissing": "No se conservó el contenido del archivo. Vuelve a elegirlo antes de enviar."
     }
   },
   "RichEditor": {

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { withoutFileBytes } from "@/lib/api-client/body-files"
 import { ApiRequestState, API_CLIENT_DEFAULT_TAB_NAME } from "../types"
 
 const TABS_STORAGE_KEY = "api-client-tabs"
@@ -20,11 +21,7 @@ export function slimTabsForStorage(tabs: ApiRequestState[], aggressive = false):
         return {
             ...rest,
             examples: rest.examples?.map((e) => ({ ...e, response: { ...e.response, body: "" } })),
-            body: {
-                ...rest.body,
-                formData: rest.body.formData?.map((f) =>
-                    f.fileContentBase64 ? { ...f, fileContentBase64: "" } : f),
-            },
+            body: withoutFileBytes(rest.body, ""),
         }
     })
 }

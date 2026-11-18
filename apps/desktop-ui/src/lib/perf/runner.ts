@@ -100,10 +100,17 @@ function buildProxyPayload(tab: ApiRequestState, env: Record<string, string>): u
                     : { key: substitute(it.key, env), type: "text" as const, value: substitute(it.value, env) })
             bodyPayload = { mode: "form-data", entries }
             delete headersObj["Content-Type"]
+        } else if (tab.body.type === "binary") {
+            bodyPayload = { mode: "base64", data: tab.body.binaryFile?.fileContentBase64 ?? "" }
+            if (!Object.keys(headersObj).some((k) => k.toLowerCase() === "content-type")) {
+                headersObj["Content-Type"] = tab.body.binaryFile?.fileType || "application/octet-stream"
+            }
         } else {
             bodyContent = substitute(tab.body.content, env)
             bodyPayload = bodyContent
-            if (!headersObj["Content-Type"]) headersObj["Content-Type"] = "text/plain"
+            if (!Object.keys(headersObj).some((k) => k.toLowerCase() === "content-type")) {
+                headersObj["Content-Type"] = tab.body.type === "xml" ? "application/xml" : "text/plain"
+            }
         }
     }
 

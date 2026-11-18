@@ -2046,6 +2046,14 @@
       "option": "Tersuai…",
       "label": "Kaedah tersuai",
       "placeholder": "cth. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Fail binari",
+      "chooseFile": "Pilih fail",
+      "noFile": "Tiada fail dipilih",
+      "binaryHint": "Dihantar sebagai badan permintaan mentah. Content-Type lalai ialah jenis fail.",
+      "binaryMissing": "Kandungan fail tidak disimpan. Pilih fail semula sebelum menghantar."
     }
   },
   "RichEditor": {

@@ -2046,6 +2046,14 @@
       "option": "Personalizzato…",
       "label": "Metodo personalizzato",
       "placeholder": "es. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "File binario",
+      "chooseFile": "Scegli file",
+      "noFile": "Nessun file scelto",
+      "binaryHint": "Inviato come corpo della richiesta grezzo. Content-Type usa di default il tipo del file.",
+      "binaryMissing": "Il contenuto del file non è stato conservato. Scegli di nuovo il file prima dell'invio."
     }
   },
   "RichEditor": {

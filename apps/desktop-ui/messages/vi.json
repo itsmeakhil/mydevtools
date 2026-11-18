@@ -2046,6 +2046,14 @@
       "option": "Tùy chỉnh…",
       "label": "Phương thức tùy chỉnh",
       "placeholder": "vd. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Tệp nhị phân",
+      "chooseFile": "Chọn tệp",
+      "noFile": "Chưa chọn tệp",
+      "binaryHint": "Gửi nguyên dạng làm thân yêu cầu. Content-Type mặc định theo loại tệp.",
+      "binaryMissing": "Nội dung tệp không được giữ lại. Hãy chọn lại tệp trước khi gửi."
     }
   },
   "RichEditor": {

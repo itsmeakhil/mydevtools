@@ -2046,6 +2046,14 @@
       "option": "Anpassad…",
       "label": "Anpassad metod",
       "placeholder": "t.ex. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binärfil",
+      "chooseFile": "Välj fil",
+      "noFile": "Ingen fil vald",
+      "binaryHint": "Skickas som rå begärandetext. Content-Type är som standard filens typ.",
+      "binaryMissing": "Filens innehåll sparades inte. Välj filen igen innan du skickar."
     }
   },
   "RichEditor": {

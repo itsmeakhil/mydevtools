@@ -2046,6 +2046,14 @@
       "option": "Özel…",
       "label": "Özel yöntem",
       "placeholder": "ör. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "İkili dosya",
+      "chooseFile": "Dosya seç",
+      "noFile": "Dosya seçilmedi",
+      "binaryHint": "Ham istek gövdesi olarak gönderilir. Content-Type varsayılan olarak dosyanın türüdür.",
+      "binaryMissing": "Dosya içeriği saklanmadı. Göndermeden önce dosyayı yeniden seçin."
     }
   },
   "RichEditor": {

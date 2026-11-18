@@ -2046,6 +2046,14 @@
       "option": "Pasgemaak…",
       "label": "Pasgemaakte metode",
       "placeholder": "bv. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binêre lêer",
+      "chooseFile": "Kies lêer",
+      "noFile": "Geen lêer gekies nie",
+      "binaryHint": "Word as die rou versoekliggaam gestuur. Content-Type is by verstek die lêer se tipe.",
+      "binaryMissing": "Die lêer se inhoud is nie behou nie. Kies die lêer weer voor jy stuur."
     }
   },
   "RichEditor": {

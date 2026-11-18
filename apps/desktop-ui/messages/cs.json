@@ -2046,6 +2046,14 @@
       "option": "Vlastní…",
       "label": "Vlastní metoda",
       "placeholder": "např. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binární soubor",
+      "chooseFile": "Vybrat soubor",
+      "noFile": "Nevybrán žádný soubor",
+      "binaryHint": "Odešle se jako nezpracované tělo požadavku. Content-Type je výchozí podle typu souboru.",
+      "binaryMissing": "Obsah souboru nebyl uchován. Před odesláním soubor vyberte znovu."
     }
   },
   "RichEditor": {

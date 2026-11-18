@@ -2046,6 +2046,14 @@
       "option": "Brugerdefineret…",
       "label": "Brugerdefineret metode",
       "placeholder": "f.eks. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Binær fil",
+      "chooseFile": "Vælg fil",
+      "noFile": "Ingen fil valgt",
+      "binaryHint": "Sendes som rå anmodningstekst. Content-Type er som standard filens type.",
+      "binaryMissing": "Filens indhold blev ikke gemt. Vælg filen igen før afsendelse."
     }
   },
   "RichEditor": {

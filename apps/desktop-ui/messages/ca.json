@@ -2046,6 +2046,14 @@
       "option": "Personalitzat…",
       "label": "Mètode personalitzat",
       "placeholder": "p. ex. PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "Fitxer binari",
+      "chooseFile": "Tria un fitxer",
+      "noFile": "Cap fitxer triat",
+      "binaryHint": "S'envia com a cos de la petició en brut. Content-Type pren per defecte el tipus del fitxer.",
+      "binaryMissing": "No s'ha conservat el contingut del fitxer. Torna a triar-lo abans d'enviar."
     }
   },
   "RichEditor": {

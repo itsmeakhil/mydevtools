@@ -40,6 +40,17 @@ describe("savePatch", () => {
         expect(savePatch(tab, stored).body.formData![0].fileContentBase64).toBe("AAAA")
     })
 
+    it("does the same for a binary body, and the stripped tab isn't dirty", () => {
+        const stored = { id: "r1", body: { type: "binary", content: "", binaryFile: { fileName: "a.bin", fileContentBase64: "AAAA" } } } as CollectionRequest
+        const tab = linked({ body: { type: "binary", content: "", binaryFile: { fileName: "a.bin", fileContentBase64: "AAAA" } } })
+        const stripped = { ...tab, body: { ...tab.body, binaryFile: { fileName: "a.bin", fileContentBase64: "" } } }
+        expect(isTabDirty(stripped)).toBe(false)
+        expect(savePatch(stripped, stored).body.binaryFile!.fileContentBase64).toBe("AAAA")
+        // A different file is a real change: keep what the tab has.
+        const other = { ...tab, body: { ...tab.body, binaryFile: { fileName: "b.bin", fileContentBase64: "" } } }
+        expect(savePatch(other, stored).body.binaryFile!.fileContentBase64).toBe("")
+    })
+
     it("does not write examples or comments", () => {
         const patch = savePatch(linked({ examples: [], comments: [] }), undefined)
         expect("examples" in patch).toBe(false)

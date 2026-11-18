@@ -15,9 +15,12 @@ export interface KeyValueItem {
 }
 
 export interface RequestBody {
-    type: "json" | "text" | "none" | "form-data" | "x-www-form-urlencoded" | "graphql"
+    type: "json" | "text" | "xml" | "none" | "form-data" | "x-www-form-urlencoded" | "graphql" | "binary"
     content: string
     formData?: RequestFormDataItem[]
+    /** File sent as the raw body when `type === "binary"`. Bytes may be stripped
+     *  (localStorage quota, history) — the name stays so the user can re-pick it. */
+    binaryFile?: Pick<RequestFormDataItem, "fileName" | "fileType" | "fileContentBase64">
     urlEncoded?: KeyValueItem[]
     /** GraphQL variables — JSON-encoded string. Only used when `type === "graphql"`. */
     graphqlVariables?: string

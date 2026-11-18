@@ -2046,6 +2046,14 @@
       "option": "カスタム…",
       "label": "カスタムメソッド",
       "placeholder": "例: PURGE"
+    },
+    "requestBody": {
+      "xml": "XML",
+      "binary": "バイナリファイル",
+      "chooseFile": "ファイルを選択",
+      "noFile": "ファイル未選択",
+      "binaryHint": "リクエストボディとしてそのまま送信します。Content-Type の既定値はファイルの種類です。",
+      "binaryMissing": "ファイルの内容が保持されていません。送信前にもう一度ファイルを選択してください。"
     }
   },
   "RichEditor": {
