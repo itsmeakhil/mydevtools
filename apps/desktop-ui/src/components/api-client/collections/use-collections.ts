@@ -9,6 +9,7 @@ import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-cl
 import { isDesktop } from "@/lib/desktop/is-desktop"
 import { countLiteralAuthSecrets, diffFiles, newManifest, parseCollection, serializeCollection, MANIFEST_FILE } from "@/lib/api-client/file-store"
 import { moveCollectionSecretsToVault } from "@/lib/api-client/move-to-vault"
+import { cloneWithNewIds, findItem, insertAt, locate, moveWithin, removeItem, type Location } from "@/lib/api-client/collection-tree"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { importBrunoFolder } from "@/lib/import/bruno"
 import type { Environment } from "../use-environments"
@@ -583,6 +584,90 @@ export function useCollections() {
         }
     }
 
+    /**
+     * Persist a new item tree for one collection: folder collections rewrite
+     * their files; DB collections apply `ops` optimistically and reconcile.
+     * Rollback is per-collection so a two-step cross-collection move never
+     * reverts the half that already landed.
+     */
+    const commitItems = async (target: Collection, nextItems: Collection["items"], ops: object[], failMsg: string): Promise<boolean> => {
+        if (target.source) return mutateFileCollection(target, nextItems)
+        if (!user) return false
+        setCollections((cur) => sortCollections(cur.map((c) => (c.id === target.id ? { ...c, items: nextItems } : c))))
+        try {
+            const updated = await applyDelta(target.id, ops)
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
+            return true
+        } catch (e) {
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === target.id ? target : c))))
+            console.error(failMsg, e)
+            toast.error(failMsg)
+            return false
+        }
+    }
+
+    /** Copy a request or folder (fresh ids throughout) right below the original. */
+    const duplicateItem = async (itemId: string, name: string, failMsg: string): Promise<boolean> => {
+        const at = locate(allCollections, itemId)
+        const target = at && allCollections.find((c) => c.id === at.collectionId)
+        const original = target && findItem(target.items, itemId)
+        if (!at || !target || !original) return false
+        const copy = cloneWithNewIds(original, name)
+        const index = at.index + 1
+        return commitItems(target, insertAt(target.items, at.parentId, index, copy), [
+            { type: "add", parent_id: at.parentId, item: copy, position: index },
+        ], failMsg)
+    }
+
+    /** Copy a whole collection as a new DB collection (a folder collection's copy lives in the app). */
+    const duplicateCollection = async (collectionId: string, name: string): Promise<Collection | null> => {
+        const source = allCollections.find((c) => c.id === collectionId)
+        if (!source) return null
+        return importCollection({ id: "", name, items: source.items.map((i) => cloneWithNewIds(i)) }, true)
+    }
+
+    /** Drag/drop and "Move to…": within a collection (backend `move` op) or across collections. */
+    const moveItem = async (itemId: string, to: Location, failMsg: string): Promise<boolean> => {
+        const from = locate(allCollections, itemId)
+        const src = from && allCollections.find((c) => c.id === from.collectionId)
+        const dest = allCollections.find((c) => c.id === to.collectionId)
+        if (!from || !src || !dest) return false
+        if (src.id === dest.id) {
+            const next = moveWithin(src.items, itemId, to.parentId, to.index)
+            return next !== null && commitItems(src, next, [
+                { type: "move", item_id: itemId, new_parent_id: to.parentId, new_index: to.index },
+            ], failMsg)
+        }
+        const item = findItem(src.items, itemId)!
+        // Add first, then remove: a failure in between leaves a copy, never a loss.
+        if (!await commitItems(dest, insertAt(dest.items, to.parentId, to.index, item), [
+            { type: "add", parent_id: to.parentId, item, position: to.index },
+        ], failMsg)) return false
+        return commitItems(src, removeItem(src.items, itemId), [{ type: "delete", item_id: itemId }], failMsg)
+    }
+
+    /** Assign a DB collection to a workspace (null = no workspace). Folder collections have none. */
+    const setCollectionWorkspace = async (collectionId: string, workspace: string | null, failMsg: string) => {
+        if (!user) return
+        const prev = collections.find((c) => c.id === collectionId)
+        if (!prev) return
+        setCollections((cur) => cur.map((c) => (c.id === collectionId ? { ...c, workspace: workspace ?? undefined } : c)))
+        try {
+            const res = await authedFetch(`/api/backend/api-client/collections/${collectionId}`, {
+                method: "PATCH",
+                body: JSON.stringify({ workspace }),
+            })
+            const updated = (await res.json()) as Collection
+            setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
+            broadcastApiClientUpdate("collections")
+        } catch (e) {
+            setCollections((cur) => cur.map((c) => (c.id === collectionId ? prev : c)))
+            console.error(failMsg, e)
+            toast.error(failMsg)
+        }
+    }
+
     // Helper functions
     const findFolder = (items: (CollectionFolder | CollectionRequest)[], folderId: string): CollectionFolder | null => {
         for (const item of items) {
@@ -669,7 +754,7 @@ export function useCollections() {
      * Creates the collection on the server, then PATCHes its items in one shot.
      * Cheaper than fan-out applyDelta for hundreds of converted requests.
      */
-    const importCollection = async (incoming: Collection): Promise<Collection | null> => {
+    const importCollection = async (incoming: Collection, quiet = false): Promise<Collection | null> => {
         if (!user) return null
         try {
             const res = await authedFetch("/api/backend/api-client/collections", {
@@ -687,7 +772,7 @@ export function useCollections() {
             }
             setCollections((prev) => sortCollections([...prev, final]))
             broadcastApiClientUpdate("collections")
-            toast.success(`Imported "${incoming.name}"`)
+            if (!quiet) toast.success(`Imported "${incoming.name}"`)
             return final
         } catch (e) {
             console.error("Error importing collection", e)
@@ -894,6 +979,10 @@ export function useCollections() {
         updateRequest,
         deleteMultipleCollections,
         importCollection,
+        duplicateItem,
+        duplicateCollection,
+        moveItem,
+        setCollectionWorkspace,
         isLoading
     }
 }
