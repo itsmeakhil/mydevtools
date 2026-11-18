@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "“{name}” is op skyf verander. Jou ongestoorde wysigings bly — stoor oorskryf die lêer."
+      "changedOnDisk": "“{name}” is op skyf verander. Jou ongestoorde wysigings bly — stoor oorskryf die lêer.",
+      "linked": "“{name}” in plek oopgemaak — wysigings word in sy Bruno-lêers gestoor.",
+      "readOnlyOpenCollection": "OpenCollection-vouers (YAML) maak vir eers net-lees oop. Om te wysig, gebruik Invoer → Voer Bruno-vouer as kopie in.",
+      "notBruno": "Daardie vouer is nie ’n Bruno-versameling nie (geen bruno.json of opencollection.yml nie).",
+      "importBrunoCopy": "Voer Bruno-vouer as kopie in…",
+      "errors": {
+        "readOnly": "Nie gestoor nie: hierdie Bruno-vouer is hier net-lees (OpenCollection YAML).",
+        "unsupported": "Nie gestoor nie: {part} op “{name}” kan nie in ’n Bruno-lêer gestoor word nie.",
+        "lossy": "Nie gestoor nie: {part} op “{name}” gebruik Bruno-sintaksis wat hierdie toep nie sonder dataverlies kan wysig nie. Wysig dit in Bruno.",
+        "ambiguousScripts": "Nie gestoor nie: “{name}” het sowel ’n post-response-skrip as toetse in Bruno, en hierdie wysiging kan nie tussen hulle verdeel word nie. Wysig dit in Bruno.",
+        "modeStash": "Nie gestoor nie: Bruno hou reeds inhoud vir daardie modus op “{name}”. Verander die modus in Bruno.",
+        "folderMove": "Om vouer “{name}” na ’n ander vouer te skuif word nog nie vir Bruno-vouers ondersteun nie — skuif dit in Finder of Bruno.",
+        "writeFailed": "Kon nie die Bruno-lêers skryf nie: {reason}"
+      },
+      "parts": {
+        "name": "die naam",
+        "method": "die HTTP-metode",
+        "url": "die URL",
+        "params": "navraagparameters",
+        "headers": "opskrifte",
+        "body": "die liggaam",
+        "auth": "magtiging",
+        "preRequestScript": "die voorversoek-skrip",
+        "testScript": "die toetsskrip",
+        "assertions": "bewerings",
+        "variables": "veranderlikes",
+        "content": "die inhoud",
+        "kind": "hierdie versoektipe",
+        "timeoutMs": "die uittel",
+        "useCookieJar": "die koekiefles-instelling",
+        "followRedirects": "die herleidingsinstelling",
+        "maxRedirects": "maks herleidings",
+        "verifySsl": "SSL-verifikasie",
+        "omitHeaders": "weggelate geërfde opskrifte",
+        "examples": "gestoorde voorbeelde",
+        "comments": "opmerkings"
+      }
     }
   },
   "RichEditor": {

@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "「{name}」がディスク上で変更されました。未保存の編集は保持されます。保存するとファイルが上書きされます。"
+      "changedOnDisk": "「{name}」がディスク上で変更されました。未保存の編集は保持されます。保存するとファイルが上書きされます。",
+      "linked": "「{name}」をその場で開きました。編集は Bruno ファイルに保存されます。",
+      "readOnlyOpenCollection": "OpenCollection（YAML）フォルダーは現在、読み取り専用で開きます。編集するには［インポート］→［Bruno フォルダーをコピーとしてインポート］を使用してください。",
+      "notBruno": "そのフォルダーは Bruno コレクションではありません（bruno.json または opencollection.yml がありません）。",
+      "importBrunoCopy": "Bruno フォルダーをコピーとしてインポート…",
+      "errors": {
+        "readOnly": "保存されませんでした：この Bruno フォルダーはここでは読み取り専用です（OpenCollection YAML）。",
+        "unsupported": "保存されませんでした：「{name}」の{part}は Bruno ファイルに保存できません。",
+        "lossy": "保存されませんでした：「{name}」の{part}は、このアプリがデータを失わずに編集できない Bruno 構文を使っています。Bruno で編集してください。",
+        "ambiguousScripts": "保存されませんでした：「{name}」には Bruno 上で post-response スクリプトとテストの両方があり、この編集をどちらに分けるか判断できません。Bruno で編集してください。",
+        "modeStash": "保存されませんでした：Bruno は「{name}」でそのモードの内容をすでに保持しています。Bruno でモードを切り替えてください。",
+        "folderMove": "Bruno フォルダーでは、フォルダー「{name}」を別のフォルダーへ移動する操作はまだサポートされていません。Finder または Bruno で移動してください。",
+        "writeFailed": "Bruno ファイルを書き込めませんでした：{reason}"
+      },
+      "parts": {
+        "name": "名前",
+        "method": "HTTP メソッド",
+        "url": "URL",
+        "params": "クエリパラメーター",
+        "headers": "ヘッダー",
+        "body": "ボディ",
+        "auth": "認証",
+        "preRequestScript": "リクエスト前スクリプト",
+        "testScript": "テストスクリプト",
+        "assertions": "アサーション",
+        "variables": "変数",
+        "content": "内容",
+        "kind": "このリクエストの種類",
+        "timeoutMs": "タイムアウト",
+        "useCookieJar": "Cookie ジャー設定",
+        "followRedirects": "リダイレクト設定",
+        "maxRedirects": "最大リダイレクト数",
+        "verifySsl": "SSL 検証",
+        "omitHeaders": "除外した継承ヘッダー",
+        "examples": "保存済みの例",
+        "comments": "コメント"
+      }
     }
   },
   "RichEditor": {

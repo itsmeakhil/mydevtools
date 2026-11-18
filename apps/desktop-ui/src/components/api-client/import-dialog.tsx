@@ -23,6 +23,8 @@ import { useCollectionsActions } from "./context/collections-context"
 import { useEnvironmentsActions } from "./context/environments-context"
 import type { EnvironmentVariable } from "./use-environments"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
+import { isDesktop } from "@/lib/desktop/is-desktop"
 
 interface ImportDialogProps {
     open: boolean
@@ -41,10 +43,24 @@ const FORMAT_LABEL: Record<ImportFormat, string> = {
 }
 
 export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
-    const { importCollection } = useCollectionsActions()
+    const { importCollection, openFolderCollection } = useCollectionsActions()
     const { addEnvironment, updateEnvironment } = useEnvironmentsActions()
+    const tf = useTranslations("ApiClient.fileSync")
     const [text, setText] = React.useState("")
     const [busy, setBusy] = React.useState(false)
+    // isDesktop() is false during SSR — gate behind a mounted flag to avoid hydration mismatch.
+    const [desktop, setDesktop] = React.useState(false)
+    React.useEffect(() => { setDesktop(isDesktop()) }, [])
+
+    /** "Open folder" live-links a Bruno folder; this keeps the old one-time import. */
+    const importBrunoCopy = async () => {
+        setBusy(true)
+        try {
+            if (await openFolderCollection("copy")) onOpenChange(false)
+        } finally {
+            setBusy(false)
+        }
+    }
 
     const detected: ImportFormat = React.useMemo(() => detectImportFormat(text), [text])
     const canImport = detected !== "curl" && detected !== "unknown"
@@ -132,6 +148,11 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                                 <span>Choose file</span>
                             </Button>
                         </label>
+                        {desktop && (
+                            <Button type="button" variant="outline" size="sm" onClick={() => void importBrunoCopy()} disabled={busy}>
+                                {tf("importBrunoCopy")}
+                            </Button>
+                        )}
                         <div className="text-xs text-muted-foreground">
                             Detected: <span className={
                                 canImport ? "text-success font-semibold" : "text-muted-foreground"

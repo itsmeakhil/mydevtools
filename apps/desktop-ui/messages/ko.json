@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "“{name}” 파일이 디스크에서 변경되었습니다. 저장하지 않은 편집은 유지되며, 저장하면 파일을 덮어씁니다."
+      "changedOnDisk": "“{name}” 파일이 디스크에서 변경되었습니다. 저장하지 않은 편집은 유지되며, 저장하면 파일을 덮어씁니다.",
+      "linked": "“{name}”을(를) 제자리에서 열었습니다. 편집 내용은 해당 Bruno 파일에 저장됩니다.",
+      "readOnlyOpenCollection": "OpenCollection(YAML) 폴더는 당분간 읽기 전용으로 열립니다. 편집하려면 가져오기 → Bruno 폴더를 사본으로 가져오기를 사용하세요.",
+      "notBruno": "이 폴더는 Bruno 컬렉션이 아닙니다(bruno.json 또는 opencollection.yml 없음).",
+      "importBrunoCopy": "Bruno 폴더를 사본으로 가져오기…",
+      "errors": {
+        "readOnly": "저장되지 않음: 이 Bruno 폴더는 여기서 읽기 전용입니다(OpenCollection YAML).",
+        "unsupported": "저장되지 않음: “{name}”의 {part}은(는) Bruno 파일에 저장할 수 없습니다.",
+        "lossy": "저장되지 않음: “{name}”의 {part}은(는) 이 앱이 데이터 손실 없이 편집할 수 없는 Bruno 구문을 사용합니다. Bruno에서 편집하세요.",
+        "ambiguousScripts": "저장되지 않음: “{name}”에는 Bruno에 post-response 스크립트와 테스트가 모두 있어 이 편집을 둘로 나눌 수 없습니다. Bruno에서 편집하세요.",
+        "modeStash": "저장되지 않음: Bruno가 이미 “{name}”에 해당 모드의 내용을 보관하고 있습니다. Bruno에서 모드를 전환하세요.",
+        "folderMove": "Bruno 폴더에서는 “{name}” 폴더를 다른 폴더로 옮기는 기능이 아직 지원되지 않습니다. Finder 또는 Bruno에서 옮기세요.",
+        "writeFailed": "Bruno 파일을 쓸 수 없습니다: {reason}"
+      },
+      "parts": {
+        "name": "이름",
+        "method": "HTTP 메서드",
+        "url": "URL",
+        "params": "쿼리 매개변수",
+        "headers": "헤더",
+        "body": "본문",
+        "auth": "인증",
+        "preRequestScript": "요청 전 스크립트",
+        "testScript": "테스트 스크립트",
+        "assertions": "어설션",
+        "variables": "변수",
+        "content": "내용",
+        "kind": "이 요청 유형",
+        "timeoutMs": "시간 제한",
+        "useCookieJar": "쿠키 저장소 설정",
+        "followRedirects": "리디렉션 설정",
+        "maxRedirects": "최대 리디렉션",
+        "verifySsl": "SSL 확인",
+        "omitHeaders": "생략한 상속 헤더",
+        "examples": "저장된 예제",
+        "comments": "댓글"
+      }
     }
   },
   "RichEditor": {

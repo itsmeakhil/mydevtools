@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "Soubor „{name}“ se na disku změnil. Neuložené úpravy zůstávají — uložením soubor přepíšete."
+      "changedOnDisk": "Soubor „{name}“ se na disku změnil. Neuložené úpravy zůstávají — uložením soubor přepíšete.",
+      "linked": "„{name}“ otevřeno na místě — úpravy se ukládají do jeho souborů Bruno.",
+      "readOnlyOpenCollection": "Složky OpenCollection (YAML) se zatím otevírají jen pro čtení. Pro úpravy použijte Import → Importovat složku Bruno jako kopii.",
+      "notBruno": "Tato složka není kolekce Bruno (chybí bruno.json nebo opencollection.yml).",
+      "importBrunoCopy": "Importovat složku Bruno jako kopii…",
+      "errors": {
+        "readOnly": "Neuloženo: tato složka Bruno je zde jen pro čtení (OpenCollection YAML).",
+        "unsupported": "Neuloženo: {part} u „{name}“ nelze uložit do souboru Bruno.",
+        "lossy": "Neuloženo: {part} u „{name}“ používá syntaxi Bruno, kterou tato aplikace nedokáže upravit bez ztráty dat. Upravte to v Bruno.",
+        "ambiguousScripts": "Neuloženo: „{name}“ má v Bruno skript post-response i testy a tuto úpravu mezi ně nelze rozdělit. Upravte to v Bruno.",
+        "modeStash": "Neuloženo: Bruno už pro tento režim u „{name}“ uchovává obsah. Přepněte režim v Bruno.",
+        "folderMove": "Přesun složky „{name}“ do jiné složky zatím u složek Bruno není podporován — přesuňte ji ve Finderu nebo v Bruno.",
+        "writeFailed": "Soubory Bruno se nepodařilo zapsat: {reason}"
+      },
+      "parts": {
+        "name": "název",
+        "method": "metoda HTTP",
+        "url": "URL",
+        "params": "parametry dotazu",
+        "headers": "hlavičky",
+        "body": "tělo",
+        "auth": "ověření",
+        "preRequestScript": "skript před požadavkem",
+        "testScript": "testovací skript",
+        "assertions": "aserce",
+        "variables": "proměnné",
+        "content": "obsah",
+        "kind": "tento typ požadavku",
+        "timeoutMs": "časový limit",
+        "useCookieJar": "nastavení úložiště cookies",
+        "followRedirects": "nastavení přesměrování",
+        "maxRedirects": "max. přesměrování",
+        "verifySsl": "ověřování SSL",
+        "omitHeaders": "vynechané zděděné hlavičky",
+        "examples": "uložené příklady",
+        "comments": "komentáře"
+      }
     }
   },
   "RichEditor": {

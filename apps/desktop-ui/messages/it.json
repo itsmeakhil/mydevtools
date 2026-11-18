@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "“{name}” è cambiato sul disco. Le modifiche non salvate restano; salvando sovrascriverai il file."
+      "changedOnDisk": "“{name}” è cambiato sul disco. Le modifiche non salvate restano; salvando sovrascriverai il file.",
+      "linked": "“{name}” aperto sul posto: le modifiche vengono salvate nei suoi file Bruno.",
+      "readOnlyOpenCollection": "Le cartelle OpenCollection (YAML) per ora si aprono in sola lettura. Per modificare: Importa → Importa cartella Bruno come copia.",
+      "notBruno": "Quella cartella non è una raccolta Bruno (manca bruno.json o opencollection.yml).",
+      "importBrunoCopy": "Importa cartella Bruno come copia…",
+      "errors": {
+        "readOnly": "Non salvato: questa cartella Bruno qui è in sola lettura (OpenCollection YAML).",
+        "unsupported": "Non salvato: {part} di “{name}” non può essere memorizzato in un file Bruno.",
+        "lossy": "Non salvato: {part} di “{name}” usa una sintassi Bruno che l’app non può modificare senza perdere dati. Modificalo in Bruno.",
+        "ambiguousScripts": "Non salvato: “{name}” ha in Bruno sia uno script post-response sia dei test, e questa modifica non si può suddividere tra i due. Modificalo in Bruno.",
+        "modeStash": "Non salvato: Bruno conserva già del contenuto per quella modalità su “{name}”. Cambia modalità in Bruno.",
+        "folderMove": "Spostare la cartella “{name}” in un’altra cartella non è ancora supportato per le cartelle Bruno: spostala nel Finder o in Bruno.",
+        "writeFailed": "Impossibile scrivere i file Bruno: {reason}"
+      },
+      "parts": {
+        "name": "il nome",
+        "method": "il metodo HTTP",
+        "url": "l’URL",
+        "params": "i parametri di query",
+        "headers": "gli header",
+        "body": "il body",
+        "auth": "l’autenticazione",
+        "preRequestScript": "lo script pre-richiesta",
+        "testScript": "lo script di test",
+        "assertions": "le asserzioni",
+        "variables": "le variabili",
+        "content": "il contenuto",
+        "kind": "questo tipo di richiesta",
+        "timeoutMs": "il timeout",
+        "useCookieJar": "l’impostazione del barattolo dei cookie",
+        "followRedirects": "l’impostazione dei reindirizzamenti",
+        "maxRedirects": "il massimo di reindirizzamenti",
+        "verifySsl": "la verifica SSL",
+        "omitHeaders": "gli header ereditati omessi",
+        "examples": "gli esempi salvati",
+        "comments": "i commenti"
+      }
     }
   },
   "RichEditor": {

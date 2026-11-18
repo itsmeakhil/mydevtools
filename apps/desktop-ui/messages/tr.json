@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "“{name}” diskte değişti. Kaydedilmemiş düzenlemeleriniz korunuyor — kaydetmek dosyanın üzerine yazar."
+      "changedOnDisk": "“{name}” diskte değişti. Kaydedilmemiş düzenlemeleriniz korunuyor — kaydetmek dosyanın üzerine yazar.",
+      "linked": "“{name}” yerinde açıldı — düzenlemeler Bruno dosyalarına kaydedilir.",
+      "readOnlyOpenCollection": "OpenCollection (YAML) klasörleri şimdilik salt okunur açılır. Düzenlemek için İçe aktar → Bruno klasörünü kopya olarak içe aktar’ı kullanın.",
+      "notBruno": "Bu klasör bir Bruno koleksiyonu değil (bruno.json veya opencollection.yml yok).",
+      "importBrunoCopy": "Bruno klasörünü kopya olarak içe aktar…",
+      "errors": {
+        "readOnly": "Kaydedilmedi: bu Bruno klasörü burada salt okunur (OpenCollection YAML).",
+        "unsupported": "Kaydedilmedi: “{name}” içindeki {part} bir Bruno dosyasında saklanamaz.",
+        "lossy": "Kaydedilmedi: “{name}” içindeki {part}, bu uygulamanın veri kaybı olmadan düzenleyemeyeceği Bruno sözdizimi kullanıyor. Bruno’da düzenleyin.",
+        "ambiguousScripts": "Kaydedilmedi: “{name}” Bruno’da hem post-response betiği hem testler içeriyor ve bu düzenleme ikisi arasında bölünemiyor. Bruno’da düzenleyin.",
+        "modeStash": "Kaydedilmedi: Bruno “{name}” için bu modun içeriğini zaten tutuyor. Modu Bruno’da değiştirin.",
+        "folderMove": "“{name}” klasörünü başka bir klasöre taşımak Bruno klasörlerinde henüz desteklenmiyor — Finder’da veya Bruno’da taşıyın.",
+        "writeFailed": "Bruno dosyaları yazılamadı: {reason}"
+      },
+      "parts": {
+        "name": "ad",
+        "method": "HTTP yöntemi",
+        "url": "URL",
+        "params": "sorgu parametreleri",
+        "headers": "başlıklar",
+        "body": "gövde",
+        "auth": "kimlik doğrulama",
+        "preRequestScript": "istek öncesi betiği",
+        "testScript": "test betiği",
+        "assertions": "doğrulamalar",
+        "variables": "değişkenler",
+        "content": "içerik",
+        "kind": "bu istek türü",
+        "timeoutMs": "zaman aşımı",
+        "useCookieJar": "çerez kavanozu ayarı",
+        "followRedirects": "yönlendirme ayarı",
+        "maxRedirects": "en fazla yönlendirme",
+        "verifySsl": "SSL doğrulaması",
+        "omitHeaders": "atlanan devralınan başlıklar",
+        "examples": "kayıtlı örnekler",
+        "comments": "yorumlar"
+      }
     }
   },
   "RichEditor": {

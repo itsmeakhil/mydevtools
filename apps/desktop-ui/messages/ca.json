@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "“{name}” ha canviat al disc. Es conserven les teves edicions sense desar; en desar se sobreescriurà el fitxer."
+      "changedOnDisk": "“{name}” ha canviat al disc. Es conserven les teves edicions sense desar; en desar se sobreescriurà el fitxer.",
+      "linked": "S’ha obert “{name}” al seu lloc: les edicions es desen als seus fitxers de Bruno.",
+      "readOnlyOpenCollection": "Les carpetes OpenCollection (YAML) s’obren només de lectura de moment. Per editar, fes servir Importa → Importa la carpeta de Bruno com a còpia.",
+      "notBruno": "Aquesta carpeta no és una col·lecció de Bruno (no hi ha bruno.json ni opencollection.yml).",
+      "importBrunoCopy": "Importa la carpeta de Bruno com a còpia…",
+      "errors": {
+        "readOnly": "No desat: aquesta carpeta de Bruno és només de lectura aquí (OpenCollection YAML).",
+        "unsupported": "No desat: {part} de “{name}” no es pot desar en un fitxer de Bruno.",
+        "lossy": "No desat: {part} de “{name}” fa servir sintaxi de Bruno que aquesta aplicació no pot editar sense perdre dades. Edita-ho a Bruno.",
+        "ambiguousScripts": "No desat: “{name}” té a Bruno un script post-response i proves alhora, i aquesta edició no es pot repartir entre tots dos. Edita-ho a Bruno.",
+        "modeStash": "No desat: Bruno ja guarda contingut per a aquest mode a “{name}”. Canvia el mode a Bruno.",
+        "folderMove": "Moure la carpeta “{name}” dins d’una altra carpeta encara no és compatible amb les carpetes de Bruno; mou-la al Finder o a Bruno.",
+        "writeFailed": "No s’han pogut escriure els fitxers de Bruno: {reason}"
+      },
+      "parts": {
+        "name": "el nom",
+        "method": "el mètode HTTP",
+        "url": "l’URL",
+        "params": "els paràmetres de consulta",
+        "headers": "les capçaleres",
+        "body": "el cos",
+        "auth": "l’autenticació",
+        "preRequestScript": "l’script previ a la petició",
+        "testScript": "l’script de proves",
+        "assertions": "les assercions",
+        "variables": "les variables",
+        "content": "el contingut",
+        "kind": "aquest tipus de petició",
+        "timeoutMs": "el temps d’espera",
+        "useCookieJar": "la configuració del pot de galetes",
+        "followRedirects": "la configuració de redireccions",
+        "maxRedirects": "el màxim de redireccions",
+        "verifySsl": "la verificació SSL",
+        "omitHeaders": "les capçaleres heretades omeses",
+        "examples": "els exemples desats",
+        "comments": "els comentaris"
+      }
     }
   },
   "RichEditor": {

@@ -12,11 +12,15 @@ import { moveCollectionSecretsToVault } from "@/lib/api-client/move-to-vault"
 import { cloneWithNewIds, findItem, insertAt, locate, moveWithin, removeItem, type Location } from "@/lib/api-client/collection-tree"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { importBrunoFolder } from "@/lib/import/bruno"
+import { BrunoWriteError, readBrunoLink, serializeBrunoCollection } from "@/lib/import/bruno-write"
+import { useTranslations } from "next-intl"
 import type { Environment } from "../use-environments"
 
 const STORAGE_KEY = "api-client-collections"
 // Root-level manifest only: a nested bruno.json (e.g. a vendored sample) is not this folder's identity.
 const BRUNO_MANIFEST = /^(bruno\.json|opencollection\.yml)$/
+/** Files read for a folder collection — ours (`*.yaml`) or Bruno (`*.bru`, `*.yml`, `bruno.json`). */
+const isCollectionFile = (name: string) => /\.(ya?ml|bru)$/.test(name) || name === "bruno.json"
 
 function sortCollections(cols: Collection[]) {
     return [...cols].sort((a, b) => a.name.localeCompare(b.name))
@@ -55,6 +59,15 @@ export function useCollections() {
     /** Collections already warned about literal credentials — once per session is enough. */
     const secretWarnedRef = React.useRef(new Set<string>())
     const cipherKey = useCipherKey()
+    const tf = useTranslations("ApiClient.fileSync")
+    type FileSyncKey = Parameters<typeof tf>[0]
+    /** Why a live-linked Bruno write was refused (or failed), in the user's language. */
+    const brunoWriteMessage = (e: unknown): string => {
+        if (!(e instanceof BrunoWriteError)) return tf("errors.writeFailed", { reason: e instanceof Error ? e.message : String(e) })
+        const partKey = `parts.${e.params.part}` as FileSyncKey
+        const part = e.params.part ? (tf.has(partKey) ? tf(partKey) : e.params.part) : ""
+        return tf(`errors.${e.code}` as FileSyncKey, { name: e.params.name ?? "", part })
+    }
     // Latest file collections for toast-action callbacks (they outlive the closing render).
     const fileCollectionsRef = React.useRef(fileCollections)
     fileCollectionsRef.current = fileCollections
@@ -80,9 +93,19 @@ export function useCollections() {
         for (const path of paths) {
             try {
                 await allowCollectionDir(path)
-                const { collection, warnings } = parseCollection(await readCollectionFiles(path))
-                warnings.forEach((w) => console.warn(`[file-collection] ${path}: ${w}`))
-                loaded.push({ ...collection, source: { kind: "file", path } })
+                const files = await readCollectionFiles(path, isCollectionFile)
+                if (files.some((e) => e.relPath === MANIFEST_FILE)) {
+                    const { collection, warnings } = parseCollection(files.filter((e) => e.relPath.endsWith(".yaml")))
+                    warnings.forEach((w) => console.warn(`[file-collection] ${path}: ${w}`))
+                    loaded.push({ ...collection, source: { kind: "file", path } })
+                } else if (files.some((e) => BRUNO_MANIFEST.test(e.relPath))) {
+                    // Previous id map keeps ids (and open tabs' links) stable across reloads.
+                    const prev = fileCollectionsRef.current.find((c) => c.source?.path === path)?.source
+                    const { collection, link } = readBrunoLink(path, files, prev?.kind === "bruno" ? prev.pathOf : undefined)
+                    loaded.push({ ...collection, source: { kind: "bruno", path, ...link } })
+                } else {
+                    throw new Error("no collection.yaml or bruno.json")
+                }
                 failedFilePathsRef.current.delete(path)
             } catch (e) {
                 console.error(`Failed to read folder collection at ${path}`, e)
@@ -146,6 +169,33 @@ export function useCollections() {
     ): Promise<boolean> => {
         const next = { ...target, ...patch, items: nextItems }
         setFileCollections((cur) => cur.map((c) => (c.id === target.id ? next : c)))
+        const src = target.source
+        if (src?.kind === "bruno") {
+            // Live-linked Bruno folder: diff against the disk snapshot, then adopt the
+            // written files as the new snapshot. Refusals restore the previous state.
+            try {
+                const { files, pathOf } = serializeBrunoCollection(next, src)
+                const prev = Object.entries(src.files).map(([relPath, content]) => ({ relPath, content }))
+                const { writes, deletes } = diffFiles(prev, files)
+                if (writes.length > 0 || deletes.length > 0) {
+                    const { writeCollectionFiles } = await import("@/lib/desktop/collection-files")
+                    ownWriteUntilRef.current = Date.now() + 60_000
+                    try {
+                        await writeCollectionFiles(src.path, writes, deletes)
+                    } finally {
+                        ownWriteUntilRef.current = Date.now() + 500
+                    }
+                }
+                const snapshot = Object.fromEntries(files.map((f) => [f.relPath, f.content]))
+                setFileCollections((cur) => cur.map((c) => (c.id === target.id ? { ...next, source: { ...src, files: snapshot, pathOf } } : c)))
+                return true
+            } catch (e) {
+                setFileCollections((cur) => cur.map((c) => (c.id === target.id ? target : c)))
+                if (!(e instanceof BrunoWriteError)) console.error("Error writing Bruno collection", e)
+                toast.error(brunoWriteMessage(e), { duration: 10000 })
+                return false
+            }
+        }
         // Literal credentials are redacted by the serializer (never written to git-able
         // files) — tell the user once so a "missing" token isn't a mystery, and offer
         // to move them into the encrypted vault (rewrites fields to {{vault.*}} tokens).
@@ -951,17 +1001,33 @@ export function useCollections() {
     /**
      * Pick a folder and open it as a file-backed collection. A folder with a
      * `collection.yaml` is opened as-is; a Bruno collection (`bruno.json` /
-     * `opencollection.yml`) is imported as a regular collection, leaving the
-     * Bruno folder untouched; any other folder is initialized (name = folder
+     * `opencollection.yml`) is live-linked — edits write back to its files
+     * (`mode: "copy"` imports it as a regular collection instead, leaving the
+     * folder untouched); any other folder is initialized (name = folder
      * basename). Desktop only.
      */
-    const openFolderCollection = async (): Promise<{ collection: Collection; environments: Environment[] } | null> => {
+    const openFolderCollection = async (mode: "link" | "copy" = "link"): Promise<{ collection: Collection; environments: Environment[] } | null> => {
         if (!isDesktop()) return null
         try {
             const { pickFolder, readCollectionFiles, writeCollectionFiles, loadCollectionRegistry, saveCollectionRegistry } =
                 await import("@/lib/desktop/collection-files")
             const path = await pickFolder()
             if (!path) return null
+
+            const files = await readCollectionFiles(path, isCollectionFile)
+            const isBruno = !files.some((e) => e.relPath === MANIFEST_FILE) && files.some((e) => BRUNO_MANIFEST.test(e.relPath))
+            if (mode === "copy") {
+                if (!isBruno) {
+                    toast.error(tf("notBruno"))
+                    return null
+                }
+                // Shallowest first: the importer roots at the first manifest it finds,
+                // and the walk can reach a nested bruno.json before the root one.
+                const byDepth = [...files].sort((a, b) => a.relPath.split("/").length - b.relPath.split("/").length)
+                const { collection, environments } = importBrunoFolder(byDepth.map((e) => ({ path: e.relPath, text: e.content })))
+                const created = await importCollection(collection)
+                return created ? { collection: created, environments } : null
+            }
 
             const registry = await loadCollectionRegistry()
             if (registry.includes(path)) {
@@ -970,14 +1036,14 @@ export function useCollections() {
                 return open ? { collection: open, environments: [] } : null
             }
 
-            const files = await readCollectionFiles(path, (n) => /\.(ya?ml|bru)$/.test(n) || n === "bruno.json")
-            if (!files.some((e) => e.relPath === MANIFEST_FILE) && files.some((e) => BRUNO_MANIFEST.test(e.relPath))) {
-                // Shallowest first: the importer roots at the first manifest it finds,
-                // and the walk can reach a nested bruno.json before the root one.
-                const byDepth = [...files].sort((a, b) => a.relPath.split("/").length - b.relPath.split("/").length)
-                const { collection, environments } = importBrunoFolder(byDepth.map((e) => ({ path: e.relPath, text: e.content })))
-                const created = await importCollection(collection)
-                return created ? { collection: created, environments } : null
+            if (isBruno) {
+                const { collection, link, environments } = readBrunoLink(path, files)
+                const col: Collection = { ...collection, source: { kind: "bruno", path, ...link } }
+                await saveCollectionRegistry([...registry, path])
+                setFileCollections((cur) => [...cur.filter((c) => c.id !== col.id), col])
+                if (link.readOnly) toast.info(tf("readOnlyOpenCollection"), { duration: 10000 })
+                else toast.success(tf("linked", { name: col.name }))
+                return { collection: col, environments }
             }
 
             let col: Collection

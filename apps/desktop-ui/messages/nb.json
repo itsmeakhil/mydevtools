@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "“{name}” er endret på disken. Ulagrede endringer beholdes — lagring overskriver filen."
+      "changedOnDisk": "“{name}” er endret på disken. Ulagrede endringer beholdes — lagring overskriver filen.",
+      "linked": "Åpnet “{name}” på stedet — endringer lagres i Bruno-filene.",
+      "readOnlyOpenCollection": "OpenCollection-mapper (YAML) åpnes skrivebeskyttet inntil videre. For å redigere: Importer → Importer Bruno-mappe som kopi.",
+      "notBruno": "Den mappen er ikke en Bruno-samling (ingen bruno.json eller opencollection.yml).",
+      "importBrunoCopy": "Importer Bruno-mappe som kopi…",
+      "errors": {
+        "readOnly": "Ikke lagret: denne Bruno-mappen er skrivebeskyttet her (OpenCollection YAML).",
+        "unsupported": "Ikke lagret: {part} på “{name}” kan ikke lagres i en Bruno-fil.",
+        "lossy": "Ikke lagret: {part} på “{name}” bruker Bruno-syntaks som appen ikke kan redigere uten tap av data. Rediger det i Bruno.",
+        "ambiguousScripts": "Ikke lagret: “{name}” har både et post-response-skript og tester i Bruno, og endringen kan ikke deles mellom dem. Rediger det i Bruno.",
+        "modeStash": "Ikke lagret: Bruno har allerede innhold for den modusen på “{name}”. Bytt modus i Bruno.",
+        "folderMove": "Å flytte mappen “{name}” inn i en annen mappe støttes ikke ennå for Bruno-mapper — flytt den i Finder eller Bruno.",
+        "writeFailed": "Kunne ikke skrive Bruno-filene: {reason}"
+      },
+      "parts": {
+        "name": "navnet",
+        "method": "HTTP-metoden",
+        "url": "URL-en",
+        "params": "spørringsparametere",
+        "headers": "hoder",
+        "body": "brødteksten",
+        "auth": "autentisering",
+        "preRequestScript": "pre-request-skriptet",
+        "testScript": "testskriptet",
+        "assertions": "påstander",
+        "variables": "variabler",
+        "content": "innholdet",
+        "kind": "denne forespørselstypen",
+        "timeoutMs": "tidsavbruddet",
+        "useCookieJar": "innstillingen for informasjonskapselkrukke",
+        "followRedirects": "omdirigeringsinnstillingen",
+        "maxRedirects": "maks omdirigeringer",
+        "verifySsl": "SSL-bekreftelse",
+        "omitHeaders": "utelatte arvede hoder",
+        "examples": "lagrede eksempler",
+        "comments": "kommentarer"
+      }
     }
   },
   "RichEditor": {

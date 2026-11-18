@@ -2176,7 +2176,43 @@
       }
     },
     "fileSync": {
-      "changedOnDisk": "« {name} » a changé sur le disque. Vos modifications non enregistrées sont conservées — enregistrer écrasera le fichier."
+      "changedOnDisk": "« {name} » a changé sur le disque. Vos modifications non enregistrées sont conservées — enregistrer écrasera le fichier.",
+      "linked": "« {name} » ouvert sur place — les modifications sont enregistrées dans ses fichiers Bruno.",
+      "readOnlyOpenCollection": "Les dossiers OpenCollection (YAML) s’ouvrent en lecture seule pour l’instant. Pour modifier : Importer → Importer un dossier Bruno en copie.",
+      "notBruno": "Ce dossier n’est pas une collection Bruno (ni bruno.json ni opencollection.yml).",
+      "importBrunoCopy": "Importer un dossier Bruno en copie…",
+      "errors": {
+        "readOnly": "Non enregistré : ce dossier Bruno est en lecture seule ici (OpenCollection YAML).",
+        "unsupported": "Non enregistré : {part} de « {name} » ne peut pas être stocké dans un fichier Bruno.",
+        "lossy": "Non enregistré : {part} de « {name} » utilise une syntaxe Bruno que l’app ne peut pas modifier sans perte de données. Modifiez-le dans Bruno.",
+        "ambiguousScripts": "Non enregistré : « {name} » a à la fois un script post-response et des tests dans Bruno, et cette modification ne peut pas être répartie entre eux. Modifiez-le dans Bruno.",
+        "modeStash": "Non enregistré : Bruno conserve déjà un contenu pour ce mode sur « {name} ». Changez de mode dans Bruno.",
+        "folderMove": "Déplacer le dossier « {name} » dans un autre dossier n’est pas encore pris en charge pour les dossiers Bruno — déplacez-le dans le Finder ou dans Bruno.",
+        "writeFailed": "Impossible d’écrire les fichiers Bruno : {reason}"
+      },
+      "parts": {
+        "name": "le nom",
+        "method": "la méthode HTTP",
+        "url": "l’URL",
+        "params": "les paramètres de requête",
+        "headers": "les en-têtes",
+        "body": "le corps",
+        "auth": "l’authentification",
+        "preRequestScript": "le script de pré-requête",
+        "testScript": "le script de test",
+        "assertions": "les assertions",
+        "variables": "les variables",
+        "content": "le contenu",
+        "kind": "ce type de requête",
+        "timeoutMs": "le délai d’expiration",
+        "useCookieJar": "le réglage du pot à cookies",
+        "followRedirects": "le réglage des redirections",
+        "maxRedirects": "le nombre max. de redirections",
+        "verifySsl": "la vérification SSL",
+        "omitHeaders": "les en-têtes hérités omis",
+        "examples": "les exemples enregistrés",
+        "comments": "les commentaires"
+      }
     }
   },
   "RichEditor": {
