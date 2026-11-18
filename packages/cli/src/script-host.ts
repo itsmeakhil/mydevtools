@@ -40,3 +40,6 @@ port.on("message", async (m: { type: string; id?: number; res?: SandboxResponse;
         port.postMessage({ type: "done", result: await runScript(m.script!, m.ctx!, host, compile) })
     }
 })
+
+// Sources are loaded — the parent starts the script clock from here.
+port.postMessage({ type: "ready" })

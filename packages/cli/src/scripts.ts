@@ -31,11 +31,38 @@ export function createScriptRunner(
     sendRequest: (req: SandboxRequest) => Promise<SandboxResponse>,
     budget = { scriptMs: SCRIPT_TIMEOUT_MS, totalMs: SCRIPT_TOTAL_TIMEOUT_MS },
 ): ScriptRunner {
-    let worker: Worker | null = null
+    let worker: { w: Worker; ready: Promise<void> } | null = null
 
-    const run = (script: string, ctx: ScriptContext) => new Promise<ScriptResult>((resolve) => {
-        if (!script.trim()) return resolve(passthrough(ctx))
-        const w = worker ??= new Worker(new URL("./script-worker.mjs", import.meta.url))
+    // The worker transpiles the app sources on start; that boot time must not
+    // count against the script's budget (on a slow CI box it can exceed it).
+    const spawn = () => {
+        const w = new Worker(new URL("./script-worker.mjs", import.meta.url))
+        const ready = new Promise<void>((resolve, reject) => {
+            const onReady = (m: { type?: string }) => {
+                if (m?.type !== "ready") return
+                w.off("message", onReady)
+                w.off("error", reject)
+                resolve()
+            }
+            w.on("message", onReady)
+            w.once("error", reject)
+        })
+        return { w, ready }
+    }
+
+    const run = async (script: string, ctx: ScriptContext): Promise<ScriptResult> => {
+        if (!script.trim()) return passthrough(ctx)
+        const current = worker ??= spawn()
+        try {
+            await current.ready
+        } catch (e) {
+            worker = null
+            return { ...passthrough(ctx), ok: false, error: (e as Error).message }
+        }
+        return runOn(current.w, script, ctx)
+    }
+
+    const runOn = (w: Worker, script: string, ctx: ScriptContext) => new Promise<ScriptResult>((resolve) => {
         const started = Date.now()
         let inFlight = 0
         let waitStart = 0
@@ -80,6 +107,6 @@ export function createScriptRunner(
 
     return {
         run,
-        close: async () => { await worker?.terminate(); worker = null },
+        close: async () => { await worker?.w.terminate(); worker = null },
     }
 }
