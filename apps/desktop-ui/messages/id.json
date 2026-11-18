@@ -2157,6 +2157,12 @@
       "saveFailed": "Gagal menyimpan variabel global",
       "markSecret": "Tandai sebagai rahasia",
       "unmarkSecret": "Rahasia: disamarkan dan tidak diekspor. Klik untuk membatalkan."
+    },
+    "defaultHeaders": {
+      "title": "Header warisan",
+      "hint": "Header bawaan dari koleksi dan foldernya. Hapus centang untuk mengecualikannya dari permintaan ini.",
+      "from": "dari {name}",
+      "send": "Kirim {key}"
     }
   },
   "RichEditor": {

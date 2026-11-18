@@ -2157,6 +2157,12 @@
       "saveFailed": "Det gick inte att spara globala variabler",
       "markSecret": "Markera som hemlig",
       "unmarkSecret": "Hemlig: maskerad och utelämnad från export. Klicka för att avmarkera."
+    },
+    "defaultHeaders": {
+      "title": "Ärvda rubriker",
+      "hint": "Standardrubriker från samlingen och dess mappar. Avmarkera en för att utelämna den från den här förfrågan.",
+      "from": "från {name}",
+      "send": "Skicka {key}"
     }
   },
   "RichEditor": {

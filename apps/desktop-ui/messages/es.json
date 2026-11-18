@@ -2157,6 +2157,12 @@
       "saveFailed": "No se pudieron guardar las variables globales",
       "markSecret": "Marcar como secreto",
       "unmarkSecret": "Secreto: oculto y excluido de las exportaciones. Haz clic para desmarcar."
+    },
+    "defaultHeaders": {
+      "title": "Encabezados heredados",
+      "hint": "Encabezados predeterminados de la colección y sus carpetas. Desmarca uno para excluirlo de esta solicitud.",
+      "from": "de {name}",
+      "send": "Enviar {key}"
     }
   },
   "RichEditor": {

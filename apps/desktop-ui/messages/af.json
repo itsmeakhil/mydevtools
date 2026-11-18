@@ -2157,6 +2157,12 @@
       "saveFailed": "Kon nie globale waardes stoor nie",
       "markSecret": "Merk as geheim",
       "unmarkSecret": "Geheim: gemasker en uit uitvoere gelaat. Klik om te ontmerk."
+    },
+    "defaultHeaders": {
+      "title": "Geërfde opskrifte",
+      "hint": "Verstekopskrifte van die versameling en sy vouers. Ontmerk een om dit uit hierdie versoek te laat.",
+      "from": "van {name}",
+      "send": "Stuur {key}"
     }
   },
   "RichEditor": {

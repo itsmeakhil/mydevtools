@@ -2157,6 +2157,12 @@
       "saveFailed": "전역 변수를 저장하지 못했습니다",
       "markSecret": "비밀로 표시",
       "unmarkSecret": "비밀: 가려지고 내보내기에서 제외됩니다. 클릭하면 해제됩니다."
+    },
+    "defaultHeaders": {
+      "title": "상속된 헤더",
+      "hint": "컬렉션과 폴더의 기본 헤더입니다. 체크를 해제하면 이 요청에서 제외됩니다.",
+      "from": "{name}에서",
+      "send": "{key} 보내기"
     }
   },
   "RichEditor": {

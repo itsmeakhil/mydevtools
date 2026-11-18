@@ -2157,6 +2157,12 @@
       "saveFailed": "Globální proměnné se nepodařilo uložit",
       "markSecret": "Označit jako tajné",
       "unmarkSecret": "Tajné: maskováno a vynecháno z exportů. Kliknutím zrušíte."
+    },
+    "defaultHeaders": {
+      "title": "Zděděné hlavičky",
+      "hint": "Výchozí hlavičky z kolekce a jejích složek. Zrušením zaškrtnutí hlavičku z tohoto požadavku vynecháte.",
+      "from": "z {name}",
+      "send": "Odeslat {key}"
     }
   },
   "RichEditor": {

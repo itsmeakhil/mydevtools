@@ -2157,6 +2157,12 @@
       "saveFailed": "Globale variabelen opslaan mislukt",
       "markSecret": "Markeren als geheim",
       "unmarkSecret": "Geheim: gemaskeerd en uitgesloten van exports. Klik om te verwijderen."
+    },
+    "defaultHeaders": {
+      "title": "Overgenomen headers",
+      "hint": "Standaardheaders van de collectie en haar mappen. Vink er een uit om hem bij deze aanvraag weg te laten.",
+      "from": "van {name}",
+      "send": "{key} verzenden"
     }
   },
   "RichEditor": {

@@ -2157,6 +2157,12 @@
       "saveFailed": "Kunne ikke lagre globale variabler",
       "markSecret": "Merk som hemmelig",
       "unmarkSecret": "Hemmelig: maskert og utelatt fra eksport. Klikk for å fjerne merket."
+    },
+    "defaultHeaders": {
+      "title": "Arvede overskrifter",
+      "hint": "Standardoverskrifter fra samlingen og mappene. Fjern avmerkingen for å utelate en fra denne forespørselen.",
+      "from": "fra {name}",
+      "send": "Send {key}"
     }
   },
   "RichEditor": {

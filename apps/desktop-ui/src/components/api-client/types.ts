@@ -246,6 +246,8 @@ export interface ApiRequestState {
     /** When false, the cookie jar does not attach cookies or store Set-Cookie for this request.
      *  Defaults to true. */
     useCookieJar?: boolean
+    /** Lowercased keys of collection/folder default headers this request opts out of. */
+    omitHeaders?: string[]
     /** Follow 3xx responses (default true). Off returns the redirect response itself. */
     followRedirects?: boolean
     /** Redirect hops before giving up (default 5, capped at 50 by the Rust engine). */

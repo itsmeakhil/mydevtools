@@ -56,7 +56,7 @@ import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
-import { withFolderDefaults, findRequestAncestors, findRequestContext } from "@/lib/folder-inheritance"
+import { withFolderDefaults, findRequestAncestors, findRequestContext, listInheritedHeaders } from "@/lib/folder-inheritance"
 import { SECRET_MASK, staticVariables, substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
 import { requestFromTab, requestFingerprint, savePatch } from "@/lib/api-client/saved-request"
 import { useJsonFormatter } from "./workers/use-json-formatter"
@@ -242,6 +242,7 @@ function ApiClientInner() {
             testScript: make("testScript"),
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
+            omitHeaders: make("omitHeaders"),
             settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
     }, [updateActiveTab])
@@ -253,9 +254,18 @@ function ApiClientInner() {
     )
     // Values the editor can show for {{vars}} — globals < collection < environment.
     const activeSourceId = activeTab.source?.requestId
-    const activeCollection = React.useMemo(
-        () => (activeSourceId ? findRequestContext(collections, activeSourceId)?.collection : undefined),
+    const activeContext = React.useMemo(
+        () => (activeSourceId ? findRequestContext(collections, activeSourceId) : null),
         [collections, activeSourceId],
+    )
+    const activeCollection = activeContext?.collection
+    // Default headers this request gets from its collection/folders (B3 omit list).
+    const { headers: activeHeaders, omitHeaders: activeOmitHeaders } = activeTab
+    const inheritedHeaders = React.useMemo(
+        () => (activeContext
+            ? listInheritedHeaders([activeContext.collection, ...activeContext.folders], activeHeaders, activeOmitHeaders)
+            : []),
+        [activeContext, activeHeaders, activeOmitHeaders],
     )
     // Secret values are masked here — this map only feeds the editor's hover text.
     const editorVariables = React.useMemo(() => {
@@ -1249,6 +1259,9 @@ function ApiClientInner() {
                     setParams={setField.params}
                     headers={activeTab.headers}
                     setHeaders={setField.headers}
+                    inheritedHeaders={inheritedHeaders}
+                    omitHeaders={activeOmitHeaders}
+                    setOmitHeaders={setField.omitHeaders}
                     body={activeTab.body}
                     setBody={setField.body}
                     auth={activeTab.auth}
@@ -1561,6 +1574,9 @@ function ApiClientInner() {
                                             setParams={setField.params}
                                             headers={activeTab.headers}
                                             setHeaders={setField.headers}
+                                            inheritedHeaders={inheritedHeaders}
+                                            omitHeaders={activeOmitHeaders}
+                                            setOmitHeaders={setField.omitHeaders}
                                             body={activeTab.body}
                                             setBody={setField.body}
                                             auth={activeTab.auth}

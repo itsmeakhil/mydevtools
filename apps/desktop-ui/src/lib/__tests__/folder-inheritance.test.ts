@@ -1,4 +1,4 @@
-import { applyFolderInheritance, findRequestAncestors, findRequestContext, withFolderDefaults } from "../folder-inheritance"
+import { applyFolderInheritance, findRequestAncestors, findRequestContext, listInheritedHeaders, withFolderDefaults } from "../folder-inheritance"
 import type { Collection, CollectionFolder, CollectionRequest } from "@/components/api-client/types"
 
 const req = (id: string, name: string, over: Partial<CollectionRequest> = {}): CollectionRequest => ({
@@ -135,5 +135,27 @@ describe("withFolderDefaults", () => {
         expect(ctx?.collection.id).toBe("c")
         expect(ctx?.folders.map((f) => f.id)).toEqual(["f"])
         expect(findRequestContext([collection], "nope")).toBeNull()
+    })
+})
+
+describe("default headers with per-request omit (B3)", () => {
+    const chain = [
+        { name: "Col", defaultHeaders: [
+            { id: "1", key: "X-App", value: "1", active: true },
+            { id: "2", key: "X-Trace", value: "col", active: true },
+            { id: "3", key: "X-Off", value: "x", active: false },
+        ] },
+        { name: "Folder", defaultHeaders: [{ id: "4", key: "x-trace", value: "folder", active: true }] },
+    ]
+
+    it("lists active inherited headers, nearest wins, request keys excluded", () => {
+        const list = listInheritedHeaders(chain, [{ id: "r", key: "X-App", value: "own", active: true }], ["X-TRACE"])
+        expect(list).toEqual([{ key: "x-trace", value: "folder", from: "Folder", omitted: true }])
+    })
+
+    it("an omitted header is not sent; the rest still are", () => {
+        const out = applyFolderInheritance(req("r", "x", { omitHeaders: ["x-app"] }), chain)
+        expect(out.headers.map((h) => `${h.key}=${h.value}`)).toEqual(["x-trace=folder"])
+        expect(applyFolderInheritance(req("r", "x"), chain).headers.map((h) => h.key)).toEqual(["x-trace", "X-App"])
     })
 })

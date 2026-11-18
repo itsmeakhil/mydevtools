@@ -2157,6 +2157,12 @@
       "saveFailed": "Falha ao guardar as variáveis globais",
       "markSecret": "Marcar como secreto",
       "unmarkSecret": "Secreto: ocultado e excluído das exportações. Clique para desmarcar."
+    },
+    "defaultHeaders": {
+      "title": "Cabeçalhos herdados",
+      "hint": "Cabeçalhos predefinidos da coleção e das suas pastas. Desmarque um para o excluir deste pedido.",
+      "from": "de {name}",
+      "send": "Enviar {key}"
     }
   },
   "RichEditor": {

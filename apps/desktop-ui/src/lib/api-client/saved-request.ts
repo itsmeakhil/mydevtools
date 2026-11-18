@@ -22,6 +22,7 @@ export function requestFromTab(tab: ApiRequestState): Omit<CollectionRequest, "i
         testScript: tab.testScript,
         timeoutMs: tab.timeoutMs,
         useCookieJar: tab.useCookieJar,
+        omitHeaders: tab.omitHeaders?.length ? tab.omitHeaders : undefined,
         followRedirects: tab.followRedirects,
         maxRedirects: tab.maxRedirects,
         verifySsl: tab.verifySsl,

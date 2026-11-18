@@ -2157,6 +2157,12 @@
       "saveFailed": "保存全局变量失败",
       "markSecret": "标记为密钥",
       "unmarkSecret": "密钥：已遮盖，且不会导出。点击取消标记。"
+    },
+    "defaultHeaders": {
+      "title": "继承的请求头",
+      "hint": "来自集合及其文件夹的默认请求头。取消勾选即可在此请求中不发送。",
+      "from": "来自 {name}",
+      "send": "发送 {key}"
     }
   },
   "RichEditor": {

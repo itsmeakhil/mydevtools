@@ -2157,6 +2157,12 @@
       "saveFailed": "Gagal menyimpan pemboleh ubah global",
       "markSecret": "Tandakan sebagai rahsia",
       "unmarkSecret": "Rahsia: disembunyikan dan dikecualikan daripada eksport. Klik untuk nyahtanda."
+    },
+    "defaultHeaders": {
+      "title": "Pengepala warisan",
+      "hint": "Pengepala lalai daripada koleksi dan foldernya. Nyahtanda untuk mengecualikannya daripada permintaan ini.",
+      "from": "daripada {name}",
+      "send": "Hantar {key}"
     }
   },
   "RichEditor": {

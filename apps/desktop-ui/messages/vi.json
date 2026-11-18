@@ -2157,6 +2157,12 @@
       "saveFailed": "Không lưu được biến toàn cục",
       "markSecret": "Đánh dấu là bí mật",
       "unmarkSecret": "Bí mật: được che và không xuất ra. Nhấn để bỏ đánh dấu."
+    },
+    "defaultHeaders": {
+      "title": "Header kế thừa",
+      "hint": "Header mặc định từ bộ sưu tập và các thư mục. Bỏ chọn để không gửi header đó trong yêu cầu này.",
+      "from": "từ {name}",
+      "send": "Gửi {key}"
     }
   },
   "RichEditor": {

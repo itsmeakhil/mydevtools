@@ -2157,6 +2157,12 @@
       "saveFailed": "No s'han pogut desar les variables globals",
       "markSecret": "Marca com a secret",
       "unmarkSecret": "Secret: emmascarat i exclòs de les exportacions. Fes clic per desmarcar-lo."
+    },
+    "defaultHeaders": {
+      "title": "Capçaleres heretades",
+      "hint": "Capçaleres per defecte de la col·lecció i les seves carpetes. Desmarca'n una per excloure-la d'aquesta sol·licitud.",
+      "from": "de {name}",
+      "send": "Envia {key}"
     }
   },
   "RichEditor": {

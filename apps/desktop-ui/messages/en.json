@@ -2157,6 +2157,12 @@
       "saveFailed": "Failed to save globals",
       "markSecret": "Mark as secret",
       "unmarkSecret": "Secret: masked and left out of exports. Click to unmark."
+    },
+    "defaultHeaders": {
+      "title": "Inherited headers",
+      "hint": "Default headers from the collection and its folders. Untick one to leave it out of this request.",
+      "from": "from {name}",
+      "send": "Send {key}"
     }
   },
   "RichEditor": {

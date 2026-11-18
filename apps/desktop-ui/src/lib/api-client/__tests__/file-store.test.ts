@@ -83,6 +83,13 @@ describe("file-store", () => {
         expect(canonicalTree(parsed)).toEqual(canonicalTree(col))
     })
 
+    test("per-request omitHeaders round-trip; empty lists stay out of the YAML", () => {
+        const col: Collection = { id: "c", name: "c", items: [request({ omitHeaders: ["x-app"] }), request({ id: "r2", name: "Plain", omitHeaders: [] })] }
+        const files = serializeCollection(col)
+        expect(parseCollection(files).collection.items[0]).toMatchObject({ omitHeaders: ["x-app"] })
+        expect(files.find((f) => f.content.includes("name: Plain"))!.content).not.toContain("omitHeaders")
+    })
+
     test("a manifest without collection fields loads as before", () => {
         const { collection: parsed } = parseCollection(serializeCollection(collection()))
         expect(parsed).not.toHaveProperty("variables")

@@ -2157,6 +2157,12 @@
       "saveFailed": "Impossibile salvare le variabili globali",
       "markSecret": "Segna come segreto",
       "unmarkSecret": "Segreto: mascherato ed escluso dalle esportazioni. Fai clic per rimuovere."
+    },
+    "defaultHeaders": {
+      "title": "Intestazioni ereditate",
+      "hint": "Intestazioni predefinite della raccolta e delle sue cartelle. Deseleziona per escluderne una da questa richiesta.",
+      "from": "da {name}",
+      "send": "Invia {key}"
     }
   },
   "RichEditor": {

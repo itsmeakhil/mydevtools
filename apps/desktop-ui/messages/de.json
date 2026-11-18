@@ -2157,6 +2157,12 @@
       "saveFailed": "Globale Variablen konnten nicht gespeichert werden",
       "markSecret": "Als geheim markieren",
       "unmarkSecret": "Geheim: maskiert und von Exporten ausgeschlossen. Klicken zum Aufheben."
+    },
+    "defaultHeaders": {
+      "title": "Geerbte Header",
+      "hint": "Standard-Header aus der Sammlung und ihren Ordnern. Haken entfernen, um einen für diese Anfrage wegzulassen.",
+      "from": "aus {name}",
+      "send": "{key} senden"
     }
   },
   "RichEditor": {

@@ -2157,6 +2157,12 @@
       "saveFailed": "Genel değişkenler kaydedilemedi",
       "markSecret": "Gizli olarak işaretle",
       "unmarkSecret": "Gizli: maskelenir ve dışa aktarımlara dahil edilmez. İşareti kaldırmak için tıklayın."
+    },
+    "defaultHeaders": {
+      "title": "Devralınan başlıklar",
+      "hint": "Koleksiyondan ve klasörlerinden gelen varsayılan başlıklar. Bu istekte göndermemek için işareti kaldırın.",
+      "from": "{name} öğesinden",
+      "send": "{key} gönder"
     }
   },
   "RichEditor": {

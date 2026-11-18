@@ -2157,6 +2157,12 @@
       "saveFailed": "Échec de l'enregistrement des variables globales",
       "markSecret": "Marquer comme secret",
       "unmarkSecret": "Secret : masqué et exclu des exports. Cliquez pour retirer."
+    },
+    "defaultHeaders": {
+      "title": "En-têtes hérités",
+      "hint": "En-têtes par défaut de la collection et de ses dossiers. Décochez-en un pour l'exclure de cette requête.",
+      "from": "de {name}",
+      "send": "Envoyer {key}"
     }
   },
   "RichEditor": {

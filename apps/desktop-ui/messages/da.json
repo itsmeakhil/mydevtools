@@ -2157,6 +2157,12 @@
       "saveFailed": "Kunne ikke gemme globale variabler",
       "markSecret": "Markér som hemmelig",
       "unmarkSecret": "Hemmelig: maskeret og udeladt fra eksport. Klik for at fjerne markeringen."
+    },
+    "defaultHeaders": {
+      "title": "Nedarvede headere",
+      "hint": "Standardheadere fra samlingen og dens mapper. Fjern markeringen for at udelade en fra denne anmodning.",
+      "from": "fra {name}",
+      "send": "Send {key}"
     }
   },
   "RichEditor": {

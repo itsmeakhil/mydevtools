@@ -2157,6 +2157,12 @@
       "saveFailed": "Nie udało się zapisać zmiennych globalnych",
       "markSecret": "Oznacz jako tajne",
       "unmarkSecret": "Tajne: zamaskowane i pomijane w eksportach. Kliknij, aby odznaczyć."
+    },
+    "defaultHeaders": {
+      "title": "Odziedziczone nagłówki",
+      "hint": "Domyślne nagłówki z kolekcji i jej folderów. Odznacz, aby pominąć nagłówek w tym żądaniu.",
+      "from": "z {name}",
+      "send": "Wyślij {key}"
     }
   },
   "RichEditor": {

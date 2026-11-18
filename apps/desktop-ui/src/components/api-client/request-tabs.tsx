@@ -7,6 +7,10 @@ import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem, GraphQLInt
 import { useJsonBodyValidation } from "./use-json-validation"
 import { CommentsPanel } from "./comments-panel"
 import { AuthEditor } from "./auth-editor"
+import { InheritedHeadersList } from "./inherited-headers-list"
+import type { InheritedHeader } from "@/lib/folder-inheritance"
+
+const NO_INHERITED: InheritedHeader[] = []
 import { RequestSettingsPanel, hasCustomSettings } from "./request-settings-panel"
 import { fetchGraphQLSchema } from "@/lib/graphql-introspect"
 import { toast } from "sonner"
@@ -42,6 +46,10 @@ interface RequestTabsProps {
     setParams: (params: KeyValueItem[]) => void
     headers: KeyValueItem[]
     setHeaders: (headers: KeyValueItem[]) => void
+    /** Collection/folder default headers this request inherits (live). */
+    inheritedHeaders?: InheritedHeader[]
+    omitHeaders?: string[]
+    setOmitHeaders?: (keys: string[] | undefined) => void
     body: RequestBody
     setBody: (body: RequestBody) => void
     auth: RequestAuth
@@ -89,6 +97,9 @@ function RequestTabsImpl({
     setParams,
     headers,
     setHeaders,
+    inheritedHeaders = NO_INHERITED,
+    omitHeaders,
+    setOmitHeaders,
     body,
     setBody,
     auth,
@@ -284,8 +295,11 @@ function RequestTabsImpl({
                 <TabsContent value="params" className="mt-0 h-full overflow-auto custom-scrollbar">
                     <KeyValueEditor items={params} onChange={setParams} />
                 </TabsContent>
-                <TabsContent value="headers" className="mt-0 h-full overflow-auto custom-scrollbar">
+                <TabsContent value="headers" className="mt-0 h-full overflow-auto custom-scrollbar space-y-4">
                     <KeyValueEditor items={headers} onChange={setHeaders} />
+                    {inheritedHeaders.length > 0 && setOmitHeaders && (
+                        <InheritedHeadersList headers={inheritedHeaders} omitHeaders={omitHeaders} setOmitHeaders={setOmitHeaders} />
+                    )}
                 </TabsContent>
                 {/* Editor tabs stay mounted (forceMount) so switching sub-tabs doesn't
                     re-create a Monaco instance each time; `hidden` via data-state. */}

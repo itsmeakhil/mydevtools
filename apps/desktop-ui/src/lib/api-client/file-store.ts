@@ -42,7 +42,7 @@ export interface FileEntry {
 // Fixed top-level key order; nested/unknown keys sort alphabetically after.
 const KEY_ORDER = [
     "formatVersion", "id", "name", "kind", "method", "url",
-    "params", "headers", "body", "auth",
+    "params", "headers", "omitHeaders", "body", "auth",
     "defaultHeaders", "defaultAuth", "variables",
     "timeoutMs", "useCookieJar", "followRedirects", "maxRedirects", "verifySsl",
     "preRequestScript", "testScript",
@@ -216,6 +216,7 @@ function serializeRequestObj(req: CollectionRequest): object {
         auth: req.auth?.type === "none" ? undefined : redactAuth(req.auth).auth,
         timeoutMs: req.timeoutMs,
         useCookieJar: req.useCookieJar === false ? false : undefined,
+        omitHeaders: req.omitHeaders?.length ? req.omitHeaders : undefined,
         followRedirects: req.followRedirects === false ? false : undefined,
         maxRedirects: req.maxRedirects,
         verifySsl: req.verifySsl === false ? false : undefined,
@@ -354,6 +355,7 @@ function parseRequest(
         auth: (doc.auth as CollectionRequest["auth"]) ?? { type: "none" },
         timeoutMs: doc.timeoutMs as number | undefined,
         useCookieJar: doc.useCookieJar === false ? false : undefined,
+        omitHeaders: Array.isArray(doc.omitHeaders) ? doc.omitHeaders.filter((k): k is string => typeof k === "string") : undefined,
         followRedirects: doc.followRedirects === false ? false : undefined,
         maxRedirects: typeof doc.maxRedirects === "number" ? doc.maxRedirects : undefined,
         verifySsl: doc.verifySsl === false ? false : undefined,
