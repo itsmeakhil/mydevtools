@@ -70,6 +70,9 @@ export function CommandPanel({ redisUrl, db, connectionId }: CommandPanelProps) 
         const line = (raw ?? input).trim();
         if (!line) return;
 
+        // Alternatives start on disjoint characters and nothing follows the group,
+        // so a failed attempt never backtracks into it: linear time.
+        // threatcrush-disable-next-line redos-nested-quantifier
         const parts = line.match(/(?:[^\s"]+|"[^"]*")+/g);
         if (!parts || parts.length === 0) return;
         const command = parts.map((p) => p.replace(/^"|"$/g, "")) as [string, ...string[]];
