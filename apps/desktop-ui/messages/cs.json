@@ -2174,6 +2174,9 @@
         "option": "Zdědit od nadřazeného",
         "hint": "Použije ověření nejbližší složky nebo kolekce."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "Soubor „{name}“ se na disku změnil. Neuložené úpravy zůstávají — uložením soubor přepíšete."
     }
   },
   "RichEditor": {

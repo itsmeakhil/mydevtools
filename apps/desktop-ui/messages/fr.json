@@ -2174,6 +2174,9 @@
         "option": "Hériter du parent",
         "hint": "Utilise l'authentification du dossier le plus proche ou de la collection."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "« {name} » a changé sur le disque. Vos modifications non enregistrées sont conservées — enregistrer écrasera le fichier."
     }
   },
   "RichEditor": {

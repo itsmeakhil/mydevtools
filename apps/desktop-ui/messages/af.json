@@ -2174,6 +2174,9 @@
         "option": "Erf van ouer",
         "hint": "Gebruik die magtiging van die naaste vouer of die versameling."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” is op skyf verander. Jou ongestoorde wysigings bly — stoor oorskryf die lêer."
     }
   },
   "RichEditor": {

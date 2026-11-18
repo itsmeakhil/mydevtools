@@ -2174,6 +2174,9 @@
         "option": "继承父级",
         "hint": "使用最近的文件夹或集合的认证。"
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}”已在磁盘上更改。未保存的编辑会保留——保存将覆盖该文件。"
     }
   },
   "RichEditor": {

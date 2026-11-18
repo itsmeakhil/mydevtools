@@ -2174,6 +2174,9 @@
         "option": "Inherit from parent",
         "hint": "Uses the auth of the nearest folder or the collection."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” changed on disk. Your unsaved edits are kept — saving will overwrite the file."
     }
   },
   "RichEditor": {

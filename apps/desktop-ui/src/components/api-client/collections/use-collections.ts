@@ -98,15 +98,41 @@ export function useCollections() {
         })
     }, [])
 
-    // Load folder collections on mount and when the window regains focus
-    // (catches git pulls / external editor changes — no file watcher in v1).
     React.useEffect(() => {
-        if (!isDesktop()) return
-        void reloadFileCollections()
-        const onFocus = () => void reloadFileCollections()
-        window.addEventListener("focus", onFocus)
-        return () => window.removeEventListener("focus", onFocus)
+        if (isDesktop()) void reloadFileCollections()
     }, [reloadFileCollections])
+
+    // Reload when files change on disk (git pull, external editor). Our own writes
+    // fire events too; a reload that matches state is a no-op, and the hold after
+    // a write just avoids re-reading mid-save.
+    // ponytail: any change re-reads every folder collection; per-root reload if many get slow.
+    const ownWriteUntilRef = React.useRef(0)
+    const watchKey = fileCollections.map((c) => c.source!.path).sort().join("\n")
+    React.useEffect(() => {
+        if (!isDesktop() || !watchKey) return
+        let cancelled = false
+        let stop: (() => void) | undefined
+        let timer: ReturnType<typeof setTimeout> | undefined
+        const schedule = () => {
+            clearTimeout(timer)
+            timer = setTimeout(() => void reloadFileCollections(), Math.max(0, ownWriteUntilRef.current - Date.now()))
+        }
+        const onFocus = () => void reloadFileCollections()
+        import("@/lib/desktop/collection-files")
+            .then(({ watchCollectionDirs }) => watchCollectionDirs(watchKey.split("\n"), schedule))
+            .then((s) => (cancelled ? s() : (stop = s)))
+            .catch((e) => {
+                // No watcher (permission/platform) — fall back to reloading on focus.
+                console.warn("[file-collection] watch unavailable, reloading on focus instead", e)
+                if (!cancelled) window.addEventListener("focus", onFocus)
+            })
+        return () => {
+            cancelled = true
+            clearTimeout(timer)
+            stop?.()
+            window.removeEventListener("focus", onFocus)
+        }
+    }, [watchKey, reloadFileCollections])
 
     /**
      * Persist a mutated folder collection: swap state optimistically, then write
@@ -140,7 +166,12 @@ export function useCollections() {
             const { writes, deletes } = diffFiles(serializeCollection(target), serializeCollection(next))
             if (writes.length > 0 || deletes.length > 0) {
                 const { writeCollectionFiles } = await import("@/lib/desktop/collection-files")
-                await writeCollectionFiles(target.source!.path, writes, deletes)
+                ownWriteUntilRef.current = Date.now() + 60_000
+                try {
+                    await writeCollectionFiles(target.source!.path, writes, deletes)
+                } finally {
+                    ownWriteUntilRef.current = Date.now() + 500
+                }
             }
             return true
         } catch (e) {

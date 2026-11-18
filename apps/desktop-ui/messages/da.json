@@ -2174,6 +2174,9 @@
         "option": "Arv fra overordnet",
         "hint": "Bruger godkendelsen fra den nærmeste mappe eller samlingen."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” er ændret på disken. Dine ikke-gemte ændringer bevares — når du gemmer, overskrives filen."
     }
   },
   "RichEditor": {

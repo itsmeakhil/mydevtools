@@ -2174,6 +2174,9 @@
         "option": "Hereta del pare",
         "hint": "Fa servir l'autenticació de la carpeta més propera o de la col·lecció."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” ha canviat al disc. Es conserven les teves edicions sense desar; en desar se sobreescriurà el fitxer."
     }
   },
   "RichEditor": {

@@ -2174,6 +2174,9 @@
         "option": "Arv fra overordnet",
         "hint": "Bruker autentiseringen fra nærmeste mappe eller samlingen."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” er endret på disken. Ulagrede endringer beholdes — lagring overskriver filen."
     }
   },
   "RichEditor": {

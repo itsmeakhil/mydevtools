@@ -2174,6 +2174,9 @@
         "option": "Warisi daripada induk",
         "hint": "Menggunakan pengesahan folder terdekat atau koleksi."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” berubah pada cakera. Suntingan yang belum disimpan dikekalkan — menyimpan akan menulis ganti fail."
     }
   },
   "RichEditor": {

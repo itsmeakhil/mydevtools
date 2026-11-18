@@ -2174,6 +2174,9 @@
         "option": "Üst öğeden devral",
         "hint": "En yakın klasörün veya koleksiyonun kimlik doğrulamasını kullanır."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” diskte değişti. Kaydedilmemiş düzenlemeleriniz korunuyor — kaydetmek dosyanın üzerine yazar."
     }
   },
   "RichEditor": {

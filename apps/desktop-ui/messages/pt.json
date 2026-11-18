@@ -2174,6 +2174,9 @@
         "option": "Herdar do pai",
         "hint": "Usa a autenticação da pasta mais próxima ou da coleção."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” mudou no disco. As edições não guardadas mantêm-se — guardar vai substituir o ficheiro."
     }
   },
   "RichEditor": {

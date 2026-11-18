@@ -2174,6 +2174,9 @@
         "option": "Heredar del padre",
         "hint": "Usa la autenticación de la carpeta más cercana o de la colección."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” cambió en el disco. Tus cambios sin guardar se conservan; al guardar se sobrescribirá el archivo."
     }
   },
   "RichEditor": {

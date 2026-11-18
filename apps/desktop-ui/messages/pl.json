@@ -2174,6 +2174,9 @@
         "option": "Dziedzicz z nadrzędnego",
         "hint": "Używa uwierzytelniania najbliższego folderu lub kolekcji."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "„{name}” zmienił się na dysku. Niezapisane zmiany zostają — zapisanie nadpisze plik."
     }
   },
   "RichEditor": {

@@ -2174,6 +2174,9 @@
         "option": "Eredita dal genitore",
         "hint": "Usa l'autenticazione della cartella più vicina o della raccolta."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” è cambiato sul disco. Le modifiche non salvate restano; salvando sovrascriverai il file."
     }
   },
   "RichEditor": {

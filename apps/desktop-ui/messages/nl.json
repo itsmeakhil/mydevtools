@@ -2174,6 +2174,9 @@
         "option": "Overnemen van bovenliggende",
         "hint": "Gebruikt de authenticatie van de dichtstbijzijnde map of de collectie."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” is op schijf gewijzigd. Je niet-opgeslagen wijzigingen blijven behouden — opslaan overschrijft het bestand."
     }
   },
   "RichEditor": {

@@ -2174,6 +2174,9 @@
         "option": "Vom übergeordneten Element erben",
         "hint": "Verwendet die Authentifizierung des nächsten Ordners oder der Sammlung."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "„{name}“ wurde auf der Festplatte geändert. Deine ungespeicherten Änderungen bleiben erhalten — Speichern überschreibt die Datei."
     }
   },
   "RichEditor": {

@@ -2174,6 +2174,9 @@
         "option": "Warisi dari induk",
         "hint": "Memakai autentikasi folder terdekat atau koleksi."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” berubah di disk. Perubahan yang belum disimpan tetap ada — menyimpan akan menimpa file."
     }
   },
   "RichEditor": {

@@ -2174,6 +2174,9 @@
         "option": "Kế thừa từ cấp cha",
         "hint": "Dùng xác thực của thư mục gần nhất hoặc bộ sưu tập."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” đã thay đổi trên đĩa. Các chỉnh sửa chưa lưu vẫn được giữ — lưu sẽ ghi đè tệp."
     }
   },
   "RichEditor": {

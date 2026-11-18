@@ -2174,6 +2174,9 @@
         "option": "Ärv från överordnad",
         "hint": "Använder autentiseringen från närmaste mapp eller samlingen."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” har ändrats på disken. Dina osparade ändringar behålls — att spara skriver över filen."
     }
   },
   "RichEditor": {
