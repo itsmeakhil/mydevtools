@@ -2174,6 +2174,58 @@
         "option": "Heredar del padre",
         "hint": "Usa la autenticación de la carpeta más cercana o de la colección."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” cambió en el disco. Tus cambios sin guardar se conservan; al guardar se sobrescribirá el archivo.",
+      "linked": "Se abrió “{name}” en su ubicación: los cambios se guardan en sus archivos de Bruno.",
+      "readOnlyOpenCollection": "Las carpetas OpenCollection (YAML) se abren solo en lectura por ahora. Para editar, usa Importar → Importar carpeta de Bruno como copia.",
+      "notBruno": "Esa carpeta no es una colección de Bruno (no tiene bruno.json ni opencollection.yml).",
+      "importBrunoCopy": "Importar carpeta de Bruno como copia…",
+      "errors": {
+        "readOnly": "No guardado: esta carpeta de Bruno es de solo lectura aquí (OpenCollection YAML).",
+        "unsupported": "No guardado: {part} de “{name}” no se puede guardar en un archivo de Bruno.",
+        "lossy": "No guardado: {part} de “{name}” usa sintaxis de Bruno que esta app no puede editar sin perder datos. Edítalo en Bruno.",
+        "ambiguousScripts": "No guardado: “{name}” tiene en Bruno un script post-response y pruebas a la vez, y este cambio no se puede repartir entre ambos. Edítalo en Bruno.",
+        "modeStash": "No guardado: Bruno ya guarda contenido para ese modo en “{name}”. Cambia el modo en Bruno.",
+        "folderMove": "Mover la carpeta “{name}” dentro de otra carpeta aún no se admite en carpetas de Bruno; muévela en Finder o en Bruno.",
+        "writeFailed": "No se pudieron escribir los archivos de Bruno: {reason}"
+      },
+      "parts": {
+        "name": "el nombre",
+        "method": "el método HTTP",
+        "url": "la URL",
+        "params": "los parámetros de consulta",
+        "headers": "los encabezados",
+        "body": "el cuerpo",
+        "auth": "la autenticación",
+        "preRequestScript": "el script previo a la solicitud",
+        "testScript": "el script de pruebas",
+        "assertions": "las aserciones",
+        "variables": "las variables",
+        "content": "el contenido",
+        "kind": "este tipo de solicitud",
+        "timeoutMs": "el tiempo de espera",
+        "useCookieJar": "el ajuste del tarro de cookies",
+        "followRedirects": "el ajuste de redirecciones",
+        "maxRedirects": "el máximo de redirecciones",
+        "verifySsl": "la verificación SSL",
+        "omitHeaders": "los encabezados heredados omitidos",
+        "examples": "los ejemplos guardados",
+        "comments": "los comentarios"
+      }
+    },
+    "docs": {
+      "tab": "Documentación",
+      "edit": "Editar",
+      "done": "Listo",
+      "add": "Añadir documentación",
+      "empty": "Aún no hay documentación. Describe en Markdown qué hace, sus entradas y respuestas de ejemplo.",
+      "placeholder": "Escribe Markdown…",
+      "editLabel": "Documentación (Markdown)",
+      "markdownHint": "Se admite Markdown. El HTML sin procesar se muestra como texto.",
+      "exportHtml": "Exportar documentación (HTML)",
+      "exported": "Documentación exportada",
+      "exportFailed": "No se pudo exportar la documentación"
     }
   },
   "RichEditor": {

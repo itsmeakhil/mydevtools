@@ -27,6 +27,7 @@ export function requestFromTab(tab: ApiRequestState): Omit<CollectionRequest, "i
         maxRedirects: tab.maxRedirects,
         verifySsl: tab.verifySsl,
         assertions: tab.assertions,
+        description: tab.description,
     }
 }
 
@@ -90,4 +91,24 @@ export function savePatch(tab: ApiRequestState, stored: CollectionRequest | unde
             ),
         },
     }
+}
+
+/**
+ * What to do with an open tab when its saved request changed under it (folder
+ * collection reloaded from disk, or our own save landing):
+ *   - "mark-saved": the tab already matches the stored request — just re-baseline;
+ *   - "refresh": the tab has no unsaved edits — take the stored version;
+ *   - "conflict": unsaved edits AND a different stored version — keep the edits
+ *     (never clobber them) and tell the user saving will overwrite the file.
+ */
+export function syncTabWithStored(
+    tab: ApiRequestState,
+    stored: CollectionRequest,
+): { kind: "none" } | { kind: "mark-saved" | "refresh" | "conflict"; fingerprint: string } {
+    if (tab.savedFingerprint === undefined) return { kind: "none" }
+    const fingerprint = requestFingerprint(stored as unknown as ApiRequestState)
+    if (fingerprint === tab.savedFingerprint) return { kind: "none" }
+    const current = requestFingerprint(tab)
+    if (current === fingerprint) return { kind: "mark-saved", fingerprint }
+    return { kind: current === tab.savedFingerprint ? "refresh" : "conflict", fingerprint }
 }

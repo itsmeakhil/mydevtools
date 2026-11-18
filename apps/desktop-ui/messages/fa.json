@@ -2174,6 +2174,58 @@
         "option": "ارث‌بری از والد",
         "hint": "از احراز هویت نزدیک‌ترین پوشه یا مجموعه استفاده می‌کند."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "«{name}» روی دیسک تغییر کرد. ویرایش‌های ذخیره‌نشدهٔ شما حفظ می‌شوند — ذخیره کردن فایل را بازنویسی می‌کند.",
+      "linked": "«{name}» در محل خودش باز شد — ویرایش‌ها در فایل‌های Bruno آن ذخیره می‌شوند.",
+      "readOnlyOpenCollection": "پوشه‌های OpenCollection ‏(YAML) فعلاً فقط‌خواندنی باز می‌شوند. برای ویرایش: درون‌ریزی ← درون‌ریزی پوشهٔ Bruno به‌صورت رونوشت.",
+      "notBruno": "این پوشه مجموعهٔ Bruno نیست (bruno.json یا opencollection.yml ندارد).",
+      "importBrunoCopy": "درون‌ریزی پوشهٔ Bruno به‌صورت رونوشت…",
+      "errors": {
+        "readOnly": "ذخیره نشد: این پوشهٔ Bruno اینجا فقط‌خواندنی است (OpenCollection YAML).",
+        "unsupported": "ذخیره نشد: {part} در «{name}» را نمی‌توان در فایل Bruno ذخیره کرد.",
+        "lossy": "ذخیره نشد: {part} در «{name}» از نحوی از Bruno استفاده می‌کند که این برنامه نمی‌تواند بدون از دست رفتن داده ویرایش کند. آن را در Bruno ویرایش کنید.",
+        "ambiguousScripts": "ذخیره نشد: «{name}» در Bruno هم اسکریپت post-response دارد و هم تست، و این ویرایش را نمی‌توان بین آن‌ها تقسیم کرد. آن را در Bruno ویرایش کنید.",
+        "modeStash": "ذخیره نشد: Bruno از قبل برای آن حالت در «{name}» محتوا نگه می‌دارد. حالت را در Bruno عوض کنید.",
+        "folderMove": "جابه‌جایی پوشهٔ «{name}» به داخل پوشه‌ای دیگر هنوز برای پوشه‌های Bruno پشتیبانی نمی‌شود — آن را در Finder یا Bruno جابه‌جا کنید.",
+        "writeFailed": "نوشتن فایل‌های Bruno ممکن نشد: {reason}"
+      },
+      "parts": {
+        "name": "نام",
+        "method": "متد HTTP",
+        "url": "نشانی URL",
+        "params": "پارامترهای کوئری",
+        "headers": "هدرها",
+        "body": "بدنه",
+        "auth": "احراز هویت",
+        "preRequestScript": "اسکریپت پیش از درخواست",
+        "testScript": "اسکریپت تست",
+        "assertions": "اعلان‌ها",
+        "variables": "متغیرها",
+        "content": "محتوا",
+        "kind": "این نوع درخواست",
+        "timeoutMs": "مهلت",
+        "useCookieJar": "تنظیم ظرف کوکی",
+        "followRedirects": "تنظیم تغییر مسیر",
+        "maxRedirects": "حداکثر تغییر مسیر",
+        "verifySsl": "تأیید SSL",
+        "omitHeaders": "هدرهای ارث‌بری‌شدهٔ حذف‌شده",
+        "examples": "نمونه‌های ذخیره‌شده",
+        "comments": "نظرها"
+      }
+    },
+    "docs": {
+      "tab": "مستندات",
+      "edit": "ویرایش",
+      "done": "تمام",
+      "add": "افزودن مستندات",
+      "empty": "هنوز مستنداتی نیست. با Markdown توضیح دهید چه می‌کند، ورودی‌ها و نمونه پاسخ‌ها.",
+      "placeholder": "Markdown بنویسید…",
+      "editLabel": "مستندات (Markdown)",
+      "markdownHint": "از Markdown پشتیبانی می‌شود. HTML خام به‌صورت متن نمایش داده می‌شود.",
+      "exportHtml": "خروجی مستندات (HTML)",
+      "exported": "مستندات خروجی گرفته شد",
+      "exportFailed": "خروجی گرفتن از مستندات ممکن نشد"
     }
   },
   "RichEditor": {

@@ -21,6 +21,9 @@
     "fs:allow-read-dir",
     "fs:allow-mkdir",
     "fs:allow-remove",
-    "fs:allow-exists"
+    "fs:allow-exists",
+    "fs:allow-rename",
+    "fs:allow-watch",
+    "fs:allow-unwatch"
   ]
 }

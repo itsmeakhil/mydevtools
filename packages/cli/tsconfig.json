@@ -1,0 +1,17 @@
+{
+  "extends": "../../apps/desktop-ui/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "incremental": false,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "ES2022",
+    "paths": {
+      "@/*": ["../../apps/desktop-ui/src/*"],
+      "undici": ["../../apps/desktop-ui/node_modules/undici"],
+      "js-yaml": ["../../apps/desktop-ui/node_modules/@types/js-yaml"]
+    },
+    "typeRoots": ["../../apps/desktop-ui/node_modules/@types"],
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"]
+}

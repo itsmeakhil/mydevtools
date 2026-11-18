@@ -59,7 +59,7 @@ import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { withFolderDefaults, findRequestAncestors, findRequestContext, listInheritedHeaders } from "@/lib/folder-inheritance"
 import { SECRET_MASK, staticVariables, substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
-import { requestFromTab, requestFingerprint, savePatch } from "@/lib/api-client/saved-request"
+import { requestFromTab, requestFingerprint, savePatch, syncTabWithStored } from "@/lib/api-client/saved-request"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
 import { useJsonBodyValidation } from "./use-json-validation"
@@ -244,6 +244,7 @@ function ApiClientInner() {
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
             assertions: make("assertions"),
+            description: make("description"),
             omitHeaders: make("omitHeaders"),
             settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
@@ -371,6 +372,30 @@ function ApiClientInner() {
     React.useEffect(() => { tabsRef.current = tabs }, [tabs])
     const collectionsRef = React.useRef(collections)
     React.useEffect(() => { collectionsRef.current = collections }, [collections])
+
+    // Folder collections reload when their files change on disk: refresh clean
+    // tabs, never clobber unsaved edits (warn once per disk version instead).
+    const diskConflictsRef = React.useRef(new Set<string>())
+    React.useEffect(() => {
+        for (const tab of tabsRef.current) {
+            const requestId = tab.source?.requestId
+            if (!requestId) continue
+            const ctx = findRequestContext(collections, requestId)
+            if (!ctx?.collection.source) continue
+            const parent = ctx.folders.length ? ctx.folders[ctx.folders.length - 1].items : ctx.collection.items
+            const stored = parent.find((i): i is CollectionRequest => i.id === requestId)
+            if (!stored) continue
+            const sync = syncTabWithStored(tab, stored)
+            if (sync.kind === "mark-saved") {
+                updateTab(tab.id, { savedFingerprint: sync.fingerprint })
+            } else if (sync.kind === "refresh") {
+                updateTab(tab.id, { ...requestFromTab(stored as unknown as ApiRequestState), savedFingerprint: sync.fingerprint })
+            } else if (sync.kind === "conflict" && !diskConflictsRef.current.has(`${tab.id}:${sync.fingerprint}`)) {
+                diskConflictsRef.current.add(`${tab.id}:${sync.fingerprint}`)
+                toast.warning(t("fileSync.changedOnDisk", { name: stored.name }), { duration: 10000 })
+            }
+        }
+    }, [collections, updateTab, t])
     const handleCopyCurl = React.useCallback(() => {
         void copyToClipboard(generateCode(withFolderDefaults(activeTabRef.current, collectionsRef.current), "curl"), {
             successMessage: t("toasts.curlCopied"),
@@ -1295,6 +1320,8 @@ function ApiClientInner() {
                     setSettings={setField.settings}
                     assertions={activeTab.assertions}
                     setAssertions={setField.assertions}
+                    description={activeTab.description}
+                    setDescription={setField.description}
                 />
             </div>
         </div>
@@ -1612,6 +1639,8 @@ function ApiClientInner() {
                                             setSettings={setField.settings}
                                             assertions={activeTab.assertions}
                                             setAssertions={setField.assertions}
+                                            description={activeTab.description}
+                                            setDescription={setField.description}
                                         />
                                     </div>
                                 </div>

@@ -258,6 +258,8 @@ export interface ApiRequestState {
     verifySsl?: boolean
     /** Declarative checks (`res.status eq 200`) reported alongside `pm.test` results. */
     assertions?: Assertion[]
+    /** Markdown docs shown in the Docs tab and the HTML docs export. */
+    description?: string
     /** Optional JS sandbox script run before each send (Postman-style `pm.*`). */
     preRequestScript?: string
     /** Optional JS sandbox script run after each response — assertions land in the Tests tab. */
@@ -335,6 +337,8 @@ export interface CollectionFolder {
     defaultAuth?: RequestAuth
     preRequestScript?: string
     testScript?: string
+    /** Markdown docs for this folder. */
+    description?: string
 }
 
 export interface Collection {
@@ -343,9 +347,10 @@ export interface Collection {
     items: (CollectionFolder | CollectionRequest)[]
     /** Free-form workspace label (e.g. "Personal", "Acme Prod"). Empty / undefined = default workspace. */
     workspace?: string
-    /** Desktop-only: set when this collection is backed by a folder of YAML files
-     *  (git-friendly). In-memory marker — never sent to the backend. */
-    source?: { kind: "file"; path: string }
+    /** Desktop-only: set when this collection is backed by a folder — our YAML
+     *  files, or a live-linked Bruno folder (edits write back to its .bru files).
+     *  In-memory marker — never sent to the backend. */
+    source?: { kind: "file"; path: string } | ({ kind: "bruno"; path: string } & import("@/lib/import/bruno-write").BrunoLink)
     /** Collection-level defaults — the root of the folder chain, resolved live at
      *  send/run time (never copied into requests). */
     defaultHeaders?: KeyValueItem[]
@@ -354,6 +359,8 @@ export interface Collection {
     testScript?: string
     /** Collection variables: below the environment, above globals. */
     variables?: KeyValueItem[]
+    /** Markdown docs for this collection. */
+    description?: string
 }
 
 export interface HistoryRequest extends CollectionRequest {

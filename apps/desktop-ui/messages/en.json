@@ -2174,6 +2174,58 @@
         "option": "Inherit from parent",
         "hint": "Uses the auth of the nearest folder or the collection."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” changed on disk. Your unsaved edits are kept — saving will overwrite the file.",
+      "linked": "Opened “{name}” in place — edits save to its Bruno files.",
+      "readOnlyOpenCollection": "OpenCollection (YAML) folders open read-only for now. To edit, use Import → Import Bruno folder as a copy.",
+      "notBruno": "That folder isn’t a Bruno collection (no bruno.json or opencollection.yml).",
+      "importBrunoCopy": "Import Bruno folder as a copy…",
+      "errors": {
+        "readOnly": "Not saved: this Bruno folder is read-only here (OpenCollection YAML).",
+        "unsupported": "Not saved: {part} on “{name}” can’t be stored in a Bruno file.",
+        "lossy": "Not saved: {part} on “{name}” uses Bruno syntax this app can’t edit without losing data. Edit it in Bruno.",
+        "ambiguousScripts": "Not saved: “{name}” has both a post-response script and tests in Bruno, and this edit can’t be split between them. Edit it in Bruno.",
+        "modeStash": "Not saved: Bruno already keeps content for that mode on “{name}”. Switch the mode in Bruno.",
+        "folderMove": "Moving folder “{name}” into another folder isn’t supported for Bruno folders yet — move it in Finder or Bruno.",
+        "writeFailed": "Couldn’t write the Bruno files: {reason}"
+      },
+      "parts": {
+        "name": "the name",
+        "method": "the HTTP method",
+        "url": "the URL",
+        "params": "query params",
+        "headers": "headers",
+        "body": "the body",
+        "auth": "auth",
+        "preRequestScript": "the pre-request script",
+        "testScript": "the test script",
+        "assertions": "assertions",
+        "variables": "variables",
+        "content": "the content",
+        "kind": "this request type",
+        "timeoutMs": "the timeout",
+        "useCookieJar": "the cookie jar setting",
+        "followRedirects": "the redirect setting",
+        "maxRedirects": "max redirects",
+        "verifySsl": "SSL verification",
+        "omitHeaders": "omitted inherited headers",
+        "examples": "saved examples",
+        "comments": "comments"
+      }
+    },
+    "docs": {
+      "tab": "Docs",
+      "edit": "Edit",
+      "done": "Done",
+      "add": "Add docs",
+      "empty": "No docs yet. Describe what this does, its inputs and example responses in Markdown.",
+      "placeholder": "Write Markdown…",
+      "editLabel": "Documentation (Markdown)",
+      "markdownHint": "Markdown supported. Raw HTML is shown as text.",
+      "exportHtml": "Export docs (HTML)",
+      "exported": "Docs exported",
+      "exportFailed": "Couldn't export docs"
     }
   },
   "RichEditor": {

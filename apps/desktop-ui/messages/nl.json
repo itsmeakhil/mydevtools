@@ -2174,6 +2174,58 @@
         "option": "Overnemen van bovenliggende",
         "hint": "Gebruikt de authenticatie van de dichtstbijzijnde map of de collectie."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” is op schijf gewijzigd. Je niet-opgeslagen wijzigingen blijven behouden — opslaan overschrijft het bestand.",
+      "linked": "“{name}” ter plekke geopend — wijzigingen worden in de Bruno-bestanden opgeslagen.",
+      "readOnlyOpenCollection": "OpenCollection-mappen (YAML) worden voorlopig alleen-lezen geopend. Om te bewerken: Importeren → Bruno-map als kopie importeren.",
+      "notBruno": "Die map is geen Bruno-collectie (geen bruno.json of opencollection.yml).",
+      "importBrunoCopy": "Bruno-map als kopie importeren…",
+      "errors": {
+        "readOnly": "Niet opgeslagen: deze Bruno-map is hier alleen-lezen (OpenCollection YAML).",
+        "unsupported": "Niet opgeslagen: {part} van “{name}” kan niet in een Bruno-bestand worden opgeslagen.",
+        "lossy": "Niet opgeslagen: {part} van “{name}” gebruikt Bruno-syntaxis die deze app niet zonder dataverlies kan bewerken. Bewerk het in Bruno.",
+        "ambiguousScripts": "Niet opgeslagen: “{name}” heeft in Bruno zowel een post-response-script als tests, en deze wijziging is niet over beide te verdelen. Bewerk het in Bruno.",
+        "modeStash": "Niet opgeslagen: Bruno bewaart al inhoud voor die modus bij “{name}”. Wissel de modus in Bruno.",
+        "folderMove": "De map “{name}” naar een andere map verplaatsen wordt nog niet ondersteund voor Bruno-mappen — verplaats hem in de Finder of in Bruno.",
+        "writeFailed": "Kon de Bruno-bestanden niet schrijven: {reason}"
+      },
+      "parts": {
+        "name": "de naam",
+        "method": "de HTTP-methode",
+        "url": "de URL",
+        "params": "queryparameters",
+        "headers": "headers",
+        "body": "de body",
+        "auth": "authenticatie",
+        "preRequestScript": "het pre-request-script",
+        "testScript": "het testscript",
+        "assertions": "asserties",
+        "variables": "variabelen",
+        "content": "de inhoud",
+        "kind": "dit verzoektype",
+        "timeoutMs": "de time-out",
+        "useCookieJar": "de cookiepot-instelling",
+        "followRedirects": "de omleidingsinstelling",
+        "maxRedirects": "max. omleidingen",
+        "verifySsl": "SSL-controle",
+        "omitHeaders": "weggelaten overgenomen headers",
+        "examples": "opgeslagen voorbeelden",
+        "comments": "opmerkingen"
+      }
+    },
+    "docs": {
+      "tab": "Docs",
+      "edit": "Bewerken",
+      "done": "Klaar",
+      "add": "Docs toevoegen",
+      "empty": "Nog geen docs. Beschrijf in Markdown wat dit doet, de invoer en voorbeeldantwoorden.",
+      "placeholder": "Schrijf Markdown…",
+      "editLabel": "Documentatie (Markdown)",
+      "markdownHint": "Markdown wordt ondersteund. Ruwe HTML wordt als tekst getoond.",
+      "exportHtml": "Docs exporteren (HTML)",
+      "exported": "Docs geëxporteerd",
+      "exportFailed": "Docs konden niet worden geëxporteerd"
     }
   },
   "RichEditor": {

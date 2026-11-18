@@ -15,6 +15,7 @@ import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
 import { KeyValueEditor } from "./key-value-editor"
 import { AuthEditor } from "./auth-editor"
+import { DocsEditor } from "./docs-editor"
 import type { Collection, CollectionFolder, KeyValueItem, RequestAuth } from "./types"
 
 const CodeEditor = dynamic(() => import("@/components/ui/code-editor"), {
@@ -28,7 +29,7 @@ export type DefaultsTarget =
     | { kind: "folder"; item: CollectionFolder }
     | { kind: "collection"; item: Collection }
 
-export type DefaultsPatch = Pick<Collection, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "variables">
+export type DefaultsPatch = Pick<Collection, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "variables" | "description">
 
 interface FolderDefaultsDialogProps {
     open: boolean
@@ -43,6 +44,8 @@ const filled = (rows: KeyValueItem[]) => rows.filter((r) => r.key || r.value)
 
 export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: FolderDefaultsDialogProps) {
     const t = useTranslations("ApiClient.collectionDefaults")
+    const tDocs = useTranslations("ApiClient.docs")
+    const [docs, setDocs] = React.useState("")
     const [headers, setHeaders] = React.useState<KeyValueItem[]>([])
     const [variables, setVariables] = React.useState<KeyValueItem[]>([])
     const [auth, setAuth] = React.useState<RequestAuth>({ type: "none" })
@@ -58,6 +61,7 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
         setAuth(item.defaultAuth ?? { type: "none" })
         setPre(item.preRequestScript ?? "")
         setTest(item.testScript ?? "")
+        setDocs(item.description ?? "")
     }, [target])
 
     // Empty values (not undefined) so a backend merge-patch actually clears them.
@@ -67,6 +71,7 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
             defaultAuth: auth,
             preRequestScript: pre.trim() ? pre : "",
             testScript: test.trim() ? test : "",
+            description: docs.trim() ? docs : "",
             ...(isCollection && { variables: filled(variables) }),
         })
         onOpenChange(false)
@@ -89,6 +94,7 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
                         <TabsTrigger value="auth">{t("tabAuth")}</TabsTrigger>
                         <TabsTrigger value="pre-request">{t("tabPreRequest")}</TabsTrigger>
                         <TabsTrigger value="tests">{t("tabTests")}</TabsTrigger>
+                        <TabsTrigger value="docs">{tDocs("tab")}</TabsTrigger>
                     </TabsList>
                     {isCollection && (
                         <TabsContent value="variables" className="flex-1 min-h-0 mt-2 overflow-auto space-y-2">
@@ -111,6 +117,9 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
                         <div className="h-full min-h-[260px] border rounded-lg overflow-hidden">
                             <MemoCodeEditor value={test} onChange={setTest} language="javascript" />
                         </div>
+                    </TabsContent>
+                    <TabsContent value="docs" className="flex-1 min-h-0 mt-2 overflow-auto">
+                        <DocsEditor value={docs} onChange={setDocs} />
                     </TabsContent>
                 </Tabs>
 

@@ -14,7 +14,7 @@ import type {
     CollectionFolder,
     CollectionRequest,
 } from "@/components/api-client/types"
-import type { ScriptContext, ScriptResult } from "@/components/api-client/workers/scripts-runner.worker"
+import type { ScriptContext, ScriptResult } from "@/lib/api-client/script-run"
 import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
@@ -38,6 +38,15 @@ interface RunnerInput {
     runScript: (script: string, ctx: ScriptContext) => Promise<ScriptResult>
     onProgress?: (event: RunnerProgressEvent) => void
     abortSignal?: AbortSignal
+    /** Stop after the first request that fails (network error, script error or failed test). */
+    bail?: boolean
+    /** Pause between requests. */
+    delayMs?: number
+}
+
+/** A request counts as failed on a network error, a script error or any failed test/assertion. */
+export function requestFailed(r: RequestRunResult): boolean {
+    return !!r.networkError || r.errors.length > 0 || r.tests.some((t) => !t.pass)
 }
 
 /** Flatten a (possibly nested) collection into request order, optionally rooted at a folder. */
@@ -315,6 +324,13 @@ async function executeRequest(args: {
         result.networkError = (e as Error).message
         return result
     }
+    // The proxy reports connection/DNS/TLS/timeout/blocked-host failures in the
+    // envelope (status 0 or 403) — not a response, so no test script or
+    // assertions run against the error text.
+    if (proxyData.error) {
+        result.networkError = proxyData.error
+        return result
+    }
 
     result.status = proxyData.status
     result.statusText = proxyData.statusText
@@ -427,6 +443,11 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
             if (sink.response) previousResponse = sink.response
             opts.onProgress?.({ kind: "request-done", result, index: idx })
             idx++
+            if (opts.bail && requestFailed(result)) {
+                opts.onProgress?.({ kind: "finished", results: out })
+                return out
+            }
+            if (opts.delayMs && idx < total) await new Promise((r) => setTimeout(r, opts.delayMs))
         }
     }
 

@@ -2174,6 +2174,58 @@
         "option": "الوراثة من الأصل",
         "hint": "تستخدم مصادقة أقرب مجلد أو المجموعة."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "تغيّر “{name}” على القرص. تعديلاتك غير المحفوظة باقية — الحفظ سيستبدل الملف.",
+      "linked": "فُتح “{name}” في مكانه — تُحفظ التعديلات في ملفات Bruno الخاصة به.",
+      "readOnlyOpenCollection": "مجلدات OpenCollection ‏(YAML) تُفتح للقراءة فقط حاليًا. للتعديل استخدم استيراد ← استيراد مجلد Bruno كنسخة.",
+      "notBruno": "هذا المجلد ليس مجموعة Bruno (لا يوجد bruno.json أو opencollection.yml).",
+      "importBrunoCopy": "استيراد مجلد Bruno كنسخة…",
+      "errors": {
+        "readOnly": "لم يُحفظ: مجلد Bruno هذا للقراءة فقط هنا (OpenCollection YAML).",
+        "unsupported": "لم يُحفظ: لا يمكن تخزين {part} في “{name}” داخل ملف Bruno.",
+        "lossy": "لم يُحفظ: {part} في “{name}” يستخدم صياغة Bruno لا يستطيع هذا التطبيق تعديلها دون فقدان بيانات. عدّله في Bruno.",
+        "ambiguousScripts": "لم يُحفظ: يحتوي “{name}” على سكربت ما بعد الاستجابة واختبارات معًا في Bruno، ولا يمكن تقسيم هذا التعديل بينهما. عدّله في Bruno.",
+        "modeStash": "لم يُحفظ: يحتفظ Bruno بالفعل بمحتوى لهذا الوضع في “{name}”. بدّل الوضع في Bruno.",
+        "folderMove": "نقل المجلد “{name}” إلى مجلد آخر غير مدعوم بعد لمجلدات Bruno — انقله في Finder أو Bruno.",
+        "writeFailed": "تعذّرت كتابة ملفات Bruno: ‏{reason}"
+      },
+      "parts": {
+        "name": "الاسم",
+        "method": "طريقة HTTP",
+        "url": "عنوان URL",
+        "params": "معاملات الاستعلام",
+        "headers": "الترويسات",
+        "body": "المتن",
+        "auth": "المصادقة",
+        "preRequestScript": "سكربت ما قبل الطلب",
+        "testScript": "سكربت الاختبار",
+        "assertions": "التأكيدات",
+        "variables": "المتغيرات",
+        "content": "المحتوى",
+        "kind": "نوع الطلب هذا",
+        "timeoutMs": "المهلة",
+        "useCookieJar": "إعداد وعاء ملفات تعريف الارتباط",
+        "followRedirects": "إعداد إعادة التوجيه",
+        "maxRedirects": "الحد الأقصى لإعادة التوجيه",
+        "verifySsl": "التحقق من SSL",
+        "omitHeaders": "الترويسات الموروثة المستبعدة",
+        "examples": "الأمثلة المحفوظة",
+        "comments": "التعليقات"
+      }
+    },
+    "docs": {
+      "tab": "التوثيق",
+      "edit": "تعديل",
+      "done": "تم",
+      "add": "إضافة توثيق",
+      "empty": "لا يوجد توثيق بعد. صِف بلغة Markdown ما يفعله هذا ومدخلاته وأمثلة الاستجابات.",
+      "placeholder": "اكتب Markdown…",
+      "editLabel": "التوثيق (Markdown)",
+      "markdownHint": "يدعم Markdown. يُعرض HTML الخام كنص.",
+      "exportHtml": "تصدير التوثيق (HTML)",
+      "exported": "تم تصدير التوثيق",
+      "exportFailed": "تعذّر تصدير التوثيق"
     }
   },
   "RichEditor": {

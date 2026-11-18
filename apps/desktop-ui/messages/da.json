@@ -2174,6 +2174,58 @@
         "option": "Arv fra overordnet",
         "hint": "Bruger godkendelsen fra den nærmeste mappe eller samlingen."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” er ændret på disken. Dine ikke-gemte ændringer bevares — når du gemmer, overskrives filen.",
+      "linked": "Åbnede “{name}” på stedet — ændringer gemmes i dens Bruno-filer.",
+      "readOnlyOpenCollection": "OpenCollection-mapper (YAML) åbnes skrivebeskyttet indtil videre. For at redigere: Importér → Importér Bruno-mappe som kopi.",
+      "notBruno": "Den mappe er ikke en Bruno-samling (ingen bruno.json eller opencollection.yml).",
+      "importBrunoCopy": "Importér Bruno-mappe som kopi…",
+      "errors": {
+        "readOnly": "Ikke gemt: denne Bruno-mappe er skrivebeskyttet her (OpenCollection YAML).",
+        "unsupported": "Ikke gemt: {part} på “{name}” kan ikke gemmes i en Bruno-fil.",
+        "lossy": "Ikke gemt: {part} på “{name}” bruger Bruno-syntaks, som appen ikke kan redigere uden datatab. Redigér det i Bruno.",
+        "ambiguousScripts": "Ikke gemt: “{name}” har både et post-response-script og tests i Bruno, og ændringen kan ikke deles mellem dem. Redigér det i Bruno.",
+        "modeStash": "Ikke gemt: Bruno har allerede indhold for den tilstand på “{name}”. Skift tilstanden i Bruno.",
+        "folderMove": "At flytte mappen “{name}” ind i en anden mappe understøttes endnu ikke for Bruno-mapper — flyt den i Finder eller Bruno.",
+        "writeFailed": "Kunne ikke skrive Bruno-filerne: {reason}"
+      },
+      "parts": {
+        "name": "navnet",
+        "method": "HTTP-metoden",
+        "url": "URL’en",
+        "params": "forespørgselsparametre",
+        "headers": "headere",
+        "body": "body",
+        "auth": "godkendelse",
+        "preRequestScript": "pre-request-scriptet",
+        "testScript": "testscriptet",
+        "assertions": "assertions",
+        "variables": "variabler",
+        "content": "indholdet",
+        "kind": "denne forespørgselstype",
+        "timeoutMs": "timeout",
+        "useCookieJar": "cookie-krukke-indstillingen",
+        "followRedirects": "omdirigeringsindstillingen",
+        "maxRedirects": "maks. omdirigeringer",
+        "verifySsl": "SSL-bekræftelse",
+        "omitHeaders": "udeladte arvede headere",
+        "examples": "gemte eksempler",
+        "comments": "kommentarer"
+      }
+    },
+    "docs": {
+      "tab": "Dokumentation",
+      "edit": "Rediger",
+      "done": "Færdig",
+      "add": "Tilføj dokumentation",
+      "empty": "Ingen dokumentation endnu. Beskriv i Markdown, hvad det gør, input og eksempelsvar.",
+      "placeholder": "Skriv Markdown…",
+      "editLabel": "Dokumentation (Markdown)",
+      "markdownHint": "Markdown understøttes. Rå HTML vises som tekst.",
+      "exportHtml": "Eksportér dokumentation (HTML)",
+      "exported": "Dokumentation eksporteret",
+      "exportFailed": "Kunne ikke eksportere dokumentation"
     }
   },
   "RichEditor": {

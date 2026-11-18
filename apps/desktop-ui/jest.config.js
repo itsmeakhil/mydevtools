@@ -12,6 +12,8 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-node',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    // marked ships ESM only as its main entry; jest (CJS) loads the UMD build.
+    '^marked$': '<rootDir>/node_modules/marked/lib/marked.umd.js',
   },
   testMatch: [
     '**/__tests__/**/*.test.ts',

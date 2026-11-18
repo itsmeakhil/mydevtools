@@ -1,0 +1,14 @@
+# MyDevTools API collection — safe to commit.
+# Secrets are never stored here: {{vault.*}} / {{env.*}} tokens resolve
+# from the local encrypted vault at send time.
+formatVersion: 1
+id: shop
+name: Shop
+defaultHeaders:
+  - active: true
+    key: X-Client
+    value: mdt
+variables:
+  - active: true
+    key: apiVersion
+    value: v1

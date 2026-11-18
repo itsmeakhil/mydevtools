@@ -2174,6 +2174,58 @@
         "option": "Kế thừa từ cấp cha",
         "hint": "Dùng xác thực của thư mục gần nhất hoặc bộ sưu tập."
       }
+    },
+    "fileSync": {
+      "changedOnDisk": "“{name}” đã thay đổi trên đĩa. Các chỉnh sửa chưa lưu vẫn được giữ — lưu sẽ ghi đè tệp.",
+      "linked": "Đã mở “{name}” tại chỗ — chỉnh sửa được lưu vào các tệp Bruno của nó.",
+      "readOnlyOpenCollection": "Thư mục OpenCollection (YAML) hiện chỉ mở ở chế độ chỉ đọc. Để chỉnh sửa, dùng Nhập → Nhập thư mục Bruno dưới dạng bản sao.",
+      "notBruno": "Thư mục đó không phải bộ sưu tập Bruno (không có bruno.json hoặc opencollection.yml).",
+      "importBrunoCopy": "Nhập thư mục Bruno dưới dạng bản sao…",
+      "errors": {
+        "readOnly": "Chưa lưu: thư mục Bruno này chỉ đọc ở đây (OpenCollection YAML).",
+        "unsupported": "Chưa lưu: không thể lưu {part} của “{name}” vào tệp Bruno.",
+        "lossy": "Chưa lưu: {part} của “{name}” dùng cú pháp Bruno mà ứng dụng không thể sửa mà không mất dữ liệu. Hãy sửa trong Bruno.",
+        "ambiguousScripts": "Chưa lưu: “{name}” có cả script post-response và kiểm thử trong Bruno, và không thể chia chỉnh sửa này giữa hai phần. Hãy sửa trong Bruno.",
+        "modeStash": "Chưa lưu: Bruno đã giữ nội dung cho chế độ đó ở “{name}”. Hãy đổi chế độ trong Bruno.",
+        "folderMove": "Chưa hỗ trợ di chuyển thư mục “{name}” vào thư mục khác với thư mục Bruno — hãy di chuyển trong Finder hoặc Bruno.",
+        "writeFailed": "Không thể ghi các tệp Bruno: {reason}"
+      },
+      "parts": {
+        "name": "tên",
+        "method": "phương thức HTTP",
+        "url": "URL",
+        "params": "tham số truy vấn",
+        "headers": "tiêu đề",
+        "body": "phần thân",
+        "auth": "xác thực",
+        "preRequestScript": "script trước yêu cầu",
+        "testScript": "script kiểm thử",
+        "assertions": "khẳng định",
+        "variables": "biến",
+        "content": "nội dung",
+        "kind": "loại yêu cầu này",
+        "timeoutMs": "thời gian chờ",
+        "useCookieJar": "cài đặt hũ cookie",
+        "followRedirects": "cài đặt chuyển hướng",
+        "maxRedirects": "số chuyển hướng tối đa",
+        "verifySsl": "xác minh SSL",
+        "omitHeaders": "tiêu đề kế thừa bị bỏ qua",
+        "examples": "ví dụ đã lưu",
+        "comments": "bình luận"
+      }
+    },
+    "docs": {
+      "tab": "Tài liệu",
+      "edit": "Sửa",
+      "done": "Xong",
+      "add": "Thêm tài liệu",
+      "empty": "Chưa có tài liệu. Mô tả bằng Markdown chức năng, đầu vào và phản hồi mẫu.",
+      "placeholder": "Viết Markdown…",
+      "editLabel": "Tài liệu (Markdown)",
+      "markdownHint": "Hỗ trợ Markdown. HTML thô được hiển thị dưới dạng văn bản.",
+      "exportHtml": "Xuất tài liệu (HTML)",
+      "exported": "Đã xuất tài liệu",
+      "exportFailed": "Không thể xuất tài liệu"
     }
   },
   "RichEditor": {
