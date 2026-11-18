@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "Dupliceren",
+      "copyName": "{name} kopie",
+      "duplicateFailed": "Dupliceren mislukt",
+      "searchPlaceholder": "Collecties doorzoeken",
+      "clearSearch": "Zoekopdracht wissen",
+      "noSearchResults": "Geen verzoeken komen overeen met “{query}”",
+      "moveTo": "Verplaatsen naar…",
+      "moveTitle": "“{name}” verplaatsen",
+      "moveDescription": "Kies een collectie of map. Het item komt achteraan.",
+      "moveFailed": "Verplaatsen mislukt",
+      "workspace": "Werkruimte",
+      "noWorkspace": "Geen werkruimte",
+      "workspaceFailed": "Werkruimte wijzigen mislukt"
+    },
+    "workspaces": {
+      "title": "Werkruimtes",
+      "description": "Groepeer collecties per team, project of omgeving. De actieve werkruimte filtert de zijbalk.",
+      "createLabel": "Werkruimte maken",
+      "createPlaceholder": "bijv. Acme Prod",
+      "add": "Toevoegen",
+      "all": "Alle collecties",
+      "allHint": "geen werkruimtefilter",
+      "rename": "Naam wijzigen",
+      "delete": "Verwijderen",
+      "confirmDelete": "“{name}” verwijderen?",
+      "confirmDeleteHint": "De collecties krijgen weer geen werkruimte.",
+      "cancel": "Annuleren",
+      "save": "Opslaan",
+      "barLabel": "Werkruimte"
     }
   },
   "RichEditor": {

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronRight, ChevronDown, Folder, MoreHorizontal, Trash2, FolderPlus, Pencil } from "lucide-react"
+import { ChevronRight, ChevronDown, Folder, MoreHorizontal, Trash2, FolderPlus, Pencil, Copy } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { CollectionFolder, CollectionRequest } from "../types"
 import {
@@ -23,6 +23,7 @@ interface CollectionItemProps {
     onLoadRequest: (request: CollectionRequest) => void
     onRenameFolder?: (folderId: string, newName: string) => void
     onEditFolderDefaults?: (folder: CollectionFolder) => void
+    onDuplicate?: (item: CollectionFolder | CollectionRequest) => void
 }
 
 function arePropsEqual(prev: CollectionItemProps, next: CollectionItemProps) {
@@ -35,7 +36,8 @@ function arePropsEqual(prev: CollectionItemProps, next: CollectionItemProps) {
         prev.onDelete === next.onDelete &&
         prev.onRenameFolder === next.onRenameFolder &&
         prev.onAddFolder === next.onAddFolder &&
-        prev.onLoadRequest === next.onLoadRequest
+        prev.onLoadRequest === next.onLoadRequest &&
+        prev.onDuplicate === next.onDuplicate
     )
 }
 
@@ -48,8 +50,10 @@ function CollectionItemImpl({
     onLoadRequest,
     onRenameFolder,
     onEditFolderDefaults,
+    onDuplicate,
 }: CollectionItemProps) {
     const t = useTranslations("ApiClient.collectionItem")
+    const tActions = useTranslations("ApiClient.collectionActions")
     const tRoot = useTranslations("ApiClient")
     const isFolder = "type" in item && item.type === "folder"
     const paddingLeft = `${level * 12 + 12}px`
@@ -174,6 +178,15 @@ function CollectionItemImpl({
                                 )}
                             </>
                         )}
+                        {onDuplicate && (
+                            <DropdownMenuItem onClick={(e) => {
+                                e.stopPropagation()
+                                onDuplicate(item)
+                            }}>
+                                <Copy className="h-4 w-4 mr-2" />
+                                {tActions("duplicate")}
+                            </DropdownMenuItem>
+                        )}
                         <DropdownMenuItem
                             className="text-destructive focus:text-destructive"
                             onClick={(e) => {
@@ -206,6 +219,7 @@ function CollectionItemImpl({
                                 onLoadRequest={onLoadRequest}
                                 onRenameFolder={onRenameFolder}
                                 onEditFolderDefaults={onEditFolderDefaults}
+                                onDuplicate={onDuplicate}
                             />
                         ))}
                         {(item as CollectionFolder).items.length === 0 && (

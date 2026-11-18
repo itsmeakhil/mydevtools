@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "Duplikuj",
+      "copyName": "{name} – kopia",
+      "duplicateFailed": "Nie udało się zduplikować",
+      "searchPlaceholder": "Szukaj w kolekcjach",
+      "clearSearch": "Wyczyść wyszukiwanie",
+      "noSearchResults": "Brak żądań pasujących do „{query}”",
+      "moveTo": "Przenieś do…",
+      "moveTitle": "Przenieś „{name}”",
+      "moveDescription": "Wybierz kolekcję lub folder. Element trafi na koniec.",
+      "moveFailed": "Nie udało się przenieść",
+      "workspace": "Obszar roboczy",
+      "noWorkspace": "Bez obszaru roboczego",
+      "workspaceFailed": "Nie udało się zmienić obszaru roboczego"
+    },
+    "workspaces": {
+      "title": "Obszary robocze",
+      "description": "Grupuj kolekcje według zespołu, projektu lub środowiska. Aktywny obszar filtruje pasek boczny.",
+      "createLabel": "Utwórz obszar roboczy",
+      "createPlaceholder": "np. Acme Prod",
+      "add": "Dodaj",
+      "all": "Wszystkie kolekcje",
+      "allHint": "bez filtra obszaru",
+      "rename": "Zmień nazwę",
+      "delete": "Usuń",
+      "confirmDelete": "Usunąć „{name}”?",
+      "confirmDeleteHint": "Jego kolekcje wracają bez obszaru roboczego.",
+      "cancel": "Anuluj",
+      "save": "Zapisz",
+      "barLabel": "Obszar roboczy"
     }
   },
   "RichEditor": {

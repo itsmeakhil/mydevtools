@@ -6,7 +6,8 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem } from "./collection-item"
-import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy } from "lucide-react"
+import { filterTree } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
@@ -72,7 +73,14 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         [loadRequest, panel],
     )
     const { collections, isLoading } = useCollectionsState()
-    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection } = useCollectionsActions()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection } = useCollectionsActions()
+    const tActions = useTranslations("ApiClient.collectionActions")
+
+    const onDuplicateItem = React.useCallback(
+        (item: Collection["items"][number]) =>
+            void duplicateItem(item.id, tActions("copyName", { name: item.name }), tActions("duplicateFailed")),
+        [duplicateItem, tActions],
+    )
 
     // isDesktop() is false during SSR — gate behind a mounted flag to avoid hydration mismatch.
     const [desktop, setDesktop] = React.useState(false)
@@ -172,6 +180,18 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
             [collectionsForActiveWs],
         ),
     )
+
+    // Collections search: request name / URL / method and folder names; folders on the way to a hit open.
+    const [treeSearch, setTreeSearch] = React.useState("")
+    const treeQuery = useDebouncedValue(treeSearch, 150).trim().toLowerCase()
+    const visibleCollections = React.useMemo(() => {
+        if (!treeQuery) return collectionsForActiveWs
+        return collectionsForActiveWs.flatMap((c) => {
+            if (c.name.toLowerCase().includes(treeQuery)) return [c]
+            const items = filterTree(c.items, treeQuery)
+            return items.length > 0 ? [{ ...c, items }] : []
+        })
+    }, [collectionsForActiveWs, treeQuery])
 
     const activeWorkspaceName = workspaces.find((w) => w.id === activeWorkspaceId)?.name ?? "All"
     const [selectedCollections, setSelectedCollections] = React.useState<Set<string>>(new Set())
@@ -364,6 +384,31 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 </div>
 
                 <TabsContent value="collections" className="flex-1 flex flex-col min-h-0 m-0 data-[state=inactive]:hidden outline-none">
+                    {collections.length > 0 && (
+                        <div className="px-3 py-2 border-b border-border shrink-0">
+                            <div className="relative">
+                                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
+                                <input
+                                    type="text"
+                                    aria-label={tActions("searchPlaceholder")}
+                                    placeholder={tActions("searchPlaceholder")}
+                                    value={treeSearch}
+                                    onChange={(e) => setTreeSearch(e.target.value)}
+                                    onKeyDown={(e) => { if (e.key === "Escape") setTreeSearch("") }}
+                                    className="w-full h-8 pl-8 pr-7 text-[13px] bg-card border border-input rounded-md outline-none placeholder:text-muted-foreground/80 focus:border-primary focus:ring-[3px] focus:ring-primary/25 transition-[border-color,box-shadow]"
+                                />
+                                {treeSearch && (
+                                    <button
+                                        onClick={() => setTreeSearch("")}
+                                        aria-label={tActions("clearSearch")}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 flex items-center justify-center text-muted-foreground hover:text-foreground"
+                                    >
+                                        <X className="h-3 w-3" />
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    )}
                     <ScrollArea className="flex-1">
                         <div className="p-2">
                             {isLoading && collections.length === 0 ? (
@@ -387,8 +432,12 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                         )}
                                     </div>
                                 </div>
+                            ) : treeQuery && visibleCollections.length === 0 ? (
+                                <div className="text-[13px] text-muted-foreground text-center py-6">
+                                    {tActions("noSearchResults", { query: treeSearch.trim() })}
+                                </div>
                             ) : (
-                                collectionsForActiveWs.map((collection) => (
+                                visibleCollections.map((collection) => (
                                     <div key={collection.id} data-collection-id={collection.id} className="mb-3">
                                         <div className="flex items-center justify-between h-8 px-2 group rounded-lg hover:bg-foreground/[0.05] transition-colors">
                                             <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -465,6 +514,10 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                         >
                                                             <FolderPlus className="h-4 w-4 mr-2" />
                                                             Set workspace…
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => void duplicateCollection(collection.id, tActions("copyName", { name: collection.name }))}>
+                                                            <Copy className="h-4 w-4 mr-2" />
+                                                            {tActions("duplicate")}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => setRunnerCollection(collection)}>
                                                             <Play className="h-4 w-4 mr-2" />
@@ -575,6 +628,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                     onLoadRequest={onLoadRequest}
                                                     onRenameFolder={onRenameFolder}
                                                     onEditFolderDefaults={setFolderDefaultsTarget}
+                                                    onDuplicate={onDuplicateItem}
                                                 />
                                             ))}
                                             {collection.items.length === 0 && (

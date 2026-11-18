@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "Duplica",
+      "copyName": "Còpia de {name}",
+      "duplicateFailed": "No s'ha pogut duplicar",
+      "searchPlaceholder": "Cerca col·leccions",
+      "clearSearch": "Esborra la cerca",
+      "noSearchResults": "Cap sol·licitud coincideix amb “{query}”",
+      "moveTo": "Mou a…",
+      "moveTitle": "Mou “{name}”",
+      "moveDescription": "Tria una col·lecció o carpeta. L'element va al final.",
+      "moveFailed": "No s'ha pogut moure",
+      "workspace": "Espai de treball",
+      "noWorkspace": "Sense espai de treball",
+      "workspaceFailed": "No s'ha pogut canviar l'espai de treball"
+    },
+    "workspaces": {
+      "title": "Espais de treball",
+      "description": "Agrupa col·leccions per equip, projecte o entorn. L'espai actiu filtra la barra lateral.",
+      "createLabel": "Crea un espai de treball",
+      "createPlaceholder": "p. ex. Acme Prod",
+      "add": "Afegeix",
+      "all": "Totes les col·leccions",
+      "allHint": "sense filtre d'espai",
+      "rename": "Canvia el nom",
+      "delete": "Suprimeix",
+      "confirmDelete": "Vols suprimir “{name}”?",
+      "confirmDeleteHint": "Les seves col·leccions tornen a no tenir espai.",
+      "cancel": "Cancel·la",
+      "save": "Desa",
+      "barLabel": "Espai de treball"
     }
   },
   "RichEditor": {

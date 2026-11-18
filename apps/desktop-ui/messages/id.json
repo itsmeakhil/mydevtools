@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "Duplikat",
+      "copyName": "Salinan {name}",
+      "duplicateFailed": "Tidak dapat menduplikat",
+      "searchPlaceholder": "Cari koleksi",
+      "clearSearch": "Hapus pencarian",
+      "noSearchResults": "Tidak ada permintaan yang cocok dengan “{query}”",
+      "moveTo": "Pindahkan ke…",
+      "moveTitle": "Pindahkan “{name}”",
+      "moveDescription": "Pilih koleksi atau folder. Item ditaruh di akhir.",
+      "moveFailed": "Tidak dapat memindahkan",
+      "workspace": "Ruang kerja",
+      "noWorkspace": "Tanpa ruang kerja",
+      "workspaceFailed": "Tidak dapat mengubah ruang kerja"
+    },
+    "workspaces": {
+      "title": "Ruang kerja",
+      "description": "Kelompokkan koleksi per tim, proyek, atau lingkungan. Ruang kerja aktif menyaring bilah samping.",
+      "createLabel": "Buat ruang kerja",
+      "createPlaceholder": "mis. Acme Prod",
+      "add": "Tambah",
+      "all": "Semua koleksi",
+      "allHint": "tanpa filter ruang kerja",
+      "rename": "Ganti nama",
+      "delete": "Hapus",
+      "confirmDelete": "Hapus “{name}”?",
+      "confirmDeleteHint": "Koleksinya kembali tanpa ruang kerja.",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "barLabel": "Ruang kerja"
     }
   },
   "RichEditor": {

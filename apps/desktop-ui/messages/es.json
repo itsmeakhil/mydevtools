@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "Duplicar",
+      "copyName": "Copia de {name}",
+      "duplicateFailed": "No se pudo duplicar",
+      "searchPlaceholder": "Buscar colecciones",
+      "clearSearch": "Borrar búsqueda",
+      "noSearchResults": "Ninguna solicitud coincide con “{query}”",
+      "moveTo": "Mover a…",
+      "moveTitle": "Mover “{name}”",
+      "moveDescription": "Elige una colección o carpeta. El elemento va al final.",
+      "moveFailed": "No se pudo mover",
+      "workspace": "Espacio de trabajo",
+      "noWorkspace": "Sin espacio de trabajo",
+      "workspaceFailed": "No se pudo cambiar el espacio de trabajo"
+    },
+    "workspaces": {
+      "title": "Espacios de trabajo",
+      "description": "Agrupa colecciones por equipo, proyecto o entorno. El espacio activo filtra la barra lateral.",
+      "createLabel": "Crear espacio de trabajo",
+      "createPlaceholder": "p. ej. Acme Prod",
+      "add": "Añadir",
+      "all": "Todas las colecciones",
+      "allHint": "sin filtro de espacio",
+      "rename": "Renombrar",
+      "delete": "Eliminar",
+      "confirmDelete": "¿Eliminar “{name}”?",
+      "confirmDeleteHint": "Sus colecciones quedan sin espacio de trabajo.",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "barLabel": "Espacio de trabajo"
     }
   },
   "RichEditor": {

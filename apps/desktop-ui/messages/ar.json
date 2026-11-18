@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "تكرار",
+      "copyName": "نسخة من {name}",
+      "duplicateFailed": "تعذّر التكرار",
+      "searchPlaceholder": "ابحث في المجموعات",
+      "clearSearch": "مسح البحث",
+      "noSearchResults": "لا توجد طلبات تطابق “{query}”",
+      "moveTo": "نقل إلى…",
+      "moveTitle": "نقل “{name}”",
+      "moveDescription": "اختر مجموعة أو مجلدًا. يُضاف العنصر في النهاية.",
+      "moveFailed": "تعذّر النقل",
+      "workspace": "مساحة العمل",
+      "noWorkspace": "بلا مساحة عمل",
+      "workspaceFailed": "تعذّر تغيير مساحة العمل"
+    },
+    "workspaces": {
+      "title": "مساحات العمل",
+      "description": "جمّع المجموعات حسب الفريق أو المشروع أو البيئة. مساحة العمل النشطة تُرشِّح الشريط الجانبي.",
+      "createLabel": "إنشاء مساحة عمل",
+      "createPlaceholder": "مثال: Acme Prod",
+      "add": "إضافة",
+      "all": "كل المجموعات",
+      "allHint": "بلا ترشيح لمساحة العمل",
+      "rename": "إعادة تسمية",
+      "delete": "حذف",
+      "confirmDelete": "حذف “{name}”؟",
+      "confirmDeleteHint": "تعود مجموعاتها بلا مساحة عمل.",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "barLabel": "مساحة العمل"
     }
   },
   "RichEditor": {

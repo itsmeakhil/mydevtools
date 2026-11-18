@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "Çoğalt",
+      "copyName": "{name} kopyası",
+      "duplicateFailed": "Çoğaltılamadı",
+      "searchPlaceholder": "Koleksiyonlarda ara",
+      "clearSearch": "Aramayı temizle",
+      "noSearchResults": "“{query}” ile eşleşen istek yok",
+      "moveTo": "Taşı…",
+      "moveTitle": "“{name}” öğesini taşı",
+      "moveDescription": "Bir koleksiyon veya klasör seçin. Öğe sona eklenir.",
+      "moveFailed": "Taşınamadı",
+      "workspace": "Çalışma alanı",
+      "noWorkspace": "Çalışma alanı yok",
+      "workspaceFailed": "Çalışma alanı değiştirilemedi"
+    },
+    "workspaces": {
+      "title": "Çalışma alanları",
+      "description": "Koleksiyonları ekip, proje veya ortama göre gruplayın. Etkin çalışma alanı kenar çubuğunu filtreler.",
+      "createLabel": "Çalışma alanı oluştur",
+      "createPlaceholder": "örn. Acme Prod",
+      "add": "Ekle",
+      "all": "Tüm koleksiyonlar",
+      "allHint": "çalışma alanı filtresi yok",
+      "rename": "Yeniden adlandır",
+      "delete": "Sil",
+      "confirmDelete": "“{name}” silinsin mi?",
+      "confirmDeleteHint": "Koleksiyonları çalışma alanı olmadan kalır.",
+      "cancel": "İptal",
+      "save": "Kaydet",
+      "barLabel": "Çalışma alanı"
     }
   },
   "RichEditor": {

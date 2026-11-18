@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "Дублювати",
+      "copyName": "{name} (копія)",
+      "duplicateFailed": "Не вдалося дублювати",
+      "searchPlaceholder": "Пошук у колекціях",
+      "clearSearch": "Очистити пошук",
+      "noSearchResults": "Немає запитів, що відповідають «{query}»",
+      "moveTo": "Перемістити до…",
+      "moveTitle": "Перемістити «{name}»",
+      "moveDescription": "Виберіть колекцію або папку. Елемент опиниться в кінці.",
+      "moveFailed": "Не вдалося перемістити",
+      "workspace": "Робочий простір",
+      "noWorkspace": "Без робочого простору",
+      "workspaceFailed": "Не вдалося змінити робочий простір"
+    },
+    "workspaces": {
+      "title": "Робочі простори",
+      "description": "Групуйте колекції за командою, проєктом або середовищем. Активний простір фільтрує бічну панель.",
+      "createLabel": "Створити робочий простір",
+      "createPlaceholder": "наприклад, Acme Prod",
+      "add": "Додати",
+      "all": "Усі колекції",
+      "allHint": "без фільтра простору",
+      "rename": "Перейменувати",
+      "delete": "Видалити",
+      "confirmDelete": "Видалити «{name}»?",
+      "confirmDeleteHint": "Його колекції залишаться без робочого простору.",
+      "cancel": "Скасувати",
+      "save": "Зберегти",
+      "barLabel": "Робочий простір"
     }
   },
   "RichEditor": {

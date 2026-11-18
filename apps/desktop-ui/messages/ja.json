@@ -2041,6 +2041,37 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "collectionActions": {
+      "duplicate": "複製",
+      "copyName": "{name} のコピー",
+      "duplicateFailed": "複製できませんでした",
+      "searchPlaceholder": "コレクションを検索",
+      "clearSearch": "検索をクリア",
+      "noSearchResults": "「{query}」に一致するリクエストはありません",
+      "moveTo": "移動先…",
+      "moveTitle": "「{name}」を移動",
+      "moveDescription": "コレクションまたはフォルダーを選択してください。末尾に追加されます。",
+      "moveFailed": "移動できませんでした",
+      "workspace": "ワークスペース",
+      "noWorkspace": "ワークスペースなし",
+      "workspaceFailed": "ワークスペースを変更できませんでした"
+    },
+    "workspaces": {
+      "title": "ワークスペース",
+      "description": "チーム・プロジェクト・環境ごとにコレクションをまとめます。アクティブなワークスペースでサイドバーを絞り込みます。",
+      "createLabel": "ワークスペースを作成",
+      "createPlaceholder": "例: Acme Prod",
+      "add": "追加",
+      "all": "すべてのコレクション",
+      "allHint": "ワークスペースで絞り込まない",
+      "rename": "名前を変更",
+      "delete": "削除",
+      "confirmDelete": "「{name}」を削除しますか?",
+      "confirmDeleteHint": "そのコレクションはワークスペースなしに戻ります。",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "barLabel": "ワークスペース"
     }
   },
   "RichEditor": {
