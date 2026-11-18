@@ -1,0 +1,16 @@
+id: login
+name: Login
+method: POST
+url: '{{baseUrl}}/{{apiVersion}}/login'
+body:
+  content: '{"user": "{{user}}"}'
+  type: json
+assertions:
+  - enabled: true
+    operator: eq
+    target: res.status
+    value: '200'
+testScript: |-
+  const res = pm.response.json()
+  pm.environment.set("token", res.token)
+  pm.test("got a token", () => pm.expect(res.token).to.equal("t-1"))
