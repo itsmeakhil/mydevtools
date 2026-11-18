@@ -16,6 +16,8 @@ import { useTranslations } from "next-intl"
 import { KeyValueEditor } from "./key-value-editor"
 import { AuthEditor } from "./auth-editor"
 import { DocsEditor } from "./docs-editor"
+import { CertListEditor, cleanCerts, cleanPaths } from "./network/cert-list-editor"
+import type { ClientCertEntry } from "@/lib/api-client/network-settings"
 import type { Collection, CollectionFolder, KeyValueItem, RequestAuth } from "./types"
 
 const CodeEditor = dynamic(() => import("@/components/ui/code-editor"), {
@@ -29,7 +31,7 @@ export type DefaultsTarget =
     | { kind: "folder"; item: CollectionFolder }
     | { kind: "collection"; item: Collection }
 
-export type DefaultsPatch = Pick<Collection, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "variables" | "description">
+export type DefaultsPatch = Pick<Collection, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "variables" | "description" | "clientCerts" | "caPaths">
 
 interface FolderDefaultsDialogProps {
     open: boolean
@@ -45,13 +47,19 @@ const filled = (rows: KeyValueItem[]) => rows.filter((r) => r.key || r.value)
 export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: FolderDefaultsDialogProps) {
     const t = useTranslations("ApiClient.collectionDefaults")
     const tDocs = useTranslations("ApiClient.docs")
+    const tNet = useTranslations("ApiClient.network")
     const [docs, setDocs] = React.useState("")
     const [headers, setHeaders] = React.useState<KeyValueItem[]>([])
     const [variables, setVariables] = React.useState<KeyValueItem[]>([])
     const [auth, setAuth] = React.useState<RequestAuth>({ type: "none" })
     const [pre, setPre] = React.useState("")
     const [test, setTest] = React.useState("")
+    const [certs, setCerts] = React.useState<ClientCertEntry[]>([])
+    const [caPaths, setCaPaths] = React.useState<string[]>([])
     const isCollection = target?.kind === "collection"
+    // .bru files can't hold these; a linked Bruno folder would silently drop them.
+    const showCerts = target?.kind === "collection" && target.item.source?.kind !== "bruno"
+    const isFileCollection = target?.kind === "collection" && target.item.source?.kind === "file"
 
     React.useEffect(() => {
         if (!target) return
@@ -62,6 +70,8 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
         setPre(item.preRequestScript ?? "")
         setTest(item.testScript ?? "")
         setDocs(item.description ?? "")
+        setCerts(target.kind === "collection" ? target.item.clientCerts ?? [] : [])
+        setCaPaths(target.kind === "collection" ? target.item.caPaths ?? [] : [])
     }, [target])
 
     // Empty values (not undefined) so a backend merge-patch actually clears them.
@@ -73,6 +83,7 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
             testScript: test.trim() ? test : "",
             description: docs.trim() ? docs : "",
             ...(isCollection && { variables: filled(variables) }),
+            ...(showCerts && { clientCerts: cleanCerts(certs), caPaths: cleanPaths(caPaths) }),
         })
         onOpenChange(false)
     }
@@ -95,6 +106,7 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
                         <TabsTrigger value="pre-request">{t("tabPreRequest")}</TabsTrigger>
                         <TabsTrigger value="tests">{t("tabTests")}</TabsTrigger>
                         <TabsTrigger value="docs">{tDocs("tab")}</TabsTrigger>
+                        {showCerts && <TabsTrigger value="certificates">{tNet("collectionTab")}</TabsTrigger>}
                     </TabsList>
                     {isCollection && (
                         <TabsContent value="variables" className="flex-1 min-h-0 mt-2 overflow-auto space-y-2">
@@ -121,6 +133,17 @@ export function FolderDefaultsDialog({ open, onOpenChange, target, onSave }: Fol
                     <TabsContent value="docs" className="flex-1 min-h-0 mt-2 overflow-auto">
                         <DocsEditor value={docs} onChange={setDocs} />
                     </TabsContent>
+                    {showCerts && (
+                        <TabsContent value="certificates" className="flex-1 min-h-0 mt-2 overflow-auto pr-1">
+                            <CertListEditor
+                                certs={certs}
+                                onCertsChange={setCerts}
+                                caPaths={caPaths}
+                                onCaPathsChange={setCaPaths}
+                                passphraseHint={isFileCollection ? tNet("passphraseFileHint") : undefined}
+                            />
+                        </TabsContent>
+                    )}
                 </Tabs>
 
                 <DialogFooter>

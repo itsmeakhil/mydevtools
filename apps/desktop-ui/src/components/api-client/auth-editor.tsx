@@ -34,6 +34,7 @@ interface AuthEditorProps {
 export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
     const t = useTranslations("ApiClient.requestTabs")
     const tGrant = useTranslations("ApiClient.oauth2Grants")
+    const tDigest = useTranslations("ApiClient.digestAuth")
     const tInherit = useTranslations("ApiClient.collectionDefaults.inherit")
 
     /** Build a clean RequestAuth when the user switches type, so stale
@@ -205,7 +206,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         <SelectItem value="oauth2">OAuth 2.0</SelectItem>
                         <SelectItem value="aws-sigv4">AWS Signature v4</SelectItem>
                         <SelectItem value="hawk">Hawk</SelectItem>
-                        <SelectItem value="digest">Digest (pre-emptive)</SelectItem>
+                        <SelectItem value="digest">{tDigest("option")}</SelectItem>
                         <SelectItem value="ntlm">NTLM v2</SelectItem>
                         <SelectItem value="jwt-bearer">JWT Bearer</SelectItem>
                         <SelectItem value="spnego">SPNEGO / Kerberos</SelectItem>
@@ -591,12 +592,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                 )}
                 {auth.type === "digest" && (
                     <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
-                        <p className="text-[11px] text-muted-foreground">
-                            Pre-emptive only — paste <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">realm</code>,{" "}
-                            <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">nonce</code>,{" "}
-                            <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">qop</code> from a prior 401
-                            challenge instead of doing the handshake.
-                        </p>
+                        <p className="text-[11px] text-muted-foreground">{tDigest("hint")}</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
                                 <Label>Username</Label>

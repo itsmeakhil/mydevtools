@@ -27,6 +27,7 @@ import { queryJsonPath } from "@/lib/api-client/jsonpath"
 import { cn } from "@/lib/utils"
 import type { editor } from "monaco-editor"
 import { truncateBody } from "./truncate-body"
+import { ResponseTimeline } from "./response-timeline"
 import { ResponsePanelSkeleton } from "./skeletons"
 import { downloadFile } from "@/lib/desktop/save-file"
 
@@ -127,6 +128,7 @@ interface ResponsePanelProps {
 
 function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }: ResponsePanelProps) {
     const t = useTranslations("ApiClient.responsePanel")
+    const tTimeline = useTranslations("ApiClient.timeline")
     const tApi = useTranslations("ApiClient")
     const { copyToClipboard } = useCopyToClipboard()
     const bodyEditorRef = React.useRef<editor.IStandaloneCodeEditor | null>(null)
@@ -285,6 +287,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                         <TabsTrigger value="table">Table</TabsTrigger>
                         <TabsTrigger value="geo">Geo</TabsTrigger>
                         <TabsTrigger value="headers">{t("headersTab")}</TabsTrigger>
+                        {response.timeline && <TabsTrigger value="timeline">{tTimeline("tab")}</TabsTrigger>}
                         {cookies.length > 0 && (
                             <TabsTrigger value="cookies" className="flex items-center gap-1.5">
                                 <Cookie className="h-3.5 w-3.5" />
@@ -446,6 +449,11 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                             </div>
                         </ScrollArea>
                     </TabsContent>
+                    {response.timeline && (
+                        <TabsContent value="timeline" className="mt-0 h-full absolute inset-0">
+                            <ResponseTimeline timeline={response.timeline} />
+                        </TabsContent>
+                    )}
                     {cookies.length > 0 && (
                         <TabsContent value="cookies" className="mt-0 h-full absolute inset-0">
                             <ScrollArea className="h-full">

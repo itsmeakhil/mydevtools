@@ -9,6 +9,7 @@ import { Agent, FormData, fetch, type Response as UndiciResponse } from "undici"
 const METADATA_HOSTS = new Set(["169.254.169.254", "metadata.google.internal", "metadata.google", "100.100.100.200"])
 const DEFAULT_MAX_REDIRECTS = 5
 const MAX_REDIRECTS_CAP = 50
+const CREDENTIAL_HEADERS = new Set(["authorization", "cookie", "proxy-authorization"])
 const DEFAULT_TIMEOUT_MS = 30_000
 const MAX_TIMEOUT_MS = 600_000
 const MAX_BODY_BYTES = 50 * 1024 * 1024
@@ -129,11 +130,14 @@ export function createProxy(opts: { insecure?: boolean; defaultTimeoutMs?: numbe
         let dropBody = false
         const chain: ProxyEnvelope["redirectChain"] = []
         const started = performance.now()
+        // Like curl and browsers: credentials go only to the origin the user addressed.
+        const origin = url.origin
         try {
             for (let hop = 0; ; hop++) {
                 const headers = Object.entries(input.headers ?? {})
                     // Let undici set the multipart boundary itself.
                     .filter(([k]) => !(isMultipart && k.toLowerCase() === "content-type"))
+                    .filter(([k]) => url.origin === origin || !CREDENTIAL_HEADERS.has(k.toLowerCase()))
                 const res = await fetch(url, {
                     method,
                     headers,

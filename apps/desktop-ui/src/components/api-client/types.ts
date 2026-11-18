@@ -160,6 +160,28 @@ export interface ApiResponse {
     time: number
     size: number
     error?: string
+    /** What was actually sent and when (desktop proxy only). In memory only — it holds auth headers. */
+    timeline?: ResponseTimeline
+}
+
+/** One request the proxy sent: the original, a redirect hop, or a digest retry. */
+export interface TimelineHop {
+    method: string
+    url: string
+    status: number
+    /** Offset from the start of the send, ms. */
+    startMs: number
+    /** Request sent → response headers received (includes DNS/TCP/TLS on a new connection), ms. */
+    ttfbMs: number
+    /** Headers as handed to the HTTP client, in order; duplicates kept. */
+    headers: [string, string][]
+}
+
+export interface ResponseTimeline {
+    hops: TimelineHop[]
+    /** Final response body read, ms. */
+    downloadMs: number
+    totalMs: number
 }
 
 export type TabKind = "rest" | "websocket" | "grpc"
@@ -361,6 +383,10 @@ export interface Collection {
     variables?: KeyValueItem[]
     /** Markdown docs for this collection. */
     description?: string
+    /** Client certificates for this collection's hosts (checked before the global ones). */
+    clientCerts?: import("@/lib/api-client/network-settings").ClientCertEntry[]
+    /** Extra CA certificate files (PEM) trusted for this collection's requests. */
+    caPaths?: string[]
 }
 
 export interface HistoryRequest extends CollectionRequest {
