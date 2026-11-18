@@ -7,6 +7,8 @@ import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem, GraphQLInt
 import { useJsonBodyValidation } from "./use-json-validation"
 import { CommentsPanel } from "./comments-panel"
 import { RequestSettingsPanel, hasCustomSettings } from "./request-settings-panel"
+import { RequestAssertionsPanel, countAssertions } from "./request-assertions-panel"
+import type { Assertion } from "@/lib/api-client/assertions"
 import { fetchGraphQLSchema } from "@/lib/graphql-introspect"
 import {
     fetchClientCredentialsToken,
@@ -72,6 +74,9 @@ interface RequestTabsProps {
     /** Timeout / redirects / TLS / cookie jar — the Settings tab. */
     settings?: RequestSettings
     setSettings?: (patch: RequestSettings) => void
+    /** Declarative `res.*` checks — the Assertions tab. */
+    assertions?: Assertion[]
+    setAssertions?: (next: Assertion[]) => void
 }
 
 /**
@@ -115,7 +120,11 @@ function RequestTabsImpl({
     setComments,
     settings,
     setSettings,
+    assertions,
+    setAssertions,
 }: RequestTabsProps) {
+    const tAssert = useTranslations("ApiClient.assertions")
+    const assertionCount = countAssertions(assertions)
     const t = useTranslations("ApiClient.requestTabs")
     const tGrant = useTranslations("ApiClient.oauth2Grants")
     const tBody = useTranslations("ApiClient.requestBody")
@@ -415,6 +424,16 @@ function RequestTabsImpl({
                     Tests
                     {testScript.trim() && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                 </TabsTrigger>
+                {setAssertions && (
+                    <TabsTrigger value="assertions" className="flex items-center gap-1.5">
+                        {tAssert("tab")}
+                        {assertionCount > 0 && (
+                            <Badge variant="secondary" className="h-4 min-w-[16px] justify-center rounded-full px-1 text-[10px] tabular-nums bg-primary/[0.12] text-primary border-transparent">
+                                {assertionCount}
+                            </Badge>
+                        )}
+                    </TabsTrigger>
+                )}
                 {settings && setSettings && (
                     <TabsTrigger value="settings" className="flex items-center gap-1.5">
                         {t("settings")}
@@ -1387,6 +1406,11 @@ function RequestTabsImpl({
                         />
                     </div>
                 </TabsContent>
+                {setAssertions && (
+                    <TabsContent value="assertions" className="mt-0 h-full overflow-auto custom-scrollbar">
+                        <RequestAssertionsPanel assertions={assertions} onChange={setAssertions} />
+                    </TabsContent>
+                )}
                 {settings && setSettings && (
                     <TabsContent value="settings" className="mt-0 h-full overflow-auto custom-scrollbar">
                         <RequestSettingsPanel settings={settings} onChange={setSettings} />

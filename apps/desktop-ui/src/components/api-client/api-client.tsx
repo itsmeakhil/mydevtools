@@ -55,6 +55,7 @@ import { signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
+import { evaluateAssertions } from "@/lib/api-client/assertions"
 import { resolveResponsePath } from "@/lib/response-path"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
@@ -243,6 +244,7 @@ function ApiClientInner() {
             testScript: make("testScript"),
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
+            assertions: make("assertions"),
             settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
     }, [updateActiveTab])
@@ -971,6 +973,13 @@ function ApiClientInner() {
                 sessionVarsRef.current = r.variables
             }
 
+            scriptTests.push(...evaluateAssertions(sendTab.assertions, {
+                status: proxyData.status,
+                headers: proxyData.headers ?? {},
+                body: proxyData.body ?? "",
+                time: proxyData.time ?? 0,
+            }))
+
             // Persist script-induced env mutations to the active environment.
             if (
                 activeEnvId &&
@@ -1249,6 +1258,8 @@ function ApiClientInner() {
                     setComments={setField.comments}
                     settings={requestSettings}
                     setSettings={setField.settings}
+                    assertions={activeTab.assertions}
+                    setAssertions={setField.assertions}
                 />
             </div>
         </div>
@@ -1560,6 +1571,8 @@ function ApiClientInner() {
                                             setComments={setField.comments}
                                             settings={requestSettings}
                                             setSettings={setField.settings}
+                                            assertions={activeTab.assertions}
+                                            setAssertions={setField.assertions}
                                         />
                                     </div>
                                 </div>

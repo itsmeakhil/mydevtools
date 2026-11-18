@@ -77,6 +77,18 @@ describe("file-store", () => {
         expect(plain).not.toMatch(/followRedirects|maxRedirects|verifySsl|useCookieJar|timeoutMs/)
     })
 
+    test("assertions round-trip without ids; empty lists stay out of the YAML", () => {
+        const assertions = [{ id: "a1", enabled: false, target: "res.status", operator: "eq" as const, value: "200" }]
+        const col: Collection = { id: "c", name: "c", items: [request({ assertions }), request({ id: "r2", name: "Plain", assertions: [] })] }
+        const files = serializeCollection(col)
+        expect(files.map((f) => f.content).join("\n")).not.toContain("a1")
+        const { collection: parsed } = parseCollection(files)
+        expect((parsed.items[0] as CollectionRequest).assertions?.map(({ id: _id, ...a }) => a)).toEqual([
+            { enabled: false, target: "res.status", operator: "eq", value: "200" },
+        ])
+        expect(files.find((f) => f.content.includes("name: Plain"))!.content).not.toContain("assertions")
+    })
+
     test("serialization is deterministic (byte-identical on repeat)", () => {
         const a = serializeCollection(collection())
         const b = serializeCollection(collection())

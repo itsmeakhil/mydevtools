@@ -2128,6 +2128,17 @@
       "cancel": "Huỷ",
       "save": "Lưu",
       "barLabel": "Không gian làm việc"
+    },
+    "assertions": {
+      "tab": "Kiểm định",
+      "empty": "Kiểm tra phản hồi mà không cần viết script, vd. res.status eq 200. Kết quả hiển thị cùng các bài kiểm thử.",
+      "columnTarget": "Mục tiêu",
+      "columnOperator": "Toán tử",
+      "columnValue": "Giá trị",
+      "placeholderValue": "Giá trị mong đợi",
+      "add": "Thêm kiểm định",
+      "enableAria": "Bật kiểm định",
+      "removeAria": "Xóa kiểm định"
     }
   },
   "RichEditor": {

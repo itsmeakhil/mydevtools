@@ -16,6 +16,7 @@
  */
 
 import { dump, load } from "js-yaml"
+import { isAssertionOperator, type Assertion } from "./assertions"
 import type {
     Collection,
     CollectionFolder,
@@ -44,7 +45,7 @@ const KEY_ORDER = [
     "formatVersion", "id", "name", "kind", "method", "url",
     "params", "headers", "body", "auth",
     "defaultHeaders", "defaultAuth",
-    "timeoutMs", "useCookieJar", "followRedirects", "maxRedirects", "verifySsl",
+    "timeoutMs", "useCookieJar", "followRedirects", "maxRedirects", "verifySsl", "assertions",
     "preRequestScript", "testScript",
     "websocket", "grpc", "examples",
 ]
@@ -92,6 +93,20 @@ function prune<T>(value: T): T | undefined {
 function stripKvIds(items: KeyValueItem[] | undefined) {
     if (!items || items.length === 0) return undefined
     return items.map(({ key, value, active }) => ({ key, value, active }))
+}
+
+function restoreAssertions(raw: unknown): Assertion[] | undefined {
+    if (!Array.isArray(raw)) return undefined
+    const rows = raw
+        .filter((a): a is Record<string, unknown> => !!a && typeof a === "object" && isAssertionOperator(a.operator))
+        .map((a) => ({
+            id: newId(),
+            enabled: a.enabled !== false,
+            target: typeof a.target === "string" ? a.target : "",
+            operator: a.operator as Assertion["operator"],
+            value: typeof a.value === "string" ? a.value : a.value === undefined ? "" : String(a.value),
+        }))
+    return rows.length ? rows : undefined
 }
 
 function restoreKvIds(items: Array<Partial<KeyValueItem>> | undefined): KeyValueItem[] {
@@ -219,6 +234,7 @@ function serializeRequestObj(req: CollectionRequest): object {
         followRedirects: req.followRedirects === false ? false : undefined,
         maxRedirects: req.maxRedirects,
         verifySsl: req.verifySsl === false ? false : undefined,
+        assertions: req.assertions?.length ? req.assertions.map(({ id: _id, ...rest }) => rest) : undefined,
         preRequestScript: req.preRequestScript || undefined,
         testScript: req.testScript || undefined,
         // Runtime noise stripped from websocket/grpc; graphqlSchema (introspection
@@ -341,6 +357,7 @@ function parseRequest(
         followRedirects: doc.followRedirects === false ? false : undefined,
         maxRedirects: typeof doc.maxRedirects === "number" ? doc.maxRedirects : undefined,
         verifySsl: doc.verifySsl === false ? false : undefined,
+        assertions: restoreAssertions(doc.assertions),
         preRequestScript: doc.preRequestScript as string | undefined,
         testScript: doc.testScript as string | undefined,
         websocket: doc.websocket

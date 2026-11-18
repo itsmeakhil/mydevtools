@@ -2128,6 +2128,17 @@
       "cancel": "취소",
       "save": "저장",
       "barLabel": "워크스페이스"
+    },
+    "assertions": {
+      "tab": "어설션",
+      "empty": "스크립트 없이 응답을 확인합니다(예: res.status eq 200). 결과는 테스트와 함께 표시됩니다.",
+      "columnTarget": "대상",
+      "columnOperator": "연산자",
+      "columnValue": "값",
+      "placeholderValue": "예상 값",
+      "add": "어설션 추가",
+      "enableAria": "어설션 사용",
+      "removeAria": "어설션 삭제"
     }
   },
   "RichEditor": {

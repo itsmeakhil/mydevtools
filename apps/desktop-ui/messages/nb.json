@@ -2128,6 +2128,17 @@
       "cancel": "Avbryt",
       "save": "Lagre",
       "barLabel": "Arbeidsområde"
+    },
+    "assertions": {
+      "tab": "Påstander",
+      "empty": "Sjekk svaret uten å skrive et skript, f.eks. res.status eq 200. Resultatene vises sammen med testene dine.",
+      "columnTarget": "Mål",
+      "columnOperator": "Operator",
+      "columnValue": "Verdi",
+      "placeholderValue": "Forventet verdi",
+      "add": "Legg til påstand",
+      "enableAria": "Aktiver påstand",
+      "removeAria": "Fjern påstand"
     }
   },
   "RichEditor": {

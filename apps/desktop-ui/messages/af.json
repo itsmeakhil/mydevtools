@@ -2128,6 +2128,17 @@
       "cancel": "Kanselleer",
       "save": "Stoor",
       "barLabel": "Werkruimte"
+    },
+    "assertions": {
+      "tab": "Bewerings",
+      "empty": "Kontroleer die antwoord sonder om 'n skrip te skryf, bv. res.status eq 200. Resultate verskyn saam met jou toetse.",
+      "columnTarget": "Teiken",
+      "columnOperator": "Operator",
+      "columnValue": "Waarde",
+      "placeholderValue": "Verwagte waarde",
+      "add": "Voeg bewering by",
+      "enableAria": "Aktiveer bewering",
+      "removeAria": "Verwyder bewering"
     }
   },
   "RichEditor": {

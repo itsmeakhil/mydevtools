@@ -2128,6 +2128,17 @@
       "cancel": "Batal",
       "save": "Simpan",
       "barLabel": "Ruang kerja"
+    },
+    "assertions": {
+      "tab": "Asersi",
+      "empty": "Periksa respons tanpa menulis skrip, mis. res.status eq 200. Hasil muncul bersama pengujian Anda.",
+      "columnTarget": "Target",
+      "columnOperator": "Operator",
+      "columnValue": "Nilai",
+      "placeholderValue": "Nilai yang diharapkan",
+      "add": "Tambah asersi",
+      "enableAria": "Aktifkan asersi",
+      "removeAria": "Hapus asersi"
     }
   },
   "RichEditor": {

@@ -2128,6 +2128,17 @@
       "cancel": "İptal",
       "save": "Kaydet",
       "barLabel": "Çalışma alanı"
+    },
+    "assertions": {
+      "tab": "Doğrulamalar",
+      "empty": "Betik yazmadan yanıtı kontrol edin, ör. res.status eq 200. Sonuçlar testlerinizle birlikte görünür.",
+      "columnTarget": "Hedef",
+      "columnOperator": "Operatör",
+      "columnValue": "Değer",
+      "placeholderValue": "Beklenen değer",
+      "add": "Doğrulama ekle",
+      "enableAria": "Doğrulamayı etkinleştir",
+      "removeAria": "Doğrulamayı kaldır"
     }
   },
   "RichEditor": {

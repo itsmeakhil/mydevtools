@@ -22,6 +22,7 @@ import { ensureFreshToken } from "@/lib/oauth2"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
 import { resolveResponsePath } from "@/lib/response-path"
+import { evaluateAssertions } from "@/lib/api-client/assertions"
 import type { ApiResponse } from "@/components/api-client/types"
 import type { RequestRunResult, RunnerProgressEvent } from "./types"
 
@@ -352,6 +353,13 @@ async function executeRequest(args: {
         }
         Object.assign(args.sessionVars, r.variables)
     }
+
+    result.tests.push(...evaluateAssertions(req.assertions, {
+        status: proxyData.status,
+        headers: proxyData.headers ?? {},
+        body: proxyData.body ?? "",
+        time: proxyData.time ?? 0,
+    }))
 
     return result
 }

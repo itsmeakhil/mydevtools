@@ -2128,6 +2128,17 @@
       "cancel": "Batal",
       "save": "Simpan",
       "barLabel": "Ruang kerja"
+    },
+    "assertions": {
+      "tab": "Penegasan",
+      "empty": "Semak respons tanpa menulis skrip, cth. res.status eq 200. Keputusan dipaparkan bersama ujian anda.",
+      "columnTarget": "Sasaran",
+      "columnOperator": "Operator",
+      "columnValue": "Nilai",
+      "placeholderValue": "Nilai dijangka",
+      "add": "Tambah penegasan",
+      "enableAria": "Dayakan penegasan",
+      "removeAria": "Buang penegasan"
     }
   },
   "RichEditor": {

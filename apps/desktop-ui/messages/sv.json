@@ -2128,6 +2128,17 @@
       "cancel": "Avbryt",
       "save": "Spara",
       "barLabel": "Arbetsyta"
+    },
+    "assertions": {
+      "tab": "Påståenden",
+      "empty": "Kontrollera svaret utan att skriva ett skript, t.ex. res.status eq 200. Resultaten visas tillsammans med dina tester.",
+      "columnTarget": "Mål",
+      "columnOperator": "Operator",
+      "columnValue": "Värde",
+      "placeholderValue": "Förväntat värde",
+      "add": "Lägg till påstående",
+      "enableAria": "Aktivera påstående",
+      "removeAria": "Ta bort påstående"
     }
   },
   "RichEditor": {

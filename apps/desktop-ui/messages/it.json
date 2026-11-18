@@ -2128,6 +2128,17 @@
       "cancel": "Annulla",
       "save": "Salva",
       "barLabel": "Area di lavoro"
+    },
+    "assertions": {
+      "tab": "Asserzioni",
+      "empty": "Verifica la risposta senza scrivere script, ad es. res.status eq 200. I risultati compaiono insieme ai test.",
+      "columnTarget": "Obiettivo",
+      "columnOperator": "Operatore",
+      "columnValue": "Valore",
+      "placeholderValue": "Valore atteso",
+      "add": "Aggiungi asserzione",
+      "enableAria": "Attiva asserzione",
+      "removeAria": "Rimuovi asserzione"
     }
   },
   "RichEditor": {
