@@ -1876,7 +1876,7 @@
         "dynamic": "her gönderimde üretilir",
         "response": "gönderimde önceki yanıttan okunur",
         "secret": "gizli, gönderimde çözümlenir",
-        "missing": "etkin ortamda tanımlı değil"
+        "missing": "ortamda, koleksiyonda veya genel değişkenlerde tanımlı değil"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Üst öğeden devral",
         "hint": "En yakın klasörün veya koleksiyonun kimlik doğrulamasını kullanır."
       }
+    },
+    "globals": {
+      "name": "Genel",
+      "hint": "Her koleksiyonda kullanılabilir. Koleksiyon değişkenleri ve etkin ortam bunları geçersiz kılar.",
+      "saveFailed": "Genel değişkenler kaydedilemedi",
+      "markSecret": "Gizli olarak işaretle",
+      "unmarkSecret": "Gizli: maskelenir ve dışa aktarımlara dahil edilmez. İşareti kaldırmak için tıklayın."
     }
   },
   "RichEditor": {

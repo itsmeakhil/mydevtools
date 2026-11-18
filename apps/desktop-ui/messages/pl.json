@@ -1876,7 +1876,7 @@
         "dynamic": "generowane przy każdym wysłaniu",
         "response": "odczytywane z poprzedniej odpowiedzi przy wysyłaniu",
         "secret": "sekret, rozwiązywany przy wysyłaniu",
-        "missing": "nie zdefiniowano w aktywnym środowisku"
+        "missing": "nie zdefiniowano w środowisku, kolekcji ani zmiennych globalnych"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Dziedzicz z nadrzędnego",
         "hint": "Używa uwierzytelniania najbliższego folderu lub kolekcji."
       }
+    },
+    "globals": {
+      "name": "Globalne",
+      "hint": "Dostępne w każdej kolekcji. Zmienne kolekcji i aktywne środowisko je zastępują.",
+      "saveFailed": "Nie udało się zapisać zmiennych globalnych",
+      "markSecret": "Oznacz jako tajne",
+      "unmarkSecret": "Tajne: zamaskowane i pomijane w eksportach. Kliknij, aby odznaczyć."
     }
   },
   "RichEditor": {

@@ -1876,7 +1876,7 @@
         "dynamic": "được tạo mỗi lần gửi",
         "response": "được đọc từ phản hồi trước khi gửi",
         "secret": "bí mật, được thay khi gửi",
-        "missing": "chưa được định nghĩa trong môi trường đang dùng"
+        "missing": "chưa được định nghĩa trong môi trường, bộ sưu tập hay biến toàn cục"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Kế thừa từ cấp cha",
         "hint": "Dùng xác thực của thư mục gần nhất hoặc bộ sưu tập."
       }
+    },
+    "globals": {
+      "name": "Toàn cục",
+      "hint": "Dùng được trong mọi bộ sưu tập. Biến bộ sưu tập và môi trường đang dùng ghi đè chúng.",
+      "saveFailed": "Không lưu được biến toàn cục",
+      "markSecret": "Đánh dấu là bí mật",
+      "unmarkSecret": "Bí mật: được che và không xuất ra. Nhấn để bỏ đánh dấu."
     }
   },
   "RichEditor": {

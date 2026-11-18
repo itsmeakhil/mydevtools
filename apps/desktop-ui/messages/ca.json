@@ -1876,7 +1876,7 @@
         "dynamic": "es genera a cada enviament",
         "response": "es llegeix de la resposta anterior en enviar",
         "secret": "secret, es resol en enviar",
-        "missing": "no definida a l'entorn actiu"
+        "missing": "no definida a l'entorn, a la col·lecció ni a les globals"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Hereta del pare",
         "hint": "Fa servir l'autenticació de la carpeta més propera o de la col·lecció."
       }
+    },
+    "globals": {
+      "name": "Globals",
+      "hint": "Disponibles a totes les col·leccions. Les variables de la col·lecció i l'entorn actiu les substitueixen.",
+      "saveFailed": "No s'han pogut desar les variables globals",
+      "markSecret": "Marca com a secret",
+      "unmarkSecret": "Secret: emmascarat i exclòs de les exportacions. Fes clic per desmarcar-lo."
     }
   },
   "RichEditor": {

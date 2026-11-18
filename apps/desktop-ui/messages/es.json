@@ -1876,7 +1876,7 @@
         "dynamic": "se genera en cada envío",
         "response": "se lee de la respuesta anterior al enviar",
         "secret": "secreto, se resuelve al enviar",
-        "missing": "no definida en el entorno activo"
+        "missing": "no definida en el entorno, la colección ni las globales"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Heredar del padre",
         "hint": "Usa la autenticación de la carpeta más cercana o de la colección."
       }
+    },
+    "globals": {
+      "name": "Globales",
+      "hint": "Disponibles en todas las colecciones. Las variables de la colección y el entorno activo las reemplazan.",
+      "saveFailed": "No se pudieron guardar las variables globales",
+      "markSecret": "Marcar como secreto",
+      "unmarkSecret": "Secreto: oculto y excluido de las exportaciones. Haz clic para desmarcar."
     }
   },
   "RichEditor": {

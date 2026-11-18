@@ -57,7 +57,7 @@ import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { withFolderDefaults, findRequestAncestors, findRequestContext } from "@/lib/folder-inheritance"
-import { staticVariables, substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
+import { SECRET_MASK, staticVariables, substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
 import { requestFromTab, requestFingerprint, savePatch } from "@/lib/api-client/saved-request"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
@@ -128,7 +128,7 @@ function ApiClientInner() {
     const { saveRequest, updateRequest, addFolder, createCollection } = useCollectionsActions()
     const { history } = useHistoryState()
     const { addHistoryItem } = useHistoryActions()
-    const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
+    const { environments, activeEnvId, activeEnvironmentVariables, globalVariables, secretVariables } = useEnvironmentsState()
     const { setActiveEnvId, updateEnvironment } = useEnvironmentsActions()
     // Cipher key for cross-tool {{vault.*}} / {{env.*}} secret resolution.
     const cipherKey = useCipherKey()
@@ -257,10 +257,16 @@ function ApiClientInner() {
         () => (activeSourceId ? findRequestContext(collections, activeSourceId)?.collection : undefined),
         [collections, activeSourceId],
     )
-    const editorVariables = React.useMemo(
-        () => staticVariables({ collection: variablesToRecord(activeCollection?.variables), environment: activeEnvironmentVariables }),
-        [activeCollection, activeEnvironmentVariables],
-    )
+    // Secret values are masked here — this map only feeds the editor's hover text.
+    const editorVariables = React.useMemo(() => {
+        const vars = staticVariables({
+            globals: globalVariables,
+            collection: variablesToRecord(activeCollection?.variables),
+            environment: activeEnvironmentVariables,
+        })
+        for (const key of Object.keys(secretVariables)) if (Object.hasOwn(vars, key)) vars[key] = SECRET_MASK
+        return vars
+    }, [globalVariables, activeCollection, activeEnvironmentVariables, secretVariables])
     const openSaveExample = React.useCallback(() => setSaveExampleOpen(true), [])
 
     // Scroll position memory for mobile panel toggle
@@ -455,6 +461,7 @@ function ApiClientInner() {
         const sendCollection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
         const collectionVars = variablesToRecord(sendCollection?.variables)
         const substituteAll = (text: string): string => substituteVariables(text, {
+            globals: globalVariables,
             collection: collectionVars,
             environment: activeEnvironmentVariables,
             session: sessionVarsRef.current,
@@ -904,8 +911,9 @@ function ApiClientInner() {
             // Observability: record metric for the metrics dashboard. Resolved
             // {{vault.*}}/{{env.*}} secrets are redacted back to their tokens —
             // the metrics panel renders these URLs.
+            // Secret-flagged environment/global values are redacted the same way.
             const redactSecrets = (text: string): string =>
-                Object.entries(secretVars).reduce(
+                Object.entries({ ...secretVariables, ...secretVars }).reduce(
                     (acc, [token, value]) => (value ? acc.split(value).join(`{{${token}}}`) : acc),
                     text,
                 )
@@ -1099,6 +1107,8 @@ function ApiClientInner() {
         runScript,
         addHistoryItem,
         activeEnvironmentVariables,
+        globalVariables,
+        secretVariables,
         activeEnvId,
         environments,
         updateEnvironment,

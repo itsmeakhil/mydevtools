@@ -1876,7 +1876,7 @@
         "dynamic": "genereras vid varje sändning",
         "response": "läses från föregående svar vid sändning",
         "secret": "hemlig, löses vid sändning",
-        "missing": "inte definierad i den aktiva miljön"
+        "missing": "inte definierad i miljön, samlingen eller de globala"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Ärv från överordnad",
         "hint": "Använder autentiseringen från närmaste mapp eller samlingen."
       }
+    },
+    "globals": {
+      "name": "Globala",
+      "hint": "Tillgängliga i alla samlingar. Samlingsvariabler och den aktiva miljön åsidosätter dem.",
+      "saveFailed": "Det gick inte att spara globala variabler",
+      "markSecret": "Markera som hemlig",
+      "unmarkSecret": "Hemlig: maskerad och utelämnad från export. Klicka för att avmarkera."
     }
   },
   "RichEditor": {

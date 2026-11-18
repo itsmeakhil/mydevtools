@@ -1876,7 +1876,7 @@
         "dynamic": "dibuat setiap kali dikirim",
         "response": "dibaca dari respons sebelumnya saat dikirim",
         "secret": "rahasia, diisi saat dikirim",
-        "missing": "tidak didefinisikan di lingkungan aktif"
+        "missing": "tidak didefinisikan di lingkungan, koleksi, atau global"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Warisi dari induk",
         "hint": "Memakai autentikasi folder terdekat atau koleksi."
       }
+    },
+    "globals": {
+      "name": "Global",
+      "hint": "Tersedia di setiap koleksi. Variabel koleksi dan lingkungan aktif menimpanya.",
+      "saveFailed": "Gagal menyimpan variabel global",
+      "markSecret": "Tandai sebagai rahasia",
+      "unmarkSecret": "Rahasia: disamarkan dan tidak diekspor. Klik untuk membatalkan."
     }
   },
   "RichEditor": {

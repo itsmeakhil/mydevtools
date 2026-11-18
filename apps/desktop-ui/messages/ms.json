@@ -1876,7 +1876,7 @@
         "dynamic": "dijana pada setiap penghantaran",
         "response": "dibaca daripada respons sebelumnya semasa hantar",
         "secret": "rahsia, diselesaikan semasa hantar",
-        "missing": "tidak ditakrifkan dalam persekitaran aktif"
+        "missing": "tidak ditakrifkan dalam persekitaran, koleksi atau global"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Warisi daripada induk",
         "hint": "Menggunakan pengesahan folder terdekat atau koleksi."
       }
+    },
+    "globals": {
+      "name": "Global",
+      "hint": "Tersedia dalam setiap koleksi. Pemboleh ubah koleksi dan persekitaran aktif mengatasinya.",
+      "saveFailed": "Gagal menyimpan pemboleh ubah global",
+      "markSecret": "Tandakan sebagai rahsia",
+      "unmarkSecret": "Rahsia: disembunyikan dan dikecualikan daripada eksport. Klik untuk nyahtanda."
     }
   },
   "RichEditor": {

@@ -27,6 +27,9 @@ export interface VariableScopes {
     previousResponse?: ApiResponse | null
 }
 
+/** What a secret value shows as anywhere it would otherwise be displayed. */
+export const SECRET_MASK = "••••••"
+
 const own = (rec: Record<string, string> | undefined, key: string): string | undefined =>
     rec && Object.hasOwn(rec, key) ? rec[key] : undefined
 

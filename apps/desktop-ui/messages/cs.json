@@ -1876,7 +1876,7 @@
         "dynamic": "generuje se při každém odeslání",
         "response": "čte se z předchozí odpovědi při odeslání",
         "secret": "tajné, vyřeší se při odeslání",
-        "missing": "není definováno v aktivním prostředí"
+        "missing": "není definováno v prostředí, kolekci ani globálních proměnných"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Zdědit od nadřazeného",
         "hint": "Použije ověření nejbližší složky nebo kolekce."
       }
+    },
+    "globals": {
+      "name": "Globální",
+      "hint": "Dostupné v každé kolekci. Proměnné kolekce a aktivní prostředí je přepisují.",
+      "saveFailed": "Globální proměnné se nepodařilo uložit",
+      "markSecret": "Označit jako tajné",
+      "unmarkSecret": "Tajné: maskováno a vynecháno z exportů. Kliknutím zrušíte."
     }
   },
   "RichEditor": {

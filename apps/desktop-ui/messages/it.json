@@ -1876,7 +1876,7 @@
         "dynamic": "generato a ogni invio",
         "response": "letto dalla risposta precedente all'invio",
         "secret": "segreto, risolto all'invio",
-        "missing": "non definita nell'ambiente attivo"
+        "missing": "non definita nell'ambiente, nella raccolta o nelle globali"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Eredita dal genitore",
         "hint": "Usa l'autenticazione della cartella più vicina o della raccolta."
       }
+    },
+    "globals": {
+      "name": "Globali",
+      "hint": "Disponibili in ogni raccolta. Le variabili della raccolta e l'ambiente attivo le sostituiscono.",
+      "saveFailed": "Impossibile salvare le variabili globali",
+      "markSecret": "Segna come segreto",
+      "unmarkSecret": "Segreto: mascherato ed escluso dalle esportazioni. Fai clic per rimuovere."
     }
   },
   "RichEditor": {

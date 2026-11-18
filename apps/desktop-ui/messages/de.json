@@ -1876,7 +1876,7 @@
         "dynamic": "wird bei jedem Senden erzeugt",
         "response": "wird beim Senden aus der vorherigen Antwort gelesen",
         "secret": "geheim, wird beim Senden aufgelöst",
-        "missing": "in der aktiven Umgebung nicht definiert"
+        "missing": "weder in der Umgebung, der Sammlung noch global definiert"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Vom übergeordneten Element erben",
         "hint": "Verwendet die Authentifizierung des nächsten Ordners oder der Sammlung."
       }
+    },
+    "globals": {
+      "name": "Global",
+      "hint": "In jeder Sammlung verfügbar. Sammlungsvariablen und die aktive Umgebung überschreiben sie.",
+      "saveFailed": "Globale Variablen konnten nicht gespeichert werden",
+      "markSecret": "Als geheim markieren",
+      "unmarkSecret": "Geheim: maskiert und von Exporten ausgeschlossen. Klicken zum Aufheben."
     }
   },
   "RichEditor": {

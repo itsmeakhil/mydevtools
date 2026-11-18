@@ -32,6 +32,8 @@ interface RunnerInput {
     /** When present, runs `dataRows.length` iterations; each row's keys become the highest-priority vars. */
     dataRows?: Record<string, string>[]
     environmentVariables: Record<string, string>
+    /** Lowest-precedence variables (below collection variables). */
+    globalVariables?: Record<string, string>
     runScript: (script: string, ctx: ScriptContext) => Promise<ScriptResult>
     onProgress?: (event: RunnerProgressEvent) => void
     abortSignal?: AbortSignal
@@ -69,6 +71,7 @@ function buildRequestUrlSafe(raw: string): URL {
 /** Same precedence as `handleSend` (lib/api-client/variables.ts), plus the data row. */
 function makeSubstitute(args: {
     env: Record<string, string>
+    globals: Record<string, string>
     collectionVars: Record<string, string>
     sessionVars: Record<string, string>
     envOverlay: Record<string, string>
@@ -77,6 +80,7 @@ function makeSubstitute(args: {
     previousResponse: ApiResponse | null
 }) {
     return (text: string): string => substituteVariables(text, {
+        globals: args.globals,
         collection: args.collectionVars,
         environment: args.env,
         session: args.sessionVars,
@@ -92,6 +96,7 @@ async function executeRequest(args: {
     iteration: number
     row: Record<string, string>
     env: Record<string, string>
+    globals: Record<string, string>
     collectionVars: Record<string, string>
     sessionVars: Record<string, string>
     envOverlay: Record<string, string>
@@ -116,6 +121,7 @@ async function executeRequest(args: {
 
     const substitute = makeSubstitute({
         env: args.env,
+        globals: args.globals,
         collectionVars: args.collectionVars,
         sessionVars: args.sessionVars,
         envOverlay: args.envOverlay,
@@ -394,6 +400,7 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
                 iteration: it,
                 row,
                 env: opts.environmentVariables,
+                globals: opts.globalVariables ?? {},
                 collectionVars,
                 sessionVars,
                 envOverlay,

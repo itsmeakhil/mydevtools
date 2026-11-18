@@ -1876,7 +1876,7 @@
         "dynamic": "genereres ved hver afsendelse",
         "response": "læses fra det forrige svar ved afsendelse",
         "secret": "hemmelig, opløses ved afsendelse",
-        "missing": "ikke defineret i det aktive miljø"
+        "missing": "ikke defineret i miljøet, samlingen eller de globale"
       }
     },
     "requestTabs": {
@@ -2150,6 +2150,13 @@
         "option": "Arv fra overordnet",
         "hint": "Bruger godkendelsen fra den nærmeste mappe eller samlingen."
       }
+    },
+    "globals": {
+      "name": "Globale",
+      "hint": "Tilgængelige i alle samlinger. Samlingsvariabler og det aktive miljø tilsidesætter dem.",
+      "saveFailed": "Kunne ikke gemme globale variabler",
+      "markSecret": "Markér som hemmelig",
+      "unmarkSecret": "Hemmelig: maskeret og udeladt fra eksport. Klik for at fjerne markeringen."
     }
   },
   "RichEditor": {
