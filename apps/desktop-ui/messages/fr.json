@@ -1871,7 +1871,13 @@
       "sending": "Envoi…",
       "send": "Envoyer",
       "invalidJsonBodyHelp": "Envoi impossible : le corps JSON est invalide",
-      "copyCurl": "Copier en cURL"
+      "copyCurl": "Copier en cURL",
+      "variable": {
+        "dynamic": "généré à chaque envoi",
+        "response": "lu depuis la réponse précédente à l'envoi",
+        "secret": "secret, résolu à l'envoi",
+        "missing": "non défini dans l'environnement actif"
+      }
     },
     "requestTabs": {
       "params": "Paramètres",
@@ -1903,7 +1909,21 @@
       "addTo": "Ajouter à",
       "header": "En-tête",
       "queryParams": "Paramètres de requête",
-      "noAuthHint": "Cette requête n’utilise pas d’authentification."
+      "noAuthHint": "Cette requête n’utilise pas d’authentification.",
+      "settings": "Paramètres"
+    },
+    "requestSettings": {
+      "timeout": "Délai d'expiration (ms)",
+      "timeoutHint": "Vide utilise la valeur par défaut de 30 secondes. Max 600000.",
+      "followRedirects": "Suivre les redirections",
+      "followRedirectsHint": "Désactivé renvoie la réponse 3xx elle-même.",
+      "maxRedirects": "Redirections max",
+      "maxRedirectsHint": "Vide utilise 5. Max 50.",
+      "verifySsl": "Vérifier les certificats SSL",
+      "verifySslHint": "Refuser les certificats auto-signés, expirés ou non correspondants.",
+      "verifySslOffHint": "Désactivé : tout certificat est accepté. À utiliser uniquement avec des hôtes de confiance.",
+      "cookieJar": "Utiliser le pot à cookies",
+      "cookieJarHint": "Envoyer les cookies enregistrés et enregistrer les cookies des réponses."
     },
     "responsePanel": {
       "emptyTitle": "Prêt à explorer ?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Nouvel onglet",
-      "unsavedChanges": "Modifications non enregistrées"
+      "unsavedChanges": "Modifications non enregistrées",
+      "newRest": "Nouvelle requête REST",
+      "newWebSocket": "Nouveau WebSocket",
+      "newGrpc": "Nouveau gRPC-Web",
+      "duplicateTab": "Dupliquer l'onglet"
     },
     "collectionsSidebar": {
       "title": "Ressources API",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Enregistrer la requête"
+      "saveRequest": "Enregistrer la requête",
+      "nextTab": "Onglet suivant",
+      "prevTab": "Onglet précédent",
+      "focusUrl": "Activer la barre d'URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Changer d'environnement : {name}"
     },
     "customMethod": {
       "option": "Personnalisée…",

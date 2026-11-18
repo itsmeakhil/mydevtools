@@ -1871,7 +1871,13 @@
       "sending": "Sending...",
       "send": "Send",
       "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid",
-      "copyCurl": "Copy as cURL"
+      "copyCurl": "Copy as cURL",
+      "variable": {
+        "dynamic": "generated on each send",
+        "response": "read from the previous response on send",
+        "secret": "secret, resolved on send",
+        "missing": "not defined in the active environment"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1903,7 +1909,21 @@
       "addTo": "Add to",
       "header": "Header",
       "queryParams": "Query params",
-      "noAuthHint": "This request does not use authentication."
+      "noAuthHint": "This request does not use authentication.",
+      "settings": "Settings"
+    },
+    "requestSettings": {
+      "timeout": "Timeout (ms)",
+      "timeoutHint": "Empty uses the 30-second default. Max 600000.",
+      "followRedirects": "Follow redirects",
+      "followRedirectsHint": "Off returns the 3xx response itself.",
+      "maxRedirects": "Max redirects",
+      "maxRedirectsHint": "Empty uses 5. Max 50.",
+      "verifySsl": "Verify SSL certificates",
+      "verifySslHint": "Reject self-signed, expired or mismatched certificates.",
+      "verifySslOffHint": "Off: any certificate is accepted. Use only with hosts you trust.",
+      "cookieJar": "Use cookie jar",
+      "cookieJarHint": "Send stored cookies and save cookies from responses."
     },
     "responsePanel": {
       "emptyTitle": "Ready to explore?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "New tab",
-      "unsavedChanges": "Unsaved changes"
+      "unsavedChanges": "Unsaved changes",
+      "newRest": "New REST request",
+      "newWebSocket": "New WebSocket",
+      "newGrpc": "New gRPC-Web",
+      "duplicateTab": "Duplicate tab"
     },
     "collectionsSidebar": {
       "title": "API resources",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Save request"
+      "saveRequest": "Save request",
+      "nextTab": "Next tab",
+      "prevTab": "Previous tab",
+      "focusUrl": "Focus URL bar"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "recorder": "Capture & replay",
       "shortcuts": "Keyboard shortcuts",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Switch environment: {name}"
     },
     "customMethod": {
       "option": "Custom…",

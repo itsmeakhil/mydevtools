@@ -19,6 +19,17 @@ import { useTranslations } from "next-intl"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useEnvironmentsState } from "./context/environments-context"
 import { useDebouncedValue } from "@/lib/use-debounced-value"
+import { classifyVariable, type VariableStatus } from "@/lib/api-client/dynamic-vars"
+import { isMacPlatform, shortcutHint } from "@/lib/api-client/shortcuts"
+
+/** Missing = red; resolved from the environment = accent; filled in at send time = neutral. */
+const VARIABLE_HIGHLIGHT: Record<VariableStatus, string> = {
+    resolved: "bg-primary/15",
+    dynamic: "bg-foreground/10",
+    response: "bg-foreground/10",
+    secret: "bg-foreground/10",
+    missing: "bg-destructive/20",
+}
 
 interface RequestPanelProps {
     method: RequestMethod
@@ -84,6 +95,8 @@ function RequestPanelImpl({
         methodDraftCancelled.current = false
         setMethodDraft(isCustomMethod ? method : "")
     }
+    const [isMac, setIsMac] = React.useState(false)
+    React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
     const urlInputRef = React.useRef<HTMLInputElement | null>(null)
     const [showSuggestions, setShowSuggestions] = React.useState(false)
     /** -1 = no suggestion focused (Enter sends); 0..n-1 = highlighted row (Enter selects). */
@@ -117,7 +130,7 @@ function RequestPanelImpl({
     const [hoveredVariable, setHoveredVariable] = React.useState<{
         key: string
         value?: string
-        status: "resolved" | "missing"
+        status: VariableStatus
         left: number
     } | null>(null)
 
@@ -133,25 +146,32 @@ function RequestPanelImpl({
     }, [urlSuggestions, showSuggestions])
 
     const variableTokens = React.useMemo(() => {
-        const tokens: Array<{ key: string; start: number; end: number; value?: string; status: "resolved" | "missing" }> = []
+        const tokens: Array<{ key: string; start: number; end: number; value?: string; status: VariableStatus }> = []
         const regex = /\{\{(.+?)\}\}/g
         let match: RegExpExecArray | null
 
         while ((match = regex.exec(localUrl)) !== null) {
             const fullToken = match[0]
             const key = match[1].trim()
-            const value = activeEnvironmentVariables[key]
             tokens.push({
                 key,
                 start: match.index,
                 end: match.index + fullToken.length,
-                value,
-                status: value !== undefined ? "resolved" : "missing",
+                ...classifyVariable(key, activeEnvironmentVariables),
             })
         }
 
         return tokens
     }, [localUrl, activeEnvironmentVariables])
+
+    // Highlight backdrop behind the (transparent) URL input, kept in step with
+    // the input's horizontal scroll.
+    const backdropRef = React.useRef<HTMLSpanElement | null>(null)
+    const syncBackdropScroll = React.useCallback(() => {
+        const input = urlInputRef.current
+        if (backdropRef.current && input) backdropRef.current.style.transform = `translateX(${-input.scrollLeft}px)`
+    }, [])
+    React.useLayoutEffect(syncBackdropScroll, [localUrl, syncBackdropScroll])
 
     /** Mirror span used to measure on-screen width of arbitrary URL prefixes — far more reliable
      *  than the previous canvas char-width × index math, which drifted on non-monospace fallbacks
@@ -286,17 +306,34 @@ function RequestPanelImpl({
                                 <TooltipContent side="top" className="max-w-xs break-all">
                                     {hoveredVariable.status === "resolved"
                                         ? `${hoveredVariable.key}: ${hoveredVariable.value}`
-                                        : `${hoveredVariable.key}: (not found in active environment)`}
+                                        : `${hoveredVariable.key}: ${t(`variable.${hoveredVariable.status}`)}`}
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
                     )}
+                    {variableTokens.length > 0 && (
+                        <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center overflow-hidden pl-9 pr-10 font-mono text-[13px] whitespace-pre text-transparent">
+                            <span ref={backdropRef}>
+                                {variableTokens.map((tok, i) => (
+                                    <React.Fragment key={tok.start}>
+                                        {localUrl.slice(i === 0 ? 0 : variableTokens[i - 1].end, tok.start)}
+                                        <span className={cn("rounded-[3px]", VARIABLE_HIGHLIGHT[tok.status])}>
+                                            {localUrl.slice(tok.start, tok.end)}
+                                        </span>
+                                    </React.Fragment>
+                                ))}
+                            </span>
+                        </div>
+                    )}
                     <Input
                         ref={urlInputRef}
+                        data-api-url-input
                         placeholder={t("urlPlaceholder")}
                         value={localUrl}
                         onChange={(e) => setLocalUrl(e.target.value)}
-                        className="h-full pl-9 pr-10 font-mono text-[13px] rounded-none rounded-r-lg border-0 bg-transparent shadow-none focus-visible:ring-0"
+                        onScroll={syncBackdropScroll}
+                        onSelect={syncBackdropScroll}
+                        className="relative h-full pl-9 pr-10 font-mono text-[13px] rounded-none rounded-r-lg border-0 bg-transparent shadow-none focus-visible:ring-0"
                         onFocus={() => setShowSuggestions(true)}
                         onBlur={() => {
                             if (suppressBlurRef.current) {
@@ -412,6 +449,7 @@ function RequestPanelImpl({
                 <>
                 <Button
                     onClick={onSend}
+                    title={`${t("send")} (${shortcutHint("sendRequest", isMac)})`}
                     disabled={isLoading || !localUrl || isBodyInvalid}
                     aria-describedby={isBodyInvalid ? "send-invalid-help" : undefined}
                     className="h-9 px-5"

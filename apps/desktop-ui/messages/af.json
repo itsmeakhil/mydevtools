@@ -1871,7 +1871,13 @@
       "sending": "Besig om te stuur...",
       "send": "Stuur",
       "invalidJsonBodyHelp": "Cannot send: the JSON body is invalid",
-      "copyCurl": "Kopieer as cURL"
+      "copyCurl": "Kopieer as cURL",
+      "variable": {
+        "dynamic": "word met elke versending gegenereer",
+        "response": "word by versending uit die vorige antwoord gelees",
+        "secret": "geheim, word by versending opgelos",
+        "missing": "nie in die aktiewe omgewing gedefinieer nie"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1903,7 +1909,21 @@
       "addTo": "Voeg by aan",
       "header": "Koptekst",
       "queryParams": "Navraagparameters",
-      "noAuthHint": "Hierdie versoek gebruik geen magtiging nie."
+      "noAuthHint": "Hierdie versoek gebruik geen magtiging nie.",
+      "settings": "Instellings"
+    },
+    "requestSettings": {
+      "timeout": "Uittel (ms)",
+      "timeoutHint": "Leeg gebruik die verstek van 30 sekondes. Maks 600000.",
+      "followRedirects": "Volg herleidings",
+      "followRedirectsHint": "Af gee die 3xx-antwoord self terug.",
+      "maxRedirects": "Maks herleidings",
+      "maxRedirectsHint": "Leeg gebruik 5. Maks 50.",
+      "verifySsl": "Verifieer SSL-sertifikate",
+      "verifySslHint": "Verwerp selfondertekende, verstreke of onpassende sertifikate.",
+      "verifySslOffHint": "Af: enige sertifikaat word aanvaar. Gebruik slegs met gashere wat jy vertrou.",
+      "cookieJar": "Gebruik koekiefles",
+      "cookieJarHint": "Stuur gestoorde koekies en stoor koekies uit antwoorde."
     },
     "responsePanel": {
       "emptyTitle": "Gereed om te verken?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Nuwe oortjie",
-      "unsavedChanges": "Ongestoorde veranderinge"
+      "unsavedChanges": "Ongestoorde veranderinge",
+      "newRest": "Nuwe REST-versoek",
+      "newWebSocket": "Nuwe WebSocket",
+      "newGrpc": "Nuwe gRPC-Web",
+      "duplicateTab": "Dupliseer oortjie"
     },
     "collectionsSidebar": {
       "title": "API-hulpbronne",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Stoor versoek"
+      "saveRequest": "Stoor versoek",
+      "nextTab": "Volgende oortjie",
+      "prevTab": "Vorige oortjie",
+      "focusUrl": "Fokus URL-balk"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Wissel omgewing: {name}"
     },
     "customMethod": {
       "option": "Pasgemaak…",

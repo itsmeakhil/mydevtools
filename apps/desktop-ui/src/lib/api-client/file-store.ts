@@ -44,7 +44,7 @@ const KEY_ORDER = [
     "formatVersion", "id", "name", "kind", "method", "url",
     "params", "headers", "body", "auth",
     "defaultHeaders", "defaultAuth",
-    "timeoutMs", "useCookieJar",
+    "timeoutMs", "useCookieJar", "followRedirects", "maxRedirects", "verifySsl",
     "preRequestScript", "testScript",
     "websocket", "grpc", "examples",
 ]
@@ -216,6 +216,9 @@ function serializeRequestObj(req: CollectionRequest): object {
         auth: req.auth?.type === "none" ? undefined : redactAuth(req.auth).auth,
         timeoutMs: req.timeoutMs,
         useCookieJar: req.useCookieJar === false ? false : undefined,
+        followRedirects: req.followRedirects === false ? false : undefined,
+        maxRedirects: req.maxRedirects,
+        verifySsl: req.verifySsl === false ? false : undefined,
         preRequestScript: req.preRequestScript || undefined,
         testScript: req.testScript || undefined,
         // Runtime noise stripped from websocket/grpc; graphqlSchema (introspection
@@ -335,6 +338,9 @@ function parseRequest(
         auth: (doc.auth as CollectionRequest["auth"]) ?? { type: "none" },
         timeoutMs: doc.timeoutMs as number | undefined,
         useCookieJar: doc.useCookieJar === false ? false : undefined,
+        followRedirects: doc.followRedirects === false ? false : undefined,
+        maxRedirects: typeof doc.maxRedirects === "number" ? doc.maxRedirects : undefined,
+        verifySsl: doc.verifySsl === false ? false : undefined,
         preRequestScript: doc.preRequestScript as string | undefined,
         testScript: doc.testScript as string | undefined,
         websocket: doc.websocket

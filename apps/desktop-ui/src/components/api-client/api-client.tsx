@@ -17,7 +17,7 @@ import { putCachedResponse, getCachedResponse } from "@/lib/cache/response-cache
 import { registerApiClientServiceWorker } from "@/lib/sw/register-api-client-sw"
 import { listenForExtensionImports, capturedToTab } from "@/lib/extension/listen"
 import { recordExchange } from "@/lib/recorder/traffic-recorder"
-import type { SavedExample } from "./types"
+import type { RequestSettings, SavedExample } from "./types"
 import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
@@ -43,7 +43,7 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard } from "lucide-react"
+import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, Layers } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { ensureHttpScheme } from "@/lib/url-normalize"
@@ -54,6 +54,7 @@ import { signHawk } from "@/lib/auth/hawk"
 import { signDigest } from "@/lib/auth/digest"
 import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
+import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
 import { resolveResponsePath } from "@/lib/response-path"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
@@ -66,6 +67,8 @@ import { useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
 import { useCollectionsState, useCollectionsActions } from "./context/collections-context"
 import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
 import { useHistoryState, useHistoryActions } from "./context/history-context"
+import { isMacPlatform, matchShortcut, shortcutHint, type ShortcutId } from "@/lib/api-client/shortcuts"
+import { usePaletteActions, type PaletteAction } from "@/lib/palette-actions"
 
 const EnvironmentManager = dynamic(
     () => import("./environment-manager").then(m => ({ default: m.EnvironmentManager })),
@@ -240,8 +243,15 @@ function ApiClientInner() {
             testScript: make("testScript"),
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
+            settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
     }, [updateActiveTab])
+    // Own object so the memoized RequestTabs doesn't re-render on every URL/body keystroke.
+    const { timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl } = activeTab
+    const requestSettings = React.useMemo<RequestSettings>(
+        () => ({ timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl }),
+        [timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl],
+    )
     const openSaveExample = React.useCallback(() => setSaveExampleOpen(true), [])
 
     // Scroll position memory for mobile panel toggle
@@ -443,7 +453,7 @@ function ApiClientInner() {
                 if (scriptEnvUnsets.has(key)) return m
                 if (key in scriptEnvOverlay) return scriptEnvOverlay[key]
                 if (key in sessionVarsRef.current) return sessionVarsRef.current[key]
-                return activeEnvironmentVariables[key] ?? secretVars[key] ?? m
+                return activeEnvironmentVariables[key] ?? secretVars[key] ?? resolveDynamicVar(key) ?? m
             })
         }
 
@@ -858,6 +868,9 @@ function ApiClientInner() {
                 headers: headersObj,
                 body: beforeApplied.req.body ?? bodyPayload ?? bodyContent,
                 timeoutMs: sendTab.timeoutMs,
+                followRedirects: sendTab.followRedirects,
+                maxRedirects: sendTab.maxRedirects,
+                verifySsl: sendTab.verifySsl,
             }, controller.signal)
             const proxyData = {
                 ...rawEnvelope,
@@ -1113,32 +1126,86 @@ function ApiClientInner() {
         }
     }, [updateActiveTab, replaceUrlWithEnvBaseUrl, t])
 
-    // Keyboard shortcuts.
-    // Cmd/Ctrl+T and Cmd/Ctrl+W are hard-reserved by the browser (`preventDefault`
-    // does not override) so we bind Alt+T / Alt+W as the working equivalents.
-    // Cmd/Ctrl+Enter still works inside form inputs.
-    React.useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const isMac = /Mac|iPhone|iPad/i.test(navigator.userAgent)
-            const mod = isMac ? e.metaKey : e.ctrlKey
+    const cycleTab = React.useCallback((step: 1 | -1) => {
+        const list = tabsRef.current
+        const i = list.findIndex((tab) => tab.id === activeTabRef.current.id)
+        if (list.length < 2 || i === -1) return
+        setActiveTabId(list[(i + step + list.length) % list.length].id)
+    }, [setActiveTabId])
 
-            if (e.altKey && !e.ctrlKey && !e.metaKey && (e.key === "t" || e.key === "T")) {
-                e.preventDefault()
-                addTab()
-            } else if (e.altKey && !e.ctrlKey && !e.metaKey && (e.key === "w" || e.key === "W")) {
-                e.preventDefault()
-                closeTab(activeTabId)
-            } else if (mod && e.key === "Enter") {
-                e.preventDefault()
-                handleSend()
-            } else if (mod && !e.shiftKey && !e.altKey && (e.key === "s" || e.key === "S")) {
-                e.preventDefault()
-                void handleSaveShortcut()
+    /** One entry point for keyboard shortcuts and their ⌘K palette twins. */
+    const runShortcut = React.useCallback((id: ShortcutId) => {
+        switch (id) {
+            case "sendRequest": handleSend(); break
+            case "saveRequest": void handleSaveShortcut(); break
+            case "newTab": addTab(); break
+            case "closeTab": closeTab(activeTabRef.current.id); break
+            case "nextTab": cycleTab(1); break
+            case "prevTab": cycleTab(-1); break
+            case "focusUrl": {
+                const input = document.querySelector<HTMLInputElement>("[data-api-url-input]")
+                input?.focus()
+                input?.select()
+                break
             }
+        }
+    }, [handleSend, handleSaveShortcut, addTab, closeTab, cycleTab])
+
+    // Keyboard shortcuts — the map lives in lib/api-client/shortcuts.ts.
+    React.useEffect(() => {
+        const isMac = isMacPlatform()
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // An open dialog (save, import, palette…) owns the keyboard.
+            if (document.querySelector('[role="dialog"][data-state="open"]')) return
+            const id = matchShortcut(e, isMac)
+            if (!id) return
+            e.preventDefault()
+            runShortcut(id)
         }
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [addTab, closeTab, handleSend, handleSaveShortcut, activeTabId])
+    }, [runShortcut])
+
+    // Set after mount: the server render can't know the platform.
+    const [isMac, setIsMac] = React.useState(false)
+    React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
+
+    // ⌘K palette commands while the API client is open.
+    const paletteGroup = React.useMemo(() => {
+        const shortcut = (id: ShortcutId, title: string, Icon: React.ElementType): PaletteAction =>
+            ({ id, title, Icon, hint: shortcutHint(id, isMac), run: () => runShortcut(id) })
+        const switchEnv = (id: string | null, name: string): PaletteAction => ({
+            id: `env-${id ?? "none"}`,
+            title: t("palette.switchEnvironment", { name }),
+            keywords: [t("toolbar.environments")],
+            Icon: Layers,
+            run: () => setActiveEnvId(id),
+        })
+        return {
+            heading: tNav("apiClient"),
+            actions: [
+                shortcut("sendRequest", t("shortcuts.sendRequest"), Send),
+                shortcut("saveRequest", t("shortcuts.saveRequest"), Save),
+                shortcut("newTab", t("tabBar.newRest"), Plus),
+                { id: "new-websocket", title: t("tabBar.newWebSocket"), Icon: Plug, run: () => addTab("websocket") },
+                { id: "new-grpc", title: t("tabBar.newGrpc"), Icon: Boxes, run: () => addTab("grpc") },
+                { id: "duplicate-tab", title: t("tabBar.duplicateTab"), Icon: Copy, run: () => duplicateTab(activeTabRef.current.id) },
+                shortcut("closeTab", t("shortcuts.closeTab"), X),
+                shortcut("nextTab", t("shortcuts.nextTab"), ArrowRight),
+                shortcut("prevTab", t("shortcuts.prevTab"), ArrowLeft),
+                shortcut("focusUrl", t("shortcuts.focusUrl"), Link2),
+                { id: "import-curl", title: t("toolbar.importCurl"), Icon: Terminal, run: () => setImportCurlOpen(true) },
+                { id: "import-collection", title: t("toolbar.importCollection"), Icon: Download, run: () => setImportOpen(true) },
+                { id: "generate-code", title: t("toolbar.code"), Icon: IconCode, run: () => setCodeGenOpen(true) },
+                { id: "environments", title: t("environmentManager.manageDialogTitle"), Icon: IconSettings, run: () => setEnvMgrOpen(true) },
+                { id: "cookies", title: t("toolbar.cookies"), Icon: Cookie, run: () => setCookieJarOpen(true) },
+                { id: "shortcuts", title: t("toolbar.shortcuts"), Icon: Keyboard, run: () => setHelpOpen(true) },
+                switchEnv(null, t("environmentManager.noEnvironment")),
+                ...environments.map((env) => switchEnv(env.id, env.name)),
+            ],
+        }
+    }, [t, tNav, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId])
+    usePaletteActions(paletteGroup)
 
     // Desktop request column — reused whether it sits full-width (no response yet)
     // or inside the resizable split (once a response exists / is loading).
@@ -1180,6 +1247,8 @@ function ApiClientInner() {
                     onLoadExample={handleLoadExample}
                     comments={activeTab.comments}
                     setComments={setField.comments}
+                    settings={requestSettings}
+                    setSettings={setField.settings}
                 />
             </div>
         </div>
@@ -1306,7 +1375,7 @@ function ApiClientInner() {
                                     onOpenChange={setSaveOpen}
                                     showTrigger
                                 />
-                                <ImportCurlDialog onImport={handleImportCurl} />
+                                <ImportCurlDialog onImport={handleImportCurl} open={importCurlOpen} onOpenChange={setImportCurlOpen} showTrigger />
                                 <Button
                                     variant="ghost"
                                     size="icon"
@@ -1489,6 +1558,8 @@ function ApiClientInner() {
                                             onLoadExample={handleLoadExample}
                                             comments={activeTab.comments}
                                             setComments={setField.comments}
+                                            settings={requestSettings}
+                                            setSettings={setField.settings}
                                         />
                                     </div>
                                 </div>

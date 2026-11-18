@@ -1871,7 +1871,13 @@
       "sending": "A enviar...",
       "send": "Enviar",
       "invalidJsonBodyHelp": "Não é possível enviar: o corpo JSON é inválido",
-      "copyCurl": "Copiar como cURL"
+      "copyCurl": "Copiar como cURL",
+      "variable": {
+        "dynamic": "gerado em cada envio",
+        "response": "lido da resposta anterior ao enviar",
+        "secret": "secreto, resolvido ao enviar",
+        "missing": "não definida no ambiente ativo"
+      }
     },
     "requestTabs": {
       "params": "Parâmetros",
@@ -1903,7 +1909,21 @@
       "addTo": "Adicionar em",
       "header": "Cabeçalho",
       "queryParams": "Parâmetros de consulta",
-      "noAuthHint": "Este pedido não utiliza autenticação."
+      "noAuthHint": "Este pedido não utiliza autenticação.",
+      "settings": "Definições"
+    },
+    "requestSettings": {
+      "timeout": "Tempo limite (ms)",
+      "timeoutHint": "Vazio usa a predefinição de 30 segundos. Máx. 600000.",
+      "followRedirects": "Seguir redirecionamentos",
+      "followRedirectsHint": "Desligado devolve a própria resposta 3xx.",
+      "maxRedirects": "Máx. redirecionamentos",
+      "maxRedirectsHint": "Vazio usa 5. Máx. 50.",
+      "verifySsl": "Verificar certificados SSL",
+      "verifySslHint": "Rejeitar certificados autoassinados, expirados ou não correspondentes.",
+      "verifySslOffHint": "Desligado: qualquer certificado é aceite. Use apenas com anfitriões de confiança.",
+      "cookieJar": "Usar frasco de cookies",
+      "cookieJarHint": "Enviar cookies guardados e guardar cookies das respostas."
     },
     "responsePanel": {
       "emptyTitle": "Pronto para explorar?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Novo separador",
-      "unsavedChanges": "Alterações não guardadas"
+      "unsavedChanges": "Alterações não guardadas",
+      "newRest": "Novo pedido REST",
+      "newWebSocket": "Novo WebSocket",
+      "newGrpc": "Novo gRPC-Web",
+      "duplicateTab": "Duplicar separador"
     },
     "collectionsSidebar": {
       "title": "Recursos API",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Guardar pedido"
+      "saveRequest": "Guardar pedido",
+      "nextTab": "Separador seguinte",
+      "prevTab": "Separador anterior",
+      "focusUrl": "Focar a barra de URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Mudar de ambiente: {name}"
     },
     "customMethod": {
       "option": "Personalizado…",

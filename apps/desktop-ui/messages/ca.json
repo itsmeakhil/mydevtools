@@ -1871,7 +1871,13 @@
       "sending": "S'està enviant...",
       "send": "Envia",
       "invalidJsonBodyHelp": "No es pot enviar: el cos JSON no és vàlid",
-      "copyCurl": "Copia com a cURL"
+      "copyCurl": "Copia com a cURL",
+      "variable": {
+        "dynamic": "es genera a cada enviament",
+        "response": "es llegeix de la resposta anterior en enviar",
+        "secret": "secret, es resol en enviar",
+        "missing": "no definida a l'entorn actiu"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1903,7 +1909,21 @@
       "addTo": "Afegeix a",
       "header": "Capçalera",
       "queryParams": "Paràmetres de consulta",
-      "noAuthHint": "Aquesta petició no usa autenticació."
+      "noAuthHint": "Aquesta petició no usa autenticació.",
+      "settings": "Configuració"
+    },
+    "requestSettings": {
+      "timeout": "Temps d'espera (ms)",
+      "timeoutHint": "Buit fa servir el valor per defecte de 30 segons. Màx. 600000.",
+      "followRedirects": "Segueix les redireccions",
+      "followRedirectsHint": "Desactivat retorna la mateixa resposta 3xx.",
+      "maxRedirects": "Màx. redireccions",
+      "maxRedirectsHint": "Buit fa servir 5. Màx. 50.",
+      "verifySsl": "Verifica els certificats SSL",
+      "verifySslHint": "Rebutja certificats autosignats, caducats o que no coincideixen.",
+      "verifySslOffHint": "Desactivat: s'accepta qualsevol certificat. Fes-ho servir només amb servidors de confiança.",
+      "cookieJar": "Fes servir el pot de galetes",
+      "cookieJarHint": "Envia les galetes desades i desa les galetes de les respostes."
     },
     "responsePanel": {
       "emptyTitle": "A punt per explorar?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Pestanya nova",
-      "unsavedChanges": "Canvis sense desar"
+      "unsavedChanges": "Canvis sense desar",
+      "newRest": "Nova sol·licitud REST",
+      "newWebSocket": "Nou WebSocket",
+      "newGrpc": "Nou gRPC-Web",
+      "duplicateTab": "Duplica la pestanya"
     },
     "collectionsSidebar": {
       "title": "Recursos API",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Desa la sol·licitud"
+      "saveRequest": "Desa la sol·licitud",
+      "nextTab": "Pestanya següent",
+      "prevTab": "Pestanya anterior",
+      "focusUrl": "Enfoca la barra d'URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Canvia d'entorn: {name}"
     },
     "customMethod": {
       "option": "Personalitzat…",

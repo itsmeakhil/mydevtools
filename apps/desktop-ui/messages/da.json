@@ -1871,7 +1871,13 @@
       "sending": "Sender...",
       "send": "Sende",
       "invalidJsonBodyHelp": "Kan ikke sende: JSON-brødteksten er ugyldig",
-      "copyCurl": "Kopiér som cURL"
+      "copyCurl": "Kopiér som cURL",
+      "variable": {
+        "dynamic": "genereres ved hver afsendelse",
+        "response": "læses fra det forrige svar ved afsendelse",
+        "secret": "hemmelig, opløses ved afsendelse",
+        "missing": "ikke defineret i det aktive miljø"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1903,7 +1909,21 @@
       "addTo": "Tilføj til",
       "header": "Overskrift",
       "queryParams": "Forespørgselsparametre",
-      "noAuthHint": "Denne anmodning bruger ikke godkendelse."
+      "noAuthHint": "Denne anmodning bruger ikke godkendelse.",
+      "settings": "Indstillinger"
+    },
+    "requestSettings": {
+      "timeout": "Timeout (ms)",
+      "timeoutHint": "Tom bruger standarden på 30 sekunder. Maks. 600000.",
+      "followRedirects": "Følg omdirigeringer",
+      "followRedirectsHint": "Fra returnerer selve 3xx-svaret.",
+      "maxRedirects": "Maks. omdirigeringer",
+      "maxRedirectsHint": "Tom bruger 5. Maks. 50.",
+      "verifySsl": "Bekræft SSL-certifikater",
+      "verifySslHint": "Afvis selvsignerede, udløbne eller forkerte certifikater.",
+      "verifySslOffHint": "Fra: ethvert certifikat accepteres. Brug kun med værter, du stoler på.",
+      "cookieJar": "Brug cookie-krukke",
+      "cookieJarHint": "Send gemte cookies og gem cookies fra svar."
     },
     "responsePanel": {
       "emptyTitle": "Klar til at udforske?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Ny fane",
-      "unsavedChanges": "Ikke-gemte ændringer"
+      "unsavedChanges": "Ikke-gemte ændringer",
+      "newRest": "Ny REST-anmodning",
+      "newWebSocket": "Ny WebSocket",
+      "newGrpc": "Ny gRPC-Web",
+      "duplicateTab": "Dupliker fane"
     },
     "collectionsSidebar": {
       "title": "API-ressourcer",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Gem anmodning"
+      "saveRequest": "Gem anmodning",
+      "nextTab": "Næste fane",
+      "prevTab": "Forrige fane",
+      "focusUrl": "Fokusér URL-linjen"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Skift miljø: {name}"
     },
     "customMethod": {
       "option": "Brugerdefineret…",

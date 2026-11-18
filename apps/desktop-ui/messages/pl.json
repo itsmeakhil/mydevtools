@@ -1871,7 +1871,13 @@
       "sending": "Sending...",
       "send": "Send",
       "invalidJsonBodyHelp": "Nie można wysłać: treść JSON jest nieprawidłowa",
-      "copyCurl": "Kopiuj jako cURL"
+      "copyCurl": "Kopiuj jako cURL",
+      "variable": {
+        "dynamic": "generowane przy każdym wysłaniu",
+        "response": "odczytywane z poprzedniej odpowiedzi przy wysyłaniu",
+        "secret": "sekret, rozwiązywany przy wysyłaniu",
+        "missing": "nie zdefiniowano w aktywnym środowisku"
+      }
     },
     "requestTabs": {
       "params": "Params",
@@ -1903,7 +1909,21 @@
       "addTo": "Add to",
       "header": "Header",
       "queryParams": "Query params",
-      "noAuthHint": "This request does not use authentication."
+      "noAuthHint": "This request does not use authentication.",
+      "settings": "Ustawienia"
+    },
+    "requestSettings": {
+      "timeout": "Limit czasu (ms)",
+      "timeoutHint": "Puste używa domyślnych 30 sekund. Maks. 600000.",
+      "followRedirects": "Podążaj za przekierowaniami",
+      "followRedirectsHint": "Wyłączone zwraca samą odpowiedź 3xx.",
+      "maxRedirects": "Maks. przekierowań",
+      "maxRedirectsHint": "Puste używa 5. Maks. 50.",
+      "verifySsl": "Weryfikuj certyfikaty SSL",
+      "verifySslHint": "Odrzucaj certyfikaty samopodpisane, wygasłe lub niezgodne.",
+      "verifySslOffHint": "Wyłączone: akceptowany jest każdy certyfikat. Używaj tylko z zaufanymi hostami.",
+      "cookieJar": "Używaj magazynu ciasteczek",
+      "cookieJarHint": "Wysyłaj zapisane ciasteczka i zapisuj ciasteczka z odpowiedzi."
     },
     "responsePanel": {
       "emptyTitle": "Ready to explore?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "New tab",
-      "unsavedChanges": "Niezapisane zmiany"
+      "unsavedChanges": "Niezapisane zmiany",
+      "newRest": "Nowe żądanie REST",
+      "newWebSocket": "Nowy WebSocket",
+      "newGrpc": "Nowy gRPC-Web",
+      "duplicateTab": "Duplikuj kartę"
     },
     "collectionsSidebar": {
       "title": "API resources",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Zapisz żądanie"
+      "saveRequest": "Zapisz żądanie",
+      "nextTab": "Następna karta",
+      "prevTab": "Poprzednia karta",
+      "focusUrl": "Przejdź do paska URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Przełącz środowisko: {name}"
     },
     "customMethod": {
       "option": "Niestandardowa…",

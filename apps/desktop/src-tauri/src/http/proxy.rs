@@ -16,7 +16,8 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::OnceLock;
 use tauri::ipc::Channel;
 
-const MAX_REDIRECTS: usize = 5;
+const DEFAULT_MAX_REDIRECTS: usize = 5;
+const MAX_REDIRECTS_CAP: usize = 50;
 const DEFAULT_TIMEOUT_MS: u64 = 30_000;
 const MAX_TIMEOUT_MS: u64 = 600_000;
 /// Largest response body the non-streaming path will buffer. The body crosses
@@ -96,12 +97,14 @@ fn is_textual_content_type(ct: &str) -> bool {
             .any(|t| l.contains(t))
 }
 
-// One pooled client per proxy mode so TLS sessions + keep-alive connections are
-// reused across sends; building a client per request cost a full handshake each time.
-static CLIENTS: [OnceLock<reqwest::Client>; 2] = [OnceLock::new(), OnceLock::new()];
+// One pooled client per (proxy mode, cert checking) so TLS sessions + keep-alive
+// connections are reused across sends; building a client per request cost a full
+// handshake each time. Insecure clients get their own pool so a connection opened
+// with verification off is never reused by a request that wants it on.
+static CLIENTS: [OnceLock<reqwest::Client>; 4] = [OnceLock::new(), OnceLock::new(), OnceLock::new(), OnceLock::new()];
 
-fn plain_client(bypass_proxy: bool) -> Result<reqwest::Client, String> {
-    let slot = &CLIENTS[bypass_proxy as usize];
+fn plain_client(bypass_proxy: bool, insecure: bool) -> Result<reqwest::Client, String> {
+    let slot = &CLIENTS[bypass_proxy as usize | (insecure as usize) << 1];
     if let Some(c) = slot.get() {
         return Ok(c.clone());
     }
@@ -110,6 +113,9 @@ fn plain_client(bypass_proxy: bool) -> Result<reqwest::Client, String> {
         .user_agent("mydevtools-desktop");
     if bypass_proxy {
         builder = builder.no_proxy();
+    }
+    if insecure {
+        builder = builder.danger_accept_invalid_certs(true);
     }
     let client = builder.build().map_err(|e| e.to_string())?;
     Ok(slot.get_or_init(|| client).clone())
@@ -173,6 +179,27 @@ impl BodyKind {
     }
 }
 
+/// Per-request transport settings from the api-client Settings tab.
+#[derive(Debug, PartialEq)]
+struct SendOptions {
+    /// `None` = return the first response, even a 3xx.
+    max_redirects: Option<usize>,
+    insecure: bool,
+}
+
+impl SendOptions {
+    fn from_input(input: &Value) -> Self {
+        let follow = input["followRedirects"].as_bool().unwrap_or(true);
+        let max = input["maxRedirects"]
+            .as_u64()
+            .map_or(DEFAULT_MAX_REDIRECTS, |n| (n as usize).min(MAX_REDIRECTS_CAP));
+        SendOptions {
+            max_redirects: follow.then_some(max),
+            insecure: input["verifySsl"].as_bool() == Some(false),
+        }
+    }
+}
+
 struct Walked {
     response: reqwest::Response,
     chain: Vec<Value>,
@@ -186,13 +213,16 @@ async fn fetch_following_redirects(
     body: &Option<BodyKind>,
     timeout: std::time::Duration,
     is_multipart: bool,
+    max_redirects: Option<usize>,
 ) -> Result<Walked, String> {
     let mut current_url = initial_url.to_string();
     let mut current_method = method.to_uppercase();
     let mut drop_body = false;
     let mut chain: Vec<Value> = Vec::new();
 
-    for _hop in 0..=MAX_REDIRECTS {
+    let follow = max_redirects.is_some();
+    let max_redirects = max_redirects.unwrap_or(0);
+    for _hop in 0..=max_redirects {
         let url = reqwest::Url::parse(&current_url).map_err(|_| "Invalid URL format".to_string())?;
         assert_hop_allowed(&url)?;
 
@@ -217,7 +247,7 @@ async fn fetch_following_redirects(
         let response = req.send().await.map_err(|e| full_error_chain(&e))?;
         let status = response.status().as_u16();
         let is_redirect = (300..400).contains(&status) && status != 304;
-        if !is_redirect {
+        if !is_redirect || !follow {
             return Ok(Walked { response, chain });
         }
         let Some(location) = response
@@ -238,7 +268,7 @@ async fn fetch_following_redirects(
         }
         current_url = next.to_string();
     }
-    Err(format!("Too many redirects (>{MAX_REDIRECTS})"))
+    Err(format!("Too many redirects (>{max_redirects})"))
 }
 
 fn too_large(len: usize) -> String {
@@ -288,8 +318,9 @@ pub async fn http_request(input: Value) -> Value {
         Err(e) => return envelope_error(0, "Error", &e),
     };
     let is_multipart = matches!(body, Some(BodyKind::Multipart(_)));
+    let opts = SendOptions::from_input(&input);
 
-    let client = match plain_client(is_local_target(&parsed)) {
+    let client = match plain_client(is_local_target(&parsed), opts.insecure) {
         Ok(c) => c,
         Err(e) => return envelope_error(0, "Error", &e),
     };
@@ -302,6 +333,7 @@ pub async fn http_request(input: Value) -> Value {
         &body,
         std::time::Duration::from_millis(timeout_ms),
         is_multipart,
+        opts.max_redirects,
     )
     .await
     {
@@ -380,7 +412,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
         let emit = |v: Value| {
             let _ = channel.send(v);
         };
-        let client = match plain_client(bypass_proxy) {
+        let client = match plain_client(bypass_proxy, false) {
             Ok(c) => c,
             Err(e) => {
                 emit(json!({ "kind": "error", "message": e }));
@@ -465,11 +497,43 @@ mod tests {
     }
 
     #[test]
+    fn send_options_defaults_and_overrides() {
+        let o = |v: Value| SendOptions::from_input(&v);
+        assert_eq!(o(json!({})), SendOptions { max_redirects: Some(5), insecure: false });
+        assert_eq!(o(json!({ "followRedirects": false })).max_redirects, None);
+        assert_eq!(o(json!({ "maxRedirects": 0 })).max_redirects, Some(0));
+        assert_eq!(o(json!({ "maxRedirects": 999 })).max_redirects, Some(50));
+        assert!(o(json!({ "verifySsl": false })).insecure);
+        assert!(!o(json!({ "verifySsl": true })).insecure);
+    }
+
+    #[test]
     fn textual_content_type_detection() {
         assert!(is_textual_content_type("application/json; charset=utf-8"));
         assert!(is_textual_content_type("text/html"));
         assert!(!is_textual_content_type("application/octet-stream"));
         assert!(!is_textual_content_type(""));
+    }
+
+    #[tokio::test]
+    #[ignore] // network
+    async fn redirect_and_cert_settings() {
+        let url = "https://httpbin.org/redirect-to?url=%2Fget&status_code=302";
+        let r = http_request(json!({ "url": url, "method": "GET", "followRedirects": false })).await;
+        assert_eq!(r["status"], 302, "{r}");
+        assert_eq!(r["redirectChain"].as_array().unwrap().len(), 0);
+
+        let r = http_request(json!({ "url": url, "method": "GET", "maxRedirects": 0 })).await;
+        assert!(r["error"].as_str().unwrap_or("").contains("Too many redirects"), "{r}");
+
+        let bad = "https://self-signed.badssl.com/";
+        let r = http_request(json!({ "url": bad, "method": "GET" })).await;
+        assert!(r["error"].is_string(), "{r}");
+        let r = http_request(json!({ "url": bad, "method": "GET", "verifySsl": false })).await;
+        assert_eq!(r["status"], 200, "{r}");
+        // The insecure pool must not leak into a later default request.
+        let r = http_request(json!({ "url": bad, "method": "GET" })).await;
+        assert!(r["error"].is_string(), "{r}");
     }
 
     #[tokio::test]

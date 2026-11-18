@@ -1871,7 +1871,13 @@
       "sending": "Mengirim...",
       "send": "Kirim",
       "invalidJsonBodyHelp": "Tidak dapat mengirim: isi JSON tidak valid",
-      "copyCurl": "Salin sebagai cURL"
+      "copyCurl": "Salin sebagai cURL",
+      "variable": {
+        "dynamic": "dibuat setiap kali dikirim",
+        "response": "dibaca dari respons sebelumnya saat dikirim",
+        "secret": "rahasia, diisi saat dikirim",
+        "missing": "tidak didefinisikan di lingkungan aktif"
+      }
     },
     "requestTabs": {
       "params": "parameter",
@@ -1903,7 +1909,21 @@
       "addTo": "Tambahkan ke",
       "header": "Header",
       "queryParams": "Parameter kueri",
-      "noAuthHint": "Permintaan ini tidak menggunakan autentikasi."
+      "noAuthHint": "Permintaan ini tidak menggunakan autentikasi.",
+      "settings": "Pengaturan"
+    },
+    "requestSettings": {
+      "timeout": "Batas waktu (ms)",
+      "timeoutHint": "Kosong memakai bawaan 30 detik. Maks 600000.",
+      "followRedirects": "Ikuti pengalihan",
+      "followRedirectsHint": "Nonaktif mengembalikan respons 3xx itu sendiri.",
+      "maxRedirects": "Maks pengalihan",
+      "maxRedirectsHint": "Kosong memakai 5. Maks 50.",
+      "verifySsl": "Verifikasi sertifikat SSL",
+      "verifySslHint": "Tolak sertifikat yang ditandatangani sendiri, kedaluwarsa, atau tidak cocok.",
+      "verifySslOffHint": "Nonaktif: sertifikat apa pun diterima. Gunakan hanya dengan host tepercaya.",
+      "cookieJar": "Gunakan wadah cookie",
+      "cookieJarHint": "Kirim cookie tersimpan dan simpan cookie dari respons."
     },
     "responsePanel": {
       "emptyTitle": "Siap Untuk Mengeksplorasi Web3?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "New tab",
-      "unsavedChanges": "Perubahan belum disimpan"
+      "unsavedChanges": "Perubahan belum disimpan",
+      "newRest": "Permintaan REST baru",
+      "newWebSocket": "WebSocket baru",
+      "newGrpc": "gRPC-Web baru",
+      "duplicateTab": "Duplikat tab"
     },
     "collectionsSidebar": {
       "title": "API resources",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Simpan permintaan"
+      "saveRequest": "Simpan permintaan",
+      "nextTab": "Tab berikutnya",
+      "prevTab": "Tab sebelumnya",
+      "focusUrl": "Fokus ke bilah URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Ganti lingkungan: {name}"
     },
     "customMethod": {
       "option": "Kustom…",

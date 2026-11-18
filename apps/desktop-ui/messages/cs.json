@@ -1871,7 +1871,13 @@
       "sending": "Odesílání...",
       "send": "Odeslat",
       "invalidJsonBodyHelp": "Nelze odeslat: tělo JSON není platné",
-      "copyCurl": "Kopírovat jako cURL"
+      "copyCurl": "Kopírovat jako cURL",
+      "variable": {
+        "dynamic": "generuje se při každém odeslání",
+        "response": "čte se z předchozí odpovědi při odeslání",
+        "secret": "tajné, vyřeší se při odeslání",
+        "missing": "není definováno v aktivním prostředí"
+      }
     },
     "requestTabs": {
       "params": "Parametry",
@@ -1903,7 +1909,21 @@
       "addTo": "Přidat do",
       "header": "Hlavička",
       "queryParams": "Dotazové parametry",
-      "noAuthHint": "Tento požadavek nepoužívá autentizaci."
+      "noAuthHint": "Tento požadavek nepoužívá autentizaci.",
+      "settings": "Nastavení"
+    },
+    "requestSettings": {
+      "timeout": "Časový limit (ms)",
+      "timeoutHint": "Prázdné použije výchozích 30 sekund. Max. 600000.",
+      "followRedirects": "Následovat přesměrování",
+      "followRedirectsHint": "Vypnuto vrátí samotnou odpověď 3xx.",
+      "maxRedirects": "Max. přesměrování",
+      "maxRedirectsHint": "Prázdné použije 5. Max. 50.",
+      "verifySsl": "Ověřovat certifikáty SSL",
+      "verifySslHint": "Odmítnout certifikáty podepsané sebou samými, prošlé nebo neodpovídající.",
+      "verifySslOffHint": "Vypnuto: přijme se jakýkoli certifikát. Používejte jen u serverů, kterým důvěřujete.",
+      "cookieJar": "Používat úložiště cookies",
+      "cookieJarHint": "Odesílat uložené cookies a ukládat cookies z odpovědí."
     },
     "responsePanel": {
       "emptyTitle": "Připraveno k prozkoumání?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Nová karta",
-      "unsavedChanges": "Neuložené změny"
+      "unsavedChanges": "Neuložené změny",
+      "newRest": "Nový požadavek REST",
+      "newWebSocket": "Nový WebSocket",
+      "newGrpc": "Nový gRPC-Web",
+      "duplicateTab": "Duplikovat kartu"
     },
     "collectionsSidebar": {
       "title": "API zdroje",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Uložit požadavek"
+      "saveRequest": "Uložit požadavek",
+      "nextTab": "Další karta",
+      "prevTab": "Předchozí karta",
+      "focusUrl": "Přejít na řádek URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Přepnout prostředí: {name}"
     },
     "customMethod": {
       "option": "Vlastní…",

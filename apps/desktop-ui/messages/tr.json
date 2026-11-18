@@ -1871,7 +1871,13 @@
       "sending": "Gönderiliyor...",
       "send": "Gönder",
       "invalidJsonBodyHelp": "Gönderilemedi: JSON gövdesi geçersiz",
-      "copyCurl": "cURL olarak kopyala"
+      "copyCurl": "cURL olarak kopyala",
+      "variable": {
+        "dynamic": "her gönderimde üretilir",
+        "response": "gönderimde önceki yanıttan okunur",
+        "secret": "gizli, gönderimde çözümlenir",
+        "missing": "etkin ortamda tanımlı değil"
+      }
     },
     "requestTabs": {
       "params": "Parametreler",
@@ -1903,7 +1909,21 @@
       "addTo": "Ekle",
       "header": "Başlık",
       "queryParams": "Sorgu parametreleri",
-      "noAuthHint": "Bu istek kimlik doğrulama kullanmıyor."
+      "noAuthHint": "Bu istek kimlik doğrulama kullanmıyor.",
+      "settings": "Ayarlar"
+    },
+    "requestSettings": {
+      "timeout": "Zaman aşımı (ms)",
+      "timeoutHint": "Boş bırakılırsa varsayılan 30 saniye kullanılır. En fazla 600000.",
+      "followRedirects": "Yönlendirmeleri izle",
+      "followRedirectsHint": "Kapalıyken 3xx yanıtının kendisi döner.",
+      "maxRedirects": "En fazla yönlendirme",
+      "maxRedirectsHint": "Boş bırakılırsa 5 kullanılır. En fazla 50.",
+      "verifySsl": "SSL sertifikalarını doğrula",
+      "verifySslHint": "Kendinden imzalı, süresi dolmuş veya eşleşmeyen sertifikaları reddet.",
+      "verifySslOffHint": "Kapalı: her sertifika kabul edilir. Yalnızca güvendiğiniz sunucularla kullanın.",
+      "cookieJar": "Çerez kavanozunu kullan",
+      "cookieJarHint": "Kayıtlı çerezleri gönder ve yanıtlardaki çerezleri kaydet."
     },
     "responsePanel": {
       "emptyTitle": "Keşfetmeye hazır mısınız?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Yeni sekme",
-      "unsavedChanges": "Kaydedilmemiş değişiklikler"
+      "unsavedChanges": "Kaydedilmemiş değişiklikler",
+      "newRest": "Yeni REST isteği",
+      "newWebSocket": "Yeni WebSocket",
+      "newGrpc": "Yeni gRPC-Web",
+      "duplicateTab": "Sekmeyi çoğalt"
     },
     "collectionsSidebar": {
       "title": "API kaynakları",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "İsteği kaydet"
+      "saveRequest": "İsteği kaydet",
+      "nextTab": "Sonraki sekme",
+      "prevTab": "Önceki sekme",
+      "focusUrl": "URL çubuğuna odaklan"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Ortamı değiştir: {name}"
     },
     "customMethod": {
       "option": "Özel…",

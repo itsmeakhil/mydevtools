@@ -1871,7 +1871,13 @@
       "sending": "ارسال...",
       "send": "ارسال کنید",
       "invalidJsonBodyHelp": "ارسال امکان‌پذیر نیست: بدنه JSON نامعتبر است",
-      "copyCurl": "کپی به‌صورت cURL"
+      "copyCurl": "کپی به‌صورت cURL",
+      "variable": {
+        "dynamic": "در هر ارسال تولید می‌شود",
+        "response": "هنگام ارسال از پاسخ قبلی خوانده می‌شود",
+        "secret": "محرمانه، هنگام ارسال جایگزین می‌شود",
+        "missing": "در محیط فعال تعریف نشده است"
+      }
     },
     "requestTabs": {
       "params": "پارامترها",
@@ -1903,7 +1909,21 @@
       "addTo": "اضافه کردن به",
       "header": "سربرگ",
       "queryParams": "پارامترهای پرس و جو",
-      "noAuthHint": "این درخواست از احراز هویت استفاده نمی کند."
+      "noAuthHint": "این درخواست از احراز هویت استفاده نمی کند.",
+      "settings": "تنظیمات"
+    },
+    "requestSettings": {
+      "timeout": "مهلت (میلی‌ثانیه)",
+      "timeoutHint": "خالی از پیش‌فرض ۳۰ ثانیه استفاده می‌کند. حداکثر 600000.",
+      "followRedirects": "دنبال کردن تغییر مسیرها",
+      "followRedirectsHint": "خاموش خود پاسخ 3xx را برمی‌گرداند.",
+      "maxRedirects": "حداکثر تغییر مسیر",
+      "maxRedirectsHint": "خالی از 5 استفاده می‌کند. حداکثر 50.",
+      "verifySsl": "تأیید گواهی‌های SSL",
+      "verifySslHint": "رد گواهی‌های خودامضا، منقضی یا ناهمخوان.",
+      "verifySslOffHint": "خاموش: هر گواهی‌ای پذیرفته می‌شود. فقط با میزبان‌های مورد اعتماد استفاده کنید.",
+      "cookieJar": "استفاده از ظرف کوکی",
+      "cookieJarHint": "ارسال کوکی‌های ذخیره‌شده و ذخیرهٔ کوکی‌های پاسخ‌ها."
     },
     "responsePanel": {
       "emptyTitle": "آماده کاوش هستید؟",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "برگه جدید",
-      "unsavedChanges": "تغییرات ذخیره‌نشده"
+      "unsavedChanges": "تغییرات ذخیره‌نشده",
+      "newRest": "درخواست REST جدید",
+      "newWebSocket": "WebSocket جدید",
+      "newGrpc": "gRPC-Web جدید",
+      "duplicateTab": "تکثیر زبانه"
     },
     "collectionsSidebar": {
       "title": "منابع API",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "ذخیره درخواست"
+      "saveRequest": "ذخیره درخواست",
+      "nextTab": "زبانه بعدی",
+      "prevTab": "زبانه قبلی",
+      "focusUrl": "تمرکز روی نوار URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "تغییر محیط: {name}"
     },
     "customMethod": {
       "option": "سفارشی…",

@@ -21,6 +21,7 @@ import {
   CATEGORY_ORDER, RECENT_STORAGE_KEY, STATIC_ENTRIES_WITH_SEARCH,
   getToolEntries, paletteFilter, type PaletteEntry,
 } from './palette-entries'
+import { useRegisteredPaletteActions, type PaletteAction } from '@/lib/palette-actions'
 
 export function GlobalCommandPalette() {
   const [open, setOpen] = React.useState(false)
@@ -29,6 +30,10 @@ export function GlobalCommandPalette() {
   const router = useRouter()
   const { user } = useAuth(false)
   const pinnedTools = usePinnedToolsForActiveWorkspace()
+  const toolActions = useRegisteredPaletteActions()
+  // Run after the dialog hands focus back (onCloseAutoFocus), so an action
+  // that moves focus (e.g. "Focus URL") isn't immediately undone.
+  const pendingActionRef = React.useRef<PaletteAction | null>(null)
 
   const entries = React.useMemo((): PaletteEntry[] => {
     return [...STATIC_ENTRIES_WITH_SEARCH, ...getToolEntries()]
@@ -154,6 +159,13 @@ export function GlobalCommandPalette() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent
         showCloseButton={false}
+        onCloseAutoFocus={(e) => {
+          const action = pendingActionRef.current
+          if (!action) return
+          pendingActionRef.current = null
+          e.preventDefault()
+          action.run()
+        }}
         className={cn(
           'overflow-hidden p-0 gap-0 max-w-2xl',
           'max-h-[min(85vh,640px)] flex flex-col',
@@ -177,6 +189,38 @@ export function GlobalCommandPalette() {
           />
           <CommandList className="max-h-[min(60vh,480px)] overflow-y-auto">
             <CommandEmpty>No results found.</CommandEmpty>
+            {toolActions && toolActions.actions.length > 0 && (
+              <React.Fragment>
+                <CommandGroup heading={toolActions.heading}>
+                  {toolActions.actions.map((action) => {
+                    const ItemIcon = action.Icon
+                    return (
+                      <CommandItem
+                        key={`action-${action.id}`}
+                        value={`action-${action.id}`}
+                        keywords={[action.title.toLowerCase(), [action.title, ...(action.keywords ?? [])].join(' ').toLowerCase()]}
+                        onSelect={() => {
+                          pendingActionRef.current = action
+                          setOpen(false)
+                        }}
+                        className={itemClass}
+                      >
+                        <span className={chipClass}>
+                          {ItemIcon ? <ItemIcon className="h-4 w-4" aria-hidden /> : null}
+                        </span>
+                        <span className="min-w-0 flex-1 truncate font-medium">{action.title}</span>
+                        {action.hint ? (
+                          <kbd className="pointer-events-none shrink-0 rounded-sm bg-foreground/[0.06] px-1.5 py-0.5 font-sans text-[11px] font-medium text-muted-foreground">
+                            {action.hint}
+                          </kbd>
+                        ) : null}
+                      </CommandItem>
+                    )
+                  })}
+                </CommandGroup>
+                <CommandSeparator />
+              </React.Fragment>
+            )}
             {recentEntries.length > 0 && (
               <React.Fragment>
                 <CommandGroup heading="Recent">

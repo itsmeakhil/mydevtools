@@ -1871,7 +1871,13 @@
       "sending": "Menghantar...",
       "send": "Hantar",
       "invalidJsonBodyHelp": "Tidak boleh hantar: kandungan JSON tidak sah",
-      "copyCurl": "Salin sebagai cURL"
+      "copyCurl": "Salin sebagai cURL",
+      "variable": {
+        "dynamic": "dijana pada setiap penghantaran",
+        "response": "dibaca daripada respons sebelumnya semasa hantar",
+        "secret": "rahsia, diselesaikan semasa hantar",
+        "missing": "tidak ditakrifkan dalam persekitaran aktif"
+      }
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1903,7 +1909,21 @@
       "addTo": "Tambah ke",
       "header": "Pengepala",
       "queryParams": "Parameter pertanyaan",
-      "noAuthHint": "Permintaan ini tidak menggunakan pengesahan."
+      "noAuthHint": "Permintaan ini tidak menggunakan pengesahan.",
+      "settings": "Tetapan"
+    },
+    "requestSettings": {
+      "timeout": "Had masa (ms)",
+      "timeoutHint": "Kosong menggunakan lalai 30 saat. Maks 600000.",
+      "followRedirects": "Ikut ubah hala",
+      "followRedirectsHint": "Mati memulangkan respons 3xx itu sendiri.",
+      "maxRedirects": "Maks ubah hala",
+      "maxRedirectsHint": "Kosong menggunakan 5. Maks 50.",
+      "verifySsl": "Sahkan sijil SSL",
+      "verifySslHint": "Tolak sijil yang ditandatangani sendiri, tamat tempoh atau tidak sepadan.",
+      "verifySslOffHint": "Mati: sebarang sijil diterima. Gunakan hanya dengan hos yang anda percayai.",
+      "cookieJar": "Guna balang kuki",
+      "cookieJarHint": "Hantar kuki yang disimpan dan simpan kuki daripada respons."
     },
     "responsePanel": {
       "emptyTitle": "Sedia untuk meneroka?",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "Tab baharu",
-      "unsavedChanges": "Perubahan belum disimpan"
+      "unsavedChanges": "Perubahan belum disimpan",
+      "newRest": "Permintaan REST baharu",
+      "newWebSocket": "WebSocket baharu",
+      "newGrpc": "gRPC-Web baharu",
+      "duplicateTab": "Gandakan tab"
     },
     "collectionsSidebar": {
       "title": "Sumber API",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Simpan permintaan"
+      "saveRequest": "Simpan permintaan",
+      "nextTab": "Tab seterusnya",
+      "prevTab": "Tab sebelumnya",
+      "focusUrl": "Fokus pada bar URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Tukar persekitaran: {name}"
     },
     "customMethod": {
       "option": "Tersuai…",

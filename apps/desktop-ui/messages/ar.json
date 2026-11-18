@@ -1871,7 +1871,13 @@
       "sending": "جاري الإرسال...",
       "send": "إرسال",
       "invalidJsonBodyHelp": "لا يمكن الإرسال: نص JSON غير صالح",
-      "copyCurl": "نسخ كأمر cURL"
+      "copyCurl": "نسخ كأمر cURL",
+      "variable": {
+        "dynamic": "يُولَّد عند كل إرسال",
+        "response": "يُقرأ من الاستجابة السابقة عند الإرسال",
+        "secret": "سرّي، يُحَل عند الإرسال",
+        "missing": "غير معرّف في البيئة النشطة"
+      }
     },
     "requestTabs": {
       "params": "معاملات",
@@ -1903,7 +1909,21 @@
       "addTo": "إضافة إلى",
       "header": "رأس",
       "queryParams": "معاملات الاستعلام",
-      "noAuthHint": "هذا الطلب لا يستخدم مصادقة."
+      "noAuthHint": "هذا الطلب لا يستخدم مصادقة.",
+      "settings": "الإعدادات"
+    },
+    "requestSettings": {
+      "timeout": "المهلة (مللي ثانية)",
+      "timeoutHint": "الحقل الفارغ يستخدم المهلة الافتراضية 30 ثانية. الحد الأقصى 600000.",
+      "followRedirects": "اتباع عمليات إعادة التوجيه",
+      "followRedirectsHint": "عند الإيقاف تُعاد استجابة 3xx نفسها.",
+      "maxRedirects": "الحد الأقصى لإعادة التوجيه",
+      "maxRedirectsHint": "الحقل الفارغ يستخدم 5. الحد الأقصى 50.",
+      "verifySsl": "التحقق من شهادات SSL",
+      "verifySslHint": "رفض الشهادات الموقعة ذاتيًا أو المنتهية أو غير المطابقة.",
+      "verifySslOffHint": "موقف: تُقبل أي شهادة. استخدمه فقط مع خوادم تثق بها.",
+      "cookieJar": "استخدام وعاء ملفات تعريف الارتباط",
+      "cookieJarHint": "إرسال ملفات تعريف الارتباط المخزنة وحفظ ملفات تعريف الارتباط من الاستجابات."
     },
     "responsePanel": {
       "emptyTitle": "جاهز للاستكشاف؟",
@@ -1930,7 +1950,11 @@
     },
     "tabBar": {
       "addTabAria": "تبويب جديد",
-      "unsavedChanges": "تغييرات غير محفوظة"
+      "unsavedChanges": "تغييرات غير محفوظة",
+      "newRest": "طلب REST جديد",
+      "newWebSocket": "WebSocket جديد",
+      "newGrpc": "gRPC-Web جديد",
+      "duplicateTab": "تكرار علامة التبويب"
     },
     "collectionsSidebar": {
       "title": "موارد API",
@@ -2028,7 +2052,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "حفظ الطلب"
+      "saveRequest": "حفظ الطلب",
+      "nextTab": "علامة التبويب التالية",
+      "prevTab": "علامة التبويب السابقة",
+      "focusUrl": "التركيز على شريط URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2046,6 +2073,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "تبديل البيئة: {name}"
     },
     "customMethod": {
       "option": "مخصص…",
