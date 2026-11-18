@@ -2062,6 +2062,37 @@
       "password": "Passord",
       "refreshToken": "Oppdateringstoken",
       "refreshTokenHint": "Byttes mot et nytt tilgangstoken ved hver henting."
+    },
+    "collectionActions": {
+      "duplicate": "Dupliser",
+      "copyName": "{name} kopi",
+      "duplicateFailed": "Kunne ikke duplisere",
+      "searchPlaceholder": "Søk i samlinger",
+      "clearSearch": "Tøm søk",
+      "noSearchResults": "Ingen forespørsler samsvarer med «{query}»",
+      "moveTo": "Flytt til…",
+      "moveTitle": "Flytt «{name}»",
+      "moveDescription": "Velg en samling eller mappe. Elementet legges sist.",
+      "moveFailed": "Kunne ikke flytte",
+      "workspace": "Arbeidsområde",
+      "noWorkspace": "Ingen arbeidsområde",
+      "workspaceFailed": "Kunne ikke endre arbeidsområdet"
+    },
+    "workspaces": {
+      "title": "Arbeidsområder",
+      "description": "Grupper samlinger etter team, prosjekt eller miljø. Det aktive arbeidsområdet filtrerer sidepanelet.",
+      "createLabel": "Opprett arbeidsområde",
+      "createPlaceholder": "f.eks. Acme Prod",
+      "add": "Legg til",
+      "all": "Alle samlinger",
+      "allHint": "uten arbeidsområdefilter",
+      "rename": "Gi nytt navn",
+      "delete": "Slett",
+      "confirmDelete": "Slette «{name}»?",
+      "confirmDeleteHint": "Samlingene får ikke noe arbeidsområde.",
+      "cancel": "Avbryt",
+      "save": "Lagre",
+      "barLabel": "Arbeidsområde"
     }
   },
   "RichEditor": {

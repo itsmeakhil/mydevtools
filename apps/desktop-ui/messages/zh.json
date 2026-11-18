@@ -2062,6 +2062,37 @@
       "password": "密码",
       "refreshToken": "刷新令牌",
       "refreshTokenHint": "每次获取时换取新的访问令牌。"
+    },
+    "collectionActions": {
+      "duplicate": "复制",
+      "copyName": "{name} 副本",
+      "duplicateFailed": "无法复制",
+      "searchPlaceholder": "搜索集合",
+      "clearSearch": "清除搜索",
+      "noSearchResults": "没有与“{query}”匹配的请求",
+      "moveTo": "移动到…",
+      "moveTitle": "移动“{name}”",
+      "moveDescription": "选择一个集合或文件夹，项目会放在末尾。",
+      "moveFailed": "无法移动",
+      "workspace": "工作区",
+      "noWorkspace": "无工作区",
+      "workspaceFailed": "无法更改工作区"
+    },
+    "workspaces": {
+      "title": "工作区",
+      "description": "按团队、项目或环境对集合分组。当前工作区会筛选侧边栏。",
+      "createLabel": "创建工作区",
+      "createPlaceholder": "例如 Acme Prod",
+      "add": "添加",
+      "all": "全部集合",
+      "allHint": "不按工作区筛选",
+      "rename": "重命名",
+      "delete": "删除",
+      "confirmDelete": "删除“{name}”？",
+      "confirmDeleteHint": "其集合将不再属于任何工作区。",
+      "cancel": "取消",
+      "save": "保存",
+      "barLabel": "工作区"
     }
   },
   "RichEditor": {

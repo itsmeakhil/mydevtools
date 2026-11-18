@@ -2062,6 +2062,37 @@
       "password": "Lösenord",
       "refreshToken": "Uppdateringstoken",
       "refreshTokenHint": "Byts mot en ny åtkomsttoken vid varje hämtning."
+    },
+    "collectionActions": {
+      "duplicate": "Duplicera",
+      "copyName": "{name} kopia",
+      "duplicateFailed": "Kunde inte duplicera",
+      "searchPlaceholder": "Sök i samlingar",
+      "clearSearch": "Rensa sökning",
+      "noSearchResults": "Inga förfrågningar matchar ”{query}”",
+      "moveTo": "Flytta till…",
+      "moveTitle": "Flytta ”{name}”",
+      "moveDescription": "Välj en samling eller mapp. Objektet hamnar sist.",
+      "moveFailed": "Kunde inte flytta",
+      "workspace": "Arbetsyta",
+      "noWorkspace": "Ingen arbetsyta",
+      "workspaceFailed": "Kunde inte ändra arbetsytan"
+    },
+    "workspaces": {
+      "title": "Arbetsytor",
+      "description": "Gruppera samlingar efter team, projekt eller miljö. Den aktiva arbetsytan filtrerar sidofältet.",
+      "createLabel": "Skapa arbetsyta",
+      "createPlaceholder": "t.ex. Acme Prod",
+      "add": "Lägg till",
+      "all": "Alla samlingar",
+      "allHint": "inget arbetsytefilter",
+      "rename": "Byt namn",
+      "delete": "Ta bort",
+      "confirmDelete": "Ta bort ”{name}”?",
+      "confirmDeleteHint": "Dess samlingar får ingen arbetsyta.",
+      "cancel": "Avbryt",
+      "save": "Spara",
+      "barLabel": "Arbetsyta"
     }
   },
   "RichEditor": {

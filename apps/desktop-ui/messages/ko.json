@@ -2062,6 +2062,37 @@
       "password": "비밀번호",
       "refreshToken": "리프레시 토큰",
       "refreshTokenHint": "가져올 때마다 새 액세스 토큰으로 교환됩니다."
+    },
+    "collectionActions": {
+      "duplicate": "복제",
+      "copyName": "{name} 사본",
+      "duplicateFailed": "복제할 수 없습니다",
+      "searchPlaceholder": "컬렉션 검색",
+      "clearSearch": "검색 지우기",
+      "noSearchResults": "“{query}”와 일치하는 요청이 없습니다",
+      "moveTo": "이동…",
+      "moveTitle": "“{name}” 이동",
+      "moveDescription": "컬렉션이나 폴더를 선택하세요. 항목은 맨 끝에 추가됩니다.",
+      "moveFailed": "이동할 수 없습니다",
+      "workspace": "워크스페이스",
+      "noWorkspace": "워크스페이스 없음",
+      "workspaceFailed": "워크스페이스를 변경할 수 없습니다"
+    },
+    "workspaces": {
+      "title": "워크스페이스",
+      "description": "팀, 프로젝트, 환경별로 컬렉션을 묶습니다. 활성 워크스페이스가 사이드바를 필터링합니다.",
+      "createLabel": "워크스페이스 만들기",
+      "createPlaceholder": "예: Acme Prod",
+      "add": "추가",
+      "all": "모든 컬렉션",
+      "allHint": "워크스페이스 필터 없음",
+      "rename": "이름 변경",
+      "delete": "삭제",
+      "confirmDelete": "“{name}”을(를) 삭제할까요?",
+      "confirmDeleteHint": "해당 컬렉션은 워크스페이스 없음으로 돌아갑니다.",
+      "cancel": "취소",
+      "save": "저장",
+      "barLabel": "워크스페이스"
     }
   },
   "RichEditor": {

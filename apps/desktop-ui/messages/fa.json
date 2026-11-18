@@ -2062,6 +2062,37 @@
       "password": "گذرواژه",
       "refreshToken": "توکن تازه‌سازی",
       "refreshTokenHint": "در هر دریافت با توکن دسترسی جدید معاوضه می‌شود."
+    },
+    "collectionActions": {
+      "duplicate": "تکثیر",
+      "copyName": "رونوشت {name}",
+      "duplicateFailed": "تکثیر انجام نشد",
+      "searchPlaceholder": "جستجوی مجموعه‌ها",
+      "clearSearch": "پاک کردن جستجو",
+      "noSearchResults": "هیچ درخواستی با «{query}» مطابقت ندارد",
+      "moveTo": "انتقال به…",
+      "moveTitle": "انتقال «{name}»",
+      "moveDescription": "یک مجموعه یا پوشه انتخاب کنید. مورد به انتها می‌رود.",
+      "moveFailed": "انتقال انجام نشد",
+      "workspace": "فضای کاری",
+      "noWorkspace": "بدون فضای کاری",
+      "workspaceFailed": "تغییر فضای کاری انجام نشد"
+    },
+    "workspaces": {
+      "title": "فضاهای کاری",
+      "description": "مجموعه‌ها را بر اساس تیم، پروژه یا محیط گروه‌بندی کنید. فضای کاری فعال نوار کناری را فیلتر می‌کند.",
+      "createLabel": "ایجاد فضای کاری",
+      "createPlaceholder": "مثلاً Acme Prod",
+      "add": "افزودن",
+      "all": "همهٔ مجموعه‌ها",
+      "allHint": "بدون فیلتر فضای کاری",
+      "rename": "تغییر نام",
+      "delete": "حذف",
+      "confirmDelete": "«{name}» حذف شود؟",
+      "confirmDeleteHint": "مجموعه‌های آن بدون فضای کاری می‌شوند.",
+      "cancel": "لغو",
+      "save": "ذخیره",
+      "barLabel": "فضای کاری"
     }
   },
   "RichEditor": {

@@ -2062,6 +2062,37 @@
       "password": "Passwort",
       "refreshToken": "Refresh-Token",
       "refreshTokenHint": "Wird bei jedem Abruf gegen ein neues Access-Token getauscht."
+    },
+    "collectionActions": {
+      "duplicate": "Duplizieren",
+      "copyName": "{name} (Kopie)",
+      "duplicateFailed": "Duplizieren fehlgeschlagen",
+      "searchPlaceholder": "Sammlungen durchsuchen",
+      "clearSearch": "Suche löschen",
+      "noSearchResults": "Keine Anfragen passen zu „{query}“",
+      "moveTo": "Verschieben nach…",
+      "moveTitle": "„{name}“ verschieben",
+      "moveDescription": "Sammlung oder Ordner wählen. Das Element landet am Ende.",
+      "moveFailed": "Verschieben fehlgeschlagen",
+      "workspace": "Arbeitsbereich",
+      "noWorkspace": "Kein Arbeitsbereich",
+      "workspaceFailed": "Arbeitsbereich konnte nicht geändert werden"
+    },
+    "workspaces": {
+      "title": "Arbeitsbereiche",
+      "description": "Sammlungen nach Team, Projekt oder Umgebung gruppieren. Der aktive Arbeitsbereich filtert die Seitenleiste.",
+      "createLabel": "Arbeitsbereich erstellen",
+      "createPlaceholder": "z. B. Acme Prod",
+      "add": "Hinzufügen",
+      "all": "Alle Sammlungen",
+      "allHint": "kein Arbeitsbereichsfilter",
+      "rename": "Umbenennen",
+      "delete": "Löschen",
+      "confirmDelete": "„{name}“ löschen?",
+      "confirmDeleteHint": "Seine Sammlungen haben danach keinen Arbeitsbereich.",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "barLabel": "Arbeitsbereich"
     }
   },
   "RichEditor": {

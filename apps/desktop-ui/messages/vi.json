@@ -2062,6 +2062,37 @@
       "password": "Mật khẩu",
       "refreshToken": "Refresh token",
       "refreshTokenHint": "Được đổi lấy access token mới mỗi lần lấy."
+    },
+    "collectionActions": {
+      "duplicate": "Nhân bản",
+      "copyName": "Bản sao của {name}",
+      "duplicateFailed": "Không thể nhân bản",
+      "searchPlaceholder": "Tìm trong bộ sưu tập",
+      "clearSearch": "Xoá tìm kiếm",
+      "noSearchResults": "Không có yêu cầu nào khớp “{query}”",
+      "moveTo": "Chuyển đến…",
+      "moveTitle": "Chuyển “{name}”",
+      "moveDescription": "Chọn một bộ sưu tập hoặc thư mục. Mục sẽ được đặt ở cuối.",
+      "moveFailed": "Không thể chuyển",
+      "workspace": "Không gian làm việc",
+      "noWorkspace": "Không có không gian làm việc",
+      "workspaceFailed": "Không thể đổi không gian làm việc"
+    },
+    "workspaces": {
+      "title": "Không gian làm việc",
+      "description": "Nhóm các bộ sưu tập theo nhóm, dự án hoặc môi trường. Không gian đang dùng sẽ lọc thanh bên.",
+      "createLabel": "Tạo không gian làm việc",
+      "createPlaceholder": "vd. Acme Prod",
+      "add": "Thêm",
+      "all": "Tất cả bộ sưu tập",
+      "allHint": "không lọc theo không gian",
+      "rename": "Đổi tên",
+      "delete": "Xoá",
+      "confirmDelete": "Xoá “{name}”?",
+      "confirmDeleteHint": "Các bộ sưu tập của nó sẽ không thuộc không gian nào.",
+      "cancel": "Huỷ",
+      "save": "Lưu",
+      "barLabel": "Không gian làm việc"
     }
   },
   "RichEditor": {

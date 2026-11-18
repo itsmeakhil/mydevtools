@@ -2062,6 +2062,37 @@
       "password": "Password",
       "refreshToken": "Refresh token",
       "refreshTokenHint": "Scambiato con un nuovo access token a ogni richiesta."
+    },
+    "collectionActions": {
+      "duplicate": "Duplica",
+      "copyName": "Copia di {name}",
+      "duplicateFailed": "Impossibile duplicare",
+      "searchPlaceholder": "Cerca nelle raccolte",
+      "clearSearch": "Cancella ricerca",
+      "noSearchResults": "Nessuna richiesta corrisponde a “{query}”",
+      "moveTo": "Sposta in…",
+      "moveTitle": "Sposta “{name}”",
+      "moveDescription": "Scegli una raccolta o una cartella. L'elemento va in fondo.",
+      "moveFailed": "Impossibile spostare",
+      "workspace": "Area di lavoro",
+      "noWorkspace": "Nessuna area di lavoro",
+      "workspaceFailed": "Impossibile cambiare l'area di lavoro"
+    },
+    "workspaces": {
+      "title": "Aree di lavoro",
+      "description": "Raggruppa le raccolte per team, progetto o ambiente. L'area attiva filtra la barra laterale.",
+      "createLabel": "Crea area di lavoro",
+      "createPlaceholder": "es. Acme Prod",
+      "add": "Aggiungi",
+      "all": "Tutte le raccolte",
+      "allHint": "nessun filtro area",
+      "rename": "Rinomina",
+      "delete": "Elimina",
+      "confirmDelete": "Eliminare “{name}”?",
+      "confirmDeleteHint": "Le sue raccolte tornano senza area di lavoro.",
+      "cancel": "Annulla",
+      "save": "Salva",
+      "barLabel": "Area di lavoro"
     }
   },
   "RichEditor": {

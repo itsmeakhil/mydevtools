@@ -2062,6 +2062,37 @@
       "password": "Heslo",
       "refreshToken": "Obnovovací token",
       "refreshTokenHint": "Při každém získání se vymění za nový přístupový token."
+    },
+    "collectionActions": {
+      "duplicate": "Duplikovat",
+      "copyName": "{name} – kopie",
+      "duplicateFailed": "Duplikování se nezdařilo",
+      "searchPlaceholder": "Hledat v kolekcích",
+      "clearSearch": "Vymazat hledání",
+      "noSearchResults": "Žádné požadavky neodpovídají „{query}“",
+      "moveTo": "Přesunout do…",
+      "moveTitle": "Přesunout „{name}“",
+      "moveDescription": "Vyberte kolekci nebo složku. Položka se přidá na konec.",
+      "moveFailed": "Přesun se nezdařil",
+      "workspace": "Pracovní prostor",
+      "noWorkspace": "Bez pracovního prostoru",
+      "workspaceFailed": "Pracovní prostor se nepodařilo změnit"
+    },
+    "workspaces": {
+      "title": "Pracovní prostory",
+      "description": "Seskupte kolekce podle týmu, projektu nebo prostředí. Aktivní prostor filtruje postranní panel.",
+      "createLabel": "Vytvořit pracovní prostor",
+      "createPlaceholder": "např. Acme Prod",
+      "add": "Přidat",
+      "all": "Všechny kolekce",
+      "allHint": "bez filtru prostoru",
+      "rename": "Přejmenovat",
+      "delete": "Smazat",
+      "confirmDelete": "Smazat „{name}“?",
+      "confirmDeleteHint": "Jeho kolekce budou bez pracovního prostoru.",
+      "cancel": "Zrušit",
+      "save": "Uložit",
+      "barLabel": "Pracovní prostor"
     }
   },
   "RichEditor": {

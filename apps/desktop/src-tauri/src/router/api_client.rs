@@ -93,6 +93,10 @@ fn insert_item(items: &mut Vec<Value>, parent_id: Option<&str>, item: Value, pos
 }
 
 fn apply_delta(collection: &mut Value, ops: &[Value]) {
+    // The UI names the collection root by the collection's own id; without this
+    // such adds/moves found no parent and the item was silently dropped.
+    let own_id = collection["id"].as_str().unwrap_or_default().to_string();
+    let parent_of = |v: &Value| v.as_str().filter(|p| *p != own_id).map(str::to_string);
     let Some(items) = collection.get_mut("items").and_then(Value::as_array_mut) else {
         return;
     };
@@ -100,7 +104,8 @@ fn apply_delta(collection: &mut Value, ops: &[Value]) {
     for op in ops {
         match op["type"].as_str() {
             Some("add") => {
-                let parent = op["parent_id"].as_str();
+                let parent = parent_of(&op["parent_id"]);
+                let parent = parent.as_deref();
                 let position = op["position"].as_u64().map(|p| p as usize);
                 insert_item(&mut items_vec, parent, op["item"].clone(), position);
             }
@@ -119,7 +124,8 @@ fn apply_delta(collection: &mut Value, ops: &[Value]) {
             Some("move") => {
                 if let Some(item_id) = op["item_id"].as_str() {
                     if let Some(item) = remove_item(&mut items_vec, item_id) {
-                        let parent = op["new_parent_id"].as_str();
+                        let parent = parent_of(&op["new_parent_id"]);
+                        let parent = parent.as_deref();
                         let index = op["new_index"].as_u64().map(|i| i as usize);
                         insert_item(&mut items_vec, parent, item, index);
                     }
