@@ -2174,6 +2174,16 @@
         "option": "親から継承",
         "hint": "最も近いフォルダーまたはコレクションの認証を使用します。"
       }
+    },
+    "docs": {
+      "tab": "ドキュメント",
+      "edit": "編集",
+      "done": "完了",
+      "add": "ドキュメントを追加",
+      "empty": "ドキュメントはまだありません。内容・入力・レスポンス例を Markdown で記述してください。",
+      "placeholder": "Markdown で記述…",
+      "editLabel": "ドキュメント (Markdown)",
+      "markdownHint": "Markdown に対応。生の HTML はテキストとして表示されます。"
     }
   },
   "RichEditor": {

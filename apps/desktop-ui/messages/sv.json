@@ -2174,6 +2174,16 @@
         "option": "Ärv från överordnad",
         "hint": "Använder autentiseringen från närmaste mapp eller samlingen."
       }
+    },
+    "docs": {
+      "tab": "Dokumentation",
+      "edit": "Redigera",
+      "done": "Klar",
+      "add": "Lägg till dokumentation",
+      "empty": "Ingen dokumentation än. Beskriv i Markdown vad den gör, indata och exempelsvar.",
+      "placeholder": "Skriv Markdown…",
+      "editLabel": "Dokumentation (Markdown)",
+      "markdownHint": "Markdown stöds. Rå HTML visas som text."
     }
   },
   "RichEditor": {

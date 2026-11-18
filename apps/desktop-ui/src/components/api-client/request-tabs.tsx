@@ -13,6 +13,7 @@ import type { InheritedHeader } from "@/lib/folder-inheritance"
 const NO_INHERITED: InheritedHeader[] = []
 import { RequestSettingsPanel, hasCustomSettings } from "./request-settings-panel"
 import { RequestAssertionsPanel, countAssertions } from "./request-assertions-panel"
+import { DocsEditor } from "./docs-editor"
 import type { Assertion } from "@/lib/api-client/assertions"
 import { fetchGraphQLSchema } from "@/lib/graphql-introspect"
 import { toast } from "sonner"
@@ -77,6 +78,9 @@ interface RequestTabsProps {
     /** Declarative `res.*` checks — the Assertions tab. */
     assertions?: Assertion[]
     setAssertions?: (next: Assertion[]) => void
+    /** Markdown docs — the Docs tab. */
+    description?: string
+    setDescription?: (next: string) => void
 }
 
 /**
@@ -125,8 +129,11 @@ function RequestTabsImpl({
     setSettings,
     assertions,
     setAssertions,
+    description,
+    setDescription,
 }: RequestTabsProps) {
     const tAssert = useTranslations("ApiClient.assertions")
+    const tDocs = useTranslations("ApiClient.docs")
     const assertionCount = countAssertions(assertions)
     const t = useTranslations("ApiClient.requestTabs")
     const tBody = useTranslations("ApiClient.requestBody")
@@ -293,6 +300,12 @@ function RequestTabsImpl({
                     <TabsTrigger value="settings" className="flex items-center gap-1.5">
                         {t("settings")}
                         {hasCustomSettings(settings) && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
+                    </TabsTrigger>
+                )}
+                {setDescription && (
+                    <TabsTrigger value="docs" className="flex items-center gap-1.5">
+                        {tDocs("tab")}
+                        {description?.trim() && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                     </TabsTrigger>
                 )}
                 {examples && examples.length > 0 && (
@@ -640,6 +653,11 @@ function RequestTabsImpl({
                 {settings && setSettings && (
                     <TabsContent value="settings" className="mt-0 h-full overflow-auto custom-scrollbar">
                         <RequestSettingsPanel settings={settings} onChange={setSettings} />
+                    </TabsContent>
+                )}
+                {setDescription && (
+                    <TabsContent value="docs" className="mt-0 h-full overflow-auto custom-scrollbar">
+                        <DocsEditor value={description} onChange={setDescription} />
                     </TabsContent>
                 )}
                 {examples && examples.length > 0 && (

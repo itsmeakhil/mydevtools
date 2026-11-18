@@ -2174,6 +2174,16 @@
         "option": "Üst öğeden devral",
         "hint": "En yakın klasörün veya koleksiyonun kimlik doğrulamasını kullanır."
       }
+    },
+    "docs": {
+      "tab": "Belgeler",
+      "edit": "Düzenle",
+      "done": "Bitti",
+      "add": "Belge ekle",
+      "empty": "Henüz belge yok. Ne yaptığını, girdilerini ve örnek yanıtları Markdown ile açıklayın.",
+      "placeholder": "Markdown yazın…",
+      "editLabel": "Belgeler (Markdown)",
+      "markdownHint": "Markdown desteklenir. Ham HTML metin olarak gösterilir."
     }
   },
   "RichEditor": {

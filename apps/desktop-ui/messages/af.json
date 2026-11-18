@@ -2174,6 +2174,16 @@
         "option": "Erf van ouer",
         "hint": "Gebruik die magtiging van die naaste vouer of die versameling."
       }
+    },
+    "docs": {
+      "tab": "Dokumentasie",
+      "edit": "Wysig",
+      "done": "Klaar",
+      "add": "Voeg dokumentasie by",
+      "empty": "Nog geen dokumentasie nie. Beskryf in Markdown wat dit doen, die insette en voorbeeldantwoorde.",
+      "placeholder": "Skryf Markdown…",
+      "editLabel": "Dokumentasie (Markdown)",
+      "markdownHint": "Markdown word ondersteun. Rou HTML word as teks gewys."
     }
   },
   "RichEditor": {

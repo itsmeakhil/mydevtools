@@ -2174,6 +2174,16 @@
         "option": "Overnemen van bovenliggende",
         "hint": "Gebruikt de authenticatie van de dichtstbijzijnde map of de collectie."
       }
+    },
+    "docs": {
+      "tab": "Docs",
+      "edit": "Bewerken",
+      "done": "Klaar",
+      "add": "Docs toevoegen",
+      "empty": "Nog geen docs. Beschrijf in Markdown wat dit doet, de invoer en voorbeeldantwoorden.",
+      "placeholder": "Schrijf Markdown…",
+      "editLabel": "Documentatie (Markdown)",
+      "markdownHint": "Markdown wordt ondersteund. Ruwe HTML wordt als tekst getoond."
     }
   },
   "RichEditor": {

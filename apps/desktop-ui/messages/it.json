@@ -2174,6 +2174,16 @@
         "option": "Eredita dal genitore",
         "hint": "Usa l'autenticazione della cartella più vicina o della raccolta."
       }
+    },
+    "docs": {
+      "tab": "Documentazione",
+      "edit": "Modifica",
+      "done": "Fatto",
+      "add": "Aggiungi documentazione",
+      "empty": "Ancora nessuna documentazione. Descrivi in Markdown cosa fa, gli input e risposte di esempio.",
+      "placeholder": "Scrivi in Markdown…",
+      "editLabel": "Documentazione (Markdown)",
+      "markdownHint": "Markdown supportato. L'HTML grezzo viene mostrato come testo."
     }
   },
   "RichEditor": {

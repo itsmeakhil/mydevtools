@@ -2174,6 +2174,16 @@
         "option": "Warisi dari induk",
         "hint": "Memakai autentikasi folder terdekat atau koleksi."
       }
+    },
+    "docs": {
+      "tab": "Dokumentasi",
+      "edit": "Edit",
+      "done": "Selesai",
+      "add": "Tambah dokumentasi",
+      "empty": "Belum ada dokumentasi. Jelaskan dalam Markdown apa fungsinya, inputnya, dan contoh respons.",
+      "placeholder": "Tulis Markdown…",
+      "editLabel": "Dokumentasi (Markdown)",
+      "markdownHint": "Markdown didukung. HTML mentah ditampilkan sebagai teks."
     }
   },
   "RichEditor": {

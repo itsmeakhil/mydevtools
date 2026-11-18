@@ -2174,6 +2174,16 @@
         "option": "Herdar do pai",
         "hint": "Usa a autenticação da pasta mais próxima ou da coleção."
       }
+    },
+    "docs": {
+      "tab": "Documentação",
+      "edit": "Editar",
+      "done": "Concluído",
+      "add": "Adicionar documentação",
+      "empty": "Ainda não há documentação. Descreva em Markdown o que isso faz, as entradas e respostas de exemplo.",
+      "placeholder": "Escreva em Markdown…",
+      "editLabel": "Documentação (Markdown)",
+      "markdownHint": "Markdown compatível. HTML bruto é exibido como texto."
     }
   },
   "RichEditor": {

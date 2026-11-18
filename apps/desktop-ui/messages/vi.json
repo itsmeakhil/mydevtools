@@ -2174,6 +2174,16 @@
         "option": "Kế thừa từ cấp cha",
         "hint": "Dùng xác thực của thư mục gần nhất hoặc bộ sưu tập."
       }
+    },
+    "docs": {
+      "tab": "Tài liệu",
+      "edit": "Sửa",
+      "done": "Xong",
+      "add": "Thêm tài liệu",
+      "empty": "Chưa có tài liệu. Mô tả bằng Markdown chức năng, đầu vào và phản hồi mẫu.",
+      "placeholder": "Viết Markdown…",
+      "editLabel": "Tài liệu (Markdown)",
+      "markdownHint": "Hỗ trợ Markdown. HTML thô được hiển thị dưới dạng văn bản."
     }
   },
   "RichEditor": {

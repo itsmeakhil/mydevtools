@@ -2174,6 +2174,16 @@
         "option": "Hériter du parent",
         "hint": "Utilise l'authentification du dossier le plus proche ou de la collection."
       }
+    },
+    "docs": {
+      "tab": "Docs",
+      "edit": "Modifier",
+      "done": "Terminé",
+      "add": "Ajouter de la doc",
+      "empty": "Pas encore de doc. Décrivez en Markdown ce que cela fait, ses entrées et des exemples de réponses.",
+      "placeholder": "Écrivez en Markdown…",
+      "editLabel": "Documentation (Markdown)",
+      "markdownHint": "Markdown pris en charge. Le HTML brut est affiché comme du texte."
     }
   },
   "RichEditor": {

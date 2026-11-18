@@ -204,6 +204,7 @@ function bruDefaults(blocks: BruBlocks, authMode: string | undefined) {
         auth: bruAuth(authMode, blocks),
         preRequestScript: joinScripts(text(blocks.get("script:pre-request"))),
         testScript: joinScripts(text(blocks.get("script:post-response")), text(blocks.get("tests"))),
+        docs: text(blocks.get("docs")).trim() || undefined,
     }
 }
 
@@ -234,6 +235,7 @@ export function parseBruRequest(text: string): CollectionRequest {
         preRequestScript: d.preRequestScript,
         testScript: d.testScript,
         assertions: bruAssertions(blocks.get("assert")),
+        description: d.docs,
     }
 }
 
@@ -333,6 +335,7 @@ function ocDefaults(doc: Yaml) {
         auth: ocAuth(block.auth ?? doc.auth),
         preRequestScript: s.pre,
         testScript: s.test,
+        docs: str(doc.docs).trim() || undefined,
     }
 }
 
@@ -351,6 +354,7 @@ export function parseOpenCollectionRequestYaml(text: string): CollectionRequest 
         auth: d.auth,
         preRequestScript: d.preRequestScript,
         testScript: d.testScript,
+        description: d.docs,
     }
 }
 
@@ -451,6 +455,7 @@ export function importBrunoFolder(input: BrunoFile[]): BrunoImportResult {
             if (d.auth.type !== "none") folder.defaultAuth = d.auth
             folder.preRequestScript = d.preRequestScript
             folder.testScript = d.testScript
+            folder.description = d.docs
             return
         }
         if (base === "bruno.json" || base === "collection.bru" || base === "opencollection.yml") return

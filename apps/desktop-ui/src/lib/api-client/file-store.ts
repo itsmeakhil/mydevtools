@@ -42,7 +42,7 @@ export interface FileEntry {
 
 // Fixed top-level key order; nested/unknown keys sort alphabetically after.
 const KEY_ORDER = [
-    "formatVersion", "id", "name", "kind", "method", "url",
+    "formatVersion", "id", "name", "kind", "method", "url", "description",
     "params", "headers", "omitHeaders", "body", "auth",
     "defaultHeaders", "defaultAuth", "variables",
     "timeoutMs", "useCookieJar", "followRedirects", "maxRedirects", "verifySsl", "assertions",
@@ -247,6 +247,7 @@ function serializeRequestObj(req: CollectionRequest): object {
         maxRedirects: req.maxRedirects,
         verifySsl: req.verifySsl === false ? false : undefined,
         assertions: req.assertions?.length ? req.assertions.map(({ id: _id, ...rest }) => rest) : undefined,
+        description: req.description?.trim() ? req.description : undefined,
         preRequestScript: req.preRequestScript || undefined,
         testScript: req.testScript || undefined,
         // Runtime noise stripped from websocket/grpc; graphqlSchema (introspection
@@ -270,8 +271,9 @@ function serializeRequestObj(req: CollectionRequest): object {
 }
 
 /** Defaults shared by folder.yaml and the collection manifest. */
-function serializeDefaults(d: Pick<CollectionFolder, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript">) {
+function serializeDefaults(d: Pick<CollectionFolder, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "description">) {
     return {
+        description: d.description?.trim() ? d.description : undefined,
         defaultHeaders: stripKvIds(d.defaultHeaders),
         defaultAuth: !d.defaultAuth || d.defaultAuth.type === "none" ? undefined : redactAuth(d.defaultAuth).auth,
         preRequestScript: d.preRequestScript || undefined,
@@ -279,7 +281,8 @@ function serializeDefaults(d: Pick<CollectionFolder, "defaultHeaders" | "default
     }
 }
 
-function parseDefaults(doc: Record<string, unknown>, into: Pick<CollectionFolder, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript">) {
+function parseDefaults(doc: Record<string, unknown>, into: Pick<CollectionFolder, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "description">) {
+    if (typeof doc.description === "string") into.description = doc.description
     if (Array.isArray(doc.defaultHeaders)) into.defaultHeaders = restoreKvIds(doc.defaultHeaders)
     if (doc.defaultAuth) into.defaultAuth = doc.defaultAuth as CollectionFolder["defaultAuth"]
     if (typeof doc.preRequestScript === "string") into.preRequestScript = doc.preRequestScript
@@ -387,6 +390,7 @@ function parseRequest(
         maxRedirects: typeof doc.maxRedirects === "number" ? doc.maxRedirects : undefined,
         verifySsl: doc.verifySsl === false ? false : undefined,
         assertions: restoreAssertions(doc.assertions),
+        description: typeof doc.description === "string" ? doc.description : undefined,
         preRequestScript: doc.preRequestScript as string | undefined,
         testScript: doc.testScript as string | undefined,
         websocket: doc.websocket

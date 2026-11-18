@@ -2174,6 +2174,16 @@
         "option": "Heredar del padre",
         "hint": "Usa la autenticación de la carpeta más cercana o de la colección."
       }
+    },
+    "docs": {
+      "tab": "Documentación",
+      "edit": "Editar",
+      "done": "Listo",
+      "add": "Añadir documentación",
+      "empty": "Aún no hay documentación. Describe en Markdown qué hace, sus entradas y respuestas de ejemplo.",
+      "placeholder": "Escribe Markdown…",
+      "editLabel": "Documentación (Markdown)",
+      "markdownHint": "Se admite Markdown. El HTML sin procesar se muestra como texto."
     }
   },
   "RichEditor": {

@@ -2174,6 +2174,16 @@
         "option": "Hereta del pare",
         "hint": "Fa servir l'autenticació de la carpeta més propera o de la col·lecció."
       }
+    },
+    "docs": {
+      "tab": "Documentació",
+      "edit": "Edita",
+      "done": "Fet",
+      "add": "Afegeix documentació",
+      "empty": "Encara no hi ha documentació. Descriu en Markdown què fa, les entrades i respostes d'exemple.",
+      "placeholder": "Escriu Markdown…",
+      "editLabel": "Documentació (Markdown)",
+      "markdownHint": "S'admet Markdown. L'HTML en brut es mostra com a text."
     }
   },
   "RichEditor": {

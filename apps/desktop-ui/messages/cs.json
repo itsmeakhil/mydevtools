@@ -2174,6 +2174,16 @@
         "option": "Zdědit od nadřazeného",
         "hint": "Použije ověření nejbližší složky nebo kolekce."
       }
+    },
+    "docs": {
+      "tab": "Dokumentace",
+      "edit": "Upravit",
+      "done": "Hotovo",
+      "add": "Přidat dokumentaci",
+      "empty": "Zatím bez dokumentace. Popište v Markdownu, co to dělá, vstupy a ukázkové odpovědi.",
+      "placeholder": "Pište Markdown…",
+      "editLabel": "Dokumentace (Markdown)",
+      "markdownHint": "Podporuje Markdown. Surové HTML se zobrazí jako text."
     }
   },
   "RichEditor": {

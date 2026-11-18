@@ -258,6 +258,8 @@ export interface ApiRequestState {
     verifySsl?: boolean
     /** Declarative checks (`res.status eq 200`) reported alongside `pm.test` results. */
     assertions?: Assertion[]
+    /** Markdown docs shown in the Docs tab and the HTML docs export. */
+    description?: string
     /** Optional JS sandbox script run before each send (Postman-style `pm.*`). */
     preRequestScript?: string
     /** Optional JS sandbox script run after each response — assertions land in the Tests tab. */
@@ -335,6 +337,8 @@ export interface CollectionFolder {
     defaultAuth?: RequestAuth
     preRequestScript?: string
     testScript?: string
+    /** Markdown docs for this folder. */
+    description?: string
 }
 
 export interface Collection {
@@ -354,6 +358,8 @@ export interface Collection {
     testScript?: string
     /** Collection variables: below the environment, above globals. */
     variables?: KeyValueItem[]
+    /** Markdown docs for this collection. */
+    description?: string
 }
 
 export interface HistoryRequest extends CollectionRequest {

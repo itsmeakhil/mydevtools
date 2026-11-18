@@ -2174,6 +2174,16 @@
         "option": "Arv fra overordnet",
         "hint": "Bruger godkendelsen fra den nærmeste mappe eller samlingen."
       }
+    },
+    "docs": {
+      "tab": "Dokumentation",
+      "edit": "Rediger",
+      "done": "Færdig",
+      "add": "Tilføj dokumentation",
+      "empty": "Ingen dokumentation endnu. Beskriv i Markdown, hvad det gør, input og eksempelsvar.",
+      "placeholder": "Skriv Markdown…",
+      "editLabel": "Dokumentation (Markdown)",
+      "markdownHint": "Markdown understøttes. Rå HTML vises som tekst."
     }
   },
   "RichEditor": {

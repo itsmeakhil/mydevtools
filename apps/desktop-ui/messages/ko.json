@@ -2174,6 +2174,16 @@
         "option": "상위 항목에서 상속",
         "hint": "가장 가까운 폴더나 컬렉션의 인증을 사용합니다."
       }
+    },
+    "docs": {
+      "tab": "문서",
+      "edit": "편집",
+      "done": "완료",
+      "add": "문서 추가",
+      "empty": "아직 문서가 없습니다. 하는 일, 입력값, 응답 예시를 Markdown으로 설명하세요.",
+      "placeholder": "Markdown 작성…",
+      "editLabel": "문서 (Markdown)",
+      "markdownHint": "Markdown을 지원합니다. 원시 HTML은 텍스트로 표시됩니다."
     }
   },
   "RichEditor": {

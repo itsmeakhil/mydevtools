@@ -2174,6 +2174,16 @@
         "option": "Vom übergeordneten Element erben",
         "hint": "Verwendet die Authentifizierung des nächsten Ordners oder der Sammlung."
       }
+    },
+    "docs": {
+      "tab": "Doku",
+      "edit": "Bearbeiten",
+      "done": "Fertig",
+      "add": "Doku hinzufügen",
+      "empty": "Noch keine Doku. Beschreibe in Markdown, was das tut, die Eingaben und Beispielantworten.",
+      "placeholder": "Markdown schreiben…",
+      "editLabel": "Dokumentation (Markdown)",
+      "markdownHint": "Markdown wird unterstützt. Rohes HTML wird als Text angezeigt."
     }
   },
   "RichEditor": {
