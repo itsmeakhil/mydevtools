@@ -1909,7 +1909,21 @@
       "addTo": "追加先",
       "header": "ヘッダー",
       "queryParams": "クエリパラメータ",
-      "noAuthHint": "このリクエストは認証を使用しません。"
+      "noAuthHint": "このリクエストは認証を使用しません。",
+      "settings": "設定"
+    },
+    "requestSettings": {
+      "timeout": "タイムアウト (ms)",
+      "timeoutHint": "空欄の場合は既定の 30 秒。最大 600000。",
+      "followRedirects": "リダイレクトに従う",
+      "followRedirectsHint": "オフにすると 3xx レスポンスをそのまま返します。",
+      "maxRedirects": "最大リダイレクト数",
+      "maxRedirectsHint": "空欄の場合は 5。最大 50。",
+      "verifySsl": "SSL 証明書を検証",
+      "verifySslHint": "自己署名・期限切れ・不一致の証明書を拒否します。",
+      "verifySslOffHint": "オフ: すべての証明書を受け入れます。信頼できるホストでのみ使用してください。",
+      "cookieJar": "Cookie ジャーを使用",
+      "cookieJarHint": "保存済みの Cookie を送信し、レスポンスの Cookie を保存します。"
     },
     "responsePanel": {
       "emptyTitle": "探索する準備はできましたか？",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "新しいタブ",
-      "unsavedChanges": "未保存の変更"
+      "unsavedChanges": "未保存の変更",
+      "newRest": "新しい REST リクエスト",
+      "newWebSocket": "新しい WebSocket",
+      "newGrpc": "新しい gRPC-Web",
+      "duplicateTab": "タブを複製"
     },
     "collectionsSidebar": {
       "title": "APIリソース",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "リクエストを保存"
+      "saveRequest": "リクエストを保存",
+      "nextTab": "次のタブ",
+      "prevTab": "前のタブ",
+      "focusUrl": "URL バーにフォーカス"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "環境を切り替え: {name}"
     }
   },
   "RichEditor": {

@@ -1909,7 +1909,21 @@
       "addTo": "aggiungere a",
       "header": "Intestazione",
       "queryParams": "Parametri query",
-      "noAuthHint": "Questa richiesta non utilizza l'autenticazione."
+      "noAuthHint": "Questa richiesta non utilizza l'autenticazione.",
+      "settings": "Impostazioni"
+    },
+    "requestSettings": {
+      "timeout": "Timeout (ms)",
+      "timeoutHint": "Vuoto usa il valore predefinito di 30 secondi. Max 600000.",
+      "followRedirects": "Segui i reindirizzamenti",
+      "followRedirectsHint": "Disattivato restituisce la risposta 3xx stessa.",
+      "maxRedirects": "Max reindirizzamenti",
+      "maxRedirectsHint": "Vuoto usa 5. Max 50.",
+      "verifySsl": "Verifica certificati SSL",
+      "verifySslHint": "Rifiuta certificati autofirmati, scaduti o non corrispondenti.",
+      "verifySslOffHint": "Disattivato: qualsiasi certificato viene accettato. Usalo solo con host attendibili.",
+      "cookieJar": "Usa il barattolo dei cookie",
+      "cookieJarHint": "Invia i cookie salvati e salva i cookie dalle risposte."
     },
     "responsePanel": {
       "emptyTitle": "Pronto per esplorare?",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "Nuova scheda",
-      "unsavedChanges": "Modifiche non salvate"
+      "unsavedChanges": "Modifiche non salvate",
+      "newRest": "Nuova richiesta REST",
+      "newWebSocket": "Nuovo WebSocket",
+      "newGrpc": "Nuovo gRPC-Web",
+      "duplicateTab": "Duplica scheda"
     },
     "collectionsSidebar": {
       "title": "Risorse API",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Salva richiesta"
+      "saveRequest": "Salva richiesta",
+      "nextTab": "Scheda successiva",
+      "prevTab": "Scheda precedente",
+      "focusUrl": "Vai alla barra URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Cambia ambiente: {name}"
     }
   },
   "RichEditor": {

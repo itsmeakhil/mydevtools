@@ -21,6 +21,9 @@ export function requestFromTab(tab: ApiRequestState): Omit<CollectionRequest, "i
         testScript: tab.testScript,
         timeoutMs: tab.timeoutMs,
         useCookieJar: tab.useCookieJar,
+        followRedirects: tab.followRedirects,
+        maxRedirects: tab.maxRedirects,
+        verifySsl: tab.verifySsl,
     }
 }
 

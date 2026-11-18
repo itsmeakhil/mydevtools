@@ -1909,7 +1909,21 @@
       "addTo": "Lägg till i",
       "header": "Rubrik",
       "queryParams": "Frågeparametrar",
-      "noAuthHint": "Denna förfrågan använder inte autentisering."
+      "noAuthHint": "Denna förfrågan använder inte autentisering.",
+      "settings": "Inställningar"
+    },
+    "requestSettings": {
+      "timeout": "Tidsgräns (ms)",
+      "timeoutHint": "Tomt använder standardvärdet 30 sekunder. Max 600000.",
+      "followRedirects": "Följ omdirigeringar",
+      "followRedirectsHint": "Av returnerar själva 3xx-svaret.",
+      "maxRedirects": "Max omdirigeringar",
+      "maxRedirectsHint": "Tomt använder 5. Max 50.",
+      "verifySsl": "Verifiera SSL-certifikat",
+      "verifySslHint": "Avvisa självsignerade, utgångna eller felaktiga certifikat.",
+      "verifySslOffHint": "Av: alla certifikat godtas. Använd bara med värdar du litar på.",
+      "cookieJar": "Använd kakburk",
+      "cookieJarHint": "Skicka sparade kakor och spara kakor från svar."
     },
     "responsePanel": {
       "emptyTitle": "Redo att utforska?",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "Ny flik",
-      "unsavedChanges": "Osparade ändringar"
+      "unsavedChanges": "Osparade ändringar",
+      "newRest": "Ny REST-begäran",
+      "newWebSocket": "Ny WebSocket",
+      "newGrpc": "Ny gRPC-Web",
+      "duplicateTab": "Duplicera flik"
     },
     "collectionsSidebar": {
       "title": "API-resurser",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Spara begäran"
+      "saveRequest": "Spara begäran",
+      "nextTab": "Nästa flik",
+      "prevTab": "Föregående flik",
+      "focusUrl": "Fokusera URL-fältet"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Byt miljö: {name}"
     }
   },
   "RichEditor": {

@@ -204,7 +204,7 @@ async function executeRequest(args: {
     }
 
     // Cookie jar.
-    const jarHeader = cookieHeaderForUrl(urlObj.toString())
+    const jarHeader = req.useCookieJar !== false ? cookieHeaderForUrl(urlObj.toString()) : ""
     if (jarHeader) {
         const existingKey = Object.keys(headersObj).find((k) => k.toLowerCase() === "cookie")
         headersObj[existingKey ?? "Cookie"] = existingKey
@@ -293,6 +293,9 @@ async function executeRequest(args: {
                 headers: headersObj,
                 body: bodyPayload ?? bodyContent,
                 timeoutMs: req.timeoutMs,
+                followRedirects: req.followRedirects,
+                maxRedirects: req.maxRedirects,
+                verifySsl: req.verifySsl,
             }),
         })
         proxyData = await res.json()

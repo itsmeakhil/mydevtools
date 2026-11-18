@@ -1909,7 +1909,21 @@
       "addTo": "Додати до",
       "header": "Заголовок",
       "queryParams": "Параметри запиту",
-      "noAuthHint": "Цей запит не використовує автентифікацію."
+      "noAuthHint": "Цей запит не використовує автентифікацію.",
+      "settings": "Налаштування"
+    },
+    "requestSettings": {
+      "timeout": "Тайм-аут (мс)",
+      "timeoutHint": "Порожнє — типове значення 30 секунд. Макс. 600000.",
+      "followRedirects": "Виконувати перенаправлення",
+      "followRedirectsHint": "Вимк. — повертається сама відповідь 3xx.",
+      "maxRedirects": "Макс. перенаправлень",
+      "maxRedirectsHint": "Порожнє — 5. Макс. 50.",
+      "verifySsl": "Перевіряти SSL-сертифікати",
+      "verifySslHint": "Відхиляти самопідписані, прострочені та невідповідні сертифікати.",
+      "verifySslOffHint": "Вимк.: приймається будь-який сертифікат. Використовуйте лише з довіреними хостами.",
+      "cookieJar": "Використовувати сховище cookie",
+      "cookieJarHint": "Надсилати збережені cookie та зберігати cookie з відповідей."
     },
     "responsePanel": {
       "emptyTitle": "Готові дослідити?",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "Нова вкладка",
-      "unsavedChanges": "Незбережені зміни"
+      "unsavedChanges": "Незбережені зміни",
+      "newRest": "Новий REST-запит",
+      "newWebSocket": "Новий WebSocket",
+      "newGrpc": "Новий gRPC-Web",
+      "duplicateTab": "Дублювати вкладку"
     },
     "collectionsSidebar": {
       "title": "API ресурси",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Зберегти запит"
+      "saveRequest": "Зберегти запит",
+      "nextTab": "Наступна вкладка",
+      "prevTab": "Попередня вкладка",
+      "focusUrl": "Перейти до рядка URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Змінити середовище: {name}"
     }
   },
   "RichEditor": {

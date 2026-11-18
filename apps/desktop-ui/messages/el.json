@@ -1909,7 +1909,21 @@
       "addTo": "Προσθήκη σε",
       "header": "Επί κεφαλής",
       "queryParams": "Παράμετροι ερωτήματος",
-      "noAuthHint": "Αυτό το αίτημα δεν χρησιμοποιεί έλεγχο ταυτότητας."
+      "noAuthHint": "Αυτό το αίτημα δεν χρησιμοποιεί έλεγχο ταυτότητας.",
+      "settings": "Ρυθμίσεις"
+    },
+    "requestSettings": {
+      "timeout": "Χρονικό όριο (ms)",
+      "timeoutHint": "Κενό χρησιμοποιεί την προεπιλογή των 30 δευτερολέπτων. Μέγ. 600000.",
+      "followRedirects": "Ακολούθηση ανακατευθύνσεων",
+      "followRedirectsHint": "Απενεργοποιημένο επιστρέφει την ίδια την απόκριση 3xx.",
+      "maxRedirects": "Μέγ. ανακατευθύνσεις",
+      "maxRedirectsHint": "Κενό χρησιμοποιεί 5. Μέγ. 50.",
+      "verifySsl": "Επαλήθευση πιστοποιητικών SSL",
+      "verifySslHint": "Απόρριψη αυτο-υπογεγραμμένων, ληγμένων ή αταίριαστων πιστοποιητικών.",
+      "verifySslOffHint": "Απενεργοποιημένο: γίνεται δεκτό οποιοδήποτε πιστοποιητικό. Χρησιμοποιήστε το μόνο με διακομιστές που εμπιστεύεστε.",
+      "cookieJar": "Χρήση αποθήκης cookies",
+      "cookieJarHint": "Αποστολή αποθηκευμένων cookies και αποθήκευση cookies από αποκρίσεις."
     },
     "responsePanel": {
       "emptyTitle": "Έτοιμοι να εξερευνήσετε;",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "Νέα καρτέλα",
-      "unsavedChanges": "Μη αποθηκευμένες αλλαγές"
+      "unsavedChanges": "Μη αποθηκευμένες αλλαγές",
+      "newRest": "Νέο αίτημα REST",
+      "newWebSocket": "Νέο WebSocket",
+      "newGrpc": "Νέο gRPC-Web",
+      "duplicateTab": "Αντιγραφή καρτέλας"
     },
     "collectionsSidebar": {
       "title": "Πόροι API",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Αποθήκευση αιτήματος"
+      "saveRequest": "Αποθήκευση αιτήματος",
+      "nextTab": "Επόμενη καρτέλα",
+      "prevTab": "Προηγούμενη καρτέλα",
+      "focusUrl": "Εστίαση στη γραμμή URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Αλλαγή περιβάλλοντος: {name}"
     }
   },
   "RichEditor": {

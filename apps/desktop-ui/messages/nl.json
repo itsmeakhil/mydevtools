@@ -1909,7 +1909,21 @@
       "addTo": "Toevoegen aan",
       "header": "Header",
       "queryParams": "Queryparameters",
-      "noAuthHint": "Dit verzoek gebruikt geen authenticatie."
+      "noAuthHint": "Dit verzoek gebruikt geen authenticatie.",
+      "settings": "Instellingen"
+    },
+    "requestSettings": {
+      "timeout": "Time-out (ms)",
+      "timeoutHint": "Leeg gebruikt de standaard van 30 seconden. Max. 600000.",
+      "followRedirects": "Omleidingen volgen",
+      "followRedirectsHint": "Uit geeft het 3xx-antwoord zelf terug.",
+      "maxRedirects": "Max. omleidingen",
+      "maxRedirectsHint": "Leeg gebruikt 5. Max. 50.",
+      "verifySsl": "SSL-certificaten controleren",
+      "verifySslHint": "Zelfondertekende, verlopen of niet-overeenkomende certificaten weigeren.",
+      "verifySslOffHint": "Uit: elk certificaat wordt geaccepteerd. Alleen gebruiken bij hosts die je vertrouwt.",
+      "cookieJar": "Cookiepot gebruiken",
+      "cookieJarHint": "Opgeslagen cookies verzenden en cookies uit antwoorden opslaan."
     },
     "responsePanel": {
       "emptyTitle": "Klaar om te verkennen?",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "Nieuw tabblad",
-      "unsavedChanges": "Niet-opgeslagen wijzigingen"
+      "unsavedChanges": "Niet-opgeslagen wijzigingen",
+      "newRest": "Nieuw REST-verzoek",
+      "newWebSocket": "Nieuwe WebSocket",
+      "newGrpc": "Nieuwe gRPC-Web",
+      "duplicateTab": "Tabblad dupliceren"
     },
     "collectionsSidebar": {
       "title": "API-bronnen",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Verzoek opslaan"
+      "saveRequest": "Verzoek opslaan",
+      "nextTab": "Volgend tabblad",
+      "prevTab": "Vorig tabblad",
+      "focusUrl": "URL-balk focussen"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Omgeving wisselen: {name}"
     }
   },
   "RichEditor": {

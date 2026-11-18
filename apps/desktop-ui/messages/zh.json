@@ -1909,7 +1909,21 @@
       "addTo": "添加到",
       "header": "请求头",
       "queryParams": "查询参数",
-      "noAuthHint": "此请求未使用认证。"
+      "noAuthHint": "此请求未使用认证。",
+      "settings": "设置"
+    },
+    "requestSettings": {
+      "timeout": "超时 (毫秒)",
+      "timeoutHint": "留空使用默认的 30 秒。最大 600000。",
+      "followRedirects": "跟随重定向",
+      "followRedirectsHint": "关闭时直接返回 3xx 响应。",
+      "maxRedirects": "最大重定向次数",
+      "maxRedirectsHint": "留空使用 5。最大 50。",
+      "verifySsl": "验证 SSL 证书",
+      "verifySslHint": "拒绝自签名、过期或不匹配的证书。",
+      "verifySslOffHint": "已关闭：接受任何证书。仅用于你信任的主机。",
+      "cookieJar": "使用 Cookie 罐",
+      "cookieJarHint": "发送已保存的 Cookie，并保存响应中的 Cookie。"
     },
     "responsePanel": {
       "emptyTitle": "准备开始？",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "新标签",
-      "unsavedChanges": "未保存的更改"
+      "unsavedChanges": "未保存的更改",
+      "newRest": "新建 REST 请求",
+      "newWebSocket": "新建 WebSocket",
+      "newGrpc": "新建 gRPC-Web",
+      "duplicateTab": "复制标签页"
     },
     "collectionsSidebar": {
       "title": "API 资源",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "保存请求"
+      "saveRequest": "保存请求",
+      "nextTab": "下一个标签页",
+      "prevTab": "上一个标签页",
+      "focusUrl": "聚焦 URL 栏"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "切换环境：{name}"
     }
   },
   "RichEditor": {

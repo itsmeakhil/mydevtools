@@ -241,6 +241,12 @@ export interface ApiRequestState {
     /** When false, the cookie jar does not attach cookies or store Set-Cookie for this request.
      *  Defaults to true. */
     useCookieJar?: boolean
+    /** Follow 3xx responses (default true). Off returns the redirect response itself. */
+    followRedirects?: boolean
+    /** Redirect hops before giving up (default 5, capped at 50 by the Rust engine). */
+    maxRedirects?: number
+    /** Verify TLS certificates (default true). Off accepts self-signed/invalid certs. */
+    verifySsl?: boolean
     /** Optional JS sandbox script run before each send (Postman-style `pm.*`). */
     preRequestScript?: string
     /** Optional JS sandbox script run after each response — assertions land in the Tests tab. */
@@ -295,6 +301,9 @@ export interface RequestComment {
     createdAt: number
     text: string
 }
+
+/** Per-request transport options edited in the request Settings tab. */
+export type RequestSettings = Pick<ApiRequestState, "timeoutMs" | "useCookieJar" | "followRedirects" | "maxRedirects" | "verifySsl">
 
 export interface CollectionRequest extends Omit<ApiRequestState, "response" | "isLoading" | "scriptResults" | "source" | "savedFingerprint"> {
     id: string

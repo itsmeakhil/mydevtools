@@ -5,15 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button"
 import { IconKeyboard } from "@tabler/icons-react"
 import { useTranslations } from "next-intl"
-
-// Browser tab shortcuts (Cmd/Ctrl+T, Cmd/Ctrl+W) cannot be intercepted in a web app —
-// we use Alt+T and Alt+W instead. Cmd/Ctrl+Enter is form-safe and still works.
-const SHORTCUTS: Array<[string, string]> = [
-    ["Alt+T", "newTab"],
-    ["Alt+W", "closeTab"],
-    ["mod+Enter", "sendRequest"],
-    ["mod+S", "saveRequest"],
-]
+import { SHORTCUTS, formatKeys, isMacPlatform } from "@/lib/api-client/shortcuts"
 
 interface HelpShortcutsDialogProps {
     open?: boolean
@@ -25,7 +17,7 @@ export function HelpShortcutsDialog({ open, onOpenChange }: HelpShortcutsDialogP
     const [isMac, setIsMac] = React.useState(false)
 
     React.useEffect(() => {
-        setIsMac(/Mac|iPhone|iPad/i.test(navigator.userAgent))
+        setIsMac(isMacPlatform())
     }, [])
 
     const isControlled = open !== undefined
@@ -44,17 +36,17 @@ export function HelpShortcutsDialog({ open, onOpenChange }: HelpShortcutsDialogP
                     <DialogTitle>{t("title")}</DialogTitle>
                 </DialogHeader>
                 <ul className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-2 text-sm pt-2">
-                    {SHORTCUTS.map(([keys, labelKey]) => (
-                        <React.Fragment key={keys}>
-                            <li className="contents">
-                                <kbd className="font-mono rounded bg-muted px-1.5 py-0.5 text-xs">
-                                    {keys
-                                        .replace("mod", isMac ? "⌘" : "Ctrl")
-                                        .replace("Alt", isMac ? "⌥" : "Alt")}
-                                </kbd>
-                                <span className="self-center">{t(labelKey as "newTab" | "closeTab" | "sendRequest" | "saveRequest")}</span>
-                            </li>
-                        </React.Fragment>
+                    {SHORTCUTS.map(({ id, keys }) => (
+                        <li key={id} className="contents">
+                            <span className="flex flex-wrap gap-1">
+                                {keys.map((k) => (
+                                    <kbd key={k} className="rounded bg-muted px-1.5 py-0.5 text-xs">
+                                        {formatKeys(k, isMac)}
+                                    </kbd>
+                                ))}
+                            </span>
+                            <span className="self-center">{t(id)}</span>
+                        </li>
                     ))}
                 </ul>
             </DialogContent>

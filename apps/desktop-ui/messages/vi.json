@@ -1909,7 +1909,21 @@
       "addTo": "Thêm vào",
       "header": "Header",
       "queryParams": "Tham số truy vấn",
-      "noAuthHint": "Yêu cầu này không sử dụng xác thực."
+      "noAuthHint": "Yêu cầu này không sử dụng xác thực.",
+      "settings": "Cài đặt"
+    },
+    "requestSettings": {
+      "timeout": "Thời gian chờ (ms)",
+      "timeoutHint": "Để trống dùng mặc định 30 giây. Tối đa 600000.",
+      "followRedirects": "Theo chuyển hướng",
+      "followRedirectsHint": "Tắt sẽ trả về chính phản hồi 3xx.",
+      "maxRedirects": "Số chuyển hướng tối đa",
+      "maxRedirectsHint": "Để trống dùng 5. Tối đa 50.",
+      "verifySsl": "Xác minh chứng chỉ SSL",
+      "verifySslHint": "Từ chối chứng chỉ tự ký, hết hạn hoặc không khớp.",
+      "verifySslOffHint": "Tắt: chấp nhận mọi chứng chỉ. Chỉ dùng với máy chủ bạn tin cậy.",
+      "cookieJar": "Dùng hũ cookie",
+      "cookieJarHint": "Gửi cookie đã lưu và lưu cookie từ phản hồi."
     },
     "responsePanel": {
       "emptyTitle": "Sẵn sàng khám phá?",
@@ -1931,7 +1945,11 @@
     },
     "tabBar": {
       "addTabAria": "Tab mới",
-      "unsavedChanges": "Thay đổi chưa lưu"
+      "unsavedChanges": "Thay đổi chưa lưu",
+      "newRest": "Yêu cầu REST mới",
+      "newWebSocket": "WebSocket mới",
+      "newGrpc": "gRPC-Web mới",
+      "duplicateTab": "Nhân bản tab"
     },
     "collectionsSidebar": {
       "title": "Tài nguyên API",
@@ -2029,7 +2047,10 @@
       "newTab": "New tab",
       "closeTab": "Close tab",
       "sendRequest": "Send request",
-      "saveRequest": "Lưu yêu cầu"
+      "saveRequest": "Lưu yêu cầu",
+      "nextTab": "Tab tiếp theo",
+      "prevTab": "Tab trước",
+      "focusUrl": "Chuyển đến thanh URL"
     },
     "toolbar": {
       "moreActions": "More actions",
@@ -2047,6 +2068,9 @@
       "metrics": "Metrics",
       "recorder": "Capture & replay",
       "extensionImported": "Imported {method} {url} from extension"
+    },
+    "palette": {
+      "switchEnvironment": "Chuyển môi trường: {name}"
     }
   },
   "RichEditor": {
