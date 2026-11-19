@@ -1877,7 +1877,8 @@
         "response": "wird beim Senden aus der vorherigen Antwort gelesen",
         "secret": "geheim, wird beim Senden aufgelöst",
         "missing": "weder in der Umgebung, der Sammlung noch global definiert"
-      }
+      },
+      "cancel": "Abbrechen"
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1946,7 +1947,13 @@
         "label": "Antwort mit JSONPath filtern",
         "invalid": "Ungültiger JSONPath",
         "matches": "{count, plural, =0 {Keine Treffer} one {# Treffer} other {# Treffer}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Verbunden. Warte auf Nachrichten…",
+      "streamEmpty": "Der Stream endete ohne Nachrichten.",
+      "linesTab": "Zeilen",
+      "linesTruncated": "Die ersten {count} Zeilen werden angezeigt.",
+      "lineInvalid": "Kein gültiges JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Neue Registerkarte",

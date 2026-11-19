@@ -1877,7 +1877,8 @@
         "response": "dibaca daripada respons sebelumnya semasa hantar",
         "secret": "rahsia, diselesaikan semasa hantar",
         "missing": "tidak ditakrifkan dalam persekitaran, koleksi atau global"
-      }
+      },
+      "cancel": "Batal"
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1946,7 +1947,13 @@
         "label": "Tapis respons dengan JSONPath",
         "invalid": "JSONPath tidak sah",
         "matches": "{count, plural, =0 {Tiada padanan} other {# padanan}}"
-      }
+      },
+      "streamTab": "Strim",
+      "streamWaiting": "Disambungkan. Menunggu mesej…",
+      "streamEmpty": "Strim tamat tanpa sebarang mesej.",
+      "linesTab": "Baris",
+      "linesTruncated": "Memaparkan {count} baris pertama.",
+      "lineInvalid": "Bukan JSON yang sah: {message}"
     },
     "tabBar": {
       "addTabAria": "Tab baharu",

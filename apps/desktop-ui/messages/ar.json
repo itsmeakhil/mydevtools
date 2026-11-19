@@ -1877,7 +1877,8 @@
         "response": "يُقرأ من الاستجابة السابقة عند الإرسال",
         "secret": "سرّي، يُحَل عند الإرسال",
         "missing": "غير معرّف في البيئة أو المجموعة أو المتغيرات العامة"
-      }
+      },
+      "cancel": "إلغاء"
     },
     "requestTabs": {
       "params": "معاملات",
@@ -1946,7 +1947,13 @@
         "label": "تصفية الاستجابة باستخدام JSONPath",
         "invalid": "JSONPath غير صالح",
         "matches": "{count, plural, =0 {لا توجد نتائج} zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجة} other {# نتيجة}}"
-      }
+      },
+      "streamTab": "البث",
+      "streamWaiting": "متصل. بانتظار الرسائل…",
+      "streamEmpty": "انتهى البث دون أي رسائل.",
+      "linesTab": "الأسطر",
+      "linesTruncated": "يتم عرض أول {count} سطر.",
+      "lineInvalid": "ليس JSON صالحًا: {message}"
     },
     "tabBar": {
       "addTabAria": "تبويب جديد",

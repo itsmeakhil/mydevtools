@@ -1877,7 +1877,8 @@
         "response": "letto dalla risposta precedente all'invio",
         "secret": "segreto, risolto all'invio",
         "missing": "non definita nell'ambiente, nella raccolta o nelle globali"
-      }
+      },
+      "cancel": "Annulla"
     },
     "requestTabs": {
       "params": "Param",
@@ -1946,7 +1947,13 @@
         "label": "Filtra la risposta con JSONPath",
         "invalid": "JSONPath non valido",
         "matches": "{count, plural, =0 {Nessuna corrispondenza} one {# corrispondenza} other {# corrispondenze}}"
-      }
+      },
+      "streamTab": "Flusso",
+      "streamWaiting": "Connesso. In attesa di messaggi…",
+      "streamEmpty": "Il flusso è terminato senza messaggi.",
+      "linesTab": "Righe",
+      "linesTruncated": "Vengono mostrate le prime {count} righe.",
+      "lineInvalid": "JSON non valido: {message}"
     },
     "tabBar": {
       "addTabAria": "Nuova scheda",

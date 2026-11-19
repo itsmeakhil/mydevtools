@@ -1877,7 +1877,8 @@
         "response": "发送时从上一个响应读取",
         "secret": "密钥，发送时解析",
         "missing": "未在环境、集合或全局变量中定义"
-      }
+      },
+      "cancel": "取消"
     },
     "requestTabs": {
       "params": "参数",
@@ -1946,7 +1947,13 @@
         "label": "用 JSONPath 筛选响应",
         "invalid": "无效的 JSONPath",
         "matches": "{count, plural, =0 {无匹配} other {# 个匹配}}"
-      }
+      },
+      "streamTab": "流",
+      "streamWaiting": "已连接，正在等待消息…",
+      "streamEmpty": "流已结束，没有任何消息。",
+      "linesTab": "行",
+      "linesTruncated": "仅显示前 {count} 行。",
+      "lineInvalid": "无效的 JSON：{message}"
     },
     "tabBar": {
       "addTabAria": "新标签",

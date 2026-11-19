@@ -1877,7 +1877,8 @@
         "response": "word by versending uit die vorige antwoord gelees",
         "secret": "geheim, word by versending opgelos",
         "missing": "nie in die omgewing, versameling of globale waardes gedefinieer nie"
-      }
+      },
+      "cancel": "Kanselleer"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Filtreer antwoord met JSONPath",
         "invalid": "Ongeldige JSONPath",
         "matches": "{count, plural, =0 {Geen treffers} one {# treffer} other {# treffers}}"
-      }
+      },
+      "streamTab": "Stroom",
+      "streamWaiting": "Gekoppel. Wag vir boodskappe…",
+      "streamEmpty": "Die stroom het sonder boodskappe geëindig.",
+      "linesTab": "Reëls",
+      "linesTruncated": "Wys die eerste {count} reëls.",
+      "lineInvalid": "Nie geldige JSON nie: {message}"
     },
     "tabBar": {
       "addTabAria": "Nuwe oortjie",

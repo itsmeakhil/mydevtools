@@ -1877,7 +1877,8 @@
         "response": "läses från föregående svar vid sändning",
         "secret": "hemlig, löses vid sändning",
         "missing": "inte definierad i miljön, samlingen eller de globala"
-      }
+      },
+      "cancel": "Avbryt"
     },
     "requestTabs": {
       "params": "Parametrar",
@@ -1946,7 +1947,13 @@
         "label": "Filtrera svaret med JSONPath",
         "invalid": "Ogiltig JSONPath",
         "matches": "{count, plural, =0 {Inga träffar} one {# träff} other {# träffar}}"
-      }
+      },
+      "streamTab": "Ström",
+      "streamWaiting": "Ansluten. Väntar på meddelanden…",
+      "streamEmpty": "Strömmen avslutades utan några meddelanden.",
+      "linesTab": "Rader",
+      "linesTruncated": "Visar de första {count} raderna.",
+      "lineInvalid": "Ogiltig JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Ny flik",

@@ -86,7 +86,7 @@ type TabsActions = {
     duplicateTab(id: string): void
     renameTab(id: string, name: string): void
     /** Patch any tab by id (an async save may finish after the user switched tabs). */
-    updateTab(id: string, patch: Partial<ApiRequestState>): void
+    updateTab(id: string, patch: Partial<ApiRequestState> | ((tab: ApiRequestState) => Partial<ApiRequestState>)): void
     /** Move `fromId` to `toId`'s slot. Id-based so a memoized caller holding a stale tabs array can't overwrite edits. */
     reorderTabs(fromId: string, toId: string): void
     setActiveTabId(id: string): void
@@ -250,8 +250,8 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
             setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, name } : tab))
         },
 
-        updateTab(id: string, patch: Partial<ApiRequestState>) {
-            setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, ...patch } : tab))
+        updateTab(id: string, patch: Partial<ApiRequestState> | ((tab: ApiRequestState) => Partial<ApiRequestState>)) {
+            setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, ...(typeof patch === "function" ? patch(tab) : patch) } : tab))
         },
 
         reorderTabs(fromId: string, toId: string) {

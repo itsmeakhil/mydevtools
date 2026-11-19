@@ -1877,7 +1877,8 @@
         "response": "read from the previous response on send",
         "secret": "secret, resolved on send",
         "missing": "not defined in the environment, collection or globals"
-      }
+      },
+      "cancel": "Cancel"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Filter response with JSONPath",
         "invalid": "Invalid JSONPath",
         "matches": "{count, plural, =0 {No matches} one {# match} other {# matches}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Connected. Waiting for messages…",
+      "streamEmpty": "The stream ended without any messages.",
+      "linesTab": "Lines",
+      "linesTruncated": "Showing the first {count} lines.",
+      "lineInvalid": "Not valid JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "New tab",

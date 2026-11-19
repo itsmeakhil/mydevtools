@@ -30,6 +30,8 @@ import { truncateBody } from "./truncate-body"
 import { ResponseTimeline } from "./response-timeline"
 import { ResponsePanelSkeleton } from "./skeletons"
 import { downloadFile } from "@/lib/desktop/save-file"
+import { isNdjsonContentType } from "@/lib/api-client/ndjson"
+import { StreamEventsView, NdjsonView } from "./response-streams"
 
 const MAX_INLINE_BYTES = 2 * 1024 * 1024 // 2MB
 
@@ -262,7 +264,9 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
     const cookies = parseSetCookieHeaders(response.headers, response.setCookies)
     const redirectChain = response.redirectChain ?? []
     const hasPreview = response.isBase64 || isHtmlResponse
-    const defaultTab = (isHtmlResponse && !response.isBase64) ||
+    const streamEvents = response.streamEvents
+    const isNdjson = !response.isBase64 && !streamEvents && isNdjsonContentType(contentType)
+    const defaultTab = streamEvents ? "stream" : isNdjson ? "lines" : (isHtmlResponse && !response.isBase64) ||
           (response.isBase64 &&
               (contentType.includes("image/") || contentType.includes("application/pdf")))
             ? "preview"
@@ -281,6 +285,13 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
             >
                 <div className="flex flex-wrap items-center justify-between gap-2 shrink-0">
                     <TabsList className="max-w-full overflow-x-auto no-scrollbar [&>*]:shrink-0">
+                        {streamEvents && (
+                            <TabsTrigger value="stream" className="flex items-center gap-1.5">
+                                {t("streamTab")}
+                                <span className="inline-flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[10px] font-medium tabular-nums bg-primary/[0.12] text-primary">{streamEvents.length}</span>
+                            </TabsTrigger>
+                        )}
+                        {isNdjson && <TabsTrigger value="lines">{t("linesTab")}</TabsTrigger>}
                         <TabsTrigger value="body">{t("bodyTab")}</TabsTrigger>
                         {hasPreview && <TabsTrigger value="preview">{t("previewTab")}</TabsTrigger>}
                         <TabsTrigger value="tree">Tree</TabsTrigger>
@@ -423,6 +434,16 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                             />
                         </div>
                     </TabsContent>
+                    {streamEvents && (
+                        <TabsContent value="stream" className="mt-0 h-full absolute inset-0">
+                            <StreamEventsView events={streamEvents} live={isLoading} />
+                        </TabsContent>
+                    )}
+                    {isNdjson && (
+                        <TabsContent value="lines" className="mt-0 h-full absolute inset-0">
+                            <NdjsonView body={response.body} />
+                        </TabsContent>
+                    )}
                     {hasPreview && (
                         <TabsContent value="preview" className="mt-0 h-full absolute inset-0">
                             {renderPreview()}

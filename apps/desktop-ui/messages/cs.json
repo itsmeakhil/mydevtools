@@ -1877,7 +1877,8 @@
         "response": "čte se z předchozí odpovědi při odeslání",
         "secret": "tajné, vyřeší se při odeslání",
         "missing": "není definováno v prostředí, kolekci ani globálních proměnných"
-      }
+      },
+      "cancel": "Zrušit"
     },
     "requestTabs": {
       "params": "Parametry",
@@ -1946,7 +1947,13 @@
         "label": "Filtrovat odpověď pomocí JSONPath",
         "invalid": "Neplatná cesta JSONPath",
         "matches": "{count, plural, =0 {Žádné shody} one {# shoda} few {# shody} many {# shody} other {# shod}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Připojeno. Čeká se na zprávy…",
+      "streamEmpty": "Stream skončil bez jediné zprávy.",
+      "linesTab": "Řádky",
+      "linesTruncated": "Zobrazuje se prvních {count} řádků.",
+      "lineInvalid": "Neplatný JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Nová karta",
