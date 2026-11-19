@@ -2367,6 +2367,26 @@
       "importFailed": "No s'han pogut importar les galetes: {message}",
       "clearDomainLabel": "Esborra les galetes de {domain}",
       "deleteLabel": "Elimina la galeta {name}"
+    },
+    "graphql": {
+      "sentAs": "S'envia com a <json></json> amb <shape></shape>.",
+      "fetchSchema": "Obtén l'esquema",
+      "fetching": "S'està obtenint l'esquema…",
+      "needUrl": "Primer defineix l'URL de la petició",
+      "fetchHint": "Carrega l'esquema per introspecció per a l'autocompletat i la documentació",
+      "fetched": "Esquema carregat: {count} tipus",
+      "fetchFailed": "No s'ha pogut carregar l'esquema: {message}",
+      "docs": "Documentació",
+      "docsNeedSchema": "Primer obtén l'esquema",
+      "variables": "Variables (JSON)",
+      "root": "Esquema",
+      "search": "Cerca tipus i camps",
+      "noResults": "Cap coincidència",
+      "fields": "Camps",
+      "inputFields": "Camps d'entrada",
+      "values": "Valors",
+      "possibleTypes": "Tipus possibles",
+      "deprecated": "Obsolet"
     }
   },
   "RichEditor": {

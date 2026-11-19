@@ -2367,6 +2367,26 @@
       "importFailed": "Det gick inte att importera kakor: {message}",
       "clearDomainLabel": "Rensa kakor för {domain}",
       "deleteLabel": "Ta bort kakan {name}"
+    },
+    "graphql": {
+      "sentAs": "Skickas som <json></json> med <shape></shape>.",
+      "fetchSchema": "Hämta schema",
+      "fetching": "Hämtar schema…",
+      "needUrl": "Ange begärans URL först",
+      "fetchHint": "Läser in schemat via introspektion för autokomplettering och dokumentation",
+      "fetched": "Schema inläst: {count} typer",
+      "fetchFailed": "Det gick inte att läsa in schemat: {message}",
+      "docs": "Dokumentation",
+      "docsNeedSchema": "Hämta schemat först",
+      "variables": "Variabler (JSON)",
+      "root": "Schema",
+      "search": "Sök typer och fält",
+      "noResults": "Inga träffar",
+      "fields": "Fält",
+      "inputFields": "Indatafält",
+      "values": "Värden",
+      "possibleTypes": "Möjliga typer",
+      "deprecated": "Föråldrad"
     }
   },
   "RichEditor": {

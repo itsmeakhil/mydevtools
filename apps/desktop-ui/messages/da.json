@@ -2367,6 +2367,26 @@
       "importFailed": "Cookies kunne ikke importeres: {message}",
       "clearDomainLabel": "Ryd cookies for {domain}",
       "deleteLabel": "Slet cookie {name}"
+    },
+    "graphql": {
+      "sentAs": "Sendes som <json></json> med <shape></shape>.",
+      "fetchSchema": "Hent skema",
+      "fetching": "Henter skema…",
+      "needUrl": "Angiv først forespørgslens URL",
+      "fetchHint": "Indlæs skemaet via introspektion til autofuldførelse og dokumentation",
+      "fetched": "Skema indlæst: {count} typer",
+      "fetchFailed": "Kunne ikke indlæse skemaet: {message}",
+      "docs": "Dokumentation",
+      "docsNeedSchema": "Hent skemaet først",
+      "variables": "Variabler (JSON)",
+      "root": "Skema",
+      "search": "Søg i typer og felter",
+      "noResults": "Ingen resultater",
+      "fields": "Felter",
+      "inputFields": "Inputfelter",
+      "values": "Værdier",
+      "possibleTypes": "Mulige typer",
+      "deprecated": "Forældet"
     }
   },
   "RichEditor": {

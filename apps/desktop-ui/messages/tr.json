@@ -2367,6 +2367,26 @@
       "importFailed": "Çerezler içe aktarılamadı: {message}",
       "clearDomainLabel": "{domain} çerezlerini temizle",
       "deleteLabel": "{name} çerezini sil"
+    },
+    "graphql": {
+      "sentAs": "<json></json> olarak <shape></shape> ile gönderilir.",
+      "fetchSchema": "Şemayı getir",
+      "fetching": "Şema getiriliyor…",
+      "needUrl": "Önce istek URL'sini ayarlayın",
+      "fetchHint": "Otomatik tamamlama ve belgeler için şemayı içgözlemle yükler",
+      "fetched": "Şema yüklendi: {count} tür",
+      "fetchFailed": "Şema yüklenemedi: {message}",
+      "docs": "Belgeler",
+      "docsNeedSchema": "Önce şemayı getirin",
+      "variables": "Değişkenler (JSON)",
+      "root": "Şema",
+      "search": "Türleri ve alanları ara",
+      "noResults": "Eşleşme yok",
+      "fields": "Alanlar",
+      "inputFields": "Girdi alanları",
+      "values": "Değerler",
+      "possibleTypes": "Olası türler",
+      "deprecated": "Kullanımdan kaldırıldı"
     }
   },
   "RichEditor": {

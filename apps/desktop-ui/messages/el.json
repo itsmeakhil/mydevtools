@@ -2367,6 +2367,26 @@
       "importFailed": "Δεν ήταν δυνατή η εισαγωγή cookies: {message}",
       "clearDomainLabel": "Διαγραφή cookies για {domain}",
       "deleteLabel": "Διαγραφή cookie {name}"
+    },
+    "graphql": {
+      "sentAs": "Αποστέλλεται ως <json></json> με <shape></shape>.",
+      "fetchSchema": "Λήψη σχήματος",
+      "fetching": "Λήψη σχήματος…",
+      "needUrl": "Ορίστε πρώτα το URL του αιτήματος",
+      "fetchHint": "Φορτώνει το σχήμα μέσω introspection για αυτόματη συμπλήρωση και τεκμηρίωση",
+      "fetched": "Το σχήμα φορτώθηκε: {count} τύποι",
+      "fetchFailed": "Δεν ήταν δυνατή η φόρτωση του σχήματος: {message}",
+      "docs": "Τεκμηρίωση",
+      "docsNeedSchema": "Λάβετε πρώτα το σχήμα",
+      "variables": "Μεταβλητές (JSON)",
+      "root": "Σχήμα",
+      "search": "Αναζήτηση τύπων και πεδίων",
+      "noResults": "Καμία αντιστοιχία",
+      "fields": "Πεδία",
+      "inputFields": "Πεδία εισόδου",
+      "values": "Τιμές",
+      "possibleTypes": "Πιθανοί τύποι",
+      "deprecated": "Καταργημένο"
     }
   },
   "RichEditor": {

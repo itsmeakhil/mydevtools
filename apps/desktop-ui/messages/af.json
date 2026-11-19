@@ -2367,6 +2367,26 @@
       "importFailed": "Kon nie koekies invoer nie: {message}",
       "clearDomainLabel": "Vee koekies vir {domain} uit",
       "deleteLabel": "Skrap koekie {name}"
+    },
+    "graphql": {
+      "sentAs": "Gestuur as <json></json> met <shape></shape>.",
+      "fetchSchema": "Haal skema",
+      "fetching": "Haal skema…",
+      "needUrl": "Stel eers die versoek-URL",
+      "fetchHint": "Laai die skema via introspeksie vir outovoltooiing en dokumentasie",
+      "fetched": "Skema gelaai: {count} tipes",
+      "fetchFailed": "Kon nie die skema laai nie: {message}",
+      "docs": "Dokumentasie",
+      "docsNeedSchema": "Haal eers die skema",
+      "variables": "Veranderlikes (JSON)",
+      "root": "Skema",
+      "search": "Soek tipes en velde",
+      "noResults": "Geen passings nie",
+      "fields": "Velde",
+      "inputFields": "Invoervelde",
+      "values": "Waardes",
+      "possibleTypes": "Moontlike tipes",
+      "deprecated": "Verouderd"
     }
   },
   "RichEditor": {

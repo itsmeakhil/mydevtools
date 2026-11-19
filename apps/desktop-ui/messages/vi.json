@@ -2367,6 +2367,26 @@
       "importFailed": "Không thể nhập cookie: {message}",
       "clearDomainLabel": "Xóa cookie của {domain}",
       "deleteLabel": "Xóa cookie {name}"
+    },
+    "graphql": {
+      "sentAs": "Gửi dưới dạng <json></json> với <shape></shape>.",
+      "fetchSchema": "Lấy lược đồ",
+      "fetching": "Đang lấy lược đồ…",
+      "needUrl": "Hãy đặt URL yêu cầu trước",
+      "fetchHint": "Tải lược đồ bằng introspection để tự động hoàn thành và xem tài liệu",
+      "fetched": "Đã tải lược đồ: {count} kiểu",
+      "fetchFailed": "Không thể tải lược đồ: {message}",
+      "docs": "Tài liệu",
+      "docsNeedSchema": "Hãy lấy lược đồ trước",
+      "variables": "Biến (JSON)",
+      "root": "Lược đồ",
+      "search": "Tìm kiểu và trường",
+      "noResults": "Không có kết quả",
+      "fields": "Trường",
+      "inputFields": "Trường đầu vào",
+      "values": "Giá trị",
+      "possibleTypes": "Kiểu có thể có",
+      "deprecated": "Đã lỗi thời"
     }
   },
   "RichEditor": {

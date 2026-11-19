@@ -2367,6 +2367,26 @@
       "importFailed": "Cookies se nepodařilo importovat: {message}",
       "clearDomainLabel": "Vymazat cookies pro {domain}",
       "deleteLabel": "Smazat cookie {name}"
+    },
+    "graphql": {
+      "sentAs": "Odesláno jako <json></json> s <shape></shape>.",
+      "fetchSchema": "Načíst schéma",
+      "fetching": "Načítání schématu…",
+      "needUrl": "Nejprve zadejte URL požadavku",
+      "fetchHint": "Načte schéma introspekcí pro automatické doplňování a dokumentaci",
+      "fetched": "Schéma načteno: typů {count}",
+      "fetchFailed": "Schéma se nepodařilo načíst: {message}",
+      "docs": "Dokumentace",
+      "docsNeedSchema": "Nejprve načtěte schéma",
+      "variables": "Proměnné (JSON)",
+      "root": "Schéma",
+      "search": "Hledat typy a pole",
+      "noResults": "Žádné shody",
+      "fields": "Pole",
+      "inputFields": "Vstupní pole",
+      "values": "Hodnoty",
+      "possibleTypes": "Možné typy",
+      "deprecated": "Zastaralé"
     }
   },
   "RichEditor": {

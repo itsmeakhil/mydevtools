@@ -2367,6 +2367,26 @@
       "importFailed": "Impossible d'importer les cookies : {message}",
       "clearDomainLabel": "Effacer les cookies de {domain}",
       "deleteLabel": "Supprimer le cookie {name}"
+    },
+    "graphql": {
+      "sentAs": "Envoyé en <json></json> avec <shape></shape>.",
+      "fetchSchema": "Récupérer le schéma",
+      "fetching": "Récupération du schéma…",
+      "needUrl": "Définissez d'abord l'URL de la requête",
+      "fetchHint": "Charge le schéma par introspection pour l'autocomplétion et la documentation",
+      "fetched": "Schéma chargé : {count} types",
+      "fetchFailed": "Impossible de charger le schéma : {message}",
+      "docs": "Documentation",
+      "docsNeedSchema": "Récupérez d'abord le schéma",
+      "variables": "Variables (JSON)",
+      "root": "Schéma",
+      "search": "Rechercher des types et des champs",
+      "noResults": "Aucun résultat",
+      "fields": "Champs",
+      "inputFields": "Champs d'entrée",
+      "values": "Valeurs",
+      "possibleTypes": "Types possibles",
+      "deprecated": "Obsolète"
     }
   },
   "RichEditor": {
