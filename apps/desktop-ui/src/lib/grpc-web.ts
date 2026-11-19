@@ -232,3 +232,72 @@ export async function sendNativeGrpc(args: {
         trailers: data.trailers ?? {},
     }
 }
+
+/**
+ * Rolling frame reader for a live call: feed raw DATA chunks (frames can split
+ * across chunks or share one); `onMessage` gets each complete message payload.
+ */
+export function createFrameReader(onMessage: (payload: Uint8Array) => void): (chunk: Uint8Array) => void {
+    let pending = new Uint8Array(0)
+    return (chunk) => {
+        const buf = new Uint8Array(pending.length + chunk.length)
+        buf.set(pending)
+        buf.set(chunk, pending.length)
+        const { frames, remaining } = readFrames(buf)
+        for (const f of frames) if (!f.isTrailer) onMessage(f.payload)
+        pending = remaining.slice()
+    }
+}
+
+export interface GrpcLiveEnd {
+    status?: number
+    grpcStatus?: number
+    grpcMessage?: string
+    headers: Record<string, string>
+    trailers: Record<string, string>
+    cancelled?: boolean
+}
+
+export interface GrpcLiveCall {
+    send(message: Uint8Array): Promise<void>
+    /** Half-close: no more client messages; server messages keep arriving. */
+    end(): Promise<void>
+    cancel(): void
+}
+
+type LiveEvent =
+    | { kind: "data"; data: string }
+    | ({ kind: "end" } & GrpcLiveEnd)
+    | { kind: "error"; message: string }
+
+/**
+ * Open a live native gRPC call (client-streaming / bidi) over the desktop h2
+ * transport. Exactly one of `onEnd` / `onError` fires when the call finishes.
+ */
+export async function openGrpcStream(args: {
+    url: string
+    extraHeaders?: Record<string, string>
+    onMessage: (payload: Uint8Array) => void
+    onEnd: (end: GrpcLiveEnd) => void
+    onError: (message: string) => void
+}): Promise<GrpcLiveCall> {
+    const { invoke, Channel } = await import("@tauri-apps/api/core")
+    const { withGlobalNet } = await import("@/lib/api-client/network-settings")
+    const feed = createFrameReader(args.onMessage)
+    const channel = new Channel<LiveEvent>()
+    channel.onmessage = (ev) => {
+        if (ev.kind === "data") feed(base64ToBytes(ev.data))
+        else if (ev.kind === "end") args.onEnd(ev)
+        else args.onError(ev.message)
+    }
+    const input = await withGlobalNet<{ url: string; headers: Record<string, string>; net?: undefined }>({
+        url: args.url,
+        headers: args.extraHeaders ?? {},
+    })
+    const id = await invoke<number>("grpc_stream_start", { input, channel })
+    return {
+        send: (message) => invoke("grpc_stream_send", { id, frame: bytesToBase64(encodeMessageFrame(message)) }),
+        end: () => invoke("grpc_stream_end", { id }),
+        cancel: () => { void invoke("grpc_stream_cancel", { id }) },
+    }
+}

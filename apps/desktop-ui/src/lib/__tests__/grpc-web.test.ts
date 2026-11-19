@@ -1,4 +1,5 @@
 import {
+    createFrameReader,
     encodeMessageFrame,
     readFrames,
     parseTrailers,
@@ -50,5 +51,23 @@ describe("grpc-web frame format", () => {
         const bytes = new Uint8Array([0x00, 0xff, 0xab, 0x10])
         const b64 = bytesToBase64(bytes)
         expect(base64ToBytes(b64)).toEqual(bytes)
+    })
+})
+
+describe("createFrameReader", () => {
+    it("reassembles frames split across chunks and several per chunk", () => {
+        const got: number[][] = []
+        const feed = createFrameReader((p) => got.push([...p]))
+        const all = new Uint8Array([
+            ...encodeMessageFrame(new Uint8Array([1, 2, 3])),
+            ...encodeMessageFrame(new Uint8Array([4])),
+            ...encodeMessageFrame(new Uint8Array([])),
+        ])
+        feed(all.subarray(0, 2)) // mid-header
+        expect(got).toEqual([])
+        feed(all.subarray(2, 9)) // rest of the first frame + part of the second
+        expect(got).toEqual([[1, 2, 3]])
+        feed(all.subarray(9)) // rest of the second + the empty third
+        expect(got).toEqual([[1, 2, 3], [4], []])
     })
 })
